@@ -2,7 +2,8 @@
   <label class="checkbox-container"> <slot />
     <input
       type="checkbox"
-      :name="name"
+      v-bind="$attrs"
+      v-model="model"
     >
     <span
       class="checkmark"
@@ -14,13 +15,26 @@
 <script>
 export default {
   name: 'Checkbox',
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
+
   props: {
+    checked: [Boolean, Array],
     shape: {
       type: String,
       default: 'regular',
     },
-    name: String,
-    title: String,
+  },
+
+  computed: {
+    model: {
+      get: ({ checked }) => checked,
+      set(model) {
+        this.$emit('change', model);
+      },
+    },
   },
 };
 </script>
