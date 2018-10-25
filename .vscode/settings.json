@@ -2,88 +2,87 @@
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
   },
-  {
-    // ===
-    // Spacing
-    // ===
+  // ===
+  // Spacing
+  // ===
 
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
-    "editor.trimAutoWhitespace": true,
-    "files.trimTrailingWhitespace": true,
-    "files.eol": "\n",
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
 
-    // ===
-    // Files
-    // ===
+  // ===
+  // Files
+  // ===
 
-    "files.exclude": {
-      "**/*.log": true,
-      "**/*.log*": true,
-      "**/dist": true,
-      "**/coverage": true
-    },
-    "files.associations": {
-      ".markdownlintrc": "jsonc"
-    },
+  "files.exclude": {
+    "**/*.log": true,
+    "**/*.log*": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+  "files.associations": {
+    ".markdownlintrc": "jsonc"
+  },
 
-    // ===
-    // Event Triggers
-    // ===
+  // ===
+  // Event Triggers
+  // ===
 
-    "editor.formatOnSave": true,
-    "eslint.autoFixOnSave": true,
-    "eslint.run": "onSave",
-    "eslint.validate": [
-      { "language": "javascript", "autoFix": true },
-      { "language": "javascriptreact", "autoFix": true },
-      { "language": "vue", "autoFix": true },
-      { "language": "vue-html", "autoFix": true },
-      { "language": "html", "autoFix": true }
-    ],
-    "vetur.completion.useScaffoldSnippets": false,
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.run": "onSave",
+  "prettier.eslintIntegration": true,
+  "eslint.validate": [
+    { "language": "javascript", "autoFix": true },
+    { "language": "javascriptreact", "autoFix": true },
+    { "language": "vue", "autoFix": true },
+    { "language": "vue-html", "autoFix": true },
+    { "language": "html", "autoFix": true }
+  ],
+  "vetur.completion.useScaffoldSnippets": false,
 
-    // ===
-    // HTML
-    // ===
+  // ===
+  // HTML
+  // ===
 
-    "html.format.enable": false,
-    "html.suggest.angular1": false,
-    "html.suggest.ionic": false,
-    "vetur.validation.template": false,
-    "emmet.triggerExpansionOnTab": true,
-    "emmet.includeLanguages": {
-      "vue-html": "html"
-    },
+  "html.format.enable": false,
+  "html.suggest.angular1": false,
+  "html.suggest.ionic": false,
+  "vetur.validation.template": false,
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html"
+  },
 
-    // ===
-    // JS(ON)
-    // ===
+  // ===
+  // JS(ON)
+  // ===
 
-    "jest.autoEnable": false,
-    "jest.enableCodeLens": false,
-    "javascript.format.enable": false,
-    "json.format.enable": false,
-    "vetur.validation.script": false,
+  "jest.autoEnable": false,
+  "jest.enableCodeLens": false,
+  "javascript.format.enable": false,
+  "json.format.enable": false,
+  "vetur.validation.script": false,
 
-    // ===
-    // CSS
-    // ===
+  // ===
+  // CSS
+  // ===
 
-    "stylelint.enable": true,
-    "css.validate": false,
-    "scss.validate": false,
-    "vetur.validation.style": false,
+  "stylelint.enable": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "vetur.validation.style": false,
 
-    // ===
-    // MARKDOWN
-    // ===
+  // ===
+  // MARKDOWN
+  // ===
 
-    "[markdown]": {
-      "editor.wordWrap": "wordWrapColumn",
-      "editor.wordWrapColumn": 80
-    }
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 80
   }
 }
