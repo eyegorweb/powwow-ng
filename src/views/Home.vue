@@ -4,6 +4,8 @@
       alt="Vue logo"
       src="../assets/logo.png"
     >
+    <Checkbox>Example</Checkbox>
+    <HelloWorld msg="Welcome to Your Vue.js App" />
 
     <button @click="show = !show">Toggle</button>
     <TransitionCollapse>
@@ -18,6 +20,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
+import Checkbox from '@/components/ui/Checkbox.vue';
 import TransitionCollapse from '@/components/TransitionCollapse.vue';
 
 export default {
@@ -29,6 +32,7 @@ export default {
   },
   components: {
     HelloWorld,
+    Checkbox,
     TransitionCollapse,
   },
 };
