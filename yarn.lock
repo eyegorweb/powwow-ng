@@ -9181,6 +9181,11 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-prop-data-fallback@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/vue-prop-data-fallback/-/vue-prop-data-fallback-0.0.1.tgz#e7051cba34985fa2dd738e21b88b3f78f3df397d"
+  integrity sha512-emm0aPgbk9SxzyTzASBpGbNe43pOyZbQbz+3pX4lk5grpCKVa4MdeslahszFkazRGkYVhnDWHETwYvf6/5SviQ==
+
 vue-router@^3.0.1:
   version "3.0.1"
   resolved "http://r.cnpmjs.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
