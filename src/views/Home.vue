@@ -1,39 +1,55 @@
 <template>
   <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
-    >
+    <DataTable
+      :columns="columns"
+      :rows="rows"
+    />
     <Checkbox>Example</Checkbox>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-
     <button @click="show = !show">Toggle</button>
     <TransitionCollapse>
-      <HelloWorld
+      <div
         v-if="show"
-        msg="Welcome to Your Vue.js App"
-      />
+      >Hello there</div>
     </TransitionCollapse>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import DataTable from '@/components/DataTable.vue';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import TransitionCollapse from '@/components/TransitionCollapse.vue';
 
 export default {
   name: 'Home',
   data() {
+    const columns = [
+      {
+        label: 'First name',
+        name: 'firstName',
+      },
+      {
+        label: 'Last name',
+        name: 'lastName',
+      },
+    ];
+    const rows = [
+      {
+        id: 1,
+        firstName: 'Leroy',
+        lastName: 'Jenkins',
+      },
+    ];
     return {
+      columns,
+      rows,
       show: false,
     };
   },
   components: {
-    HelloWorld,
     Checkbox,
     TransitionCollapse,
+    DataTable,
   },
 };
 </script>
