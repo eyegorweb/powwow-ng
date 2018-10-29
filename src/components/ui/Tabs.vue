@@ -2,8 +2,8 @@
   <div class="tabs">
     <ol class="tabs-bar d-flex justify-content-around pt-2">
       <slot
-        :id="tab.label"
         v-for="(tab, i) in tabs"
+        :id="tab.label"
         :index="i"
         :tab="tab"
         :selected-index="$selectedIndex"

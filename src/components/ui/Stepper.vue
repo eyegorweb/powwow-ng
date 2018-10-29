@@ -26,7 +26,7 @@ export default {
           slots[name] = () => renderedSlots[name];
           return slots;
         }, {}),
-        // on modifier le rendering des tab individuels
+        // on modifie le rendering des tab individuels
         default: ({ tab, id, index, selectedIndex }) =>
           h(
             StepperLabel,
@@ -43,6 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// https://vue-loader.vuejs.org/guide/scoped-css.html#deep-selectors
 .stepper /deep/ .tabs-bar {
   margin-bottom: 3px;
 }
