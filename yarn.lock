@@ -9196,10 +9196,10 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-prop-data-fallback@^0.0.1:
-  version "0.0.1"
-  resolved "http://r.cnpmjs.org/vue-prop-data-fallback/download/vue-prop-data-fallback-0.0.1.tgz#e7051cba34985fa2dd738e21b88b3f78f3df397d"
-  integrity sha1-5wUcujSYX6Ldc44huIs/ePPfOX0=
+vue-prop-data-fallback@^1.0.1:
+  version "1.0.1"
+  resolved "http://r.cnpmjs.org/vue-prop-data-fallback/download/vue-prop-data-fallback-1.0.1.tgz#c47730d4d42be33ecd3379bfd38b35473d851900"
+  integrity sha1-xHcw1NQr4z7NM3m/04s1Rz2FGQA=
 
 vue-router@^3.0.1:
   version "3.0.1"
