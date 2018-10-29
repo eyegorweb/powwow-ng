@@ -58,7 +58,9 @@ export default {
     };
   },
   created() {
-    this.sortableColumns = this.columns.slice(0);
+    if (this.columns && this.columns.length > 0) {
+      this.sortableColumns = this.columns.slice(0);
+    }
   },
 };
 </script>
