@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <DataTable
-        :columns="columns"
+        :columns.sync="columns"
         :rows="rows"
       />
       <Checkbox>Example</Checkbox>

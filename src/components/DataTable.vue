@@ -1,9 +1,9 @@
 <template>
   <table class="table table-blue">
     <draggable
-      :element="'thead'"
+      element="thead"
       v-model="sortableColumns"
-      :options="{handle:'.handle'}"
+      :options="draggableOptions"
     >
       <transition-group
         tag="tr"
@@ -52,15 +52,19 @@ export default {
     },
   },
 
-  data() {
-    return {
-      sortableColumns: [],
-    };
+  computed: {
+    sortableColumns: {
+      get() {
+        return this.columns;
+      },
+      set(value) {
+        this.$emit('update:columns', value);
+      },
+    },
   },
+
   created() {
-    if (this.columns && this.columns.length > 0) {
-      this.sortableColumns = this.columns.slice(0);
-    }
+    this.draggableOptions = { handle: '.handle' };
   },
 };
 </script>
