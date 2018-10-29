@@ -1,82 +1,84 @@
-$icomoon-font-family: "powwow" !default;
-$icomoon-font-path: "assets/icons" !default;
+$icomoon-font-family: 'powwow' !default;
+$icomoon-font-path: 'assets/icons' !default;
 
-$ic-Alert-Icon: "\e900";
-$ic-Alt-Icon: "\e901";
-$ic-Amplifier-Icon: "\e902";
-$ic-Arrow-Down-Icon: "\e903";
-$ic-Arrow-Filter-Icon: "\e904";
-$ic-Arrow-Left-Icon: "\e905";
-$ic-Arrow-Next-Icon: "\e906";
-$ic-Arrow-Previous-Icon: "\e907";
-$ic-Arrow-Right-Icon: "\e908";
-$ic-Arrow-Up-Icon: "\e909";
-$ic-Bell-Icon: "\e90a";
-$ic-Calendar-Icon: "\e90b";
-$ic-Camera-Icon: "\e90c";
-$ic-Cart-Icon: "\e90d";
-$ic-Check-Icon: "\e90e";
-$ic-Check-Rounded-Icon: "\e90f";
-$ic-Clock-Icon: "\e910";
-$ic-Compass-Icon: "\e911";
-$ic-Copy-Paste-Icon: "\e912";
-$ic-Cross-Icon: "\e913";
-$ic-Direction-Icon: "\e914";
-$ic-Download-Icon: "\e915";
-$ic-Drag-Column-Icon: "\e916";
-$ic-Enveloppe-Icon: "\e917";
-$ic-Eye-Closed-Icon: "\e918";
-$ic-Filter-Icon: "\e919";
-$ic-Flag-Icon: "\e91a";
-$ic-Floppy-Icon: "\e91b";
-$ic-Heart-Add-Icon: "\e91c";
-$ic-Heart-Icon: "\e91d";
-$ic-Heart-Minus-Icon: "\e91e";
-$ic-Heart-Rythm-Icon: "\e91f";
-$ic-Help-Icon: "\e920";
-$ic-History-Icon: "\e921";
-$ic-Home-Icon: "\e922";
-$ic-Hourglass-Icon: "\e923";
-$ic-Info-Icon: "\e924";
-$ic-Instagram-Icon: "\e925";
-$ic-Like-Icon: "\e926";
-$ic-Link-Icon: "\e927";
-$ic-Location-Icon: "\e928";
-$ic-Lock-Closed-Icon: "\e929";
-$ic-Mic-Icon: "\e92a";
-$ic-Minus-Icon: "\e92b";
-$ic-Pack-Icon: "\e92c";
-$ic-Picture-Icon: "\e92d";
-$ic-Pin-Icon: "\e92e";
-$ic-Play-Icon: "\e92f";
-$ic-Plus-Icon: "\e930";
-$ic-Printer-Icon: "\e931";
-$ic-Refresh-Icon: "\e932";
-$ic-Settings-Icon: "\e933";
-$ic-Sort-Icon: "\e934";
-$ic-Star-Icon: "\e935";
-$ic-Stats-Icon: "\e936";
-$ic-Trash-Icon: "\e937";
-$ic-Upload-Icon: "\e938";
-$ic-User-Icon: "\e939";
-$ic-Wallet-Icon: "\e93a";
-$ic-Wifi-Icon: "\e93b";
-
+$ic-Alert-Icon: '\e900';
+$ic-Alt-Icon: '\e901';
+$ic-Amplifier-Icon: '\e902';
+$ic-Arrow-Down-Icon: '\e903';
+$ic-Arrow-Filter-Icon: '\e904';
+$ic-Arrow-Left-Icon: '\e905';
+$ic-Arrow-Next-Icon: '\e906';
+$ic-Arrow-Previous-Icon: '\e907';
+$ic-Arrow-Right-Icon: '\e908';
+$ic-Arrow-Up-Icon: '\e909';
+$ic-Bell-Icon: '\e90a';
+$ic-Calendar-Icon: '\e90b';
+$ic-Camera-Icon: '\e90c';
+$ic-Cart-Icon: '\e90d';
+$ic-Check-Icon: '\e90e';
+$ic-Check-Rounded-Icon: '\e90f';
+$ic-Clock-Icon: '\e910';
+$ic-Compass-Icon: '\e911';
+$ic-Copy-Paste-Icon: '\e912';
+$ic-Cross-Icon: '\e913';
+$ic-Direction-Icon: '\e914';
+$ic-Download-Icon: '\e915';
+$ic-Drag-Column-Icon: '\e916';
+$ic-Enveloppe-Icon: '\e917';
+$ic-Eye-Closed-Icon: '\e918';
+$ic-Filter-Icon: '\e919';
+$ic-Flag-Icon: '\e91a';
+$ic-Floppy-Icon: '\e91b';
+$ic-Heart-Add-Icon: '\e91c';
+$ic-Heart-Icon: '\e91d';
+$ic-Heart-Minus-Icon: '\e91e';
+$ic-Heart-Rythm-Icon: '\e91f';
+$ic-Help-Icon: '\e920';
+$ic-History-Icon: '\e921';
+$ic-Home-Icon: '\e922';
+$ic-Hourglass-Icon: '\e923';
+$ic-Info-Icon: '\e924';
+$ic-Instagram-Icon: '\e925';
+$ic-Like-Icon: '\e926';
+$ic-Link-Icon: '\e927';
+$ic-Location-Icon: '\e928';
+$ic-Lock-Closed-Icon: '\e929';
+$ic-Mic-Icon: '\e92a';
+$ic-Minus-Icon: '\e92b';
+$ic-Pack-Icon: '\e92c';
+$ic-Picture-Icon: '\e92d';
+$ic-Pin-Icon: '\e92e';
+$ic-Play-Icon: '\e92f';
+$ic-Plus-Icon: '\e930';
+$ic-Printer-Icon: '\e931';
+$ic-Refresh-Icon: '\e932';
+$ic-Settings-Icon: '\e933';
+$ic-Sort-Icon: '\e934';
+$ic-Star-Icon: '\e935';
+$ic-Stats-Icon: '\e936';
+$ic-Trash-Icon: '\e937';
+$ic-Upload-Icon: '\e938';
+$ic-User-Icon: '\e939';
+$ic-Wallet-Icon: '\e93a';
+$ic-Wifi-Icon: '\e93b';
 
 @font-face {
-  font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?c8ft7b');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?c8ft7b#iefix') format('embedded-opentype'),
+  font-family: 'powwow';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?c8ft7b');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?c8ft7b#iefix')
+      format('embedded-opentype'),
     url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?c8ft7b') format('truetype'),
     url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?c8ft7b') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?c8ft7b##{$icomoon-font-family}') format('svg');
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?c8ft7b##{$icomoon-font-family}')
+      format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="ic-"], [class*=" ic-"] {
+[class^='ic-'],
+[class*=' ic-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: '#{$icomoon-font-family}' !important;
+  font-family: 'powwow' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -91,302 +93,301 @@ $ic-Wifi-Icon: "\e93b";
 
 .ic-Alert-Icon {
   &:before {
-    content: $ic-Alert-Icon; 
+    content: $ic-Alert-Icon;
   }
 }
 .ic-Alt-Icon {
   &:before {
-    content: $ic-Alt-Icon; 
+    content: $ic-Alt-Icon;
   }
 }
 .ic-Amplifier-Icon {
   &:before {
-    content: $ic-Amplifier-Icon; 
+    content: $ic-Amplifier-Icon;
   }
 }
 .ic-Arrow-Down-Icon {
   &:before {
-    content: $ic-Arrow-Down-Icon; 
+    content: $ic-Arrow-Down-Icon;
   }
 }
 .ic-Arrow-Filter-Icon {
   &:before {
-    content: $ic-Arrow-Filter-Icon; 
+    content: $ic-Arrow-Filter-Icon;
   }
 }
 .ic-Arrow-Left-Icon {
   &:before {
-    content: $ic-Arrow-Left-Icon; 
+    content: $ic-Arrow-Left-Icon;
   }
 }
 .ic-Arrow-Next-Icon {
   &:before {
-    content: $ic-Arrow-Next-Icon; 
+    content: $ic-Arrow-Next-Icon;
   }
 }
 .ic-Arrow-Previous-Icon {
   &:before {
-    content: $ic-Arrow-Previous-Icon; 
+    content: $ic-Arrow-Previous-Icon;
   }
 }
 .ic-Arrow-Right-Icon {
   &:before {
-    content: $ic-Arrow-Right-Icon; 
+    content: $ic-Arrow-Right-Icon;
   }
 }
 .ic-Arrow-Up-Icon {
   &:before {
-    content: $ic-Arrow-Up-Icon; 
+    content: $ic-Arrow-Up-Icon;
   }
 }
 .ic-Bell-Icon {
   &:before {
-    content: $ic-Bell-Icon; 
+    content: $ic-Bell-Icon;
   }
 }
 .ic-Calendar-Icon {
   &:before {
-    content: $ic-Calendar-Icon; 
+    content: $ic-Calendar-Icon;
   }
 }
 .ic-Camera-Icon {
   &:before {
-    content: $ic-Camera-Icon; 
+    content: $ic-Camera-Icon;
   }
 }
 .ic-Cart-Icon {
   &:before {
-    content: $ic-Cart-Icon; 
+    content: $ic-Cart-Icon;
   }
 }
 .ic-Check-Icon {
   &:before {
-    content: $ic-Check-Icon; 
+    content: $ic-Check-Icon;
   }
 }
 .ic-Check-Rounded-Icon {
   &:before {
-    content: $ic-Check-Rounded-Icon; 
+    content: $ic-Check-Rounded-Icon;
   }
 }
 .ic-Clock-Icon {
   &:before {
-    content: $ic-Clock-Icon; 
+    content: $ic-Clock-Icon;
   }
 }
 .ic-Compass-Icon {
   &:before {
-    content: $ic-Compass-Icon; 
+    content: $ic-Compass-Icon;
   }
 }
 .ic-Copy-Paste-Icon {
   &:before {
-    content: $ic-Copy-Paste-Icon; 
+    content: $ic-Copy-Paste-Icon;
   }
 }
 .ic-Cross-Icon {
   &:before {
-    content: $ic-Cross-Icon; 
+    content: $ic-Cross-Icon;
   }
 }
 .ic-Direction-Icon {
   &:before {
-    content: $ic-Direction-Icon; 
+    content: $ic-Direction-Icon;
   }
 }
 .ic-Download-Icon {
   &:before {
-    content: $ic-Download-Icon; 
+    content: $ic-Download-Icon;
   }
 }
 .ic-Drag-Column-Icon {
   &:before {
-    content: $ic-Drag-Column-Icon; 
+    content: $ic-Drag-Column-Icon;
   }
 }
 .ic-Enveloppe-Icon {
   &:before {
-    content: $ic-Enveloppe-Icon; 
+    content: $ic-Enveloppe-Icon;
   }
 }
 .ic-Eye-Closed-Icon {
   &:before {
-    content: $ic-Eye-Closed-Icon; 
+    content: $ic-Eye-Closed-Icon;
   }
 }
 .ic-Filter-Icon {
   &:before {
-    content: $ic-Filter-Icon; 
+    content: $ic-Filter-Icon;
   }
 }
 .ic-Flag-Icon {
   &:before {
-    content: $ic-Flag-Icon; 
+    content: $ic-Flag-Icon;
   }
 }
 .ic-Floppy-Icon {
   &:before {
-    content: $ic-Floppy-Icon; 
+    content: $ic-Floppy-Icon;
   }
 }
 .ic-Heart-Add-Icon {
   &:before {
-    content: $ic-Heart-Add-Icon; 
+    content: $ic-Heart-Add-Icon;
   }
 }
 .ic-Heart-Icon {
   &:before {
-    content: $ic-Heart-Icon; 
+    content: $ic-Heart-Icon;
   }
 }
 .ic-Heart-Minus-Icon {
   &:before {
-    content: $ic-Heart-Minus-Icon; 
+    content: $ic-Heart-Minus-Icon;
   }
 }
 .ic-Heart-Rythm-Icon {
   &:before {
-    content: $ic-Heart-Rythm-Icon; 
+    content: $ic-Heart-Rythm-Icon;
   }
 }
 .ic-Help-Icon {
   &:before {
-    content: $ic-Help-Icon; 
+    content: $ic-Help-Icon;
   }
 }
 .ic-History-Icon {
   &:before {
-    content: $ic-History-Icon; 
+    content: $ic-History-Icon;
   }
 }
 .ic-Home-Icon {
   &:before {
-    content: $ic-Home-Icon; 
+    content: $ic-Home-Icon;
   }
 }
 .ic-Hourglass-Icon {
   &:before {
-    content: $ic-Hourglass-Icon; 
+    content: $ic-Hourglass-Icon;
   }
 }
 .ic-Info-Icon {
   &:before {
-    content: $ic-Info-Icon; 
+    content: $ic-Info-Icon;
   }
 }
 .ic-Instagram-Icon {
   &:before {
-    content: $ic-Instagram-Icon; 
+    content: $ic-Instagram-Icon;
   }
 }
 .ic-Like-Icon {
   &:before {
-    content: $ic-Like-Icon; 
+    content: $ic-Like-Icon;
   }
 }
 .ic-Link-Icon {
   &:before {
-    content: $ic-Link-Icon; 
+    content: $ic-Link-Icon;
   }
 }
 .ic-Location-Icon {
   &:before {
-    content: $ic-Location-Icon; 
+    content: $ic-Location-Icon;
   }
 }
 .ic-Lock-Closed-Icon {
   &:before {
-    content: $ic-Lock-Closed-Icon; 
+    content: $ic-Lock-Closed-Icon;
   }
 }
 .ic-Mic-Icon {
   &:before {
-    content: $ic-Mic-Icon; 
+    content: $ic-Mic-Icon;
   }
 }
 .ic-Minus-Icon {
   &:before {
-    content: $ic-Minus-Icon; 
+    content: $ic-Minus-Icon;
   }
 }
 .ic-Pack-Icon {
   &:before {
-    content: $ic-Pack-Icon; 
+    content: $ic-Pack-Icon;
   }
 }
 .ic-Picture-Icon {
   &:before {
-    content: $ic-Picture-Icon; 
+    content: $ic-Picture-Icon;
   }
 }
 .ic-Pin-Icon {
   &:before {
-    content: $ic-Pin-Icon; 
+    content: $ic-Pin-Icon;
   }
 }
 .ic-Play-Icon {
   &:before {
-    content: $ic-Play-Icon; 
+    content: $ic-Play-Icon;
   }
 }
 .ic-Plus-Icon {
   &:before {
-    content: $ic-Plus-Icon; 
+    content: $ic-Plus-Icon;
   }
 }
 .ic-Printer-Icon {
   &:before {
-    content: $ic-Printer-Icon; 
+    content: $ic-Printer-Icon;
   }
 }
 .ic-Refresh-Icon {
   &:before {
-    content: $ic-Refresh-Icon; 
+    content: $ic-Refresh-Icon;
   }
 }
 .ic-Settings-Icon {
   &:before {
-    content: $ic-Settings-Icon; 
+    content: $ic-Settings-Icon;
   }
 }
 .ic-Sort-Icon {
   &:before {
-    content: $ic-Sort-Icon; 
+    content: $ic-Sort-Icon;
   }
 }
 .ic-Star-Icon {
   &:before {
-    content: $ic-Star-Icon; 
+    content: $ic-Star-Icon;
   }
 }
 .ic-Stats-Icon {
   &:before {
-    content: $ic-Stats-Icon; 
+    content: $ic-Stats-Icon;
   }
 }
 .ic-Trash-Icon {
   &:before {
-    content: $ic-Trash-Icon; 
+    content: $ic-Trash-Icon;
   }
 }
 .ic-Upload-Icon {
   &:before {
-    content: $ic-Upload-Icon; 
+    content: $ic-Upload-Icon;
   }
 }
 .ic-User-Icon {
   &:before {
-    content: $ic-User-Icon; 
+    content: $ic-User-Icon;
   }
 }
 .ic-Wallet-Icon {
   &:before {
-    content: $ic-Wallet-Icon; 
+    content: $ic-Wallet-Icon;
   }
 }
 .ic-Wifi-Icon {
   &:before {
-    content: $ic-Wifi-Icon; 
+    content: $ic-Wifi-Icon;
   }
 }
-

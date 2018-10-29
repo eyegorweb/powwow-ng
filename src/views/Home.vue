@@ -1,24 +1,30 @@
 <template>
   <div class="home">
-    <DataTable
-      :columns="columns"
-      :rows="rows"
-    />
-    <Checkbox>Example</Checkbox>
-    <button @click="show = !show">Toggle</button>
-    <TransitionCollapse>
-      <div
-        v-if="show"
-      >Hello there</div>
-    </TransitionCollapse>
+    <div class="container">
+      <DataTable
+        :columns="columns"
+        :rows="rows"
+      />
+      <Checkbox>Example</Checkbox>
+      <Button
+        variant="primary"
+        @click="show = !show"
+      >Afficher le volet</Button>
+      <TransitionCollapse>
+        <div
+          v-if="show"
+        >Hello there</div>
+      </TransitionCollapse>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import DataTable from '@/components/DataTable.vue';
-import Checkbox from '@/components/ui/Checkbox.vue';
-import TransitionCollapse from '@/components/TransitionCollapse.vue';
+import DataTable from '@/components/DataTable';
+import Checkbox from '@/components/ui/Checkbox';
+import Button from '@/components/ui/Button';
+import TransitionCollapse from '@/components/TransitionCollapse';
 
 export default {
   name: 'Home',
@@ -48,6 +54,7 @@ export default {
   },
   components: {
     Checkbox,
+    Button,
     TransitionCollapse,
     DataTable,
   },

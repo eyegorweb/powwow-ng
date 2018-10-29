@@ -1,5 +1,30 @@
-@import 'variables.scss';
-@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import 'variables';
+
+// Required
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// Theme
+@import 'overrides/buttons';
+
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'accent': $accent,
+  )
+);
+
+// Optional
+@import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/utilities';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/nav';
+
 @import 'global.scss';
 @import 'navbar.scss';
-@import '_icons.scss';
+@import 'icons.scss';
