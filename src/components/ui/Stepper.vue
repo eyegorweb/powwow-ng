@@ -6,7 +6,10 @@ export default {
   functional: true,
 
   props: {
-    steps: Array,
+    steps: {
+      type: Array,
+      required: true,
+    },
     selectedIndex: Number,
   },
 

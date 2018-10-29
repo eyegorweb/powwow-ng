@@ -21,14 +21,18 @@
       <Stepper :steps="steps">
         <p slot="Client">Step Client</p>
         <p slot="Livraison">Livraison</p>
-        <p class="alert text-danger">Invalid step</p>
       </Stepper>
       <UiTabs :tabs="steps">
+        <p slot="Client">Step Client</p>
+      </UiTabs>
+      <UiTabs :tabs="steps">
         <template
-          slot="tab"
-          slot-scope="{ tab, index }"
+          slot-scope="{ tab, index, selectTab, selectedIndex }"
         >
-          <UiButton varian="link">{{ index }} - {{ tab.label }}</UiButton>
+          <UiButton
+            :variant="selectedIndex === index ? 'success' : 'link'"
+            @click="selectTab(index)"
+          >{{ index }} - {{ tab.label }}</UiButton>
         </template>
         <p slot="Client">Step Client</p>
       </UiTabs>
