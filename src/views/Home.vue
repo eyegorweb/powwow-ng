@@ -38,6 +38,14 @@ export default {
         label: 'Last name',
         name: 'lastName',
       },
+      {
+        label: 'Age',
+        name: 'age',
+      },
+      {
+        label: 'birthday',
+        name: 'birthday',
+      },
     ];
     const rows = [
       {

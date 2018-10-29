@@ -8505,6 +8505,11 @@ sockjs@0.3.19:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
 
+sortablejs@^1.7.0:
+  version "1.7.0"
+  resolved "http://r.cnpmjs.org/sortablejs/download/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
+  integrity sha1-gKKyNwq9Vo4c7IwnETHvMKkE+ig=
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "http://r.cnpmjs.org/source-list-map/download/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
@@ -9533,6 +9538,13 @@ vue@^2.5.17:
   version "2.5.17"
   resolved "http://r.cnpmjs.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
   integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
+
+vuedraggable@^2.16.0:
+  version "2.16.0"
+  resolved "http://r.cnpmjs.org/vuedraggable/download/vuedraggable-2.16.0.tgz#52127081a2adb3de5fabd214d404ff3eee63575a"
+  integrity sha1-UhJwgaKts95fq9IU1AT/Pu5jV1o=
+  dependencies:
+    sortablejs "^1.7.0"
 
 vuex@^3.0.1:
   version "3.0.1"
