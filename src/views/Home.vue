@@ -23,6 +23,15 @@
         <p slot="Livraison">Livraison</p>
         <p class="alert text-danger">Invalid step</p>
       </Stepper>
+      <UiTabs :tabs="steps">
+        <template
+          slot="tab"
+          slot-scope="{ tab, index }"
+        >
+          <UiButton varian="link">{{ index }} - {{ tab.label }}</UiButton>
+        </template>
+        <p slot="Client">Step Client</p>
+      </UiTabs>
     </div>
   </div>
 </template>
@@ -34,6 +43,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
+import UiTabs from '@/components/ui/Tabs';
 
 export default {
   name: 'Home',
@@ -80,6 +90,7 @@ export default {
     UiCheckbox,
     UiButton,
     Stepper,
+    UiTabs,
     TransitionCollapse,
     DataTable,
   },
