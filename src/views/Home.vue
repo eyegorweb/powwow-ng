@@ -5,11 +5,11 @@
         :columns.sync="columns"
         :rows="rows"
       />
-      <Checkbox>Example</Checkbox>
-      <Button
+      <UiCheckbox>Example</UiCheckbox>
+      <UiButton
         variant="primary"
         @click="show = !show"
-      >Afficher le volet</Button>
+      >Afficher le volet</UiButton>
       <TransitionCollapse>
         <div
           v-if="show"
@@ -22,8 +22,8 @@
 <script>
 // @ is an alias to /src
 import DataTable from '@/components/DataTable';
-import Checkbox from '@/components/ui/Checkbox';
-import Button from '@/components/ui/Button';
+import UiCheckbox from '@/components/ui/Checkbox';
+import UiButton from '@/components/ui/Button';
 import TransitionCollapse from '@/components/TransitionCollapse';
 
 export default {
@@ -61,8 +61,8 @@ export default {
     };
   },
   components: {
-    Checkbox,
-    Button,
+    UiCheckbox,
+    UiButton,
     TransitionCollapse,
     DataTable,
   },
