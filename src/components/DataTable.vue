@@ -1,10 +1,17 @@
 <template>
   <table class="table table-blue">
-    <thead>
-      <tr>
+    <draggable
+      element="thead"
+      v-model="sortableColumns"
+      :options="draggableOptions"
+    >
+      <transition-group
+        tag="tr"
+        name="table"
+      >
         <th
           :key="column.name"
-          v-for="column in columns"
+          v-for="column in sortableColumns"
         >
           <span
             v-if="!column.noHandle"
@@ -13,8 +20,8 @@
           {{ column.label }}
           <span class="ic-Arrow-Filter-Icon" />
         </th>
-      </tr>
-    </thead>
+      </transition-group>
+    </draggable>
     <tbody>
       <tr
         :key="row.id"
@@ -29,10 +36,11 @@
   </table>
 </template>
 <script>
-import tableDragger from 'table-dragger';
+import draggable from 'vuedraggable';
 
 export default {
   name: 'DataTable',
+  components: { draggable },
   props: {
     columns: {
       type: Array,
@@ -43,29 +51,20 @@ export default {
       required: true,
     },
   },
-  mounted: function() {
-    this.initializePlugin();
-  },
 
-  methods: {
-    initializePlugin() {
-      this.dragCtrl = tableDragger(this.$el, { dragHandler: '.handle' });
-    },
-    destroyPlugin() {
-      this.dragCtrl.destroy();
-      return this.$nextTick();
+  computed: {
+    sortableColumns: {
+      get() {
+        return this.columns;
+      },
+      set(value) {
+        this.$emit('update:columns', value);
+      },
     },
   },
 
-  destroyed() {
-    this.destroyPlugin();
-  },
-
-  watch: {
-    async columns() {
-      await this.destroyPlugin();
-      this.initializePlugin();
-    },
+  created() {
+    this.draggableOptions = { handle: '.handle' };
   },
 };
 </script>
@@ -100,5 +99,9 @@ export default {
   font-size: 20px;
   position: relative;
   top: 3px;
+}
+
+.table-move {
+  transition: transform 200ms;
 }
 </style>

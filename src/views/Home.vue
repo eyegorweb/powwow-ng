@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <DataTable
-        :columns="columns"
+        :columns.sync="columns"
         :rows="rows"
       />
       <Checkbox>Example</Checkbox>
@@ -37,6 +37,14 @@ export default {
       {
         label: 'Last name',
         name: 'lastName',
+      },
+      {
+        label: 'Age',
+        name: 'age',
+      },
+      {
+        label: 'birthday',
+        name: 'birthday',
       },
     ];
     const rows = [
