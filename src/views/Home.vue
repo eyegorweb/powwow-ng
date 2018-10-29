@@ -16,6 +16,14 @@
         >Hello there</div>
       </TransitionCollapse>
     </div>
+    <hr>
+    <div class="container bg-white">
+      <Stepper :steps="steps">
+        <p slot="Client">Step Client</p>
+        <p slot="Livraison">Livraison</p>
+        <p class="alert text-danger">Invalid step</p>
+      </Stepper>
+    </div>
   </div>
 </template>
 
@@ -25,6 +33,7 @@ import DataTable from '@/components/DataTable';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import TransitionCollapse from '@/components/TransitionCollapse';
+import Stepper from '@/components/ui/Stepper';
 
 export default {
   name: 'Home',
@@ -58,11 +67,19 @@ export default {
       columns,
       rows,
       show: false,
+      steps: [
+        { label: 'Client' },
+        { label: 'Produit' },
+        { label: 'Livraison' },
+        { label: 'Service' },
+        { label: 'Paramètres' },
+      ],
     };
   },
   components: {
     UiCheckbox,
     UiButton,
+    Stepper,
     TransitionCollapse,
     DataTable,
   },
