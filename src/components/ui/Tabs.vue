@@ -61,5 +61,6 @@ export default {
   font-size: 0.875rem;
   margin-bottom: 0;
   padding-inline-start: 0;
+  position: relative;
 }
 </style>

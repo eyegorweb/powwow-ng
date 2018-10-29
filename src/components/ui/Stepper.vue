@@ -1,58 +1,59 @@
-<template>
-  <div class="stepper">
-    <ol class="steps-bar d-flex justify-content-around pt-2">
-      <StepperLabel
-        :key="step.label"
-        v-for="(step, i) in steps"
-        :index="i"
-        :current-index="selectedStep"
-      >{{ step.label }}</StepperLabel>
-    </ol>
-    <hr class="divider">
-    <div class="step-content">
-      <slot :name="selectedStepName">selected step: {{ selectedStep }}</slot>
-    </div>
-  </div>
-</template>
-
 <script>
+import Tabs from './Tabs';
 import StepperLabel from './StepperLabel';
 
 export default {
-  data() {
-    return {
-      selectedStep: 2,
-    };
-  },
+  functional: true,
 
   props: {
-    steps: {
-      type: Array,
-      required: true,
-    },
+    steps: Array,
+    selectedIndex: Number,
   },
 
-  computed: {
-    selectedStepName() {
-      // return default if the step isn't good
-      if (this.selectedStep < 0 || this.selectedStep >= this.steps.length) return 'default';
-      return this.steps[this.selectedStep].label;
-    },
+  render(h, { data, slots, props }) {
+    const renderedSlots = slots();
+    return h(Tabs, {
+      ...data,
+      class: 'stepper',
+      props: {
+        tabs: props.steps,
+        selectedIndex: props.selectedIndex,
+      },
+      // Ceci est nécessaire pour pouvoir propager les scopedSlots
+      // https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth
+      scopedSlots: {
+        ...Object.keys(renderedSlots).reduce((slots, name) => {
+          slots[name] = () => renderedSlots[name];
+          return slots;
+        }, {}),
+        // on modifier le rendering des tab individuels
+        default: ({ tab, id, index, selectedIndex }) =>
+          h(
+            StepperLabel,
+            {
+              key: id,
+              props: { tab, index, currentIndex: selectedIndex },
+            },
+            tab.label
+          ),
+      },
+    });
   },
-
-  components: { StepperLabel },
 };
 </script>
 
-<style scoped>
-.steps-bar {
-  list-style: none;
-  /* 14px */
-  font-size: 0.875rem;
-  margin-bottom: 0;
-  padding-inline-start: 0;
+<style lang="scss" scoped>
+.stepper /deep/ .tabs-bar {
+  margin-bottom: 3px;
 }
-.divider {
-  margin-top: 3px;
+
+.stepper /deep/ .tabs-bar::after {
+  content: '';
+  background-color: #dddddd;
+  height: 1px;
+  width: 100%;
+  display: block;
+  position: absolute;
+  bottom: -3px;
 }
 </style>

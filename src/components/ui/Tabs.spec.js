@@ -37,4 +37,16 @@ describe('Tabs.vue', () => {
         .is('.is-selected')
     ).toBe(true);
   });
+
+  it('can customize tab label content', () => {
+    wrapper = mount(Tabs, {
+      propsData: { tabs },
+      scopedSlots: {
+        default: `<button class="custom" :key="props.id">{{ props.tab.label }}</button>`,
+      },
+    });
+
+    expect(wrapper.findAll('button.custom')).toHaveLength(3);
+    expect(wrapper.text()).toBe('FirstSecondThird');
+  });
 });
