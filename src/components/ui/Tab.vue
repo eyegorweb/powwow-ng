@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'UiTab',
   props: {
     isSelected: Boolean,
   },

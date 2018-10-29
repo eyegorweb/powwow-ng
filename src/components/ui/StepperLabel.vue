@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'StepperLabel',
   props: {
     index: {
       type: Number,
@@ -65,6 +66,7 @@ export default {
   flex-basis: 91px;
 
   &.is-current {
+    font-weight: bold;
     border-bottom: $secondary solid 3px;
     margin-bottom: -3px;
   }

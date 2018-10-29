@@ -27,6 +27,7 @@ import Tab from './Tab';
 import { propWithDataFallback } from 'vue-prop-data-fallback';
 
 export default {
+  name: 'UiTabs',
   mixins: [propWithDataFallback('selectedIndex', null, null, { initialValue: 0 })],
 
   props: {
