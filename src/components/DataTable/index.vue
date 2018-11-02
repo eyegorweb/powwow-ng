@@ -1,0 +1,279 @@
+<template>
+  <div>
+    <ExtraColumns
+      v-if="isExtraColumnsVisible"
+      :extra-columns="extraColumns"
+      :columns="visibleColumns"
+      @update:columns="setColumns"
+    />
+    <div class="row">
+      <div class="col-md-7">
+        <form class="searchInput">
+          <div class="form-row">
+            <div class="form-group col-md-8 mb-0">
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="ic-Info-Icon" />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  placeholder="Rechercher une commande par identifiant"
+                >
+              </div>
+            </div>
+            <div class="form-group col-md-3 mb-0">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm btn-block mt-1"
+              >Rechercher</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-5">
+        <div class="float-left">
+          <label>Nb per page</label>
+          <select
+            class="form-control ml-1"
+          >
+            <option>20</option>
+            <option>50</option>
+          </select>
+        </div>
+        <nav class="float-right">
+          <ul class="pagination mb-0">
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+              >
+                <span class="ic-Arrow-Previous-Icon" />
+              </a>
+            </li>
+            <li class="page-item page-nb">
+              <a
+                class="page-link"
+                href="#"
+              >01</a>
+            </li>
+            <li class="page-item page-nb">
+              <a
+                class="page-link"
+                href="#"
+              >02</a>
+            </li>
+            <li class="page-item page-nb">
+              <a
+                class="page-link"
+                href="#"
+              >03</a>
+            </li>
+
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+              >
+                <span class="ic-Arrow-Next-Icon" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-blue mt-1">
+          <draggable
+            element="thead"
+            v-model="sortableColumns"
+            :options="draggableOptions"
+          >
+            <transition-group
+              tag="tr"
+              name="table"
+            >
+              <th
+                :key="column.name"
+                v-for="column in sortableColumns"
+              >
+                <span
+                  v-if="!column.noHandle"
+                  class="handle ic-Drag-Column-Icon"
+                />
+                {{ column.label }}
+                <span class="ic-Arrow-Filter-Icon" />
+              </th>
+              <th :key="'btnAdd'">
+                <button
+                  type="button"
+                  class=" btn btn-light btn-sm float-right"
+                  @click="isExtraColumnsVisible = !isExtraColumnsVisible"
+                >
+                  <span
+                    v-if="isExtraColumnsVisible"
+                    class="ic-Minus-Icon"
+                  />
+                  <span
+                    v-else
+                    class="ic-Plus-Icon"
+                  />
+                </button>
+              </th>
+            </transition-group>
+          </draggable>
+          <tbody>
+            <tr
+              :key="row.id"
+              v-for="row in rows"
+            >
+              <td
+                :key="column.name"
+                v-for="column in columns"
+              >{{ row[column.name] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import draggable from 'vuedraggable';
+import ExtraColumns from './ExtraColumns';
+
+export default {
+  name: 'DataTable',
+  components: {
+    draggable,
+    ExtraColumns,
+  },
+  props: {
+    columns: {
+      type: Array,
+      required: true,
+    },
+    rows: {
+      type: Array,
+      required: true,
+    },
+    extraColumns: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      isExtraColumnsVisible: false,
+    };
+  },
+
+  computed: {
+    sortableColumns: {
+      get() {
+        return this.visibleColumns;
+      },
+      set(newColumns) {
+        this.$emit('update:columns', newColumns);
+      },
+    },
+    visibleColumns: {
+      get() {
+        return this.columns;
+      },
+    },
+  },
+
+  methods: {
+    setColumns(newColumns) {
+      this.$emit('update:columns', newColumns);
+      this.isExtraColumnsVisible = false;
+    },
+  },
+
+  created() {
+    this.draggableOptions = { handle: '.handle' };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../../theme/scss/variables';
+.table-blue thead {
+  background-color: $primary;
+  color: white;
+
+  .sortable-chosen {
+    background-color: #0c62b2;
+  }
+}
+.table-blue {
+  background: white !important;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.table-blue td {
+  color: $dark-grey;
+}
+
+.table-blue th {
+  font-weight: normal;
+  color: #ffffff;
+}
+
+.table-blue td .fa-blue {
+  position: relative;
+  top: 5px;
+}
+
+.handle {
+  font-size: 20px;
+  position: relative;
+  top: 3px;
+}
+
+.searchInput {
+  .input-group-text {
+    background-color: #fff;
+  }
+  input {
+    padding-left: 0;
+    border-left: none;
+  }
+  input:focus {
+    box-shadow: none;
+    border-top-color: #ced4da;
+    border-right-color: #ced4da;
+    border-bottom-color: #ced4da;
+  }
+
+  button {
+    padding: 0.46rem 0.5rem 0.46rem 0.5rem;
+    margin-top: 0 !important;
+  }
+}
+
+select {
+  width: inherit;
+  display: inline;
+}
+
+.page-nb {
+  a {
+    background-color: transparent;
+    border: none;
+    font-weight: 500;
+    color: #7d7d7d;
+  }
+  &.active a {
+    color: $primary;
+    background-color: transparent;
+  }
+}
+</style>

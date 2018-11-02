@@ -3,6 +3,7 @@
     <div class="container">
       <DataTable
         :columns.sync="columns"
+        :extra-columns="extraColumns"
         :rows="rows"
       />
       <UiCheckbox>Example</UiCheckbox>
@@ -62,12 +63,8 @@ export default {
         name: 'lastName',
       },
       {
-        label: 'Age',
-        name: 'age',
-      },
-      {
-        label: 'birthday',
-        name: 'birthday',
+        name: 'partner',
+        label: 'Partenaire',
       },
     ];
     const rows = [
@@ -75,11 +72,29 @@ export default {
         id: 1,
         firstName: 'Leroy',
         lastName: 'Jenkins',
+        partner: 'Partenaire 1',
+        orderId: '12345',
+        orderStatus: 'OK',
+      },
+    ];
+    const extraColumns = [
+      {
+        name: 'partner',
+        label: 'Partenaire',
+      },
+      {
+        name: 'orderId',
+        label: 'ID de commande',
+      },
+      {
+        name: 'orderStatus',
+        label: 'Statut de commande',
       },
     ];
     return {
       columns,
       rows,
+      extraColumns,
       show: false,
       steps: [
         { label: 'Client' },

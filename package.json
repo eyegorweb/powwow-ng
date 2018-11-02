@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
     "bootstrap": "^4.1.3",
     "vue": "^2.5.17",
     "vue-prop-data-fallback": "^1.0.1",
