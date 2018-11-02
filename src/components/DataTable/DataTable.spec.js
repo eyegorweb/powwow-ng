@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import DataTable from '@/components/DataTable.vue';
+import DataTable from '@/components/DataTable/index.vue';
 
 describe('DataTable.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
@@ -26,10 +26,13 @@ describe('DataTable.vue', () => {
       },
     ];
 
+    const extraColumns = [];
+
     wrapper = shallowMount(DataTable, {
       propsData: {
         columns,
         rows,
+        extraColumns,
       },
     });
   });

@@ -24,6 +24,12 @@ $theme-colors: map-merge(
 @import '~bootstrap/scss/buttons';
 @import '~bootstrap/scss/tables';
 @import '~bootstrap/scss/nav';
+@import '~bootstrap/scss/card';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/button-group';
+@import '~bootstrap/scss/input-group';
+@import '~bootstrap/scss/custom-forms';
+@import '~bootstrap/scss/pagination';
 
 @import 'global.scss';
 @import 'navbar.scss';
