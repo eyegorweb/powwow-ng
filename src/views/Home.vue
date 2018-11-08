@@ -38,6 +38,27 @@
         <p slot="Client">Step Client</p>
       </UiTabs>
     </div>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4>Choix multiples</h4>
+
+          <div class="row">
+            <div class="col-md-6">
+              <MultiChoices
+                :values="valuesForMultiChoice"
+                :selected-values.sync="selectedValuesForMultiChoice"
+              />
+            </div>
+            <div class="col-md-6">
+              <pre>{{ selectedValuesForMultiChoice }}</pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +70,7 @@ import UiButton from '@/components/ui/Button';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
+import MultiChoices from '@/components/MultiChoices';
 
 export default {
   name: 'Home',
@@ -91,6 +113,22 @@ export default {
         label: 'Statut de commande',
       },
     ];
+
+    const valuesForMultiChoice = [
+      {
+        code: 'c1',
+        label: 'Pepsi',
+      },
+      {
+        code: 'c2',
+        label: 'Coca',
+      },
+      {
+        code: 'c3',
+        label: 'Orangina',
+      },
+    ];
+    const selectedValuesForMultiChoice = [];
     return {
       columns,
       rows,
@@ -103,6 +141,8 @@ export default {
         { label: 'Service' },
         { label: 'Paramètres' },
       ],
+      valuesForMultiChoice,
+      selectedValuesForMultiChoice,
     };
   },
   components: {
@@ -112,6 +152,7 @@ export default {
     UiTabs,
     TransitionCollapse,
     DataTable,
+    MultiChoices,
   },
 };
 </script>
