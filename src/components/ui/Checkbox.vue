@@ -4,6 +4,7 @@
       type="checkbox"
       v-bind="$attrs"
       v-model="model"
+      :value="value"
     >
     <span
       class="checkmark"
@@ -25,6 +26,10 @@ export default {
     shape: {
       type: String,
       default: 'regular',
+    },
+    value: {
+      type: [Object, Array, String],
+      required: false,
     },
   },
 
