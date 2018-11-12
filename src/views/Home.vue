@@ -59,6 +59,27 @@
 
       </div>
     </div>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4>Choix multiples</h4>
+
+          <div class="row">
+            <div class="col-md-6">
+              <MultiChoices
+                :values="valuesForMultiChoice"
+                :selected-values.sync="selectedValuesForMultiChoice"
+              />
+            </div>
+            <div class="col-md-6">
+              <pre>{{ selectedValuesForMultiChoice }}</pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
