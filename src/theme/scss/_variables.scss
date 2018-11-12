@@ -7,5 +7,13 @@ $white: #ffffff;
 $blue: #009dcc;
 $light-grey: #f3f3f3;
 $dark-grey: #454545;
+$gray: #6c757d;
 
 $primary-hover-color: #d84da2;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 1024px,
+  xl: 1440px,
+);
