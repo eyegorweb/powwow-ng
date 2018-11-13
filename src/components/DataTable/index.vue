@@ -46,7 +46,7 @@
         </div>
         <nav class="float-right">
           <ul class="pagination mb-0">
-            <li class="page-item">
+            <li class="page-item disabled">
               <a
                 class="page-link"
                 href="#"
@@ -54,7 +54,7 @@
                 <span class="ic-Arrow-Previous-Icon" />
               </a>
             </li>
-            <li class="page-item page-nb">
+            <li class="page-item page-nb active">
               <a
                 class="page-link"
                 href="#"
@@ -262,6 +262,17 @@ export default {
 select {
   width: inherit;
   display: inline;
+}
+
+.page-item {
+  border: none;
+
+  &.disabled {
+    a {
+      color: #e1e1e1;
+      background-color: $light-grey;
+    }
+  }
 }
 
 .page-nb {
