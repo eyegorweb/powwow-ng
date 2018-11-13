@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <NavBars :is-backoffice="false" />
     <div class="container">
       <DataTable
         :columns.sync="columns"
@@ -91,6 +92,7 @@ import UiButton from '@/components/ui/Button';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
+import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 
 export default {
@@ -173,6 +175,7 @@ export default {
     UiTabs,
     TransitionCollapse,
     DataTable,
+    NavBars,
     MultiChoices,
   },
 };
