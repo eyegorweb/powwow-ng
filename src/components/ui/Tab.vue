@@ -1,6 +1,6 @@
 <template>
   <li
-    class="tab-label d-flex flex-column align-items-center px-4 pb-3"
+    class="tab-label d-flex flex-column align-items-center px-4 px-lg-2 px-xl-4 pb-3 "
     :class="isSelected ? 'is-selected' : ''"
     @click="$emit('selected')"
   >
@@ -27,6 +27,11 @@ export default {
   &.is-selected {
     border-bottom: $secondary solid 3px;
     color: $secondary;
+    font-weight: 600;
+  }
+
+  a {
+    color: inherit;
   }
 }
 </style>
