@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-white">
+  <div class="navbars bg-white">
     <NavBarBackoffice v-if="isBackoffice" />
     <div class="flex-container">
       <div class="flex-part flex-part-left">
@@ -83,8 +83,9 @@ export default {
 
 <style scoped lang="scss">
 .navbars {
-  max-width: 1440px;
+  width: auto;
   margin: 0 auto;
+  padding: 0 10px;
 }
 
 .flex-container {
