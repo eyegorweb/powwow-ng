@@ -38,11 +38,12 @@
         <div class="float-left">
           <label>Nb per page</label>
           <select
-            class="form-control ml-1"
+            class="form-control form-control--arrow-down form-control--blue ml-1"
           >
             <option>20</option>
             <option>50</option>
           </select>
+          <i class="select-arrow ic-Arrow-Down-Icon"></i>
         </div>
         <nav class="float-right">
           <ul class="pagination mb-0">
@@ -262,6 +263,27 @@ export default {
 select {
   width: inherit;
   display: inline;
+}
+
+.form-control {
+  -webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--blue {
+    color: $primary;
+  }
+
+  &--arrow-down {
+    padding-right: 40px;
+  }
+}
+
+.select-arrow {
+  display: inline-block;
+  transform: translateX(calc(-50% - 15px));
 }
 
 .page-item {
