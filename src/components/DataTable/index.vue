@@ -289,10 +289,15 @@ select {
 .page-item {
   border: none;
 
+  .page-link {
+    border-color: $white;
+  }
+
   &.disabled {
     a {
       color: #e1e1e1;
       background-color: $light-grey;
+      border-color: currentColor;
     }
   }
 }
