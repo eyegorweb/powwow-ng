@@ -81,6 +81,21 @@
 
       </div>
     </div>
+
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <SearchFilterByOption
+            :options="valuesForSelectOptions"
+            :result.sync="result"
+          />
+          <div class="col-md-6">
+            <pre>{{ result }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,6 +109,7 @@ import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
 import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
+import SearchFilterByOption from '@/components/SearchFilterByOption';
 
 export default {
   name: 'Home',
@@ -152,6 +168,25 @@ export default {
       },
     ];
     const selectedValuesForMultiChoice = [];
+    const valuesForSelectOptions = [
+      {
+        code: 'c1',
+        value: 'Type 1',
+        label: 'Type 1',
+      },
+      {
+        code: 'c2',
+        value: 'Type 2',
+        label: 'Type 2',
+      },
+      {
+        code: 'c3',
+        value: 'Type 3',
+        label: 'Type 3',
+      },
+    ];
+    const selectedValuesForSearchFilterByOption = {};
+    const inputValue = '';
     return {
       columns,
       rows,
@@ -166,6 +201,8 @@ export default {
       ],
       valuesForMultiChoice,
       selectedValuesForMultiChoice,
+      valuesForSelectOptions,
+      result: undefined,
     };
   },
   components: {
@@ -177,6 +214,7 @@ export default {
     DataTable,
     NavBars,
     MultiChoices,
+    SearchFilterByOption,
   },
 };
 </script>
