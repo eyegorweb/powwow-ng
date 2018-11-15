@@ -38,15 +38,16 @@
         <div class="float-left">
           <label>Nb per page</label>
           <select
-            class="form-control ml-1"
+            class="form-control form-control--arrow-down form-control--blue ml-1"
           >
             <option>20</option>
             <option>50</option>
           </select>
+          <i class="select-arrow ic-Arrow-Down-Icon"></i>
         </div>
         <nav class="float-right">
           <ul class="pagination mb-0">
-            <li class="page-item">
+            <li class="page-item disabled">
               <a
                 class="page-link"
                 href="#"
@@ -54,7 +55,7 @@
                 <span class="ic-Arrow-Previous-Icon" />
               </a>
             </li>
-            <li class="page-item page-nb">
+            <li class="page-item page-nb active">
               <a
                 class="page-link"
                 href="#"
@@ -262,6 +263,43 @@ export default {
 select {
   width: inherit;
   display: inline;
+}
+
+.form-control {
+  -webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--blue {
+    color: $primary;
+  }
+
+  &--arrow-down {
+    padding-right: 40px;
+  }
+}
+
+.select-arrow {
+  display: inline-block;
+  transform: translateX(calc(-50% - 15px));
+}
+
+.page-item {
+  border: none;
+
+  .page-link {
+    border-color: $white;
+  }
+
+  &.disabled {
+    a {
+      color: #e1e1e1;
+      background-color: $light-grey;
+      border-color: currentColor;
+    }
+  }
 }
 
 .page-nb {
