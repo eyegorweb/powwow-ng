@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import SearchFilterByOption from './SearchFilterByOption.vue';
 
 describe('components/SearchFilterByOption', () => {
@@ -38,8 +38,6 @@ describe('components/SearchFilterByOption', () => {
   });
 
   it('Should give result', () => {
-    const div = wrapper.find('div:first-child');
-
     const options = wrapper.findAll('option');
     options.at(1).element.selected = true;
     wrapper.find('select').trigger('change');

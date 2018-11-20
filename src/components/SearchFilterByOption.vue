@@ -1,11 +1,11 @@
 <template>
 
 
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text ic-Info-Icon"/>
-  </div>
-  <input
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text ic-Info-Icon" />
+    </div>
+    <input
       type="text"
       class="form-control"
       id=""
@@ -13,32 +13,32 @@
       v-model="modelInputValue"
       aria-label="Rechercher une carte par identifiant"
     >
-  <div class="input-group-append">
-    <span class="input-group-text">
-      <select class="form-control"
-        id=""
-        v-model="modelSelect"
-      >
-        <option
-          :value="null"
+    <div class="input-group-append">
+      <span class="input-group-text">
+        <select
+          class="form-control"
+          id=""
+          v-model="modelSelect"
         >
-        Type
-        </option>
-        <option
-          v-for="option in options"
-          :key="option.code"
-          :value="option"
-        >
-        {{ option.label }}
-        </option>
-      </select>
-      <span
-        class="ic-Arrow-Down-Icon"
-      >
+          <option
+            :value="null"
+          >
+            Type
+          </option>
+          <option
+            v-for="option in options"
+            :key="option.code"
+            :value="option"
+          >
+            {{ option.label }}
+          </option>
+        </select>
+        <span
+          class="ic-Arrow-Down-Icon"
+        />
       </span>
-    </span>
+    </div>
   </div>
-</div>
 </template>
 
 <script>

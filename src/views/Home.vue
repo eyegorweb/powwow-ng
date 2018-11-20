@@ -185,8 +185,6 @@ export default {
         label: 'Type 3',
       },
     ];
-    const selectedValuesForSearchFilterByOption = {};
-    const inputValue = '';
     return {
       columns,
       rows,

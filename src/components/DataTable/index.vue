@@ -43,7 +43,7 @@
             <option>20</option>
             <option>50</option>
           </select>
-          <i class="select-arrow ic-Arrow-Down-Icon"></i>
+          <i class="select-arrow ic-Arrow-Down-Icon" />
         </div>
         <nav class="float-right">
           <ul class="pagination mb-0">
