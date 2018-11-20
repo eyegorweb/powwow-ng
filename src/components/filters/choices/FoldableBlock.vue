@@ -5,14 +5,14 @@
       class="handle"
     ><i class="ic-Drag-Column-Icon" /></span>
     <span class="title">{{ title }}</span>
-    <a @click="toggleShow">
-      <i
-        v-if="!isOpen"
-        class="ic-Arrow-Down-Icon"
-      />
+    <a @click.prevent="toggleShow">
       <i
         v-if="isOpen"
         class="ic-Arrow-Up-Icon"
+      />
+      <i
+        v-else
+        class="ic-Arrow-Down-Icon"
       />
     </a>
     <div
@@ -23,6 +23,28 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'FoldableBlock',
+  props: {
+    defaultOpen: Boolean,
+    title: String,
+    draggable: Boolean,
+  },
+  data() {
+    return {
+      isOpen: this.defaultOpen,
+    };
+  },
+  methods: {
+    toggleShow() {
+      this.isOpen = !this.isOpen;
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 .foldable-block {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -67,24 +89,3 @@
   }
 }
 </style>
-<script>
-export default {
-  name: 'FoldableBlock',
-  props: {
-    defaultOpen: Boolean,
-    title: String,
-    draggable: Boolean,
-  },
-  data() {
-    return {
-      isOpen: this.defaultOpen,
-    };
-  },
-  methods: {
-    toggleShow(e) {
-      e.preventDefault();
-      this.isOpen = !this.isOpen;
-    },
-  },
-};
-</script>

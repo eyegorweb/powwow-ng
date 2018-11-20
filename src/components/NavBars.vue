@@ -11,13 +11,13 @@
         >
         <UiTabs
           :tabs="navbarLinks"
-          :selected-index="selectedElem"
+          :selected-index="currentLinkIndex"
         >
           <template
             slot-scope="{ tab, index }"
           >
             <UiTab
-              :is-selected="index === selectedElem"
+              :is-selected="index === currentLinkIndex"
             ><router-link :to="tab.to">{{ tab.label }}</router-link>
             </UiTab>
           </template>
@@ -74,7 +74,7 @@ export default {
     NavIcons,
   },
   computed: {
-    selectedElem() {
+    currentLinkIndex() {
       return this.navbarLinks.findIndex(link => link.to.name === this.$route.name);
     },
   },
