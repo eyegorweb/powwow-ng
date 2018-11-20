@@ -143,6 +143,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import draggable from 'vuedraggable';
 import ExtraColumns from './ExtraColumns';

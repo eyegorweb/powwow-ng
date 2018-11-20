@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text ic-Info-Icon" />
@@ -8,7 +6,6 @@
     <input
       type="text"
       class="form-control"
-      id=""
       placeholder="Rechercher une carte par identifiant"
       v-model="modelInputValue"
       aria-label="Rechercher une carte par identifiant"
@@ -17,12 +14,9 @@
       <span class="input-group-text">
         <select
           class="form-control"
-          id=""
           v-model="modelSelect"
         >
-          <option
-            :value="null"
-          >
+          <option :value="null">
             Type
           </option>
           <option
@@ -33,9 +27,7 @@
             {{ option.label }}
           </option>
         </select>
-        <span
-          class="ic-Arrow-Down-Icon"
-        />
+        <span class="ic-Arrow-Down-Icon" />
       </span>
     </div>
   </div>
@@ -58,12 +50,14 @@ export default {
       type: Object,
     },
   },
+
   data() {
     return {
       tmpSelectedOption: undefined,
       tmpSelectedInput: undefined,
     };
   },
+
   computed: {
     modelSelect: {
       get() {
@@ -77,6 +71,7 @@ export default {
         });
       },
     },
+
     modelInputValue: {
       get() {
         return this.inputValue;

@@ -83,7 +83,6 @@ export default {
 
 <style scoped lang="scss">
 .navbars {
-  width: auto;
   margin: 0 auto;
   padding: 0 10px;
 }
