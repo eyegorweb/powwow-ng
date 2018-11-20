@@ -6,12 +6,14 @@ module.exports = {
     jest: true,
   },
 
-  extends: ['plugin:vue/strongly-recommended', '@vue/prettier'],
+  extends: ['plugin:vue/strongly-recommended', '@vue/prettier', 'plugin:jest/recommended'],
 
   rules: {
+    //
     'no-console': 'off',
     'no-debugger': 'off',
     'no-trailing-spaces': 'error',
+    // vue specific
     'vue/require-default-prop': 0,
     'vue/html-quotes': [2, 'double'],
     'vue/this-in-template': [2, 'never'],
@@ -27,6 +29,8 @@ module.exports = {
         },
       ],
     },
+    // jest
+    'jest/consistent-test-it': 'error',
   },
 
   parserOptions: {
