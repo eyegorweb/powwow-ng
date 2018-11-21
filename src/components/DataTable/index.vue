@@ -205,7 +205,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../theme/scss/variables';
 .table-blue thead {
   background-color: $primary;
   color: white;

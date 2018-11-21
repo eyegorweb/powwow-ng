@@ -1,54 +1,52 @@
 <template>
-  <div class="navbars bg-white">
-    <NavBarBackoffice v-if="isBackoffice" />
-    <div class="flex-container">
-      <div class="flex-part flex-part-left">
-        <img
-          v-if="!isBackoffice"
-          class="logo logo--corporate"
-          src="../assets/logo_bouygues.png"
-          alt=""
+  <div class="flex-container ">
+    <div class="flex-part flex-part-left">
+      <img
+        v-if="!isBackofficeProfile"
+        class="logo logo--corporate"
+        src="@/assets/logo_bouygues.png"
+        alt=""
+      >
+      <UiTabs
+        :tabs="navbarLinks"
+        :selected-index="currentLinkIndex"
+      >
+        <template
+          slot-scope="{ tab, index }"
         >
-        <UiTabs
-          :tabs="navbarLinks"
-          :selected-index="currentLinkIndex"
-        >
-          <template
-            slot-scope="{ tab, index }"
-          >
-            <UiTab
-              :is-selected="index === currentLinkIndex"
-            ><router-link :to="tab.to">{{ tab.label }}</router-link>
-            </UiTab>
-          </template>
-        </UiTabs>
-      </div>
-      <div class="flex-part flex-part-right">
-        <NavIcons :nav-icons="navIcons" />
-        <img
-          v-if="!isBackoffice"
-          class="logo logo--client"
-          src="../assets/logo_client_exemple.png"
-          alt=""
-        >
-      </div>
+          <UiTab
+            :is-selected="index === currentLinkIndex"
+          ><router-link :to="tab.to">{{ tab.label }}</router-link>
+          </UiTab>
+        </template>
+      </UiTabs>
+    </div>
+    <div class="flex-part flex-part-right">
+      <NavIcons :nav-icons="navIcons" />
+      <img
+        v-if="!isBackofficeProfile"
+        class="logo logo--client"
+        src="@/assets/logo_client_exemple.png"
+        alt=""
+      >
     </div>
   </div>
 </template>
 
 <script>
-import NavBarBackoffice from './NavBarBackoffice';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import NavIcons from '@/components/ui/NavIcons';
 
 export default {
-  name: 'NavBars',
+  name: 'NavBar',
+  components: {
+    UiTabs,
+    UiTab,
+    NavIcons,
+  },
   props: {
-    isBackoffice: {
-      type: Boolean,
-      required: true,
-    },
+    isBackofficeProfile: Boolean,
   },
   data() {
     return {
@@ -59,19 +57,13 @@ export default {
         { label: 'GetReport', to: { name: 'home' } },
         { label: 'GetAdmin', to: { name: 'home' } },
         { label: 'GetSupport', to: { name: 'home' } },
-        { label: 'GetDevice', to: { name: 'about' } },
+        { label: 'GetDevice', to: { name: 'home' } },
       ],
       navIcons: [
         { key: 'icon_1', class: 'ic-Clock-Icon', isMultilevels: false },
         { key: 'icon_2', class: 'ic-User-Icon', isMultilevels: true },
       ],
     };
-  },
-  components: {
-    NavBarBackoffice,
-    UiTabs,
-    UiTab,
-    NavIcons,
   },
   computed: {
     currentLinkIndex() {
