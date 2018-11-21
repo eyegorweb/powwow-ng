@@ -68,7 +68,7 @@ export default {
   color: $dark-grey;
 
   &--disabled {
-    color: $medium-grey-2;
+    color: $dark-grey;
   }
 
   &--small {
@@ -85,7 +85,6 @@ select {
   -moz-appearance: none;
   color: inherit;
   font-size: 16px;
-  padding: 15px 12px;
   border: 1px solid $medium-grey;
   width: 100%;
 

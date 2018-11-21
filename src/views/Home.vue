@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <NavBars :is-backoffice="false" />
+    <NavBars is-backoffice-profile />
     <div class="container">
       <DataTable
         :columns.sync="columns"
