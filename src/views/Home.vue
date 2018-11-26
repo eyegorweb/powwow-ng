@@ -96,6 +96,18 @@
         </div>
       </div>
     </div>
+
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ActionCarousel
+            :actions="carouselItems"
+          />
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -110,6 +122,7 @@ import UiTabs from '@/components/ui/Tabs';
 import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchFilterByOption from '@/components/SearchFilterByOption';
+import ActionCarousel from '@/components/ActionCarousel';
 
 export default {
   name: 'Home',
@@ -185,6 +198,43 @@ export default {
         label: 'Type 3',
       },
     ];
+    const carouselItems = [
+      {
+        icon: 'ic-Heart-Rythm-Icon',
+        title: 'En cours consommation',
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Stats-Icon',
+        title: 'Export consommation',
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Amplifier-Icon',
+        title: 'Gérer des alarmes',
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Clock-Icon',
+        title: 'Export dernier usage',
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Wallet-Icon',
+        title: 'Changement de C.F.',
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Cart-Icon',
+        title: "Changement d'offre",
+        subtitle: '50 cartes éligibles',
+      },
+      {
+        icon: 'ic-Amplifier-Icon',
+        title: 'Positionner une alarme7',
+        subtitle: '50 cartes éligibles',
+      },
+    ];
     return {
       columns,
       rows,
@@ -201,6 +251,7 @@ export default {
       selectedValuesForMultiChoice,
       valuesForSelectOptions,
       result: undefined,
+      carouselItems,
     };
   },
   components: {
@@ -213,6 +264,7 @@ export default {
     NavBars,
     MultiChoices,
     SearchFilterByOption,
+    ActionCarousel,
   },
 };
 </script>
