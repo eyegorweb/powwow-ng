@@ -39,3 +39,8 @@ $theme-colors: map-merge(
 @import 'global.scss';
 @import 'navbar.scss';
 @import 'icons.scss';
+
+// utility
+.no-select {
+  user-select: none;
+}

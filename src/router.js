@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 const Filters = () => import('@/views/Filters');
 const Home = () => import('@/views/Home');
+const DragHome = () => import('@/views/DragHome');
 
 Vue.use(Router);
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/draghome',
+      name: 'draghome',
+      component: DragHome,
     },
     {
       path: '/filters',

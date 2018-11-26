@@ -28,6 +28,7 @@
 
 <script>
 import Checkbox from '@/components/ui/Checkbox.vue';
+
 export default {
   name: 'AdditionalColumns',
   components: {

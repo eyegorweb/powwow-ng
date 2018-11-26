@@ -40,12 +40,12 @@ describe('ExtraColumns.vue', () => {
       },
     });
   });
-  it('Should check colums that are already added when component is created', () => {
+  it('checks colums that are already added when component is created', () => {
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[1].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[2].isChecked).toBeFalsy();
   });
-  it('Should add an extra column', () => {
+  it('it adds an extra column', () => {
     const columns = [
       {
         label: 'First name',
@@ -91,7 +91,7 @@ describe('ExtraColumns.vue', () => {
     ]);
   });
 
-  it('Should not add already present columns', () => {
+  it('should not add already present columns', () => {
     const columns = [
       {
         label: 'First name',
