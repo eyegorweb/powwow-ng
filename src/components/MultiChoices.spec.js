@@ -24,11 +24,11 @@ describe('components/Multichoices', () => {
       },
     });
   });
-  it('Should show multiple choices', () => {
+  it('shows multiple choices', () => {
     expect(wrapper.findAll('input')).toHaveLength(2);
   });
 
-  it('Should emit event with selected choices only ', () => {
+  it('emits event with selected choices only ', () => {
     const allInputs = wrapper.findAll('input');
     allInputs.at(0).element.checked = true;
     allInputs.at(0).trigger('change');

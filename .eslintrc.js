@@ -7,6 +7,7 @@ module.exports = {
   },
 
   extends: ['plugin:vue/strongly-recommended', '@vue/prettier', 'plugin:jest/recommended'],
+  plugins: ['import'],
 
   rules: {
     //
@@ -31,6 +32,7 @@ module.exports = {
     },
     // jest
     'jest/consistent-test-it': 'error',
+    'import/newline-after-import': ['error', { count: 1 }],
   },
 
   parserOptions: {

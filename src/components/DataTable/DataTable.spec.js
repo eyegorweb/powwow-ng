@@ -37,11 +37,11 @@ describe('DataTable.vue', () => {
     });
   });
 
-  it('Should not add a drag handle on non movable columns', () => {
+  it('should not add a drag handle on non movable columns', () => {
     expect(wrapper.findAll('.handle')).toHaveLength(1);
   });
 
-  it('Should match attributes to column names in rows', () => {
+  it('matches attributes to column names in rows', () => {
     expect(wrapper.findAll('tbody tr')).toHaveLength(1);
     expect(
       wrapper

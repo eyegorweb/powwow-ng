@@ -6,6 +6,10 @@ export default {
       type: String,
       default: 'light',
     },
+    type: {
+      type: String,
+      default: 'button',
+    },
     block: Boolean,
     size: String,
   },
@@ -19,6 +23,7 @@ export default {
     ];
     // s'assurer de propager les classes dynamiques
     if (data.class) classes.push(data.class);
+    data.attrs.type = props.type;
     return h('button', { ...data, class: classes }, children);
   },
 };

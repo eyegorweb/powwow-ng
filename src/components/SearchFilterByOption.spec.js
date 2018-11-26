@@ -31,13 +31,13 @@ describe('components/SearchFilterByOption', () => {
     });
   });
 
-  it('Should select an option element and update v-model bound data ', () => {
+  it('selects an option element and update v-model bound data ', () => {
     const options = wrapper.findAll('option');
     expect(options).toHaveLength(3);
     expect(options.at(1).text()).toEqual('Type 1');
   });
 
-  it('Should give result', () => {
+  it('gives result', () => {
     const options = wrapper.findAll('option');
     options.at(1).element.selected = true;
     wrapper.find('select').trigger('change');

@@ -20,7 +20,6 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="inlineFormInputGroup"
                   placeholder="Rechercher une commande par identifiant"
                 >
               </div>

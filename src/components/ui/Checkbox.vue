@@ -62,6 +62,16 @@ export default {
   input:checked ~ .checkmark:after {
     display: block;
   }
+
+  input:checked + span.round {
+    background-color: $blue;
+    border: 1px solid $blue;
+  }
+
+  input + span.round {
+    background-color: $white;
+    border: 1px solid $medium-grey;
+  }
 }
 
 .checkmark {
@@ -74,7 +84,7 @@ export default {
   border-radius: 3px;
 
   &.regular {
-    background-color: #fff;
+    background-color: $white;
   }
 
   &.solid {
@@ -101,8 +111,28 @@ export default {
     left: 6px;
     top: 10px;
     width: 11px;
-    border: solid #fff;
+    border: solid $white;
     border-width: 0 2px 2px 0;
+  }
+
+  &.round {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  &.round:after {
+    left: 10px;
+    top: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid $white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
   }
 }
 </style>
