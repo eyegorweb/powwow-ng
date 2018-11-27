@@ -9,7 +9,7 @@ describe('UiApiAutocomplete.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper, resolve;
   beforeEach(() => {
-    const [promise, resolvePromise /*, rejectPromise*/] = fakePromise();
+    const [promise, resolvePromise /* , rejectPromise*/] = fakePromise();
     resolve = () =>
       resolvePromise([
         { id: 0, label: 'option 1' },
