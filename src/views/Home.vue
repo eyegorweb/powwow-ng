@@ -13,12 +13,18 @@
         @click="show = !show"
       >Afficher le volet</UiButton>
       <TransitionCollapse>
-        <div
-          v-if="show"
-        >Hello there</div>
+        <div v-if="show">Hello there</div>
       </TransitionCollapse>
     </div>
+
     <hr>
+
+    <div class="container bg-white">
+      <UiApiAutocomplete :api-method="searchAddress" />
+    </div>
+
+    <hr>
+
     <div class="container bg-white">
       <Stepper :steps="steps">
         <p slot="Client">Step Client</p>
@@ -28,9 +34,7 @@
         <p slot="Client">Step Client</p>
       </UiTabs>
       <UiTabs :tabs="steps">
-        <template
-          slot-scope="{ tab, index, selectTab, selectedIndex }"
-        >
+        <template slot-scope="{ tab, index, selectTab, selectedIndex }">
           <UiButton
             :variant="selectedIndex === index ? 'success' : 'link'"
             @click="selectTab(index)"
@@ -57,7 +61,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -78,7 +81,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -101,13 +103,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <ActionCarousel
-            :actions="carouselItems"
-          />
+          <ActionCarousel :actions="carouselItems" />
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -116,6 +115,7 @@
 import DataTable from '@/components/DataTable';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
+import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
@@ -123,6 +123,7 @@ import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchFilterByOption from '@/components/SearchFilterByOption';
 import ActionCarousel from '@/components/ActionCarousel';
+import { searchAddress } from '@/api/address';
 
 export default {
   name: 'Home',
@@ -254,6 +255,11 @@ export default {
       carouselItems,
     };
   },
+
+  methods: {
+    searchAddress,
+  },
+
   components: {
     UiCheckbox,
     UiButton,
@@ -265,6 +271,7 @@ export default {
     MultiChoices,
     SearchFilterByOption,
     ActionCarousel,
+    UiApiAutocomplete,
   },
 };
 </script>

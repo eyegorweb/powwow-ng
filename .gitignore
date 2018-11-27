@@ -21,3 +21,6 @@ yarn-error.log*
 coverage
 
 /live/
+
+# pas tout le monde utilise le proxy
+.npmrc
