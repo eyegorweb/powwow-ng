@@ -10,10 +10,11 @@ module.exports = {
   plugins: ['import'],
 
   rules: {
-    //
+    // eslint
     'no-console': 'off',
     'no-debugger': 'off',
     'no-trailing-spaces': 'error',
+    'spaced-comment': ['error', 'always', { exceptions: ['-', '+'] }],
     // vue specific
     'vue/require-default-prop': 0,
     'vue/html-quotes': [2, 'double'],
