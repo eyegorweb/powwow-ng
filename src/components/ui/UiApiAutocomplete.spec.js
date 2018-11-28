@@ -117,7 +117,7 @@ describe('UiApiAutocomplete.vue', () => {
 
     it('hides suggestions when focusing something else', () => {
       // relatedTarget est l'élément vers lequel prend le focus.
-      wrapper.find('input').trigger('blur', { relatedTarget: {} });
+      wrapper.find('input').trigger('blur', { relatedTarget: new EventTarget() });
       expect(wrapper.find('.autocomplete-results').isVisible()).toBe(false);
     });
   });
