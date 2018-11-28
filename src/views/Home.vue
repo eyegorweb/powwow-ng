@@ -63,32 +63,11 @@
         </div>
       </div>
     </div>
-
-    <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <h4>Choix multiples</h4>
-
-          <div class="row">
-            <div class="col-md-6">
-              <MultiChoices
-                :values="valuesForMultiChoice"
-                :selected-values.sync="selectedValuesForMultiChoice"
-              />
-            </div>
-            <div class="col-md-6">
-              <pre>{{ selectedValuesForMultiChoice }}</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <hr>
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <SearchFilterByOption
+          <SearchWithSelect
             :options="valuesForSelectOptions"
             :result.sync="result"
           />
@@ -121,7 +100,7 @@ import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
 import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
-import SearchFilterByOption from '@/components/SearchFilterByOption';
+import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import { searchAddress } from '@/api/address';
 
@@ -269,7 +248,7 @@ export default {
     DataTable,
     NavBars,
     MultiChoices,
-    SearchFilterByOption,
+    SearchWithSelect,
     ActionCarousel,
     UiApiAutocomplete,
   },
