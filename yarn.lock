@@ -10395,10 +10395,10 @@ vue-prop-data-fallback@^1.0.1:
   resolved "http://r.cnpmjs.org/vue-prop-data-fallback/download/vue-prop-data-fallback-1.0.1.tgz#c47730d4d42be33ecd3379bfd38b35473d851900"
   integrity sha1-xHcw1NQr4z7NM3m/04s1Rz2FGQA=
 
-vue-router@^3.0.1:
-  version "3.0.1"
-  resolved "http://r.cnpmjs.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
-  integrity sha1-2bBa2cdCC6D2JtZQDWk+YAkswek=
+vue-router@^3.0.2:
+  version "3.0.2"
+  resolved "http://r.cnpmjs.org/vue-router/download/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
+  integrity sha1-3txnr+bE4rwlaCyLHCqMDXx+Vr4=
 
 vue-slick@^1.1.15:
   version "1.1.15"
@@ -10433,10 +10433,10 @@ vue@^2.5.17:
   resolved "http://r.cnpmjs.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
   integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
 
-vuedraggable@^2.16.0:
-  version "2.16.0"
-  resolved "http://r.cnpmjs.org/vuedraggable/download/vuedraggable-2.16.0.tgz#52127081a2adb3de5fabd214d404ff3eee63575a"
-  integrity sha1-UhJwgaKts95fq9IU1AT/Pu5jV1o=
+vuedraggable@^2.17.0:
+  version "2.17.0"
+  resolved "http://r.cnpmjs.org/vuedraggable/download/vuedraggable-2.17.0.tgz#489c16c9bcb9eb06f441944d3c52e5f2bb7060f9"
+  integrity sha1-SJwWyby56wb0QZRNPFLl8rtwYPk=
   dependencies:
     sortablejs "^1.7.0"
 
