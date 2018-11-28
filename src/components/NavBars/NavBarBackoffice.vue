@@ -1,38 +1,52 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <img
+    <div><img
       class="logo"
       src="@/assets/logo_bouygues.png"
       alt=""
-    >
-    <InputSelect
-      :is-disabled="false"
-      field-width="form-group--small"
-      field-name="Type de partenaire"
-      :field-options="partnersTypes"
-    />
-    <InputSelect
-      :is-disabled="false"
-      field-width="form-group--medium"
-      field-name="Sélectionner des partenaires"
-      :field-options="partnersNames"
-    />
-    <InputSelect
-      :is-disabled="true"
-      field-width="form-group--medium"
-      field-name="Sélectionner des comptes de facturation"
-      :field-options="['un', 'deux', 'trois']"
-    />
+    ></div>
+
+    <div class="input-group w-auto flex-grow-1">
+      <UiSelect
+        class="text-gray"
+        placeholder="Type de partenaire"
+        v-model="selectedPartnerType"
+        :options="partnersTypeOptions"
+      />
+      <UiSelect
+        class="text-gray"
+        placeholder="Sélectionner des partenaires"
+        v-model="selectedPartner"
+        :options="partnersOptions"
+      />
+      <UiSelect
+        class="text-gray"
+        placeholder="Sélectionner des comptes de facturation"
+        v-model="selectedAccount"
+        :options="billingAccounts"
+        disabled
+      />
+    </div>
   </nav>
 </template>
 
 <script>
-import InputSelect from './../ui/InputSelect';
+import UiSelect from '@/components/ui/UiSelect';
 
 export default {
   name: 'NavBarBackoffice',
   components: {
-    InputSelect,
+    UiSelect,
+  },
+  data() {
+    return {
+      partnersTypeOptions: ['Partenaire type un', 'Partenaire type deux'],
+      partnersOptions: ['Partenaire un', 'Partenaire deux'],
+      billingAccounts: ['Compte un', 'Compte deux'],
+      selectedPartnerType: null,
+      selectedPartner: null,
+      selectedAccount: null,
+    };
   },
   props: {
     partnersTypes: {

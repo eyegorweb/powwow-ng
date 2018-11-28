@@ -11,18 +11,16 @@
         <form class="searchInput">
           <div class="form-row">
             <div class="form-group col-md-8 mb-0">
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span class="ic-Info-Icon" />
-                  </div>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Rechercher une commande par identifiant"
-                >
-              </div>
+              <UiInput
+                placeholder="Rechercher une commande par identifiant"
+                value=""
+                class="d-block"
+              >
+                <i
+                  slot="icon"
+                  class="ic-Info-Icon"
+                />
+              </UiInput>
             </div>
             <div class="form-group col-md-3 mb-0">
               <button
@@ -35,14 +33,17 @@
       </div>
       <div class="col-md-5">
         <div class="float-left">
-          <label>Nb per page</label>
-          <select
-            class="form-control form-control--arrow-down form-control--blue ml-1"
-          >
-            <option>20</option>
-            <option>50</option>
-          </select>
-          <i class="select-arrow ic-Arrow-Down-Icon" />
+          <label class="form-group">
+            Nb per page:
+            <UiSelect
+              class="text-gray"
+              placeholder="Type de partenaire"
+              v-model="perPage"
+            >
+              <option :value="20">20</option>
+              <option :value="50">50</option>
+            </UiSelect>
+          </label>
         </div>
         <nav class="float-right">
           <ul class="pagination mb-0">
@@ -146,12 +147,16 @@
 <script>
 import draggable from 'vuedraggable';
 import ExtraColumns from './ExtraColumns';
+import UiSelect from '@/components/ui/UiSelect';
+import UiInput from '@/components/ui/UiInput';
 
 export default {
   name: 'DataTable',
   components: {
     draggable,
     ExtraColumns,
+    UiSelect,
+    UiInput,
   },
   props: {
     columns: {
@@ -171,6 +176,7 @@ export default {
   data() {
     return {
       isExtraColumnsVisible: false,
+      perPage: 20,
     };
   },
 
@@ -306,7 +312,7 @@ select {
     background-color: transparent;
     border: none;
     font-weight: 500;
-    color: #7d7d7d;
+    color: $gray;
   }
   &.active a {
     color: $primary;
