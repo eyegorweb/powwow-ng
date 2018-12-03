@@ -2,26 +2,20 @@
   <div class="container">
     <div class="bloc d-inline-block p-1 narrow">
       <div class="card">
-        <div class="card-header">
-          ZONE FIXE NOTIFICATIONS
-        </div>
-        <div class="card-body">
-          Narrow bloc here
-        </div>
+        <div class="card-header">ZONE FIXE NOTIFICATIONS</div>
+        <div class="card-body">Narrow bloc here</div>
       </div>
-
     </div>
     <div class="bloc d-inline-block p-1 wide">
       <div class="card">
-        <div class="card-header">
-          ZONE FIXE PROMOTION
-        </div>
-        <div class="card-body">
-          Graphs here
-        </div>
+        <div class="card-header">ZONE FIXE PROMOTION</div>
+        <div class="card-body">Graphs here</div>
       </div>
     </div>
-    <draggable v-model="widgetsInPanel">
+    <draggable
+      v-model="widgetsInPanel"
+      :options="draggableOptions"
+    >
       <transition-group name="widgets">
         <div
           v-for="w in activeWidgets"
@@ -31,11 +25,10 @@
         >
           <div class="card">
             <div class="card-header">
-              {{ w.title }}
+              <span class="handle ic-Drag-Column-Icon" />
+              <span>{{ w.title }}</span>
             </div>
-            <div class="card-body">
-              Composant correspondant à l'ID : {{ w.id }}
-            </div>
+            <div class="card-body">Composant correspondant à l'ID : {{ w.id }}</div>
           </div>
         </div>
       </transition-group>
@@ -125,6 +118,9 @@ export default {
       ],
     };
   },
+  created() {
+    this.draggableOptions = { handle: '.handle' };
+  },
 };
 </script>
 
@@ -166,11 +162,24 @@ export default {
     border-bottom: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
+    padding: 0.75rem 1.25rem;
   }
 }
 
 .widgets-item {
   transition: all 0.3s;
+  .ic-Drag-Column-Icon:before {
+    position: absolute;
+    top: 0.5rem;
+    font-size: 1.75rem;
+    left: -0.2rem;
+  }
+}
+
+.handle {
+  &:hover {
+    cursor: move;
+  }
 }
 
 .widgets-enter,

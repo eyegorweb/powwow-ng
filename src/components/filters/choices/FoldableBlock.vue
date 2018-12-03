@@ -3,7 +3,9 @@
     <span
       v-if="draggable"
       class="handle"
-    ><i class="ic-Drag-Column-Icon" /></span>
+    >
+      <i class="ic-Drag-Column-Icon" />
+    </span>
     <span class="title">{{ title }}</span>
     <a @click.prevent="toggleShow">
       <i
@@ -85,7 +87,7 @@ export default {
     top: 2px;
   }
   .handle:hover {
-    cursor: pointer;
+    cursor: move;
   }
 }
 </style>
