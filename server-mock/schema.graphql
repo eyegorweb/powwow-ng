@@ -1,0 +1,33 @@
+scalar JSON
+
+type AvailableFilter {
+  name: String!
+  title: String!
+  type: String!
+  values: [Choice]
+}
+
+type Choice {
+  code: String!
+  label: String!
+}
+
+type Order {
+  creationDate: String
+  partnerName: String
+  id: Int
+  status: String
+  quantity: Int
+  productName: String
+  creator: String
+}
+
+type OrdersResponse {
+  total: Int!
+  orders: [Order]
+}
+
+type Query {
+  availableFilters: [AvailableFilter]
+  orders(limit: Int, offset: Int): OrdersResponse
+}
