@@ -29,14 +29,14 @@ export default {
   },
 
   created() {
-    this.fetchFilters();
+    this.loadPossibleFilters();
   },
 
   computed: {
     ...mapGetters(['allAvailableFilters', 'currentFilters', 'canShowSelectedFilter']),
   },
   methods: {
-    ...mapActions(['fetchFilters']),
+    ...mapActions(['loadPossibleFilters']),
   },
 };
 </script>

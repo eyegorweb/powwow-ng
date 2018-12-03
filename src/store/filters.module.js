@@ -1,5 +1,4 @@
-import { getDefaultClient } from '@/vue-apollo';
-import gql from 'graphql-tag';
+import { fetchPossibleFilters } from '@/api/filters';
 
 const state = {
   allAvailableFilters: [],
@@ -14,24 +13,8 @@ const getters = {
 };
 
 const actions = {
-  async fetchFilters({ commit }) {
-    const response = await getDefaultClient().query({
-      query: gql`
-        query {
-          availableFilters {
-            name
-            type
-            title
-            values {
-              label
-              code
-            }
-          }
-        }
-      `,
-    });
-
-    commit('setAvailableFilters', response.data.availableFilters);
+  async loadPossibleFilters({ commit }) {
+    commit('setAvailableFilters', await fetchPossibleFilters());
   },
 };
 

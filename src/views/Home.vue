@@ -70,6 +70,8 @@
           <SearchWithSelect
             :options="valuesForSelectOptions"
             :result.sync="result"
+            query=""
+            :type="null"
           />
           <div class="col-md-6">
             <pre>{{ result }}</pre>
