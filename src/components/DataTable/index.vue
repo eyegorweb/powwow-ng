@@ -13,7 +13,7 @@
             <div class="form-group col-md-8 mb-0">
               <UiInput
                 placeholder="Rechercher une commande par identifiant"
-                value=""
+                value
                 class="d-block"
               >
                 <i
@@ -33,8 +33,7 @@
       </div>
       <div class="col-md-5">
         <div class="float-left">
-          <label class="form-group">
-            Nb per page:
+          <label class="form-group">Nb per page:
             <UiSelect
               class="text-gray"
               placeholder="Type de partenaire"
@@ -112,7 +111,7 @@
               <th :key="'btnAdd'">
                 <button
                   type="button"
-                  class=" btn btn-light btn-sm float-right"
+                  class="btn btn-light btn-sm float-right"
                   @click="isExtraColumnsVisible = !isExtraColumnsVisible"
                 >
                   <span
@@ -242,6 +241,9 @@ export default {
   font-size: 20px;
   position: relative;
   top: 3px;
+  &:hover {
+    cursor: move;
+  }
 }
 
 .searchInput {
