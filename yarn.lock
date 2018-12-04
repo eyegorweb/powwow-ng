@@ -1526,7 +1526,7 @@ apollo-server-errors@2.2.0:
   resolved "http://r.cnpmjs.org/apollo-server-errors/download/apollo-server-errors-2.2.0.tgz#5b452a1d6ff76440eb0f127511dc58031a8f3cb5"
   integrity sha1-W0UqHW/3ZEDrDxJ1EdxYAxqPPLU=
 
-apollo-server-express@2.2.5:
+apollo-server-express@2.2.5, apollo-server-express@^2.2.5:
   version "2.2.5"
   resolved "http://r.cnpmjs.org/apollo-server-express/download/apollo-server-express-2.2.5.tgz#9d27d68b3b1cf2f96a107a3091ecdea4012745a2"
   integrity sha1-nSfWizsc8vlqEHowkezepAEnRaI=
@@ -4072,7 +4072,7 @@ expect@^23.6.0:
     jest-message-util "^23.4.0"
     jest-regex-util "^23.3.0"
 
-express@^4.0.0, express@^4.16.2, express@^4.16.3:
+express@^4.0.0, express@^4.16.2, express@^4.16.3, express@^4.16.4:
   version "4.16.4"
   resolved "http://r.cnpmjs.org/express/download/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
   integrity sha1-/d72GSYQniTFFeqX/S8b2/Yt8S4=
@@ -7435,11 +7435,6 @@ parallel-transform@^1.1.0:
     inherits "^2.0.3"
     readable-stream "^2.1.5"
 
-parallelshell@^3.0.2:
-  version "3.0.2"
-  resolved "http://r.cnpmjs.org/parallelshell/download/parallelshell-3.0.2.tgz#fffc55aaa145bdd44b5381cf7fd5e521fc21aa7b"
-  integrity sha1-//xVqqFFvdRLU4HPf9XlIfwhqns=
-
 param-case@2.1.x:
   version "2.1.1"
   resolved "http://r.cnpmjs.org/param-case/download/param-case-2.1.1.tgz#df94fd8cf6531ecf75e6bef9a0858fbc72be2247"
@@ -10001,6 +9996,13 @@ vuedraggable@^2.17.0:
   integrity sha1-SJwWyby56wb0QZRNPFLl8rtwYPk=
   dependencies:
     sortablejs "^1.7.0"
+
+vuex-mock-store@^0.0.5:
+  version "0.0.5"
+  resolved "http://r.cnpmjs.org/vuex-mock-store/download/vuex-mock-store-0.0.5.tgz#f079665a5589650f44a6f136ea93eef34c1bc34b"
+  integrity sha1-8HlmWlWJZQ9EpvE26pPu80wbw0s=
+  dependencies:
+    lodash.clonedeep "^4.5.0"
 
 vuex@^3.0.1:
   version "3.0.1"

@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <NavBars is-backoffice-profile />
     <div class="container">
+      <NavBars is-backoffice-profile />
+      <br>
+      <br>
       <DataTable
         :columns.sync="columns"
         :extra-columns="extraColumns"

@@ -27,7 +27,28 @@ type OrdersResponse {
   orders: [Order]
 }
 
+type User {
+  name: Name
+  email: String
+  isUserParty: Boolean
+  partyName: String
+  isBackOffice: Boolean
+}
+
+type Name {
+  title: Title
+  firstName: String
+  lastName: String
+}
+
+enum Title {
+  MR
+  MISS
+  MRS
+}
+
 type Query {
   availableFilters: [AvailableFilter]
   orders(limit: Int, offset: Int): OrdersResponse
+  getCurrentUser: User
 }

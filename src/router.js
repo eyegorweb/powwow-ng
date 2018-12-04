@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Secured from './views/Secured.vue';
+import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.vue';
+import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
 
 const Filters = () => import('@/views/Filters');
 const Home = () => import('@/views/Home');
@@ -15,6 +18,21 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/secured',
+      name: 'secured',
+      component: Secured,
+    },
+    {
+      path: '/callback',
+      name: 'callback',
+      component: AuthenticationOnLoadCallback,
+    },
+    {
+      path: '/refresh',
+      name: 'refresh',
+      component: AuthenticationRefreshCallback,
     },
     {
       path: '/draghome',

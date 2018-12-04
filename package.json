@@ -8,10 +8,11 @@
     "test:dev": "yarn test:unit --watchAll",
     "lint": "vue-cli-service lint",
     "serve": "yarn run server:mock | vue-cli-service serve",
-    "test:unit": "vue-cli-service test:unit --coverage",
+    "test:unit": "vue-cli-service test:unit",
     "server:mock": "node ./server-mock/index.js"
   },
   "dependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
     "apollo-server": "^2.2.5",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
@@ -26,7 +27,8 @@
     "vue-router": "^3.0.2",
     "vue-slick": "^1.1.15",
     "vuedraggable": "^2.17.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-mock-store": "^0.0.5"
   },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.55",
@@ -36,10 +38,12 @@
     "@vue/cli-service": "^3.2.0",
     "@vue/eslint-config-prettier": "^3.0.5",
     "@vue/test-utils": "^1.0.0-beta.26",
+    "apollo-server-express": "^2.2.5",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
     "eslint-plugin-jest": "^22.1.0",
     "eslint-plugin-vue": "^5.0.0-beta.3",
+    "express": "^4.16.4",
     "faked-promise": "^2.0.0",
     "lowdb": "^1.0.0",
     "mkdirp": "^0.5.1",
