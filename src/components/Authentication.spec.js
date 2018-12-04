@@ -3,9 +3,9 @@ import { Store } from 'vuex-mock-store';
 import Authentication from './Authentication.vue';
 import * as utils from '@/utils';
 
-process.env.VUE_APP_AUTH_SERVER_URL = 'http://localhost:4000';
+process.env.VUE_APP_AUTH_SERVER_URL = 'http://localhost:4000/oauth';
 process.env.VUE_APP_CLIENT_ID = 'nextgenui-implicit';
-process.env.VUE_APP_URL = 'http://localhost:8080';
+process.env.VUE_FRONT_URL = 'http://localhost:8080';
 
 const store = new Store({
   state: { token: undefined },

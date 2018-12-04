@@ -32,9 +32,9 @@ export default {
 
     redirectToLogin() {
       redirectTo(
-        `${process.env.VUE_APP_AUTH_SERVER_URL}/oauth/authorize?response_type=token&client_id=${
+        `${process.env.VUE_APP_AUTH_SERVER_URL}/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
-        }&redirect_uri=${process.env.VUE_APP_URL}/callback`
+        }&redirect_uri=${process.env.VUE_FRONT_URL}/callback`
       );
     },
 
@@ -54,11 +54,9 @@ export default {
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
     refreshUrl() {
-      return `${
-        process.env.VUE_APP_AUTH_SERVER_URL
-      }/oauth/authorize?response_type=token&client_id=${
+      return `${process.env.VUE_APP_AUTH_SERVER_URL}/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
-      }&redirect_uri=${process.env.VUE_APP_URL}/refresh`;
+      }&redirect_uri=${process.env.VUE_FRONT_URL}/refresh`;
     },
   },
 };
