@@ -9,6 +9,14 @@
         :extra-columns="extraColumns"
         :rows="rows"
       />
+      <hr>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <ActionCarousel :actions="carouselItems" />
+          </div>
+        </div>
+      </div>
       <UiCheckbox>Example</UiCheckbox>
       <UiButton
         variant="primary"
@@ -82,14 +90,6 @@
       </div>
     </div>
 
-    <hr>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ActionCarousel :actions="carouselItems" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -187,6 +187,7 @@ export default {
         icon: 'ic-Heart-Rythm-Icon',
         title: 'En cours consommation',
         subtitle: '50 cartes éligibles',
+        inactive: true,
       },
       {
         icon: 'ic-Stats-Icon',
