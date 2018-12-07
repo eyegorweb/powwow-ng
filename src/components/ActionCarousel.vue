@@ -15,6 +15,7 @@
               :icon="item.icon"
               :title="item.title"
               :subtitle="item.subtitle"
+              :active="!item.inactive"
             />
           </slick>
         </div>

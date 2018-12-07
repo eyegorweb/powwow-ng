@@ -1,8 +1,9 @@
 <template>
-  <div
-    class="carousel-item"
-  >
-    <div class="card">
+  <div class="carousel-item">
+    <div
+      class="card"
+      :class="{'inactive': !active }"
+    >
       <div class="card-body">
         <div class="row">
           <div class="icon-block">
@@ -25,6 +26,7 @@ export default {
     icon: String,
     title: String,
     subtitle: String,
+    active: Boolean,
   },
 };
 </script>
@@ -36,6 +38,15 @@ export default {
     border: none;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
     margin: 0.5rem;
+
+    &.inactive {
+      background: $medium-grey;
+      color: $gray-680;
+
+      .card-body .title {
+        color: $gray-680;
+      }
+    }
   }
   .card-body {
     padding: 1.25rem 1rem 0.5rem;
