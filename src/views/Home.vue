@@ -2,6 +2,26 @@
   <div class="home">
     <div class="container">
       <NavBars is-backoffice-profile />
+
+      <hr>
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <h4>Date de la commande</h4>
+            <div class="row">
+              <div class="col-md-4">
+                <!-- class input-group mb-3 -->
+                <UiDateRange
+                  :start.sync="startDate"
+                  :end.sync="endDate"
+                />
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <br>
       <br>
       <DataTable
@@ -73,6 +93,28 @@
         </div>
       </div>
     </div>
+
+    <hr>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4>Choix multiples</h4>
+
+          <div class="row">
+            <div class="col-md-6">
+              <MultiChoices
+                :values="valuesForMultiChoice"
+                :selected-values.sync="selectedValuesForMultiChoice"
+              />
+            </div>
+            <div class="col-md-6">
+              <pre>{{ selectedValuesForMultiChoice }}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <hr>
     <div class="container">
       <div class="row">
@@ -80,7 +122,7 @@
           <SearchWithSelect
             :options="valuesForSelectOptions"
             :result.sync="result"
-            query=""
+            query
             :type="null"
           />
           <div class="col-md-6">
@@ -106,6 +148,7 @@ import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
+import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
 
 export default {
@@ -237,6 +280,8 @@ export default {
       valuesForSelectOptions,
       result: undefined,
       carouselItems,
+      startDate: null, // new Date(),
+      endDate: null,
     };
   },
 
@@ -256,6 +301,7 @@ export default {
     SearchWithSelect,
     ActionCarousel,
     UiApiAutocomplete,
+    UiDateRange,
   },
 };
 </script>

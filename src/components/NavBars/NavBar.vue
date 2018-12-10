@@ -7,10 +7,7 @@
         src="@/assets/logo_bouygues.png"
         alt
       >
-      <UiTabs
-        :tabs="navbarLinks"
-        :selected-index="currentLinkIndex"
-      >
+      <UiTabs :tabs="navbarLinks" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index }">
           <UiTab :is-selected="index === currentLinkIndex">
             <router-link :to="tab.to">{{ tab.label }}</router-link>
@@ -21,22 +18,10 @@
     <div class="flex-part flex-part-right">
       <div class="nav">
         <div class="icon ic-Clock-Icon" />
-        <div
-          class="icon ic-User-Icon"
-          @click="userMenuVisible = !userMenuVisible"
-        >
-          <i
-            v-if="!userMenuVisible"
-            class="arrow ic-Arrow-Down-Icon"
-          />
-          <i
-            v-if="userMenuVisible"
-            class="arrow ic-Arrow-Up-Icon"
-          />
-          <div
-            v-if="userMenuVisible"
-            class="sub-menu"
-          >
+        <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
+          <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
+          <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
+          <div v-if="userMenuVisible" class="sub-menu">
             <ul class="list-group">
               <li class="list-group-item">
                 {{ userInfos.name.firstName }}
@@ -166,7 +151,7 @@ a {
 
 .icon {
   position: relative;
-  color: $dark-grey;
+  color: $dark-gray;
   font-size: 24px;
 
   &:last-child {

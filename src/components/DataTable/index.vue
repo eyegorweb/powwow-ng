@@ -111,7 +111,7 @@
               <th :key="'btnAdd'">
                 <button
                   type="button"
-                  class="btn btn-light btn-sm float-right"
+                  class=" btn btn-light btn-sm float-right"
                   @click="isExtraColumnsVisible = !isExtraColumnsVisible"
                 >
                   <span
@@ -224,7 +224,7 @@ export default {
 }
 
 .table-blue td {
-  color: $dark-grey;
+  color: $dark-gray;
 }
 
 .table-blue th {
@@ -303,7 +303,7 @@ select {
   &.disabled {
     a {
       color: #e1e1e1;
-      background-color: $light-grey;
+      background-color: $light-gray;
       border-color: currentColor;
     }
   }

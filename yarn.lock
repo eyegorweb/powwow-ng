@@ -3221,6 +3221,11 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-fns@^2.0.0-alpha.25:
+  version "2.0.0-alpha.25"
+  resolved "http://r.cnpmjs.org/date-fns/download/date-fns-2.0.0-alpha.25.tgz#651a5d1f59a01af6cf0371e39b2ae29df5d521ee"
+  integrity sha1-ZRpdH1mgGvbPA3HjmyrinfXVIe4=
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "http://r.cnpmjs.org/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -4389,6 +4394,11 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+flatpickr@^4.5.1:
+  version "4.5.2"
+  resolved "http://r.cnpmjs.org/flatpickr/download/flatpickr-4.5.2.tgz#47c8ad472a096e5fb7e74b809b0703535383f20d"
+  integrity sha1-R8itRyoJbl+350uAmwcDU1OD8g0=
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -9909,6 +9919,13 @@ vue-eslint-parser@^3.2.1:
     espree "^4.0.0"
     esquery "^1.0.1"
     lodash "^4.17.10"
+
+vue-flatpickr-component@^8.0.0:
+  version "8.0.0"
+  resolved "http://r.cnpmjs.org/vue-flatpickr-component/download/vue-flatpickr-component-8.0.0.tgz#d5ce18981ad1c6fdf32106ae441f5160978e46b3"
+  integrity sha1-1c4YmBrRxv3zIQauRB9RYJeORrM=
+  dependencies:
+    flatpickr "^4.5.1"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"

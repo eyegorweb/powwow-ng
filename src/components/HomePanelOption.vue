@@ -6,21 +6,14 @@
   >
     <div class="d-flex opt-container">
       <div class="b-check d-flex justify-content-center pl-3 pt-2">
-        <UiCheckbox
-          shape="round"
-          v-model="model"
-        />
+        <UiCheckbox shape="round" v-model="model" />
       </div>
       <div class="opt-content flex-grow-1">
         <h6>{{ title }}</h6>
         <slot />
       </div>
       <div class="opt-image">
-        <img
-          class="not-found"
-          src="../assets/404.png"
-          alt="image not found"
-        >
+        <img class="not-found" src="../assets/404.png" alt="image not found">
       </div>
     </div>
   </div>
@@ -73,7 +66,7 @@ export default {
 }
 
 .home-panel-option {
-  border: 1px solid $medium-grey;
+  border: 1px solid $medium-gray;
   &:hover,
   &.active {
     border: 1px solid $bouygues-cyan;

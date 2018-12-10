@@ -1,14 +1,7 @@
 <template>
-  <select
-    class="form-control"
-    v-model="model"
-  >
+  <select class="form-control" v-model="model">
     <slot>
-      <option
-        disabled
-        selected
-        :value="null"
-      >{{ placeholder }}</option>
+      <option disabled selected :value="null">{{ placeholder }}</option>
       <option
         v-for="option in formattedOptions"
         :key="option.value"
@@ -61,7 +54,7 @@ select {
   -moz-appearance: none;
   color: inherit;
   font-size: 16px;
-  border: 1px solid $medium-grey;
+  border: 1px solid $medium-gray;
   width: auto;
   padding: 0.5rem 0.8rem;
   padding-right: 3rem;
@@ -72,7 +65,7 @@ select {
   background-position: right center;
 
   &:disabled {
-    background-color: $light-grey;
+    background-color: $light-gray;
   }
 }
 </style>

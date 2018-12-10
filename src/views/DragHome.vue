@@ -158,7 +158,7 @@ export default {
 .card {
   .card-header {
     background: none;
-    color: $dark-grey;
+    color: $dark-gray;
     border-bottom: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;

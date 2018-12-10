@@ -1,10 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <div><img
-      class="logo"
-      src="@/assets/logo_bouygues.png"
-      alt=""
-    ></div>
+    <div>
+      <img class="logo" src="@/assets/logo_bouygues.png" alt>
+    </div>
 
     <div class="input-group w-auto flex-grow-1">
       <UiSelect
@@ -69,7 +67,7 @@ export default {
   align-items: center;
   background-color: $white;
   padding: 10px 15px;
-  border-bottom: 1px solid $light-grey;
+  border-bottom: 1px solid $light-gray;
 }
 
 .logo {
