@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Secured from './views/Secured.vue';
 import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
 
@@ -18,11 +17,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-    },
-    {
-      path: '/secured',
-      name: 'secured',
-      component: Secured,
     },
     {
       path: '/callback',

@@ -45,7 +45,7 @@
                 {{ userInfos.email }}
               </li>
               <li class="list-group-item">
-                <a href="http://localhost:8084/logout">Déconnexion</a>
+                <a :href="logoutUrl">Déconnexion</a>
               </li>
             </ul>
           </div>
@@ -95,6 +95,9 @@ export default {
     ...mapGetters(['userName', 'userInfos']),
     currentLinkIndex() {
       return this.navbarLinks.findIndex(link => link.to.name === this.$route.name);
+    },
+    logoutUrl() {
+      return process.env.VUE_APP_AUTH_SERVER_URL + '/logout';
     },
   },
 };
