@@ -10,16 +10,10 @@
               v-for="extraColumn in localExtraColumns"
               :key="extraColumn.name"
               v-model="extraColumn.isChecked"
-            >
-              {{ extraColumn.label }}
-            </Checkbox>
+            >{{ extraColumn.label }}</Checkbox>
           </div>
 
-          <button
-            class="btn btn-block btn-primary"
-            @click="saveExtraColumns"
-          >Enregistrer</button>
-
+          <button class="btn btn-block btn-primary" @click="saveExtraColumns">Enregistrer</button>
         </div>
       </div>
     </div>
@@ -77,7 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  color: $dark-grey;
+  color: $dark-gray;
   position: absolute;
   top: 5.6rem;
   z-index: 999;

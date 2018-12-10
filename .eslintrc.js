@@ -20,6 +20,8 @@ module.exports = {
     'vue/html-quotes': [2, 'double'],
     'vue/this-in-template': [2, 'never'],
     'vue/no-spaces-around-equal-signs-in-attribute': 2,
+    // prettier autoformat mieux le html dans vue
+    'vue/max-attributes-per-line': 0,
     'vue/script-ident': {
       'script-indent': [
         'error',

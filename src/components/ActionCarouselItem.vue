@@ -1,9 +1,6 @@
 <template>
   <div class="carousel-item">
-    <div
-      class="card"
-      :class="{'inactive': !active }"
-    >
+    <div class="card" :class="{'inactive': !active }">
       <div class="card-body">
         <div class="row">
           <div class="icon-block">
@@ -40,7 +37,7 @@ export default {
     margin: 0.5rem;
 
     &.inactive {
-      background: $medium-grey;
+      background: $medium-gray;
       color: $gray-680;
 
       .card-body .title {
@@ -55,7 +52,7 @@ export default {
       vertical-align: middle;
       font-weight: 600;
       line-height: 1.1875rem;
-      color: $dark-grey;
+      color: $dark-gray;
     }
     .subtitle {
       font-size: 0.75rem;

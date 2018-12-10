@@ -5,12 +5,13 @@ $success: #05d0a6;
 
 $white: #ffffff;
 $blue: #009dcc;
-$light-grey: #f3f3f3;
 $orange: #ea5b0f;
-$gray: #6c757d;
 $bouygues-cyan: #6cc3de;
-$medium-grey: #dddddd;
-$dark-grey: #454545;
+
+$light-gray: #f3f3f3;
+$medium-gray: #dddddd;
+$gray: #6c757d;
+$dark-gray: #454545;
 $gray-680: #7d7d7d; // (https://getbootstrap.com/docs/4.0/getting-started/theming/#grays)
 
 $primary-hover-color: #d84da2;
@@ -22,4 +23,4 @@ $container-max-widths: (
   xl: 1440px,
 );
 
-$box-radius: 2px; //pour input et boutons, peut être utilisé à d'autres endroits
+$box-radius: 2px; // pour input et boutons, peut être utilisé à d'autres endroits

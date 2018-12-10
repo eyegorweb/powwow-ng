@@ -1,15 +1,8 @@
 <template>
-  <label class="checkbox-container"> <slot />
-    <input
-      type="checkbox"
-      v-bind="$attrs"
-      v-model="model"
-      :value="value"
-    >
-    <span
-      class="checkmark"
-      :class="shape"
-    />
+  <label class="checkbox-container">
+    <slot />
+    <input type="checkbox" v-bind="$attrs" v-model="model" :value="value">
+    <span class="checkmark" :class="shape" />
   </label>
 </template>
 
@@ -70,7 +63,7 @@ export default {
 
   input + span.round {
     background-color: $white;
-    border: 1px solid $medium-grey;
+    border: 1px solid $medium-gray;
   }
 }
 

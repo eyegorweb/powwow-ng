@@ -1,17 +1,10 @@
 <template>
-  <div
-    class="position-relative"
-    v-clickaway="hideSuggestions"
-  >
+  <div class="position-relative" v-clickaway="hideSuggestions">
     <!-- TODO utiliser UiInput -->
     <!-- TODO permettre customiser l'input avec un scoped slot? Passer une computed property avec un setter -->
     <!-- dans le slot pour permettre la synchronisation de la valeur -->
     <Promised :promise="resultsPromise">
-      <fieldset
-        class="form-group"
-        slot="combined"
-        slot-scope="{ data }"
-      >
+      <fieldset class="form-group" slot="combined" slot-scope="{ data }">
         <!-- TODO loading state sur input avec isPending -->
         <input
           type="text"
@@ -149,7 +142,7 @@ export default {
       bottom: 0;
       height: 1px;
       width: calc(100% - 2rem);
-      background-color: $medium-grey;
+      background-color: $medium-gray;
     }
   }
 

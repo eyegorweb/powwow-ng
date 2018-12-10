@@ -48,11 +48,11 @@ label {
   input {
     padding: 0.5rem 0.8rem;
     border-radius: $box-radius;
-    border: 1px solid $medium-grey;
+    border: 1px solid $medium-gray;
     width: 100%;
 
     &:disabled {
-      background-color: $light-grey;
+      background-color: $light-gray;
     }
   }
 
