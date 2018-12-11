@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
+    "build:integration": "vue-cli-service build --mode integration",
     "test": "yarn lint && yarn test:unit --coverage",
     "test:dev": "yarn test:unit --watchAll",
     "lint": "vue-cli-service lint",
     "serve": "yarn run server:mock | vue-cli-service serve",
+    "serve:fullstack": "yarn run server:mock | vue-cli-service serve --mode fullstack",
     "test:unit": "vue-cli-service test:unit",
     "server:mock": "node ./server-mock/index.js"
   },
