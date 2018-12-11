@@ -1,4 +1,4 @@
-image: alpine:latest
+image: pstauffer/curl:latest
 
 variables:
   http_proxy: 'http://proxyace1.prod.extelia.fr:8080'
