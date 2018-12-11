@@ -3,9 +3,8 @@ import { Store } from 'vuex-mock-store';
 import Authentication from './Authentication.vue';
 import * as utils from '@/utils';
 
-process.env.VUE_APP_AUTH_SERVER_URL = 'http://localhost:4000/oauth';
+process.env.VUE_APP_AUTH_SERVER_URL = 'http://localhost:4000';
 process.env.VUE_APP_CLIENT_ID = 'nextgenui-implicit';
-process.env.VUE_APP_FRONT_URL = 'http://localhost:8080';
 
 const store = new Store({
   state: { token: undefined },
@@ -29,7 +28,7 @@ describe('Authentication', () => {
     });
 
     expect(utils.redirectTo).toHaveBeenCalledWith(
-      'http://localhost:4000/oauth/authorize?response_type=token&client_id=nextgenui-implicit&redirect_uri=http://localhost:8080/callback'
+      'http://localhost:4000/oauth/authorize?response_type=token&client_id=nextgenui-implicit&redirect_uri=http://localhost/callback'
     );
   });
 

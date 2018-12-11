@@ -34,7 +34,7 @@ export default {
       redirectTo(
         `${process.env.VUE_APP_AUTH_SERVER_URL}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
-        }&redirect_uri=${process.env.VUE_APP_FRONT_URL}/callback`
+        }&redirect_uri=${window.location.origin}/callback`
       );
     },
 
@@ -58,7 +58,7 @@ export default {
         process.env.VUE_APP_AUTH_SERVER_URL
       }/oauth/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
-      }&redirect_uri=${process.env.VUE_APP_FRONT_URL}/refresh`;
+      }&redirect_uri=${window.location.origin}/refresh`;
     },
   },
 };
