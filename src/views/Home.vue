@@ -73,27 +73,6 @@
         <p slot="Client">Step Client</p>
       </UiTabs>
     </div>
-
-    <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <h4>Choix multiples</h4>
-
-          <div class="row">
-            <div class="col-md-6">
-              <MultiChoices
-                :values="valuesForMultiChoice"
-                :selected-values.sync="selectedValuesForMultiChoice"
-              />
-            </div>
-            <div class="col-md-6">
-              <pre>{{ selectedValuesForMultiChoice }}</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <hr>
     <div class="container">
       <div class="card">
@@ -114,7 +93,6 @@
         </div>
       </div>
     </div>
-
     <hr>
     <div class="container">
       <div class="row">
@@ -131,7 +109,9 @@
         </div>
       </div>
     </div>
-
+    <div class="container">
+      <PartnersSearch />
+    </div>
   </div>
 </template>
 
@@ -150,6 +130,7 @@ import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
+import PartnersSearch from '@/components/PartnersSearch';
 
 export default {
   name: 'Home',
@@ -164,8 +145,8 @@ export default {
         name: 'lastName',
       },
       {
-        name: 'partner',
         label: 'Partenaire',
+        name: 'partner',
       },
     ];
     const rows = [
@@ -302,6 +283,7 @@ export default {
     ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
+    PartnersSearch,
   },
 };
 </script>

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchInput.vue multi field displays highlighted results 1`] = `
+<div class="results-hl"><span class="result-hl">{
+  "firstName": "Jonathan",
+  "lastName": "Joe&lt;b&gt;star&lt;/b&gt;"
+}</span><span class="result-hl">{
+  "firstName": "Joseph",
+  "lastName": "Joe&lt;b&gt;star&lt;/b&gt;"
+}</span><span class="result-hl">{
+  "firstName": "Jotaro",
+  "lastName": "Joe&lt;b&gt;star&lt;/b&gt;"
+}</span></div>
+`;
+
+exports[`SearchInput.vue multi field displays highlighted results when no value provided 1`] = `
+<div class="results-hl"><span class="result-hl">{
+  "firstName": "Jonathan",
+  "lastName": "Joestar"
+}</span><span class="result-hl">{
+  "firstName": "Joseph",
+  "lastName": "Joestar"
+}</span><span class="result-hl">{
+  "firstName": "Jotaro",
+  "lastName": "Joestar"
+}</span></div>
+`;
+
+exports[`SearchInput.vue multi field gives all results with empty value 1`] = `<div class="results"><span class="result">Jonathan Joestar - </span><span class="result">Joseph Joestar - </span><span class="result">Jotaro Joestar - </span></div>`;
+
+exports[`SearchInput.vue single field displays highlighted results 1`] = `
+<span class="result-hl">{
+  "name": "ba&lt;b&gt;nana&lt;/b&gt;"
+}</span>
+`;
+
+exports[`SearchInput.vue single field displays highlighted results when no value provided 1`] = `
+<div class="results-hl"><span class="result-hl">{
+  "name": "apple"
+}</span><span class="result-hl">{
+  "name": "banana"
+}</span><span class="result-hl">{
+  "name": "orange"
+}</span></div>
+`;

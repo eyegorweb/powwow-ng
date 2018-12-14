@@ -1,8 +1,10 @@
 <template>
-  <label :class="$slots.icon && 'has-icon'">
+  <label
+    :class="{ 'has-icon': $slots.icon }"
+  >
     <slot name="icon" />
+    <slot name="beforeInput" />
     <input
-      class="form-control"
       type="text"
       :placeholder="placeholder"
       v-bind="$attrs"
@@ -57,13 +59,14 @@ label {
   }
 
   &.has-icon input {
-    padding-left: calc(1rem + 1em);
+    padding-left: calc(0.8rem + 1.5em);
   }
 
-  i {
+  & > *:first-child {
     display: block;
     position: absolute;
     left: 0.8rem;
+    width: 1em;
     top: 50%;
     transform: translateY(-50%);
   }

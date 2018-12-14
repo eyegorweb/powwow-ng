@@ -38,7 +38,7 @@
       </transition>
       <div :key="containerVersion" class="input-group position-relative">
         <input class="form-control border-right-0 rounded-0 h-100" type="text" ref="start">
-        <i class="icon ic-Arrow-Right-Icon position-absolute"/>
+        <i class="icon ic-Arrow-Right-Icon position-absolute" />
         <input class="form-control h-100" type="text" ref="end">
       </div>
     </div>
