@@ -47,7 +47,7 @@ module.exports = {
     },
     {
       name: 'quantity',
-      title: 'Qauntité',
+      title: 'Quantité',
       type: '',
       values: [],
     },
