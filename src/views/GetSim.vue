@@ -15,7 +15,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-9 offset-md-3">
+        <div class="col-md-3">
+          <GetSimIndicators />
+          <br>
+          <GetSimFilters />
+        </div>
+        <div class="col-md-9">
           <GetSimOrders />
         </div>
       </div>
@@ -27,6 +32,8 @@
 import NavBars from '@/components/NavBars';
 import UiButton from '@/components/ui/Button';
 import GetSimOrders from '@/components/GetSimOrders';
+import GetSimFilters from '@/components/GetSimFilters';
+import GetSimIndicators from '@/components/GetSimIndicators';
 
 export default {
   name: 'GetSim',
@@ -34,6 +41,8 @@ export default {
     NavBars,
     UiButton,
     GetSimOrders,
+    GetSimFilters,
+    GetSimIndicators,
   },
 };
 </script>

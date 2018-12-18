@@ -55,6 +55,7 @@ export default {
       this.fetchOrders();
     },
     pageLimit() {
+      this.page = 1;
       this.fetchOrders();
     },
   },
