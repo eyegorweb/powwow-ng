@@ -18,6 +18,7 @@ function startServer(schemaGQL) {
       availableFilters: () => db.availableFilters,
       orders: () => db.orders,
       getCurrentUser: () => db.getCurrentUser,
+      indicators: () => db.indicators,
     },
   };
 

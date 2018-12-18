@@ -47,8 +47,17 @@ enum Title {
   MRS
 }
 
+type GetSimIndicators {
+  ordersToValidate: Int
+  ordersInProgress: Int
+  ordersNonConfirmed: Int
+  ordersFailing: Int
+  ordersToBeValidated: Int
+}
+
 type Query {
   availableFilters: [AvailableFilter]
   orders(limit: Int, offset: Int): OrdersResponse
   getCurrentUser: User
+  indicators: GetSimIndicators
 }
