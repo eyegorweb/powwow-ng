@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <FilterBar />
+        <GetSimFilters />
       </div>
       <div class="col-md-9">
         <div class="card">
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import FilterBar from '@/components/filters/FilterBar';
+import GetSimFilters from '@/components/GetSimFilters';
 
 export default {
   name: 'Filters',
   components: {
-    FilterBar,
+    GetSimFilters,
   },
   computed: {
     filtersState() {

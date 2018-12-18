@@ -58,7 +58,7 @@ module.exports = {
       values: [],
     },
     {
-      name: 'offer',
+      name: 'createdcommand',
       title: 'Créateur de la commande',
       type: 'searchithSelect',
       values: [],
