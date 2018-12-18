@@ -65,12 +65,12 @@ export default {
         {
           label: 'ID',
           name: 'id',
-          orderable: false,
+          orderable: true,
         },
         {
           label: 'Date de création',
           name: 'creationDate',
-          orderable: false,
+          orderable: true,
         },
         {
           label: 'Date de commande',
@@ -90,7 +90,7 @@ export default {
       pageLimit: 20,
       total: 0,
       orderBy: {
-        key: 'orderDate',
+        key: 'id',
         direction: 'DESC',
       },
     };
