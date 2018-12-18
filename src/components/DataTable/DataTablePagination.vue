@@ -1,0 +1,137 @@
+<template>
+  <ul class="pagination mb-0">
+    <li
+      class="page-item"
+      :class="{'disabled': page === 1}"
+    >
+      <a
+        class="page-link"
+        href="#"
+        @click="previousPage()"
+      >
+        <span class="ic-Arrow-Previous-Icon" />
+      </a>
+    </li>
+    <li
+      class="page-item page-nb"
+      :class="{'active': isPageActive(index)}"
+      :key="'page_' + index"
+      v-for="index in pagesToShow"
+    >
+      <a
+        class="page-link"
+        href="#"
+        @click="gotoPage(index)"
+      >{{ index }}</a>
+    </li>
+
+    <li
+      class="page-item"
+      :class="{'disabled': page === pageCount}"
+    >
+      <a
+        class="page-link"
+        href="#"
+        @click="nextPage()"
+      >
+        <span class="ic-Arrow-Next-Icon" />
+      </a>
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  name: 'DataTablePanination',
+  props: {
+    page: {
+      type: Number,
+      required: true,
+    },
+    total: {
+      type: Number,
+      required: true,
+    },
+    pageLimit: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      pageWindow: 3,
+    };
+  },
+  computed: {
+    pageCount() {
+      return Math.ceil(this.total / this.pageLimit);
+    },
+    pagesToShow() {
+      if (this.pageCount > this.pageWindow) {
+        // first x pages
+        if (this.page <= this.pageWindow) {
+          return this.pageWindow;
+        }
+
+        // last x pages
+        if (this.page === this.pageCount) {
+          // TODO: générer dynamiquement ce tableau ?
+          return [this.pageCount - 2, this.pageCount - 1, this.pageCount];
+        }
+        return [this.page - 1, this.page, this.page + 1];
+      }
+
+      if (this.pageCount <= this.pageWindow) {
+        return this.pageCount;
+      }
+
+      return [];
+    },
+  },
+  methods: {
+    isPageActive(index) {
+      return index === this.page;
+    },
+    gotoPage(newPageNb) {
+      this.$emit('update:page', newPageNb);
+    },
+    previousPage() {
+      this.gotoPage(this.page - 1);
+    },
+    nextPage() {
+      this.gotoPage(this.page + 1);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.page-item {
+  border: none;
+
+  .page-link {
+    border-color: $white;
+  }
+
+  &.disabled {
+    a {
+      color: #e1e1e1;
+      background-color: $light-gray;
+      border-color: currentColor;
+    }
+  }
+}
+
+.page-nb {
+  a {
+    background-color: transparent;
+    border: none;
+    font-weight: 500;
+    color: $gray;
+  }
+  &.active a {
+    color: $primary;
+    background-color: transparent;
+  }
+}
+</style>

@@ -9,7 +9,10 @@
       >
       <UiTabs :tabs="navbarLinks" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index }">
-          <UiTab :is-selected="index === currentLinkIndex">
+          <UiTab
+            v-if="tab"
+            :is-selected="index === currentLinkIndex"
+          >
             <router-link :to="tab.to">{{ tab.label }}</router-link>
           </UiTab>
         </template>
@@ -64,7 +67,7 @@ export default {
   data() {
     return {
       navbarLinks: [
-        { label: 'GetSIM', to: { name: 'home' } },
+        { label: 'GetSIM', to: { name: 'getsim' } },
         { label: 'GetParc/GetDiag', to: { name: 'home' } },
         { label: 'GetVision', to: { name: 'home' } },
         { label: 'GetReport', to: { name: 'home' } },

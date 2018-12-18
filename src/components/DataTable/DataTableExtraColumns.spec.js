@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import ExtraColumns from '@/components/DataTable/ExtraColumns.vue';
+import ExtraColumns from './DataTableExtraColumns.vue';
 
-describe('ExtraColumns.vue', () => {
+describe('DataTableExtraColumns.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
 
@@ -40,11 +40,13 @@ describe('ExtraColumns.vue', () => {
       },
     });
   });
+
   it('checks colums that are already added when component is created', () => {
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[1].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[2].isChecked).toBeFalsy();
   });
+
   it('it adds an extra column', () => {
     const columns = [
       {

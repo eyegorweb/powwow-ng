@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <div id="nav">
+      <router-link to="/getsim">GetSim</router-link>|
+      <router-link to="/filters">Filters</router-link>|
+      <router-link to="/secured">Secured</router-link>|
+      <router-link to="/draghome">DragHome</router-link>|
+    </div>
     <div class="container">
       <NavBars is-backoffice-profile />
 
@@ -20,9 +26,7 @@
       </div>
 
       <br>
-      <br>
-      <DataTable :columns.sync="columns" :extra-columns="extraColumns" :rows="rows" />
-      <hr>
+
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -110,7 +114,6 @@
 
 <script>
 // @ is an alias to /src
-import DataTable from '@/components/DataTable';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
@@ -141,30 +144,6 @@ export default {
       {
         label: 'Partenaire',
         name: 'partner',
-      },
-    ];
-    const rows = [
-      {
-        id: 1,
-        firstName: 'Leroy',
-        lastName: 'Jenkins',
-        partner: 'Partenaire 1',
-        orderId: '12345',
-        orderStatus: 'OK',
-      },
-    ];
-    const extraColumns = [
-      {
-        name: 'partner',
-        label: 'Partenaire',
-      },
-      {
-        name: 'orderId',
-        label: 'ID de commande',
-      },
-      {
-        name: 'orderStatus',
-        label: 'Statut de commande',
       },
     ];
 
@@ -240,8 +219,6 @@ export default {
     ];
     return {
       columns,
-      rows,
-      extraColumns,
       show: false,
       steps: [
         { label: 'Client' },
@@ -270,7 +247,6 @@ export default {
     Stepper,
     UiTabs,
     TransitionCollapse,
-    DataTable,
     NavBars,
     MultiChoices,
     SearchWithSelect,
