@@ -5,6 +5,8 @@
       :values="filter.values"
       :selected-values.sync="optionValue"
     />
+    <ui-date-range v-if="filter.type === 'dateRange'" :values="filter.values" />
+    <search-with-select v-if="filter.type === 'searchWithSelect'" :values="filter.values" />
   </div>
 </template>
 
@@ -12,11 +14,15 @@
 import { mapMutations } from 'vuex';
 
 import MultiChoices from '@/components/MultiChoices';
+import UiDateRange from '@/components/ui/UiDateRange';
+import SearchWithSelect from '@/components/SearchWithSelect';
 
 export default {
   name: 'FilterOption',
   components: {
     MultiChoices,
+    UiDateRange,
+    SearchWithSelect,
   },
   props: {
     filter: {

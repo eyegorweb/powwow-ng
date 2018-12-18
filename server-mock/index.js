@@ -15,9 +15,9 @@ function startServer(schemaGQL) {
 
   const resolvers = {
     Query: {
-      availableFilters: () => db.availableFilters,
       orders: () => db.orders,
       getCurrentUser: () => db.getCurrentUser,
+      indicators: () => db.indicators,
     },
   };
 
