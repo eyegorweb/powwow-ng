@@ -1,20 +1,55 @@
 scalar JSON
+scalar Date
 
-type Order {
-  creationDate: String
-  partnerName: String
-  id: Int
-  status: String
-  quantity: Int
-  productName: String
-  creator: String
-}
-
-type OrdersResponse {
+#common
+interface Response {
   total: Int!
-  orders: [Order]
 }
 
+input Pagination {
+  limit: Int
+  page: Int
+}
+
+input Sorting {
+  sort: SortDirection = DESCENDING
+  sortBy: String = id #check if "id" doens't rise error
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum criteriaOperation {
+  eq #equals
+  lt #lesser than
+  gt #greater than
+  in #in an array
+  bt #between (range)
+}
+
+input SearchCriteria {
+  key: String! #TODO  this have to be typed, example OrderFilters (enum)
+  operation: criteriaOperation
+  value: String
+  direction: SortDirection
+}
+
+#availableFilters
+type AvailableFilter {
+  name: String!
+  title: String!
+  type: String!
+  values: [Choice]
+}
+
+type Choice {
+  code: String!
+  label: String!
+}
+
+# getCurrentUser
 type User {
   name: Name
   email: String
@@ -43,8 +78,75 @@ type GetSimIndicators {
   ordersToBeValidated: Int
 }
 
+#orders
+
+type OrderedProduct {
+  description: String
+}
+
+type Partner {
+  id: Int!
+  name: String!
+  code: String!
+  siren: String
+  naf: String
+}
+
+type Order {
+  id: ID!
+  name: String
+  creationDate: String!
+  orderDate: String!
+  party: Partner
+  deliveryNum: Int
+  activationAsked: Boolean
+  status: String
+  quantity: Int
+  singleProduct: OrderedProduct
+}
+
+type OrdersResponse {
+  total: Int!
+  orders: [Order]
+}
+
+input OrderSorting {
+  partyName: SortDirection
+  orderDate: SortDirection
+}
+
+enum StringCriterionOperation {
+  EQUALS
+  CONTAINS
+  STARTS_WITH
+  ENDS_WITH
+}
+
+input StringCriterion {
+  operation: StringCriterionOperation
+  value: String
+}
+
+enum DateCriterionOperation {
+  EQUALS
+  GREATER_THAN
+  LESS_THAN
+  BETWEEN
+}
+
+input DateCriterion {
+  operation: DateCriterionOperation
+  value: Date
+  value1: Date
+}
+
+input OrderCriteria {
+  partyName: StringCriterion
+  orderDate: DateCriterion
+}
+
 type Query {
-  orders(limit: Int, offset: Int): OrdersResponse
   getCurrentUser: User
   indicators: GetSimIndicators
+  orders(filter: OrderCriteria, pagination: Pagination, sorting: OrderSorting): OrdersResponse
 }

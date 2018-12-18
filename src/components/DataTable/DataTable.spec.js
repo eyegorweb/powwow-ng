@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import DataTable from '@/components/DataTable/index.vue';
+import DataTable from './DataTable.vue';
 
 describe('DataTable.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
@@ -25,6 +25,10 @@ describe('DataTable.vue', () => {
         lastName: 'Jenkins',
       },
     ];
+    const orderBy = {};
+    const page = 1;
+    const pageLimit = 10;
+    const total = 20;
 
     const extraColumns = [];
 
@@ -33,6 +37,10 @@ describe('DataTable.vue', () => {
         columns,
         rows,
         extraColumns,
+        orderBy,
+        page,
+        pageLimit,
+        total,
       },
     });
   });

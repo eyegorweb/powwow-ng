@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ExtraColumns
+    <DataTableExtraColumns
       v-if="isExtraColumnsVisible"
       :extra-columns="extraColumns"
       :columns="visibleColumns"
@@ -37,51 +37,20 @@
             <UiSelect
               class="text-gray"
               placeholder="Type de partenaire"
-              v-model="perPage"
+              v-model="currentPageLimit"
             >
+              <option :value="10">10</option>
               <option :value="20">20</option>
               <option :value="50">50</option>
             </UiSelect>
           </label>
         </div>
         <nav class="float-right">
-          <ul class="pagination mb-0">
-            <li class="page-item disabled">
-              <a
-                class="page-link"
-                href="#"
-              >
-                <span class="ic-Arrow-Previous-Icon" />
-              </a>
-            </li>
-            <li class="page-item page-nb active">
-              <a
-                class="page-link"
-                href="#"
-              >01</a>
-            </li>
-            <li class="page-item page-nb">
-              <a
-                class="page-link"
-                href="#"
-              >02</a>
-            </li>
-            <li class="page-item page-nb">
-              <a
-                class="page-link"
-                href="#"
-              >03</a>
-            </li>
-
-            <li class="page-item">
-              <a
-                class="page-link"
-                href="#"
-              >
-                <span class="ic-Arrow-Next-Icon" />
-              </a>
-            </li>
-          </ul>
+          <DataTablePagination
+            :total="total"
+            :page.sync="currentPage"
+            :page-limit="pageLimit"
+          />
         </nav>
       </div>
     </div>
@@ -106,7 +75,11 @@
                   class="handle ic-Drag-Column-Icon"
                 />
                 {{ column.label }}
-                <span class="ic-Arrow-Filter-Icon" />
+                <DataTableOrderArrow
+                  v-if="column.orderable"
+                  :column-name="column.name"
+                  :order-by.sync="currentDirection"
+                />
               </th>
               <th :key="'btnAdd'">
                 <button
@@ -133,7 +106,8 @@
             >
               <td
                 :key="column.name"
-                v-for="column in columns"
+                v-for="(column, index) in columns"
+                :colspan="(index + 1) === columns.length ? 2 : 1 "
               >{{ row[column.name] }}</td>
             </tr>
           </tbody>
@@ -145,17 +119,21 @@
 
 <script>
 import draggable from 'vuedraggable';
-import ExtraColumns from './ExtraColumns';
 import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
+import DataTableExtraColumns from './DataTableExtraColumns';
+import DataTablePagination from './DataTablePagination';
+import DataTableOrderArrow from './DataTableOrderArrow';
 
 export default {
   name: 'DataTable',
   components: {
     draggable,
-    ExtraColumns,
     UiSelect,
     UiInput,
+    DataTableExtraColumns,
+    DataTablePagination,
+    DataTableOrderArrow,
   },
   props: {
     columns: {
@@ -168,6 +146,22 @@ export default {
     },
     extraColumns: {
       type: Array,
+      required: true,
+    },
+    orderBy: {
+      type: Object,
+      required: true,
+    },
+    page: {
+      type: Number,
+      required: true,
+    },
+    pageLimit: {
+      type: Number,
+      required: true,
+    },
+    total: {
+      type: Number,
       required: true,
     },
   },
@@ -188,9 +182,34 @@ export default {
         this.$emit('update:columns', newColumns);
       },
     },
+
     visibleColumns: {
       get() {
         return this.columns;
+      },
+    },
+    currentPage: {
+      get() {
+        return this.page;
+      },
+      set(newPage) {
+        this.$emit('update:page', newPage);
+      },
+    },
+    currentDirection: {
+      get() {
+        return this.orderBy;
+      },
+      set(newOrderBy) {
+        this.$emit('update:orderBy', newOrderBy);
+      },
+    },
+    currentPageLimit: {
+      get() {
+        return this.pageLimit;
+      },
+      set(newPageLimit) {
+        this.$emit('update:pageLimit', newPageLimit);
       },
     },
   },
@@ -291,34 +310,5 @@ select {
 .select-arrow {
   display: inline-block;
   transform: translateX(calc(-50% - 15px));
-}
-
-.page-item {
-  border: none;
-
-  .page-link {
-    border-color: $white;
-  }
-
-  &.disabled {
-    a {
-      color: #e1e1e1;
-      background-color: $light-gray;
-      border-color: currentColor;
-    }
-  }
-}
-
-.page-nb {
-  a {
-    background-color: transparent;
-    border: none;
-    font-weight: 500;
-    color: $gray;
-  }
-  &.active a {
-    color: $primary;
-    background-color: transparent;
-  }
 }
 </style>
