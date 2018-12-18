@@ -11,10 +11,7 @@
             <div class="row">
               <div class="col-md-4">
                 <!-- class input-group mb-3 -->
-                <UiDateRange
-                  :start.sync="startDate"
-                  :end.sync="endDate"
-                />
+                <UiDateRange :start.sync="startDate" :end.sync="endDate" />
               </div>
               <br>
             </div>
@@ -24,11 +21,7 @@
 
       <br>
       <br>
-      <DataTable
-        :columns.sync="columns"
-        :extra-columns="extraColumns"
-        :rows="rows"
-      />
+      <DataTable :columns.sync="columns" :extra-columns="extraColumns" :rows="rows" />
       <hr>
       <div class="container">
         <div class="row">
@@ -38,10 +31,7 @@
         </div>
       </div>
       <UiCheckbox>Example</UiCheckbox>
-      <UiButton
-        variant="primary"
-        @click="show = !show"
-      >Afficher le volet</UiButton>
+      <UiButton variant="primary" @click="show = !show">Afficher le volet</UiButton>
       <TransitionCollapse>
         <div v-if="show">Hello there</div>
       </TransitionCollapse>
@@ -112,6 +102,9 @@
     <div class="container">
       <PartnersSearch />
     </div>
+    <div class="container">
+      <GetSimIndicators class="w-50 my-2" />
+    </div>
   </div>
 </template>
 
@@ -130,6 +123,7 @@ import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
+import GetSimIndicators from '@/components/GetSimIndicators';
 import PartnersSearch from '@/components/PartnersSearch';
 
 export default {
@@ -283,6 +277,7 @@ export default {
     ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
+    GetSimIndicators,
     PartnersSearch,
   },
 };
