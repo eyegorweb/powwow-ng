@@ -1,17 +1,5 @@
 scalar JSON
 
-type AvailableFilter {
-  name: String!
-  title: String!
-  type: String!
-  values: [Choice]
-}
-
-type Choice {
-  code: String!
-  label: String!
-}
-
 type Order {
   creationDate: String
   partnerName: String
@@ -56,7 +44,6 @@ type GetSimIndicators {
 }
 
 type Query {
-  availableFilters: [AvailableFilter]
   orders(limit: Int, offset: Int): OrdersResponse
   getCurrentUser: User
   indicators: GetSimIndicators
