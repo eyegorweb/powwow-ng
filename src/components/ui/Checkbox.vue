@@ -1,9 +1,19 @@
 <template>
-  <label class="checkbox-container">
-    <slot />
-    <input type="checkbox" v-bind="$attrs" v-model="model" :value="value">
-    <span class="checkmark" :class="shape" />
-  </label>
+  <div class="checkbox-container">
+    <label>
+      <slot />
+      <input
+        type="checkbox"
+        v-bind="$attrs"
+        v-model="model"
+        :value="value"
+      >
+      <span
+        class="checkmark"
+        :class="isIndeterminate ? 'indeterminate' : shape"
+      />
+    </label>
+  </div>
 </template>
 
 <script>
@@ -28,10 +38,24 @@ export default {
 
   computed: {
     model: {
-      get: ({ checked }) => checked,
-      set(model) {
-        this.$emit('change', model);
+      get: ({ checked, value }) => {
+        // cas indeterminate
+        // si value est un tableau, on retourne true si checked (qui est lui aussi un tableau)
+        // contient tous les elements de value
+        if (Array.isArray(value)) return value.every(v => checked.includes(v));
+        return checked;
       },
+      set(model) {
+        // cas indeterminate
+        // model == true -> on veut la totalité du tableau dans checked
+        // model = false -> on le vide
+        this.$emit('change', Array.isArray(this.value) ? (model ? this.value.slice() : []) : model);
+      },
+    },
+    isIndeterminate({ value, checked }) {
+      if (!Array.isArray(value)) return false;
+      const selectedCount = value.filter(v => checked.includes(v)).length;
+      return selectedCount > 0 && selectedCount < value.length;
     },
   },
 };
@@ -40,11 +64,15 @@ export default {
 <style lang="scss" scoped>
 .checkbox-container {
   display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  user-select: none;
+
+  label {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+
   input {
     opacity: 0;
     cursor: pointer;
@@ -126,6 +154,22 @@ export default {
     border: solid $white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+  }
+
+  &.indeterminate {
+    background-color: $secondary;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 57%;
+      height: 2px;
+      background-color: $white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 </style>

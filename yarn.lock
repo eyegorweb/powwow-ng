@@ -4553,6 +4553,11 @@ functional-red-black-tree@^1.0.1:
   resolved "http://r.cnpmjs.org/functional-red-black-tree/download/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
+fuzzysort@^1.1.4:
+  version "1.1.4"
+  resolved "http://r.cnpmjs.org/fuzzysort/download/fuzzysort-1.1.4.tgz#a0510206ed44532cbb52cf797bf5a3cb12acd4ba"
+  integrity sha1-oFECBu1EUyy7Us95e/WjyxKs1Lo=
+
 gauge@~2.7.3:
   version "2.7.4"
   resolved "http://r.cnpmjs.org/gauge/download/gauge-2.7.4.tgz#2c03405c7538c39d7eb37b317022e325fb018bf7"
@@ -6380,6 +6385,11 @@ lodash.defaultsdeep@^4.6.0:
   resolved "http://r.cnpmjs.org/lodash.defaultsdeep/download/lodash.defaultsdeep-4.6.0.tgz#bec1024f85b1bd96cbea405b23c14ad6443a6f81"
   integrity sha1-vsECT4WxvZbL6kBbI8FK1kQ6b4E=
 
+lodash.differenceby@^4.8.0:
+  version "4.8.0"
+  resolved "http://r.cnpmjs.org/lodash.differenceby/download/lodash.differenceby-4.8.0.tgz#cfd59e94353af5de51da5d302ca4ebff33faac57"
+  integrity sha1-z9WelDU69d5R2l0wLKTr/zP6rFc=
+
 lodash.mapvalues@^4.6.0:
   version "4.6.0"
   resolved "http://r.cnpmjs.org/lodash.mapvalues/download/lodash.mapvalues-4.6.0.tgz#1bafa5005de9dd6f4f26668c30ca37230cc9689c"
@@ -6409,6 +6419,16 @@ lodash.transform@^4.6.0:
   version "4.6.0"
   resolved "http://r.cnpmjs.org/lodash.transform/download/lodash.transform-4.6.0.tgz#12306422f63324aed8483d3f38332b5f670547a0"
   integrity sha1-EjBkIvYzJK7YSD0/ODMrX2cFR6A=
+
+lodash.union@^4.6.0:
+  version "4.6.0"
+  resolved "http://r.cnpmjs.org/lodash.union/download/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
+  integrity sha1-SLtQiECfFvGCFmZkHETdGqrjzYg=
+
+lodash.unionby@^4.8.0:
+  version "4.8.0"
+  resolved "http://r.cnpmjs.org/lodash.unionby/download/lodash.unionby-4.8.0.tgz#883f098ff78f564a727b7508e09cdd539734bb83"
+  integrity sha1-iD8Jj/ePVkpye3UI4JzdU5c0u4M=
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
