@@ -5,6 +5,7 @@
   "scripts": {
     "build": "vue-cli-service build",
     "build:integration": "vue-cli-service build --mode integration",
+    "build:full-local": "vue-cli-service build --mode full-local",
     "test": "yarn lint && yarn test:unit --coverage",
     "test:dev": "yarn test:unit --watchAll",
     "lint": "vue-cli-service lint",
