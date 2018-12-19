@@ -1,12 +1,12 @@
 import { query } from './utils';
 
-export async function searchOrders(fields, orderBy, paginaton) {
+export async function searchOrders(fields, orderBy, pagination) {
   const fieldsParams = fields.reduce((all, item) => {
     all.push(getFieldParam(item));
     return all;
   }, []);
-  const paginationInfo = paginaton
-    ? `, pagination: {page: ${paginaton.page}, limit: ${paginaton.limit}}`
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
 

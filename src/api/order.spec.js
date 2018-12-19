@@ -19,11 +19,11 @@ describe('order api', () => {
   it('adds pagination and field paramters', () => {
     const fields = ['toto', 'titi'];
     const orderBy = {};
-    const paginaton = {
+    const pagination = {
       page: 1,
       limit: 10,
     };
-    searchOrders(fields, orderBy, paginaton);
+    searchOrders(fields, orderBy, pagination);
 
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('pagination: {page: 1, limit: 10}');
@@ -36,11 +36,11 @@ describe('order api', () => {
       key: 'id',
       direction: 'DESC',
     };
-    const paginaton = {
+    const pagination = {
       page: 1,
       limit: 10,
     };
-    searchOrders(fields, orderBy, paginaton);
+    searchOrders(fields, orderBy, pagination);
 
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('sorting: {id: DESC}');
