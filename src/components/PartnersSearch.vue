@@ -81,7 +81,7 @@ import differenceBy from 'lodash.differenceby';
 export default {
   data() {
     return {
-      labelText: 'Tout sélectionner',
+      labelText: this.$t('selectAll'),
       maximumSelectablePartners: 2,
       maximumPartnersReached: false,
       allSelectionsVisible: false,
@@ -151,7 +151,9 @@ export default {
           });
         }
       }
-      this.labelText = isMatching(displayedPartners) ? 'Tout désélectionner' : 'Tout sélectionner';
+      this.labelText = isMatching(displayedPartners)
+        ? this.$t('unSelectAll')
+        : this.$t('selectAll');
     },
   },
 

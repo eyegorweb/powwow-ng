@@ -63,24 +63,24 @@ export default {
     return {
       columns: [
         {
-          label: 'ID',
+          label: this.$t('col.id'),
           name: 'id',
           orderable: true,
         },
         {
-          label: 'Date de création',
+          label: this.$t('col.creationDate'),
           name: 'creationDate',
           orderable: true,
         },
         {
-          label: 'Date de commande',
+          label: this.$t('col.orderDate'),
           name: 'orderDate',
           orderable: true,
         },
       ],
       extraColumns: [
         {
-          label: 'Active',
+          label: this.$t('col.activationAsked'),
           name: 'activationAsked',
           orderable: false,
         },

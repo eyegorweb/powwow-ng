@@ -4,14 +4,14 @@
     <div class="mt-4">
       <div class="row mb-5">
         <div class="col-md-9">
-          <h4><b>GetSim</b> - Gestion des commandes <i class="ic-Info-Icon" /></h4>
+          <h4><b>GetSim</b> - {{ $t("getsim.manage-orders") }} <i class="ic-Info-Icon" /></h4>
         </div>
         <div class="col-md-3">
           <UiButton
             variant="accent"
             block
             class="float-right"
-          >Commander des cartes SIM</UiButton>
+          > {{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>
       <div class="row">
@@ -21,7 +21,7 @@
           <GetSimFilters />
         </div>
         <div class="col-md-9">
-          <GetSimOrders />
+          <GetSimOrders :key="$i18n.locale" />
         </div>
       </div>
     </div>
