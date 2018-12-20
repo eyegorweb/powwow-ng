@@ -12,7 +12,7 @@
           <div class="form-row">
             <div class="form-group col-md-8 mb-0">
               <UiInput
-                placeholder="Rechercher une commande par identifiant"
+                :placeholder="$t('searchOrderById')"
                 value
                 class="d-block"
               >
@@ -26,17 +26,17 @@
               <button
                 type="button"
                 class="btn btn-primary btn-sm btn-block mt-1"
-              >Rechercher</button>
+              >{{ $t('search') }}</button>
             </div>
           </div>
         </form>
       </div>
       <div class="col-md-5">
         <div class="float-left">
-          <label class="form-group">Nb per page:
+          <label class="form-group">{{ $t('numberPerPage') }}:
             <UiSelect
               class="text-gray"
-              placeholder="Type de partenaire"
+              :placeholder="$t('partnerType')"
               v-model="currentPageLimit"
             >
               <option :value="10">10</option>
