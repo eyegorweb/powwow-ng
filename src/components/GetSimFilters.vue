@@ -6,7 +6,13 @@
         <transition-group>
           <FoldableBlock :title="'Partenaires'" :key="'el1'" draggable />
           <FoldableBlock :title="'Compte de facturation'" :key="'el2'" draggable />
-          <FoldableBlock :title="'Statut de la commande'" :key="'el3'" draggable />
+          <FoldableBlock :title="'Statut de la commande'" :key="'el3'" draggable>
+            <UiCheckbox
+              v-for="status in statusResults"
+              v-model="selectedPartners"
+              :value="yooo"
+            >{{ status }}</UiCheckbox>
+          </FoldableBlock>
           <FoldableBlock :title="'Référence de la commande'" :key="'el4'" draggable />
           <FoldableBlock :title="'Date de la commande'" :key="'el5'" draggable />
           <FoldableBlock :title="'Offre'" :key="'el6'" draggable />
@@ -25,15 +31,22 @@
 
 <script>
 import draggable from 'vuedraggable';
+import UiCheckbox from '@/components/ui/Checkbox';
 import FoldableBlock from '@/components/FoldableBlock';
 
 export default {
   components: {
     draggable,
     FoldableBlock,
+    UiCheckbox,
+  },
+  data() {
+    return {
+      statusResults: ['un', 'deux'],
+    };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>
