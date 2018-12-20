@@ -18,6 +18,7 @@ function startServer(schemaGQL) {
       orders: () => db.orders,
       getCurrentUser: () => db.getCurrentUser,
       indicators: () => db.indicators,
+      orderStatuses: () => db.orderStatuses,
     },
   };
 

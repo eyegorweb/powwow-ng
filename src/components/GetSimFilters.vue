@@ -34,6 +34,7 @@
 import draggable from 'vuedraggable';
 import UiCheckbox from '@/components/ui/Checkbox';
 import FoldableBlock from '@/components/FoldableBlock';
+import { fetchOrderStatuses } from '@/api/orderStatuses';
 
 export default {
   components: {
@@ -41,20 +42,12 @@ export default {
     FoldableBlock,
     UiCheckbox,
   },
+  async mounted() {
+    this.statusResults = await fetchOrderStatuses();
+  },
   data() {
     return {
-      statusResults: [
-        {
-          label: 'En attente de validation',
-          checked: false,
-          id: 0,
-        },
-        {
-          label: 'Validée',
-          checked: true,
-          id: 1,
-        },
-      ],
+      statusResults: [],
     };
   },
 };
