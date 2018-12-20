@@ -9,9 +9,10 @@
           <FoldableBlock :title="'Statut de la commande'" :key="'el3'" draggable>
             <UiCheckbox
               v-for="status in statusResults"
-              v-model="selectedPartners"
-              :value="yooo"
-            >{{ status }}</UiCheckbox>
+              :checked="status.checked"
+              :value="status.label"
+              :key="status.id"
+            >{{ status.label }}</UiCheckbox>
           </FoldableBlock>
           <FoldableBlock :title="'Référence de la commande'" :key="'el4'" draggable />
           <FoldableBlock :title="'Date de la commande'" :key="'el5'" draggable />
@@ -42,7 +43,18 @@ export default {
   },
   data() {
     return {
-      statusResults: ['un', 'deux'],
+      statusResults: [
+        {
+          label: 'En attente de validation',
+          checked: false,
+          id: 0,
+        },
+        {
+          label: 'Validée',
+          checked: true,
+          id: 1,
+        },
+      ],
     };
   },
 };
