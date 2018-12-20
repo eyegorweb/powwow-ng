@@ -83,8 +83,8 @@ type Statuses {
 type GetSimIndicators {
   ordersToValidate: Int
   ordersInProgress: Int
-  ordersNonConfirmed: Int
-  ordersFailing: Int
+  nonConfirmedOrders: Int
+  faillingOrders: Int
   ordersToBeValidated: Int
 }
 
@@ -121,10 +121,13 @@ type OrdersResponse {
 }
 
 input OrderSorting {
-  partyName: SortDirection
+  id: SortDirection
+  creationDate: SortDirection
   orderDate: SortDirection
+  partyName: SortDirection
+  deliveryNum: SortDirection
+  activationAsked: SortDirection
 }
-
 enum StringCriterionOperation {
   EQUALS
   CONTAINS

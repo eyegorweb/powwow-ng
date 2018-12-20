@@ -1,25 +1,29 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div>
-      <img class="logo" src="@/assets/logo_bouygues.png" alt>
+      <img
+        class="logo"
+        src="@/assets/logo_bouygues.png"
+        alt
+      >
     </div>
 
     <div class="input-group w-auto flex-grow-1">
       <UiSelect
         class="text-gray"
-        placeholder="Type de partenaire"
+        :placeholder="$t('partnerType')"
         v-model="selectedPartnerType"
         :options="partnersTypeOptions"
       />
       <UiSelect
         class="text-gray"
-        placeholder="Sélectionner des partenaires"
+        :placeholder="$t('choosePartner')"
         v-model="selectedPartner"
         :options="partnersOptions"
       />
       <UiSelect
         class="text-gray"
-        placeholder="Sélectionner des comptes de facturation"
+        :placeholder="$t('chooseBillingAccounts')"
         v-model="selectedAccount"
         :options="billingAccounts"
         disabled

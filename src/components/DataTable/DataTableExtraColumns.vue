@@ -3,7 +3,7 @@
     <div class="col-md-3 offset-md-9 panel-container">
       <div class="card">
         <div class="card-body">
-          <h6>Ajouter / Masquer des colonnes</h6>
+          <h6>{{ $t('showOrHideColumns') }}</h6>
 
           <div class="checkboxes">
             <Checkbox
@@ -13,7 +13,10 @@
             >{{ extraColumn.label }}</Checkbox>
           </div>
 
-          <button class="btn btn-block btn-primary" @click="saveExtraColumns">Enregistrer</button>
+          <button
+            class="btn btn-block btn-primary"
+            @click="saveExtraColumns"
+          >{{ $t('save') }}</button>
         </div>
       </div>
     </div>
