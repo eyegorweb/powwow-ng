@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import auth from './authentication.module';
-import filters from './filters.module';
+import * as auth from './authentication.module';
+import * as filters from './filters.module';
 
 Vue.use(Vuex);
 

@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import PartnersSearch from '@/components/PartnersSearch';
 import sortBy from 'lodash.sortby';
+import { $t } from '@/../tests-utils';
 
 const partners = [
   {
@@ -29,11 +30,15 @@ const partners = [
   },
 ];
 
+const mocks = { $t };
+
+const unselectAll = 'unSelectAll (6)';
+
 describe('PartnersSearch', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(PartnersSearch);
+    wrapper = mount(PartnersSearch, { mocks });
   });
 
   it('keeps selected checkboxes in between searches', () => {
@@ -84,22 +89,20 @@ describe('PartnersSearch', () => {
   });
 
   it('updates the label when all partners are selected', () => {
-    const expected = 'Tout désélectionner';
     wrapper.findAll('input[type=checkbox]:not(:first-child)').setChecked(true);
     expect(wrapper.find('.checkbox-container label').text()).toEqual(
-      expect.stringContaining(expected)
+      expect.stringContaining(unselectAll)
     );
   });
 
   it('updates the label when a partner is removed after all were selected', () => {
-    const expected = 'Tout désélectionner';
     wrapper.findAll('input[type=checkbox]:not(:first-child)').setChecked(true);
     wrapper
       .findAll('input[type=checkbox]')
       .at(2)
       .setChecked(false);
     expect(wrapper.find('.checkbox-container label').text()).toEqual(
-      expect.not.stringContaining(expected)
+      expect.not.stringContaining(unselectAll)
     );
   });
 

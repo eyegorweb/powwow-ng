@@ -1,32 +1,25 @@
 <template>
-  <div class="foldable-block">
-    <span
-      v-if="draggable"
-      class="handle"
-    >
-      <i class="ic-Drag-Column-Icon" />
-    </span>
-    <span class="title">{{ title }}</span>
-    <a @click.prevent="toggleShow">
-      <i
-        v-if="isOpen"
-        class="ic-Arrow-Up-Icon"
-      />
-      <i
-        v-else
-        class="ic-Arrow-Down-Icon"
-      />
-    </a>
-    <div
-      class="foldable-content"
-      :class="{ contentHidden: !isOpen, contentVisible: isOpen}"
-    >
-      <slot />
+  <div class="foldable-block pt-3">
+    <div class="d-flex align-items-center">
+      <span v-if="draggable" class="handle">
+        <i class="ic-Drag-Column-Icon" />
+      </span>
+      <span class="title flex-grow-1">{{ title }}</span>
+      <button class="btn p-0" @click.prevent="toggleShow">
+        <i :class="iconClass" />
+      </button>
+    </div>
+    <div class="pt-3">
+      <TransitionCollapse>
+        <slot v-if="isOpen" />
+      </TransitionCollapse>
     </div>
   </div>
 </template>
 
 <script>
+import TransitionCollapse from '@/components/TransitionCollapse';
+
 export default {
   name: 'FoldableBlock',
   props: {
@@ -34,24 +27,32 @@ export default {
     title: String,
     draggable: Boolean,
   },
+
+  computed: {
+    iconClass() {
+      return this.isOpen ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon';
+    },
+  },
+
   data() {
     return {
       isOpen: this.defaultOpen,
     };
   },
+
   methods: {
     toggleShow() {
       this.isOpen = !this.isOpen;
     },
   },
+
+  components: { TransitionCollapse },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .foldable-block {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 1em;
-  padding-bottom: 1em;
   clear: both;
   .title {
     font-size: 14px;
@@ -59,28 +60,16 @@ export default {
   }
   i {
     font-size: 24px;
-    color: #b5b5b5;
+    color: $gray-680;
     position: relative;
     top: 2px;
   }
-  a {
-    float: right;
+
+  // fix pour Safari
+  .btn {
+    background-color: transparent;
   }
-  a:hover {
-    cursor: pointer;
-  }
-  .contentHidden {
-    max-height: 0;
-    padding-top: 0 !important;
-  }
-  .contentVisible {
-    max-height: 500px;
-  }
-  .foldable-content {
-    overflow: hidden;
-    transition: max-height 0.25s ease-in;
-    padding-top: 1.5em;
-  }
+
   .handle {
     margin-right: 5px;
     position: relative;
