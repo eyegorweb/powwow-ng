@@ -1,10 +1,11 @@
 import { fetchPossibleFilters } from '@/api/filters';
 
-const state = {
+export const state = {
   allAvailableFilters: [],
   currentFilters: [],
 };
-const getters = {
+
+export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
   currentFilters: state => state.currentFilters,
   canShowSelectedFilter: state => {
@@ -12,13 +13,13 @@ const getters = {
   },
 };
 
-const actions = {
+export const actions = {
   async loadPossibleFilters({ commit }) {
     commit('setAvailableFilters', await fetchPossibleFilters());
   },
 };
 
-const mutations = {
+export const mutations = {
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },
@@ -38,11 +39,4 @@ const mutations = {
       });
     }
   },
-};
-
-export default {
-  state,
-  getters,
-  actions,
-  mutations,
 };

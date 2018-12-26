@@ -1,4 +1,4 @@
-import authentification from './authentication.module';
+import * as authentification from './authentication.module';
 import * as userApi from '@/api/user';
 
 describe('Authentication module', () => {

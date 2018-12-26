@@ -1,47 +1,24 @@
 <template>
   <div class="input-group w-100">
-    <div class="input-group-prepend position-relative">
-      <UiButton
-        variant="outline-gray"
-        class="dropdown-toggle"
-        :class="show && 'text-secondary'"
-        @click.stop="show = !show"
-      >Période</UiButton>
-      <transition name="fade">
-        <div
-          class="dropdown-menu p-3 shadow rounded-0 border-0 show"
-          v-if="show"
-          v-clickaway="hideDropdown"
-        >
-          <h6>Choisir une période :</h6>
-          <div>
-            <!-- TODO spécifique aux commandes, si ce composant est réutilisé, réfactoriser -->
-            <UiButton
-              variant="outline-primary"
-              block
-              @click="updateRange(1)"
-            >Commandes depuis 1 mois</UiButton>
-            <UiButton
-              variant="outline-primary"
-              block
-              @click="updateRange(3)"
-            >Commandes depuis 3 mois</UiButton>
-            <UiButton
-              variant="outline-primary"
-              block
-              @click="updateRange(6)"
-            >Commandes depuis 6 mois</UiButton>
-            <UiButton variant="outline-primary" block @click="updateRange(12)">Commandes depuis 1 an</UiButton>
-            <UiButton variant="outline-primary" block>Toutes les commandes</UiButton>
-          </div>
-        </div>
-      </transition>
-      <div :key="containerVersion" class="input-group position-relative">
+    <UiDropdownButton ref="dropdown" class="input-group-prepend">
+      <template slot="button">Période</template>
+
+      <h6>Choisir une période :</h6>
+      <div>
+        <!-- TODO spécifique aux commandes, si ce composant est réutilisé, réfactoriser -->
+        <UiButton variant="outline-primary" block @click="updateRange(1)">Commandes depuis 1 mois</UiButton>
+        <UiButton variant="outline-primary" block @click="updateRange(3)">Commandes depuis 3 mois</UiButton>
+        <UiButton variant="outline-primary" block @click="updateRange(6)">Commandes depuis 6 mois</UiButton>
+        <UiButton variant="outline-primary" block @click="updateRange(12)">Commandes depuis 1 an</UiButton>
+        <UiButton variant="outline-primary" block>Toutes les commandes</UiButton>
+      </div>
+
+      <div slot="append" :key="containerVersion" class="input-group position-relative">
         <input class="form-control border-right-0 rounded-0 h-100" type="text" ref="start">
         <i class="icon ic-Arrow-Right-Icon position-absolute" />
         <input class="form-control h-100" type="text" ref="end">
       </div>
-    </div>
+    </UiDropdownButton>
   </div>
 </template>
 
@@ -49,11 +26,11 @@
 import flatpickr from 'flatpickr';
 import RangePlugin from 'flatpickr/dist/plugins/rangePlugin';
 import 'flatpickr/dist/flatpickr.min.css';
-import UiButton from '@/components/ui/Button';
 import { propWithSync } from '@/mixins';
 import { French } from 'flatpickr/dist/l10n/fr.js';
-import { clickaway } from '@/directives/clickaway';
 import { subMonths } from 'date-fns';
+import UiButton from '@/components/ui/Button';
+import UiDropdownButton from '@/components/ui/UiDropdownButton';
 
 flatpickr.defaultConfig.plugins;
 
@@ -75,7 +52,7 @@ export default {
 
   methods: {
     hideDropdown() {
-      this.show = false;
+      this.$refs.dropdown.hide();
     },
     onChange([start, end]) {
       // on evite des changer la date vers un objet different si celui-ci représente la même date
@@ -114,6 +91,7 @@ export default {
       this.containerVersion += 1;
       await this.$nextTick();
       this.createFlatpickr();
+      this.$refs.dropdown.hide();
     },
   },
 
@@ -133,8 +111,7 @@ export default {
     this.fp.destroy();
   },
 
-  components: { UiButton },
-  directives: { clickaway },
+  components: { UiButton, UiDropdownButton },
 };
 </script>
 
@@ -142,7 +119,7 @@ export default {
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
-.input-group-prepend > .btn {
+.input-group-prepend /deep/ .dropdown-toggle {
   background-color: $light-gray;
 }
 

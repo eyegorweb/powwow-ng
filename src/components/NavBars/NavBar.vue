@@ -25,14 +25,14 @@
       <div class="lang-flags">
         <a
           href="#"
-          @click.stop="$i18n.locale='fr'"
+          @click.prevent="$i18n.locale='fr'"
           :class="{active: $i18n.locale === 'fr'}"
         >
           <img src="@/assets/fr.png">
         </a>
         <a
           href="#"
-          @click.stop="$i18n.locale='en'"
+          @click.prevent="$i18n.locale='en'"
           :class="{active: $i18n.locale === 'en'}"
         >
           <img src="@/assets/en.png">

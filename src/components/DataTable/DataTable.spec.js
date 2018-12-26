@@ -1,5 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
+import { $t, $i18n } from '@/../tests-utils';
 import DataTable from './DataTable.vue';
+
+const mocks = { $i18n, $t };
 
 describe('DataTable.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
@@ -42,6 +45,7 @@ describe('DataTable.vue', () => {
         pageLimit,
         total,
       },
+      mocks,
     });
   });
 

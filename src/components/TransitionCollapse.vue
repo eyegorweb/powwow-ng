@@ -1,10 +1,5 @@
 <template>
-  <transition
-    name="collapse"
-    @enter="enter"
-    @after-enter="afterEnter"
-    @leave="leave"
-  >
+  <transition name="collapse" @enter="enter" @after-enter="afterEnter" @leave="leave">
     <slot />
   </transition>
 </template>
