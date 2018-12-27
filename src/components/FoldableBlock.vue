@@ -1,13 +1,19 @@
 <template>
   <div class="foldable-block pt-3">
     <div class="d-flex align-items-center">
-      <span v-if="draggable" class="handle">
+      <span
+        v-if="draggable"
+        class="handle"
+      >
         <i class="ic-Drag-Column-Icon" />
       </span>
       <span class="title flex-grow-1">{{ title }}</span>
-      <button class="btn p-0" @click.prevent="toggleShow">
+      <a
+        class=" p-0"
+        @click.prevent="toggleShow"
+      >
         <i :class="iconClass" />
-      </button>
+      </a>
     </div>
     <div class="pt-3">
       <TransitionCollapse>
@@ -64,19 +70,32 @@ export default {
     position: relative;
     top: 2px;
   }
-
-  // fix pour Safari
-  .btn {
-    background-color: transparent;
+  a {
+    float: right;
   }
-
-  .handle {
-    margin-right: 5px;
-    position: relative;
-    top: 2px;
+  a:hover {
+    cursor: pointer;
   }
-  .handle:hover {
-    cursor: move;
+  .contentHidden {
+    max-height: 0;
+    padding-top: 0 !important;
+  }
+  .contentVisible {
+    max-height: 100%;
+
+    // fix pour Safari
+    .btn {
+      background-color: transparent;
+    }
+
+    .handle {
+      margin-right: 5px;
+      position: relative;
+      top: 2px;
+    }
+    .handle:hover {
+      cursor: move;
+    }
   }
 }
 </style>
