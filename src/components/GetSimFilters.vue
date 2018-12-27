@@ -3,15 +3,16 @@
     <div class="card-body">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
-      <SelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
+      <SelectedFilters
+        v-if="canShowSelectedFilter"
+        :current-filters="currentFilters"
+      />
       <draggable>
         <transition-group>
-          <!-- NOTE: les keys ne servent à rien s'ils ne peuvent pas être supprimés (eg: v-if, v-for) -->
           <FoldableBlock
             :title="$t('filters.partners')"
             :key="'el1'"
             draggable
-            default-open
           >
             <GetSimPartnersFilter />
           </FoldableBlock>
@@ -49,7 +50,9 @@
             :title="$t('filters.customFields')"
             :key="'el8'"
             draggable
-          />
+          >
+            <GetSimCustomFields :fields="configAccount" />
+          </FoldableBlock>
           <FoldableBlock
             :title="$t('filters.orderCreator')"
             :key="'el9'"
@@ -85,6 +88,7 @@
 import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
+import GetSimCustomFields from '@/components/GetSimCustomFields';
 import SelectedFilters from '@/components/filters/selected/SelectedFilters';
 import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
 
@@ -92,15 +96,51 @@ export default {
   computed: {
     ...mapGetters(['currentFilters', 'canShowSelectedFilter']),
   },
+  data() {
+    const configAccount = [
+      {
+        type: 'input',
+      },
+      {
+        type: 'multichoices',
+        values: [
+          {
+            code: 'c1',
+            value: 'Partenaire 1',
+            label: 'Partenaire 1',
+          },
+          {
+            code: 'c2',
+            value: 'Partenaire 2',
+            label: 'Partenaire 2',
+          },
+          {
+            code: 'c3',
+            value: 'Partenaire 3',
+            label: 'Partenaire 3',
+          },
+        ],
+      },
+      {
+        type: 'date',
+      },
+    ];
+    const selectedValuesForMultiChoice = [];
+    return {
+      configAccount,
+      selectedValuesForMultiChoice,
+    };
+  },
 
   components: {
     draggable,
-    SelectedFilters,
     FoldableBlock,
     GetSimPartnersFilter,
+    GetSimCustomFields,
+    SelectedFilters,
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

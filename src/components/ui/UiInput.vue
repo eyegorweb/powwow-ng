@@ -55,13 +55,19 @@ label {
     padding-left: calc(0.8rem + 1.5em);
   }
 
-  & > *:not(input):first-child {
+  & > *:first-child {
     display: block;
     position: absolute;
     left: 0.8rem;
     width: 1em;
     top: 50%;
     transform: translateY(-50%);
+  }
+}
+// TODO: put this rule in the CustomFields component
+label.container {
+  input {
+    width: auto !important;
   }
 }
 </style>
