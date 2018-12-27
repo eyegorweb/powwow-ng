@@ -1,6 +1,9 @@
 <template>
   <div class="search-input">
-    <UiInput v-model="$value">
+    <UiInput
+      v-model="$value"
+      @update:value="$emit('update:value', $event)"
+    >
       <!-- TODO:Utiliser la bonne icone -->
       <img
         style="font-size: 24px"
@@ -68,6 +71,10 @@ export default {
         }));
     },
     highlightedResult() {
+      if (!this.items) {
+        return [];
+      }
+
       return this.items.map(item => ({
         item,
         highlighted: this.fields.reduce((highlighted, field) => {

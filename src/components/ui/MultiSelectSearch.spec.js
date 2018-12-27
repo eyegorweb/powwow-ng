@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PartnersSearch from '@/components/PartnersSearch';
+import MultiSelectSearch from './MultiSelectSearch';
 import sortBy from 'lodash.sortby';
 import { $t } from '@/../tests-utils';
 
@@ -38,7 +38,12 @@ describe('PartnersSearch', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(PartnersSearch, { mocks });
+    wrapper = mount(MultiSelectSearch, {
+      propsData: {
+        items: [...partners],
+      },
+      mocks,
+    });
   });
 
   it('keeps selected checkboxes in between searches', () => {
@@ -59,33 +64,33 @@ describe('PartnersSearch', () => {
   it('adds all filtered values to empty array', () => {
     wrapper.find('input[type=text]').setValue('geo');
     wrapper.find('input[type=checkbox]').setChecked(true);
-    expect(sortBy(wrapper.vm.selectedPartners, 'id')).toEqual(partners.slice(3, 6));
+    expect(sortBy(wrapper.vm.selectedItems, 'id')).toEqual(partners.slice(3, 6));
   });
 
   it('does not duplicate entries when selecting all', () => {
-    wrapper.setData({ selectedPartners: [partners[3]] });
+    wrapper.setData({ selectedItems: [partners[3]] });
     wrapper.find('input[type=text]').setValue('geo');
     // NOTE bug avec test utils qui declenche checked puis unchecked
     // wrapper.find('input[type=checkbox]').setChecked(true);
-    wrapper.vm.addAllToSelectedPartners(partners.slice(3, 6), partners.slice(3, 6));
-    expect(sortBy(wrapper.vm.selectedPartners, 'id')).toEqual(partners.slice(3, 6));
+    wrapper.vm.addAllToSelectedItems(partners.slice(3, 6), partners.slice(3, 6));
+    expect(sortBy(wrapper.vm.selectedItems, 'id')).toEqual(partners.slice(3, 6));
   });
 
   it('empties array when label is clicked', () => {
-    wrapper.setData({ selectedPartners: [...partners] });
+    wrapper.setData({ selectedItems: [...partners] });
     wrapper.find('input[type=checkbox]').setChecked(true);
     wrapper.find('input[type=checkbox]').setChecked(false);
-    expect(sortBy(wrapper.vm.selectedPartners, 'id')).toHaveLength(0);
+    expect(sortBy(wrapper.vm.selectedItems, 'id')).toHaveLength(0);
   });
 
   it('only removes searched terms from array when label is clicked after a search', () => {
-    wrapper.setData({ selectedPartners: [...partners] });
+    wrapper.setData({ selectedItems: [...partners] });
     wrapper.find('input[type=text]').setValue('erdf');
     // NOTE meme chose que le test précédant
     // wrapper.find('input[type=checkbox]').setChecked(false);
-    wrapper.vm.addAllToSelectedPartners([], partners.slice(0, 3));
+    wrapper.vm.addAllToSelectedItems([], partners.slice(0, 3));
 
-    expect(sortBy(wrapper.vm.selectedPartners, 'id')).toEqual(partners.slice(3, 6));
+    expect(sortBy(wrapper.vm.selectedItems, 'id')).toEqual(partners.slice(3, 6));
   });
 
   it('updates the label when all partners are selected', () => {
@@ -107,17 +112,14 @@ describe('PartnersSearch', () => {
   });
 
   it('removes from the array an item that is clicked', () => {
-    wrapper.setData({ selectedPartners: [...partners] });
+    wrapper.setData({ selectedItems: [...partners] });
     const itemToRemove = wrapper.findAll('.selection').at(1); // on se base sur un nombre maximum de partners fixé à 2
     itemToRemove.find('.remove-item').trigger('click');
-    expect(
-      wrapper.vm.selectedPartners.find(i => i.label === 'erdf grdf usl-ouest')
-    ).toBeUndefined();
+    expect(wrapper.vm.selectedItems.find(i => i.label === 'erdf grdf usl-ouest')).toBeUndefined();
   });
 
   it('displays all selected partners when the +N button is clicked', () => {
-    wrapper.setData({ selectedPartners: [...partners] });
-    wrapper.find('.display-selections').trigger('click');
-    expect(wrapper.findAll('.selection').length).toBe(wrapper.vm.selectedPartners.length);
+    wrapper.find('button').trigger('click');
+    expect(wrapper.findAll('.selection').length).toBe(wrapper.vm.selectedItems.length);
   });
 });

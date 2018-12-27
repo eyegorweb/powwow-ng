@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group bg-white">
     <li class="list-group-item">{{ $t('indicators.ordersToValidate') }}
-      <div class="float-right text-danger">{{ ordersToValidate }}</div>
+      <div class="float-right text-danger">{{ ordersValidated }}</div>
     </li>
     <li class="list-group-item">{{ $t('indicators.ordersInProgress') }}
       <div class="float-right text-success">{{ ordersInProgress }}</div>
@@ -24,7 +24,7 @@ import { fetchGetSimIndicators } from '@/api/indicators';
 export default {
   data() {
     return {
-      ordersToValidate: 0,
+      ordersValidated: 0,
       ordersInProgress: 0,
       nonConfirmedOrders: 0,
       faillingOrders: 0,

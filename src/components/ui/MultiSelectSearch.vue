@@ -1,15 +1,16 @@
 <template>
-  <div class="container bg-white clearfix pb-3 partners-search">
+  <div class="container bg-white clearfix pb-3 items-search">
     <SearchInput
-      :items="partners"
-      :fields="['label']"
+      :items="itemsToSearch"
+      :fields="inputFields"
       @clear="removeSelection()"
+      @update:value="$emit('update:search', $event)"
     >
       <template slot="beforeInput">
         <div v-if="!allSelectionsVisible">
           <div
-            v-for="selected in cutSelectedPartners"
-            class="selection ml-2 my-2 text-white bg-secondary py-1 rounded"
+            v-for="selected in cutSelectedItems"
+            class="selection ml-2 my-1 text-white bg-secondary rounded"
             :key="selected.id"
           >
             {{ selected.label }}
@@ -22,15 +23,15 @@
           </div>
           <button
             class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
-            v-if="maximumPartnersReached"
+            v-if="maximumItemsReached"
             @click="allSelectionsVisible = true"
-          >{{ `+${selectedPartners.length - maximumSelectablePartners}` }}</button>
+          >{{ `+${selectedItems.length - maximumSelectableItems}` }}</button>
         </div>
 
         <div v-else>
           <div
-            v-for="selected in selectedPartners"
-            class="selection ml-2 my-2 text-white bg-secondary py-1 rounded"
+            v-for="selected in selectedItems"
+            class="selection ml-2 my-1 text-white bg-secondary rounded"
             :key="selected.id"
           >
             {{ selected.label }}
@@ -45,17 +46,19 @@
       </template>
       <div
         class="checkboxes"
+        ref="checkboxes"
+        @scroll="onScroll"
         slot-scope="{ results }"
       >
         <UiCheckbox
           :value="results.map(r => r.item)"
           :checked="multiSelectValues(results.map(r => r.item))"
-          @change="addAllToSelectedPartners($event, results.map(r => r.item)), updateTextLabel($event, results.map(r => r.item))"
+          @change="addAllToSelectedItems($event, results.map(r => r.item)), updateTextLabel($event, results.map(r => r.item))"
           class="text-secondary"
         >{{ labelText }} ({{ results.length }})</UiCheckbox>
         <UiCheckbox
           v-for="result in results"
-          v-model="selectedPartners"
+          v-model="selectedItems"
           :value="result.item"
           :key="result.item.id"
           @change="updateTextLabel($event, results.map(r => r.item))"
@@ -67,6 +70,7 @@
     <UiButton
       class="float-right px-5"
       variant="primary"
+      size="sm"
     >Appliquer</UiButton>
   </div>
 </template>
@@ -77,51 +81,36 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import unionBy from 'lodash.unionby';
 import differenceBy from 'lodash.differenceby';
+import isEqual from 'lodash.isequal';
 
 export default {
+  props: {
+    items: {
+      type: Array,
+    },
+  },
   data() {
     return {
       labelText: this.$t('selectAll'),
-      maximumSelectablePartners: 2,
-      maximumPartnersReached: false,
+      maximumSelectableItems: 2,
+      maximumItemsReached: false,
       allSelectionsVisible: false,
-      selectedPartners: [],
-      partners: [
-        {
-          label: 'erdf linky prod',
-          id: 0,
-        },
-        {
-          label: 'erdf grdf usl-ouest',
-          id: 1,
-        },
-        {
-          label: 'erdf linky services',
-          id: 2,
-        },
-        {
-          label: 'GEOLOC SYSTEMS',
-          id: 3,
-        },
-        {
-          label: 'GEOMOBILE',
-          id: 4,
-        },
-        {
-          label: 'GEOTRACTEUR SARL',
-          id: 5,
-        },
-      ],
+      selectedItems: [],
+      canNotifyScrollLimit: true,
     };
   },
 
+  updated() {
+    this.canNotifyScrollLimit = true;
+  },
+
   watch: {
-    selectedPartners: function(val) {
+    selectedItems: function(val) {
       // TODO: gerer le cas ou on fait une recherche texte
-      this.maximumPartnersReached = val.length > this.maximumSelectablePartners ? true : false;
+      this.maximumItemsReached = val.length > this.maximumSelectableItems ? true : false;
     },
 
-    maximumPartnersReached: function(val) {
+    maximumItemsReached: function(val) {
       if (val && this.allSelectionsVisible) {
         this.allSelectionsVisible = true;
       }
@@ -129,42 +118,53 @@ export default {
   },
 
   methods: {
-    addAllToSelectedPartners(partners, displayedPartners) {
-      if (!partners.length)
-        this.selectedPartners = differenceBy(this.selectedPartners, displayedPartners, 'id');
-      else this.selectedPartners = unionBy(this.selectedPartners, partners, 'id');
+    addAllToSelectedItems(items, displayedItems) {
+      if (!items.length)
+        this.selectedItems = differenceBy(this.selectedItems, displayedItems, 'id');
+      else this.selectedItems = unionBy(this.selectedItems, items, 'id');
     },
     // supprime toutes les selections courantes au clic sur l'icone, sinon supprime la selection cliquée
     removeSelection(currentSelection) {
       const updatedSelections = !currentSelection
         ? []
-        : this.selectedPartners.filter(selection => selection != currentSelection);
-      this.selectedPartners = updatedSelections;
-      this.updateTextLabel(this.selectedPartners);
+        : this.selectedItems.filter(selection => selection != currentSelection);
+      this.selectedItems = updatedSelections;
+      this.updateTextLabel(this.selectedItems);
     },
-    updateTextLabel(results, displayedPartners) {
+    updateTextLabel(results, displayedItems) {
       function isMatching(displayedValues) {
-        const selectedPartners = results;
+        const selectedItems = results;
         if (displayedValues) {
           return displayedValues.every(function(v) {
-            return selectedPartners.includes(v);
+            return selectedItems.includes(v);
           });
         }
       }
-      this.labelText = isMatching(displayedPartners)
-        ? this.$t('unSelectAll')
-        : this.$t('selectAll');
+      this.labelText = isMatching(displayedItems) ? this.$t('unSelectAll') : this.$t('selectAll');
+    },
+    onScroll() {
+      const needMore = this.$refs.checkboxes.scrollTop >= this.$refs.checkboxes.scrollHeight / 2;
+      if (needMore && this.canNotifyScrollLimit) {
+        this.canNotifyScrollLimit = false;
+        this.$emit('scroll:limit');
+      }
     },
   },
 
   computed: {
     multiSelectValues() {
-      const selectedPartners = this.selectedPartners;
-      return displayedValues => displayedValues.filter(v => selectedPartners.includes(v));
+      const selectedItems = this.selectedItems;
+      return displayedValues => displayedValues.filter(v => selectedItems.find(s => isEqual(v, s)));
     },
-    cutSelectedPartners() {
+    cutSelectedItems() {
       // renvoit les N premiers partenaires sélectionnés
-      return this.selectedPartners.slice(0, this.maximumSelectablePartners);
+      return this.selectedItems.slice(0, this.maximumSelectableItems);
+    },
+    itemsToSearch() {
+      return this.items;
+    },
+    inputFields() {
+      return ['label'];
     },
   },
 
@@ -208,7 +208,12 @@ export default {
   }
 }
 
-.partners-search /deep/ .search-input {
+.items-search {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.items-search /deep/ .search-input {
   & > label {
     border-bottom: 1px solid $medium-gray;
     align-items: center;
@@ -225,5 +230,10 @@ export default {
       width: 100%;
     }
   }
+}
+
+.checkboxes {
+  overflow-y: auto;
+  height: 12rem;
 }
 </style>
