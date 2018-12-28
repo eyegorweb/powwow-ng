@@ -60,7 +60,7 @@
           v-for="result in results"
           v-model="selectedItems"
           :value="result.item"
-          :key="result.item.id"
+          :key="'ms_' + result.item.id"
           @change="updateTextLabel($event, results.map(r => r.item))"
         >
           <span v-html="result.highlighted.label" />
@@ -88,6 +88,9 @@ export default {
     items: {
       type: Array,
     },
+    defaultSelectedItems: {
+      type: Array,
+    },
   },
   data() {
     return {
@@ -95,7 +98,6 @@ export default {
       maximumSelectableItems: 2,
       maximumItemsReached: false,
       allSelectionsVisible: false,
-      selectedItems: [],
       canNotifyScrollLimit: true,
     };
   },
@@ -136,7 +138,7 @@ export default {
         const selectedItems = results;
         if (displayedValues) {
           return displayedValues.every(function(v) {
-            return selectedItems.includes(v);
+            return !!selectedItems.filter(s => isEqual(s, v));
           });
         }
       }
@@ -165,6 +167,14 @@ export default {
     },
     inputFields() {
       return ['label'];
+    },
+    selectedItems: {
+      get() {
+        return this.defaultSelectedItems;
+      },
+      set(newSelected) {
+        this.$emit('update:defaultSelectedItems', newSelected);
+      },
     },
   },
 

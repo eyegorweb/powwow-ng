@@ -9,7 +9,8 @@ export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
   currentFilters: state => state.currentFilters,
   canShowSelectedFilter: state => {
-    return !!state.currentFilters.filter(f => f.values.length > 0).length;
+    const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
+    return !!filtersFound && !!filtersFound.length;
   },
 };
 
@@ -23,7 +24,7 @@ export const mutations = {
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },
-  selectFilterValue(state, { name, newValue }) {
+  selectFilterValue(state, { id, name, newValue }) {
     const isFilterFound = state.currentFilters.find(f => f.name === name);
     if (isFilterFound) {
       state.currentFilters = state.currentFilters.map(f => {
@@ -34,6 +35,7 @@ export const mutations = {
       });
     } else {
       state.currentFilters.push({
+        id,
         name,
         values: newValue,
       });

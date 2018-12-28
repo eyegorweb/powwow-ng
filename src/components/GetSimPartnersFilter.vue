@@ -1,6 +1,7 @@
 <template>
   <MultiSelectSearch
     :items="partners"
+    :default-selected-items.sync="selectedPartners"
     @update:search="searchValueChanged"
     @scroll:limit="nextPage"
   />
@@ -9,6 +10,7 @@
 <script>
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
 import { fetchpartners } from '@/api/partners';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -18,6 +20,8 @@ export default {
     this.partners = await fetchpartners('', { page: 1, limit: 10 });
   },
   methods: {
+    ...mapMutations(['selectFilterValue']),
+
     async searchValueChanged(q) {
       this.partners = await fetchpartners(q, { page: 1, limit: 50 });
       this.lastSearchTerm = q;
@@ -31,11 +35,32 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters(['currentFilters']),
+
+    selectedPartners: {
+      get() {
+        const foundFilters = this.currentFilters.filter(c => c.id === 'filters.partners');
+        if (foundFilters && foundFilters.length) {
+          return foundFilters[0].values;
+        }
+        return [];
+      },
+      set(partners) {
+        this.selectFilterValue({
+          id: 'filters.partners',
+          name: this.$t('filters.partners'),
+          newValue: partners,
+        });
+      },
+    },
+  },
   data() {
     return {
       lastSearchTerm: '',
       page: 1,
       partners: [],
+      selectedPartnersCol: [],
     };
   },
 };

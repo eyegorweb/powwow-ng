@@ -2,7 +2,12 @@
   <label :class="{ 'has-icon': $slots.icon }">
     <slot name="icon" />
     <slot name="beforeInput" />
-    <input type="text" :placeholder="placeholder" v-bind="$attrs" v-model="value_">
+    <input
+      type="text"
+      :placeholder="placeholder"
+      v-bind="$attrs"
+      v-model="value_"
+    >
   </label>
 </template>
 
@@ -55,7 +60,7 @@ label {
     padding-left: calc(0.8rem + 1.5em);
   }
 
-  & > *:first-child {
+  & > *:not(input):first-child {
     display: block;
     position: absolute;
     left: 0.8rem;

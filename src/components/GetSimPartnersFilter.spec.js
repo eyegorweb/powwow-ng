@@ -1,10 +1,17 @@
 import { mount } from '@vue/test-utils';
 import GetSimPartnersFilter from './GetSimPartnersFilter';
 import * as api from '@/api/partners';
+import { Store } from 'vuex-mock-store';
 
 import { $t } from '@/../tests-utils';
 
-const mocks = { $t };
+const store = new Store({
+  getters: { currentFilters: [] },
+});
+
+afterEach(() => store.reset());
+
+const mocks = { $t, $store: store };
 
 describe('GetSimPartnersFilter', () => {
   it('fetches partners when component is mounted', () => {
