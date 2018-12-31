@@ -7,8 +7,8 @@ export async function fetchGetSimIndicators() {
       indicators {
         ordersToValidate
         ordersInProgress
-        ordersNonConfirmed
-        ordersFailing
+        nonConfirmedOrders
+        faillingOrders
         ordersToBeValidated
       }
     }

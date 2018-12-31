@@ -45,3 +45,11 @@ $theme-colors: map-merge(
 .no-select {
   user-select: none;
 }
+
+.btn-link-unstyled {
+  &:hover,
+  &:active {
+    text-decoration: none !important;
+    color: white !important;
+  }
+}

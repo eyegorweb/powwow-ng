@@ -1,27 +1,61 @@
 <template>
   <div class="flex-container">
-    <div class="flex-part flex-part-left">
+    <div class="flex-part">
       <img
         v-if="!isBackofficeProfile"
         class="logo logo--corporate"
         src="@/assets/logo_bouygues.png"
         alt
       >
-      <UiTabs :tabs="navbarLinks" :selected-index="currentLinkIndex">
+      <UiTabs
+        :tabs="navbarLinks"
+        :selected-index="currentLinkIndex"
+      >
         <template slot-scope="{ tab, index }">
-          <UiTab :is-selected="index === currentLinkIndex">
+          <UiTab
+            v-if="tab"
+            :is-selected="index === currentLinkIndex"
+          >
             <router-link :to="tab.to">{{ tab.label }}</router-link>
           </UiTab>
         </template>
       </UiTabs>
     </div>
-    <div class="flex-part flex-part-right">
+    <div class="flex-part">
+      <div class="lang-flags">
+        <a
+          href="#"
+          @click.prevent="$i18n.locale='fr'"
+          :class="{active: $i18n.locale === 'fr'}"
+        >
+          <img src="@/assets/fr.png">
+        </a>
+        <a
+          href="#"
+          @click.prevent="$i18n.locale='en'"
+          :class="{active: $i18n.locale === 'en'}"
+        >
+          <img src="@/assets/en.png">
+        </a>
+      </div>
       <div class="nav">
         <div class="icon ic-Clock-Icon" />
-        <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
-          <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
-          <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
-          <div v-if="userMenuVisible" class="sub-menu">
+        <div
+          class="icon ic-User-Icon"
+          @click="userMenuVisible = !userMenuVisible"
+        >
+          <i
+            v-if="!userMenuVisible"
+            class="arrow ic-Arrow-Down-Icon"
+          />
+          <i
+            v-if="userMenuVisible"
+            class="arrow ic-Arrow-Up-Icon"
+          />
+          <div
+            v-if="userMenuVisible"
+            class="sub-menu"
+          >
             <ul class="list-group">
               <li class="list-group-item">
                 {{ userInfos.name.firstName }}
@@ -30,7 +64,7 @@
                 {{ userInfos.email }}
               </li>
               <li class="list-group-item">
-                <a :href="logoutUrl">Déconnexion</a>
+                <a :href="logoutUrl">{{ $t('logout') }}</a>
               </li>
             </ul>
           </div>
@@ -64,7 +98,7 @@ export default {
   data() {
     return {
       navbarLinks: [
-        { label: 'GetSIM', to: { name: 'home' } },
+        { label: 'GetSIM', to: { name: 'getsim' } },
         { label: 'GetParc/GetDiag', to: { name: 'home' } },
         { label: 'GetVision', to: { name: 'home' } },
         { label: 'GetReport', to: { name: 'home' } },
@@ -103,6 +137,22 @@ export default {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+  }
+}
+
+.lang-flags {
+  a {
+    margin-right: 1em;
+    padding: 0;
+    img {
+      height: 19px;
+      padding: 2px;
+    }
+
+    &.active img {
+      border: 2px solid $secondary;
+      padding: 0;
+    }
   }
 }
 

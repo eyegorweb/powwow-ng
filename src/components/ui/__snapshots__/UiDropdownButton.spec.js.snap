@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UiDropdownButton.vue can append content 1`] = `
+<div class="position-relative"><button type="button" class="dropdown-toggle btn btn-outline-gray"></button>
+  <!---->
+  <div>appended</div>
+</div>
+`;

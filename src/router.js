@@ -4,8 +4,9 @@ import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.v
 import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
 
 const Filters = () => import('@/views/Filters');
-const Home = () => import('@/views/Home');
+// const Home = () => import('@/views/Home');
 const DragHome = () => import('@/views/DragHome');
+const GetSim = () => import('@/views/GetSim');
 
 Vue.use(Router);
 
@@ -16,7 +17,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: GetSim,
     },
     {
       path: '/callback',
@@ -37,6 +38,11 @@ export default new Router({
       path: '/filters',
       name: 'filters',
       component: Filters,
+    },
+    {
+      path: '/getsim',
+      name: 'getsim',
+      component: GetSim,
     },
   ],
 });

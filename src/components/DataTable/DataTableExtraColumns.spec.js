@@ -1,7 +1,10 @@
 import { mount } from '@vue/test-utils';
-import ExtraColumns from '@/components/DataTable/ExtraColumns.vue';
+import { $t, $i18n } from '@/../tests-utils';
+import ExtraColumns from './DataTableExtraColumns.vue';
 
-describe('ExtraColumns.vue', () => {
+const mocks = { $i18n, $t };
+
+describe('DataTableExtraColumns.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
 
@@ -38,13 +41,16 @@ describe('ExtraColumns.vue', () => {
         columns,
         extraColumns,
       },
+      mocks,
     });
   });
+
   it('checks colums that are already added when component is created', () => {
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[1].isChecked).toBeTruthy();
     expect(wrapper.vm.localExtraColumns[2].isChecked).toBeFalsy();
   });
+
   it('it adds an extra column', () => {
     const columns = [
       {
@@ -64,11 +70,13 @@ describe('ExtraColumns.vue', () => {
       },
     ];
 
+    // NOTE: étrange que cela ne marche pas si on fait un `setProps`
     wrapper = mount(ExtraColumns, {
       propsData: {
         columns,
         extraColumns,
       },
+      mocks,
     });
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeFalsy();
     wrapper.vm.localExtraColumns[0].isChecked = true;
@@ -114,11 +122,13 @@ describe('ExtraColumns.vue', () => {
       },
     ];
 
+    // NOTE: étrange que cela ne marche pas si on fait un `setProps`
     wrapper = mount(ExtraColumns, {
       propsData: {
         columns,
         extraColumns,
       },
+      mocks,
     });
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeTruthy();
 

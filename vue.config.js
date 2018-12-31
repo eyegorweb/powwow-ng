@@ -9,9 +9,11 @@ module.exports = {
   },
 
   pluginOptions: {
-    apollo: {
-      enableMocks: false,
-      enableEngine: false,
+    i18n: {
+      locale: 'fr',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false,
     },
   },
 };

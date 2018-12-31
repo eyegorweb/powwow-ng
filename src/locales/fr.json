@@ -1,0 +1,46 @@
+{
+  "searchOrderById": "Rechercher une commande par identifiant",
+  "search": "Rechercher",
+  "numberPerPage": "Nb per page",
+  "partnerType": "Type de partenaire",
+  "choosePartner": "Sélectionner des partenaires",
+  "chooseBillingAccounts": "Sélectionner des comptes de facturation",
+  "selectAll": "Tout sélectionner",
+  "unSelectAll": "Tout désélectionner",
+  "showOrHideColumns": "Ajouter / Masquer des colonnes",
+  "save": "Enregistrer",
+  "logout": "Déconnexion",
+  "getsim": {
+    "manage-orders": "Gestion des commandes",
+    "order-sim": "Commander des cartes SIM"
+  },
+  "col": {
+    "id": "ID",
+    "creationDate": "Date de création",
+    "orderDate": "Date de commande",
+    "activationAsked": "Active"
+  },
+  "indicators": {
+    "ordersToValidate": "Commandes à valider",
+    "ordersInProgress": "Commandes en cours de traitement",
+    "nonConfirmedOrders": "Commandes non confirmées > 4h",
+    "faillingOrders": "Commandes en échec",
+    "ordersToBeValidated": "Commandes à valider par le BO"
+  },
+  "filters": {
+    "title": "FILTRES",
+    "partners": "Partenaires",
+    "billingAccounts": "Compte de facturation",
+    "orderStatus": "Statut de la commande",
+    "orderReference": "Référence de la commande",
+    "orderDate": "Date de la commande",
+    "offer": "Offre",
+    "quantity": "Quantité",
+    "customFields": "Champs personnalisés",
+    "orderCreator": "Créateur de la commande",
+    "active": "Activé",
+    "deliveryCountry": "Pays de livraison",
+    "postalCode": "Code postal",
+    "city": "Ville"
+  }
+}

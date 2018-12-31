@@ -1,4 +1,4 @@
-import filterModule from './filters.module';
+import * as filterModule from './filters.module';
 
 describe('store/filters.module', () => {
   describe('getters', () => {

@@ -1,5 +1,8 @@
 import { mount } from '@vue/test-utils';
 import SearchWithSelect from './SearchWithSelect.vue';
+import { $t } from '@/../tests-utils';
+
+const mocks = { $t };
 
 describe('components/SearchWithSelect', () => {
   let wrapper;
@@ -17,6 +20,7 @@ describe('components/SearchWithSelect', () => {
 
     /** @type {import('@vue/test-utils').Wrapper} */
     wrapper = mount(SearchWithSelect, {
+      mocks,
       propsData: {
         options,
         type: 'type2',

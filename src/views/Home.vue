@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <div id="nav">
+      <router-link to="/getsim">GetSim</router-link>|
+      <router-link to="/filters">Filters</router-link>|
+      <router-link to="/secured">Secured</router-link>|
+      <router-link to="/draghome">DragHome</router-link>|
+    </div>
     <div class="container">
       <NavBars is-backoffice-profile />
 
@@ -11,7 +17,10 @@
             <div class="row">
               <div class="col-md-4">
                 <!-- class input-group mb-3 -->
-                <UiDateRange :start.sync="startDate" :end.sync="endDate" />
+                <UiDateRange
+                  :start.sync="startDate"
+                  :end.sync="endDate"
+                />
               </div>
               <br>
             </div>
@@ -20,9 +29,7 @@
       </div>
 
       <br>
-      <br>
-      <DataTable :columns.sync="columns" :extra-columns="extraColumns" :rows="rows" />
-      <hr>
+
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -31,7 +38,10 @@
         </div>
       </div>
       <UiCheckbox>Example</UiCheckbox>
-      <UiButton variant="primary" @click="show = !show">Afficher le volet</UiButton>
+      <UiButton
+        variant="primary"
+        @click="show = !show"
+      >Afficher le volet</UiButton>
       <TransitionCollapse>
         <div v-if="show">Hello there</div>
       </TransitionCollapse>
@@ -100,9 +110,6 @@
       </div>
     </div>
     <div class="container">
-      <PartnersSearch />
-    </div>
-    <div class="container">
       <GetSimIndicators class="w-50 my-2" />
     </div>
   </div>
@@ -110,7 +117,6 @@
 
 <script>
 // @ is an alias to /src
-import DataTable from '@/components/DataTable';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
@@ -124,7 +130,6 @@ import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
 import GetSimIndicators from '@/components/GetSimIndicators';
-import PartnersSearch from '@/components/PartnersSearch';
 
 export default {
   name: 'Home',
@@ -141,30 +146,6 @@ export default {
       {
         label: 'Partenaire',
         name: 'partner',
-      },
-    ];
-    const rows = [
-      {
-        id: 1,
-        firstName: 'Leroy',
-        lastName: 'Jenkins',
-        partner: 'Partenaire 1',
-        orderId: '12345',
-        orderStatus: 'OK',
-      },
-    ];
-    const extraColumns = [
-      {
-        name: 'partner',
-        label: 'Partenaire',
-      },
-      {
-        name: 'orderId',
-        label: 'ID de commande',
-      },
-      {
-        name: 'orderStatus',
-        label: 'Statut de commande',
       },
     ];
 
@@ -240,8 +221,6 @@ export default {
     ];
     return {
       columns,
-      rows,
-      extraColumns,
       show: false,
       steps: [
         { label: 'Client' },
@@ -270,7 +249,6 @@ export default {
     Stepper,
     UiTabs,
     TransitionCollapse,
-    DataTable,
     NavBars,
     MultiChoices,
     SearchWithSelect,
@@ -278,7 +256,6 @@ export default {
     UiApiAutocomplete,
     UiDateRange,
     GetSimIndicators,
-    PartnersSearch,
   },
 };
 </script>
