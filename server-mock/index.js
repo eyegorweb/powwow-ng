@@ -18,7 +18,10 @@ function startServer(schemaGQL) {
       orders: () => db.orders,
       getCurrentUser: () => db.getCurrentUser,
       indicators: () => db.indicators,
-      orderStatuses: () => db.orderStatuses,
+      partners: (q, args) => {
+        const pages = groupItems(db.partners, args.pagination.limit);
+        return pages[args.pagination.page - 1];
+      },
     },
   };
 
@@ -39,4 +42,13 @@ function startServer(schemaGQL) {
   app.listen({ port }, () =>
     console.log(`🚀 Fake server is up at http://localhost:${port}${server.graphqlPath}`)
   );
+}
+
+function groupItems(items, size) {
+  var result = [];
+
+  for (let i = 0, j = items.length; i < j; i += size) {
+    result.push(items.slice(i, i + size));
+  }
+  return result;
 }

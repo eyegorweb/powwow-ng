@@ -1,28 +1,30 @@
 import { fetchPossibleFilters } from '@/api/filters';
 
-const state = {
+export const state = {
   allAvailableFilters: [],
   currentFilters: [],
 };
-const getters = {
+
+export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
   currentFilters: state => state.currentFilters,
   canShowSelectedFilter: state => {
-    return !!state.currentFilters.filter(f => f.values.length > 0).length;
+    const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
+    return !!filtersFound && !!filtersFound.length;
   },
 };
 
-const actions = {
+export const actions = {
   async loadPossibleFilters({ commit }) {
     commit('setAvailableFilters', await fetchPossibleFilters());
   },
 };
 
-const mutations = {
+export const mutations = {
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },
-  selectFilterValue(state, { name, newValue }) {
+  selectFilterValue(state, { id, name, newValue }) {
     const isFilterFound = state.currentFilters.find(f => f.name === name);
     if (isFilterFound) {
       state.currentFilters = state.currentFilters.map(f => {
@@ -33,16 +35,10 @@ const mutations = {
       });
     } else {
       state.currentFilters.push({
+        id,
         name,
         values: newValue,
       });
     }
   },
-};
-
-export default {
-  state,
-  getters,
-  actions,
-  mutations,
 };

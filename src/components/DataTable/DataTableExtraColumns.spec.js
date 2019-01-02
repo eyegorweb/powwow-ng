@@ -1,5 +1,8 @@
 import { mount } from '@vue/test-utils';
+import { $t, $i18n } from '@/../tests-utils';
 import ExtraColumns from './DataTableExtraColumns.vue';
+
+const mocks = { $i18n, $t };
 
 describe('DataTableExtraColumns.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
@@ -38,6 +41,7 @@ describe('DataTableExtraColumns.vue', () => {
         columns,
         extraColumns,
       },
+      mocks,
     });
   });
 
@@ -66,11 +70,13 @@ describe('DataTableExtraColumns.vue', () => {
       },
     ];
 
+    // NOTE: étrange que cela ne marche pas si on fait un `setProps`
     wrapper = mount(ExtraColumns, {
       propsData: {
         columns,
         extraColumns,
       },
+      mocks,
     });
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeFalsy();
     wrapper.vm.localExtraColumns[0].isChecked = true;
@@ -116,11 +122,13 @@ describe('DataTableExtraColumns.vue', () => {
       },
     ];
 
+    // NOTE: étrange que cela ne marche pas si on fait un `setProps`
     wrapper = mount(ExtraColumns, {
       propsData: {
         columns,
         extraColumns,
       },
+      mocks,
     });
     expect(wrapper.vm.localExtraColumns[0].isChecked).toBeTruthy();
 

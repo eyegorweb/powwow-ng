@@ -23,6 +23,7 @@ export default {
     ];
     // s'assurer de propager les classes dynamiques
     if (data.class) classes.push(data.class);
+    if (!data.attrs) data.attrs = {};
     data.attrs.type = props.type;
     return h('button', { ...data, class: classes }, children);
   },

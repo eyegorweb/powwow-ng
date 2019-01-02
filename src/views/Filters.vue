@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
         <GetSimFilters />
       </div>
-      <div class="col-md-9">
+      <div class="col-sm-8">
         <div class="card">
           <div class="card-body">
             <h4>Valeurs séléctionnées</h4>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     filtersState() {
-      return this.$store._modules.root.context.state.filters.currentFilters;
+      return this.$store.state.filters.currentFilters;
     },
   },
 };

@@ -163,4 +163,5 @@ type Query {
   orderStatuses: [Statuses]
   indicators: GetSimIndicators
   orders(filter: OrderCriteria, pagination: Pagination, sorting: OrderSorting): OrdersResponse
+  partners(q: String, pagination: Pagination): [Partner]
 }

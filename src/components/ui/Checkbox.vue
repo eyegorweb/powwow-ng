@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import isEqual from 'lodash.isequal';
+
 export default {
   name: 'Checkbox',
   model: {
@@ -42,7 +44,9 @@ export default {
         // cas indeterminate
         // si value est un tableau, on retourne true si checked (qui est lui aussi un tableau)
         // contient tous les elements de value
-        if (Array.isArray(value)) return value.every(v => checked.includes(v));
+        if (Array.isArray(value)) {
+          return value.every(v => checked.find(s => isEqual(v, s)));
+        }
         return checked;
       },
       set(model) {

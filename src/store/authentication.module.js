@@ -1,34 +1,54 @@
 import { fetchCurrentUserInfos } from '@/api/user';
 import axios from 'axios';
 
-const state = {
+export const state = {
   token: undefined,
   accessToken: undefined,
   userInfos: undefined,
   refreshingToken: false,
 };
-const getters = {
+
+export const getters = {
   token: state => state.token,
   accessToken: state => state.accessToken,
   refreshingToken: state => state.refreshingToken,
   userName: state => (state.token ? state.token.user_name : ''),
   userInfos: state => state.userInfos,
 };
-const actions = {
+
+export const actions = {
   async fetchUserInfos({ commit }) {
     commit('setCurrentUser', await fetchCurrentUserInfos());
   },
-};
-const mutations = {
-  setAuthToken(state, tokenStr) {
+  setAuthToken({ commit }, tokenStr) {
     function parseJwt(token) {
       var base64Url = token.split('.')[1];
       var base64 = base64Url.replace('-', '+').replace('_', '/');
       return JSON.parse(window.atob(base64));
     }
-    state.accessToken = tokenStr;
-    state.token = parseJwt(tokenStr);
+    const token = parseJwt(tokenStr);
+    commit('setAuthToken', { token, tokenStr });
+
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenStr;
+
+    const expireDate = new Date(state.token.exp * 1000);
+    const now = new Date();
+
+    const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
+    const waitBeforeRefresh = Math.abs(secondsToExpire);
+
+    if (waitBeforeRefresh > 0) {
+      setTimeout(() => {
+        commit('startRefreshingToken');
+      }, waitBeforeRefresh * 1000);
+    }
+  },
+};
+
+export const mutations = {
+  setAuthToken(state, { token, tokenStr }) {
+    state.accessToken = tokenStr;
+    state.token = token;
   },
   startRefreshingToken(state) {
     state.refreshingToken = true;
@@ -39,11 +59,4 @@ const mutations = {
   setCurrentUser(state, userInfos) {
     state.userInfos = userInfos;
   },
-};
-
-export default {
-  state,
-  getters,
-  actions,
-  mutations,
 };
