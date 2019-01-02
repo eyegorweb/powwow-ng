@@ -1,6 +1,9 @@
 <template>
   <div class="mb-3">
-    <div v-for="filter in currentFilters" :key="filter.name">
+    <div
+      v-for="filter in currentFilters"
+      :key="filter.name"
+    >
       <SelectedFilterDetails
         v-if="filter && filter.values && filter.values.length"
         :filter="filter"
@@ -16,8 +19,17 @@
           @click.stop="toggle"
           :class="staticClass"
         >Enregistrer</UiButton>
-        <div slot-scope="{ hide }" style="width: 256px;">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
+        <div
+          slot-scope="{ hide }"
+          style="width: 256px;"
+        >
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+            @click="hide"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
           <!-- NOTE: créé l'espace qui apparait sur la maquette mais c'est un peu bizarre
@@ -25,12 +37,24 @@
           <div class="clearfix" />
           <h6 class="modal-title mb-3">Enregistrer un filtre:</h6>
           <form @submit.prevent>
-            <UiInput v-model="filterName" class="d-block" placeholder="Nom du nouveau filtre" />
-            <UiButton variant="primary" type="submit" block>Enregistrer</UiButton>
+            <UiInput
+              v-model="filterName"
+              class="d-block"
+              placeholder="Nom du nouveau filtre"
+            />
+            <UiButton
+              variant="primary"
+              type="submit"
+              block
+            >Enregistrer</UiButton>
           </form>
         </div>
       </UiDropdownButton>
-      <UiButton variant="gray" disabled class="flex-grow-1 py-1 px-3">Appliquer le filtre</UiButton>
+      <UiButton
+        variant="gray"
+        disabled
+        class="flex-grow-1 py-1 px-3"
+      >Appliquer le filtre</UiButton>
     </div>
   </div>
 </template>

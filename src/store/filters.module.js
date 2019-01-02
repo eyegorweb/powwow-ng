@@ -5,6 +5,8 @@ export const state = {
   currentFilters: [],
 };
 
+// Getteres
+
 const selectedFilterValuesById = state => id => {
   const foundFilters = state.currentFilters.filter(c => c.id === id);
   if (foundFilters && foundFilters.length) {
@@ -29,23 +31,19 @@ export const getters = {
   },
 };
 
-export const actions = {
-  async loadPossibleFilters({ commit }) {
-    commit('setAvailableFilters', await fetchPossibleFilters());
-  },
+// Actions
 
-  setPartnersFilter({ commit, getters }, partners) {
-    commit('selectFilterValue', {
-      id: 'filters.partners',
-      newValue: partners,
-    });
-    const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
-      partners.find(p => p.id === a.partnerId)
-    );
+function setPartnersFilter({ commit, getters }, partners) {
+  commit('selectFilterValue', {
+    id: 'filters.partners',
+    newValue: partners,
+  });
+  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
 
-    commit('setBillingAccountsFilter', baWithPartnersSelected);
-  },
-};
+  commit('setBillingAccountsFilter', baWithPartnersSelected);
+}
 
 function selectFilterValue(state, { id, newValue }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
@@ -63,6 +61,27 @@ function selectFilterValue(state, { id, newValue }) {
     });
   }
 }
+
+export const actions = {
+  async loadPossibleFilters({ commit }) {
+    commit('setAvailableFilters', await fetchPossibleFilters());
+  },
+
+  setPartnersFilter,
+
+  clearFilter(store, filterId) {
+    if (filterId === 'filters.partners') {
+      setPartnersFilter(store, []);
+    } else {
+      store.commit('selectFilterValue', {
+        id: filterId,
+        newValue: [],
+      });
+    }
+  },
+};
+
+// Mutations
 
 export const mutations = {
   setAvailableFilters: (state, data) => {
