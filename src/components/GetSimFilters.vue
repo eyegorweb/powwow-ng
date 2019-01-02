@@ -3,7 +3,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
-      <SelectedFilters
+      <GetSimSelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
       />
@@ -91,7 +91,7 @@ import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import GetSimCustomFields from '@/components/GetSimCustomFields';
-import SelectedFilters from '@/components/SelectedFilters';
+import GetSimSelectedFilters from '@/components/GetSimSelectedFilters';
 import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
 import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
 
@@ -140,7 +140,7 @@ export default {
     FoldableBlock,
     GetSimPartnersFilter,
     GetSimCustomFields,
-    SelectedFilters,
+    GetSimSelectedFilters,
     GetSimPartnersBillingAccountsFilter,
   },
 };
