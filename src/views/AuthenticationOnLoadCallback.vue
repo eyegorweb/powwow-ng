@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'AuthCallback',
@@ -16,8 +16,7 @@ export default {
     this.$router.push('/');
   },
   methods: {
-    ...mapMutations(['setAuthToken']),
-    ...mapActions(['fetchUserInfos']),
+    ...mapActions(['fetchUserInfos', 'setAuthToken']),
   },
 };
 </script>

@@ -93,13 +93,17 @@ describe('Authentication', () => {
         $store: {
           ...store,
           mutations: {
-            setAuthToken,
             stopRefreshingToken,
+          },
+          actions: {
+            setAuthToken, // <--- le mock n'est pas pris en compte quand je le passe comme ça
           },
         },
         $route,
       },
     });
+    wrapper.vm.setAuthToken = setAuthToken; // <-- du coup pour contourner je le met directement sur le composant
+
     const frame = {
       target: {
         contentDocument: {
@@ -111,8 +115,8 @@ describe('Authentication', () => {
     };
     wrapper.vm.onRefreshTokenPageLoaded(frame);
 
-    expect(store.commit).toHaveBeenNthCalledWith(1, 'setAuthToken', 'ABCD');
-    expect(store.commit).toHaveBeenNthCalledWith(2, 'stopRefreshingToken');
+    expect(setAuthToken).toHaveBeenCalledWith('ABCD');
+    expect(store.commit).toHaveBeenNthCalledWith(1, 'stopRefreshingToken');
   });
 
   it('redirects to login when no refresh token is returned', () => {
