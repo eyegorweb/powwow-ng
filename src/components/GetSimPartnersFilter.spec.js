@@ -6,7 +6,7 @@ import { Store } from 'vuex-mock-store';
 import { $t } from '@/../tests-utils';
 
 const store = new Store({
-  getters: { currentFilters: [] },
+  getters: { selectedPartnersValues: [] },
 });
 
 afterEach(() => store.reset());
