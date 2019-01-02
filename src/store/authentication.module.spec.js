@@ -10,13 +10,15 @@ describe('Authentication module', () => {
         refreshingToken: false,
       };
 
+      const token = { iat: 1516239022, name: 'John Doe', sub: '1234567890' };
+
       // created using https://jwt.io/
-      const tokenInput =
+      const tokenStr =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
-      authentification.mutations.setAuthToken(state, tokenInput);
+      authentification.mutations.setAuthToken(state, { token, tokenStr });
 
-      expect(state.accessToken).toBe(tokenInput);
+      expect(state.accessToken).toBe(tokenStr);
       expect(state.token).toEqual({ iat: 1516239022, name: 'John Doe', sub: '1234567890' });
     });
     it('starts refreshing token process', () => {

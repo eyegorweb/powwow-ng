@@ -18,8 +18,8 @@ export default {
     this.ensureUserIsAuthentified();
   },
   methods: {
-    ...mapActions(['ensureTokenExists']),
-    ...mapMutations(['setAuthToken', 'stopRefreshingToken']),
+    ...mapActions(['ensureTokenExists', 'setAuthToken']),
+    ...mapMutations(['stopRefreshingToken']),
 
     ensureUserIsAuthentified() {
       if (this.$route.name === 'callback' || this.$route.name === 'refresh') {
