@@ -1,4 +1,6 @@
 // MOCK temporaire en attendant l'api du backend
+import { delay } from './utils';
+
 export async function fetchpartners(q, pagination) {
   const qlowercase = q.toLowerCase();
   const filtered = mockData.filter(i => i.label.toLowerCase().includes(qlowercase));
@@ -7,7 +9,7 @@ export async function fetchpartners(q, pagination) {
   await delay(300);
   return groups[pagination.page - 1];
 }
-var delay = t => new Promise(resolve => setTimeout(resolve, t));
+
 function groupItems(items, size) {
   var result = [];
 

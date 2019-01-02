@@ -20,7 +20,9 @@
             :title="$t('filters.billingAccounts')"
             :key="'el2'"
             draggable
-          />
+          >
+            <GetSimPartnersBillingAccountsFilter />
+          </FoldableBlock>
           <FoldableBlock
             :title="$t('filters.orderStatus')"
             :key="'el3'"
@@ -89,8 +91,9 @@ import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import GetSimCustomFields from '@/components/GetSimCustomFields';
-import SelectedFilters from '@/components/filters/selected/SelectedFilters';
+import SelectedFilters from '@/components/SelectedFilters';
 import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
+import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
 
 export default {
   computed: {
@@ -138,6 +141,7 @@ export default {
     GetSimPartnersFilter,
     GetSimCustomFields,
     SelectedFilters,
+    GetSimPartnersBillingAccountsFilter,
   },
 };
 </script>

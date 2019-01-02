@@ -3,7 +3,7 @@
     class="alert alert-info alert-dismissible fade show"
     role="alert"
   >
-    <a href="#">{{ filter.name }}</a>
+    <a href="#">{{ $t(filter.id) }}</a>
 
     <span
       v-for="op in filter.values"
