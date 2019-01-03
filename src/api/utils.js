@@ -10,3 +10,7 @@ export async function query(q) {
     // store.commit('startRefreshingToken');
   }
 }
+
+export function delay(t) {
+  return new Promise(resolve => setTimeout(resolve, t));
+}

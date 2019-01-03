@@ -1,11 +1,14 @@
 import { mount } from '@vue/test-utils';
 import SelectedFilters from './SelectedFilters.vue';
+import { $t } from '@/../tests-utils';
 
-describe('filters/SelectedFilters', () => {
+const mocks = { $t };
+
+describe('SelectedFilters', () => {
   it('Should show selected filters values', () => {
     const currentFilters = [
       {
-        name: 'partners',
+        id: 'partners',
         values: [
           {
             code: 'c1',
@@ -21,6 +24,7 @@ describe('filters/SelectedFilters', () => {
 
     /** @type {import('@vue/test-utils').Wrapper} */
     const wrapper = mount(SelectedFilters, {
+      mocks,
       propsData: {
         currentFilters,
       },

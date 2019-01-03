@@ -3,7 +3,7 @@
     class="alert alert-info alert-dismissible fade show"
     role="alert"
   >
-    <a href="#">{{ filter.name }}</a>
+    <a href="#">{{ $t(filter.id) }}</a>
 
     <span
       v-for="op in filter.values"
@@ -22,10 +22,7 @@
       class="close"
       data-dismiss="alert"
       aria-label="Close"
-      @click="selectFilterValue({
-        name: filter.name,
-        newValue: []
-      })"
+      @click="clearFilter(filter.id)"
     >
       <span aria-hidden="true">&times;</span>
     </button>
@@ -33,7 +30,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'SelectedFilterDetails',
@@ -43,7 +40,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['selectFilterValue']),
+    ...mapActions(['clearFilter']),
   },
 };
 </script>

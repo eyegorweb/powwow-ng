@@ -39,7 +39,7 @@ describe('store/filters.module', () => {
       };
 
       const payload = {
-        name: 'partners',
+        id: 'partners',
         newValue: [
           {
             code: 'c1',
@@ -53,7 +53,7 @@ describe('store/filters.module', () => {
       expect(state.currentFilters).toHaveLength(1);
       expect(state.currentFilters).toEqual([
         {
-          name: 'partners',
+          id: 'partners',
           values: [
             {
               code: 'c1',

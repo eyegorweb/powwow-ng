@@ -9,7 +9,9 @@
           <FoldableBlock :title="$t('filters.partners')" :key="'el1'" draggable>
             <GetSimPartnersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable />
+          <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
+            <GetSimPartnersBillingAccountsFilter />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderStatus')" :key="'el3'" draggable>
             <div>
               <UiCheckbox
@@ -43,10 +45,11 @@ import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import GetSimCustomFields from '@/components/GetSimCustomFields';
-import SelectedFilters from '@/components/filters/selected/SelectedFilters';
+import SelectedFilters from '@/components/SelectedFilters';
 import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
+import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
 
 export default {
   computed: {
@@ -100,6 +103,7 @@ export default {
     GetSimCustomFields,
     SelectedFilters,
     UiCheckbox,
+    GetSimPartnersBillingAccountsFilter,
   },
 };
 </script>
