@@ -104,5 +104,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.checkbox-container .checkmark {
+  border: 1px solid $medium-gray;
+}
+
+.checkbox-container .checkmark.regular {
+  &:after {
+    border-color: $dark-gray;
+  }
+}
 </style>
