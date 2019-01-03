@@ -27,7 +27,16 @@
             :title="$t('filters.orderStatus')"
             :key="'el3'"
             draggable
-          />
+          >
+            <div>
+              <UiCheckbox
+                v-for="status in statusResults"
+                :checked="status.checked"
+                :value="status.label"
+                :key="status.id"
+              >{{ status.label }}</UiCheckbox>
+            </div>
+          </FoldableBlock>
           <FoldableBlock
             :title="$t('filters.orderReference')"
             :key="'el4'"
@@ -93,6 +102,8 @@ import FoldableBlock from '@/components/FoldableBlock';
 import GetSimCustomFields from '@/components/GetSimCustomFields';
 import GetSimSelectedFilters from '@/components/GetSimSelectedFilters';
 import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
+import UiCheckbox from '@/components/ui/Checkbox';
+import { fetchOrderStatuses } from '@/api/orderStatuses';
 import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
 
 export default {
@@ -132,7 +143,12 @@ export default {
     return {
       configAccount,
       selectedValuesForMultiChoice,
+      statusResults: [],
     };
+  },
+
+  async mounted() {
+    this.statusResults = await fetchOrderStatuses();
   },
 
   components: {
@@ -142,9 +158,19 @@ export default {
     GetSimCustomFields,
     GetSimSelectedFilters,
     GetSimPartnersBillingAccountsFilter,
+    UiCheckbox,
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.checkbox-container .checkmark {
+  border: 1px solid $medium-gray;
+}
+
+.checkbox-container .checkmark.regular {
+  &:after {
+    border-color: $dark-gray;
+  }
+}
 </style>

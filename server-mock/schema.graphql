@@ -70,6 +70,16 @@ enum Title {
   MRS
 }
 
+#orderStatuses
+
+type Statuses {
+  id: Int
+  label: String
+  checked: Boolean
+}
+
+#indicators
+
 type GetSimIndicators {
   ordersToValidate: Int
   ordersInProgress: Int
@@ -150,6 +160,7 @@ input OrderCriteria {
 
 type Query {
   getCurrentUser: User
+  orderStatuses: [Statuses]
   indicators: GetSimIndicators
   orders(filter: OrderCriteria, pagination: Pagination, sorting: OrderSorting): OrdersResponse
   partners(q: String, pagination: Pagination): [Partner]
