@@ -1,17 +1,22 @@
-import { query } from './utils';
-
+// MOCK temporaire en attendant l'api du backend
 export async function fetchOrderStatuses() {
-  const response = await query(
-    `
-    query {
-      orderStatuses {
-        id
-        label
-        checked
-      }
-    }
-    `
-  );
-
-  return response.data.orderStatuses;
+  return mockData;
 }
+
+const mockData = [
+  {
+    label: 'En attente de validation',
+    checked: false,
+    id: 0,
+  },
+  {
+    label: 'Validée',
+    checked: true,
+    id: 1,
+  },
+  {
+    label: 'En cours de validation',
+    checked: false,
+    id: 2,
+  },
+];
