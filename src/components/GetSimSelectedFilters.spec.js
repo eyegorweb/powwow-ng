@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import SelectedFilters from './SelectedFilters.vue';
+import SelectedFilters from './GetSimSelectedFilters.vue';
 import { $t } from '@/../tests-utils';
 
 const mocks = { $t };
