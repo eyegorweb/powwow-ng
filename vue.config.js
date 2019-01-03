@@ -1,10 +1,4 @@
 module.exports = {
-  configureWebpack: {
-    output: {
-      filename: '[name][hash].js',
-      chunkFilename: '[name][hash].js',
-    },
-  },
   css: {
     loaderOptions: {
       // pass options to sass-loader
