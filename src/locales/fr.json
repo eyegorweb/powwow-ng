@@ -34,7 +34,7 @@
     "orderStatus": "Statut de la commande",
     "orderReference": "Référence de la commande",
     "orderDate": "Date de la commande",
-    "offer": "Offre",
+    "offers": "Offres",
     "quantity": "Quantité",
     "customFields": "Champs personnalisés",
     "orderCreator": "Créateur de la commande",

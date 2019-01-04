@@ -24,7 +24,13 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable />
-          <FoldableBlock :title="$t('filters.offer')" :key="'el6'" draggable />
+          <FoldableBlock
+            :title="$t('filters.offers')"
+            :key="'el6'"
+            draggable
+          >
+            <GetSimOffersFilter />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable />
           <FoldableBlock :title="$t('filters.customFields')" :key="'el8'" draggable>
             <GetSimCustomFields />
@@ -50,6 +56,7 @@ import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
 import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
+import GetSimOffersFilter from '@/components/GetSimOffersFilter';
 
 export default {
   computed: {
@@ -73,6 +80,7 @@ export default {
     GetSimCustomFields,
     GetSimSelectedFilters,
     GetSimPartnersBillingAccountsFilter,
+    GetSimOffersFilter,
     UiCheckbox,
   },
 };
