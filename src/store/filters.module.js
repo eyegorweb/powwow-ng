@@ -1,11 +1,13 @@
 import { fetchPossibleFilters } from '@/api/filters';
+import { fetchCustomFields } from '@/api/customFields';
 
 export const state = {
   allAvailableFilters: [],
   currentFilters: [],
+  filterCustomFields: [],
 };
 
-// Getteres
+// Getters
 
 const selectedFilterValuesById = state => id => {
   const foundFilters = state.currentFilters.filter(c => c.id === id);
@@ -22,6 +24,7 @@ export const getters = {
     const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
     return !!filtersFound && !!filtersFound.length;
   },
+  filterCustomFields: state => state.filterCustomFields,
   selectedFilterValuesById,
   selectedPartnersValues: state => {
     return selectedFilterValuesById(state)('filters.partners');
@@ -33,7 +36,7 @@ export const getters = {
 
 // Actions
 
-function setPartnersFilter({ commit, getters }, partners) {
+async function setPartnersFilter({ commit, getters }, partners) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     newValue: partners,
@@ -43,6 +46,14 @@ function setPartnersFilter({ commit, getters }, partners) {
   );
 
   commit('setBillingAccountsFilter', baWithPartnersSelected);
+
+  if (partners.length === 1) {
+    // appel api pour charger les custom fields
+    const customFields = await fetchCustomFields(partners);
+    commit('setFilterCustomFields', customFields);
+  } else {
+    commit('setFilterCustomFields', []);
+  }
 }
 
 function selectFilterValue(state, { id, newValue }) {
@@ -86,6 +97,9 @@ export const actions = {
 export const mutations = {
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
+  },
+  setFilterCustomFields: (state, data) => {
+    state.filterCustomFields = data;
   },
   selectFilterValue,
 
