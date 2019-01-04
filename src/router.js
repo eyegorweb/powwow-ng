@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
 
-const Filters = () => import('@/views/Filters');
 // const Home = () => import('@/views/Home');
 const DragHome = () => import('@/views/DragHome');
 const GetSim = () => import('@/views/GetSim');
@@ -33,11 +32,6 @@ export default new Router({
       path: '/draghome',
       name: 'draghome',
       component: DragHome,
-    },
-    {
-      path: '/filters',
-      name: 'filters',
-      component: Filters,
     },
     {
       path: '/getsim',

@@ -1,4 +1,4 @@
-import { fetchPossibleFilters } from '@/api/filters';
+// TODO: réfactorer / séparer ce fichier après le merge des autres filtres
 import { fetchCustomFields } from '@/api/customFields';
 
 export const state = {
@@ -25,28 +25,45 @@ export const getters = {
     return !!filtersFound && !!filtersFound.length;
   },
   filterCustomFields: state => state.filterCustomFields,
-  selectedFilterValuesById,
   selectedPartnersValues: state => {
     return selectedFilterValuesById(state)('filters.partners');
   },
   selectedBillingAccountsValues: state => {
     return selectedFilterValuesById(state)('filters.billingAccounts');
   },
+  selectedOffersValues: state => {
+    return selectedFilterValuesById(state)('filters.offers');
+  },
 };
 
 // Actions
 
-async function setPartnersFilter({ commit, getters }, partners) {
+function setPartnersFilter({ commit, getters }, partners) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     newValue: partners,
   });
+
+  removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
+  removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
+  refreshCustomFilters({ commit }, partners);
+}
+
+function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
   const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
     partners.find(p => p.id === a.partnerId)
   );
-
   commit('setBillingAccountsFilter', baWithPartnersSelected);
+}
 
+function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners) {
+  const withPartnersSelected = getters.selectedOffersValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
+  commit('setOffersFilter', withPartnersSelected);
+}
+
+async function refreshCustomFilters({ commit }, partners) {
   if (partners.length === 1) {
     // appel api pour charger les custom fields
     const customFields = await fetchCustomFields(partners);
@@ -56,6 +73,7 @@ async function setPartnersFilter({ commit, getters }, partners) {
   }
 }
 
+// TODO: Renommer cette fonction après le merge des autres filtres; ( pour éviter les conflits de merge)
 function selectFilterValue(state, { id, newValue }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
@@ -74,10 +92,6 @@ function selectFilterValue(state, { id, newValue }) {
 }
 
 export const actions = {
-  async loadPossibleFilters({ commit }) {
-    commit('setAvailableFilters', await fetchPossibleFilters());
-  },
-
   setPartnersFilter,
 
   clearFilter(store, filterId) {
@@ -107,6 +121,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
       newValue: billingAccounts,
+    });
+  },
+  setOffersFilter(state, offers) {
+    selectFilterValue(state, {
+      id: 'filters.offers',
+      newValue: offers,
     });
   },
 };
