@@ -2,12 +2,7 @@
   <label :class="{ 'has-icon': $slots.icon }">
     <slot name="icon" />
     <slot name="beforeInput" />
-    <input
-      type="text"
-      :placeholder="placeholder"
-      v-bind="$attrs"
-      v-model="value_"
-    >
+    <input type="text" :placeholder="placeholder" v-bind="$attrs" v-model="value_">
   </label>
 </template>
 
@@ -67,12 +62,6 @@ label {
     width: 1em;
     top: 50%;
     transform: translateY(-50%);
-  }
-}
-// TODO: put this rule in the CustomFields component
-label.container {
-  input {
-    width: auto !important;
   }
 }
 </style>

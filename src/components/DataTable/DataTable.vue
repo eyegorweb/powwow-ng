@@ -11,34 +11,21 @@
         <form class="searchInput">
           <div class="form-row">
             <div class="form-group col-md-8 mb-0">
-              <UiInput
-                :placeholder="$t('searchOrderById')"
-                value
-                class="d-block"
-              >
-                <i
-                  slot="icon"
-                  class="ic-Info-Icon"
-                />
+              <UiInput :placeholder="$t('searchOrderById')" value class="d-block">
+                <i slot="icon" class="ic-Info-Icon" />
               </UiInput>
             </div>
             <div class="form-group col-md-3 mb-0">
-              <button
-                type="button"
-                class="btn btn-primary btn-sm btn-block mt-1"
-              >{{ $t('search') }}</button>
+              <button type="button" class="btn btn-primary btn-sm btn-block mt-1">{{ $t('search') }}</button>
             </div>
           </div>
         </form>
       </div>
       <div class="col-md-5">
         <div class="float-left">
-          <label class="form-group">{{ $t('numberPerPage') }}:
-            <UiSelect
-              class="text-gray"
-              :placeholder="$t('partnerType')"
-              v-model="currentPageLimit"
-            >
+          <label class="form-group">
+            {{ $t('numberPerPage') }}:
+            <UiSelect class="text-gray" :placeholder="$t('partnerType')" v-model="currentPageLimit">
               <option :value="10">10</option>
               <option :value="20">20</option>
               <option :value="50">50</option>
@@ -46,34 +33,17 @@
           </label>
         </div>
         <nav class="float-right">
-          <DataTablePagination
-            :total="total"
-            :page.sync="currentPage"
-            :page-limit="pageLimit"
-          />
+          <DataTablePagination :total="total" :page.sync="currentPage" :page-limit="pageLimit" />
         </nav>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <table class="table table-blue mt-1">
-          <draggable
-            element="thead"
-            v-model="sortableColumns"
-            :options="draggableOptions"
-          >
-            <transition-group
-              tag="tr"
-              name="table"
-            >
-              <th
-                :key="column.name"
-                v-for="column in sortableColumns"
-              >
-                <span
-                  v-if="!column.noHandle"
-                  class="handle ic-Drag-Column-Icon"
-                />
+          <draggable element="thead" v-model="sortableColumns" :options="draggableOptions">
+            <transition-group tag="tr" name="table">
+              <th :key="column.name" v-for="column in sortableColumns">
+                <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
                 {{ column.label }}
                 <DataTableOrderArrow
                   v-if="column.orderable"
@@ -84,26 +54,17 @@
               <th :key="'btnAdd'">
                 <button
                   type="button"
-                  class=" btn btn-light btn-sm float-right"
+                  class="btn btn-light btn-sm float-right"
                   @click="isExtraColumnsVisible = !isExtraColumnsVisible"
                 >
-                  <span
-                    v-if="isExtraColumnsVisible"
-                    class="ic-Minus-Icon"
-                  />
-                  <span
-                    v-else
-                    class="ic-Plus-Icon"
-                  />
+                  <span v-if="isExtraColumnsVisible" class="ic-Minus-Icon" />
+                  <span v-else class="ic-Plus-Icon" />
                 </button>
               </th>
             </transition-group>
           </draggable>
           <tbody>
-            <tr
-              :key="row.id"
-              v-for="row in rows"
-            >
+            <tr :key="row.id" v-for="row in rows">
               <td
                 :key="column.name"
                 v-for="(column, index) in columns"
