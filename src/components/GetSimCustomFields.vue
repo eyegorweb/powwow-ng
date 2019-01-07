@@ -8,19 +8,22 @@
           <span slot="label">{{ item.label }}</span>
         </UiInput>
       </div>
-      <label v-if="item.type === 'listchoices'" class="form-group">
+      <label v-if="item.type === 'listchoices'">
         <!-- TODO: to translate -->
         {{ item.label }}
         <UiSelect
-          class="mb-2"
           placeholder="Choisissez une valeur"
           v-model="selectedPartner"
           :options="item.value"
         />
       </label>
-      <UiDate v-if="item.type === 'date'" :date-value.sync="selectedDate" class="d-block">
-        <i slot="icon" class="select-icon ic-Flag-Icon" />
-      </UiDate>
+      <div v-if="item.type === 'date'">
+        <!-- TODO: to translate -->
+        {{ item.label }}
+        <UiDate :date-value.sync="selectedDate" class="d-block">
+          <i slot="icon" class="select-icon ic-Flag-Icon"/>
+        </UiDate>
+      </div>
     </div>
   </div>
 </template>
