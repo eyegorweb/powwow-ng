@@ -21,7 +21,7 @@
         <!-- TODO: to translate -->
         {{ item.label }}
         <UiDate :date-value.sync="selectedDate" class="d-block">
-          <i slot="icon" class="select-icon ic-Flag-Icon"/>
+          <i slot="icon" class="select-icon ic-Flag-Icon" />
         </UiDate>
       </div>
     </div>

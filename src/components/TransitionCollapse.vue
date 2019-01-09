@@ -18,9 +18,11 @@ export default {
 
       // a second getComputedStyle in case the width changed something
       const { height } = getComputedStyle(el);
-      el.style.width = null;
-      el.style.position = null;
-      el.style.visibility = null;
+
+      // set an empty string instead of null/undefined beceause IE11 does not like it
+      el.style.width = '';
+      el.style.position = '';
+      el.style.visibility = '';
       el.style.height = 0;
 
       // we wait one frame to trigger the animation
