@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
 
-// const Home = () => import('@/views/Home');
+const Home = () => import('@/views/Home');
 const DragHome = () => import('@/views/DragHome');
 const GetSim = () => import('@/views/GetSim');
 
@@ -37,6 +37,11 @@ export default new Router({
       path: '/getsim',
       name: 'getsim',
       component: GetSim,
+    },
+    {
+      path: '/getsimexample',
+      name: 'getsimexample',
+      component: Home,
     },
   ],
 });

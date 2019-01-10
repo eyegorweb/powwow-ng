@@ -1,12 +1,23 @@
 <template>
   <div>
     <h2 class="title">{{ $t("getsim.manage-orders") }}</h2>
+    <GetSimTypeOption v-for="item in test"/>
   </div>
 </template>
 
 <script>
+import GetSimTypeOption from '@/components/GetSimTypeOption';
+
 export default {
   name: 'GetSimSelectSimType',
+  data() {
+    return {
+      test: 2,
+    };
+  },
+  components: {
+    GetSimTypeOption,
+  },
 };
 </script>
 
