@@ -4,14 +4,14 @@
     <div class="mt-4">
       <div class="row mb-5">
         <div class="col-md-9">
-          <h4><b>GetSim</b> - {{ $t("getsim.manage-orders") }} <i class="ic-Info-Icon" /></h4>
+          <h4>
+            <b>GetSim</b>
+            - {{ $t("getsim.manage-orders") }}
+            <i class="ic-Info-Icon" />
+          </h4>
         </div>
         <div class="col-md-3">
-          <UiButton
-            variant="accent"
-            block
-            class="float-right"
-          > {{ $t("getsim.order-sim") }}</UiButton>
+          <UiButton variant="accent" block class="float-right">{{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>
       <div class="row">
@@ -25,6 +25,7 @@
         </div>
       </div>
     </div>
+    <GetSimSelectSimType />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import UiButton from '@/components/ui/Button';
 import GetSimOrders from '@/components/GetSimOrders';
 import GetSimFilters from '@/components/GetSimFilters';
 import GetSimIndicators from '@/components/GetSimIndicators';
+import GetSimSelectSimType from '@/components/GetSimSelectSimType';
 
 export default {
   name: 'GetSim',
@@ -43,6 +45,7 @@ export default {
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
+    GetSimSelectSimType,
   },
 };
 </script>

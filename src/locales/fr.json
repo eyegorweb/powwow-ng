@@ -42,5 +42,8 @@
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
     "city": "Ville"
+  },
+  "orders": {
+    "chooseSimType": "Choisir un type de carte SIM"
   }
 }
