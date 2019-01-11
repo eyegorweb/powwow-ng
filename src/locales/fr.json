@@ -12,7 +12,8 @@
   "logout": "Déconnexion",
   "getsim": {
     "manage-orders": "Gestion des commandes",
-    "order-sim": "Commander des cartes SIM"
+    "order-sim": "Commander des cartes SIM",
+    "show-all-sim-types": "Afficher tous les types de cartes"
   },
   "col": {
     "id": "ID",
