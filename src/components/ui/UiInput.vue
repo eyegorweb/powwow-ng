@@ -23,7 +23,7 @@ export default {
 
   props: {
     placeholder: {
-      type: String,
+      type: [String, Number],
       required: false,
     },
     inputType: {
