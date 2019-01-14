@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AuthenticationOnLoadCallback from './views/AuthenticationOnLoadCallback.vue';
-import AuthenticationRefreshCallback from './views/AuthenticationRefreshCallback.vue';
+import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationOnLoadCallback.vue';
+import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
-// const Home = () => import('@/views/Home');
+const Home = () => import('@/views/Home');
 const DragHome = () => import('@/views/DragHome');
 const GetSim = () => import('@/views/GetSim');
 
@@ -34,9 +34,9 @@ export default new Router({
       component: DragHome,
     },
     {
-      path: '/getsim',
-      name: 'getsim',
-      component: GetSim,
+      path: '/exemples',
+      name: 'exemples',
+      component: Home,
     },
   ],
 });

@@ -98,13 +98,13 @@ export default {
   data() {
     return {
       navbarLinks: [
-        { label: 'GetSIM', to: { name: 'getsim' } },
+        { label: 'GetSIM', to: { name: 'home' } },
         { label: 'GetParc/GetDiag', to: { name: 'home' } },
         { label: 'GetVision', to: { name: 'home' } },
         { label: 'GetReport', to: { name: 'home' } },
         { label: 'GetAdmin', to: { name: 'home' } },
-        { label: 'GetSupport', to: { name: 'home' } },
-        { label: 'GetDevice', to: { name: 'home' } },
+        { label: 'GetSupport', to: { name: 'exemples' } },
+        { label: 'GetDevice', to: { name: 'draghome' } },
       ],
 
       userMenuVisible: false,

@@ -13,7 +13,7 @@
         <slot />
       </div>
       <div class="opt-image">
-        <img class="not-found" src="../assets/404.png" alt="image not found">
+        <img class="not-found" src="@/assets/404.png" alt="image not found">
       </div>
     </div>
   </div>

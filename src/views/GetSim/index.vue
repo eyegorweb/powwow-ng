@@ -11,6 +11,7 @@
             variant="accent"
             block
             class="float-right"
+            @click="isPanelOpen=true"
           > {{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>
@@ -25,24 +26,32 @@
         </div>
       </div>
     </div>
+    <GetSimCreateOrderPanel :is-open.sync="isPanelOpen" />
   </div>
 </template>
 
 <script>
 import NavBars from '@/components/NavBars';
 import UiButton from '@/components/ui/Button';
-import GetSimOrders from '@/components/GetSimOrders';
-import GetSimFilters from '@/components/GetSimFilters';
-import GetSimIndicators from '@/components/GetSimIndicators';
+import GetSimOrders from './GetSimOrders';
+import GetSimFilters from './GetSimFilters';
+import GetSimIndicators from './GetSimIndicators';
+import GetSimCreateOrderPanel from './CreateOrder/GetSimCreateOrderPanel';
 
 export default {
   name: 'GetSim',
+  data() {
+    return {
+      isPanelOpen: false,
+    };
+  },
   components: {
     NavBars,
     UiButton,
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
+    GetSimCreateOrderPanel,
   },
 };
 </script>

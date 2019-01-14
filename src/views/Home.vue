@@ -109,14 +109,11 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <GetSimIndicators class="w-50 my-2" />
-    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+// Composant sandbox, ne pas faire de review, c'est du jetable :)
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
@@ -129,7 +126,6 @@ import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
-import GetSimIndicators from '@/components/GetSimIndicators';
 
 export default {
   name: 'Home',
@@ -255,7 +251,6 @@ export default {
     ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
-    GetSimIndicators,
   },
 };
 </script>

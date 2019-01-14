@@ -37,7 +37,9 @@ export const getters = {
 };
 
 // Actions
-
+/**
+ * Met à jour les partenaires selectionnées, désélécionne les Comptes de facturations et Offres, puis met à jour les champs libres.
+ */
 function setPartnersFilter({ commit, getters }, partners) {
   commit('selectFilterValue', {
     id: 'filters.partners',
@@ -73,7 +75,6 @@ async function refreshCustomFilters({ commit }, partners) {
   }
 }
 
-// TODO: Renommer cette fonction après le merge des autres filtres; ( pour éviter les conflits de merge)
 function selectFilterValue(state, { id, newValue }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
