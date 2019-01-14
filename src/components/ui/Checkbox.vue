@@ -1,9 +1,17 @@
 <template>
   <div class="checkbox-container">
     <label>
-      <slot />
-      <input type="checkbox" v-bind="$attrs" v-model="model" :value="value">
-      <span class="checkmark" :class="isIndeterminate ? 'indeterminate' : shape" />
+      <slot/>
+      <input
+        v-if="inputType === 'radio'"
+        type="radio"
+        v-bind="$attrs"
+        v-model="model"
+        :value="value"
+        :name="name"
+      >
+      <input v-else type="checkbox" v-bind="$attrs" v-model="model" :value="value">
+      <span class="checkmark" :class="isIndeterminate ? 'indeterminate' : shape"/>
     </label>
   </div>
 </template>
@@ -27,6 +35,16 @@ export default {
     value: {
       type: [Object, Array, String],
       required: false,
+    },
+    inputType: {
+      type: String,
+      required: false,
+      default: 'text',
+    },
+    name: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
 

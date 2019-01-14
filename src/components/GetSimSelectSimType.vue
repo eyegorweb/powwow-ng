@@ -2,7 +2,9 @@
   <div class="GetSimSelectSimType">
     <h2 class="title">{{ $t("getsim.manage-orders") }}</h2>
     <div class="choose-sim-type">
-      <GetSimTypeOption v-for="item in simTypes"/>
+      <form>
+        <GetSimTypeOption v-for="item in simTypes"/>
+      </form>
       <div class="text-right">
         <a href="#" class="show-all-types text-right">
           {{ $t("getsim.show-all-sim-types") }}
@@ -23,6 +25,11 @@ import UiInput from '@/components/ui/UiInput';
 
 export default {
   name: 'GetSimSelectSimType',
+  data() {
+    return {
+      result: '',
+    };
+  },
   props: {
     simTypes: {
       type: Array,

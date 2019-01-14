@@ -1,7 +1,7 @@
 <template>
   <div class="simtype">
     <div class="simtype__item">
-      <UiCheckbox shape="round" v-model="model"/>
+      <UiCheckbox input-type="radio" shape="round" v-model="model" name="simTypeOption"/>
     </div>
     <div class="simtype__item">
       <p class="simtype__name m-0">SIM M2M Endurcie 076</p>
