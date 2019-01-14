@@ -107,7 +107,7 @@
       <GetSimIndicators class="w-50 my-2"/>
     </div>
     <div class="container">
-      <GetSimSelectSimType/>
+      <GetSimSelectSimType :sim-types="simTypes"/>
     </div>
   </div>
 </template>
@@ -234,7 +234,7 @@ export default {
       carouselItems,
       startDate: null, // new Date(),
       endDate: null,
-      test: 4,
+      simTypes: [{ type: 'un' }, { type: 'deux' }, { type: 'trois' }],
     };
   },
 

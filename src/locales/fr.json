@@ -13,7 +13,8 @@
   "getsim": {
     "manage-orders": "Gestion des commandes",
     "order-sim": "Commander des cartes SIM",
-    "show-all-sim-types": "Afficher tous les types de cartes"
+    "show-all-sim-types": "Afficher tous les types de cartes",
+    "choose-sim-amount": "et une quantité"
   },
   "col": {
     "id": "ID",
