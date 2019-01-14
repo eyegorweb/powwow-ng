@@ -48,8 +48,9 @@
 </template>
 
 <script>
+// Composant sandbox, ne pas faire de review, c'est du jetable :)
 import draggable from 'vuedraggable';
-import HomePanel from '@/components/HomePanel';
+import HomePanel from './HomePanel';
 
 export default {
   name: 'DragHome',

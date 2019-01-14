@@ -37,7 +37,7 @@
 
 <script>
 import SlidePanel from '@/components/SlidePanel';
-import HomePanelOption from '@/components/HomePanelOption';
+import HomePanelOption from './HomePanelOption';
 import UiButton from '@/components/ui/Button';
 import cloneDeep from 'lodash.clonedeep';
 

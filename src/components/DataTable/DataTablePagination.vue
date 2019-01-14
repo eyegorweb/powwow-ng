@@ -132,6 +132,7 @@ export default {
   &.active a {
     color: $primary;
     background-color: transparent;
+    z-index: inherit;
   }
 }
 </style>
