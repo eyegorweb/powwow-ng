@@ -234,7 +234,26 @@ export default {
       carouselItems,
       startDate: null, // new Date(),
       endDate: null,
-      simTypes: [{ type: 'un' }, { type: 'deux' }, { type: 'trois' }],
+      simTypes: [
+        {
+          name: 'un',
+          format: 'ici le format',
+          patent: 'ici le brevet',
+          lastCommand: '12/01/2018',
+        },
+        {
+          name: 'deux',
+          format: 'ici le format',
+          patent: 'ici le brevet',
+          lastCommand: '12/01/2018',
+        },
+        {
+          name: 'trois',
+          format: 'ici le format',
+          patent: 'ici le brevet',
+          lastCommand: '12/01/2018',
+        },
+      ],
     };
   },
 
