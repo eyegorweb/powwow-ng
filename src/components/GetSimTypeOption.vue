@@ -1,7 +1,13 @@
 <template>
   <div class="simtype">
     <div class="simtype__item">
-      <UiCheckbox input-type="radio" shape="round" v-model="model" name="simTypeOption"/>
+      <UiCheckbox
+        input-type="radio"
+        shape="round"
+        v-model="model"
+        name="simTypeOption"
+        value="test"
+      />
     </div>
     <div class="simtype__item">
       <p class="simtype__name m-0">SIM M2M Endurcie 076</p>
@@ -20,6 +26,11 @@ import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
   name: 'GetSimTypeOption',
+  data() {
+    return {
+      result: '',
+    };
+  },
   computed: {
     model: {
       get: ({ checked }) => checked,

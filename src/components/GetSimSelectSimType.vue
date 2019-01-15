@@ -14,7 +14,13 @@
     </div>
     <div class="choose-amount">
       <h2 class="title mt-4">{{ $t("getsim.choose-sim-amount") }}</h2>
-      <UiInput :placeholder="1" value class="d-block w-50 mx-auto" input-type="number"/>
+      <UiInput
+        :placeholder="1"
+        value
+        class="d-block w-50 mx-auto"
+        input-type="number"
+        min-value="1"
+      />
     </div>
   </div>
 </template>

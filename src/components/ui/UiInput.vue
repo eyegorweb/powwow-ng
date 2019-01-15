@@ -8,6 +8,7 @@
       v-bind="$attrs"
       v-model="value_"
       type="number"
+      :min="minValue"
     >
     <input v-else :placeholder="placeholder" v-bind="$attrs" v-model="value_" type="text">
   </label>
@@ -30,6 +31,10 @@ export default {
       type: String,
       required: false,
       default: 'text',
+    },
+    minValue: {
+      type: Number,
+      required: false,
     },
   },
 };
