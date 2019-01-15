@@ -6,7 +6,7 @@
         shape="round"
         v-model="selectedItem"
         name="simTypeOption"
-        value="test"
+        :value="item"
       />
     </div>
     <div class="simtype__item">
