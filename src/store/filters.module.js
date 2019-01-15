@@ -38,7 +38,9 @@ export const getters = {
 
 // Actions
 /**
- * Met à jour les partenaires selectionnées, désélécionne les Comptes de facturations et Offres, puis met à jour les champs libres.
+ * Met à jour les partenaires selectionnées
+ * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
+ * met à jour les champs libres
  */
 function setPartnersFilter({ commit, getters }, partners) {
   commit('selectFilterValue', {

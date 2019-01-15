@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import GetSimFilters from './GetSimFilters.vue';
 
 import { $t } from '@/../tests-utils';

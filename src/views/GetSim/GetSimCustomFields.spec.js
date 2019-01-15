@@ -5,7 +5,7 @@ import GetSimCustomFields from './GetSimCustomFields';
 jest.mock('flatpickr/dist/flatpickr.min.css', () => {});
 
 describe('GetSimCustomFields', () => {
-  it('display custom field depending on type', () => {
+  it('display custom field depending on type', async () => {
     const store = new Store({
       getters: {
         filterCustomFields: [
@@ -34,12 +34,12 @@ describe('GetSimCustomFields', () => {
         $store: store,
       },
     });
-
-    const html = wrapper.html();
-    expect(html).toContain('<input type="text" placeholder="Commencer à saisir">');
-    expect(html).toContain(
-      '<select class="form-control mb-2"><option disabled="disabled" selected="selected" value="">Choisissez une valeur</option> <option value="lesZinsZins">lesZinsZins</option><option value="pioupiouEtCie">pioupiouEtCie</option></select>'
-    );
+    await wrapper.vm.$nextTick();
+    expect(wrapper.html()).toContain('<input type="text" placeholder="Commencer à saisir">');
+    const allOptions = wrapper.findAll('option');
+    expect(allOptions).toHaveLength(3);
+    expect(allOptions.at(1).text()).toBe('lesZinsZins');
+    expect(allOptions.at(2).text()).toBe('pioupiouEtCie');
     expect(wrapper.find('.flatpickr-input').exists()).toBe(true);
   });
 });

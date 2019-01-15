@@ -1,61 +1,100 @@
-scalar JSON
+"""This directive allows results to be deferred during execution"""
+directive @defer on FIELD
+
+type AccessPoint {
+  id: ID!
+  commercialStatus: String
+}
+
+type BankAccount {
+  name: String
+  number: String
+  establishmentCode: String
+}
+
+type Country implements Node {
+  id: ID!
+  code: String
+}
+
+input CountryFilterInput {
+  code: StringFilterInput
+}
+
+type CountryResponse {
+  total: Int!
+  countries: [Country]
+}
+
+input CountrySorting {
+  id: SortDirection
+  code: SortDirection
+}
+
+type CustomerAccount implements Node {
+  id: ID!
+  code: String
+  name: String
+  siret: String
+  marketLine: String
+  siren: String
+  party: Party
+  bankAccount: BankAccount
+}
+
+input CustomerAccountFilterInput {
+  code: StringFilterInput
+  name: StringFilterInput
+  siret: StringFilterInput
+  marketLine: StringFilterInput
+  siren: StringFilterInput
+  partyId: IdFilterInput
+}
+
+type CustomerAccountResponse {
+  total: Int!
+  items: [CustomerAccount]
+}
+
+input CustomerAccountSorting {
+  id: SortDirection
+  name: SortDirection
+}
+
+"""Define here custom scalars"""
 scalar Date
 
-#common
-interface Response {
-  total: Int!
+input DateFilterInput {
+  eq: Date
+  ne: Date
+  gt: Date
+  lt: Date
+  goe: Date
+  loe: Date
+  between: DatesRange
 }
 
-input Pagination {
-  limit: Int
-  page: Int
+input DatesRange {
+  startDate: Date
+  endDate: Date
 }
 
-input Sorting {
-  sort: SortDirection = DESCENDING
-  sortBy: String = id #check if "id" doens't rise error
+input IdFilterInput {
+  eq: ID
+  ne: ID
+  in: [ID!]
 }
 
-enum SortDirection {
-  ASC
-  DESC
+"""Long type"""
+scalar Long
+
+type MarketingOffer implements Node {
+  id: ID!
+  description: String
 }
 
-enum criteriaOperation {
-  eq #equals
-  lt #lesser than
-  gt #greater than
-  in #in an array
-  bt #between (range)
-}
-
-input SearchCriteria {
-  key: String! #TODO  this have to be typed, example OrderFilters (enum)
-  operation: criteriaOperation
-  value: String
-  direction: SortDirection
-}
-
-#availableFilters
-type AvailableFilter {
-  name: String!
-  title: String!
-  type: String!
-  values: [Choice]
-}
-
-type Choice {
-  code: String!
-  label: String!
-}
-
-# getCurrentUser
-type User {
-  name: Name
-  email: String
-  isUserParty: Boolean
-  partyName: String
-  isBackOffice: Boolean
+type Mutation {
+  updateSIMCard(input: SIMCardInstanceInput!): SIMCardInstance!
 }
 
 type Name {
@@ -64,60 +103,57 @@ type Name {
   lastName: String
 }
 
-enum Title {
-  MR
-  MISS
-  MRS
+interface Node {
+  id: ID!
 }
 
-#orderStatuses
-
-type Statuses {
-  id: Int
-  label: String
-  checked: Boolean
+input OfferFilterInput {
+  description: StringFilterInput
+  partyId: IdFilterInput
 }
 
-#indicators
-
-type GetSimIndicators {
-  ordersToValidate: Int
-  ordersInProgress: Int
-  nonConfirmedOrders: Int
-  faillingOrders: Int
-  ordersToBeValidated: Int
+type OfferResponse {
+  total: Int!
+  items: [MarketingOffer]
 }
 
-#orders
+input OfferSorting {
+  id: SortDirection
+  name: SortDirection
+}
+
+type Order implements Node {
+  id: ID!
+  creationDate: Date!
+  orderDate: Date!
+  party: Party
+  deliveryNum: Int
+  preActivationAsked: Boolean
+  activationAsked: Boolean
+  status: OrderStatusEnum
+  orderItems: [OrderItem]
+  customerAccount: CustomerAccount
+}
 
 type OrderedProduct {
   description: String
+  code: String
+  buyingPriceInEuroCentHT: Int
+  recurringPriceInEuroCentHT: Int
+  buyingPriceInEuroCentTTC: Int
+  recurringPriceInEuroCentTTC: Int
+  groupCode: String
+  groupName: String
 }
 
-type Partner {
-  id: Int!
-  name: String!
-  code: String!
-  siren: String
-  naf: String
+input OrderFilterInput {
+  partyName: StringFilterInput
+  orderDate: DateFilterInput
 }
 
-type Order {
-  id: ID!
-  name: String
-  creationDate: String!
-  orderDate: String!
-  party: Partner
-  deliveryNum: Int
-  activationAsked: Boolean
-  status: String
+type OrderItem {
   quantity: Int
-  singleProduct: OrderedProduct
-}
-
-type OrdersResponse {
-  total: Int!
-  orders: [Order]
+  orderedProduct: OrderedProduct
 }
 
 input OrderSorting {
@@ -126,42 +162,106 @@ input OrderSorting {
   orderDate: SortDirection
   partyName: SortDirection
   deliveryNum: SortDirection
+  preActivationAsked: SortDirection
   activationAsked: SortDirection
-}
-enum StringCriterionOperation {
-  EQUALS
-  CONTAINS
-  STARTS_WITH
-  ENDS_WITH
+  status: SortDirection
 }
 
-input StringCriterion {
-  operation: StringCriterionOperation
-  value: String
+type OrdersResponse {
+  total: Int!
+  orders: [Order]
 }
 
-enum DateCriterionOperation {
-  EQUALS
-  GREATER_THAN
-  LESS_THAN
-  BETWEEN
+enum OrderStatusEnum {
+  NOT_VALIDATED
+  VALIDATED
+  TO_BE_CONFIRMED
+  TO_BE_CONFIRMED_BY_BO
+  CONFIRMATION_IN_PROGRESS
+  CONFIRMED
+  FAILED
+  TERMINATED
+  CANCELED
 }
 
-input DateCriterion {
-  operation: DateCriterionOperation
-  value: Date
-  value1: Date
+input Pagination {
+  limit: Int
+  page: Int
 }
 
-input OrderCriteria {
-  partyName: StringCriterion
-  orderDate: DateCriterion
+type Party implements Node {
+  id: ID!
+  name: String!
+  code: String!
+  siren: String
+  naf: String
+}
+
+input PartyFilterInput {
+  name: StringFilterInput
+  id: IdFilterInput
+}
+
+input PartySorting {
+  id: SortDirection
+  name: SortDirection
+}
+
+type PartysResponse {
+  total: Int!
+  items: [Party!]
 }
 
 type Query {
-  getCurrentUser: User
-  orderStatuses: [Statuses]
-  indicators: GetSimIndicators
-  orders(filter: OrderCriteria, pagination: Pagination, sorting: OrderSorting): OrdersResponse
-  partners(q: String, pagination: Pagination): [Partner]
+  countries(filter: CountryFilterInput, pagination: Pagination, sorting: CountrySorting): CountryResponse
+  customerAccounts(filter: CustomerAccountFilterInput, pagination: Pagination, sorting: CustomerAccountSorting): CustomerAccountResponse
+  offers(filter: OfferFilterInput, pagination: Pagination, sorting: OfferSorting): OfferResponse
+  orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
+  orderStatus: [OrderStatusEnum]
+  party(id: Int!): Party
+  partys(filter: PartyFilterInput, pagination: Pagination, sorting: PartySorting): PartysResponse
+  findAllSimcards(page: Int, limit: Int): [SIMCardInstance]!
+  findSimcardById(id: Int!): SIMCardInstance
+  countSimcards: Long!
+  getCurrentUser: User!
+}
+
+type SIMCardInstance {
+  id: ID!
+  iccid: String!
+  type: String
+  accessPoint: AccessPoint
+}
+
+input SIMCardInstanceInput {
+  id: ID!
+  iccid: String!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+input StringFilterInput {
+  eq: String
+  ne: String
+  in: [String!]
+  startsWith: String
+  endsWith: String
+  contains: String
+}
+
+enum Title {
+  MR
+  MISS
+  MRS
+}
+
+type User {
+  name: Name
+  email: String
+  isUserParty: Boolean
+  partyName: String
+  isBackOffice: Boolean
 }

@@ -67,18 +67,13 @@
         </UiCheckbox>
       </div>
     </SearchInput>
-    <UiButton
-      class="float-right px-5"
-      variant="primary"
-      size="sm"
-    >Appliquer</UiButton>
+
   </div>
 </template>
 
 <script>
 import SearchInput from '@/components/SearchInput';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiButton from '@/components/ui/Button';
 import unionBy from 'lodash.unionby';
 import differenceBy from 'lodash.differenceby';
 import isEqual from 'lodash.isequal';
@@ -181,7 +176,6 @@ export default {
   components: {
     SearchInput,
     UiCheckbox,
-    UiButton,
   },
 };
 </script>

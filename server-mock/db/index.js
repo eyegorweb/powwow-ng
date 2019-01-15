@@ -1,11 +1,11 @@
 const orders = require('./orders');
 const getCurrentUser = require('./getCurrentUser');
 const indicators = require('./indicators');
-const partners = require('./partners');
+const partys = require('./partys');
 
 module.exports = {
   ...orders,
   ...getCurrentUser,
   ...indicators,
-  ...partners,
+  ...partys,
 };

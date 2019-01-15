@@ -10,7 +10,7 @@ describe('GetSimOrders', () => {
   it('shows datatable with fetched orders', async () => {
     const data = {
       total: 1,
-      orders: [
+      items: [
         {
           id: 1234,
           creationDate: '11/11/2018',

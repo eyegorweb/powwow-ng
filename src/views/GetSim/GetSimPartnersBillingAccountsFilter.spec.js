@@ -46,7 +46,10 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
     const billingAccountsData = [
       {
         id: 1,
-        label: 'wistiti le lion',
+        name: 'wistiti le lion',
+        party: {
+          id: 1,
+        },
       },
     ];
     api.fetchBillingAccounts = jest.fn();
@@ -60,6 +63,7 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
       {
         id: 1,
         label: 'wistiti le lion',
+        partnerId: 1,
       },
     ]);
 
@@ -70,7 +74,7 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
           id: 'id_partner_1',
         },
       ],
-      { limit: 50, page: 1 }
+      { limit: 50, page: 0 }
     );
   });
 
@@ -78,13 +82,19 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
     const billingAccountsData = [
       {
         id: 1,
-        label: 'CF 1',
+        name: 'CF 1',
+        party: {
+          id: 1,
+        },
       },
     ];
     const offerData2 = [
       {
         id: 2,
-        label: 'CF 2',
+        name: 'CF 2',
+        party: {
+          id: 1,
+        },
       },
     ];
     api.fetchBillingAccounts = jest.fn();
@@ -97,11 +107,11 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
 
     await wrapper.vm.nextPage();
 
-    expect(wrapper.vm.page).toEqual(2);
+    expect(wrapper.vm.page).toEqual(1);
 
     expect(wrapper.vm.billingAccounts).toEqual([
-      { id: 1, label: 'CF 1' },
-      { id: 2, label: 'CF 2' },
+      { id: 1, label: 'CF 1', partnerId: 1 },
+      { id: 2, label: 'CF 2', partnerId: 1 },
     ]);
   });
 });
