@@ -15,13 +15,17 @@ function startServer(schemaGQL) {
 
   const resolvers = {
     Query: {
+      countries: () => db.countries,
+      customerAccounts: () => db.customerAccounts,
+      offers: () => db.offers,
       orders: () => db.orders,
+      orderStatus: () => db.orderStatus,
+      party: () => db.party,
+      partys: () => db.partys,
+      findAllSimcards: () => db.findAllSimcards,
+      findSimcardById: () => db.findSimcardById,
+      countSimcards: () => db.countSimcards,
       getCurrentUser: () => db.getCurrentUser,
-      indicators: () => db.indicators,
-      partners: (q, args) => {
-        const pages = groupItems(db.partners, args.pagination.limit);
-        return pages[args.pagination.page - 1];
-      },
     },
   };
 

@@ -14,7 +14,7 @@ export async function searchOrders(fields, orderBy, pagination) {
   query {
     orders(filter: {}${paginationInfo}${orderingInfo}) {
       total
-      orders {
+      items {
         ${fieldsParams.join('\n')}
       }
     }

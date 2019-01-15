@@ -26,7 +26,7 @@ export default {
     async fetchOrders() {
       const data = await searchOrders(this.fieldsToSearch, this.orderBy, this.getPageInfo);
       this.total = data.total;
-      this.rows = this.formatOrders(data.orders);
+      this.rows = this.formatOrders(data.items);
     },
     formatOrders(orders) {
       return orders.map(o => {
