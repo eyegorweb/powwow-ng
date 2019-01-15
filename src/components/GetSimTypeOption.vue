@@ -4,7 +4,7 @@
       <UiCheckbox
         input-type="radio"
         shape="round"
-        v-model="model"
+        v-model="selectedItem"
         name="simTypeOption"
         value="test"
       />
@@ -27,8 +27,8 @@ import UiCheckbox from '@/components/ui/Checkbox';
 export default {
   name: 'GetSimTypeOption',
   props: {
-    test: {
-      type: String,
+    defaultSelectedItem: {
+      type: [String, Array, Object],
     },
   },
   data() {
@@ -37,10 +37,12 @@ export default {
     };
   },
   computed: {
-    model: {
-      get: ({ checked }) => checked,
-      set(model) {
-        this.$emit('update:checked', model);
+    selectedItem: {
+      get() {
+        return this.defaultSelectedItem;
+      },
+      set(newSelected) {
+        this.$emit('update:defaultSelectedItem', newSelected);
       },
     },
   },
