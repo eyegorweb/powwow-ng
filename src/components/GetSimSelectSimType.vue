@@ -5,6 +5,7 @@
       <form>
         <GetSimTypeOption
           v-for="item in items"
+          :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
           @update:checked="updateResult"
         />

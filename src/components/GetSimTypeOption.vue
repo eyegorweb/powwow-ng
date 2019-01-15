@@ -10,10 +10,12 @@
       />
     </div>
     <div class="simtype__item">
-      <p class="simtype__name m-0">SIM M2M Endurcie 076</p>
-      <p class="simtype__format m-0">Format : Standard, sans PIN</p>
-      <p class="simtype__functions m-0">Brevets et fonctionnalités : Best network + Smart Roaming</p>
-      <p class="simtype__order-status m-0">Dernière commande : 27/09/18</p>
+      <p class="simtype__name m-0">{{ item.name }}</p>
+      <p class="simtype__format m-0">{{ $t("getsim.sim-type-labels.format") }} : {{ item.format }}</p>
+      <p
+        class="simtype__functions m-0"
+      >{{ $t("getsim.sim-type-labels.patent") }} : {{ item.patent }}</p>
+      <p class="simtype__order-status m-0">Dernière commande : {{ item.lastCommand }}</p>
     </div>
     <div class="simtype__item">
       <img src="@/assets/simtype.png">
@@ -27,6 +29,9 @@ import UiCheckbox from '@/components/ui/Checkbox';
 export default {
   name: 'GetSimTypeOption',
   props: {
+    item: {
+      type: Object,
+    },
     defaultSelectedItem: {
       type: [String, Array, Object],
     },
