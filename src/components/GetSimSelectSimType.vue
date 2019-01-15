@@ -7,6 +7,7 @@
           v-for="item in items"
           :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
+          :isActive="isClassActive(item.name)"
         />
       </form>
       <div class="text-right">
@@ -50,6 +51,9 @@ export default {
     updateResult(result) {
       console.log('was checked !', result);
     },
+    isClassActive(currentName) {
+      return currentName === this.selectedSimTypeValue.name ? 'true' : '';
+    },
   },
   async mounted() {
     // await console.log('Un test');
@@ -65,7 +69,7 @@ export default {
         return this.selectedSimTypeValue;
       },
       set(newValue) {
-        this.setBillingAccountsFilter(newValue);
+        // this.setBillingAccountsFilter(newValue);
       },
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="simtype">
+  <div class="simtype" :class="{ 'active': isActive }">
     <div class="simtype__item d-flex">
       <UiCheckbox
         input-type="radio"
@@ -35,6 +35,9 @@ export default {
     defaultSelectedItem: {
       type: [String, Array, Object],
     },
+    isActive: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -47,6 +50,12 @@ export default {
         return this.defaultSelectedItem;
       },
       set(newSelected) {
+        // console.log('selectedItem', this.selectedItem);
+        // if (newSelected.name == this.item.name) {
+        //   this.isActive = true;
+        // } else {
+        //   this.isActive = false;
+        // }
         this.$emit('update:defaultSelectedItem', newSelected);
       },
     },
