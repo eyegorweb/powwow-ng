@@ -19,7 +19,7 @@
         value
         class="d-block w-50 mx-auto"
         input-type="number"
-        min-value="1"
+        :min-value="1"
       />
     </div>
   </div>
