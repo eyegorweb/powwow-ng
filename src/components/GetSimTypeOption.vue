@@ -1,6 +1,6 @@
 <template>
   <div class="simtype">
-    <div class="simtype__item">
+    <div class="simtype__item d-flex">
       <UiCheckbox
         input-type="radio"
         shape="round"
@@ -8,14 +8,14 @@
         name="simTypeOption"
         :value="item"
       />
-    </div>
-    <div class="simtype__item">
-      <p class="simtype__name m-0">{{ item.name }}</p>
-      <p class="simtype__format m-0">{{ $t("getsim.sim-type-labels.format") }} : {{ item.format }}</p>
-      <p
-        class="simtype__functions m-0"
-      >{{ $t("getsim.sim-type-labels.patent") }} : {{ item.patent }}</p>
-      <p class="simtype__order-status m-0">Dernière commande : {{ item.lastCommand }}</p>
+      <div class="simTypeIfos">
+        <p class="simtype__name m-0">{{ item.name }}</p>
+        <p class="simtype__format m-0">{{ $t("getsim.sim-type-labels.format") }} : {{ item.format }}</p>
+        <p
+          class="simtype__functions m-0"
+        >{{ $t("getsim.sim-type-labels.patent") }} : {{ item.patent }}</p>
+        <p class="simtype__order-status m-0">Dernière commande : {{ item.lastCommand }}</p>
+      </div>
     </div>
     <div class="simtype__item">
       <img src="@/assets/simtype.png">

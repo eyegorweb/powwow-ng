@@ -7,7 +7,6 @@
           v-for="item in items"
           :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
-          @update:checked="updateResult"
         />
       </form>
       <div class="text-right">
