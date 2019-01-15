@@ -3,7 +3,7 @@
     <h2 class="title">{{ $t("getsim.manage-orders") }}</h2>
     <div class="choose-sim-type">
       <form>
-        <GetSimTypeOption v-for="item in simTypes"/>
+        <GetSimTypeOption v-for="item in items" :test.sync="result" @update:checked="updateResult"/>
       </form>
       <div class="text-right">
         <a href="#" class="show-all-types text-right">
@@ -33,13 +33,29 @@ export default {
   name: 'GetSimSelectSimType',
   data() {
     return {
+      simTypes: [],
       result: '',
+      simTypeData: [{}],
     };
   },
   props: {
-    simTypes: {
+    items: {
       type: Array,
     },
+  },
+  methods: {
+    updateResult(result) {
+      console.log('was checked !', result);
+      this.result = result;
+    },
+  },
+  async mounted() {
+    // await console.log('Un test');
+    this.simTypes = this.items;
+    // this.billingAccounts = await fetchBillingAccounts('', this.selectedPartnersValues, {
+    //   page: 1,
+    //   limit: 50,
+    // });
   },
   components: {
     GetSimTypeOption,

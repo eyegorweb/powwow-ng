@@ -26,6 +26,11 @@ import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
   name: 'GetSimTypeOption',
+  props: {
+    test: {
+      type: String,
+    },
+  },
   data() {
     return {
       result: '',

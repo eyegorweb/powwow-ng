@@ -107,7 +107,7 @@
       <GetSimIndicators class="w-50 my-2"/>
     </div>
     <div class="container">
-      <GetSimSelectSimType :sim-types="simTypes"/>
+      <GetSimSelectSimType :items="simTypes"/>
     </div>
   </div>
 </template>
