@@ -1,5 +1,5 @@
 <template>
-  <div class="synthesis-item">
+  <div v-if="item" class="synthesis-item">
     <h6>{{ $t(item.label) }}: </h6>
     <p v-if="item.value">
       {{ item.value.label }}
@@ -12,7 +12,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
     },
   },
 };

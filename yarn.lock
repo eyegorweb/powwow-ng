@@ -10038,6 +10038,11 @@ vue-router@^3.0.2:
   resolved "http://r.cnpmjs.org/vue-router/download/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
   integrity sha1-3txnr+bE4rwlaCyLHCqMDXx+Vr4=
 
+vue-select@^2.5.1:
+  version "2.5.1"
+  resolved "http://r.cnpmjs.org/vue-select/download/vue-select-2.5.1.tgz#9886e7123150a52dc8dbfe3202d0387268835aaa"
+  integrity sha1-mIbnEjFQpS3I2/4yAtA4cmiDWqo=
+
 vue-slick@^1.1.15:
   version "1.1.15"
   resolved "http://r.cnpmjs.org/vue-slick/download/vue-slick-1.1.15.tgz#2916134531fd1f9638548f2ba1526e4f11032588"

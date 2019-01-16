@@ -36,7 +36,7 @@ import UiButton from '@/components/ui/Button';
 import GetSimOrders from './GetSimOrders';
 import GetSimFilters from './GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
-import GetSimCreateOrderPanel from './CreateOrder/GetSimCreateOrderPanel';
+import GetSimCreateOrderPanel from './CreateOrder/CreateOrderPanel';
 
 export default {
   name: 'GetSim',

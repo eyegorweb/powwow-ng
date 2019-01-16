@@ -5,16 +5,19 @@
     @close="close"
     wide
   >
-    <div class="row panel-container">
+    <div v-if="isOpen" class="row panel-container">
       <div class="col-md-8 content">
-        <Stepper :key="$i18n.locale" :steps="steps" :selected-index="createOrderStep">
-          <p slot="Client">Step Client</p>
+        <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
+          <div slot="Client">
+            <CreateOrderStepClient @client-step-done="clientStepIsDone" />
+          </div>
+          <p slot="Produit">liste des sims ici</p>
           <p slot="Livraison">Livraison</p>
         </Stepper>
 
       </div>
       <div class="col-md-4 synthesis-bar">
-        <GetSimCreateOrderPanelSynthesis />
+        <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" />
       </div>
     </div>
 
@@ -22,10 +25,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import SlidePanel from '@/components/SlidePanel';
 import Stepper from '@/components/ui/Stepper';
-import GetSimCreateOrderPanelSynthesis from './GetSimCreateOrderPanelSynthesis';
+import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
+import CreateOrderStepClient from './CreateOrderStepClient';
 
 // import UiButton from '@/components/ui/Button';
 
@@ -34,10 +37,16 @@ export default {
     SlidePanel,
     Stepper,
     GetSimCreateOrderPanelSynthesis,
+    CreateOrderStepClient,
   },
   props: {
     isOpen: {
       type: Boolean,
+    },
+  },
+  watch: {
+    isOpen() {
+      this.reset();
     },
   },
 
@@ -50,19 +59,30 @@ export default {
         { label: this.$t('orders.new.delivery') },
         { label: this.$t('orders.new.settings') },
       ],
+
+      currentStep: 0,
+      synthesis: {},
     };
   },
 
   methods: {
+    reset() {
+      this.currentStep = 0;
+      this.synthesis = {};
+    },
     saveChanges() {
       this.$emit('update:isOpen', false);
     },
     close() {
       this.$emit('update:isOpen', false);
     },
-  },
-  computed: {
-    ...mapGetters(['createOrderStep']),
+    clientStepIsDone(payload) {
+      this.synthesis = {
+        ...this.synthesis,
+        billingAccount: payload,
+      };
+      this.currentStep += 1;
+    },
   },
 };
 </script>
