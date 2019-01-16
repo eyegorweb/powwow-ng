@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-white clearfix pb-3 items-search">
+  <div class="container bg-white clearfix pb-3 items-search" ref="container">
     <SearchInput
       :items="itemsToSearch"
       :fields="inputFields"
@@ -46,7 +46,6 @@
       </template>
       <div
         class="checkboxes"
-        ref="checkboxes"
         @scroll="onScroll"
         slot-scope="{ results }"
       >
@@ -145,7 +144,7 @@ export default {
       this.labelText = isMatching(displayedItems) ? this.$t('unSelectAll') : this.$t('selectAll');
     },
     onScroll() {
-      const needMore = this.$refs.checkboxes.scrollTop >= this.$refs.checkboxes.scrollHeight / 2;
+      const needMore = this.$refs.checkboxes.scrollTop >= this.$refs.container.scrollHeight / 2;
       if (needMore && this.canNotifyScrollLimit) {
         this.canNotifyScrollLimit = false;
         this.$emit('scroll:limit');
