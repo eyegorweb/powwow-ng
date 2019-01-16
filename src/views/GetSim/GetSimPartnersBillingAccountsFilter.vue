@@ -48,7 +48,7 @@ export default {
     async searchValueChanged(q) {
       this.billingAccounts = await this.fetchFormattedBillingAccountForDatatable(q, {
         page: 0,
-        limit: 50,
+        limit: 10,
       });
       this.lastSearchTerm = q;
       this.page = 0;
@@ -57,7 +57,7 @@ export default {
       this.page += 1;
       const res = await this.fetchFormattedBillingAccountForDatatable(this.lastSearchTerm, {
         page: this.page,
-        limit: 50,
+        limit: 10,
       });
       if (res) {
         this.billingAccounts = this.billingAccounts.concat(res);

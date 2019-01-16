@@ -51,6 +51,7 @@
         slot-scope="{ results }"
       >
         <UiCheckbox
+          v-if="enableSelectAll"
           :value="results.map(r => r.item)"
           :checked="multiSelectValues(results.map(r => r.item))"
           @change="addAllToSelectedItems($event, results.map(r => r.item)), updateTextLabel($event, results.map(r => r.item))"
@@ -85,6 +86,10 @@ export default {
     },
     defaultSelectedItems: {
       type: Array,
+    },
+    enableSelectAll: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

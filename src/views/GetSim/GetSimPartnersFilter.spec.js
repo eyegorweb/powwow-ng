@@ -54,7 +54,7 @@ describe('GetSimPartnersFilter', () => {
       },
     ]);
 
-    expect(api.fetchpartners).toHaveBeenCalledWith('wistiti', { limit: 50, page: 0 });
+    expect(api.fetchpartners).toHaveBeenCalledWith('wistiti', { limit: 10, page: 0 });
   });
 
   it('adds next page content to current content', async () => {

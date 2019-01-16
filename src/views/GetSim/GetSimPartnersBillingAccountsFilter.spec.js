@@ -74,7 +74,7 @@ describe('GetSimPartnersBillingAccountsFilter', () => {
           id: 'id_partner_1',
         },
       ],
-      { limit: 50, page: 0 }
+      { limit: 10, page: 0 }
     );
   });
 

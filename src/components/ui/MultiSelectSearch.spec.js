@@ -42,6 +42,7 @@ describe('PartnersSearch', () => {
       propsData: {
         items: [...partners],
         defaultSelectedItems: [],
+        enableSelectAll: true,
       },
       mocks,
     });
