@@ -4,7 +4,7 @@ export async function fetchBillingAccounts(q, partners, { page, limit }) {
   const partnersIds = partners.map(i => `"${i.id}"`).join(',');
   const queryStr = `
   query{
-    customerAccounts(filter:{name: {contains: "${q}"}, partyId:{in: [${partnersIds}]}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
+    customerAccounts(filter:{name: {contains: "${q}"}, partyId:{in: [${partnersIds}]}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id

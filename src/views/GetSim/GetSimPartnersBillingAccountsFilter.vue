@@ -21,6 +21,7 @@ export default {
     return {
       billingAccounts: [],
       lastSearchTerm: '',
+      canFetchNextPage: true,
       page: 0,
     };
   },
@@ -52,21 +53,28 @@ export default {
       });
       this.lastSearchTerm = q;
       this.page = 0;
+      this.canFetchNextPage = true;
     },
     async nextPage() {
+      if (!this.canFetchNextPage) return;
+
       this.page += 1;
       const res = await this.fetchFormattedBillingAccountForDatatable(this.lastSearchTerm, {
         page: this.page,
         limit: 10,
       });
-      if (res) {
+      if (res && res.length > 0) {
         this.billingAccounts = this.billingAccounts.concat(res);
+      } else {
+        this.canFetchNextPage = false;
       }
     },
   },
 
   watch: {
     async selectedPartnersValues() {
+      this.page = 0;
+      this.canFetchNextPage = true;
       this.billingAccounts = await this.fetchFormattedBillingAccountForDatatable(
         this.lastSearchTerm,
         {
