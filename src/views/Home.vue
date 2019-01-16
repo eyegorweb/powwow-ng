@@ -104,9 +104,6 @@
       </div>
     </div>
     <div class="container">
-      <GetSimIndicators class="w-50 my-2"/>
-    </div>
-    <div class="container">
       <GetSimSelectSimType class="bg-white" :items="simTypes"/>
     </div>
   </div>
@@ -126,7 +123,6 @@ import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
-import GetSimIndicators from '@/components/GetSimIndicators';
 import GetSimSelectSimType from '@/components/GetSimSelectSimType';
 
 export default {
@@ -297,7 +293,6 @@ export default {
     ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
-    GetSimIndicators,
     GetSimSelectSimType,
   },
 };
