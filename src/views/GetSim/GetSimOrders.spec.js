@@ -1,8 +1,14 @@
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import GetSimOrders from './GetSimOrders';
 import * as api from '@/api/orders';
 
 import { $t } from '@/../tests-utils';
+
+import VueRouter from 'vue-router';
+
+const localVue = createLocalVue();
+localVue.use(VueRouter);
+const router = new VueRouter();
 
 const mocks = { $t };
 
@@ -23,7 +29,16 @@ describe('GetSimOrders', () => {
     api.searchOrders = jest.fn();
     api.searchOrders.mockResolvedValue(data);
 
-    const wrapper = mount(GetSimOrders, { mocks });
+    const wrapper = mount(GetSimOrders, {
+      mocks,
+      localVue,
+      router,
+    });
+
+    // Attendre les retours des appels API et des imports asynchronnes (DataTableColumnTypeSWitcher)
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
