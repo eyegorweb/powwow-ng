@@ -5,7 +5,7 @@
       :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide}"
     >
       <header class="cd-panel__header">
-        <h1>{{ title }}</h1>
+        <h1>{{ $t(title) }}</h1>
 
         <a
           href="#0"
@@ -226,8 +226,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 90%;
-  padding: 70px 5%;
+  height: 100%;
   overflow: auto;
   p {
     font-size: 1.4rem;

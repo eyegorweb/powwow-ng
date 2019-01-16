@@ -16,7 +16,7 @@
           slot-scope="{ staticClass, toggle }"
           variant="outline-primary"
           class="flex-grow-1 py-1 px-3"
-          @click.stop="toggle"
+          @click.prevent="toggle"
           :class="staticClass"
         >Enregistrer</UiButton>
         <div
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import SelectedFilterDetails from './SelectedFilterDetails';
+import SelectedFilterDetails from '@/components/SelectedFilterDetails';
 import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 import UiDropdownButton from '@/components/ui/UiDropdownButton';

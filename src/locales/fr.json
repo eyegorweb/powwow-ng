@@ -10,6 +10,9 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "logout": "Déconnexion",
+  "common": {
+    "billingAccounts": "Compte de facturation"
+  },
   "getsim": {
     "manage-orders": "Gestion des commandes",
     "order-sim": "Commander des cartes SIM",
@@ -50,6 +53,13 @@
     "city": "Ville"
   },
   "orders": {
-    "chooseSimType": "Choisir un type de carte SIM"
+    "new": {
+      "customer": "Client",
+      "product": "Produit",
+      "service": "Services",
+      "delivery": "Livraison",
+      "settings": "Paramètres",
+      "synthesis": "Récapitulatif de la commande"
+    }
   }
 }

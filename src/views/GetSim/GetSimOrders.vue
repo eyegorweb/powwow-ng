@@ -26,7 +26,7 @@ export default {
     async fetchOrders() {
       const data = await searchOrders(this.fieldsToSearch, this.orderBy, this.getPageInfo);
       this.total = data.total;
-      this.rows = this.formatOrders(data.orders);
+      this.rows = this.formatOrders(data.items);
     },
     formatOrders(orders) {
       return orders.map(o => {
@@ -66,11 +66,20 @@ export default {
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
+          format: {
+            type: 'Link',
+            getUrl(id) {
+              return `detail/${id}`;
+            },
+          },
         },
         {
           label: this.$t('col.creationDate'),
           name: 'creationDate',
           orderable: true,
+          format: {
+            type: 'Date',
+          },
         },
         {
           label: this.$t('col.orderDate'),

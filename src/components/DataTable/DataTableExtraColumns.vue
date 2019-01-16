@@ -13,10 +13,7 @@
             >{{ extraColumn.label }}</Checkbox>
           </div>
 
-          <button
-            class="btn btn-block btn-primary"
-            @click="saveExtraColumns"
-          >{{ $t('save') }}</button>
+          <button class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ describe('GetSimPartnersFilter', () => {
     const partnersData = [
       {
         id: 1,
-        label: 'wistiti le lion',
+        name: 'wistiti le lion',
       },
     ];
     api.fetchpartners = jest.fn();
@@ -54,20 +54,20 @@ describe('GetSimPartnersFilter', () => {
       },
     ]);
 
-    expect(api.fetchpartners).toHaveBeenCalledWith('wistiti', { limit: 50, page: 1 });
+    expect(api.fetchpartners).toHaveBeenCalledWith('wistiti', { limit: 10, page: 0 });
   });
 
   it('adds next page content to current content', async () => {
     const partnersData = [
       {
         id: 1,
-        label: 'wistiti le lion',
+        name: 'wistiti le lion',
       },
     ];
     const partnersData2 = [
       {
         id: 2,
-        label: 'wistiti le chien',
+        name: 'wistiti le chien',
       },
     ];
     api.fetchpartners = jest.fn();
@@ -80,7 +80,7 @@ describe('GetSimPartnersFilter', () => {
 
     await wrapper.vm.nextPage();
 
-    expect(wrapper.vm.page).toEqual(2);
+    expect(wrapper.vm.page).toEqual(1);
 
     expect(wrapper.vm.partners).toEqual([
       { id: 1, label: 'wistiti le lion' },

@@ -9,7 +9,8 @@
     "lint": "vue-cli-service lint",
     "build:full-local": "vue-cli-service build --mode full-local",
     "build:integration": "vue-cli-service build --mode integration",
-    "serve:fullstack": "yarn run server:mock | vue-cli-service serve --mode fullstack",
+    "serve:local-integration": "vue-cli-service serve --mode local-integration",
+    "serve:fullstack": "vue-cli-service serve --mode fullstack",
     "server:mock": "node ./server-mock/index.js",
     "test:dev": "yarn test:unit --watchAll",
     "test:unit": "vue-cli-service test:unit"
@@ -23,6 +24,7 @@
     "eslint-plugin-import": "^2.14.0",
     "fuzzysort": "^1.1.4",
     "graphql": "^14.0.2",
+    "jest-transform-stub": "^1.0.0",
     "jquery": "^3.3.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",

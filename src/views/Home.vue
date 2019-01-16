@@ -113,7 +113,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+// Composant sandbox, ne pas faire de review, c'est du jetable :)
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiButton from '@/components/ui/Button';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';

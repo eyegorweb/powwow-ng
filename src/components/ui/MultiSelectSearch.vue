@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-white clearfix pb-3 items-search">
+  <div class="container bg-white clearfix pb-3 items-search" ref="container">
     <SearchInput
       :items="itemsToSearch"
       :fields="inputFields"
@@ -51,6 +51,7 @@
         slot-scope="{ results }"
       >
         <UiCheckbox
+          v-if="enableSelectAll"
           :value="results.map(r => r.item)"
           :checked="multiSelectValues(results.map(r => r.item))"
           @change="addAllToSelectedItems($event, results.map(r => r.item)), updateTextLabel($event, results.map(r => r.item))"
@@ -67,18 +68,13 @@
         </UiCheckbox>
       </div>
     </SearchInput>
-    <UiButton
-      class="float-right px-5"
-      variant="primary"
-      size="sm"
-    >Appliquer</UiButton>
+
   </div>
 </template>
 
 <script>
 import SearchInput from '@/components/SearchInput';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiButton from '@/components/ui/Button';
 import unionBy from 'lodash.unionby';
 import differenceBy from 'lodash.differenceby';
 import isEqual from 'lodash.isequal';
@@ -90,6 +86,10 @@ export default {
     },
     defaultSelectedItems: {
       type: Array,
+    },
+    enableSelectAll: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -145,7 +145,10 @@ export default {
       this.labelText = isMatching(displayedItems) ? this.$t('unSelectAll') : this.$t('selectAll');
     },
     onScroll() {
-      const needMore = this.$refs.checkboxes.scrollTop >= this.$refs.checkboxes.scrollHeight / 2;
+      const heightStyle = getComputedStyle(this.$refs.checkboxes).height;
+      const height = parseInt(heightStyle.replace('px', ''));
+      const needMore =
+        this.$refs.checkboxes.scrollTop + height >= this.$refs.checkboxes.scrollHeight;
       if (needMore && this.canNotifyScrollLimit) {
         this.canNotifyScrollLimit = false;
         this.$emit('scroll:limit');
@@ -181,7 +184,6 @@ export default {
   components: {
     SearchInput,
     UiCheckbox,
-    UiButton,
   },
 };
 </script>

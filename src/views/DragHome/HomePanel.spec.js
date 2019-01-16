@@ -1,6 +1,10 @@
 import { mount } from '@vue/test-utils';
 import HomePanel from './HomePanel';
 
+import { $t } from '@/../tests-utils';
+
+const mocks = { $t };
+
 describe('HomePanel', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
@@ -16,6 +20,7 @@ describe('HomePanel', () => {
       },
     ];
     wrapper = mount(HomePanel, {
+      mocks,
       propsData: {
         widgets,
         isOpen,

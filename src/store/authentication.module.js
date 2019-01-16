@@ -1,5 +1,6 @@
 import { fetchCurrentUserInfos } from '@/api/user';
 import axios from 'axios';
+import { isDevMode } from '@/utils';
 
 export const state = {
   token: undefined,
@@ -30,17 +31,18 @@ export const actions = {
     commit('setAuthToken', { token, tokenStr });
 
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenStr;
+    if (!isDevMode()) {
+      const expireDate = new Date(state.token.exp * 1000);
+      const now = new Date();
 
-    const expireDate = new Date(state.token.exp * 1000);
-    const now = new Date();
+      const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
+      const waitBeforeRefresh = Math.abs(secondsToExpire);
 
-    const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
-    const waitBeforeRefresh = Math.abs(secondsToExpire);
-
-    if (waitBeforeRefresh > 0) {
-      setTimeout(() => {
-        commit('startRefreshingToken');
-      }, waitBeforeRefresh * 1000);
+      if (waitBeforeRefresh > 0) {
+        setTimeout(() => {
+          commit('startRefreshingToken');
+        }, waitBeforeRefresh * 1000);
+      }
     }
   },
 };

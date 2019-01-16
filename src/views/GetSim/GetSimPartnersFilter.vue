@@ -17,19 +17,39 @@ export default {
     MultiSelectSearch,
   },
   async mounted() {
-    this.partners = await fetchpartners('', { page: 1, limit: 10 });
+    this.partners = await this.fetchFormattedPartnersForDatatable('', { page: 0, limit: 10 });
   },
   methods: {
     ...mapActions(['setPartnersFilter']),
 
+    async fetchFormattedPartnersForDatatable(q, { page, limit }) {
+      const data = await fetchpartners(q, { page, limit });
+      if (data) {
+        return data.map(p => ({
+          id: p.id,
+          label: p.name,
+        }));
+      }
+      return undefined;
+    },
+
     async searchValueChanged(q) {
-      this.partners = await fetchpartners(q, { page: 1, limit: 50 });
+      this.page = 0;
+      this.partners = await this.fetchFormattedPartnersForDatatable(q, {
+        page: this.page,
+        limit: 10,
+      });
       this.lastSearchTerm = q;
-      this.page = 1;
     },
     async nextPage() {
+      if (!this.canGetNextPage) return;
       this.page += 1;
-      const res = await fetchpartners(this.lastSearchTerm, { page: this.page, limit: 50 });
+      this.canGetNextPage = false;
+      const res = await this.fetchFormattedPartnersForDatatable(this.lastSearchTerm, {
+        page: this.page,
+        limit: 10,
+      });
+      this.canGetNextPage = true;
       if (res) {
         this.partners = this.partners.concat(res);
       }
@@ -50,9 +70,10 @@ export default {
   data() {
     return {
       lastSearchTerm: '',
-      page: 1,
+      page: 0,
       partners: [],
       selectedPartnersCol: [],
+      canGetNextPage: true,
     };
   },
 };

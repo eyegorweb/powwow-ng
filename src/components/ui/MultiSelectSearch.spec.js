@@ -42,6 +42,7 @@ describe('PartnersSearch', () => {
       propsData: {
         items: [...partners],
         defaultSelectedItems: [],
+        enableSelectAll: true,
       },
       mocks,
     });
@@ -142,10 +143,5 @@ describe('PartnersSearch', () => {
         ],
       ],
     ]);
-  });
-
-  it('displays all selected partners when the +N button is clicked', () => {
-    wrapper.find('button').trigger('click');
-    expect(wrapper.findAll('.selection').length).toBe(wrapper.vm.selectedItems.length);
   });
 });

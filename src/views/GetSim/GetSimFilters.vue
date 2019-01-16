@@ -50,13 +50,13 @@
 import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
-import GetSimCustomFields from '@/components/GetSimCustomFields';
-import GetSimSelectedFilters from '@/components/GetSimSelectedFilters';
-import GetSimPartnersFilter from '@/components/GetSimPartnersFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
-import GetSimPartnersBillingAccountsFilter from '@/components/GetSimPartnersBillingAccountsFilter';
-import GetSimOffersFilter from '@/components/GetSimOffersFilter';
+import GetSimCustomFields from './GetSimCustomFields';
+import GetSimSelectedFilters from './GetSimSelectedFilters';
+import GetSimPartnersFilter from './GetSimPartnersFilter';
+import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
+import GetSimOffersFilter from './GetSimOffersFilter';
 
 export default {
   computed: {
