@@ -47,7 +47,7 @@ export default {
     return {
       simTypes: [],
       selectedSimTypeValue: '',
-      selectedNumberOfSims: '',
+      selectedNumberOfSims: '1',
       limit: 3,
       allSimTypesVisible: false,
     };
