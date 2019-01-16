@@ -103,6 +103,8 @@ export default {
 
 <style lang="scss">
 .GetSimSelectSimType {
+  padding: 55px 40px 30px;
+
   .choose-sim-type {
     max-height: 400px;
     overflow-y: auto;
