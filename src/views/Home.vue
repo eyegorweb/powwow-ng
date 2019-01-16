@@ -253,6 +253,24 @@ export default {
           patent: 'Aucun',
           lastCommand: '12/01/2018',
         },
+        {
+          name: 'SIM M2M Endurcie 079',
+          format: 'Standard, sans PIN',
+          patent: 'Best network + Smart Roaming',
+          lastCommand: '12/01/2018',
+        },
+        {
+          name: 'SIM M2M Endurcie 096',
+          format: 'Standard, sans PIN',
+          patent: 'Backup FR',
+          lastCommand: '12/01/2018',
+        },
+        {
+          name: 'SIM M2M Endurcie 047 (bobine de 3000)',
+          format: 'Soudée, sans PIN',
+          patent: 'Aucun',
+          lastCommand: '12/01/2018',
+        },
       ],
     };
   },

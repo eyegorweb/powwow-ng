@@ -4,7 +4,7 @@
     <div class="choose-sim-type">
       <form>
         <GetSimTypeOption
-          v-for="item in items"
+          v-for="item in filteredSimTypes"
           :key="item.name"
           :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
@@ -12,7 +12,12 @@
         />
       </form>
       <div class="text-right">
-        <a href="#" class="show-all-types text-right">
+        <a
+          v-if="!allSimTypesVisible"
+          href="#"
+          @click.prevent="showAllSimTypes"
+          class="show-all-types text-right"
+        >
           {{ $t("getsim.show-all-sim-types") }}
           <i class="arrow ic-Arrow-Down-Icon"/>
         </a>
@@ -43,6 +48,8 @@ export default {
       simTypes: [],
       selectedSimTypeValue: '',
       selectedNumberOfSims: '',
+      limit: 3,
+      allSimTypesVisible: false,
     };
   },
   props: {
@@ -53,6 +60,20 @@ export default {
   methods: {
     isClassActive(currentName) {
       return currentName === this.selectedSimTypeValue.name ? 'true' : '';
+    },
+    showAllSimTypes() {
+      this.limit = this.simTypes.length;
+      this.allSimTypesVisible = true;
+    },
+  },
+  computed: {
+    filteredSimTypes: {
+      get() {
+        return this.simTypes.slice(0, this.limit);
+      },
+      set(newVal) {
+        return newVal;
+      },
     },
   },
   async mounted() {
