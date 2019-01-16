@@ -17,10 +17,7 @@
             <div class="row">
               <div class="col-md-4">
                 <!-- class input-group mb-3 -->
-                <UiDateRange
-                  :start.sync="startDate"
-                  :end.sync="endDate"
-                />
+                <UiDateRange :start.sync="startDate" :end.sync="endDate" />
               </div>
               <br>
             </div>
@@ -38,10 +35,7 @@
         </div>
       </div>
       <UiCheckbox>Example</UiCheckbox>
-      <UiButton
-        variant="primary"
-        @click="show = !show"
-      >Afficher le volet</UiButton>
+      <UiButton variant="primary" @click="show = !show">Afficher le volet</UiButton>
       <TransitionCollapse>
         <div v-if="show">Hello there</div>
       </TransitionCollapse>
@@ -50,7 +44,7 @@
     <hr>
 
     <div class="container bg-white">
-      <UiApiAutocomplete :api-method="searchAddress" />
+      <UiApiAutocomplete :api-method="searchAddress" value />
     </div>
 
     <hr>

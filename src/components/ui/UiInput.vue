@@ -2,7 +2,13 @@
   <label :class="{ 'has-icon': $slots.icon }">
     <slot name="icon" />
     <slot name="beforeInput" />
-    <input type="text" :placeholder="placeholder" v-bind="$attrs" v-model="value_">
+    <input
+      type="text"
+      :placeholder="placeholder"
+      v-bind="$attrs"
+      v-on="$listeners"
+      v-model="value_"
+    >
   </label>
 </template>
 
