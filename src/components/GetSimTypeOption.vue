@@ -58,12 +58,21 @@ export default {
 <style lang="scss" scoped>
 .simtype {
   border: 1px solid $medium-gray;
+  border-radius: 0.2rem;
   align-items: stretch;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   padding: 10px 20px 10px 15px;
   margin-bottom: 10px;
+
+  &.active {
+    border: 1px solid $blue;
+
+    .simtype__name {
+      color: $blue;
+    }
+  }
 
   p {
     color: $dark-gray;
