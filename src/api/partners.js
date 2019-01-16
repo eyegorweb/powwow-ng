@@ -3,7 +3,7 @@ import { query } from './utils';
 export async function fetchpartners(q, { page, limit }) {
   const queryStr = `
   query{
-    partys(filter:{name: {contains: "${q}"}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
+    partys(filter:{name: {contains: "${q}"}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
