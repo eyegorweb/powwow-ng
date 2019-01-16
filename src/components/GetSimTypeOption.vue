@@ -39,23 +39,12 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
-      result: '',
-    };
-  },
   computed: {
     selectedItem: {
       get() {
         return this.defaultSelectedItem;
       },
       set(newSelected) {
-        // console.log('selectedItem', this.selectedItem);
-        // if (newSelected.name == this.item.name) {
-        //   this.isActive = true;
-        // } else {
-        //   this.isActive = false;
-        // }
         this.$emit('update:defaultSelectedItem', newSelected);
       },
     },

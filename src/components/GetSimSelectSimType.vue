@@ -5,9 +5,10 @@
       <form>
         <GetSimTypeOption
           v-for="item in items"
+          :key="item.name"
           :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
-          :isActive="isClassActive(item.name)"
+          :is-active="isClassActive(item.name)"
         />
       </form>
       <div class="text-right">
@@ -21,6 +22,7 @@
       <h2 class="title mt-4">{{ $t("getsim.choose-sim-amount") }}</h2>
       <UiInput
         :placeholder="1"
+        v-model="selectedNumberOfSims"
         value
         class="d-block w-50 mx-auto"
         input-type="number"
@@ -40,6 +42,7 @@ export default {
     return {
       simTypes: [],
       selectedSimTypeValue: '',
+      selectedNumberOfSims: '',
     };
   },
   props: {
@@ -63,16 +66,16 @@ export default {
     //   limit: 50,
     // });
   },
-  computed: {
-    selectedSimType: {
-      get() {
-        return this.selectedSimTypeValue;
-      },
-      set(newValue) {
-        // this.setBillingAccountsFilter(newValue);
-      },
-    },
-  },
+  // computed: {
+  //   selectedSimType: {
+  //     get() {
+  //       return this.selectedSimTypeValue;
+  //     },
+  //     set(newValue) {
+  //       // this.setBillingAccountsFilter(newValue);
+  //     },
+  //   },
+  // },
   components: {
     GetSimTypeOption,
     UiInput,
