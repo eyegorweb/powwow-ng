@@ -51,9 +51,6 @@ export default {
     },
   },
   methods: {
-    updateResult(result) {
-      console.log('was checked !', result);
-    },
     isClassActive(currentName) {
       return currentName === this.selectedSimTypeValue.name ? 'true' : '';
     },
