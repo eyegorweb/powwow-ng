@@ -5,7 +5,7 @@
       <form>
         <GetSimTypeOption
           v-for="item in filteredSimTypes"
-          :key="item.name"
+          :key="item.id"
           :item="item"
           :default-selected-item.sync="selectedSimTypeValue"
           :is-active="isClassActive(item.name)"

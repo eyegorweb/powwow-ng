@@ -1,7 +1,7 @@
 <template>
   <label :class="{ 'has-icon': $slots.icon }">
-    <slot name="icon"/>
-    <slot name="beforeInput"/>
+    <slot name="icon" />
+    <slot name="beforeInput" />
     <input
       v-if="inputType === 'number'"
       :placeholder="placeholder"

@@ -1,7 +1,7 @@
 <template>
   <div class="checkbox-container">
     <label>
-      <slot/>
+      <slot />
       <input
         v-if="inputType === 'radio'"
         type="radio"
@@ -11,7 +11,7 @@
         :name="name"
       >
       <input v-else type="checkbox" v-bind="$attrs" v-model="model" :value="value">
-      <span class="checkmark" :class="isIndeterminate ? 'indeterminate' : shape"/>
+      <span class="checkmark" :class="isIndeterminate ? 'indeterminate' : shape" />
     </label>
   </div>
 </template>
