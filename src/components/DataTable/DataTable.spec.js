@@ -54,21 +54,22 @@ describe('DataTable.vue', () => {
   });
 
   it('matches attributes to column names in rows', () => {
+    console.log('dataTableTest', wrapper.html());
     expect(wrapper.findAll('tbody tr')).toHaveLength(1);
     expect(
       wrapper
         .findAll('tbody tr')
         .at(0)
         .find('td')
-        .text()
-    ).toBe('Leroy');
+        .contains('datatablecolumntypeswitcher-stub')
+    ).toBe(true);
     expect(
       wrapper
         .findAll('tbody tr')
         .at(0)
         .findAll('td')
         .at(1)
-        .text()
-    ).toBe('Jenkins');
+        .contains('datatablecolumntypeswitcher-stub')
+    ).toBe(true);
   });
 });

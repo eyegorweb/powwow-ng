@@ -69,7 +69,9 @@
                 :key="column.name"
                 v-for="(column, index) in columns"
                 :colspan="(index + 1) === columns.length ? 2 : 1 "
-              >{{ row[column.name] }}</td>
+              >
+                <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" />
+              </td>
             </tr>
           </tbody>
         </table>
@@ -85,6 +87,7 @@ import UiInput from '@/components/ui/UiInput';
 import DataTableExtraColumns from './DataTableExtraColumns';
 import DataTablePagination from './DataTablePagination';
 import DataTableOrderArrow from './DataTableOrderArrow';
+import DatatableColumnTypeSwitcher from '@/components/DataTable/DataTableColumnTypeSwitcher';
 
 export default {
   name: 'DataTable',
@@ -95,6 +98,7 @@ export default {
     DataTableExtraColumns,
     DataTablePagination,
     DataTableOrderArrow,
+    DatatableColumnTypeSwitcher,
   },
   props: {
     columns: {
