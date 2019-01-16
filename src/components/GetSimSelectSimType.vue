@@ -103,6 +103,11 @@ export default {
 
 <style lang="scss">
 .GetSimSelectSimType {
+  .choose-sim-type {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
   .title {
     background-color: transparent;
     color: $dark-gray;

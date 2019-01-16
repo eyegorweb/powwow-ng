@@ -65,6 +65,7 @@ export default {
   justify-content: space-between;
   padding: 10px 20px 10px 15px;
   margin-bottom: 10px;
+  min-height: 90px;
 
   &.active {
     border: 1px solid $blue;
