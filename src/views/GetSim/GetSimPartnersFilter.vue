@@ -37,7 +37,7 @@ export default {
       this.page = 0;
       this.partners = await this.fetchFormattedPartnersForDatatable(q, {
         page: this.page,
-        limit: 50,
+        limit: 10,
       });
       this.lastSearchTerm = q;
     },
@@ -47,7 +47,7 @@ export default {
       this.canGetNextPage = false;
       const res = await this.fetchFormattedPartnersForDatatable(this.lastSearchTerm, {
         page: this.page,
-        limit: 50,
+        limit: 10,
       });
       this.canGetNextPage = true;
       if (res) {
