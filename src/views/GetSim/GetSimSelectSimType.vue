@@ -77,23 +77,8 @@ export default {
     },
   },
   async mounted() {
-    // await console.log('Un test');
     this.simTypes = this.items;
-    // this.billingAccounts = await fetchBillingAccounts('', this.selectedPartnersValues, {
-    //   page: 1,
-    //   limit: 50,
-    // });
   },
-  // computed: {
-  //   selectedSimType: {
-  //     get() {
-  //       return this.selectedSimTypeValue;
-  //     },
-  //     set(newValue) {
-  //       // this.setBillingAccountsFilter(newValue);
-  //     },
-  //   },
-  // },
   components: {
     GetSimTypeOption,
     UiInput,
