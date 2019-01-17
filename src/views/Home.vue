@@ -7,7 +7,7 @@
       <router-link to="/draghome">DragHome</router-link>|
     </div>
     <div class="container">
-      <NavBars is-backoffice-profile/>
+      <NavBars is-backoffice-profile />
 
       <hr>
       <div class="container">
@@ -44,7 +44,7 @@
     <hr>
 
     <div class="container bg-white">
-      <UiApiAutocomplete :api-method="searchAddress" />
+      <UiApiAutocomplete :api-method="searchAddress" value />
     </div>
 
     <hr>

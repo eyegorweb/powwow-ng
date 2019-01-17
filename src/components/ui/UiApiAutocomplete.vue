@@ -11,33 +11,39 @@
           class="form-control form-control-lg"
           v-model="$value"
           ref="input"
-          @focus="areSuggestionsVisible = true"
+          @focus="onInputFocus"
           @blur="onInputBlur"
           autocomplete="off"
           v-bind="$attrs"
           @input="areSuggestionsVisible = true"
           @keydown.prevent.down.exact="selectDown(data ? data.length -1 : 0)"
           @keydown.prevent.up.exact="selectUp"
-          @keydown.enter.exact="selectValue(data[selectedItem].label)"
+          @keydown.enter.exact="selectValue(data[selectedItem])"
         >
+        <a class="p-0" @click.prevent="showSuggestions">
+          <i :class="iconClass" />
+        </a>
         <ul
           v-show="areSuggestionsVisible"
           class="autocomplete-results shadow position-absolute m-0 p-0 py-3 mt-2 bg-white border-1 border-gray w-100"
           @mouseleave="resetSelected"
         >
           <li
-            v-if="!$value"
+            v-if="!$value && !displayResultsWhileEmpty"
             class="autocomplete-result text-muted is-disabled"
           >Commencez à taper pour avoir des suggestions</li>
           <template v-else>
             <li
               v-for="(result, i) in data"
               :key="result.id"
-              @click="selectValue(result.label)"
+              @click="selectValue(result)"
               @mouseenter="selectedItem = i"
               :class="i === selectedItem && 'is-selected'"
               class="autocomplete-result py-2"
-            >{{ result.label }}</li>
+            >
+              <span v-if="result.highlighted" v-html="result.highlighted" />
+              <template v-else>{{ result.label }}</template>
+            </li>
           </template>
         </ul>
       </fieldset>
@@ -50,26 +56,89 @@
 import { Promised } from 'vue-promised';
 import debounce from 'lodash.debounce';
 import { clickaway } from '@/directives/clickaway';
-import { propWithDataFallback } from 'vue-prop-data-fallback';
+import fuzzysort from 'fuzzysort';
 
 export default {
   name: 'ApiAutocomplete',
   inheritAttrs: false,
-  mixins: [propWithDataFallback('value')],
+
+  model: {
+    event: 'update:value',
+  },
 
   data() {
     return {
       resultsPromise: null,
       areSuggestionsVisible: false,
-
       selectedItem: -1,
+      isOpen: this.defaultOpen,
     };
   },
 
   props: {
-    apiMethod: {
-      type: Function,
-      required: true,
+    apiMethod: Function,
+    displayResultsWhileEmpty: Boolean,
+    items: Array,
+    // une string pour gere l'ajout de string arbitraires
+    value: {
+      type: [Object, String],
+    },
+    labelKey: {
+      type: String,
+      default: 'label',
+    },
+    defaultOpen: Boolean,
+  },
+
+  computed: {
+    $value: {
+      get() {
+        return typeof this.value === 'string'
+          ? this.value
+          : // gere le cas ou value est null
+            this.value && this.value[this.labelKey];
+      },
+      set(newValue) {
+        // TODO: à simplifier
+        this.$emit(
+          'update:value',
+          typeof this.value === 'string'
+            ? // quand la prop est une string on doit emettre une string or
+              // slectValue va etre appele avec un objet en parametre
+              typeof newValue === 'object'
+              ? // gere selectValue(null)
+                newValue && newValue[this.labelKey]
+              : newValue
+            : typeof newValue === 'object'
+              ? newValue
+              : { [this.labelKey]: newValue }
+        );
+      },
+    },
+    results() {
+      if (!this.$value) return this.highlightedResults;
+
+      return fuzzysort
+        .go(this.$value, this.items, {
+          key: 'label',
+          allowTypo: false,
+        })
+        .map(r => ({
+          ...r.obj,
+          highlighted: fuzzysort.highlight(r),
+        }));
+    },
+    // version non surlignée à autiliser losque la recherche est vide
+    highlightedResults() {
+      if (!this.items) return [];
+
+      return this.items.map(item => ({
+        ...item,
+        highlighted: item.label,
+      }));
+    },
+    iconClass() {
+      return this.isOpen ? 'icon-default ic-Arrow-Up-Icon' : 'icon-default ic-Arrow-Down-Icon';
     },
   },
 
@@ -86,11 +155,13 @@ export default {
     selectUp() {
       this.selectedItem = Math.max(0, this.selectedItem - 1);
     },
-    debouncedFetch: debounce(async function(search) {
-      this.resultsPromise = this.apiMethod(search);
+    async fetchResults() {
+      this.resultsPromise = this.apiMethod
+        ? this.apiMethod(this.$value || '')
+        : Promise.resolve(this.results);
       await this.resultsPromise;
       this.resetSelected();
-    }, 200),
+    },
     selectValue(value) {
       // hide suggestions now that one is selected
       this.areSuggestionsVisible = false;
@@ -99,13 +170,32 @@ export default {
     onInputBlur(e) {
       // quand on change vers un autre element dans le clavier, on cache les suggestions
       if (e.relatedTarget) this.hideSuggestions();
+      this.toggleShow();
     },
+    onInputFocus() {
+      this.areSuggestionsVisible = true;
+      this.toggleShow();
+    },
+    toggleShow() {
+      this.isOpen = !this.isOpen;
+    },
+    showSuggestions() {
+      this.areSuggestionsVisible = !this.areSuggestionsVisible;
+    },
+  },
+
+  created() {
+    if (this.displayResultsWhileEmpty) this.fetchResults();
   },
 
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: 'debouncedFetch',
+    $value: debounce(function() {
+      this.fetchResults();
+    }, 200),
+
+    items: 'fetchResults',
   },
 
   directives: { clickaway },
@@ -116,6 +206,18 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+
+.icon-default {
+  display: block;
+  position: absolute;
+  right: 0.8rem;
+  width: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  &:hover {
+    cursor: pointer;
+  }
+}
 
 .autocomplete-results {
   font-size: 0.875rem;

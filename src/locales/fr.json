@@ -53,6 +53,8 @@
     "city": "Ville"
   },
   "orders": {
+    "choose-account": "Choisir un compte de facturation",
+    "choose-partner": "Choisir un partenaire",
     "new": {
       "customer": "Client",
       "product": "Produit",

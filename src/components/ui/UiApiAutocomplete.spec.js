@@ -2,8 +2,9 @@ import { mount } from '@vue/test-utils';
 import UiApiAutocomplete from './UiApiAutocomplete';
 import fakePromise from 'faked-promise';
 
+const tick = () => new Promise(resolve => setTimeout(resolve, 0));
+
 const apiMethod = jest.fn();
-jest.useFakeTimers();
 
 describe('UiApiAutocomplete.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
@@ -19,12 +20,8 @@ describe('UiApiAutocomplete.vue', () => {
     apiMethod.mockReset();
     apiMethod.mockReturnValue(promise);
     wrapper = mount(UiApiAutocomplete, {
-      propsData: { apiMethod },
-      value: '',
+      propsData: { apiMethod, value: '' },
     });
-  });
-  afterEach(() => {
-    jest.clearAllTimers();
   });
 
   it('displays a message when the input is empty', () => {
@@ -49,6 +46,18 @@ describe('UiApiAutocomplete.vue', () => {
     expect(apiMethod).not.toHaveBeenCalled();
     wrapper.setProps({ value: 'Paris' });
     expect(apiMethod).toHaveBeenCalled();
+    expect(wrapper.findAll('.autocomplete-result')).toHaveLength(0);
+    await resolve();
+    // await wrapper.vm.$nextTick();
+    expect(wrapper.findAll('.autocomplete-result')).toHaveLength(3);
+  });
+
+  it('displays suggestions on empty', async () => {
+    wrapper = mount(UiApiAutocomplete, {
+      propsData: { apiMethod, displayResultsWhileEmpty: true, value: '' },
+    });
+    expect(apiMethod).toHaveBeenCalledWith('');
+    expect(wrapper.find('.autocomplete-results').exists()).toBe(true);
     expect(wrapper.findAll('.autocomplete-result')).toHaveLength(0);
     await resolve();
     // await wrapper.vm.$nextTick();
@@ -119,6 +128,58 @@ describe('UiApiAutocomplete.vue', () => {
       // relatedTarget est l'élément vers lequel prend le focus.
       wrapper.find('input').trigger('blur', { relatedTarget: new EventTarget() });
       expect(wrapper.find('.autocomplete-results').isVisible()).toBe(false);
+    });
+  });
+
+  describe('with suggestions from local list', () => {
+    const items = [
+      {
+        id: 1,
+        label: 'CF1 - Neptide',
+      },
+      {
+        id: 2,
+        label: 'CF2 - Neptide',
+      },
+      {
+        id: 3,
+        label: 'CF1 - Eschoir',
+      },
+      {
+        id: 4,
+        label: 'CF2 - Eschoir',
+      },
+    ];
+    beforeEach(() => {
+      wrapper.setProps({
+        apiMethod: null,
+        items,
+      });
+    });
+
+    it('filters based on items', async () => {
+      wrapper.setProps({ value: 'Nept' });
+      await tick();
+      expect(wrapper.findAll('.autocomplete-result')).toHaveLength(2);
+    });
+
+    it('displays with empty input', async () => {
+      wrapper = mount(UiApiAutocomplete, {
+        propsData: { items, displayResultsWhileEmpty: true, value: '' },
+      });
+      await tick();
+      expect(wrapper.findAll('.autocomplete-result')).toHaveLength(4);
+    });
+
+    it('watches items', async () => {
+      wrapper = mount(UiApiAutocomplete, {
+        propsData: { items, displayResultsWhileEmpty: true, value: '' },
+      });
+      await tick();
+      expect(wrapper.findAll('.autocomplete-result')).toHaveLength(4);
+      wrapper.setProps({ items: [...items, { label: 'toto' }] });
+      await tick();
+      expect(wrapper.findAll('.autocomplete-result')).toHaveLength(5);
     });
   });
 });
