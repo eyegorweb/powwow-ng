@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { $t, $i18n } from '@/../tests-utils';
 import GetSimSelectSimType from './GetSimSelectSimType';
+import { triggerAsyncId } from 'async_hooks';
 
 const mocks = { $i18n, $t };
 
@@ -61,5 +62,14 @@ describe('GetSimSelectSimType.vue', () => {
 
   it('renders only the first 3 items when loaded', () => {
     expect(wrapper.findAll('.simtype')).toHaveLength(3);
+  });
+
+  it('adds active class to the clicked item', () => {
+    expect(
+      wrapper
+        .findAll('.simtype')
+        .at(0)
+        .classes()
+    ).toContain('active');
   });
 });
