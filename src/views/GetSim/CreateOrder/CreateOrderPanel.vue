@@ -9,10 +9,10 @@
       <div class="col-md-8 content">
         <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
           <div slot="Client">
-            <CreateOrderStepClient @client-step-done="clientStepIsDone" />
+            <CreateOrderStepClient @done="stepisDone" />
           </div>
           <div slot="Produit">
-            <CreateOrderStepProduct />
+            <CreateOrderStepProduct @done="stepisDone" />
           </div>
           <p slot="Livraison">Livraison</p>
         </Stepper>
@@ -80,10 +80,10 @@ export default {
     close() {
       this.$emit('update:isOpen', false);
     },
-    clientStepIsDone(payload) {
+    stepisDone(payload) {
       this.synthesis = {
         ...this.synthesis,
-        billingAccount: payload,
+        ...payload,
       };
       this.currentStep += 1;
     },

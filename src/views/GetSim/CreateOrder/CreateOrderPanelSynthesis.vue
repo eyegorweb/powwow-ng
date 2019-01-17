@@ -4,6 +4,7 @@
     <div>
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.billingAccount" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.product" />
+      <GetSimCreateOrderPanelSynthesisItem :item="synthesis.quantity" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.services" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.delivery" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.settings" />

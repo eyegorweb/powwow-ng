@@ -40,7 +40,7 @@
         <UiCircularButton class="float-left">
           <span slot="icon" class="ic-Arrow-Previous-Icon" />
         </UiCircularButton>
-        <UiCircularButton class="float-right" :disabled="!canGoToNextStep">
+        <UiCircularButton class="float-right" @click="done" :disabled="!canGoToNextStep">
           <span slot="icon" class="ic-Arrow-Next-Icon" />
         </UiCircularButton>
       </div>
@@ -74,6 +74,24 @@ export default {
     showAllSimTypes() {
       this.limit = this.simTypes.length;
       this.allSimTypesVisible = true;
+    },
+    done() {
+      this.$emit('done', {
+        quantity: {
+          label: 'common.quantity',
+          value: {
+            id: 'quantity',
+            label: this.selectedNumberOfSims,
+          },
+        },
+        product: {
+          label: 'common.product',
+          value: {
+            id: this.selectedSimTypeValue.id,
+            label: this.selectedSimTypeValue.name,
+          },
+        },
+      });
     },
   },
   computed: {

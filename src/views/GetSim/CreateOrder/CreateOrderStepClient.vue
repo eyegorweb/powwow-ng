@@ -55,11 +55,13 @@ export default {
       }));
     },
     done() {
-      this.$emit('client-step-done', {
-        label: 'common.billingAccounts',
-        value: {
-          id: this.selectedBillingAccount.id,
-          label: this.selectedBillingAccount.label,
+      this.$emit('done', {
+        billingAccount: {
+          label: 'common.billingAccount',
+          value: {
+            id: this.selectedBillingAccount.id,
+            label: this.selectedBillingAccount.label,
+          },
         },
       });
     },
