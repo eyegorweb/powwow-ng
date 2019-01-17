@@ -37,7 +37,7 @@
 
     <div class="row">
       <div class="col-md-12 mt-5">
-        <UiCircularButton class="float-left">
+        <UiCircularButton class="float-left" @click="$emit('prev')">
           <span slot="icon" class="ic-Arrow-Previous-Icon" />
         </UiCircularButton>
         <UiCircularButton class="float-right" @click="done" :disabled="!canGoToNextStep">

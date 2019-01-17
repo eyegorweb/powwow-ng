@@ -12,7 +12,7 @@
             <CreateOrderStepClient @done="stepisDone" />
           </div>
           <div slot="Produit">
-            <CreateOrderStepProduct @done="stepisDone" />
+            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep-=1" />
           </div>
           <p slot="Livraison">Livraison</p>
         </Stepper>
