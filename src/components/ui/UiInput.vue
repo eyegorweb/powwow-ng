@@ -10,7 +10,7 @@
       type="number"
       :min="minValue"
     >
-    <input v-else :placeholder="placeholder" v-bind="$attrs" v-model="value_" type="text">
+    <input v-else :placeholder="placeholder" v-bind="$attrs" v-model="value_" v-on="$listeners" type="text">
   </label>
 </template>
 

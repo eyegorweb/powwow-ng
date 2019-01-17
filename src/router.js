@@ -4,8 +4,10 @@ import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationO
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
 const Home = () => import('@/views/Home');
-const DragHome = () => import('@/views/DragHome');
-const GetSim = () => import('@/views/GetSim');
+const DragHome = () => import('@/views/DragHome/index');
+const GetSim = () => import('@/views/GetSim/index');
+// const GetSimOrdersBillingAccount = () => import('@/views/GetSimOrdersBillingAccount');
+// const GetSimOrdersPartners = () => import('@/views/GetSimOrdersPartners');
 
 Vue.use(Router);
 

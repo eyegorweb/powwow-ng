@@ -44,7 +44,7 @@
     <hr>
 
     <div class="container bg-white">
-      <UiApiAutocomplete :api-method="searchAddress" />
+      <UiApiAutocomplete :api-method="searchAddress" value />
     </div>
 
     <hr>
