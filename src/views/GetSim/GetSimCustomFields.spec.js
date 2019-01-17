@@ -35,7 +35,7 @@ describe('GetSimCustomFields', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.html()).toContain('<input type="text" placeholder="Commencer à saisir">');
+    expect(wrapper.find('input').exists()).toBe(true);
     const allOptions = wrapper.findAll('option');
     expect(allOptions).toHaveLength(3);
     expect(allOptions.at(1).text()).toBe('lesZinsZins');
