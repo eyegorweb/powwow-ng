@@ -81,14 +81,19 @@ export default {
           label: 'common.quantity',
           value: {
             id: 'quantity',
-            label: this.selectedNumberOfSims,
+            content: this.selectedNumberOfSims,
           },
         },
+
         product: {
           label: 'common.product',
           value: {
             id: this.selectedSimTypeValue.id,
-            label: this.selectedSimTypeValue.name,
+            content: [
+              this.selectedSimTypeValue.name,
+              this.selectedSimTypeValue.format,
+              this.selectedSimTypeValue.patent,
+            ],
           },
         },
       });

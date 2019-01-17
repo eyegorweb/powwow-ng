@@ -60,7 +60,7 @@ export default {
           label: 'common.billingAccount',
           value: {
             id: this.selectedBillingAccount.id,
-            label: this.selectedBillingAccount.label,
+            content: this.selectedBillingAccount.label,
           },
         },
       });
