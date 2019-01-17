@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <NavBars is-backoffice-profile/>
+    <NavBars is-backoffice-profile />
     <div class="mt-4">
       <div class="row mb-5">
         <div class="col-md-9">
           <h4>
             <b>GetSim</b>
             - {{ $t("getsim.manage-orders") }}
-            <i class="ic-Info-Icon"/>
+            <i class="ic-Info-Icon" />
           </h4>
         </div>
         <div class="col-md-3">
@@ -21,16 +21,16 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <GetSimIndicators/>
+          <GetSimIndicators />
           <br>
-          <GetSimFilters/>
+          <GetSimFilters />
         </div>
         <div class="col-md-9">
-          <GetSimOrders :key="$i18n.locale"/>
+          <GetSimOrders :key="$i18n.locale" />
         </div>
       </div>
     </div>
-    <GetSimCreateOrderPanel :is-open.sync="isPanelOpen"/>
+    <GetSimCreateOrderPanel :is-open.sync="isPanelOpen" />
   </div>
 </template>
 

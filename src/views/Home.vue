@@ -7,7 +7,7 @@
       <router-link to="/draghome">DragHome</router-link>|
     </div>
     <div class="container">
-      <NavBars is-backoffice-profile/>
+      <NavBars is-backoffice-profile />
 
       <hr>
       <div class="container">
@@ -17,7 +17,7 @@
             <div class="row">
               <div class="col-md-4">
                 <!-- class input-group mb-3 -->
-                <UiDateRange :start.sync="startDate" :end.sync="endDate"/>
+                <UiDateRange :start.sync="startDate" :end.sync="endDate" />
               </div>
               <br>
             </div>
@@ -30,7 +30,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <ActionCarousel :actions="carouselItems"/>
+            <ActionCarousel :actions="carouselItems" />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <hr>
 
     <div class="container bg-white">
-      <UiApiAutocomplete :api-method="searchAddress"/>
+      <UiApiAutocomplete :api-method="searchAddress" />
     </div>
 
     <hr>
@@ -104,7 +104,7 @@
       </div>
     </div>
     <div class="container">
-      <GetSimSelectSimType class="bg-white" :items="simTypes"/>
+      <GetSimSelectSimType class="bg-white" :items="simTypes" />
     </div>
   </div>
 </template>

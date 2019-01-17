@@ -25,10 +25,10 @@
         </a>
       </div>
       <div class="nav">
-        <div class="icon ic-Clock-Icon"/>
+        <div class="icon ic-Clock-Icon" />
         <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
-          <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon"/>
-          <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon"/>
+          <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
+          <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
           <div v-if="userMenuVisible" class="sub-menu">
             <ul class="list-group">
               <li class="list-group-item">
