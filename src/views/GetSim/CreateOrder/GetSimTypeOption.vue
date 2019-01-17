@@ -36,7 +36,7 @@ export default {
       type: [String, Array, Object],
     },
     isActive: {
-      type: String,
+      type: Boolean,
     },
   },
   computed: {

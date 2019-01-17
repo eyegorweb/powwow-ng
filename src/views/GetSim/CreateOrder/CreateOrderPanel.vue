@@ -71,7 +71,7 @@ export default {
 
   methods: {
     reset() {
-      this.currentStep = 1;
+      this.currentStep = 0;
       this.synthesis = {};
     },
     saveChanges() {
