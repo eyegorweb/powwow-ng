@@ -54,7 +54,6 @@ describe('DataTable.vue', () => {
   });
 
   it('matches attributes to column names in rows', () => {
-    console.log('dataTableTest', wrapper.html());
     expect(wrapper.findAll('tbody tr')).toHaveLength(1);
     expect(
       wrapper
