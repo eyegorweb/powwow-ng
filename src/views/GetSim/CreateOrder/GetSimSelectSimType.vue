@@ -38,6 +38,17 @@
 </template>
 
 <script>
+/**
+ * simTypes: [
+        {
+          id: '01',
+          name: 'SIM M2M Endurcie 076',
+          format: 'Standard, sans PIN',
+          patent: 'Best network + Smart Roaming',
+          lastCommand: '12/01/2018',
+        },
+      ],
+ */
 import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 
