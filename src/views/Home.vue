@@ -7,7 +7,7 @@
       <router-link to="/draghome">DragHome</router-link>|
     </div>
     <div class="container">
-      <NavBars is-backoffice-profile />
+      <NavBars is-backoffice-profile/>
 
       <hr>
       <div class="container">
@@ -123,7 +123,7 @@ import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import { searchAddress } from '@/api/address';
-import GetSimSelectSimType from '@/components/GetSimSelectSimType';
+import GetSimSelectSimType from './GetSim/GetSimSelectSimType';
 
 export default {
   name: 'Home',

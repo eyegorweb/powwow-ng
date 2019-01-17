@@ -38,10 +38,5 @@ export default new Router({
       name: 'exemples',
       component: Home,
     },
-    {
-      path: '/getsimexample',
-      name: 'getsimexample',
-      component: Home,
-    },
   ],
 });

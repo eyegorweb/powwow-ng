@@ -19,7 +19,7 @@
           class="show-all-types text-right"
         >
           {{ $t("getsim.show-all-sim-types") }}
-          <i class="arrow ic-Arrow-Down-Icon" />
+          <i class="arrow ic-Arrow-Down-Icon"/>
         </a>
       </div>
     </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import GetSimTypeOption from '@/components/GetSimTypeOption';
+import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 
 export default {
