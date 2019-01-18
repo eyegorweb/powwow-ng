@@ -61,7 +61,7 @@ export default {
   border-radius: 0.2rem;
   align-items: stretch;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   padding: 10px 20px 10px 15px;
   margin-bottom: 10px;

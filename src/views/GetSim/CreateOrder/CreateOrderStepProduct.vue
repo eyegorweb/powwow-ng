@@ -1,5 +1,5 @@
 <template>
-  <div class="GetSimSelectSimType">
+  <div class="get-sim-product" :style="{ paddingLeft: 30 + 'px', paddingRight: 30 + 'px' }">
     <h2 class="title">{{ $t("getsim.manage-orders") }}</h2>
     <div class="choose-sim-type">
       <form>
@@ -122,9 +122,7 @@ export default {
 </script>
 
 <style lang="scss">
-.GetSimSelectSimType {
-  padding: 55px 40px 30px;
-
+.get-sim-product {
   .choose-sim-type {
     max-height: 400px;
     overflow-y: auto;
