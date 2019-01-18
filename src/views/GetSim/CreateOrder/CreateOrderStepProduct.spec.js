@@ -65,13 +65,17 @@ describe('CreateOrderStepProduct.vue', () => {
     expect(wrapper.findAll('.simtype')).toHaveLength(3);
   });
 
-  // it('adds active class to the clicked item', () => {
-  //   console.log('unTEST', wrapper.html());
-  //   expect(
-  //     wrapper
-  //       .findAll('.simtype')
-  //       .at(0)
-  //       .classes()
-  //   ).toContain('active');
-  // });
+  it('adds active class to the clicked item', () => {
+    wrapper
+      .findAll('.simtype')
+      .at(0)
+      .find('input')
+      .trigger('click');
+    expect(
+      wrapper
+        .findAll('.simtype')
+        .at(0)
+        .classes()
+    ).toContain('active');
+  });
 });
