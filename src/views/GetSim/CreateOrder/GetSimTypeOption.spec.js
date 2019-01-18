@@ -12,24 +12,28 @@ const simType = {
   lastCommand: '12/01/2018',
 };
 
-// describe('GetSimTypeOption.vue', () => {
-//   /** @type {import('@vue/test-utils').Wrapper} */
-//   let wrapper;
-//   beforeEach(() => {
-//     wrapper = mount(GetSimTypeOption, {
-//       propsData: { item: simType },
-//       mocks,
-//     });
-//     wrapper.find('input').value = simType;
-//   });
+describe('GetSimTypeOption.vue', () => {
+  /** @type {import('@vue/test-utils').Wrapper} */
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(GetSimTypeOption, {
+      propsData: { item: simType },
+      mocks,
+    });
+    wrapper.find('input').value = simType;
+  });
 
-//   it('has active class when clicked', () => {
-//     console.log('simTypeTest', wrapper.find('input').value);
-//     expect(
-//       wrapper
-//         .findAll('div')
-//         .at(0)
-//         .classes()
-//     ).toContain('active');
-//   });
-// });
+  it('lists data passed in props', () => {
+    console.log('simTypeTest', wrapper.html());
+    // expect(
+    //   wrapper
+    //     .findAll('div')
+    //     .at(0)
+    //     .classes()
+    // ).toContain('active');
+    expect(wrapper.find('.simtype__name').text()).toContain(simType.name);
+    expect(wrapper.find('.simtype__format').text()).toContain(simType.format);
+    expect(wrapper.find('.simtype__functions').text()).toContain(simType.patent);
+    expect(wrapper.find('.simtype__order-status').text()).toContain(simType.lastCommand);
+  });
+});
