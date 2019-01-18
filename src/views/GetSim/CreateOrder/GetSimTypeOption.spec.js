@@ -24,13 +24,6 @@ describe('GetSimTypeOption.vue', () => {
   });
 
   it('lists data passed in props', () => {
-    console.log('simTypeTest', wrapper.html());
-    // expect(
-    //   wrapper
-    //     .findAll('div')
-    //     .at(0)
-    //     .classes()
-    // ).toContain('active');
     expect(wrapper.find('.simtype__name').text()).toContain(simType.name);
     expect(wrapper.find('.simtype__format').text()).toContain(simType.format);
     expect(wrapper.find('.simtype__functions').text()).toContain(simType.patent);
