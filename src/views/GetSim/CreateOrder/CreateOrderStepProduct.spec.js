@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { $t, $i18n } from '@/../tests-utils';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
+import * as api from '@/api/products';
 
 const mocks = { $i18n, $t };
 
@@ -52,12 +53,15 @@ const products = [
 describe('CreateOrderStepProduct.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
-  beforeEach(() => {
+  beforeEach(async () => {
+    api.fetchSim = jest.fn();
+    api.fetchSim.mockResolvedValue(products);
+
     wrapper = mount(CreateOrderStepProduct, {
       mocks,
     });
 
-    wrapper.setData({ simTypes: products });
+    await wrapper.vm.$nextTick();
   });
 
   it('renders only the first 3 items when loaded', () => {
