@@ -20,7 +20,6 @@ describe('GetSimTypeOption.vue', () => {
       propsData: { item: simType },
       mocks,
     });
-    wrapper.find('input').value = simType;
   });
 
   it('lists data passed in props', () => {
