@@ -161,8 +161,11 @@ export default {
       this.selectedItem = Math.max(0, this.selectedItem - 1);
     },
     enablePagination() {
-      this.canFetchNextPage = true; // enable pagination
+      this.canFetchNextPage = true;
       this.page = 0;
+      if (this.$refs.results) {
+        this.$refs.results.scrollTop = 0;
+      }
     },
     async fetchResults() {
       this.enablePagination();
