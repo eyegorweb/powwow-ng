@@ -61,7 +61,6 @@ describe('CreateOrderStepProduct.vue', () => {
   });
 
   it('renders only the first 3 items when loaded', () => {
-    // await wrapper.vm.$nextTick();
     expect(wrapper.findAll('.simtype')).toHaveLength(3);
   });
 
