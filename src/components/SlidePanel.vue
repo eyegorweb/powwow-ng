@@ -18,7 +18,9 @@
         <div class="cd-panel__content">
           <slot />
         </div>
-        <slot class="cd-panel__footer" name="footer" />
+        <div class="cd-panel__footer">
+          <slot name="footer" />
+        </div>
       </div>
 
     </div>

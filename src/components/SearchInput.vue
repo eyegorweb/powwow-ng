@@ -1,11 +1,20 @@
 <template>
   <div class="search-input">
-    <UiInput v-model="$value" @update:value="$emit('update:value', $event)">
+    <UiInput
+      v-model="$value"
+      @update:value="$emit('update:value', $event)"
+    >
       <!-- TODO:Utiliser la bonne icone -->
-      <img style="font-size: 24px" slot="icon" src="@/assets/search.svg" :style="{ left: 0 }">
+      <img
+        style="font-size: 24px"
+        slot="icon"
+        src="@/assets/search.svg"
+        :style="{ left: 0 }"
+      >
       <template slot="beforeInput">
         <slot name="beforeInput" />
       </template>
+
     </UiInput>
     <!-- TODO:Utiliser la bonne icone -->
     <img
@@ -16,7 +25,10 @@
     >
 
     <div>
-      <slot :results="results" :query="$value" />
+      <slot
+        :results="results"
+        :query="$value"
+      />
     </div>
   </div>
 </template>
@@ -43,7 +55,7 @@ export default {
 
   computed: {
     results() {
-      if (!this.$value) return this.highlightedResults;
+      if (!this.$value) return this.highlightedResult;
 
       return fuzzysort
         .go(this.$value, this.items, {
@@ -58,10 +70,10 @@ export default {
           }, {}),
         }));
     },
-
-    // version non surlignée à autiliser losque la recherche est vide
-    highlightedResults() {
-      if (!this.items) return [];
+    highlightedResult() {
+      if (!this.items) {
+        return [];
+      }
 
       return this.items.map(item => ({
         item,

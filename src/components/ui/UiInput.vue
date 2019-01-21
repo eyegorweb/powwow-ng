@@ -2,15 +2,7 @@
   <label :class="{ 'has-icon': $slots.icon }">
     <slot name="icon" />
     <slot name="beforeInput" />
-    <input
-      v-if="inputType === 'number'"
-      :placeholder="placeholder"
-      v-bind="$attrs"
-      v-model="value_"
-      type="number"
-      :min="minValue"
-    >
-    <input v-else :placeholder="placeholder" v-bind="$attrs" v-model="value_" v-on="$listeners" type="text">
+    <input type="text" :placeholder="placeholder" v-bind="$attrs" v-model="value_">
   </label>
 </template>
 
@@ -23,19 +15,7 @@ export default {
   mixins: [propWithSync('value')],
 
   props: {
-    placeholder: {
-      type: [String, Number],
-      required: false,
-    },
-    inputType: {
-      type: String,
-      required: false,
-      default: 'text',
-    },
-    minValue: {
-      type: Number,
-      required: false,
-    },
+    placeholder: String,
   },
 };
 </script>
