@@ -34,6 +34,9 @@ export const getters = {
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.offers');
   },
+  selectedOrderCreatorValues: state => {
+    return selectedFilterValuesById(state)('filters.orderCreator');
+  },
 };
 
 // Actions
@@ -50,6 +53,7 @@ function setPartnersFilter({ commit, getters }, partners) {
 
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
   removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
+  removeSelectedOrderCreatorPartners({ commit, getters }, partners);
   refreshCustomFilters({ commit }, partners);
 }
 
@@ -65,6 +69,13 @@ function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partner
     partners.find(p => p.id === a.partnerId)
   );
   commit('setOffersFilter', withPartnersSelected);
+}
+
+function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
+  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
+  commit('setOrderCreatorFilter', creatorWithPartnerSelected);
 }
 
 async function refreshCustomFilters({ commit }, partners) {
@@ -130,6 +141,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.offers',
       newValue: offers,
+    });
+  },
+  setOrderCreatorFilter(state, creators) {
+    selectFilterValue(state, {
+      id: 'filters.orderCreator',
+      newValue: creators,
     });
   },
 };
