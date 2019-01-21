@@ -59,7 +59,7 @@ export default {
       const extraColumnsToAdd = this.localExtraColumns
         .filter(column => column.isChecked)
         .map(column => {
-          return { name: column.name, label: column.label };
+          return { name: column.name, label: column.label, format: column.format };
         });
 
       const finalList = columnsWithoutExtra.concat(extraColumnsToAdd);

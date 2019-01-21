@@ -18,7 +18,7 @@ export default {
       required: false,
     },
     item: {
-      type: [Object, String, Number],
+      type: [Object, String, Number, Array, Boolean],
     },
   },
   data() {
@@ -28,10 +28,17 @@ export default {
   },
   methods: {
     getComponentLoader() {
-      if (!this.format || !this.format.type) {
+      if (!this.format) {
         return null;
       }
-      return () => import(`@/components/DataTable/ColumnTypes/${this.format.type}`);
+
+      if (this.format.component) {
+        return () => Promise.resolve(this.format.component);
+      }
+
+      if (this.format.type) {
+        return () => import(`@/components/DataTable/ColumnTypes/${this.format.type}`);
+      }
     },
   },
   mounted() {

@@ -42,7 +42,7 @@
         <table class="table table-blue mt-1">
           <draggable element="thead" v-model="sortableColumns" :options="draggableOptions">
             <transition-group tag="tr" name="table">
-              <th :key="column.name" v-for="column in sortableColumns">
+              <th :key="column.name+column.label" v-for="column in sortableColumns">
                 <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
                 {{ column.label }}
                 <DataTableOrderArrow
@@ -66,7 +66,7 @@
           <tbody>
             <tr :key="row.id" v-for="row in rows">
               <td
-                :key="column.name"
+                :key="column.name+column.label+row.id"
                 v-for="(column, index) in columns"
                 :colspan="(index + 1) === columns.length ? 2 : 1 "
               >

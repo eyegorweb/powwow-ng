@@ -74,7 +74,7 @@ export default {
       navbarLinks: [
         { label: 'GetSIM', to: { name: 'home' } },
         { label: 'GetParc/GetDiag', to: { name: 'home' } },
-        { label: 'GetVision', to: { name: 'getsimorderscreation' } },
+        { label: 'GetVision', to: { name: 'home' } },
         { label: 'GetReport', to: { name: 'home' } },
         { label: 'GetAdmin', to: { name: 'home' } },
         { label: 'GetSupport', to: { name: 'exemples' } },
