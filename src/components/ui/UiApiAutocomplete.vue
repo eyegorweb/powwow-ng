@@ -27,6 +27,8 @@
           v-show="areSuggestionsVisible"
           class="autocomplete-results shadow position-absolute m-0 p-0 py-3 mt-2 bg-white border-1 border-gray w-100"
           @mouseleave="resetSelected"
+          @scroll="() => onScroll(data)"
+          ref="results"
         >
           <li
             v-if="!$value && !displayResultsWhileEmpty"
@@ -72,6 +74,8 @@ export default {
       areSuggestionsVisible: false,
       selectedItem: -1,
       isOpen: this.defaultOpen,
+      page: 0,
+      canFetchNextPage: true,
     };
   },
 
@@ -88,6 +92,7 @@ export default {
       default: 'label',
     },
     defaultOpen: Boolean,
+    scrollForNext: Boolean,
   },
 
   computed: {
@@ -155,7 +160,13 @@ export default {
     selectUp() {
       this.selectedItem = Math.max(0, this.selectedItem - 1);
     },
+    enablePagination() {
+      this.canFetchNextPage = true; // enable pagination
+      this.page = 0;
+    },
     async fetchResults() {
+      this.enablePagination();
+
       this.resultsPromise = this.apiMethod
         ? this.apiMethod(this.$value || '')
         : Promise.resolve(this.results);
@@ -181,6 +192,21 @@ export default {
     },
     showSuggestions() {
       this.areSuggestionsVisible = !this.areSuggestionsVisible;
+    },
+    async onScroll(currentData) {
+      if (!this.scrollForNext && this.apiMethod) return;
+
+      const heightStyle = getComputedStyle(this.$refs.results).height;
+      const height = parseInt(heightStyle.replace('px', ''));
+      const needMore = this.$refs.results.scrollTop + height >= this.$refs.results.scrollHeight;
+      if (needMore && this.canFetchNextPage) {
+        this.page += 1;
+        const nextPageContent = await this.apiMethod(this.$value || '', this.page);
+        this.canFetchNextPage = nextPageContent.length > 0;
+        this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
+        await this.resultsPromise;
+        this.resetSelected();
+      }
     },
   },
 
@@ -223,6 +249,7 @@ export default {
   font-size: 0.875rem;
   overflow: auto;
   z-index: $zindex-dropdown;
+  max-height: 300px;
 }
 
 .autocomplete-result {

@@ -6,6 +6,7 @@
         :api-method="fetchPartners"
         v-model="selectedPartner"
         display-results-while-empty
+        scroll-for-next
       >
         <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }">
       </UiApiAutocomplete>
@@ -47,8 +48,8 @@ export default {
   },
 
   methods: {
-    async fetchPartners(q) {
-      const data = await fetchpartners(q, { page: 0, limit: 10 });
+    async fetchPartners(q, page = 0) {
+      const data = await fetchpartners(q, { page, limit: 10 });
       return data.map(p => ({
         id: p.id,
         label: p.name,
