@@ -1,10 +1,6 @@
 import { query } from './utils';
 
-export async function searchOrders(fields, orderBy, pagination) {
-  const fieldsParams = fields.reduce((all, item) => {
-    all.push(getFieldParam(item));
-    return all;
-  }, []);
+export async function searchOrders(orderBy, pagination) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -15,21 +11,21 @@ export async function searchOrders(fields, orderBy, pagination) {
     orders(filter: {}${paginationInfo}${orderingInfo}) {
       total
       items {
-        ${fieldsParams.join('\n')}
+        id
+				creationDate
+				activationAsked
+        status
+        orderItems {
+          quantity
+          orderedProduct {
+            description
+            code
+          }
+        }
       }
     }
   }
   `;
   const response = await query(queryStr);
   return response.data.orders;
-}
-
-function getFieldParam(item) {
-  if (item === 'singleProduct') {
-    return `
-    singleProduct {
-      description
-    }`;
-  }
-  return item;
 }

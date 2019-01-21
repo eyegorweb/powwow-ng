@@ -13,14 +13,14 @@ const router = new VueRouter();
 const mocks = { $t };
 
 describe('GetSimOrders', () => {
-  it('shows datatable with fetched orders', async () => {
+  //it('shows datatable with fetched orders', async () => {
+  it('only-me', async () => {
     const data = {
       total: 1,
       items: [
         {
           id: 1234,
           creationDate: '11/11/2018',
-          orderDate: '12/11/2018',
           activationAsked: true,
         },
       ],
@@ -44,6 +44,5 @@ describe('GetSimOrders', () => {
 
     expect(wrapper.html()).toContain('1234');
     expect(wrapper.html()).toContain('11/11/2018');
-    expect(wrapper.html()).toContain('12/11/2018');
   });
 });

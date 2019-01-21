@@ -13,7 +13,10 @@
   "common": {
     "billingAccount": "Compte de facturation",
     "product": "Produit",
-    "quantity": "Quantité"
+    "quantity": "Quantité",
+    "billingAccounts": "Compte de facturation",
+    "YES": "Oui",
+    "NO": "No"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -29,7 +32,15 @@
     "id": "ID",
     "creationDate": "Date de création",
     "orderDate": "Date de commande",
-    "activationAsked": "Active"
+    "activationAsked": "Active",
+    "quantity": "Quantité",
+    "status": "Statut",
+    "product": "Produit",
+    "statuses": {
+      "CONFIRMED": "Confirmée",
+      "TERMINATED": "Terminée",
+      "NOT_VALIDATED": "Non validée"
+    }
   },
   "indicators": {
     "ordersToValidate": "Commandes à valider",

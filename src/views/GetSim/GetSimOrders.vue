@@ -13,6 +13,7 @@
 <script>
 import DataTable from '@/components/DataTable/DataTable';
 import { searchOrders } from '@/api/orders';
+import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
 
 export default {
   name: 'Orders',
@@ -24,24 +25,12 @@ export default {
   },
   methods: {
     async fetchOrders() {
-      const data = await searchOrders(this.fieldsToSearch, this.orderBy, this.getPageInfo);
+      const data = await searchOrders(this.orderBy, this.getPageInfo);
       this.total = data.total;
-      this.rows = this.formatOrders(data.items);
-    },
-    formatOrders(orders) {
-      return orders.map(o => {
-        if (o.singleProduct && o.singleProduct.description) {
-          o.singleProduct = o.singleProduct.description;
-        }
-        return o;
-      });
+      this.rows = data.items;
     },
   },
   computed: {
-    fieldsToSearch() {
-      const allColumnts = this.columns.concat(this.extraColumns);
-      return allColumnts.map(f => f.name);
-    },
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
@@ -67,9 +56,9 @@ export default {
           name: 'id',
           orderable: true,
           format: {
-            type: 'Link',
-            getUrl(id) {
-              return `detail/${id}`;
+            type: 'LinkBtn',
+            onClick(item) {
+              console.info('Ouverture du panel pour la commande id = ', item);
             },
           },
         },
@@ -82,9 +71,28 @@ export default {
           },
         },
         {
-          label: this.$t('col.orderDate'),
-          name: 'orderDate',
+          label: this.$t('col.status'),
+          name: 'status',
           orderable: true,
+          format: {
+            component: GetSimOrdersStatusColumn,
+          },
+        },
+        {
+          label: this.$t('col.quantity'),
+          name: 'orderItems',
+          format: {
+            type: 'ObjectAttribute',
+            path: '[0].quantity',
+          },
+        },
+        {
+          label: this.$t('col.product'),
+          name: 'orderItems',
+          format: {
+            type: 'ObjectAttribute',
+            path: '[0].orderedProduct.description',
+          },
         },
       ],
       extraColumns: [
@@ -92,6 +100,9 @@ export default {
           label: this.$t('col.activationAsked'),
           name: 'activationAsked',
           orderable: false,
+          format: {
+            type: 'Boolean',
+          },
         },
       ],
       rows: [],
