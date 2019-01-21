@@ -50,10 +50,27 @@ const products = [
   },
 ];
 
+const selectedObject = {
+  product: {
+    label: 'common.product',
+    value: {
+      content: ['SIM M2M Endurcie 076', 'Standard, sans PIN', 'Best network + Smart Roaming'],
+      id: '01',
+    },
+  },
+  quantity: {
+    label: 'common.quantity',
+    value: {
+      content: 4,
+      id: 'quantity',
+    },
+  },
+};
+
 describe('CreateOrderStepProduct.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
-  beforeEach(async () => {
+  beforeEach(() => {
     api.fetchSim = jest.fn();
     api.fetchSim.mockResolvedValue(products);
 
@@ -61,7 +78,7 @@ describe('CreateOrderStepProduct.vue', () => {
       mocks,
     });
 
-    await wrapper.vm.$nextTick();
+    wrapper.setData({ selectedNumberOfSims: 4 });
   });
 
   it('renders only the first 3 items when loaded', () => {
@@ -79,11 +96,20 @@ describe('CreateOrderStepProduct.vue', () => {
       .at(0)
       .find('input')
       .trigger('click');
-    expect(
-      wrapper
-        .findAll('.simtype')
-        .at(0)
-        .classes()
-    ).toContain('active');
+  });
+
+  it('emits an event with the correct payload', () => {
+    wrapper
+      .findAll('.simtype')
+      .at(0)
+      .find('input')
+      .trigger('click');
+
+    wrapper
+      .findAll('.round-button')
+      .at(1)
+      .trigger('click');
+
+    expect(wrapper.emitted('done')).toContainEqual([selectedObject]);
   });
 });

@@ -32,8 +32,6 @@ describe('GetSimTypeOption.vue', () => {
 
   it('emits an event with the right data', () => {
     wrapper.find('input').trigger('click');
-    // console.log(wrapper.html());
-    // wrapper.vm.$emit('change');
     expect(wrapper.emitted('update:defaultSelectedItem')).toContainEqual([simType]);
   });
 });
