@@ -3,9 +3,13 @@ import Router from 'vue-router';
 import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
-const Home = () => import('@/views/Home');
-const DragHome = () => import('@/views/DragHome/index');
-const GetSim = () => import('@/views/GetSim/index');
+import Home from '@/views/Home';
+import DragHome from '@/views/DragHome';
+import GetSim from '@/views/GetSim';
+
+// const Home = () => import('@/views/Home');
+// const DragHome = () => import('@/views/DragHome/index');
+// const GetSim = () => import('@/views/GetSim/index');
 // const GetSimOrdersBillingAccount = () => import('@/views/GetSimOrdersBillingAccount');
 // const GetSimOrdersPartners = () => import('@/views/GetSimOrdersPartners');
 
