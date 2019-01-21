@@ -29,4 +29,11 @@ describe('GetSimTypeOption.vue', () => {
     expect(wrapper.find('.simtype__functions').text()).toContain(simType.patent);
     expect(wrapper.find('.simtype__order-status').text()).toContain(simType.lastCommand);
   });
+
+  it('emits an event with the right data', () => {
+    wrapper.find('input').trigger('click');
+    // console.log(wrapper.html());
+    // wrapper.vm.$emit('change');
+    expect(wrapper.emitted('update:defaultSelectedItem')).toContainEqual([simType]);
+  });
 });
