@@ -23,11 +23,10 @@ describe('order api', () => {
       page: 1,
       limit: 10,
     };
-    searchOrders(fields, orderBy, pagination);
+    searchOrders(orderBy, pagination);
 
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('pagination: {page: 1, limit: 10}');
-    expect(calledQuery).toContain('toto\ntiti');
   });
 
   it('adds sorting parameter', () => {
@@ -40,7 +39,7 @@ describe('order api', () => {
       page: 1,
       limit: 10,
     };
-    searchOrders(fields, orderBy, pagination);
+    searchOrders(orderBy, pagination);
 
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('sorting: {id: DESC}');
