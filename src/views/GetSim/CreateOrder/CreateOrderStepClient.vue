@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-md-12 mt-5">
         <UiCircularButton @click="done" :disabled="!canGoToNextStep" class="float-right">
-          <span slot="icon" class="ic-Arrow-Next-Icon" />
+          <span slot="icon" class="ic-Arrow-Next-Icon"/>
         </UiCircularButton>
       </div>
     </div>
@@ -110,12 +110,12 @@ export default {
   color: $dark-gray;
   font-weight: 300;
   font-size: 2rem;
-  margin: 50px 0 30px;
+  margin: 3rem 0 1.875rem;
   padding: 0;
   text-align: center;
 }
 
 .step-client-container {
-  padding: 2em !important;
+  padding: 0 2rem !important;
 }
 </style>
