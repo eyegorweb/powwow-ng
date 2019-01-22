@@ -19,7 +19,7 @@
           class="show-all-types text-right"
         >
           {{ $t("getsim.show-all-sim-types") }}
-          <i class="arrow ic-Arrow-Down-Icon" />
+          <i class="arrow ic-Arrow-Down-Icon"/>
         </a>
       </div>
     </div>
@@ -37,12 +37,17 @@
 
     <div class="row">
       <div class="col-md-12 mt-5">
-        <UiCircularButton class="float-left" @click="$emit('prev')">
-          <span slot="icon" class="ic-Arrow-Previous-Icon" />
-        </UiCircularButton>
-        <UiCircularButton class="float-right" @click="done" :disabled="!canGoToNextStep">
-          <span slot="icon" class="ic-Arrow-Next-Icon" />
-        </UiCircularButton>
+        <UiButton
+          variant="round-button"
+          @click="$emit('prev')"
+          class="float-left ic-Arrow-Previous-Icon"
+        />
+        <UiButton
+          variant="round-button"
+          @click="done"
+          :disabled="!canGoToNextStep"
+          class="float-right ic-Arrow-Next-Icon"
+        />
       </div>
     </div>
   </div>
@@ -51,7 +56,7 @@
 <script>
 import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
-import UiCircularButton from '@/components/ui/UiCircularButton';
+import UiButton from '@/components/ui/Button';
 import { fetchSim } from '@/api/products';
 
 export default {
@@ -116,7 +121,7 @@ export default {
   components: {
     GetSimTypeOption,
     UiInput,
-    UiCircularButton,
+    UiButton,
   },
 };
 </script>

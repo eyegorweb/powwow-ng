@@ -106,7 +106,7 @@ describe('CreateOrderStepProduct.vue', () => {
       .trigger('click');
 
     wrapper
-      .findAll('.round-button')
+      .findAll('button')
       .at(1)
       .trigger('click');
 

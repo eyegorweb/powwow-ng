@@ -1,3 +1,4 @@
+<script>
 export default {
   functional: true,
 
@@ -28,3 +29,30 @@ export default {
     return h('button', { ...data, class: classes }, children);
   },
 };
+</script>
+
+<style lang="scss" scoped>
+.btn-round-button {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  color: $white;
+  text-align: center;
+  background: $primary;
+  padding: 0 !important;
+  cursor: pointer;
+  &.span {
+    cursor: pointer;
+  }
+  &:disabled {
+    background: $medium-gray;
+    cursor: default;
+    &.span {
+      cursor: default;
+    }
+  }
+}
+</style>
