@@ -5,6 +5,7 @@ export const state = {
   allAvailableFilters: [],
   currentFilters: [],
   filterCustomFields: [],
+  appliedFilters: [],
 };
 
 // Getters
@@ -20,6 +21,7 @@ const selectedFilterValuesById = state => id => {
 export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
   currentFilters: state => state.currentFilters,
+  appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state => {
     const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
     return !!filtersFound && !!filtersFound.length;
@@ -45,7 +47,7 @@ export const getters = {
  * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
  * met à jour les champs libres
  */
-function setPartnersFilter({ commit, getters }, partners) {
+async function setPartnersFilter({ commit, getters }, partners) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     newValue: partners,
@@ -54,7 +56,7 @@ function setPartnersFilter({ commit, getters }, partners) {
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
   removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
   removeSelectedOrderCreatorPartners({ commit, getters }, partners);
-  refreshCustomFilters({ commit }, partners);
+  await refreshCustomFilters({ commit }, partners);
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
@@ -88,6 +90,13 @@ async function refreshCustomFilters({ commit }, partners) {
   }
 }
 
+function resetSearchWhenCurrentFiltersAreEmpty(state) {
+  const filtersWithValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
+  if (filtersWithValues.length === 0) {
+    state.appliedFilters = [];
+  }
+}
+
 function selectFilterValue(state, { id, newValue }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
@@ -103,12 +112,17 @@ function selectFilterValue(state, { id, newValue }) {
       values: newValue,
     });
   }
+
+  resetSearchWhenCurrentFiltersAreEmpty(state);
 }
 
 export const actions = {
   setPartnersFilter,
 
   clearFilter(store, filterId) {
+    /**
+     * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
+     */
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, []);
     } else {
@@ -117,6 +131,7 @@ export const actions = {
         newValue: [],
       });
     }
+    store.commit('applyFilters');
   },
 };
 
@@ -148,5 +163,8 @@ export const mutations = {
       id: 'filters.orderCreator',
       newValue: creators,
     });
+  },
+  applyFilters(state) {
+    state.appliedFilters = [...state.currentFilters];
   },
 };

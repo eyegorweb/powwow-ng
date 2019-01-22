@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-md-12 mt-5">
         <UiCircularButton @click="done" :disabled="!canGoToNextStep" class="float-right">
-          <span slot="icon" class="ic-Arrow-Next-Icon"/>
+          <span slot="icon" class="ic-Arrow-Next-Icon" />
         </UiCircularButton>
       </div>
     </div>

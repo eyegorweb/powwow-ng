@@ -1,6 +1,6 @@
 import { query } from './utils';
 
-export async function searchOrders(orderBy, pagination) {
+export async function searchOrders(orderBy, pagination, filters) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -8,7 +8,7 @@ export async function searchOrders(orderBy, pagination) {
 
   const queryStr = `
   query {
-    orders(filter: {}${paginationInfo}${orderingInfo}) {
+    orders(filter: {${formatFilters(filters)}}${paginationInfo}${orderingInfo}) {
       total
       items {
         id
@@ -28,4 +28,36 @@ export async function searchOrders(orderBy, pagination) {
   `;
   const response = await query(queryStr);
   return response.data.orders;
+}
+
+function formatFilters(filters) {
+  const allFilters = [];
+
+  const partyIds = getValuesIds(filters, 'filters.partners');
+  if (partyIds) {
+    allFilters.push(`partyId: {in:[${partyIds}]}`);
+  }
+
+  const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
+  if (customerAccountIds) {
+    allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
+  }
+
+  return allFilters.join(',');
+}
+
+function getFilterValues(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.values;
+  }
+}
+
+function getValuesIds(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `"${i.id}"`).join(',');
+  }
 }
