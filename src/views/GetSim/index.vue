@@ -4,7 +4,11 @@
     <div class="mt-4">
       <div class="row mb-5">
         <div class="col-md-9">
-          <h4><b>GetSim</b> - {{ $t("getsim.manage-orders") }} <i class="ic-Info-Icon" /></h4>
+          <h4>
+            <b>GetSim</b>
+            - {{ $t("getsim.manage-orders") }}
+            <i class="ic-Info-Icon" />
+          </h4>
         </div>
         <div class="col-md-3">
           <UiButton
@@ -12,7 +16,7 @@
             block
             class="float-right"
             @click="isPanelOpen=true"
-          > {{ $t("getsim.order-sim") }}</UiButton>
+          >{{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>
       <div class="row">

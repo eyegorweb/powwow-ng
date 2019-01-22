@@ -9,9 +9,11 @@
       <div class="col-md-8 content">
         <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
           <div slot="Client">
-            <CreateOrderStepClient @client-step-done="clientStepIsDone" />
+            <CreateOrderStepClient @done="stepisDone" />
           </div>
-          <p slot="Produit">liste des sims ici</p>
+          <div slot="Produit">
+            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep-=1" />
+          </div>
           <p slot="Livraison">Livraison</p>
         </Stepper>
 
@@ -29,6 +31,7 @@ import SlidePanel from '@/components/SlidePanel';
 import Stepper from '@/components/ui/Stepper';
 import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
 import CreateOrderStepClient from './CreateOrderStepClient';
+import CreateOrderStepProduct from './CreateOrderStepProduct';
 
 // import UiButton from '@/components/ui/Button';
 
@@ -38,6 +41,7 @@ export default {
     Stepper,
     GetSimCreateOrderPanelSynthesis,
     CreateOrderStepClient,
+    CreateOrderStepProduct,
   },
   props: {
     isOpen: {
@@ -76,10 +80,10 @@ export default {
     close() {
       this.$emit('update:isOpen', false);
     },
-    clientStepIsDone(payload) {
+    stepisDone(payload) {
       this.synthesis = {
         ...this.synthesis,
-        billingAccount: payload,
+        ...payload,
       };
       this.currentStep += 1;
     },

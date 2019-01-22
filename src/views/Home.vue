@@ -103,6 +103,9 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <GetSimSelectSimType class="bg-white" :items="simTypes" />
+    </div>
   </div>
 </template>
 

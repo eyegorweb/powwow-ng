@@ -11,13 +11,22 @@
   "save": "Enregistrer",
   "logout": "Déconnexion",
   "common": {
+    "billingAccount": "Compte de facturation",
+    "product": "Produit",
+    "quantity": "Quantité",
     "billingAccounts": "Compte de facturation",
     "YES": "Oui",
     "NO": "Non"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
-    "order-sim": "Commander des cartes SIM"
+    "order-sim": "Commander des cartes SIM",
+    "show-all-sim-types": "Afficher tous les types de cartes",
+    "choose-sim-amount": "et une quantité",
+    "sim-type-labels": {
+      "format": "Format",
+      "patent": "Brevets et fonctionnalité"
+    }
   },
   "col": {
     "id": "ID",

@@ -1,9 +1,12 @@
 <template>
   <div v-if="item" class="synthesis-item">
     <h6>{{ $t(item.label) }}: </h6>
-    <p v-if="item.value">
-      {{ item.value.label }}
+    <p v-if="stringValue">
+      {{ item.value.content }}
     </p>
+    <div :key="value" v-for="value in arrayValues">
+      {{ value }}
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,18 @@ export default {
   props: {
     item: {
       type: Object,
+    },
+  },
+  computed: {
+    stringValue() {
+      if (this.item && this.item.value && typeof this.item.value.content === 'string') {
+        return this.item.value.content;
+      }
+    },
+    arrayValues() {
+      if (this.item && this.item.value && Array.isArray(this.item.value.content)) {
+        return this.item.value.content;
+      }
     },
   },
 };
