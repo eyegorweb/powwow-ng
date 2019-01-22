@@ -14,6 +14,7 @@
 import DataTable from '@/components/DataTable/DataTable';
 import { searchOrders } from '@/api/orders';
 import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Orders',
@@ -25,12 +26,13 @@ export default {
   },
   methods: {
     async fetchOrders() {
-      const data = await searchOrders(this.orderBy, this.getPageInfo);
+      const data = await searchOrders(this.orderBy, this.getPageInfo, this.appliedFilters);
       this.total = data.total;
       this.rows = data.items;
     },
   },
   computed: {
+    ...mapGetters(['appliedFilters']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
@@ -45,6 +47,9 @@ export default {
     },
     pageLimit() {
       this.page = 1;
+      this.fetchOrders();
+    },
+    appliedFilters() {
       this.fetchOrders();
     },
   },

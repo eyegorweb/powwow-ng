@@ -51,9 +51,9 @@
         </div>
       </UiDropdownButton>
       <UiButton
-        variant="gray"
-        disabled
-        class="flex-grow-1 py-1 px-3"
+        variant="primary"
+        @click="applyFilters()"
+        class="flex-grow-1 py-1 px-3 ml-1"
       >Appliquer le filtre</UiButton>
     </div>
   </div>
@@ -64,6 +64,7 @@ import SelectedFilterDetails from '@/components/SelectedFilterDetails';
 import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'SelectedFilters',
@@ -81,6 +82,9 @@ export default {
   },
 
   components: { SelectedFilterDetails, UiButton, UiDropdownButton, UiInput },
+  methods: {
+    ...mapMutations(['applyFilters']),
+  },
 };
 </script>
 

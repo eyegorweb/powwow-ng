@@ -17,7 +17,6 @@ describe('order api', () => {
     utils.query.mockResolvedValue(response);
   });
   it('adds pagination and field paramters', () => {
-    const fields = ['toto', 'titi'];
     const orderBy = {};
     const pagination = {
       page: 1,
@@ -30,7 +29,6 @@ describe('order api', () => {
   });
 
   it('adds sorting parameter', () => {
-    const fields = ['toto', 'titi'];
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -40,7 +38,6 @@ describe('order api', () => {
       limit: 10,
     };
     searchOrders(orderBy, pagination);
-
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('sorting: {id: DESC}');
   });

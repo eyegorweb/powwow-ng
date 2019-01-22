@@ -6,15 +6,25 @@ import { $t } from '@/../tests-utils';
 
 import VueRouter from 'vue-router';
 
+import { Store } from 'vuex-mock-store';
+
 const localVue = createLocalVue();
 localVue.use(VueRouter);
 const router = new VueRouter();
 
-const mocks = { $t };
+const store = new Store({
+  getters: { appliedFilters: [] },
+});
+
+const mocks = {
+  $t,
+  $store: store,
+};
+
+afterEach(() => store.reset());
 
 describe('GetSimOrders', () => {
-  //it('shows datatable with fetched orders', async () => {
-  it('only-me', async () => {
+  it('shows datatable with fetched orders', async () => {
     const data = {
       total: 1,
       items: [
