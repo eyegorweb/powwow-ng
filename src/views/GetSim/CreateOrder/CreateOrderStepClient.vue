@@ -22,9 +22,12 @@
 
     <div class="row">
       <div class="col-md-12 mt-5">
-        <UiCircularButton @click="done" :disabled="!canGoToNextStep" class="float-right">
-          <span slot="icon" class="ic-Arrow-Next-Icon" />
-        </UiCircularButton>
+        <UiButton
+          variant="round-button"
+          @click="done"
+          :disabled="!canGoToNextStep"
+          class="float-right ic-Arrow-Next-Icon"
+        />
       </div>
     </div>
   </div>
@@ -32,7 +35,7 @@
 
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import UiCircularButton from '@/components/ui/UiCircularButton';
+import UiButton from '@/components/ui/Button';
 import { fetchpartners } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 
@@ -98,7 +101,7 @@ export default {
 
   components: {
     UiApiAutocomplete,
-    UiCircularButton,
+    UiButton,
   },
 };
 </script>
