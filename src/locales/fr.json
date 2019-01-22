@@ -13,7 +13,7 @@
   "common": {
     "billingAccounts": "Compte de facturation",
     "YES": "Oui",
-    "NO": "No"
+    "NO": "Non"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
