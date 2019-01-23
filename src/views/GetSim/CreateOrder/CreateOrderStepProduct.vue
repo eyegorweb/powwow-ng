@@ -19,7 +19,7 @@
           class="show-all-types text-right"
         >
           {{ $t("getsim.show-all-sim-types") }}
-          <i class="arrow ic-Arrow-Down-Icon"/>
+          <i class="arrow ic-Arrow-Down-Icon" />
         </a>
       </div>
     </div>
