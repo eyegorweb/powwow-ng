@@ -1,14 +1,14 @@
 <template>
   <div clas="container">
     <div v-for="item in filterCustomFields" :key="item.id" class="container">
-      <div v-if="item.type === 'input'">
+      <div v-if="item.type === 'TEXT'">
         <!-- TODO: to translate -->
         {{ item.label }}
-        <UiInput placeholder="Commencer à saisir" :value.sync="searchedField" class="d-block">
+        <UiInput :value.sync="searchedField" class="d-block">
           <span slot="label">{{ item.label }}</span>
         </UiInput>
       </div>
-      <label v-if="item.type === 'listchoices'">
+      <label v-if="item.type === 'LIST'">
         <!-- TODO: to translate -->
         {{ item.label }}
         <UiSelect
@@ -17,7 +17,7 @@
           :options="item.value"
         />
       </label>
-      <div v-if="item.type === 'date'">
+      <div v-if="item.type === 'DATE'">
         <!-- TODO: to translate -->
         {{ item.label }}
         <UiDate :date-value.sync="selectedDate" class="d-block">

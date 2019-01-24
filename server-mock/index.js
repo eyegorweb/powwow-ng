@@ -17,7 +17,7 @@ function startServer(schemaGQL) {
     Query: {
       countries: () => db.countries,
       customerAccounts: () => db.customerAccounts,
-      offers: () => db.offers,
+      // offers: () => db.offers,
       orders: () => db.orders,
       orderStatus: () => db.orderStatus,
       party: () => db.party,
