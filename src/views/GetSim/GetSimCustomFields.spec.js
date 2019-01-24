@@ -11,18 +11,18 @@ describe('GetSimCustomFields', () => {
         filterCustomFields: [
           {
             id: 'f1',
-            type: 'input',
+            type: 'TEXT',
             label: 'nom',
           },
           {
             id: 'f2',
-            type: 'listchoices',
+            type: 'LIST',
             label: 'faction',
             value: ['lesZinsZins', 'pioupiouEtCie'],
           },
           {
             id: 'f3',
-            type: 'date',
+            type: 'DATE',
             label: 'birthday',
           },
         ],

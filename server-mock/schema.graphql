@@ -12,6 +12,10 @@ type BankAccount {
   establishmentCode: String
 }
 
+input BooleanFilterInput {
+  eq: Boolean
+}
+
 type Country implements Node {
   id: ID!
   code: String
@@ -61,22 +65,45 @@ input CustomerAccountSorting {
   name: SortDirection
 }
 
+"""Enum du carat�re obligatoire d'un champs Custom"""
+enum CustomFieldMandatoryEnum {
+  PAIRING
+  ORDER
+  ACTIVATION
+  NONE
+}
+
+"""Enum de type de champs Custom"""
+enum CustomFieldTypeEnum {
+  TEXT
+  LIST
+  DATE
+}
+
 """Define here custom scalars"""
 scalar Date
-
-input DateFilterInput {
-  eq: Date
-  ne: Date
-  gt: Date
-  lt: Date
-  goe: Date
-  loe: Date
-  between: DatesRange
-}
 
 input DatesRange {
   startDate: Date
   endDate: Date
+}
+
+scalar DateTime
+
+input DateTimeFilterInput {
+  eq: DateTime
+  ne: DateTime
+  gt: DateTime
+  lt: DateTime
+  goe: DateTime
+  loe: DateTime
+  between: DatesRange
+}
+
+input EnumFilterInput {
+  eq: OrderStatusEnum
+  ne: OrderStatusEnum
+  in: [OrderStatusEnum!]
 }
 
 input IdFilterInput {
@@ -85,13 +112,18 @@ input IdFilterInput {
   in: [ID!]
 }
 
+input IntegerFilterInput {
+  eq: Int
+  ne: Int
+  gt: Int
+  lt: Int
+  goe: Int
+  loe: Int
+  in: [Int!]
+}
+
 """Long type"""
 scalar Long
-
-type MarketingOffer implements Node {
-  id: ID!
-  description: String
-}
 
 type Mutation {
   updateSIMCard(input: SIMCardInstanceInput!): SIMCardInstance!
@@ -107,30 +139,17 @@ interface Node {
   id: ID!
 }
 
-input OfferFilterInput {
-  description: StringFilterInput
-  partyId: IdFilterInput
-}
-
-type OfferResponse {
-  total: Int!
-  items: [MarketingOffer]
-}
-
-input OfferSorting {
-  id: SortDirection
-  name: SortDirection
-}
-
 type Order implements Node {
   id: ID!
   creationDate: Date!
-  orderDate: Date!
+  orderDate: DateTime!
   party: Party
   deliveryNum: Int
   preActivationAsked: Boolean
   activationAsked: Boolean
   status: OrderStatusEnum
+  Name: Name
+  externalId: String
   orderItems: [OrderItem]
   customerAccount: CustomerAccount
 }
@@ -147,8 +166,38 @@ type OrderedProduct {
 }
 
 input OrderFilterInput {
-  partyName: StringFilterInput
-  orderDate: DateFilterInput
+  zipCode: StringFilterInput
+  country: StringFilterInput
+  city: StringFilterInput
+  orderDate: DateTimeFilterInput
+  status: EnumFilterInput
+
+  """external id"""
+  OrderReference: StringFilterInput
+  preactivationAsked: BooleanFilterInput
+  activationAsked: BooleanFilterInput
+  customField1: StringFilterInput
+  customField2: StringFilterInput
+  customField3: StringFilterInput
+  customField4: StringFilterInput
+  customField5: StringFilterInput
+  customField6: StringFilterInput
+  partyId: IdFilterInput
+  customerAccountId: IdFilterInput
+  quantity: IntegerFilterInput
+
+  """Auditable.creator"""
+  creator: IdFilterInput
+  workflowCode: StringFilterInput
+}
+
+type OrderIndicators {
+  ordersToBeConfirmed: Int
+  ordersInProgress: Int
+  ordersNotConfirmed: Int
+  ordersFailed: Int
+  averageProcessingTime: Int
+  orderToBeConfirmedByBO: Int
 }
 
 type OrderItem {
@@ -169,7 +218,7 @@ input OrderSorting {
 
 type OrdersResponse {
   total: Int!
-  orders: [Order]
+  items: [Order]
 }
 
 enum OrderStatusEnum {
@@ -185,28 +234,123 @@ enum OrderStatusEnum {
 }
 
 input Pagination {
+  """Nombre maximum d'�l�ments � rechercher"""
   limit: Int
+
+  """Index de page calcul� en fonction de l'argument limite. D�marre � 0"""
   page: Int
 }
 
+"""Entit� Partenaire"""
 type Party implements Node {
   id: ID!
+
+  """Nom"""
   name: String!
+
+  """Code"""
   code: String!
+
+  """Num�ro de SIREN"""
   siren: String
+
+  """Code NAF"""
   naf: String
+
+  """Champs Custom1 : Type de champs (Texte, Liste ou Date)"""
+  custom1FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom1 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom1FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom1 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom1ValidatedValuesAsList: [String!]
+
+  """Champs Custom2 : Type de champs (Texte, Liste ou Date)"""
+  custom2FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom2 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom2FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom2 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom2ValidatedValuesAsList: [String!]
+
+  """Champs Custom3 : Type de champs (Texte, Liste ou Date)"""
+  custom3FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom3 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom3FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom3 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom3ValidatedValuesAsList: [String!]
+
+  """Champs Custom4 : Type de champs (Texte, Liste ou Date)"""
+  custom4FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom4 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom4FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom4 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom4ValidatedValuesAsList: [String!]
+
+  """Champs Custom5 : Type de champs (Texte, Liste ou Date)"""
+  custom5FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom5 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom5FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom5 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom5ValidatedValuesAsList: [String!]
+
+  """Champs Custom6 : Type de champs (Texte, Liste ou Date)"""
+  custom6FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom6 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom6FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom6 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom6ValidatedValuesAsList: [String!]
 }
 
+"""Crit�res de recherche de commandes"""
 input PartyFilterInput {
   name: StringFilterInput
   id: IdFilterInput
 }
 
+"""
+Liste des champs disponibles pour le tri lors d'une recherche de commandes
+"""
 input PartySorting {
   id: SortDirection
   name: SortDirection
 }
 
+"""Objet de retour d'une recherche de commande"""
 type PartysResponse {
   total: Int!
   items: [Party!]
@@ -215,15 +359,27 @@ type PartysResponse {
 type Query {
   countries(filter: CountryFilterInput, pagination: Pagination, sorting: CountrySorting): CountryResponse
   customerAccounts(filter: CustomerAccountFilterInput, pagination: Pagination, sorting: CustomerAccountSorting): CustomerAccountResponse
-  offers(filter: OfferFilterInput, pagination: Pagination, sorting: OfferSorting): OfferResponse
   orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
   orderStatus: [OrderStatusEnum]
+  findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
+  ordersIndicators: OrderIndicators
   party(id: Int!): Party
   partys(filter: PartyFilterInput, pagination: Pagination, sorting: PartySorting): PartysResponse
-  findAllSimcards(page: Int, limit: Int): [SIMCardInstance]!
+  findAllSimcards(limit: Int, page: Int): [SIMCardInstance]!
   findSimcardById(id: Int!): SIMCardInstance
   countSimcards: Long!
+  users(filter: UserFilterInput, pagination: Pagination, sorting: UserSorting): UserResponse
   getCurrentUser: User!
+  workflows(filter: WorkflowFilterInput, sorting: WorkflowSorting): WorkflowResponse
+}
+
+type SIMCard implements Node {
+  id: ID!
+  gencode: String
+  name: String
+  label: String
+  type: String
+  help: String
 }
 
 type SIMCardInstance {
@@ -236,6 +392,20 @@ type SIMCardInstance {
 input SIMCardInstanceInput {
   id: ID!
   iccid: String!
+}
+
+type SIMCardResponse {
+  total: Int!
+  items: [SIMCartOrderDTO]!
+}
+
+input SIMCardSorting {
+  orderDate: SortDirection
+}
+
+type SIMCartOrderDTO {
+  orderDate: Date
+  simCard: SIMCard
 }
 
 enum SortDirection {
@@ -258,10 +428,59 @@ enum Title {
   MRS
 }
 
-type User {
+type User implements Node {
+  id: ID!
   name: Name
   email: String
+  username: String
   isUserParty: Boolean
-  partyName: String
   isBackOffice: Boolean
+}
+
+input UserFilterInput {
+  partyId: IdFilterInput
+  fullname: StringFilterInput
+  username: StringFilterInput
+  email: StringFilterInput
+}
+
+"""Msg pour le front: This might change back soon to User"""
+type UserParty implements Node {
+  id: ID!
+  name: Name
+  email: String
+  username: String
+  party: Party
+  isUserParty: Boolean
+  isBackOffice: Boolean
+}
+
+type UserResponse {
+  total: Int!
+  items: [UserParty]
+}
+
+input UserSorting {
+  id: SortDirection
+  username: SortDirection
+  fullname: SortDirection
+  email: SortDirection
+}
+
+type Workflow {
+  code: String!
+  workflowDescription: String
+}
+
+input WorkflowFilterInput {
+  partyId: IdFilterInput
+}
+
+type WorkflowResponse {
+  total: Int!
+  items: [Workflow]
+}
+
+input WorkflowSorting {
+  id: SortDirection
 }

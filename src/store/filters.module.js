@@ -83,7 +83,7 @@ function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
 async function refreshCustomFilters({ commit }, partners) {
   if (partners.length === 1) {
     // appel api pour charger les custom fields
-    const customFields = await fetchCustomFields(partners);
+    const customFields = await fetchCustomFields(partners[0].id);
     commit('setFilterCustomFields', customFields);
   } else {
     commit('setFilterCustomFields', []);
