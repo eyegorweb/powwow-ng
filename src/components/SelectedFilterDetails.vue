@@ -7,7 +7,7 @@
 
     <span
       v-for="op in filter.values"
-      :key="op.code"
+      :key="op.id"
     >
       <br>
       <span class="detail">{{ op.label }}</span>

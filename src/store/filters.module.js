@@ -4,7 +4,7 @@ import { fetchCustomFields } from '@/api/customFields';
 export const state = {
   allAvailableFilters: [],
   currentFilters: [],
-  filterCustomFields: [],
+  filterCustomFieldsList: [],
   appliedFilters: [],
 };
 
@@ -26,7 +26,7 @@ export const getters = {
     const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
     return !!filtersFound && !!filtersFound.length;
   },
-  filterCustomFields: state => state.filterCustomFields,
+  filterCustomFieldsList: state => state.filterCustomFieldsList,
   selectedPartnersValues: state => {
     return selectedFilterValuesById(state)('filters.partners');
   },
@@ -38,6 +38,9 @@ export const getters = {
   },
   selectedOrderCreatorValues: state => {
     return selectedFilterValuesById(state)('filters.orderCreator');
+  },
+  selectedCustomFieldsValues: state => {
+    return selectedFilterValuesById(state)('filters.customFields');
   },
 };
 
@@ -84,10 +87,13 @@ async function refreshCustomFilters({ commit }, partners) {
   if (partners.length === 1) {
     // appel api pour charger les custom fields
     const customFields = await fetchCustomFields(partners[0].id);
-    commit('setFilterCustomFields', customFields);
+    commit('setFilterCustomFieldsList', customFields);
   } else {
-    commit('setFilterCustomFields', []);
+    commit('setFilterCustomFieldsList', []);
   }
+
+  // enlever les filtres séléctionnés de la synthèse
+  commit('setCustomFieldsFilter', []);
 }
 
 function resetSearchWhenCurrentFiltersAreEmpty(state) {
@@ -141,8 +147,8 @@ export const mutations = {
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },
-  setFilterCustomFields: (state, data) => {
-    state.filterCustomFields = data;
+  setFilterCustomFieldsList: (state, data) => {
+    state.filterCustomFieldsList = data;
   },
   selectFilterValue,
 
@@ -166,5 +172,11 @@ export const mutations = {
   },
   applyFilters(state) {
     state.appliedFilters = [...state.currentFilters];
+  },
+  setCustomFieldsFilter(state, customFields) {
+    selectFilterValue(state, {
+      id: 'filters.customFields',
+      newValue: customFields,
+    });
   },
 };

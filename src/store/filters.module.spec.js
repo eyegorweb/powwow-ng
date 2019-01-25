@@ -178,7 +178,7 @@ describe('store/filters.module', () => {
       expect(store.commit.mock.calls[1]).toEqual(['setBillingAccountsFilter', []]);
       expect(store.commit.mock.calls[2]).toEqual(['setOffersFilter', []]);
       expect(store.commit.mock.calls[3]).toEqual(['setOrderCreatorFilter', []]);
-      expect(store.commit.mock.calls[4]).toEqual(['setFilterCustomFields', []]);
+      expect(store.commit.mock.calls[4]).toEqual(['setFilterCustomFieldsList', []]);
     });
 
     it('should remove billingAccounts, offers and orderCreators', () => {
@@ -288,7 +288,7 @@ describe('store/filters.module', () => {
       await filterModule.actions.setPartnersFilter(store, partners);
 
       expect(store.commit.mock.calls[4]).toEqual([
-        'setFilterCustomFields',
+        'setFilterCustomFieldsList',
         [
           {
             name: 'custom field 1',

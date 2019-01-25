@@ -76,5 +76,13 @@
       "settings": "Paramètres",
       "synthesis": "Récapitulatif de la commande"
     }
+  },
+  "customFields": {
+    "customField1": "Champ libre 1",
+    "customField2": "Champ libre 2",
+    "customField3": "Champ libre 3",
+    "customField4": "Champ libre 4",
+    "customField5": "Champ libre 5",
+    "customField6": "Champ libre 6"
   }
 }
