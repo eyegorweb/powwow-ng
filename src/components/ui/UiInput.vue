@@ -20,7 +20,7 @@ import { propWithSync } from '@/mixins';
 export default {
   name: 'UiInput',
   inheritAttrs: false,
-  mixins: [propWithSync('value')],
+  mixins: [propWithSync('value', 'update:value', { required: false })],
 
   props: {
     placeholder: {

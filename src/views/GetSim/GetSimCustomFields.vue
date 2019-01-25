@@ -1,12 +1,14 @@
 <template>
   <div clas="container">
-    <div v-for="item in filterCustomFields" :key="item.id" class="container">
+    <div v-for="item in filterCustomFieldsList" :key="item.id" class="container">
       <div v-if="item.type === 'TEXT'">
         <!-- TODO: to translate -->
-        {{ item.label }}
-        <UiInput :value.sync="searchedField" class="d-block">
-          <span slot="label">{{ item.label }}</span>
-        </UiInput>
+        {{ $t('statuses.' + item.code) }}
+        <UiInput
+          @update:value="(newVal) => onValueChanged(item, newVal)"
+          :value="getSelectedValue(item.code)"
+          class="d-block"
+        />
       </div>
       <label v-if="item.type === 'LIST'">
         <!-- TODO: to translate -->
@@ -32,7 +34,7 @@
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import UiDate from '@/components/ui/UiDate';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'GetSimCustomFields',
@@ -46,7 +48,50 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['filterCustomFields']),
+    ...mapGetters(['filterCustomFieldsList', 'selectedCustomFieldsValues']),
+  },
+
+  methods: {
+    ...mapMutations(['setCustomFieldsFilter']),
+    getSelectedValue(code) {
+      if (this.selectedCustomFieldsValues && this.selectedCustomFieldsValues.length > 0) {
+        const selected = this.selectedCustomFieldsValues.find(c => c.id === code);
+        if (selected) {
+          return selected.value;
+        }
+      }
+      return '';
+    },
+    onValueChanged(customField, newVal) {
+      let selectedCustomFieldsValues = [];
+      const labelForSynthesis = this.$t('customFields.' + customField.code) + ': ' + newVal;
+      if (this.selectedCustomFieldsValues) {
+        selectedCustomFieldsValues = this.selectedCustomFieldsValues;
+      }
+      const selected = selectedCustomFieldsValues.find(s => s.id === customField.code);
+      if (selected) {
+        selected.value = newVal;
+        this.setCustomFieldsFilter(
+          selectedCustomFieldsValues.filter(s => s.value && s.value.length > 0).map(s => {
+            if (s.id === selected.id) {
+              selected.label = labelForSynthesis;
+              return selected;
+            } else {
+              return s;
+            }
+          })
+        );
+      } else {
+        this.setCustomFieldsFilter([
+          ...selectedCustomFieldsValues,
+          {
+            id: customField.code,
+            value: newVal,
+            label: labelForSynthesis,
+          },
+        ]);
+      }
+    },
   },
 
   components: {

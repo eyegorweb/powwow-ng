@@ -43,6 +43,15 @@ function formatFilters(filters) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
+  const customFields = getFilterValues(filters, 'filters.customFields');
+  if (customFields) {
+    const customFeldsGQLparams = customFields
+      .map(c => `${c.id}: {contains: "${c.value}"}`)
+      .join(',');
+
+    allFilters.push(customFeldsGQLparams);
+  }
+
   return allFilters.join(',');
 }
 
