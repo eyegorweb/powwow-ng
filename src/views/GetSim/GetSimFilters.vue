@@ -23,7 +23,9 @@
             </div>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable />
+          <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
+            <UiDateRange :start.sync="startDate" :end.sync="endDate" />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
             <GetSimOffersFilter />
           </FoldableBlock>
@@ -49,6 +51,7 @@ import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
+import UiDateRange from '@/components/ui/UiDateRange';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
 import GetSimCustomFields from './GetSimCustomFields';
 import GetSimSelectedFilters from './GetSimSelectedFilters';
@@ -65,6 +68,8 @@ export default {
   data() {
     return {
       statusResults: [],
+      startDate: null,
+      endDate: null,
     };
   },
 
@@ -81,6 +86,7 @@ export default {
     GetSimPartnersBillingAccountsFilter,
     GetSimOffersFilter,
     UiCheckbox,
+    UiDateRange,
     GetSimOrderCreator,
   },
 };

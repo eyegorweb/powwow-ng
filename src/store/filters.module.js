@@ -179,4 +179,21 @@ export const mutations = {
       newValue: customFields,
     });
   },
+
+  /**
+   * Set the date range filter for an order. Do not set the date if
+   * startDate or endDate is missing
+   * @param {*} state
+   * @param {{startDate: string, endDate: string}} payload
+   */
+  setOrderDateFilter(state, { startDate, endDate }) {
+    // order date is always a date range, it needs both dates
+    if (!startDate || !endDate) return;
+    // TODO: should we clean up existing filter if one date is missing
+    const id = 'filters.orderDate';
+    const index = state.currentFilters.findIndex(filter => filter.id === id);
+    const filter = { id, startDate, endDate };
+    if (index < 0) state.currentFilters.push(filter);
+    else state.currentFilters.splice(index, 1, filter);
+  },
 };
