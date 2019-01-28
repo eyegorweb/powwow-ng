@@ -1,6 +1,6 @@
 import { query } from './utils';
 
-export async function searchOrders(orderBy, pagination, filters) {
+export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -43,6 +43,11 @@ function formatFilters(filters) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
+  const orderDate = formatDateRangeFilter(filters, 'filters.orderDate');
+  if (orderDate) {
+    allFilters.push('orderDate: ' + orderDate);
+  }
+
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields) {
     const customFeldsGQLparams = customFields
@@ -69,4 +74,22 @@ function getValuesIds(filters, filterId) {
   if (values) {
     return values.map(i => `"${i.id}"`).join(',');
   }
+}
+
+/**
+ * Finds a date filter based on filterId and formats it to be used by a gql
+ * query. In the future, this function could have moer arguments to handle different
+ * kind of date ranges (DateTimeFilterInput type in gql).
+ * Exported to test it.
+ * @param {Array} filters array of filters
+ * @param {string} filterId id of the filter to extract and format
+ * @returns {string?}
+ */
+export function formatDateRangeFilter(filters, filterId) {
+  const filter = filters.find(f => f.id === filterId);
+  if (!filter) return null;
+  // NOTE: could handle specific dates, before or after dates in the future
+  return `{between: {startDate: ${JSON.stringify(filter.startDate)}, endDate: ${JSON.stringify(
+    filter.endDate
+  )}}}`;
 }
