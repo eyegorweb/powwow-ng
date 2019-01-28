@@ -42,6 +42,8 @@ export const getters = {
   selectedCustomFieldsValues: state => {
     return selectedFilterValuesById(state)('filters.customFields');
   },
+
+  selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
 };
 
 // Actions

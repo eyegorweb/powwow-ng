@@ -48,7 +48,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiDateRange from '@/components/ui/UiDateRange';
@@ -62,16 +62,37 @@ import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 
 export default {
   computed: {
-    ...mapGetters(['currentFilters', 'canShowSelectedFilter']),
+    ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
+    startDate: {
+      get: ({ selectedOrderDate, localOrderDate }) =>
+        (selectedOrderDate && selectedOrderDate.startDate) || localOrderDate.startDate,
+      set(startDate) {
+        this.localOrderDate.startDate = startDate;
+        this.setOrderDateFilter({ startDate, endDate: this.endDate });
+      },
+    },
+    endDate: {
+      get: ({ selectedOrderDate, localOrderDate }) =>
+        (selectedOrderDate && selectedOrderDate.endDate) || localOrderDate.endDate,
+      set(endDate) {
+        this.localOrderDate.endDate = endDate;
+        this.setOrderDateFilter({ startDate: this.startDate, endDate });
+      },
+    },
   },
 
   data() {
     return {
       statusResults: [],
-      startDate: null,
-      endDate: null,
+      // save a local version as updating the store filter only accept both values
+      localOrderDate: {
+        startDate: null,
+        endDate: null,
+      },
     };
   },
+
+  methods: mapMutations(['setOrderDateFilter']),
 
   async mounted() {
     this.statusResults = await fetchOrderStatuses();
