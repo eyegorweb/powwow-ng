@@ -1,21 +1,22 @@
 <template>
-  <div
-    class="alert alert-info alert-dismissible fade show"
-    role="alert"
-  >
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
     <a href="#">{{ $t(filter.id) }}</a>
 
-    <span
-      v-for="op in filter.values"
-      :key="op.id"
-    >
-      <br>
-      <span class="detail">{{ op.label }}</span>
-    </span>
+    <div data-test="content">
+      <template v-if="filter.values">
+        <template v-for="(op, i) in filter.values">
+          <span class="detail" :key="op.id">{{ op.label }}</span>
+          <br v-if=" i < filter.values.length - 1" :key="op.id">
+        </template>
+      </template>
 
-    <span v-if="filter.value">
-      <span class="detail">{{ filter.value }}</span>
-    </span>
+      <span v-else-if="filter.value" class="detail">{{ filter.value }}</span>
+
+      <span
+        v-else-if="filter.startDate && filter.endDate"
+        class="detail"
+      >{{ $t('getsim.date-from-to', dateFilter) }}</span>
+    </div>
 
     <button
       type="button"
@@ -31,16 +32,30 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { format } from 'date-fns';
 
 export default {
   name: 'SelectedFilterDetails',
   props: {
     filter: {
       type: Object,
+      required: true,
     },
   },
+
   methods: {
     ...mapActions(['clearFilter']),
+  },
+
+  computed: {
+    dateFilter() {
+      return (
+        this.filter && {
+          startDate: format(this.filter.startDate, this.$t('getsim.date-from-to-format')),
+          endDate: format(this.filter.endDate, this.$t('getsim.date-from-to-format')),
+        }
+      );
+    },
   },
 };
 </script>
@@ -50,6 +65,7 @@ export default {
   padding: 0 0.3rem;
   background-color: #d9edf7;
 }
+
 .alert-dismissible .close {
   padding: 0.15rem 0.1rem;
 }
