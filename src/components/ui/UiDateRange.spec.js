@@ -30,18 +30,23 @@ describe('UiDateRange', () => {
       wrapper.vm.onChange([dates.october, dates.december]);
       expect(wrapper.emitted('update:start')).toEqual([[dates.october]]);
       expect(wrapper.emitted('update:end')).toEqual([[dates.december]]);
+      expect(wrapper.emitted('update:range')).toEqual([
+        [{ start: dates.october, end: dates.december }],
+      ]);
     });
 
     it('sets only the start', () => {
       wrapper.vm.onChange([dates.october, null]);
       expect(wrapper.emitted('update:start')).toEqual([[dates.october]]);
       expect(wrapper.emitted('update:end')).toBeUndefined();
+      expect(wrapper.emitted('update:range')).toBeUndefined();
     });
 
     it('sets only the end', () => {
       wrapper.vm.onChange([null, dates.december]);
       expect(wrapper.emitted('update:start')).toBeUndefined();
       expect(wrapper.emitted('update:end')).toEqual([[dates.december]]);
+      expect(wrapper.emitted('update:range')).toBeUndefined();
     });
   });
 
@@ -57,30 +62,41 @@ describe('UiDateRange', () => {
       wrapper.vm.onChange([dates.october, dates.december]);
       expect(wrapper.emitted('update:start')).toEqual([[dates.october]]);
       expect(wrapper.emitted('update:end')).toEqual([[dates.december]]);
+      expect(wrapper.emitted('update:range')).toEqual([
+        [{ start: dates.october, end: dates.december }],
+      ]);
     });
 
     it('sets only the end with a different date', () => {
       wrapper.vm.onChange([null, dates.december]);
       expect(wrapper.emitted('update:start')).toBeUndefined();
       expect(wrapper.emitted('update:end')).toEqual([[dates.december]]);
+      expect(wrapper.emitted('update:range')).toBeUndefined();
     });
 
     it('sets only the start with a different date', () => {
       wrapper.vm.onChange([dates.october, null]);
       expect(wrapper.emitted('update:start')).toEqual([[dates.october]]);
       expect(wrapper.emitted('update:end')).toBeUndefined();
+      expect(wrapper.emitted('update:range')).toBeUndefined();
     });
 
     it('does not emmits when start has the same value', () => {
       wrapper.vm.onChange([new Date(dates.september), dates.december]);
       expect(wrapper.emitted('update:start')).toBeUndefined();
       expect(wrapper.emitted('update:end')).toEqual([[dates.december]]);
+      expect(wrapper.emitted('update:range')).toEqual([
+        [{ start: dates.september, end: dates.december }],
+      ]);
     });
 
     it('does not emmits when end has the same value', () => {
       wrapper.vm.onChange([dates.october, new Date(dates.nextYearJanuary)]);
       expect(wrapper.emitted('update:end')).toBeUndefined();
       expect(wrapper.emitted('update:start')).toEqual([[dates.october]]);
+      expect(wrapper.emitted('update:range')).toEqual([
+        [{ start: dates.october, end: dates.nextYearJanuary }],
+      ]);
     });
   });
 
@@ -132,11 +148,10 @@ describe('UiDateRange', () => {
       global.Date = RealDate;
 
       expect(wrapper.emitted('update:start')).toEqual([[startMonth]]);
+      expect(wrapper.emitted('update:range')).toEqual([[{ start: startMonth, end: dates.today }]]);
     });
 
     it('substracts start to 3 month and binds input', () => {
-      beforeEach(() => {});
-      afterEach(() => {});
       wrapper.find('.dropdown-toggle').trigger('click');
       expect(
         wrapper
@@ -158,11 +173,10 @@ describe('UiDateRange', () => {
       global.Date = RealDate;
 
       expect(wrapper.emitted('update:start')).toEqual([[startMonth]]);
+      expect(wrapper.emitted('update:range')).toEqual([[{ start: startMonth, end: dates.today }]]);
     });
 
     it('substracts start to 6 month and binds input', () => {
-      beforeEach(() => {});
-      afterEach(() => {});
       wrapper.find('.dropdown-toggle').trigger('click');
       expect(
         wrapper
@@ -184,6 +198,7 @@ describe('UiDateRange', () => {
       global.Date = RealDate;
 
       expect(wrapper.emitted('update:start')).toEqual([[startMonth]]);
+      expect(wrapper.emitted('update:range')).toEqual([[{ start: startMonth, end: dates.today }]]);
     });
 
     it('substracts start to 1 year and binds input', () => {
@@ -210,6 +225,7 @@ describe('UiDateRange', () => {
       global.Date = RealDate;
 
       expect(wrapper.emitted('update:start')).toEqual([[startMonth]]);
+      expect(wrapper.emitted('update:range')).toEqual([[{ start: startMonth, end: dates.today }]]);
     });
   });
 });

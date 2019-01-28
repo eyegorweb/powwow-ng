@@ -54,7 +54,7 @@ export default {
     hideDropdown() {
       this.$refs.dropdown.hide();
     },
-    onChange([start, end]) {
+    async onChange([start, end]) {
       // on evite des changer la date vers un objet different si celui-ci représente la même date
       if (
         (start && !this.start_) ||
@@ -63,6 +63,8 @@ export default {
         this.start_ = start;
       if ((end && !this.end_) || (this.end_ && end && this.end_.toString() !== end.toString()))
         this.end_ = end;
+
+      if (start && end) this.$emit('update:range', { start, end });
     },
 
     createFlatpickr() {
@@ -86,9 +88,11 @@ export default {
 
     async updateRange(amount) {
       const today = new Date();
-      this.start_ = subMonths(today, amount);
+      const start = subMonths(today, amount);
+      this.start_ = start;
       this.end_ = today;
       this.containerVersion += 1;
+      this.$emit('update:range', { start, end: today });
       await this.$nextTick();
       this.createFlatpickr();
       this.$refs.dropdown.hide();

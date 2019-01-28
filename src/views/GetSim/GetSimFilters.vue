@@ -24,7 +24,11 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
-            <UiDateRange :start.sync="startDate" :end.sync="endDate" />
+            <UiDateRange
+              :start="selectedOrderDate && selectedOrderDate.startDate"
+              :end="selectedOrderDate && selectedOrderDate.endDate"
+              @update:range="setOrderDateFilter"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
             <GetSimOffersFilter />
@@ -48,7 +52,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiDateRange from '@/components/ui/UiDateRange';
@@ -63,36 +67,19 @@ import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 export default {
   computed: {
     ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
-    startDate: {
-      get: ({ selectedOrderDate, localOrderDate }) =>
-        (selectedOrderDate && selectedOrderDate.startDate) || localOrderDate.startDate,
-      set(startDate) {
-        this.localOrderDate.startDate = startDate;
-        this.setOrderDateFilter({ startDate, endDate: this.endDate });
-      },
-    },
-    endDate: {
-      get: ({ selectedOrderDate, localOrderDate }) =>
-        (selectedOrderDate && selectedOrderDate.endDate) || localOrderDate.endDate,
-      set(endDate) {
-        this.localOrderDate.endDate = endDate;
-        this.setOrderDateFilter({ startDate: this.startDate, endDate });
-      },
-    },
   },
 
   data() {
     return {
       statusResults: [],
-      // save a local version as updating the store filter only accept both values
-      localOrderDate: {
-        startDate: null,
-        endDate: null,
-      },
     };
   },
 
-  methods: mapMutations(['setOrderDateFilter']),
+  methods: {
+    setOrderDateFilter({ start: startDate, end: endDate }) {
+      this.$store.commit('setOrderDateFilter', { startDate, endDate });
+    },
+  },
 
   async mounted() {
     this.statusResults = await fetchOrderStatuses();

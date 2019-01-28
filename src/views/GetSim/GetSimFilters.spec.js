@@ -46,10 +46,7 @@ describe('GetSimFilters', () => {
   it('sets a date range when picking two values', () => {
     const wrapper = shallowMount(GetSimFilters, { mocks });
     wrapper.vm.startDate = 'start';
-    expect(store.commit).toHaveBeenLastCalledWith('setOrderDateFilter', {
-      startDate: 'start',
-      endDate: null,
-    });
+    expect(store.commit).not.toHaveBeenCalled();
     wrapper.vm.endDate = 'end';
     expect(store.commit).toHaveBeenLastCalledWith('setOrderDateFilter', {
       startDate: 'start',
