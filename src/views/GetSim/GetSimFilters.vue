@@ -81,7 +81,7 @@ export default {
     },
   },
 
-  async mounted() {
+  async created() {
     this.statusResults = await fetchOrderStatuses();
   },
 

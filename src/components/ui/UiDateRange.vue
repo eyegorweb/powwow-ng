@@ -54,7 +54,7 @@ export default {
     hideDropdown() {
       this.$refs.dropdown.hide();
     },
-    async onChange([start, end]) {
+    onChange([start, end]) {
       // on evite des changer la date vers un objet different si celui-ci représente la même date
       if (
         (start && !this.start_) ||
