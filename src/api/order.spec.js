@@ -12,6 +12,9 @@ const pagination = {
   limit: 10,
 };
 
+const startDate = new Date('2019-01-10');
+const endDate = new Date('2019-01-20');
+
 describe('order api', () => {
   let querySpy = jest.spyOn(utils, 'query');
   beforeEach(() => {
@@ -59,22 +62,23 @@ describe('order api', () => {
   });
 
   it('adds an orderDate paramater', async () => {
-    await searchOrders(orderBy, pagination, [
-      { id: 'filters.orderDate', startDate: 'start', endDate: 'end' },
-    ]);
+    await searchOrders(orderBy, pagination, [{ id: 'filters.orderDate', startDate, endDate }]);
     expect(utils.query).toHaveBeenCalledTimes(1);
     const calledQuery = utils.query.mock.calls[0][0];
-    expect(calledQuery).toContain('orderDate: {between: {startDate: "start", endDate: "end"}}');
+    expect(calledQuery).toContain(
+      'orderDate: {between: {startDate: "2019-01-10", endDate: "2019-01-20"}}'
+    );
   });
 
   describe('utils: formatDateRangeFilter', () => {
     it('supports between range by default', () => {
       expect(
         formatDateRangeFilter(
-          [{ id: 'filters.orderDate', startDate: 'start', endDate: 'end' }],
+          // TODO: quel est l ebon format pour gql?
+          [{ id: 'filters.orderDate', startDate, endDate }],
           'filters.orderDate'
         )
-      ).toBe(`{between: {startDate: "start", endDate: "end"}}`);
+      ).toBe(`{between: {startDate: "2019-01-10", endDate: "2019-01-20"}}`);
     });
   });
 });

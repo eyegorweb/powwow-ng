@@ -89,7 +89,7 @@ export function formatDateRangeFilter(filters, filterId) {
   const filter = filters.find(f => f.id === filterId);
   if (!filter) return null;
   // NOTE: could handle specific dates, before or after dates in the future
-  return `{between: {startDate: ${JSON.stringify(filter.startDate)}, endDate: ${JSON.stringify(
-    filter.endDate
-  )}}}`;
+  return `{between: {startDate: ${JSON.stringify(
+    filter.startDate.toISOString().slice(0, 10)
+  )}, endDate: ${JSON.stringify(filter.endDate.toISOString().slice(0, 10))}}}`;
 }
