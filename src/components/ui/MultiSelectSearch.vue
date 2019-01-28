@@ -194,7 +194,6 @@ export default {
   text-transform: uppercase;
   padding-left: 1rem;
   padding-right: 2rem;
-  max-height: 2rem;
   flex: 0 1 auto;
   display: inline-flex;
 

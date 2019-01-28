@@ -7,13 +7,6 @@
         <slot name="beforeInput" />
       </template>
     </UiInput>
-    <!-- TODO:Utiliser la bonne icone -->
-    <img
-      class="close-icon"
-      style="font-size: 24px"
-      src="@/assets/close.svg"
-      @click="$emit('clear')"
-    >
 
     <div>
       <slot :results="results" :query="$value" />
