@@ -14,6 +14,7 @@
     </span>
 
     <span v-if="filter.value">
+      <br>
       <span class="detail">{{ filter.value }}</span>
     </span>
 

@@ -27,7 +27,9 @@
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
             <GetSimOffersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable />
+          <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable>
+            <GetSimQuantityFilter />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.customFields')" :key="'el8'" draggable>
             <GetSimCustomFields />
           </FoldableBlock>
@@ -56,6 +58,7 @@ import GetSimPartnersFilter from './GetSimPartnersFilter';
 import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
 import GetSimOffersFilter from './GetSimOffersFilter';
 import GetSimOrderCreator from './GetSimOrderCreatorFilter';
+import GetSimQuantityFilter from './GetSimQuantityFilter';
 
 export default {
   computed: {
@@ -82,6 +85,7 @@ export default {
     GetSimOffersFilter,
     UiCheckbox,
     GetSimOrderCreator,
+    GetSimQuantityFilter,
   },
 };
 </script>
