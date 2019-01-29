@@ -23,7 +23,9 @@ export const getters = {
   currentFilters: state => state.currentFilters,
   appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state => {
-    const filtersFound = state.currentFilters.filter(f => f.values && f.values.length > 0);
+    const filtersFound = state.currentFilters.filter(
+      f => (f.values && f.values.length > 0) || !!f.value
+    );
     return !!filtersFound && !!filtersFound.length;
   },
   filterCustomFieldsList: state => state.filterCustomFieldsList,
@@ -42,6 +44,9 @@ export const getters = {
   selectedCustomFieldsValues: state => {
     return selectedFilterValuesById(state)('filters.customFields');
   },
+  selectedQuantityValues: state => {
+    return state.currentFilters.find(c => c.id === 'filters.quantity');
+  },
 };
 
 // Actions
@@ -51,9 +56,9 @@ export const getters = {
  * met à jour les champs libres
  */
 async function setPartnersFilter({ commit, getters }, partners) {
-  commit('selectFilterValue', {
+  commit('selectFilterValueNEW', {
     id: 'filters.partners',
-    newValue: partners,
+    values: partners,
   });
 
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
@@ -103,6 +108,9 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
   }
 }
 
+/**
+ * DEPRECATED remove this after all others branches are merged
+ */
 function selectFilterValue(state, { id, newValue }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
@@ -122,6 +130,25 @@ function selectFilterValue(state, { id, newValue }) {
   resetSearchWhenCurrentFiltersAreEmpty(state);
 }
 
+function selectFilterValueNEW(state, { id, ...rest }) {
+  const isFilterFound = state.currentFilters.find(f => f.id === id);
+  if (isFilterFound) {
+    state.currentFilters = state.currentFilters.map(f => {
+      if (f.id === id) {
+        return { id, ...rest };
+      }
+      return f;
+    });
+  } else {
+    state.currentFilters.push({
+      id,
+      ...rest,
+    });
+  }
+
+  resetSearchWhenCurrentFiltersAreEmpty(state);
+}
+
 export const actions = {
   setPartnersFilter,
 
@@ -132,10 +159,7 @@ export const actions = {
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, []);
     } else {
-      store.commit('selectFilterValue', {
-        id: filterId,
-        newValue: [],
-      });
+      store.commit('setCurrentFilters', store.state.currentFilters.filter(f => f.id !== filterId));
     }
     store.commit('applyFilters');
   },
@@ -144,14 +168,17 @@ export const actions = {
 // Mutations
 
 export const mutations = {
+  selectFilterValue,
+  selectFilterValueNEW,
+  setCurrentFilters: (state, currentFilters) => {
+    state.currentFilters = currentFilters;
+  },
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },
   setFilterCustomFieldsList: (state, data) => {
     state.filterCustomFieldsList = data;
   },
-  selectFilterValue,
-
   setBillingAccountsFilter(state, billingAccounts) {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
@@ -177,6 +204,14 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.customFields',
       newValue: customFields,
+    });
+  },
+  setQuantityFilter(state, { value, from, to }) {
+    selectFilterValueNEW(state, {
+      id: 'filters.quantity',
+      value: value,
+      from,
+      to,
     });
   },
 };
