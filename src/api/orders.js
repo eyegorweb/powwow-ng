@@ -32,7 +32,6 @@ export async function searchOrders(orderBy, pagination, filters = []) {
 
 function formatFilters(filters) {
   const allFilters = [];
-
   const partyIds = getValuesIds(filters, 'filters.partners');
   if (partyIds) {
     allFilters.push(`partyId: {in:[${partyIds}]}`);
@@ -49,7 +48,7 @@ function formatFilters(filters) {
   }
 
   const customFields = getFilterValues(filters, 'filters.customFields');
-  if (customFields) {
+  if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
       .map(c => `${c.id}: {contains: "${c.value}"}`)
       .join(',');
@@ -57,7 +56,17 @@ function formatFilters(filters) {
     allFilters.push(customFeldsGQLparams);
   }
 
+  addQuantityFilter(allFilters, filters);
+
   return allFilters.join(',');
+}
+
+function addQuantityFilter(gqlFilters, selectedFilters) {
+  const quantityFilter = selectedFilters.find(f => f.id === 'filters.quantity');
+
+  if (quantityFilter && quantityFilter.from && quantityFilter.to) {
+    gqlFilters.push(`quantity: {goe: ${quantityFilter.from}, loe: ${quantityFilter.to}}`);
+  }
 }
 
 function getFilterValues(filters, filterId) {

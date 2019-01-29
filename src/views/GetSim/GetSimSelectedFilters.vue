@@ -1,7 +1,13 @@
 <template>
   <div class="mb-3">
-    <div v-for="filter in currentFilters" :key="filter.name">
-      <SelectedFilterDetails :filter="filter" />
+    <div
+      v-for="filter in currentFilters"
+      :key="filter.name"
+    >
+      <SelectedFilterDetails
+        v-if="filter && ((filter.values && filter.values.length) || filter.value)"
+        :filter="filter"
+      />
     </div>
     <div class="actions d-flex flex-column flex-md-row">
       <UiDropdownButton>

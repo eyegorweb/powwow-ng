@@ -19,6 +19,9 @@
                 <!-- class input-group mb-3 -->
                 <UiDateRange :start.sync="startDate" :end.sync="endDate" />
               </div>
+              <div class="col-md-4">
+                <InputRange />
+              </div>
               <br>
             </div>
           </div>
@@ -103,9 +106,6 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <GetSimSelectSimType class="bg-white" :items="simTypes" />
-    </div>
   </div>
 </template>
 
@@ -122,6 +122,7 @@ import MultiChoices from '@/components/MultiChoices';
 import SearchWithSelect from '@/components/SearchWithSelect';
 import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
+import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 
 export default {
@@ -248,6 +249,7 @@ export default {
     ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
+    InputRange,
   },
 };
 </script>

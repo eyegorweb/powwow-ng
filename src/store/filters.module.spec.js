@@ -173,9 +173,12 @@ describe('store/filters.module', () => {
   });
 
   describe('actions', () => {
-    it('apply filters after clearing finter values', () => {
+    it('apply filters after clearing filter values', () => {
       const store = {
         commit: jest.fn(),
+        state: {
+          currentFilters: [],
+        },
         getters: {
           selectedBillingAccountsValues: [],
           selectedOffersValues: [],
@@ -184,13 +187,7 @@ describe('store/filters.module', () => {
       };
       filterModule.actions.clearFilter(store, 'filters.offers');
 
-      expect(store.commit.mock.calls[0]).toEqual([
-        'selectFilterValue',
-        {
-          id: 'filters.offers',
-          newValue: [],
-        },
-      ]);
+      expect(store.commit.mock.calls[0]).toEqual(['setCurrentFilters', []]);
       expect(store.commit.mock.calls[1]).toEqual(['applyFilters']);
     });
 
@@ -206,8 +203,8 @@ describe('store/filters.module', () => {
       filterModule.actions.setPartnersFilter(store, []);
 
       expect(store.commit.mock.calls[0]).toEqual([
-        'selectFilterValue',
-        { id: 'filters.partners', newValue: [] },
+        'selectFilterValueNEW',
+        { id: 'filters.partners', values: [] },
       ]);
 
       expect(store.commit.mock.calls[1]).toEqual(['setBillingAccountsFilter', []]);

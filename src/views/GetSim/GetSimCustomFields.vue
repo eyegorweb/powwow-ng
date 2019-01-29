@@ -3,7 +3,7 @@
     <div v-for="item in filterCustomFieldsList" :key="item.id" class="container">
       <div v-if="item.type === 'TEXT'">
         <!-- TODO: to translate -->
-        {{ $t('statuses.' + item.code) }}
+        {{ $t('customFields.' + item.code) }}
         <UiInput
           @update:value="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
@@ -11,8 +11,7 @@
         />
       </div>
       <label v-if="item.type === 'LIST'">
-        <!-- TODO: to translate -->
-        {{ item.label }}
+        {{ $t('customFields.' + item.code) }}
         <UiSelect
           placeholder="Choisissez une valeur"
           v-model="selectedPartner"
@@ -20,8 +19,7 @@
         />
       </label>
       <div v-if="item.type === 'DATE'">
-        <!-- TODO: to translate -->
-        {{ item.label }}
+        {{ $t('customFields.' + item.code) }}
         <UiDate :date-value.sync="selectedDate" class="d-block">
           <i slot="icon" class="select-icon ic-Flag-Icon" />
         </UiDate>
