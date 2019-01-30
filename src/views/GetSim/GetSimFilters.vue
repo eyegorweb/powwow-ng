@@ -4,6 +4,7 @@
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
       <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
+      {{ selectedOrderDate }}
       <draggable>
         <transition-group>
           <FoldableBlock :title="$t('filters.partners')" :key="'el1'" draggable>
@@ -24,11 +25,14 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
+            <!--
             <UiDateRange
               :start="selectedOrderDate && selectedOrderDate.startDate"
               :end="selectedOrderDate && selectedOrderDate.endDate"
               @update:range="setOrderDateFilter"
             />
+            -->
+            <GetSimDateFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
             <GetSimOffersFilter />
@@ -57,7 +61,7 @@ import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiDateRange from '@/components/ui/UiDateRange';
+// import UiDateRange from '@/components/ui/UiDateRange';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
 import GetSimCustomFields from './GetSimCustomFields';
 import GetSimSelectedFilters from './GetSimSelectedFilters';
@@ -66,6 +70,7 @@ import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccounts
 import GetSimOffersFilter from './GetSimOffersFilter';
 import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
+import GetSimDateFilter from './GetSimDateFilter';
 
 export default {
   computed: {
@@ -97,9 +102,10 @@ export default {
     GetSimPartnersBillingAccountsFilter,
     GetSimOffersFilter,
     UiCheckbox,
-    UiDateRange,
+    // UiDateRange,
     GetSimOrderCreator,
     GetSimQuantityFilter,
+    GetSimDateFilter,
   },
 };
 </script>

@@ -219,11 +219,18 @@ export const mutations = {
     // order date is always a date range, it needs both dates
     if (!startDate || !endDate) return;
     // TODO: should we clean up existing filter if one date is missing
+    /*
     const id = 'filters.orderDate';
     const index = state.currentFilters.findIndex(filter => filter.id === id);
     const filter = { id, startDate, endDate };
     if (index < 0) state.currentFilters.push(filter);
     else state.currentFilters.splice(index, 1, filter);
+    //*/
+    selectFilterValueNEW(state, {
+      id: 'filters.orderDate',
+      startDate,
+      endDate,
+    });
   },
   setQuantityFilter(state, { value, from, to }) {
     selectFilterValueNEW(state, {

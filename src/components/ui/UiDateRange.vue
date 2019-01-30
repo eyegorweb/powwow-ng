@@ -43,6 +43,8 @@ export default {
       show: false,
       date: new Date(),
       containerVersion: 0,
+      // start: undefined,
+      //  end: new Date(),
     };
   },
 
@@ -54,7 +56,7 @@ export default {
     hideDropdown() {
       this.$refs.dropdown.hide();
     },
-    onChange([start, end]) {
+    async onChange([start, end]) {
       // on evite des changer la date vers un objet different si celui-ci représente la même date
       if (
         (start && !this.start_) ||
@@ -64,7 +66,11 @@ export default {
       if ((end && !this.end_) || (this.end_ && end && this.end_.toString() !== end.toString()))
         this.end_ = end;
 
-      if (start && end) this.$emit('update:range', { start, end });
+      if (start && end) {
+        this.$emit('update:range', { start, end });
+        await this.$nextTick();
+        // this.createFlatpickr();
+      }
     },
 
     createFlatpickr() {
