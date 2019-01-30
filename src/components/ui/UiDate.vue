@@ -6,6 +6,7 @@
 </template>
 
 <script>
+// DEPRECATED to be replaced with UiDate2 next sprint
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { propWithSync } from '@/mixins';

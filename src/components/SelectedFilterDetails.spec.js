@@ -2,6 +2,9 @@ import { mount } from '@vue/test-utils';
 import SelectedFilterDetails from './SelectedFilterDetails.vue';
 import { $t } from '@/../tests-utils';
 
+jest.mock('daterangepicker/daterangepicker.js', () => {});
+jest.mock('daterangepicker/daterangepicker.css', () => {});
+
 const mocks = { $t };
 
 const startDate = '10/01/2019';
@@ -33,7 +36,9 @@ describe('components/SelectedFilterDetails', () => {
       },
     });
     expect(wrapper.findAll('[data-test=content] span')).toHaveLength(3);
-    expect(wrapper.find('[data-test=content]').text()).toBe('first second third');
+    expect(wrapper.find('[data-test=content]').text()).toContain('first');
+    expect(wrapper.find('[data-test=content]').text()).toContain('second');
+    expect(wrapper.find('[data-test=content]').text()).toContain('third');
   });
 
   it('displays a single value', () => {

@@ -5,7 +5,6 @@ import { $t } from '@/../tests-utils';
 
 import { Store } from 'vuex-mock-store';
 
-jest.mock('daterangepicker/moment.min.js', () => {});
 jest.mock('daterangepicker/daterangepicker.js', () => {});
 jest.mock('daterangepicker/daterangepicker.css', () => {});
 
