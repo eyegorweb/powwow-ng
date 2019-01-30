@@ -10,7 +10,6 @@
 
 <script>
 import $ from 'jquery';
-import 'daterangepicker/moment.min.js';
 import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
 
