@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="reportrange" ref="daterange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+    <div ref="daterange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
       <i class="icon ic-Calendar-Icon" />&nbsp;
       <span>{{ formattedResult }}</span>
       <i class="fa fa-caret-down" />
@@ -25,12 +25,6 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
-      selectedStart: '',
-      selectedEnd: '',
-    };
-  },
   mounted() {
     let startDate;
     let endDate;
@@ -42,16 +36,10 @@ export default {
       endDate = moment();
     }
 
-    this.selectedStart = startDate.format('DD/MM/YYYY');
-    this.selectedEnd = endDate.format('DD/MM/YYYY');
-
     const onDateSelected = (start, end) => {
-      this.selectedStart = start.format('DD/MM/YYYY');
-      this.selectedEnd = end.format('DD/MM/YYYY');
-
       this.$emit('change', {
-        start: this.selectedStart,
-        end: this.selectedEnd,
+        startDate: start.format('DD/MM/YYYY'),
+        endDate: end.format('DD/MM/YYYY'),
       });
     };
 
@@ -94,13 +82,13 @@ export default {
       },
       onDateSelected
     );
-
-    // onDateSelected(start, end);
   },
 
   computed: {
     formattedResult() {
-      return this.selectedStart + ' - ' + this.selectedEnd;
+      if (!this.start && !this.end) return '';
+
+      return this.start + ' - ' + this.end;
     },
   },
 };

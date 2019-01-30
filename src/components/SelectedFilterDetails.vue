@@ -32,7 +32,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { format } from 'date-fns';
 
 export default {
   name: 'SelectedFilterDetails',
@@ -51,8 +50,8 @@ export default {
     dateFilter() {
       return (
         this.filter && {
-          startDate: format(this.filter.startDate, this.$t('getsim.date-from-to-format')),
-          endDate: format(this.filter.endDate, this.$t('getsim.date-from-to-format')),
+          startDate: this.filter.startDate,
+          endDate: this.filter.endDate,
         }
       );
     },

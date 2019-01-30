@@ -24,7 +24,7 @@ export const getters = {
   appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state => {
     const filtersFound = state.currentFilters.filter(
-      f => (f.values && f.values.length > 0) || !!f.value
+      f => (f.values && f.values.length > 0) || !!f.value || f.startDate
     );
     return !!filtersFound && !!filtersFound.length;
   },
@@ -216,16 +216,8 @@ export const mutations = {
    * @param {{startDate: string, endDate: string}} payload
    */
   setOrderDateFilter(state, { startDate, endDate }) {
-    // order date is always a date range, it needs both dates
     if (!startDate || !endDate) return;
-    // TODO: should we clean up existing filter if one date is missing
-    /*
-    const id = 'filters.orderDate';
-    const index = state.currentFilters.findIndex(filter => filter.id === id);
-    const filter = { id, startDate, endDate };
-    if (index < 0) state.currentFilters.push(filter);
-    else state.currentFilters.splice(index, 1, filter);
-    //*/
+
     selectFilterValueNEW(state, {
       id: 'filters.orderDate',
       startDate,

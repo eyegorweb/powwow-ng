@@ -4,7 +4,6 @@
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
       <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
-      {{ selectedOrderDate }}
       <draggable>
         <transition-group>
           <FoldableBlock :title="$t('filters.partners')" :key="'el1'" draggable>

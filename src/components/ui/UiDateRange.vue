@@ -23,6 +23,9 @@
 </template>
 
 <script>
+/**
+ * DEPRECATED will be removed next sprint
+ */
 import flatpickr from 'flatpickr';
 import RangePlugin from 'flatpickr/dist/plugins/rangePlugin';
 import 'flatpickr/dist/flatpickr.min.css';
