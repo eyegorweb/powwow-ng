@@ -4,8 +4,8 @@ import { $t } from '@/../tests-utils';
 
 const mocks = { $t };
 
-const startDate = new Date('2019-01-10');
-const endDate = new Date('2019-01-20');
+const startDate = '10/01/2019';
+const endDate = '20/01/2019';
 
 function factory() {
   return mount(SelectedFilterDetails, {

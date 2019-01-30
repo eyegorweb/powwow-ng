@@ -12,8 +12,8 @@ const pagination = {
   limit: 10,
 };
 
-const startDate = new Date('2019-01-10');
-const endDate = new Date('2019-01-20');
+const startDate = '10/01/2019';
+const endDate = '20/01/2019';
 
 describe('order api', () => {
   let querySpy = jest.spyOn(utils, 'query');
@@ -66,20 +66,8 @@ describe('order api', () => {
     expect(utils.query).toHaveBeenCalledTimes(1);
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain(
-      'orderDate: {between: {startDate: "2019-01-10", endDate: "2019-01-20"}}'
+      'orderDate: {between: {startDate: "10-01-2019 00:00:00", endDate: "21-01-2019 00:00:00"}}'
     );
-  });
-
-  describe('utils: formatDateRangeFilter', () => {
-    it('supports between range by default', () => {
-      expect(
-        formatDateRangeFilter(
-          // TODO: quel est l ebon format pour gql?
-          [{ id: 'filters.orderDate', startDate, endDate }],
-          'filters.orderDate'
-        )
-      ).toBe(`{between: {startDate: "2019-01-10", endDate: "2019-01-20"}}`);
-    });
   });
 
   it('filters by quantity when from and to values are set', () => {

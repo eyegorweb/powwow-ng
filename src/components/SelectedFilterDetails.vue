@@ -48,6 +48,7 @@ export default {
 
   computed: {
     dateFilter() {
+      console.log(this.filter.startDate);
       return (
         this.filter && {
           startDate: this.filter.startDate,
