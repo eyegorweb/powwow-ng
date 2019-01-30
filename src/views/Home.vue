@@ -17,7 +17,7 @@
             <div class="row">
               <div class="col-md-4">
                 <!-- class input-group mb-3 -->
-                <UiDateRange :start.sync="startDate" :end.sync="endDate" />
+                <UiDateRange :start="startDate" :end="endDate" />
               </div>
               <div class="col-md-4">
                 <InputRange />

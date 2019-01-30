@@ -1,16 +1,16 @@
 <template>
   <div>
-    <UiDateRange2 @change="setOrderDateFilter" :start="startDate" :end="endDate" />
+    <UiDateRange @change="setOrderDateFilter" :start="startDate" :end="endDate" />
   </div>
 </template>
 
 <script>
-import UiDateRange2 from '@/components/ui/UiDateRange2';
+import UiDateRange from '@/components/ui/UiDateRange';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
-    UiDateRange2,
+    UiDateRange,
   },
   methods: {
     ...mapMutations(['setOrderDateFilter']),
