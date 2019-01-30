@@ -1,14 +1,19 @@
-import { mount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import GetSimFilters from './GetSimFilters.vue';
 
 import { $t } from '@/../tests-utils';
 
 import { Store } from 'vuex-mock-store';
 
+jest.mock('daterangepicker/moment.min.js', () => {});
+jest.mock('daterangepicker/daterangepicker.js', () => {});
+jest.mock('daterangepicker/daterangepicker.css', () => {});
+
 const store = new Store({
   getters: {
     currentFilters: {},
     canShowSelectedFilter: false,
+    selectedOrderDate: null,
   },
 });
 

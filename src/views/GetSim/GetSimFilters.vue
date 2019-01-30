@@ -23,7 +23,9 @@
             </div>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable />
+          <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
+            <GetSimDateFilter />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
             <GetSimOffersFilter />
           </FoldableBlock>
@@ -59,10 +61,11 @@ import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccounts
 import GetSimOffersFilter from './GetSimOffersFilter';
 import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
+import GetSimDateFilter from './GetSimDateFilter';
 
 export default {
   computed: {
-    ...mapGetters(['currentFilters', 'canShowSelectedFilter']),
+    ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
   },
 
   data() {
@@ -71,7 +74,13 @@ export default {
     };
   },
 
-  async mounted() {
+  methods: {
+    setOrderDateFilter({ start: startDate, end: endDate }) {
+      this.$store.commit('setOrderDateFilter', { startDate, endDate });
+    },
+  },
+
+  async created() {
     this.statusResults = await fetchOrderStatuses();
   },
 
@@ -86,6 +95,7 @@ export default {
     UiCheckbox,
     GetSimOrderCreator,
     GetSimQuantityFilter,
+    GetSimDateFilter,
   },
 };
 </script>

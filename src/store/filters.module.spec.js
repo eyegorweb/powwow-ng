@@ -33,6 +33,7 @@ describe('store/filters.module', () => {
       expect(filterModule.getters.canShowSelectedFilter(state)).toBe(true);
     });
   });
+
   describe('mutations', () => {
     it('sets applied filters', () => {
       const state = {
@@ -57,6 +58,7 @@ describe('store/filters.module', () => {
         },
       ]);
     });
+
     it('should add a new entry to selected filters when a new value is set', () => {
       const state = {
         currentFilters: [],
@@ -87,6 +89,7 @@ describe('store/filters.module', () => {
         },
       ]);
     });
+
     it('Should add a new value to an already selected filter', () => {
       const state = {
         currentFilters: [
@@ -134,6 +137,38 @@ describe('store/filters.module', () => {
           ],
         },
       ]);
+    });
+
+    describe('setOrderDateRange', () => {
+      it('adds a date range', () => {
+        const state = {
+          currentFilters: [],
+        };
+        filterModule.mutations.setOrderDateFilter(state, { startDate: 'start', endDate: 'end' });
+        expect(state.currentFilters).toEqual([
+          { id: 'filters.orderDate', startDate: 'start', endDate: 'end' },
+        ]);
+      });
+
+      it('updates a date range', () => {
+        const state = {
+          currentFilters: [{ id: 'filters.orderDate', startDate: 'start', endDate: 'end' }],
+        };
+        filterModule.mutations.setOrderDateFilter(state, { startDate: 'start', endDate: 'other' });
+        expect(state.currentFilters).toEqual([
+          { id: 'filters.orderDate', startDate: 'start', endDate: 'other' },
+        ]);
+      });
+
+      it('should not add an incomplete date range', () => {
+        const state = {
+          currentFilters: [],
+        };
+        filterModule.mutations.setOrderDateFilter(state, { startDate: 'start' });
+        expect(state.currentFilters).toHaveLength(0);
+        filterModule.mutations.setOrderDateFilter(state, { endDate: 'end' });
+        expect(state.currentFilters).toHaveLength(0);
+      });
     });
   });
 

@@ -24,7 +24,7 @@ export const getters = {
   appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state => {
     const filtersFound = state.currentFilters.filter(
-      f => (f.values && f.values.length > 0) || !!f.value
+      f => (f.values && f.values.length > 0) || !!f.value || f.startDate
     );
     return !!filtersFound && !!filtersFound.length;
   },
@@ -47,6 +47,8 @@ export const getters = {
   selectedQuantityValues: state => {
     return state.currentFilters.find(c => c.id === 'filters.quantity');
   },
+
+  selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
 };
 
 // Actions
@@ -102,8 +104,17 @@ async function refreshCustomFilters({ commit }, partners) {
 }
 
 function resetSearchWhenCurrentFiltersAreEmpty(state) {
-  const filtersWithValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
-  if (filtersWithValues.length === 0) {
+  const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
+  const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
+  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
+  const filtersWithRangeValues = state.currentFilters.filter(f => f.from && f.to);
+
+  if (
+    filtersWithArrayValues.length === 0 &&
+    filtersWithSimpleValue.length === 0 &&
+    filtersWithDateValues.length === 0 &&
+    filtersWithRangeValues.length === 0
+  ) {
     state.appliedFilters = [];
   }
 }
@@ -204,6 +215,22 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.customFields',
       newValue: customFields,
+    });
+  },
+
+  /**
+   * Set the date range filter for an order. Do not set the date if
+   * startDate or endDate is missing
+   * @param {*} state
+   * @param {{startDate: string, endDate: string}} payload
+   */
+  setOrderDateFilter(state, { startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValueNEW(state, {
+      id: 'filters.orderDate',
+      startDate,
+      endDate,
     });
   },
   setQuantityFilter(state, { value, from, to }) {

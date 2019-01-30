@@ -26,7 +26,9 @@
     "sim-type-labels": {
       "format": "Format",
       "patent": "Brevets et fonctionnalité"
-    }
+    },
+    "date-from-to": "Du {startDate} au {endDate}",
+    "date-from-to-format": "dd/MM/yyyyy"
   },
   "col": {
     "id": "ID",
