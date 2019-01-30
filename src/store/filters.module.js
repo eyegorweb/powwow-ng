@@ -104,8 +104,17 @@ async function refreshCustomFilters({ commit }, partners) {
 }
 
 function resetSearchWhenCurrentFiltersAreEmpty(state) {
-  const filtersWithValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
-  if (filtersWithValues.length === 0) {
+  const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
+  const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
+  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
+  const filtersWithRangeValues = state.currentFilters.filter(f => f.from && f.to);
+
+  if (
+    filtersWithArrayValues.length === 0 &&
+    filtersWithSimpleValue.length === 0 &&
+    filtersWithDateValues.length === 0 &&
+    filtersWithRangeValues.length === 0
+  ) {
     state.appliedFilters = [];
   }
 }

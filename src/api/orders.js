@@ -1,4 +1,5 @@
 import { query } from './utils';
+import moment from 'moment';
 
 export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
@@ -42,11 +43,6 @@ function formatFilters(filters) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
-  const orderDate = formatDateRangeFilter(filters, 'filters.orderDate');
-  if (orderDate) {
-    allFilters.push('orderDate: ' + orderDate);
-  }
-
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
@@ -57,8 +53,22 @@ function formatFilters(filters) {
   }
 
   addQuantityFilter(allFilters, filters);
+  addDateFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addDateFilter(gqlFilters, selectedFilters) {
+  const dateFilter = selectedFilters.find(f => f.id === 'filters.orderDate');
+  if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
+    const formattedStartDate = `${dateFilter.startDate.replace(/\//g, '-')} 00:00:00`;
+    const modifiedEndDate = moment(dateFilter.endDate, 'DD/MM/YYYY').add(1, 'days');
+    const formattedEndDate = `${modifiedEndDate.format('DD-MM-YYYY')} 00:00:00`;
+
+    gqlFilters.push(
+      `orderDate: {between: {startDate: "${formattedStartDate}", endDate: "${formattedEndDate}"}}`
+    );
+  }
 }
 
 function addQuantityFilter(gqlFilters, selectedFilters) {
