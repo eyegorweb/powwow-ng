@@ -1,10 +1,13 @@
-import { mount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import { Store } from 'vuex-mock-store';
 import GetSimCustomFields from './GetSimCustomFields';
 
 import { $t } from '@/../tests-utils';
 
-jest.mock('flatpickr/dist/flatpickr.min.css', () => {});
+jest.mock('daterangepicker/daterangepicker.js', () => {});
+jest.mock('daterangepicker/daterangepicker.css', () => {});
+
+import * as jquery from 'jquery';
 
 const setCustomFieldsFilterMock = jest.fn();
 const store = new Store({
@@ -34,23 +37,21 @@ const store = new Store({
 
 describe('GetSimCustomFields', () => {
   it('display custom field depending on type', async () => {
-    const wrapper = mount(GetSimCustomFields, {
+    const wrapper = shallowMount(GetSimCustomFields, {
       mocks: {
         $store: store,
         $t,
       },
     });
-    await wrapper.vm.$nextTick();
-    expect(wrapper.find('input').exists()).toBe(true);
-    const allOptions = wrapper.findAll('option');
-    expect(allOptions).toHaveLength(3);
-    expect(allOptions.at(1).text()).toBe('pomme de reinette');
-    expect(allOptions.at(2).text()).toBe('pomme d api');
-    expect(wrapper.find('.flatpickr-input').exists()).toBe(true);
+    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" value="" class="d-block">');
+    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" value="" class="d-block">');
+    expect(wrapper.html()).toContain(
+      '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api">'
+    );
   });
 
   it('store custom field values in store for synthesis', () => {
-    const wrapper = mount(GetSimCustomFields, {
+    const wrapper = shallowMount(GetSimCustomFields, {
       mocks: {
         $store: store,
         $t,
@@ -69,7 +70,8 @@ describe('GetSimCustomFields', () => {
   });
 
   it('updates value of already selected filter', () => {
-    const wrapper = mount(GetSimCustomFields, {
+    jquery.default = jest.fn();
+    const wrapper = shallowMount(GetSimCustomFields, {
       mocks: {
         $store: store,
         $t,

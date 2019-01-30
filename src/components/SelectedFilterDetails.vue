@@ -4,9 +4,11 @@
 
     <div data-test="content">
       <template v-if="filter.values">
-        <template v-for="(op, i) in filter.values">
-          <span class="detail" :key="op.id">{{ op.label }}</span>
-          <br v-if=" i < filter.values.length - 1" :key="op.id">
+        <template v-for="op in filter.values">
+          <span class="detail" :key="op.id">
+            {{ op.label }}
+            <br>
+          </span>
         </template>
       </template>
 

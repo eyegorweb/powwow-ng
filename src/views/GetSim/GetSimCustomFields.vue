@@ -20,7 +20,11 @@
       </label>
       <div v-if="item.type === 'DATE'">
         {{ $t('customFields.' + item.code) }}
-        <UiDate :date-value.sync="selectedDate" class="d-block">
+        <UiDate
+          @change="(newVal) => onValueChanged(item, newVal)"
+          :value="getSelectedValue(item.code)"
+          class="d-block"
+        >
           <i slot="icon" class="select-icon ic-Flag-Icon" />
         </UiDate>
       </div>
@@ -31,7 +35,7 @@
 <script>
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
-import UiDate from '@/components/ui/UiDate';
+import UiDate from '@/components/ui/UiDate2';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
