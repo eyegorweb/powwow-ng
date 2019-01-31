@@ -1,7 +1,6 @@
 <template>
   <div class="alert alert-info alert-dismissible fade show" role="alert">
     <a href="#">{{ $t(filter.id) }}</a>
-
     <div data-test="content">
       <template v-if="filter.values">
         <template v-for="op in filter.values">
@@ -18,6 +17,19 @@
         v-else-if="filter.startDate && filter.endDate"
         class="detail"
       >{{ $t('getsim.date-from-to', dateFilter) }}</span>
+
+      <span
+        v-else-if="filter.from && filter.to"
+        class="detail"
+      >{{ $t('getsim.between-min-max', rangeFilter) }}</span>
+      <span
+        v-else-if="filter.from && !filter.to"
+        class="detail"
+      >{{ $t('getsim.ge') }} {{ filter.from }}</span>
+      <span
+        v-else-if="!filter.from && filter.to"
+        class="detail"
+      >{{ $t('getsim.le') }} {{ filter.to }}</span>
     </div>
 
     <button
@@ -54,6 +66,14 @@ export default {
         this.filter && {
           startDate: this.filter.startDate,
           endDate: this.filter.endDate,
+        }
+      );
+    },
+    rangeFilter() {
+      return (
+        this.filter && {
+          min: this.filter.from,
+          max: this.filter.to,
         }
       );
     },

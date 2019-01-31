@@ -73,9 +73,16 @@ function addDateFilter(gqlFilters, selectedFilters) {
 
 function addQuantityFilter(gqlFilters, selectedFilters) {
   const quantityFilter = selectedFilters.find(f => f.id === 'filters.quantity');
-
-  if (quantityFilter && quantityFilter.from && quantityFilter.to) {
-    gqlFilters.push(`quantity: {goe: ${quantityFilter.from}, loe: ${quantityFilter.to}}`);
+  if (quantityFilter) {
+    if (quantityFilter.from && !quantityFilter.to) {
+      gqlFilters.push(`quantity: {goe: ${quantityFilter.from}}`);
+    }
+    if (!quantityFilter.from && quantityFilter.to) {
+      gqlFilters.push(`quantity: {loe: ${quantityFilter.to}}`);
+    }
+    if (quantityFilter.from && quantityFilter.to) {
+      gqlFilters.push(`quantity: {goe: ${quantityFilter.from}, loe: ${quantityFilter.to}}`);
+    }
   }
 }
 

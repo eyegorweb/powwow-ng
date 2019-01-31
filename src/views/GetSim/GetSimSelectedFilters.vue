@@ -5,7 +5,7 @@
       :key="filter.name"
     >
       <SelectedFilterDetails
-        v-if="filter && ((filter.values && filter.values.length) || filter.value || filter.startDate)"
+        v-if="filter && ((filter.values && filter.values.length) || filter.value || filter.startDate || filter.from || filter.to)"
         :filter="filter"
       />
     </div>

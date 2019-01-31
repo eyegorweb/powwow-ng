@@ -24,7 +24,7 @@ export const getters = {
   appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state => {
     const filtersFound = state.currentFilters.filter(
-      f => (f.values && f.values.length > 0) || !!f.value || f.startDate
+      f => (f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to
     );
     return !!filtersFound && !!filtersFound.length;
   },
@@ -233,10 +233,10 @@ export const mutations = {
       endDate,
     });
   },
-  setQuantityFilter(state, { value, from, to }) {
+  setQuantityFilter(state, { from, to }) {
     selectFilterValueNEW(state, {
       id: 'filters.quantity',
-      value: value,
+      // value: value,
       from,
       to,
     });

@@ -84,7 +84,7 @@ describe('order api', () => {
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('filter: {quantity: {goe: 5, loe: 50}}');
   });
-  it('do not filter by quantity when the twi values are not set', () => {
+  it('filter with quantity when only the start value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -96,6 +96,21 @@ describe('order api', () => {
     const filters = [{ id: 'filters.quantity', from: '5' }];
     searchOrders(orderBy, pagination, filters);
     const calledQuery = utils.query.mock.calls[0][0];
-    expect(calledQuery).not.toContain('filter: {quantity');
+    expect(calledQuery).not.toContain('filter: {quantity:{ goe:');
+  });
+
+  it('filter with quantity when only the end value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [{ id: 'filters.quantity', from: '5' }];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).not.toContain('filter: {quantity:{ loe:');
   });
 });

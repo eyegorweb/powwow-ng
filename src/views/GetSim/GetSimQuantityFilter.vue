@@ -1,8 +1,8 @@
 <template>
   <InputRange
     type="number"
-    :from="selectedQuantityValues ? selectedQuantityValues.from: 0"
-    :to="selectedQuantityValues ? selectedQuantityValues.to: 0"
+    :from="selectedQuantityValues ? selectedQuantityValues.from: ''"
+    :to="selectedQuantityValues ? selectedQuantityValues.to: ''"
     @change="onChange"
   />
 </template>

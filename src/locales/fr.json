@@ -28,7 +28,10 @@
       "patent": "Brevets et fonctionnalité"
     },
     "date-from-to": "Du {startDate} au {endDate}",
-    "date-from-to-format": "dd/MM/yyyyy"
+    "date-from-to-format": "dd/MM/yyyyy",
+    "between-min-max": "Entre {min} et {max}",
+    "ge": "Supérieur à",
+    "le": "Inférieur à"
   },
   "col": {
     "id": "ID",
