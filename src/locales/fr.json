@@ -41,6 +41,9 @@
     "quantity": "Quantité",
     "status": "Statut",
     "product": "Produit",
+    "externalId": "Ref. client",
+    "offer": "Offre",
+    "managementId": "Id gestion",
     "statuses": {
       "CONFIRMED": "Confirmée",
       "TERMINATED": "Terminée",

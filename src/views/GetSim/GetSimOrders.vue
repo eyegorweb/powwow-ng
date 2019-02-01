@@ -68,12 +68,22 @@ export default {
           },
         },
         {
-          label: this.$t('col.creationDate'),
-          name: 'creationDate',
+          label: this.$t('col.orderDate'),
+          name: 'orderDate',
           orderable: true,
           format: {
             type: 'Date',
           },
+        },
+        {
+          label: this.$t('col.externalId'),
+          name: 'externalId',
+          orderable: true,
+        },
+        {
+          label: this.$t('col.managementId'),
+          name: 'managementId',
+          orderable: false,
         },
         {
           label: this.$t('col.status'),
@@ -107,6 +117,15 @@ export default {
           orderable: false,
           format: {
             type: 'Boolean',
+          },
+        },
+        {
+          label: this.$t('col.offer'),
+          name: 'customerAccount',
+          orderable: true,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'code',
           },
         },
       ],

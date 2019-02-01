@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     formattedDate() {
-      return this.item.replace(/-/g, '/');
+      return this.item && this.item.replace(/-/g, '/').split(' ')[0];
     },
   },
 };

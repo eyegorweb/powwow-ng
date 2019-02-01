@@ -13,9 +13,14 @@ export async function searchOrders(orderBy, pagination, filters = []) {
       total
       items {
         id
-				creationDate
+        creationDate
+        orderDate
 				activationAsked
         status
+        externalId
+        customerAccount {
+          code
+        }
         orderItems {
           quantity
           orderedProduct {
