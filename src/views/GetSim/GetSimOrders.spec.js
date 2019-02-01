@@ -30,7 +30,7 @@ describe('GetSimOrders', () => {
       items: [
         {
           id: 1234,
-          creationDate: '11/11/2018',
+          orderDate: '11/11/2018',
           activationAsked: true,
         },
       ],
