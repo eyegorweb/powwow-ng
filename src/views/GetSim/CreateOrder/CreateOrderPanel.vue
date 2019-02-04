@@ -54,11 +54,10 @@ export default {
   data() {
     return {
       steps: [
-        { label: this.$t('orders.new.delivery') },
-
         { label: this.$t('orders.new.customer') },
         { label: this.$t('orders.new.product') },
         { label: this.$t('orders.new.service') },
+        { label: this.$t('orders.new.delivery') },
         { label: this.$t('orders.new.settings') },
       ],
 

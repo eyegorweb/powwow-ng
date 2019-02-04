@@ -6,32 +6,39 @@
 
     <div class="row">
       <div class="col-md-12">
+        <h6>Dernière adresse de livraison utilisée:</h6>
+
         <CreateOrderStepDeliveryOption
           :item="lastSelectedAdress"
-          :default-selected-item.sync="selectedAdress"
+          :default-selected-item="selectedAdress"
+          @update:defaultSelectedItem="selectAdress"
           :is-active="selectedAdress.id === lastSelectedAdress.id"
+          name="lastAdresses"
         />
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
+        <h6>Rechercher une adress</h6>
         <UiInput
           placeholder="Saisir un nom ou une adresse"
           class="d-block mx-auto"
+          v-model="filterValue"
         />
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <h6>Dernière adresse de livraison utilisée:</h6>
         <div class="adresses">
           <CreateOrderStepDeliveryOption
-            v-for="adress in adresses" :key="adress.id"
+            v-for="adress in filteredAdresses" :key="adress.id"
             :item="adress"
-            :default-selected-item.sync="selectedAdress"
+            :default-selected-item="selectedAdress"
             :is-active="selectedAdress.id === adress.id"
+            @update:defaultSelectedItem="selectAdress"
+            name="otherAdresses"
           />
         </div>
 
@@ -47,7 +54,7 @@
         />
         <UiButton
           variant="round-button"
-          @click="$emit('done')"
+          @click="done"
           class="float-right ic-Arrow-Next-Icon"
         />
       </div>
@@ -69,18 +76,56 @@ export default {
     CreateOrderStepDeliveryOption,
   },
 
+  mounted() {
+    this.filteredAdresses = [...this.adresses];
+  },
+
+  methods: {
+    selectAdress(newAdress) {
+      console.log('Selected Adress > ', newAdress);
+      this.selectedAdress = newAdress;
+    },
+
+    done() {
+      this.$emit('done', {
+        delivery: {
+          label: 'common.delivery',
+          value: {
+            id: this.selectedAdress.id,
+            content: [this.selectedAdress.title, this.selectedAdress.description],
+          },
+        },
+      });
+    },
+  },
+
+  watch: {
+    filterValue(q) {
+      if (!q) {
+        this.filteredAdresses = [...this.adresses];
+      } else {
+        const query = q.toLowerCase();
+        this.filteredAdresses = this.adresses.filter(
+          a => a.title.toLowerCase().includes(query) || a.description.toLowerCase().includes(query)
+        );
+      }
+    },
+  },
+
   data() {
     return {
+      filterValue: '',
       lastSelectedAdress: {
         id: 2,
         title: 'Mme Amélie Delacour2',
         description:
           'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
       },
+      filteredAdresses: [],
       adresses: [
         {
           id: 1,
-          title: 'Mme Amélie Delacour',
+          title: 'John Doe',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France',
         },
@@ -99,6 +144,12 @@ export default {
         },
         {
           id: 4,
+          title: 'Mme Amélie Delacour2',
+          description:
+            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
+        },
+        {
+          id: 5,
           title: 'Mme Amélie Delacour2',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
@@ -129,9 +180,20 @@ export default {
 .adresses {
   display: flex;
   flex-flow: row wrap;
+  overflow: auto;
   .adress {
     width: calc((100% / 2) - 20px);
     margin: 0.5em;
+  }
+}
+@media screen and (max-height: 768px) {
+  .adresses {
+    height: 11rem;
+  }
+}
+@media screen and (min-height: 769px) {
+  .adresses {
+    height: 20rem;
   }
 }
 </style>

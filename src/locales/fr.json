@@ -12,6 +12,7 @@
   "logout": "Déconnexion",
   "common": {
     "billingAccount": "Compte de facturation",
+    "delivery": "Livraison",
     "product": "Produit",
     "quantity": "Quantité",
     "billingAccounts": "Compte de facturation",
