@@ -110,12 +110,13 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
 function addLineStatus(gqlFilters, selectedFilters) {
   const lineStatus = selectedFilters.find(f => f.id === 'filters.lineStatus');
   const activationAsked = lineStatus && lineStatus.values.find(f => f.id === 'linestatus.active');
-  const preactivationAsked = lineStatus && lineStatus.values.find(f => f.id === 'linestatus.PreActive');
+  const preactivationAsked =
+    lineStatus && lineStatus.values.find(f => f.id === 'linestatus.PreActive');
   if (activationAsked) {
     gqlFilters.push(`activationAsked: {eq: ${activationAsked.value}}`);
   }
   if (preactivationAsked) {
-    gqlFilters.push(`activationAsked: {eq: ${preactivationAsked.value}}`);
+    gqlFilters.push(`preactivationAsked: {eq: ${preactivationAsked.value}}`);
   }
 }
 
