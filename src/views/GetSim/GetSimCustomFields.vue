@@ -1,41 +1,15 @@
 <template>
   <div clas="container">
-    <div v-for="item in filterCustomFieldsList" :key="item.id" class="container">
-      <div v-if="item.type === 'TEXT'">
-        <!-- TODO: to translate -->
-        {{ $t('customFields.' + item.code) }}
-        <UiInput
-          @update:value="(newVal) => onValueChanged(item, newVal)"
-          :value="getSelectedValue(item.code)"
-          class="d-block"
-        />
-      </div>
-      <label v-if="item.type === 'LIST'">
-        {{ $t('customFields.' + item.code) }}
-        <UiSelect
-          placeholder="Choisissez une valeur"
-          v-model="selectedPartner"
-          :options="item.value"
-        />
-      </label>
-      <div v-if="item.type === 'DATE'">
-        {{ $t('customFields.' + item.code) }}
-        <UiDate
-          @change="(newVal) => onValueChanged(item, newVal)"
-          :value="getSelectedValue(item.code)"
-          class="d-block"
-        >
-          <i slot="icon" class="select-icon ic-Flag-Icon" />
-        </UiDate>
-      </div>
-    </div>
+    <CustomFields
+      :fields="filterCustomFieldsList"
+      :get-selected-value="getSelectedValue"
+      @change="onValueChanged"
+    />
   </div>
 </template>
 
 <script>
-import UiInput from '@/components/ui/UiInput';
-import UiSelect from '@/components/ui/UiSelect';
-import UiDate from '@/components/ui/UiDate2';
+import CustomFields from '@/components/CustomFields';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -74,14 +48,16 @@ export default {
       if (selected) {
         selected.value = newVal;
         this.setCustomFieldsFilter(
-          selectedCustomFieldsValues.filter(s => s.value && s.value.length > 0).map(s => {
-            if (s.id === selected.id) {
-              selected.label = labelForSynthesis;
-              return selected;
-            } else {
-              return s;
-            }
-          })
+          selectedCustomFieldsValues
+            .filter(s => s.value && s.value.length > 0)
+            .map(s => {
+              if (s.id === selected.id) {
+                selected.label = labelForSynthesis;
+                return selected;
+              } else {
+                return s;
+              }
+            })
         );
       } else {
         this.setCustomFieldsFilter([
@@ -97,9 +73,7 @@ export default {
   },
 
   components: {
-    UiInput,
-    UiSelect,
-    UiDate,
+    CustomFields,
   },
 };
 </script>

@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { Store } from 'vuex-mock-store';
 import GetSimCustomFields from './GetSimCustomFields';
 
@@ -36,19 +36,6 @@ const store = new Store({
 });
 
 describe('GetSimCustomFields', () => {
-  it('display custom field depending on type', async () => {
-    const wrapper = shallowMount(GetSimCustomFields, {
-      mocks: {
-        $store: store,
-        $t,
-      },
-    });
-    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" value="" class="d-block">');
-    expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" value="" class="d-block">');
-    expect(wrapper.html()).toContain(
-      '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api">'
-    );
-  });
 
   it('store custom field values in store for synthesis', () => {
     const wrapper = shallowMount(GetSimCustomFields, {

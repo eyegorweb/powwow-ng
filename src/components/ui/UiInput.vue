@@ -10,7 +10,15 @@
       type="number"
       :min="minValue"
     >
-    <input v-else :placeholder="placeholder" v-bind="$attrs" v-model="value_" v-on="$listeners" type="text">
+    <input
+      v-else
+      :placeholder="placeholder"
+      v-bind="$attrs"
+      v-model="value_"
+      v-on="$listeners"
+      type="text"
+    >
+    <slot name="afterInput" />
   </label>
 </template>
 

@@ -53,3 +53,13 @@ $theme-colors: map-merge(
     color: white !important;
   }
 }
+
+.btn-outline-simple {
+  color: $dark-gray;
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  &:disabled {
+    background: $medium-gray;
+    color: white;
+  }
+}
