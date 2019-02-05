@@ -47,7 +47,25 @@ export const getters = {
   selectedQuantityValues: state => {
     return state.currentFilters.find(c => c.id === 'filters.quantity');
   },
-
+  selectedPostalCodeValue: state => {
+    const postalCodeFilter = state.currentFilters.find(c => c.id === 'filters.postalCode');
+    if (postalCodeFilter) {
+      return postalCodeFilter.value;
+    } else {
+      return '';
+    }
+  },
+  selectedCityValue: state => {
+    const cityFilter = state.currentFilters.find(c => c.id === 'filters.city');
+    if (cityFilter) {
+      return cityFilter.value;
+    } else {
+      return '';
+    }
+  },
+  selectedLineStatus: state => {
+    return selectedFilterValuesById(state)('filters.lineStatus');
+  },
   selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
 };
 
@@ -202,6 +220,26 @@ export const mutations = {
       newValue: offers,
     });
   },
+  setPostalCodeFilter(state, postal) {
+    selectFilterValueNEW(state, {
+      id: 'filters.postalCode',
+      value: postal,
+    });
+  },
+  setCityFilter(state, city) {
+    selectFilterValueNEW(state, {
+      id: 'filters.city',
+      value: city,
+    });
+  },
+
+  setLineStatusFilter(state, values) {
+    selectFilterValueNEW(state, {
+      id: 'filters.lineStatus',
+      values,
+    });
+  },
+
   setOrderCreatorFilter(state, creators) {
     selectFilterValue(state, {
       id: 'filters.orderCreator',

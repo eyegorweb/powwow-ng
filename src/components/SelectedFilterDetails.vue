@@ -11,7 +11,7 @@
         </template>
       </template>
 
-      <span v-else-if="filter.value" class="detail"> <br> {{ filter.value }}</span>
+      <span v-else-if="filter.value" class="detail"> {{ filter.value }}</span>
 
       <span
         v-else-if="filter.startDate && filter.endDate"
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+// TODO Refact this
 import { mapActions } from 'vuex';
 
 export default {

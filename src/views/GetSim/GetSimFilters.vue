@@ -40,8 +40,15 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.active')" :key="'el10'" draggable />
           <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable />
-          <FoldableBlock :title="$t('filters.postalCode')" :key="'el12'" draggable />
-          <FoldableBlock :title="$t('filters.city')" :key="'el13'" draggable />
+          <FoldableBlock :title="$t('filters.postalCode')" :key="'el12'" draggable>
+            <GetSimPostalCode />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.city')" :key="'el20'" draggable>
+            <GetSimCity />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.lineStatus')" :key="'e21'" draggable>
+            <GetSimLineStatus />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -82,6 +89,9 @@ import GetSimPartnersFilter from './GetSimPartnersFilter';
 import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
 import GetSimOffersFilter from './GetSimOffersFilter';
 import GetSimOrderCreator from './GetSimOrderCreatorFilter';
+import GetSimPostalCode from './GetSimPostalCode';
+import GetSimCity from './GetSimCity';
+import GetSimLineStatus from './GetSimLineStatus';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 
@@ -120,6 +130,9 @@ export default {
     GetSimOffersFilter,
     UiCheckbox,
     GetSimOrderCreator,
+    GetSimPostalCode,
+    GetSimCity,
+    GetSimLineStatus,
     GetSimQuantityFilter,
     GetSimDateFilter,
   },
