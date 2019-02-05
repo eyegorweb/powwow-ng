@@ -12,6 +12,7 @@
   "logout": "Déconnexion",
   "common": {
     "billingAccount": "Compte de facturation",
+    "delivery": "Livraison",
     "product": "Produit",
     "quantity": "Quantité",
     "billingAccounts": "Compte de facturation",
@@ -76,6 +77,7 @@
   "orders": {
     "choose-account": "Choisir un compte de facturation",
     "choose-partner": "Choisir un partenaire",
+    "choose-delivery": "Choisir un destinataire",
     "new": {
       "customer": "Client",
       "product": "Produit",

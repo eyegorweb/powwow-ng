@@ -1,10 +1,5 @@
 <template>
-  <SlidePanel
-    title="getsim.order-sim"
-    :is-open="isOpen"
-    @close="close"
-    wide
-  >
+  <SlidePanel title="getsim.order-sim" :is-open="isOpen" @close="close" wide>
     <div v-if="isOpen" class="row panel-container">
       <div class="col-md-8 content">
         <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
@@ -12,17 +7,17 @@
             <CreateOrderStepClient @done="stepisDone" />
           </div>
           <div slot="Produit">
-            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep-=1" />
+            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" />
           </div>
-          <p slot="Livraison">Livraison</p>
+          <div slot="Livraison">
+            <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" />
+          </div>
         </Stepper>
-
       </div>
       <div class="col-md-4 synthesis-bar">
         <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" />
       </div>
     </div>
-
   </SlidePanel>
 </template>
 
@@ -32,6 +27,7 @@ import Stepper from '@/components/ui/Stepper';
 import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
 import CreateOrderStepClient from './CreateOrderStepClient';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
+import CreateOrderStepDelivery from './CreateOrderStepDelivery';
 
 // import UiButton from '@/components/ui/Button';
 
@@ -42,6 +38,7 @@ export default {
     GetSimCreateOrderPanelSynthesis,
     CreateOrderStepClient,
     CreateOrderStepProduct,
+    CreateOrderStepDelivery,
   },
   props: {
     isOpen: {
@@ -59,8 +56,8 @@ export default {
       steps: [
         { label: this.$t('orders.new.customer') },
         { label: this.$t('orders.new.product') },
-        { label: this.$t('orders.new.service') },
         { label: this.$t('orders.new.delivery') },
+        { label: this.$t('orders.new.service') },
         { label: this.$t('orders.new.settings') },
       ],
 
@@ -85,7 +82,7 @@ export default {
         ...this.synthesis,
         ...payload,
       };
-      this.currentStep += 1;
+      this.currentStep++;
     },
   },
 };

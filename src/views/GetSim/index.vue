@@ -46,7 +46,7 @@ export default {
   name: 'GetSim',
   data() {
     return {
-      isPanelOpen: false,
+      isPanelOpen: true,
     };
   },
   components: {
