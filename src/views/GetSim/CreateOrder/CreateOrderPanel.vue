@@ -16,7 +16,7 @@
             Step services
           </div>
           <div slot="Paramètres">
-            <CreateOrderStepSettings @prev="currentStep--" />
+            <CreateOrderStepSettings @prev="currentStep--" :synthesis="synthesis" />
           </div>
         </Stepper>
       </div>
