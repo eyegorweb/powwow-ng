@@ -12,6 +12,12 @@
           <div slot="Livraison">
             <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" />
           </div>
+          <div slot="Services">
+            Step services
+          </div>
+          <div slot="Paramètres">
+            <CreateOrderStepSettings @prev="currentStep--" />
+          </div>
         </Stepper>
       </div>
       <div class="col-md-4 synthesis-bar">
@@ -27,6 +33,7 @@ import Stepper from '@/components/ui/Stepper';
 import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
 import CreateOrderStepClient from './CreateOrderStepClient';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
+import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './CreateOrderStepDelivery';
 
 // import UiButton from '@/components/ui/Button';
@@ -38,6 +45,7 @@ export default {
     GetSimCreateOrderPanelSynthesis,
     CreateOrderStepClient,
     CreateOrderStepProduct,
+    CreateOrderStepSettings,
     CreateOrderStepDelivery,
   },
   props: {
@@ -57,8 +65,8 @@ export default {
         { label: this.$t('orders.new.customer') },
         { label: this.$t('orders.new.product') },
         { label: this.$t('orders.new.delivery') },
-        { label: this.$t('orders.new.service') },
         { label: this.$t('orders.new.settings') },
+        { label: this.$t('orders.new.service') },
       ],
 
       currentStep: 0,

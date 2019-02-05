@@ -121,4 +121,9 @@ export default {
 .step-client-container {
   padding: 0 2rem !important;
 }
+
+.subcontainer {
+  width: 65%;
+  margin: 0 auto;
+}
 </style>
