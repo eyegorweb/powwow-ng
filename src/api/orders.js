@@ -60,6 +60,12 @@ function formatFilters(filters) {
   addQuantityFilter(allFilters, filters);
   addDateFilter(allFilters, filters);
 
+  addCityFilter(allFilters, filters);
+
+  addZipCodeFilter(allFilters, filters);
+
+  addLineStatus(allFilters, filters);
+
   return allFilters.join(',');
 }
 
@@ -88,6 +94,28 @@ function addQuantityFilter(gqlFilters, selectedFilters) {
     if (quantityFilter.from && quantityFilter.to) {
       gqlFilters.push(`quantity: {goe: ${quantityFilter.from}, loe: ${quantityFilter.to}}`);
     }
+  }
+}
+
+function addCityFilter(gqlFilters, selectedFilters) {
+  const city = selectedFilters.find(f => f.id === 'filters.city');
+  city && gqlFilters.push(`city: {startsWith: "${city.value.toUpperCase()}"}`);
+}
+
+function addZipCodeFilter(gqlFilters, selectedFilters) {
+  const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
+  zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
+}
+
+function addLineStatus(gqlFilters, selectedFilters) {
+  const lineStatus = selectedFilters.find(f => f.id === 'filters.lineStatus');
+  const activationAsked = lineStatus && lineStatus.values.find(f => f.id === 'linestatus.active');
+  const preactivationAsked = lineStatus && lineStatus.values.find(f => f.id === 'linestatus.PreActive');
+  if (activationAsked) {
+    gqlFilters.push(`activationAsked: {eq: ${activationAsked.value}}`);
+  }
+  if (preactivationAsked) {
+    gqlFilters.push(`activationAsked: {eq: ${preactivationAsked.value}}`);
   }
 }
 

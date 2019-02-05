@@ -23,7 +23,9 @@
     "quantity": "Quantité",
     "billingAccounts": "Compte de facturation",
     "YES": "Oui",
-    "NO": "Non"
+    "NO": "Non",
+    "true": "Oui",
+    "false": "non"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -78,7 +80,13 @@
     "active": "Activé",
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
-    "city": "Ville"
+    "city": "Ville",
+    "lineStatus": "Statut de la ligne",
+    "lineStatusValues": {
+      "ACTIVATED": "Activé",
+      "NON_PREACTIVATED": "Non pré-activé",
+      "PREACTIVATED": "Pré-activé"
+    }
   },
   "orders": {
     "choose-account": "Choisir un compte de facturation",

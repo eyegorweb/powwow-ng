@@ -113,4 +113,70 @@ describe('order api', () => {
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).not.toContain('filter: {quantity:{ loe:');
   });
+
+  it('filter with line status when only the end value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [
+      {
+        id: 'filters.lineStatus',
+        values: [
+          {
+            id: 'linestatus.active',
+            label: 'Activé',
+            value: true,
+          },
+        ],
+      },
+    ];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).toContain('filter: {activationAsked: {eq: true}');
+  });
+
+  it('filter with city when only the end value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [
+      {
+        id: 'filters.city',
+        value: 'LABEGE',
+      },
+    ];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).toContain('filter: {city: {startsWith: "LABEGE"}}');
+  });
+
+  it('filter with postalCode when only the end value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [
+      {
+        id: 'filters.postalCode',
+        value: '31673',
+      },
+    ];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).toContain('filter: {zipCode: {startsWith: "31673"}}');
+  });
 });
