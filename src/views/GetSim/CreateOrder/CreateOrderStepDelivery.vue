@@ -116,7 +116,7 @@ export default {
     return {
       filterValue: '',
       lastSelectedAdress: {
-        id: 2,
+        id: 8,
         title: 'Mme Amélie Delacour2',
         description:
           'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
@@ -131,26 +131,26 @@ export default {
         },
         {
           id: 2,
-          title: 'Mme Amélie Delacour2',
+          title: 'Will smith',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
         },
 
         {
           id: 3,
-          title: 'Mme Amélie Delacour2',
+          title: 'Jack Black',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
         },
         {
           id: 4,
-          title: 'Mme Amélie Delacour2',
+          title: 'Leroy Jenkins',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
         },
         {
           id: 5,
-          title: 'Mme Amélie Delacour2',
+          title: 'Patrice oneil',
           description:
             'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
         },
@@ -179,7 +179,7 @@ export default {
 
 .adresses {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   overflow: auto;
   .adress {
     width: calc((100% / 2) - 20px);

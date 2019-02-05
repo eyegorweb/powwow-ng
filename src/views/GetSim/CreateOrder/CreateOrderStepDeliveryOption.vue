@@ -58,7 +58,6 @@ export default {
   justify-content: space-between;
   padding: 10px 20px 10px 15px;
   margin-bottom: 10px;
-  max-height: 11rem;
   overflow: hidden;
 
   &.active {
