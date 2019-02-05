@@ -1,6 +1,6 @@
 <template>
   <div class="card filter-bar">
-    <div class="card-body">
+    <div class="card-body" :class="[ allFiltersVisible ? 'show-all-filters' : 'hide-all-filters' ]">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
       <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
@@ -45,6 +45,28 @@
         </transition-group>
       </draggable>
     </div>
+    <div class="text-right">
+      <a
+        v-if="!allFiltersVisible"
+        href="#"
+        @click.prevent="showAllFilters"
+        class="show-all-types text-right"
+      >
+        Plus de filtres
+        <i class="arrow ic-Arrow-Down-Icon" />
+      </a>
+    </div>
+    <div class="text-right">
+      <a
+        v-if="allFiltersVisible"
+        href="#"
+        @click.prevent="showAllFilters"
+        class="show-all-types text-right"
+      >
+        Moins de filtres
+        <i class="arrow ic-Arrow-Up-Icon" />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -64,19 +86,23 @@ import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 
 export default {
-  computed: {
-    ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
-  },
-
   data() {
     return {
       statusResults: [],
+      allFiltersVisible: false,
     };
+  },
+
+  computed: {
+    ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
   },
 
   methods: {
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
+    },
+    showAllFilters() {
+      this.allFiltersVisible = !this.allFiltersVisible;
     },
   },
 
@@ -100,7 +126,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.card-body {
+  transition: max-height 0.25s ease-out;
+  max-height: 15rem;
+  overflow: hidden;
+}
 .checkbox-container .checkmark {
   border: 1px solid $medium-gray;
 }
@@ -108,6 +139,23 @@ export default {
 .checkbox-container .checkmark.regular {
   &:after {
     border-color: $dark-gray;
+  }
+}
+
+.show-all-filters {
+  max-height: 500rem;
+  transition: max-height 0.25s ease-in;
+}
+
+.text-right {
+  & a {
+    color: $dark-gray;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    &:hover {
+      color: $secondary;
+      text-decoration: none;
+    }
   }
 }
 </style>
