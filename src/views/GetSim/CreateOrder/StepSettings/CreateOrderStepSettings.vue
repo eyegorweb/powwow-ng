@@ -46,6 +46,7 @@ import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
 import CreateOrderAddCustomField from './CreateOrderAddCustomField';
 import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
+import { fetchCustomFields } from '@/api/customFields';
 
 export default {
   data() {
@@ -56,6 +57,17 @@ export default {
     };
   },
 
+  props: {
+    synthesis: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  created() {
+    this.fetchCustomFieldsForPartner();
+  },
+
   methods: {
     open() {
       this.isOpen = true;
@@ -63,6 +75,12 @@ export default {
     close() {
       this.isOpen = false;
     },
+
+    async fetchCustomFieldsForPartner() {
+      const partnerId = this.synthesis.billingAccount.value.partnerId;
+      this.allCustomFields = await fetchCustomFields(partnerId);
+    },
+
     onSaveField(fieldData) {
       this.isOpen = false;
 
@@ -144,8 +162,17 @@ export default {
   padding: 0;
   text-align: center;
 }
-.subcontainer {
-  width: 65%;
-  margin: 0 auto;
+
+@media screen and (max-height: 768px) {
+  .subcontainer {
+    max-height: 12rem;
+    overflow-y: scroll;
+  }
+}
+@media screen and (min-height: 769px) {
+  .subcontainer {
+    max-height: 27rem;
+    overflow-y: scroll;
+  }
 }
 </style>

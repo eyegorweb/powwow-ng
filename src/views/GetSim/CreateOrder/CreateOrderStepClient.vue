@@ -65,6 +65,7 @@ export default {
           value: {
             id: this.selectedBillingAccount.id,
             content: this.selectedBillingAccount.label,
+            partnerId: this.selectedPartner.id,
           },
         },
       });
