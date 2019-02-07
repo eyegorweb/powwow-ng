@@ -245,6 +245,7 @@ export default {
 
 .checkboxes {
   overflow-y: auto;
-  height: 12rem;
+  height: 100%;
+  max-height: 12rem;
 }
 </style>
