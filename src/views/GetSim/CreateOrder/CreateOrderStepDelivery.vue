@@ -3,24 +3,21 @@
     <div>
       <h2 class="title">{{ $t('orders.choose-delivery') }}</h2>
     </div>
-
-    <div class="row">
+    <div v-if="lastSelectedAdress" class="row">
       <div class="col-md-12">
-        <h6>Dernière adresse de livraison utilisée:</h6>
-
-        <CreateOrderStepDeliveryOption
+        <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
+        <CreateOrderStepDeliveryAddress
           :item="lastSelectedAdress"
           :default-selected-item="selectedAdress"
           @update:defaultSelectedItem="selectAdress"
-          :is-active="selectedAdress.id === lastSelectedAdress.id"
-          name="lastAdresses"
+          name="address"
         />
       </div>
     </div>
 
-    <div class="row">
+    <div v-if="adresses.length" class="row">
       <div class="col-md-12">
-        <h6>Rechercher une adress</h6>
+        <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
         <UiInput
           placeholder="Saisir un nom ou une adresse"
           class="d-block mx-auto"
@@ -31,17 +28,30 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="adresses">
-          <CreateOrderStepDeliveryOption
-            v-for="adress in filteredAdresses" :key="adress.id"
-            :item="adress"
-            :default-selected-item="selectedAdress"
-            :is-active="selectedAdress.id === adress.id"
-            @update:defaultSelectedItem="selectAdress"
-            name="otherAdresses"
-          />
-        </div>
+        <BlocList :items="filteredAdresses">
+          <template slot="firstElement" slot-scope="{ className }">
+            <div :class="`${className}`" @click="addnewAddress">
+              <div class="add-new">
+                <UiButton
+                  variant="round-button"
+                  @click="addnewAddress"
+                  class="ic-Plus-Icon test"
+                  style="margin: auto"
+                />
+                <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+              </div>
 
+            </div>
+          </template>
+          <template slot-scope="{ item }">
+            <CreateOrderStepDeliveryAddress
+              :item="item.address"
+              :default-selected-item="selectedAdress"
+              @update:defaultSelectedItem="selectAdress"
+              name="address"
+            />
+          </template>
+        </BlocList>
       </div>
     </div>
 
@@ -65,7 +75,9 @@
 <script>
 import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
-import CreateOrderStepDeliveryOption from './CreateOrderStepDeliveryOption';
+import CreateOrderStepDeliveryAddress from './CreateOrderStepDeliveryAddress';
+import { fetchpartnerAddresses } from '@/api/partners';
+import BlocList from '@/components/BlocList';
 
 export default {
   name: 'CreateOrderStepDelivery',
@@ -73,17 +85,43 @@ export default {
   components: {
     UiButton,
     UiInput,
-    CreateOrderStepDeliveryOption,
+    CreateOrderStepDeliveryAddress,
+    BlocList,
   },
 
-  mounted() {
-    this.filteredAdresses = [...this.adresses];
+  props: {
+    synthesis: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      filterValue: '',
+      lastSelectedAdress: undefined,
+      filteredAdresses: [],
+      adresses: [],
+      selectedAdress: undefined,
+    };
+  },
+
+  async mounted() {
+    const partnerId = this.synthesis.billingAccount.value.partnerId;
+    const data = await fetchpartnerAddresses(partnerId);
+    if (data) {
+      this.lastSelectedAdress = data.last;
+      this.adresses = data.all;
+      this.filteredAdresses = [...this.adresses];
+    }
   },
 
   methods: {
-    selectAdress(newAdress) {
-      console.log('Selected Adress > ', newAdress);
-      this.selectedAdress = newAdress;
+    selectAdress(a) {
+      this.selectedAdress = a;
+    },
+    addnewAddress() {
+      console.log('New Address');
     },
 
     done() {
@@ -91,8 +129,16 @@ export default {
         delivery: {
           label: 'common.delivery',
           value: {
-            id: this.selectedAdress.id,
-            content: [this.selectedAdress.title, this.selectedAdress.description],
+            id:
+              this.selectedAdress.address1 +
+              this.selectedAdress.address2 +
+              this.selectedAdress.address3,
+            content: [
+              this.selectedAdress.address1,
+              this.selectedAdress.address2,
+              this.selectedAdress.address3,
+              this.selectedAdress.zipCode + ' - ' + this.selectedAdress.city,
+            ],
           },
         },
       });
@@ -106,57 +152,21 @@ export default {
       } else {
         const query = q.toLowerCase();
         this.filteredAdresses = this.adresses.filter(
-          a => a.title.toLowerCase().includes(query) || a.description.toLowerCase().includes(query)
+          a =>
+            a.address.address1
+              ? a.address.address1.toLowerCase().includes(query)
+              : undefined || a.address.address2
+                ? a.address.address2.toLowerCase().includes(query)
+                : undefined || a.address.address3
+                  ? a.address.address3.toLowerCase().includes(query)
+                  : undefined || a.address.city
+                    ? a.address.city.toLowerCase().includes(query)
+                    : undefined || a.address.zipCode
+                      ? a.address.zipCode.toLowerCase().includes(query)
+                      : undefined
         );
       }
     },
-  },
-
-  data() {
-    return {
-      filterValue: '',
-      lastSelectedAdress: {
-        id: 8,
-        title: 'Mme Amélie Delacour2',
-        description:
-          'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
-      },
-      filteredAdresses: [],
-      adresses: [
-        {
-          id: 1,
-          title: 'John Doe',
-          description:
-            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France',
-        },
-        {
-          id: 2,
-          title: 'Will smith',
-          description:
-            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
-        },
-
-        {
-          id: 3,
-          title: 'Jack Black',
-          description:
-            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
-        },
-        {
-          id: 4,
-          title: 'Leroy Jenkins',
-          description:
-            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
-        },
-        {
-          id: 5,
-          title: 'Patrice oneil',
-          description:
-            'Lebara France - Bât E 8 rue du Lorem Ipsum Amet Sit 75698 Paris Cedex 15 - France2',
-        },
-      ],
-      selectedAdress: {},
-    };
   },
 };
 </script>
@@ -177,23 +187,21 @@ export default {
   padding: 0 2rem !important;
 }
 
-.adresses {
+.add-new {
   display: flex;
-  flex-flow: column wrap;
-  overflow: auto;
-  .adress {
-    width: calc((100% / 2) - 20px);
-    margin: 0.5em;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+
+  .btn {
+    margin: auto;
   }
 }
-@media screen and (max-height: 768px) {
-  .adresses {
-    height: 11rem;
-  }
+
+.box {
+  max-height: 10rem;
 }
-@media screen and (min-height: 769px) {
-  .adresses {
-    height: 20rem;
-  }
+.address {
+  max-height: 11rem;
 }
 </style>

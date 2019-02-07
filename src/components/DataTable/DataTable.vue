@@ -214,6 +214,7 @@ export default {
 .table-blue th {
   font-weight: normal;
   color: #ffffff;
+  font-size: 0.8rem;
 }
 
 .table-blue td .fa-blue {

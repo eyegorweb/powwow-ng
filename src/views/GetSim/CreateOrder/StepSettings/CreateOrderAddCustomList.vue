@@ -31,7 +31,6 @@ export default {
   props: {
     options: {
       type: Array,
-      default: [],
     },
   },
   computed: {

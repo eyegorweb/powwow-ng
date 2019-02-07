@@ -21,11 +21,11 @@ describe('FoldableBlock', () => {
         type: 'LIST',
         value: ['pomme de reinette', 'pomme d api'],
       },
-    ]
+    ];
     const wrapper = shallowMount(CustomFields, {
       propsData: {
         fields,
-        getSelectedValue: () => {}
+        getSelectedValue: () => {},
       },
       mocks,
     });
@@ -35,5 +35,4 @@ describe('FoldableBlock', () => {
       '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api" class="select-filter">'
     );
   });
-
 });

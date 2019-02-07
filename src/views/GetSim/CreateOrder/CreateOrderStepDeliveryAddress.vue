@@ -1,5 +1,5 @@
 <template>
-  <div class="adress" :class="{ 'active': isActive }">
+  <div class="box adress" :class="{ 'active': isActive }">
     <div class="adress__item d-flex">
       <UiCheckbox
         input-type="radio"
@@ -8,9 +8,13 @@
         :name="name"
         :value="item"
       />
-      <div class="simTypeIfos flex-container-v">
-        <p class="adress__name m-0 flex-fixed">{{ item.title }}</p>
-        <p class="adress__format m-0 flex-fill">{{ $t("getsim.sim-type-labels.format") }} : {{ item.description }}</p>
+      <div v-if="item" class="simTypeIfos flex-container-v">
+        <p class="adress__name m-0 flex-fixed">{{ item.address1 }}</p>
+        <p class="adress__format m-0 flex-fill">
+          {{ item.address2 }}
+          <br v-if="item.address3"> {{ item.address3 }}
+          <br v-if="item.city"> {{ item.zipCode }} - {{ item.city }}
+        </p>
         <footer class="flex-fixed">
           <a href="#">Modifier</a>
         </footer>
@@ -57,7 +61,8 @@ export default {
   flex-flow: row nowrap;
   justify-content: space-between;
   padding: 10px 20px 10px 15px;
-  margin-bottom: 10px;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   overflow: hidden;
 
   &.active {

@@ -10,7 +10,7 @@
             <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" />
           </div>
           <div slot="Livraison">
-            <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" />
+            <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
           </div>
           <div slot="Services">
             Step services
@@ -63,8 +63,8 @@ export default {
     return {
       steps: [
         { label: this.$t('orders.new.customer') },
-        { label: this.$t('orders.new.product') },
         { label: this.$t('orders.new.delivery') },
+        { label: this.$t('orders.new.product') },
         { label: this.$t('orders.new.settings') },
         { label: this.$t('orders.new.service') },
       ],

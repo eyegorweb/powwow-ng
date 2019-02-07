@@ -1,6 +1,6 @@
 import * as utils from './utils';
 
-import { searchOrders, formatDateRangeFilter } from './orders';
+import { searchOrders } from './orders';
 
 // Parameters when values do not matter
 const orderBy = {

@@ -33,17 +33,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$fontSize: 0.8rem;
+
 .synthesis-item {
   margin-bottom: 1rem;
   h6 {
     color: $gray-680;
-    font-size: 0.8em;
+    font-size: $fontSize;
     font-weight: 500;
   }
 
   p {
-    font-size: 1rem;
+    font-size: $fontSize;
     margin: 0;
+  }
+
+  div {
+    font-size: $fontSize;
   }
 }
 </style>

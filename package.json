@@ -27,6 +27,7 @@
     "graphql": "^14.0.2",
     "jest-transform-stub": "^1.0.0",
     "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "lodash.differenceby": "^4.8.0",
