@@ -105,7 +105,12 @@
       "service": "Services",
       "delivery": "Livraison",
       "settings": "Paramètres",
-      "synthesis": "Récapitulatif de la commande"
+      "synthesis": "Récapitulatif de la commande",
+      "deliveryStep": {
+        "last": "Dernière adresse de livraison utilisée:",
+        "search": "Rechercher une adresse",
+        "new": "Ajouter un destinataire"
+      }
     }
   },
   "customFields": {

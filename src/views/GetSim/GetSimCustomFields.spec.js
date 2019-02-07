@@ -36,7 +36,6 @@ const store = new Store({
 });
 
 describe('GetSimCustomFields', () => {
-
   it('store custom field values in store for synthesis', () => {
     const wrapper = shallowMount(GetSimCustomFields, {
       mocks: {
