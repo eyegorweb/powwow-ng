@@ -100,6 +100,7 @@ export default {
     return {
       statusResults: [],
       allFiltersVisible: false,
+      maximumNumberOfVisibleBlocksByDefault: 6,
     };
   },
 
@@ -142,8 +143,9 @@ export default {
 <style lang="scss" scoped>
 .card-body {
   transition: max-height 0.25s ease-out;
-  max-height: 15rem;
+  max-height: 100%;
   overflow: hidden;
+  padding-bottom: 0;
 }
 .checkbox-container .checkmark {
   border: 1px solid $medium-gray;
@@ -155,9 +157,22 @@ export default {
   }
 }
 
+.hide-all-filters {
+  transition: all 0.5s ease-in;
+
+  .foldable-block:nth-child(n + 7) {
+    //par défaut on affiche 6 items
+    display: none;
+  }
+}
+
 .show-all-filters {
-  max-height: 500rem;
-  transition: max-height 0.25s ease-in;
+  transition: all 0.5s ease-in;
+
+  .foldable-block:nth-child(n + 7) {
+    //par défaut on affiche 6 items
+    display: block;
+  }
 }
 
 .text-right {
