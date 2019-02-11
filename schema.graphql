@@ -1,0 +1,746 @@
+"""This directive allows results to be deferred during execution"""
+directive @defer on FIELD
+
+type AccessPoint {
+  id: ID!
+  commercialStatus: String
+}
+
+type Address {
+  address1: String
+  address2: String
+  address3: String
+  zipCode: String
+  city: String
+  country: String
+  state: String
+}
+
+input AddressDTOInput {
+  address1: String
+  address2: String
+  address3: String
+  zipCode: String
+  city: String
+  country: String
+  state: String
+}
+
+enum AvailableCustomFields {
+  custom1
+  custom2
+  custom3
+  custom4
+  custom5
+  custom6
+}
+
+type BankAccount {
+  name: String
+  number: String
+  establishmentCode: String
+}
+
+input BooleanFilterInput {
+  eq: Boolean
+}
+
+type CatalogService {
+  id: ID!
+  label: String
+  description: String
+  display: Boolean
+  optional: Boolean
+  code: String
+  index: Int
+
+  """Enum category des services (STANDARD, GLOBAL, SEMI_GLOBAL, GROUPED)"""
+  category: ServiceCategory
+
+  """
+  Enum génération du service (THIRD_GENERATION("3G"), FOURTH_GENERATION("4G"))
+  """
+  generation: ServiceGeneration
+
+  """Enum Tye du service (APN,SIMCARD)"""
+  type: ServiceTypeEnum
+
+  """Product Parameter du catalagueService"""
+  parameters: [ProductParameter]
+}
+
+"""Entité CatalogServiceGroup"""
+type CatalogServiceGroup {
+  id: ID!
+  activatedByDefault: Boolean
+  preactivatedByDefault: Boolean
+
+  """Autorisation d'accés pour le partenaire"""
+  partyAccess: Boolean
+
+  """Autorisation d'accés pour le BO"""
+  boAccess: Boolean
+
+  """Les parametres du catalogSericeGroup"""
+  catalogServiceParameters: [CatalogServiceParameter]
+  catalogService: CatalogService
+}
+
+type CatalogServiceParameter {
+  id: ID!
+  label: String
+  setOnActivation: Boolean
+  defaultValue: String
+  partyAccess: Boolean
+  boAccess: Boolean
+  setOnChange: Boolean
+  serviceParameter: ServiceParameter
+}
+
+type ContactInformation {
+  email: String
+  phone: String
+  mobile: String
+}
+
+input ContactInformationDTOInput {
+  email: String
+  phone: String
+  mobile: String
+}
+
+type Country implements Node {
+  id: ID!
+  code: String
+  nameFr: String
+  nameEn: String
+}
+
+input CountryFilterInput {
+  code: StringFilterInput
+}
+
+type CountryResponse {
+  total: Int!
+  countries: [Country]
+}
+
+input CountrySorting {
+  id: SortDirection
+  code: SortDirection
+  nameFr: SortDirection
+  nameEn: SortDirection
+}
+
+type CustomerAccount implements Node {
+  id: ID!
+  code: String
+  name: String
+  siret: String
+  marketLine: String
+  siren: String
+  party: Party
+  bankAccount: BankAccount
+}
+
+input CustomerAccountFilterInput {
+  code: StringFilterInput
+  name: StringFilterInput
+  siret: StringFilterInput
+  marketLine: StringFilterInput
+  siren: StringFilterInput
+  partyId: IdFilterInput
+}
+
+type CustomerAccountResponse {
+  total: Int!
+  items: [CustomerAccount]
+}
+
+input CustomerAccountSorting {
+  id: SortDirection
+  name: SortDirection
+}
+
+"""El�ments de cr�ation d'un custom field"""
+input CustomFieldInput {
+  partyId: ID!
+  customFieldType: CustomFieldTypeEnum!
+  customFieldListValues: [String]
+}
+
+"""Enum du carat�re obligatoire d'un champs Custom"""
+enum CustomFieldMandatoryEnum {
+  PAIRING
+  ORDER
+  ACTIVATION
+  NONE
+}
+
+"""Enum de type de champs Custom"""
+enum CustomFieldTypeEnum {
+  TEXT
+  LIST
+  DATE
+}
+
+"""Define here custom scalars"""
+scalar Date
+
+input DatesRange {
+  startDate: Date
+  endDate: Date
+}
+
+scalar DateTime
+
+input DateTimeFilterInput {
+  eq: DateTime
+  ne: DateTime
+  gt: DateTime
+  lt: DateTime
+  goe: DateTime
+  loe: DateTime
+  between: DatesRange
+}
+
+input EnumFilterInput {
+  eq: OrderStatusEnum
+  ne: OrderStatusEnum
+  in: [OrderStatusEnum!]
+}
+
+input IdFilterInput {
+  eq: ID
+  ne: ID
+  in: [ID!]
+}
+
+input IntegerFilterInput {
+  eq: Int
+  ne: Int
+  gt: Int
+  lt: Int
+  goe: Int
+  loe: Int
+  in: [Int!]
+}
+
+"""Long type"""
+scalar Long
+
+"""Entité MarketingOffer"""
+type MarketingOffer implements Node {
+  """Id marketingOffer"""
+  id: ID!
+  code: String
+  description: String
+
+  """List de ServiceGroupe dont system= false"""
+  nonSystemServiceGroupList: [ServiceGroup]
+}
+
+type Mutation {
+  createCustomField(customFieldInput: CustomFieldInput): Party
+  addCustomFieldListElement(customFieldListElement: String!, partyId: ID!, customFieldName: AvailableCustomFields!): Party!
+  updatePartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, shippingAddressId: Int!): ShippingAddress
+  addPartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, partyId: Int!): ShippingAddress
+  updateSIMCard(input: SIMCardInstanceInput!): SIMCardInstance!
+}
+
+type Name {
+  title: Title
+  firstName: String
+  lastName: String
+}
+
+input NameDTOInput {
+  title: Title
+  firstName: String
+  lastName: String
+}
+
+interface Node {
+  id: ID!
+}
+
+type Order implements Node {
+  id: ID!
+  creationDate: Date!
+  orderDate: DateTime!
+  party: Party
+  deliveryNum: Int
+  preActivationAsked: Boolean
+  activationAsked: Boolean
+  status: OrderStatusEnum
+  Name: Name
+  externalId: String
+  orderItems: [OrderItem]
+  customerAccount: CustomerAccount
+  address: Address
+}
+
+type OrderedProduct {
+  description: String
+  code: String
+  buyingPriceInEuroCentHT: Int
+  recurringPriceInEuroCentHT: Int
+  buyingPriceInEuroCentTTC: Int
+  recurringPriceInEuroCentTTC: Int
+  groupCode: String
+  groupName: String
+}
+
+input OrderFilterInput {
+  zipCode: StringFilterInput
+  country: StringFilterInput
+  city: StringFilterInput
+  orderDate: DateTimeFilterInput
+  status: EnumFilterInput
+
+  """external id"""
+  OrderReference: StringFilterInput
+  preactivationAsked: BooleanFilterInput
+  activationAsked: BooleanFilterInput
+  customField1: StringFilterInput
+  customField2: StringFilterInput
+  customField3: StringFilterInput
+  customField4: StringFilterInput
+  customField5: StringFilterInput
+  customField6: StringFilterInput
+  partyId: IdFilterInput
+  customerAccountId: IdFilterInput
+  quantity: IntegerFilterInput
+
+  """Auditable.creator"""
+  creator: IdFilterInput
+  workflowCode: StringFilterInput
+}
+
+type OrderIndicators {
+  ordersToBeConfirmed: Int
+  ordersInProgress: Int
+  ordersNotConfirmed: Int
+  ordersFailed: Int
+
+  """In minute, have to be converted to correct unit by consumer"""
+  averageProcessingTime: Int
+  orderToBeConfirmedByBO: Int
+}
+
+type OrderItem {
+  quantity: Int
+  orderedProduct: OrderedProduct
+}
+
+input OrderSorting {
+  id: SortDirection
+  creationDate: SortDirection
+  orderDate: SortDirection
+  partyName: SortDirection
+  deliveryNum: SortDirection
+  preActivationAsked: SortDirection
+  activationAsked: SortDirection
+  status: SortDirection
+}
+
+type OrdersResponse {
+  total: Int!
+  items: [Order]
+}
+
+enum OrderStatusEnum {
+  NOT_VALIDATED
+  VALIDATED
+  TO_BE_CONFIRMED
+  TO_BE_CONFIRMED_BY_BO
+  CONFIRMATION_IN_PROGRESS
+  CONFIRMED
+  FAILED
+  TERMINATED
+  CANCELED
+}
+
+input Pagination {
+  """Nombre maximum d'�l�ments � rechercher"""
+  limit: Int
+
+  """Index de page calcul� en fonction de l'argument limite. D�marre � 0"""
+  page: Int
+}
+
+"""Entit� Partenaire"""
+type Party implements Node {
+  id: ID!
+
+  """Nom"""
+  name: String!
+
+  """Code"""
+  code: String!
+
+  """Num�ro de SIREN"""
+  siren: String
+
+  """Code NAF"""
+  naf: String
+
+  """Champs Custom1 : Type de champs (Texte, Liste ou Date)"""
+  custom1FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom1 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom1FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom1 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom1ValidatedValuesAsList: [String!]
+
+  """Champs Custom2 : Type de champs (Texte, Liste ou Date)"""
+  custom2FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom2 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom2FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom2 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom2ValidatedValuesAsList: [String!]
+
+  """Champs Custom3 : Type de champs (Texte, Liste ou Date)"""
+  custom3FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom3 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom3FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom3 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom3ValidatedValuesAsList: [String!]
+
+  """Champs Custom4 : Type de champs (Texte, Liste ou Date)"""
+  custom4FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom4 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom4FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom4 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom4ValidatedValuesAsList: [String!]
+
+  """Champs Custom5 : Type de champs (Texte, Liste ou Date)"""
+  custom5FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom5 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom5FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom5 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom5ValidatedValuesAsList: [String!]
+
+  """Champs Custom6 : Type de champs (Texte, Liste ou Date)"""
+  custom6FieldType: CustomFieldTypeEnum!
+
+  """
+  Champs Custom6 : Obligatoire dans un contexte particulier ? (Commande, Activation, ...)
+  """
+  custom6FieldMandatory: CustomFieldMandatoryEnum!
+
+  """
+  Champs Custom6 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
+  """
+  custom6ValidatedValuesAsList: [String!]
+
+  """liste des adresses de livraison du partenaire"""
+  partyShippingAddresses(adressSorting: ShippingAddressSorting, addressPagination: Pagination, addressFilter: ShippingAddressFilterInput): PartyShippingAddressResponse
+}
+
+"""Crit�res de recherche de commandes"""
+input PartyFilterInput {
+  name: StringFilterInput
+  id: IdFilterInput
+}
+
+""" Adresse de livraison
+type ShippingAddress implements Node{
+    id: ID!
+    company: String
+    name: Name
+    address: Address
+}
+Adresses de livraison: nombre total et liste des adresses
+"""
+type PartyShippingAddressResponse {
+  total: Int!
+  items: [ShippingAddress]
+}
+
+"""
+Liste des champs disponibles pour le tri lors d'une recherche de commandes
+"""
+input PartySorting {
+  id: SortDirection
+  name: SortDirection
+}
+
+"""Objet de retour d'une recherche de commande"""
+type PartysResponse {
+  total: Int!
+  items: [Party!]
+}
+
+"""Enum type de choix des produits"""
+enum ProductChoice {
+  EXCLUSIVE
+  INCLUSIVE
+}
+
+"""Parameter du catalogService"""
+type ProductParameter {
+  id: ID!
+  code: String
+  name: String
+  regularExpression: String
+  validatorClassname: String
+  defaultValue: String
+  mandatory: Boolean
+
+  """Enum (LIST, STRING)"""
+  type: ProductParameterType
+}
+
+enum ProductParameterType {
+  LIST
+  STRING
+}
+
+type Query {
+  countries(filter: CountryFilterInput, pagination: Pagination, sorting: CountrySorting): CountryResponse
+  customerAccounts(filter: CustomerAccountFilterInput, pagination: Pagination, sorting: CustomerAccountSorting): CustomerAccountResponse
+
+  """Les services et les paramètres liés à une MarketingOffer"""
+  servicesMarketingOffer(idMarketingOffer: Int!): MarketingOffer
+  orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
+  orderStatus: [OrderStatusEnum]
+  findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
+  ordersIndicators: OrderIndicators
+  party(id: Int!): Party
+  partys(filter: PartyFilterInput, pagination: Pagination, sorting: PartySorting): PartysResponse
+  findAllSimcards(limit: Int, page: Int): [SIMCardInstance]!
+  findSimcardById(id: Int!): SIMCardInstance
+  countSimcards: Long!
+  users(filter: UserFilterInput, pagination: Pagination, sorting: UserSorting): UserResponse
+  getCurrentUser: User!
+  workflows(filter: WorkflowFilterInput, sorting: WorkflowSorting): WorkflowResponse
+}
+
+type Role {
+  Id: ID!
+  name: String
+  description: String
+  category: String
+  scope: Boolean
+}
+
+"""Enum category des services"""
+enum ServiceCategory {
+  STANDARD
+  GLOBAL
+  SEMI_GLOBAL
+  GROUPED
+}
+
+"""Enum Type de generation"""
+enum ServiceGeneration {
+  THIRD_GENERATION
+  FOURTH_GENERATION
+}
+
+"""Entité ServiceGroup qui regroupe les services par type"""
+type ServiceGroup {
+  id: ID!
+  system: Boolean
+
+  """Type de choix de produit (EXCLUSIVE, INCLUSIVE)"""
+  type: ProductChoice
+  code: String
+
+  """List de CatalogServiceGroup par ServiceGroup"""
+  standardAndSemiGlobalCatalogServiceGroups: [CatalogServiceGroup]
+}
+
+"""Parameter de type ServiceParameter pour le CatalogServiceParameter"""
+type ServiceParameter {
+  id: ID!
+  code: String
+  name: String
+  regularExpression: String
+  validatorClassname: String
+  defaultValue: String
+  mandatory: Boolean
+
+  """Enum (LIST, STRING)"""
+  type: ProductParameterType
+}
+
+"""Enum type du service"""
+enum ServiceTypeEnum {
+  APN
+  SIMCARD
+}
+
+type ShippingAddress implements Node {
+  id: ID!
+  company: String
+  address: Address
+  name: Name
+  contactInformation: ContactInformation
+}
+
+input ShippingAddressDTOInput {
+  company: String
+  address: AddressDTOInput
+  name: NameDTOInput
+  contactInformation: ContactInformationDTOInput
+}
+
+"""Crit�re de recherche de l'adresse de livraison"""
+input ShippingAddressFilterInput {
+  """
+  Chaine de caract�re a rechercher dans les diff�rent champs de l'adresse pour l'auto complete
+  """
+  stringToFind: StringFilterInput
+}
+
+"""Ordre de Tri des adresses du partenaire"""
+input ShippingAddressSorting {
+  id: SortDirection
+  company: SortDirection
+}
+
+type SIMCard implements Node {
+  id: ID!
+  gencode: String
+  name: String
+  label: String
+  type: String
+  help: String
+}
+
+type SIMCardInstance {
+  id: ID!
+  iccid: String!
+  type: String
+  accessPoint: AccessPoint
+}
+
+input SIMCardInstanceInput {
+  id: ID!
+  iccid: String!
+}
+
+type SIMCardResponse {
+  total: Int!
+  items: [SIMCartOrderDTO]!
+}
+
+input SIMCardSorting {
+  orderDate: SortDirection
+}
+
+type SIMCartOrderDTO {
+  orderDate: Date
+  simCard: SIMCard
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+input StringFilterInput {
+  eq: String
+  ne: String
+  in: [String!]
+  startsWith: String
+  endsWith: String
+  contains: String
+}
+
+enum Title {
+  MR
+  MISS
+  MRS
+}
+
+type User implements Node {
+  id: ID!
+  name: Name
+  email: String
+  username: String
+  isUserParty: Boolean
+  isBackOffice: Boolean
+}
+
+input UserFilterInput {
+  partyId: IdFilterInput
+  fullname: StringFilterInput
+  username: StringFilterInput
+  email: StringFilterInput
+}
+
+"""Msg pour le front: This might change back soon to User"""
+type UserParty implements Node {
+  id: ID!
+  name: Name
+  email: String
+  username: String
+  party: Party
+  isUserParty: Boolean
+  isBackOffice: Boolean
+  disabled: Boolean
+  roles: [Role]
+}
+
+type UserResponse {
+  total: Int!
+  items: [UserParty]
+}
+
+input UserSorting {
+  id: SortDirection
+  username: SortDirection
+  fullname: SortDirection
+  email: SortDirection
+}
+
+type Workflow {
+  code: String!
+  workflowDescription: String
+}
+
+input WorkflowFilterInput {
+  partyId: IdFilterInput
+}
+
+type WorkflowResponse {
+  total: Int!
+  items: [Workflow]
+}
+
+input WorkflowSorting {
+  id: SortDirection
+}
+
