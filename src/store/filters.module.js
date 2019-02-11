@@ -11,30 +11,32 @@ export const state = {
 // Getters
 
 const selectedFilterValuesById = state => id => {
-  const foundFilters = state.currentFilters.filter(c => c.id === id);
-  if (foundFilters && foundFilters.length) {
-    return foundFilters[0].values;
-  }
+  const found = state.currentFilters.find(c => c.id === id);
+  if (found) return found.values;
   return [];
+};
+
+// NOTE: en inversant l'ordre de paramètres on peut passer
+// direcment le résultat de la fonction au getter
+const findFilterValuesById = id => state => {
+  const found = state.currentFilters.find(c => c.id === id);
+  return found ? found.values : [];
 };
 
 export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
   currentFilters: state => state.currentFilters,
   appliedFilters: state => state.appliedFilters,
-  canShowSelectedFilter: state => {
-    const filtersFound = state.currentFilters.filter(
+  canShowSelectedFilter: state =>
+    !!state.currentFilters.find(
       f => (f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to
-    );
-    return !!filtersFound && !!filtersFound.length;
-  },
+    ),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
-  selectedPartnersValues: state => {
-    return selectedFilterValuesById(state)('filters.partners');
-  },
-  selectedBillingAccountsValues: state => {
-    return selectedFilterValuesById(state)('filters.billingAccounts');
-  },
+  // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
+  // -> ne crée pas de fonction à chaque get
+  selectedPartnersValues: findFilterValuesById('filters,partners'),
+  selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
+  // TODO: à faire pour les autres
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.offers');
   },
@@ -44,24 +46,17 @@ export const getters = {
   selectedCustomFieldsValues: state => {
     return selectedFilterValuesById(state)('filters.customFields');
   },
+  // TODO: values dans le nom mais retourne l'objet entier
   selectedQuantityValues: state => {
     return state.currentFilters.find(c => c.id === 'filters.quantity');
   },
   selectedPostalCodeValue: state => {
-    const postalCodeFilter = state.currentFilters.find(c => c.id === 'filters.postalCode');
-    if (postalCodeFilter) {
-      return postalCodeFilter.value;
-    } else {
-      return '';
-    }
+    const found = state.currentFilters.find(c => c.id === 'filters.postalCode');
+    return found ? found.value : '';
   },
   selectedCityValue: state => {
-    const cityFilter = state.currentFilters.find(c => c.id === 'filters.city');
-    if (cityFilter) {
-      return cityFilter.value;
-    } else {
-      return '';
-    }
+    const found = state.currentFilters.find(c => c.id === 'filters.postalCode');
+    return found ? found.value : '';
   },
   selectedLineStatus: state => {
     return selectedFilterValuesById(state)('filters.lineStatus');
@@ -162,6 +157,8 @@ function selectFilterValue(state, { id, newValue }) {
 function selectFilterValueNEW(state, { id, ...rest }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
+    // TODO: à voir en terme de perf (si cela est vraiment un problème) si
+    // une version avec un findIndex + splice est plus performante
     state.currentFilters = state.currentFilters.map(f => {
       if (f.id === id) {
         return { id, ...rest };
