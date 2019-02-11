@@ -6,6 +6,35 @@ type AccessPoint {
   commercialStatus: String
 }
 
+type Address {
+  address1: String
+  address2: String
+  address3: String
+  zipCode: String
+  city: String
+  country: String
+  state: String
+}
+
+input AddressDTOInput {
+  address1: String
+  address2: String
+  address3: String
+  zipCode: String
+  city: String
+  country: String
+  state: String
+}
+
+enum AvailableCustomFields {
+  custom1
+  custom2
+  custom3
+  custom4
+  custom5
+  custom6
+}
+
 type BankAccount {
   name: String
   number: String
@@ -16,9 +45,75 @@ input BooleanFilterInput {
   eq: Boolean
 }
 
+type CatalogService {
+  id: ID!
+  label: String
+  description: String
+  display: Boolean
+  optional: Boolean
+  code: String
+  index: Int
+
+  """Enum category des services (STANDARD, GLOBAL, SEMI_GLOBAL, GROUPED)"""
+  category: ServiceCategory
+
+  """
+  Enum génération du service (THIRD_GENERATION("3G"), FOURTH_GENERATION("4G"))
+  """
+  generation: ServiceGeneration
+
+  """Enum Tye du service (APN,SIMCARD)"""
+  type: ServiceTypeEnum
+
+  """Product Parameter du catalagueService"""
+  parameters: [ProductParameter]
+}
+
+"""Entité CatalogServiceGroup"""
+type CatalogServiceGroup {
+  id: ID!
+  activatedByDefault: Boolean
+  preactivatedByDefault: Boolean
+
+  """Autorisation d'accés pour le partenaire"""
+  partyAccess: Boolean
+
+  """Autorisation d'accés pour le BO"""
+  boAccess: Boolean
+
+  """Les parametres du catalogSericeGroup"""
+  catalogServiceParameters: [CatalogServiceParameter]
+  catalogService: CatalogService
+}
+
+type CatalogServiceParameter {
+  id: ID!
+  label: String
+  setOnActivation: Boolean
+  defaultValue: String
+  partyAccess: Boolean
+  boAccess: Boolean
+  setOnChange: Boolean
+  serviceParameter: ServiceParameter
+}
+
+type ContactInformation {
+  email: String
+  phone: String
+  mobile: String
+}
+
+input ContactInformationDTOInput {
+  email: String
+  phone: String
+  mobile: String
+}
+
 type Country implements Node {
   id: ID!
   code: String
+  nameFr: String
+  nameEn: String
 }
 
 input CountryFilterInput {
@@ -33,6 +128,8 @@ type CountryResponse {
 input CountrySorting {
   id: SortDirection
   code: SortDirection
+  nameFr: SortDirection
+  nameEn: SortDirection
 }
 
 type CustomerAccount implements Node {
@@ -63,6 +160,13 @@ type CustomerAccountResponse {
 input CustomerAccountSorting {
   id: SortDirection
   name: SortDirection
+}
+
+"""El�ments de cr�ation d'un custom field"""
+input CustomFieldInput {
+  partyId: ID!
+  customFieldType: CustomFieldTypeEnum!
+  customFieldListValues: [String]
 }
 
 """Enum du carat�re obligatoire d'un champs Custom"""
@@ -125,11 +229,32 @@ input IntegerFilterInput {
 """Long type"""
 scalar Long
 
+"""Entité MarketingOffer"""
+type MarketingOffer implements Node {
+  """Id marketingOffer"""
+  id: ID!
+  code: String
+  description: String
+
+  """List de ServiceGroupe dont system= false"""
+  nonSystemServiceGroupList: [ServiceGroup]
+}
+
 type Mutation {
+  createCustomField(customFieldInput: CustomFieldInput): Party
+  addCustomFieldListElement(customFieldListElement: String!, partyId: ID!, customFieldName: AvailableCustomFields!): Party!
+  updatePartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, shippingAddressId: Int!): ShippingAddress
+  addPartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, partyId: Int!): ShippingAddress
   updateSIMCard(input: SIMCardInstanceInput!): SIMCardInstance!
 }
 
 type Name {
+  title: Title
+  firstName: String
+  lastName: String
+}
+
+input NameDTOInput {
   title: Title
   firstName: String
   lastName: String
@@ -152,6 +277,7 @@ type Order implements Node {
   externalId: String
   orderItems: [OrderItem]
   customerAccount: CustomerAccount
+  address: Address
 }
 
 type OrderedProduct {
@@ -196,6 +322,8 @@ type OrderIndicators {
   ordersInProgress: Int
   ordersNotConfirmed: Int
   ordersFailed: Int
+
+  """In minute, have to be converted to correct unit by consumer"""
   averageProcessingTime: Int
   orderToBeConfirmedByBO: Int
 }
@@ -334,12 +462,29 @@ type Party implements Node {
   Champs Custom6 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
   """
   custom6ValidatedValuesAsList: [String!]
+
+  """liste des adresses de livraison du partenaire"""
+  partyShippingAddresses(adressSorting: ShippingAddressSorting, addressPagination: Pagination, addressFilter: ShippingAddressFilterInput): PartyShippingAddressResponse
 }
 
 """Crit�res de recherche de commandes"""
 input PartyFilterInput {
   name: StringFilterInput
   id: IdFilterInput
+}
+
+""" Adresse de livraison
+type ShippingAddress implements Node{
+    id: ID!
+    company: String
+    name: Name
+    address: Address
+}
+Adresses de livraison: nombre total et liste des adresses
+"""
+type PartyShippingAddressResponse {
+  total: Int!
+  items: [ShippingAddress]
 }
 
 """
@@ -356,9 +501,37 @@ type PartysResponse {
   items: [Party!]
 }
 
+"""Enum type de choix des produits"""
+enum ProductChoice {
+  EXCLUSIVE
+  INCLUSIVE
+}
+
+"""Parameter du catalogService"""
+type ProductParameter {
+  id: ID!
+  code: String
+  name: String
+  regularExpression: String
+  validatorClassname: String
+  defaultValue: String
+  mandatory: Boolean
+
+  """Enum (LIST, STRING)"""
+  type: ProductParameterType
+}
+
+enum ProductParameterType {
+  LIST
+  STRING
+}
+
 type Query {
   countries(filter: CountryFilterInput, pagination: Pagination, sorting: CountrySorting): CountryResponse
   customerAccounts(filter: CustomerAccountFilterInput, pagination: Pagination, sorting: CustomerAccountSorting): CustomerAccountResponse
+
+  """Les services et les paramètres liés à une MarketingOffer"""
+  servicesMarketingOffer(idMarketingOffer: Int!): MarketingOffer
   orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
   orderStatus: [OrderStatusEnum]
   findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
@@ -371,6 +544,90 @@ type Query {
   users(filter: UserFilterInput, pagination: Pagination, sorting: UserSorting): UserResponse
   getCurrentUser: User!
   workflows(filter: WorkflowFilterInput, sorting: WorkflowSorting): WorkflowResponse
+}
+
+type Role {
+  Id: ID!
+  name: String
+  description: String
+  category: String
+  scope: Boolean
+}
+
+"""Enum category des services"""
+enum ServiceCategory {
+  STANDARD
+  GLOBAL
+  SEMI_GLOBAL
+  GROUPED
+}
+
+"""Enum Type de generation"""
+enum ServiceGeneration {
+  THIRD_GENERATION
+  FOURTH_GENERATION
+}
+
+"""Entité ServiceGroup qui regroupe les services par type"""
+type ServiceGroup {
+  id: ID!
+  system: Boolean
+
+  """Type de choix de produit (EXCLUSIVE, INCLUSIVE)"""
+  type: ProductChoice
+  code: String
+
+  """List de CatalogServiceGroup par ServiceGroup"""
+  standardAndSemiGlobalCatalogServiceGroups: [CatalogServiceGroup]
+}
+
+"""Parameter de type ServiceParameter pour le CatalogServiceParameter"""
+type ServiceParameter {
+  id: ID!
+  code: String
+  name: String
+  regularExpression: String
+  validatorClassname: String
+  defaultValue: String
+  mandatory: Boolean
+
+  """Enum (LIST, STRING)"""
+  type: ProductParameterType
+}
+
+"""Enum type du service"""
+enum ServiceTypeEnum {
+  APN
+  SIMCARD
+}
+
+type ShippingAddress implements Node {
+  id: ID!
+  company: String
+  address: Address
+  name: Name
+  contactInformation: ContactInformation
+}
+
+input ShippingAddressDTOInput {
+  company: String
+  address: AddressDTOInput
+  name: NameDTOInput
+  contactInformation: ContactInformationDTOInput
+}
+
+"""Crit�re de recherche de l'adresse de livraison"""
+input ShippingAddressFilterInput {
+  """
+  Chaine de caract�re a rechercher dans les diff�rent champs de l'adresse pour l'auto complete
+  """
+  stringToFind: StringFilterInput
+}
+
+"""Ordre de Tri des adresses du partenaire"""
+input ShippingAddressSorting {
+  id: SortDirection
+  company: SortDirection
 }
 
 type SIMCard implements Node {
@@ -453,6 +710,8 @@ type UserParty implements Node {
   party: Party
   isUserParty: Boolean
   isBackOffice: Boolean
+  disabled: Boolean
+  roles: [Role]
 }
 
 type UserResponse {
