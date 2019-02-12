@@ -69,6 +69,7 @@
   "filters": {
     "title": "FILTRES",
     "partners": "Partenaires",
+    "countries": "Pays",
     "billingAccounts": "Compte de facturation",
     "orderStatus": "Statut de la commande",
     "orderReference": "Référence de la commande",

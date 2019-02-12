@@ -15,7 +15,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         id
         creationDate
         orderDate
-				activationAsked
+        activationAsked
         status
         externalId
         customerAccount {
