@@ -34,7 +34,7 @@ import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
 import CreateOrderStepClient from './CreateOrderStepClient';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
 import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
-import CreateOrderStepDelivery from './CreateOrderStepDelivery';
+import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 
 // import UiButton from '@/components/ui/Button';
 

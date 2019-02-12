@@ -1,6 +1,7 @@
 import { fetchCurrentUserInfos } from '@/api/user';
-import axios from 'axios';
 import { isDevMode } from '@/utils';
+import { api } from '@/api/utils';
+import cloneDeep from 'lodash.clonedeep';
 
 export const state = {
   token: undefined,
@@ -30,7 +31,10 @@ export const actions = {
     const token = parseJwt(tokenStr);
     commit('setAuthToken', { token, tokenStr });
 
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenStr;
+    const headers = cloneDeep(api.defaults.headers);
+    headers.common.Authorization = `Bearer ${tokenStr}`;
+    api.defaults.headers = headers;
+
     if (!isDevMode()) {
       const expireDate = new Date(state.token.exp * 1000);
       const now = new Date();

@@ -18,7 +18,7 @@ export async function fetchpartners(q, { page, limit }) {
 }
 
 export async function fetchpartnerAddresses(id) {
-  const queryStr = `
+  const queryForLastAdress = `
   query {
     orders(filter: {partyId: {eq: "${id}"}}, pagination: {page: 0, limit: 1}, sorting: {creationDate: DESC}) {
       total
@@ -33,34 +33,75 @@ export async function fetchpartnerAddresses(id) {
           country
           state
         }
-        party {
-          partyShippingAddresses (
-          adressSorting: {id: ASC},
-          addressPagination: {limit: 100, page: 0},
-        	addressFilter: {stringToFind: {contains: ""}}
-        ) {
-          items {
+      }
+    }
+  }
+  `;
+
+  const queryForAddresses = `
+  query {
+    party(id:${id}) {
+      partyShippingAddresses(
+        addressFilter:{stringToFind:{contains:""}},
+        adressSorting: {id: ASC},
+        addressPagination: {limit: 999, page: 0}){
+          total
+          items{
             id
+            company
             address {
               address1
               address2
               address3
               zipCode
               city
-              country
               state
-            }
+              country
+              }
           }
-        }
-        }
       }
     }
+  }`;
+
+  const lastAddressResp = await query(queryForLastAdress);
+  const allAddressesResp = await query(queryForAddresses);
+  let last, all;
+  if (lastAddressResp && lastAddressResp.data.orders.items.length > 0) {
+    last = lastAddressResp.data.orders.items[0].address;
   }
+
+  if (allAddressesResp && allAddressesResp.data.party.partyShippingAddresses.items.length > 0) {
+    all = allAddressesResp.data.party.partyShippingAddresses.items;
+  }
+
+  return { last, all };
+}
+
+export async function addPartyShippingAddress(formData, partnerId) {
+  const queryStr = `
+    mutation {
+      addPartyShippingAddress (shippingAddress: {
+        company: "${formData.company}",
+        address: {
+          address1:"${formData.address}",
+          address2:"",
+          address3: "",
+          zipCode: "${formData.zipCode}",
+          city: "${formData.city}",
+          country: "${formData.country}",
+          state: ""
+        },
+        contactInformation: {
+          email: "${formData.email}",
+          phone: "${formData.phone}"
+        }
+      },
+      partyId: ${partnerId}){
+        id
+      }
+    }
   `;
+
   const response = await query(queryStr);
-  if (response && response.data.orders.items.length > 0) {
-    const last = response.data.orders.items[0].address;
-    const all = response.data.orders.items[0].party.partyShippingAddresses.items;
-    return { last, all };
-  }
+  return response.data.addPartyShippingAddress;
 }

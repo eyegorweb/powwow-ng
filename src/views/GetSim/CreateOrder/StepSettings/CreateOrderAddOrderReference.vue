@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="title">{{ $t('orders.choose-reference') }}</h2>
+    <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}</h3>
     <div class="subcontainer">
       <UiInput class="d-block" v-model="referenceValue" />
     </div>
