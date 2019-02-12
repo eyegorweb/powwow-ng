@@ -59,12 +59,10 @@ function formatFilters(filters) {
 
   addQuantityFilter(allFilters, filters);
   addDateFilter(allFilters, filters);
-
   addCityFilter(allFilters, filters);
-
   addZipCodeFilter(allFilters, filters);
-
   addLineStatus(allFilters, filters);
+  addCountries(allFilters, filters);
 
   return allFilters.join(',');
 }
@@ -117,6 +115,13 @@ function addLineStatus(gqlFilters, selectedFilters) {
   }
   if (preactivationAsked) {
     gqlFilters.push(`preactivationAsked: {eq: ${preactivationAsked.value}}`);
+  }
+}
+
+function addCountries(gqlFilters, selectedFilters) {
+  const countries = getValuesIds(selectedFilters, 'filters.countries');
+  if (countries) {
+    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
   }
 }
 
