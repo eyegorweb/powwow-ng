@@ -62,6 +62,7 @@ export const getters = {
     return selectedFilterValuesById(state)('filters.lineStatus');
   },
   selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
+  selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
 };
 
 // Actions
@@ -274,6 +275,28 @@ export const mutations = {
       // value: value,
       from,
       to,
+    });
+  },
+
+  setDeliveryCountriesFilter(state, countries) {
+    selectFilterValueNEW(state, {
+      id: 'filters.countries',
+      values: countries,
+    });
+  },
+
+  updateSelectedDeliveryCountriesLabels(state, countries) {
+    const countryDict = countries.reduce((dict, country) => {
+      dict[country.code] = country.name;
+      return dict;
+    }, {});
+
+    selectFilterValueNEW(state, {
+      id: 'filters.countries',
+      values: selectedFilterValuesById(state)('filters.countries').map(country => ({
+        ...country,
+        label: countryDict[country.id],
+      })),
     });
   },
 };

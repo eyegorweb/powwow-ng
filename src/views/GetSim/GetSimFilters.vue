@@ -39,7 +39,9 @@
             <GetSimOrderCreator />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.active')" :key="'el10'" draggable />
-          <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable />
+          <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable>
+            <GetSimDeliveryCountries />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.postalCode')" :key="'el12'" draggable>
             <GetSimPostalCode />
           </FoldableBlock>
@@ -94,6 +96,7 @@ import GetSimCity from './GetSimCity';
 import GetSimLineStatus from './GetSimLineStatus';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
+import GetSimDeliveryCountries from './GetSimDeliveryCountries';
 
 export default {
   data() {
@@ -136,6 +139,7 @@ export default {
     GetSimLineStatus,
     GetSimQuantityFilter,
     GetSimDateFilter,
+    GetSimDeliveryCountries,
   },
 };
 </script>

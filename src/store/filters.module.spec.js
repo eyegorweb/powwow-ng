@@ -170,6 +170,24 @@ describe('store/filters.module', () => {
         expect(state.currentFilters).toHaveLength(0);
       });
     });
+
+    it('updates countries labels', () => {
+      const state = {
+        currentFilters: [
+          {
+            id: 'filters.countries',
+            values: [{ id: 'ES', label: 'Espagne' }],
+          },
+        ],
+      };
+      filterModule.mutations.updateSelectedDeliveryCountriesLabels(state, [
+        { code: 'ES', name: 'Spain' },
+      ]);
+      expect(state.currentFilters[0]).toEqual({
+        id: 'filters.countries',
+        values: [{ id: 'ES', label: 'Spain' }],
+      });
+    });
   });
 
   describe('actions', () => {
