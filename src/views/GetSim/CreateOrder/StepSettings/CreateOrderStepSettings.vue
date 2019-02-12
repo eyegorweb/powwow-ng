@@ -1,7 +1,7 @@
 <template>
   <div class="step-settings-container">
     <div v-if="!isOpen">
-      <CreateOrderAddOrderReference />
+      <CreateOrderAddOrderReference :value="referenceValue" @input="(newValue) => { referenceValue = newValue }"  />
 
       <h2 class="title">{{ $t('orders.choose-custom-field') }}</h2>
 
@@ -54,6 +54,7 @@ export default {
       isOpen: false,
       allCustomFields: [],
       customFieldsValues: [],
+      referenceValue: '',
     };
   },
 

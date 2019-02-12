@@ -2,7 +2,7 @@
   <div>
     <h2 class="title">{{ $t('orders.choose-reference') }}</h2>
     <div class="subcontainer">
-      <UiInput class="d-block" placeholder />
+      <UiInput class="d-block" v-model="referenceValue" />
     </div>
   </div>
 </template>
@@ -11,6 +11,19 @@
 import UiInput from '@/components/ui/UiInput';
 
 export default {
+  props: {
+    value: String,
+  },
+  computed: {
+    referenceValue: {
+      get() {
+        return this.value;
+      },
+      set(newReference) {
+        this.$emit('input', newReference);
+      },
+    },
+  },
   components: {
     UiInput,
   },
