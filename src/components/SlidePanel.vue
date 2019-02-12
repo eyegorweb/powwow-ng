@@ -248,44 +248,23 @@ export default {
   color: black;
 }
 
-@media only screen and (min-width: 768px) {
-  .wide {
-    .cd-panel__header {
-      width: 70%;
-    }
-    .cd-panel__container {
-      width: 70%;
-    }
+$size-wide: 70%;
+.wide {
+  .cd-panel__header {
+    width: $size-wide;
   }
-  .narrow {
-    .cd-panel__header {
-      width: 50%;
-    }
-    .cd-panel__container {
-      width: 50%;
-    }
+  .cd-panel__container {
+    width: $size-wide;
   }
 }
-
-@media only screen and (min-width: 1170px) {
-  .wide {
-    .cd-panel__header {
-      width: 50%;
-    }
-    .cd-panel__container {
-      width: 50%;
-    }
+.narrow {
+  .cd-panel__header {
+    width: 50%;
   }
-  .narrow {
-    .cd-panel__header {
-      width: 30%;
-    }
-    .cd-panel__container {
-      width: 30%;
-    }
+  .cd-panel__container {
+    width: 50%;
   }
 }
-
 .cd-panel__footer {
   position: absolute;
   bottom: 0;

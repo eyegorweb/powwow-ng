@@ -1,27 +1,29 @@
 <template>
   <div class="step-client-container">
-    <div>
-      <h2 class="title">{{ $t('orders.choose-partner') }}</h2>
-      <UiApiAutocomplete
-        :api-method="fetchPartners"
-        v-model="selectedPartner"
-        display-results-while-empty
-        scroll-for-next
-      >
-        <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }">
-      </UiApiAutocomplete>
-    </div>
-    <div>
-      <h2 class="title">{{ $t('orders.choose-account') }}</h2>
-      <UiApiAutocomplete
-        :items="billingAccounts"
-        v-model="selectedBillingAccount"
-        display-results-while-empty
-      />
-    </div>
+    <div class="panel-vertical-container">
+      <div class="main-content">
+        <h2 class="panel-title">{{ $t('orders.choose-partner') }}</h2>
 
-    <div class="row">
-      <div class="col-md-12 mt-5">
+        <div>
+          <UiApiAutocomplete
+            :api-method="fetchPartners"
+            v-model="selectedPartner"
+            display-results-while-empty
+            scroll-for-next
+          >
+            <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }">
+          </UiApiAutocomplete>
+        </div>
+        <div>
+          <h2 class="panel-title">{{ $t('orders.choose-account') }}</h2>
+          <UiApiAutocomplete
+            :items="billingAccounts"
+            v-model="selectedBillingAccount"
+            display-results-while-empty
+          />
+        </div>
+      </div>
+      <div class="footer-bock">
         <UiButton
           variant="round-button"
           @click="done"
@@ -108,17 +110,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* voir comment gérer le css en double */
-.title {
-  background-color: transparent;
-  color: $dark-gray;
-  font-weight: 300;
-  font-size: 2rem;
-  margin: 3rem 0 1.875rem;
-  padding: 0;
-  text-align: center;
-}
-
 .step-client-container {
   padding: 0 2rem !important;
 }

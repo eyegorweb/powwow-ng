@@ -32,21 +32,12 @@ export default {
 .list-container {
   display: flex;
   flex-flow: row wrap;
-  overflow: auto;
+  justify-content: space-between;
   .box {
-    width: calc((100% / 2) - 20px);
+    width: calc((100% / 2) - 10px);
     min-height: 2rem;
-    margin: 0.5em;
-  }
-}
-@media screen and (max-height: 768px) {
-  .list-container {
-    height: 11rem;
-  }
-}
-@media screen and (min-height: 769px) {
-  .list-container {
-    height: 20rem;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 }
 

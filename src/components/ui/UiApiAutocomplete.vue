@@ -8,7 +8,7 @@
         <!-- TODO loading state sur input avec isPending -->
         <input
           type="text"
-          class="form-control form-control-lg"
+          class="form-control"
           v-model="$value"
           ref="input"
           @focus="onInputFocus"
@@ -21,7 +21,7 @@
           @keydown.enter.exact="selectValue(data[selectedItem])"
         >
         <a class="p-0" @click.prevent="showSuggestions">
-          <i :class="iconClass" />
+          <i v-if="!noIcon" :class="iconClass" />
         </a>
         <ul
           v-show="areSuggestionsVisible"
@@ -93,6 +93,7 @@ export default {
     },
     defaultOpen: Boolean,
     scrollForNext: Boolean,
+    noIcon: Boolean,
   },
 
   computed: {

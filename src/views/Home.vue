@@ -47,7 +47,8 @@
     <hr>
 
     <div class="container bg-white">
-      <UiApiAutocomplete :api-method="searchAddress" value />
+      {{ selectedAddress }}
+      <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" />
     </div>
 
     <hr>
@@ -215,6 +216,7 @@ export default {
     ];
     return {
       columns,
+      selectedAddress: {},
       show: false,
       steps: [
         { label: 'Client' },

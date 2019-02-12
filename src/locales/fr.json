@@ -109,8 +109,24 @@
       "synthesis": "Récapitulatif de la commande",
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",
-        "search": "Rechercher une adresse",
-        "new": "Ajouter un destinataire"
+        "search": "Rechercher un destinataire :",
+        "searchPlaceholder": "Saisir un nom ou une adresse",
+        "new": "Ajouter un destinataire",
+
+        "form": {
+          "firstname": "Nom :",
+          "lastname": "Prénom :",
+          "phone": "Téléphone :",
+          "email": "Email :",
+          "company": "Société :",
+          "address": "Adresse :",
+          "zipcode": "Code postal :",
+          "city": "Ville :",
+          "country": "Pays :",
+          "delivery": "Informations de livraison [facultatif]:",
+          "cancel": "Annuler",
+          "add": "Ajouter un destinataire"
+        }
       }
     }
   },

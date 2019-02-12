@@ -57,6 +57,16 @@ export default {
     GetSimIndicators,
     GetSimCreateOrderPanel,
   },
+  watch: {
+    isPanelOpen(value) {
+      if (value) {
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+      } else {
+        console.log('Hide');
+        document.getElementsByTagName('body')[0].style.overflow = 'auto';
+      }
+    },
+  },
 };
 </script>
 

@@ -1,42 +1,42 @@
 <template>
   <div class="step-settings-container">
-    <div v-if="!isOpen">
-      <CreateOrderAddOrderReference :value="referenceValue" @input="(newValue) => { referenceValue = newValue }"  />
-
-      <h2 class="title">{{ $t('orders.choose-custom-field') }}</h2>
-
-      <div class="subcontainer">
-        <div>
-          <CustomFields
-            :fields="allCustomFields"
-            :get-selected-value="getSelectedValue"
-            @change="onValueChanged"
-          />
+    <div class="panel-vertical-container" v-if="!isOpen">
+      <div class="main-content">
+        <CreateOrderAddOrderReference :value="referenceValue" @input="(newValue) => { referenceValue = newValue }" />
+        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-custom-field') }}</h3>
+        <div class="subcontainer">
+          <div>
+            <CustomFields
+              :fields="allCustomFields"
+              :get-selected-value="getSelectedValue"
+              @change="onValueChanged"
+            />
+          </div>
+          <UiButton variant="adder" block class @click="open">
+            <i class="btn-round-button ic-Plus-Icon mr-2" />
+            {{ $t("orders.add-custom-field") }}
+          </UiButton>
         </div>
-        <UiButton variant="adder" block class @click="open">
-          <i class="btn-round-button ic-Plus-Icon mr-2" />
-          {{ $t("orders.add-custom-field") }}
-        </UiButton>
+      </div>
+      <div class="footer-bock">
+        <div class="row">
+          <div class="col-md-12 mt-5">
+            <UiButton
+              variant="round-button"
+              @click="$emit('prev')"
+              class="float-left ic-Arrow-Previous-Icon"
+            />
+            <UiButton
+              variant="round-button"
+              @click="$emit('done')"
+              class="float-right ic-Arrow-Next-Icon"
+            />
+          </div>
+        </div>
       </div>
     </div>
-
     <div v-if="isOpen">
       <CreateOrderAddCustomField @cancel="close" @add-field="onSaveField" />
-    </div>
-
-    <div class="row" v-if="!isOpen">
-      <div class="col-md-12 mt-5">
-        <UiButton
-          variant="round-button"
-          @click="$emit('prev')"
-          class="float-left ic-Arrow-Previous-Icon"
-        />
-        <UiButton
-          variant="round-button"
-          @click="$emit('done')"
-          class="float-right ic-Arrow-Next-Icon"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -166,14 +166,14 @@ export default {
 
 @media screen and (max-height: 768px) {
   .subcontainer {
-    max-height: 12rem;
-    overflow-y: scroll;
+    max-height: 21rem;
+    overflow-y: auto;
   }
 }
 @media screen and (min-height: 769px) {
   .subcontainer {
-    max-height: 27rem;
-    overflow-y: scroll;
+    max-height: 31rem;
+    overflow-y: auto;
   }
 }
 </style>
