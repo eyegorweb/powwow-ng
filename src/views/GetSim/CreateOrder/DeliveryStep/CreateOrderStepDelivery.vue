@@ -52,7 +52,7 @@
               </template>
               <template slot-scope="{ item }">
                 <CreateOrderStepDeliveryAddress
-                  :item="item.address"
+                  :item="item"
                   :default-selected-item="selectedAdress"
                   @update:defaultSelectedItem="selectAdress"
                   name="address"
@@ -151,14 +151,17 @@ export default {
           label: 'common.delivery',
           value: {
             id:
-              this.selectedAdress.address1 +
-              this.selectedAdress.address2 +
-              this.selectedAdress.address3,
+              this.selectedAdress.address.address1 +
+              this.selectedAdress.address.address2 +
+              this.selectedAdress.address.address3,
             content: [
-              this.selectedAdress.address1,
-              this.selectedAdress.address2,
-              this.selectedAdress.address3,
-              this.selectedAdress.zipCode + ' - ' + this.selectedAdress.city,
+              this.selectedAdress.name.firstName + ' ' + this.selectedAdress.name.lastName,
+              this.selectedAdress.address.address1,
+              this.selectedAdress.address.address2,
+              this.selectedAdress.address.address3,
+              this.selectedAdress.address.zipCode + ' - ' + this.selectedAdress.address.city,
+              this.selectedAdress.contactInformation.email,
+              this.selectedAdress.contactInformation.phone,
             ],
           },
         },
@@ -172,20 +175,40 @@ export default {
         this.filteredAdresses = [...this.adresses];
       } else {
         const query = q.toLowerCase();
-        this.filteredAdresses = this.adresses.filter(
-          a =>
-            a.address.address1
-              ? a.address.address1.toLowerCase().includes(query)
-              : undefined || a.address.address2
-                ? a.address.address2.toLowerCase().includes(query)
-                : undefined || a.address.address3
-                  ? a.address.address3.toLowerCase().includes(query)
-                  : undefined || a.address.city
-                    ? a.address.city.toLowerCase().includes(query)
-                    : undefined || a.address.zipCode
-                      ? a.address.zipCode.toLowerCase().includes(query)
-                      : undefined
-        );
+        this.filteredAdresses = this.adresses.filter(a => {
+          if (a.address.address1) {
+            if (a.address.address1.toLowerCase().includes(query)) {
+              return true;
+            }
+          }
+          if (a.address.address2) {
+            if (a.address.address2.toLowerCase().includes(query)) {
+              return true;
+            }
+          }
+          if (a.address.address3) {
+            if (a.address.address3.toLowerCase().includes(query)) {
+              return true;
+            }
+          }
+          if (a.address.city) {
+            if (a.address.city.toLowerCase().includes(query)) {
+              return true;
+            }
+          }
+          if (a.address.zipCode) {
+            if (a.address.zipCode.toLowerCase().includes(query)) {
+              return true;
+            }
+          }
+          const fullName = `${a.name.firstName} ${a.name.lastName}`;
+          if (fullName.toLowerCase().includes(query)) {
+            return true;
+          }
+          if (fullName.toLowerCase().includes(query)) {
+            return true;
+          }
+        });
       }
     },
   },

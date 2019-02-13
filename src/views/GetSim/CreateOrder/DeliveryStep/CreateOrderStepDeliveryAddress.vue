@@ -9,11 +9,12 @@
         :value="item"
       />
       <div v-if="item" class="simTypeIfos flex-container-v">
-        <p class="adress__name m-0 flex-fixed">{{ item.address1 }}</p>
+        <p v-if="item.name" class="adress__name m-0 flex-fixed">{{ item.name.firstName }} {{ item.name.lastName }}</p>
         <p class="adress__format m-0 flex-fill">
-          {{ item.address2 }}
-          <br v-if="item.address3"> {{ item.address3 }}
-          <br v-if="item.city"> {{ item.zipCode }} - {{ item.city }}
+          {{ item.address.address1 }}
+          <br v-if="item.address.address2"> {{ item.address.address2 }}
+          <br v-if="item.address.address3"> {{ item.address.address3 }}
+          <br v-if="item.address.city"> {{ item.address.zipCode }} - {{ item.address.city }}
         </p>
         <footer class="flex-fixed">
           <a href="#">Modifier</a>

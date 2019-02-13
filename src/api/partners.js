@@ -49,6 +49,16 @@ export async function fetchpartnerAddresses(id) {
           items{
             id
             company
+            name {
+              title
+              firstName
+              lastName
+            }
+            contactInformation {
+              email
+              phone
+              mobile
+            }
             address {
               address1
               address2
@@ -67,7 +77,7 @@ export async function fetchpartnerAddresses(id) {
   const allAddressesResp = await query(queryForAddresses);
   let last, all;
   if (lastAddressResp && lastAddressResp.data.orders.items.length > 0) {
-    last = lastAddressResp.data.orders.items[0].address;
+    last = lastAddressResp.data.orders.items[0];
   }
 
   if (allAddressesResp && allAddressesResp.data.party.partyShippingAddresses.items.length > 0) {
@@ -84,12 +94,17 @@ export async function addPartyShippingAddress(formData, partnerId) {
         company: "${formData.company}",
         address: {
           address1:"${formData.address}",
-          address2:"",
-          address3: "",
+          address2:"${formData.extraInfos}",
+          address3: "${formData.extraInfos2}",
           zipCode: "${formData.zipCode}",
           city: "${formData.city}",
           country: "${formData.country}",
           state: ""
+        },
+        name: {
+          firstName: "${formData.firstName}",
+          title: MR,
+          lastName: "${formData.lastName}"
         },
         contactInformation: {
           email: "${formData.email}",

@@ -21,6 +21,7 @@
             <FormControl
               label="orders.new.deliveryStep.form.phone"
               input-type="tel"
+              pattern="(\+33|0033|0)[1-9]{9}"
               v-model="form.phone"
               :error="errors.phone"
               required
@@ -66,9 +67,13 @@
           <div class="col">
             <div class="form-group">
               <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
-              <select class="form-control">
-                <option value="fr">Fr</option>
-              </select>
+              <div>
+                <UiSelect
+                  placeholder=""
+                  v-model="form.country"
+                  :options="countries"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -103,11 +108,14 @@ import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { searchAddress } from '@/api/address';
 import { addPartyShippingAddress } from '@/api/partners';
+import { fetchDeliveryCountries } from '@/api/filters';
+import UiSelect from '@/components/ui/UiSelect';
 
 export default {
   components: {
     FormControl,
     UiApiAutocomplete,
+    UiSelect,
   },
   props: {
     partnerId: {
@@ -117,6 +125,7 @@ export default {
   data() {
     return {
       selectedAddress: {},
+      countries: [],
       form: {
         firstName: '',
         lastName: '',
@@ -140,6 +149,15 @@ export default {
       await addPartyShippingAddress(this.form, this.partnerId);
       this.$emit('saved');
     },
+  },
+
+  async created() {
+    const countries = await fetchDeliveryCountries(this.$i18n.locale);
+    this.countries = countries.map(c => ({
+      ...c,
+      label: c.name,
+      value: c.code,
+    }));
   },
 
   watch: {
