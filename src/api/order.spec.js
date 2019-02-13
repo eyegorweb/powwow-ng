@@ -84,7 +84,7 @@ describe('order api', () => {
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('filter: {quantity: {goe: 5, loe: 50}}');
   });
-  it('filter with quantity when only the start value is set', () => {
+  it('filters with quantity when only the start value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -99,7 +99,7 @@ describe('order api', () => {
     expect(calledQuery).not.toContain('filter: {quantity:{ goe:');
   });
 
-  it('filter with quantity when only the end value is set', () => {
+  it('filters with quantity when only the end value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -114,7 +114,7 @@ describe('order api', () => {
     expect(calledQuery).not.toContain('filter: {quantity:{ loe:');
   });
 
-  it('filter with line status when only the end value is set', () => {
+  it('filters with line status when only the end value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -140,7 +140,7 @@ describe('order api', () => {
     expect(calledQuery).toContain('filter: {activationAsked: {eq: true}');
   });
 
-  it('filter with city when only the end value is set', () => {
+  it('filters with city only when the end value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -160,7 +160,7 @@ describe('order api', () => {
     expect(calledQuery).toContain('filter: {city: {startsWith: "LABEGE"}}');
   });
 
-  it('filter with postalCode when only the end value is set', () => {
+  it('filters with postalCode only when the end value is set', () => {
     const orderBy = {
       key: 'id',
       direction: 'DESC',
@@ -178,5 +178,28 @@ describe('order api', () => {
     searchOrders(orderBy, pagination, filters);
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('filter: {zipCode: {startsWith: "31673"}}');
+  });
+
+  it('filters with order status only when a value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [
+      {
+        id: 'filters.orderStatus',
+        values: [
+          { id: 'TO_BE_CONFIRMED', label: 'À confirmer' },
+          { id: 'NOT_VALIDATED', label: 'Non validée' },
+        ],
+      },
+    ];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).toContain('status: {in: [TO_BE_CONFIRMED,NOT_VALIDATED]}');
   });
 });

@@ -17,9 +17,10 @@
               <UiCheckbox
                 v-for="status in statusResults"
                 :checked="status.checked"
-                :value="status.label"
-                :key="status.id"
-              >{{ status.label }}</UiCheckbox>
+                :value="{'id': status, 'label': $t(`col.statuses. ${status}`)}"
+                :key="status"
+                v-model="orderStatus"
+              >{{ $t(`col.statuses. ${status}`) }}</UiCheckbox>
             </div>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
@@ -81,7 +82,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
@@ -108,10 +109,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentFilters', 'canShowSelectedFilter', 'selectedOrderDate']),
+    ...mapGetters([
+      'currentFilters',
+      'canShowSelectedFilter',
+      'selectedOrderDate',
+      'selectedOrderStatus',
+    ]),
+    orderStatus: {
+      get() {
+        return this.selectedOrderStatus;
+      },
+      set(newValue) {
+        this.setOrderStatusFilter(newValue);
+      },
+    },
   },
 
   methods: {
+    ...mapMutations(['setOrderStatusFilter']),
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
     },

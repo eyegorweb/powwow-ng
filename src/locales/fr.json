@@ -54,9 +54,15 @@
     "offer": "Offre",
     "managementId": "Id gestion",
     "statuses": {
+      "NOT_VALIDATED": "Non validée",
+      "VALIDATED": "Validée",
+      "TO_BE_CONFIRMED": "À confirmer",
+      "TO_BE_CONFIRMED_BY_BO": "À confirmer par le BO",
+      "CONFIRMATION_IN_PROGRESS": "En cours de confirmation",
       "CONFIRMED": "Confirmée",
+      "FAILED": "Échouée",
       "TERMINATED": "Terminée",
-      "NOT_VALIDATED": "Non validée"
+      "CANCELED": "Annulée"
     }
   },
   "indicators": {
