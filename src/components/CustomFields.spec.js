@@ -32,7 +32,7 @@ describe('FoldableBlock', () => {
     expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" class="d-block">');
     expect(wrapper.html()).toContain('<uiinput-stub inputtype="text" class="d-block">');
     expect(wrapper.html()).toContain(
-      '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api" class="select-filter">'
+      '<uiselect-stub placeholder="Choisissez une valeur" options="pomme de reinette,pomme d api"'
     );
   });
 });

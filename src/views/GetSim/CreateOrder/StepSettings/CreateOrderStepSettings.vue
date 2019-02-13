@@ -28,7 +28,7 @@
             />
             <UiButton
               variant="round-button"
-              @click="$emit('done')"
+              @click="done"
               class="float-right ic-Arrow-Next-Icon"
             />
           </div>
@@ -117,6 +117,18 @@ export default {
         customField.enteredValue = enteredValue;
         this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
       }
+    },
+
+    done() {
+      this.$emit('done', {
+        orderReference: {
+          label: 'common.orderReference',
+          value: {
+            id: 'orderReference',
+            content: this.referenceValue,
+          },
+        },
+      });
     },
   },
 
