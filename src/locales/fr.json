@@ -107,6 +107,8 @@
       "delivery": "Livraison",
       "settings": "Paramètres",
       "synthesis": "Récapitulatif de la commande",
+      "acceptConditions": "Accepter les conditions contractuelles",
+      "save": "ENREGISTRER LA COMMANDE",
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",
         "search": "Rechercher un destinataire :",
