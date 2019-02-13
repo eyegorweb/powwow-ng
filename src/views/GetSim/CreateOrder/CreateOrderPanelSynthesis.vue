@@ -7,7 +7,7 @@
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.quantity" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.services" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.delivery" />
-      <GetSimCreateOrderPanelSynthesisItem :item="synthesis.settings" />
+      <GetSimCreateOrderPanelSynthesisItem :item="synthesis.orderReference" />
     </div>
     <div class="footer pt-3">
       <UiCheckbox

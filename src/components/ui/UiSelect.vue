@@ -1,7 +1,7 @@
 <template>
-  <select class="form-control" v-model="model">
+  <select class="form-control" v-model="model" :class="{ 'arrow-blue': arrowBlue }" :size="numberOfVisibleItems">
     <slot>
-      <option disabled selected :value="null">{{ placeholder }}</option>
+      <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
       <option
         v-for="option in formattedOptions"
         :key="option.value"
@@ -25,6 +25,14 @@ export default {
     options: {
       type: Array,
       default: () => [],
+    },
+    numberOfVisibleItems: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    arrowBlue: {
+      type: Boolean,
     },
   },
   computed: {
@@ -67,5 +75,12 @@ select {
   &:disabled {
     background-color: $light-gray;
   }
+}
+
+.arrow-blue {
+  background-image: url('../../assets/arrow-blue.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
 }
 </style>
