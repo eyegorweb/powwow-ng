@@ -58,6 +58,9 @@ export const getters = {
     const found = state.currentFilters.find(c => c.id === 'filters.postalCode');
     return found ? found.value : '';
   },
+  selectedOrderStatus: state => {
+    return selectedFilterValuesById(state)('filters.orderStatus');
+  },
   selectedLineStatus: state => {
     return selectedFilterValuesById(state)('filters.lineStatus');
   },
@@ -228,6 +231,13 @@ export const mutations = {
     selectFilterValueNEW(state, {
       id: 'filters.city',
       value: city,
+    });
+  },
+
+  setOrderStatusFilter(state, values) {
+    selectFilterValueNEW(state, {
+      id: 'filters.orderStatus',
+      values,
     });
   },
 

@@ -1,22 +1,7 @@
-// MOCK temporaire en attendant l'api du backend
-export async function fetchOrderStatuses() {
-  return mockData;
-}
+import { query } from './utils';
 
-const mockData = [
-  {
-    label: 'En attente de validation',
-    checked: false,
-    id: 0,
-  },
-  {
-    label: 'Validée',
-    checked: true,
-    id: 1,
-  },
-  {
-    label: 'En cours de validation',
-    checked: false,
-    id: 2,
-  },
-];
+export async function fetchOrderStatuses() {
+  const queryStr = `query{ orderStatus }`;
+  const response = await query(queryStr);
+  return response.data.orderStatus;
+}

@@ -61,6 +61,7 @@ function formatFilters(filters) {
   addDateFilter(allFilters, filters);
   addCityFilter(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
+  orderStatus(allFilters, filters);
   addLineStatus(allFilters, filters);
   addCountries(allFilters, filters);
 
@@ -103,6 +104,11 @@ function addCityFilter(gqlFilters, selectedFilters) {
 function addZipCodeFilter(gqlFilters, selectedFilters) {
   const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
+}
+
+function orderStatus(gqlFilters, selectedFilters) {
+  const orderStatuses = selectedFilters.find(f => f.id === 'filters.orderStatus');
+  orderStatuses && gqlFilters.push(`status: {in: [${orderStatuses.values.map(o => o.id)}]}`);
 }
 
 function addLineStatus(gqlFilters, selectedFilters) {
