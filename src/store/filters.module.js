@@ -34,7 +34,7 @@ export const getters = {
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
   // -> ne crée pas de fonction à chaque get
-  selectedPartnersValues: findFilterValuesById('filters,partners'),
+  selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   // TODO: à faire pour les autres
   selectedOffersValues: state => {
