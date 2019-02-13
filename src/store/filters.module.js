@@ -55,7 +55,7 @@ export const getters = {
     return found ? found.value : '';
   },
   selectedCityValue: state => {
-    const found = state.currentFilters.find(c => c.id === 'filters.postalCode');
+    const found = state.currentFilters.find(c => c.id === 'filters.city');
     return found ? found.value : '';
   },
   selectedOrderStatus: state => {
