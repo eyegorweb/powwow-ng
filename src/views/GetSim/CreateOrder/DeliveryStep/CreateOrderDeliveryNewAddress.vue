@@ -181,7 +181,7 @@ export default {
   div.form-content {
     flex: 1;
     max-height: 75vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     padding-left: 5px;
     padding-right: 5px;
