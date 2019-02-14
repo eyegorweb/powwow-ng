@@ -164,3 +164,44 @@ export function formatDateRangeFilter(filters, filterId) {
     filter.startDate.toISOString().slice(0, 10)
   )}, endDate: ${JSON.stringify(filter.endDate.toISOString().slice(0, 10))}}}`;
 }
+
+export async function createOrder(synthesis) {
+  // console.log('Synthesis: > ', JSON.stringify(synthesis));
+  const queryStr = `
+  mutation {
+    createOrder(orderInput: {
+      customerAccountId: ${synthesis.billingAccount.value.id},
+      shippingAddress: {
+        company: "${synthesis.delivery.value.detail.company}",
+        address: {
+          address1: "${synthesis.delivery.value.detail.address.address1}",
+          address2: "${synthesis.delivery.value.detail.address.address2}",
+          address3: "${synthesis.delivery.value.detail.address.address3}",
+          zipCode: "${synthesis.delivery.value.detail.address.zipCode}",
+          city: "${synthesis.delivery.value.detail.address.city}",
+          country: "${synthesis.delivery.value.detail.address.country}",
+          state: "${synthesis.delivery.value.detail.address.state}"
+        },
+        name: {
+          title: MR,
+          firstName: "${synthesis.delivery.value.detail.name.firstName}",
+          lastName: "${synthesis.delivery.value.detail.name.lastName}"
+        },
+        contactInformation: {
+          email: "${synthesis.delivery.value.detail.contactInformation.email}",
+          phone: "${synthesis.delivery.value.detail.contactInformation.phone}",
+          mobile: ""
+        }
+      }
+      simCardQuantity: ${synthesis.quantity.value.content},
+      preActivationAsked: ${synthesis.services.preActivation ? 'true' : 'false'},
+      activationAsked: false,
+      simCardId: ${synthesis.product.value.id}
+    }) {
+      id
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.createOrder;
+}

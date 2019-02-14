@@ -2,19 +2,18 @@
   <DataTable
     :columns.sync="columns"
     :extra-columns="extraColumns"
-    :rows="rows"
+    :rows="rows || []"
     :page.sync="page"
     :page-limit.sync="pageLimit"
-    :total.sync="total"
+    :total="total || 0"
     :order-by.sync="orderBy"
   />
 </template>
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
-import { searchOrders } from '@/api/orders';
 import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'Orders',
@@ -25,20 +24,38 @@ export default {
     this.fetchOrders();
   },
   methods: {
+    ...mapActions(['fetchOrdersFromApi']),
+    ...mapMutations(['setPage']),
     async fetchOrders() {
-      const data = await searchOrders(this.orderBy, this.getPageInfo, this.appliedFilters);
-      this.total = data.total;
-      this.rows = data.items;
+      this.fetchOrdersFromApi({
+        orderBy: this.orderBy,
+        pageInfo: this.getPageInfo,
+        appliedFilters: this.appliedFilters,
+      });
     },
   },
   computed: {
-    ...mapGetters(['appliedFilters']),
+    ...mapGetters(['appliedFilters', 'ordersResponse', 'orderPage']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
+    total() {
+      return this.ordersResponse ? this.ordersResponse.total : 0;
+    },
+    rows() {
+      return this.ordersResponse ? this.ordersResponse.items : [];
+    },
+    page: {
+      get() {
+        return this.orderPage || 0;
+      },
+      set(newVal) {
+        this.setPage(newVal);
+      },
+    },
   },
   watch: {
-    page() {
+    orderPage() {
       this.fetchOrders();
     },
     orderBy() {
@@ -129,10 +146,7 @@ export default {
           },
         },
       ],
-      rows: [],
-      page: 1,
       pageLimit: 20,
-      total: 0,
       orderBy: {
         key: 'id',
         direction: 'DESC',

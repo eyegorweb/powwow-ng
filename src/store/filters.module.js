@@ -1,11 +1,14 @@
 // TODO: réfactorer / séparer ce fichier après le merge des autres filtres
 import { fetchCustomFields } from '@/api/customFields';
+import { searchOrders } from '@/api/orders';
 
 export const state = {
   allAvailableFilters: [],
   currentFilters: [],
   filterCustomFieldsList: [],
   appliedFilters: [],
+  ordersResponse: [],
+  orderPage: 1,
 };
 
 // Getters
@@ -25,7 +28,9 @@ const findFilterValuesById = id => state => {
 
 export const getters = {
   allAvailableFilters: state => state.allAvailableFilters,
+  orderPage: state => state.orderPage,
   currentFilters: state => state.currentFilters,
+  ordersResponse: state => state.ordersResponse,
   appliedFilters: state => state.appliedFilters,
   canShowSelectedFilter: state =>
     !!state.currentFilters.find(
@@ -193,6 +198,10 @@ export const actions = {
     }
     store.commit('applyFilters');
   },
+
+  async fetchOrdersFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
+    commit('setOrdersResponse', await searchOrders(orderBy, pageInfo, appliedFilters));
+  },
 };
 
 // Mutations
@@ -308,5 +317,12 @@ export const mutations = {
         label: countryDict[country.id],
       })),
     });
+  },
+
+  setOrdersResponse(state, ordersResponse) {
+    state.ordersResponse = ordersResponse;
+  },
+  setPage(state, newPage) {
+    state.orderPage = newPage;
   },
 };

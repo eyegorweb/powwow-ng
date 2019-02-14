@@ -17,6 +17,7 @@
       v-model="value_"
       v-on="$listeners"
       :type="inputType"
+      :maxlength="maxSize"
       :required="required"
       class="form-control"
     >
@@ -50,6 +51,10 @@ export default {
       required: false,
     },
     required: Boolean,
+    maxSize: {
+      type: Number,
+      required: false,
+    },
   },
 };
 </script>

@@ -12,16 +12,16 @@
           <div slot="Livraison">
             <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
           </div>
-          <div slot="Paramètres">
-            <CreateOrderStepSettings @prev="currentStep--" @done="stepisDone" :synthesis="synthesis" />
-          </div>
           <div slot="Services">
             <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="currentStep--" />
+          </div>
+          <div slot="Paramètres">
+            <CreateOrderStepSettings @prev="currentStep--" @done="lastStep" :synthesis="synthesis" />
           </div>
         </Stepper>
       </div>
       <div class="col-md-4 synthesis-bar">
-        <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" />
+        <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" :can-save="currentStep === steps.length - 1" @save="saveOrder" />
       </div>
     </div>
   </SlidePanel>
@@ -36,6 +36,8 @@ import CreateOrderStepProduct from './CreateOrderStepProduct';
 import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './CreateOrderStepServices';
+import { createOrder } from '@/api/orders';
+import { mapActions } from 'vuex';
 
 // import UiButton from '@/components/ui/Button';
 
@@ -89,6 +91,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['fetchOrdersFromApi']),
     reset() {
       this.currentStep = 0;
       this.synthesis = {};
@@ -105,6 +108,22 @@ export default {
         ...payload,
       };
       this.currentStep++;
+    },
+
+    lastStep(payload) {
+      this.synthesis = {
+        ...this.synthesis,
+        ...payload,
+      };
+    },
+    async saveOrder() {
+      await createOrder(this.synthesis);
+      await this.fetchOrdersFromApi({
+        orderBy: { key: 'id', direction: 'DESC' },
+        pageInfo: { page: 0, limit: 20 },
+        appliedFilters: [],
+      });
+      this.close();
     },
   },
 };

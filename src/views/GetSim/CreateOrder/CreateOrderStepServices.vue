@@ -6,7 +6,7 @@
           <h2 class="title">{{ $t('orders.choose-services') }}</h2>
         </div>
         <div class="toggles-container">
-          <UiToggle label="Préactivation" />
+          <UiToggle label="Préactivation" v-model="preActivation" />
           <UiToggle label="Activation" v-model="activation" />
         </div>
         <div v-if="activation">
@@ -85,11 +85,25 @@ export default {
       selectedOffer: null,
       selectedApn: this.apn[0],
       activation: false,
+      preActivation: false,
     };
   },
   methods: {
     done() {
-      this.$emit('done', {});
+      this.$emit('done', {
+        services: {
+          label: 'common.services',
+          value: {
+            id: 'comon.services',
+            content: [
+              `Activation: ${this.activation ? 'Oui' : 'Non'}`,
+              `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
+            ],
+            activation: this.activation,
+            preActivation: this.preActivation,
+          },
+        },
+      });
     },
   },
   components: {
