@@ -14,18 +14,36 @@ export async function searchOrders(orderBy, pagination, filters = []) {
       items {
         id
         creationDate
-        orderDate
         activationAsked
         status
         externalId
         customerAccount {
           code
         }
-        orderItems {
-          quantity
-          orderedProduct {
-            description
-            code
+        quantity
+        singleProduct {
+          ... on OrderedMarketingOffer {
+          code
+          description
+              buyingPriceInEuroCentHT
+              recurringPriceInEuroCentHT
+              buyingPriceInEuroCentTTC
+              recurringPriceInEuroCentTTC
+              groupCode
+              groupName
+            servicesGroup
+            servicesLabel(groupName: "TimerBV 2 Mo Groupe FR")
+          } ,
+
+          ... on OrderedSIMCard {
+          code
+          description
+              buyingPriceInEuroCentHT
+              recurringPriceInEuroCentHT
+              buyingPriceInEuroCentTTC
+              recurringPriceInEuroCentTTC
+              groupCode
+              groupName
           }
         }
       }

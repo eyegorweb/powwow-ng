@@ -85,14 +85,6 @@ export default {
           },
         },
         {
-          label: this.$t('col.orderDate'),
-          name: 'orderDate',
-          orderable: true,
-          format: {
-            type: 'Date',
-          },
-        },
-        {
           label: this.$t('col.externalId'),
           name: 'externalId',
           orderable: true,
@@ -112,18 +104,14 @@ export default {
         },
         {
           label: this.$t('col.quantity'),
-          name: 'orderItems',
-          format: {
-            type: 'ObjectAttribute',
-            path: '[0].quantity',
-          },
+          name: 'quantity',
         },
         {
           label: this.$t('col.product'),
-          name: 'orderItems',
+          name: 'singleProduct',
           format: {
             type: 'ObjectAttribute',
-            path: '[0].orderedProduct.description',
+            path: 'description',
           },
         },
       ],
