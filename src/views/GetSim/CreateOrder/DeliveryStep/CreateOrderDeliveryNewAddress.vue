@@ -20,11 +20,10 @@
           <div class="col">
             <FormControl
               label="orders.new.deliveryStep.form.phone"
-              input-type="tel"
-              pattern="(\+33|0033|0)[1-9]{9}"
               v-model="form.phone"
               :error="errors.phone"
               required
+              :max-size="20"
             />
           </div>
           <div class="col">

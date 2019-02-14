@@ -12,12 +12,13 @@
     <div class="footer pt-3">
       <UiCheckbox
         v-model="accept"
-        :disabled="!synthesis.settings"
+        :disabled="!canSave"
       >{{ $t('orders.new.acceptConditions') }}</UiCheckbox>
       <button
         type="button"
         class="btn btn-accent btn-lg btn-block"
-        :disabled="!accept"
+        :disabled="!(accept && canSave)"
+        @click="$emit('save')"
       >{{ $t('orders.new.acceptConditions') }}</button>
     </div>
   </div>
@@ -37,6 +38,7 @@ export default {
       type: Object,
       required: true,
     },
+    canSave: Boolean,
   },
   data() {
     return {

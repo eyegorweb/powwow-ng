@@ -1,4 +1,5 @@
 import { delay } from './utils';
+import { query } from './utils';
 
 // MOCK temporaire en attendant l'api du backend
 export async function fetchSim() {
@@ -9,45 +10,29 @@ export async function fetchSim() {
 
 const mockData = [
   {
-    id: '01',
-    name: 'SIM M2M Endurcie 076',
-    format: 'Standard, sans PIN',
-    patent: 'Best network + Smart Roaming',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '02',
-    name: 'SIM M2M Endurcie 075',
-    format: 'Standard, sans PIN',
-    patent: 'Backup FR',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '03',
-    name: 'SIM M2M Endurcie 024 (bobine de 3000)',
-    format: 'Soudée, sans PIN',
-    patent: 'Aucun',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '04',
-    name: 'SIM M2M Endurcie 079',
-    format: 'Standard, sans PIN',
-    patent: 'Best network + Smart Roaming',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '05',
-    name: 'SIM M2M Endurcie 096',
-    format: 'Standard, sans PIN',
-    patent: 'Backup FR',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '06',
-    name: 'SIM M2M Endurcie 047 (bobine de 3000)',
-    format: 'Soudée, sans PIN',
-    patent: 'Aucun',
-    lastCommand: '12/01/2018',
+    id: 76,
+    iccid: '8933215898343692617',
+    type: 'M2M sim antivol avec code pin',
+    accessPoint: null,
   },
 ];
+
+export async function fetchSim2() {
+  const response = await query(
+    `
+    query {
+      findAllSimcards {
+        id
+        iccid
+        type
+        accessPoint {
+          id
+          commercialStatus
+        }
+      }
+    }
+    `
+  );
+
+  return response.data.findAllSimcards;
+}

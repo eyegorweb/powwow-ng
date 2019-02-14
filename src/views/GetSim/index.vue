@@ -62,7 +62,6 @@ export default {
       if (value) {
         document.getElementsByTagName('body')[0].style.overflow = 'hidden';
       } else {
-        console.log('Hide');
         document.getElementsByTagName('body')[0].style.overflow = 'auto';
       }
     },

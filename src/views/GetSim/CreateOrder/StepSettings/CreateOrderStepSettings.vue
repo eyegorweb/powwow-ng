@@ -2,7 +2,7 @@
   <div class="step-settings-container">
     <div class="panel-vertical-container" v-if="!isOpen">
       <div class="main-content">
-        <CreateOrderAddOrderReference :value="referenceValue" @input="(newValue) => { referenceValue = newValue }" />
+        <CreateOrderAddOrderReference :value="referenceValue" @input="onReferenceSet" />
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-custom-field') }}</h3>
         <div class="subcontainer">
           <div>
@@ -25,11 +25,6 @@
               variant="round-button"
               @click="$emit('prev')"
               class="float-left ic-Arrow-Previous-Icon"
-            />
-            <UiButton
-              variant="round-button"
-              @click="done"
-              class="float-right ic-Arrow-Next-Icon"
             />
           </div>
         </div>
@@ -129,6 +124,11 @@ export default {
           },
         },
       });
+    },
+
+    onReferenceSet(value) {
+      this.referenceValue = value;
+      this.done();
     },
   },
 

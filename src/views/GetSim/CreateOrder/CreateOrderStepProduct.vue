@@ -11,7 +11,7 @@
               :key="item.id"
               :item="item"
               :default-selected-item.sync="selectedSimTypeValue"
-              :is-active="selectedSimTypeValue.name === item.name"
+              :is-active="selectedSimTypeValue.id === item.id"
             />
           </form>
           <div class="text-right">
@@ -100,11 +100,7 @@ export default {
           label: 'common.product',
           value: {
             id: this.selectedSimTypeValue.id,
-            content: [
-              this.selectedSimTypeValue.name,
-              this.selectedSimTypeValue.format,
-              this.selectedSimTypeValue.patent,
-            ],
+            content: [this.selectedSimTypeValue.type],
           },
         },
       });
@@ -120,7 +116,7 @@ export default {
       },
     },
     canGoToNextStep() {
-      return this.selectedSimTypeValue.name && this.selectedNumberOfSims > 0;
+      return this.selectedSimTypeValue.id && this.selectedNumberOfSims > 0;
     },
   },
 

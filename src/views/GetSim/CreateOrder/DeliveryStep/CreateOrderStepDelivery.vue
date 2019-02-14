@@ -163,6 +163,7 @@ export default {
               this.selectedAdress.contactInformation.email,
               this.selectedAdress.contactInformation.phone,
             ],
+            detail: this.selectedAdress,
           },
         },
       });
