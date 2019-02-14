@@ -166,25 +166,27 @@ export function formatDateRangeFilter(filters, filterId) {
 }
 
 export async function createOrder(synthesis) {
-  // console.log('Synthesis: > ', JSON.stringify(synthesis));
   let address1 = '';
   let address2 = '';
   let address3 = '';
-  if (synthesis.delivery.value.address) {
+  if (synthesis.delivery.value.detail.address) {
     address1 =
-      synthesis.delivery.value.address.address1 &&
-      synthesis.delivery.value.address.address1 !== 'null'
-        ? synthesis.delivery.value.address.address1
+      synthesis.delivery.value.detail.address.address1 &&
+      synthesis.delivery.value.detail.address.address1 !== 'null' &&
+      synthesis.delivery.value.detail.address.address1 !== 'undefined'
+        ? synthesis.delivery.value.detail.address.address1
         : '';
     address2 =
-      synthesis.delivery.value.address.address2 &&
-      synthesis.delivery.value.address.address2 !== 'null'
-        ? synthesis.delivery.value.address.address2
+      synthesis.delivery.value.detail.address.address2 &&
+      synthesis.delivery.value.detail.address.address2 !== 'null' &&
+      synthesis.delivery.value.detail.address.address2 !== 'undefined'
+        ? synthesis.delivery.value.detail.address.address2
         : '';
     address3 =
-      synthesis.delivery.value.address.address3 &&
-      synthesis.delivery.value.address.address3 !== 'null'
-        ? synthesis.delivery.value.address.address3
+      synthesis.delivery.value.detail.address.address3 &&
+      synthesis.delivery.value.detail.address.address3 !== 'null' &&
+      synthesis.delivery.value.detail.address.address3 !== 'undefined'
+        ? synthesis.delivery.value.detail.address.address3
         : '';
   }
 
