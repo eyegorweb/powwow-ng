@@ -146,6 +146,27 @@ export default {
     },
 
     done() {
+      const content = [];
+
+      if (this.selectedAdress.name) {
+        content.push(this.selectedAdress.name.firstName + ' ' + this.selectedAdress.name.lastName);
+      }
+
+      content.push(this.selectedAdress.address.address1);
+
+      if (this.selectedAdress.address.address2 && this.selectedAdress.address.address2 !== 'null') {
+        content.push(this.selectedAdress.address.address2);
+      }
+
+      if (this.selectedAdress.address.address3 && this.selectedAdress.address.address3 !== 'null') {
+        content.push(this.selectedAdress.address.address3);
+      }
+
+      content.push(this.selectedAdress.address.zipCode + ' - ' + this.selectedAdress.address.city);
+      if (this.selectedAdress.contactInformation) {
+        content.push(this.selectedAdress.contactInformation.email);
+        content.push(this.selectedAdress.contactInformation.phone);
+      }
       this.$emit('done', {
         delivery: {
           label: 'common.delivery',
@@ -154,15 +175,7 @@ export default {
               this.selectedAdress.address.address1 +
               this.selectedAdress.address.address2 +
               this.selectedAdress.address.address3,
-            content: [
-              this.selectedAdress.name.firstName + ' ' + this.selectedAdress.name.lastName,
-              this.selectedAdress.address.address1,
-              this.selectedAdress.address.address2,
-              this.selectedAdress.address.address3,
-              this.selectedAdress.address.zipCode + ' - ' + this.selectedAdress.address.city,
-              this.selectedAdress.contactInformation.email,
-              this.selectedAdress.contactInformation.phone,
-            ],
+            content,
             detail: this.selectedAdress,
           },
         },

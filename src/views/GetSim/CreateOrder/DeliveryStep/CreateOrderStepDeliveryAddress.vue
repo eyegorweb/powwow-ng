@@ -12,8 +12,8 @@
         <p v-if="item.name" class="adress__name m-0 flex-fixed">{{ item.name.firstName }} {{ item.name.lastName }}</p>
         <p class="adress__format m-0 flex-fill">
           {{ item.address.address1 }}
-          <br v-if="item.address.address2"> {{ item.address.address2 }}
-          <br v-if="item.address.address3"> {{ item.address.address3 }}
+          <span v-if="item.address.address2 && item.address.address2 !=='null'"> <br> {{ item.address.address2 }}</span>
+          <span v-if="item.address.address3 && item.address.address3 !=='null'"> <br> {{ item.address.address3 }}</span>
           <br v-if="item.address.city"> {{ item.address.zipCode }} - {{ item.address.city }}
         </p>
         <footer class="flex-fixed">

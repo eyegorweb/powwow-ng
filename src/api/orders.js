@@ -167,6 +167,39 @@ export function formatDateRangeFilter(filters, filterId) {
 
 export async function createOrder(synthesis) {
   // console.log('Synthesis: > ', JSON.stringify(synthesis));
+  let address1 = '';
+  let address2 = '';
+  let address3 = '';
+  if (synthesis.delivery.value.address) {
+    address1 =
+      synthesis.delivery.value.address.address1 &&
+      synthesis.delivery.value.address.address1 !== 'null'
+        ? synthesis.delivery.value.address.address1
+        : '';
+    address2 =
+      synthesis.delivery.value.address.address2 &&
+      synthesis.delivery.value.address.address2 !== 'null'
+        ? synthesis.delivery.value.address.address2
+        : '';
+    address3 =
+      synthesis.delivery.value.address.address3 &&
+      synthesis.delivery.value.address.address3 !== 'null'
+        ? synthesis.delivery.value.address.address3
+        : '';
+  }
+
+  const firstName = synthesis.delivery.value.detail.name
+    ? synthesis.delivery.value.detail.name.firstName
+    : '';
+  const lastName = synthesis.delivery.value.detail.name
+    ? synthesis.delivery.value.detail.name.lastName
+    : '';
+  const email = synthesis.delivery.value.contactInformation
+    ? synthesis.delivery.value.contactInformation.email
+    : '';
+  const phone = synthesis.delivery.value.contactInformation
+    ? synthesis.delivery.value.contactInformation.phone
+    : '';
   const queryStr = `
   mutation {
     createOrder(orderInput: {
@@ -174,9 +207,9 @@ export async function createOrder(synthesis) {
       shippingAddress: {
         company: "${synthesis.delivery.value.detail.company}",
         address: {
-          address1: "${synthesis.delivery.value.detail.address.address1}",
-          address2: "${synthesis.delivery.value.detail.address.address2}",
-          address3: "${synthesis.delivery.value.detail.address.address3}",
+          address1: "${address1}",
+          address2: "${address2}",
+          address3: "${address3}",
           zipCode: "${synthesis.delivery.value.detail.address.zipCode}",
           city: "${synthesis.delivery.value.detail.address.city}",
           country: "${synthesis.delivery.value.detail.address.country}",
@@ -184,12 +217,12 @@ export async function createOrder(synthesis) {
         },
         name: {
           title: MR,
-          firstName: "${synthesis.delivery.value.detail.name.firstName}",
-          lastName: "${synthesis.delivery.value.detail.name.lastName}"
+          firstName: "${firstName}",
+          lastName: "${lastName}"
         },
         contactInformation: {
-          email: "${synthesis.delivery.value.detail.contactInformation.email}",
-          phone: "${synthesis.delivery.value.detail.contactInformation.phone}",
+          email: "${email}",
+          phone: "${phone}",
           mobile: ""
         }
       }
