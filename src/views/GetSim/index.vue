@@ -26,7 +26,7 @@
           <GetSimFilters />
         </div>
         <div class="col-md-9">
-          <GetSimOrders :key="$i18n.locale" />
+          <GetSimOrders :key="$i18n.locale" :is-panel-open="isPanelOpen" />
         </div>
       </div>
     </div>

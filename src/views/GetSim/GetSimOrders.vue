@@ -7,6 +7,7 @@
     :page-limit.sync="pageLimit"
     :total="total || 0"
     :order-by.sync="orderBy"
+    :show-extra-columns.sync="showExtraColumns"
   />
 </template>
 
@@ -19,6 +20,9 @@ export default {
   name: 'Orders',
   components: {
     DataTable,
+  },
+  props: {
+    isPanelOpen: Boolean,
   },
   mounted() {
     this.fetchOrders();
@@ -68,6 +72,11 @@ export default {
     },
     appliedFilters() {
       this.fetchOrders();
+    },
+    isPanelOpen() {
+      if (this.isPanelOpen) {
+        this.showExtraColumns = false;
+      }
     },
   },
   data() {
@@ -139,6 +148,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
+      showExtraColumns: false,
     };
   },
 };

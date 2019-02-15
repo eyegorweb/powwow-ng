@@ -74,7 +74,7 @@ export default {
   color: $dark-gray;
   position: absolute;
   top: 5.6rem;
-  z-index: 999;
+  z-index: 1;
   right: 1.6rem;
   width: 100%;
 }

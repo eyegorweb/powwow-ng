@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTableExtraColumns
-      v-if="isExtraColumnsVisible"
+      v-if="showExtraColumns"
       :extra-columns="extraColumns"
       :columns="visibleColumns"
       @update:columns="setColumns"
@@ -55,9 +55,9 @@
                 <button
                   type="button"
                   class="btn btn-light btn-sm float-right"
-                  @click="isExtraColumnsVisible = !isExtraColumnsVisible"
+                  @click="$emit('update:showExtraColumns', !showExtraColumns)"
                 >
-                  <span v-if="isExtraColumnsVisible" class="ic-Minus-Icon" />
+                  <span v-if="showExtraColumns" class="ic-Minus-Icon" />
                   <span v-else class="ic-Plus-Icon" />
                 </button>
               </th>
@@ -129,11 +129,11 @@ export default {
       type: Number,
       required: true,
     },
+    showExtraColumns: Boolean,
   },
 
   data() {
     return {
-      isExtraColumnsVisible: false,
       perPage: 20,
     };
   },
@@ -182,7 +182,7 @@ export default {
   methods: {
     setColumns(newColumns) {
       this.$emit('update:columns', newColumns);
-      this.isExtraColumnsVisible = false;
+      this.$emit('update:showExtraColumns', false);
     },
   },
 

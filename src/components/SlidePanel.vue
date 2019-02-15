@@ -72,7 +72,7 @@ export default {
   position: fixed;
   width: 90%;
   background: white;
-  z-index: 2;
+  z-index: 3;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s 0s;
   transform: translateY(-4em);
@@ -200,7 +200,7 @@ export default {
   height: 100%;
   top: 0;
   background: #f3f3f3;
-  z-index: 1;
+  z-index: 2;
   transition: transform 0.3s 0.3s;
 }
 
