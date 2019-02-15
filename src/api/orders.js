@@ -66,6 +66,11 @@ function formatFilters(filters) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
+  const offers = getValuesIds(filters, 'filters.offers');
+  if (offers) {
+    allFilters.push(`workflowCode: {in: [${offers}]}`);
+  }
+
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields

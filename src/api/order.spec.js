@@ -202,4 +202,30 @@ describe('order api', () => {
     const calledQuery = utils.query.mock.calls[0][0];
     expect(calledQuery).toContain('status: {in: [TO_BE_CONFIRMED,NOT_VALIDATED]}');
   });
+
+  it('filters with offers only when a value is set', () => {
+    const orderBy = {
+      key: 'id',
+      direction: 'DESC',
+    };
+    const pagination = {
+      page: 1,
+      limit: 10,
+    };
+    const filters = [
+      {
+        id: 'filters.partners',
+        values: [{ id: '2', label: 'LYRA NETWORK' }],
+      },
+      {
+        id: 'filters.offers',
+        values: [{ id: 'LYRA_PARC1_COMPTEUR_TEST', label: 'Parc 1 compteur' }],
+      },
+    ];
+    searchOrders(orderBy, pagination, filters);
+    const calledQuery = utils.query.mock.calls[0][0];
+    expect(calledQuery).toContain(
+      'partyId: {in:["2"]},workflowCode: {in: ["LYRA_PARC1_COMPTEUR_TEST"]}'
+    );
+  });
 });
