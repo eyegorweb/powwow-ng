@@ -23,7 +23,6 @@
               >{{ $t(`col.statuses. ${status}`) }}</UiCheckbox>
             </div>
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderReference')" :key="'el4'" draggable />
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
             <GetSimDateFilter />
           </FoldableBlock>
@@ -39,7 +38,6 @@
           <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
             <GetSimOrderCreator />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.active')" :key="'el10'" draggable />
           <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable>
             <GetSimDeliveryCountries />
           </FoldableBlock>
