@@ -16,8 +16,8 @@
           <span v-if="item.address.address3 && item.address.address3 !=='null'"> <br> {{ item.address.address3 }}</span>
           <br v-if="item.address.city"> {{ item.address.zipCode }} - {{ item.address.city }}
         </p>
-        <footer class="flex-fixed">
-          <a href="#">Modifier</a>
+        <footer v-if="canEdit" class="flex-fixed">
+          <a href="#" @click.prevent="$emit('modify', item)">{{ $t('modify') }}</a>
         </footer>
       </div>
 
@@ -36,6 +36,7 @@ export default {
     name: String,
     defaultSelectedItem: Object,
     isActive: Boolean,
+    canEdit: Boolean,
   },
   computed: {
     selectedItem: {

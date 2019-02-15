@@ -11,6 +11,7 @@
   "save": "Enregistrer",
   "cancel": "Annuler",
   "delete": "Supprimer",
+  "modify": "Modifier",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "text": "Texte",
@@ -27,7 +28,9 @@
     "YES": "Oui",
     "NO": "Non",
     "true": "Oui",
-    "false": "non"
+    "false": "non",
+    "MR": "Monsieur",
+    "MRS": "Madame"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -101,6 +104,7 @@
     "choose-account": "Choisir un compte de facturation",
     "choose-partner": "Choisir un partenaire",
     "choose-delivery": "Choisir un destinataire",
+    "modify-delivery": "Modifier un destinataire",
     "choose-reference": "Saisir une référence de commande",
     "choose-services": "Configurer des services",
     "personalize-services": "Personnaliser les services",
@@ -138,7 +142,8 @@
           "country": "Pays :",
           "delivery": "Informations de livraison [facultatif]:",
           "cancel": "Annuler",
-          "add": "Ajouter un destinataire"
+          "add": "Ajouter un destinataire",
+          "modify": "Modifier un destinataire"
         }
       }
     }

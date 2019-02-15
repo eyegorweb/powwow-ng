@@ -19,7 +19,7 @@
         class="btn btn-accent btn-lg btn-block"
         :disabled="!(accept && canSave)"
         @click="$emit('save')"
-      >{{ $t('orders.new.acceptConditions') }}</button>
+      >{{ $t('orders.new.save') }}</button>
     </div>
   </div>
 </template>
