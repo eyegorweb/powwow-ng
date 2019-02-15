@@ -5,6 +5,7 @@
       @cancel="inEditMode = false"
       @saved="refreshList"
       :partner-id="synthesis.billingAccount.value.partnerId"
+      :address-edit="addressToEdit"
     />
     <div class="panel-vertical-container" v-if="!inEditMode">
       <div class="main-content">
@@ -55,6 +56,8 @@
                   :item="item"
                   :default-selected-item="selectedAdress"
                   @update:defaultSelectedItem="selectAdress"
+                  @modify="editAddress"
+                  can-edit
                   name="address"
                 />
               </template>
@@ -119,6 +122,7 @@ export default {
       adresses: [],
       selectedAdress: undefined,
       inEditMode: false,
+      addressToEdit: undefined,
     };
   },
 
@@ -132,6 +136,12 @@ export default {
     },
     addnewAddress() {
       this.inEditMode = true;
+      this.addressToEdit = undefined;
+    },
+
+    editAddress(item) {
+      this.inEditMode = true;
+      this.addressToEdit = item;
     },
 
     async refreshList() {

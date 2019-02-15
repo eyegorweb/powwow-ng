@@ -103,7 +103,7 @@ export async function addPartyShippingAddress(formData, partnerId) {
         },
         name: {
           firstName: "${formData.firstName}",
-          title: MR,
+          title: ${formData.title},
           lastName: "${formData.lastName}"
         },
         contactInformation: {
@@ -119,4 +119,38 @@ export async function addPartyShippingAddress(formData, partnerId) {
 
   const response = await query(queryStr);
   return response.data.addPartyShippingAddress;
+}
+
+export async function updatePartyShippingAddress(formData, shippingAddressId) {
+  const queryStr = `
+    mutation {
+      updatePartyShippingAddress (shippingAddress: {
+        company: "${formData.company}",
+        address: {
+          address1:"${formData.address}",
+          address2:"${formData.extraInfos}",
+          address3: "${formData.extraInfos2}",
+          zipCode: "${formData.zipCode}",
+          city: "${formData.city}",
+          country: "${formData.country}",
+          state: ""
+        },
+        name: {
+          firstName: "${formData.firstName}",
+          title: ${formData.title},
+          lastName: "${formData.lastName}"
+        },
+        contactInformation: {
+          email: "${formData.email}",
+          phone: "${formData.phone}"
+        }
+      },
+      shippingAddressId: ${shippingAddressId}){
+        id
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.updatePartyShippingAddress;
 }
