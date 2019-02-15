@@ -213,11 +213,15 @@ export async function createOrder(synthesis) {
         : '';
   }
 
+  console.log(synthesis.delivery.value.detail.name);
   const firstName = synthesis.delivery.value.detail.name
     ? synthesis.delivery.value.detail.name.firstName
     : '';
   const lastName = synthesis.delivery.value.detail.name
     ? synthesis.delivery.value.detail.name.lastName
+    : '';
+  const title = synthesis.delivery.value.detail.name
+    ? synthesis.delivery.value.detail.name.title
     : '';
   const email = synthesis.delivery.value.contactInformation
     ? synthesis.delivery.value.contactInformation.email
@@ -241,7 +245,7 @@ export async function createOrder(synthesis) {
           state: "${synthesis.delivery.value.detail.address.state}"
         },
         name: {
-          title: MR,
+          title: ${title},
           firstName: "${firstName}",
           lastName: "${lastName}"
         },
