@@ -44,7 +44,7 @@ export default {
 
   created() {
     this.localExtraColumns = this.extraColumns.reduce((all, column) => {
-      const isChecked = !!this.columns.filter(c => c.name === column.name).length;
+      const isChecked = !!this.columns.filter(c => c.id === column.id).length;
       const localColumn = { ...column, isChecked };
       all.push(localColumn);
       return all;
@@ -54,12 +54,12 @@ export default {
   methods: {
     saveExtraColumns() {
       const columnsWithoutExtra = this.columns.filter(
-        column => !this.extraColumns.filter(c => c.name == column.name).length
+        column => !this.extraColumns.filter(c => c.id == column.id).length
       );
       const extraColumnsToAdd = this.localExtraColumns
         .filter(column => column.isChecked)
         .map(column => {
-          return { name: column.name, label: column.label, format: column.format };
+          return { name: column.name, label: column.label, format: column.format, id: column.id };
         });
 
       const finalList = columnsWithoutExtra.concat(extraColumnsToAdd);

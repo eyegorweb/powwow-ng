@@ -17,8 +17,22 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         activationAsked
         status
         externalId
+        preActivationAsked
+        contactInformation {
+          email
+          phone
+          mobile
+        }
+        name {
+          title
+          firstName
+          lastName
+        }
         customerAccount {
           code
+        }
+        party {
+          name
         }
         quantity
         singleProduct {
@@ -213,7 +227,6 @@ export async function createOrder(synthesis) {
         : '';
   }
 
-  console.log(synthesis.delivery.value.detail.name);
   const firstName = synthesis.delivery.value.detail.name
     ? synthesis.delivery.value.detail.name.firstName
     : '';

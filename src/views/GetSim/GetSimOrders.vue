@@ -14,6 +14,7 @@
 <script>
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
+import GetSimOrdersDeliveryColumn from './GetSimOrdersDeliveryColumn';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -83,6 +84,7 @@ export default {
     return {
       columns: [
         {
+          id: 1,
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
@@ -94,16 +96,21 @@ export default {
           },
         },
         {
+          id: 2,
+          label: this.$t('col.creationDate'),
+          name: 'creationDate',
+          format: {
+            type: 'Date',
+          },
+        },
+        {
+          id: 3,
           label: this.$t('col.externalId'),
           name: 'externalId',
-          orderable: true,
         },
+        // Id de gestion
         {
-          label: this.$t('col.managementId'),
-          name: 'managementId',
-          orderable: false,
-        },
-        {
+          id: 4,
           label: this.$t('col.status'),
           name: 'status',
           orderable: true,
@@ -112,10 +119,12 @@ export default {
           },
         },
         {
+          id: 5,
           label: this.$t('col.quantity'),
           name: 'quantity',
         },
         {
+          id: 6,
           label: this.$t('col.product'),
           name: 'singleProduct',
           format: {
@@ -126,20 +135,51 @@ export default {
       ],
       extraColumns: [
         {
-          label: this.$t('col.activationAsked'),
-          name: 'activationAsked',
-          orderable: false,
+          id: 7,
+          label: this.$t('col.recipient'),
+          name: 'singleProduct',
+          orderable: true,
           format: {
-            type: 'Boolean',
+            component: GetSimOrdersDeliveryColumn,
+          },
+        },
+        // Offre
+        // Créateur de la commande
+        {
+          id: 8,
+          label: this.$t('col.partner'),
+          name: 'party',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'name',
           },
         },
         {
+          id: 9,
           label: this.$t('col.offer'),
           name: 'customerAccount',
           orderable: true,
           format: {
             type: 'ObjectAttribute',
             path: 'code',
+          },
+        },
+        {
+          id: 10,
+          label: this.$t('col.preActivationAsked'),
+          name: 'preActivationAsked',
+          orderable: false,
+          format: {
+            type: 'Boolean',
+          },
+        },
+        {
+          id: 11,
+          label: this.$t('col.activationAsked'),
+          name: 'activationAsked',
+          orderable: false,
+          format: {
+            type: 'Boolean',
           },
         },
       ],

@@ -70,7 +70,7 @@
                 v-for="(column, index) in columns"
                 :colspan="(index + 1) === columns.length ? 2 : 1 "
               >
-                <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" />
+                <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" :row="row" />
               </td>
             </tr>
           </tbody>

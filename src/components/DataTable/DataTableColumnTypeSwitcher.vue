@@ -6,6 +6,7 @@
       :is="component"
       :format="format"
       :item="item"
+      :row="row"
     />
   </div>
 </template>
@@ -20,6 +21,7 @@ export default {
     item: {
       type: [Object, String, Number, Array, Boolean],
     },
+    row: Object,
   },
   data() {
     return {
