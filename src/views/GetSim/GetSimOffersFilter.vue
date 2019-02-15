@@ -1,6 +1,6 @@
 <template>
   <MultiSelectSearch
-    :items="offers"
+    :items="formattedOffers"
     :default-selected-items.sync="selectedOffers"
     @update:search="searchValueChanged"
     @scroll:limit="nextPage"
@@ -20,6 +20,8 @@ export default {
   data() {
     return {
       offers: [],
+      lastSearchTerm: '',
+      canFetchNextPage: true,
     };
   },
 
@@ -40,6 +42,7 @@ export default {
       });
       this.lastSearchTerm = q;
       this.page = 1;
+      this.canFetchNextPage = true;
     },
 
     async nextPage() {
@@ -48,14 +51,23 @@ export default {
         page: this.page,
         limit: 50,
       });
-      if (res) {
+
+      if (res && res.length > 0) {
         this.offers = this.offers.concat(res);
+      } else {
+        this.canFetchNextPage = false;
       }
     },
   },
 
   computed: {
     ...mapGetters(['selectedPartnersValues', 'selectedOffersValues']),
+
+    formattedOffers() {
+      return this.offers.map(i => {
+        return { id: i.code, label: i.workflowDescription };
+      });
+    },
 
     selectedOffers: {
       get() {
@@ -64,6 +76,17 @@ export default {
       set(offers) {
         this.setOffersFilter(offers);
       },
+    },
+  },
+
+  watch: {
+    async selectedPartnersValues() {
+      this.page = 0;
+      this.canFetchNextPage = true;
+      this.offers = await fetchOffers(this.lastSearchTerm, this.selectedPartnersValues, {
+        page: this.page,
+        limit: 50,
+      });
     },
   },
 };
