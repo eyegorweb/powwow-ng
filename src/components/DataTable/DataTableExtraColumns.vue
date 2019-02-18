@@ -8,7 +8,7 @@
           <div class="checkboxes">
             <Checkbox
               v-for="extraColumn in localExtraColumns"
-              :key="extraColumn.name"
+              :key="extraColumn.id"
               v-model="extraColumn.isChecked"
             >{{ extraColumn.label }}</Checkbox>
           </div>

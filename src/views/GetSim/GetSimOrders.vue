@@ -15,6 +15,7 @@
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
 import GetSimOrdersDeliveryColumn from './GetSimOrdersDeliveryColumn';
+import GetSimOrdersCreatorColumn from './GetSimOrdersCreatorColumn';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -144,7 +145,15 @@ export default {
           },
         },
         // Offre
-        // Créateur de la commande
+        {
+          id: 12,
+          label: this.$t('col.creator'),
+          name: 'singleProduct',
+          orderable: true,
+          format: {
+            component: GetSimOrdersCreatorColumn,
+          },
+        },
         {
           id: 8,
           label: this.$t('col.partner'),

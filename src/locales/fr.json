@@ -53,6 +53,7 @@
     "orderDate": "Date de commande",
     "activationAsked": "Activation",
     "preActivationAsked": "Préactivation",
+    "creator": "Créateur",
     "quantity": "Quantité",
     "status": "Statut",
     "recipient": "Destinataire",
