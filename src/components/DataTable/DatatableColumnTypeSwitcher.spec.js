@@ -13,6 +13,6 @@ describe('DatatableColumnTypeSwitcher.vue', () => {
   });
 
   it('renders the corresponding html element with the proper value', () => {
-    expect(wrapper.find('p').text()).toBe('15/09/2017');
+    expect(wrapper.find('div').text()).toBe('15/09/2017');
   });
 });

@@ -13,6 +13,6 @@ describe('Date.vue', () => {
   });
 
   it('renders the date in the proper format', () => {
-    expect(wrapper.find('p').text()).toBe('15/09/2017');
+    expect(wrapper.find('div').text()).toBe('15/09/2017');
   });
 });

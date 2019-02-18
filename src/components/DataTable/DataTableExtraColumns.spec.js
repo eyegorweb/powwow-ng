@@ -13,10 +13,12 @@ describe('DataTableExtraColumns.vue', () => {
       {
         label: 'First name',
         name: 'firstName',
+        id: 1,
       },
       {
         label: 'Last name',
         name: 'lastName',
+        id: 2,
       },
     ];
 
@@ -25,14 +27,17 @@ describe('DataTableExtraColumns.vue', () => {
         label: 'First name',
         name: 'firstName',
         noHandle: true,
+        id: 1,
       },
       {
         label: 'Last name',
         name: 'lastName',
+        id: 2,
       },
       {
         label: 'Age',
         name: 'age',
+        id: 3,
       },
     ];
 
@@ -40,6 +45,7 @@ describe('DataTableExtraColumns.vue', () => {
       propsData: {
         columns,
         extraColumns,
+        maxAllowedExtraColumns: 1,
       },
       mocks,
     });
@@ -56,10 +62,12 @@ describe('DataTableExtraColumns.vue', () => {
       {
         label: 'First name',
         name: 'firstName',
+        id: 1,
       },
       {
         label: 'Last name',
         name: 'lastName',
+        id: 2,
       },
     ];
 
@@ -67,6 +75,7 @@ describe('DataTableExtraColumns.vue', () => {
       {
         label: 'Age',
         name: 'age',
+        id: 3,
       },
     ];
 
@@ -75,6 +84,7 @@ describe('DataTableExtraColumns.vue', () => {
       propsData: {
         columns,
         extraColumns,
+        maxAllowedExtraColumns: 1,
       },
       mocks,
     });
@@ -85,14 +95,18 @@ describe('DataTableExtraColumns.vue', () => {
     const newSelectedColumns = wrapper.emitted()['update:columns'][0][0];
     expect(newSelectedColumns).toEqual([
       {
+        id: 1,
         label: 'First name',
         name: 'firstName',
       },
       {
+        id: 2,
         label: 'Last name',
         name: 'lastName',
       },
       {
+        format: undefined,
+        id: 3,
         label: 'Age',
         name: 'age',
       },
@@ -104,14 +118,17 @@ describe('DataTableExtraColumns.vue', () => {
       {
         label: 'First name',
         name: 'firstName',
+        id: 1,
       },
       {
         label: 'Last name',
         name: 'lastName',
+        id: 2,
       },
       {
         label: 'Age',
         name: 'age',
+        id: 3,
       },
     ];
 
@@ -119,6 +136,7 @@ describe('DataTableExtraColumns.vue', () => {
       {
         label: 'Age',
         name: 'age',
+        id: 3,
       },
     ];
 
@@ -127,6 +145,7 @@ describe('DataTableExtraColumns.vue', () => {
       propsData: {
         columns,
         extraColumns,
+        maxAllowedExtraColumns: 1,
       },
       mocks,
     });
@@ -136,14 +155,18 @@ describe('DataTableExtraColumns.vue', () => {
     const newSelectedColumns = wrapper.emitted()['update:columns'][0][0];
     expect(newSelectedColumns).toEqual([
       {
+        id: 1,
         label: 'First name',
         name: 'firstName',
       },
       {
+        id: 2,
         label: 'Last name',
         name: 'lastName',
       },
       {
+        format: undefined,
+        id: 3,
         label: 'Age',
         name: 'age',
       },
