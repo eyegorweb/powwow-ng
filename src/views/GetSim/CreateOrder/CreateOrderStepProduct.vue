@@ -11,7 +11,7 @@
               :key="item.id"
               :item="item"
               :default-selected-item.sync="selectedSimTypeValue"
-              :is-active="selectedSimTypeValue.id === item.id"
+              :is-active="selectedSimTypeValue && selectedSimTypeValue.simCard && selectedSimTypeValue.simCard.id === item.simCard.id"
             />
           </form>
           <div class="text-right">
