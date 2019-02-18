@@ -28,6 +28,15 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           firstName
           lastName
         }
+        auditable {
+          creator {
+            name {
+              title
+              firstName
+              lastName
+            }
+          }
+        }
         customerAccount {
           code
         }

@@ -13,7 +13,7 @@
             >{{ extraColumn.label }}</Checkbox>
           </div>
 
-          <button class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
+          <button :disabled="!canSave()" class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@ export default {
     columns: {
       type: Array,
     },
+    maxAllowedExtraColumns: Number,
   },
   data() {
     return {
@@ -64,6 +65,9 @@ export default {
 
       const finalList = columnsWithoutExtra.concat(extraColumnsToAdd);
       this.$emit('update:columns', finalList);
+    },
+    canSave() {
+      return this.localExtraColumns.filter(e => e.isChecked).length <= this.maxAllowedExtraColumns;
     },
   },
 };
