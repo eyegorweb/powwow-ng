@@ -62,6 +62,7 @@
     "externalId": "Ref. client",
     "offer": "Offre",
     "managementId": "Id gestion",
+    "billingAccount": "Compte de facturation",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",

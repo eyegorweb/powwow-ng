@@ -165,7 +165,7 @@ export default {
         },
         {
           id: 9,
-          label: this.$t('col.offer'),
+          label: this.$t('col.billingAccount'),
           name: 'customerAccount',
           orderable: true,
           format: {
