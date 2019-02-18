@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ formattedDate }}</p>
+    {{ formattedDate }}
   </div>
 </template>
 
