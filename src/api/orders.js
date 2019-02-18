@@ -28,6 +28,9 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           firstName
           lastName
         }
+        simCardType{
+          name
+        }
         auditable {
           creator {
             name {

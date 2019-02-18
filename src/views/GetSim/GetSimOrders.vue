@@ -109,7 +109,7 @@ export default {
           label: this.$t('col.externalId'),
           name: 'externalId',
         },
-        // Id de gestion
+        // Id de gestion ( tableau, comment afficher ?)
         {
           id: 4,
           label: this.$t('col.status'),
@@ -127,10 +127,10 @@ export default {
         {
           id: 6,
           label: this.$t('col.product'),
-          name: 'singleProduct',
+          name: 'simCardType',
           format: {
             type: 'ObjectAttribute',
-            path: 'description',
+            path: 'name',
           },
         },
       ],
