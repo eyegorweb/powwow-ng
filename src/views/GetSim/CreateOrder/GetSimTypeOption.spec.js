@@ -5,10 +5,10 @@ import GetSimTypeOption from './GetSimTypeOption';
 const mocks = { $i18n, $t };
 
 const simType = {
-  id: 76,
-  iccid: '8933215898343692617',
-  type: 'M2M sim antivol avec code pin',
-  accessPoint: null,
+  simCard: {
+    id: '76',
+    name: 'M2M sim avec code pin',
+  },
 };
 
 describe('GetSimTypeOption.vue', () => {
@@ -22,7 +22,7 @@ describe('GetSimTypeOption.vue', () => {
   });
 
   it('lists data passed in props', () => {
-    expect(wrapper.find('.simtype__name').text()).toContain(simType.type);
+    expect(wrapper.find('.simtype__name').text()).toContain(simType.simCard.name);
   });
 
   it('emits an event with the right data', () => {

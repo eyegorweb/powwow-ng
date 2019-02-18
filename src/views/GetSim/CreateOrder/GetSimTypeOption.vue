@@ -9,7 +9,7 @@
         :value="item"
       />
       <div class="simTypeIfos">
-        <p class="simtype__name m-0">{{ item.type }}</p>
+        <p class="simtype__name m-0">{{ item.simCard.name }}</p>
       </div>
     </div>
     <div class="simtype__item">

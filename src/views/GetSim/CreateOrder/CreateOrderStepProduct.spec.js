@@ -7,46 +7,22 @@ const mocks = { $i18n, $t };
 
 const products = [
   {
-    id: '01',
-    type: 'SIM M2M Endurcie 076',
-    format: 'Standard, sans PIN',
-    patent: 'Best network + Smart Roaming',
-    lastCommand: '12/01/2018',
+    simCard: {
+      id: '76',
+      name: 'M2M sim avec code pin',
+    },
   },
   {
-    id: '02',
-    type: 'SIM M2M Endurcie 075',
-    format: 'Standard, sans PIN',
-    patent: 'Backup FR',
-    lastCommand: '12/01/2018',
+    simCard: {
+      id: '78',
+      name: 'M2M sim antivol avec code pin bobine',
+    },
   },
   {
-    id: '03',
-    type: 'SIM M2M Endurcie 024 (bobine de 3000)',
-    format: 'Soudée, sans PIN',
-    patent: 'Aucun',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '04',
-    type: 'SIM M2M Endurcie 079',
-    format: 'Standard, sans PIN',
-    patent: 'Best network + Smart Roaming',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '05',
-    type: 'SIM M2M Endurcie 096',
-    format: 'Standard, sans PIN',
-    patent: 'Backup FR',
-    lastCommand: '12/01/2018',
-  },
-  {
-    id: '06',
-    type: 'SIM M2M Endurcie 047 (bobine de 3000)',
-    format: 'Soudée, sans PIN',
-    patent: 'Aucun',
-    lastCommand: '12/01/2018',
+    simCard: {
+      id: '79',
+      name: 'M2M sim antivol sans code pin',
+    },
   },
 ];
 
@@ -54,8 +30,8 @@ const selectedObject = {
   product: {
     label: 'common.product',
     value: {
-      content: ['SIM M2M Endurcie 076'],
-      id: '01',
+      content: ['M2M sim avec code pin'],
+      id: '76',
     },
   },
   quantity: {
@@ -63,6 +39,16 @@ const selectedObject = {
     value: {
       content: 4,
       id: 'quantity',
+    },
+  },
+};
+
+const props = {
+  synthesis: {
+    billingAccount: {
+      value: {
+        partnerId: 1,
+      },
     },
   },
 };
@@ -76,6 +62,7 @@ describe('CreateOrderStepProduct.vue', () => {
 
     wrapper = mount(CreateOrderStepProduct, {
       mocks,
+      propsData: { ...props },
     });
 
     wrapper.setData({ selectedNumberOfSims: 4 });

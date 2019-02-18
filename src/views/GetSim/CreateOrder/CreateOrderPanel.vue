@@ -7,7 +7,7 @@
             <CreateOrderStepClient @done="stepisDone" />
           </div>
           <div slot="Produit">
-            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" />
+            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
           </div>
           <div slot="Livraison">
             <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />

@@ -77,8 +77,15 @@ export default {
     };
   },
 
+  props: {
+    synthesis: {
+      type: Object,
+      required: true,
+    },
+  },
+
   async created() {
-    this.simTypes = await fetchSim();
+    this.simTypes = await fetchSim(this.synthesis.billingAccount.value.partnerId);
   },
 
   methods: {
@@ -99,8 +106,8 @@ export default {
         product: {
           label: 'common.product',
           value: {
-            id: this.selectedSimTypeValue.id,
-            content: [this.selectedSimTypeValue.type],
+            id: this.selectedSimTypeValue.simCard.id,
+            content: [this.selectedSimTypeValue.simCard.name],
           },
         },
       });
@@ -116,7 +123,12 @@ export default {
       },
     },
     canGoToNextStep() {
-      return this.selectedSimTypeValue.id && this.selectedNumberOfSims > 0;
+      return (
+        this.selectedSimTypeValue &&
+        this.selectedSimTypeValue.simCard &&
+        this.selectedSimTypeValue.simCard.id &&
+        this.selectedNumberOfSims > 0
+      );
     },
   },
 
