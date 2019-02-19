@@ -17,6 +17,7 @@
   "text": "Texte",
   "list": "Liste",
   "date": "Date",
+  "ordersFound": "commande(s) trouvée(s)",
   "common": {
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
