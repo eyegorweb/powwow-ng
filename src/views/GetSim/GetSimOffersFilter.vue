@@ -1,6 +1,6 @@
 <template>
   <MultiSelectSearch
-    :items="formattedOffers"
+    :items="offers"
     :default-selected-items.sync="selectedOffers"
     @update:search="searchValueChanged"
     @scroll:limit="nextPage"
@@ -22,36 +22,49 @@ export default {
       offers: [],
       lastSearchTerm: '',
       canFetchNextPage: true,
+      page: 0,
     };
   },
 
   async mounted() {
-    this.offers = await fetchOffers('', this.selectedPartnersValues, {
-      page: 1,
-      limit: 50,
+    this.offers = await this.fetchFormattedOffersForDatatable('', {
+      page: 0,
+      limit: 10,
     });
   },
 
   methods: {
     ...mapMutations(['setOffersFilter']),
 
+    async fetchFormattedOffersForDatatable(q, { page, limit }) {
+      const data = await fetchOffers(q, this.selectedPartnersValues, { page, limit });
+      if (data) {
+        return data.map(o => ({
+          id: o.code,
+          label: o.workflowDescription,
+        }));
+      }
+      return undefined;
+    },
+
     async searchValueChanged(q) {
-      this.offers = await fetchOffers(q, this.selectedPartnersValues, {
-        page: 1,
-        limit: 50,
+      this.offers = await this.fetchFormattedOffersForDatatable(q, {
+        page: 0,
+        limit: 10,
       });
       this.lastSearchTerm = q;
-      this.page = 1;
+      this.page = 0;
       this.canFetchNextPage = true;
     },
 
     async nextPage() {
-      this.page += 1;
-      const res = await fetchOffers(this.lastSearchTerm, this.selectedPartnersValues, {
-        page: this.page,
-        limit: 50,
-      });
+      if (!this.canFetchNextPage) return;
 
+      this.page += 1;
+      const res = await this.fetchFormattedOffersForDatatable(this.lastSearchTerm, {
+        page: this.page,
+        limit: 10,
+      });
       if (res && res.length > 0) {
         this.offers = this.offers.concat(res);
       } else {
@@ -60,14 +73,19 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters(['selectedPartnersValues', 'selectedOffersValues']),
-
-    formattedOffers() {
-      return this.offers.map(i => {
-        return { id: i.code, label: i.workflowDescription };
+  watch: {
+    async selectedPartnersValues() {
+      this.page = 0;
+      this.canFetchNextPage = true;
+      this.offers = await this.fetchFormattedOffersForDatatable(this.lastSearchTerm, {
+        page: this.page,
+        limit: 50,
       });
     },
+  },
+
+  computed: {
+    ...mapGetters(['selectedPartnersValues', 'selectedOffersValues']),
 
     selectedOffers: {
       get() {
@@ -76,17 +94,6 @@ export default {
       set(offers) {
         this.setOffersFilter(offers);
       },
-    },
-  },
-
-  watch: {
-    async selectedPartnersValues() {
-      this.page = 0;
-      this.canFetchNextPage = true;
-      this.offers = await fetchOffers(this.lastSearchTerm, this.selectedPartnersValues, {
-        page: this.page,
-        limit: 50,
-      });
     },
   },
 };
