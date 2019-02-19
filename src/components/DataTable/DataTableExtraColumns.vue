@@ -10,10 +10,11 @@
               v-for="extraColumn in localExtraColumns"
               :key="extraColumn.id"
               v-model="extraColumn.isChecked"
+              :disabled="isDisabled(extraColumn.isChecked)"
             >{{ extraColumn.label }}</Checkbox>
           </div>
 
-          <button :disabled="!canSave()" class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
+          <button class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
         </div>
       </div>
     </div>
@@ -66,8 +67,14 @@ export default {
       const finalList = columnsWithoutExtra.concat(extraColumnsToAdd);
       this.$emit('update:columns', finalList);
     },
-    canSave() {
-      return this.localExtraColumns.filter(e => e.isChecked).length <= this.maxAllowedExtraColumns;
+    canAddColumns() {
+      return this.localExtraColumns.filter(e => e.isChecked) + 1 <= this.maxAllowedExtraColumns;
+    },
+    isDisabled(isChecked) {
+      if (!isChecked) {
+        return !this.canAddColumns();
+      }
+      return false;
     },
   },
 };
