@@ -5,7 +5,7 @@
       :extra-columns="extraColumns"
       :columns="visibleColumns"
       @update:columns="setColumns"
-      :max-allowed-extra-columns="1"
+      :max-allowed-extra-columns="2"
     />
     <div class="row">
       <div class="col-md-7">

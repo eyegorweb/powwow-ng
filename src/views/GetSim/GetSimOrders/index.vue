@@ -104,11 +104,13 @@ export default {
             type: 'Date',
           },
         },
+        /*
         {
           id: 3,
           label: this.$t('col.externalId'),
           name: 'externalId',
         },
+        //*/
         // Id de gestion ( tableau, comment afficher ?)
         {
           id: 4,
