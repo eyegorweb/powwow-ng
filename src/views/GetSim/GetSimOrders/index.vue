@@ -1,14 +1,19 @@
 <template>
-  <DataTable
-    :columns.sync="columns"
-    :extra-columns="extraColumns"
-    :rows="rows || []"
-    :page.sync="page"
-    :page-limit.sync="pageLimit"
-    :total="total || 0"
-    :order-by.sync="orderBy"
-    :show-extra-columns.sync="showExtraColumns"
-  />
+  <div>
+    <div class="row mb-3 col-md-9">
+      <h2 class="text-gray" :style="{fontSize: '24px', fontWeight: '300'}">{{ `${total} ${$t('ordersFound')}` }}</h2>
+    </div>
+    <DataTable
+      :columns.sync="columns"
+      :extra-columns="extraColumns"
+      :rows="rows || []"
+      :page.sync="page"
+      :page-limit.sync="pageLimit"
+      :total="total || 0"
+      :order-by.sync="orderBy"
+      :show-extra-columns.sync="showExtraColumns"
+    />
+  </div>
 </template>
 
 <script>
