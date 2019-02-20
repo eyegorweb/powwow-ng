@@ -170,12 +170,13 @@ export default {
   methods: {
     searchAddress,
     async onSubmitAddress() {
+      let savedId;
       if (this.addressEdit) {
-        await updatePartyShippingAddress(this.form, this.addressEdit.id);
+        savedId = await updatePartyShippingAddress(this.form, this.addressEdit.id);
       } else {
-        await addPartyShippingAddress(this.form, this.partnerId);
+        savedId = await addPartyShippingAddress(this.form, this.partnerId);
       }
-      this.$emit('saved');
+      this.$emit('saved', savedId.id);
     },
   },
 

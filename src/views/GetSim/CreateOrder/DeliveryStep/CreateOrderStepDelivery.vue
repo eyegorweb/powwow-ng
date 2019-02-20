@@ -144,7 +144,7 @@ export default {
       this.addressToEdit = item;
     },
 
-    async refreshList() {
+    async refreshList(savedId) {
       this.inEditMode = false;
       const partnerId = this.synthesis.billingAccount.value.partnerId;
       const data = await fetchpartnerAddresses(partnerId);
@@ -152,6 +152,10 @@ export default {
         this.lastSelectedAdress = data.last;
         this.adresses = data.all;
         this.filteredAdresses = [...this.adresses];
+      }
+
+      if (savedId) {
+        this.selectedAdress = this.adresses.find(f => f.id === savedId);
       }
     },
 
