@@ -45,8 +45,8 @@
     "date-from-to": "Du {startDate} au {endDate}",
     "date-from-to-format": "dd/MM/yyyyy",
     "between-min-max": "Entre {min} et {max}",
-    "ge": "Supérieur à",
-    "le": "Inférieur à"
+    "ge": "Supérieure à",
+    "le": "Inférieure à"
   },
   "col": {
     "id": "ID",
