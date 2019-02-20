@@ -196,7 +196,6 @@ export const actions = {
     } else {
       store.commit('setCurrentFilters', store.state.currentFilters.filter(f => f.id !== filterId));
     }
-    store.commit('applyFilters');
   },
 
   async fetchOrdersFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {

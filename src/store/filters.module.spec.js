@@ -206,7 +206,6 @@ describe('store/filters.module', () => {
       filterModule.actions.clearFilter(store, 'filters.offers');
 
       expect(store.commit.mock.calls[0]).toEqual(['setCurrentFilters', []]);
-      expect(store.commit.mock.calls[1]).toEqual(['applyFilters']);
     });
 
     it('sets partner filter with empty values', () => {
