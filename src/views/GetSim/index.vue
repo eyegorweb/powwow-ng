@@ -15,7 +15,7 @@
             variant="accent"
             block
             class="float-right"
-            @click="isPanelOpen=true"
+            @click="openPanel({title: 'getsim.order-sim', wide: true})"
           >{{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <GetSimCreateOrderPanel :is-open.sync="isPanelOpen" />
+    <GetSimPanels />
   </div>
 </template>
 
@@ -40,32 +40,27 @@ import UiButton from '@/components/ui/Button';
 import GetSimOrders from './GetSimOrders';
 import GetSimFilters from './GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
-import GetSimCreateOrderPanel from './CreateOrder/CreateOrderPanel';
+import GetSimPanels from './GetSimPanels';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'GetSim',
-  data() {
-    return {
-      isPanelOpen: false,
-    };
-  },
+
   components: {
     NavBars,
     UiButton,
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
-    GetSimCreateOrderPanel,
+    GetSimPanels,
   },
-  watch: {
-    isPanelOpen(value) {
-      if (value) {
-        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
-      } else {
-        document.getElementsByTagName('body')[0].style.overflow = 'auto';
-      }
-    },
+
+  methods: {
+    ...mapMutations(['openPanel']),
   },
+  computed: mapState({
+    isPanelOpen: state => state.ui.isPanelOpen,
+  }),
 };
 </script>
 

@@ -270,7 +270,7 @@ export async function createOrder(synthesis) {
           state: "${synthesis.delivery.value.detail.address.state}"
         },
         name: {
-          title: ${title},
+          title: ${title || 'MR'},
           firstName: "${firstName}",
           lastName: "${lastName}"
         },

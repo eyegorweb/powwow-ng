@@ -1,34 +1,31 @@
 <template>
-  <SlidePanel title="getsim.order-sim" :is-open="isOpen" @close="close" wide>
-    <div v-if="isOpen" class="row panel-container">
-      <div class="col-md-8 content">
-        <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
-          <div slot="Client">
-            <CreateOrderStepClient @done="stepisDone" />
-          </div>
-          <div slot="Produit">
-            <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
-          </div>
-          <div slot="Livraison">
-            <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
-          </div>
-          <div slot="Services">
-            <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="currentStep--" />
-          </div>
-          <div slot="Paramètres">
-            <CreateOrderStepSettings @prev="currentStep--" @done="lastStep" :synthesis="synthesis" />
-          </div>
-        </Stepper>
-      </div>
-      <div class="col-md-4 synthesis-bar">
-        <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" :can-save="currentStep === steps.length - 1" @save="saveOrder" />
-      </div>
+  <div class="row">
+    <div class="col-md-8 content">
+      <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
+        <div slot="Client">
+          <CreateOrderStepClient @done="stepisDone" />
+        </div>
+        <div slot="Produit">
+          <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
+        </div>
+        <div slot="Livraison">
+          <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
+        </div>
+        <div slot="Services">
+          <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="currentStep--" />
+        </div>
+        <div slot="Paramètres">
+          <CreateOrderStepSettings @prev="currentStep--" @done="lastStep" :synthesis="synthesis" />
+        </div>
+      </Stepper>
     </div>
-  </SlidePanel>
+    <div class="col-md-4 synthesis-bar">
+      <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" :can-save="currentStep === steps.length - 1" @save="saveOrder" />
+    </div>
+  </div>
 </template>
 
 <script>
-import SlidePanel from '@/components/SlidePanel';
 import Stepper from '@/components/ui/Stepper';
 import GetSimCreateOrderPanelSynthesis from './CreateOrderPanelSynthesis';
 import CreateOrderStepClient from './CreateOrderStepClient';
@@ -37,13 +34,10 @@ import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './CreateOrderStepServices';
 import { createOrder } from '@/api/orders';
-import { mapActions } from 'vuex';
-
-// import UiButton from '@/components/ui/Button';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
-    SlidePanel,
     Stepper,
     GetSimCreateOrderPanelSynthesis,
     CreateOrderStepClient,
@@ -92,16 +86,12 @@ export default {
 
   methods: {
     ...mapActions(['fetchOrdersFromApi']),
+    ...mapMutations(['closePanel']),
     reset() {
       this.currentStep = 0;
       this.synthesis = {};
     },
-    saveChanges() {
-      this.$emit('update:isOpen', false);
-    },
-    close() {
-      this.$emit('update:isOpen', false);
-    },
+
     stepisDone(payload) {
       this.synthesis = {
         ...this.synthesis,
@@ -123,26 +113,18 @@ export default {
         pageInfo: { page: 0, limit: 20 },
         appliedFilters: [],
       });
-      this.close();
+      this.closePanel();
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.panel-container {
+.content {
+  background: #fff;
+}
+.synthesis-bar {
   height: 100%;
-  margin: 0;
-  padding-top: 57px;
-  div {
-    padding: 0;
-  }
-  .content {
-    background: #fff;
-  }
-  .synthesis-bar {
-    height: 100%;
-    background: #f3f3f3;
-  }
+  background: #f3f3f3;
 }
 </style>

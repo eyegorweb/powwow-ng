@@ -5,7 +5,7 @@
       :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide}"
     >
       <header class="cd-panel__header">
-        <h1>{{ $t(title) }}</h1>
+        <h1>{{ title }}</h1>
 
         <a
           href="#0"
@@ -32,6 +32,15 @@ export default {
     title: String,
     isOpen: Boolean,
     wide: Boolean,
+  },
+  watch: {
+    isOpen(value) {
+      if (value) {
+        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+      } else {
+        document.getElementsByTagName('body')[0].style.overflow = 'auto';
+      }
+    },
   },
 };
 </script>
@@ -249,6 +258,7 @@ export default {
 }
 
 $size-wide: 70%;
+$size-narrow: 30%;
 .wide {
   .cd-panel__header {
     width: $size-wide;
@@ -259,10 +269,10 @@ $size-wide: 70%;
 }
 .narrow {
   .cd-panel__header {
-    width: 50%;
+    width: $size-narrow;
   }
   .cd-panel__container {
-    width: 50%;
+    width: $size-narrow;
   }
 }
 .cd-panel__footer {

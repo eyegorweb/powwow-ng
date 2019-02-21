@@ -46,7 +46,10 @@
     "date-from-to-format": "dd/MM/yyyyy",
     "between-min-max": "Entre {min} et {max}",
     "ge": "Supérieure à",
-    "le": "Inférieure à"
+    "le": "Inférieure à",
+    "details": {
+      "title": "Commande n° {id}"
+    }
   },
   "col": {
     "id": "ID",
