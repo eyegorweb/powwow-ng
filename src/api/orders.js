@@ -111,7 +111,7 @@ function formatFilters(filters) {
   addCityFilter(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
   orderStatus(allFilters, filters);
-  addLineStatus(allFilters, filters);
+  addaction(allFilters, filters);
   addCountries(allFilters, filters);
 
   return allFilters.join(',');
@@ -160,11 +160,10 @@ function orderStatus(gqlFilters, selectedFilters) {
   orderStatuses && gqlFilters.push(`status: {in: [${orderStatuses.values.map(o => o.id)}]}`);
 }
 
-function addLineStatus(gqlFilters, selectedFilters) {
-  const lineStatus = selectedFilters.find(f => f.id === 'filters.lineStatus');
-  const activationAsked = lineStatus && lineStatus.values.find(f => f.id === 'linestatus.active');
-  const preactivationAsked =
-    lineStatus && lineStatus.values.find(f => f.id === 'linestatus.PreActive');
+function addaction(gqlFilters, selectedFilters) {
+  const action = selectedFilters.find(f => f.id === 'filters.action');
+  const activationAsked = action && action.values.find(f => f.id === 'action.active');
+  const preactivationAsked = action && action.values.find(f => f.id === 'action.PreActive');
   if (activationAsked) {
     gqlFilters.push(`activationAsked: {eq: ${activationAsked.value}}`);
   }

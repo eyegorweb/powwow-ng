@@ -125,10 +125,10 @@ describe('order api', () => {
     };
     const filters = [
       {
-        id: 'filters.lineStatus',
+        id: 'filters.action',
         values: [
           {
-            id: 'linestatus.active',
+            id: 'action.active',
             label: 'Activé',
             value: true,
           },

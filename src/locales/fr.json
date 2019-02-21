@@ -102,10 +102,9 @@
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
     "city": "Ville",
-    "lineStatus": "Statut de la ligne",
-    "lineStatusValues": {
+    "action": "Action",
+    "actionValues": {
       "ACTIVATED": "Activé",
-      "NON_PREACTIVATED": "Non pré-activé",
       "PREACTIVATED": "Pré-activé"
     }
   },

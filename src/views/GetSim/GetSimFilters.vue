@@ -47,8 +47,8 @@
           <FoldableBlock :title="$t('filters.city')" :key="'el20'" draggable>
             <GetSimCity />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lineStatus')" :key="'e21'" draggable>
-            <GetSimLineStatus />
+          <FoldableBlock :title="$t('filters.action')" :key="'e21'" draggable>
+            <GetSimActionFilter />
           </FoldableBlock>
         </transition-group>
       </draggable>
@@ -92,7 +92,7 @@ import GetSimOffersFilter from './GetSimOffersFilter';
 import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 import GetSimPostalCode from './GetSimPostalCode';
 import GetSimCity from './GetSimCity';
-import GetSimLineStatus from './GetSimLineStatus';
+import GetSimActionFilter from './GetSimActionFilter';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
@@ -149,7 +149,7 @@ export default {
     GetSimOrderCreator,
     GetSimPostalCode,
     GetSimCity,
-    GetSimLineStatus,
+    GetSimActionFilter,
     GetSimQuantityFilter,
     GetSimDateFilter,
     GetSimDeliveryCountries,
