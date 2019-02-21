@@ -191,10 +191,18 @@ export const actions = {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
      */
+    console.log(
+      filterId,
+      store.state.currentFilters,
+      store.state.currentFilters.filter(f => f.id !== filterId)
+    );
     if (filterId === 'filters.partners') {
       setPartnersFilter(store, []);
     } else {
       store.commit('setCurrentFilters', store.state.currentFilters.filter(f => f.id !== filterId));
+    }
+    if (store.state.currentFilters.length === 0) {
+      store.commit('applyFilters');
     }
   },
 
