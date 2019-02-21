@@ -21,6 +21,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
 import GetSimOrdersDeliveryColumn from './GetSimOrdersDeliveryColumn';
 import GetSimOrdersCreatorColumn from './GetSimOrdersCreatorColumn';
+import GetSimOrdersIdColumn from './GetSimOrdersIdColumn';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -95,10 +96,7 @@ export default {
           name: 'id',
           orderable: true,
           format: {
-            type: 'LinkBtn',
-            onClick(item) {
-              console.info('Ouverture du panel pour la commande id = ', item);
-            },
+            component: GetSimOrdersIdColumn,
           },
         },
         {
