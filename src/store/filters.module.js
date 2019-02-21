@@ -66,8 +66,8 @@ export const getters = {
   selectedOrderStatus: state => {
     return selectedFilterValuesById(state)('filters.orderStatus');
   },
-  selectedLineStatus: state => {
-    return selectedFilterValuesById(state)('filters.lineStatus');
+  selectedAction: state => {
+    return selectedFilterValuesById(state)('filters.action');
   },
   selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
   selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
@@ -249,9 +249,9 @@ export const mutations = {
     });
   },
 
-  setLineStatusFilter(state, values) {
+  setActionFilter(state, values) {
     selectFilterValueNEW(state, {
-      id: 'filters.lineStatus',
+      id: 'filters.action',
       values,
     });
   },
