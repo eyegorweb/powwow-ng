@@ -3,19 +3,19 @@
     <div class="col-md-8 content">
       <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
         <div slot="Client">
-          <CreateOrderStepClient @done="stepisDone" />
+          <CreateOrderStepClient @done="stepisDone" :synthesis="synthesis" />
         </div>
         <div slot="Produit">
-          <CreateOrderStepProduct @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
-        </div>
-        <div slot="Livraison">
-          <CreateOrderStepDelivery @done="stepisDone" @prev="currentStep--" :synthesis="synthesis" />
+          <CreateOrderStepProduct @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
         </div>
         <div slot="Services">
-          <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="currentStep--" />
+          <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
+        </div>
+        <div slot="Livraison">
+          <CreateOrderStepDelivery @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
         </div>
         <div slot="Paramètres">
-          <CreateOrderStepSettings @prev="currentStep--" @done="lastStep" :synthesis="synthesis" />
+          <CreateOrderStepSettings @prev="previousStep" @done="lastStep" :synthesis="synthesis" />
         </div>
       </Stepper>
     </div>
@@ -92,19 +92,23 @@ export default {
       this.synthesis = {};
     },
 
+    previousStep(payload) {
+      this.saveSynthesis(payload);
+      this.currentStep--;
+    },
     stepisDone(payload) {
+      this.saveSynthesis(payload);
+      this.currentStep++;
+    },
+    saveSynthesis(payload) {
       this.synthesis = {
         ...this.synthesis,
         ...payload,
       };
-      this.currentStep++;
     },
 
     lastStep(payload) {
-      this.synthesis = {
-        ...this.synthesis,
-        ...payload,
-      };
+      this.saveSynthesis(payload);
     },
     async saveOrder() {
       await createOrder(this.synthesis);

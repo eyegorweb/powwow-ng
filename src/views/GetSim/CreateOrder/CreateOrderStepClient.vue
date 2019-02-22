@@ -52,6 +52,24 @@ export default {
     };
   },
 
+  props: {
+    synthesis: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  created() {
+    if (
+      this.synthesis &&
+      this.synthesis.billingAccount &&
+      this.synthesis.billingAccount.selection
+    ) {
+      this.selectedPartner = this.synthesis.billingAccount.selection.partner;
+      this.selectedBillingAccount = this.synthesis.billingAccount.selection.billingAccount;
+    }
+  },
+
   methods: {
     async fetchPartners(q, page = 0) {
       const data = await fetchpartners(q, { page, limit: 10 });
@@ -68,6 +86,10 @@ export default {
             id: this.selectedBillingAccount.id,
             content: this.selectedBillingAccount.label,
             partnerId: this.selectedPartner.id,
+          },
+          selection: {
+            billingAccount: this.selectedBillingAccount,
+            partner: this.selectedPartner,
           },
         },
       });

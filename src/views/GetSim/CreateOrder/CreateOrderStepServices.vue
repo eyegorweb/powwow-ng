@@ -46,7 +46,7 @@
           <div class="col-md-12 mt-5">
             <UiButton
               variant="round-button"
-              @click="$emit('prev')"
+              @click="prev"
               class="float-left ic-Arrow-Previous-Icon"
             />
             <UiButton
@@ -67,6 +67,7 @@
 import UiButton from '@/components/ui/Button';
 import UiToggle from '@/components/ui/UiToggle';
 import UiSelect from '@/components/ui/UiSelect';
+import _get from 'lodash.get';
 
 export default {
   name: 'CreateOrderStepServices',
@@ -79,6 +80,10 @@ export default {
       type: Array,
       required: true,
     },
+    synthesis: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -88,9 +93,19 @@ export default {
       preActivation: false,
     };
   },
+  created() {
+    this.activation = _get(this.synthesis, 'services.selection.activation', false);
+    this.preActivation = _get(this.synthesis, 'services.selection.preActivation', false);
+  },
   methods: {
     done() {
-      this.$emit('done', {
+      this.$emit('done', this.assembleSynthesis());
+    },
+    prev() {
+      this.$emit('prev', this.assembleSynthesis());
+    },
+    assembleSynthesis() {
+      return {
         services: {
           label: 'common.services',
           value: {
@@ -102,8 +117,12 @@ export default {
             activation: this.activation,
             preActivation: this.preActivation,
           },
+          selection: {
+            activation: !!this.activation,
+            preActivation: !!this.preActivation,
+          },
         },
-      });
+      };
     },
   },
   components: {

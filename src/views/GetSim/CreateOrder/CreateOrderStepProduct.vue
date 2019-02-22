@@ -43,7 +43,7 @@
           <div class="col-md-12 mt-5">
             <UiButton
               variant="round-button"
-              @click="$emit('prev')"
+              @click="prev"
               class="float-left ic-Arrow-Previous-Icon"
             />
             <UiButton
@@ -64,6 +64,7 @@ import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
 import { fetchSim } from '@/api/products';
+import _get from 'lodash.get';
 
 export default {
   name: 'GetSimSelectSimType',
@@ -86,6 +87,8 @@ export default {
 
   async created() {
     this.simTypes = await fetchSim(this.synthesis.billingAccount.value.partnerId);
+    this.selectedNumberOfSims = _get(this.synthesis, 'quantity.selection.quantity', 0);
+    this.selectedSimTypeValue = _get(this.synthesis, 'product.selection.product', {});
   },
 
   methods: {
@@ -94,23 +97,37 @@ export default {
       this.allSimTypesVisible = true;
     },
     done() {
-      this.$emit('done', {
+      this.$emit('done', this.assembleSynthesis());
+    },
+    prev() {
+      this.$emit('prev', this.assembleSynthesis());
+    },
+    assembleSynthesis() {
+      if (!this.canGoToNextStep) return {};
+
+      return {
         quantity: {
           label: 'common.quantity',
           value: {
             id: 'quantity',
             content: this.selectedNumberOfSims,
           },
+          selection: {
+            quantity: this.selectedNumberOfSims,
+          },
         },
 
         product: {
           label: 'common.product',
           value: {
-            id: this.selectedSimTypeValue.simCard.id,
-            content: [this.selectedSimTypeValue.simCard.name],
+            id: _get(this.selectedSimTypeValue, 'simCard.id'),
+            content: [_get(this.selectedSimTypeValue, 'simCard.name')],
+          },
+          selection: {
+            product: this.selectedSimTypeValue,
           },
         },
-      });
+      };
     },
   },
   computed: {

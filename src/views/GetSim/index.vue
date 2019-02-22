@@ -15,7 +15,7 @@
             variant="accent"
             block
             class="float-right"
-            @click="openPanel({title: 'getsim.order-sim', wide: true})"
+            @click="openPanel({title: $t('getsim.order-sim'), panelId: 'getsim.order-sim', wide: true})"
           >{{ $t("getsim.order-sim") }}</UiButton>
         </div>
       </div>

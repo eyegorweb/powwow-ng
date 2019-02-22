@@ -17,6 +17,6 @@ export const mutations = {
   },
   closePanel: state => {
     state.isPanelOpen = false;
-    state.panelTitle = undefined;
+    state.panelId = undefined;
   },
 };
