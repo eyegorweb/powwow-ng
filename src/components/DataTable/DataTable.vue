@@ -1,11 +1,10 @@
 <template>
   <div>
-    <DataTableExtraColumns
+    <DataTableConfiguration
       v-if="showExtraColumns"
-      :extra-columns="extraColumns"
-      :columns="visibleColumns"
+      :columns="columns"
       @update:columns="setColumns"
-      :max-allowed-extra-columns="2"
+      :max-columns-number="size"
     />
     <div class="row">
       <div class="col-md-7">
@@ -68,7 +67,7 @@
             <tr :key="row.id" v-for="row in rows">
               <td
                 :key="column.name+column.label+row.id"
-                v-for="column in columns"
+                v-for="column in sortableColumns"
               >
                 <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" :row="row" />
               </td>
@@ -87,9 +86,9 @@
 import draggable from 'vuedraggable';
 import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
-import DataTableExtraColumns from './DataTableExtraColumns';
 import DataTablePagination from './DataTablePagination';
 import DataTableOrderArrow from './DataTableOrderArrow';
+import DataTableConfiguration from './DataTableConfiguration';
 import DatatableColumnTypeSwitcher from '@/components/DataTable/DataTableColumnTypeSwitcher';
 
 export default {
@@ -98,7 +97,7 @@ export default {
     draggable,
     UiSelect,
     UiInput,
-    DataTableExtraColumns,
+    DataTableConfiguration,
     DataTablePagination,
     DataTableOrderArrow,
     DatatableColumnTypeSwitcher,
@@ -109,10 +108,6 @@ export default {
       required: true,
     },
     rows: {
-      type: Array,
-      required: true,
-    },
-    extraColumns: {
       type: Array,
       required: true,
     },
@@ -133,6 +128,7 @@ export default {
       required: true,
     },
     showExtraColumns: Boolean,
+    size: Number,
   },
 
   data() {
@@ -153,7 +149,7 @@ export default {
 
     visibleColumns: {
       get() {
-        return this.columns;
+        return this.columns.filter(c => c.visible);
       },
     },
     currentPage: {
