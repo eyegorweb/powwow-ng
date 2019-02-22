@@ -280,7 +280,7 @@ export async function createOrder(synthesis) {
         }
       }
       simCardQuantity: ${synthesis.quantity.value.content},
-      preActivationAsked: ${synthesis.services.preActivation ? 'true' : 'false'},
+      preActivationAsked: ${synthesis.services.value.preActivation ? 'true' : 'false'},
       activationAsked: false,
       simCardId: ${synthesis.product.value.id}
     }) {
