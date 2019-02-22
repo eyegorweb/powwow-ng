@@ -49,6 +49,15 @@
     "le": "Inférieure à",
     "details": {
       "title": "Commande n° {id}"
+    },
+    "actions": {
+      "btn": "Actions",
+      "DETAIL": "Voir le détail",
+      "EXPORT": "Exporter les lignes",
+      "SHOW_SIM": "Afficher les cartes SIM",
+      "DUPLICATE": "Dupliquer",
+      "CANCEL": "Annuler",
+      "VALIDATE": "Valider"
     }
   },
   "col": {

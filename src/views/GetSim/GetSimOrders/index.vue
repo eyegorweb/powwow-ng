@@ -12,7 +12,11 @@
       :total="total || 0"
       :order-by.sync="orderBy"
       :show-extra-columns.sync="showExtraColumns"
-    />
+    >
+      <template slot="actions" slot-scope="{ row }">
+        <GetSimOrdersActions :order="row" />
+      </template>
+    </DataTable>
   </div>
 </template>
 
@@ -22,12 +26,14 @@ import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
 import GetSimOrdersDeliveryColumn from './GetSimOrdersDeliveryColumn';
 import GetSimOrdersCreatorColumn from './GetSimOrdersCreatorColumn';
 import GetSimOrdersIdColumn from './GetSimOrdersIdColumn';
+import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'Orders',
   components: {
     DataTable,
+    GetSimOrdersActions,
   },
   props: {
     isPanelOpen: Boolean,
