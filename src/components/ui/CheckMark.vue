@@ -1,9 +1,9 @@
 <template>
   <div
     class="circle-loader animated-checkmark"
-    :class="{'load-complete': !isLoading, 'is-error': isError, 'can-pulse': pulse, 'loading': isLoading }"
+    :class="{'load-complete': !isLoading, 'is-error': isError, 'can-pulse': pulse, 'loading': isLoading, 'disabled': !checked }"
   >
-    <div :class="{ 'checked': !isLoading && !isError, 'checkmark': !isError, 'cross': isError, 'animate': animate }" />
+    <div :class="{ 'checked': checked && !isLoading && !isError, 'checkmark': checked && !isError, 'cross': isError, 'animate': animate }" />
   </div>
 </template>
 
@@ -15,6 +15,10 @@ export default {
     isError: Boolean,
     pulse: Boolean,
     animate: Boolean,
+    checked: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
@@ -61,6 +65,11 @@ $check-color: $success;
   background-color: $check-color;
   border-width: 1px;
   transition: border 500ms ease-out;
+
+  &.disabled {
+    border-color: $medium-gray;
+    background-color: transparent;
+  }
 
   &.is-error {
     &.can-pulse {
