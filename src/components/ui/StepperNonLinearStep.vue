@@ -87,6 +87,7 @@ p {
 
 //resize de la checkbox
 .circle-loader {
+  margin-top: 3px; //pour compenser le scale
   transform: scale(1.2);
 }
 </style>
