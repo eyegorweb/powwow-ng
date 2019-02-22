@@ -68,10 +68,12 @@
             <tr :key="row.id" v-for="row in rows">
               <td
                 :key="column.name+column.label+row.id"
-                v-for="(column, index) in columns"
-                :colspan="(index + 1) === columns.length ? 2 : 1 "
+                v-for="column in columns"
               >
                 <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" :row="row" />
+              </td>
+              <td>
+                <slot name="actions" :row="row" />
               </td>
             </tr>
           </tbody>

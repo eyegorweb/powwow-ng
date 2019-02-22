@@ -19,7 +19,7 @@
           @click.prevent="toggle"
           :class="staticClass"
         >Enregistrer</UiButton>
-        <div slot-scope="{ hide }" style="width: 256px;">
+        <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
             <span aria-hidden="true">&times;</span>
           </button>
