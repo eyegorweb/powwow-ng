@@ -4,7 +4,7 @@
       slot="trigger"
       slot-scope="{ staticClass, toggle }"
       variant="outline-secondary"
-      class="flex-grow-1 py-1 px-3"
+      class="flex-grow-1 py-1 px-1"
       @click.prevent="toggle"
       :class="staticClass"
     >{{ $t('getsim.actions.btn') }}</UiButton>
@@ -34,18 +34,6 @@ export default {
   components: {
     UiDropdownButton,
     UiButton,
-  },
-  data() {
-    return {
-      Allactions: [
-        'getsim.actions.DETAIL',
-        'getsim.actions.EXPORT',
-        'getsim.actions.SHOW_SIM',
-        'getsim.actions.DUPLICATE',
-        'getsim.actions.CANCEL',
-        'getsim.actions.VALIDATE',
-      ],
-    };
   },
   methods: {
     onActionClicked(action) {

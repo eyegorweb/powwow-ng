@@ -82,7 +82,6 @@ describe('CreateOrderStepProduct.vue', () => {
   });
 
   it('emits an event with the correct payload', () => {
-    console.log(wrapper.html());
     wrapper.find('input[type=number]').setValue(4);
 
     wrapper
