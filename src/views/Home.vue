@@ -8,7 +8,7 @@
     </div>
     <div class="container">
       <NavBars is-backoffice-profile />
-
+      <StepperNonLinear :stepper-data="stepperData" />
       <hr>
       <div class="container">
         <div class="card">
@@ -125,6 +125,7 @@ import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
+import StepperNonLinear from '@/components/ui/StepperNonLinear';
 
 export default {
   name: 'Home',
@@ -232,6 +233,15 @@ export default {
       carouselItems,
       startDate: null, // new Date(),
       endDate: null,
+      stepperData: {
+        currentIndex: 2,
+        data: [
+          { label: 'Enregistrée', date: "Il y'a 4 jours" },
+          { label: 'Validée', date: "Il y'a 4 jours" },
+          { label: 'Confirmée', date: "Il y'a 3 jours" },
+          { label: 'Terminée', date: "Il y'a 3 jours" },
+        ],
+      },
     };
   },
 
@@ -252,6 +262,7 @@ export default {
     UiApiAutocomplete,
     UiDateRange,
     InputRange,
+    StepperNonLinear,
   },
 };
 </script>
