@@ -71,7 +71,7 @@
           <div class="col-md-12 mt-5">
             <UiButton
               variant="round-button"
-              @click="$emit('prev')"
+              @click="prev"
               class="float-left ic-Arrow-Previous-Icon"
             />
             <UiButton
@@ -95,6 +95,7 @@ import CreateOrderStepDeliveryAddress from './CreateOrderStepDeliveryAddress';
 import { fetchpartnerAddresses } from '@/api/partners';
 import BlocList from '@/components/BlocList';
 import CreateOrderDeliveryNewAddress from './CreateOrderDeliveryNewAddress';
+import _get from 'lodash.get';
 
 export default {
   name: 'CreateOrderStepDelivery',
@@ -128,6 +129,7 @@ export default {
 
   async mounted() {
     this.refreshList();
+    this.selectedAdress = _get(this.synthesis, 'delivery.selection.selectedAdress');
   },
 
   methods: {
@@ -160,6 +162,16 @@ export default {
     },
 
     done() {
+      this.$emit('done', this.assembleSynthesis());
+    },
+
+    prev() {
+      this.$emit('prev', this.assembleSynthesis());
+    },
+
+    assembleSynthesis() {
+      if (!this.selectedAdress) return {};
+
       const content = [];
 
       if (this.selectedAdress.name) {
@@ -181,7 +193,8 @@ export default {
         content.push(this.selectedAdress.contactInformation.email);
         content.push(this.selectedAdress.contactInformation.phone);
       }
-      this.$emit('done', {
+
+      return {
         delivery: {
           label: 'common.delivery',
           value: {
@@ -192,8 +205,11 @@ export default {
             content,
             detail: this.selectedAdress,
           },
+          selection: {
+            selectedAdress: this.selectedAdress,
+          },
         },
-      });
+      };
     },
   },
 

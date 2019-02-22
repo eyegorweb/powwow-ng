@@ -115,7 +115,14 @@ export default {
     },
 
     done() {
-      this.$emit('done', {
+      this.$emit('done', this.assembleSynthesis());
+    },
+    prev() {
+      this.$emit('prev', this.assembleSynthesis());
+    },
+
+    assembleSynthesis() {
+      return {
         orderReference: {
           label: 'common.orderReference',
           value: {
@@ -123,7 +130,7 @@ export default {
             content: this.referenceValue,
           },
         },
-      });
+      };
     },
 
     onReferenceSet(value) {
