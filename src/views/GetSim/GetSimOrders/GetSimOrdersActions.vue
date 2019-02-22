@@ -55,6 +55,7 @@ export default {
           return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE', 'getsim.actions.CANCEL'];
 
         case 'CONFIRMATION_IN_PROGRESS':
+        case 'TO_BE_CONFIRMED':
         case 'CANCELED':
           return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
 
