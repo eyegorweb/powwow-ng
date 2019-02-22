@@ -29,17 +29,13 @@ const products = [
 const selectedObject = {
   product: {
     label: 'common.product',
-    value: {
-      content: ['M2M sim avec code pin'],
-      id: '76',
-    },
+    selection: { product: { simCard: { id: '76', name: 'M2M sim avec code pin' } } },
+    value: { content: ['M2M sim avec code pin'], id: '76' },
   },
   quantity: {
     label: 'common.quantity',
-    value: {
-      content: 4,
-      id: 'quantity',
-    },
+    selection: { quantity: '4' },
+    value: { content: '4', id: 'quantity' },
   },
 };
 
@@ -86,6 +82,9 @@ describe('CreateOrderStepProduct.vue', () => {
   });
 
   it('emits an event with the correct payload', () => {
+    console.log(wrapper.html());
+    wrapper.find('input[type=number]').setValue(4);
+
     wrapper
       .findAll('.simtype')
       .at(0)

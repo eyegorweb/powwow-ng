@@ -86,7 +86,7 @@ export default {
   },
 
   async created() {
-    this.simTypes = await fetchSim(this.synthesis.billingAccount.value.partnerId);
+    this.simTypes = await fetchSim(_get(this.synthesis, 'billingAccount.value.partnerId'));
     this.selectedNumberOfSims = _get(this.synthesis, 'quantity.selection.quantity', 0);
     this.selectedSimTypeValue = _get(this.synthesis, 'product.selection.product', {});
   },
