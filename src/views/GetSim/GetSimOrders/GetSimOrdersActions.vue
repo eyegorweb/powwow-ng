@@ -3,7 +3,7 @@
     <UiButton
       slot="trigger"
       slot-scope="{ staticClass, toggle }"
-      variant="outline-secondary"
+      variant="link"
       class="flex-grow-1 py-1 px-1"
       @click.prevent="toggle"
       :class="staticClass"
