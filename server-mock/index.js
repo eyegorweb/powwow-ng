@@ -48,12 +48,3 @@ function startServer(schemaGQL) {
     console.log(`🚀 Fake server is up at http://localhost:${port}${server.graphqlPath}`)
   );
 }
-
-function groupItems(items, size) {
-  var result = [];
-
-  for (let i = 0, j = items.length; i < j; i += size) {
-    result.push(items.slice(i, i + size));
-  }
-  return result;
-}
