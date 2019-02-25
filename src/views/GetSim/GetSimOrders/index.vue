@@ -11,6 +11,7 @@
       :total="total || 0"
       :order-by.sync="orderBy"
       :show-extra-columns.sync="showExtraColumns"
+      @change-order="changeColumnsOrder"
       :size="7"
     >
       <template slot="actions" slot-scope="{ row }">
@@ -50,6 +51,10 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
+    },
+    changeColumnsOrder(orderedColumns) {
+      const notVisibleColumns = this.columns.filter(c => !c.visible);
+      this.columns = orderedColumns.concat(notVisibleColumns);
     },
   },
   computed: {
@@ -102,6 +107,7 @@ export default {
           name: 'id',
           orderable: true,
           visible: true,
+          fixed: true,
           format: {
             component: GetSimOrdersIdColumn,
           },

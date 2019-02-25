@@ -143,7 +143,7 @@ export default {
         return this.visibleColumns;
       },
       set(newColumns) {
-        this.$emit('update:columns', newColumns);
+        this.$emit('change-order', newColumns);
       },
     },
 

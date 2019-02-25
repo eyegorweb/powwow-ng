@@ -53,12 +53,14 @@ export default {
       return this.localExtraColumns.filter(e => e.visible).length + 1 <= this.maxColumnsNumber;
     },
     isDisabled(column) {
-      if (this.localExtraColumns.length > 0 && column.id === this.localExtraColumns[0].id) {
+      if (column.fixed) {
         return true;
       }
+
       if (!column.visible) {
         return !this.canAddColumns();
       }
+
       return false;
     },
   },
