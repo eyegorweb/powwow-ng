@@ -2,7 +2,7 @@
   <SlidePanel :title="title" :is-open="isOpen" @close="closePanel" :wide="wide">
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" />
-      <OrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
+      <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -12,13 +12,13 @@ import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
 import GetSimCreateOrderPanel from './CreateOrder/CreateOrderPanel';
-import OrderDetails from './OrderDetails';
+import GetSimOrderDetails from './GetSimOrderDetails';
 
 export default {
   components: {
     SlidePanel,
     GetSimCreateOrderPanel,
-    OrderDetails,
+    GetSimOrderDetails,
   },
   methods: {
     ...mapMutations(['closePanel']),

@@ -17,6 +17,9 @@
   "text": "Texte",
   "list": "Liste",
   "date": "Date",
+  "none": "Aucune",
+  "type": "Type",
+  "action": "Action",
   "ordersFound": "commande(s) trouvée(s)",
   "common": {
     "billingAccount": "Compte de facturation",
@@ -31,7 +34,8 @@
     "true": "Oui",
     "false": "non",
     "MR": "Monsieur",
-    "MRS": "Madame"
+    "MRS": "Madame",
+    "code": "Code"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -132,6 +136,7 @@
     "input-label-custom-field": "Saisir le label du champ libre",
     "choose-type-custom-field": "Choisir le type de champ libre",
     "select-offer-placeholder": "Sélectionner l'offre",
+    "validate-order": "Valider la commande",
     "new": {
       "customer": "Client",
       "product": "Produit",
@@ -154,6 +159,8 @@
           "email": "Email :",
           "company": "Société :",
           "address": "Adresse :",
+          "deliveryAddress": "Adresse de livraison :",
+          "deliveryCoords": "Coordonnées de livraison",
           "zipcode": "Code postal :",
           "city": "Ville :",
           "country": "Pays :",
@@ -163,14 +170,24 @@
           "modify": "Modifier un destinataire"
         }
       }
+    },
+    "detail": {
+      "information": "informations générales",
+      "orderId": "ID de commande",
+      "referenceClient": "Référence client",
+      "creationDateOrder": "Date de création de commande",
+      "creator": "Demandeur",
+      "creatorMail": "Email du demandeur",
+      "manageID": "ID acte de gestion",
+      "deliveryNumber": "Numéro de livraison",
+      "simCardOffer": "cartes sim & offre",
+      "orderedQuantity": "Quantité commandée",
+      "importedQuantity": "Quantité importée",
+      "contractReference": "Référence du contrat cadre"
     }
   },
   "customFields": {
-    "customField1": "Champ libre 1",
-    "customField2": "Champ libre 2",
-    "customField3": "Champ libre 3",
-    "customField4": "Champ libre 4",
-    "customField5": "Champ libre 5",
-    "customField6": "Champ libre 6"
+    "customField": "Champ libre {i}",
+    "customFieldN": "Champ libre N° {i}"
   }
 }

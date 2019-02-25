@@ -1,5 +1,5 @@
 <template>
-  <a href="#" @click.prevent="format.onClick(item)">{{ item }}</a>
+  <a href="#" @click.prevent="format.onClick(item, row)">{{ item }}</a>
 </template>
 
 <script>
@@ -12,6 +12,7 @@ export default {
     item: {
       type: [String, Number],
     },
+    row: Object,
   },
 };
 </script>
