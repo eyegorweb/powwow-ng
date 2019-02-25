@@ -26,6 +26,17 @@ input AddressDTOInput {
   state: String
 }
 
+"""
+TODO move to root
+ Auditer la mise à jour et création d'une entité
+"""
+type Auditable {
+  created: Date
+  updated: Date
+  creator: User
+  updater: User
+}
+
 enum AvailableCustomFields {
   custom1
   custom2
@@ -101,6 +112,7 @@ type ContactInformation {
   email: String
   phone: String
   mobile: String
+  fax: String
 }
 
 input ContactInformationDTOInput {
@@ -141,6 +153,9 @@ type CustomerAccount implements Node {
   siren: String
   party: Party
   bankAccount: BankAccount
+
+  """Adresse de facturation"""
+  address: Address
 }
 
 input CustomerAccountFilterInput {
@@ -162,19 +177,44 @@ input CustomerAccountSorting {
   name: SortDirection
 }
 
-"""El�ments de cr�ation d'un custom field"""
+"""Eléments de création d'un custom field"""
 input CustomFieldInput {
   partyId: ID!
+  customFieldLabel: String
   customFieldType: CustomFieldTypeEnum!
   customFieldListValues: [String]
 }
 
-"""Enum du carat�re obligatoire d'un champs Custom"""
+"""Enum du caratère obligatoire d'un champs Custom"""
 enum CustomFieldMandatoryEnum {
   PAIRING
   ORDER
   ACTIVATION
   NONE
+}
+
+type CustomFields {
+  custom1: String
+  custom1Date: Date
+  custom2: String
+  custom2Date: Date
+  custom3: String
+  custom3Date: Date
+  custom4: String
+  custom4Date: Date
+  custom5: String
+  custom5Date: Date
+  custom6: String
+  custom6Date: Date
+}
+
+input CustomFieldsInputDTO {
+  custom1: String
+  custom2: String
+  custom3: String
+  custom4: String
+  custom5: String
+  custom6: String
 }
 
 """Enum de type de champs Custom"""
@@ -204,10 +244,40 @@ input DateTimeFilterInput {
   between: DatesRange
 }
 
+type ElectricProfile {
+  name: String
+}
+
 input EnumFilterInput {
   eq: OrderStatusEnum
   ne: OrderStatusEnum
   in: [OrderStatusEnum!]
+}
+
+enum ExportFormatEnum {
+  CSV
+  EXCEL
+}
+
+type ExportResponse {
+  """
+  URI de téléchargement du fichier d'export généré. Est null lorsque il n'est pas possible de le générer en mode synchrone.
+  """
+  downloadUri: String
+
+  """Nombre total de commandes ciblé par l'export"""
+  total: Int!
+
+  """Indique si l'export nécessite d'être généré de manière asynchrone"""
+  asyncRequired: Boolean!
+}
+
+type GraphicProfile {
+  label: String
+}
+
+type HardwareType {
+  name: String
 }
 
 input IdFilterInput {
@@ -241,8 +311,10 @@ type MarketingOffer implements Node {
 }
 
 type Mutation {
+  createOrder(orderInput: OrderInput): Order
+  updateOrder(orderId: ID!, status: OrderStatusEnum!): Order
   createCustomField(customFieldInput: CustomFieldInput): Party
-  addCustomFieldListElement(customFieldListElement: String!, partyId: ID!, customFieldName: AvailableCustomFields!): Party!
+  addElementToCustomFieldOfTypeList(customFieldListElement: String!, partyId: ID!, customFieldName: AvailableCustomFields!): Party!
   updatePartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, shippingAddressId: Int!): ShippingAddress
   addPartyShippingAddress(shippingAddress: ShippingAddressDTOInput!, partyId: Int!): ShippingAddress
   updateSIMCard(input: SIMCardInstanceInput!): SIMCardInstance!
@@ -265,22 +337,109 @@ interface Node {
 }
 
 type Order implements Node {
+  """Id de commande"""
   id: ID!
-  creationDate: Date!
-  orderDate: DateTime!
+
+  """Date création commande et Date de la commande"""
+  creationDate: DateTime!
   party: Party
+
+  """Numéro de livraison"""
   deliveryNum: Int
   preActivationAsked: Boolean
   activationAsked: Boolean
+
+  """status de commande"""
   status: OrderStatusEnum
-  Name: Name
+
+  """name - Coordonnées de livraison"""
+  name: Name
+
+  """Référence client"""
   externalId: String
-  orderItems: [OrderItem]
+
+  """Compte de facturation"""
   customerAccount: CustomerAccount
+
+  """Adresse de livraison - destinataire"""
   address: Address
+
+  """Quantité"""
+  quantity: String
+
+  """Quantité importée"""
+  countSimCardInstance: Int
+
+  """cartSim par order"""
+  simCardType: SIMCard
+
+  """
+  offerChoices == singleProduct.description
+   activationAsked = true => singleProduct = orderedMarketingOffert(with  services) else singleProduct = OrderedSIMCard
+  """
+  singleProduct: orderedProduct
+
+  """Champs libres"""
+  customFields: CustomFields
+
+  """Les coordonnés du créateur/demandeur de la commande"""
+  auditable: Auditable
+
+  """Id acte de gestion"""
+  massActionIds: [Long]
+
+  """
+  Coordonnées de livraison
+  nom société - Coordonnées de livraison
+  """
+  company: String
+
+  """Information destinataire - Coordonnées de livraison"""
+  contactInformation: ContactInformation
+
+  """Historique des statuts de la commande"""
+  orderStatusHistories: [OrderStatusHistory]
 }
 
-type OrderedProduct {
+enum OrderColumnEnum {
+  ORDER_ID
+  ORDER_CREATED
+  ORDER_EXTERNALID
+  ORDER_MASSACTIONIDS
+  ORDER_STATUS
+  ORDER_QUANTITY
+  ORDER_ORDEREDSIMCARD
+  ORDER_NAME
+  ORDER_ORDEREDMARKETINGOFFER
+  ORDER_CREATOR
+  ORDER_PARTY
+  ORDER_CUSTOMERACCOUNT
+  ORDER_PREACTIVATIONASKED
+  ORDER_ACTIVATIONASKED
+  ORDER_CUSTOMFIELDS
+}
+
+"""Services de la commande"""
+type OrderedMarketingOffer {
+  description: String
+  code: String
+  buyingPriceInEuroCentHT: Int
+  recurringPriceInEuroCentHT: Int
+  buyingPriceInEuroCentTTC: Int
+  recurringPriceInEuroCentTTC: Int
+  groupCode: String
+  groupName: String
+
+  """Lists de groupName"""
+  servicesGroup: [String]
+
+  """Labes des services par groupName"""
+  servicesLabel(groupName: String): String
+}
+
+union orderedProduct = OrderedMarketingOffer | OrderedSIMCard
+
+type OrderedSIMCard {
   description: String
   code: String
   buyingPriceInEuroCentHT: Int
@@ -292,6 +451,7 @@ type OrderedProduct {
 }
 
 input OrderFilterInput {
+  idOrder: IdFilterInput
   zipCode: StringFilterInput
   country: StringFilterInput
   city: StringFilterInput
@@ -310,6 +470,8 @@ input OrderFilterInput {
   customField6: StringFilterInput
   partyId: IdFilterInput
   customerAccountId: IdFilterInput
+
+  """quantity"""
   quantity: IntegerFilterInput
 
   """Auditable.creator"""
@@ -328,9 +490,29 @@ type OrderIndicators {
   orderToBeConfirmedByBO: Int
 }
 
-type OrderItem {
-  quantity: Int
-  orderedProduct: OrderedProduct
+input OrderInput {
+  """Compte facturation"""
+  customerAccountId: Int!
+
+  """adresse livraison"""
+  shippingAddress: ShippingAddressDTOInput!
+
+  """Reference client"""
+  externalId: String
+
+  """Id de l'offre"""
+  workflowId: Int
+
+  """quantite simcard"""
+  simCardQuantity: Int!
+  preActivationAsked: Boolean
+
+  """si true alors choix de services"""
+  activationAsked: Boolean
+
+  """ID de la simcard commandee"""
+  simCardId: Int!
+  customFieldsDTO: CustomFieldsInputDTO
 }
 
 input OrderSorting {
@@ -361,6 +543,13 @@ enum OrderStatusEnum {
   CANCELED
 }
 
+"""Historique des statuts de la commande"""
+type OrderStatusHistory {
+  user: User
+  status: OrderStatusEnum
+  statusDate: Date
+}
+
 input Pagination {
   """Nombre maximum d'�l�ments � rechercher"""
   limit: Int
@@ -369,7 +558,7 @@ input Pagination {
   page: Int
 }
 
-"""Entit� Partenaire"""
+"""Entité Partenaire"""
 type Party implements Node {
   id: ID!
 
@@ -379,11 +568,14 @@ type Party implements Node {
   """Code"""
   code: String!
 
-  """Num�ro de SIREN"""
+  """Numèro de SIREN"""
   siren: String
 
   """Code NAF"""
   naf: String
+
+  """Champs Custom1 : Label du champs (null si le champs n'existe pas)"""
+  custom1FieldLabel: String
 
   """Champs Custom1 : Type de champs (Texte, Liste ou Date)"""
   custom1FieldType: CustomFieldTypeEnum!
@@ -398,6 +590,9 @@ type Party implements Node {
   """
   custom1ValidatedValuesAsList: [String!]
 
+  """Champs Custom2 : Label du champs (null si le champs n'existe pas)"""
+  custom2FieldLabel: String
+
   """Champs Custom2 : Type de champs (Texte, Liste ou Date)"""
   custom2FieldType: CustomFieldTypeEnum!
 
@@ -410,6 +605,9 @@ type Party implements Node {
   Champs Custom2 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
   """
   custom2ValidatedValuesAsList: [String!]
+
+  """Champs Custom3 : Label du champs (null si le champs n'existe pas)"""
+  custom3FieldLabel: String
 
   """Champs Custom3 : Type de champs (Texte, Liste ou Date)"""
   custom3FieldType: CustomFieldTypeEnum!
@@ -424,6 +622,9 @@ type Party implements Node {
   """
   custom3ValidatedValuesAsList: [String!]
 
+  """Champs Custom4 : Label du champs (null si le champs n'existe pas)"""
+  custom4FieldLabel: String
+
   """Champs Custom4 : Type de champs (Texte, Liste ou Date)"""
   custom4FieldType: CustomFieldTypeEnum!
 
@@ -437,6 +638,9 @@ type Party implements Node {
   """
   custom4ValidatedValuesAsList: [String!]
 
+  """Champs Custom5 : Label du champs (null si le champs n'existe pas)"""
+  custom5FieldLabel: String
+
   """Champs Custom5 : Type de champs (Texte, Liste ou Date)"""
   custom5FieldType: CustomFieldTypeEnum!
 
@@ -449,6 +653,9 @@ type Party implements Node {
   Champs Custom5 : Liste des valeurs disponibles dans le cas d'un champs de type Liste
   """
   custom5ValidatedValuesAsList: [String!]
+
+  """Champs Custom6 : Label du champs (null si le champs n'existe pas)"""
+  custom6FieldLabel: String
 
   """Champs Custom6 : Type de champs (Texte, Liste ou Date)"""
   custom6FieldType: CustomFieldTypeEnum!
@@ -465,9 +672,12 @@ type Party implements Node {
 
   """liste des adresses de livraison du partenaire"""
   partyShippingAddresses(adressSorting: ShippingAddressSorting, addressPagination: Pagination, addressFilter: ShippingAddressFilterInput): PartyShippingAddressResponse
+
+  """Référence du contrat"""
+  contractReference: String
 }
 
-"""Crit�res de recherche de commandes"""
+"""Critères de recherche de commandes"""
 input PartyFilterInput {
   name: StringFilterInput
   id: IdFilterInput
@@ -534,8 +744,9 @@ type Query {
   servicesMarketingOffer(idMarketingOffer: Int!): MarketingOffer
   orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
   orderStatus: [OrderStatusEnum]
-  findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
+  ordersExport(filter: OrderFilterInput, columns: [OrderColumnEnum!]!, sorting: OrderSorting!, exportFormat: ExportFormatEnum!): ExportResponse
   ordersIndicators: OrderIndicators
+  findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
   party(id: Int!): Party
   partys(filter: PartyFilterInput, pagination: Pagination, sorting: PartySorting): PartysResponse
   findAllSimcards(limit: Int, page: Int): [SIMCardInstance]!
@@ -543,7 +754,7 @@ type Query {
   countSimcards: Long!
   users(filter: UserFilterInput, pagination: Pagination, sorting: UserSorting): UserResponse
   getCurrentUser: User!
-  workflows(filter: WorkflowFilterInput, sorting: WorkflowSorting): WorkflowResponse
+  workflows(filter: WorkflowFilterInput, pagination: Pagination, sorting: WorkflowSorting): WorkflowResponse
 }
 
 type Role {
@@ -601,6 +812,7 @@ enum ServiceTypeEnum {
   SIMCARD
 }
 
+"""TODO group all graphqls by file name"""
 type ShippingAddress implements Node {
   id: ID!
   company: String
@@ -616,10 +828,10 @@ input ShippingAddressDTOInput {
   contactInformation: ContactInformationDTOInput
 }
 
-"""Crit�re de recherche de l'adresse de livraison"""
+"""Critère de recherche de l'adresse de livraison"""
 input ShippingAddressFilterInput {
   """
-  Chaine de caract�re a rechercher dans les diff�rent champs de l'adresse pour l'auto complete
+  Chaine de caractère a rechercher dans les différent champs de l'adresse pour l'auto complete
   """
   stringToFind: StringFilterInput
 }
@@ -633,10 +845,20 @@ input ShippingAddressSorting {
 type SIMCard implements Node {
   id: ID!
   gencode: String
+  code: String
   name: String
   label: String
   type: String
   help: String
+
+  """Profil électrique"""
+  electricProfile: ElectricProfile
+
+  """Profil graphique"""
+  graphicProfile: GraphicProfile
+
+  """Type de matériel"""
+  hardwareType: HardwareType
 }
 
 type SIMCardInstance {
@@ -688,8 +910,8 @@ enum Title {
 type User implements Node {
   id: ID!
   name: Name
-  email: String
   username: String
+  email: String
   isUserParty: Boolean
   isBackOffice: Boolean
 }
@@ -733,6 +955,7 @@ type Workflow {
 
 input WorkflowFilterInput {
   partyId: IdFilterInput
+  description: StringFilterInput
 }
 
 type WorkflowResponse {
@@ -742,4 +965,6 @@ type WorkflowResponse {
 
 input WorkflowSorting {
   id: SortDirection
+  description: SortDirection
 }
+

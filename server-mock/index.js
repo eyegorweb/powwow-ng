@@ -26,6 +26,7 @@ function startServer(schemaGQL) {
       findSimcardById: () => db.findSimcardById,
       countSimcards: () => db.countSimcards,
       getCurrentUser: () => db.getCurrentUser,
+      findLatestSimcardsOrder: () => db.findLatestSimcardsOrder,
     },
   };
 
