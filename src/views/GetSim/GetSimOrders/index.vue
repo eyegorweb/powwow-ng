@@ -5,13 +5,13 @@
     </div>
     <DataTable
       :columns.sync="columns"
-      :extra-columns="extraColumns"
       :rows="rows || []"
       :page.sync="page"
       :page-limit.sync="pageLimit"
       :total="total || 0"
       :order-by.sync="orderBy"
       :show-extra-columns.sync="showExtraColumns"
+      :size="7"
     >
       <template slot="actions" slot-scope="{ row }">
         <GetSimOrdersActions :order="row" />
@@ -101,6 +101,7 @@ export default {
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
+          visible: true,
           format: {
             component: GetSimOrdersIdColumn,
           },
@@ -109,6 +110,7 @@ export default {
           id: 2,
           label: this.$t('col.creationDate'),
           name: 'creationDate',
+          visible: true,
           format: {
             type: 'Date',
           },
@@ -126,6 +128,7 @@ export default {
           label: this.$t('col.status'),
           name: 'status',
           orderable: true,
+          visible: true,
           format: {
             component: GetSimOrdersStatusColumn,
           },
@@ -134,23 +137,24 @@ export default {
           id: 5,
           label: this.$t('col.quantity'),
           name: 'quantity',
+          visible: true,
         },
         {
           id: 6,
           label: this.$t('col.product'),
           name: 'simCardType',
+          visible: true,
           format: {
             type: 'ObjectAttribute',
             path: 'name',
           },
         },
-      ],
-      extraColumns: [
         {
           id: 7,
           label: this.$t('col.recipient'),
           name: 'singleProduct',
           orderable: true,
+          visible: false,
           format: {
             component: GetSimOrdersDeliveryColumn,
           },
@@ -161,6 +165,7 @@ export default {
           label: this.$t('col.creator'),
           name: 'singleProduct',
           orderable: true,
+          visible: false,
           format: {
             component: GetSimOrdersCreatorColumn,
           },
@@ -169,6 +174,7 @@ export default {
           id: 8,
           label: this.$t('col.partner'),
           name: 'party',
+          visible: false,
           format: {
             type: 'ObjectAttribute',
             path: 'name',
@@ -178,7 +184,8 @@ export default {
           id: 9,
           label: this.$t('col.billingAccount'),
           name: 'customerAccount',
-          orderable: true,
+          orderable: false,
+          visible: false,
           format: {
             type: 'ObjectAttribute',
             path: 'code',
@@ -189,6 +196,7 @@ export default {
           label: this.$t('col.preActivationAsked'),
           name: 'preActivationAsked',
           orderable: false,
+          visible: false,
           format: {
             type: 'Boolean',
           },
@@ -198,6 +206,7 @@ export default {
           label: this.$t('col.activationAsked'),
           name: 'activationAsked',
           orderable: false,
+          visible: false,
           format: {
             type: 'Boolean',
           },

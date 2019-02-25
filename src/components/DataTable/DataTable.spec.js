@@ -14,10 +14,12 @@ describe('DataTable.vue', () => {
         label: 'First name',
         name: 'firstName',
         noHandle: true,
+        visible: true,
       },
       {
         label: 'Last name',
         name: 'lastName',
+        visible: true,
       },
     ];
 
@@ -33,17 +35,15 @@ describe('DataTable.vue', () => {
     const pageLimit = 10;
     const total = 20;
 
-    const extraColumns = [];
-
     wrapper = shallowMount(DataTable, {
       propsData: {
         columns,
         rows,
-        extraColumns,
         orderBy,
         page,
         pageLimit,
         total,
+        size: 7,
       },
       mocks,
     });
