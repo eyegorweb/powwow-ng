@@ -1,5 +1,6 @@
 import { query } from './utils';
 import moment from 'moment';
+import _get from 'lodash.get';
 
 export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
@@ -218,55 +219,37 @@ export async function createOrder(synthesis) {
   let address2 = '';
   let address3 = '';
   if (synthesis.delivery.value.detail.address) {
-    address1 =
-      synthesis.delivery.value.detail.address.address1 &&
-      synthesis.delivery.value.detail.address.address1 !== 'null' &&
-      synthesis.delivery.value.detail.address.address1 !== 'undefined'
-        ? synthesis.delivery.value.detail.address.address1
-        : '';
-    address2 =
-      synthesis.delivery.value.detail.address.address2 &&
-      synthesis.delivery.value.detail.address.address2 !== 'null' &&
-      synthesis.delivery.value.detail.address.address2 !== 'undefined'
-        ? synthesis.delivery.value.detail.address.address2
-        : '';
-    address3 =
-      synthesis.delivery.value.detail.address.address3 &&
-      synthesis.delivery.value.detail.address.address3 !== 'null' &&
-      synthesis.delivery.value.detail.address.address3 !== 'undefined'
-        ? synthesis.delivery.value.detail.address.address3
-        : '';
+    address1 = _get(synthesis, 'delivery.value.detail.address.address1');
+    address1 = address1 !== 'null' && address1 !== 'undefined' ? address1 : '';
+
+    address2 = _get(synthesis, 'delivery.value.detail.address.address2');
+    address2 = address2 !== 'null' && address2 !== 'undefined' ? address2 : '';
+
+    address3 = _get(synthesis, 'delivery.value.detail.address.address3');
+    address3 = address3 !== 'null' && address3 !== 'undefined' ? address3 : '';
   }
 
-  const firstName = synthesis.delivery.value.detail.name
-    ? synthesis.delivery.value.detail.name.firstName
-    : '';
-  const lastName = synthesis.delivery.value.detail.name
-    ? synthesis.delivery.value.detail.name.lastName
-    : '';
-  const title = synthesis.delivery.value.detail.name
-    ? synthesis.delivery.value.detail.name.title
-    : '';
-  const email = synthesis.delivery.value.contactInformation
-    ? synthesis.delivery.value.contactInformation.email
-    : '';
-  const phone = synthesis.delivery.value.contactInformation
-    ? synthesis.delivery.value.contactInformation.phone
-    : '';
+  const firstName = _get(synthesis, 'delivery.value.detail.name.firstName', '');
+  const lastName = _get(synthesis, 'delivery.value.detail.name.lastName', '');
+  const title = _get(synthesis, 'delivery.value.detail.name.title', '');
+
+  const email = _get(synthesis, 'delivery.value.detail.contactInformation.email', '');
+  const phone = _get(synthesis, 'delivery.value.detail.contactInformation.phone', '');
+
   const queryStr = `
   mutation {
     createOrder(orderInput: {
-      customerAccountId: ${synthesis.billingAccount.value.id},
+      customerAccountId: ${_get(synthesis, 'billingAccount.value.id')},
       shippingAddress: {
-        company: "${synthesis.delivery.value.detail.company}",
+        company: "${_get(synthesis, 'delivery.value.detail.company')}",
         address: {
           address1: "${address1}",
           address2: "${address2}",
           address3: "${address3}",
-          zipCode: "${synthesis.delivery.value.detail.address.zipCode}",
-          city: "${synthesis.delivery.value.detail.address.city}",
-          country: "${synthesis.delivery.value.detail.address.country}",
-          state: "${synthesis.delivery.value.detail.address.state}"
+          zipCode: "${_get(synthesis, 'delivery.value.detail.address.zipCode')}",
+          city: "${_get(synthesis, 'delivery.value.detail.address.city')}",
+          country: "${_get(synthesis, 'delivery.value.detail.address.country')}",
+          state: "${_get(synthesis, 'delivery.value.detail.address.state')}"
         },
         name: {
           title: ${title || 'MR'},
@@ -279,10 +262,10 @@ export async function createOrder(synthesis) {
           mobile: ""
         }
       }
-      simCardQuantity: ${synthesis.quantity.value.content},
-      preActivationAsked: ${synthesis.services.value.preActivation ? 'true' : 'false'},
+      simCardQuantity: ${_get(synthesis, 'quantity.value.content')},
+      preActivationAsked: ${_get(synthesis, 'services.value.preActivation') ? 'true' : 'false'},
       activationAsked: false,
-      simCardId: ${synthesis.product.value.id}
+      simCardId: ${_get(synthesis, 'product.value.id')}
     }) {
       id
     }
