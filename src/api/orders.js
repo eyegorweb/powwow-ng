@@ -46,6 +46,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         }
         party {
           name
+          code
         }
         quantity
         singleProduct {
