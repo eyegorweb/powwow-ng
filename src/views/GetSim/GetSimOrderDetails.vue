@@ -50,7 +50,7 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.importedQuantity') }} :</h6>
-        <p>{{ getFromOrder('countSimCardInstance') }}</p>
+        <p>{{ getFromOrder('importedQuantity') }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('action') }} :</h6>

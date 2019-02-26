@@ -148,11 +148,11 @@ export default {
         {
           id: 6,
           label: this.$t('col.product'),
-          name: 'simCardType',
+          name: 'orderedSimcard',
           visible: true,
           format: {
             type: 'ObjectAttribute',
-            path: 'name',
+            path: 'description',
           },
         },
         {

@@ -19,6 +19,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         status
         externalId
         preActivationAsked
+        importedQuantity
         contactInformation {
           email
           phone
@@ -29,8 +30,15 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           firstName
           lastName
         }
-        simCardType{
-          name
+        orderedSimcard {
+          description
+          code
+          buyingPriceInEuroCentHT
+          recurringPriceInEuroCentHT
+          buyingPriceInEuroCentTTC
+          recurringPriceInEuroCentTTC
+          groupCode
+          groupName
         }
         auditable {
           creator {
@@ -49,30 +57,17 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           code
         }
         quantity
-        singleProduct {
-          ... on OrderedMarketingOffer {
-          code
+        orderedMarketingOffer {
           description
-              buyingPriceInEuroCentHT
-              recurringPriceInEuroCentHT
-              buyingPriceInEuroCentTTC
-              recurringPriceInEuroCentTTC
-              groupCode
-              groupName
-            servicesGroup
-            servicesLabel(groupName: "TimerBV 2 Mo Groupe FR")
-          } ,
-
-          ... on OrderedSIMCard {
           code
-          description
-              buyingPriceInEuroCentHT
-              recurringPriceInEuroCentHT
-              buyingPriceInEuroCentTTC
-              recurringPriceInEuroCentTTC
-              groupCode
-              groupName
-          }
+          buyingPriceInEuroCentHT
+          recurringPriceInEuroCentHT
+          buyingPriceInEuroCentTTC
+          recurringPriceInEuroCentTTC
+          groupCode
+          groupName
+          servicesLabel
+          servicesGroup
         }
       }
     }
