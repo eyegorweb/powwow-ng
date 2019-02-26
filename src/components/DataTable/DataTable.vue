@@ -126,8 +126,7 @@ export default {
             component: SomeComponent, // utiliser SomeComponent comme composant d'affichage de la cellule
             type: String, // Pris en compte si component n'est pas définit, formatte la céllule selon un formattage prédéfinit voir (src/components/DataTable/ColumnTypes)
 
-            type: 'ObjectAttribute',
-            path: String, // Utilisé avec le type 'ObjectAttribute' affiche dans une cellule un contenu imbriqué dans l'objet de la ligne exemple :
+            path: String, // Utilisé quand type: 'ObjectAttribute', affiche dans une cellule un contenu imbriqué dans l'objet de la ligne exemple :
           },
         },
      */

@@ -7,7 +7,7 @@
 
           <div class="checkboxes">
             <Checkbox
-              v-for="column in localExtraColumns"
+              v-for="column in localColumns"
               :key="column.id"
               v-model="column.visible"
               :disabled="isDisabled(column)"
@@ -25,7 +25,10 @@ import Checkbox from '@/components/ui/Checkbox.vue';
 import cloneDeep from 'lodash.clonedeep';
 
 export default {
-  name: 'AdditionalColumns',
+  /**
+   * Choix des colonnes à afficher dans la table
+   */
+  name: 'DataTableConfiguration',
   components: {
     Checkbox,
   },
@@ -37,20 +40,17 @@ export default {
   },
   data() {
     return {
-      localExtraColumns: [],
+      localColumns: [],
     };
   },
 
   created() {
-    this.localExtraColumns = cloneDeep(this.columns);
+    this.localColumns = cloneDeep(this.columns);
   },
 
   methods: {
     saveExtraColumns() {
-      this.$emit('update:columns', this.localExtraColumns);
-    },
-    canAddColumns() {
-      return this.localExtraColumns.filter(e => e.visible).length + 1 <= this.maxColumnsNumber;
+      this.$emit('update:columns', this.localColumns);
     },
     isDisabled(column) {
       if (column.fixed) {
@@ -58,10 +58,16 @@ export default {
       }
 
       if (!column.visible) {
-        return !this.canAddColumns();
+        return !this.canAddColumns;
       }
 
       return false;
+    },
+  },
+  computed: {
+    // le nombre de colonnes visibles ne doit pas éxéder le maximum authorisé (maxColumnsNumber)
+    canAddColumns() {
+      return this.localColumns.filter(e => e.visible).length + 1 <= this.maxColumnsNumber;
     },
   },
 };
