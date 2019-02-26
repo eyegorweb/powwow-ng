@@ -92,6 +92,13 @@ import DataTableConfiguration from './DataTableConfiguration';
 import DatatableColumnTypeSwitcher from '@/components/DataTable/DataTableColumnTypeSwitcher';
 
 export default {
+  /**
+   * Composant Datatable générique utilisé dans toutes les pages
+   * Il assure les fonctionnalités suivantes :
+   *  - Configuration du type et contenu des colonnes à afficher
+   *  - Assurer le drag & drop des colonnes
+   *  - Configuration des colonnes à afficher
+   */
   name: 'DataTable',
   components: {
     draggable,
@@ -103,6 +110,27 @@ export default {
     DatatableColumnTypeSwitcher,
   },
   props: {
+    /**
+     *  Liste des colonnes à afficher, configure comment le contenu des cellules est extrait d'une ligne de résultat
+     *  Format :
+     *  {
+          id: Number| String,  // Identifiant technique de la colonne
+          label: String, // Label de la colonne
+          name: String, // Attribut de l'objet ligne à afficher, par exemple: si row={a: 'coucou', b: 'salut'} et name='a' alors le contenu seras row.a => 'coucou'
+          orderable: Boolean, // Possibilité de faire un order by avec cette colonne
+          visible: Boolean, // Affichage par défaut de la colonne dans la table
+          fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
+
+          // Optionel, objet pour customiser le format de la céllule
+          format: {
+            component: SomeComponent, // utiliser SomeComponent comme composant d'affichage de la cellule
+            type: String, // Pris en compte si component n'est pas définit, formatte la céllule selon un formattage prédéfinit voir (src/components/DataTable/ColumnTypes)
+
+            type: 'ObjectAttribute',
+            path: String, // Utilisé avec le type 'ObjectAttribute' affiche dans une cellule un contenu imbriqué dans l'objet de la ligne exemple :
+          },
+        },
+     */
     columns: {
       type: Array,
       required: true,
