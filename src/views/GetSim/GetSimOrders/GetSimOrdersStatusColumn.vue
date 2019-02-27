@@ -1,8 +1,12 @@
 <template>
-  <div class="order-status">
-    <div>
-      <CheckMark :is-error="isError" />
+  <div class="order-status d-flex flex-wrap align-items-center" v-if="orderIsLoading">
+    <div class="circle" />
+    <div class="label label--loading" :class="{'error': isError}">
+      {{ $t('col.statuses.' + item) }}
     </div>
+  </div>
+  <div class="order-status" v-else>
+    <CheckMark :is-error="isError" />
     <div class="label" :class="{'error': isError}">
       {{ $t('col.statuses.' + item) }}
     </div>
@@ -11,6 +15,7 @@
 
 <script>
 import CheckMark from '@/components/ui/CheckMark';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -23,6 +28,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['orderIsLoading']),
     isError() {
       return this.item === 'NOT_VALIDATED';
     },
@@ -30,7 +36,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '@/theme/scss/mixins/_circle.scss';
+
 .order-status {
   div {
     float: left;
@@ -40,7 +48,19 @@ export default {
       &.error {
         color: $orange;
       }
+
+      &.label--loading {
+        //gestion du loader
+        color: $gray;
+        &.error {
+          color: $gray;
+        }
+      }
     }
+  }
+
+  .circle {
+    @include circle;
   }
   clear: both;
 }
