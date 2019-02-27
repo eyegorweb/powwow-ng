@@ -127,10 +127,12 @@ export default {
 
   methods: {
     saveCustomField() {
+      if (!this.selectedMandatoryValue) return;
       const fieldData = {
         label: this.labelCustomField,
         type: this.customFieldType,
         values: this.listOptions,
+        mandatoryVal: this.selectedMandatoryValue,
       };
       this.$emit('add-field', fieldData);
     },
@@ -139,9 +141,11 @@ export default {
   computed: {
     canAddCustomField() {
       if (this.customFieldType === 'LIST') {
-        return !!this.labelCustomField && !!this.listOptions.length;
+        return (
+          !!this.labelCustomField && !!this.listOptions.length && !!this.selectedMandatoryValue
+        );
       }
-      return !!this.labelCustomField;
+      return !!this.labelCustomField && !!this.selectedMandatoryValue;
     },
 
     getAllInput() {

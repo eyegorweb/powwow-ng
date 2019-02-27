@@ -87,6 +87,7 @@ export default {
         label: fieldData.label,
         type: fieldData.type,
         values: fieldData.values,
+        mandatoryVal: fieldData.mandatoryVal,
       });
 
       this.fetchCustomFieldsForPartner();

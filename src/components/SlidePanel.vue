@@ -3,6 +3,8 @@
     <div
       class="cd-panel cd-panel--from-right js-cd-panel-main"
       :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide}"
+      id="main-sliding-panel"
+      @click="hidePanel"
     >
       <header class="cd-panel__header">
         <h1>{{ title }}</h1>
@@ -39,6 +41,14 @@ export default {
         document.getElementsByTagName('body')[0].style.overflow = 'hidden';
       } else {
         document.getElementsByTagName('body')[0].style.overflow = 'auto';
+      }
+    },
+  },
+  methods: {
+    hidePanel(e) {
+      // detecter le click dehors de la zone de contenu
+      if (e.target.classList.contains('js-cd-panel-main')) {
+        this.$emit('close');
       }
     },
   },

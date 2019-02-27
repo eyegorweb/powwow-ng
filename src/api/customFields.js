@@ -57,7 +57,7 @@ export async function fetchCustomFields(partnerId) {
   return customFields;
 }
 
-export async function createCustomField({ partyId, label, type, values }) {
+export async function createCustomField({ partyId, label, type, values, mandatoryVal }) {
   const valuesStr = values.map(v => `"${v}"`).join(',');
   const queryStr = `
   mutation {
@@ -66,6 +66,7 @@ export async function createCustomField({ partyId, label, type, values }) {
       customFieldLabel: "${label}"
       customFieldType: ${type}
       customFieldListValues: [${valuesStr}]
+      customFieldMandatory: ${mandatoryVal}
     }) {
       id
     }
