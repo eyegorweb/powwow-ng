@@ -64,7 +64,7 @@ import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
 import { fetchSim } from '@/api/products';
-import _get from 'lodash.get';
+import get from 'lodash.get';
 
 export default {
   name: 'GetSimSelectSimType',
@@ -86,9 +86,9 @@ export default {
   },
 
   async created() {
-    this.simTypes = await fetchSim(_get(this.synthesis, 'billingAccount.value.partnerId'));
-    this.selectedNumberOfSims = _get(this.synthesis, 'quantity.selection.quantity', 0);
-    this.selectedSimTypeValue = _get(this.synthesis, 'product.selection.product', {});
+    this.simTypes = await fetchSim(get(this.synthesis, 'billingAccount.value.partnerId'));
+    this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
+    this.selectedSimTypeValue = get(this.synthesis, 'product.selection.product', {});
   },
 
   methods: {
@@ -120,8 +120,8 @@ export default {
         product: {
           label: 'common.product',
           value: {
-            id: _get(this.selectedSimTypeValue, 'simCard.id'),
-            content: [_get(this.selectedSimTypeValue, 'simCard.name')],
+            id: get(this.selectedSimTypeValue, 'simCard.id'),
+            content: [get(this.selectedSimTypeValue, 'simCard.name')],
           },
           selection: {
             product: this.selectedSimTypeValue,

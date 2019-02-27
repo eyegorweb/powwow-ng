@@ -146,6 +146,13 @@
       "synthesis": "Récapitulatif de la commande",
       "acceptConditions": "Accepter les conditions contractuelles",
       "save": "ENREGISTRER LA COMMANDE",
+      "settingsStep": {
+        "mandatoryField": "Champ libre obligatoire",
+        "NONE": "Non",
+        "ORDER": "à la commande",
+        "ACTIVATION": "à l'activation",
+        "PAIRING": "au pairing"
+      },
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",
         "search": "Rechercher un destinataire :",

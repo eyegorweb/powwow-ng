@@ -95,7 +95,7 @@ import CreateOrderStepDeliveryAddress from './CreateOrderStepDeliveryAddress';
 import { fetchpartnerAddresses } from '@/api/partners';
 import BlocList from '@/components/BlocList';
 import CreateOrderDeliveryNewAddress from './CreateOrderDeliveryNewAddress';
-import _get from 'lodash.get';
+import get from 'lodash.get';
 
 export default {
   name: 'CreateOrderStepDelivery',
@@ -129,7 +129,7 @@ export default {
 
   async mounted() {
     this.refreshList();
-    this.selectedAdress = _get(this.synthesis, 'delivery.selection.selectedAdress');
+    this.selectedAdress = get(this.synthesis, 'delivery.selection.selectedAdress');
   },
 
   methods: {

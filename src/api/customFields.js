@@ -1,24 +1,31 @@
 import { query } from './utils';
+import get from 'lodash.get';
 
 export async function fetchCustomFields(partnerId) {
   const queryStr = `
   query{
     party(id: ${partnerId}) {
+      custom1FieldLabel
       custom1FieldType
     	custom1FieldMandatory
       custom1ValidatedValuesAsList
+    	custom2FieldLabel
       custom2FieldType
     	custom2FieldMandatory
       custom2ValidatedValuesAsList
+    	custom3FieldLabel
       custom3FieldType
     	custom3FieldMandatory
       custom3ValidatedValuesAsList
+    	custom4FieldLabel
       custom4FieldType
     	custom4FieldMandatory
       custom4ValidatedValuesAsList
+    	custom5FieldLabel
       custom5FieldType
     	custom5FieldMandatory
       custom5ValidatedValuesAsList
+    	custom6FieldLabel
       custom6FieldType
     	custom6FieldMandatory
       custom6ValidatedValuesAsList
@@ -26,49 +33,44 @@ export async function fetchCustomFields(partnerId) {
   }
   `;
   const response = await query(queryStr);
+  const customFields = [];
 
-  return [
-    {
-      id: partnerId + 'customField1',
-      code: 'customField1',
-      type: response.data.party.custom1FieldType,
-      value: response.data.party.custom1ValidatedValuesAsList,
-      mandatory: response.data.party.custom1FieldMandatory,
-    },
-    {
-      id: partnerId + 'customField2',
-      code: 'customField2',
-      type: response.data.party.custom2FieldType,
-      value: response.data.party.custom2ValidatedValuesAsList,
-      mandatory: response.data.party.custom2FieldMandatory,
-    },
-    {
-      id: partnerId + 'customField3',
-      code: 'customField3',
-      type: response.data.party.custom3FieldType,
-      value: response.data.party.custom3ValidatedValuesAsList,
-      mandatory: response.data.party.custom3FieldMandatory,
-    },
-    {
-      id: partnerId + 'customField4',
-      code: 'customField4',
-      type: response.data.party.custom4FieldType,
-      value: response.data.party.custom4ValidatedValuesAsList,
-      mandatory: response.data.party.custom4FieldMandatory,
-    },
-    {
-      id: partnerId + 'customField5',
-      code: 'customField5',
-      type: response.data.party.custom5FieldType,
-      value: response.data.party.custom5ValidatedValuesAsList,
-      mandatory: response.data.party.custom5FieldMandatory,
-    },
-    {
-      id: partnerId + 'customField6',
-      code: 'customField6',
-      type: response.data.party.custom6FieldType,
-      value: response.data.party.custom6ValidatedValuesAsList,
-      mandatory: response.data.party.custom6FieldMandatory,
-    },
-  ];
+  for (let i = 1, max = 6; i <= max; i++) {
+    addCustomField(response, i);
+  }
+
+  function addCustomField(response, index) {
+    const label = get(response, `data.party.custom${index}FieldLabel`);
+    if (!label) return;
+
+    const data = {
+      id: partnerId + 'customField' + index,
+      code: 'customField' + index,
+      label,
+      type: get(response, `data.party.custom${index}FieldType`),
+      value: get(response, `data.party.custom${index}ValidatedValuesAsList`),
+      mandatory: get(response, `data.party.custom${index}FieldMandatory`),
+    };
+    customFields.push(data);
+  }
+
+  return customFields;
+}
+
+export async function createCustomField({ partyId, label, type, values }) {
+  const valuesStr = values.map(v => `"${v}"`).join(',');
+  const queryStr = `
+  mutation {
+    createCustomField(customFieldInput: {
+      partyId: ${partyId}
+      customFieldLabel: "${label}"
+      customFieldType: ${type}
+      customFieldListValues: [${valuesStr}]
+    }) {
+      id
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.createCustomField;
 }

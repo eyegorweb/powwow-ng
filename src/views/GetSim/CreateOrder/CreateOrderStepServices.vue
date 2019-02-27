@@ -67,7 +67,7 @@
 import UiButton from '@/components/ui/Button';
 import UiToggle from '@/components/ui/UiToggle';
 import UiSelect from '@/components/ui/UiSelect';
-import _get from 'lodash.get';
+import get from 'lodash.get';
 
 export default {
   name: 'CreateOrderStepServices',
@@ -94,8 +94,8 @@ export default {
     };
   },
   created() {
-    this.activation = _get(this.synthesis, 'services.selection.activation', false);
-    this.preActivation = _get(this.synthesis, 'services.selection.preActivation', false);
+    this.activation = get(this.synthesis, 'services.selection.activation', false);
+    this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
   },
   methods: {
     done() {
