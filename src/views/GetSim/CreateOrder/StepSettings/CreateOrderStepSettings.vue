@@ -12,7 +12,7 @@
               @change="onValueChanged"
             />
           </div>
-          <UiButton variant="adder" block class @click="open">
+          <UiButton v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS" variant="adder" block class @click="open">
             <i class="btn-round-button ic-Plus-Icon mr-2" />
             {{ $t("orders.add-custom-field") }}
           </UiButton>
@@ -41,7 +41,8 @@ import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
 import CreateOrderAddCustomField from './CreateOrderAddCustomField';
 import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
-import { fetchCustomFields } from '@/api/customFields';
+import { fetchCustomFields, createCustomField } from '@/api/customFields';
+import get from 'lodash.get';
 
 export default {
   data() {
@@ -50,6 +51,7 @@ export default {
       allCustomFields: [],
       customFieldsValues: [],
       referenceValue: '',
+      MAX_ALLOWED_CUSTOM_FIELDS: 6,
     };
   },
 
@@ -77,18 +79,17 @@ export default {
       this.allCustomFields = await fetchCustomFields(partnerId);
     },
 
-    onSaveField(fieldData) {
+    async onSaveField(fieldData) {
       this.isOpen = false;
 
-      // Code jetable en attendant le backend
-      this.allCustomFields = [
-        ...this.allCustomFields,
-        {
-          code: fieldData.label,
-          type: fieldData.type,
-          value: fieldData.values,
-        },
-      ];
+      await createCustomField({
+        partyId: get(this.synthesis, 'billingAccount.selection.partner.id'),
+        label: fieldData.label,
+        type: fieldData.type,
+        values: fieldData.values,
+      });
+
+      this.fetchCustomFieldsForPartner();
     },
     getSelectedValue(code) {
       const existingFieldValue = this.customFieldsValues.find(c => c.code === code);

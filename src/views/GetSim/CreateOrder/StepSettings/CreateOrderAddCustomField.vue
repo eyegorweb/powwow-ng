@@ -38,7 +38,63 @@
         </div>
       </div>
 
-      <Checkbox>{{ $t('required') }}</Checkbox>
+      <div>
+        <label class="standalone mb-2">{{ $t('orders.new.settingsStep.mandatoryField') }} :</label>
+
+        <div class="row mb-2">
+          <div class="col">
+            <UiCheckbox
+              class="float-left"
+              input-type="radio"
+              shape="round"
+              name="orderRequired"
+              v-model="selectedMandatoryValue"
+              value="NONE"
+            />
+            <div class="float-left">{{ $t('orders.new.settingsStep.NONE') }}</div>
+          </div>
+
+          <div class="col">
+            <UiCheckbox
+              class="float-left"
+              input-type="radio"
+              shape="round"
+              name="orderRequired"
+              v-model="selectedMandatoryValue"
+              value="ORDER"
+            />
+            <div class="float-left">{{ $t('orders.new.settingsStep.ORDER') }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <UiCheckbox
+              class="float-left"
+              input-type="radio"
+              shape="round"
+              name="orderRequired"
+              v-model="selectedMandatoryValue"
+              value="ACTIVATION"
+            />
+            <div class="float-left">{{ $t('orders.new.settingsStep.ACTIVATION') }}</div>
+          </div>
+
+          <div class="col">
+            <UiCheckbox
+              class="float-left"
+              input-type="radio"
+              shape="round"
+              name="orderRequired"
+              v-model="selectedMandatoryValue"
+              value="PAIRING"
+            />
+            <div class="float-left">{{ $t('orders.new.settingsStep.PAIRING') }}</div>
+          </div>
+        </div>
+
+      </div>
+
       <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">{{ $t('cancel') }}</UiButton>
       <UiButton
         :variant="canAddCustomField ? 'primary' : 'outline-simple'"
@@ -53,7 +109,8 @@
 <script>
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
-import Checkbox from '@/components/ui/Checkbox';
+import UiCheckbox from '@/components/ui/Checkbox';
+
 import CreateOrderAddCustomList from './CreateOrderAddCustomList';
 
 export default {
@@ -64,6 +121,7 @@ export default {
       customFieldType: 'TEXT', // possible values: text, list, date
       labelCustomField: null,
       listOptions: [],
+      selectedMandatoryValue: undefined,
     };
   },
 
@@ -94,7 +152,7 @@ export default {
   components: {
     UiInput,
     UiButton,
-    Checkbox,
+    UiCheckbox,
     CreateOrderAddCustomList,
   },
 };

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import _get from 'lodash.get';
+import get from 'lodash.get';
 
 export default {
   props: {
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     value() {
-      return _get(this.item, this.format.path);
+      return get(this.item, this.format.path);
     },
   },
 };

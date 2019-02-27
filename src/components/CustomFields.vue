@@ -2,8 +2,7 @@
   <div>
     <div v-for="item in fields" :key="item.id" class=" mb-1">
       <div v-if="item.type === 'TEXT'">
-        <!-- TODO: to translate -->
-        {{ $t('customFields.' + item.code) }}
+        {{ item.label }}
         <UiInput
           @update:value="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
@@ -11,7 +10,7 @@
         />
       </div>
       <div class="form-group" v-if="item.type === 'LIST'">
-        <label>{{ $t('customFields.' + item.code) }}</label>
+        <label>{{ item.label }}</label>
         <br>
         <UiSelect
           placeholder="Choisissez une valeur"
@@ -21,7 +20,7 @@
         />
       </div>
       <div v-if="item.type === 'DATE'">
-        {{ $t('customFields.' + item.code) }}
+        {{ item.label }}
         <UiDate
           @change="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"

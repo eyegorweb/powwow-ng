@@ -27,7 +27,7 @@ export default {
   },
 
   props: {
-    checked: [Boolean, Array, Object],
+    checked: [Boolean, Array, Object, String],
     shape: {
       type: String,
       default: 'regular',
