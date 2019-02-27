@@ -9,6 +9,7 @@ export const state = {
   appliedFilters: [],
   ordersResponse: [],
   orderPage: 1,
+  orderIsLoading: false,
 };
 
 // Getters
@@ -32,6 +33,7 @@ export const getters = {
   currentFilters: state => state.currentFilters,
   ordersResponse: state => state.ordersResponse,
   appliedFilters: state => state.appliedFilters,
+  orderIsLoading: state => state.orderIsLoading,
   canShowSelectedFilter: state =>
     !!state.currentFilters.find(
       f => (f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to
@@ -203,7 +205,9 @@ export const actions = {
   },
 
   async fetchOrdersFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
+    commit('startLoading');
     commit('setOrdersResponse', await searchOrders(orderBy, pageInfo, appliedFilters));
+    commit('stopLoading');
   },
 };
 
@@ -327,5 +331,11 @@ export const mutations = {
   },
   setPage(state, newPage) {
     state.orderPage = newPage;
+  },
+  startLoading(state) {
+    state.orderIsLoading = true;
+  },
+  stopLoading(state) {
+    state.orderIsLoading = false;
   },
 };

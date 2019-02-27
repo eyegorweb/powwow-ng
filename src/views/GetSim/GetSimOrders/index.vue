@@ -1,23 +1,31 @@
 <template>
-  <div>
-    <div class="row mb-3 col-md-9">
-      <h2 class="text-gray" :style="{fontSize: '24px', fontWeight: '300'}">{{ `${total} ${$t('ordersFound')}` }}</h2>
-    </div>
-    <DataTable
-      :columns.sync="columns"
-      :rows="rows || []"
-      :page.sync="page"
-      :page-limit.sync="pageLimit"
-      :total="total || 0"
-      :order-by.sync="orderBy"
-      :show-extra-columns.sync="showExtraColumns"
-      @change-order="changeColumnsOrder"
-      :size="7"
+  <div class="position-relative" :style="{minHeight: '50vh'}"> <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
+    <img
+      class="loader"
+      v-if="orderIsLoading"
+      src="@/assets/spinner.svg"
     >
-      <template slot="actions" slot-scope="{ row }">
-        <GetSimOrdersActions :order="row" />
-      </template>
-    </DataTable>
+    <div :class="{'order-is-loading': orderIsLoading}">
+      <div class="row mb-3 col-md-9">
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">{{ $t('ordersFound', {'total': total}) }}</h2>
+      </div>
+      <DataTable
+        :columns.sync="columns"
+        :rows="rows || []"
+        :page.sync="page"
+        :page-limit.sync="pageLimit"
+        :total="total || 0"
+        :order-by.sync="orderBy"
+        :show-extra-columns.sync="showExtraColumns"
+        @change-order="changeColumnsOrder"
+        :size="7"
+      >
+        <template slot="actions" slot-scope="{ row }">
+          <GetSimOrdersActions :order="row" />
+        </template>
+      </DataTable>
+
+    </div>
   </div>
 </template>
 
@@ -58,7 +66,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['appliedFilters', 'ordersResponse', 'orderPage']),
+    ...mapGetters(['appliedFilters', 'ordersResponse', 'orderPage', 'orderIsLoading']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
@@ -229,5 +237,37 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.loader {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.order-is-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.5;
+
+  /deep/ .table-blue thead {
+    background-color: $gray;
+  }
+
+  /deep/ .pagination {
+    .page-item:not(.disabled) {
+      .page-link {
+        color: $gray;
+      }
+    }
+  }
+
+  /deep/ a {
+    color: $gray;
+  }
+
+  /deep/ button {
+    color: $gray;
+  }
+}
 </style>

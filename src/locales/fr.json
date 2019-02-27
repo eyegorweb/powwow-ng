@@ -20,7 +20,7 @@
   "none": "Aucune",
   "type": "Type",
   "action": "Action",
-  "ordersFound": "commande(s) trouvée(s)",
+  "ordersFound": "{total} commande(s) trouvée(s)",
   "common": {
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
