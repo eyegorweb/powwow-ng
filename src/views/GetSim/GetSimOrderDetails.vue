@@ -151,7 +151,7 @@
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.new.settings') }}</h4>
       </div>
       <div v-for="field in customFields" :key="field.index" class="overview-item">
-        <h6>{{ $t('customFields.customFieldN', {index: field.index}) }} :</h6>
+        <h6>{{ field.label }} :</h6>
         <p>{{ field.value }}</p>
       </div>
     </div>
@@ -186,7 +186,6 @@ export default {
 
   methods: {
     getFromOrder(path, defaultValue = '') {
-      console.log(this.order);
       const value = get(this.order, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
@@ -204,10 +203,12 @@ export default {
       let customFieldsArray = [];
       for (let i = 1; i <= 6; i++) {
         const value = customFields['custom' + i];
+        const label = this.order.party[`custom${i}FieldLabel`];
         if (value) {
           customFieldsArray.push({
             index: i,
             value,
+            label,
           });
         }
       }

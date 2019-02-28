@@ -201,7 +201,6 @@
     }
   },
   "customFields": {
-    "customField": "Champ libre {index}",
-    "customFieldN": "Champ libre N° {index}"
+    "customField": "Champ libre {index}"
   }
 }
