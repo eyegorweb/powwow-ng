@@ -170,12 +170,36 @@ export default {
     return {
       steps: {
         data: [
-          { code: 'SAVED', label: 'Enregistrée', date: "Il y'a 4 jours", index: 0 },
-          { code: 'NOT_VALIDATED', label: 'Enregistrée', date: "Il y'a 3 jours", index: 1 },
-          { code: 'VALIDATED', label: 'Validée', date: "Il y'a 3 jours", index: 2 },
-          { code: 'CONFIRMED', label: 'Confirmée', date: "Il y'a 3 jours", index: 3 },
-          { code: 'TERMINATED', label: 'Terminée', date: "Il y'a 2 jours", index: 4 },
-          { code: 'CANCELED', label: 'Annulée', date: "Il y'a 2 jours", index: 5 },
+          {
+            code: 'NOT_VALIDATED',
+            label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+            date: "Il y'a 3 jours",
+            index: 0,
+          },
+          {
+            code: 'VALIDATED',
+            label: this.$t('orders.detail.statuses.VALIDATED'),
+            date: "Il y'a 3 jours",
+            index: 1,
+          },
+          {
+            code: 'CONFIRMED',
+            label: this.$t('orders.detail.statuses.CONFIRMED'),
+            date: "Il y'a 3 jours",
+            index: 2,
+          },
+          {
+            code: 'TERMINATED',
+            label: this.$t('orders.detail.statuses.TERMINATED'),
+            date: "Il y'a 2 jours",
+            index: 3,
+          },
+          {
+            code: 'CANCELED',
+            label: this.$t('orders.detail.statuses.CANCELED'),
+            date: "Il y'a 2 jours",
+            index: 4,
+          },
         ],
         currentIndex: undefined,
       },
