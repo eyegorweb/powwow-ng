@@ -57,6 +57,14 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           code
         }
         quantity
+        customFields {
+          custom1
+          custom2
+          custom3
+          custom4
+          custom5
+          custom6
+        }
         orderedMarketingOffer {
           description
           code
@@ -232,6 +240,19 @@ export async function createOrder(synthesis) {
   const email = get(synthesis, 'delivery.value.detail.contactInformation.email', '');
   const phone = get(synthesis, 'delivery.value.detail.contactInformation.phone', '');
 
+  let customFieldsDTO = '{}';
+  if (
+    synthesis.customFields &&
+    synthesis.customFields.selection &&
+    synthesis.customFields.selection.length > 0
+  ) {
+    const values = synthesis.customFields.selection
+      .map((c, index) => `custom${index + 1}:"${c.value}"`)
+      .join(',');
+    customFieldsDTO = `{
+      ${values}
+    }`;
+  }
   const queryStr = `
   mutation {
     createOrder(orderInput: {
@@ -262,11 +283,13 @@ export async function createOrder(synthesis) {
       preActivationAsked: ${get(synthesis, 'services.value.preActivation') ? 'true' : 'false'},
       activationAsked: false,
       simCardId: ${get(synthesis, 'product.value.id')}
+      customFieldsDTO: ${customFieldsDTO}
     }) {
       id
     }
   }
   `;
+
   const response = await query(queryStr);
   return response.data.createOrder;
 }

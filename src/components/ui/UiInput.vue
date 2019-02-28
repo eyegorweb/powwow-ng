@@ -1,5 +1,5 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon }">
+  <label :class="{ 'has-icon': $slots.icon, error: !!error }">
     <slot name="icon" />
     <slot name="beforeInput" />
     <input
@@ -19,6 +19,8 @@
       type="text"
     >
     <slot name="afterInput" />
+
+    <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </label>
 </template>
 
@@ -44,6 +46,10 @@ export default {
       type: Number,
       required: false,
     },
+    error: {
+      type: String,
+      required: false,
+    },
   },
 };
 </script>
@@ -54,6 +60,10 @@ export default {
 @import '~bootstrap/scss/mixins/border-radius';
 
 label {
+  &.error input {
+    border: 1px solid $orange;
+    border-radius: 3px;
+  }
   position: relative;
 
   .input-group > &:not(:last-child) {

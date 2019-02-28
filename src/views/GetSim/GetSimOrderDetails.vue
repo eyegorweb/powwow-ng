@@ -2,14 +2,14 @@
   <div class="data-detail-container">
     <div v-if="order.isNew" class="row shadow alert alert-success p-3 m-3" role="alert">
       <div class="circle-loader load-complete">
-        <div class="checked checkmark"></div>
+        <div class="checked checkmark" />
       </div>
       <div class="ml-3">
         {{ $t(('orders.new.message.confirmation')) }}<br>
         {{ $t(('orders.new.message.delivery')) }}
       </div>
       <div class="cross-loader load-complete">
-        <a href="#" class="cross" @click.prevent="close"></a>
+        <a href="#" class="cross" @click.prevent="close" />
       </div>
     </div>
     <div class="overview-container m-3 bg-white">
@@ -150,13 +150,9 @@
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.new.settings') }}</h4>
       </div>
-      <div class="overview-item">
-        <h6>{{ $t('customFields.customFieldN', ['1']) }} :</h6>
-        <p>{{ getFromOrder('customFields') }}</p>
-      </div>
-      <div class="overview-item">
-        <h6>{{ $t('customFields.customFieldN', ['2']) }} :</h6>
-        <p>{{ getFromOrder('customFields') }}</p>
+      <div v-for="field in customFields" :key="field.index" class="overview-item">
+        <h6>{{ $t('customFields.customFieldN', {index: field.index}) }} :</h6>
+        <p>{{ field.value }}</p>
       </div>
     </div>
 
@@ -190,6 +186,7 @@ export default {
 
   methods: {
     getFromOrder(path, defaultValue = '') {
+      console.log(this.order);
       const value = get(this.order, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
@@ -197,6 +194,24 @@ export default {
 
     close() {
       if (this.order.isNew) this.order.isNew = false;
+    },
+  },
+
+  computed: {
+    customFields() {
+      const customFields = this.getFromOrder('customFields');
+      if (!customFields) return [];
+      let customFieldsArray = [];
+      for (let i = 1; i <= 6; i++) {
+        const value = customFields['custom' + i];
+        if (value) {
+          customFieldsArray.push({
+            index: i,
+            value,
+          });
+        }
+      }
+      return customFieldsArray;
     },
   },
 

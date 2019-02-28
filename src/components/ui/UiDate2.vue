@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div ref="singledate" class="row datepicker">
+    <div ref="singledate" class="row datepicker" :class="{ error: !!error }">
       <div class="col"><i class="icon ic-Calendar-Icon" /></div>
       <div class="col-9" style="padding: 0"><span>{{ value }}</span></div>
       <div class="col"><button v-if="value" @click.stop="clearValue" class="btn btn-link"><i class="icon ic-Cross-Icon" /></button></div>
     </div>
+    <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </div>
 </template>
 
@@ -19,6 +20,10 @@ export default {
   props: {
     value: {
       type: String,
+    },
+    error: {
+      type: String,
+      required: false,
     },
   },
   methods: {
@@ -94,6 +99,11 @@ export default {
   border: 1px solid #ccc;
   width: 100%;
   margin: 0;
+
+  &.error {
+    border: 1px solid $orange;
+    border-radius: 3px;
+  }
 
   .col {
     padding: 0;

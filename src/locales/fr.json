@@ -21,6 +21,9 @@
   "type": "Type",
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
+  "errors": {
+    "mandatory": "* Champ obligatoire"
+  },
   "common": {
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
@@ -28,6 +31,7 @@
     "quantity": "Quantité",
     "billingAccounts": "Compte de facturation",
     "orderReference": "Référence Commande",
+    "customFields": "Champs libres",
     "services": "Services",
     "YES": "Oui",
     "NO": "Non",
@@ -197,7 +201,7 @@
     }
   },
   "customFields": {
-    "customField": "Champ libre {i}",
-    "customFieldN": "Champ libre N° {i}"
+    "customField": "Champ libre {index}",
+    "customFieldN": "Champ libre N° {index}"
   }
 }
