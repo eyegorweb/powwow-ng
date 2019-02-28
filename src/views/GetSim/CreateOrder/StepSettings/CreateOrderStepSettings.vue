@@ -9,6 +9,7 @@
             <CustomFields
               :fields="allCustomFields"
               :get-selected-value="getSelectedValue"
+              :errors="customFieldsErrors"
               @change="onValueChanged"
             />
           </div>
@@ -60,6 +61,7 @@ export default {
       type: Object,
       required: true,
     },
+    customFieldsErrors: Array,
   },
 
   created() {
@@ -77,6 +79,10 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.synthesis.billingAccount.value.partnerId;
       this.allCustomFields = await fetchCustomFields(partnerId);
+      this.$emit('customFieldsMeta', {
+        all: this.allCustomFields,
+        values: [],
+      });
     },
 
     async onSaveField(fieldData) {
@@ -114,6 +120,13 @@ export default {
         customField.enteredValue = enteredValue;
         this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
       }
+
+      this.$emit('customFieldsMeta', {
+        all: this.allCustomFields,
+        values: this.customFieldsValues,
+      });
+
+      this.done();
     },
 
     done() {
@@ -124,15 +137,57 @@ export default {
     },
 
     assembleSynthesis() {
-      return {
-        orderReference: {
+      const customFieldsSynthesis = this.customFieldsValues
+        .map(c => {
+          if (!c.enteredValue && !c.enteredValue.length) return;
+          return `${c.label} : ${c.enteredValue}`;
+        })
+        .filter(c => c !== undefined);
+
+      const synthesis = {};
+      if (this.referenceValue && this.referenceValue.length > 0) {
+        synthesis.orderReference = {
           label: 'common.orderReference',
           value: {
             id: 'orderReference',
             content: this.referenceValue,
           },
-        },
-      };
+          selection: {
+            orderReference: synthesis.orderReference,
+          },
+        };
+      } else {
+        synthesis.orderReference = undefined;
+      }
+
+      if (
+        this.customFieldsValues &&
+        this.customFieldsValues.length &&
+        customFieldsSynthesis.length
+      ) {
+        const selection = this.customFieldsValues
+          .map(c => {
+            if (!c.enteredValue && !c.enteredValue.length) return;
+            return {
+              code: c.code,
+              value: c.enteredValue,
+              mandatory: c.mandatory,
+            };
+          })
+          .filter(c => c !== undefined);
+
+        synthesis.customFields = {
+          label: 'common.customFields',
+          value: {
+            id: 'customFields',
+            content: customFieldsSynthesis,
+          },
+          selection,
+        };
+      } else {
+        synthesis.customFields = undefined;
+      }
+      return synthesis;
     },
 
     onReferenceSet(value) {

@@ -103,3 +103,8 @@ $theme-colors: map-merge(
     }
   }
 }
+
+.error-text {
+  color: $orange;
+  font-size: 0.8rem;
+}

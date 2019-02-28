@@ -6,6 +6,7 @@
         <UiInput
           @update:value="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
+          :error="inError(item.code) ? 'errors.mandatory' : undefined"
           class="d-block"
         />
       </div>
@@ -17,6 +18,7 @@
           @input="(newVal) => onValueChanged(item, newVal)"
           :options="item.value"
           class="select-filter"
+          :error="inError(item.code) ? 'errors.mandatory' : undefined"
         />
       </div>
       <div v-if="item.type === 'DATE'">
@@ -25,6 +27,7 @@
           @change="(newVal) => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
           class="d-block"
+          :error="inError(item.code) ? 'errors.mandatory' : undefined"
         >
           <i slot="icon" class="select-icon ic-Flag-Icon" />
         </UiDate>
@@ -48,6 +51,9 @@ export default {
       type: Array,
     },
     getSelectedValue: Function,
+    errors: {
+      type: Array,
+    },
   },
   components: {
     UiInput,
@@ -57,6 +63,10 @@ export default {
   methods: {
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
+    },
+    inError(code) {
+      const found = this.errors && this.errors.find(e => e === code);
+      return !!found;
     },
   },
 };

@@ -1,14 +1,18 @@
 <template>
-  <select class="form-control" v-model="model" :class="{ 'arrow-blue': arrowBlue }" :size="numberOfVisibleItems">
-    <slot>
-      <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
-      <option
-        v-for="option in formattedOptions"
-        :key="option.value"
-        :value="option.value"
-      >{{ option.label }}</option>
-    </slot>
-  </select>
+  <div class="select-container">
+    <select class="form-control" v-model="model" :class="{ 'arrow-blue': arrowBlue, error: !!error }" :size="numberOfVisibleItems">
+      <slot>
+        <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
+        <option
+          v-for="option in formattedOptions"
+          :key="option.value"
+          :value="option.value"
+        >{{ option.label }}</option>
+      </slot>
+    </select>
+    <span v-if="error" class="error-text">{{ $t(error) }}</span>
+  </div>
+
 </template>
 
 <script>
@@ -34,6 +38,10 @@ export default {
     arrowBlue: {
       type: Boolean,
     },
+    error: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     formattedOptions() {
@@ -50,11 +58,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.error {
+  border: 1px solid $orange;
+  border-radius: 3px;
+}
 .form-control {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9rem;
   border-radius: $box-radius;
+  width: 100%;
+}
+
+.select-container {
+  display: inline-block;
 }
 
 select {

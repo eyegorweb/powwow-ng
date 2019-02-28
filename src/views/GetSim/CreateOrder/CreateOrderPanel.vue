@@ -15,7 +15,7 @@
           <CreateOrderStepDelivery @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
         </div>
         <div slot="Paramètres">
-          <CreateOrderStepSettings @prev="previousStep" @done="lastStep" :synthesis="synthesis" />
+          <CreateOrderStepSettings @prev="previousStep" @done="lastStep" :synthesis="synthesis" @customFieldsMeta="setCustomFieldsMeta" :custom-fields-errors="customFieldsErrors" />
         </div>
       </Stepper>
     </div>
@@ -70,6 +70,8 @@ export default {
 
       currentStep: 0,
       synthesis: {},
+      customFieldsMeta: [],
+      customFieldsErrors: undefined,
       offers: ['LEBARA 3G SERVICES', 'LEBARA 4G SERVICES', 'LEBARA DATA'],
       apn: [
         'Linkybouygues01.fr',
@@ -116,15 +118,18 @@ export default {
       this.saveSynthesis(payload);
     },
     async saveOrder() {
-      const { id } = await createOrder(this.synthesis);
-      await this.fetchOrdersFromApi({
-        orderBy: { key: 'id', direction: 'DESC' },
-        pageInfo: { page: 0, limit: 20 },
-        appliedFilters: [],
-      });
-      this.closePanel();
-      this.clearAllFilters();
-      this.openPanelForSavedOrder(id);
+      this.checkForErrors();
+      if (!this.customFieldsErrors.length) {
+        const { id } = await createOrder(this.synthesis);
+        await this.fetchOrdersFromApi({
+          orderBy: { key: 'id', direction: 'DESC' },
+          pageInfo: { page: 0, limit: 20 },
+          appliedFilters: [],
+        });
+        this.closePanel();
+        this.clearAllFilters();
+        this.openPanelForSavedOrder(id);
+      }
     },
 
     openPanelForSavedOrder(savedOrderId) {
@@ -140,6 +145,30 @@ export default {
           });
         }, 500);
       }
+    },
+    /**
+     * On a besoin des métadata des custom fields pour savoir quel champ est obligatoire
+     */
+    setCustomFieldsMeta(m) {
+      this.customFieldsMeta = m;
+    },
+    checkForErrors() {
+      const getValueForField = code => {
+        const found = this.customFieldsMeta.values.find(v => v.code === code);
+        if (found) {
+          return found.enteredValue;
+        }
+      };
+
+      this.customFieldsErrors = this.customFieldsMeta.all
+        .filter(c => c.mandatory === 'ORDER')
+        .filter(c => {
+          const value = getValueForField(c.code);
+          if (!value || value.length === 0) {
+            return true;
+          }
+        })
+        .map(c => c.code);
     },
   },
 };
