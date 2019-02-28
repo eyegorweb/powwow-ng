@@ -158,7 +158,7 @@
         "PAIRING": "au pairing"
       },
       "message": {
-        "confirmation": "La commande a bien été validée.",
+        "confirmation": "La commande a bien été enregistrée.",
         "delivery": "Les commandes sont habituellement livrées dans les 3 jours."
       },
       "deliveryStep": {
