@@ -249,7 +249,7 @@ export default {
     font-size: 1.4rem;
     color: #424f5c;
     line-height: 1.4;
-    margin: 2em 0;
+    margin: 0.5em 0;
     &:first-of-type {
       margin-top: 0;
     }
@@ -258,8 +258,8 @@ export default {
 
 @media only screen and (min-width: 768px) {
   .cd-panel__content p {
-    font-size: 1.6rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1;
   }
 }
 

@@ -34,7 +34,8 @@ import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './CreateOrderStepServices';
 import { createOrder } from '@/api/orders';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -84,9 +85,13 @@ export default {
     };
   },
 
+  computed: mapState({
+    orders: state => get(state, 'filters.ordersResponse.items', []),
+  }),
+
   methods: {
     ...mapActions(['fetchOrdersFromApi']),
-    ...mapMutations(['closePanel']),
+    ...mapMutations(['openPanel', 'closePanel', 'clearAllFilters']),
     reset() {
       this.currentStep = 0;
       this.synthesis = {};
@@ -111,13 +116,30 @@ export default {
       this.saveSynthesis(payload);
     },
     async saveOrder() {
-      await createOrder(this.synthesis);
+      const { id } = await createOrder(this.synthesis);
       await this.fetchOrdersFromApi({
         orderBy: { key: 'id', direction: 'DESC' },
         pageInfo: { page: 0, limit: 20 },
         appliedFilters: [],
       });
       this.closePanel();
+      this.clearAllFilters();
+      this.openPanelForSavedOrder(id);
+    },
+
+    openPanelForSavedOrder(savedOrderId) {
+      const order = this.orders.find(o => o.id === savedOrderId);
+      if (order) {
+        const title = this.$t('getsim.details.title', { id: savedOrderId });
+        setTimeout(() => {
+          this.openPanel({
+            title,
+            panelId: 'getsim.details.title',
+            payload: { isNew: true, ...order },
+            wide: false,
+          });
+        }, 500);
+      }
     },
   },
 };
