@@ -9,11 +9,12 @@ const mocks = { $t };
 describe('GetSimIndicators', () => {
   it('fetches indicators', async () => {
     const indicators = {
-      ordersValidated: 5,
-      ordersInProgress: 4,
-      nonConfirmedOrders: 3,
-      faillingOrders: 2,
-      ordersToBeValidated: 1,
+      ordersToBeConfirmed: 2,
+      ordersInProgress: 2,
+      ordersNotConfirmed: 0,
+      ordersFailed: 0,
+      averageProcessingTime: 0,
+      orderToBeConfirmedByBO: 0,
     };
 
     api.fetchGetSimIndicators = jest.fn();
@@ -26,12 +27,13 @@ describe('GetSimIndicators', () => {
 
     expect(api.fetchGetSimIndicators).toHaveBeenCalled();
 
-    const expectedSnapshot = `<ul class="list-group bg-white"><li class="list-group-item">indicators.ordersToValidate
-    <div class="float-right text-danger">5</div></li> <li class="list-group-item">indicators.ordersInProgress
-    <div class="float-right text-success">4</div></li> <li class="list-group-item">indicators.nonConfirmedOrders
-    <div class="float-right text-warning">3</div></li> <li class="list-group-item">indicators.faillingOrders
-    <div class="float-right text-warning">2</div></li> <li class="list-group-item">indicators.ordersToBeValidated
-    <div class="float-right text-warning">1</div></li></ul>`;
+    const expectedSnapshot = `<ul class="list-group bg-white"><li class="list-group-item">indicators.averageProcessingTime
+    <div class="float-right text-success">0</div></li> <li class="list-group-item">indicators.orderToBeConfirmedByBO
+    <div class="float-right text-success">0</div></li> <li class="list-group-item">indicators.ordersFailed
+    <div class="float-right text-danger">0</div></li> <li class="list-group-item">indicators.ordersInProgress
+    <div class="float-right text-warning">2</div></li> <li class="list-group-item">indicators.ordersNotConfirmed
+    <div class="float-right text-warning">0</div></li> <li class="list-group-item">indicators.ordersToBeConfirmed
+    <div class="float-right text-warning">2</div></li></ul>`;
 
     expect(wrapper.html()).toEqual(expectedSnapshot);
   });

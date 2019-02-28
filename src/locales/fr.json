@@ -97,11 +97,12 @@
     }
   },
   "indicators": {
-    "ordersToValidate": "Commandes à valider",
     "ordersInProgress": "Commandes en cours de traitement",
-    "nonConfirmedOrders": "Commandes non confirmées > 4h",
-    "faillingOrders": "Commandes en échec",
-    "ordersToBeValidated": "Commandes à valider par le BO"
+    "ordersNotConfirmed": "Commandes non confirmées > 4h",
+    "ordersFailed": "Commandes en échec",
+    "ordersToBeConfirmed": "Commandes à valider",
+    "averageProcessingTime": "Temps moyen de traitement",
+    "orderToBeConfirmedByBO": "Commandes à confirmer par le BO"
   },
   "filters": {
     "title": "FILTRES",

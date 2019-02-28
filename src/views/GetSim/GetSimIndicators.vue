@@ -1,19 +1,22 @@
 <template>
   <ul class="list-group bg-white">
-    <li class="list-group-item">{{ $t('indicators.ordersToValidate') }}
-      <div class="float-right text-danger">{{ ordersValidated }}</div>
+    <li class="list-group-item">{{ $t('indicators.averageProcessingTime') }}
+      <div class="float-right text-success">{{ indicators.averageProcessingTime }}</div>
+    </li>
+    <li class="list-group-item">{{ $t('indicators.orderToBeConfirmedByBO') }}
+      <div class="float-right text-success">{{ indicators.orderToBeConfirmedByBO }}</div>
+    </li>
+    <li class="list-group-item">{{ $t('indicators.ordersFailed') }}
+      <div class="float-right text-danger">{{ indicators.ordersFailed }}</div>
     </li>
     <li class="list-group-item">{{ $t('indicators.ordersInProgress') }}
-      <div class="float-right text-success">{{ ordersInProgress }}</div>
+      <div class="float-right text-warning">{{ indicators.ordersInProgress }}</div>
     </li>
-    <li class="list-group-item">{{ $t('indicators.nonConfirmedOrders') }}
-      <div class="float-right text-warning">{{ nonConfirmedOrders }}</div>
+    <li class="list-group-item">{{ $t('indicators.ordersNotConfirmed') }}
+      <div class="float-right text-warning">{{ indicators.ordersNotConfirmed }}</div>
     </li>
-    <li class="list-group-item">{{ $t('indicators.faillingOrders') }}
-      <div class="float-right text-warning">{{ faillingOrders }}</div>
-    </li>
-    <li class="list-group-item">{{ $t('indicators.ordersToBeValidated') }}
-      <div class="float-right text-warning">{{ ordersToBeValidated }}</div>
+    <li class="list-group-item">{{ $t('indicators.ordersToBeConfirmed') }}
+      <div class="float-right text-warning">{{ indicators.ordersToBeConfirmed }}</div>
     </li>
   </ul>
 </template>
@@ -24,21 +27,12 @@ import { fetchGetSimIndicators } from '@/api/indicators';
 export default {
   data() {
     return {
-      ordersValidated: 0,
-      ordersInProgress: 0,
-      nonConfirmedOrders: 0,
-      faillingOrders: 0,
-      ordersToBeValidated: 0,
+      indicators: {},
     };
   },
 
   async mounted() {
-    const result = await fetchGetSimIndicators();
-    this.ordersValidated = result.ordersValidated;
-    this.ordersInProgress = result.ordersInProgress;
-    this.nonConfirmedOrders = result.nonConfirmedOrders;
-    this.faillingOrders = result.faillingOrders;
-    this.ordersToBeValidated = result.ordersToBeValidated;
+    this.indicators = await fetchGetSimIndicators();
   },
 };
 </script>
