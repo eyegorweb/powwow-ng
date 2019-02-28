@@ -55,6 +55,12 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         party {
           name
           code
+          custom1FieldLabel
+          custom2FieldLabel
+          custom3FieldLabel
+          custom4FieldLabel
+          custom5FieldLabel
+          custom6FieldLabel
         }
         quantity
         customFields {
