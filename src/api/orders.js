@@ -270,3 +270,17 @@ export async function createOrder(synthesis) {
   const response = await query(queryStr);
   return response.data.createOrder;
 }
+
+export async function cancelOrder(orderId) {
+  const response = await query(
+    `
+    mutation {
+      updateOrder(orderId: ${orderId}, status: CANCELED) {
+        id
+        status
+      }
+    }
+    `
+  );
+  return response.data.updateOrder;
+}

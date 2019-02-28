@@ -29,6 +29,7 @@
 <script>
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
+import { cancelOrder } from '@/api/orders';
 
 export default {
   props: {
@@ -39,8 +40,13 @@ export default {
     UiButton,
   },
   methods: {
-    onActionClicked(action) {
-      console.log('Action = ', action);
+    async onActionClicked(action) {
+      switch (action) {
+        case 'getsim.actions.CANCEL': {
+          const orderData = await cancelOrder(this.order.id);
+          this.order.status = orderData.status;
+        }
+      }
     },
   },
   computed: {
