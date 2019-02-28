@@ -17,7 +17,7 @@
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
       <div class="overview-item">
-        <StepperNonLinear :stepper-data="steps" :current-index="steps.currentIndex" />
+        <StepperNonLinear :stepper-data="steps" :current-index="getIndex" />
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -174,18 +174,31 @@ export default {
     return {
       steps: {
         data: [
-          { label: 'Enregistrée', date: "Il y'a 4 jours", index: 0 },
-          { label: 'Validée', date: "Il y'a 3 jours", index: 1 },
-          { label: 'Confirmée', date: "Il y'a 3 jours", index: 2 },
-          { label: 'Terminée', date: "Il y'a 2 jours", index: 3 },
+          { code: 'SAVED', label: 'Enregistrée', date: "Il y'a 4 jours", index: 0 },
+          { code: 'NOT_VALIDATED', label: 'Enregistrée', date: "Il y'a 3 jours", index: 1 },
+          { code: 'VALIDATED', label: 'Validée', date: "Il y'a 3 jours", index: 2 },
+          { code: 'CONFIRMED', label: 'Confirmée', date: "Il y'a 3 jours", index: 3 },
+          { code: 'TERMINATED', label: 'Terminée', date: "Il y'a 2 jours", index: 4 },
+          { code: 'CANCELED', label: 'Annulée', date: "Il y'a 2 jours", index: 5 },
         ],
-        currentIndex: 0,
+        currentIndex: undefined,
       },
     };
   },
 
   props: {
     order: Object,
+  },
+
+  mounted() {
+    console.log('order', this.order);
+  },
+
+  computed: {
+    getIndex() {
+      const { index } = this.steps.data.find(c => c.code === this.order.status);
+      this.steps.currentIndex = index;
+    },
   },
 
   methods: {
