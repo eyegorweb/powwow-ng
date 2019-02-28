@@ -190,13 +190,6 @@ export default {
     console.log('order', this.order);
   },
 
-  computed: {
-    getIndex() {
-      const { index } = this.steps.data.find(c => c.code === this.order.status);
-      this.steps.currentIndex = index;
-    },
-  },
-
   methods: {
     getFromOrder(path, defaultValue = '') {
       const value = get(this.order, path, defaultValue);
@@ -210,6 +203,11 @@ export default {
   },
 
   computed: {
+    getIndex() {
+      const { index } = this.steps.data.find(c => c.code === this.order.status);
+      this.steps.currentIndex = index;
+    },
+
     customFields() {
       const customFields = this.getFromOrder('customFields');
       if (!customFields) return [];
