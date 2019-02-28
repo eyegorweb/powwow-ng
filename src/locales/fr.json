@@ -153,12 +153,15 @@
         "ACTIVATION": "à l'activation",
         "PAIRING": "au pairing"
       },
+      "message": {
+        "confirmation": "La commande a bien été validée.",
+        "delivery": "Les commandes sont habituellement livrées dans les 3 jours."
+      },
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",
         "search": "Rechercher un destinataire :",
         "searchPlaceholder": "Saisir un nom ou une adresse",
         "new": "Ajouter un destinataire",
-
         "form": {
           "firstname": "Nom :",
           "lastname": "Prénom :",

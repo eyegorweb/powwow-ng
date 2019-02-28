@@ -1,8 +1,23 @@
 <template>
   <div class="data-detail-container">
+    <div v-if="order.isNew" class="row shadow alert alert-success p-3 m-3" role="alert">
+      <div class="circle-loader load-complete">
+        <div class="checked checkmark"></div>
+      </div>
+      <div class="ml-3">
+        {{ $t(('orders.new.message.confirmation')) }}<br>
+        {{ $t(('orders.new.message.delivery')) }}
+      </div>
+      <div class="cross-loader load-complete">
+        <a href="#" class="cross" @click.prevent="close"></a>
+      </div>
+    </div>
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
+      </div>
+      <div class="overview-item">
+        <StepperNonLinear :stepper-data="steps" :current-index="steps.currentIndex" />
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -151,9 +166,24 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
+import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
 
 export default {
+  data() {
+    return {
+      steps: {
+        data: [
+          { label: 'Enregistrée', date: "Il y'a 4 jours", index: 0 },
+          { label: 'Validée', date: "Il y'a 3 jours", index: 1 },
+          { label: 'Confirmée', date: "Il y'a 3 jours", index: 2 },
+          { label: 'Terminée', date: "Il y'a 2 jours", index: 3 },
+        ],
+        currentIndex: 0,
+      },
+    };
+  },
+
   props: {
     order: Object,
   },
@@ -164,10 +194,15 @@ export default {
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
     },
+
+    close() {
+      if (this.order.isNew) this.order.isNew = false;
+    },
   },
 
   components: {
     UiButton,
+    StepperNonLinear,
   },
 };
 </script>
@@ -177,6 +212,90 @@ $fontSize: 0.8rem;
 .data-detail-container {
   overflow-y: auto;
   height: 100%;
+
+  $loader-size: 1.5em;
+  $check-height: $loader-size/2;
+  $check-width: $check-height/2;
+  $check-left: $loader-size/6;
+  $check-thickness: 2px;
+  $check-color: $success;
+
+  .circle-loader {
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-left-color: $secondary;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%;
+    width: $loader-size;
+    height: $loader-size;
+  }
+  .cross-loader {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    right: 20px;
+  }
+
+  .load-complete {
+    border-color: $check-color;
+    background-color: transparent;
+    border-width: 1px;
+    transition: border 500ms ease-out;
+  }
+
+  .checkmark {
+    display: none;
+
+    &.checked {
+      display: block;
+    }
+    &:after {
+      opacity: 1;
+      height: $check-height;
+      width: $check-width;
+      transform-origin: left top;
+      border-right: $check-thickness solid $success;
+      border-top: $check-thickness solid $success;
+      content: '';
+      left: $check-left;
+      top: $check-height;
+      position: absolute;
+      transform: scaleX(-1) rotate(135deg);
+    }
+  }
+
+  .cross {
+    $cross-size: $loader-size / 2;
+
+    height: $cross-size;
+    width: $cross-size;
+    position: absolute;
+    right: 0;
+    font-size: 24px;
+    margin: -0.5rem 0 0 0;
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: 0.55rem;
+      top: $cross-size / 2;
+      content: ' ';
+      height: $cross-size;
+      width: 2px;
+      background-color: $success;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
 }
 .overview-container {
   padding: 2rem;

@@ -332,6 +332,11 @@ export const mutations = {
   setPage(state, newPage) {
     state.orderPage = newPage;
   },
+
+  clearAllFilters(state) {
+    state.currentFilters = [];
+    state.appliedFilters = [];
+  },
   startLoading(state) {
     state.orderIsLoading = true;
   },
