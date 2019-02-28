@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="select-container">
     <select class="form-control" v-model="model" :class="{ 'arrow-blue': arrowBlue, error: !!error }" :size="numberOfVisibleItems">
       <slot>
         <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
@@ -68,6 +68,10 @@ export default {
   font-size: 0.9rem;
   border-radius: $box-radius;
   width: 100%;
+}
+
+.select-container {
+  display: inline-block;
 }
 
 select {
