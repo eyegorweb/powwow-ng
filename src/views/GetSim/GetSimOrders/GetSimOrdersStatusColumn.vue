@@ -30,7 +30,7 @@ export default {
   computed: {
     ...mapGetters(['orderIsLoading']),
     isError() {
-      return this.item === 'NOT_VALIDATED';
+      return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED';
     },
   },
 };
