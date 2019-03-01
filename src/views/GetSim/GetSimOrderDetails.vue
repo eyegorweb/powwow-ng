@@ -165,6 +165,7 @@
 import UiButton from '@/components/ui/Button';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
+import moment from 'moment';
 
 export default {
   data() {
@@ -177,34 +178,44 @@ export default {
         {
           code: 'NOT_VALIDATED',
           label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          date: "Il y'a 3 jours",
+          // date: "Il y'a 3 jours",
+          date: this.getDateFrom(),
           index: 0,
         },
         {
           code: 'VALIDATED',
           label: this.$t('orders.detail.statuses.VALIDATED'),
-          date: "Il y'a 3 jours",
+          date: this.getDateFrom(),
           index: 1,
         },
         {
           code: 'CONFIRMED',
           label: this.$t('orders.detail.statuses.CONFIRMED'),
-          date: "Il y'a 3 jours",
+          date: this.getDateFrom(),
           index: 2,
         },
         {
           code: 'TERMINATED',
           label: this.$t('orders.detail.statuses.TERMINATED'),
-          date: "Il y'a 2 jours",
+          date: this.getDateFrom(),
           index: 3,
         },
       ],
-      cancelData: {
-        code: 'CANCELED',
-        label: this.$t('orders.detail.statuses.CANCELED'),
-        date: "Il y'a 2 jours",
-        index: 0,
-      },
+      cancelData: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          // date: "Il y'a 3 jours",
+          date: this.getDateFrom(),
+          index: 0,
+        },
+        {
+          code: 'CANCELED',
+          label: this.$t('orders.detail.statuses.CANCELED'),
+          date: this.getDateFrom(),
+          index: 1,
+        },
+      ],
       isCanceled: false,
     };
   },
@@ -237,7 +248,8 @@ export default {
     getData() {
       const _isCanceled = this.cancel();
       if (_isCanceled) {
-        this.steps.data.push(this.cancelData);
+        // this.steps.data.push(this.cancelData);
+        this.cancelData.map(o => this.steps.data.push(o));
       } else {
         this.confirmationData.map(o => this.steps.data.push(o));
       }
@@ -248,6 +260,11 @@ export default {
       const { index } = this.steps.data.find(c => c.code === this.order.status);
       this.steps.currentIndex = index;
       return this.steps.currentIndex;
+    },
+
+    getDateFrom() {
+      console.log('history', this.order.orderStatusHistories);
+      return moment([2019, 2, 29]).fromNow();
     },
   },
 
