@@ -9,12 +9,8 @@ import StepperNonLinearStep from '@/components/ui/StepperNonLinearStep';
 
 export default {
   props: {
-    stepperData: {
-      type: Object,
-    },
-    currentIndex: {
-      type: Number,
-    },
+    stepperData: Object,
+    currentIndex: Number,
   },
   components: {
     StepperNonLinearStep,

@@ -17,7 +17,8 @@
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
       <div class="overview-item">
-        <StepperNonLinear :stepper-data="steps" :current-index="getIndex" />
+        <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="steps.currentIndex" />
+        <StepperNonLinear v-if="isCanceled" :stepper-data="steps" />
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -169,40 +170,42 @@ export default {
   data() {
     return {
       steps: {
-        data: [
-          {
-            code: 'NOT_VALIDATED',
-            label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-            date: "Il y'a 3 jours",
-            index: 0,
-          },
-          {
-            code: 'VALIDATED',
-            label: this.$t('orders.detail.statuses.VALIDATED'),
-            date: "Il y'a 3 jours",
-            index: 1,
-          },
-          {
-            code: 'CONFIRMED',
-            label: this.$t('orders.detail.statuses.CONFIRMED'),
-            date: "Il y'a 3 jours",
-            index: 2,
-          },
-          {
-            code: 'TERMINATED',
-            label: this.$t('orders.detail.statuses.TERMINATED'),
-            date: "Il y'a 2 jours",
-            index: 3,
-          },
-          {
-            code: 'CANCELED',
-            label: this.$t('orders.detail.statuses.CANCELED'),
-            date: "Il y'a 2 jours",
-            index: 4,
-          },
-        ],
-        currentIndex: undefined,
+        data: [],
+        currentIndex: 0,
       },
+      confirmationData: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: "Il y'a 3 jours",
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('orders.detail.statuses.VALIDATED'),
+          date: "Il y'a 3 jours",
+          index: 1,
+        },
+        {
+          code: 'CONFIRMED',
+          label: this.$t('orders.detail.statuses.CONFIRMED'),
+          date: "Il y'a 3 jours",
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: "Il y'a 2 jours",
+          index: 3,
+        },
+      ],
+      cancelData: {
+        code: 'CANCELED',
+        label: this.$t('orders.detail.statuses.CANCELED'),
+        date: "Il y'a 2 jours",
+        index: 0,
+      },
+      isCanceled: false,
     };
   },
 
@@ -211,7 +214,8 @@ export default {
   },
 
   mounted() {
-    console.log('order', this.order);
+    this.getData();
+    this.getIndex();
   },
 
   methods: {
@@ -224,14 +228,30 @@ export default {
     close() {
       if (this.order.isNew) this.order.isNew = false;
     },
-  },
 
-  computed: {
+    cancel() {
+      if (this.order.status === 'CANCELED') this.isCanceled = true;
+      return this.isCanceled;
+    },
+
+    getData() {
+      const _isCanceled = this.cancel();
+      if (_isCanceled) {
+        this.steps.data.push(this.cancelData);
+      } else {
+        this.confirmationData.map(o => this.steps.data.push(o));
+      }
+      return this.steps;
+    },
+
     getIndex() {
       const { index } = this.steps.data.find(c => c.code === this.order.status);
       this.steps.currentIndex = index;
+      return this.steps.currentIndex;
     },
+  },
 
+  computed: {
     customFields() {
       const customFields = this.getFromOrder('customFields');
       if (!customFields) return [];
