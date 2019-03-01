@@ -179,25 +179,25 @@ export default {
           code: 'NOT_VALIDATED',
           label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
           // date: "Il y'a 3 jours",
-          date: this.getDateFrom(),
+          date: null,
           index: 0,
         },
         {
           code: 'VALIDATED',
           label: this.$t('orders.detail.statuses.VALIDATED'),
-          date: this.getDateFrom(),
+          date: null,
           index: 1,
         },
         {
           code: 'CONFIRMED',
           label: this.$t('orders.detail.statuses.CONFIRMED'),
-          date: this.getDateFrom(),
+          date: null,
           index: 2,
         },
         {
           code: 'TERMINATED',
           label: this.$t('orders.detail.statuses.TERMINATED'),
-          date: this.getDateFrom(),
+          date: null,
           index: 3,
         },
       ],
@@ -206,13 +206,13 @@ export default {
           code: 'NOT_VALIDATED',
           label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
           // date: "Il y'a 3 jours",
-          date: this.getDateFrom(),
+          date: null,
           index: 0,
         },
         {
           code: 'CANCELED',
           label: this.$t('orders.detail.statuses.CANCELED'),
-          date: this.getDateFrom(),
+          date: null,
           index: 1,
         },
       ],
@@ -226,6 +226,7 @@ export default {
 
   mounted() {
     this.getData();
+    this.getDateFrom();
     this.getIndex();
   },
 
@@ -263,8 +264,28 @@ export default {
     },
 
     getDateFrom() {
-      console.log('history', this.order.orderStatusHistories);
-      return moment([2019, 2, 29]).fromNow();
+      const _isCanceled = this.cancel();
+      if (_isCanceled) {
+        return this.cancelData.filter(o =>
+          this.order.orderStatusHistories.find(function(s) {
+            if (s.status === o.code) {
+              o.date = s.statusDate;
+              console.log(o.date);
+              return moment(o.date).fromNow();
+            }
+          })
+        );
+      } else {
+        return this.confirmationData.filter(o =>
+          this.order.orderStatusHistories.find(function(s) {
+            if (s.status === o.code) {
+              o.date = s.statusDate;
+              console.log(o.date);
+              return moment(o.date).fromNow();
+            }
+          })
+        );
+      }
     },
   },
 
