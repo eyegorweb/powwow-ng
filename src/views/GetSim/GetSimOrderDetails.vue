@@ -18,7 +18,7 @@
       </div>
       <div class="overview-item">
         <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="steps.currentIndex" />
-        <StepperNonLinear v-if="isCanceled" :stepper-data="steps" />
+        <StepperNonLinear v-if="isCanceled" :stepper-data="steps" :is-error="isCanceled" />
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.orderId') }} :</h6>

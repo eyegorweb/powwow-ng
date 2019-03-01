@@ -1,7 +1,7 @@
 <template>
   <div class="step" :class="{'validated': validated}">
-    <div class="checkmark-line"><CheckMark :checked="validated" /></div>
-    <p class="label">{{ label }}</p>
+    <div :class="{'checkmark-line': !isError }"><CheckMark :checked="validated" :is-error="isError" /></div>
+    <p class="label" :class="{'is-error': isError }">{{ label }}</p>
     <p class="time">{{ date }}</p>
   </div>
 </template>
@@ -19,18 +19,11 @@ export default {
     this.validated = this.index <= this.currentIndex ? true : false;
   },
   props: {
-    label: {
-      type: String,
-    },
-    date: {
-      type: String,
-    },
-    currentIndex: {
-      type: Number,
-    },
-    index: {
-      type: Number,
-    },
+    label: String,
+    date: String,
+    currentIndex: Number,
+    index: Number,
+    isError: Boolean,
   },
   components: {
     CheckMark,
@@ -56,6 +49,9 @@ p {
   &.validated {
     .label {
       color: $success;
+      &.is-error {
+        color: $orange;
+      }
     }
 
     .checkmark-line {

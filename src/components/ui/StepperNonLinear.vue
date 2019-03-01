@@ -1,6 +1,6 @@
 <template>
   <div class="stepper">
-    <StepperNonLinearStep v-for="(step, i) in stepperData.data" :key="step.label" :label="step.label" :date="step.date" :current-index="stepperData.currentIndex" :index="i" />
+    <StepperNonLinearStep v-for="(step, i) in stepperData.data" :key="step.label" :label="step.label" :date="step.date" :current-index="stepperData.currentIndex" :index="i" :is-error="isError" />
   </div>
 </template>
 
@@ -11,6 +11,7 @@ export default {
   props: {
     stepperData: Object,
     currentIndex: Number,
+    isError: Boolean,
   },
   components: {
     StepperNonLinearStep,
