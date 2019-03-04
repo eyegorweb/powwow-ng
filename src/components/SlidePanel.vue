@@ -7,7 +7,7 @@
       @click="hidePanel"
     >
       <header class="cd-panel__header">
-        <h1>{{ title }}</h1>
+        <h1 class="font-weight-light">{{ title }}</h1>
 
         <a
           href="#0"
