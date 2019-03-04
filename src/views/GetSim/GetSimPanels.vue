@@ -3,6 +3,7 @@
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
+      <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -13,12 +14,14 @@ import { mapState, mapMutations } from 'vuex';
 
 import GetSimCreateOrderPanel from './CreateOrder/CreateOrderPanel';
 import GetSimOrderDetails from './GetSimOrderDetails';
+import GetSimCreatorDetails from './GetSimCreatorDetails';
 
 export default {
   components: {
     SlidePanel,
     GetSimCreateOrderPanel,
     GetSimOrderDetails,
+    GetSimCreatorDetails,
   },
   methods: {
     ...mapMutations(['closePanel']),

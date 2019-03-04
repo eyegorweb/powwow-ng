@@ -39,7 +39,10 @@
     "false": "non",
     "MR": "Monsieur",
     "MRS": "Madame",
-    "code": "Code"
+    "code": "Code",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -57,6 +60,9 @@
     "le": "Inférieure à",
     "details": {
       "title": "Commande n° {id}"
+    },
+    "creator": {
+      "title": "Utilisateur {firstName} {lastName}"
     },
     "actions": {
       "btn": "Actions",
@@ -168,8 +174,8 @@
         "searchPlaceholder": "Saisir un nom ou une adresse",
         "new": "Ajouter un destinataire",
         "form": {
-          "firstname": "Nom :",
-          "lastname": "Prénom :",
+          "firstname": "Prénom :",
+          "lastname": "Nom :",
           "phone": "Téléphone :",
           "email": "Email :",
           "company": "Société :",
@@ -188,6 +194,8 @@
     },
     "detail": {
       "information": "informations générales",
+      "personalInformations": "informations personnelles",
+      "partnerAndRoles": "Partenaire et rôles",
       "orderId": "ID de commande",
       "referenceClient": "Référence client",
       "creationDateOrder": "Date de création de commande",
@@ -198,6 +206,10 @@
       "simCardOffer": "cartes sim & offre",
       "orderedQuantity": "Quantité commandée",
       "importedQuantity": "Quantité importée",
+      "contractReference": "Référence du contrat cadre",
+      "deActivate": "Désactivé",
+      "title": "Titre",
+      "roles": "Rôles"
       "contractReference": "Référence du contrat cadre",
       "statuses": {
         "NOT_VALIDATED": "Enregistrée",

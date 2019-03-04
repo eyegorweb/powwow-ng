@@ -47,6 +47,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
               firstName
               lastName
             }
+            email
           }
         }
         customerAccount {
