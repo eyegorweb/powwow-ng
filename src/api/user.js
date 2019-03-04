@@ -11,6 +11,11 @@ export async function fetchCurrentUserInfos() {
           firstName
           lastName
         }
+        roles {
+          name
+          description
+          category
+        }
       }
     }
     `
