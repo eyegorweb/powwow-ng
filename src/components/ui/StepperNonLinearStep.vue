@@ -46,6 +46,23 @@ p {
   font-size: 12px;
   flex-grow: 1;
 
+  .checkmark-line {
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      background-color: $medium-gray;
+      width: calc(100% - (24px + 10px));
+      height: 2px;
+      transition: all 500ms ease-out;
+    }
+  }
+
   &.validated {
     .label {
       color: $success;
@@ -78,6 +95,16 @@ p {
 
   .time {
     font-size: 10px;
+  }
+  &:last-child {
+    .checkmark-line {
+      position: relative;
+
+      &:after {
+        content: '';
+        display: none;
+      }
+    }
   }
 }
 
