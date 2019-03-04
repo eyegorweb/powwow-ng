@@ -1,14 +1,20 @@
-import { delay } from './utils';
+import { query } from './utils';
 
-// MOCK temporaire en attendant l'api du backend
 export async function fetchGetSimIndicators() {
-  await delay(200);
+  const response = await query(
+    `
+    query{
+      ordersIndicators {
+        ordersToBeConfirmed
+        ordersInProgress
+        ordersNotConfirmed
+        ordersFailed
+        averageProcessingTime
+        orderToBeConfirmedByBO
+      }
+    }
+    `
+  );
 
-  return {
-    ordersValidated: 4,
-    ordersInProgress: 1,
-    nonConfirmedOrders: 5,
-    faillingOrders: 8,
-    ordersToBeValidated: 2,
-  };
+  return response.data.ordersIndicators;
 }
