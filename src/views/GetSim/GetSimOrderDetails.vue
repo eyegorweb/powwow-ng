@@ -223,9 +223,7 @@ export default {
   },
 
   mounted() {
-    this.prepareStepper();
-    this.displayStatusIndex();
-    this.displayStatusDate();
+    this.displayStepper();
   },
 
   methods: {
@@ -244,13 +242,15 @@ export default {
       return this.isCanceled;
     },
 
-    prepareStepper() {
+    displayStepper() {
       const _isCanceled = this.cancelOrder();
       if (_isCanceled) {
         this.cancelStepper.map(o => this.steps.data.push(o));
       } else {
         this.confirmationStepper.map(o => this.steps.data.push(o));
       }
+      this.displayStatusIndex();
+      this.displayStatusDate();
       return this.steps;
     },
 
