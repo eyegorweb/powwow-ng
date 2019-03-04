@@ -71,7 +71,8 @@
       "SHOW_SIM": "Afficher les cartes SIM",
       "DUPLICATE": "Dupliquer",
       "CANCEL": "Annuler",
-      "VALIDATE": "Valider"
+      "VALIDATE": "Valider",
+      "CONFIRM": "Confirmer"
     }
   },
   "col": {
@@ -109,6 +110,17 @@
     "ordersToBeConfirmed": "Commandes à valider",
     "averageProcessingTime": "Temps moyen de traitement",
     "orderToBeConfirmedByBO": "Commandes à confirmer par le BO"
+  },
+  "services": {
+    "VOIX_ENTRANTE": "Voix entrante",
+    "VOIX_SORTANTE": "Voix sortante",
+    "SMS_ENTRANT": "SMS entrant",
+    "SMS_SORTANT": "SMS sortant",
+    "NUMERO_DATA_CSD": "Numéro data csd",
+    "DATA_CSD_ENTRANTE": "data csd entrante",
+    "DATA_CSD_SORTANTE": "data csd sortante",
+    "ROAMING": "Roaming",
+    "DATA": "Data"
   },
   "filters": {
     "title": "FILTRES",
