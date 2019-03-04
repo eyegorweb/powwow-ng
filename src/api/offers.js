@@ -10,6 +10,33 @@ export async function fetchOffers(q, partners, { page, limit }) {
       items {
         code
         workflowDescription
+        initialOffer {
+          id
+          nonSystemServiceGroupList {
+            id
+            system
+            type
+            code
+            standardAndSemiGlobalCatalogServiceGroups {
+              activatedByDefault
+              partyAccess
+              catalogService {
+                code
+              }
+              catalogServiceParameters {
+                id
+                setOnActivation
+                defaultValue
+                label
+                partyAccess
+                serviceParameter {
+                  code
+                  name
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

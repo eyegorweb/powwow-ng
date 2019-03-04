@@ -32,7 +32,7 @@ import CreateOrderStepClient from './CreateOrderStepClient';
 import CreateOrderStepProduct from './CreateOrderStepProduct';
 import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
-import CreateOrderStepServices from './CreateOrderStepServices';
+import CreateOrderStepServices from './Services/CreateOrderStepServices';
 import { createOrder } from '@/api/orders';
 import { mapActions, mapMutations, mapState } from 'vuex';
 import get from 'lodash.get';

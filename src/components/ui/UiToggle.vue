@@ -1,5 +1,5 @@
 <template>
-  <div class="toggle" :class="[label ? 'with-label': 'without-label' ,enabled]">
+  <div class="toggle" :class="[label ? 'with-label': 'without-label' ,statusClassName]">
     <div v-if="label" class="before-label">
       <p class="before-label__label">{{ label }}</p>
       <p class="before-label__dots" />
@@ -26,43 +26,31 @@ export default {
       type: Boolean,
       required: false,
     },
-    defaultState: {
-      // soit "enabled" ou "desabled"
-      type: String,
-      required: false,
-    },
     label: {
       type: String,
       required: false,
+    },
+    editable: {
+      type: Boolean,
+      default: true,
     },
   },
 
   computed: {
     model: {
-      get: ({ checked, defaultState }) => {
-        if (defaultState) {
-          // si on recoit en props un état par défaut on sette le model en fonction de l'état par défaut renseigné
-          return defaultState === 'enabled' ? true : false;
-        }
-
+      get: ({ checked }) => {
         return checked;
       },
       set(model) {
         this.$emit('change', model);
       },
     },
-    enabled() {
-      // gestion de l'état par défaut, "enabled" ou "desabled"
-      if (this.defaultState) {
-        if (this.defaultState === 'enabled') {
-          return 'enabled';
-        } else if (this.defaultState === 'disabled') {
-          return 'disabled';
-        } else {
-          return '';
-        }
-      } else {
+    statusClassName() {
+      // gestion de l'état par défaut, "enabled" ou "disabled"
+      if (this.editable) {
         return '';
+      } else {
+        return this.checked ? 'enabled' : 'disabled';
       }
     },
   },
