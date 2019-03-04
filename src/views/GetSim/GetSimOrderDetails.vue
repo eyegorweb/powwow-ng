@@ -165,7 +165,7 @@
 import UiButton from '@/components/ui/Button';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
-import moment from 'moment';
+// import moment from 'moment';
 
 export default {
   data() {
@@ -265,24 +265,25 @@ export default {
 
     getDateFrom() {
       const _isCanceled = this.cancel();
+
       if (_isCanceled) {
-        return this.cancelData.filter(o =>
-          this.order.orderStatusHistories.find(function(s) {
-            if (s.status === o.code) {
-              o.date = s.statusDate;
-              console.log(o.date);
-              return moment(o.date).fromNow();
+        return this.cancelData.filter(c =>
+          this.order.orderStatusHistories.filter(o => {
+            if (c.code === o.status) {
+              c.date = o.statusDate;
             }
+            // console.log(moment(c.date).fromNow());
+            return c;
           })
         );
       } else {
-        return this.confirmationData.filter(o =>
-          this.order.orderStatusHistories.find(function(s) {
-            if (s.status === o.code) {
-              o.date = s.statusDate;
-              console.log(o.date);
-              return moment(o.date).fromNow();
+        return this.confirmationData.filter(c =>
+          this.order.orderStatusHistories.filter(o => {
+            if (c.code === o.status) {
+              c.date = o.statusDate;
             }
+            // console.log('date', c.date, moment(c.date).fromNow());
+            return c;
           })
         );
       }
