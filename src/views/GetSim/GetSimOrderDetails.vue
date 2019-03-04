@@ -174,11 +174,10 @@ export default {
         data: [],
         currentIndex: 0,
       },
-      confirmationData: [
+      confirmationStepper: [
         {
           code: 'NOT_VALIDATED',
           label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          // date: "Il y'a 3 jours",
           date: null,
           index: 0,
         },
@@ -201,11 +200,10 @@ export default {
           index: 3,
         },
       ],
-      cancelData: [
+      cancelStepper: [
         {
           code: 'NOT_VALIDATED',
           label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          // date: "Il y'a 3 jours",
           date: null,
           index: 0,
         },
@@ -225,9 +223,9 @@ export default {
   },
 
   mounted() {
-    this.getData();
-    this.getDateFrom();
-    this.getIndex();
+    this.prepareStepper();
+    this.displayStatusIndex();
+    this.displayStatusDate();
   },
 
   methods: {
@@ -241,33 +239,32 @@ export default {
       if (this.order.isNew) this.order.isNew = false;
     },
 
-    cancel() {
+    cancelOrder() {
       if (this.order.status === 'CANCELED') this.isCanceled = true;
       return this.isCanceled;
     },
 
-    getData() {
-      const _isCanceled = this.cancel();
+    prepareStepper() {
+      const _isCanceled = this.cancelOrder();
       if (_isCanceled) {
-        // this.steps.data.push(this.cancelData);
-        this.cancelData.map(o => this.steps.data.push(o));
+        this.cancelStepper.map(o => this.steps.data.push(o));
       } else {
-        this.confirmationData.map(o => this.steps.data.push(o));
+        this.confirmationStepper.map(o => this.steps.data.push(o));
       }
       return this.steps;
     },
 
-    getIndex() {
+    displayStatusIndex() {
       const { index } = this.steps.data.find(c => c.code === this.order.status);
       this.steps.currentIndex = index;
       return this.steps.currentIndex;
     },
 
-    getDateFrom() {
-      const _isCanceled = this.cancel();
+    displayStatusDate() {
+      const _isCanceled = this.cancelOrder();
 
       if (_isCanceled) {
-        return this.cancelData.filter(c =>
+        return this.cancelStepper.filter(c =>
           this.order.orderStatusHistories.filter(o => {
             if (c.code === o.status) {
               c.date = o.statusDate;
@@ -277,7 +274,7 @@ export default {
           })
         );
       } else {
-        return this.confirmationData.filter(c =>
+        return this.confirmationStepper.filter(c =>
           this.order.orderStatusHistories.filter(o => {
             if (c.code === o.status) {
               c.date = o.statusDate;
