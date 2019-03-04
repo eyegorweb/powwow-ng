@@ -17,7 +17,8 @@
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
       <div class="overview-item">
-        <StepperNonLinear :stepper-data="steps" :current-index="steps.currentIndex" />
+        <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="steps.currentIndex" />
+        <StepperNonLinear v-if="isCanceled" :stepper-data="steps" />
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -164,24 +165,67 @@
 import UiButton from '@/components/ui/Button';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
+// import moment from 'moment';
 
 export default {
   data() {
     return {
       steps: {
-        data: [
-          { label: 'Enregistrée', date: "Il y'a 4 jours", index: 0 },
-          { label: 'Validée', date: "Il y'a 3 jours", index: 1 },
-          { label: 'Confirmée', date: "Il y'a 3 jours", index: 2 },
-          { label: 'Terminée', date: "Il y'a 2 jours", index: 3 },
-        ],
+        data: [],
         currentIndex: 0,
       },
+      confirmationStepper: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('orders.detail.statuses.VALIDATED'),
+          date: null,
+          index: 1,
+        },
+        {
+          code: 'CONFIRMED',
+          label: this.$t('orders.detail.statuses.CONFIRMED'),
+          date: null,
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: null,
+          index: 3,
+        },
+      ],
+      cancelStepper: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+          statusError: false,
+        },
+        {
+          code: 'CANCELED',
+          label: this.$t('orders.detail.statuses.CANCELED'),
+          date: null,
+          index: 1,
+          statusError: true,
+        },
+      ],
+      isCanceled: false,
     };
   },
 
   props: {
     order: Object,
+  },
+
+  mounted() {
+    this.displayStepper();
   },
 
   methods: {
@@ -193,6 +237,55 @@ export default {
 
     close() {
       if (this.order.isNew) this.order.isNew = false;
+    },
+
+    cancelOrder() {
+      if (this.order.status === 'CANCELED') this.isCanceled = true;
+      return this.isCanceled;
+    },
+
+    displayStepper() {
+      const _isCanceled = this.cancelOrder();
+      if (_isCanceled) {
+        this.cancelStepper.map(o => this.steps.data.push(o));
+      } else {
+        this.confirmationStepper.map(o => this.steps.data.push(o));
+      }
+      this.displayStatusIndex();
+      this.displayStatusDate();
+      return this.steps;
+    },
+
+    displayStatusIndex() {
+      const { index } = this.steps.data.find(c => c.code === this.order.status);
+      this.steps.currentIndex = index;
+      return this.steps.currentIndex;
+    },
+
+    displayStatusDate() {
+      const _isCanceled = this.cancelOrder();
+
+      if (_isCanceled) {
+        return this.cancelStepper.filter(c =>
+          this.order.orderStatusHistories.filter(o => {
+            if (c.code === o.status) {
+              c.date = o.statusDate;
+            }
+            // console.log(moment(c.date).fromNow());
+            return c;
+          })
+        );
+      } else {
+        return this.confirmationStepper.filter(c =>
+          this.order.orderStatusHistories.filter(o => {
+            if (c.code === o.status) {
+              c.date = o.statusDate;
+            }
+            // console.log('date', c.date, moment(c.date).fromNow());
+            return c;
+          })
+        );
+      }
     },
   },
 

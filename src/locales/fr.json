@@ -221,7 +221,18 @@
       "contractReference": "Référence du contrat cadre",
       "deActivate": "Désactivé",
       "title": "Titre",
-      "roles": "Rôles"
+      "roles": "Rôles",
+      "statuses": {
+        "NOT_VALIDATED": "Enregistrée",
+        "VALIDATED": "Validée",
+        "TO_BE_CONFIRMED": "À confirmer",
+        "TO_BE_CONFIRMED_BY_BO": "À confirmer par le BO",
+        "CONFIRMATION_IN_PROGRESS": "En cours de confirmation",
+        "CONFIRMED": "Confirmée",
+        "FAILED": "Échouée",
+        "TERMINATED": "Terminée",
+        "CANCELED": "Annulée"
+      }
     }
   },
   "customFields": {
