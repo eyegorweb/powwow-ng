@@ -209,8 +209,7 @@
       "contractReference": "Référence du contrat cadre",
       "deActivate": "Désactivé",
       "title": "Titre",
-      "roles": "Rôles"
-      "contractReference": "Référence du contrat cadre",
+      "roles": "Rôles",
       "statuses": {
         "NOT_VALIDATED": "Enregistrée",
         "VALIDATED": "Validée",
