@@ -84,6 +84,10 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           servicesLabel
           servicesGroup
         }
+        orderStatusHistories{
+          status
+          statusDate
+        }
       }
     }
   }
