@@ -160,15 +160,14 @@
 
     </div>
     <div class="footer-bock">
-      <UiButton variant="accent" block>{{ $t('orders.validate-order') }}</UiButton>
-
+      <GetSimOrderDetailsButtons :order="order" />
     </div>
   </div>
 </template>
 
 <script>
-import UiButton from '@/components/ui/Button';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
+import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
 // import moment from 'moment';
 
@@ -315,14 +314,17 @@ export default {
   },
 
   components: {
-    UiButton,
     StepperNonLinear,
+    GetSimOrderDetailsButtons,
   },
 };
 </script>
 
 <style scoped lang="scss">
 $fontSize: 0.8rem;
+.main-content {
+  padding-bottom: 20vh;
+}
 .data-detail-container {
   $loader-size: 1.5em;
   $check-height: $loader-size/2;

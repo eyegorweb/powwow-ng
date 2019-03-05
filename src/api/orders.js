@@ -318,3 +318,17 @@ export async function cancelOrder(orderId) {
   );
   return response.data.updateOrder;
 }
+
+export async function validateOrder(orderId) {
+  const response = await query(
+    `
+    mutation {
+      updateOrder(orderId: ${orderId}, status: VALIDATED) {
+        id
+        status
+      }
+    }
+    `
+  );
+  return response.data.updateOrder;
+}
