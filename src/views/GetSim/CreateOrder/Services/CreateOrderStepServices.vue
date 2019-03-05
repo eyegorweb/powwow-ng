@@ -11,34 +11,23 @@
         </div>
         <div v-if="activation">
           <div class="row justify-content-center">
-            <UiSelect class="form-offers w-75 mt-4" :class="selectedOffer ? '' : 'disabled'" v-model="selectedOffer" :placeholder="$t('orders.select-offer-placeholder')" :options="offers" :arrow-blue="true" />
+            <OffersChoice v-model="selectedOffer" :offers="offers" :partner-id="partnerId" />
           </div>
-          <div>
-            <h2 class="title">{{ $t('orders.personalize-services') }}</h2>
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="Itinérance" />
-            <UiToggle label="N° data CSD" default-state="disabled" />
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="Data CSD sortante" default-state="disabled" />
-            <UiToggle label="Data CSD entrante" default-state="disabled" />
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="SMS sortant" checked />
-            <UiToggle label="SMS entrant" default-state="disabled" />
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="Voix sortante" default-state="disabled" />
-            <UiToggle label="Voix entrante" default-state="disabled" />
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="Data" default-state="enabled" />
-            <div class="select-container">
-              <p>APN :</p>
-              <UiSelect class="form-offers" :class="selectedOffer ? '' : 'disabled'" v-model="selectedApn" :options="apn" :number-of-visible-items="3" />
+
+          <template v-if="selectedOfferData">
+            <div>
+              <h2 class="title">{{ $t('orders.personalize-services') }}</h2>
             </div>
-          </div>
+
+            <div class="services-container">
+              <div :key="service.id" v-for="service in basicServices" class="single-service mt-3 mb-3">
+                <BasicService :name="service.name" :dependency-code="service.code" :offer="selectedOfferData" />
+              </div>
+            </div>
+
+            <DataService :offer="selectedOfferData" />
+
+          </template>
         </div>
       </div>
       <div class="footer-bock">
@@ -66,16 +55,25 @@
 <script>
 import UiButton from '@/components/ui/Button';
 import UiToggle from '@/components/ui/UiToggle';
-import UiSelect from '@/components/ui/UiSelect';
+// import UiSelect from '@/components/ui/UiSelect';
+import OffersChoice from './OffersChoice';
+import BasicService from './BasicService';
+import DataService from './DataService';
+
 import get from 'lodash.get';
+import { fetchOffersForPartnerId } from '@/api/offers';
 
 export default {
   name: 'CreateOrderStepServices',
+  components: {
+    UiButton,
+    UiToggle,
+    // UiSelect,
+    OffersChoice,
+    BasicService,
+    DataService,
+  },
   props: {
-    offers: {
-      type: Array,
-      required: true,
-    },
     apn: {
       type: Array,
       required: true,
@@ -91,11 +89,72 @@ export default {
       selectedApn: this.apn[0],
       activation: false,
       preActivation: false,
+      partnerId: undefined,
+      offers: [],
+      selectedOfferData: undefined,
+
+      basicServices: [
+        {
+          id: 0,
+          name: 'VOIX_ENTRANTE',
+          code: '2175',
+        },
+        {
+          id: 1,
+          name: 'VOIX_SORTANTE',
+          code: '2023',
+        },
+        {
+          id: 2,
+          name: 'SMS_ENTRANT',
+          code: '2171',
+        },
+        {
+          id: 3,
+          name: 'SMS_SORTANT',
+          code: '2174',
+        },
+        {
+          id: 4,
+          name: 'NUMERO_DATA_CSD',
+          code: '2188',
+        },
+        {
+          id: 5,
+          name: 'DATA_CSD_ENTRANTE',
+          code: '2172',
+        },
+        {
+          id: 6,
+          name: 'DATA_CSD_SORTANTE',
+          code: '2173',
+        },
+        {
+          id: 7,
+          name: 'ROAMING',
+          code: '77',
+        },
+      ],
     };
   },
-  created() {
+  async created() {
+    this.partnerId = get(this.synthesis, 'billingAccount.selection.partner.id');
     this.activation = get(this.synthesis, 'services.selection.activation', false);
     this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
+
+    const offers = await fetchOffersForPartnerId(this.partnerId);
+    this.offers = offers.map(o => {
+      return {
+        ...o,
+        label: o.workflowDescription,
+        value: o.code,
+      };
+    });
+  },
+  watch: {
+    selectedOffer(selectedValue) {
+      this.selectedOfferData = this.offers.find(o => o.value === selectedValue);
+    },
   },
   methods: {
     done() {
@@ -125,15 +184,25 @@ export default {
       };
     },
   },
-  components: {
-    UiButton,
-    UiToggle,
-    UiSelect,
-  },
 };
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 1366px) {
+  .services-container {
+    width: 100% !important;
+  }
+}
+
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  .single-service {
+    flex-basis: 50%;
+  }
+}
 .get-sim-services {
   .title {
     background-color: transparent;
@@ -171,7 +240,7 @@ export default {
   }
 
   .select-container {
-    max-width: 220px;
+    max-width: 270px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;

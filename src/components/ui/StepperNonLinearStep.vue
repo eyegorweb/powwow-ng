@@ -1,6 +1,6 @@
 <template>
   <div class="step" :class="{'validated': validated}">
-    <div :class="{'checkmark-line': !isError }"><CheckMark :checked="validated" :is-error="isError" /></div>
+    <div class="checkmark-line"><CheckMark :checked="validated" :is-error="isError" /></div>
     <p class="label" :class="{'is-error': isError }">{{ label }}</p>
     <p class="time">{{ date }}</p>
   </div>
@@ -10,13 +10,10 @@
 import CheckMark from '@/components/ui/CheckMark';
 
 export default {
-  data() {
-    return {
-      validated: false,
-    };
-  },
-  mounted() {
-    this.validated = this.index <= this.currentIndex ? true : false;
+  computed: {
+    validated() {
+      return this.index <= this.currentIndex ? true : false;
+    },
   },
   props: {
     label: String,

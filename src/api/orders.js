@@ -2,6 +2,7 @@ import { query } from './utils';
 import moment from 'moment';
 import get from 'lodash.get';
 
+// TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
@@ -50,8 +51,26 @@ export async function searchOrders(orderBy, pagination, filters = []) {
             email
           }
         }
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
         customerAccount {
           code
+          address {
+            address1
+            address2
+            address3
+            zipCode
+            city
+            country
+            state
+          }
         }
         party {
           name
@@ -306,10 +325,18 @@ export async function createOrder(synthesis) {
 }
 
 export async function cancelOrder(orderId) {
+  return await updateOrderStatus(orderId, 'CANCELED');
+}
+
+export async function validateOrder(orderId) {
+  return await updateOrderStatus(orderId, 'VALIDATED');
+}
+
+export async function updateOrderStatus(orderId, newStatus) {
   const response = await query(
     `
     mutation {
-      updateOrder(orderId: ${orderId}, status: CANCELED) {
+      updateOrder(orderId: ${orderId}, status: ${newStatus}) {
         id
         status
       }

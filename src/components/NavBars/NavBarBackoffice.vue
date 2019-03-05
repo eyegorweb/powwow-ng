@@ -10,19 +10,19 @@
 
     <div class="input-group w-auto flex-grow-1">
       <UiSelect
-        class="text-gray"
+        class="text-gray flex-fill"
         :placeholder="$t('partnerType')"
         v-model="selectedPartnerType"
         :options="partnersTypeOptions"
       />
       <UiSelect
-        class="text-gray"
+        class="text-gray flex-fill"
         :placeholder="$t('choosePartner')"
         v-model="selectedPartner"
         :options="partnersOptions"
       />
       <UiSelect
-        class="text-gray"
+        class="text-gray flex-fill"
         :placeholder="$t('chooseBillingAccounts')"
         v-model="selectedAccount"
         :options="billingAccounts"

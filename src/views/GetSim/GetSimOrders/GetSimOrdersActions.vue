@@ -78,6 +78,8 @@ export default {
             'getsim.actions.SHOW_SIM',
             'getsim.actions.DUPLICATE',
           ];
+        case 'TO_BE_CONFIRMED_BY_BO':
+          return ['getsim.actions.DETAIL', 'getsim.actions.CONFIRM', 'getsim.actions.DUPLICATE'];
       }
     },
   },
