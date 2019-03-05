@@ -18,7 +18,7 @@
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
         </div>
         <div class="overview-item">
-          <StepperNonLinear v-if="statusStepperIndex" :stepper-data="steps" :current-index="statusStepperIndex" />
+          <StepperNonLinear v-if="statusStepperIndex !== undefined" :stepper-data="steps" :current-index="statusStepperIndex" />
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -58,7 +58,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
-          <p>{{ getFromOrder('orderedSIMCard.description') }}</p>
+          <p>{{ getFromOrder('orderedSimcard.description') }}</p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderedQuantity') }} :</h6>
@@ -143,7 +143,10 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.address') }}</h6>
-          <p>{{ getFromOrder('customerAccount.address') }}</p>
+          <p>{{ getFromOrder('customerAccount.address.address1') }}</p>
+          <p v-if="getFromOrder('customerAccount.address.address2')">{{ getFromOrder('customerAccount.address.address2') }}</p>
+          <p v-if="getFromOrder('customerAccount.address.address3')">{{ getFromOrder('customerAccount.address.address3') }}</p>
+          <p v-if="getFromOrder('customerAccount.address.city')"> {{ getFromOrder('customerAccount.address.zipCode') }} - {{ getFromOrder('customerAccount.address.city') }}</p>
         </div>
       </div>
 
@@ -225,9 +228,7 @@ export default {
 
   methods: {
     getFromOrder(path, defaultValue = '') {
-      const value = get(this.order, path, defaultValue);
-      // lodash.get only applies defaultValue to undefined
-      return value == null ? defaultValue : value;
+      return get(this.order, path, defaultValue);
     },
 
     close() {

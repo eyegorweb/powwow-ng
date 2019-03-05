@@ -2,6 +2,7 @@ import { query } from './utils';
 import moment from 'moment';
 import get from 'lodash.get';
 
+// TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
@@ -52,6 +53,15 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         }
         customerAccount {
           code
+          address {
+            address1
+            address2
+            address3
+            zipCode
+            city
+            country
+            state
+          }
         }
         party {
           name
