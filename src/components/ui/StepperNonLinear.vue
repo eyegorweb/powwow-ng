@@ -1,6 +1,6 @@
 <template>
   <div class="stepper">
-    <StepperNonLinearStep v-for="(step, i) in stepperData.data" :key="step.label" :label="step.label" :date="step.date" :current-index="stepperData.currentIndex" :index="i" :is-error="step.statusError" />
+    <StepperNonLinearStep v-for="(step, i) in stepperData.data" :key="step.label" :label="step.label" :date="step.date" :current-index="currentIndex" :index="i" :is-error="step.statusError" />
   </div>
 </template>
 

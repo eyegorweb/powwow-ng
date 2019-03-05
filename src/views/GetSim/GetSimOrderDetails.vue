@@ -18,8 +18,8 @@
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
         </div>
         <div class="overview-item">
-          <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="steps.currentIndex" />
-          <StepperNonLinear v-if="isCanceled" :stepper-data="steps" />
+          <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="statusStepperIndex" />
+          <StepperNonLinear v-if="isCanceled" :stepper-data="steps" :current-index="1" />
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -174,9 +174,8 @@ import get from 'lodash.get';
 export default {
   data() {
     return {
-      steps: {
+      stepsOld: {
         data: [],
-        currentIndex: 0,
       },
       confirmationStepper: [
         {
@@ -228,10 +227,6 @@ export default {
     order: Object,
   },
 
-  mounted() {
-    this.displayStepper();
-  },
-
   methods: {
     getFromOrder(path, defaultValue = '') {
       const value = get(this.order, path, defaultValue);
@@ -242,58 +237,36 @@ export default {
     close() {
       if (this.order.isNew) this.order.isNew = false;
     },
-
-    cancelOrder() {
-      if (this.order.status === 'CANCELED') this.isCanceled = true;
-      return this.isCanceled;
-    },
-
-    displayStepper() {
-      const _isCanceled = this.cancelOrder();
-      if (_isCanceled) {
-        this.cancelStepper.map(o => this.steps.data.push(o));
-      } else {
-        this.confirmationStepper.map(o => this.steps.data.push(o));
-      }
-      this.displayStatusIndex();
-      this.displayStatusDate();
-      return this.steps;
-    },
-
-    displayStatusIndex() {
-      const { index } = this.steps.data.find(c => c.code === this.order.status);
-      this.steps.currentIndex = index;
-      return this.steps.currentIndex;
-    },
-
-    displayStatusDate() {
-      const _isCanceled = this.cancelOrder();
-
-      if (_isCanceled) {
-        return this.cancelStepper.filter(c =>
-          this.order.orderStatusHistories.filter(o => {
-            if (c.code === o.status) {
-              c.date = o.statusDate;
-            }
-            // console.log(moment(c.date).fromNow());
-            return c;
-          })
-        );
-      } else {
-        return this.confirmationStepper.filter(c =>
-          this.order.orderStatusHistories.filter(o => {
-            if (c.code === o.status) {
-              c.date = o.statusDate;
-            }
-            // console.log('date', c.date, moment(c.date).fromNow());
-            return c;
-          })
-        );
-      }
-    },
   },
 
   computed: {
+    steps() {
+      let stepsToUse;
+      if (this.order.status === 'CANCELED') {
+        stepsToUse = this.cancelStepper;
+      } else {
+        stepsToUse = this.confirmationStepper;
+      }
+
+      stepsToUse = stepsToUse.map(s => {
+        const historyEntry = this.order.orderStatusHistories.find(h => h.status === s.code);
+        if (historyEntry) {
+          s.date = historyEntry.statusDate;
+        }
+        return s;
+      });
+
+      return {
+        data: stepsToUse,
+      };
+    },
+    statusStepperIndex() {
+      if (!this.steps && this.steps.data) return;
+      const res = this.steps.data.find(c => c.code === this.order.status);
+      if (res) {
+        return res.index;
+      }
+    },
     customFields() {
       const customFields = this.getFromOrder('customFields');
       if (!customFields) return [];
