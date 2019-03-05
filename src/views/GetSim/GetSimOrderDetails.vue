@@ -127,7 +127,7 @@
           <p>{{ getFromOrder('party.code') }}</p>
         </div>
         <div class="overview-item">
-          <h6>{{ $t('orders.new.deliveryStep.form.firstname') }}</h6>
+          <h6>{{ $t('orders.new.deliveryStep.form.lastname') }}</h6>
           <p>{{ getFromOrder('party.name') }}</p>
         </div>
         <div class="overview-item">
