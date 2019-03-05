@@ -1,6 +1,6 @@
 <template>
   <div class="panel-vertical-container">
-    <div class="main-content">
+    <div class="main-content data-detail-container">
       <div v-if="order.isNew" class="row shadow alert alert-success p-3 m-3" role="alert">
         <div class="circle-loader load-complete">
           <div class="checked checkmark" />
