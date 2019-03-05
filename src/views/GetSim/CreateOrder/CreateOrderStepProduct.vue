@@ -2,41 +2,47 @@
   <div class="get-sim-product">
     <div class="panel-vertical-container">
       <div class="main-content">
-        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t("getsim.manage-orders") }}</h3>
-
-        <div class="choose-sim-type">
-          <form>
-            <GetSimTypeOption
-              v-for="item in filteredSimTypes"
-              :key="item.id"
-              :item="item"
-              :default-selected-item.sync="selectedSimTypeValue"
-              :is-active="selectedSimTypeValue && selectedSimTypeValue.simCard && selectedSimTypeValue.simCard.id === item.simCard.id"
+        <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t("getsim.step-product") }}</h3>
+          <div class="choose-sim-type">
+            <form>
+              <GetSimTypeOption
+                v-for="item in filteredSimTypes"
+                :key="item.id"
+                :item="item"
+                :default-selected-item.sync="selectedSimTypeValue"
+                :is-active="selectedSimTypeValue && selectedSimTypeValue.simCard && selectedSimTypeValue.simCard.id === item.simCard.id"
+              />
+            </form>
+            <div class="text-right">
+              <a
+                v-if="!allSimTypesVisible"
+                href="#"
+                @click.prevent="showAllSimTypes"
+                class="show-all-types text-right"
+              >
+                {{ $t("getsim.show-all-sim-types") }}
+                <i class="arrow ic-Arrow-Down-Icon" />
+              </a>
+            </div>
+          </div>
+          <div class="choose-amount">
+            <h2 class="panel-title mt-4">{{ $t("getsim.choose-sim-amount") }}</h2>
+            <UiInput
+              :placeholder="1"
+              v-model="selectedNumberOfSims"
+              value
+              class="d-block w-50 mx-auto"
+              input-type="number"
+              :min-value="1"
             />
-          </form>
-          <div class="text-right">
-            <a
-              v-if="!allSimTypesVisible"
-              href="#"
-              @click.prevent="showAllSimTypes"
-              class="show-all-types text-right"
-            >
-              {{ $t("getsim.show-all-sim-types") }}
-              <i class="arrow ic-Arrow-Down-Icon" />
-            </a>
           </div>
         </div>
-        <div class="choose-amount">
-          <h2 class="panel-title mt-4">{{ $t("getsim.choose-sim-amount") }}</h2>
-          <UiInput
-            :placeholder="1"
-            v-model="selectedNumberOfSims"
-            value
-            class="d-block w-50 mx-auto"
-            input-type="number"
-            :min-value="1"
-          />
+        <div v-else>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t("getsim.no-sim-card") }}</h3>
         </div>
+
+
       </div>
       <div class="footer-bock">
         <div class="row">

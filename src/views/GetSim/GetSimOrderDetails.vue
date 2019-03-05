@@ -111,7 +111,10 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.deliveryAddress') }}</h6>
-          <p>{{ getFromOrder('address') }}</p>
+          <p>{{ getFromOrder('address.address1') }}</p>
+          <p v-if="getFromOrder('address.address2')">{{ getFromOrder('address.address2') }}</p>
+          <p v-if="getFromOrder('address.address3')">{{ getFromOrder('address.address3') }}</p>
+          <p v-if="getFromOrder('address.city')"> {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}</p>
         </div>
       </div>
 
@@ -228,7 +231,8 @@ export default {
 
   methods: {
     getFromOrder(path, defaultValue = '') {
-      return get(this.order, path, defaultValue);
+      const value = get(this.order, path, defaultValue);
+      return value !== 'null' ? value : '';
     },
 
     close() {

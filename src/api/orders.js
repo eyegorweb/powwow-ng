@@ -51,6 +51,15 @@ export async function searchOrders(orderBy, pagination, filters = []) {
             email
           }
         }
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
         customerAccount {
           code
           address {

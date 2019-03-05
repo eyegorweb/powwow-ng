@@ -46,6 +46,8 @@
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
+    "step-product": "Choisir un type de carte SIM",
+    "no-sim-card": "Aucun type de carte SIM défini pour ce partenaire",
     "order-sim": "Commander des cartes SIM",
     "show-all-sim-types": "Afficher tous les types de cartes",
     "choose-sim-amount": "et une quantité",
@@ -117,8 +119,8 @@
     "SMS_ENTRANT": "SMS entrant",
     "SMS_SORTANT": "SMS sortant",
     "NUMERO_DATA_CSD": "Numéro data csd",
-    "DATA_CSD_ENTRANTE": "data csd entrante",
-    "DATA_CSD_SORTANTE": "data csd sortante",
+    "DATA_CSD_ENTRANTE": "Data csd entrante",
+    "DATA_CSD_SORTANTE": "Data csd sortante",
     "ROAMING": "Roaming",
     "DATA": "Data"
   },
