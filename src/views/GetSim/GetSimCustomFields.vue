@@ -40,7 +40,7 @@ export default {
     },
     onValueChanged(customField, newVal) {
       let selectedCustomFieldsValues = [];
-      const labelForSynthesis = this.$t('customFields.' + customField.code) + ': ' + newVal;
+      const labelForSynthesis = customField.label + ': ' + newVal;
       if (this.selectedCustomFieldsValues) {
         selectedCustomFieldsValues = this.selectedCustomFieldsValues;
       }
@@ -48,14 +48,16 @@ export default {
       if (selected) {
         selected.value = newVal;
         this.setCustomFieldsFilter(
-          selectedCustomFieldsValues.filter(s => s.value && s.value.length > 0).map(s => {
-            if (s.id === selected.id) {
-              selected.label = labelForSynthesis;
-              return selected;
-            } else {
-              return s;
-            }
-          })
+          selectedCustomFieldsValues
+            .filter(s => s.value && s.value.length > 0)
+            .map(s => {
+              if (s.id === selected.id) {
+                selected.label = labelForSynthesis;
+                return selected;
+              } else {
+                return s;
+              }
+            })
         );
       } else {
         this.setCustomFieldsFilter([

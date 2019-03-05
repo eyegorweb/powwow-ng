@@ -15,6 +15,7 @@
         <br>
         <UiSelect
           placeholder="Choisissez une valeur"
+          :value="getSelectedValue(item.code)"
           @input="(newVal) => onValueChanged(item, newVal)"
           :options="item.value"
           class="select-filter"

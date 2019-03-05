@@ -1,6 +1,6 @@
 <template>
   <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <a href="#">{{ $t(filter.id) }}</a>
+    <span class="detail-title">{{ $t(filter.id) }}</span>
     <div data-test="content">
       <template v-if="filter.values">
         <template v-for="op in filter.values">
@@ -82,7 +82,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .alert-info {
   padding: 0 0.3rem;
   background-color: #d9edf7;
@@ -92,8 +92,8 @@ export default {
   padding: 0.15rem 0.1rem;
 }
 
-a {
-  color: #009dcc;
+.detail-title {
+  color: $secondary;
   font-size: 14px;
   line-height: 1em;
 }
