@@ -7,7 +7,7 @@
       <UiButton variant="accent" block @click="updateStatus('CONFIRMED')">{{ $t('getsim.actions.CONFIRM') }}</UiButton>
     </div>
     <div v-if="statusIn(['NOT_VALIDATED'])">
-      <UiButton variant="accent" block>{{ $t('getsim.actions.CANCEL') }}</UiButton>
+      <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{ $t('getsim.actions.CANCEL') }}</UiButton>
     </div>
     <div v-if="statusIn(['TERMINATED'])">
       <UiButton variant="accent" block>{{ $t('getsim.actions.SHOW_SIM') }}</UiButton>
@@ -43,7 +43,6 @@ export default {
       const orderData = await updateOrderStatus(this.order.id, newStatus);
       this.order.status = orderData.status;
     },
-    async noop() {},
     statusIn(statuses) {
       return statuses.find(s => s === this.order.status);
     },
