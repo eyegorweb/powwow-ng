@@ -91,7 +91,7 @@ $theme-colors: map-merge(
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
     div.main-content {
-      max-height: 23vh;
+      max-height: 87vh;
       min-height: 70vh;
     }
   }
@@ -99,7 +99,8 @@ $theme-colors: map-merge(
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
     div.main-content {
-      min-height: 75;
+      min-height: 75vh;
+      max-height: 87vh;
     }
   }
 }

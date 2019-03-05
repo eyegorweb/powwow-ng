@@ -10,13 +10,10 @@
 import CheckMark from '@/components/ui/CheckMark';
 
 export default {
-  data() {
-    return {
-      validated: false,
-    };
-  },
-  mounted() {
-    this.validated = this.index <= this.currentIndex ? true : false;
+  computed: {
+    validated() {
+      return this.index <= this.currentIndex ? true : false;
+    },
   },
   props: {
     label: String,
