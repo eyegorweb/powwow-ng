@@ -70,6 +70,7 @@
       "btn": "Actions",
       "DETAIL": "Voir le détail",
       "EXPORT": "Exporter les lignes",
+      "IMPORT_SIM": "Importer SIMS",
       "SHOW_SIM": "Afficher les cartes SIM",
       "DUPLICATE": "Dupliquer",
       "CANCEL": "Annuler",
@@ -161,7 +162,6 @@
     "input-label-custom-field": "Saisir le label du champ libre",
     "choose-type-custom-field": "Choisir le type de champ libre",
     "select-offer-placeholder": "Sélectionner l'offre",
-    "validate-order": "Valider la commande",
     "new": {
       "customer": "Client",
       "product": "Produit",

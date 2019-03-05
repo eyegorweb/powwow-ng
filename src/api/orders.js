@@ -325,24 +325,18 @@ export async function createOrder(synthesis) {
 }
 
 export async function cancelOrder(orderId) {
-  const response = await query(
-    `
-    mutation {
-      updateOrder(orderId: ${orderId}, status: CANCELED) {
-        id
-        status
-      }
-    }
-    `
-  );
-  return response.data.updateOrder;
+  return await updateOrderStatus(orderId, 'CANCELED');
 }
 
 export async function validateOrder(orderId) {
+  return await updateOrderStatus(orderId, 'VALIDATED');
+}
+
+export async function updateOrderStatus(orderId, newStatus) {
   const response = await query(
     `
     mutation {
-      updateOrder(orderId: ${orderId}, status: VALIDATED) {
+      updateOrder(orderId: ${orderId}, status: ${newStatus}) {
         id
         status
       }
