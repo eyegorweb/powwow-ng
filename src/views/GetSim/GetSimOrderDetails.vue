@@ -18,8 +18,7 @@
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
         </div>
         <div class="overview-item">
-          <StepperNonLinear v-if="!isCanceled" :stepper-data="steps" :current-index="statusStepperIndex" />
-          <StepperNonLinear v-if="isCanceled" :stepper-data="steps" :current-index="1" />
+          <StepperNonLinear v-if="statusStepperIndex" :stepper-data="steps" :current-index="statusStepperIndex" />
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -174,9 +173,6 @@ import get from 'lodash.get';
 export default {
   data() {
     return {
-      stepsOld: {
-        data: [],
-      },
       confirmationStepper: [
         {
           code: 'NOT_VALIDATED',
@@ -249,6 +245,7 @@ export default {
       }
 
       stepsToUse = stepsToUse.map(s => {
+        if (!this.order.orderStatusHistories) return;
         const historyEntry = this.order.orderStatusHistories.find(h => h.status === s.code);
         if (historyEntry) {
           s.date = historyEntry.statusDate;
@@ -261,8 +258,10 @@ export default {
       };
     },
     statusStepperIndex() {
-      if (!this.steps && this.steps.data) return;
+      if (!this.steps || !this.steps.data || !this.order.status) return;
       const res = this.steps.data.find(c => c.code === this.order.status);
+      console.log(res.index);
+
       if (res) {
         return res.index;
       }
