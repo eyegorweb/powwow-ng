@@ -9,18 +9,11 @@
     <div v-if="statusIn(['NOT_VALIDATED'])">
       <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{ $t('getsim.actions.CANCEL') }}</UiButton>
     </div>
-    <div v-if="statusIn(['TERMINATED'])">
-      <UiButton variant="accent" block>{{ $t('getsim.actions.SHOW_SIM') }}</UiButton>
-    </div>
-
     <div v-if="statusIn(['CONFIRMED', 'TERMINATED'])">
       <UiButton variant="accent" block>{{ $t('getsim.actions.EXPORT') }}</UiButton>
     </div>
     <div v-if="statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED', 'CONFIRMED'])">
       <UiButton variant="accent" block>{{ $t('getsim.actions.DUPLICATE') }}</UiButton>
-    </div>
-    <div v-if="statusIn(['CONFIRMED'])">
-      <UiButton variant="accent">{{ $t('getsim.actions.IMPORT_SIM') }}</UiButton>
     </div>
 
   </div>

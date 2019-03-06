@@ -53,8 +53,10 @@
       </div>
 
       <div class="overview-container m-3 bg-white">
-        <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.simCardOffer') }}</h4>
+        <div class="overview-item d-flex">
+          <h4 class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase">{{ $t('orders.detail.simCardOffer') }}</h4>
+          <UiButton v-if="order.status === 'TERMINATED'" variant="import">{{ $t('getsim.actions.SHOW_SIM') }}</UiButton>
+          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">{{ $t('getsim.actions.IMPORT_SIM') }}</UiButton>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -174,6 +176,7 @@
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
+import UiButton from '@/components/ui/Button';
 // import moment from 'moment';
 
 export default {
@@ -265,7 +268,6 @@ export default {
     statusStepperIndex() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
       const res = this.steps.data.find(c => c.code === this.order.status);
-      console.log(res.index);
 
       if (res) {
         return res.index;
@@ -293,6 +295,7 @@ export default {
   components: {
     StepperNonLinear,
     GetSimOrderDetailsButtons,
+    UiButton,
   },
 };
 </script>
@@ -300,7 +303,7 @@ export default {
 <style scoped lang="scss">
 $fontSize: 0.8rem;
 .main-content {
-  padding-bottom: 20vh;
+  padding-bottom: 4vh;
 }
 .data-detail-container {
   $loader-size: 1.5em;
@@ -309,6 +312,39 @@ $fontSize: 0.8rem;
   $check-left: $loader-size/6;
   $check-thickness: 2px;
   $check-color: $success;
+
+  .overview-container {
+    padding: 1rem 2rem;
+    .overview-item {
+      padding: 7px 10px 7px 0;
+      border-bottom: 1px dashed $medium-gray;
+      &:first-child {
+        border-bottom: none;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+
+      h4 {
+        font-size: 0.875rem;
+      }
+
+      h6 {
+        color: $gray-680;
+        font-size: $fontSize;
+        font-weight: 500;
+      }
+
+      p {
+        font-size: $fontSize;
+        margin: 0;
+      }
+
+      div {
+        font-size: $fontSize;
+      }
+    }
+  }
 
   .circle-loader {
     border: 3px solid rgba(0, 0, 0, 0.2);
@@ -384,38 +420,6 @@ $fontSize: 0.8rem;
     }
     &:after {
       transform: rotate(-45deg);
-    }
-  }
-}
-.overview-container {
-  padding: 2rem;
-  .overview-item {
-    padding: 7px 10px 7px 0;
-    border-bottom: 1px dashed $medium-gray;
-    &:first-child {
-      border-bottom: none;
-    }
-    &:last-child {
-      border-bottom: none;
-    }
-
-    h4 {
-      font-size: 0.875rem;
-    }
-
-    h6 {
-      color: $gray-680;
-      font-size: $fontSize;
-      font-weight: 500;
-    }
-
-    p {
-      font-size: $fontSize;
-      margin: 0;
-    }
-
-    div {
-      font-size: $fontSize;
     }
   }
 }

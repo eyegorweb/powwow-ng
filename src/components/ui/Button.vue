@@ -55,4 +55,9 @@ export default {
     }
   }
 }
+.btn-import {
+  color: $primary;
+  background: $white;
+  border-color: $primary;
+}
 </style>
