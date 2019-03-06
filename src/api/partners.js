@@ -24,6 +24,11 @@ export async function fetchpartnerAddresses(id) {
       total
       items {
         id
+        name {
+          title
+          firstName
+          lastName
+        }
         address {
           address1
           address2
