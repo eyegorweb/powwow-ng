@@ -81,7 +81,6 @@ export default {
         .map(c => c.exportId);
       const downloadResponse = await exportFile(columnsParam, this.orderBy, this.appliedFilters);
       if (downloadResponse && downloadResponse.downloadUri) {
-        console.log('Export **>', downloadResponse.downloadUri);
         window.open(downloadResponse.downloadUri, '_blank');
       }
     },
