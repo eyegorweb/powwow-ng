@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+li:first-child {
+  cursor: not-allowed !important;
+}
 .card-body {
   overflow-y: auto;
   height: 10vh;
