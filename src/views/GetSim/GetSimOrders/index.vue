@@ -6,8 +6,17 @@
       src="@/assets/spinner.svg"
     >
     <div :class="{'order-is-loading': orderIsLoading}">
-      <div class="row mb-3 col-md-9">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem">{{ $t('ordersFound', {'total': total}) }}</h2>
+      <div class="row mb-3">
+        <div class="col">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">{{ $t('ordersFound', {'total': total}) }}</h2>
+        </div>
+        <div class="col">
+          <button class="btn btn-link export-link" @click="exportFile">
+            <i class="ic-Download-Icon" />
+            {{ $t('getsim.export', {'total': total}) }}
+          </button>
+        </div>
+
       </div>
       <DataTable
         :columns.sync="columns"
@@ -37,6 +46,8 @@ import GetSimOrdersCreatorColumn from './GetSimOrdersCreatorColumn';
 import GetSimOrdersIdColumn from './GetSimOrdersIdColumn';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { exportFile } from '@/api/orders';
+import sortBy from 'lodash.sortby';
 
 export default {
   name: 'Orders',
@@ -63,6 +74,16 @@ export default {
     changeColumnsOrder(orderedColumns) {
       const notVisibleColumns = this.columns.filter(c => !c.visible);
       this.columns = orderedColumns.concat(notVisibleColumns);
+    },
+    async exportFile() {
+      const columnsParam = sortBy(this.columns, c => !c.visible)
+        .filter(c => c.exportId)
+        .map(c => c.exportId);
+      const downloadResponse = await exportFile(columnsParam, this.orderBy, this.appliedFilters);
+      if (downloadResponse && downloadResponse.downloadUri) {
+        console.log('Export **>', downloadResponse.downloadUri);
+        window.open(downloadResponse.downloadUri, '_blank');
+      }
     },
   },
   computed: {
@@ -116,6 +137,7 @@ export default {
           orderable: true,
           visible: true,
           fixed: true,
+          exportId: 'ORDER_ID',
           format: {
             component: GetSimOrdersIdColumn,
           },
@@ -125,6 +147,7 @@ export default {
           label: this.$t('col.creationDate'),
           name: 'creationDate',
           visible: true,
+          exportId: 'ORDER_CREATED',
           format: {
             type: 'Date',
           },
@@ -134,15 +157,17 @@ export default {
           id: 3,
           label: this.$t('col.externalId'),
           name: 'externalId',
+          exportId: 'ORDER_EXTERNALID'
         },
         //*/
-        // Id de gestion ( tableau, comment afficher ?)
+        // Id de gestion ( tableau, comment afficher ?) , exportId= ORDER_MASSACTIONIDS
         {
           id: 4,
           label: this.$t('col.status'),
           name: 'status',
           orderable: true,
           visible: true,
+          exportId: 'ORDER_STATUS',
           format: {
             component: GetSimOrdersStatusColumn,
           },
@@ -152,12 +177,14 @@ export default {
           label: this.$t('col.quantity'),
           name: 'quantity',
           visible: true,
+          exportId: 'ORDER_QUANTITY',
         },
         {
           id: 6,
           label: this.$t('col.product'),
           name: 'orderedSimcard',
           visible: true,
+          // exportId: 'ORDER_ORDEREDSIMCARD',
           format: {
             type: 'ObjectAttribute',
             path: 'description',
@@ -169,6 +196,7 @@ export default {
           name: 'singleProduct',
           orderable: true,
           visible: false,
+          exportId: 'ORDER_NAME',
           format: {
             component: GetSimOrdersDeliveryColumn,
           },
@@ -180,6 +208,7 @@ export default {
           name: 'singleProduct',
           orderable: true,
           visible: false,
+          exportId: 'ORDER_CREATOR',
           format: {
             component: GetSimOrdersCreatorColumn,
           },
@@ -189,6 +218,7 @@ export default {
           label: this.$t('col.partner'),
           name: 'party',
           visible: false,
+          exportId: 'ORDER_PARTY',
           format: {
             type: 'ObjectAttribute',
             path: 'name',
@@ -200,6 +230,7 @@ export default {
           name: 'customerAccount',
           orderable: false,
           visible: false,
+          exportId: 'ORDER_CUSTOMERACCOUNT',
           format: {
             type: 'ObjectAttribute',
             path: 'code',
@@ -211,6 +242,7 @@ export default {
           name: 'preActivationAsked',
           orderable: false,
           visible: false,
+          exportId: 'ORDER_PREACTIVATIONASKED',
           format: {
             type: 'Boolean',
           },
@@ -221,6 +253,7 @@ export default {
           name: 'activationAsked',
           orderable: false,
           visible: false,
+          exportId: 'ORDER_ACTIVATIONASKED',
           format: {
             type: 'Boolean',
           },
@@ -268,6 +301,14 @@ export default {
 
   /deep/ button {
     color: $gray;
+  }
+}
+
+.export-link {
+  color: $accent;
+  float: right;
+  &:hover {
+    text-decoration: none;
   }
 }
 </style>
