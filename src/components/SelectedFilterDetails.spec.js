@@ -24,7 +24,7 @@ function factory() {
 describe('components/SelectedFilterDetails', () => {
   it('displays the id as title', () => {
     const wrapper = factory();
-    expect(wrapper.find('a').html()).toMatchInlineSnapshot(`<a href="#">partners</a>`);
+    expect(wrapper.text()).toContain('partners');
   });
 
   it('displays list of values', () => {

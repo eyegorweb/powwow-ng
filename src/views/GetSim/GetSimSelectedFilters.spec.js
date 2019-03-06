@@ -33,7 +33,7 @@ describe('SelectedFilters', () => {
     const details = wrapper.findAll('.detail');
 
     expect(wrapper.findAll('.alert')).toHaveLength(1);
-    expect(wrapper.find('.alert a').text()).toContain('partners');
+    expect(wrapper.find('.detail-title').text()).toContain('partners');
     expect(details).toHaveLength(2);
     expect(details.at(0).text()).toContain('partner1');
     expect(details.at(1).text()).toContain('partner2');

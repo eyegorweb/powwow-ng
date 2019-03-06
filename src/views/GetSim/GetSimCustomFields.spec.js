@@ -45,14 +45,13 @@ describe('GetSimCustomFields', () => {
     });
     wrapper.vm.setCustomFieldsFilter = jest.fn();
     wrapper.vm.onValueChanged(
-      { id: '101customField1', code: 'customField1', type: 'TEXT', value: [] },
+      { id: '101customField1', code: 'customField1', label: 'field 1', type: 'TEXT', value: [] },
       'new value'
     );
 
     expect(wrapper.vm.setCustomFieldsFilter).toHaveBeenCalledWith([
-      { id: 'customField3', label: 'Champ libre 3: some value', value: 'some value' },
-      { id: 'customField1', label: 'customFields.customField1: new value', value: 'new value' },
-    ]);
+      {"id": "customField3", "label": "Champ libre 3: some value", "value": "some value"},
+      {"id": "customField1", "label": "field 1: new value", "value": "new value"}]);
   });
 
   it('updates value of already selected filter', () => {
@@ -65,12 +64,12 @@ describe('GetSimCustomFields', () => {
     });
     wrapper.vm.setCustomFieldsFilter = jest.fn();
     wrapper.vm.onValueChanged(
-      { id: '101customField3', code: 'customField3', type: 'TEXT', value: [] },
+      { id: '101customField3', code: 'customField3', label: 'Test 1', type: 'TEXT', value: [] },
       'new value'
     );
 
     expect(wrapper.vm.setCustomFieldsFilter).toHaveBeenCalledWith([
-      { id: 'customField3', label: 'customFields.customField3: new value', value: 'new value' },
+      { id: 'customField3', label: 'Test 1: new value', value: 'new value' },
     ]);
   });
 });

@@ -345,3 +345,20 @@ export async function updateOrderStatus(orderId, newStatus) {
   );
   return response.data.updateOrder;
 }
+
+export async function exportFile(columns, orderBy, filters = []) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      ordersExport(filter: {${formatFilters(
+        filters
+      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: EXCEL) {
+        downloadUri
+      }
+    }
+    `
+  );
+  return response.data.ordersExport;
+}
