@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
+import { setTimeout } from 'timers';
 
 export default {
   props: {
@@ -14,13 +15,25 @@ export default {
     ...mapMutations(['openPanel']),
 
     onClick() {
-      this.openPanel({
-        title: this.$t('getsim.details.title', { id: this.row.id }),
-        panelId: 'getsim.details.title',
-        payload: this.row,
-        wide: false,
-      });
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t('getsim.details.title', { id: this.row.id }),
+          panelId: 'getsim.details.title',
+          payload: this.row,
+          wide: false,
+          backdrop: false,
+        });
+      };
+
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
     },
   },
+  computed: mapState({
+    isOpen: state => state.ui.isPanelOpen,
+  }),
 };
 </script>

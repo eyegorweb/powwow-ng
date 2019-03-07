@@ -2,12 +2,11 @@
   <div>
     <div
       class="cd-panel cd-panel--from-right js-cd-panel-main"
-      :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide}"
+      :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide, 'with-backdrop': backdrop}"
       id="main-sliding-panel"
-      @click="hidePanel"
     >
-      <header class="cd-panel__header">
-        <h1 class="font-weight-light">{{ title }}</h1>
+      <header class="ignore-clickaway cd-panel__header">
+        <h1 class="ignore-clickaway font-weight-light">{{ title }}</h1>
 
         <a
           href="#0"
@@ -16,7 +15,7 @@
         >Close</a>
       </header>
 
-      <div class="cd-panel__container">
+      <div class="cd-panel__container" v-clickaway="hidePanel">
         <div class="cd-panel__content">
           <slot />
         </div>
@@ -28,27 +27,46 @@
 </template>
 
 <script>
+import { clickaway } from '@/directives/clickaway';
+
 export default {
   name: 'SlidePanel',
   props: {
     title: String,
     isOpen: Boolean,
     wide: Boolean,
+    backdrop: {
+      type: Boolean,
+      default: true,
+    },
   },
+  directives: { clickaway },
+
   watch: {
     isOpen(value) {
-      if (value) {
-        document.getElementsByTagName('body')[0].style.overflow = 'hidden';
-      } else {
-        document.getElementsByTagName('body')[0].style.overflow = 'auto';
+      if (this.backdrop) {
+        if (value) {
+          document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+        } else {
+          document.getElementsByTagName('body')[0].style.overflow = 'auto';
+        }
       }
     },
   },
   methods: {
     hidePanel(e) {
-      // detecter le click dehors de la zone de contenu
-      if (e.target.classList.contains('js-cd-panel-main')) {
-        this.$emit('close');
+      // pas la peine d ecacher un panel déjà caché
+      if (!this.isOpen) return;
+
+      if (this.backdrop) {
+        // detecter le click dehors de la zone de contenu
+        if (e.target.classList.contains('js-cd-panel-main')) {
+          this.$emit('close');
+        }
+      } else {
+        if (!e.target.classList.contains('ignore-clickaway')) {
+          this.$emit('close');
+        }
       }
     },
   },
@@ -60,23 +78,31 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  width: 0;
   height: 100%;
-  width: 100%;
   visibility: hidden;
 
   transition: visibility 0s 0.6s;
+
   &::after {
     /* overlay layer */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
     background: transparent;
     cursor: pointer;
     transition: background 0.3s 0.3s;
   }
+
+  &.with-backdrop {
+    width: 100%;
+    &::after {
+      width: 100%;
+    }
+  }
+
   &.cd-panel--is-visible {
     visibility: visible;
     transition: visibility 0s 0s;

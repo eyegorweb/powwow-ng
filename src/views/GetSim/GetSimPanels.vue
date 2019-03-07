@@ -1,5 +1,5 @@
 <template>
-  <SlidePanel :title="title" :is-open="isOpen" @close="closePanel" :wide="wide">
+  <SlidePanel :title="title" :is-open="isOpen" @close="closePanel" :wide="wide" :backdrop="backdrop">
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
@@ -32,6 +32,7 @@ export default {
     panelId: state => state.ui.panelId,
     wide: state => state.ui.isPanelWide,
     payload: state => state.ui.panelPayload,
+    backdrop: state => state.ui.backdrop,
   }),
 };
 </script>
