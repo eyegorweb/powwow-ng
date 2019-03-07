@@ -264,6 +264,10 @@ export default {
 
 .step-client-container {
   padding: 0 2rem !important;
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 7rem !important;
+  }
 }
 
 .add-new {
