@@ -183,7 +183,7 @@ export default {
           label: this.$t('col.product'),
           name: 'orderedSimcard',
           visible: true,
-          // exportId: 'ORDER_ORDEREDSIMCARD',
+          exportId: 'ORDER_ORDEREDSIMCARD',
           format: {
             type: 'ObjectAttribute',
             path: 'description',
