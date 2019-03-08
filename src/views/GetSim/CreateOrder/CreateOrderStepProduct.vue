@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="choose-amount">
-            <h2 class="panel-title mt-4">{{ $t("getsim.choose-sim-amount") }}</h2>
+            <h2 class="panel-title">{{ $t("getsim.choose-sim-amount") }}</h2>
             <UiInput
               :placeholder="1"
               v-model="selectedNumberOfSims"
@@ -73,7 +73,7 @@ import { fetchSim } from '@/api/products';
 import get from 'lodash.get';
 
 export default {
-  name: 'GetSimSelectSimType',
+  name: 'CreateOrderStepProduct',
   data() {
     return {
       simTypes: [],
@@ -170,6 +170,10 @@ export default {
   .choose-sim-type {
     max-height: 400px;
     overflow-y: auto;
+
+    @media screen and (max-height: 900px) {
+      max-height: 350px;
+    }
   }
 
   .show-all-types {
@@ -193,11 +197,22 @@ export default {
 }
 
 .choose-amount {
+  .panel-title {
+    margin-top: 1.5rem;
+    @media screen and (max-height: 900px) {
+      margin: 0.4rem auto;
+    }
+  }
+
   label input {
     color: black;
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
+
+    @media screen and (max-height: 900px) {
+      padding: 0;
+    }
 
     &::placeholder {
       color: black;

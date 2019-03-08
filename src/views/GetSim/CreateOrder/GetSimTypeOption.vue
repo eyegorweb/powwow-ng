@@ -62,6 +62,10 @@ export default {
   margin-bottom: 10px;
   min-height: 90px;
 
+  @media screen and (max-height: 900px) {
+    max-height: 40px;
+  }
+
   &.active {
     border: 1px solid $blue;
 
@@ -82,6 +86,10 @@ export default {
     &.simtype__order-status {
       color: $gray-680;
     }
+  }
+
+  img {
+    max-height: 100%;
   }
 }
 </style>

@@ -74,7 +74,6 @@ $theme-colors: map-merge(
   text-align: center;
 }
 
-
 .panel-vertical-container {
   display: flex;
   flex-direction: column;
@@ -88,19 +87,11 @@ $theme-colors: map-merge(
   }
 }
 
-@media screen and (max-height: 768px) {
+@media screen and (max-height: 900px) {
   .panel-vertical-container {
     div.main-content {
       max-height: 87vh;
-      min-height: 70vh;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .panel-vertical-container {
-    div.main-content {
-      min-height: 75vh;
-      max-height: 87vh;
+      min-height: 67vh;
     }
   }
 }
