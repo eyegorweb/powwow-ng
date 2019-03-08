@@ -2,15 +2,15 @@
   <span @click="toggleDirection()">
     <span
       v-if="notChosen"
-      class="ic-Arrow-Filter-Icon"
+      class="ic-Arrow-Filter-Icon hover-pointer"
     />
     <span
       v-if="isDirectionAsc"
-      class="ic-Arrow-Up-Icon"
+      class="ic-Arrow-Up-Icon hover-pointer"
     />
     <span
       v-if="isDirectionDesc"
-      class="ic-Arrow-Down-Icon"
+      class="ic-Arrow-Down-Icon hover-pointer"
     />
   </span>
 </template>
@@ -52,6 +52,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>
