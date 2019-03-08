@@ -166,7 +166,7 @@
       </div>
 
     </div>
-    <div class="footer-bock">
+    <div class="footer-back">
       <GetSimOrderDetailsButtons :order="order" />
     </div>
   </div>
@@ -304,6 +304,9 @@ export default {
 $fontSize: 0.8rem;
 .main-content {
   padding-bottom: 4vh;
+}
+.footer-back {
+  padding: 0 1.25rem;
 }
 .data-detail-container {
   $loader-size: 1.5em;

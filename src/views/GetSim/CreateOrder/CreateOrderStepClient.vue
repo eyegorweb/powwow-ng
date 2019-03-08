@@ -23,7 +23,7 @@
           />
         </div>
       </div>
-      <div class="footer-bock">
+      <div class="footer-back">
         <UiButton
           variant="round-button"
           @click="done"
