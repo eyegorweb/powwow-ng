@@ -57,6 +57,7 @@ export default {
   .synthesis-content {
     flex: 1;
     overflow-y: auto;
+    min-height: 73vh;
   }
   h6 {
     margin-bottom: 2em;
@@ -69,22 +70,13 @@ export default {
   }
 }
 
-@media screen and (max-height: 768px) {
+@media screen and (max-height: 910px) {
   .new-order-synthesis {
     div.synthesis-content {
-      max-height: 23vh;
-      min-height: 70vh;
+      min-height: 63vh;
     }
     .footer /deep/ label {
       font-size: 0.8rem;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .new-order-synthesis {
-    div.synthesis-content {
-      max-height: 23vh;
-      min-height: 73vh;
     }
   }
 }
