@@ -19,7 +19,7 @@
           </UiButton>
         </div>
       </div>
-      <div class="footer-bock">
+      <div class="footer-back">
         <div class="row">
           <div class="col-md-12 mt-5">
             <UiButton

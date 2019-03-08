@@ -6,7 +6,7 @@
           <h2 class="title">{{ $t('orders.choose-services') }}</h2>
         </div>
         <div class="toggles-container">
-          <UiToggle label="Préactivation" v-model="preActivation" />
+          <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
           <UiToggle label="Activation" v-model="activation" />
         </div>
         <div v-if="activation">
@@ -30,7 +30,7 @@
           </template>
         </div>
       </div>
-      <div class="footer-bock">
+      <div class="footer-back">
         <div class="row">
           <div class="col-md-12 mt-5">
             <UiButton
@@ -40,6 +40,7 @@
             />
             <UiButton
               variant="round-button"
+              :disabled="activation && !selectedOffer"
               @click="done"
               class="float-right ic-Arrow-Next-Icon"
             />
@@ -88,7 +89,7 @@ export default {
       selectedOffer: null,
       selectedApn: this.apn[0],
       activation: false,
-      preActivation: false,
+      preActivationValue: false,
       partnerId: undefined,
       offers: [],
       selectedOfferData: undefined,
@@ -136,6 +137,16 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    preActivation: {
+      get() {
+        return this.activation || this.preActivationValue;
+      },
+      set(newValue) {
+        this.preActivationValue = newValue;
+      },
+    },
   },
   async created() {
     this.partnerId = get(this.synthesis, 'billingAccount.selection.partner.id');
