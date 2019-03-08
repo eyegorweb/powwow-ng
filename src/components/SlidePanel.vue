@@ -247,6 +247,7 @@ export default {
   background: #f3f3f3;
   z-index: 2;
   transition: transform 0.3s 0.3s;
+  box-shadow: -5px -5px 19px rgba(0, 0, 0, 0.2);
 }
 
 .cd-panel--from-right .cd-panel__container {
