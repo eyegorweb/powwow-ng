@@ -13,7 +13,7 @@
         <div class="list-group">
           <button
             type="button"
-            class="list-group-item list-group-item-action order-action"
+            class="list-group-item list-group-item-action order-action hover-pointer"
             :key="action"
             v-for="action in actions"
             @click="() => {hide(); onActionClicked(action)}"
