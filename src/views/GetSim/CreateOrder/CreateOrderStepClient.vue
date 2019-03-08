@@ -133,7 +133,11 @@ export default {
 
 <style lang="scss" scoped>
 .step-client-container {
-  padding: 0 2rem !important;
+  padding: 0 2rem;
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 7rem;
+  }
 }
 
 .subcontainer {
