@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/src/App.vue',
     '<rootDir>/src/store/index.js',
   ],
+  transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)'],
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   transform: {
     '^.+\\.vue$': 'vue-jest',

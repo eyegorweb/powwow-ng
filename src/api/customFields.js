@@ -1,5 +1,5 @@
 import { query } from './utils';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 export async function fetchCustomFields(partnerId) {
   const queryStr = `

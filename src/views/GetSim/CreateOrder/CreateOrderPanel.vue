@@ -35,7 +35,7 @@ import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './Services/CreateOrderStepServices';
 import { createOrder } from '@/api/orders';
 import { mapActions, mapMutations, mapState } from 'vuex';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 export default {
   components: {

@@ -43,7 +43,7 @@ import CreateOrderAddCustomField from './CreateOrderAddCustomField';
 import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField } from '@/api/customFields';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 export default {
   data() {

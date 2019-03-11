@@ -95,7 +95,7 @@ import CreateOrderStepDeliveryAddress from './CreateOrderStepDeliveryAddress';
 import { fetchpartnerAddresses } from '@/api/partners';
 import BlocList from '@/components/BlocList';
 import CreateOrderDeliveryNewAddress from './CreateOrderDeliveryNewAddress';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 export default {
   name: 'CreateOrderStepDelivery',

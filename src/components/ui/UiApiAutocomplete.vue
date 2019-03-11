@@ -56,7 +56,7 @@
 <script>
 // TODO utiliser l'input refactorisé d'Olivier
 import { Promised } from 'vue-promised';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash-es';
 import { clickaway } from '@/directives/clickaway';
 import fuzzysort from 'fuzzysort';
 
@@ -216,14 +216,15 @@ export default {
 
   created() {
     if (this.displayResultsWhileEmpty) this.fetchResults();
+    this.debouncedFetchResults = debounce(this.fetchResults, 200);
   },
 
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function() {
-      this.fetchResults();
-    }, 200),
+    $value() {
+      this.debouncedFetchResults();
+    },
 
     items: 'fetchResults',
   },
