@@ -14,6 +14,7 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': 'off',
     'no-trailing-spaces': 'error',
+    'object-shorthand': ['error', 'always'],
     'spaced-comment': ['error', 'always', { exceptions: ['-', '+'] }],
 
     // vue specific

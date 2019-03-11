@@ -7,7 +7,7 @@
       @update:value="$emit('update:search', $event)"
     >
       <template slot="beforeInput">
-        <div v-if="!allSelectionsVisible">
+        <div v-if="!showAll">
           <div
             v-for="selected in cutSelectedItems"
             class="selection ml-2 my-1 text-white bg-secondary rounded"
@@ -23,8 +23,8 @@
           </div>
           <button
             class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
-            v-if="maximumItemsReached"
-            @click="allSelectionsVisible = true"
+            v-if="isMaximumItemsReached"
+            @click="showAll = true"
           >{{ `+${selectedItems.length - maximumSelectableItems}` }}</button>
         </div>
 
@@ -42,14 +42,15 @@
               @click="removeSelection(selected)"
             >
           </div>
+          <button
+            class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
+            v-if="isMaximumItemsReached"
+            @click="showAll = false"
+          >{{ $t('ui.MultiSelectSearch.showLess' )}}</button>
         </div>
       </template>
-      <div
-        class="checkboxes"
-        ref="checkboxes"
-        @scroll="onScroll"
-        slot-scope="{ results }"
-      >
+
+      <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
         <UiCheckbox
           v-if="enableSelectAll"
           :value="results.map(r => r.item)"
@@ -64,11 +65,10 @@
           :key="'ms_' + result.item.id"
           @change="updateTextLabel($event, results.map(r => r.item))"
         >
-          <span v-html="result.highlighted.label" />
+          <span v-html="result.highlighted.label"/>
         </UiCheckbox>
       </div>
     </SearchInput>
-
   </div>
 </template>
 
@@ -92,31 +92,47 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       labelText: this.$t('selectAll'),
       maximumSelectableItems: 2,
-      maximumItemsReached: false,
-      allSelectionsVisible: false,
+      showAll: false,
       canNotifyScrollLimit: true,
     };
   },
 
-  updated() {
-    this.canNotifyScrollLimit = true;
+  computed: {
+    multiSelectValues() {
+      const selectedItems = this.selectedItems;
+      return displayedValues => displayedValues.filter(v => selectedItems.find(s => isEqual(v, s)));
+    },
+    cutSelectedItems() {
+      // renvoit les N premiers partenaires sélectionnés
+      return this.selectedItems.slice(0, this.maximumSelectableItems);
+    },
+    itemsToSearch() {
+      return this.items;
+    },
+    inputFields() {
+      return ['label'];
+    },
+    selectedItems: {
+      get() {
+        return this.defaultSelectedItems;
+      },
+      set(newSelected) {
+        this.$emit('update:defaultSelectedItems', newSelected);
+      },
+    },
+
+    // TODO: gerer le cas ou on fait une recherche texte
+    isMaximumItemsReached: ({ selectedItems, maximumSelectableItems }) =>
+      selectedItems.length > maximumSelectableItems,
   },
 
-  watch: {
-    selectedItems: function(val) {
-      // TODO: gerer le cas ou on fait une recherche texte
-      this.maximumItemsReached = val.length > this.maximumSelectableItems ? true : false;
-    },
-
-    maximumItemsReached: function(val) {
-      if (val && this.allSelectionsVisible) {
-        this.allSelectionsVisible = true;
-      }
-    },
+  updated() {
+    this.canNotifyScrollLimit = true;
   },
 
   methods: {
@@ -153,31 +169,6 @@ export default {
         this.canNotifyScrollLimit = false;
         this.$emit('scroll:limit');
       }
-    },
-  },
-
-  computed: {
-    multiSelectValues() {
-      const selectedItems = this.selectedItems;
-      return displayedValues => displayedValues.filter(v => selectedItems.find(s => isEqual(v, s)));
-    },
-    cutSelectedItems() {
-      // renvoit les N premiers partenaires sélectionnés
-      return this.selectedItems.slice(0, this.maximumSelectableItems);
-    },
-    itemsToSearch() {
-      return this.items;
-    },
-    inputFields() {
-      return ['label'];
-    },
-    selectedItems: {
-      get() {
-        return this.defaultSelectedItems;
-      },
-      set(newSelected) {
-        this.$emit('update:defaultSelectedItems', newSelected);
-      },
     },
   },
 
