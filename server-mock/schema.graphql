@@ -17,19 +17,16 @@ type Address {
 }
 
 input AddressDTOInput {
-  address1: String
+  address1: String!
   address2: String
   address3: String
-  zipCode: String
-  city: String
-  country: String
+  zipCode: String!
+  city: String!
+  country: String!
   state: String
 }
 
-"""
-TODO move to root
- Auditer la mise à jour et création d'une entité
-"""
+"""Auditer la mise à jour et création d'une entité"""
 type Auditable {
   created: Date
   updated: Date
@@ -60,13 +57,13 @@ type CatalogService {
   id: ID!
   label: String
   description: String
-  display: Boolean
-  optional: Boolean
+  display: Boolean!
+  optional: Boolean!
   code: String
   index: Int
 
   """Enum category des services (STANDARD, GLOBAL, SEMI_GLOBAL, GROUPED)"""
-  category: ServiceCategory
+  category: ServiceCategory!
 
   """
   Enum génération du service (THIRD_GENERATION("3G"), FOURTH_GENERATION("4G"))
@@ -74,7 +71,7 @@ type CatalogService {
   generation: ServiceGeneration
 
   """Enum Tye du service (APN,SIMCARD)"""
-  type: ServiceTypeEnum
+  type: ServiceTypeEnum!
 
   """Product Parameter du catalagueService"""
   parameters: [ProductParameter]
@@ -83,14 +80,14 @@ type CatalogService {
 """Entité CatalogServiceGroup"""
 type CatalogServiceGroup {
   id: ID!
-  activatedByDefault: Boolean
-  preactivatedByDefault: Boolean
+  activatedByDefault: Boolean!
+  preactivatedByDefault: Boolean!
 
   """Autorisation d'accés pour le partenaire"""
-  partyAccess: Boolean
+  partyAccess: Boolean!
 
   """Autorisation d'accés pour le BO"""
-  boAccess: Boolean
+  boAccess: Boolean!
 
   """Les parametres du catalogSericeGroup"""
   catalogServiceParameters: [CatalogServiceParameter]
@@ -100,11 +97,11 @@ type CatalogServiceGroup {
 type CatalogServiceParameter {
   id: ID!
   label: String
-  setOnActivation: Boolean
+  setOnActivation: Boolean!
   defaultValue: String
-  partyAccess: Boolean
-  boAccess: Boolean
-  setOnChange: Boolean
+  partyAccess: Boolean!
+  boAccess: Boolean!
+  setOnChange: Boolean!
   serviceParameter: ServiceParameter
 }
 
@@ -117,15 +114,15 @@ type ContactInformation {
 
 input ContactInformationDTOInput {
   email: String
-  phone: String
+  phone: String!
   mobile: String
 }
 
 type Country implements Node {
   id: ID!
-  code: String
-  nameFr: String
-  nameEn: String
+  code: String!
+  nameFr: String!
+  nameEn: String!
 }
 
 input CountryFilterInput {
@@ -147,7 +144,7 @@ input CountrySorting {
 type CustomerAccount implements Node {
   id: ID!
   code: String
-  name: String
+  name: String!
   siret: String
   marketLine: String
   siren: String
@@ -180,12 +177,12 @@ input CustomerAccountSorting {
 """Eléments de création d'un custom field"""
 input CustomFieldInput {
   partyId: ID!
-  customFieldLabel: String
+  customFieldLabel: String!
   customFieldType: CustomFieldTypeEnum!
+  customFieldMandatory: CustomFieldMandatoryEnum!
   customFieldListValues: [String]
 }
 
-"""Enum du caratère obligatoire d'un champs Custom"""
 enum CustomFieldMandatoryEnum {
   PAIRING
   ORDER
@@ -303,8 +300,8 @@ scalar Long
 type MarketingOffer implements Node {
   """Id marketingOffer"""
   id: ID!
-  code: String
-  description: String
+  code: String!
+  description: String!
 
   """List de ServiceGroupe dont system= false"""
   nonSystemServiceGroupList: [ServiceGroup]
@@ -328,8 +325,8 @@ type Name {
 
 input NameDTOInput {
   title: Title
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
 }
 
 interface Node {
@@ -368,16 +365,16 @@ type Order implements Node {
   quantity: String
 
   """Quantité importée"""
-  countSimCardInstance: Int
+  importedQuantity: Int
 
-  """cartSim par order"""
-  simCardType: SIMCard
+  """OrderedSIMCard"""
+  orderedSimcard: OrderedSIMCard
 
   """
   offerChoices == singleProduct.description
-   activationAsked = true => singleProduct = orderedMarketingOffert(with  services) else singleProduct = OrderedSIMCard
+   activationAsked => orderedMarketingOffert
   """
-  singleProduct: orderedProduct
+  orderedMarketingOffer: OrderedMarketingOffer
 
   """Champs libres"""
   customFields: CustomFields
@@ -437,8 +434,6 @@ type OrderedMarketingOffer {
   servicesLabel(groupName: String): String
 }
 
-union orderedProduct = OrderedMarketingOffer | OrderedSIMCard
-
 type OrderedSIMCard {
   description: String
   code: String
@@ -477,6 +472,18 @@ input OrderFilterInput {
   """Auditable.creator"""
   creator: IdFilterInput
   workflowCode: StringFilterInput
+
+  """19 digits et commencent par 893320(order.sim.ICCID)"""
+  iccid: StringFilterInput
+
+  """15 digits et commencent par 20820 ou 27007 (order.sim.ap.line.IMSI)"""
+  imsi: StringFilterInput
+
+  """11 ou 15 digits et commencent par 33"""
+  msisdn: StringFilterInput
+
+  """15 digits"""
+  imei: StringFilterInput
 }
 
 type OrderIndicators {
@@ -492,7 +499,7 @@ type OrderIndicators {
 
 input OrderInput {
   """Compte facturation"""
-  customerAccountId: Int!
+  customerAccountId: ID!
 
   """adresse livraison"""
   shippingAddress: ShippingAddressDTOInput!
@@ -501,7 +508,7 @@ input OrderInput {
   externalId: String
 
   """Id de l'offre"""
-  workflowId: Int
+  workflowId: ID
 
   """quantite simcard"""
   simCardQuantity: Int!
@@ -511,7 +518,7 @@ input OrderInput {
   activationAsked: Boolean
 
   """ID de la simcard commandee"""
-  simCardId: Int!
+  simCardId: ID!
   customFieldsDTO: CustomFieldsInputDTO
 }
 
@@ -675,12 +682,23 @@ type Party implements Node {
 
   """Référence du contrat"""
   contractReference: String
+
+  """indique si la référence client est obligatoire"""
+  orderNumberRequired: Boolean
 }
 
 """Critères de recherche de commandes"""
 input PartyFilterInput {
   name: StringFilterInput
   id: IdFilterInput
+}
+
+type PartyGroup implements Node {
+  id: ID!
+  name: String
+  parties: [Party]
+  roles: [Role]
+  flagStatisticsEnabled: Boolean
 }
 
 """ Adresse de livraison
@@ -720,15 +738,15 @@ enum ProductChoice {
 """Parameter du catalogService"""
 type ProductParameter {
   id: ID!
-  code: String
-  name: String
+  code: String!
+  name: String!
   regularExpression: String
   validatorClassname: String
   defaultValue: String
-  mandatory: Boolean
+  mandatory: Boolean!
 
   """Enum (LIST, STRING)"""
-  type: ProductParameterType
+  type: ProductParameterType!
 }
 
 enum ProductParameterType {
@@ -740,10 +758,11 @@ type Query {
   countries(filter: CountryFilterInput, pagination: Pagination, sorting: CountrySorting): CountryResponse
   customerAccounts(filter: CustomerAccountFilterInput, pagination: Pagination, sorting: CustomerAccountSorting): CustomerAccountResponse
 
-  """Les services et les paramètres liés à une MarketingOffer"""
-  servicesMarketingOffer(idMarketingOffer: Int!): MarketingOffer
+  """ Les services et les paramètres liés à une MarketingOffer
+  TODO This is useless as it already exists in Workflow, but kept as a direct access to Marketing Offer for future use
+  """
+  marketingOffer(id: ID!): MarketingOffer
   orders(filter: OrderFilterInput, pagination: Pagination, sorting: OrderSorting): OrdersResponse
-  orderStatus: [OrderStatusEnum]
   ordersExport(filter: OrderFilterInput, columns: [OrderColumnEnum!]!, sorting: OrderSorting!, exportFormat: ExportFormatEnum!): ExportResponse
   ordersIndicators: OrderIndicators
   findLatestSimcardsOrder(pagination: Pagination, sorting: SIMCardSorting, partyId: ID!): SIMCardResponse
@@ -753,16 +772,16 @@ type Query {
   findSimcardById(id: Int!): SIMCardInstance
   countSimcards: Long!
   users(filter: UserFilterInput, pagination: Pagination, sorting: UserSorting): UserResponse
-  getCurrentUser: User!
+  getCurrentUser: UserUnion!
   workflows(filter: WorkflowFilterInput, pagination: Pagination, sorting: WorkflowSorting): WorkflowResponse
 }
 
 type Role {
   Id: ID!
-  name: String
-  description: String
+  name: String!
+  description: String!
   category: String
-  scope: Boolean
+  scope: Boolean!
 }
 
 """Enum category des services"""
@@ -785,8 +804,8 @@ type ServiceGroup {
   system: Boolean
 
   """Type de choix de produit (EXCLUSIVE, INCLUSIVE)"""
-  type: ProductChoice
-  code: String
+  type: ProductChoice!
+  code: String!
 
   """List de CatalogServiceGroup par ServiceGroup"""
   standardAndSemiGlobalCatalogServiceGroups: [CatalogServiceGroup]
@@ -795,15 +814,15 @@ type ServiceGroup {
 """Parameter de type ServiceParameter pour le CatalogServiceParameter"""
 type ServiceParameter {
   id: ID!
-  code: String
-  name: String
+  code: String!
+  name: String!
   regularExpression: String
   validatorClassname: String
   defaultValue: String
-  mandatory: Boolean
+  mandatory: Boolean!
 
   """Enum (LIST, STRING)"""
-  type: ProductParameterType
+  type: ProductParameterType!
 }
 
 """Enum type du service"""
@@ -822,9 +841,9 @@ type ShippingAddress implements Node {
 }
 
 input ShippingAddressDTOInput {
-  company: String
+  company: String!
   address: AddressDTOInput
-  name: NameDTOInput
+  name: NameDTOInput!
   contactInformation: ContactInformationDTOInput
 }
 
@@ -850,6 +869,8 @@ type SIMCard implements Node {
   label: String
   type: String
   help: String
+  format: String
+  licence: String
 
   """Profil électrique"""
   electricProfile: ElectricProfile
@@ -883,7 +904,7 @@ input SIMCardSorting {
 }
 
 type SIMCartOrderDTO {
-  orderDate: Date
+  orderDate: Date!
   simCard: SIMCard
 }
 
@@ -914,6 +935,7 @@ type User implements Node {
   email: String
   isUserParty: Boolean
   isBackOffice: Boolean
+  roles: [Role]
 }
 
 input UserFilterInput {
@@ -923,7 +945,6 @@ input UserFilterInput {
   email: StringFilterInput
 }
 
-"""Msg pour le front: This might change back soon to User"""
 type UserParty implements Node {
   id: ID!
   name: Name
@@ -932,7 +953,18 @@ type UserParty implements Node {
   party: Party
   isUserParty: Boolean
   isBackOffice: Boolean
-  disabled: Boolean
+  disabled: Boolean!
+  roles: [Role]
+}
+
+type UserPartyGroup {
+  id: ID!
+  name: Name
+  username: String
+  email: String
+  isUserParty: Boolean
+  isBackOffice: Boolean
+  PartyGroup: PartyGroup
   roles: [Role]
 }
 
@@ -948,9 +980,15 @@ input UserSorting {
   email: SortDirection
 }
 
+"""Msg pour le front: This might change back soon to User"""
+union UserUnion = User | UserParty | UserPartyGroup
+
 type Workflow {
   code: String!
   workflowDescription: String
+
+  """MarketingOffer"""
+  initialOffer: MarketingOffer
 }
 
 input WorkflowFilterInput {
