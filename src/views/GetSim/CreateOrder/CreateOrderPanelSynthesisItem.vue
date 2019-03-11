@@ -1,16 +1,20 @@
 <template>
   <div v-if="item" class="synthesis-item">
     <h6>{{ $t(item.label) }}: </h6>
-    <p v-if="stringValue">
-      {{ item.value.content }}
+    <template v-if="isContentArray">
+      <div :key="value" v-for="value in content">
+        {{ value }}
+      </div>
+    </template>
+    <p v-else-if="content">
+      {{ content }}
     </p>
-    <div :key="value" v-for="value in arrayValues">
-      {{ value }}
-    </div>
   </div>
 </template>
 
 <script>
+import get from 'lodash/get';
+
 export default {
   props: {
     item: {
@@ -18,15 +22,11 @@ export default {
     },
   },
   computed: {
-    stringValue() {
-      if (this.item && this.item.value && typeof this.item.value.content === 'string') {
-        return this.item.value.content;
-      }
+    content() {
+      return get(this.item, 'value.content');
     },
-    arrayValues() {
-      if (this.item && this.item.value && Array.isArray(this.item.value.content)) {
-        return this.item.value.content;
-      }
+    isContentArray() {
+      return Array.isArray(this.content);
     },
   },
 };

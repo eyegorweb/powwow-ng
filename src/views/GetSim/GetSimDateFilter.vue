@@ -7,6 +7,7 @@
 <script>
 import UiDateRange from '@/components/ui/UiDateRange';
 import { mapMutations, mapGetters } from 'vuex';
+import get from 'lodash/get';
 
 export default {
   components: {
@@ -18,10 +19,10 @@ export default {
   computed: {
     ...mapGetters(['selectedOrderDate']),
     startDate() {
-      if (this.selectedOrderDate) return this.selectedOrderDate.startDate;
+      return get(this.selectedOrderDate, 'startDate', '');
     },
     endDate() {
-      if (this.selectedOrderDate) return this.selectedOrderDate.endDate;
+      return get(this.selectedOrderDate, 'endDate', '');
     },
   },
 };

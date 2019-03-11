@@ -18,7 +18,11 @@
           <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
         </div>
         <div class="overview-item">
-          <StepperNonLinear v-if="statusStepperIndex !== undefined" :stepper-data="steps" :current-index="statusStepperIndex" />
+          <StepperNonLinear
+            v-if="statusStepperIndex != null"
+            :stepper-data="steps"
+            :current-index="statusStepperIndex"
+          />
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderId') }} :</h6>
@@ -269,9 +273,8 @@ export default {
       if (!this.steps || !this.steps.data || !this.order.status) return;
       const res = this.steps.data.find(c => c.code === this.order.status);
 
-      if (res) {
-        return res.index;
-      }
+      if (res) return res.index;
+      return null;
     },
     customFields() {
       const customFields = this.getFromOrder('customFields');
