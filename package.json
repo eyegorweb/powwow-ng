@@ -23,7 +23,7 @@
     "daterangepicker": "^3.0.3",
     "fuzzysort": "^1.1.4",
     "graphql": "^14.0.2",
-    "jest-transform-stub": "^1.0.0",
+    "jest-transform-stub": "^2.0.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "lodash.clonedeep": "^4.5.0",
@@ -46,7 +46,7 @@
     "vue-template-compiler": "^2.5.17",
     "vuedraggable": "^2.17.0",
     "vuex": "^3.0.1",
-    "vuex-mock-store": "^0.0.5"
+    "vuex-mock-store": "^0.0.7"
   },
   "devDependencies": {
     "@babel/runtime": "7.0.0-beta.55",

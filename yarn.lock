@@ -6081,6 +6081,11 @@ jest-transform-stub@^1.0.0:
   resolved "http://r.cnpmjs.org/jest-transform-stub/download/jest-transform-stub-1.0.0.tgz#e4e941454f31a8bbc4db96b31f46a08b294372b1"
   integrity sha1-5OlBRU8xqLvE25azH0agiylDcrE=
 
+jest-transform-stub@^2.0.0:
+  version "2.0.0"
+  resolved "http://r.cnpmjs.org/jest-transform-stub/download/jest-transform-stub-2.0.0.tgz#19018b0851f7568972147a5d60074b55f0225a7d"
+  integrity sha1-GQGLCFH3VolyFHpdYAdLVfAiWn0=
+
 jest-util@^23.4.0:
   version "23.4.0"
   resolved "http://r.cnpmjs.org/jest-util/download/jest-util-23.4.0.tgz#4d063cb927baf0a23831ff61bec2cbbf49793561"
@@ -10265,10 +10270,10 @@ vuedraggable@^2.17.0:
   dependencies:
     sortablejs "^1.7.0"
 
-vuex-mock-store@^0.0.5:
-  version "0.0.5"
-  resolved "http://r.cnpmjs.org/vuex-mock-store/download/vuex-mock-store-0.0.5.tgz#f079665a5589650f44a6f136ea93eef34c1bc34b"
-  integrity sha1-8HlmWlWJZQ9EpvE26pPu80wbw0s=
+vuex-mock-store@^0.0.7:
+  version "0.0.7"
+  resolved "http://r.cnpmjs.org/vuex-mock-store/download/vuex-mock-store-0.0.7.tgz#b18c529bc48b23dc596fdf9e0739676ae16dd7d1"
+  integrity sha1-sYxSm8SLI9xZb9+eBzlnauFt19E=
   dependencies:
     lodash.clonedeep "^4.5.0"
 
