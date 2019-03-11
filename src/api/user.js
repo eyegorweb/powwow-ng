@@ -4,17 +4,48 @@ export async function fetchCurrentUserInfos() {
   const response = await query(
     `
     query {
-      getCurrentUser{
-        email
-        name {
-          title
-          firstName
-          lastName
+      getCurrentUser {
+        ... on User {
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
         }
-        roles {
-          name
-          description
-          category
+        ... on UserParty {
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
+        }
+        ... on UserPartyGroup {
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
+        }
+        ... on Node {
+          __typename
         }
       }
     }
