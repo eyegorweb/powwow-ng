@@ -10113,6 +10113,11 @@ vue-loader@^15.6.4:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-local-scope@^0.0.1:
+  version "0.0.1"
+  resolved "http://r.cnpmjs.org/vue-local-scope/download/vue-local-scope-0.0.1.tgz#e40cabc92876e4d36455aad3c4de38270413fe17"
+  integrity sha1-5AyrySh25NNkVarTxN44JwQT/hc=
+
 vue-promised@^1.0.0:
   version "1.1.1"
   resolved "http://r.cnpmjs.org/vue-promised/download/vue-promised-1.1.1.tgz#45376c7633b7b51da804d0e86a4de66d51357b24"

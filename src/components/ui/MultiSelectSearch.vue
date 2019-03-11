@@ -1,53 +1,33 @@
 <template>
   <div class="container bg-white clearfix pb-3 items-search" ref="container">
     <SearchInput
-      :items="itemsToSearch"
+      :items="items"
       :fields="inputFields"
       @clear="removeSelection()"
       @update:value="$emit('update:search', $event)"
     >
       <template slot="beforeInput">
-        <div v-if="!showAll">
-          <div
-            v-for="selected in cutSelectedItems"
-            class="selection ml-2 my-1 text-white bg-secondary rounded"
-            :key="selected.id"
+        <div
+          v-for="selected in displayedItems"
+          class="selection ml-2 my-1 text-white bg-secondary rounded"
+          :key="selected.id"
+        >
+          {{ selected.label }}
+          <img
+            role="button"
+            tabindex="0"
+            class="remove-item close-icon"
+            style="font-size: 24px"
+            src="@/assets/close-white.svg"
+            @click="removeSelection(selected)"
           >
-            {{ selected.label }}
-            <img
-              class="remove-item close-icon"
-              style="font-size: 24px"
-              src="@/assets/close-white.svg"
-              @click="removeSelection(selected)"
-            >
-          </div>
-          <button
-            class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
-            v-if="isMaximumItemsReached"
-            @click="showAll = true"
-          >{{ `+${selectedItems.length - maximumSelectableItems}` }}</button>
         </div>
 
-        <div v-else>
-          <div
-            v-for="selected in selectedItems"
-            class="selection ml-2 my-1 text-white bg-secondary rounded"
-            :key="selected.id"
-          >
-            {{ selected.label }}
-            <img
-              class="remove-item close-icon"
-              style="font-size: 24px"
-              src="@/assets/close-white.svg"
-              @click="removeSelection(selected)"
-            >
-          </div>
-          <button
-            class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
-            v-if="isMaximumItemsReached"
-            @click="showAll = false"
-          >{{ $t('ui.MultiSelectSearch.showLess' )}}</button>
-        </div>
+        <button
+          class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
+          @click="showAll = !showAll"
+          v-if="isMaximumItemsReached"
+        >{{ showAll ? $t('ui.MultiSelectSearch.showLess' ) : `+${selectedItems.length - maximumSelectableItems}` }}</button>
       </template>
 
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
@@ -95,6 +75,7 @@ export default {
 
   data() {
     return {
+      // TODO: a mettre en computed
       labelText: this.$t('selectAll'),
       maximumSelectableItems: 2,
       showAll: false,
@@ -111,9 +92,6 @@ export default {
       // renvoit les N premiers partenaires sélectionnés
       return this.selectedItems.slice(0, this.maximumSelectableItems);
     },
-    itemsToSearch() {
-      return this.items;
-    },
     inputFields() {
       return ['label'];
     },
@@ -126,9 +104,15 @@ export default {
       },
     },
 
+    displayedItems: ({ selectedItems, showAll, cutSelectedItems }) =>
+      showAll ? selectedItems : cutSelectedItems,
+
     // TODO: gerer le cas ou on fait une recherche texte
     isMaximumItemsReached: ({ selectedItems, maximumSelectableItems }) =>
       selectedItems.length > maximumSelectableItems,
+
+    extraItemCount: ({ selectedItems, maximumSelectableItems }) =>
+      selectedItems.length - maximumSelectableItems,
   },
 
   updated() {

@@ -87,7 +87,7 @@ describe('PartnersSearch', () => {
   });
 
   it('empties array when label is clicked', () => {
-    wrapper.setData({ selectedItems: [...partners] });
+    wrapper.vm.selectedItems = [...partners];
     wrapper.find('input[type=checkbox]').setChecked(true);
     wrapper.find('input[type=checkbox]').setChecked(false);
     expect(sortBy(wrapper.vm.selectedItems, 'id')).toHaveLength(0);
