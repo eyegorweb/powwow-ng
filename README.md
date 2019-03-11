@@ -52,6 +52,8 @@ npm run lint
 npm run test:unit
 ```
 
+If tests are giving errors in almost every file, you may need to clear jest cache with `yarn jest --clearCache` and then run tests again
+
 <!-- URLs utilisées -->
 
 [yarn]: https://yarnpkg.com/lang/en/

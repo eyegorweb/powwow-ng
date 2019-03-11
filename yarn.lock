@@ -1128,9 +1128,9 @@
   integrity sha1-12jboAQmHAKbU6d8XqLV+e5PPM4=
 
 "@vue/test-utils@^1.0.0-beta.26":
-  version "1.0.0-beta.26"
-  resolved "http://r.cnpmjs.org/@vue/test-utils/download/@vue/test-utils-1.0.0-beta.26.tgz#1ae7e1dc2bef4f49f9dbfdfecad342d17d6c5c88"
-  integrity sha1-Gufh3CvvT0n52/3+ytNC0X1sXIg=
+  version "1.0.0-beta.29"
+  resolved "http://r.cnpmjs.org/@vue/test-utils/download/@vue/test-utils-1.0.0-beta.29.tgz#c942cf25e891cf081b6a03332b4ae1ef430726f0"
+  integrity sha1-yULPJeiRzwgbagMzK0rh70MHJvA=
   dependencies:
     dom-event-types "^1.0.0"
     lodash "^4.17.4"
@@ -10145,10 +10145,10 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.17:
-  version "2.5.17"
-  resolved "http://r.cnpmjs.org/vue-template-compiler/download/vue-template-compiler-2.5.17.tgz#52a4a078c327deb937482a509ae85c06f346c3cb"
-  integrity sha1-UqSgeMMn3rk3SCpQmuhcBvNGw8s=
+vue-template-compiler@2.5.22:
+  version "2.5.22"
+  resolved "http://r.cnpmjs.org/vue-template-compiler/download/vue-template-compiler-2.5.22.tgz#c3d3c02c65f1908205c4fbd3b0ef579e51239955"
+  integrity sha1-w9PALGXxkIIFxPvTsO9XnlEjmVU=
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -10158,15 +10158,15 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "http://r.cnpmjs.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
+vue@2.5.22:
+  version "2.5.22"
+  resolved "http://r.cnpmjs.org/vue/download/vue-2.5.22.tgz#3bf88041af08b8539c37b268b70ca79245e9cc30"
+  integrity sha1-O/iAQa8IuFOcN7JotwynkkXpzDA=
+
 vue@^2.5.16:
   version "2.5.21"
   resolved "http://r.cnpmjs.org/vue/download/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
   integrity sha1-PTPc0Du4E5Es6JSoMDq1U2mcSoU=
-
-vue@^2.5.17:
-  version "2.5.17"
-  resolved "http://r.cnpmjs.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
-  integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
 
 vuedraggable@^2.17.0:
   version "2.17.0"

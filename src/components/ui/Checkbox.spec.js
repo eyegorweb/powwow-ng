@@ -28,8 +28,7 @@ describe('Checkbox.vue', () => {
 
   it('emits when checked changes', () => {
     wrapper.find('input').setChecked(false);
-    // setChecked emet deux évemenements...
-    expect(wrapper.emitted('change')).toEqual([[false], [false]]);
+    expect(wrapper.emitted('change')).toEqual([[false]]);
   });
 
   it('passes down value attribute', () => {
