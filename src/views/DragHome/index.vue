@@ -12,10 +12,7 @@
         <div class="card-body">Graphs here</div>
       </div>
     </div>
-    <draggable
-      v-model="widgetsInPanel"
-      :options="draggableOptions"
-    >
+    <draggable v-model="widgetsInPanel" handle=".handle">
       <transition-group name="widgets">
         <div
           v-for="w in activeWidgets"
@@ -118,9 +115,6 @@ export default {
         },
       ],
     };
-  },
-  created() {
-    this.draggableOptions = { handle: '.handle' };
   },
 };
 </script>

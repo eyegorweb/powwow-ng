@@ -40,7 +40,7 @@
     <div class="row">
       <div class="col-md-12">
         <table class="table table-blue mt-1">
-          <draggable element="thead" v-model="sortableColumns" :options="draggableOptions">
+          <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name+column.label" v-for="column in sortableColumns">
                 <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
@@ -210,10 +210,6 @@ export default {
       this.$emit('update:columns', newColumns);
       this.$emit('update:showExtraColumns', false);
     },
-  },
-
-  created() {
-    this.draggableOptions = { handle: '.handle' };
   },
 };
 </script>

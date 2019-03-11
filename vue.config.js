@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   css: {
     loaderOptions: {
@@ -19,5 +21,9 @@ module.exports = {
       openAnalyzer: false,
       analyzerMode: 'static',
     },
+  },
+
+  configureWebpack: {
+    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
   },
 };
