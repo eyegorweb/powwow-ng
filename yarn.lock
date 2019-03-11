@@ -9084,10 +9084,10 @@ sockjs@0.3.19:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
 
-sortablejs@^1.7.0:
-  version "1.7.0"
-  resolved "http://r.cnpmjs.org/sortablejs/download/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
-  integrity sha1-gKKyNwq9Vo4c7IwnETHvMKkE+ig=
+sortablejs@^1.8.3:
+  version "1.8.3"
+  resolved "http://r.cnpmjs.org/sortablejs/download/sortablejs-1.8.3.tgz#5ae908ef96300966e95440a143340f5dd565a0df"
+  integrity sha1-WukI75YwCWbpVEChQzQPXdVloN8=
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -10167,11 +10167,11 @@ vue@^2.5.16:
   integrity sha1-8hy8U2v8FPfR15KhN7sS9p5g6pE=
 
 vuedraggable@^2.17.0:
-  version "2.17.0"
-  resolved "http://r.cnpmjs.org/vuedraggable/download/vuedraggable-2.17.0.tgz#489c16c9bcb9eb06f441944d3c52e5f2bb7060f9"
-  integrity sha1-SJwWyby56wb0QZRNPFLl8rtwYPk=
+  version "2.19.1"
+  resolved "http://r.cnpmjs.org/vuedraggable/download/vuedraggable-2.19.1.tgz#04d772c71f4480564c7003b66df4214c64ab39d5"
+  integrity sha1-BNdyxx9EgFZMcAO2bfQhTGSrOdU=
   dependencies:
-    sortablejs "^1.7.0"
+    sortablejs "^1.8.3"
 
 vuex-mock-store@^0.0.7:
   version "0.0.7"
