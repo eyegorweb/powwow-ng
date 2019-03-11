@@ -15,11 +15,14 @@ module.exports = {
     'no-debugger': 'off',
     'no-trailing-spaces': 'error',
     'spaced-comment': ['error', 'always', { exceptions: ['-', '+'] }],
+
     // vue specific
     'vue/require-default-prop': 0,
     'vue/html-quotes': [2, 'double'],
     'vue/this-in-template': [2, 'never'],
     'vue/no-spaces-around-equal-signs-in-attribute': 2,
+    'vue/singleline-html-element-content-newline': 0,
+
     // prettier autoformat mieux le html dans vue
     'vue/max-attributes-per-line': 0,
     'vue/script-ident': {
@@ -33,6 +36,7 @@ module.exports = {
         },
       ],
     },
+
     // jest
     'jest/consistent-test-it': 'error',
     'import/newline-after-import': ['error', { count: 1 }],

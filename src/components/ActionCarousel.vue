@@ -19,7 +19,6 @@
             />
           </slick>
         </div>
-
       </div>
     </div>
   </div>
