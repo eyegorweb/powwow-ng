@@ -61,7 +61,7 @@ import OffersChoice from './OffersChoice';
 import BasicService from './BasicService';
 import DataService from './DataService';
 
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 import { fetchOffersForPartnerId } from '@/api/offers';
 
 export default {

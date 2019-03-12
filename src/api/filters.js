@@ -1,5 +1,5 @@
 import { query } from './utils';
-import capitalize from 'lodash/capitalize';
+import { capitalize } from 'lodash-es';
 
 export async function fetchPartners(filter, pagination) {
   const paginationInfo = pagination

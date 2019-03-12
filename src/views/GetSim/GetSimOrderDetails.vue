@@ -179,7 +179,7 @@
 <script>
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 import UiButton from '@/components/ui/Button';
 // import moment from 'moment';
 

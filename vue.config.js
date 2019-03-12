@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   css: {
@@ -24,6 +25,9 @@ module.exports = {
   },
 
   configureWebpack: {
-    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    plugins: [
+      new LodashModuleReplacementPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ],
   },
 };

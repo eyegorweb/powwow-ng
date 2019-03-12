@@ -1,6 +1,6 @@
 import { query } from './utils';
 import moment from 'moment';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchOrders(orderBy, pagination, filters = []) {

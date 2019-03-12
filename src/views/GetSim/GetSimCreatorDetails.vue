@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 import { mapGetters } from 'vuex';
 
 export default {

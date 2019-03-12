@@ -70,7 +70,7 @@ import GetSimTypeOption from './GetSimTypeOption';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
 import { fetchSim } from '@/api/products';
-import get from 'lodash.get';
+import { get } from 'lodash-es';
 
 export default {
   name: 'CreateOrderStepProduct',
