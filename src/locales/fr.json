@@ -54,6 +54,7 @@
     "export": "Exporter {total} commande(s)",
     "sim-type-labels": {
       "format": "Format",
+      "licence": "Licence",
       "patent": "Brevets et fonctionnalité"
     },
     "date-from-to": "Du {startDate} au {endDate}",

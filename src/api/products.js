@@ -10,6 +10,8 @@ export async function fetchSim(partnerId) {
         simCard {
           id
           name
+          format
+          licence
         }
       }
     }
