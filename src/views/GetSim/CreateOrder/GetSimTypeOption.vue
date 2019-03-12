@@ -9,7 +9,9 @@
         :value="item"
       />
       <div class="simTypeIfos">
-        <p class="simtype__name m-0">{{ item.simCard.name }}</p>
+        <p class="simtype__info m-0">{{ item.simCard.name }}</p>
+        <p class="simtype__info m-0">{{ $t('getsim.sim-type-labels.format') }}:{{ item.simCard.format }}</p>
+        <p class="simtype__info m-0">{{ $t('getsim.sim-type-labels.licence') }}:{{ item.simCard.licence }}</p>
       </div>
     </div>
     <div class="simtype__item">
@@ -69,7 +71,7 @@ export default {
   &.active {
     border: 1px solid $blue;
 
-    .simtype__name {
+    .simtype__info {
       color: $blue;
     }
   }
@@ -79,7 +81,7 @@ export default {
     font-size: 0.8rem;
     text-align: left;
 
-    &.simtype__name {
+    &.simtype__info {
       font-size: 0.9rem;
     }
 
