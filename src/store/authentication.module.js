@@ -1,7 +1,7 @@
 import { fetchCurrentUserInfos } from '@/api/user';
 import { isDevMode } from '@/utils';
 import { api } from '@/api/utils';
-import { cloneDeep } from 'lodash-es';
+import cloneDeep from 'lodash.clonedeep';
 
 export const state = {
   token: undefined,

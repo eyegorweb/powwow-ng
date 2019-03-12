@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import MultiSelectSearch from './MultiSelectSearch';
-import { sortBy } from 'lodash-es';
+import sortBy from 'lodash.sortby';
 import { $t } from '@/../tests-utils';
 
 const partners = [
