@@ -55,7 +55,9 @@
 <script>
 import SearchInput from '@/components/SearchInput';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { unionBy, differenceBy, isEqual } from 'lodash-es';
+import unionBy from 'lodash.unionby';
+import differenceBy from 'lodash.differenceby';
+import isEqual from 'lodash.isequal';
 
 export default {
   props: {

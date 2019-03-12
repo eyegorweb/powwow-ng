@@ -39,7 +39,7 @@
 import SlidePanel from '@/components/SlidePanel';
 import HomePanelOption from './HomePanelOption';
 import UiButton from '@/components/ui/Button';
-import { cloneDeep } from 'lodash-es';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   name: 'HomePanel',

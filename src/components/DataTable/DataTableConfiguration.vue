@@ -22,7 +22,7 @@
 
 <script>
 import Checkbox from '@/components/ui/Checkbox.vue';
-import { cloneDeep } from 'lodash-es';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   /**

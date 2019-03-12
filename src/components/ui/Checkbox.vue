@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { isEqual } from 'lodash-es';
+import isEqual from 'lodash.isequal';
 
 export default {
   name: 'Checkbox',

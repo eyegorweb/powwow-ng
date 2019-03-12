@@ -47,7 +47,7 @@ import GetSimOrdersIdColumn from './GetSimOrdersIdColumn';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
-import { sortBy } from 'lodash-es';
+import sortBy from 'lodash.sortby';
 
 export default {
   name: 'Orders',

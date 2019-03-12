@@ -7,7 +7,7 @@
 <script>
 import UiDateRange from '@/components/ui/UiDateRange';
 import { mapMutations, mapGetters } from 'vuex';
-import { get } from 'lodash-es';
+import get from 'lodash/get';
 
 export default {
   components: {
