@@ -20,6 +20,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         status
         preActivationAsked
         importedQuantity
+        externalId
         contactInformation {
           email
           phone
@@ -315,6 +316,13 @@ export async function createOrder(synthesis) {
       ${values}
     }`;
   }
+
+  const orderReference = get(synthesis, 'orderReference.selection.orderReference');
+  let orderReferenceParam = ''
+  if(orderReference) {
+    orderReferenceParam = `externalId: "${orderReference}"`
+  }
+
   const queryStr = `
   mutation {
     createOrder(orderInput: {
@@ -346,6 +354,7 @@ export async function createOrder(synthesis) {
       activationAsked: false,
       simCardId: ${get(synthesis, 'product.value.id')}
       customFieldsDTO: ${customFieldsDTO}
+      ${orderReferenceParam}
     }) {
       id
     }

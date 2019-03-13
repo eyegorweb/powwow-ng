@@ -174,7 +174,7 @@ export default {
             content: this.referenceValue,
           },
           selection: {
-            orderReference: synthesis.orderReference,
+            orderReference: this.referenceValue,
           },
         };
       } else {
