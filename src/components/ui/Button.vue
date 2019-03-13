@@ -60,4 +60,8 @@ export default {
   background: $white;
   border-color: $primary;
 }
+
+.btn-adder {
+  background: $light-gray;
+}
 </style>
