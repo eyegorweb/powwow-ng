@@ -4,7 +4,6 @@
       {{ row.name.firstName }} {{ row.name.lastName }}
     </a>
   </div>
-
 </template>
 
 <script>
@@ -15,5 +14,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

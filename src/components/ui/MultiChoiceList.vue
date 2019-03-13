@@ -2,8 +2,14 @@
   <div class="card">
     <div class="card-body p-1">
       <ul class="list-unstyled m-0">
-        <li class="item" :key="item.label" v-for="item in items" :class="{selected: item.selected}" @click="() => selectItem(item)">
-          <div>{{ item.label }} <i class="ic-Check-Icon" v-if="item.selected" /> </div>
+        <li
+          class="item"
+          :key="item.label"
+          v-for="item in items"
+          :class="{ selected: item.selected }"
+          @click="() => selectItem(item)"
+        >
+          <div>{{ item.label }} <i class="ic-Check-Icon" v-if="item.selected" /></div>
         </li>
       </ul>
     </div>

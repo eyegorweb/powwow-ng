@@ -1,11 +1,15 @@
 <template>
   <div class="mb-3">
-    <div
-      v-for="filter in currentFilters"
-      :key="filter.name"
-    >
+    <div v-for="filter in currentFilters" :key="filter.name">
       <SelectedFilterDetails
-        v-if="filter && ((filter.values && filter.values.length) || filter.value || filter.startDate || filter.from || filter.to)"
+        v-if="
+          filter &&
+            ((filter.values && filter.values.length) ||
+              filter.value ||
+              filter.startDate ||
+              filter.from ||
+              filter.to)
+        "
         :filter="filter"
       />
     </div>
@@ -18,7 +22,8 @@
           class="flex-grow-1 py-1 px-3"
           @click.prevent="toggle"
           :class="staticClass"
-        >Enregistrer</UiButton>
+          >Enregistrer</UiButton
+        >
         <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
             <span aria-hidden="true">&times;</span>
@@ -33,11 +38,9 @@
           </form>
         </div>
       </UiDropdownButton>
-      <UiButton
-        variant="primary"
-        @click="applyFilters()"
-        class="flex-grow-1 py-1 px-3 ml-1"
-      >Appliquer le filtre</UiButton>
+      <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1"
+        >Appliquer le filtre</UiButton
+      >
     </div>
   </div>
 </template>

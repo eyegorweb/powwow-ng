@@ -48,7 +48,6 @@
                     />
                     <span>{{ $t('orders.new.deliveryStep.new') }}</span>
                   </div>
-
                 </div>
               </template>
               <template slot-scope="{ item }">
@@ -83,7 +82,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>

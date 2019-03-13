@@ -9,7 +9,7 @@
       :required="required"
       type="number"
       class="form-control"
-    >
+    />
     <input
       v-else
       :placeholder="placeholder"
@@ -20,7 +20,7 @@
       :maxlength="maxSize"
       :required="required"
       class="form-control"
-    >
+    />
     <small v-if="error" class="form-text text-danger">
       {{ error }}
     </small>
@@ -59,5 +59,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

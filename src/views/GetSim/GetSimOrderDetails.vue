@@ -6,8 +6,8 @@
           <div class="checked checkmark" />
         </div>
         <div class="ml-3">
-          {{ $t(('orders.new.message.confirmation')) }}<br>
-          {{ $t(('orders.new.message.delivery')) }}
+          {{ $t('orders.new.message.confirmation') }}<br />
+          {{ $t('orders.new.message.delivery') }}
         </div>
         <div class="cross-loader load-complete">
           <a href="#" class="cross" @click.prevent="close" />
@@ -38,9 +38,13 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creator') }} :</h6>
-          <p
-            class="m-0"
-          >{{ `${getFromOrder('auditable.creator.name.title')} ${getFromOrder('auditable.creator.name.firstName')} ${getFromOrder('auditable.creator.name.lastName')}` }}</p>
+          <p class="m-0">
+            {{
+              `${getFromOrder('auditable.creator.name.title')} ${getFromOrder(
+                'auditable.creator.name.firstName'
+              )} ${getFromOrder('auditable.creator.name.lastName')}`
+            }}
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creatorMail') }} :</h6>
@@ -58,9 +62,15 @@
 
       <div class="overview-container m-3 bg-white">
         <div class="overview-item d-flex">
-          <h4 class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase">{{ $t('orders.detail.simCardOffer') }}</h4>
-          <UiButton v-if="order.status === 'TERMINATED'" variant="import">{{ $t('getsim.actions.SHOW_SIM') }}</UiButton>
-          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">{{ $t('getsim.actions.IMPORT_SIM') }}</UiButton>
+          <h4 class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase">
+            {{ $t('orders.detail.simCardOffer') }}
+          </h4>
+          <UiButton v-if="order.status === 'TERMINATED'" variant="import">{{
+            $t('getsim.actions.SHOW_SIM')
+          }}</UiButton>
+          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">{{
+            $t('getsim.actions.IMPORT_SIM')
+          }}</UiButton>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -76,13 +86,15 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('action') }} :</h6>
-          <p
-            v-if="order.preActivationAsked && order.activationAsked"
-          >{{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}</p>
-          <p
-            v-if="order.preActivationAsked && !order.activationAsked"
-          >{{ $t('col.preActivationAsked') }}</p>
-          <p v-if="!order.preActivationAsked && order.activationAsked">{{ $t('col.activationAsked') }}</p>
+          <p v-if="order.preActivationAsked && order.activationAsked">
+            {{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}
+          </p>
+          <p v-if="order.preActivationAsked && !order.activationAsked">
+            {{ $t('col.preActivationAsked') }}
+          </p>
+          <p v-if="!order.preActivationAsked && order.activationAsked">
+            {{ $t('col.activationAsked') }}
+          </p>
           <p v-if="!order.preActivationAsked && !order.activationAsked">{{ $t('none') }}</p>
         </div>
         <div class="overview-item">
@@ -93,9 +105,9 @@
 
       <div class="overview-container m-3 bg-white">
         <div class="overview-item">
-          <h4
-            class="font-weight-normal text-uppercase"
-          >{{ $t('orders.new.deliveryStep.form.deliveryCoords') }}</h4>
+          <h4 class="font-weight-normal text-uppercase">
+            {{ $t('orders.new.deliveryStep.form.deliveryCoords') }}
+          </h4>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.company') }}</h6>
@@ -103,9 +115,13 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('col.recipient') }}</h6>
-          <p
-            class="m-0"
-          >{{ `${getFromOrder('name.title')} ${getFromOrder('name.firstName')} ${getFromOrder('name.lastName')}` }}</p>
+          <p class="m-0">
+            {{
+              `${getFromOrder('name.title')} ${getFromOrder('name.firstName')} ${getFromOrder(
+                'name.lastName'
+              )}`
+            }}
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.email') }}</h6>
@@ -120,7 +136,9 @@
           <p>{{ getFromOrder('address.address1') }}</p>
           <p v-if="getFromOrder('address.address2')">{{ getFromOrder('address.address2') }}</p>
           <p v-if="getFromOrder('address.address3')">{{ getFromOrder('address.address3') }}</p>
-          <p v-if="getFromOrder('address.city')"> {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}</p>
+          <p v-if="getFromOrder('address.city')">
+            {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
+          </p>
         </div>
       </div>
 
@@ -153,9 +171,16 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.address') }}</h6>
           <p>{{ getFromOrder('customerAccount.address.address1') }}</p>
-          <p v-if="getFromOrder('customerAccount.address.address2')">{{ getFromOrder('customerAccount.address.address2') }}</p>
-          <p v-if="getFromOrder('customerAccount.address.address3')">{{ getFromOrder('customerAccount.address.address3') }}</p>
-          <p v-if="getFromOrder('customerAccount.address.city')"> {{ getFromOrder('customerAccount.address.zipCode') }} - {{ getFromOrder('customerAccount.address.city') }}</p>
+          <p v-if="getFromOrder('customerAccount.address.address2')">
+            {{ getFromOrder('customerAccount.address.address2') }}
+          </p>
+          <p v-if="getFromOrder('customerAccount.address.address3')">
+            {{ getFromOrder('customerAccount.address.address3') }}
+          </p>
+          <p v-if="getFromOrder('customerAccount.address.city')">
+            {{ getFromOrder('customerAccount.address.zipCode') }} -
+            {{ getFromOrder('customerAccount.address.city') }}
+          </p>
         </div>
       </div>
 
@@ -168,7 +193,6 @@
           <p>{{ field.value }}</p>
         </div>
       </div>
-
     </div>
     <div class="footer-back">
       <GetSimOrderDetailsButtons :order="order" />

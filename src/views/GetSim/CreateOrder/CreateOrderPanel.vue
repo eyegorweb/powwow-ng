@@ -9,18 +9,34 @@
           <CreateOrderStepProduct @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
         </div>
         <div slot="Services">
-          <CreateOrderStepServices :offers="offers" :apn="apn" @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
+          <CreateOrderStepServices
+            :offers="offers"
+            :apn="apn"
+            @done="stepisDone"
+            @prev="previousStep"
+            :synthesis="synthesis"
+          />
         </div>
         <div slot="Livraison">
           <CreateOrderStepDelivery @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
         </div>
         <div slot="Paramètres">
-          <CreateOrderStepSettings @prev="previousStep" @done="lastStep" :synthesis="synthesis" @customFieldsMeta="setCustomFieldsMeta" :custom-fields-errors="customFieldsErrors" />
+          <CreateOrderStepSettings
+            @prev="previousStep"
+            @done="lastStep"
+            :synthesis="synthesis"
+            @customFieldsMeta="setCustomFieldsMeta"
+            :custom-fields-errors="customFieldsErrors"
+          />
         </div>
       </Stepper>
     </div>
     <div class="col-md-4 synthesis-bar">
-      <GetSimCreateOrderPanelSynthesis :synthesis="synthesis" :can-save="currentStep === steps.length - 1" @save="saveOrder" />
+      <GetSimCreateOrderPanelSynthesis
+        :synthesis="synthesis"
+        :can-save="currentStep === steps.length - 1"
+        @save="saveOrder"
+      />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="simtype" :class="{ 'active': isActive }">
+  <div class="simtype" :class="{ active: isActive }">
     <div class="simtype__item d-flex">
       <UiCheckbox
         input-type="radio"
@@ -9,13 +9,17 @@
         :value="item"
       />
       <div class="simTypeIfos">
-        <p class="simtype__info m-0">{{ item.simCard.name }}</p>
-        <p class="simtype__info m-0">{{ $t('getsim.sim-type-labels.format') }}:{{ item.simCard.format }}</p>
-        <p class="simtype__info m-0">{{ $t('getsim.sim-type-labels.licence') }}:{{ item.simCard.licence }}</p>
+        <p class="simtype__info simtype__name m-0">{{ item.simCard.name }}</p>
+        <p class="simtype__info m-0">
+          {{ $t('getsim.sim-type-labels.format') }}:{{ item.simCard.format }}
+        </p>
+        <p class="simtype__info m-0">
+          {{ $t('getsim.sim-type-labels.licence') }}:{{ item.simCard.licence }}
+        </p>
       </div>
     </div>
     <div class="simtype__item">
-      <img src="@/assets/simtype.png">
+      <img src="@/assets/simtype.png" />
     </div>
   </div>
 </template>

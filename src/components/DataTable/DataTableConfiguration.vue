@@ -11,9 +11,12 @@
               :key="column.id"
               v-model="column.visible"
               :disabled="isDisabled(column)"
-            >{{ column.label }}</Checkbox>
+              >{{ column.label }}</Checkbox
+            >
           </div>
-          <button class="btn btn-block btn-primary" @click="saveExtraColumns">{{ $t('save') }}</button>
+          <button class="btn btn-block btn-primary" @click="saveExtraColumns">
+            {{ $t('save') }}
+          </button>
         </div>
       </div>
     </div>

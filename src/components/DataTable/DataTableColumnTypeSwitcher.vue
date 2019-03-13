@@ -1,13 +1,7 @@
 <template>
   <div>
     <template v-if="!format">{{ item }}</template>
-    <component
-      v-else-if="component"
-      :is="component"
-      :format="format"
-      :item="item"
-      :row="row"
-    />
+    <component v-else-if="component" :is="component" :format="format" :item="item" :row="row" />
   </div>
 </template>
 <script>

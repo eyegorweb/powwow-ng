@@ -48,14 +48,16 @@ export default {
       if (selected) {
         selected.value = newVal;
         this.setCustomFieldsFilter(
-          selectedCustomFieldsValues.filter(s => s.value && s.value.length > 0).map(s => {
-            if (s.id === selected.id) {
-              selected.label = labelForSynthesis;
-              return selected;
-            } else {
-              return s;
-            }
-          })
+          selectedCustomFieldsValues
+            .filter(s => s.value && s.value.length > 0)
+            .map(s => {
+              if (s.id === selected.id) {
+                selected.label = labelForSynthesis;
+                return selected;
+              } else {
+                return s;
+              }
+            })
         );
       } else {
         this.setCustomFieldsFilter([

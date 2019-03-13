@@ -1,8 +1,5 @@
 <template>
-  <li
-    class="step-label d-flex flex-column align-items-center px-4 pb-3"
-    :class="liClasses"
-  >
+  <li class="step-label d-flex flex-column align-items-center px-4 pb-3" :class="liClasses">
     <div
       class="check-container rounded-circle d-flex justify-content-center align-items-center"
       :class="checkContainerClasses"

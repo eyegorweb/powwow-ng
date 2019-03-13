@@ -4,7 +4,7 @@
       <div v-if="item.type === 'TEXT'">
         {{ item.label }}
         <UiInput
-          @update:value="(newVal) => onValueChanged(item, newVal)"
+          @update:value="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
           class="d-block"
@@ -12,11 +12,11 @@
       </div>
       <div class="form-group" v-if="item.type === 'LIST'">
         <label>{{ item.label }}</label>
-        <br>
+        <br />
         <UiSelect
           placeholder="Choisissez une valeur"
           :value="getSelectedValue(item.code)"
-          @input="(newVal) => onValueChanged(item, newVal)"
+          @input="newVal => onValueChanged(item, newVal)"
           :options="item.value"
           class="select-filter"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
@@ -25,7 +25,7 @@
       <div v-if="item.type === 'DATE'">
         {{ item.label }}
         <UiDate
-          @change="(newVal) => onValueChanged(item, newVal)"
+          @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
           class="d-block"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
@@ -34,7 +34,6 @@
         </UiDate>
       </div>
     </div>
-
   </div>
 </template>
 

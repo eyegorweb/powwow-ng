@@ -16,10 +16,10 @@
           autocomplete="off"
           v-bind="$attrs"
           @input="areSuggestionsVisible = true"
-          @keydown.prevent.down.exact="selectDown(data ? data.length -1 : 0)"
+          @keydown.prevent.down.exact="selectDown(data ? data.length - 1 : 0)"
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
-        >
+        />
         <a class="p-0" @click.prevent="showSuggestions">
           <i v-if="!noIcon" :class="iconClass" />
         </a>
@@ -33,7 +33,9 @@
           <li
             v-if="!$value && !displayResultsWhileEmpty"
             class="autocomplete-result text-muted is-disabled"
-          >Commencez à taper pour avoir des suggestions</li>
+          >
+            Commencez à taper pour avoir des suggestions
+          </li>
           <template v-else>
             <li
               v-for="(result, i) in data"
@@ -116,8 +118,8 @@ export default {
                 newValue && newValue[this.labelKey]
               : newValue
             : typeof newValue === 'object'
-              ? newValue
-              : { [this.labelKey]: newValue }
+            ? newValue
+            : { [this.labelKey]: newValue }
         );
       },
     },

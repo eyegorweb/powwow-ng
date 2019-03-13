@@ -9,7 +9,11 @@
           </li>
           <li v-if="isAddingOption">
             <form @submit.prevent="addOption">
-              <UiInput class="d-block" :placeholder="$t('orders.add-custom-field-to-list')" v-model="newOptionValue" />
+              <UiInput
+                class="d-block"
+                :placeholder="$t('orders.add-custom-field-to-list')"
+                v-model="newOptionValue"
+              />
             </form>
           </li>
           <li v-if="!isAddingOption" class="add-option">

@@ -9,8 +9,8 @@
         v-model="model"
         :value="value"
         :name="name"
-      >
-      <input v-else type="checkbox" v-bind="$attrs" v-model="model" :value="value">
+      />
+      <input v-else type="checkbox" v-bind="$attrs" v-model="model" :value="value" />
       <span class="checkmark" :class="isIndeterminate ? 'indeterminate' : shape" />
     </label>
   </div>

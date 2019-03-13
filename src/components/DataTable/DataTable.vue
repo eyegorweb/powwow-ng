@@ -16,7 +16,9 @@
               </UiInput>
             </div>
             <div class="form-group col-md-3 mb-0">
-              <button type="button" class="btn btn-primary btn-sm btn-block mt-1">{{ $t('search') }}</button>
+              <button type="button" class="btn btn-primary btn-sm btn-block mt-1">
+                {{ $t('search') }}
+              </button>
             </div>
           </div>
         </form>
@@ -42,7 +44,7 @@
         <table class="table table-blue mt-1">
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
-              <th :key="column.name+column.label" v-for="column in sortableColumns">
+              <th :key="column.name + column.label" v-for="column in sortableColumns">
                 <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
                 {{ column.label }}
                 <DataTableOrderArrow
@@ -65,11 +67,12 @@
           </draggable>
           <tbody>
             <tr :key="row.id" v-for="row in rows">
-              <td
-                :key="column.name+column.label+row.id"
-                v-for="column in sortableColumns"
-              >
-                <DatatableColumnTypeSwitcher :format="column.format" :item="row[column.name]" :row="row" />
+              <td :key="column.name + column.label + row.id" v-for="column in sortableColumns">
+                <DatatableColumnTypeSwitcher
+                  :format="column.format"
+                  :item="row[column.name]"
+                  :row="row"
+                />
               </td>
               <td>
                 <slot name="actions" :row="row" />

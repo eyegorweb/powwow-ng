@@ -9,7 +9,7 @@
       v-model="value_"
       type="number"
       :min="minValue"
-    >
+    />
     <input
       v-else
       :placeholder="placeholder"
@@ -17,7 +17,7 @@
       v-model="value_"
       v-on="$listeners"
       type="text"
-    >
+    />
     <slot name="afterInput" />
 
     <span v-if="error" class="error-text">{{ $t(error) }}</span>

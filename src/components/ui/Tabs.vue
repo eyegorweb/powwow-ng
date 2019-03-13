@@ -9,11 +9,9 @@
         :selected-index="$selectedIndex"
         :select-tab="selectTab"
       >
-        <Tab
-          :key="tab.label"
-          @selected="selectTab(i)"
-          :is-selected="$selectedIndex === i"
-        >{{ tab.label }}</Tab>
+        <Tab :key="tab.label" @selected="selectTab(i)" :is-selected="$selectedIndex === i">{{
+          tab.label
+        }}</Tab>
       </slot>
     </ol>
     <div class="tab-content">

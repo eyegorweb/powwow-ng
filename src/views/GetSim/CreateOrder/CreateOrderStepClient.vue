@@ -11,7 +11,12 @@
             display-results-while-empty
             scroll-for-next
           >
-            <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }">
+            <img
+              style="font-size: 24px"
+              class="arrow"
+              src="@/assets/search.svg"
+              :style="{ left: 0 }"
+            />
           </UiApiAutocomplete>
         </div>
         <div>

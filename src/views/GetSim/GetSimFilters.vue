@@ -1,54 +1,55 @@
 <template>
   <div class="card filter-bar">
-    <div class="card-body" :class="[ allFiltersVisible ? 'show-all-filters' : 'hide-all-filters' ]">
+    <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
-      <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters"/>
+      <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock :title="$t('filters.partners')" :key="'el1'" draggable>
-            <GetSimPartnersFilter/>
+            <GetSimPartnersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
-            <GetSimPartnersBillingAccountsFilter/>
+            <GetSimPartnersBillingAccountsFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderStatus')" :key="'el3'" draggable>
             <div>
               <UiCheckbox
                 v-for="status in statusResults"
                 :checked="status.checked"
-                :value="{'id': status, 'label': $t(`col.statuses. ${status}`)}"
+                :value="{ id: status, label: $t(`col.statuses. ${status}`) }"
                 :key="status"
                 v-model="orderStatus"
-              >{{ $t(`col.statuses. ${status}`) }}</UiCheckbox>
+                >{{ $t(`col.statuses. ${status}`) }}</UiCheckbox
+              >
             </div>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
-            <GetSimDateFilter/>
+            <GetSimDateFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.offers')" :key="'el6'" draggable>
-            <GetSimOffersFilter/>
+            <GetSimOffersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable>
-            <GetSimQuantityFilter/>
+            <GetSimQuantityFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.customFields')" :key="'el8'" draggable>
-            <GetSimCustomFields/>
+            <GetSimCustomFields />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
-            <GetSimOrderCreator/>
+            <GetSimOrderCreator />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable>
-            <GetSimDeliveryCountries/>
+            <GetSimDeliveryCountries />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.postalCode')" :key="'el12'" draggable>
-            <GetSimPostalCode/>
+            <GetSimPostalCode />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.city')" :key="'el20'" draggable>
-            <GetSimCity/>
+            <GetSimCity />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.action')" :key="'e21'" draggable>
-            <GetSimActionFilter/>
+            <GetSimActionFilter />
           </FoldableBlock>
         </transition-group>
       </draggable>
@@ -61,7 +62,7 @@
         class="show-all-types text-right"
       >
         Plus de filtres
-        <i class="arrow ic-Arrow-Down-Icon"/>
+        <i class="arrow ic-Arrow-Down-Icon" />
       </a>
     </div>
     <div class="text-right">
@@ -72,7 +73,7 @@
         class="show-all-types text-right"
       >
         Moins de filtres
-        <i class="arrow ic-Arrow-Up-Icon"/>
+        <i class="arrow ic-Arrow-Up-Icon" />
       </a>
     </div>
   </div>

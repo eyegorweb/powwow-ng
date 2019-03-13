@@ -4,7 +4,9 @@
     <p class="subtitle">{{ $t('orders.required-custom-field') }}</p>
     <div class="subcontainer">
       <UiInput class="d-block" placeholder v-model="labelCustomField" value>
-        <template slot="beforeInput">{{ $t('orders.input-label-custom-field') }} :</template>
+        <template slot="beforeInput"
+          >{{ $t('orders.input-label-custom-field') }} :</template
+        >
       </UiInput>
       <div>
         <label class="standalone">{{ $t('orders.choose-type-custom-field') }} :</label>
@@ -14,25 +16,40 @@
             <button
               type="button"
               class="btn float-left"
-              :class="{'btn-primary': customFieldType === 'TEXT', ' btn-outline-simple': customFieldType !== 'TEXT'}"
+              :class="{
+                'btn-primary': customFieldType === 'TEXT',
+                ' btn-outline-simple': customFieldType !== 'TEXT',
+              }"
               @click="customFieldType = 'TEXT'"
-            >{{ $t('text') }}</button>
+            >
+              {{ $t('text') }}
+            </button>
             <button
               type="button"
               class="btn float-left"
-              :class="{'btn-primary': customFieldType === 'LIST', ' btn-outline-simple': customFieldType !== 'LIST'}"
+              :class="{
+                'btn-primary': customFieldType === 'LIST',
+                ' btn-outline-simple': customFieldType !== 'LIST',
+              }"
               @click="customFieldType = 'LIST'"
-            >{{ $t('list') }}</button>
+            >
+              {{ $t('list') }}
+            </button>
             <button
               type="button"
               class="btn float-left"
-              :class="{'btn-primary': customFieldType === 'DATE', ' btn-outline-simple': customFieldType !== 'DATE'}"
+              :class="{
+                'btn-primary': customFieldType === 'DATE',
+                ' btn-outline-simple': customFieldType !== 'DATE',
+              }"
               @click="customFieldType = 'DATE'"
-            >{{ $t('date') }}</button>
+            >
+              {{ $t('date') }}
+            </button>
           </div>
         </div>
         <div>
-          <div v-if="customFieldType ==='LIST'">
+          <div v-if="customFieldType === 'LIST'">
             <CreateOrderAddCustomList :options.sync="listOptions" />
           </div>
         </div>
@@ -92,16 +109,18 @@
             <div class="float-left">{{ $t('orders.new.settingsStep.PAIRING') }}</div>
           </div>
         </div>
-
       </div>
 
-      <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">{{ $t('cancel') }}</UiButton>
+      <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">{{
+        $t('cancel')
+      }}</UiButton>
       <UiButton
         :variant="canAddCustomField ? 'primary' : 'outline-simple'"
         class="float-right"
         :disabled="!canAddCustomField"
         @click="saveCustomField"
-      >{{ $t("orders.add-custom-field") }}</UiButton>
+        >{{ $t('orders.add-custom-field') }}</UiButton
+      >
     </div>
   </div>
 </template>

@@ -9,7 +9,7 @@
     <div class="container">
       <NavBars is-backoffice-profile />
       <StepperNonLinear :stepper-data="stepperData" />
-      <hr>
+      <hr />
       <div class="container">
         <div class="card">
           <div class="card-body">
@@ -22,13 +22,13 @@
               <div class="col-md-4">
                 <InputRange />
               </div>
-              <br>
+              <br />
             </div>
           </div>
         </div>
       </div>
 
-      <br>
+      <br />
 
       <div class="container">
         <div class="row">
@@ -44,14 +44,14 @@
       </TransitionCollapse>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="container bg-white">
       {{ selectedAddress }}
       <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" />
     </div>
 
-    <hr>
+    <hr />
 
     <div class="container bg-white">
       <Stepper :steps="steps">
@@ -66,12 +66,13 @@
           <UiButton
             :variant="selectedIndex === index ? 'success' : 'link'"
             @click="selectTab(index)"
-          >{{ index }} - {{ tab.label }}</UiButton>
+            >{{ index }} - {{ tab.label }}</UiButton
+          >
         </template>
         <p slot="Client">Step Client</p>
       </UiTabs>
     </div>
-    <hr>
+    <hr />
     <div class="container">
       <div class="card">
         <div class="card-body">
@@ -91,7 +92,7 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr />
     <div class="container">
       <div class="row">
         <div class="col-md-6">

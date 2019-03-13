@@ -1,39 +1,21 @@
 <template>
   <ul class="pagination mb-0">
-    <li
-      class="page-item"
-      :class="{'disabled': page === 1}"
-    >
-      <a
-        class="page-link"
-        href="#"
-        @click="previousPage()"
-      >
+    <li class="page-item" :class="{ disabled: page === 1 }">
+      <a class="page-link" href="#" @click="previousPage()">
         <span class="ic-Arrow-Previous-Icon" />
       </a>
     </li>
     <li
       class="page-item page-nb"
-      :class="{'active': isPageActive(index)}"
+      :class="{ active: isPageActive(index) }"
       :key="'page_' + index"
       v-for="index in pagesToShow"
     >
-      <a
-        class="page-link"
-        href="#"
-        @click="gotoPage(index)"
-      >{{ index }}</a>
+      <a class="page-link" href="#" @click="gotoPage(index)">{{ index }}</a>
     </li>
 
-    <li
-      class="page-item"
-      :class="{'disabled': page === pageCount}"
-    >
-      <a
-        class="page-link"
-        href="#"
-        @click="nextPage()"
-      >
+    <li class="page-item" :class="{ disabled: page === pageCount }">
+      <a class="page-link" href="#" @click="nextPage()">
         <span class="ic-Arrow-Next-Icon" />
       </a>
     </li>

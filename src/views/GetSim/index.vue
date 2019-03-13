@@ -6,7 +6,7 @@
         <div class="col-md-9">
           <h4>
             <b>GetSim</b>
-            - {{ $t("getsim.manage-orders") }}
+            - {{ $t('getsim.manage-orders') }}
             <i class="ic-Info-Icon" />
           </h4>
         </div>
@@ -15,14 +15,22 @@
             variant="accent"
             block
             class="float-right"
-            @click="openPanel({title: $t('getsim.order-sim'), panelId: 'getsim.order-sim', wide: true, backdrop: true})"
-          >{{ $t("getsim.order-sim") }}</UiButton>
+            @click="
+              openPanel({
+                title: $t('getsim.order-sim'),
+                panelId: 'getsim.order-sim',
+                wide: true,
+                backdrop: true,
+              })
+            "
+            >{{ $t('getsim.order-sim') }}</UiButton
+          >
         </div>
       </div>
       <div class="row">
         <div class="col-md-3">
           <GetSimIndicators />
-          <br>
+          <br />
           <GetSimFilters />
         </div>
         <div class="col-md-9">

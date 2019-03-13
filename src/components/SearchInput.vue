@@ -2,7 +2,7 @@
   <div class="search-input">
     <UiInput v-model="$value" @update:value="$emit('update:value', $event)">
       <!-- TODO:Utiliser la bonne icone -->
-      <img style="font-size: 24px" slot="icon" src="@/assets/search.svg" :style="{ left: 0 }">
+      <img style="font-size: 24px" slot="icon" src="@/assets/search.svg" :style="{ left: 0 }" />
       <template slot="beforeInput">
         <slot name="beforeInput" />
       </template>

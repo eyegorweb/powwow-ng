@@ -1,17 +1,11 @@
 <template>
   <div class="foldable-block pt-3">
     <div class="d-flex align-items-center">
-      <span
-        v-if="draggable"
-        class="handle"
-      >
+      <span v-if="draggable" class="handle">
         <i class="ic-Drag-Column-Icon" />
       </span>
       <span class="title flex-grow-1">{{ title }}</span>
-      <a
-        class=" p-0"
-        @click.prevent="toggleShow"
-      >
+      <a class=" p-0" @click.prevent="toggleShow">
         <i :class="iconClass" />
       </a>
     </div>

@@ -2,7 +2,7 @@
   <div
     class="card home-panel-option no-select mb-2 d-flex opt-container"
     @click="model = !model"
-    :class="{active: model}"
+    :class="{ active: model }"
   >
     <div class="d-flex opt-container">
       <div class="b-check d-flex justify-content-center pl-3 pt-2">
@@ -13,7 +13,7 @@
         <slot />
       </div>
       <div class="opt-image">
-        <img class="not-found" src="@/assets/404.png" alt="image not found">
+        <img class="not-found" src="@/assets/404.png" alt="image not found" />
       </div>
     </div>
   </div>

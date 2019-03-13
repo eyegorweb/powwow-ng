@@ -11,16 +11,17 @@
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.customFields" />
     </div>
     <div class="footer pt-3">
-      <UiCheckbox
-        v-model="accept"
-        :disabled="!canSave"
-      >{{ $t('orders.new.acceptConditions') }}</UiCheckbox>
+      <UiCheckbox v-model="accept" :disabled="!canSave">{{
+        $t('orders.new.acceptConditions')
+      }}</UiCheckbox>
       <button
         type="button"
         class="btn btn-accent btn-lg btn-block"
         :disabled="!(accept && canSave)"
         @click="$emit('save')"
-      >{{ $t('orders.new.save') }}</button>
+      >
+        {{ $t('orders.new.save') }}
+      </button>
     </div>
   </div>
 </template>

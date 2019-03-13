@@ -1,17 +1,20 @@
 <template>
   <div class="form-container">
     <form @submit.prevent="onSubmitAddress">
-
       <div class="form-content">
-        <h2 v-if="!addressEdit" class="panel-title text-center mt-2">{{ $t('orders.choose-delivery') }}</h2>
+        <h2 v-if="!addressEdit" class="panel-title text-center mt-2">
+          {{ $t('orders.choose-delivery') }}
+        </h2>
         <h2 v-else class="panel-title text-center mt-2">{{ $t('orders.modify-delivery') }}</h2>
         <div class="d-flex">
-          <label class="radio-container mr-3">{{ $t('common.MR') }}
-            <input name="civility" type="radio" value="MR" v-model="form.title" required>
+          <label class="radio-container mr-3"
+            >{{ $t('common.MR') }}
+            <input name="civility" type="radio" value="MR" v-model="form.title" required />
             <span class="checkmark" />
           </label>
-          <label class="radio-container">{{ $t('common.MRS') }}
-            <input name="civility" type="radio" value="MRS" v-model="form.title" required>
+          <label class="radio-container"
+            >{{ $t('common.MRS') }}
+            <input name="civility" type="radio" value="MRS" v-model="form.title" required />
             <span class="checkmark" />
           </label>
         </div>
@@ -78,39 +81,33 @@
             <div class="form-group">
               <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
               <div>
-                <UiSelect
-                  placeholder=""
-                  v-model="form.country"
-                  :options="countries"
-                />
+                <UiSelect placeholder="" v-model="form.country" :options="countries" />
               </div>
             </div>
           </div>
         </div>
         <div class="form-group">
           <label>{{ $t('orders.new.deliveryStep.form.delivery') }}</label>
-          <input class="form-control mb-1" v-model="form.extraInfos" disabled>
-          <input class="form-control" v-model="form.extraInfos2" disabled>
+          <input class="form-control mb-1" v-model="form.extraInfos" disabled />
+          <input class="form-control" v-model="form.extraInfos2" disabled />
         </div>
       </div>
       <div class="form-bottom">
         <div class="row">
           <div class="col">
-            <button type="button" class="btn btn-outline-primary btn-block" @click="$emit('cancel')">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-block"
+              @click="$emit('cancel')"
+            >
               {{ $t('orders.new.deliveryStep.form.cancel') }}
             </button>
           </div>
           <div class="col">
-            <button
-              v-if="!addressEdit"
-              class="btn btn-primary btn-block"
-            >
+            <button v-if="!addressEdit" class="btn btn-primary btn-block">
               {{ $t('orders.new.deliveryStep.form.add') }}
             </button>
-            <button
-              v-else
-              class="btn btn-primary btn-block"
-            >
+            <button v-else class="btn btn-primary btn-block">
               {{ $t('orders.new.deliveryStep.form.modify') }}
             </button>
           </div>

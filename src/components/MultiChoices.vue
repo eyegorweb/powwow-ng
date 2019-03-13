@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="checkboxes">
-      <Checkbox
-        v-for="v in values"
-        :key="v.code"
-        v-model="model"
-        :value="v"
-      >
+      <Checkbox v-for="v in values" :key="v.code" v-model="model" :value="v">
         {{ v.label }}
       </Checkbox>
     </div>
@@ -42,5 +37,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,18 +1,20 @@
 <template>
   <div class="select-container">
-    <select class="form-control" v-model="model" :class="{ 'arrow-blue': arrowBlue, error: !!error }" :size="numberOfVisibleItems">
+    <select
+      class="form-control"
+      v-model="model"
+      :class="{ 'arrow-blue': arrowBlue, error: !!error }"
+      :size="numberOfVisibleItems"
+    >
       <slot>
         <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
-        <option
-          v-for="option in formattedOptions"
-          :key="option.value"
-          :value="option.value"
-        >{{ option.label }}</option>
+        <option v-for="option in formattedOptions" :key="option.value" :value="option.value">{{
+          option.label
+        }}</option>
       </slot>
     </select>
     <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </div>
-
 </template>
 
 <script>

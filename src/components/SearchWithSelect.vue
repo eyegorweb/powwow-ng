@@ -5,10 +5,7 @@
       class="flex-grow-1"
       v-model="query_"
     >
-      <i
-        slot="icon"
-        class="select-icon ic-Flag-Icon"
-      />
+      <i slot="icon" class="select-icon ic-Flag-Icon" />
     </UiInput>
     <UiSelect
       class="text-gray"

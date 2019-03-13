@@ -2,7 +2,9 @@
   <div class="data-detail-container">
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
-        <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.personalInformations') }}</h4>
+        <h4 class="font-weight-normal text-uppercase">
+          {{ $t('orders.detail.personalInformations') }}
+        </h4>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.deActivate') }} :</h6>
@@ -22,7 +24,9 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.email') }} :</h6>
-        <a :href="getFromOrder('contactInformation.email')">{{ getFromOrder('auditable.creator.email') }}</a>
+        <a :href="getFromOrder('contactInformation.email')">{{
+          getFromOrder('auditable.creator.email')
+        }}</a>
       </div>
       <div class="overview-item">
         <h6>Login :</h6>
@@ -31,9 +35,7 @@
     </div>
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
-        <h4
-          class="font-weight-normal text-uppercase"
-        >{{ $t('orders.detail.partnerAndRoles') }}</h4>
+        <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.partnerAndRoles') }}</h4>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
@@ -41,7 +43,11 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.roles') }} :</h6>
-        <p><span v-for="(r, index) in roles" :key="r.name">{{ index ? ', ': '' }}{{ r.description }}</span></p>
+        <p>
+          <span v-for="(r, index) in roles" :key="r.name"
+            >{{ index ? ', ' : '' }}{{ r.description }}</span
+          >
+        </p>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
         class="logo logo--corporate"
         src="@/assets/logo_bouygues.png"
         alt
-      >
+      />
       <UiTabs :tabs="navbarLinks" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentLinkIndex">
@@ -17,11 +17,11 @@
     </div>
     <div class="flex-part">
       <div class="lang-flags">
-        <a href="#" @click.prevent="$i18n.locale='fr'" :class="{active: $i18n.locale === 'fr'}">
-          <img src="@/assets/fr.png">
+        <a href="#" @click.prevent="$i18n.locale = 'fr'" :class="{ active: $i18n.locale === 'fr' }">
+          <img src="@/assets/fr.png" />
         </a>
-        <a href="#" @click.prevent="$i18n.locale='en'" :class="{active: $i18n.locale === 'en'}">
-          <img src="@/assets/en.png">
+        <a href="#" @click.prevent="$i18n.locale = 'en'" :class="{ active: $i18n.locale === 'en' }">
+          <img src="@/assets/en.png" />
         </a>
       </div>
       <div class="nav">
@@ -34,7 +34,7 @@
               <li class="list-group-item">
                 {{ userInfos.name.firstName }}
                 {{ userInfos.name.lastName }}
-                <br>
+                <br />
                 {{ userInfos.email }}
               </li>
               <li class="list-group-item">
@@ -49,7 +49,7 @@
         class="logo logo--client"
         src="@/assets/logo_client_exemple.png"
         alt
-      >
+      />
     </div>
   </div>
 </template>

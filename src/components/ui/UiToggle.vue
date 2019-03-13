@@ -1,11 +1,11 @@
 <template>
-  <div class="toggle" :class="[label ? 'with-label': 'without-label' ,statusClassName]">
+  <div class="toggle" :class="[label ? 'with-label' : 'without-label', statusClassName]">
     <div v-if="label" class="before-label">
       <p class="before-label__label">{{ label }}</p>
       <p class="before-label__dots" />
     </div>
     <label>
-      <input type="checkbox" v-bind="$attrs" v-model="model">
+      <input type="checkbox" v-bind="$attrs" v-model="model" />
       <span class="slider" />
       <span class="state state--on">On</span>
       <span class="state state--off">Off</span>

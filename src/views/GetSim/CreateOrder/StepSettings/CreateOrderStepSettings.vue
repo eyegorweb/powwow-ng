@@ -3,7 +3,9 @@
     <div class="panel-vertical-container" v-if="!isOpen">
       <div class="main-content">
         <CreateOrderAddOrderReference :value="referenceValue" @input="onReferenceSet" />
-        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-custom-field') }}</h3>
+        <h3 class="font-weight-light text-center mt-4 mb-4">
+          {{ $t('orders.choose-custom-field') }}
+        </h3>
         <div class="subcontainer">
           <div>
             <CustomFields
@@ -13,9 +15,15 @@
               @change="onValueChanged"
             />
           </div>
-          <UiButton v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS" variant="adder" block class @click="open">
+          <UiButton
+            v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS"
+            variant="adder"
+            block
+            class
+            @click="open"
+          >
             <i class="btn-round-button ic-Plus-Icon mr-2" />
-            {{ $t("orders.add-custom-field") }}
+            {{ $t('orders.add-custom-field') }}
           </UiButton>
         </div>
       </div>

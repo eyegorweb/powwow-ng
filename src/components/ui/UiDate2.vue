@@ -2,8 +2,14 @@
   <div>
     <div ref="singledate" class="row datepicker" :class="{ error: !!error }">
       <div class="col"><i class="icon ic-Calendar-Icon" /></div>
-      <div class="col-9" style="padding: 0"><span>{{ value }}</span></div>
-      <div class="col"><button v-if="value" @click.stop="clearValue" class="btn btn-link"><i class="icon ic-Cross-Icon" /></button></div>
+      <div class="col-9" style="padding: 0">
+        <span>{{ value }}</span>
+      </div>
+      <div class="col">
+        <button v-if="value" @click.stop="clearValue" class="btn btn-link">
+          <i class="icon ic-Cross-Icon" />
+        </button>
+      </div>
     </div>
     <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </div>
@@ -46,7 +52,7 @@ export default {
       this.dateInstance = $(this.$refs.singledate).daterangepicker(
         {
           singleDatePicker: true,
-          startDate: startDate,
+          startDate,
           locale: {
             format: 'DD/MM/YYYY',
             separator: ' - ',

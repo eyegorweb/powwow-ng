@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div ref="daterange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+    <div
+      ref="daterange"
+      style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%"
+    >
       <i class="icon ic-Calendar-Icon" />&nbsp;
       <span>{{ formattedResult }}</span>
       <i class="fa fa-caret-down" />
@@ -45,8 +48,8 @@ export default {
     // TODO: add i18n support
     $(this.$refs.daterange).daterangepicker(
       {
-        startDate: startDate,
-        endDate: endDate,
+        startDate,
+        endDate,
         locale: {
           format: 'DD/MM/YYYY',
           separator: ' - ',

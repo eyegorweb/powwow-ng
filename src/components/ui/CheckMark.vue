@@ -1,9 +1,22 @@
 <template>
   <div
     class="circle-loader animated-checkmark"
-    :class="{'load-complete': !isLoading, 'is-error': isError, 'can-pulse': pulse, 'loading': isLoading, 'disabled': !checked }"
+    :class="{
+      'load-complete': !isLoading,
+      'is-error': isError,
+      'can-pulse': pulse,
+      loading: isLoading,
+      disabled: !checked,
+    }"
   >
-    <div :class="{ 'checked': checked && !isLoading && !isError, 'checkmark': checked && !isError, 'cross': isError, 'animate': animate }" />
+    <div
+      :class="{
+        checked: checked && !isLoading && !isError,
+        checkmark: checked && !isError,
+        cross: isError,
+        animate: animate,
+      }"
+    />
   </div>
 </template>
 

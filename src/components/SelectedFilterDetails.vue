@@ -6,30 +6,26 @@
         <template v-for="op in filter.values">
           <span class="detail" :key="op.id">
             {{ op.label }}
-            <br>
+            <br />
           </span>
         </template>
       </template>
 
       <span v-else-if="filter.value" class="detail"> {{ filter.value }}</span>
 
-      <span
-        v-else-if="filter.startDate && filter.endDate"
-        class="detail"
-      >{{ $t('getsim.date-from-to', dateFilter) }}</span>
+      <span v-else-if="filter.startDate && filter.endDate" class="detail">{{
+        $t('getsim.date-from-to', dateFilter)
+      }}</span>
 
-      <span
-        v-else-if="filter.from && filter.to"
-        class="detail"
-      >{{ $t('getsim.between-min-max', rangeFilter) }}</span>
-      <span
-        v-else-if="filter.from && !filter.to"
-        class="detail"
-      >{{ $t('getsim.ge') }} {{ filter.from }}</span>
-      <span
-        v-else-if="!filter.from && filter.to"
-        class="detail"
-      >{{ $t('getsim.le') }} {{ filter.to }}</span>
+      <span v-else-if="filter.from && filter.to" class="detail">{{
+        $t('getsim.between-min-max', rangeFilter)
+      }}</span>
+      <span v-else-if="filter.from && !filter.to" class="detail"
+        >{{ $t('getsim.ge') }} {{ filter.from }}</span
+      >
+      <span v-else-if="!filter.from && filter.to" class="detail"
+        >{{ $t('getsim.le') }} {{ filter.to }}</span
+      >
     </div>
 
     <button

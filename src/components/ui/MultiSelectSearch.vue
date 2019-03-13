@@ -20,14 +20,20 @@
             style="font-size: 24px"
             src="@/assets/close-white.svg"
             @click="removeSelection(selected)"
-          >
+          />
         </div>
 
         <button
           class="display-selections text-secondary underlined shadow-none bg-transparent p-0 mx-2 border-0"
           @click="showAll = !showAll"
           v-if="isMaximumItemsReached"
-        >{{ showAll ? $t('ui.MultiSelectSearch.showLess' ) : `+${selectedItems.length - maximumSelectableItems}` }}</button>
+        >
+          {{
+            showAll
+              ? $t('ui.MultiSelectSearch.showLess')
+              : `+${selectedItems.length - maximumSelectableItems}`
+          }}
+        </button>
       </template>
 
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
@@ -35,9 +41,13 @@
           v-if="enableSelectAll"
           :value="results.map(r => r.item)"
           :checked="multiSelectValues(results.map(r => r.item))"
-          @change="addAllToSelectedItems($event, results.map(r => r.item)), updateTextLabel($event, results.map(r => r.item))"
+          @change="
+            addAllToSelectedItems($event, results.map(r => r.item)),
+              updateTextLabel($event, results.map(r => r.item))
+          "
           class="text-secondary"
-        >{{ labelText }} ({{ results.length }})</UiCheckbox>
+          >{{ labelText }} ({{ results.length }})</UiCheckbox
+        >
         <UiCheckbox
           v-for="result in results"
           v-model="selectedItems"
@@ -45,7 +55,7 @@
           :key="'ms_' + result.item.id"
           @change="updateTextLabel($event, results.map(r => r.item))"
         >
-          <span v-html="result.highlighted.label"/>
+          <span v-html="result.highlighted.label" />
         </UiCheckbox>
       </div>
     </SearchInput>

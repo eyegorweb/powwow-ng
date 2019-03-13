@@ -1,5 +1,11 @@
 <template>
-  <SlidePanel :title="title" :is-open="isOpen" @close="closePanel" :wide="wide" :backdrop="backdrop">
+  <SlidePanel
+    :title="title"
+    :is-open="isOpen"
+    @close="closePanel"
+    :wide="wide"
+    :backdrop="backdrop"
+  >
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />

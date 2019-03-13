@@ -4,13 +4,13 @@
       :checked="false"
       :value="$t('filters.actionValues.ACTIVATED')"
       v-model="lineActivated"
-    >{{ $t('filters.actionValues.ACTIVATED') }}
+      >{{ $t('filters.actionValues.ACTIVATED') }}
     </UiCheckbox>
     <UiCheckbox
       :checked="false"
       :value="$t('filters.actionValues.PREACTIVATED')"
       v-model="linePreActivated"
-    >{{ $t('filters.actionValues.PREACTIVATED') }}
+      >{{ $t('filters.actionValues.PREACTIVATED') }}
     </UiCheckbox>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
           ...this.selectedAction,
           {
             id: code,
-            value: value,
+            value,
             label: labelForSynthesis,
           },
         ]);

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <UiInput
-      v-model="city"
-    />
+    <UiInput v-model="city" />
   </div>
 </template>
 

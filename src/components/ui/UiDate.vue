@@ -1,6 +1,6 @@
 <template>
   <label :class="{ 'has-icon': $slots.icon }">
-    <input placeholder="../../...." type="text" v-bind="$attrs" ref="dateValue">
+    <input placeholder="../../...." type="text" v-bind="$attrs" ref="dateValue" />
     <slot name="icon" />
   </label>
 </template>

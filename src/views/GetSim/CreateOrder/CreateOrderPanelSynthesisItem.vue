@@ -1,6 +1,6 @@
 <template>
   <div v-if="item" class="synthesis-item">
-    <h6>{{ $t(item.label) }}: </h6>
+    <h6>{{ $t(item.label) }}:</h6>
     <template v-if="isContentArray">
       <div :key="value" v-for="value in content">
         {{ value }}

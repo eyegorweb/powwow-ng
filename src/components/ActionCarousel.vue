@@ -5,10 +5,7 @@
 
       <div class="actions-carousel">
         <div class="slider-container">
-          <slick
-            ref="slick"
-            :options="slickOptions"
-          >
+          <slick ref="slick" :options="slickOptions">
             <ActionCarouselItem
               v-for="item in actions"
               :key="item.title"

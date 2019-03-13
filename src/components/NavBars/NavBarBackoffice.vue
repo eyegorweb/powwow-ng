@@ -1,11 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div>
-      <img
-        class="logo"
-        src="@/assets/logo_bouygues.png"
-        alt
-      >
+      <img class="logo" src="@/assets/logo_bouygues.png" alt />
     </div>
 
     <div class="input-group w-auto flex-grow-1">

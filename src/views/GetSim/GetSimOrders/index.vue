@@ -1,22 +1,20 @@
 <template>
-  <div class="position-relative" :style="{minHeight: '50vh'}"> <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
-    <img
-      class="loader"
-      v-if="orderIsLoading"
-      src="@/assets/spinner.svg"
-    >
-    <div :class="{'order-is-loading': orderIsLoading}">
+  <div class="position-relative" :style="{ minHeight: '50vh' }">
+    <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
+    <img class="loader" v-if="orderIsLoading" src="@/assets/spinner.svg" />
+    <div :class="{ 'order-is-loading': orderIsLoading }">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">{{ $t('ordersFound', {'total': total}) }}</h2>
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            {{ $t('ordersFound', { total: total }) }}
+          </h2>
         </div>
         <div class="col">
           <button class="btn btn-link export-link" @click="exportFile">
             <i class="ic-Download-Icon" />
-            {{ $t('getsim.export', {'total': total}) }}
+            {{ $t('getsim.export', { total: total }) }}
           </button>
         </div>
-
       </div>
       <DataTable
         :columns.sync="columns"
@@ -33,7 +31,6 @@
           <GetSimOrdersActions :order="row" />
         </template>
       </DataTable>
-
     </div>
   </div>
 </template>

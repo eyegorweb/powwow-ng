@@ -20,13 +20,20 @@
             </div>
 
             <div class="services-container">
-              <div :key="service.id" v-for="service in basicServices" class="single-service mt-3 mb-3">
-                <BasicService :name="service.name" :dependency-code="service.code" :offer="selectedOfferData" />
+              <div
+                :key="service.id"
+                v-for="service in basicServices"
+                class="single-service mt-3 mb-3"
+              >
+                <BasicService
+                  :name="service.name"
+                  :dependency-code="service.code"
+                  :offer="selectedOfferData"
+                />
               </div>
             </div>
 
             <DataService :offer="selectedOfferData" />
-
           </template>
         </div>
       </div>
@@ -48,8 +55,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 

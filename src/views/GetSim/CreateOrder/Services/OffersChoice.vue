@@ -1,5 +1,12 @@
 <template>
-  <UiSelect class="form-offers mt-4" :class="selectedOffer_ ? '' : 'disabled'" v-model="selectedOffer_" :placeholder="$t('orders.select-offer-placeholder')" :options="offers" :arrow-blue="true" />
+  <UiSelect
+    class="form-offers mt-4"
+    :class="selectedOffer_ ? '' : 'disabled'"
+    v-model="selectedOffer_"
+    :placeholder="$t('orders.select-offer-placeholder')"
+    :options="offers"
+    :arrow-blue="true"
+  />
 </template>
 
 <script>
@@ -21,5 +28,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

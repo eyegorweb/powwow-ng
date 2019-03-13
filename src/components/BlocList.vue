@@ -1,16 +1,9 @@
 <template>
   <div class="list-container">
     <slot name="firstElement" className="box box__item d-flex" />
-    <slot
-      v-for="(item, i) in items"
-      :index="i"
-      :item="item"
-      className="box box__item d-flex"
-    >
-
+    <slot v-for="(item, i) in items" :index="i" :item="item" className="box box__item d-flex">
       <div :key="item.id" />
     </slot>
-
   </div>
 </template>
 

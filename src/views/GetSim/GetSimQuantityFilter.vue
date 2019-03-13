@@ -1,8 +1,8 @@
 <template>
   <InputRange
     type="number"
-    :from="selectedQuantityValues ? selectedQuantityValues.from: ''"
-    :to="selectedQuantityValues ? selectedQuantityValues.to: ''"
+    :from="selectedQuantityValues ? selectedQuantityValues.from : ''"
+    :to="selectedQuantityValues ? selectedQuantityValues.to : ''"
     @change="onChange"
   />
 </template>
@@ -32,5 +32,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

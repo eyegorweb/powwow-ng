@@ -1,8 +1,20 @@
 <template>
   <div class="input-group position-relative">
-    <input class="form-control border-right-0 h-100" :type="type" ref="start" v-model="fromValue" onClick="this.select();">
+    <input
+      class="form-control border-right-0 h-100"
+      :type="type"
+      ref="start"
+      v-model="fromValue"
+      onClick="this.select();"
+    />
     <i class="icon ic-Arrow-Right-Icon position-absolute" />
-    <input class="form-control border-left-0 h-100" :type="type" ref="end" v-model="toValue" onClick="this.select();">
+    <input
+      class="form-control border-left-0 h-100"
+      :type="type"
+      ref="end"
+      v-model="toValue"
+      onClick="this.select();"
+    />
   </div>
 </template>
 

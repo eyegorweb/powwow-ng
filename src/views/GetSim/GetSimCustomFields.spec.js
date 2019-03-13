@@ -50,8 +50,9 @@ describe('GetSimCustomFields', () => {
     );
 
     expect(wrapper.vm.setCustomFieldsFilter).toHaveBeenCalledWith([
-      {"id": "customField3", "label": "Champ libre 3: some value", "value": "some value"},
-      {"id": "customField1", "label": "field 1: new value", "value": "new value"}]);
+      { id: 'customField3', label: 'Champ libre 3: some value', value: 'some value' },
+      { id: 'customField1', label: 'field 1: new value', value: 'new value' },
+    ]);
   });
 
   it('updates value of already selected filter', () => {

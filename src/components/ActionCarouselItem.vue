@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item">
-    <div class="card" :class="{'inactive': !active }">
+    <div class="card" :class="{ inactive: !active }">
       <div class="card-body">
         <div class="row">
           <div class="icon-block">

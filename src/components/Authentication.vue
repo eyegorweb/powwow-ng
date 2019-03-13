@@ -1,10 +1,6 @@
 <template>
   <span>
-    <iframe
-      v-if="refreshingToken"
-      :src="refreshUrl"
-      @load="onRefreshTokenPageLoaded"
-    />
+    <iframe v-if="refreshingToken" :src="refreshUrl" @load="onRefreshTokenPageLoaded" />
   </span>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="box adress" :class="{ 'active': isActive }">
+  <div class="box adress" :class="{ active: isActive }">
     <div class="adress__item d-flex">
       <UiCheckbox
         input-type="radio"
@@ -9,21 +9,28 @@
         :value="item"
       />
       <div v-if="item" class="simTypeIfos flex-container-v">
-        <p class="adress__name m-0 flex-fixed">{{ item.name.firstName }} {{ item.name.lastName }}</p>
+        <p class="adress__name m-0 flex-fixed">
+          {{ item.name.firstName }} {{ item.name.lastName }}
+        </p>
         <p class="adress__format m-0 flex-fill">
-          <span v-if="item.company">{{ item.company }}</span> <br>
+          <span v-if="item.company">{{ item.company }}</span> <br />
           {{ item.address.address1 }}
-          <span v-if="item.address.address2 && item.address.address2 !=='null'"> <br> {{ item.address.address2 }}</span>
-          <span v-if="item.address.address3 && item.address.address3 !=='null'"> <br> {{ item.address.address3 }}</span>
-          <br v-if="item.address.city"> {{ item.address.zipCode }} - {{ item.address.city }}
+          <span v-if="item.address.address2 && item.address.address2 !== 'null'">
+            <br />
+            {{ item.address.address2 }}</span
+          >
+          <span v-if="item.address.address3 && item.address.address3 !== 'null'">
+            <br />
+            {{ item.address.address3 }}</span
+          >
+          <br v-if="item.address.city" />
+          {{ item.address.zipCode }} - {{ item.address.city }}
         </p>
         <footer v-if="canEdit" class="flex-fixed">
           <a href="#" @click.prevent="$emit('modify', item)">{{ $t('modify') }}</a>
         </footer>
       </div>
-
     </div>
-
   </div>
 </template>
 

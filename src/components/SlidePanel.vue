@@ -2,17 +2,18 @@
   <div>
     <div
       class="cd-panel cd-panel--from-right js-cd-panel-main"
-      :class="{ 'cd-panel--is-visible': isOpen, 'wide': wide, 'narrow': !wide, 'with-backdrop': backdrop}"
+      :class="{
+        'cd-panel--is-visible': isOpen,
+        wide: wide,
+        narrow: !wide,
+        'with-backdrop': backdrop,
+      }"
       id="main-sliding-panel"
     >
       <header class="ignore-clickaway cd-panel__header">
         <h1 class="ignore-clickaway font-weight-light">{{ title }}</h1>
 
-        <a
-          href="#0"
-          class="cd-panel__close js-cd-close"
-          @click.prevent="$emit('close')"
-        >Close</a>
+        <a href="#0" class="cd-panel__close js-cd-close" @click.prevent="$emit('close')">Close</a>
       </header>
 
       <div class="cd-panel__container" v-clickaway="hidePanel">
@@ -21,7 +22,6 @@
         </div>
         <slot class="cd-panel__footer" name="footer" />
       </div>
-
     </div>
   </div>
 </template>

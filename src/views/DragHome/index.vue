@@ -18,7 +18,7 @@
           v-for="w in activeWidgets"
           :key="w.id"
           class="bloc d-inline-block p-1 widgets-item"
-          :class="{'wide': w.large, 'narrow': !w.large}"
+          :class="{ wide: w.large, narrow: !w.large }"
         >
           <div class="card">
             <div class="card-header">
@@ -30,17 +30,11 @@
         </div>
       </transition-group>
     </draggable>
-    <button
-      class="panel-toggle bg-secondary"
-      @click="isPanelOpen=true"
-    >
+    <button class="panel-toggle bg-secondary" @click="isPanelOpen = true">
       <i class="ic-Star-Icon" />
       <span>Personaliser ma home</span>
     </button>
-    <HomePanel
-      :widgets.sync="widgetsInPanel"
-      :is-open.sync="isPanelOpen"
-    />
+    <HomePanel :widgets.sync="widgetsInPanel" :is-open.sync="isPanelOpen" />
   </div>
 </template>
 

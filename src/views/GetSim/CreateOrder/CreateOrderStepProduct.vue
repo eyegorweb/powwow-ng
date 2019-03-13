@@ -3,7 +3,7 @@
     <div class="panel-vertical-container">
       <div class="main-content">
         <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
-          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t("getsim.step-product") }}</h3>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>
           <div class="choose-sim-type">
             <form>
               <GetSimTypeOption
@@ -11,7 +11,11 @@
                 :key="item.id"
                 :item="item"
                 :default-selected-item.sync="selectedSimTypeValue"
-                :is-active="selectedSimTypeValue && selectedSimTypeValue.simCard && selectedSimTypeValue.simCard.id === item.simCard.id"
+                :is-active="
+                  selectedSimTypeValue &&
+                    selectedSimTypeValue.simCard &&
+                    selectedSimTypeValue.simCard.id === item.simCard.id
+                "
               />
             </form>
             <div class="text-right">
@@ -21,13 +25,13 @@
                 @click.prevent="showAllSimTypes"
                 class="show-all-types text-right"
               >
-                {{ $t("getsim.show-all-sim-types") }}
+                {{ $t('getsim.show-all-sim-types') }}
                 <i class="arrow ic-Arrow-Down-Icon" />
               </a>
             </div>
           </div>
           <div class="choose-amount">
-            <h2 class="panel-title">{{ $t("getsim.choose-sim-amount") }}</h2>
+            <h2 class="panel-title">{{ $t('getsim.choose-sim-amount') }}</h2>
             <UiInput
               :placeholder="1"
               v-model="selectedNumberOfSims"
@@ -39,10 +43,8 @@
           </div>
         </div>
         <div v-else>
-          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t("getsim.no-sim-card") }}</h3>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.no-sim-card') }}</h3>
         </div>
-
-
       </div>
       <div class="footer-back">
         <div class="row">
