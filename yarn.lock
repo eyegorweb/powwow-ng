@@ -6453,7 +6453,7 @@ lodash.sortby@^4.7.0:
 
 lodash.startswith@^4.2.1:
   version "4.2.1"
-  resolved "http://r.cnpmjs.org/lodash.startswith/download/lodash.startswith-4.2.1.tgz#c598c4adce188a27e53145731cdc6c0e7177600c"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.startswith/-/lodash.startswith-4.2.1.tgz#c598c4adce188a27e53145731cdc6c0e7177600c"
   integrity sha1-xZjErc4YiiflMUVzHNxsDnF3YAw=
 
 lodash.tail@^4.1.1:
