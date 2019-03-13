@@ -37,6 +37,7 @@
                 <DataTableOrderArrow
                   v-if="column.orderable"
                   :column-name="column.name"
+                  :sorting-name="column.sortingName"
                   :order-by.sync="currentDirection"
                 />
               </th>
@@ -106,6 +107,7 @@ export default {
           label: String, // Label de la colonne
           name: String, // Attribut de l'objet ligne à afficher, par exemple: si row={a: 'coucou', b: 'salut'} et name='a' alors le contenu seras row.a => 'coucou'
           orderable: Boolean, // Possibilité de faire un order by avec cette colonne
+          sortingName: String, // Nom de l'attribut utilisé en paramètre pour le sorting de la colonne
           visible: Boolean, // Affichage par défaut de la colonne dans la table
           fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
 

@@ -148,6 +148,7 @@ export default {
           id: 2,
           label: this.$t('col.creationDate'),
           name: 'creationDate',
+          orderable: true,
           visible: true,
           exportId: 'ORDER_CREATED',
           format: {
@@ -179,6 +180,7 @@ export default {
           id: 5,
           label: this.$t('col.quantity'),
           name: 'quantity',
+          orderable: true,
           visible: true,
           exportId: 'ORDER_QUANTITY',
         },
@@ -186,6 +188,7 @@ export default {
           id: 6,
           label: this.$t('col.product'),
           name: 'orderedSimcard',
+          orderable: false,
           visible: true,
           exportId: 'ORDER_ORDEREDSIMCARD',
           format: {
@@ -198,6 +201,7 @@ export default {
           label: this.$t('col.recipient'),
           name: 'singleProduct',
           orderable: true,
+          sortingName: 'destinataire',
           visible: false,
           exportId: 'ORDER_NAME',
           format: {
@@ -210,6 +214,7 @@ export default {
           label: this.$t('col.creator'),
           name: 'singleProduct',
           orderable: true,
+          sortingName: 'creator',
           visible: false,
           exportId: 'ORDER_CREATOR',
           format: {
@@ -220,6 +225,8 @@ export default {
           id: 8,
           label: this.$t('col.partner'),
           name: 'party',
+          orderable: true,
+          sortingName: 'partyName',
           visible: false,
           exportId: 'ORDER_PARTY',
           format: {
@@ -231,7 +238,8 @@ export default {
           id: 9,
           label: this.$t('col.billingAccount'),
           name: 'customerAccount',
-          orderable: false,
+          orderable: true,
+          sortingName: 'customerAccountCode',
           visible: false,
           exportId: 'ORDER_CUSTOMERACCOUNT',
           format: {
@@ -243,7 +251,7 @@ export default {
           id: 10,
           label: this.$t('col.preActivationAsked'),
           name: 'preActivationAsked',
-          orderable: false,
+          orderable: true,
           visible: false,
           exportId: 'ORDER_PREACTIVATIONASKED',
           format: {
@@ -254,7 +262,7 @@ export default {
           id: 11,
           label: this.$t('col.activationAsked'),
           name: 'activationAsked',
-          orderable: false,
+          orderable: true,
           visible: false,
           exportId: 'ORDER_ACTIVATIONASKED',
           format: {

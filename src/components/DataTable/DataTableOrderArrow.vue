@@ -14,6 +14,10 @@ export default {
       type: String,
       required: true,
     },
+    sortingName: {
+      type: String,
+      required: false,
+    },
     orderBy: {
       type: Object,
       required: true,
@@ -24,15 +28,18 @@ export default {
       return !this.isDirectionAsc && !this.isDirectionDesc;
     },
     isDirectionAsc() {
-      return this.orderBy.key === this.columnName && this.orderBy.direction === 'ASC';
+      return this.orderBy.key === this.sortingParameter && this.orderBy.direction === 'ASC';
     },
     isDirectionDesc() {
-      return this.orderBy.key === this.columnName && this.orderBy.direction === 'DESC';
+      return this.orderBy.key === this.sortingParameter && this.orderBy.direction === 'DESC';
+    },
+    sortingParameter() {
+      return this.sortingName ? this.sortingName : this.columnName;
     },
   },
   methods: {
     toggleDirection() {
-      const orderingEvent = { key: this.columnName, direction: 'ASC' };
+      const orderingEvent = { key: this.sortingParameter, direction: 'ASC' };
 
       if (this.isDirectionAsc) {
         orderingEvent.direction = 'DESC';
