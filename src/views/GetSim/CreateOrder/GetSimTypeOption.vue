@@ -11,10 +11,10 @@
       <div class="simTypeIfos">
         <p class="simtype__info simtype__name m-0">{{ item.simCard.name }}</p>
         <p class="simtype__info m-0">
-          {{ $t('getsim.sim-type-labels.format') }}:{{ item.simCard.format }}
+          {{ $t('getsim.sim-type-labels.format') }}: {{ item.simCard.format }}
         </p>
         <p class="simtype__info m-0">
-          {{ $t('getsim.sim-type-labels.licence') }}:{{ item.simCard.licence }}
+          {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
       </div>
     </div>
