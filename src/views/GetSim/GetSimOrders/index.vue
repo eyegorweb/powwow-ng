@@ -40,6 +40,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
 import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
 import GetSimOrdersCreatorCell from './GetSimOrdersCreatorCell';
+import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
 import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
@@ -157,6 +158,7 @@ export default {
         },
         //*/
         // Id de gestion ( tableau, comment afficher ?) , exportId= ORDER_MASSACTIONIDS
+
         {
           id: 4,
           label: this.$t('col.status'),
@@ -252,6 +254,16 @@ export default {
           exportId: 'ORDER_ACTIVATIONASKED',
           format: {
             type: 'Boolean',
+          },
+        },
+        {
+          id: 13,
+          label: this.$t('col.massActionIds'),
+          name: 'massActionIds',
+          visible: false,
+          exportId: 'ORDER_MASSACTIONIDS',
+          format: {
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
       ],

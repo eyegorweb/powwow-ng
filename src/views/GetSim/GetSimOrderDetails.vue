@@ -52,7 +52,11 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.manageID') }} :</h6>
-          <p>{{ getFromOrder('massActionIds') }}</p>
+          <p>
+            <span v-for="(id, index) in massActionsIds" :key="id"
+              >{{ index ? ', ' : '' }}{{ id }}</span
+            >
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.deliveryNumber') }} :</h6>
@@ -316,6 +320,9 @@ export default {
         }
       }
       return customFieldsArray;
+    },
+    massActionsIds() {
+      return this.getFromOrder('massActionIds');
     },
   },
 

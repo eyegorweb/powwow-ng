@@ -50,6 +50,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
             email
           }
         }
+        massActionIds
         address {
           address1
           address2

@@ -93,6 +93,7 @@
     "partner": "Partenaire",
     "product": "Produit",
     "externalId": "Ref. client",
+    "massActionIds": "Id de gestion",
     "offer": "Offre",
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
