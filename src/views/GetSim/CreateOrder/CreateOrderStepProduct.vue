@@ -91,12 +91,27 @@ export default {
       type: Object,
       required: true,
     },
+    order: Object,
   },
 
-  async created() {
+  async mounted() {
+    if (!get(this.synthesis, 'quantity.selection.quantity') && this.order) {
+      this.preFill();
+    }
     this.simTypes = await fetchSim(get(this.synthesis, 'billingAccount.value.partnerId'));
     this.selectedNumberOfSims = get(this.synthesis, 'quantity.selection.quantity', 0);
-    this.selectedSimTypeValue = get(this.synthesis, 'product.selection.product', {});
+    /**
+     * si on est dans une duplication alors on cherche la carte sim à séléctionner depuis this.simTypes
+     * on ne peut pas construire cet objet directement depuis this.order
+     */
+    const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
+    if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSimcard.code')) {
+      this.selectedSimTypeValue = this.simTypes.find(
+        s => s.simCard.code === get(this.order, 'orderedSimcard.code')
+      );
+    } else {
+      this.selectedSimTypeValue = selectedProductInSynthesis;
+    }
   },
 
   methods: {
@@ -136,6 +151,20 @@ export default {
           },
         },
       };
+    },
+    preFill() {
+      this.$emit('saveSynthesis', {
+        quantity: {
+          label: 'common.quantity',
+          value: {
+            id: 'quantity',
+            content: this.order.quantity,
+          },
+          selection: {
+            quantity: this.order.quantity,
+          },
+        },
+      });
     },
   },
   computed: {

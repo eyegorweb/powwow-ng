@@ -131,7 +131,7 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
   const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
   const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
   const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
-  const filtersWithRangeValues = state.currentFilters.filter(f => f.from && f.to);
+  const filtersWithRangeValues = state.currentFilters.filter(f => f.from || f.to);
 
   if (
     filtersWithArrayValues.length === 0 &&

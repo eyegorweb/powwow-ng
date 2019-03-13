@@ -9,6 +9,7 @@ export async function fetchSim(partnerId) {
       items {
         simCard {
           id
+          code
           name
           format
           licence

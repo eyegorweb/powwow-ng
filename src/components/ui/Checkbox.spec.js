@@ -26,11 +26,6 @@ describe('Checkbox.vue', () => {
     expect(wrapper.find('input').is(':checked')).toBe(false);
   });
 
-  it('emits when checked changes', () => {
-    wrapper.find('input').setChecked(false);
-    expect(wrapper.emitted('change')).toEqual([[false]]);
-  });
-
   it('passes down value attribute', () => {
     wrapper = shallowMount(Checkbox, {
       attrs: { value: 'done' },

@@ -111,6 +111,7 @@ export default {
       type: Object,
       required: true,
     },
+    order: Object,
   },
 
   data() {
@@ -126,8 +127,11 @@ export default {
   },
 
   async mounted() {
-    this.refreshList();
+    await this.refreshList();
     this.selectedAdress = get(this.synthesis, 'delivery.selection.selectedAdress');
+    if (!this.selectedAdress && this.order) {
+      this.selectedAdress = this.lastSelectedAdress;
+    }
   },
 
   methods: {

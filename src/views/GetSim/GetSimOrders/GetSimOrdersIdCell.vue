@@ -1,5 +1,5 @@
 <template>
-  <a href="#" @click.prevent="onClick()">{{ row.id }}</a>
+  <button class="btn btn-link p-0" @click.prevent="openOrderDetailsPanel">{{ row.id }}</button>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
 
-    onClick() {
+    openOrderDetailsPanel() {
       const openTrigger = () => {
         this.openPanel({
           title: this.$t('getsim.details.title', { id: this.row.id }),
@@ -25,6 +25,9 @@ export default {
         });
       };
 
+      /**
+       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
       if (this.isOpen) {
         setTimeout(openTrigger, 500);
       } else {

@@ -18,7 +18,6 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         creationDate
         activationAsked
         status
-        externalId
         preActivationAsked
         importedQuantity
         contactInformation {
@@ -61,7 +60,9 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           state
         }
         customerAccount {
+          id
           code
+          name
           address {
             address1
             address2
@@ -73,6 +74,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           }
         }
         party {
+          id
           name
           code
           custom1FieldLabel

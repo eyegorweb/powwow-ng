@@ -80,10 +80,6 @@ export default {
     DataService,
   },
   props: {
-    apn: {
-      type: Array,
-      required: true,
-    },
     synthesis: {
       type: Object,
       required: true,
@@ -92,7 +88,6 @@ export default {
   data() {
     return {
       selectedOffer: null,
-      selectedApn: this.apn[0],
       activation: false,
       preActivationValue: false,
       partnerId: undefined,

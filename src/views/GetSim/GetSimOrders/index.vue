@@ -23,8 +23,8 @@
         :page-limit.sync="pageLimit"
         :total="total || 0"
         :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraColumns"
-        @change-order="changeColumnsOrder"
+        :show-extra-columns.sync="showExtraCells"
+        @change-order="changeCellsOrder"
         :size="7"
       >
         <template slot="actions" slot-scope="{ row }">
@@ -37,10 +37,10 @@
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
-import GetSimOrdersStatusColumn from './GetSimOrdersStatusColumn';
-import GetSimOrdersDeliveryColumn from './GetSimOrdersDeliveryColumn';
-import GetSimOrdersCreatorColumn from './GetSimOrdersCreatorColumn';
-import GetSimOrdersIdColumn from './GetSimOrdersIdColumn';
+import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
+import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
+import GetSimOrdersCreatorCell from './GetSimOrdersCreatorCell';
+import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
@@ -68,9 +68,9 @@ export default {
         appliedFilters: this.appliedFilters,
       });
     },
-    changeColumnsOrder(orderedColumns) {
-      const notVisibleColumns = this.columns.filter(c => !c.visible);
-      this.columns = orderedColumns.concat(notVisibleColumns);
+    changeCellsOrder(orderedCells) {
+      const notVisibleCells = this.columns.filter(c => !c.visible);
+      this.columns = orderedCells.concat(notVisibleCells);
     },
     async exportFile() {
       const columnsParam = sortBy(this.columns, c => !c.visible)
@@ -119,7 +119,7 @@ export default {
     },
     isPanelOpen() {
       if (this.isPanelOpen) {
-        this.showExtraColumns = false;
+        this.showExtraCells = false;
       }
     },
   },
@@ -135,7 +135,7 @@ export default {
           fixed: true,
           exportId: 'ORDER_ID',
           format: {
-            component: GetSimOrdersIdColumn,
+            component: GetSimOrdersIdCell,
           },
         },
         {
@@ -165,7 +165,7 @@ export default {
           visible: true,
           exportId: 'ORDER_STATUS',
           format: {
-            component: GetSimOrdersStatusColumn,
+            component: GetSimOrdersStatusCell,
           },
         },
         {
@@ -194,7 +194,7 @@ export default {
           visible: false,
           exportId: 'ORDER_NAME',
           format: {
-            component: GetSimOrdersDeliveryColumn,
+            component: GetSimOrdersDeliveryCell,
           },
         },
         // Offre
@@ -206,7 +206,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CREATOR',
           format: {
-            component: GetSimOrdersCreatorColumn,
+            component: GetSimOrdersCreatorCell,
           },
         },
         {
@@ -260,7 +260,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-      showExtraColumns: false,
+      showExtraCells: false,
     };
   },
 };

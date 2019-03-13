@@ -968,6 +968,17 @@ type UserPartyGroup {
   roles: [Role]
 }
 
+type UserPartyGroup {
+  id: ID!
+  name: Name
+  username: String
+  email: String
+  isUserParty: Boolean
+  isBackOffice: Boolean
+  PartyGroup: PartyGroup
+  roles: [Role]
+}
+
 type UserResponse {
   total: Int!
   items: [UserParty]
