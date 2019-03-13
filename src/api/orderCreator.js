@@ -1,10 +1,17 @@
 import { query } from './utils';
 
 export async function fetchOrderCreators(q, partners, { page, limit }) {
-  const partnersIds = partners.map(i => `"${i.id}"`).join();
+  let partnersIds, partnerGqlParam=''
+
+  if(partners && partners.length > 0) {
+    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`
+  }
+
+
   const queryStr = `
   query{
-    users(filter:{fullname: {contains: "${q}"}, partyId:{in: [${partnersIds}]}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
+    users(filter:{fullname: {contains: "${q}"}${partnerGqlParam}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
       total
       items {
         id

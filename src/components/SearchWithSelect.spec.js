@@ -31,7 +31,7 @@ describe('components/SearchWithSelect', () => {
 
   it('binds type to select', () => {
     const options = wrapper.findAll('option');
-    expect(options).toHaveLength(3);
+    expect(options).toHaveLength(2);
     expect(wrapper.find('select').element.value).toEqual('type2');
   });
 
