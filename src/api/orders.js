@@ -151,8 +151,37 @@ function formatFilters(filters) {
   orderStatus(allFilters, filters);
   addaction(allFilters, filters);
   addCountries(allFilters, filters);
+  addIdsFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const idOrder = selectedFilters.find(f => f.id === 'filters.idOrder');
+  const orderReference = selectedFilters.find(f => f.id === 'filters.orderReference');
+
+  if (iccid) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  }
+  if (idOrder) {
+    gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
+  }
+  if (orderReference) {
+    gqlFilters.push(`OrderReference: {eq: "${orderReference.value}"}`);
+  }
 }
 
 function addDateFilter(gqlFilters, selectedFilters) {

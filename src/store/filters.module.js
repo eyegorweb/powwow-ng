@@ -273,6 +273,10 @@ export const mutations = {
   applyFilters(state) {
     state.appliedFilters = [...state.currentFilters];
   },
+  forceAppliedFilters(state, values) {
+    state.appliedFilters = [...values];
+    state.currentFilters = [];
+  },
   setCustomFieldsFilter(state, customFields) {
     selectFilterValue(state, {
       id: 'filters.customFields',

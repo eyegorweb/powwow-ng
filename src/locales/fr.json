@@ -238,6 +238,10 @@
         "TERMINATED": "Terminée",
         "CANCELED": "Annulée"
       }
+    },
+    "search": {
+      "order-id": "Id de commande",
+      "client-reference": "Référence client"
     }
   },
   "customFields": {

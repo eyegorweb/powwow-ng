@@ -27,6 +27,9 @@
         @change-order="changeCellsOrder"
         :size="7"
       >
+        <template slot="topLeftCorner">
+          <SearchByIdInput />
+        </template>
         <template slot="actions" slot-scope="{ row }">
           <GetSimOrdersActions :order="row" />
         </template>
@@ -46,12 +49,14 @@ import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
 import sortBy from 'lodash.sortby';
+import SearchByIdInput from './SearchByIdInput';
 
 export default {
   name: 'Orders',
   components: {
     DataTable,
     GetSimOrdersActions,
+    SearchByIdInput,
   },
   props: {
     isPanelOpen: Boolean,
