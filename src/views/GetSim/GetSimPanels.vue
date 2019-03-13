@@ -7,7 +7,7 @@
     :backdrop="backdrop"
   >
     <div class="panel-container">
-      <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" />
+      <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
     </div>

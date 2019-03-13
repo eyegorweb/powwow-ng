@@ -3,30 +3,42 @@
     <div class="col-md-8 content">
       <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
         <div slot="Client">
-          <CreateOrderStepClient @done="stepisDone" :synthesis="synthesis" />
-        </div>
-        <div slot="Produit">
-          <CreateOrderStepProduct @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
-        </div>
-        <div slot="Services">
-          <CreateOrderStepServices
-            :offers="offers"
-            :apn="apn"
-            @done="stepisDone"
-            @prev="previousStep"
+          <CreateOrderStepClient
             :synthesis="synthesis"
+            :order="order"
+            @done="stepisDone"
+            @saveSynthesis="saveSynthesis"
           />
         </div>
+        <div slot="Produit">
+          <CreateOrderStepProduct
+            :synthesis="synthesis"
+            :order="order"
+            @done="stepisDone"
+            @prev="previousStep"
+            @saveSynthesis="saveSynthesis"
+          />
+        </div>
+        <div slot="Services">
+          <CreateOrderStepServices @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
+        </div>
         <div slot="Livraison">
-          <CreateOrderStepDelivery @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
+          <CreateOrderStepDelivery
+            :synthesis="synthesis"
+            :order="order"
+            @done="stepisDone"
+            @prev="previousStep"
+          />
         </div>
         <div slot="Paramètres">
           <CreateOrderStepSettings
+            :synthesis="synthesis"
+            :custom-fields-errors="customFieldsErrors"
+            :order="order"
             @prev="previousStep"
             @done="lastStep"
-            :synthesis="synthesis"
             @customFieldsMeta="setCustomFieldsMeta"
-            :custom-fields-errors="customFieldsErrors"
+            @saveSynthesis="saveSynthesis"
           />
         </div>
       </Stepper>
@@ -67,6 +79,7 @@ export default {
     isOpen: {
       type: Boolean,
     },
+    order: Object, // Commande à dupliquer
   },
   watch: {
     isOpen() {
@@ -88,18 +101,6 @@ export default {
       synthesis: {},
       customFieldsMeta: [],
       customFieldsErrors: undefined,
-      offers: ['LEBARA 3G SERVICES', 'LEBARA 4G SERVICES', 'LEBARA DATA'],
-      apn: [
-        'Linkybouygues01.fr',
-        'Linkybouygues02.fr',
-        'Linkybouygues03.fr',
-        'Linkybouygues04.fr',
-        'Linkybouygues05.fr',
-        'Linkybouygues06.fr',
-        'Linkybouygues07.fr',
-        'Linkybouygues08.fr',
-        'Linkybouygues09.fr',
-      ],
     };
   },
 
@@ -107,9 +108,40 @@ export default {
     orders: state => get(state, 'filters.ordersResponse.items', []),
   }),
 
+  created() {
+    /**
+    En cas de duplication pré remplir la synthèse avec les données de la commande à dupliquer
+    */
+    if (this.order) {
+      // Assemble adress
+      const adressOrder = [];
+
+      if (this.order.name) {
+        adressOrder.push(this.order.name.firstName + ' ' + this.order.name.lastName);
+      }
+
+      adressOrder.push(this.order.address.address1);
+
+      if (this.order.address.address2 && this.order.address.address2 !== 'null') {
+        adressOrder.push(this.order.address.address2);
+      }
+
+      if (this.order.address.address3 && this.order.address.address3 !== 'null') {
+        adressOrder.push(this.order.address.address3);
+      }
+
+      adressOrder.push(this.order.address.zipCode + ' - ' + this.order.address.city);
+      if (this.order.contactInformation) {
+        adressOrder.push(this.order.contactInformation.email);
+        adressOrder.push(this.order.contactInformation.phone);
+      }
+    }
+  },
+
   methods: {
     ...mapActions(['fetchOrdersFromApi']),
     ...mapMutations(['openPanel', 'closePanel', 'clearAllFilters']),
+
     reset() {
       this.currentStep = 0;
       this.synthesis = {};

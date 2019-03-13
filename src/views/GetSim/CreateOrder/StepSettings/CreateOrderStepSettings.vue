@@ -70,10 +70,12 @@ export default {
       required: true,
     },
     customFieldsErrors: Array,
+    order: Object,
   },
 
-  created() {
-    this.fetchCustomFieldsForPartner();
+  async mounted() {
+    await this.fetchCustomFieldsForPartner();
+    this.preFill();
   },
 
   methods: {
@@ -82,6 +84,17 @@ export default {
     },
     close() {
       this.isOpen = false;
+    },
+
+    preFill() {
+      if (!this.synthesis.customFields && this.order) {
+        for (let i = 1, max = this.allCustomFields.length; i <= max; i++) {
+          const value = this.order.customFields['custom' + i];
+          if (value) {
+            this.onValueChanged(this.allCustomFields[i - 1], value);
+          }
+        }
+      }
     },
 
     async fetchCustomFieldsForPartner() {

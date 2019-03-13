@@ -45,6 +45,7 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiButton from '@/components/ui/Button';
 import { fetchpartners } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
+import get from 'lodash.get';
 
 export default {
   name: 'CreateOrderStepClient',
@@ -62,9 +63,10 @@ export default {
       type: Object,
       required: true,
     },
+    order: Object,
   },
 
-  created() {
+  mounted() {
     if (
       this.synthesis &&
       this.synthesis.billingAccount &&
@@ -72,6 +74,8 @@ export default {
     ) {
       this.selectedPartner = this.synthesis.billingAccount.selection.partner;
       this.selectedBillingAccount = this.synthesis.billingAccount.selection.billingAccount;
+    } else if (this.order) {
+      this.preFill();
     }
   },
 
@@ -95,6 +99,31 @@ export default {
           selection: {
             billingAccount: this.selectedBillingAccount,
             partner: this.selectedPartner,
+          },
+        },
+      });
+    },
+
+    /**
+     * Pré remplir les champs si on est dans une duplication de commande
+     */
+    preFill() {
+      this.$emit('saveSynthesis', {
+        billingAccount: {
+          label: 'common.billingAccount',
+          value: {
+            id: get(this.order, 'customerAccount.id'),
+            content: get(this.order, 'customerAccount.name'),
+            partnerId: get(this.order, 'party.id'),
+          },
+          selection: {
+            billingAccount: {
+              id: get(this.order, 'customerAccount.id'),
+              label: get(this.order, 'customerAccount.name'),
+              partnerId: get(this.order, 'party.id'),
+              highlighted: get(this.order, 'customerAccount.name'),
+            },
+            partner: { id: get(this.order, 'party.id'), label: get(this.order, 'party.name') },
           },
         },
       });
@@ -126,6 +155,12 @@ export default {
         label: ba.name,
         partnerId: ba.party.id,
       }));
+    },
+    synthesis(synthesis) {
+      if (synthesis) {
+        this.selectedPartner = synthesis.billingAccount.selection.partner;
+        this.selectedBillingAccount = synthesis.billingAccount.selection.billingAccount;
+      }
     },
   },
 

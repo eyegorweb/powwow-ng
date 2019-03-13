@@ -50,6 +50,7 @@ export async function fetchCustomFields(partnerId) {
       type: get(response, `data.party.custom${index}FieldType`),
       value: get(response, `data.party.custom${index}ValidatedValuesAsList`),
       mandatory: get(response, `data.party.custom${index}FieldMandatory`),
+      enteredValue: undefined,
     };
     customFields.push(data);
   }

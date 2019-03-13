@@ -36,6 +36,7 @@
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
 import { cancelOrder } from '@/api/orders';
+import { mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -46,11 +47,22 @@ export default {
     UiButton,
   },
   methods: {
+    ...mapMutations(['openPanel']),
     async onActionClicked(action) {
       switch (action) {
         case 'getsim.actions.CANCEL': {
           const orderData = await cancelOrder(this.order.id);
           this.order.status = orderData.status;
+          break;
+        }
+        case 'getsim.actions.DUPLICATE': {
+          this.openPanel({
+            title: this.$t('getsim.order-sim'),
+            panelId: 'getsim.order-sim',
+            wide: true,
+            backdrop: true,
+            payload: this.order,
+          });
         }
       }
     },
