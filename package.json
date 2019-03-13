@@ -32,6 +32,7 @@
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
     "lodash.sortby": "^4.7.0",
+    "lodash.startswith": "^4.2.1",
     "lodash.union": "^4.6.0",
     "lodash.unionby": "^4.8.0",
     "moment": "^2.24.0",

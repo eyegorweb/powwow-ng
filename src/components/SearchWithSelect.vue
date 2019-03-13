@@ -1,7 +1,7 @@
 <template>
   <div class="search-container d-flex">
     <UiInput
-      placeholder="Rechercher une carte par identifiant"
+      :placeholder="inputPlaceholder"
       class="flex-grow-1"
       v-model="query_"
     >
@@ -9,7 +9,7 @@
     </UiInput>
     <UiSelect
       class="text-gray"
-      :placeholder="$t('partnerType')"
+      :placeholder="selectPlaceholder"
       v-model="type_"
       :options="options"
     />
@@ -35,6 +35,8 @@ export default {
       type: Array,
       required: true,
     },
+    inputPlaceholder: String,
+    selectPlaceholder: String,
   },
 };
 </script>

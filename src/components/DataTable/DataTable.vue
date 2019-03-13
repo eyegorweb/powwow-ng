@@ -8,20 +8,7 @@
     />
     <div class="row">
       <div class="col-md-7">
-        <form class="searchInput">
-          <div class="form-row">
-            <div class="form-group col-md-8 mb-0">
-              <UiInput :placeholder="$t('searchOrderById')" value class="d-block">
-                <i slot="icon" class="ic-Info-Icon" />
-              </UiInput>
-            </div>
-            <div class="form-group col-md-3 mb-0">
-              <button type="button" class="btn btn-primary btn-sm btn-block mt-1">
-                {{ $t('search') }}
-              </button>
-            </div>
-          </div>
-        </form>
+        <slot name="topLeftCorner" />
       </div>
       <div class="col-md-5">
         <div class="float-left">
@@ -88,7 +75,6 @@
 <script>
 import draggable from 'vuedraggable';
 import UiSelect from '@/components/ui/UiSelect';
-import UiInput from '@/components/ui/UiInput';
 import DataTablePagination from './DataTablePagination';
 import DataTableOrderArrow from './DataTableOrderArrow';
 import DataTableConfiguration from './DataTableConfiguration';
@@ -106,7 +92,6 @@ export default {
   components: {
     draggable,
     UiSelect,
-    UiInput,
     DataTableConfiguration,
     DataTablePagination,
     DataTableOrderArrow,
