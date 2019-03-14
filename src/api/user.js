@@ -30,6 +30,11 @@ export async function fetchCurrentUserInfos() {
             description
             category
           }
+          party {
+            id
+            name
+            code
+          }
         }
         ... on UserPartyGroup {
           email

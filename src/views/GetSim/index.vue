@@ -49,7 +49,7 @@ import GetSimOrders from './GetSimOrders';
 import GetSimFilters from './GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
 import GetSimPanels from './GetSimPanels';
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
   name: 'GetSim',
@@ -64,11 +64,16 @@ export default {
   },
 
   methods: {
+    ...mapActions(['initFilterForPartnerUser']),
     ...mapMutations(['openPanel']),
   },
   computed: mapState({
     isPanelOpen: state => state.ui.isPanelOpen,
   }),
+
+  mounted() {
+    this.initFilterForPartnerUser();
+  },
 };
 </script>
 

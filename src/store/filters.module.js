@@ -10,6 +10,7 @@ export const state = {
   ordersResponse: [],
   orderPage: 1,
   orderIsLoading: false,
+  defaultAppliedFilters: [],
 };
 
 // Getters
@@ -36,7 +37,7 @@ export const getters = {
   orderIsLoading: state => state.orderIsLoading,
   canShowSelectedFilter: state =>
     !!state.currentFilters.find(
-      f => (f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to
+      f => !f.hidden && ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
     ),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
@@ -81,10 +82,11 @@ export const getters = {
  * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
  * met à jour les champs libres
  */
-async function setPartnersFilter({ commit, getters }, partners) {
+async function setPartnersFilter({ commit, getters }, partners, isHidden) {
   commit('selectFilterValueNEW', {
     id: 'filters.partners',
     values: partners,
+    hidden: isHidden,
   });
 
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
@@ -127,6 +129,10 @@ async function refreshCustomFilters({ commit }, partners) {
   commit('setCustomFieldsFilter', []);
 }
 
+function clearAppliedFilters(state) {
+  state.appliedFilters = [...state.defaultAppliedFilters];
+}
+
 function resetSearchWhenCurrentFiltersAreEmpty(state) {
   const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
   const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
@@ -139,9 +145,10 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
     filtersWithDateValues.length === 0 &&
     filtersWithRangeValues.length === 0
   ) {
-    state.appliedFilters = [];
+    clearAppliedFilters(state)
   }
 }
+
 
 /**
  * DEPRECATED remove this after all others branches are merged
@@ -188,7 +195,19 @@ function selectFilterValueNEW(state, { id, ...rest }) {
 
 export const actions = {
   setPartnersFilter,
-
+  initFilterForPartnerUser(store) {
+    if(store.getters.userIsPartner) {
+      const defaultFilters = [
+        {
+          id: store.getters.userInfos.party.id,
+          label: store.getters.userInfos.party.name,
+        }
+      ];
+      store.commit('setDefaultFilter', defaultFilters)
+      setPartnersFilter(store, defaultFilters, true);
+    }
+    store.commit('applyFilters');
+  },
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -199,7 +218,8 @@ export const actions = {
     } else {
       store.commit('setCurrentFilters', filteredFilters);
     }
-    if (filteredFilters.length === 0) {
+    // déclencher une recherche su plus aucun filtre n'est selectionné
+    if (!store.getters.canShowSelectedFilter) {
       store.commit('applyFilters');
     }
   },
@@ -337,9 +357,13 @@ export const mutations = {
     state.orderPage = newPage;
   },
 
+  setDefaultFilter(state, defaultFilter) {
+    state.defaultAppliedFilters = defaultFilter;
+  },
+
   clearAllFilters(state) {
     state.currentFilters = [];
-    state.appliedFilters = [];
+    clearAppliedFilters(state);
   },
   startLoading(state) {
     state.orderIsLoading = true;
