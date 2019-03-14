@@ -181,7 +181,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
     gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
   }
   if (orderReference) {
-    gqlFilters.push(`OrderReference: {eq: "${orderReference.value}"}`);
+    gqlFilters.push(`orderReference: {eq: "${orderReference.value}"}`);
   }
 }
 
@@ -318,9 +318,9 @@ export async function createOrder(synthesis) {
   }
 
   const orderReference = get(synthesis, 'orderReference.selection.orderReference');
-  let orderReferenceParam = ''
-  if(orderReference) {
-    orderReferenceParam = `externalId: "${orderReference}"`
+  let orderReferenceParam = '';
+  if (orderReference) {
+    orderReferenceParam = `externalId: "${orderReference}"`;
   }
 
   const queryStr = `
