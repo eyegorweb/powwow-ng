@@ -61,9 +61,6 @@ export default {
   props: {
     isPanelOpen: Boolean,
   },
-  mounted() {
-    this.fetchOrders();
-  },
   methods: {
     ...mapActions(['fetchOrdersFromApi']),
     ...mapMutations(['setPage']),

@@ -9,10 +9,10 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'AuthCallback',
-  created() {
+  async created() {
     const hashParts = this.$route.hash.split('=');
     this.setAuthToken(hashParts[1].split('&')[0]);
-    this.fetchUserInfos();
+    await this.fetchUserInfos();
     this.$router.push('/');
   },
   methods: {

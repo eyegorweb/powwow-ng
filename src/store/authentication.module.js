@@ -16,6 +16,9 @@ export const getters = {
   refreshingToken: state => state.refreshingToken,
   userName: state => (state.token ? state.token.user_name : ''),
   userInfos: state => state.userInfos,
+  userIsPartner: state => {
+    return state.userInfos && !!state.userInfos.party
+  }
 };
 
 export const actions = {

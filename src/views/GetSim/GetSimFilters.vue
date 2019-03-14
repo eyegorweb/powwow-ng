@@ -6,7 +6,7 @@
       <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
       <draggable handle=".handle">
         <transition-group>
-          <FoldableBlock :title="$t('filters.partners')" :key="'el1'" draggable>
+          <FoldableBlock v-if="!userIsPartner" :title="$t('filters.partners')" :key="'el1'" draggable>
             <GetSimPartnersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
@@ -81,7 +81,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
@@ -113,6 +113,8 @@ export default {
       'canShowSelectedFilter',
       'selectedOrderDate',
       'selectedOrderStatus',
+      'userIsPartner',
+      'userInfos',
     ]),
     orderStatus: {
       get() {
@@ -125,6 +127,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['setPartnersFilter']),
     ...mapMutations(['setOrderStatusFilter']),
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
@@ -134,7 +137,7 @@ export default {
     },
   },
 
-  async created() {
+  async mounted() {
     this.statusResults = await fetchOrderStatuses();
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <div v-for="filter in currentFilters" :key="filter.name">
+    <div v-for="filter in visibleCurrentFilters" :key="filter.name">
       <SelectedFilterDetails
         v-if="
           filter &&
@@ -70,6 +70,11 @@ export default {
   components: { SelectedFilterDetails, UiButton, UiDropdownButton, UiInput },
   methods: {
     ...mapMutations(['applyFilters']),
+  },
+  computed: {
+    visibleCurrentFilters() {
+      return this.currentFilters.filter(f => !f.hidden);
+    },
   },
 };
 </script>
