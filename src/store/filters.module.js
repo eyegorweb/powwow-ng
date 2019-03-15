@@ -37,7 +37,9 @@ export const getters = {
   orderIsLoading: state => state.orderIsLoading,
   canShowSelectedFilter: state =>
     !!state.currentFilters.find(
-      f => !f.hidden && ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
+      f =>
+        !f.hidden &&
+        ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
     ),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
@@ -145,10 +147,9 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
     filtersWithDateValues.length === 0 &&
     filtersWithRangeValues.length === 0
   ) {
-    clearAppliedFilters(state)
+    clearAppliedFilters(state);
   }
 }
-
 
 /**
  * DEPRECATED remove this after all others branches are merged
@@ -196,14 +197,14 @@ function selectFilterValueNEW(state, { id, ...rest }) {
 export const actions = {
   setPartnersFilter,
   initFilterForPartnerUser(store) {
-    if(store.getters.userIsPartner) {
+    if (store.getters.userIsPartner) {
       const defaultFilters = [
         {
           id: store.getters.userInfos.party.id,
           label: store.getters.userInfos.party.name,
-        }
+        },
       ];
-      store.commit('setDefaultFilter', defaultFilters)
+      store.commit('setDefaultFilter', defaultFilters);
       setPartnersFilter(store, defaultFilters, true);
     }
     store.commit('applyFilters');

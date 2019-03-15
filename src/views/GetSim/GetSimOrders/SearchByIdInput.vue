@@ -11,7 +11,12 @@
         />
       </div>
       <div class="form-group col-md-3 mb-0">
-        <UiButton :variant="isDisabled ? 'primary' : ''" :disabled="!isDisabled" @click="fetchOrders">{{ $t('search') }}</UiButton>
+        <UiButton
+          :variant="isDisabled ? 'primary' : ''"
+          :disabled="!isDisabled"
+          @click="fetchOrders"
+          >{{ $t('search') }}</UiButton
+        >
       </div>
     </div>
   </form>
@@ -137,5 +142,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

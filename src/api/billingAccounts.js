@@ -2,13 +2,13 @@ import { query } from './utils';
 
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
 export async function fetchBillingAccounts(q, partners, { page, limit }) {
-  let partnersIds, partnerGqlParam=''
+  let partnersIds,
+    partnerGqlParam = '';
 
-  if(partners && partners.length > 0) {
+  if (partners && partners.length > 0) {
     partnersIds = partners.map(i => `"${i.id}"`).join(',');
-    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
-
 
   const queryStr = `
   query{

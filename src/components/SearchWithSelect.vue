@@ -1,10 +1,6 @@
 <template>
   <div class="search-container d-flex">
-    <UiInput
-      :placeholder="inputPlaceholder"
-      class="flex-grow-1"
-      v-model="query_"
-    >
+    <UiInput :placeholder="inputPlaceholder" class="flex-grow-1" v-model="query_">
       <i slot="icon" class="select-icon ic-Flag-Icon" />
     </UiInput>
     <UiSelect

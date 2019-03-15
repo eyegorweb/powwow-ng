@@ -6,7 +6,12 @@
       <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
       <draggable handle=".handle">
         <transition-group>
-          <FoldableBlock v-if="!userIsPartner" :title="$t('filters.partners')" :key="'el1'" draggable>
+          <FoldableBlock
+            v-if="!userIsPartner"
+            :title="$t('filters.partners')"
+            :key="'el1'"
+            draggable
+          >
             <GetSimPartnersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
