@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative" v-clickaway="hideSuggestions">
+  <div class="position-relative" v-clickaway="hideSuggestions" :class="{ error: !!error }">
     <!-- TODO utiliser UiInput -->
     <!-- TODO permettre customiser l'input avec un scoped slot? Passer une computed property avec un setter -->
     <!-- dans le slot pour permettre la synchronisation de la valeur -->
@@ -52,6 +52,7 @@
         </ul>
       </fieldset>
     </Promised>
+    <span class="error-text">{{ $t(error) }}</span>
   </div>
 </template>
 
@@ -96,6 +97,10 @@ export default {
     defaultOpen: Boolean,
     scrollForNext: Boolean,
     noIcon: Boolean,
+    error: {
+      type: String,
+      required: false,
+    },
   },
 
   computed: {
@@ -291,6 +296,16 @@ export default {
   &.is-selected:not(.is-disabled) {
     background-color: $primary;
     color: $white;
+  }
+}
+
+.error {
+  input {
+    border: 1px solid $orange;
+    border-radius: 3px;
+  }
+  .error-text {
+    color: $orange;
   }
 }
 </style>

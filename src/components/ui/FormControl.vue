@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group">
+  <div class="form-group" :class="{ error: !!error }">
     <label>{{ $t(label) }}</label>
     <input
       v-if="inputType === 'number'"
@@ -21,9 +21,7 @@
       :required="required"
       class="form-control"
     />
-    <small v-if="error" class="form-text text-danger">
-      {{ error }}
-    </small>
+    <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
   </div>
 </template>
 
@@ -59,4 +57,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.form-group {
+  &.error input {
+    border: 1px solid $orange;
+    border-radius: 3px;
+  }
+  .error-text {
+    color: $orange;
+  }
+}
+</style>
