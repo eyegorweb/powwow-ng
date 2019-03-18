@@ -47,12 +47,7 @@
     <li class="list-group-item">
       {{ $t('indicators.averageProcessingTime') }}
       <div class="float-right" :class="checkAverageProcessingTimeClasses">
-        <button
-          class="btn btn-link p-0 text-warning"
-          @click.prevent="filterByStatusIndicator(filteredStatus.lastMonth)"
-        >
-          {{ indicators.averageProcessingTime }}
-        </button>
+        <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
     <li class="list-group-item" v-if="indicators.orderToBeConfirmedByBO >= 0">
@@ -154,20 +149,6 @@ export default {
               label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
             },
           ],
-        },
-
-        lastMonth: {
-          status: [
-            { id: 'TO_BE_CONFIRMED_BY_BO', label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO') },
-          ],
-          date: {
-            range: {
-              start: moment()
-                .subtract(1, 'month')
-                .format(dateFormat),
-              end: moment().format(dateFormat),
-            },
-          },
         },
       },
     };
