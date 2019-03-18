@@ -1,7 +1,9 @@
 import { mount } from '@vue/test-utils';
 import UiApiAutocomplete from './UiApiAutocomplete';
 import fakePromise from 'faked-promise';
+import { $t, $i18n } from '@/../tests-utils';
 
+const mocks = { $i18n, $t };
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 const apiMethod = jest.fn();
@@ -21,6 +23,7 @@ describe('UiApiAutocomplete.vue', () => {
     apiMethod.mockReturnValue(promise);
     wrapper = mount(UiApiAutocomplete, {
       propsData: { apiMethod, value: '' },
+      mocks,
     });
   });
 
@@ -55,6 +58,7 @@ describe('UiApiAutocomplete.vue', () => {
   it('displays suggestions on empty', async () => {
     wrapper = mount(UiApiAutocomplete, {
       propsData: { apiMethod, displayResultsWhileEmpty: true, value: '' },
+      mocks,
     });
     expect(apiMethod).toHaveBeenCalledWith('');
     expect(wrapper.find('.autocomplete-results').exists()).toBe(true);
@@ -166,6 +170,7 @@ describe('UiApiAutocomplete.vue', () => {
     it('displays with empty input', async () => {
       wrapper = mount(UiApiAutocomplete, {
         propsData: { items, displayResultsWhileEmpty: true, value: '' },
+        mocks,
       });
       await tick();
       expect(wrapper.findAll('.autocomplete-result')).toHaveLength(4);
@@ -174,6 +179,7 @@ describe('UiApiAutocomplete.vue', () => {
     it('watches items', async () => {
       wrapper = mount(UiApiAutocomplete, {
         propsData: { items, displayResultsWhileEmpty: true, value: '' },
+        mocks,
       });
       await tick();
       expect(wrapper.findAll('.autocomplete-result')).toHaveLength(4);

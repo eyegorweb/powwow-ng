@@ -28,9 +28,7 @@ exports[`GetSimIndicators fetches indicators 1`] = `
   </li>
   <li class="list-group-item">
     indicators.averageProcessingTime
-    <div class="float-right text-success"><button class="btn btn-link p-0 text-warning">
-        0
-      </button></div>
+    <div class="float-right text-success"><span class="p-0 text-warning">0</span></div>
   </li>
   <li class="list-group-item">
     indicators.orderToBeConfirmedByBO

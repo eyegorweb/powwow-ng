@@ -6,29 +6,30 @@
           {{ $t('orders.choose-delivery') }}
         </h2>
         <h2 v-else class="panel-title text-center mt-2">{{ $t('orders.modify-delivery') }}</h2>
-        <div class="d-flex">
-          <label class="radio-container mr-3"
-            >{{ $t('common.MR') }}
-            <input name="civility" type="radio" value="MR" v-model="form.title" required />
-            <span class="checkmark" />
-          </label>
-          <label class="radio-container"
-            >{{ $t('common.MRS') }}
-            <input name="civility" type="radio" value="MRS" v-model="form.title" required />
-            <span class="checkmark" />
-          </label>
+        <div :class="{ error: !!errors.title }">
+          <div class="d-flex">
+            <label class="radio-container mr-3">
+              {{ $t('common.MR') }}
+              <input name="civility" type="radio" value="MR" v-model="form.title" />
+              <span class="checkmark" />
+            </label>
+            <label class="radio-container">
+              {{ $t('common.MRS') }}
+              <input name="civility" type="radio" value="MRS" v-model="form.title" />
+              <span class="checkmark" />
+            </label>
+          </div>
+          <div v-if="!!errors.title" class="error-text">{{ $t(errors.title) }}</div>
         </div>
         <FormControl
           label="orders.new.deliveryStep.form.lastname"
           v-model="form.lastName"
           :error="errors.lastName"
-          required
         />
         <FormControl
           label="orders.new.deliveryStep.form.firstname"
           v-model="form.firstName"
           :error="errors.firstName"
-          required
         />
         <div class="row">
           <div class="col">
@@ -36,7 +37,6 @@
               label="orders.new.deliveryStep.form.phone"
               v-model="form.phone"
               :error="errors.phone"
-              required
               :max-size="20"
             />
           </div>
@@ -46,7 +46,6 @@
               input-type="email"
               v-model="form.email"
               :error="errors.email"
-              required
             />
           </div>
         </div>
@@ -54,10 +53,14 @@
           label="orders.new.deliveryStep.form.company"
           v-model="form.company"
           :error="errors.company"
-          required
         />
-        <label data-v-4eacd3ee="">{{ $t('orders.new.deliveryStep.form.address') }}</label>
-        <UiApiAutocomplete :api-method="searchAddress" v-model="selectedAddress" no-icon />
+        <label data-v-4eacd3ee>{{ $t('orders.new.deliveryStep.form.address') }}</label>
+        <UiApiAutocomplete
+          :api-method="searchAddress"
+          v-model="selectedAddress"
+          :error="errors.address"
+          no-icon
+        />
 
         <div class="row">
           <div class="col">
@@ -66,7 +69,6 @@
               input-type="number"
               v-model="form.zipCode"
               :error="errors.zipCode"
-              required
             />
           </div>
           <div class="col">
@@ -74,14 +76,18 @@
               label="orders.new.deliveryStep.form.city"
               v-model="form.city"
               :error="errors.city"
-              required
             />
           </div>
           <div class="col">
             <div class="form-group">
               <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
               <div>
-                <UiSelect placeholder="" v-model="form.country" :options="countries" />
+                <UiSelect
+                  placeholder
+                  v-model="form.country"
+                  :options="countries"
+                  :error="errors.country"
+                />
               </div>
             </div>
           </div>
@@ -168,12 +174,48 @@ export default {
     searchAddress,
     async onSubmitAddress() {
       let savedId;
+      const canSave = this.checkForErrors();
+      if (!canSave) return;
+
       if (this.addressEdit) {
         savedId = await updatePartyShippingAddress(this.form, this.addressEdit.id);
       } else {
         savedId = await addPartyShippingAddress(this.form, this.partnerId);
       }
       this.$emit('saved', savedId.id);
+    },
+    /**
+     * Return true when no error is found
+     */
+    checkForErrors() {
+      const requiredFields = [
+        'title',
+        'firstName',
+        'lastName',
+        'phone',
+        'email',
+        'company',
+        'address',
+        'zipCode',
+        'city',
+        'country',
+      ];
+
+      const fieldsWithErrors = requiredFields.filter(f => {
+        // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
+        if (f === 'address') {
+          if (typeof this.form.address === 'object') {
+            return !this.form.address.label;
+          }
+        }
+        return !this.form[f];
+      });
+      this.errors = fieldsWithErrors.reduce((all, field) => {
+        all[field] = 'errors.mandatory';
+        return all;
+      }, {});
+      console.log(fieldsWithErrors);
+      return fieldsWithErrors.length === 0;
     },
   },
 
@@ -298,6 +340,15 @@ export default {
     height: 13px;
     border-radius: 50%;
     background: $secondary;
+  }
+}
+
+.error {
+  .checkmark {
+    border: 1px solid $orange;
+  }
+  .error-text {
+    color: $orange;
   }
 }
 </style>
