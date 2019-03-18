@@ -2,7 +2,7 @@
   <div>
     <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}</h3>
     <div class="subcontainer">
-      <UiInput class="d-block" v-model="referenceValue" />
+      <UiInput class="d-block" v-model="referenceValue" :error="checkForError ? 'errors.mandatory' : undefined" />
     </div>
   </div>
 </template>
@@ -13,6 +13,9 @@ import UiInput from '@/components/ui/UiInput';
 export default {
   props: {
     value: String,
+    checkForError: {
+      type: String,
+    },
   },
   computed: {
     referenceValue: {

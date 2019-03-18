@@ -2,7 +2,7 @@
   <div class="step-settings-container">
     <div class="panel-vertical-container" v-if="!isOpen">
       <div class="main-content">
-        <CreateOrderAddOrderReference :value="referenceValue" @input="onReferenceSet" />
+        <CreateOrderAddOrderReference :value="referenceValue" @input="onReferenceSet" :check-for-error="orderReferenceError" />
         <h3 class="font-weight-light text-center mt-4 mb-4">
           {{ $t('orders.choose-custom-field') }}
         </h3>
@@ -70,6 +70,7 @@ export default {
       required: true,
     },
     customFieldsErrors: Array,
+    orderReferenceError: String,
     order: Object,
   },
 

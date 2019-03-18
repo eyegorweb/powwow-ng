@@ -34,6 +34,7 @@
           <CreateOrderStepSettings
             :synthesis="synthesis"
             :custom-fields-errors="customFieldsErrors"
+            :order-reference-error="orderReferenceError"
             :order="order"
             @prev="previousStep"
             @done="lastStep"
@@ -101,6 +102,7 @@ export default {
       synthesis: {},
       customFieldsMeta: [],
       customFieldsErrors: undefined,
+      orderReferenceError: undefined,
     };
   },
 
@@ -167,7 +169,7 @@ export default {
     },
     async saveOrder() {
       this.checkForErrors();
-      if (!this.customFieldsErrors.length) {
+      if (!this.orderReferenceError && !this.customFieldsErrors.length) {
         const { id } = await createOrder(this.synthesis);
         await this.fetchOrdersFromApi({
           orderBy: { key: 'id', direction: 'DESC' },
@@ -217,6 +219,18 @@ export default {
           }
         })
         .map(c => c.code);
+
+      const isOrderNumberMandatory = get(
+        this.synthesis,
+        'billingAccount.selection.partner.orderNumberIsMandatory',
+        false
+      );
+      if (isOrderNumberMandatory) {
+        const orderRefContent = get(this.synthesis, 'orderReference.value.content');
+        this.orderReferenceError = orderRefContent ? undefined : 'order.reference';
+      } else {
+        this.orderReferenceError = undefined;
+      }
     },
   },
 };
