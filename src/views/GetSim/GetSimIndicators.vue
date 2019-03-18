@@ -1,44 +1,227 @@
 <template>
   <ul class="list-group bg-white">
     <li class="list-group-item">
-      {{ $t('indicators.averageProcessingTime') }}
-      <div class="float-right text-success">{{ indicators.averageProcessingTime }}</div>
-    </li>
-    <li class="list-group-item">
-      {{ $t('indicators.orderToBeConfirmedByBO') }}
-      <div class="float-right text-success">{{ indicators.orderToBeConfirmedByBO }}</div>
-    </li>
-    <li class="list-group-item">
-      {{ $t('indicators.ordersFailed') }}
-      <div class="float-right text-danger">{{ indicators.ordersFailed }}</div>
+      {{ $t('indicators.ordersToBeConfirmed') }}
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-danger"
+          @click.prevent="filterByStatusIndicator(filteredStatus.toBeConfirmed)"
+        >
+          {{ indicators.ordersToBeConfirmed }}
+        </button>
+      </div>
     </li>
     <li class="list-group-item">
       {{ $t('indicators.ordersInProgress') }}
-      <div class="float-right text-warning">{{ indicators.ordersInProgress }}</div>
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-success"
+          @click.prevent="filterByStatusIndicator(filteredStatus.ordersInProgress)"
+        >
+          {{ indicators.ordersInProgress }}
+        </button>
+      </div>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" v-if="indicators.ordersNotConfirmed >= 0">
       {{ $t('indicators.ordersNotConfirmed') }}
-      <div class="float-right text-warning">{{ indicators.ordersNotConfirmed }}</div>
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.ordersNotConfirmed)"
+        >
+          {{ indicators.ordersNotConfirmed }}
+        </button>
+      </div>
+    </li>
+    <li class="list-group-item" v-if="indicators.ordersFailed >= 0">
+      {{ $t('indicators.ordersFailed') }}
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.ordersFailed)"
+        >
+          {{ indicators.ordersFailed }}
+        </button>
+      </div>
     </li>
     <li class="list-group-item">
-      {{ $t('indicators.ordersToBeConfirmed') }}
-      <div class="float-right text-warning">{{ indicators.ordersToBeConfirmed }}</div>
+      {{ $t('indicators.averageProcessingTime') }}
+      <div class="float-right" :class="checkAverageProcessingTimeClasses">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.lastMonth)"
+        >
+          {{ indicators.averageProcessingTime }}
+        </button>
+      </div>
+    </li>
+    <li class="list-group-item" v-if="indicators.orderToBeConfirmedByBO >= 0">
+      {{ $t('indicators.orderToBeConfirmedByBO') }}
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.orderToBeConfirmedByBO)"
+        >
+          {{ indicators.orderToBeConfirmedByBO }}
+        </button>
+      </div>
     </li>
   </ul>
 </template>
 
 <script>
 import { fetchGetSimIndicators } from '@/api/indicators';
+import { mapGetters, mapMutations } from 'vuex';
+import moment from 'moment';
+
+const dateFormat = 'DD-MM-YYYY';
 
 export default {
   data() {
     return {
       indicators: {},
+      filteredStatus: {
+        toBeConfirmed: {
+          status: [{ id: 'NOT_VALIDATED', label: 'Non validée' }],
+          date: {
+            range: {
+              start: moment()
+                .subtract(6, 'month')
+                .format(dateFormat),
+              end: moment().format(dateFormat),
+            },
+          },
+        },
+        ordersInProgress: {
+          status: [
+            { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
+            { id: 'TO_BE_CONFIRMED_BY_BO', label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO') },
+            {
+              id: 'CONFIRMATION_IN_PROGRESS',
+              label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
+            },
+            { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
+          ],
+          date: {
+            range: {
+              start: moment()
+                .subtract(6, 'month')
+                .format(dateFormat),
+              end: moment().format(dateFormat),
+            },
+          },
+        },
+        ordersNotConfirmed: {
+          status: [
+            {
+              id: 'TO_BE_CONFIRMED',
+              label: this.$t('col.statuses.TO_BE_CONFIRMED'),
+            },
+            {
+              id: 'TO_BE_CONFIRMED_BY_BO',
+              label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+            },
+            {
+              id: 'CONFIRMATION_IN_PROGRESS',
+              label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
+            },
+          ],
+          date: {
+            range: {
+              start: moment()
+                .subtract(4, 'hours')
+                .format('DD-MM-YYYY hh:mm:ss'),
+              end: moment().format('DD-MM-YYYY hh:mm:ss'),
+              sameDay: true,
+            },
+          },
+        },
+        ordersFailed: {
+          status: [{ id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') }],
+          date: {
+            range: {
+              start: moment()
+                .subtract(48, 'hours')
+                .format('DD-MM-YYYY hh:mm:ss'),
+              end: moment().format('DD-MM-YYYY hh:mm:ss'),
+            },
+          },
+        },
+        orderToBeConfirmedByBO: {
+          status: [
+            {
+              id: 'TO_BE_CONFIRMED_BY_BO',
+              label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+            },
+          ],
+        },
+
+        lastMonth: {
+          status: [
+            { id: 'TO_BE_CONFIRMED_BY_BO', label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO') },
+          ],
+          date: {
+            range: {
+              start: moment()
+                .subtract(1, 'month')
+                .format(dateFormat),
+              end: moment().format(dateFormat),
+            },
+          },
+        },
+      },
     };
   },
 
   async created() {
     this.indicators = (await fetchGetSimIndicators()) || {};
+  },
+
+  methods: {
+    ...mapMutations([
+      'setOrderStatusFilter',
+      'setCurrentFilters',
+      'forceAppliedFilters',
+      'applyFilters',
+    ]),
+    filterByStatusIndicator(preselectedFilter) {
+      // TODO: filter this status (ordersNotConfirmed) with order.auditable.updated > 4h
+      // TODO: filter this status (ordersFailed) with order.auditable.updated > 48h
+
+      let dateFilter = {};
+
+      if (preselectedFilter.date) {
+        dateFilter = {
+          id: 'filters.orderDate',
+          startDate: preselectedFilter.date.range.start,
+          endDate: preselectedFilter.date.range.end,
+          sameDay: preselectedFilter.date.range.sameDay,
+        };
+      }
+
+      this.setCurrentFilters([
+        {
+          id: 'filters.orderStatus',
+          values: preselectedFilter.status,
+        },
+        {
+          ...dateFilter,
+        },
+      ]);
+
+      this.applyFilters();
+    },
+  },
+
+  computed: {
+    ...mapGetters(['currentFilters', 'appliedFilters', 'selectedOrderStatus']),
+
+    checkAverageProcessingTimeClasses() {
+      return {
+        'text-success': this.indicators.averageProcessingTime < 5,
+        'text-warning': this.indicators.averageProcessingTime >= 5,
+      };
+    },
   },
 };
 </script>
