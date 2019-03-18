@@ -46,7 +46,7 @@
 import NavBars from '@/components/NavBars';
 import UiButton from '@/components/ui/Button';
 import GetSimOrders from './GetSimOrders';
-import GetSimFilters from './GetSimFilters';
+import GetSimFilters from './FilterBar/GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
 import GetSimPanels from './GetSimPanels';
 import { mapMutations, mapState, mapActions } from 'vuex';

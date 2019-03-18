@@ -188,13 +188,48 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 function addDateFilter(gqlFilters, selectedFilters) {
   const dateFilter = selectedFilters.find(f => f.id === 'filters.orderDate');
   if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
-    const formattedStartDate = `${dateFilter.startDate.replace(/\//g, '-')} 00:00:00`;
-    const modifiedEndDate = moment(dateFilter.endDate, 'DD/MM/YYYY').add(1, 'days');
-    const formattedEndDate = `${modifiedEndDate.format('DD-MM-YYYY')} 00:00:00`;
+    const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
+
+    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
 
     gqlFilters.push(
       `orderDate: {between: {startDate: "${formattedStartDate}", endDate: "${formattedEndDate}"}}`
     );
+  }
+
+  function formatDateForGql(inDate) {
+    const startDate = inDate.replace(/\//g, '-');
+    const parts = startDate.split(' ');
+    if (parts) {
+      if (parts.length === 2) {
+        return startDate;
+      } else {
+        return `${parts[0]} 00:00:00`;
+      }
+    }
+  }
+
+  function prepareEndDateForBackend(inDate) {
+    const dateToEdit = inDate.replace(/\//g, '-');
+    const parts = dateToEdit.split(' ');
+    let endDate;
+    let formatToUse;
+
+    if (parts.length === 2) {
+      formatToUse = 'DD-MM-YYYY hh:mm:ss';
+      endDate = moment(dateToEdit, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse);
+    } else {
+      formatToUse = 'DD-MM-YYYY';
+      endDate = moment(`${parts[0]}`, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse) + ' 00:00:00';
+    }
   }
 }
 

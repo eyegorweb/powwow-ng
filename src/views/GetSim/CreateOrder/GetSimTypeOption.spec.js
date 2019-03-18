@@ -22,7 +22,6 @@ describe('GetSimTypeOption.vue', () => {
   });
 
   it('lists data passed in props', () => {
-    console.log(wrapper.html());
     expect(wrapper.find('.simtype__name').text()).toContain(simType.simCard.name);
   });
 

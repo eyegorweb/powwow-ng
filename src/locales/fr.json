@@ -114,8 +114,8 @@
     "ordersNotConfirmed": "Commandes non confirmées > 4h",
     "ordersFailed": "Commandes en échec",
     "ordersToBeConfirmed": "Commandes à valider",
-    "averageProcessingTime": "Temps moyen de traitement",
-    "orderToBeConfirmedByBO": "Commandes à confirmer par le BO"
+    "averageProcessingTime": "Délai traitement commande sur 1 mois",
+    "orderToBeConfirmedByBO": "Commandes à valider par le BO"
   },
   "services": {
     "VOIX_ENTRANTE": "Voix entrante",
