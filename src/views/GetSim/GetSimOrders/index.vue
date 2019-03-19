@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import get from 'lodash.get';
+import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
 import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
@@ -86,7 +88,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['appliedFilters', 'ordersResponse', 'orderPage', 'orderIsLoading']),
+    ...mapGetters([
+      'userIsPartner',
+      'userInfos',
+      'appliedFilters',
+      'ordersResponse',
+      'orderPage',
+      'orderIsLoading',
+    ]),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
@@ -284,6 +293,27 @@ export default {
       },
       showExtraCells: false,
     };
+  },
+  async mounted() {
+    if (this.userIsPartner) {
+      const partnerId = get(this.userInfos, 'party.id');
+      const customFields = await fetchCustomFields(partnerId);
+      const customFieldsColumns = customFields.map(c => {
+        return {
+          id: c.id,
+          label: c.label,
+          name: 'customFields',
+          orderable: false,
+          visible: false,
+          // exportId: 'ORDER_STATUS',
+          format: {
+            type: 'ObjectAttribute',
+            path: c.codeInOrder,
+          },
+        };
+      });
+      this.columns = [...this.columns, ...customFieldsColumns];
+    }
   },
 };
 </script>
