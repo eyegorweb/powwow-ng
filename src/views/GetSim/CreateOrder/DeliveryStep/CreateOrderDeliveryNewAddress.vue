@@ -214,7 +214,6 @@ export default {
         all[field] = 'errors.mandatory';
         return all;
       }, {});
-      console.log(fieldsWithErrors);
       return fieldsWithErrors.length === 0;
     },
   },

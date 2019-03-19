@@ -67,7 +67,6 @@ export default {
     ...mapActions(['fetchOrdersFromApi']),
     ...mapMutations(['setPage']),
     async fetchOrders() {
-      console.log('Filters >>>>>>>>>>', this.appliedFilters);
       this.fetchOrdersFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
