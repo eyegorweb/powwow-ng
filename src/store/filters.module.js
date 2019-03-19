@@ -198,14 +198,21 @@ export const actions = {
   setPartnersFilter,
   initFilterForPartnerUser(store) {
     if (store.getters.userIsPartner) {
-      const defaultFilters = [
+      const partnerFilterValues = [
         {
           id: store.getters.userInfos.party.id,
           label: store.getters.userInfos.party.name,
         },
       ];
+      const defaultFilters = [
+        {
+          id: 'filters.partners',
+          values: partnerFilterValues,
+          hidden: true,
+        },
+      ];
       store.commit('setDefaultFilter', defaultFilters);
-      setPartnersFilter(store, defaultFilters, true);
+      setPartnersFilter(store, partnerFilterValues, true);
     }
     store.commit('applyFilters');
   },
@@ -359,7 +366,7 @@ export const mutations = {
   },
 
   setDefaultFilter(state, defaultFilter) {
-    state.defaultAppliedFilters = defaultFilter;
+    state.defaultAppliedFilters = [...defaultFilter];
   },
 
   clearAllFilters(state) {

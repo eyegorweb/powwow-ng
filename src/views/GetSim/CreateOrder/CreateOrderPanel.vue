@@ -62,7 +62,7 @@ import CreateOrderStepProduct from './CreateOrderStepProduct';
 import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './Services/CreateOrderStepServices';
-import { createOrder } from '@/api/orders';
+import { createOrder, searchSingleOrder } from '@/api/orders';
 import { mapActions, mapMutations, mapState } from 'vuex';
 import get from 'lodash.get';
 
@@ -141,7 +141,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchOrdersFromApi']),
     ...mapMutations(['openPanel', 'closePanel', 'clearAllFilters']),
 
     reset() {
@@ -171,21 +170,16 @@ export default {
       this.checkForErrors();
       if (!this.orderReferenceError && !this.customFieldsErrors.length) {
         const { id } = await createOrder(this.synthesis);
-        await this.fetchOrdersFromApi({
-          orderBy: { key: 'id', direction: 'DESC' },
-          pageInfo: { page: 0, limit: 20 },
-          appliedFilters: [],
-        });
         this.closePanel();
         this.clearAllFilters();
         this.openPanelForSavedOrder(id);
       }
     },
 
-    openPanelForSavedOrder(savedOrderId) {
-      const order = this.orders.find(o => o.id === savedOrderId);
+    async openPanelForSavedOrder(savedOrderId) {
+      const title = this.$t('getsim.details.title', { id: savedOrderId });
+      const order = await searchSingleOrder(savedOrderId);
       if (order) {
-        const title = this.$t('getsim.details.title', { id: savedOrderId });
         setTimeout(() => {
           this.openPanel({
             title,

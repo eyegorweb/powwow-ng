@@ -9,9 +9,9 @@
       >
         <slot>
           <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
-          <option v-for="option in formattedOptions" :key="option.value" :value="option.value">{{
-            option.label
-          }}</option>
+          <option v-for="option in formattedOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
         </slot>
       </select>
     </div>
@@ -72,7 +72,7 @@ export default {
 }
 
 select {
-  padding: 0.5rem 0.8rem;
+  padding: 0.55rem 0.8rem;
   padding-right: 0 !important;
   border-radius: 0;
 }

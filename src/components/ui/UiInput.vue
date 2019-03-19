@@ -81,7 +81,7 @@ label {
   input {
     padding: 0.5rem 0.8rem;
     border-radius: $box-radius;
-    border: 1px solid $medium-gray;
+    border: 1px solid $gray-400;
     width: 100%;
 
     &:disabled {

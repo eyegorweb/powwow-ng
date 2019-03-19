@@ -119,6 +119,27 @@ export async function searchOrders(orderBy, pagination, filters = []) {
   return response.data.orders;
 }
 
+export async function searchSingleOrder(id) {
+  const orderBy = {
+    key: 'id',
+    direction: 'DESC',
+  };
+  const pagination = {
+    page: 0,
+    limit: 1,
+  };
+  const filters = [
+    {
+      id: 'filters.idOrder',
+      value: id,
+    },
+  ];
+  const result = await searchOrders(orderBy, pagination, filters);
+  if (result && result.items && result.items.length > 0) {
+    return result.items[0];
+  }
+}
+
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIds(filters, 'filters.partners');
