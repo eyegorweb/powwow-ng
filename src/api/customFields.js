@@ -45,6 +45,7 @@ export async function fetchCustomFields(partnerId) {
 
     const data = {
       id: partnerId + 'customField' + index,
+      codeInOrder: 'custom' + index,
       code: 'customField' + index,
       label,
       type: get(response, `data.party.custom${index}FieldType`),
