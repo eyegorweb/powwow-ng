@@ -1,13 +1,11 @@
 <template>
   <div>
     <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}</h3>
-    <div class="subcontainer">
       <UiInput
         class="d-block"
         v-model="referenceValue"
         :error="checkForError ? 'errors.mandatory' : undefined"
       />
-    </div>
   </div>
 </template>
 
@@ -46,9 +44,5 @@ export default {
   margin: 3rem 0 1.875rem;
   padding: 0;
   text-align: center;
-}
-.subcontainer {
-  width: 65%;
-  margin: 0 auto;
 }
 </style>
