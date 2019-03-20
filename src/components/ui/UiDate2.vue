@@ -5,7 +5,7 @@
       <div class="col-9" style="padding: 0">
         <span>{{ value }}</span>
       </div>
-      <div class="col">
+      <div>
         <button v-if="value" @click.stop="clearValue" class="btn btn-link">
           <i class="icon ic-Cross-Icon" />
         </button>
