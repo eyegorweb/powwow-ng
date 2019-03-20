@@ -9,11 +9,13 @@
         :value="item"
       />
       <div v-if="item" class="simTypeIfos flex-container-v">
+        <p v-if="item.company" class="adress__name m-0 flex-fixed">
+          {{ item.company }}
+        </p>
         <p class="adress__name m-0 flex-fixed">
           {{ item.name.firstName }} {{ item.name.lastName }}
         </p>
         <p class="adress__format m-0 flex-fill">
-          <span v-if="item.company">{{ item.company }}</span> <br />
           {{ item.address.address1 }}
           <span v-if="item.address.address2 && item.address.address2 !== 'null'">
             <br />
