@@ -25,6 +25,7 @@ export async function fetchpartnerAddresses(id) {
       total
       items {
         id
+        company
         name {
           title
           firstName
