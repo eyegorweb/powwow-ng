@@ -42,16 +42,61 @@
 import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
-import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
-import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
-import GetSimOrdersCreatorCell from './GetSimOrdersCreatorCell';
-import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
-import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
 import sortBy from 'lodash.sortby';
 import SearchByIdInput from './SearchByIdInput';
+
+import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
+import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
+import GetSimOrdersCreatorCell from './GetSimOrdersCreatorCell';
+import GetSimOrdersIdCell from './GetSimOrdersIdCell';
+import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
+
+/**
+ * On est obligé de passer par une variable intérmédiaire car le localStorage ne stoque que des chaines de charactères
+ */
+const cellComponents = {
+  GetSimOrdersStatusCell,
+  GetSimOrdersDeliveryCell,
+  GetSimOrdersCreatorCell,
+  GetSimOrdersIdCell,
+  GetSimOrdersMassActionIdsColumn,
+};
+
+/**
+ * pour définir un composant pour une céllule on a besoin de mettre le composant souhaité dans col.format.component
+ * mais étant donné qu'on souhaite persister en local storage les colonnes de la table, on est alors obligé de stocker un identifiant en chaine
+ * de caractères (componentId) pour que notre objet soit correctement sérialisé.
+ *
+ * cette fonction sert donc à assigner le bon composant dans col.format.component en se basant sur col.format.componentId
+ */
+function setFormatComponentsToColumns(columns) {
+  return columns.reduce((preparedColumns, col) => {
+    const formatted = { ...col };
+    if (col.format && col.format.componentId) {
+      formatted.format.component = cellComponents[col.format.componentId];
+    }
+    preparedColumns.push(formatted);
+    return preparedColumns;
+  }, []);
+}
+
+/**
+ * assigne le bon composant de céllule
+ */
+function loadColumnsFromLocalStorage() {
+  const strColumns = localStorage.getItem('getsim.savedColumns');
+  if (!strColumns) return;
+  const columns = JSON.parse(strColumns);
+  return setFormatComponentsToColumns(columns);
+}
+
+function saveColumnsToLocalStorage(columns) {
+  const savableColumns = JSON.parse(JSON.stringify(columns));
+  localStorage.setItem('getsim.savedColumns', JSON.stringify(savableColumns));
+}
 
 export default {
   name: 'Orders',
@@ -128,10 +173,46 @@ export default {
         this.showExtraCells = false;
       }
     },
+    columns(newValues) {
+      saveColumnsToLocalStorage(newValues);
+    },
+  },
+
+  async mounted() {
+    const savedColumns = loadColumnsFromLocalStorage();
+    if (savedColumns) {
+      this.columns = savedColumns;
+    } else {
+      if (this.userIsPartner) {
+        const partnerId = get(this.userInfos, 'party.id');
+        const customFields = await fetchCustomFields(partnerId);
+        const customFieldsColumns = customFields.map(c => {
+          return {
+            id: c.id,
+            label: c.label,
+            name: 'customFields',
+            orderable: false,
+            visible: false,
+            // exportId: 'ORDER_STATUS',
+            format: {
+              type: 'ObjectAttribute',
+              path: c.codeInOrder,
+            },
+          };
+        });
+        this.columns = setFormatComponentsToColumns([
+          ...this.commonColumns,
+          ...customFieldsColumns,
+        ]);
+      } else {
+        this.columns = setFormatComponentsToColumns([...this.commonColumns]);
+      }
+    }
   },
   data() {
     return {
-      columns: [
+      columns: [],
+      commonColumns: [
         {
           id: 1,
           label: this.$t('col.id'),
@@ -141,7 +222,7 @@ export default {
           fixed: true,
           exportId: 'ORDER_ID',
           format: {
-            component: GetSimOrdersIdCell,
+            componentId: 'GetSimOrdersIdCell',
           },
         },
         {
@@ -173,7 +254,7 @@ export default {
           visible: true,
           exportId: 'ORDER_STATUS',
           format: {
-            component: GetSimOrdersStatusCell,
+            componentId: 'GetSimOrdersStatusCell',
           },
         },
         {
@@ -205,7 +286,7 @@ export default {
           visible: false,
           exportId: 'ORDER_NAME',
           format: {
-            component: GetSimOrdersDeliveryCell,
+            componentId: 'GetSimOrdersDeliveryCell',
           },
         },
         // Offre
@@ -218,7 +299,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CREATOR',
           format: {
-            component: GetSimOrdersCreatorCell,
+            componentId: 'GetSimOrdersCreatorCell',
           },
         },
         {
@@ -276,7 +357,7 @@ export default {
           visible: false,
           exportId: 'ORDER_MASSACTIONIDS',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            componentId: 'GetSimOrdersMassActionIdsColumn',
           },
         },
       ],
@@ -287,27 +368,6 @@ export default {
       },
       showExtraCells: false,
     };
-  },
-  async mounted() {
-    if (this.userIsPartner) {
-      const partnerId = get(this.userInfos, 'party.id');
-      const customFields = await fetchCustomFields(partnerId);
-      const customFieldsColumns = customFields.map(c => {
-        return {
-          id: c.id,
-          label: c.label,
-          name: 'customFields',
-          orderable: false,
-          visible: false,
-          // exportId: 'ORDER_STATUS',
-          format: {
-            type: 'ObjectAttribute',
-            path: c.codeInOrder,
-          },
-        };
-      });
-      this.columns = [...this.columns, ...customFieldsColumns];
-    }
   },
 };
 </script>
