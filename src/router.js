@@ -4,8 +4,8 @@ import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationO
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
 import Home from '@/views/Home';
-import DragHome from '@/views/DragHome';
 import GetSim from '@/views/GetSim';
+import GetParcActHistory from '@/views/GetParc/ActHistory';
 
 // const Home = () => import('@/views/Home');
 // const DragHome = () => import('@/views/DragHome/index');
@@ -35,9 +35,9 @@ export default new Router({
       component: AuthenticationRefreshCallback,
     },
     {
-      path: '/draghome',
-      name: 'draghome',
-      component: DragHome,
+      path: '/act-history',
+      name: 'actHistory',
+      component: GetParcActHistory,
     },
     {
       path: '/exemples',

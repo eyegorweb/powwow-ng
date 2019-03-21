@@ -16,10 +16,10 @@ export default {
     InputRange,
   },
   computed: {
-    ...mapGetters(['selectedQuantityValues']),
+    ...mapGetters('getsim', ['selectedQuantityValues']),
   },
   methods: {
-    ...mapMutations(['setQuantityFilter']),
+    ...mapMutations('getsim', ['setQuantityFilter']),
     onChange({ from, to }) {
       this.setQuantityFilter({
         id: 'filters.quantity',

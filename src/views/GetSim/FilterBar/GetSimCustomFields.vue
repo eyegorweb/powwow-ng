@@ -24,11 +24,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['filterCustomFieldsList', 'selectedCustomFieldsValues']),
+    ...mapGetters('getsim', ['filterCustomFieldsList', 'selectedCustomFieldsValues']),
   },
 
   methods: {
-    ...mapMutations(['setCustomFieldsFilter']),
+    ...mapMutations('getsim', ['setCustomFieldsFilter']),
     getSelectedValue(code) {
       if (this.selectedCustomFieldsValues && this.selectedCustomFieldsValues.length > 0) {
         const selected = this.selectedCustomFieldsValues.find(c => c.id === code);

@@ -4,14 +4,14 @@
       :checked="false"
       :value="$t('filters.actionValues.ACTIVATED')"
       v-model="lineActivated"
-      >{{ $t('filters.actionValues.ACTIVATED') }}
-    </UiCheckbox>
+      >{{ $t('filters.actionValues.ACTIVATED') }}</UiCheckbox
+    >
     <UiCheckbox
       :checked="false"
       :value="$t('filters.actionValues.PREACTIVATED')"
       v-model="linePreActivated"
-      >{{ $t('filters.actionValues.PREACTIVATED') }}
-    </UiCheckbox>
+      >{{ $t('filters.actionValues.PREACTIVATED') }}</UiCheckbox
+    >
   </div>
 </template>
 
@@ -23,7 +23,7 @@ import { mapMutations, mapGetters } from 'vuex';
 export default {
   name: 'Action',
   methods: {
-    ...mapMutations(['setActionFilter']),
+    ...mapMutations('getsim', ['setActionFilter']),
     getValueByCode(code) {
       const found = this.selectedAction && this.selectedAction.find(s => s.id === code);
       if (found) {
@@ -46,7 +46,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['selectedAction']),
+    ...mapGetters('getsim', ['selectedAction']),
     lineActivated: {
       get() {
         return this.getValueByCode('action.active');

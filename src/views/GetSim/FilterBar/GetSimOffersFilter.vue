@@ -34,7 +34,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setOffersFilter']),
+    ...mapMutations('getsim', ['setOffersFilter']),
 
     async fetchFormattedOffersForDatatable(q, { page, limit }) {
       const data = await fetchOffers(q, this.selectedPartnersValues, { page, limit });
@@ -85,7 +85,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['selectedPartnersValues', 'selectedOffersValues']),
+    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedOffersValues']),
 
     selectedOffers: {
       get() {

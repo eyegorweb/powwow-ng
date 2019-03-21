@@ -30,7 +30,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setOrderCreatorFilter']),
+    ...mapMutations('getsim', ['setOrderCreatorFilter']),
 
     async fetchFormattedOrderCreatorsForDatatable(q, { page, limit }) {
       const data = await fetchOrderCreators(q, this.selectedPartnersValues, { page, limit });
@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['selectedPartnersValues', 'selectedOrderCreatorValues']),
+    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedOrderCreatorValues']),
 
     selectedOrderCreator: {
       get() {

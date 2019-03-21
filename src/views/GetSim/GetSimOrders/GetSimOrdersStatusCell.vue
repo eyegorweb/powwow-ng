@@ -7,9 +7,7 @@
   </div>
   <div class="order-status" v-else>
     <CheckMark :is-error="isError" />
-    <div class="label" :class="{ error: isError }">
-      {{ $t('col.statuses.' + item) }}
-    </div>
+    <div class="label" :class="{ error: isError }">{{ $t('col.statuses.' + item) }}</div>
   </div>
 </template>
 
@@ -28,7 +26,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['orderIsLoading']),
+    ...mapGetters('getsim', ['orderIsLoading']),
     isError() {
       return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED';
     },

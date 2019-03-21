@@ -63,7 +63,7 @@ import CreateOrderStepSettings from './StepSettings/CreateOrderStepSettings';
 import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './Services/CreateOrderStepServices';
 import { createOrder, searchSingleOrder } from '@/api/orders';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import get from 'lodash.get';
 
 export default {
@@ -107,7 +107,10 @@ export default {
   },
 
   computed: mapState({
-    orders: state => get(state, 'filters.ordersResponse.items', []),
+    orders: state => {
+      console.log(state);
+      return get(state, 'filters.ordersResponse.items', []);
+    },
   }),
 
   created() {
@@ -141,7 +144,8 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel', 'closePanel', 'clearAllFilters']),
+    ...mapMutations(['openPanel', 'closePanel']),
+    ...mapMutations('getsim', ['clearAllFilters']),
 
     reset() {
       this.currentStep = 0;

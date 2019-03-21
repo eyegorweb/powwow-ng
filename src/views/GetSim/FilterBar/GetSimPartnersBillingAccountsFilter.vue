@@ -32,7 +32,7 @@ export default {
     });
   },
   methods: {
-    ...mapMutations(['setBillingAccountsFilter']),
+    ...mapMutations('getsim', ['setBillingAccountsFilter']),
 
     async fetchFormattedBillingAccountForDatatable(q, { page, limit }) {
       const data = await fetchBillingAccounts(q, this.selectedPartnersValues, { page, limit });
@@ -86,7 +86,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['selectedPartnersValues', 'selectedBillingAccountsValues']),
+    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedBillingAccountsValues']),
 
     selectedBillingAccounts: {
       get() {

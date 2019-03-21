@@ -11,7 +11,7 @@
         </template>
       </template>
 
-      <span v-else-if="filter.value" class="detail"> {{ filter.value }}</span>
+      <span v-else-if="filter.value" class="detail">{{ filter.value }}</span>
 
       <span v-else-if="filter.startDate && filter.endDate" class="detail">{{
         $t('getsim.date-from-to', dateFilter)
@@ -33,7 +33,7 @@
       class="close"
       data-dismiss="alert"
       aria-label="Close"
-      @click="clearFilter(filter.id)"
+      @click="$emit('clear', filter.id)"
     >
       <span aria-hidden="true">&times;</span>
     </button>
@@ -41,9 +41,6 @@
 </template>
 
 <script>
-// TODO Refact this
-import { mapActions } from 'vuex';
-
 export default {
   name: 'SelectedFilterDetails',
   props: {
@@ -51,10 +48,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-
-  methods: {
-    ...mapActions(['clearFilter']),
   },
 
   computed: {

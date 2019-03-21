@@ -13,10 +13,10 @@ export default {
   name: 'PostalCode',
 
   methods: {
-    ...mapMutations(['setPostalCodeFilter']),
+    ...mapMutations('getsim', ['setPostalCodeFilter']),
   },
   computed: {
-    ...mapGetters(['selectedPostalCodeValue']),
+    ...mapGetters('getsim', ['selectedPostalCodeValue']),
     postalCode: {
       get() {
         return this.selectedPostalCodeValue;

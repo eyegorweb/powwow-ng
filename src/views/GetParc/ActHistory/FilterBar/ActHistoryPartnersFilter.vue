@@ -11,10 +11,10 @@ export default {
     PartnersFilter,
   },
   computed: {
-    ...mapGetters('getsim', ['selectedPartnersValues']),
+    ...mapGetters('actHistory', ['selectedPartnersValues']),
   },
   methods: {
-    ...mapActions('getsim', ['setPartnersFilter']),
+    ...mapActions('actHistory', ['setPartnersFilter']),
 
     updatePartners(partners) {
       this.setPartnersFilter(partners);

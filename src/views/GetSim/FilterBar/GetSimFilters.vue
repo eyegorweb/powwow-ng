@@ -3,7 +3,12 @@
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
-      <GetSimSelectedFilters v-if="canShowSelectedFilter" :current-filters="currentFilters" />
+      <SelectedFilters
+        v-if="canShowSelectedFilter"
+        :current-filters="currentFilters"
+        @applyFilters="applyFilters"
+        @clear="filterId => clearFilter(filterId)"
+      />
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
@@ -91,7 +96,6 @@ import FoldableBlock from '@/components/FoldableBlock';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOrderStatuses } from '@/api/orderStatuses';
 import GetSimCustomFields from './GetSimCustomFields';
-import GetSimSelectedFilters from './GetSimSelectedFilters';
 import GetSimPartnersFilter from './GetSimPartnersFilter';
 import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
 import GetSimOffersFilter from './GetSimOffersFilter';
@@ -102,6 +106,7 @@ import GetSimActionFilter from './GetSimActionFilter';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
+import SelectedFilters from '@/components/Filters/SelectedFilters';
 
 export default {
   data() {
@@ -113,14 +118,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
+    ...mapGetters('getsim', [
       'currentFilters',
       'canShowSelectedFilter',
       'selectedOrderDate',
       'selectedOrderStatus',
-      'userIsPartner',
-      'userInfos',
     ]),
+    ...mapGetters(['userIsPartner', 'userInfos']),
     orderStatus: {
       get() {
         return this.selectedOrderStatus;
@@ -132,8 +136,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setPartnersFilter']),
-    ...mapMutations(['setOrderStatusFilter']),
+    ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
+    ...mapMutations('getsim', ['setOrderStatusFilter', 'applyFilters']),
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
     },
@@ -151,7 +155,6 @@ export default {
     FoldableBlock,
     GetSimPartnersFilter,
     GetSimCustomFields,
-    GetSimSelectedFilters,
     GetSimPartnersBillingAccountsFilter,
     GetSimOffersFilter,
     UiCheckbox,
@@ -162,6 +165,7 @@ export default {
     GetSimQuantityFilter,
     GetSimDateFilter,
     GetSimDeliveryCountries,
+    SelectedFilters,
   },
 };
 </script>

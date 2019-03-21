@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['appliedFilters']),
+    ...mapGetters('getsim', ['appliedFilters']),
     resultType: {
       get() {
         return this.selectedSearchType;
@@ -123,8 +123,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchOrdersFromApi']),
-    ...mapMutations(['clearAllFilters', 'forceAppliedFilters']),
+    ...mapActions('getsim', ['fetchOrdersFromApi']),
+    ...mapMutations('getsim', ['clearAllFilters', 'forceAppliedFilters']),
     async fetchOrders() {
       this.forceAppliedFilters([
         {
