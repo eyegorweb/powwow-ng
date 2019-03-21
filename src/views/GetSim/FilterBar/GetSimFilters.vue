@@ -47,7 +47,11 @@
             <GetSimCustomFields />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
-            <GetSimOrderCreator />
+            <OrderCreatorFilter
+              :selected-partners-values="selectedPartnersValues"
+              :selected-order-creator-values="selectedOrderCreatorValues"
+              @setOrderCreatorFilter="setOrderCreatorFilter"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.deliveryCountry')" :key="'el11'" draggable>
             <GetSimDeliveryCountries />
@@ -99,7 +103,6 @@ import GetSimCustomFields from './GetSimCustomFields';
 import GetSimPartnersFilter from './GetSimPartnersFilter';
 import GetSimPartnersBillingAccountsFilter from './GetSimPartnersBillingAccountsFilter';
 import GetSimOffersFilter from './GetSimOffersFilter';
-import GetSimOrderCreator from './GetSimOrderCreatorFilter';
 import GetSimPostalCode from './GetSimPostalCode';
 import GetSimCity from './GetSimCity';
 import GetSimActionFilter from './GetSimActionFilter';
@@ -107,6 +110,7 @@ import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
+import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 
 export default {
   data() {
@@ -123,6 +127,8 @@ export default {
       'canShowSelectedFilter',
       'selectedOrderDate',
       'selectedOrderStatus',
+      'selectedPartnersValues',
+      'selectedOrderCreatorValues',
     ]),
     ...mapGetters(['userIsPartner', 'userInfos']),
     orderStatus: {
@@ -137,7 +143,7 @@ export default {
 
   methods: {
     ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
-    ...mapMutations('getsim', ['setOrderStatusFilter', 'applyFilters']),
+    ...mapMutations('getsim', ['setOrderStatusFilter', 'applyFilters', 'setOrderCreatorFilter']),
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
     },
@@ -158,7 +164,6 @@ export default {
     GetSimPartnersBillingAccountsFilter,
     GetSimOffersFilter,
     UiCheckbox,
-    GetSimOrderCreator,
     GetSimPostalCode,
     GetSimCity,
     GetSimActionFilter,
@@ -166,6 +171,7 @@ export default {
     GetSimDateFilter,
     GetSimDeliveryCountries,
     SelectedFilters,
+    OrderCreatorFilter,
   },
 };
 </script>

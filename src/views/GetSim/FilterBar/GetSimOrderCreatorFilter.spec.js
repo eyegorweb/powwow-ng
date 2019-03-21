@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import * as api from '@/api/orderCreator';
+import * as api from '@/api/users';
 
 import { Store } from 'vuex-mock-store';
 import { $t } from '@/../tests-utils';
@@ -34,12 +34,12 @@ describe('GetSimOrderCreatorFilter', () => {
         id: 20,
       },
     ];
-    api.fetchOrderCreators = jest.fn();
-    api.fetchOrderCreators.mockResolvedValue(creatorsData);
+    api.fetchUsers = jest.fn();
+    api.fetchUsers.mockResolvedValue(creatorsData);
 
     mount(GetSimOrderCreatorFilter, { mocks });
 
-    expect(api.fetchOrderCreators).toHaveBeenCalled();
+    expect(api.fetchUsers).toHaveBeenCalled();
   });
 
   it('searches for new values from api with selected partners', async () => {
@@ -55,8 +55,8 @@ describe('GetSimOrderCreatorFilter', () => {
         },
       },
     ];
-    api.fetchOrderCreators = jest.fn();
-    api.fetchOrderCreators.mockResolvedValue(creatorsData);
+    api.fetchUsers = jest.fn();
+    api.fetchUsers.mockResolvedValue(creatorsData);
 
     const wrapper = mount(GetSimOrderCreatorFilter, { mocks });
 
@@ -70,7 +70,7 @@ describe('GetSimOrderCreatorFilter', () => {
       },
     ]);
 
-    expect(api.fetchOrderCreators).toHaveBeenCalledWith(
+    expect(api.fetchUsers).toHaveBeenCalledWith(
       'wistiti',
       [
         {
@@ -106,13 +106,13 @@ describe('GetSimOrderCreatorFilter', () => {
         },
       },
     ];
-    api.fetchOrderCreators = jest.fn();
-    api.fetchOrderCreators.mockResolvedValue(creatorsData);
+    api.fetchUsers = jest.fn();
+    api.fetchUsers.mockResolvedValue(creatorsData);
 
     const wrapper = mount(GetSimOrderCreatorFilter, { mocks });
 
     await wrapper.vm.searchValueChanged('wistiti');
-    api.fetchOrderCreators.mockResolvedValue(offerData2);
+    api.fetchUsers.mockResolvedValue(offerData2);
 
     await wrapper.vm.nextPage();
 

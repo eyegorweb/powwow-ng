@@ -8,14 +8,14 @@
 </template>
 
 <script>
-/**
- * à supprimer après la correction des tests
- */
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
-import { mapGetters, mapMutations } from 'vuex';
 import { fetchUsers } from '@/api/users';
 
 export default {
+  props: {
+    selectedOrderCreatorValues: Array,
+    selectedPartnersValues: Array,
+  },
   data() {
     return {
       creators: [],
@@ -33,8 +33,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations('getsim', ['setOrderCreatorFilter']),
-
     async fetchFormattedOrderCreatorsForDatatable(q, { page, limit }) {
       const data = await fetchUsers(q, this.selectedPartnersValues, { page, limit });
       if (data) {
@@ -74,14 +72,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedOrderCreatorValues']),
-
     selectedOrderCreator: {
       get() {
         return this.selectedOrderCreatorValues;
       },
       set(creators) {
-        this.setOrderCreatorFilter(creators);
+        this.$emit('setOrderCreatorFilter', creators);
       },
     },
   },
