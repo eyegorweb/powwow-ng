@@ -1,6 +1,6 @@
 import { query } from './utils';
 
-export async function fetchOrderCreators(q, partners, { page, limit }) {
+export async function fetchUsers(q, partners, { page, limit }) {
   let partnersIds,
     partnerGqlParam = '';
 

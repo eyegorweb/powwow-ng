@@ -6,12 +6,14 @@ export const namespaced = true;
  * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
  * met à jour les champs libres
  */
-async function setPartnersFilter({ commit }, partners, isHidden) {
+async function setPartnersFilter({ commit, getters }, partners, isHidden) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     values: partners,
     hidden: isHidden,
   });
+
+  removeSelectedOrderCreatorPartners({ commit, getters }, partners);
 }
 
 // Mutation
@@ -80,7 +82,22 @@ export const getters = {
         !f.hidden &&
         ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
     ),
+  selectedOrderCreatorValues: state => {
+    return selectedFilterValuesById(state)('filters.orderCreator');
+  },
 };
+const selectedFilterValuesById = state => id => {
+  const found = state.currentFilters.find(c => c.id === id);
+  if (found) return found.values;
+  return [];
+};
+function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
+  const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
+  commit('setOrderCreatorFilter', creatorWithPartnerSelected);
+}
+
 export const actions = {
   setPartnersFilter,
   initFilterForPartnerUser(store) {
@@ -133,5 +150,11 @@ export const mutations = {
   clearAllFilters(state) {
     state.currentFilters = [];
     clearAppliedFilters(state);
+  },
+  setOrderCreatorFilter(state, creators) {
+    selectFilterValue(state, {
+      id: 'filters.orderCreator',
+      values: creators,
+    });
   },
 };

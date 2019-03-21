@@ -19,6 +19,13 @@
           >
             <ActHistoryPartnersFilter />
           </FoldableBlock>
+          <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
+            <OrderCreatorFilter
+              :selected-partners-values="selectedPartnersValues"
+              :selected-order-creator-values="selectedOrderCreatorValues"
+              @setOrderCreatorFilter="setOrderCreatorFilter"
+            />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -53,6 +60,7 @@ import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ActHistoryPartnersFilter from './ActHistoryPartnersFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
+import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 
 export default {
   components: {
@@ -60,6 +68,7 @@ export default {
     FoldableBlock,
     ActHistoryPartnersFilter,
     SelectedFilters,
+    OrderCreatorFilter,
   },
   data() {
     return {
@@ -68,10 +77,15 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner']),
-    ...mapGetters('actHistory', ['currentFilters', 'canShowSelectedFilter']),
+    ...mapGetters('actHistory', [
+      'currentFilters',
+      'canShowSelectedFilter',
+      'selectedPartnersValues',
+      'selectedOrderCreatorValues',
+    ]),
   },
   methods: {
-    ...mapMutations('actHistory', ['applyFilters']),
+    ...mapMutations('actHistory', ['applyFilters', 'setOrderCreatorFilter']),
     ...mapActions('actHistory', ['clearFilter']),
 
     showAllFilters() {
