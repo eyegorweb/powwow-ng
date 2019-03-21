@@ -47,17 +47,13 @@
 </template>
 
 <script>
-/**
- * Déprécié, à supprimer après la correction des tests
- */
 import SelectedFilterDetails from '@/components/SelectedFilterDetails';
 import UiButton from '@/components/ui/Button';
 import UiInput from '@/components/ui/UiInput';
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
-import { mapMutations, mapActions } from 'vuex';
 
 export default {
-  name: 'GetSimSelectedFilters',
+  name: 'SelectedFilters',
 
   props: {
     currentFilters: {
@@ -73,10 +69,11 @@ export default {
 
   components: { SelectedFilterDetails, UiButton, UiDropdownButton, UiInput },
   methods: {
-    ...mapMutations('getsim', ['applyFilters']),
-    ...mapActions('getsim', ['clearFilter']),
     onClear(filterId) {
-      this.clearFilter(filterId);
+      this.$emit('clear', filterId);
+    },
+    applyFilters() {
+      this.$emit('applyFilters');
     },
   },
   computed: {

@@ -73,12 +73,12 @@ export default {
     return {
       navbarLinks: [
         { label: 'GetSIM', to: { name: 'home' } },
-        { label: 'GetParc/GetDiag', to: { name: 'home' } },
+        { label: 'GetParc/GetDiag', to: { name: 'actHistory' } },
         { label: 'GetVision', to: { name: 'home' } },
         { label: 'GetReport', to: { name: 'home' } },
         { label: 'GetAdmin', to: { name: 'home' } },
         { label: 'GetSupport', to: { name: 'exemples' } },
-        { label: 'GetDevice', to: { name: 'draghome' } },
+        { label: 'GetDevice', to: { name: 'exemples' } },
       ],
 
       userMenuVisible: false,

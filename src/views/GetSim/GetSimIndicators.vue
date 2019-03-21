@@ -159,7 +159,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
+    ...mapMutations('getsim', [
       'setOrderStatusFilter',
       'setCurrentFilters',
       'forceAppliedFilters',
@@ -195,7 +195,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentFilters', 'appliedFilters', 'selectedOrderStatus']),
+    ...mapGetters('getsim', ['currentFilters', 'appliedFilters', 'selectedOrderStatus']),
 
     checkAverageProcessingTimeClasses() {
       return {

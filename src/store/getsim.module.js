@@ -2,6 +2,8 @@
 import { fetchCustomFields } from '@/api/customFields';
 import { searchOrders } from '@/api/orders';
 
+export const namespaced = true;
+
 export const state = {
   allAvailableFilters: [],
   currentFilters: [],
@@ -85,7 +87,7 @@ export const getters = {
  * met à jour les champs libres
  */
 async function setPartnersFilter({ commit, getters }, partners, isHidden) {
-  commit('selectFilterValueNEW', {
+  commit('selectFilterValue', {
     id: 'filters.partners',
     values: partners,
     hidden: isHidden,
@@ -151,29 +153,7 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
   }
 }
 
-/**
- * DEPRECATED remove this after all others branches are merged
- */
-function selectFilterValue(state, { id, newValue }) {
-  const isFilterFound = state.currentFilters.find(f => f.id === id);
-  if (isFilterFound) {
-    state.currentFilters = state.currentFilters.map(f => {
-      if (f.id === id) {
-        f.values = newValue;
-      }
-      return f;
-    });
-  } else {
-    state.currentFilters.push({
-      id,
-      values: newValue,
-    });
-  }
-
-  resetSearchWhenCurrentFiltersAreEmpty(state);
-}
-
-function selectFilterValueNEW(state, { id, ...rest }) {
+function selectFilterValue(state, { id, ...rest }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
     // TODO: à voir en terme de perf (si cela est vraiment un problème) si
@@ -243,7 +223,6 @@ export const actions = {
 
 export const mutations = {
   selectFilterValue,
-  selectFilterValueNEW,
   setCurrentFilters: (state, currentFilters) => {
     state.currentFilters = currentFilters;
   },
@@ -256,37 +235,37 @@ export const mutations = {
   setBillingAccountsFilter(state, billingAccounts) {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
-      newValue: billingAccounts,
+      values: billingAccounts,
     });
   },
   setOffersFilter(state, offers) {
     selectFilterValue(state, {
       id: 'filters.offers',
-      newValue: offers,
+      values: offers,
     });
   },
   setPostalCodeFilter(state, postal) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.postalCode',
       value: postal,
     });
   },
   setCityFilter(state, city) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.city',
       value: city,
     });
   },
 
   setOrderStatusFilter(state, values) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.orderStatus',
       values,
     });
   },
 
   setActionFilter(state, values) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.action',
       values,
     });
@@ -295,7 +274,7 @@ export const mutations = {
   setOrderCreatorFilter(state, creators) {
     selectFilterValue(state, {
       id: 'filters.orderCreator',
-      newValue: creators,
+      values: creators,
     });
   },
   applyFilters(state) {
@@ -308,7 +287,7 @@ export const mutations = {
   setCustomFieldsFilter(state, customFields) {
     selectFilterValue(state, {
       id: 'filters.customFields',
-      newValue: customFields,
+      values: customFields,
     });
   },
 
@@ -321,14 +300,14 @@ export const mutations = {
   setOrderDateFilter(state, { startDate, endDate }) {
     if (!startDate || !endDate) return;
 
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.orderDate',
       startDate,
       endDate,
     });
   },
   setQuantityFilter(state, { from, to }) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.quantity',
       // value: value,
       from,
@@ -337,7 +316,7 @@ export const mutations = {
   },
 
   setDeliveryCountriesFilter(state, countries) {
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.countries',
       values: countries,
     });
@@ -349,7 +328,7 @@ export const mutations = {
       return dict;
     }, {});
 
-    selectFilterValueNEW(state, {
+    selectFilterValue(state, {
       id: 'filters.countries',
       values: selectedFilterValuesById(state)('filters.countries').map(country => ({
         ...country,

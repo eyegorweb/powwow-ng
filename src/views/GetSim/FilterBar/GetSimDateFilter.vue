@@ -14,10 +14,10 @@ export default {
     UiDateRange,
   },
   methods: {
-    ...mapMutations(['setOrderDateFilter']),
+    ...mapMutations('getsim', ['setOrderDateFilter']),
   },
   computed: {
-    ...mapGetters(['selectedOrderDate']),
+    ...mapGetters('getsim', ['selectedOrderDate']),
     startDate() {
       return get(this.selectedOrderDate, 'startDate', '');
     },

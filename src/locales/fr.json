@@ -80,6 +80,9 @@
       "CONFIRM": "Confirmer"
     }
   },
+  "getparc": {
+    "management-act": "Historique des actes de gestion"
+  },
   "col": {
     "id": "ID",
     "creationDate": "Date de création",

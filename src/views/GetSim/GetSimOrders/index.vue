@@ -64,8 +64,8 @@ export default {
     isPanelOpen: Boolean,
   },
   methods: {
-    ...mapActions(['fetchOrdersFromApi']),
-    ...mapMutations(['setPage']),
+    ...mapActions('getsim', ['fetchOrdersFromApi']),
+    ...mapMutations('getsim', ['setPage']),
     async fetchOrders() {
       this.fetchOrdersFromApi({
         orderBy: this.orderBy,
@@ -88,14 +88,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      'userIsPartner',
-      'userInfos',
-      'appliedFilters',
-      'ordersResponse',
-      'orderPage',
-      'orderIsLoading',
-    ]),
+    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'orderIsLoading']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },

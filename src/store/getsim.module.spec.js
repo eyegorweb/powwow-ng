@@ -1,4 +1,4 @@
-import * as filterModule from './filters.module';
+import * as filterModule from './getsim.module';
 import * as api from '@/api/customFields';
 
 describe('store/filters.module', () => {
@@ -107,7 +107,7 @@ describe('store/filters.module', () => {
 
       const payload = {
         name: 'partners',
-        newValue: [
+        values: [
           {
             code: 'c1',
             label: 'partner1',
@@ -220,7 +220,7 @@ describe('store/filters.module', () => {
       filterModule.actions.setPartnersFilter(store, []);
 
       expect(store.commit.mock.calls[0]).toEqual([
-        'selectFilterValueNEW',
+        'selectFilterValue',
         { id: 'filters.partners', values: [] },
       ]);
 

@@ -13,10 +13,10 @@ export default {
   name: 'City',
 
   methods: {
-    ...mapMutations(['setCityFilter']),
+    ...mapMutations('getsim', ['setCityFilter']),
   },
   computed: {
-    ...mapGetters(['selectedCityValue']),
+    ...mapGetters('getsim', ['selectedCityValue']),
     city: {
       get() {
         return this.selectedCityValue;

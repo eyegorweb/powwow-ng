@@ -37,11 +37,14 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setDeliveryCountriesFilter', 'updateSelectedDeliveryCountriesLabels']),
+    ...mapMutations('getsim', [
+      'setDeliveryCountriesFilter',
+      'updateSelectedDeliveryCountriesLabels',
+    ]),
   },
 
   computed: {
-    ...mapGetters({ storeSelectedCountries: 'selectedDeliveryCountries' }),
+    ...mapGetters({ storeSelectedCountries: 'getsim/selectedDeliveryCountries' }),
 
     countriesSelectItems: ({ countries }) =>
       countries.map(country => ({ id: country.code, label: country.name })),
