@@ -81,7 +81,38 @@
     }
   },
   "getparc": {
-    "management-act": "Historique des actes de gestion"
+    "management-act": "Historique des actes de gestion",
+    "actTypes": {
+      "PREACTIVATION": "Préactivation",
+      "PREACTIVATION_ACTIVATION": "Préactivation - Activation",
+      "ACTIVATION": "Activation",
+      "STATUS_CHANGE": "STATUS_CHANGE",
+      "ICCID_CHANGE": "ICCID_CHANGE",
+      "EUICC_NOTIFICATION": "EUICC_NOTIFICATION",
+      "EUICC_AUDIT": "EUICC_AUDIT",
+      "MSISDN_CHANGE": "MSISDN_CHANGE",
+      "ALARM_SETTING": "ALARM_SETTING",
+      "ALARM_UNSETTING": "ALARM_UNSETTING",
+      "CUSTOM_FIELDS_UPDATE": "CUSTOM_FIELDS_UPDATE",
+      "SERVICE_ADDING": "SERVICE_ADDING",
+      "SERVICE_REMOVING": "SERVICE_REMOVING",
+      "SERVICE_CHANGE": "SERVICE_CHANGE",
+      "SIMCARD_SALE": "SIMCARD_SALE",
+      "SIMCARD_SALE_PREACTIVATION": "SIMCARD_SALE_PREACTIVATION",
+      "SEND_SMS": "SEND_SMS",
+      "SIMCARD_EXT_REF_UPDATE": "SIMCARD_EXT_REF_UPDATE",
+      "CHANGE_OFFER": "CHANGE_OFFER",
+      "PORT_IN": "PORT_IN",
+      "PORT_OUT": "PORT_OUT",
+      "CHANGE_CUSTOMER_ACCOUNT": "CHANGE_CUSTOMER_ACCOUNT",
+      "TEMPORARY_UNBAR_ACTIVATION": "TEMPORARY_UNBAR_ACTIVATION",
+      "SIMCARD_TRANSFER": "SIMCARD_TRANSFER",
+      "RECOVERY_LIMIT_ACT": "RECOVERY_LIMIT_ACT",
+      "RECOVERY_SUSPEND": "RECOVERY_SUSPEND",
+      "RECOVERY_RELEASED": "RECOVERY_RELEASED",
+      "GEO_LOCATION": "GEO_LOCATION",
+      "UPDATE_COMMITMENT": "UPDATE_COMMITMENT"
+    }
   },
   "col": {
     "id": "ID",
@@ -151,6 +182,9 @@
     "actionValues": {
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"
+    },
+    "getparc": {
+      "management-act-type": "Type d'actes de gestion"
     }
   },
   "orders": {

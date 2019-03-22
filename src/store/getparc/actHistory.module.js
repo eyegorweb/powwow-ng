@@ -1,5 +1,43 @@
 export const namespaced = true;
 
+export const state = {
+  currentFilters: [],
+  appliedFilters: [],
+  ordersResponse: [],
+  orderPage: 1,
+  defaultAppliedFilters: [],
+};
+
+// NOTE: en inversant l'ordre de paramètres on peut passer
+// direcment le résultat de la fonction au getter
+const findFilterValuesById = id => state => {
+  const found = state.currentFilters.find(c => c.id === id);
+  return found ? found.values : [];
+};
+
+const selectedFilterValuesById = state => id => {
+  const found = state.currentFilters.find(c => c.id === id);
+  if (found) return found.values;
+  return [];
+};
+
+export const getters = {
+  selectedPartnersValues: findFilterValuesById('filters.partners'),
+  currentFilters: state => state.currentFilters,
+  canShowSelectedFilter: state =>
+    !!state.currentFilters.find(
+      f =>
+        !f.hidden &&
+        ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
+    ),
+  selectedOrderCreatorValues: state => {
+    return selectedFilterValuesById(state)('filters.orderCreator');
+  },
+  selectedTypesValues: state => {
+    return selectedFilterValuesById(state)('filters.actTypes');
+  },
+};
+
 // Actions
 /**
  * Met à jour les partenaires selectionnées
@@ -59,38 +97,6 @@ function selectFilterValue(state, { id, ...rest }) {
   resetSearchWhenCurrentFiltersAreEmpty(state);
 }
 
-// NOTE: en inversant l'ordre de paramètres on peut passer
-// direcment le résultat de la fonction au getter
-const findFilterValuesById = id => state => {
-  const found = state.currentFilters.find(c => c.id === id);
-  return found ? found.values : [];
-};
-
-export const state = {
-  currentFilters: [],
-  appliedFilters: [],
-  ordersResponse: [],
-  orderPage: 1,
-  defaultAppliedFilters: [],
-};
-export const getters = {
-  selectedPartnersValues: findFilterValuesById('filters.partners'),
-  currentFilters: state => state.currentFilters,
-  canShowSelectedFilter: state =>
-    !!state.currentFilters.find(
-      f =>
-        !f.hidden &&
-        ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
-    ),
-  selectedOrderCreatorValues: state => {
-    return selectedFilterValuesById(state)('filters.orderCreator');
-  },
-};
-const selectedFilterValuesById = state => id => {
-  const found = state.currentFilters.find(c => c.id === id);
-  if (found) return found.values;
-  return [];
-};
 function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
   const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
     partners.find(p => p.id === a.partnerId)
@@ -155,6 +161,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.orderCreator',
       values: creators,
+    });
+  },
+  setActTypesFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.actTypes',
+      values: types,
     });
   },
 };
