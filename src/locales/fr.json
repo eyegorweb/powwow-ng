@@ -190,6 +190,7 @@
     },
     "actTypes": "Type d'actes de gestion",
     "services": "Action du service optionnel",
+    "actDate": "Date de création de l’acte",
     "getparc": {
       "management-act-type": "Type d'actes de gestion",
       "management-action-services": "Action du service optionnel"
