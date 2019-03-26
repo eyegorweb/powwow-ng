@@ -379,6 +379,39 @@ export async function createOrder(synthesis) {
     orderReferenceParam = `externalId: "${orderReference}"`;
   }
 
+  let selectedServiceInputParam = '';
+  let gqlServicesParamArr = [];
+  // pick services
+  if (synthesis.services) {
+    const basicServices = get(synthesis, 'services.selection.basicServices', []);
+    const basicServicesParam = basicServices
+      .filter(s => s.data && s.checked)
+      .map(s => `{ catalogServiceGroupId: ${s.data.id}, catalogServiceParameters: [] }`);
+    gqlServicesParamArr = gqlServicesParamArr.concat(basicServicesParam);
+
+    const dataService = get(synthesis, 'services.selection.dataService', []);
+    if (dataService && dataService.data && dataService.checked) {
+      const id = dataService.data.id;
+      const apns = dataService.apns || [];
+      const apnIdsParam = apns
+        .filter(s => s.selected)
+        .map(a => {
+          return `${a.id}`;
+        })
+        .join(',');
+
+      gqlServicesParamArr.push(
+        `{ catalogServiceGroupId: ${id}, catalogServiceParameters: [${apnIdsParam}] }`
+      );
+    }
+  }
+
+  if (gqlServicesParamArr.length) {
+    selectedServiceInputParam = `selectedServiceInput: [
+      ${gqlServicesParamArr.join(',')}
+    ]`;
+  }
+
   const queryStr = `
   mutation {
     createOrder(orderInput: {
@@ -411,6 +444,7 @@ export async function createOrder(synthesis) {
       simCardId: ${get(synthesis, 'product.value.id')}
       customFieldsDTO: ${customFieldsDTO}
       ${orderReferenceParam}
+      ${selectedServiceInputParam}
     }) {
       id
     }

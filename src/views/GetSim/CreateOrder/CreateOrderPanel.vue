@@ -108,7 +108,6 @@ export default {
 
   computed: mapState({
     orders: state => {
-      console.log(state);
       return get(state, 'filters.ordersResponse.items', []);
     },
   }),

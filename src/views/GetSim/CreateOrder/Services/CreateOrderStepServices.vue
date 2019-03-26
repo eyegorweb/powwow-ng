@@ -25,15 +25,32 @@
                 v-for="service in basicServices"
                 class="single-service mt-3 mb-3"
               >
-                <BasicService
-                  :name="service.name"
-                  :dependency-code="service.code"
-                  :offer="selectedOfferData"
+                <UiToggle
+                  :label="$t('services.' + service.name)"
+                  :editable="service.editable"
+                  v-model="service.checked"
                 />
               </div>
             </div>
 
-            <DataService :offer="selectedOfferData" />
+            <div class="services-container mt-3">
+              <div class="single-service">
+                <UiToggle
+                  :label="$t('services.DATA')"
+                  :editable="dataService.editable"
+                  v-model="dataService.checked"
+                />
+              </div>
+              <div
+                v-if="dataService && dataService.apns && dataService.apns.length"
+                class="single-service"
+              >
+                <div class="apn-container">
+                  <span>Apn:</span>
+                  <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
+                </div>
+              </div>
+            </div>
           </template>
         </div>
       </div>
@@ -61,10 +78,8 @@
 <script>
 import UiButton from '@/components/ui/Button';
 import UiToggle from '@/components/ui/UiToggle';
-// import UiSelect from '@/components/ui/UiSelect';
 import OffersChoice from './OffersChoice';
-import BasicService from './BasicService';
-import DataService from './DataService';
+import MultiChoiceList from '@/components/ui/MultiChoiceList';
 
 import get from 'lodash.get';
 import { fetchOffersForPartnerId } from '@/api/offers';
@@ -76,8 +91,7 @@ export default {
     UiToggle,
     // UiSelect,
     OffersChoice,
-    BasicService,
-    DataService,
+    MultiChoiceList,
   },
   props: {
     synthesis: {
@@ -85,59 +99,7 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      selectedOffer: null,
-      activation: false,
-      preActivationValue: false,
-      partnerId: undefined,
-      offers: [],
-      selectedOfferData: undefined,
 
-      basicServices: [
-        {
-          id: 0,
-          name: 'VOIX_ENTRANTE',
-          code: '2175',
-        },
-        {
-          id: 1,
-          name: 'VOIX_SORTANTE',
-          code: '2023',
-        },
-        {
-          id: 2,
-          name: 'SMS_ENTRANT',
-          code: '2171',
-        },
-        {
-          id: 3,
-          name: 'SMS_SORTANT',
-          code: '2174',
-        },
-        {
-          id: 4,
-          name: 'NUMERO_DATA_CSD',
-          code: '2188',
-        },
-        {
-          id: 5,
-          name: 'DATA_CSD_ENTRANTE',
-          code: '2172',
-        },
-        {
-          id: 6,
-          name: 'DATA_CSD_SORTANTE',
-          code: '2173',
-        },
-        {
-          id: 7,
-          name: 'ROAMING',
-          code: '77',
-        },
-      ],
-    };
-  },
   computed: {
     preActivation: {
       get() {
@@ -165,6 +127,8 @@ export default {
   watch: {
     selectedOffer(selectedValue) {
       this.selectedOfferData = this.offers.find(o => o.value === selectedValue);
+      this.initServicesForOffer();
+      this.initDataService();
     },
   },
   methods: {
@@ -173,6 +137,76 @@ export default {
     },
     prev() {
       this.$emit('prev', this.assembleSynthesis());
+    },
+    /**
+     * Il faut scanner tout les éléments de nonSystemServiceGroupList > standardAndSemiGlobalCatalogServiceGroups > catalogService pour extraire les données du service
+     */
+    getServiceData(dependencyCode) {
+      return this.selectedOfferData.initialOffer.nonSystemServiceGroupList
+        .map(g => g.standardAndSemiGlobalCatalogServiceGroups)
+        .flat()
+        .find(s => s.catalogService.code === dependencyCode);
+    },
+    initServicesForOffer() {
+      this.basicServices = this.basicServices.map(s => {
+        const serviceData = this.getServiceData(s.code);
+        if (serviceData) {
+          const isEditable = serviceData.partyAccess || false;
+          const isChecked = serviceData.activatedByDefault || false;
+          return {
+            ...s,
+            checked: isChecked,
+            editable: isEditable,
+            data: { ...serviceData },
+          };
+        }
+
+        return s;
+      });
+    },
+    initDataService() {
+      const data = this.getServiceData('878');
+      if (!data) return;
+      let serviceParameters = [];
+      if (data && data.catalogServiceParameters) {
+        serviceParameters = data.catalogServiceParameters;
+      }
+
+      const containTestApn = serviceParameters.find(
+        s => s.defaultValue.indexOf('testrnis.fr') !== -1
+      );
+      const isEditable = data.partyAccess || false;
+      const isChecked = data && data.activatedByDefault && !containTestApn;
+
+      const dataService = {
+        checked: isChecked,
+        editable: isEditable,
+        apns: [],
+        data: { ...data },
+      };
+
+      const apns = serviceParameters.map(p => {
+        return {
+          label: p.defaultValue,
+          selectable: p.partyAccess,
+          selected: p.setOnActivation,
+          id: p.id,
+        };
+      });
+
+      dataService.apns = apns;
+
+      this.dataService = dataService;
+    },
+    toggleApn(apn) {
+      const apns = this.dataService.apns.map(a => {
+        if (a.selectable && a.label === apn.label) {
+          a.selected = !a.selected;
+        }
+        return a;
+      });
+
+      this.dataService = { ...this.dataService, apns };
     },
     assembleSynthesis() {
       return {
@@ -190,10 +224,90 @@ export default {
           selection: {
             activation: !!this.activation,
             preActivation: !!this.preActivation,
+            basicServices: this.basicServices,
+            dataService: this.dataService,
           },
         },
       };
     },
+  },
+  data() {
+    return {
+      selectedOffer: null,
+      activation: false,
+      preActivationValue: false,
+      partnerId: undefined,
+      offers: [],
+      selectedOfferData: undefined,
+
+      dataService: undefined,
+      basicServices: [
+        {
+          id: 0,
+          name: 'VOIX_ENTRANTE',
+          code: '2175',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 1,
+          name: 'VOIX_SORTANTE',
+          code: '2023',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 2,
+          name: 'SMS_ENTRANT',
+          code: '2171',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 3,
+          name: 'SMS_SORTANT',
+          code: '2174',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 4,
+          name: 'NUMERO_DATA_CSD',
+          code: '2188',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 5,
+          name: 'DATA_CSD_ENTRANTE',
+          code: '2172',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 6,
+          name: 'DATA_CSD_SORTANTE',
+          code: '2173',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+        {
+          id: 7,
+          name: 'ROAMING',
+          code: '77',
+          checked: false,
+          editable: false,
+          data: undefined,
+        },
+      ],
+    };
   },
 };
 </script>
@@ -272,6 +386,35 @@ export default {
       max-width: 180px;
       overflow-y: auto;
     }
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .services-container {
+    width: 100% !important;
+  }
+}
+
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  .single-service {
+    flex-basis: 50%;
+  }
+}
+
+.apn-container {
+  display: flex;
+  flex-direction: row;
+  span {
+    flex-grow: 0;
+  }
+  .card {
+    max-width: 210px;
+    flex-grow: 1;
+    margin-left: 10px;
   }
 }
 </style>
