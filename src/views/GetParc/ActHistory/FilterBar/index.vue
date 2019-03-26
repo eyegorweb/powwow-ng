@@ -29,6 +29,13 @@
           <FoldableBlock :title="$t('filters.getparc.management-act-type')" :key="'el3'" draggable>
             <ManagementActTypesFilter />
           </FoldableBlock>
+          <FoldableBlock
+            :title="$t('filters.getparc.management-action-services')"
+            :key="'el4'"
+            draggable
+          >
+            <ManagementActionServices />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -63,6 +70,7 @@ import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ActHistoryPartnersFilter from './ActHistoryPartnersFilter';
 import ManagementActTypesFilter from './ManagementActTypesFilter';
+import ManagementActionServices from './ManagementActionServices';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 
@@ -74,6 +82,7 @@ export default {
     SelectedFilters,
     OrderCreatorFilter,
     ManagementActTypesFilter,
+    ManagementActionServices,
   },
   data() {
     return {
