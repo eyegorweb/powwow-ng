@@ -112,6 +112,11 @@
       "RECOVERY_RELEASED": "RECOVERY_RELEASED",
       "GEO_LOCATION": "GEO_LOCATION",
       "UPDATE_COMMITMENT": "UPDATE_COMMITMENT"
+    },
+    "services": {
+      "ADD": "Ajout",
+      "REMOVE": "Suppression",
+      "ADD_REMOVE": "Ajout / Suppression"
     }
   },
   "col": {
@@ -183,8 +188,11 @@
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"
     },
+    "actTypes": "Type d'actes de gestion",
+    "services": "Action du service optionnel",
     "getparc": {
-      "management-act-type": "Type d'actes de gestion"
+      "management-act-type": "Type d'actes de gestion",
+      "management-action-services": "Action du service optionnel"
     }
   },
   "orders": {
