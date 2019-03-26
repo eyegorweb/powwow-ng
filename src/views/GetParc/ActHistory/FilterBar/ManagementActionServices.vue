@@ -9,7 +9,6 @@
 <script>
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
 import { getActionServices } from '@/api/actionServices';
-import { setServicesFilter } from '@/store/getparc/actHistory.module';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {

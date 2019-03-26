@@ -96,7 +96,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.date {
-}
-</style>
+<style></style>

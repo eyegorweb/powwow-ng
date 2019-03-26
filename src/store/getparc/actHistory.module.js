@@ -39,6 +39,7 @@ export const getters = {
   selectedServicesValues: state => {
     return selectedFilterValuesById(state)('filters.services');
   },
+  selectedActDate: state => state.currentFilters.find(f => f.id === 'filters.actDate'),
 };
 
 // Actions
@@ -176,6 +177,15 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.services',
       values: types,
+    });
+  },
+  setActDateFilter(state, { startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValue(state, {
+      id: 'filters.actDate',
+      startDate,
+      endDate,
     });
   },
 };
