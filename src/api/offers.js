@@ -25,6 +25,7 @@ export async function fetchOffers(q, partners, { page, limit }) {
             type
             code
             standardAndSemiGlobalCatalogServiceGroups {
+              id
               activatedByDefault
               partyAccess
               catalogService {
@@ -37,6 +38,7 @@ export async function fetchOffers(q, partners, { page, limit }) {
                 label
                 partyAccess
                 serviceParameter {
+                  id
                   code
                   name
                 }
