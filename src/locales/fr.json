@@ -106,12 +106,19 @@
       "PORT_OUT": "Portabilité OUT",
       "CHANGE_CUSTOMER_ACCOUNT": "Changement du compte de facturation",
       "TEMPORARY_UNBAR_ACTIVATION": "TEMPORARY_UNBAR_ACTIVATION",
-      "SIMCARD_TRANSFER": "Transfert de cartes SIM",
-      "RECOVERY_LIMIT_ACT": "Blocage des actes",
-      "RECOVERY_SUSPEND": "Suspension pour impayé",
-      "RECOVERY_RELEASED": "Résiliation du compte",
-      "GEO_LOCATION": "Localisation M2M",
-      "UPDATE_COMMITMENT": "Durée engagement"
+      "SIMCARD_TRANSFER": "SIMCARD_TRANSFER",
+      "RECOVERY_LIMIT_ACT": "RECOVERY_LIMIT_ACT",
+      "RECOVERY_SUSPEND": "RECOVERY_SUSPEND",
+      "RECOVERY_RELEASED": "RECOVERY_RELEASED",
+      "GEO_LOCATION": "GEO_LOCATION",
+      "UPDATE_COMMITMENT": "UPDATE_COMMITMENT"
+    },
+    "actStatuses": {
+      "WAITING": "En attente",
+      "IN_PROGRESS": "En cours",
+      "IN_ERROR": "En erreur",
+      "TERMINATED": "Terminé",
+      "CANCELLED": "Annulé"
     },
     "services": {
       "ADD": "Ajout",
@@ -189,12 +196,10 @@
       "PREACTIVATED": "Pré-activé"
     },
     "actTypes": "Type d'actes de gestion",
+    "actStatus": "Statut de l’acte",
+    "actDate": "Date   de création de l’acte",
     "services": "Action du service optionnel",
-    "actDate": "Date de création de l’acte",
-    "getparc": {
-      "management-act-type": "Type d'actes de gestion",
-      "management-action-services": "Action du service optionnel"
-    }
+    "actCreator": "Créateur de l’acte"
   },
   "orders": {
     "choose-account": "Choisir un compte de facturation",

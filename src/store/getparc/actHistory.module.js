@@ -36,6 +36,9 @@ export const getters = {
   selectedTypesValues: state => {
     return selectedFilterValuesById(state)('filters.actTypes');
   },
+  selectedStatusValues: state => {
+    return selectedFilterValuesById(state)('filters.actStatus');
+  },
   selectedServicesValues: state => {
     return selectedFilterValuesById(state)('filters.services');
   },
@@ -171,6 +174,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.actTypes',
       values: types,
+    });
+  },
+  setActStatusFilter(state, statuses) {
+    selectFilterValue(state, {
+      id: 'filters.actStatus',
+      values: statuses,
     });
   },
   setServicesFilter(state, types) {
