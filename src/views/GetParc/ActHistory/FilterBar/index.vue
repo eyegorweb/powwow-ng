@@ -35,7 +35,14 @@
           <FoldableBlock :title="$t('filters.services')" :key="'el5'" draggable>
             <ManagementActionServices />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actStatus')" :key="'el6'" draggable>
+          <FoldableBlock
+            :title="$t('filters.getparc.management-action-services')"
+            :key="'el6'"
+            draggable
+          >
+            <ManagementActionServices />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.actStatus')" :key="'el7'" draggable>
             <ManagementActStatusFilter />
           </FoldableBlock>
         </transition-group>
