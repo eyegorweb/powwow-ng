@@ -35,7 +35,6 @@
         <GetSimOrders :key="$i18n.locale" :is-panel-open="isPanelOpen" />
       </div>
     </div>
-    <GetSimPanels />
   </div>
 </template>
 
@@ -44,7 +43,6 @@ import UiButton from '@/components/ui/Button';
 import GetSimOrders from './GetSimOrders';
 import GetSimFilters from './FilterBar/GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
-import GetSimPanels from './GetSimPanels';
 import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
@@ -55,7 +53,6 @@ export default {
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
-    GetSimPanels,
   },
 
   methods: {

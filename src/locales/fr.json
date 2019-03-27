@@ -125,6 +125,21 @@
       "ADD": "Ajout",
       "REMOVE": "Suppression",
       "ADD_REMOVE": "Ajout / Suppression"
+    },
+    "history": {
+      "total": "{total} Actes de gestion trouvés",
+      "col": {
+        "action": "Action",
+        "actDate": "Prévue",
+        "details": "Détails",
+        "target": "Ciblée",
+        "success": "Succès",
+        "ongoing": "En cours",
+        "fail": "Échec"
+      },
+      "details": {
+        "title": "Acte de gestion {id}"
+      }
     }
   },
   "col": {

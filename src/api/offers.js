@@ -15,6 +15,7 @@ export async function fetchOffers(q, partners, { page, limit }) {
     workflows(filter:{description: {contains: "${q}"}${partnerGqlParam}}, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
+        id
         code
         workflowDescription
         initialOffer {

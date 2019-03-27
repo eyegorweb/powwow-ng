@@ -14,8 +14,7 @@
         <FilterBar />
       </div>
       <div class="col-md-9">
-        Table ici
-        <SearchByIdInput></SearchByIdInput>
+        <HistoryTable />
       </div>
     </div>
   </div>
@@ -23,12 +22,12 @@
 
 <script>
 import FilterBar from './FilterBar';
-import SearchByIdInput from './SearchByIdInput';
+import HistoryTable from './HistoryTable';
 
 export default {
   components: {
     FilterBar,
-    SearchByIdInput,
+    HistoryTable,
   },
 };
 </script>

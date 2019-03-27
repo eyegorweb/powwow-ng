@@ -10,6 +10,7 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
+      <ActHistoryDetailPanel v-if="panelId === 'getparc.history.details.title'" :order="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -18,9 +19,10 @@
 import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
-import GetSimCreateOrderPanel from './CreateOrder/CreateOrderPanel';
-import GetSimOrderDetails from './GetSimOrderDetails';
-import GetSimCreatorDetails from './GetSimCreatorDetails';
+import GetSimCreateOrderPanel from '@/views/GetSim/CreateOrder/CreateOrderPanel';
+import GetSimOrderDetails from '@/views/GetSim/GetSimOrderDetails';
+import GetSimCreatorDetails from '@/views/GetSim/GetSimCreatorDetails';
+import ActHistoryDetailPanel from '@/views/GetParc/ActHistory/ActHistoryDetailPanel';
 
 export default {
   components: {
@@ -28,6 +30,7 @@ export default {
     GetSimCreateOrderPanel,
     GetSimOrderDetails,
     GetSimCreatorDetails,
+    ActHistoryDetailPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),
