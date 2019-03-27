@@ -13,17 +13,21 @@
       <div class="col-md-3">
         <FilterBar />
       </div>
-      <div class="col-md-9">Table ici</div>
+      <div class="col-md-9">
+        <HistoryTable />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import FilterBar from './FilterBar';
+import HistoryTable from './HistoryTable';
 
 export default {
   components: {
     FilterBar,
+    HistoryTable,
   },
 };
 </script>
