@@ -13,17 +13,22 @@
       <div class="col-md-3">
         <FilterBar />
       </div>
-      <div class="col-md-9">Table ici</div>
+      <div class="col-md-9">
+        Table ici
+        <SearchByIdInput></SearchByIdInput>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import FilterBar from './FilterBar';
+import SearchByIdInput from './SearchByIdInput';
 
 export default {
   components: {
     FilterBar,
+    SearchByIdInput,
   },
 };
 </script>
