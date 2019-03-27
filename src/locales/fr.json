@@ -1,5 +1,6 @@
 {
   "searchOrderById": "Rechercher une commande par identifiant",
+  "searchActById": "Rechercher un acte par identifiant",
   "search": "Rechercher",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",

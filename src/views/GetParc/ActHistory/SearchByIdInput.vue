@@ -63,7 +63,7 @@ export default {
           label: this.$t('orders.search.client-reference'),
         },
       ],
-      inputPlaceholder: this.$t('searchOrderById'),
+      inputPlaceholder: this.$t('searchActById'),
       selectPlaceholder: this.$t('type'),
       selectedSearchType: null,
       inputSearchValue: undefined,
