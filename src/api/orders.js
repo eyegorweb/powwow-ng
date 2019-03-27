@@ -384,32 +384,31 @@ export async function createOrder(synthesis) {
   let gqlWorkflowId = '';
   // pick services
   if (synthesis.services) {
-    const basicServices = get(synthesis, 'services.selection.basicServices', []);
-    const basicServicesParam = basicServices
-      .filter(s => s.data && s.checked)
-      .map(s => `{ catalogServiceGroupId: ${s.data.id}, catalogServiceParameters: [] }`);
-    gqlServicesParamArr = gqlServicesParamArr.concat(basicServicesParam);
-
-    const dataService = get(synthesis, 'services.selection.dataService', []);
-    if (dataService && dataService.data && dataService.checked) {
-      const id = dataService.data.id;
-      const apns = dataService.apns || [];
-      const apnIdsParam = apns
-        .filter(s => s.selected)
-        .map(a => {
-          return `${a.id}`;
-        })
-        .join(',');
-
-      gqlServicesParamArr.push(
-        `{ catalogServiceGroupId: ${id}, catalogServiceParameters: [${apnIdsParam}] }`
-      );
-    }
-
     const isActivation = get(synthesis, 'services.value.activation');
     if (isActivation) {
-      const offerId = get(synthesis, 'services.selection.selectedOfferData.initialOffer.id');
+      const offerId = get(synthesis, 'services.selection.selectedOfferData.id');
       gqlWorkflowId = `workflowId: ${offerId}`;
+      const basicServices = get(synthesis, 'services.selection.basicServices', []);
+      const basicServicesParam = basicServices
+        .filter(s => s.data && s.checked)
+        .map(s => `{ catalogServiceGroupId: ${s.data.id}, catalogServiceParameters: [] }`);
+      gqlServicesParamArr = gqlServicesParamArr.concat(basicServicesParam);
+
+      const dataService = get(synthesis, 'services.selection.dataService', []);
+      if (dataService && dataService.data && dataService.checked) {
+        const id = dataService.data.id;
+        const apns = dataService.apns || [];
+        const apnIdsParam = apns
+          .filter(s => s.selected)
+          .map(a => {
+            return `${a.id}`;
+          })
+          .join(',');
+
+        gqlServicesParamArr.push(
+          `{ catalogServiceGroupId: ${id}, catalogServiceParameters: [${apnIdsParam}] }`
+        );
+      }
     }
   }
 
