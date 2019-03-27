@@ -20,7 +20,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          search input
+          <SearchByIdInput></SearchByIdInput>
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />
@@ -35,6 +35,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
+import SearchByIdInput from './SearchByIdInput';
 
 // import { mapGetters, mapActions, mapMutations } from 'vuex';
 
@@ -73,6 +74,7 @@ export default {
     DataTable,
     LoaderContainer,
     HistoryActions,
+    SearchByIdInput,
   },
   async mounted() {
     const savedColumns = loadColumnsFromLocalStorage();
