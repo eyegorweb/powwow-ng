@@ -1,8 +1,6 @@
 <template>
-  <div class="position-relative" :style="{ minHeight: '50vh' }">
-    <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
-    <img class="loader" v-if="orderIsLoading" src="@/assets/spinner.svg" />
-    <div :class="{ 'order-is-loading': orderIsLoading }">
+  <LoaderContainer :is-loading="orderIsLoading">
+    <div>
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
@@ -35,7 +33,7 @@
         </template>
       </DataTable>
     </div>
-  </div>
+  </LoaderContainer>
 </template>
 
 <script>
@@ -47,6 +45,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
 import sortBy from 'lodash.sortby';
 import SearchByIdInput from './SearchByIdInput';
+import LoaderContainer from '@/components/LoaderContainer';
 
 import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
 import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
@@ -104,6 +103,7 @@ export default {
     DataTable,
     GetSimOrdersActions,
     SearchByIdInput,
+    LoaderContainer,
   },
   props: {
     isPanelOpen: Boolean,
@@ -373,39 +373,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.loader {
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.order-is-loading {
-  position: relative;
-  pointer-events: none;
-  opacity: 0.5;
-
-  /deep/ .table-blue thead {
-    background-color: $gray;
-  }
-
-  /deep/ .pagination {
-    .page-item:not(.disabled) {
-      .page-link {
-        color: $gray;
-      }
-    }
-  }
-
-  /deep/ a {
-    color: $gray;
-  }
-
-  /deep/ button {
-    color: $gray;
-  }
-}
-
 .export-link {
   color: $accent;
   float: right;
