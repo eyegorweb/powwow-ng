@@ -19,25 +19,31 @@
           >
             <ActHistoryPartnersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderCreator')" :key="'el2'" draggable>
+          <FoldableBlock :title="$t('filters.actCreator')" :key="'el2'" draggable>
             <OrderCreatorFilter
               :selected-partners-values="selectedPartnersValues"
               :selected-order-creator-values="selectedOrderCreatorValues"
               @setOrderCreatorFilter="setOrderCreatorFilter"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.getparc.management-act-type')" :key="'el3'" draggable>
+          <FoldableBlock :title="$t('filters.actTypes')" :key="'el3'" draggable>
             <ManagementActTypesFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.actDate')" :key="'el4'" draggable>
             <GetParcDateFilter />
           </FoldableBlock>
+          <FoldableBlock :title="$t('filters.services')" :key="'el5'" draggable>
+            <ManagementActionServices />
+          </FoldableBlock>
           <FoldableBlock
             :title="$t('filters.getparc.management-action-services')"
-            :key="'el4'"
+            :key="'el6'"
             draggable
           >
             <ManagementActionServices />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.actStatus')" :key="'el7'" draggable>
+            <ManagementActStatusFilter />
           </FoldableBlock>
         </transition-group>
       </draggable>
@@ -73,6 +79,7 @@ import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ActHistoryPartnersFilter from './ActHistoryPartnersFilter';
 import ManagementActTypesFilter from './ManagementActTypesFilter';
+import ManagementActStatusFilter from './ManagementActStatusFilter';
 import ManagementActionServices from './ManagementActionServices';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
@@ -86,6 +93,7 @@ export default {
     SelectedFilters,
     OrderCreatorFilter,
     ManagementActTypesFilter,
+    ManagementActStatusFilter,
     GetParcDateFilter,
     ManagementActionServices,
   },

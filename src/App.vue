@@ -3,6 +3,7 @@
     <div class="container">
       <NavBars is-backoffice-profile />
       <router-view />
+      <PanelSwitcher />
     </div>
 
     <Authentication />
@@ -12,12 +13,14 @@
 <script>
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
+import PanelSwitcher from '@/components/PanelSwitcher';
 
 export default {
   name: 'App',
   components: {
     Authentication,
     NavBars,
+    PanelSwitcher,
   },
 };
 </script>
