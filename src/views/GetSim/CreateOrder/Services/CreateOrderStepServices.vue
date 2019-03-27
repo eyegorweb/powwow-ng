@@ -9,7 +9,7 @@
           <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
           <UiToggle label="Activation" v-model="activation" />
         </div>
-        <div v-if="activation">
+        <div v-if="activation && offers && offers.length">
           <div class="row justify-content-center">
             <OffersChoice v-model="selectedOffer" :offers="offers" :partner-id="partnerId" />
           </div>
@@ -33,7 +33,7 @@
               </div>
             </div>
 
-            <div class="services-container mt-3">
+            <div v-if="dataService" class="services-container mt-3">
               <div class="single-service">
                 <UiToggle
                   :label="$t('services.DATA')"
@@ -110,7 +110,7 @@ export default {
       },
     },
   },
-  async created() {
+  async mounted() {
     this.partnerId = get(this.synthesis, 'billingAccount.selection.partner.id');
     this.activation = get(this.synthesis, 'services.selection.activation', false);
     this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
@@ -123,12 +123,20 @@ export default {
         value: o.code,
       };
     });
+
+    const selectedOffer = get(this.synthesis, 'services.value.selectedOffer');
+
+    if (selectedOffer) {
+      this.selectedOffer = selectedOffer;
+    }
+    // this.preFillServices();
   },
   watch: {
     selectedOffer(selectedValue) {
       this.selectedOfferData = this.offers.find(o => o.value === selectedValue);
       this.initServicesForOffer();
       this.initDataService();
+      this.servicesInitialized = true;
     },
   },
   methods: {
@@ -137,6 +145,16 @@ export default {
     },
     prev() {
       this.$emit('prev', this.assembleSynthesis());
+    },
+    preFillServices() {
+      const basicServices = get(this.synthesis, 'services.selection.basicServices');
+      const dataService = get(this.synthesis, 'services.selection.dataService');
+      if (basicServices) {
+        this.basicServices = basicServices;
+      }
+      if (dataService) {
+        this.dataService = dataService;
+      }
     },
     /**
      * Il faut scanner tout les éléments de nonSystemServiceGroupList > standardAndSemiGlobalCatalogServiceGroups > catalogService pour extraire les données du service
@@ -148,55 +166,83 @@ export default {
         .find(s => s.catalogService.code === dependencyCode);
     },
     initServicesForOffer() {
-      this.basicServices = this.basicServices.map(s => {
-        const serviceData = this.getServiceData(s.code);
-        if (serviceData) {
-          const isEditable = serviceData.partyAccess || false;
-          const isChecked = serviceData.activatedByDefault || false;
-          return {
-            ...s,
-            checked: isChecked,
-            editable: isEditable,
-            data: { ...serviceData },
-          };
-        }
+      const initServices = () => {
+        this.basicServices = this.defaultBasicServices.map(s => {
+          const serviceData = this.getServiceData(s.code);
+          if (serviceData) {
+            const isEditable = serviceData.partyAccess || false;
+            const isChecked = serviceData.activatedByDefault || false;
+            return {
+              ...s,
+              checked: isChecked,
+              editable: isEditable,
+              data: { ...serviceData },
+            };
+          }
 
-        return s;
-      });
-    },
-    initDataService() {
-      const data = this.getServiceData('878');
-      if (!data) return;
-      let serviceParameters = [];
-      if (data && data.catalogServiceParameters) {
-        serviceParameters = data.catalogServiceParameters;
-      }
-
-      const containTestApn = serviceParameters.find(
-        s => s.defaultValue.indexOf('testrnis.fr') !== -1
-      );
-      const isEditable = data.partyAccess || false;
-      const isChecked = data && data.activatedByDefault && !containTestApn;
-
-      const dataService = {
-        checked: isChecked,
-        editable: isEditable,
-        apns: [],
-        data: { ...data },
+          return s;
+        });
       };
 
-      const apns = serviceParameters.map(p => {
-        return {
-          label: p.defaultValue,
-          selectable: p.partyAccess,
-          selected: p.setOnActivation,
-          id: p.id,
+      if (!this.servicesInitialized) {
+        const selectedBasicServices = get(this.synthesis, 'services.selection.basicServices');
+        if (selectedBasicServices) {
+          this.basicServices = selectedBasicServices;
+        } else {
+          initServices();
+        }
+      } else {
+        initServices();
+      }
+    },
+    initDataService() {
+      const initService = () => {
+        const data = this.getServiceData('878');
+        if (!data) return;
+        let serviceParameters = [];
+        if (data && data.catalogServiceParameters) {
+          serviceParameters = data.catalogServiceParameters;
+        }
+
+        const containTestApn = serviceParameters.find(
+          s => s.defaultValue.indexOf('testrnis.fr') !== -1
+        );
+        const isEditable = data.partyAccess || false;
+        const isChecked = data && data.activatedByDefault && !containTestApn;
+
+        const dataService = {
+          checked: isChecked,
+          editable: isEditable,
+          apns: [],
+          data: { ...data },
         };
-      });
 
-      dataService.apns = apns;
+        const apns = serviceParameters.map(p => {
+          return {
+            label: p.defaultValue,
+            selectable: p.partyAccess,
+            selected: p.setOnActivation,
+            id: p.id,
+          };
+        });
 
-      this.dataService = dataService;
+        dataService.apns = apns;
+
+        this.dataService = dataService;
+      };
+
+      this.dataService = undefined;
+
+      if (!this.servicesInitialized) {
+        const selectedDataService = get(this.synthesis, 'services.selection.dataService');
+        if (selectedDataService) {
+          this.dataService = selectedDataService;
+        } else {
+          initService();
+        }
+      } else {
+        initService();
+      }
     },
     toggleApn(apn) {
       const apns = this.dataService.apns.map(a => {
@@ -220,12 +266,14 @@ export default {
             ],
             activation: this.activation,
             preActivation: this.preActivation,
+            selectedOffer: this.selectedOffer,
           },
           selection: {
             activation: !!this.activation,
             preActivation: !!this.preActivation,
             basicServices: this.basicServices,
             dataService: this.dataService,
+            selectedOfferData: this.selectedOfferData,
           },
         },
       };
@@ -241,7 +289,9 @@ export default {
       selectedOfferData: undefined,
 
       dataService: undefined,
-      basicServices: [
+      servicesInitialized: false,
+      basicServices: [],
+      defaultBasicServices: [
         {
           id: 0,
           name: 'VOIX_ENTRANTE',

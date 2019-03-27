@@ -381,6 +381,7 @@ export async function createOrder(synthesis) {
 
   let selectedServiceInputParam = '';
   let gqlServicesParamArr = [];
+  let gqlWorkflowId = '';
   // pick services
   if (synthesis.services) {
     const basicServices = get(synthesis, 'services.selection.basicServices', []);
@@ -403,6 +404,12 @@ export async function createOrder(synthesis) {
       gqlServicesParamArr.push(
         `{ catalogServiceGroupId: ${id}, catalogServiceParameters: [${apnIdsParam}] }`
       );
+    }
+
+    const isActivation = get(synthesis, 'services.value.activation');
+    if (isActivation) {
+      const offerId = get(synthesis, 'services.selection.selectedOfferData.initialOffer.id');
+      gqlWorkflowId = `workflowId: ${offerId}`;
     }
   }
 
@@ -440,11 +447,12 @@ export async function createOrder(synthesis) {
       }
       simCardQuantity: ${get(synthesis, 'quantity.value.content')},
       preActivationAsked: ${get(synthesis, 'services.value.preActivation') ? 'true' : 'false'},
-      activationAsked: false,
+      activationAsked: ${get(synthesis, 'services.value.activation') ? 'true' : 'false'},
       simCardId: ${get(synthesis, 'product.value.id')}
       customFieldsDTO: ${customFieldsDTO}
       ${orderReferenceParam}
       ${selectedServiceInputParam}
+      ${gqlWorkflowId}
     }) {
       id
     }
