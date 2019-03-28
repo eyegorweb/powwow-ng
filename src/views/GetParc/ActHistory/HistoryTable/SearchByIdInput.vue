@@ -49,16 +49,21 @@ export default {
         },
         {
           code: 'c4',
+          value: 'msisdnA',
+          label: 'A-MSISDN',
+        },
+        {
+          code: 'c5',
           value: 'imei',
           label: 'IMEI',
         },
         {
-          code: 'c5',
+          code: 'c6',
           value: 'idAct',
           label: this.$t('getparc.search.act-mass-id'),
         },
         {
-          code: 'c6',
+          code: 'c7',
           value: 'orderReference',
           label: this.$t('getparc.search.act-unit-id'),
         },
@@ -105,9 +110,9 @@ export default {
           } else if ((len === 15 || len === 11) && startsWith(newValue, '33')) {
             this.selectedSearchType = this.valuesForSelectOptions[2].value;
           } else if (len === 15) {
-            this.selectedSearchType = this.valuesForSelectOptions[3].value;
-          } else if ((len !== 19 || len !== 15 || len !== 11) && len !== 0) {
             this.selectedSearchType = this.valuesForSelectOptions[4].value;
+          } else if ((len !== 19 || len !== 15 || len !== 11) && len !== 0) {
+            this.selectedSearchType = this.valuesForSelectOptions[5].value;
           } else {
             this.selectedSearchType = null;
           }
