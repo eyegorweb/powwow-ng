@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiDateRange @change="setActDateFilter" :start="startDate" :end="endDate" />
+    <UiDateRange @change="setActDateCreationFilter" :start="startDate" :end="endDate" />
   </div>
 </template>
 
@@ -14,15 +14,15 @@ export default {
     UiDateRange,
   },
   methods: {
-    ...mapMutations('actHistory', ['setActDateFilter']),
+    ...mapMutations('actHistory', ['setActDateCreationFilter']),
   },
   computed: {
-    ...mapGetters('actHistory', ['selectedActDate']),
+    ...mapGetters('actHistory', ['selectedActDateCreation']),
     startDate() {
-      return get(this.selectedActDate, 'startDate', '');
+      return get(this.selectedActDateCreation, 'startDate', '');
     },
     endDate() {
-      return get(this.selectedActDate, 'endDate', '');
+      return get(this.selectedActDateCreation, 'endDate', '');
     },
   },
 };
