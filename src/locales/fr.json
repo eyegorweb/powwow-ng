@@ -219,6 +219,9 @@
     "actStatus": "Statut de l’acte",
     "actDate": "Date   de création de l’acte",
     "services": "Action du service optionnel",
+    "actDateCreation": "Date de création de l’acte",
+    "actDateStart": "Date de début",
+    "actDateEnd": "Date de fin",
     "actCreator": "Créateur de l’acte"
   },
   "orders": {

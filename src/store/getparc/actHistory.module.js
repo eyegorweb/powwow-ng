@@ -42,7 +42,10 @@ export const getters = {
   selectedServicesValues: state => {
     return selectedFilterValuesById(state)('filters.services');
   },
-  selectedActDate: state => state.currentFilters.find(f => f.id === 'filters.actDate'),
+  selectedActDateCreation: state =>
+    state.currentFilters.find(f => f.id === 'filters.actDateCreation'),
+  selectedActDateStart: state => state.currentFilters.find(f => f.id === 'filters.actDateStart'),
+  selectedActDateEnd: state => state.currentFilters.find(f => f.id === 'filters.actDateEnd'),
 };
 
 // Actions
@@ -188,11 +191,29 @@ export const mutations = {
       values: types,
     });
   },
-  setActDateFilter(state, { startDate, endDate }) {
+  setActDateCreationFilter(state, { startDate, endDate }) {
     if (!startDate || !endDate) return;
 
     selectFilterValue(state, {
-      id: 'filters.actDate',
+      id: 'filters.actDateCreation',
+      startDate,
+      endDate,
+    });
+  },
+  setActDateStartFilter(state, { startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValue(state, {
+      id: 'filters.actDateStart',
+      startDate,
+      endDate,
+    });
+  },
+  setActDateEndFilter(state, { startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValue(state, {
+      id: 'filters.actDateEnd',
       startDate,
       endDate,
     });
