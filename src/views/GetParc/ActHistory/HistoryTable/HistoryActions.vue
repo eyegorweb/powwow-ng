@@ -20,6 +20,7 @@
             @click="
               () => {
                 hide();
+                onActionClicked(action);
               }
             "
           >
@@ -47,6 +48,15 @@ export default {
     return {
       actions: ['getsim.actions.DETAIL'],
     };
+  },
+  methods: {
+    async onActionClicked(action) {
+      switch (action) {
+        case 'getsim.actions.DETAIL': {
+          this.$router.push({ name: 'actDetail' });
+        }
+      }
+    },
   },
 };
 </script>

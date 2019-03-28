@@ -6,6 +6,7 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 import Home from '@/views/Home';
 import GetSim from '@/views/GetSim';
 import GetParcActHistory from '@/views/GetParc/ActHistory';
+import GetParcActDetail from '@/views/GetParc/ActDetail';
 
 // const Home = () => import('@/views/Home');
 // const DragHome = () => import('@/views/DragHome/index');
@@ -38,6 +39,11 @@ export default new Router({
       path: '/act-history',
       name: 'actHistory',
       component: GetParcActHistory,
+    },
+    {
+      path: '/act-detail',
+      name: 'actDetail',
+      component: GetParcActDetail,
     },
     {
       path: '/exemples',

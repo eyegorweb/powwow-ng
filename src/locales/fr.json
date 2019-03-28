@@ -139,6 +139,24 @@
       "details": {
         "title": "Acte de gestion {id}"
       }
+    },
+    "actDetail": {
+      "title": "{total} lignes trouvées",
+      "col": {
+        "id": "ID de l’acte unitaire",
+        "msisdn": "MSISDN",
+        "iccid": "ICCID",
+        "actState": "État de l’acte",
+        "failDate": "Date de l’échec",
+        "failReason": "Raison de l'échec",
+        "imsi": "IMSI",
+        "constructor": "Constructeur",
+        "commercialRef": "Référence commerciale",
+        "imei": "IMEI",
+
+        "startDate": "Date de démarrage",
+        "endDate": "Date de fin"
+      }
     }
   },
   "col": {
