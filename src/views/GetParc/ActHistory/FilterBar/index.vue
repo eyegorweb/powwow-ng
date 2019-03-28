@@ -29,11 +29,14 @@
           <FoldableBlock :title="$t('filters.actTypes')" :key="'el3'" draggable>
             <ManagementActTypesFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actDate')" :key="'el4'" draggable>
-            <GetParcDateFilter />
+          <FoldableBlock :title="$t('filters.actDateCreation')" :key="'el4'" draggable>
+            <DateCreation />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.services')" :key="'el5'" draggable>
-            <ManagementActionServices />
+          <FoldableBlock :title="$t('filters.actDateStart')" :key="'el5'" draggable>
+            <DateStart />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.actDateEnd')" :key="'el6'" draggable>
+            <DateEnd />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.services')" :key="'el6'" draggable>
             <ManagementActionServices />
@@ -79,7 +82,9 @@ import ManagementActStatusFilter from './ManagementActStatusFilter';
 import ManagementActionServices from './ManagementActionServices';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
-import GetParcDateFilter from './GetParcDateFilter';
+import DateCreation from './DateCreation';
+import DateStart from './DateStart';
+import DateEnd from './DateEnd';
 
 export default {
   components: {
@@ -89,8 +94,10 @@ export default {
     SelectedFilters,
     OrderCreatorFilter,
     ManagementActTypesFilter,
+    DateCreation,
+    DateStart,
+    DateEnd,
     ManagementActStatusFilter,
-    GetParcDateFilter,
     ManagementActionServices,
   },
   data() {
