@@ -36,6 +36,7 @@ $theme-colors: map-merge(
 @import '~bootstrap/scss/alert';
 @import '~bootstrap/scss/close';
 @import '~bootstrap/scss/dropdown';
+@import '~bootstrap/scss/badge';
 
 @import 'global.scss';
 @import 'navbar.scss';
@@ -107,7 +108,6 @@ $theme-colors: map-merge(
     }
   }
 }
-
 
 .error-text {
   color: $orange;
