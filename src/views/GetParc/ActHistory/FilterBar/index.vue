@@ -38,10 +38,10 @@
           <FoldableBlock :title="$t('filters.actDateEnd')" :key="'el6'" draggable>
             <DateEnd />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.services')" :key="'el6'" draggable>
+          <FoldableBlock :title="$t('filters.services')" :key="'el7'" draggable>
             <ManagementActionServices />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actStatus')" :key="'el7'" draggable>
+          <FoldableBlock :title="$t('filters.actStatus')" :key="'el8'" draggable>
             <ManagementActStatusFilter />
           </FoldableBlock>
         </transition-group>
