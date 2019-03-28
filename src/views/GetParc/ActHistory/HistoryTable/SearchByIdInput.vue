@@ -14,7 +14,7 @@
         <UiButton
           :variant="isDisabled ? 'primary' : ''"
           :disabled="!isDisabled"
-          @click="fetchOrders"
+          @click="fetchActs"
           >{{ $t('search') }}</UiButton
         >
       </div>
@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['appliedFilters']),
+    ...mapGetters('getparc', ['appliedFilters']),
     resultType: {
       get() {
         return this.selectedSearchType;
@@ -123,9 +123,10 @@ export default {
   },
 
   methods: {
-    ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['clearAllFilters', 'forceAppliedFilters']),
-    async fetchOrders() {
+    // TODO mettre à jour avec le fetch des actes
+    // ...mapActions('getsim', ['fetchOrdersFromApi']),
+    ...mapMutations('getparc', ['clearAllFilters', 'forceAppliedFilters']),
+    async fetchActs() {
       this.forceAppliedFilters([
         {
           id: 'filters.' + this.selectedSearchType,
