@@ -54,13 +54,13 @@ export default {
         },
         {
           code: 'c5',
-          value: 'idOrder',
-          label: this.$t('orders.search.order-id'),
+          value: 'idAct',
+          label: this.$t('getparc.search.act-mass-id'),
         },
         {
           code: 'c6',
           value: 'orderReference',
-          label: this.$t('orders.search.client-reference'),
+          label: this.$t('getparc.search.act-unit-id'),
         },
       ],
       inputPlaceholder: this.$t('searchActById'),

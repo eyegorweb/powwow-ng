@@ -20,7 +20,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchByIdInput></SearchByIdInput>
+          <SearchByIdInput />
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />

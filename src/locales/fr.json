@@ -140,6 +140,10 @@
       "details": {
         "title": "Acte de gestion {id}"
       }
+    },
+    "search": {
+      "act-mass-id": "Id de l’acte de gestion en masse", 
+      "act-mass-id": "Id de l’acte de gestion en masse"
     }
   },
   "col": {
