@@ -174,7 +174,6 @@
         "constructor": "Constructeur",
         "commercialRef": "Référence commerciale",
         "imei": "IMEI",
-
         "startDate": "Date de démarrage",
         "endDate": "Date de fin"
       }
@@ -362,7 +361,6 @@
   "customFields": {
     "customField": "Champ libre {index}"
   },
-
   "ui": {
     "MultiSelectSearch": {
       "showLess": "Afficher moins"

@@ -1,28 +1,32 @@
 <template>
-  <MultiSelectSearch
-    :items="items"
-    :default-selected-items="selectedServicesValues"
-    @update:defaultSelectedItems="setServicesFilter"
-  />
+  <div>
+    <UiCheckbox
+      v-for="service in services"
+      :value="{ id: service.id, label: $t(`getparc.services. ${service.id}`) }"
+      :key="service.a"
+      v-model="selectedServices"
+      >{{ $t(`getparc.services. ${service.id}`) }}</UiCheckbox
+    >
+  </div>
 </template>
 
 <script>
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import UiCheckbox from '@/components/ui/Checkbox';
 import { getActionServices } from '@/api/actionServices';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
-    MultiSelectSearch,
+    UiCheckbox,
   },
   data() {
     return {
-      items: [],
+      services: [],
     };
   },
   async mounted() {
     const data = await getActionServices();
-    this.items = data.map(a => ({ id: a, label: this.$t('getparc.services.' + a) }));
+    this.services = data.map(a => ({ id: a, label: a }));
   },
   methods: {
     ...mapMutations('actHistory', ['setServicesFilter']),
@@ -32,6 +36,14 @@ export default {
   },
   computed: {
     ...mapGetters('actHistory', ['selectedServicesValues']),
+    selectedServices: {
+      get() {
+        return this.selectedServicesValues;
+      },
+      set(newValue) {
+        this.setServicesFilter(newValue);
+      },
+    },
   },
 };
 </script>
