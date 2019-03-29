@@ -11,6 +11,8 @@
     </div>
     <div class="row">
       <div class="col-md-3">
+        <GetParcIndicators />
+        <br />
         <FilterBar />
       </div>
       <div class="col-md-9">
@@ -23,11 +25,13 @@
 <script>
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
+import GetParcIndicators from './GetParcIndicators';
 
 export default {
   components: {
     FilterBar,
     HistoryTable,
+    GetParcIndicators,
   },
 };
 </script>

@@ -134,10 +134,30 @@
         "target": "Ciblée",
         "success": "Succès",
         "ongoing": "En cours",
-        "fail": "Échec"
+        "fail": "Échec",
+        "onfailing": "En erreur"
       },
       "details": {
-        "title": "Acte de gestion {id}"
+        "title": "Acte de gestion {id}",
+        "massActionDetail": "Détail de l'action de masse",
+        "quantityTargeted": "Quantité ciblée",
+        "quantityFailed": "Quantité en échec",
+        "quantityInProgress": "Quantité en cours",
+        "quantityTerminated": "Quantité terminée",
+        "massActionDateCreated": "Date de création de l'action de masse",
+        "massActionDateStarted": "Date d'application de l'action de masse",
+        "massActionDateEnded": "Date de fin de l'action de masse",
+        "name": "Nom",
+        "creator": "Demandeur",
+        "creatorMail": "Email du demandeur",
+        "EXPORT": "Exporter l'acte",
+        "RESULT": "Voir le résultat de l'acte",
+        "actStatuses": {
+          "STARTED": "Démarré",
+          "CREATED": "Créé",
+          "TERMINATED": "Terminé",
+          "CANCELLED": "Annulé"
+        }
       }
     },
     "actDetail": {
@@ -194,7 +214,10 @@
     "ordersFailed": "Commandes en échec",
     "ordersToBeConfirmed": "Commandes à valider",
     "averageProcessingTime": "Délai traitement commande sur 1 mois",
-    "orderToBeConfirmedByBO": "Commandes à valider par le BO"
+    "orderToBeConfirmedByBO": "Commandes à valider par le BO",
+    "actionsInProgress": "Actes en cours",
+    "actionsFailed": "Actes en échec",
+    "actionsPlanned": "Actes programmés"
   },
   "services": {
     "VOIX_ENTRANTE": "Voix entrante",

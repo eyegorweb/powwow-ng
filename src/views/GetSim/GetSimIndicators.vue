@@ -66,7 +66,7 @@
 
 <script>
 import { fetchGetSimIndicators } from '@/api/indicators';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 import moment from 'moment';
 
 const dateFormat = 'DD-MM-YYYY';
@@ -159,12 +159,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('getsim', [
-      'setOrderStatusFilter',
-      'setCurrentFilters',
-      'forceAppliedFilters',
-      'applyFilters',
-    ]),
+    ...mapMutations('getsim', ['setCurrentFilters', 'applyFilters']),
     filterByStatusIndicator(preselectedFilter) {
       // TODO: filter this status (ordersNotConfirmed) with order.auditable.updated > 4h
       // TODO: filter this status (ordersFailed) with order.auditable.updated > 48h
@@ -195,8 +190,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['currentFilters', 'appliedFilters', 'selectedOrderStatus']),
-
     checkAverageProcessingTimeClasses() {
       return {
         'text-success': this.indicators.averageProcessingTime < 5,
