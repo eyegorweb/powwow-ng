@@ -1,5 +1,6 @@
 <template>
   <div class="mt-4">
+    <ActHistoryDetailPage />
     <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
       <template slot-scope="{ tab, index, selectedIndex }">
         <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
@@ -37,6 +38,7 @@ import UiTab from '@/components/ui/Tab';
 import FailedTable from './FailedTable';
 import OngoingTable from './OngoingTable';
 import FinishedTable from './FinishedTable';
+import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
 
 export default {
   components: {
@@ -45,6 +47,7 @@ export default {
     FailedTable,
     OngoingTable,
     FinishedTable,
+    ActHistoryDetailPage,
   },
   data() {
     return {

@@ -141,6 +141,7 @@
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
         "quantityTargeted": "Quantité ciblée",
         "quantityFailed": "Quantité en échec",
@@ -152,7 +153,8 @@
         "name": "Nom",
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
-        "EXPORT": "Exporter l'acte",
+        "EXPORT_ACT": "Exporter l'acte",
+        "EXPORT_LINES": "Exporter {total} lignes",
         "RESULT": "Voir le résultat de l'acte",
         "actStatuses": {
           "STARTED": "Démarré",

@@ -1,79 +1,86 @@
 <template>
-  <div class="panel-vertical-container">
+
     <div class="main-content data-detail-container">
       <div class="overview-container m-3 bg-white">
-        <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
+
+        <div class="d-flex header">
+          <div class="flex-grow-1 mb-3">
+            <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
+          </div>
+          <div>
+            <UiButton variant="accent" block>{{ $t('getparc.history.details.EXPORT_LINES') }}</UiButton>
+          </div>
         </div>
-        <div class="overview-item">
-          <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
+
+        <div class="d-flex">
+          <div class="flex-fill">
+            <div class="overview-item mr-5">
+              <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
+              <p>18/10/2018 15:42:26</p>
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
+              <p>18/10/2018 15:43:16</p>
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
+              <p>18/10/2018 15:45:56</p>
+            </div>
+          </div>
+
+
+
+          <div class="flex-fill">
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
+              <p>Offre : SCHINDLER_40MO_30MN</p>
+              <p>APN : schindlerbouygues01.fr</p>
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.name') }} :</h6>
+              <p>SCHINDLER</p>
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.creator') }} :</h6>
+              <p>Julian Le Calvez</p>
+            </div>
+            <div class="overview-item mr-5">
+              <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
+              <p>julian.lecalvez@schindler-france.com</p>
+            </div>
+          </div>
+
+
+          <div class="flex-fill">
+            <div class="overview-item">
+              <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
+              <p>6 lignes</p>
+            </div>
+            <div class="overview-item">
+              <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
+              <p>-</p>
+            </div>
+            <div class="overview-item">
+              <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
+              <p>-</p>
+            </div>
+            <div class="overview-item">
+              <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
+              <p>-</p>
+            </div>
+          </div>
+
         </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-          <p>Offre : SCHINDLER_40MO_30MN</p>
-          <p>APN : schindlerbouygues01.fr</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-          <p>6 lignes</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-          <p>-</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-          <p>-</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-          <p>-</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-          <p>18/10/2018 15:42:26</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-          <p>18/10/2018 15:43:16</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-          <p>18/10/2018 15:45:56</p>
-        </div>
+
+
       </div>
 
-      <div class="overview-container m-3 bg-white">
-        <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.name') }} :</h6>
-          <p>SCHINDLER</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-          <p>Julian Le Calvez</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-          <p>julian.lecalvez@schindler-france.com</p>
-        </div>
-      </div>
     </div>
-    <div class="footer-back">
-      <div class="action-buttons">
-        <div>
-          <UiButton variant="import" block>{{ $t('getparc.history.details.EXPORT_ACT') }}</UiButton>
-        </div>
-        <div>
-          <UiButton variant="primary" block @click="$router.push({ name: 'actDetail' })">
-            {{ $t('getparc.history.details.RESULT') }}
-          </UiButton>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
 </template>
 
 <script>
@@ -143,22 +150,7 @@ $fontSize: 0.8rem;
 .main-content {
   padding-bottom: 4vh;
 }
-.footer-back {
-  padding: 0 1.25rem;
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 10px;
-    div {
-      flex: 1;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    button {
-      padding: 0;
-    }
-  }
-}
+
 .data-detail-container {
   $loader-size: 1.5em;
   $check-height: $loader-size/2;
@@ -169,11 +161,17 @@ $fontSize: 0.8rem;
 
   .overview-container {
     padding: 1rem 2rem;
+    .detail-title {
+      text-transform: uppercase;
+      font-size: 1rem;
+      line-height: 3rem;
+      font-weight: 600;
+    }
     .overview-item {
       padding: 7px 10px 7px 0;
       border-bottom: 1px dashed $medium-gray;
       &:first-child {
-        border-bottom: none;
+        // border-bottom: none;
       }
       &:last-child {
         border-bottom: none;
