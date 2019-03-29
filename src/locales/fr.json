@@ -1,5 +1,6 @@
 {
   "searchOrderById": "Rechercher une commande par identifiant",
+  "searchActById": "Rechercher un acte par identifiant",
   "search": "Rechercher",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",
@@ -177,6 +178,10 @@
         "startDate": "Date de démarrage",
         "endDate": "Date de fin"
       }
+    },
+    "search": {
+      "act-mass-id": "Id de l’acte de gestion en masse",
+      "act-unit-id": "Id de l’acte de gestion unitaire"
     }
   },
   "col": {

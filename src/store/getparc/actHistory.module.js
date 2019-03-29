@@ -157,6 +157,10 @@ export const mutations = {
   applyFilters(state) {
     state.appliedFilters = [...state.currentFilters];
   },
+  forceAppliedFilters(state, values) {
+    state.appliedFilters = [...values];
+    state.currentFilters = [];
+  },
   setDefaultFilter(state, defaultFilter) {
     state.defaultAppliedFilters = [...defaultFilter];
   },
