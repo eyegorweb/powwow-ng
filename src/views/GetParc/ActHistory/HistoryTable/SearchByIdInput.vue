@@ -26,7 +26,7 @@
 import SearchWithSelect from '@/components/SearchWithSelect';
 import UiButton from '@/components/ui/Button';
 import startsWith from 'lodash.startswith';
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
