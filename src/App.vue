@@ -14,6 +14,7 @@
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
 import PanelSwitcher from '@/components/PanelSwitcher';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -21,6 +22,14 @@ export default {
     Authentication,
     NavBars,
     PanelSwitcher,
+  },
+  methods: {
+    ...mapMutations(['closePanel']),
+  },
+  watch: {
+    $route() {
+      this.closePanel();
+    },
   },
 };
 </script>

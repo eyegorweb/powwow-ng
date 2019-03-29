@@ -3,78 +3,73 @@
     <div class="main-content data-detail-container">
       <div class="overview-container m-3 bg-white">
         <div class="overview-item">
-            <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
-          </div>
-          <div class="overview-item">
-            <StepperNonLinear
-              :stepper-data="steps"
-              :current-index="statusStepperIndex"
-            />
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-            <p>Offre : SCHINDLER_40MO_30MN</p>
-            <p>APN : schindlerbouygues01.fr</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-            <p>6 lignes</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>-</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <p>-</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <p>-</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-            <p>18/10/2018 15:42:26</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-            <p>18/10/2018 15:43:16</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-            <p>18/10/2018 15:45:56</p>
-          </div>
+          <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
+        </div>
+        <div class="overview-item">
+          <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
+          <p>Offre : SCHINDLER_40MO_30MN</p>
+          <p>APN : schindlerbouygues01.fr</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
+          <p>6 lignes</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
+          <p>-</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
+          <p>-</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
+          <p>-</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
+          <p>18/10/2018 15:42:26</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
+          <p>18/10/2018 15:43:16</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
+          <p>18/10/2018 15:45:56</p>
+        </div>
       </div>
 
       <div class="overview-container m-3 bg-white">
-          <div class="overview-item">
-            <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.name') }} :</h6>
-            <p>SCHINDLER</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-            <p>Julian Le Calvez</p>
-          </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-            <p>julian.lecalvez@schindler-france.com</p>
-          </div>
+        <div class="overview-item">
+          <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
         </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.name') }} :</h6>
+          <p>SCHINDLER</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.creator') }} :</h6>
+          <p>Julian Le Calvez</p>
+        </div>
+        <div class="overview-item">
+          <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
+          <p>julian.lecalvez@schindler-france.com</p>
+        </div>
+      </div>
     </div>
     <div class="footer-back">
       <div class="action-buttons">
         <div>
-          <UiButton variant="import" block @click="">{{
-            $t('getparc.history.details.EXPORT')
-          }}</UiButton>
+          <UiButton variant="import" block>{{ $t('getparc.history.details.EXPORT') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block @click="">{{
-            $t('getparc.history.details.RESULT')
-          }}</UiButton>
+          <UiButton variant="primary" block @click="$router.push({ name: 'actDetail' })">
+            {{ $t('getparc.history.details.RESULT') }}
+          </UiButton>
         </div>
       </div>
     </div>
@@ -83,7 +78,6 @@
 
 <script>
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
-// import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
 
 export default {
