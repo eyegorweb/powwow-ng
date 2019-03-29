@@ -22,7 +22,6 @@ export default {
   data() {
     return {
       statuses: [],
-      test: [],
     };
   },
   async mounted() {
