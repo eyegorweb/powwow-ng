@@ -20,7 +20,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          search input
+          <SearchByActId />
         </template>
       </DataTable>
     </div>
@@ -30,11 +30,13 @@
 <script>
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
+import SearchByActId from '@/views/GetParc/SearchByActId';
 
 export default {
   components: {
     DataTable,
     LoaderContainer,
+    SearchByActId,
   },
   props: {
     rows: {

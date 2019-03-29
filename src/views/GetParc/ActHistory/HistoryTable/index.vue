@@ -35,7 +35,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
-import SearchByActId from '../SearchByActId';
+import SearchByActId from '@/views/GetParc/SearchByActId';
 
 // import { mapGetters, mapActions, mapMutations } from 'vuex';
 
