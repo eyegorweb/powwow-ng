@@ -16,6 +16,9 @@
         <p class="simtype__info m-0">
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
+        <p class="last-order mt-1">
+          {{ $t('getsim.sim-type-labels.orderDate') }}: {{ item.orderDate }}
+        </p>
       </div>
     </div>
     <div class="simtype__item">
@@ -90,6 +93,11 @@ export default {
     }
 
     &.simtype__order-status {
+      color: $gray-680;
+    }
+
+    &.last-order {
+      font-size: 0.8rem;
       color: $gray-680;
     }
   }

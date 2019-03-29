@@ -56,7 +56,8 @@
     "sim-type-labels": {
       "format": "Format",
       "licence": "Licence",
-      "patent": "Brevets et fonctionnalité"
+      "patent": "Brevets et fonctionnalité",
+      "orderDate": "Dernière commande"
     },
     "date-from-to": "Du {startDate} au {endDate}",
     "date-from-to-format": "dd/MM/yyyyy",
