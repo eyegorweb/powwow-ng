@@ -4,6 +4,7 @@
     :selected-search-type.sync="selectedSearchType"
     :input-placeholder="$t('searchActById')"
     @findType="findType"
+    @searchById="searchById"
   />
 </template>
 
@@ -83,6 +84,9 @@ export default {
           this.selectedSearchType = null;
         }
       }
+    },
+    searchById(params) {
+      this.$emit('searchById', params);
     },
   },
 };

@@ -20,7 +20,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchByActId />
+          <SearchByActId @searchById="searchById" />
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />
@@ -35,7 +35,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
-//  import SearchByIdInput from './SearchByIdInput';
 import SearchByActId from '../SearchByActId';
 
 // import { mapGetters, mapActions, mapMutations } from 'vuex';
@@ -183,6 +182,9 @@ export default {
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
+    },
+    searchById(params) {
+      console.log('search by id: ', params);
     },
   },
 };
