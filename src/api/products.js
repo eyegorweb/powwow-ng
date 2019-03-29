@@ -7,6 +7,7 @@ export async function fetchSim(partnerId) {
     findLatestSimcardsOrder(pagination: {page: 0, limit: 999}, sorting: {orderDate: ASC}, partyId: ${partnerId}) {
       total
       items {
+        orderDate
         simCard {
           id
           code
