@@ -2,9 +2,9 @@
   <div class="step-client-container">
     <div class="panel-vertical-container">
       <div class="main-content">
-        <h2 class="panel-title">{{ $t('orders.choose-partner') }}</h2>
+        <div v-if="!userIsPartner">
+          <h2 class="panel-title">{{ $t('orders.choose-partner') }}</h2>
 
-        <div>
           <UiApiAutocomplete
             :api-method="fetchPartners"
             v-model="selectedPartner"
@@ -46,6 +46,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchpartners } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CreateOrderStepClient',
@@ -76,6 +77,8 @@ export default {
       this.selectedBillingAccount = this.synthesis.billingAccount.selection.billingAccount;
     } else if (this.order) {
       this.preFill();
+    } else if (this.userIsPartner) {
+      this.selectedPartner = this.userInfos.party;
     }
   },
 
@@ -131,6 +134,8 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['userIsPartner', 'userInfos']),
+
     canGoToNextStep() {
       if (this.selectedBillingAccount) {
         return this.selectedBillingAccount.label;
