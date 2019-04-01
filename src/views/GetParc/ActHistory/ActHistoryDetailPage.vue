@@ -1,86 +1,77 @@
 <template>
-
-    <div class="main-content data-detail-container">
-      <div class="overview-container m-3 bg-white">
-
-        <div class="d-flex header">
-          <div class="flex-grow-1 mb-3">
-            <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
-          </div>
-          <div>
-            <UiButton variant="accent" block>{{ $t('getparc.history.details.EXPORT_LINES') }}</UiButton>
-          </div>
+  <div class="main-content data-detail-container">
+    <div class="overview-container m-3 bg-white">
+      <div class="d-flex header">
+        <div class="flex-grow-1 mb-3">
+          <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
         </div>
-
-        <div class="d-flex">
-          <div class="flex-fill">
-            <div class="overview-item mr-5">
-              <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-              <p>18/10/2018 15:42:26</p>
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-              <p>18/10/2018 15:43:16</p>
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-              <p>18/10/2018 15:45:56</p>
-            </div>
-          </div>
-
-
-
-          <div class="flex-fill">
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-              <p>Offre : SCHINDLER_40MO_30MN</p>
-              <p>APN : schindlerbouygues01.fr</p>
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.name') }} :</h6>
-              <p>SCHINDLER</p>
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-              <p>Julian Le Calvez</p>
-            </div>
-            <div class="overview-item mr-5">
-              <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-              <p>julian.lecalvez@schindler-france.com</p>
-            </div>
-          </div>
-
-
-          <div class="flex-fill">
-            <div class="overview-item">
-              <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-              <p>6 lignes</p>
-            </div>
-            <div class="overview-item">
-              <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-              <p>-</p>
-            </div>
-            <div class="overview-item">
-              <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-              <p>-</p>
-            </div>
-            <div class="overview-item">
-              <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-              <p>-</p>
-            </div>
-          </div>
-
+        <div>
+          <UiButton variant="accent" block>{{
+            $t('getparc.history.details.EXPORT_LINES')
+          }}</UiButton>
         </div>
-
-
       </div>
 
+      <div class="d-flex">
+        <div class="flex-fill">
+          <div class="overview-item mr-5">
+            <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
+            <p>18/10/2018 15:42:26</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
+            <p>18/10/2018 15:43:16</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
+            <p>18/10/2018 15:45:56</p>
+          </div>
+        </div>
+
+        <div class="flex-fill">
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
+            <p>Offre : SCHINDLER_40MO_30MN</p>
+            <p>APN : schindlerbouygues01.fr</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.name') }} :</h6>
+            <p>SCHINDLER</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.creator') }} :</h6>
+            <p>Julian Le Calvez</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
+            <p>julian.lecalvez@schindler-france.com</p>
+          </div>
+        </div>
+
+        <div class="flex-fill">
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
+            <p>6 lignes</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
+            <p>-</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
+            <p>-</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
+            <p>-</p>
+          </div>
+        </div>
+      </div>
     </div>
-
-
+  </div>
 </template>
 
 <script>
