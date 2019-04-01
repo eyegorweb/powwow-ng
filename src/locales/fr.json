@@ -107,7 +107,7 @@
       "PORT_IN": "Portabilité IN",
       "PORT_OUT": "Portabilité OUT",
       "CHANGE_CUSTOMER_ACCOUNT": "Changement du compte de facturation",
-      "TEMPORARY_UNBAR_ACTIVATION": "TEMPORARY_UNBAR_ACTIVATION",
+      "TEMPORARY_UNBAR_ACTIVATION": "Activation de la levée de coupure",
       "SIMCARD_TRANSFER": "Transfert de cartes SIM",
       "RECOVERY_LIMIT_ACT": "Blocage des actes",
       "RECOVERY_SUSPEND": "Suspension pour impayé",
