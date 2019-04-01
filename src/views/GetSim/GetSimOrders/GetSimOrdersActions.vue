@@ -63,6 +63,7 @@ export default {
             backdrop: true,
             payload: this.order,
           });
+          break;
         }
         case 'getsim.actions.DETAIL': {
           this.openPanel({
@@ -72,6 +73,7 @@ export default {
             wide: false,
             backdrop: false,
           });
+          break;
         }
       }
     },
