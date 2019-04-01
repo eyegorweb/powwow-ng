@@ -108,12 +108,12 @@
       "PORT_OUT": "Portabilité OUT",
       "CHANGE_CUSTOMER_ACCOUNT": "Changement du compte de facturation",
       "TEMPORARY_UNBAR_ACTIVATION": "TEMPORARY_UNBAR_ACTIVATION",
-      "SIMCARD_TRANSFER": "SIMCARD_TRANSFER",
-      "RECOVERY_LIMIT_ACT": "RECOVERY_LIMIT_ACT",
-      "RECOVERY_SUSPEND": "RECOVERY_SUSPEND",
-      "RECOVERY_RELEASED": "RECOVERY_RELEASED",
-      "GEO_LOCATION": "GEO_LOCATION",
-      "UPDATE_COMMITMENT": "UPDATE_COMMITMENT"
+      "SIMCARD_TRANSFER": "Transfert de cartes SIM",
+      "RECOVERY_LIMIT_ACT": "Blocage des actes",
+      "RECOVERY_SUSPEND": "Suspension pour impayé",
+      "RECOVERY_RELEASED": "Résiliation du compte",
+      "GEO_LOCATION": "Localisation M2M",
+      "UPDATE_COMMITMENT": "Durée engagement"
     },
     "actStatuses": {
       "WAITING": "En attente",
