@@ -64,6 +64,15 @@ export default {
             payload: this.order,
           });
         }
+        case 'getsim.actions.DETAIL': {
+          this.openPanel({
+            title: this.$t('getsim.details.title', { id: this.order.id }),
+            panelId: 'getsim.details.title',
+            payload: this.order,
+            wide: false,
+            backdrop: false,
+          });
+        }
       }
     },
   },
