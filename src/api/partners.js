@@ -31,6 +31,11 @@ export async function fetchpartnerAddresses(id) {
           firstName
           lastName
         }
+        contactInformation {
+          email
+          phone
+          mobile
+        }
         address {
           address1
           address2
