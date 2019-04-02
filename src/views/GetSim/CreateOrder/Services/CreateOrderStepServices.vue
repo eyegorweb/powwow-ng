@@ -259,8 +259,9 @@ export default {
         services: {
           label: 'common.services',
           value: {
-            id: 'comon.services',
+            id: 'common.services',
             content: [
+              `Offre:  ${this.selectedOffer}`,
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
