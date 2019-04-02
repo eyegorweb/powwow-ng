@@ -288,4 +288,22 @@ export default {
 .address {
   max-height: 11rem;
 }
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.main-content {
+      max-height: 70vh !important;
+      min-height: 70vh !important;
+    }
+  }
+}
+
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.main-content {
+      min-height: 75vh !important;
+      max-height: 75vh !important;
+    }
+  }
+}
 </style>
