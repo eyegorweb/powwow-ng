@@ -5,7 +5,9 @@
         <h4>
           <b>GetSim</b>
           - {{ $t('getsim.manage-orders') }}
-          <i class="ic-Info-Icon" />
+          <Tooltip direction="right">
+            {{ $t('getsim.tooltip-text') }}
+          </Tooltip>
         </h4>
       </div>
       <div class="col-md-3">
@@ -40,6 +42,7 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
+import Tooltip from '@/components/ui/Tooltip';
 import GetSimOrders from './GetSimOrders';
 import GetSimFilters from './FilterBar/GetSimFilters';
 import GetSimIndicators from './GetSimIndicators';
@@ -50,6 +53,7 @@ export default {
 
   components: {
     UiButton,
+    Tooltip,
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
