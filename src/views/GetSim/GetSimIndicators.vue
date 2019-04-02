@@ -22,7 +22,7 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="indicators.ordersNotConfirmed >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && indicators.ordersNotConfirmed >= 0">
       {{ $t('indicators.ordersNotConfirmed') }}
       <div class="float-right">
         <button
@@ -33,7 +33,7 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="indicators.ordersFailed >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && indicators.ordersFailed >= 0">
       {{ $t('indicators.ordersFailed') }}
       <div class="float-right">
         <button
@@ -44,13 +44,13 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item" v-if="!userIsPartner">
       {{ $t('indicators.averageProcessingTime') }}
       <div class="float-right" :class="checkAverageProcessingTimeClasses">
         <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
-    <li class="list-group-item" v-if="indicators.orderToBeConfirmedByBO >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && indicators.orderToBeConfirmedByBO >= 0">
       {{ $t('indicators.orderToBeConfirmedByBO') }}
       <div class="float-right">
         <button
@@ -66,7 +66,8 @@
 
 <script>
 import { fetchGetSimIndicators } from '@/api/indicators';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
+
 import moment from 'moment';
 
 const dateFormat = 'DD-MM-YYYY';
@@ -190,6 +191,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsPartner']),
+
     checkAverageProcessingTimeClasses() {
       return {
         'text-success': this.indicators.averageProcessingTime < 5,

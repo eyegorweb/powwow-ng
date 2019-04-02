@@ -90,7 +90,7 @@ export default {
       return this.navbarLinks.findIndex(link => link.to.name === this.$route.name);
     },
     logoutUrl() {
-      return process.env.VUE_APP_AUTH_SERVER_URL + '/logout';
+      return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
     },
   },
 };
