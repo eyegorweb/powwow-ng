@@ -277,7 +277,7 @@
     "choose-services": "Configurer des services",
     "personalize-services": "Personnaliser les services",
     "choose-custom-field": "Renseigner les champs libres",
-    "add-custom-field": "Ajouter un champ libre",
+    "add-custom-field": "Ajouter une valeur",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",
     "input-label-custom-field": "Saisir le label du champ libre",

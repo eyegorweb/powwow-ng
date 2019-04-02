@@ -14,6 +14,7 @@
                 :placeholder="$t('orders.add-custom-field-to-list')"
                 v-model="newOptionValue"
               />
+              <button><i class="arrow ic-Plus-Icon"></i></button>
             </form>
           </li>
           <li v-if="!isAddingOption" class="add-option">
@@ -109,6 +110,24 @@ export default {
         }
       }
     }
+
+    form {
+      position: relative;
+    }
   }
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  color: $secondary;
 }
 </style>
