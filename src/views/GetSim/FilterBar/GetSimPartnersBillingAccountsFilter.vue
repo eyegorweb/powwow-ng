@@ -39,7 +39,7 @@ export default {
       if (data) {
         return data.map(p => ({
           id: p.id,
-          label: p.name,
+          label: `${p.code} - ${p.name}`,
           partnerId: p.party.id,
         }));
       }

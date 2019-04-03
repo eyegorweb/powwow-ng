@@ -52,6 +52,7 @@ import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
 import GetSimOrdersCreatorCell from './GetSimOrdersCreatorCell';
 import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
+import GetSimOrdersBillingAccountCell from './GetSimOrdersBillingAccountCell';
 
 /**
  * On est obligé de passer par une variable intérmédiaire car le localStorage ne stoque que des chaines de charactères
@@ -62,6 +63,7 @@ const cellComponents = {
   GetSimOrdersCreatorCell,
   GetSimOrdersIdCell,
   GetSimOrdersMassActionIdsColumn,
+  GetSimOrdersBillingAccountCell,
 };
 
 /**
@@ -324,8 +326,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMERACCOUNT',
           format: {
-            type: 'ObjectAttribute',
-            path: 'code',
+            componentId: 'GetSimOrdersBillingAccountCell',
           },
         },
         {

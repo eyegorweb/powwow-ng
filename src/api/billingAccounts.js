@@ -12,11 +12,12 @@ export async function fetchBillingAccounts(q, partners, { page, limit }) {
 
   const queryStr = `
   query{
-    customerAccounts(filter:{name: {contains: "${q}"}${partnerGqlParam}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    customerAccounts(filter:{code: {contains: "${q}"}${partnerGqlParam}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
         name
+        code
         party {
           id
         }

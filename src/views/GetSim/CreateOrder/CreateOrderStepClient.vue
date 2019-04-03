@@ -158,7 +158,7 @@ export default {
       const data = await fetchBillibAccountForPartnerId(id);
       this.billingAccounts = data.map(ba => ({
         id: ba.id,
-        label: ba.name,
+        label: `${ba.code} - ${ba.name}`,
         partnerId: ba.party.id,
       }));
     },
