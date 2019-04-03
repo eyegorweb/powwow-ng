@@ -126,8 +126,8 @@ export default {
             range: {
               start: moment()
                 .subtract(4, 'hours')
-                .format('DD-MM-YYYY hh:mm:ss'),
-              end: moment().format('DD-MM-YYYY hh:mm:ss'),
+                .format('DD-MM-YYYY HH:mm:ss'),
+              end: moment().format('DD-MM-YYYY HH:mm:ss'),
               sameDay: true,
             },
           },
@@ -138,8 +138,10 @@ export default {
             range: {
               start: moment()
                 .subtract(48, 'hours')
-                .format('DD-MM-YYYY hh:mm:ss'),
-              end: moment().format('DD-MM-YYYY hh:mm:ss'),
+                .format('DD-MM-YYYY HH:mm:ss'),
+              end: moment()
+                .subtract(6, 'month')
+                .format(dateFormat),
             },
           },
         },
