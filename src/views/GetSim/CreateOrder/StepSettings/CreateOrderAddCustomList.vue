@@ -20,7 +20,7 @@
           <li v-if="!isAddingOption" class="add-option">
             <a href="#" @click.prevent="startEditMode">
               <i class="arrow ic-Plus-Icon" />
-              {{ $t('orders.add-custom-field') }}
+              {{ $t('orders.add-custom-field-value') }}
             </a>
           </li>
         </ul>
