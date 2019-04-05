@@ -4,7 +4,7 @@ export async function fetchSim(partnerId) {
   const response = await query(
     `
   query {
-    findLatestSimcardsOrder(pagination: {page: 0, limit: 999}, sorting: {orderDate: ASC}, partyId: ${partnerId}) {
+    findLatestSimcardsOrder(pagination: {page: 0, limit: 999}, sorting: {orderDate: DESC}, partyId: ${partnerId}) {
       total
       items {
         orderDate

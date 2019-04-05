@@ -16,8 +16,12 @@
         <p class="simtype__info m-0">
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
-        <p class="last-order mt-1">
+        <p v-if="item.orderDate" class="last-order mt-1">
           {{ $t('getsim.sim-type-labels.orderDate') }}: {{ item.orderDate }}
+        </p>
+        <p v-else class="last-order mt-1">
+          {{ $t('getsim.sim-type-labels.orderDate') }}:
+          {{ $t('getsim.never-ordered') }}
         </p>
       </div>
     </div>
