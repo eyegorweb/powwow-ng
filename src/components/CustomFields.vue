@@ -2,7 +2,8 @@
   <div>
     <div v-for="item in fields" :key="item.id" class=" mb-1">
       <div v-if="item.type === 'TEXT'">
-        {{ item.label }}
+        {{ item.label }} <span v-if="item.mandatory === 'ORDER'">({{ $t('required') }})</span>
+
         <UiInput
           @update:value="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"

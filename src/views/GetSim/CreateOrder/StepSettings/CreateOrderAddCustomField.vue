@@ -115,9 +115,9 @@
         $t('cancel')
       }}</UiButton>
       <UiButton
-        :variant="canAddCustomField ? 'primary' : 'outline-simple'"
+        :variant="canAddCustomField() ? 'primary' : 'outline-simple'"
         class="float-right"
-        :disabled="!canAddCustomField"
+        :disabled="!canAddCustomField()"
         @click="saveCustomField"
         >{{ $t('orders.add-custom-field-value') }}</UiButton
       >
@@ -144,6 +144,10 @@ export default {
     };
   },
 
+  watch: {
+    customFieldType: () => this.canAddCustomField(),
+  },
+
   methods: {
     saveCustomField() {
       if (!this.selectedMandatoryValue) return;
@@ -155,9 +159,6 @@ export default {
       };
       this.$emit('add-field', fieldData);
     },
-  },
-
-  computed: {
     canAddCustomField() {
       if (this.customFieldType === 'LIST') {
         return (
@@ -166,7 +167,9 @@ export default {
       }
       return !!this.labelCustomField && !!this.selectedMandatoryValue;
     },
+  },
 
+  computed: {
     getAllInput() {
       return this.allInput;
     },
