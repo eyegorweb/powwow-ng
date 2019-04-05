@@ -81,7 +81,8 @@
       "VALIDATE": "Valider",
       "CONFIRM": "Confirmer"
     },
-    "tooltip-text": "Vous pouvez retrouver l’historique des commandes passées, suivre leurs statuts, consulter les informations de détail et accéder aux cartes SIM associées."
+    "tooltip-text": "Vous pouvez retrouver l’historique des commandes passées, suivre leurs statuts, consulter les informations de détail et accéder aux cartes SIM associées.",
+    "never-ordered": "jamais commandé"
   },
   "getparc": {
     "management-act": "Historique des actes de gestion",
