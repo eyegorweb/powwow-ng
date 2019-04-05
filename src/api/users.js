@@ -1,6 +1,6 @@
 import { query } from './utils';
 
-export async function fetchUsers(q, partners, { page, limit }) {
+export async function fetchUsers(q, partners, { page, limit, partnerTypes }) {
   let partnersIds,
     partnerGqlParam = '';
 
@@ -9,9 +9,15 @@ export async function fetchUsers(q, partners, { page, limit }) {
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
 
+  let partnerTypesGqlFilter = '';
+  if (partnerTypes && partnerTypes.length) {
+    const ids = partnerTypes.map(p => `${p.id}`).join(',');
+    partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
+  }
+
   const queryStr = `
   query{
-    users(filter:{fullname: {contains: "${q}"}${partnerGqlParam}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
+    users(filter:{fullname: {contains: "${q}"}${partnerGqlParam}${partnerTypesGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
       total
       items {
         id

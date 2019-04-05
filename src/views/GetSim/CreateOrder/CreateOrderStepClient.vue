@@ -46,7 +46,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchpartners } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'CreateOrderStepClient',
@@ -84,7 +84,11 @@ export default {
 
   methods: {
     async fetchPartners(q, page = 0) {
-      const data = await fetchpartners(q, { page, limit: 10 });
+      if (this.contextPartners && this.contextPartners.length) {
+        return this.contextPartners;
+      }
+      const partnerTypesIn = this.contextPartnersTypes;
+      const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
       return data.map(p => ({
         id: p.id,
         label: p.name,
@@ -135,6 +139,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
 
     canGoToNextStep() {
       if (this.selectedBillingAccount) {

@@ -3,6 +3,8 @@
     <SearchInput
       :items="items"
       :fields="inputFields"
+      :collapsed-mode="collapsed"
+      :placeholder="placeholder"
       @clear="removeSelection()"
       @update:value="$emit('update:search', $event)"
     >
@@ -80,6 +82,12 @@ export default {
     enableSelectAll: {
       type: Boolean,
       default: false,
+    },
+    collapsed: Boolean,
+    placeholder: {
+      type: String,
+      default: '',
+      required: false,
     },
   },
 

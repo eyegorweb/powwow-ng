@@ -1,9 +1,14 @@
 import { query } from './utils';
 
-export async function fetchpartners(q, { page, limit }) {
+export async function fetchpartners(q, { page, limit, partnerTypesIn }) {
+  let partnerTypesGqlFilter = '';
+  if (partnerTypesIn && partnerTypesIn.length) {
+    const ids = partnerTypesIn.map(p => `${p.id}`).join(',');
+    partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
+  }
   const queryStr = `
   query{
-    partys(filter:{name: {contains: "${q}"}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {contains: "${q}"}${partnerTypesGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
@@ -165,4 +170,16 @@ export async function updatePartyShippingAddress(formData, shippingAddressId) {
 
   const response = await query(queryStr);
   return response.data.updatePartyShippingAddress;
+}
+
+export async function fetchPartyTypes() {
+  const queryStr = `query {
+    __type(name: "PartyTypeEnum") {
+      enumValues {
+        name
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.__type.enumValues.map(e => e.name);
 }

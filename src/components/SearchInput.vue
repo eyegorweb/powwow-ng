@@ -1,6 +1,11 @@
 <template>
   <div class="search-input">
-    <UiInput v-model="$value" @update:value="$emit('update:value', $event)">
+    <UiInput
+      v-model="$value"
+      @update:value="updateValue"
+      :placeholder="placeholder"
+      @click="suggestionsAreVisible = true"
+    >
       <!-- TODO:Utiliser la bonne icone -->
       <img style="font-size: 24px" slot="icon" src="@/assets/search.svg" :style="{ left: 0 }" />
       <template slot="beforeInput">
@@ -8,7 +13,11 @@
       </template>
     </UiInput>
 
-    <div>
+    <div
+      v-if="suggestionsAreVisible"
+      :class="{ collapsed: collapsedMode }"
+      v-clickaway="hideIfCollapsedMode"
+    >
       <slot :results="results" :query="$value" />
     </div>
   </div>
@@ -18,6 +27,7 @@
 import { propWithDataFallback } from 'vue-prop-data-fallback';
 import UiInput from '@/components/ui/UiInput';
 import fuzzysort from 'fuzzysort';
+import { clickaway } from '@/directives/clickaway';
 
 export default {
   // accepte une prop value mais peut marcher sans
@@ -32,6 +42,17 @@ export default {
       type: Array,
       required: true,
     },
+    collapsedMode: Boolean,
+    placeholder: {
+      type: String,
+      default: '',
+      required: false,
+    },
+  },
+  directives: { clickaway },
+
+  components: {
+    UiInput,
   },
 
   computed: {
@@ -66,8 +87,28 @@ export default {
     },
   },
 
-  components: {
-    UiInput,
+  data() {
+    return {
+      suggestionsAreVisible: true,
+    };
+  },
+
+  mounted() {
+    this.suggestionsAreVisible = !this.collapsedMode;
+  },
+
+  methods: {
+    hideIfCollapsedMode() {
+      if (this.collapsedMode) {
+        this.suggestionsAreVisible = false;
+      }
+    },
+    updateValue(value) {
+      if (this.collapsedMode) {
+        this.suggestionsAreVisible = value && value.length;
+      }
+      this.$emit('update:value', value);
+    },
   },
 };
 </script>
@@ -86,5 +127,16 @@ export default {
       cursor: pointer;
     }
   }
+}
+
+.collapsed {
+  position: absolute;
+  width: 100%;
+  background: white;
+  z-index: 999;
+  border: 1px solid $gray-400;
+  border-radius: 3px;
+  padding-left: 10px;
+  border-top: none;
 }
 </style>

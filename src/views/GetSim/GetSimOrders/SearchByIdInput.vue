@@ -126,6 +126,8 @@ export default {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
     ...mapMutations('getsim', ['clearAllFilters', 'forceAppliedFilters']),
     async fetchOrders() {
+      // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
+      // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
       this.forceAppliedFilters([
         {
           id: 'filters.' + this.selectedSearchType,

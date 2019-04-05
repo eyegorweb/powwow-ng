@@ -1,6 +1,7 @@
 // TODO: réfactorer / séparer ce fichier après le merge des autres filtres
 import { fetchCustomFields } from '@/api/customFields';
 import { searchOrders } from '@/api/orders';
+import get from 'lodash.get';
 
 export const namespaced = true;
 
@@ -174,28 +175,59 @@ function selectFilterValue(state, { id, ...rest }) {
   resetSearchWhenCurrentFiltersAreEmpty(state);
 }
 
+function initFilterForPartnerUser(store) {
+  if (store.rootGetters.userIsPartner) {
+    const partnerFilterValues = [
+      {
+        id: store.rootGetters.userInfos.party.id,
+        label: store.rootGetters.userInfos.party.name,
+      },
+    ];
+    const defaultFilters = [
+      {
+        id: 'filters.partners',
+        values: partnerFilterValues,
+        hidden: true,
+      },
+    ];
+    store.commit('setDefaultFilter', defaultFilters);
+    setPartnersFilter(store, partnerFilterValues, true);
+  }
+  store.commit('applyFilters');
+}
+
 export const actions = {
   setPartnersFilter,
-  initFilterForPartnerUser(store) {
-    if (store.getters.userIsPartner) {
-      const partnerFilterValues = [
-        {
-          id: store.getters.userInfos.party.id,
-          label: store.getters.userInfos.party.name,
-        },
-      ];
-      const defaultFilters = [
-        {
-          id: 'filters.partners',
-          values: partnerFilterValues,
-          hidden: true,
-        },
-      ];
-      store.commit('setDefaultFilter', defaultFilters);
-      setPartnersFilter(store, partnerFilterValues, true);
+  initFilterForPartnerUser,
+  initFilterForContext(store) {
+    if (store.rootGetters.userIsPartner) {
+      initFilterForPartnerUser(store);
+      return;
     }
-    store.commit('applyFilters');
+    const defaultFilters = [];
+    const defaultPartnersValues = get(store, 'rootState.userContext.contextPartners', []);
+    if (defaultPartnersValues.length) {
+      defaultFilters.push({
+        id: 'filters.partners',
+        values: defaultPartnersValues,
+        hidden: true,
+      });
+    }
+
+    const defaultPartnerTypesValues = get(store, 'rootState.userContext.contextPartnersTypes', []);
+
+    if (defaultPartnerTypesValues.length) {
+      defaultFilters.push({
+        id: 'filters.partnerTypes',
+        values: defaultPartnerTypesValues,
+        hidden: true,
+      });
+    }
+
+    store.commit('setDefaultFilter', defaultFilters);
+    store.commit('clearAllFilters');
   },
+
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -208,7 +240,7 @@ export const actions = {
     }
     // déclencher une recherche su plus aucun filtre n'est selectionné
     if (!store.getters.canShowSelectedFilter) {
-      store.commit('applyFilters');
+      store.commit('clearAllFilters');
     }
   },
 
@@ -352,6 +384,12 @@ export const mutations = {
     state.currentFilters = [];
     clearAppliedFilters(state);
   },
+
+  restartFilters(state) {
+    state.currentFilters = [];
+    state.appliedFilters = [...state.defaultAppliedFilters];
+  },
+
   startLoading(state) {
     state.orderIsLoading = true;
   },
