@@ -1,5 +1,7 @@
 <template>
-  <div>{{ row.customerAccount.code }} - {{ row.customerAccount.name }}</div>
+  <div v-if="row.customerAccount">
+    {{ row.customerAccount.code }} - {{ row.customerAccount.name }}
+  </div>
 </template>
 
 <script>

@@ -22,6 +22,12 @@
   "type": "Type",
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
+  "set": "Appliquer",
+  "partnerTypes": {
+    "CUSTOMER": "Client",
+    "MVNO": "MVNO",
+    "MULTI_CUSTOMER": "Multi client"
+  },
   "errors": {
     "mandatory": "* Champ obligatoire"
   },

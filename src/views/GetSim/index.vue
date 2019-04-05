@@ -60,15 +60,26 @@ export default {
   },
 
   methods: {
-    ...mapActions('getsim', ['initFilterForPartnerUser']),
+    ...mapActions('getsim', ['initFilterForContext']),
     ...mapMutations(['openPanel']),
+    ...mapMutations('getsim', ['clearAllFilters']),
   },
-  computed: mapState({
-    isPanelOpen: state => state.ui.isPanelOpen,
-  }),
-
+  computed: {
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState({
+      isPanelOpen: state => state.ui.isPanelOpen,
+    }),
+  },
   mounted() {
-    this.initFilterForPartnerUser();
+    this.initFilterForContext();
+  },
+  watch: {
+    contextPartnersTypes() {
+      this.initFilterForContext();
+    },
+    contextPartners() {
+      this.initFilterForContext();
+    },
   },
 };
 </script>

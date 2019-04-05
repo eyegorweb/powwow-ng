@@ -1,99 +1,37 @@
 <template>
-  <MultiSelectSearch
-    :items="offers"
-    :default-selected-items.sync="selectedOffers"
-    @update:search="searchValueChanged"
-    @scroll:limit="nextPage"
+  <AutoCompleteByPartnerContext
+    :values="selectedOffersValues"
+    :selected-partners-values="selectedPartnersValues"
+    :fetch-api="fetchApi"
+    @update:values="setOffersFilter"
   />
 </template>
 
 <script>
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import AutoCompleteByPartnerContext from '@/components/AutoCompleteByPartnerContext';
 import { mapMutations, mapGetters } from 'vuex';
-
 import { fetchOffers } from '@/api/offers';
 
 export default {
   components: {
-    MultiSelectSearch,
-  },
-  data() {
-    return {
-      offers: [],
-      lastSearchTerm: '',
-      canFetchNextPage: true,
-      page: 0,
-    };
+    AutoCompleteByPartnerContext,
   },
 
-  async mounted() {
-    this.offers = await this.fetchFormattedOffersForDatatable('', {
-      page: 0,
-      limit: 10,
-    });
+  computed: {
+    ...mapGetters('getsim', ['selectedOffersValues', 'selectedPartnersValues']),
   },
 
   methods: {
     ...mapMutations('getsim', ['setOffersFilter']),
 
-    async fetchFormattedOffersForDatatable(q, { page, limit }) {
-      const data = await fetchOffers(q, this.selectedPartnersValues, { page, limit });
+    async fetchApi(q, partners, partnerTypes, { page, limit }) {
+      const data = await fetchOffers(q, partners, { page, limit, partnerTypes });
       if (data) {
         return data.map(o => ({
           id: o.code,
           label: o.workflowDescription,
         }));
       }
-      return undefined;
-    },
-
-    async searchValueChanged(q) {
-      this.offers = await this.fetchFormattedOffersForDatatable(q, {
-        page: 0,
-        limit: 10,
-      });
-      this.lastSearchTerm = q;
-      this.page = 0;
-      this.canFetchNextPage = true;
-    },
-
-    async nextPage() {
-      if (!this.canFetchNextPage) return;
-
-      this.page += 1;
-      const res = await this.fetchFormattedOffersForDatatable(this.lastSearchTerm, {
-        page: this.page,
-        limit: 10,
-      });
-      if (res && res.length > 0) {
-        this.offers = this.offers.concat(res);
-      } else {
-        this.canFetchNextPage = false;
-      }
-    },
-  },
-
-  watch: {
-    async selectedPartnersValues() {
-      this.page = 0;
-      this.canFetchNextPage = true;
-      this.offers = await this.fetchFormattedOffersForDatatable(this.lastSearchTerm, {
-        page: this.page,
-        limit: 50,
-      });
-    },
-  },
-
-  computed: {
-    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedOffersValues']),
-
-    selectedOffers: {
-      get() {
-        return this.selectedOffersValues;
-      },
-      set(offers) {
-        this.setOffersFilter(offers);
-      },
     },
   },
 };

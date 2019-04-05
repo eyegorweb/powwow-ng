@@ -5,6 +5,7 @@ import * as auth from './authentication.module';
 import * as getsim from './getsim.module';
 import * as ui from './ui.module';
 import * as actHistory from './getparc/actHistory.module';
+import * as userContext from './userContext.module';
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     auth,
     ui,
     actHistory,
+    userContext,
   },
 });

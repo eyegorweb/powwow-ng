@@ -147,6 +147,16 @@ function formatFilters(filters) {
     allFilters.push(`partyId: {in:[${partyIds}]}`);
   }
 
+  let partyTypes;
+
+  const partyTypesParam = getFilterValues(filters, 'filters.partnerTypes');
+  if (partyTypesParam) {
+    partyTypes = partyTypesParam.map(i => `${i.id}`).join(',');
+  }
+  if (partyTypes) {
+    allFilters.push(`partyType: {in:[${partyTypes}]}`);
+  }
+
   const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
   if (customerAccountIds) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);

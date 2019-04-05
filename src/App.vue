@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <NavBars is-backoffice-profile />
+      <NavBars :is-backoffice-profile="!userIsPartner" />
       <router-view />
       <PanelSwitcher />
     </div>
@@ -14,7 +14,7 @@
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
 import PanelSwitcher from '@/components/PanelSwitcher';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -25,6 +25,9 @@ export default {
   },
   methods: {
     ...mapMutations(['closePanel']),
+  },
+  computed: {
+    ...mapGetters(['userIsPartner']),
   },
   watch: {
     $route() {
