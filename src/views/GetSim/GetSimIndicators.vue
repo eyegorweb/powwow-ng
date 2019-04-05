@@ -137,11 +137,11 @@ export default {
           date: {
             range: {
               start: moment()
-                .subtract(48, 'hours')
-                .format('DD-MM-YYYY HH:mm:ss'),
-              end: moment()
                 .subtract(6, 'month')
                 .format(dateFormat),
+              end: moment()
+                .subtract(48, 'hours')
+                .format('DD-MM-YYYY HH:mm:ss'),
             },
           },
         },
