@@ -375,9 +375,7 @@ export async function createOrder(synthesis) {
     synthesis.customFields.selection &&
     synthesis.customFields.selection.length > 0
   ) {
-    const values = synthesis.customFields.selection
-      .map((c, index) => `custom${index + 1}:"${c.value}"`)
-      .join(',');
+    const values = synthesis.customFields.selection.map(c => `${c.code}:"${c.value}"`).join(',');
     customFieldsDTO = `{
       ${values}
     }`;
