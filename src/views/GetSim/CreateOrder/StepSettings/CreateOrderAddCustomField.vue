@@ -119,7 +119,7 @@
         class="float-right"
         :disabled="!canAddCustomField()"
         @click="saveCustomField"
-        >{{ $t('orders.add-custom-field-value') }}</UiButton
+        >{{ $t('orders.add-custom-field') }}</UiButton
       >
     </div>
   </div>
