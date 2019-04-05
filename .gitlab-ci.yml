@@ -7,6 +7,6 @@ variables:
 start_ui_server_pipeline:
   stage: deploy
   script:
-      - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master https://m2m.extelia.fr/gitlab/api/v4/projects/7/trigger/pipeline
+    - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master https://m2m-gitlab.by-docapost.com/api/v4/projects/7/trigger/pipeline
   only:
     - master
