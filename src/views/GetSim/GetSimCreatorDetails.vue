@@ -12,7 +12,7 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.title') }} :</h6>
-        <p>{{ getFromOrder('auditable.creator.name.title') }}</p>
+        <p>{{ $t('common.' + getFromOrder('auditable.creator.name.title')) }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
