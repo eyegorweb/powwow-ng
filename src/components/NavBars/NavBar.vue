@@ -47,7 +47,7 @@
       <img
         v-if="!isBackofficeProfile"
         class="logo logo--client"
-        src="@/assets/logo_client_exemple.png"
+        src="@/assets/logo_notfound.png"
         alt
       />
     </div>
