@@ -15,6 +15,7 @@
   "modify": "Modifier",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
+  "optional": "Champ facultatif",
   "text": "Texte",
   "list": "Liste",
   "date": "Date",
