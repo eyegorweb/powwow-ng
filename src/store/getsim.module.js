@@ -157,6 +157,8 @@ function resetSearchWhenCurrentFiltersAreEmpty(state) {
 function selectFilterValue(state, { id, ...rest }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
   if (isFilterFound) {
+    // Mise à jour d'un filtre
+
     // TODO: à voir en terme de perf (si cela est vraiment un problème) si
     // une version avec un findIndex + splice est plus performante
     state.currentFilters = state.currentFilters.map(f => {
@@ -310,7 +312,29 @@ export const mutations = {
     });
   },
   applyFilters(state) {
-    state.appliedFilters = [...state.currentFilters];
+    let currentFilters = state.currentFilters;
+    // Décider si on ajoute les partenaires choisis par défaut
+    const defaultPartnerTypes = state.defaultAppliedFilters.find(
+      f => f.id === 'filters.partnerTypes'
+    );
+    const additionalFilters = [];
+
+    if (defaultPartnerTypes) {
+      additionalFilters.push(defaultPartnerTypes);
+    }
+
+    // Ajouter les partenaires par défaut si aucun partenaire n'est choisi
+    const selectedPartners = currentFilters.find(f => f.id === 'filters.partners');
+    if (!selectedPartners || !selectedPartners.values || selectedPartners.values.length === 0) {
+      const defaultPartners = state.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+      // Enlever le partenaire vide, necessaire pour appliquer les partenaires par défaut
+      currentFilters = currentFilters.filter(f => f.id !== 'filters.partners');
+      if (defaultPartners && defaultPartners.values && defaultPartners.values.length) {
+        additionalFilters.push(defaultPartners);
+      }
+    }
+
+    state.appliedFilters = [...currentFilters, ...additionalFilters];
   },
   forceAppliedFilters(state, values) {
     state.appliedFilters = [...values];
