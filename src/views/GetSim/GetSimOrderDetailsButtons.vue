@@ -5,7 +5,16 @@
         $t('getsim.actions.VALIDATE')
       }}</UiButton>
     </div>
-    <div v-if="statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED'])">
+    <div
+      v-if="
+        statusIn([
+          'VALIDATED',
+          'CONFIRMATION_IN_PROGRESS',
+          'TO_BE_CONFIRMED',
+          'TO_BE_CONFIRMED_BY_BO',
+        ])
+      "
+    >
       <UiButton variant="accent" block @click="updateStatus('CONFIRMED')">{{
         $t('getsim.actions.CONFIRM')
       }}</UiButton>
@@ -18,7 +27,17 @@
     <div v-if="statusIn(['CONFIRMED', 'TERMINATED'])">
       <UiButton variant="accent" block>{{ $t('getsim.actions.EXPORT') }}</UiButton>
     </div>
-    <div v-if="statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED', 'CONFIRMED'])">
+    <div
+      v-if="
+        statusIn([
+          'VALIDATED',
+          'CONFIRMATION_IN_PROGRESS',
+          'TO_BE_CONFIRMED',
+          'TO_BE_CONFIRMED_BY_BO',
+          'CONFIRMED',
+        ])
+      "
+    >
       <UiButton variant="accent" block @click="openOrderPanel">{{
         $t('getsim.actions.DUPLICATE')
       }}</UiButton>
