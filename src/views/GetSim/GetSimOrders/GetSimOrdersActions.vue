@@ -90,7 +90,7 @@ export default {
           ];
 
         case 'VALIDATED':
-          return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE', 'getsim.actions.CANCEL'];
+          return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
 
         case 'CONFIRMATION_IN_PROGRESS':
         case 'TO_BE_CONFIRMED':
