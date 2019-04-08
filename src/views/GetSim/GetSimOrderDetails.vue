@@ -104,7 +104,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('col.offer') }} :</h6>
-          <p>{{ getFromOrder('singleProduct.description') }}</p>
+          <p>{{ getFromOrder('orderedMarketingOffer.description') }}</p>
         </div>
       </div>
 
