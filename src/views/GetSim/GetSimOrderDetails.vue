@@ -39,8 +39,9 @@
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creator') }} :</h6>
           <p class="m-0">
+            {{ $t('common.' + getFromOrder('auditable.creator.name.title')) }}
             {{
-              `${getFromOrder('auditable.creator.name.title')} ${getFromOrder(
+              `${getFromOrder(
                 'auditable.creator.name.firstName'
               )} ${getFromOrder('auditable.creator.name.lastName')}`
             }}
