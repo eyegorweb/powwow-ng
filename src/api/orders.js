@@ -140,6 +140,50 @@ export async function searchSingleOrder(id) {
   }
 }
 
+export async function countTotalByIndicators(
+  filterIndicatorToBeConfirmed,
+  filterIndicatorOrdersInProgress,
+  filterIndicatorOrdersNotConfirmed,
+  filterIndicatorOrdersFailed,
+  filterIndicatorOrderToBeConfirmedByBO
+) {
+  const queryStr = `
+  query {
+    total: orders(filter: {}) {
+      total
+    }
+
+    indicatorToBeConfirmed: orders(filter: {${formatFilters(filterIndicatorToBeConfirmed)}}) {
+      total
+
+    }
+
+    indicatorOrdersInProgress: orders(filter: {${formatFilters(filterIndicatorOrdersInProgress)}}) {
+      total
+    }
+
+    indicatorOrdersNotConfirmed: orders(filter: {${formatFilters(
+      filterIndicatorOrdersNotConfirmed
+    )}}) {
+      total
+    }
+
+    indicatorOrdersFailed: orders(filter: {${formatFilters(filterIndicatorOrdersFailed)}}) {
+      total
+    }
+
+    indicatorOrderToBeConfirmedByBO: orders(filter: {${formatFilters(
+      filterIndicatorOrderToBeConfirmedByBO
+    )}}) {
+      total
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data;
+}
+
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIds(filters, 'filters.partners');

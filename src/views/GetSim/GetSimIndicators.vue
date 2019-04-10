@@ -7,7 +7,7 @@
           class="btn btn-link p-0 text-danger"
           @click.prevent="filterByStatusIndicator(filteredStatus.toBeConfirmed)"
         >
-          {{ indicators.ordersToBeConfirmed }}
+          {{ filteredStatus.toBeConfirmed.total }}
         </button>
       </div>
     </li>
@@ -18,29 +18,29 @@
           class="btn btn-link p-0 text-success"
           @click.prevent="filterByStatusIndicator(filteredStatus.ordersInProgress)"
         >
-          {{ indicators.ordersInProgress }}
+          {{ filteredStatus.ordersInProgress.total }}
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && indicators.ordersNotConfirmed >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0">
       {{ $t('indicators.ordersNotConfirmed') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
           @click.prevent="filterByStatusIndicator(filteredStatus.ordersNotConfirmed)"
         >
-          {{ indicators.ordersNotConfirmed }}
+          {{ filteredStatus.ordersNotConfirmed.total }}
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && indicators.ordersFailed >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersFailed.total >= 0">
       {{ $t('indicators.ordersFailed') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
           @click.prevent="filterByStatusIndicator(filteredStatus.ordersFailed)"
         >
-          {{ indicators.ordersFailed }}
+          {{ filteredStatus.ordersFailed.total }}
         </button>
       </div>
     </li>
@@ -50,14 +50,14 @@
         <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && indicators.orderToBeConfirmedByBO >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
       {{ $t('indicators.orderToBeConfirmedByBO') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
           @click.prevent="filterByStatusIndicator(filteredStatus.orderToBeConfirmedByBO)"
         >
-          {{ indicators.orderToBeConfirmedByBO }}
+          {{ filteredStatus.orderToBeConfirmedByBO.total }}
         </button>
       </div>
     </li>
@@ -66,6 +66,7 @@
 
 <script>
 import { fetchGetSimIndicators } from '@/api/indicators';
+import { countTotalByIndicators } from '@/api/orders';
 import { mapMutations, mapGetters } from 'vuex';
 
 import moment from 'moment';
@@ -76,8 +77,10 @@ export default {
   data() {
     return {
       indicators: {},
+      total: 0,
       filteredStatus: {
         toBeConfirmed: {
+          total: 0,
           status: [{ id: 'NOT_VALIDATED', label: 'Non validée' }],
           date: {
             range: {
@@ -89,6 +92,7 @@ export default {
           },
         },
         ordersInProgress: {
+          total: 0,
           status: [
             { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
             { id: 'TO_BE_CONFIRMED_BY_BO', label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO') },
@@ -108,6 +112,7 @@ export default {
           },
         },
         ordersNotConfirmed: {
+          total: 0,
           status: [
             {
               id: 'TO_BE_CONFIRMED',
@@ -133,6 +138,7 @@ export default {
           },
         },
         ordersFailed: {
+          total: 0,
           status: [{ id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') }],
           date: {
             range: {
@@ -146,6 +152,7 @@ export default {
           },
         },
         orderToBeConfirmedByBO: {
+          total: 0,
           status: [
             {
               id: 'TO_BE_CONFIRMED_BY_BO',
@@ -157,8 +164,73 @@ export default {
     };
   },
 
-  async created() {
+  async mounted() {
     this.indicators = (await fetchGetSimIndicators()) || {};
+
+    const result = await countTotalByIndicators(
+      [
+        {
+          id: 'filters.orderStatus',
+          values: this.filteredStatus.toBeConfirmed.status,
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.toBeConfirmed.date.range.start,
+          endDate: this.filteredStatus.toBeConfirmed.date.range.end,
+        },
+      ],
+      [
+        {
+          id: 'filters.orderStatus',
+          values: this.filteredStatus.ordersInProgress.status,
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.ordersInProgress.date.range.start,
+          endDate: this.filteredStatus.ordersInProgress.date.range.end,
+        },
+      ],
+      [
+        {
+          id: 'filters.orderStatus',
+          values: this.filteredStatus.ordersNotConfirmed.status,
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.ordersNotConfirmed.date.range.start,
+          endDate: this.filteredStatus.ordersNotConfirmed.date.range.end,
+          sameDay: this.filteredStatus.ordersNotConfirmed.date.range.sameDay,
+        },
+      ],
+      [
+        {
+          id: 'filters.orderStatus',
+          values: this.filteredStatus.ordersFailed.status,
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.ordersFailed.date.range.start,
+          endDate: this.filteredStatus.ordersFailed.date.range.end,
+        },
+      ],
+      [
+        {
+          id: 'filters.orderStatus',
+          values: this.filteredStatus.ordersFailed.status,
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.ordersFailed.date.range.start,
+          endDate: this.filteredStatus.ordersFailed.date.range.end,
+        },
+      ]
+    );
+
+    this.filteredStatus.toBeConfirmed.total = result.indicatorToBeConfirmed.total;
+    this.filteredStatus.ordersInProgress.total = result.indicatorOrdersInProgress.total;
+    this.filteredStatus.ordersNotConfirmed.total = result.indicatorOrdersNotConfirmed.total;
+    this.filteredStatus.ordersFailed.total = result.indicatorOrdersFailed.total;
+    this.filteredStatus.orderToBeConfirmedByBO.total = result.indicatorOrderToBeConfirmedByBO.total;
   },
 
   methods: {
