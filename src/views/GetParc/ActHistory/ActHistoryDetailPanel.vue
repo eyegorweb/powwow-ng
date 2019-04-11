@@ -81,6 +81,11 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import UiButton from '@/components/ui/Button';
 
 export default {
+  props: {
+    content: {
+      type: Object,
+    },
+  },
   data() {
     return {
       confirmationStepper: [

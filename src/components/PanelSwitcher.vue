@@ -10,7 +10,10 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
-      <ActHistoryDetailPanel v-if="panelId === 'getparc.history.details.title'" :order="payload" />
+      <ActHistoryDetailPanel
+        v-if="panelId === 'getparc.history.details.title'"
+        :content="payload"
+      />
     </div>
   </SlidePanel>
 </template>
