@@ -41,9 +41,9 @@
           <p class="m-0">
             {{ $t('common.' + getFromOrder('auditable.creator.name.title')) }}
             {{
-              `${getFromOrder(
-                'auditable.creator.name.firstName'
-              )} ${getFromOrder('auditable.creator.name.lastName')}`
+              `${getFromOrder('auditable.creator.name.firstName')} ${getFromOrder(
+                'auditable.creator.name.lastName'
+              )}`
             }}
           </p>
         </div>
