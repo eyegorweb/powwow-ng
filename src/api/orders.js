@@ -228,8 +228,17 @@ function formatFilters(filters) {
   addaction(allFilters, filters);
   addCountries(allFilters, filters);
   addIdsFilter(allFilters, filters);
+  addCreatorFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addCreatorFilter(gqlFilters, selectedFilters) {
+  const values = getFilterValues(selectedFilters, 'filters.orderCreator');
+  if (values && values.length) {
+    const orderCreators = values.map(i => `${i.id}`).join(',');
+    gqlFilters.push(`creator: {in: [${orderCreators}]}`);
+  }
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
