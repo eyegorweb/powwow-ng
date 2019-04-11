@@ -30,7 +30,6 @@ export const getters = {
   ...filterUtils.initGetters(),
   orderPage: state => state.orderPage,
   ordersResponse: state => state.ordersResponse,
-  appliedFilters: state => state.appliedFilters,
   orderIsLoading: state => state.orderIsLoading,
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
@@ -155,9 +154,7 @@ export const actions = {
 export const mutations = {
   ...filterUtils.initMutations(),
   selectFilterValue,
-  setCurrentFilters: (state, currentFilters) => {
-    state.currentFilters = currentFilters;
-  },
+
   setAvailableFilters: (state, data) => {
     state.allAvailableFilters = data;
   },

@@ -13,6 +13,7 @@ export function initGetters() {
   return {
     allAvailableFilters: state => state.allAvailableFilters,
     currentFilters: state => state.currentFilters,
+    appliedFilters: state => state.appliedFilters,
     canShowSelectedFilter: state =>
       !!state.currentFilters.find(
         f =>
@@ -130,6 +131,9 @@ export function initFilterForContext(store, setPartnersFilter) {
 
 export function initMutations() {
   return {
+    setCurrentFilters: (state, currentFilters) => {
+      state.currentFilters = currentFilters;
+    },
     setDefaultFilter(state, defaultFilter) {
       state.defaultAppliedFilters = [...defaultFilter];
     },

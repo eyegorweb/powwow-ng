@@ -31,13 +31,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
-
-// import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 const cellComponents = {
   IdCell,
@@ -87,11 +86,26 @@ export default {
   },
 
   watch: {
+    orderBy() {
+      this.page = 1;
+      this.fetchMassActions();
+    },
+    pageLimit() {
+      this.page = 1;
+      this.fetchMassActions();
+    },
+    appliedFilters() {
+      this.fetchMassActions();
+    },
+    isPanelOpen() {
+      if (this.isPanelOpen) {
+        this.showExtraCells = false;
+      }
+    },
     columns(newValues) {
       saveColumnsToLocalStorage(newValues);
     },
   },
-
   data() {
     return {
       total: 1,
@@ -110,14 +124,14 @@ export default {
         {
           id: 2,
           label: this.$t('getparc.history.col.action'),
-          name: 'action',
+          name: 'actionType',
           orderable: true,
           visible: true,
         },
         {
           id: 3,
           label: this.$t('getparc.history.col.actDate'),
-          name: 'actDate',
+          name: 'dueDate',
           orderable: true,
           visible: true,
         },
@@ -131,60 +145,78 @@ export default {
         {
           id: 5,
           label: this.$t('getparc.history.col.target'),
-          name: 'target',
+          name: 'targetActionNumber',
           orderable: true,
           visible: true,
         },
         {
           id: 6,
-          label: this.$t('getparc.history.col.success'),
-          name: 'success',
+          label: this.$t('getparc.history.col.endDate'),
+          name: 'completedActionNumber',
           orderable: true,
           visible: true,
         },
         {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
-          name: 'ongoing',
+          name: 'inProgressActionNumber',
           orderable: true,
-          visible: false,
+          visible: true,
         },
         {
           id: 8,
           label: this.$t('getparc.history.col.fail'),
-          name: 'fail.history',
+          name: 'errorActionNumber',
           orderable: true,
-          visible: false,
+          visible: true,
         },
       ],
-      rows: [
-        {
-          id: '260114',
-          action: 'Pré-activation',
-          actDate: '01/11/2018',
-          details: 'Offre: SCHINDLER_40MO_30MIN',
-          target: 6,
-          success: 0,
-          ongoing: 0,
-          fail: 0,
-        },
-      ],
+      // rows: [
+      //   {
+      //     id: '260114',
+      //     action: 'Pré-activation',
+      //     actDate: '01/11/2018',
+      //     details: 'Offre: SCHINDLER_40MO_30MIN',
+      //     target: 6,
+      //     success: 0,
+      //     ongoing: 0,
+      //     fail: 0,
+      //   },
+      // ],
       page: 0,
       pageLimit: 20,
       orderBy: {
         key: 'id',
-        direction: 'DESC',
+        direction: 'DESCENDING',
       },
       showExtraCells: false,
     };
   },
   methods: {
+    ...mapActions('actHistory', ['fetchActionsFromApi']),
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     searchById(params) {
       console.log('search by id: ', params);
+    },
+    async fetchMassActions() {
+      this.fetchActionsFromApi({
+        orderBy: this.orderBy,
+        pageInfo: {
+          // pas de pagination
+          page: this.page,
+          limit: this.pageLimit,
+        },
+        appliedFilters: this.appliedFilters,
+      });
+    },
+  },
+  computed: {
+    ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters']),
+    rows() {
+      return this.massActionsResponse ? this.massActionsResponse : [];
     },
   },
 };
