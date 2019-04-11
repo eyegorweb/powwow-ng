@@ -1,49 +1,37 @@
 // TODO: réfactorer / séparer ce fichier après le merge des autres filtres
 import { fetchCustomFields } from '@/api/customFields';
 import { searchOrders } from '@/api/orders';
-import get from 'lodash.get';
+
+import * as filterUtils from './filterUtils';
+
+const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
+const findFilterValuesById = filterUtils.findFilterValuesById;
+const selectFilterValue = filterUtils.selectFilterValue;
+const initFilterForPartnerUser = store => {
+  filterUtils.initFilterForPartnerUser(store, setPartnersFilter);
+};
+const initFilterForContext = store => {
+  filterUtils.initFilterForContext(store, setPartnersFilter);
+};
 
 export const namespaced = true;
 
 export const state = {
-  allAvailableFilters: [],
-  currentFilters: [],
+  ...filterUtils.initState(),
   filterCustomFieldsList: [],
-  appliedFilters: [],
   ordersResponse: [],
   orderPage: 1,
   orderIsLoading: false,
-  defaultAppliedFilters: [],
 };
 
 // Getters
 
-const selectedFilterValuesById = state => id => {
-  const found = state.currentFilters.find(c => c.id === id);
-  if (found) return found.values;
-  return [];
-};
-
-// NOTE: en inversant l'ordre de paramètres on peut passer
-// direcment le résultat de la fonction au getter
-const findFilterValuesById = id => state => {
-  const found = state.currentFilters.find(c => c.id === id);
-  return found ? found.values : [];
-};
-
 export const getters = {
-  allAvailableFilters: state => state.allAvailableFilters,
+  ...filterUtils.initGetters(),
   orderPage: state => state.orderPage,
-  currentFilters: state => state.currentFilters,
   ordersResponse: state => state.ordersResponse,
   appliedFilters: state => state.appliedFilters,
   orderIsLoading: state => state.orderIsLoading,
-  canShowSelectedFilter: state =>
-    !!state.currentFilters.find(
-      f =>
-        !f.hidden &&
-        ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
-    ),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   // TODO: utiliser findFilterValuesById au lieu de selectedFilterValuesById
   // -> ne crée pas de fonction à chaque get
@@ -134,101 +122,10 @@ async function refreshCustomFilters({ commit }, partners) {
   commit('setCustomFieldsFilter', []);
 }
 
-function clearAppliedFilters(state) {
-  state.appliedFilters = [...state.defaultAppliedFilters];
-}
-
-function resetSearchWhenCurrentFiltersAreEmpty(state) {
-  const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
-  const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
-  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
-  const filtersWithRangeValues = state.currentFilters.filter(f => f.from || f.to);
-
-  if (
-    filtersWithArrayValues.length === 0 &&
-    filtersWithSimpleValue.length === 0 &&
-    filtersWithDateValues.length === 0 &&
-    filtersWithRangeValues.length === 0
-  ) {
-    clearAppliedFilters(state);
-  }
-}
-
-function selectFilterValue(state, { id, ...rest }) {
-  const isFilterFound = state.currentFilters.find(f => f.id === id);
-  if (isFilterFound) {
-    // Mise à jour d'un filtre
-
-    // TODO: à voir en terme de perf (si cela est vraiment un problème) si
-    // une version avec un findIndex + splice est plus performante
-    state.currentFilters = state.currentFilters.map(f => {
-      if (f.id === id) {
-        return { id, ...rest };
-      }
-      return f;
-    });
-  } else {
-    state.currentFilters.push({
-      id,
-      ...rest,
-    });
-  }
-
-  resetSearchWhenCurrentFiltersAreEmpty(state);
-}
-
-function initFilterForPartnerUser(store) {
-  if (store.rootGetters.userIsPartner) {
-    const partnerFilterValues = [
-      {
-        id: store.rootGetters.userInfos.party.id,
-        label: store.rootGetters.userInfos.party.name,
-      },
-    ];
-    const defaultFilters = [
-      {
-        id: 'filters.partners',
-        values: partnerFilterValues,
-        hidden: true,
-      },
-    ];
-    store.commit('setDefaultFilter', defaultFilters);
-    setPartnersFilter(store, partnerFilterValues, true);
-  }
-  store.commit('applyFilters');
-}
-
 export const actions = {
   setPartnersFilter,
   initFilterForPartnerUser,
-  initFilterForContext(store) {
-    if (store.rootGetters.userIsPartner) {
-      initFilterForPartnerUser(store);
-      return;
-    }
-    const defaultFilters = [];
-    const defaultPartnersValues = get(store, 'rootState.userContext.contextPartners', []);
-    if (defaultPartnersValues.length) {
-      defaultFilters.push({
-        id: 'filters.partners',
-        values: defaultPartnersValues,
-        hidden: true,
-      });
-    }
-
-    const defaultPartnerTypesValues = get(store, 'rootState.userContext.contextPartnersTypes', []);
-
-    if (defaultPartnerTypesValues.length) {
-      defaultFilters.push({
-        id: 'filters.partnerTypes',
-        values: defaultPartnerTypesValues,
-        hidden: true,
-      });
-    }
-
-    store.commit('setDefaultFilter', defaultFilters);
-    store.commit('clearAllFilters');
-  },
+  initFilterForContext,
 
   clearFilter(store, filterId) {
     /**
@@ -256,6 +153,7 @@ export const actions = {
 // Mutations
 
 export const mutations = {
+  ...filterUtils.initMutations(),
   selectFilterValue,
   setCurrentFilters: (state, currentFilters) => {
     state.currentFilters = currentFilters;
@@ -311,35 +209,7 @@ export const mutations = {
       values: creators,
     });
   },
-  applyFilters(state) {
-    let currentFilters = state.currentFilters;
-    // Décider si on ajoute les partenaires choisis par défaut
-    const defaultPartnerTypes = state.defaultAppliedFilters.find(
-      f => f.id === 'filters.partnerTypes'
-    );
-    const additionalFilters = [];
 
-    if (defaultPartnerTypes) {
-      additionalFilters.push(defaultPartnerTypes);
-    }
-
-    // Ajouter les partenaires par défaut si aucun partenaire n'est choisi
-    const selectedPartners = currentFilters.find(f => f.id === 'filters.partners');
-    if (!selectedPartners || !selectedPartners.values || selectedPartners.values.length === 0) {
-      const defaultPartners = state.defaultAppliedFilters.find(f => f.id === 'filters.partners');
-      // Enlever le partenaire vide, necessaire pour appliquer les partenaires par défaut
-      currentFilters = currentFilters.filter(f => f.id !== 'filters.partners');
-      if (defaultPartners && defaultPartners.values && defaultPartners.values.length) {
-        additionalFilters.push(defaultPartners);
-      }
-    }
-
-    state.appliedFilters = [...currentFilters, ...additionalFilters];
-  },
-  forceAppliedFilters(state, values) {
-    state.appliedFilters = [...values];
-    state.currentFilters = [];
-  },
   setCustomFieldsFilter(state, customFields) {
     selectFilterValue(state, {
       id: 'filters.customFields',
@@ -398,20 +268,6 @@ export const mutations = {
   },
   setPage(state, newPage) {
     state.orderPage = newPage;
-  },
-
-  setDefaultFilter(state, defaultFilter) {
-    state.defaultAppliedFilters = [...defaultFilter];
-  },
-
-  clearAllFilters(state) {
-    state.currentFilters = [];
-    clearAppliedFilters(state);
-  },
-
-  restartFilters(state) {
-    state.currentFilters = [];
-    state.appliedFilters = [...state.defaultAppliedFilters];
   },
 
   startLoading(state) {
