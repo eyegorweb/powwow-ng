@@ -155,9 +155,6 @@ export const mutations = {
   ...filterUtils.initMutations(),
   selectFilterValue,
 
-  setAvailableFilters: (state, data) => {
-    state.allAvailableFilters = data;
-  },
   setFilterCustomFieldsList: (state, data) => {
     state.filterCustomFieldsList = data;
   },

@@ -2,7 +2,6 @@ import get from 'lodash.get';
 
 export function initState() {
   return {
-    allAvailableFilters: [], // Filtres affichées
     currentFilters: [], // Filtres choisis
     appliedFilters: [], // Filtres appliqués
     defaultAppliedFilters: [], // Filtres par défaut, utile quand on limite le contexte de l'appli à certains partenaires ( voir components/Navbar/Backoffice)
@@ -11,7 +10,6 @@ export function initState() {
 
 export function initGetters() {
   return {
-    allAvailableFilters: state => state.allAvailableFilters,
     currentFilters: state => state.currentFilters,
     appliedFilters: state => state.appliedFilters,
     canShowSelectedFilter: state =>
