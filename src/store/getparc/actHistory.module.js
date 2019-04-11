@@ -1,35 +1,25 @@
+import { searchMassActions } from '@/api/massActions';
+import * as filterUtils from '@/store/filterUtils';
+
+const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
+const findFilterValuesById = filterUtils.findFilterValuesById;
+const selectFilterValue = filterUtils.selectFilterValue;
+
+const initFilterForContext = store => {
+  filterUtils.initFilterForContext(store, setPartnersFilter);
+};
+
 export const namespaced = true;
 
 export const state = {
-  currentFilters: [],
-  appliedFilters: [],
-  ordersResponse: [],
-  orderPage: 1,
-  defaultAppliedFilters: [],
-};
-
-// NOTE: en inversant l'ordre de paramètres on peut passer
-// direcment le résultat de la fonction au getter
-const findFilterValuesById = id => state => {
-  const found = state.currentFilters.find(c => c.id === id);
-  return found ? found.values : [];
-};
-
-const selectedFilterValuesById = state => id => {
-  const found = state.currentFilters.find(c => c.id === id);
-  if (found) return found.values;
-  return [];
+  ...filterUtils.initState(),
+  massActionsResponse: [],
 };
 
 export const getters = {
+  ...filterUtils.initGetters(),
+  massActionsResponse: state => state.massActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
-  currentFilters: state => state.currentFilters,
-  canShowSelectedFilter: state =>
-    !!state.currentFilters.find(
-      f =>
-        !f.hidden &&
-        ((f.values && f.values.length > 0) || !!f.value || f.startDate || f.from || f.to)
-    ),
   selectedOrderCreatorValues: state => {
     return selectedFilterValuesById(state)('filters.orderCreator');
   },
@@ -66,47 +56,6 @@ async function setPartnersFilter({ commit, getters }, partners, isHidden) {
 
 // Mutation
 
-function resetSearchWhenCurrentFiltersAreEmpty(state) {
-  const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
-  const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
-  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
-  const filtersWithRangeValues = state.currentFilters.filter(f => f.from || f.to);
-
-  if (
-    filtersWithArrayValues.length === 0 &&
-    filtersWithSimpleValue.length === 0 &&
-    filtersWithDateValues.length === 0 &&
-    filtersWithRangeValues.length === 0
-  ) {
-    clearAppliedFilters(state);
-  }
-}
-
-function clearAppliedFilters(state) {
-  state.appliedFilters = [...state.defaultAppliedFilters];
-}
-
-function selectFilterValue(state, { id, ...rest }) {
-  const isFilterFound = state.currentFilters.find(f => f.id === id);
-  if (isFilterFound) {
-    // TODO: à voir en terme de perf (si cela est vraiment un problème) si
-    // une version avec un findIndex + splice est plus performante
-    state.currentFilters = state.currentFilters.map(f => {
-      if (f.id === id) {
-        return { id, ...rest };
-      }
-      return f;
-    });
-  } else {
-    state.currentFilters.push({
-      id,
-      ...rest,
-    });
-  }
-
-  resetSearchWhenCurrentFiltersAreEmpty(state);
-}
-
 function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
   const creatorWithPartnerSelected = getters.selectedOrderCreatorValues.filter(a =>
     partners.find(p => p.id === a.partnerId)
@@ -116,26 +65,7 @@ function removeSelectedOrderCreatorPartners({ commit, getters }, partners) {
 
 export const actions = {
   setPartnersFilter,
-  initFilterForPartnerUser(store) {
-    if (store.getters.userIsPartner) {
-      const partnerFilterValues = [
-        {
-          id: store.getters.userInfos.party.id,
-          label: store.getters.userInfos.party.name,
-        },
-      ];
-      const defaultFilters = [
-        {
-          id: 'filters.partners',
-          values: partnerFilterValues,
-          hidden: true,
-        },
-      ];
-      store.commit('setDefaultFilter', defaultFilters);
-      setPartnersFilter(store, partnerFilterValues, true);
-    }
-    store.commit('applyFilters');
-  },
+  initFilterForContext,
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -151,25 +81,24 @@ export const actions = {
       store.commit('applyFilters');
     }
   },
+  async fetchActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
+    // commit('startLoading');
+    commit('setActionsResponse', await searchMassActions(orderBy, pageInfo, appliedFilters));
+    // commit('stopLoading');
+  },
 };
+
+// Mutations
+
 export const mutations = {
+  ...filterUtils.initMutations(),
+  setActionsResponse(state, massActions) {
+    state.massActionsResponse = massActions;
+  },
   selectFilterValue,
-  applyFilters(state) {
-    state.appliedFilters = [...state.currentFilters];
-  },
-  forceAppliedFilters(state, values) {
-    state.appliedFilters = [...values];
-    state.currentFilters = [];
-  },
-  setDefaultFilter(state, defaultFilter) {
-    state.defaultAppliedFilters = [...defaultFilter];
-  },
+
   setCurrentFilters: (state, currentFilters) => {
     state.currentFilters = currentFilters;
-  },
-  clearAllFilters(state) {
-    state.currentFilters = [];
-    clearAppliedFilters(state);
   },
   setOrderCreatorFilter(state, creators) {
     selectFilterValue(state, {

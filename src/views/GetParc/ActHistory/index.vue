@@ -26,12 +26,30 @@
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
 import GetParcIndicators from './GetParcIndicators';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
     FilterBar,
     HistoryTable,
     GetParcIndicators,
+  },
+  computed: {
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+  },
+  methods: {
+    ...mapActions('actHistory', ['initFilterForContext']),
+  },
+  mounted() {
+    this.initFilterForContext();
+  },
+  watch: {
+    contextPartnersTypes() {
+      this.initFilterForContext();
+    },
+    contextPartners() {
+      this.initFilterForContext();
+    },
   },
 };
 </script>

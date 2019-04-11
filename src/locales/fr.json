@@ -142,6 +142,7 @@
       "col": {
         "action": "Action",
         "actDate": "Prévue",
+        "endDate": "Date de fin",
         "details": "Détails",
         "target": "Ciblée",
         "success": "Succès",
