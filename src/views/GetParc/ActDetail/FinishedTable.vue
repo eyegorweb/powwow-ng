@@ -31,6 +31,7 @@
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
+import { fetchUnitActions } from '@/api/unitActions';
 
 export default {
   components: {
@@ -39,13 +40,19 @@ export default {
     SearchByActId,
   },
   props: {
-    rows: {
-      type: Array,
-    },
-    total: Number,
+    massActionId: String,
   },
+
+  async mounted() {
+    const pagination = { limit: 20, page: 0 };
+    const orderBy = { key: 'id', direction: 'DESCENDING' };
+    this.rows = await fetchUnitActions(this.massActionId, 'OK', pagination, orderBy);
+  },
+
   data() {
     return {
+      total: 1,
+      rows: [],
       columns: [
         {
           id: 1,
@@ -72,21 +79,21 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.actState'),
-          name: 'actState',
+          name: 'status',
           orderable: true,
           visible: true,
         },
         {
           id: 6,
           label: this.$t('getparc.actDetail.col.startDate'),
-          name: 'startDate',
+          name: 'dueDate',
           orderable: true,
           visible: true,
         },
         {
           id: 7,
           label: this.$t('getparc.actDetail.col.endDate'),
-          name: 'endDate',
+          name: 'statusDate',
           orderable: true,
           visible: true,
         },
@@ -100,14 +107,14 @@ export default {
         {
           id: 10,
           label: this.$t('getparc.actDetail.col.constructor'),
-          name: 'constructor',
+          name: 'manufacturer',
           orderable: true,
           visible: false,
         },
         {
           id: 11,
           label: this.$t('getparc.actDetail.col.commercialRef'),
-          name: 'commercialRef',
+          name: 'deviceReference',
           orderable: true,
           visible: false,
         },

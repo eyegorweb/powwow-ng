@@ -41,7 +41,7 @@ export default new Router({
       component: GetParcActHistory,
     },
     {
-      path: '/act-detail',
+      path: '/act-detail/:massActionId',
       name: 'actDetail',
       component: GetParcActDetail,
     },

@@ -53,7 +53,7 @@ export default {
     async onActionClicked(action) {
       switch (action) {
         case 'getsim.actions.DETAIL': {
-          this.$router.push({ name: 'actDetail' });
+          this.$router.push({ name: 'actDetail', params: { massActionId: this.item.id } });
         }
       }
     },

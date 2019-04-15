@@ -173,63 +173,72 @@ export default {
   async mounted() {
     this.indicators = (await fetchGetSimIndicators()) || {};
 
+    const filterIndicatorToBeConfirmed = [
+      {
+        id: 'filters.orderStatus',
+        values: this.filteredStatus.toBeConfirmed.status,
+      },
+      {
+        id: 'filters.orderDate',
+        startDate: this.filteredStatus.toBeConfirmed.date.range.start,
+        endDate: this.filteredStatus.toBeConfirmed.date.range.end,
+      },
+    ];
+    const filterIndicatorOrdersInProgress = [
+      {
+        id: 'filters.orderStatus',
+        values: this.filteredStatus.ordersInProgress.status,
+      },
+      {
+        id: 'filters.orderDate',
+        startDate: this.filteredStatus.ordersInProgress.date.range.start,
+        endDate: this.filteredStatus.ordersInProgress.date.range.end,
+      },
+    ];
+
+    const filterIndicatorOrdersNotConfirmed = [
+      {
+        id: 'filters.orderStatus',
+        values: this.filteredStatus.ordersNotConfirmed.status,
+      },
+      {
+        id: 'filters.orderDate',
+        startDate: this.filteredStatus.ordersNotConfirmed.date.range.start,
+        endDate: this.filteredStatus.ordersNotConfirmed.date.range.end,
+        sameDay: this.filteredStatus.ordersNotConfirmed.date.range.sameDay,
+      },
+    ];
+
+    const filterIndicatorOrdersFailed = [
+      {
+        id: 'filters.orderStatus',
+        values: this.filteredStatus.ordersFailed.status,
+      },
+      {
+        id: 'filters.orderDate',
+        startDate: this.filteredStatus.ordersFailed.date.range.start,
+        endDate: this.filteredStatus.ordersFailed.date.range.end,
+      },
+    ];
+
+    const filterIndicatorOrderToBeConfirmedByBO = [
+      {
+        id: 'filters.orderStatus',
+        values: this.filteredStatus.orderToBeConfirmedByBO.status,
+      },
+      {
+        id: 'filters.orderDate',
+        startDate: this.filteredStatus.orderToBeConfirmedByBO.date.range.start,
+        endDate: this.filteredStatus.orderToBeConfirmedByBO.date.range.end,
+      },
+    ];
+
     const result = await countTotalByIndicators(
-      [
-        {
-          id: 'filters.orderStatus',
-          values: this.filteredStatus.toBeConfirmed.status,
-        },
-        {
-          id: 'filters.orderDate',
-          startDate: this.filteredStatus.toBeConfirmed.date.range.start,
-          endDate: this.filteredStatus.toBeConfirmed.date.range.end,
-        },
-      ],
-      [
-        {
-          id: 'filters.orderStatus',
-          values: this.filteredStatus.ordersInProgress.status,
-        },
-        {
-          id: 'filters.orderDate',
-          startDate: this.filteredStatus.ordersInProgress.date.range.start,
-          endDate: this.filteredStatus.ordersInProgress.date.range.end,
-        },
-      ],
-      [
-        {
-          id: 'filters.orderStatus',
-          values: this.filteredStatus.ordersNotConfirmed.status,
-        },
-        {
-          id: 'filters.orderDate',
-          startDate: this.filteredStatus.ordersNotConfirmed.date.range.start,
-          endDate: this.filteredStatus.ordersNotConfirmed.date.range.end,
-          sameDay: this.filteredStatus.ordersNotConfirmed.date.range.sameDay,
-        },
-      ],
-      [
-        {
-          id: 'filters.orderStatus',
-          values: this.filteredStatus.ordersFailed.status,
-        },
-        {
-          id: 'filters.orderDate',
-          startDate: this.filteredStatus.ordersFailed.date.range.start,
-          endDate: this.filteredStatus.ordersFailed.date.range.end,
-        },
-      ],
-      [
-        {
-          id: 'filters.orderStatus',
-          values: this.filteredStatus.ordersFailed.status,
-        },
-        {
-          id: 'filters.orderDate',
-          startDate: this.filteredStatus.ordersFailed.date.range.start,
-          endDate: this.filteredStatus.ordersFailed.date.range.end,
-        },
-      ]
+      filterIndicatorToBeConfirmed,
+      filterIndicatorOrdersInProgress,
+      filterIndicatorOrdersNotConfirmed,
+      filterIndicatorOrdersFailed,
+      filterIndicatorOrderToBeConfirmedByBO
     );
 
     this.filteredStatus.toBeConfirmed.total = result.indicatorToBeConfirmed.total;
