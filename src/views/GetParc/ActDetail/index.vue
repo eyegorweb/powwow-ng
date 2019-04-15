@@ -20,13 +20,13 @@
         </UiTab>
       </template>
       <div slot="fail">
-        <FailedTable :rows="tabs[0].rows" :total="tabs[0].total" />
+        <FailedTable :mass-action-id="$route.params.massActionId" />
       </div>
       <div slot="ongoing">
-        <OngoingTable :rows="tabs[1].rows" :total="tabs[1].total" />
+        <OngoingTable :mass-action-id="$route.params.massActionId" />
       </div>
       <div slot="finished">
-        <FinishedTable :rows="tabs[2].rows" :total="tabs[2].total" />
+        <FinishedTable :mass-action-id="$route.params.massActionId" />
       </div>
     </UiTabs>
   </div>
@@ -49,6 +49,7 @@ export default {
     FinishedTable,
     ActHistoryDetailPage,
   },
+
   data() {
     return {
       currentLinkIndex: 0,
