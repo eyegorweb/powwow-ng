@@ -35,7 +35,7 @@
 <script>
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
-import { cancelOrder } from '@/api/orders';
+import { cancelOrder, updateOrderStatus } from '@/api/orders';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -73,6 +73,15 @@ export default {
             wide: false,
             backdrop: false,
           });
+          break;
+        }
+
+        case 'getsim.actions.CONFIRM': {
+          if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
+            const orderData = await updateOrderStatus(this.order.id, 'TO_BE_CONFIRMED');
+            this.order.status = orderData.status;
+          }
+
           break;
         }
       }

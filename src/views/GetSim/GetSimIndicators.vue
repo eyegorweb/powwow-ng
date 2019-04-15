@@ -226,11 +226,6 @@ export default {
         id: 'filters.orderStatus',
         values: this.filteredStatus.orderToBeConfirmedByBO.status,
       },
-      {
-        id: 'filters.orderDate',
-        startDate: this.filteredStatus.orderToBeConfirmedByBO.date.range.start,
-        endDate: this.filteredStatus.orderToBeConfirmedByBO.date.range.end,
-      },
     ];
 
     const result = await countTotalByIndicators(
