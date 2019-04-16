@@ -32,6 +32,25 @@
           <GetSimOrdersActions :order="row" />
         </template>
       </DataTable>
+      <Modal v-if="isExportModalOpen">
+        <p slot="body">
+          {{ $t('getsim.export-warning') }}
+        </p>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            @click.stop="isExportModalOpen = false"
+          >
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="modal-default-button btn btn-success btn-sm ml-1"
+            @click.stop="isExportModalOpen = false"
+          >
+            {{ $t('export') }}
+          </button>
+        </div>
+      </Modal>
     </div>
   </LoaderContainer>
 </template>
@@ -46,6 +65,7 @@ import { exportFile } from '@/api/orders';
 import sortBy from 'lodash.sortby';
 import SearchByIdInput from './SearchByIdInput';
 import LoaderContainer from '@/components/LoaderContainer';
+import Modal from '@/components/Modal';
 
 import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
 import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
@@ -106,6 +126,7 @@ export default {
     GetSimOrdersActions,
     SearchByIdInput,
     LoaderContainer,
+    Modal,
   },
   props: {
     isPanelOpen: Boolean,
@@ -113,6 +134,7 @@ export default {
   methods: {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
     ...mapMutations('getsim', ['setPage']),
+    ...mapMutations(['openModal']),
     async fetchOrders() {
       this.fetchOrdersFromApi({
         orderBy: this.orderBy,
@@ -129,8 +151,12 @@ export default {
         .filter(c => c.exportId)
         .map(c => c.exportId);
       const downloadResponse = await exportFile(columnsParam, this.orderBy, this.appliedFilters);
-      if (downloadResponse && downloadResponse.downloadUri) {
-        window.open(downloadResponse.downloadUri, '_blank');
+      if (downloadResponse.asyncRequired) {
+        this.isExportModalOpen = true;
+      } else {
+        if (downloadResponse && downloadResponse.downloadUri) {
+          window.open(downloadResponse.downloadUri, '_blank');
+        }
       }
     },
   },
@@ -213,6 +239,7 @@ export default {
   },
   data() {
     return {
+      isExportModalOpen: false,
       columns: [],
       commonColumns: [
         {

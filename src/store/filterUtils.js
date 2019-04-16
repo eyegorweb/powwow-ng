@@ -12,6 +12,7 @@ export function initGetters() {
   return {
     currentFilters: state => state.currentFilters,
     appliedFilters: state => state.appliedFilters,
+    defaultAppliedFilters: state => state.defaultAppliedFilters,
     canShowSelectedFilter: state =>
       !!state.currentFilters.find(
         f =>

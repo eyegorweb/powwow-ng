@@ -37,6 +37,8 @@ $theme-colors: map-merge(
 @import '~bootstrap/scss/close';
 @import '~bootstrap/scss/dropdown';
 @import '~bootstrap/scss/badge';
+@import '~bootstrap/scss/modal';
+@import '~bootstrap/scss/mixins/transition';
 
 @import 'global.scss';
 @import 'navbar.scss';

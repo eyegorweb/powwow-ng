@@ -13,6 +13,7 @@
   "cancel": "Annuler",
   "delete": "Supprimer",
   "modify": "Modifier",
+  "export": "Exporter",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "optional": "Champ facultatif",
@@ -61,6 +62,7 @@
     "show-all-sim-types": "Afficher tous les types de cartes",
     "choose-sim-amount": "et une quantité",
     "export": "Exporter {total} commande(s)",
+    "export-warning": "L'export sera généré en différé et sera accessible dans la gestion documentaire. Voulez-vous continuer?",
     "sim-type-labels": {
       "format": "Format",
       "licence": "Licence",

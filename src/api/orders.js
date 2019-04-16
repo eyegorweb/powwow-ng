@@ -555,6 +555,7 @@ export async function exportFile(columns, orderBy, filters = []) {
         filters
       )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: EXCEL) {
         downloadUri
+        asyncRequired
       }
     }
     `
