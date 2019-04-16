@@ -388,6 +388,26 @@ export default {
             componentId: 'GetSimOrdersMassActionIdsColumn',
           },
         },
+        {
+          id: 19,
+          label: this.$t('col.offer'),
+          name: 'orderedMarketingOffer',
+          orderable: true,
+          visible: false,
+          exportId: 'ORDER_ORDEREDSIMCARD',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'description',
+          },
+        },
+        {
+          id: 17,
+          label: this.$t('col.externalId'),
+          name: 'externalId',
+          orderable: true,
+          visible: false,
+          exportId: 'ORDER_ORDEREDSIMCARD',
+        },
       ],
       pageLimit: 20,
       orderBy: {
