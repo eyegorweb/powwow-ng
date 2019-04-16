@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group bg-white">
     <li class="list-group-item">
-      {{ $t('indicators.getsim.ordersToBeConfirmed') }}
+      {{ $t('indicators.getparc.lines.cancellation') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-danger"
@@ -12,7 +12,7 @@
       </div>
     </li>
     <li class="list-group-item">
-      {{ $t('indicators.getsim.ordersInProgress') }}
+      {{ $t('indicators.getparc.lines.failed') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-success"
@@ -23,7 +23,7 @@
       </div>
     </li>
     <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0">
-      {{ $t('indicators.getsim.ordersNotConfirmed') }}
+      {{ $t('indicators.getparc.lines.availableSIMCards') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
@@ -34,7 +34,7 @@
       </div>
     </li>
     <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersFailed.total >= 0">
-      {{ $t('indicators.getsim.ordersFailed') }}
+      {{ $t('indicators.getparc.lines.allocatedSIMCards') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
@@ -45,13 +45,35 @@
       </div>
     </li>
     <li class="list-group-item" v-if="!userIsPartner">
-      {{ $t('indicators.getsim.averageProcessingTime') }}
+      {{ $t('indicators.getparc.lines.activatedSIMCards') }}
       <div class="float-right" :class="checkAverageProcessingTimeClasses">
         <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
     <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
-      {{ $t('indicators.getsim.orderToBeConfirmedByBO') }}
+      {{ $t('indicators.getparc.lines.suspended') }}
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.orderToBeConfirmedByBO)"
+        >
+          {{ filteredStatus.orderToBeConfirmedByBO.total }}
+        </button>
+      </div>
+    </li>
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+      {{ $t('indicators.getparc.lines.traffic') }}
+      <div class="float-right">
+        <button
+          class="btn btn-link p-0 text-warning"
+          @click.prevent="filterByStatusIndicator(filteredStatus.orderToBeConfirmedByBO)"
+        >
+          {{ filteredStatus.orderToBeConfirmedByBO.total }}
+        </button>
+      </div>
+    </li>
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+      {{ $t('indicators.getparc.lines.validation') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
@@ -67,7 +89,7 @@
 <script>
 import { fetchGetSimIndicators } from '@/api/indicators';
 import { countTotalByIndicators } from '@/api/orders';
-import { mapMutations, mapGetters, mapState } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import moment from 'moment';
 
@@ -166,30 +188,9 @@ export default {
 
   async mounted() {
     this.indicators = (await fetchGetSimIndicators()) || {};
-    this.initComponent();
-  },
 
-  methods: {
-    ...mapMutations('getsim', ['setCurrentFilters', 'applyFilters']),
-    async initComponent() {
-      let contextPartnersFilter = {};
-      let contextPartnerTypesFilter = {};
-
-      if (this.contextPartnersTypes && this.contextPartnersTypes.length) {
-        contextPartnerTypesFilter = {
-          id: 'filters.partnerTypes',
-          values: this.contextPartnersTypes,
-        };
-      }
-
-      if (this.contextPartners && this.contextPartners.length) {
-        contextPartnersFilter = {
-          id: 'filters.partners',
-          values: this.contextPartners,
-        };
-      }
-
-      const filterIndicatorToBeConfirmed = [
+    const result = await countTotalByIndicators(
+      [
         {
           id: 'filters.orderStatus',
           values: this.filteredStatus.toBeConfirmed.status,
@@ -199,10 +200,8 @@ export default {
           startDate: this.filteredStatus.toBeConfirmed.date.range.start,
           endDate: this.filteredStatus.toBeConfirmed.date.range.end,
         },
-        { ...contextPartnersFilter },
-        { ...contextPartnerTypesFilter },
-      ];
-      const filterIndicatorOrdersInProgress = [
+      ],
+      [
         {
           id: 'filters.orderStatus',
           values: this.filteredStatus.ordersInProgress.status,
@@ -212,11 +211,8 @@ export default {
           startDate: this.filteredStatus.ordersInProgress.date.range.start,
           endDate: this.filteredStatus.ordersInProgress.date.range.end,
         },
-        { ...contextPartnersFilter },
-        { ...contextPartnerTypesFilter },
-      ];
-
-      const filterIndicatorOrdersNotConfirmed = [
+      ],
+      [
         {
           id: 'filters.orderStatus',
           values: this.filteredStatus.ordersNotConfirmed.status,
@@ -227,11 +223,8 @@ export default {
           endDate: this.filteredStatus.ordersNotConfirmed.date.range.end,
           sameDay: this.filteredStatus.ordersNotConfirmed.date.range.sameDay,
         },
-        { ...contextPartnersFilter },
-        { ...contextPartnerTypesFilter },
-      ];
-
-      const filterIndicatorOrdersFailed = [
+      ],
+      [
         {
           id: 'filters.orderStatus',
           values: this.filteredStatus.ordersFailed.status,
@@ -241,34 +234,29 @@ export default {
           startDate: this.filteredStatus.ordersFailed.date.range.start,
           endDate: this.filteredStatus.ordersFailed.date.range.end,
         },
-        { ...contextPartnersFilter },
-        { ...contextPartnerTypesFilter },
-      ];
-
-      const filterIndicatorOrderToBeConfirmedByBO = [
+      ],
+      [
         {
           id: 'filters.orderStatus',
-          values: this.filteredStatus.orderToBeConfirmedByBO.status,
+          values: this.filteredStatus.ordersFailed.status,
         },
-        { ...contextPartnersFilter },
-        { ...contextPartnerTypesFilter },
-      ];
+        {
+          id: 'filters.orderDate',
+          startDate: this.filteredStatus.ordersFailed.date.range.start,
+          endDate: this.filteredStatus.ordersFailed.date.range.end,
+        },
+      ]
+    );
 
-      const result = await countTotalByIndicators(
-        filterIndicatorToBeConfirmed,
-        filterIndicatorOrdersInProgress,
-        filterIndicatorOrdersNotConfirmed,
-        filterIndicatorOrdersFailed,
-        filterIndicatorOrderToBeConfirmedByBO
-      );
+    this.filteredStatus.toBeConfirmed.total = result.indicatorToBeConfirmed.total;
+    this.filteredStatus.ordersInProgress.total = result.indicatorOrdersInProgress.total;
+    this.filteredStatus.ordersNotConfirmed.total = result.indicatorOrdersNotConfirmed.total;
+    this.filteredStatus.ordersFailed.total = result.indicatorOrdersFailed.total;
+    this.filteredStatus.orderToBeConfirmedByBO.total = result.indicatorOrderToBeConfirmedByBO.total;
+  },
 
-      this.filteredStatus.toBeConfirmed.total = result.indicatorToBeConfirmed.total;
-      this.filteredStatus.ordersInProgress.total = result.indicatorOrdersInProgress.total;
-      this.filteredStatus.ordersNotConfirmed.total = result.indicatorOrdersNotConfirmed.total;
-      this.filteredStatus.ordersFailed.total = result.indicatorOrdersFailed.total;
-      this.filteredStatus.orderToBeConfirmedByBO.total =
-        result.indicatorOrderToBeConfirmedByBO.total;
-    },
+  methods: {
+    ...mapMutations('getsim', ['setCurrentFilters', 'applyFilters']),
     filterByStatusIndicator(preselectedFilter) {
       // TODO: filter this status (ordersNotConfirmed) with order.auditable.updated > 4h
       // TODO: filter this status (ordersFailed) with order.auditable.updated > 48h
@@ -300,21 +288,12 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
 
     checkAverageProcessingTimeClasses() {
       return {
         'text-success': this.indicators.averageProcessingTime < 5,
         'text-warning': this.indicators.averageProcessingTime >= 5,
       };
-    },
-  },
-  watch: {
-    async contextPartners() {
-      this.initComponent();
-    },
-    async contextPartnersTypes() {
-      this.initComponent();
     },
   },
 };

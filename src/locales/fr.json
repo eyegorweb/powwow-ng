@@ -1,6 +1,7 @@
 {
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
+  "searchLineById": "Rechercher une ligne par identifiant",
   "search": "Rechercher",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",
@@ -96,6 +97,8 @@
   },
   "getparc": {
     "management-act": "Historique des actes de gestion",
+    "management-lines": "Gestion des lignes",
+    "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
       "PREACTIVATION": "Pré-activation",
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
@@ -194,6 +197,16 @@
         "endDate": "Date de fin"
       }
     },
+    "actLines": {
+      "total": "{total} lignes trouvées",
+      "col": {
+        "simStatus": "Statut de SIM",
+        "lastPLMN": "Dernier pays (ancien PLMN)",
+        "msisdnA": "A-MSISDN",
+        "manufacturer": "Fabricant (IMEI)",
+        "deviceReference": "Modèle (IMEI)"
+      }
+    },
     "search": {
       "act-mass-id": "Id de l’acte de gestion en masse",
       "act-unit-id": "Id de l’acte de gestion unitaire"
@@ -229,15 +242,29 @@
     }
   },
   "indicators": {
-    "ordersInProgress": "Commandes en cours de traitement",
-    "ordersNotConfirmed": "Commandes non confirmées > 4h",
-    "ordersFailed": "Commandes en échec",
-    "ordersToBeConfirmed": "Commandes à valider",
-    "averageProcessingTime": "Délai traitement commande sur 1 mois",
-    "orderToBeConfirmedByBO": "Commandes à valider par le BO",
-    "actionsInProgress": "Actes en cours",
-    "actionsFailed": "Actes en échec",
-    "actionsPlanned": "Actes programmés"
+    "getsim": {
+      "ordersInProgress": "Commandes en cours de traitement",
+      "ordersNotConfirmed": "Commandes non confirmées > 4h",
+      "ordersFailed": "Commandes en échec",
+      "ordersToBeConfirmed": "Commandes à valider",
+      "averageProcessingTime": "Délai traitement commande sur 1 mois",
+      "orderToBeConfirmedByBO": "Commandes à valider par le BO",
+      "actionsInProgress": "Actes en cours",
+      "actionsFailed": "Actes en échec",
+      "actionsPlanned": "Actes programmés"
+    },
+    "getparc": {
+      "lines": {
+        "cancellation": "Résiliations non traitées > 1 mois",
+        "failed": "Actes de gestion en échec",
+        "availableSIMCards": "Cartes SIM en stock",
+        "allocatedSIMCards": "Cartes SIM pré-activées",
+        "activatedSIMCards": "Cartes SIM actives",
+        "suspended": "Suspendu",
+        "traffic": "Trafiquantes M",
+        "validation": "Validation transfert"
+      }
+    }
   },
   "services": {
     "VOIX_ENTRANTE": "Voix entrante",
@@ -266,6 +293,7 @@
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
     "city": "Ville",
+    "country": "Pays",
     "action": "Action",
     "actionValues": {
       "ACTIVATED": "Activé",
@@ -278,7 +306,30 @@
     "actDateCreation": "Date de création de l’acte",
     "actDateStart": "Date de début",
     "actDateEnd": "Date de fin",
-    "actCreator": "Créateur de l’acte"
+    "actCreator": "Créateur de l’acte",
+    "lines": {
+      "fromFile": "Filtrer à partir d’un fichier",
+      "typeSIMCard": "Type de carte SIM",
+      "associatedOffer": "Offre associée",
+      "orderID": "Id de la commande",
+      "SIMCardStatus": "Statut de la carte SIM",
+      "commercialStatus": "Statut commercial",
+      "billingStatus": "Statut de facturation",
+      "networkStatus": "Statut réseau",
+      "importDate": "Date d’import",
+      "endCommitmentDate": "Date de fin d’engagement",
+      "activationDate": "Date d’activation",
+      "preActivationDate": "Date de pré-activation",
+      "statusDate": "Date de statut",
+      "profileEUICC": "État de profil eUICC",
+      "customFileds": "Champs libre 1 à 6",
+      "rangeICCID": "Plage ICCID",
+      "rangeIMSI": "Plage IMSI",
+      "rangeMSISDN": "Plage MSISDN",
+      "rangeIMEI": "Plage IMEI",
+      "siren": "Siren",
+      "traffic": "Lignes trafiquantes"
+    }
   },
   "orders": {
     "choose-account": "Choisir un compte de facturation",

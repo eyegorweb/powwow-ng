@@ -2,7 +2,7 @@
   <SearchIdInput
     :types="valuesForSelectOptions"
     :selected-search-type.sync="selectedSearchType"
-    :input-placeholder="$t('searchActById')"
+    :input-placeholder="$t('searchLineById')"
     @findType="findType"
     @searchById="searchById"
   />
@@ -47,20 +47,15 @@ export default {
         },
         {
           code: 'c6',
-          value: 'idAct',
-          label: this.$t('getparc.search.act-mass-id'),
-        },
-        {
-          code: 'c7',
-          value: 'orderReference',
-          label: this.$t('getparc.search.act-unit-id'),
+          value: 'apId',
+          label: "AP_ID (identifiant de l'access point)",
         },
       ],
     };
   },
   methods: {
     // Matrice descriptive pour récupérer le format selon la valeur de l'identifiant
-    // https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/wikis/documentation/actes-de-gestion#barre-de-recherche-1
+    // https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/wikis/documentation/recherche-de-lignes#barre-de-recherche
     findType(newValue) {
       function checkForLength(str) {
         return str.length;

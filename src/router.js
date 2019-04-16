@@ -7,6 +7,7 @@ import Home from '@/views/Home';
 import GetSim from '@/views/GetSim';
 import GetParcActHistory from '@/views/GetParc/ActHistory';
 import GetParcActDetail from '@/views/GetParc/ActDetail';
+import GetParcManagementActLines from '@/views/GetParc/ActLines';
 
 // const Home = () => import('@/views/Home');
 // const DragHome = () => import('@/views/DragHome/index');
@@ -44,6 +45,11 @@ export default new Router({
       path: '/act-detail/:massActionId',
       name: 'actDetail',
       component: GetParcActDetail,
+    },
+    {
+      path: '/act-lines',
+      name: 'actLines',
+      component: GetParcManagementActLines,
     },
     {
       path: '/exemples',
