@@ -19,6 +19,9 @@ export const getters = {
   userIsPartner: state => {
     return state.userInfos && !!state.userInfos.party;
   },
+  userIsBO: state => {
+    return !(state.userInfos && !!state.userInfos.party);
+  },
 };
 
 export const actions = {

@@ -36,7 +36,7 @@
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
 import { cancelOrder, updateOrderStatus } from '@/api/orders';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -82,45 +82,83 @@ export default {
             this.order.status = orderData.status;
           }
 
+          if (this.order.status === 'CONFIRMATION_IN_PROGRESS') {
+            const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
+            this.order.status = orderData.status;
+          }
+
           break;
         }
       }
     },
   },
   computed: {
+    ...mapGetters(['userIsBO']),
     actions() {
+      let actions = [];
       switch (this.order.status) {
-        case 'NOT_VALIDATED':
-          return [
+        case 'NOT_VALIDATED': {
+          actions = [
             'getsim.actions.DETAIL',
             'getsim.actions.DUPLICATE',
             'getsim.actions.CANCEL',
             'getsim.actions.VALIDATE',
           ];
+          break;
+        }
 
         case 'VALIDATED':
-          return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          break;
 
         case 'CONFIRMATION_IN_PROGRESS':
         case 'TO_BE_CONFIRMED':
-        case 'CANCELED':
-          return ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+        case 'CANCELED': {
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          break;
+        }
 
-        case 'CONFIRMED':
-          return ['getsim.actions.DETAIL', 'getsim.actions.SHOW_SIM', 'getsim.actions.DUPLICATE'];
+        case 'CONFIRMED': {
+          actions = [
+            'getsim.actions.DETAIL',
+            'getsim.actions.SHOW_SIM',
+            'getsim.actions.DUPLICATE',
+          ];
+          break;
+        }
 
-        case 'TERMINATED':
-          return [
+        case 'TERMINATED': {
+          actions = [
             'getsim.actions.DETAIL',
             'getsim.actions.EXPORT',
             'getsim.actions.SHOW_SIM',
             'getsim.actions.DUPLICATE',
           ];
-        case 'TO_BE_CONFIRMED_BY_BO':
-          return ['getsim.actions.DETAIL', 'getsim.actions.CONFIRM', 'getsim.actions.DUPLICATE'];
+          break;
+        }
+
+        case 'TO_BE_CONFIRMED_BY_BO': {
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          break;
+        }
+
         default:
-          return [];
+          actions = [];
       }
+
+      if (this.userIsBO) {
+        const statusesForConfirmation = [
+          'VALIDATED',
+          'CONFIRMATION_IN_PROGRESS',
+          'TO_BE_CONFIRMED',
+          'TO_BE_CONFIRMED_BY_BO',
+        ];
+
+        if (statusesForConfirmation.find(s => s === this.order.status)) {
+          actions.push('getsim.actions.CONFIRM');
+        }
+      }
+      return actions;
     },
   },
 };

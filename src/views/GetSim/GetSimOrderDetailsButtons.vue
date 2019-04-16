@@ -7,15 +7,16 @@
     </div>
     <div
       v-if="
-        statusIn([
-          'VALIDATED',
-          'CONFIRMATION_IN_PROGRESS',
-          'TO_BE_CONFIRMED',
-          'TO_BE_CONFIRMED_BY_BO',
-        ])
+        userIsBO &&
+          statusIn([
+            'VALIDATED',
+            'CONFIRMATION_IN_PROGRESS',
+            'TO_BE_CONFIRMED',
+            'TO_BE_CONFIRMED_BY_BO',
+          ])
       "
     >
-      <UiButton variant="accent" block @click="updateStatus('CONFIRMED')">{{
+      <UiButton variant="accent" block @click="confirmOrder()">{{
         $t('getsim.actions.CONFIRM')
       }}</UiButton>
     </div>
@@ -50,6 +51,7 @@ import UiButton from '@/components/ui/Button';
 import { updateOrderStatus } from '@/api/orders';
 import { mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -59,6 +61,10 @@ export default {
     UiButton,
   },
 
+  computed: {
+    ...mapGetters(['userIsBO']),
+  },
+
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
 
@@ -66,6 +72,23 @@ export default {
       const orderData = await updateOrderStatus(this.order.id, newStatus);
       this.order.status = orderData.status;
     },
+
+    async confirmOrder() {
+      switch (this.order.status) {
+        case 'TO_BE_CONFIRMED_BY_BO': {
+          const orderData = await updateOrderStatus(this.order.id, 'TO_BE_CONFIRMED');
+          this.order.status = orderData.status;
+          break;
+        }
+
+        case 'CONFIRMATION_IN_PROGRESS': {
+          const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
+          this.order.status = orderData.status;
+          break;
+        }
+      }
+    },
+
     statusIn(statuses) {
       return statuses.find(s => s === this.order.status);
     },
