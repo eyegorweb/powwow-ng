@@ -7,13 +7,7 @@
     </div>
     <div
       v-if="
-        userIsBO &&
-          statusIn([
-            'VALIDATED',
-            'CONFIRMATION_IN_PROGRESS',
-            'TO_BE_CONFIRMED',
-            'TO_BE_CONFIRMED_BY_BO',
-          ])
+        userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
       "
     >
       <UiButton variant="accent" block @click="confirmOrder()">{{
@@ -81,7 +75,8 @@ export default {
           break;
         }
 
-        case 'CONFIRMATION_IN_PROGRESS': {
+        case 'CONFIRMATION_IN_PROGRESS':
+        case 'VALIDATED': {
           const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
           this.order.status = orderData.status;
           break;

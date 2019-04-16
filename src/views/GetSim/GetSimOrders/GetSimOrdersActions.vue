@@ -150,7 +150,6 @@ export default {
         const statusesForConfirmation = [
           'VALIDATED',
           'CONFIRMATION_IN_PROGRESS',
-          'TO_BE_CONFIRMED',
           'TO_BE_CONFIRMED_BY_BO',
         ];
 
