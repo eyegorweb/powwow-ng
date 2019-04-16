@@ -181,11 +181,16 @@ export default {
           values: this.contextPartnersTypes,
         };
       }
-
       if (this.contextPartners && this.contextPartners.length) {
         contextPartnersFilter = {
           id: 'filters.partners',
           values: this.contextPartners,
+        };
+      }
+      if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
+        contextPartnersFilter = {
+          id: 'filters.partners',
+          values: this.defaultAppliedFilters[0].values,
         };
       }
 
@@ -300,6 +305,7 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner']),
+    ...mapState('getsim', ['defaultAppliedFilters']),
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
 
     checkAverageProcessingTimeClasses() {
