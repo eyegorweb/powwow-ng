@@ -26,7 +26,7 @@
 import SearchWithSelect from '@/components/SearchWithSelect';
 import UiButton from '@/components/ui/Button';
 import startsWith from 'lodash.startswith';
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -71,7 +71,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['appliedFilters']),
     resultType: {
       get() {
         return this.selectedSearchType;
@@ -87,7 +86,7 @@ export default {
       },
       set(newValue) {
         // Matrice descriptive pour récupérer le format selon la valeur de l'identifiant
-        // https://m2m.extelia.fr/gitlab/powwow-ng/backlog/wikis/documentation/commande#barre-de-recherche
+        // https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/wikis/documentation/commande#barre-de-recherche
         function checkForLength(str) {
           return str.length;
         }
@@ -123,8 +122,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['clearAllFilters', 'forceAppliedFilters']),
+    ...mapMutations('getsim', ['forceAppliedFilters']),
     async fetchOrders() {
       // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
       // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
