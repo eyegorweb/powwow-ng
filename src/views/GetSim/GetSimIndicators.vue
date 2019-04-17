@@ -22,7 +22,10 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0"
+    >
       {{ $t('indicators.getsim.ordersNotConfirmed') }}
       <div class="float-right">
         <button
@@ -50,7 +53,10 @@
         <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0"
+    >
       {{ $t('indicators.getsim.orderToBeConfirmedByBO') }}
       <div class="float-right">
         <button
@@ -187,11 +193,10 @@ export default {
           values: this.contextPartners,
         };
       }
+
+      // Pour les utilisateurs de type partenaire, il faudra chercher le partner de l'utilisateur dans le filtre par défaut ( initialisé au démarrage de la page)
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        contextPartnersFilter = {
-          id: 'filters.partners',
-          values: this.defaultAppliedFilters[0].values,
-        };
+        contextPartnersFilter = this.defaultAppliedFilters;
       }
 
       const filterIndicatorToBeConfirmed = [
