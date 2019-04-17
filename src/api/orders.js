@@ -1,4 +1,4 @@
-import { query, queryHandleErros } from './utils';
+import { query } from './utils';
 import moment from 'moment';
 import get from 'lodash.get';
 
@@ -519,13 +519,13 @@ export async function createOrder(synthesis) {
   }
   `;
 
-  const response = await queryHandleErros(queryStr);
-  const errors = get(response, 'data.errors');
+  const response = await query(queryStr);
+  const errors = get(response, 'errors');
   if (errors) {
     return { errors };
   }
 
-  return get(response, 'data.data.createOrder');
+  return get(response, 'data.createOrder');
 }
 
 export async function cancelOrder(orderId) {
