@@ -1,4 +1,4 @@
-import { query } from './utils';
+import { query, queryHandleErros } from './utils';
 import moment from 'moment';
 import get from 'lodash.get';
 
@@ -435,7 +435,7 @@ export async function createOrder(synthesis) {
   }
 
   const orderReference = get(synthesis, 'orderReference.selection.orderReference');
-  let orderReferenceParam = '';
+  let orderReferenceParam = 'externalId: ""'; // Fix temporaire : suite à un bug backend, on est obligé de passer une valeur
   if (orderReference) {
     orderReferenceParam = `externalId: "${orderReference}"`;
   }
@@ -519,8 +519,13 @@ export async function createOrder(synthesis) {
   }
   `;
 
-  const response = await query(queryStr);
-  return response.data.createOrder;
+  const response = await queryHandleErros(queryStr);
+  const errors = get(response, 'data.errors');
+  if (errors) {
+    return { errors };
+  }
+
+  return get(response, 'data.data.createOrder');
 }
 
 export async function cancelOrder(orderId) {

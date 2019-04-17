@@ -172,10 +172,17 @@ export default {
     async saveOrder() {
       this.checkForErrors();
       if (!this.orderReferenceError && !this.customFieldsErrors.length) {
-        const { id } = await createOrder(this.synthesis);
-        this.closePanel();
-        this.clearAllFilters();
-        this.openPanelForSavedOrder(id);
+        const response = await createOrder(this.synthesis);
+        if (!response.errors) {
+          this.closePanel();
+          this.clearAllFilters();
+          this.openPanelForSavedOrder(response.id);
+        } else {
+          const errors = response.errors;
+          if (errors.length && errors[0].extensions && errors[0].extensions.externalId) {
+            this.orderReferenceError = 'getsim.errors.' + errors[0].extensions.externalId;
+          }
+        }
       }
     },
 
@@ -200,6 +207,7 @@ export default {
       this.customFieldsMeta = m;
     },
     checkForErrors() {
+      this.orderReferenceError = undefined;
       const getValueForField = code => {
         const found = this.customFieldsMeta.values.find(v => v.code === code);
         if (found) {
@@ -224,7 +232,7 @@ export default {
       );
       if (isOrderNumberMandatory) {
         const orderRefContent = get(this.synthesis, 'orderReference.value.content');
-        this.orderReferenceError = orderRefContent ? undefined : 'order.reference';
+        this.orderReferenceError = orderRefContent ? undefined : 'errors.mandatory';
       } else {
         this.orderReferenceError = undefined;
       }
