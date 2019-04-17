@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3 offset-md-9 panel-container">
-      <div class="card">
+      <div class="card" v-clickaway="close">
         <div class="card-body">
           <h6>{{ $t('showOrHideColumns') }}</h6>
 
@@ -26,6 +26,7 @@
 <script>
 import Checkbox from '@/components/ui/Checkbox.vue';
 import cloneDeep from 'lodash.clonedeep';
+import { clickaway } from '@/directives/clickaway';
 
 export default {
   /**
@@ -46,6 +47,7 @@ export default {
       localColumns: [],
     };
   },
+  directives: { clickaway },
 
   created() {
     this.localColumns = cloneDeep(this.columns);
@@ -54,6 +56,9 @@ export default {
   methods: {
     saveExtraColumns() {
       this.$emit('update:columns', this.localColumns);
+    },
+    close() {
+      this.$emit('close');
     },
     isDisabled(column) {
       if (column.fixed) {

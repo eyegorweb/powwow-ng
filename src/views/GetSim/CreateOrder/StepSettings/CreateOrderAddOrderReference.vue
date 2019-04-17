@@ -1,11 +1,7 @@
 <template>
   <div>
     <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}</h3>
-    <UiInput
-      class="d-block"
-      v-model="referenceValue"
-      :error="checkForError ? 'errors.mandatory' : undefined"
-    />
+    <UiInput class="d-block" v-model="referenceValue" :error="checkForError || undefined" />
   </div>
 </template>
 

@@ -4,6 +4,7 @@
       v-if="showExtraColumns"
       :columns="columns"
       @update:columns="setColumns"
+      @close="close"
       :max-columns-number="size"
     />
     <div class="row">
@@ -198,6 +199,9 @@ export default {
   methods: {
     setColumns(newColumns) {
       this.$emit('update:columns', newColumns);
+      this.close();
+    },
+    close() {
       this.$emit('update:showExtraColumns', false);
     },
   },
