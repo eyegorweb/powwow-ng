@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
@@ -108,7 +108,6 @@ export default {
   },
   data() {
     return {
-      total: 1,
       columns: [],
       commonColumns: [
         {
@@ -207,8 +206,6 @@ export default {
           visible: false,
         },
       ],
-
-      page: 0,
       pageLimit: 20,
       orderBy: {
         key: 'id',
@@ -219,6 +216,7 @@ export default {
   },
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
+    ...mapMutations('actHistory', ['setPage']),
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
@@ -229,19 +227,29 @@ export default {
     async fetchMassActions() {
       this.fetchActionsFromApi({
         orderBy: this.orderBy,
-        pageInfo: {
-          // pas de pagination
-          page: this.page,
-          limit: this.pageLimit,
-        },
+        pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
     },
   },
   computed: {
-    ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters']),
+    ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters', 'actHistoryPage']),
     rows() {
-      return this.massActionsResponse ? this.massActionsResponse : [];
+      return this.massActionsResponse ? this.massActionsResponse.items : [];
+    },
+    total() {
+      return this.massActionsResponse ? this.massActionsResponse.total : 0;
+    },
+    getPageInfo() {
+      return { page: this.page - 1, limit: this.pageLimit };
+    },
+    page: {
+      get() {
+        return this.actHistoryPage || 0;
+      },
+      set(newVal) {
+        this.setPage(newVal);
+      },
     },
   },
 };

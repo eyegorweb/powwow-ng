@@ -14,10 +14,12 @@ export const namespaced = true;
 export const state = {
   ...filterUtils.initState(),
   massActionsResponse: [],
+  actHistoryPage: 1,
 };
 
 export const getters = {
   ...filterUtils.initGetters(),
+  actHistoryPage: state => state.actHistoryPage,
   massActionsResponse: state => state.massActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedOrderCreatorValues: state => {
@@ -150,5 +152,8 @@ export const mutations = {
       startDate,
       endDate,
     });
+  },
+  setPage(state, newPage) {
+    state.actHistoryPage = newPage;
   },
 };
