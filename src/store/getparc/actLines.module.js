@@ -1,7 +1,7 @@
 import * as filterUtils from '@/store/filterUtils';
 import { searchLinesActions } from '@/api/linesActions';
 
-const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
+// const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
 

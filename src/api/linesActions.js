@@ -1,4 +1,4 @@
-import { query } from './utils';
+// import { query } from './utils';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchLinesActions(orderBy, pagination, filters = []) {
@@ -63,19 +63,7 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
   // const response = await query(queryStr);
   // return response.data.lines;
 
-  const rows = [
-    {
-      partner: 'Toto',
-      action: 'Pré-activation',
-      actDate: '01/11/2018',
-      details: 'Partner toto',
-      target: 6,
-      success: 0,
-      ongoing: 0,
-      fail: 0,
-    },
-  ];
-
+  console.log(filters);
   const response = {
     data: {
       lines: {
@@ -129,6 +117,7 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
   return response.data.lines.items;
 }
 
+/*
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsForInt(filters, 'filters.partners');
@@ -186,3 +175,4 @@ function getFilterValues(filters, filterId) {
     return foundFilter.values;
   }
 }
+//*/

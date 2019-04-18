@@ -22,7 +22,10 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0"
+    >
       {{ $t('indicators.getparc.lines.availableSIMCards') }}
       <div class="float-right">
         <button
@@ -50,7 +53,10 @@
         <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0"
+    >
       {{ $t('indicators.getparc.lines.suspended') }}
       <div class="float-right">
         <button
@@ -61,7 +67,10 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0"
+    >
       {{ $t('indicators.getparc.lines.traffic') }}
       <div class="float-right">
         <button
@@ -72,7 +81,10 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0">
+    <li
+      class="list-group-item"
+      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0"
+    >
       {{ $t('indicators.getparc.lines.validation') }}
       <div class="float-right">
         <button

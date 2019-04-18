@@ -38,10 +38,8 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable>
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.importDate')" :key="'el13'" draggable>
-          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.importDate')" :key="'el13'" draggable> </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.endCommitmentDate')" :key="'el14'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.activationDate')" :key="'el15'" draggable>
@@ -50,10 +48,8 @@
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.statusDate')" :key="'el17'" draggable>
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable>
-          </FoldableBlock>
-          <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable>
-          </FoldableBlock>
+          <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable> </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.customFileds')" :key="'el21'" draggable>
