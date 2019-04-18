@@ -2,12 +2,13 @@ import { query } from './utils';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchMassActions(orderBy, pagination, filters = []) {
-  const orderingInfo = orderBy
-    ? `, sorting: {field: ${orderBy.key},order:${orderBy.direction}}`
-    : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const orderingInfo = orderBy
+    ? `, sorting: {field: ${orderBy.key},order:${orderBy.direction}}`
+    : '';
+
   const queryStr = `
   query {
     massActions(
@@ -17,6 +18,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
       ${paginationInfo}
       ${orderingInfo}
     ) {
+      total
       items {
         id
         actionType
@@ -40,7 +42,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
   }`;
 
   const response = await query(queryStr);
-  return response.data.massActions.items;
+  return response.data.massActions;
 }
 
 function formatFilters(filters) {
