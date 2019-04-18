@@ -17,23 +17,30 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
       ${paginationInfo}
       ${orderingInfo}
     ) {
-    id
-    actionType
-    dueDate
-    created
-    endDate
-    targetActionNumber
-    completedActionNumber
-    inProgressActionNumber
-    errorActionNumber
-    partyId
-    creator
-    status
+      items {
+        id
+        actionType
+        dueDate
+        created
+        endDate
+        targetActionNumber
+        completedActionNumber
+        inProgressActionNumber
+        errorActionNumber
+        partyId
+        creator
+        status
+        offerName
+        addedServices
+        removeServices
+        transitionName
+        destinationCustomerAccountCode
+      }
     }
   }`;
 
   const response = await query(queryStr);
-  return response.data.massActions;
+  return response.data.massActions.items;
 }
 
 function formatFilters(filters) {

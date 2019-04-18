@@ -150,13 +150,17 @@
       "col": {
         "action": "Action",
         "actDate": "Prévue",
+        "created": "Date de création",
         "endDate": "Date de fin",
         "details": "Détails",
         "target": "Ciblée",
         "success": "Succès",
         "ongoing": "En cours",
         "fail": "Échec",
-        "onfailing": "En erreur"
+        "onfailing": "En erreur",
+        "partyId": "Partenaire",
+        "creator": "Nom du créateur",
+        "status": "Statut"
       },
       "details": {
         "title": "Acte de gestion {id}",
@@ -169,12 +173,21 @@
         "massActionDateCreated": "Date de création de l'action de masse",
         "massActionDateStarted": "Date d'application de l'action de masse",
         "massActionDateEnded": "Date de fin de l'action de masse",
+        "lines": "lignes",
+        "offer": "offre",
         "name": "Nom",
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
         "EXPORT_LINES": "Exporter {total} lignes",
         "RESULT": "Voir le résultat de l'acte",
+        "newStatus": "Nouveau statut",
+        "changeCf": "Nouveau C.F",
+        "newOffer": "Nouvelle offre",
+        "SERVICE_CHANGE": {
+          "ADDED": "Service(s) ajouté(s)",
+          "REMOVED": "Retiré(s)"
+        },
         "actStatuses": {
           "STARTED": "Démarré",
           "CREATED": "Créé",
