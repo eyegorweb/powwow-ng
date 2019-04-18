@@ -151,7 +151,7 @@ export default {
         },
         {
           id: 6,
-          label: this.$t('getparc.history.col.endDate'),
+          label: this.$t('getparc.history.col.success'),
           name: 'completedActionNumber',
           orderable: true,
           visible: true,
@@ -170,19 +170,44 @@ export default {
           orderable: true,
           visible: true,
         },
+        // colonnes cachées par défaut
+        {
+          id: 9,
+          label: this.$t('getparc.history.col.created'),
+          name: 'created',
+          orderable: true,
+          visible: false,
+        },
+        {
+          id: 10,
+          label: this.$t('getparc.history.col.endDate'),
+          name: 'endDate',
+          orderable: true,
+          visible: false,
+        },
+        {
+          id: 11,
+          label: this.$t('getparc.history.col.partyId'),
+          name: 'partyId',
+          orderable: true,
+          visible: false,
+        },
+        {
+          id: 12,
+          label: this.$t('getparc.history.col.creator'),
+          name: 'creator',
+          orderable: true,
+          visible: false,
+        },
+        {
+          id: 13,
+          label: this.$t('getparc.history.col.status'),
+          name: 'status',
+          orderable: true,
+          visible: false,
+        },
       ],
-      // rows: [
-      //   {
-      //     id: '260114',
-      //     action: 'Pré-activation',
-      //     actDate: '01/11/2018',
-      //     details: 'Offre: SCHINDLER_40MO_30MIN',
-      //     target: 6,
-      //     success: 0,
-      //     ongoing: 0,
-      //     fail: 0,
-      //   },
-      // ],
+
       page: 0,
       pageLimit: 20,
       orderBy: {
