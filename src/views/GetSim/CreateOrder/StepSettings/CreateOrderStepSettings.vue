@@ -1,7 +1,7 @@
 <template>
   <div class="step-settings-container">
     <div class="panel-vertical-container" v-if="!isOpen">
-      <div class="main-content step-content">
+      <div class="main-content">
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -33,7 +33,7 @@
       </div>
       <div class="footer-back">
         <div class="row">
-          <div class="col-md-12 mt-5">
+          <div class="col-md-12 mb-5">
             <UiButton
               variant="round-button"
               @click="$emit('prev')"
