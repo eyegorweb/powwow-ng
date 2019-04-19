@@ -35,7 +35,7 @@
               variant="round-button"
               @click="done"
               :disabled="!canGoToNextStep"
-              class="float-right ic-Arrow-Next-Icon"
+              class="float-right ic-Arrow-Next-Icon next-btn"
             />
           </div>
         </div>
@@ -192,6 +192,12 @@ export default {
 
   @media screen and (min-width: 1440px) {
     padding: 0 7rem;
+  }
+
+  .next-btn {
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
   }
 }
 
