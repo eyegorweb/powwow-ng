@@ -129,7 +129,8 @@ export default {
   input:checked + .slider:before {
     transition: 0.4s;
     background-color: $white;
-    transform: translateX(calc(100% + 6px));
+    transform: translateX(100%);
+    margin-left: 6px;
   }
 
   .slider {
