@@ -121,6 +121,18 @@ function saveColumnsToLocalStorage(columns) {
   localStorage.setItem('getsim.savedColumns', JSON.stringify(savableColumns));
 }
 
+/**
+ * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
+ */
+const VERSION = '1';
+function checkConfigVersion() {
+  const savedVersion = localStorage.getItem('tables.version');
+  if (savedVersion !== VERSION) {
+    localStorage.removeItem('getsim.savedColumns');
+    localStorage.setItem('tables.version', VERSION);
+  }
+}
+
 export default {
   name: 'Orders',
   components: {
@@ -209,6 +221,7 @@ export default {
   },
 
   async mounted() {
+    checkConfigVersion();
     const savedColumns = loadColumnsFromLocalStorage();
     if (savedColumns) {
       this.columns = savedColumns;
