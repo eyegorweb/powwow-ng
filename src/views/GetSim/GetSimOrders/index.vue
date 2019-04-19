@@ -428,4 +428,8 @@ export default {
     text-decoration: none;
   }
 }
+
+.total-row h2 {
+  display: inline;
+}
 </style>

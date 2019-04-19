@@ -86,7 +86,7 @@ export default {
 
 <style lang="scss">
 .actions .btn {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .modal-title {

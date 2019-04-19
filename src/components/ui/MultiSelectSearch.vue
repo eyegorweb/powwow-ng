@@ -19,7 +19,7 @@
             role="button"
             tabindex="0"
             class="remove-item close-icon"
-            style="font-size: 24px"
+            style="width: 2rem"
             src="@/assets/close-white.svg"
             @click="removeSelection(selected)"
           />

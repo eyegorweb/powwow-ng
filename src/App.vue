@@ -47,4 +47,16 @@ h4 {
     color: $gray-400;
   }
 }
+
+@media only screen and (max-width: 1024px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1366px) {
+  html {
+    font-size: 10px;
+  }
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="get-sim-product">
     <div class="panel-vertical-container">
-      <div class="main-content">
+      <div class="main-content step-content">
         <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
           <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>
           <div class="choose-sim-type">
@@ -247,6 +247,23 @@ export default {
 
     &::placeholder {
       color: black;
+    }
+  }
+}
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.step-content {
+      max-height: 87vh;
+      min-height: 75vh !important;
+    }
+  }
+}
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.step-content {
+      min-height: 75vh;
+      max-height: 87vh;
     }
   }
 }
