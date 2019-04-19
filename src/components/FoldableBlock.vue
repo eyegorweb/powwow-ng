@@ -55,7 +55,7 @@ export default {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   clear: both;
   .title {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
   }
   i {

@@ -1,7 +1,7 @@
 <template>
-  <div class="get-sim-services" :style="{ paddingLeft: 55 + 'px', paddingRight: 55 + 'px' }">
+  <div class="get-sim-services">
     <div class="panel-vertical-container">
-      <div class="main-content">
+      <div class="main-content step-content">
         <div>
           <h2 class="title">{{ $t('orders.choose-services') }}</h2>
         </div>
@@ -10,7 +10,7 @@
           <UiToggle label="Activation" v-model="activation" />
         </div>
         <div v-if="activation && offers && offers.length">
-          <div class="row justify-content-center">
+          <div class=" ">
             <OffersChoice v-model="selectedOffer" :offers="offers" :partner-id="partnerId" />
           </div>
 
@@ -370,6 +370,13 @@ export default {
   }
 }
 
+@media screen and (max-height: 768px) {
+  .get-sim-services {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+}
+
 .services-container {
   display: flex;
   flex-wrap: wrap;
@@ -380,6 +387,8 @@ export default {
   }
 }
 .get-sim-services {
+  padding-left: 55px;
+  padding-right: 55px;
   .title {
     background-color: transparent;
     color: $dark-gray;
@@ -416,10 +425,9 @@ export default {
   }
 
   .select-container {
-    max-width: 270px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
     flex-grow: 1;
 
     p {
@@ -466,6 +474,23 @@ export default {
     max-width: 210px;
     flex-grow: 1;
     margin-left: 10px;
+  }
+}
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.step-content {
+      max-height: 75vh;
+      min-height: 75vh !important;
+    }
+  }
+}
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.step-content {
+      min-height: 75vh;
+      max-height: 87vh;
+    }
   }
 }
 </style>

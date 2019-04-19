@@ -1,7 +1,7 @@
 <template>
   <div class="step-settings-container">
     <div class="panel-vertical-container" v-if="!isOpen">
-      <div class="main-content">
+      <div class="main-content step-content">
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -280,6 +280,23 @@ export default {
   .subcontainer {
     max-height: 31rem;
     overflow-y: auto;
+  }
+}
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.step-content {
+      max-height: 75vh;
+      min-height: 75vh !important;
+    }
+  }
+}
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.step-content {
+      min-height: 75vh;
+      max-height: 87vh;
+    }
   }
 }
 </style>

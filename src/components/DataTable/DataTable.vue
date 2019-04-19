@@ -33,14 +33,16 @@
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name + column.label" v-for="column in sortableColumns">
-                <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
-                {{ column.label }}
-                <DataTableOrderArrow
-                  v-if="column.orderable"
-                  :column-name="column.name"
-                  :sorting-name="column.sortingName"
-                  :order-by.sync="currentDirection"
-                />
+                <div class="thead-actions">
+                  <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
+                  <span>{{ column.label }}</span>
+                  <DataTableOrderArrow
+                    v-if="column.orderable"
+                    :column-name="column.name"
+                    :sorting-name="column.sortingName"
+                    :order-by.sync="currentDirection"
+                  />
+                </div>
               </th>
               <th :key="'btnAdd'">
                 <button
@@ -219,7 +221,7 @@ export default {
 }
 .table-blue {
   background: white !important;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 24px;
 }
 
@@ -230,7 +232,7 @@ export default {
 .table-blue th {
   font-weight: normal;
   color: #ffffff;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .table-blue td .fa-blue {
@@ -292,5 +294,16 @@ select {
 .select-arrow {
   display: inline-block;
   transform: translateX(calc(-50% - 15px));
+}
+
+.thead-actions {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1024px) {
+  .table-blue th {
+    font-size: 1rem;
+  }
 }
 </style>

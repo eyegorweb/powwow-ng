@@ -14,6 +14,7 @@
     <transition name="fade">
       <div
         class="dropdown-menu shadow rounded-1 border-0 show pt-0 pb-0"
+        :style="menuStyle"
         v-if="isOpen"
         v-clickaway="hide"
       >
@@ -30,6 +31,11 @@ import { clickaway } from '@/directives/clickaway';
 import UiButton from '@/components/ui/Button';
 
 export default {
+  props: {
+    menuStyle: {
+      type: Object,
+    },
+  },
   data() {
     return {
       isOpen: false,

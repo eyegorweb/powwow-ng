@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-end">
-    <UiDropdownButton>
+    <UiDropdownButton :menu-style="{ left: '-4rem' }">
       <UiButton
         slot="trigger"
         slot-scope="{ staticClass, toggle }"

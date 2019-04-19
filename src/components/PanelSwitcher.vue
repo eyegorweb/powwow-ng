@@ -53,7 +53,7 @@ export default {
 .panel-container {
   height: 100%;
   margin: 0;
-  padding-top: 57px;
+  padding-top: 3.7em;
   overflow: hidden;
   div {
     padding: 0;

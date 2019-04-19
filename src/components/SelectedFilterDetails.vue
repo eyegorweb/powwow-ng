@@ -83,12 +83,12 @@ export default {
 
 .detail-title {
   color: $secondary;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1em;
 }
 
 .detail {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1em;
 }
 </style>
