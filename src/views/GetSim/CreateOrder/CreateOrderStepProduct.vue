@@ -52,13 +52,13 @@
             <UiButton
               variant="round-button"
               @click="prev"
-              class="float-left ic-Arrow-Previous-Icon"
+              class="float-left ic-Arrow-Previous-Icon prev-btn"
             />
             <UiButton
               variant="round-button"
               @click="done"
               :disabled="!canGoToNextStep"
-              class="float-right ic-Arrow-Next-Icon"
+              class="float-right ic-Arrow-Next-Icon next-btn"
             />
           </div>
         </div>
@@ -224,6 +224,17 @@ export default {
     i {
       font-size: 1rem;
     }
+  }
+
+  .next-btn {
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
+  }
+  .prev-btn {
+    position: absolute;
+    left: 1rem;
+    bottom: 0;
   }
 
   @media screen and (min-width: 1440px) {

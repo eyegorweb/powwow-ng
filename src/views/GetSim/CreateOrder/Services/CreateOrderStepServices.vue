@@ -60,13 +60,13 @@
             <UiButton
               variant="round-button"
               @click="prev"
-              class="float-left ic-Arrow-Previous-Icon"
+              class="float-left ic-Arrow-Previous-Icon prev-btn"
             />
             <UiButton
               variant="round-button"
               :disabled="activation && !selectedOffer"
               @click="done"
-              class="float-right ic-Arrow-Next-Icon"
+              class="float-right ic-Arrow-Next-Icon next-btn"
             />
           </div>
         </div>
@@ -479,6 +479,17 @@ export default {
     flex-grow: 1;
     margin-left: 10px;
   }
+}
+
+.next-btn {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+}
+.prev-btn {
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
 }
 
 @media screen and (max-height: 768px) {

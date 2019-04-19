@@ -37,7 +37,7 @@
             <UiButton
               variant="round-button"
               @click="$emit('prev')"
-              class="float-left ic-Arrow-Previous-Icon"
+              class="float-left ic-Arrow-Previous-Icon prev-btn"
             />
           </div>
         </div>
@@ -269,6 +269,42 @@ export default {
       line-height: 3rem;
     }
   }
+
+  .prev-btn {
+    position: absolute;
+    left: 1rem;
+    bottom: 0;
+  }
+
+  @media screen and (max-height: 768px) {
+    .subcontainer {
+      max-height: 21rem;
+      overflow-y: auto;
+    }
+  }
+  @media screen and (min-height: 769px) {
+    .subcontainer {
+      max-height: 31rem;
+      overflow-y: auto;
+    }
+  }
+
+  @media screen and (max-height: 768px) {
+    .panel-vertical-container {
+      div.step-content {
+        max-height: 75vh;
+        min-height: 75vh !important;
+      }
+    }
+  }
+  @media screen and (min-height: 769px) {
+    .panel-vertical-container {
+      div.step-content {
+        min-height: 75vh;
+        max-height: 87vh;
+      }
+    }
+  }
 }
 
 .title {
@@ -279,35 +315,5 @@ export default {
   margin: 3rem 0 1.875rem;
   padding: 0;
   text-align: center;
-}
-
-@media screen and (max-height: 768px) {
-  .subcontainer {
-    max-height: 21rem;
-    overflow-y: auto;
-  }
-}
-@media screen and (min-height: 769px) {
-  .subcontainer {
-    max-height: 31rem;
-    overflow-y: auto;
-  }
-}
-
-@media screen and (max-height: 768px) {
-  .panel-vertical-container {
-    div.step-content {
-      max-height: 75vh;
-      min-height: 75vh !important;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .panel-vertical-container {
-    div.step-content {
-      min-height: 75vh;
-      max-height: 87vh;
-    }
-  }
 }
 </style>
