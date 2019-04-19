@@ -104,7 +104,18 @@ export default {
 
     async fetchCustomFieldsForPartner() {
       const partnerId = this.synthesis.billingAccount.value.partnerId;
-      this.allCustomFields = await fetchCustomFields(partnerId);
+      const isActivationAsked = get(this.synthesis, 'services.selection.activation', false);
+
+      const allCustomFields = await fetchCustomFields(partnerId);
+      this.allCustomFields = allCustomFields.map(c => {
+        c.isOptional = true;
+        if (c.mandatory === 'ORDER') {
+          c.isOptional = false;
+        } else if (isActivationAsked && c.mandatory === 'ACTIVATION') {
+          c.isOptional = false;
+        }
+        return c;
+      });
       this.$emit('customFieldsMeta', {
         all: this.allCustomFields,
         values: [],

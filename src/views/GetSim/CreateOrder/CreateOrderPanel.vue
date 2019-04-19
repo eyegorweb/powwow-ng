@@ -216,7 +216,7 @@ export default {
       };
 
       this.customFieldsErrors = this.customFieldsMeta.all
-        .filter(c => c.mandatory === 'ORDER')
+        .filter(c => !c.isOptional)
         .filter(c => {
           const value = getValueForField(c.code);
           if (!value || value.length === 0) {
