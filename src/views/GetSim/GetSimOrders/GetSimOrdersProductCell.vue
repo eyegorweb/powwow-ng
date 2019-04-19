@@ -1,6 +1,6 @@
 <template>
   <div class="truncate">
-    <Truncate :limit="2" :content="row.orderedSimcard.description"></Truncate>
+    <Truncate :limit="30" :content="row.orderedSimcard.description"></Truncate>
   </div>
 </template>
 
