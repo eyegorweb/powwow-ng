@@ -82,6 +82,7 @@ import OffersChoice from './OffersChoice';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
 
 import get from 'lodash.get';
+import flatten from 'lodash.flatten';
 import { fetchOffersForPartnerId } from '@/api/offers';
 
 export default {
@@ -160,10 +161,10 @@ export default {
      * Il faut scanner tout les éléments de nonSystemServiceGroupList > standardAndSemiGlobalCatalogServiceGroups > catalogService pour extraire les données du service
      */
     getServiceData(dependencyCode) {
-      return this.selectedOfferData.initialOffer.nonSystemServiceGroupList
-        .map(g => g.standardAndSemiGlobalCatalogServiceGroups)
-        .flat()
-        .find(s => s.catalogService.code === dependencyCode);
+      const groupServices = this.selectedOfferData.initialOffer.nonSystemServiceGroupList.map(
+        g => g.standardAndSemiGlobalCatalogServiceGroups
+      );
+      flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
     },
     initServicesForOffer() {
       const initServices = () => {
@@ -410,6 +411,7 @@ export default {
     margin-bottom: 24px;
 
     .toggle {
+      flex: 1 100%;
       flex-grow: 1;
     }
   }

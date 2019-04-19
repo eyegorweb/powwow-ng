@@ -6416,6 +6416,11 @@ lodash.differenceby@^4.8.0:
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.differenceby/-/lodash.differenceby-4.8.0.tgz#cfd59e94353af5de51da5d302ca4ebff33faac57"
   integrity sha1-z9WelDU69d5R2l0wLKTr/zP6rFc=
 
+lodash.flatten@^4.4.0:
+  version "4.4.0"
+  resolved "http://r.cnpmjs.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
+  integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
+
 lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
