@@ -20,14 +20,53 @@ export async function fetchUsers(q, partners, { page, limit, partnerTypes }) {
     users(filter:{fullname: {contains: "${q}"}${partnerGqlParam}${partnerTypesGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
       total
       items {
-        id
-        name {
-          title
-          firstName
-          lastName
-        }
-        party {
+        __typename
+        ... on User {
           id
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
+
+        }
+        ... on UserParty {
+          id
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
+          party {
+            id
+          }
+        }
+        ... on UserPartyGroup {
+          id
+          email
+          name {
+            title
+            firstName
+            lastName
+          }
+          roles {
+            name
+            description
+            category
+          }
+
         }
       }
     }

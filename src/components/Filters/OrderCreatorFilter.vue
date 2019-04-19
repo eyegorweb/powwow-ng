@@ -29,11 +29,16 @@ export default {
     async fetchApi(q, partners, partnerTypes, { page, limit }) {
       const data = await fetchUsers(q, partners, { page, limit, partnerTypes });
       if (data) {
-        return data.map(p => ({
-          id: p.id,
-          label: `${p.name.firstName || ''} ${p.name.lastName || ''}`,
-          partnerId: p.party.id,
-        }));
+        return data.map(p => {
+          const formattedUser = {
+            id: p.id,
+            label: `${p.name.firstName || ''} ${p.name.lastName || ''}`,
+          };
+          if (p.party) {
+            formattedUser.partnerId = p.party.id;
+          }
+          return formattedUser;
+        });
       }
     },
   },
