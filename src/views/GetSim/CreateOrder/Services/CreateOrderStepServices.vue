@@ -1,9 +1,9 @@
 <template>
-  <div class="get-sim-services">
+  <div class="step-client-container">
     <div class="panel-vertical-container">
-      <div class="main-content step-content">
+      <div class="main-content">
         <div>
-          <h2 class="title">{{ $t('orders.choose-services') }}</h2>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-services') }}</h3>
         </div>
         <div class="toggles-container">
           <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
@@ -56,7 +56,7 @@
       </div>
       <div class="footer-back">
         <div class="row">
-          <div class="col-md-12 mt-5">
+          <div class="col-md-12 mb-5">
             <UiButton
               variant="round-button"
               @click="prev"
@@ -377,18 +377,20 @@ export default {
   }
 }
 
-.services-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
-  .single-service {
-    flex-basis: 50%;
+.step-client-container {
+  padding: 0 2rem;
+  @media screen and (min-width: 1440px) {
+    padding: 0 7rem;
   }
-}
-.get-sim-services {
-  padding-left: 55px;
-  padding-right: 55px;
+  .services-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    .single-service {
+      flex-basis: 50%;
+    }
+  }
   .title {
     background-color: transparent;
     color: $dark-gray;

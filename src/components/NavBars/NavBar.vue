@@ -155,6 +155,7 @@ a {
   .sub-menu {
     position: absolute;
     z-index: 99;
+    right: 0.25rem;
   }
 
   .list-group-item {

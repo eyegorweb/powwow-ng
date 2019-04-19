@@ -67,7 +67,7 @@
 
       <div class="footer-back">
         <div class="row">
-          <div class="col-md-12 mt-5">
+          <div class="col-md-12 mb-5">
             <UiButton
               variant="round-button"
               @click="prev"

@@ -10,7 +10,7 @@
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.orderReference" />
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.customFields" />
     </div>
-    <div class="footer pt-3">
+    <div class="footer pt-3" v-if="canSave">
       <UiCheckbox v-model="accept" :disabled="!canSave">
         {{ $t('orders.new.acceptConditions') }}
       </UiCheckbox>

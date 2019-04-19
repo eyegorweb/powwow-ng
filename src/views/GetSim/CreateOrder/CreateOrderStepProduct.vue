@@ -1,7 +1,7 @@
 <template>
-  <div class="get-sim-product">
+  <div class="step-client-container">
     <div class="panel-vertical-container">
-      <div class="main-content step-content">
+      <div class="main-content">
         <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
           <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>
           <div class="choose-sim-type">
@@ -48,7 +48,7 @@
       </div>
       <div class="footer-back">
         <div class="row">
-          <div class="col-md-12 mt-5">
+          <div class="col-md-12 mb-5">
             <UiButton
               variant="round-button"
               @click="prev"
@@ -195,9 +195,9 @@ export default {
 </script>
 
 <style lang="scss">
-.get-sim-product {
-  padding-left: 30px !important;
-  padding-right: 30px !important;
+.step-client-container {
+  padding: 0 2rem;
+
   .choose-sim-type {
     max-height: 400px;
     overflow-y: auto;
@@ -224,6 +224,10 @@ export default {
     i {
       font-size: 1rem;
     }
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 7rem;
   }
 }
 
@@ -255,14 +259,14 @@ export default {
   .panel-vertical-container {
     div.step-content {
       max-height: 87vh;
-      min-height: 75vh !important;
+      min-height: 60vh !important;
     }
   }
 }
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
     div.step-content {
-      min-height: 75vh;
+      min-height: 60vh;
       max-height: 87vh;
     }
   }

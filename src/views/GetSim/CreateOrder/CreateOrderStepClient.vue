@@ -3,7 +3,7 @@
     <div class="panel-vertical-container">
       <div class="main-content">
         <div v-if="!userIsPartner">
-          <h2 class="panel-title">{{ $t('orders.choose-partner') }}</h2>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
 
           <UiApiAutocomplete
             :api-method="fetchPartners"
@@ -20,7 +20,7 @@
           </UiApiAutocomplete>
         </div>
         <div>
-          <h2 class="panel-title">{{ $t('orders.choose-account') }}</h2>
+          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-account') }}</h3>
           <UiApiAutocomplete
             :items="billingAccounts"
             v-model="selectedBillingAccount"
@@ -29,12 +29,16 @@
         </div>
       </div>
       <div class="footer-back">
-        <UiButton
-          variant="round-button"
-          @click="done"
-          :disabled="!canGoToNextStep"
-          class="float-right ic-Arrow-Next-Icon"
-        />
+        <div class="row">
+          <div class="col-md-12 mb-5">
+            <UiButton
+              variant="round-button"
+              @click="done"
+              :disabled="!canGoToNextStep"
+              class="float-right ic-Arrow-Next-Icon"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -188,6 +192,23 @@ export default {
 
   @media screen and (min-width: 1440px) {
     padding: 0 7rem;
+  }
+}
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.step-content {
+      max-height: 75vh;
+      min-height: 60vh !important;
+    }
+  }
+}
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.step-content {
+      min-height: 60vh;
+      max-height: 87vh;
+    }
   }
 }
 
