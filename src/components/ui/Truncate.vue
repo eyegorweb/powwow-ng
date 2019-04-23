@@ -1,16 +1,21 @@
 <template>
   <div>
-    <span> {{ text }}</span>
-    <button
-      v-if="displaysTruncatedText"
-      class="see-less"
-      @click="displaysTruncatedText = !displaysTruncatedText"
-    >
-      -
-    </button>
-    <button v-else class="see-more" @click="displaysTruncatedText = !displaysTruncatedText">
-      +
-    </button>
+    <div v-if="content.length <= limit">
+      <span> {{ content }}</span>
+    </div>
+    <div v-else>
+      <span> {{ text }}</span>
+      <button
+        v-if="displaysTruncatedText"
+        class="see-less"
+        @click="displaysTruncatedText = !displaysTruncatedText"
+      >
+        &nbsp;-
+      </button>
+      <button v-else class="see-more" @click="displaysTruncatedText = !displaysTruncatedText">
+        &nbsp;+
+      </button>
+    </div>
   </div>
 </template>
 
@@ -43,11 +48,16 @@ export default {
 
 <style lang="scss" scoped>
 button {
+  display: inline;
   outline: 0;
   border: 0;
   background-color: transparent;
   color: $secondary;
   font-weight: bold;
   font-size: 28px;
+
+  &.see-more {
+    font-size: 22px;
+  }
 }
 </style>
