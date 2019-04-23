@@ -244,7 +244,7 @@ export default {
 
 .choose-amount {
   .panel-title {
-    margin-top: 1.5rem;
+    margin: 1.5rem 0 0.5rem;
     @media screen and (max-height: 900px) {
       margin: 0.4rem auto;
     }

@@ -49,7 +49,6 @@ export default {
   },
   async mounted() {
     this.columns = setFormatComponentsToColumns([...this.commonColumns]);
-    console.log('mocked datas', this.rows);
   },
   data() {
     return {

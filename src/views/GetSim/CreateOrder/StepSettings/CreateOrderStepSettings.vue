@@ -1,5 +1,5 @@
 <template>
-  <div class="step-settings-container">
+  <div class="step-client-container">
     <div class="panel-vertical-container" v-if="!isOpen">
       <div class="main-content">
         <CreateOrderAddOrderReference
@@ -38,6 +38,11 @@
               variant="round-button"
               @click="$emit('prev')"
               class="float-left ic-Arrow-Previous-Icon prev-btn"
+            />
+            <UiButton
+              variant="round-button"
+              @click="done"
+              class="float-right ic-Arrow-Next-Icon next-btn"
             />
           </div>
         </div>
@@ -243,77 +248,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.step-settings-container {
-  font-size: 0.875rem;
-  padding: 0 2rem;
+.step-client-container {
+  padding: 0 2rem !important;
 
   @media screen and (min-width: 1440px) {
-    padding: 0 7rem;
+    padding: 0 7rem !important;
   }
-  .btn-adder {
-    color: $dark-gray !important;
-    background-color: $light-gray !important;
-    border-color: $medium-gray !important;
-    .btn-round-button {
-      display: inline-block;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      border: none;
-      font-size: 1.5rem;
-      color: $white;
-      text-align: center;
-      background: $secondary;
-      padding: 0 !important;
-      vertical-align: middle;
-      line-height: 3rem;
-    }
-  }
-
-  .prev-btn {
-    position: absolute;
-    left: 1rem;
-    bottom: 0;
-  }
-
-  @media screen and (max-height: 768px) {
-    .subcontainer {
-      max-height: 21rem;
-      overflow-y: auto;
-    }
-  }
-  @media screen and (min-height: 769px) {
-    .subcontainer {
-      max-height: 31rem;
-      overflow-y: auto;
-    }
-  }
-
-  @media screen and (max-height: 768px) {
-    .panel-vertical-container {
-      div.step-content {
-        max-height: 75vh;
-        min-height: 75vh !important;
-      }
-    }
-  }
-  @media screen and (min-height: 769px) {
-    .panel-vertical-container {
-      div.step-content {
-        min-height: 75vh;
-        max-height: 87vh;
-      }
-    }
+}
+.btn-adder {
+  color: $dark-gray !important;
+  background-color: $light-gray !important;
+  border-color: $medium-gray !important;
+  .btn-round-button {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.5rem;
+    color: $white;
+    text-align: center;
+    background: $secondary;
+    padding: 0 !important;
+    vertical-align: middle;
+    line-height: 3rem;
   }
 }
 
-.title {
-  background-color: transparent;
-  color: $dark-gray;
-  font-weight: 300;
-  font-size: 2rem;
-  margin: 3rem 0 1.875rem;
-  padding: 0;
-  text-align: center;
+.prev-btn {
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+}
+
+@media screen and (max-height: 768px) {
+  .subcontainer {
+    max-height: 21rem;
+    overflow-y: auto;
+  }
+}
+@media screen and (min-height: 769px) {
+  .subcontainer {
+    max-height: 31rem;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (max-height: 768px) {
+  .panel-vertical-container {
+    div.step-content {
+      max-height: 87vh;
+      min-height: 60vh !important;
+    }
+  }
+}
+@media screen and (min-height: 769px) {
+  .panel-vertical-container {
+    div.step-content {
+      min-height: 60vh;
+      max-height: 87vh;
+    }
+  }
 }
 </style>

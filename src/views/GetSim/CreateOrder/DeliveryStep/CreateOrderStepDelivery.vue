@@ -302,18 +302,17 @@ export default {
 
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
-    div.main-content {
-      max-height: 75vh !important;
-      min-height: 75vh !important;
+    div.step-content {
+      max-height: 87vh;
+      min-height: 60vh !important;
     }
   }
 }
-
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
-    div.main-content {
-      min-height: 75vh !important;
-      max-height: 75vh !important;
+    div.step-content {
+      min-height: 60vh;
+      max-height: 87vh;
     }
   }
 }

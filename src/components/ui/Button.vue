@@ -34,11 +34,11 @@ export default {
 <style lang="scss" scoped>
 .btn-round-button {
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: $white;
   text-align: center;
   background: $primary;
