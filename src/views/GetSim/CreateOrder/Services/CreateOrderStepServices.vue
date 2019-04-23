@@ -166,7 +166,8 @@ export default {
       const groupServices = this.selectedOfferData.initialOffer.nonSystemServiceGroupList.map(
         g => g.standardAndSemiGlobalCatalogServiceGroups
       );
-      flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
+      const result = flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
+      return result;
     },
     initServicesForOffer() {
       const initServices = () => {
