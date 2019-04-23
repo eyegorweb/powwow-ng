@@ -204,7 +204,7 @@ export default {
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
     div.step-content {
-      max-height: 75vh;
+      max-height: 87vh;
       min-height: 60vh !important;
     }
   }
