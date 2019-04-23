@@ -3,7 +3,9 @@
     <div class="panel-vertical-container">
       <div class="main-content">
         <div>
-          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-services') }}</h3>
+          <h3 class="font-weight-light text-center mt-4 mb-4">
+            {{ $t('orders.choose-services') }}
+          </h3>
         </div>
         <div class="toggles-container">
           <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
