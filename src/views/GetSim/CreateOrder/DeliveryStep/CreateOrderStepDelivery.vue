@@ -11,56 +11,59 @@
       <div class="main-content">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-delivery') }}</h3>
 
-        <div v-if="lastSelectedAdress" class="row">
-          <div class="col-md-12">
-            <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
-            <CreateOrderStepDeliveryAddress
-              :item="lastSelectedAdress"
-              :default-selected-item="selectedAdress"
-              @update:defaultSelectedItem="selectAdress"
-              name="address"
-            />
+        <div class="subcontainer">
+          <div v-if="lastSelectedAdress" class="">
+            <div class="col-md-12">
+              <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
+              <CreateOrderStepDeliveryAddress
+                :item="lastSelectedAdress"
+                :default-selected-item="selectedAdress"
+                @update:defaultSelectedItem="selectAdress"
+                name="address"
+              />
+            </div>
           </div>
-        </div>
 
-        <div v-if="adresses.length" class="row mb-3">
-          <div class="col-md-12">
-            <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
-            <UiInput
-              :placeholder="$t('orders.new.deliveryStep.searchPlaceholder')"
-              class="d-block mx-auto"
-              v-model="filterValue"
-            />
+
+          <div v-if="adresses.length" class="mb-3">
+            <div class="col-md-12">
+              <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
+              <UiInput
+                :placeholder="$t('orders.new.deliveryStep.searchPlaceholder')"
+                class="d-block mx-auto"
+                v-model="filterValue"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <BlocList :items="filteredAdresses">
-              <template slot="firstElement" slot-scope="{ className }">
-                <div :class="`${className}`" @click="addnewAddress">
-                  <div class="add-new">
-                    <UiButton
-                      variant="round-button"
-                      @click="addnewAddress"
-                      class="ic-Plus-Icon test"
-                      style="margin: auto; background: #009dcc"
-                    />
-                    <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+          <div class="">
+            <div class="col-md-12">
+              <BlocList :items="filteredAdresses">
+                <template slot="firstElement" slot-scope="{ className }">
+                  <div :class="`${className}`" @click="addnewAddress">
+                    <div class="add-new">
+                      <UiButton
+                        variant="round-button"
+                        @click="addnewAddress"
+                        class="ic-Plus-Icon test"
+                        style="margin: auto; background: #009dcc"
+                      />
+                      <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+                    </div>
                   </div>
-                </div>
-              </template>
-              <template slot-scope="{ item }">
-                <CreateOrderStepDeliveryAddress
-                  :item="item"
-                  :default-selected-item="selectedAdress"
-                  @update:defaultSelectedItem="selectAdress"
-                  @modify="editAddress"
-                  can-edit
-                  name="address"
-                />
-              </template>
-            </BlocList>
+                </template>
+                <template slot-scope="{ item }">
+                  <CreateOrderStepDeliveryAddress
+                    :item="item"
+                    :default-selected-item="selectedAdress"
+                    @update:defaultSelectedItem="selectAdress"
+                    @modify="editAddress"
+                    can-edit
+                    name="address"
+                  />
+                </template>
+              </BlocList>
+            </div>
           </div>
         </div>
       </div>
@@ -269,6 +272,16 @@ export default {
 
   @media screen and (min-width: 1440px) {
     padding: 0 7rem !important;
+  }
+}
+
+.subcontainer {
+  // max-height: 400px;
+  max-height: 31rem;
+  overflow-y: auto;
+
+  @media screen and (max-height: 900px) {
+    max-height: 350px;
   }
 }
 

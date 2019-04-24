@@ -4,7 +4,7 @@
       <div class="main-content">
         <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
           <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>
-          <div class="choose-sim-type">
+          <div class="subcontainer">
             <form>
               <GetSimTypeOption
                 v-for="item in filteredSimTypes"
@@ -198,8 +198,9 @@ export default {
 .step-client-container {
   padding: 0 2rem;
 
-  .choose-sim-type {
-    max-height: 400px;
+  .subcontainer {
+    // max-height: 400px;
+    max-height: 21rem;
     overflow-y: auto;
 
     @media screen and (max-height: 900px) {
