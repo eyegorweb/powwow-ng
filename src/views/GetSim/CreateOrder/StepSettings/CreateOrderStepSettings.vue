@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isOpen">
+    <div class="panel-vertical-container" v-if="isOpen">
       <CreateOrderAddCustomField @cancel="close" @add-field="onSaveField" />
     </div>
   </div>
