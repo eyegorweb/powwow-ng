@@ -281,17 +281,9 @@ export default {
   bottom: 0;
 }
 
-@media screen and (max-height: 768px) {
-  .subcontainer {
-    max-height: 21rem;
-    overflow-y: auto;
-  }
-}
-@media screen and (min-height: 769px) {
-  .subcontainer {
-    max-height: 31rem;
-    overflow-y: auto;
-  }
+.subcontainer {
+  max-height: 21rem;
+  overflow-y: auto;
 }
 
 @media screen and (max-height: 768px) {
