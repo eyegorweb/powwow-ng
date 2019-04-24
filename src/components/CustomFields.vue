@@ -12,7 +12,7 @@
         />
       </div>
       <div class="form-group" v-if="item.type === 'LIST'">
-        <label>{{ item.label }}</label>
+        <label>{{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span></label>
         <br />
         <UiSelect
           placeholder="Choisissez une valeur"
@@ -24,7 +24,7 @@
         />
       </div>
       <div v-if="item.type === 'DATE'">
-        {{ item.label }}
+        {{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span>
         <UiDate
           @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
