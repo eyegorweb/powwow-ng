@@ -46,7 +46,7 @@
                         variant="round-button"
                         @click="addnewAddress"
                         class="ic-Plus-Icon test"
-                        style="margin: auto; background: #009dcc"
+                        style="margin: auto; background: #009dcc; width: 3rem; height: 3rem; font-size: 1.5rem"
                       />
                       <span>{{ $t('orders.new.deliveryStep.new') }}</span>
                     </div>
