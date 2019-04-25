@@ -24,7 +24,6 @@
             </div>
           </div>
 
-
           <div v-if="adresses.length" class="mb-3">
             <div class="col-md-12">
               <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>

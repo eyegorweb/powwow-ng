@@ -12,7 +12,9 @@
         />
       </div>
       <div class="form-group" v-if="item.type === 'LIST'">
-        <label>{{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span></label>
+        <label
+          >{{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span></label
+        >
         <br />
         <UiSelect
           placeholder="Choisissez une valeur"

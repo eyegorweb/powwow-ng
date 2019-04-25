@@ -112,7 +112,7 @@
     <div class="row mt-4">
       <div class="col">
         <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">{{
-        $t('cancel')
+          $t('cancel')
         }}</UiButton>
       </div>
       <div class="col">
