@@ -75,6 +75,7 @@
     "between-min-max": "Entre {min} et {max}",
     "ge": "Supérieure à",
     "le": "Inférieure à",
+    "date-since": "À partir du {startDate}",
     "details": {
       "title": "Commande n° {id}"
     },

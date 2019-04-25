@@ -1,35 +1,35 @@
 <template>
   <ul class="list-group bg-white">
     <li class="list-group-item">
-      {{ $t('indicators.actionsInProgress') }}
+      {{ $t('indicators.getsim.actionsInProgress') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-warning"
           @click.prevent="filterByStatusIndicator(filteredStatus.actionsInProgress)"
         >
-          {{ indicators.actionsInProgress.value }}
+          {{ filteredStatus.actionsInProgress.total }}
         </button>
       </div>
     </li>
-    <li class="list-group-item">
-      {{ $t('indicators.actionsFailed') }}
+    <li class="list-group-item" v-if="filteredStatus.actionsFailed.total > 0">
+      {{ $t('indicators.getsim.actionsFailed') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-danger"
           @click.prevent="filterByStatusIndicator(filteredStatus.actionsFailed)"
         >
-          {{ indicators.actionsFailed.value }}
+          {{ filteredStatus.actionsFailed.total }}
         </button>
       </div>
     </li>
     <li class="list-group-item">
-      {{ $t('indicators.actionsPlanned') }}
+      {{ $t('indicators.getsim.actionsPlanned') }}
       <div class="float-right">
         <button
           class="btn btn-link p-0 text-danger"
           @click.prevent="filterByStatusIndicator(filteredStatus.actionsPlanned)"
         >
-          {{ indicators.actionsPlanned.value }}
+          {{ filteredStatus.actionsPlanned.total }}
         </button>
       </div>
     </li>
@@ -37,8 +37,8 @@
 </template>
 
 <script>
-// import { getActStatuses } from '@/api/actStatuses';
-import { mapMutations } from 'vuex';
+import { countTotalByMassActionIndicators } from '@/api/massActions';
+import { mapMutations, mapGetters, mapState } from 'vuex';
 import moment from 'moment';
 
 const dateFormat = 'DD-MM-YYYY';
@@ -46,19 +46,9 @@ const dateFormat = 'DD-MM-YYYY';
 export default {
   data() {
     return {
-      indicators: {
-        actionsInProgress: {
-          value: '1',
-        },
-        actionsFailed: {
-          value: '0',
-        },
-        actionsPlanned: {
-          value: '3',
-        },
-      },
       filteredStatus: {
         actionsInProgress: {
+          total: 0,
           status: [{ id: 'IN_PROGRESS', label: this.$t('getparc.history.col.ongoing') }],
 
           date: {
@@ -66,11 +56,12 @@ export default {
               start: moment()
                 .subtract(6, 'month')
                 .format(dateFormat),
-              end: moment().format(dateFormat),
+              end: moment().format(dateFormat), // moment().format('DD-MM-YYYY HH:mm:ss'),
             },
           },
         },
         actionsFailed: {
+          total: 0,
           status: [{ id: 'IN_ERROR', label: this.$t('getparc.history.col.onfailing') }],
           date: {
             range: {
@@ -82,12 +73,14 @@ export default {
           },
         },
         actionsPlanned: {
+          total: 0,
           date: {
             range: {
-              start: moment().format(dateFormat),
-              end: moment()
-                .add(6, 'month')
-                .format(dateFormat), // TODO: dateFormat setting from dateCreation
+              // start: moment().format(dateFormat),
+              // end: moment()
+              //   .add(6, 'month')
+              //   .format(dateFormat), // TODO: dateFormat setting from dateCreation
+              start: moment.min().format(dateFormat),
             },
           },
         },
@@ -97,6 +90,77 @@ export default {
 
   methods: {
     ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),
+    async initComponent() {
+      let contextPartnersFilter = {};
+      let contextPartnerTypesFilter = {};
+
+      if (this.contextPartnersTypes && this.contextPartnersTypes.length) {
+        contextPartnerTypesFilter = {
+          id: 'filters.partnerTypes',
+          values: this.contextPartnersTypes,
+        };
+      }
+      if (this.contextPartners && this.contextPartners.length) {
+        contextPartnersFilter = {
+          id: 'filters.partners',
+          values: this.contextPartners,
+        };
+      }
+
+      // Pour les utilisateurs de type partenaire, il faudra chercher le partner de l'utilisateur dans le filtre par défaut ( initialisé au démarrage de la page)
+      if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
+        contextPartnersFilter = this.defaultAppliedFilters;
+      }
+
+      const filterIndicatorActionsInProgress = [
+        {
+          id: 'filters.actStatus',
+          values: this.filteredStatus.actionsInProgress.status,
+        },
+        {
+          id: 'filters.actDateStart',
+          startDate: this.filteredStatus.actionsInProgress.date.range.start,
+          endDate: this.filteredStatus.actionsInProgress.date.range.end,
+        },
+        { ...contextPartnersFilter },
+        { ...contextPartnerTypesFilter },
+      ];
+      const filterIndicatorActionsFailed = [
+        {
+          id: 'filters.actStatus',
+          values: this.filteredStatus.actionsFailed.status,
+        },
+        {
+          id: 'filters.actDateStart',
+          startDate: this.filteredStatus.actionsFailed.date.range.start,
+          endDate: this.filteredStatus.actionsFailed.date.range.end,
+        },
+        { ...contextPartnersFilter },
+        { ...contextPartnerTypesFilter },
+      ];
+      const filterIndicatorActionsToApply = [
+        {
+          id: 'filters.actStatus',
+          values: this.filteredStatus.actionsPlanned.status,
+        },
+        {
+          id: 'filters.actDateStart',
+          startDate: this.filteredStatus.actionsPlanned.date.range.start,
+          endDate: this.filteredStatus.actionsPlanned.date.range.end,
+        },
+        { ...contextPartnersFilter },
+        { ...contextPartnerTypesFilter },
+      ];
+
+      const result = await countTotalByMassActionIndicators(
+        filterIndicatorActionsInProgress,
+        filterIndicatorActionsFailed,
+        filterIndicatorActionsToApply
+      );
+      this.filteredStatus.actionsInProgress.total = result.indicatorActionsInProgress.total;
+      this.filteredStatus.actionsFailed.total = result.indicatorActionsFailed.total;
+      this.filteredStatus.actionsPlanned.total = result.indicatorActionsToApply.total;
+    },
     filterByStatusIndicator(preselectedFilter) {
       let statusFilter = {},
         dateFilter = {};
@@ -129,8 +193,13 @@ export default {
     },
   },
 
-  async created() {
-    // this.indicators = (await getActStatuses()) || {};
+  computed: {
+    ...mapState('getsim', ['defaultAppliedFilters']),
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+  },
+
+  async mounted() {
+    this.initComponent();
   },
 };
 </script>

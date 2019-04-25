@@ -17,6 +17,10 @@
         $t('getsim.date-from-to', dateFilter)
       }}</span>
 
+      <span v-else-if="filter.startDate && !filter.endDate" class="detail">{{
+        $t('getsim.date-since', dateFilter)
+      }}</span>
+
       <span v-else-if="filter.from && filter.to" class="detail">{{
         $t('getsim.between-min-max', rangeFilter)
       }}</span>
