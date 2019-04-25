@@ -20,23 +20,64 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
     ) {
       total
       items {
-        id
-        actionType
-        dueDate
-        created
-        endDate
-        targetActionNumber
-        completedActionNumber
-        inProgressActionNumber
-        errorActionNumber
-        partyId
-        creator
-        status
-        offerName
-        addedServices
-        removeServices
-        transitionName
-        destinationCustomerAccountCode
+        massActionResponse {
+          id
+          actionType
+          dueDate
+          created
+          endDate
+          targetActionNumber
+          completedActionNumber
+          inProgressActionNumber
+          errorActionNumber
+          partyId
+          creator
+          status
+          offerName
+          addedServices
+          removeServices
+          transitionName
+          destinationCustomerAccountCode
+        }
+        user {
+          id
+          name {
+            title
+            firstName
+            lastName
+          }
+          username
+          email
+          isUserParty
+          isBackOffice
+          roles {
+            category
+          }
+        }
+        party {
+          id
+          name
+          code
+          siren
+          naf
+          contractReference
+        }
+        fromParty {
+          id
+          name
+          code
+          siren
+          naf
+          contractReference
+        }
+        toParty {
+          id
+          name
+          code
+          siren
+          naf
+          contractReference
+        }
       }
     }
   }`;
@@ -68,8 +109,23 @@ function formatFilters(filters) {
 
   // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
+  addActDateCreationFilter(allFilters, filters);
+  addActDueDateFilter(allFilters, filters);
+  addActEndDateFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function formatDateForGql(inDate) {
+  const startDate = inDate.replace(/\//g, '-');
+  const parts = startDate.split(' ');
+  if (parts) {
+    if (parts.length === 2) {
+      return startDate;
+    } else {
+      return `${parts[0]} 00:00:00`;
+    }
+  }
 }
 
 function addActionTypeFilter(gqlFilters, selectedFilters) {
@@ -77,6 +133,39 @@ function addActionTypeFilter(gqlFilters, selectedFilters) {
   if (actionTypes) {
     const actionTypesValues = actionTypes.values.map(a => a.id);
     gqlFilters.push(`actionTypes: [ ${[...actionTypesValues]} ]`);
+  }
+}
+
+function addActDateCreationFilter(gqlFilters, selectedFilters) {
+  const dates = selectedFilters.find(f => f.id === 'filters.actDateCreation');
+  if (dates) {
+    gqlFilters.push(
+      `createdFrom: "${formatDateForGql(dates.startDate)}", createdTo: "${formatDateForGql(
+        dates.endDate
+      )}"`
+    );
+  }
+}
+
+function addActDueDateFilter(gqlFilters, selectedFilters) {
+  const dates = selectedFilters.find(f => f.id === 'filters.actDateStart');
+  if (dates) {
+    gqlFilters.push(
+      `dueDateFrom: "${formatDateForGql(dates.startDate)}", dueDateTo: "${formatDateForGql(
+        dates.endDate
+      )}"`
+    );
+  }
+}
+
+function addActEndDateFilter(gqlFilters, selectedFilters) {
+  const dates = selectedFilters.find(f => f.id === 'filters.actDateEnd');
+  if (dates) {
+    gqlFilters.push(
+      `endDateFrom: "${formatDateForGql(dates.startDate)}", endDateTo: "${formatDateForGql(
+        dates.endDate
+      )}"`
+    );
   }
 }
 

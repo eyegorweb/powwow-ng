@@ -231,11 +231,26 @@ export default {
         appliedFilters: this.appliedFilters,
       });
     },
+    // méthode pour mettre à plat la réponse renvoyée par searchMassActions
+    // Pour chaque item/objet, on joue la valeur de massActionResponse pour la remonter d'un niveau et pour qu'elle se trouve à coté de "user, party, fromParty, toParty"
+    formatResponse(response) {
+      if (response) {
+        return response.map(i => {
+          const tempObject = {
+            user: i.user,
+            party: i.party,
+            fromParty: i.fromParty,
+            toParty: i.toParty,
+          };
+          return Object.assign({}, i.massActionResponse, tempObject);
+        });
+      }
+    },
   },
   computed: {
     ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters', 'actHistoryPage']),
     rows() {
-      return this.massActionsResponse ? this.massActionsResponse.items : [];
+      return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },
     total() {
       return this.massActionsResponse ? this.massActionsResponse.total : 0;
