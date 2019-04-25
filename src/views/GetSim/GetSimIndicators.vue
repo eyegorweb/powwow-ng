@@ -50,7 +50,7 @@
     <li class="list-group-item" v-if="!userIsPartner">
       {{ $t('indicators.getsim.averageProcessingTime') }}
       <div class="float-right" :class="checkAverageProcessingTimeClasses">
-        <span class="p-0 text-warning">{{ indicators.averageProcessingTime }}</span>
+        <span class="p-0 text-warning">{{ formatteAverageProcessingTime(indicators.averageProcessingTime) }}</span>
       </div>
     </li>
     <li
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { fetchGetSimIndicators } from '@/api/indicators';
+import { fetchIndicators, fetchAverageProcessingTime } from '@/api/indicators';
 import { countTotalByIndicators } from '@/api/orders';
 import { mapMutations, mapGetters, mapState } from 'vuex';
 
@@ -171,7 +171,7 @@ export default {
   },
 
   async mounted() {
-    this.indicators = (await fetchGetSimIndicators()) || {};
+    this.indicators = (await fetchIndicators()) || {};
     this.initComponent();
   },
 
@@ -272,6 +272,13 @@ export default {
         filterIndicatorOrderToBeConfirmedByBO
       );
 
+      const filterTAverageProcessingTime = [
+        { ...contextPartnersFilter },
+        { ...contextPartnerTypesFilter },
+      ];
+      const averageProcessingTime = await fetchAverageProcessingTime(filterTAverageProcessingTime);
+
+      this.indicators.averageProcessingTime = averageProcessingTime;
       this.filteredStatus.toBeConfirmed.total = result.indicatorToBeConfirmed.total;
       this.filteredStatus.ordersInProgress.total = result.indicatorOrdersInProgress.total;
       this.filteredStatus.ordersNotConfirmed.total = result.indicatorOrdersNotConfirmed.total;
@@ -305,6 +312,20 @@ export default {
       ]);
 
       this.applyFilters();
+    },
+    formatteAverageProcessingTime(timeValue) {
+      const dayMin = 24 * 60;
+      const hourMin = 60;
+      const unit = !timeValue ? '' : 'min';
+      const formattedDuration = moment.duration({ minutes: timeValue });
+      if (timeValue > dayMin) {
+        timeValue = `${formattedDuration._data.days} j`;
+      } else if (timeValue < dayMin && timeValue > hourMin) {
+        timeValue = `${formattedDuration._data.hours} h`;
+      } else {
+        timeValue = `${formattedDuration._data.minutes} ${unit}`;
+      }
+      return timeValue;
     },
   },
 

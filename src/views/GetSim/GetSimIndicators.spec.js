@@ -9,23 +9,18 @@ const mocks = { $t };
 describe('GetSimIndicators', () => {
   it('fetches indicators', async () => {
     const indicators = {
-      ordersToBeConfirmed: 2,
-      ordersInProgress: 2,
-      ordersNotConfirmed: 0,
-      ordersFailed: 0,
       averageProcessingTime: 0,
-      orderToBeConfirmedByBO: 0,
     };
 
-    api.fetchGetSimIndicators = jest.fn();
-    api.fetchGetSimIndicators.mockResolvedValue(indicators);
+    api.fetchIndicators = jest.fn();
+    api.fetchIndicators.mockResolvedValue(indicators);
 
     const wrapper = mount(GetSimIndicators, { mocks });
 
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
-    expect(api.fetchGetSimIndicators).toHaveBeenCalled();
+    expect(api.fetchIndicators).toHaveBeenCalled();
 
     expect(wrapper.html()).toMatchSnapshot();
   });

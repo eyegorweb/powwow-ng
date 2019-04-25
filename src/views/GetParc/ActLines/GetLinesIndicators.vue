@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { fetchGetSimIndicators } from '@/api/indicators';
+import { fetchIndicators } from '@/api/indicators';
 import { countTotalByIndicators } from '@/api/orders';
 import { mapMutations, mapGetters } from 'vuex';
 
@@ -199,7 +199,7 @@ export default {
   },
 
   async mounted() {
-    this.indicators = (await fetchGetSimIndicators()) || {};
+    this.indicators = (await fetchIndicators()) || {};
 
     const result = await countTotalByIndicators(
       [

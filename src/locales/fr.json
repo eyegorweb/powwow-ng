@@ -263,7 +263,7 @@
       "ordersNotConfirmed": "Commandes non confirmées > 4h",
       "ordersFailed": "Commandes en échec",
       "ordersToBeConfirmed": "Commandes à valider",
-      "averageProcessingTime": "Délai traitement commande sur 1 mois",
+      "averageProcessingTime": "Délai traitement sur 1 mois",
       "orderToBeConfirmedByBO": "Commandes à valider par le BO",
       "actionsInProgress": "Actes en cours",
       "actionsFailed": "Actes en échec",
