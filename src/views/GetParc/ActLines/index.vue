@@ -95,7 +95,6 @@ export default {
     ...mapActions('actLines', ['initFilterForContext']),
   },
   mounted() {
-    console.log('mount index act lines');
     this.initFilterForContext();
   },
   watch: {

@@ -63,7 +63,6 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
   // const response = await query(queryStr);
   // return response.data.lines;
 
-  console.log(filters);
   const response = {
     data: {
       lines: {
@@ -111,8 +110,6 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
       },
     },
   };
-
-  console.log('response act lines', response.data.lines.items);
 
   return response.data.lines.items;
 }

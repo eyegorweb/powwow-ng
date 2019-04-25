@@ -24,7 +24,7 @@
     </li>
     <li
       class="list-group-item"
-      v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total >= 0"
+      v-if="!userIsPartner && filteredStatus.ordersNotConfirmed.total > 0"
     >
       {{ $t('indicators.getsim.ordersNotConfirmed') }}
       <div class="float-right">
@@ -36,7 +36,7 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersFailed.total >= 0">
+    <li class="list-group-item" v-if="!userIsPartner && filteredStatus.ordersFailed.total > 0">
       {{ $t('indicators.getsim.ordersFailed') }}
       <div class="float-right">
         <button
@@ -55,7 +55,7 @@
     </li>
     <li
       class="list-group-item"
-      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total >= 0"
+      v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total > 0"
     >
       {{ $t('indicators.getsim.orderToBeConfirmedByBO') }}
       <div class="float-right">
