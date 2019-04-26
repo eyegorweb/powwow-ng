@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <div class="logoPart" style="display: none">
+    <div class="logoPart">
       <img class="logo" src="@/assets/logo_bouygues.png" alt />
     </div>
     <div class="contentPart">
