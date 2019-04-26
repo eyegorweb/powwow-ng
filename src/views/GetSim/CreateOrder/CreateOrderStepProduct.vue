@@ -7,6 +7,7 @@
           <div class="subcontainer">
             <form>
               <GetSimTypeOption
+                @update:defaultSelectedItem="checkForCurrentSimType"
                 v-for="item in filteredSimTypes"
                 :key="item.id"
                 :item="item"
@@ -31,7 +32,10 @@
             </div>
           </div>
           <div class="choose-amount">
-            <h2 class="panel-title">{{ $t('getsim.choose-sim-amount') }}</h2>
+            <h2 v-if="selectedSimIsOfTapeType" class="panel-title">
+              {{ $t('getsim.choose-sim-amount-for-tape-type') }}
+            </h2>
+            <h2 v-else class="panel-title">{{ $t('getsim.choose-sim-amount') }}</h2>
             <UiInput
               :placeholder="1"
               v-model="selectedNumberOfSims"
@@ -40,6 +44,10 @@
               input-type="number"
               :min-value="1"
             />
+            <p v-if="selectedSimIsOfTapeType">
+              {{ $t('getsim.nb-of-sim') }}:
+              {{ selectedNumberOfSims * selectedSimTypeValue.simCard.number }}
+            </p>
           </div>
         </div>
         <div v-else>
@@ -83,6 +91,7 @@ export default {
       selectedNumberOfSims: 0,
       limit: 3,
       allSimTypesVisible: false,
+      selectedSimIsOfTapeType: false,
     };
   },
 
@@ -95,6 +104,13 @@ export default {
   },
 
   async mounted() {
+    // gère le retour en arrière dans la commande
+    if (this.synthesis.product) {
+      this.synthesis.product.selection.product.simCard.type === 'TAPE'
+        ? (this.selectedSimIsOfTapeType = true)
+        : (this.selectedSimIsOfTapeType = false);
+    }
+
     if (!get(this.synthesis, 'quantity.selection.quantity') && this.order) {
       this.preFill();
     }
@@ -115,6 +131,11 @@ export default {
   },
 
   methods: {
+    checkForCurrentSimType(simInfos) {
+      simInfos.simCard.type === 'TAPE'
+        ? (this.selectedSimIsOfTapeType = true)
+        : (this.selectedSimIsOfTapeType = false);
+    },
     showAllSimTypes() {
       this.limit = this.simTypes.length;
       this.allSimTypesVisible = true;
@@ -128,29 +149,70 @@ export default {
     assembleSynthesis() {
       if (!this.canGoToNextStep) return {};
 
-      return {
-        quantity: {
-          label: 'common.quantity',
-          value: {
-            id: 'quantity',
-            content: this.selectedNumberOfSims,
-          },
-          selection: {
-            quantity: this.selectedNumberOfSims,
-          },
-        },
+      let quantity = this.selectedNumberOfSims;
 
-        product: {
-          label: 'common.product',
-          value: {
-            id: get(this.selectedSimTypeValue, 'simCard.id'),
-            content: [get(this.selectedSimTypeValue, 'simCard.name')],
+      if (this.selectedSimIsOfTapeType) {
+        quantity = this.selectedNumberOfSims * this.selectedSimTypeValue.simCard.number;
+
+        return {
+          tapes: {
+            label: 'getsim.nb-of-tapes',
+            value: {
+              id: 'tapes',
+              content: this.selectedSimTypeValue.simCard.number,
+            },
+            selection: {
+              tapes: this.selectedSimTypeValue.simCard.number,
+            },
           },
-          selection: {
-            product: this.selectedSimTypeValue,
+
+          quantity: {
+            label: 'common.quantity',
+            value: {
+              id: 'quantity',
+              content: quantity,
+            },
+            selection: {
+              quantity,
+            },
           },
-        },
-      };
+
+          product: {
+            label: 'common.product',
+            value: {
+              id: get(this.selectedSimTypeValue, 'simCard.id'),
+              content: [get(this.selectedSimTypeValue, 'simCard.name')],
+            },
+            selection: {
+              product: this.selectedSimTypeValue,
+            },
+          },
+        };
+      } else {
+        return {
+          quantity: {
+            label: 'common.quantity',
+            value: {
+              id: 'quantity',
+              content: quantity,
+            },
+            selection: {
+              quantity,
+            },
+          },
+
+          product: {
+            label: 'common.product',
+            value: {
+              id: get(this.selectedSimTypeValue, 'simCard.id'),
+              content: [get(this.selectedSimTypeValue, 'simCard.name')],
+            },
+            selection: {
+              product: this.selectedSimTypeValue,
+            },
+          },
+        };
+      }
     },
     preFill() {
       this.$emit('saveSynthesis', {
@@ -185,7 +247,6 @@ export default {
       );
     },
   },
-
   components: {
     GetSimTypeOption,
     UiInput,

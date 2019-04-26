@@ -9,7 +9,12 @@
         :value="item"
       />
       <div class="simTypeIfos">
-        <p class="simtype__info simtype__name m-0">{{ item.simCard.name }}</p>
+        <p class="simtype__info simtype__name m-0">
+          {{ item.simCard.name }}
+          <span v-if="item.simCard.type === 'TAPE'"
+            >({{ $t('getsim.tape') }} {{ item.simCard.number }})</span
+          >
+        </p>
         <p class="simtype__info m-0">
           {{ $t('getsim.sim-type-labels.format') }}: {{ item.simCard.format }}
         </p>
