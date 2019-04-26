@@ -14,6 +14,8 @@ export async function fetchSim(partnerId) {
           name
           format
           licence
+          type
+          number
         }
       }
     }
