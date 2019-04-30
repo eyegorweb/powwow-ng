@@ -32,7 +32,8 @@ export const getters = {
     return selectedFilterValuesById(state)('filters.actStatus');
   },
   selectedServicesValues: state => {
-    return selectedFilterValuesById(state)('filters.services');
+    // on renvoit le premier élément du tableau car ce filtre n'accepte qu'une seule valeur
+    return selectedFilterValuesById(state)('filters.services')[0];
   },
   selectedActDateCreation: state =>
     state.currentFilters.find(f => f.id === 'filters.actDateCreation'),
@@ -123,7 +124,7 @@ export const mutations = {
   setServicesFilter(state, types) {
     selectFilterValue(state, {
       id: 'filters.services',
-      values: types,
+      values: [types], // Il faut créer un tableau même si on a qu'une seule valeur avec ce filtre, car le composant SelectedFilterDetails fonctionne avec des tableaux
     });
   },
   setActDateCreationFilter(state, { startDate, endDate }) {

@@ -2,6 +2,7 @@
   <div>
     <UiCheckbox
       v-for="service in services"
+      input-type="radio"
       :value="{ id: service.id, label: $t(`getparc.services. ${service.id}`) }"
       :key="service.a"
       v-model="selectedServices"
