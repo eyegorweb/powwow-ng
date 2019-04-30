@@ -1,6 +1,6 @@
 <template>
   <div class="massactions-ids d-flex flex-wrap justify-content-start align-items-center truncate">
-    <TruncateList :limit="1" :content="actionIds"> </TruncateList>
+    <TruncateList :limit="2" :content="actionIds"> </TruncateList>
   </div>
 </template>
 
