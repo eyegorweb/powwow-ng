@@ -257,7 +257,6 @@ export default {
           statusError: true,
         },
       ],
-      isCanceled: false,
     };
   },
 

@@ -203,6 +203,11 @@
     },
     "actDetail": {
       "title": "{total} lignes trouvées",
+      "titleListCard": {
+        "FAIL": "liste des cartes en échec",
+        "ONGOING": "liste des cartes en cours",
+        "TERMINATED": "liste des cartes terminées"
+      },
       "col": {
         "id": "ID de l’acte unitaire",
         "msisdn": "MSISDN",

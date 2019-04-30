@@ -50,7 +50,9 @@
     <li class="list-group-item" v-if="!userIsPartner">
       {{ $t('indicators.getsim.averageProcessingTime') }}
       <div class="float-right" :class="checkAverageProcessingTimeClasses">
-        <span class="p-0 text-warning">{{ formatteAverageProcessingTime(indicators.averageProcessingTime) }}</span>
+        <span class="p-0 text-warning">{{
+          formatteAverageProcessingTime(indicators.averageProcessingTime)
+        }}</span>
       </div>
     </li>
     <li

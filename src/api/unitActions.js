@@ -10,7 +10,7 @@ export async function fetchUnitActions(massActionId, status, pagination, orderBy
 
   const queryStr = `
   query {
-    unitAction(filter: {massActionId: ${massActionId}, status: ${status}}${paginationInfo}${orderingInfo}) {
+    unitActions(filter: {massActionId: ${massActionId}, status: ${status}} ${paginationInfo} ${orderingInfo}) {
      id
      msisdn
      iccid
@@ -26,5 +26,5 @@ export async function fetchUnitActions(massActionId, status, pagination, orderBy
  }
   `;
   const response = await query(queryStr);
-  return response.data.unitAction;
+  return response.data.unitActions;
 }

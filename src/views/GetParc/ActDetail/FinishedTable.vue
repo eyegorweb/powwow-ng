@@ -31,7 +31,6 @@
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
-import { fetchUnitActions } from '@/api/unitActions';
 
 export default {
   components: {
@@ -41,18 +40,12 @@ export default {
   },
   props: {
     massActionId: String,
-  },
-
-  async mounted() {
-    const pagination = { limit: 20, page: 0 };
-    const orderBy = { key: 'id', direction: 'DESCENDING' };
-    this.rows = await fetchUnitActions(this.massActionId, 'OK', pagination, orderBy);
+    rows: Array,
   },
 
   data() {
     return {
       total: 1,
-      rows: [],
       columns: [
         {
           id: 1,
