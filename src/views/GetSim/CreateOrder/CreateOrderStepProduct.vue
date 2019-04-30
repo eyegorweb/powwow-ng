@@ -44,7 +44,7 @@
               input-type="number"
               :min-value="1"
             />
-            <p v-if="selectedSimIsOfTapeType">
+            <p v-if="selectedSimIsOfTapeType" class="text-center" :style="{ fontSize: '1.2rem' }">
               {{ $t('getsim.nb-of-sim') }}:
               {{ selectedNumberOfSims * selectedSimTypeValue.simCard.number }}
             </p>
