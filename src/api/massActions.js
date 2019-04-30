@@ -100,7 +100,7 @@ export async function countTotalByMassActionIndicators(
   const queryStr = `
   query {
     totalMassActions: massActions(filter: {}, pagination: {limit:0, page:0}) {
-       total
+      total
     }
 
     indicatorActionsInProgress: massActions(filter: {${formatFilters(
@@ -155,6 +155,7 @@ function formatFilters(filters) {
   addActDateCreationFilter(allFilters, filters);
   addActDueDateFilter(allFilters, filters);
   addActEndDateFilter(allFilters, filters);
+  // addServices(allFilters, filters);
 
   return allFilters.join(',');
 }
@@ -209,6 +210,13 @@ function addActEndDateFilter(gqlFilters, selectedFilters) {
         dates.endDate
       )}"`
     );
+  }
+}
+
+function addServices(gqlFilters, selectedFilters) {
+  const services = selectedFilters.find(f => f.id === 'filters.services');
+  if (services) {
+    gqlFilters.push(`optionalServiceAction:  ${services.values[0].id}`);
   }
 }
 
