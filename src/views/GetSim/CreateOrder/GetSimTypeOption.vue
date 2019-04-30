@@ -22,10 +22,9 @@
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
         <p v-if="item.orderDate" class="last-order mt-1">
-          {{ $t('getsim.sim-type-labels.orderDate') }}: {{ item.orderDate }}
+          {{ $t('getsim.sim-type-labels.orderDate') }}: {{ formattedDate }}
         </p>
         <p v-else class="last-order mt-1">
-          {{ $t('getsim.sim-type-labels.orderDate') }}:
           {{ $t('getsim.never-ordered') }}
         </p>
       </div>
@@ -53,6 +52,9 @@ export default {
     },
   },
   computed: {
+    formattedDate() {
+      return this.item.orderDate.replace(/-/g, '/');
+    },
     selectedItem: {
       get() {
         return this.defaultSelectedItem;
