@@ -50,17 +50,17 @@
         <div class="overview-item">
           <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
         </div>
-        <div class="overview-item">
+        <div class="overview-item mr-5">
           <h6>{{ $t('getparc.history.details.name') }} :</h6>
-          <p>SCHINDLER</p>
+          <p>{{ content.creator }}</p>
         </div>
-        <div class="overview-item">
+        <div class="overview-item mr-5">
           <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-          <p>Julian Le Calvez</p>
+          <p>{{ content.creator }}</p>
         </div>
-        <div class="overview-item">
+        <div class="overview-item mr-5">
           <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-          <p>julian.lecalvez@schindler-france.com</p>
+          <p>{{ content.creator }}</p>
         </div>
       </div>
     </div>
@@ -70,7 +70,11 @@
           <UiButton variant="import" block>{{ $t('getparc.history.details.EXPORT_ACT') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block @click="$router.push({ name: 'actDetail' })">
+          <UiButton
+            variant="primary"
+            block
+            @click="$router.push({ name: 'actDetail', params: { massActionId: content.id } })"
+          >
             {{ $t('getparc.history.details.RESULT') }}
           </UiButton>
         </div>
@@ -94,7 +98,7 @@ export default {
       confirmationStepper: {
         data: [
           {
-            code: 'CREATED',
+            code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
             date: this.content.created,
             index: 0,
@@ -116,7 +120,7 @@ export default {
       cancelStepper: {
         data: [
           {
-            code: 'CREATED',
+            code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
             date: this.content.created,
             index: 0,

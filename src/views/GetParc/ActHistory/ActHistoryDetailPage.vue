@@ -6,67 +6,70 @@
           <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
         </div>
         <div>
-          <UiButton variant="accent" block>{{
-            $t('getparc.history.details.EXPORT_LINES')
-          }}</UiButton>
+          <UiButton variant="accent" block>
+            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}</UiButton
+          >
         </div>
       </div>
 
       <div class="d-flex">
         <div class="flex-fill">
           <div class="overview-item mr-5">
-            <StepperNonLinear :stepper-data="steps" :current-index="statusStepperIndex" />
+            <StepperNonLinear
+              v-if="statusStepperIndex"
+              :stepper-data="steps"
+              :current-index="statusStepperIndex"
+            />
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-            <p>18/10/2018 15:42:26</p>
+            <p>{{ content.created }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-            <p>18/10/2018 15:43:16</p>
+            <p>{{ content.dueDate }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-            <p>18/10/2018 15:45:56</p>
+            <p>{{ content.endDate }}</p>
           </div>
         </div>
 
         <div class="flex-fill">
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-            <p>Offre : SCHINDLER_40MO_30MN</p>
-            <p>APN : schindlerbouygues01.fr</p>
+            <p v-html="detail"></p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.name') }} :</h6>
-            <p>SCHINDLER</p>
+            <p>{{ content.creator }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-            <p>Julian Le Calvez</p>
+            <p>{{ content.creator }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-            <p>julian.lecalvez@schindler-france.com</p>
+            <p>{{ content.creator }}</p>
           </div>
         </div>
 
         <div class="flex-fill">
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-            <p>6 lignes</p>
+            <p>{{ content.targetActionNumber }} {{ $t('getparc.history.details.lines') }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>-</p>
+            <p>{{ content.errorActionNumber > 0 ? content.errorActionNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <p>-</p>
+            <p>{{ content.inProgressActionNumber > 0 ? content.inProgressActionNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <p>-</p>
+            <p>{{ content.completedActionNumber > 0 ? content.completedActionNumber : '-' }}</p>
           </div>
         </div>
       </div>
@@ -79,53 +82,141 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import UiButton from '@/components/ui/Button';
 
 export default {
+  props: {
+    content: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      confirmationStepper: [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('getparc.history.details.actStatuses.STARTED'),
-          date: null,
-          index: 0,
-        },
-        {
-          code: 'VALIDATED',
-          label: this.$t('getparc.history.details.actStatuses.CREATED'),
-          date: null,
-          index: 1,
-        },
-        {
-          code: 'TERMINATED',
-          label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-          date: null,
-          index: 2,
-        },
-      ],
-      cancelStepper: [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          date: null,
-          index: 0,
-          statusError: false,
-        },
-      ],
-      isCanceled: false,
+      confirmationStepper: {
+        data: [
+          {
+            code: 'WAITING',
+            label: this.$t('getparc.history.details.actStatuses.CREATED'),
+            date: this.content.created,
+            index: 0,
+          },
+          {
+            code: 'IN_PROGRESS',
+            label: this.$t('getparc.history.details.actStatuses.STARTED'),
+            date: this.content.dueDate,
+            index: 1,
+          },
+          {
+            code: 'TERMINATED',
+            label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
+            date: this.content.endDate,
+            index: 2,
+          },
+        ],
+      },
+      cancelStepper: {
+        data: [
+          {
+            code: 'WAITING',
+            label: this.$t('getparc.history.details.actStatuses.CREATED'),
+            date: this.content.created,
+            index: 0,
+          },
+          {
+            code: 'CANCELLED',
+            label: this.$t('getparc.history.details.actStatuses.STARTED'),
+            date: '',
+            index: 1,
+          },
+        ],
+      },
+      actStatus: this.content.status,
     };
   },
 
   computed: {
     steps() {
-      let stepsToUse;
-      stepsToUse = this.confirmationStepper;
-
-      return {
-        data: stepsToUse,
-      };
+      let stepper;
+      switch (this.actStatus) {
+        case 'WAITING':
+          stepper = this.confirmationStepper;
+          break;
+        case 'IN_PROGRESS':
+          stepper = this.confirmationStepper;
+          break;
+        case 'IN_ERROR':
+          stepper = [];
+          break;
+        case 'TERMINATED':
+          stepper = this.confirmationStepper;
+          break;
+        case 'CANCELLED':
+          stepper = this.cancelStepper;
+          break;
+      }
+      return stepper;
     },
     statusStepperIndex() {
-      // Example
-      return this.confirmationStepper[1].index;
+      let stepperIndex;
+      switch (this.actStatus) {
+        case 'WAITING':
+          stepperIndex = 0;
+          break;
+        case 'IN_PROGRESS':
+          stepperIndex = 1;
+          break;
+        case 'IN_ERROR':
+          stepperIndex = undefined;
+          break;
+        case 'TERMINATED':
+          stepperIndex = 2;
+          break;
+        case 'CANCELLED':
+          stepperIndex = 1;
+          break;
+      }
+      return stepperIndex;
+    },
+    detail() {
+      const actionType = this.content.actionType;
+      let currentDetail = ``;
+      switch (actionType) {
+        case 'ACTIVATION':
+          currentDetail = `${this.$t('getparc.history.details.offer')}: ${this.content.offerName} `;
+          break;
+        case 'PREACTIVATION_ACTIVATION':
+          currentDetail = `${this.$t('getparc.history.details.offer')}: ${this.content.offerName} `;
+          break;
+        case 'SERVICE_CHANGE':
+          currentDetail = `${this.$t('getparc.history.details.SERVICE_CHANGE.ADDED')}: ${
+            this.content.addedServices
+          } <br> ${this.$t('getparc.history.details.SERVICE_CHANGE.REMOVED')}: ${
+            this.content.removeServices
+          }`;
+          break;
+        case 'STATUS_CHANGE':
+          currentDetail = `${this.$t('getparc.history.details.newStatus')}: ${
+            this.content.transitionName
+          } `;
+          break;
+        // TODO: manque: résiliation/changement de statut / trasnfert / champs libres
+        case 'CHANGE_CUSTOMER_ACCOUNT':
+          currentDetail = `${this.$t('getparc.history.details.changeCf')}: ${
+            this.content.destinationCustomerAccountCode
+          } `;
+          break;
+        case 'CHANGE_OFFER':
+          currentDetail = `${this.$t('getparc.history.details.newOffer')}: ${
+            this.content.offerName
+          } `;
+          break;
+        case 'SEND_SMS':
+          currentDetail = `Message: ${this.content.message} <br> Shortcode: ${
+            this.content.shortCode
+          } `;
+          break;
+      }
+      return currentDetail;
+    },
+    total() {
+      return this.content ? this.content.targetActionNumber : 0;
     },
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <ActHistoryDetailPage />
+    <ActHistoryDetailPage :content="row" />
     <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
       <template slot-scope="{ tab, index, selectedIndex }">
         <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
@@ -20,13 +20,13 @@
         </UiTab>
       </template>
       <div slot="fail">
-        <FailedTable :mass-action-id="$route.params.massActionId" />
+        <FailedTable :mass-action-id="$route.params.massActionId" :rows="tabs[0].rows" />
       </div>
       <div slot="ongoing">
-        <OngoingTable :mass-action-id="$route.params.massActionId" />
+        <OngoingTable :mass-action-id="$route.params.massActionId" :rows="tabs[1].rows" />
       </div>
       <div slot="finished">
-        <FinishedTable :mass-action-id="$route.params.massActionId" />
+        <FinishedTable :mass-action-id="$route.params.massActionId" :rows="tabs[2].rows" />
       </div>
     </UiTabs>
   </div>
@@ -39,6 +39,8 @@ import FailedTable from './FailedTable';
 import OngoingTable from './OngoingTable';
 import FinishedTable from './FinishedTable';
 import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
+import { mapGetters } from 'vuex';
+import { fetchUnitActions } from '@/api/unitActions';
 
 export default {
   components: {
@@ -50,68 +52,118 @@ export default {
     ActHistoryDetailPage,
   },
 
+  async mounted() {
+    const pagination = { limit: 20, page: 0 };
+    const orderBy = { key: 'id', direction: 'DESCENDING' };
+    this.tabs[0].rows = await fetchUnitActions(
+      this.$route.params.massActionId,
+      this.tabs[0].status,
+      pagination,
+      orderBy
+    );
+    this.tabs[0].total = this.tabs[0].rows ? this.tabs[0].rows.length : 0;
+    this.tabs[1].rows = await fetchUnitActions(
+      this.$route.params.massActionId,
+      this.tabs[1].status,
+      pagination,
+      orderBy
+    );
+    this.tabs[1].total = this.tabs[0].rows ? this.tabs[1].rows.length : 0;
+    this.tabs[2].rows = await fetchUnitActions(
+      this.$route.params.massActionId,
+      this.tabs[2].status,
+      pagination,
+      orderBy
+    );
+    this.tabs[2].total = this.tabs[2].rows ? this.tabs[2].rows.length : 0;
+  },
+
   data() {
     return {
       currentLinkIndex: 0,
       tabs: [
         {
           label: 'fail',
-          title: 'LISTE DES CARTES EN ÉCHEC',
-          total: 1,
-          rows: [
-            {
-              id: '567990324433324',
-              msisdn: '33761456934',
-              iccid: '8933200809935003869',
-              actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-              failDate: '18/11/2018 14:56:09',
-              failReason: `Le changement d'offre est invalide`,
-              imsi: '0123',
-              constructor: 'NOKIA',
-              commercialRef: 'ref001',
-              imei: '1234',
-            },
-          ],
+          status: 'KO',
+          title: this.$t('getparc.actDetail.titleListCard.FAIL'),
+          total: 0,
+          rows: [],
+          // rows: [
+          //   {
+          //     id: '567990324433324',
+          //     msisdn: '33761456934',
+          //     iccid: '8933200809935003869',
+          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
+          //     failDate: '18/11/2018 14:56:09',
+          //     failReason: `Le changement d'offre est invalide`,
+          //     imsi: '0123',
+          //     constructor: 'NOKIA',
+          //     commercialRef: 'ref001',
+          //     imei: '1234',
+          //   },
+          // ],
         },
         {
           label: 'ongoing',
-          title: 'LISTE DES CARTES EN COURS',
-          total: 1,
-          rows: [
-            {
-              id: '567990324433324',
-              msisdn: '33761456934',
-              iccid: '8933200809935003869',
-              actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-              startDate: '18/11/2018 14:56:09',
-              imsi: '0123',
-              constructor: 'NOKIA',
-              commercialRef: 'ref001',
-              imei: '1234',
-            },
-          ],
+          status: 'OK',
+          title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
+          total: 0,
+          rows: [],
+          // rows: [
+          //   {
+          //     id: '567990324433324',
+          //     msisdn: '33761456934',
+          //     iccid: '8933200809935003869',
+          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
+          //     startDate: '18/11/2018 14:56:09',
+          //     imsi: '0123',
+          //     constructor: 'NOKIA',
+          //     commercialRef: 'ref001',
+          //     imei: '1234',
+          //   },
+          // ],
         },
         {
           label: 'finished',
-          title: 'LISTE DES CARTES TERMINÉES',
-          total: 1,
-          rows: [
-            {
-              id: '567990324433324',
-              msisdn: '33761456934',
-              iccid: '8933200809935003869',
-              actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-              startDate: '18/11/2018 14:56:09',
-              endDate: '20/11/2018 16:56:09',
-              imsi: '0123',
-              constructor: 'NOKIA',
-              commercialRef: 'ref001',
-              imei: '1234',
-            },
-          ],
+          status: 'SENT',
+          title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
+          total: 0,
+          rows: [],
+          // rows: [
+          //   {
+          //     id: '567990324433324',
+          //     msisdn: '33761456934',
+          //     iccid: '8933200809935003869',
+          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
+          //     startDate: '18/11/2018 14:56:09',
+          //     endDate: '20/11/2018 16:56:09',
+          //     imsi: '0123',
+          //     constructor: 'NOKIA',
+          //     commercialRef: 'ref001',
+          //     imei: '1234',
+          //   },
+          // ],
         },
       ],
     };
+  },
+  methods: {
+    getMassActionItem(response) {
+      if (response) {
+        const foundItem = response.find(
+          f => f.massActionResponse.id === this.$route.params.massActionId
+        );
+        if (foundItem) {
+          return foundItem.massActionResponse;
+        }
+      }
+    },
+  },
+  computed: {
+    ...mapGetters('actHistory', ['massActionsResponse']),
+    row() {
+      return this.massActionsResponse ? this.getMassActionItem(this.massActionsResponse.items) : {};
+    },
   },
 };
 </script>
@@ -119,5 +171,8 @@ export default {
 <style scoped lang="scss">
 .tab-grow {
   flex-grow: 1;
+}
+a {
+  text-transform: uppercase;
 }
 </style>
