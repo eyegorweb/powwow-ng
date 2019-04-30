@@ -1,20 +1,16 @@
 <template>
-  <div class="massactions-ids d-flex flex-wrap justify-content-start align-items-center">
-    <p class="ids">
-      <button
-        v-for="(id, index) in actionIds"
-        :key="id"
-        class="btn btn-link p-0 id"
-        @click.prevent="openDetails"
-      >
-        {{ index ? ', ' : '' }}{{ id }}
-      </button>
-    </p>
+  <div class="massactions-ids d-flex flex-wrap justify-content-start align-items-center truncate">
+    <TruncateList :limit="1" :content="actionIds"> </TruncateList>
   </div>
 </template>
 
 <script>
+import TruncateList from '@/components/ui/TruncateList';
+
 export default {
+  components: {
+    TruncateList,
+  },
   props: {
     row: Object,
   },
@@ -30,3 +26,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.truncate {
+  max-width: 10rem;
+}
+</style>
