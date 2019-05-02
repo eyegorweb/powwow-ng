@@ -2,7 +2,7 @@
   <div class="search-input">
     <UiInput
       v-model="$value"
-      @update:value="updateValue"
+      @change:value="updateValue"
       :placeholder="placeholder"
       @click="suggestionsAreVisible = true"
     >
