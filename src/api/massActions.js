@@ -161,6 +161,7 @@ function formatFilters(filters) {
 }
 
 function formatDateForGql(inDate) {
+  if (!inDate) return '';
   const startDate = inDate.replace(/\//g, '-');
   const parts = startDate.split(' ');
   if (parts) {
@@ -213,12 +214,14 @@ function addActEndDateFilter(gqlFilters, selectedFilters) {
   }
 }
 
+/*
 function addServices(gqlFilters, selectedFilters) {
   const services = selectedFilters.find(f => f.id === 'filters.services');
   if (services) {
     gqlFilters.push(`optionalServiceAction:  ${services.values[0].id}`);
   }
 }
+//*/
 
 function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
@@ -266,6 +269,7 @@ function addDateFilter(gqlFilters, selectedFilters) {
   }
 
   function formatDateForGql(inDate) {
+    if (!inDate) return '';
     const startDate = inDate.replace(/\//g, '-');
     const parts = startDate.split(' ');
     if (parts) {

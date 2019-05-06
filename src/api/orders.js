@@ -282,6 +282,7 @@ function addDateFilter(gqlFilters, selectedFilters) {
   }
 
   function formatDateForGql(inDate) {
+    if (!inDate) return '';
     const startDate = inDate.replace(/\//g, '-');
     const parts = startDate.split(' ');
     if (parts) {
