@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   css: {
@@ -24,6 +25,6 @@ module.exports = {
   },
 
   configureWebpack: {
-    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), new CompressionPlugin()],
   },
 };
