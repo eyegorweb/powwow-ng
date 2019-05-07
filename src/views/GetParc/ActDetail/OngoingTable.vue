@@ -3,14 +3,8 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 v-if="total === 0" class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $tc('getparc.actDetail.title', 0) }}
-          </h2>
-          <h2 v-if="total === 1" class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $tc('getparc.actDetail.title', 1) }}
-          </h2>
-          <h2 v-if="total > 1" class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $tc('getparc.actDetail.title', total, { total: total }) }}
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            {{ $t('getparc.actDetail.title', { total: total }) }}
           </h2>
         </div>
       </div>
@@ -47,11 +41,11 @@ export default {
   props: {
     massActionId: String,
     rows: Array,
-    total: Number,
   },
 
   data() {
     return {
+      total: 1,
       columns: [
         {
           id: 1,
