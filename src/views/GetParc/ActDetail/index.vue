@@ -20,7 +20,11 @@
         </UiTab>
       </template>
       <div slot="fail">
-        <FailedTable :mass-action-id="$route.params.massActionId" :rows="tabs[0].rows" />
+        <FailedTable
+          :mass-action-id="$route.params.massActionId"
+          :rows="tabs[0].rows"
+          @refreshTables="refreshTables"
+        />
       </div>
       <div slot="ongoing">
         <OngoingTable :mass-action-id="$route.params.massActionId" :rows="tabs[1].rows" />
@@ -53,29 +57,7 @@ export default {
   },
 
   async mounted() {
-    const pagination = { limit: 20, page: 0 };
-    const orderBy = { key: 'id', direction: 'DESCENDING' };
-    this.tabs[0].rows = await fetchUnitActions(
-      this.$route.params.massActionId,
-      this.tabs[0].status,
-      pagination,
-      orderBy
-    );
-    this.tabs[0].total = this.tabs[0].rows ? this.tabs[0].rows.length : 0;
-    this.tabs[1].rows = await fetchUnitActions(
-      this.$route.params.massActionId,
-      this.tabs[1].status,
-      pagination,
-      orderBy
-    );
-    this.tabs[1].total = this.tabs[0].rows ? this.tabs[1].rows.length : 0;
-    this.tabs[2].rows = await fetchUnitActions(
-      this.$route.params.massActionId,
-      this.tabs[2].status,
-      pagination,
-      orderBy
-    );
-    this.tabs[2].total = this.tabs[2].rows ? this.tabs[2].rows.length : 0;
+    this.refreshTables();
   },
 
   data() {
@@ -88,20 +70,6 @@ export default {
           title: this.$t('getparc.actDetail.titleListCard.FAIL'),
           total: 0,
           rows: [],
-          // rows: [
-          //   {
-          //     id: '567990324433324',
-          //     msisdn: '33761456934',
-          //     iccid: '8933200809935003869',
-          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-          //     failDate: '18/11/2018 14:56:09',
-          //     failReason: `Le changement d'offre est invalide`,
-          //     imsi: '0123',
-          //     constructor: 'NOKIA',
-          //     commercialRef: 'ref001',
-          //     imei: '1234',
-          //   },
-          // ],
         },
         {
           label: 'ongoing',
@@ -109,19 +77,6 @@ export default {
           title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
           total: 0,
           rows: [],
-          // rows: [
-          //   {
-          //     id: '567990324433324',
-          //     msisdn: '33761456934',
-          //     iccid: '8933200809935003869',
-          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-          //     startDate: '18/11/2018 14:56:09',
-          //     imsi: '0123',
-          //     constructor: 'NOKIA',
-          //     commercialRef: 'ref001',
-          //     imei: '1234',
-          //   },
-          // ],
         },
         {
           label: 'finished',
@@ -129,25 +84,52 @@ export default {
           title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
           total: 0,
           rows: [],
-          // rows: [
-          //   {
-          //     id: '567990324433324',
-          //     msisdn: '33761456934',
-          //     iccid: '8933200809935003869',
-          //     actState: 'Ancienne offre: ENEDYS-LINKY-PROD',
-          //     startDate: '18/11/2018 14:56:09',
-          //     endDate: '20/11/2018 16:56:09',
-          //     imsi: '0123',
-          //     constructor: 'NOKIA',
-          //     commercialRef: 'ref001',
-          //     imei: '1234',
-          //   },
-          // ],
         },
       ],
     };
   },
   methods: {
+    async refreshTables() {
+      const pagination = { limit: 20, page: 0 };
+      const orderBy = { key: 'id', direction: 'DESCENDING' };
+      const failedCards = await fetchUnitActions(
+        this.$route.params.massActionId,
+        'KO',
+        pagination,
+        orderBy
+      );
+      const ongoingCards = await fetchUnitActions(
+        this.$route.params.massActionId,
+        'OK',
+        pagination,
+        orderBy
+      );
+
+      const sentCards = await fetchUnitActions(
+        this.$route.params.massActionId,
+        'SENT',
+        pagination,
+        orderBy
+      );
+
+      this.tabs = [
+        {
+          ...this.tabs[0],
+          rows: failedCards,
+          total: failedCards ? failedCards.length : 0,
+        },
+        {
+          ...this.tabs[1],
+          rows: ongoingCards,
+          total: ongoingCards ? ongoingCards.length : 0,
+        },
+        {
+          ...this.tabs[2],
+          rows: sentCards,
+          total: sentCards ? sentCards.length : 0,
+        },
+      ];
+    },
     getMassActionItem(response) {
       if (response) {
         const foundItem = response.find(

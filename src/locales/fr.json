@@ -26,6 +26,7 @@
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
+  "noResult": "Aucun résulat",
   "partnerTypes": {
     "CUSTOMER": "Client",
     "MVNO": "MVNO",
@@ -203,6 +204,10 @@
     },
     "actDetail": {
       "title": "{total} lignes trouvées",
+      "actionChoice": "Choisir une action",
+      "discharge": "Acquitter les actes en échec ",
+      "restart": "Relancer les actes en échec",
+      "enterMessage": "Entrez un message",
       "titleListCard": {
         "FAIL": "liste des cartes en échec",
         "ONGOING": "liste des cartes en cours",

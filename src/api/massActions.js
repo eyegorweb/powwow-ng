@@ -127,6 +127,26 @@ export async function countTotalByMassActionIndicators(
   return response.data;
 }
 
+export async function acknowledgeFailedUnitActions(message, massActionId) {
+  const queryStr = `
+  mutation {
+    acknowledgeFailedUnitActions(message: "${message}", massActionId: ${massActionId})
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data;
+}
+
+export async function replayFailedUnitsActions(partyId, userId, massActionId) {
+  const queryStr = `
+  mutation {
+    replayFailedUnitsActions(partyId: ${partyId}, userId: ${userId}, massActionId: ${massActionId})
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data;
+}
+
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsForInt(filters, 'filters.partners');
