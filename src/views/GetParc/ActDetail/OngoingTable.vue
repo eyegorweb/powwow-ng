@@ -1,28 +1,33 @@
 <template>
   <LoaderContainer :is-loading="false">
     <div>
-      <div class="row mb-3">
-        <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.actDetail.title', { total: total }) }}
-          </h2>
-        </div>
+      <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+        {{ $t('noResult') }}
       </div>
-      <DataTable
-        :columns.sync="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        @change-order="changeCellsOrder"
-        :size="7"
-      >
-        <template slot="topLeftCorner">
-          <SearchByActId />
-        </template>
-      </DataTable>
+      <div v-else>
+        <div class="row mb-3">
+          <div class="col">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+              {{ $t('getparc.actDetail.title', { total: total }) }}
+            </h2>
+          </div>
+        </div>
+        <DataTable
+          :columns.sync="columns"
+          :rows="rows || []"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :order-by.sync="orderBy"
+          :show-extra-columns.sync="showExtraCells"
+          @change-order="changeCellsOrder"
+          :size="7"
+        >
+          <template slot="topLeftCorner">
+            <SearchByActId />
+          </template>
+        </DataTable>
+      </div>
     </div>
   </LoaderContainer>
 </template>
