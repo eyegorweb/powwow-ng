@@ -1,0 +1,79 @@
+image: gradle:4.10.2
+
+stages:
+  - build
+  - test
+  - publish
+  - deploy
+
+variables:
+  http_proxy: "http://proxyace1.prod.extelia.fr:8080"
+  https_proxy: "http://proxyace1.prod.extelia.fr:8080"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace1.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace1.prod.extelia.fr -Dhttps.proxyPort=8080"
+  ORG_GRADLE_PROJECT_npmBuildEnv: integration # integration ou full-local. Sans valeur, c'est la production qui est cible
+
+before_script:
+  - cd ui-server
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - echo "registry=https://outils.docapost.tech/nexus/repository/npm-central/" > ~/.npmrc
+
+build:
+  stage: build
+  script: gradle --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+publish_docker_image:
+  stage: publish
+  script:
+    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+  only:
+    - master
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
+deploy_integration:
+  stage: deploy
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan powwowng1.zone.local >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - ssh m2m-prd@powwowng1.zone.local "bash --login -c 'export SPRING_PROFILE=int && ~/docker/docker-admin.sh restart'"
+  environment:
+    name: integration
+    url: http://powwowng1.zone.local:8080
+  only:
+    - master
+
+deploy_testing:
+  stage: deploy
+  image: m2m-registry.by-docapost.com/powwow-ng/envs/toolbox
+  variables:
+    KUBECONFIG: /etc/deploy/config
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
+    - kubectl config use-context m2m-node-tst
+  script:
+    - kubectl get po
+    - kubectl patch deployment ui-server -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%Y%m%d%H%M%S'`\"}}}}}"
+    - kubectl rollout status deployment.v1.apps/ui-server
+  when: manual
+  environment:
+    name: testing
+    url: http://172.20.157.115:8080
+  only:
+    - master

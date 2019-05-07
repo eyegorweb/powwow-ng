@@ -1,0 +1,7 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://outils.docapost.tech/nexus/repository/gradle-plugins/' }
+        gradlePluginPortal() // Include public Gradle plugin portal
+    }
+}
+rootProject.name = 'ui-server'

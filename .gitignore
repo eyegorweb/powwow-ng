@@ -24,3 +24,35 @@ coverage
 
 # pas tout le monde utilise le proxy
 .npmrc
+
+
+.gradle
+ui-server/build/
+ui-server/bin/
+!ui-server/gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out
+
+### NetBeans ###
+ui-server/nbproject/private/
+ui-server/nbbuild/
+ui-server/dist/
+ui-server/nbdist/
+ui-server/.nb-gradle/
+ui-server/src/main/resources/public
+
+

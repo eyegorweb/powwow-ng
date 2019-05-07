@@ -1,0 +1,117 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.0.7.RELEASE"
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "com.moowork.node" version "1.2.0"
+    id "com.google.cloud.tools.jib" version "1.0.2"
+    id "idea"
+}
+
+def packageJson = new groovy.json.JsonSlurper().parse file("${project.projectDir}/../ui/package.json")
+
+group = 'com.docapost.powwow'
+version = '0.0.3-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    springCloudVersion = 'Finchley.SR2'
+}
+
+repositories {
+    mavenLocal()
+
+    if (project.hasProperty("NEXUS_USERNAME")) {
+        println "Credentials found for Nexus - Adding Docapost Nexus Repo to ${project.name}"
+        maven {
+            url "https://outils.docapost.tech/nexus/repository/powwow"
+            credentials {
+                username "${NEXUS_USERNAME}"
+                password "${NEXUS_PASSWORD}"
+            }
+        }
+    }
+    else
+        println "No credentials provided for Nexus"
+
+    jcenter()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    implementation('org.springframework.cloud:spring-cloud-starter-config')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+node {
+    version = '10.5.0'
+    download = true
+    workDir = file("${project.buildDir}/node")
+    nodeModulesDir = file("${project.projectDir}/../ui")
+    yarnVersion = '1.10.1'
+}
+
+task buildFront(type: YarnTask) {
+    dependsOn yarn
+
+    def npmBuild = project.hasProperty('npmBuildEnv') ? "build:${npmBuildEnv}" : "build"
+
+	println "Yarn Build : ${npmBuild}"
+
+    args = ['run', "${npmBuild}"]
+}
+
+task copyPublicResources(type: Copy){
+    dependsOn buildFront
+
+    from "${project.projectDir}/../ui/dist"
+    into "${project.projectDir}/src/main/resources/public"
+}
+
+processResources.dependsOn(copyPublicResources)
+
+task cleanNodeModules(type: Delete) {
+    delete "${project.projectDir}/../ui/node_modules"
+}
+
+clean() {
+    delete "${project.projectDir}/../ui/dist"
+    delete "${project.projectDir}/src/main/resources/public"
+}
+
+springBoot {
+	buildInfo()
+}
+
+jib {
+    def registryImageName = project.hasProperty('registryImageName') ? registryImageName : project.name
+    def registryImageTag = project.hasProperty('registryImageTag') ? registryImageTag : project.version
+    def registryUsername = project.hasProperty('registryUsername') ? registryUsername : null
+    def registryPassword = project.hasProperty('registryPassword') ? registryPassword : null
+
+	container {
+		useCurrentTimestamp = true
+	}
+
+    from {
+        image = 'gcr.io/distroless/java:debug'
+    }
+
+    to {
+        image = "${registryImageName}:${registryImageTag}"
+        auth {
+            username = registryUsername
+            password = registryPassword
+        }
+        allowInsecureRegistries = true
+    }
+}

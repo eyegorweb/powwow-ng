@@ -1,0 +1,2 @@
+server:
+  port: ${UI_SERVICE_PORT:8086}
