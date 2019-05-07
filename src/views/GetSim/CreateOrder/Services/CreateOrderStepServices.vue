@@ -13,7 +13,12 @@
         </div>
         <div v-if="activation && offers && offers.length">
           <div class=" ">
-            <OffersChoice v-model="selectedOffer" :offers="offers" :partner-id="partnerId" />
+            <OffersChoice
+              v-model="selectedOffer"
+              :offers="offers"
+              :partner-id="partnerId"
+              :is-rcard="isrcard"
+            />
           </div>
 
           <template v-if="selectedOfferData">
@@ -92,7 +97,6 @@ export default {
   components: {
     UiButton,
     UiToggle,
-    // UiSelect,
     OffersChoice,
     MultiChoiceList,
   },
@@ -104,6 +108,12 @@ export default {
   },
 
   computed: {
+    isrcard() {
+      const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
+      const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
+      const inrCardValues = rCardValues.indexOf(currentCategory) !== -1;
+      return inrCardValues;
+    },
     preActivation: {
       get() {
         return this.activation || this.preActivationValue;
