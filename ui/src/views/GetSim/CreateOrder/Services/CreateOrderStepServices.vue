@@ -146,7 +146,9 @@ export default {
   },
   watch: {
     selectedOffer(selectedValue) {
-      this.selectedOfferData = this.offers.find(o => o.value === selectedValue);
+      this.selectedOfferData = this.activation
+        ? this.offers.find(o => o.value === selectedValue)
+        : {};
       this.initServicesForOffer();
       this.initDataService();
       this.servicesInitialized = true;
@@ -275,7 +277,7 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${this.selectedOffer}`,
+              `Offre:  ${this.activation ? this.selectedOffer : ''}`,
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
