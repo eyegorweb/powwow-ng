@@ -121,7 +121,7 @@ button {
   padding: 0;
   margin: 0;
   position: absolute;
-  right: -20px;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
