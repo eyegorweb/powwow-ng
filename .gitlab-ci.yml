@@ -24,8 +24,8 @@ build:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
     paths:
-      - build
-      - .gradle
+      - ui-server/build
+      - ui-server/.gradle
 
 publish_docker_image:
   stage: publish
