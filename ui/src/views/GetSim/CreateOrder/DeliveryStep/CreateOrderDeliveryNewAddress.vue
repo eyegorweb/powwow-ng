@@ -82,11 +82,11 @@
             <div class="form-group">
               <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
               <div>
-                <UiSelect
-                  placeholder
+                <UiApiAutocomplete
+                  :items="countries"
                   v-model="form.country"
-                  :options="countries"
-                  :error="errors.country"
+                  :error="errors.city"
+                  display-results-while-empty
                 />
               </div>
             </div>
@@ -130,13 +130,11 @@ import { searchAddress } from '@/api/address';
 import { addPartyShippingAddress } from '@/api/partners';
 import { updatePartyShippingAddress } from '@/api/partners';
 import { fetchDeliveryCountries } from '@/api/filters';
-import UiSelect from '@/components/ui/UiSelect';
 
 export default {
   components: {
     FormControl,
     UiApiAutocomplete,
-    UiSelect,
   },
   props: {
     partnerId: {
