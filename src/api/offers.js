@@ -16,6 +16,8 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
     partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
   }
 
+  let formattedPartyId = partnersIds.replace(/['"]+/g, '');
+
   const queryStr = `
   query{
     workflows(filter:{description: {contains: "${q}"}${partnerGqlParam}${partnerTypesGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}) {
@@ -53,6 +55,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
             }
           }
         }
+        rCard(partyId: ${formattedPartyId})
       }
     }
   }

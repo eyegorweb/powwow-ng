@@ -306,7 +306,8 @@
     "DATA_CSD_ENTRANTE": "Data csd entrante",
     "DATA_CSD_SORTANTE": "Data csd sortante",
     "ROAMING": "Roaming",
-    "DATA": "Data"
+    "DATA": "Data",
+    "compatibility": "-non compatible"
   },
   "filters": {
     "title": "FILTRES",
