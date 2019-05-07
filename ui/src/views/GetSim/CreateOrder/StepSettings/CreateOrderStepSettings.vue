@@ -39,11 +39,6 @@
               @click="$emit('prev')"
               class="float-left ic-Arrow-Previous-Icon prev-btn"
             />
-            <UiButton
-              variant="round-button"
-              @click="done"
-              class="float-right ic-Arrow-Next-Icon next-btn"
-            />
           </div>
         </div>
       </div>
