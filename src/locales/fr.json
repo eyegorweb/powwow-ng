@@ -202,7 +202,7 @@
       }
     },
     "actDetail": {
-      "title": "{total} lignes trouvées",
+      "title": "0 ligne trouvée | 1 ligne trouvée | {total} lignes trouvées",
       "titleListCard": {
         "FAIL": "liste des cartes en échec",
         "ONGOING": "liste des cartes en cours",
