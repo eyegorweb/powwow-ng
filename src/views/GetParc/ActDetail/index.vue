@@ -20,13 +20,13 @@
         </UiTab>
       </template>
       <div slot="fail">
-        <FailedTable :mass-action-id="$route.params.massActionId" :rows="tabs[0].rows" :total="tabs[0].total" />
+        <FailedTable :mass-action-id="$route.params.massActionId" :rows="tabs[0].rows" />
       </div>
       <div slot="ongoing">
-        <OngoingTable :mass-action-id="$route.params.massActionId" :rows="tabs[1].rows" :total="tabs[1].total" />
+        <OngoingTable :mass-action-id="$route.params.massActionId" :rows="tabs[1].rows" />
       </div>
       <div slot="finished">
-        <FinishedTable :mass-action-id="$route.params.massActionId" :rows="tabs[2].rows" :total="tabs[2].total" />
+        <FinishedTable :mass-action-id="$route.params.massActionId" :rows="tabs[2].rows" />
       </div>
     </UiTabs>
   </div>
@@ -68,7 +68,7 @@ export default {
       pagination,
       orderBy
     );
-    this.tabs[1].total = this.tabs[1].rows ? this.tabs[1].rows.length : 0;
+    this.tabs[1].total = this.tabs[0].rows ? this.tabs[1].rows.length : 0;
     this.tabs[2].rows = await fetchUnitActions(
       this.$route.params.massActionId,
       this.tabs[2].status,
