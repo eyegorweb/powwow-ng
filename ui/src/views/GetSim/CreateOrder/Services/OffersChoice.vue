@@ -26,13 +26,20 @@ export default {
   computed: {
     formattedOffers() {
       return this.offers.map(i => {
+        let workflowIsNotCompatible = false;
+        if (this.isRcard) {
+          workflowIsNotCompatible = !i.rCard;
+        }
+
         return {
           code: i.code,
           id: i.id,
           initialOffer: i.initialOffer,
-          label: i.rCard ? i.label : `${i.label}${this.$t('services.compatibility')}`,
+          label: !workflowIsNotCompatible
+            ? i.label
+            : `${i.label}${this.$t('services.compatibility')}`,
           value: i.value,
-          disabled: !i.rCard,
+          disabled: workflowIsNotCompatible,
           workflowDescription: i.workflowDescription,
         };
       });
