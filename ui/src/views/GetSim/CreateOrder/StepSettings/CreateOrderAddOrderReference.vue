@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}</h3>
+    <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}<span v-if="!isOrderNumberMandatory" class="text-optional"> [{{ $t('optional') }}]</span></h3>
     <UiInput class="d-block" v-model="referenceValue" :error="checkForError || undefined" />
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
     checkForError: {
       type: String,
     },
+    isOrderNumberMandatory: Boolean,
   },
   computed: {
     referenceValue: {
@@ -40,5 +41,9 @@ export default {
   margin: 3rem 0 1.875rem;
   padding: 0;
   text-align: center;
+}
+.text-optional {
+  font-size: 0.9rem;
+  font-weight: bolder;
 }
 </style>

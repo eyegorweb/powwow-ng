@@ -2,7 +2,7 @@
   <div>
     <div v-for="item in fields" :key="item.id" class=" mb-1">
       <div v-if="item.type === 'TEXT'">
-        {{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span>
+        {{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
 
         <UiInput
           @update:value="newVal => onValueChanged(item, newVal)"
@@ -13,7 +13,7 @@
       </div>
       <div class="form-group" v-if="item.type === 'LIST'">
         <label
-          >{{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span></label
+          >{{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span></label
         >
         <br />
         <UiSelect
@@ -26,7 +26,7 @@
         />
       </div>
       <div v-if="item.type === 'DATE'">
-        {{ item.label }} <span v-if="item.isOptional">({{ $t('optional') }})</span>
+        {{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
         <UiDate
           @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
@@ -78,5 +78,9 @@ export default {
 <style scoped>
 .select-filter {
   width: 100%;
+}
+.text-optional {
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 </style>
