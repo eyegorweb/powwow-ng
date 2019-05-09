@@ -115,3 +115,15 @@ $theme-colors: map-merge(
   color: $orange;
   font-size: 0.8rem;
 }
+
+.export-link {
+  color: $accent;
+  float: right;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.export-logo {
+  width: 100%;
+}

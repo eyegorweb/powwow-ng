@@ -11,6 +11,12 @@
               {{ $t('getparc.actDetail.title', { total: total }) }}
             </h2>
           </div>
+          <div class="col">
+            <button class="btn btn-link export-link" @click="chooseExportFormat">
+              <i class="ic-Download-Icon" />
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </button>
+          </div>
         </div>
         <DataTable
           :columns.sync="columns"
@@ -36,37 +42,54 @@
             <button @click.stop="restartFailedActs" class="btn btn-info ml-2">
               <i class="ic-Refresh-Icon" /> {{ $t('getparc.actDetail.restart') }}
             </button>
-            <Modal v-if="acknowledgePopUp">
-              <div class="text-left" slot="body">
-                <form>
-                  <div class="form-group">
-                    <label for="message">{{ $t('getparc.actDetail.enterMessage') }}</label>
-                    <textarea
-                      v-model="acknowledgeTxt"
-                      class="form-control"
-                      id="message"
-                      rows="3"
-                    ></textarea>
-                  </div>
-                </form>
-              </div>
-              <div slot="footer">
-                <button
-                  class="modal-default-button btn btn-danger btn-sm"
-                  @click.stop="closeAcknowledgement"
-                >
-                  {{ $t('cancel') }}
-                </button>
-                <button
-                  class="modal-default-button btn btn-success btn-sm ml-1"
-                  @click.stop="saveAcknowledgement"
-                >
-                  {{ $t('save') }}
-                </button>
-              </div>
-            </Modal>
           </div>
         </div>
+        <Modal v-if="isAsyncExportAlertOpen">
+          <p slot="body">
+            {{ $t('getsim.export-warning') }}
+          </p>
+          <div slot="footer">
+            <button
+              class="modal-default-button btn btn-danger btn-sm"
+              @click.stop="isAsyncExportAlertOpen = false"
+            >
+              {{ $t('cancel') }}
+            </button>
+            <button
+              class="modal-default-button btn btn-success btn-sm ml-1"
+              @click.stop="isAsyncExportAlertOpen = false"
+            >
+              {{ $t('export') }}
+            </button>
+          </div>
+        </Modal>
+        <Modal v-if="isExportFormatChoiceOpen">
+          <div slot="body">
+            <h4>Veuillez choisir un format d'export :</h4>
+            <div class="row">
+              <div class="col text-center">
+                <button class="btn btn-link" @click.stop="exportFile('CSV')">
+                  <img class="export-logo" src="@/assets/csv.svg" alt="csv" />
+                  <span>CSV</span>
+                </button>
+              </div>
+              <div class="col text-center">
+                <button class="btn btn-link" @click.stop="exportFile('EXCEL')">
+                  <img class="export-logo" src="@/assets/excel.svg" alt="excel" />
+                  <span>Excel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div slot="footer">
+            <button
+              class="modal-default-button btn btn-danger btn-sm"
+              @click.stop="isExportFormatChoiceOpen = false"
+            >
+              {{ $t('cancel') }}
+            </button>
+          </div>
+        </Modal>
       </div>
     </div>
   </LoaderContainer>
@@ -77,8 +100,10 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import Modal from '@/components/Modal';
+import sortBy from 'lodash.sortby';
 
 import { acknowledgeFailedUnitActions, replayFailedUnitsActions } from '@/api/massActions';
+import { exportLines } from '@/api/unitActions';
 
 export default {
   components: {
@@ -94,6 +119,8 @@ export default {
 
   data() {
     return {
+      isAsyncExportAlertOpen: false,
+      isExportFormatChoiceOpen: false,
       acknowledgePopUp: false,
       acknowledgeTxt: '',
       total: 1,
@@ -104,6 +131,7 @@ export default {
           name: 'id',
           orderable: true,
           visible: true,
+          // exportId: 'UNKNOWN',
         },
         {
           id: 3,
@@ -111,6 +139,7 @@ export default {
           name: 'msisdn',
           orderable: true,
           visible: true,
+          exportId: 'LINE_MSISDN',
         },
         {
           id: 4,
@@ -118,6 +147,7 @@ export default {
           name: 'iccid',
           orderable: true,
           visible: true,
+          exportId: 'LINE_ICCID',
         },
         {
           id: 2,
@@ -125,6 +155,7 @@ export default {
           name: 'status',
           orderable: true,
           visible: true,
+          exportId: 'LINE_SIM_STATUS_DATE',
         },
         {
           id: 6,
@@ -132,6 +163,7 @@ export default {
           name: 'statusDate',
           orderable: true,
           visible: true,
+          // exportId: 'UNKNOWN',
         },
         {
           id: 7,
@@ -139,6 +171,7 @@ export default {
           name: 'error_reason',
           orderable: true,
           visible: true,
+          // exportId: 'UNKNOWN',
         },
         {
           id: 5,
@@ -146,6 +179,7 @@ export default {
           name: 'imsi',
           orderable: true,
           visible: false,
+          exportId: 'LINE_IMSI',
         },
         {
           id: 8,
@@ -153,6 +187,7 @@ export default {
           name: 'manufacturer',
           orderable: true,
           visible: false,
+          exportId: 'LINE_MANUFACTURER',
         },
         {
           id: 9,
@@ -160,6 +195,7 @@ export default {
           name: 'deviceReference',
           orderable: true,
           visible: false,
+          exportId: 'LINE_DEVICE_REFERENCE',
         },
         {
           id: 10,
@@ -199,8 +235,28 @@ export default {
       await replayFailedUnitsActions(this.massActionId);
       this.$emit('refreshTables');
     },
+    chooseExportFormat() {
+      this.isExportFormatChoiceOpen = true;
+    },
+    async exportFile(exportFormat) {
+      const columnsParam = sortBy(this.columns, c => !c.visible)
+        .filter(c => c.exportId)
+        .map(c => c.exportId);
+      const downloadResponse = await exportLines(columnsParam, this.orderBy, exportFormat);
+      if (downloadResponse.asyncRequired) {
+        this.isExportFormatChoiceOpen = false;
+        setTimeout(() => {
+          this.isAsyncExportAlertOpen = true;
+        }, 200);
+      } else {
+        if (downloadResponse && downloadResponse.downloadUri) {
+          window.open(downloadResponse.downloadUri, '_blank');
+          this.isExportFormatChoiceOpen = false;
+        }
+      }
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>
