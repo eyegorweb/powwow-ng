@@ -6,6 +6,7 @@
           :value="referenceValue"
           @input="onReferenceSet"
           :check-for-error="orderReferenceError"
+          :is-order-number-mandatory="isOrderNumberMandatory"
         />
         <h3 class="font-weight-light text-center mt-4 mb-4">
           {{ $t('orders.choose-custom-field') }}
@@ -65,6 +66,7 @@ export default {
       customFieldsValues: [],
       referenceValue: '',
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
+      isOrderNumberMandatory: false,
     };
   },
 
@@ -81,6 +83,11 @@ export default {
   async mounted() {
     await this.fetchCustomFieldsForPartner();
     this.preFill();
+    this.isOrderNumberMandatory = get(
+      this.synthesis,
+      'billingAccount.selection.partner.orderNumberIsMandatory',
+      false
+    );
   },
 
   methods: {
