@@ -73,14 +73,14 @@ export default {
         },
         {
           label: 'ongoing',
-          status: 'OK',
+          status: 'SENT', // WAITING, SENT, IN_PROGRESS
           title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
           total: 0,
           rows: [],
         },
         {
           label: 'finished',
-          status: 'SENT',
+          status: 'OK', // OK, REPLAYED, CANCELLED
           title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
           total: 0,
           rows: [],
@@ -100,14 +100,14 @@ export default {
       );
       const ongoingCards = await fetchUnitActions(
         this.$route.params.massActionId,
-        'OK',
+        'SENT',
         pagination,
         orderBy
       );
 
       const sentCards = await fetchUnitActions(
         this.$route.params.massActionId,
-        'SENT',
+        'OK',
         pagination,
         orderBy
       );
