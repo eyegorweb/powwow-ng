@@ -2,15 +2,15 @@
   <div>
     <UiCheckbox
       :checked="false"
-      :value="$t('filters.actionValues.ACTIVATED')"
-      v-model="lineActivated"
-      >{{ $t('filters.actionValues.ACTIVATED') }}</UiCheckbox
-    >
-    <UiCheckbox
-      :checked="false"
       :value="$t('filters.actionValues.PREACTIVATED')"
       v-model="linePreActivated"
       >{{ $t('filters.actionValues.PREACTIVATED') }}</UiCheckbox
+    >
+    <UiCheckbox
+      :checked="false"
+      :value="$t('filters.actionValues.ACTIVATED')"
+      v-model="lineActivated"
+      >{{ $t('filters.actionValues.ACTIVATED') }}</UiCheckbox
     >
   </div>
 </template>
