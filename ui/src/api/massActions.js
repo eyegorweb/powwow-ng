@@ -137,10 +137,10 @@ export async function acknowledgeFailedUnitActions(message, massActionId) {
   return response.data;
 }
 
-export async function replayFailedUnitsActions(partyId, userId, massActionId) {
+export async function replayFailedUnitsActions(massActionId) {
   const queryStr = `
   mutation {
-    replayFailedUnitsActions(partyId: ${partyId}, userId: ${userId}, massActionId: ${massActionId})
+    replayFailedUnitsActions(massActionId: ${massActionId})
   }
   `;
   const response = await query(queryStr);

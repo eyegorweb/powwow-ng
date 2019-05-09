@@ -78,7 +78,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import Modal from '@/components/Modal';
 
-import { acknowledgeFailedUnitActions } from '@/api/massActions';
+import { acknowledgeFailedUnitActions, replayFailedUnitsActions } from '@/api/massActions';
 
 export default {
   components: {
@@ -196,16 +196,8 @@ export default {
       this.acknowledgePopUp = true;
     },
     async restartFailedActs() {
-      console.log('restart en echec');
-
-      // replayFailedUnitsActions
-      /*
-      const partyId = 1;
-      const userId = 1;
-      const massActionId = 1;
-      const data = await replayFailedUnitsActions(partyId, userId, massActionId);
-      console.log(data);
-      //*/
+      await replayFailedUnitsActions(this.massActionId);
+      this.$emit('refreshTables');
     },
   },
 };
