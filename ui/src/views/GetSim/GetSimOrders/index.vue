@@ -56,14 +56,14 @@
           <h4>Veuillez choisir un format d'export :</h4>
           <div class="row">
             <div class="col text-center">
-              <button class="btn btn-link" @click.stop="exportFile('CSV')">
-                <img class="export-logo" src="@/assets/csv.svg" alt="csv" />
+              <button class="btn btn-link export-button" @click.stop="exportFile('CSV')">
+                <img src="@/assets/csv.svg" alt="csv" />
                 <span>CSV</span>
               </button>
             </div>
             <div class="col text-center">
-              <button class="btn btn-link" @click.stop="exportFile('EXCEL')">
-                <img class="export-logo" src="@/assets/excel.svg" alt="excel" />
+              <button class="btn btn-link export-button" @click.stop="exportFile('EXCEL')">
+                <img src="@/assets/excel.svg" alt="excel" />
                 <span>Excel</span>
               </button>
             </div>
