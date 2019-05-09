@@ -57,13 +57,13 @@
           <div class="row">
             <div class="col text-center">
               <button class="btn btn-link" @click.stop="exportFile('CSV')">
-                <img class="logo" src="@/assets/csv.svg" alt="csv" />
+                <img class="export-logo" src="@/assets/csv.svg" alt="csv" />
                 <span>CSV</span>
               </button>
             </div>
             <div class="col text-center">
               <button class="btn btn-link" @click.stop="exportFile('EXCEL')">
-                <img class="logo" src="@/assets/excel.svg" alt="excel" />
+                <img class="export-logo" src="@/assets/excel.svg" alt="excel" />
                 <span>Excel</span>
               </button>
             </div>
@@ -84,12 +84,13 @@
 
 <script>
 import get from 'lodash.get';
+import sortBy from 'lodash.sortby';
+
 import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
-import sortBy from 'lodash.sortby';
 import SearchByIdInput from './SearchByIdInput';
 import LoaderContainer from '@/components/LoaderContainer';
 import Modal from '@/components/Modal';
@@ -485,9 +486,5 @@ export default {
 
 .total-row h2 {
   display: inline;
-}
-
-.logo {
-  width: 100%;
 }
 </style>

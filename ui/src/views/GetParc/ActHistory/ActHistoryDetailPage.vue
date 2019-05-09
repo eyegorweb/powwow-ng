@@ -7,8 +7,8 @@
         </div>
         <div>
           <UiButton variant="accent" block>
-            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}</UiButton
-          >
+            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+          </UiButton>
         </div>
       </div>
 
