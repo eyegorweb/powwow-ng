@@ -551,7 +551,7 @@ export async function updateOrderStatus(orderId, newStatus) {
   return response.data.updateOrder;
 }
 
-export async function exportFile(columns, orderBy, filters = []) {
+export async function exportFile(columns, orderBy, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const response = await query(
@@ -559,7 +559,7 @@ export async function exportFile(columns, orderBy, filters = []) {
     query {
       ordersExport(filter: {${formatFilters(
         filters
-      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: EXCEL) {
+      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}) {
         downloadUri
         asyncRequired
       }

@@ -8,7 +8,7 @@
           </h2>
         </div>
         <div class="col">
-          <button class="btn btn-link export-link" @click="exportFile">
+          <button class="btn btn-link export-link" @click="chooseExportFormat">
             <i class="ic-Download-Icon" />
             {{ $t('getsim.export', { total: total }) }}
           </button>
@@ -32,22 +32,49 @@
           <GetSimOrdersActions :order="row" />
         </template>
       </DataTable>
-      <Modal v-if="isExportModalOpen">
+      <Modal v-if="isAsyncExportAlertOpen">
         <p slot="body">
           {{ $t('getsim.export-warning') }}
         </p>
         <div slot="footer">
           <button
             class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="isExportModalOpen = false"
+            @click.stop="isAsyncExportAlertOpen = false"
           >
             {{ $t('cancel') }}
           </button>
           <button
             class="modal-default-button btn btn-success btn-sm ml-1"
-            @click.stop="isExportModalOpen = false"
+            @click.stop="isAsyncExportAlertOpen = false"
           >
             {{ $t('export') }}
+          </button>
+        </div>
+      </Modal>
+      <Modal v-if="isExportFormatChoiceOpen">
+        <div slot="body">
+          <h4>Veuillez choisir un format d'export :</h4>
+          <div class="row">
+            <div class="col text-center">
+              <button class="btn btn-link" @click.stop="exportFile('CSV')">
+                <img class="logo" src="@/assets/csv.svg" alt="csv" />
+                <span>CSV</span>
+              </button>
+            </div>
+            <div class="col text-center">
+              <button class="btn btn-link" @click.stop="exportFile('EXCEL')">
+                <img class="logo" src="@/assets/excel.svg" alt="excel" />
+                <span>Excel</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            @click.stop="isExportFormatChoiceOpen = false"
+          >
+            {{ $t('cancel') }}
           </button>
         </div>
       </Modal>
@@ -160,16 +187,28 @@ export default {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
-    async exportFile() {
+    chooseExportFormat() {
+      this.isExportFormatChoiceOpen = true;
+    },
+    async exportFile(exportFormat) {
       const columnsParam = sortBy(this.columns, c => !c.visible)
         .filter(c => c.exportId)
         .map(c => c.exportId);
-      const downloadResponse = await exportFile(columnsParam, this.orderBy, this.appliedFilters);
+      const downloadResponse = await exportFile(
+        columnsParam,
+        this.orderBy,
+        exportFormat,
+        this.appliedFilters
+      );
       if (downloadResponse.asyncRequired) {
-        this.isExportModalOpen = true;
+        this.isExportFormatChoiceOpen = false;
+        setTimeout(() => {
+          this.isAsyncExportAlertOpen = true;
+        }, 200);
       } else {
         if (downloadResponse && downloadResponse.downloadUri) {
           window.open(downloadResponse.downloadUri, '_blank');
+          this.isExportFormatChoiceOpen = false;
         }
       }
     },
@@ -254,7 +293,8 @@ export default {
   },
   data() {
     return {
-      isExportModalOpen: false,
+      isAsyncExportAlertOpen: false,
+      isExportFormatChoiceOpen: false,
       columns: [],
       commonColumns: [
         {
@@ -445,5 +485,9 @@ export default {
 
 .total-row h2 {
   display: inline;
+}
+
+.logo {
+  width: 100%;
 }
 </style>
