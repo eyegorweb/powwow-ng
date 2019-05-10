@@ -8,10 +8,11 @@
           </h2>
         </div>
         <div class="col">
-          <button class="btn btn-link export-link" @click="chooseExportFormat">
-            <i class="ic-Download-Icon" />
-            {{ $t('getsim.export', { total: total }) }}
-          </button>
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <span slot="title">
+              {{ $t('getsim.export', { total: total }) }}
+            </span>
+          </ExportButton>
         </div>
       </div>
       <DataTable
@@ -32,59 +33,12 @@
           <GetSimOrdersActions :order="row" />
         </template>
       </DataTable>
-      <Modal v-if="isAsyncExportAlertOpen">
-        <p slot="body">
-          {{ $t('getsim.export-warning') }}
-        </p>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="isAsyncExportAlertOpen = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn btn-success btn-sm ml-1"
-            @click.stop="isAsyncExportAlertOpen = false"
-          >
-            {{ $t('export') }}
-          </button>
-        </div>
-      </Modal>
-      <Modal v-if="isExportFormatChoiceOpen">
-        <div slot="body">
-          <h4>Veuillez choisir un format d'export :</h4>
-          <div class="row">
-            <div class="col text-center">
-              <button class="btn btn-link export-button" @click.stop="exportFile('CSV')">
-                <img src="@/assets/csv.svg" alt="csv" />
-                <span>CSV</span>
-              </button>
-            </div>
-            <div class="col text-center">
-              <button class="btn btn-link export-button" @click.stop="exportFile('EXCEL')">
-                <img src="@/assets/excel.svg" alt="excel" />
-                <span>Excel</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="isExportFormatChoiceOpen = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-        </div>
-      </Modal>
     </div>
   </LoaderContainer>
 </template>
 
 <script>
 import get from 'lodash.get';
-import sortBy from 'lodash.sortby';
 
 import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
@@ -93,7 +47,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
 import SearchByIdInput from './SearchByIdInput';
 import LoaderContainer from '@/components/LoaderContainer';
-import Modal from '@/components/Modal';
+import ExportButton from '@/components/ExportButton';
 
 import GetSimOrdersStatusCell from './GetSimOrdersStatusCell';
 import GetSimOrdersDeliveryCell from './GetSimOrdersDeliveryCell';
@@ -168,7 +122,7 @@ export default {
     GetSimOrdersActions,
     SearchByIdInput,
     LoaderContainer,
-    Modal,
+    ExportButton,
   },
   props: {
     isPanelOpen: Boolean,
@@ -177,6 +131,9 @@ export default {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
     ...mapMutations('getsim', ['setPage']),
     ...mapMutations(['openModal']),
+    getExportFn() {
+      return exportFile;
+    },
     async fetchOrders() {
       this.fetchOrdersFromApi({
         orderBy: this.orderBy,
@@ -187,31 +144,6 @@ export default {
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
-    },
-    chooseExportFormat() {
-      this.isExportFormatChoiceOpen = true;
-    },
-    async exportFile(exportFormat) {
-      const columnsParam = sortBy(this.columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
-      const downloadResponse = await exportFile(
-        columnsParam,
-        this.orderBy,
-        exportFormat,
-        this.appliedFilters
-      );
-      if (downloadResponse.asyncRequired) {
-        this.isExportFormatChoiceOpen = false;
-        setTimeout(() => {
-          this.isAsyncExportAlertOpen = true;
-        }, 200);
-      } else {
-        if (downloadResponse && downloadResponse.downloadUri) {
-          window.open(downloadResponse.downloadUri, '_blank');
-          this.isExportFormatChoiceOpen = false;
-        }
-      }
     },
   },
   computed: {
