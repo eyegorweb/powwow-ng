@@ -1,5 +1,18 @@
 import { query } from './utils';
 import moment from 'moment';
+import get from 'lodash.get';
+
+export async function searchMassActionsById(massActionId) {
+  const response = await searchMassActions(
+    { key: 'id', direction: 'DESCENDING' },
+    { page: 0, limit: 1 },
+    [{ id: 'filters.massActionId', value: massActionId }]
+  );
+
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+}
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchMassActions(orderBy, pagination, filters = []) {
@@ -175,6 +188,7 @@ function formatFilters(filters) {
   addActDateCreationFilter(allFilters, filters);
   addActDueDateFilter(allFilters, filters);
   addActEndDateFilter(allFilters, filters);
+  addMassActionId(allFilters, filters);
   // addServices(allFilters, filters);
 
   return allFilters.join(',');
@@ -190,6 +204,13 @@ function formatDateForGql(inDate) {
     } else {
       return `${parts[0]} 00:00:00`;
     }
+  }
+}
+
+function addMassActionId(gqlFilters, selectedFilters) {
+  const massActionIdFilter = selectedFilters.find(f => f.id === 'filters.massActionId');
+  if (massActionIdFilter) {
+    gqlFilters.push(`massActionId: ${massActionIdFilter.value}`);
   }
 }
 
