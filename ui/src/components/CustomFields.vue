@@ -2,7 +2,8 @@
   <div>
     <div v-for="item in fields" :key="item.id" class=" mb-1">
       <div v-if="item.type === 'TEXT'">
-        {{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+        {{ item.label }}
+        <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
 
         <UiInput
           @update:value="newVal => onValueChanged(item, newVal)"
@@ -11,10 +12,14 @@
           class="d-block"
         />
       </div>
-      <div class="form-group" v-if="item.type === 'LIST'">
-        <label
-          >{{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span></label
-        >
+      <div class="form-group" v-if="!editingList && item.type === 'LIST'">
+        <label>
+          {{ item.label }}
+          <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+          <button v-if="canEditList" class="btn btn-link p-0" @click="editingList = true">
+            {{ $t('modify') }}
+          </button>
+        </label>
         <br />
         <UiSelect
           placeholder="Choisissez une valeur"
@@ -25,8 +30,21 @@
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
         />
       </div>
+      <div class="form-group" v-if="editingList && item.type === 'LIST'">
+        <label>
+          {{ item.label }}
+          <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+        </label>
+        <EditCustomField
+          v-if="canEditList"
+          :options="item.value"
+          @close="editingList = false"
+          @addValueToList="newItem => $emit('addValueToList', newItem, item)"
+        />
+      </div>
       <div v-if="item.type === 'DATE'">
-        {{ item.label }} <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+        {{ item.label }}
+        <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
         <UiDate
           @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
@@ -44,6 +62,7 @@
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import UiDate from '@/components/ui/UiDate2';
+import EditCustomField from '@/components/EditCustomField';
 
 export default {
   props: {
@@ -57,11 +76,18 @@ export default {
     errors: {
       type: Array,
     },
+    canEditList: Boolean,
   },
   components: {
     UiInput,
     UiSelect,
     UiDate,
+    EditCustomField,
+  },
+  data() {
+    return {
+      editingList: false,
+    };
   },
   methods: {
     onValueChanged(item, newVal) {
