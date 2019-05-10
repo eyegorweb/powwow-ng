@@ -150,16 +150,15 @@ export default {
       if (!this.canGoToNextStep) return {};
 
       let quantity = this.selectedNumberOfSims;
+      let totalNbOfSims = this.selectedNumberOfSims * this.selectedSimTypeValue.simCard.number;
 
       if (this.selectedSimIsOfTapeType) {
-        quantity = this.selectedNumberOfSims * this.selectedSimTypeValue.simCard.number;
-
         return {
           tapes: {
             label: 'getsim.nb-of-tapes',
             value: {
               id: 'tapes',
-              content: this.selectedSimTypeValue.simCard.number,
+              content: quantity,
             },
             selection: {
               tapes: this.selectedSimTypeValue.simCard.number,
@@ -170,7 +169,7 @@ export default {
             label: 'common.quantity',
             value: {
               id: 'quantity',
-              content: quantity,
+              content: totalNbOfSims,
             },
             selection: {
               quantity,
