@@ -3,9 +3,9 @@
     <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.add-custom-field') }}</h3>
     <p class="subtitle">{{ $t('orders.required-custom-field') }}</p>
     <UiInput class="d-block" placeholder v-model="labelCustomField" value>
-      <template slot="beforeInput"
-        >{{ $t('orders.input-label-custom-field') }} :</template
-      >
+      <template slot="beforeInput">
+        {{ $t('orders.input-label-custom-field') }} :
+      </template>
     </UiInput>
     <div>
       <label class="standalone">{{ $t('orders.choose-type-custom-field') }} :</label>
@@ -111,9 +111,9 @@
     </div>
     <div class="row mt-4">
       <div class="col">
-        <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">{{
-          $t('cancel')
-        }}</UiButton>
+        <UiButton @click="$emit('cancel')" variant="outline-primary" class="float-left">
+          {{ $t('cancel') }}
+        </UiButton>
       </div>
       <div class="col">
         <UiButton
@@ -121,8 +121,9 @@
           class="float-right"
           :disabled="!canAddCustomField()"
           @click="saveCustomField"
-          >{{ $t('orders.add-custom-field') }}</UiButton
         >
+          {{ $t('orders.add-custom-field') }}
+        </UiButton>
       </div>
     </div>
   </div>
@@ -148,7 +149,10 @@ export default {
   },
 
   watch: {
-    customFieldType: () => this.canAddCustomField(),
+    customFieldType: () => {
+      if (!this) return;
+      return this.canAddCustomField();
+    },
   },
 
   methods: {

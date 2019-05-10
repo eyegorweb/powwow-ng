@@ -17,7 +17,9 @@
               :fields="allCustomFields"
               :get-selected-value="getSelectedValue"
               :errors="customFieldsErrors"
+              can-edit-list
               @change="onValueChanged"
+              @addValueToList="addValueToList"
             />
           </div>
           <UiButton
@@ -55,7 +57,7 @@ import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
 import CreateOrderAddCustomField from './CreateOrderAddCustomField';
 import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
-import { fetchCustomFields, createCustomField } from '@/api/customFields';
+import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import get from 'lodash.get';
 
 export default {
@@ -96,6 +98,14 @@ export default {
     },
     close() {
       this.isOpen = false;
+    },
+
+    async addValueToList(newListItem, customField) {
+      const partnerId = get(this.synthesis, 'billingAccount.value.partnerId');
+      if (!partnerId) return;
+
+      await addItemToCustomFieldList(partnerId, newListItem, customField.code);
+      this.fetchCustomFieldsForPartner();
     },
 
     preFill() {
