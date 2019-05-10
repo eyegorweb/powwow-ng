@@ -17,56 +17,6 @@
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
               </span>
             </ExportButton>
-            <button class="btn btn-link export-link" @click="chooseExportFormat">
-              <i class="ic-Download-Icon" />
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </button>
-            <Modal v-if="isAsyncExportAlertOpen">
-              <p slot="body">
-                {{ $t('getsim.export-warning') }}
-              </p>
-              <div slot="footer">
-                <button
-                  class="modal-default-button btn btn-danger btn-sm"
-                  @click.stop="isAsyncExportAlertOpen = false"
-                >
-                  {{ $t('cancel') }}
-                </button>
-                <button
-                  class="modal-default-button btn btn-success btn-sm ml-1"
-                  @click.stop="isAsyncExportAlertOpen = false"
-                >
-                  {{ $t('export') }}
-                </button>
-              </div>
-            </Modal>
-            <Modal v-if="isExportFormatChoiceOpen">
-              <div slot="body">
-                <h4>Veuillez choisir un format d'export :</h4>
-                <div class="row">
-                  <div class="col text-center">
-                    <button class="btn btn-link export-button" @click.stop="exportFile('CSV')">
-                      <img src="@/assets/csv.svg" alt="csv" />
-                      <span>CSV</span>
-                    </button>
-                  </div>
-                  <div class="col text-center">
-                    <button class="btn btn-link export-button" @click.stop="exportFile('EXCEL')">
-                      <img src="@/assets/excel.svg" alt="excel" />
-                      <span>Excel</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div slot="footer">
-                <button
-                  class="modal-default-button btn btn-danger btn-sm"
-                  @click.stop="isExportFormatChoiceOpen = false"
-                >
-                  {{ $t('cancel') }}
-                </button>
-              </div>
-            </Modal>
           </div>
         </div>
         <DataTable
@@ -104,9 +54,7 @@
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
-import Modal from '@/components/Modal';
 import ExportButton from '@/components/ExportButton';
-import sortBy from 'lodash.sortby';
 
 import { acknowledgeFailedUnitActions, replayFailedUnitsActions } from '@/api/massActions';
 import { exportLines } from '@/api/unitActions';
@@ -116,7 +64,6 @@ export default {
     DataTable,
     LoaderContainer,
     SearchByActId,
-    Modal,
     ExportButton,
   },
   props: {
@@ -126,8 +73,6 @@ export default {
 
   data() {
     return {
-      isAsyncExportAlertOpen: false,
-      isExportFormatChoiceOpen: false,
       acknowledgePopUp: false,
       acknowledgeTxt: '',
       total: 1,
@@ -242,28 +187,8 @@ export default {
       await replayFailedUnitsActions(this.massActionId);
       this.$emit('refreshTables');
     },
-    chooseExportFormat() {
-      this.isExportFormatChoiceOpen = true;
-    },
     getExportFn() {
       return exportLines;
-    },
-    async exportFile(exportFormat) {
-      const columnsParam = sortBy(this.columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
-      const downloadResponse = await exportLines(columnsParam, this.orderBy, exportFormat);
-      if (downloadResponse.asyncRequired) {
-        this.isExportFormatChoiceOpen = false;
-        setTimeout(() => {
-          this.isAsyncExportAlertOpen = true;
-        }, 200);
-      } else {
-        if (downloadResponse && downloadResponse.downloadUri) {
-          window.open(downloadResponse.downloadUri, '_blank');
-          this.isExportFormatChoiceOpen = false;
-        }
-      }
     },
   },
 };
