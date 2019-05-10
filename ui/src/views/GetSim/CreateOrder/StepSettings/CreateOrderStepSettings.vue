@@ -294,7 +294,7 @@ export default {
 }
 
 .subcontainer {
-  max-height: 21rem;
+  max-height: 24rem;
   overflow-y: auto;
 }
 

@@ -45,12 +45,42 @@
             </button>
           </div>
         </div>
+        <Modal v-if="acknowledgePopUp">
+          <div class="text-left" slot="body">
+            <form>
+              <div class="form-group">
+                <label for="message">{{ $t('getparc.actDetail.enterMessage') }}</label>
+                <textarea
+                  v-model="acknowledgeTxt"
+                  class="form-control"
+                  id="message"
+                  rows="3"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div slot="footer">
+            <button
+              class="modal-default-button btn btn-danger btn-sm"
+              @click.stop="closeAcknowledgement"
+            >
+              {{ $t('cancel') }}
+            </button>
+            <button
+              class="modal-default-button btn btn-success btn-sm ml-1"
+              @click.stop="saveAcknowledgement"
+            >
+              {{ $t('save') }}
+            </button>
+          </div>
+        </Modal>
       </div>
     </div>
   </LoaderContainer>
 </template>
 
 <script>
+import Modal from '@/components/Modal';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
@@ -65,6 +95,7 @@ export default {
     LoaderContainer,
     SearchByActId,
     ExportButton,
+    Modal,
   },
   props: {
     massActionId: String,
