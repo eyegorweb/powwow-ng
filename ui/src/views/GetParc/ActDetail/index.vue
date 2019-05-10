@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <ActHistoryDetailPage :content="row" />
+    <ActHistoryDetailPage v-if="massAction" :content="massAction" />
     <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
       <template slot-scope="{ tab, index, selectedIndex }">
         <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
@@ -45,6 +45,7 @@ import FinishedTable from './FinishedTable';
 import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
 import { mapGetters } from 'vuex';
 import { fetchUnitActions } from '@/api/unitActions';
+import { searchMassActionsById } from '@/api/massActions';
 
 export default {
   components: {
@@ -58,11 +59,13 @@ export default {
 
   async mounted() {
     this.refreshTables();
+    this.refreshCurrentMassAction();
   },
 
   data() {
     return {
       currentLinkIndex: 0,
+      massAction: null,
       tabs: [
         {
           label: 'fail',
@@ -129,6 +132,7 @@ export default {
           total: sentCards ? sentCards.length : 0,
         },
       ];
+      this.refreshCurrentMassAction();
     },
     getMassActionItem(response) {
       if (response) {
@@ -140,11 +144,11 @@ export default {
         }
       }
     },
-  },
-  computed: {
-    ...mapGetters('actHistory', ['massActionsResponse']),
-    row() {
-      return this.massActionsResponse ? this.getMassActionItem(this.massActionsResponse.items) : {};
+    async refreshCurrentMassAction() {
+      const data = await searchMassActionsById(this.$route.params.massActionId);
+      if (data) {
+        this.massAction = data.massActionResponse;
+      }
     },
   },
 };
