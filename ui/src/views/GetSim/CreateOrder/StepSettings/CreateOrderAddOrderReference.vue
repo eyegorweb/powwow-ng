@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-reference') }}<span v-if="!isOrderNumberMandatory" class="text-optional"> [{{ $t('optional') }}]</span></h3>
+    <h3 class="font-weight-light text-center mt-4 mb-4">
+      {{ $t('orders.choose-reference')
+      }}<span v-if="!isOrderNumberMandatory" class="text-optional"> [{{ $t('optional') }}]</span>
+    </h3>
     <UiInput class="d-block" v-model="referenceValue" :error="checkForError || undefined" />
   </div>
 </template>

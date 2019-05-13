@@ -1,6 +1,5 @@
 import { query } from './utils';
 import moment from 'moment';
-import get from 'lodash.get';
 
 export async function searchMassActionsById(massActionId) {
   const response = await searchMassActions(
