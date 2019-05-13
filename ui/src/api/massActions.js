@@ -44,13 +44,27 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
           inProgressActionNumber
           errorActionNumber
           partyId
-          creator
           status
           offerName
           addedServices
           removeServices
           transitionName
           destinationCustomerAccountCode
+          creator
+          creatorDetails {
+            id
+            name {
+              title
+              firstName
+              lastName
+            }
+            username
+            email
+          }
+          creatorParty {
+            id
+            name
+          }
         }
         user {
           id
