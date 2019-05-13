@@ -47,7 +47,11 @@
       </div>
     </div>
     <div class="panel-vertical-container" v-if="isOpen">
-      <CreateOrderAddCustomField @cancel="close" @add-field="onSaveField" />
+      <CreateOrderAddCustomField
+        @cancel="close"
+        @add-field="onSaveField"
+        :number-ofustom-fields="allCustomFields.length"
+      />
     </div>
   </div>
 </template>
