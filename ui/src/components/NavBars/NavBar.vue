@@ -7,10 +7,33 @@
         src="@/assets/logo_bouygues.png"
         alt
       />
-      <UiTabs :tabs="navbarLinks" :selected-index="currentLinkIndex">
+      <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
-          <UiTab v-if="tab" :is-selected="index === currentLinkIndex">
-            <router-link :to="tab.to">{{ tab.label }}</router-link>
+          <UiTab v-if="tab" :is-selected="index === currentIndex">
+            <router-link v-if="!tab.submenu" :to="tab.to">
+              {{ tab.label }}
+            </router-link>
+
+            <div class="dropdown">
+              <a v-if="tab.submenu" :to="tab.to" @click.prevent="">{{ tab.label }}</a>
+              <div
+                v-if="tab.submenu"
+                class="dropdown-menu"
+                aria-labelledby="dropdownMenuLink"
+                x-placement="bottom-start"
+                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);"
+                @click="foceCurrentIndex('GetParc/GetDiag')"
+              >
+                <router-link
+                  :key="item.label"
+                  v-for="item in tab.submenu"
+                  class="dropdown-item"
+                  :to="item.to"
+                >
+                  {{ item.label }}
+                </router-link>
+              </div>
+            </div>
           </UiTab>
         </template>
       </UiTabs>
@@ -69,12 +92,34 @@ export default {
   props: {
     isBackofficeProfile: Boolean,
   },
+  mounted() {
+    this.currentUrlName = this.$route.name;
+  },
   data() {
     return {
+      currentIndex: 0,
+      currentUrlName: '',
+      currentIndexIsForced: false,
       navbarLinks: [
-        { label: 'GetSIM', to: { name: 'home' } },
-        { label: 'GetParc/GetDiag', to: { name: 'actHistory' } },
-        { label: 'GetVision', to: { name: 'actLines' } },
+        {
+          label: 'GetSIM',
+          to: { name: 'home' },
+        },
+        {
+          label: 'GetParc/GetDiag',
+          to: 'getParc',
+          submenu: [
+            {
+              label: this.$t('menu.massActions'),
+              to: { name: 'actHistory' },
+            },
+            {
+              label: this.$t('menu.actLines'),
+              to: { name: 'actLines' },
+            },
+          ],
+        },
+        { label: 'GetVision', to: { name: 'examples' } },
         { label: 'GetReport', to: { name: 'home' } },
         { label: 'GetAdmin', to: { name: 'home' } },
         { label: 'GetSupport', to: { name: 'exemples' } },
@@ -84,6 +129,18 @@ export default {
       userMenuVisible: false,
     };
   },
+  methods: {
+    foceCurrentIndex(label) {
+      this.currentIndex = this.getIndexOfItemByLabel(label);
+      this.currentIndexIsForced = true;
+    },
+    getIndexOfItemByLabel(label) {
+      if (!this.navbarLinks) {
+        return 0;
+      }
+      return this.navbarLinks.findIndex(link => link.label === label);
+    },
+  },
   computed: {
     ...mapGetters(['userName', 'userInfos']),
     currentLinkIndex() {
@@ -91,6 +148,16 @@ export default {
     },
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
+    },
+  },
+  watch: {
+    $route(newRoute) {
+      if (this.currentIndexIsForced) {
+        this.currentIndexIsForced = false;
+        return;
+      }
+      this.currentUrlName = newRoute.name;
+      this.currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
     },
   },
 };
@@ -155,7 +222,6 @@ a {
   .sub-menu {
     position: absolute;
     z-index: 99;
-    right: 0.25rem;
   }
 
   .list-group-item {
@@ -204,5 +270,20 @@ a {
   &:hover {
     cursor: pointer;
   }
+}
+
+.tab-label {
+  &:hover {
+    .dropdown-menu {
+      display: block;
+    }
+    .dropdown-item:active {
+      background-color: #f8f9fa;
+    }
+  }
+}
+
+.dropdown {
+  display: inherit;
 }
 </style>

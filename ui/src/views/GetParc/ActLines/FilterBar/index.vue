@@ -39,7 +39,8 @@
           <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable> </FoldableBlock>
-          <FoldableBlock :title="$t('filters.importDate')" :key="'el13'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.lines.importDate')" :key="'el13'" draggable>
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.endCommitmentDate')" :key="'el14'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.activationDate')" :key="'el15'" draggable>
