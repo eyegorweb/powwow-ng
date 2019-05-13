@@ -43,7 +43,6 @@ import FailedTable from './FailedTable';
 import OngoingTable from './OngoingTable';
 import FinishedTable from './FinishedTable';
 import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
-import { mapGetters } from 'vuex';
 import { fetchUnitActions } from '@/api/unitActions';
 import { searchMassActionsById } from '@/api/massActions';
 
