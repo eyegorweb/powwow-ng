@@ -1,45 +1,118 @@
 image: gradle:4.10.2
 
 stages:
+  - version
   - build
   - test
+  - release
   - publish
   - deploy
+  - undeploy
 
 variables:
   http_proxy: "http://proxyace1.prod.extelia.fr:8080"
   https_proxy: "http://proxyace1.prod.extelia.fr:8080"
   GRADLE_OPTS: "-Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace1.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace1.prod.extelia.fr -Dhttps.proxyPort=8080"
   ORG_GRADLE_PROJECT_npmBuildEnv: integration # integration ou full-local. Sans valeur, c'est la production qui est cible
+  GSG_RELEASE_BRANCHES: uat
+  GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
+  GSG_BUILD_TMPL: '{{ commitTS.Format "20060102150405" }}'
+  GSG_INITIAL_DEVELOPMENT: "true"
 
 before_script:
   - cd ui-server
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - echo "registry=https://outils.docapost.tech/nexus/repository/npm-central/" > ~/.npmrc
 
+version:
+  stage: version
+  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
+  script:
+    - cd ..
+    - release next-version --allow-current > .next-version
+  after_script:
+    - cat .next-version
+  artifacts:
+    paths:
+      - .next-version
+  except:
+    - tags
+
 build:
   stage: build
-  script: gradle --build-cache assemble
+  script:
+    - gradle --build-cache assemble
+    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
+    - echo "RELEASE_VERSION=`cat ../.next-version`" >> build_info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
     paths:
       - ui-server/build
       - ui-server/.gradle
+  artifacts:
+    paths:
+      - ui-server/build_info
 
-publish_docker_image:
-  stage: publish
+pre-release:
+  stage: release
+  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
-    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
-    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+    - rm -f version.txt
+    - cp ../.next-version version.txt
+    - rm -f pre_release_info
+    - mv build_info pre_release_info
+    - . pre_release_info
+    - release -v
+    - release changelog
+    - release commit-and-tag CHANGELOG.md pre_release_info version.txt
   only:
     - master
+  except:
+    - tags
+
+release:
+  stage: release
+  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
+  script:
+    - rm -f version.txt
+    - cp ../.next-version version.txt
+    - rm -f release_info
+    - mv build_info release_info
+    - . release_info
+    - release -v
+    - release changelog
+    - release commit-and-tag CHANGELOG.md release_info version.txt
+  only:
+    - uat
+  except:
+    - tags
+
+publish_prerelease_docker_image:
+  stage: publish
+  script:
+    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
-      - build
-      - .gradle
+      - ui-server/build
+      - ui-server/.gradle
+
+publish_release_docker_image:
+  stage: publish
+  script:
+    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - ui-server/.gradle/caches
+      - ui-server/.gradle/wrapper
+    policy: pull
+  only:
+    - uat
+  except:
+    - tags
 
 deploy_integration:
   stage: deploy
@@ -77,3 +150,49 @@ deploy_testing:
     url: http://172.20.157.115:8080
   only:
     - master
+
+deploy_uat:
+  stage: deploy
+  image: m2m-registry.by-docapost.com/powwow-ng/envs/toolbox
+  variables:
+    KUBECONFIG: /etc/deploy/config
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
+    - kubectl config use-context m2m-node-uat
+  script:
+    - kubectl get po
+    - . release_info
+    - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$RELEASE_VERSION --record=true
+  when: manual
+  environment:
+    name: uat
+    url: https://m2m-uat.by-docapost.com
+  only:
+    - uat
+  except:
+    - tags
+
+undeploy_uat:
+  stage: undeploy
+  image: m2m-registry.by-docapost.com/powwow-ng/envs/toolbox
+  variables:
+    KUBECONFIG: /etc/deploy/config
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
+    - kubectl config use-context m2m-node-uat
+  script:
+    - kubectl get po
+    - kubectl rollout history deployment/ui
+    - kubectl rollout undo deployment/ui
+  when: manual
+  environment:
+    name: uat
+    url: https://m2m-uat.by-docapost.com
+  only:
+    - uat
+  except:
+    - tags
