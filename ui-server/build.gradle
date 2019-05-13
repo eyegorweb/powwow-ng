@@ -10,7 +10,7 @@ plugins {
 def packageJson = new groovy.json.JsonSlurper().parse file("${project.projectDir}/../ui/package.json")
 
 group = 'com.docapost.powwow'
-version = '0.0.3-SNAPSHOT'
+version = project.file('version.txt').exists() ? project.file('version.txt').text.trim() : '0.0.3-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
