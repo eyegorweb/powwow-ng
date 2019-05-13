@@ -55,6 +55,8 @@ dependencyManagement {
 node {
     version = '10.5.0'
     download = true
+    println "workdir = ${project.buildDir}/node"
+    println "nodeModulesDir = ${project.projectDir}/../ui"
     workDir = file("${project.buildDir}/node")
     nodeModulesDir = file("${project.projectDir}/../ui")
     yarnVersion = '1.10.1'

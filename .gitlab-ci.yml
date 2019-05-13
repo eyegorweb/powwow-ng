@@ -20,15 +20,13 @@ variables:
   GSG_INITIAL_DEVELOPMENT: "true"
 
 before_script:
-  - cd ui-server
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - export GRADLE_USER_HOME=`pwd`/ui-server/.gradle
   - echo "registry=https://outils.docapost.tech/nexus/repository/npm-central/" > ~/.npmrc
 
 version:
   stage: version
   image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
-    - cd ..
     - release next-version --allow-current > .next-version
   after_script:
     - cat .next-version
@@ -41,15 +39,17 @@ version:
 build:
   stage: build
   script:
-    - gradle --build-cache assemble
+    - cd ui-server
+    - ./gradlew --build-cache assemble --info
     - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
     - echo "RELEASE_VERSION=`cat ../.next-version`" >> build_info
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: push
     paths:
-      - ui-server/build
-      - ui-server/.gradle
+      - ui-server/.gradle/caches
+      - ui-server/.gradle/wrapper
+      - ui-server/.gradle/yarn
+      - ui/node_modules
   artifacts:
     paths:
       - ui-server/build_info
@@ -58,14 +58,14 @@ pre-release:
   stage: release
   image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
-    - rm -f version.txt
-    - cp ../.next-version version.txt
-    - rm -f pre_release_info
-    - mv build_info pre_release_info
-    - . pre_release_info
+    - rm -f ui-server/version.txt
+    - cp .next-version ui-server/version.txt
+    - rm -f ui-server/pre_release_info
+    - mv ui-server/build_info ui-server/pre_release_info
+    - . ui-server/pre_release_info
     - release -v
-    - release changelog
-    - release commit-and-tag CHANGELOG.md pre_release_info version.txt
+    - release changelog --f ui-server/CHANGELOG.md
+    - release commit-and-tag ui-server/CHANGELOG.md ui-server/pre_release_info ui-server/version.txt
   only:
     - master
   except:
@@ -75,14 +75,14 @@ release:
   stage: release
   image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
-    - rm -f version.txt
-    - cp ../.next-version version.txt
-    - rm -f release_info
-    - mv build_info release_info
-    - . release_info
+    - rm -f ui-server/version.txt
+    - cp .next-version ui-server/version.txt
+    - rm -f ui-server/release_info
+    - mv ui-server/build_info ui-server/release_info
+    - . ui-server/release_info
     - release -v
-    - release changelog
-    - release commit-and-tag CHANGELOG.md release_info version.txt
+    - release changelog --f ui-server/CHANGELOG.md
+    - release commit-and-tag ui-server/CHANGELOG.md ui-server/release_info ui-server/version.txt
   only:
     - uat
   except:
@@ -91,23 +91,32 @@ release:
 publish_prerelease_docker_image:
   stage: publish
   script:
-    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+    - cd ui-server
+    - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
-      - ui-server/build
-      - ui-server/.gradle
+      - ui-server/.gradle/caches
+      - ui-server/.gradle/wrapper
+      - ui-server/.gradle/yarn
+      - ui/node_modules
+  only:
+    - master
+  except:
+    - tags
 
 publish_release_docker_image:
   stage: publish
   script:
-    - gradle jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+    - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
       - ui-server/.gradle/caches
       - ui-server/.gradle/wrapper
+      - ui-server/.gradle/yarn
+      - ui/node_modules
     policy: pull
   only:
     - uat
