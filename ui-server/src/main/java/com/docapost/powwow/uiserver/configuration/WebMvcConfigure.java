@@ -18,6 +18,9 @@ public class WebMvcConfigure implements WebMvcConfigurer {
     @Value("${cache.period}")
     private Integer cachePeriod;
 
+    @Value("${ui.baseUrl:/p}")
+    private String baseUrl;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
@@ -26,30 +29,30 @@ public class WebMvcConfigure implements WebMvcConfigurer {
                 "**/js/**",
                 "**/img/**",
                 "**/fonts/**")
-        .addResourceLocations("classpath:/public/")
-        .setCachePeriod(cachePeriod)
-        .resourceChain(true)
-        .addResolver(new GzipResourceResolver())
-        .addResolver(new PathResourceResolver() {
-            @Override
-            protected Resource getResource(String resourcePath, Resource location) throws IOException {
-                return super.getResource(resourcePath, location);
-            }
-        });
+                .addResourceLocations("classpath:/public/")
+                .setCachePeriod(cachePeriod)
+                .resourceChain(true)
+                .addResolver(new GzipResourceResolver())
+                .addResolver(new PathResourceResolver() {
+                    @Override
+                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
+                        return super.getResource(resourcePath, location);
+                    }
+                });
 
         // The first call to "/" in the browser comes to a "forward:index.html" in the spring dispatcher
         // So mapping "/" is useless, only "index.html" is required
-        registry.addResourceHandler("/", "index.html", "/callback*")
-        .addResourceLocations("classpath:/public/index.html")
-        .setCachePeriod(0)
-        .setCacheControl(CacheControl.noStore().mustRevalidate())
-        .resourceChain(false)
-        .addResolver(new PathResourceResolver() {
-            @Override
-            protected Resource getResource(String resourcePath, Resource location) throws IOException {
-              return location.exists() && location.isReadable() ? location : null;
-            }
-          });
+        registry.addResourceHandler("/", "index.html", "/callback*", baseUrl, baseUrl+"/**")
+                .addResourceLocations("classpath:/public/index.html")
+                .setCachePeriod(0)
+                .setCacheControl(CacheControl.noStore().mustRevalidate())
+                .resourceChain(false)
+                .addResolver(new PathResourceResolver() {
+                    @Override
+                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
+                        return location.exists() && location.isReadable() ? location : null;
+                    }
+                });
     }
-   
+
 }
