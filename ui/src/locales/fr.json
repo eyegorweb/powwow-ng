@@ -28,6 +28,10 @@
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
   "noResult": "Aucun résulat",
+  "menu": {
+    "massActions": "Historique d'actes de gestion",
+    "actLines": "Gestion des lignes"
+  },
   "partnerTypes": {
     "CUSTOMER": "Client",
     "MVNO": "MVNO",
