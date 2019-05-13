@@ -44,7 +44,7 @@
               input-type="number"
               :min-value="1"
             />
-            <p v-if="selectedSimIsOfTapeType" class="text-center" :style="{ fontSize: '1.2rem' }">
+            <p v-if="selectedSimIsOfTapeType" class="text-center display-nb-bobines">
               {{ $t('getsim.nb-of-sim') }}:
               {{ selectedNumberOfSims * selectedSimTypeValue.simCard.number }}
             </p>
@@ -285,6 +285,11 @@ export default {
     i {
       font-size: 1rem;
     }
+  }
+
+  .display-nb-bobines {
+    font-size: 1.2rem;
+    font-weight: 600;
   }
 
   .next-btn {
