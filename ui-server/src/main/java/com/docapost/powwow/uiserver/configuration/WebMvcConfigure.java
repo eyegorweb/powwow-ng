@@ -42,7 +42,7 @@ public class WebMvcConfigure implements WebMvcConfigurer {
 
         // The first call to "/" in the browser comes to a "forward:index.html" in the spring dispatcher
         // So mapping "/" is useless, only "index.html" is required
-        registry.addResourceHandler("/", "index.html", "/callback*", baseUrl, baseUrl+"/**")
+        registry.addResourceHandler("/", "index.html", "/callback*", baseUrl, baseUrl+"/", baseUrl+"/**")
                 .addResourceLocations("classpath:/public/index.html")
                 .setCachePeriod(0)
                 .setCacheControl(CacheControl.noStore().mustRevalidate())
