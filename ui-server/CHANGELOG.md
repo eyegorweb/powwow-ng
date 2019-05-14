@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.4+20190514073803
+2019-05-14
+
+### Fixes
+
+- traduction des sous menus (732f34527619de878ec8133affb81b3fbd3f0f8f)
+
 ## 0.1.0-master.3+20190514082851
 2019-05-14
 
