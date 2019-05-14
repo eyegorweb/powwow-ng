@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.2+20190514075925
+2019-05-14
+
+### Fixes
+
+- met à jour filtre de status (79cc24da2046f276d8d53452aa18e39c885aa091)
+
 ## 0.1.0-master.1+20190513153854
 2019-05-13
 
