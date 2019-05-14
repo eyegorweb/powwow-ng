@@ -92,7 +92,7 @@ release:
 publish_prerelease_docker_image:
   stage: publish
   script:
-    - echo $CI_REGISTRY_IMAGE
+    - cat ui-server/version.txt
     - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
