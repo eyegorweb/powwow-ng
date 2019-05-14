@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.12+20190514151402
+2019-05-14
+
+### Features
+
+- filter lines with type sim card (6064fcae2b557311d4d9edc4d6785d91f270fdab)
+
 ## 0.1.0-master.11+20190514150108
 2019-05-14
 
