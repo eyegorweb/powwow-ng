@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.11+20190514150108
+2019-05-14
+
+### Features
+
+- filtres de saisie de la gestion de lignes (d1f2d6d248a26de527e36e15af98d535e1ad84a3)
+
 ## 0.1.0-master.10+20190514135618
 2019-05-14
 
