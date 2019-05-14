@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.1.0-master.4+20190514073803
+## 0.1.0-master.5+20190514091004
 2019-05-14
 
 ### Fixes
 
 - traduction des sous menus (732f34527619de878ec8133affb81b3fbd3f0f8f)
+- noms des colonnes de la table des commandes (e6e97533c7b4ccb4aa2002af8533beba896b7391)
 
 ## 0.1.0-master.3+20190514082851
 2019-05-14
