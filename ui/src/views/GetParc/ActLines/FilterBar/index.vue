@@ -28,8 +28,16 @@
           <FoldableBlock :title="$t('filters.lines.associatedOffer')" :key="'el5'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.orderID')" :key="'el6'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedOrderIdValue"
+              @update:value="selectOrderIdFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderReference')" :key="'el7'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedOrderRefValue"
+              @update:value="selectOrderRefFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.SIMCardStatus')" :key="'el8'" draggable>
           </FoldableBlock>
@@ -51,7 +59,14 @@
           <FoldableBlock :title="$t('filters.lines.statusDate')" :key="'el17'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable> </FoldableBlock>
-          <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedPostalCodeValue"
+              @update:value="selectPostalCodeFilter($event)"
+              input-type="number"
+              :min-value="1"
+            />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.customFileds')" :key="'el21'" draggable>
@@ -65,6 +80,10 @@
           <FoldableBlock :title="$t('filters.lines.rangeIMEI')" :key="'el25'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.siren')" :key="'el26'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedSirensValue"
+              @update:value="selectSirensFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('orders.detail.manageID')" :key="'el27'" draggable>
           </FoldableBlock>
@@ -105,6 +124,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
 import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
+import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 
 export default {
   components: {
@@ -113,6 +133,7 @@ export default {
     ActLinesPartnersFilter,
     SelectedFilters,
     ActLinesBillingAccountsFilter,
+    SimpleInputFilter,
   },
   data() {
     return {
@@ -121,10 +142,23 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner']),
-    ...mapGetters('actLines', ['currentFilters', 'canShowSelectedFilter']),
+    ...mapGetters('actLines', [
+      'currentFilters',
+      'canShowSelectedFilter',
+      'selectedOrderIdValue',
+      'selectedOrderRefValue',
+      'selectedPostalCodeValue',
+      'selectedSirensValue',
+    ]),
   },
   methods: {
-    ...mapMutations('actLines', ['applyFilters']),
+    ...mapMutations('actLines', [
+      'applyFilters',
+      'selectOrderIdFilter',
+      'selectOrderRefFilter',
+      'selectPostalCodeFilter',
+      'selectSirensFilter',
+    ]),
     ...mapActions('actLines', ['clearFilter']),
 
     showAllFilters() {

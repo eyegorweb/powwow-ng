@@ -4,6 +4,7 @@ import { searchLinesActions } from '@/api/linesActions';
 // const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
+const findFilterValueById = filterUtils.findFilterValueById;
 
 const initFilterForContext = store => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
@@ -21,6 +22,10 @@ export const getters = {
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
+  selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
+  selectedOrderRefValue: findFilterValueById('filters.orderReference'),
+  selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
+  selectedSirensValue: findFilterValueById('filters.lines.siren'),
 };
 
 // Actions
@@ -79,6 +84,30 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
       values: billingAccounts,
+    });
+  },
+  selectOrderIdFilter(state, orderId) {
+    selectFilterValue(state, {
+      id: 'filters.lines.orderID',
+      value: orderId,
+    });
+  },
+  selectOrderRefFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.orderReference',
+      value,
+    });
+  },
+  selectPostalCodeFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.postalCode',
+      value,
+    });
+  },
+  selectSirensFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.lines.siren',
+      value,
     });
   },
 };

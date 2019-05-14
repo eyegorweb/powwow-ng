@@ -2,7 +2,6 @@
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchLinesActions(orderBy, pagination, filters = []) {
-  console.log(filters);
   /*
   const orderingInfo = orderBy
     ? `, sorting: {field: ${orderBy.key},order:${orderBy.direction}}`
