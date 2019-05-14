@@ -1,0 +1,26 @@
+plugins {
+    id "com.moowork.node" version "1.2.0"
+}
+
+node {
+    version = '10.5.0'
+    download = true
+    yarnVersion = '1.10.1'
+}
+
+task buildFront(type: YarnTask) {
+
+    dependsOn 'yarn'
+
+    def npmBuild = project.hasProperty('npmBuildEnv') ? "build:${npmBuildEnv}" : "build"
+
+    println "Yarn Build : ${npmBuild}"
+
+    args = ['run', "${npmBuild}"]
+}
+
+task clean {
+    delete "${project.projectDir}/dist"
+}
+
+
