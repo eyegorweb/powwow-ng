@@ -30,7 +30,7 @@
                   class="dropdown-item"
                   :to="item.to"
                 >
-                  {{ item.label }}
+                  {{ $t(item.label) }}
                 </router-link>
               </div>
             </div>
@@ -110,11 +110,11 @@ export default {
           to: 'getParc',
           submenu: [
             {
-              label: this.$t('menu.massActions'),
+              label: 'menu.massActions',
               to: { name: 'actHistory' },
             },
             {
-              label: this.$t('menu.actLines'),
+              label: 'menu.actLines',
               to: { name: 'actLines' },
             },
           ],
