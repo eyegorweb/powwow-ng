@@ -20,7 +20,7 @@ variables:
   GSG_INITIAL_DEVELOPMENT: "true"
 
 before_script:
-  - export GRADLE_USER_HOME=`pwd`/ui-server/.gradle
+  - export GRADLE_USER_HOME=`pwd`/.gradle
   - echo "registry=https://outils.docapost.tech/nexus/repository/npm-central/" > ~/.npmrc
 
 version:
@@ -39,20 +39,19 @@ version:
 build:
   stage: build
   script:
-    - cd ui-server
     - ./gradlew --build-cache assemble --info
     - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
     - echo "RELEASE_VERSION=`cat ../.next-version`" >> build_info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
-      - ui-server/.gradle/caches
-      - ui-server/.gradle/wrapper
+      - .gradle/caches
+      - .gradle/wrapper
       - ui-server/.gradle/yarn
       - ui/node_modules
   artifacts:
     paths:
-      - ui-server/build_info
+      - build_info
 
 pre-release:
   stage: release
@@ -61,7 +60,7 @@ pre-release:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/pre_release_info
-    - mv ui-server/build_info ui-server/pre_release_info
+    - mv build_info ui-server/pre_release_info
     - . ui-server/pre_release_info
     - release -v
     - release changelog --f ui-server/CHANGELOG.md
@@ -78,7 +77,7 @@ release:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/release_info
-    - mv ui-server/build_info ui-server/release_info
+    - mv build_info ui-server/release_info
     - . ui-server/release_info
     - release -v
     - release changelog --f ui-server/CHANGELOG.md
@@ -97,8 +96,8 @@ publish_prerelease_docker_image:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
-      - ui-server/.gradle/caches
-      - ui-server/.gradle/wrapper
+      - .gradle/caches
+      - .gradle/wrapper
       - ui-server/.gradle/yarn
       - ui/node_modules
   only:
@@ -113,8 +112,8 @@ publish_release_docker_image:
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
-      - ui-server/.gradle/caches
-      - ui-server/.gradle/wrapper
+      - .gradle/caches
+      - .gradle/wrapper
       - ui-server/.gradle/yarn
       - ui/node_modules
     policy: pull
