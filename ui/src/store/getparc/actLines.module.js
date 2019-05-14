@@ -20,6 +20,7 @@ export const getters = {
   ...filterUtils.initGetters(),
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
+  selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
 };
 
 // Actions
@@ -73,5 +74,11 @@ export const mutations = {
   selectFilterValue,
   setCurrentFilters: (state, currentFilters) => {
     state.currentFilters = currentFilters;
+  },
+  setBillingAccountsFilter(state, billingAccounts) {
+    selectFilterValue(state, {
+      id: 'filters.billingAccounts',
+      values: billingAccounts,
+    });
   },
 };

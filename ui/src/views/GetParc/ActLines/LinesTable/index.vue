@@ -140,18 +140,6 @@ export default {
           visible: false,
         },
       ],
-      // rows: [
-      //   {
-      //     partner: 'Toto',
-      //     action: 'Pré-activation',
-      //     actDate: '01/11/2018',
-      //     details: 'Partner toto',
-      //     target: 6,
-      //     success: 0,
-      //     ongoing: 0,
-      //     fail: 0,
-      //   },
-      // ],
       page: 0,
       pageLimit: 20,
       orderBy: {
@@ -166,24 +154,6 @@ export default {
     rows() {
       return this.linesActionsResponse ? this.linesActionsResponse : [];
     },
-    // TODO: fetch custom fields for the column 'custom fields' of the data table (inspiré de GetSimOrderDetails)
-    // customFields() {
-    //   const customFields = this.getFromOrder('customFields');
-    //   if (!customFields) return [];
-    //   let customFieldsArray = [];
-    //   for (let i = 1; i <= 6; i++) {
-    //     const value = customFields['custom' + i];
-    //     const label = this.order.party[`custom${i}FieldLabel`];
-    //     if (value) {
-    //       customFieldsArray.push({
-    //         index: i,
-    //         value,
-    //         label,
-    //       });
-    //     }
-    //   }
-    //   return customFieldsArray;
-    // },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
@@ -218,11 +188,6 @@ export default {
     appliedFilters() {
       this.fetchLinesActions();
     },
-    // isPanelOpen() {
-    //   if (this.isPanelOpen) {
-    //     this.showExtraCells = false;
-    //   }
-    // },
   },
 };
 </script>

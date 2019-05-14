@@ -19,6 +19,7 @@
             <ActLinesPartnersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
+            <ActLinesBillingAccountsFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.fromFile')" :key="'el3'" draggable>
           </FoldableBlock>
@@ -102,6 +103,7 @@ import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
+import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 
 export default {
@@ -110,6 +112,7 @@ export default {
     FoldableBlock,
     ActLinesPartnersFilter,
     SelectedFilters,
+    ActLinesBillingAccountsFilter,
   },
   data() {
     return {

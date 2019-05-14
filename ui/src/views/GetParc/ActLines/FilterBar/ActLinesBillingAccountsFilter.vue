@@ -16,7 +16,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['selectedPartnersValues', 'selectedBillingAccountsValues']),
+    ...mapGetters('actLines', ['selectedPartnersValues', 'selectedBillingAccountsValues']),
   },
 
   methods: {
