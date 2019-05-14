@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.8+20190514100330
+2019-05-14
+
+### Fixes
+
+- utiliser le repo npm docapost (e19909669091b80740214470e6e188765383a5f4)
+
 ## 0.1.0-master.7+20190514094115
 2019-05-14
 
