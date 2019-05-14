@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.6+20190514092412
+2019-05-14
+
+### Fixes
+
+- corriger une erreur de lint (7b41f5d47a857db8c7a3ca344591400727774278)
+
 ## 0.1.0-master.5+20190514091004
 2019-05-14
 
