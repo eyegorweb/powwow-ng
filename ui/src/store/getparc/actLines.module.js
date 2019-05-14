@@ -1,7 +1,7 @@
 import * as filterUtils from '@/store/filterUtils';
 import { searchLinesActions } from '@/api/linesActions';
 
-// const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
+const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
@@ -22,6 +22,9 @@ export const getters = {
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
+  selectedTypeSimCardValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
+  },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
@@ -84,6 +87,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.billingAccounts',
       values: billingAccounts,
+    });
+  },
+  setTypeSimCardFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.lines.typeSIMCard',
+      values: types,
     });
   },
   selectOrderIdFilter(state, orderId) {

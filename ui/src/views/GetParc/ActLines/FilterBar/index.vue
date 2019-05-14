@@ -24,6 +24,7 @@
           <FoldableBlock :title="$t('filters.lines.fromFile')" :key="'el3'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
+            <TypeSimCard />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.associatedOffer')" :key="'el5'" draggable>
           </FoldableBlock>
@@ -124,6 +125,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
 import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
+import TypeSimCard from './TypeSimCard';
 import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 
 export default {
@@ -133,6 +135,7 @@ export default {
     ActLinesPartnersFilter,
     SelectedFilters,
     ActLinesBillingAccountsFilter,
+    TypeSimCard,
     SimpleInputFilter,
   },
   data() {
