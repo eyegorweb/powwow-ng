@@ -244,6 +244,14 @@ export default {
         },
         {
           id: 2,
+          label: this.$t('col.externalId'),
+          name: 'externalId',
+          orderable: true,
+          visible: false,
+          exportId: 'ORDER_REFERENCE',
+        },
+        {
+          id: 3,
           label: this.$t('col.creationDate'),
           name: 'creationDate',
           orderable: true,
@@ -253,16 +261,6 @@ export default {
             type: 'Date',
           },
         },
-        /*
-        {
-          id: 3,
-          label: this.$t('col.externalId'),
-          name: 'externalId',
-          exportId: 'ORDER_EXTERNALID'
-        },
-        //*/
-        // Id de gestion ( tableau, comment afficher ?) , exportId= ORDER_MASSACTIONIDS
-
         {
           id: 4,
           label: this.$t('col.status'),
@@ -276,6 +274,17 @@ export default {
         },
         {
           id: 5,
+          label: this.$t('col.product'),
+          name: 'orderedSimcard',
+          orderable: false,
+          visible: true,
+          exportId: 'ORDER_SIMCARD_TYPE',
+          format: {
+            componentId: 'GetSimOrdersProductCell',
+          },
+        },
+        {
+          id: 6,
           label: this.$t('col.quantity'),
           name: 'quantity',
           orderable: true,
@@ -283,31 +292,19 @@ export default {
           exportId: 'ORDER_QUANTITY',
         },
         {
-          id: 6,
-          label: this.$t('col.product'),
-          name: 'orderedSimcard',
-          orderable: false,
-          visible: true,
-          exportId: 'ORDER_ORDEREDSIMCARD',
-          format: {
-            componentId: 'GetSimOrdersProductCell',
-          },
-        },
-        {
           id: 7,
-          label: this.$t('col.recipient'),
-          name: 'singleProduct',
+          label: this.$t('col.offer'),
+          name: 'orderedMarketingOffer',
           orderable: true,
-          sortingName: 'destinataire',
           visible: false,
-          exportId: 'ORDER_NAME',
+          exportId: 'ORDER_OFFER',
           format: {
-            componentId: 'GetSimOrdersDeliveryCell',
+            type: 'ObjectAttribute',
+            path: 'description',
           },
         },
-        // Offre
         {
-          id: 12,
+          id: 8,
           label: this.$t('col.creator'),
           name: 'singleProduct',
           orderable: true,
@@ -319,7 +316,19 @@ export default {
           },
         },
         {
-          id: 8,
+          id: 9,
+          label: this.$t('col.recipient'),
+          name: 'singleProduct',
+          orderable: true,
+          sortingName: 'destinataire',
+          visible: false,
+          exportId: 'ORDER_RECIPIENT',
+          format: {
+            componentId: 'GetSimOrdersDeliveryCell',
+          },
+        },
+        {
+          id: 10,
           label: this.$t('col.partner'),
           name: 'party',
           orderable: true,
@@ -332,7 +341,7 @@ export default {
           },
         },
         {
-          id: 9,
+          id: 11,
           label: this.$t('col.billingAccount'),
           name: 'customerAccount',
           orderable: true,
@@ -344,7 +353,7 @@ export default {
           },
         },
         {
-          id: 10,
+          id: 12,
           label: this.$t('col.preActivationAsked'),
           name: 'preActivationAsked',
           orderable: true,
@@ -355,7 +364,7 @@ export default {
           },
         },
         {
-          id: 11,
+          id: 13,
           label: this.$t('col.activationAsked'),
           name: 'activationAsked',
           orderable: true,
@@ -366,7 +375,7 @@ export default {
           },
         },
         {
-          id: 13,
+          id: 14,
           label: this.$t('col.massActionIds'),
           name: 'massActionIds',
           visible: false,
@@ -376,24 +385,14 @@ export default {
           },
         },
         {
-          id: 19,
-          label: this.$t('col.offer'),
-          name: 'orderedMarketingOffer',
-          orderable: true,
+          id: 15,
+          label: this.$t('col.customFields'),
+          name: 'customFields',
           visible: false,
-          exportId: 'ORDER_ORDEREDSIMCARD',
+          exportId: 'ORDER_CUSTOMFIELDS',
           format: {
-            type: 'ObjectAttribute',
-            path: 'description',
+            componentId: 'GetSimOrdersMassActionIdsColumn',
           },
-        },
-        {
-          id: 17,
-          label: this.$t('col.externalId'),
-          name: 'externalId',
-          orderable: true,
-          visible: false,
-          exportId: 'ORDER_ORDEREDSIMCARD',
         },
       ],
       pageLimit: 20,
