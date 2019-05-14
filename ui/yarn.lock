@@ -6430,7 +6430,7 @@ lodash.differenceby@^4.8.0:
 
 lodash.flatten@^4.4.0:
   version "4.4.0"
-  resolved "http://r.cnpmjs.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
   integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
 
 lodash.get@^4.4.2:
