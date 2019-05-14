@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.7+20190514094115
+2019-05-14
+
+### Features
+
+- gestion lignes cf (a4e7cda819e438d84967237735b73b3f1bb6bc1c)
+
 ## 0.1.0-master.6+20190514092412
 2019-05-14
 
