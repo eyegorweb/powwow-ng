@@ -308,7 +308,8 @@ function getFilterValues(filters, filterId) {
 function actStatus(gqlFilters, selectedFilters) {
   const actStatuses = selectedFilters.find(f => f.id === 'filters.actStatus');
   if (actStatuses && actStatuses.values && actStatuses.values.length) {
-    gqlFilters.push(`status: ${actStatuses.values[0].id}`);
+    const actStatusesValues = actStatuses.values.map(a => a.id);
+    gqlFilters.push(`status: [ ${[...actStatusesValues]} ]`);
   }
 }
 
