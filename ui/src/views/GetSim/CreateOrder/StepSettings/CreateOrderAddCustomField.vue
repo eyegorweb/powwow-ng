@@ -3,7 +3,9 @@
     <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.add-custom-field') }}</h3>
     <p class="subtitle">{{ $t('orders.required-custom-field') }}</p>
     <UiInput class="d-block" placeholder v-model="labelCustomField" value>
-      <template slot="beforeInput">{{ $t('orders.input-label-custom-field') }} {{ numberOfustomFields + 1 }} :</template>
+      <template slot="beforeInput">
+        {{ $t('orders.input-label-custom-field') }} {{ numberOfustomFields + 1 }} :
+      </template>
     </UiInput>
     <div>
       <label class="standalone">{{ $t('orders.choose-type-custom-field') }} :</label>
