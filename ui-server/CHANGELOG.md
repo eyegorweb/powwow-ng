@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.3+20190514082851
+2019-05-14
+
+### Fixes
+
+- add another pattern for the resource handler serving index.html (15ac9e05709a60b67dde65af9fd2e3ebb7f88378)
+
 ## 0.1.0-master.2+20190514075925
 2019-05-14
 
