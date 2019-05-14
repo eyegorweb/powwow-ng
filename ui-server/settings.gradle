@@ -4,4 +4,3 @@ pluginManagement {
         gradlePluginPortal() // Include public Gradle plugin portal
     }
 }
-rootProject.name = 'ui-server'
