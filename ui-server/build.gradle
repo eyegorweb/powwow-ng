@@ -2,7 +2,6 @@ plugins {
     id "java"
     id "org.springframework.boot" version "2.0.7.RELEASE"
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
-    id "com.moowork.node" version "1.2.0"
     id "com.google.cloud.tools.jib" version "1.0.2"
     id "idea"
 }
@@ -52,41 +51,15 @@ dependencyManagement {
     }
 }
 
-node {
-    version = '10.5.0'
-    download = true
-    println "workdir = ${project.buildDir}/node"
-    println "nodeModulesDir = ${project.projectDir}/../ui"
-    workDir = file("${project.buildDir}/node")
-    nodeModulesDir = file("${project.projectDir}/../ui")
-    yarnVersion = '1.10.1'
-}
-
-task buildFront(type: YarnTask) {
-    dependsOn yarn
-
-    def npmBuild = project.hasProperty('npmBuildEnv') ? "build:${npmBuildEnv}" : "build"
-
-	println "Yarn Build : ${npmBuild}"
-
-    args = ['run', "${npmBuild}"]
-}
-
 task copyPublicResources(type: Copy){
-    dependsOn buildFront
-
+    dependsOn ":ui:buildFront"
     from "${project.projectDir}/../ui/dist"
     into "${project.projectDir}/src/main/resources/public"
 }
 
 processResources.dependsOn(copyPublicResources)
 
-task cleanNodeModules(type: Delete) {
-    delete "${project.projectDir}/../ui/node_modules"
-}
-
 clean() {
-    delete "${project.projectDir}/../ui/dist"
     delete "${project.projectDir}/src/main/resources/public"
 }
 

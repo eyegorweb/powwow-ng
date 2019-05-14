@@ -47,11 +47,13 @@ build:
     paths:
       - .gradle/caches
       - .gradle/wrapper
-      - ui-server/.gradle/yarn
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
       - ui/node_modules
   artifacts:
     paths:
       - build_info
+      - ui/dist
 
 pre-release:
   stage: release
@@ -98,7 +100,8 @@ publish_prerelease_docker_image:
     paths:
       - .gradle/caches
       - .gradle/wrapper
-      - ui-server/.gradle/yarn
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
       - ui/node_modules
   only:
     - master
@@ -114,7 +117,8 @@ publish_release_docker_image:
     paths:
       - .gradle/caches
       - .gradle/wrapper
-      - ui-server/.gradle/yarn
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
       - ui/node_modules
     policy: pull
   only:
