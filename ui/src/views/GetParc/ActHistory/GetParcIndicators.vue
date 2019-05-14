@@ -152,14 +152,20 @@ export default {
         { ...contextPartnerTypesFilter },
       ];
 
-      const result = await countTotalByMassActionIndicators(
-        filterIndicatorActionsInProgress,
-        filterIndicatorActionsFailed,
-        filterIndicatorActionsToApply
-      );
-      this.filteredStatus.actionsInProgress.total = result.indicatorActionsInProgress.total;
-      this.filteredStatus.actionsFailed.total = result.indicatorActionsFailed.total;
-      this.filteredStatus.actionsPlanned.total = result.indicatorActionsToApply.total;
+      try {
+        const result = await countTotalByMassActionIndicators(
+          filterIndicatorActionsInProgress,
+          filterIndicatorActionsFailed,
+          filterIndicatorActionsToApply
+        );
+        this.filteredStatus.actionsInProgress.total = result.indicatorActionsInProgress.total;
+        this.filteredStatus.actionsFailed.total = result.indicatorActionsFailed.total;
+        this.filteredStatus.actionsPlanned.total = result.indicatorActionsToApply.total;
+      } catch {
+        this.filteredStatus.actionsInProgress.total = 0;
+        this.filteredStatus.actionsFailed.total = 0;
+        this.filteredStatus.actionsPlanned.total = 0;
+      }
     },
     filterByStatusIndicator(preselectedFilter) {
       let statusFilter = {},
