@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.18+20190515144617
+2019-05-15
+
+### Fixes
+
+- export unit actions (7e0a674a6be7ae525f7d3fbf3ab6fa3ca59d12c4)
+
 ## 0.1.0-master.17+20190515100839
 2019-05-15
 
