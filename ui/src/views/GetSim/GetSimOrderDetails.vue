@@ -79,7 +79,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
-          <p>{{ getFromOrder('orderedSimcard.description') }}</p>
+          <p>{{ getFromOrder('orderedSIMCard.description') }}</p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.orderedQuantity') }} :</h6>

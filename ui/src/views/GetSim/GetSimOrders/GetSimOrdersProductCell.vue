@@ -1,6 +1,10 @@
 <template>
   <div class="truncate">
-    <Truncate :limit="30" :content="row.orderedSimcard.description"></Truncate>
+    <Truncate
+      v-if="row.orderedSIMCard"
+      :limit="30"
+      :content="row.orderedSIMCard.description"
+    ></Truncate>
   </div>
 </template>
 

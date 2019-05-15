@@ -121,9 +121,9 @@ export default {
      * on ne peut pas construire cet objet directement depuis this.order
      */
     const selectedProductInSynthesis = get(this.synthesis, 'product.selection.product', {});
-    if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSimcard.code')) {
+    if (!selectedProductInSynthesis.simCard && get(this.order, 'orderedSIMCard.code')) {
       this.selectedSimTypeValue = this.simTypes.find(
-        s => s.simCard.code === get(this.order, 'orderedSimcard.code')
+        s => s.simCard.code === get(this.order, 'orderedSIMCard.code')
       );
     } else {
       this.selectedSimTypeValue = selectedProductInSynthesis;

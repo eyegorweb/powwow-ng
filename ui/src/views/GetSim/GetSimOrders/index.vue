@@ -276,7 +276,7 @@ export default {
         {
           id: 5,
           label: this.$t('col.product'),
-          name: 'orderedSimcard',
+          name: 'orderedSIMCard',
           orderable: false,
           visible: true,
           exportId: 'ORDER_SIMCARD_TYPE',
