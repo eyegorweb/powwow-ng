@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn-link export-link" @click="chooseExportFormat">
+    <button :class="className" @click="chooseExportFormat">
       <i class="ic-Download-Icon" />
       <slot name="title">
         Exporter
@@ -67,6 +67,7 @@ export default {
     columns: Array,
     orderBy: Object,
     exportFn: Function,
+    buttonStyle: Boolean,
   },
   methods: {
     async exportFile(exportFormat) {
@@ -88,6 +89,14 @@ export default {
     },
     chooseExportFormat() {
       this.isExportFormatChoiceOpen = true;
+    },
+  },
+  computed: {
+    className() {
+      if (this.buttonStyle) {
+        return 'btn btn-accent btn-block';
+      }
+      return 'btn btn-link export-link';
     },
   },
   data() {

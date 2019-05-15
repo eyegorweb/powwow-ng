@@ -6,9 +6,16 @@
           <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
         </div>
         <div>
-          <UiButton variant="accent" block>
-            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-          </UiButton>
+          <ExportButton
+            :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+            button-style
+          >
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
+          </ExportButton>
         </div>
       </div>
 
@@ -96,8 +103,9 @@
 
 <script>
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
-import UiButton from '@/components/ui/Button';
 import get from 'lodash.get';
+import ExportButton from '@/components/ExportButton';
+import { exportLines } from '@/api/unitActions';
 
 export default {
   props: {
@@ -107,6 +115,11 @@ export default {
   },
   data() {
     return {
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
+      columns: [{ exportId: 'LINE_MSISDN' }],
       confirmationStepper: {
         data: [
           {
@@ -153,6 +166,9 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    getExportFn() {
+      return exportLines;
     },
   },
 
@@ -247,7 +263,7 @@ export default {
 
   components: {
     StepperNonLinear,
-    UiButton,
+    ExportButton,
   },
 };
 </script>

@@ -85,9 +85,9 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
+import { exportLines } from '@/api/unitActions';
 
 import { acknowledgeFailedUnitActions, replayFailedUnitsActions } from '@/api/massActions';
-import { exportLines } from '@/api/unitActions';
 
 export default {
   components: {

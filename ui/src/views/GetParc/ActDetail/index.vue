@@ -1,5 +1,22 @@
 <template>
   <div class="mt-4">
+    <div class="row">
+      <div class="col-md-9">
+        <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
+          <i class="ic-Arrow-Previous-Icon" />
+          {{ $t('back') }}
+        </button>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-md-9">
+        <h4>
+          <b>GetParc</b>
+          - {{ $t('getparc.management-act-detail') }}
+          <i class="ic-Info-Icon" />
+        </h4>
+      </div>
+    </div>
     <ActHistoryDetailPage v-if="massAction" :content="massAction" />
     <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
       <template slot-scope="{ tab, index, selectedIndex }">
@@ -159,5 +176,9 @@ export default {
 }
 a {
   text-transform: uppercase;
+}
+
+.back-btn {
+  color: $gray-680;
 }
 </style>
