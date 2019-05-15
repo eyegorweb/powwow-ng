@@ -31,7 +31,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           firstName
           lastName
         }
-        orderedSimcard {
+        orderedSIMCard {
           description
           code
           buyingPriceInEuroCentHT

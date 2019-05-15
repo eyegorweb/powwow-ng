@@ -11,6 +11,13 @@
               {{ $t('getparc.actDetail.title', { total: total }) }}
             </h2>
           </div>
+          <div class="col">
+            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <span slot="title">
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+              </span>
+            </ExportButton>
+          </div>
         </div>
         <DataTable
           :columns.sync="columns"
@@ -36,12 +43,15 @@
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
+import ExportButton from '@/components/ExportButton';
+import { exportLines } from '@/api/unitActions';
 
 export default {
   components: {
     DataTable,
     LoaderContainer,
     SearchByActId,
+    ExportButton,
   },
   props: {
     massActionId: String,
@@ -58,6 +68,7 @@ export default {
           name: 'id',
           orderable: true,
           visible: true,
+          // exportId: 'UNKNOWN',
         },
 
         {
@@ -66,6 +77,7 @@ export default {
           name: 'msisdn',
           orderable: true,
           visible: true,
+          exportId: 'LINE_MSISDN',
         },
         {
           id: 3,
@@ -73,6 +85,7 @@ export default {
           name: 'iccid',
           orderable: true,
           visible: true,
+          exportId: 'LINE_ICCID',
         },
         {
           id: 4,
@@ -80,6 +93,7 @@ export default {
           name: 'statusDate',
           orderable: true,
           visible: true,
+          exportId: 'LINE_SIM_STATUS_DATE',
         },
         {
           id: 6,
@@ -87,6 +101,7 @@ export default {
           name: 'dueDate',
           orderable: true,
           visible: true,
+          // exportId: 'UNKNOWN',
         },
         {
           id: 8,
@@ -94,6 +109,7 @@ export default {
           name: 'imsi',
           orderable: true,
           visible: true,
+          exportId: 'LINE_IMSI',
         },
         {
           id: 10,
@@ -101,6 +117,7 @@ export default {
           name: 'manufacturer',
           orderable: true,
           visible: false,
+          exportId: 'LINE_MANUFACTURER',
         },
         {
           id: 11,
@@ -108,6 +125,7 @@ export default {
           name: 'deviceReference',
           orderable: true,
           visible: false,
+          exportId: 'LINE_DEVICE_REFERENCE',
         },
         {
           id: 12,
@@ -115,6 +133,7 @@ export default {
           name: 'imei',
           orderable: true,
           visible: false,
+          // exportId: 'UNKNOWN',
         },
       ],
       page: 0,
@@ -130,6 +149,9 @@ export default {
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
+    },
+    getExportFn() {
+      return exportLines;
     },
   },
 };

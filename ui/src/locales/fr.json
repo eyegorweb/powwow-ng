@@ -28,6 +28,7 @@
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
   "noResult": "Aucun résulat",
+  "back": "Retour",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -111,6 +112,7 @@
   },
   "getparc": {
     "management-act": "Historique des actes de gestion",
+    "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
     "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
