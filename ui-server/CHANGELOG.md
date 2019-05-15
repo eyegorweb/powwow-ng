@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.17+20190515100839
+2019-05-15
+
+### Fixes
+
+- gradle multi project (896b87947840108dc8df27c612b95e7577d53fba)
+
 ## 0.1.0-master.16+20190515100958
 2019-05-15
 
