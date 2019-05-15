@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.15+20190515075142
+2019-05-15
+
+### Fixes
+
+- code postal est une chaine de caractères (e4cca582e5ffc64925b350f95eec2e5e105fa7dd)
+
 ## 0.1.0-master.14+20190514160107
 2019-05-14
 
