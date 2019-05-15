@@ -41,7 +41,7 @@ build:
   script:
     - ./gradlew --build-cache assemble --info
     - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
-    - echo "RELEASE_VERSION=`cat ../.next-version`" >> build_info
+    - echo "RELEASE_VERSION=`cat .next-version`" >> build_info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
