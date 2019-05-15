@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.19+20190515150027
+2019-05-15
+
+### Fixes
+
+- renommer le champ orderedSIMCard (9b4b69241d6354c390084fddefadfdd5565a99d8)
+
 ## 0.1.0-master.18+20190515144617
 2019-05-15
 
