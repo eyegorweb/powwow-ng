@@ -64,8 +64,6 @@
             <SimpleInputFilter
               :selected-value="selectedPostalCodeValue"
               @update:value="selectPostalCodeFilter($event)"
-              input-type="number"
-              :min-value="1"
             />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>

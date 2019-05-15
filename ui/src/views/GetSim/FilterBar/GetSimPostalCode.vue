@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiInput v-model="postalCode" input-type="number" :min-value="1" />
+    <UiInput v-model="postalCode" />
   </div>
 </template>
 
