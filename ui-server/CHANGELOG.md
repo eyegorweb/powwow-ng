@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.16+20190515100958
+2019-05-15
+
+### Fixes
+
+- mettre à jour les colonnes stockées en local storage (bf5939e51e5d33441978b61a6e9d7c4b3197da0e)
+- corriger erreurs de lint (c832d723c0104ca3d9d08fc2f43171f390081a3c)
+
 ## 0.1.0-master.15+20190515075142
 2019-05-15
 
