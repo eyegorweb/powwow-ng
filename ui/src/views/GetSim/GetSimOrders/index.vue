@@ -106,7 +106,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '1';
+const VERSION = '2';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -229,6 +229,7 @@ export default {
       isAsyncExportAlertOpen: false,
       isExportFormatChoiceOpen: false,
       columns: [],
+      // NE PAS OUBLIER DE METTRE à JOUR LA VARIABLE **** VERSION *** après un changement dans la structure
       commonColumns: [
         {
           id: 1,
