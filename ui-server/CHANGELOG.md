@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.21+20190516150942
+2019-05-16
+
+### Fixes
+
+- update custom fields headers (6de893afb60871328efd49399b2420ad75059e70)
+
 ## 0.1.0-master.20+20190516123124
 2019-05-16
 
