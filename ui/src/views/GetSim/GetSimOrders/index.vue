@@ -106,7 +106,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '2';
+const VERSION = '2.2';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -388,9 +388,59 @@ export default {
         {
           id: 15,
           label: this.$t('col.customFields'),
-          name: 'customFields',
+          name: 'customFields1',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELDS',
+          exportId: 'ORDER_CUSTOMFIELD_1',
+          format: {
+            componentId: 'GetSimOrdersMassActionIdsColumn',
+          },
+        },
+        {
+          id: 16,
+          label: this.$t('col.customFields'),
+          name: 'customFields2',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_2',
+          format: {
+            componentId: 'GetSimOrdersMassActionIdsColumn',
+          },
+        },
+        {
+          id: 17,
+          label: this.$t('col.customFields'),
+          name: 'customFields3',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_3',
+          format: {
+            componentId: 'GetSimOrdersMassActionIdsColumn',
+          },
+        },
+        {
+          id: 18,
+          label: this.$t('col.customFields'),
+          name: 'customFields4',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_4',
+          format: {
+            componentId: 'GetSimOrdersMassActionIdsColumn',
+          },
+        },
+        {
+          id: 19,
+          label: this.$t('col.customFields'),
+          name: 'customFields5',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_5',
+          format: {
+            componentId: 'GetSimOrdersMassActionIdsColumn',
+          },
+        },
+        {
+          id: 20,
+          label: this.$t('col.customFields'),
+          name: 'customFields6',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_6',
           format: {
             componentId: 'GetSimOrdersMassActionIdsColumn',
           },
