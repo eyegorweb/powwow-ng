@@ -20,7 +20,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('getsim', ['setBillingAccountsFilter']),
+    ...mapMutations('actLines', ['setBillingAccountsFilter']),
   },
 };
 </script>

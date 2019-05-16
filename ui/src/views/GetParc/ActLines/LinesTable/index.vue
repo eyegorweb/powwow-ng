@@ -142,10 +142,11 @@ export default {
       ],
       page: 0,
       pageLimit: 20,
-      orderBy: {
-        key: 'id',
-        direction: 'DESCENDING',
-      },
+      // orderBy: {
+      //   key: 'ASC',
+      //   direction: 'DESC',
+      // },
+      orderBy: {},
       showExtraCells: false,
     };
   },

@@ -1,12 +1,11 @@
-// import { query } from './utils';
+import { query } from './utils';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchLinesActions(orderBy, pagination, filters = []) {
-  console.log(filters);
-  /*
-  const orderingInfo = orderBy
-    ? `, sorting: {field: ${orderBy.key},order:${orderBy.direction}}`
-    : '';
+  // const orderingInfo = orderBy
+  //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
+  //   : '';
+  const orderingInfo = orderBy ? `, sorting: {}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -24,7 +23,6 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
         id
         msisdn
         imsi
-
         accessPoint {
           commercialStatus
           lastPLMN
@@ -59,68 +57,16 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
       }
     }
   }`;
-  //*/
 
-  // const response = await query(queryStr);
-  // return response.data.lines;
-
-  const response = {
-    data: {
-      lines: {
-        total: 1,
-        items: [
-          {
-            // id: '122',
-            parner: '122',
-            msisdn: '33624389606',
-            imsi: '208206711887999',
-            accessPoint: {
-              commercialStatus: 'test',
-              lastPLMN: null,
-              preactivationDate: null,
-              activationDate: '27-02-2018 16:13:31',
-              commercialStatusDate: '27-02-2018 16:19:18',
-              customFields: {
-                custom1: null,
-                custom2: null,
-                custom3: null,
-                custom4: null,
-              },
-              offer: {
-                marketingOffer: {
-                  code: 'LYRA_PARC1_COMPTEUR',
-                  description: 'Parc 1 compteur',
-                },
-              },
-              simCardInstance: {
-                party: {
-                  id: '2',
-                },
-                id: '143',
-                iccid: '2999216721118879501',
-                type: 'M2M sim sans code pin',
-                statuts: 'ALLOCATED',
-                auditable: {
-                  created: '21-04-2017',
-                },
-                deviceInstance: null,
-              },
-            },
-          },
-        ],
-      },
-    },
-  };
-
+  const response = await query(queryStr);
   return response.data.lines.items;
 }
 
-/*
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsForInt(filters, 'filters.partners');
   if (partyIds) {
-    allFilters.push(`partyIds: [${partyIds}]`);
+    allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
 
   const offers = getValuesIds(filters, 'filters.offers');
@@ -135,6 +81,11 @@ function formatFilters(filters) {
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
+  }
+
+  const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
+  if (customerAccountIds) {
+    allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
   // addQuantityFilter(allFilters, filters);
@@ -173,4 +124,3 @@ function getFilterValues(filters, filterId) {
     return foundFilter.values;
   }
 }
-//*/
