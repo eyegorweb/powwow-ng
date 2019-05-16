@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.20+20190516123124
+2019-05-16
+
+### Fixes
+
+- plug api lines (3abd500a3745482c3b6b568edd62f137fb3afb61)
+
 ## 0.1.0-master.19+20190515150027
 2019-05-15
 
