@@ -68,6 +68,18 @@ function saveColumnsToLocalStorage(columns) {
   localStorage.setItem('getparc.actHistory.savedColumns', JSON.stringify(savableColumns));
 }
 
+/**
+ * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
+ */
+const VERSION = '2';
+function checkConfigVersion() {
+  const savedVersion = localStorage.getItem('tables.version');
+  if (savedVersion !== VERSION) {
+    localStorage.removeItem('getparc.actHistory.savedColumns');
+    localStorage.setItem('tables.version', VERSION);
+  }
+}
+
 export default {
   components: {
     DataTable,
@@ -77,6 +89,7 @@ export default {
     SearchByActId,
   },
   async mounted() {
+    checkConfigVersion();
     const savedColumns = loadColumnsFromLocalStorage();
     if (savedColumns) {
       this.columns = savedColumns;
@@ -86,6 +99,9 @@ export default {
   },
 
   watch: {
+    actHistoryPage() {
+      this.fetchMassActions();
+    },
     orderBy() {
       this.page = 1;
       this.fetchMassActions();

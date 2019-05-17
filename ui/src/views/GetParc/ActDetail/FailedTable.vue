@@ -1,46 +1,18 @@
 <template>
-  <LoaderContainer :is-loading="false">
-    <div>
-      <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
-        {{ $t('noResult') }}
-      </div>
-      <div v-else>
-        <div class="row mb-3">
-          <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-              {{ $t('getparc.actDetail.title', { total: total }) }}
-            </h2>
-          </div>
-          <div class="col">
-            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-              </span>
-            </ExportButton>
-          </div>
-        </div>
-        <DataTable
-          :columns.sync="columns"
-          :rows="rows || []"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-          :order-by.sync="orderBy"
-          :show-extra-columns.sync="showExtraCells"
-          @change-order="changeCellsOrder"
-          :size="7"
-        >
-          <template slot="topLeftCorner">
-            <SearchByActId />
-          </template>
-        </DataTable>
+  <div>
+    <UnitActsTable
+      :mass-action-id="$route.params.massActionId"
+      :statuses="['KO']"
+      :total.sync="totalFailed"
+    >
+      <div v-if="totalFailed" slot="after">
         <div class="bg-white text-center p-2 pb-4">
           <h4>{{ $t('getparc.actDetail.actionChoice') }}:</h4>
           <div>
             <button @click.stop="acknowledgeFailedActs" class="btn btn-primary">
               <i class="ic-Check-Icon" /> {{ $t('getparc.actDetail.discharge') }}
             </button>
-            <button @click.stop="restartFailedActs" class="btn btn-info ml-2">
+            <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
               <i class="ic-Refresh-Icon" /> {{ $t('getparc.actDetail.restart') }}
             </button>
           </div>
@@ -74,39 +46,67 @@
             </button>
           </div>
         </Modal>
+        <Modal v-if="replayPopUp">
+          <div class="text-left" slot="body">
+            <h4>
+              {{ $t('getparc.actDetail.restart-confirmation') }}
+            </h4>
+          </div>
+          <div slot="footer">
+            <button
+              class="modal-default-button btn btn-danger btn-sm"
+              @click.stop="replayPopUp = false"
+            >
+              {{ $t('cancel') }}
+            </button>
+            <button
+              class="modal-default-button btn btn-success btn-sm ml-1"
+              @click.stop="restartFailedActs"
+            >
+              {{ $t('save') }}
+            </button>
+          </div>
+        </Modal>
       </div>
-    </div>
-  </LoaderContainer>
+    </UnitActsTable>
+  </div>
 </template>
 
 <script>
 import Modal from '@/components/Modal';
-import DataTable from '@/components/DataTable/DataTable';
-import LoaderContainer from '@/components/LoaderContainer';
-import SearchByActId from '@/views/GetParc/SearchByActId';
-import ExportButton from '@/components/ExportButton';
+import UnitActsTable from './UnitActsTable';
+
 import { exportLines } from '@/api/unitActions';
 
 import { acknowledgeFailedUnitActions, replayFailedUnitsActions } from '@/api/massActions';
 
 export default {
   components: {
-    DataTable,
-    LoaderContainer,
-    SearchByActId,
-    ExportButton,
     Modal,
+    UnitActsTable,
   },
   props: {
     massActionId: String,
     rows: Array,
+    total: Number,
+  },
+
+  computed: {
+    totalFailed: {
+      get() {
+        return this.total;
+      },
+      set(val) {
+        this.$emit('update:total', val);
+      },
+    },
   },
 
   data() {
     return {
       acknowledgePopUp: false,
+      replayPopUp: false,
       acknowledgeTxt: '',
-      total: 1,
       columns: [
         {
           id: 1,
@@ -215,6 +215,7 @@ export default {
       this.acknowledgePopUp = true;
     },
     async restartFailedActs() {
+      this.replayPopUp = true;
       await replayFailedUnitsActions(this.massActionId);
       this.$emit('refreshTables');
     },

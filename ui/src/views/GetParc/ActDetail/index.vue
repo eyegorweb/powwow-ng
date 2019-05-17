@@ -38,16 +38,27 @@
       </template>
       <div slot="fail">
         <FailedTable
+          :key="'tab1'"
           :mass-action-id="$route.params.massActionId"
-          :rows="tabs[0].rows"
           @refreshTables="refreshTables"
+          :total.sync="tabs[0].total"
         />
       </div>
       <div slot="ongoing">
-        <OngoingTable :mass-action-id="$route.params.massActionId" :rows="tabs[1].rows" />
+        <UnitActsTable
+          :key="'tab2'"
+          :mass-action-id="$route.params.massActionId"
+          :statuses="['SENT']"
+          :total.sync="tabs[1].total"
+        />
       </div>
       <div slot="finished">
-        <FinishedTable :mass-action-id="$route.params.massActionId" :rows="tabs[2].rows" />
+        <UnitActsTable
+          :key="'tab3'"
+          :mass-action-id="$route.params.massActionId"
+          :statuses="['OK']"
+          :total.sync="tabs[2].total"
+        />
       </div>
     </UiTabs>
   </div>
@@ -57,25 +68,22 @@
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import FailedTable from './FailedTable';
-import OngoingTable from './OngoingTable';
-import FinishedTable from './FinishedTable';
+import UnitActsTable from './UnitActsTable';
 import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
-import { fetchUnitActions } from '@/api/unitActions';
 import { searchMassActionsById } from '@/api/massActions';
+import { fetchUnitActionsTotals } from '@/api/unitActions';
 
 export default {
   components: {
     UiTabs,
     UiTab,
     FailedTable,
-    OngoingTable,
-    FinishedTable,
     ActHistoryDetailPage,
+    UnitActsTable,
   },
 
   async mounted() {
     this.refreshTables();
-    this.refreshCurrentMassAction();
   },
 
   data() {
@@ -85,69 +93,41 @@ export default {
       tabs: [
         {
           label: 'fail',
-          status: 'KO',
           title: this.$t('getparc.actDetail.titleListCard.FAIL'),
           total: 0,
-          rows: [],
         },
         {
           label: 'ongoing',
-          status: 'SENT', // WAITING, SENT, IN_PROGRESS
           title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
           total: 0,
-          rows: [],
         },
         {
           label: 'finished',
-          status: 'OK', // OK, REPLAYED, CANCELLED
           title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
           total: 0,
-          rows: [],
         },
       ],
     };
   },
   methods: {
     async refreshTables() {
-      const pagination = { limit: 20, page: 0 };
-      const orderBy = { key: 'id', direction: 'DESCENDING' };
-      const failedCards = await fetchUnitActions(
-        this.$route.params.massActionId,
-        'KO',
-        pagination,
-        orderBy
-      );
-      const ongoingCards = await fetchUnitActions(
-        this.$route.params.massActionId,
-        'SENT',
-        pagination,
-        orderBy
-      );
-
-      const sentCards = await fetchUnitActions(
-        this.$route.params.massActionId,
-        'OK',
-        pagination,
-        orderBy
-      );
-
-      this.tabs = [
-        {
-          ...this.tabs[0],
-          rows: failedCards,
-          total: failedCards ? failedCards.length : 0,
-        },
-        {
-          ...this.tabs[1],
-          rows: ongoingCards,
-          total: ongoingCards ? ongoingCards.length : 0,
-        },
-        {
-          ...this.tabs[2],
-          rows: sentCards,
-          total: sentCards ? sentCards.length : 0,
-        },
-      ];
+      const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
+      if (totals) {
+        this.tabs = [
+          {
+            ...this.tabs[0],
+            total: totals.failed.total,
+          },
+          {
+            ...this.tabs[1],
+            total: totals.ongoing.total,
+          },
+          {
+            ...this.tabs[2],
+            total: totals.finished.total,
+          },
+        ];
+      }
       this.refreshCurrentMassAction();
     },
     getMassActionItem(response) {
