@@ -7,8 +7,8 @@ export async function fetchUnitActionsTotals(massActionId) {
   const queryStr = `
 query {
   failed: unitActions(filter: {massActionId: ${massActionId}, status: [KO] } ${paginationInfo} ${orderingInfo}) { total }
-  ongoing: unitActions(filter: {massActionId: ${massActionId}, status: [SENT] } ${paginationInfo} ${orderingInfo}) { total }
-  finished: unitActions(filter: {massActionId: ${massActionId}, status: [OK] } ${paginationInfo} ${orderingInfo}) { total }
+  ongoing: unitActions(filter: {massActionId: ${massActionId}, status: [WAITING, SENT, IN_PROGRESS] } ${paginationInfo} ${orderingInfo}) { total }
+  finished: unitActions(filter: {massActionId: ${massActionId}, status: [OK, REPLAYED, CANCELLED] } ${paginationInfo} ${orderingInfo}) { total }
 }
 `;
 
