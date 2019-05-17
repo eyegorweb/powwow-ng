@@ -249,22 +249,30 @@ function addActDateCreationFilter(gqlFilters, selectedFilters) {
 function addActDueDateFilter(gqlFilters, selectedFilters) {
   const dates = selectedFilters.find(f => f.id === 'filters.actDateStart');
   if (dates) {
-    gqlFilters.push(
-      `dueDateFrom: "${formatDateForGql(dates.startDate)}", dueDateTo: "${formatDateForGql(
-        dates.endDate
-      )}"`
-    );
+    let gqlEndDateFrom = '';
+    let gqlEndDateTo = '';
+    if (dates.startDate) {
+      gqlEndDateFrom = `dueDateFrom: "${formatDateForGql(dates.startDate)}"`;
+    }
+    if (dates.endDate) {
+      gqlEndDateTo = `, dueDateTo: "${formatDateForGql(dates.endDate)}"`;
+    }
+    gqlFilters.push(`${gqlEndDateFrom}${gqlEndDateTo}`);
   }
 }
 
 function addActEndDateFilter(gqlFilters, selectedFilters) {
   const dates = selectedFilters.find(f => f.id === 'filters.actDateEnd');
   if (dates) {
-    gqlFilters.push(
-      `endDateFrom: "${formatDateForGql(dates.startDate)}", endDateTo: "${formatDateForGql(
-        dates.endDate
-      )}"`
-    );
+    let gqlEndDateFrom = '';
+    let gqlEndDateTo = '';
+    if (dates.startDate) {
+      gqlEndDateFrom = `endDateFrom: "${formatDateForGql(dates.startDate)}"`;
+    }
+    if (dates.endDate) {
+      gqlEndDateTo = `, endDateTo: "${formatDateForGql(dates.endDate)}"`;
+    }
+    gqlFilters.push(`${gqlEndDateFrom}${gqlEndDateTo}`);
   }
 }
 

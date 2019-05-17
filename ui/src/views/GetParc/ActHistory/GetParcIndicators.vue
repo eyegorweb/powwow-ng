@@ -146,7 +146,6 @@ export default {
         {
           id: 'filters.actDateStart',
           startDate: this.filteredStatus.actionsPlanned.date.range.start,
-          endDate: this.filteredStatus.actionsPlanned.date.range.end,
         },
         { ...contextPartnersFilter },
         { ...contextPartnerTypesFilter },

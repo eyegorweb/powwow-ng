@@ -1,9 +1,9 @@
 <template>
   <ul class="pagination mb-0">
     <li class="page-item" :class="{ disabled: page === 1 }">
-      <a class="page-link" href="#" @click="previousPage()">
+      <button class="page-link" @click="previousPage()">
         <span class="ic-Arrow-Previous-Icon" />
-      </a>
+      </button>
     </li>
     <li
       class="page-item page-nb"
@@ -11,13 +11,13 @@
       :key="'page_' + index"
       v-for="index in pagesToShow"
     >
-      <a class="page-link" href="#" @click="gotoPage(index)">{{ index }}</a>
+      <button class="page-link" @click="gotoPage(index)">{{ index }}</button>
     </li>
 
     <li class="page-item" :class="{ disabled: page === pageCount }">
-      <a class="page-link" href="#" @click="nextPage()">
+      <button class="page-link" @click="nextPage()">
         <span class="ic-Arrow-Next-Icon" />
-      </a>
+      </button>
     </li>
   </ul>
 </template>
@@ -96,22 +96,29 @@ export default {
   }
 
   &.disabled {
-    a {
+    button {
       color: #e1e1e1;
       background-color: $light-gray;
       border-color: currentColor;
     }
   }
+
+  &.active {
+    .page-link {
+      color: inherit;
+      background-color: inherit;
+    }
+  }
 }
 
 .page-nb {
-  a {
+  button {
     background-color: transparent;
     border: none;
     font-weight: 500;
     color: $gray;
   }
-  &.active a {
+  &.active button {
     color: $primary;
     background-color: transparent;
     z-index: inherit;

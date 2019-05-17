@@ -214,6 +214,7 @@
       "actionChoice": "Choisir une action",
       "discharge": "Acquitter les actes en échec ",
       "restart": "Relancer les actes en échec",
+      "restart-confirmation": "Etes-vous sur de vouloir relancer les actes en échec?",
       "enterMessage": "Entrez un message",
       "titleListCard": {
         "FAIL": "liste des cartes en échec",

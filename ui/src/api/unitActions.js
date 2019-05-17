@@ -1,6 +1,22 @@
 import { query } from './utils';
 
-export async function fetchUnitActions(massActionId, status, pagination, orderBy) {
+export async function fetchUnitActionsTotals(massActionId) {
+  const paginationInfo = `, pagination: {page: 0, limit: 1}`;
+  const orderingInfo = `sorting: {field: id, order: DESCENDING}`;
+
+  const queryStr = `
+query {
+  failed: unitActions(filter: {massActionId: ${massActionId}, status: [KO] } ${paginationInfo} ${orderingInfo}) { total }
+  ongoing: unitActions(filter: {massActionId: ${massActionId}, status: [SENT] } ${paginationInfo} ${orderingInfo}) { total }
+  finished: unitActions(filter: {massActionId: ${massActionId}, status: [OK] } ${paginationInfo} ${orderingInfo}) { total }
+}
+`;
+
+  const response = await query(queryStr);
+  return response.data;
+}
+
+export async function fetchUnitActions(massActionId, statuses, pagination, orderBy) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -10,18 +26,23 @@ export async function fetchUnitActions(massActionId, status, pagination, orderBy
 
   const queryStr = `
   query {
-    unitActions(filter: {massActionId: ${massActionId}, status: ${status}} ${paginationInfo} ${orderingInfo}) {
-     id
-     msisdn
-     iccid
-     status
-     statusDate
-     dueDate
-     imsi
-     error_reason
-     manufacturer
-     deviceReference
-     imei
+    unitActions(filter: {massActionId: ${massActionId}, status: ${statuses.join(
+    ','
+  )}} ${paginationInfo} ${orderingInfo}) {
+    total
+    items {
+      id
+      msisdn
+      iccid
+      status
+      statusDate
+      dueDate
+      imsi
+      error_reason
+      manufacturer
+      deviceReference
+      imei
+    }
    }
  }
   `;
