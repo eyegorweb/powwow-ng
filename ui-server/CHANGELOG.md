@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.22+20190517091508
+2019-05-17
+
+### Features
+
+- intégration de la pagination dans les actes unitaires (25831b723cff513179eedfdaf5412e8ddc5d6d9d)
+
 ## 0.1.0-master.21+20190516150942
 2019-05-16
 
