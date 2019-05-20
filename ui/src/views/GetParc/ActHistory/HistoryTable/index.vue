@@ -225,7 +225,7 @@ export default {
       pageLimit: 20,
       orderBy: {
         key: 'id',
-        direction: 'DESCENDING',
+        direction: 'DESC',
       },
       showExtraCells: false,
     };

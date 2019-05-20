@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export async function searchMassActionsById(massActionId) {
   const response = await searchMassActions(
-    { key: 'id', direction: 'DESCENDING' },
+    { key: 'id', direction: 'DESC' },
     { page: 0, limit: 1 },
     [{ id: 'filters.massActionId', value: massActionId }]
   );
@@ -19,7 +19,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const orderingInfo = orderBy
-    ? `, sorting: {field: ${orderBy.key},order:${orderBy.direction}}`
+    ? `, sorting: {field: ${orderBy.key},sorting:${orderBy.direction}}`
     : '';
 
   const queryStr = `
