@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.26+20190521135012
+2019-05-21
+
+### Features
+
+- ajoute le filtre d'offre associée pour la gestion des lignes (50ce968fb7da357859ce673c58a40e1dc53239e0)
+
 ## 0.1.0-master.25+20190521074053
 2019-05-21
 
