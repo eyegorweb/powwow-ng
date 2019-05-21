@@ -27,6 +27,7 @@
             <TypeSimCard />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.associatedOffer')" :key="'el5'" draggable>
+            <ActLinesOffersFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.orderID')" :key="'el6'" draggable>
             <SimpleInputFilter
@@ -125,6 +126,7 @@ import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import TypeSimCard from './TypeSimCard';
 import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
+import ActLinesOffersFilter from './ActLinesOffersFilter';
 
 export default {
   components: {
@@ -135,6 +137,7 @@ export default {
     ActLinesBillingAccountsFilter,
     TypeSimCard,
     SimpleInputFilter,
+    ActLinesOffersFilter,
   },
   data() {
     return {
