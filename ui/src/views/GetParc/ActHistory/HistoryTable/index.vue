@@ -232,13 +232,20 @@ export default {
   },
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
-    ...mapMutations('actHistory', ['setPage']),
+    ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
-    searchById(params) {
+    async searchById(params) {
       console.log('search by id: ', params);
+
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
     },
     async fetchMassActions() {
       this.fetchActionsFromApi({
