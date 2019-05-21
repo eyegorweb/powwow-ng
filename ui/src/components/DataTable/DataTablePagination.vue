@@ -1,6 +1,6 @@
 <template>
   <ul class="pagination mb-0">
-    <li class="page-item" :class="{ disabled: page === 1 }">
+    <li class="page-item" :class="{ disabled: page <= 1 }">
       <button class="page-link" @click="previousPage()">
         <span class="ic-Arrow-Previous-Icon" />
       </button>
@@ -14,7 +14,7 @@
       <button class="page-link" @click="gotoPage(index)">{{ index }}</button>
     </li>
 
-    <li class="page-item" :class="{ disabled: page === pageCount }">
+    <li class="page-item" :class="{ disabled: page >= pageCount }">
       <button class="page-link" @click="nextPage()">
         <span class="ic-Arrow-Next-Icon" />
       </button>

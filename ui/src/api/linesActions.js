@@ -42,7 +42,10 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
             }
           }
           simCardInstance {
-            party{id }
+            party{
+              id
+              name
+             }
             id
             iccid
             type
@@ -59,7 +62,7 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
   }`;
 
   const response = await query(queryStr);
-  return response.data.lines.items;
+  return response.data.lines;
 }
 
 function formatFilters(filters) {

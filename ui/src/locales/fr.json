@@ -237,7 +237,10 @@
       }
     },
     "actLines": {
-      "total": "{total} lignes trouvées",
+      "total": "{total} lignes éligibles au changement de compte de facturation",
+      "step1Partner": "séléctionner un partenaire",
+      "step1Title": "séléctionner les lignes avec les filtres et le tableau",
+      "step2Title": "configurer le changement de compte de facturation",
       "col": {
         "simStatus": "Statut de SIM",
         "lastPLMN": "Dernier pays (ancien PLMN)",
@@ -268,6 +271,7 @@
     "offer": "Offre",
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
+    "customFields": "Champs libres {num}",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
