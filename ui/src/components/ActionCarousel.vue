@@ -13,6 +13,8 @@
               :title="item.title"
               :subtitle="item.subtitle"
               :active="!item.inactive"
+              :selected="item.selected"
+              @click="() => $emit('itemClick', item)"
             />
           </slick>
         </div>

@@ -1,11 +1,12 @@
 <template>
   <LoaderContainer :is-loading="false">
     <div>
+      <Title num="2" title="getparc.actLines.step1Title" />
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <h4 class="text-gray font-weight-light" style="font-size: 1.3rem">
             {{ $t('getparc.actLines.total', { total: total }) }}
-          </h2>
+          </h4>
         </div>
       </div>
       <DataTable
@@ -29,9 +30,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
+import Title from '../Title';
 
 function setFormatComponentsToColumns(columns) {
   return columns.reduce((preparedColumns, col) => {
@@ -46,15 +49,26 @@ export default {
     DataTable,
     LoaderContainer,
     SearchByLinesId,
+    Title,
   },
   async mounted() {
     this.columns = setFormatComponentsToColumns([...this.commonColumns]);
   },
   data() {
     return {
-      total: 1,
       columns: [],
       commonColumns: [
+        {
+          id: 99,
+          label: '',
+          name: 'partner',
+          orderable: false,
+          visible: true,
+          noHandle: true,
+          format: {
+            component: CheckBoxCell,
+          },
+        },
         {
           id: 1,
           label: this.$t('col.partner'),
@@ -152,8 +166,12 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters']),
+
+    total() {
+      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+    },
     rows() {
-      return this.linesActionsResponse ? this.linesActionsResponse : [];
+      return this.linesActionsResponse ? this.linesActionsResponse.items : [];
     },
   },
   methods: {
@@ -193,4 +211,37 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.step-title {
+  text-transform: uppercase;
+  color: $primary;
+  span {
+    font-size: 1rem;
+  }
+
+  h4 {
+    position: relative;
+    font-size: 1rem;
+  }
+
+  h4 span.text {
+    background-color: $light-gray;
+    color: $secondary;
+    font-weight: 640;
+    font-size: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  h4:after {
+    content: '';
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5em;
+    border-top: 1px solid $medium-gray;
+    z-index: -1;
+  }
+}
+</style>

@@ -236,6 +236,7 @@ export default {
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
+          noHandle: true,
           visible: true,
           fixed: true,
           exportId: 'ORDER_ID',
@@ -387,7 +388,7 @@ export default {
         },
         {
           id: 15,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 1 }),
           name: 'customFields1',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_1',
@@ -397,7 +398,7 @@ export default {
         },
         {
           id: 16,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 2 }),
           name: 'customFields2',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_2',
@@ -407,7 +408,7 @@ export default {
         },
         {
           id: 17,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 3 }),
           name: 'customFields3',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_3',
@@ -417,7 +418,7 @@ export default {
         },
         {
           id: 18,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 4 }),
           name: 'customFields4',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_4',
@@ -427,7 +428,7 @@ export default {
         },
         {
           id: 19,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 5 }),
           name: 'customFields5',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_5',
@@ -437,7 +438,7 @@ export default {
         },
         {
           id: 20,
-          label: this.$t('col.customFields'),
+          label: this.$t('col.customFields', { num: 6 }),
           name: 'customFields6',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_6',

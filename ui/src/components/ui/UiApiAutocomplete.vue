@@ -9,6 +9,7 @@
         <input
           type="text"
           class="form-control"
+          style="height: calc(1.5em + 1rem + 2px)"
           v-model="$value"
           ref="input"
           @focus="onInputFocus"

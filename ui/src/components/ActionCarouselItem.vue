@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item">
-    <div class="card" :class="{ inactive: !active }">
+    <div class="card" :class="{ inactive: !active, selected: selected }" @click="$emit('click')">
       <div class="card-body">
         <div class="row">
           <div class="icon-block">
@@ -24,6 +24,7 @@ export default {
     title: String,
     subtitle: String,
     active: Boolean,
+    selected: Boolean,
   },
 };
 </script>
@@ -42,6 +43,14 @@ export default {
 
       .card-body .title {
         color: $gray-680;
+      }
+    }
+
+    &.selected {
+      background: $secondary;
+      color: white;
+      & /deep/ div {
+        color: white;
       }
     }
   }
