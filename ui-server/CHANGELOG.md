@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.25+20190521074053
+2019-05-21
+
+### Features
+
+- selection lines directement sur la datatable (779829c30fc29c427b157fc22219e660972d9903)
+
 ## 0.1.0-master.24+20190520084610
 2019-05-20
 
