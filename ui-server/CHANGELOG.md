@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.27+20190522140326
+2019-05-22
+
+### Fixes
+
+- kubernetes deployment naming (5c1e8bbd3999e49247dd38937a4d1206c2a56a2a)
+
 ## 0.1.0-master.26+20190521135012
 2019-05-21
 
