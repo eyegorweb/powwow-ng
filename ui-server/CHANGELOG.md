@@ -2,6 +2,48 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.31+20190523131912
+2019-05-23
+
+### Features
+
+- **actes de gestion:** Ajouter filtre "créateurde l'acte" (a2324788dfd80799245474fd9ef662a5de4198a8)
+
+## 0.1.0-master.30+20190523125517
+2019-05-23
+
+### Fixes
+
+- charger les offres si aucun partenaire n'est choisi (e627c0e128527565e735d10dc5d594689fe7e7e0)
+
+## 0.1.0-master.29+20190523123301
+2019-05-23
+
+### Features
+
+- intégrer l'api d'export d'actes uitaires (79bb0c3613cbbbe48d6ef3e315d96e7636ccc756)
+
+## 0.1.0-master.28+20190523084829
+2019-05-23
+
+### Features
+
+- rediriger vers la page précédant l'authentification (58da822fcd903fffbffed93ef4748952e0beb4d6)
+
+## 0.1.0-master.27+20190522140326
+2019-05-22
+
+### Fixes
+
+- kubernetes deployment naming (5c1e8bbd3999e49247dd38937a4d1206c2a56a2a)
+
+## 0.1.0-master.26+20190521135012
+2019-05-21
+
+### Features
+
+- ajoute le filtre d'offre associée pour la gestion des lignes (50ce968fb7da357859ce673c58a40e1dc53239e0)
+
 ## 0.1.0-master.25+20190521074053
 2019-05-21
 

@@ -7,6 +7,13 @@
             {{ $t('getparc.history.total', { total: total }) }}
           </h2>
         </div>
+        <div class="col">
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
+          </ExportButton>
+        </div>
       </div>
       <DataTable
         :columns.sync="columns"
@@ -37,6 +44,8 @@ import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
+import ExportButton from '@/components/ExportButton';
+import { exportAllMassActions } from '@/api/massActions';
 
 const cellComponents = {
   IdCell,
@@ -71,7 +80,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '2';
+const VERSION = '1';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -87,6 +96,7 @@ export default {
     HistoryActions,
     // SearchByIdInput,
     SearchByActId,
+    ExportButton,
   },
   async mounted() {
     checkConfigVersion();
@@ -267,6 +277,32 @@ export default {
           return Object.assign({}, i.massActionResponse, tempObject);
         });
       }
+    },
+    getExportFn() {
+      return async (columnsParam, pagination, exportFormat) => {
+        return await exportAllMassActions(
+          [
+            'MASS_ACTION_ID',
+            'MASS_ACTION_INFO',
+            'UNIT_ACTION_ID',
+            'UNIT_ACTION_TYPE',
+            'UNIT_ACTION_INFO',
+            'ICCID',
+            'UNIT_ACTION_STATUS',
+            'UNIT_ACTION_START_DATE',
+            'UNIT_ACTION_END_DATE',
+            'UNIT_ACTION_STATUS_DATE',
+            'UNIT_ACTION_STATUS_ERROR',
+            'MSISDN',
+            'DEVICE_MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'IMEI',
+            'LOGIN',
+          ],
+          this.getPageInfo,
+          exportFormat
+        );
+      };
     },
   },
   computed: {

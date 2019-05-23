@@ -63,13 +63,6 @@ export async function exportLines(columns, orderBy, exportFormat) {
     }
     `
   );
-  console.log(`
-  query {
-    linesExport(filter: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
-      downloadUri
-      asyncRequired
-    }
-  }
-  `);
+
   return response.data.linesExport;
 }

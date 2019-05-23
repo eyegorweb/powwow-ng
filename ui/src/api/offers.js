@@ -3,11 +3,13 @@ import { query } from './utils';
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
 export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
   let partnersIds,
-    partnerGqlParam = '';
+    partnerGqlParam = '',
+    rCardGqlParam = '';
 
   if (partners && partners.length > 0) {
     partnersIds = partners.map(i => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
+    rCardGqlParam = `rCard(partyId: ${partnersIds.replace(/['"]+/g, '')})`;
   }
 
   let partnerTypesGqlFilter = '';
@@ -15,8 +17,6 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
     const ids = partnerTypes.map(p => `${p.id}`).join(',');
     partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
   }
-
-  let formattedPartyId = partnersIds.replace(/['"]+/g, '');
 
   const queryStr = `
   query{
@@ -55,7 +55,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
             }
           }
         }
-        rCard(partyId: ${formattedPartyId})
+        ${rCardGqlParam}
       }
     }
   }

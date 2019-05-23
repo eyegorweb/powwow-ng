@@ -29,6 +29,9 @@ export const getters = {
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
+  selectedOffersValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.associatedOffer');
+  },
 };
 
 // Actions
@@ -117,6 +120,12 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.lines.siren',
       value,
+    });
+  },
+  setOffersFilter(state, offers) {
+    selectFilterValue(state, {
+      id: 'filters.lines.associatedOffer',
+      values: offers,
     });
   },
 };

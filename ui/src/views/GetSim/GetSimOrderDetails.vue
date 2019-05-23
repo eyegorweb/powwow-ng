@@ -267,7 +267,7 @@ export default {
   methods: {
     getFromOrder(path, defaultValue = '') {
       const value = get(this.order, path, defaultValue);
-      return value !== 'null' ? value : '';
+      return value !== null ? value : '';
     },
 
     close() {

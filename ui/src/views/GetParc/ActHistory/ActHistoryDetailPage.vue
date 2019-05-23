@@ -105,7 +105,7 @@
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
 import ExportButton from '@/components/ExportButton';
-import { exportLines } from '@/api/unitActions';
+import { exportMassAction } from '@/api/massActions';
 
 export default {
   props: {
@@ -168,7 +168,32 @@ export default {
       return value !== null ? value : '';
     },
     getExportFn() {
-      return exportLines;
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportMassAction(
+          this.content.id,
+          ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
+          [
+            'MASS_ACTION_ID',
+            'MASS_ACTION_INFO',
+            'UNIT_ACTION_ID',
+            'UNIT_ACTION_TYPE',
+            'UNIT_ACTION_INFO',
+            'ICCID',
+            'UNIT_ACTION_STATUS',
+            'UNIT_ACTION_START_DATE',
+            'UNIT_ACTION_END_DATE',
+            'UNIT_ACTION_STATUS_DATE',
+            'UNIT_ACTION_STATUS_ERROR',
+            'MSISDN',
+            'DEVICE_MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'IMEI',
+            'LOGIN',
+          ],
+          { page: 0, limit: 1 },
+          exportFormat
+        );
+      };
     },
   },
 

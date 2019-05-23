@@ -17,11 +17,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['selectedOffersValues', 'selectedPartnersValues']),
+    ...mapGetters('actLines', ['selectedOffersValues', 'selectedPartnersValues']),
   },
 
   methods: {
-    ...mapMutations('getsim', ['setOffersFilter']),
+    ...mapMutations('actLines', ['setOffersFilter']),
   },
 };
 </script>

@@ -154,8 +154,8 @@ deploy_testing:
     - kubectl config use-context m2m-node-tst
   script:
     - kubectl get po
-    - kubectl patch deployment ui-server -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%Y%m%d%H%M%S'`\"}}}}}"
-    - kubectl rollout status deployment.v1.apps/ui-server
+    - kubectl patch deployment ui -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%Y%m%d%H%M%S'`\"}}}}}"
+    - kubectl rollout status deployment.v1.apps/ui
   when: manual
   environment:
     name: testing
