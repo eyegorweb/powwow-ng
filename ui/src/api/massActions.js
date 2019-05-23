@@ -248,6 +248,7 @@ function formatFilters(filters) {
   addActDueDateFilter(allFilters, filters);
   addActEndDateFilter(allFilters, filters);
   addMassActionId(allFilters, filters);
+  addCreatorFilter(allFilters, filters);
   // addServices(allFilters, filters);
 
   return allFilters.join(',');
@@ -263,6 +264,13 @@ function formatDateForGql(inDate) {
     } else {
       return `${parts[0]} 00:00:00`;
     }
+  }
+}
+
+function addCreatorFilter(gqlFilters, selectedFilters) {
+  const creatorIds = getValuesIdsForInt(selectedFilters, 'filters.orderCreator');
+  if (creatorIds) {
+    gqlFilters.push(`creator: [${creatorIds}]`);
   }
 }
 
