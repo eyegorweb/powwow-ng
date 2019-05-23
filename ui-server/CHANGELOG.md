@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.31+20190523131912
+2019-05-23
+
+### Features
+
+- **actes de gestion:** Ajouter filtre "créateurde l'acte" (a2324788dfd80799245474fd9ef662a5de4198a8)
+
 ## 0.1.0-master.30+20190523125517
 2019-05-23
 
