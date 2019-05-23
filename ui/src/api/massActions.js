@@ -1,6 +1,52 @@
 import { query } from './utils';
 import moment from 'moment';
 
+export async function exportMassAction(massActonId, statuses, columns, pagination, exportFormat) {
+  console.log('columns', columns);
+  const columnsParam = columns.join(',');
+  const statusesParam = statuses.join(',');
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+
+  const queryStr = `
+  query  {
+    exportMassAction(filter: {massActionId: ${massActonId}},
+      unitActionStatus:[${statusesParam}],
+      columns: [${columnsParam}],
+      ${paginationInfo},
+      exportFormat: ${exportFormat}){
+      downloadUri
+      total
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.exportMassAction;
+}
+export async function exportAllMassActions(columns, pagination, exportFormat) {
+  const columnsParam = columns.join(',');
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+  query  {
+    exportMassAction(filter: {}, columns: [${columnsParam}] ${paginationInfo}, exportFormat: ${exportFormat}){
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  console.log('response', response.data);
+
+  return response.data.exportMassAction;
+}
+
 export async function searchMassActionsById(massActionId) {
   const response = await searchMassActions(
     { key: 'id', direction: 'DESC' },

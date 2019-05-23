@@ -12,11 +12,7 @@
             </h2>
           </div>
           <div class="col">
-            <ExportButton
-              :export-fn="getExportFn()"
-              :columns="columns"
-              :order-by="{ key: 'id', direction: 'DESC' }"
-            >
+            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
               </span>
@@ -49,7 +45,8 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
-import { exportLines, fetchUnitActions } from '@/api/unitActions';
+import { fetchUnitActions } from '@/api/unitActions';
+import { exportMassAction } from '@/api/massActions';
 
 export default {
   components: {
@@ -80,7 +77,15 @@ export default {
       this.columns = orderedCells.concat(notVisibleCells);
     },
     getExportFn() {
-      return exportLines;
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportMassAction(
+          this.massActionId,
+          this.statuses,
+          columnsParam,
+          this.getPageInfo,
+          exportFormat
+        );
+      };
     },
     async fetchUnitActs() {
       const response = await fetchUnitActions(
@@ -117,7 +122,7 @@ export default {
       pageLimit: 20,
       orderBy: {
         key: 'id',
-        direction: 'DESCENDING',
+        direction: 'DESC',
       },
       showExtraCells: false,
       columns: [
@@ -129,78 +134,77 @@ export default {
           visible: true,
           // exportId: 'UNKNOWN',
         },
-
         {
-          id: 2,
+          id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
           orderable: true,
           visible: true,
-          exportId: 'LINE_MSISDN',
+          exportId: 'MSISDN',
         },
         {
-          id: 3,
+          id: 4,
           label: this.$t('getparc.actDetail.col.iccid'),
           name: 'iccid',
           orderable: true,
           visible: true,
-          exportId: 'LINE_ICCID',
+          exportId: 'ICCID',
         },
         {
-          id: 4,
+          id: 2,
           label: this.$t('getparc.actDetail.col.actState'),
           name: 'status',
           orderable: true,
           visible: true,
-          exportId: 'LINE_SIM_STATUS_DATE',
+          exportId: 'UNIT_ACTION_STATUS',
         },
         {
           id: 6,
-          label: this.$t('getparc.actDetail.col.startDate'),
-          name: 'dueDate',
-          orderable: true,
-          visible: true,
-          // exportId: 'UNKNOWN',
-        },
-        {
-          id: 7,
-          label: this.$t('getparc.actDetail.col.endDate'),
+          label: this.$t('getparc.actDetail.col.failDate'),
           name: 'statusDate',
           orderable: true,
           visible: true,
           // exportId: 'UNKNOWN',
         },
         {
-          id: 8,
+          id: 7,
+          label: this.$t('getparc.actDetail.col.failReason'),
+          name: 'error_reason',
+          orderable: true,
+          visible: true,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 5,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'imsi',
           orderable: true,
-          visible: true,
-          exportId: 'LINE_IMSI',
+          visible: false,
+          // exportId: 'UNKNOWN',
         },
         {
-          id: 10,
+          id: 8,
           label: this.$t('getparc.actDetail.col.constructor'),
           name: 'manufacturer',
           orderable: true,
           visible: false,
-          exportId: 'LINE_MANUFACTURER',
+          exportId: 'DEVICE_MANUFACTURER',
         },
         {
-          id: 11,
+          id: 9,
           label: this.$t('getparc.actDetail.col.commercialRef'),
           name: 'deviceReference',
           orderable: true,
           visible: false,
-          exportId: 'LINE_DEVICE_REFERENCE',
+          exportId: 'DEVICE_REFERENCE',
         },
         {
-          id: 12,
+          id: 10,
           label: this.$t('getparc.actDetail.col.imei'),
           name: 'imei',
           orderable: true,
           visible: false,
-          // exportId: 'UNKNOWN',
+          exportId: 'IMEI',
         },
       ],
     };

@@ -2,7 +2,7 @@ import { query } from './utils';
 
 export async function fetchUnitActionsTotals(massActionId) {
   const paginationInfo = `, pagination: {page: 0, limit: 1}`;
-  const orderingInfo = `sorting: {field: id, order: DESCENDING}`;
+  const orderingInfo = `sorting: {field: id, order: DESC}`;
 
   const queryStr = `
 query {
@@ -63,13 +63,6 @@ export async function exportLines(columns, orderBy, exportFormat) {
     }
     `
   );
-  console.log(`
-  query {
-    linesExport(filter: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
-      downloadUri
-      asyncRequired
-    }
-  }
-  `);
+
   return response.data.linesExport;
 }
