@@ -40,6 +40,9 @@
 </template>
 
 <script>
+/**
+ * DEPRECATED composant à supprimer
+ */
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';

@@ -151,6 +151,11 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+  clearAllFilters(state) {
+    state.currentFilters = [];
+    state.filterCustomFieldsList = [];
+    filterUtils.clearAppliedFilters(state);
+  },
   selectFilterValue,
 
   setFilterCustomFieldsList: (state, data) => {
