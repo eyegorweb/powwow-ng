@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.28+20190523084829
+2019-05-23
+
+### Features
+
+- rediriger vers la page précédant l'authentification (58da822fcd903fffbffed93ef4748952e0beb4d6)
+
 ## 0.1.0-master.27+20190522140326
 2019-05-22
 
