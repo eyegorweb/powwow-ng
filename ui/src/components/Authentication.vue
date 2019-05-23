@@ -27,6 +27,8 @@ export default {
     },
 
     redirectToLogin() {
+      // _ = route avant la redirection
+      localStorage.setItem('_', this.$route.path);
       redirectTo(
         `${process.env.VUE_APP_AUTH_SERVER_URL}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
