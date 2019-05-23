@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.29+20190523123301
+2019-05-23
+
+### Features
+
+- intégrer l'api d'export d'actes uitaires (79bb0c3613cbbbe48d6ef3e315d96e7636ccc756)
+
 ## 0.1.0-master.28+20190523084829
 2019-05-23
 
