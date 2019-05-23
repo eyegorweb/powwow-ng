@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.30+20190523125517
+2019-05-23
+
+### Fixes
+
+- charger les offres si aucun partenaire n'est choisi (e627c0e128527565e735d10dc5d594689fe7e7e0)
+
 ## 0.1.0-master.29+20190523123301
 2019-05-23
 
