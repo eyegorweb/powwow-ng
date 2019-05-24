@@ -45,6 +45,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
+import DetailsCell from './DetailsCell';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
 import { mapMutations, mapGetters } from 'vuex';
@@ -181,6 +182,16 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
+          id: 2,
+          label: this.$t('getparc.actDetail.col.details'),
+          name: 'iccid',
+          orderable: true,
+          visible: true,
+          format: {
+            component: DetailsCell,
+          },
+        },
+        {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
@@ -196,6 +207,7 @@ export default {
           visible: true,
           exportId: 'ICCID',
         },
+
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.actState'),
@@ -217,7 +229,7 @@ export default {
           label: this.$t('getparc.actDetail.col.failReason'),
           name: 'error_reason',
           orderable: true,
-          visible: true,
+          visible: false,
           // exportId: 'UNKNOWN',
         },
         {
