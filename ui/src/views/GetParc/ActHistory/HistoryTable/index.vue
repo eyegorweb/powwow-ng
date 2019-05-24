@@ -198,7 +198,7 @@ export default {
           label: this.$t('getparc.history.col.fail'),
           name: 'errorActionNumber',
           orderable: true,
-          visible: true,
+          visible: false,
         },
         // colonnes cachées par défaut
         {

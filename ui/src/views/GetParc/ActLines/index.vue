@@ -23,9 +23,7 @@
         <FilterBar />
       </div>
       <div class="col-md-9">
-        <PartnerSelectionForAction />
         <LinesTable />
-        <ActCreationBox />
       </div>
     </div>
   </div>
@@ -38,7 +36,7 @@ import LinesTable from './LinesTable';
 import GetLinesIndicators from './GetLinesIndicators';
 import ActionCarousel from '@/components/ActionCarousel';
 import ActCreationBox from './ActCreationBox';
-import PartnerSelectionForAction from './PartnerSelectionForAction';
+// import PartnerSelectionForAction from './PartnerSelectionForAction';
 
 import { mapState, mapActions } from 'vuex';
 
@@ -49,8 +47,8 @@ export default {
     LinesTable,
     GetLinesIndicators,
     ActionCarousel,
-    ActCreationBox,
-    PartnerSelectionForAction,
+    // ActCreationBox,
+    // PartnerSelectionForAction,
   },
   data() {
     const carouselItems = [

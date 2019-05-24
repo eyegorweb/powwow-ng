@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.35+20190524133436
+2019-05-24
+
+### Fixes
+
+- nombre des colonne visibles (933a5fa38f85dfb3c0dbd730ff85a7e7a789f4cb)
+
 ## 0.1.0-master.33+20190524091935
 2019-05-24
 
