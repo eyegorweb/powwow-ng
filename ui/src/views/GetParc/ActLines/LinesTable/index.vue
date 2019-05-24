@@ -1,7 +1,6 @@
 <template>
   <LoaderContainer :is-loading="false">
     <div>
-      <Title num="2" title="getparc.actLines.step1Title" />
       <div class="row mb-3">
         <div class="col">
           <h4 class="text-gray font-weight-light" style="font-size: 1.3rem">
@@ -34,7 +33,7 @@ import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
-import Title from '../Title';
+// import Title from '../Title';
 
 function setFormatComponentsToColumns(columns) {
   return columns.reduce((preparedColumns, col) => {
@@ -49,7 +48,7 @@ export default {
     DataTable,
     LoaderContainer,
     SearchByLinesId,
-    Title,
+    // Title,
   },
   async mounted() {
     this.columns = setFormatComponentsToColumns([...this.commonColumns]);
@@ -58,6 +57,7 @@ export default {
     return {
       columns: [],
       commonColumns: [
+        /*
         {
           id: 99,
           label: '',
@@ -69,6 +69,7 @@ export default {
             component: CheckBoxCell,
           },
         },
+        //*/
         {
           id: 1,
           label: this.$t('col.partner'),

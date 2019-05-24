@@ -80,7 +80,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '1';
+const VERSION = '3';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -193,7 +193,7 @@ export default {
           label: this.$t('getparc.history.col.fail'),
           name: 'errorActionNumber',
           orderable: true,
-          visible: true,
+          visible: false,
         },
         // colonnes cachées par défaut
         {
