@@ -87,6 +87,7 @@
     "ge": "Supérieure à",
     "le": "Inférieure à",
     "date-since": "À partir du {startDate}",
+    "date-over": "Au delà de {endDate}",
     "details": {
       "title": "Commande n° {id}"
     },

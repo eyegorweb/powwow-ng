@@ -53,10 +53,9 @@ export default {
 
           date: {
             range: {
-              start: moment()
+              end: moment()
                 .subtract(6, 'month')
                 .format(dateFormat),
-              end: moment().format(dateFormat), // moment().format('DD-MM-YYYY HH:mm:ss'),
             },
           },
         },
@@ -65,10 +64,9 @@ export default {
           status: [{ id: 'IN_ERROR', label: this.$t('getparc.history.col.onfailing') }],
           date: {
             range: {
-              start: moment()
+              end: moment()
                 .subtract(6, 'month')
                 .format(dateFormat),
-              end: moment().format(dateFormat),
             },
           },
         },
