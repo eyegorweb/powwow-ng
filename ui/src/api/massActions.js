@@ -248,10 +248,43 @@ function formatFilters(filters) {
   addActDueDateFilter(allFilters, filters);
   addActEndDateFilter(allFilters, filters);
   addMassActionId(allFilters, filters);
+  addIdsFilter(allFilters, filters);
   addCreatorFilter(allFilters, filters);
   // addServices(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const massActionID = selectedFilters.find(f => f.id === 'filters.massActionID');
+  const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
+
+  if (iccid) {
+    gqlFilters.push(`identifierFilter: {iccid: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`identifierFilter: {imsi: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`identifierFilter: {msisdn: "${msisdn.value}"}`);
+  }
+  if (msisdnA) {
+    gqlFilters.push(`identifierFilter: {amsisdn: "${msisdnA.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`identifierFilter: {imei: "${imei.value}"}`);
+  }
+  if (massActionID) {
+    gqlFilters.push(`massActionId: ${massActionID.value}`);
+  }
+  if (unitActionId) {
+    gqlFilters.push(`unitActionId: ${unitActionId.value}`);
+  }
 }
 
 function formatDateForGql(inDate) {

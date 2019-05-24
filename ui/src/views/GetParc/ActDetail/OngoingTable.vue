@@ -31,7 +31,7 @@
           :size="7"
         >
           <template slot="topLeftCorner">
-            <SearchByActId />
+            <SearchByActId :options="searchOptions" />
           </template>
         </DataTable>
       </div>
@@ -146,6 +146,43 @@ export default {
         direction: 'DESC',
       },
       showExtraCells: false,
+      searchOptions: [
+        {
+          code: 'c1',
+          value: 'iccid',
+          label: 'ICCID',
+        },
+        {
+          code: 'c2',
+          value: 'imsi',
+          label: 'IMSI',
+        },
+        {
+          code: 'c3',
+          value: 'msisdn',
+          label: 'MSISDN',
+        },
+        {
+          code: 'c4',
+          value: 'msisdnA',
+          label: 'A-MSISDN',
+        },
+        {
+          code: 'c5',
+          value: 'imei',
+          label: 'IMEI',
+        },
+        {
+          code: 'c6',
+          value: 'massActionID',
+          label: this.$t('getparc.search.act-mass-id'),
+        },
+        {
+          code: 'c7',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
+        },
+      ],
     };
   },
   methods: {
