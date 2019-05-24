@@ -2,7 +2,7 @@ import { query } from './utils';
 
 export async function fetchUnitActionsTotals(massActionId) {
   const paginationInfo = `, pagination: {page: 0, limit: 1}`;
-  const orderingInfo = `sorting: {field: id, order: DESC}`;
+  const orderingInfo = `sorting: {field: id, order: DESCENDING}`;
 
   const queryStr = `
 query {
@@ -16,7 +16,7 @@ query {
   return response.data;
 }
 
-export async function fetchUnitActions(massActionId, statuses, pagination, orderBy) {
+export async function fetchUnitActions(massActionId, statuses, pagination, orderBy, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -26,7 +26,9 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
 
   const queryStr = `
   query {
-    unitActions(filter: {massActionId: ${massActionId}, status: ${statuses.join(
+    unitActions(filter: {${formatFilters(
+      filters
+    )} massActionId: ${massActionId}, status: ${statuses.join(
     ','
   )}} ${paginationInfo} ${orderingInfo}) {
     total
@@ -43,8 +45,8 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
       deviceReference
       imei
     }
-   }
- }
+  }
+}
   `;
   const response = await query(queryStr);
   return response.data.unitActions;
@@ -65,4 +67,40 @@ export async function exportLines(columns, orderBy, exportFormat) {
   );
 
   return response.data.linesExport;
+}
+
+function formatFilters(filters) {
+  const allFilters = [];
+
+  addIdsFilter(allFilters, filters);
+
+  return allFilters.join(',');
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
+
+  if (iccid) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  }
+  if (msisdnA) {
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  }
+  if (unitActionId) {
+    gqlFilters.push(`unitActionId: {eq: "${unitActionId.value}"}`);
+  }
 }

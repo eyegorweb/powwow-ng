@@ -31,7 +31,7 @@
           :size="7"
         >
           <template slot="topLeftCorner">
-            <SearchByActId />
+            <SearchByActId @searchById="searchById" :options="searchOptions" />
           </template>
         </DataTable>
       </div>
@@ -47,6 +47,7 @@ import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -66,12 +67,24 @@ export default {
   },
 
   computed: {
+    ...mapGetters('actLines', ['appliedFilters']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
   },
 
   methods: {
+    ...mapMutations('actLines', ['forceAppliedFilters']),
+    async searchById(params) {
+      // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
+      // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
+    },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
@@ -92,7 +105,8 @@ export default {
         this.$route.params.massActionId,
         this.statuses,
         this.getPageInfo,
-        this.orderBy
+        this.orderBy,
+        this.appliedFilters
       );
       this.rows = response.items;
       this.$emit('update:total', response.total);
@@ -117,6 +131,38 @@ export default {
   },
   data() {
     return {
+      searchOptions: [
+        {
+          code: 'c1',
+          value: 'iccid',
+          label: 'ICCID',
+        },
+        {
+          code: 'c2',
+          value: 'imsi',
+          label: 'IMSI',
+        },
+        {
+          code: 'c3',
+          value: 'msisdn',
+          label: 'MSISDN',
+        },
+        {
+          code: 'c4',
+          value: 'msisdnA',
+          label: 'A-MSISDN',
+        },
+        {
+          code: 'c5',
+          value: 'imei',
+          label: 'IMEI',
+        },
+        {
+          code: 'c6',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
+        },
+      ],
       rows: [],
       page: 1,
       pageLimit: 20,

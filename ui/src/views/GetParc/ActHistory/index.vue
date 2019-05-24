@@ -11,7 +11,7 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        <GetParcIndicators />
+        <MassActionsIndicators />
         <br />
         <FilterBar />
       </div>
@@ -25,14 +25,14 @@
 <script>
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
-import GetParcIndicators from './GetParcIndicators';
+import MassActionsIndicators from './MassActionsIndicators';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
     FilterBar,
     HistoryTable,
-    GetParcIndicators,
+    MassActionsIndicators,
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),

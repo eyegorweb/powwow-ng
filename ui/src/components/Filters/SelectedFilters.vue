@@ -7,6 +7,7 @@
             ((filter.values && filter.values.length) ||
               filter.value ||
               filter.startDate ||
+              filter.endDate ||
               filter.from ||
               filter.to)
         "

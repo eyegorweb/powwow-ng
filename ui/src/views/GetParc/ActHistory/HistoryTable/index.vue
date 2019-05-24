@@ -27,7 +27,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchByActId @searchById="searchById" />
+          <SearchByActId @searchById="searchById" :options="searchOptions" />
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />
@@ -238,6 +238,43 @@ export default {
         direction: 'DESC',
       },
       showExtraCells: false,
+      searchOptions: [
+        {
+          code: 'c1',
+          value: 'iccid',
+          label: 'ICCID',
+        },
+        {
+          code: 'c2',
+          value: 'imsi',
+          label: 'IMSI',
+        },
+        {
+          code: 'c3',
+          value: 'msisdn',
+          label: 'MSISDN',
+        },
+        {
+          code: 'c4',
+          value: 'msisdnA',
+          label: 'A-MSISDN',
+        },
+        {
+          code: 'c5',
+          value: 'imei',
+          label: 'IMEI',
+        },
+        {
+          code: 'c6',
+          value: 'massActionID',
+          label: this.$t('getparc.search.act-mass-id'),
+        },
+        {
+          code: 'c6',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
+        },
+      ],
     };
   },
   methods: {

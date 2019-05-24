@@ -243,7 +243,6 @@ function formatFilters(filters) {
   // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
   actStatus(allFilters, filters);
-  addDateFilter(allFilters, filters);
   addActDateCreationFilter(allFilters, filters);
   addActDueDateFilter(allFilters, filters);
   addActEndDateFilter(allFilters, filters);
@@ -261,42 +260,29 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
-  const idAct = selectedFilters.find(f => f.id === 'filters.idAct');
-  const orderReference = selectedFilters.find(f => f.id === 'filters.orderReference');
+  const massActionID = selectedFilters.find(f => f.id === 'filters.massActionID');
+  const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
 
   if (iccid) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+    gqlFilters.push(`identifierFilter: {iccid: "${iccid.value}"}`);
   }
   if (imsi) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+    gqlFilters.push(`identifierFilter: {imsi: "${imsi.value}"}`);
   }
   if (msisdn) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+    gqlFilters.push(`identifierFilter: {msisdn: "${msisdn.value}"}`);
   }
   if (msisdnA) {
-    gqlFilters.push(`msisdn: {eq: "${msisdnA.value}"}`);
+    gqlFilters.push(`identifierFilter: {amsisdn: "${msisdnA.value}"}`);
   }
   if (imei) {
-    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+    gqlFilters.push(`identifierFilter: {imei: "${imei.value}"}`);
   }
-  if (idAct) {
-    gqlFilters.push(`idAct: {eq: "${idAct.value}"}`);
+  if (massActionID) {
+    gqlFilters.push(`massActionId: ${massActionID.value}`);
   }
-  if (orderReference) {
-    gqlFilters.push(`orderReference: {eq: "${orderReference.value}"}`);
-  }
-}
-
-function formatDateForGql(inDate) {
-  if (!inDate) return '';
-  const startDate = inDate.replace(/\//g, '-');
-  const parts = startDate.split(' ');
-  if (parts) {
-    if (parts.length === 2) {
-      return startDate;
-    } else {
-      return `${parts[0]} 00:00:00`;
-    }
+  if (unitActionId) {
+    gqlFilters.push(`unitActionId: ${unitActionId.value}`);
   }
 }
 
@@ -323,44 +309,21 @@ function addActionTypeFilter(gqlFilters, selectedFilters) {
 }
 
 function addActDateCreationFilter(gqlFilters, selectedFilters) {
-  const dates = selectedFilters.find(f => f.id === 'filters.actDateCreation');
-  if (dates) {
-    gqlFilters.push(
-      `createdFrom: "${formatDateForGql(dates.startDate)}", createdTo: "${formatDateForGql(
-        dates.endDate
-      )}"`
-    );
-  }
+  addDateFilter2(
+    'filters.actDateCreation',
+    'createdFrom',
+    'createdTo',
+    gqlFilters,
+    selectedFilters
+  );
 }
 
 function addActDueDateFilter(gqlFilters, selectedFilters) {
-  const dates = selectedFilters.find(f => f.id === 'filters.actDateStart');
-  if (dates) {
-    let gqlEndDateFrom = '';
-    let gqlEndDateTo = '';
-    if (dates.startDate) {
-      gqlEndDateFrom = `dueDateFrom: "${formatDateForGql(dates.startDate)}"`;
-    }
-    if (dates.endDate) {
-      gqlEndDateTo = `, dueDateTo: "${formatDateForGql(dates.endDate)}"`;
-    }
-    gqlFilters.push(`${gqlEndDateFrom}${gqlEndDateTo}`);
-  }
+  addDateFilter2('filters.actDateStart', 'dueDateFrom', 'dueDateTo', gqlFilters, selectedFilters);
 }
 
 function addActEndDateFilter(gqlFilters, selectedFilters) {
-  const dates = selectedFilters.find(f => f.id === 'filters.actDateEnd');
-  if (dates) {
-    let gqlEndDateFrom = '';
-    let gqlEndDateTo = '';
-    if (dates.startDate) {
-      gqlEndDateFrom = `endDateFrom: "${formatDateForGql(dates.startDate)}"`;
-    }
-    if (dates.endDate) {
-      gqlEndDateTo = `, endDateTo: "${formatDateForGql(dates.endDate)}"`;
-    }
-    gqlFilters.push(`${gqlEndDateFrom}${gqlEndDateTo}`);
-  }
+  addDateFilter2('filters.actDateEnd', 'endDateFrom', 'endDateTo', gqlFilters, selectedFilters);
 }
 
 /*
@@ -408,14 +371,18 @@ function actStatus(gqlFilters, selectedFilters) {
   }
 }
 
-function addDateFilter(gqlFilters, selectedFilters) {
-  const dateFilter = selectedFilters.find(f => f.id === 'filters.actDateStart');
-  if (dateFilter && dateFilter.dueDateFrom && dateFilter.dueDateTo) {
-    const formattedStartDate = `${formatDateForGql(dateFilter.dueDateFrom)}`;
-
-    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.dueDateTo)}`;
-
-    gqlFilters.push(`dueDateFrom: "${formattedStartDate}", dueDateTo: "${formattedEndDate}"`);
+function addDateFilter2(filterKey, dateFromKey, dateEndKey, gqlFilters, selectedFilters) {
+  const dateFilter = selectedFilters.find(f => f.id === filterKey);
+  if (dateFilter) {
+    let gqlStartDate = '';
+    let gqlEndDate = '';
+    if (dateFilter.startDate) {
+      gqlStartDate = `${dateFromKey}: "${formatDateForGql(dateFilter.startDate)}"`;
+    }
+    if (dateFilter.endDate) {
+      gqlEndDate = `${dateEndKey}: "${prepareEndDateForBackend(dateFilter.endDate)}"`;
+    }
+    gqlFilters.push([gqlStartDate, gqlEndDate].join(','));
   }
 
   function formatDateForGql(inDate) {

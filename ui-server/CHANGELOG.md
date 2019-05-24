@@ -2,6 +2,20 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.33+20190524091935
+2019-05-24
+
+### Fixes
+
+- corriger les valeurs des indicateurs mass action (9814f445f66c2a5a3b9ef99d6bd63426c7916a3e)
+
+## 0.1.0-master.32+20190524082107
+2019-05-24
+
+### Features
+
+- barre de recherche des massActions (9a0d98dcb45fd10016b71d8f20a0545023fcd171)
+
 ## 0.1.0-master.31+20190523131912
 2019-05-23
 
