@@ -234,7 +234,8 @@
         "commercialRef": "Référence commerciale",
         "imei": "IMEI",
         "startDate": "Date de démarrage",
-        "endDate": "Date de fin"
+        "endDate": "Date de fin",
+        "details": "Détails"
       }
     },
     "actLines": {
