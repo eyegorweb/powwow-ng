@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.37+20190524153334
+2019-05-24
+
+### Features
+
+- détails des actes de gestions (d08f5f18be85c772c80803ef9a447eb051abfc89)
+
+### Fixes
+
+- **mass actions:** Colonne partenaire (1ecad9b0cc9b642affdcbc8c9118679147841715)
+- total des actes en cours (8a130d1fecee37e941a093ebca9757aa50af5e1e)
+
 ## 0.1.0-master.36+20190524144128
 2019-05-24
 
