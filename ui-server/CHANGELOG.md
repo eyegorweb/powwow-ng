@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.32+20190524082107
+2019-05-24
+
+### Features
+
+- barre de recherche des massActions (9a0d98dcb45fd10016b71d8f20a0545023fcd171)
+
 ## 0.1.0-master.31+20190523131912
 2019-05-23
 
