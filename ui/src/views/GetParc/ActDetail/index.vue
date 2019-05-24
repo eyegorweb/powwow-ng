@@ -48,7 +48,7 @@
         <UnitActsTable
           :key="'tab2'"
           :mass-action-id="$route.params.massActionId"
-          :statuses="['SENT']"
+          :statuses="['WAITING', 'SENT', 'IN_PROGRESS']"
           :total.sync="tabs[1].total"
         />
       </div>
