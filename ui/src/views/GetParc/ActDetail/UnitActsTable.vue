@@ -47,7 +47,6 @@ import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
-import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -67,23 +66,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters('actLines', ['appliedFilters']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
   },
 
   methods: {
-    ...mapMutations('actLines', ['forceAppliedFilters']),
     async searchById(params) {
-      // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
-      // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
-      this.forceAppliedFilters([
-        {
-          id: params.id,
-          value: params.value,
-        },
-      ]);
+      const currentFilters = [params];
+      await this.fetchUnitActs(currentFilters);
+      this.page = 1;
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
@@ -100,13 +92,13 @@ export default {
         );
       };
     },
-    async fetchUnitActs() {
+    async fetchUnitActs(searchFilter = []) {
       const response = await fetchUnitActions(
         this.$route.params.massActionId,
         this.statuses,
         this.getPageInfo,
         this.orderBy,
-        this.appliedFilters
+        searchFilter
       );
       this.rows = response.items;
       this.$emit('update:total', response.total);
@@ -123,9 +115,6 @@ export default {
     },
     pageLimit() {
       this.page = 1;
-      this.fetchUnitActs();
-    },
-    appliedFilters() {
       this.fetchUnitActs();
     },
   },

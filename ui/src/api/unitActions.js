@@ -86,21 +86,23 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
 
   if (iccid) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+    gqlFilters.push(`accesPointFilter: {iccid: "${iccid.value}"}`);
   }
   if (imsi) {
     gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+    gqlFilters.push(`accesPointFilter: {imsi: "${imsi.value}"}`);
   }
   if (msisdn) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+    gqlFilters.push(`accesPointFilter: {msisdn: "${msisdn.value}"}`);
   }
   if (msisdnA) {
-    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+    gqlFilters.push(`accesPointFilter: {amsisdn: "${msisdnA.value}"}`);
   }
   if (imei) {
     gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+    gqlFilters.push(`accesPointFilter: {imei: "${imei.value}"}`);
   }
   if (unitActionId) {
-    gqlFilters.push(`unitActionId: {eq: "${unitActionId.value}"}`);
+    gqlFilters.push(`unitActionId: "${unitActionId.value}"`);
   }
 }
