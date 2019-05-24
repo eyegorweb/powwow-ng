@@ -82,7 +82,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '6';
+const VERSION = '8';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -218,9 +218,14 @@ export default {
         {
           id: 11,
           label: this.$t('getparc.history.col.partyId'),
-          name: 'partyId',
+          name: 'party',
           orderable: true,
+          sortingName: 'partyName',
           visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'name',
+          },
         },
         {
           id: 12,
