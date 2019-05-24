@@ -28,21 +28,19 @@ export default {
           return `Service(s) ajouté(s): ${addedServices} ; Service(s) retiré(s): ${removeServices}`;
         }
 
-        case 'Suspension / Réactivation d’une   ligne':
-        case 'Résiliation de la ligne':
-        case 'Changement de statut': {
+        case 'STATUS_CHANGE': {
           return `Nouveau   statut : ${this.row.transitionName}`;
         }
 
-        case 'Changement du compte de   facturation': {
+        case 'CHANGE_CUSTOMER_ACCOUNT': {
           return `Nouveau ${this.row.destinationCustomerAccountCode}`;
         }
 
-        case "Changement d'offre": {
+        case 'CHANGE_OFFER': {
           return `Nouvelle   offre : ${this.row.offerName}`;
         }
 
-        case 'Transfert vers un autre partenaire   (uniquement BO et compte groupe)': {
+        case 'SIMCARD_TRANSFER': {
           if (!this.userIsBO) {
             return;
           }
@@ -57,7 +55,7 @@ export default {
           return '-';
         }
 
-        case 'Modification des champs libres': {
+        case 'CUSTOM_FIELDS_UPDATE': {
           const customFields = [
             this.row.custom1,
             this.row.custom2,
@@ -69,22 +67,22 @@ export default {
           return `Libellé : ${customFields.join(',')}`;
         }
 
-        case 'Réengagement (uniquement BO)': {
+        case 'UPDATE_COMMITMENT': {
           if (!this.userIsBO) {
             return;
           }
           return '-';
         }
 
-        case 'Envoi SMS': {
+        case 'SEND_SMS': {
           return `${this.row.endDate} ${this.row.message} ${this.row.shortCode}`;
         }
 
-        case "Activation d'alarme": {
+        case 'ALARM_SETTING': {
           return '-';
         }
 
-        case "Désactivation d'alarme": {
+        case 'ALARM_UNSETTING': {
           return '-';
         }
 

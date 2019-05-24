@@ -16,33 +16,31 @@ export default {
     ...mapGetters(['userIsBO']),
     content() {
       switch (this.row.actionType) {
-        case 'Suspension / Réactivation d’une   liagne':
-        case 'Résiliation de la ligne':
-        case 'Changement de statut': {
+        case 'STATUS_CHANGE': {
           return `Ancien statut : ${this.row.commercialStatusFrom} Nouveau statut : ${
             this.row.commercialStatusTo
           }`;
         }
 
-        case 'Changement de carte SIM': {
+        case 'ICCID_CHANGE': {
           return `Ancien ICCID : ${this.row.ICCID} Nouveau ICCID : ${this.row.newICCID}`;
         }
 
-        case 'Changement de MSISDN': {
+        case 'MSISDN_CHANGE': {
           return `Ancien MSISDN : ${this.row.oldMSISDN} Nouveau MSISDN : ${this.row.newMSISDN}`;
         }
 
-        case 'Changement du compte de   facturation': {
+        case 'CHANGE_CUSTOMER_ACCOUNT': {
           return `Ancien C.F : ${this.row.customerAccountCode}`;
         }
 
-        case 'Localisation M2M': {
+        case 'GEO_LOCATION': {
           return `${this.row.status} | ${this.row.errorCode}| ${this.row.errorDescription} | ${
             this.row.geolocation
           }`;
         }
 
-        case 'Portabilités entrantes': {
+        case 'PORT_IN': {
           return `
           Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${
             this.row.portabilityDate
@@ -50,7 +48,7 @@ export default {
           `;
         }
 
-        case 'Portabilités sortantes': {
+        case 'PORT_OUT': {
           return `
           Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${
             this.row.portabilityDate
