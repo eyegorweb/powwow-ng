@@ -27,7 +27,7 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchByActId @searchById="searchById" />
+          <SearchByActId @searchById="searchById" :options="searchOptions" />
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />
@@ -238,17 +238,60 @@ export default {
         direction: 'DESC',
       },
       showExtraCells: false,
+      searchOptions: [
+        {
+          code: 'c1',
+          value: 'iccid',
+          label: 'ICCID',
+        },
+        {
+          code: 'c2',
+          value: 'imsi',
+          label: 'IMSI',
+        },
+        {
+          code: 'c3',
+          value: 'msisdn',
+          label: 'MSISDN',
+        },
+        {
+          code: 'c4',
+          value: 'msisdnA',
+          label: 'A-MSISDN',
+        },
+        {
+          code: 'c5',
+          value: 'imei',
+          label: 'IMEI',
+        },
+        {
+          code: 'c6',
+          value: 'massActionID',
+          label: this.$t('getparc.search.act-mass-id'),
+        },
+        {
+          code: 'c6',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
+        },
+      ],
     };
   },
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
-    ...mapMutations('actHistory', ['setPage']),
+    ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
-    searchById(params) {
+    async searchById(params) {
       console.log('search by id: ', params);
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
     },
     async fetchMassActions() {
       this.fetchActionsFromApi({
