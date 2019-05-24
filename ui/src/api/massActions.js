@@ -97,6 +97,12 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
           transitionName
           destinationCustomerAccountCode
           creator
+          custom1
+          custom2
+          custom3
+          custom4
+          custom5
+          custom6
           creatorDetails {
             id
             name {

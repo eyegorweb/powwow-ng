@@ -43,12 +43,14 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
+import DetailsCell from './DetailsCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 
 const cellComponents = {
   IdCell,
+  DetailsCell,
 };
 
 function setFormatComponentsToColumns(columns) {
@@ -80,7 +82,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '1';
+const VERSION = '6';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -163,9 +165,12 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.history.col.details'),
-          name: 'details',
+          name: 'actionType',
           orderable: true,
           visible: true,
+          format: {
+            componentId: 'DetailsCell',
+          },
         },
         {
           id: 5,
