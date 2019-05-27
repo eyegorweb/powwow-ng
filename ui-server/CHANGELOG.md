@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.40+20190527140057
+2019-05-27
+
+### Fixes
+
+- update custom field list (c834883297fd0614de344105efdb48850f636e41)
+
 ## 0.1.0-master.39+20190527125435
 2019-05-27
 
