@@ -28,12 +28,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import CheckBoxCell from './CheckBoxCell';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+// import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
+import SimStatusCell from './SimStatusCell';
+import DateStatus from './DateStatus';
 
 function setFormatComponentsToColumns(columns) {
   return columns.reduce((preparedColumns, col) => {
@@ -73,100 +75,114 @@ export default {
         {
           id: 1,
           label: this.$t('col.partner'),
-          name: 'partner',
-          orderable: true,
+          orderable: false,
           visible: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'simCardInstance.party.name',
+          },
         },
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.iccid'),
-          name: 'iccid',
-          orderable: true,
+          orderable: false,
           visible: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'simCardInstance.iccid',
+          },
         },
         {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
-          orderable: true,
+          orderable: false,
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'imsi',
-          orderable: true,
+          orderable: false,
           visible: true,
         },
         {
           id: 5,
           label: this.$t('getparc.actLines.col.simStatus'),
-          name: 'simStatus',
-          orderable: true,
+          orderable: false,
           visible: true,
+          name: 'accessPoint',
+          format: {
+            component: SimStatusCell,
+          },
         },
         {
           id: 6,
           label: this.$t('filters.lines.statusDate'),
-          name: 'statusDate',
-          orderable: true,
+          name: 'accessPoint',
+          orderable: false,
           visible: true,
+          format: {
+            component: DateStatus,
+          },
         },
         {
           id: 7,
           label: this.$t('col.offer'),
-          name: 'offer',
-          orderable: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'offer.marketingOffer.description',
+          },
+          orderable: false,
           visible: false,
         },
         {
           id: 8,
           label: this.$t('getparc.actLines.col.lastPLMN'),
           name: 'lastPLMN',
-          orderable: true,
-          visible: false,
-        },
-        {
-          id: 9,
-          label: this.$t('common.customFields'),
-          name: 'customFields',
-          orderable: true,
+          orderable: false,
           visible: false,
         },
         {
           id: 10,
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'msisdnA',
-          orderable: true,
+          orderable: false,
           visible: false,
         },
         {
           id: 11,
           label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'manufacturer',
-          orderable: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'simCardInstance.deviceInstance.manufacturer',
+          },
+          orderable: false,
           visible: false,
         },
         {
           id: 12,
           label: this.$t('getparc.actLines.col.deviceReference'),
-          name: 'deviceReference',
-          orderable: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'simCardInstance.deviceInstance.deviceReference',
+          },
+          orderable: false,
           visible: false,
         },
       ],
-      page: 0,
       pageLimit: 20,
-      // orderBy: {
-      //   key: 'ASC',
-      //   direction: 'DESC',
-      // },
       orderBy: {},
       showExtraCells: false,
     };
   },
   computed: {
-    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters']),
+    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage']),
 
     total() {
       return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
@@ -174,9 +190,22 @@ export default {
     rows() {
       return this.linesActionsResponse ? this.linesActionsResponse.items : [];
     },
+    page: {
+      get() {
+        return this.linePage || 0;
+      },
+      set(newVal) {
+        this.setPage(newVal);
+      },
+    },
+    getPageInfo() {
+      return { page: this.page - 1, limit: this.pageLimit };
+    },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
+    ...mapMutations('actLines', ['setPage']),
+
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
@@ -187,16 +216,15 @@ export default {
     async fetchLinesActions() {
       this.fetchLinesActionsFromApi({
         orderBy: this.orderBy,
-        pageInfo: {
-          // pas de pagination
-          page: this.page,
-          limit: this.pageLimit,
-        },
+        pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
     },
   },
   watch: {
+    linePage() {
+      this.fetchLinesActions();
+    },
     orderBy() {
       this.page = 1;
       this.fetchLinesActions();
