@@ -42,7 +42,6 @@ export async function exportAllMassActions(columns, pagination, exportFormat) {
   `;
 
   const response = await query(queryStr);
-  console.log('response', response.data);
 
   return response.data.exportMassAction;
 }
@@ -79,6 +78,10 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
     ) {
       total
       items {
+        party {
+          id
+          name
+        }
         massActionResponse {
           id
           actionType
@@ -97,6 +100,12 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
           transitionName
           destinationCustomerAccountCode
           creator
+          custom1
+          custom2
+          custom3
+          custom4
+          custom5
+          custom6
           creatorDetails {
             id
             name {

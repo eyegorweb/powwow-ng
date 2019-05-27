@@ -2,7 +2,7 @@ import { query } from './utils';
 
 export async function fetchUnitActionsTotals(massActionId) {
   const paginationInfo = `, pagination: {page: 0, limit: 1}`;
-  const orderingInfo = `sorting: {field: id, order: DESCENDING}`;
+  const orderingInfo = `sorting: {field: id, order: DESC}`;
 
   const queryStr = `
 query {
@@ -28,9 +28,9 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
   query {
     unitActions(filter: {${formatFilters(
       filters
-    )} massActionId: ${massActionId}, status: ${statuses.join(
+    )} massActionId: ${massActionId}, status: [${statuses.join(
     ','
-  )}} ${paginationInfo} ${orderingInfo}) {
+  )}]} ${paginationInfo} ${orderingInfo}) {
     total
     items {
       id
@@ -44,6 +44,7 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
       manufacturer
       deviceReference
       imei
+      actionType
     }
   }
 }
