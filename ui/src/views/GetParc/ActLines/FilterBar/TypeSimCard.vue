@@ -24,7 +24,6 @@ export default {
     const pagination = { limit: 20, page: 0 };
     const orderBy = { id: 'DESC' };
     const data = await getLinesTypeSimCard(pagination, orderBy);
-    console.log('fetch data', data);
     this.items = data.map(a => ({
       id: a.accessPoint.simCardInstance.id,
       label: a.accessPoint.simCardInstance.type,

@@ -14,11 +14,13 @@ export const namespaced = true;
 
 export const state = {
   ...filterUtils.initState(),
+  linePage: 1,
   linesActionsResponse: [],
 };
 
 export const getters = {
   ...filterUtils.initGetters(),
+  linePage: state => state.linePage,
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
@@ -79,6 +81,9 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+  setPage(state, newPage) {
+    state.linePage = newPage;
+  },
   setLinesActionsResponse(state, actLines) {
     state.linesActionsResponse = actLines;
   },
