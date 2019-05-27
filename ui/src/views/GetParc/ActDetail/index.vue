@@ -83,8 +83,6 @@ export default {
   },
 
   async mounted() {
-    // console.log(this.$route);
-
     this.refreshTables();
   },
 

@@ -295,7 +295,6 @@ export default {
       this.columns = orderedCells.concat(notVisibleCells);
     },
     async searchById(params) {
-      console.log('search by id: ', params);
       this.forceAppliedFilters([
         {
           id: params.id,

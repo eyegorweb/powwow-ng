@@ -2,7 +2,7 @@
   <div class="search-input">
     <UiInput
       v-model="$value"
-      @change:value="updateValue"
+      @update:value="updateValue"
       :placeholder="placeholder"
       @click="suggestionsAreVisible = true"
     >
@@ -104,6 +104,7 @@ export default {
       }
     },
     updateValue(value) {
+      console.log('*****');
       if (this.collapsedMode) {
         this.suggestionsAreVisible = value && value.length;
       }

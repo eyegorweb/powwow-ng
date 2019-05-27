@@ -2,7 +2,6 @@ import { query } from './utils';
 import moment from 'moment';
 
 export async function exportMassAction(massActonId, statuses, columns, pagination, exportFormat) {
-  console.log('columns', columns);
   const columnsParam = columns.join(',');
   const statusesParam = statuses.join(',');
   const paginationInfo = pagination

@@ -35,7 +35,7 @@ import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
 import GetLinesIndicators from './GetLinesIndicators';
 import ActionCarousel from '@/components/ActionCarousel';
-import ActCreationBox from './ActCreationBox';
+// import ActCreationBox from './ActCreationBox';
 // import PartnerSelectionForAction from './PartnerSelectionForAction';
 
 import { mapState, mapActions } from 'vuex';

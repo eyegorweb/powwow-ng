@@ -29,6 +29,7 @@ export async function searchLinesActions(orderBy, pagination, filters = []) {
           preactivationDate
           activationDate
           commercialStatusDate
+          networkStatus
           customFields {
             custom1
             custom2

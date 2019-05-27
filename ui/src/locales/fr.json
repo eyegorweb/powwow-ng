@@ -243,6 +243,14 @@
       "step1Partner": "séléctionner un partenaire",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
+      "simStatuses": {
+        "NOT_PREACTIVATED": "Non préactivée",
+        "PREACTIVATED": "Préactivée",
+        "ACTIVATED": "Activée",
+        "SUSPENDED": "Suspendue",
+        "RELEASED": "Résiliée",
+        "ACTIVATING": "Activation en cours"
+      },
       "col": {
         "simStatus": "Statut de SIM",
         "lastPLMN": "Dernier pays (ancien PLMN)",
