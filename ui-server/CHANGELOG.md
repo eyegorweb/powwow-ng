@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.39+20190527125435
+2019-05-27
+
+### Features
+
+- table lignes (0812e33f5379ec552c51b23678f18ce8a88eab40)
+- tri de la colonne produit dans les commandes (44e9611b9c11386764f7c49ac16d3276dfbb4a9d)
+
 ## 0.1.0-master.38+20190527070931
 2019-05-27
 
