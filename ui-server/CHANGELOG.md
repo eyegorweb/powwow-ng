@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.38+20190527070931
+2019-05-27
+
+### Fixes
+
+- colonne détails actes de masse (8498f32a84ef7bd5b5e5d66c3618a7138ff49c0c)
+
 ## 0.1.0-master.37+20190524153334
 2019-05-24
 
