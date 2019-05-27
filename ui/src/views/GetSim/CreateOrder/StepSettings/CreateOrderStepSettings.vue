@@ -18,6 +18,7 @@
               :get-selected-value="getSelectedValue"
               :errors="customFieldsErrors"
               can-edit-list
+              show-optional-field
               @change="onValueChanged"
               @addValueToList="addValueToList"
             />
@@ -63,6 +64,7 @@ import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import get from 'lodash.get';
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -97,6 +99,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('getsim', ['setFilterCustomFieldsList']),
     open() {
       this.isOpen = true;
     },
@@ -128,6 +131,7 @@ export default {
       const isActivationAsked = get(this.synthesis, 'services.selection.activation', false);
 
       const allCustomFields = await fetchCustomFields(partnerId);
+      this.setFilterCustomFieldsList(allCustomFields);
       this.allCustomFields = allCustomFields.map(c => {
         c.isOptional = true;
         if (c.mandatory === 'ORDER') {
