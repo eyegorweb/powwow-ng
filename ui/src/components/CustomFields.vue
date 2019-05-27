@@ -3,7 +3,9 @@
     <div v-for="item in fields" :key="item.id" class=" mb-1">
       <div v-if="item.type === 'TEXT'">
         {{ item.label }}
-        <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+        <span v-if="showOptionalField && item.isOptional" class="text-optional">
+          [{{ $t('optional') }}]</span
+        >
 
         <UiInput
           @update:value="newVal => onValueChanged(item, newVal)"
@@ -15,7 +17,9 @@
       <div class="form-group" v-if="!editingList && item.type === 'LIST'">
         <label>
           {{ item.label }}
-          <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+          <span v-if="showOptionalField && item.isOptional" class="text-optional">
+            [{{ $t('optional') }}]</span
+          >
           <button v-if="canEditList" class="btn btn-link p-0" @click="editingList = true">
             {{ $t('modify') }}
           </button>
@@ -33,7 +37,9 @@
       <div class="form-group" v-if="editingList && item.type === 'LIST'">
         <label>
           {{ item.label }}
-          <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+          <span v-if="showOptionalField && item.isOptional" class="text-optional">
+            [{{ $t('optional') }}]</span
+          >
         </label>
         <EditCustomField
           v-if="canEditList"
@@ -44,7 +50,9 @@
       </div>
       <div v-if="item.type === 'DATE'">
         {{ item.label }}
-        <span v-if="item.isOptional" class="text-optional"> [{{ $t('optional') }}]</span>
+        <span v-if="showOptionalField && item.isOptional" class="text-optional">
+          [{{ $t('optional') }}]</span
+        >
         <UiDate
           @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
@@ -77,6 +85,7 @@ export default {
       type: Array,
     },
     canEditList: Boolean,
+    showOptionalField: Boolean,
   },
   components: {
     UiInput,

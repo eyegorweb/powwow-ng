@@ -121,6 +121,7 @@ async function refreshCustomFilters({ commit }, partners) {
 
 export const actions = {
   setPartnersFilter,
+  refreshCustomFilters,
   initFilterForPartnerUser,
   initFilterForContext,
 
