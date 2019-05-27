@@ -106,7 +106,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '2.2';
+const VERSION = '2.3';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -278,8 +278,9 @@ export default {
           id: 5,
           label: this.$t('col.product'),
           name: 'orderedSIMCard',
-          orderable: false,
+          orderable: true,
           visible: true,
+          sortingName: 'simcardDesc',
           exportId: 'ORDER_SIMCARD_TYPE',
           format: {
             componentId: 'GetSimOrdersProductCell',
