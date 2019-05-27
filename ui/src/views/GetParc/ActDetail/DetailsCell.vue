@@ -15,6 +15,7 @@ export default {
   computed: {
     ...mapGetters(['userIsBO']),
     content() {
+      console.log(this.row);
       switch (this.row.actionType) {
         case 'STATUS_CHANGE': {
           return `Ancien statut : ${this.row.commercialStatusFrom} Nouveau statut : ${

@@ -44,6 +44,7 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
       manufacturer
       deviceReference
       imei
+      actionType
     }
   }
 }

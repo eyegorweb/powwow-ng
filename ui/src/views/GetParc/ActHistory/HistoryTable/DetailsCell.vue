@@ -29,15 +29,15 @@ export default {
         }
 
         case 'STATUS_CHANGE': {
-          return `Nouveau   statut : ${this.row.transitionName}`;
+          return `Nouveau statut : ${this.row.transitionName}`;
         }
 
         case 'CHANGE_CUSTOMER_ACCOUNT': {
-          return `Nouveau ${this.row.destinationCustomerAccountCode}`;
+          return `Nouveau C.F ${this.row.destinationCustomerAccountCode}`;
         }
 
         case 'CHANGE_OFFER': {
-          return `Nouvelle   offre : ${this.row.offerName}`;
+          return `Nouvelle offre : ${this.row.offerName}`;
         }
 
         case 'SIMCARD_TRANSFER': {
