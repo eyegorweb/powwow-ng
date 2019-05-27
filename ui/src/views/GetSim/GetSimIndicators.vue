@@ -47,14 +47,6 @@
         </button>
       </div>
     </li>
-    <li class="list-group-item" v-if="!userIsPartner">
-      {{ $t('indicators.getsim.averageProcessingTime') }}
-      <div class="float-right" :class="checkAverageProcessingTimeClasses">
-        <span class="p-0 text-warning">{{
-          formatteAverageProcessingTime(indicators.averageProcessingTime)
-        }}</span>
-      </div>
-    </li>
     <li
       class="list-group-item"
       v-if="!userIsPartner && filteredStatus.orderToBeConfirmedByBO.total > 0"
@@ -62,11 +54,19 @@
       {{ $t('indicators.getsim.orderToBeConfirmedByBO') }}
       <div class="float-right">
         <button
-          class="btn btn-link p-0 text-warning"
+          class="btn btn-link p-0 text-danger"
           @click.prevent="filterByStatusIndicator(filteredStatus.orderToBeConfirmedByBO)"
         >
           {{ filteredStatus.orderToBeConfirmedByBO.total }}
         </button>
+      </div>
+    </li>
+    <li class="list-group-item" v-if="!userIsPartner">
+      {{ $t('indicators.getsim.averageProcessingTime') }}
+      <div class="float-right" :class="checkAverageProcessingTimeClasses">
+        <span class="p-0 text-warning">{{
+          formatteAverageProcessingTime(indicators.averageProcessingTime)
+        }}</span>
       </div>
     </li>
   </ul>
