@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.45+20190528125007
+2019-05-28
+
+### Features
+
+- **recherche de lignes:** filtre status de ligne (ea4425f15aa8ae0cd2292b0322359102a5cdd414)
+
 ## 0.1.0-master.44+20190528123146
 2019-05-28
 
