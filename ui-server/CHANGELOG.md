@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.44+20190528123146
+2019-05-28
+
+### Features
+
+- filtre status de facturation + status SIM (85b978d05f9f6738dc7c8cf064948f1548c94818)
+
 ## 0.1.0-master.43+20190528100750
 2019-05-28
 
