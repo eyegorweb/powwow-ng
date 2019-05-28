@@ -50,6 +50,7 @@
             <ActLinesBillingStatusFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
+            <ActLinesNetworkStatusFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable> </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.importDate')" :key="'el13'" draggable>
@@ -131,6 +132,7 @@ import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 import ActLinesOffersFilter from './ActLinesOffersFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
 import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
+import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
 
 export default {
   components: {
@@ -144,6 +146,7 @@ export default {
     ActLinesOffersFilter,
     ActLinesSimStatuses,
     ActLinesBillingStatusFilter,
+    ActLinesNetworkStatusFilter,
   },
   data() {
     return {

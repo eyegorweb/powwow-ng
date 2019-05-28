@@ -77,7 +77,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
 
 function formatFilters(filters) {
   const allFilters = [];
-  const partyIds = getValuesIdsForInt(filters, 'filters.partners');
+  const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds) {
     allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
@@ -106,23 +106,17 @@ function formatFilters(filters) {
   addOfferFilterFilter(allFilters, filters);
   addOrderId(allFilters, filters);
   addOrderRef(allFilters, filters);
-  addSimStatuses(allFilters, filters);
-  addBillingStatuses(allFilters, filters);
+  valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
+  valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
+  valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
 
   return allFilters.join(',');
 }
 
-function addSimStatuses(gqlFilters, selectedFilters) {
-  const simStatus = getValuesIds(selectedFilters, 'filters.lines.SIMCardStatus');
-  if (simStatus) {
-    gqlFilters.push(`simStatus: {in:[${simStatus}]}`);
-  }
-}
-
-function addBillingStatuses(gqlFilters, selectedFilters) {
-  const values = getValuesIds(selectedFilters, 'filters.lines.billingStatus');
+function valuesFromMutiselectFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
+  const values = getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
   if (values) {
-    gqlFilters.push(`billingStatus: {in:[${values}]}`);
+    gqlFilters.push(`${gqlParamName}: {in:[${values}]}`);
   }
 }
 
@@ -162,7 +156,7 @@ function getValuesIds(filters, filterId) {
   }
 }
 
-function getValuesIdsForInt(filters, filterId) {
+function getValuesIdsWithoutQuotes(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
     return values.map(i => `${i.id}`).join(',');

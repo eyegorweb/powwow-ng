@@ -251,7 +251,8 @@
         "RELEASED": "Résiliée",
         "ACTIVATING": "Activation en cours",
         "CANCELED": "Annulée",
-        "TEST": "Test"
+        "TEST": "Test",
+        "BARRED": "Barré"
       },
       "col": {
         "simStatus": "Statut de SIM",
