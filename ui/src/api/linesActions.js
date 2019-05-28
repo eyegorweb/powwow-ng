@@ -1,7 +1,16 @@
 import { query } from './utils';
 
-// TODO: Optimiser cette requette, il faudra appeler les fields au besoin
-export async function searchLinesActions(orderBy, pagination, filters = []) {
+export async function fetchCardTypes() {
+  const queryStr = `
+  query {
+    getTypeSimcards
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.getTypeSimcards;
+}
+
+export async function searchLines(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy
   //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
   //   : '';
