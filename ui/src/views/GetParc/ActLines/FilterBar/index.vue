@@ -47,6 +47,7 @@
           <FoldableBlock :title="$t('filters.lines.commercialStatus')" :key="'el9'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.billingStatus')" :key="'el10'" draggable>
+            <ActLinesBillingStatusFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
           </FoldableBlock>
@@ -129,6 +130,7 @@ import TypeSimCard from './TypeSimCard';
 import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 import ActLinesOffersFilter from './ActLinesOffersFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
+import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
 
 export default {
   components: {
@@ -141,6 +143,7 @@ export default {
     SimpleInputFilter,
     ActLinesOffersFilter,
     ActLinesSimStatuses,
+    ActLinesBillingStatusFilter,
   },
   data() {
     return {

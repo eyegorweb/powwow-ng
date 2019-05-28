@@ -106,8 +106,24 @@ function formatFilters(filters) {
   addOfferFilterFilter(allFilters, filters);
   addOrderId(allFilters, filters);
   addOrderRef(allFilters, filters);
+  addSimStatuses(allFilters, filters);
+  addBillingStatuses(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addSimStatuses(gqlFilters, selectedFilters) {
+  const simStatus = getValuesIds(selectedFilters, 'filters.lines.SIMCardStatus');
+  if (simStatus) {
+    gqlFilters.push(`simStatus: {in:[${simStatus}]}`);
+  }
+}
+
+function addBillingStatuses(gqlFilters, selectedFilters) {
+  const values = getValuesIds(selectedFilters, 'filters.lines.billingStatus');
+  if (values) {
+    gqlFilters.push(`billingStatus: {in:[${values}]}`);
+  }
 }
 
 function addOrderId(gqlFilters, selectedFilters) {
