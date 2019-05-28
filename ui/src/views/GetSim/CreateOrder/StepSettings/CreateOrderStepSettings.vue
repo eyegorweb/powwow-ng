@@ -64,7 +64,7 @@ import CustomFields from '@/components/CustomFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import get from 'lodash.get';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -96,6 +96,10 @@ export default {
       'billingAccount.selection.partner.orderNumberIsMandatory',
       false
     );
+  },
+
+  computed: {
+    ...mapGetters('getsim', ['selectedPartnersValues']),
   },
 
   methods: {
@@ -131,7 +135,7 @@ export default {
       const isActivationAsked = get(this.synthesis, 'services.selection.activation', false);
 
       const allCustomFields = await fetchCustomFields(partnerId);
-      this.setFilterCustomFieldsList(allCustomFields);
+      this.refreshCustomFieldsInFilterBar(allCustomFields);
       this.allCustomFields = allCustomFields.map(c => {
         c.isOptional = true;
         if (c.mandatory === 'ORDER') {
@@ -145,6 +149,17 @@ export default {
         all: this.allCustomFields,
         values: [],
       });
+    },
+
+    refreshCustomFieldsInFilterBar(allCustomFields) {
+      const partnersInFilterBar = this.selectedPartnersValues;
+      if (partnersInFilterBar && partnersInFilterBar.length === 1) {
+        const selectedPartnerId = this.synthesis.billingAccount.value.partnerId;
+        const partnerIdInFIlter = partnersInFilterBar[0].id;
+        if (partnerIdInFIlter === selectedPartnerId) {
+          this.setFilterCustomFieldsList(allCustomFields);
+        }
+      }
     },
 
     async onSaveField(fieldData) {
