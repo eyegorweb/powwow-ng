@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.42+20190528080620
+2019-05-28
+
+### Fixes
+
+- ré initialiser le filtre CF à la MAJ du filtre partenaire (f36ad937150873b22e1af9f229ce102e654e3228)
+
 ## 0.1.0-master.41+20190528073315
 2019-05-28
 
