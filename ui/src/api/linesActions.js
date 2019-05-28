@@ -103,8 +103,32 @@ function formatFilters(filters) {
 
   // addQuantityFilter(allFilters, filters);
   addActionTypeFilter(allFilters, filters);
+  addOfferFilterFilter(allFilters, filters);
+  addOrderId(allFilters, filters);
+  addOrderRef(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addOrderId(gqlFilters, selectedFilters) {
+  const orderId = getFilterValue(selectedFilters, 'filters.lines.orderID');
+  if (orderId) {
+    gqlFilters.push(`idOrder: {eq: "${orderId}"}`);
+  }
+}
+
+function addOrderRef(gqlFilters, selectedFilters) {
+  const orderRef = getFilterValue(selectedFilters, 'filters.orderReference');
+  if (orderRef) {
+    gqlFilters.push(`orderReference: {eq: "${orderRef}"}`);
+  }
+}
+
+function addOfferFilterFilter(gqlFilters, selectedFilters) {
+  const offers = getValuesIds(selectedFilters, 'filters.lines.associatedOffer');
+  if (offers) {
+    gqlFilters.push(`productCode: {in: [${offers}]}`);
+  }
 }
 
 function addActionTypeFilter(gqlFilters, selectedFilters) {
@@ -135,5 +159,14 @@ function getFilterValues(filters, filterId) {
   const foundFilter = filters.find(f => f.id === filterId);
   if (foundFilter) {
     return foundFilter.values;
+  }
+}
+
+function getFilterValue(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.value;
   }
 }

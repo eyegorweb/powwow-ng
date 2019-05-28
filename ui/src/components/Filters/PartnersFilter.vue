@@ -13,9 +13,9 @@
 /**
  * Filtre partenaire,
  *
- * Dépends du contenu de la barre de context ( en haut d ela page)
+ * Dépends du contenu de la barre de context ( en haut de la page)
  *
- * doit permettre de séléctionner parmi une liste de partenaires fournies dans la bare de Context
+ * doit permettre de séléctionner parmi une liste de partenaires fournis dans la barre de Context
  *
  * Si aucun partenaire n'est saisi, alors le composant fait des recherches sur l'api avec tout les partenaires dans les types choisis dans la barre.
  *
