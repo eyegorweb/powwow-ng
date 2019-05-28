@@ -2,6 +2,34 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.45+20190528125007
+2019-05-28
+
+### Features
+
+- **recherche de lignes:** filtre status de ligne (ea4425f15aa8ae0cd2292b0322359102a5cdd414)
+
+## 0.1.0-master.44+20190528123146
+2019-05-28
+
+### Features
+
+- filtre status de facturation + status SIM (85b978d05f9f6738dc7c8cf064948f1548c94818)
+
+## 0.1.0-master.43+20190528100750
+2019-05-28
+
+### Fixes
+
+- MAJ des champs libres pour utilisateurs BO (52a2851035a7cd99d940b1ee08e826e856c038ed)
+
+## 0.1.0-master.42+20190528080620
+2019-05-28
+
+### Fixes
+
+- ré initialiser le filtre CF à la MAJ du filtre partenaire (f36ad937150873b22e1af9f229ce102e654e3228)
+
 ## 0.1.0-master.41+20190528073315
 2019-05-28
 
