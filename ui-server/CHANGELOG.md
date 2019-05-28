@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.43+20190528100750
+2019-05-28
+
+### Fixes
+
+- MAJ des champs libres pour utilisateurs BO (52a2851035a7cd99d940b1ee08e826e856c038ed)
+
 ## 0.1.0-master.42+20190528080620
 2019-05-28
 
