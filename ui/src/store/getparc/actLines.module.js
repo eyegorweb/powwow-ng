@@ -42,12 +42,28 @@ export const getters = {
  * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
  * met à jour les champs libres
  */
-async function setPartnersFilter({ commit }, partners, isHidden) {
+async function setPartnersFilter({ commit, getters }, partners, isHidden) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     values: partners,
     hidden: isHidden,
   });
+  removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
+  removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
+}
+
+function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
+  const baWithPartnersSelected = getters.selectedBillingAccountsValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
+  commit('setBillingAccountsFilter', baWithPartnersSelected);
+}
+
+function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners) {
+  const withPartnersSelected = getters.selectedOffersValues.filter(a =>
+    partners.find(p => p.id === a.partnerId)
+  );
+  commit('setOffersFilter', withPartnersSelected);
 }
 
 // Mutation
