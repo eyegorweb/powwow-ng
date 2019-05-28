@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.41+20190528073315
+2019-05-28
+
+### Fixes
+
+- afficher types sim cards (550e20afc8e3b305ad8a97901aea3ccb135291d5)
+
 ## 0.1.0-master.40+20190527140057
 2019-05-27
 
