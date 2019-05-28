@@ -1,5 +1,5 @@
 import * as filterUtils from '@/store/filterUtils';
-import { searchLinesActions } from '@/api/linesActions';
+import { searchLines } from '@/api/linesActions';
 
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
@@ -72,7 +72,7 @@ export const actions = {
   },
   async fetchLinesActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
     // commit('startLoading');
-    commit('setLinesActionsResponse', await searchLinesActions(orderBy, pageInfo, appliedFilters));
+    commit('setLinesActionsResponse', await searchLines(orderBy, pageInfo, appliedFilters));
     // commit('stopLoading');
   },
 };

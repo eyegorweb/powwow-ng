@@ -8,7 +8,7 @@
 
 <script>
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
-import { getLinesTypeSimCard } from '@/api/linesTypeSimCard';
+import { fetchCardTypes } from '@/api/linesActions';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -21,13 +21,13 @@ export default {
     };
   },
   async mounted() {
-    const pagination = { limit: 20, page: 0 };
-    const orderBy = { id: 'DESC' };
-    const data = await getLinesTypeSimCard(pagination, orderBy);
-    this.items = data.map(a => ({
-      id: a.accessPoint.simCardInstance.id,
-      label: a.accessPoint.simCardInstance.type,
-    }));
+    const data = await fetchCardTypes();
+    this.items = data.map(l => {
+      return {
+        id: l,
+        label: l,
+      };
+    });
   },
   methods: {
     ...mapMutations('actLines', ['setTypeSimCardFilter']),
