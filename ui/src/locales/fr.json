@@ -239,7 +239,7 @@
       }
     },
     "actLines": {
-      "total": "{total} lignes éligibles au changement de compte de facturation",
+      "total": "{total} lignes",
       "step1Partner": "séléctionner un partenaire",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
