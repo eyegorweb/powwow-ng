@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.52+20190529144945
+2019-05-29
+
+### Features
+
+- Initial merge (eb5b5bd821708d6107cfb8ded5b4dad56d93f1c1)
+
 ## 0.1.0-master.51+20190529135801
 2019-05-29
 
