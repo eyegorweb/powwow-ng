@@ -22,11 +22,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['filterCustomFieldsList', 'selectedCustomFieldsValues']),
+    ...mapGetters('actLines', ['filterCustomFieldsList', 'selectedCustomFieldsValues']),
   },
 
   methods: {
-    ...mapMutations('getsim', ['setCustomFieldsFilter']),
+    ...mapMutations('actLines', ['setCustomFieldsFilter']),
   },
 
   components: {

@@ -22,14 +22,14 @@ export default {
   },
 
   methods: {
-    ...mapMutations('getsim', [
+    ...mapMutations('actLines', [
       'setDeliveryCountriesFilter',
       'updateSelectedDeliveryCountriesLabels',
     ]),
   },
 
   computed: {
-    ...mapGetters({ storeSelectedCountries: 'getsim/selectedDeliveryCountries' }),
+    ...mapGetters({ storeSelectedCountries: 'actLines/selectedDeliveryCountries' }),
   },
 };
 </script>
