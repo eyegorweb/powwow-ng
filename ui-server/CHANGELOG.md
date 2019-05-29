@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.49+20190529095801
+2019-05-29
+
+### Fixes
+
+- descending > desc (01bfaee659cae55e4812c0d54545866b973ea00f)
+- pagination ie (558b1245ebdca516b57e54687483bb0ff9b795a6)
+
 ## 0.1.0-master.48+20190529093638
 2019-05-29
 
