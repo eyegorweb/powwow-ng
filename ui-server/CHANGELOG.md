@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.2.1
+2019-05-29
+
+### Fixes
+
+- deploy_uat step (0c16ffb3ae3d324ccb4465f53b6a3bf0b17ae8a5)
+
 ## 0.2.1-master.1+20190529153527
 2019-05-29
 
