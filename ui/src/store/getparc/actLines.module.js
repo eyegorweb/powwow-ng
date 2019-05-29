@@ -1,4 +1,5 @@
 import * as filterUtils from '@/store/filterUtils';
+import { fetchCustomFields } from '@/api/customFields';
 import { searchLines } from '@/api/linesActions';
 
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
@@ -16,6 +17,7 @@ export const state = {
   ...filterUtils.initState(),
   linePage: 1,
   linesActionsResponse: [],
+  filterCustomFieldsList: [],
 };
 
 export const getters = {
@@ -39,6 +41,9 @@ export const getters = {
   },
 
   selectedDate: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
+  selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
+  filterCustomFieldsList: state => state.filterCustomFieldsList,
+  selectedCustomFieldsValues: state => selectedFilterValuesById(state)('filters.customFields'),
 };
 
 // Actions
@@ -55,6 +60,7 @@ async function setPartnersFilter({ commit, getters }, partners, isHidden) {
   });
   removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners);
   removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partners);
+  await refreshCustomFilters({ commit }, partners);
 }
 
 function removeSelectedBillingAccountWithNoSelectedPartners({ commit, getters }, partners) {
@@ -71,11 +77,25 @@ function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partner
   commit('setOffersFilter', withPartnersSelected);
 }
 
-// Mutation
+async function refreshCustomFilters({ commit }, partners) {
+  if (partners.length === 1) {
+    // appel api pour charger les custom fields
+    const customFields = await fetchCustomFields(partners[0].id);
+    commit('setFilterCustomFieldsList', customFields);
+  } else {
+    commit('setFilterCustomFieldsList', []);
+  }
+
+  // enlever les filtres séléctionnés de la synthèse
+  commit('setCustomFieldsFilter', []);
+}
+
+// Actions
 
 export const actions = {
   setPartnersFilter,
   initFilterForContext,
+  refreshCustomFilters,
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -102,6 +122,20 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+  clearAllFilters(state) {
+    state.currentFilters = [];
+    state.filterCustomFieldsList = [];
+    filterUtils.clearAppliedFilters(state);
+  },
+  setFilterCustomFieldsList: (state, data) => {
+    state.filterCustomFieldsList = data;
+  },
+  setCustomFieldsFilter(state, customFields) {
+    selectFilterValue(state, {
+      id: 'filters.customFields',
+      values: customFields,
+    });
+  },
   setPage(state, newPage) {
     state.linePage = newPage;
   },
@@ -182,6 +216,28 @@ export const mutations = {
       id: filterKey,
       startDate,
       endDate,
+    });
+  },
+
+  setDeliveryCountriesFilter(state, countries) {
+    selectFilterValue(state, {
+      id: 'filters.countries',
+      values: countries,
+    });
+  },
+  // to refactor, duplicated
+  updateSelectedDeliveryCountriesLabels(state, countries) {
+    const countryDict = countries.reduce((dict, country) => {
+      dict[country.code] = country.name;
+      return dict;
+    }, {});
+
+    selectFilterValue(state, {
+      id: 'filters.countries',
+      values: selectedFilterValuesById(state)('filters.countries').map(country => ({
+        ...country,
+        label: countryDict[country.id],
+      })),
     });
   },
 };
