@@ -30,15 +30,15 @@
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-            <p>{{ getFromContent('created') }}</p>
+            <p>{{ getFromContent('massActionResponse.created') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-            <p>{{ getFromContent('dueDate') }}</p>
+            <p>{{ getFromContent('massActionResponse.dueDate') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-            <p>{{ getFromContent('endDate') }}</p>
+            <p>{{ getFromContent('massActionResponse.endDate') }}</p>
           </div>
         </div>
 
@@ -49,22 +49,21 @@
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.name') }} :</h6>
-            <!-- TODO: put infos name from party when api updated -->
-            <p>{{ getFromContent('creatorParty.name') }}</p>
+            <p>{{ getFromContent('party.name') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creator') }} :</h6>
             <p>
               {{
-                `${getFromContent('creatorDetails.name.title')} ${getFromContent(
+                `${getFromContent('massActionResponse.creatorDetails.name.title')} ${getFromContent(
                   'creatorDetails.name.firstName'
-                )} ${getFromContent('creatorDetails.name.lastName')}`
+                )} ${getFromContent('massActionResponse.creatorDetails.name.lastName')}`
               }}
             </p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-            <p>{{ getFromContent('creatorDetails.email') }}</p>
+            <p>{{ getFromContent('massActionResponse.creatorDetails.email') }}</p>
           </div>
         </div>
 
@@ -72,18 +71,27 @@
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
             <p>
-              {{ getFromContent('targetActionNumber') }} {{ $t('getparc.history.details.lines') }}
+              {{ getFromContent('massActionResponse.targetActionNumber') }}
+              {{ $t('getparc.history.details.lines') }}
             </p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>{{ content.errorActionNumber > 0 ? getFromContent('errorActionNumber') : '-' }}</p>
+            <p>
+              {{
+                content.errorActionNumber > 0
+                  ? getFromContent('massActionResponse.errorActionNumber')
+                  : '-'
+              }}
+            </p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
             <p>
               {{
-                content.inProgressActionNumber > 0 ? getFromContent('inProgressActionNumber') : '-'
+                content.inProgressActionNumber > 0
+                  ? getFromContent('massActionResponse.inProgressActionNumber')
+                  : '-'
               }}
             </p>
           </div>
@@ -91,7 +99,9 @@
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
             <p>
               {{
-                content.completedActionNumber > 0 ? getFromContent('completedActionNumber') : '-'
+                content.completedActionNumber > 0
+                  ? getFromContent('massActionResponse.completedActionNumber')
+                  : '-'
               }}
             </p>
           </div>

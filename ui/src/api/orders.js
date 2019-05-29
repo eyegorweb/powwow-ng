@@ -1,5 +1,4 @@
-import { query } from './utils';
-import moment from 'moment';
+import { query, addDateFilter } from './utils';
 import get from 'lodash.get';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
@@ -221,7 +220,7 @@ function formatFilters(filters) {
   }
 
   addQuantityFilter(allFilters, filters);
-  addDateFilter(allFilters, filters);
+  addDateFilter(allFilters, filters, 'orderDate', 'filters.orderDate');
   addCityFilter(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
   orderStatus(allFilters, filters);
@@ -266,55 +265,6 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
   if (orderReference) {
     gqlFilters.push(`orderReference: {eq: "${orderReference.value}"}`);
-  }
-}
-
-function addDateFilter(gqlFilters, selectedFilters) {
-  const dateFilter = selectedFilters.find(f => f.id === 'filters.orderDate');
-  if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
-    const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
-
-    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
-
-    gqlFilters.push(
-      `orderDate: {between: {startDate: "${formattedStartDate}", endDate: "${formattedEndDate}"}}`
-    );
-  }
-
-  function formatDateForGql(inDate) {
-    if (!inDate) return '';
-    const startDate = inDate.replace(/\//g, '-');
-    const parts = startDate.split(' ');
-    if (parts) {
-      if (parts.length === 2) {
-        return startDate;
-      } else {
-        return `${parts[0]} 00:00:00`;
-      }
-    }
-  }
-
-  function prepareEndDateForBackend(inDate) {
-    const dateToEdit = inDate.replace(/\//g, '-');
-    const parts = dateToEdit.split(' ');
-    let endDate;
-    let formatToUse;
-
-    if (parts.length === 2) {
-      formatToUse = 'DD-MM-YYYY hh:mm:ss';
-      endDate = moment(dateToEdit, formatToUse);
-      if (!dateFilter.sameDay) {
-        endDate = endDate.add(1, 'days');
-      }
-      return endDate.format(formatToUse);
-    } else {
-      formatToUse = 'DD-MM-YYYY';
-      endDate = moment(`${parts[0]}`, formatToUse);
-      if (!dateFilter.sameDay) {
-        endDate = endDate.add(1, 'days');
-      }
-      return endDate.format(formatToUse) + ' 00:00:00';
-    }
   }
 }
 
