@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.2.2
+2019-05-29
+
+### Fixes
+
+- deployt UAT job (4b4337b3b24d097b0a85bb5dac4bc36c700c95a4)
+
 ## 0.2.1
 2019-05-29
 
