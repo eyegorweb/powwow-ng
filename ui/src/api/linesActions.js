@@ -1,4 +1,4 @@
-import { query } from './utils';
+import { query, addDateFilter } from './utils';
 
 export async function fetchCardTypes() {
   const queryStr = `
@@ -96,9 +96,9 @@ function formatFilters(filters) {
     allFilters.push(customFeldsGQLparams);
   }
 
-  const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
+  const customerAccountIds = getValuesIdsWithoutQuotes(filters, 'filters.billingAccounts');
   if (customerAccountIds) {
-    allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
+    allFilters.push(`idCF: {in:[${customerAccountIds}]}`);
   }
 
   // addQuantityFilter(allFilters, filters);
@@ -109,6 +109,12 @@ function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
+  addDateFilter(allFilters, filters, 'orderDate', 'filters.orderDate');
+  addDateFilter(allFilters, filters, 'simCardCreatedDate', 'filters.lines.importDate');
+  addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
+  addDateFilter(allFilters, filters, 'activationDate', 'filters.lines.activationDate');
+  addDateFilter(allFilters, filters, 'preactivationDate', 'filters.lines.preActivationDate');
+  // addDateFilter(allFilters, filters, 'todo', 'filters.lines.statusDate');
 
   return allFilters.join(',');
 }

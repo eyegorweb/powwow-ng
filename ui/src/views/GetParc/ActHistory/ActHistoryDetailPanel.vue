@@ -60,8 +60,7 @@
         </div>
         <div class="overview-item mr-5">
           <h6>{{ $t('getparc.history.details.name') }} :</h6>
-          <!-- TODO: put infos name from party when api updated -->
-          <p>{{ getFromContent('creatorParty.name') }}</p>
+          <p>{{ getFromContent('party.name') }}</p>
         </div>
         <div class="overview-item mr-5">
           <h6>{{ $t('getparc.history.details.creator') }} :</h6>

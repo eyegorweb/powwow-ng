@@ -52,16 +52,53 @@
           <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
             <ActLinesNetworkStatusFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.orderDate"
+            />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.importDate')" :key="'el13'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.lines.importDate"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.endCommitmentDate')" :key="'el14'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.lines.endCommitmentDate"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.activationDate')" :key="'el15'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.lines.activationDate"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.preActivationDate')" :key="'el16'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.lines.preActivationDate"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.statusDate')" :key="'el17'" draggable>
+            <DateFilter
+              ns="actLines"
+              getter="selectedDate"
+              setter="setDateFilter"
+              filter-key="filters.lines.statusDate"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable> </FoldableBlock>
           <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable>
@@ -133,6 +170,7 @@ import ActLinesOffersFilter from './ActLinesOffersFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
 import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
 import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
+import DateFilter from '@/components/Filters/DateFilter';
 
 export default {
   components: {
@@ -147,6 +185,7 @@ export default {
     ActLinesSimStatuses,
     ActLinesBillingStatusFilter,
     ActLinesNetworkStatusFilter,
+    DateFilter,
   },
   data() {
     return {

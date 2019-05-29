@@ -37,6 +37,8 @@ export const getters = {
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.lines.associatedOffer');
   },
+
+  selectedDate: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
 };
 
 // Actions
@@ -170,6 +172,16 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.lines.networkStatus',
       values: statuses,
+    });
+  },
+
+  setDateFilter(state, { filterKey, startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValue(state, {
+      id: filterKey,
+      startDate,
+      endDate,
     });
   },
 };
