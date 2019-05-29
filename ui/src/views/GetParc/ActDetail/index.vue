@@ -143,7 +143,7 @@ export default {
     async refreshCurrentMassAction() {
       const data = await searchMassActionsById(this.$route.params.massActionId);
       if (data) {
-        this.massAction = data.massActionResponse;
+        this.massAction = data;
       }
     },
   },
