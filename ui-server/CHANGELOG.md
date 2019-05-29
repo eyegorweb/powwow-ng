@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.46+20190529073843
+2019-05-29
+
+### Features
+
+- **gestion de lignes:** date filters (1db4299fb8cce9a6163d54cfde2ca519c2c00028)
+
 ## 0.1.0-master.45+20190528125007
 2019-05-28
 
