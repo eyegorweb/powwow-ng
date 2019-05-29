@@ -114,9 +114,13 @@ function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
   addDateFilter(allFilters, filters, 'activationDate', 'filters.lines.activationDate');
   addDateFilter(allFilters, filters, 'preactivationDate', 'filters.lines.preActivationDate');
+  // addDateFilter(allFilters, filters, 'todo', 'filters.lines.statusDate');
+  addTrafficFilter(allFilters, filters);
   addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
   addCountries(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
+  addEUICCProfileFilter(allFilters, filters);
+  addSirenFilter(allFilters, filters);
   addRangeFilter(allFilters, filters, 'iccid', 'filters.lines.rangeICCID');
   addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
@@ -213,5 +217,27 @@ function getFilterValue(filters, filterId) {
   const foundFilter = filters.find(f => f.id === filterId);
   if (foundFilter) {
     return foundFilter.value;
+  }
+}
+
+function addTrafficFilter(gqlFilters, selectedFilters) {
+  const isTraffic = selectedFilters.find(f => f.id === 'filters.lines.traffic');
+  if (isTraffic) {
+    gqlFilters.push(`isLignesTrafiquantes: true`);
+  }
+}
+
+function addEUICCProfileFilter(gqlFilters, selectedFilters) {
+  const currentStates = selectedFilters.find(f => f.id === 'filters.lines.states');
+  if (currentStates) {
+    const currentStatesValues = currentStates.values.map(i => i.id);
+    gqlFilters.push(`profileEUICC: {in: [${currentStatesValues}]}`);
+  }
+}
+
+function addSirenFilter(gqlFilters, selectedFilters) {
+  const siren = selectedFilters.find(f => f.id === 'filters.lines.siren');
+  if (siren) {
+    gqlFilters.push(`siren: {eq: "${siren.value}"}`);
   }
 }

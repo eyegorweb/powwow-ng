@@ -36,8 +36,15 @@ export const getters = {
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
+  selectedActionIDValue: findFilterValueById('filters.lines.actionId'),
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.lines.associatedOffer');
+  },
+  selectedProfileStatesValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.states');
+  },
+  selectedLigneTrafiquanteValue: state => {
+    return selectedFilterValuesById(state)('filters.lines.traffic');
   },
 
   selectedDate: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
@@ -186,13 +193,24 @@ export const mutations = {
       value,
     });
   },
+  setActionIdFilter(state, value) {
+    selectFilterValue(state, {
+      id: 'filters.lines.actionId',
+      value,
+    });
+  },
   setOffersFilter(state, offers) {
     selectFilterValue(state, {
       id: 'filters.lines.associatedOffer',
       values: offers,
     });
   },
-
+  setProfileStatesFilter(state, statuses) {
+    selectFilterValue(state, {
+      id: 'filters.lines.states',
+      values: statuses,
+    });
+  },
   setSimStatusesFilter(state, statuses) {
     selectFilterValue(state, {
       id: 'filters.lines.SIMCardStatus',
@@ -212,10 +230,14 @@ export const mutations = {
       values: statuses,
     });
   },
-
+  setLligneTrafiquanteFilter(state, statuses) {
+    selectFilterValue(state, {
+      id: 'filters.lines.traffic',
+      values: statuses,
+    });
+  },
   setDateFilter(state, { filterKey, startDate, endDate }) {
     if (!startDate || !endDate) return;
-
     selectFilterValue(state, {
       id: filterKey,
       startDate,
