@@ -211,6 +211,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form-group {
+  margin-bottom: 0; //reset bootstrap
+}
 .table-blue thead {
   background-color: $primary;
   color: white;
@@ -299,6 +302,16 @@ select {
 .thead-actions {
   display: flex;
   flex-direction: row;
+}
+
+label {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  div {
+    margin-left: 5px;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
