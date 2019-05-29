@@ -96,13 +96,13 @@ publish_prerelease_docker_image:
     - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
-    policy: pull
     paths:
       - .gradle/caches
       - .gradle/wrapper
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+    policy: pull
   only:
     - master
   except:
