@@ -115,12 +115,28 @@
             <ActLinesCustomFields />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.rangeICCID')" :key="'el22'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedICCIDValue"
+              @update:value="selectICCIDFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.rangeIMSI')" :key="'el23'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedIMSIValue"
+              @update:value="selectIMSIFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.rangeMSISDN')" :key="'el24'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedMSISDNValue"
+              @update:value="selectMSISDNFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.rangeIMEI')" :key="'el25'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedIMEIValue"
+              @update:value="selectIMEIFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.siren')" :key="'el26'" draggable>
             <SimpleInputFilter
@@ -208,6 +224,10 @@ export default {
       'selectedOrderRefValue',
       'selectedPostalCodeValue',
       'selectedSirensValue',
+      'selectedICCIDValue',
+      'selectedIMSIValue',
+      'selectedMSISDNValue',
+      'selectedIMEIValue',
     ]),
   },
   methods: {
@@ -217,6 +237,10 @@ export default {
       'selectOrderRefFilter',
       'selectPostalCodeFilter',
       'selectSirensFilter',
+      'selectICCIDFilter',
+      'selectIMSIFilter',
+      'selectMSISDNFilter',
+      'selectIMEIFilter',
     ]),
     ...mapActions('actLines', ['clearFilter']),
 

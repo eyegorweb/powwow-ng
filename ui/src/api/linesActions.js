@@ -117,8 +117,23 @@ function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
   addCountries(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
+  addRangeFilter(allFilters, filters, 'iccid', 'filters.lines.rangeICCID');
+  addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
+  addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
+  addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
 
   return allFilters.join(',');
+}
+
+function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
+  const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
+  if (!filterValue) return;
+  const containsSearch = filterValue.value.includes('*');
+  if (containsSearch) {
+    gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.value.replace('*', '')}" }`);
+  } else {
+    gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.value}" }`);
+  }
 }
 
 function addZipCodeFilter(gqlFilters, selectedFilters) {
