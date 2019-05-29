@@ -111,7 +111,6 @@ publish_prerelease_docker_image:
 publish_release_docker_image:
   stage: publish
   script:
-    - cat ui-server/version.txt
     - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -176,7 +175,7 @@ deploy_uat:
     - kubectl config use-context m2m-node-uat
   script:
     - kubectl get po
-    - . release_info
+    - . ui-server/release_info
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$RELEASE_VERSION --record=true
   when: manual
   environment:
