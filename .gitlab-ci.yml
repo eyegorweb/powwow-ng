@@ -175,7 +175,7 @@ deploy_uat:
     - kubectl config use-context m2m-node-uat
   script:
     - kubectl get po
-    - . release_info
+    - . ui-server/release_info
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$RELEASE_VERSION --record=true
   when: manual
   environment:
