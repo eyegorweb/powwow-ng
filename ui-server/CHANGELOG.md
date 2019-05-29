@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.2.0
+2019-05-29
+
+### Features
+
+- Initial merge (a336c40d33183535f9ae26b8933fc196fbda33ca)
+
 ## 0.1.0
 2019-05-29
 
