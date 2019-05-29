@@ -100,7 +100,9 @@
               filter-key="filters.lines.statusDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable> </FoldableBlock>
+          <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable>
+            <ActLinesCountries />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable>
             <SimpleInputFilter
               :selected-value="selectedPostalCodeValue"
@@ -110,6 +112,7 @@
           <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.customFileds')" :key="'el21'" draggable>
+            <ActLinesCustomFields />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.rangeICCID')" :key="'el22'" draggable>
           </FoldableBlock>
@@ -170,6 +173,8 @@ import ActLinesOffersFilter from './ActLinesOffersFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
 import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
 import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
+import ActLinesCountries from './ActLinesCountries';
+import ActLinesCustomFields from './ActLinesCustomFields';
 import DateFilter from '@/components/Filters/DateFilter';
 
 export default {
@@ -186,6 +191,8 @@ export default {
     ActLinesBillingStatusFilter,
     ActLinesNetworkStatusFilter,
     DateFilter,
+    ActLinesCountries,
+    ActLinesCustomFields,
   },
   data() {
     return {

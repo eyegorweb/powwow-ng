@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.48+20190529093638
+2019-05-29
+
+### Features
+
+- filtres code postal, pays et champs libres (650196cc2d533de559db7172dd387b02ba333f79)
+
 ## 0.1.0-master.47+20190529084329
 2019-05-29
 

@@ -114,9 +114,23 @@ function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
   addDateFilter(allFilters, filters, 'activationDate', 'filters.lines.activationDate');
   addDateFilter(allFilters, filters, 'preactivationDate', 'filters.lines.preActivationDate');
-  // addDateFilter(allFilters, filters, 'todo', 'filters.lines.statusDate');
+  addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
+  addCountries(allFilters, filters);
+  addZipCodeFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addZipCodeFilter(gqlFilters, selectedFilters) {
+  const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
+  zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
+}
+
+function addCountries(gqlFilters, selectedFilters) {
+  const countries = getValuesIds(selectedFilters, 'filters.countries');
+  if (countries) {
+    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
+  }
 }
 
 function valuesFromMutiselectFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
