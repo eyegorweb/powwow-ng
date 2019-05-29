@@ -385,7 +385,16 @@
       "rangeMSISDN": "Plage MSISDN",
       "rangeIMEI": "Plage IMEI",
       "siren": "Siren",
-      "traffic": "Lignes trafiquantes"
+      "traffic": "Lignes trafiquantes",
+      "trafficLabel": "Ayant trafiqué dans le mois",
+      "actionId": "Id acte de gestion",
+      "states": "État de profil eUICC",
+      "profileStateFilter": {
+        "ENABLED": "Activé",
+        "DISABLED": "Désactivé",
+        "DELETED": "Supprimé",
+        "CREATED": "Crée"
+      }
     }
   },
   "orders": {

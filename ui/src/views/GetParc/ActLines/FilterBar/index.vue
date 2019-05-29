@@ -110,6 +110,7 @@
             />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>
+            <ActLineProfileStateFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.customFileds')" :key="'el21'" draggable>
             <ActLinesCustomFields />
@@ -145,8 +146,20 @@
             />
           </FoldableBlock>
           <FoldableBlock :title="$t('orders.detail.manageID')" :key="'el27'" draggable>
+            <SimpleInputFilter
+              :selected-value="selectedActionIDValue"
+              @update:value="setActionIdFilter($event)"
+            />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.traffic')" :key="'el28'" draggable>
+            <UiCheckbox
+              :value="{
+                id: 'lineTrafficState',
+                label: $t(`common.true`),
+              }"
+              v-model="ligneTrafiquanteValue"
+              >{{ $t('filters.lines.trafficLabel') }}</UiCheckbox
+            >
           </FoldableBlock>
         </transition-group>
       </draggable>
@@ -186,9 +199,11 @@ import SelectedFilters from '@/components/Filters/SelectedFilters';
 import TypeSimCard from './TypeSimCard';
 import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 import ActLinesOffersFilter from './ActLinesOffersFilter';
+import ActLineProfileStateFilter from './ActLineProfileStateFilter';
 import ActLinesSimStatuses from './ActLinesSimStatuses';
 import ActLinesBillingStatusFilter from './ActLinesBillingStatusFilter';
 import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
+import UiCheckbox from '@/components/ui/Checkbox';
 import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
 import DateFilter from '@/components/Filters/DateFilter';
@@ -203,9 +218,11 @@ export default {
     TypeSimCard,
     SimpleInputFilter,
     ActLinesOffersFilter,
+    ActLineProfileStateFilter,
     ActLinesSimStatuses,
     ActLinesBillingStatusFilter,
     ActLinesNetworkStatusFilter,
+    UiCheckbox,
     DateFilter,
     ActLinesCountries,
     ActLinesCustomFields,
@@ -224,11 +241,21 @@ export default {
       'selectedOrderRefValue',
       'selectedPostalCodeValue',
       'selectedSirensValue',
+      'selectedActionIDValue',
+      'selectedLigneTrafiquanteValue',
       'selectedICCIDValue',
       'selectedIMSIValue',
       'selectedMSISDNValue',
       'selectedIMEIValue',
     ]),
+    ligneTrafiquanteValue: {
+      get() {
+        return this.selectedLigneTrafiquanteValue;
+      },
+      set(newValue) {
+        this.setLligneTrafiquanteFilter(newValue);
+      },
+    },
   },
   methods: {
     ...mapMutations('actLines', [
@@ -237,6 +264,8 @@ export default {
       'selectOrderRefFilter',
       'selectPostalCodeFilter',
       'selectSirensFilter',
+      'setActionIdFilter',
+      'setLligneTrafiquanteFilter',
       'selectICCIDFilter',
       'selectIMSIFilter',
       'selectMSISDNFilter',
