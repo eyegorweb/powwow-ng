@@ -2,12 +2,104 @@
 
 <!--- next entry here -->
 
-## 0.1.0-master.53+20190529152358
+## 0.2.0
 2019-05-29
+
+### Features
+
+- Initial merge (a336c40d33183535f9ae26b8933fc196fbda33ca)
+
+## 0.1.0
+2019-05-29
+
+### Features
+
+- ajout de composant d'animation pour collapser (589416ba1087009212ea09823755d436e2fcdfaf)
+- ajout styles de base (5129299da96ddc43318b2ac661bc37f7bcea8eaf)
+- **ui:** ajout de checkbox (5b13c482a77537f4bfb8a38861bb5edc5fab50a9)
+- input de recherche abstrait (a99204f5832a935cd11a27b11fac21b1638a2b3a)
+- Ajout d'une table avec drag&drop sur les colonnes (32ce462bd9ce9de695f53a392720e7fa642a3138)
+- ajout du carousel d'actions (dd853bbfc4965f0fae9b11fb4b13636b0e611e3b)
+- Draggable home + SlidePanel (eb0941e0e9fde4238bf50e07595ce9026b6edfc4)
+- ajout de SlidePanel + Draggable Home (52616f95af3260be93736b2ebb35917545bef40e)
+- **autocomplete:** ajout d'input d'autocomplete pour adresses (77840450f146aa84cbc5bee3b8ed935ecdd2ff0e)
+- popin pour enregistrer les filtres (c2d51d5d0972c03751dbb8b7e573e560d81a2c8f)
+- ajouter un menu de naigation (1e087219a134496737fc0130d8f23effff0677e7)
+- gestion lignes cf (a4e7cda819e438d84967237735b73b3f1bb6bc1c)
+- filtres de saisie de la gestion de lignes (d1f2d6d248a26de527e36e15af98d535e1ad84a3)
+- filter lines with type sim card (6064fcae2b557311d4d9edc4d6785d91f270fdab)
+- intégration de la pagination dans les actes unitaires (25831b723cff513179eedfdaf5412e8ddc5d6d9d)
+- selection lines directement sur la datatable (779829c30fc29c427b157fc22219e660972d9903)
+- ajoute le filtre d'offre associée pour la gestion des lignes (50ce968fb7da357859ce673c58a40e1dc53239e0)
+- rediriger vers la page précédant l'authentification (58da822fcd903fffbffed93ef4748952e0beb4d6)
+- intégrer l'api d'export d'actes uitaires (79bb0c3613cbbbe48d6ef3e315d96e7636ccc756)
+- **actes de gestion:** Ajouter filtre "créateurde l'acte" (a2324788dfd80799245474fd9ef662a5de4198a8)
+- barre de recherche des massActions (9a0d98dcb45fd10016b71d8f20a0545023fcd171)
+- recherche par id d'actes unitaires dans l'ecran d'un acte en masse (cecabba027dd1c24de030b2b003ad4caf3f422ae)
+- détails des actes de gestions (d08f5f18be85c772c80803ef9a447eb051abfc89)
+- table lignes (0812e33f5379ec552c51b23678f18ce8a88eab40)
+- tri de la colonne produit dans les commandes (44e9611b9c11386764f7c49ac16d3276dfbb4a9d)
+- filtre status de facturation + status SIM (85b978d05f9f6738dc7c8cf064948f1548c94818)
+- **recherche de lignes:** filtre status de ligne (ea4425f15aa8ae0cd2292b0322359102a5cdd414)
+- **gestion de lignes:** date filters (1db4299fb8cce9a6163d54cfde2ca519c2c00028)
+- filtres code postal, pays et champs libres (650196cc2d533de559db7172dd387b02ba333f79)
+- filtrer les plages d'ID (e83e1ae8bd16e2c7b88ed5382fda73959cecaf41)
+- Initial merge (eb5b5bd821708d6107cfb8ded5b4dad56d93f1c1)
 
 ### Fixes
 
-- deploy_uat step (0c16ffb3ae3d324ccb4465f53b6a3bf0b17ae8a5)
+- Checkbox.vue (fa39ca32476736cbf0ceb8861f4ee2845976b620)
+- création du input et select (cea839e66941cffac1a6e289c683f9979b766a76)
+- création du input et select (a524f885bd960ea81ffe4d70b78aaa1443c34557)
+- remove dead code (3d892b886aa85958146d25eab73b5db2bbf22518)
+- refactor code and add TODO notes (bc5f49bbb71853e16b4b226b4d1c9fcadc5664f8)
+- update jest-stub and vuex-mock-store (ac4de80df6b8dd73c6f0664e73279f55da337023)
+- update @vue/test-utils (bd81bb12cbe6cb509f73de49c8498a5a6fc00ecd)
+- use lodash-es + webpack/babel plugins (7e6a28f9ee02c28e63b8bbbbb7f0f49ad2688ba1)
+- **moment:** ignore locale files by default (cf2a91b8073a345f1fe9d2289d3c872eca00a812)
+- **multiselectsearch:** show less button (892b70fe729e3dd0d18405d981692b101d505257)
+- **multiselectsearch:** better computed (b02bcacce4d7675e12c128eddd40c6f13804d034)
+- Confirmer une commande (b1572a5cbec69294263130491ac5022983eb11be)
+- selected offer description (5a349427a5906845b8eaabd21c718c18203c7756)
+- temp waiting for array status from ejb (646238645b7a068ebe08284639b7f6f2df3339a3)
+- return correct value for bobines selected (af01106e48a0649a2b39b9b4463971cfb7f8442f)
+- **ajout d'éléments à la liste de custom fields:** #420 ETQU portail, je veux ajouter une valeur dans une liste pour un champ libre existant (ac34ed9dbb28ac63d8410e7b79d7f115debef3e1)
+- régler l'affichage des adresses (7efad1f04e3c4167dba7dcbdeccca829c02112a2)
+- list component (9a229de4757fdab83c23ee5e0891a90efc4efbed)
+- refresh mass action (918cc2c3761c810ea9daab35d5341ec226102299)
+- ajouter prefix à l'URL (879b24d6044b861fe9131e7873fe54f5f1ec0c74)
+- integration semver (38f2eb50a638caeff2cee9320d65bbe54933792d)
+- semver implementation in gitlab ci (94a3a714029e4d4166fedd25b58fbec427ff0023)
+- traduction des sous menus (732f34527619de878ec8133affb81b3fbd3f0f8f)
+- met à jour filtre de status (79cc24da2046f276d8d53452aa18e39c885aa091)
+- add another pattern for the resource handler serving index.html (15ac9e05709a60b67dde65af9fd2e3ebb7f88378)
+- noms des colonnes de la table des commandes (e6e97533c7b4ccb4aa2002af8533beba896b7391)
+- corriger une erreur de lint (7b41f5d47a857db8c7a3ca344591400727774278)
+- utiliser le repo npm docapost (e19909669091b80740214470e6e188765383a5f4)
+- gradle multi project (173391c57f4700867135f407dc8e1603f36910a6)
+- gradle multi project v2 (1bdfd684324e27242872fdd36e721b6336488230)
+- code postal est une chaine de caractères (e4cca582e5ffc64925b350f95eec2e5e105fa7dd)
+- gradle multi project (896b87947840108dc8df27c612b95e7577d53fba)
+- mettre à jour les colonnes stockées en local storage (bf5939e51e5d33441978b61a6e9d7c4b3197da0e)
+- corriger erreurs de lint (c832d723c0104ca3d9d08fc2f43171f390081a3c)
+- export unit actions (7e0a674a6be7ae525f7d3fbf3ab6fa3ca59d12c4)
+- renommer le champ orderedSIMCard (9b4b69241d6354c390084fddefadfdd5565a99d8)
+- plug api lines (3abd500a3745482c3b6b568edd62f137fb3afb61)
+- update custom fields headers (6de893afb60871328efd49399b2420ad75059e70)
+- mettre à jour les requettes unit actions (dbb806c6d4ea469fe833a99a660f10568f329095)
+- descending > desc (01bfaee659cae55e4812c0d54545866b973ea00f)
+- kubernetes deployment naming (5c1e8bbd3999e49247dd38937a4d1206c2a56a2a)
+- charger les offres si aucun partenaire n'est choisi (e627c0e128527565e735d10dc5d594689fe7e7e0)
+- corriger les valeurs des indicateurs mass action (9814f445f66c2a5a3b9ef99d6bd63426c7916a3e)
+- nombre des colonne visibles (933a5fa38f85dfb3c0dbd730ff85a7e7a789f4cb)
+- **mass actions:** Colonne partenaire (1ecad9b0cc9b642affdcbc8c9118679147841715)
+- total des actes en cours (8a130d1fecee37e941a093ebca9757aa50af5e1e)
+- colonne détails actes de masse (8498f32a84ef7bd5b5e5d66c3618a7138ff49c0c)
+- update custom field list (c834883297fd0614de344105efdb48850f636e41)
+- afficher types sim cards (550e20afc8e3b305ad8a97901aea3ccb135291d5)
+- ré initialiser le filtre CF à la MAJ du filtre partenaire (f36ad937150873b22e1af9f229ce102e654e3228)
+- MAJ des champs libres pour utilisateurs BO (52a2851035a7cd99d940b1ee08e826e856c038ed)
+- pagination ie (558b1245ebdca516b57e54687483bb0ff9b795a6)
 
 ## 0.1.0-master.52+20190529144945
 2019-05-29
