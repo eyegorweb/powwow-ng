@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.1.0-master.50+20190529133731
+2019-05-29
+
+### Features
+
+- filtrer les plages d'ID (e83e1ae8bd16e2c7b88ed5382fda73959cecaf41)
+
 ## 0.1.0-master.49+20190529095801
 2019-05-29
 
