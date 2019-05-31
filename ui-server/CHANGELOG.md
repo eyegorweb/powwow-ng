@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.3+20190531151808
+2019-05-31
+
+### Fixes
+
+- titre table des liges (6a6c4ee7ecc643abcbf641fc78bcce7a3658dac0)
+
 ## 0.3.0-master.2+20190531145900
 2019-05-31
 
