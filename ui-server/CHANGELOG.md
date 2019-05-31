@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.1+20190531071848
+2019-05-31
+
+### Features
+
+- filtre status commercial (bab68d6c5064d56d4a2b5a688553df8f0b8c7050)
+
 ## 0.2.1-master.1+20190529153527
 2019-05-29
 
