@@ -32,6 +32,9 @@ export const getters = {
   selectedTypeSimCardValues: state => {
     return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
   },
+  selectedCommercialStatusesValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.commercialStatus');
+  },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
@@ -166,6 +169,12 @@ export const mutations = {
   setTypeSimCardFilter(state, types) {
     selectFilterValue(state, {
       id: 'filters.lines.typeSIMCard',
+      values: types,
+    });
+  },
+  setCommercialStatusesFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.lines.commercialStatus',
       values: types,
     });
   },

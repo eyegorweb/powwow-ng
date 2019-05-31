@@ -10,6 +10,16 @@ export async function fetchCardTypes() {
   return response.data.getTypeSimcards;
 }
 
+export async function fetchCommercialStatuses() {
+  const queryStr = `
+  query {
+    commercialStatus
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.commercialStatus;
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy
   //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
@@ -109,6 +119,13 @@ function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
+  valuesFromMutiselectFilter(
+    allFilters,
+    filters,
+    'commercialStatus',
+    'filters.lines.commercialStatus',
+    true
+  );
   addDateFilter(allFilters, filters, 'orderDate', 'filters.orderDate');
   addDateFilter(allFilters, filters, 'simCardCreatedDate', 'filters.lines.importDate');
   addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
@@ -152,8 +169,16 @@ function addCountries(gqlFilters, selectedFilters) {
   }
 }
 
-function valuesFromMutiselectFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
-  const values = getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
+function valuesFromMutiselectFilter(
+  gqlFilters,
+  selectedFilters,
+  gqlParamName,
+  keyInCurrentFilter,
+  valuesWithQuotes = false
+) {
+  const values = valuesWithQuotes
+    ? getValuesIds(selectedFilters, keyInCurrentFilter)
+    : getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
   if (values) {
     gqlFilters.push(`${gqlParamName}: {in:[${values}]}`);
   }

@@ -45,6 +45,7 @@
             <ActLinesSimStatuses />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.commercialStatus')" :key="'el9'" draggable>
+            <ActLinesCommercialStatusFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.billingStatus')" :key="'el10'" draggable>
             <ActLinesBillingStatusFilter />
@@ -206,6 +207,7 @@ import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
+import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 
 export default {
@@ -226,6 +228,7 @@ export default {
     DateFilter,
     ActLinesCountries,
     ActLinesCustomFields,
+    ActLinesCommercialStatusFilter,
   },
   data() {
     return {
