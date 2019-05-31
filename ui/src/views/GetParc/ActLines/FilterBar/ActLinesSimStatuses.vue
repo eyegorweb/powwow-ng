@@ -41,6 +41,10 @@ export default {
         id: 'ACTIVATED',
         label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
       },
+      {
+        id: 'SUSPENDED',
+        label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
+      },
     ];
 
     if (this.userIsBO) {

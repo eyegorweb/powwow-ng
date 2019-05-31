@@ -5,6 +5,7 @@ export function initState() {
     currentFilters: [], // Filtres choisis
     appliedFilters: [], // Filtres appliqués
     defaultAppliedFilters: [], // Filtres par défaut, utile quand on limite le contexte de l'appli à certains partenaires ( voir components/Navbar/Backoffice)
+    isLoading: false,
   };
 }
 
@@ -13,6 +14,7 @@ export function initGetters() {
     currentFilters: state => state.currentFilters,
     appliedFilters: state => state.appliedFilters,
     defaultAppliedFilters: state => state.defaultAppliedFilters,
+    isLoading: state => state.isLoading,
     canShowSelectedFilter: state =>
       !!state.currentFilters.find(
         f =>
@@ -178,6 +180,13 @@ export function initMutations() {
       }
 
       state.appliedFilters = [...currentFilters, ...additionalFilters];
+    },
+
+    startLoading(state) {
+      state.isLoading = true;
+    },
+    stopLoading(state) {
+      state.isLoading = false;
     },
   };
 }

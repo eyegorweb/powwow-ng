@@ -20,6 +20,20 @@ export async function fetchCommercialStatuses() {
   return response.data.commercialStatus;
 }
 
+export async function fetchIndicators(metadata) {
+  const queryParts = metadata.map(
+    i => `${i.name}: lines(filter: 	{ ${formatFilters(i.filters)} }) { total }`
+  );
+
+  const queryStr = `
+  query {
+    ${queryParts.join(',')}
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data;
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy
   //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
@@ -142,8 +156,18 @@ function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
+  addTerminationValidated(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addTerminationValidated(gqlFilters, selectedFilters) {
+  const terminationFilter = selectedFilters.find(
+    f => f.id === 'filters.lines.terminationValidated'
+  );
+  if (terminationFilter && terminationFilter.value) {
+    gqlFilters.push(`terminationValidated: true`);
+  }
 }
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {

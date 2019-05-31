@@ -57,6 +57,24 @@ export async function searchMassActionsById(massActionId) {
   }
 }
 
+export async function fetchTotalMassActions(filters) {
+  const queryStr = `
+  query {
+    massActions(
+      filter: {
+        ${formatFilters(filters)}
+      }
+      , pagination: {page: 0, limit: 20}
+      , sorting: {field: id,sorting:DESC}
+    ) {
+      total
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.massActions;
+}
+
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchMassActions(orderBy, pagination, filters = []) {
   const paginationInfo = pagination

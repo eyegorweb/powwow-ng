@@ -18,7 +18,13 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        <GetLinesIndicators />
+        <LoaderContainer :is-loading="isIndicatorsLoading">
+          <Indicators
+            :meta="indicators"
+            :fetch-fn="getFetchIndicatorsFn()"
+            :set-current-filters-fn="setCurrentFiltersForIndicator"
+          />
+        </LoaderContainer>
         <br />
         <FilterBar />
       </div>
@@ -33,20 +39,26 @@
 import Tooltip from '@/components/ui/Tooltip';
 import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
-import GetLinesIndicators from './GetLinesIndicators';
 import ActionCarousel from '@/components/ActionCarousel';
+import Indicators from '@/components/Indicators';
+import LoaderContainer from '@/components/LoaderContainer';
+
 // import ActCreationBox from './ActCreationBox';
 // import PartnerSelectionForAction from './PartnerSelectionForAction';
 
-import { mapState, mapActions } from 'vuex';
+import { fetchIndicators } from '@/api/linesActions';
+import { fetchTotalMassActions } from '@/api/massActions';
+
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     Tooltip,
     FilterBar,
     LinesTable,
-    GetLinesIndicators,
     ActionCarousel,
+    Indicators,
+    LoaderContainer,
     // ActCreationBox,
     // PartnerSelectionForAction,
   },
@@ -97,6 +109,144 @@ export default {
     ];
     return {
       carouselItems,
+      isIndicatorsLoading: false,
+      indicators: [
+        {
+          name: 'notProcessedResiliations',
+          labelKey: 'indicators.getparc.lines.cancellation',
+          color: 'text-danger',
+          clickable: false,
+          filters: [
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'demandeDeResiliation',
+                  label: 'demandeDeResiliation',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.terminationValidated',
+              value: true,
+            },
+          ],
+        },
+        // taper sur l'api massActions
+        {
+          name: 'failed',
+          labelKey: 'indicators.getparc.lines.failed',
+          color: 'text-danger',
+          clickable: false,
+          filters: [
+            {
+              id: 'filters.actStatus',
+              values: [
+                {
+                  id: 'IN_ERROR',
+                  label: 'En erreur',
+                },
+              ],
+            },
+          ],
+          fetch: async indicator => {
+            return await fetchTotalMassActions(indicator.filters);
+          },
+        },
+        {
+          name: 'simCardsInStock',
+          labelKey: 'indicators.getparc.lines.availableSIMCards',
+          color: 'text-success',
+          clickable: true,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'NOT_PREACTIVATED',
+                  label: 'Non préactivée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'allocatedSIMCards',
+          labelKey: 'indicators.getparc.lines.allocatedSIMCards',
+          color: 'text-success',
+          clickable: true,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'PREACTIVATED',
+                  label: 'Préactivée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'activatedSIMCards',
+          labelKey: 'indicators.getparc.lines.activatedSIMCards',
+          color: 'text-success',
+          clickable: true,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activé',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'suspended',
+          labelKey: 'indicators.getparc.lines.suspended',
+          color: 'text-warning',
+          clickable: true,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'SUSPENDED',
+                  label: 'Suspendue',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'traffic',
+          labelKey: 'indicators.getparc.lines.traffic',
+          color: 'text-warning',
+          clickable: true,
+          filters: [
+            {
+              id: 'filters.lines.traffic',
+              values: [
+                {
+                  id: 'lineTrafficState',
+                  label: 'Oui',
+                },
+              ],
+            },
+          ],
+        },
+        /*
+        // Reporté
+        {
+          name: 'validation',
+          labelKey: 'indicators.getparc.lines.validation',
+          filters: [],
+        },
+        //*/
+      ],
     };
   },
   computed: {
@@ -104,6 +254,16 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext']),
+    ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters']),
+
+    getFetchIndicatorsFn() {
+      return async indicators => {
+        this.isIndicatorsLoading = true;
+        const response = await fetchIndicators(indicators);
+        this.isIndicatorsLoading = false;
+        return response;
+      };
+    },
 
     onCarouselItemClick(item) {
       item.selected = !item.selected;
@@ -115,6 +275,11 @@ export default {
         }
         return i;
       });
+    },
+
+    setCurrentFiltersForIndicator(indicator) {
+      this.setCurrentFilters([...indicator.filters]);
+      this.applyFilters();
     },
   },
   mounted() {
