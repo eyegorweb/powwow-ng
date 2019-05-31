@@ -99,6 +99,9 @@
 </template>
 
 <script>
+/**
+ * DEPRECATED
+ */
 import { fetchIndicators } from '@/api/indicators';
 import { countTotalByIndicators } from '@/api/orders';
 import { mapMutations, mapGetters } from 'vuex';

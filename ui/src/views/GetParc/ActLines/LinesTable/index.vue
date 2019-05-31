@@ -1,11 +1,11 @@
 <template>
-  <LoaderContainer :is-loading="false">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h4 class="text-gray font-weight-light" style="font-size: 1.3rem">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
             {{ $t('getparc.actLines.total', { total: total }) }}
-          </h4>
+          </h2>
         </div>
       </div>
       <DataTable
@@ -73,17 +73,6 @@ export default {
         },
         //*/
         {
-          id: 1,
-          label: this.$t('col.partner'),
-          orderable: false,
-          visible: true,
-          name: 'accessPoint',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'simCardInstance.party.name',
-          },
-        },
-        {
           id: 2,
           label: this.$t('getparc.actDetail.col.iccid'),
           orderable: false,
@@ -92,6 +81,17 @@ export default {
           format: {
             type: 'ObjectAttribute',
             path: 'simCardInstance.iccid',
+          },
+        },
+        {
+          id: 1,
+          label: this.$t('col.partner'),
+          orderable: false,
+          visible: true,
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'simCardInstance.party.name',
           },
         },
         {
@@ -182,7 +182,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage']),
+    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
 
     total() {
       return this.linesActionsResponse ? this.linesActionsResponse.total : 0;

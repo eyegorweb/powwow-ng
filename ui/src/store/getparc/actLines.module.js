@@ -126,9 +126,9 @@ export const actions = {
     }
   },
   async fetchLinesActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
-    // commit('startLoading');
+    commit('startLoading');
     commit('setLinesActionsResponse', await searchLines(orderBy, pageInfo, appliedFilters));
-    // commit('stopLoading');
+    commit('stopLoading');
   },
 };
 

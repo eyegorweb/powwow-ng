@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative" :style="{ minHeight: '50vh' }">
+  <div class="position-relative" :class="{ isLoading: isLoading }">
     <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
     <img class="loader" v-if="isLoading" src="@/assets/spinner.svg" />
     <div :class="{ 'is-loading': isLoading }">
@@ -17,6 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.isLoading {
+  min-height: 20vh;
+}
 .loader {
   z-index: 1;
   position: absolute;
