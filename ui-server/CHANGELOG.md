@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.2+20190531145900
+2019-05-31
+
+### Features
+
+- **gestion de lignes:** intégrer les indicateurs (97cf95a49a0409f691fead04fa4399e72f4ce8c3)
+
 ## 0.3.0-master.1+20190531071848
 2019-05-31
 
