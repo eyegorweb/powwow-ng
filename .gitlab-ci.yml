@@ -122,6 +122,7 @@ deploy_integration:
     url: http://powwowng1.zone.local:8080
   only:
     - master
+  dependencies: []
 
 deploy_testing:
   stage: deploy
@@ -143,6 +144,7 @@ deploy_testing:
     url: http://172.20.157.115:8080
   only:
     - master
+  dependencies: []
 
 deploy_uat:
   stage: deploy
@@ -166,6 +168,7 @@ deploy_uat:
     - uat
   except:
     - tags
+  dependencies: []
 
 undeploy_uat:
   stage: undeploy
@@ -189,3 +192,4 @@ undeploy_uat:
     - uat
   except:
     - tags
+  dependencies: []
