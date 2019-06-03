@@ -117,11 +117,17 @@ async function refreshCustomFilters({ commit }, partners) {
   commit('setCustomFieldsFilter', []);
 }
 
+async function resetOrderFilters(store) {
+  store.commit('clearAllFilters');
+  initFilterForContext(store);
+}
+
 export const actions = {
   setPartnersFilter,
   refreshCustomFilters,
   initFilterForPartnerUser,
   initFilterForContext,
+  resetOrderFilters,
 
   clearFilter(store, filterId) {
     /**
