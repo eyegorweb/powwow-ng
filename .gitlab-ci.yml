@@ -168,7 +168,6 @@ deploy_uat:
     - uat
   except:
     - tags
-  dependencies: []
 
 undeploy_uat:
   stage: undeploy
