@@ -18,13 +18,11 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        <LoaderContainer :is-loading="isIndicatorsLoading">
-          <Indicators
-            :meta="indicators"
-            :fetch-fn="getFetchIndicatorsFn()"
-            :set-current-filters-fn="setCurrentFiltersForIndicator"
-          />
-        </LoaderContainer>
+        <Indicators
+          :meta="indicators"
+          :fetch-fn="getFetchIndicatorsFn()"
+          :set-current-filters-fn="setCurrentFiltersForIndicator"
+        />
         <br />
         <FilterBar />
       </div>
@@ -257,12 +255,7 @@ export default {
     ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters']),
 
     getFetchIndicatorsFn() {
-      return async indicators => {
-        this.isIndicatorsLoading = true;
-        const response = await fetchIndicators(indicators);
-        this.isIndicatorsLoading = false;
-        return response;
-      };
+      return fetchIndicators;
     },
 
     onCarouselItemClick(item) {

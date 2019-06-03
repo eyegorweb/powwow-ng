@@ -8,7 +8,8 @@
           :disabled="!indicator.clickable"
           @click.prevent="setCurrentFiltersFn(indicator)"
         >
-          {{ indicator.total }}
+          <CircleLoader v-if="isIndicatorsLoading" />
+          <span v-else>{{ indicator.total }}</span>
         </button>
       </div>
     </li>
@@ -16,7 +17,12 @@
 </template>
 
 <script>
+import CircleLoader from '@/components/ui/CircleLoader';
+
 export default {
+  components: {
+    CircleLoader,
+  },
   props: {
     meta: Array,
     fetchFn: Function,
@@ -26,33 +32,43 @@ export default {
   data() {
     return {
       indicators: [],
+      isIndicatorsLoading: false,
     };
   },
 
   async mounted() {
-    const indicatorsWithDefaultFetch = this.meta.filter(m => !m.fetch);
-    const response = await this.fetchFn(indicatorsWithDefaultFetch);
-    if (response) {
-      this.indicators = this.meta.map(i => {
-        const indicator = { ...i };
-        if (response[i.name]) {
-          indicator.total = response[i.name].total;
-        } else {
-          indicator.total = 0;
-        }
-        return indicator;
-      });
-    }
-    const indicatorsWithFetch = this.meta.filter(m => m.fetch);
-    for (const i of indicatorsWithFetch) {
-      const res = await i.fetch(i);
-      this.indicators = this.indicators.map(bindedIndicator => {
-        if (bindedIndicator.name === i.name) {
-          bindedIndicator.total = res.total;
-        }
-        return bindedIndicator;
-      });
-    }
+    this.indicators = this.meta;
+    this.refreshIndicators();
+  },
+
+  methods: {
+    async refreshIndicators() {
+      const indicatorsWithDefaultFetch = this.meta.filter(m => !m.fetch);
+      this.isIndicatorsLoading = true;
+      const response = await this.fetchFn(indicatorsWithDefaultFetch);
+      if (response) {
+        this.indicators = this.meta.map(i => {
+          const indicator = { ...i };
+          if (response[i.name]) {
+            indicator.total = response[i.name].total;
+          } else {
+            indicator.total = 0;
+          }
+          return indicator;
+        });
+      }
+      const indicatorsWithFetch = this.meta.filter(m => m.fetch);
+      for (const i of indicatorsWithFetch) {
+        const res = await i.fetch(i);
+        this.indicators = this.indicators.map(bindedIndicator => {
+          if (bindedIndicator.name === i.name) {
+            bindedIndicator.total = res.total;
+          }
+          return bindedIndicator;
+        });
+      }
+      this.isIndicatorsLoading = false;
+    },
   },
 };
 </script>

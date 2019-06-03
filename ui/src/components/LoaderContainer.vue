@@ -3,7 +3,8 @@
     <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
     <img class="loader" v-if="isLoading" src="@/assets/spinner.svg" />
     <div :class="{ 'is-loading': isLoading }">
-      <slot />
+      <slot v-if="!isLoading" />
+      <span v-else>{{ $t('searching') }}</span>
     </div>
   </div>
 </template>

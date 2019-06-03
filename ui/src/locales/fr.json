@@ -29,6 +29,7 @@
   "set": "Appliquer",
   "noResult": "Aucun résulat",
   "back": "Retour",
+  "searching": "Recherche en cours ...",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
