@@ -1,5 +1,5 @@
 <template>
-  <LoaderContainer :is-loading="false">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -352,7 +352,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters', 'actHistoryPage']),
+    ...mapGetters('actHistory', [
+      'massActionsResponse',
+      'appliedFilters',
+      'actHistoryPage',
+      'isLoading',
+    ]),
     rows() {
       return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },
