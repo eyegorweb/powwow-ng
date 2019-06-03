@@ -1,5 +1,5 @@
 <template>
-  <LoaderContainer :is-loading="false">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div v-if="!total" class="alert alert-light" role="alert">
         {{ $t('noResult') }}
@@ -94,6 +94,7 @@ export default {
       };
     },
     async fetchUnitActs(searchFilter = []) {
+      this.isLoading = true;
       const response = await fetchUnitActions(
         this.$route.params.massActionId,
         this.statuses,
@@ -103,6 +104,7 @@ export default {
       );
       this.rows = response.items;
       this.$emit('update:total', response.total);
+      this.isLoading = false;
     },
   },
 
@@ -121,6 +123,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       searchOptions: [
         {
           code: 'c1',
