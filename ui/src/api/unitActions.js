@@ -35,7 +35,7 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
     items {
       id
       msisdn
-      iccid
+      ICCID
       status
       statusDate
       dueDate

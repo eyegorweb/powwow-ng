@@ -173,7 +173,7 @@ export default {
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.details'),
-          name: 'iccid',
+          name: 'ICCID',
           orderable: true,
           visible: true,
           format: {
@@ -191,7 +191,7 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.iccid'),
-          name: 'iccid',
+          name: 'ICCID',
           orderable: true,
           visible: true,
           exportId: 'ICCID',
