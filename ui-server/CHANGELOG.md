@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.4+20190603073023
+2019-06-03
+
+### Fixes
+
+- circle loader (0e8f4c7dbdc28166bc624c722f145d60ea0c2053)
+- rename ICCID (04d7beaab43376481ca90774f94911bf7924ff68)
+
 ## 0.3.0-master.3+20190531151808
 2019-05-31
 
