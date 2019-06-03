@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.6+20190603083921
+2019-06-03
+
+### Fixes
+
+- indicateur de chargement sur l'historique d'actes (1700d629cbe7e7f36c679660f9ff5d40bdf7306d)
+
 ## 0.3.0-master.5+20190603082539
 2019-06-03
 
