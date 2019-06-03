@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.5+20190603082539
+2019-06-03
+
+### Fixes
+
+- loading indicator (ec5b6cc37205605ac75b965822950b073b9ffed2)
+- custom fields après création de commande (f7968c5c337a0433e927026fa22d15f7370cc37d)
+
 ## 0.3.0-master.4+20190603073023
 2019-06-03
 
