@@ -1,5 +1,5 @@
 <template>
-  <div class="order-status d-flex flex-wrap align-items-center" v-if="orderIsLoading">
+  <div class="order-status d-flex flex-wrap align-items-center" v-if="isLoading">
     <div class="circle" />
     <div class="label label--loading" :class="{ error: isError }">
       {{ $t('col.statuses.' + item) }}
@@ -26,7 +26,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('getsim', ['orderIsLoading']),
+    ...mapGetters('getsim', ['isLoading']),
     isError() {
       return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED';
     },
