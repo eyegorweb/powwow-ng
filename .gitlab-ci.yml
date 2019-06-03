@@ -1,18 +1,17 @@
-image: gradle:4.10.2
+image: gradle:5.1.1
 
 stages:
   - version
   - build
   - test
   - release
-  - publish
   - deploy
   - undeploy
 
 variables:
   http_proxy: "http://proxyace1.prod.extelia.fr:8080"
   https_proxy: "http://proxyace1.prod.extelia.fr:8080"
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace1.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace1.prod.extelia.fr -Dhttps.proxyPort=8080"
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048M" -Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace1.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace1.prod.extelia.fr -Dhttps.proxyPort=8080
   ORG_GRADLE_PROJECT_npmBuildEnv: integration # integration ou full-local. Sans valeur, c'est la production qui est cible
   GSG_RELEASE_BRANCHES: uat
   GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
@@ -25,28 +24,29 @@ before_script:
 
 version:
   stage: version
-  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
+  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.4
   script:
     - release next-version --allow-current > .next-version
   after_script:
     - cat .next-version
+    - cp /usr/bin/release .
   artifacts:
     paths:
       - .next-version
+      - release
   except:
     - tags
 
 build:
   stage: build
   script:
-    - ./gradlew --build-cache assemble --info
+    - gradle --build-cache assemble --info
     - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
     - echo "RELEASE_VERSION=`cat .next-version`" >> build_info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
       - .gradle/caches
-      - .gradle/wrapper
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
@@ -54,19 +54,29 @@ build:
     paths:
       - build_info
       - ui/dist
+  except:
+    - tags
 
 pre-release:
   stage: release
-  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/pre_release_info
     - mv build_info ui-server/pre_release_info
     - . ui-server/pre_release_info
-    - release -v
-    - release changelog --f ui-server/CHANGELOG.md
-    - release commit-and-tag ui-server/CHANGELOG.md ui-server/pre_release_info ui-server/version.txt
+    - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
+    - ./release -v
+    - ./release changelog --f ui-server/CHANGELOG.md
+    - ./release commit-and-tag ui-server/CHANGELOG.md ui-server/pre_release_info ui-server/version.txt
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - .gradle/caches
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
+      - ui/node_modules
   only:
     - master
   except:
@@ -74,53 +84,23 @@ pre-release:
 
 release:
   stage: release
-  image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.2
   script:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/release_info
     - mv build_info ui-server/release_info
     - . ui-server/release_info
+    - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
     - release -v
     - release changelog --f ui-server/CHANGELOG.md
     - release commit-and-tag ui-server/CHANGELOG.md ui-server/release_info ui-server/version.txt
-  only:
-    - uat
-  except:
-    - tags
-
-publish_prerelease_docker_image:
-  stage: publish
-  script:
-    - cat ui-server/version.txt
-    - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
       - .gradle/caches
-      - .gradle/wrapper
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
-    policy: pull
-  only:
-    - master
-  except:
-    - tags
-
-publish_release_docker_image:
-  stage: publish
-  script:
-    - ./gradlew --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    paths:
-      - .gradle/caches
-      - .gradle/wrapper
-      - ui/.gradle/nodejs
-      - ui/.gradle/yarn
-      - ui/node_modules
-    policy: pull
   only:
     - uat
   except:
@@ -128,6 +108,7 @@ publish_release_docker_image:
 
 deploy_integration:
   stage: deploy
+  image: m2m-registry.by-docapost.com/powwow-ng/envs/toolbox
   script:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
