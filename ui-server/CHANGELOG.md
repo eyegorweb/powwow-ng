@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.8+20190603134129
+2019-06-03
+
+### Fixes
+
+- semantic versioning (a286e6b92f7f2b343c7261448488ba697bc15eaf)
+
 ## 0.3.0-master.7+20190603092115
 2019-06-03
 
