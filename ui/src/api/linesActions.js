@@ -22,7 +22,7 @@ export async function fetchCommercialStatuses() {
 
 export async function fetchIndicators(metadata) {
   const queryParts = metadata.map(
-    i => `${i.name}: lines(filter: 	{ ${formatFilters(i.filters)} }) { total }`
+    i => `${i.name}: simCardInstances(filter: 	{ ${formatFilters(i.filters)} }) { total }`
   );
 
   const queryStr = `
