@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
-// import CheckBoxCell from './CheckBoxCell';
+import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
@@ -55,11 +55,13 @@ export default {
   async mounted() {
     this.columns = setFormatComponentsToColumns([...this.commonColumns]);
   },
+  props: {
+    creationMode: Object,
+  },
   data() {
     return {
       columns: [],
       commonColumns: [
-        /*
         {
           id: 99,
           label: '',
@@ -70,8 +72,10 @@ export default {
           format: {
             component: CheckBoxCell,
           },
+          visibleWhen: () => {
+            return !!this.creationMode;
+          },
         },
-        //*/
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.iccid'),
@@ -97,14 +101,22 @@ export default {
         {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
-          name: 'msisdn',
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'lines[0].msisdn',
+          },
           orderable: false,
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.imsi'),
-          name: 'imsi',
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'lines[0].imsi',
+          },
           orderable: false,
           visible: true,
         },

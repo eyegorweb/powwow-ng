@@ -1,0 +1,40 @@
+<template>
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <ChangeServicePre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
+        @set:preprequisites="setPrerequisites"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import ChangeServicePre from './prerequisites/ChangeServicePre';
+import { mapActions, mapMutations } from 'vuex';
+
+export default {
+  components: {
+    ChangeServicePre,
+  },
+  props: {
+    act: Object,
+  },
+  methods: {
+    ...mapActions('actLines', ['setPartnersFilter']),
+    ...mapMutations('actLines', ['applyFilters']),
+
+    setPrerequisites(allPrereq) {
+      if (allPrereq.partner) {
+        this.setPartnersFilter([allPrereq.partner]);
+      }
+
+      if (allPrereq) {
+        this.applyFilters();
+      }
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>

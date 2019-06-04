@@ -16,6 +16,9 @@
         <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
       </div>
     </div>
+
+    <ActCreationPrerequisites v-if="creationMode" :act="currentActCreationItem" />
+
     <div class="row">
       <div class="col-md-3">
         <Indicators
@@ -27,7 +30,11 @@
         <FilterBar />
       </div>
       <div class="col-md-9">
-        <LinesTable />
+        <Title num="1" v-if="creationMode" title="getparc.actLines.step1Title" />
+        <LinesTable :creation-mode="creationMode" />
+
+        <Title num="2" v-if="creationMode" :title="currentActCreationItem.stepTitle" />
+        <ActCreationActForm v-if="creationMode" />
       </div>
     </div>
   </div>
@@ -37,17 +44,15 @@
 import Tooltip from '@/components/ui/Tooltip';
 import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
+import Title from './Title';
+import ActCreationPrerequisites from './ActCreation/Prerequisites';
+import ActCreationActForm from './ActCreation/ActForm';
 import ActionCarousel from '@/components/ActionCarousel';
 import Indicators from '@/components/Indicators';
-import LoaderContainer from '@/components/LoaderContainer';
-
-// import ActCreationBox from './ActCreationBox';
-// import PartnerSelectionForAction from './PartnerSelectionForAction';
-
 import { fetchIndicators } from '@/api/linesActions';
-import { fetchTotalMassActions } from '@/api/massActions';
-
 import { mapState, mapActions, mapMutations } from 'vuex';
+
+import indicatorItems from './indicatorItems';
 
 export default {
   components: {
@@ -56,199 +61,89 @@ export default {
     LinesTable,
     ActionCarousel,
     Indicators,
-    LoaderContainer,
-    // ActCreationBox,
-    // PartnerSelectionForAction,
+    ActCreationPrerequisites,
+    ActCreationActForm,
+    Title,
   },
   data() {
-    const carouselItems = [
-      {
-        icon: 'ic-Heart-Rythm-Icon',
-        title: 'En cours consommation',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Stats-Icon',
-        title: 'Export consommation',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Amplifier-Icon',
-        title: 'Gérer des alarmes',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Clock-Icon',
-        title: 'Export dernier usage',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Wallet-Icon',
-        title: 'Changement de C.F.',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Cart-Icon',
-        title: "Changement d'offre",
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-      {
-        icon: 'ic-Amplifier-Icon',
-        title: 'Positionner une alarme',
-        subtitle: '50 cartes éligibles',
-        selected: false,
-      },
-    ];
     return {
-      carouselItems,
       isIndicatorsLoading: false,
-      indicators: [
+      /**
+       *  {
+       *    prerequisites: {},
+       *  }
+       */
+      currentActCreationItem: null,
+      indicators: indicatorItems,
+      carouselItems: [
         {
-          name: 'notProcessedResiliations',
-          labelKey: 'indicators.getparc.lines.cancellation',
-          color: 'text-danger',
-          clickable: false,
-          filters: [
-            {
-              id: 'filters.lines.commercialStatus',
-              values: [
-                {
-                  id: 'demandeDeResiliation',
-                  label: 'demandeDeResiliation',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.terminationValidated',
-              value: true,
-            },
-          ],
-        },
-        // taper sur l'api massActions
-        {
-          name: 'failed',
-          labelKey: 'indicators.getparc.lines.failed',
-          color: 'text-danger',
-          clickable: false,
-          filters: [
-            {
-              id: 'filters.actStatus',
-              values: [
-                {
-                  id: 'IN_ERROR',
-                  label: 'En erreur',
-                },
-              ],
-            },
-          ],
-          fetch: async indicator => {
-            return await fetchTotalMassActions(indicator.filters);
-          },
-        },
-        {
-          name: 'simCardsInStock',
-          labelKey: 'indicators.getparc.lines.availableSIMCards',
-          color: 'text-success',
-          clickable: true,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'NOT_PREACTIVATED',
-                  label: 'Non préactivée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'allocatedSIMCards',
-          labelKey: 'indicators.getparc.lines.allocatedSIMCards',
-          color: 'text-success',
-          clickable: true,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'PREACTIVATED',
-                  label: 'Préactivée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'activatedSIMCards',
-          labelKey: 'indicators.getparc.lines.activatedSIMCards',
-          color: 'text-success',
-          clickable: true,
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          stepTitle: 'getparc.actCreation.carouselItem.STEP_TITLE_CHANGE_SERVICES',
+          subtitle: '',
+          selected: false,
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
               values: [
                 {
                   id: 'ACTIVATED',
-                  label: 'Activé',
+                  label: 'Activée',
                 },
               ],
             },
           ],
         },
         {
-          name: 'suspended',
-          labelKey: 'indicators.getparc.lines.suspended',
-          color: 'text-warning',
-          clickable: true,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'SUSPENDED',
-                  label: 'Suspendue',
-                },
-              ],
-            },
-          ],
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CONSUMING',
+          subtitle: '',
+          selected: false,
         },
         {
-          name: 'traffic',
-          labelKey: 'indicators.getparc.lines.traffic',
-          color: 'text-warning',
-          clickable: true,
-          filters: [
-            {
-              id: 'filters.lines.traffic',
-              values: [
-                {
-                  id: 'lineTrafficState',
-                  label: 'Oui',
-                },
-              ],
-            },
-          ],
+          icon: 'ic-Stats-Icon',
+          title: 'getparc.actCreation.carouselItem.EXPORT_CONS',
+          subtitle: '',
+          selected: false,
         },
-        /*
-        // Reporté
         {
-          name: 'validation',
-          labelKey: 'indicators.getparc.lines.validation',
-          filters: [],
+          icon: 'ic-Amplifier-Icon',
+          title: 'getparc.actCreation.carouselItem.MANAGE_ALARMS',
+          subtitle: '',
+          selected: false,
         },
-        //*/
+        {
+          icon: 'ic-Clock-Icon',
+          title: 'getparc.actCreation.carouselItem.EXPORT_LAST_USAGE',
+          subtitle: '',
+          selected: false,
+        },
+        {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
+          subtitle: '',
+          selected: false,
+        },
+        {
+          icon: 'ic-Cart-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
+          subtitle: '',
+          selected: false,
+        },
+        {
+          icon: 'ic-Amplifier-Icon',
+          title: 'getparc.actCreation.carouselItem.POSITION_ALARM',
+          subtitle: '',
+          selected: false,
+        },
       ],
     };
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    creationMode() {
+      return this.currentActCreationItem;
+    },
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext']),
@@ -261,6 +156,16 @@ export default {
     onCarouselItemClick(item) {
       item.selected = !item.selected;
 
+      if (item.selected) {
+        this.currentActCreationItem = item;
+        if (item.filters) {
+          this.setCurrentFiltersForActCreation(item);
+        }
+      } else {
+        this.currentActCreationItem = null;
+        // cleanup checkboxes
+      }
+
       this.carouselItems = this.carouselItems.map(i => {
         if (item.title !== i.title) {
           i.selected = false;
@@ -272,6 +177,12 @@ export default {
 
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
+      this.applyFilters();
+    },
+
+    setCurrentFiltersForActCreation(act) {
+      // when no filter is there
+      this.setCurrentFilters([...act.filters]);
       this.applyFilters();
     },
   },

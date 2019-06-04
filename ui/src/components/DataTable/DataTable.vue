@@ -112,6 +112,7 @@ export default {
           orderable: Boolean, // Possibilité de faire un order by avec cette colonne
           sortingName: String, // Nom de l'attribut utilisé en paramètre pour le sorting de la colonne
           visible: Boolean, // Affichage par défaut de la colonne dans la table
+          visibleWhen: Function, // fonction qui controle la visibilité en plus du boolean (visible)
           fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
 
           // Optionel, objet pour customiser le format de la céllule
@@ -160,6 +161,14 @@ export default {
   computed: {
     sortableColumns: {
       get() {
+        if (this.visibleColumns) {
+          return this.visibleColumns.filter(c => {
+            if (c.visibleWhen) {
+              return c.visibleWhen();
+            }
+            return true;
+          });
+        }
         return this.visibleColumns;
       },
       set(newColumns) {
@@ -169,7 +178,12 @@ export default {
 
     visibleColumns: {
       get() {
-        return this.columns.filter(c => c.visible);
+        return this.columns.filter(c => {
+          if (c.visibleWhen) {
+            return c.visible && c.visibleWhen();
+          }
+          return c.visible;
+        });
       },
     },
     currentPage: {

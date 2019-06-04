@@ -35,16 +35,13 @@ export async function fetchIndicators(metadata) {
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
-  // const orderingInfo = orderBy
-  //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
-  //   : '';
   const orderingInfo = orderBy ? `, sorting: {}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `
   query {
-    lines(
+    simCardInstances(
       filter: {
         ${formatFilters(filters)}
       }
@@ -54,8 +51,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
       total
       items {
         id
-        msisdn
-        imsi
         accessPoint {
           commercialStatus
           lastPLMN
@@ -63,6 +58,10 @@ export async function searchLines(orderBy, pagination, filters = []) {
           activationDate
           commercialStatusDate
           networkStatus
+          lines {
+            msisdn
+            imsi
+          }
           customFields {
             custom1
             custom2
@@ -96,7 +95,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
   }`;
 
   const response = await query(queryStr);
-  return response.data.lines;
+  return response.data.simCardInstances;
 }
 
 function formatFilters(filters) {
@@ -133,6 +132,7 @@ function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
+  valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
   valuesFromMutiselectFilter(
     allFilters,
     filters,
