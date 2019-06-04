@@ -87,7 +87,24 @@ export default {
         return await exportMassAction(
           this.massActionId,
           this.statuses,
-          columnsParam,
+          [
+            'MASS_ACTION_ID',
+            'MASS_ACTION_INFO',
+            'UNIT_ACTION_ID',
+            'UNIT_ACTION_TYPE',
+            'UNIT_ACTION_INFO',
+            'ICCID',
+            'UNIT_ACTION_STATUS',
+            'UNIT_ACTION_START_DATE',
+            'UNIT_ACTION_END_DATE',
+            'UNIT_ACTION_STATUS_DATE',
+            'UNIT_ACTION_STATUS_ERROR',
+            'MSISDN',
+            'DEVICE_MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'IMEI',
+            'LOGIN',
+          ],
           this.getPageInfo,
           exportFormat
         );
@@ -192,7 +209,7 @@ export default {
           exportId: 'MSISDN',
         },
         {
-          id: 3,
+          id: 4,
           label: this.$t('getparc.actDetail.col.iccid'),
           name: 'ICCID',
           orderable: true,
