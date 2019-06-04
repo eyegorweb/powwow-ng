@@ -75,6 +75,7 @@ jib {
 
 	container {
 		useCurrentTimestamp = true
+        jvmFlags = ['-Xms512m','-Xmx512m']
 	}
 
     from {
