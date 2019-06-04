@@ -18,6 +18,8 @@ export const state = {
   linePage: 1,
   linesActionsResponse: [],
   filterCustomFieldsList: [],
+
+  selectedLinesForActCreation: [],
 };
 
 export const getters = {
@@ -110,6 +112,26 @@ export const actions = {
   setPartnersFilter,
   initFilterForContext,
   refreshCustomFilters,
+
+  addLineForActCreation(store, line) {
+    // check if line is already there
+    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+
+    if (!isLinePresent) {
+      store.commit('setSelectedLinesForActCreation', [
+        ...store.state.selectedLinesForActCreation,
+        line,
+      ]);
+    }
+  },
+  removeLineFromActCreation(store, line) {
+    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+    if (isLinePresent) {
+      store.commit('setSelectedLinesForActCreation', [
+        ...store.state.selectedLinesForActCreation.filter(l => l.id !== line.id),
+      ]);
+    }
+  },
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -298,5 +320,10 @@ export const mutations = {
         label: countryDict[country.id],
       })),
     });
+  },
+
+  setSelectedLinesForActCreation(state, selectedLines) {
+    console.log(selectedLines);
+    state.selectedLinesForActCreation = selectedLines;
   },
 };

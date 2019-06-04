@@ -239,6 +239,20 @@
         "details": "Détails"
       }
     },
+    "actCreation": {
+      "carouselItem": {
+        "CONSUMING": "En cours consommation",
+        "EXPORT_CONS": "Export consommation",
+        "MANAGE_ALARMS": "Gérer des alarmes",
+        "EXPORT_LAST_USAGE": "Export dernier usage",
+        "CHANGE_CF": "Changement de C.F.",
+        "CHANGE_OFFER": "Changement d'offre",
+        "POSITION_ALARM": "Positionner une alarme",
+        "CHANGE_SERVICES": "Modifier services",
+
+        "STEP_TITLE_CHANGE_SERVICES": "Configurer la modification des services"
+      }
+    },
     "actLines": {
       "total": "{total} ligne(s) trouvé(s)",
       "step1Partner": "séléctionner un partenaire",

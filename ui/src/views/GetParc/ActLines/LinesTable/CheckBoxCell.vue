@@ -4,13 +4,14 @@
 
 <script>
 import UiCheckbox from '@/components/ui/Checkbox';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
     UiCheckbox,
   },
   props: {
-    rows: Object,
+    row: Object,
   },
   data() {
     return {
@@ -18,9 +19,16 @@ export default {
     };
   },
   watch: {
-    value(newValue) {
-      this.$emit('update:value', newValue);
+    value(isChecked) {
+      if (isChecked) {
+        this.addLineForActCreation(this.row);
+      } else {
+        this.removeLineFromActCreation(this.row);
+      }
     },
+  },
+  methods: {
+    ...mapActions('actLines', ['addLineForActCreation', 'removeLineFromActCreation']),
   },
 };
 </script>

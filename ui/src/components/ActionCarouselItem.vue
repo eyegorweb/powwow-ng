@@ -6,7 +6,7 @@
           <div class="icon-block">
             <span :class="icon" />
           </div>
-          <div class="title">{{ title }}</div>
+          <div class="title">{{ $t(title) }}</div>
         </div>
         <div class="subrow">
           <div class="subtitle">{{ subtitle }}</div>
