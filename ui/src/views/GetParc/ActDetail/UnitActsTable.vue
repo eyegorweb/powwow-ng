@@ -87,7 +87,24 @@ export default {
         return await exportMassAction(
           this.massActionId,
           this.statuses,
-          columnsParam,
+          [
+            'MASS_ACTION_ID',
+            'MASS_ACTION_INFO',
+            'UNIT_ACTION_ID',
+            'UNIT_ACTION_TYPE',
+            'UNIT_ACTION_INFO',
+            'ICCID',
+            'UNIT_ACTION_STATUS',
+            'UNIT_ACTION_START_DATE',
+            'UNIT_ACTION_END_DATE',
+            'UNIT_ACTION_STATUS_DATE',
+            'UNIT_ACTION_STATUS_ERROR',
+            'MSISDN',
+            'DEVICE_MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'IMEI',
+            'LOGIN',
+          ],
           this.getPageInfo,
           exportFormat
         );
@@ -201,7 +218,7 @@ export default {
         },
 
         {
-          id: 2,
+          id: 5,
           label: this.$t('getparc.actDetail.col.actState'),
           name: 'status',
           orderable: true,
@@ -225,7 +242,7 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
-          id: 5,
+          id: 8,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'imsi',
           orderable: true,
@@ -233,7 +250,7 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
-          id: 8,
+          id: 9,
           label: this.$t('getparc.actDetail.col.constructor'),
           name: 'manufacturer',
           orderable: true,
@@ -241,7 +258,7 @@ export default {
           exportId: 'DEVICE_MANUFACTURER',
         },
         {
-          id: 9,
+          id: 10,
           label: this.$t('getparc.actDetail.col.commercialRef'),
           name: 'deviceReference',
           orderable: true,
@@ -249,7 +266,7 @@ export default {
           exportId: 'DEVICE_REFERENCE',
         },
         {
-          id: 10,
+          id: 11,
           label: this.$t('getparc.actDetail.col.imei'),
           name: 'imei',
           orderable: true,
