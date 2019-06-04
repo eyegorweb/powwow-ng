@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.13+20190604160502
+2019-06-04
+
+### Features
+
+- structure creation acte (a1bf1b7a93ea30b78e303d48dfe4210efa874ae3)
+
 ## 0.3.0-master.12+20190604143957
 2019-06-04
 
