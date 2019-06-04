@@ -192,7 +192,7 @@ export default {
           exportId: 'MSISDN',
         },
         {
-          id: 4,
+          id: 3,
           label: this.$t('getparc.actDetail.col.iccid'),
           name: 'ICCID',
           orderable: true,
@@ -201,7 +201,7 @@ export default {
         },
 
         {
-          id: 2,
+          id: 5,
           label: this.$t('getparc.actDetail.col.actState'),
           name: 'status',
           orderable: true,
@@ -225,7 +225,7 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
-          id: 5,
+          id: 8,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'imsi',
           orderable: true,
@@ -233,7 +233,7 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
-          id: 8,
+          id: 9,
           label: this.$t('getparc.actDetail.col.constructor'),
           name: 'manufacturer',
           orderable: true,
@@ -241,7 +241,7 @@ export default {
           exportId: 'DEVICE_MANUFACTURER',
         },
         {
-          id: 9,
+          id: 10,
           label: this.$t('getparc.actDetail.col.commercialRef'),
           name: 'deviceReference',
           orderable: true,
@@ -249,7 +249,7 @@ export default {
           exportId: 'DEVICE_REFERENCE',
         },
         {
-          id: 10,
+          id: 11,
           label: this.$t('getparc.actDetail.col.imei'),
           name: 'imei',
           orderable: true,
