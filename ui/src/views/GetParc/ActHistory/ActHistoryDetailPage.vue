@@ -116,6 +116,7 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
 import ExportButton from '@/components/ExportButton';
 import { exportMassAction } from '@/api/massActions';
+import DetailsCell from '@/views/GetParc/ActDetail/DetailsCell';
 
 export default {
   props: {
@@ -129,7 +130,99 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-      columns: [{ exportId: 'LINE_MSISDN' }],
+      columns: [
+        {
+          id: 1,
+          label: this.$t('getparc.actDetail.col.id'),
+          name: 'id',
+          orderable: true,
+          visible: true,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 2,
+          label: this.$t('getparc.actDetail.col.details'),
+          name: 'ICCID',
+          orderable: true,
+          visible: true,
+          format: {
+            component: DetailsCell,
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getparc.actDetail.col.msisdn'),
+          name: 'msisdn',
+          orderable: true,
+          visible: true,
+          exportId: 'MSISDN',
+        },
+        {
+          id: 4,
+          label: this.$t('getparc.actDetail.col.iccid'),
+          name: 'ICCID',
+          orderable: true,
+          visible: true,
+          exportId: 'ICCID',
+        },
+
+        {
+          id: 5,
+          label: this.$t('getparc.actDetail.col.actState'),
+          name: 'status',
+          orderable: true,
+          visible: true,
+          exportId: 'UNIT_ACTION_STATUS',
+        },
+        {
+          id: 6,
+          label: this.$t('getparc.actDetail.col.failDate'),
+          name: 'statusDate',
+          orderable: true,
+          visible: true,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 7,
+          label: this.$t('getparc.actDetail.col.failReason'),
+          name: 'error_reason',
+          orderable: true,
+          visible: false,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 8,
+          label: this.$t('getparc.actDetail.col.imsi'),
+          name: 'imsi',
+          orderable: true,
+          visible: false,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 9,
+          label: this.$t('getparc.actDetail.col.constructor'),
+          name: 'manufacturer',
+          orderable: true,
+          visible: false,
+          exportId: 'DEVICE_MANUFACTURER',
+        },
+        {
+          id: 10,
+          label: this.$t('getparc.actDetail.col.commercialRef'),
+          name: 'deviceReference',
+          orderable: true,
+          visible: false,
+          exportId: 'DEVICE_REFERENCE',
+        },
+        {
+          id: 11,
+          label: this.$t('getparc.actDetail.col.imei'),
+          name: 'imei',
+          orderable: true,
+          visible: false,
+          exportId: 'IMEI',
+        },
+      ],
       confirmationStepper: {
         data: [
           {
@@ -180,7 +273,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
-          this.content.id,
+          this.content.massActionResponse.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           [
             'MASS_ACTION_ID',
@@ -292,7 +385,7 @@ export default {
       return currentDetail;
     },
     total() {
-      return this.content ? this.content.targetActionNumber : 0;
+      return this.content ? this.content.massActionResponse.targetActionNumber : 0;
     },
   },
 
