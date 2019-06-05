@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.15+20190605091611
+2019-06-05
+
+### Fixes
+
+- translate statuses (3cf4ea60a4997b4cb2f273a8c1794534618865fd)
+
 ## 0.3.0-master.14+20190604162457
 2019-06-04
 
