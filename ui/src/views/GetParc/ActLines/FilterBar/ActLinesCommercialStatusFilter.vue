@@ -27,7 +27,7 @@ export default {
     this.items = data.map(l => {
       return {
         id: l,
-        label: l,
+        label: this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`),
       };
     });
   },
