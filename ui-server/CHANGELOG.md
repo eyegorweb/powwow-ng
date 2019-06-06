@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.16+20190606092031
+2019-06-06
+
+### Fixes
+
+- add code info to country (5d45a176e0aa1c7db4a7ed2bf5fb9bafcb4f8551)
+
 ## 0.3.0-master.15+20190605091611
 2019-06-05
 
