@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.17+20190606141843
+2019-06-06
+
+### Features
+
+- **création acte de gestion:** -486 Composant création acte de gestion : filtre par défaut (27de5d858d283425962981562fa0e2938a02c9b7)
+
 ## 0.3.0-master.16+20190606092031
 2019-06-06
 
