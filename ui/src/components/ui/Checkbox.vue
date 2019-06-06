@@ -92,6 +92,14 @@ export default {
     cursor: pointer;
     height: 0;
     width: 0;
+
+    &:disabled + .checkmark {
+      background: $gray-400;
+      border-color: $gray-680;
+      &:after {
+        border-color: $gray-680;
+      }
+    }
   }
 
   input:checked ~ .checkmark:after {

@@ -37,6 +37,10 @@ export const findFilterValuesById = id => state => {
   return found ? found.values : [];
 };
 
+export const findFilterById = id => state => {
+  return state.currentFilters.find(c => c.id === id);
+};
+
 export const findFilterValueById = id => state => {
   const found = state.currentFilters.find(c => c.id === id);
   if (found) return found.value;
