@@ -2,13 +2,14 @@
   <SimpleMultiSelect
     :options="items"
     :values="selectedSimStatusesValues || []"
+    :disabled-items="disabledItems"
     @updateValues="setSimStatusesFilter"
   />
 </template>
 
 <script>
 import SimpleMultiSelect from '@/components/Filters/SimpleMultiSelect';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'ActLinesSimStatuses',
@@ -18,6 +19,19 @@ export default {
   computed: {
     ...mapGetters(['userIsBO']),
     ...mapGetters('actLines', ['selectedSimStatusesValues']),
+    ...mapState('actLines', ['actToCreate']),
+
+    disabledItems() {
+      if (this.actToCreate) {
+        const concernedFilter = this.actToCreate.filters.find(
+          f => f.id === 'filters.lines.SIMCardStatus'
+        );
+        if (concernedFilter) {
+          return concernedFilter.values;
+        }
+      }
+      return [];
+    },
   },
   methods: {
     ...mapMutations('actLines', ['setSimStatusesFilter']),

@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext']),
-    ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters']),
+    ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters', 'setActToCreate']),
 
     getFetchIndicatorsFn() {
       return fetchIndicators;
@@ -160,10 +160,13 @@ export default {
         this.currentActCreationItem = item;
         if (item.filters) {
           this.setCurrentFiltersForActCreation(item);
+          this.setActToCreate(item);
         }
       } else {
         this.currentActCreationItem = null;
         // cleanup checkboxes
+
+        this.setActToCreate(null);
       }
 
       this.carouselItems = this.carouselItems.map(i => {

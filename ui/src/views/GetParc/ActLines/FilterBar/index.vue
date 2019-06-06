@@ -5,6 +5,7 @@
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
+        :fixed-filters="fixedFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
       />
@@ -193,7 +194,7 @@
 <script>
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
 import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
@@ -236,6 +237,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('actLines', ['actToCreate']),
     ...mapGetters(['userIsPartner']),
     ...mapGetters('actLines', [
       'currentFilters',
@@ -251,6 +253,12 @@ export default {
       'selectedMSISDNValue',
       'selectedIMEIValue',
     ]),
+    fixedFilters() {
+      if (this.actToCreate) {
+        return this.actToCreate.filters;
+      }
+      return [];
+    },
     ligneTrafiquanteValue: {
       get() {
         return this.selectedLigneTrafiquanteValue;

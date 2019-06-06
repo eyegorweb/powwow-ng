@@ -4,6 +4,7 @@ import { searchLines } from '@/api/linesActions';
 
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
+const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
 
@@ -20,6 +21,7 @@ export const state = {
   filterCustomFieldsList: [],
 
   selectedLinesForActCreation: [],
+  actToCreate: null,
 };
 
 export const getters = {
@@ -27,7 +29,8 @@ export const getters = {
   linePage: state => state.linePage,
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
-  selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'),
+  selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
+  selectedSimStatuses: findFilterById('filters.lines.SIMCardStatus'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   selectedNetworkStatusesValues: findFilterValuesById('filters.lines.networkStatus'),
   selectedBilligStatusesValues: findFilterValuesById('filters.lines.billingStatus'),
@@ -325,5 +328,9 @@ export const mutations = {
   setSelectedLinesForActCreation(state, selectedLines) {
     console.log(selectedLines);
     state.selectedLinesForActCreation = selectedLines;
+  },
+
+  setActToCreate(state, act) {
+    state.actToCreate = act;
   },
 };
