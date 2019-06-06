@@ -1,4 +1,5 @@
 import { query } from './utils';
+import get from 'lodash.get';
 
 export async function fetchpartners(q, { page, limit, partnerTypesIn }) {
   let partnerTypesGqlFilter = '';
@@ -115,7 +116,7 @@ export async function addPartyShippingAddress(formData, partnerId) {
           address3: "${formData.extraInfos2}",
           zipCode: "${formData.zipCode}",
           city: "${formData.city}",
-          country: "${formData.country}",
+          country: "${get(formData, 'country.code')}",
           state: ""
         },
         name: {
@@ -149,7 +150,7 @@ export async function updatePartyShippingAddress(formData, shippingAddressId) {
           address3: "${formData.extraInfos2}",
           zipCode: "${formData.zipCode}",
           city: "${formData.city}",
-          country: "${formData.country}",
+          country: "${get(formData, 'country.code')}",
           state: ""
         },
         name: {

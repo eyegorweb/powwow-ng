@@ -159,7 +159,7 @@ export default {
         address: '',
         zipCode: '',
         city: '',
-        country: '',
+        country: { label: '' },
         extraInfos: '',
         extraInfos2: '',
         title: '',
@@ -235,7 +235,10 @@ export default {
       this.selectedAddress = { label: this.addressEdit.address.address1 };
       this.form.zipCode = this.addressEdit.address.zipCode;
       this.form.city = this.addressEdit.address.city;
-      this.form.country = this.addressEdit.address.country;
+      this.form.country = this.countries.find(
+        c =>
+          c.name === this.addressEdit.address.country || c.code === this.addressEdit.address.country
+      );
       this.form.extraInfos = this.addressEdit.address.address2;
       this.form.extraInfos2 = this.addressEdit.address.address3;
     }
@@ -247,7 +250,7 @@ export default {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
-        this.form.country = 'FR';
+        this.form.country = this.countries.find(c => c.code === 'France');
       } else {
         if (address.label) {
           this.form.address = address.label;
