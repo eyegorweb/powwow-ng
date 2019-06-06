@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.18+20190606150641
+2019-06-06
+
+### Fixes
+
+- corriger l'affichage des sous menus pour la résolution 1024/768 (eb7d57f4bc3b40f887888e7d1a426ad7ae62e79a)
+
 ## 0.3.0-master.17+20190606141843
 2019-06-06
 
