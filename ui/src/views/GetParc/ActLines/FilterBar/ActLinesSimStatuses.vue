@@ -2,7 +2,7 @@
   <SimpleMultiSelect
     :options="items"
     :values="selectedSimStatusesValues || []"
-    :disabled-items="disabledItems"
+    :disabled="isDisabled"
     @updateValues="setSimStatusesFilter"
   />
 </template>
@@ -10,6 +10,8 @@
 <script>
 import SimpleMultiSelect from '@/components/Filters/SimpleMultiSelect';
 import { mapMutations, mapGetters, mapState } from 'vuex';
+
+// import xorWith from 'lodash.xorwith';
 
 export default {
   name: 'ActLinesSimStatuses',
@@ -20,6 +22,35 @@ export default {
     ...mapGetters(['userIsBO']),
     ...mapGetters('actLines', ['selectedSimStatusesValues']),
     ...mapState('actLines', ['actToCreate']),
+    isDisabled() {
+      if (!this.actToCreate) return false;
+
+      const concernedFilter = this.actToCreate.filters.find(
+        f => f.id === 'filters.lines.SIMCardStatus'
+      );
+
+      if (concernedFilter && concernedFilter.values) {
+        return true;
+      }
+
+      return false;
+
+      /*
+      if (
+        !concernedFilter ||
+        !this.selectedSimStatusesValues ||
+        !this.selectedSimStatusesValues.length
+      ) {
+        return false;
+      }
+
+      return !!xorWith(
+        this.selectedSimStatusesValues,
+        concernedFilter.values,
+        (a, b) => a.id === b.id
+      ).length;
+      //*/
+    },
 
     disabledItems() {
       if (this.actToCreate) {

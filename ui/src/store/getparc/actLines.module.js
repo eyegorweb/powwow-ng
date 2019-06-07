@@ -110,11 +110,23 @@ async function refreshCustomFilters({ commit }, partners) {
 }
 
 // Actions
+import differenceWith from 'lodash.differencewith';
 
 export const actions = {
   setPartnersFilter,
   initFilterForContext,
   refreshCustomFilters,
+
+  mergeCurrentFiltersWith(store, actFilters) {
+    const currentFiltersWithoutActFilters = differenceWith(
+      store.state.currentFilters,
+      actFilters,
+      (c, a) => c.id === a.id
+    );
+    const newCurrentFilters = [...currentFiltersWithoutActFilters, ...actFilters];
+    store.commit('setCurrentFilters', newCurrentFilters);
+    store.commit('applyFilters');
+  },
 
   addLineForActCreation(store, line) {
     // check if line is already there

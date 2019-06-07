@@ -3,6 +3,7 @@
     :items="options"
     :default-selected-items.sync="selectedItems"
     :disabled-items="disabledItems"
+    :disabled="disabled"
   />
 </template>
 
@@ -23,6 +24,7 @@ export default {
       type: Array,
       required: false,
     },
+    disabled: Boolean,
 
     /**
      * should respect the format :
