@@ -11,9 +11,6 @@
       />
       <draggable handle=".handle">
         <transition-group>
-          <FoldableBlock :title="$t('filters.lines.SIMCardStatus')" :key="'el8'" draggable>
-            <ActLinesSimStatuses />
-          </FoldableBlock>
           <FoldableBlock
             v-if="!userIsPartner"
             :title="$t('filters.partners')"
@@ -45,7 +42,9 @@
               @update:value="selectOrderRefFilter($event)"
             />
           </FoldableBlock>
-
+          <FoldableBlock :title="$t('filters.lines.SIMCardStatus')" :key="'el8'" draggable>
+            <ActLinesSimStatuses />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.commercialStatus')" :key="'el9'" draggable>
             <ActLinesCommercialStatusFilter />
           </FoldableBlock>
