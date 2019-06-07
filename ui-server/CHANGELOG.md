@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.20+20190607150038
+2019-06-07
+
+### Fixes
+
+- composants de base pou la création d'actes (86762f268213afa98d833a4fb409c73025af531a)
+
 ## 0.3.0-master.19+20190607094305
 2019-06-07
 
