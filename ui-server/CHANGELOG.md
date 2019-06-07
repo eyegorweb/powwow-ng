@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.19+20190607094305
+2019-06-07
+
+### Fixes
+
+- filtrer par pays (5da1156fb03507afbac08fdc72ca2ee518f91ad3)
+
 ## 0.3.0-master.18+20190606150641
 2019-06-06
 
