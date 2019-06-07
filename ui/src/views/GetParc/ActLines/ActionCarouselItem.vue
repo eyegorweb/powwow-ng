@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item">
-    <div class="card" :class="{ inactive: !active, selected: selected }" @click="$emit('click')">
+    <div class="card" :class="{ inactive: isDisabled, selected: selected }" @click="onClick">
       <div class="card-body">
         <div class="row">
           <div class="icon-block">
@@ -17,14 +17,59 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import xorWith from 'lodash.xorwith';
+
 export default {
   name: 'ActionsCarouselItem',
   props: {
     icon: String,
     title: String,
     subtitle: String,
-    active: Boolean,
     selected: Boolean,
+    item: Object,
+  },
+  data() {
+    return {
+      isDisabled: false,
+    };
+  },
+  computed: {
+    ...mapGetters('actLines', ['currentFilters']),
+  },
+  watch: {
+    currentFilters(newCurrentFilters) {
+      if (!newCurrentFilters) return;
+      if (!this.item.filters) return;
+      this.item.filters.some(itemFilter => {
+        const concernedFilter = newCurrentFilters.find(i => itemFilter.id === i.id);
+        if (concernedFilter) {
+          // quand le filtre concerné n'a aucune valeur, activer l'item du carousel
+          if (concernedFilter.values && !concernedFilter.values.length) {
+            this.isDisabled = false;
+            return false;
+          }
+          const diff = !!xorWith(itemFilter.values, concernedFilter.values, (a, b) => a.id === b.id)
+            .length;
+          console.log(diff, itemFilter.values, concernedFilter.values);
+          if (diff) {
+            this.isDisabled = true;
+            return false;
+          } else {
+            this.isDisabled = false;
+            return false;
+          }
+        }
+        return true;
+      });
+    },
+  },
+  methods: {
+    onClick() {
+      if (this.isDisabled) return;
+
+      this.$emit('click');
+    },
   },
 };
 </script>
