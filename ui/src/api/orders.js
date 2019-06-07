@@ -313,7 +313,7 @@ function addaction(gqlFilters, selectedFilters) {
 function addCountries(gqlFilters, selectedFilters) {
   const countries = getValuesIds(selectedFilters, 'filters.countries');
   if (countries) {
-    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
+    gqlFilters.push(`country: {in: [${countries}]}`);
   }
 }
 
