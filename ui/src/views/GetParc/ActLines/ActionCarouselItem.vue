@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import xorWith from 'lodash.xorwith';
+import differenceWith from 'lodash.differencewith';
 
 export default {
   name: 'ActionsCarouselItem',
@@ -41,27 +41,27 @@ export default {
     currentFilters(newCurrentFilters) {
       if (!newCurrentFilters) return;
       if (!this.item.filters) return;
-      this.item.filters.some(itemFilter => {
-        const concernedFilter = newCurrentFilters.find(i => itemFilter.id === i.id);
-        if (concernedFilter) {
-          // quand le filtre concerné n'a aucune valeur, activer l'item du carousel
-          if (concernedFilter.values && !concernedFilter.values.length) {
-            this.isDisabled = false;
-            return false;
-          }
-          const diff = !!xorWith(itemFilter.values, concernedFilter.values, (a, b) => a.id === b.id)
-            .length;
-          console.log(diff, itemFilter.values, concernedFilter.values);
-          if (diff) {
-            this.isDisabled = true;
-            return false;
+
+      let isEnabled = true;
+
+      for (let i = 0, max = this.item.filters.length; i < max; i++) {
+        const itemFilter = this.item.filters[i];
+        const concernedFilter = newCurrentFilters.find(it => itemFilter.id === it.id);
+        if (concernedFilter && concernedFilter.values && concernedFilter.values.length) {
+          const diff = differenceWith(
+            concernedFilter.values,
+            itemFilter.values,
+            (a, b) => a.id === b.id
+          );
+          if (diff.length === 0) {
+            isEnabled = isEnabled && true;
           } else {
-            this.isDisabled = false;
-            return false;
+            isEnabled = false;
           }
         }
-        return true;
-      });
+      }
+
+      this.isDisabled = !isEnabled;
     },
   },
   methods: {
