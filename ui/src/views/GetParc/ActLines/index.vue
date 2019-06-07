@@ -47,7 +47,7 @@ import LinesTable from './LinesTable';
 import Title from './Title';
 import ActCreationPrerequisites from './ActCreation/Prerequisites';
 import ActCreationActForm from './ActCreation/ActForm';
-import ActionCarousel from '@/components/ActionCarousel';
+import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import { fetchIndicators } from '@/api/linesActions';
 import { mapState, mapActions, mapMutations } from 'vuex';
