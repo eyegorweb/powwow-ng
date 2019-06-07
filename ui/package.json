@@ -36,6 +36,7 @@
     "lodash.startswith": "^4.2.1",
     "lodash.union": "^4.6.0",
     "lodash.unionby": "^4.8.0",
+    "lodash.xorwith": "^4.5.0",
     "moment": "^2.24.0",
     "vue": "2.5.22",
     "vue-i18n": "^8.0.0",
