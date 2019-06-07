@@ -12,8 +12,8 @@
               :icon="item.icon"
               :title="item.title"
               :subtitle="item.subtitle"
-              :active="!item.inactive"
               :selected="item.selected"
+              :item="item"
               @click="() => $emit('itemClick', item)"
             />
           </slick>
@@ -25,7 +25,7 @@
 
 <script>
 import Slick from 'vue-slick';
-import ActionCarouselItem from '@/components/ActionCarouselItem';
+import ActionCarouselItem from './ActionCarouselItem';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

@@ -47,7 +47,7 @@ import LinesTable from './LinesTable';
 import Title from './Title';
 import ActCreationPrerequisites from './ActCreation/Prerequisites';
 import ActCreationActForm from './ActCreation/ActForm';
-import ActionCarousel from '@/components/ActionCarousel';
+import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import { fetchIndicators } from '@/api/linesActions';
 import { mapState, mapActions, mapMutations } from 'vuex';
@@ -146,7 +146,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('actLines', ['initFilterForContext']),
+    ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
     ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters', 'setActToCreate']),
 
     getFetchIndicatorsFn() {
@@ -159,13 +159,11 @@ export default {
       if (item.selected) {
         this.currentActCreationItem = item;
         if (item.filters) {
-          this.setCurrentFiltersForActCreation(item);
           this.setActToCreate(item);
+          this.mergeCurrentFiltersWith(item.filters);
         }
       } else {
         this.currentActCreationItem = null;
-        // cleanup checkboxes
-
         this.setActToCreate(null);
       }
 
@@ -180,12 +178,6 @@ export default {
 
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
-      this.applyFilters();
-    },
-
-    setCurrentFiltersForActCreation(act) {
-      // when no filter is there
-      this.setCurrentFilters([...act.filters]);
       this.applyFilters();
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-item">
-    <div class="card" :class="{ inactive: !active, selected: selected }" @click="$emit('click')">
+    <div class="card" :class="{ inactive: isDisabled, selected: selected }" @click="onClick">
       <div class="card-body">
         <div class="row">
           <div class="icon-block">
@@ -17,14 +17,59 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import differenceWith from 'lodash.differencewith';
+
 export default {
   name: 'ActionsCarouselItem',
   props: {
     icon: String,
     title: String,
     subtitle: String,
-    active: Boolean,
     selected: Boolean,
+    item: Object,
+  },
+  data() {
+    return {
+      isDisabled: false,
+    };
+  },
+  computed: {
+    ...mapGetters('actLines', ['currentFilters']),
+  },
+  watch: {
+    currentFilters(newCurrentFilters) {
+      if (!newCurrentFilters) return;
+      if (!this.item.filters) return;
+
+      let isEnabled = true;
+
+      for (let i = 0, max = this.item.filters.length; i < max; i++) {
+        const itemFilter = this.item.filters[i];
+        const concernedFilter = newCurrentFilters.find(it => itemFilter.id === it.id);
+        if (concernedFilter && concernedFilter.values && concernedFilter.values.length) {
+          const diff = differenceWith(
+            concernedFilter.values,
+            itemFilter.values,
+            (a, b) => a.id === b.id
+          );
+          if (diff.length === 0) {
+            isEnabled = isEnabled && true;
+          } else {
+            isEnabled = false;
+          }
+        }
+      }
+
+      this.isDisabled = !isEnabled;
+    },
+  },
+  methods: {
+    onClick() {
+      if (this.isDisabled) return;
+
+      this.$emit('click');
+    },
   },
 };
 </script>

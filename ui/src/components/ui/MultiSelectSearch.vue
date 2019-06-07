@@ -95,6 +95,7 @@ export default {
       type: Array,
       required: false,
     },
+    disabled: Boolean,
   },
 
   data() {
@@ -145,6 +146,7 @@ export default {
 
   methods: {
     isItemDisabled(item) {
+      if (this.disabled) return true;
       if (!this.disabledItems) return false;
       return this.disabledItems.find(i => item.id === i.id);
     },
