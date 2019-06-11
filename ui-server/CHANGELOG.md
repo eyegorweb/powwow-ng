@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.23+20190611143751
+2019-06-11
+
+### Features
+
+- Composant de création d'acte de gestion : affichage pré_requis et formulaires (1512091ec68abaa2bf154537bb04744a7f02f5bf)
+
 ## 0.3.0-master.22+20190611131355
 2019-06-11
 
