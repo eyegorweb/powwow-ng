@@ -1,10 +1,10 @@
 <template>
-    <AutoCompleteByPartnerContext
-        :values="selectedOffersValues"
-        :selected-partners-values="selectedPartnersValues"
-        :fetch-api="fetchApi"
-        @update:values="setOffersFilter"
-    />
+  <AutoCompleteByPartnerContext
+    :values="selectedOffersValues"
+    :selected-partners-values="selectedPartnersValues"
+    :fetch-api="fetchApi"
+    @update:values="setOffersFilter"
+  />
 </template>
 
 <script>

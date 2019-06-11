@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>Séléctionner un partenaire</h5>
+    <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
     <UiApiAutocomplete
       :api-method="fetchPartners"
       v-model="selectedPartner"

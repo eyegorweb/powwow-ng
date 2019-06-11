@@ -4,6 +4,7 @@
     :default-selected-items.sync="selectedItems"
     @update:search="searchValueChanged"
     @scroll:limit="nextPage"
+    :collapsed="collapsed"
   />
 </template>
 
@@ -33,6 +34,7 @@ export default {
       required: false,
     },
     fetchApi: Function,
+    collapsed: Boolean,
   },
 
   async mounted() {

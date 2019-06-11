@@ -251,13 +251,17 @@
         "CHANGE_SERVICES": "Modifier services",
 
         "STEP_TITLE_CHANGE_SERVICES": "Configurer la modification des services"
-      }
+      },
+      "SERVICE_TO_ACTIVATE": "Services à activer",
+      "SERVICE_TO_DESACTIVATE": "Services à désactiver",
+      "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?"
     },
     "actLines": {
       "total": "{total} ligne(s) trouvé(s)",
       "step1Partner": "séléctionner un partenaire",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
+      "selectOffer": "séléctionner des offres",
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
         "PREACTIVATED": "Préactivée",

@@ -22,11 +22,14 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['setPartnersFilter']),
-    ...mapMutations('actLines', ['applyFilters']),
+    ...mapMutations('actLines', ['applyFilters', 'setOffersFilter']),
 
     setPrerequisites(allPrereq) {
       if (allPrereq.partner) {
         this.setPartnersFilter([allPrereq.partner]);
+      }
+      if (allPrereq.offer) {
+        this.setOffersFilter([allPrereq.offer]);
       }
 
       if (allPrereq) {

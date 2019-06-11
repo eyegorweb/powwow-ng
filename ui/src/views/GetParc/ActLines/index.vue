@@ -34,7 +34,7 @@
         <LinesTable :creation-mode="creationMode" />
 
         <Title num="2" v-if="creationMode" :title="currentActCreationItem.stepTitle" />
-        <ActCreationActForm v-if="creationMode" />
+        <ActCreationActForm v-if="creationMode" :act="currentActCreationItem" />
       </div>
     </div>
   </div>
