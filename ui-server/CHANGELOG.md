@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.22+20190611131355
+2019-06-11
+
+### Fixes
+
+- recherche par id de unitactions (2bc47bd5614d2808cf54f83233d7c65432ee5bd4)
+
 ## 0.3.0-master.21+20190611124645
 2019-06-11
 
