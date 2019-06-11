@@ -1,7 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
     <div>
-      <div v-if="!total" class="alert alert-light" role="alert">
+      <!-- TODO:utiliser le total dans la condition -->
+      <div v-if="!rows" class="alert alert-light" role="alert">
         {{ $t('noResult') }}
       </div>
       <div v-else>
