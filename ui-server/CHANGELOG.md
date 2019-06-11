@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.21+20190611124645
+2019-06-11
+
+### Features
+
+- 440 gestion des incompatibilité de filtre (d97c72e52a6f74c6d93a51fcfabc1afa28651026)
+
 ## 0.3.0-master.20+20190607150038
 2019-06-07
 
