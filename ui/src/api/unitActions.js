@@ -28,7 +28,7 @@ export async function fetchUnitActions(massActionId, statuses, pagination, order
   query {
     unitActions(filter: {${formatFilters(
       filters
-    )} massActionId: ${massActionId}, status: [${statuses.join(
+    )} massActionId: "${massActionId}", status: [${statuses.join(
     ','
   )}]} ${paginationInfo} ${orderingInfo}) {
     total
