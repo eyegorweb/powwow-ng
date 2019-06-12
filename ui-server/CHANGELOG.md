@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.24+20190612074002
+2019-06-12
+
+### Fixes
+
+- lines table (e395e94f1a30dc9674e3ac5e5ec415c9423403ff)
+- enlever les console.log (763bab93c01b1e85d71e9bf3689e05da871dcfdb)
+
 ## 0.3.0-master.23+20190611143751
 2019-06-11
 
