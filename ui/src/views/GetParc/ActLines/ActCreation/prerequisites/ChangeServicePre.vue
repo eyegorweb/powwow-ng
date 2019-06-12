@@ -33,7 +33,6 @@ export default {
       this.selectedPartner = chosenPartner;
     },
     setOffer(selectedOffer) {
-      console.log(selectedOffer);
       this.selectedOffer = selectedOffer;
     },
     validatePrerequisites() {

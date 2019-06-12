@@ -91,7 +91,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
       }
     }
   }`;
-  console.log(queryStr);
 
   const response = await query(queryStr);
   return response.data.simCardInstances;

@@ -338,7 +338,6 @@ export const mutations = {
   },
 
   setSelectedLinesForActCreation(state, selectedLines) {
-    console.log(selectedLines);
     state.selectedLinesForActCreation = selectedLines;
   },
 
