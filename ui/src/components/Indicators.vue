@@ -5,6 +5,7 @@
       :key="indicator.labelKey"
       :indicator="indicator"
       :partners="partners"
+      :set-current-filters-fn="setCurrentFiltersFn"
     />
   </ul>
 </template>

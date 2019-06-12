@@ -21,6 +21,7 @@ export default {
   props: {
     indicator: Object,
     partners: Object,
+    setCurrentFiltersFn: Function,
   },
   data() {
     return {
