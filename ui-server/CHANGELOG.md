@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.25+20190612075608
+2019-06-12
+
+### Fixes
+
+- colonne checkbox ne doit pas remonter dans la conf des colonnes (88af22a2e659fadeb292bfc1fe7b075e5e1c757e)
+
 ## 0.3.0-master.24+20190612074002
 2019-06-12
 
