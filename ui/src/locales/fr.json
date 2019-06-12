@@ -315,7 +315,7 @@
       },
       "col": {
         "simStatus": "Statut de SIM",
-        "lastPLMN": "Dernier pays (ancien PLMN)",
+        "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
         "manufacturer": "Fabricant (IMEI)",
         "deviceReference": "Modèle (IMEI)"

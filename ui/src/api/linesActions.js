@@ -50,7 +50,19 @@ export async function searchLines(orderBy, pagination, filters = []) {
     ) {
       total
       items {
+        party{
+          id
+          name
+         }
         id
+        iccid
+        type
+        statuts
+        auditable {created}
+        deviceInstance {
+          manufacturer
+          deviceReference
+        }
         accessPoint {
           commercialStatus
           lastPLMN
@@ -74,25 +86,12 @@ export async function searchLines(orderBy, pagination, filters = []) {
               description
             }
           }
-          simCardInstance {
-            party{
-              id
-              name
-             }
-            id
-            iccid
-            type
-            statuts
-            auditable {created}
-            deviceInstance {
-              manufacturer
-              deviceReference
-            }
-          }
+
         }
       }
     }
   }`;
+  console.log(queryStr);
 
   const response = await query(queryStr);
   return response.data.simCardInstances;

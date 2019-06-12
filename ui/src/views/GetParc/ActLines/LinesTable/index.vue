@@ -81,21 +81,17 @@ export default {
           label: this.$t('getparc.actDetail.col.iccid'),
           orderable: false,
           visible: true,
-          name: 'accessPoint',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'simCardInstance.iccid',
-          },
+          name: 'iccid',
         },
         {
           id: 1,
           label: this.$t('col.partner'),
           orderable: false,
           visible: true,
-          name: 'accessPoint',
+          name: 'party',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.party.name',
+            path: 'name',
           },
         },
         {
@@ -168,10 +164,10 @@ export default {
         {
           id: 11,
           label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'accessPoint',
+          name: 'deviceInstance',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.deviceInstance.manufacturer',
+            path: 'manufacturer',
           },
           orderable: false,
           visible: false,
@@ -179,10 +175,10 @@ export default {
         {
           id: 12,
           label: this.$t('getparc.actLines.col.deviceReference'),
-          name: 'accessPoint',
+          name: 'deviceInstance',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.deviceInstance.deviceReference',
+            path: 'deviceReference',
           },
           orderable: false,
           visible: false,

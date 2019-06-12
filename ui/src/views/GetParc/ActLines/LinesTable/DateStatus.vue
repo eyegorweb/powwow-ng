@@ -14,7 +14,7 @@ export default {
   computed: {
     dateStatus() {
       const commercialStatus = get(this.row, 'accessPoint.commercialStatus');
-      const simStatus = get(this.row, 'accessPoint.simCardInstance.statuts');
+      const simStatus = get(this.row, 'statuts');
       const networkStatus = get(this.row, 'accessPoint.networkStatus');
 
       const lineIsNotPreactivated = simStatus === 'AVAILABLE';
@@ -24,11 +24,11 @@ export default {
       const lineIsReleased = simStatus === 'RELEASED';
 
       if (lineIsNotPreactivated) {
-        return get(this.row, 'accessPoint.simCardInstance.auditable.created');
+        return get(this.row, 'auditable.created');
       }
 
       if (lineIsPreactivated) {
-        return get(this.row, 'accessPoint.simCardInstance.auditable.created');
+        return get(this.row, 'auditable.created');
       }
 
       if (lineIsActivated) {

@@ -14,7 +14,7 @@ export default {
   computed: {
     simStatus() {
       const commercialStatus = get(this.row, 'accessPoint.commercialStatus');
-      const simStatus = get(this.row, 'accessPoint.simCardInstance.statuts');
+      const simStatus = get(this.row, 'statuts');
       const networkStatus = get(this.row, 'accessPoint.networkStatus');
 
       if (simStatus === 'AVAILABLE') {
@@ -36,7 +36,7 @@ export default {
         return 'getparc.actLines.simStatuses.RELEASED';
       }
 
-      return get(this.row, 'accessPoint.simCardInstance.statuts');
+      return get(this.row, 'statuts');
     },
   },
 };
