@@ -50,7 +50,9 @@ export default {
   directives: { clickaway },
 
   created() {
-    this.localColumns = cloneDeep(this.columns);
+    if (this.columns && this.columns.length) {
+      this.localColumns = cloneDeep(this.columns.filter(c => !c.notConfigurable));
+    }
   },
 
   methods: {
@@ -75,7 +77,10 @@ export default {
   computed: {
     // le nombre de colonnes visibles ne doit pas éxéder le maximum authorisé (maxColumnsNumber)
     canAddColumns() {
-      return this.localColumns.filter(e => e.visible).length + 1 <= this.maxColumnsNumber;
+      return (
+        this.localColumns.filter(e => !e.notConfigurable && e.visible).length + 1 <=
+        this.maxColumnsNumber
+      );
     },
   },
 };

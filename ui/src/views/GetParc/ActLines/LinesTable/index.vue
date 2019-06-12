@@ -69,6 +69,7 @@ export default {
           orderable: false,
           visible: true,
           noHandle: true,
+          notConfigurable: true,
           format: {
             component: CheckBoxCell,
           },
