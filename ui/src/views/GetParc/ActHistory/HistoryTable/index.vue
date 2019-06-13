@@ -43,6 +43,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
+import Creator from './Creator';
 import DetailsCell from './DetailsCell';
 import ActionCell from './ActionCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
@@ -53,6 +54,7 @@ const cellComponents = {
   IdCell,
   DetailsCell,
   ActionCell,
+  Creator,
 };
 
 function setFormatComponentsToColumns(columns) {
@@ -242,6 +244,9 @@ export default {
           name: 'creator',
           orderable: true,
           visible: false,
+          format: {
+            componentId: 'Creator',
+          },
         },
         {
           id: 13,
