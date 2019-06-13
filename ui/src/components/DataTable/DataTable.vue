@@ -328,6 +328,12 @@ label {
   }
 }
 
+thead th {
+  //evite les retours à la ligne dans l'entête de la table de l'historique des actes de gestion
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 @media only screen and (max-width: 1024px) {
   .table-blue th {
     font-size: 1rem;
