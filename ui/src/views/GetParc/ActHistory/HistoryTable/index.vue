@@ -44,6 +44,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import DetailsCell from './DetailsCell';
+import ActionCell from './ActionCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
@@ -51,6 +52,7 @@ import { exportAllMassActions } from '@/api/massActions';
 const cellComponents = {
   IdCell,
   DetailsCell,
+  ActionCell,
 };
 
 function setFormatComponentsToColumns(columns) {
@@ -82,7 +84,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '8';
+const VERSION = '9';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -154,6 +156,9 @@ export default {
           name: 'actionType',
           orderable: true,
           visible: true,
+          format: {
+            componentId: 'ActionCell',
+          },
         },
         {
           id: 3,
