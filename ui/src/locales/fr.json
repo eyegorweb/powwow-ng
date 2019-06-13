@@ -78,7 +78,7 @@
     "export-warning": "L'export sera généré en différé et sera accessible dans la gestion documentaire. Voulez-vous continuer?",
     "sim-type-labels": {
       "format": "Format",
-      "licence": "Licence",
+      "licence": "Brevets",
       "patent": "Brevets et fonctionnalité",
       "orderDate": "Dernière commande"
     },
