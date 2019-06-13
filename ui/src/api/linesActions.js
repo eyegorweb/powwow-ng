@@ -39,7 +39,7 @@ export async function fetchIndicators(metadata, partnerFilter) {
 }
 
 export async function fetchSingleIndicator(filters, scopePartners) {
-  const filtersToUse = filters;
+  const filtersToUse = [...filters];
   if (scopePartners) {
     filtersToUse.push(scopePartners);
   }
