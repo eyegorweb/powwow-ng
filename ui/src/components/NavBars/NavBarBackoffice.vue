@@ -8,7 +8,7 @@
         <div class="partnerTypeSelect">
           <MultiSelectSearch
             :placeholder="$t('partnerType')"
-            :items="partnersTypesOptions"
+            :items="formattedPartnersTypeOptions"
             :default-selected-items="partnerTypes"
             @update:defaultSelectedItems="setLocalPartnerTypes"
             collapsed
@@ -75,12 +75,14 @@ export default {
   },
 
   async mounted() {
-    const data = await fetchPartyTypes();
-    this.partnersTypesOptions = data.map(a => ({ id: a, label: this.$t('partnerTypes.' + a) }));
+    this.partnersTypesOptions = await fetchPartyTypes();
   },
 
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    formattedPartnersTypeOptions() {
+      return this.partnersTypesOptions.map(a => ({ id: a, label: this.$t('partnerTypes.' + a) }));
+    },
   },
 
   methods: {
