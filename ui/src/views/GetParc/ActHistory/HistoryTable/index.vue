@@ -84,7 +84,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '9';
+const VERSION = '10';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -181,12 +181,14 @@ export default {
           id: 5,
           label: this.$t('getparc.history.col.target'),
           name: 'targetActionNumber',
+          sortingName: 'target_Action_Number',
           orderable: true,
           visible: true,
         },
         {
           id: 6,
           label: this.$t('getparc.history.col.success'),
+          sortingName: 'completed_Action_Number',
           name: 'completedActionNumber',
           orderable: true,
           visible: true,
@@ -195,6 +197,7 @@ export default {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
           name: 'inProgressActionNumber',
+          sortingName: 'in_Progess_Action_Number',
           orderable: true,
           visible: true,
         },
@@ -202,6 +205,7 @@ export default {
           id: 8,
           label: this.$t('getparc.history.col.fail'),
           name: 'errorActionNumber',
+          sortingName: 'error_Action_Number',
           orderable: true,
           visible: false,
         },
