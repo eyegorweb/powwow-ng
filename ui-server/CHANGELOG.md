@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.29+20190613092426
+2019-06-13
+
+### Features
+
+- filtrer mes commandes par type de carte SIM (4c87a3cf9b5e2c0b0d6482f2d7fb75caf1468265)
+
+### Fixes
+
+- traduction et tronquage des actions dans l'historique des actes (df03249577739f4df0f9ebe22125f7267aa88fd9)
+
 ## 0.3.0-master.28+20190613090701
 2019-06-13
 
