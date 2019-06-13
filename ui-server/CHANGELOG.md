@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.33+20190613143703
+2019-06-13
+
+### Fixes
+
+- corrige l'affichage de l'entête mass actions en empêchant les retours à la ligne (e860b87f310cdcd25f5ddd09073b23dc2fbc9fca)
+
 ## 0.3.0-master.32+20190613132914
 2019-06-13
 
