@@ -20,10 +20,14 @@ export async function fetchCommercialStatuses() {
   return response.data.commercialStatus;
 }
 
-export async function fetchIndicators(metadata) {
-  const queryParts = metadata.map(
-    i => `${i.name}: simCardInstances(filter: 	{ ${formatFilters(i.filters)} }) { total }`
-  );
+export async function fetchIndicators(metadata, partnerFilter) {
+  const queryParts = metadata.map(i => {
+    const filters = i.filters;
+    if (partnerFilter) {
+      filters.push(partnerFilter);
+    }
+    return `${i.name}: simCardInstances(filter: 	{ ${formatFilters(filters)} }) { total }`;
+  });
 
   const queryStr = `
   query {
@@ -32,6 +36,20 @@ export async function fetchIndicators(metadata) {
   `;
   const response = await query(queryStr);
   return response.data;
+}
+
+export async function fetchSingleIndicator(filters, scopePartners) {
+  const filtersToUse = filters;
+  if (scopePartners) {
+    filtersToUse.push(scopePartners);
+  }
+  const queryStr = `
+  query {
+    simCardInstances(filter: { ${formatFilters(filtersToUse)} }) { total }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.simCardInstances;
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {

@@ -2,15 +2,10 @@
   <div class="carousel-item">
     <div class="card" :class="{ inactive: isDisabled, selected: selected }" @click="onClick">
       <div class="card-body">
-        <div class="row">
-          <div class="icon-block">
-            <span :class="icon" />
-          </div>
-          <div class="title">{{ $t(title) }}</div>
+        <div class="icon-block">
+          <span :class="icon" />
         </div>
-        <div class="subrow">
-          <div class="subtitle">{{ subtitle }}</div>
-        </div>
+        <div class="title">{{ $t(title) }}</div>
       </div>
     </div>
   </div>
@@ -104,9 +99,10 @@ export default {
     .title {
       display: table-cell;
       vertical-align: middle;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 1.1875rem;
       color: $dark-gray;
+      font-size: 0.8rem;
     }
     .subtitle {
       font-size: 0.75rem;
