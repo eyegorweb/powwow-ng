@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.26+20190613081134
+## 0.3.0-master.27+20190612151020
 2019-06-13
+
+### Features
+
+- calculer les indicateur des lignes que si in partenaire est choisi (c6823eecf6053a7bce964e62bef660ff8b9cb89a)
 
 ### Fixes
 
