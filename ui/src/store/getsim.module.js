@@ -62,6 +62,9 @@ export const getters = {
   },
   selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
   selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
+  selectedTypeSimCardValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
+  },
 };
 
 // Actions
@@ -270,5 +273,11 @@ export const mutations = {
   },
   setPage(state, newPage) {
     state.orderPage = newPage;
+  },
+  setTypeSimCardFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.lines.typeSIMCard',
+      values: types,
+    });
   },
 };

@@ -34,6 +34,9 @@
               >
             </div>
           </FoldableBlock>
+          <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
+            <TypeSimCard />
+          </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderDate')" :key="'el5'" draggable>
             <GetSimDateFilter />
           </FoldableBlock>
@@ -111,6 +114,7 @@ import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
+import TypeSimCard from './TypeSimCard';
 
 export default {
   data() {
@@ -172,6 +176,7 @@ export default {
     GetSimDeliveryCountries,
     SelectedFilters,
     OrderCreatorFilter,
+    TypeSimCard,
   },
 };
 </script>

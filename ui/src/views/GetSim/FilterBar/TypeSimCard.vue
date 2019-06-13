@@ -15,10 +15,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations('actLines', ['setTypeSimCardFilter']),
+    ...mapMutations('getsim', ['setTypeSimCardFilter']),
   },
   computed: {
-    ...mapGetters('actLines', ['selectedTypeSimCardValues']),
+    ...mapGetters('getsim', ['selectedTypeSimCardValues']),
   },
 };
 </script>
