@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.30+20190613095239
+2019-06-13
+
+### Fixes
+
+- correction du libelet brevet (194a2c9fccd1f1f15628af0d56ac755b37556550)
+
 ## 0.3.0-master.29+20190613092426
 2019-06-13
 
