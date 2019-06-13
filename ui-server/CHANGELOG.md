@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.32+20190613132914
+2019-06-13
+
+### Fixes
+
+- problème d'affichage du nom du créateur dans les actes de masse (063c887b8d3da756a288e4a88618f39e792c741d)
+
 ## 0.3.0-master.31+20190613094655
 2019-06-13
 
