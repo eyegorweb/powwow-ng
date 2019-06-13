@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.30+20190613095239
+## 0.3.0-master.31+20190613094655
 2019-06-13
 
 ### Fixes
 
+- tri par quantité des actes de gestion (74cf57b26aa6b879f96e57a82910b0b1b3bbc514)
 - correction du libelet brevet (194a2c9fccd1f1f15628af0d56ac755b37556550)
 
 ## 0.3.0-master.29+20190613092426
