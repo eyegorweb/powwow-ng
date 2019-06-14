@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.36+20190614152420
+2019-06-14
+
+### Fixes
+
+- afficher les indicateurs selon le role de l'utilisateur (7f5060f139b6637a22dfdf0fe5bb591f86512fd5)
+
 ## 0.3.0-master.35+20190614094252
 2019-06-14
 
