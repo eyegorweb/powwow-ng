@@ -81,6 +81,7 @@ export default {
           color: 'text-danger',
           clickable: false,
           total: '-',
+          roles: ['BO'],
           filters: [
             {
               id: 'filters.lines.commercialStatus',
@@ -107,6 +108,7 @@ export default {
           color: 'text-danger',
           clickable: false,
           total: '-',
+          roles: ['BO', 'PARTNER'],
           filters: [
             {
               id: 'filters.actStatus',
@@ -128,6 +130,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
+          roles: ['PARTNER'],
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -149,6 +152,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
+          roles: ['PARTNER'],
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -170,6 +174,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
+          roles: ['PARTNER'],
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -191,6 +196,7 @@ export default {
           color: 'text-warning',
           clickable: true,
           total: '-',
+          roles: ['BO', 'PARTNER'],
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -212,6 +218,7 @@ export default {
           color: 'text-warning',
           clickable: true,
           total: '-',
+          roles: ['BO'],
           filters: [
             {
               id: 'filters.lines.traffic',

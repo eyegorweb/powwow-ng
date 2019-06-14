@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group bg-white">
     <IndicatorItem
-      v-for="indicator in meta"
+      v-for="indicator in compatibleRoles"
       :key="indicator.labelKey"
       :indicator="indicator"
       :partners="partners"
@@ -12,6 +12,7 @@
 
 <script>
 import IndicatorItem from './IndicatorItem';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -30,11 +31,23 @@ export default {
     };
   },
 
-  watch: {
-    meta() {},
-  },
+  computed: {
+    ...mapGetters(['userIsBO', 'userIsPartner']),
+    compatibleRoles() {
+      return this.meta.filter(i => {
+        if (!i.roles) return true;
 
-  methods: {},
+        if (this.userIsBO) {
+          return !!i.roles.find(r => r === 'BO');
+        }
+
+        if (this.userIsPartner) {
+          return !!i.roles.find(r => r === 'PARTNER');
+        }
+        return true;
+      });
+    },
+  },
 };
 </script>
 
