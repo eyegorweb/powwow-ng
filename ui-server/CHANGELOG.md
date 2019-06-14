@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.35+20190614094252
+2019-06-14
+
+### Fixes
+
+- utiliser le code iso3 dans la recherche des lignes par pays (066f494dbc093af68949878b886dbf5e4c70596e)
+
 ## 0.3.0-master.34+20190614091037
 2019-06-14
 
