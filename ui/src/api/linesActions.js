@@ -203,9 +203,10 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
 }
 
 function addCountries(gqlFilters, selectedFilters) {
-  const countries = getValuesIds(selectedFilters, 'filters.countries');
+  const countries = getValuesAttr(selectedFilters, 'filters.countries', 'codeIso3');
+
   if (countries) {
-    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
+    gqlFilters.push(`countryCodeIso3: {in: [${countries}]}`);
   }
 }
 
@@ -257,6 +258,13 @@ function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
     return values.map(i => `"${i.id}"`).join(',');
+  }
+}
+
+function getValuesAttr(filters, filterId, attr) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `"${i[attr]}"`).join(',');
   }
 }
 

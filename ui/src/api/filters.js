@@ -26,6 +26,7 @@ export async function fetchDeliveryCountries(locale) {
       countries {
         id
         code
+        codeIso3
         ${key}
       }
     }
@@ -33,6 +34,7 @@ export async function fetchDeliveryCountries(locale) {
     res.data.countries.countries.map(country => ({
       name: country[key],
       code: country.code,
+      codeIso3: country.codeIso3,
       id: country.id,
     }))
   );
