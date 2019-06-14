@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.34+20190614091037
+2019-06-14
+
+### Features
+
+- quand je n'ai qu'un élément dans une liste, celui ci doit être sélectionné par défaut (0967bc2acf672316f52de7f7991c624782421e9e)
+
 ## 0.3.0-master.33+20190613143703
 2019-06-13
 
