@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.37+20190617074620
+2019-06-17
+
+### Fixes
+
+- cacher l'indicateur "actes en echec" si sa valeur est 0 (1cc407d8b1a0398d5e5d64b364029f14135361cf)
+
 ## 0.3.0-master.36+20190614152420
 2019-06-14
 
