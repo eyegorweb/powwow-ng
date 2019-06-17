@@ -243,15 +243,25 @@
       "carouselItem": {
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",
+        "SUSPEND": "Suspendre des lignes",
         "MANAGE_ALARMS": "Gérer des alarmes",
         "EXPORT_LAST_USAGE": "Export dernier usage",
         "CHANGE_CF": "Changement de C.F.",
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
-        "CHANGE_SERVICES": "Modifier services",
-
-        "STEP_TITLE_CHANGE_SERVICES": "Configurer la modification des services"
+        "CHANGE_SERVICES": "Modifier services"
       },
+
+      "suspend": {
+        "notEditable": "Non modifiable par le client",
+        "suspendBilling": "Suspendre la facturation"
+      },
+
+      "step2Titles": {
+        "CHANGE_SERVICES": "Configurer la modification des services",
+        "SUSPEND": "Configurer la suspension"
+      },
+
       "SERVICE_TO_ACTIVATE": "Services à activer",
       "SERVICE_TO_DESACTIVATE": "Services à désactiver",
       "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?"

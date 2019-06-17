@@ -43,19 +43,6 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
     );
   }
 
-  function formatDateForGql(inDate) {
-    if (!inDate) return '';
-    const startDate = inDate.replace(/\//g, '-');
-    const parts = startDate.split(' ');
-    if (parts) {
-      if (parts.length === 2) {
-        return startDate;
-      } else {
-        return `${parts[0]} 00:00:00`;
-      }
-    }
-  }
-
   function prepareEndDateForBackend(inDate) {
     const dateToEdit = inDate.replace(/\//g, '-');
     const parts = dateToEdit.split(' ');
@@ -76,6 +63,19 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
         endDate = endDate.add(1, 'days');
       }
       return endDate.format(formatToUse) + ' 00:00:00';
+    }
+  }
+}
+
+export function formatDateForGql(inDate) {
+  if (!inDate) return '';
+  const startDate = inDate.replace(/\//g, '-');
+  const parts = startDate.split(' ');
+  if (parts) {
+    if (parts.length === 2) {
+      return startDate;
+    } else {
+      return `${parts[0]} 00:00:00`;
     }
   }
 }
