@@ -1,0 +1,61 @@
+<template>
+  <ActFormContainer @validate="onValidate">
+    <div>
+      <div class="row">
+        <div class="col d-flex">
+          <UiCheckbox v-model="notEditable" />
+          <span>{{ $t('getparc.actCreation.suspend.notEditable') }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex">
+          <UiCheckbox v-model="suspendBilling" />
+          <span>{{ $t('getparc.actCreation.suspend.suspendBilling') }}</span>
+        </div>
+      </div>
+    </div>
+  </ActFormContainer>
+</template>
+
+<script>
+import ActFormContainer from './parts/ActFormContainer';
+import UiCheckbox from '@/components/ui/Checkbox';
+import { mapState, mapGetters } from 'vuex';
+import { suspendReactivateLines } from '@/api/actCreation';
+
+export default {
+  components: {
+    ActFormContainer,
+    UiCheckbox,
+  },
+  data() {
+    return {
+      notEditable: false,
+      suspendBilling: false,
+    };
+  },
+  computed: {
+    ...mapState('actLines', ['selectedLinesForActCreation']),
+    ...mapGetters('actLines', ['appliedFilters']),
+  },
+  methods: {
+    setServicesToActivate(values) {
+      this.servicesToActivate = values;
+    },
+    setServicesToDesactivate(values) {
+      this.servicesToDesctivate = values;
+    },
+    async onValidate(contextValues) {
+      suspendReactivateLines(this.appliedFilters, this.selectedLinesForActCreation, {
+        suspendreFacturation: this.suspendBilling,
+        nonModifiableParClient: this.notEditable,
+        notifEmail: contextValues.notificationCheck,
+        dueDate: contextValues.actDate,
+        suspension: true,
+      });
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>

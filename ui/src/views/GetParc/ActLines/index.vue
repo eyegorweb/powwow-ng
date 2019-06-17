@@ -247,8 +247,8 @@ export default {
       carouselItems: [
         {
           icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
-          stepTitle: 'getparc.actCreation.carouselItem.STEP_TITLE_CHANGE_SERVICES',
+          title: 'getparc.actCreation.carouselItem.SUSPEND',
+          stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
           subtitle: '',
           selected: false,
           filters: [
@@ -263,11 +263,24 @@ export default {
             },
           ],
         },
-        {
+        /*
+         {
           icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CONSUMING',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          stepTitle: 'getparc.actCreation.carouselItem.step2Titles.CHANGE_SERVICES',
           subtitle: '',
           selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
         },
         {
           icon: 'ic-Stats-Icon',
@@ -305,6 +318,7 @@ export default {
           subtitle: '',
           selected: false,
         },
+        //*/
       ],
     };
   },

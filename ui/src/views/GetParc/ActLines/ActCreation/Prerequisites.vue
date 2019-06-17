@@ -5,17 +5,23 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
         @set:preprequisites="setPrerequisites"
       />
+      <SuspendLinesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import ChangeServicePre from './prerequisites/ChangeServicePre';
+import SuspendLinesPre from './prerequisites/SuspendLinesPre';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     ChangeServicePre,
+    SuspendLinesPre,
   },
   props: {
     act: Object,

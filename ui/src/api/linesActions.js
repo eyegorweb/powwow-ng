@@ -114,7 +114,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
   return response.data.simCardInstances;
 }
 
-function formatFilters(filters) {
+export function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds) {
