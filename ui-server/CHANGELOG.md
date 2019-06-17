@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.39+20190617095332
+2019-06-17
+
+### Fixes
+
+- affichage des adresses (018f876cf89aae74e7bcaf122f68dba0553fd6d1)
+
 ## 0.3.0-master.38+20190617090602
 2019-06-17
 
