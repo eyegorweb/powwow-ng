@@ -123,6 +123,7 @@ export default {
           fetch: async indicator => {
             return await fetchTotalMassActions(indicator.filters);
           },
+          hideZeroValue: true,
         },
         {
           name: 'simCardsInStock',

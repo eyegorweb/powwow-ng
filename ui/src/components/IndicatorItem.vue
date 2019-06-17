@@ -43,6 +43,10 @@ export default {
       const res = await this.indicator.fetch(this.indicator, this.partners);
       this.total = res.total;
       this.isLoading = false;
+
+      if (this.total === 0 && this.indicator.hideZeroValue) {
+        this.$emit('removeme', this.indicator);
+      }
     },
   },
 

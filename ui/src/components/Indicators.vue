@@ -1,11 +1,12 @@
 <template>
   <ul class="list-group bg-white">
     <IndicatorItem
-      v-for="indicator in compatibleRoles"
+      v-for="indicator in indicatorsWithCompatibleRoles"
       :key="indicator.labelKey"
       :indicator="indicator"
       :partners="partners"
       :set-current-filters-fn="setCurrentFiltersFn"
+      @removeme="i => removeIndicator(i)"
     />
   </ul>
 </template>
@@ -31,10 +32,14 @@ export default {
     };
   },
 
+  mounted() {
+    this.indicators = this.meta;
+  },
+
   computed: {
     ...mapGetters(['userIsBO', 'userIsPartner']),
-    compatibleRoles() {
-      return this.meta.filter(i => {
+    indicatorsWithCompatibleRoles() {
+      return this.indicators.filter(i => {
         if (!i.roles) return true;
 
         if (this.userIsBO) {
@@ -46,6 +51,11 @@ export default {
         }
         return true;
       });
+    },
+  },
+  methods: {
+    removeIndicator(indicatorToRemove) {
+      this.indicators = this.indicators.filter(i => i !== indicatorToRemove);
     },
   },
 };
