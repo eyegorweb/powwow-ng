@@ -32,7 +32,3 @@ function boolStr(value) {
 export async function suspendLines(filters, lines, params) {
   return await suspendReactivateLines(filters, lines, params, true);
 }
-
-function boolStr(value) {
-  return value ? 'true' : 'false';
-}
