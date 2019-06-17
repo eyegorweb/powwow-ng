@@ -1,8 +1,8 @@
 import { query, formatDateForGql } from './utils';
 import { formatFilters } from './linesActions';
 
-export async function suspendReactivateLines(filters, lines, params) {
-  const { suspendreFacturation, notifEmail, dueDate, suspension, nonModifiableParClient } = params;
+async function suspendReactivateLines(filters, lines, params, suspension) {
+  const { suspendreFacturation, notifEmail, dueDate, nonModifiableParClient } = params;
   let gqlFilter = '';
   let lineIds = '';
   if (lines && lines.length > 0) {
@@ -16,13 +16,21 @@ export async function suspendReactivateLines(filters, lines, params) {
     suspendReactivateLines(filter: {${gqlFilter}},
       suspendreFacturation: ${boolStr(suspendreFacturation)},
       notifEmail: ${boolStr(notifEmail)},
-      suspension: ${boolStr(suspension)},
+      suspension: ${suspension},
       nonModifiableParClient: ${boolStr(nonModifiableParClient)},
       dueDate: "${formatDateForGql(dueDate)}")
   }
   `;
 
   return await query(queryStr);
+}
+
+function boolStr(value) {
+  return value ? 'true' : 'false';
+}
+
+export async function suspendLines(filters, lines, params) {
+  return await suspendReactivateLines(filters, lines, params, true);
 }
 
 function boolStr(value) {

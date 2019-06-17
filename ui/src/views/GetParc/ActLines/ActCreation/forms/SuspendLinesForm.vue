@@ -21,7 +21,7 @@
 import ActFormContainer from './parts/ActFormContainer';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapGetters } from 'vuex';
-import { suspendReactivateLines } from '@/api/actCreation';
+import { suspendLines } from '@/api/actCreation';
 
 export default {
   components: {
@@ -46,12 +46,11 @@ export default {
       this.servicesToDesctivate = values;
     },
     async onValidate(contextValues) {
-      suspendReactivateLines(this.appliedFilters, this.selectedLinesForActCreation, {
+      suspendLines(this.appliedFilters, this.selectedLinesForActCreation, {
         suspendreFacturation: this.suspendBilling,
         nonModifiableParClient: this.notEditable,
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
-        suspension: true,
       });
     },
   },
