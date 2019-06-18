@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.42+20190618123912
+2019-06-18
+
+### Features
+
+- gestion de messages d'erreurs (2c6986771deb86740d199d17c09ec1fc01f55e60)
+
 ## 0.3.0-master.41+20190618091129
 2019-06-18
 
