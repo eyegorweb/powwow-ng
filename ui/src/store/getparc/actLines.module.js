@@ -164,9 +164,23 @@ export const actions = {
       store.commit('applyFilters');
     }
   },
-  async fetchLinesActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
+  async fetchLinesActionsFromApi(store, { orderBy, pageInfo, appliedFilters }) {
+    const { commit } = store;
     commit('startLoading');
-    commit('setLinesActionsResponse', await searchLines(orderBy, pageInfo, appliedFilters));
+    let response = { total: 0, items: [] };
+    try {
+      response = await searchLines(orderBy, pageInfo, appliedFilters);
+    } catch (e) {
+      commit(
+        'flashMessage',
+        {
+          level: 'danger',
+          message: "Erreur lors de l'éxécution de la requette ",
+        },
+        { root: true }
+      );
+    }
+    commit('setLinesActionsResponse', response);
     commit('stopLoading');
   },
 };
