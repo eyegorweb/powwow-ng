@@ -17,7 +17,11 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="creationMode" :act="currentActCreationItem" />
+    <ActCreationPrerequisites
+      v-if="creationMode"
+      :act="currentActCreationItem"
+      @prereq-set="onPrereqSet"
+    />
 
     <div class="row">
       <div class="col-md-3">
@@ -33,8 +37,8 @@
         <Title num="1" v-if="creationMode" title="getparc.actLines.step1Title" />
         <LinesTable :creation-mode="creationMode" />
 
-        <Title num="2" v-if="creationMode" :title="currentActCreationItem.stepTitle" />
-        <ActCreationActForm v-if="creationMode" :act="currentActCreationItem" />
+        <Title num="2" v-if="creationMode && prereqSet" :title="currentActCreationItem.stepTitle" />
+        <ActCreationActForm v-if="creationMode && prereqSet" :act="currentActCreationItem" />
       </div>
     </div>
   </div>
@@ -67,6 +71,7 @@ export default {
   },
   data() {
     return {
+      prereqSet: false,
       isIndicatorsLoading: false,
       /**
        *  {
@@ -373,6 +378,10 @@ export default {
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
       this.applyFilters();
+    },
+
+    onPrereqSet() {
+      this.prereqSet = true;
     },
   },
   mounted() {

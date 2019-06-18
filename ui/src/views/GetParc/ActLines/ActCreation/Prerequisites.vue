@@ -41,6 +41,8 @@ export default {
       if (allPrereq) {
         this.applyFilters();
       }
+
+      this.$emit('prereq-set');
     },
   },
 };

@@ -1,3 +1,5 @@
+import uuid from 'uuid/v1';
+
 export const state = {
   isPanelOpen: false,
   panelTitle: undefined,
@@ -5,6 +7,9 @@ export const state = {
   panelPayload: undefined,
   isPanelWide: false,
   backdrop: undefined,
+  message: undefined,
+  messageLevel: undefined,
+  messages: [],
 };
 
 export const mutations = {
@@ -20,5 +25,20 @@ export const mutations = {
   closePanel: state => {
     state.isPanelOpen = false;
     state.panelId = undefined;
+  },
+  flashMessage: (state, msgInfo) => {
+    // state.message = msgInfo.msg;
+    // state.messageLevel = msgInfo.level;
+
+    state.messages.push({
+      id: uuid(),
+      ...msgInfo,
+    });
+  },
+  clearMessages: state => {
+    state.messages = [];
+  },
+  removeMessageById: (state, id) => {
+    state.messages = state.messages.filter(m => m.id !== id);
   },
 };

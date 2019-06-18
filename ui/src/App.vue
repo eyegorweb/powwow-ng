@@ -7,6 +7,7 @@
     </div>
 
     <Authentication />
+    <FlashMessages />
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
 import PanelSwitcher from '@/components/PanelSwitcher';
+import FlashMessages from '@/components/ui/messages/FlashMessages';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -22,6 +24,7 @@ export default {
     Authentication,
     NavBars,
     PanelSwitcher,
+    FlashMessages,
   },
   methods: {
     ...mapMutations(['closePanel']),
