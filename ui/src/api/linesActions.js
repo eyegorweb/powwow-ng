@@ -1,4 +1,4 @@
-import { query, addDateFilter } from './utils';
+import { query, addDateFilter, postFile } from './utils';
 
 export async function fetchCardTypes() {
   const queryStr = `
@@ -166,6 +166,7 @@ export function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
   addCountries(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
+  addFileImportId(allFilters, filters);
   addEUICCProfileFilter(allFilters, filters);
   addSirenFilter(allFilters, filters);
   addRangeFilter(allFilters, filters, 'iccid', 'filters.lines.rangeICCID');
@@ -200,6 +201,12 @@ function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentF
 function addZipCodeFilter(gqlFilters, selectedFilters) {
   const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
+}
+function addFileImportId(gqlFilters, selectedFilters) {
+  const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
+  if (filter && filter.values && filter.values.length) {
+    gqlFilters.push(`uploadId: "${filter.values[0].id}"`);
+  }
 }
 
 function addCountries(gqlFilters, selectedFilters) {
@@ -313,4 +320,30 @@ function addSirenFilter(gqlFilters, selectedFilters) {
   if (siren) {
     gqlFilters.push(`siren: {eq: "${siren.value}"}`);
   }
+}
+
+export async function uploadSearchFile(file, idType) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('idType', idType);
+  const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '/';
+  return await postFile(`${baseUrl}/api/file/upload`, formData);
+}
+
+export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const uploadIdInfo = uploadId ? `uploadId: {eq: "${uploadId}"}` : '';
+  const response = await query(
+    `
+    query {
+      exportErrors(filter: {${uploadIdInfo}}, columns: [${columnsParam}]${orderingInfo} exportFormat: ${exportFormat} ) {
+        downloadUri
+        asyncRequired
+        total
+      }
+    }
+    `
+  );
+  return response.data.exportErrors;
 }

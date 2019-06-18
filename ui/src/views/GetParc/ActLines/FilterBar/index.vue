@@ -22,7 +22,8 @@
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
             <ActLinesBillingAccountsFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.fromFile')" :key="'el3'" draggable>
+          <FoldableBlock :title="$t('filters.lines.fromFile.title')" :key="'el3'" draggable>
+            <ActLinesFromFileFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
             <TypeSimCard />
@@ -209,6 +210,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
 import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
+import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 
 export default {
@@ -230,6 +232,7 @@ export default {
     ActLinesCountries,
     ActLinesCustomFields,
     ActLinesCommercialStatusFilter,
+    ActLinesFromFileFilter,
   },
   data() {
     return {
@@ -252,6 +255,8 @@ export default {
       'selectedIMSIValue',
       'selectedMSISDNValue',
       'selectedIMEIValue',
+      // 'selectedIdTypeFromFileValue',
+      // 'selectedFileValue',
     ]),
     fixedFilters() {
       if (this.actToCreate) {
