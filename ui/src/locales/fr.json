@@ -268,10 +268,15 @@
     },
     "actLines": {
       "total": "{total} ligne(s) trouvé(s)",
+      "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
       "selectOffer": "séléctionner des offres",
+      "fileImport": {
+        "foundLines": "lignes ont été trouvées",
+        "notFounfLines": "lignes ne sont pas compatibles"
+      },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
         "PREACTIVATED": "Préactivée",
@@ -434,7 +439,11 @@
     "actDateEnd": "Date de fin",
     "actCreator": "Créateur de l’acte",
     "lines": {
-      "fromFile": "Filtrer à partir d’un fichier",
+      "fromFile": {
+        "title": "Filtrer à partir d’un fichier",
+        "id-type-placeholder": "Type d'identifiant",
+        "import-file": "Choisir un fichier CSV ou XLS"
+      },
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",

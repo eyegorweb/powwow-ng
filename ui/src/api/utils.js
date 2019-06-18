@@ -18,6 +18,20 @@ export async function query(q) {
   }
 }
 
+export async function postFile(url, formData) {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    const response = await api.post(url, formData, config);
+    return response.data;
+  } catch (e) {
+    return { error: e.message };
+  }
+}
+
 export async function queryHandleErros(q) {
   try {
     return await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });

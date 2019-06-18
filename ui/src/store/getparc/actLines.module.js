@@ -29,6 +29,7 @@ export const getters = {
   linePage: state => state.linePage,
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
+  selectedFileImportValues: findFilterValuesById('filters.lines.fromFile.title'),
   selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
   selectedSimStatuses: findFilterById('filters.lines.SIMCardStatus'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
@@ -237,6 +238,19 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.lines.siren',
       value,
+    });
+  },
+  setFileImportFilter(state, fileResponse) {
+    console.log(fileResponse);
+    selectFilterValue(state, {
+      id: 'filters.lines.fromFile.title',
+      values: [
+        {
+          id: fileResponse.uploadId,
+          label: fileResponse.file.name,
+          ...fileResponse,
+        },
+      ],
     });
   },
   setActionIdFilter(state, value) {
