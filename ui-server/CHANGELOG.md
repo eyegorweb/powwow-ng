@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.41+20190618091129
+2019-06-18
+
+### Fixes
+
+- filter import file (5385f8120d09779eb422e0ff50633f6bef1b7f12)
+
 ## 0.3.0-master.40+20190617152606
 2019-06-17
 
