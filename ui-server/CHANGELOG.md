@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.44+20190618144605
+2019-06-18
+
+### Fixes
+
+- set proxy to proxyace2 (ffd692aa682218c2a70fedfef5d15596be64afa8)
+
 ## 0.3.0-master.43+20190618141459
 2019-06-18
 
