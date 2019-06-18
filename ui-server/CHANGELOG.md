@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.47+20190618162402
+2019-06-18
+
+### Fixes
+
+- uat release pipeline (8cdc7a3636c346f7840b4294e4ee43719f40e2e8)
+
 ## 0.3.0-master.46+20190618151156
 2019-06-18
 
