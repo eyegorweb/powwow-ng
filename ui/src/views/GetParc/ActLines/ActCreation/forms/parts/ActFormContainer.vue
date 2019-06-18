@@ -12,7 +12,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <UiDate @change="onActDateChange" :value="actDate" class="d-block">
+              <UiDate @change="onActDateChange" :value="actDate" :error="dateError" class="d-block">
                 <i slot="icon" class="select-icon ic-Flag-Icon" />
               </UiDate>
             </div>
@@ -32,6 +32,7 @@
 <script>
 import UiDate from '@/components/ui/UiDate2';
 import UiCheckbox from '@/components/ui/Checkbox';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -39,22 +40,54 @@ export default {
     UiCheckbox,
   },
 
+  props: {
+    validateFn: Function,
+  },
+
   data() {
     return {
       actDate: null,
+      dateError: null,
       notificationCheck: false,
     };
   },
   methods: {
+    ...mapMutations(['flashMessage']),
+
     onActDateChange(value) {
       this.actDate = value;
     },
 
-    validate() {
-      this.$emit('validate', {
+    async validate() {
+      if (this.haveErrors()) return;
+
+      const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
       });
+
+      console.log(response);
+      if (!response) {
+        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        return;
+      }
+
+      if (response && response.errors) {
+        response.errors.forEach(e => {
+          this.flashMessage({ level: 'danger', message: e.description });
+        });
+        return;
+      }
+
+      this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+    },
+
+    haveErrors() {
+      this.dateError = undefined;
+      if (!this.actDate) {
+        this.dateError = 'errors.mandatory';
+        return true;
+      }
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer @validate="onValidate">
+  <ActFormContainer :validate-fn="onValidate">
     <div>
       <div class="row">
         <div class="col d-flex">
@@ -39,14 +39,8 @@ export default {
     ...mapGetters('actLines', ['appliedFilters']),
   },
   methods: {
-    setServicesToActivate(values) {
-      this.servicesToActivate = values;
-    },
-    setServicesToDesactivate(values) {
-      this.servicesToDesctivate = values;
-    },
     async onValidate(contextValues) {
-      suspendLines(this.appliedFilters, this.selectedLinesForActCreation, {
+      return await suspendLines(this.appliedFilters, this.selectedLinesForActCreation, {
         suspendreFacturation: this.suspendBilling,
         nonModifiableParClient: this.notEditable,
         notifEmail: contextValues.notificationCheck,
