@@ -9,9 +9,9 @@ stages:
   - undeploy
 
 variables:
-  http_proxy: "http://proxyace1.prod.extelia.fr:8080"
-  https_proxy: "http://proxyace1.prod.extelia.fr:8080"
-  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048M" -Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace1.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace1.prod.extelia.fr -Dhttps.proxyPort=8080
+  http_proxy: "http://proxyace2.prod.extelia.fr:8080"
+  https_proxy: "http://proxyace2.prod.extelia.fr:8080"
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048M" -Dorg.gradle.daemon=false -Djib.httpTimeout=120000 -Dhttp.proxyHost=proxyace2.prod.extelia.fr -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxyace2.prod.extelia.fr -Dhttps.proxyPort=8080
   ORG_GRADLE_PROJECT_npmBuildEnv: integration # integration ou full-local. Sans valeur, c'est la production qui est cible
   GSG_RELEASE_BRANCHES: uat
   GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
