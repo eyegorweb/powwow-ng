@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="creationMode" :act="actToCreate" @prereq-set="onPrereqSet" />
+    <ActCreationPrerequisites v-if="creationMode" :act="actToCreate" />
 
     <div class="row">
       <div class="col-md-3">
@@ -33,8 +33,12 @@
         <Title num="1" v-if="creationMode" title="getparc.actLines.step1Title" />
         <LinesTable :creation-mode="creationMode" />
 
-        <Title num="2" v-if="creationMode && prereqSet" :title="actToCreate.stepTitle" />
-        <ActCreationActForm v-if="creationMode && prereqSet" :act="actToCreate" />
+        <Title
+          num="2"
+          v-if="creationMode && actCreationPrerequisites"
+          :title="actToCreate.stepTitle"
+        />
+        <ActCreationActForm v-if="creationMode && actCreationPrerequisites" :act="actToCreate" />
       </div>
     </div>
   </div>
@@ -324,7 +328,7 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
-    ...mapState('actLines', ['defaultAppliedFilters']),
+    ...mapState('actLines', ['defaultAppliedFilters', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,

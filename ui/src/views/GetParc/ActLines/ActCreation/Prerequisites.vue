@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['setPartnersFilter']),
-    ...mapMutations('actLines', ['applyFilters', 'setOffersFilter']),
+    ...mapMutations('actLines', ['applyFilters', 'setOffersFilter', 'setActCreationPrerequisites']),
 
     setPrerequisites(allPrereq) {
       if (allPrereq.partner) {
@@ -42,7 +42,7 @@ export default {
         this.applyFilters();
       }
 
-      this.$emit('prereq-set');
+      this.setActCreationPrerequisites(allPrereq);
     },
   },
 };

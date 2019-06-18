@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     ...mapMutations(['flashMessage']),
-    ...mapMutations('actLines', ['setActToCreate']),
+    ...mapMutations('actLines', ['setActToCreate', 'setActCreationPrerequisites']),
 
     onActDateChange(value) {
       this.actDate = value;
@@ -82,6 +82,7 @@ export default {
 
           // sortir du mode création acte
           this.setActToCreate(null);
+          this.setActCreationPrerequisites(null);
         }
       }
     },

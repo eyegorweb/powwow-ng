@@ -22,6 +22,7 @@ export const state = {
 
   selectedLinesForActCreation: [],
   actToCreate: null,
+  actCreationPrerequisites: null,
 };
 
 export const getters = {
@@ -357,5 +358,9 @@ export const mutations = {
 
   setActToCreate(state, act) {
     state.actToCreate = act;
+  },
+
+  setActCreationPrerequisites(state, prereqs) {
+    state.actCreationPrerequisites = prereqs;
   },
 };

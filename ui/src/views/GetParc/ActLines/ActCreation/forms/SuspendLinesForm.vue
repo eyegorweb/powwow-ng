@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('actLines', ['selectedLinesForActCreation']),
+    ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
   },
   methods: {
@@ -45,6 +45,7 @@ export default {
         nonModifiableParClient: this.notEditable,
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
+        partyId: this.actCreationPrerequisites.partner.id,
       });
     },
   },
