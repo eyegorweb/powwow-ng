@@ -48,6 +48,7 @@ import ExportButton from '@/components/ExportButton';
 import DetailsCell from './DetailsCell';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -73,6 +74,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['flashMessage']),
+
     async searchById(params) {
       const currentFilters = [params];
       await this.fetchUnitActs(currentFilters);
@@ -112,15 +115,23 @@ export default {
     },
     async fetchUnitActs(searchFilter = []) {
       this.isLoading = true;
-      const response = await fetchUnitActions(
-        this.$route.params.massActionId,
-        this.statuses,
-        this.getPageInfo,
-        this.orderBy,
-        searchFilter
-      );
-      this.rows = response.items;
-      this.$emit('update:total', response.total);
+      try {
+        const response = await fetchUnitActions(
+          this.$route.params.massActionId,
+          this.statuses,
+          this.getPageInfo,
+          this.orderBy,
+          searchFilter
+        );
+        this.rows = response.items;
+        this.$emit('update:total', response.total);
+      } catch (e) {
+        this.flashMessage({
+          level: 'danger',
+          message: "Erreur lors de l'éxécution de la requette ",
+        });
+      }
+
       this.isLoading = false;
     },
   },
