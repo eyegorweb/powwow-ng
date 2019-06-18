@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     ...mapMutations(['flashMessage']),
+    ...mapMutations('actLines', ['setActToCreate']),
 
     onActDateChange(value) {
       this.actDate = value;
@@ -69,17 +70,20 @@ export default {
       console.log(response);
       if (!response) {
         this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
-        return;
       }
 
-      if (response && response.errors) {
-        response.errors.forEach(e => {
-          this.flashMessage({ level: 'danger', message: e.description });
-        });
-        return;
-      }
+      if (response) {
+        if (response.errors) {
+          response.errors.forEach(e => {
+            this.flashMessage({ level: 'danger', message: e.description });
+          });
+        } else {
+          this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
 
-      this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+          // sortir du mode création acte
+          this.setActToCreate(null);
+        }
+      }
     },
 
     haveErrors() {

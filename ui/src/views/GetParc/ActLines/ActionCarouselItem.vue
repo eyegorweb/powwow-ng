@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import differenceWith from 'lodash.differencewith';
 
 export default {
@@ -21,7 +21,6 @@ export default {
     icon: String,
     title: String,
     subtitle: String,
-    selected: Boolean,
     item: Object,
   },
   data() {
@@ -31,6 +30,12 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['currentFilters']),
+    ...mapState('actLines', ['actToCreate']),
+    selected() {
+      if (!this.actToCreate) return false;
+
+      return this.actToCreate.title === this.title;
+    },
   },
   watch: {
     currentFilters(newCurrentFilters) {

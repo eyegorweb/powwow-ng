@@ -17,11 +17,7 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites
-      v-if="creationMode"
-      :act="currentActCreationItem"
-      @prereq-set="onPrereqSet"
-    />
+    <ActCreationPrerequisites v-if="creationMode" :act="actToCreate" @prereq-set="onPrereqSet" />
 
     <div class="row">
       <div class="col-md-3">
@@ -37,8 +33,8 @@
         <Title num="1" v-if="creationMode" title="getparc.actLines.step1Title" />
         <LinesTable :creation-mode="creationMode" />
 
-        <Title num="2" v-if="creationMode && prereqSet" :title="currentActCreationItem.stepTitle" />
-        <ActCreationActForm v-if="creationMode && prereqSet" :act="currentActCreationItem" />
+        <Title num="2" v-if="creationMode && prereqSet" :title="actToCreate.stepTitle" />
+        <ActCreationActForm v-if="creationMode && prereqSet" :act="actToCreate" />
       </div>
     </div>
   </div>
@@ -78,7 +74,6 @@ export default {
        *    prerequisites: {},
        *  }
        */
-      currentActCreationItem: null,
       indicators: [
         {
           name: 'notProcessedResiliations',
@@ -331,8 +326,11 @@ export default {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
     ...mapState('actLines', ['defaultAppliedFilters']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapState({
+      actToCreate: state => state.actLines.actToCreate,
+    }),
     creationMode() {
-      return this.currentActCreationItem;
+      return this.actToCreate;
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
@@ -356,16 +354,15 @@ export default {
       item.selected = !item.selected;
 
       if (item.selected) {
-        this.currentActCreationItem = item;
         if (item.filters) {
           this.setActToCreate(item);
           this.mergeCurrentFiltersWith(item.filters);
         }
       } else {
-        this.currentActCreationItem = null;
         this.setActToCreate(null);
       }
 
+      /*
       this.carouselItems = this.carouselItems.map(i => {
         if (item.title !== i.title) {
           i.selected = false;
@@ -373,6 +370,7 @@ export default {
         }
         return i;
       });
+      //*/
     },
 
     setCurrentFiltersForIndicator(indicator) {
