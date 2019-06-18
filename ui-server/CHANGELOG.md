@@ -2,6 +2,55 @@
 
 <!--- next entry here -->
 
+## 0.3.0
+2019-06-18
+
+### Features
+
+- filtre status commercial (bab68d6c5064d56d4a2b5a688553df8f0b8c7050)
+- **gestion de lignes:** intégrer les indicateurs (97cf95a49a0409f691fead04fa4399e72f4ce8c3)
+- structure creation acte (a1bf1b7a93ea30b78e303d48dfe4210efa874ae3)
+- **création acte de gestion:** -486 Composant création acte de gestion : filtre par défaut (27de5d858d283425962981562fa0e2938a02c9b7)
+- 440 gestion des incompatibilité de filtre (d97c72e52a6f74c6d93a51fcfabc1afa28651026)
+- Composant de création d'acte de gestion : affichage pré_requis et formulaires (1512091ec68abaa2bf154537bb04744a7f02f5bf)
+- calculer les indicateur des lignes que si in partenaire est choisi (c6823eecf6053a7bce964e62bef660ff8b9cb89a)
+- filtrer mes commandes par type de carte SIM (4c87a3cf9b5e2c0b0d6482f2d7fb75caf1468265)
+- quand je n'ai qu'un élément dans une liste, celui ci doit être sélectionné par défaut (0967bc2acf672316f52de7f7991c624782421e9e)
+- gestion de messages d'erreurs (2c6986771deb86740d199d17c09ec1fc01f55e60)
+
+### Fixes
+
+- titre table des liges (6a6c4ee7ecc643abcbf641fc78bcce7a3658dac0)
+- circle loader (0e8f4c7dbdc28166bc624c722f145d60ea0c2053)
+- rename ICCID (04d7beaab43376481ca90774f94911bf7924ff68)
+- loading indicator (ec5b6cc37205605ac75b965822950b073b9ffed2)
+- custom fields après création de commande (f7968c5c337a0433e927026fa22d15f7370cc37d)
+- indicateur de chargement sur l'historique d'actes (1700d629cbe7e7f36c679660f9ff5d40bdf7306d)
+- unit actions (62a516044519733b94866dee8a5dc90735ee517e)
+- semantic versioning (a286e6b92f7f2b343c7261448488ba697bc15eaf)
+- translate statuses (3cf4ea60a4997b4cb2f273a8c1794534618865fd)
+- add code info to country (5d45a176e0aa1c7db4a7ed2bf5fb9bafcb4f8551)
+- corriger l'affichage des sous menus pour la résolution 1024/768 (eb7d57f4bc3b40f887888e7d1a426ad7ae62e79a)
+- filtrer par pays (5da1156fb03507afbac08fdc72ca2ee518f91ad3)
+- composants de base pou la création d'actes (86762f268213afa98d833a4fb409c73025af531a)
+- recherche par id de unitactions (2bc47bd5614d2808cf54f83233d7c65432ee5bd4)
+- lines table (e395e94f1a30dc9674e3ac5e5ec415c9423403ff)
+- enlever les console.log (763bab93c01b1e85d71e9bf3689e05da871dcfdb)
+- colonne checkbox ne doit pas remonter dans la conf des colonnes (88af22a2e659fadeb292bfc1fe7b075e5e1c757e)
+- total unitActions (332a1d1166453a74b7643432117a08e65f65d69f)
+- traduction et tronquage des actions dans l'historique des actes (df03249577739f4df0f9ebe22125f7267aa88fd9)
+- tri par quantité des actes de gestion (74cf57b26aa6b879f96e57a82910b0b1b3bbc514)
+- correction du libelet brevet (194a2c9fccd1f1f15628af0d56ac755b37556550)
+- problème d'affichage du nom du créateur dans les actes de masse (063c887b8d3da756a288e4a88618f39e792c741d)
+- corrige l'affichage de l'entête mass actions en empêchant les retours à la ligne (e860b87f310cdcd25f5ddd09073b23dc2fbc9fca)
+- utiliser le code iso3 dans la recherche des lignes par pays (066f494dbc093af68949878b886dbf5e4c70596e)
+- afficher les indicateurs selon le role de l'utilisateur (7f5060f139b6637a22dfdf0fe5bb591f86512fd5)
+- cacher l'indicateur "actes en echec" si sa valeur est 0 (1cc407d8b1a0398d5e5d64b364029f14135361cf)
+- affichage des adresses (018f876cf89aae74e7bcaf122f68dba0553fd6d1)
+- filter import file (5385f8120d09779eb422e0ff50633f6bef1b7f12)
+- set proxy to proxyace2 (ffd692aa682218c2a70fedfef5d15596be64afa8)
+- uat release pipeline (8cdc7a3636c346f7840b4294e4ee43719f40e2e8)
+
 ## 0.3.0-master.47+20190618162402
 2019-06-18
 
