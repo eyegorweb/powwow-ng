@@ -91,9 +91,9 @@ release:
     - mv build_info ui-server/release_info
     - . ui-server/release_info
     - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
-    - release -v
-    - release changelog --f ui-server/CHANGELOG.md
-    - release commit-and-tag ui-server/CHANGELOG.md ui-server/release_info ui-server/version.txt
+    - ./release -v
+    - ./release changelog --f ui-server/CHANGELOG.md
+    - ./release commit-and-tag ui-server/CHANGELOG.md ui-server/release_info ui-server/version.txt
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
