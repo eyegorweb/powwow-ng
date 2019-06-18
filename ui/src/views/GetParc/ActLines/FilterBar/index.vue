@@ -5,6 +5,7 @@
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
+        :fixed-filters="fixedFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
       />
@@ -21,7 +22,8 @@
           <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
             <ActLinesBillingAccountsFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.fromFile')" :key="'el3'" draggable>
+          <FoldableBlock :title="$t('filters.lines.fromFile.title')" :key="'el3'" draggable>
+            <ActLinesFromFileFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
             <TypeSimCard />
@@ -45,6 +47,7 @@
             <ActLinesSimStatuses />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.commercialStatus')" :key="'el9'" draggable>
+            <ActLinesCommercialStatusFilter />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.lines.billingStatus')" :key="'el10'" draggable>
             <ActLinesBillingStatusFilter />
@@ -192,7 +195,7 @@
 <script>
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
 import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
 import SelectedFilters from '@/components/Filters/SelectedFilters';
@@ -206,6 +209,8 @@ import ActLinesNetworkStatusFilter from './ActLinesNetworkStatusFilter';
 import UiCheckbox from '@/components/ui/Checkbox';
 import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
+import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
+import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 
 export default {
@@ -226,6 +231,8 @@ export default {
     DateFilter,
     ActLinesCountries,
     ActLinesCustomFields,
+    ActLinesCommercialStatusFilter,
+    ActLinesFromFileFilter,
   },
   data() {
     return {
@@ -233,6 +240,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('actLines', ['actToCreate']),
     ...mapGetters(['userIsPartner']),
     ...mapGetters('actLines', [
       'currentFilters',
@@ -247,7 +255,15 @@ export default {
       'selectedIMSIValue',
       'selectedMSISDNValue',
       'selectedIMEIValue',
+      // 'selectedIdTypeFromFileValue',
+      // 'selectedFileValue',
     ]),
+    fixedFilters() {
+      if (this.actToCreate) {
+        return this.actToCreate.filters;
+      }
+      return [];
+    },
     ligneTrafiquanteValue: {
       get() {
         return this.selectedLigneTrafiquanteValue;

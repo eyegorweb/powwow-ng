@@ -1,5 +1,5 @@
 <template>
-  <LoaderContainer :is-loading="orderIsLoading">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -148,7 +148,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos']),
-    ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'orderIsLoading']),
+    ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'isLoading']),
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },

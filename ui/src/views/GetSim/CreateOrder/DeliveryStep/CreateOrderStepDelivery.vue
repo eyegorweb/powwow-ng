@@ -73,13 +73,13 @@
             <UiButton
               variant="round-button"
               @click="prev"
-              class="float-left ic-Arrow-Previous-Icon prev-btn"
+              class="float-left ic-Arrow-Previous-Icon prev-button"
             />
             <UiButton
               variant="round-button"
               :disabled="!selectedAdress"
               @click="done"
-              class="float-right ic-Arrow-Next-Icon next-btn"
+              class="float-right ic-Arrow-Next-Icon next-button"
             />
           </div>
         </div>
@@ -304,30 +304,30 @@ export default {
   max-height: 11rem;
 }
 
-.next-btn {
-  position: absolute;
+.next-button {
+  position: relative !important;
   right: 1rem;
   bottom: 0;
 }
-.prev-btn {
-  position: absolute;
+.prev-button {
+  position: relative !important;
   left: 1rem;
   bottom: 0;
 }
 
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
-    div.step-content {
-      max-height: 87vh;
+    div.main-content {
+      max-height: 75vh;
       min-height: 60vh !important;
     }
   }
 }
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
-    div.step-content {
-      min-height: 60vh;
-      max-height: 87vh;
+    div.main-content {
+      min-height: 76vh;
+      max-height: 76vh;
     }
   }
 }

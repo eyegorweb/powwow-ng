@@ -1,4 +1,4 @@
-import { query, addDateFilter } from './utils';
+import { query, addDateFilter, postFile } from './utils';
 
 export async function fetchCardTypes() {
   const queryStr = `
@@ -10,17 +10,56 @@ export async function fetchCardTypes() {
   return response.data.getTypeSimcards;
 }
 
+export async function fetchCommercialStatuses() {
+  const queryStr = `
+  query {
+    commercialStatus
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.commercialStatus;
+}
+
+export async function fetchIndicators(metadata, partnerFilter) {
+  const queryParts = metadata.map(i => {
+    const filters = i.filters;
+    if (partnerFilter) {
+      filters.push(partnerFilter);
+    }
+    return `${i.name}: simCardInstances(filter: 	{ ${formatFilters(filters)} }) { total }`;
+  });
+
+  const queryStr = `
+  query {
+    ${queryParts.join(',')}
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data;
+}
+
+export async function fetchSingleIndicator(filters, scopePartners) {
+  const filtersToUse = [...filters];
+  if (scopePartners) {
+    filtersToUse.push(scopePartners);
+  }
+  const queryStr = `
+  query {
+    simCardInstances(filter: { ${formatFilters(filtersToUse)} }) { total }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.simCardInstances;
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
-  // const orderingInfo = orderBy
-  //   ? `, sorting: {field: ${orderBy.key}, preactivationDate:${orderBy.direction}}`
-  //   : '';
   const orderingInfo = orderBy ? `, sorting: {}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `
   query {
-    lines(
+    simCardInstances(
       filter: {
         ${formatFilters(filters)}
       }
@@ -29,9 +68,19 @@ export async function searchLines(orderBy, pagination, filters = []) {
     ) {
       total
       items {
+        party{
+          id
+          name
+         }
         id
-        msisdn
-        imsi
+        iccid
+        type
+        statuts
+        auditable {created}
+        deviceInstance {
+          manufacturer
+          deviceReference
+        }
         accessPoint {
           commercialStatus
           lastPLMN
@@ -39,6 +88,10 @@ export async function searchLines(orderBy, pagination, filters = []) {
           activationDate
           commercialStatusDate
           networkStatus
+          lines {
+            msisdn
+            imsi
+          }
           customFields {
             custom1
             custom2
@@ -51,31 +104,17 @@ export async function searchLines(orderBy, pagination, filters = []) {
               description
             }
           }
-          simCardInstance {
-            party{
-              id
-              name
-             }
-            id
-            iccid
-            type
-            statuts
-            auditable {created}
-            deviceInstance {
-              manufacturer
-              deviceReference
-            }
-          }
+
         }
       }
     }
   }`;
 
   const response = await query(queryStr);
-  return response.data.lines;
+  return response.data.simCardInstances;
 }
 
-function formatFilters(filters) {
+export function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsWithoutQuotes(filters, 'filters.partners');
   if (partyIds) {
@@ -109,6 +148,14 @@ function formatFilters(filters) {
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
+  valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(
+    allFilters,
+    filters,
+    'commercialStatus',
+    'filters.lines.commercialStatus',
+    true
+  );
   addDateFilter(allFilters, filters, 'orderDate', 'filters.orderDate');
   addDateFilter(allFilters, filters, 'simCardCreatedDate', 'filters.lines.importDate');
   addDateFilter(allFilters, filters, 'commitmentEnd', 'filters.lines.endCommitmentDate');
@@ -119,14 +166,25 @@ function formatFilters(filters) {
   addDateFilter(allFilters, filters, 'commercialStatusDate', 'filters.lines.statusDate');
   addCountries(allFilters, filters);
   addZipCodeFilter(allFilters, filters);
+  addFileImportId(allFilters, filters);
   addEUICCProfileFilter(allFilters, filters);
   addSirenFilter(allFilters, filters);
   addRangeFilter(allFilters, filters, 'iccid', 'filters.lines.rangeICCID');
   addRangeFilter(allFilters, filters, 'imsi', 'filters.lines.rangeIMSI');
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
+  addTerminationValidated(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addTerminationValidated(gqlFilters, selectedFilters) {
+  const terminationFilter = selectedFilters.find(
+    f => f.id === 'filters.lines.terminationValidated'
+  );
+  if (terminationFilter && terminationFilter.value) {
+    gqlFilters.push(`terminationValidated: true`);
+  }
 }
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
@@ -144,16 +202,31 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
   const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
 }
-
-function addCountries(gqlFilters, selectedFilters) {
-  const countries = getValuesIds(selectedFilters, 'filters.countries');
-  if (countries) {
-    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
+function addFileImportId(gqlFilters, selectedFilters) {
+  const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
+  if (filter && filter.values && filter.values.length) {
+    gqlFilters.push(`uploadId: "${filter.values[0].id}"`);
   }
 }
 
-function valuesFromMutiselectFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
-  const values = getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
+function addCountries(gqlFilters, selectedFilters) {
+  const countries = getValuesAttr(selectedFilters, 'filters.countries', 'codeIso3');
+
+  if (countries) {
+    gqlFilters.push(`countryCodeIso3: {in: [${countries}]}`);
+  }
+}
+
+function valuesFromMutiselectFilter(
+  gqlFilters,
+  selectedFilters,
+  gqlParamName,
+  keyInCurrentFilter,
+  valuesWithQuotes = false
+) {
+  const values = valuesWithQuotes
+    ? getValuesIds(selectedFilters, keyInCurrentFilter)
+    : getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
   if (values) {
     gqlFilters.push(`${gqlParamName}: {in:[${values}]}`);
   }
@@ -192,6 +265,13 @@ function getValuesIds(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
     return values.map(i => `"${i.id}"`).join(',');
+  }
+}
+
+function getValuesAttr(filters, filterId, attr) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `"${i[attr]}"`).join(',');
   }
 }
 
@@ -240,4 +320,30 @@ function addSirenFilter(gqlFilters, selectedFilters) {
   if (siren) {
     gqlFilters.push(`siren: {eq: "${siren.value}"}`);
   }
+}
+
+export async function uploadSearchFile(file, idType) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('idType', idType);
+  const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '/';
+  return await postFile(`${baseUrl}/api/file/upload`, formData);
+}
+
+export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const uploadIdInfo = uploadId ? `uploadId: {eq: "${uploadId}"}` : '';
+  const response = await query(
+    `
+    query {
+      exportErrors(filter: {${uploadIdInfo}}, columns: [${columnsParam}]${orderingInfo} exportFormat: ${exportFormat} ) {
+        downloadUri
+        asyncRequired
+        total
+      }
+    }
+    `
+  );
+  return response.data.exportErrors;
 }

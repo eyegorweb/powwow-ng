@@ -4,6 +4,7 @@ import { searchLines } from '@/api/linesActions';
 
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
+const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
 
@@ -18,6 +19,10 @@ export const state = {
   linePage: 1,
   linesActionsResponse: [],
   filterCustomFieldsList: [],
+
+  selectedLinesForActCreation: [],
+  actToCreate: null,
+  actCreationPrerequisites: null,
 };
 
 export const getters = {
@@ -25,12 +30,17 @@ export const getters = {
   linePage: state => state.linePage,
   linesActionsResponse: state => state.linesActionsResponse,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
-  selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'),
+  selectedFileImportValues: findFilterValuesById('filters.lines.fromFile.title'),
+  selectedSimStatusesValues: findFilterValuesById('filters.lines.SIMCardStatus'), // deprecated
+  selectedSimStatuses: findFilterById('filters.lines.SIMCardStatus'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
   selectedNetworkStatusesValues: findFilterValuesById('filters.lines.networkStatus'),
   selectedBilligStatusesValues: findFilterValuesById('filters.lines.billingStatus'),
   selectedTypeSimCardValues: state => {
     return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
+  },
+  selectedCommercialStatusesValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.commercialStatus');
   },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
@@ -102,11 +112,43 @@ async function refreshCustomFilters({ commit }, partners) {
 }
 
 // Actions
+import differenceWith from 'lodash.differencewith';
 
 export const actions = {
   setPartnersFilter,
   initFilterForContext,
   refreshCustomFilters,
+
+  mergeCurrentFiltersWith(store, actFilters) {
+    const currentFiltersWithoutActFilters = differenceWith(
+      store.state.currentFilters,
+      actFilters,
+      (c, a) => c.id === a.id
+    );
+    const newCurrentFilters = [...currentFiltersWithoutActFilters, ...actFilters];
+    store.commit('setCurrentFilters', newCurrentFilters);
+    store.commit('applyFilters');
+  },
+
+  addLineForActCreation(store, line) {
+    // check if line is already there
+    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+
+    if (!isLinePresent) {
+      store.commit('setSelectedLinesForActCreation', [
+        ...store.state.selectedLinesForActCreation,
+        line,
+      ]);
+    }
+  },
+  removeLineFromActCreation(store, line) {
+    const isLinePresent = store.state.selectedLinesForActCreation.find(l => l.id === line.id);
+    if (isLinePresent) {
+      store.commit('setSelectedLinesForActCreation', [
+        ...store.state.selectedLinesForActCreation.filter(l => l.id !== line.id),
+      ]);
+    }
+  },
   clearFilter(store, filterId) {
     /**
      * Le cas partenaire est spécial, car à chaque modification on doit mettre à jour les valeurs qui en dépendent
@@ -122,10 +164,24 @@ export const actions = {
       store.commit('applyFilters');
     }
   },
-  async fetchLinesActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
-    // commit('startLoading');
-    commit('setLinesActionsResponse', await searchLines(orderBy, pageInfo, appliedFilters));
-    // commit('stopLoading');
+  async fetchLinesActionsFromApi(store, { orderBy, pageInfo, appliedFilters }) {
+    const { commit } = store;
+    commit('startLoading');
+    let response = { total: 0, items: [] };
+    try {
+      response = await searchLines(orderBy, pageInfo, appliedFilters);
+    } catch (e) {
+      commit(
+        'flashMessage',
+        {
+          level: 'danger',
+          message: "Erreur lors de l'éxécution de la requette ",
+        },
+        { root: true }
+      );
+    }
+    commit('setLinesActionsResponse', response);
+    commit('stopLoading');
   },
 };
 
@@ -169,6 +225,12 @@ export const mutations = {
       values: types,
     });
   },
+  setCommercialStatusesFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.lines.commercialStatus',
+      values: types,
+    });
+  },
   selectOrderIdFilter(state, orderId) {
     selectFilterValue(state, {
       id: 'filters.lines.orderID',
@@ -191,6 +253,19 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.lines.siren',
       value,
+    });
+  },
+  setFileImportFilter(state, fileResponse) {
+    console.log(fileResponse);
+    selectFilterValue(state, {
+      id: 'filters.lines.fromFile.title',
+      values: [
+        {
+          id: fileResponse.uploadId,
+          label: fileResponse.file.name,
+          ...fileResponse,
+        },
+      ],
     });
   },
   setActionIdFilter(state, value) {
@@ -289,5 +364,17 @@ export const mutations = {
         label: countryDict[country.id],
       })),
     });
+  },
+
+  setSelectedLinesForActCreation(state, selectedLines) {
+    state.selectedLinesForActCreation = selectedLines;
+  },
+
+  setActToCreate(state, act) {
+    state.actToCreate = act;
+  },
+
+  setActCreationPrerequisites(state, prereqs) {
+    state.actCreationPrerequisites = prereqs;
   },
 };

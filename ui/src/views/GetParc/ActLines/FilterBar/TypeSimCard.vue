@@ -1,39 +1,21 @@
 <template>
-  <MultiSelectSearch
-    :items="items"
-    :default-selected-items="selectedTypeSimCardValues"
-    @update:defaultSelectedItems="setFilterValues"
+  <SimCardTypeFilter
+    :selected-type-sim-card-values="selectedTypeSimCardValues"
+    @setTypeSimCardFilter="setTypeSimCardFilter"
   />
 </template>
 
 <script>
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
-import { fetchCardTypes } from '@/api/linesActions';
+import SimCardTypeFilter from '@/components/Filters/SimCardTypeFilter';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
-    MultiSelectSearch,
+    SimCardTypeFilter,
   },
-  data() {
-    return {
-      items: [],
-    };
-  },
-  async mounted() {
-    const data = await fetchCardTypes();
-    this.items = data.map(l => {
-      return {
-        id: l,
-        label: l,
-      };
-    });
-  },
+
   methods: {
     ...mapMutations('actLines', ['setTypeSimCardFilter']),
-    setFilterValues(values) {
-      this.setTypeSimCardFilter(values);
-    },
   },
   computed: {
     ...mapGetters('actLines', ['selectedTypeSimCardValues']),

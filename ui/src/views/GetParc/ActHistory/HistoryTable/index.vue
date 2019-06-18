@@ -1,5 +1,5 @@
 <template>
-  <LoaderContainer :is-loading="false">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -43,7 +43,9 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
+import Creator from './Creator';
 import DetailsCell from './DetailsCell';
+import ActionCell from './ActionCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
@@ -51,6 +53,8 @@ import { exportAllMassActions } from '@/api/massActions';
 const cellComponents = {
   IdCell,
   DetailsCell,
+  ActionCell,
+  Creator,
 };
 
 function setFormatComponentsToColumns(columns) {
@@ -82,7 +86,7 @@ function saveColumnsToLocalStorage(columns) {
 /**
  * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
  */
-const VERSION = '8';
+const VERSION = '10';
 function checkConfigVersion() {
   const savedVersion = localStorage.getItem('tables.version');
   if (savedVersion !== VERSION) {
@@ -154,6 +158,9 @@ export default {
           name: 'actionType',
           orderable: true,
           visible: true,
+          format: {
+            componentId: 'ActionCell',
+          },
         },
         {
           id: 3,
@@ -176,12 +183,14 @@ export default {
           id: 5,
           label: this.$t('getparc.history.col.target'),
           name: 'targetActionNumber',
+          sortingName: 'target_Action_Number',
           orderable: true,
           visible: true,
         },
         {
           id: 6,
           label: this.$t('getparc.history.col.success'),
+          sortingName: 'completed_Action_Number',
           name: 'completedActionNumber',
           orderable: true,
           visible: true,
@@ -190,6 +199,7 @@ export default {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
           name: 'inProgressActionNumber',
+          sortingName: 'in_Progess_Action_Number',
           orderable: true,
           visible: true,
         },
@@ -197,6 +207,7 @@ export default {
           id: 8,
           label: this.$t('getparc.history.col.fail'),
           name: 'errorActionNumber',
+          sortingName: 'error_Action_Number',
           orderable: true,
           visible: false,
         },
@@ -233,6 +244,9 @@ export default {
           name: 'creator',
           orderable: true,
           visible: false,
+          format: {
+            componentId: 'Creator',
+          },
         },
         {
           id: 13,
@@ -352,7 +366,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('actHistory', ['massActionsResponse', 'appliedFilters', 'actHistoryPage']),
+    ...mapGetters('actHistory', [
+      'massActionsResponse',
+      'appliedFilters',
+      'actHistoryPage',
+      'isLoading',
+    ]),
     rows() {
       return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },

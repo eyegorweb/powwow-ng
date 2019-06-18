@@ -2,13 +2,16 @@
   <SimpleMultiSelect
     :options="items"
     :values="selectedSimStatusesValues || []"
+    :disabled="isDisabled"
     @updateValues="setSimStatusesFilter"
   />
 </template>
 
 <script>
 import SimpleMultiSelect from '@/components/Filters/SimpleMultiSelect';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapState } from 'vuex';
+
+// import xorWith from 'lodash.xorwith';
 
 export default {
   name: 'ActLinesSimStatuses',
@@ -18,6 +21,48 @@ export default {
   computed: {
     ...mapGetters(['userIsBO']),
     ...mapGetters('actLines', ['selectedSimStatusesValues']),
+    ...mapState('actLines', ['actToCreate']),
+    isDisabled() {
+      if (!this.actToCreate) return false;
+
+      const concernedFilter = this.actToCreate.filters.find(
+        f => f.id === 'filters.lines.SIMCardStatus'
+      );
+
+      if (concernedFilter && concernedFilter.values) {
+        return true;
+      }
+
+      return false;
+
+      /*
+      if (
+        !concernedFilter ||
+        !this.selectedSimStatusesValues ||
+        !this.selectedSimStatusesValues.length
+      ) {
+        return false;
+      }
+
+      return !!xorWith(
+        this.selectedSimStatusesValues,
+        concernedFilter.values,
+        (a, b) => a.id === b.id
+      ).length;
+      //*/
+    },
+
+    disabledItems() {
+      if (this.actToCreate) {
+        const concernedFilter = this.actToCreate.filters.find(
+          f => f.id === 'filters.lines.SIMCardStatus'
+        );
+        if (concernedFilter) {
+          return concernedFilter.values;
+        }
+      }
+      return [];
+    },
   },
   methods: {
     ...mapMutations('actLines', ['setSimStatusesFilter']),
@@ -40,6 +85,10 @@ export default {
       {
         id: 'ACTIVATED',
         label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
+      },
+      {
+        id: 'SUSPENDED',
+        label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
       },
     ];
 

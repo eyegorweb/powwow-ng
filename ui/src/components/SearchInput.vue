@@ -104,7 +104,6 @@ export default {
       }
     },
     updateValue(value) {
-      console.log('*****');
       if (this.collapsedMode) {
         this.suggestionsAreVisible = value && value.length;
       }

@@ -228,6 +228,7 @@ function formatFilters(filters) {
   addCountries(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addCreatorFilter(allFilters, filters);
+  valuesFromMutiselectFilter(allFilters, filters, 'simcardDesc', 'filters.lines.typeSIMCard', true);
 
   return allFilters.join(',');
 }
@@ -313,7 +314,7 @@ function addaction(gqlFilters, selectedFilters) {
 function addCountries(gqlFilters, selectedFilters) {
   const countries = getValuesIds(selectedFilters, 'filters.countries');
   if (countries) {
-    gqlFilters.push(`country: {in: [${countries.toLowerCase()}]}`);
+    gqlFilters.push(`country: {in: [${countries}]}`);
   }
 }
 
@@ -517,4 +518,26 @@ export async function exportFile(columns, orderBy, exportFormat, filters = []) {
     `
   );
   return response.data.ordersExport;
+}
+
+function valuesFromMutiselectFilter(
+  gqlFilters,
+  selectedFilters,
+  gqlParamName,
+  keyInCurrentFilter,
+  valuesWithQuotes = false
+) {
+  const values = valuesWithQuotes
+    ? getValuesIds(selectedFilters, keyInCurrentFilter)
+    : getValuesIdsWithoutQuotes(selectedFilters, keyInCurrentFilter);
+  if (values) {
+    gqlFilters.push(`${gqlParamName}: {in:[${values}]}`);
+  }
+}
+
+function getValuesIdsWithoutQuotes(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `${i.id}`).join(',');
+  }
 }

@@ -85,9 +85,9 @@ export const actions = {
     }
   },
   async fetchActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
-    // commit('startLoading');
+    commit('startLoading');
     commit('setActionsResponse', await searchMassActions(orderBy, pageInfo, appliedFilters));
-    // commit('stopLoading');
+    commit('stopLoading');
   },
 };
 

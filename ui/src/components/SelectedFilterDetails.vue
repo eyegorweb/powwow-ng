@@ -40,6 +40,7 @@
       class="close"
       data-dismiss="alert"
       aria-label="Close"
+      v-if="!fixed"
       @click="$emit('clear', filter.id)"
     >
       <span aria-hidden="true">&times;</span>
@@ -55,6 +56,7 @@ export default {
       type: Object,
       required: true,
     },
+    fixed: Boolean,
   },
 
   computed: {

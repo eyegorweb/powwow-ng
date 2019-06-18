@@ -12,6 +12,7 @@
               filter.to)
         "
         :filter="filter"
+        :fixed="checkIfFilterIsFixed(filter)"
         @clear="onClear"
       />
     </div>
@@ -60,6 +61,10 @@ export default {
     currentFilters: {
       type: Array,
     },
+    fixedFilters: {
+      type: Array,
+      required: false,
+    },
   },
 
   data() {
@@ -70,6 +75,12 @@ export default {
 
   components: { SelectedFilterDetails, UiButton, UiDropdownButton, UiInput },
   methods: {
+    checkIfFilterIsFixed(item) {
+      if (!this.fixedFilters) {
+        return false;
+      }
+      return !!this.fixedFilters.find(c => c.id === item.id);
+    },
     onClear(filterId) {
       this.$emit('clear', filterId);
     },

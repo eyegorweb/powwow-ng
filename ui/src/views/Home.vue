@@ -32,9 +32,7 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <ActionCarousel :actions="carouselItems" />
-          </div>
+          <div class="col-md-12"></div>
         </div>
       </div>
       <UiCheckbox>Example</UiCheckbox>
@@ -122,7 +120,6 @@ import UiTabs from '@/components/ui/Tabs';
 import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchWithSelect from '@/components/SearchWithSelect';
-import ActionCarousel from '@/components/ActionCarousel';
 import UiDateRange from '@/components/ui/UiDateRange';
 import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
@@ -259,7 +256,6 @@ export default {
     NavBars,
     MultiChoices,
     SearchWithSelect,
-    ActionCarousel,
     UiApiAutocomplete,
     UiDateRange,
     InputRange,

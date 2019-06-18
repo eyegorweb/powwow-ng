@@ -1,5 +1,10 @@
 <template>
-  <MultiSelectSearch :items="options" :default-selected-items.sync="selectedItems" />
+  <MultiSelectSearch
+    :items="options"
+    :default-selected-items.sync="selectedItems"
+    :disabled-items="disabledItems"
+    :disabled="disabled"
+  />
 </template>
 
 <script>
@@ -15,6 +20,11 @@ export default {
   },
   props: {
     values: Array,
+    disabledItems: {
+      type: Array,
+      required: false,
+    },
+    disabled: Boolean,
 
     /**
      * should respect the format :

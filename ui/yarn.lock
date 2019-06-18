@@ -6428,6 +6428,11 @@ lodash.differenceby@^4.8.0:
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.differenceby/-/lodash.differenceby-4.8.0.tgz#cfd59e94353af5de51da5d302ca4ebff33faac57"
   integrity sha1-z9WelDU69d5R2l0wLKTr/zP6rFc=
 
+lodash.differencewith@^4.5.0:
+  version "4.5.0"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.differencewith/-/lodash.differencewith-4.5.0.tgz#bafafbc918b55154e179176a00bb0aefaac854b7"
+  integrity sha1-uvr7yRi1UVTheRdqALsK76rIVLc=
+
 lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
@@ -6497,6 +6502,11 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
+
+lodash.xorwith@^4.5.0:
+  version "4.5.0"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/lodash.xorwith/-/lodash.xorwith-4.5.0.tgz#8dd1502335d96adc9e46d9a56ec3be4ef26fc2a7"
+  integrity sha1-jdFQIzXZatyeRtmlbsO+TvJvwqc=
 
 lodash@4, lodash@4.x, lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.10:
   version "4.17.11"

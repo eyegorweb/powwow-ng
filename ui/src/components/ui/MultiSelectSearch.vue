@@ -21,6 +21,7 @@
             class="remove-item close-icon"
             style="width: 2rem"
             src="@/assets/close-white.svg"
+            v-if="!isItemDisabled(selected)"
             @click="removeSelection(selected)"
           />
         </div>
@@ -55,6 +56,7 @@
           v-model="selectedItems"
           :value="result.item"
           :key="'ms_' + result.item.id"
+          :disabled="isItemDisabled(result.item)"
           @change="updateTextLabel($event, results.map(r => r.item))"
         >
           <span v-html="result.highlighted.label" />
@@ -89,6 +91,11 @@ export default {
       default: '',
       required: false,
     },
+    disabledItems: {
+      type: Array,
+      required: false,
+    },
+    disabled: Boolean,
   },
 
   data() {
@@ -138,6 +145,11 @@ export default {
   },
 
   methods: {
+    isItemDisabled(item) {
+      if (this.disabled) return true;
+      if (!this.disabledItems) return false;
+      return this.disabledItems.find(i => item.id === i.id);
+    },
     addAllToSelectedItems(items, displayedItems) {
       if (!items.length)
         this.selectedItems = differenceBy(this.selectedItems, displayedItems, 'id');

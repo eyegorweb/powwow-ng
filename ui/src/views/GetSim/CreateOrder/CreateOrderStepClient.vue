@@ -170,6 +170,10 @@ export default {
         label: `${ba.code} - ${ba.name}`,
         partnerId: ba.party.id,
       }));
+
+      if (this.billingAccounts && this.billingAccounts.length === 1) {
+        this.selectedBillingAccount = this.billingAccounts[0];
+      }
     },
     synthesis(synthesis) {
       if (synthesis) {

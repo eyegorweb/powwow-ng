@@ -29,6 +29,7 @@
   "set": "Appliquer",
   "noResult": "Aucun résulat",
   "back": "Retour",
+  "searching": "Recherche en cours ...",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -77,7 +78,7 @@
     "export-warning": "L'export sera généré en différé et sera accessible dans la gestion documentaire. Voulez-vous continuer?",
     "sim-type-labels": {
       "format": "Format",
-      "licence": "Licence",
+      "licence": "Brevets",
       "patent": "Brevets et fonctionnalité",
       "orderDate": "Dernière commande"
     },
@@ -238,11 +239,44 @@
         "details": "Détails"
       }
     },
+    "actCreation": {
+      "carouselItem": {
+        "CONSUMING": "En cours consommation",
+        "EXPORT_CONS": "Export consommation",
+        "SUSPEND": "Suspendre des lignes",
+        "MANAGE_ALARMS": "Gérer des alarmes",
+        "EXPORT_LAST_USAGE": "Export dernier usage",
+        "CHANGE_CF": "Changement de C.F.",
+        "CHANGE_OFFER": "Changement d'offre",
+        "POSITION_ALARM": "Positionner une alarme",
+        "CHANGE_SERVICES": "Modifier services"
+      },
+
+      "suspend": {
+        "notEditable": "Non modifiable par le client",
+        "suspendBilling": "Suspendre la facturation"
+      },
+
+      "step2Titles": {
+        "CHANGE_SERVICES": "Configurer la modification des services",
+        "SUSPEND": "Configurer la suspension"
+      },
+
+      "SERVICE_TO_ACTIVATE": "Services à activer",
+      "SERVICE_TO_DESACTIVATE": "Services à désactiver",
+      "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?"
+    },
     "actLines": {
-      "total": "{total} lignes",
+      "total": "{total} ligne(s) trouvé(s)",
+      "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
+      "selectOffer": "séléctionner des offres",
+      "fileImport": {
+        "foundLines": "lignes ont été trouvées",
+        "notFounfLines": "lignes ne sont pas compatibles"
+      },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
         "PREACTIVATED": "Préactivée",
@@ -254,9 +288,49 @@
         "TEST": "Test",
         "BARRED": "Barré"
       },
+      "commercialStatuses": {
+        "demandeDeResiliation": "Demande de résiliation",
+        "facturationActive": "Facturation active",
+        "facturationActiveEnCours": "Facturation active en cours",
+        "resiliationEnCours": "Résiliation en cours",
+        "resilie": "Résilié",
+        "suspenduFacture": "Suspendu facturé",
+        "suspenduFactureBO": "Suspendu facturé BO",
+        "suspenduNonFacture": "Suspendu non facturé",
+        "suspenduNonFactureBO": "Suspendu non facturé BO",
+        "suspensionFactureBOEnCours": "Suspension facturé BO en cours",
+        "suspensionFactureEnCours": "Suspension facturé en cours",
+        "suspensionNonFactureBOEnCours": "Suspension non facturé BO en cours",
+        "suspensionNonFactureEnCours": "Suspension non facturé en cours",
+        "stock": "Stock",
+        "stockEnCours": "Stock en cours",
+        "test": "Test",
+        "testEnCours": "Test en cours",
+        "tryAndBuy": "Try and Buy",
+        "tryAndBuyEnCours": "Try and buy en cours",
+        "suspendu": "Suspendu",
+        "suspenduBO": "Suspendu BO",
+        "suspensionBOEnCours": "Suspension BO en cours",
+        "suspensionEnCours": "Suspension en cours",
+        "activationEnCours": "Activation en cours",
+        "barree": "Barré",
+        "barringEnCours": "Barring en cours",
+        "leveeBarringEnCours": "Levée du barring en cours",
+        "reactivationEnCours": "Réactivation en cours",
+        "vendu": "Vendu",
+        "venteEnCours": "Vente en cours",
+        "actifNonFacture": "Actif non facturé",
+        "actifNonFactureEnCours": "Actif non facturé en cours",
+        "facturationActiveAvecRoaming": "Facturation active avec roaming",
+        "facturationActiveAvecRoamingEnCours": "Facturation active avec roaming en cours",
+        "reactivationFacturationActiveEnCours": "Réactivation facturation active en cours",
+        "reactivationFacturationAvecRoamingEnCours": "Réactivation facturation active avec roaming en cours",
+        "suppressionRoamingEnCours": "Suppression roaming en cours",
+        "ajoutRoamingEnCours": "Ajout roaming en cours"
+      },
       "col": {
         "simStatus": "Statut de SIM",
-        "lastPLMN": "Dernier pays (ancien PLMN)",
+        "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
         "manufacturer": "Fabricant (IMEI)",
         "deviceReference": "Modèle (IMEI)"
@@ -365,7 +439,11 @@
     "actDateEnd": "Date de fin",
     "actCreator": "Créateur de l’acte",
     "lines": {
-      "fromFile": "Filtrer à partir d’un fichier",
+      "fromFile": {
+        "title": "Filtrer à partir d’un fichier",
+        "id-type-placeholder": "Type d'identifiant",
+        "import-file": "Choisir un fichier CSV ou XLS"
+      },
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",

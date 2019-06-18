@@ -18,6 +18,20 @@ export async function query(q) {
   }
 }
 
+export async function postFile(url, formData) {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    const response = await api.post(url, formData, config);
+    return response.data;
+  } catch (e) {
+    return { error: e.message };
+  }
+}
+
 export async function queryHandleErros(q) {
   try {
     return await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
@@ -43,19 +57,6 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
     );
   }
 
-  function formatDateForGql(inDate) {
-    if (!inDate) return '';
-    const startDate = inDate.replace(/\//g, '-');
-    const parts = startDate.split(' ');
-    if (parts) {
-      if (parts.length === 2) {
-        return startDate;
-      } else {
-        return `${parts[0]} 00:00:00`;
-      }
-    }
-  }
-
   function prepareEndDateForBackend(inDate) {
     const dateToEdit = inDate.replace(/\//g, '-');
     const parts = dateToEdit.split(' ');
@@ -76,6 +77,19 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
         endDate = endDate.add(1, 'days');
       }
       return endDate.format(formatToUse) + ' 00:00:00';
+    }
+  }
+}
+
+export function formatDateForGql(inDate) {
+  if (!inDate) return '';
+  const startDate = inDate.replace(/\//g, '-');
+  const parts = startDate.split(' ');
+  if (parts) {
+    if (parts.length === 2) {
+      return startDate;
+    } else {
+      return `${parts[0]} 00:00:00`;
     }
   }
 }

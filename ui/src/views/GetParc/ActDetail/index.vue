@@ -72,6 +72,7 @@ import UnitActsTable from './UnitActsTable';
 import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
 import { searchMassActionsById } from '@/api/massActions';
 import { fetchUnitActionsTotals } from '@/api/unitActions';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -112,19 +113,20 @@ export default {
   methods: {
     async refreshTables() {
       const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
+      console.log(totals);
       if (totals) {
         this.tabs = [
           {
             ...this.tabs[0],
-            total: totals.failed.total,
+            total: get(totals, 'failed.total', 0),
           },
           {
             ...this.tabs[1],
-            total: totals.ongoing.total,
+            total: get(totals, 'ongoing.total', 0),
           },
           {
             ...this.tabs[2],
-            total: totals.finished.total,
+            total: get(totals, 'finished.total', 0),
           },
         ];
       }
@@ -142,6 +144,7 @@ export default {
     },
     async refreshCurrentMassAction() {
       const data = await searchMassActionsById(this.$route.params.massActionId);
+      console.log(data);
       if (data) {
         this.massAction = data;
       }

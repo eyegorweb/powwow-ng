@@ -53,6 +53,7 @@ export default {
         {
           singleDatePicker: true,
           startDate,
+          drops: 'up',
           locale: {
             format: 'DD/MM/YYYY',
             separator: ' - ',

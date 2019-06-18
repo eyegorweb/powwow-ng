@@ -21,7 +21,6 @@ export const state = {
   filterCustomFieldsList: [],
   ordersResponse: [],
   orderPage: 1,
-  orderIsLoading: false,
 };
 
 // Getters
@@ -30,7 +29,6 @@ export const getters = {
   ...filterUtils.initGetters(),
   orderPage: state => state.orderPage,
   ordersResponse: state => state.ordersResponse,
-  orderIsLoading: state => state.orderIsLoading,
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
@@ -64,6 +62,9 @@ export const getters = {
   },
   selectedOrderDate: state => state.currentFilters.find(f => f.id === 'filters.orderDate'),
   selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
+  selectedTypeSimCardValues: state => {
+    return selectedFilterValuesById(state)('filters.lines.typeSIMCard');
+  },
 };
 
 // Actions
@@ -119,11 +120,17 @@ async function refreshCustomFilters({ commit }, partners) {
   commit('setCustomFieldsFilter', []);
 }
 
+async function resetOrderFilters(store) {
+  store.commit('clearAllFilters');
+  initFilterForContext(store);
+}
+
 export const actions = {
   setPartnersFilter,
   refreshCustomFilters,
   initFilterForPartnerUser,
   initFilterForContext,
+  resetOrderFilters,
 
   clearFilter(store, filterId) {
     /**
@@ -267,11 +274,10 @@ export const mutations = {
   setPage(state, newPage) {
     state.orderPage = newPage;
   },
-
-  startLoading(state) {
-    state.orderIsLoading = true;
-  },
-  stopLoading(state) {
-    state.orderIsLoading = false;
+  setTypeSimCardFilter(state, types) {
+    selectFilterValue(state, {
+      id: 'filters.lines.typeSIMCard',
+      values: types,
+    });
   },
 };

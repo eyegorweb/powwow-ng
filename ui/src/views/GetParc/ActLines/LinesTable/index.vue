@@ -1,11 +1,11 @@
 <template>
-  <LoaderContainer :is-loading="false">
+  <LoaderContainer :is-loading="isLoading">
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h4 class="text-gray font-weight-light" style="font-size: 1.3rem">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
             {{ $t('getparc.actLines.total', { total: total }) }}
-          </h4>
+          </h2>
         </div>
       </div>
       <DataTable
@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
-// import CheckBoxCell from './CheckBoxCell';
+import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
@@ -55,11 +55,13 @@ export default {
   async mounted() {
     this.columns = setFormatComponentsToColumns([...this.commonColumns]);
   },
+  props: {
+    creationMode: Object,
+  },
   data() {
     return {
       columns: [],
       commonColumns: [
-        /*
         {
           id: 99,
           label: '',
@@ -67,20 +69,12 @@ export default {
           orderable: false,
           visible: true,
           noHandle: true,
+          notConfigurable: true,
           format: {
             component: CheckBoxCell,
           },
-        },
-        //*/
-        {
-          id: 1,
-          label: this.$t('col.partner'),
-          orderable: false,
-          visible: true,
-          name: 'accessPoint',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'simCardInstance.party.name',
+          visibleWhen: () => {
+            return !!this.creationMode;
           },
         },
         {
@@ -88,23 +82,38 @@ export default {
           label: this.$t('getparc.actDetail.col.iccid'),
           orderable: false,
           visible: true,
-          name: 'accessPoint',
+          name: 'iccid',
+        },
+        {
+          id: 1,
+          label: this.$t('col.partner'),
+          orderable: false,
+          visible: true,
+          name: 'party',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.iccid',
+            path: 'name',
           },
         },
         {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
-          name: 'msisdn',
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'lines[0].msisdn',
+          },
           orderable: false,
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.imsi'),
-          name: 'imsi',
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'lines[0].imsi',
+          },
           orderable: false,
           visible: true,
         },
@@ -156,10 +165,10 @@ export default {
         {
           id: 11,
           label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'accessPoint',
+          name: 'deviceInstance',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.deviceInstance.manufacturer',
+            path: 'manufacturer',
           },
           orderable: false,
           visible: false,
@@ -167,10 +176,10 @@ export default {
         {
           id: 12,
           label: this.$t('getparc.actLines.col.deviceReference'),
-          name: 'accessPoint',
+          name: 'deviceInstance',
           format: {
             type: 'ObjectAttribute',
-            path: 'simCardInstance.deviceInstance.deviceReference',
+            path: 'deviceReference',
           },
           orderable: false,
           visible: false,
@@ -182,7 +191,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage']),
+    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
 
     total() {
       return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
