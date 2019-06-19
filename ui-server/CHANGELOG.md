@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.50+20190619155426
+2019-06-19
+
+### Fixes
+
+- options de la reactivation (d0c8dfd8b5f4ec989c4e2dbbf6684011d5ca6599)
+
 ## 0.3.0-master.49+20190619120355
 2019-06-19
 
