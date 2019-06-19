@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.49+20190619120355
+2019-06-19
+
+### Features
+
+- reactivation de ligne (e527bdde85baf5cce9a10571d204209c631adb53)
+
 ## 0.3.0-master.48+20190619092427
 2019-06-19
 
