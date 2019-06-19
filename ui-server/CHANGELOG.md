@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.48+20190619092427
+2019-06-19
+
+### Fixes
+
+- correction de l'upload (76456aba8c7e5f2a896f37bf49ccaaac48317129)
+
 ## 0.3.0-master.47+20190618162402
 2019-06-18
 
