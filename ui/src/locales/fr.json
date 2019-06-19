@@ -249,22 +249,29 @@
         "CHANGE_CF": "Changement de C.F.",
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
-        "CHANGE_SERVICES": "Modifier services"
+        "CHANGE_SERVICES": "Modifier services",
+        "REACTIVATE": "Réactiver des lignes"
       },
 
       "suspend": {
         "notEditable": "Non modifiable par le client",
         "suspendBilling": "Suspendre la facturation"
       },
+      "reactivate": {
+        "notEditable": "Non modifiable par le client",
+        "reactivateBilling": "Reactiver la facturation"
+      },
 
       "step2Titles": {
         "CHANGE_SERVICES": "Configurer la modification des services",
-        "SUSPEND": "Configurer la suspension"
+        "SUSPEND": "Configurer la suspension",
+        "REACTIVATE": "Configurer la réactivation des lignes"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
       "SERVICE_TO_DESACTIVATE": "Services à désactiver",
-      "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?"
+      "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?",
+      "ALTERABLE_BY_CLIENT": "Non modifiable par le client"
     },
     "actLines": {
       "total": "{total} ligne(s) trouvé(s)",

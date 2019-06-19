@@ -267,6 +267,24 @@ export default {
             },
           ],
         },
+        {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.REACTIVATE',
+          stepTitle: 'getparc.actCreation.carouselItem.REACTIVATE',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
         /*
          {
           icon: 'ic-Heart-Rythm-Icon',

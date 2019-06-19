@@ -4,10 +4,12 @@
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
-          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.found }}  {{ $t('getparc.actLines.fileImport.foundLines') }}.
+          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.found }}
+          {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
         <li>
-          <i class="ic-Cross-Icon mr-2 text-danger" />{{ fileMeta.notFound }} {{ $t('getparc.actLines.fileImport.notFounfLines') }}.
+          <i class="ic-Cross-Icon mr-2 text-danger" />{{ fileMeta.notFound }}
+          {{ $t('getparc.actLines.fileImport.notFounfLines') }}.
         </li>
         <li>
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
