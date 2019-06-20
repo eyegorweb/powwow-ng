@@ -13,6 +13,10 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'"
         @set:preprequisites="setPrerequisites"
       />
+      <TestPhasePre
+        v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
@@ -21,6 +25,7 @@
 import ChangeServicePre from './prerequisites/ChangeServicePre';
 import ReactivatePre from './prerequisites/ReactivatePre';
 import SuspendLinesPre from './prerequisites/SuspendLinesPre';
+import TestPhasePre from './prerequisites/TestPhasePre';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -28,6 +33,7 @@ export default {
     ChangeServicePre,
     ReactivatePre,
     SuspendLinesPre,
+    TestPhasePre,
   },
   props: {
     act: Object,

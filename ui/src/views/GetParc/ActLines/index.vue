@@ -285,6 +285,33 @@ export default {
             },
           ],
         },
+        {
+          icon: 'ic-Arrow-Forward-Icon',
+          title: 'getparc.actCreation.carouselItem.TEST_PHASE',
+          stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.billingStatus',
+              values: [
+                {
+                  id: 'TEST',
+                  label: 'Test',
+                },
+              ],
+            },
+          ],
+        },
         /*
          {
           icon: 'ic-Heart-Rythm-Icon',

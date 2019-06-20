@@ -18,12 +18,21 @@
             </div>
             <div class="col">
               <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-                {{ $t('set') }}
+                <slot name="iconTitle" />
+                {{ title }}
               </button>
+              <div v-if="message">
+                {{ info }}
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+          <div v-if="message" class="text-warning">
+            <slot name="iconMsg" />
+            {{ message.text }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +51,9 @@ export default {
 
   props: {
     validateFn: Function,
+    applyTitle: String,
+    message: Object,
+    info: Object,
   },
 
   data() {
@@ -50,6 +62,11 @@ export default {
       dateError: null,
       notificationCheck: false,
     };
+  },
+  computed: {
+    title() {
+      return this.applyTitle ? this.applyTitle : this.$t('set');
+    },
   },
   methods: {
     ...mapMutations(['flashMessage']),
