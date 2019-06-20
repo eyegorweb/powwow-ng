@@ -250,7 +250,8 @@
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
-        "REACTIVATE": "Réactiver des lignes"
+        "REACTIVATE": "Réactiver des lignes",
+        "TEST_PHASE": "Terminer une phase de test"
       },
 
       "suspend": {
@@ -262,10 +263,16 @@
         "reactivateBilling": "Reactiver la facturation"
       },
 
+      "phaseTest": {
+        "end": "Terminer le test",
+        "warningMsg": "Attention ! Toute sortie de ligne de la phase de test est définitive, et ne sera pas réversible."
+      },
+
       "step2Titles": {
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
-        "REACTIVATE": "Configurer la réactivation des lignes"
+        "REACTIVATE": "Configurer la réactivation des lignes",
+        "TEST_PHASE": "Configurer la sortie de phase de test"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
