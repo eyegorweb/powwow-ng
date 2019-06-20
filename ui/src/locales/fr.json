@@ -251,6 +251,8 @@
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
         "REACTIVATE": "Réactiver des lignes",
+        "SEND_SMS": "Envoyer SMS",
+        "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test"
       },
 
@@ -261,6 +263,13 @@
       "reactivate": {
         "notEditable": "Non modifiable par le client",
         "reactivateBilling": "Reactiver la facturation"
+      },
+      "sendSMS": {
+        "shortCode": "Short code",
+        "message": "Message [facultatif]",
+        "acceptConditions": "Accepter les conditions en vigueur avec Bouygues Télécom",
+        "successMessage": "La demande a bien été prise en compte",
+        "nbCharacters": "Nombres de caractères"
       },
 
       "phaseTest": {

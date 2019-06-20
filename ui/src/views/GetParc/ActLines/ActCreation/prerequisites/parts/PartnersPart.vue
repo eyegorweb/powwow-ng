@@ -45,6 +45,7 @@ export default {
         id: p.id,
         label: p.name,
         orderNumberIsMandatory: p.orderNumberRequired,
+        shortCodes: p.shortCodes,
       }));
     },
   },

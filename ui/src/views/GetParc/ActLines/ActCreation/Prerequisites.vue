@@ -13,7 +13,11 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'"
         @set:preprequisites="setPrerequisites"
       />
-      <TestPhasePre
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.SEND_SMS'"
+        @set:preprequisites="setPrerequisites"
+      />
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'"
         @set:preprequisites="setPrerequisites"
       />
@@ -25,7 +29,7 @@
 import ChangeServicePre from './prerequisites/ChangeServicePre';
 import ReactivatePre from './prerequisites/ReactivatePre';
 import SuspendLinesPre from './prerequisites/SuspendLinesPre';
-import TestPhasePre from './prerequisites/TestPhasePre';
+import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -33,7 +37,7 @@ export default {
     ChangeServicePre,
     ReactivatePre,
     SuspendLinesPre,
-    TestPhasePre,
+    NoPrerequisitesPre,
   },
   props: {
     act: Object,
@@ -43,18 +47,16 @@ export default {
     ...mapMutations('actLines', ['applyFilters', 'setOffersFilter', 'setActCreationPrerequisites']),
 
     setPrerequisites(allPrereq) {
-      if (allPrereq.partner) {
-        this.setPartnersFilter([allPrereq.partner]);
-      }
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
       }
-
+      if (allPrereq.partner) {
+        this.setPartnersFilter([allPrereq.partner]);
+        this.setActCreationPrerequisites(allPrereq);
+      }
       if (allPrereq) {
         this.applyFilters();
       }
-
-      this.setActCreationPrerequisites(allPrereq);
     },
   },
 };

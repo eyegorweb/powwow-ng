@@ -286,6 +286,41 @@ export default {
           ],
         },
         {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.SEND_SMS',
+          stepTitle: 'getparc.actCreation.carouselItem.SEND_SMS',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.billingStatus',
+              values: [
+                {
+                  id: 'CANCELED',
+                  label: 'Annulée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+                {
+                  id: 'TEST',
+                  label: 'Test',
+                },
+              ],
+            },
+          ],
+        },
+        {
           icon: 'ic-Arrow-Forward-Icon',
           title: 'getparc.actCreation.carouselItem.TEST_PHASE',
           stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',

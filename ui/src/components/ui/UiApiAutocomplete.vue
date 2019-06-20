@@ -250,7 +250,7 @@ export default {
   position: absolute;
   right: 0.8rem;
   width: 1em;
-  top: 50%;
+  top: 1.3rem;
   transform: translateY(-50%);
   &:hover {
     cursor: pointer;
