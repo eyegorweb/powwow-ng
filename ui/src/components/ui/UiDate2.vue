@@ -6,7 +6,7 @@
         <span>{{ value }}</span>
       </div>
       <div>
-        <button v-if="value" @click.stop="clearValue" class="btn btn-link">
+        <button v-if="value && !fixed" @click.stop="clearValue" class="btn btn-link">
           <i class="icon ic-Cross-Icon" />
         </button>
       </div>
@@ -31,6 +31,7 @@ export default {
       type: String,
       required: false,
     },
+    fixed: Boolean,
   },
   methods: {
     clearValue() {

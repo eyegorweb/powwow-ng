@@ -2,36 +2,39 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-8">
+        <div class="col-7">
           <slot />
-          <div class="row">
-            <div class="col d-flex">
-              <UiCheckbox v-model="notificationCheck" />
-              <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+          <div v-if="!excludeDefaultFields">
+            <div class="row">
+              <div class="col d-flex">
+                <UiCheckbox v-model="notificationCheck" />
+                <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <UiDate @change="onActDateChange" :value="actDate" :error="dateError" class="d-block">
-                <i slot="icon" class="select-icon ic-Flag-Icon" />
-              </UiDate>
-            </div>
-            <div class="col">
-              <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-                <slot name="iconTitle" />
-                {{ title }}
-              </button>
-              <div v-if="message">
-                {{ info }}
+            <div class="row">
+              <div class="col">
+                <UiDate
+                  @change="onActDateChange"
+                  :value="actDate"
+                  :error="dateError"
+                  class="d-block"
+                >
+                  <i slot="icon" class="select-icon ic-Flag-Icon" />
+                </UiDate>
+              </div>
+              <div class="col">
+                <slot name="validate-btn-content" :containerValidationFn="validate">
+                  <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+                    <span>{{ $t('set') }}</span>
+                  </button>
+                </slot>
               </div>
             </div>
           </div>
+          <slot name="bottom"></slot>
         </div>
-        <div class="col-4">
-          <div v-if="message" class="text-warning">
-            <slot name="iconMsg" />
-            {{ message.text }}
-          </div>
+        <div class="col-5">
+          <slot name="messages"></slot>
         </div>
       </div>
     </div>
@@ -51,9 +54,9 @@ export default {
 
   props: {
     validateFn: Function,
-    applyTitle: String,
-    message: Object,
-    info: Object,
+    checkErrorsFn: Function,
+    excludeDefaultFields: Boolean,
+    successMessage: String,
   },
 
   data() {
@@ -63,14 +66,13 @@ export default {
       notificationCheck: false,
     };
   },
-  computed: {
-    title() {
-      return this.applyTitle ? this.applyTitle : this.$t('set');
-    },
-  },
   methods: {
     ...mapMutations(['flashMessage']),
-    ...mapMutations('actLines', ['setActToCreate', 'setActCreationPrerequisites']),
+    ...mapMutations('actLines', [
+      'setActToCreate',
+      'setActCreationPrerequisites',
+      'setSelectedLinesForActCreation',
+    ]),
 
     onActDateChange(value) {
       this.actDate = value;
@@ -84,7 +86,6 @@ export default {
         notificationCheck: this.notificationCheck,
       });
 
-      console.log(response);
       if (!response) {
         this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
       }
@@ -95,21 +96,32 @@ export default {
             this.flashMessage({ level: 'danger', message: e.description });
           });
         } else {
-          this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+          const successMessage = this.successMessage
+            ? this.$t(this.successMessage)
+            : 'Opération effectuée avec succès';
+          this.flashMessage({ level: 'success', message: successMessage });
 
           // sortir du mode création acte
           this.setActToCreate(null);
           this.setActCreationPrerequisites(null);
+          this.setSelectedLinesForActCreation([]);
         }
       }
     },
 
     haveErrors() {
+      if (this.checkErrorsFn) {
+        return this.checkErrorsFn();
+      }
+
+      if (this.excludeDefaultFields) return false;
+
       this.dateError = undefined;
       if (!this.actDate) {
         this.dateError = 'errors.mandatory';
         return true;
       }
+      return false;
     },
   },
 };

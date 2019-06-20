@@ -1,8 +1,21 @@
 <template>
   <div>
-    <ActFormContainer :validate-fn="onValidate" :apply-title="applyTitle" :message="message" :info="info">
-      <i slot="iconTitle" class="ic-Arrow-Forward-Icon" />
-      <i slot="iconMsg" class="ic-Alert-Icon" />
+    <ActFormContainer :validate-fn="onValidate">
+      <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
+        <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <i class="ic-Arrow-Forward-Icon" />
+          {{ $t('getparc.actCreation.phaseTest.end') }}
+        </button>
+        <div>
+          {{ info }}
+        </div>
+      </div>
+      <div slot="messages" class="text-warning">
+        <span>
+          <i class="ic-Alert-Icon" />
+          {{ $t('getparc.actCreation.phaseTest.warningMsg') }}
+        </span>
+      </div>
     </ActFormContainer>
   </div>
 </template>
@@ -16,16 +29,7 @@ export default {
   components: {
     ActFormContainer,
   },
-  data() {
-    return {
-      notEditable: false,
-      suspendBilling: false,
-      applyTitle: this.$t('getparc.actCreation.phaseTest.end'),
-      message: {
-        text: this.$t('getparc.actCreation.phaseTest.warningMsg'),
-      },
-    };
-  },
+
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
