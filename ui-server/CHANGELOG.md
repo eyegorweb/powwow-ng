@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.52+20190620130605
+2019-06-20
+
+### Features
+
+- add act creation phase test (44670904928aaa5e98efd245f69b8c6051a2319a)
+
 ## 0.3.0-master.51+20190620071227
 2019-06-20
 
