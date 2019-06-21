@@ -265,6 +265,15 @@ export default {
                 },
               ],
             },
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'facturationActive',
+                  label: 'Facturation active',
+                },
+              ],
+            },
           ],
         },
         {
