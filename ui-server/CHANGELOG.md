@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.56+20190621153315
+2019-06-21
+
+### Fixes
+
+- ajoute filtre obligatoire pour la suspension (5738c4348bfb7ee659cf28381d698b1d645d42ff)
+
 ## 0.3.0-master.55+20190621125544
 2019-06-21
 
