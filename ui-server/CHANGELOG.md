@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.54+20190621091820
+2019-06-21
+
+### Fixes
+
+- reset selected lines (a5f2e7b6a752f37a2deab6031a30d73879d3fb5c)
+
 ## 0.3.0-master.53+20190620134910
 2019-06-20
 
