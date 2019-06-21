@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.55+20190621125544
+2019-06-21
+
+### Fixes
+
+- acte de modification des valeurs libres (d017840dff261e4fbbb5627424a4e15bb65e90bf)
+
 ## 0.3.0-master.54+20190621091820
 2019-06-21
 
