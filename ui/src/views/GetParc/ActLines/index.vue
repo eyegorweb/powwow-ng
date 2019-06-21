@@ -347,6 +347,36 @@ export default {
             },
           ],
         },
+        {
+          icon: 'ic-Stats-Icon',
+          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'NOT_PREACTIVATED',
+                  label: 'Non préactivée',
+                },
+                {
+                  id: 'PREACTIVATED',
+                  label: 'Préactivée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+                {
+                  id: 'RELEASED',
+                  label: 'Résiliée',
+                },
+              ],
+            },
+          ],
+        },
         /*
          {
           icon: 'ic-Heart-Rythm-Icon',

@@ -250,10 +250,10 @@
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
-        "REACTIVATE": "Réactiver des lignes",
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
-        "TEST_PHASE": "Terminer une phase de test"
+        "TEST_PHASE": "Terminer une phase de test",
+        "CUSTOM_FIELDS": "Modifier les champs libres"
       },
 
       "suspend": {
@@ -281,7 +281,8 @@
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
         "REACTIVATE": "Configurer la réactivation des lignes",
-        "TEST_PHASE": "Configurer la sortie de phase de test"
+        "TEST_PHASE": "Configurer la sortie de phase de test",
+        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
