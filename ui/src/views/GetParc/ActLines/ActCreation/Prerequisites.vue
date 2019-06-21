@@ -5,11 +5,11 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
         @set:preprequisites="setPrerequisites"
       />
-      <ReactivatePre
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.REACTIVATE'"
         @set:preprequisites="setPrerequisites"
       />
-      <SuspendLinesPre
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'"
         @set:preprequisites="setPrerequisites"
       />
@@ -21,22 +21,22 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'"
         @set:preprequisites="setPrerequisites"
       />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import ChangeServicePre from './prerequisites/ChangeServicePre';
-import ReactivatePre from './prerequisites/ReactivatePre';
-import SuspendLinesPre from './prerequisites/SuspendLinesPre';
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     ChangeServicePre,
-    ReactivatePre,
-    SuspendLinesPre,
     NoPrerequisitesPre,
   },
   props: {

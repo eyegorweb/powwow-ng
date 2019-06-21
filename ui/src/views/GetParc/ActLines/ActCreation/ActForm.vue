@@ -6,6 +6,7 @@
       <SuspendLinesForm v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'" />
       <SendSMSForm v-if="act.title === 'getparc.actCreation.carouselItem.SEND_SMS'" />
       <TestPhaseForm v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'" />
+      <EditCustomFieldsForm v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'" />
     </div>
   </div>
 </template>
@@ -16,6 +17,7 @@ import ReactivateForm from './forms/ReactivateForm';
 import SuspendLinesForm from './forms/SuspendLinesForm';
 import SendSMSForm from './forms/SendSMSForm';
 import TestPhaseForm from './forms/TestPhaseForm';
+import EditCustomFieldsForm from './forms/EditCustomFieldsForm';
 
 export default {
   components: {
@@ -24,6 +26,7 @@ export default {
     SuspendLinesForm,
     SendSMSForm,
     TestPhaseForm,
+    EditCustomFieldsForm,
   },
   props: {
     act: Object,
