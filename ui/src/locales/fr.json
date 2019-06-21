@@ -287,7 +287,8 @@
       "SERVICE_TO_ACTIVATE": "Services à activer",
       "SERVICE_TO_DESACTIVATE": "Services à désactiver",
       "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?",
-      "ALTERABLE_BY_CLIENT": "Non modifiable par le client"
+      "ALTERABLE_BY_CLIENT": "Non modifiable par le client",
+      "SELECTED_LINES": "{total} lignes seront modifiées"
     },
     "actLines": {
       "total": "{total} ligne(s) trouvé(s)",

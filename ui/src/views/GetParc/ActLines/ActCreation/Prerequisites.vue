@@ -30,7 +30,7 @@ import ChangeServicePre from './prerequisites/ChangeServicePre';
 import ReactivatePre from './prerequisites/ReactivatePre';
 import SuspendLinesPre from './prerequisites/SuspendLinesPre';
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
-import { mapActions, mapMutations } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -43,8 +43,14 @@ export default {
     act: Object,
   },
   methods: {
+    ...mapState('actLines', ['selectedLinesForActCreation']),
     ...mapActions('actLines', ['setPartnersFilter']),
-    ...mapMutations('actLines', ['applyFilters', 'setOffersFilter', 'setActCreationPrerequisites']),
+    ...mapMutations('actLines', [
+      'applyFilters',
+      'setOffersFilter',
+      'setActCreationPrerequisites',
+      'setSelectedLinesForActCreation',
+    ]),
 
     setPrerequisites(allPrereq) {
       if (allPrereq.offer) {
@@ -53,6 +59,8 @@ export default {
       if (allPrereq.partner) {
         this.setPartnersFilter([allPrereq.partner]);
         this.setActCreationPrerequisites(allPrereq);
+        // Reset selected lines for a new application partner
+        this.setSelectedLinesForActCreation([]);
       }
       if (allPrereq) {
         this.applyFilters();
