@@ -7,7 +7,7 @@
           <span>{{ $t('getparc.actCreation.suspend.notEditable') }}</span>
         </div>
       </div>
-      <div class="row">
+      <div v-if="canSuspend" class="row">
         <div class="col d-flex">
           <UiCheckbox v-model="suspendBilling" />
           <span>{{ $t('getparc.actCreation.suspend.suspendBilling') }}</span>
@@ -37,6 +37,11 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    canSuspend() {
+      if (!this.actCreationPrerequisites) return false;
+
+      return this.actCreationPrerequisites.partner.partyType !== 'MVNO';
+    },
   },
   methods: {
     async onValidate(contextValues) {

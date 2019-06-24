@@ -8,6 +8,40 @@
         @change="onValueChanged"
       />
     </div>
+    <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
+      <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+        <i class="ic-Edit-Icon" />
+        {{ $t('getparc.actCreation.editCustomFields.validateBtn') }}
+      </button>
+      <Modal v-if="waitForConfirmation">
+        <div slot="body">
+          <div class="text-danger">
+            <i class="ic-Alert-Icon"></i>
+            {{ $t('getparc.actCreation.editCustomFields.confirmationWarning') }}
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            @click.stop="waitForConfirmation = false"
+          >
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="modal-default-button btn btn-success btn-sm ml-1"
+            @click.stop="confirmValdation(containerValidationFn)"
+          >
+            {{ $t('save') }}
+          </button>
+        </div>
+      </Modal>
+    </div>
+    <div slot="messages" class="text-info">
+      <span>
+        <i class="ic-Alert-Icon" />
+        {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
+      </span>
+    </div>
   </ActFormContainer>
 </template>
 
@@ -17,17 +51,20 @@ import CustomFields from '@/components/CustomFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 import { updateCustomFields } from '@/api/actCreation';
+import Modal from '@/components/Modal';
 
 export default {
   components: {
     ActFormContainer,
     CustomFields,
+    Modal,
   },
   data() {
     return {
       allCustomFields: [],
       customFieldsValues: [],
       customFieldsErrors: [],
+      waitForConfirmation: false,
     };
   },
   computed: {
@@ -90,6 +127,11 @@ export default {
         this.selectedLinesForActCreation,
         params
       );
+    },
+    async confirmValdation(containerValidationFn) {
+      const response = await containerValidationFn();
+      this.waitForConfirmation = false;
+      return response;
     },
   },
 };
