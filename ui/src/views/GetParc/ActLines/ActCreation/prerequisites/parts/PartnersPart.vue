@@ -41,11 +41,13 @@ export default {
       }
       const partnerTypesIn = this.contextPartnersTypes;
       const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
+      console.log(data);
       return data.map(p => ({
         id: p.id,
         label: p.name,
         orderNumberIsMandatory: p.orderNumberRequired,
         shortCodes: p.shortCodes,
+        partyType: p.partyType,
       }));
     },
   },

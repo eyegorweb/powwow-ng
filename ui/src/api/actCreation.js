@@ -13,14 +13,17 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
 
   const queryStr = `
   mutation {
-    suspendReactivateLines(filter: {${gqlFilter}},
-      partyId: ${partyId},
-      lines: [${lineIds}],
-      suspendreFacturation: ${boolStr(suspendreFacturation)},
-      notifEmail: ${boolStr(notifEmail)},
-      suspension: ${suspension},
-      nonModifiableParClient: ${boolStr(nonModifiableParClient)},
-      dueDate: "${formatDateForGql(dueDate)}")
+    suspendReactivateLines(
+      input: {
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${lineIds}],
+        suspendBilling: ${boolStr(suspendreFacturation)},
+        notification: ${boolStr(notifEmail)},
+        suspend: ${suspension},
+        nonModifiableByCustomer: ${boolStr(nonModifiableParClient)},
+        dueDate: "${formatDateForGql(dueDate)}"
+      })
   }
   `;
 
@@ -51,17 +54,18 @@ export async function sendSMS(filters, lines, params) {
 
   const queryStr = `
   mutation {
-    sendSMS(filter: {${gqlFilter}},
-      partyId: ${partyId},
-      lines: [${lineIds}],
-      notifEmail: ${boolStr(notifEmail)},
-      dueDate: "${formatDateForGql(dueDate)}"
-      texMessage: "${texMessage}",
-      numberOfSMS: ${numberOfSMS},
-      shortCode: "${shortCode}",
+    sendSMS(
+      input: {
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${lineIds}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}"
+        textMessage: "${texMessage}",
+        numberOfSMS: ${numberOfSMS},
+        shortCode: "${shortCode}"
+        }
       )
-
-
   }
   `;
 
@@ -80,11 +84,13 @@ export async function endPhaseTest(filters, lines, params) {
 
   const queryStr = `
     mutation {
-      terminateLines(filter: {${gqlFilter}},
-        partyId: ${partyId},
-        lines: [${lineIds}],
-        notifEmail: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}")
+        terminateLines(input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${lineIds}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}"
+        })
     }
     `;
 
@@ -114,17 +120,20 @@ export async function updateCustomFields(filters, lines, params) {
 
   const queryStr = `
     mutation {
-      updateCustomFields(filter: {${gqlFilter}},
-        partyId: ${partyId},
-        lines: [${lineIds}],
-        notifEmail: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}",
-        custom1: "${custom1}",
-        custom2: "${custom2}",
-        custom3: "${custom3}",
-        custom4: "${custom4}",
-        custom5: "${custom5}",
-        custom6: "${custom6}",
+      changeCustomFields(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${lineIds}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          custom1: "${custom1}",
+          custom2: "${custom2}",
+          custom3: "${custom3}",
+          custom4: "${custom4}",
+          custom5: "${custom5}",
+          custom6: "${custom6}"
+        }
         )
     }
     `;

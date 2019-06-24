@@ -277,6 +277,12 @@
         "warningMsg": "Attention ! Toute sortie de ligne de la phase de test est définitive, et ne sera pas réversible."
       },
 
+      "editCustomFields": {
+        "validateBtn": "Modifier les champs",
+        "confirmationWarning": "Attention ! Les nouvelles valeurs vont écraser toute valeur déjà présente.",
+        "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
+      },
+
       "step2Titles": {
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
