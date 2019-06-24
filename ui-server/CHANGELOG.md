@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.57+20190624074504
+2019-06-24
+
+### Features
+
+- suspension MVNO (497aea9b06d1d60504c0233b3c1ca757500ca60a)
+
 ## 0.3.0-master.56+20190621153315
 2019-06-21
 
