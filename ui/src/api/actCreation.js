@@ -140,3 +140,33 @@ export async function updateCustomFields(filters, lines, params) {
 
   return await query(queryStr);
 }
+
+export async function transferSIMCards(filters, lines, params) {
+  let gqlFilter = '';
+  let lineIds = '';
+  if (lines && lines.length > 0) {
+    lineIds = lines.map(l => l.id).join(',');
+  } else {
+    gqlFilter = formatFilters(filters);
+  }
+
+  const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId } = params;
+
+  const queryStr = `
+    mutation {
+      transferSIMCards(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${lineIds}],
+          notification: false,
+          dueDate: "${formatDateForGql(dueDate)}",
+          toPartyId: ${toPartyId},
+          toCustomerAccountId: ${toCustomerAccountId},
+          toWorkflowId: "${toWorkflowId}",
+        })
+    }
+    `;
+
+  return await query(queryStr);
+}

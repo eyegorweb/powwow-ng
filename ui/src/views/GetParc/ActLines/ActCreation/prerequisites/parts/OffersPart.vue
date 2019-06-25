@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h5>{{ $t('getparc.actLines.selectOffer') }}</h5>
     <UiApiAutocomplete
       :api-method="fetchApi"
       v-model="selectedOffer"
@@ -21,6 +20,7 @@ export default {
   },
   props: {
     partner: Object,
+    disabled: Boolean,
   },
   data() {
     return {

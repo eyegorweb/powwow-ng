@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
     <UiApiAutocomplete
       :api-method="fetchPartners"
       v-model="selectedPartner"
+      :error="error"
       display-results-while-empty
       scroll-for-next
     >
@@ -20,6 +20,12 @@ import { mapState } from 'vuex';
 export default {
   components: {
     UiApiAutocomplete,
+  },
+  props: {
+    error: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
@@ -41,7 +47,6 @@ export default {
       }
       const partnerTypesIn = this.contextPartnersTypes;
       const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
-      console.log(data);
       return data.map(p => ({
         id: p.id,
         label: p.name,
