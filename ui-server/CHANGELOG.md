@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.60+20190625144142
+2019-06-25
+
+### Features
+
+- act changement CF (6fa86b339b5c42b081adead631b5331d95c7463b)
+
 ## 0.3.0-master.59+20190625130948
 2019-06-25
 
