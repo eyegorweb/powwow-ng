@@ -2,6 +2,27 @@
 
 <!--- next entry here -->
 
+## 0.4.0
+2019-06-25
+
+### Features
+
+- reactivation de ligne (e527bdde85baf5cce9a10571d204209c631adb53)
+- add act creation phase test (44670904928aaa5e98efd245f69b8c6051a2319a)
+- envoi SMS (7cf057141a12172723b7fe189092d5a6025ccf26)
+- suspension MVNO (497aea9b06d1d60504c0233b3c1ca757500ca60a)
+- acte de transfert de lignes (c5e4d3b13daab8e697dd79fb18e28fb8d4c53f8a)
+- act changement CF (6fa86b339b5c42b081adead631b5331d95c7463b)
+
+### Fixes
+
+- correction de l'upload (76456aba8c7e5f2a896f37bf49ccaaac48317129)
+- options de la reactivation (d0c8dfd8b5f4ec989c4e2dbbf6684011d5ca6599)
+- reset selected lines (a5f2e7b6a752f37a2deab6031a30d73879d3fb5c)
+- acte de modification des valeurs libres (d017840dff261e4fbbb5627424a4e15bb65e90bf)
+- ajoute filtre obligatoire pour la suspension (5738c4348bfb7ee659cf28381d698b1d645d42ff)
+- display details action send SMS (a9b11d07f0745fde24a3cb365dfa51ced43c6730)
+
 ## 0.3.0
 2019-06-18
 
