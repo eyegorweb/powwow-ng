@@ -170,3 +170,36 @@ export async function transferSIMCards(filters, lines, params) {
 
   return await query(queryStr);
 }
+
+async function actCreationMutation(filters, lines, creationActFn) {
+  let gqlFilter = '';
+  let lineIds = '';
+  if (lines && lines.length > 0) {
+    lineIds = lines.map(l => l.id).join(',');
+  } else {
+    gqlFilter = formatFilters(filters);
+  }
+  return await creationActFn(gqlFilter, lineIds);
+}
+
+export async function changeCustomerAccount(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { partyId, dueDate, notifEmail, targetCustomerAccount } = params;
+
+    const queryStr = `
+    mutation {
+      changeCustomerAccount(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          targetCustomerAccountId: ${targetCustomerAccount}
+        })
+    }
+    `;
+
+    return await query(queryStr);
+  });
+}

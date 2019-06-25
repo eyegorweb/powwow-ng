@@ -1,7 +1,11 @@
 <template>
   <div>
     <h6>{{ $t('getparc.actLines.step1Partner') }}</h6>
-    <PartnersPart @setpartner="setPartner" :error="errors.partner" />
+    <PartnersPart
+      @setpartner="setPartner"
+      :error="errors.partner"
+      :initial-parnter="initialParnter"
+    />
     <h6>{{ $t('getparc.actLines.billingAccount') }}</h6>
     <UiApiAutocomplete
       :items="billingAccounts"
@@ -26,6 +30,10 @@ export default {
   },
   props: {
     errors: {
+      type: Object,
+      required: false,
+    },
+    initialParnter: {
       type: Object,
       required: false,
     },

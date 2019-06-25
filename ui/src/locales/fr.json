@@ -254,7 +254,7 @@
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
-        "TRANSFERT_LINES": "transférer vers un partenaire"
+        "TRANSFERT_LINES": "Transférer vers un partenaire"
       },
 
       "suspend": {
@@ -271,6 +271,10 @@
         "acceptConditions": "Accepter les conditions en vigueur avec Bouygues Télécom",
         "successMessage": "La demande a bien été prise en compte",
         "nbCharacters": "Nombres de caractères"
+      },
+
+      "transfertCF": {
+        "successMessage": "La demande de changement de compte de facturation a bien été pris en compte."
       },
 
       "phaseTest": {
@@ -295,7 +299,8 @@
         "REACTIVATE": "Configurer la réactivation des lignes",
         "TEST_PHASE": "Configurer la sortie de phase de test",
         "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
-        "TRANSFERT_LINES": "Configurer le changement de partenaires"
+        "TRANSFERT_LINES": "Configurer le changement de partenaires",
+        "CHANGE_CF": "Configuration du compte de facturation"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
