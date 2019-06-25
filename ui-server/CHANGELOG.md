@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.58+20190625093402
+2019-06-25
+
+### Features
+
+- acte de transfert de lignes (c5e4d3b13daab8e697dd79fb18e28fb8d4c53f8a)
+
 ## 0.3.0-master.57+20190624074504
 2019-06-24
 
