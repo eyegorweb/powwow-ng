@@ -386,6 +386,32 @@ export default {
             },
           ],
         },
+        {
+          icon: 'ic-Shuffle-Icon',
+          title: 'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+          stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'NOT_PREACTIVATED',
+                  label: 'Non préactivée',
+                },
+                {
+                  id: 'PREACTIVATED',
+                  label: 'Préactivée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
         /*
          {
           icon: 'ic-Heart-Rythm-Icon',

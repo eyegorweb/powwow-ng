@@ -2,6 +2,7 @@
   <PrereqContainer @validate="validatePrerequisites">
     <div class="d-flex justify-content-center">
       <div class="w-50">
+        <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
     </div>
@@ -16,6 +17,11 @@ export default {
   components: {
     PrereqContainer,
     PartnersPart,
+  },
+  data() {
+    return {
+      selectedPartner: undefined,
+    };
   },
   methods: {
     setPartner(chosenPartner) {

@@ -2,6 +2,7 @@
   <PrereqContainer @validate="validatePrerequisites">
     <div class="row">
       <div class="col">
+        <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
       <div class="col">

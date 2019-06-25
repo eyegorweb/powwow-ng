@@ -253,7 +253,8 @@
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
-        "CUSTOM_FIELDS": "Modifier les champs libres"
+        "CUSTOM_FIELDS": "Modifier les champs libres",
+        "TRANSFERT_LINES": "transférer vers un partenaire"
       },
 
       "suspend": {
@@ -283,12 +284,18 @@
         "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
       },
 
+      "selectOffer": {
+        "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
+        "save": "Transférer"
+      },
+
       "step2Titles": {
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
         "REACTIVATE": "Configurer la réactivation des lignes",
         "TEST_PHASE": "Configurer la sortie de phase de test",
-        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres"
+        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
+        "TRANSFERT_LINES": "Configurer le changement de partenaires"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
@@ -301,6 +308,7 @@
       "total": "{total} ligne(s) trouvé(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
+      "billingAccount": "séléctionner un compte de facturation",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
       "selectOffer": "séléctionner des offres",
