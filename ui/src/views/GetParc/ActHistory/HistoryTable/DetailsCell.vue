@@ -75,7 +75,10 @@ export default {
         }
 
         case 'SEND_SMS': {
-          return `${this.row.endDate} ${this.row.message} ${this.row.shortCode}`;
+          const endDate = this.row.endDate ? this.row.endDate : '-';
+          const message = this.row.message ? this.row.message : '-';
+          const shortCode = this.row.shortCode ? this.row.shortCode : '-';
+          return `Date de fin : ${endDate}, message : ${message}, short code : ${shortCode}`;
         }
 
         case 'ALARM_SETTING': {
