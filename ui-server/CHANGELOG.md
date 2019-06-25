@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.59+20190625130948
+2019-06-25
+
+### Fixes
+
+- display details action send SMS (a9b11d07f0745fde24a3cb365dfa51ced43c6730)
+
 ## 0.3.0-master.58+20190625093402
 2019-06-25
 
