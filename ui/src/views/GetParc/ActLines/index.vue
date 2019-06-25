@@ -265,6 +265,169 @@ export default {
                 },
               ],
             },
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'facturationActive',
+                  label: 'Facturation active',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.REACTIVATE',
+          stepTitle: 'getparc.actCreation.carouselItem.REACTIVATE',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.SEND_SMS',
+          stepTitle: 'getparc.actCreation.carouselItem.SEND_SMS',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.billingStatus',
+              values: [
+                {
+                  id: 'CANCELED',
+                  label: 'Annulée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+                {
+                  id: 'TEST',
+                  label: 'Test',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Arrow-Forward-Icon',
+          title: 'getparc.actCreation.carouselItem.TEST_PHASE',
+          stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.billingStatus',
+              values: [
+                {
+                  id: 'TEST',
+                  label: 'Test',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Stats-Icon',
+          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'NOT_PREACTIVATED',
+                  label: 'Non préactivée',
+                },
+                {
+                  id: 'PREACTIVATED',
+                  label: 'Préactivée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+                {
+                  id: 'RELEASED',
+                  label: 'Résiliée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Shuffle-Icon',
+          title: 'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+          stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'NOT_PREACTIVATED',
+                  label: 'Non préactivée',
+                },
+                {
+                  id: 'PREACTIVATED',
+                  label: 'Préactivée',
+                },
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Wallet-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
+          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_CF',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
           ],
         },
         /*

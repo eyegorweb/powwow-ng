@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
     <UiApiAutocomplete
       :api-method="fetchPartners"
       v-model="selectedPartner"
+      :error="error"
       display-results-while-empty
       scroll-for-next
     >
@@ -21,8 +21,23 @@ export default {
   components: {
     UiApiAutocomplete,
   },
+  props: {
+    error: {
+      type: String,
+      required: false,
+    },
+    initialParnter: {
+      type: Object,
+      required: false,
+    },
+  },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+  },
+  mounted() {
+    if (this.initialParnter) {
+      this.selectedPartner = this.initialParnter;
+    }
   },
   data() {
     return {
@@ -45,6 +60,8 @@ export default {
         id: p.id,
         label: p.name,
         orderNumberIsMandatory: p.orderNumberRequired,
+        shortCodes: p.shortCodes,
+        partyType: p.partyType,
       }));
     },
   },

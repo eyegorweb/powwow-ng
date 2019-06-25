@@ -16,6 +16,8 @@ export async function fetchpartners(q, { page, limit, partnerTypesIn }) {
         code
         name
         orderNumberRequired
+        shortCodes
+        partyType
       },
     }
   }

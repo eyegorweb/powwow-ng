@@ -81,6 +81,7 @@ export default {
     border: none;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
     margin: 0.5rem;
+    cursor: pointer;
 
     &.inactive {
       background: $medium-gray;

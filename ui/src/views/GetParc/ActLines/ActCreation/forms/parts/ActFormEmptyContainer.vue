@@ -3,34 +3,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-7">
-          <slot />
-          <div v-if="!excludeDefaultFields">
-            <div class="row">
-              <div class="col d-flex">
-                <UiCheckbox v-model="notificationCheck" />
-                <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <UiDate
-                  @change="onActDateChange"
-                  :value="actDate"
-                  :error="dateError"
-                  class="d-block"
-                >
-                  <i slot="icon" class="select-icon ic-Flag-Icon" />
-                </UiDate>
-              </div>
-              <div class="col">
-                <slot name="validate-btn-content" :containerValidationFn="validate">
-                  <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-                    <span>{{ $t('set') }}</span>
-                  </button>
-                </slot>
-              </div>
-            </div>
-          </div>
+          <slot name="main" :containerValidationFn="validate" />
           <slot name="bottom"></slot>
         </div>
         <div class="col-5">
@@ -42,30 +15,17 @@
 </template>
 
 <script>
-import UiDate from '@/components/ui/UiDate2';
-import UiCheckbox from '@/components/ui/Checkbox';
 import { mapMutations } from 'vuex';
 
 export default {
-  components: {
-    UiDate,
-    UiCheckbox,
-  },
+  components: {},
 
   props: {
     validateFn: Function,
     checkErrorsFn: Function,
-    excludeDefaultFields: Boolean,
     successMessage: String,
   },
 
-  data() {
-    return {
-      actDate: null,
-      dateError: null,
-      notificationCheck: false,
-    };
-  },
   methods: {
     ...mapMutations(['flashMessage']),
     ...mapMutations('actLines', [
@@ -73,10 +33,6 @@ export default {
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
     ]),
-
-    onActDateChange(value) {
-      this.actDate = value;
-    },
 
     async validate() {
       if (this.haveErrors()) return;
@@ -114,13 +70,6 @@ export default {
         return this.checkErrorsFn();
       }
 
-      if (this.excludeDefaultFields) return false;
-
-      this.dateError = undefined;
-      if (!this.actDate) {
-        this.dateError = 'errors.mandatory';
-        return true;
-      }
       return false;
     },
   },
