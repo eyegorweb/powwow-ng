@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => (this.destroyingMessage = true), 2000);
+    setTimeout(() => (this.destroyingMessage = true), 4000);
   },
   methods: {
     ...mapMutations(['clearMessage']),
@@ -31,7 +31,7 @@ export default {
   watch: {
     destroyingMessage(newValue) {
       if (newValue) {
-        setTimeout(() => this.$emit('remove', this.msgInfo.id), 1000);
+        setTimeout(() => this.$emit('remove', this.msgInfo.id), 3000);
       }
     },
   },

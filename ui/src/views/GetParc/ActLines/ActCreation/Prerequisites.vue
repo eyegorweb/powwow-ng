@@ -29,6 +29,10 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.TRANSFERT_LINES'"
         @set:preprequisites="setPrerequisites"
       />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>

@@ -26,9 +26,18 @@ export default {
       type: String,
       required: false,
     },
+    initialParnter: {
+      type: Object,
+      required: false,
+    },
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+  },
+  mounted() {
+    if (this.initialParnter) {
+      this.selectedPartner = this.initialParnter;
+    }
   },
   data() {
     return {

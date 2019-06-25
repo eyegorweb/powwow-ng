@@ -8,6 +8,7 @@
       <TestPhaseForm v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'" />
       <EditCustomFieldsForm v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'" />
       <TransfertLines v-if="act.title === 'getparc.actCreation.carouselItem.TRANSFERT_LINES'" />
+      <ChangeBillingAccount v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'" />
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ import SendSMSForm from './forms/SendSMSForm';
 import TestPhaseForm from './forms/TestPhaseForm';
 import EditCustomFieldsForm from './forms/EditCustomFieldsForm';
 import TransfertLines from './forms/TransfertLines';
+import ChangeBillingAccount from './forms/ChangeBillingAccount';
 
 export default {
   components: {
@@ -30,6 +32,7 @@ export default {
     TestPhaseForm,
     EditCustomFieldsForm,
     TransfertLines,
+    ChangeBillingAccount,
   },
   props: {
     act: Object,
