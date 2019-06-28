@@ -212,22 +212,18 @@ export default {
     },
     actions() {
       let actions = [];
-      switch (this.totalFailed) {
-        case true: {
-          actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
-          break;
-        }
-
-        case false:
+      switch (this.item.status) {
+        case 'WAITING': {
           actions = [
             'getparc.history.actions.DETAIL',
             'getparc.history.actions.EXPORT',
             'getparc.history.actions.CANCEL',
           ];
           break;
+        }
 
         default:
-          actions = [];
+          actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
       }
 
       return actions;
