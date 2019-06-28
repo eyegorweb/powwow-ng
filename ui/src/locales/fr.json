@@ -209,6 +209,12 @@
           "TERMINATED": "Terminé",
           "CANCELLED": "Annulé"
         }
+      },
+      "actions": {
+        "btn": "Actions",
+        "DETAIL": "Voir le détail",
+        "EXPORT": "Exporter l'acte",
+        "CANCEL": "Annuler l'acte"
       }
     },
     "actDetail": {

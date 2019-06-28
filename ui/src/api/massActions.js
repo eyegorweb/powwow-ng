@@ -247,6 +247,16 @@ export async function replayFailedUnitsActions(massActionId) {
   return response.data;
 }
 
+export async function cancelMassAction(massActionId) {
+  const queryStr = `
+    mutation {
+      cancelMassAction(massActionId: ${massActionId})
+    }
+  `;
+  const response = await query(queryStr);
+  return response.data;
+}
+
 function formatFilters(filters) {
   const allFilters = [];
   const partyIds = getValuesIdsForInt(filters, 'filters.partners');

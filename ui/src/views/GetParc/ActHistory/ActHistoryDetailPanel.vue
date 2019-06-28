@@ -81,7 +81,16 @@
     <div class="footer-back">
       <div class="action-buttons">
         <div>
-          <UiButton variant="import" block>{{ $t('getparc.history.details.EXPORT_ACT') }}</UiButton>
+          <ExportButton
+            :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+            button-style
+          >
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_ACT') }}
+            </span>
+          </ExportButton>
         </div>
         <div>
           <UiButton
@@ -101,6 +110,9 @@
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import UiButton from '@/components/ui/Button';
 import get from 'lodash.get';
+import ExportButton from '@/components/ExportButton';
+import { exportMassAction } from '@/api/massActions';
+import DetailsCell from '@/views/GetParc/ActDetail/DetailsCell';
 
 export default {
   props: {
@@ -110,6 +122,103 @@ export default {
   },
   data() {
     return {
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
+      columns: [
+        {
+          id: 1,
+          label: this.$t('getparc.actDetail.col.id'),
+          name: 'id',
+          orderable: true,
+          visible: true,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 2,
+          label: this.$t('getparc.actDetail.col.details'),
+          name: 'ICCID',
+          orderable: true,
+          visible: true,
+          format: {
+            component: DetailsCell,
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getparc.actDetail.col.msisdn'),
+          name: 'msisdn',
+          orderable: true,
+          visible: true,
+          exportId: 'MSISDN',
+        },
+        {
+          id: 4,
+          label: this.$t('getparc.actDetail.col.iccid'),
+          name: 'ICCID',
+          orderable: true,
+          visible: true,
+          exportId: 'ICCID',
+        },
+
+        {
+          id: 5,
+          label: this.$t('getparc.actDetail.col.actState'),
+          name: 'status',
+          orderable: true,
+          visible: true,
+          exportId: 'UNIT_ACTION_STATUS',
+        },
+        {
+          id: 6,
+          label: this.$t('getparc.actDetail.col.failDate'),
+          name: 'statusDate',
+          orderable: true,
+          visible: true,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 7,
+          label: this.$t('getparc.actDetail.col.failReason'),
+          name: 'error_reason',
+          orderable: true,
+          visible: false,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 8,
+          label: this.$t('getparc.actDetail.col.imsi'),
+          name: 'imsi',
+          orderable: true,
+          visible: false,
+          // exportId: 'UNKNOWN',
+        },
+        {
+          id: 9,
+          label: this.$t('getparc.actDetail.col.constructor'),
+          name: 'manufacturer',
+          orderable: true,
+          visible: false,
+          exportId: 'DEVICE_MANUFACTURER',
+        },
+        {
+          id: 10,
+          label: this.$t('getparc.actDetail.col.commercialRef'),
+          name: 'deviceReference',
+          orderable: true,
+          visible: false,
+          exportId: 'DEVICE_REFERENCE',
+        },
+        {
+          id: 11,
+          label: this.$t('getparc.actDetail.col.imei'),
+          name: 'imei',
+          orderable: true,
+          visible: false,
+          exportId: 'IMEI',
+        },
+      ],
       confirmationStepper: {
         data: [
           {
@@ -155,6 +264,35 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    getExportFn() {
+      // console.log('id', this.content);
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportMassAction(
+          this.content.id,
+          ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
+          [
+            'MASS_ACTION_ID',
+            'MASS_ACTION_INFO',
+            'UNIT_ACTION_ID',
+            'UNIT_ACTION_TYPE',
+            'UNIT_ACTION_INFO',
+            'ICCID',
+            'UNIT_ACTION_STATUS',
+            'UNIT_ACTION_START_DATE',
+            'UNIT_ACTION_END_DATE',
+            'UNIT_ACTION_STATUS_DATE',
+            'UNIT_ACTION_STATUS_ERROR',
+            'MSISDN',
+            'DEVICE_MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'IMEI',
+            'LOGIN',
+          ],
+          { page: 0, limit: 1 },
+          exportFormat
+        );
+      };
     },
   },
   computed: {
@@ -248,6 +386,7 @@ export default {
   components: {
     StepperNonLinear,
     UiButton,
+    ExportButton,
   },
 };
 </script>
