@@ -11,12 +11,11 @@
         >{{ $t('getsim.actions.btn') }}</UiButton
       >
       <div slot-scope="{ hide }">
-        <div class="list-group">
+        <div class="list-group" :key="action" v-for="action in actions">
           <button
+            v-if="action !== 'getparc.history.actions.EXPORT'"
             type="button"
             class="list-group-item list-group-item-action order-action hover-pointer"
-            :key="action"
-            v-for="action in actions"
             @click="
               () => {
                 hide();
@@ -26,6 +25,18 @@
           >
             {{ $t(action) }}
           </button>
+          <ExportButton
+            v-else
+            :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+            class="list-group-item-action"
+          >
+            <i slot="icon" />
+            <span slot="title">
+              {{ $t(action) }}
+            </span>
+          </ExportButton>
         </div>
       </div>
     </UiDropdownButton>
@@ -37,11 +48,13 @@ import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
 import { exportMassAction, cancelMassAction } from '@/api/massActions';
 import DetailsCell from '@/views/GetParc/ActDetail/DetailsCell';
+import ExportButton from '@/components/ExportButton';
 
 export default {
   components: {
     UiDropdownButton,
     UiButton,
+    ExportButton,
   },
   props: {
     item: Object,
@@ -223,4 +236,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.list-group-item-action button.export-link {
+  float: left !important;
+  color: #495057 !important;
+}
+</style>
