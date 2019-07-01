@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.62+20190701150012
+2019-07-01
+
+### Features
+
+- bar search lines (6a0d6e266302daff615e7c6ccd760887d67c4a91)
+
 ## 0.3.0-master.61+20190628141145
 2019-06-28
 
