@@ -213,14 +213,19 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage']),
+    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters']),
 
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     searchById(params) {
-      console.log('search by id: ', params);
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
     },
     async fetchLinesActions() {
       this.fetchLinesActionsFromApi({
