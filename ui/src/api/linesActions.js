@@ -174,8 +174,37 @@ export function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
   addTerminationValidated(allFilters, filters);
+  addIdsFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const idOrder = selectedFilters.find(f => f.id === 'filters.apId');
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+
+  if (idOrder) {
+    gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
+  }
+  if (iccid) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  }
+  if (msisdnA) {
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  }
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {
