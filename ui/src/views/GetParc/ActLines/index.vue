@@ -13,7 +13,11 @@
     </div>
     <div class="row mb-5">
       <div class="col-md-12">
-        <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
+        <ActionCarousel
+          title="getparc.actLines.chooseAct"
+          :actions="carouselItems"
+          @itemClick="onCarouselItemClick"
+        />
       </div>
     </div>
 

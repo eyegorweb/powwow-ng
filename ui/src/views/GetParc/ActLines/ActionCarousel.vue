@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Choisir un acte de gestion</h5>
+      <h5 v-if="title" class="card-title">{{ title }}</h5>
 
       <div class="actions-carousel">
         <div class="slider-container">
@@ -33,6 +33,10 @@ export default {
   components: { Slick, ActionCarouselItem },
   name: 'ActionCarousel',
   props: {
+    title: {
+      type: String,
+      required: false,
+    },
     actions: {
       type: Array,
       required: true,

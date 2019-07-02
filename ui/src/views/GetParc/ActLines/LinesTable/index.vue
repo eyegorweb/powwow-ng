@@ -35,6 +35,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
+import IdCell from './IdCell';
 import DateStatus from './DateStatus';
 
 function setFormatComponentsToColumns(columns) {
@@ -83,6 +84,9 @@ export default {
           orderable: false,
           visible: true,
           name: 'iccid',
+          format: {
+            component: IdCell,
+          },
         },
         {
           id: 1,
