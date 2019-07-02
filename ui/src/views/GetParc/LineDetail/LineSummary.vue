@@ -6,13 +6,13 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.offer') }}:</h6>
             <p>
-              ENEDIS-LINKY-PROD
+              {{ getFromContent('accessPoint.offer.marketingOffer.description') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
             <p class="text-success">
-              Activé
+              {{ getFromContent('statuts') }}
             </p>
           </div>
           <div class="item">
@@ -27,19 +27,19 @@
           <div class="item">
             <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
             <p>
-              8933200809935003869
+              {{ getFromContent('iccid') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.manufacturer') }}:</h6>
             <p>
-              Gemalto Gbmh
+              {{ getFromContent('deviceInstance.manufacturer') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.model') }}:</h6>
             <p>
-              Cinterion BGS2-W
+              {{ getFromContent('deviceInstance.deviceReference') }}
             </p>
           </div>
         </div>
@@ -94,7 +94,19 @@
 </template>
 
 <script>
-export default {};
+import get from 'lodash.get';
+
+export default {
+  props: {
+    content: Object,
+  },
+  methods: {
+    getFromContent(path, defaultValue = '') {
+      const value = get(this.content, path, defaultValue);
+      return value !== null ? value : '';
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

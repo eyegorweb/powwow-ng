@@ -182,6 +182,7 @@ export function formatFilters(filters) {
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
+  const _id = selectedFilters.find(f => f.id === 'filters.id');
   const idOrder = selectedFilters.find(f => f.id === 'filters.apId');
   const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
   const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
@@ -191,6 +192,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
 
   if (idOrder) {
     gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
+  }
+  if (_id) {
+    gqlFilters.push(`id: {eq: "${_id.value}"}`);
   }
   if (iccid) {
     gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);

@@ -17,7 +17,7 @@
         </h4>
       </div>
     </div>
-    <LineSummary />
+    <LineSummary :content="lineData" />
     <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
     <div class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
@@ -44,6 +44,7 @@ import DetailsTab from './DetailsTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import { searchLines } from '@/api/linesActions';
 
 export default {
   components: {
@@ -53,8 +54,12 @@ export default {
     UiTabs,
     UiTab,
   },
+  mounted() {
+    this.loadLineData();
+  },
   data() {
     return {
+      lineData: {},
       currentLinkIndex: 0,
       tabs: [
         {
@@ -102,9 +107,20 @@ export default {
       ],
     };
   },
+  computed: {},
   methods: {
     onCarouselItemClick(item) {
       console.log(item);
+    },
+    async loadLineData() {
+      const response = await searchLines({ id: 'DESC' }, { page: 0, limit: 1 }, [
+        {
+          id: 'filters.id',
+          value: this.$route.params.lineId,
+        },
+      ]);
+      if (!response || !response.items || !response.items.length) return;
+      this.lineData = response.items[0];
     },
   },
 };

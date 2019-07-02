@@ -150,7 +150,7 @@
             <MSISDNHistoryTable />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block4'">
+        <ContentBlock :key="'block5'">
           <template slot="title">
             {{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}
           </template>
@@ -158,7 +158,7 @@
             <EquipmentsHistoryTable />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block4'">
+        <ContentBlock :key="'block6'">
           <template slot="title">
             {{ $t('common.customFields') }}
           </template>
