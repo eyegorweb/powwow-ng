@@ -97,6 +97,8 @@ export async function searchLines(orderBy, pagination, filters = []) {
             custom2
             custom3
             custom4
+            custom5
+            custom6
           }
           offer {
             marketingOffer {

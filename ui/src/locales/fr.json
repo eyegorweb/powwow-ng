@@ -30,6 +30,7 @@
   "noResult": "Aucun résulat",
   "back": "Retour",
   "searching": "Recherche en cours ...",
+  "secondary": "{item} Secondaire",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -245,6 +246,38 @@
         "details": "Détails"
       }
     },
+    "lineDetail": {
+      "title": "Détail de la ligne {lineId}",
+      "offer": "Offer",
+      "lineStatus": "Statut de la ligne",
+      "triggeredAlarms": "Alarmes déclenchées",
+      "manufacturer": "Fabricant",
+      "model": "Modèle",
+      "data": "Data consommées",
+      "sms": "SMS consommés",
+      "voice": "Voix consommée",
+      "previsionalData": "Prévisionnel Data",
+      "previsionalSms": "Prévisionnel SMS",
+      "previsionalVoice": "Prévisionnel Voix",
+      "consuming": "EN COURS DE CONSOMMATION",
+      "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "tab1": {
+        "lineInfo": "Informations sur la ligne",
+        "billingOffer": "Facturation et offre",
+        "lineServices": "Services de la ligne",
+        "alarmsList": "Liste des alarmes",
+        "actsHistory": "Historique des actes de gestion",
+        "preactivatedAt": "Préactivé le",
+        "activatedAt": "Activé le",
+        "pinCode": "Code pin",
+        "pukCode": "Code PUK",
+        "dualSim": "Dual SIM",
+        "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
+        "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
+        "macAdress": "Adresse MAC",
+        "usagePeriod": "Période d'utilisation"
+      }
+    },
     "actCreation": {
       "carouselItem": {
         "CONSUMING": "En cours consommation",
@@ -260,7 +293,9 @@
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
-        "TRANSFERT_LINES": "Transférer vers un partenaire"
+        "TRANSFERT_LINES": "Transférer vers un partenaire",
+        "CHANGE_SIMCARD": "Changer de carte SIM",
+        "CHANGE_MSISDN": "Changer de MSISDN"
       },
 
       "suspend": {
@@ -316,6 +351,15 @@
       "SELECTED_LINES": "{total} lignes seront modifiées"
     },
     "actLines": {
+      "details": {
+        "title": "Detail ici",
+        "upcommingChanges": "Changements à venir",
+        "alarmsInfo": "ALARMES",
+        "partners": "Partenaires",
+        "EXPORT": "Exporter la ligne",
+        "DETAIL": "Voir le détail de la ligne"
+      },
+      "chooseAct": "Choisir un acte de gestion",
       "total": "{total} ligne(s) trouvé(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
@@ -383,7 +427,14 @@
         "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
         "manufacturer": "Fabricant (IMEI)",
-        "deviceReference": "Modèle (IMEI)"
+        "deviceReference": "Modèle (IMEI)",
+        "commercialRef": "Référence commerciale",
+        "offer": "Offre",
+        "lineStatus": "Statut de la ligne",
+        "billingStatus": "Statut de facturation",
+        "currentSynthesis": "Synthèse en cours conso",
+        "positionedAlarms": "Alarmes positionnées",
+        "triggeredAlarms": "Alarmes déclenchées"
       }
     },
     "search": {

@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div class="mb-4">
+      <SearchTranslationKey />
+    </div>
     <div id="nav">
       <router-link to="/getsim">GetSim</router-link>|
       <router-link to="/filters">Filters</router-link>|
@@ -124,6 +127,7 @@ import UiDateRange from '@/components/ui/UiDateRange';
 import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
+import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 
 export default {
   name: 'Home',
@@ -260,6 +264,7 @@ export default {
     UiDateRange,
     InputRange,
     StepperNonLinear,
+    SearchTranslationKey,
   },
 };
 </script>

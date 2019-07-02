@@ -1,5 +1,7 @@
 <template>
-  <button class="btn btn-link p-0" @click.prevent="openActHistoryDetailsPanel">{{ row.id }}</button>
+  <button class="btn btn-link p-0" @click.prevent="openDetailPanel">
+    {{ row.iccid }}
+  </button>
 </template>
 
 <script>
@@ -14,11 +16,11 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
 
-    openActHistoryDetailsPanel() {
+    openDetailPanel() {
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getparc.history.details.title', { id: this.row.id }),
-          panelId: 'getparc.history.details.title',
+          title: this.$t('getparc.actLines.details.title', { id: this.row.iccid }),
+          panelId: 'getparc.actLines.details.title',
           payload: this.row,
           wide: false,
           backdrop: false,

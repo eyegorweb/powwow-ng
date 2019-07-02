@@ -130,3 +130,7 @@ $theme-colors: map-merge(
     width: 100%;
   }
 }
+
+.handle:hover {
+  cursor: pointer;
+}

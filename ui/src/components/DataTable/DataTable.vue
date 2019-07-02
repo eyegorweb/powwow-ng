@@ -11,7 +11,7 @@
       <div class="col-md-7">
         <slot name="topLeftCorner" />
       </div>
-      <div class="col-md-5">
+      <div v-if="page" class="col-md-5">
         <div class="float-left">
           <label class="form-group">
             {{ $t('numberPerPage') }}:
@@ -44,7 +44,7 @@
                   />
                 </div>
               </th>
-              <th :key="'btnAdd'">
+              <th v-if="size !== undefined" :key="'btnAdd'">
                 <button
                   type="button"
                   class="btn btn-light btn-sm float-right"
@@ -65,7 +65,7 @@
                   :row="row"
                 />
               </td>
-              <td>
+              <td v-if="size !== undefined">
                 <slot name="actions" :row="row" />
               </td>
             </tr>
@@ -138,18 +138,21 @@ export default {
     },
     page: {
       type: Number,
-      required: true,
+      required: false,
     },
     pageLimit: {
       type: Number,
-      required: true,
+      required: false,
     },
     total: {
       type: Number,
-      required: true,
+      required: false,
     },
     showExtraColumns: Boolean,
-    size: Number,
+    size: {
+      type: Number,
+      required: false,
+    },
   },
 
   data() {
