@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.65+20190704092804
+2019-07-04
+
+### Fixes
+
+- corriger la persistence des colonnes des tables (7b85eac912ef89ee442cb7ef0f59b4d8a5576d8d)
+
 ## 0.3.0-master.64+20190702150430
 2019-07-02
 
