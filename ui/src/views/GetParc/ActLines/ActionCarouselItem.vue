@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-item">
+  <div class="carousel-item" :class="[item.color ? item.color : '']">
     <div class="card" :class="{ inactive: isDisabled, selected: selected }" @click="onClick">
       <div class="card-body">
         <div class="icon-block">
@@ -130,6 +130,23 @@ export default {
     display: table-cell;
     vertical-align: middle;
     padding: 0 0.5rem;
+  }
+}
+
+.carousel-item {
+  &.blue {
+    .card {
+      &.selected {
+        background: $blue;
+      }
+    }
+  }
+  &.orange {
+    .card {
+      &.selected {
+        background: $orange;
+      }
+    }
   }
 }
 </style>

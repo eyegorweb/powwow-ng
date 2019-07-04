@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox-container">
-    <label>
+    <label :class="{ filled: 'filled' }">
       <slot />
       <input
         v-if="inputType === 'radio'"
@@ -45,6 +45,10 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    filled: {
+      type: Boolean,
+      required: false,
     },
   },
 
@@ -191,6 +195,26 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+}
+
+label.filled {
+  input:checked + span.round {
+    background-color: $white;
+    border: 1px solid $blue;
+  }
+
+  .checkmark {
+    &.round:after {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 15px;
+      height: 15px;
+      background-color: $secondary;
+      border: none;
+      border-radius: 50%;
     }
   }
 }

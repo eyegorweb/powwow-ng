@@ -203,3 +203,29 @@ export async function changeCustomerAccount(filters, lines, params) {
     return await query(queryStr);
   });
 }
+
+export async function terminateLines(filters, lines, params) {
+  const { notifEmail, dueDate, partyId } = params;
+  let gqlFilter = '';
+  let lineIds = '';
+  if (lines && lines.length > 0) {
+    lineIds = lines.map(l => l.id).join(',');
+  } else {
+    gqlFilter = formatFilters(filters);
+  }
+
+  const queryStr = `
+  mutation {
+    terminateLines(
+      input: {
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${lineIds}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}"
+      })
+  }
+  `;
+
+  return await query(queryStr);
+}
