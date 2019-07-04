@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.66+20190704124416
+2019-07-04
+
+### Features
+
+- informations-de-ligne (4eca48e4b877978b3ce0336220e4035908b5172d)
+
 ## 0.3.0-master.65+20190704092804
 2019-07-04
 
