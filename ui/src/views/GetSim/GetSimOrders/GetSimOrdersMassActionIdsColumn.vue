@@ -8,6 +8,7 @@
 import TruncateList from '@/components/ui/TruncateList';
 
 export default {
+  name: 'GetSimOrdersMassActionIdsColumn',
   components: {
     TruncateList,
   },

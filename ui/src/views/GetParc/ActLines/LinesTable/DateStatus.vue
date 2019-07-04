@@ -8,6 +8,7 @@
 import get from 'lodash.get';
 
 export default {
+  name: 'DateStatus',
   props: {
     row: Object,
   },

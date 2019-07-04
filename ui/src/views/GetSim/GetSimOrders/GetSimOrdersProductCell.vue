@@ -12,6 +12,7 @@
 import Truncate from '@/components/ui/Truncate';
 
 export default {
+  name: 'GetSimOrdersProductCell',
   components: {
     Truncate,
   },

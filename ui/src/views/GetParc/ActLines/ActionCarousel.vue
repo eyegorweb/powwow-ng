@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 v-if="title" class="card-title">{{ title }}</h5>
+      <h5 v-if="title" class="card-title">{{ $t(title) }}</h5>
 
       <div class="actions-carousel">
         <div class="slider-container">

@@ -9,6 +9,7 @@ import { mapGetters } from 'vuex';
 import get from 'lodash.get';
 
 export default {
+  name: 'DetailsCell',
   props: {
     row: Object,
   },

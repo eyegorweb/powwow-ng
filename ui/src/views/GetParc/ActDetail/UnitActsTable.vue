@@ -20,14 +20,15 @@
           </div>
         </div>
         <DataTable
-          :columns.sync="columns"
+          :storage-id="storageId"
+          :storage-version="storageVersion"
+          :columns="columns"
           :rows="rows || []"
           :page.sync="page"
           :page-limit.sync="pageLimit"
           :total="total || 0"
           :order-by.sync="orderBy"
           :show-extra-columns.sync="showExtraCells"
-          @change-order="changeCellsOrder"
           :size="7"
         >
           <template slot="topLeftCorner">
@@ -59,6 +60,8 @@ export default {
   },
   props: {
     massActionId: String,
+    storageId: String,
+    storageVersion: String,
     statuses: Array,
     total: Number,
   },
@@ -80,10 +83,6 @@ export default {
       const currentFilters = [params];
       await this.fetchUnitActs(currentFilters);
       this.page = 1;
-    },
-    changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
-      this.columns = orderedCells.concat(notVisibleCells);
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {

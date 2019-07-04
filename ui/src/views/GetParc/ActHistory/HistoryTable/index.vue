@@ -16,6 +16,8 @@
         </div>
       </div>
       <DataTable
+        storage-id="getparc.actHistory"
+        storage-version="001"
         :columns.sync="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -23,7 +25,6 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        @change-order="changeCellsOrder"
         :size="7"
       >
         <template slot="topLeftCorner">
@@ -50,51 +51,6 @@ import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 
-const cellComponents = {
-  IdCell,
-  DetailsCell,
-  ActionCell,
-  Creator,
-};
-
-function setFormatComponentsToColumns(columns) {
-  return columns.reduce((preparedColumns, col) => {
-    const formatted = { ...col };
-    if (col.format && col.format.componentId) {
-      formatted.format.component = cellComponents[col.format.componentId];
-    }
-    preparedColumns.push(formatted);
-    return preparedColumns;
-  }, []);
-}
-
-/**
- * assigne le bon composant de céllule
- */
-function loadColumnsFromLocalStorage() {
-  const strColumns = localStorage.getItem('getparc.actHistory.savedColumns');
-  if (!strColumns) return;
-  const columns = JSON.parse(strColumns);
-  return setFormatComponentsToColumns(columns);
-}
-
-function saveColumnsToLocalStorage(columns) {
-  const savableColumns = JSON.parse(JSON.stringify(columns));
-  localStorage.setItem('getparc.actHistory.savedColumns', JSON.stringify(savableColumns));
-}
-
-/**
- * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
- */
-const VERSION = '10';
-function checkConfigVersion() {
-  const savedVersion = localStorage.getItem('tables.version');
-  if (savedVersion !== VERSION) {
-    localStorage.removeItem('getparc.actHistory.savedColumns');
-    localStorage.setItem('tables.version', VERSION);
-  }
-}
-
 export default {
   components: {
     DataTable,
@@ -104,15 +60,7 @@ export default {
     SearchByActId,
     ExportButton,
   },
-  async mounted() {
-    checkConfigVersion();
-    const savedColumns = loadColumnsFromLocalStorage();
-    if (savedColumns) {
-      this.columns = savedColumns;
-    } else {
-      this.columns = setFormatComponentsToColumns([...this.commonColumns]);
-    }
-  },
+  async mounted() {},
 
   watch: {
     actHistoryPage() {
@@ -134,14 +82,10 @@ export default {
         this.showExtraCells = false;
       }
     },
-    columns(newValues) {
-      saveColumnsToLocalStorage(newValues);
-    },
   },
   data() {
     return {
-      columns: [],
-      commonColumns: [
+      columns: [
         {
           id: 1,
           label: this.$t('col.id'),
@@ -149,7 +93,7 @@ export default {
           orderable: true,
           visible: true,
           format: {
-            componentId: 'IdCell',
+            component: IdCell,
           },
         },
         {
@@ -159,7 +103,7 @@ export default {
           orderable: true,
           visible: true,
           format: {
-            componentId: 'ActionCell',
+            component: ActionCell,
           },
         },
         {
@@ -176,7 +120,7 @@ export default {
           orderable: true,
           visible: true,
           format: {
-            componentId: 'DetailsCell',
+            component: DetailsCell,
           },
         },
         {
@@ -245,7 +189,7 @@ export default {
           orderable: true,
           visible: false,
           format: {
-            componentId: 'Creator',
+            component: Creator,
           },
         },
         {
@@ -304,10 +248,7 @@ export default {
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
     ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
-    changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
-      this.columns = orderedCells.concat(notVisibleCells);
-    },
+
     async searchById(params) {
       this.forceAppliedFilters([
         {

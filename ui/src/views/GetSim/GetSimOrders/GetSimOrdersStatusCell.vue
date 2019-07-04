@@ -16,6 +16,7 @@ import CheckMark from '@/components/ui/CheckMark';
 import { mapGetters } from 'vuex';
 
 export default {
+  name: 'GetSimOrdersStatusCell',
   components: {
     CheckMark,
   },

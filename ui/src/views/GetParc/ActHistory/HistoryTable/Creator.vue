@@ -6,6 +6,8 @@
 
 <script>
 export default {
+  name: 'Creator',
+
   props: {
     row: Object,
   },
