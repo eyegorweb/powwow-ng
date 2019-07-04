@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.67+20190704134407
+2019-07-04
+
+### Features
+
+- 359 resiliation + feat:433 gestion resiliation (b8917b0561827e6b1166999b23fd04e1262db455)
+
 ## 0.3.0-master.66+20190704124416
 2019-07-04
 
