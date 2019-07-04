@@ -1,6 +1,8 @@
 <template>
   <div>
     <UnitActsTable
+      storage-id="getparc.actdetail.failed"
+      storage-version="001"
       :mass-action-id="$route.params.massActionId"
       :statuses="['KO']"
       :total.sync="totalFailed"

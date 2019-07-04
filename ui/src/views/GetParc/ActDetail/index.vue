@@ -46,6 +46,8 @@
       </div>
       <div slot="ongoing">
         <UnitActsTable
+          storage-id="getparc.actdetail.ongoing"
+          storage-version="001"
           :key="'tab2'"
           :mass-action-id="$route.params.massActionId"
           :statuses="['WAITING', 'SENT', 'IN_PROGRESS']"
@@ -54,6 +56,8 @@
       </div>
       <div slot="finished">
         <UnitActsTable
+          storage-id="getparc.actdetail.finished"
+          storage-version="001"
           :key="'tab3'"
           :mass-action-id="$route.params.massActionId"
           :statuses="['OK']"

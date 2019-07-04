@@ -7,6 +7,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import { mapActions } from 'vuex';
 
 export default {
+  name: 'CheckBoxCell',
   components: {
     UiCheckbox,
   },

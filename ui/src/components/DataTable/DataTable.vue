@@ -2,7 +2,7 @@
   <div>
     <DataTableConfiguration
       v-if="showExtraColumns"
-      :columns="columns"
+      :columns="usableColumns"
       @update:columns="setColumns"
       @close="close"
       :max-columns-number="size"
@@ -153,11 +153,20 @@ export default {
       type: Number,
       required: false,
     },
+    storageId: {
+      type: String,
+      required: false,
+    },
+    storageVersion: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {
     return {
       perPage: 20,
+      usableColumns: [],
     };
   },
 
@@ -174,14 +183,16 @@ export default {
         }
         return this.visibleColumns;
       },
-      set(newColumns) {
-        this.$emit('change-order', newColumns);
+      set(orderedCells) {
+        const notVisibleCells = this.usableColumns.filter(c => !c.visible);
+        this.usableColumns = orderedCells.concat(notVisibleCells);
+        this.saveColumnsToLocalStorage(this.usableColumns);
       },
     },
 
     visibleColumns: {
       get() {
-        return this.columns.filter(c => {
+        return this.usableColumns.filter(c => {
           if (c.visibleWhen) {
             return c.visible && c.visibleWhen();
           }
@@ -215,13 +226,79 @@ export default {
     },
   },
 
+  mounted() {
+    this.checkStorageVersion();
+    this.prepareColumns();
+  },
+
   methods: {
+    checkStorageVersion() {
+      if (!this.storageId) return;
+
+      const savedVersion = localStorage.getItem(this.storageId + '.version');
+      if (savedVersion !== this.storageVersion) {
+        localStorage.removeItem(this.storageId);
+        localStorage.setItem(this.storageId + '.version', this.storageVersion);
+      }
+    },
+    prepareColumns() {
+      const columnsInLocalStorage = this.loadColumnsFromLocalStorage();
+      if (columnsInLocalStorage && columnsInLocalStorage.length) {
+        this.usableColumns = columnsInLocalStorage;
+      } else {
+        this.usableColumns = this.columns;
+        this.saveColumnsToLocalStorage(this.columns);
+      }
+    },
     setColumns(newColumns) {
-      this.$emit('update:columns', newColumns);
+      this.usableColumns = newColumns;
+      this.saveColumnsToLocalStorage(newColumns);
       this.close();
     },
     close() {
       this.$emit('update:showExtraColumns', false);
+    },
+
+    loadColumnsFromLocalStorage() {
+      if (!this.storageId) return;
+      const strColumns = localStorage.getItem(this.storageId);
+      if (!strColumns) return;
+      const parsedColumns = JSON.parse(strColumns);
+
+      return parsedColumns.map(c => {
+        if (c.format && c.format.component) {
+          const correspondingColumn = this.columns.find(cf => {
+            return (
+              cf.format && cf.format.component && c.format.component === cf.format.component.name
+            );
+          });
+
+          if (correspondingColumn) {
+            c.format.component = correspondingColumn.format.component;
+          }
+
+          return c;
+        }
+
+        return c;
+      });
+    },
+
+    saveColumnsToLocalStorage(columns) {
+      if (!this.storageId) return;
+      const stripedFromComponents = columns.map(c => {
+        if (c.format && c.format.component) {
+          return {
+            ...c,
+            format: {
+              component: c.format.component.name,
+            },
+          };
+        }
+        return c;
+      });
+      const savableColumns = JSON.parse(JSON.stringify(stripedFromComponents));
+      localStorage.setItem(this.storageId, JSON.stringify(savableColumns));
     },
   },
 };

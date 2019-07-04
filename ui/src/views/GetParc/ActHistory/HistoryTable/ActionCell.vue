@@ -8,6 +8,7 @@
 import Truncate from '@/components/ui/Truncate';
 
 export default {
+  name: 'ActionCell',
   props: {
     row: Object,
   },
