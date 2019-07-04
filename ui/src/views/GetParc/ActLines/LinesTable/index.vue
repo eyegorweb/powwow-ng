@@ -37,7 +37,7 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
-import DateStatus from './DateStatus';
+import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 
 function setFormatComponentsToColumns(columns) {
   return columns.reduce((preparedColumns, col) => {

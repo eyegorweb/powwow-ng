@@ -1,6 +1,8 @@
 <template>
   <div>
-    {{ dateStatus }}
+    <slot name="content" :lineStatus="lineStatus" :dateStatus="dateStatus">
+      {{ dateStatus }}
+    </slot>
   </div>
 </template>
 
@@ -13,7 +15,7 @@ export default {
     row: Object,
   },
   computed: {
-    dateStatus() {
+    lineStatus() {
       const commercialStatus = get(this.row, 'accessPoint.commercialStatus');
       const simStatus = get(this.row, 'statuts');
       const networkStatus = get(this.row, 'accessPoint.networkStatus');
@@ -25,18 +27,41 @@ export default {
       const lineIsReleased = simStatus === 'RELEASED';
 
       if (lineIsNotPreactivated) {
-        return get(this.row, 'auditable.created');
+        return 'LINE_NOT_PREACTIVATED';
       }
 
       if (lineIsPreactivated) {
-        return get(this.row, 'auditable.created');
+        return 'LINE_IS_PREACTIVATED';
       }
 
       if (lineIsActivated) {
+        return 'LINE_IS_ACTIVATED';
+      }
+
+      if (lineIsSuspended) {
+        return 'LINE_IS_SUSPENDED';
+      }
+
+      if (lineIsReleased) {
+        return 'LINE_IS_RELEASED';
+      }
+
+      return undefined;
+    },
+    dateStatus() {
+      if (this.lineStatus === 'LINE_NOT_PREACTIVATED') {
+        return get(this.row, 'auditable.created');
+      }
+
+      if (this.lineStatus === 'LINE_IS_PREACTIVATED') {
+        return get(this.row, 'auditable.created');
+      }
+
+      if (this.lineStatus === 'LINE_IS_ACTIVATED') {
         return get(this.row, 'accessPoint.activationDate');
       }
 
-      if (lineIsSuspended || lineIsReleased) {
+      if (this.lineStatus === 'LINE_IS_SUSPENDED' || this.lineStatus === 'LINE_IS_RELEASED') {
         return get(this.row, 'accessPoint.commercialStatusDate');
       }
 

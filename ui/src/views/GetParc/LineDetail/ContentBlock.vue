@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <h4 class="text-primary">
+    <h4 class="text-primary text-uppercase">
       <i class="handle ic-Drag-Column-Icon"></i>
       <slot name="title" />
     </h4>
