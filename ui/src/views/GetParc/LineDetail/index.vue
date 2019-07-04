@@ -29,7 +29,7 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="detail">
-          <DetailsTab />
+          <DetailsTab :content="lineData" />
         </div>
         <div slot="ongoing">B</div>
         <div slot="diagnosis">C</div>

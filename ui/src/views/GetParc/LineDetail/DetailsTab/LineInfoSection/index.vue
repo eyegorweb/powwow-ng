@@ -4,38 +4,43 @@
       <transition-group>
         <ContentBlock :key="'block1'">
           <template slot="title">
-            Informations sur la ligne
+            {{ $t('getparc.lineDetail.tab1.lineInfo') }}
           </template>
           <template slot="content">
             <div class="d-flex">
               <div class="item">
                 <h6>MSISDN:</h6>
                 <p>
-                  33761456934
+                  {{ msisdn }}
                 </p>
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
                 <p>
-                  Activé depuis le 15/11/2018 à 23:45:34
+                  <DateStatus :row="content">
+                    <div slot="content" slot-scope="{ lineStatus, dateStatus }">
+                      {{ getPrefix(lineStatus) }}
+                      {{ dateStatus }}
+                    </div>
+                  </DateStatus>
                 </p>
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab1.preactivatedAt') }}:</h6>
                 <p>
-                  15/11/2016
+                  {{ formatDate(getFromContent('accessPoint.preactivationDate')) }}
                 </p>
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab1.activatedAt') }}:</h6>
                 <p>
-                  13/11/2016
+                  {{ formatDate(getFromContent('accessPoint.activationDate')) }}
                 </p>
               </div>
               <div class="item">
                 <h6>{{ $t('col.partner') }}:</h6>
                 <p>
-                  ENEDIS-LINKY-PROD
+                  {{ getFromContent('party.name') }}
                 </p>
               </div>
             </div>
@@ -213,6 +218,10 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import MSISDNHistoryTable from './MSISDNHistoryTable';
 import EquipmentsHistoryTable from './EquipmentsHistoryTable';
 import draggable from 'vuedraggable';
+import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
+// import DateStatus from './DateStatus';
+import moment from 'moment';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -220,8 +229,54 @@ export default {
     ContentBlock,
     MSISDNHistoryTable,
     EquipmentsHistoryTable,
+    DateStatus,
+  },
+  props: {
+    content: Object,
+  },
+  computed: {
+    msisdn() {
+      let lines = this.getFromContent('accessPoint.lines');
+      lines = lines[0];
+      return get(lines, 'msisdn', '');
+    },
+  },
+  methods: {
+    formatDate(date) {
+      let dateOnly = date.substr(0, date.indexOf(' '));
+      return date && date.length ? moment(dateOnly, 'DD-MM-YYYY').format('DD/MM/YYYY') : '-';
+    },
+    getFromContent(path, defaultValue = '') {
+      const value = get(this.content, path, defaultValue);
+      return value !== null ? value : '';
+    },
+    getPrefix(status) {
+      if (status === 'LINE_NOT_PREACTIVATED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.notPreactivated');
+      }
+
+      if (status === 'LINE_IS_PREACTIVATED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.preactivated');
+      }
+
+      if (status === 'LINE_IS_ACTIVATED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.activated');
+      }
+
+      if (status === 'LINE_IS_SUSPENDED' || status === 'LINE_IS_RELEASED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.suspendedReleased');
+      }
+
+      return '-';
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.item {
+  p {
+    font-size: 0.8rem;
+  }
+}
+</style>

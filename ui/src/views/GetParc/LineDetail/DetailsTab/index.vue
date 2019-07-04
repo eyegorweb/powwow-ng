@@ -35,7 +35,7 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <LineInfoSection v-if="section === 'line_info'" />
+      <LineInfoSection v-if="section === 'line_info'" :content="content" />
     </div>
   </div>
 </template>
@@ -46,6 +46,9 @@ import LineInfoSection from './LineInfoSection';
 export default {
   components: {
     LineInfoSection,
+  },
+  props: {
+    content: Object,
   },
   data() {
     return {

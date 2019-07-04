@@ -275,7 +275,13 @@
         "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
         "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
         "macAdress": "Adresse MAC",
-        "usagePeriod": "Période d'utilisation"
+        "usagePeriod": "Période d'utilisation",
+        "statuses": {
+          "notPreactivated": "Non préactivée depuis le :",
+          "preactivated": "Préactivée depuis le :",
+          "activated": "Activée depuis le :",
+          "suspendedReleased": "Suspendue ou Résiliée depuis le :"
+        }
       }
     },
     "actCreation": {
