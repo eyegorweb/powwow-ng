@@ -14,6 +14,10 @@
         @set:preprequisites="setPrerequisites"
       />
       <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_STATUS'"
+        @set:preprequisites="setPrerequisites"
+      />
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.SEND_SMS'"
         @set:preprequisites="setPrerequisites"
       />
@@ -23,6 +27,10 @@
       />
       <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'"
+        @set:preprequisites="setPrerequisites"
+      />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION'"
         @set:preprequisites="setPrerequisites"
       />
       <NoPrerequisitesPre

@@ -34,6 +34,12 @@
           <slot name="bottom"></slot>
         </div>
         <div class="col-5">
+          <div class="text-right">
+            <button @click="clearForm" class="clear-form">
+              {{ $t('cancel') }}
+              <i class="ic-Cross-Icon" />
+            </button>
+          </div>
           <slot name="messages"></slot>
         </div>
       </div>
@@ -75,6 +81,7 @@ export default {
     ]),
 
     onActDateChange(value) {
+      this.$emit('update:date', value);
       this.actDate = value;
     },
 
@@ -123,6 +130,11 @@ export default {
       }
       return false;
     },
+    clearForm() {
+      this.setActToCreate(null);
+      this.setActCreationPrerequisites(null);
+      this.setSelectedLinesForActCreation([]);
+    },
   },
 };
 </script>
@@ -132,5 +144,12 @@ export default {
   align-items: flex-end;
   display: flex;
   margin-bottom: 1rem;
+}
+
+.clear-form {
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
 }
 </style>

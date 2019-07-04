@@ -12,6 +12,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "cancel": "Annuler",
+  "confirm": "Confirmer",
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
@@ -295,15 +296,21 @@
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
+        "CHANGE_STATUS": "Résilier",
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
+        "MANAGE_CANCELLATION": "Gérer des résiliations",
+        "MODAL_WARNING": "Attention ! Cette action est définitive",
         "TRANSFERT_LINES": "Transférer vers un partenaire",
         "CHANGE_SIMCARD": "Changer de carte SIM",
         "CHANGE_MSISDN": "Changer de MSISDN"
       },
-
+      "modal": {
+        "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
+        "modalConfirmMsg": "Confirmez-vous la résiliation ?"
+      },
       "suspend": {
         "notEditable": "Non modifiable par le client",
         "suspendBilling": "Suspendre la facturation"
@@ -311,6 +318,11 @@
       "reactivate": {
         "notEditable": "Non modifiable par le client",
         "reactivateBilling": "Reactiver la facturation"
+      },
+      "changeStatus": {
+        "changeCardsStatus": "Résilier les cartes",
+        "warningMsg": "Attention ! Si votre plafond annuel de résiliations est dépassé. Des frais de résiliations pourront être facturés.",
+        "modalPreventMsg": "La résiliation est définitive et irréversible une fois validée par nos services.Confirmez-vous la résiliation ?"
       },
       "sendSMS": {
         "shortCode": "Short code",
@@ -335,6 +347,23 @@
         "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
       },
 
+      "ManageCancellation": {
+        "choose": "Choisir",
+        "delay": "un délai",
+        "date": "une date fixe",
+        "chooseADelay": "Choisir un délai",
+        "delays": {
+          "0": "Immédiat",
+          "1": "1 mois",
+          "2": "2 mois",
+          "3": "3 mois",
+          "4": "4 mois",
+          "5": "5 mois"
+        },
+        "applyCharges": "Appliquer des frais",
+        "refuse": "Refuser les résiliations",
+        "validate": "Valider les résiliations"
+      },
       "selectOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
@@ -344,8 +373,10 @@
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
         "REACTIVATE": "Configurer la réactivation des lignes",
+        "CHANGE_STATUS": "Configurer la résiliation",
         "TEST_PHASE": "Configurer la sortie de phase de test",
         "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
+        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
         "TRANSFERT_LINES": "Configurer le changement de partenaires",
         "CHANGE_CF": "Configuration du compte de facturation"
       },
