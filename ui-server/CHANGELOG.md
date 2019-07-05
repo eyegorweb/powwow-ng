@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.68+20190705125115
+2019-07-05
+
+### Fixes
+
+- CI Deploy UAT step (cbb953f7cf4144ed4bb52f4bee25790b687a157f)
+
 ## 0.3.0-master.67+20190704134407
 2019-07-04
 
