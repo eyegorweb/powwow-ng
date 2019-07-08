@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.71+20190708084917
+2019-07-08
+
+### Fixes
+
+- use case color (ae9f4d64073379debe88a2ca7041ae4634aedfc0)
+
 ## 0.3.0-master.70+20190708075145
 2019-07-08
 
