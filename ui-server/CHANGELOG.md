@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.72+20190708152334
+2019-07-08
+
+### Features
+
+- changement de services (a20768053d1dd896a478eb4df37c3f89ebb07d70)
+
 ## 0.3.0-master.71+20190708084917
 2019-07-08
 
