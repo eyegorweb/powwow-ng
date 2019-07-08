@@ -1,21 +1,8 @@
 <template>
-  <li v-if="!indicator.isAverage" class="list-group-item">
+  <li class="list-group-item">
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
-      <button
-        :class="`btn btn-link p-0 ${indicator.color}`"
-        :disabled="!indicator.clickable"
-        @click.prevent="setCurrentFiltersFn(indicator)"
-      >
-        <CircleLoader v-if="isLoading" />
-        <span v-else>{{ total }}</span>
-      </button>
-    </div>
-  </li>
-  <li v-else class="list-group-item">
-    {{ $t(indicator.labelKey) }}
-    <div class="float-right">
-      <button :class="`btn btn-link p-0 ${classColor}`" :disabled="!indicator.clickable">
+      <button :class="`btn btn-link p-0 ${indicator.color || classColor}`" :disabled="!indicator.clickable">
         <CircleLoader v-if="isLoading" />
         <span>{{ total }}</span>
       </button>
