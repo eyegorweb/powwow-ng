@@ -32,6 +32,7 @@
   "back": "Retour",
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
+  "processing": "Traitement en cours ...",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -42,6 +43,7 @@
     "MULTI_CUSTOMER": "Multi client"
   },
   "errors": {
+    "all": "Erreurs",
     "mandatory": "* Champ obligatoire"
   },
   "common": {
@@ -330,6 +332,21 @@
         "acceptConditions": "Accepter les conditions en vigueur avec Bouygues Télécom",
         "successMessage": "La demande a bien été prise en compte",
         "nbCharacters": "Nombres de caractères"
+      },
+
+      "changeService": {
+        "servicesToEnable": "Services à activer",
+        "servicesToDisable": "Services à désactiver",
+        "validateBtn": "Valider la modification",
+        "confirmBtn": "Confirmer la modification",
+        "confirmationWarning": "Attention ! Cette action a un impact sur le réseau.Confirmez-vous la modification de services ?",
+        "servicesMandatory": "* Veuillez choisir une offre et services"
+      },
+
+      "report": {
+        "alreadyExists": "Lignes éxistantes",
+        "invalidFormat": "Format invalide",
+        "notFound": "Introuvable"
       },
 
       "transfertCF": {

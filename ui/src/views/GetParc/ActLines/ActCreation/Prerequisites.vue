@@ -1,7 +1,7 @@
 <template>
   <div class="row mb-3">
     <div class="col-md-12">
-      <ChangeServicePre
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
         @set:preprequisites="setPrerequisites"
       />
@@ -46,13 +46,11 @@
 </template>
 
 <script>
-import ChangeServicePre from './prerequisites/ChangeServicePre';
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
-    ChangeServicePre,
     NoPrerequisitesPre,
   },
   props: {

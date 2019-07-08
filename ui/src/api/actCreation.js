@@ -204,6 +204,67 @@ export async function changeCustomerAccount(filters, lines, params) {
   });
 }
 
+export async function addServices(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      partyId,
+      dueDate,
+      notifEmail,
+      offer,
+      servicesToActivate,
+      servicesToDesactivate,
+      tempDataUuid,
+    } = params;
+    const gqlServicesAddParam = servicesToActivate.map(
+      id => `{
+      serviceCode:"${id}",
+      action: ADD
+    }`
+    );
+
+    const gqlServicesDeleteParam = servicesToDesactivate.map(
+      id => `{
+      serviceCode:"${id}",
+      action: DELETE
+    }`
+    );
+
+    const gqlChangeServicesParam = [...gqlServicesAddParam, ...gqlServicesDeleteParam].join(',');
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      changeServices (
+      input: {
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${gqlLines}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}",
+        marketingOfferCode: "${offer}",
+        adminSkipGDM: false,
+        changeServices: [${gqlChangeServicesParam}],
+        ${gqlTempDataUuid}
+      }
+      ) {
+          tempDataUuid
+          successful
+          containsErrors
+          invalidFormat
+          alreadyExists
+          notFound
+        }
+      }
+    `;
+
+    return await query(queryStr);
+  });
+}
+
 export async function terminateLines(filters, lines, params) {
   const { notifEmail, dueDate, partyId } = params;
   let gqlFilter = '';
