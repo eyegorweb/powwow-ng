@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.70+20190708075145
+2019-07-08
+
+### Fixes
+
+- **orders:** refresh indicators (6016a2b67225e23773a60f88f6d7f7de9e341776)
+
 ## 0.3.0-master.69+20190705125512
 2019-07-05
 
