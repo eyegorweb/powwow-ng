@@ -38,10 +38,13 @@ export default {
     async refreshIndicator() {
       this.isLoading = true;
       const res = await this.indicator.fetch(this.indicator, this.partners);
-      this.total = res.total;
-      if (res.color) {
-        this.classColor = res.color;
+      if (res) {
+        this.total = res.total;
+        if (res.color) {
+          this.classColor = res.color;
+        }
       }
+
       this.isLoading = false;
       if (this.total === 0 && this.indicator.hideZeroValue) {
         this.$emit('removeme', this.indicator);
