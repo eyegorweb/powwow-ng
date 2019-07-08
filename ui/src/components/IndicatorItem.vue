@@ -1,5 +1,5 @@
 <template>
-  <li class="list-group-item">
+  <li v-if="!indicator.isAverage" class="list-group-item">
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
       <button
@@ -9,6 +9,15 @@
       >
         <CircleLoader v-if="isLoading" />
         <span v-else>{{ total }}</span>
+      </button>
+    </div>
+  </li>
+  <li v-else class="list-group-item">
+    {{ $t(indicator.labelKey) }}
+    <div class="float-right">
+      <button :class="`btn btn-link p-0 ${classColor}`" :disabled="!indicator.clickable">
+        <CircleLoader v-if="isLoading" />
+        <span>{{ total }}</span>
       </button>
     </div>
   </li>
@@ -27,6 +36,7 @@ export default {
     return {
       isLoading: false,
       total: '-',
+      classColor: '',
     };
   },
   components: {
@@ -42,8 +52,10 @@ export default {
       this.isLoading = true;
       const res = await this.indicator.fetch(this.indicator, this.partners);
       this.total = res.total;
+      if (res.color) {
+        this.classColor = res.color;
+      }
       this.isLoading = false;
-
       if (this.total === 0 && this.indicator.hideZeroValue) {
         this.$emit('removeme', this.indicator);
       }

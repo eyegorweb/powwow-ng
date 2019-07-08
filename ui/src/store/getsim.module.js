@@ -21,6 +21,7 @@ export const state = {
   filterCustomFieldsList: [],
   ordersResponse: [],
   orderPage: 1,
+  indicatorsVersion: 1,
 };
 
 // Getters
@@ -279,5 +280,9 @@ export const mutations = {
       id: 'filters.lines.typeSIMCard',
       values: types,
     });
+  },
+
+  refreshIndicators(state) {
+    state.indicatorsVersion += 1;
   },
 };
