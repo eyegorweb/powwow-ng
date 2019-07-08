@@ -139,6 +139,20 @@ export async function searchSingleOrder(id) {
   }
 }
 
+export async function fetchSingleIndicator(filters, scopePartners) {
+  const filtersToUse = [...filters];
+  if (scopePartners) {
+    filtersToUse.push(scopePartners);
+  }
+  const queryStr = `
+  query {
+    orders(filter: { ${formatFilters(filtersToUse)} }) { total }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.orders;
+}
+
 export async function countTotalByIndicators(
   filterIndicatorToBeConfirmed,
   filterIndicatorOrdersInProgress,
