@@ -218,7 +218,6 @@ export default {
         {
           name: 'averageProcessingTime',
           labelKey: 'indicators.getsim.averageProcessingTime',
-          color: '',
           clickable: false,
           total: '-',
           filters: [],
