@@ -116,8 +116,8 @@ export default {
   },
   methods: {
     async refreshTables() {
+      this.refreshCurrentMassAction();
       const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
-      console.log(totals);
       if (totals) {
         this.tabs = [
           {
@@ -134,7 +134,6 @@ export default {
           },
         ];
       }
-      this.refreshCurrentMassAction();
     },
     getMassActionItem(response) {
       if (response) {
@@ -148,7 +147,6 @@ export default {
     },
     async refreshCurrentMassAction() {
       const data = await searchMassActionsById(this.$route.params.massActionId);
-      console.log(data);
       if (data) {
         this.massAction = data;
       }
