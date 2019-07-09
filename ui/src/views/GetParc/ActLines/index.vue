@@ -509,6 +509,35 @@ export default {
             },
           ],
         },
+        /*
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          stepTitle: 'getparc.actCreation.carouselItem.step2Titles.CHANGE_SERVICES',
+          subtitle: '',
+          selected: false,
+          color: 'orange',
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'demandeDeResiliation',
+                  label: 'demandeDeResiliation',
+                },
+              ],
+            },
+          ],
+        },
 
         /*
         {

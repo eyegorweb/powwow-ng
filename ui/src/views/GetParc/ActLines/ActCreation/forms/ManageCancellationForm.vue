@@ -21,52 +21,56 @@
         >{{ $t('getparc.actCreation.ManageCancellation.date') }}</UiCheckbox
       >
     </div>
-    <ManageCancellationFormDelay
-      v-if="FormatOfInput === 'range'"
-      @change:cancel="handleCancel"
-      @change:validation="handleValidation"
-    />
-    <ManageCancellationFormDate
-      v-else
-      @change:cancel="handleCancel"
-      @change:validation="handleValidation"
-    />
-    <Modal v-if="waitForConfirmation">
-      <div slot="body">
-        <div class="text-warning">
-          {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+
+    <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
+      <ManageCancellationFormDelay
+        v-if="FormatOfInput === 'range'"
+        @change:cancel="handleCancel"
+        @change:validation="handleValidation"
+      />
+      <ManageCancellationFormDate
+        v-else
+        @change:cancel="handleCancel"
+        @change:validation="handleValidation"
+      />
+
+      <Modal v-if="waitForConfirmation">
+        <div slot="body">
+          <div class="text-warning">
+            {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+          </div>
+          <p>
+            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span
+            ><br />
+            <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+          </p>
         </div>
-        <p>
-          <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span
-          ><br />
-          <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
-        </p>
-      </div>
-      <div slot="footer" class="btn-wrapper">
-        <button
-          class="modal-default-button btn btn--cancel"
-          @click.stop="waitForConfirmation = false"
-        >
-          {{ $t('cancel') }}
-        </button>
-        <button
-          class="modal-default-button btn ml-1 btn--confirm"
-          @click.stop="confirmValdation(containerValidationFn)"
-        >
-          {{ $t('confirm') }}
-        </button>
-      </div>
-    </Modal>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            @click.stop="waitForConfirmation = false"
+          >
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="modal-default-button btn btn-success btn-sm ml-1"
+            @click.stop="confirmValdation(containerValidationFn)"
+          >
+            {{ $t('save') }}
+          </button>
+        </div>
+      </Modal>
+    </div>
   </ActFormContainer>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import UiCheckbox from '@/components/ui/Checkbox';
 import ManageCancellationFormDelay from './ManageCancellationFormDelay';
 import ManageCancellationFormDate from './ManageCancellationFormDate';
 import ActFormContainer from './parts/ActFormContainer';
-import { reactivateLines } from '@/api/actCreation';
+import { manageCancellation } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 
 export default {
@@ -81,6 +85,9 @@ export default {
     return {
       FormatOfInput: 'range',
       waitForConfirmation: false,
+      errors: {},
+      options: undefined,
+      validate: undefined,
     };
   },
   computed: {
@@ -88,21 +95,36 @@ export default {
     ...mapGetters('actLines', ['appliedFilters']),
   },
   methods: {
-    handleCancel() {
+    ...mapMutations(['flashMessage']),
+    handleCancel(options) {
+      this.validate = false;
+      this.options = options;
       this.waitForConfirmation = true;
     },
     handleValidation(options) {
-      console.log('options', options);
+      this.validate = true;
+      this.options = options;
       this.waitForConfirmation = true;
     },
-    async onValidate(contextValues) {
-      return await reactivateLines(this.appliedFilters, this.selectedLinesForActCreation, {
-        suspendreFacturation: false,
-        nonModifiableParClient: false,
-        notifEmail: contextValues.notificationCheck,
-        dueDate: contextValues.actDate,
+    async onValidate() {
+      if (this.checkErrors()) return;
+      return await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
+        dueDate: this.options.date ? this.options.date : '',
         partyId: this.actCreationPrerequisites.partner.id,
+        validate: this.validate,
       });
+    },
+    async confirmValdation(containerValidationFn) {
+      const response = await containerValidationFn();
+      this.waitForConfirmation = false;
+      return response;
+    },
+    checkErrors() {
+      // if (!this.selectedShortCode) {
+      //   this.errors.shortCode = 'errors.mandatory';
+      //   return true;
+      // }
+      return false;
     },
   },
 };
