@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.77+20190709151705
+2019-07-09
+
+### Fixes
+
+- bloc détail acte de masse qui ne s'affiche pas (7f41844e26bd28100b36755abad2290971672237)
+
 ## 0.3.0-master.76+20190709143812
 2019-07-09
 
