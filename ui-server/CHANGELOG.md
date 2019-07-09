@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.76+20190709143812
+2019-07-09
+
+### Fixes
+
+- **lines:** display line details (6c0afcdaa2ebf8c8048216a35ecfba40416c8c20)
+
 ## 0.3.0-master.75+20190709142820
 2019-07-09
 
