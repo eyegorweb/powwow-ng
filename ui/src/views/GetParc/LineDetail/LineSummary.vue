@@ -12,7 +12,7 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
             <p class="text-success">
-              {{ getFromContent('statuts') }}
+              {{ $t(simStatus) }}
             </p>
           </div>
           <div class="item">
@@ -51,19 +51,22 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.data') }}:</h6>
             <p>
-              5Mo
+              <!-- total DATA consommées -->
+              {{ totalUsed('DATA', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.sms') }}:</h6>
             <p>
-              56
+              <!-- total SMS consommées -->
+              {{ totalUsed('SMS', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.voice') }}:</h6>
             <p>
-              2h:56mn:34s
+              <!-- total VOIX consommées -->
+              {{ totalUsed('VOICE', 'used') }}
             </p>
           </div>
         </div>
@@ -72,19 +75,22 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.previsionalData') }}:</h6>
             <p>
-              12Mo
+              <!-- prévisionnel DATA  -->
+              {{ totalUsed('DATA') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.previsionalSms') }}:</h6>
             <p>
-              125
+              <!-- prévisionnel SMS  -->
+              {{ totalUsed('SMS') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.previsionalVoice') }}:</h6>
             <p>
-              5h:20mn:45s
+              <!-- prévisionnel VOIX  -->
+              {{ totalUsed('VOICE') }}
             </p>
           </div>
         </div>
@@ -95,15 +101,153 @@
 
 <script>
 import get from 'lodash.get';
+import { formatBytes } from '@/api/utils';
+import moment from 'moment';
 
 export default {
   props: {
     content: Object,
   },
+  computed: {
+    simStatus() {
+      const commercialStatus = get(this.content, 'accessPoint.commercialStatus');
+      const simStatus = get(this.content, 'statuts');
+      const networkStatus = get(this.content, 'accessPoint.networkStatus');
+
+      if (simStatus === 'AVAILABLE') {
+        return 'getparc.actLines.simStatuses.NOT_PREACTIVATED';
+      }
+      if (simStatus === 'ALLOCATED' && !commercialStatus) {
+        return 'getparc.actLines.simStatuses.PREACTIVATED';
+      }
+      if (simStatus === 'ALLOCATED' && !networkStatus) {
+        return 'getparc.actLines.simStatuses.ACTIVATING';
+      }
+      if (simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED') {
+        return 'getparc.actLines.simStatuses.ACTIVATED';
+      }
+      if (simStatus === 'ALLOCATED' && networkStatus === 'SUSPENDED') {
+        return 'getparc.actLines.simStatuses.SUSPENDED';
+      }
+      if (simStatus === 'RELEASED') {
+        return 'getparc.actLines.simStatuses.RELEASED';
+      }
+
+      return get(this.content, 'statuts');
+    },
+  },
   methods: {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    totalUsed(type, mode) {
+      let usedTotal,
+        estimatedTotal,
+        nationalIncomingTotal,
+        nationalOutgoingTotal,
+        nationalTotal,
+        internationalIncomingTotal,
+        internationalOutgoingTotal,
+        internationalTotal;
+      const daysInMonth = moment().daysInMonth();
+      const pastDays = moment().date();
+
+      switch (type) {
+        case 'DATA':
+          // Nationales
+          // total entrantes
+          nationalIncomingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter1DownRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter1DownRoamingRounded');
+          // total sortantes
+          nationalOutgoingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter1UpRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter1UpRoamingRounded');
+          // total national
+          nationalTotal = nationalIncomingTotal + nationalOutgoingTotal;
+          // Internationales
+          // total entrantes
+          internationalIncomingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter1DownRoamingRounded'
+          );
+          // total sortantes
+          internationalOutgoingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter1UpRoamingRounded'
+          );
+          // total international
+          internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
+          // total
+          usedTotal = formatBytes(parseInt(nationalTotal + internationalTotal));
+          estimatedTotal = formatBytes(
+            parseInt((daysInMonth * (nationalTotal + internationalTotal)) / pastDays)
+          );
+          break;
+        case 'SMS':
+          // Nationales
+          // total entrantes
+          nationalIncomingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter2DownRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter2DownRoamingRounded');
+          // total sortantes
+          nationalOutgoingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter2UpRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter2UpRoamingRounded');
+          // total national
+          nationalTotal = nationalIncomingTotal + nationalOutgoingTotal;
+          // Internationales
+          // total entrantes
+          internationalIncomingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter2DownRoamingRounded'
+          );
+          // total sortantes
+          internationalOutgoingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter2UpRoamingRounded'
+          );
+          // total international
+          internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
+          // total
+          usedTotal = nationalTotal + internationalTotal;
+          estimatedTotal = (daysInMonth * (nationalTotal + internationalTotal)) / pastDays;
+          break;
+        case 'VOICE':
+          // Nationales
+          // total entrantes
+          nationalIncomingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter3DownRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter3DownRoamingRounded');
+          // total sortantes
+          nationalOutgoingTotal =
+            this.getFromContent('accessPoint.usageCounter.counter3UpRounded') -
+            this.getFromContent('accessPoint.usageCounter.counter3UpRoamingRounded');
+          // total national
+          nationalTotal = nationalIncomingTotal + nationalOutgoingTotal;
+          // Internationales
+          // total entrantes
+          internationalIncomingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter3DownRoamingRounded'
+          );
+          // total sortantes
+          internationalOutgoingTotal = this.getFromContent(
+            'accessPoint.usageCounter.counter3UpRoamingRounded'
+          );
+          // total international
+          internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
+          // total
+          usedTotal = moment(nationalTotal + internationalTotal, 'HHmmss').format('HH:mm:ss');
+          estimatedTotal = moment(
+            (daysInMonth * (nationalTotal + internationalTotal)) / pastDays,
+            'HHmmss'
+          ).format('HH:mm:ss');
+          break;
+      }
+      let total;
+      if (mode && mode === 'used') {
+        total = usedTotal;
+      } else {
+        total = estimatedTotal;
+      }
+      return total;
     },
   },
 };
