@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip">
+  <div class="icon-tooltip">
     <i class="ic-Info-Icon" />
     <div class="box">
       <div class="arrow-left"></div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tooltip {
+.icon-tooltip {
   display: inline;
   position: relative;
 
