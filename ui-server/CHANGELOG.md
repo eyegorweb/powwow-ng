@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.73+20190709120101
+2019-07-09
+
+### Fixes
+
+- fixer la liste des types de partenaires (2ec0c0bc051f508c5ee466d780980a12b0737c1e)
+
 ## 0.3.0-master.72+20190708152334
 2019-07-08
 
