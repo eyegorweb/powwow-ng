@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.78+20190709151602
+2019-07-09
+
+### Fixes
+
+- **orders:** add action validate in the contextual menu (035be66dc26a262dbcfda921434cb18bfa1b7202)
+
 ## 0.3.0-master.77+20190709151705
 2019-07-09
 
