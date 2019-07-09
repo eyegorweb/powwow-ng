@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.75+20190709142820
+2019-07-09
+
+### Features
+
+- 433/gerer resiliation (118dac91f873e35130ae4bd40891b98fea657372)
+
 ## 0.3.0-master.74+20190709132301
 2019-07-09
 
