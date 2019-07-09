@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    ...mapMutations('getsim', ['refreshIndicators']),
     async onActionClicked(action) {
       switch (action) {
         case 'getsim.actions.CANCEL': {
@@ -95,6 +96,12 @@ export default {
         case 'getsim.actions.SHOW_SIM': {
           // TODO
           console.log(' TODO show lines');
+          break;
+        }
+        case 'getsim.actions.VALIDATE': {
+          const orderData = await updateOrderStatus(this.order.id, 'VALIDATED');
+          this.order.status = orderData.status;
+          this.refreshIndicators();
           break;
         }
       }
