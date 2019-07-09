@@ -106,7 +106,26 @@ export async function searchLines(orderBy, pagination, filters = []) {
               description
             }
           }
-
+          usageCounter {
+            counter1DownRounded
+            counter1DownRoamingRounded
+            counter1UpRounded
+            counter1UpRoamingRounded
+            counter1DownRoamingRounded
+            counter1UpRoamingRounded
+            counter2DownRounded
+            counter2DownRoamingRounded
+            counter2UpRounded
+            counter2UpRoamingRounded
+            counter2DownRoamingRounded
+            counter2UpRoamingRounded
+            counter3DownRounded
+            counter3DownRoamingRounded
+            counter3UpRounded
+            counter3UpRoamingRounded
+            counter3DownRoamingRounded
+            counter3UpRoamingRounded
+          }
         }
       }
     }
