@@ -290,3 +290,26 @@ export async function terminateLines(filters, lines, params) {
 
   return await query(queryStr);
 }
+
+export async function manageCancellation(filters, lines, params) {
+  const { dueDate, partyId, validate } = params;
+  let gqlFilter = '';
+  let lineIds = '';
+  if (lines && lines.length > 0) {
+    lineIds = lines.map(l => l.id).join(',');
+  } else {
+    gqlFilter = formatFilters(filters);
+  }
+
+  const queryStr = `
+  mutation{
+    validateRefuseLines(
+        input :{filter: {${gqlFilter}}, simCardInstanceIds: [${lineIds}], notification: false, validate: ${validate}, partyId: ${partyId}, dueDate: "${formatDateForGql(
+    dueDate
+  )}" }
+    )
+  }
+  `;
+
+  return await query(queryStr);
+}

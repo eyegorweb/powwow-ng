@@ -37,6 +37,7 @@
               </div>
             </div>
           </div>
+          <slot v-else name="validate-btn-content" :containerValidationFn="validate"> </slot>
           <slot name="bottom"></slot>
         </div>
         <div class="col-5">

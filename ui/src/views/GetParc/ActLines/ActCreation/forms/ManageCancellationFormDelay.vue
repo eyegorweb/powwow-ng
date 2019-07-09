@@ -11,8 +11,8 @@
         :options="delays"
       >
       </UiSelect>
-      <UiCheckbox v-model="applyCharges" />
-      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span>
+      <!-- <UiCheckbox v-model="applyCharges" />
+      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span> -->
     </div>
     <div class="d-flex">
       <button @click="manageRefuse" class="btn btn-cancel pl-4 pr-4 pt-2 pb-2">
@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import UiCheckbox from '@/components/ui/Checkbox';
+// import UiCheckbox from '@/components/ui/Checkbox';
 import UiSelect from '@/components/ui/UiSelect';
 
 import moment from 'moment';
 
 export default {
   components: {
-    UiCheckbox,
+    // UiCheckbox,
     UiSelect,
   },
   data() {
@@ -50,13 +50,33 @@ export default {
           value: '0',
           label: this.$t('getparc.actCreation.ManageCancellation.delays.0'),
         },
-        { id: '1', value: '1', label: this.$t('getparc.actCreation.ManageCancellation.delays.1') },
-        { id: '2', value: '2', label: this.$t('getparc.actCreation.ManageCancellation.delays.2') },
-        { id: '3', value: '3', label: this.$t('getparc.actCreation.ManageCancellation.delays.3') },
-        { id: '4', value: '4', label: this.$t('getparc.actCreation.ManageCancellation.delays.4') },
-        { id: '5', value: '5', label: this.$t('getparc.actCreation.ManageCancellation.delays.5') },
+        {
+          id: '1',
+          value: '1',
+          label: this.$t('getparc.actCreation.ManageCancellation.delays.1'),
+        },
+        {
+          id: '2',
+          value: '2',
+          label: this.$t('getparc.actCreation.ManageCancellation.delays.2'),
+        },
+        {
+          id: '3',
+          value: '3',
+          label: this.$t('getparc.actCreation.ManageCancellation.delays.3'),
+        },
+        {
+          id: '4',
+          value: '4',
+          label: this.$t('getparc.actCreation.ManageCancellation.delays.4'),
+        },
+        {
+          id: '5',
+          value: '5',
+          label: this.$t('getparc.actCreation.ManageCancellation.delays.5'),
+        },
       ],
-      applyCharges: false,
+      // applyCharges: false,
     };
   },
   methods: {
@@ -65,7 +85,7 @@ export default {
     },
     manageValidation() {
       this.$emit('change:validation', {
-        applyCharges: this.applyCharges,
+        // applyCharges: this.applyCharges,
         convertedDelay: this.convertedDelay,
       });
     },
