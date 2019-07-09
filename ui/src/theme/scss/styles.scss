@@ -43,6 +43,7 @@ $theme-colors: map-merge(
 @import 'global.scss';
 @import 'navbar.scss';
 @import 'icons.scss';
+@import 'tooltip.scss';
 
 // utility
 .no-select {

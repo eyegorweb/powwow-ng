@@ -2,7 +2,10 @@
   <li class="list-group-item">
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
-      <button :class="`btn btn-link p-0 ${indicator.color || classColor}`" :disabled="!indicator.clickable">
+      <button
+        :class="`btn btn-link p-0 ${indicator.color || classColor}`"
+        :disabled="!indicator.clickable"
+      >
         <CircleLoader v-if="isLoading" />
         <span>{{ total }}</span>
       </button>
