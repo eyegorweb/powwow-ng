@@ -38,9 +38,9 @@
     "actLines": "Gestion des lignes"
   },
   "partnerTypes": {
-    "CUSTOMER": "Client",
+    "CUSTOMER": "M2M",
     "MVNO": "MVNO",
-    "MULTI_CUSTOMER": "Multi client"
+    "MULTI_CUSTOMER": "Marque blanche"
   },
   "errors": {
     "all": "Erreurs",

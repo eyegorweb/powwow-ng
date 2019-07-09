@@ -55,8 +55,6 @@ import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
 
 import { mapMutations, mapState } from 'vuex';
 
-import { fetchPartyTypes } from '@/api/partners';
-
 export default {
   name: 'NavBarBackoffice',
   components: {
@@ -66,16 +64,12 @@ export default {
   },
   data() {
     return {
-      partnersTypesOptions: [],
+      partnersTypesOptions: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
 
       // selected values
       partnerTypes: [],
       partners: [],
     };
-  },
-
-  async mounted() {
-    this.partnersTypesOptions = await fetchPartyTypes();
   },
 
   computed: {
