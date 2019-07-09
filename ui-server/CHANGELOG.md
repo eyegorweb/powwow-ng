@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.74+20190709132301
+2019-07-09
+
+### Fixes
+
+- message d'information sur le carousel (098b1902b2c2d14fc491ae49eb599f6fb0ef4cc0)
+
 ## 0.3.0-master.73+20190709120101
 2019-07-09
 
