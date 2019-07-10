@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.80+20190710135434
+2019-07-10
+
+### Fixes
+
+- **orders:** set current filters for each indicator (6cfc6e2a64eca940fd465d98c0a79c3f8dacd1b8)
+
 ## 0.3.0-master.79+20190710095400
 2019-07-10
 
