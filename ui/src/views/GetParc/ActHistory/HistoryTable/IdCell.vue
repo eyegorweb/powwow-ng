@@ -7,6 +7,7 @@ import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 
 export default {
+  name: 'IdCell',
   props: {
     row: Object,
   },

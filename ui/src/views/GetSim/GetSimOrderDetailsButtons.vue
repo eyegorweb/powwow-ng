@@ -61,10 +61,12 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
+    ...mapMutations('getsim', ['refreshIndicators']),
 
     async updateStatus(newStatus) {
       const orderData = await updateOrderStatus(this.order.id, newStatus);
       this.order.status = orderData.status;
+      this.refreshIndicators();
     },
 
     async confirmOrder() {

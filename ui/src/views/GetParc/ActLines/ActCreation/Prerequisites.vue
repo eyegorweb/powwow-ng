@@ -14,6 +14,10 @@
         @set:preprequisites="setPrerequisites"
       />
       <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_STATUS'"
+        @set:preprequisites="setPrerequisites"
+      />
+      <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.SEND_SMS'"
         @set:preprequisites="setPrerequisites"
       />
@@ -23,6 +27,10 @@
       />
       <NoPrerequisitesPre
         v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'"
+        @set:preprequisites="setPrerequisites"
+      />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION'"
         @set:preprequisites="setPrerequisites"
       />
       <NoPrerequisitesPre
@@ -38,14 +46,14 @@
 </template>
 
 <script>
-import ChangeServicePre from './prerequisites/ChangeServicePre';
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
+import ChangeServicePre from './prerequisites/ChangeServicePre';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
-    ChangeServicePre,
     NoPrerequisitesPre,
+    ChangeServicePre,
   },
   props: {
     act: Object,
@@ -61,16 +69,18 @@ export default {
     ]),
 
     setPrerequisites(allPrereq) {
+      console.log(allPrereq);
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
       }
       if (allPrereq.partner) {
         this.setPartnersFilter([allPrereq.partner]);
+      }
+
+      if (allPrereq) {
         this.setActCreationPrerequisites(allPrereq);
         // Reset selected lines for a new application partner
         this.setSelectedLinesForActCreation([]);
-      }
-      if (allPrereq) {
         this.applyFilters();
       }
     },

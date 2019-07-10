@@ -9,14 +9,15 @@
         </div>
       </div>
       <DataTable
-        :columns.sync="columns"
+        storage-id="getparc.lines"
+        storage-version="001"
+        :columns="columns"
         :rows="rows || []"
         :page.sync="page"
         :page-limit.sync="pageLimit"
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        @change-order="changeCellsOrder"
         :size="7"
       >
         <template slot="topLeftCorner">
@@ -35,7 +36,8 @@ import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
-import DateStatus from './DateStatus';
+import IdCell from './IdCell';
+import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 
 function setFormatComponentsToColumns(columns) {
   return columns.reduce((preparedColumns, col) => {
@@ -83,6 +85,9 @@ export default {
           orderable: false,
           visible: true,
           name: 'iccid',
+          format: {
+            component: IdCell,
+          },
         },
         {
           id: 1,
@@ -213,14 +218,15 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage']),
+    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters']),
 
-    changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
-      this.columns = orderedCells.concat(notVisibleCells);
-    },
     searchById(params) {
-      console.log('search by id: ', params);
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
     },
     async fetchLinesActions() {
       this.fetchLinesActionsFromApi({

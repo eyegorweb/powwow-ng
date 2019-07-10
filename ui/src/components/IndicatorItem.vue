@@ -3,12 +3,12 @@
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
       <button
-        :class="`btn btn-link p-0 ${indicator.color}`"
+        :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
         @click.prevent="setCurrentFiltersFn(indicator)"
       >
         <CircleLoader v-if="isLoading" />
-        <span v-else>{{ total }}</span>
+        <span>{{ total }}</span>
       </button>
     </div>
   </li>
@@ -27,6 +27,7 @@ export default {
     return {
       isLoading: false,
       total: '-',
+      classColor: '',
     };
   },
   components: {
@@ -41,9 +42,14 @@ export default {
     async refreshIndicator() {
       this.isLoading = true;
       const res = await this.indicator.fetch(this.indicator, this.partners);
-      this.total = res.total;
-      this.isLoading = false;
+      if (res) {
+        this.total = res.total;
+        if (res.color) {
+          this.classColor = res.color;
+        }
+      }
 
+      this.isLoading = false;
       if (this.total === 0 && this.indicator.hideZeroValue) {
         this.$emit('removeme', this.indicator);
       }

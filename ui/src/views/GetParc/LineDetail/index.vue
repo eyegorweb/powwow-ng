@@ -1,0 +1,136 @@
+<template>
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-md-9">
+        <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
+          <i class="ic-Arrow-Previous-Icon" />
+          {{ $t('back') }}
+        </button>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-md-9">
+        <h4>
+          <b>GetParc</b>
+          - {{ $t('getparc.lineDetail.title', { lineId: $route.params.lineId }) }}
+          <i class="ic-Info-Icon" />
+        </h4>
+      </div>
+    </div>
+    <LineSummary :content="lineData" />
+    <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
+    <div class="mt-4 mb-4">
+      <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
+        <template slot-scope="{ tab, index, selectedIndex }">
+          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+            <a href="#" @click.prevent="() => (currentLinkIndex = index)">
+              {{ tab.title }}
+            </a>
+          </UiTab>
+        </template>
+        <div class="pt-4 pl-4" slot="detail">
+          <DetailsTab :content="lineData" />
+        </div>
+        <div slot="ongoing">B</div>
+        <div slot="diagnosis">C</div>
+      </UiTabs>
+    </div>
+  </div>
+</template>
+
+<script>
+import LineSummary from './LineSummary';
+import DetailsTab from './DetailsTab';
+import ActionCarousel from '../ActLines/ActionCarousel';
+import UiTabs from '@/components/ui/Tabs';
+import UiTab from '@/components/ui/Tab';
+import { searchLines } from '@/api/linesActions';
+
+export default {
+  components: {
+    LineSummary,
+    DetailsTab,
+    ActionCarousel,
+    UiTabs,
+    UiTab,
+  },
+  mounted() {
+    this.loadLineData();
+  },
+  data() {
+    return {
+      lineData: {},
+      currentLinkIndex: 0,
+      tabs: [
+        {
+          label: 'detail',
+          title: this.$t('getparc.lineDetail.title', { lineId: '' }),
+          total: 0,
+        },
+        {
+          label: 'ongoing',
+          title: this.$t('getparc.lineDetail.consuming'),
+          total: 0,
+        },
+        {
+          label: 'diagnosis',
+          title: this.$t('getparc.lineDetail.analysingTool'),
+          total: 0,
+        },
+      ],
+      carouselItems: [
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
+          selected: false,
+        },
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
+          selected: false,
+        },
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          selected: false,
+        },
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
+          selected: false,
+        },
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
+          selected: false,
+        },
+      ],
+    };
+  },
+  computed: {},
+  methods: {
+    onCarouselItemClick(item) {
+      console.log(item);
+    },
+    async loadLineData() {
+      const response = await searchLines({ id: 'DESC' }, { page: 0, limit: 1 }, [
+        {
+          id: 'filters.id',
+          value: this.$route.params.lineId,
+        },
+      ]);
+      if (!response || !response.items || !response.items.length) return;
+      this.lineData = response.items[0];
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.tab-grow {
+  flex-grow: 1;
+}
+a {
+  text-transform: uppercase;
+}
+</style>

@@ -13,7 +13,11 @@
     </div>
     <div class="row mb-5">
       <div class="col-md-12">
-        <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
+        <ActionCarousel
+          title="getparc.actLines.chooseAct"
+          :actions="carouselItems"
+          @itemClick="onCarouselItemClick"
+        />
       </div>
     </div>
 
@@ -30,13 +34,21 @@
         <FilterBar />
       </div>
       <div class="col-md-9">
-        <Title num="1" v-if="creationMode" title="getparc.actLines.step1Title" />
+        <Title
+          num="1"
+          v-if="creationMode"
+          title="getparc.actLines.step1Title"
+          :color="actToCreate.color"
+          :uppercase="true"
+        />
         <LinesTable :creation-mode="creationMode" />
 
         <Title
           num="2"
           v-if="creationMode && actCreationPrerequisites"
           :title="actToCreate.stepTitle"
+          :color="actToCreate.color"
+          :uppercase="true"
         />
         <ActCreationActForm v-if="creationMode && actCreationPrerequisites" :act="actToCreate" />
       </div>
@@ -251,10 +263,29 @@ export default {
       carouselItems: [
         {
           icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SERVICES',
+          subtitle: '',
+          selected: false,
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Heart-Rythm-Icon',
           title: 'getparc.actCreation.carouselItem.SUSPEND',
           stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
           subtitle: '',
           selected: false,
+          color: 'blue',
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -282,6 +313,26 @@ export default {
           stepTitle: 'getparc.actCreation.carouselItem.REACTIVATE',
           subtitle: '',
           selected: false,
+          color: 'blue',
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          icon: 'ic-Stats-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_STATUS',
+          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_STATUS',
+          subtitle: '',
+          selected: false,
+          color: 'orange',
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -430,13 +481,13 @@ export default {
             },
           ],
         },
-        /*
-         {
-          icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
-          stepTitle: 'getparc.actCreation.carouselItem.step2Titles.CHANGE_SERVICES',
+        {
+          icon: 'ic-Settings-Icon',
+          title: 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
+          stepTitle: 'getparc.actCreation.step2Titles.MANAGE_CANCELLATION',
           subtitle: '',
           selected: false,
+          color: 'orange',
           filters: [
             {
               id: 'filters.lines.SIMCardStatus',
@@ -447,8 +498,48 @@ export default {
                 },
               ],
             },
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'demandeDeResiliation',
+                  label: 'demandeDeResiliation',
+                },
+              ],
+            },
           ],
         },
+        /*
+        {
+          icon: 'ic-Heart-Rythm-Icon',
+          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          stepTitle: 'getparc.actCreation.carouselItem.step2Titles.CHANGE_SERVICES',
+          subtitle: '',
+          selected: false,
+          color: 'orange',
+          filters: [
+            {
+              id: 'filters.lines.SIMCardStatus',
+              values: [
+                {
+                  id: 'ACTIVATED',
+                  label: 'Activée',
+                },
+              ],
+            },
+            {
+              id: 'filters.lines.commercialStatus',
+              values: [
+                {
+                  id: 'demandeDeResiliation',
+                  label: 'demandeDeResiliation',
+                },
+              ],
+            },
+          ],
+        },
+
+        /*
         {
           icon: 'ic-Stats-Icon',
           title: 'getparc.actCreation.carouselItem.EXPORT_CONS',
@@ -567,4 +658,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+/deep/ .step-title .text {
+  padding-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>

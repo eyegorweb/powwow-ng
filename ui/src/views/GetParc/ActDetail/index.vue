@@ -46,6 +46,8 @@
       </div>
       <div slot="ongoing">
         <UnitActsTable
+          storage-id="getparc.actdetail.ongoing"
+          storage-version="001"
           :key="'tab2'"
           :mass-action-id="$route.params.massActionId"
           :statuses="['WAITING', 'SENT', 'IN_PROGRESS']"
@@ -54,6 +56,8 @@
       </div>
       <div slot="finished">
         <UnitActsTable
+          storage-id="getparc.actdetail.finished"
+          storage-version="001"
           :key="'tab3'"
           :mass-action-id="$route.params.massActionId"
           :statuses="['OK']"
@@ -112,8 +116,8 @@ export default {
   },
   methods: {
     async refreshTables() {
+      this.refreshCurrentMassAction();
       const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
-      console.log(totals);
       if (totals) {
         this.tabs = [
           {
@@ -130,7 +134,6 @@ export default {
           },
         ];
       }
-      this.refreshCurrentMassAction();
     },
     getMassActionItem(response) {
       if (response) {
@@ -144,7 +147,6 @@ export default {
     },
     async refreshCurrentMassAction() {
       const data = await searchMassActionsById(this.$route.params.massActionId);
-      console.log(data);
       if (data) {
         this.massAction = data;
       }

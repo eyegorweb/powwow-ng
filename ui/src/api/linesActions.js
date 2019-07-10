@@ -97,6 +97,8 @@ export async function searchLines(orderBy, pagination, filters = []) {
             custom2
             custom3
             custom4
+            custom5
+            custom6
           }
           offer {
             marketingOffer {
@@ -104,7 +106,26 @@ export async function searchLines(orderBy, pagination, filters = []) {
               description
             }
           }
-
+          usageCounter {
+            counter1DownRounded
+            counter1DownRoamingRounded
+            counter1UpRounded
+            counter1UpRoamingRounded
+            counter1DownRoamingRounded
+            counter1UpRoamingRounded
+            counter2DownRounded
+            counter2DownRoamingRounded
+            counter2UpRounded
+            counter2UpRoamingRounded
+            counter2DownRoamingRounded
+            counter2UpRoamingRounded
+            counter3DownRounded
+            counter3DownRoamingRounded
+            counter3UpRounded
+            counter3UpRoamingRounded
+            counter3DownRoamingRounded
+            counter3UpRoamingRounded
+          }
         }
       }
     }
@@ -174,8 +195,41 @@ export function formatFilters(filters) {
   addRangeFilter(allFilters, filters, 'msisdn', 'filters.lines.rangeMSISDN');
   addRangeFilter(allFilters, filters, 'imei', 'filters.lines.rangeIMEI');
   addTerminationValidated(allFilters, filters);
+  addIdsFilter(allFilters, filters);
 
   return allFilters.join(',');
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const _id = selectedFilters.find(f => f.id === 'filters.id');
+  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+
+  if (_id) {
+    gqlFilters.push(`id: {eq: "${_id.value}"}`);
+  }
+  if (iccid) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  }
+  if (msisdnA) {
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  }
+  if (accessPointId) {
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value}"}`);
+  }
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {

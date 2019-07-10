@@ -12,6 +12,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "cancel": "Annuler",
+  "confirm": "Confirmer",
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
@@ -30,16 +31,19 @@
   "noResult": "Aucun résulat",
   "back": "Retour",
   "searching": "Recherche en cours ...",
+  "secondary": "{item} Secondaire",
+  "processing": "Traitement en cours ...",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
   },
   "partnerTypes": {
-    "CUSTOMER": "Client",
+    "CUSTOMER": "M2M",
     "MVNO": "MVNO",
-    "MULTI_CUSTOMER": "Multi client"
+    "MULTI_CUSTOMER": "Marque blanche"
   },
   "errors": {
+    "all": "Erreurs",
     "mandatory": "* Champ obligatoire"
   },
   "common": {
@@ -209,6 +213,12 @@
           "TERMINATED": "Terminé",
           "CANCELLED": "Annulé"
         }
+      },
+      "actions": {
+        "btn": "Actions",
+        "DETAIL": "Voir le détail",
+        "EXPORT": "Exporter l'acte",
+        "CANCEL": "Annuler l'acte"
       }
     },
     "actDetail": {
@@ -239,6 +249,44 @@
         "details": "Détails"
       }
     },
+    "lineDetail": {
+      "title": "Détail de la ligne {lineId}",
+      "offer": "Offer",
+      "lineStatus": "Statut de la ligne",
+      "triggeredAlarms": "Alarmes déclenchées",
+      "manufacturer": "Fabricant",
+      "model": "Modèle",
+      "data": "Data consommées",
+      "sms": "SMS consommés",
+      "voice": "Voix consommée",
+      "previsionalData": "Prévisionnel Data",
+      "previsionalSms": "Prévisionnel SMS",
+      "previsionalVoice": "Prévisionnel Voix",
+      "consuming": "EN COURS DE CONSOMMATION",
+      "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "tab1": {
+        "lineInfo": "Informations sur la ligne",
+        "billingOffer": "Facturation et offre",
+        "lineServices": "Services de la ligne",
+        "alarmsList": "Liste des alarmes",
+        "actsHistory": "Historique des actes de gestion",
+        "preactivatedAt": "Préactivé le",
+        "activatedAt": "Activé le",
+        "pinCode": "Code pin",
+        "pukCode": "Code PUK",
+        "dualSim": "Dual SIM",
+        "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
+        "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
+        "macAdress": "Adresse MAC",
+        "usagePeriod": "Période d'utilisation",
+        "statuses": {
+          "notPreactivated": "Non préactivée depuis le :",
+          "preactivated": "Préactivée depuis le :",
+          "activated": "Activée depuis le :",
+          "suspendedReleased": "Suspendue ou Résiliée depuis le :"
+        }
+      }
+    },
     "actCreation": {
       "carouselItem": {
         "CONSUMING": "En cours consommation",
@@ -250,13 +298,21 @@
         "CHANGE_OFFER": "Changement d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
+        "CHANGE_STATUS": "Résilier",
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
-        "TRANSFERT_LINES": "Transférer vers un partenaire"
+        "MANAGE_CANCELLATION": "Gérer des résiliations",
+        "MODAL_WARNING": "Attention ! Cette action est définitive",
+        "TRANSFERT_LINES": "Transférer vers un partenaire",
+        "CHANGE_SIMCARD": "Changer de carte SIM",
+        "CHANGE_MSISDN": "Changer de MSISDN"
       },
-
+      "modal": {
+        "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
+        "modalConfirmMsg": "Confirmez-vous la résiliation ?"
+      },
       "suspend": {
         "notEditable": "Non modifiable par le client",
         "suspendBilling": "Suspendre la facturation"
@@ -265,12 +321,32 @@
         "notEditable": "Non modifiable par le client",
         "reactivateBilling": "Reactiver la facturation"
       },
+      "changeStatus": {
+        "changeCardsStatus": "Résilier les cartes",
+        "warningMsg": "Attention ! Si votre plafond annuel de résiliations est dépassé. Des frais de résiliations pourront être facturés.",
+        "modalPreventMsg": "La résiliation est définitive et irréversible une fois validée par nos services.Confirmez-vous la résiliation ?"
+      },
       "sendSMS": {
         "shortCode": "Short code",
         "message": "Message [facultatif]",
         "acceptConditions": "Accepter les conditions en vigueur avec Bouygues Télécom",
         "successMessage": "La demande a bien été prise en compte",
         "nbCharacters": "Nombres de caractères"
+      },
+
+      "changeService": {
+        "servicesToEnable": "Services à activer",
+        "servicesToDisable": "Services à désactiver",
+        "validateBtn": "Valider la modification",
+        "confirmBtn": "Confirmer la modification",
+        "confirmationWarning": "Attention ! Cette action a un impact sur le réseau.Confirmez-vous la modification de services ?",
+        "servicesMandatory": "* Veuillez choisir une offre et services"
+      },
+
+      "report": {
+        "alreadyExists": "Lignes éxistantes",
+        "invalidFormat": "Format invalide",
+        "notFound": "Introuvable"
       },
 
       "transfertCF": {
@@ -288,6 +364,23 @@
         "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
       },
 
+      "ManageCancellation": {
+        "choose": "Choisir",
+        "delay": "un délai",
+        "date": "une date fixe",
+        "chooseADelay": "Choisir un délai",
+        "delays": {
+          "0": "Immédiat",
+          "1": "1 mois",
+          "2": "2 mois",
+          "3": "3 mois",
+          "4": "4 mois",
+          "5": "5 mois"
+        },
+        "applyCharges": "Appliquer des frais",
+        "refuse": "Refuser les résiliations",
+        "validate": "Valider les résiliations"
+      },
       "selectOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
@@ -297,8 +390,10 @@
         "CHANGE_SERVICES": "Configurer la modification des services",
         "SUSPEND": "Configurer la suspension",
         "REACTIVATE": "Configurer la réactivation des lignes",
+        "CHANGE_STATUS": "Configurer la résiliation",
         "TEST_PHASE": "Configurer la sortie de phase de test",
         "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
+        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
         "TRANSFERT_LINES": "Configurer le changement de partenaires",
         "CHANGE_CF": "Configuration du compte de facturation"
       },
@@ -310,6 +405,15 @@
       "SELECTED_LINES": "{total} lignes seront modifiées"
     },
     "actLines": {
+      "details": {
+        "title": "Detail ici",
+        "upcommingChanges": "Changements à venir",
+        "alarmsInfo": "ALARMES",
+        "partners": "Partenaires",
+        "EXPORT": "Exporter la ligne",
+        "DETAIL": "Voir le détail de la ligne"
+      },
+      "chooseAct": "Choisir un acte de gestion",
       "total": "{total} ligne(s) trouvé(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
@@ -377,7 +481,14 @@
         "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
         "manufacturer": "Fabricant (IMEI)",
-        "deviceReference": "Modèle (IMEI)"
+        "deviceReference": "Modèle (IMEI)",
+        "commercialRef": "Référence commerciale",
+        "offer": "Offre",
+        "lineStatus": "Statut de la ligne",
+        "billingStatus": "Statut de facturation",
+        "currentSynthesis": "Synthèse en cours conso",
+        "positionedAlarms": "Alarmes positionnées",
+        "triggeredAlarms": "Alarmes déclenchées"
       }
     },
     "search": {

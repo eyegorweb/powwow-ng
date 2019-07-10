@@ -8,6 +8,7 @@
 import { mapMutations } from 'vuex';
 
 export default {
+  name: 'GetSimOrdersCreatorCell',
   props: {
     row: {
       type: Object,

@@ -1,7 +1,9 @@
 <template>
   <div>
     <button :class="className" @click="chooseExportFormat">
-      <i class="ic-Download-Icon" />
+      <slot name="icon">
+        <i class="ic-Download-Icon" />
+      </slot>
       <slot name="title">
         Exporter
       </slot>

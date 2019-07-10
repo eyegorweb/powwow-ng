@@ -28,6 +28,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
         workflowDescription
         initialOffer {
           id
+          code
           nonSystemServiceGroupList {
             id
             system

@@ -1,6 +1,11 @@
 <template>
-  <div class="carousel-item">
-    <div class="card" :class="{ inactive: isDisabled, selected: selected }" @click="onClick">
+  <div class="carousel-item" :class="[item.color ? item.color : '']">
+    <div
+      class="card"
+      v-tooltip="tooltipMessage"
+      :class="{ inactive: isDisabled, selected: selected }"
+      @click="onClick"
+    >
       <div class="card-body">
         <div class="icon-block">
           <span :class="icon" />
@@ -26,6 +31,7 @@ export default {
   data() {
     return {
       isDisabled: false,
+      tooltipMessage: undefined,
     };
   },
   computed: {
@@ -62,6 +68,34 @@ export default {
       }
 
       this.isDisabled = !isEnabled;
+    },
+    isDisabled(newValue) {
+      if (newValue) {
+        let message = '';
+        let messageTitle = `Les filtres suivants sont obligatoires :`;
+
+        message = this.item.filters.reduce((all, item) => {
+          let groupMessage = '';
+          let itemMessage = `
+    ${this.$t(item.id)}:`;
+
+          if (item.values) {
+            groupMessage = item.values.reduce((filterMsg, value) => {
+              return (
+                filterMsg +
+                `
+        - ${value.label}`
+              );
+            }, itemMessage);
+          }
+
+          return all + groupMessage;
+        }, messageTitle);
+
+        this.tooltipMessage = message;
+      } else {
+        this.tooltipMessage = undefined;
+      }
     },
   },
   methods: {
@@ -130,6 +164,23 @@ export default {
     display: table-cell;
     vertical-align: middle;
     padding: 0 0.5rem;
+  }
+}
+
+.carousel-item {
+  &.blue {
+    .card {
+      &.selected {
+        background: $blue;
+      }
+    }
+  }
+  &.orange {
+    .card {
+      &.selected {
+        background: $orange;
+      }
+    }
   }
 }
 </style>

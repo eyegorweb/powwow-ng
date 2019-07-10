@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    ...mapMutations('getsim', ['refreshIndicators']),
     async onActionClicked(action) {
       switch (action) {
         case 'getsim.actions.CANCEL': {
@@ -75,7 +76,6 @@ export default {
           });
           break;
         }
-
         case 'getsim.actions.CONFIRM': {
           if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
             const orderData = await updateOrderStatus(this.order.id, 'TO_BE_CONFIRMED');
@@ -86,7 +86,22 @@ export default {
             const orderData = await updateOrderStatus(this.order.id, 'CONFIRMED');
             this.order.status = orderData.status;
           }
-
+          break;
+        }
+        case 'getsim.actions.EXPORT': {
+          // TODO
+          console.log('TODO export lines');
+          break;
+        }
+        case 'getsim.actions.SHOW_SIM': {
+          // TODO
+          console.log(' TODO show lines');
+          break;
+        }
+        case 'getsim.actions.VALIDATE': {
+          const orderData = await updateOrderStatus(this.order.id, 'VALIDATED');
+          this.order.status = orderData.status;
+          this.refreshIndicators();
           break;
         }
       }

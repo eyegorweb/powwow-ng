@@ -1,6 +1,6 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
-    <div>
+    <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
@@ -16,14 +16,15 @@
         </div>
       </div>
       <DataTable
-        :columns.sync="columns"
+        storage-id="getsim.orders"
+        storage-version="001"
+        :columns="columns"
         :rows="rows || []"
         :page.sync="page"
         :page-limit.sync="pageLimit"
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        @change-order="changeCellsOrder"
         :size="7"
       >
         <template slot="topLeftCorner">
@@ -57,64 +58,6 @@ import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
 import GetSimOrdersBillingAccountCell from './GetSimOrdersBillingAccountCell';
 import GetSimOrdersProductCell from './GetSimOrdersProductCell';
 
-/**
- * On est obligé de passer par une variable intérmédiaire car le localStorage ne stoque que des chaines de charactères
- */
-const cellComponents = {
-  GetSimOrdersStatusCell,
-  GetSimOrdersDeliveryCell,
-  GetSimOrdersCreatorCell,
-  GetSimOrdersIdCell,
-  GetSimOrdersMassActionIdsColumn,
-  GetSimOrdersBillingAccountCell,
-  GetSimOrdersProductCell,
-};
-
-/**
- * pour définir un composant pour une céllule on a besoin de mettre le composant souhaité dans col.format.component
- * mais étant donné qu'on souhaite persister en local storage les colonnes de la table, on est alors obligé de stocker un identifiant en chaine
- * de caractères (componentId) pour que notre objet soit correctement sérialisé.
- *
- * cette fonction sert donc à assigner le bon composant dans col.format.component en se basant sur col.format.componentId
- */
-function setFormatComponentsToColumns(columns) {
-  return columns.reduce((preparedColumns, col) => {
-    const formatted = { ...col };
-    if (col.format && col.format.componentId) {
-      formatted.format.component = cellComponents[col.format.componentId];
-    }
-    preparedColumns.push(formatted);
-    return preparedColumns;
-  }, []);
-}
-
-/**
- * assigne le bon composant de céllule
- */
-function loadColumnsFromLocalStorage() {
-  const strColumns = localStorage.getItem('getsim.savedColumns');
-  if (!strColumns) return;
-  const columns = JSON.parse(strColumns);
-  return setFormatComponentsToColumns(columns);
-}
-
-function saveColumnsToLocalStorage(columns) {
-  const savableColumns = JSON.parse(JSON.stringify(columns));
-  localStorage.setItem('getsim.savedColumns', JSON.stringify(savableColumns));
-}
-
-/**
- * après chaque modification dans la structure des colonnes, il faudra modifier la constante VERSION pour supprimer la configuration utilisateur du local storage
- */
-const VERSION = '2.3';
-function checkConfigVersion() {
-  const savedVersion = localStorage.getItem('tables.version');
-  if (savedVersion !== VERSION) {
-    localStorage.removeItem('getsim.savedColumns');
-    localStorage.setItem('tables.version', VERSION);
-  }
-}
-
 export default {
   name: 'Orders',
   components: {
@@ -140,10 +83,6 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
-    },
-    changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
-      this.columns = orderedCells.concat(notVisibleCells);
     },
   },
   computed: {
@@ -187,49 +126,36 @@ export default {
         this.showExtraCells = false;
       }
     },
-    columns(newValues) {
-      saveColumnsToLocalStorage(newValues);
-    },
   },
 
   async mounted() {
-    checkConfigVersion();
-    const savedColumns = loadColumnsFromLocalStorage();
-    if (savedColumns) {
-      this.columns = savedColumns;
+    if (this.userIsPartner) {
+      const partnerId = get(this.userInfos, 'party.id');
+      const customFields = await fetchCustomFields(partnerId);
+      const customFieldsColumns = customFields.map(c => {
+        return {
+          id: c.id,
+          label: c.label,
+          name: 'customFields',
+          orderable: false,
+          visible: false,
+          // exportId: 'ORDER_STATUS',
+          format: {
+            type: 'ObjectAttribute',
+            path: c.codeInOrder,
+          },
+        };
+      });
+      this.columns = [...this.commonColumns, ...customFieldsColumns];
     } else {
-      if (this.userIsPartner) {
-        const partnerId = get(this.userInfos, 'party.id');
-        const customFields = await fetchCustomFields(partnerId);
-        const customFieldsColumns = customFields.map(c => {
-          return {
-            id: c.id,
-            label: c.label,
-            name: 'customFields',
-            orderable: false,
-            visible: false,
-            // exportId: 'ORDER_STATUS',
-            format: {
-              type: 'ObjectAttribute',
-              path: c.codeInOrder,
-            },
-          };
-        });
-        this.columns = setFormatComponentsToColumns([
-          ...this.commonColumns,
-          ...customFieldsColumns,
-        ]);
-      } else {
-        this.columns = setFormatComponentsToColumns([...this.commonColumns]);
-      }
+      this.columns = [...this.commonColumns];
     }
   },
   data() {
     return {
       isAsyncExportAlertOpen: false,
       isExportFormatChoiceOpen: false,
-      columns: [],
-      // NE PAS OUBLIER DE METTRE à JOUR LA VARIABLE **** VERSION *** après un changement dans la structure
+      columns: undefined,
       commonColumns: [
         {
           id: 1,
@@ -241,7 +167,7 @@ export default {
           fixed: true,
           exportId: 'ORDER_ID',
           format: {
-            componentId: 'GetSimOrdersIdCell',
+            component: GetSimOrdersIdCell,
           },
         },
         {
@@ -271,7 +197,7 @@ export default {
           visible: true,
           exportId: 'ORDER_STATUS',
           format: {
-            componentId: 'GetSimOrdersStatusCell',
+            component: GetSimOrdersStatusCell,
           },
         },
         {
@@ -283,7 +209,7 @@ export default {
           sortingName: 'simcardDesc',
           exportId: 'ORDER_SIMCARD_TYPE',
           format: {
-            componentId: 'GetSimOrdersProductCell',
+            component: GetSimOrdersProductCell,
           },
         },
         {
@@ -315,7 +241,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CREATOR',
           format: {
-            componentId: 'GetSimOrdersCreatorCell',
+            component: GetSimOrdersCreatorCell,
           },
         },
         {
@@ -327,7 +253,7 @@ export default {
           visible: false,
           exportId: 'ORDER_RECIPIENT',
           format: {
-            componentId: 'GetSimOrdersDeliveryCell',
+            component: GetSimOrdersDeliveryCell,
           },
         },
         {
@@ -352,7 +278,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMERACCOUNT',
           format: {
-            componentId: 'GetSimOrdersBillingAccountCell',
+            component: GetSimOrdersBillingAccountCell,
           },
         },
         {
@@ -384,7 +310,7 @@ export default {
           visible: false,
           exportId: 'ORDER_MASSACTIONIDS',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -394,7 +320,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_1',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -404,7 +330,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_2',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -414,7 +340,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_3',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -424,7 +350,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_4',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -434,7 +360,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_5',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
         {
@@ -444,7 +370,7 @@ export default {
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_6',
           format: {
-            componentId: 'GetSimOrdersMassActionIdsColumn',
+            component: GetSimOrdersMassActionIdsColumn,
           },
         },
       ],

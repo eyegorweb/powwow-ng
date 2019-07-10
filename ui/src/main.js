@@ -5,6 +5,10 @@ import router from './router';
 import store from './store';
 import i18n from './i18n';
 
+import VTooltip from 'v-tooltip';
+
+Vue.use(VTooltip);
+
 Vue.config.productionTip = false;
 
 new Vue({
