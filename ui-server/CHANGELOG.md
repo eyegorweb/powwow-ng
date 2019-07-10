@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.81+20190710143941
+2019-07-10
+
+### Fixes
+
+- l'offre est un prérequis de pour la modification de services (2c664126afba47106fe9b5fa0cd5effaebbcb9bb)
+
 ## 0.3.0-master.80+20190710135434
 2019-07-10
 
