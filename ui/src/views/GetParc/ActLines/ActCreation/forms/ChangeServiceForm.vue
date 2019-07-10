@@ -1,11 +1,5 @@
 <template>
   <ActFormContainer :validate-fn="doRequest">
-    <div>
-      <span class="font-weight-bold mt-4 mb-4">
-        {{ $t('col.offer') }}
-      </span>
-      <OffersPart :partner="partner" :offer.sync="selectedOffer" />
-    </div>
     <div v-if="selectedOffer" class="row">
       <div class="col">
         <span class="font-weight-bold mt-4 mb-4">
@@ -100,7 +94,6 @@ import ActFormContainer from './parts/ActFormContainer';
 import FormReport from './parts/FormReport';
 // import SelectOffer from './parts/SelectOffer';
 import { mapState, mapGetters } from 'vuex';
-import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 import ServicesChoice from './parts/ServicesChoice';
 import Modal from '@/components/Modal';
 import { addServices } from '@/api/actCreation';
@@ -109,7 +102,6 @@ import CircleLoader from '@/components/ui/CircleLoader';
 export default {
   components: {
     ActFormContainer,
-    OffersPart,
     ServicesChoice,
     Modal,
     CircleLoader,
@@ -121,7 +113,6 @@ export default {
       servicesToActivate: [],
       servicesToDesactivate: [],
       requestErrors: undefined,
-      selectedOffer: undefined,
       waitForReportConfirmation: false,
       isLoading: false,
       tempDataUuid: undefined,
@@ -204,6 +195,10 @@ export default {
     partner() {
       if (!this.actCreationPrerequisites) return;
       return this.actCreationPrerequisites.partner;
+    },
+    selectedOffer() {
+      if (!this.actCreationPrerequisites) return;
+      return this.actCreationPrerequisites.offer;
     },
   },
 

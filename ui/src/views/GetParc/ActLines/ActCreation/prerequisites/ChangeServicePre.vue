@@ -6,7 +6,10 @@
         <PartnersPart @setpartner="setPartner" />
       </div>
       <div class="col">
-        <OffersPart @setOffer="setOffer" :partner="selectedPartner" />
+        <div v-if="selectedPartner && selectedPartner.id">
+          <h5>{{ $t('col.offer') }}</h5>
+          <OffersPart :partner="selectedPartner" :offer.sync="selectedOffer" />
+        </div>
       </div>
     </div>
   </PrereqContainer>
@@ -32,9 +35,6 @@ export default {
   methods: {
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
-    },
-    setOffer(selectedOffer) {
-      this.selectedOffer = selectedOffer;
     },
     validatePrerequisites() {
       this.$emit('set:preprequisites', {
