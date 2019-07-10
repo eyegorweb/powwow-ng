@@ -156,6 +156,7 @@ deploy_uat:
     - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
     - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
     - kubectl config use-context m2m-node-uat
+    
   script:
     - kubectl get po
     - . ui-server/release_info
