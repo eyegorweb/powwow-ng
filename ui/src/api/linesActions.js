@@ -202,16 +202,13 @@ export function formatFilters(filters) {
 
 function addIdsFilter(gqlFilters, selectedFilters) {
   const _id = selectedFilters.find(f => f.id === 'filters.id');
-  const idOrder = selectedFilters.find(f => f.id === 'filters.apId');
+  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
   const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
   const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
   const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
-  if (idOrder) {
-    gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
-  }
   if (_id) {
     gqlFilters.push(`id: {eq: "${_id.value}"}`);
   }
@@ -229,6 +226,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
   if (msisdnA) {
     gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  }
+  if (accessPointId) {
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value}"}`);
   }
 }
 
