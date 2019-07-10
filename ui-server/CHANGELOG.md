@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.82+20190710145433
+2019-07-10
+
+### Fixes
+
+- **lines:** search by accessPointId (329823423f0ee90a2319cad98693b834ea8db543)
+- 433/gerer-resiliation-delay (eca05344004061b798f7718d147345edcbd203f0)
+
 ## 0.3.0-master.81+20190710143941
 2019-07-10
 
