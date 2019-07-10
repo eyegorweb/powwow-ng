@@ -5,6 +5,7 @@
       <button
         :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
+        @click.prevent="setCurrentFiltersFn(indicator)"
       >
         <CircleLoader v-if="isLoading" />
         <span>{{ total }}</span>
