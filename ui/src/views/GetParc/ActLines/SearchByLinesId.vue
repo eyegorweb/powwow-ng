@@ -47,7 +47,7 @@ export default {
         },
         {
           code: 'c6',
-          value: 'apId',
+          value: 'accessPointId',
           label: "AP_ID (identifiant de l'access point)",
         },
       ],
