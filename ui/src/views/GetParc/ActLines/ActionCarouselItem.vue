@@ -71,19 +71,26 @@ export default {
     },
     isDisabled(newValue) {
       if (newValue) {
-        let message = `Les filtres suivants sont obligatoires :
-    `;
+        let message = '';
+        let messageTitle = `Les filtres suivants sont obligatoires :`;
 
-        message += this.item.filters.reduce((all, item) => {
-          let itemMessage = `${this.$t(item.id)}:`;
+        message = this.item.filters.reduce((all, item) => {
+          let groupMessage = '';
+          let itemMessage = `
+    ${this.$t(item.id)}:`;
+
           if (item.values) {
-            itemMessage += item.values.reduce((filterMsg, value) => {
-              return `
-        - ${value.label}`;
+            groupMessage = item.values.reduce((filterMsg, value) => {
+              return (
+                filterMsg +
+                `
+        - ${value.label}`
+              );
             }, itemMessage);
           }
-          return itemMessage;
-        }, message);
+
+          return all + groupMessage;
+        }, messageTitle);
 
         this.tooltipMessage = message;
       } else {
