@@ -2,6 +2,34 @@
 
 <!--- next entry here -->
 
+## 0.5.0
+2019-07-10
+
+### Features
+
+- bar search lines (6a0d6e266302daff615e7c6ccd760887d67c4a91)
+- informations-de-ligne (4eca48e4b877978b3ce0336220e4035908b5172d)
+- 359 resiliation + feat:433 gestion resiliation (b8917b0561827e6b1166999b23fd04e1262db455)
+- changement de services (a20768053d1dd896a478eb4df37c3f89ebb07d70)
+- 433/gerer resiliation (118dac91f873e35130ae4bd40891b98fea657372)
+
+### Fixes
+
+- corriger la persistence des colonnes des tables (7b85eac912ef89ee442cb7ef0f59b4d8a5576d8d)
+- CI Deploy UAT step (cbb953f7cf4144ed4bb52f4bee25790b687a157f)
+- **orders:** refresh indicators (6016a2b67225e23773a60f88f6d7f7de9e341776)
+- use case color (ae9f4d64073379debe88a2ca7041ae4634aedfc0)
+- fixer la liste des types de partenaires (2ec0c0bc051f508c5ee466d780980a12b0737c1e)
+- message d'information sur le carousel (098b1902b2c2d14fc491ae49eb599f6fb0ef4cc0)
+- **lines:** display line details (6c0afcdaa2ebf8c8048216a35ecfba40416c8c20)
+- **orders:** add action validate in the contextual menu (035be66dc26a262dbcfda921434cb18bfa1b7202)
+- bloc détail acte de masse qui ne s'affiche pas (7f41844e26bd28100b36755abad2290971672237)
+- correction du contenu de l'infobulle (d937c0ebc1dbd95b302d8a185881624f02fa6ac4)
+- **orders:** set current filters for each indicator (6cfc6e2a64eca940fd465d98c0a79c3f8dacd1b8)
+- l'offre est un prérequis de pour la modification de services (2c664126afba47106fe9b5fa0cd5effaebbcb9bb)
+- **lines:** search by accessPointId (329823423f0ee90a2319cad98693b834ea8db543)
+- 433/gerer-resiliation-delay (eca05344004061b798f7718d147345edcbd203f0)
+
 ## 0.4.0
 2019-06-25
 
