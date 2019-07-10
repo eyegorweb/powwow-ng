@@ -81,12 +81,15 @@ export default {
   },
   methods: {
     manageRefuse() {
-      this.$emit('change:cancel');
+      this.$emit('change:cancel', {
+        // applyCharges: this.applyCharges,
+        date: this.delay,
+      });
     },
     manageValidation() {
       this.$emit('change:validation', {
         // applyCharges: this.applyCharges,
-        convertedDelay: this.convertedDelay,
+        date: this.delay,
       });
     },
   },
@@ -94,15 +97,10 @@ export default {
     canValidate() {
       return this.selectedDelay !== null ? true : false;
     },
-    convertedDelay() {
-      let delayObject = {
-        months: this.selectedDelay,
-        startDate: moment().format('MM-DD-YYYY'),
-        endDate: moment()
+    delay() {
+      return moment()
           .add(this.selectedDelay, 'months')
-          .format('MM-DD-YYYY'),
-      };
-      return this.selectedDelay ? delayObject : undefined;
+          .format('MM-DD-YYYY');
     },
   },
 };
