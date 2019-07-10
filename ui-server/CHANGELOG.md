@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.79+20190710095400
+2019-07-10
+
+### Fixes
+
+- correction du contenu de l'infobulle (d937c0ebc1dbd95b302d8a185881624f02fa6ac4)
+
 ## 0.3.0-master.78+20190709151602
 2019-07-09
 
