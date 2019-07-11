@@ -275,6 +275,7 @@ export default {
 
           if (correspondingColumn) {
             c.format.component = correspondingColumn.format.component;
+            c.visibleWhen = correspondingColumn.visibleWhen;
           }
 
           return c;

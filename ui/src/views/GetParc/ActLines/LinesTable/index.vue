@@ -39,14 +39,6 @@ import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 
-function setFormatComponentsToColumns(columns) {
-  return columns.reduce((preparedColumns, col) => {
-    const formatted = { ...col };
-    preparedColumns.push(formatted);
-    return preparedColumns;
-  }, []);
-}
-
 export default {
   components: {
     DataTable,
@@ -55,7 +47,7 @@ export default {
     // Title,
   },
   async mounted() {
-    this.columns = setFormatComponentsToColumns([...this.commonColumns]);
+    this.columns = [...this.commonColumns];
   },
   props: {
     creationMode: Object,

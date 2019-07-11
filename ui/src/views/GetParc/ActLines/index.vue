@@ -509,74 +509,6 @@ export default {
             },
           ],
         },
-        /*
-        {
-          icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
-          stepTitle: 'getparc.actCreation.carouselItem.step2Titles.CHANGE_SERVICES',
-          subtitle: '',
-          selected: false,
-          color: 'orange',
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.commercialStatus',
-              values: [
-                {
-                  id: 'demandeDeResiliation',
-                  label: 'demandeDeResiliation',
-                },
-              ],
-            },
-          ],
-        },
-
-        /*
-        {
-          icon: 'ic-Stats-Icon',
-          title: 'getparc.actCreation.carouselItem.EXPORT_CONS',
-          subtitle: '',
-          selected: false,
-        },
-        {
-          icon: 'ic-Amplifier-Icon',
-          title: 'getparc.actCreation.carouselItem.MANAGE_ALARMS',
-          subtitle: '',
-          selected: false,
-        },
-        {
-          icon: 'ic-Clock-Icon',
-          title: 'getparc.actCreation.carouselItem.EXPORT_LAST_USAGE',
-          subtitle: '',
-          selected: false,
-        },
-        {
-          icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
-          subtitle: '',
-          selected: false,
-        },
-        {
-          icon: 'ic-Cart-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
-          subtitle: '',
-          selected: false,
-        },
-        {
-          icon: 'ic-Amplifier-Icon',
-          title: 'getparc.actCreation.carouselItem.POSITION_ALARM',
-          subtitle: '',
-          selected: false,
-        },
-        //*/
       ],
     };
   },
@@ -593,12 +525,6 @@ export default {
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
         return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
-
-        /*
-        if (filterPartner && filterPartner.values && filterPartner.values.length === 1) {
-          return filterPartner;
-        }
-        //*/
       }
 
       return null;
@@ -606,18 +532,32 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
-    ...mapMutations('actLines', ['setCurrentFilters', 'applyFilters', 'setActToCreate']),
+    ...mapMutations('actLines', [
+      'setCurrentFilters',
+      'applyFilters',
+      'setActToCreate',
+      'setActCreationPrerequisites',
+      'setSelectedLinesForActCreation',
+    ]),
 
     onCarouselItemClick(item) {
       item.selected = !item.selected;
 
       if (item.selected) {
+        // déjà en mode création, sur un autre acte
+        if (this.creationMode) {
+          this.setActCreationPrerequisites(null);
+          this.setSelectedLinesForActCreation([]);
+        }
+
         if (item.filters) {
           this.setActToCreate(item);
           this.mergeCurrentFiltersWith(item.filters);
         }
       } else {
         this.setActToCreate(null);
+        this.setActCreationPrerequisites(null);
+        this.setSelectedLinesForActCreation([]);
       }
 
       /*
