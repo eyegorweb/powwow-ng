@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.84+20190711084207
+2019-07-11
+
+### Fixes
+
+- corriger bug sur la création d'acte (6a6c9b22585d3b55f18cc01baa6fbd9eee43647c)
+
 ## 0.3.0-master.83+20190710152511
 2019-07-10
 
