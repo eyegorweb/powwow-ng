@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.85+20190711111559
+2019-07-11
+
+### Fixes
+
+- format date (fa4bc8a38ef4bb93c94e5cd5bcb24027bcd7a083)
+
 ## 0.3.0-master.84+20190711084207
 2019-07-11
 
