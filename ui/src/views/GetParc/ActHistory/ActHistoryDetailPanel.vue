@@ -266,7 +266,6 @@ export default {
       return value !== null ? value : '';
     },
     getExportFn() {
-      // console.log('id', this.content);
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
           this.content.id,

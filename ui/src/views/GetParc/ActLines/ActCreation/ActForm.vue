@@ -13,6 +13,7 @@
       />
       <TransfertLines v-if="act.title === 'getparc.actCreation.carouselItem.TRANSFERT_LINES'" />
       <ChangeBillingAccount v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'" />
+      <ChangeMSISDN v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_MSISDN'" />
     </div>
   </div>
 </template>
@@ -28,6 +29,7 @@ import EditCustomFieldsForm from './forms/EditCustomFieldsForm';
 import ManageCancellationForm from './forms/ManageCancellationForm';
 import TransfertLines from './forms/TransfertLines';
 import ChangeBillingAccount from './forms/ChangeBillingAccount';
+import ChangeMSISDN from './forms/ChangeMSISDN';
 
 export default {
   components: {
@@ -41,6 +43,7 @@ export default {
     ManageCancellationForm,
     TransfertLines,
     ChangeBillingAccount,
+    ChangeMSISDN,
   },
   props: {
     act: Object,

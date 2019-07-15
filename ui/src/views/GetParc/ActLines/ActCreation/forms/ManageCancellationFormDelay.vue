@@ -99,8 +99,8 @@ export default {
     },
     delay() {
       return moment()
-          .add(this.selectedDelay, 'months')
-          .format('DD-MM-YYYY');
+        .add(this.selectedDelay, 'months')
+        .format('DD-MM-YYYY');
     },
   },
 };

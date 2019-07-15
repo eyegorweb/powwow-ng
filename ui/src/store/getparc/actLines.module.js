@@ -21,6 +21,7 @@ export const state = {
   filterCustomFieldsList: [],
 
   selectedLinesForActCreation: [],
+  selectedFileForActCreation: undefined,
   actToCreate: null,
   actCreationPrerequisites: null,
 };
@@ -256,7 +257,6 @@ export const mutations = {
     });
   },
   setFileImportFilter(state, fileResponse) {
-    console.log(fileResponse);
     selectFilterValue(state, {
       id: 'filters.lines.fromFile.title',
       values: [
@@ -368,6 +368,10 @@ export const mutations = {
 
   setSelectedLinesForActCreation(state, selectedLines) {
     state.selectedLinesForActCreation = selectedLines;
+  },
+
+  setSelectedFileForActCreation(state, file) {
+    state.selectedFileForActCreation = file;
   },
 
   setActToCreate(state, act) {

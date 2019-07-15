@@ -1,17 +1,17 @@
 <template>
-  <div class="foldable-block pt-3">
+  <div class="foldable-block pt-3" :class="{ disabled }">
     <div class="d-flex align-items-center">
-      <span v-if="draggable" class="handle">
+      <span v-if="!disabled && draggable" class="handle">
         <i class="ic-Drag-Column-Icon" />
       </span>
       <span class="title flex-grow-1">{{ title }}</span>
-      <a class=" p-0" @click.prevent="toggleShow">
+      <a v-if="!disabled" class=" p-0" @click.prevent="toggleShow">
         <i :class="iconClass" />
       </a>
     </div>
     <div class="pt-3">
       <TransitionCollapse>
-        <slot v-if="isOpen" />
+        <slot v-if="canShowContent" />
       </TransitionCollapse>
     </div>
   </div>
@@ -26,11 +26,18 @@ export default {
     defaultOpen: Boolean,
     title: String,
     draggable: Boolean,
+    disabled: Boolean,
   },
 
   computed: {
     iconClass() {
       return this.isOpen ? 'ic-Arrow-Up-Icon' : 'ic-Arrow-Down-Icon';
+    },
+
+    canShowContent() {
+      if (this.disabled) return false;
+
+      return this.isOpen;
     },
   },
 
@@ -90,6 +97,12 @@ export default {
     .handle:hover {
       cursor: move;
     }
+  }
+}
+
+.disabled {
+  .title {
+    color: gray;
   }
 }
 </style>
