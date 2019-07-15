@@ -5,7 +5,7 @@
       <button
         :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
-        @click.prevent="setCurrentFiltersFn(indicator)"
+        @click.prevent="onClick(indicator)"
       >
         <CircleLoader v-if="isLoading" />
         <span>{{ total }}</span>
@@ -21,7 +21,7 @@ export default {
   props: {
     indicator: Object,
     partners: Object,
-    setCurrentFiltersFn: Function,
+    onClick: Function,
   },
   data() {
     return {

@@ -27,7 +27,7 @@
       <div class="col-md-3">
         <Indicators
           :meta="indicators"
-          :set-current-filters-fn="setCurrentFiltersForIndicator"
+          :on-click="onClick"
           :partners="partnersForIndicators"
         />
         <br />
@@ -117,12 +117,12 @@ export default {
             return await fetchSingleIndicator(indicator.filters, partners);
           },
         },
-        // taper sur l'api massActions
         {
           name: 'failed',
           labelKey: 'indicators.getparc.lines.failed',
           color: 'text-danger',
-          clickable: false,
+          clickable: true,
+          overrideClick: true,
           total: '-',
           roles: ['BO', 'PARTNER'],
           filters: [
@@ -571,9 +571,23 @@ export default {
       //*/
     },
 
+    onClick(indicator) {
+      if (!indicator.overrideClick) {
+        this.setCurrentFiltersForIndicator(indicator);
+      } else {
+        this.redirectByIndicator(indicator);
+      }
+    },
+
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
       this.applyFilters();
+    },
+
+    redirectByIndicator(indicator) {
+      if (indicator.labelKey === 'indicators.getparc.lines.failed') {
+        this.$router.push({ name: 'actHistory', params: { preselectFailedFilter: true } });
+      }
     },
 
     onPrereqSet() {

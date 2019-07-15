@@ -26,7 +26,7 @@
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
 import MassActionsIndicators from './MassActionsIndicators';
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -36,12 +36,30 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapGetters('actHistory', ['currentFilters']),
   },
   methods: {
     ...mapActions('actHistory', ['initFilterForContext']),
+    ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),
   },
   mounted() {
     this.initFilterForContext();
+    if (this.$route.params && this.$route.params.preselectFailedFilter) {
+      setTimeout(() => {
+        this.setCurrentFilters([
+          {
+            id: 'filters.actStatus',
+            values: [
+              {
+                id: 'IN_ERROR',
+                label: 'En erreur',
+              },
+            ],
+          },
+        ]);
+        this.applyFilters();
+      }, 500);
+    }
   },
   watch: {
     contextPartnersTypes() {

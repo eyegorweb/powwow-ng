@@ -32,7 +32,7 @@
         <Indicators
           :key="indicatorsVersion"
           :meta="indicators"
-          :set-current-filters-fn="setCurrentFiltersForIndicator"
+          :on-click="setCurrentFiltersForIndicator"
           :partners="partnersForIndicators"
         />
         <br />
