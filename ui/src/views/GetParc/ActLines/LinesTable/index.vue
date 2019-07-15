@@ -46,16 +46,13 @@ export default {
     SearchByLinesId,
     // Title,
   },
-  async mounted() {
-    this.columns = [...this.commonColumns];
-  },
+
   props: {
     creationMode: Object,
   },
   data() {
     return {
-      columns: [],
-      commonColumns: [
+      columns: [
         {
           id: 99,
           label: '',

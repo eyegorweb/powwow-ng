@@ -25,23 +25,31 @@
 
     <div class="row">
       <div class="col-md-3">
-        <Indicators
-          :meta="indicators"
-          :on-click="onClick"
-          :partners="partnersForIndicators"
-        />
+        <Indicators :meta="indicators" :on-click="onClick" :partners="partnersForIndicators" />
         <br />
         <FilterBar />
       </div>
       <div class="col-md-9">
         <Title
           num="1"
-          v-if="creationMode"
+          v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
+          title="getparc.actLines.step1File"
+          :color="actToCreate.color"
+          :uppercase="true"
+        />
+        <DropZone
+          v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
+          v-model="selectedFile"
+        />
+
+        <Title
+          num="1"
+          v-if="creationMode && !actToCreate.containFile"
           title="getparc.actLines.step1Title"
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <LinesTable :creation-mode="creationMode" />
+        <LinesTable v-if="canShowTable" :creation-mode="creationMode" />
 
         <Title
           num="2"
@@ -65,10 +73,11 @@ import ActCreationPrerequisites from './ActCreation/Prerequisites';
 import ActCreationActForm from './ActCreation/ActForm';
 import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
-import { fetchSingleIndicator } from '@/api/linesActions';
+import DropZone from '@/components/ui/DropZone';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
-import { fetchTotalMassActions } from '@/api/massActions';
+import lineIndicators from './lineIndicators';
+import carouselItems from './carouselItems';
 
 export default {
   components: {
@@ -80,447 +89,48 @@ export default {
     ActCreationPrerequisites,
     ActCreationActForm,
     Title,
+    DropZone,
   },
   data() {
     return {
       prereqSet: false,
-      isIndicatorsLoading: false,
-      /**
-       *  {
-       *    prerequisites: {},
-       *  }
-       */
-      indicators: [
-        {
-          name: 'notProcessedResiliations',
-          labelKey: 'indicators.getparc.lines.cancellation',
-          color: 'text-danger',
-          clickable: false,
-          total: '-',
-          roles: ['BO'],
-          filters: [
-            {
-              id: 'filters.lines.commercialStatus',
-              values: [
-                {
-                  id: 'demandeDeResiliation',
-                  label: 'demandeDeResiliation',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.terminationValidated',
-              value: true,
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        {
-          name: 'failed',
-          labelKey: 'indicators.getparc.lines.failed',
-          color: 'text-danger',
-          clickable: true,
-          overrideClick: true,
-          total: '-',
-          roles: ['BO', 'PARTNER'],
-          filters: [
-            {
-              id: 'filters.actStatus',
-              values: [
-                {
-                  id: 'IN_ERROR',
-                  label: 'En erreur',
-                },
-              ],
-            },
-          ],
-          fetch: async indicator => {
-            return await fetchTotalMassActions(indicator.filters);
-          },
-          hideZeroValue: true,
-        },
-        {
-          name: 'simCardsInStock',
-          labelKey: 'indicators.getparc.lines.availableSIMCards',
-          color: 'text-success',
-          clickable: true,
-          total: '-',
-          roles: ['PARTNER'],
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'NOT_PREACTIVATED',
-                  label: 'Non préactivée',
-                },
-              ],
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        {
-          name: 'allocatedSIMCards',
-          labelKey: 'indicators.getparc.lines.allocatedSIMCards',
-          color: 'text-success',
-          clickable: true,
-          total: '-',
-          roles: ['PARTNER'],
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'PREACTIVATED',
-                  label: 'Préactivée',
-                },
-              ],
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        {
-          name: 'activatedSIMCards',
-          labelKey: 'indicators.getparc.lines.activatedSIMCards',
-          color: 'text-success',
-          clickable: true,
-          total: '-',
-          roles: ['PARTNER'],
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activé',
-                },
-              ],
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        {
-          name: 'suspended',
-          labelKey: 'indicators.getparc.lines.suspended',
-          color: 'text-warning',
-          clickable: true,
-          total: '-',
-          roles: ['BO', 'PARTNER'],
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'SUSPENDED',
-                  label: 'Suspendue',
-                },
-              ],
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        {
-          name: 'traffic',
-          labelKey: 'indicators.getparc.lines.traffic',
-          color: 'text-warning',
-          clickable: true,
-          total: '-',
-          roles: ['BO'],
-          filters: [
-            {
-              id: 'filters.lines.traffic',
-              values: [
-                {
-                  id: 'lineTrafficState',
-                  label: 'Oui',
-                },
-              ],
-            },
-          ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
-          },
-        },
-        /*
-        // Reporté
-        {
-          name: 'validation',
-          labelKey: 'indicators.getparc.lines.validation',
-          filters: [],
-        },
-        //*/
-      ],
-      carouselItems: [
-        {
-          icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
-          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SERVICES',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.SUSPEND',
-          stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
-          subtitle: '',
-          selected: false,
-          color: 'blue',
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.commercialStatus',
-              values: [
-                {
-                  id: 'facturationActive',
-                  label: 'Facturation active',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.REACTIVATE',
-          stepTitle: 'getparc.actCreation.carouselItem.REACTIVATE',
-          subtitle: '',
-          selected: false,
-          color: 'blue',
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Stats-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_STATUS',
-          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_STATUS',
-          subtitle: '',
-          selected: false,
-          color: 'orange',
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.SEND_SMS',
-          stepTitle: 'getparc.actCreation.carouselItem.SEND_SMS',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.billingStatus',
-              values: [
-                {
-                  id: 'CANCELED',
-                  label: 'Annulée',
-                },
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-                {
-                  id: 'TEST',
-                  label: 'Test',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Arrow-Forward-Icon',
-          title: 'getparc.actCreation.carouselItem.TEST_PHASE',
-          stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.billingStatus',
-              values: [
-                {
-                  id: 'TEST',
-                  label: 'Test',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Stats-Icon',
-          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
-          stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'NOT_PREACTIVATED',
-                  label: 'Non préactivée',
-                },
-                {
-                  id: 'PREACTIVATED',
-                  label: 'Préactivée',
-                },
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-                {
-                  id: 'RELEASED',
-                  label: 'Résiliée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Shuffle-Icon',
-          title: 'getparc.actCreation.carouselItem.TRANSFERT_LINES',
-          stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'NOT_PREACTIVATED',
-                  label: 'Non préactivée',
-                },
-                {
-                  id: 'PREACTIVATED',
-                  label: 'Préactivée',
-                },
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
-          stepTitle: 'getparc.actCreation.step2Titles.CHANGE_CF',
-          subtitle: '',
-          selected: false,
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          icon: 'ic-Settings-Icon',
-          title: 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
-          stepTitle: 'getparc.actCreation.step2Titles.MANAGE_CANCELLATION',
-          subtitle: '',
-          selected: false,
-          color: 'orange',
-          filters: [
-            {
-              id: 'filters.lines.SIMCardStatus',
-              values: [
-                {
-                  id: 'ACTIVATED',
-                  label: 'Activée',
-                },
-              ],
-            },
-            {
-              id: 'filters.lines.commercialStatus',
-              values: [
-                {
-                  id: 'demandeDeResiliation',
-                  label: 'demandeDeResiliation',
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      indicators: lineIndicators,
+      carouselItems,
     };
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
-    ...mapState('actLines', ['defaultAppliedFilters', 'actCreationPrerequisites']),
+    ...mapState('actLines', [
+      'defaultAppliedFilters',
+      'actCreationPrerequisites',
+      'selectedFileForActCreation',
+    ]),
     ...mapGetters('actLines', ['appliedFilters']),
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+    selectedFile: {
+      get() {
+        return this.selectedFileForActCreation;
+      },
+      set(newFile) {
+        this.setSelectedFileForActCreation(newFile);
+      },
+    },
     creationMode() {
       return this.actToCreate;
+    },
+    canShowTable() {
+      if (this.actToCreate) {
+        if (this.actToCreate.containFile) {
+          if (this.actCreationPrerequisites) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+      }
+      return true;
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
@@ -538,6 +148,7 @@ export default {
       'setActToCreate',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'setSelectedFileForActCreation',
     ]),
 
     onCarouselItemClick(item) {
@@ -559,35 +170,21 @@ export default {
         this.setActCreationPrerequisites(null);
         this.setSelectedLinesForActCreation([]);
       }
-
-      /*
-      this.carouselItems = this.carouselItems.map(i => {
-        if (item.title !== i.title) {
-          i.selected = false;
-          return i;
-        }
-        return i;
-      });
-      //*/
     },
 
     onClick(indicator) {
       if (!indicator.overrideClick) {
         this.setCurrentFiltersForIndicator(indicator);
       } else {
-        this.redirectByIndicator(indicator);
+        if (indicator.labelKey === 'indicators.getparc.lines.failed') {
+          this.$router.push({ name: 'actHistory', params: { preselectFailedFilter: true } });
+        }
       }
     },
 
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
       this.applyFilters();
-    },
-
-    redirectByIndicator(indicator) {
-      if (indicator.labelKey === 'indicators.getparc.lines.failed') {
-        this.$router.push({ name: 'actHistory', params: { preselectFailedFilter: true } });
-      }
     },
 
     onPrereqSet() {

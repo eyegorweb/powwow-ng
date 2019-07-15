@@ -313,3 +313,29 @@ export async function manageCancellation(filters, lines, params) {
 
   return await query(queryStr);
 }
+
+export async function changeMSISDN(params) {
+  const { tempDataUuid, notifEmail, dueDate, partyId } = params;
+
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      tempDataUuid: "${tempDataUuid}"
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}

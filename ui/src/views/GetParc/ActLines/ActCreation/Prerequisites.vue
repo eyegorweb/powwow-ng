@@ -41,6 +41,10 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'"
         @set:preprequisites="setPrerequisites"
       />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_MSISDN'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
@@ -48,7 +52,7 @@
 <script>
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import ChangeServicePre from './prerequisites/ChangeServicePre';
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -59,17 +63,16 @@ export default {
     act: Object,
   },
   methods: {
-    ...mapState('actLines', ['selectedLinesForActCreation']),
     ...mapActions('actLines', ['setPartnersFilter']),
     ...mapMutations('actLines', [
       'applyFilters',
       'setOffersFilter',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'setSelectedFileForActCreation',
     ]),
 
     setPrerequisites(allPrereq) {
-      console.log(allPrereq);
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
       }
@@ -81,6 +84,7 @@ export default {
         this.setActCreationPrerequisites(allPrereq);
         // Reset selected lines for a new application partner
         this.setSelectedLinesForActCreation([]);
+        this.setSelectedFileForActCreation(undefined);
         this.applyFilters();
       }
     },

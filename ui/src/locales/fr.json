@@ -343,6 +343,10 @@
         "servicesMandatory": "* Veuillez choisir une offre et services"
       },
 
+      "changeMSISDN": {
+        "confirmationWarning": "Attention !  Les anciens MSISDN seront résiliés.  Confirmez-vous le changement de MSISDN ?"
+      },
+
       "report": {
         "alreadyExists": "Lignes éxistantes",
         "invalidFormat": "Format invalide",
@@ -395,7 +399,8 @@
         "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
         "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
         "TRANSFERT_LINES": "Configurer le changement de partenaires",
-        "CHANGE_CF": "Configuration du compte de facturation"
+        "CHANGE_CF": "Configuration du compte de facturation",
+        "CHANGE_MSISDN": "Configurer le changement MSISDN"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
@@ -418,6 +423,7 @@
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "billingAccount": "séléctionner un compte de facturation",
+      "step1File": "séléctionner un fichier de travail",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
       "selectOffer": "séléctionner des offres",
