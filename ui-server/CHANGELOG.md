@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.87+20190715145329
+2019-07-15
+
+### Features
+
+- intégration API changement MSISDN (5bafafd03aede99b53f5d2a2bbaf54f0a6a99402)
+
 ## 0.3.0-master.86+20190715075913
 2019-07-15
 
