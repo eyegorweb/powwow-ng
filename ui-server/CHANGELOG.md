@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.86+20190715075913
+2019-07-15
+
+### Fixes
+
+- redirect by indicator (92fe3e88769ed8ae373cdce13451b7e7ca9be939)
+
 ## 0.3.0-master.85+20190711111559
 2019-07-11
 
