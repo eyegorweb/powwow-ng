@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.90+20190716153743
+2019-07-16
+
+### Fixes
+
+- **lines:** add filter search by file import (86aafa9919d4543f1d7afa64b6c13d48369b1d89)
+
 ## 0.3.0-master.89+20190716131136
 2019-07-16
 
