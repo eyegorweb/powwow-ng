@@ -347,6 +347,10 @@
         "confirmationWarning": "Attention !  Les anciens MSISDN seront résiliés.  Confirmez-vous le changement de MSISDN ?"
       },
 
+      "changeICCID": {
+        "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?"
+      },
+
       "report": {
         "alreadyExists": "Lignes éxistantes",
         "invalidFormat": "Format invalide",
@@ -400,7 +404,8 @@
         "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
         "TRANSFERT_LINES": "Configurer le changement de partenaires",
         "CHANGE_CF": "Configuration du compte de facturation",
-        "CHANGE_MSISDN": "Configurer le changement MSISDN"
+        "CHANGE_MSISDN": "Configurer le changement MSISDN",
+        "CHANGE_ICCID": "Configurer le changement de cartes SIM"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
