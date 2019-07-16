@@ -27,7 +27,7 @@
           </a>
         </li>
         <li class="list-group-item">
-          <a href="#">
+          <a @click.prevent="section = 'acts_history'" href="#">
             {{ $t('getparc.lineDetail.tab1.actsHistory') }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
           </a>
@@ -36,16 +36,19 @@
     </div>
     <div class="col-md-9">
       <LineInfoSection v-if="section === 'line_info'" :content="content" />
+      <ActsHistory v-if="section === 'acts_history'" :content="content" />
     </div>
   </div>
 </template>
 
 <script>
 import LineInfoSection from './LineInfoSection';
+import ActsHistory from './ActsHistory';
 
 export default {
   components: {
     LineInfoSection,
+    ActsHistory,
   },
   props: {
     content: Object,

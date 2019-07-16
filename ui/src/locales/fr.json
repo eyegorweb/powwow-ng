@@ -436,6 +436,26 @@
         "foundLines": "lignes ont été trouvées",
         "notFounfLines": "lignes ne sont pas compatibles"
       },
+      "massActionsHistory": {
+        "title": "Historique des actes de gestion",
+        "columns": {
+          "unitAction": "Acte unitaire",
+          "massAction": "Acte de masse",
+          "actionType": "Type d’acte",
+          "extraInfo": "Détail de l’acte",
+          "status": "Etat",
+          "dueDate": "Prévu"
+        },
+        "statuses": {
+          "WAITING": "En attente",
+          "SENT": "Envoyé",
+          "IN_PROGRESS": "En cours",
+          "OK": "Ok",
+          "KO": "Ko",
+          "REPLAYED": "Rejoué",
+          "CANCELLED": "Annulé"
+        }
+      },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
         "PREACTIVATED": "Préactivée",
