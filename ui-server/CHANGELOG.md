@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.88+20190716121452
+2019-07-16
+
+### Features
+
+- Configurer le Changement de cartes SIM (08d0a02cc99f1c44685af784f2d99ca7ffeab9c2)
+
 ## 0.3.0-master.87+20190715145329
 2019-07-15
 
