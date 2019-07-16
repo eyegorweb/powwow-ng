@@ -4,7 +4,7 @@
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
-          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.found }}
+          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.successful }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
         <li>
