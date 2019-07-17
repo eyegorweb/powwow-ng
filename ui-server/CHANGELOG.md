@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.93+20190717125321
+2019-07-17
+
+### Features
+
+- partie front pour activer/préactiver des lignes (6e825ff03c023db47231139e66b9244e3cfac747)
+
 ## 0.3.0-master.92+20190717124800
 2019-07-17
 
