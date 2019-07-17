@@ -286,6 +286,11 @@
           "activated": "Activée depuis le :",
           "suspendedReleased": "Suspendue ou Résiliée depuis le :"
         }
+      },
+      "tabServices": {
+        "optionalServices": "Services optionels",
+        "services": "Services",
+        "ipAdress": "Adresse IP Fixe"
       }
     },
     "actCreation": {
@@ -308,8 +313,25 @@
         "MODAL_WARNING": "Attention ! Cette action est définitive",
         "TRANSFERT_LINES": "Transférer vers un partenaire",
         "CHANGE_SIMCARD": "Changer de carte SIM",
-        "CHANGE_MSISDN": "Changer de MSISDN"
+        "CHANGE_MSISDN": "Changer de MSISDN",
+        "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes"
       },
+
+      "step2Titles": {
+        "CHANGE_SERVICES": "Configurer la modification des services",
+        "SUSPEND": "Configurer la suspension",
+        "REACTIVATE": "Configurer la réactivation des lignes",
+        "CHANGE_STATUS": "Configurer la résiliation",
+        "TEST_PHASE": "Configurer la sortie de phase de test",
+        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
+        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
+        "TRANSFERT_LINES": "Configurer le changement de partenaires",
+        "CHANGE_CF": "Configuration du compte de facturation",
+        "CHANGE_MSISDN": "Configurer le changement MSISDN",
+        "CHANGE_SIMCARD": "Configurer le changement de cartes SIM",
+        "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation"
+      },
+
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
         "modalConfirmMsg": "Confirmez-vous la résiliation ?"
@@ -393,20 +415,6 @@
       "selectOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
-      },
-
-      "step2Titles": {
-        "CHANGE_SERVICES": "Configurer la modification des services",
-        "SUSPEND": "Configurer la suspension",
-        "REACTIVATE": "Configurer la réactivation des lignes",
-        "CHANGE_STATUS": "Configurer la résiliation",
-        "TEST_PHASE": "Configurer la sortie de phase de test",
-        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
-        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
-        "TRANSFERT_LINES": "Configurer le changement de partenaires",
-        "CHANGE_CF": "Configuration du compte de facturation",
-        "CHANGE_MSISDN": "Configurer le changement MSISDN",
-        "CHANGE_ICCID": "Configurer le changement de cartes SIM"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",

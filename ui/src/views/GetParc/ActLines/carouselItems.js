@@ -1,6 +1,24 @@
 export default [
   {
     icon: 'ic-Heart-Rythm-Icon',
+    title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
+    stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
+    selected: false,
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    icon: 'ic-Heart-Rythm-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SIMCARD',
     selected: false,

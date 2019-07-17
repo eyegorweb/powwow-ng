@@ -49,6 +49,10 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SIMCARD'"
         @set:preprequisites="setPrerequisites"
       />
+      <NoPrerequisitesPre
+        v-if="act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
