@@ -225,9 +225,9 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-            <SimpleInputFilter
-              :selected-value="selectedICCIDValue"
-              @update:value="selectICCIDFilter($event)"
+            <ActLinesRangeFilter
+              :values="selectedICCIDValue"
+              @update:values="selectICCIDFilter($event)"
             />
           </FoldableBlock>
           <FoldableBlock
@@ -236,9 +236,9 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-            <SimpleInputFilter
-              :selected-value="selectedIMSIValue"
-              @update:value="selectIMSIFilter($event)"
+            <ActLinesRangeFilter
+              :values="selectedIMSIValue"
+              @update:values="selectIMSIFilter($event)"
             />
           </FoldableBlock>
           <FoldableBlock
@@ -247,9 +247,9 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-            <SimpleInputFilter
-              :selected-value="selectedMSISDNValue"
-              @update:value="selectMSISDNFilter($event)"
+            <ActLinesRangeFilter
+              :values="selectedMSISDNValue"
+              @update:values="selectMSISDNFilter($event)"
             />
           </FoldableBlock>
           <FoldableBlock
@@ -258,9 +258,9 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-            <SimpleInputFilter
-              :selected-value="selectedIMEIValue"
-              @update:value="selectIMEIFilter($event)"
+            <ActLinesRangeFilter
+              :values="selectedIMEIValue"
+              @update:values="selectIMEIFilter($event)"
             />
           </FoldableBlock>
           <FoldableBlock
@@ -348,6 +348,7 @@ import ActLinesCustomFields from './ActLinesCustomFields';
 import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
+import ActLinesRangeFilter from './ActLinesRangeFilter';
 
 export default {
   components: {
@@ -369,6 +370,7 @@ export default {
     ActLinesCustomFields,
     ActLinesCommercialStatusFilter,
     ActLinesFromFileFilter,
+    ActLinesRangeFilter,
   },
   data() {
     return {

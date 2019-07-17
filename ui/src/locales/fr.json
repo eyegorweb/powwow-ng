@@ -33,6 +33,7 @@
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
   "processing": "Traitement en cours ...",
+  "range": "Plage de valeurs",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
