@@ -351,4 +351,8 @@ export default {
     color: $orange;
   }
 }
+
+/deep/ fieldset.form-group {
+  margin-bottom: 0;
+}
 </style>
