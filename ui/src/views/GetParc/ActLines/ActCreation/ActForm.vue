@@ -15,6 +15,9 @@
       <ChangeBillingAccount v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'" />
       <ChangeMSISDN v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_MSISDN'" />
       <ChangeICCID v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SIMCARD'" />
+      <PreactivateActivate
+        v-if="act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'"
+      />
     </div>
   </div>
 </template>
@@ -32,6 +35,7 @@ import TransfertLines from './forms/TransfertLines';
 import ChangeBillingAccount from './forms/ChangeBillingAccount';
 import ChangeMSISDN from './forms/ChangeMSISDN';
 import ChangeICCID from './forms/ChangeICCID';
+import PreactivateActivate from './forms/PreactivateActivate';
 
 export default {
   components: {
@@ -47,6 +51,7 @@ export default {
     ChangeBillingAccount,
     ChangeMSISDN,
     ChangeICCID,
+    PreactivateActivate,
   },
   props: {
     act: Object,
