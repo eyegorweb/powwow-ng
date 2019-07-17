@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.92+20190717124800
+2019-07-17
+
+### Features
+
+- 341-filtre-plage-iccid (bc38853c79ea381a0f3865d6b18b5bd68c5aa775)
+
 ## 0.3.0-master.91+20190717094644
 2019-07-17
 
