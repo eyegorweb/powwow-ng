@@ -243,12 +243,19 @@ function addTerminationValidated(gqlFilters, selectedFilters) {
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
   const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
-  if (!filterValue) return;
-  const containsSearch = filterValue.value.includes('*');
-  if (containsSearch) {
-    gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.value.replace('*', '')}" }`);
+  if (filterValue && filterValue.from && filterValue.to) {
+    gqlFilters.push(
+      `${gqlParamName}: {startsWith: "${filterValue.from}", endsWith: "${filterValue.to}"}`
+    );
+  } else if (filterValue && filterValue.from) {
+    const containsSearch = filterValue.from.includes('*');
+    if (containsSearch) {
+      gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.from.replace('*', '')}" }`);
+    } else {
+      gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.from}" }`);
+    }
   } else {
-    gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.value}" }`);
+    return;
   }
 }
 

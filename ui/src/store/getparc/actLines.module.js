@@ -62,10 +62,10 @@ export const getters = {
   selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   selectedCustomFieldsValues: state => selectedFilterValuesById(state)('filters.customFields'),
-  selectedICCIDValue: findFilterValueById('filters.lines.rangeICCID'),
-  selectedIMSIValue: findFilterValueById('filters.lines.rangeIMSI'),
-  selectedMSISDNValue: findFilterValueById('filters.lines.rangeMSISDN'),
-  selectedIMEIValue: findFilterValueById('filters.lines.rangeIMEI'),
+  selectedICCIDValue: findFilterById('filters.lines.rangeICCID'),
+  selectedIMSIValue: findFilterById('filters.lines.rangeIMSI'),
+  selectedMSISDNValue: findFilterById('filters.lines.rangeMSISDN'),
+  selectedIMEIValue: findFilterById('filters.lines.rangeIMEI'),
 };
 
 // Actions
@@ -326,28 +326,32 @@ export const mutations = {
       values: countries,
     });
   },
-  selectICCIDFilter(state, value) {
+  selectICCIDFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeICCID',
-      value,
+      from,
+      to,
     });
   },
-  selectIMSIFilter(state, value) {
+  selectIMSIFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeIMSI',
-      value,
+      from,
+      to,
     });
   },
-  selectMSISDNFilter(state, value) {
+  selectMSISDNFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeMSISDN',
-      value,
+      from,
+      to,
     });
   },
-  selectIMEIFilter(state, value) {
+  selectIMEIFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeIMEI',
-      value,
+      from,
+      to,
     });
   },
   // to refactor, duplicated
