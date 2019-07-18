@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.94+20190718085503
+2019-07-18
+
+### Fixes
+
+- correction style (71aef6b07d87718a567c01e187fa52dc119d12f5)
+
 ## 0.3.0-master.93+20190717125321
 2019-07-17
 
