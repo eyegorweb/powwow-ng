@@ -2,9 +2,9 @@
   <ActFormContainer :validate-fn="doRequest">
     <div v-if="selectedOffer" class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToEnable')
+        }}</span>
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToActivate"
@@ -12,14 +12,31 @@
         />
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToDisable')
+        }}</span>
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDesactivate"
           :ignored-items="servicesToActivate"
         />
+      </div>
+    </div>
+    <div>
+      <span class="font-weight-bold mt-4 mb-4">{{ $t('services.DATA') }}</span>
+
+      <div v-if="dataService" class="row">
+        <div class="col">
+          <UiToggle
+            :label="$t('services.DATA')"
+            :editable="dataService.editable"
+            v-model="dataService.checked"
+          />
+        </div>
+        <div v-if="dataService && dataService.apns && dataService.apns.length" class="col">
+          <span>Apn:</span>
+          <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
+        </div>
       </div>
     </div>
     <div v-if="noServicesChosenError" class="row mt-1 mb-1">
@@ -81,7 +98,8 @@
             {{ $t('save') }}
           </button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-            {{ $t('processing') }} <CircleLoader />
+            {{ $t('processing') }}
+            <CircleLoader />
           </button>
         </div>
       </Modal>
@@ -98,6 +116,9 @@ import ServicesChoice from './parts/ServicesChoice';
 import Modal from '@/components/Modal';
 import { addServices } from '@/api/actCreation';
 import CircleLoader from '@/components/ui/CircleLoader';
+import { initDataService } from '@/utils/simServices';
+import MultiChoiceList from '@/components/ui/MultiChoiceList';
+import UiToggle from '@/components/ui/UiToggle';
 
 export default {
   components: {
@@ -106,6 +127,8 @@ export default {
     Modal,
     CircleLoader,
     FormReport,
+    MultiChoiceList,
+    UiToggle,
   },
 
   data() {
@@ -118,7 +141,17 @@ export default {
       tempDataUuid: undefined,
       report: undefined,
       noServicesChosenError: undefined,
+
+      dataService: undefined,
+      selectedDataService: undefined,
     };
+  },
+
+  mounted() {
+    this.dataService = initDataService(
+      this.actCreationPrerequisites.offer.data,
+      this.selectedDataService
+    );
   },
 
   methods: {
@@ -127,6 +160,17 @@ export default {
     },
     setServicesToDesactivate(values) {
       this.servicesToDesactivate = values;
+    },
+
+    toggleApn(apn) {
+      const apns = this.dataService.apns.map(a => {
+        if (a.selectable && a.label === apn.label) {
+          a.selected = !a.selected;
+        }
+        return a;
+      });
+
+      this.dataService = { ...this.dataService, apns };
     },
 
     async doRequest(contextValues) {
