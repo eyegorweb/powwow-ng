@@ -117,6 +117,15 @@ export default [
           },
         ],
       },
+      {
+        id: 'filters.lines.networkStatus',
+        values: [
+          {
+            id: 'SUSPENDED',
+            label: 'Suspendue',
+          },
+        ],
+      },
     ],
   },
   {
