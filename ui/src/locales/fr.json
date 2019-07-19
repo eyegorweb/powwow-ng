@@ -440,7 +440,7 @@
       "step1File": "séléctionner un fichier de travail",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
-      "selectOffer": "séléctionner des offres",
+      "selectOffer": "sélectionner une offre",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
         "notFounfLines": "lignes ne sont pas compatibles"
