@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.96+20190719131735
+2019-07-19
+
+### Features
+
+- ajoute-filtre-obligatoire-reactivation (81dcbe2cf94d477bbac8d5e718c5da1a83fb767f)
+
 ## 0.3.0-master.95+20190719124449
 2019-07-19
 
