@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.95+20190719124449
+2019-07-19
+
+### Fixes
+
+- label (be12af39a58daff0335b8ebb9300eec3dfdcb11a)
+
 ## 0.3.0-master.94+20190718085503
 2019-07-18
 
