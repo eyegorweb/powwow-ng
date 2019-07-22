@@ -10,12 +10,10 @@
       <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <router-link v-if="!tab.submenu" :to="tab.to">
-              {{ tab.label }}
-            </router-link>
+            <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
 
             <div class="dropdown">
-              <a v-if="tab.submenu" :to="tab.to" @click.prevent="">{{ tab.label }}</a>
+              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ tab.label }}</a>
               <div
                 v-if="tab.submenu"
                 class="dropdown-menu"
@@ -29,9 +27,8 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
+                  >{{ $t(item.label) }}</router-link
                 >
-                  {{ $t(item.label) }}
-                </router-link>
               </div>
             </div>
           </UiTab>
@@ -110,12 +107,12 @@ export default {
           to: 'getParc',
           submenu: [
             {
-              label: 'menu.massActions',
-              to: { name: 'actHistory' },
-            },
-            {
               label: 'menu.actLines',
               to: { name: 'actLines' },
+            },
+            {
+              label: 'menu.massActions',
+              to: { name: 'actHistory' },
             },
           ],
         },
