@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.97+20190722143451
+2019-07-22
+
+### Features
+
+- ajouter service data dans la modification de services (32ddec270d1c53566b816b3066578d4e45163d62)
+
 ## 0.3.0-master.96+20190719131735
 2019-07-19
 
