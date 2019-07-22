@@ -22,11 +22,17 @@
         />
       </div>
     </div>
-    <div>
-      <span class="font-weight-bold mt-4 mb-4">{{ $t('services.DATA') }}</span>
-
+    <div class="row">
+      <div class="col d-flex">
+        <UiCheckbox v-model="shouldChangeData" />
+        <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
+      </div>
+    </div>
+    <div v-if="shouldChangeData">
       <div v-if="dataService" class="row">
         <div class="col">
+          <span class="font-weight-bold mt-4 mb-4">{{ $t('services.DATA') }}</span>
+
           <UiToggle
             :label="$t('services.DATA')"
             :editable="dataService.editable"
@@ -34,7 +40,8 @@
           />
         </div>
         <div v-if="dataService && dataService.apns && dataService.apns.length" class="col">
-          <span>Apn:</span>
+          <span class="font-weight-bold mt-4 mb-4">Apn:</span>
+
           <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
         </div>
       </div>
@@ -114,11 +121,12 @@ import FormReport from './parts/FormReport';
 import { mapState, mapGetters } from 'vuex';
 import ServicesChoice from './parts/ServicesChoice';
 import Modal from '@/components/Modal';
-import { addServices } from '@/api/actCreation';
+import { changeServices } from '@/api/actCreation';
 import CircleLoader from '@/components/ui/CircleLoader';
 import { initDataService } from '@/utils/simServices';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
 import UiToggle from '@/components/ui/UiToggle';
+import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
   components: {
@@ -129,6 +137,7 @@ export default {
     FormReport,
     MultiChoiceList,
     UiToggle,
+    UiCheckbox,
   },
 
   data() {
@@ -144,6 +153,7 @@ export default {
 
       dataService: undefined,
       selectedDataService: undefined,
+      shouldChangeData: false,
     };
   },
 
@@ -213,9 +223,9 @@ export default {
       const noServicesChosen =
         !this.servicesToActivate.length && !this.servicesToDesactivate.length;
 
-      this.noServicesChosenError = noServicesChosen;
+      this.noServicesChosenError = noServicesChosen && !this.shouldChangeData;
 
-      return noServicesChosen;
+      return this.noServicesChosenError;
     },
 
     async changeServices(contextValues) {
@@ -227,9 +237,10 @@ export default {
         servicesToActivate: this.servicesToActivate.map(s => s.code),
         servicesToDesactivate: this.servicesToDesactivate.map(s => s.code),
         tempDataUuid: this.tempDataUuid,
+        dataService: { shouldChangeData: this.shouldChangeData, dataService: this.dataService },
       };
 
-      return await addServices(this.appliedFilters, this.selectedLinesForActCreation, params);
+      return await changeServices(this.appliedFilters, this.selectedLinesForActCreation, params);
     },
   },
 

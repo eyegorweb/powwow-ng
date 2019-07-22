@@ -204,7 +204,7 @@ export async function changeCustomerAccount(filters, lines, params) {
   });
 }
 
-export async function addServices(filters, lines, params) {
+export async function changeServices(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
@@ -214,7 +214,35 @@ export async function addServices(filters, lines, params) {
       servicesToActivate,
       servicesToDesactivate,
       tempDataUuid,
+      dataService,
     } = params;
+
+    let gqlDataServiceParam = undefined;
+
+    if (dataService && dataService.shouldChangeData) {
+      if (dataService.dataService.checked) {
+        const catalogServiceParameters = dataService.dataService.apns
+          .filter(s => s.selected)
+          .map(a => {
+            return `{
+              parameterCode:"${a.id}",
+               action:ADD
+              }`;
+          })
+          .join(',');
+
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: ADD,
+          catalogServiceParameters: [${catalogServiceParameters}]
+        }`;
+      } else {
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: DELETE
+        }`;
+      }
+    }
     const gqlServicesAddParam = servicesToActivate.map(
       id => `{
       serviceCode:"${id}",
@@ -229,7 +257,11 @@ export async function addServices(filters, lines, params) {
     }`
     );
 
-    const gqlChangeServicesParam = [...gqlServicesAddParam, ...gqlServicesDeleteParam].join(',');
+    const gqlChangeServicesParam = [
+      ...gqlServicesAddParam,
+      ...gqlServicesDeleteParam,
+      gqlDataServiceParam,
+    ].join(',');
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
