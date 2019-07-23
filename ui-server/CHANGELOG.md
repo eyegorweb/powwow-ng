@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.99+20190723130353
+2019-07-23
+
+### Fixes
+
+- Séléctionner automatiquement la France après Autocomplete de l'adresse (7cfc6762f1a0bd1eed2a52ba9f54d5fba4a3af9e)
+
 ## 0.3.0-master.98+20190723124539
 2019-07-23
 
