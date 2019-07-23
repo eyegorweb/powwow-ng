@@ -226,6 +226,9 @@ export default {
     },
   },
   watch: {
+    rows(items) {
+      this.$emit('noResults', items.length === 0);
+    },
     linePage() {
       this.fetchLinesActions();
     },
