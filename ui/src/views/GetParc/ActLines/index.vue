@@ -49,16 +49,20 @@
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <LinesTable v-if="canShowTable" :creation-mode="creationMode" />
+        <LinesTable
+          v-if="canShowTable"
+          :creation-mode="creationMode"
+          @noResults="checkTableResult"
+        />
 
         <Title
           num="2"
-          v-if="creationMode && actCreationPrerequisites"
+          v-if="canShowForm"
           :title="actToCreate.stepTitle"
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <ActCreationActForm v-if="creationMode && actCreationPrerequisites" :act="actToCreate" />
+        <ActCreationActForm v-if="canShowForm" :act="actToCreate" />
       </div>
     </div>
   </div>
@@ -96,6 +100,7 @@ export default {
       prereqSet: false,
       indicators: lineIndicators,
       carouselItems,
+      tableIsEmpty: true,
     };
   },
   computed: {
@@ -109,6 +114,9 @@ export default {
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+    canShowForm() {
+      return this.creationMode && this.actCreationPrerequisites && !this.tableIsEmpty;
+    },
     selectedFile: {
       get() {
         return this.selectedFileForActCreation;
@@ -150,6 +158,10 @@ export default {
       'setSelectedLinesForActCreation',
       'setSelectedFileForActCreation',
     ]),
+
+    checkTableResult(result) {
+      this.tableIsEmpty = result;
+    },
 
     onCarouselItemClick(item) {
       item.selected = !item.selected;
