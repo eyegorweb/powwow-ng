@@ -397,3 +397,29 @@ export async function changeICCID(params) {
 
   return await query(queryStr);
 }
+
+export async function changeSingleICCID(params) {
+  const { notifEmail, dueDate, partyId, iccid, newIccid } = params;
+
+  const queryStr = `
+  mutation{
+    changeICCID(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      iccidInput: {iccid: "${iccid}", newIccid: "${newIccid}"}
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}

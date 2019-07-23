@@ -10,6 +10,7 @@ export const state = {
   message: undefined,
   messageLevel: undefined,
   messages: [],
+  actionToConfirm: undefined,
 };
 
 export const mutations = {
@@ -27,9 +28,6 @@ export const mutations = {
     state.panelId = undefined;
   },
   flashMessage: (state, msgInfo) => {
-    // state.message = msgInfo.msg;
-    // state.messageLevel = msgInfo.level;
-
     state.messages.push({
       id: uuid(),
       ...msgInfo,
@@ -40,5 +38,11 @@ export const mutations = {
   },
   removeMessageById: (state, id) => {
     state.messages = state.messages.filter(m => m.id !== id);
+  },
+  confirmAction: (state, action) => {
+    state.actionToConfirm = action;
+  },
+  closeAction: state => {
+    state.actionToConfirm = undefined;
   },
 };

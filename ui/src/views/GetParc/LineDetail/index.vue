@@ -23,9 +23,7 @@
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentLinkIndex = index)">
-              {{ tab.title }}
-            </a>
+            <a href="#" @click.prevent="() => (currentLinkIndex = index)">{{ tab.title }}</a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="detail">
@@ -45,6 +43,7 @@ import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import { searchLines } from '@/api/linesActions';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -109,8 +108,16 @@ export default {
   },
   computed: {},
   methods: {
+    ...mapMutations(['openPanel']),
+
     onCarouselItemClick(item) {
-      console.log(item);
+      this.openPanel({
+        title: this.$t(item.title),
+        panelId: 'getparc.actLines.details.createAct',
+        payload: { ...item, lineData: this.lineData },
+        wide: false,
+        backdrop: false,
+      });
     },
     async loadLineData() {
       const response = await searchLines({ id: 'DESC' }, { page: 0, limit: 1 }, [
