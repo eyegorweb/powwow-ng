@@ -1,12 +1,10 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click.stop="noop">
         <div class="modal-container">
           <div class="modal-body">
-            <slot name="body">
-              Default body
-            </slot>
+            <slot name="body">Default body</slot>
           </div>
 
           <div class="modal-footer">
@@ -26,7 +24,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    noop() {},
+  },
+};
 </script>
 
 <style lang="scss" scoped>

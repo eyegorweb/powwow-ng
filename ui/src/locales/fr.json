@@ -34,6 +34,7 @@
   "secondary": "{item} Secondaire",
   "processing": "Traitement en cours ...",
   "range": "Plage de valeurs",
+  "applyDate": "Date d'application",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -372,7 +373,9 @@
       },
 
       "changeICCID": {
-        "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?"
+        "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?",
+        "currentICCID": "ICCID actuel",
+        "newICCID": "Nouvel ICCID"
       },
 
       "report": {

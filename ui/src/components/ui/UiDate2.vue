@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div ref="singledate" class="row datepicker" :class="{ error: !!error }">
-      <div class="col"><i class="icon ic-Calendar-Icon" /></div>
-      <div class="col-9" style="padding: 0">
+    <div ref="singledate" class="row datepicker" :class="{ error: !!error, large: large }">
+      <div class="col">
+        <i class="icon ic-Calendar-Icon" />
+      </div>
+      <div class="col-9 value" style="padding: 0">
         <span>{{ value }}</span>
       </div>
       <div>
@@ -31,7 +33,11 @@ export default {
       type: String,
       required: false,
     },
+    /**
+     * enlève la possibilité de mettre une valeur vide
+     */
     fixed: Boolean,
+    large: Boolean,
   },
   methods: {
     clearValue() {
@@ -119,6 +125,21 @@ export default {
 
   button {
     padding: 0;
+  }
+
+  &.large {
+    padding-top: 0.3rem;
+    padding-bottom: 0.4rem;
+
+    .icon {
+      font-size: 1.4rem;
+      top: 0.2rem;
+      position: relative;
+    }
+
+    .value {
+      font-size: 1.3rem;
+    }
   }
 }
 </style>
