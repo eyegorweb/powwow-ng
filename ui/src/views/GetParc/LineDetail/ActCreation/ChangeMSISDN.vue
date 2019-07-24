@@ -1,16 +1,16 @@
 <template>
   <BaseForm
-    warning-msg="getparc.actCreation.changeICCID.confirmationWarning"
+    warning-msg="getparc.actCreation.changeMSISDN.confirmationWarning"
     :validate-fn="doRequest"
   >
     <div class="overview-item mr-5">
-      <h6>{{ $t('getparc.actCreation.changeICCID.currentICCID') }} :</h6>
-      <p>{{ lineData.iccid }}</p>
+      <h6>{{ $t('getparc.actCreation.changeMSISDN.currentMSISDN') }} :</h6>
+      <p>{{ currentMSISDN }}</p>
     </div>
     <div class="overview-item mr-5">
-      <h6>{{ $t('getparc.actCreation.changeICCID.newICCID') }} :</h6>
+      <h6>{{ $t('getparc.actCreation.changeMSISDN.newMSISDN') }} :</h6>
       <p>
-        <UiInput v-model="newICCID" class="d-block" />
+        <UiInput v-model="newMSISDN" class="d-block" />
       </p>
     </div>
   </BaseForm>
@@ -19,7 +19,8 @@
 <script>
 import UiInput from '@/components/ui/UiInput';
 import BaseForm from './BaseForm';
-import { changeSingleICCID } from '@/api/actCreation';
+import { changeSingleMSISDN } from '@/api/actCreation';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -33,7 +34,7 @@ export default {
 
   data() {
     return {
-      newICCID: undefined,
+      newMSISDN: undefined,
     };
   },
 
@@ -44,14 +45,19 @@ export default {
         notifEmail: notificationCheck,
         dueDate: actDate,
         partyId: this.lineData.party.id,
-        iccid: this.lineData.iccid,
-        newIccid: this.newICCID,
+        msisdn: this.currentMSISDN,
+        newMsisdn: this.newMSISDN,
       };
-      const response = await changeSingleICCID(params);
-
+      const response = await changeSingleMSISDN(params);
       if (response) {
-        return { report: { ...response.data.changeICCID }, errors: response.errors };
+        return { report: { ...response.data.changeMSISDN }, errors: response.errors };
       }
+    },
+  },
+
+  computed: {
+    currentMSISDN() {
+      return get(this.lineData, 'accessPoint.lines[0].msisdn');
     },
   },
 };
