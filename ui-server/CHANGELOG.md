@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.101+20190724073625
+2019-07-24
+
+### Fixes
+
+- filtre par import de fichier (8a5c9fdd9be72fbc7e83219dd36a8f65069a5bc2)
+
 ## 0.3.0-master.100+20190723130907
 2019-07-23
 
