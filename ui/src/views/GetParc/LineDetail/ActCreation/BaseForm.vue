@@ -83,7 +83,7 @@ export default {
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
       });
-      this.report = response.data.changeICCID;
+      this.report = response.report;
 
       if (!response) {
         this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });

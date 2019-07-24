@@ -371,6 +371,30 @@ export async function changeMSISDN(params) {
 
   return await query(queryStr);
 }
+export async function changeSingleMSISDN(params) {
+  const { notifEmail, dueDate, partyId, msisdn, newMsisdn } = params;
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      msisdnInput: {msisdn: "${msisdn}", newMsisdn: "${newMsisdn}"}
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
 
 export async function changeICCID(params) {
   const { tempDataUuid, notifEmail, dueDate, partyId } = params;

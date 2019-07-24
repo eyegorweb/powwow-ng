@@ -368,14 +368,15 @@
         "shouldChangeData": "Modifier le service data"
       },
 
-      "changeMSISDN": {
-        "confirmationWarning": "Attention !  Les anciens MSISDN seront résiliés.  Confirmez-vous le changement de MSISDN ?"
-      },
-
       "changeICCID": {
         "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?",
         "currentICCID": "ICCID actuel",
         "newICCID": "Nouvel ICCID"
+      },
+      "changeMSISDN": {
+        "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",
+        "currentMSISDN": "MSISDN actuel",
+        "newMSISDN": "Nouvel MSISDN"
       },
 
       "report": {
