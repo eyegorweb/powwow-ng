@@ -447,7 +447,11 @@
       "selectOffer": "sélectionner une offre",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
-        "notFounfLines": "lignes ne sont pas compatibles"
+        "notFoundLines": "lignes ne sont pas compatibles",
+        "errors": {
+          "notValid": "{totalInvalidFormat} lignes ont un {idType} erroné.",
+          "unknown": "{totalNotFound} lignes ont un {idType} inconnu."
+        }
       },
       "massActionsHistory": {
         "title": "Historique des actes de gestion",

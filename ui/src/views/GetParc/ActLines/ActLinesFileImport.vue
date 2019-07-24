@@ -8,13 +8,17 @@
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
         <li>
-          <i class="ic-Cross-Icon mr-2 text-danger" />{{ fileMeta.notFound }}
-          {{ $t('getparc.actLines.fileImport.notFounfLines') }}.
+          <i class="ic-Cross-Icon mr-2 text-danger" />{{ totalNotCompatible }}
+          {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
+          <ul class="list-styled">
+            <li>{{ $t('getparc.actLines.fileImport.errors.notValid', { totalInvalidFormat: fileMeta.invalidFormat, idType: idType }) }}</li>
+            <li>{{ $t('getparc.actLines.fileImport.errors.unknown', { totalNotFound: fileMeta.notFound, idType: idType }) }} </li>
+          </ul>
         </li>
         <li>
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
-              {{ $t('getparc.actLines.export', { total: fileMeta.notFound }) }}
+              {{ $t('getparc.actLines.export', { total: total }) }}
             </span>
           </ExportButton>
         </li>
@@ -73,6 +77,12 @@ export default {
         }
       },
     },
+    totalNotCompatible() {
+      return this.fileMeta.invalidFormat + this.fileMeta.notFound;
+    },
+    total() {
+      return this.totalNotCompatible + this.fileMeta.successful;
+    },
   },
   methods: {
     getExportFn() {
@@ -96,4 +106,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+ul.list-styled {
+  list-style-type: disc;
+  font-size: 0.8rem;
+}
+</style>
