@@ -93,7 +93,7 @@ export default {
         // Reset selected lines for a new application partner
         this.setSelectedLinesForActCreation([]);
         this.setSelectedFileForActCreation(undefined);
-        this.applyFilters();
+        // this.applyFilters();
       }
     },
   },

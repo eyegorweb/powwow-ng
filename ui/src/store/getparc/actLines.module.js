@@ -128,7 +128,6 @@ export const actions = {
     );
     const newCurrentFilters = [...currentFiltersWithoutActFilters, ...actFilters];
     store.commit('setCurrentFilters', newCurrentFilters);
-    store.commit('applyFilters');
   },
 
   addLineForActCreation(store, line) {
