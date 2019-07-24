@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.102+20190724151321
+2019-07-24
+
+### Fixes
+
+- Ne pas lancer la recherche quand on choisi un act (a35eec111f490222c9f54e2f6e52c3591d0c4e52)
+
 ## 0.3.0-master.101+20190724073625
 2019-07-24
 
