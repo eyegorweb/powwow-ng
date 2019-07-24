@@ -5,9 +5,7 @@
   >
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.currentICCID') }} :</h6>
-      <p>
-        <UiInput v-model="currentICCID" class="d-block" />
-      </p>
+      <p>{{ lineData.iccid }}</p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.newICCID') }} :</h6>
@@ -35,7 +33,6 @@ export default {
 
   data() {
     return {
-      currentICCID: undefined,
       newICCID: undefined,
     };
   },
@@ -47,7 +44,7 @@ export default {
         notifEmail: notificationCheck,
         dueDate: actDate,
         partyId: this.lineData.party.id,
-        iccid: this.currentICCID,
+        iccid: this.lineData.iccid,
         newIccid: this.newICCID,
       };
       return await changeSingleICCID(params);
