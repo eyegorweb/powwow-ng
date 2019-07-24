@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.103+20190724151301
+2019-07-24
+
+### Fixes
+
+- Correction du formulaire de changement de cartes SIM (e850387cb4e06f2c497dbdb6e4e13d5ebd28dcb0)
+
 ## 0.3.0-master.102+20190724151321
 2019-07-24
 
