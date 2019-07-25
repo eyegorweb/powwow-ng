@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
@@ -179,13 +179,22 @@ export default {
           visible: false,
         },
       ],
-      pageLimit: 20,
       orderBy: {},
       showExtraCells: false,
     };
   },
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
+    ...mapState('actLines', ['limitPerPage']),
+
+    pageLimit: {
+      get() {
+        return this.limitPerPage;
+      },
+      set(value) {
+        this.setPageLimit(value);
+      },
+    },
 
     total() {
       return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
@@ -207,7 +216,7 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters']),
+    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
 
     searchById(params) {
       this.forceAppliedFilters([

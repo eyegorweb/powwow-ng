@@ -162,6 +162,7 @@ export default {
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
       'setSelectedFileForActCreation',
+      'setPageLimit',
     ]),
 
     checkTableResult(result) {
@@ -183,6 +184,7 @@ export default {
           this.mergeCurrentFiltersWith(item.filters);
         }
       } else {
+        this.setPageLimit(20);
         this.setActToCreate(null);
         this.setActCreationPrerequisites(null);
         this.setSelectedLinesForActCreation([]);
