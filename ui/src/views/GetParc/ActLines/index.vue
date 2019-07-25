@@ -5,9 +5,7 @@
         <h4>
           <b>GetParc</b>
           - {{ $t('getparc.management-lines') }}
-          <Tooltip direction="right">
-            {{ $t('getparc.tooltip-title-text') }}
-          </Tooltip>
+          <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
       </div>
     </div>
@@ -51,7 +49,7 @@
         />
         <LinesTable
           v-if="canShowTable"
-          :creation-mode="creationMode"
+          :creation-mode="canShowForm"
           @noResults="checkTableResult"
         />
 
@@ -62,7 +60,11 @@
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <ActCreationActForm v-if="canShowForm" :act="actToCreate" />
+        <ActCreationActForm
+          v-if="canShowForm"
+          :act="actToCreate"
+          :key="actToCreateFormVersionChange"
+        />
       </div>
     </div>
   </div>
@@ -101,6 +103,9 @@ export default {
       indicators: lineIndicators,
       carouselItems,
       tableIsEmpty: true,
+
+      // Pour recréer le composant ActForm à chaque changement des prérequis
+      actToCreateFormVersionChange: 0,
     };
   },
   computed: {
@@ -216,6 +221,12 @@ export default {
     defaultAppliedFilters() {
       // refresh indicators
       this.indicators = [...this.indicators];
+    },
+    actToCreate() {
+      this.actToCreateFormVersionChange += 1;
+    },
+    actCreationPrerequisites() {
+      this.actToCreateFormVersionChange += 1;
     },
   },
 };

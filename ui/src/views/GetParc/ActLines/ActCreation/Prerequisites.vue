@@ -78,9 +78,11 @@ export default {
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
       'setSelectedFileForActCreation',
+      'resetForm',
     ]),
 
     setPrerequisites(allPrereq) {
+      this.resetForm();
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
       }
@@ -90,10 +92,6 @@ export default {
 
       if (allPrereq) {
         this.setActCreationPrerequisites(allPrereq);
-        // Reset selected lines for a new application partner
-        this.setSelectedLinesForActCreation([]);
-        this.setSelectedFileForActCreation(undefined);
-        // this.applyFilters();
       }
     },
   },

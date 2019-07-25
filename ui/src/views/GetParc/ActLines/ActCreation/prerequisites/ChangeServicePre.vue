@@ -19,6 +19,7 @@
 import PartnersPart from './parts/PartnersPart';
 import OffersPart from './parts/OffersPart';
 import PrereqContainer from './parts/PrereqContainer';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -29,12 +30,27 @@ export default {
   data() {
     return {
       selectedPartner: null,
-      selectedOffer: null,
+      offerData: null,
     };
   },
+  computed: {
+    selectedOffer: {
+      get() {
+        return this.offerData;
+      },
+      set(offer) {
+        if (!offer || !offer.label) {
+          this.resetForm();
+        }
+        this.offerData = offer;
+      },
+    },
+  },
   methods: {
+    ...mapMutations('actLines', ['resetForm']),
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
+      this.selectedOffer = undefined;
     },
     validatePrerequisites() {
       this.$emit('set:preprequisites', {

@@ -1,20 +1,26 @@
 <template>
   <ActFormContainer :validate-fn="doRequest">
-    <div v-if="selectedOffer" class="row">
+    <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToEnable')
-        }}</span>
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
+        </span>
+      </div>
+      <div class="col">
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
+        </span>
+      </div>
+    </div>
+    <div v-if="selectedOffer" class="row">
+      <div class="col service-container">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToActivate"
           :ignored-items="servicesToDesactivate"
         />
       </div>
-      <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToDisable')
-        }}</span>
+      <div class="col service-container">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDesactivate"
@@ -272,4 +278,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.service-container {
+  display: flex;
+
+  .items-search {
+    align-self: flex-end;
+  }
+}
+</style>

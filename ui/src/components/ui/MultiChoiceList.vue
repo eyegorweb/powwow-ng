@@ -6,10 +6,13 @@
           class="item"
           :key="item.label"
           v-for="item in items"
-          :class="{ selected: item.selected }"
+          :class="{ selected: item.selected, 'not-selectable': !item.selectable }"
           @click="() => selectItem(item)"
         >
-          <div>{{ item.label }} <i class="ic-Check-Icon" v-if="item.selected" /></div>
+          <div>
+            {{ item.label }}
+            <i class="ic-Check-Icon" v-if="item.selected" />
+          </div>
         </li>
       </ul>
     </div>
@@ -39,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-li:first-child {
+li.not-selectable {
   cursor: not-allowed !important;
 }
 .card-body {
