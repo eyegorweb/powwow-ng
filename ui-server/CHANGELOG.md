@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.106+20190725143126
+2019-07-25
+
+### Fixes
+
+- dépendence entre les partenaires de la barre de filtres et pré requis des actes (35eebdd48b3474b066034ac4c1efdfc9bc5ca497)
+
 ## 0.3.0-master.105+20190725094814
 2019-07-25
 
