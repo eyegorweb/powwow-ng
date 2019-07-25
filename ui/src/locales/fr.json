@@ -35,6 +35,7 @@
   "processing": "Traitement en cours ...",
   "range": "Plage de valeurs",
   "applyDate": "Date d'application",
+  "fromThe": "depuis le :",
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -268,7 +269,17 @@
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "tab1": {
         "lineInfo": "Informations sur la ligne",
-        "billingOffer": "Facturation et offre",
+        "billingOffer": {
+          "title": "Facturation et offre",
+          "billingAccount": "Compte de facturation",
+          "detailStatus": "Détails des statuts",
+          "remainingTime": "Durée restante",
+          "timeForSuspendedOffer": "Durée restante de supspension offerte",
+          "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
+          "offerName": "Nom de l'offre",
+          "endCommitmentDate": "Date de fin d'engagement",
+          "billingStatus": "Statut de facturation"
+        },
         "lineServices": "Services de la ligne",
         "alarmsList": "Liste des alarmes",
         "actsHistory": "Historique des actes de gestion",
@@ -285,7 +296,12 @@
           "notPreactivated": "Non préactivée depuis le :",
           "preactivated": "Préactivée depuis le :",
           "activated": "Activée depuis le :",
-          "suspendedReleased": "Suspendue ou Résiliée depuis le :"
+          "suspendedReleased": "Suspendue ou Résiliée depuis le :",
+          "RELEASED": "Résiliée depuis le :",
+          "ALLOCATED": "Allouée depuis le :",
+          "AVAILABLE": "Disponible depuis le :",
+          "ALLOCATING": "En cours d'allocation depuis le :",
+          "RESERVED": "Réservée depuis le :"
         }
       },
       "tabServices": {

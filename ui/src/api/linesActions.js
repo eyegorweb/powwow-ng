@@ -91,6 +91,11 @@ export async function searchLines(orderBy, pagination, filters = []) {
           lines {
             msisdn
             imsi
+            status
+            auditable {
+              created
+              updated
+            }
           }
           customFields {
             custom1
@@ -100,6 +105,16 @@ export async function searchLines(orderBy, pagination, filters = []) {
             custom5
             custom6
           }
+          offerGroup {
+            customerAccount {
+              name
+              code
+            }
+          }
+          workflowCode
+          commitmentEnd
+          billingStatus
+          billingStatusChangeDate
           offer {
             marketingOffer {
               code
