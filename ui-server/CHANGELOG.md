@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.105+20190725094814
+2019-07-25
+
+### Fixes
+
+- correction de bugs d'affichage sur la création d'acte : changement service (25ef881a8129aff7251e7a56854c62202a4178cb)
+
 ## 0.3.0-master.104+20190724152448
 2019-07-24
 
