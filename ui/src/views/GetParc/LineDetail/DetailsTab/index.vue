@@ -9,8 +9,8 @@
           </a>
         </li>
         <li class="list-group-item">
-          <a href="#">
-            {{ $t('getparc.lineDetail.tab1.billingOffer') }}
+          <a @click.prevent="section = 'billing'" href="#">
+            {{ $t('getparc.lineDetail.tab1.billingOffer.title') }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
           </a>
         </li>
@@ -38,6 +38,7 @@
       <LineInfoSection v-if="section === 'line_info'" :content="content" />
       <ActsHistory v-if="section === 'acts_history'" :content="content" />
       <LineServicesSection v-if="section === 'line_services'" :content="content" />
+      <BillingSection v-if="section === 'billing'" :content="content" />
     </div>
   </div>
 </template>
@@ -45,12 +46,14 @@
 <script>
 import LineInfoSection from './LineInfoSection';
 import LineServicesSection from './LineServicesSection';
+import BillingSection from './BillingSection';
 import ActsHistory from './ActsHistory';
 
 export default {
   components: {
     LineInfoSection,
     LineServicesSection,
+    BillingSection,
     ActsHistory,
   },
   props: {
