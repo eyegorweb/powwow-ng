@@ -384,4 +384,10 @@ export const mutations = {
   setActCreationPrerequisites(state, prereqs) {
     state.actCreationPrerequisites = prereqs;
   },
+
+  resetForm(state) {
+    state.selectedLinesForActCreation = [];
+    state.selectedFileForActCreation = undefined;
+    state.actCreationPrerequisites = undefined;
+  },
 };

@@ -225,7 +225,7 @@ export async function changeServices(filters, lines, params) {
           .filter(s => s.selected)
           .map(a => {
             return `{
-              parameterCode:"${a.id}",
+              parameterCode:"${a.code}",
                action:ADD
               }`;
           })

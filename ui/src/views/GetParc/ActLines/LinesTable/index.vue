@@ -48,7 +48,7 @@ export default {
   },
 
   props: {
-    creationMode: Object,
+    creationMode: Boolean,
   },
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
             component: CheckBoxCell,
           },
           visibleWhen: () => {
-            return !!this.creationMode;
+            return this.creationMode;
           },
         },
         {

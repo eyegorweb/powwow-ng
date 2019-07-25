@@ -39,6 +39,7 @@ export function initDataService(offer, selectedDataService, servicesInitialized)
         selectable: p.partyAccess,
         selected: p.setOnActivation,
         id: p.id,
+        code: p.serviceParameter.code,
       };
     });
 
