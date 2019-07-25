@@ -79,6 +79,7 @@ export default {
       'setSelectedLinesForActCreation',
       'setSelectedFileForActCreation',
       'resetForm',
+      'setPageLimit',
     ]),
 
     setPrerequisites(allPrereq) {
@@ -91,6 +92,7 @@ export default {
       }
 
       if (allPrereq) {
+        this.setPageLimit(5);
         this.setActCreationPrerequisites(allPrereq);
       }
     },

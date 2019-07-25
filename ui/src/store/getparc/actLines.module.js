@@ -17,6 +17,7 @@ export const namespaced = true;
 export const state = {
   ...filterUtils.initState(),
   linePage: 1,
+  limitPerPage: 20,
   linesActionsResponse: [],
   filterCustomFieldsList: [],
 
@@ -167,6 +168,8 @@ export const actions = {
   async fetchLinesActionsFromApi(store, { orderBy, pageInfo, appliedFilters }) {
     const { commit } = store;
     commit('startLoading');
+    commit('setLinesActionsResponse', undefined);
+
     let response = { total: 0, items: [] };
     try {
       response = await searchLines(orderBy, pageInfo, appliedFilters);
@@ -389,5 +392,9 @@ export const mutations = {
     state.selectedLinesForActCreation = [];
     state.selectedFileForActCreation = undefined;
     state.actCreationPrerequisites = undefined;
+  },
+
+  setPageLimit(state, limit) {
+    state.limitPerPage = limit;
   },
 };

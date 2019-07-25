@@ -8,7 +8,7 @@
         @click.prevent="onClick(indicator)"
       >
         <CircleLoader v-if="isLoading" />
-        <span>{{ total }}</span>
+        <span v-if="!isLoading">{{ total }}</span>
       </button>
     </div>
   </li>
@@ -41,17 +41,22 @@ export default {
   methods: {
     async refreshIndicator() {
       this.isLoading = true;
-      const res = await this.indicator.fetch(this.indicator, this.partners);
-      if (res) {
-        this.total = res.total;
-        if (res.color) {
-          this.classColor = res.color;
+      try {
+        const res = await this.indicator.fetch(this.indicator, this.partners);
+        if (res) {
+          this.total = res.total;
+          if (res.color) {
+            this.classColor = res.color;
+          }
         }
-      }
 
-      this.isLoading = false;
-      if (this.total === 0 && this.indicator.hideZeroValue) {
-        this.$emit('removeme', this.indicator);
+        this.isLoading = false;
+        if (this.total === 0 && this.indicator.hideZeroValue) {
+          this.$emit('removeme', this.indicator);
+        }
+      } catch (e) {
+        console.error(e);
+        this.isLoading = false;
       }
     },
   },
