@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.107+20190726085815
+2019-07-26
+
+### Fixes
+
+- local storage table lignes (7cc9d406557e0d365cee6489e25f3a5356582b6e)
+
 ## 0.3.0-master.106+20190725143126
 2019-07-25
 
