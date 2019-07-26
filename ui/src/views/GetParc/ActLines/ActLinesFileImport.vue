@@ -7,7 +7,7 @@
           <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.successful }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
-        <li>
+        <li v-if="totalNotCompatible > 0">
           <i class="ic-Cross-Icon mr-2 text-danger" />{{ totalNotCompatible }}
           {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
           <ul class="list-styled">
@@ -15,10 +15,10 @@
             <li>{{ $t('getparc.actLines.fileImport.errors.unknown', { totalNotFound: fileMeta.notFound, idType: idType }) }} </li>
           </ul>
         </li>
-        <li>
+        <li v-if="totalNotCompatible > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
-              {{ $t('getparc.actLines.export', { total: total }) }}
+              {{ $t('getparc.actLines.export', { total: totalNotCompatible }) }}
             </span>
           </ExportButton>
         </li>
@@ -79,9 +79,6 @@ export default {
     },
     totalNotCompatible() {
       return this.fileMeta.invalidFormat + this.fileMeta.notFound;
-    },
-    total() {
-      return this.totalNotCompatible + this.fileMeta.successful;
     },
   },
   methods: {
