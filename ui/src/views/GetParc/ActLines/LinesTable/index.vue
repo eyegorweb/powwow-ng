@@ -10,7 +10,7 @@
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="001"
+        storage-version="002"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
