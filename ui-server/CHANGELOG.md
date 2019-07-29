@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.110+20190729120602
+2019-07-29
+
+### Fixes
+
+- 632 corriger la recherche avec prérequis (460566cb79ec43ec62f0bd9c1da462b45c7c7e46)
+
 ## 0.3.0-master.109+20190729082132
 2019-07-29
 
