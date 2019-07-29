@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.112+20190729141730
+2019-07-29
+
+### Features
+
+- 522 Partie front de la modification de services depuis le détail d'une ligne (ceae9b1dd8f89ac54afafdf76bf3d5eff4d82a23)
+
 ## 0.3.0-master.111+20190729133835
 2019-07-29
 
