@@ -33,7 +33,8 @@
             {{ $t('save') }}
           </button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-            {{ $t('processing') }} <CircleLoader />
+            {{ $t('processing') }}
+            <CircleLoader />
           </button>
         </div>
       </Modal>
@@ -46,7 +47,7 @@
         </ul>
       </div>
 
-      <FormReport v-if="report" :data="report" />
+      <FormReport v-if="report && !report.successful" :data="report" />
       <button
         v-if="tempDataUuid"
         @click="confirmRequest()"
