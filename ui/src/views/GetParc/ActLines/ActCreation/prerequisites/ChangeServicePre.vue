@@ -41,6 +41,7 @@ export default {
       set(offer) {
         if (!offer || !offer.label) {
           this.resetForm();
+          this.offerData = undefined;
         }
         this.offerData = offer;
       },
@@ -56,6 +57,7 @@ export default {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
         offer: this.selectedOffer,
+        search: this.selectedPartner && this.selectedOffer,
       });
     },
   },

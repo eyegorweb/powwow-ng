@@ -92,8 +92,11 @@ export default {
       }
 
       if (allPrereq) {
-        this.setPageLimit(5);
         this.setActCreationPrerequisites(allPrereq);
+        if (allPrereq.search) {
+          this.applyFilters();
+          this.setPageLimit(5);
+        }
       }
     },
   },

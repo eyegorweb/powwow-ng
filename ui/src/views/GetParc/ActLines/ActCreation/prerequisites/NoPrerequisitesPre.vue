@@ -38,6 +38,7 @@ export default {
     validatePrerequisites() {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
+        search: true,
       });
     },
   },
