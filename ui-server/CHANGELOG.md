@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.109+20190729082132
+2019-07-29
+
+### Fixes
+
+- 585 Validation des inputs ICCID et MSISDN (8786e8fbe9fb508d77ac91a3793ac8cd08143286)
+
 ## 0.3.0-master.108+20190726145310
 2019-07-26
 
