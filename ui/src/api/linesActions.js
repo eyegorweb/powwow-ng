@@ -267,7 +267,7 @@ function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentF
     if (containsSearch) {
       gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.from.replace('*', '')}" }`);
     } else {
-      gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.from}" }`);
+      gqlFilters.push(`${gqlParamName}: {startsWith: "${filterValue.from}" }`);
     }
   } else {
     return;
