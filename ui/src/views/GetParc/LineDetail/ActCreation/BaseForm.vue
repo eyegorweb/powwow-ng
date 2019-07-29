@@ -23,7 +23,11 @@
           ></UiDate>
         </div>
         <div class="col">
-          <button @click="askForConfirmation()" class="btn btn-primary pl-4 pr-4 pt-2 pb-2 mt-4">
+          <button
+            @click="askForConfirmation()"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2 mt-4"
+            :disabled="!canSend"
+          >
             <i slot="icon" class="pr-2 select-icon ic-Floppy-Icon" />
 
             <span>{{ $t('set') }}</span>
@@ -48,6 +52,7 @@ export default {
   props: {
     validateFn: Function,
     warningMsg: String,
+    canSend: Boolean,
   },
   components: {
     BaseDetailPanelContent,

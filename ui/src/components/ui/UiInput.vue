@@ -1,5 +1,5 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon, error: !!error }">
+  <label :class="{ 'has-icon': $slots.icon, error: !!error, 'no-hover-style': noHoverStyle }">
     <slot name="icon" />
     <slot name="beforeInput" />
     <input
@@ -8,6 +8,7 @@
       v-bind="$attrs"
       v-model="value_"
       type="number"
+      :style="inputStyle"
       :min="minValue"
     />
     <input
@@ -16,6 +17,7 @@
       v-bind="$attrs"
       v-model="value_"
       v-on="$listeners"
+      :style="inputStyle"
       type="text"
     />
     <slot name="afterInput" />
@@ -50,6 +52,11 @@ export default {
       type: String,
       required: false,
     },
+    inputStyle: {
+      type: Object,
+      required: false,
+    },
+    noHoverStyle: Boolean,
   },
 };
 </script>
@@ -86,6 +93,16 @@ label {
 
     &:disabled {
       background-color: $light-gray;
+    }
+  }
+
+  &.no-hover-style {
+    input,
+    input:hover,
+    input:focus,
+    input:active {
+      border: none !important;
+      outline: none;
     }
   }
 

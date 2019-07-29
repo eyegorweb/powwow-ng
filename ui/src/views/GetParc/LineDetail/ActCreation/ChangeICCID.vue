@@ -2,6 +2,7 @@
   <BaseForm
     warning-msg="getparc.actCreation.changeICCID.confirmationWarning"
     :validate-fn="doRequest"
+    :can-send="canSend"
   >
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.currentICCID') }} :</h6>
@@ -10,21 +11,21 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.newICCID') }} :</h6>
       <p>
-        <UiInput v-model="newICCID" class="d-block" />
+        <IdInput type="ICCID" @invalidValue="onValidValue" @validValue="onInvalidValue" />
       </p>
     </div>
   </BaseForm>
 </template>
 
 <script>
-import UiInput from '@/components/ui/UiInput';
 import BaseForm from './BaseForm';
 import { changeSingleICCID } from '@/api/actCreation';
+import IdInput from '@/components/IdInput';
 
 export default {
   components: {
-    UiInput,
     BaseForm,
+    IdInput,
   },
 
   props: {
@@ -34,10 +35,19 @@ export default {
   data() {
     return {
       newICCID: undefined,
+      canSend: false,
     };
   },
 
   methods: {
+    onValidValue(value) {
+      this.newICCID = value;
+      this.canSend = false;
+    },
+    onInvalidValue() {
+      this.newICCID = undefined;
+      this.canSend = true;
+    },
     async doRequest(context) {
       const { notificationCheck, actDate } = context;
       const params = {
