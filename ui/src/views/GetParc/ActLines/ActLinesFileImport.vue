@@ -11,8 +11,22 @@
           <i class="ic-Cross-Icon mr-2 text-danger" />{{ totalNotCompatible }}
           {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
           <ul class="list-styled">
-            <li>{{ $t('getparc.actLines.fileImport.errors.notValid', { totalInvalidFormat: fileMeta.invalidFormat, idType: idType }) }}</li>
-            <li>{{ $t('getparc.actLines.fileImport.errors.unknown', { totalNotFound: fileMeta.notFound, idType: idType }) }} </li>
+            <li>
+              {{
+                $t('getparc.actLines.fileImport.errors.notValid', {
+                  totalInvalidFormat: fileMeta.invalidFormat,
+                  idType: idType,
+                })
+              }}
+            </li>
+            <li>
+              {{
+                $t('getparc.actLines.fileImport.errors.unknown', {
+                  totalNotFound: fileMeta.notFound,
+                  idType: idType,
+                })
+              }}
+            </li>
           </ul>
         </li>
         <li v-if="totalNotCompatible > 0">
