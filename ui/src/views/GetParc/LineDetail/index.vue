@@ -12,7 +12,7 @@
       <div class="col-md-9">
         <h4>
           <b>GetParc</b>
-          - {{ $t('getparc.lineDetail.title', { lineId: $route.params.lineId }) }}
+          - {{ $t('getparc.lineDetail.title', { msisdn: msisdn }) }}
           <i class="ic-Info-Icon" />
         </h4>
       </div>
@@ -106,7 +106,15 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: {
+    msisdn() {
+      return this.lineData.accessPoint &&
+        typeof this.lineData.accessPoint !== 'undefined' &&
+        this.lineData.accessPoint !== 'null'
+        ? this.lineData.accessPoint.lines[0].msisdn
+        : '';
+    },
+  },
   methods: {
     ...mapMutations(['openPanel']),
 

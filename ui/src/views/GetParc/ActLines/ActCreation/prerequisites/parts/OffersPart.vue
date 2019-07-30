@@ -1,10 +1,10 @@
 <template>
-  <div>
     <UiApiAutocomplete
       :api-method="fetchApi"
       v-model="selectedOffer"
       display-results-while-empty
       scroll-for-next
+      :disabled="disabled"
     />
   </div>
 </template>

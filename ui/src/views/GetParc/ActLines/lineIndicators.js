@@ -1,5 +1,6 @@
 import { fetchSingleIndicator } from '@/api/linesActions';
 import { fetchTotalMassActions } from '@/api/massActions';
+import moment from 'moment';
 
 export default [
   {
@@ -48,7 +49,13 @@ export default [
       },
     ],
     fetch: async indicator => {
-      return await fetchTotalMassActions(indicator.filters);
+      const dateFilter = {
+        id: 'filters.actDateCreation',
+        endDate: moment()
+          .subtract(6, 'month')
+          .format('DD-MM-YYYY'),
+      };
+      return await fetchTotalMassActions([...indicator.filters, dateFilter]);
     },
     hideZeroValue: true,
   },

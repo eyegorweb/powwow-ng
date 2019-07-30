@@ -6,9 +6,13 @@
         <PartnersPart @setpartner="setPartner" />
       </div>
       <div class="col">
-        <div v-if="selectedPartner && selectedPartner.id">
+        <div>
           <h5>{{ $t('col.offer') }}</h5>
-          <OffersPart :partner="selectedPartner" :offer.sync="selectedOffer" />
+          <OffersPart
+            :partner="selectedPartner"
+            :offer.sync="selectedOffer"
+            :disabled="isPartnerEmpty"
+          />
         </div>
       </div>
     </div>
@@ -16,6 +20,7 @@
 </template>
 
 <script>
+import get from 'lodash.get';
 import PartnersPart from './parts/PartnersPart';
 import OffersPart from './parts/OffersPart';
 import PrereqContainer from './parts/PrereqContainer';
@@ -34,6 +39,9 @@ export default {
     };
   },
   computed: {
+    isPartnerEmpty() {
+      return !get(this.selectedPartner, 'id');
+    },
     selectedOffer: {
       get() {
         return this.offerData;

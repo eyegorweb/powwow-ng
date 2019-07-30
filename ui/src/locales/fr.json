@@ -158,7 +158,7 @@
     "actStatuses": {
       "WAITING": "En attente",
       "IN_PROGRESS": "En cours",
-      "IN_ERROR": "En erreur",
+      "IN_ERROR": "En échec",
       "TERMINATED": "Terminé",
       "CANCELLED": "Annulé"
     },
@@ -179,7 +179,7 @@
         "success": "Succès",
         "ongoing": "En cours",
         "fail": "Échec",
-        "onfailing": "En erreur",
+        "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut"
@@ -253,8 +253,8 @@
       }
     },
     "lineDetail": {
-      "title": "Détail de la ligne {lineId}",
-      "offer": "Offer",
+      "title": "Détail de la ligne {msisdn}",
+      "offer": "Offre",
       "lineStatus": "Statut de la ligne",
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabricant",

@@ -7,6 +7,7 @@
       <fieldset class="form-group" slot="combined" slot-scope="{ data }">
         <!-- TODO loading state sur input avec isPending -->
         <input
+          :disabled="disabled"
           type="text"
           class="form-control"
           style="height: calc(1.5em + 1rem + 2px)"
@@ -102,6 +103,7 @@ export default {
       type: String,
       required: false,
     },
+    disabled: Boolean,
   },
 
   computed: {

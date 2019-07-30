@@ -54,7 +54,7 @@ export default {
       }
 
       if (this.lineStatus === 'LINE_IS_PREACTIVATED') {
-        return get(this.row, 'auditable.created');
+        return get(this.row, 'accessPoint.preactivationDate');
       }
 
       if (this.lineStatus === 'LINE_IS_ACTIVATED') {

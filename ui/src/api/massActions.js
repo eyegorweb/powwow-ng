@@ -414,13 +414,16 @@ function addDateFilter2(filterKey, dateFromKey, dateEndKey, gqlFilters, selected
   if (dateFilter) {
     let gqlStartDate = '';
     let gqlEndDate = '';
+    const gqlDateParams = [];
     if (dateFilter.startDate) {
       gqlStartDate = `${dateFromKey}: "${formatDateForGql(dateFilter.startDate)}"`;
+      gqlDateParams.push(gqlStartDate);
     }
     if (dateFilter.endDate) {
       gqlEndDate = `${dateEndKey}: "${prepareEndDateForBackend(dateFilter.endDate)}"`;
+      gqlDateParams.push(gqlEndDate);
     }
-    gqlFilters.push([gqlStartDate, gqlEndDate].join(','));
+    gqlFilters.push(gqlDateParams.join(','));
   }
 
   function formatDateForGql(inDate) {
