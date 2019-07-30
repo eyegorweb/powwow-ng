@@ -7,6 +7,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { redirectTo } from '@/utils';
+import { log } from '@/utils';
 
 export default {
   name: 'Authentication',
@@ -41,11 +42,23 @@ export default {
       and returns an error page with no content when refreshing token is no longuer possible
     */
     onRefreshTokenPageLoaded(frame) {
-      if (frame.target.contentDocument) {
-        this.setAuthToken(frame.target.contentDocument.location.href.split('=')[1].split('&')[0]);
+      try {
+        if (frame.target.contentDocument) {
+          try {
+            this.setAuthToken(
+              frame.target.contentDocument.location.href.split('=')[1].split('&')[0]
+            );
+          } catch (e) {
+            log('Erreur token', e, frame.target.contentDocument.location);
+          }
+
+          this.stopRefreshingToken();
+        } else {
+          this.redirectToLogin();
+        }
+      } catch (e) {
+        log('Erreur refresh ', e);
         this.stopRefreshingToken();
-      } else {
-        this.redirectToLogin();
       }
     },
   },

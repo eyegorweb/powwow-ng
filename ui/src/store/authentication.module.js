@@ -1,7 +1,9 @@
 import { fetchCurrentUserInfos } from '@/api/user';
-import { isDevMode } from '@/utils';
+import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
+
+const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 2000;
 
 export const state = {
   token: undefined,
@@ -41,18 +43,16 @@ export const actions = {
     headers.common.Authorization = `Bearer ${tokenStr}`;
     api.defaults.headers = headers;
 
-    if (!isDevMode()) {
-      const expireDate = new Date(state.token.exp * 1000);
-      const now = new Date();
+    const expireDate = new Date(state.token.exp * 1000);
+    const now = new Date();
 
-      const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
-      const waitBeforeRefresh = Math.abs(secondsToExpire);
+    const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
+    const waitBeforeRefresh = Math.abs(secondsToExpire);
 
-      if (waitBeforeRefresh > 0) {
-        setTimeout(() => {
-          commit('startRefreshingToken');
-        }, waitBeforeRefresh * 1000);
-      }
+    if (waitBeforeRefresh > 0) {
+      setTimeout(() => {
+        commit('startRefreshingToken');
+      }, waitBeforeRefresh * 1000);
     }
   },
 };
@@ -61,9 +61,15 @@ export const mutations = {
   setAuthToken(state, { token, tokenStr }) {
     state.accessToken = tokenStr;
     state.token = token;
+    log('New Token ', state.accessToken);
   },
   startRefreshingToken(state) {
-    state.refreshingToken = true;
+    if (!state.refreshingToken) {
+      state.refreshingToken = true;
+      setTimeout(() => {
+        state.refreshingToken = false;
+      }, MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS);
+    }
   },
   stopRefreshingToken(state) {
     state.refreshingToken = false;
