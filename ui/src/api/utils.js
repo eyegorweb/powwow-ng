@@ -23,11 +23,15 @@ export async function query(q) {
       const res = await simpleQuery(q);
       return res;
     } catch (e) {
-      if (tries > 0) {
-        tries -= 1;
-        store.commit('startRefreshingToken');
-        await delay(WAIT_BEFORE_RETRY_IN_MS);
-        return await singleTry();
+      if (e && e.response && e.response.status) {
+        if (e.response.status === 401 || e.response.status === 403) {
+          if (tries > 0) {
+            tries -= 1;
+            store.commit('startRefreshingToken');
+            await delay(WAIT_BEFORE_RETRY_IN_MS);
+            return await singleTry();
+          }
+        }
       }
     }
   };
