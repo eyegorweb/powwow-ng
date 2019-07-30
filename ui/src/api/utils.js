@@ -1,21 +1,38 @@
 import axios from 'axios';
 import moment from 'moment';
 
-// import store from '@/store';
+import store from '@/store';
 
 export const api = axios.create();
+
+const WAIT_BEFORE_RETRY_IN_MS = 1000;
 
 /**
  *  Besoin de gérer les erreurs
  */
+export async function simpleQuery(q) {
+  const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
+  return response.data;
+}
+
 export async function query(q) {
-  try {
-    const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
-    return response.data;
-  } catch (e) {
-    // TODO: COrrectly test this
-    // store.commit('startRefreshingToken');
-  }
+  let tries = 30;
+
+  const singleTry = async () => {
+    try {
+      const res = await simpleQuery(q);
+      return res;
+    } catch (e) {
+      if (tries > 0) {
+        tries -= 1;
+        store.commit('startRefreshingToken');
+        await delay(WAIT_BEFORE_RETRY_IN_MS);
+        return await singleTry();
+      }
+    }
+  };
+
+  return await singleTry();
 }
 
 export async function postFile(url, formData) {
