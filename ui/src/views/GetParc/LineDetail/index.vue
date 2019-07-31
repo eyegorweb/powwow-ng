@@ -128,12 +128,13 @@ export default {
       });
     },
     async loadLineData() {
-      const response = await searchLines({ id: 'DESC' }, { page: 0, limit: 1 }, [
+      const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         {
           id: 'filters.id',
           value: this.$route.params.lineId,
         },
       ]);
+      console.log(response);
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
     },
