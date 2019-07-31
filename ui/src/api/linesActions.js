@@ -53,7 +53,7 @@ export async function fetchSingleIndicator(filters, scopePartners) {
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
-  const orderingInfo = orderBy ? `, sorting: {}` : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -422,4 +422,21 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
     `
   );
   return response.data.exportErrors;
+}
+
+export async function exportSimCardInstances(columns, orderBy, exportFormat) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportSimCardInstances(filter: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+        downloadUri
+        asyncRequired
+      }
+    }
+    `
+  );
+
+  return response.data.exportSimCardInstances;
 }
