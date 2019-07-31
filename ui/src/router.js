@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
-import Home from '@/views/Home';
+import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
 import GetParcActHistory from '@/views/GetParc/ActHistory';
 import GetParcActDetail from '@/views/GetParc/ActDetail';
@@ -60,7 +60,7 @@ export default new Router({
     {
       path: '/exemples',
       name: 'exemples',
-      component: Home,
+      component: Examples,
     },
   ],
 });
