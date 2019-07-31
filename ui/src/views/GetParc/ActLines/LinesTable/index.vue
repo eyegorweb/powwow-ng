@@ -7,10 +7,17 @@
             {{ $t('getparc.actLines.total', { total: total }) }}
           </h2>
         </div>
+        <div class="col">
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
+          </ExportButton>
+        </div>
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="002"
+        storage-version="004"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -38,13 +45,15 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
+import ExportButton from '@/components/ExportButton';
+import { exportSimCardInstances } from '@/api/linesActions';
 
 export default {
   components: {
     DataTable,
     LoaderContainer,
     SearchByLinesId,
-    // Title,
+    ExportButton,
   },
 
   props: {
@@ -71,9 +80,10 @@ export default {
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.iccid'),
-          orderable: false,
+          orderable: true,
           visible: true,
           name: 'iccid',
+          exportId: 'LINE_ICCID',
           format: {
             component: IdCell,
           },
@@ -81,9 +91,11 @@ export default {
         {
           id: 1,
           label: this.$t('col.partner'),
-          orderable: false,
+          orderable: true,
+          sortingName: 'partyId',
           visible: true,
           name: 'party',
+          exportId: 'PARTY_ID',
           format: {
             type: 'ObjectAttribute',
             path: 'name',
@@ -93,30 +105,36 @@ export default {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'accessPoint',
+          exportId: 'LINE_MSISDN',
           format: {
             type: 'ObjectAttribute',
             path: 'lines[0].msisdn',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'msisdn',
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'accessPoint',
+          exportId: 'LINE_IMSI',
           format: {
             type: 'ObjectAttribute',
             path: 'lines[0].imsi',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'imsi',
           visible: true,
         },
         {
           id: 5,
           label: this.$t('getparc.actLines.col.simStatus'),
-          orderable: false,
+          orderable: true,
+          sortingName: 'simStatus',
           visible: true,
           name: 'accessPoint',
+          exportId: 'LINE_SIM_STATUS',
           format: {
             component: SimStatusCell,
           },
@@ -127,6 +145,7 @@ export default {
           name: 'accessPoint',
           orderable: false,
           visible: true,
+          exportId: 'LINE_SIM_STATUS_DATE',
           format: {
             component: DateStatus,
           },
@@ -135,6 +154,7 @@ export default {
           id: 7,
           label: this.$t('col.offer'),
           name: 'accessPoint',
+          exportId: 'LINE_OFFER',
           format: {
             type: 'ObjectAttribute',
             path: 'offer.marketingOffer.description',
@@ -153,33 +173,41 @@ export default {
           id: 10,
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'msisdnA',
-          orderable: false,
+          exportId: 'LINE_AMSISDN',
+          orderable: true,
           visible: false,
         },
         {
           id: 11,
           label: this.$t('getparc.actLines.col.manufacturer'),
           name: 'deviceInstance',
+          exportId: 'LINE_MANUFACTURER',
           format: {
             type: 'ObjectAttribute',
             path: 'manufacturer',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'manufacturer',
           visible: false,
         },
         {
           id: 12,
           label: this.$t('getparc.actLines.col.deviceReference'),
           name: 'deviceInstance',
+          exportId: 'LINE_DEVICE_REFERENCE',
           format: {
             type: 'ObjectAttribute',
             path: 'deviceReference',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'deviceReference',
           visible: false,
         },
       ],
-      orderBy: {},
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
       showExtraCells: false,
     };
   },
@@ -232,6 +260,10 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
+    },
+
+    getExportFn() {
+      return exportSimCardInstances;
     },
   },
   watch: {
