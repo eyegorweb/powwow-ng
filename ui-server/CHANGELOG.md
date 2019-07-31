@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.116+20190731095849
+2019-07-31
+
+### Features
+
+- 705 Exporter les lignes (01bc1b5ea3c0717eeb8030b02e4fc4845532a983)
+
 ## 0.3.0-master.115+20190730161959
 2019-07-30
 
