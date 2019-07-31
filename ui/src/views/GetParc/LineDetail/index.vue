@@ -134,7 +134,6 @@ export default {
           value: this.$route.params.lineId,
         },
       ]);
-      console.log(response);
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
     },
