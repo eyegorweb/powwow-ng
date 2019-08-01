@@ -4,11 +4,13 @@
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
-          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.successful }}
+          <i class="ic-Check-Icon mr-2 text-success" />
+          {{ fileMeta.successful }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
         <li v-if="totalNotCompatible > 0">
-          <i class="ic-Cross-Icon mr-2 text-danger" />{{ totalNotCompatible }}
+          <i class="ic-Cross-Icon mr-2 text-danger" />
+          {{ totalNotCompatible }}
           {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
           <ul class="list-styled">
             <li>
@@ -38,9 +40,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">
-      {{ fileMeta.error }}
-    </div>
+    <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
   </div>
 </template>
 
@@ -109,7 +109,7 @@ export default {
           ],
           '',
           exportFormat,
-          this.fileMeta.uploadId
+          this.fileMeta.tempDataUuid
         );
       };
     },

@@ -421,6 +421,12 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
     }
     `
   );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.exportErrors;
 }
 
