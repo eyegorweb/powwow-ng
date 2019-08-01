@@ -11,7 +11,6 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeMSISDN.newMSISDN') }} :</h6>
       <p>
-        {{ newMSISDN }}
         <IdInput type="MSISDN" @invalidValue="onInvalidValue" @validValue="onValidValue" />
       </p>
     </div>
@@ -26,7 +25,7 @@ import BaseForm from './BaseForm';
 import { changeSingleMSISDN } from '@/api/actCreation';
 import get from 'lodash.get';
 import IdInput from '@/components/IdInput';
-import FormReport from '@/views/GetParc/ActLines/ActCreation/forms/parts/FormReport';
+import FormReport from './FormReport';
 
 export default {
   components: {

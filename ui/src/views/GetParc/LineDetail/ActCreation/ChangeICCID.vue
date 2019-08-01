@@ -11,8 +11,11 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeICCID.newICCID') }} :</h6>
       <p>
-        <IdInput type="ICCID" @invalidValue="onValidValue" @validValue="onInvalidValue" />
+        <IdInput type="ICCID" @invalidValue="onInvalidValue" @validValue="onValidValue" />
       </p>
+    </div>
+    <div slot="after" slot-scope="{ report }">
+      <FormReport v-if="report" :data="report" />
     </div>
   </BaseForm>
 </template>
@@ -21,11 +24,13 @@
 import BaseForm from './BaseForm';
 import { changeSingleICCID } from '@/api/actCreation';
 import IdInput from '@/components/IdInput';
+import FormReport from './FormReport';
 
 export default {
   components: {
     BaseForm,
     IdInput,
+    FormReport,
   },
 
   props: {
@@ -42,11 +47,11 @@ export default {
   methods: {
     onValidValue(value) {
       this.newICCID = value;
-      this.canSend = false;
+      this.canSend = true;
     },
     onInvalidValue() {
       this.newICCID = undefined;
-      this.canSend = true;
+      this.canSend = false;
     },
     async doRequest(context) {
       const { notificationCheck, actDate } = context;

@@ -269,6 +269,9 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "report": {
+        "alreadyExists": "Ligne existante"
+      },
       "tab1": {
         "lineInfo": "Informations sur la ligne",
         "billingOffer": {
