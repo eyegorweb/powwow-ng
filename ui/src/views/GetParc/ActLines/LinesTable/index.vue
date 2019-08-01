@@ -263,7 +263,9 @@ export default {
     },
 
     getExportFn() {
-      return exportSimCardInstances;
+      return async (columns, orderBy, exportFormat) => {
+        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
+      };
     },
   },
   watch: {

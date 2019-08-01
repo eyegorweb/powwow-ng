@@ -16,6 +16,7 @@
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
+  "exportError": "Impossible d'exporter",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "optional": "Champ facultatif",
