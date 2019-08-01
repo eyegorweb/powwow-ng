@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.120+20190801083534
+2019-08-01
+
+### Fixes
+
+- 705 correction de l'export des liges (6f6363a35f22c0563022a6f4cfe21df368c3e937)
+
 ## 0.3.0-master.119+20190731134428
 2019-07-31
 
