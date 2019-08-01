@@ -424,19 +424,24 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
   return response.data.exportErrors;
 }
 
-export async function exportSimCardInstances(columns, orderBy, exportFormat) {
+export async function exportSimCardInstances(columns, orderBy, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const response = await query(
     `
     query {
-      exportSimCardInstances(filter: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+      exportSimCardInstances(filter: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
         downloadUri
         asyncRequired
       }
     }
     `
   );
+  if (response.errors) {
+    return { errors: response.errors };
+  }
 
   return response.data.exportSimCardInstances;
 }
