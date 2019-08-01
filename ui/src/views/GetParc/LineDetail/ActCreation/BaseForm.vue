@@ -34,7 +34,7 @@
           </button>
         </div>
       </div>
-      <FormReport v-if="report" :data="report" />
+      <slot name="after" :report="report"></slot>
     </div>
   </BaseDetailPanelContent>
 </template>
@@ -44,7 +44,6 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiDate from '@/components/ui/UiDate2';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
-import FormReport from '@/views/GetParc/ActLines/ActCreation/forms/parts/FormReport';
 
 import { mapMutations } from 'vuex';
 
@@ -58,7 +57,6 @@ export default {
     BaseDetailPanelContent,
     UiDate,
     UiCheckbox,
-    FormReport,
   },
   mounted() {
     this.actDate = moment().format('DD/MM/YYYY');

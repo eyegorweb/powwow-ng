@@ -11,8 +11,12 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeMSISDN.newMSISDN') }} :</h6>
       <p>
-        <IdInput type="MSISDN" @invalidValue="onValidValue" @validValue="onInvalidValue" />
+        {{ newMSISDN }}
+        <IdInput type="MSISDN" @invalidValue="onInvalidValue" @validValue="onValidValue" />
       </p>
+    </div>
+    <div slot="after" slot-scope="{ report }">
+      <FormReport v-if="report" :data="report" />
     </div>
   </BaseForm>
 </template>
@@ -22,11 +26,13 @@ import BaseForm from './BaseForm';
 import { changeSingleMSISDN } from '@/api/actCreation';
 import get from 'lodash.get';
 import IdInput from '@/components/IdInput';
+import FormReport from '@/views/GetParc/ActLines/ActCreation/forms/parts/FormReport';
 
 export default {
   components: {
     IdInput,
     BaseForm,
+    FormReport,
   },
 
   props: {
@@ -43,11 +49,11 @@ export default {
   methods: {
     onValidValue(value) {
       this.newMSISDN = value;
-      this.canSend = false;
+      this.canSend = true;
     },
     onInvalidValue() {
       this.newMSISDN = undefined;
-      this.canSend = true;
+      this.canSend = false;
     },
     async doRequest(context) {
       const { notificationCheck, actDate } = context;
