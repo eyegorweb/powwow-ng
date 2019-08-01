@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.126+20190801160341
+2019-08-01
+
+### Fixes
+
+- 585 corriger l'affichage des erreurs (7649d3013f6d935c60b777a312d5aa6eb8763f06)
+
 ## 0.3.0-master.125+20190801154902
 2019-08-01
 
