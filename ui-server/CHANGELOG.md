@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.122+20190801124931
+2019-08-01
+
+### Fixes
+
+- 632 lancer la recherche quand un partenaire est choisi (afc3f0829a0ebcf2e4185f051661d96dad152ead)
+
 ## 0.3.0-master.121+20190801093944
 2019-08-01
 
