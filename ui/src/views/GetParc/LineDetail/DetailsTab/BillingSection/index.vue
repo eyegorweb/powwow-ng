@@ -16,21 +16,15 @@
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
-              <p>
-                {{ getFromContent('accessPoint.offer.marketingOffer.description') }}
-              </p>
+              <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
-              <p>
-                {{ dateCommitmentEnd }}
-              </p>
+              <p>{{ dateCommitmentEnd }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p>
-                {{ billingStatus }}
-              </p>
+              <p>{{ billingStatus }}</p>
             </div>
           </div>
         </template>
@@ -43,33 +37,23 @@
           <div class="d-flex">
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.simStatus') }}:</h6>
-              <p>
-                {{ simStatus }}
-              </p>
+              <p>{{ simStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.lineStatus') }}:</h6>
-              <p>
-                {{ lineStatus }}
-              </p>
+              <p>{{ lineStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
-              <p>
-                {{ networkStatus }}
-              </p>
+              <p>{{ networkStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p>
-                {{ billingStatus }}
-              </p>
+              <p>{{ billingStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
-              <p>
-                {{ commercialStatus }}
-              </p>
+              <p>{{ commercialStatus }}</p>
             </div>
           </div>
         </template>

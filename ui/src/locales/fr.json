@@ -398,7 +398,7 @@
       },
 
       "report": {
-        "alreadyExists": "Lignes éxistantes",
+        "alreadyExists": "Lignes existantes",
         "invalidFormat": "Format invalide",
         "notFound": "Introuvable"
       },
@@ -501,7 +501,8 @@
         "ACTIVATING": "Activation en cours",
         "CANCELED": "Annulée",
         "TEST": "Test",
-        "BARRED": "Barré"
+        "BARRED": "Barré",
+        "ALLOCATING": "En cours d'allocation"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Demande de résiliation",

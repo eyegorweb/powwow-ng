@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox-container">
-    <label :class="{ filled: 'filled' }">
+    <label :key="version" :class="{ filled: 'filled' }">
       <slot />
       <input
         v-if="inputType === 'radio'"
@@ -49,6 +49,21 @@ export default {
     filled: {
       type: Boolean,
       required: false,
+    },
+  },
+
+  data() {
+    return {
+      /**
+       * je ne comprends pas pourquoi se recoche des fois.
+       * avec cette variable on s'assure que le composant représente le model
+       */
+      version: 0,
+    };
+  },
+  watch: {
+    model() {
+      this.version += 1;
     },
   },
 

@@ -32,6 +32,7 @@ export default {
       this.selectedPartner = partner;
       this.$emit('set:preprequisites', {
         partner,
+        search: true,
       });
     },
 
