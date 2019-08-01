@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.123+20190801141305
+2019-08-01
+
+### Fixes
+
+- 536 Corriger la recherche par import de fichier (ac956b4a558e5812a92911e1c6352fadfd95e937)
+
 ## 0.3.0-master.122+20190801124931
 2019-08-01
 
