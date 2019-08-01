@@ -24,6 +24,11 @@ export default {
     value1: String,
     value2: String,
   },
+  watch: {
+    isRangeMode() {
+      this.emitNewValues(this.fromValue, this.toValue);
+    },
+  },
   data() {
     return {
       isRangeMode: false,

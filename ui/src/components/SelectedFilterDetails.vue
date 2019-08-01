@@ -27,8 +27,11 @@
       <span v-else-if="filter.from && filter.to" class="detail">{{
         $t('getsim.between-min-max', rangeFilter)
       }}</span>
-      <span v-else-if="filter.from && !filter.to" class="detail"
+      <span v-else-if="filter.from && !filter.to && !filter.type" class="detail"
         >{{ $t('getsim.ge') }} {{ filter.from }}</span
+      >
+      <span v-else-if="filter.from && !filter.to && filter.type == 'regex'" class="detail"
+        >{{ $t('getsim.beginWith') }} {{ filter.from }}</span
       >
       <span v-else-if="!filter.from && filter.to" class="detail"
         >{{ $t('getsim.le') }} {{ filter.to }}</span

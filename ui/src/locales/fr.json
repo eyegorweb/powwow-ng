@@ -95,6 +95,7 @@
     "between-min-max": "Entre {min} et {max}",
     "ge": "Supérieure à",
     "le": "Inférieure à",
+    "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
     "date-over": "Au delà de {endDate}",
     "details": {

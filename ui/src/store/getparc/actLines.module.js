@@ -333,6 +333,7 @@ export const mutations = {
       id: 'filters.lines.rangeICCID',
       from,
       to,
+      type: 'regex',
     });
   },
   selectIMSIFilter(state, { from, to }) {
