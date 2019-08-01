@@ -2,9 +2,9 @@
   <div>
     <draggable handle=".handle">
       <ContentBlock :key="'block1'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.billingAccount') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.billingAccount')
+        }}</template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -30,14 +30,15 @@
         </template>
       </ContentBlock>
       <ContentBlock :key="'block2'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.detailStatus') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.detailStatus')
+        }}</template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.simStatus') }}:</h6>
-              <p>{{ simStatus }}</p>
+              <p class="mb-0">{{ simStatus }}</p>
+              <p class="mb-0">{{ simStatusDate }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.lineStatus') }}:</h6>
@@ -45,23 +46,26 @@
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
-              <p>{{ networkStatus }}</p>
+              <p class="mb-0">{{ networkStatus }}</p>
+              <p class="mb-0">{{ getFromContent('accessPoint.activationDate') }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p>{{ billingStatus }}</p>
+              <p class="mb-0">{{ billingStatus }}</p>
+              <p class="mb-0">{{ getFromContent('accessPoint.billingStatusChangeDate') }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
-              <p>{{ commercialStatus }}</p>
+              <p class="mb-0">{{ commercialStatus }}</p>
+              <p class="mb-0">{{ getFromContent('accessPoint.commercialStatusDate') }}</p>
             </div>
           </div>
         </template>
       </ContentBlock>
       <ContentBlock :key="'block3'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
+        }}</template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -97,10 +101,7 @@ export default {
         return this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`);
       })
       .find(s => s.indexOf(get(this.content, 'accessPoint.commercialStatus' !== -1)));
-    this.commercialStatus = `${foundCommercialStatus} ${this.$t('fromThe')} ${get(
-      this.content,
-      'accessPoint.commercialStatusDate'
-    )}`;
+    this.commercialStatus = `${foundCommercialStatus} ${this.$t('fromThe')}`;
   },
 
   props: {
@@ -118,30 +119,36 @@ export default {
     simStatus() {
       const simStatus = get(this.content, 'statuts');
       if (simStatus === 'AVAILABLE') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} ${get(
-          this.content,
-          'created'
-        )}`;
+        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')}`;
+      } else if (simStatus === 'ALLOCATED') {
+        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')}`;
+      } else if (simStatus === 'ALLOCATING') {
+        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATING')}`;
+      } else if (simStatus === 'RELEASED') {
+        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')}`;
+      } else if (simStatus === 'RESERVED') {
+        return `${this.$t('getparc.lineDetail.tab1.statuses.RESERVED')}`;
+      } else {
+        return '-';
+      }
+    },
+
+    simStatusDate() {
+      const simStatus = get(this.content, 'statuts');
+
+      if (simStatus === 'AVAILABLE') {
+        return `${get(this.content, 'created')}`;
       } else if (simStatus === 'ALLOCATED') {
         const result = get(this.content, 'accessPoint.activationDate')
           ? get(this.content, 'accessPoint.activationDate')
           : get(this.content, 'accessPoint.preactivationDate');
-        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} ${result}`;
+        return `${result}`;
       } else if (simStatus === 'ALLOCATING') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATING')} ${get(
-          this.content,
-          'updated'
-        )}`;
+        return `${get(this.content, 'updated')}`;
       } else if (simStatus === 'RELEASED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} ${get(
-          this.content,
-          'updated'
-        )}`;
+        return `${get(this.content, 'updated')}`;
       } else if (simStatus === 'RESERVED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.RESERVED')} ${get(
-          this.content,
-          'updated'
-        )}`;
+        return `${get(this.content, 'updated')}`;
       } else {
         return '-';
       }
@@ -171,10 +178,7 @@ export default {
       } else {
         billingStatus = '-';
       }
-      return `${billingStatus} ${this.$t('fromThe')} ${get(
-        this.content,
-        'accessPoint.billingStatusChangeDate'
-      )}`;
+      return `${billingStatus} ${this.$t('fromThe')}`;
     },
 
     networkStatus() {
@@ -190,10 +194,7 @@ export default {
       } else {
         networkStatus = '-';
       }
-      return `${networkStatus} ${this.$t('fromThe')} ${get(
-        this.content,
-        'accessPoint.activationDate'
-      )}`;
+      return `${networkStatus} ${this.$t('fromThe')}`;
     },
 
     dateCommitmentEnd() {
