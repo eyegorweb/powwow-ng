@@ -2,33 +2,13 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li class="list-group-item">
-          <a @click.prevent="section = 'line_info'" href="#">
-            {{ $t('getparc.lineDetail.tab1.lineInfo') }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a @click.prevent="section = 'billing'" href="#">
-            {{ $t('getparc.lineDetail.tab1.billingOffer.title') }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a @click.prevent="section = 'line_services'" href="#">
-            {{ $t('getparc.lineDetail.tab1.lineServices') }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a href="#">
-            {{ $t('getparc.lineDetail.tab1.alarmsList') }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a @click.prevent="section = 'acts_history'" href="#">
-            {{ $t('getparc.lineDetail.tab1.actsHistory') }}
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
+          <a
+            @click.prevent="section = item.section"
+            :class="{ active: section == item.section }"
+            href="#"
+          >
+            {{ $t(item.title) }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
           </a>
         </li>
@@ -62,9 +42,42 @@ export default {
   data() {
     return {
       section: 'line_info',
+
+      menuItems: [
+        {
+          section: 'line_info',
+          title: 'getparc.lineDetail.tab1.lineInfo',
+        },
+        {
+          section: 'billing',
+          title: 'getparc.lineDetail.tab1.billingOffer.title',
+        },
+        {
+          section: 'line_services',
+          title: 'getparc.lineDetail.tab1.lineServices',
+        },
+        {
+          section: 'alarm_list',
+          title: 'getparc.lineDetail.tab1.alarmsList',
+        },
+        {
+          section: 'acts_history',
+          title: 'getparc.lineDetail.tab1.actsHistory',
+        },
+      ],
     };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list-group-item {
+  a {
+    color: black;
+
+    &.active {
+      color: $primary;
+    }
+  }
+}
+</style>
