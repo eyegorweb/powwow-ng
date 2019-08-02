@@ -1,12 +1,14 @@
 <template>
   <div class="flex-container">
     <div class="flex-part">
-      <img
-        v-if="!isBackofficeProfile"
-        class="logo logo--corporate"
-        src="@/assets/logo_bouygues.png"
-        alt
-      />
+      <a href="/">
+        <img
+          v-if="!isBackofficeProfile"
+          class="logo logo--corporate"
+          src="@/assets/logo_bouygues.png"
+          alt
+        />
+      </a>
       <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">

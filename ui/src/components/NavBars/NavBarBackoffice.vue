@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="logoPart">
-      <img class="logo" src="@/assets/logo_bouygues.png" alt />
+      <router-link to="/">
+        <img class="logo" src="@/assets/logo_bouygues.png" alt />
+      </router-link>
     </div>
     <div class="contentPart">
       <div class="d-flex">
@@ -31,17 +33,15 @@
             variant="primary"
             class="flex-grow-1 py-1 px-3"
             @click="savePartnerContext"
+            >{{ $t('set') }}</UiButton
           >
-            {{ $t('set') }}
-          </UiButton>
           <UiButton
             slot="trigger"
             variant="danger"
             class="flex-grow-1 py-1 px-3 ml-1"
             @click="revertSelection"
+            >{{ $t('cancel') }}</UiButton
           >
-            {{ $t('cancel') }}
-          </UiButton>
         </div>
       </div>
     </div>
