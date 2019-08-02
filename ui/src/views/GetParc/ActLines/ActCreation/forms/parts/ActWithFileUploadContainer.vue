@@ -47,7 +47,7 @@
         </ul>
       </div>
 
-      <FormReport v-if="report && !report.successful" :data="report" />
+      <FormReport v-if="report && haveBusinessErrors" :data="report" />
       <button
         v-if="tempDataUuid"
         @click="confirmRequest()"
@@ -78,6 +78,7 @@ export default {
     actMutationFn: Function,
     actCode: String,
     confirmationMessage: String,
+    successMessage: String,
   },
   data() {
     return {
@@ -106,9 +107,20 @@ export default {
     canValidateRequest() {
       return this.selectedFileForActCreation && !this.tempDataUuid;
     },
+    haveBusinessErrors() {
+      if (!this.report) return 0;
+      return this.report.invalidFormat + this.report.alreadyExists + this.report.notFound > 0;
+    },
   },
   methods: {
-    ...mapMutations('actLines', ['setSelectedFileForActCreation']),
+    ...mapMutations('actLines', [
+      'setSelectedFileForActCreation',
+      'setActToCreate',
+      'setActCreationPrerequisites',
+      'setSelectedLinesForActCreation',
+    ]),
+    ...mapMutations(['flashMessage']),
+
     resetForm() {
       this.tempDataUuid = undefined;
       this.requestErrors = undefined;
@@ -130,7 +142,7 @@ export default {
       }
 
       this.report = response;
-      if (!this.report.successful) {
+      if (this.haveBusinessErrors) {
         return { stayInForm: true };
       } else {
         return await this.confirmRequest();
@@ -152,11 +164,20 @@ export default {
 
         tempDataUuid: this.tempDataUuid,
       };
+      this.requestErrors = undefined;
       const response = await this.actMutationFn(params);
-
       if (response.errors) {
         this.requestErrors = response.errors;
       } else {
+        const successMessage = this.successMessage
+          ? this.$t(this.successMessage)
+          : 'Opération effectuée avec succès';
+        this.flashMessage({ level: 'success', message: successMessage });
+        // sortir du mode création acte
+        this.setActToCreate(null);
+        this.setActCreationPrerequisites(null);
+        this.setSelectedLinesForActCreation([]);
+
         this.resetForm();
         this.setSelectedFileForActCreation(undefined);
       }
