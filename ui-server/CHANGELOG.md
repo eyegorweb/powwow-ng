@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.129+20190802093522
+2019-08-02
+
+### Features
+
+- **homepage:** 639 widget commandes (24053ef44ff05786591d19406174a6321180c8b3)
+
 ## 0.3.0-master.128+20190802091807
 2019-08-02
 
