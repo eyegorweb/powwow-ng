@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.131+20190802151933
+2019-08-02
+
+### Features
+
+- **homepage:** 639 lien vers la page de commandes depuis le widget de commandes (23e7eafef78b75d008b7a0336b46d3b07681ffda)
+
 ## 0.3.0-master.130+20190802155117
 2019-08-02
 
