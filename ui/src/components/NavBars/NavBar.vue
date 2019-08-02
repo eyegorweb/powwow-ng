@@ -100,7 +100,7 @@ export default {
       navbarLinks: [
         {
           label: 'GetSIM',
-          to: { name: 'home' },
+          to: { name: 'orders' },
         },
         {
           label: 'GetParc/GetDiag',
@@ -116,11 +116,11 @@ export default {
             },
           ],
         },
-        { label: 'GetVision', to: { name: 'home' } },
-        { label: 'GetReport', to: { name: 'home' } },
-        { label: 'GetAdmin', to: { name: 'home' } },
-        { label: 'GetSupport', to: { name: 'home' } },
-        { label: 'GetDevice', to: { name: 'home' } },
+        { label: 'GetVision', to: { name: 'exemples' } },
+        { label: 'GetReport', to: { name: 'exemples' } },
+        { label: 'GetAdmin', to: { name: 'exemples' } },
+        { label: 'GetSupport', to: { name: 'exemples' } },
+        { label: 'GetDevice', to: { name: 'exemples' } },
       ],
 
       userMenuVisible: false,

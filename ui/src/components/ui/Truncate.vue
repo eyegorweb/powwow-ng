@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="content.length <= limit">
-      <span> {{ content }}</span>
+      <span>{{ content }}</span>
     </div>
     <div v-else>
-      <span> {{ text }}</span>
+      <span>{{ text }}</span>
       <button
         v-if="displaysTruncatedText"
         class="see-less"
@@ -40,7 +40,7 @@ export default {
     text() {
       return this.displaysTruncatedText
         ? this.content
-        : this.content.substring(0, this.limit) + ' ...';
+        : this.content.substring(0, this.limit - 3) + ' ...';
     },
   },
 };
@@ -55,6 +55,10 @@ button {
   color: $secondary;
   font-weight: bold;
   font-size: 28px;
+  &:focus,
+  &:active {
+    outline: none !important;
+  }
 
   &.see-more {
     font-size: 22px;

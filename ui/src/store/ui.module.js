@@ -1,4 +1,5 @@
 import uuid from 'uuid/v1';
+import homeWidgets from '@/views/Home/widgets';
 
 export const state = {
   isPanelOpen: false,
@@ -11,9 +12,18 @@ export const state = {
   messageLevel: undefined,
   messages: [],
   actionToConfirm: undefined,
+
+  homeWidgets,
+};
+
+export const getters = {
+  activeWidgets: state => state.homeWidgets.filter(w => w.checked),
 };
 
 export const mutations = {
+  setHomeWidgets: (state, widgets) => {
+    state.homeWidgets = [...widgets];
+  },
   openPanel: (state, conf) => {
     const { title, panelId, payload, wide, backdrop } = conf;
     state.isPanelOpen = true;
