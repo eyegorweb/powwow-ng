@@ -19,6 +19,7 @@
         v-if="panelId === 'getparc.actLines.details.createAct'"
         :content="payload"
       />
+      <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -33,6 +34,7 @@ import GetSimCreatorDetails from '@/views/GetSim/GetSimCreatorDetails';
 import ActHistoryDetailPanel from '@/views/GetParc/ActHistory/ActHistoryDetailPanel';
 import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
+import CustomizePanel from '@/views/Home/CustomizePanel';
 
 export default {
   components: {
@@ -43,6 +45,7 @@ export default {
     ActHistoryDetailPanel,
     ActLinesDetailPanel,
     ActCreationPanel,
+    CustomizePanel,
   },
   methods: {
     ...mapMutations(['closePanel']),

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationOnLoadCallback.vue';
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
+import Home from '@/views/Home';
 import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
 import GetParcActHistory from '@/views/GetParc/ActHistory';
@@ -11,7 +12,6 @@ import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
 
 // const Home = () => import('@/views/Home');
-// const DragHome = () => import('@/views/DragHome/index');
 // const GetSim = () => import('@/views/GetSim/index');
 // const GetSimOrdersBillingAccount = () => import('@/views/GetSimOrdersBillingAccount');
 // const GetSimOrdersPartners = () => import('@/views/GetSimOrdersPartners');
@@ -25,6 +25,11 @@ export default new Router({
     {
       path: '/',
       name: 'home',
+      component: Home,
+    },
+    {
+      path: '/orders',
+      name: 'orders',
       component: GetSim,
     },
     {

@@ -37,6 +37,12 @@
   "range": "Plage de valeurs",
   "applyDate": "Date d'application",
   "fromThe": "depuis le :",
+  "loading": "Chargement",
+  "home": {
+    "customize": {
+      "title": "Ajouter/Supprimer des widgets"
+    }
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"

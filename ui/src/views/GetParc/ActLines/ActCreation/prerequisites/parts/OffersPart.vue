@@ -1,12 +1,11 @@
 <template>
-    <UiApiAutocomplete
-      :api-method="fetchApi"
-      v-model="selectedOffer"
-      display-results-while-empty
-      scroll-for-next
-      :disabled="disabled"
-    />
-  </div>
+  <UiApiAutocomplete
+    :api-method="fetchApi"
+    v-model="selectedOffer"
+    display-results-while-empty
+    scroll-for-next
+    :disabled="disabled"
+  />
 </template>
 
 <script>

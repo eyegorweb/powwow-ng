@@ -7,7 +7,6 @@
       <router-link to="/getsim">GetSim</router-link>|
       <router-link to="/filters">Filters</router-link>|
       <router-link to="/secured">Secured</router-link>|
-      <router-link to="/draghome">DragHome</router-link>|
     </div>
     <div class="container">
       <NavBars is-backoffice-profile />
