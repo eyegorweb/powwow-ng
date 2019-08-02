@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.128+20190802091807
+2019-08-02
+
+### Fixes
+
+- 521 correction de l'affichage du menu dans le détail de lignes (33ccc692bf9b319653f0e1b93540e4ab4cac55fd)
+
 ## 0.3.0-master.127+20190802083352
 2019-08-02
 
