@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.130+20190802155117
+2019-08-02
+
+### Fixes
+
+- traitement des erreurs d'import de fichiers durant la création d'actes de masse (569df3a4edfa553a73c85b55f77a13f422c7596c)
+
 ## 0.3.0-master.129+20190802093522
 2019-08-02
 
