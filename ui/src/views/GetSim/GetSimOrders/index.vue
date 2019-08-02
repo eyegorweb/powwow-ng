@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['setPage']),
+    ...mapMutations('getsim', ['setPage', 'setCurrentFilters', 'applyFilters']),
     ...mapMutations(['openModal']),
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
@@ -119,6 +119,7 @@ export default {
       this.fetchOrders();
     },
     appliedFilters() {
+      console.log('appliedFilters');
       this.fetchOrders();
     },
     isPanelOpen() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Promised :promise="resultsPromise">
-      <div slot="pending">LOADING...</div>
+      <div slot="pending">Chargement...</div>
       <DataTable
         :columns="columns"
         :rows="rows || []"
@@ -17,20 +17,31 @@
 <script>
 import { Promised } from 'vue-promised';
 import DataTable from '@/components/DataTable/DataTable';
-import GetSimOrdersIdCell from '@/views/GetSim/GetSimOrders/GetSimOrdersIdCell';
 import { searchOrders } from '@/api/orders';
 import GetSimOrdersProductCell from '@/views/GetSim/GetSimOrders/GetSimOrdersProductCell';
 import GetSimOrdersStatusCell from '@/views/GetSim/GetSimOrders/GetSimOrdersStatusCell';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     DataTable,
     Promised,
   },
+  computed: {
+    ...mapGetters(['userIsPartner']),
+    ...mapGetters('getsim', ['appliedFilters']),
+
+    columns() {
+      if (this.userIsPartner) {
+        return this.allColumns.filter(c => c.name !== 'party');
+      }
+      return this.allColumns;
+    },
+  },
   data() {
     return {
       resultsPromise: undefined,
-      columns: [
+      allColumns: [
         {
           id: 1,
           label: this.$t('col.id'),
@@ -41,7 +52,13 @@ export default {
           fixed: true,
           exportId: 'ORDER_ID',
           format: {
-            component: GetSimOrdersIdCell,
+            type: 'LinkBtn',
+            onClick: orderId => {
+              this.$router.push({
+                name: 'orders',
+                params: { queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: true }] },
+              });
+            },
           },
         },
         {
@@ -88,16 +105,18 @@ export default {
       page: 0,
       pageLimit: 5,
       total: 0,
-      orderBy: { key: 'id', direction: 'DESC' },
+      orderBy: { key: 'creationDate', direction: 'DESC' },
     };
   },
-  async mounted() {
-    const pageInfo = { page: 0, limit: 3 };
-    this.resultsPromise = searchOrders(this.orderBy, pageInfo, []);
-    const res = await this.resultsPromise;
-    if (res.items) {
-      this.rows = res.items;
-    }
+  watch: {
+    async appliedFilters() {
+      const pageInfo = { page: 0, limit: 3 };
+      this.resultsPromise = searchOrders(this.orderBy, pageInfo, this.appliedFilters);
+      const res = await this.resultsPromise;
+      if (res.items) {
+        this.rows = res.items;
+      }
+    },
   },
 };
 </script>

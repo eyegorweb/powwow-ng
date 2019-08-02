@@ -4,6 +4,7 @@ export function initState() {
   return {
     currentFilters: [], // Filtres choisis
     appliedFilters: [], // Filtres appliqués
+    routeParamsFilters: [],
     defaultAppliedFilters: [], // Filtres par défaut, utile quand on limite le contexte de l'appli à certains partenaires ( voir components/Navbar/Backoffice)
     isLoading: false,
   };
@@ -47,7 +48,7 @@ export const findFilterValueById = id => state => {
 };
 
 export function clearAppliedFilters(state) {
-  state.appliedFilters = [...state.defaultAppliedFilters];
+  state.appliedFilters = [...state.defaultAppliedFilters, ...state.routeParamsFilters];
 }
 
 export function resetSearchWhenCurrentFiltersAreEmpty(state) {
@@ -148,7 +149,7 @@ export function initMutations() {
       state.defaultAppliedFilters = [...defaultFilter];
     },
     clearAllFilters(state) {
-      state.currentFilters = [];
+      state.currentFilters = [...state.routeParamsFilters];
       clearAppliedFilters(state);
     },
     forceAppliedFilters(state, values) {
@@ -184,6 +185,10 @@ export function initMutations() {
       }
 
       state.appliedFilters = [...currentFilters, ...additionalFilters];
+    },
+
+    setRouteParamsFilters(state, filters) {
+      state.routeParamsFilters = [...filters];
     },
 
     startLoading(state) {

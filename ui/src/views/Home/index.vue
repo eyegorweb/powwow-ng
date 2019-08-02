@@ -35,7 +35,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapMutations, mapGetters, mapState } from 'vuex';
+import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 import WidgetBloc from './widgets/WidgetBloc';
 
 export default {
@@ -45,6 +45,7 @@ export default {
   },
   computed: {
     ...mapGetters(['activeWidgets']),
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
@@ -57,8 +58,12 @@ export default {
       },
     },
   },
+  mounted() {
+    this.initFilterForContext();
+  },
   methods: {
     ...mapMutations(['openPanel', 'setHomeWidgets']),
+    ...mapActions('getsim', ['initFilterForContext']),
 
     openCustomizePanel() {
       this.openPanel({
@@ -68,6 +73,14 @@ export default {
         wide: false,
         backdrop: false,
       });
+    },
+  },
+  watch: {
+    contextPartnersTypes() {
+      this.initFilterForContext();
+    },
+    contextPartners() {
+      this.initFilterForContext();
     },
   },
 };
