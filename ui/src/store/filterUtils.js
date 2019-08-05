@@ -7,6 +7,10 @@ export function initState() {
     routeParamsFilters: [],
     defaultAppliedFilters: [], // Filtres par défaut, utile quand on limite le contexte de l'appli à certains partenaires ( voir components/Navbar/Backoffice)
     isLoading: false,
+    /**
+     *  Ouverture du réultat dans le panel de détail si le résultat est unique
+     */
+    openResultInDetailPanel: false,
   };
 }
 
@@ -149,6 +153,10 @@ export function setQueryFilterAndSearch(state) {
 export function initMutations() {
   return {
     setQueryFilterAndSearch,
+
+    setOpenDetailPanel(state, value) {
+      state.openResultInDetailPanel = value;
+    },
 
     setCurrentFilters: (state, currentFilters) => {
       state.currentFilters = currentFilters;

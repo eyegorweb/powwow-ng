@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore">
     <Promised :promise="resultsPromise">
       <div slot="pending">{{ $t('loading') }}...</div>
       <DataTable
@@ -11,7 +11,7 @@
         :order-by.sync="orderBy"
       />
     </Promised>
-  </div>
+  </WidgetBloc>
 </template>
 
 <script>
@@ -21,11 +21,16 @@ import { searchOrders } from '@/api/orders';
 import GetSimOrdersProductCell from '@/views/GetSim/GetSimOrders/GetSimOrdersProductCell';
 import GetSimOrdersStatusCell from '@/views/GetSim/GetSimOrders/GetSimOrdersStatusCell';
 import { mapGetters } from 'vuex';
+import WidgetBloc from './WidgetBloc';
 
 export default {
   components: {
     DataTable,
     Promised,
+    WidgetBloc,
+  },
+  props: {
+    widget: Object,
   },
   computed: {
     ...mapGetters(['userIsPartner']),
@@ -36,6 +41,17 @@ export default {
         return this.allColumns.filter(c => c.name !== 'party');
       }
       return this.allColumns;
+    },
+  },
+  methods: {
+    onSeeMore() {
+      console.log(this.appliedFilters);
+      this.$router.push({
+        name: 'orders',
+        params: {
+          queryFilters: [...this.appliedFilters],
+        },
+      });
     },
   },
   data() {
@@ -57,6 +73,7 @@ export default {
               this.$router.push({
                 name: 'orders',
                 params: {
+                  openDetailPanel: true,
                   queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: false }],
                 },
               });

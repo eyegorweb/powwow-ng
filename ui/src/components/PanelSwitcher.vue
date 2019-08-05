@@ -1,6 +1,7 @@
 <template>
   <SlidePanel
     :title="title"
+    :title-conf="titleConf"
     :is-open="isOpen"
     @close="closePanel"
     :wide="wide"
@@ -57,6 +58,7 @@ export default {
     wide: state => state.ui.isPanelWide,
     payload: state => state.ui.panelPayload,
     backdrop: state => state.ui.backdrop,
+    titleConf: state => state.ui.panelTitleConf,
   }),
 };
 </script>

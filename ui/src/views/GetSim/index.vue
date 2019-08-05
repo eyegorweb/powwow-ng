@@ -260,7 +260,12 @@ export default {
   methods: {
     ...mapActions('getsim', ['initFilterForContext']),
     ...mapMutations(['openPanel']),
-    ...mapMutations('getsim', ['setCurrentFilters', 'applyFilters', 'setRouteParamsFilters']),
+    ...mapMutations('getsim', [
+      'setCurrentFilters',
+      'applyFilters',
+      'setRouteParamsFilters',
+      'setOpenDetailPanel',
+    ]),
 
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
@@ -285,6 +290,10 @@ export default {
   mounted() {
     if (this.$route.params && this.$route.params.queryFilters) {
       this.setRouteParamsFilters(this.$route.params.queryFilters);
+    }
+
+    if (this.$route.params && this.$route.params.openDetailPanel) {
+      this.setOpenDetailPanel(this.$route.params.openDetailPanel);
     }
 
     this.initFilterForContext();
