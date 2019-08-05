@@ -143,7 +143,7 @@ export const actions = {
     } else {
       store.commit('setCurrentFilters', filteredFilters);
     }
-    // déclencher une recherche su plus aucun filtre n'est selectionné
+    // déclencher une recherche si plus aucun filtre n'est selectionné
     if (!store.getters.canShowSelectedFilter) {
       store.commit('clearAllFilters');
     }
@@ -164,6 +164,10 @@ export const mutations = {
     state.currentFilters = [];
     state.filterCustomFieldsList = [];
     filterUtils.clearAppliedFilters(state);
+  },
+  setQueryFilterAndSearch(state) {
+    state.filterCustomFieldsList = [];
+    filterUtils.setQueryFilterAndSearch(state);
   },
   selectFilterValue,
 

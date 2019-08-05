@@ -1,7 +1,7 @@
 <template>
   <div>
     <Promised :promise="resultsPromise">
-      <div slot="pending">Chargement...</div>
+      <div slot="pending">{{ $t('loading') }}...</div>
       <DataTable
         :columns="columns"
         :rows="rows || []"
@@ -56,7 +56,9 @@ export default {
             onClick: orderId => {
               this.$router.push({
                 name: 'orders',
-                params: { queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: true }] },
+                params: {
+                  queryFilters: [{ id: 'filters.idOrder', value: orderId, hidden: false }],
+                },
               });
             },
           },

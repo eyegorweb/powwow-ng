@@ -641,6 +641,7 @@
     "compatibility": "-non compatible"
   },
   "filters": {
+    "idOrder": "ID de commande",
     "title": "FILTRES",
     "partners": "Partenaires",
     "countries": "Pays",

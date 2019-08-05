@@ -137,11 +137,19 @@ export function initFilterForContext(store, setPartnersFilter) {
   }
 
   store.commit('setDefaultFilter', defaultFilters);
-  store.commit('clearAllFilters');
+  store.commit('setQueryFilterAndSearch');
+}
+
+export function setQueryFilterAndSearch(state) {
+  state.currentFilters = [...state.routeParamsFilters];
+  state.appliedFilters = [...state.defaultAppliedFilters, ...state.currentFilters];
+  state.routeParamsFilters = [];
 }
 
 export function initMutations() {
   return {
+    setQueryFilterAndSearch,
+
     setCurrentFilters: (state, currentFilters) => {
       state.currentFilters = currentFilters;
     },

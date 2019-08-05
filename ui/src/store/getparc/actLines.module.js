@@ -197,6 +197,10 @@ export const mutations = {
     state.filterCustomFieldsList = [];
     filterUtils.clearAppliedFilters(state);
   },
+  setQueryFilterAndSearch(state) {
+    state.filterCustomFieldsList = [];
+    filterUtils.setQueryFilterAndSearch(state);
+  },
   setFilterCustomFieldsList: (state, data) => {
     state.filterCustomFieldsList = data;
   },
