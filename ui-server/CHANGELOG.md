@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.136+20190805154430
+2019-08-05
+
+### Fixes
+
+- 521 corriger la valeur du status commercial (20a31c94b29f0bbb39d1f10404dede4577cb8331)
+
 ## 0.3.0-master.135+20190805120826
 2019-08-05
 
