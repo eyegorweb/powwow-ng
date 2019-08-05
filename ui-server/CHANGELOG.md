@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.135+20190805120826
+2019-08-05
+
+### Features
+
+- detail-ligne (dd7ef5ab2c3619e5832f64aeda9f6814483d78d9)
+
 ## 0.3.0-master.134+20190805115726
 2019-08-05
 
