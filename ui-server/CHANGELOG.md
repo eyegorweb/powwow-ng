@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.134+20190805125618
+## 0.3.0-master.134+20190805115726
 2019-08-05
+
+### Features
+
+- acte-changer-offre (e88d32ea43906362ae88517d18b39fdad2af2ef3)
 
 ## 0.3.0-master.133+20190805100128
 2019-08-05
