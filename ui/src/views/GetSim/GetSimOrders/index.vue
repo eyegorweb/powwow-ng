@@ -119,7 +119,6 @@ export default {
       this.fetchOrders();
     },
     appliedFilters() {
-      console.log('appliedFilters');
       this.fetchOrders();
     },
     isPanelOpen() {

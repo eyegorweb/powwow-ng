@@ -15,15 +15,9 @@
 
     <draggable v-model="widgetsInPanel" handle=".handle">
       <transition-group name="widgets">
-        <WidgetBloc
-          v-for="w in activeWidgets"
-          :key="w.id"
-          class="bloc d-inline-block p-1 widgets-item"
-          :class="{ wide: w.large, narrow: !w.large }"
-          :title="w.title"
-        >
-          <component v-if="w.component" :is="w.component" />
-        </WidgetBloc>
+        <template v-for="w in activeWidgets">
+          <component :key="w.id" v-if="w.component" :is="w.component" :widget="w" />
+        </template>
       </transition-group>
     </draggable>
     <button class="panel-toggle bg-secondary" @click="openCustomizePanel">
@@ -36,12 +30,10 @@
 <script>
 import draggable from 'vuedraggable';
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
-import WidgetBloc from './widgets/WidgetBloc';
 
 export default {
   components: {
     draggable,
-    WidgetBloc,
   },
   computed: {
     ...mapGetters(['activeWidgets']),

@@ -5,6 +5,7 @@ export const state = {
   isPanelOpen: false,
   panelTitle: undefined,
   panelId: undefined,
+  panelTitleConf: undefined,
   panelPayload: undefined,
   isPanelWide: false,
   backdrop: undefined,
@@ -25,13 +26,14 @@ export const mutations = {
     state.homeWidgets = [...widgets];
   },
   openPanel: (state, conf) => {
-    const { title, panelId, payload, wide, backdrop } = conf;
+    const { title, panelId, payload, wide, backdrop, titleConf } = conf;
     state.isPanelOpen = true;
     state.panelTitle = title;
     state.panelId = panelId || title;
     state.panelPayload = payload;
     state.isPanelWide = wide;
     state.backdrop = !!backdrop;
+    state.panelTitleConf = titleConf;
   },
   closePanel: state => {
     state.isPanelOpen = false;

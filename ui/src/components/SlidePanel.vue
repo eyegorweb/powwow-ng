@@ -11,7 +11,7 @@
       id="main-sliding-panel"
     >
       <header class="ignore-clickaway cd-panel__header">
-        <h1 class="ignore-clickaway font-weight-light">{{ title }}</h1>
+        <h1 class="ignore-clickaway font-weight-light">{{ displayedTitle }}</h1>
 
         <a href="#0" class="cd-panel__close js-cd-close" @click.prevent="$emit('close')">Close</a>
       </header>
@@ -33,6 +33,7 @@ export default {
   name: 'SlidePanel',
   props: {
     title: String,
+    titleConf: Object,
     isOpen: Boolean,
     wide: Boolean,
     backdrop: {
@@ -41,6 +42,15 @@ export default {
     },
   },
   directives: { clickaway },
+
+  computed: {
+    displayedTitle() {
+      if (this.titleConf) {
+        return this.$t(this.titleConf.key, this.titleConf.conf);
+      }
+      return this.title;
+    },
+  },
 
   watch: {
     isOpen(value) {
