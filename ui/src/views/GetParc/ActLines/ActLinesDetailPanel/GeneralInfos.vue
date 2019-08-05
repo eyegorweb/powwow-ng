@@ -19,7 +19,7 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.offer') }} :</h6>
-      <p>{{ get('accessPoint.offer.marketingOffer.description') }}</p>
+      <p>{{ get('accessPoint.Workflow.description') }}</p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.lineStatus') }} :</h6>
@@ -28,16 +28,12 @@
       </p>
     </div>
     <div class="overview-item mr-5">
-      <h6>{{ $t('getparc.actLines.col.lineStatus') }} :</h6>
-      <p>-</p>
-    </div>
-    <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.billingStatus') }} :</h6>
-      <p>-</p>
+      <BillingStatus :content="content" />
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.currentSynthesis') }} :</h6>
-      <p>-</p>
+      <UsageCounter :row="content" />
     </div>
     <div v-if="get('accessPoint.customFields.custom1')" class="overview-item mr-5">
       <h6>{{ $t('col.customFields', { num: 1 }) }} :</h6>
@@ -69,10 +65,14 @@
 <script>
 import get from 'lodash.get';
 import SimStatusCell from '@/views/GetParc/ActLines/LinesTable/SimStatusCell';
+import UsageCounter from './UsageCounter';
+import BillingStatus from './parts/BillingStatus';
 
 export default {
   components: {
     SimStatusCell,
+    UsageCounter,
+    BillingStatus,
   },
   props: {
     content: {

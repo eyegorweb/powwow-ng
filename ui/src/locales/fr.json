@@ -562,15 +562,17 @@
         "simStatus": "Statut de SIM",
         "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
-        "manufacturer": "Fabricant (IMEI)",
+        "manufacturer": "Constructeur",
         "deviceReference": "Modèle (IMEI)",
-        "commercialRef": "Référence commerciale",
+        "commercialRef": "Réf. Commerciale",
         "offer": "Offre",
         "lineStatus": "Statut de la ligne",
         "billingStatus": "Statut de facturation",
         "currentSynthesis": "Synthèse en cours conso",
         "positionedAlarms": "Alarmes positionnées",
-        "triggeredAlarms": "Alarmes déclenchées"
+        "triggeredAlarms": "Alarmes déclenchées",
+        "voice": "Voix",
+        "UsageCounterBtn": "Voir l'en-cours"
       }
     },
     "search": {

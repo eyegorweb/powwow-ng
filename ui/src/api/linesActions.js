@@ -82,6 +82,14 @@ export async function searchLines(orderBy, pagination, filters = []) {
           deviceReference
         }
         accessPoint {
+          alarmInstance {
+            id
+            alarm {
+              id
+            }
+            type
+          }
+          id
           commercialStatus
           lastPLMN
           preactivationDate
@@ -141,6 +149,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
             counter3DownRoamingRounded
             counter3UpRoamingRounded
           }
+          workflowCode
         }
       }
     }
