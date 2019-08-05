@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.133+20190805100128
+2019-08-05
+
+### Features
+
+- 639 Bouton voir plus (a29f14f688a8ae073308b0fab7e0fa063f5f00fb)
+
 ## 0.3.0-master.132+20190805090620
 2019-08-05
 
