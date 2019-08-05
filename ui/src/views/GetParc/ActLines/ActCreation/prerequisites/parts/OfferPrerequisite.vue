@@ -1,5 +1,5 @@
 <template>
-  <PrereqContainer @validate="validatePrerequisites">
+  <PrereqContainer @validate="validatePrerequisites" :can-validate="canValidate">
     <div class="row">
       <div class="col">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
@@ -20,10 +20,11 @@
 </template>
 
 <script>
+import PartnersPart from './PartnersPart';
+import OffersPart from './OffersPart';
+import PrereqContainer from './PrereqContainer';
 import get from 'lodash.get';
-import PartnersPart from './parts/PartnersPart';
-import OffersPart from './parts/OffersPart';
-import PrereqContainer from './parts/PrereqContainer';
+
 import { mapMutations } from 'vuex';
 
 export default {
@@ -39,6 +40,9 @@ export default {
     };
   },
   computed: {
+    canValidate() {
+      return !this.isPartnerEmpty && !!this.offerData;
+    },
     isPartnerEmpty() {
       return !get(this.selectedPartner, 'id');
     },
@@ -47,11 +51,12 @@ export default {
         return this.offerData;
       },
       set(offer) {
-        if (!offer || !offer.label) {
+        if (!offer || !offer.label || !offer.label.length) {
           this.resetForm();
           this.offerData = undefined;
+        } else {
+          this.offerData = offer;
         }
-        this.offerData = offer;
       },
     },
   },

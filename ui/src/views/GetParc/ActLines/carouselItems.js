@@ -16,7 +16,25 @@ export default [
       },
     ],
   },
-
+  {
+    icon: 'ic-Shuffle-Icon',
+    title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
+    stepTitle: 'getparc.actCreation.step2Titles.CHANGE_OFFER',
+    subtitle: '',
+    selected: false,
+    color: 'blue',
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+        ],
+      },
+    ],
+  },
   {
     icon: 'ic-Heart-Rythm-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',

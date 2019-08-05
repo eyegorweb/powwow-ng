@@ -38,6 +38,9 @@
       <PreactivateActivate
         v-if="act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE' && !isLoading"
       />
+      <ChangeOffer
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' && !isLoading"
+      />
     </div>
   </div>
 </template>
@@ -56,6 +59,7 @@ import ChangeBillingAccount from './forms/ChangeBillingAccount';
 import ChangeMSISDN from './forms/ChangeMSISDN';
 import ChangeICCID from './forms/ChangeICCID';
 import PreactivateActivate from './forms/PreactivateActivate';
+import ChangeOffer from './forms/ChangeOffer';
 
 import { mapGetters } from 'vuex';
 
@@ -74,6 +78,7 @@ export default {
     ChangeMSISDN,
     ChangeICCID,
     PreactivateActivate,
+    ChangeOffer,
   },
   props: {
     act: Object,
