@@ -1,7 +1,7 @@
 <template>
   <div class="row mb-3">
     <div class="col-md-12">
-      <ChangeServicePre
+      <OfferPrerequisite
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
         @set:preprequisites="setPrerequisites"
       />
@@ -53,19 +53,23 @@
         v-if="act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'"
         @set:preprequisites="setPrerequisites"
       />
+      <OfferPrerequisite
+        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
+        @set:preprequisites="setPrerequisites"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
-import ChangeServicePre from './prerequisites/ChangeServicePre';
+import OfferPrerequisite from './prerequisites/parts/OfferPrerequisite';
 import { mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     NoPrerequisitesPre,
-    ChangeServicePre,
+    OfferPrerequisite,
   },
   props: {
     act: Object,

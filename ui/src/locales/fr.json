@@ -329,7 +329,7 @@
         "MANAGE_ALARMS": "Gérer des alarmes",
         "EXPORT_LAST_USAGE": "Export dernier usage",
         "CHANGE_CF": "Changement de C.F.",
-        "CHANGE_OFFER": "Changement d'offre",
+        "CHANGE_OFFER": "Changer d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
         "CHANGE_STATUS": "Résilier",
@@ -357,7 +357,8 @@
         "CHANGE_CF": "Configuration du compte de facturation",
         "CHANGE_MSISDN": "Configurer le changement MSISDN",
         "CHANGE_SIMCARD": "Configurer le changement de cartes SIM",
-        "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation"
+        "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation",
+        "CHANGE_OFFER": "Configurer le changement d'offre"
       },
 
       "modal": {
@@ -447,6 +448,10 @@
       "selectOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
+      },
+      "changeOffer": {
+        "chooseOffer": "Choisir une offre cible",
+        "validateButton": "Changer d'offre"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
