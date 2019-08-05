@@ -44,6 +44,7 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
+import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
@@ -107,8 +108,7 @@ export default {
           name: 'accessPoint',
           exportId: 'LINE_MSISDN',
           format: {
-            type: 'ObjectAttribute',
-            path: 'lines[0].msisdn',
+            component: LinkTo,
           },
           orderable: true,
           sortingName: 'msisdn',
