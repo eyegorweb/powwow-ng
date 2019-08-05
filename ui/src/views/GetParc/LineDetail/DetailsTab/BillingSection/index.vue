@@ -86,7 +86,6 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
-import { fetchCommercialStatuses } from '@/api/linesActions';
 
 export default {
   components: {
@@ -94,28 +93,21 @@ export default {
     ContentBlock,
   },
 
-  async mounted() {
-    this.commercialStatuses = await fetchCommercialStatuses();
-    const foundCommercialStatus = this.commercialStatuses
-      .map(l => {
-        return this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`);
-      })
-      .find(s => s.indexOf(get(this.content, 'accessPoint.commercialStatus' !== -1)));
-    this.commercialStatus = `${foundCommercialStatus} ${this.$t('fromThe')}`;
-  },
-
   props: {
     content: Object,
   },
 
-  data() {
-    return {
-      commercialStatuses: [],
-      commercialStatus: '-',
-    };
-  },
-
   computed: {
+    commercialStatus() {
+      if (get(this.content, 'accessPoint.commercialStatus')) {
+        return `${this.$t(
+          'getparc.actLines.commercialStatuses.' + get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`;
+      }
+
+      return '-';
+    },
+
     simStatus() {
       const simStatus = get(this.content, 'statuts');
       if (simStatus === 'AVAILABLE') {
