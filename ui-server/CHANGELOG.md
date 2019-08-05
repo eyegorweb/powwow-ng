@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.132+20190805090620
+2019-08-05
+
+### Fixes
+
+- **homepage:** 639 intialiser corectement le filtre par ID (aae485ad3a2e5a66295c1b2c5552c0005c5b988f)
+
 ## 0.3.0-master.131+20190802151933
 2019-08-02
 
