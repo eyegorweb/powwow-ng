@@ -170,9 +170,15 @@ export default {
     },
 
     onCarouselItemClick(item) {
-      item.selected = !item.selected;
+      let isSelected = false;
+      let newSelectionState = true;
 
-      if (item.selected) {
+      if (this.actToCreate) {
+        isSelected = this.actToCreate.title === item.title;
+        newSelectionState = !isSelected;
+      }
+
+      if (newSelectionState) {
         // déjà en mode création, sur un autre acte
         if (this.creationMode) {
           this.setActCreationPrerequisites(null);

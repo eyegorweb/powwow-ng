@@ -64,7 +64,7 @@
 <script>
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
 import OfferPrerequisite from './prerequisites/parts/OfferPrerequisite';
-import { mapActions, mapMutations } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -73,6 +73,17 @@ export default {
   },
   props: {
     act: Object,
+  },
+  computed: {
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+  },
+  watch: {
+    contextPartnersTypes() {
+      this.resetPrerequs();
+    },
+    contextPartners() {
+      this.resetPrerequs();
+    },
   },
   methods: {
     ...mapActions('actLines', ['setPartnersFilter']),
@@ -84,7 +95,16 @@ export default {
       'setSelectedFileForActCreation',
       'resetForm',
       'setPageLimit',
+      'setActToCreate',
     ]),
+
+    resetPrerequs() {
+      this.resetForm();
+      this.setActToCreate(undefined);
+      this.setActCreationPrerequisites(undefined);
+      this.setSelectedLinesForActCreation([]);
+      this.setSelectedFileForActCreation(undefined);
+    },
 
     setPrerequisites(allPrereq) {
       this.resetForm();
