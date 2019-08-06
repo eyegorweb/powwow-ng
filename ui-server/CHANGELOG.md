@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.143+20190806133642
+2019-08-06
+
+### Fixes
+
+- Corriger le sorting sur la colonne partenaire dans la recherche de lignes (1631b723e45786f4b25c4b95da096d611a1e4c7f)
+
 ## 0.3.0-master.142+20190806120905
 2019-08-06
 
