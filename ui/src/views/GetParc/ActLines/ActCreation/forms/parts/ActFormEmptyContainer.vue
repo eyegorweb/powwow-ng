@@ -50,7 +50,8 @@ export default {
         if (response.needDoubleConfirmation) return;
         if (response.errors) {
           response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.description });
+            console.log(e);
+            this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
           const successMessage = this.successMessage
