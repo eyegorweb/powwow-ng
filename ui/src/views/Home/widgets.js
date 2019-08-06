@@ -1,4 +1,5 @@
 import OrdersWidget from './widgets/OrdersWidget';
+import ConsoWidget from './widgets/ConsoWidget';
 
 export default [
   {
@@ -13,8 +14,9 @@ export default [
     id: 'w1',
     title: 'En cours de consomation',
     description: 'Description',
-    checked: false,
+    checked: true,
     large: true,
+    component: ConsoWidget,
   },
   {
     id: 'w2',

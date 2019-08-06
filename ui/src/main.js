@@ -10,6 +10,7 @@ import VTooltip from 'v-tooltip';
 Vue.use(VTooltip);
 
 Vue.config.productionTip = false;
+Vue.prototype.mina = window.mina;
 
 new Vue({
   router,
