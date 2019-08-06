@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-link p-0" @click.prevent="onClick()">{{ msisdn }}</button>
+  <button class="btn btn-link p-0" @click.prevent="onClick()">{{ msisdn }}</button>
 </template>
 
 <script>

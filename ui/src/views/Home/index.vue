@@ -3,13 +3,13 @@
     <div class="bloc d-inline-block p-1 wide">
       <div class="card">
         <div class="card-header">ZONE FIXE NOTIFICATIONS</div>
-        <div class="card-body">Narrow bloc here</div>
+        <div class="card-body">Notifications ici</div>
       </div>
     </div>
     <div class="bloc d-inline-block p-1 narrow">
       <div class="card">
         <div class="card-header">ZONE FIXE PROMOTION</div>
-        <div class="card-body">Graphs here</div>
+        <div class="card-body">promotions ici</div>
       </div>
     </div>
 

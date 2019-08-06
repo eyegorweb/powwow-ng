@@ -39,6 +39,7 @@
     "lodash.unionby": "^4.8.0",
     "lodash.xorwith": "^4.5.0",
     "moment": "^2.24.0",
+    "snapsvg-cjs": "^0.0.6",
     "v-tooltip": "^2.0.2",
     "vue": "2.5.22",
     "vue-i18n": "^8.0.0",
