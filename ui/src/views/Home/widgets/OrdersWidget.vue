@@ -2,7 +2,11 @@
   <WidgetBloc :widget="widget" @seeMore="onSeeMore">
     <Promised :promise="resultsPromise">
       <div slot="pending">{{ $t('loading') }}...</div>
+      <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+        {{ $t('noResult') }}
+      </div>
       <DataTable
+        v-else
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -22,6 +26,7 @@ import GetSimOrdersProductCell from '@/views/GetSim/GetSimOrders/GetSimOrdersPro
 import GetSimOrdersStatusCell from '@/views/GetSim/GetSimOrders/GetSimOrdersStatusCell';
 import { mapGetters } from 'vuex';
 import WidgetBloc from './WidgetBloc';
+import moment from 'moment';
 
 export default {
   components: {
@@ -45,17 +50,37 @@ export default {
   },
   methods: {
     onSeeMore() {
-      console.log(this.appliedFilters);
       this.$router.push({
         name: 'orders',
         params: {
-          queryFilters: [...this.appliedFilters],
+          queryFilters: [...this.widgetFilters],
         },
       });
     },
   },
   data() {
     return {
+      widgetFilters: [
+        {
+          id: 'filters.orderStatus',
+          values: [
+            { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
+            { id: 'TO_BE_CONFIRMED_BY_BO', label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO') },
+            {
+              id: 'CONFIRMATION_IN_PROGRESS',
+              label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
+            },
+            { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
+          ],
+        },
+        {
+          id: 'filters.orderDate',
+          startDate: moment()
+            .subtract(6, 'month')
+            .format('DD-MM-YYYY'),
+          endDate: moment().format('DD-MM-YYYY'),
+        },
+      ],
       resultsPromise: undefined,
       allColumns: [
         {
@@ -130,7 +155,7 @@ export default {
   watch: {
     async appliedFilters() {
       const pageInfo = { page: 0, limit: 3 };
-      this.resultsPromise = searchOrders(this.orderBy, pageInfo, this.appliedFilters);
+      this.resultsPromise = searchOrders(this.orderBy, pageInfo, this.widgetFilters);
       const res = await this.resultsPromise;
       if (res.items) {
         this.rows = res.items;
