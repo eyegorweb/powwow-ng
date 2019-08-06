@@ -1,22 +1,5 @@
 export default [
   {
-    icon: 'ic-Heart-Rythm-Icon',
-    title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
-    stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
-    selected: false,
-    filters: [
-      {
-        id: 'filters.lines.SIMCardStatus',
-        values: [
-          {
-            id: 'ACTIVATED',
-            label: 'Activée',
-          },
-        ],
-      },
-    ],
-  },
-  {
     icon: 'ic-Shuffle-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_OFFER',
@@ -288,6 +271,23 @@ export default [
     title: 'getparc.actCreation.carouselItem.CHANGE_CF',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_CF',
     subtitle: '',
+    selected: false,
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    icon: 'ic-Heart-Rythm-Icon',
+    title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
+    stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
     filters: [
       {
