@@ -8,6 +8,15 @@
       <label class="font-weight-bold">{{ $t('col.offer') }}</label>
       <OffersPart :partner="partner" :offer.sync="selectedOffer" />
     </div>
+    <div>
+      <PartnerBillingAccountChoice
+        :key="actCreationPrerequisites.partner.id"
+        @set:billingAccount="setBillingAccount"
+        :errors="errors"
+        :initial-parnter="actCreationPrerequisites.partner"
+      >
+      </PartnerBillingAccountChoice>
+    </div>
     <div v-if="selectedOffer && selectedOffer.data">
       <SimServices :offer="selectedOffer.data" />
     </div>
@@ -35,6 +44,7 @@ import { fetchCustomFields } from '@/api/customFields';
 import ActFormContainer from './parts/ActFormContainer';
 
 import SimServices from './parts/SimServices';
+import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 
 export default {
   components: {
@@ -43,6 +53,7 @@ export default {
     OffersPart,
     SimServices,
     CustomFields,
+    PartnerBillingAccountChoice,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -59,6 +70,8 @@ export default {
       customFieldsErrors: undefined,
       allCustomFields: [],
       customFieldsValues: [],
+      chosenBillingAccount: undefined,
+      errors: {},
     };
   },
 
@@ -74,6 +87,10 @@ export default {
 
   methods: {
     doRequest() {},
+
+    setBillingAccount(billingAccount) {
+      this.chosenBillingAccount = billingAccount;
+    },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
