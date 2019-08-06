@@ -7,7 +7,7 @@
     @dragend="hovering = false"
     @drop="hovering = false"
   >
-    <input type="file" @change="onFileSelected" />
+    <input type="file" @change="onFileSelected" :key="version" />
     <div class="text-container">
       <p v-if="!value">Déposez votre fichier ici, ou cliquez pour ajouter</p>
       <p v-if="value">{{ value.name }}</p>
@@ -37,10 +37,8 @@ export default {
     /**
      * Il faut recréer l'input car le navigateur ne permet pas de reséléctionner un fichier précédement séléctionné
      */
-    value(newValue) {
-      if (!newValue) {
-        this.version += 1;
-      }
+    value() {
+      this.version += 1;
     },
   },
 };
