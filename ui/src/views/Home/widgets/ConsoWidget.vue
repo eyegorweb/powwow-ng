@@ -2,7 +2,7 @@
   <WidgetBloc :widget="widget">
     <div class="row">
       <div class="col">
-        <Gauge :value="100" title="25Mo" subtitle="18/11/2018" right-corner="∞" />
+        <Gauge :value="50" title="25Mo" subtitle="18/11/2018" right-corner="∞" />
       </div>
       <div class="col">
         <Gauge :value="100" title="50" subtitle="18/11/2018" arc-style="danger" right-corner="40" />

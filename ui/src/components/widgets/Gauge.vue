@@ -124,11 +124,11 @@ function svg_circle_arc_path(x, y, radius, start_angle, end_angle) {
 <style lang="scss">
 .gauge-container {
   display: flex;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
 
   .gauge {
-    flex-grow: 1;
+    width: 100%;
   }
 
   .corner {
