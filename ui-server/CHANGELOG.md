@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.140+20190806105521
+2019-08-06
+
+### Fixes
+
+- 632 séléctionner automatiquement le partenaire choisi dans la barre de contexte (dfa18c2d74589e2f67998671b18790dd599a1a7b)
+
 ## 0.3.0-master.139+20190806104118
 2019-08-06
 
