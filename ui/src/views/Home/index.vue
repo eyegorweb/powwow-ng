@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-2">
     <div class="bloc d-inline-block p-1 wide">
       <div class="card">
         <div class="card-header">ZONE FIXE NOTIFICATIONS</div>

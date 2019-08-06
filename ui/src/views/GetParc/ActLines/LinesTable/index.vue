@@ -17,7 +17,7 @@
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="006"
+        storage-version="007"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -110,7 +110,7 @@ export default {
           format: {
             component: LinkTo,
           },
-          orderable: true,
+          orderable: false,
           sortingName: 'msisdn',
           visible: true,
         },
@@ -123,7 +123,7 @@ export default {
             type: 'ObjectAttribute',
             path: 'lines[0].imsi',
           },
-          orderable: true,
+          orderable: false,
           sortingName: 'imsi',
           visible: true,
         },
@@ -174,7 +174,7 @@ export default {
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'msisdnA',
           exportId: 'LINE_AMSISDN',
-          orderable: true,
+          orderable: false,
           visible: false,
         },
         {
