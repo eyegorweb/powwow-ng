@@ -41,6 +41,12 @@ export default {
       this.selectedPartner = this.initialParnter;
     }
 
+    if (this.contextPartners && this.contextPartners.length === 1) {
+      this.selectedPartner = this.contextPartners[0];
+      this.$emit('setAndSearch', this.contextPartners[0]);
+      return;
+    }
+
     if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
       this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
 
