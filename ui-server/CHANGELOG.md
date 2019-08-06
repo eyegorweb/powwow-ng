@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.137+20190806101825
+2019-08-06
+
+### Fixes
+
+- 639 Correction des filtres du widget commandes (8d3fe0d1dc072f6d80cbfe7b2d8df76039de4eab)
+
 ## 0.3.0-master.136+20190805154430
 2019-08-05
 
