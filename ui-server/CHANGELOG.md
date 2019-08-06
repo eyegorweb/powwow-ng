@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.138+20190806093424
+2019-08-06
+
+### Features
+
+- **homepage:** 667  Composant gauge (44864c0d172a890a6703417279da7cff32d8f3dd)
+
 ## 0.3.0-master.137+20190806101825
 2019-08-06
 
