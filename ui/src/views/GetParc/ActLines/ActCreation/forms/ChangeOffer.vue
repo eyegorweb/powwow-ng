@@ -36,7 +36,7 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
             <span>
               <i class="ic-Shuffle-Icon"></i>
               {{ $t('getparc.actCreation.changeOffer.validateButton') }}
@@ -44,6 +44,28 @@
           </button>
         </div>
       </div>
+      <Modal v-if="waitForConfirmation">
+        <div slot="body">
+          <div class="text-danger">
+            <i class="ic-Alert-Icon"></i>
+            {{ $t('getparc.actCreation.changeOffer.confirmationWarning') }}
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            @click.stop="waitForConfirmation = false"
+          >
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="modal-default-button btn btn-success btn-sm ml-1"
+            @click.stop="confirmValdation(containerValidationFn)"
+          >
+            {{ $t('save') }}
+          </button>
+        </div>
+      </Modal>
     </div>
   </ActFormEmptyContainer>
 </template>
@@ -58,6 +80,7 @@ import UiDate from '@/components/ui/UiDate2';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
+import Modal from '@/components/Modal';
 
 import { changeOffer } from '@/api/offers';
 
@@ -68,6 +91,7 @@ export default {
     UiDate,
     UiCheckbox,
     UiApiAutocomplete,
+    Modal,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -85,6 +109,7 @@ export default {
       errors: {},
       notificationCheck: false,
       canChangeDate: undefined,
+      waitForConfirmation: false,
     };
   },
 
@@ -133,6 +158,11 @@ export default {
     onActDateChange(value) {
       this.actDate = value;
     },
+    async confirmValdation(containerValidationFn) {
+      const response = await containerValidationFn();
+      this.waitForConfirmation = false;
+      return response;
+    },
     checkErrors() {
       let isError = false;
       this.errors = {};
@@ -159,7 +189,7 @@ export default {
         dueDate: this.actDate,
         notifEmail: this.notificationCheck,
         sourceWorkflowID: this.currentOffer,
-        targertWorkflowId: this.selectedOffer.data.id,
+        targertWorkflowId: this.selectedOffer.id,
         customerAccountId: this.chosenBillingAccount.id,
       };
       return await changeOffer(this.appliedFilters, this.selectedLinesForActCreation, params);
