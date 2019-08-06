@@ -17,7 +17,7 @@
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="005"
+        storage-version="006"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -93,7 +93,7 @@ export default {
           id: 1,
           label: this.$t('col.partner'),
           orderable: true,
-          sortingName: 'partyId',
+          sortingName: 'partyName',
           visible: true,
           name: 'party',
           exportId: 'PARTY_ID',
