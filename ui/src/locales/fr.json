@@ -450,6 +450,7 @@
         "save": "Transférer"
       },
       "changeOffer": {
+        "confirmationWarning": "Attention ! Toutes les lignes sélectionnées seront modifiées.",
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre"
       },
