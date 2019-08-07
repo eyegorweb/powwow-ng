@@ -1,5 +1,6 @@
 import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
+import BillsWidget from './widgets/BillsWidget';
 
 export default [
   {
@@ -11,19 +12,20 @@ export default [
     component: OrdersWidget,
   },
   {
+    id: 'w2',
+    title: 'Dernière factures',
+    description: 'Description',
+    checked: true,
+    large: false,
+    component: BillsWidget,
+  },
+  {
     id: 'w1',
     title: 'En cours de consomation',
     description: 'Description',
     checked: true,
     large: true,
     component: ConsoWidget,
-  },
-  {
-    id: 'w2',
-    title: 'Rechercher une ligne',
-    description: 'Description',
-    checked: false,
-    large: false,
   },
   {
     id: 'w4',
