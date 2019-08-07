@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.148+20190807084358
+2019-08-07
+
+### Features
+
+- **homepage:** 669 Composant pour afficher les dernières factures (e1f44530a36629386476cd968e263d8fe9ec7962)
+
 ## 0.3.0-master.147+20190806144854
 2019-08-06
 
