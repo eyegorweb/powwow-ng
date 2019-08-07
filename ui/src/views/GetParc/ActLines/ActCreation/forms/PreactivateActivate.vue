@@ -14,11 +14,14 @@
         @set:billingAccount="setBillingAccount"
         :errors="errors"
         :initial-parnter="actCreationPrerequisites.partner"
-      >
-      </PartnerBillingAccountChoice>
+      ></PartnerBillingAccountChoice>
     </div>
     <div v-if="selectedOffer && selectedOffer.data">
-      <SimServices :offer="selectedOffer.data" />
+      <SimServices
+        :content="selectedOffer.data"
+        @barringChange="barringServices = $event"
+        @dataChange="dataService = $event"
+      />
     </div>
     <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
     <div>
@@ -29,6 +32,44 @@
         show-optional-field
         @change="onValueChanged"
       />
+    </div>
+    <div
+      slot="validate-btn-content"
+      slot-scope="{ containerValidationFn, actDate, notificationCheck }"
+    >
+      <button @click="waitForReportConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+        <i class="ic-Edit-Icon" />
+        {{ $t('getparc.actCreation.changeService.validateBtn') }}
+      </button>
+
+      <Modal v-if="waitForReportConfirmation">
+        <div slot="body">
+          <div class="text-danger">
+            <i class="ic-Alert-Icon"></i>
+            {{ $t('getparc.actCreation.preactivateActivate.confirmationWarning') }}
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            class="modal-default-button btn btn-danger btn-sm"
+            v-if="!isLoading"
+            @click.stop="waitForReportConfirmation = false"
+          >
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="modal-default-button btn btn-success btn-sm ml-1"
+            v-if="!isLoading"
+            @click.stop="confirmValdation(containerValidationFn, actDate, notificationCheck)"
+          >
+            {{ $t('save') }}
+          </button>
+          <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
+            {{ $t('processing') }}
+            <CircleLoader />
+          </button>
+        </div>
+      </Modal>
     </div>
   </ActFormContainer>
 </template>
@@ -43,8 +84,14 @@ import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer';
 
-import SimServices from './parts/SimServices';
+import SimServices from '@/views/GetParc/LineDetail/DetailsTab/LineServicesSection/ServicesBlock';
+
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+
+import Modal from '@/components/Modal';
+import CircleLoader from '@/components/ui/CircleLoader';
+
+import { preactivateAndActivateSImcardInstance } from '@/api/actCreation';
 
 export default {
   components: {
@@ -54,10 +101,14 @@ export default {
     SimServices,
     CustomFields,
     PartnerBillingAccountChoice,
+    Modal,
+    CircleLoader,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userName']),
+
     partner() {
       return this.actCreationPrerequisites.partner;
     },
@@ -72,6 +123,10 @@ export default {
       customFieldsValues: [],
       chosenBillingAccount: undefined,
       errors: {},
+      barringServices: [],
+      dataService: [],
+      isLoading: false,
+      waitForReportConfirmation: false,
     };
   },
 
@@ -86,7 +141,38 @@ export default {
   },
 
   methods: {
-    doRequest() {},
+    async doRequest(contextValues) {
+      const response = await this.doPreactivate(contextValues);
+      return response;
+    },
+
+    async doPreactivate(contextValues) {
+      const params = {
+        partyId: this.actCreationPrerequisites.partner.id,
+        dueDate: contextValues.actDate,
+        notifEmail: contextValues.notificationCheck,
+        offer: this.selectedOffer.data.initialOffer.code,
+        barringServices: this.barringServices,
+        dataService: this.dataService,
+      };
+      return await preactivateAndActivateSImcardInstance(
+        this.appliedFilters,
+        this.selectedLinesForActCreation,
+        params
+      );
+    },
+
+    async confirmValdation(containerValidationFn) {
+      if (!this.checkErrors()) {
+        this.isLoading = true;
+        const response = await containerValidationFn();
+        this.isLoading = false;
+        this.waitForReportConfirmation = false;
+        return response;
+      }
+      this.waitForReportConfirmation = false;
+    },
+    checkErrors() {},
 
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;

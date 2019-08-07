@@ -29,6 +29,7 @@ export default {
 
   mounted() {
     const data = this.getData();
+    console.log(data);
     if (data) {
       this.editable = data.partyAccess || false;
       this.checked = !data.activatedByDefault;

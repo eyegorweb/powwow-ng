@@ -204,6 +204,41 @@ export async function changeCustomerAccount(filters, lines, params) {
   });
 }
 
+export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { dueDate, barringServices, dataService } = params;
+    console.log(dataService);
+
+    /**
+     * Pour les barring, on ajoute le code si le service est décoché
+     */
+    const gqlBarringServicesParam = barringServices
+      .filter(s => !s.checked)
+      .map(code => `{catalogServiceGroupId: ${code}, catalogServiceParameters: []}`);
+
+    const gqlSelectedServiceInputParam = [...gqlBarringServicesParam].join(',');
+    const queryStr = `
+    mutation {
+      preactivateAndActivateSImcardInstance (
+      input: {${gqlFilter}},
+      simCardInstanceIds: [${gqlLines}],
+      dueDate: "${formatDateForGql(dueDate)}",
+      userRef: ""
+      selectedServiceInput: [${gqlSelectedServiceInputParam}],
+      ) {
+          tempDataUuid
+          successful
+          containsErrors
+          invalidFormat
+          alreadyExists
+          notFound
+        }
+      }
+    `;
+    return await query(queryStr);
+  });
+}
+
 export async function changeServices(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {

@@ -413,6 +413,10 @@
         "newMSISDN": "Nouvel MSISDN"
       },
 
+      "preactivateActivate": {
+        "confirmationWarning": "Confirmer?"
+      },
+
       "report": {
         "alreadyExists": "Lignes existantes",
         "invalidFormat": "Format invalide",
