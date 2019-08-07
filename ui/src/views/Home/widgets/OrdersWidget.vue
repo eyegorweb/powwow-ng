@@ -26,7 +26,7 @@ import GetSimOrdersProductCell from '@/views/GetSim/GetSimOrders/GetSimOrdersPro
 import GetSimOrdersStatusCell from '@/views/GetSim/GetSimOrders/GetSimOrdersStatusCell';
 import { mapGetters } from 'vuex';
 import WidgetBloc from './WidgetBloc';
-// import moment from 'moment';
+import moment from 'moment';
 
 export default {
   components: {
@@ -73,7 +73,6 @@ export default {
             { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
           ],
         },
-        /*
         {
           id: 'filters.orderDate',
           startDate: moment()
@@ -81,7 +80,6 @@ export default {
             .format('DD-MM-YYYY'),
           endDate: moment().format('DD-MM-YYYY'),
         },
-        //*/
       ],
       resultsPromise: undefined,
       allColumns: [
