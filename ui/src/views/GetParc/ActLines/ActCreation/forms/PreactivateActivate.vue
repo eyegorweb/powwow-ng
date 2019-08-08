@@ -17,9 +17,10 @@
       ></PartnerBillingAccountChoice>
     </div>
     <div v-if="selectedOffer && selectedOffer.data">
-      <SimServices
-        :content="selectedOffer.data"
+      <ServicesBlock
+        :offer="selectedOffer.data"
         @barringChange="barringServices = $event"
+        @normalChange="normalServices = $event"
         @dataChange="dataService = $event"
       />
     </div>
@@ -84,7 +85,7 @@ import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer';
 
-import SimServices from '@/views/GetParc/LineDetail/DetailsTab/LineServicesSection/ServicesBlock';
+import ServicesBlock from '@/components/Services/ServicesBlock';
 
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 
@@ -98,7 +99,7 @@ export default {
     ActFormContainer,
     UiToggle,
     OffersPart,
-    SimServices,
+    ServicesBlock,
     CustomFields,
     PartnerBillingAccountChoice,
     Modal,
@@ -124,7 +125,8 @@ export default {
       chosenBillingAccount: undefined,
       errors: {},
       barringServices: [],
-      dataService: [],
+      normalServices: [],
+      dataService: undefined,
       isLoading: false,
       waitForReportConfirmation: false,
     };

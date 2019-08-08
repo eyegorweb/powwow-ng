@@ -6,10 +6,7 @@
 
 <script>
 import UiToggle from '@/components/ui/UiToggle';
-import { isBarrinServiceEnabled } from '@/utils/simServices';
-/**
- * Si un code barring est positioné alors le service concerné est désacivé.
- */
+import { isNormalServiceEnabled } from '@/utils/simServices';
 
 export default {
   components: {
@@ -31,7 +28,7 @@ export default {
   },
 
   mounted() {
-    const { checked, editable } = isBarrinServiceEnabled(this.catalogOffer, this.code);
+    const { checked, editable } = isNormalServiceEnabled(this.catalogOffer, this.code);
     this.checked = checked;
     this.editable = editable;
   },

@@ -39,7 +39,9 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
               activatedByDefault
               partyAccess
               catalogService {
+                id
                 code
+                label
               }
               catalogServiceParameters {
                 id

@@ -24,7 +24,10 @@ export default {
 
   props: {
     catalogOffer: Object,
-    instanceOffer: Object,
+    instanceOffer: {
+      type: Object,
+      default: undefined,
+    },
   },
 
   data() {
@@ -54,6 +57,7 @@ export default {
       this.$emit('change', {
         checked: this.checked,
         apns: this.apns,
+        code: '878',
       });
     },
   },

@@ -13,7 +13,7 @@
         <ContentBlock :key="'block2'">
           <template slot="title">{{ $t('getparc.lineDetail.tabServices.services') }}</template>
           <template slot="content">
-            <ServicesBlock :content="content" />
+            <ServicesBlock :offer="offer" />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block3'">
@@ -30,7 +30,7 @@
 <script>
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
-import ServicesBlock from './ServicesBlock';
+import ServicesBlock from '@/components/Services/ServicesBlock';
 
 export default {
   components: {

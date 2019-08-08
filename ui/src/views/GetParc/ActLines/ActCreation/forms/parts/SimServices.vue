@@ -30,6 +30,7 @@
 </template>
 
 <script>
+// Deprecated
 import UiToggle from '@/components/ui/UiToggle';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
 import flatten from 'lodash.flatten';
