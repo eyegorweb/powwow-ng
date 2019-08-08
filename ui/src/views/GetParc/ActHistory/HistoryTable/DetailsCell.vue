@@ -13,6 +13,21 @@ export default {
   props: {
     row: Object,
   },
+  methods: {
+    generateNewStatus(transitionName) {
+      if (transitionName.includes('suspendre')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.suspended');
+      } else if (transitionName.includes('reactiver')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.reactivated');
+      } else if (transitionName.includes('activer')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.activated');
+      } else if (transitionName.includes('resilier')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.terminated');
+      } else {
+        return transitionName;
+      }
+    },
+  },
   computed: {
     ...mapGetters(['userIsBO']),
     content() {
@@ -30,7 +45,9 @@ export default {
         }
 
         case 'STATUS_CHANGE': {
-          return `Nouveau statut : ${this.row.transitionName}`;
+          return `${this.$t('getparc.history.details.newStatus')}: ${this.generateNewStatus(
+            this.row.transitionName
+          )} `;
         }
 
         case 'CHANGE_CUSTOMER_ACCOUNT': {
