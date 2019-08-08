@@ -9,9 +9,7 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getsim.export', { total: total }) }}
-            </span>
+            <span slot="title">{{ $t('getsim.export', { total: total }) }}</span>
           </ExportButton>
         </div>
       </div>
@@ -72,10 +70,12 @@ export default {
   },
   methods: {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['setPage']),
+    ...mapMutations('getsim', ['setPage', 'setCurrentFilters', 'applyFilters']),
     ...mapMutations(['openModal']),
     getExportFn() {
-      return exportFile;
+      return async (columns, orderBy, exportFormat) => {
+        return await exportFile(columns, orderBy, exportFormat, this.appliedFilters);
+      };
     },
     async fetchOrders() {
       this.fetchOrdersFromApi({

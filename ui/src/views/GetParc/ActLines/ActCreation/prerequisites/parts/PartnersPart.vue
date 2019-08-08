@@ -1,7 +1,8 @@
 <template>
   <div>
     <UiApiAutocomplete
-      :api-method="fetchPartners"
+      :api-method="getFetchFn()"
+      :items="limitedPartnersToSelectFrom"
       v-model="selectedPartner"
       :error="error"
       display-results-while-empty
@@ -15,7 +16,7 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchpartners } from '@/api/partners';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -33,15 +34,34 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapGetters('actLines', ['selectedPartnersValues']),
   },
   mounted() {
     if (this.initialParnter) {
       this.selectedPartner = this.initialParnter;
     }
+
+    if (this.contextPartners && this.contextPartners.length === 1) {
+      this.selectedPartner = this.contextPartners[0];
+      this.$emit('setAndSearch', this.contextPartners[0]);
+      return;
+    }
+
+    if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
+      this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
+
+      if (this.limitedPartnersToSelectFrom.length === 1) {
+        this.selectedPartner = this.limitedPartnersToSelectFrom[0];
+        this.$emit('setAndSearch', this.selectedPartner);
+      }
+    } else {
+      this.limitedPartnersToSelectFrom = undefined;
+    }
   },
   data() {
     return {
       selectedPartner: null,
+      limitedPartnersToSelectFrom: undefined,
     };
   },
   watch: {
@@ -50,19 +70,24 @@ export default {
     },
   },
   methods: {
-    async fetchPartners(q, page = 0) {
-      if (this.contextPartners && this.contextPartners.length) {
-        return this.contextPartners;
+    getFetchFn() {
+      if (this.limitedPartnersToSelectFrom) {
+        return undefined;
       }
-      const partnerTypesIn = this.contextPartnersTypes;
-      const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
-      return data.map(p => ({
-        id: p.id,
-        label: p.name,
-        orderNumberIsMandatory: p.orderNumberRequired,
-        shortCodes: p.shortCodes,
-        partyType: p.partyType,
-      }));
+      return async (q, page = 0) => {
+        if (this.contextPartners && this.contextPartners.length) {
+          return this.contextPartners;
+        }
+        const partnerTypesIn = this.contextPartnersTypes;
+        const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
+        return data.map(p => ({
+          id: p.id,
+          label: p.name,
+          orderNumberIsMandatory: p.orderNumberRequired,
+          shortCodes: p.shortCodes,
+          partyType: p.partyType,
+        }));
+      };
     },
   },
 };

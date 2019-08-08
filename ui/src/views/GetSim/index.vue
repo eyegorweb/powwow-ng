@@ -5,9 +5,7 @@
         <h4>
           <b>GetSim</b>
           - {{ $t('getsim.manage-orders') }}
-          <Tooltip direction="right">
-            {{ $t('getsim.tooltip-text') }}
-          </Tooltip>
+          <Tooltip direction="right">{{ $t('getsim.tooltip-text') }}</Tooltip>
         </h4>
       </div>
       <div class="col-md-3">
@@ -32,7 +30,7 @@
         <Indicators
           :key="indicatorsVersion"
           :meta="indicators"
-          :set-current-filters-fn="setCurrentFiltersForIndicator"
+          :on-click="setCurrentFiltersForIndicator"
           :partners="partnersForIndicators"
         />
         <br />
@@ -262,7 +260,12 @@ export default {
   methods: {
     ...mapActions('getsim', ['initFilterForContext']),
     ...mapMutations(['openPanel']),
-    ...mapMutations('getsim', ['clearAllFilters', 'setCurrentFilters', 'applyFilters']),
+    ...mapMutations('getsim', [
+      'setCurrentFilters',
+      'applyFilters',
+      'setRouteParamsFilters',
+      'setOpenDetailPanel',
+    ]),
 
     setCurrentFiltersForIndicator(indicator) {
       this.setCurrentFilters([...indicator.filters]);
@@ -285,6 +288,14 @@ export default {
     },
   },
   mounted() {
+    if (this.$route.params && this.$route.params.queryFilters) {
+      this.setRouteParamsFilters(this.$route.params.queryFilters);
+    }
+
+    if (this.$route.params && this.$route.params.openDetailPanel) {
+      this.setOpenDetailPanel(this.$route.params.openDetailPanel);
+    }
+
     this.initFilterForContext();
   },
   watch: {

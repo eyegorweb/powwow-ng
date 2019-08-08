@@ -4,25 +4,43 @@
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
-          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.found }}
+          <i class="ic-Check-Icon mr-2 text-success" />
+          {{ fileMeta.successful }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
-        <li>
-          <i class="ic-Cross-Icon mr-2 text-danger" />{{ fileMeta.notFound }}
-          {{ $t('getparc.actLines.fileImport.notFounfLines') }}.
+        <li v-if="totalNotCompatible > 0">
+          <i class="ic-Cross-Icon mr-2 text-danger" />
+          {{ totalNotCompatible }}
+          {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
+          <ul class="list-styled">
+            <li>
+              {{
+                $t('getparc.actLines.fileImport.errors.notValid', {
+                  totalInvalidFormat: fileMeta.invalidFormat,
+                  idType: idType,
+                })
+              }}
+            </li>
+            <li>
+              {{
+                $t('getparc.actLines.fileImport.errors.unknown', {
+                  totalNotFound: fileMeta.notFound,
+                  idType: idType,
+                })
+              }}
+            </li>
+          </ul>
         </li>
-        <li>
+        <li v-if="totalNotCompatible > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
-              {{ $t('getparc.actLines.export', { total: fileMeta.notFound }) }}
+              {{ $t('getparc.actLines.export', { total: totalNotCompatible }) }}
             </span>
           </ExportButton>
         </li>
       </ul>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">
-      {{ fileMeta.error }}
-    </div>
+    <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
   </div>
 </template>
 
@@ -73,6 +91,9 @@ export default {
         }
       },
     },
+    totalNotCompatible() {
+      return this.fileMeta.invalidFormat + this.fileMeta.notFound;
+    },
   },
   methods: {
     getExportFn() {
@@ -88,7 +109,7 @@ export default {
           ],
           '',
           exportFormat,
-          this.fileMeta.uploadId
+          this.fileMeta.tempDataUuid
         );
       };
     },
@@ -96,4 +117,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+ul.list-styled {
+  list-style-type: disc;
+  font-size: 0.8rem;
+}
+</style>

@@ -17,10 +17,12 @@ export const namespaced = true;
 export const state = {
   ...filterUtils.initState(),
   linePage: 1,
+  limitPerPage: 20,
   linesActionsResponse: [],
   filterCustomFieldsList: [],
 
   selectedLinesForActCreation: [],
+  selectedFileForActCreation: undefined,
   actToCreate: null,
   actCreationPrerequisites: null,
 };
@@ -61,10 +63,10 @@ export const getters = {
   selectedDeliveryCountries: state => selectedFilterValuesById(state)('filters.countries'),
   filterCustomFieldsList: state => state.filterCustomFieldsList,
   selectedCustomFieldsValues: state => selectedFilterValuesById(state)('filters.customFields'),
-  selectedICCIDValue: findFilterValueById('filters.lines.rangeICCID'),
-  selectedIMSIValue: findFilterValueById('filters.lines.rangeIMSI'),
-  selectedMSISDNValue: findFilterValueById('filters.lines.rangeMSISDN'),
-  selectedIMEIValue: findFilterValueById('filters.lines.rangeIMEI'),
+  selectedICCIDValue: findFilterById('filters.lines.rangeICCID'),
+  selectedIMSIValue: findFilterById('filters.lines.rangeIMSI'),
+  selectedMSISDNValue: findFilterById('filters.lines.rangeMSISDN'),
+  selectedIMEIValue: findFilterById('filters.lines.rangeIMEI'),
 };
 
 // Actions
@@ -127,7 +129,6 @@ export const actions = {
     );
     const newCurrentFilters = [...currentFiltersWithoutActFilters, ...actFilters];
     store.commit('setCurrentFilters', newCurrentFilters);
-    store.commit('applyFilters');
   },
 
   addLineForActCreation(store, line) {
@@ -167,6 +168,8 @@ export const actions = {
   async fetchLinesActionsFromApi(store, { orderBy, pageInfo, appliedFilters }) {
     const { commit } = store;
     commit('startLoading');
+    commit('setLinesActionsResponse', undefined);
+
     let response = { total: 0, items: [] };
     try {
       response = await searchLines(orderBy, pageInfo, appliedFilters);
@@ -193,6 +196,10 @@ export const mutations = {
     state.currentFilters = [];
     state.filterCustomFieldsList = [];
     filterUtils.clearAppliedFilters(state);
+  },
+  setQueryFilterAndSearch(state) {
+    state.filterCustomFieldsList = [];
+    filterUtils.setQueryFilterAndSearch(state);
   },
   setFilterCustomFieldsList: (state, data) => {
     state.filterCustomFieldsList = data;
@@ -256,7 +263,6 @@ export const mutations = {
     });
   },
   setFileImportFilter(state, fileResponse) {
-    console.log(fileResponse);
     selectFilterValue(state, {
       id: 'filters.lines.fromFile.title',
       values: [
@@ -326,28 +332,33 @@ export const mutations = {
       values: countries,
     });
   },
-  selectICCIDFilter(state, value) {
+  selectICCIDFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeICCID',
-      value,
+      from,
+      to,
+      type: 'regex',
     });
   },
-  selectIMSIFilter(state, value) {
+  selectIMSIFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeIMSI',
-      value,
+      from,
+      to,
     });
   },
-  selectMSISDNFilter(state, value) {
+  selectMSISDNFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeMSISDN',
-      value,
+      from,
+      to,
     });
   },
-  selectIMEIFilter(state, value) {
+  selectIMEIFilter(state, { from, to }) {
     selectFilterValue(state, {
       id: 'filters.lines.rangeIMEI',
-      value,
+      from,
+      to,
     });
   },
   // to refactor, duplicated
@@ -370,11 +381,25 @@ export const mutations = {
     state.selectedLinesForActCreation = selectedLines;
   },
 
+  setSelectedFileForActCreation(state, file) {
+    state.selectedFileForActCreation = file;
+  },
+
   setActToCreate(state, act) {
     state.actToCreate = act;
   },
 
   setActCreationPrerequisites(state, prereqs) {
     state.actCreationPrerequisites = prereqs;
+  },
+
+  resetForm(state) {
+    state.selectedLinesForActCreation = [];
+    state.selectedFileForActCreation = undefined;
+    state.actCreationPrerequisites = undefined;
+  },
+
+  setPageLimit(state, limit) {
+    state.limitPerPage = limit;
   },
 };

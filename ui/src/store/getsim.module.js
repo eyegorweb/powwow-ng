@@ -143,16 +143,34 @@ export const actions = {
     } else {
       store.commit('setCurrentFilters', filteredFilters);
     }
-    // déclencher une recherche su plus aucun filtre n'est selectionné
+    // déclencher une recherche si plus aucun filtre n'est selectionné
     if (!store.getters.canShowSelectedFilter) {
       store.commit('clearAllFilters');
     }
   },
 
-  async fetchOrdersFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
-    commit('startLoading');
-    commit('setOrdersResponse', await searchOrders(orderBy, pageInfo, appliedFilters));
-    commit('stopLoading');
+  async fetchOrdersFromApi(store, { orderBy, pageInfo, appliedFilters }) {
+    store.commit('startLoading');
+    const response = await searchOrders(orderBy, pageInfo, appliedFilters);
+    if (response && response.items && response.items.length === 1) {
+      if (store.state.openResultInDetailPanel) {
+        store.commit('setOpenDetailPanel', false);
+        // $t('getsim.details.title', { id: savedOrderId })
+        store.commit(
+          'openPanel',
+          {
+            titleConf: { key: 'getsim.details.title', conf: { id: response.items[0].id } },
+            panelId: 'getsim.details.title',
+            payload: response.items[0],
+            wide: false,
+            backdrop: false,
+          },
+          { root: true }
+        );
+      }
+    }
+    store.commit('setOrdersResponse', response);
+    store.commit('stopLoading');
   },
 };
 
@@ -164,6 +182,10 @@ export const mutations = {
     state.currentFilters = [];
     state.filterCustomFieldsList = [];
     filterUtils.clearAppliedFilters(state);
+  },
+  setQueryFilterAndSearch(state) {
+    state.filterCustomFieldsList = [];
+    filterUtils.setQueryFilterAndSearch(state);
   },
   selectFilterValue,
 

@@ -1,25 +1,55 @@
 <template>
   <ActFormContainer :validate-fn="doRequest">
-    <div v-if="selectedOffer" class="row">
+    <div class="row">
       <div class="col">
         <span class="font-weight-bold mt-4 mb-4">
           {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
         </span>
+      </div>
+      <div class="col">
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
+        </span>
+      </div>
+    </div>
+    <div v-if="selectedOffer" class="row">
+      <div class="col service-container">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToActivate"
           :ignored-items="servicesToDesactivate"
         />
       </div>
-      <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
-        </span>
+      <div class="col service-container">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDesactivate"
           :ignored-items="servicesToActivate"
         />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col d-flex">
+        <UiCheckbox v-model="shouldChangeData" />
+        <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
+      </div>
+    </div>
+    <div v-if="shouldChangeData">
+      <div v-if="dataService" class="row">
+        <div class="col">
+          <span class="font-weight-bold mt-4 mb-4">{{ $t('services.DATA') }}</span>
+
+          <UiToggle
+            :label="$t('services.DATA')"
+            :editable="dataService.editable"
+            v-model="dataService.checked"
+          />
+        </div>
+        <div v-if="dataService && dataService.apns && dataService.apns.length" class="col">
+          <span class="font-weight-bold mt-4 mb-4">Apn:</span>
+
+          <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
+        </div>
       </div>
     </div>
     <div v-if="noServicesChosenError" class="row mt-1 mb-1">
@@ -81,7 +111,8 @@
             {{ $t('save') }}
           </button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-            {{ $t('processing') }} <CircleLoader />
+            {{ $t('processing') }}
+            <CircleLoader />
           </button>
         </div>
       </Modal>
@@ -96,8 +127,12 @@ import FormReport from './parts/FormReport';
 import { mapState, mapGetters } from 'vuex';
 import ServicesChoice from './parts/ServicesChoice';
 import Modal from '@/components/Modal';
-import { addServices } from '@/api/actCreation';
+import { changeServices } from '@/api/actCreation';
 import CircleLoader from '@/components/ui/CircleLoader';
+import { initDataService } from '@/utils/simServices';
+import MultiChoiceList from '@/components/ui/MultiChoiceList';
+import UiToggle from '@/components/ui/UiToggle';
+import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
   components: {
@@ -106,6 +141,9 @@ export default {
     Modal,
     CircleLoader,
     FormReport,
+    MultiChoiceList,
+    UiToggle,
+    UiCheckbox,
   },
 
   data() {
@@ -118,7 +156,18 @@ export default {
       tempDataUuid: undefined,
       report: undefined,
       noServicesChosenError: undefined,
+
+      dataService: undefined,
+      selectedDataService: undefined,
+      shouldChangeData: false,
     };
+  },
+
+  mounted() {
+    this.dataService = initDataService(
+      this.actCreationPrerequisites.offer.data,
+      this.selectedDataService
+    );
   },
 
   methods: {
@@ -127,6 +176,17 @@ export default {
     },
     setServicesToDesactivate(values) {
       this.servicesToDesactivate = values;
+    },
+
+    toggleApn(apn) {
+      const apns = this.dataService.apns.map(a => {
+        if (a.selectable && a.label === apn.label) {
+          a.selected = !a.selected;
+        }
+        return a;
+      });
+
+      this.dataService = { ...this.dataService, apns };
     },
 
     async doRequest(contextValues) {
@@ -169,9 +229,9 @@ export default {
       const noServicesChosen =
         !this.servicesToActivate.length && !this.servicesToDesactivate.length;
 
-      this.noServicesChosenError = noServicesChosen;
+      this.noServicesChosenError = noServicesChosen && !this.shouldChangeData;
 
-      return noServicesChosen;
+      return this.noServicesChosenError;
     },
 
     async changeServices(contextValues) {
@@ -183,9 +243,10 @@ export default {
         servicesToActivate: this.servicesToActivate.map(s => s.code),
         servicesToDesactivate: this.servicesToDesactivate.map(s => s.code),
         tempDataUuid: this.tempDataUuid,
+        dataService: { shouldChangeData: this.shouldChangeData, dataService: this.dataService },
       };
 
-      return await addServices(this.appliedFilters, this.selectedLinesForActCreation, params);
+      return await changeServices(this.appliedFilters, this.selectedLinesForActCreation, params);
     },
   },
 
@@ -217,4 +278,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.service-container {
+  display: flex;
+
+  .items-search {
+    align-self: flex-end;
+  }
+}
+</style>

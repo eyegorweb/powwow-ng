@@ -4,8 +4,13 @@ export function initState() {
   return {
     currentFilters: [], // Filtres choisis
     appliedFilters: [], // Filtres appliqués
+    routeParamsFilters: [],
     defaultAppliedFilters: [], // Filtres par défaut, utile quand on limite le contexte de l'appli à certains partenaires ( voir components/Navbar/Backoffice)
     isLoading: false,
+    /**
+     *  Ouverture du réultat dans le panel de détail si le résultat est unique
+     */
+    openResultInDetailPanel: false,
   };
 }
 
@@ -47,7 +52,7 @@ export const findFilterValueById = id => state => {
 };
 
 export function clearAppliedFilters(state) {
-  state.appliedFilters = [...state.defaultAppliedFilters];
+  state.appliedFilters = [...state.defaultAppliedFilters, ...state.routeParamsFilters];
 }
 
 export function resetSearchWhenCurrentFiltersAreEmpty(state) {
@@ -136,11 +141,23 @@ export function initFilterForContext(store, setPartnersFilter) {
   }
 
   store.commit('setDefaultFilter', defaultFilters);
-  store.commit('clearAllFilters');
+  store.commit('setQueryFilterAndSearch');
+}
+
+export function setQueryFilterAndSearch(state) {
+  state.currentFilters = [...state.routeParamsFilters];
+  state.appliedFilters = [...state.defaultAppliedFilters, ...state.currentFilters];
+  state.routeParamsFilters = [];
 }
 
 export function initMutations() {
   return {
+    setQueryFilterAndSearch,
+
+    setOpenDetailPanel(state, value) {
+      state.openResultInDetailPanel = value;
+    },
+
     setCurrentFilters: (state, currentFilters) => {
       state.currentFilters = currentFilters;
     },
@@ -148,7 +165,7 @@ export function initMutations() {
       state.defaultAppliedFilters = [...defaultFilter];
     },
     clearAllFilters(state) {
-      state.currentFilters = [];
+      state.currentFilters = [...state.routeParamsFilters];
       clearAppliedFilters(state);
     },
     forceAppliedFilters(state, values) {
@@ -184,6 +201,10 @@ export function initMutations() {
       }
 
       state.appliedFilters = [...currentFilters, ...additionalFilters];
+    },
+
+    setRouteParamsFilters(state, filters) {
+      state.routeParamsFilters = [...filters];
     },
 
     startLoading(state) {

@@ -53,7 +53,7 @@ export async function fetchSingleIndicator(filters, scopePartners) {
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
-  const orderingInfo = orderBy ? `, sorting: {}` : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -82,6 +82,14 @@ export async function searchLines(orderBy, pagination, filters = []) {
           deviceReference
         }
         accessPoint {
+          alarmInstance {
+            id
+            alarm {
+              id
+            }
+            type
+          }
+          id
           commercialStatus
           lastPLMN
           preactivationDate
@@ -91,6 +99,11 @@ export async function searchLines(orderBy, pagination, filters = []) {
           lines {
             msisdn
             imsi
+            status
+            auditable {
+              created
+              updated
+            }
           }
           customFields {
             custom1
@@ -100,6 +113,16 @@ export async function searchLines(orderBy, pagination, filters = []) {
             custom5
             custom6
           }
+          offerGroup {
+            customerAccount {
+              name
+              code
+            }
+          }
+          workflowCode
+          commitmentEnd
+          billingStatus
+          billingStatusChangeDate
           offer {
             marketingOffer {
               code
@@ -126,6 +149,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
             counter3DownRoamingRounded
             counter3UpRoamingRounded
           }
+          workflowCode
         }
       }
     }
@@ -243,12 +267,19 @@ function addTerminationValidated(gqlFilters, selectedFilters) {
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
   const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
-  if (!filterValue) return;
-  const containsSearch = filterValue.value.includes('*');
-  if (containsSearch) {
-    gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.value.replace('*', '')}" }`);
+  if (filterValue && filterValue.from && filterValue.to) {
+    gqlFilters.push(
+      `${gqlParamName}: {startsWith: "${filterValue.from}", endsWith: "${filterValue.to}"}`
+    );
+  } else if (filterValue && filterValue.from) {
+    const containsSearch = filterValue.from.includes('*');
+    if (containsSearch) {
+      gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.from.replace('*', '')}" }`);
+    } else {
+      gqlFilters.push(`${gqlParamName}: {startsWith: "${filterValue.from}" }`);
+    }
   } else {
-    gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.value}" }`);
+    return;
   }
 }
 
@@ -259,7 +290,7 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
 function addFileImportId(gqlFilters, selectedFilters) {
   const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
   if (filter && filter.values && filter.values.length) {
-    gqlFilters.push(`uploadId: "${filter.values[0].id}"`);
+    gqlFilters.push(`tempDataUuid: "${filter.values[0].id}"`);
   }
 }
 
@@ -399,5 +430,33 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
     }
     `
   );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.exportErrors;
+}
+
+export async function exportSimCardInstances(columns, orderBy, exportFormat, filters = []) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportSimCardInstances(filter: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+        downloadUri
+        asyncRequired
+      }
+    }
+    `
+  );
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportSimCardInstances;
 }

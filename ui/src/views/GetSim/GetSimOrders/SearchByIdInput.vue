@@ -30,6 +30,18 @@ import { mapMutations } from 'vuex';
 
 export default {
   data() {
+    const prefix = {
+      iccid: {
+        'serie-0': '893320',
+      },
+      imsi: {
+        'serie-0': '20820',
+        'serie-1': '27007',
+      },
+      msisdn: {
+        'serie-0': '33',
+      },
+    };
     return {
       valuesForSelectOptions: [
         {
@@ -67,6 +79,7 @@ export default {
       selectPlaceholder: this.$t('type'),
       selectedSearchType: null,
       inputSearchValue: undefined,
+      prefix,
     };
   },
 
@@ -94,14 +107,18 @@ export default {
           this.selectedSearchType = this.valuesForSelectOptions[5].value;
         } else {
           const len = checkForLength(newValue);
-          if (len === 19 && startsWith(newValue, '893320')) {
+          if (len === 19 && startsWith(newValue, this.prefix.iccid['serie-0'])) {
             this.selectedSearchType = this.valuesForSelectOptions[0].value;
           } else if (
             len === 15 &&
-            (startsWith(newValue, '20820') || startsWith(newValue, '27007'))
+            (startsWith(newValue, this.prefix.imsi['serie-0']) ||
+              startsWith(newValue, this.prefix.imsi['serie-1']))
           ) {
             this.selectedSearchType = this.valuesForSelectOptions[1].value;
-          } else if ((len === 15 || len === 11) && startsWith(newValue, '33')) {
+          } else if (
+            (len === 15 || len === 11) &&
+            startsWith(newValue, this.prefix.msisdn['serie-0'])
+          ) {
             this.selectedSearchType = this.valuesForSelectOptions[2].value;
           } else if (len === 15) {
             this.selectedSearchType = this.valuesForSelectOptions[3].value;

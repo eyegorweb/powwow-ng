@@ -63,7 +63,6 @@ export default {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  max-width: 220px;
 
   &.without-label {
     justify-content: flex-start;
@@ -74,7 +73,6 @@ export default {
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 65%;
-    max-width: 140px;
     overflow: hidden;
 
     &__label {

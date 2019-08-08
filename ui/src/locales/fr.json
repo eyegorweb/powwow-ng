@@ -16,6 +16,7 @@
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
+  "exportError": "Impossible d'exporter",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "optional": "Champ facultatif",
@@ -33,6 +34,15 @@
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
   "processing": "Traitement en cours ...",
+  "range": "Plage de valeurs",
+  "applyDate": "Date d'application",
+  "fromThe": "depuis le :",
+  "loading": "Chargement",
+  "home": {
+    "customize": {
+      "title": "Ajouter/Supprimer des widgets"
+    }
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes"
@@ -91,6 +101,7 @@
     "between-min-max": "Entre {min} et {max}",
     "ge": "Supérieure à",
     "le": "Inférieure à",
+    "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
     "date-over": "Au delà de {endDate}",
     "details": {
@@ -155,7 +166,7 @@
     "actStatuses": {
       "WAITING": "En attente",
       "IN_PROGRESS": "En cours",
-      "IN_ERROR": "En erreur",
+      "IN_ERROR": "En échec",
       "TERMINATED": "Terminé",
       "CANCELLED": "Annulé"
     },
@@ -176,7 +187,7 @@
         "success": "Succès",
         "ongoing": "En cours",
         "fail": "Échec",
-        "onfailing": "En erreur",
+        "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut"
@@ -250,8 +261,8 @@
       }
     },
     "lineDetail": {
-      "title": "Détail de la ligne {lineId}",
-      "offer": "Offer",
+      "title": "Détail de la ligne {msisdn}",
+      "offer": "Offre",
       "lineStatus": "Statut de la ligne",
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabricant",
@@ -264,9 +275,22 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "report": {
+        "alreadyExists": "Ligne existante"
+      },
       "tab1": {
         "lineInfo": "Informations sur la ligne",
-        "billingOffer": "Facturation et offre",
+        "billingOffer": {
+          "title": "Facturation et offre",
+          "billingAccount": "Compte de facturation",
+          "detailStatus": "Détails des statuts",
+          "remainingTime": "Durée restante",
+          "timeForSuspendedOffer": "Durée restante de supspension offerte",
+          "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
+          "offerName": "Nom de l'offre",
+          "endCommitmentDate": "Date de fin d'engagement",
+          "billingStatus": "Statut de facturation"
+        },
         "lineServices": "Services de la ligne",
         "alarmsList": "Liste des alarmes",
         "actsHistory": "Historique des actes de gestion",
@@ -283,8 +307,18 @@
           "notPreactivated": "Non préactivée depuis le :",
           "preactivated": "Préactivée depuis le :",
           "activated": "Activée depuis le :",
-          "suspendedReleased": "Suspendue ou Résiliée depuis le :"
+          "suspendedReleased": "Suspendue ou Résiliée depuis le :",
+          "RELEASED": "Résiliée depuis le :",
+          "ALLOCATED": "Allouée depuis le :",
+          "AVAILABLE": "Disponible depuis le :",
+          "ALLOCATING": "En cours d'allocation depuis le :",
+          "RESERVED": "Réservée depuis le :"
         }
+      },
+      "tabServices": {
+        "optionalServices": "Services optionels",
+        "services": "Services",
+        "ipAdress": "Adresse IP Fixe"
       }
     },
     "actCreation": {
@@ -295,7 +329,7 @@
         "MANAGE_ALARMS": "Gérer des alarmes",
         "EXPORT_LAST_USAGE": "Export dernier usage",
         "CHANGE_CF": "Changement de C.F.",
-        "CHANGE_OFFER": "Changement d'offre",
+        "CHANGE_OFFER": "Changer d'offre",
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
         "CHANGE_STATUS": "Résilier",
@@ -307,8 +341,26 @@
         "MODAL_WARNING": "Attention ! Cette action est définitive",
         "TRANSFERT_LINES": "Transférer vers un partenaire",
         "CHANGE_SIMCARD": "Changer de carte SIM",
-        "CHANGE_MSISDN": "Changer de MSISDN"
+        "CHANGE_MSISDN": "Changer de MSISDN",
+        "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes"
       },
+
+      "step2Titles": {
+        "CHANGE_SERVICES": "Configurer la modification des services",
+        "SUSPEND": "Configurer la suspension",
+        "REACTIVATE": "Configurer la réactivation des lignes",
+        "CHANGE_STATUS": "Configurer la résiliation",
+        "TEST_PHASE": "Configurer la sortie de phase de test",
+        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
+        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
+        "TRANSFERT_LINES": "Configurer le changement de partenaires",
+        "CHANGE_CF": "Configuration du compte de facturation",
+        "CHANGE_MSISDN": "Configurer le changement MSISDN",
+        "CHANGE_SIMCARD": "Configurer le changement de cartes SIM",
+        "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation",
+        "CHANGE_OFFER": "Configurer le changement d'offre"
+      },
+
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
         "modalConfirmMsg": "Confirmez-vous la résiliation ?"
@@ -340,11 +392,23 @@
         "validateBtn": "Valider la modification",
         "confirmBtn": "Confirmer la modification",
         "confirmationWarning": "Attention ! Cette action a un impact sur le réseau.Confirmez-vous la modification de services ?",
-        "servicesMandatory": "* Veuillez choisir une offre et services"
+        "servicesMandatory": "* Veuillez choisir une offre et services",
+        "shouldChangeData": "Modifier le service data"
+      },
+
+      "changeICCID": {
+        "confirmationWarning": "Attention ! Coupure de tous les services. Les anciennes cartes SIM seront définitivement désactivées.  Confirmez-vous le changement de SIM ?",
+        "currentICCID": "ICCID actuel",
+        "newICCID": "Nouvel ICCID"
+      },
+      "changeMSISDN": {
+        "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",
+        "currentMSISDN": "MSISDN actuel",
+        "newMSISDN": "Nouvel MSISDN"
       },
 
       "report": {
-        "alreadyExists": "Lignes éxistantes",
+        "alreadyExists": "Lignes existantes",
         "invalidFormat": "Format invalide",
         "notFound": "Introuvable"
       },
@@ -385,17 +449,10 @@
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
       },
-
-      "step2Titles": {
-        "CHANGE_SERVICES": "Configurer la modification des services",
-        "SUSPEND": "Configurer la suspension",
-        "REACTIVATE": "Configurer la réactivation des lignes",
-        "CHANGE_STATUS": "Configurer la résiliation",
-        "TEST_PHASE": "Configurer la sortie de phase de test",
-        "CUSTOM_FIELDS": "Configurer les valeurs des champs libres",
-        "MANAGE_CANCELLATION": "Configurer la demande de résiliation",
-        "TRANSFERT_LINES": "Configurer le changement de partenaires",
-        "CHANGE_CF": "Configuration du compte de facturation"
+      "changeOffer": {
+        "confirmationWarning": "Attention ! Toutes les lignes sélectionnées seront modifiées.",
+        "chooseOffer": "Choisir une offre cible",
+        "validateButton": "Changer d'offre"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
@@ -418,12 +475,37 @@
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "billingAccount": "séléctionner un compte de facturation",
+      "step1File": "séléctionner un fichier de travail",
       "step1Title": "séléctionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
-      "selectOffer": "séléctionner des offres",
+      "selectOffer": "sélectionner une offre",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
-        "notFounfLines": "lignes ne sont pas compatibles"
+        "notFoundLines": "lignes ne sont pas compatibles",
+        "errors": {
+          "notValid": "{totalInvalidFormat} lignes ont un {idType} erroné.",
+          "unknown": "{totalNotFound} lignes ont un {idType} inconnu."
+        }
+      },
+      "massActionsHistory": {
+        "title": "Historique des actes de gestion",
+        "columns": {
+          "unitAction": "Acte unitaire",
+          "massAction": "Acte de masse",
+          "actionType": "Type d’acte",
+          "extraInfo": "Détail de l’acte",
+          "status": "Etat",
+          "dueDate": "Prévu"
+        },
+        "statuses": {
+          "WAITING": "En attente",
+          "SENT": "Envoyé",
+          "IN_PROGRESS": "En cours",
+          "OK": "Ok",
+          "KO": "Ko",
+          "REPLAYED": "Rejoué",
+          "CANCELLED": "Annulé"
+        }
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
@@ -434,7 +516,8 @@
         "ACTIVATING": "Activation en cours",
         "CANCELED": "Annulée",
         "TEST": "Test",
-        "BARRED": "Barré"
+        "BARRED": "Barré",
+        "ALLOCATING": "En cours d'allocation"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Demande de résiliation",
@@ -480,15 +563,17 @@
         "simStatus": "Statut de SIM",
         "lastPLMN": "Dernier pays",
         "msisdnA": "A-MSISDN",
-        "manufacturer": "Fabricant (IMEI)",
+        "manufacturer": "Constructeur",
         "deviceReference": "Modèle (IMEI)",
-        "commercialRef": "Référence commerciale",
+        "commercialRef": "Réf. Commerciale",
         "offer": "Offre",
         "lineStatus": "Statut de la ligne",
         "billingStatus": "Statut de facturation",
         "currentSynthesis": "Synthèse en cours conso",
         "positionedAlarms": "Alarmes positionnées",
-        "triggeredAlarms": "Alarmes déclenchées"
+        "triggeredAlarms": "Alarmes déclenchées",
+        "voice": "Voix",
+        "UsageCounterBtn": "Voir l'en-cours"
       }
     },
     "search": {
@@ -564,6 +649,7 @@
     "compatibility": "-non compatible"
   },
   "filters": {
+    "idOrder": "ID de commande",
     "title": "FILTRES",
     "partners": "Partenaires",
     "countries": "Pays",

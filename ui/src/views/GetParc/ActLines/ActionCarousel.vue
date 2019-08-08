@@ -12,7 +12,6 @@
               :icon="item.icon"
               :title="item.title"
               :subtitle="item.subtitle"
-              :selected="item.selected"
               :item="item"
               @click="() => $emit('itemClick', item)"
             />

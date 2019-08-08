@@ -36,12 +36,10 @@
 
       <Modal v-if="waitForConfirmation">
         <div slot="body">
-          <div class="text-warning">
-            {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
-          </div>
+          <div class="text-warning">{{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}</div>
           <p>
-            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span
-            ><br />
+            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+            <br />
             <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
           </p>
         </div>

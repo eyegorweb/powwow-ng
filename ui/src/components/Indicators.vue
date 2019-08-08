@@ -5,7 +5,7 @@
       :key="indicator.labelKey"
       :indicator="indicator"
       :partners="partners"
-      :set-current-filters-fn="setCurrentFiltersFn"
+      :on-click="onClick"
       @removeme="i => removeIndicator(i)"
     />
   </ul>
@@ -21,7 +21,7 @@ export default {
   },
   props: {
     meta: Array,
-    setCurrentFiltersFn: Function,
+    onClick: Function,
     partners: Object,
   },
 

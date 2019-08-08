@@ -1,7 +1,5 @@
 <template>
-  <div>
-    {{ $t(simStatus) }}
-  </div>
+  <div>{{ $t(simStatus) }}</div>
 </template>
 
 <script>
@@ -35,6 +33,9 @@ export default {
       }
       if (simStatus === 'RELEASED') {
         return 'getparc.actLines.simStatuses.RELEASED';
+      }
+      if (simStatus === 'ALLOCATING') {
+        return 'getparc.actLines.simStatuses.ALLOCATING';
       }
 
       return get(this.row, 'statuts');

@@ -204,7 +204,7 @@ export async function changeCustomerAccount(filters, lines, params) {
   });
 }
 
-export async function addServices(filters, lines, params) {
+export async function changeServices(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
@@ -214,7 +214,35 @@ export async function addServices(filters, lines, params) {
       servicesToActivate,
       servicesToDesactivate,
       tempDataUuid,
+      dataService,
     } = params;
+
+    let gqlDataServiceParam = undefined;
+
+    if (dataService && dataService.shouldChangeData) {
+      if (dataService.dataService.checked) {
+        const catalogServiceParameters = dataService.dataService.apns
+          .filter(s => s.selected)
+          .map(a => {
+            return `{
+              parameterCode:"${a.code}",
+               action:ADD
+              }`;
+          })
+          .join(',');
+
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: ADD,
+          catalogServiceParameters: [${catalogServiceParameters}]
+        }`;
+      } else {
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: DELETE
+        }`;
+      }
+    }
     const gqlServicesAddParam = servicesToActivate.map(
       id => `{
       serviceCode:"${id}",
@@ -229,7 +257,11 @@ export async function addServices(filters, lines, params) {
     }`
     );
 
-    const gqlChangeServicesParam = [...gqlServicesAddParam, ...gqlServicesDeleteParam].join(',');
+    const gqlChangeServicesParam = [
+      ...gqlServicesAddParam,
+      ...gqlServicesDeleteParam,
+      gqlDataServiceParam,
+    ].join(',');
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -309,6 +341,108 @@ export async function manageCancellation(filters, lines, params) {
   )}" }
     )
   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeMSISDN(params) {
+  const { tempDataUuid, notifEmail, dueDate, partyId } = params;
+
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      tempDataUuid: "${tempDataUuid}"
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+export async function changeSingleMSISDN(params) {
+  const { notifEmail, dueDate, partyId, msisdn, newMsisdn } = params;
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      msisdnInput: {msisdn: "${msisdn}", newMsisdn: "${newMsisdn}"}
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeICCID(params) {
+  const { tempDataUuid, notifEmail, dueDate, partyId } = params;
+
+  const queryStr = `
+  mutation{
+    changeICCID(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      tempDataUuid: "${tempDataUuid}"
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeSingleICCID(params) {
+  const { notifEmail, dueDate, partyId, iccid, newIccid } = params;
+
+  const queryStr = `
+  mutation{
+    changeICCID(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      iccidInput: {iccid: "${iccid}", newIccid: "${newIccid}"}
+    })
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      successful
+      containsErrors
+    }
+   }
   `;
 
   return await query(queryStr);

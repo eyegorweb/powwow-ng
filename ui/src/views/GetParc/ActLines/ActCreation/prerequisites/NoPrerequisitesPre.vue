@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
       <div class="w-50">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
-        <PartnersPart @setpartner="setPartner" />
+        <PartnersPart @setpartner="setPartner" @setAndSearch="setAndSearch" />
       </div>
     </div>
   </PrereqContainer>
@@ -28,9 +28,18 @@ export default {
       this.selectedPartner = chosenPartner;
     },
 
+    setAndSearch(partner) {
+      this.selectedPartner = partner;
+      this.$emit('set:preprequisites', {
+        partner,
+        search: true,
+      });
+    },
+
     validatePrerequisites() {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
+        search: true,
       });
     },
   },
