@@ -2,6 +2,60 @@
 
 <!--- next entry here -->
 
+## 0.6.0
+2019-08-08
+
+### Features
+
+- intégration API changement MSISDN (5bafafd03aede99b53f5d2a2bbaf54f0a6a99402)
+- Configurer le Changement de cartes SIM (08d0a02cc99f1c44685af784f2d99ca7ffeab9c2)
+- 341-filtre-plage-iccid (bc38853c79ea381a0f3865d6b18b5bd68c5aa775)
+- partie front pour activer/préactiver des lignes (6e825ff03c023db47231139e66b9244e3cfac747)
+- ajoute-filtre-obligatoire-reactivation (81dcbe2cf94d477bbac8d5e718c5da1a83fb767f)
+- ajouter service data dans la modification de services (32ddec270d1c53566b816b3066578d4e45163d62)
+- création d'acte de changement ICCID (7e7225e19e817022884ec524f31f9d53bd9d171b)
+- 522 Partie front de la modification de services depuis le détail d'une ligne (ceae9b1dd8f89ac54afafdf76bf3d5eff4d82a23)
+- 705 Exporter les lignes (01bc1b5ea3c0717eeb8030b02e4fc4845532a983)
+- **homepage:** 639 widget commandes (24053ef44ff05786591d19406174a6321180c8b3)
+- **homepage:** 639 lien vers la page de commandes depuis le widget de commandes (23e7eafef78b75d008b7a0336b46d3b07681ffda)
+- 639 Bouton voir plus (a29f14f688a8ae073308b0fab7e0fa063f5f00fb)
+- acte-changer-offre (e88d32ea43906362ae88517d18b39fdad2af2ef3)
+- detail-ligne (dd7ef5ab2c3619e5832f64aeda9f6814483d78d9)
+- **homepage:** 667  Composant gauge (44864c0d172a890a6703417279da7cff32d8f3dd)
+- **homepage:** 669 Composant pour afficher les dernières factures (e1f44530a36629386476cd968e263d8fe9ec7962)
+
+### Fixes
+
+- corriger bug sur la création d'acte (6a6c9b22585d3b55f18cc01baa6fbd9eee43647c)
+- format date (fa4bc8a38ef4bb93c94e5cd5bcb24027bcd7a083)
+- redirect by indicator (92fe3e88769ed8ae373cdce13451b7e7ca9be939)
+- **lines:** add filter search by file import (86aafa9919d4543f1d7afa64b6c13d48369b1d89)
+- correction style (71aef6b07d87718a567c01e187fa52dc119d12f5)
+- label (be12af39a58daff0335b8ebb9300eec3dfdcb11a)
+- Séléctionner automatiquement la France après Autocomplete de l'adresse (7cfc6762f1a0bd1eed2a52ba9f54d5fba4a3af9e)
+- affichage conditionnel du form de création d'acte (e62afd75110687ff9d1bff2db017862800580b4f)
+- filtre par import de fichier (8a5c9fdd9be72fbc7e83219dd36a8f65069a5bc2)
+- Correction du formulaire de changement de cartes SIM (e850387cb4e06f2c497dbdb6e4e13d5ebd28dcb0)
+- Ne pas lancer la recherche quand on choisi un act (a35eec111f490222c9f54e2f6e52c3591d0c4e52)
+- correction de bugs d'affichage sur la création d'acte : changement service (25ef881a8129aff7251e7a56854c62202a4178cb)
+- dépendence entre les partenaires de la barre de filtres et pré requis des actes (35eebdd48b3474b066034ac4c1efdfc9bc5ca497)
+- local storage table lignes (7cc9d406557e0d365cee6489e25f3a5356582b6e)
+- 585 Validation des inputs ICCID et MSISDN (8786e8fbe9fb508d77ac91a3793ac8cd08143286)
+- 632 corriger la recherche avec prérequis (460566cb79ec43ec62f0bd9c1da462b45c7c7e46)
+- 705 correction de l'export des liges (6f6363a35f22c0563022a6f4cfe21df368c3e937)
+- filtre iccid (42ce52589200a2f01326ff7403e2f54168c46f43)
+- 632 lancer la recherche quand un partenaire est choisi (afc3f0829a0ebcf2e4185f051661d96dad152ead)
+- 536 Corriger la recherche par import de fichier (ac956b4a558e5812a92911e1c6352fadfd95e937)
+- 585 corriger l'affichage des erreurs (7649d3013f6d935c60b777a312d5aa6eb8763f06)
+- 521 correction de l'affichage du menu dans le détail de lignes (33ccc692bf9b319653f0e1b93540e4ab4cac55fd)
+- traitement des erreurs d'import de fichiers durant la création d'actes de masse (569df3a4edfa553a73c85b55f77a13f422c7596c)
+- **homepage:** 639 intialiser corectement le filtre par ID (aae485ad3a2e5a66295c1b2c5552c0005c5b988f)
+- 521 corriger la valeur du status commercial (20a31c94b29f0bbb39d1f10404dede4577cb8331)
+- 639 Correction des filtres du widget commandes (8d3fe0d1dc072f6d80cbfe7b2d8df76039de4eab)
+- 632 séléctionner automatiquement le partenaire choisi dans la barre de contexte (dfa18c2d74589e2f67998671b18790dd599a1a7b)
+- 478/change offer (7971a11936d34aa559c5baf609020297935c3680)
+- Corriger le sorting sur la colonne partenaire dans la recherche de lignes (1631b723e45786f4b25c4b95da096d611a1e4c7f)
+
 ## 0.5.1
 2019-07-10
 
