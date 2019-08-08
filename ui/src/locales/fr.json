@@ -214,6 +214,12 @@
         "newStatus": "Nouveau statut",
         "changeCf": "Nouveau C.F",
         "newOffer": "Nouvelle offre",
+        "CHANGE_STATUS": {
+          "suspended": "Suspendu",
+          "terminated": "Résilié",
+          "activated": "Actif",
+          "reactivated": "Actif"
+        },
         "SERVICE_CHANGE": {
           "ADDED": "Service(s) ajouté(s)",
           "REMOVED": "Retiré(s)"
