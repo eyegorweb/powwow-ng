@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.149+20190808093328
+2019-08-08
+
+### Features
+
+- ajout du statut de destination dans le détail acte de masse (137a8870defcda187d386784aba3f5d7bcf61223)
+
 ## 0.3.0-master.148+20190807084358
 2019-08-07
 
