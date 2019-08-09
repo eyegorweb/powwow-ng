@@ -101,7 +101,6 @@ export default {
     return {
       prereqSet: false,
       indicators: lineIndicators,
-      carouselItems,
       tableIsEmpty: true,
 
       // Pour recréer le composant ActForm à chaque changement des prérequis
@@ -116,9 +115,17 @@ export default {
       'selectedFileForActCreation',
     ]),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userIsPartner']),
+
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+    carouselItems() {
+      if (this.userIsPartner) {
+        return carouselItems.filter(i => !i.boOnly);
+      }
+      return carouselItems;
+    },
     canShowForm() {
       return this.creationMode && this.actCreationPrerequisites && !this.tableIsEmpty;
     },

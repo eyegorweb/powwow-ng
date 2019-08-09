@@ -309,6 +309,7 @@ export default [
     subtitle: '',
     selected: false,
     color: 'orange',
+    boOnly: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
