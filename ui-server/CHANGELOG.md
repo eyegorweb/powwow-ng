@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.152+20190809115609
+2019-08-09
+
+### Features
+
+- 725 Gérer la création d'actes en tant que partenaire (62501ab602d046cbeb326107d64e39f032b9ad12)
+
 ## 0.3.0-master.151+20190809113302
 2019-08-09
 
