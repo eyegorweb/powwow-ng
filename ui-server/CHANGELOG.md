@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.154+20190809162133
+2019-08-09
+
+### Fixes
+
+- Correction de la case à cocher sur la séléction des lignes (3354ac57c57f5b31aad477a301e51a933f1b20cc)
+
 ## 0.3.0-master.153+20190809145045
 2019-08-09
 
