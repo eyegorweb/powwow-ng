@@ -47,7 +47,7 @@ export const getters = {
  * enlève les Comptes de facturations et Offres de partenaires non séléctionnés
  * met à jour les champs libres
  */
-async function setPartnersFilter({ commit, getters }, partners, isHidden) {
+async function setPartnersFilter({ commit, getters }, { partners, isHidden }) {
   commit('selectFilterValue', {
     id: 'filters.partners',
     values: partners,
@@ -75,7 +75,7 @@ export const actions = {
      */
     const filteredFilters = store.state.currentFilters.filter(f => f.id !== filterId);
     if (filterId === 'filters.partners') {
-      setPartnersFilter(store, []);
+      setPartnersFilter(store, { partners: [] });
     } else {
       store.commit('setCurrentFilters', filteredFilters);
     }

@@ -40,9 +40,20 @@ export default {
   },
   mounted() {
     const data = initDataService(this.catalogOffer);
-    this.apns = data.apns;
-    this.checked = data.checked;
-    this.editable = data.editable;
+    if (data) {
+      this.apns = data.apns;
+      this.checked = data.checked;
+      this.editable = data.editable;
+    } else {
+      this.apns = [
+        {
+          code: 'TEST',
+          label: 'testrnis.fr',
+          selectable: false,
+          selected: true,
+        },
+      ];
+    }
   },
   methods: {
     toggleApn(apn) {
