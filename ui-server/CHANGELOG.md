@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.151+20190809113302
+2019-08-09
+
+### Fixes
+
+- ajoute les changements à venir dans le détail (e5ff9a4adafc5d7005cfa0fd2e0564b9c31c2086)
+
 ## 0.3.0-master.150+20190808134916
 2019-08-08
 
