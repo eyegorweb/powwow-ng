@@ -5,23 +5,37 @@
         {{ $t('getparc.actLines.details.upcommingChanges') }}
       </h4>
     </div>
-    <div class="overview-item mr-5">
-      <h6>01/01/2017 :</h6>
-      <p>Changement 1 ...</p>
-    </div>
-    <div class="overview-item mr-5">
-      <h6>01/01/2017 :</h6>
-      <p>Changement 2 ...</p>
+    <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
+      <h6>{{ i.statusDate }}</h6>
+      <p>{{ i.status }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import { fetchUnitActionsWithaccessPoint } from '@/api/unitActions';
+import get from 'lodash.get';
+
 export default {
+  data() {
+    return {
+      massActions: undefined,
+    };
+  },
   props: {
     content: {
       type: Object,
     },
+  },
+  methods: {
+    get(path, defaultVal = '') {
+      return get(this.content, path, defaultVal);
+    },
+  },
+  async mounted() {
+    this.massActions = await fetchUnitActionsWithaccessPoint(this.get('accessPoint.id'), [
+      'WAITING',
+    ]);
   },
 };
 </script>
