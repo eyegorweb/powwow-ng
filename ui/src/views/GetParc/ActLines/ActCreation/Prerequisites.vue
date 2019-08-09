@@ -107,14 +107,15 @@ export default {
 
     setPrerequisites(allPrereq) {
       this.resetForm();
-      if (allPrereq.offer) {
-        this.setOffersFilter([allPrereq.offer]);
-      }
       if (allPrereq.partner) {
         this.setPartnersFilter({
           partners: [allPrereq.partner],
           isHidden: !!allPrereq.isPartnerHidden,
         });
+      }
+
+      if (allPrereq.offer) {
+        this.setOffersFilter([allPrereq.offer]);
       }
 
       if (allPrereq) {
