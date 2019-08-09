@@ -187,7 +187,8 @@ export default {
       set(orderedCells) {
         const notVisibleCells = this.usableColumns.filter(c => !c.visible);
         this.usableColumns = orderedCells.concat(notVisibleCells);
-        this.saveColumnsToLocalStorage(this.usableColumns);
+        const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+        this.saveColumnsToLocalStorage([...columnsWithCondition, ...this.usableColumns]);
       },
     },
 
@@ -252,8 +253,10 @@ export default {
       }
     },
     setColumns(newColumns) {
+      console.log('HERE');
       this.usableColumns = newColumns;
-      this.saveColumnsToLocalStorage(newColumns);
+      const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+      this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);
       this.close();
     },
     close() {
