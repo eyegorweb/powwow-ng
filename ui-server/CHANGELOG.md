@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.153+20190809145045
+2019-08-09
+
+### Fixes
+
+- correction du prérequis "offres" (3048d9f7a36ff74b629e1acf2617e86f252b4681)
+
 ## 0.3.0-master.152+20190809115609
 2019-08-09
 
