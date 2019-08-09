@@ -110,7 +110,11 @@ export function initFilterForPartnerUser(store, setPartnersFilter) {
       },
     ];
     store.commit('setDefaultFilter', defaultFilters);
-    if (setPartnersFilter) setPartnersFilter(store, partnerFilterValues, true);
+    if (setPartnersFilter)
+      setPartnersFilter(store, {
+        partners: partnerFilterValues,
+        isHidden: true,
+      });
   }
   store.commit('applyFilters');
 }
