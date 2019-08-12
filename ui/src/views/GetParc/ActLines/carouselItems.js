@@ -111,15 +111,6 @@ export default [
         id: 'filters.lines.SIMCardStatus',
         values: [
           {
-            id: 'ACTIVATED',
-            label: 'Activée',
-          },
-        ],
-      },
-      {
-        id: 'filters.lines.networkStatus',
-        values: [
-          {
             id: 'SUSPENDED',
             label: 'Suspendue',
           },
