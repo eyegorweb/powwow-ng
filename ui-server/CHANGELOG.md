@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.155+20190812082123
+2019-08-12
+
+### Fixes
+
+- change filtres par défaut pour la réactivation (74014a11f40d13ffde13d314a305d068504a2f9d)
+
 ## 0.3.0-master.154+20190809162133
 2019-08-09
 
