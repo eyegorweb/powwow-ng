@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.157+20190812125944
+2019-08-12
+
+### Fixes
+
+- transfert de lignes pour le bo uniquement (a7be0cd020d646499fd751b03775d35625c58a18)
+
 ## 0.3.0-master.156+20190812121539
 2019-08-12
 
