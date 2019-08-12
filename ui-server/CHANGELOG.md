@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.156+20190812121539
+2019-08-12
+
+### Fixes
+
+- permet la validation de résiliation (d635650429ccffd0e5b78390f8277586283175ae)
+
 ## 0.3.0-master.155+20190812082123
 2019-08-12
 
