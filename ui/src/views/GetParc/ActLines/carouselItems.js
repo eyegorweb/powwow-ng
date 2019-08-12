@@ -235,6 +235,7 @@ export default [
     stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
     subtitle: '',
     selected: false,
+    boOnly: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
