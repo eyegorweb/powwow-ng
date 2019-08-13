@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.159+20190813131916
+2019-08-13
+
+### Fixes
+
+- utiliser la bonne api pour l'acte terminer la phase de test (8b1909ad7a3f674280597f90f435c00bd4922722)
+
 ## 0.3.0-master.158+20190813120919
 2019-08-13
 
