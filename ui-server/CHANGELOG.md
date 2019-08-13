@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.158+20190813120919
+2019-08-13
+
+### Fixes
+
+- infos facturation et offre de la ligne (9aeee342756fb9634b21d74873e9b4071386c011)
+
 ## 0.3.0-master.157+20190812125944
 2019-08-12
 
