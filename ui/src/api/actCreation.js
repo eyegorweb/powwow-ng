@@ -83,15 +83,14 @@ export async function endPhaseTest(filters, lines, params) {
   }
 
   const queryStr = `
-    mutation {
-        terminateLines(input: {
-          filter: {${gqlFilter}},
-          partyId: ${partyId},
-          simCardInstanceIds: [${lineIds}],
-          notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}"
-        })
+
+  mutation {
+    terminatePhaseTest(input: {filter: {${gqlFilter}}, partyId: ${partyId}, simCardInstanceIds: [${lineIds}], notification: ${boolStr(
+    notifEmail
+  )}, dueDate: "${formatDateForGql(dueDate)}"})
+     {tempDataUuid}
     }
+
     `;
 
   return await query(queryStr);
