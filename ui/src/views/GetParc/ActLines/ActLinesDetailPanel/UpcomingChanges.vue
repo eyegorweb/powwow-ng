@@ -5,9 +5,14 @@
         {{ $t('getparc.actLines.details.upcommingChanges') }}
       </h4>
     </div>
-    <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
-      <h6>{{ i.statusDate }}</h6>
-      <p>{{ i.status }}</p>
+    <div v-if="massActions && massActions.length">
+      <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
+        <h6>{{ i.statusDate }}</h6>
+        <p>{{ i.status }}</p>
+      </div>
+    </div>
+    <div v-else>
+      <p>-</p>
     </div>
   </div>
 </template>
@@ -19,7 +24,7 @@ import get from 'lodash.get';
 export default {
   data() {
     return {
-      massActions: undefined,
+      massActions: [],
     };
   },
   props: {

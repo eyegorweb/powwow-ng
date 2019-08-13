@@ -150,6 +150,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
             counter3UpRoamingRounded
           }
           workflowCode
+          remainingSuspension
         }
       }
     }
