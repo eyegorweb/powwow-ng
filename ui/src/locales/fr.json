@@ -291,7 +291,7 @@
           "billingAccount": "Compte de facturation",
           "detailStatus": "Détails des statuts",
           "remainingTime": "Durée restante",
-          "timeForSuspendedOffer": "Durée restante de supspension offerte",
+          "timeForSuspendedOffer": "Durée restante de suspension offerte",
           "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
           "offerName": "Nom de l'offre",
           "endCommitmentDate": "Date de fin d'engagement",
