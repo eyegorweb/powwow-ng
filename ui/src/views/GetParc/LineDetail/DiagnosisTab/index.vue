@@ -1,0 +1,99 @@
+<template>
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="list-group">
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
+          <a
+            @click.prevent="section = item.section"
+            :class="{ active: section == item.section }"
+            href="#"
+          >
+            {{ $t(item.title) }}
+            <i class="ic-Arrow-Next-Icon float-right"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <LineAnalysis v-if="section === 'line_analysis'" :content="content" />
+      <NetworkLocationTest v-if="section === 'network_location_test'" :content="content" />
+      <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
+      <Supervision v-if="section === 'supervision'" :content="content" />
+      <NetworkHistory v-if="section === 'network_history'" :content="content" />
+      <LastTests v-if="section === 'last_tests'" :content="content" />
+      <NetworkInformation v-if="section === 'network_information'" :content="content" />
+    </div>
+  </div>
+</template>
+
+<script>
+import LineAnalysis from './LineAnalysis';
+import NetworkLocationTest from './NetworkLocationTest';
+import NetworkTestControl from './NetworkTestControl';
+import Supervision from './Supervision';
+import NetworkHistory from './NetworkHistory';
+import LastTests from './LastTests';
+import NetworkInformation from './NetworkInformation';
+
+export default {
+  components: {
+    LineAnalysis,
+    NetworkLocationTest,
+    NetworkTestControl,
+    Supervision,
+    NetworkHistory,
+    LastTests,
+    NetworkInformation,
+  },
+  props: {
+    content: Object,
+  },
+  data() {
+    return {
+      section: 'line_analysis',
+      menuItems: [
+        {
+          section: 'line_analysis',
+          title: 'getparc.lineDetail.tab2.lineAnalysis',
+        },
+        {
+          section: 'network_location_test',
+          title: 'getparc.lineDetail.tab2.networkLocationTest',
+        },
+        {
+          section: 'network_test_control',
+          title: 'getparc.lineDetail.tab2.networkTestControl',
+        },
+        {
+          section: 'supervision',
+          title: 'getparc.lineDetail.tab2.supervision',
+        },
+        {
+          section: 'network_history',
+          title: 'getparc.lineDetail.tab2.networkHistory',
+        },
+        {
+          section: 'last_tests',
+          title: 'getparc.lineDetail.tab2.lastTests',
+        },
+        {
+          section: 'network_information',
+          title: 'getparc.lineDetail.tab2.networkInformation',
+        },
+      ],
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.list-group-item {
+  a {
+    color: black;
+
+    &.active {
+      color: $primary;
+    }
+  }
+}
+</style>
