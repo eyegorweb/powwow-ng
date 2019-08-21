@@ -280,7 +280,7 @@
       "previsionalSms": "Prévisionnel SMS",
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
-      "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "analysingTool": "ANALYSER LA LIGNE",
       "report": {
         "alreadyExists": "Ligne existante"
       },
@@ -319,6 +319,31 @@
           "AVAILABLE": "Disponible depuis le :",
           "ALLOCATING": "En cours d'allocation depuis le :",
           "RESERVED": "Réservée depuis le :"
+        }
+      },
+      "tab2": {
+        "lineAnalysis": "Analyser la ligne",
+        "networkLocationTest": "Tester le réseau et la localisation",
+        "networkTestControl": "Tester et contrôler la consommation",
+        "supervision": "Supervision",
+        "networkHistory": "Historique réseau et itinérance",
+        "lastTests": "Derniers tests Coach M2M",
+        "networkInformation": "Informations réseau",
+        "lineAnalysisTitles": {
+          "locationSection": "Localisation sur carte",
+          "lastConnectionStatus": "Statut de la dernière connexion pdp",
+          "ApnIdLastConnexion": "Apn & ip de la dernière connexion pdp",
+          "LastLocation": "Dernière localisation géographique"
+        },
+        "lineAnalysisContent": {
+          "connexionStatus": "Statut de la connexion",
+          "closingConnexionReason": "Raison de la fermeture de la connexion",
+          "connexionDebut": "Début de la connexion",
+          "connexionEnd": "Fin de la connexion",
+          "currentApn": "APN actuel",
+          "IPType": "Type d'adresse IP",
+          "currentIPv4Address": "Adresse IPv4 actuelle",
+          "currentIPv6Address": "Adresse IPv6 actuelle :"
         }
       },
       "tabServices": {

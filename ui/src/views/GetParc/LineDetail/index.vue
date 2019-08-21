@@ -30,7 +30,9 @@
           <DetailsTab :content="lineData" />
         </div>
         <div slot="ongoing">B</div>
-        <div slot="diagnosis">C</div>
+        <div slot="diagnosis">
+          <diagnosisTab></diagnosisTab>
+        </div>
       </UiTabs>
     </div>
   </div>
@@ -39,6 +41,7 @@
 <script>
 import LineSummary from './LineSummary';
 import DetailsTab from './DetailsTab';
+import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -49,6 +52,7 @@ export default {
   components: {
     LineSummary,
     DetailsTab,
+    DiagnosisTab,
     ActionCarousel,
     UiTabs,
     UiTab,
