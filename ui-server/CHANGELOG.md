@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.162+20190823082310
+2019-08-23
+
+### Fixes
+
+- adapte un changement dans l'api terminatePhaseTest (12d4a9003c6f0d2a8253254a3588122d0aa600e9)
+
 ## 0.3.0-master.161+20190821080304
 2019-08-21
 
