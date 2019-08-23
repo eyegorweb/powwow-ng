@@ -374,6 +374,15 @@ export async function manageCancellation(filters, lines, params) {
     dueDate
   )}" }
     )
+    {
+      tempDataUuid
+      invalidFormat
+      alreadyExists
+      notFound
+      wrongStatus
+      successful
+      containsErrors
+    }
   }
   `;
 
