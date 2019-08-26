@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.166+20190826154143
+2019-08-26
+
+### Features
+
+- 737 Brancher les informations du détail de la ligne (0c64b11e9f1fb88ad748d0bc8269bc454fd94861)
+
 ## 0.3.0-master.165+20190826141255
 2019-08-26
 
