@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.164+20190826090710
+2019-08-26
+
+### Features
+
+- 568 ecran-analyse-supervision-ligne (626adfa1cdacd986350d21db80be4de266127d18)
+
 ## 0.3.0-master.163+20190823122111
 2019-08-23
 
