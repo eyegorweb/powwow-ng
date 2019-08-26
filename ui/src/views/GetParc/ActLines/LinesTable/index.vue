@@ -225,10 +225,14 @@ export default {
     },
 
     total() {
-      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      return this.linesActionsResponse && this.linesActionsResponse.simCardInstances
+        ? this.linesActionsResponse.simCardInstances.total
+        : 0;
     },
     rows() {
-      return this.linesActionsResponse ? this.linesActionsResponse.items : [];
+      return this.linesActionsResponse && this.linesActionsResponse.simCardInstances
+        ? this.linesActionsResponse.simCardInstances.items
+        : [];
     },
     page: {
       get() {

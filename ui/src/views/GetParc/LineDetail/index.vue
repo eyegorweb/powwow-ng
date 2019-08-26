@@ -17,7 +17,7 @@
         </h4>
       </div>
     </div>
-    <LineSummary :content="lineData" />
+    <LineSummary :content="lineData" :alarm-triggered="isTriggered" />
     <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
     <div class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
@@ -64,6 +64,7 @@ export default {
     return {
       lineData: {},
       currentLinkIndex: 0,
+      isTriggered: false,
       tabs: [
         {
           label: 'detail',
@@ -138,8 +139,13 @@ export default {
           value: this.$route.params.lineId,
         },
       ]);
-      if (!response || !response.items || !response.items.length) return;
-      this.lineData = response.items[0];
+      if (!response || !response.simCardInstances.items || !response.simCardInstances.items.length)
+        return;
+      this.lineData = response.simCardInstances.items[0];
+      const alarm = response.alarmEventsInfo;
+      if (alarm) {
+        this.isTriggered = true;
+      }
     },
   },
 };

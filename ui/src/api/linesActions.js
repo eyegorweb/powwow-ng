@@ -57,9 +57,14 @@ export async function searchLines(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const filterObject = {
+    searchBy: 'ALARM_ID',
+    id: '1',
+  };
+
   const queryStr = `
   query {
-    simCardInstances(
+    simCardInstances: simCardInstances(
       filter: {
         ${formatFilters(filters)}
       }
@@ -154,10 +159,23 @@ export async function searchLines(orderBy, pagination, filters = []) {
         }
       }
     }
+
+    alarmEventsInfo: alarmEvents(searchBy: ${filterObject.searchBy}, id: ${filterObject.id}) {
+      id
+      emissionDate
+      alarm {
+        id
+        type
+        party {
+          id
+          name
+        }
+      }
+    }
   }`;
 
   const response = await query(queryStr);
-  return response.data.simCardInstances;
+  return response.data;
 }
 
 export function formatFilters(filters) {

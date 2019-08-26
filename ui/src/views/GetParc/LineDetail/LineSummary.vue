@@ -18,7 +18,7 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
             <p class="text-danger">
-              Oui
+              {{ isTriggered }}
             </p>
           </div>
         </div>
@@ -107,8 +107,12 @@ import moment from 'moment';
 export default {
   props: {
     content: Object,
+    alarmTriggered: Boolean,
   },
   computed: {
+    isTriggered() {
+      return this.alarmTriggered ? this.$t('common.YES') : this.$t('common.NO');
+    },
     simStatus() {
       const commercialStatus = get(this.content, 'accessPoint.commercialStatus');
       const simStatus = get(this.content, 'statuts');
