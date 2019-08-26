@@ -56,9 +56,7 @@
               <p v-if="getFromContent('accessPoint.billingStatusChangeDate')" class="mb-0">
                 {{ billingStatus }}
               </p>
-              <p class="mb-0">
-                {{ billingStatusChangeDate }}
-              </p>
+              <p class="mb-0">{{ billingStatusChangeDate }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
@@ -114,10 +112,12 @@ export default {
 
   async mounted() {
     this.commercialStatuses = await fetchCommercialStatuses();
-    const formattedStatus = this.capitalize(get(this.content, 'accessPoint.commercialStatus'));
-    const foundCommercialStatus = this.commercialStatuses.map(l => {
-      return this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`);
-    });
+    const status = get(this.content, 'accessPoint.commercialStatus');
+    if (!status) return;
+    const formattedStatus = this.capitalize(status);
+    const foundCommercialStatus = this.commercialStatuses.map(l =>
+      this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`)
+    );
     const foundCommercialStatusIndex = foundCommercialStatus.indexOf(formattedStatus);
     this.commercialStatus =
       foundCommercialStatusIndex !== -1

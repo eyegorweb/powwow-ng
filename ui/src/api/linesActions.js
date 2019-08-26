@@ -77,6 +77,9 @@ export async function searchLines(orderBy, pagination, filters = []) {
         type
         statuts
         auditable {created}
+        order {
+          id
+        }
         deviceInstance {
           manufacturer
           deviceReference
