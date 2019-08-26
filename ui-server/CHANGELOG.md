@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.165+20190826141255
+2019-08-26
+
+### Features
+
+- Composant pour les graphiques (12aa61d377d5abed902582691a54e46c09fb657a)
+
 ## 0.3.0-master.164+20190826090710
 2019-08-26
 
