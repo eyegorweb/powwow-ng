@@ -135,3 +135,9 @@ $theme-colors: map-merge(
 .handle:hover {
   cursor: pointer;
 }
+
+.mock-value {
+  text-decoration: underline;
+  text-decoration-style: double;
+  text-decoration-color: #ef4b4b;
+}
