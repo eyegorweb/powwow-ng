@@ -71,6 +71,12 @@ export async function searchLines(orderBy, pagination, filters = []) {
         party{
           id
           name
+          custom1FieldLabel
+          custom2FieldLabel
+          custom3FieldLabel
+          custom4FieldLabel
+          custom5FieldLabel
+          custom6FieldLabel
          }
         id
         iccid

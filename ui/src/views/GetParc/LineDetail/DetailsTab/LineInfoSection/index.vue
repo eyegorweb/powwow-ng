@@ -128,27 +128,51 @@
           <template slot="content">
             <div class="d-flex">
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 1 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom1FieldLabel') || $t('col.customFields', { num: 1 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom1') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 2 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom2FieldLabel') || $t('col.customFields', { num: 2 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom2') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 3 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom3FieldLabel') || $t('col.customFields', { num: 3 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom3') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 4 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom4FieldLabel') || $t('col.customFields', { num: 4 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom4') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 5 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom5FieldLabel') || $t('col.customFields', { num: 5 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom5') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 6 }) }}:</h6>
+                <h6>
+                  {{
+                    getFromContent('party.custom6FieldLabel') || $t('col.customFields', { num: 6 })
+                  }}:
+                </h6>
                 <p>{{ getFromContent('accessPoint.customFields.custom6') }}</p>
               </div>
             </div>
