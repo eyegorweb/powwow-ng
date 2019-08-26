@@ -1,119 +1,67 @@
 <template>
-  <div>
+  <div v-if="!isLigneActive" class="warning-message">
+    <h3 class="text-warning text-center mt-5">
+      {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.inactiveLineWarning') }}
+    </h3>
+  </div>
+  <div v-else>
     <div class="row">
       <div class="col-md-4">
-        <draggable handle=".handle">
-          <div>
-            <h4 class="text-primary text-uppercase">
-              {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.locationSection') }}
-            </h4>
-          </div>
-        </draggable>
-      </div>
-      <div class="col-md-8">
-        <draggable handle=".handle">
-          <div>
-            <h4 class="text-primary text-uppercase">
-              {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.lastConnectionStatus') }}
-            </h4>
-            <div class="bg-white p-4 rounded">
-              <div class="d-flex">
-                <div class="item">
-                  <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionStatus') }}:</h6>
-                  <p>
-                    -
-                  </p>
-                </div>
-                <div class="item justify-content-end">
-                  <h6>
-                    {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.closingConnexionReason') }}:
-                  </h6>
-                  <p class="text-success">
-                    -
-                  </p>
-                </div>
-              </div>
-              <hr />
-              <div class="d-flex">
-                <div class="item">
-                  <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionDebut') }}:</h6>
-                  <p>
-                    Du 18/11/2018 à 15:35:12
-                  </p>
-                </div>
-                <div class="item justify-content-end">
-                  <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionEnd') }}:</h6>
-                  <p>
-                    Au 18/11/2018 à 15:35:45
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </draggable>
-        <draggable handle=".handle">
-          <div>
-            <h4 class="text-primary text-uppercase">
-              {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.ApnIdLastConnexion') }}
-            </h4>
-            <div class="bg-white p-4 rounded">
-              <div class="d-flex">
-                <div class="item">
-                  <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentApn') }}:</h6>
-                  <p>
-                    gprsnac.com
-                  </p>
-                </div>
-                <div class="item justify-content-end">
-                  <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                  <p class="text-success">
-                    Non disponible
-                  </p>
-                </div>
-              </div>
-              <hr />
-              <div class="d-flex">
-                <div class="item">
-                  <h6>
-                    {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv4Address') }}:
-                  </h6>
-                  <p>
-                    192.168.1.10
-                  </p>
-                </div>
-                <div class="item justify-content-end">
-                  <h6>
-                    {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv6Address') }}:
-                  </h6>
-                  <p>
-                    2001:db8:0:85a3:0:0:ac1f:8001
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </draggable>
-      </div>
-    </div>
-
-    <div class="row">
-      <draggable handle=".handle">
         <div>
           <h4 class="text-primary text-uppercase">
-            {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.LastLocation') }}
+            {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.locationSection') }}
+          </h4>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div>
+          <h4 class="text-primary text-uppercase">
+            {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.lastConnectionStatus') }}
+          </h4>
+          <div class="bg-white p-4 rounded">
+            <div class="d-flex">
+              <div class="item">
+                <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionStatus') }}:</h6>
+                <p>{{ getValue(pdpConnexionData, 'connectionStatus') }}</p>
+              </div>
+              <div class="item justify-content-end">
+                <h6>
+                  {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.closingConnexionReason') }}:
+                </h6>
+                <p>
+                  {{ getValue(pdpConnexionData, 'connectionClosingReason') }}
+                </p>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex">
+              <div class="item">
+                <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionDebut') }}:</h6>
+                <p>{{ getValue(pdpConnexionData, 'startDate') }}</p>
+              </div>
+              <div class="item justify-content-end">
+                <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionEnd') }}:</h6>
+                <p>{{ getValue(pdpConnexionData, 'endDate') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-primary text-uppercase">
+            {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.ApnIdLastConnexion') }}
           </h4>
           <div class="bg-white p-4 rounded">
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentApn') }}:</h6>
                 <p>
-                  gprsnac.com
+                  {{ getValue(pdpConnexionData, 'apn') }}
                 </p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                <p class="text-success">
-                  Non disponible
+                <p>
+                  {{ getValue(pdpConnexionData, 'ipAddressType') }}
                 </p>
               </div>
             </div>
@@ -122,32 +70,93 @@
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv4Address') }}:</h6>
                 <p>
-                  192.168.1.10
+                  {{ getValue(pdpConnexionData, 'ipV4Address') }}
                 </p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv6Address') }}:</h6>
                 <p>
-                  2001:db8:0:85a3:0:0:ac1f:8001
+                  {{ getValue(pdpConnexionData, 'ipV6Address') }}
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </draggable>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-primary text-uppercase">
+          {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.LastLocation') }}
+        </h4>
+        <div class="bg-white p-4 rounded">
+          <div class="d-flex">
+            <div class="item">
+              <h6>
+                {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.geographicalCoordinates') }}:
+              </h6>
+              <p>
+                {{ getValue(geographicalLocation, 'geographicalCoordinates') }}
+              </p>
+            </div>
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.lastLocationDate') }}:</h6>
+              <p>
+                {{ getValue(geographicalLocation, 'lastCommunicationDate') }}
+              </p>
+            </div>
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.useTypeAndDetail') }}:</h6>
+              <p>
+                {{ getValue(geographicalLocation, 'usageDetailsByDirection') }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import { fetchCurrentPdpConnexion } from '@/api/pdpConnexion';
+import { lastGeographicalLocation } from '@/api/geographicalLocation';
+import get from 'lodash.get';
 
 export default {
-  components: {
-    draggable,
+  components: {},
+  data() {
+    return {
+      pdpConnexionData: undefined,
+      geographicalLocation: undefined,
+    };
+  },
+  computed: {
+    isLigneActive() {
+      return this.content.statuts === 'ALLOCATED';
+    },
   },
   props: {
     content: Object,
+    menuActive: Boolean,
+  },
+  async mounted() {
+    if (this.getValue(this.content, 'id') && this.isLigneActive) {
+      this.pdpConnexionData = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'))[0];
+      this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
+    }
+    this.$emit('update:menuActive', this.isLigneActive);
+  },
+  methods: {
+    getValue(objectToUse, path, defaultValue = '') {
+      if (objectToUse == null || objectToUse == undefined) {
+        return '-';
+      }
+      const value = get(objectToUse, path, defaultValue);
+
+      return value !== null ? value : '-';
+    },
   },
 };
 </script>
