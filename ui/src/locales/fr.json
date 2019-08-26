@@ -336,6 +336,7 @@
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
+          "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
           "closingConnexionReason": "Raison de la fermeture de la connexion",
           "connexionDebut": "Début de la connexion",
@@ -343,7 +344,10 @@
           "currentApn": "APN actuel",
           "IPType": "Type d'adresse IP",
           "currentIPv4Address": "Adresse IPv4 actuelle",
-          "currentIPv6Address": "Adresse IPv6 actuelle :"
+          "currentIPv6Address": "Adresse IPv6 actuelle",
+          "geographicalCoordinates": "Coordonnées géographiques",
+          "lastLocationDate": "Date de la dernière localisation",
+          "useTypeAndDetail": "Type et détail d'usage"
         }
       },
       "tabServices": {

@@ -31,7 +31,7 @@
         </div>
         <div slot="ongoing">B</div>
         <div slot="diagnosis">
-          <diagnosisTab></diagnosisTab>
+          <diagnosisTab :content="lineData"></diagnosisTab>
         </div>
       </UiTabs>
     </div>
