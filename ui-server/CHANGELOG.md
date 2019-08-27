@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.167+20190827090539
+2019-08-27
+
+### Features
+
+- écran de consommation voix / composant toggle (0a20ed743f90750d92be569150dd8a966e656a69)
+
 ## 0.3.0-master.166+20190826154143
 2019-08-26
 
