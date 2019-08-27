@@ -38,6 +38,7 @@
   "applyDate": "Date d'application",
   "fromThe": "depuis le :",
   "loading": "Chargement",
+  "display": "Affichage",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -336,6 +337,10 @@
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
+          "toggle": {
+            "graph": "Graphe",
+            "table": "Tableau"
+          },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
           "closingConnexionReason": "Raison de la fermeture de la connexion",
@@ -348,6 +353,9 @@
           "geographicalCoordinates": "Coordonnées géographiques",
           "lastLocationDate": "Date de la dernière localisation",
           "useTypeAndDetail": "Type et détail d'usage"
+        },
+        "supervisionContent": {
+          "dataConsumptionPerDay": "Consommation data par jour"
         }
       },
       "tabServices": {
