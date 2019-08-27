@@ -9,7 +9,6 @@
       <router-link to="/secured">Secured</router-link>|
     </div>
     <div class="container">
-      <LineBarsChart />
       <StepperNonLinear :stepper-data="stepperData" />
       <hr />
       <div class="container">
@@ -126,7 +125,6 @@ import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import LineBarsChart from '@/components/widgets/LineBarsChart';
 
 export default {
   name: 'Home',
@@ -251,7 +249,6 @@ export default {
   },
 
   components: {
-    LineBarsChart,
     UiCheckbox,
     UiButton,
     Stepper,

@@ -354,8 +354,16 @@
           "lastLocationDate": "Date de la dernière localisation",
           "useTypeAndDetail": "Type et détail d'usage"
         },
+        "networkInfoContent": {
+          "dataControl": "Contrôle data roaming",
+          "gaugeConsumtion": "Jauge de consommation",
+          "stateStopService": "Etat Coupure",
+          "tresholdStopService": "Seuil Coupure",
+          "tmpDebarring": "Debarring Tempraire"
+        },
         "supervisionContent": {
-          "dataConsumptionPerDay": "Consommation data par jour"
+          "dataConsumptionPerDay": "Consommation data par jour",
+          "sms": "Consommation SMS par jour"
         }
       },
       "tabServices": {
