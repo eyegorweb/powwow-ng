@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.169+20190827131642
+2019-08-27
+
+### Features
+
+- ajouter bloc d'informations réseau (ff9a0db4f720f9aa926d11cae3150c1cb70ea7f9)
+
 ## 0.3.0-master.168+20190827103423
 2019-08-27
 
