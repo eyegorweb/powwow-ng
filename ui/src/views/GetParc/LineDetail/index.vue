@@ -32,7 +32,9 @@
         <div slot="ongoing">
           <OngoingTab :content="lineData" />
         </div>
-        <div slot="diagnosis">C</div>
+        <div slot="diagnosis">
+          <DiagnosisTab :content="lineData" />
+        </div>
       </UiTabs>
     </div>
   </div>
@@ -42,6 +44,7 @@
 import LineSummary from './LineSummary';
 import DetailsTab from './DetailsTab';
 import OngoingTab from './OngoingTab';
+import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -54,6 +57,7 @@ export default {
     DetailsTab,
     OngoingTab,
     ActionCarousel,
+    DiagnosisTab,
     UiTabs,
     UiTab,
   },
