@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.173+20190828142340
+2019-08-28
+
+### Features
+
+- 737 compléter les informations du détail de la ligne (ed81bb1ce9603325df5b5606a46b4188b7a547ec)
+
 ## 0.3.0-master.172+20190828135219
 2019-08-28
 
