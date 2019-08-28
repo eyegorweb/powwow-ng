@@ -83,6 +83,17 @@ export async function searchLines(orderBy, pagination, filters = []) {
         type
         statuts
         auditable {created}
+        PIN1
+        PIN2
+        PUK1
+        PUK2
+        licence
+        format
+        dualSIMCardInstance {
+          iccid
+          msisdn
+          imsi
+        }
         order {
           id
         }

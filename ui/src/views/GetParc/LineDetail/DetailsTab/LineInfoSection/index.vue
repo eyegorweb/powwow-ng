@@ -55,11 +55,11 @@
                   </div>
                   <div class="item">
                     <h6>{{ $t('getsim.sim-type-labels.format') }}:</h6>
-                    <p class="mock-value">Standard, avec code PIN, avec antivol</p>
+                    <p>{{ getFromContent('format') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getsim.sim-type-labels.patent') }}:</h6>
-                    <p class="mock-value">Backup FR + Best network</p>
+                    <p>{{ getFromContent('licence') }}</p>
                   </div>
                 </div>
                 <div class="d-flex">
@@ -73,19 +73,19 @@
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pinCode') }}1:</h6>
-                    <p class="mock-value">1234</p>
+                    <p>{{ getFromContent('PIN1') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pinCode') }}2:</h6>
-                    <p class="mock-value">1234</p>
+                    <p>{{ getFromContent('PIN2') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pukCode') }}1:</h6>
-                    <p class="mock-value">62136465</p>
+                    <p>{{ getFromContent('PUK1') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pukCode') }}2:</h6>
-                    <p class="mock-value">79841758</p>
+                    <p>{{ getFromContent('PUK2') }}</p>
                   </div>
                 </div>
               </div>
@@ -98,15 +98,15 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'ICCID' }) }}:</h6>
-                <p class="mock-value">8933222889911003512</p>
+                <p>{{ getFromContent('dualSIMCardInstance.iccid', '-') }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'IMSI' }) }}:</h6>
-                <p class="mock-value">209220990842322</p>
+                <p>{{ getFromContent('dualSIMCardInstance.imsi', '-') }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'MSISDN' }) }}:</h6>
-                <p class="mock-value">337615673320</p>
+                <p>{{ getFromContent('dualSIMCardInstance.msisdn', '-') }}</p>
               </div>
             </div>
           </template>
