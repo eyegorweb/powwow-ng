@@ -490,3 +490,22 @@ export async function fetchCurrentConsumption(simcardId) {
 
   return response.data.currentConsumption;
 }
+
+export async function exportCurrentConsumption(simcardId, exportFormat) {
+  const queryStr = `
+  query {
+    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+      downloadUri
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportCurrentConsumption;
+}

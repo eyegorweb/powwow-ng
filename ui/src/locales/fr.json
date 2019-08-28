@@ -286,7 +286,8 @@
       "consummated": {
         "data": "Data consommées",
         "sms": "SMS consommés",
-        "voice": "Voix consommée"
+        "voice": "Voix consommée",
+        "export": "Exporter l'encours de consommation"
       },
       "estimated": {
         "data": "Prévisionnel Data",

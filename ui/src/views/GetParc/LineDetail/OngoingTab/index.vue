@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-4">
     <div class="row mb-3">
       <div class="col">
         <h2 class="text-gray font-weight-light mock-value" style="font-size: 2rem">
@@ -8,11 +8,11 @@
       </div>
       <div class="col">
         <ExportButton :export-fn="getExportFn()">
-          <span slot="title">{{ $t('export') }}</span>
+          <span slot="title">{{ $t('getparc.lineDetail.consummated.export') }}</span>
         </ExportButton>
       </div>
     </div>
-    <table v-if="consumptionData" class="table table-blue mt-1">
+    <table v-if="consumptionData" class="table table-blue mt-1 mb-3">
       <thead>
         <tr>
           <th>{{ $t('getparc.lineDetail.titled') }}</th>
@@ -46,9 +46,9 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">32 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
+              <li class="mock-value">0h:00mn:00s</li>
+              <li class="mock-value">0h:00mn:00s</li>
+              <li class="mock-value">0h:00mn:00s</li>
             </ul>
           </td>
         </tr>
@@ -76,9 +76,9 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">32 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
+              <li class="mock-value">0h:00mn:00s</li>
+              <li class="mock-value">0h:00mn:00s</li>
+              <li class="mock-value">0h:00mn:00s</li>
             </ul>
           </td>
         </tr>
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { fetchCurrentConsumption } from '@/api/linesActions';
+import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
 
 export default {
@@ -115,7 +115,7 @@ export default {
   methods: {
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
-        console.log('Do export >', columns, orderBy, exportFormat);
+        return await exportCurrentConsumption(this.content.id, exportFormat);
       };
     },
   },
