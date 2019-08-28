@@ -470,3 +470,23 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
 
   return response.data.exportSimCardInstances;
 }
+
+export async function fetchCurrentConsumption(simcardId) {
+  const queryStr = `
+  query {
+    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+      nationalConsumption
+      incomingNationalConsumption
+      outgoingNationalConsumption
+      internationalConsumption
+      incomingInternationalConsumption
+      outgoingInternationalConsumption
+      total
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.currentConsumption;
+}

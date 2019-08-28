@@ -274,6 +274,7 @@
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabricant",
       "model": "Modèle",
+      "titled": "Intitulés",
       "data": "Data consommées",
       "sms": "SMS consommés",
       "voice": "Voix consommée",
@@ -282,6 +283,16 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "analysingTool": "ANALYSER LA LIGNE",
+      "consummated": {
+        "data": "Data consommées",
+        "sms": "SMS consommés",
+        "voice": "Voix consommée"
+      },
+      "estimated": {
+        "data": "Prévisionnel Data",
+        "sms": "Prévisionnel SMS",
+        "voice": "Prévisionnel Voix"
+      },
       "report": {
         "alreadyExists": "Ligne existante"
       },
