@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.170+20190828074314
+2019-08-28
+
+### Features
+
+- 558 affichage des encour consommation DATA (cbd0138bad9a8bd77dd6b068067daf979588baa7)
+
 ## 0.3.0-master.169+20190827131642
 2019-08-27
 
