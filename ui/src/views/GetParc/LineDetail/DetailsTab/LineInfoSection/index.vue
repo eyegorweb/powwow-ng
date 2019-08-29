@@ -112,13 +112,17 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block4'">
-          <template slot="title">{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</template>
+          <template slot="title">
+            <span class="mock-value">{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</span>
+          </template>
           <template slot="content">
             <MSISDNHistoryTable />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block5'">
-          <template slot="title">{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</template>
+          <template slot="title">
+            <span class="mock-value">{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
+          </template>
           <template slot="content">
             <EquipmentsHistoryTable />
           </template>
