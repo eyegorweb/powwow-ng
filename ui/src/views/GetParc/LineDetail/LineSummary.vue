@@ -17,7 +17,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
-            <p class="text-danger">
+            <p class="text-danger mock-value">
               Oui
             </p>
           </div>

@@ -420,6 +420,9 @@
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
+        "lineDetail": {
+          "CUSTOM_FIELDS": "Modifier les champs libres"
+        },
         "MANAGE_CANCELLATION": "Gérer des résiliations",
         "MODAL_WARNING": "Attention ! Cette action est définitive",
         "TRANSFERT_LINES": "Transférer vers un partenaire",
@@ -488,6 +491,11 @@
         "confirmationWarning": "Attention !  L'ancien MSISDN sera résilié.  Confirmez-vous le changement de MSISDN ?",
         "currentMSISDN": "MSISDN actuel",
         "newMSISDN": "Nouvel MSISDN"
+      },
+      "changeCustomFields": {
+        "confirmationWarning": "Attention !  Les anciens champs libres seront résiliés.  Confirmez-vous le changement des champs libres ?",
+        "currentCustomFields": "Champs libres actuels",
+        "newCustomFields": "Nouveaux champs libres"
       },
 
       "preactivateActivate": {
