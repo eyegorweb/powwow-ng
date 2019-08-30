@@ -11,8 +11,7 @@
       :page.sync="page"
       :page-limit.sync="pageLimit"
       :total="total || 0"
-    >
-    </DataTable>
+    ></DataTable>
   </div>
 </template>
 

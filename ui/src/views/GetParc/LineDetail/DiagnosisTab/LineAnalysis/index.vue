@@ -28,9 +28,7 @@
                 <h6>
                   {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.closingConnexionReason') }}:
                 </h6>
-                <p>
-                  {{ getValue(pdpConnexionData, 'connectionClosingReason') }}
-                </p>
+                <p>{{ getValue(pdpConnexionData, 'connectionClosingReason') }}</p>
               </div>
             </div>
             <hr />
@@ -54,30 +52,22 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentApn') }}:</h6>
-                <p>
-                  {{ getValue(pdpConnexionData, 'apn') }}
-                </p>
+                <p>{{ getValue(pdpConnexionData, 'apn') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                <p>
-                  {{ getValue(pdpConnexionData, 'ipAddressType') }}
-                </p>
+                <p>{{ getValue(pdpConnexionData, 'ipAddressType') }}</p>
               </div>
             </div>
             <hr />
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv4Address') }}:</h6>
-                <p>
-                  {{ getValue(pdpConnexionData, 'ipV4Address') }}
-                </p>
+                <p>{{ getValue(pdpConnexionData, 'ipV4Address') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv6Address') }}:</h6>
-                <p>
-                  {{ getValue(pdpConnexionData, 'ipV6Address') }}
-                </p>
+                <p>{{ getValue(pdpConnexionData, 'ipV6Address') }}</p>
               </div>
             </div>
           </div>
@@ -96,21 +86,15 @@
               <h6>
                 {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.geographicalCoordinates') }}:
               </h6>
-              <p>
-                {{ getValue(geographicalLocation, 'geographicalCoordinates') }}
-              </p>
+              <p>{{ getValue(geographicalLocation, 'geographicalCoordinates') }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.lastLocationDate') }}:</h6>
-              <p>
-                {{ getValue(geographicalLocation, 'lastCommunicationDate') }}
-              </p>
+              <p>{{ getValue(geographicalLocation, 'lastCommunicationDate') }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.useTypeAndDetail') }}:</h6>
-              <p>
-                {{ getValue(geographicalLocation, 'usageDetailsByDirection') }}
-              </p>
+              <p>{{ getValue(geographicalLocation, 'usageDetailsByDirection') }}</p>
             </div>
           </div>
         </div>
