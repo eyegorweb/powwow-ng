@@ -98,7 +98,7 @@ export default {
         },
         {
           icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
           selected: false,
         },
         {
