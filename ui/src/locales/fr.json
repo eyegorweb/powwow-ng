@@ -39,6 +39,8 @@
   "fromThe": "depuis le :",
   "loading": "Chargement",
   "display": "Affichage",
+  "MB": "{value} Mio",
+  "MN": "{value} Mn",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -283,6 +285,24 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "analysingTool": "ANALYSER LA LIGNE",
+      "alarms": {
+        "name": "Nom de l'alarme",
+        "threshold": "Seuil de déclenchement",
+        "trigger": "Déclenchement",
+        "scope": "Portée",
+        "observationCycle": "Cycle d’observation",
+        "disableLine": "Désactiver pour la ligne",
+        "enableLine": "Activer pour la ligne",
+        "data_io": "Data E/S",
+        "data_out": "Data sortante",
+        "data_in": "Data entrante",
+        "sms_io": "SMS E/S",
+        "sms_out": "SMS sortante",
+        "sms_in": "SMS entrante",
+        "voice_io": "Voix E/S",
+        "voice_out": "Voix sortante",
+        "voice_in": "Voix entrante"
+      },
       "consummated": {
         "data": "Data consommées",
         "sms": "SMS consommés",
@@ -573,6 +593,9 @@
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé"
         }
+      },
+      "alarmList": {
+        "title": "Liste des alarmes"
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
