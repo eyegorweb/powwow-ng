@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.175+20190830130401
+2019-08-30
+
+### Features
+
+- 524 afficher les alarmes sur le détail de la ligne (e99a4790567939edf937f3cd0331c4cfa10e3146)
+
 ## 0.3.0-master.174+20190829082433
 2019-08-29
 
