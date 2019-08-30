@@ -113,11 +113,7 @@ export default {
         custom5: getCustomFieldValue('custom5'),
         custom6: getCustomFieldValue('custom6'),
       };
-      const response = await updateCustomFields(
-        this.appliedFilters,
-        this.selectedLinesForActCreation,
-        params
-      );
+      const response = await updateCustomFields([], [this.lineData], params);
       if (response) {
         return {
           report: { successful: response.data.changeCustomFields },
