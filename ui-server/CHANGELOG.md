@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.176+20190830132345
+2019-08-30
+
+### Fixes
+
+- **act-detail:** modify custom fields (cef4e232f11d5369261f3e539f69d363311de708)
+
 ## 0.3.0-master.175+20190830130401
 2019-08-30
 
