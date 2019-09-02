@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.179+20190902093018
+2019-09-02
+
+### Fixes
+
+- 743 ne pas afficher 0 dans le total pendant la requête est en cours (561547f365072f5195125387d8074a85ee34bcb1)
+
 ## 0.3.0-master.178+20190902073122
 2019-09-02
 
