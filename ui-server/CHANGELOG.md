@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.180+20190902102852
+2019-09-02
+
+### Fixes
+
+- 743 Ajouter un indicateur de chargement pour les totaux (05227ea78700efda232b2cdfd72c239992ac4e1a)
+
 ## 0.3.0-master.179+20190902093018
 2019-09-02
 
