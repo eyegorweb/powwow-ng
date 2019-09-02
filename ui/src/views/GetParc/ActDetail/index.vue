@@ -23,7 +23,10 @@
         <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
           <a href="#" @click.prevent="() => (currentLinkIndex = index)">
             {{ tab.title }}
+            <img v-if="loadingTotals" class="loader" src="@/assets/spinner.svg" />
+
             <span
+              v-if="!loadingTotals"
               class="badge badge-pill"
               :class="{
                 'badge-danger': index === 0,
@@ -94,6 +97,7 @@ export default {
     return {
       currentLinkIndex: 0,
       massAction: null,
+      loadingTotals: false,
       tabs: [
         {
           label: 'fail',
@@ -116,7 +120,10 @@ export default {
   methods: {
     async refreshTables() {
       this.refreshCurrentMassAction();
+      this.loadingTotals = true;
       const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
+      this.loadingTotals = false;
+
       if (totals) {
         this.tabs = [
           {
@@ -164,5 +171,9 @@ a {
 
 .back-btn {
   color: $gray-680;
+}
+
+.loader {
+  width: 30px;
 }
 </style>
