@@ -9,7 +9,7 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph"><DataGraph /></div>
-              <div slot="table">Table here</div>
+              <div slot="table"><DataConsumptionTable></DataConsumptionTable></div>
             </TableGraphicContentBlock>
           </template>
         </ContentBlock>
@@ -35,6 +35,7 @@
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import TableGraphicContentBlock from '@/components/TableGraphicContentBlock';
 import draggable from 'vuedraggable';
+import DataConsumptionTable from './DataConsumptionTable';
 import DataGraph from './DataGraph';
 
 export default {
@@ -42,6 +43,7 @@ export default {
     draggable,
     ContentBlock,
     TableGraphicContentBlock,
+    DataConsumptionTable,
     DataGraph,
   },
 

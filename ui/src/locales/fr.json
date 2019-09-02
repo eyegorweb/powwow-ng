@@ -395,7 +395,24 @@
         },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data par jour",
-          "sms": "Consommation SMS par jour"
+          "sms": "Consommation SMS par jour",
+          "dataConsumptionPerDayColumns": {
+            "start": "Début de conso",
+            "end": "Fin de conso.",
+            "status": "Statut",
+            "closing": "Fermeture",
+            "location": "Localisation",
+            "apn": "APN et IP",
+            "ip": "Type IP",
+            "country": "Pays",
+            "operator": "Opérateur",
+            "zipcode": "Code postal",
+            "city": "Ville",
+            "offer": "Offre",
+            "cellId": "ID de la cellule",
+            "device": "Référence commerciale",
+            "manufacturer": "Constructeur"
+          }
         }
       },
       "tabServices": {
