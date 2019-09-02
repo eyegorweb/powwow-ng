@@ -30,9 +30,8 @@
                 'badge-info': index === 1,
                 'badge-success': index === 2,
               }"
+              >{{ tab.total }}</span
             >
-              {{ tab.total }}
-            </span>
           </a>
         </UiTab>
       </template>
@@ -99,17 +98,17 @@ export default {
         {
           label: 'fail',
           title: this.$t('getparc.actDetail.titleListCard.FAIL'),
-          total: 0,
+          total: '-',
         },
         {
           label: 'ongoing',
           title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
-          total: 0,
+          total: '-',
         },
         {
           label: 'finished',
           title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
-          total: 0,
+          total: '-',
         },
       ],
     };
