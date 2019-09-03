@@ -91,7 +91,7 @@ export default {
   props: {
     massActionId: String,
     rows: Array,
-    total: Number,
+    total: [Number, String],
   },
 
   computed: {
