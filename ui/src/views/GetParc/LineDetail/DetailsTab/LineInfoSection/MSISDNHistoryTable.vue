@@ -4,8 +4,7 @@
     :rows="rows || []"
     :order-by.sync="orderBy"
     @change-order="changeCellsOrder"
-  >
-  </DataTable>
+  ></DataTable>
 </template>
 
 <script>
@@ -14,6 +13,9 @@ import DataTable from '@/components/DataTable/DataTable';
 export default {
   components: {
     DataTable,
+  },
+  props: {
+    lines: Array,
   },
   data() {
     return {
@@ -47,14 +49,7 @@ export default {
           visible: true,
         },
       ],
-      rows: [
-        {
-          msisdn: '123123123123',
-          msisdnA: '123123123123',
-          imsi: '123123123',
-          status: 'Activé',
-        },
-      ],
+      rows: [],
       orderBy: {
         key: 'msisdn',
         direction: 'DESC',
@@ -66,6 +61,22 @@ export default {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
+    refreshTable() {
+      this.rows = this.lines.map(l => ({
+        msisdn: l.msisdn,
+        imsi: l.imsi,
+        status: l.status,
+        msisdnA: '-',
+      }));
+    },
+  },
+  watch: {
+    lines() {
+      this.refreshTable();
+    },
+  },
+  mounted() {
+    this.refreshTable();
   },
 };
 </script>

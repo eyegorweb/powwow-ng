@@ -113,10 +113,10 @@
         </ContentBlock>
         <ContentBlock :key="'block4'">
           <template slot="title">
-            <span class="mock-value">{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</span>
+            <span>{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</span>
           </template>
           <template slot="content">
-            <MSISDNHistoryTable />
+            <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block5'">
@@ -193,7 +193,6 @@ import MSISDNHistoryTable from './MSISDNHistoryTable';
 import EquipmentsHistoryTable from './EquipmentsHistoryTable';
 import draggable from 'vuedraggable';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
-// import DateStatus from './DateStatus';
 import moment from 'moment';
 import get from 'lodash.get';
 
@@ -210,9 +209,10 @@ export default {
   },
   computed: {
     msisdn() {
-      let lines = this.getFromContent('accessPoint.lines');
-      lines = lines[0];
-      return get(lines, 'msisdn', '');
+      return get(this.lines[0], 'msisdn', '');
+    },
+    lines() {
+      return this.getFromContent('accessPoint.lines', undefined);
     },
   },
   methods: {
