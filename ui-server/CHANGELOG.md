@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.183+20190903073915
+2019-09-03
+
+### Features
+
+- Brancher l'historique des MSISDN (93b1914793a936e113489990243c8d3494954b05)
+
 ## 0.3.0-master.182+20190902143314
 2019-09-02
 
