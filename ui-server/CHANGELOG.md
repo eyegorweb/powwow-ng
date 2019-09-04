@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.188+20190904141835
+2019-09-04
+
+### Fixes
+
+- 568 Adaptation de la requête pdpConnexions (f0fbc47e22951cb25c36878dd5b315577a893288)
+
 ## 0.3.0-master.187+20190904122601
 2019-09-04
 
