@@ -5,7 +5,7 @@
       <button
         :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
-        @click.prevent="onClick(indicator)"
+        @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
         <span v-if="!isLoading">{{ total }}</span>
@@ -21,7 +21,10 @@ export default {
   props: {
     indicator: Object,
     partners: Object,
-    onClick: Function,
+    onClick: {
+      type: Function,
+      required: false,
+    },
   },
   data() {
     return {
