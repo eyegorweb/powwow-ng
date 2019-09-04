@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.187+20190904122601
+2019-09-04
+
+### Fixes
+
+- 748 Migration vers le nouveau format d'erreurs (ddcb4a4b6b0f56d9da5a1ec46d1492dd2ec6bbc5)
+
 ## 0.3.0-master.186+20190903084024
 2019-09-03
 
