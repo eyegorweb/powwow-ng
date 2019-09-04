@@ -1,6 +1,7 @@
 import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
 import BillsWidget from './widgets/BillsWidget';
+import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
 
 export default [
   {
@@ -29,10 +30,11 @@ export default [
   },
   {
     id: 'w4',
-    title: 'Mon parc',
+    title: 'Statut des commandes',
     description: 'Description',
-    checked: false,
+    checked: true,
     large: false,
+    component: OrdersStatusesWidget,
   },
   {
     id: 'w5',

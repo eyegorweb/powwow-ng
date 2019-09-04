@@ -150,7 +150,7 @@ export async function fetchSingleIndicator(filters, scopePartners) {
   }
   `;
   const response = await query(queryStr);
-  return response.data.orders;
+  return response ? response.data.orders : undefined;
 }
 
 export async function countTotalByIndicators(

@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-group bg-white">
+  <ul class="list-group bg-white" :class="noBorders ? 'no-borders' : undefined">
     <IndicatorItem
       v-for="indicator in indicatorsWithCompatibleRoles"
       :key="indicator.labelKey"
@@ -21,8 +21,12 @@ export default {
   },
   props: {
     meta: Array,
-    onClick: Function,
+    onClick: {
+      type: Function,
+      required: false,
+    },
     partners: Object,
+    noBorders: Boolean,
   },
 
   data() {
@@ -61,4 +65,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.no-borders {
+  li {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+}
+</style>
