@@ -109,7 +109,9 @@ export default {
     },
     haveBusinessErrors() {
       if (!this.report) return 0;
-      return this.report.invalidFormat + this.report.alreadyExists + this.report.notFound > 0;
+      return this.report.errors.reduce((total, e) => {
+        return (total += e.number);
+      }, 0);
     },
   },
   methods: {

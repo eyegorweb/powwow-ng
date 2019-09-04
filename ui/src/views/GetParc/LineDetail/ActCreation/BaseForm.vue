@@ -86,11 +86,13 @@ export default {
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
       });
-      this.report = response.report;
 
       if (!response) {
         this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        return;
       }
+
+      this.report = response.report;
 
       if (response) {
         if (response.errors) {
@@ -98,7 +100,7 @@ export default {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
-          if (this.report.successful) {
+          if (this.report.validated) {
             this.closePanel();
             const successMessage = this.successMessage
               ? this.$t(this.successMessage)

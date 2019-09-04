@@ -1,8 +1,8 @@
 <template>
   <ul class="list-unstyled">
-    <li>{{ data.alreadyExists }} {{ $t('getparc.actCreation.report.alreadyExists') }}</li>
-    <li>{{ data.invalidFormat }} {{ $t('getparc.actCreation.report.invalidFormat') }}</li>
-    <li>{{ data.notFound }} {{ $t('getparc.actCreation.report.notFound') }}</li>
+    <li v-for="e in data.errors" :key="e.key">
+      {{ e.number }} {{ $t('getparc.actCreation.report.' + e.key) }}
+    </li>
   </ul>
 </template>
 

@@ -113,6 +113,7 @@ export default {
       if (response) {
         if (response.stayInForm) return;
 
+        console.log(response.errors);
         if (response.errors) {
           response.errors.forEach(e => {
             this.flashMessage({ level: 'danger', message: e.message });

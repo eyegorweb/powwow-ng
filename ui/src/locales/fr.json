@@ -314,9 +314,7 @@
         "sms": "Prévisionnel SMS",
         "voice": "Prévisionnel Voix"
       },
-      "report": {
-        "alreadyExists": "Ligne existante"
-      },
+
       "tab1": {
         "lineInfo": "Informations sur la ligne",
         "billingOffer": {
@@ -520,9 +518,10 @@
       },
 
       "report": {
-        "alreadyExists": "Lignes existantes",
-        "invalidFormat": "Format invalide",
-        "notFound": "Introuvable"
+        "DATA_EXISTS": "Lignes existantes",
+        "DATA_INVALID_FORMAT": "Format invalide",
+        "DATA_NOT_FOUND": "Introuvable",
+        "NEW_DATA_ALREADY_EXISTS": "Ligne existante"
       },
 
       "transfertCF": {
@@ -595,8 +594,8 @@
         "foundLines": "lignes ont été trouvées",
         "notFoundLines": "lignes ne sont pas compatibles",
         "errors": {
-          "notValid": "{totalInvalidFormat} lignes ont un {idType} erroné.",
-          "unknown": "{totalNotFound} lignes ont un {idType} inconnu."
+          "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
+          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu."
         }
       },
       "massActionsHistory": {
