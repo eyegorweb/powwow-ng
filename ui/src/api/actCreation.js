@@ -318,11 +318,11 @@ export async function changeServices(filters, lines, params) {
       }
       ) {
           tempDataUuid
-          successful
-          containsErrors
-          invalidFormat
-          alreadyExists
-          notFound
+          validated
+          errors{
+            key
+            number
+          }
         }
       }
     `;
@@ -376,12 +376,11 @@ export async function manageCancellation(filters, lines, params) {
     )
     {
       tempDataUuid
-      invalidFormat
-      alreadyExists
-      notFound
-      wrongStatus
-      successful
-      containsErrors
+      validated
+      errors{
+        key
+        number
+      }
     }
   }
   `;
@@ -403,11 +402,11 @@ export async function changeMSISDN(params) {
     })
     {
       tempDataUuid
-      invalidFormat
-      alreadyExists
-      notFound
-      successful
-      containsErrors
+      validated
+      errors{
+        key
+        number
+      }
     }
    }
   `;
@@ -427,11 +426,11 @@ export async function changeSingleMSISDN(params) {
     })
     {
       tempDataUuid
-      invalidFormat
-      alreadyExists
-      notFound
-      successful
-      containsErrors
+      validated
+      errors{
+        key
+        number
+      }
     }
    }
   `;
@@ -479,11 +478,11 @@ export async function changeSingleICCID(params) {
     })
     {
       tempDataUuid
-      invalidFormat
-      alreadyExists
-      notFound
-      successful
-      containsErrors
+      validated
+      errors{
+        key
+        number
+      }
     }
    }
   `;

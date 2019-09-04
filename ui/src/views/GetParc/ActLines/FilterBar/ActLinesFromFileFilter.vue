@@ -18,7 +18,7 @@
 <script>
 import UiSelect from '@/components/ui/UiSelect';
 import ActLinesFileImport from '@/views/GetParc/ActLines/ActLinesFileImport';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -37,6 +37,15 @@ export default {
 
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),
+    ...mapActions('actLines', ['clearFilter']),
+  },
+
+  watch: {
+    selectedType() {
+      if (this.selectedFileImportValues && this.selectedFileImportValues.length) {
+        this.clearFilter('filters.lines.fromFile.title');
+      }
+    },
   },
 
   data() {
