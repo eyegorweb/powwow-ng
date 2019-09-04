@@ -127,7 +127,10 @@ export default {
   },
   async mounted() {
     if (this.getValue(this.content, 'id') && this.isLigneActive) {
-      this.pdpConnexionData = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'))[0];
+      const pdpResponse = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'));
+      if (pdpResponse && pdpResponse.length) {
+        this.pdpConnexionData = pdpResponse[0].dataHistroy;
+      }
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
     }
     this.$emit('update:menuActive', this.isLigneActive);
