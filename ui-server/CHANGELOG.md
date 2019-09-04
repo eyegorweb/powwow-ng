@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.189+20190904151503
+2019-09-04
+
+### Features
+
+- 39 widget statut des commandes (18c7e0f54972a172689b0f900d87b0869ba239f4)
+
 ## 0.3.0-master.188+20190904141835
 2019-09-04
 
