@@ -371,6 +371,14 @@
             "graph": "Graphe",
             "table": "Tableau"
           },
+          "connectionStatus": {
+            "F": "FERMEE",
+            "P": "OUVERTE"
+          },
+          "connectionClosingReason": {
+            "A": "ANORMALE",
+            "N": "NORMALE"
+          },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
           "closingConnexionReason": "Raison de la fermeture de la connexion",

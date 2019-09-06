@@ -22,13 +22,13 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionStatus') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'connectionStatus') }}</p>
+                <p>{{ getConnectionStatus() }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>
                   {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.closingConnexionReason') }}:
                 </h6>
-                <p>{{ getValue(pdpConnexionData, 'connectionClosingReason') }}</p>
+                <p>{{ getClosingReason() }}</p>
               </div>
             </div>
             <hr />
@@ -143,6 +143,24 @@ export default {
       const value = get(objectToUse, path, defaultValue);
 
       return value !== null ? value : '-';
+    },
+    getConnectionStatus() {
+      const connectionStatus = this.getValue(this.pdpConnexionData, 'connectionStatus');
+      if (!connectionStatus) return '-';
+      return this.$t(
+        'getparc.lineDetail.tab2.lineAnalysisContent.connectionStatus.' + connectionStatus
+      );
+    },
+    getClosingReason() {
+      const connectionClosingReason = this.getValue(
+        this.pdpConnexionData,
+        'connectionClosingReason'
+      );
+      if (!connectionClosingReason) return '-';
+      return this.$t(
+        'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.' +
+          connectionClosingReason
+      );
     },
   },
 };
