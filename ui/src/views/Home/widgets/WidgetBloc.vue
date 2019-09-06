@@ -6,11 +6,11 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col">
+          <div class="col-9">
             <span class="handle ic-Drag-Column-Icon" />
-            <span>{{ widget.title }}</span>
+            <span :class="{ 'mock-value': mocked }">{{ widget.title }}</span>
           </div>
-          <div class="col">
+          <div class="col-3">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
               Voir plus
             </button>
@@ -29,6 +29,7 @@ export default {
   props: {
     widget: Object,
     noPadding: Boolean,
+    mocked: Boolean,
   },
   computed: {
     className() {
@@ -47,6 +48,11 @@ export default {
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     padding: 0.75rem 1.25rem;
+  }
+
+  .card-body {
+    height: 14rem;
+    overflow: hidden;
   }
 }
 
