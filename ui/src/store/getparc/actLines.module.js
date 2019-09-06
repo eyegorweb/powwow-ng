@@ -170,13 +170,7 @@ export const actions = {
     commit('startLoading');
     commit('setLinesActionsResponse', undefined);
 
-    let response = {
-      simCardInstances: {
-        total: 0,
-        items: [],
-      },
-      alarmEventsInfo: [],
-    };
+    let response = { total: 0, items: [] };
     try {
       response = await searchLines(orderBy, pageInfo, appliedFilters);
     } catch (e) {
