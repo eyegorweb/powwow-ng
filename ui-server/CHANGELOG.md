@@ -2,6 +2,152 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.190+20190906090739
+2019-09-06
+
+### Fixes
+
+- 568 Correction du texte pour le statut de connexion (0f1e6860258f8dd7ac7f5c4f3df2def6031a2320)
+
+## 0.3.0-master.189+20190904151503
+2019-09-04
+
+### Features
+
+- 39 widget statut des commandes (18c7e0f54972a172689b0f900d87b0869ba239f4)
+
+## 0.3.0-master.188+20190904141835
+2019-09-04
+
+### Fixes
+
+- 568 Adaptation de la requête pdpConnexions (f0fbc47e22951cb25c36878dd5b315577a893288)
+
+## 0.3.0-master.187+20190904122601
+2019-09-04
+
+### Fixes
+
+- 748 Migration vers le nouveau format d'erreurs (ddcb4a4b6b0f56d9da5a1ec46d1492dd2ec6bbc5)
+
+## 0.3.0-master.186+20190903084024
+2019-09-03
+
+## 0.3.0-master.184+20190903093929
+2019-09-03
+
+## 0.3.0-master.183+20190903073915
+2019-09-03
+
+### Features
+
+- Brancher l'historique des MSISDN (93b1914793a936e113489990243c8d3494954b05)
+
+## 0.3.0-master.182+20190902143314
+2019-09-02
+
+## 0.3.0-master.181+20190902142427
+2019-09-02
+
+## 0.3.0-master.180+20190902102852
+2019-09-02
+
+### Fixes
+
+- 743 Ajouter un indicateur de chargement pour les totaux (05227ea78700efda232b2cdfd72c239992ac4e1a)
+
+## 0.3.0-master.179+20190902093018
+2019-09-02
+
+### Fixes
+
+- 743 ne pas afficher 0 dans le total pendant la requête est en cours (561547f365072f5195125387d8074a85ee34bcb1)
+
+## 0.3.0-master.178+20190902073122
+2019-09-02
+
+## 0.3.0-master.177+20190830150252
+2019-08-30
+
+## 0.3.0-master.176+20190830132345
+2019-08-30
+
+### Fixes
+
+- **act-detail:** modify custom fields (cef4e232f11d5369261f3e539f69d363311de708)
+
+## 0.3.0-master.175+20190830130401
+2019-08-30
+
+### Features
+
+- 524 afficher les alarmes sur le détail de la ligne (e99a4790567939edf937f3cd0331c4cfa10e3146)
+
+## 0.3.0-master.174+20190829082433
+2019-08-29
+
+## 0.3.0-master.173+20190828142340
+2019-08-28
+
+### Features
+
+- 737 compléter les informations du détail de la ligne (ed81bb1ce9603325df5b5606a46b4188b7a547ec)
+
+## 0.3.0-master.172+20190828135219
+2019-08-28
+
+## 0.3.0-master.171+20190828093533
+2019-08-28
+
+### Features
+
+- 559 Exporter l'encour consommation (f3754877078483511240622103757d9909625e04)
+
+## 0.3.0-master.170+20190828074314
+2019-08-28
+
+### Features
+
+- 558 affichage des encour consommation DATA (cbd0138bad9a8bd77dd6b068067daf979588baa7)
+
+## 0.3.0-master.169+20190827131642
+2019-08-27
+
+### Features
+
+- ajouter bloc d'informations réseau (ff9a0db4f720f9aa926d11cae3150c1cb70ea7f9)
+
+## 0.3.0-master.168+20190827103423
+2019-08-27
+
+## 0.3.0-master.167+20190827090539
+2019-08-27
+
+### Features
+
+- écran de consommation voix / composant toggle (0a20ed743f90750d92be569150dd8a966e656a69)
+
+## 0.3.0-master.166+20190826154143
+2019-08-26
+
+### Features
+
+- 737 Brancher les informations du détail de la ligne (0c64b11e9f1fb88ad748d0bc8269bc454fd94861)
+
+## 0.3.0-master.165+20190826141255
+2019-08-26
+
+### Features
+
+- Composant pour les graphiques (12aa61d377d5abed902582691a54e46c09fb657a)
+
+## 0.3.0-master.164+20190826090710
+2019-08-26
+
+### Features
+
+- 568 ecran-analyse-supervision-ligne (626adfa1cdacd986350d21db80be4de266127d18)
+
 ## 0.3.0-master.163+20190823122111
 2019-08-23
 

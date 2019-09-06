@@ -3,16 +3,12 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
-          <template slot="title">
-            {{ $t('getparc.lineDetail.tab1.lineInfo') }}
-          </template>
+          <template slot="title">{{ $t('getparc.lineDetail.tab1.lineInfo') }}</template>
           <template slot="content">
             <div class="d-flex">
               <div class="item">
                 <h6>MSISDN:</h6>
-                <p>
-                  {{ msisdn }}
-                </p>
+                <p>{{ msisdn }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
@@ -27,29 +23,23 @@
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab1.preactivatedAt') }}:</h6>
-                <p>
-                  {{ formatDate(getFromContent('accessPoint.preactivationDate')) }}
-                </p>
+                <p>{{ formatDate(getFromContent('accessPoint.preactivationDate')) }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab1.activatedAt') }}:</h6>
-                <p>
-                  {{ formatDate(getFromContent('accessPoint.activationDate')) }}
-                </p>
+                <p>{{ formatDate(getFromContent('accessPoint.activationDate')) }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('col.partner') }}:</h6>
-                <p>
-                  {{ getFromContent('party.name') }}
-                </p>
+                <p>{{ getFromContent('party.name') }}</p>
               </div>
             </div>
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title">
-            CARTE SIM
-          </template>
+          <template slot="title"
+            >CARTE SIM</template
+          >
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -61,59 +51,41 @@
                 <div class="d-flex">
                   <div class="item">
                     <h6>{{ $t('filters.lines.typeSIMCard') }}:</h6>
-                    <p>
-                      SIM M2M Endurcie 024 (bobine de 3000)
-                    </p>
+                    <p>{{ getFromContent('type') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getsim.sim-type-labels.format') }}:</h6>
-                    <p>
-                      Standard, avec code PIN, avec antivol
-                    </p>
+                    <p>{{ getFromContent('format') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getsim.sim-type-labels.patent') }}:</h6>
-                    <p>
-                      Backup FR + Best network
-                    </p>
+                    <p>{{ getFromContent('licence') }}</p>
                   </div>
                 </div>
                 <div class="d-flex">
                   <div class="item">
                     <h6>{{ $t('orders.detail.orderId') }}:</h6>
-                    <p>
-                      #5009
-                    </p>
+                    <p>{{ getFromContent('order.id') }}</p>
                   </div>
                   <div class="item">
                     <h6>ICCID:</h6>
-                    <p>
-                      #5009
-                    </p>
+                    <p>{{ getFromContent('iccid') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pinCode') }}1:</h6>
-                    <p>
-                      1234
-                    </p>
+                    <p>{{ getFromContent('PIN1') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pinCode') }}2:</h6>
-                    <p>
-                      1234
-                    </p>
+                    <p>{{ getFromContent('PIN2') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pukCode') }}1:</h6>
-                    <p>
-                      62136465
-                    </p>
+                    <p>{{ getFromContent('PUK1') }}</p>
                   </div>
                   <div class="item">
                     <h6>{{ $t('getparc.lineDetail.tab1.pukCode') }}2:</h6>
-                    <p>
-                      79841758
-                    </p>
+                    <p>{{ getFromContent('PUK2') }}</p>
                   </div>
                 </div>
               </div>
@@ -121,89 +93,91 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block3'">
-          <template slot="title">
-            {{ $t('getparc.lineDetail.tab1.dualSim') }}
-          </template>
+          <template slot="title">{{ $t('getparc.lineDetail.tab1.dualSim') }}</template>
           <template slot="content">
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'ICCID' }) }}:</h6>
-                <p>
-                  8933222889911003512
-                </p>
+                <p>{{ getFromContent('dualSIMCardInstance.iccid', '-') }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'IMSI' }) }}:</h6>
-                <p>
-                  209220990842322
-                </p>
+                <p>{{ getFromContent('dualSIMCardInstance.imsi', '-') }}</p>
               </div>
               <div class="item">
                 <h6>{{ $t('secondary', { item: 'MSISDN' }) }}:</h6>
-                <p>
-                  337615673320
-                </p>
+                <p>{{ getFromContent('dualSIMCardInstance.msisdn', '-') }}</p>
               </div>
             </div>
           </template>
         </ContentBlock>
         <ContentBlock :key="'block4'">
           <template slot="title">
-            {{ $t('getparc.lineDetail.tab1.msisdnHistory') }}
+            <span>{{ $t('getparc.lineDetail.tab1.msisdnHistory') }}</span>
           </template>
           <template slot="content">
-            <MSISDNHistoryTable />
+            <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block5'">
           <template slot="title">
-            {{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}
+            <span class="mock-value">{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>
           <template slot="content">
             <EquipmentsHistoryTable />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block6'">
-          <template slot="title">
-            {{ $t('common.customFields') }}
-          </template>
+          <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 1 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom1FieldLabel') || $t('col.customFields', { num: 1 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom1') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 2 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom2FieldLabel') || $t('col.customFields', { num: 2 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom2') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 3 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom3FieldLabel') || $t('col.customFields', { num: 3 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom3') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 4 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom4FieldLabel') || $t('col.customFields', { num: 4 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom4') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 5 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom5FieldLabel') || $t('col.customFields', { num: 5 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom5') }}</p>
               </div>
               <div class="item">
-                <h6>{{ $t('col.customFields', { num: 6 }) }}:</h6>
-                <p>
-                  62136465
-                </p>
+                <h6>
+                  {{
+                    getFromContent('party.custom6FieldLabel') || $t('col.customFields', { num: 6 })
+                  }}:
+                </h6>
+                <p>{{ getFromContent('accessPoint.customFields.custom6') }}</p>
               </div>
             </div>
           </template>
@@ -219,7 +193,6 @@ import MSISDNHistoryTable from './MSISDNHistoryTable';
 import EquipmentsHistoryTable from './EquipmentsHistoryTable';
 import draggable from 'vuedraggable';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
-// import DateStatus from './DateStatus';
 import moment from 'moment';
 import get from 'lodash.get';
 
@@ -236,9 +209,10 @@ export default {
   },
   computed: {
     msisdn() {
-      let lines = this.getFromContent('accessPoint.lines');
-      lines = lines[0];
-      return get(lines, 'msisdn', '');
+      return get(this.lines[0], 'msisdn', '');
+    },
+    lines() {
+      return this.getFromContent('accessPoint.lines', undefined);
     },
   },
   methods: {

@@ -17,7 +17,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
-            <p class="text-danger">
+            <p class="text-danger mock-value">
               Oui
             </p>
           </div>
@@ -49,21 +49,21 @@
       <div class="bg-white p-4 rounded">
         <div class="d-flex">
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.data') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
             <p>
               <!-- total DATA consommées -->
               {{ totalUsed('DATA', 'used') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.sms') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
             <p>
               <!-- total SMS consommées -->
               {{ totalUsed('SMS', 'used') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.voice') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
             <p>
               <!-- total VOIX consommées -->
               {{ totalUsed('VOICE', 'used') }}
@@ -73,21 +73,21 @@
         <hr />
         <div class="d-flex">
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalData') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.data') }}:</h6>
             <p>
               <!-- prévisionnel DATA  -->
               {{ totalUsed('DATA') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalSms') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.sms') }}:</h6>
             <p>
               <!-- prévisionnel SMS  -->
               {{ totalUsed('SMS') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalVoice') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.voice') }}:</h6>
             <p>
               <!-- prévisionnel VOIX  -->
               {{ totalUsed('VOICE') }}

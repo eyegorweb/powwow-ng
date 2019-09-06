@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body pt-0">
+      <div class="card-body" :class="className">
         <slot />
       </div>
     </div>
@@ -28,6 +28,12 @@
 export default {
   props: {
     widget: Object,
+    noPadding: Boolean,
+  },
+  computed: {
+    className() {
+      return this.noPadding ? 'p-0' : 'pt-0';
+    },
   },
 };
 </script>

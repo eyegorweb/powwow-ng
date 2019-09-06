@@ -9,7 +9,6 @@
       <router-link to="/secured">Secured</router-link>|
     </div>
     <div class="container">
-      <NavBars is-backoffice-profile />
       <StepperNonLinear :stepper-data="stepperData" />
       <hr />
       <div class="container">
@@ -119,7 +118,6 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
-import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchWithSelect from '@/components/SearchWithSelect';
 import UiDateRange from '@/components/ui/UiDateRange';
@@ -256,7 +254,6 @@ export default {
     Stepper,
     UiTabs,
     TransitionCollapse,
-    NavBars,
     MultiChoices,
     SearchWithSelect,
     UiApiAutocomplete,

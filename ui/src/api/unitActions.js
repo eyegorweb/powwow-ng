@@ -1,7 +1,7 @@
 import { query } from './utils';
 
 export async function fetchUnitActionsTotals(massActionId) {
-  const paginationInfo = `, pagination: {page: 0, limit: 1}`;
+  const paginationInfo = `, pagination: {page: 0, limit: 20}`;
   const orderingInfo = `sorting: {field: id, order: DESC}`;
 
   const queryStr = `

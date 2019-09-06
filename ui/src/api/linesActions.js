@@ -71,12 +71,32 @@ export async function searchLines(orderBy, pagination, filters = []) {
         party{
           id
           name
+          custom1FieldLabel
+          custom2FieldLabel
+          custom3FieldLabel
+          custom4FieldLabel
+          custom5FieldLabel
+          custom6FieldLabel
          }
         id
         iccid
         type
         statuts
         auditable {created}
+        PIN1
+        PIN2
+        PUK1
+        PUK2
+        licence
+        format
+        dualSIMCardInstance {
+          iccid
+          msisdn
+          imsi
+        }
+        order {
+          id
+        }
         deviceInstance {
           manufacturer
           deviceReference
@@ -460,4 +480,43 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
   }
 
   return response.data.exportSimCardInstances;
+}
+
+export async function fetchCurrentConsumption(simcardId) {
+  const queryStr = `
+  query {
+    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+      nationalConsumption
+      incomingNationalConsumption
+      outgoingNationalConsumption
+      internationalConsumption
+      incomingInternationalConsumption
+      outgoingInternationalConsumption
+      total
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.currentConsumption;
+}
+
+export async function exportCurrentConsumption(simcardId, exportFormat) {
+  const queryStr = `
+  query {
+    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+      downloadUri
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportCurrentConsumption;
 }

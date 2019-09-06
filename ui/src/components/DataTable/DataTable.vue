@@ -34,7 +34,7 @@
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name + column.label" v-for="column in sortableColumns">
-                <div class="thead-actions">
+                <div :class="{ 'thead-actions': !align, 'thead-actions-align': align }">
                   <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
                   <span>{{ column.label }}</span>
                   <DataTableOrderArrow
@@ -160,6 +160,10 @@ export default {
     },
     storageVersion: {
       type: String,
+      required: false,
+    },
+    align: {
+      type: Boolean,
       required: false,
     },
   },
@@ -313,34 +317,6 @@ export default {
 .form-group {
   margin-bottom: 0; //reset bootstrap
 }
-.table-blue thead {
-  background-color: $primary;
-  color: white;
-
-  .sortable-chosen {
-    background-color: #0c62b2;
-  }
-}
-.table-blue {
-  background: white !important;
-  font-size: 1rem;
-  line-height: 24px;
-}
-
-.table-blue td {
-  color: $dark-gray;
-}
-
-.table-blue th {
-  font-weight: normal;
-  color: #ffffff;
-  font-size: 0.9rem;
-}
-
-.table-blue td .fa-blue {
-  position: relative;
-  top: 5px;
-}
 
 .handle {
   font-size: 20px;
@@ -401,6 +377,12 @@ select {
 .thead-actions {
   display: flex;
   flex-direction: row;
+}
+.thead-actions-align {
+  // display: block;
+  // text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 label {

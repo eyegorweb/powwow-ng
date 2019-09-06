@@ -38,6 +38,9 @@
   "applyDate": "Date d'application",
   "fromThe": "depuis le :",
   "loading": "Chargement",
+  "display": "Affichage",
+  "MB": "{value} Mio",
+  "MN": "{value} Mn",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -273,6 +276,7 @@
       "triggeredAlarms": "Alarmes déclenchées",
       "manufacturer": "Fabricant",
       "model": "Modèle",
+      "titled": "Intitulés",
       "data": "Data consommées",
       "sms": "SMS consommés",
       "voice": "Voix consommée",
@@ -281,9 +285,36 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "analysingTool": "ANALYSER LA LIGNE",
-      "report": {
-        "alreadyExists": "Ligne existante"
+      "alarms": {
+        "name": "Nom de l'alarme",
+        "threshold": "Seuil de déclenchement",
+        "trigger": "Déclenchement",
+        "scope": "Portée",
+        "observationCycle": "Cycle d’observation",
+        "disableLine": "Désactiver pour la ligne",
+        "enableLine": "Activer pour la ligne",
+        "data_io": "Data E/S",
+        "data_out": "Data sortante",
+        "data_in": "Data entrante",
+        "sms_io": "SMS E/S",
+        "sms_out": "SMS sortante",
+        "sms_in": "SMS entrante",
+        "voice_io": "Voix E/S",
+        "voice_out": "Voix sortante",
+        "voice_in": "Voix entrante"
       },
+      "consummated": {
+        "data": "Data consommées",
+        "sms": "SMS consommés",
+        "voice": "Voix consommée",
+        "export": "Exporter l'encours de consommation"
+      },
+      "estimated": {
+        "data": "Prévisionnel Data",
+        "sms": "Prévisionnel SMS",
+        "voice": "Prévisionnel Voix"
+      },
+
       "tab1": {
         "lineInfo": "Informations sur la ligne",
         "billingOffer": {
@@ -336,6 +367,19 @@
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
+          "toggle": {
+            "graph": "Graphe",
+            "table": "Tableau"
+          },
+          "connectionStatus": {
+            "F": "FERMEE",
+            "P": "OUVERTE"
+          },
+          "connectionClosingReason": {
+            "A": "ANORMALE",
+            "N": "NORMALE"
+          },
+          "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
           "closingConnexionReason": "Raison de la fermeture de la connexion",
           "connexionDebut": "Début de la connexion",
@@ -343,7 +387,38 @@
           "currentApn": "APN actuel",
           "IPType": "Type d'adresse IP",
           "currentIPv4Address": "Adresse IPv4 actuelle",
-          "currentIPv6Address": "Adresse IPv6 actuelle :"
+          "currentIPv6Address": "Adresse IPv6 actuelle",
+          "geographicalCoordinates": "Coordonnées géographiques",
+          "lastLocationDate": "Date de la dernière localisation",
+          "useTypeAndDetail": "Type et détail d'usage"
+        },
+        "networkInfoContent": {
+          "dataControl": "Contrôle data roaming",
+          "gaugeConsumtion": "Jauge de consommation",
+          "stateStopService": "Etat Coupure",
+          "tresholdStopService": "Seuil Coupure",
+          "tmpDebarring": "Debarring Tempraire"
+        },
+        "supervisionContent": {
+          "dataConsumptionPerDay": "Consommation data par jour",
+          "sms": "Consommation SMS par jour",
+          "dataConsumptionPerDayColumns": {
+            "start": "Début de conso",
+            "end": "Fin de conso.",
+            "status": "Statut",
+            "closing": "Fermeture",
+            "location": "Localisation",
+            "apn": "APN et IP",
+            "ip": "Type IP",
+            "country": "Pays",
+            "operator": "Opérateur",
+            "zipcode": "Code postal",
+            "city": "Ville",
+            "offer": "Offre",
+            "cellId": "ID de la cellule",
+            "device": "Référence commerciale",
+            "manufacturer": "Constructeur"
+          }
         }
       },
       "tabServices": {
@@ -368,6 +443,9 @@
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
+        "lineDetail": {
+          "CUSTOM_FIELDS": "Modifier les champs libres"
+        },
         "MANAGE_CANCELLATION": "Gérer des résiliations",
         "MODAL_WARNING": "Attention ! Cette action est définitive",
         "TRANSFERT_LINES": "Transférer vers un partenaire",
@@ -437,15 +515,21 @@
         "currentMSISDN": "MSISDN actuel",
         "newMSISDN": "Nouvel MSISDN"
       },
+      "changeCustomFields": {
+        "confirmationWarning": "Attention !  Les anciens champs libres seront résiliés.  Confirmez-vous le changement des champs libres ?",
+        "currentCustomFields": "Champs libres actuels",
+        "newCustomFields": "Nouveaux champs libres"
+      },
 
       "preactivateActivate": {
         "confirmationWarning": "Confirmer?"
       },
 
       "report": {
-        "alreadyExists": "Lignes existantes",
-        "invalidFormat": "Format invalide",
-        "notFound": "Introuvable"
+        "DATA_EXISTS": "Lignes existantes",
+        "DATA_INVALID_FORMAT": "Format invalide",
+        "DATA_NOT_FOUND": "Introuvable",
+        "NEW_DATA_ALREADY_EXISTS": "Ligne existante"
       },
 
       "transfertCF": {
@@ -518,8 +602,8 @@
         "foundLines": "lignes ont été trouvées",
         "notFoundLines": "lignes ne sont pas compatibles",
         "errors": {
-          "notValid": "{totalInvalidFormat} lignes ont un {idType} erroné.",
-          "unknown": "{totalNotFound} lignes ont un {idType} inconnu."
+          "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
+          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu."
         }
       },
       "massActionsHistory": {
@@ -541,6 +625,9 @@
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé"
         }
+      },
+      "alarmList": {
+        "title": "Liste des alarmes"
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",

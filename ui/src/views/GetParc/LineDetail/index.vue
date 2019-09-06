@@ -29,9 +29,11 @@
         <div class="pt-4 pl-4" slot="detail">
           <DetailsTab :content="lineData" />
         </div>
-        <div slot="ongoing">B</div>
+        <div slot="ongoing">
+          <OngoingTab :content="lineData" />
+        </div>
         <div slot="diagnosis">
-          <diagnosisTab></diagnosisTab>
+          <DiagnosisTab :content="lineData" />
         </div>
       </UiTabs>
     </div>
@@ -41,6 +43,7 @@
 <script>
 import LineSummary from './LineSummary';
 import DetailsTab from './DetailsTab';
+import OngoingTab from './OngoingTab';
 import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
@@ -52,8 +55,9 @@ export default {
   components: {
     LineSummary,
     DetailsTab,
-    DiagnosisTab,
+    OngoingTab,
     ActionCarousel,
+    DiagnosisTab,
     UiTabs,
     UiTab,
   },
@@ -94,7 +98,7 @@ export default {
         },
         {
           icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
           selected: false,
         },
         {

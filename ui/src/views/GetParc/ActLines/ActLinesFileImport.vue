@@ -5,7 +5,7 @@
       <ul class="list-unstyled m-0">
         <li>
           <i class="ic-Check-Icon mr-2 text-success" />
-          {{ fileMeta.successful }}
+          {{ fileMeta.validated }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
         <li v-if="totalNotCompatible > 0">
@@ -13,18 +13,10 @@
           {{ totalNotCompatible }}
           {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
           <ul class="list-styled">
-            <li>
+            <li v-for="e in fileMeta.errors" :key="e.key">
               {{
-                $t('getparc.actLines.fileImport.errors.notValid', {
-                  totalInvalidFormat: fileMeta.invalidFormat,
-                  idType: idType,
-                })
-              }}
-            </li>
-            <li>
-              {{
-                $t('getparc.actLines.fileImport.errors.unknown', {
-                  totalNotFound: fileMeta.notFound,
+                $t('getparc.actLines.fileImport.errors.' + e.key, {
+                  count: e.number,
                   idType: idType,
                 })
               }}
@@ -92,7 +84,12 @@ export default {
       },
     },
     totalNotCompatible() {
-      return this.fileMeta.invalidFormat + this.fileMeta.notFound;
+      if (!this.fileMeta.errors) {
+        return 0;
+      }
+      return this.fileMeta.errors.reduce((total, e) => {
+        return (total += e.number);
+      }, 0);
     },
   },
   methods: {

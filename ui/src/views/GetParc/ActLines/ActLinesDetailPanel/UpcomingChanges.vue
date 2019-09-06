@@ -7,8 +7,9 @@
     </div>
     <div v-if="massActions && massActions.length">
       <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
-        <h6>{{ i.statusDate }}</h6>
-        <p>{{ i.status }}</p>
+        <h6>Le : {{ i.statusDate }}</h6>
+        <p>{{ $t('getparc.actTypes.' + i.actionType) }}</p>
+        <DetailsCell :row="i" />
       </div>
     </div>
     <div v-else>
@@ -20,12 +21,16 @@
 <script>
 import { fetchUnitActionsWithaccessPoint } from '@/api/unitActions';
 import get from 'lodash.get';
+import DetailsCell from '@/views/GetParc/ActHistory/HistoryTable/DetailsCell';
 
 export default {
   data() {
     return {
       massActions: [],
     };
+  },
+  components: {
+    DetailsCell,
   },
   props: {
     content: {
@@ -38,9 +43,8 @@ export default {
     },
   },
   async mounted() {
-    this.massActions = await fetchUnitActionsWithaccessPoint(this.get('accessPoint.id'), [
-      'WAITING',
-    ]);
+    const response = await fetchUnitActionsWithaccessPoint(this.get('accessPoint.id'), ['WAITING']);
+    this.massActions = response.items;
   },
 };
 </script>

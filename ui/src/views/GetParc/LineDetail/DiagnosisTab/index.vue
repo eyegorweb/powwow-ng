@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
+        <li
+          v-for="item in menuItems"
+          :key="item.title"
+          class="list-group-item"
+          :class="{ '-inactive': !menuActive }"
+        >
           <a
             @click.prevent="section = item.section"
             :class="{ active: section == item.section }"
@@ -15,13 +20,41 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <LineAnalysis v-if="section === 'line_analysis'" :content="content" />
-      <NetworkLocationTest v-if="section === 'network_location_test'" :content="content" />
-      <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
-      <Supervision v-if="section === 'supervision'" :content="content" />
-      <NetworkHistory v-if="section === 'network_history'" :content="content" />
-      <LastTests v-if="section === 'last_tests'" :content="content" />
-      <NetworkInformation v-if="section === 'network_information'" :content="content" />
+      <LineAnalysis
+        v-if="section === 'line_analysis'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <NetworkLocationTest
+        v-if="section === 'network_location_test'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <NetworkTestControl
+        v-if="section === 'network_test_control'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <Supervision
+        v-if="section === 'supervision'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <NetworkHistory
+        v-if="section === 'network_history'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <LastTests
+        v-if="section === 'last_tests'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
+      <NetworkInformation
+        v-if="section === 'network_information'"
+        :content="content"
+        :menu-active.sync="menuActive"
+      />
     </div>
   </div>
 </template>
@@ -50,6 +83,7 @@ export default {
   },
   data() {
     return {
+      menuActive: true,
       section: 'line_analysis',
       menuItems: [
         {
@@ -88,6 +122,10 @@ export default {
 
 <style lang="scss" scoped>
 .list-group-item {
+  &.-inactive {
+    pointer-events: none;
+    background-color: $gray-400;
+  }
   a {
     color: black;
 

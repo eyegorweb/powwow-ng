@@ -1,9 +1,7 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
     <div>
-      <div v-if="!total" class="alert alert-light" role="alert">
-        {{ $t('noResult') }}
-      </div>
+      <div v-if="!total" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
       <div v-else>
         <div class="row mb-3">
           <div class="col">
@@ -13,9 +11,9 @@
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-              </span>
+              <span slot="title">{{
+                $t('getparc.history.details.EXPORT_LINES', { total: total })
+              }}</span>
             </ExportButton>
           </div>
         </div>
@@ -36,7 +34,7 @@
           </template>
         </DataTable>
       </div>
-      <slot name="after"> </slot>
+      <slot name="after"></slot>
     </div>
   </LoaderContainer>
 </template>
@@ -114,6 +112,7 @@ export default {
     },
     async fetchUnitActs(searchFilter = []) {
       this.isLoading = true;
+      this.$emit('is-loading', true);
       try {
         const response = await fetchUnitActions(
           this.$route.params.massActionId,
@@ -129,9 +128,11 @@ export default {
           level: 'danger',
           message: "Erreur lors de l'éxécution de la requette ",
         });
+        this.$emit('update:total', '-');
       }
 
       this.isLoading = false;
+      this.$emit('is-loading', false);
     },
   },
 

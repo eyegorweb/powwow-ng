@@ -15,9 +15,8 @@
           variant="primary"
           block
           @click="$router.push({ name: 'lineDetail', params: { lineId: content.id } })"
+          >{{ $t('getparc.actLines.details.DETAIL') }}</UiButton
         >
-          {{ $t('getparc.actLines.details.DETAIL') }}
-        </UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
