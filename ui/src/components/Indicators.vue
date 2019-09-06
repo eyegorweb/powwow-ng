@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-group bg-white" :class="noBorders ? 'no-borders' : undefined">
+  <ul class="list-group bg-white" :class="listClasses">
     <IndicatorItem
       v-for="indicator in indicatorsWithCompatibleRoles"
       :key="indicator.labelKey"
@@ -27,6 +27,7 @@ export default {
     },
     partners: Object,
     noBorders: Boolean,
+    small: Boolean,
   },
 
   data() {
@@ -56,6 +57,13 @@ export default {
         return true;
       });
     },
+    listClasses() {
+      const classNames = [];
+      if (this.noBorders) classNames.push('no-borders');
+      if (this.small) classNames.push('small-text');
+
+      return classNames.join(' ');
+    },
   },
   methods: {
     removeIndicator(indicatorToRemove) {
@@ -70,6 +78,12 @@ export default {
   li {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+}
+.small-text {
+  li {
+    font-size: 0.8rem;
+    padding-bottom: 0.4rem;
   }
 }
 </style>

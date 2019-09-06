@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" no-padding>
     <div class="pl-3 pr-3 pb-3">
-      <GetSimIndicators no-borders />
+      <GetSimIndicators no-borders small />
     </div>
   </WidgetBloc>
 </template>

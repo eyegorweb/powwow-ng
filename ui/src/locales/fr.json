@@ -754,7 +754,10 @@
         "activatedSIMCards": "Cartes SIM actives",
         "suspended": "Suspendu",
         "traffic": "Trafiquantes M",
-        "validation": "Validation transfert"
+        "validation": "Validation transfert",
+        "inprogressTwoDays": "Actes en cours > 48 h",
+        "failedTwoDays": "Actes en échec > 48 h"
+
       }
     }
   },
