@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.193+20190906145906
+2019-09-06
+
+### Features
+
+- 642  Résumé des actes de gestion dans un widget (8616454a0c7329602d5cffa62313445936968cdd)
+
 ## 0.3.0-master.192+20190906130140
 2019-09-06
 
