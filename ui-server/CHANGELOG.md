@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.190+20190906090739
+2019-09-06
+
+### Fixes
+
+- 568 Correction du texte pour le statut de connexion (0f1e6860258f8dd7ac7f5c4f3df2def6031a2320)
+
 ## 0.3.0-master.189+20190904151503
 2019-09-04
 
