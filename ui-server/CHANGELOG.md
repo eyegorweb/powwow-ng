@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.191+20190906092843
+2019-09-06
+
+### Fixes
+
+- 752 Correction de la recherche par fichier (4d538d6764bfd505061991d94d49a0742cf22acb)
+
 ## 0.3.0-master.190+20190906090739
 2019-09-06
 

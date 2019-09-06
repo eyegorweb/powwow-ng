@@ -311,7 +311,7 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
 function addFileImportId(gqlFilters, selectedFilters) {
   const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
   if (filter && filter.values && filter.values.length) {
-    gqlFilters.push(`tempDataUuid: "${filter.values[0].id}"`);
+    gqlFilters.push(`tempDataUuid: "${filter.values[0].tempDataUuid}"`);
   }
 }
 
