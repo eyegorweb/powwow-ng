@@ -17,9 +17,8 @@
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
-            <p class="text-danger mock-value">
-              Oui
-            </p>
+            <p v-if="alarmTriggered" class="text-success">{{ $t('common.YES') }}</p>
+            <p v-if="!alarmTriggered" class="text-danger">{{ $t('common.NO') }}</p>
           </div>
         </div>
         <hr />
@@ -103,10 +102,19 @@
 import get from 'lodash.get';
 import { formatBytes } from '@/api/utils';
 import moment from 'moment';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 export default {
+  async mounted() {
+    this.fetchAlarms();
+  },
   props: {
     content: Object,
+  },
+  data() {
+    return {
+      alarmTriggered: false,
+    };
   },
   computed: {
     simStatus() {
@@ -140,6 +148,10 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    async fetchAlarms() {
+      const response = await fetchAlarmsWithInfos(this.content.party.id);
+      this.alarmTriggered = response[0].isTriggered;
     },
     totalUsed(type, mode) {
       let usedTotal,

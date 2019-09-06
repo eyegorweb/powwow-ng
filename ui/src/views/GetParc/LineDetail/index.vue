@@ -17,7 +17,7 @@
         </h4>
       </div>
     </div>
-    <LineSummary :content="lineData" />
+    <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
     <div class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      lineData: {},
+      lineData: undefined,
       currentLinkIndex: 0,
       tabs: [
         {
@@ -116,7 +116,8 @@ export default {
   },
   computed: {
     msisdn() {
-      return this.lineData.accessPoint &&
+      return this.lineData &&
+        this.lineData.accessPoint &&
         typeof this.lineData.accessPoint !== 'undefined' &&
         this.lineData.accessPoint !== 'null'
         ? this.lineData.accessPoint.lines[0].msisdn
