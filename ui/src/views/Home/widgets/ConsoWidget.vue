@@ -15,7 +15,7 @@
           />
         </div>
         <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
-          <Gauge :value="49" title="00:05:34" subtitle="18/11/2018" right-corner="00:12:00" />
+          <Gauge :value="49" title="110" subtitle="18/11/2018" right-corner="120" />
         </div>
       </div>
     </div>

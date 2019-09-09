@@ -1,6 +1,6 @@
 <template>
   <WidgetBloc :widget="widget" no-padding>
-    <Indicators v-if="indicators" :meta="indicators" no-borders small />
+    <Indicators v-if="indicators" :meta="indicators" :on-click="onCounterClick" no-borders small />
   </WidgetBloc>
 </template>
 
@@ -23,13 +23,23 @@ export default {
       default: () => [],
     },
   },
+  methods: {
+    onCounterClick(indicator) {
+      this.$router.push({
+        name: 'actHistory',
+        params: {
+          queryFilters: [...indicator.filters],
+        },
+      });
+    },
+  },
 
   mounted() {
     this.indicators = [
       {
         labelKey: 'indicators.getsim.actionsInProgress',
         color: 'text-danger',
-        clickable: false,
+        clickable: true,
         total: '-',
         filters: [
           ...this.specificFilters,
@@ -38,14 +48,17 @@ export default {
             values: [
               {
                 id: 'IN_PROGRESS',
+                label: this.$t('getparc.history.col.ongoing'),
               },
               {
                 id: 'WAITING',
+                label: this.$t('getparc.actLines.massActionsHistory.statuses.WAITING'),
               },
             ],
           },
           {
             id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
             startDate: formattedCurrentDate(),
             endDate: currentDateMinusMounts(6),
           },
@@ -57,7 +70,7 @@ export default {
       {
         labelKey: 'indicators.getparc.lines.inprogressTwoDays',
         color: 'text-danger',
-        clickable: false,
+        clickable: true,
         total: '-',
         filters: [
           ...this.specificFilters,
@@ -66,14 +79,17 @@ export default {
             values: [
               {
                 id: 'IN_PROGRESS',
+                label: this.$t('getparc.history.col.ongoing'),
               },
               {
                 id: 'WAITING',
+                label: this.$t('getparc.actLines.massActionsHistory.statuses.WAITING'),
               },
             ],
           },
           {
             id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
             endDate: currentDateMinusDays(2),
           },
         ],
@@ -84,7 +100,7 @@ export default {
       {
         labelKey: 'indicators.getsim.actionsFailed',
         color: 'text-danger',
-        clickable: false,
+        clickable: true,
         total: '-',
         filters: [
           ...this.specificFilters,
@@ -93,6 +109,7 @@ export default {
             values: [
               {
                 id: 'IN_ERROR',
+                label: this.$t('getparc.actStatuses.IN_ERROR'),
               },
             ],
           },
@@ -104,7 +121,7 @@ export default {
       {
         labelKey: 'indicators.getparc.lines.failedTwoDays',
         color: 'text-danger',
-        clickable: false,
+        clickable: true,
         total: '-',
         filters: [
           ...this.specificFilters,
@@ -113,11 +130,13 @@ export default {
             values: [
               {
                 id: 'IN_ERROR',
+                label: this.$t('getparc.actStatuses.IN_ERROR'),
               },
             ],
           },
           {
             id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
             endDate: currentDateMinusDays(2),
           },
         ],
@@ -128,7 +147,7 @@ export default {
       {
         labelKey: 'indicators.getsim.actionsPlanned',
         color: 'text-danger',
-        clickable: false,
+        clickable: true,
         total: '-',
         filters: [
           ...this.specificFilters,
@@ -137,11 +156,13 @@ export default {
             values: [
               {
                 id: 'WAITING',
+                label: this.$t('getparc.actLines.massActionsHistory.statuses.WAITING'),
               },
             ],
           },
           {
             id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
             startDate: formattedCurrentDate(),
           },
         ],

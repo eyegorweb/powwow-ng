@@ -17,7 +17,7 @@ export default {
       filters: [
         {
           id: 'filters.actTypes',
-          values: [{ id: 'STATUS_CHANGE' }],
+          values: [{ id: 'STATUS_CHANGE', label: this.$t('getparc.actTypes.STATUS_CHANGE') }],
         },
         {
           id: 'filters.transitionName',
