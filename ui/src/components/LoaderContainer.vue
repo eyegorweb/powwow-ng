@@ -20,6 +20,7 @@ export default {
 <style lang="scss" scoped>
 .isLoading {
   min-height: 20vh;
+  z-index: 0;
 }
 .loader {
   z-index: 1;
