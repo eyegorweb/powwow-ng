@@ -5,6 +5,7 @@
     :input-placeholder="$t('searchLineById')"
     @findType="findType"
     @searchById="searchById"
+    :inline="inline"
   />
 </template>
 
@@ -15,6 +16,12 @@ import startsWith from 'lodash.startswith';
 export default {
   components: {
     SearchIdInput,
+  },
+  props: {
+    inline: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     const prefix = {
