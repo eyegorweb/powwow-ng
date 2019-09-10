@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.201+20190910132512
+2019-09-10
+
+### Features
+
+- 646 ajouter un bouton pour la création de commande depuis la home page (bae107bada1f71e9cf8c9f75cff19233495e0528)
+
 ## 0.3.0-master.200+20190910101337
 2019-09-10
 
