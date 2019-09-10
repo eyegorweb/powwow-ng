@@ -170,6 +170,7 @@ export default {
       'setSelectedLinesForActCreation',
       'setSelectedFileForActCreation',
       'setPageLimit',
+      'setRouteParamsFilters',
     ]),
 
     checkTableResult(result) {
@@ -224,6 +225,9 @@ export default {
     },
   },
   mounted() {
+    if (this.$route.params && this.$route.params.queryFilters) {
+      this.setRouteParamsFilters(this.$route.params.queryFilters);
+    }
     this.initFilterForContext();
   },
   watch: {

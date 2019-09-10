@@ -115,6 +115,7 @@ export default {
           visible: Boolean, // Affichage par défaut de la colonne dans la table
           visibleWhen: Function, // fonction qui controle la visibilité en plus du boolean (visible)
           fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
+          noHandle: Boolean, // désactiver le drag&drop
 
           // Optionel, objet pour customiser le format de la céllule
           format: {
