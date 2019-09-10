@@ -32,9 +32,7 @@ export default {
         filterObj,
       ]);
 
-      if (!result || !result.items || !result.items.length) return;
-
-      if (result.total === 0) {
+      if (!result || !result.items || !result.items.length) {
         this.noResults = true;
       } else if (result.total === 1) {
         this.$router.push({
