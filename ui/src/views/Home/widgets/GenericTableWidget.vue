@@ -12,6 +12,7 @@
       :page-limit.sync="pageLimit"
       :total="0"
       :order-by.sync="orderBy"
+      small-text
     />
   </Promised>
 </template>
