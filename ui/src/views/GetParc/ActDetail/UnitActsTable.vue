@@ -11,9 +11,9 @@
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">{{
-                $t('getparc.history.details.EXPORT_LINES', { total: total })
-              }}</span>
+              <span slot="title">
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+              </span>
             </ExportButton>
           </div>
         </div>
@@ -28,6 +28,7 @@
           :order-by.sync="orderBy"
           :show-extra-columns.sync="showExtraCells"
           :size="7"
+          v-if="total !== '-'"
         >
           <template slot="topLeftCorner">
             <SearchByActId @searchById="searchById" :options="searchOptions" />
@@ -61,7 +62,7 @@ export default {
     storageId: String,
     storageVersion: String,
     statuses: Array,
-    total: Number,
+    total: [Number, String],
   },
 
   async mounted() {

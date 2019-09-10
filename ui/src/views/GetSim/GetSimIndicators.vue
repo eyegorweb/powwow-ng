@@ -5,6 +5,7 @@
     :on-click="indicator => $emit('click', indicator)"
     :partners="partnersForIndicators"
     :no-borders="noBorders"
+    :small="small"
   />
 </template>
 
@@ -24,6 +25,7 @@ export default {
   },
   props: {
     noBorders: Boolean,
+    small: Boolean,
   },
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters', 'indicatorsVersion']),

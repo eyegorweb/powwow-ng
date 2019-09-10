@@ -16,7 +16,7 @@
     <draggable v-model="widgetsInPanel" handle=".handle">
       <transition-group name="widgets">
         <template v-for="w in activeWidgets">
-          <component :key="w.id" v-if="w.component" :is="w.component" :widget="w" />
+          <component :key="w.title" v-if="w.component" :is="w.component" :widget="w" />
         </template>
       </transition-group>
     </draggable>

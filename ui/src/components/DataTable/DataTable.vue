@@ -30,7 +30,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-blue mt-1">
+        <table class="table table-blue mt-1" :class="{ 'small-text': smallText }">
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name + column.label" v-for="column in sortableColumns">
@@ -115,6 +115,7 @@ export default {
           visible: Boolean, // Affichage par défaut de la colonne dans la table
           visibleWhen: Function, // fonction qui controle la visibilité en plus du boolean (visible)
           fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
+          noHandle: Boolean, // désactiver le drag&drop
 
           // Optionel, objet pour customiser le format de la céllule
           format: {
@@ -163,6 +164,10 @@ export default {
       required: false,
     },
     align: {
+      type: Boolean,
+      required: false,
+    },
+    smallText: {
       type: Boolean,
       required: false,
     },
@@ -399,6 +404,10 @@ thead th {
   //evite les retours à la ligne dans l'entête de la table de l'historique des actes de gestion
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.small-text {
+  font-size: 0.8rem !important;
 }
 
 @media only screen and (max-width: 1024px) {

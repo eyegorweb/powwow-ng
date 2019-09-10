@@ -1,6 +1,6 @@
 <template>
-  <WidgetBloc :widget="widget">
-    <table class="table">
+  <WidgetBloc :widget="widget" mocked>
+    <table class="table mock-value">
       <tbody>
         <tr>
           <td>6.15544.77 du 10/10/2018 au 11/11/2018</td>
@@ -45,6 +45,7 @@ export default {
 .list-group-item {
   border-right: none;
   border-left: none;
+  color: $dark-gray;
 
   &:first-child {
     border-top: none;

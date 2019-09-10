@@ -2,6 +2,49 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.200+20190910101337
+2019-09-10
+
+## 0.3.0-master.199+20190910092249
+2019-09-10
+
+### Fixes
+
+- widget search by lines (af4c6e9b8623909a0ba263334087b4450e6a0cb5)
+
+## 0.3.0-master.198+20190910090411
+2019-09-10
+
+### Fixes
+
+- diminuer la taille du texte du widget table (93eb6eb5bc3e3f4f01a15f567d22ecf4fe073b71)
+
+## 0.3.0-master.197+20190910075446
+2019-09-10
+
+### Features
+
+- 638 actes de gestion dans un widget (7d1189b1c4d6805f3767dda24f779e28ca6966c4)
+
+## 0.3.0-master.196+20190909101529
+2019-09-09
+
+## 0.3.0-master.195+20190909084016
+2019-09-09
+
+## 0.3.0-master.194+20190909093436
+2019-09-09
+
+## 0.3.0-master.193+20190906145906
+2019-09-06
+
+### Features
+
+- 642  Résumé des actes de gestion dans un widget (8616454a0c7329602d5cffa62313445936968cdd)
+
+## 0.3.0-master.192+20190906130140
+2019-09-06
+
 ## 0.3.0-master.191+20190906092843
 2019-09-06
 

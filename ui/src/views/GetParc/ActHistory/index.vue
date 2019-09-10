@@ -40,9 +40,12 @@ export default {
   },
   methods: {
     ...mapActions('actHistory', ['initFilterForContext']),
-    ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),
+    ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters', 'setRouteParamsFilters']),
   },
   mounted() {
+    if (this.$route.params && this.$route.params.queryFilters) {
+      this.setRouteParamsFilters(this.$route.params.queryFilters);
+    }
     this.initFilterForContext();
     if (this.$route.params && this.$route.params.preselectFailedFilter) {
       setTimeout(() => {

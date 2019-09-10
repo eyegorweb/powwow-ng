@@ -2,6 +2,7 @@
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
+  "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",
@@ -39,6 +40,7 @@
   "fromThe": "depuis le :",
   "loading": "Chargement",
   "display": "Affichage",
+  "seeMore": "Voir plus",
   "MB": "{value} Mio",
   "MN": "{value} Mn",
   "home": {
@@ -754,7 +756,10 @@
         "activatedSIMCards": "Cartes SIM actives",
         "suspended": "Suspendu",
         "traffic": "Trafiquantes M",
-        "validation": "Validation transfert"
+        "validation": "Validation transfert",
+        "inprogressTwoDays": "Actes en cours > 48 h",
+        "failedTwoDays": "Actes en échec > 48 h"
+
       }
     }
   },

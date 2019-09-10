@@ -187,6 +187,25 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
   return response.data.massActions;
 }
 
+export async function countTotalForMassAction(filters) {
+  const pagination = {
+    page: 0,
+    limit: 0,
+  };
+  const paginationInfo = `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`;
+  const queryStr = `
+  query {
+
+    massActions(filter: {${formatFilters(filters)}} ${paginationInfo} ) {
+      total
+    }
+
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.massActions;
+}
+
 export async function countTotalByMassActionIndicators(
   filterIndicatorActionsInProgress,
   filterIndicatorActionsFailed,
@@ -287,6 +306,7 @@ function formatFilters(filters) {
   addMassActionId(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addCreatorFilter(allFilters, filters);
+  addTransitionName(allFilters, filters);
   // addServices(allFilters, filters);
 
   return allFilters.join(',');
@@ -321,6 +341,15 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   }
   if (unitActionId) {
     gqlFilters.push(`unitActionId: ${unitActionId.value}`);
+  }
+}
+
+// transitionName
+
+function addTransitionName(gqlFilters, selectedFilters) {
+  const transitionNameFilter = selectedFilters.find(f => f.id === 'filters.transitionName');
+  if (transitionNameFilter) {
+    gqlFilters.push(`transitionName: "${transitionNameFilter.value}"`);
   }
 }
 
