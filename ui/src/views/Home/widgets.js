@@ -6,10 +6,10 @@ import ActivationWidget from './widgets/ActWidgets/ActivationWidget';
 import PreactivationActivationWidget from './widgets/ActWidgets/PreactivationActivationWidget';
 import CanceledWidget from './widgets/ActWidgets/CanceledWidget';
 import GenericWidget from './widgets/ActWidgets/GenericWidget';
+import MassActionTable from './widgets/MassActionTable';
 
 export default [
   {
-    id: 'w3',
     title: 'Mes commandes',
     description: '',
     checked: true,
@@ -17,7 +17,6 @@ export default [
     component: OrdersWidget,
   },
   {
-    id: 'w2',
     title: 'Dernière factures',
     description: '',
     checked: true,
@@ -25,7 +24,6 @@ export default [
     component: BillsWidget,
   },
   {
-    id: 'w1',
     title: 'En cours de consomation',
     description: '',
     checked: true,
@@ -33,7 +31,6 @@ export default [
     component: ConsoWidget,
   },
   {
-    id: 'w4',
     title: 'Statut des commandes',
     description: '',
     checked: true,
@@ -41,7 +38,13 @@ export default [
     component: OrdersStatusesWidget,
   },
   {
-    id: 'w5',
+    title: 'Acte de gestion',
+    description: '',
+    checked: true,
+    large: true,
+    component: MassActionTable,
+  },
+  {
     title: 'Actes: Activation',
     description: '',
     checked: true,
@@ -49,7 +52,6 @@ export default [
     component: ActivationWidget,
   },
   {
-    id: 'w6',
     title: 'Actes: Préactivation / Action',
     description: '',
     checked: true,
@@ -57,7 +59,6 @@ export default [
     component: PreactivationActivationWidget,
   },
   {
-    id: 'w7',
     title: 'Actes: Résiliation',
     description: '',
     checked: true,
@@ -65,7 +66,6 @@ export default [
     component: CanceledWidget,
   },
   {
-    id: 'w8',
     title: 'Statut des actes de gestion',
     description: '',
     checked: true,
