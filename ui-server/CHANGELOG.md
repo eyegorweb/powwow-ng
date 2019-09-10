@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.199+20190910092249
+2019-09-10
+
+### Fixes
+
+- widget search by lines (af4c6e9b8623909a0ba263334087b4450e6a0cb5)
+
 ## 0.3.0-master.198+20190910090411
 2019-09-10
 
