@@ -167,6 +167,7 @@ export default {
           color: 'text-danger',
           clickable: true,
           total: '-',
+          roles: ['BO'],
           filters: [
             {
               id: 'filters.orderStatus',
