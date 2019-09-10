@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.197+20190910075446
+2019-09-10
+
+### Features
+
+- 638 actes de gestion dans un widget (7d1189b1c4d6805f3767dda24f779e28ca6966c4)
+
 ## 0.3.0-master.196+20190909101529
 2019-09-09
 
