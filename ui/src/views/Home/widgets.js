@@ -7,6 +7,7 @@ import PreactivationActivationWidget from './widgets/ActWidgets/PreactivationAct
 import CanceledWidget from './widgets/ActWidgets/CanceledWidget';
 import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
+import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 
 export default [
   {
@@ -14,6 +15,7 @@ export default [
     description: '',
     checked: true,
     large: true,
+    clickable: true,
     component: OrdersWidget,
   },
   {
@@ -21,6 +23,7 @@ export default [
     description: '',
     checked: true,
     large: false,
+    clickable: true,
     component: BillsWidget,
   },
   {
@@ -28,6 +31,7 @@ export default [
     description: '',
     checked: true,
     large: true,
+    clickable: true,
     component: ConsoWidget,
   },
   {
@@ -35,6 +39,7 @@ export default [
     description: '',
     checked: true,
     large: false,
+    clickable: true,
     component: OrdersStatusesWidget,
   },
   {
@@ -50,6 +55,7 @@ export default [
     checked: true,
     large: false,
     component: ActivationWidget,
+    clickable: true,
   },
   {
     title: 'Actes: Préactivation / Action',
@@ -57,6 +63,7 @@ export default [
     checked: true,
     large: false,
     component: PreactivationActivationWidget,
+    clickable: true,
   },
   {
     title: 'Actes: Résiliation',
@@ -64,12 +71,22 @@ export default [
     checked: true,
     large: false,
     component: CanceledWidget,
+    clickable: true,
   },
   {
     title: 'Statut des actes de gestion',
     description: '',
     checked: true,
     large: false,
+    clickable: true,
     component: GenericWidget,
+  },
+  {
+    title: 'Rechercher une ligne',
+    description: 'Description',
+    checked: true,
+    large: false,
+    clickable: false,
+    component: SearchLinesByIdWidget,
   },
 ];

@@ -10,9 +10,9 @@
             <span class="handle ic-Drag-Column-Icon" />
             <span :class="{ 'mock-value': mocked }">{{ widget.title }}</span>
           </div>
-          <div class="col-3">
+          <div class="col-3" v-if="widget.clickable">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
-              Voir plus
+              {{ $t('seeMore') }}
             </button>
           </div>
         </div>
