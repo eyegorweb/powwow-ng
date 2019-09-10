@@ -83,7 +83,7 @@ export default [
   },
   {
     title: 'Rechercher une ligne',
-    description: 'Description',
+    description: '',
     checked: true,
     large: false,
     clickable: false,

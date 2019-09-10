@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" no-padding>
     <div class="pl-3 pr-3 pb-3">
-      <SearchByLinesId @searchById="searchById" />
+      <SearchByLinesId @searchById="searchById" :inline="inline" />
       <div v-if="noResults" class="alert-light" role="alert">{{ $t('noResult') }}</div>
     </div>
   </WidgetBloc>
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       noResults: false,
+      inline: false,
     };
   },
 
