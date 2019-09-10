@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.198+20190910090411
+2019-09-10
+
+### Fixes
+
+- diminuer la taille du texte du widget table (93eb6eb5bc3e3f4f01a15f567d22ecf4fe073b71)
+
 ## 0.3.0-master.197+20190910075446
 2019-09-10
 
