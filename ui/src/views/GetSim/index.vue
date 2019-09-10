@@ -9,20 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3">
-        <UiButton
-          variant="accent"
-          block
-          class="float-right"
-          @click="
-            openPanel({
-              title: $t('getsim.order-sim'),
-              panelId: 'getsim.order-sim',
-              wide: true,
-              backdrop: true,
-            })
-          "
-          >{{ $t('getsim.order-sim') }}</UiButton
-        >
+        <UiButton variant="accent" block class="float-right" @click="openCreateOrderPanel()">
+          {{ $t('getsim.order-sim') }}
+        </UiButton>
       </div>
     </div>
     <div class="row">
@@ -71,6 +60,15 @@ export default {
       this.setCurrentFilters([...indicator.filters]);
       this.applyFilters();
     },
+
+    openCreateOrderPanel() {
+      this.openPanel({
+        title: this.$t('getsim.order-sim'),
+        panelId: 'getsim.order-sim',
+        wide: true,
+        backdrop: true,
+      });
+    },
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
@@ -86,6 +84,9 @@ export default {
 
     if (this.$route.params && this.$route.params.openDetailPanel) {
       this.setOpenDetailPanel(this.$route.params.openDetailPanel);
+    }
+    if (this.$route.params && this.$route.params.createOrder) {
+      this.openCreateOrderPanel();
     }
 
     this.initFilterForContext();

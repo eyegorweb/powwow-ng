@@ -1,22 +1,73 @@
 <template>
-  <WidgetBloc :widget="widget" no-padding>
-    <div class="pl-3 pr-3 pb-3">
-      <GetSimIndicators no-borders small />
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore" no-padding>
+    <div class="pl-3 pr-3 pb-0">
+      <GetSimIndicators no-borders small @click="onIndicatorClick" />
+      <UiButton
+        v-if="userIsPartner"
+        variant="accent"
+        block
+        class="float-right"
+        @click="createOrder"
+        >{{ $t('getsim.order-sim') }}</UiButton
+      >
     </div>
   </WidgetBloc>
 </template>
 
 <script>
+import UiButton from '@/components/ui/Button';
+
 import WidgetBloc from './WidgetBloc';
 import GetSimIndicators from '@/views/GetSim/GetSimIndicators';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     WidgetBloc,
     GetSimIndicators,
+    UiButton,
   },
   props: {
     widget: Object,
+  },
+  computed: {
+    ...mapGetters(['userIsPartner']),
+  },
+  methods: {
+    onIndicatorClick(indicator) {
+      this.$router.push({
+        name: 'orders',
+        params: {
+          queryFilters: [...indicator.filters],
+        },
+      });
+    },
+    onSeeMore() {
+      this.$router.push({
+        name: 'orders',
+        params: {
+          queryFilters: [
+            {
+              id: 'filters.orderStatus',
+              values: [
+                {
+                  id: 'TERMINATED',
+                  label: 'Terminée',
+                },
+              ],
+            },
+          ],
+        },
+      });
+    },
+    createOrder() {
+      this.$router.push({
+        name: 'orders',
+        params: {
+          createOrder: true,
+        },
+      });
+    },
   },
 };
 </script>
