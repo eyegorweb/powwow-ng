@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.207+20190911152142
+2019-09-11
+
+### Features
+
+- **detail de la ligne:** affiche l'information de déclenchement des alarmes (411a64c34fcfbca05ea2408de2ce3e33d68cbe9c)
+
 ## 0.3.0-master.206+20190911151425
 2019-09-11
 
