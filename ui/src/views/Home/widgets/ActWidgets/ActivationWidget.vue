@@ -19,8 +19,8 @@ export default {
           id: 'filters.actTypes',
           values: [
             {
-              id: 'PREACTIVATION_ACTIVATION',
-              label: this.$t('getparc.actTypes.PREACTIVATION_ACTIVATION'),
+              id: 'ACTIVATION',
+              label: this.$t('getparc.actTypes.ACTIVATION'),
             },
           ],
         },
