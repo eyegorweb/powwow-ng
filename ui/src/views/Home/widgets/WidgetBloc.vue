@@ -7,8 +7,11 @@
       <div class="card-header">
         <div class="row">
           <div class="col-9">
-            <span class="handle ic-Drag-Column-Icon" />
-            <span :class="{ 'mock-value': mocked }">{{ widget.title }}</span>
+            <div class="d-flex">
+              <span class="handle ic-Drag-Column-Icon" />
+              <span :class="{ 'mock-value': mocked }">{{ widget.title }}</span>
+              <slot name="header" />
+            </div>
           </div>
           <div class="col-3" v-if="widget.clickable">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
