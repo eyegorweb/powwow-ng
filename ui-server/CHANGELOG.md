@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.205+20190911140541
+2019-09-11
+
+### Fixes
+
+- Correction de bugs dans les widgets de la Home page (76c2a15e98fdeb42425ceefd142595272ea1d427)
+
 ## 0.3.0-master.204+20190911115326
 2019-09-11
 
