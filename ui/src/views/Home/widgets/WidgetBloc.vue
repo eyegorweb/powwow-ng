@@ -54,7 +54,7 @@ export default {
   }
 
   .card-body {
-    height: 14rem;
+    height: 16rem;
     overflow: hidden;
   }
 }
