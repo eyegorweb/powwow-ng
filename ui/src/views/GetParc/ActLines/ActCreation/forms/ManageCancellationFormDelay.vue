@@ -9,10 +9,9 @@
         v-model="selectedDelay"
         :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
         :options="delays"
-      >
-      </UiSelect>
+      ></UiSelect>
       <!-- <UiCheckbox v-model="applyCharges" />
-      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span> -->
+      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span>-->
     </div>
     <div class="d-flex">
       <button @click="manageRefuse" class="btn btn-cancel pl-4 pr-4 pt-2 pb-2">
