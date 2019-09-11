@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.204+20190911115326
+2019-09-11
+
+### Fixes
+
+- Ajouter la combobox de choix des offres pour le widget des encours conso (3d97e8499d2e7949a07c52e88270de266356ce53)
+
 ## 0.3.0-master.203+20190911094756
 2019-09-11
 
