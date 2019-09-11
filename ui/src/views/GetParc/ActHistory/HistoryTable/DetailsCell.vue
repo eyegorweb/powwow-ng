@@ -1,7 +1,5 @@
 <template>
-  <div>
-    {{ content }}
-  </div>
+  <div>{{ content }}</div>
 </template>
 
 <script>
@@ -34,7 +32,7 @@ export default {
       switch (this.row.actionType) {
         case 'PREACTIVATION_ACTIVATION':
         case 'ACTIVATION': {
-          return `Offer: ${this.row.offerName}`;
+          return `Offre: ${this.row.offerName}`;
         }
 
         case 'SERVICE_CHANGE': {
@@ -51,11 +49,11 @@ export default {
         }
 
         case 'CHANGE_CUSTOMER_ACCOUNT': {
-          return `Nouveau C.F ${this.row.destinationCustomerAccountCode}`;
+          return `Nouveau C.F: ${this.row.destinationCustomerAccountCode}`;
         }
 
         case 'CHANGE_OFFER': {
-          return `Nouvelle offre : ${this.row.offerName}`;
+          return `Nouvelle offre: ${this.row.offerName}`;
         }
 
         case 'SIMCARD_TRANSFER': {
@@ -82,7 +80,7 @@ export default {
             this.row.custom5,
             this.row.custom6,
           ].filter(c => c != null);
-          return `Libellé : ${customFields.join(',')}`;
+          return `Libellé: ${customFields.join(',')}`;
         }
 
         case 'UPDATE_COMMITMENT': {

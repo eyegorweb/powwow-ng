@@ -102,6 +102,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
         massActionResponse {
           id
           actionType
+          startDate
           dueDate
           message
           shortCode
