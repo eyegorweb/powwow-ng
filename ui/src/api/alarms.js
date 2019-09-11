@@ -30,10 +30,10 @@ export async function fetchAlarmInstancesByAP(id) {
   return response.data.alarmInstances;
 }
 
-export async function fetchAlarmsWithInfos(partnerId) {
+export async function fetchAlarmsWithInfos(simCardInstanceId) {
   const queryStr = `
   query {
-    alarmsWithInfo(partyId: ${partnerId}) {
+    alarmsWithInfo(partyId: ${simCardInstanceId}) {
       isTriggered
       isActive
       alarm {

@@ -150,7 +150,7 @@ export default {
       return value !== null ? value : '';
     },
     async fetchAlarms() {
-      const response = await fetchAlarmsWithInfos(this.content.party.id);
+      const response = await fetchAlarmsWithInfos(this.content.id);
       this.alarmTriggered = response[0].isTriggered;
     },
     totalUsed(type, mode) {
