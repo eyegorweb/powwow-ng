@@ -51,8 +51,36 @@ export default {
               id: 'filters.orderStatus',
               values: [
                 {
-                  id: 'TERMINATED',
-                  label: 'Terminée',
+                  id: 'NOT_VALIDATED',
+                  label: 'Non validée',
+                },
+                {
+                  id: 'VALIDATED',
+                  label: 'Validée',
+                },
+                {
+                  id: 'TO_BE_CONFIRMED_BY_BO',
+                  label: 'À confirmer par le BO',
+                },
+                {
+                  id: 'TO_BE_CONFIRMED',
+                  label: 'À confirmer',
+                },
+                {
+                  id: 'CONFIRMATION_IN_PROGRESS',
+                  label: 'En cours de confirmation',
+                },
+                {
+                  id: 'CONFIRMED',
+                  label: 'Confirmée',
+                },
+                {
+                  id: 'FAILED',
+                  label: 'Échouée',
+                },
+                {
+                  id: 'CANCELED',
+                  label: 'Annulée',
                 },
               ],
             },
