@@ -3,7 +3,6 @@
     :key="indicatorsVersion"
     :meta="indicators"
     :on-click="indicator => $emit('click', indicator)"
-    :partners="partnersForIndicators"
     :no-borders="noBorders"
     :small="small"
   />
@@ -15,7 +14,7 @@ import { fetchSingleIndicator } from '@/api/orders';
 import { fetchAverageProcessingTime } from '@/api/indicators';
 import moment from 'moment';
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 
 const dateFormat = 'DD-MM-YYYY';
 
@@ -29,13 +28,15 @@ export default {
   },
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters', 'indicatorsVersion']),
-    partnersForIndicators() {
-      if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
-      }
-
-      return null;
+    ...mapGetters('userContext', ['contextFilters']),
+  },
+  watch: {
+    contextFilters() {
+      this.refreshIndicators();
     },
+  },
+  methods: {
+    ...mapMutations('getsim', ['refreshIndicators']),
   },
   data() {
     return {
@@ -59,8 +60,8 @@ export default {
               endDate: moment().format(dateFormat),
             },
           ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
+          fetch: async (indicator, contextFilters) => {
+            return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
         },
         {
@@ -93,8 +94,8 @@ export default {
               endDate: moment().format(dateFormat),
             },
           ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
+          fetch: async (indicator, contextFilters) => {
+            return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
         },
         {
@@ -130,8 +131,8 @@ export default {
               sameDay: true,
             },
           ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
+          fetch: async (indicator, contextFilters) => {
+            return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
           hideZeroValue: true,
         },
@@ -156,8 +157,8 @@ export default {
                 .format('DD-MM-YYYY HH:mm:ss'),
             },
           ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
+          fetch: async (indicator, contextFilters) => {
+            return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
           hideZeroValue: true,
         },
@@ -179,8 +180,8 @@ export default {
               ],
             },
           ],
-          fetch: async (indicator, partners) => {
-            return await fetchSingleIndicator(indicator.filters, partners);
+          fetch: async (indicator, contextFilters) => {
+            return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
           hideZeroValue: true,
         },
@@ -191,31 +192,8 @@ export default {
           clickable: false,
           total: '-',
           filters: [],
-          fetch: async () => {
-            let contextPartnersFilter = {};
-            let contextPartnerTypesFilter = {};
-
-            if (this.contextPartnersTypes && this.contextPartnersTypes.length) {
-              contextPartnerTypesFilter = {
-                id: 'filters.partnerTypes',
-                values: this.contextPartnersTypes,
-              };
-            }
-            if (this.contextPartners && this.contextPartners.length) {
-              contextPartnersFilter = {
-                id: 'filters.partners',
-                values: this.contextPartners,
-              };
-            }
-
-            if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-              contextPartnersFilter = this.defaultAppliedFilters;
-            }
-            const filterTAverageProcessingTime = [
-              { ...contextPartnersFilter },
-              { ...contextPartnerTypesFilter },
-            ];
-            const total = await fetchAverageProcessingTime(filterTAverageProcessingTime);
+          fetch: async (indicator, contextFilters) => {
+            const total = await fetchAverageProcessingTime(contextFilters);
             let color = '';
             if (total < 5) {
               color = 'text-success';

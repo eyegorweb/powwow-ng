@@ -1,5 +1,5 @@
 <template>
-  <GenericWidget :widget="widget" :specific-filters="filters" />
+  <GenericWidget :widget="widget" :specific-filters="filters" :context-filters="contextFilters" />
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   data() {
     return {

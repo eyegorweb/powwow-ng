@@ -19,6 +19,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   data() {
     return {
@@ -30,6 +31,7 @@ export default {
   methods: {
     async searchById(filterObj) {
       const result = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
+        ...this.contextFilters,
         filterObj,
       ]);
 
@@ -44,7 +46,7 @@ export default {
         this.$router.push({
           name: 'actLines',
           params: {
-            queryFilters: [filterObj],
+            queryFilters: [...this.contextFilters, filterObj],
           },
         });
       }

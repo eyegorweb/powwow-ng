@@ -262,7 +262,6 @@ export default {
       }
     },
     setColumns(newColumns) {
-      console.log('HERE');
       this.usableColumns = newColumns;
       const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
       this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);

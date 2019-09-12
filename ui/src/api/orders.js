@@ -139,11 +139,8 @@ export async function searchSingleOrder(id) {
   }
 }
 
-export async function fetchSingleIndicator(filters, scopePartners) {
-  const filtersToUse = [...filters];
-  if (scopePartners) {
-    filtersToUse.push(scopePartners);
-  }
+export async function fetchSingleIndicator(filters, contextFilters = []) {
+  const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `
   query {
     orders(filter: { ${formatFilters(filtersToUse)} }) { total }

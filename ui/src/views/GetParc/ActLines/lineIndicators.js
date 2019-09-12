@@ -25,8 +25,8 @@ export default [
         value: true,
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   {
@@ -77,8 +77,8 @@ export default [
         ],
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   {
@@ -99,8 +99,8 @@ export default [
         ],
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   {
@@ -121,8 +121,8 @@ export default [
         ],
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   {
@@ -143,8 +143,8 @@ export default [
         ],
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   {
@@ -165,8 +165,8 @@ export default [
         ],
       },
     ],
-    fetch: async (indicator, partners) => {
-      return await fetchSingleIndicator(indicator.filters, partners);
+    fetch: async (indicator, contextFilters) => {
+      return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
   },
   /*

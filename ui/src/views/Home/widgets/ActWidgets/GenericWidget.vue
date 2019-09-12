@@ -1,6 +1,13 @@
 <template>
   <WidgetBloc :widget="widget" no-padding>
-    <Indicators v-if="indicators" :meta="indicators" :on-click="onCounterClick" no-borders small />
+    <Indicators
+      :key="widgetVersion"
+      v-if="indicators"
+      :meta="indicators"
+      :on-click="onCounterClick"
+      no-borders
+      small
+    />
   </WidgetBloc>
 </template>
 
@@ -22,15 +29,22 @@ export default {
       type: Array,
       default: () => [],
     },
+    contextFilters: Array,
   },
   methods: {
     onCounterClick(indicator) {
       this.$router.push({
         name: 'actHistory',
         params: {
-          queryFilters: [...indicator.filters],
+          queryFilters: [...indicator.filters, ...this.contextFilters],
         },
       });
+    },
+  },
+
+  watch: {
+    contextFilters() {
+      this.widgetVersion += 1;
     },
   },
 
@@ -63,8 +77,8 @@ export default {
             endDate: currentDateMinusMounts(6),
           },
         ],
-        fetch: async (indicator, partners) => {
-          return await countTotalForMassAction(indicator.filters, partners);
+        fetch: async (indicator, contextFilters) => {
+          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
       {
@@ -93,8 +107,8 @@ export default {
             endDate: currentDateMinusDays(2),
           },
         ],
-        fetch: async (indicator, partners) => {
-          return await countTotalForMassAction(indicator.filters, partners);
+        fetch: async (indicator, contextFilters) => {
+          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
       {
@@ -114,8 +128,8 @@ export default {
             ],
           },
         ],
-        fetch: async (indicator, partners) => {
-          return await countTotalForMassAction(indicator.filters, partners);
+        fetch: async (indicator, contextFilters) => {
+          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
       {
@@ -140,8 +154,8 @@ export default {
             endDate: currentDateMinusDays(2),
           },
         ],
-        fetch: async (indicator, partners) => {
-          return await countTotalForMassAction(indicator.filters, partners);
+        fetch: async (indicator, contextFilters) => {
+          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
       {
@@ -166,8 +180,8 @@ export default {
             startDate: formattedCurrentDate(),
           },
         ],
-        fetch: async (indicator, partners) => {
-          return await countTotalForMassAction(indicator.filters, partners);
+        fetch: async (indicator, contextFilters) => {
+          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
         },
       },
     ];
@@ -176,6 +190,7 @@ export default {
   data() {
     return {
       indicators: undefined,
+      widgetVersion: 1,
     };
   },
 };

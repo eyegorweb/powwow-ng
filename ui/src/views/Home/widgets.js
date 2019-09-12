@@ -15,7 +15,7 @@ export default [
     description: '',
     checked: true,
     large: true,
-    clickable: true,
+    seeMore: true,
     component: OrdersWidget,
   },
   {
@@ -23,7 +23,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    clickable: true,
+    seeMore: true,
     component: BillsWidget,
   },
   {
@@ -31,7 +31,7 @@ export default [
     description: '',
     checked: true,
     large: true,
-    clickable: true,
+    seeMore: true,
     component: ConsoWidget,
   },
   {
@@ -39,7 +39,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    clickable: true,
+    seeMore: true,
     component: OrdersStatusesWidget,
   },
   {
@@ -55,7 +55,7 @@ export default [
     checked: true,
     large: false,
     component: ActivationWidget,
-    clickable: false,
+    seeMore: false,
   },
   {
     title: 'Actes: Préactivation / Activation',
@@ -63,7 +63,7 @@ export default [
     checked: true,
     large: false,
     component: PreactivationActivationWidget,
-    clickable: false,
+    seeMore: false,
   },
   {
     title: 'Actes: Résiliation',
@@ -71,14 +71,14 @@ export default [
     checked: true,
     large: false,
     component: CanceledWidget,
-    clickable: false,
+    seeMore: false,
   },
   {
     title: 'Statut des actes de gestion',
     description: '',
     checked: true,
     large: false,
-    clickable: false,
+    seeMore: false,
     component: GenericWidget,
   },
   {
@@ -86,7 +86,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    clickable: false,
+    seeMore: false,
     component: SearchLinesByIdWidget,
   },
 ];

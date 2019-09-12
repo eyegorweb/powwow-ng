@@ -38,11 +38,8 @@ export async function fetchIndicators(metadata, partnerFilter) {
   return response.data;
 }
 
-export async function fetchSingleIndicator(filters, scopePartners) {
-  const filtersToUse = [...filters];
-  if (scopePartners) {
-    filtersToUse.push(scopePartners);
-  }
+export async function fetchSingleIndicator(filters, contextFilters = []) {
+  const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `
   query {
     simCardInstances(filter: { ${formatFilters(filtersToUse)} }) { total }

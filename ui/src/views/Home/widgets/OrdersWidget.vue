@@ -36,6 +36,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   computed: {
     ...mapGetters(['userIsPartner']),
@@ -46,6 +47,10 @@ export default {
         return this.allColumns.filter(c => c.name !== 'party');
       }
       return this.allColumns;
+    },
+
+    widgetFilters() {
+      return [...this.contextFilters, ...this.filters];
     },
   },
   methods: {
@@ -60,7 +65,7 @@ export default {
   },
   data() {
     return {
-      widgetFilters: [
+      filters: [
         {
           id: 'filters.orderStatus',
           values: [

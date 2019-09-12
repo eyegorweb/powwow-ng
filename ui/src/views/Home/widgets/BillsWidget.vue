@@ -37,6 +37,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
 };
 </script>
