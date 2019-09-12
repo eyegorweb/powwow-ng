@@ -110,13 +110,15 @@ export function initFilterForPartnerUser(store, setPartnersFilter) {
       },
     ];
     store.commit('setDefaultFilter', defaultFilters);
+
     if (setPartnersFilter)
       setPartnersFilter(store, {
         partners: partnerFilterValues,
         isHidden: true,
       });
   }
-  store.commit('applyFilters');
+  // store.commit('applyFilters');
+  store.commit('setQueryFilterAndSearch');
 }
 
 export function initFilterForContext(store, setPartnersFilter) {
@@ -163,6 +165,7 @@ export function initMutations() {
     },
 
     setCurrentFilters: (state, currentFilters) => {
+      console.log(currentFilters);
       state.currentFilters = currentFilters;
     },
     setDefaultFilter(state, defaultFilter) {
