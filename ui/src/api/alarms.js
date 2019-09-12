@@ -33,7 +33,7 @@ export async function fetchAlarmInstancesByAP(id) {
 export async function fetchAlarmsWithInfos(simCardInstanceId) {
   const queryStr = `
   query {
-    alarmsWithInfo(partyId: ${simCardInstanceId}) {
+    alarmsWithInfo(simCardInstanceId: ${simCardInstanceId}) {
       isTriggered
       isActive
       alarm {
