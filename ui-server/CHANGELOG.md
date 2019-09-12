@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.211+20190912134344
+2019-09-12
+
+### Fixes
+
+- gestion du contexte utilisateur pour les widgets (bde061a798892c3cfd4b2b34e8a54d07e573e604)
+
 ## 0.3.0-master.210+20190912112609
 2019-09-12
 
