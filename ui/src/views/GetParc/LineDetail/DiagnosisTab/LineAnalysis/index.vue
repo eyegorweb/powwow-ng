@@ -146,7 +146,7 @@ export default {
     },
     getConnectionStatus() {
       const connectionStatus = this.getValue(this.pdpConnexionData, 'connectionStatus');
-      if (!connectionStatus) return '-';
+      if (connectionStatus === '-') return '-';
       return this.$t(
         'getparc.lineDetail.tab2.lineAnalysisContent.connectionStatus.' + connectionStatus
       );
@@ -156,7 +156,7 @@ export default {
         this.pdpConnexionData,
         'connectionClosingReason'
       );
-      if (!connectionClosingReason) return '-';
+      if (connectionClosingReason === '-') return '-';
       return this.$t(
         'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.' +
           connectionClosingReason
