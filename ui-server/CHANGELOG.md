@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.209+20190912100917
+2019-09-12
+
+### Features
+
+- les wodgets de la homepage dépendent du contexte utilisateur (0174978a9d96c21dfb1e32a28aced28e89536924)
+
 ## 0.3.0-master.208+20190912083136
 2019-09-12
 
