@@ -24,6 +24,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   async mounted() {
     this.resultsPromise = searchMassActions(
@@ -57,9 +58,14 @@ export default {
       }
     },
   },
+  computed: {
+    widgetFilters() {
+      return [...this.contextFilters, ...this.filters];
+    },
+  },
   data() {
     return {
-      widgetFilters: [
+      filters: [
         {
           id: 'filters.actStatus',
           values: [

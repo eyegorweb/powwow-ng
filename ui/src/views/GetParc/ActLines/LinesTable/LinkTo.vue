@@ -10,9 +10,7 @@ export default {
   },
 
   methods: {
-    onClick() {
-      console.log('cliqué');
-    },
+    onClick() {},
   },
   computed: {
     msisdn() {

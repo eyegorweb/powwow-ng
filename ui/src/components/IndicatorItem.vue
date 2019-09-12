@@ -16,11 +16,11 @@
 
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
     indicator: Object,
-    partners: Object,
     onClick: {
       type: Function,
       required: false,
@@ -41,11 +41,15 @@ export default {
     this.refreshIndicator();
   },
 
+  computed: {
+    ...mapGetters('userContext', ['contextFilters']),
+  },
+
   methods: {
     async refreshIndicator() {
       this.isLoading = true;
       try {
-        const res = await this.indicator.fetch(this.indicator, this.partners);
+        const res = await this.indicator.fetch(this.indicator, this.contextFilters);
         if (res) {
           this.total = res.total;
           if (res.color) {

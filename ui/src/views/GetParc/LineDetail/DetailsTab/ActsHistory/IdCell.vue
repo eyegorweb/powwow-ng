@@ -18,7 +18,6 @@ export default {
     ...mapMutations(['openPanel']),
 
     openActHistoryDetailsPanel() {
-      console.log('openPanel');
       // attente api
       // const openTrigger = () => {
       //   this.openPanel({
@@ -29,7 +28,6 @@ export default {
       //     backdrop: false,
       //   });
       // };
-
       /**
        * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
        */

@@ -11,6 +11,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   data() {
     return {

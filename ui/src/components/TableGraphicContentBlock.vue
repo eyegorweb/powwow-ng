@@ -43,7 +43,6 @@ export default {
         default: this.starting === 'table',
       },
     ];
-    console.log(this.toggleValues);
   },
   data() {
     return {

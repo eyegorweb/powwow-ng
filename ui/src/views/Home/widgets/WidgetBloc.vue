@@ -13,7 +13,7 @@
               <slot name="header" />
             </div>
           </div>
-          <div class="col-3" v-if="widget.clickable">
+          <div class="col-3" v-if="widget.seeMore">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
               {{ $t('seeMore') }}
             </button>

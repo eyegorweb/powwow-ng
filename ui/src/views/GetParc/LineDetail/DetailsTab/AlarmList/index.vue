@@ -136,7 +136,6 @@ export default {
   methods: {
     async fetchAlarms() {
       this.alarms = await fetchAlarmsWithInfos(this.content.party.id);
-      console.log(this.alarms);
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);

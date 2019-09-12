@@ -49,9 +49,10 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   async mounted() {
-    const data = await fetchOffers('', [], { page: 0, limit: 99 });
+    const data = await fetchOffers('', [...this.contextFilters], { page: 0, limit: 99 });
     if (data) {
       this.offers = data.map(o => ({
         id: o.code,

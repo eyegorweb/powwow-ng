@@ -29,6 +29,7 @@ export default {
   },
   props: {
     widget: Object,
+    contextFilters: Array,
   },
   computed: {
     ...mapGetters(['userIsPartner']),
@@ -38,7 +39,7 @@ export default {
       this.$router.push({
         name: 'orders',
         params: {
-          queryFilters: [...indicator.filters],
+          queryFilters: [...indicator.filters, ...this.contextFilters],
         },
       });
     },
@@ -47,6 +48,7 @@ export default {
         name: 'orders',
         params: {
           queryFilters: [
+            ...this.contextFilters,
             {
               id: 'filters.orderStatus',
               values: [

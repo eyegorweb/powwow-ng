@@ -4,7 +4,6 @@
       v-for="indicator in indicatorsWithCompatibleRoles"
       :key="indicator.labelKey"
       :indicator="indicator"
-      :partners="partners"
       :on-click="onClick"
       @removeme="i => removeIndicator(i)"
     />
@@ -25,7 +24,6 @@ export default {
       type: Function,
       required: false,
     },
-    partners: Object,
     noBorders: Boolean,
     small: Boolean,
   },

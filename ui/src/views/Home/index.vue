@@ -16,7 +16,13 @@
     <draggable v-model="widgetsInPanel" handle=".handle">
       <transition-group name="widgets">
         <template v-for="w in activeWidgets">
-          <component :key="w.title" v-if="w.component" :is="w.component" :widget="w" />
+          <component
+            :key="w.title"
+            v-if="w.component"
+            :is="w.component"
+            :widget="w"
+            :context-filters="contextFilters"
+          />
         </template>
       </transition-group>
     </draggable>
@@ -37,6 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters(['activeWidgets']),
+    ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
