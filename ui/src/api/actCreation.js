@@ -205,7 +205,7 @@ export async function changeCustomerAccount(filters, lines, params) {
 
 export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { dueDate, barringServices, dataService } = params;
+    const { dueDate, barringServices } = params;
 
     /**
      * Pour les barring, on ajoute le code si le service est décoché
