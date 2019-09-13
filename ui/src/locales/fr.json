@@ -195,7 +195,8 @@
         "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
-        "status": "Statut"
+        "status": "Statut",
+        "rate": "Taux d'échec / succès"
       },
       "details": {
         "title": "Acte de gestion {id}",
@@ -625,7 +626,8 @@
           "OK": "Ok",
           "KO": "Ko",
           "REPLAYED": "Rejoué",
-          "CANCELLED": "Annulé"
+          "CANCELLED": "Annulé",
+          "TERMINATED": "Terminé"
         }
       },
       "alarmList": {
