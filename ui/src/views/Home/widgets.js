@@ -8,6 +8,7 @@ import CanceledWidget from './widgets/ActWidgets/CanceledWidget';
 import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
+import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 
 export default [
   {
@@ -89,5 +90,14 @@ export default [
     large: false,
     seeMore: false,
     component: SearchLinesByIdWidget,
+  },
+  {
+    title: 'DERNIERS ACTES DE GESTION DE L’UTILISATEUR « LOGIN »',
+    description: '',
+    checked: true,
+    large: true,
+    clickable: true,
+    seeMore: true,
+    component: MassActionsByUserTableWidget,
   },
 ];
