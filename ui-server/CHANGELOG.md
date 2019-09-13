@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.213+20190913075021
+2019-09-13
+
+### Fixes
+
+- 638 Le widget acte de gestion doit réagir au changements dans la bare de contexte (fb5b766dcce327d3cb5d89c8da8e6b91a8545610)
+
 ## 0.3.0-master.212+20190913072500
 2019-09-13
 
