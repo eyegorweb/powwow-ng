@@ -26,16 +26,24 @@ export default {
     widget: Object,
     contextFilters: Array,
   },
-  async mounted() {
-    this.resultsPromise = searchMassActions(
-      { key: 'id', direction: 'DESC' },
-      { page: 0, limit: 3 },
-      this.widgetFilters
-    );
-    const response = await this.resultsPromise;
-    this.rows = this.formatResponse(response.items);
+  watch: {
+    contextFilters() {
+      this.refreshTable();
+    },
+  },
+  mounted() {
+    this.refreshTable();
   },
   methods: {
+    async refreshTable() {
+      this.resultsPromise = searchMassActions(
+        { key: 'id', direction: 'DESC' },
+        { page: 0, limit: 3 },
+        this.widgetFilters
+      );
+      const response = await this.resultsPromise;
+      this.rows = this.formatResponse(response.items);
+    },
     onSeeMore() {
       this.$router.push({
         name: 'actLines',

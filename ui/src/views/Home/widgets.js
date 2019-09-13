@@ -47,6 +47,7 @@ export default [
     description: '',
     checked: true,
     large: true,
+    seeMore: true,
     component: MassActionTable,
   },
   {

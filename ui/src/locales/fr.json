@@ -188,7 +188,7 @@
         "created": "Date de création",
         "endDate": "Date de fin",
         "details": "Détails",
-        "target": "Ciblée",
+        "target": "Ciblée(s)",
         "success": "Succès",
         "ongoing": "En cours",
         "fail": "Échec",
@@ -759,7 +759,6 @@
         "validation": "Validation transfert",
         "inprogressTwoDays": "Actes en cours > 48 h",
         "failedTwoDays": "Actes en échec > 48 h"
-
       }
     }
   },
