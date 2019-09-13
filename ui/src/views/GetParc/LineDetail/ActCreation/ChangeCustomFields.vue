@@ -60,7 +60,19 @@ export default {
   },
 
   async mounted() {
-    this.fetchCustomFieldsForPartner();
+    await this.fetchCustomFieldsForPartner();
+
+    // préremplir les valeurs des champs libres
+    const currentCustomFields = this.currentCustomFields;
+
+    if (currentCustomFields && currentCustomFields.length) {
+      currentCustomFields.forEach(c => {
+        const correspondingField = this.allCustomFields.find(cf => cf.code === c.code);
+        if (correspondingField) {
+          this.onValueChanged(correspondingField, c.value);
+        }
+      });
+    }
   },
 
   methods: {
@@ -144,6 +156,7 @@ export default {
         if (value) {
           customFieldsArray.push({
             index: i,
+            code: 'custom' + i,
             value,
             label,
           });
