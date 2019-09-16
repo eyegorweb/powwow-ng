@@ -12,6 +12,11 @@ Vue.use(VTooltip);
 Vue.config.productionTip = false;
 Vue.prototype.mina = window.mina;
 
+import $ from 'jquery';
+import addGaugeSupport from '@/dep/GaugeMeter.js';
+
+addGaugeSupport($);
+
 new Vue({
   router,
   store,
