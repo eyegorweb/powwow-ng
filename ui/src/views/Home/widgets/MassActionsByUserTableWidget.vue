@@ -67,7 +67,8 @@ export default {
           id: 1,
           label: this.$t('getparc.history.col.partyId'),
           name: 'party',
-          orderable: true,
+          orderable: false,
+          noHandle: true,
           sortingName: 'partyName',
           visible: true,
           format: {
@@ -79,7 +80,8 @@ export default {
           id: 2,
           label: this.$t('getparc.history.col.action'),
           name: 'actionType',
-          orderable: true,
+          orderable: false,
+          noHandle: true,
           visible: true,
           format: {
             type: 'LinkBtn',
@@ -100,7 +102,8 @@ export default {
           id: 3,
           label: this.$t('getparc.history.col.details'),
           name: 'actionType',
-          orderable: true,
+          orderabel: false,
+          noHandle: true,
           visible: true,
           format: {
             component: DetailsCell,
@@ -110,7 +113,8 @@ export default {
           id: 4,
           label: this.$t('getparc.history.col.status'),
           name: 'status',
-          orderable: true,
+          orderabel: false,
+          noHandle: true,
           visible: true,
           format: {
             component: StatusCell,
@@ -120,14 +124,16 @@ export default {
           id: 5,
           label: this.$t('getparc.history.col.created'),
           name: 'created',
-          orderable: true,
+          orderabel: false,
+          noHandle: true,
           visible: true,
         },
         {
           id: 6,
           label: this.$t('getparc.history.col.actDate'),
           name: 'dueDate',
-          orderable: true,
+          orderabel: false,
+          noHandle: true,
           visible: true,
         },
         {
@@ -135,7 +141,8 @@ export default {
           label: this.$t('getparc.history.col.rate'),
           name: 'rateActionNumber',
           sortingName: 'rate_Action_Number',
-          orderable: true,
+          orderabel: false,
+          noHandle: true,
           visible: true,
           format: {
             component: RateCell,
@@ -149,7 +156,6 @@ export default {
 
   methods: {
     async refreshTable() {
-      console.log(this.widgetFilters);
       this.resultsPromise = searchMassActions(
         { key: 'id', direction: 'DESC' },
         { page: 0, limit: 3 },
