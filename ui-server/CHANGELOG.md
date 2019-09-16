@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.216+20190916080516
+2019-09-16
+
+### Features
+
+- 750 enlever la synthèse des champs libres lors de l'acte modification champs libres (027787ce419a6574ee2e8827c51be796c3b1d681)
+
 ## 0.3.0-master.215+20190913143043
 2019-09-13
 
