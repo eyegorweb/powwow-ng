@@ -5,14 +5,6 @@
     :can-send="canSend"
   >
     <div class="overview-item mr-5">
-      <h6>{{ $t('getparc.actCreation.changeCustomFields.currentCustomFields') }} :</h6>
-      <ul class="list-group">
-        <li v-for="field in currentCustomFields" :key="field.id" class="list-unstyled">
-          {{ field.label }}: {{ field.value }}
-        </li>
-      </ul>
-    </div>
-    <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.step2Titles.CUSTOM_FIELDS') }} :</h6>
       <div>
         <CustomFields
