@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.218+20190916150604
+2019-09-16
+
+### Fixes
+
+- changement du style de la gauge (f8a56c0091a412824b46e167ed1c834890558b6c)
+
 ## 0.3.0-master.217+20190916094835
 2019-09-16
 
