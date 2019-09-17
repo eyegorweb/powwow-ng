@@ -3,24 +3,28 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay')
-          }}</template>
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
+          </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
-              <div class="mt-2" slot="graph"><DataGraph /></div>
-              <div slot="table"><DataConsumptionTable></DataConsumptionTable></div>
+              <div class="mt-2" slot="graph">
+                <DataGraph />
+              </div>
+              <div slot="table">
+                <DataConsumptionTable></DataConsumptionTable>
+              </div>
             </TableGraphicContentBlock>
           </template>
         </ContentBlock>
         <ContentBlock :key="'block0'">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tab2.supervisionContent.sms')
-          }}</template>
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.sms') }}
+          </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                Graph SMS
+                <SMSGraph :sim-id="content.id" />
               </div>
               <div slot="table">Table here</div>
             </TableGraphicContentBlock>
@@ -37,6 +41,7 @@ import TableGraphicContentBlock from '@/components/TableGraphicContentBlock';
 import draggable from 'vuedraggable';
 import DataConsumptionTable from './DataConsumptionTable';
 import DataGraph from './DataGraph';
+import SMSGraph from './SMSGraph';
 
 export default {
   components: {
@@ -45,6 +50,7 @@ export default {
     TableGraphicContentBlock,
     DataConsumptionTable,
     DataGraph,
+    SMSGraph,
   },
 
   props: {

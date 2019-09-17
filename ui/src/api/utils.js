@@ -16,7 +16,7 @@ export async function simpleQuery(q) {
 }
 
 export async function query(q) {
-  let tries = 30;
+  let tries = 10;
 
   const singleTry = async () => {
     try {
