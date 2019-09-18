@@ -25,68 +25,68 @@
         <tr>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>Consommations nationales</li>
-              <li>Entrantes</li>
-              <li>Sortantes</li>
+              <li>{{ $t('getparc.lineDetail.consummated.nationalConsumption') }}</li>
+              <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
+              <li>{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>{{ consumptionData.nationalConsumption }} Kio</li>
-              <li>{{ consumptionData.incomingNationalConsumption }} Kio</li>
-              <li>{{ consumptionData.outgoingNationalConsumption }} Kio</li>
+              <li>{{ formattedData('DATA', consumptionData.dataNationalConsumption) }}</li>
+              <li>{{ formattedData('DATA', consumptionData.dataIncomingNationalConsumption) }}</li>
+              <li>{{ formattedData('DATA', consumptionData.dataOutgoingNationalConsumption) }}</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">32 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
+              <li>{{ consumptionData.smsNationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">0h:00mn:00s</li>
-              <li class="mock-value">0h:00mn:00s</li>
-              <li class="mock-value">0h:00mn:00s</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
             </ul>
           </td>
         </tr>
         <tr>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>Consommations internationales</li>
-              <li>Entrantes</li>
-              <li>Sortantes</li>
+              <li>{{ $t('getparc.lineDetail.consummated.internationalConsumption') }}</li>
+              <li>{{ $t('getparc.lineDetail.consummated.incoming') }}</li>
+              <li>{{ $t('getparc.lineDetail.consummated.outgoing') }}</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>{{ consumptionData.internationalConsumption }} Kio</li>
-              <li>{{ consumptionData.incomingInternationalConsumption }} Kio</li>
-              <li>{{ consumptionData.outgoingInternationalConsumption }} Kio</li>
+              <li>{{ formattedData('DATA', consumptionData.dataInternationalConsumption) }}</li>
+              <li>{{ formattedData('DATA', consumptionData.dataIncomingInternationalConsumption) }}</li>
+              <li>{{ formattedData('DATA', consumptionData.dataOutgoingInternationalConsumption) }}</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">32 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
-              <li class="mock-value">29.85 Kio</li>
+              <li>{{ consumptionData.smsInternationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="mock-value">0h:00mn:00s</li>
-              <li class="mock-value">0h:00mn:00s</li>
-              <li class="mock-value">0h:00mn:00s</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
             </ul>
           </td>
         </tr>
         <tr class="total-line">
-          <td>total</td>
-          <td>{{ consumptionData.total }} Kio</td>
-          <td class="mock-value">32 Kio</td>
-          <td class="mock-value">32 Kio</td>
+          <td>{{ $t('total') }}</td>
+          <td>{{ formattedData('DATA', consumptionData.dataTotal) }}</td>
+          <td>{{ consumptionData.smsTotal }} SMS</td>
+          <td>{{ formattedData('VOICE', consumptionData.voiceTotal) }}</td>
         </tr>
       </tbody>
     </table>
@@ -96,6 +96,8 @@
 <script>
 import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
+import { formatBytes } from '@/api/utils';
+import moment from 'moment';
 
 export default {
   components: {
@@ -118,6 +120,18 @@ export default {
         return await exportCurrentConsumption(this.content.id, exportFormat);
       };
     },
+
+    formattedData(type, value) {
+      switch(type) {
+        case 'DATA':
+          return formatBytes(value);
+          break;
+        
+        case 'VOICE':
+          return moment(value, 'HHmmss').format('HH:mm:ss');
+          break;
+      }
+    }
   },
 };
 </script>
