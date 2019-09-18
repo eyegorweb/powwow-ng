@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.220+20190918153542
+2019-09-18
+
+### Features
+
+- **line detail:** affichage du tableau encours de consommation (a62b2f1f47d052603b4a67514ee8d7bdc0f37797)
+
 ## 0.3.0-master.219+20190917093642
 2019-09-17
 
