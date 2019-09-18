@@ -483,13 +483,27 @@ export async function fetchCurrentConsumption(simcardId) {
   const queryStr = `
   query {
     currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
-      nationalConsumption
-      incomingNationalConsumption
-      outgoingNationalConsumption
-      internationalConsumption
-      incomingInternationalConsumption
-      outgoingInternationalConsumption
-      total
+      dataNationalConsumption
+      dataIncomingNationalConsumption
+      dataOutgoingNationalConsumption
+      dataInternationalConsumption
+      dataIncomingInternationalConsumption
+      dataOutgoingInternationalConsumption
+      dataTotal
+      smsNationalConsumption
+      smsIncomingNationalConsumption
+			smsOutgoingNationalConsumption
+      smsInternationalConsumption
+      smsIncomingInternationalConsumption
+      smsOutgoingInternationalConsumption
+      smsTotal
+      voiceNationalConsumption
+      voiceIncomingNationalConsumption
+      voiceOutgoingNationalConsumption
+      voiceInternationalConsumption
+      voiceIncomingInternationalConsumption
+      voiceOutgoingInternationalConsumption
+      voiceTotal
     }
   }
   `;

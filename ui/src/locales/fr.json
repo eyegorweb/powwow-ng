@@ -43,6 +43,7 @@
   "seeMore": "Voir plus",
   "MB": "{value} Mio",
   "MN": "{value} Mn",
+  "total": "Total",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -310,7 +311,11 @@
         "data": "Data consommées",
         "sms": "SMS consommés",
         "voice": "Voix consommée",
-        "export": "Exporter l'encours de consommation"
+        "export": "Exporter l'encours de consommation",
+        "nationalConsumption": "Consommations nationales",
+        "internationalConsumption": "Consommations internationales",
+        "incoming": "Entrantes",
+        "outgoing": "Sortantes"
       },
       "estimated": {
         "data": "Prévisionnel Data",
