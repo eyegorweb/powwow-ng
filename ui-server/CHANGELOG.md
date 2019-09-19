@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.227+20190919154931
+2019-09-19
+
+### Fixes
+
+- Correction des requêtes avec upload de fichier (998e7aaf37e6d6b84df50c9b9f64bc19f0f66337)
+
 ## 0.3.0-master.226+20190919135641
 2019-09-19
 
