@@ -126,7 +126,6 @@ import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import SMSTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/SMSTable';
 import VoiceGraph from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/VoiceGraph';
 
 export default {

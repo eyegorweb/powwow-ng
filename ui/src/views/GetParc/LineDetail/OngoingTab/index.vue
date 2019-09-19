@@ -46,9 +46,15 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}</li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+              </li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+              </li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+              </li>
             </ul>
           </td>
         </tr>
@@ -63,8 +69,12 @@
           <td>
             <ul class="content-cell list-unstyled">
               <li>{{ formattedData('DATA', consumptionData.dataInternationalConsumption) }}</li>
-              <li>{{ formattedData('DATA', consumptionData.dataIncomingInternationalConsumption) }}</li>
-              <li>{{ formattedData('DATA', consumptionData.dataOutgoingInternationalConsumption) }}</li>
+              <li>
+                {{ formattedData('DATA', consumptionData.dataIncomingInternationalConsumption) }}
+              </li>
+              <li>
+                {{ formattedData('DATA', consumptionData.dataOutgoingInternationalConsumption) }}
+              </li>
             </ul>
           </td>
           <td>
@@ -76,9 +86,15 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
-              <li>{{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}</li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+              </li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+              </li>
+              <li>
+                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+              </li>
             </ul>
           </td>
         </tr>
@@ -122,16 +138,14 @@ export default {
     },
 
     formattedData(type, value) {
-      switch(type) {
+      switch (type) {
         case 'DATA':
           return formatBytes(value);
-          break;
-        
+
         case 'VOICE':
           return moment(value, 'HHmmss').format('HH:mm:ss');
-          break;
       }
-    }
+    },
   },
 };
 </script>

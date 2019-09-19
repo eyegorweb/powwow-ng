@@ -21,7 +21,7 @@ export async function fetchVoiceUsageForGraph(simInstanceId) {
     .format('DD-MM-YYYY HH:mm:ss');
   const endDate = moment().format('DD-MM-YYYY HH:mm:ss');
   const queryStr = `{
-    voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}, startDate: {goe: "${startDate}"}, endDate: {gt: "${endDate}"}) {
+    voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}, startDate: {goe: "${startDate}"}, endDate: {lt: "${endDate}"}) {
       date
       outgoing
       incoming
