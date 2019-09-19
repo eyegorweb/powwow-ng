@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.225+20190919122700
+2019-09-19
+
+### Fixes
+
+- **line detail:** affichage de la date en cours (b7a35efaaaa72640d707d212dd75792f4062ee66)
+
 ## 0.3.0-master.224+20190919131029
 2019-09-19
 
