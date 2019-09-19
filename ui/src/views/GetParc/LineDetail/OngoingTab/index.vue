@@ -1,9 +1,9 @@
 <template>
   <div class="mb-4">
-    <div class="row mb-3">
+    <div class="row mt-2">
       <div class="col">
-        <h2 class="text-gray font-weight-light mock-value" style="font-size: 2rem">
-          Encours de la ligne depuis 01 Novembre
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          {{ $t('getparc.lineDetail.consumingFromMonthBeginning')}}
         </h2>
       </div>
       <div class="col">
