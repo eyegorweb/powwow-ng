@@ -12,7 +12,7 @@ import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget
 
 export default [
   {
-    title: 'Mes commandes',
+    title: 'home.widgets.orders',
     description: '',
     checked: true,
     large: true,
@@ -20,7 +20,7 @@ export default [
     component: OrdersWidget,
   },
   {
-    title: 'Dernière factures',
+    title: 'home.widgets.bills',
     description: '',
     checked: true,
     large: false,
@@ -28,7 +28,7 @@ export default [
     component: BillsWidget,
   },
   {
-    title: 'En cours de consomation',
+    title: 'home.widgets.currentUsage',
     description: '',
     checked: true,
     large: true,
@@ -36,7 +36,7 @@ export default [
     component: ConsoWidget,
   },
   {
-    title: 'Statut des commandes',
+    title: 'home.widgets.orderStatus',
     description: '',
     checked: true,
     large: false,
@@ -44,7 +44,7 @@ export default [
     component: OrdersStatusesWidget,
   },
   {
-    title: 'Acte de gestion',
+    title: 'home.widgets.acts',
     description: '',
     checked: true,
     large: true,
@@ -52,7 +52,7 @@ export default [
     component: MassActionTable,
   },
   {
-    title: 'Actes: Activation',
+    title: 'home.widgets.activationAct',
     description: '',
     checked: true,
     large: false,
@@ -60,7 +60,7 @@ export default [
     seeMore: false,
   },
   {
-    title: 'Actes: Préactivation / Activation',
+    title: 'home.widgets.preactandActivationAct',
     description: '',
     checked: true,
     large: false,
@@ -68,7 +68,7 @@ export default [
     seeMore: false,
   },
   {
-    title: 'Actes: Résiliation',
+    title: 'home.widgets.cancelationAct',
     description: '',
     checked: true,
     large: false,
@@ -76,7 +76,7 @@ export default [
     seeMore: false,
   },
   {
-    title: 'Statut des actes de gestion',
+    title: 'home.widgets.actsStatus',
     description: '',
     checked: true,
     large: false,
@@ -84,7 +84,7 @@ export default [
     component: GenericWidget,
   },
   {
-    title: 'Rechercher une ligne',
+    title: 'home.widgets.searchLine',
     description: '',
     checked: true,
     large: false,
@@ -92,7 +92,7 @@ export default [
     component: SearchLinesByIdWidget,
   },
   {
-    title: 'DERNIERS ACTES DE GESTION DE L’UTILISATEUR « LOGIN »',
+    title: 'home.widgets.userActs',
     description: '',
     checked: true,
     large: true,

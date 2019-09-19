@@ -9,7 +9,9 @@
           <div class="col-9">
             <div class="d-flex">
               <span class="handle ic-Drag-Column-Icon" />
-              <span :class="{ 'mock-value': mocked }">{{ widget.title }}</span>
+              <span :class="{ 'mock-value': mocked }">
+                <WidgetTitle :title="widget.title" />
+              </span>
               <slot name="header" />
             </div>
           </div>
@@ -28,7 +30,12 @@
 </template>
 
 <script>
+import WidgetTitle from './WidgetTitle';
+
 export default {
+  components: {
+    WidgetTitle,
+  },
   props: {
     widget: Object,
     noPadding: Boolean,
