@@ -288,6 +288,7 @@
       "previsionalSms": "Prévisionnel SMS",
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
+      "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
       "analysingTool": "ANALYSER LA LIGNE",
       "alarms": {
         "name": "Nom de l'alarme",
