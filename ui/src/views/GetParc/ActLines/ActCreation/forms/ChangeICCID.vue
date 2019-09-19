@@ -1,7 +1,7 @@
 <template>
   <ActWithFileUploadContainer
     :act-mutation-fn="changeICCID"
-    act-code="ICCID"
+    act-code="CHANGE_ICCID"
     confirmation-message="getparc.actCreation.changeICCID.confirmationWarning"
   />
 </template>

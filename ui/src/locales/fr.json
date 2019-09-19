@@ -553,7 +553,12 @@
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
         "DATA_NOT_FOUND": "Introuvable",
-        "NEW_DATA_ALREADY_EXISTS": "Ligne existante"
+        "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
+        "DATA_NOT_ACTIVATED": "Ligne non activée",
+        "DATA_WRONG_STATUS": "Status invalide",
+        "DATA_NOT_AUTHORIZED": "Action non autorisée",
+        "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
+        "EMPTY_FILE": "Fichier vide"
       },
 
       "transfertCF": {

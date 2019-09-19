@@ -225,11 +225,10 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       selectedServiceInput: [${gqlSelectedServiceInputParam}],
       ) {
           tempDataUuid
-          successful
-          containsErrors
-          invalidFormat
-          alreadyExists
-          notFound
+          errors{
+            key
+            number
+          }
         }
       }
     `;
@@ -451,11 +450,10 @@ export async function changeICCID(params) {
     })
     {
       tempDataUuid
-      invalidFormat
-      alreadyExists
-      notFound
-      successful
-      containsErrors
+      errors {
+        key
+        number
+      }
     }
    }
   `;
