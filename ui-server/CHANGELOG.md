@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.224+20190919131029
+2019-09-19
+
+### Fixes
+
+- corriger le filtre par date du graph SMS (220561a6d4937aabe024d3e978186df7ae3cb858)
+
 ## 0.3.0-master.223+20190919130658
 2019-09-19
 
