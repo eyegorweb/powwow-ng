@@ -1,7 +1,7 @@
 <template>
   <ActFormEmptyContainer
     :validate-fn="validate"
-    success-message="getparc.actCreation.transfertCF.successMessage"
+    success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
