@@ -4,7 +4,9 @@
       <transition-group>
         <ContentBlock :key="'block1'">
           <template slot="title">
-            {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
+            <span class="mock-value">
+              {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
+            </span>
           </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
@@ -32,7 +34,7 @@
             </TableGraphicContentBlock>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block0'">
+        <ContentBlock :key="'block3'">
           <template slot="title">
             {{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}
           </template>
