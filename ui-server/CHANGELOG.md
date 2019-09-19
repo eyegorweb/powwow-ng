@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.226+20190919135641
+2019-09-19
+
+### Fixes
+
+- 640 Correction dans les widgets (5661a82e4e5aff50c56cce917880c8c35d3933fc)
+
 ## 0.3.0-master.225+20190919122700
 2019-09-19
 
