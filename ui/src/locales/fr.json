@@ -544,7 +544,7 @@
       },
 
       "transfertCF": {
-        "successMessage": "La demande de changement de compte de facturation a bien été pris en compte."
+        "successMessage": "La demande de changement de compte de facturation a bien été prise en compte."
       },
 
       "phaseTest": {
@@ -582,7 +582,8 @@
       "changeOffer": {
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées seront modifiées.",
         "chooseOffer": "Choisir une offre cible",
-        "validateButton": "Changer d'offre"
+        "validateButton": "Changer d'offre",
+        "successMessage": "La demande de changement d'offre' a bien été prise en compte."
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
