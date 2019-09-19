@@ -4,7 +4,7 @@ export async function fetchCurrentPdpConnexion(simCardInstanceId) {
   const response = await query(
     `
     query {
-      consumablesListPerDay(consumableToGet: DATA, simCardInstanceId: ${simCardInstanceId}, pagination: {limit: 1, page: 0}) {
+      usagePerDay(consumableToGet: DATA, simCardInstanceId: ${simCardInstanceId}, pagination: {limit: 1, page: 0}) {
        dataHistroy {
          connectionId
          accessPointId
@@ -29,5 +29,5 @@ export async function fetchCurrentPdpConnexion(simCardInstanceId) {
     }
     `
   );
-  return response.data.consumablesListPerDay;
+  return response.data.usagePerDay;
 }

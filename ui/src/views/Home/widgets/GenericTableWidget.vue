@@ -1,6 +1,7 @@
 <template>
   <Promised :promise="resultsPromise">
     <div slot="pending">{{ $t('loading') }}...</div>
+    <div slot="rejected" slot-scope="{ error }">{{ error }}</div>
     <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
       {{ $t('noResult') }}
     </div>

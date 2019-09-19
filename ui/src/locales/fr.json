@@ -408,8 +408,10 @@
           "tmpDebarring": "Debarring Tempraire"
         },
         "supervisionContent": {
-          "dataConsumptionPerDay": "Consommation data par jour",
-          "sms": "Consommation SMS par jour",
+          "dataConsumptionPerDay": "Consommation data",
+          "sms": "Consommation SMS",
+          "voice": "Consommation voix",
+          "smsTable": {},
           "dataConsumptionPerDayColumns": {
             "start": "Début de conso",
             "end": "Fin de conso.",
