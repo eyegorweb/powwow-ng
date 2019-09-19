@@ -26,7 +26,22 @@
               <div class="mt-2" slot="graph">
                 <SMSGraph :sim-id="content.id" />
               </div>
-              <div slot="table">Table here</div>
+              <div slot="table">
+                <SMSTable :sim-id="content.id" />
+              </div>
+            </TableGraphicContentBlock>
+          </template>
+        </ContentBlock>
+        <ContentBlock :key="'block0'">
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}
+          </template>
+          <template slot="content">
+            <TableGraphicContentBlock starting="graph">
+              <div class="mt-2" slot="graph">
+                <VoiceGraph :sim-id="content.id" />
+              </div>
+              <div slot="table">voice table</div>
             </TableGraphicContentBlock>
           </template>
         </ContentBlock>
@@ -42,6 +57,8 @@ import draggable from 'vuedraggable';
 import DataConsumptionTable from './DataConsumptionTable';
 import DataGraph from './DataGraph';
 import SMSGraph from './SMSGraph';
+import VoiceGraph from './VoiceGraph';
+import SMSTable from './SMSTable';
 
 export default {
   components: {
@@ -51,6 +68,8 @@ export default {
     DataConsumptionTable,
     DataGraph,
     SMSGraph,
+    SMSTable,
+    VoiceGraph,
   },
 
   props: {
