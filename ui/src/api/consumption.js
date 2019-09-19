@@ -2,8 +2,13 @@ import { query } from './utils';
 import moment from 'moment';
 
 export async function fetchSMSConsumption(simInstanceId) {
+  const startDate = moment()
+    .subtract(6, 'month')
+    .format('DD-MM-YYYY HH:mm:ss');
+  const endDate = moment().format('DD-MM-YYYY HH:mm:ss');
+
   const queryStr = `{
-    smsConsumptionGraph(simCardInstanceId: ${simInstanceId}) {
+    smsConsumptionGraph(simCardInstanceId: ${simInstanceId}, startDate: {goe: "${startDate}"}, endDate: {lt: "${endDate}"}) {
       date
       numberOfSentSMS
       numberOfReceivedSMS
