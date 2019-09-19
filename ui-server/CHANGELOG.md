@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.221+20190919092832
+2019-09-19
+
+### Features
+
+- 602 Consommation Voix (e33b61d173a9bf37ed3656830a985497d28c1b04)
+
 ## 0.3.0-master.220+20190918153542
 2019-09-18
 
