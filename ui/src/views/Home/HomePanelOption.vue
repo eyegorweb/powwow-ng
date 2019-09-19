@@ -9,7 +9,9 @@
         <UiCheckbox shape="round" v-model="model" />
       </div>
       <div class="opt-content flex-grow-1">
-        <h6>{{ title }}</h6>
+        <h6>
+          <WidgetTitle :title="title" />
+        </h6>
         <slot />
       </div>
       <div class="opt-image">
@@ -21,6 +23,7 @@
 
 <script>
 import UiCheckbox from '@/components/ui/Checkbox';
+import WidgetTitle from './widgets/WidgetTitle';
 
 export default {
   name: 'HomePanelOption',
@@ -34,6 +37,7 @@ export default {
   },
   components: {
     UiCheckbox,
+    WidgetTitle,
   },
   computed: {
     model: {

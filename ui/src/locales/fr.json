@@ -47,6 +47,19 @@
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
+    },
+    "widgets": {
+      "orders": "Mes commandes",
+      "bills": "Dernière factures",
+      "currentUsage": "En cours de consomation",
+      "orderStatus": "Statut des commandes",
+      "acts": "Acte de gestion",
+      "activationAct": "Actes: Activation",
+      "preactandActivationAct": "Actes: Préactivation / Activation",
+      "cancelationAct": "Actes: Résiliation",
+      "actsStatus": "Statut des actes de gestion",
+      "searchLine": "Rechercher une ligne",
+      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »"
     }
   },
   "menu": {
