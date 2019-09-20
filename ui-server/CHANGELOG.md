@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.231+20190920125821
+2019-09-20
+
+### Features
+
+- 737 Historique des équipements (6efea55fd7ecc967bbf2b504b9bb3b8bfba8d69a)
+
 ## 0.3.0-master.230+20190920125127
 2019-09-20
 
