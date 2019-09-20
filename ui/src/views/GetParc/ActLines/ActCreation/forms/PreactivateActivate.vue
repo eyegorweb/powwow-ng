@@ -14,6 +14,7 @@
         @set:billingAccount="setBillingAccount"
         :errors="errors"
         :initial-parnter="actCreationPrerequisites.partner"
+        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
       ></PartnerBillingAccountChoice>
     </div>
     <div v-if="selectedOffer && selectedOffer.data">
@@ -116,6 +117,7 @@ export default {
   },
   data() {
     return {
+      limitToPartnersInSearchBar: true,
       activation: false,
       preActivation: true,
       selectedOffer: undefined,
