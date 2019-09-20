@@ -121,10 +121,10 @@
         </ContentBlock>
         <ContentBlock :key="'block5'">
           <template slot="title">
-            <span class="mock-value">{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
+            <span>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>
           <template slot="content">
-            <EquipmentsHistoryTable />
+            <EquipmentsHistoryTable v-if="content" :content="content" />
           </template>
         </ContentBlock>
         <ContentBlock :key="'block6'">

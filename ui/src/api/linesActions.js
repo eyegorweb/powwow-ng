@@ -96,7 +96,18 @@ export async function searchLines(orderBy, pagination, filters = []) {
         }
         deviceInstance {
           manufacturer
+          manufacturerPrevious
           deviceReference
+          deviceReferencePrevious
+          imei
+          imeiPrevious
+          mac
+          macPrevious
+          imeiChangeDate
+          auditable {
+            created
+            updated
+          }
         }
         accessPoint {
           alarmInstance {

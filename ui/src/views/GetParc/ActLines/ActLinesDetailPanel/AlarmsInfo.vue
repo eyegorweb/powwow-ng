@@ -12,7 +12,7 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.triggeredAlarms') }} :</h6>
       <p v-for="alarm in triggeredAlarms" :key="alarm.type">
-        {{ `${alarm.type} ' - ' ${emissionDate}` }}
+        {{ `${alarm.type} ' - ' ${alarm.emissionDate}` }}
       </p>
     </div>
   </div>
