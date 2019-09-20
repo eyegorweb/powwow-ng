@@ -17,7 +17,7 @@
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="010"
+        storage-version="011"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -44,7 +44,7 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
-import LinkTo from './LinkTo';
+// import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
@@ -108,7 +108,9 @@ export default {
           name: 'accessPoint',
           exportId: 'LINE_MSISDN',
           format: {
-            component: LinkTo,
+            // component: LinkTo,
+            type: 'ObjectAttribute',
+            path: 'lines[0].msisdn',
           },
           orderable: false,
           sortingName: 'msisdn',
@@ -240,6 +242,9 @@ export default {
     },
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
+    },
+    msisdn() {
+      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
     },
   },
   methods: {
