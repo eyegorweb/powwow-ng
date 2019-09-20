@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.229+20190920092725
+2019-09-20
+
+### Fixes
+
+- **act creation:** changement de l'ordre des actions dans le carousel (f260598e591ac804815814f3ef72523b15e5a2e5)
+
 ## 0.3.0-master.228+20190920091655
 2019-09-20
 
