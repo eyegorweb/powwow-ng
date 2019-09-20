@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.232+20190920143740
+2019-09-20
+
+### Features
+
+- 195  je veux afficher les cartes SIM sur une commande afin d'analyser le détail des cartes SIM (55f83bd8246431a3e0444863e05e0bcd5abb69c8)
+
 ## 0.3.0-master.231+20190920125821
 2019-09-20
 
