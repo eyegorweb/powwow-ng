@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.230+20190920125127
+2019-09-20
+
+### Fixes
+
+- **lines:** affichage de la valeur msisdn en format texte (5925eb0e5baae50b593b47ad72edf52633784505)
+
 ## 0.3.0-master.229+20190920092725
 2019-09-20
 
