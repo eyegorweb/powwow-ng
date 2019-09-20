@@ -9,6 +9,7 @@
         @set:billingAccount="setBillingAccount"
         :errors="errors"
         :initial-parnter="actCreationPrerequisites.partner"
+        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
       >
       </PartnerBillingAccountChoice>
       <div class="row">
@@ -63,10 +64,12 @@ export default {
   },
   data() {
     return {
+      limitToPartnersInSearchBar: true,
       chosenBillingAccount: undefined,
       errors: {},
       actDate: null,
       notificationCheck: false,
+      limitToPartnersInSearchBar: true,
     };
   },
   mounted() {
