@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.233+20190923150606
+2019-09-23
+
+### Features
+
+- configurer la pagination dans la table SMS (596c1c0ec703ccad0319830aa50f05e43555d0c9)
+
 ## 0.3.0-master.232+20190920143740
 2019-09-20
 
