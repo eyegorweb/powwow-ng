@@ -76,24 +76,33 @@ export async function smsUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    usagePerDay(consumableToGet: SMS, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
-      smsHistory {
-        accessPointId
-        incomming
-        recordOpeningTime
-        recordOpeningSlice
-        partyId
-        countryISO3
-        plmn
-        updatedDate
-        partitionId
-        offerCode
-        callingNumber
-        calledNumber
-        cellId
-        usageType
-        typeAppel
+    consumableUsageHistory(consumableToGet: SMS, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+      total
+      items{
+        smsHistory {
+          accessPointId
+          incomming
+          recordOpeningTime
+          recordOpeningSlice
+          partyId
+          countryISO3
+          plmn
+          updatedDate
+          partitionId
+          offerCode
+          callingNumber
+          calledNumber
+          cellId
+          usageType
+          typeAppel
+          zipCode
+          city
+          imei
+          cellLongitude
+          cellLatitude
+        }
       }
+
     }
   }
   `;
@@ -103,49 +112,52 @@ export async function smsUsage(simInstanceId, pagination) {
   /*
   const response = {
     data: {
-      usagePerDay: [
-        {
-          smsHistory: {
-            accessPointId: 5915471,
-            incomming: true,
-            recordOpeningTime: '25-09-2018',
-            recordOpeningSlice: 'T1',
-            partyId: 397,
-            countryISO3: 'FRA',
-            plmn: '20820',
-            updatedDate: '25-09-2018',
-            partitionId: 71,
-            offerCode: 'COMPTEUR_CSD_FR',
-            callingNumber: '33620793108',
-            calledNumber: '336112670262253',
-            cellId: '4ED50EFA',
-            usageType: 'SMS',
-            typeAppel: 'SMSMT',
+      consumableUsageHistory: {
+        total: 2,
+        items: [
+          {
+            smsHistory: {
+              accessPointId: 5915471,
+              incomming: true,
+              recordOpeningTime: '25-09-2018',
+              recordOpeningSlice: 'T1',
+              partyId: 397,
+              countryISO3: 'FRA',
+              plmn: '20820',
+              updatedDate: '25-09-2018',
+              partitionId: 71,
+              offerCode: 'COMPTEUR_CSD_FR',
+              callingNumber: '33620793108',
+              calledNumber: '336112670262253',
+              cellId: '4ED50EFA',
+              usageType: 'SMS',
+              typeAppel: 'SMSMT',
+            },
           },
-        },
-        {
-          smsHistory: {
-            accessPointId: 5915471,
-            incomming: true,
-            recordOpeningTime: '25-09-2018',
-            recordOpeningSlice: 'T1',
-            partyId: 397,
-            countryISO3: 'FRA',
-            plmn: '20820',
-            updatedDate: '25-09-2018',
-            partitionId: 71,
-            offerCode: 'COMPTEUR_CSD_FR',
-            callingNumber: '33620793108',
-            calledNumber: '336112670262253',
-            cellId: '4ED50EFA',
-            usageType: 'SMS',
-            typeAppel: 'SMSMT',
+          {
+            smsHistory: {
+              accessPointId: 5915471,
+              incomming: true,
+              recordOpeningTime: '25-09-2018',
+              recordOpeningSlice: 'T1',
+              partyId: 397,
+              countryISO3: 'FRA',
+              plmn: '20820',
+              updatedDate: '25-09-2018',
+              partitionId: 71,
+              offerCode: 'COMPTEUR_CSD_FR',
+              callingNumber: '33620793108',
+              calledNumber: '336112670262253',
+              cellId: '4ED50EFA',
+              usageType: 'SMS',
+              typeAppel: 'SMSMT',
+            },
           },
-        },
-      ],
+        ],
+      },
     },
   };
   //*/
 
-  return response.data.usagePerDay;
+  return response.data.consumableUsageHistory;
 }

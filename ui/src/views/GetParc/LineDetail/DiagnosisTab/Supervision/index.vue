@@ -29,7 +29,7 @@
                 <SMSGraph :sim-id="content.id" />
               </div>
               <div slot="table">
-                <SMSTable :sim-id="content.id" />
+                <SMSTable :simcard="content" />
               </div>
             </TableGraphicContentBlock>
           </template>

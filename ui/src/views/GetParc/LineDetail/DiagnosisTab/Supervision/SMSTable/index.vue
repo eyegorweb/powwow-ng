@@ -17,10 +17,23 @@ import { smsUsage } from '@/api/consumption';
 
 export default {
   props: {
-    simId: String,
+    simcard: Object,
   },
   components: {
     DataTable,
+  },
+  watch: {
+    page() {
+      this.refreshTable();
+    },
+    orderBy() {
+      this.page = 1;
+      this.refreshTable();
+    },
+    pageLimit() {
+      this.page = 1;
+      this.refreshTable();
+    },
   },
   data() {
     return {
@@ -51,6 +64,7 @@ export default {
           orderable: false,
           visible: true,
         },
+        /*
         {
           id: 4,
           label: this.$t(
@@ -60,6 +74,7 @@ export default {
           orderable: false,
           visible: true,
         },
+        //*/
         {
           id: 5,
           label: this.$t('filters.country'),
@@ -67,6 +82,7 @@ export default {
           orderable: false,
           visible: true,
         },
+        /*
         {
           id: 6,
           label: this.$t(
@@ -76,6 +92,7 @@ export default {
           orderable: false,
           visible: true,
         },
+        //*/
         {
           id: 7,
           label: 'PLMN',
@@ -86,21 +103,21 @@ export default {
         {
           id: 8,
           label: this.$t('filters.postalCode'),
-          name: 'postalCode', // ??
+          name: 'zipCode',
           orderable: false,
           visible: false,
         },
         {
           id: 9,
           label: this.$t('filters.city'),
-          name: 'city', // ??
+          name: 'city',
           orderable: false,
           visible: false,
         },
         {
           id: 10,
           label: this.$t('getparc.actDetail.col.imei'),
-          name: 'imei', // ??
+          name: 'imei',
           orderable: false,
           visible: false,
         },
@@ -113,29 +130,37 @@ export default {
         },
         {
           id: 12,
-          label: this.$t('common.orderReference'),
-          name: 'orderReference', // ??
+          label: this.$t('getparc.actDetail.col.commercialRef'),
+          name: 'simcard',
           orderable: false,
           visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'order.id',
+          },
         },
         {
           id: 13,
           label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'manufacturer', // ??
+          name: 'simcard',
           orderable: false,
           visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'deviceInstance.deviceReference',
+          },
         },
         {
           id: 13,
           label: 'Longitude',
-          name: 'Longitude', // ??
+          name: 'cellLongitude',
           orderable: false,
           visible: false,
         },
         {
           id: 14,
           label: 'Latitude',
-          name: 'Latitude', // ??
+          name: 'cellLatitude',
           orderable: false,
           visible: false,
         },
@@ -156,11 +181,12 @@ export default {
   },
   methods: {
     async refreshTable() {
-      const response = await smsUsage(this.simId, this.pageInfo);
-      this.rows = response.map(r => {
-        return r.smsHistory;
+      const response = await smsUsage(this.simcard.id, this.pageInfo);
+      this.rows = response.items.map(r => {
+        return { ...r.smsHistory, simcard: this.simcard };
       });
-      console.log(this.rows);
+
+      this.total = response.total;
     },
   },
 };
