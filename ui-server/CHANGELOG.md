@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.236+20190924125119
+2019-09-24
+
+### Fixes
+
+- **line detail:** affiche le tableau de consommation data dans la supervision (4cac50950be83ba92bf344ae662aaeac18d1cd11)
+
 ## 0.3.0-master.235+20190924121908
 2019-09-24
 
