@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.235+20190924121908
+2019-09-24
+
+### Fixes
+
+- **line detail:** affiche les custom fields pour les infos de section (dd8724c4aa4063fcb038aebb0840f8a0ac3742ab)
+
 ## 0.3.0-master.234+20190924085643
 2019-09-24
 
