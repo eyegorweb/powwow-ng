@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.237+20190924133920
+2019-09-24
+
+### Features
+
+- 603 intégration initiale de la table "consommation voix" (9e172a8cfe2d4f40f18c49d47476b001507b54f5)
+
 ## 0.3.0-master.236+20190924125119
 2019-09-24
 
