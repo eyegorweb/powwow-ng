@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.234+20190924085643
+2019-09-24
+
+### Fixes
+
+- **line detail:** affichage des custom fields prédéfinis (f53ee7855aaa1a3b3b49134f73f7c8590aa5d6f0)
+
 ## 0.3.0-master.233+20190923150606
 2019-09-23
 
