@@ -38,7 +38,7 @@ export default {
       type: Object,
       required: false,
     },
-    limitToPartnersInSearchBar: Boolean
+    limitToPartnersInSearchBar: Boolean,
   },
   data() {
     return {

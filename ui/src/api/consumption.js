@@ -37,37 +37,6 @@ export async function fetchVoiceUsageForGraph(simInstanceId) {
   `;
   const response = await query(queryStr);
 
-  /*
-  const response = {
-    data: {
-      voiceConsumptionGraph: [
-        {
-          date: '01-05-2018',
-          outgoing: 1,
-          incoming: 2,
-          outgoingMinutesTotal: 4,
-          incomingMinutesTotal: 5,
-        },
-        {
-          date: '09-05-2018',
-          outgoing: 6,
-          incoming: 4,
-          outgoingMinutesTotal: 18,
-          incomingMinutesTotal: 20,
-        },
-
-        {
-          date: '12-05-2018',
-          outgoing: 10,
-          incoming: 9,
-          outgoingMinutesTotal: 60,
-          incomingMinutesTotal: 15,
-        },
-      ],
-    },
-  };
-  //*/
-
   return response.data.voiceConsumptionGraph;
 }
 
@@ -109,55 +78,91 @@ export async function smsUsage(simInstanceId, pagination) {
 
   const response = await query(queryStr);
 
-  /*
-  const response = {
-    data: {
-      consumableUsageHistory: {
-        total: 2,
-        items: [
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-            },
-          },
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-            },
-          },
-        ],
-      },
-    },
-  };
-  //*/
+  return response.data.consumableUsageHistory;
+}
+
+export async function voiceUsage(simInstanceId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `{
+    consumableUsageHistory(consumableToGet: VOICE, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+      total
+      items {
+        voiceHistory{
+          tiketId
+          accessPointId
+          incomming
+          recordOpeningTime
+          recordOpeningSlice
+          partyId
+          countryISO3
+          plmn
+          updatedDate
+          partitionId
+          offerCode
+          callingNumber
+          calledNumber
+          duration
+          cellId
+          details
+          usageType
+          typeAppel
+          imei
+          zipCode
+          city
+          cellLatitude
+          cellLongitude
+        }
+      }
+
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.consumableUsageHistory;
+}
+
+export async function dataUsage(simInstanceId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `{
+    consumableUsageHistory(consumableToGet: DATA, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+      total
+      items {
+        dataHistory {
+          connectionId
+          accessPointId
+          connectionStatus
+          connectionClosingReason
+          startDate
+          endDate
+          apn
+          ipAddressType
+          ipV4Address
+          ipV6Address
+          uploadVolume
+          downloadVolume
+          plmn
+          cellChangeDate
+          isLast
+          offerCode
+          partyId
+          imei
+          zipCode
+          city
+          cellLatitude
+          cellLongitude
+        }
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
 
   return response.data.consumableUsageHistory;
 }

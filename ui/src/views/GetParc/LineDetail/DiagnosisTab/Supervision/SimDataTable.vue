@@ -1,42 +1,37 @@
 <template>
-  <div>
-    <div v-if="!pdpConnexionData || !pdpConnexionData.length" class="alert alert-light" role="alert">
-      {{ $t('noResult') }}
-    </div>
-    <div v-else>
-      <DataTable
-        :columns.sync="columns"
-        :rows="pdpConnexionData || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        :size="7"
-      >
-      </DataTable>
-    </div>
-  </div>
+  <ConsumptionTable :columns.sync="columns" :fetch-data-fn="getFetchDataFn()" />
 </template>
 
 <script>
-import DataTable from '@/components/DataTable/DataTable';
-import { fetchCurrentPdpConnexion } from '@/api/pdpConnexion';
-import get from 'lodash.get';
+import ConsumptionTable from './ConsumptionTable';
+import { dataUsage } from '@/api/consumption';
 
 export default {
   props: {
-    content: Object,
+    simcard: Object,
+  },
+  components: {
+    ConsumptionTable,
+  },
+  methods: {
+    getFetchDataFn() {
+      return async pageInfo => {
+        const response = await dataUsage(this.simcard.id, pageInfo);
+        const rows = response.items.map(r => {
+          return { ...r.dataHistory, simcard: this.simcard };
+        });
+        const total = response.total;
+        return { rows, total };
+      };
+    },
   },
   data() {
     return {
-      pdpConnexionData: undefined,
-      page: 0,
-      pageLimit: 20,
+      showExtraCells: false,
       orderBy: {
-        key: 'startDate',
+        key: 'date',
         direction: 'DESC',
       },
-      showExtraCells: false,
       columns: [
         {
           id: 1,
@@ -76,7 +71,9 @@ export default {
         },
         {
           id: 6,
-          label: this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'),
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'
+          ),
           name: 'data',
           orderable: true,
           visible: true,
@@ -215,26 +212,11 @@ export default {
           visible: false,
         },
       ],
+      rows: [],
+      page: 1,
+      pageLimit: 20,
+      total: 0,
     };
-  },
-  components: {
-    DataTable,
-  },
-  async mounted() {
-    // if (this.getValue(this.content, 'id') && this.isLigneActive) {
-    if (this.getValue(this.content, 'id')) {
-      this.pdpConnexionData = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'), {limit: this.pageLimit, page: this.page});
-    }
-  },
-  methods: {
-    getValue(objectToUse, path, defaultValue = '') {
-      if (objectToUse == null || objectToUse == undefined) {
-        return '-';
-      }
-      const value = get(objectToUse, path, defaultValue);
-
-      return value !== null ? value : '-';
-    },
   },
 };
 </script>

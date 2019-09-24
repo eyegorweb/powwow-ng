@@ -14,7 +14,7 @@
                 <DataGraph />
               </div>
               <div slot="table">
-                <DataConsumptionTable :content="content"></DataConsumptionTable>
+                <SimDataTable :simcard="content" />
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -43,7 +43,9 @@
               <div class="mt-2" slot="graph">
                 <VoiceGraph :sim-id="content.id" />
               </div>
-              <div slot="table">voice table</div>
+              <div slot="table">
+                <VoiceTable :simcard="content" />
+              </div>
             </TableGraphicContentBlock>
           </template>
         </ContentBlock>
@@ -56,22 +58,24 @@
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import TableGraphicContentBlock from '@/components/TableGraphicContentBlock';
 import draggable from 'vuedraggable';
-import DataConsumptionTable from './DataConsumptionTable';
+import SimDataTable from './SimDataTable';
 import DataGraph from './DataGraph';
 import SMSGraph from './SMSGraph';
 import VoiceGraph from './VoiceGraph';
 import SMSTable from './SMSTable';
+import VoiceTable from './VoiceTable';
 
 export default {
   components: {
     draggable,
     ContentBlock,
     TableGraphicContentBlock,
-    DataConsumptionTable,
+    SimDataTable,
     DataGraph,
     SMSGraph,
     SMSTable,
     VoiceGraph,
+    VoiceTable,
   },
 
   props: {

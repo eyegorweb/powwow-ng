@@ -10,8 +10,7 @@
         :errors="errors"
         :initial-parnter="actCreationPrerequisites.partner"
         :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      >
-      </PartnerBillingAccountChoice>
+      ></PartnerBillingAccountChoice>
       <div class="row">
         <div class="col d-flex">
           <UiCheckbox v-model="notificationCheck" />
@@ -69,7 +68,6 @@ export default {
       errors: {},
       actDate: null,
       notificationCheck: false,
-      limitToPartnersInSearchBar: true,
     };
   },
   mounted() {
