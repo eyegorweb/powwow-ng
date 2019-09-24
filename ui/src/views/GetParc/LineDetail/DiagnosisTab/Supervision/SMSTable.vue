@@ -1,18 +1,9 @@
 <template>
-  <DataTable
-    :columns.sync="columns"
-    :rows="rows || []"
-    :page.sync="page"
-    :total="total || 0"
-    :order-by.sync="orderBy"
-    :page-limit.sync="pageLimit"
-    :size="6"
-    :show-extra-columns.sync="showExtraCells"
-  />
+  <ConsumptionTable :columns.sync="columns" :fetch-data-fn="getFetchDataFn()" />
 </template>
 
 <script>
-import DataTable from '@/components/DataTable/DataTable';
+import ConsumptionTable from './ConsumptionTable';
 import { smsUsage } from '@/api/consumption';
 
 export default {
@@ -20,19 +11,18 @@ export default {
     simcard: Object,
   },
   components: {
-    DataTable,
+    ConsumptionTable,
   },
-  watch: {
-    page() {
-      this.refreshTable();
-    },
-    orderBy() {
-      this.page = 1;
-      this.refreshTable();
-    },
-    pageLimit() {
-      this.page = 1;
-      this.refreshTable();
+  methods: {
+    getFetchDataFn() {
+      return async pageInfo => {
+        const response = await smsUsage(this.simcard.id, pageInfo);
+        const rows = response.items.map(r => {
+          return { ...r.smsHistory, simcard: this.simcard };
+        });
+        const total = response.total;
+        return { rows, total };
+      };
     },
   },
   data() {
@@ -151,7 +141,7 @@ export default {
           },
         },
         {
-          id: 13,
+          id: 15,
           label: 'Longitude',
           name: 'cellLongitude',
           orderable: false,
@@ -170,24 +160,6 @@ export default {
       pageLimit: 20,
       total: 0,
     };
-  },
-  mounted() {
-    this.refreshTable();
-  },
-  computed: {
-    pageInfo() {
-      return { page: this.page - 1, limit: this.pageLimit };
-    },
-  },
-  methods: {
-    async refreshTable() {
-      const response = await smsUsage(this.simcard.id, this.pageInfo);
-      this.rows = response.items.map(r => {
-        return { ...r.smsHistory, simcard: this.simcard };
-      });
-
-      this.total = response.total;
-    },
   },
 };
 </script>

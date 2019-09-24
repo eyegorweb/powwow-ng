@@ -51,7 +51,11 @@ export default {
       return;
     }
 
-    if (this.limitToPartnersInSearchBar && this.selectedPartnersValues && this.selectedPartnersValues.length) {
+    if (
+      this.limitToPartnersInSearchBar &&
+      this.selectedPartnersValues &&
+      this.selectedPartnersValues.length
+    ) {
       this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
 
       if (this.limitedPartnersToSelectFrom.length === 1) {

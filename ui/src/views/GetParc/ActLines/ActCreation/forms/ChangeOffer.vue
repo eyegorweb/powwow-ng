@@ -5,7 +5,12 @@
     :check-errors-fn="checkErrors"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
-      <PartnerBillingAccountChoice @set:billingAccount="setBillingAccount" :errors="errors" :initial-parnter="actCreationPrerequisites.partner" :limit-to-partners-in-search-bar="limitToPartnersInSearchBar">
+      <PartnerBillingAccountChoice
+        @set:billingAccount="setBillingAccount"
+        :errors="errors"
+        :initial-parnter="actCreationPrerequisites.partner"
+        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
+      >
         <div slot="bottom">
           <div>
             <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>

@@ -3,7 +3,7 @@
     <div class="row mt-2">
       <div class="col">
         <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-          {{ $t('getparc.lineDetail.consumingFromMonthBeginning')}}
+          {{ $t('getparc.lineDetail.consumingFromMonthBeginning') }}
         </h2>
       </div>
       <div class="col">
