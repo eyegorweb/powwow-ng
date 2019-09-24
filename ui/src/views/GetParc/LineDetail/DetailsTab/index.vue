@@ -15,7 +15,7 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <LineInfoSection v-if="section === 'line_info'" :content="content" />
+      <LineInfoSection v-if="section === 'line_info' && content" :content="content" />
       <ActsHistory v-if="section === 'acts_history'" :content="content" />
       <LineServicesSection v-if="section === 'line_services'" :content="content" />
       <BillingSection v-if="section === 'billing'" :content="content" />

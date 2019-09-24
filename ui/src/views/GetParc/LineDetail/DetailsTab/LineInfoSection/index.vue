@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> 
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
@@ -184,12 +184,14 @@ export default {
 
     currentCustomFields() {
       const customFields = get(this.content, 'accessPoint.customFields');
-      if (!customFields) return [];
+      const customLabels = get(this.content, 'party');
+      if (!customFields || !customLabels) return [];
       let customFieldsArray = [];
       for (let i = 1; i <= 6; i++) {
         const value = customFields['custom' + i];
+        const labels = customLabels['custom' + i + 'FieldLabel']; 
         const label = this.getCustomFieldLabel(i);
-        if (value) {
+        if (labels) {
           customFieldsArray.push({
             index: i,
             code: 'custom' + i,
