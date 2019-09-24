@@ -14,7 +14,7 @@
                 <DataGraph />
               </div>
               <div slot="table">
-                <DataConsumptionTable></DataConsumptionTable>
+                <DataConsumptionTable :content="content"></DataConsumptionTable>
               </div>
             </TableGraphicContentBlock>
           </template>

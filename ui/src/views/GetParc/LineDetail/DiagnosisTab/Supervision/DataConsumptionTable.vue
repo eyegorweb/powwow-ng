@@ -1,14 +1,21 @@
 <template>
-  <DataTable
-    :columns.sync="columns"
-    :rows="pdpConnexionData || []"
-    :page.sync="page"
-    :page-limit.sync="pageLimit"
-    :order-by.sync="orderBy"
-    :show-extra-columns.sync="showExtraCells"
-    :size="7"
-  >
-  </DataTable>
+  <div>
+    <div v-if="!pdpConnexionData || !pdpConnexionData.length" class="alert alert-light" role="alert">
+      {{ $t('noResult') }}
+    </div>
+    <div v-else>
+      <DataTable
+        :columns.sync="columns"
+        :rows="pdpConnexionData || []"
+        :page.sync="page"
+        :page-limit.sync="pageLimit"
+        :order-by.sync="orderBy"
+        :show-extra-columns.sync="showExtraCells"
+        :size="7"
+      >
+      </DataTable>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,6 +24,9 @@ import { fetchCurrentPdpConnexion } from '@/api/pdpConnexion';
 import get from 'lodash.get';
 
 export default {
+  props: {
+    content: Object,
+  },
   data() {
     return {
       pdpConnexionData: undefined,
@@ -66,7 +76,7 @@ export default {
         },
         {
           id: 6,
-          label: this.$t('Data (Mo)'),
+          label: this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'),
           name: 'data',
           orderable: true,
           visible: true,
@@ -211,8 +221,9 @@ export default {
     DataTable,
   },
   async mounted() {
-    if (this.getValue(this.content, 'id') && this.isLigneActive) {
-      this.pdpConnexionData = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'));
+    // if (this.getValue(this.content, 'id') && this.isLigneActive) {
+    if (this.getValue(this.content, 'id')) {
+      this.pdpConnexionData = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'), {limit: this.pageLimit, page: this.page});
     }
   },
   methods: {

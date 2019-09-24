@@ -432,16 +432,20 @@
             "status": "Statut",
             "closing": "Fermeture",
             "location": "Localisation",
+            "data": "Data (Mo)",
             "apn": "APN et IP",
             "ip": "Type IP",
             "country": "Pays",
             "operator": "Opérateur",
+            "plmn": "PLMN",
             "zipcode": "Code postal",
             "city": "Ville",
             "offer": "Offre",
             "cellId": "ID de la cellule",
             "device": "Référence commerciale",
-            "manufacturer": "Constructeur"
+            "manufacturer": "Constructeur",
+            "longitude": "Longitude",
+            "latitude": "Latitude"
           }
         }
       },
