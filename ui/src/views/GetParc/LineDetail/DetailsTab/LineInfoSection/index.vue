@@ -131,53 +131,10 @@
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom1FieldLabel') || $t('col.customFields', { num: 1 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom1') }}</p>
-              </div>
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom2FieldLabel') || $t('col.customFields', { num: 2 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom2') }}</p>
-              </div>
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom3FieldLabel') || $t('col.customFields', { num: 3 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom3') }}</p>
-              </div>
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom4FieldLabel') || $t('col.customFields', { num: 4 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom4') }}</p>
-              </div>
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom5FieldLabel') || $t('col.customFields', { num: 5 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom5') }}</p>
-              </div>
-              <div class="item">
-                <h6>
-                  {{
-                    getFromContent('party.custom6FieldLabel') || $t('col.customFields', { num: 6 })
-                  }}:
-                </h6>
-                <p>{{ getFromContent('accessPoint.customFields.custom6') }}</p>
+              <div v-if="noResults" class="alert-light" role="alert">{{ $t('noResult') }}</div>
+              <div class="item" v-for="item in currentCustomFields" :key="item.index">
+                <h6>{{ item.label }}</h6>
+                <p>{{ item.value }}</p>
               </div>
             </div>
           </template>
@@ -195,6 +152,7 @@ import draggable from 'vuedraggable';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 import moment from 'moment';
 import get from 'lodash.get';
+import { fetchCustomFields } from '@/api/customFields';
 
 export default {
   components: {
@@ -207,6 +165,15 @@ export default {
   props: {
     content: Object,
   },
+  async mounted() {
+    await this.fetchCustomFieldsForPartner();
+  },
+  data() {
+    return {
+      allCustomFields: [],
+      customFieldsValues: [],
+    };
+  },
   computed: {
     msisdn() {
       return get(this.lines[0], 'msisdn', '');
@@ -214,8 +181,37 @@ export default {
     lines() {
       return this.getFromContent('accessPoint.lines', undefined);
     },
+
+    currentCustomFields() {
+      const customFields = get(this.content, 'accessPoint.customFields');
+      if (!customFields) return [];
+      let customFieldsArray = [];
+      for (let i = 1; i <= 6; i++) {
+        const value = customFields['custom' + i];
+        const label = this.getCustomFieldLabel(i);
+        if (value) {
+          customFieldsArray.push({
+            index: i,
+            code: 'custom' + i,
+            value,
+            label,
+          });
+        }
+      }
+      return customFieldsArray;
+    },
+    noResults() {
+      let found = false;
+      if(!this.currentCustomFields || !this.currentCustomFields.length) found = true;
+      return found;
+    }
   },
   methods: {
+    async fetchCustomFieldsForPartner() {
+      const partnerId = get(this.content, 'party.id');
+      this.allCustomFields = await fetchCustomFields(partnerId);
+    },
+
     formatDate(date) {
       let dateOnly = date.substr(0, date.indexOf(' '));
       return date && date.length ? moment(dateOnly, 'DD-MM-YYYY').format('DD/MM/YYYY') : '-';
@@ -243,6 +239,16 @@ export default {
 
       return '-';
     },
+
+    getCustomFieldLabel(index) {
+      const found = this.allCustomFields.find(c => c.code === `custom${index}`);
+      if (found) {
+        return found.label;
+      } else {
+        return this.$t('customFields.customField', { index });
+      }
+    },
+
   },
 };
 </script>
