@@ -43,9 +43,14 @@ export default {
         {
           id: 2,
           label: 'Entrant/Sortant',
-          name: 'incoming', // composant à faire
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.incoming ? 'Entrant' : 'Sortant';
+            },
+          },
         },
         {
           id: 3,

@@ -3,7 +3,7 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
-    <VoiceTable :simcard="simcard" />
+    <SMSTable :simcard="simcard" />
     <div id="nav">
       <router-link to="/getsim">GetSim</router-link>|
       <router-link to="/filters">Filters</router-link>|
@@ -126,7 +126,7 @@ import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import VoiceTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/VoiceTable';
+import SMSTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/SMSTable';
 
 export default {
   name: 'Home',
@@ -266,7 +266,7 @@ export default {
     InputRange,
     StepperNonLinear,
     SearchTranslationKey,
-    VoiceTable,
+    SMSTable,
   },
 };
 </script>
