@@ -4,14 +4,14 @@
       <transition-group>
         <ContentBlock :key="'block1'">
           <template slot="title">
-            <span class="mock-value">
+            <span>
               {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
             </span>
           </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <DataGraph />
+                <DataGraph :sim-id="content.id" />
               </div>
               <div slot="table">
                 <SimDataTable :simcard="content" />
