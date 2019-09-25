@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.241+20190925151628
+2019-09-25
+
+### Features
+
+- 591 Ajouter une demande de contrôle de consommation (d2187e2fadc005f6f279fe7472e008c255bb2d84)
+
 ## 0.3.0-master.240+20190925132923
 2019-09-25
 
