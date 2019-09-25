@@ -454,7 +454,8 @@
         }
       },
       "tab3": {
-        "controlRequestsTitle": "Historique des demandse de contrôle de consommation"
+        "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
+        "newDemand": "Faire une nouvelle demande"
       },
       "tabServices": {
         "optionalServices": "Services optionels",
