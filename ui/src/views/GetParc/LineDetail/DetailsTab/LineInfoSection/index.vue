@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
@@ -189,7 +189,7 @@ export default {
       let customFieldsArray = [];
       for (let i = 1; i <= 6; i++) {
         const value = customFields['custom' + i];
-        const labels = customLabels['custom' + i + 'FieldLabel']; 
+        const labels = customLabels['custom' + i + 'FieldLabel'];
         const label = this.getCustomFieldLabel(i);
         if (labels) {
           customFieldsArray.push({
@@ -204,9 +204,9 @@ export default {
     },
     noResults() {
       let found = false;
-      if(!this.currentCustomFields || !this.currentCustomFields.length) found = true;
+      if (!this.currentCustomFields || !this.currentCustomFields.length) found = true;
       return found;
-    }
+    },
   },
   methods: {
     async fetchCustomFieldsForPartner() {
@@ -250,7 +250,6 @@ export default {
         return this.$t('customFields.customField', { index });
       }
     },
-
   },
 };
 </script>

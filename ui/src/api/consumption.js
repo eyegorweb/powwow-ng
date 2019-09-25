@@ -166,3 +166,18 @@ export async function dataUsage(simInstanceId, pagination) {
 
   return response.data.consumableUsageHistory;
 }
+
+export async function fetchDataConsumptionForGraph(simCardInstanceId) {
+  const queryStr = `{
+    dataConsumptionGraph(simCardInstanceId: ${simCardInstanceId}) {
+      date
+      upload
+      download
+      pdpConnectionsNumber
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.dataConsumptionGraph;
+}
