@@ -239,3 +239,67 @@ export async function fetchDataConsumptionForGraph(simCardInstanceId) {
   const response = await query(queryStr);
   return response.data.dataConsumptionGraph;
 }
+
+export async function consumptionOnDemand(simCardInstanceId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `{
+    consumptionOnDemand(simCardInstanceId: ${simCardInstanceId}${paginationInfo}) {
+      isAllowCreateConsumptionOnDemand
+      consumptionsOnDemands {
+        total
+        items {
+          id
+          periodStartDate
+          periodEndDate
+          fistIncomingTicketDate
+          fistOutgoingTicketDate
+          lastIncomingTicketDate
+          lastOutgoingTicketDate
+          dataIn
+          dataOut
+          smsIn
+          smsOut
+          voiceIn
+          voiceOut
+        }
+      }
+    }
+  }
+  `;
+
+  /*
+  const response = {
+    data: {
+      consumptionOnDemand: {
+        isAllowCreateConsumptionOnDemand: false,
+        consumptionsOnDemands: {
+          total: 1,
+          items: [
+            {
+              id: 0,
+              periodStartDate: '23-05-2015 00:00:00',
+              periodEndDate: '23-05-2015 00:00:00',
+              fistIncomingTicketDate: '23-05-2015 00:00:00',
+              fistOutgoingTicketDate: '23-05-2015 00:00:00',
+              lastIncomingTicketDate: '23-05-2015 00:00:00',
+              lastOutgoingTicketDate: '23-05-2015 00:00:00',
+              dataIn: 22,
+              dataOut: 35,
+              smsIn: 10,
+              smsOut: 14,
+              voiceIn: 36,
+              voiceOut: 70,
+            },
+          ],
+        },
+      },
+    },
+  };
+  //*/
+
+  const response = await query(queryStr);
+
+  return response.data.consumptionOnDemand;
+}

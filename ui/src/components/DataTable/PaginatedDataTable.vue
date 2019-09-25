@@ -11,22 +11,32 @@
       :total="total || 0"
       :order-by.sync="orderBy"
       :page-limit.sync="pageLimit"
-      :size="6"
+      :size="size"
       :show-extra-columns.sync="showExtraCells"
     />
   </div>
 </template>
 
 <script>
-/**
- * DEPRECATED Use PaginatedDataTable instead
- */
 import DataTable from '@/components/DataTable/DataTable';
 
 export default {
   props: {
     columns: Array,
     fetchDataFn: Function,
+    size: {
+      type: Number,
+      default: 6,
+    },
+    order: {
+      type: Object,
+      default: () => {
+        return {
+          key: 'date',
+          direction: 'DESC',
+        };
+      },
+    },
   },
   components: {
     DataTable,
@@ -45,6 +55,7 @@ export default {
     },
   },
   mounted() {
+    this.orderBy = this.order;
     this.refreshTable();
   },
   computed: {
@@ -54,7 +65,7 @@ export default {
   },
   methods: {
     async refreshTable() {
-      const response = await this.fetchDataFn(this.pageInfo);
+      const response = await this.fetchDataFn(this.pageInfo, this.orderBy);
       this.rows = response.rows;
       this.total = response.total;
     },
@@ -62,10 +73,7 @@ export default {
   data() {
     return {
       showExtraCells: false,
-      orderBy: {
-        key: 'date',
-        direction: 'DESC',
-      },
+      orderBy: undefined,
       rows: undefined,
       page: 1,
       pageLimit: 20,

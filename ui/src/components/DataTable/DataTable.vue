@@ -45,7 +45,7 @@
                   />
                 </div>
               </th>
-              <th v-if="size !== undefined" :key="'btnAdd'">
+              <th v-if="size" :key="'btnAdd'">
                 <button
                   type="button"
                   class="btn btn-light btn-sm float-right"
@@ -66,7 +66,7 @@
                   :row="row"
                 />
               </td>
-              <td v-if="size !== undefined">
+              <td v-if="size">
                 <slot name="actions" :row="row" />
               </td>
             </tr>
