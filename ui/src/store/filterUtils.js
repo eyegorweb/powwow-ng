@@ -165,7 +165,6 @@ export function initMutations() {
     },
 
     setCurrentFilters: (state, currentFilters) => {
-      console.log(currentFilters);
       state.currentFilters = currentFilters;
     },
     setDefaultFilter(state, defaultFilter) {

@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { fetchCurrentPdpConnexion } from '@/api/pdpConnexion';
+import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
 
@@ -127,7 +127,7 @@ export default {
   },
   async mounted() {
     if (this.getValue(this.content, 'id') && this.isLigneActive) {
-      const pdpResponse = await fetchCurrentPdpConnexion(this.getValue(this.content, 'id'));
+      const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
       if (pdpResponse && pdpResponse.length) {
         this.pdpConnexionData = pdpResponse[0].dataHistroy;
       }

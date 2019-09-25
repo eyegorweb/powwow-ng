@@ -3,6 +3,7 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
+    <NetworkTestControl :content="simcard" />
     <SMSTable :simcard="simcard" />
     <div id="nav">
       <router-link to="/getsim">GetSim</router-link>|
@@ -127,9 +128,26 @@ import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import SMSTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/SMSTable';
+import NetworkTestControl from '@/views/GetParc/LineDetail/DiagnosisTab/NetworkTestControl';
 
 export default {
   name: 'Home',
+  components: {
+    UiCheckbox,
+    UiButton,
+    Stepper,
+    UiTabs,
+    TransitionCollapse,
+    MultiChoices,
+    SearchWithSelect,
+    UiApiAutocomplete,
+    UiDateRange,
+    InputRange,
+    StepperNonLinear,
+    SearchTranslationKey,
+    SMSTable,
+    NetworkTestControl,
+  },
   data() {
     const columns = [
       {
@@ -251,22 +269,6 @@ export default {
 
   methods: {
     searchAddress,
-  },
-
-  components: {
-    UiCheckbox,
-    UiButton,
-    Stepper,
-    UiTabs,
-    TransitionCollapse,
-    MultiChoices,
-    SearchWithSelect,
-    UiApiAutocomplete,
-    UiDateRange,
-    InputRange,
-    StepperNonLinear,
-    SearchTranslationKey,
-    SMSTable,
   },
 };
 </script>

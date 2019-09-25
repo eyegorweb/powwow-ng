@@ -44,6 +44,10 @@
   "MB": "{value} Mio",
   "MN": "{value} Mn",
   "total": "Total",
+  "from": "Du",
+  "to": "au",
+  "input": "Entrant",
+  "output": "Sortant",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -448,6 +452,9 @@
             "latitude": "Latitude"
           }
         }
+      },
+      "tab3": {
+        "controlRequestsTitle": "Historique des demandse de contrôle de consommation"
       },
       "tabServices": {
         "optionalServices": "Services optionels",
