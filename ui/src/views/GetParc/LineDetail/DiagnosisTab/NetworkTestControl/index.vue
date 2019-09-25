@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-md-12">
           <button @click="openNewDemandModal" class="btn btn-xs float-right btn-primary">
-            {{ $t('getparc.actDetail.discharge') }}
+            Ajouter une nouvelle demande
           </button>
         </div>
       </div>
