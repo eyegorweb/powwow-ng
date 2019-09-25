@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.240+20190925132923
+2019-09-25
+
+### Features
+
+- 591 Première intégration de la table d'historique de demandes de consommation (eb0c0680488607fa49a4e1a9babc93d039f77e7b)
+
 ## 0.3.0-master.239+20190925090958
 2019-09-25
 
