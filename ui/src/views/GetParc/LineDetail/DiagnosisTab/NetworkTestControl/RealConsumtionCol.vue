@@ -1,7 +1,7 @@
 <template>
   <ul class="list-unstyled">
     <li>{{ $t('from') }} {{ row.fistIncomingTicketDate }}</li>
-    <li>{{ $t('to') }} {{ row.fistOutgoingTicketDate }}</li>
+    <li>{{ $t('to') }} {{ row.lastIncomingTicketDate }}</li>
   </ul>
 </template>
 

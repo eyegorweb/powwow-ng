@@ -143,3 +143,8 @@ export default {
   }
 }
 </style>
+<style lang="scss">
+.daterangepicker {
+  z-index: 9999 !important;
+}
+</style>

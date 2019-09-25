@@ -303,3 +303,14 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
 
   return response.data.consumptionOnDemand;
 }
+
+export async function createConsumptionOnDemand(simId, startDate, endDate) {
+  const queryStr = `
+  mutation {
+    createConsumptionOnDemand(startDate: "${startDate} 00:00:00", endDate: "${endDate} 00:00:00", simCardInstanceId: ${simId}) {
+      id
+    }
+  }
+  `;
+  return await query(queryStr);
+}
