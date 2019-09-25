@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.238+20190925072334
+2019-09-25
+
+### Fixes
+
+- **line detail:** add graph conso data (087e7026020111228344b5e7ef8c70909ca5270e)
+
 ## 0.3.0-master.237+20190924133920
 2019-09-24
 
