@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.243+20190926150604
+2019-09-26
+
+### Fixes
+
+- Corriger l'appel API pour la résiliation (8161f212d313dec1d5bac66b8ad280619072f701)
+
 ## 0.3.0-master.242+20190925162907
 2019-09-25
 
