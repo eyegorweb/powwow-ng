@@ -12,6 +12,7 @@
           class="float-left ic-Arrow-Previous-Icon prev-btn"
         />
         <UiButton
+          v-if="!noNextButton"
           variant="round-button"
           @click="$emit('done')"
           :disabled="!canGoToNextStep"
@@ -33,6 +34,7 @@ export default {
     noPreviousButton: Boolean,
     canGoToNextStep: Boolean,
     noButtons: Boolean,
+    noNextButton: Boolean,
   },
 };
 </script>

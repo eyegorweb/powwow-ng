@@ -1,6 +1,6 @@
 <template>
-  <div class="step-client-container">
-    <div class="panel-vertical-container" v-if="!isOpen">
+  <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
+    <template v-if="!isOpen">
       <div class="main-content">
         <CreateOrderAddOrderReference
           :value="referenceValue"
@@ -35,26 +35,15 @@
           </UiButton>
         </div>
       </div>
-      <div class="footer-back">
-        <div class="row">
-          <div class="col-md-12 mb-5">
-            <UiButton
-              variant="round-button"
-              @click="$emit('prev')"
-              class="float-left ic-Arrow-Previous-Icon prev-btn"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel-vertical-container" v-if="isOpen">
+    </template>
+    <template v-if="isOpen">
       <CreateOrderAddCustomField
         @cancel="close"
         @add-field="onSaveField"
         :number-ofustom-fields="allCustomFields.length"
       />
-    </div>
-  </div>
+    </template>
+  </CreateOrderStepContainer>
 </template>
 
 <script>
@@ -65,6 +54,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
+import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
 export default {
   data() {
@@ -278,18 +268,12 @@ export default {
     CreateOrderAddCustomField,
     UiButton,
     CustomFields,
+    CreateOrderStepContainer,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.step-client-container {
-  padding: 0 2rem !important;
-
-  @media screen and (min-width: 1440px) {
-    padding: 0 7rem !important;
-  }
-}
 .btn-adder {
   color: $dark-gray !important;
   background-color: $light-gray !important;
@@ -319,22 +303,5 @@ export default {
 .subcontainer {
   max-height: 24rem;
   overflow-y: auto;
-}
-
-@media screen and (max-height: 768px) {
-  .panel-vertical-container {
-    div.step-content {
-      max-height: 87vh;
-      min-height: 60vh !important;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .panel-vertical-container {
-    div.step-content {
-      min-height: 60vh;
-      max-height: 87vh;
-    }
-  }
 }
 </style>

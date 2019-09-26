@@ -367,7 +367,7 @@ export async function manageCancellation(filters, lines, params) {
 
   const queryStr = `
   mutation{
-    validateRefuseLines(
+    validateRefuseLinesV2(
         input :{filter: {${gqlFilter}}, simCardInstanceIds: [${lineIds}], notification: false, validate: ${validate}, partyId: ${partyId}, dueDate: "${formatDateForGql(
     dueDate
   )}" }
