@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" :style="{ height: '100%' }">
     <div class="col-md-8 content">
       <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
         <div slot="Client">

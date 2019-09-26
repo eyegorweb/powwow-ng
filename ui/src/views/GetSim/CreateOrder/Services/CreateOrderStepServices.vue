@@ -1,89 +1,77 @@
 <template>
-  <div class="step-client-container">
-    <div class="panel-vertical-container">
-      <div class="main-content">
-        <div>
-          <h3 class="font-weight-light text-center mt-4 mb-4">
-            {{ $t('orders.choose-services') }}
-          </h3>
-        </div>
-        <div class="toggles-container">
-          <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
-          <UiToggle label="Activation" v-model="activation" />
-        </div>
-        <div v-if="activation && offers && offers.length">
-          <div class=" ">
-            <OffersChoice
-              v-model="selectedOffer"
-              :offers="offers"
-              :partner-id="partnerId"
-              :is-rcard="isrcard"
-            />
+  <CreateOrderStepContainer
+    @done="done"
+    @prev="prev"
+    :can-go-to-next-step="!(activation && !selectedOffer)"
+  >
+    <div class="step-client-container">
+      <div class="panel-vertical-container">
+        <div class="main-content">
+          <div>
+            <h3 class="font-weight-light text-center mt-4 mb-4">
+              {{ $t('orders.choose-services') }}
+            </h3>
           </div>
-
-          <template v-if="selectedOfferData">
-            <div>
-              <h2 class="title">{{ $t('orders.personalize-services') }}</h2>
+          <div class="toggles-container">
+            <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
+            <UiToggle label="Activation" v-model="activation" />
+          </div>
+          <div v-if="activation && offers && offers.length">
+            <div class>
+              <OffersChoice
+                v-model="selectedOffer"
+                :offers="offers"
+                :partner-id="partnerId"
+                :is-rcard="isrcard"
+              />
             </div>
 
-            <div class="services-container">
-              <div
-                :key="service.id"
-                v-for="service in basicServices"
-                class="single-service mt-3 mb-3"
-              >
-                <UiToggle
-                  :label="$t('services.' + service.name)"
-                  :editable="service.editable"
-                  v-model="service.checked"
-                />
+            <template v-if="selectedOfferData">
+              <div>
+                <h2 class="title">{{ $t('orders.personalize-services') }}</h2>
               </div>
-            </div>
 
-            <div v-if="dataService" class="services-container mt-3">
-              <div class="single-service">
-                <UiToggle
-                  :label="$t('services.DATA')"
-                  :editable="dataService.editable"
-                  v-model="dataService.checked"
-                />
-              </div>
-              <div
-                v-if="dataService && dataService.apns && dataService.apns.length"
-                class="single-service"
-              >
-                <div class="apn-container">
-                  <span>Apn:</span>
-                  <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
+              <div class="services-container">
+                <div
+                  :key="service.id"
+                  v-for="service in basicServices"
+                  class="single-service mt-3 mb-3"
+                >
+                  <UiToggle
+                    :label="$t('services.' + service.name)"
+                    :editable="service.editable"
+                    v-model="service.checked"
+                  />
                 </div>
               </div>
-            </div>
-          </template>
-        </div>
-      </div>
-      <div class="footer-back">
-        <div class="row">
-          <div class="col-md-12 mb-5">
-            <UiButton
-              variant="round-button"
-              @click="prev"
-              class="float-left ic-Arrow-Previous-Icon prev-btn"
-            />
-            <UiButton
-              variant="round-button"
-              :disabled="activation && !selectedOffer"
-              @click="done"
-              class="float-right ic-Arrow-Next-Icon next-btn"
-            />
+
+              <div v-if="dataService" class="services-container mt-3">
+                <div class="single-service">
+                  <UiToggle
+                    :label="$t('services.DATA')"
+                    :editable="dataService.editable"
+                    v-model="dataService.checked"
+                  />
+                </div>
+                <div
+                  v-if="dataService && dataService.apns && dataService.apns.length"
+                  class="single-service"
+                >
+                  <div class="apn-container">
+                    <span>Apn:</span>
+                    <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
+                  </div>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </CreateOrderStepContainer>
 </template>
 
 <script>
-import UiButton from '@/components/ui/Button';
 import UiToggle from '@/components/ui/UiToggle';
 import OffersChoice from './OffersChoice';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
@@ -92,13 +80,15 @@ import get from 'lodash.get';
 import flatten from 'lodash.flatten';
 import { fetchOffersForPartnerId } from '@/api/offers';
 
+import CreateOrderStepContainer from '../CreateOrderStepContainer';
+
 export default {
   name: 'CreateOrderStepServices',
   components: {
-    UiButton,
     UiToggle,
     OffersChoice,
     MultiChoiceList,
+    CreateOrderStepContainer,
   },
   props: {
     synthesis: {
@@ -395,77 +385,72 @@ export default {
 .toggle {
   max-width: 220px;
 }
-.step-client-container {
-  padding: 0 2rem;
-  @media screen and (min-width: 1440px) {
-    padding: 0 7rem;
-  }
-  .services-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    margin: auto;
-    .single-service {
-      flex-basis: 50%;
-    }
-  }
-  .title {
-    background-color: transparent;
-    color: $dark-gray;
-    font-weight: 300;
-    font-size: 2rem;
-    margin: 50px 0 30px;
-    padding: 0;
-    text-align: center;
-  }
 
-  .toggles-container {
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  .single-service {
+    flex-basis: 50%;
+  }
+}
+.title {
+  background-color: transparent;
+  color: $dark-gray;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 50px 0 30px;
+  padding: 0;
+  text-align: center;
+}
+
+.toggles-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  .toggle {
+    flex: 1 100%;
     flex-grow: 1;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-
-    .toggle {
-      flex: 1 100%;
-      flex-grow: 1;
-    }
   }
+}
 
-  .form-offers {
+.form-offers {
+  color: $dark-gray;
+
+  &.disabled {
+    color: $gray-680;
+  }
+}
+
+select {
+  height: 56px;
+}
+
+.select-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  flex-grow: 1;
+
+  p {
     color: $dark-gray;
-
-    &.disabled {
-      color: $gray-680;
-    }
+    font-size: 14px;
+    margin: 0;
   }
 
   select {
-    height: 56px;
-  }
-
-  .select-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    flex-grow: 1;
-
-    p {
-      color: $dark-gray;
-      font-size: 14px;
-      margin: 0;
-    }
-
-    select {
-      align-self: flex-end;
-      background: none;
-      background-color: transparent;
-      font-size: 14px;
-      max-height: 50px;
-      max-width: 180px;
-      overflow-y: auto;
-    }
+    align-self: flex-end;
+    background: none;
+    background-color: transparent;
+    font-size: 14px;
+    max-height: 50px;
+    max-width: 180px;
+    overflow-y: auto;
   }
 }
 
@@ -495,34 +480,6 @@ export default {
     max-width: 210px;
     flex-grow: 1;
     margin-left: 10px;
-  }
-}
-
-.next-btn {
-  position: absolute;
-  right: 1rem;
-  bottom: 0;
-}
-.prev-btn {
-  position: absolute;
-  left: 1rem;
-  bottom: 0;
-}
-
-@media screen and (max-height: 768px) {
-  .panel-vertical-container {
-    div.step-content {
-      max-height: 87vh;
-      min-height: 60vh !important;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .panel-vertical-container {
-    div.step-content {
-      min-height: 60vh;
-      max-height: 87vh;
-    }
   }
 }
 </style>

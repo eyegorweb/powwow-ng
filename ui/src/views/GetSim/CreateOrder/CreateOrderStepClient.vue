@@ -1,52 +1,38 @@
 <template>
-  <div class="step-client-container">
-    <div class="panel-vertical-container">
-      <div class="main-content">
-        <div v-if="!userIsPartner">
-          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
+  <CreateOrderStepContainer no-previous-button @done="done" :can-go-to-next-step="canGoToNextStep">
+    <div class="main-content">
+      <div v-if="!userIsPartner">
+        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
 
-          <UiApiAutocomplete
-            :api-method="fetchPartners"
-            v-model="selectedPartner"
-            display-results-while-empty
-            scroll-for-next
-          >
-            <img
-              style="font-size: 24px"
-              class="arrow"
-              src="@/assets/search.svg"
-              :style="{ left: 0 }"
-            />
-          </UiApiAutocomplete>
-        </div>
-        <div>
-          <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-account') }}</h3>
-          <UiApiAutocomplete
-            :items="billingAccounts"
-            v-model="selectedBillingAccount"
-            display-results-while-empty
+        <UiApiAutocomplete
+          :api-method="fetchPartners"
+          v-model="selectedPartner"
+          display-results-while-empty
+          scroll-for-next
+        >
+          <img
+            style="font-size: 24px"
+            class="arrow"
+            src="@/assets/search.svg"
+            :style="{ left: 0 }"
           />
-        </div>
+        </UiApiAutocomplete>
       </div>
-      <div class="footer-back">
-        <div class="row">
-          <div class="col-md-12 mb-5">
-            <UiButton
-              variant="round-button"
-              @click="done"
-              :disabled="!canGoToNextStep"
-              class="float-right ic-Arrow-Next-Icon next-btn"
-            />
-          </div>
-        </div>
+      <div>
+        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-account') }}</h3>
+        <UiApiAutocomplete
+          :items="billingAccounts"
+          v-model="selectedBillingAccount"
+          display-results-while-empty
+        />
       </div>
     </div>
-  </div>
+  </CreateOrderStepContainer>
 </template>
 
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import UiButton from '@/components/ui/Button';
+import CreateOrderStepContainer from './CreateOrderStepContainer';
 import { fetchpartners } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
@@ -185,26 +171,12 @@ export default {
 
   components: {
     UiApiAutocomplete,
-    UiButton,
+    CreateOrderStepContainer,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.step-client-container {
-  padding: 0 2rem;
-
-  @media screen and (min-width: 1440px) {
-    padding: 0 7rem;
-  }
-
-  .next-btn {
-    position: absolute;
-    right: 1rem;
-    bottom: 0;
-  }
-}
-
 @media screen and (max-height: 768px) {
   .panel-vertical-container {
     div.step-content {
