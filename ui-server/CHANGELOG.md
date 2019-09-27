@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.246+20190927150818
+2019-09-27
+
+### Fixes
+
+- Intégration des erreurs lors de l'ajout de demandes de contrôle (fcdee8f48effaa81889b13cac38275cb63ba4212)
+
 ## 0.3.0-master.245+20190927100835
 2019-09-27
 
