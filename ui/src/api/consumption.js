@@ -263,6 +263,7 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
           smsOut
           voiceIn
           voiceOut
+          Statut
         }
       }
     }
