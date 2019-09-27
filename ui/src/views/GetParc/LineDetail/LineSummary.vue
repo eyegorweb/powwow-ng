@@ -5,15 +5,11 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.offer') }}:</h6>
-            <p>
-              {{ getFromContent('accessPoint.offer.marketingOffer.description') }}
-            </p>
+            <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
-            <p class="text-success">
-              {{ $t(simStatus) }}
-            </p>
+            <p class="text-success">{{ $t(simStatus) }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
@@ -25,21 +21,15 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-            <p>
-              {{ getFromContent('iccid') }}
-            </p>
+            <p>{{ getFromContent('iccid') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.manufacturer') }}:</h6>
-            <p>
-              {{ getFromContent('deviceInstance.manufacturer') }}
-            </p>
+            <p>{{ getFromContent('deviceInstance.manufacturer') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.model') }}:</h6>
-            <p>
-              {{ getFromContent('deviceInstance.deviceReference') }}
-            </p>
+            <p>{{ getFromContent('deviceInstance.deviceReference') }}</p>
           </div>
         </div>
       </div>
@@ -151,6 +141,7 @@ export default {
     },
     async fetchAlarms() {
       const response = await fetchAlarmsWithInfos(this.content.id);
+      if (!response || !response.lenth) return;
       this.alarmTriggered = response[0].isTriggered;
     },
     totalUsed(type, mode) {

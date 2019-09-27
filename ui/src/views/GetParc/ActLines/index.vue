@@ -25,6 +25,7 @@
       <div class="col-md-3">
         <Indicators :meta="indicators" :on-click="onClick" />
         <br />
+
         <FilterBar />
       </div>
       <div class="col-md-9">
@@ -102,11 +103,13 @@ export default {
       prereqSet: false,
       indicators: lineIndicators,
       tableIsEmpty: true,
+      prevRoute: undefined,
 
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
   },
+
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
     ...mapState('actLines', [
@@ -160,6 +163,12 @@ export default {
       return null;
     },
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.prevRoute = from.name;
+      vm.initAfterRouteIsSet();
+    });
+  },
   methods: {
     ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
     ...mapMutations('actLines', [
@@ -172,6 +181,15 @@ export default {
       'setPageLimit',
       'setRouteParamsFilters',
     ]),
+
+    initAfterRouteIsSet() {
+      // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
+      if (this.prevRoute === 'lineDetail') return;
+      if (this.$route.params && this.$route.params.queryFilters) {
+        this.setRouteParamsFilters(this.$route.params.queryFilters);
+      }
+      this.initFilterForContext();
+    },
 
     checkTableResult(result) {
       this.tableIsEmpty = result;
@@ -224,12 +242,7 @@ export default {
       this.prereqSet = true;
     },
   },
-  mounted() {
-    if (this.$route.params && this.$route.params.queryFilters) {
-      this.setRouteParamsFilters(this.$route.params.queryFilters);
-    }
-    this.initFilterForContext();
-  },
+
   watch: {
     contextPartnersTypes() {
       this.initFilterForContext();
