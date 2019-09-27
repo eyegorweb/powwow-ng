@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.244+20190927082758
+2019-09-27
+
+### Fixes
+
+- Correctifs sur la page commandes (933cdcf0fa880ce158d7081c8ea9bf28c5709da1)
+
 ## 0.3.0-master.243+20190926150604
 2019-09-26
 
