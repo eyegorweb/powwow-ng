@@ -1,5 +1,5 @@
 <template>
-  <CreateOrderStepContainer @done="done" @prev="prev" :can-go-to-next-step="canGoToNextStep">
+  <CreateOrderStepContainer @done="done" @prev="prev" :can-go-to-next-step="!!canGoToNextStep">
     <div class="main-content">
       <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>

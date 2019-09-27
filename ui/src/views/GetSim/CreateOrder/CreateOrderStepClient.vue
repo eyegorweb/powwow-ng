@@ -1,5 +1,9 @@
 <template>
-  <CreateOrderStepContainer no-previous-button @done="done" :can-go-to-next-step="canGoToNextStep">
+  <CreateOrderStepContainer
+    no-previous-button
+    @done="done"
+    :can-go-to-next-step="!!canGoToNextStep"
+  >
     <div class="main-content">
       <div v-if="!userIsPartner">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
