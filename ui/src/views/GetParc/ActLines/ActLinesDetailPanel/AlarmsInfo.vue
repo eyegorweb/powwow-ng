@@ -1,5 +1,5 @@
 <template>
-  <div class="overview-container m-3 bg-white">
+  <div v-if="get('accessPoint.id')" class="overview-container m-3 bg-white">
     <div class="overview-item">
       <h4 class="font-weight-normal text-uppercase">
         {{ $t('getparc.actLines.details.alarmsInfo') }}
@@ -16,6 +16,7 @@
       </p>
     </div>
   </div>
+  <div v-else></div>
 </template>
 
 <script>
@@ -35,6 +36,7 @@ export default {
   },
 
   async mounted() {
+    if (!this.get('accessPoint.id')) return;
     this.triggeredAlarms = await fetchAlarmInstancesByAP(this.get('accessPoint.id'));
   },
 
