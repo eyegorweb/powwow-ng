@@ -152,6 +152,7 @@ export default {
       columns: [
         col('Période d’observation', 'id', true, false, { component: ObservationRangeCol }),
         col('Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
+        col('Statut', 'Statut', true, false),
         col('Statut', 'id', true, false, { component: StatutCol }),
         col('DATA', 'id', true, false, { component: DataCol }),
         col('SMS', 'id', true, false, { component: SMSCol }),
