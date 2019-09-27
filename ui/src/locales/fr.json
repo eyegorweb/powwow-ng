@@ -455,7 +455,21 @@
       },
       "tab3": {
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
-        "newDemand": "Faire une nouvelle demande"
+        "newDemand": "Faire une nouvelle demande",
+        "errors": {
+          "DMD_CONSO_CPT": {
+            "LimitExceeded": "Le nombre de demandes maximal est atteint"
+          },
+          "START_DATE": {
+            "Invalid": "La date de début doit être supérieure à la date courante"
+          },
+          "MONTH": {
+            "DATE_NOTE_SAME_MONTH": "La date de début et de fin doivent être dans le même mois"
+          },
+          "PERIODE": {
+            "Invalid": "La date de fin doit être supérieure à la date de début d'au moins 15 minutes"
+          }
+        }
       },
       "tabServices": {
         "optionalServices": "Services optionels",

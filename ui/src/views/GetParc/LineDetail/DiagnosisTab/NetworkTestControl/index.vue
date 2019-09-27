@@ -47,11 +47,11 @@
               </div>
             </div>
           </form>
-          <ul class="list-unstyled">
-            <li v-for="e in formErrors" :key="e.message">
-              <span class="text-danger">{{ e.message }}</span>
-            </li>
-          </ul>
+          <BackendErrors
+            v-if="formErrors"
+            :errors="formErrors"
+            trad-prefix="getparc.lineDetail.tab3.errors"
+          />
         </div>
         <div slot="footer">
           <button class="modal-default-button btn btn-danger btn-sm" @click.stop="cancel">
@@ -83,12 +83,15 @@ import VoiceCol from './VoiceCol';
 import Modal from '@/components/Modal';
 import UiDate from '@/components/ui/UiDate2';
 
+import BackendErrors from '@/components/BackendErrors';
+
 export default {
   components: {
     PaginatedDataTable,
     ContentBlock,
     Modal,
     UiDate,
+    BackendErrors,
   },
   props: {
     content: Object,
@@ -108,6 +111,7 @@ export default {
       this.dateFromInError = !this.dateFrom;
       this.dateToInError = !this.dateTo;
       const haveErrors = this.dateFromInError || this.dateToInError;
+      this.formErrors = undefined;
 
       if (haveErrors) return;
 
