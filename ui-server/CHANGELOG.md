@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.245+20190927100835
+2019-09-27
+
+### Features
+
+- la bare de recherche n'est pas ré initialisée quand au retour d'une page de détail (9b1ed63cc6bae3f161c93f9369b475a462256383)
+
 ## 0.3.0-master.244+20190927082758
 2019-09-27
 
