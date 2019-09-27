@@ -64,6 +64,7 @@
                   :format="column.format"
                   :item="row[column.name]"
                   :row="row"
+                  :visible-columns="sortableColumns"
                 />
               </td>
               <td v-if="size">
