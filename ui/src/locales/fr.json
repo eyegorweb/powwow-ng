@@ -456,6 +456,11 @@
       "tab3": {
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
         "newDemand": "Faire une nouvelle demande",
+        "statuses": {
+          "RUNNING": "En cours",
+          "WAITING": "En attente",
+          "TERMINATED": "Terminé"
+        },
         "errors": {
           "DMD_CONSO_CPT": {
             "LimitExceeded": "Le nombre de demandes maximal est atteint"
@@ -468,6 +473,12 @@
           },
           "PERIODE": {
             "Invalid": "La date de fin doit être supérieure à la date de début d'au moins 15 minutes"
+          },
+          "CONSUMPTION_ON_DEMAND_ID": {
+            "NotFound": "Introuvable"
+          },
+          "PERIOD_END_DATE": {
+            "NotAllowed": "Date de fin invalide"
           }
         }
       },

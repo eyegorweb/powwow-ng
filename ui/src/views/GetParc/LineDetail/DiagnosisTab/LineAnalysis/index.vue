@@ -6,14 +6,15 @@
   </div>
   <div v-else>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div>
           <h4 class="text-primary text-uppercase">
             {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.locationSection') }}
           </h4>
+          <LocalisationBlock :loading="loadingGeoloc" :data="geographicalLocation" />
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div>
           <h4 class="text-primary text-uppercase">
             {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.lastConnectionStatus') }}
@@ -107,13 +108,17 @@
 import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
+import LocalisationBlock from './LocalisationBlock';
 
 export default {
-  components: {},
+  components: {
+    LocalisationBlock,
+  },
   data() {
     return {
       pdpConnexionData: undefined,
       geographicalLocation: undefined,
+      loadingGeoloc: false,
     };
   },
   computed: {
@@ -131,7 +136,9 @@ export default {
       if (pdpResponse && pdpResponse.length) {
         this.pdpConnexionData = pdpResponse[0].dataHistroy;
       }
+      this.loadingGeoloc = true;
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
+      this.loadingGeoloc = false;
     }
     this.$emit('update:menuActive', this.isLigneActive);
   },

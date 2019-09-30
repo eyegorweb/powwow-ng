@@ -13,6 +13,7 @@
       :page-limit.sync="pageLimit"
       :size="size"
       :show-extra-columns.sync="showExtraCells"
+      @colEvent="$emit('colEvent', $event)"
     />
   </div>
 </template>

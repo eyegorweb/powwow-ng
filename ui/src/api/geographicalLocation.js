@@ -10,6 +10,8 @@ export async function lastGeographicalLocation(simCardInstanceId) {
       lastCommunicationDate
       usageDetailsByDirection
       ticketGeneration
+      latitude
+      longitude
     }
   }
     `

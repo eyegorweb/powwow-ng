@@ -65,6 +65,7 @@
                   :item="row[column.name]"
                   :row="row"
                   :visible-columns="sortableColumns"
+                  @colEvent="$emit('colEvent', $event)"
                 />
               </td>
               <td v-if="size">

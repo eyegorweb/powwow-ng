@@ -7,6 +7,7 @@
         :columns="columns"
         :fetch-data-fn="getFetchDataFn()"
         :size="0"
+        @colEvent="onCancelDone"
       />
       <div class="row">
         <div class="col-md-12">
@@ -84,6 +85,8 @@ import Modal from '@/components/Modal';
 import UiDate from '@/components/ui/UiDate2';
 
 import BackendErrors from '@/components/BackendErrors';
+import { formatBackErrors } from '@/utils/errors';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -97,6 +100,23 @@ export default {
     content: Object,
   },
   methods: {
+    ...mapMutations(['flashMessage']),
+
+    onCancelDone(payload) {
+      if (payload.response.errors && payload.response.errors.length) {
+        const errors = formatBackErrors(payload.response.errors);
+        errors.forEach(e => {
+          e.errorKeys.forEach(ekey => {
+            this.flashMessage({
+              level: 'danger',
+              message: this.$t('getparc.lineDetail.tab3.errors.' + ekey),
+            });
+          });
+        });
+      } else {
+        this.reloadTable();
+      }
+    },
     openNewDemandModal() {
       this.dateFromInError = undefined;
       this.dateToInError = undefined;
