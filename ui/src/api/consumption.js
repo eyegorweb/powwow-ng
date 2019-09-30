@@ -192,28 +192,32 @@ export async function dataUsage(simInstanceId, pagination) {
       total
       items {
         dataHistory {
-          connectionId
-          accessPointId
-          connectionStatus
-          connectionClosingReason
           startDate
           endDate
-          apn
-          ipAddressType
-          ipV4Address
-          ipV6Address
+          connectionStatus
+          connectionClosingReason
           uploadVolume
           downloadVolume
-          plmn
+          apn
+          ipAddressType
+          imei
+          offerCode
+          connectionId
+          accessPointId
+          ipV4Address
+          ipV6Address
           cellChangeDate
           isLast
-          offerCode
           partyId
-          imei
-          zipCode
-          city
-          cellLatitude
-          cellLongitude
+
+          #location
+          #operator
+          #countryISO3
+          #plmn
+          #zipCode
+          #city
+          #cellLatitude
+          #cellLongitude
         }
       }
     }
