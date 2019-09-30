@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.248+20190930085132
+2019-09-30
+
+### Fixes
+
+- **line detail:** formatage des colonnes de tableau (29d74d654c5c4bf312c0d79d4160e31fca7147b0)
+
 ## 0.3.0-master.247+20190927151052
 2019-09-27
 
