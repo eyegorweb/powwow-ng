@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.249+20190930143551
+2019-09-30
+
+### Features
+
+- Colonne statut dans la table d'historique de demande de conrole (5a4cdd36e964b899c39047059b41232d67d7e65a)
+
 ## 0.3.0-master.248+20190930085132
 2019-09-30
 
