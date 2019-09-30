@@ -296,6 +296,39 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
               smsOut: 14,
               voiceIn: 36,
               voiceOut: 70,
+              Statut: 'RUNNING',
+            },
+            {
+              id: 1,
+              periodStartDate: '23-05-2015 00:00:00',
+              periodEndDate: '23-05-2015 00:00:00',
+              fistIncomingTicketDate: '23-05-2015 00:00:00',
+              fistOutgoingTicketDate: '23-05-2015 00:00:00',
+              lastIncomingTicketDate: '23-05-2015 00:00:00',
+              lastOutgoingTicketDate: '23-05-2015 00:00:00',
+              dataIn: 22,
+              dataOut: 35,
+              smsIn: 10,
+              smsOut: 14,
+              voiceIn: 36,
+              voiceOut: 70,
+              Statut: 'WAITING',
+            },
+            {
+              id: 3,
+              periodStartDate: '23-05-2015 00:00:00',
+              periodEndDate: '23-05-2015 00:00:00',
+              fistIncomingTicketDate: '23-05-2015 00:00:00',
+              fistOutgoingTicketDate: '23-05-2015 00:00:00',
+              lastIncomingTicketDate: '23-05-2015 00:00:00',
+              lastOutgoingTicketDate: '23-05-2015 00:00:00',
+              dataIn: 22,
+              dataOut: 35,
+              smsIn: 10,
+              smsOut: 14,
+              voiceIn: 36,
+              voiceOut: 70,
+              Statut: 'TERMINATED',
             },
           ],
         },
@@ -315,6 +348,15 @@ export async function createConsumptionOnDemand(simId, startDate, endDate) {
     createConsumptionOnDemand(startDate: "${startDate} 00:00:00", endDate: "${endDate} 00:00:00", simCardInstanceId: ${simId}) {
       id
     }
+  }
+  `;
+  return await query(queryStr);
+}
+
+export async function removeConsumptionOnDemand(consumptionOnDemandId) {
+  const queryStr = `
+  mutation {
+    removeConsumptionOnDemand(consumptionOnDemandId:${consumptionOnDemandId} ) {id }
   }
   `;
   return await query(queryStr);

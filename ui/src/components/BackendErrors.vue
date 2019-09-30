@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import uuid from 'uuid/v1';
+import { formatBackErrors } from '@/utils/errors';
 
 export default {
   props: {
@@ -23,16 +23,7 @@ export default {
   },
   computed: {
     formattedErrors() {
-      const res = this.errors.reduce((all, err) => {
-        const extensions = Object.keys(err.extensions).filter(k => k !== 'classification');
-        const errorKeys = extensions.map(exName => `${exName}.${err.extensions[exName]}`);
-        all.push({
-          id: uuid(),
-          errorKeys,
-        });
-        return all;
-      }, []);
-      return res;
+      return formatBackErrors(this.errors);
     },
   },
 };

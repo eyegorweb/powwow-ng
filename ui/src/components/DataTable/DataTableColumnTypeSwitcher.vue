@@ -8,6 +8,7 @@
       :item="item"
       :row="row"
       :visible-columns="visibleColumns"
+      @colEvent="$emit('colEvent', $event)"
     />
   </div>
 </template>
