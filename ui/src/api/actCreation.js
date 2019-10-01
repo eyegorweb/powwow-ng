@@ -83,15 +83,14 @@ export async function endPhaseTest(filters, lines, params) {
   }
 
   const queryStr = `
-    mutation {
-        terminateLines(input: {
-          filter: {${gqlFilter}},
-          partyId: ${partyId},
-          simCardInstanceIds: [${lineIds}],
-          notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}"
-        })
+
+  mutation {
+    terminatePhaseTest(input: {adminSkipGDM: false, filter: {${gqlFilter}}, partyId: ${partyId}, simCardInstanceIds: [${lineIds}], notification: ${boolStr(
+    notifEmail
+  )}, dueDate: "${formatDateForGql(dueDate)}"})
+     {tempDataUuid}
     }
+
     `;
 
   return await query(queryStr);
@@ -204,6 +203,132 @@ export async function changeCustomerAccount(filters, lines, params) {
   });
 }
 
+export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { dueDate, barringServices } = params;
+
+    /**
+     * Pour les barring, on ajoute le code si le service est décoché
+     */
+    const gqlBarringServicesParam = barringServices
+      .filter(s => !s.checked)
+      .map(code => `{catalogServiceGroupId: ${code}, catalogServiceParameters: []}`);
+
+    const gqlSelectedServiceInputParam = [...gqlBarringServicesParam].join(',');
+    const queryStr = `
+    mutation {
+      preactivateAndActivateSImcardInstance (
+      input: {${gqlFilter}},
+      simCardInstanceIds: [${gqlLines}],
+      dueDate: "${formatDateForGql(dueDate)}",
+      userRef: ""
+      selectedServiceInput: [${gqlSelectedServiceInputParam}],
+      ) {
+          tempDataUuid
+          errors{
+            key
+            number
+          }
+        }
+      }
+    `;
+    return await query(queryStr);
+  });
+}
+
+export async function changeServices(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      partyId,
+      dueDate,
+      notifEmail,
+      offer,
+      servicesToActivate,
+      servicesToDesactivate,
+      tempDataUuid,
+      dataService,
+    } = params;
+
+    let gqlDataServiceParam = undefined;
+
+    if (dataService && dataService.shouldChangeData) {
+      if (dataService.dataService.checked) {
+        const catalogServiceParameters = dataService.dataService.apns
+          .filter(s => s.selected)
+          .map(a => {
+            return `{
+              parameterCode:"${a.code}",
+               action:ADD
+              }`;
+          })
+          .join(',');
+
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: ADD,
+          catalogServiceParameters: [${catalogServiceParameters}]
+        }`;
+      } else {
+        gqlDataServiceParam = `{
+          serviceCode:"878",
+          action: DELETE
+        }`;
+      }
+    }
+    const gqlServicesAddParam = servicesToActivate.map(
+      id => `{
+      serviceCode:"${id}",
+      action: ADD
+    }`
+    );
+
+    const gqlServicesDeleteParam = servicesToDesactivate.map(
+      id => `{
+      serviceCode:"${id}",
+      action: DELETE
+    }`
+    );
+
+    const gqlChangeServicesParam = [
+      ...gqlServicesAddParam,
+      ...gqlServicesDeleteParam,
+      gqlDataServiceParam,
+    ].join(',');
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      changeServices (
+      input: {
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${gqlLines}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}",
+        marketingOfferCode: "${offer}",
+        adminSkipGDM: false,
+        changeServices: [${gqlChangeServicesParam}],
+        ${gqlTempDataUuid}
+      }
+      ) {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+        }
+      }
+    `;
+
+    return await query(queryStr);
+  });
+}
+
 export async function terminateLines(filters, lines, params) {
   const { notifEmail, dueDate, partyId } = params;
   let gqlFilter = '';
@@ -225,6 +350,138 @@ export async function terminateLines(filters, lines, params) {
         dueDate: "${formatDateForGql(dueDate)}"
       })
   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function manageCancellation(filters, lines, params) {
+  const { dueDate, partyId, validate } = params;
+  let gqlFilter = '';
+  let lineIds = '';
+  if (lines && lines.length > 0) {
+    lineIds = lines.map(l => l.id).join(',');
+  } else {
+    gqlFilter = formatFilters(filters);
+  }
+
+  const queryStr = `
+  mutation{
+    validateRefuseLinesV2(
+        input :{filter: {${gqlFilter}}, simCardInstanceIds: [${lineIds}], notification: false, validate: ${validate}, partyId: ${partyId}, dueDate: "${formatDateForGql(
+    dueDate
+  )}" }
+    )
+    {
+      tempDataUuid
+      validated
+      errors{
+        key
+        number
+      }
+    }
+  }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeMSISDN(params) {
+  const { tempDataUuid, notifEmail, dueDate, partyId } = params;
+
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      tempDataUuid: "${tempDataUuid}"
+    })
+    {
+      tempDataUuid
+      validated
+      errors{
+        key
+        number
+      }
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+export async function changeSingleMSISDN(params) {
+  const { notifEmail, dueDate, partyId, msisdn, newMsisdn } = params;
+  const queryStr = `
+  mutation{
+    changeMSISDN(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      msisdnInput: {msisdn: "${msisdn}", newMsisdn: "${newMsisdn}"}
+    })
+    {
+      tempDataUuid
+      validated
+      errors{
+        key
+        number
+      }
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeICCID(params) {
+  const { tempDataUuid, notifEmail, dueDate, partyId } = params;
+
+  const queryStr = `
+  mutation{
+    changeICCID(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      tempDataUuid: "${tempDataUuid}"
+    })
+    {
+      tempDataUuid
+      errors {
+        key
+        number
+      }
+    }
+   }
+  `;
+
+  return await query(queryStr);
+}
+
+export async function changeSingleICCID(params) {
+  const { notifEmail, dueDate, partyId, iccid, newIccid } = params;
+
+  const queryStr = `
+  mutation{
+    changeICCID(input:{
+      partyId:${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification:${boolStr(notifEmail)}
+      adminSkipGDM:false
+      iccidInput: {iccid: "${iccid}", newIccid: "${newIccid}"}
+    })
+    {
+      tempDataUuid
+      validated
+      errors{
+        key
+        number
+      }
+    }
+   }
   `;
 
   return await query(queryStr);

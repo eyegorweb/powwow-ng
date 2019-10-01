@@ -156,9 +156,10 @@ deploy_uat:
     - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
     - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
     - kubectl config use-context m2m-node-uat
+    
   script:
     - kubectl get po
-    - . ui-server/build_info
+    - . ui-server/release_info
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$RELEASE_VERSION --record=true
   when: manual
   environment:

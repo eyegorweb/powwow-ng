@@ -1,11 +1,10 @@
 <template>
-  <ul class="list-group bg-white">
+  <ul class="list-group bg-white" :class="listClasses">
     <IndicatorItem
       v-for="indicator in indicatorsWithCompatibleRoles"
       :key="indicator.labelKey"
       :indicator="indicator"
-      :partners="partners"
-      :set-current-filters-fn="setCurrentFiltersFn"
+      :on-click="onClick"
       @removeme="i => removeIndicator(i)"
     />
   </ul>
@@ -21,8 +20,12 @@ export default {
   },
   props: {
     meta: Array,
-    setCurrentFiltersFn: Function,
-    partners: Object,
+    onClick: {
+      type: Function,
+      required: false,
+    },
+    noBorders: Boolean,
+    small: Boolean,
   },
 
   data() {
@@ -52,6 +55,13 @@ export default {
         return true;
       });
     },
+    listClasses() {
+      const classNames = [];
+      if (this.noBorders) classNames.push('no-borders');
+      if (this.small) classNames.push('small-text');
+
+      return classNames.join(' ');
+    },
   },
   methods: {
     removeIndicator(indicatorToRemove) {
@@ -61,4 +71,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.no-borders {
+  li {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+}
+.small-text {
+  li {
+    font-size: 0.8rem;
+    padding-bottom: 0.4rem;
+  }
+}
+</style>

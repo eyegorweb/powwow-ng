@@ -43,6 +43,7 @@ $theme-colors: map-merge(
 @import 'global.scss';
 @import 'navbar.scss';
 @import 'icons.scss';
+@import 'tooltip.scss';
 
 // utility
 .no-select {
@@ -133,4 +134,39 @@ $theme-colors: map-merge(
 
 .handle:hover {
   cursor: pointer;
+}
+
+.table-blue thead {
+  background-color: $primary;
+  color: white;
+
+  .sortable-chosen {
+    background-color: #0c62b2;
+  }
+}
+.table-blue {
+  background: white !important;
+  font-size: 1rem;
+  line-height: 24px;
+}
+
+.table-blue td {
+  color: $dark-gray;
+}
+
+.table-blue th {
+  font-weight: normal;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.table-blue td .fa-blue {
+  position: relative;
+  top: 5px;
+}
+
+.mock-value {
+  text-decoration: underline;
+  text-decoration-style: double;
+  text-decoration-color: #ef4b4b;
 }

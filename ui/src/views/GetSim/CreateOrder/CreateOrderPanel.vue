@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" :style="{ height: '100%' }">
     <div class="col-md-8 content">
       <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
         <div slot="Client">
@@ -144,6 +144,7 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
+    ...mapMutations('getsim', ['refreshIndicators']),
     ...mapActions('getsim', ['resetOrderFilters']),
 
     reset() {
@@ -177,6 +178,7 @@ export default {
           this.closePanel();
           this.resetOrderFilters();
           this.openPanelForSavedOrder(response.id);
+          this.refreshIndicators();
         } else {
           const errors = response.errors;
           if (errors.length && errors[0].extensions && errors[0].extensions.externalId) {

@@ -1,6 +1,6 @@
 <template>
   <div class="search-container d-flex">
-    <UiInput :placeholder="inputPlaceholder" class="flex-grow-1" v-model="query_">
+    <UiInput :placeholder="inputPlaceholder" class="flex-grow-1 input-container" v-model="query_">
       <i slot="icon" class="select-icon ic-Magnify-Icon" />
     </UiInput>
     <UiSelect
@@ -43,7 +43,8 @@ export default {
     margin-bottom: 0.5rem;
   }
   & /deep/ input {
-    border-right: none;
+    border-radius: 0;
+    font-size: 1.05rem;
   }
 
   & /deep/ select {

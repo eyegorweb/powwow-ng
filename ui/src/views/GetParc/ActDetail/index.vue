@@ -23,16 +23,18 @@
         <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
           <a href="#" @click.prevent="() => (currentLinkIndex = index)">
             {{ tab.title }}
+            <img v-if="tab.isLoading" class="loader" src="@/assets/spinner.svg" />
+
             <span
+              v-if="!tab.isLoading"
               class="badge badge-pill"
               :class="{
                 'badge-danger': index === 0,
                 'badge-info': index === 1,
                 'badge-success': index === 2,
               }"
+              >{{ tab.total }}</span
             >
-              {{ tab.total }}
-            </span>
           </a>
         </UiTab>
       </template>
@@ -42,6 +44,7 @@
           :mass-action-id="$route.params.massActionId"
           @refreshTables="refreshTables"
           :total.sync="tabs[0].total"
+          @is-loading="tabs[0].isLoading = $event"
         />
       </div>
       <div slot="ongoing">
@@ -52,6 +55,7 @@
           :mass-action-id="$route.params.massActionId"
           :statuses="['WAITING', 'SENT', 'IN_PROGRESS']"
           :total.sync="tabs[1].total"
+          @is-loading="tabs[1].isLoading = $event"
         />
       </div>
       <div slot="finished">
@@ -62,6 +66,7 @@
           :mass-action-id="$route.params.massActionId"
           :statuses="['OK']"
           :total.sync="tabs[2].total"
+          @is-loading="tabs[2].isLoading = $event"
         />
       </div>
     </UiTabs>
@@ -99,25 +104,42 @@ export default {
         {
           label: 'fail',
           title: this.$t('getparc.actDetail.titleListCard.FAIL'),
-          total: 0,
+          total: '-',
+          isLoading: false,
         },
         {
           label: 'ongoing',
           title: this.$t('getparc.actDetail.titleListCard.ONGOING'),
-          total: 0,
+          total: '-',
+          isLoading: false,
         },
         {
           label: 'finished',
           title: this.$t('getparc.actDetail.titleListCard.TERMINATED'),
-          total: 0,
+          total: '-',
+          isLoading: false,
         },
       ],
     };
   },
   methods: {
     async refreshTables() {
-      const totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
-      console.log(totals);
+      this.refreshCurrentMassAction();
+
+      const setLoading = value => {
+        this.tabs = this.tabs.map(c => {
+          return { ...c, isLoading: value };
+        });
+      };
+      setLoading(true);
+      let totals;
+      try {
+        totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
+      } catch {
+        setLoading(false);
+      }
+      setLoading(false);
+
       if (totals) {
         this.tabs = [
           {
@@ -134,7 +156,6 @@ export default {
           },
         ];
       }
-      this.refreshCurrentMassAction();
     },
     getMassActionItem(response) {
       if (response) {
@@ -148,7 +169,6 @@ export default {
     },
     async refreshCurrentMassAction() {
       const data = await searchMassActionsById(this.$route.params.massActionId);
-      console.log(data);
       if (data) {
         this.massAction = data;
       }
@@ -167,5 +187,9 @@ a {
 
 .back-btn {
   color: $gray-680;
+}
+
+.loader {
+  width: 30px;
 }
 </style>

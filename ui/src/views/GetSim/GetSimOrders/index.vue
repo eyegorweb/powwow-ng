@@ -9,15 +9,13 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getsim.export', { total: total }) }}
-            </span>
+            <span slot="title">{{ $t('getsim.export', { total: total }) }}</span>
           </ExportButton>
         </div>
       </div>
       <DataTable
         storage-id="getsim.orders"
-        storage-version="001"
+        storage-version="002"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -72,10 +70,12 @@ export default {
   },
   methods: {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['setPage']),
+    ...mapMutations('getsim', ['setPage', 'setCurrentFilters', 'applyFilters']),
     ...mapMutations(['openModal']),
     getExportFn() {
-      return exportFile;
+      return async (columns, orderBy, exportFormat) => {
+        return await exportFile(columns, orderBy, exportFormat, this.appliedFilters);
+      };
     },
     async fetchOrders() {
       this.fetchOrdersFromApi({
@@ -316,61 +316,67 @@ export default {
         {
           id: 15,
           label: this.$t('col.customFields', { num: 1 }),
-          name: 'customFields1',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_1',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom1',
           },
         },
         {
           id: 16,
           label: this.$t('col.customFields', { num: 2 }),
-          name: 'customFields2',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_2',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom2',
           },
         },
         {
           id: 17,
           label: this.$t('col.customFields', { num: 3 }),
-          name: 'customFields3',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_3',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom3',
           },
         },
         {
           id: 18,
           label: this.$t('col.customFields', { num: 4 }),
-          name: 'customFields4',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_4',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom4',
           },
         },
         {
           id: 19,
           label: this.$t('col.customFields', { num: 5 }),
-          name: 'customFields5',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_5',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom5',
           },
         },
         {
           id: 20,
           label: this.$t('col.customFields', { num: 6 }),
-          name: 'customFields6',
+          name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_6',
           format: {
-            component: GetSimOrdersMassActionIdsColumn,
+            type: 'ObjectAttribute',
+            path: 'custom5',
           },
         },
       ],

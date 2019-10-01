@@ -7,10 +7,17 @@
             {{ $t('getparc.actLines.total', { total: total }) }}
           </h2>
         </div>
+        <div class="col">
+          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
+          </ExportButton>
+        </div>
       </div>
       <DataTable
         storage-id="getparc.lines"
-        storage-version="001"
+        storage-version="011"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -29,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
@@ -37,33 +44,25 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
+// import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
-
-function setFormatComponentsToColumns(columns) {
-  return columns.reduce((preparedColumns, col) => {
-    const formatted = { ...col };
-    preparedColumns.push(formatted);
-    return preparedColumns;
-  }, []);
-}
+import ExportButton from '@/components/ExportButton';
+import { exportSimCardInstances } from '@/api/linesActions';
 
 export default {
   components: {
     DataTable,
     LoaderContainer,
     SearchByLinesId,
-    // Title,
+    ExportButton,
   },
-  async mounted() {
-    this.columns = setFormatComponentsToColumns([...this.commonColumns]);
-  },
+
   props: {
-    creationMode: Object,
+    creationMode: Boolean,
   },
   data() {
     return {
-      columns: [],
-      commonColumns: [
+      columns: [
         {
           id: 99,
           label: '',
@@ -76,15 +75,16 @@ export default {
             component: CheckBoxCell,
           },
           visibleWhen: () => {
-            return !!this.creationMode;
+            return this.creationMode;
           },
         },
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.iccid'),
-          orderable: false,
+          orderable: true,
           visible: true,
           name: 'iccid',
+          exportId: 'LINE_ICCID',
           format: {
             component: IdCell,
           },
@@ -92,9 +92,11 @@ export default {
         {
           id: 1,
           label: this.$t('col.partner'),
-          orderable: false,
+          orderable: true,
+          sortingName: 'partyName',
           visible: true,
           name: 'party',
+          exportId: 'PARTY_ID',
           format: {
             type: 'ObjectAttribute',
             path: 'name',
@@ -104,30 +106,37 @@ export default {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'accessPoint',
+          exportId: 'LINE_MSISDN',
           format: {
+            // component: LinkTo,
             type: 'ObjectAttribute',
             path: 'lines[0].msisdn',
           },
           orderable: false,
+          sortingName: 'msisdn',
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.imsi'),
           name: 'accessPoint',
+          exportId: 'LINE_IMSI',
           format: {
             type: 'ObjectAttribute',
             path: 'lines[0].imsi',
           },
           orderable: false,
+          sortingName: 'imsi',
           visible: true,
         },
         {
           id: 5,
           label: this.$t('getparc.actLines.col.simStatus'),
-          orderable: false,
+          orderable: true,
+          sortingName: 'simStatus',
           visible: true,
           name: 'accessPoint',
+          exportId: 'LINE_SIM_STATUS',
           format: {
             component: SimStatusCell,
           },
@@ -138,6 +147,7 @@ export default {
           name: 'accessPoint',
           orderable: false,
           visible: true,
+          exportId: 'LINE_SIM_STATUS_DATE',
           format: {
             component: DateStatus,
           },
@@ -146,6 +156,7 @@ export default {
           id: 7,
           label: this.$t('col.offer'),
           name: 'accessPoint',
+          exportId: 'LINE_OFFER',
           format: {
             type: 'ObjectAttribute',
             path: 'offer.marketingOffer.description',
@@ -164,6 +175,7 @@ export default {
           id: 10,
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'msisdnA',
+          exportId: 'LINE_AMSISDN',
           orderable: false,
           visible: false,
         },
@@ -171,32 +183,48 @@ export default {
           id: 11,
           label: this.$t('getparc.actLines.col.manufacturer'),
           name: 'deviceInstance',
+          exportId: 'LINE_MANUFACTURER',
           format: {
             type: 'ObjectAttribute',
             path: 'manufacturer',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'manufacturer',
           visible: false,
         },
         {
           id: 12,
           label: this.$t('getparc.actLines.col.deviceReference'),
           name: 'deviceInstance',
+          exportId: 'LINE_DEVICE_REFERENCE',
           format: {
             type: 'ObjectAttribute',
             path: 'deviceReference',
           },
-          orderable: false,
+          orderable: true,
+          sortingName: 'deviceReference',
           visible: false,
         },
       ],
-      pageLimit: 20,
-      orderBy: {},
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
       showExtraCells: false,
     };
   },
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
+    ...mapState('actLines', ['limitPerPage']),
+
+    pageLimit: {
+      get() {
+        return this.limitPerPage;
+      },
+      set(value) {
+        this.setPageLimit(value);
+      },
+    },
 
     total() {
       return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
@@ -215,10 +243,13 @@ export default {
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
+    msisdn() {
+      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
+    },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters']),
+    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
 
     searchById(params) {
       this.forceAppliedFilters([
@@ -235,8 +266,17 @@ export default {
         appliedFilters: this.appliedFilters,
       });
     },
+
+    getExportFn() {
+      return async (columns, orderBy, exportFormat) => {
+        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
+      };
+    },
   },
   watch: {
+    rows(items) {
+      this.$emit('noResults', items.length === 0);
+    },
     linePage() {
       this.fetchLinesActions();
     },

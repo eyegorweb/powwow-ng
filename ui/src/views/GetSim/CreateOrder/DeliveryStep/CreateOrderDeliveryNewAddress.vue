@@ -250,7 +250,7 @@ export default {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
-        this.form.country = this.countries.find(c => c.code === 'France');
+        this.form.country = this.countries.find(c => c.code === 'fr');
       } else {
         if (address.label) {
           this.form.address = address.label;
@@ -350,5 +350,9 @@ export default {
   .error-text {
     color: $orange;
   }
+}
+
+/deep/ fieldset.form-group {
+  margin-bottom: 0;
 }
 </style>

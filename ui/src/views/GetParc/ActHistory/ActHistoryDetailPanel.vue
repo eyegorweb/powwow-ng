@@ -14,7 +14,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-          <p v-html="detail"></p>
+          <p>{{ detail }}</p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
@@ -265,8 +265,20 @@ export default {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
     },
+    generateNewStatus(transitionName) {
+      if (transitionName.includes('suspendre')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.suspended');
+      } else if (transitionName.includes('reactiver')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.reactivated');
+      } else if (transitionName.includes('activer')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.activated');
+      } else if (transitionName.includes('resilier')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.terminated');
+      } else {
+        return transitionName;
+      }
+    },
     getExportFn() {
-      // console.log('id', this.content);
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
           this.content.id,
@@ -314,9 +326,9 @@ export default {
           }`;
           break;
         case 'STATUS_CHANGE':
-          currentDetail = `${this.$t('getparc.history.details.newStatus')}: ${
-            this.content.transitionName
-          } `;
+          currentDetail = `${this.$t(
+            'getparc.history.details.newStatus'
+          )}: ${this.generateNewStatus(this.content.transitionName)} `;
           break;
         // TODO: manque: résiliation/changement de statut / trasnfert / champs libres
         case 'CHANGE_CUSTOMER_ACCOUNT':

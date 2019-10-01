@@ -5,6 +5,7 @@
     :input-placeholder="$t('searchLineById')"
     @findType="findType"
     @searchById="searchById"
+    :inline="inline"
   />
 </template>
 
@@ -16,7 +17,25 @@ export default {
   components: {
     SearchIdInput,
   },
+  props: {
+    inline: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
+    const prefix = {
+      iccid: {
+        'serie-0': '893320',
+      },
+      imsi: {
+        'serie-0': '20820',
+        'serie-1': '27007',
+      },
+      msisdn: {
+        'serie-0': '33',
+      },
+    };
     return {
       selectedSearchType: undefined,
       valuesForSelectOptions: [
@@ -47,10 +66,11 @@ export default {
         },
         {
           code: 'c6',
-          value: 'apId',
+          value: 'accessPointId',
           label: "AP_ID (identifiant de l'access point)",
         },
       ],
+      prefix,
     };
   },
   methods: {
@@ -65,11 +85,18 @@ export default {
         this.selectedSearchType = this.valuesForSelectOptions[5].value;
       } else {
         const len = checkForLength(newValue);
-        if (len === 19 && startsWith(newValue, '893320')) {
+        if (len === 19 && startsWith(newValue, this.prefix.iccid['serie-0'])) {
           this.selectedSearchType = this.valuesForSelectOptions[0].value;
-        } else if (len === 15 && (startsWith(newValue, '20820') || startsWith(newValue, '27007'))) {
+        } else if (
+          len === 15 &&
+          (startsWith(newValue, this.prefix.imsi['serie-0']) ||
+            startsWith(newValue, this.prefix.imsi['serie-1']))
+        ) {
           this.selectedSearchType = this.valuesForSelectOptions[1].value;
-        } else if ((len === 15 || len === 11) && startsWith(newValue, '33')) {
+        } else if (
+          (len === 15 || len === 11) &&
+          startsWith(newValue, this.prefix.msisdn['serie-0'])
+        ) {
           this.selectedSearchType = this.valuesForSelectOptions[2].value;
         } else if (len === 15) {
           this.selectedSearchType = this.valuesForSelectOptions[4].value;

@@ -18,12 +18,18 @@
                   :value="actDate"
                   :error="dateError"
                   class="d-block"
+                  fixed
                 >
                   <i slot="icon" class="select-icon ic-Flag-Icon" />
                 </UiDate>
               </div>
               <div class="col">
-                <slot name="validate-btn-content" :containerValidationFn="validate">
+                <slot
+                  name="validate-btn-content"
+                  :containerValidationFn="validate"
+                  :actDate="actDate"
+                  :notificationCheck="notificationCheck"
+                >
                   <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
                     <span>{{ $t('set') }}</span>
                   </button>
@@ -31,6 +37,7 @@
               </div>
             </div>
           </div>
+          <slot v-else name="validate-btn-content" :containerValidationFn="validate"></slot>
           <slot name="bottom"></slot>
         </div>
         <div class="col-5">
@@ -51,6 +58,7 @@
 import UiDate from '@/components/ui/UiDate2';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapMutations } from 'vuex';
+import moment from 'moment';
 
 export default {
   components: {
@@ -72,6 +80,11 @@ export default {
       notificationCheck: false,
     };
   },
+
+  mounted() {
+    this.actDate = moment().format('DD-MM-YYYY hh:mm:ss');
+  },
+
   methods: {
     ...mapMutations(['flashMessage']),
     ...mapMutations('actLines', [
@@ -98,9 +111,11 @@ export default {
       }
 
       if (response) {
+        if (response.stayInForm) return;
+
         if (response.errors) {
           response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.description });
+            this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
           const successMessage = this.successMessage

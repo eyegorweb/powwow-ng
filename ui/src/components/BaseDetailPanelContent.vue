@@ -102,27 +102,6 @@ $fontSize: 0.8rem;
     transition: border 500ms ease-out;
   }
 
-  .checkmark {
-    display: none;
-
-    &.checked {
-      display: block;
-    }
-    &:after {
-      opacity: 1;
-      height: $check-height;
-      width: $check-width;
-      transform-origin: left top;
-      border-right: $check-thickness solid $success;
-      border-top: $check-thickness solid $success;
-      content: '';
-      left: $check-left;
-      top: $check-height;
-      position: absolute;
-      transform: scaleX(-1) rotate(135deg);
-    }
-  }
-
   .cross {
     $cross-size: $loader-size / 2;
 

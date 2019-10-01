@@ -6,16 +6,19 @@
       :mass-action-id="$route.params.massActionId"
       :statuses="['KO']"
       :total.sync="totalFailed"
+      @is-loading="$emit('is-loading', $event)"
     >
       <div v-if="totalFailed" slot="after">
         <div class="bg-white text-center p-2 pb-4">
           <h4>{{ $t('getparc.actDetail.actionChoice') }}:</h4>
           <div>
             <button @click.stop="acknowledgeFailedActs" class="btn btn-primary">
-              <i class="ic-Check-Icon" /> {{ $t('getparc.actDetail.discharge') }}
+              <i class="ic-Check-Icon" />
+              {{ $t('getparc.actDetail.discharge') }}
             </button>
             <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
-              <i class="ic-Refresh-Icon" /> {{ $t('getparc.actDetail.restart') }}
+              <i class="ic-Refresh-Icon" />
+              {{ $t('getparc.actDetail.restart') }}
             </button>
           </div>
         </div>
@@ -50,9 +53,7 @@
         </Modal>
         <Modal v-if="replayPopUp">
           <div class="text-left" slot="body">
-            <h4>
-              {{ $t('getparc.actDetail.restart-confirmation') }}
-            </h4>
+            <h4>{{ $t('getparc.actDetail.restart-confirmation') }}</h4>
           </div>
           <div slot="footer">
             <button
@@ -90,7 +91,7 @@ export default {
   props: {
     massActionId: String,
     rows: Array,
-    total: Number,
+    total: [Number, String],
   },
 
   computed: {

@@ -1,5 +1,10 @@
 <template>
-  <div class="step-client-container">
+  <CreateOrderStepContainer
+    @done="done"
+    @prev="prev"
+    :can-go-to-next-step="selectedAdress"
+    :no-buttons="inEditMode"
+  >
     <CreateOrderDeliveryNewAddress
       v-if="inEditMode"
       @cancel="inEditMode = false"
@@ -7,85 +12,65 @@
       :partner-id="synthesis.billingAccount.value.partnerId"
       :address-edit="addressToEdit"
     />
-    <div class="panel-vertical-container" v-if="!inEditMode">
-      <div class="main-content">
-        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-delivery') }}</h3>
+    <div class="main-content" v-if="!inEditMode">
+      <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-delivery') }}</h3>
 
-        <div class="subcontainer">
-          <div v-if="lastSelectedAdress" class="">
-            <div class="col-md-12">
-              <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
-              <CreateOrderStepDeliveryAddress
-                :item="lastSelectedAdress"
-                :default-selected-item="selectedAdress"
-                @update:defaultSelectedItem="selectAdress"
-                name="address"
-              />
-            </div>
-          </div>
-
-          <div v-if="adresses.length" class="mb-3">
-            <div class="col-md-12">
-              <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
-              <UiInput
-                :placeholder="$t('orders.new.deliveryStep.searchPlaceholder')"
-                class="d-block mx-auto"
-                v-model="filterValue"
-              />
-            </div>
-          </div>
-
-          <div class="">
-            <div class="col-md-12">
-              <BlocList :items="filteredAdresses">
-                <template slot="firstElement" slot-scope="{ className }">
-                  <div :class="`${className}`" @click="addnewAddress">
-                    <div class="add-new">
-                      <UiButton
-                        variant="round-button"
-                        @click="addnewAddress"
-                        class="ic-Plus-Icon test"
-                        style="margin: auto; background: #009dcc; width: 3rem; height: 3rem; font-size: 1.5rem"
-                      />
-                      <span>{{ $t('orders.new.deliveryStep.new') }}</span>
-                    </div>
-                  </div>
-                </template>
-                <template slot-scope="{ item }">
-                  <CreateOrderStepDeliveryAddress
-                    :item="item"
-                    :default-selected-item="selectedAdress"
-                    @update:defaultSelectedItem="selectAdress"
-                    @modify="editAddress"
-                    can-edit
-                    name="address"
-                  />
-                </template>
-              </BlocList>
-            </div>
+      <div class="subcontainer">
+        <div v-if="lastSelectedAdress" class>
+          <div class="col-md-12">
+            <h6>{{ $t('orders.new.deliveryStep.last') }}</h6>
+            <CreateOrderStepDeliveryAddress
+              :item="lastSelectedAdress"
+              :default-selected-item="selectedAdress"
+              @update:defaultSelectedItem="selectAdress"
+              name="address"
+            />
           </div>
         </div>
-      </div>
 
-      <div class="footer-back">
-        <div class="row">
-          <div class="col-md-12 mb-5">
-            <UiButton
-              variant="round-button"
-              @click="prev"
-              class="float-left ic-Arrow-Previous-Icon prev-button"
+        <div v-if="adresses.length" class="mb-3">
+          <div class="col-md-12">
+            <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
+            <UiInput
+              :placeholder="$t('orders.new.deliveryStep.searchPlaceholder')"
+              class="d-block mx-auto"
+              v-model="filterValue"
             />
-            <UiButton
-              variant="round-button"
-              :disabled="!selectedAdress"
-              @click="done"
-              class="float-right ic-Arrow-Next-Icon next-button"
-            />
+          </div>
+        </div>
+
+        <div class>
+          <div class="col-md-12">
+            <BlocList :items="filteredAdresses">
+              <template slot="firstElement" slot-scope="{ className }">
+                <div :class="`${className}`" @click="addnewAddress">
+                  <div class="add-new">
+                    <UiButton
+                      variant="round-button"
+                      @click="addnewAddress"
+                      class="ic-Plus-Icon test"
+                      style="margin: auto; background: #009dcc; width: 3rem; height: 3rem; font-size: 1.5rem"
+                    />
+                    <span>{{ $t('orders.new.deliveryStep.new') }}</span>
+                  </div>
+                </div>
+              </template>
+              <template slot-scope="{ item }">
+                <CreateOrderStepDeliveryAddress
+                  :item="item"
+                  :default-selected-item="selectedAdress"
+                  @update:defaultSelectedItem="selectAdress"
+                  @modify="editAddress"
+                  can-edit
+                  name="address"
+                />
+              </template>
+            </BlocList>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </CreateOrderStepContainer>
 </template>
 
 <script>
@@ -96,6 +81,7 @@ import { fetchpartnerAddresses } from '@/api/partners';
 import BlocList from '@/components/BlocList';
 import CreateOrderDeliveryNewAddress from './CreateOrderDeliveryNewAddress';
 import get from 'lodash.get';
+import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
 export default {
   name: 'CreateOrderStepDelivery',
@@ -106,6 +92,7 @@ export default {
     CreateOrderStepDeliveryAddress,
     BlocList,
     CreateOrderDeliveryNewAddress,
+    CreateOrderStepContainer,
   },
 
   props: {
@@ -265,14 +252,6 @@ export default {
 
 <style lang="scss" scoped>
 /* voir comment gérer le css en double */
-
-.step-client-container {
-  padding: 0 2rem !important;
-
-  @media screen and (min-width: 1440px) {
-    padding: 0 7rem !important;
-  }
-}
 
 .subcontainer {
   max-height: 33rem;

@@ -1,85 +1,129 @@
 <template>
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <ChangeServicePre
-        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.REACTIVATE'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_STATUS'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.SEND_SMS'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.TRANSFERT_LINES'"
-        @set:preprequisites="setPrerequisites"
-      />
-      <NoPrerequisitesPre
-        v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'"
-        @set:preprequisites="setPrerequisites"
-      />
-    </div>
+  <div>
+    <NoPrerequisitesPre
+      v-if="!userIsPartner && actWithNoPrerequs(act.title)"
+      @set:preprequisites="setPrerequisites"
+    />
+    <OfferPrerequisite
+      v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
+      @set:preprequisites="setPrerequisites"
+      :partner="userPartner"
+    />
+    <OfferPrerequisite
+      v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
+      @set:preprequisites="setPrerequisites"
+      :partner="userPartner"
+    />
   </div>
 </template>
 
 <script>
-import ChangeServicePre from './prerequisites/ChangeServicePre';
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
-import { mapState, mapActions, mapMutations } from 'vuex';
+import OfferPrerequisite from './prerequisites/parts/OfferPrerequisite';
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
-    ChangeServicePre,
     NoPrerequisitesPre,
+    OfferPrerequisite,
   },
   props: {
     act: Object,
   },
+  computed: {
+    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('actLines', ['defaultAppliedFilters']),
+    ...mapGetters(['userIsPartner']),
+  },
+  watch: {
+    contextPartnersTypes() {
+      this.resetPrerequs();
+    },
+    contextPartners() {
+      this.resetPrerequs();
+    },
+    act() {
+      this.initPrerequisites();
+    },
+  },
+  data() {
+    return {
+      userPartner: undefined,
+    };
+  },
+  mounted() {
+    this.initPrerequisites();
+  },
   methods: {
-    ...mapState('actLines', ['selectedLinesForActCreation']),
     ...mapActions('actLines', ['setPartnersFilter']),
     ...mapMutations('actLines', [
       'applyFilters',
       'setOffersFilter',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'setSelectedFileForActCreation',
+      'resetForm',
+      'setPageLimit',
+      'setActToCreate',
     ]),
 
+    actWithNoPrerequs(actTitle) {
+      return [
+        'getparc.actCreation.carouselItem.REACTIVATE',
+        'getparc.actCreation.carouselItem.SUSPEND',
+        'getparc.actCreation.carouselItem.CHANGE_STATUS',
+        'getparc.actCreation.carouselItem.SEND_SMS',
+        'getparc.actCreation.carouselItem.TEST_PHASE',
+        'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+        'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
+        'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+        'getparc.actCreation.carouselItem.CHANGE_CF',
+        'getparc.actCreation.carouselItem.CHANGE_MSISDN',
+        'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
+        'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
+      ].find(a => a === actTitle);
+    },
+
+    initPrerequisites() {
+      if (this.userIsPartner) {
+        this.userPartner = this.defaultAppliedFilters[0].values[0];
+        if (this.act && this.actWithNoPrerequs(this.act.title)) {
+          this.setPrerequisites({
+            search: true,
+            isPartnerHidden: true,
+            partner: this.defaultAppliedFilters[0].values[0],
+          });
+        }
+      }
+    },
+
+    resetPrerequs() {
+      this.resetForm();
+      this.setActToCreate(undefined);
+      this.setActCreationPrerequisites(undefined);
+      this.setSelectedLinesForActCreation([]);
+      this.setSelectedFileForActCreation(undefined);
+    },
+
     setPrerequisites(allPrereq) {
+      this.resetForm();
+      if (allPrereq.partner) {
+        this.setPartnersFilter({
+          partners: [allPrereq.partner],
+          isHidden: !!allPrereq.isPartnerHidden,
+        });
+      }
+
       if (allPrereq.offer) {
         this.setOffersFilter([allPrereq.offer]);
       }
-      if (allPrereq.partner) {
-        this.setPartnersFilter([allPrereq.partner]);
-        this.setActCreationPrerequisites(allPrereq);
-        // Reset selected lines for a new application partner
-        this.setSelectedLinesForActCreation([]);
-      }
+
       if (allPrereq) {
-        this.applyFilters();
+        this.setActCreationPrerequisites(allPrereq);
+        if (allPrereq.search) {
+          this.applyFilters();
+          this.setPageLimit(5);
+        }
       }
     },
   },

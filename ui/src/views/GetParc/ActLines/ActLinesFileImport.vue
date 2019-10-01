@@ -4,25 +4,35 @@
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
-          <i class="ic-Check-Icon mr-2 text-success" />{{ fileMeta.found }}
+          <i class="ic-Check-Icon mr-2 text-success" />
+          {{ fileMeta.validated }}
           {{ $t('getparc.actLines.fileImport.foundLines') }}.
         </li>
-        <li>
-          <i class="ic-Cross-Icon mr-2 text-danger" />{{ fileMeta.notFound }}
-          {{ $t('getparc.actLines.fileImport.notFounfLines') }}.
+        <li v-if="totalNotCompatible > 0">
+          <i class="ic-Cross-Icon mr-2 text-danger" />
+          {{ totalNotCompatible }}
+          {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
+          <ul class="list-styled">
+            <li v-for="e in fileMeta.errors" :key="e.key">
+              {{
+                $t('getparc.actLines.fileImport.errors.' + e.key, {
+                  count: e.number,
+                  idType: idType,
+                })
+              }}
+            </li>
+          </ul>
         </li>
-        <li>
+        <li v-if="totalNotCompatible > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
-              {{ $t('getparc.actLines.export', { total: fileMeta.notFound }) }}
+              {{ $t('getparc.actLines.export', { total: totalNotCompatible }) }}
             </span>
           </ExportButton>
         </li>
       </ul>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">
-      {{ fileMeta.error }}
-    </div>
+    <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
   </div>
 </template>
 
@@ -73,6 +83,14 @@ export default {
         }
       },
     },
+    totalNotCompatible() {
+      if (!this.fileMeta.errors) {
+        return 0;
+      }
+      return this.fileMeta.errors.reduce((total, e) => {
+        return (total += e.number);
+      }, 0);
+    },
   },
   methods: {
     getExportFn() {
@@ -88,7 +106,7 @@ export default {
           ],
           '',
           exportFormat,
-          this.fileMeta.uploadId
+          this.fileMeta.tempDataUuid
         );
       };
     },
@@ -96,4 +114,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+ul.list-styled {
+  list-style-type: disc;
+  font-size: 0.8rem;
+}
+</style>

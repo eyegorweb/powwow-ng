@@ -26,7 +26,7 @@
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
 import MassActionsIndicators from './MassActionsIndicators';
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -36,12 +36,47 @@ export default {
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapGetters('actHistory', ['currentFilters']),
+  },
+  data() {
+    return {
+      prevRoute: undefined,
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.prevRoute = from.name;
+      vm.initAfterRouteIsSet();
+    });
   },
   methods: {
     ...mapActions('actHistory', ['initFilterForContext']),
-  },
-  mounted() {
-    this.initFilterForContext();
+    ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters', 'setRouteParamsFilters']),
+    initAfterRouteIsSet() {
+      // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
+      if (this.prevRoute === 'actDetail') return;
+
+      if (this.$route.params && this.$route.params.queryFilters) {
+        this.setRouteParamsFilters(this.$route.params.queryFilters);
+      }
+      this.initFilterForContext();
+      if (this.$route.params && this.$route.params.preselectFailedFilter) {
+        setTimeout(() => {
+          this.setCurrentFilters([
+            {
+              id: 'filters.actStatus',
+              values: [
+                {
+                  id: 'IN_ERROR',
+                  label: 'En erreur',
+                },
+              ],
+            },
+          ]);
+          this.applyFilters();
+        }, 500);
+      }
+    },
   },
   watch: {
     contextPartnersTypes() {

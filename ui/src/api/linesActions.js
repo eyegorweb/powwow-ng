@@ -38,11 +38,8 @@ export async function fetchIndicators(metadata, partnerFilter) {
   return response.data;
 }
 
-export async function fetchSingleIndicator(filters, scopePartners) {
-  const filtersToUse = [...filters];
-  if (scopePartners) {
-    filtersToUse.push(scopePartners);
-  }
+export async function fetchSingleIndicator(filters, contextFilters = []) {
+  const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `
   query {
     simCardInstances(filter: { ${formatFilters(filtersToUse)} }) { total }
@@ -53,7 +50,7 @@ export async function fetchSingleIndicator(filters, scopePartners) {
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
-  const orderingInfo = orderBy ? `, sorting: {}` : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
@@ -71,17 +68,56 @@ export async function searchLines(orderBy, pagination, filters = []) {
         party{
           id
           name
+          custom1FieldLabel
+          custom2FieldLabel
+          custom3FieldLabel
+          custom4FieldLabel
+          custom5FieldLabel
+          custom6FieldLabel
          }
         id
         iccid
         type
         statuts
         auditable {created}
+        PIN1
+        PIN2
+        PUK1
+        PUK2
+        licence
+        format
+        dualSIMCardInstance {
+          iccid
+          msisdn
+          imsi
+        }
+        order {
+          id
+        }
         deviceInstance {
           manufacturer
+          manufacturerPrevious
           deviceReference
+          deviceReferencePrevious
+          imei
+          imeiPrevious
+          mac
+          macPrevious
+          imeiChangeDate
+          auditable {
+            created
+            updated
+          }
         }
         accessPoint {
+          alarmInstance {
+            id
+            alarm {
+              id
+            }
+            type
+          }
+          id
           commercialStatus
           lastPLMN
           preactivationDate
@@ -91,6 +127,11 @@ export async function searchLines(orderBy, pagination, filters = []) {
           lines {
             msisdn
             imsi
+            status
+            auditable {
+              created
+              updated
+            }
           }
           customFields {
             custom1
@@ -100,13 +141,44 @@ export async function searchLines(orderBy, pagination, filters = []) {
             custom5
             custom6
           }
+          offerGroup {
+            customerAccount {
+              name
+              code
+            }
+          }
+          workflowCode
+          commitmentEnd
+          billingStatus
+          billingStatusChangeDate
           offer {
             marketingOffer {
               code
               description
             }
           }
-
+          usageCounter {
+            counter1DownRounded
+            counter1DownRoamingRounded
+            counter1UpRounded
+            counter1UpRoamingRounded
+            counter1DownRoamingRounded
+            counter1UpRoamingRounded
+            counter2DownRounded
+            counter2DownRoamingRounded
+            counter2UpRounded
+            counter2UpRoamingRounded
+            counter2DownRoamingRounded
+            counter2UpRoamingRounded
+            counter3DownRounded
+            counter3DownRoamingRounded
+            counter3UpRounded
+            counter3UpRoamingRounded
+            counter3DownRoamingRounded
+            counter3UpRoamingRounded
+          }
+          workflowCode
+          remainingSuspension
         }
       }
     }
@@ -183,16 +255,13 @@ export function formatFilters(filters) {
 
 function addIdsFilter(gqlFilters, selectedFilters) {
   const _id = selectedFilters.find(f => f.id === 'filters.id');
-  const idOrder = selectedFilters.find(f => f.id === 'filters.apId');
+  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
   const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
   const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
   const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
-  if (idOrder) {
-    gqlFilters.push(`idOrder: {eq: "${idOrder.value}"}`);
-  }
   if (_id) {
     gqlFilters.push(`id: {eq: "${_id.value}"}`);
   }
@@ -211,6 +280,9 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   if (msisdnA) {
     gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
   }
+  if (accessPointId) {
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value}"}`);
+  }
 }
 
 function addTerminationValidated(gqlFilters, selectedFilters) {
@@ -224,12 +296,19 @@ function addTerminationValidated(gqlFilters, selectedFilters) {
 
 function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentFilter) {
   const filterValue = selectedFilters.find(f => f.id === keyInCurrentFilter);
-  if (!filterValue) return;
-  const containsSearch = filterValue.value.includes('*');
-  if (containsSearch) {
-    gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.value.replace('*', '')}" }`);
+  if (filterValue && filterValue.from && filterValue.to) {
+    gqlFilters.push(
+      `${gqlParamName}: {startsWith: "${filterValue.from}", endsWith: "${filterValue.to}"}`
+    );
+  } else if (filterValue && filterValue.from) {
+    const containsSearch = filterValue.from.includes('*');
+    if (containsSearch) {
+      gqlFilters.push(`${gqlParamName}: {contains: "${filterValue.from.replace('*', '')}" }`);
+    } else {
+      gqlFilters.push(`${gqlParamName}: {startsWith: "${filterValue.from}" }`);
+    }
   } else {
-    gqlFilters.push(`${gqlParamName}: {eq: "${filterValue.value}" }`);
+    return;
   }
 }
 
@@ -240,7 +319,7 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
 function addFileImportId(gqlFilters, selectedFilters) {
   const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
   if (filter && filter.values && filter.values.length) {
-    gqlFilters.push(`uploadId: "${filter.values[0].id}"`);
+    gqlFilters.push(`tempDataUuid: "${filter.values[0].tempDataUuid}"`);
   }
 }
 
@@ -380,5 +459,86 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
     }
     `
   );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.exportErrors;
+}
+
+export async function exportSimCardInstances(columns, orderBy, exportFormat, filters = []) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportSimCardInstances(filter: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+        downloadUri
+        asyncRequired
+      }
+    }
+    `
+  );
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportSimCardInstances;
+}
+
+export async function fetchCurrentConsumption(simcardId) {
+  const queryStr = `
+  query {
+    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+      dataNationalConsumption
+      dataIncomingNationalConsumption
+      dataOutgoingNationalConsumption
+      dataInternationalConsumption
+      dataIncomingInternationalConsumption
+      dataOutgoingInternationalConsumption
+      dataTotal
+      smsNationalConsumption
+      smsIncomingNationalConsumption
+			smsOutgoingNationalConsumption
+      smsInternationalConsumption
+      smsIncomingInternationalConsumption
+      smsOutgoingInternationalConsumption
+      smsTotal
+      voiceNationalConsumption
+      voiceIncomingNationalConsumption
+      voiceOutgoingNationalConsumption
+      voiceInternationalConsumption
+      voiceIncomingInternationalConsumption
+      voiceOutgoingInternationalConsumption
+      voiceTotal
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.currentConsumption;
+}
+
+export async function exportCurrentConsumption(simcardId, exportFormat) {
+  const queryStr = `
+  query {
+    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+      downloadUri
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportCurrentConsumption;
 }

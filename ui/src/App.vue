@@ -8,6 +8,7 @@
 
     <Authentication />
     <FlashMessages />
+    <ConfirmationModal />
   </div>
 </template>
 
@@ -15,6 +16,7 @@
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
 import PanelSwitcher from '@/components/PanelSwitcher';
+import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
 import { mapMutations, mapGetters } from 'vuex';
 
@@ -25,6 +27,7 @@ export default {
     NavBars,
     PanelSwitcher,
     FlashMessages,
+    ConfirmationModal,
   },
   methods: {
     ...mapMutations(['closePanel']),
@@ -60,6 +63,12 @@ h4 {
 @media only screen and (min-width: 1025px) and (max-width: 1366px) {
   html {
     font-size: 10px;
+  }
+}
+
+@media (width: 1366px) {
+  .container {
+    max-width: 1200px;
   }
 }
 </style>

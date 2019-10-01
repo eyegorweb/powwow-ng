@@ -1,7 +1,7 @@
 <template>
   <form class="searchInput">
-    <div class="form-row">
-      <div class="form-group col-md-8 mb-0">
+    <div :class="{ 'form-row': inline }">
+      <div class="form-group mb-0" :class="{ 'col-md-8': inline }">
         <SearchWithSelect
           :options="types"
           :query.sync="resultQuery"
@@ -10,11 +10,12 @@
           :select-placeholder="selectPlaceholder"
         />
       </div>
-      <div class="form-group col-md-3 mb-0">
+      <div class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
           :variant="isDisabled ? 'primary' : ''"
           :disabled="!isDisabled"
           @click="searchById"
+          :class="{ 'flex-grow-1': !inline }"
           >{{ $t('search') }}</UiButton
         >
       </div>
@@ -31,6 +32,11 @@ export default {
     types: Array,
     selectedSearchType: String,
     inputPlaceholder: String,
+    inline: {
+      type: Boolean,
+      default: true,
+      required: false,
+    },
   },
 
   data() {

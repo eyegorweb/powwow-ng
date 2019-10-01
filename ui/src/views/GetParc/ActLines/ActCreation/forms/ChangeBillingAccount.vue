@@ -9,8 +9,8 @@
         @set:billingAccount="setBillingAccount"
         :errors="errors"
         :initial-parnter="actCreationPrerequisites.partner"
-      >
-      </PartnerBillingAccountChoice>
+        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
+      ></PartnerBillingAccountChoice>
       <div class="row">
         <div class="col d-flex">
           <UiCheckbox v-model="notificationCheck" />
@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      limitToPartnersInSearchBar: true,
       chosenBillingAccount: undefined,
       errors: {},
       actDate: null,

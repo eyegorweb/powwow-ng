@@ -2,6 +2,1058 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.250+20191001124019
+2019-10-01
+
+## 0.3.0-master.249+20190930143551
+2019-09-30
+
+### Features
+
+- Colonne statut dans la table d'historique de demande de conrole (5a4cdd36e964b899c39047059b41232d67d7e65a)
+
+## 0.3.0-master.248+20190930085132
+2019-09-30
+
+### Fixes
+
+- **line detail:** formatage des colonnes de tableau (29d74d654c5c4bf312c0d79d4160e31fca7147b0)
+
+## 0.3.0-master.247+20190927151052
+2019-09-27
+
+### Fixes
+
+- Intégration des erreurs lors de l'ajout de demandes de contrôle (fcdee8f48effaa81889b13cac38275cb63ba4212)
+
+## 0.3.0-master.245+20190927100835
+2019-09-27
+
+### Features
+
+- la bare de recherche n'est pas ré initialisée quand au retour d'une page de détail (9b1ed63cc6bae3f161c93f9369b475a462256383)
+
+## 0.3.0-master.244+20190927082758
+2019-09-27
+
+### Fixes
+
+- Correctifs sur la page commandes (933cdcf0fa880ce158d7081c8ea9bf28c5709da1)
+
+## 0.3.0-master.243+20190926150604
+2019-09-26
+
+### Fixes
+
+- Corriger l'appel API pour la résiliation (8161f212d313dec1d5bac66b8ad280619072f701)
+
+## 0.3.0-master.242+20190925162907
+2019-09-25
+
+## 0.3.0-master.241+20190925151628
+2019-09-25
+
+### Features
+
+- 591 Ajouter une demande de contrôle de consommation (d2187e2fadc005f6f279fe7472e008c255bb2d84)
+
+## 0.3.0-master.240+20190925132923
+2019-09-25
+
+### Features
+
+- 591 Première intégration de la table d'historique de demandes de consommation (eb0c0680488607fa49a4e1a9babc93d039f77e7b)
+
+## 0.3.0-master.239+20190925090958
+2019-09-25
+
+## 0.3.0-master.238+20190925072334
+2019-09-25
+
+### Fixes
+
+- **line detail:** add graph conso data (087e7026020111228344b5e7ef8c70909ca5270e)
+
+## 0.3.0-master.237+20190924133920
+2019-09-24
+
+### Features
+
+- 603 intégration initiale de la table "consommation voix" (9e172a8cfe2d4f40f18c49d47476b001507b54f5)
+
+## 0.3.0-master.236+20190924125119
+2019-09-24
+
+### Fixes
+
+- **line detail:** affiche le tableau de consommation data dans la supervision (4cac50950be83ba92bf344ae662aaeac18d1cd11)
+
+## 0.3.0-master.235+20190924121908
+2019-09-24
+
+### Fixes
+
+- **line detail:** affiche les custom fields pour les infos de section (dd8724c4aa4063fcb038aebb0840f8a0ac3742ab)
+
+## 0.3.0-master.234+20190924085643
+2019-09-24
+
+### Fixes
+
+- **line detail:** affichage des custom fields prédéfinis (f53ee7855aaa1a3b3b49134f73f7c8590aa5d6f0)
+
+## 0.3.0-master.233+20190923150606
+2019-09-23
+
+### Features
+
+- configurer la pagination dans la table SMS (596c1c0ec703ccad0319830aa50f05e43555d0c9)
+
+## 0.3.0-master.232+20190920143740
+2019-09-20
+
+### Features
+
+- 195  je veux afficher les cartes SIM sur une commande afin d'analyser le détail des cartes SIM (55f83bd8246431a3e0444863e05e0bcd5abb69c8)
+
+## 0.3.0-master.231+20190920125821
+2019-09-20
+
+### Features
+
+- 737 Historique des équipements (6efea55fd7ecc967bbf2b504b9bb3b8bfba8d69a)
+
+## 0.3.0-master.230+20190920125127
+2019-09-20
+
+### Fixes
+
+- **lines:** affichage de la valeur msisdn en format texte (5925eb0e5baae50b593b47ad72edf52633784505)
+
+## 0.3.0-master.229+20190920092725
+2019-09-20
+
+### Fixes
+
+- **act creation:** changement de l'ordre des actions dans le carousel (f260598e591ac804815814f3ef72523b15e5a2e5)
+
+## 0.3.0-master.228+20190920091655
+2019-09-20
+
+## 0.3.0-master.227+20190919154931
+2019-09-19
+
+### Fixes
+
+- Correction des requêtes avec upload de fichier (998e7aaf37e6d6b84df50c9b9f64bc19f0f66337)
+
+## 0.3.0-master.226+20190919135641
+2019-09-19
+
+### Fixes
+
+- 640 Correction dans les widgets (5661a82e4e5aff50c56cce917880c8c35d3933fc)
+
+## 0.3.0-master.225+20190919122700
+2019-09-19
+
+### Fixes
+
+- **line detail:** affichage de la date en cours (b7a35efaaaa72640d707d212dd75792f4062ee66)
+
+## 0.3.0-master.224+20190919131029
+2019-09-19
+
+### Fixes
+
+- corriger le filtre par date du graph SMS (220561a6d4937aabe024d3e978186df7ae3cb858)
+
+## 0.3.0-master.223+20190919130658
+2019-09-19
+
+## 0.3.0-master.222+20190919105800
+2019-09-19
+
+## 0.3.0-master.221+20190919092832
+2019-09-19
+
+### Features
+
+- 602 Consommation Voix (e33b61d173a9bf37ed3656830a985497d28c1b04)
+
+## 0.3.0-master.220+20190918153542
+2019-09-18
+
+### Features
+
+- **line detail:** affichage du tableau encours de consommation (a62b2f1f47d052603b4a67514ee8d7bdc0f37797)
+
+## 0.3.0-master.219+20190917093642
+2019-09-17
+
+### Features
+
+- 599 consommation SMS de ma ligne (4275f5d934e6a62ba46051d45d083ddad41e8c83)
+
+## 0.3.0-master.218+20190916150604
+2019-09-16
+
+### Fixes
+
+- changement du style de la gauge (f8a56c0091a412824b46e167ed1c834890558b6c)
+
+## 0.3.0-master.217+20190916094835
+2019-09-16
+
+## 0.3.0-master.216+20190916080516
+2019-09-16
+
+### Features
+
+- 750 enlever la synthèse des champs libres lors de l'acte modification champs libres (027787ce419a6574ee2e8827c51be796c3b1d681)
+
+## 0.3.0-master.215+20190913143043
+2019-09-13
+
+## 0.3.0-master.214+20190913102348
+2019-09-13
+
+### Features
+
+- 750 pré-remplir les champs libres (a17ba7d2547a70ebc34937d0a15834e7e95318e5)
+
+## 0.3.0-master.213+20190913075021
+2019-09-13
+
+### Fixes
+
+- 638 Le widget acte de gestion doit réagir au changements dans la bare de contexte (fb5b766dcce327d3cb5d89c8da8e6b91a8545610)
+
+## 0.3.0-master.212+20190913072500
+2019-09-13
+
+## 0.3.0-master.211+20190912134344
+2019-09-12
+
+### Fixes
+
+- gestion du contexte utilisateur pour les widgets (bde061a798892c3cfd4b2b34e8a54d07e573e604)
+
+## 0.3.0-master.210+20190912112609
+2019-09-12
+
+## 0.3.0-master.209+20190912100917
+2019-09-12
+
+### Features
+
+- les wodgets de la homepage dépendent du contexte utilisateur (0174978a9d96c21dfb1e32a28aced28e89536924)
+
+## 0.3.0-master.208+20190912083136
+2019-09-12
+
+### Features
+
+- **detail de la ligne:** affiche l'information de déclenchement des alarmes (8a7b4dded3349b098be8adfa47da7b4bd8b1e911)
+
+## 0.3.0-master.207+20190911152142
+2019-09-11
+
+### Features
+
+- **detail de la ligne:** affiche l'information de déclenchement des alarmes (411a64c34fcfbca05ea2408de2ce3e33d68cbe9c)
+
+## 0.3.0-master.206+20190911151425
+2019-09-11
+
+## 0.3.0-master.205+20190911140541
+2019-09-11
+
+### Fixes
+
+- Correction de bugs dans les widgets de la Home page (76c2a15e98fdeb42425ceefd142595272ea1d427)
+
+## 0.3.0-master.204+20190911115326
+2019-09-11
+
+### Fixes
+
+- Ajouter la combobox de choix des offres pour le widget des encours conso (3d97e8499d2e7949a07c52e88270de266356ce53)
+
+## 0.3.0-master.203+20190911094756
+2019-09-11
+
+## 0.3.0-master.202+20190910142608
+2019-09-10
+
+## 0.3.0-master.201+20190910132512
+2019-09-10
+
+### Features
+
+- 646 ajouter un bouton pour la création de commande depuis la home page (bae107bada1f71e9cf8c9f75cff19233495e0528)
+
+## 0.3.0-master.200+20190910101337
+2019-09-10
+
+## 0.3.0-master.199+20190910092249
+2019-09-10
+
+### Fixes
+
+- widget search by lines (af4c6e9b8623909a0ba263334087b4450e6a0cb5)
+
+## 0.3.0-master.198+20190910090411
+2019-09-10
+
+### Fixes
+
+- diminuer la taille du texte du widget table (93eb6eb5bc3e3f4f01a15f567d22ecf4fe073b71)
+
+## 0.3.0-master.197+20190910075446
+2019-09-10
+
+### Features
+
+- 638 actes de gestion dans un widget (7d1189b1c4d6805f3767dda24f779e28ca6966c4)
+
+## 0.3.0-master.196+20190909101529
+2019-09-09
+
+## 0.3.0-master.195+20190909084016
+2019-09-09
+
+## 0.3.0-master.194+20190909093436
+2019-09-09
+
+## 0.3.0-master.193+20190906145906
+2019-09-06
+
+### Features
+
+- 642  Résumé des actes de gestion dans un widget (8616454a0c7329602d5cffa62313445936968cdd)
+
+## 0.3.0-master.192+20190906130140
+2019-09-06
+
+## 0.3.0-master.191+20190906092843
+2019-09-06
+
+### Fixes
+
+- 752 Correction de la recherche par fichier (4d538d6764bfd505061991d94d49a0742cf22acb)
+
+## 0.3.0-master.190+20190906090739
+2019-09-06
+
+### Fixes
+
+- 568 Correction du texte pour le statut de connexion (0f1e6860258f8dd7ac7f5c4f3df2def6031a2320)
+
+## 0.3.0-master.189+20190904151503
+2019-09-04
+
+### Features
+
+- 39 widget statut des commandes (18c7e0f54972a172689b0f900d87b0869ba239f4)
+
+## 0.3.0-master.188+20190904141835
+2019-09-04
+
+### Fixes
+
+- 568 Adaptation de la requête pdpConnexions (f0fbc47e22951cb25c36878dd5b315577a893288)
+
+## 0.3.0-master.187+20190904122601
+2019-09-04
+
+### Fixes
+
+- 748 Migration vers le nouveau format d'erreurs (ddcb4a4b6b0f56d9da5a1ec46d1492dd2ec6bbc5)
+
+## 0.3.0-master.186+20190903084024
+2019-09-03
+
+## 0.3.0-master.184+20190903093929
+2019-09-03
+
+## 0.3.0-master.183+20190903073915
+2019-09-03
+
+### Features
+
+- Brancher l'historique des MSISDN (93b1914793a936e113489990243c8d3494954b05)
+
+## 0.3.0-master.182+20190902143314
+2019-09-02
+
+## 0.3.0-master.181+20190902142427
+2019-09-02
+
+## 0.3.0-master.180+20190902102852
+2019-09-02
+
+### Fixes
+
+- 743 Ajouter un indicateur de chargement pour les totaux (05227ea78700efda232b2cdfd72c239992ac4e1a)
+
+## 0.3.0-master.179+20190902093018
+2019-09-02
+
+### Fixes
+
+- 743 ne pas afficher 0 dans le total pendant la requête est en cours (561547f365072f5195125387d8074a85ee34bcb1)
+
+## 0.3.0-master.178+20190902073122
+2019-09-02
+
+## 0.3.0-master.177+20190830150252
+2019-08-30
+
+## 0.3.0-master.176+20190830132345
+2019-08-30
+
+### Fixes
+
+- **act-detail:** modify custom fields (cef4e232f11d5369261f3e539f69d363311de708)
+
+## 0.3.0-master.175+20190830130401
+2019-08-30
+
+### Features
+
+- 524 afficher les alarmes sur le détail de la ligne (e99a4790567939edf937f3cd0331c4cfa10e3146)
+
+## 0.3.0-master.174+20190829082433
+2019-08-29
+
+## 0.3.0-master.173+20190828142340
+2019-08-28
+
+### Features
+
+- 737 compléter les informations du détail de la ligne (ed81bb1ce9603325df5b5606a46b4188b7a547ec)
+
+## 0.3.0-master.172+20190828135219
+2019-08-28
+
+## 0.3.0-master.171+20190828093533
+2019-08-28
+
+### Features
+
+- 559 Exporter l'encour consommation (f3754877078483511240622103757d9909625e04)
+
+## 0.3.0-master.170+20190828074314
+2019-08-28
+
+### Features
+
+- 558 affichage des encour consommation DATA (cbd0138bad9a8bd77dd6b068067daf979588baa7)
+
+## 0.3.0-master.169+20190827131642
+2019-08-27
+
+### Features
+
+- ajouter bloc d'informations réseau (ff9a0db4f720f9aa926d11cae3150c1cb70ea7f9)
+
+## 0.3.0-master.168+20190827103423
+2019-08-27
+
+## 0.3.0-master.167+20190827090539
+2019-08-27
+
+### Features
+
+- écran de consommation voix / composant toggle (0a20ed743f90750d92be569150dd8a966e656a69)
+
+## 0.3.0-master.166+20190826154143
+2019-08-26
+
+### Features
+
+- 737 Brancher les informations du détail de la ligne (0c64b11e9f1fb88ad748d0bc8269bc454fd94861)
+
+## 0.3.0-master.165+20190826141255
+2019-08-26
+
+### Features
+
+- Composant pour les graphiques (12aa61d377d5abed902582691a54e46c09fb657a)
+
+## 0.3.0-master.164+20190826090710
+2019-08-26
+
+### Features
+
+- 568 ecran-analyse-supervision-ligne (626adfa1cdacd986350d21db80be4de266127d18)
+
+## 0.3.0-master.163+20190823122111
+2019-08-23
+
+### Fixes
+
+- update api (012c25f20b094ea6588c3e527659847a2a1298ef)
+
+## 0.3.0-master.162+20190823082310
+2019-08-23
+
+### Fixes
+
+- adapte un changement dans l'api terminatePhaseTest (12d4a9003c6f0d2a8253254a3588122d0aa600e9)
+
+## 0.3.0-master.161+20190821080304
+2019-08-21
+
+## 0.3.0-master.160+20190814121950
+2019-08-14
+
+## 0.3.0-master.159+20190813131916
+2019-08-13
+
+### Fixes
+
+- utiliser la bonne api pour l'acte terminer la phase de test (8b1909ad7a3f674280597f90f435c00bd4922722)
+
+## 0.3.0-master.158+20190813120919
+2019-08-13
+
+### Fixes
+
+- infos facturation et offre de la ligne (9aeee342756fb9634b21d74873e9b4071386c011)
+
+## 0.3.0-master.157+20190812125944
+2019-08-12
+
+### Fixes
+
+- transfert de lignes pour le bo uniquement (a7be0cd020d646499fd751b03775d35625c58a18)
+
+## 0.3.0-master.156+20190812121539
+2019-08-12
+
+### Fixes
+
+- permet la validation de résiliation (d635650429ccffd0e5b78390f8277586283175ae)
+
+## 0.3.0-master.155+20190812082123
+2019-08-12
+
+### Fixes
+
+- change filtres par défaut pour la réactivation (74014a11f40d13ffde13d314a305d068504a2f9d)
+
+## 0.3.0-master.154+20190809162133
+2019-08-09
+
+### Fixes
+
+- Correction de la case à cocher sur la séléction des lignes (3354ac57c57f5b31aad477a301e51a933f1b20cc)
+
+## 0.3.0-master.153+20190809145045
+2019-08-09
+
+### Fixes
+
+- correction du prérequis "offres" (3048d9f7a36ff74b629e1acf2617e86f252b4681)
+
+## 0.3.0-master.152+20190809115609
+2019-08-09
+
+### Features
+
+- 725 Gérer la création d'actes en tant que partenaire (62501ab602d046cbeb326107d64e39f032b9ad12)
+
+## 0.3.0-master.151+20190809113302
+2019-08-09
+
+### Fixes
+
+- ajoute les changements à venir dans le détail (e5ff9a4adafc5d7005cfa0fd2e0564b9c31c2086)
+
+## 0.3.0-master.150+20190808134916
+2019-08-08
+
+## 0.3.0-master.149+20190808093328
+2019-08-08
+
+### Features
+
+- ajout du statut de destination dans le détail acte de masse (137a8870defcda187d386784aba3f5d7bcf61223)
+
+## 0.3.0-master.148+20190807084358
+2019-08-07
+
+### Features
+
+- **homepage:** 669 Composant pour afficher les dernières factures (e1f44530a36629386476cd968e263d8fe9ec7962)
+
+## 0.3.0-master.147+20190806144854
+2019-08-06
+
+## 0.3.0-master.146+20190806133759
+2019-08-06
+
+## 0.3.0-master.145+20190806141715
+2019-08-06
+
+## 0.3.0-master.144+20190806140024
+2019-08-06
+
+## 0.3.0-master.143+20190806133642
+2019-08-06
+
+### Fixes
+
+- Corriger le sorting sur la colonne partenaire dans la recherche de lignes (1631b723e45786f4b25c4b95da096d611a1e4c7f)
+
+## 0.3.0-master.142+20190806120905
+2019-08-06
+
+### Fixes
+
+- 478/change offer (7971a11936d34aa559c5baf609020297935c3680)
+
+## 0.3.0-master.141+20190806130146
+2019-08-06
+
+## 0.3.0-master.140+20190806105521
+2019-08-06
+
+### Fixes
+
+- 632 séléctionner automatiquement le partenaire choisi dans la barre de contexte (dfa18c2d74589e2f67998671b18790dd599a1a7b)
+
+## 0.3.0-master.139+20190806104118
+2019-08-06
+
+## 0.3.0-master.138+20190806093424
+2019-08-06
+
+### Features
+
+- **homepage:** 667  Composant gauge (44864c0d172a890a6703417279da7cff32d8f3dd)
+
+## 0.3.0-master.137+20190806101825
+2019-08-06
+
+### Fixes
+
+- 639 Correction des filtres du widget commandes (8d3fe0d1dc072f6d80cbfe7b2d8df76039de4eab)
+
+## 0.3.0-master.136+20190805154430
+2019-08-05
+
+### Fixes
+
+- 521 corriger la valeur du status commercial (20a31c94b29f0bbb39d1f10404dede4577cb8331)
+
+## 0.3.0-master.135+20190805120826
+2019-08-05
+
+### Features
+
+- detail-ligne (dd7ef5ab2c3619e5832f64aeda9f6814483d78d9)
+
+## 0.3.0-master.134+20190805115726
+2019-08-05
+
+### Features
+
+- acte-changer-offre (e88d32ea43906362ae88517d18b39fdad2af2ef3)
+
+## 0.3.0-master.133+20190805100128
+2019-08-05
+
+### Features
+
+- 639 Bouton voir plus (a29f14f688a8ae073308b0fab7e0fa063f5f00fb)
+
+## 0.3.0-master.132+20190805090620
+2019-08-05
+
+### Fixes
+
+- **homepage:** 639 intialiser corectement le filtre par ID (aae485ad3a2e5a66295c1b2c5552c0005c5b988f)
+
+## 0.3.0-master.131+20190802151933
+2019-08-02
+
+### Features
+
+- **homepage:** 639 lien vers la page de commandes depuis le widget de commandes (23e7eafef78b75d008b7a0336b46d3b07681ffda)
+
+## 0.3.0-master.130+20190802155117
+2019-08-02
+
+### Fixes
+
+- traitement des erreurs d'import de fichiers durant la création d'actes de masse (569df3a4edfa553a73c85b55f77a13f422c7596c)
+
+## 0.3.0-master.129+20190802093522
+2019-08-02
+
+### Features
+
+- **homepage:** 639 widget commandes (24053ef44ff05786591d19406174a6321180c8b3)
+
+## 0.3.0-master.128+20190802091807
+2019-08-02
+
+### Fixes
+
+- 521 correction de l'affichage du menu dans le détail de lignes (33ccc692bf9b319653f0e1b93540e4ab4cac55fd)
+
+## 0.3.0-master.127+20190802083352
+2019-08-02
+
+## 0.3.0-master.126+20190801160341
+2019-08-01
+
+### Fixes
+
+- 585 corriger l'affichage des erreurs (7649d3013f6d935c60b777a312d5aa6eb8763f06)
+
+## 0.3.0-master.125+20190801154902
+2019-08-01
+
+## 0.3.0-master.124+20190801150641
+2019-08-01
+
+## 0.3.0-master.123+20190801141305
+2019-08-01
+
+### Fixes
+
+- 536 Corriger la recherche par import de fichier (ac956b4a558e5812a92911e1c6352fadfd95e937)
+
+## 0.3.0-master.122+20190801124931
+2019-08-01
+
+### Fixes
+
+- 632 lancer la recherche quand un partenaire est choisi (afc3f0829a0ebcf2e4185f051661d96dad152ead)
+
+## 0.3.0-master.121+20190801093944
+2019-08-01
+
+### Fixes
+
+- filtre iccid (42ce52589200a2f01326ff7403e2f54168c46f43)
+
+## 0.3.0-master.120+20190801083534
+2019-08-01
+
+### Fixes
+
+- 705 correction de l'export des liges (6f6363a35f22c0563022a6f4cfe21df368c3e937)
+
+## 0.3.0-master.119+20190731134428
+2019-07-31
+
+## 0.3.0-master.118+20190731132902
+2019-07-31
+
+## 0.3.0-master.116+20190731095849
+2019-07-31
+
+### Features
+
+- 705 Exporter les lignes (01bc1b5ea3c0717eeb8030b02e4fc4845532a983)
+
+## 0.3.0-master.115+20190730161959
+2019-07-30
+
+## 0.3.0-master.114+20190730140705
+2019-07-30
+
+## 0.3.0-master.113+20190730093110
+2019-07-30
+
+## 0.3.0-master.112+20190729141730
+2019-07-29
+
+### Features
+
+- 522 Partie front de la modification de services depuis le détail d'une ligne (ceae9b1dd8f89ac54afafdf76bf3d5eff4d82a23)
+
+## 0.3.0-master.111+20190729133835
+2019-07-29
+
+## 0.3.0-master.110+20190729120602
+2019-07-29
+
+### Fixes
+
+- 632 corriger la recherche avec prérequis (460566cb79ec43ec62f0bd9c1da462b45c7c7e46)
+
+## 0.3.0-master.109+20190729082132
+2019-07-29
+
+### Fixes
+
+- 585 Validation des inputs ICCID et MSISDN (8786e8fbe9fb508d77ac91a3793ac8cd08143286)
+
+## 0.3.0-master.108+20190726145310
+2019-07-26
+
+## 0.3.0-master.107+20190726085815
+2019-07-26
+
+### Fixes
+
+- local storage table lignes (7cc9d406557e0d365cee6489e25f3a5356582b6e)
+
+## 0.3.0-master.106+20190725143126
+2019-07-25
+
+### Fixes
+
+- dépendence entre les partenaires de la barre de filtres et pré requis des actes (35eebdd48b3474b066034ac4c1efdfc9bc5ca497)
+
+## 0.3.0-master.105+20190725094814
+2019-07-25
+
+### Fixes
+
+- correction de bugs d'affichage sur la création d'acte : changement service (25ef881a8129aff7251e7a56854c62202a4178cb)
+
+## 0.3.0-master.104+20190724152448
+2019-07-24
+
+## 0.3.0-master.103+20190724151301
+2019-07-24
+
+### Fixes
+
+- Correction du formulaire de changement de cartes SIM (e850387cb4e06f2c497dbdb6e4e13d5ebd28dcb0)
+
+## 0.3.0-master.102+20190724151321
+2019-07-24
+
+### Fixes
+
+- Ne pas lancer la recherche quand on choisi un act (a35eec111f490222c9f54e2f6e52c3591d0c4e52)
+
+## 0.3.0-master.101+20190724073625
+2019-07-24
+
+### Fixes
+
+- filtre par import de fichier (8a5c9fdd9be72fbc7e83219dd36a8f65069a5bc2)
+
+## 0.3.0-master.100+20190723130907
+2019-07-23
+
+### Fixes
+
+- Séléctionner automatiquement la France après Autocomplete de l'adresse (7cfc6762f1a0bd1eed2a52ba9f54d5fba4a3af9e)
+- affichage conditionnel du form de création d'acte (e62afd75110687ff9d1bff2db017862800580b4f)
+
+## 0.3.0-master.98+20190723124539
+2019-07-23
+
+### Features
+
+- création d'acte de changement ICCID (7e7225e19e817022884ec524f31f9d53bd9d171b)
+
+## 0.3.0-master.97+20190722143451
+2019-07-22
+
+### Features
+
+- ajouter service data dans la modification de services (32ddec270d1c53566b816b3066578d4e45163d62)
+
+## 0.3.0-master.96+20190719131735
+2019-07-19
+
+### Features
+
+- ajoute-filtre-obligatoire-reactivation (81dcbe2cf94d477bbac8d5e718c5da1a83fb767f)
+
+## 0.3.0-master.95+20190719124449
+2019-07-19
+
+### Fixes
+
+- label (be12af39a58daff0335b8ebb9300eec3dfdcb11a)
+
+## 0.3.0-master.94+20190718085503
+2019-07-18
+
+### Fixes
+
+- correction style (71aef6b07d87718a567c01e187fa52dc119d12f5)
+
+## 0.3.0-master.93+20190717125321
+2019-07-17
+
+### Features
+
+- partie front pour activer/préactiver des lignes (6e825ff03c023db47231139e66b9244e3cfac747)
+
+## 0.3.0-master.92+20190717124800
+2019-07-17
+
+### Features
+
+- 341-filtre-plage-iccid (bc38853c79ea381a0f3865d6b18b5bd68c5aa775)
+
+## 0.3.0-master.91+20190717094644
+2019-07-17
+
+## 0.3.0-master.90+20190716153743
+2019-07-16
+
+### Fixes
+
+- **lines:** add filter search by file import (86aafa9919d4543f1d7afa64b6c13d48369b1d89)
+
+## 0.3.0-master.89+20190716131136
+2019-07-16
+
+## 0.3.0-master.88+20190716121452
+2019-07-16
+
+### Features
+
+- Configurer le Changement de cartes SIM (08d0a02cc99f1c44685af784f2d99ca7ffeab9c2)
+
+## 0.3.0-master.87+20190715145329
+2019-07-15
+
+### Features
+
+- intégration API changement MSISDN (5bafafd03aede99b53f5d2a2bbaf54f0a6a99402)
+
+## 0.3.0-master.86+20190715075913
+2019-07-15
+
+### Fixes
+
+- redirect by indicator (92fe3e88769ed8ae373cdce13451b7e7ca9be939)
+
+## 0.3.0-master.85+20190711111559
+2019-07-11
+
+### Fixes
+
+- format date (fa4bc8a38ef4bb93c94e5cd5bcb24027bcd7a083)
+
+## 0.3.0-master.84+20190711084207
+2019-07-11
+
+### Fixes
+
+- corriger bug sur la création d'acte (6a6c9b22585d3b55f18cc01baa6fbd9eee43647c)
+
+## 0.3.0-master.83+20190710152511
+2019-07-10
+
+### Fixes
+
+- correction CI (d57e83c3142e61232e88d98955922f2b7adf1353)
+
+## 0.3.0-master.82+20190710145433
+2019-07-10
+
+### Fixes
+
+- **lines:** search by accessPointId (329823423f0ee90a2319cad98693b834ea8db543)
+- 433/gerer-resiliation-delay (eca05344004061b798f7718d147345edcbd203f0)
+
+## 0.3.0-master.81+20190710143941
+2019-07-10
+
+### Fixes
+
+- l'offre est un prérequis de pour la modification de services (2c664126afba47106fe9b5fa0cd5effaebbcb9bb)
+
+## 0.3.0-master.80+20190710135434
+2019-07-10
+
+### Fixes
+
+- **orders:** set current filters for each indicator (6cfc6e2a64eca940fd465d98c0a79c3f8dacd1b8)
+
+## 0.3.0-master.79+20190710095400
+2019-07-10
+
+### Fixes
+
+- correction du contenu de l'infobulle (d937c0ebc1dbd95b302d8a185881624f02fa6ac4)
+
+## 0.3.0-master.78+20190709151602
+2019-07-09
+
+### Fixes
+
+- **orders:** add action validate in the contextual menu (035be66dc26a262dbcfda921434cb18bfa1b7202)
+
+## 0.3.0-master.77+20190709151705
+2019-07-09
+
+### Fixes
+
+- bloc détail acte de masse qui ne s'affiche pas (7f41844e26bd28100b36755abad2290971672237)
+
+## 0.3.0-master.76+20190709143812
+2019-07-09
+
+### Fixes
+
+- **lines:** display line details (6c0afcdaa2ebf8c8048216a35ecfba40416c8c20)
+
+## 0.3.0-master.75+20190709142820
+2019-07-09
+
+### Features
+
+- 433/gerer resiliation (118dac91f873e35130ae4bd40891b98fea657372)
+
+## 0.3.0-master.74+20190709132301
+2019-07-09
+
+### Fixes
+
+- message d'information sur le carousel (098b1902b2c2d14fc491ae49eb599f6fb0ef4cc0)
+
+## 0.3.0-master.73+20190709120101
+2019-07-09
+
+### Fixes
+
+- fixer la liste des types de partenaires (2ec0c0bc051f508c5ee466d780980a12b0737c1e)
+
+## 0.3.0-master.72+20190708152334
+2019-07-08
+
+### Features
+
+- changement de services (a20768053d1dd896a478eb4df37c3f89ebb07d70)
+
+## 0.3.0-master.71+20190708084917
+2019-07-08
+
+### Fixes
+
+- use case color (ae9f4d64073379debe88a2ca7041ae4634aedfc0)
+
+## 0.3.0-master.70+20190708075145
+2019-07-08
+
+### Fixes
+
+- **orders:** refresh indicators (6016a2b67225e23773a60f88f6d7f7de9e341776)
+
+## 0.3.0-master.69+20190705125512
+2019-07-05
+
+### Fixes
+
+- CI Deploy UAT step (cbb953f7cf4144ed4bb52f4bee25790b687a157f)
+
 ## 0.3.0-master.67+20190704134407
 2019-07-04
 

@@ -3,12 +3,12 @@
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
       <button
-        :class="`btn btn-link p-0 ${indicator.color}`"
+        :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
-        @click.prevent="setCurrentFiltersFn(indicator)"
+        @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
-        <span v-else>{{ total }}</span>
+        <span v-if="!isLoading">{{ total }}</span>
       </button>
     </div>
   </li>
@@ -16,17 +16,21 @@
 
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
     indicator: Object,
-    partners: Object,
-    setCurrentFiltersFn: Function,
+    onClick: {
+      type: Function,
+      required: false,
+    },
   },
   data() {
     return {
       isLoading: false,
       total: '-',
+      classColor: '',
     };
   },
   components: {
@@ -37,15 +41,29 @@ export default {
     this.refreshIndicator();
   },
 
+  computed: {
+    ...mapGetters('userContext', ['contextFilters']),
+  },
+
   methods: {
     async refreshIndicator() {
       this.isLoading = true;
-      const res = await this.indicator.fetch(this.indicator, this.partners);
-      this.total = res.total;
-      this.isLoading = false;
+      try {
+        const res = await this.indicator.fetch(this.indicator, this.contextFilters);
+        if (res) {
+          this.total = res.total;
+          if (res.color) {
+            this.classColor = res.color;
+          }
+        }
 
-      if (this.total === 0 && this.indicator.hideZeroValue) {
-        this.$emit('removeme', this.indicator);
+        this.isLoading = false;
+        if (this.total === 0 && this.indicator.hideZeroValue) {
+          this.$emit('removeme', this.indicator);
+        }
+      } catch (e) {
+        console.error(e);
+        this.isLoading = false;
       }
     },
   },

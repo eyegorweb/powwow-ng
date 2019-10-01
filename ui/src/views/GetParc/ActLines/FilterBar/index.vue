@@ -15,47 +15,103 @@
             v-if="!userIsPartner"
             :title="$t('filters.partners')"
             :key="'el1'"
+            :disabled="filtersAreDisabled"
             draggable
           >
             <ActLinesPartnersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.billingAccounts')" :key="'el2'" draggable>
+          <FoldableBlock
+            :title="$t('filters.billingAccounts')"
+            :key="'el2'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesBillingAccountsFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.fromFile.title')" :key="'el3'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.fromFile.title')"
+            :key="'el3'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesFromFileFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.typeSIMCard')" :key="'el4'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.typeSIMCard')"
+            :key="'el4'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <TypeSimCard />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.associatedOffer')" :key="'el5'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.associatedOffer')"
+            :key="'el5'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesOffersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.orderID')" :key="'el6'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.orderID')"
+            :key="'el6'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <SimpleInputFilter
               :selected-value="selectedOrderIdValue"
               @update:value="selectOrderIdFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderReference')" :key="'el7'" draggable>
+          <FoldableBlock
+            :title="$t('filters.orderReference')"
+            :key="'el7'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <SimpleInputFilter
               :selected-value="selectedOrderRefValue"
               @update:value="selectOrderRefFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.SIMCardStatus')" :key="'el8'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.SIMCardStatus')"
+            :key="'el8'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesSimStatuses />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.commercialStatus')" :key="'el9'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.commercialStatus')"
+            :key="'el9'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesCommercialStatusFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.billingStatus')" :key="'el10'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.billingStatus')"
+            :key="'el10'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesBillingStatusFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.networkStatus')" :key="'el11'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.networkStatus')"
+            :key="'el11'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesNetworkStatusFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.orderDate')" :key="'el12'" draggable>
+          <FoldableBlock
+            :title="$t('filters.orderDate')"
+            :key="'el12'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -63,7 +119,12 @@
               filter-key="filters.orderDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.importDate')" :key="'el13'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.importDate')"
+            :key="'el13'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -71,7 +132,12 @@
               filter-key="filters.lines.importDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.endCommitmentDate')" :key="'el14'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.endCommitmentDate')"
+            :key="'el14'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -79,7 +145,12 @@
               filter-key="filters.lines.endCommitmentDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.activationDate')" :key="'el15'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.activationDate')"
+            :key="'el15'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -87,7 +158,12 @@
               filter-key="filters.lines.activationDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.preActivationDate')" :key="'el16'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.preActivationDate')"
+            :key="'el16'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -95,7 +171,12 @@
               filter-key="filters.lines.preActivationDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.statusDate')" :key="'el17'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.statusDate')"
+            :key="'el17'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <DateFilter
               ns="actLines"
               getter="selectedDate"
@@ -103,58 +184,113 @@
               filter-key="filters.lines.statusDate"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.country')" :key="'el18'" draggable>
+          <FoldableBlock
+            :title="$t('filters.country')"
+            :key="'el18'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesCountries />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.postalCode')" :key="'el19'" draggable>
+          <FoldableBlock
+            :title="$t('filters.postalCode')"
+            :key="'el19'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <SimpleInputFilter
               :selected-value="selectedPostalCodeValue"
               @update:value="selectPostalCodeFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.profileEUICC')" :key="'el20'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.profileEUICC')"
+            :key="'el20'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLineProfileStateFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.customFileds')" :key="'el21'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.customFileds')"
+            :key="'el21'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <ActLinesCustomFields />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.rangeICCID')" :key="'el22'" draggable>
-            <SimpleInputFilter
-              :selected-value="selectedICCIDValue"
-              @update:value="selectICCIDFilter($event)"
+          <FoldableBlock
+            :title="$t('filters.lines.rangeICCID')"
+            :key="'el22'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <ActLinesRangeFilter
+              :values="selectedICCIDValue"
+              @update:values="selectICCIDFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.rangeIMSI')" :key="'el23'" draggable>
-            <SimpleInputFilter
-              :selected-value="selectedIMSIValue"
-              @update:value="selectIMSIFilter($event)"
+          <FoldableBlock
+            :title="$t('filters.lines.rangeIMSI')"
+            :key="'el23'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <ActLinesRangeFilter
+              :values="selectedIMSIValue"
+              @update:values="selectIMSIFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.rangeMSISDN')" :key="'el24'" draggable>
-            <SimpleInputFilter
-              :selected-value="selectedMSISDNValue"
-              @update:value="selectMSISDNFilter($event)"
+          <FoldableBlock
+            :title="$t('filters.lines.rangeMSISDN')"
+            :key="'el24'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <ActLinesRangeFilter
+              :values="selectedMSISDNValue"
+              @update:values="selectMSISDNFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.rangeIMEI')" :key="'el25'" draggable>
-            <SimpleInputFilter
-              :selected-value="selectedIMEIValue"
-              @update:value="selectIMEIFilter($event)"
+          <FoldableBlock
+            :title="$t('filters.lines.rangeIMEI')"
+            :key="'el25'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <ActLinesRangeFilter
+              :values="selectedIMEIValue"
+              @update:values="selectIMEIFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.siren')" :key="'el26'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.siren')"
+            :key="'el26'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <SimpleInputFilter
               :selected-value="selectedSirensValue"
               @update:value="selectSirensFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('orders.detail.manageID')" :key="'el27'" draggable>
+          <FoldableBlock
+            :title="$t('orders.detail.manageID')"
+            :key="'el27'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <SimpleInputFilter
               :selected-value="selectedActionIDValue"
               @update:value="setActionIdFilter($event)"
             />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.lines.traffic')" :key="'el28'" draggable>
+          <FoldableBlock
+            :title="$t('filters.lines.traffic')"
+            :key="'el28'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
             <UiCheckbox
               :value="{
                 id: 'lineTrafficState',
@@ -212,6 +348,7 @@ import ActLinesCustomFields from './ActLinesCustomFields';
 import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
+import ActLinesRangeFilter from './ActLinesRangeFilter';
 
 export default {
   components: {
@@ -233,6 +370,7 @@ export default {
     ActLinesCustomFields,
     ActLinesCommercialStatusFilter,
     ActLinesFromFileFilter,
+    ActLinesRangeFilter,
   },
   data() {
     return {
@@ -263,6 +401,9 @@ export default {
         return this.actToCreate.filters;
       }
       return [];
+    },
+    filtersAreDisabled() {
+      return this.actToCreate && this.actToCreate.containFile;
     },
     ligneTrafiquanteValue: {
       get() {

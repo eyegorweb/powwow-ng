@@ -12,27 +12,29 @@
       <div class="col-md-9">
         <h4>
           <b>GetParc</b>
-          - {{ $t('getparc.lineDetail.title', { lineId: $route.params.lineId }) }}
+          - {{ $t('getparc.lineDetail.title', { msisdn: msisdn }) }}
           <i class="ic-Info-Icon" />
         </h4>
       </div>
     </div>
-    <LineSummary :content="lineData" />
+    <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
     <div class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentLinkIndex = index)">
-              {{ tab.title }}
-            </a>
+            <a href="#" @click.prevent="() => (currentLinkIndex = index)">{{ tab.title }}</a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="detail">
           <DetailsTab :content="lineData" />
         </div>
-        <div slot="ongoing">B</div>
-        <div slot="diagnosis">C</div>
+        <div slot="ongoing">
+          <OngoingTab :content="lineData" />
+        </div>
+        <div slot="diagnosis">
+          <DiagnosisTab :content="lineData" />
+        </div>
       </UiTabs>
     </div>
   </div>
@@ -41,16 +43,21 @@
 <script>
 import LineSummary from './LineSummary';
 import DetailsTab from './DetailsTab';
+import OngoingTab from './OngoingTab';
+import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import { searchLines } from '@/api/linesActions';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
     LineSummary,
     DetailsTab,
+    OngoingTab,
     ActionCarousel,
+    DiagnosisTab,
     UiTabs,
     UiTab,
   },
@@ -59,7 +66,7 @@ export default {
   },
   data() {
     return {
-      lineData: {},
+      lineData: undefined,
       currentLinkIndex: 0,
       tabs: [
         {
@@ -91,7 +98,7 @@ export default {
         },
         {
           icon: 'ic-Heart-Rythm-Icon',
-          title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
           selected: false,
         },
         {
@@ -107,13 +114,30 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: {
+    msisdn() {
+      return this.lineData &&
+        this.lineData.accessPoint &&
+        typeof this.lineData.accessPoint !== 'undefined' &&
+        this.lineData.accessPoint !== 'null'
+        ? this.lineData.accessPoint.lines[0].msisdn
+        : '';
+    },
+  },
   methods: {
+    ...mapMutations(['openPanel']),
+
     onCarouselItemClick(item) {
-      console.log(item);
+      this.openPanel({
+        title: this.$t(item.title),
+        panelId: 'getparc.actLines.details.createAct',
+        payload: { ...item, lineData: this.lineData },
+        wide: false,
+        backdrop: false,
+      });
     },
     async loadLineData() {
-      const response = await searchLines({ id: 'DESC' }, { page: 0, limit: 1 }, [
+      const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         {
           id: 'filters.id',
           value: this.$route.params.lineId,

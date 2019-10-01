@@ -63,7 +63,7 @@ export default {
     return {
       notEditable: false,
       suspendBilling: false,
-      canValidate: false,
+      canValidate: true,
       waitForConfirmation: false,
     };
   },

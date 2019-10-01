@@ -17,7 +17,7 @@ export default {
     ...mapActions('getsim', ['setPartnersFilter']),
 
     updatePartners(partners) {
-      this.setPartnersFilter(partners);
+      this.setPartnersFilter({ partners });
     },
   },
 };

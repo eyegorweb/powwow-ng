@@ -45,7 +45,7 @@
         <div class="flex-fill">
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-            <p v-html="detail"></p>
+            <p>{{ detail }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.name') }} :</h6>
@@ -270,6 +270,19 @@ export default {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
     },
+    generateNewStatus(transitionName) {
+      if (transitionName.includes('suspendre')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.suspended');
+      } else if (transitionName.includes('reactiver')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.reactivated');
+      } else if (transitionName.includes('activer')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.activated');
+      } else if (transitionName.includes('resilier')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.terminated');
+      } else {
+        return transitionName;
+      }
+    },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
@@ -344,41 +357,45 @@ export default {
       return stepperIndex;
     },
     detail() {
-      const actionType = this.content.actionType;
+      const actionType = this.content.massActionResponse.actionType;
       let currentDetail = ``;
       switch (actionType) {
         case 'ACTIVATION':
-          currentDetail = `${this.$t('getparc.history.details.offer')}: ${this.content.offerName} `;
+          currentDetail = `${this.$t('getparc.history.details.offer')}: ${
+            this.content.massActionResponse.offerName
+          } `;
           break;
         case 'PREACTIVATION_ACTIVATION':
-          currentDetail = `${this.$t('getparc.history.details.offer')}: ${this.content.offerName} `;
+          currentDetail = `${this.$t('getparc.history.details.offer')}: ${
+            this.content.massActionResponse.offerName
+          } `;
           break;
         case 'SERVICE_CHANGE':
           currentDetail = `${this.$t('getparc.history.details.SERVICE_CHANGE.ADDED')}: ${
-            this.content.addedServices
+            this.content.massActionResponse.addedServices
           } <br> ${this.$t('getparc.history.details.SERVICE_CHANGE.REMOVED')}: ${
-            this.content.removeServices
+            this.content.massActionResponse.removeServices
           }`;
           break;
         case 'STATUS_CHANGE':
-          currentDetail = `${this.$t('getparc.history.details.newStatus')}: ${
-            this.content.transitionName
-          } `;
+          currentDetail = `${this.$t(
+            'getparc.history.details.newStatus'
+          )}: ${this.generateNewStatus(this.content.massActionResponse.transitionName)} `;
           break;
         // TODO: manque: résiliation/changement de statut / trasnfert / champs libres
         case 'CHANGE_CUSTOMER_ACCOUNT':
           currentDetail = `${this.$t('getparc.history.details.changeCf')}: ${
-            this.content.destinationCustomerAccountCode
+            this.content.massActionResponse.destinationCustomerAccountCode
           } `;
           break;
         case 'CHANGE_OFFER':
           currentDetail = `${this.$t('getparc.history.details.newOffer')}: ${
-            this.content.offerName
+            this.content.massActionResponse.offerName
           } `;
           break;
         case 'SEND_SMS':
-          currentDetail = `Message: ${this.content.message} <br> Shortcode: ${
-            this.content.shortCode
+          currentDetail = `Message: ${this.content.massActionResponse.message} <br> Shortcode: ${
+            this.content.massActionResponse.shortCode
           } `;
           break;
       }

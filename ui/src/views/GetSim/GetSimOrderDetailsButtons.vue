@@ -1,26 +1,28 @@
 <template>
   <div class="action-buttons">
     <div v-if="statusIn(['NOT_VALIDATED'])">
-      <UiButton variant="accent" block @click="updateStatus('VALIDATED')">{{
-        $t('getsim.actions.VALIDATE')
-      }}</UiButton>
+      <UiButton variant="accent" block @click="updateStatus('VALIDATED')">
+        {{ $t('getsim.actions.VALIDATE') }}
+      </UiButton>
     </div>
     <div
       v-if="
         userIsBO && statusIn(['VALIDATED', 'CONFIRMATION_IN_PROGRESS', 'TO_BE_CONFIRMED_BY_BO'])
       "
     >
-      <UiButton variant="accent" block @click="confirmOrder()">{{
-        $t('getsim.actions.CONFIRM')
-      }}</UiButton>
+      <UiButton variant="accent" block @click="confirmOrder()">
+        {{ $t('getsim.actions.CONFIRM') }}
+      </UiButton>
     </div>
     <div v-if="statusIn(['NOT_VALIDATED'])">
-      <UiButton variant="accent" block @click="updateStatus('CANCELED')">{{
-        $t('getsim.actions.CANCEL')
-      }}</UiButton>
+      <UiButton variant="accent" block @click="updateStatus('CANCELED')">
+        {{ $t('getsim.actions.CANCEL') }}
+      </UiButton>
     </div>
-    <div v-if="statusIn(['CONFIRMED', 'TERMINATED'])">
-      <UiButton variant="accent" block>{{ $t('getsim.actions.EXPORT') }}</UiButton>
+    <div>
+      <UiButton variant="accent" block :disabled="order.status !== 'TERMINATED'">
+        {{ $t('getsim.actions.EXPORT') }}
+      </UiButton>
     </div>
     <div
       v-if="
@@ -33,9 +35,9 @@
         ])
       "
     >
-      <UiButton variant="accent" block @click="openOrderPanel">{{
-        $t('getsim.actions.DUPLICATE')
-      }}</UiButton>
+      <UiButton variant="accent" block @click="openOrderPanel">
+        {{ $t('getsim.actions.DUPLICATE') }}
+      </UiButton>
     </div>
   </div>
 </template>
@@ -61,10 +63,12 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'closePanel']),
+    ...mapMutations('getsim', ['refreshIndicators']),
 
     async updateStatus(newStatus) {
       const orderData = await updateOrderStatus(this.order.id, newStatus);
       this.order.status = orderData.status;
+      this.refreshIndicators();
     },
 
     async confirmOrder() {

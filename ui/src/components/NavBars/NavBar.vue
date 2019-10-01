@@ -1,21 +1,21 @@
 <template>
   <div class="flex-container">
     <div class="flex-part">
-      <img
-        v-if="!isBackofficeProfile"
-        class="logo logo--corporate"
-        src="@/assets/logo_bouygues.png"
-        alt
-      />
+      <a href="/">
+        <img
+          v-if="!isBackofficeProfile"
+          class="logo logo--corporate"
+          src="@/assets/logo_bouygues.png"
+          alt
+        />
+      </a>
       <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <router-link v-if="!tab.submenu" :to="tab.to">
-              {{ tab.label }}
-            </router-link>
+            <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
 
             <div class="dropdown">
-              <a v-if="tab.submenu" :to="tab.to" @click.prevent="">{{ tab.label }}</a>
+              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ tab.label }}</a>
               <div
                 v-if="tab.submenu"
                 class="dropdown-menu"
@@ -29,9 +29,8 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
+                  >{{ $t(item.label) }}</router-link
                 >
-                  {{ $t(item.label) }}
-                </router-link>
               </div>
             </div>
           </UiTab>
@@ -103,25 +102,25 @@ export default {
       navbarLinks: [
         {
           label: 'GetSIM',
-          to: { name: 'home' },
+          to: { name: 'orders' },
         },
         {
           label: 'GetParc/GetDiag',
           to: 'getParc',
           submenu: [
             {
-              label: 'menu.massActions',
-              to: { name: 'actHistory' },
-            },
-            {
               label: 'menu.actLines',
               to: { name: 'actLines' },
             },
+            {
+              label: 'menu.massActions',
+              to: { name: 'actHistory' },
+            },
           ],
         },
-        { label: 'GetVision', to: { name: 'examples' } },
-        { label: 'GetReport', to: { name: 'home' } },
-        { label: 'GetAdmin', to: { name: 'home' } },
+        { label: 'GetVision', to: { name: 'exemples' } },
+        { label: 'GetReport', to: { name: 'exemples' } },
+        { label: 'GetAdmin', to: { name: 'exemples' } },
         { label: 'GetSupport', to: { name: 'exemples' } },
         { label: 'GetDevice', to: { name: 'exemples' } },
       ],
