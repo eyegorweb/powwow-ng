@@ -40,10 +40,20 @@
     </div>
     <div class="row mt-2">
       <div class="col">
-        <button class="btn btn-block btn-outline-primary">Couverture du réseau</button>
+        <a
+          class="btn btn-block btn-outline-primary"
+          target="_blank"
+          href="https://www.bouyguestelecom.fr/reseau/cartes-de-couverture-reseau-mobile"
+          >{{ $t('getparc.lineDetail.tab3.networkCoverage') }}</a
+        >
       </div>
       <div class="col">
-        <button class="btn btn-block btn-outline-primary">Météo du réseau</button>
+        <a
+          target="_blank"
+          href="https://valid-supportexploitation.bouyguestelecom-entreprises.fr"
+          class="btn btn-block btn-outline-primary"
+          >{{ $t('getparc.lineDetail.tab3.networkMeteo') }}</a
+        >
       </div>
     </div>
   </div>
