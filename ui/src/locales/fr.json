@@ -454,6 +454,8 @@
         }
       },
       "tab3": {
+        "networkCoverage": "Couverture du réseau",
+        "networkMeteo": "Météo du réseau",
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
         "newDemand": "Faire une nouvelle demande",
         "statuses": {
