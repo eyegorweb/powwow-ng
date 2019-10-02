@@ -63,7 +63,7 @@ pre-release:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/pre_release_info
-    - mv build_info ui-server/pre_release_info
+    - cp build_info ui-server/pre_release_info
     - . ui-server/pre_release_info
     - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryImageTag=latest -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
     - ./release -v
@@ -88,7 +88,7 @@ release:
     - rm -f ui-server/version.txt
     - cp .next-version ui-server/version.txt
     - rm -f ui-server/release_info
-    - mv build_info ui-server/release_info
+    - cp build_info ui-server/release_info
     - . ui-server/release_info
     - gradle --build-cache jib -PregistryImageName=$CI_REGISTRY_IMAGE -PregistryUsername=$CI_REGISTRY_USER -PregistryPassword=$CI_REGISTRY_PASSWORD --info
     - ./release -v
@@ -159,7 +159,8 @@ deploy_uat:
     
   script:
     - kubectl get po
-    - . ui-server/release_info
+    - . build_info
+    - echo $RELEASE_VERSION
     - kubectl set image deployments/ui ui=$CI_REGISTRY_IMAGE:$RELEASE_VERSION --record=true
   when: manual
   environment:
