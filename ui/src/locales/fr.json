@@ -456,6 +456,8 @@
       "tab3": {
         "networkCoverage": "Couverture du réseau",
         "networkMeteo": "Météo du réseau",
+        "analyzeLocation": "Analyser la localisation",
+        "analyzeCell": "Analyser la cellule",
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
         "newDemand": "Faire une nouvelle demande",
         "statuses": {
@@ -651,7 +653,7 @@
     },
     "actLines": {
       "details": {
-        "title": "Detail ici",
+        "title": "Detail de la ligne",
         "upcommingChanges": "Changements à venir",
         "alarmsInfo": "ALARMES",
         "partners": "Partenaires",

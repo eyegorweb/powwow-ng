@@ -1,20 +1,26 @@
 <template>
   <div>
-    <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
-      {{ $t('noResult') }}
-    </div>
-    <DataTable
-      v-else
-      :columns.sync="columns"
-      :rows="rows || []"
-      :page.sync="page"
-      :total="total || 0"
-      :order-by.sync="orderBy"
-      :page-limit.sync="pageLimit"
-      :size="size"
-      :show-extra-columns.sync="showExtraCells"
-      @colEvent="$emit('colEvent', $event)"
-    />
+    <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
+      {{ $t('loading') }}
+      <CircleLoader />
+    </button>
+    <template v-else>
+      <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+        {{ $t('noResult') }}
+      </div>
+      <DataTable
+        v-else
+        :columns.sync="columns"
+        :rows="rows || []"
+        :page.sync="page"
+        :total="total || 0"
+        :order-by.sync="orderBy"
+        :page-limit.sync="pageLimit"
+        :size="size"
+        :show-extra-columns.sync="showExtraCells"
+        @colEvent="$emit('colEvent', $event)"
+      />
+    </template>
   </div>
 </template>
 
@@ -66,13 +72,16 @@ export default {
   },
   methods: {
     async refreshTable() {
+      this.isLoading = true;
       const response = await this.fetchDataFn(this.pageInfo, this.orderBy);
+      this.isLoading = false;
       this.rows = response.rows;
       this.total = response.total;
     },
   },
   data() {
     return {
+      isLoading: false,
       showExtraCells: false,
       orderBy: undefined,
       rows: undefined,
