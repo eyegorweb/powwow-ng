@@ -73,7 +73,11 @@ export default {
   methods: {
     getFetchDataFn() {
       return async pageInfo => {
-        const response = await accessPointsByLocalisation(this.line.id, pageInfo, 'CELL');
+        const response = await accessPointsByLocalisation(
+          this.line.id,
+          pageInfo,
+          this.localisationType
+        );
         return { rows: response.items, total: response.total };
       };
     },
