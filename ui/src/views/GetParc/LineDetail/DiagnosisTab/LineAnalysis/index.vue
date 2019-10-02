@@ -101,10 +101,43 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-center pt-2">
+        <div>
+          <Toggle
+            v-if="toggleValues"
+            no-default
+            @update="selectedAnalzeTab = $event"
+            :values="toggleValues"
+            class="pl-2"
+          ></Toggle>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <AnalyzeTable
+          v-if="selectedAnalzeTab && selectedAnalzeTab.id === 'localisation'"
+          :key="selectedAnalzeTab.id"
+          :line="content"
+          localisation-type="CP"
+        />
+        <AnalyzeTable
+          v-if="selectedAnalzeTab && selectedAnalzeTab.id === 'cell'"
+          :key="selectedAnalzeTab.id"
+          :line="content"
+          localisation-type="CELL"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Toggle from '@/components/ui/UiToggle2';
+import AnalyzeTable from './AnalyzeTable';
+
 import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
@@ -113,12 +146,27 @@ import LocalisationBlock from './LocalisationBlock';
 export default {
   components: {
     LocalisationBlock,
+    Toggle,
+    AnalyzeTable,
   },
   data() {
     return {
       pdpConnexionData: undefined,
       geographicalLocation: undefined,
       loadingGeoloc: false,
+      selectedAnalzeTab: undefined,
+      toggleValues: [
+        {
+          id: 'localisation',
+          label: 'getparc.lineDetail.tab3.analyzeLocation',
+          default: false,
+        },
+        {
+          id: 'cell',
+          label: 'getparc.lineDetail.tab3.analyzeCell',
+          default: false,
+        },
+      ],
     };
   },
   computed: {

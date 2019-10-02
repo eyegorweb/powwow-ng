@@ -18,3 +18,44 @@ export async function lastGeographicalLocation(simCardInstanceId) {
   );
   return response.data.lastGeographicalLocation;
 }
+
+export async function accessPointsByLocalisation(
+  simCardInstanceId,
+  pagination,
+  localisationType = 'CP'
+) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+  query {
+    accessPointsByLocalisation(localisationType: ${localisationType}, simCardInstanceId: ${simCardInstanceId}${paginationInfo}) {
+      total
+      items {
+        geolocation {
+          imsi
+          msisdn
+          imei
+          iccid
+          countryCode
+          zipCode
+          cityName
+          lastCommunicationDate
+          plmn
+          cellId
+          usageType
+          ticketGeneration
+          pdpConnectionStatus
+        }
+        deviceInstance {
+          manufacturer
+          deviceReference
+          imei
+        }
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+
+  return response.data.accessPointsByLocalisation;
+}
