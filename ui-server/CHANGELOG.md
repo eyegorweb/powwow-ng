@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.252+20191002071930
+2019-10-02
+
+### Features
+
+- 570 Tables pour analyser les lignes sur la même localisation (d4296a0aa62c87e309a80f74a70de6d34ff512ff)
+
 ## 0.3.0-master.251+20191001130558
 2019-10-01
 
