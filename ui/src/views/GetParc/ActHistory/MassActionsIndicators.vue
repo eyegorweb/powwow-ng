@@ -88,7 +88,7 @@ export default {
 
   methods: {
     ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),
-    async initComponent() {
+    async mounted() {
       let contextPartnersFilter = {};
       let contextPartnerTypesFilter = {};
 
@@ -199,10 +199,6 @@ export default {
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters']),
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
-  },
-
-  async mounted() {
-    this.initComponent();
   },
 };
 </script>

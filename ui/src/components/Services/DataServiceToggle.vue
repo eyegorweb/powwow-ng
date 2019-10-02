@@ -24,7 +24,10 @@ export default {
 
   props: {
     catalogOffer: Object,
-    instanceOffer: Object,
+    instanceOffer: {
+      type: Object,
+      default: undefined,
+    },
   },
 
   data() {
@@ -37,9 +40,20 @@ export default {
   },
   mounted() {
     const data = initDataService(this.catalogOffer);
-    this.apns = data.apns;
-    this.checked = data.checked;
-    this.editable = data.editable;
+    if (data) {
+      this.apns = data.apns;
+      this.checked = data.checked;
+      this.editable = data.editable;
+    } else {
+      this.apns = [
+        {
+          code: 'TEST',
+          label: 'testrnis.fr',
+          selectable: false,
+          selected: true,
+        },
+      ];
+    }
   },
   methods: {
     toggleApn(apn) {
@@ -54,6 +68,7 @@ export default {
       this.$emit('change', {
         checked: this.checked,
         apns: this.apns,
+        code: '878',
       });
     },
   },

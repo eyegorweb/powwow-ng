@@ -1,6 +1,6 @@
 <template>
   <PrereqContainer @validate="validatePrerequisites" :can-validate="canValidate">
-    <div class="row">
+    <div v-if="!partner" class="row">
       <div class="col">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
@@ -16,6 +16,28 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <div class="d-flex justify-content-center">
+        <div class="w-50">
+          <h5>{{ $t('col.offer') }}</h5>
+          <OffersPart
+            :partner="selectedPartner"
+            :offer.sync="selectedOffer"
+            :disabled="isPartnerEmpty"
+          />
+        </div>
+        <div class="pl-1 to-bottom">
+          <button
+            @click="validatePrerequisites"
+            :disabled="!canValidate"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+          >
+            {{ $t('set') }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="partner" slot="validate"></div>
   </PrereqContainer>
 </template>
 
@@ -39,6 +61,17 @@ export default {
       offerData: null,
     };
   },
+  props: {
+    partner: {
+      type: Object,
+      default: undefined,
+    },
+  },
+  watch: {
+    partner(newValue) {
+      this.setPartner(newValue);
+    },
+  },
   computed: {
     canValidate() {
       return !this.isPartnerEmpty && !!this.offerData;
@@ -60,6 +93,11 @@ export default {
       },
     },
   },
+  mounted() {
+    if (this.partner) {
+      this.selectedPartner = { ...this.partner };
+    }
+  },
   methods: {
     ...mapMutations('actLines', ['resetForm']),
     setPartner(chosenPartner) {
@@ -70,7 +108,7 @@ export default {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
         offer: this.selectedOffer,
-        search: this.selectedPartner && this.selectedOffer,
+        search: !!this.selectedPartner && !!this.selectedOffer,
       });
     },
   },

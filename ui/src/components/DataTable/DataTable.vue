@@ -30,11 +30,11 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-blue mt-1">
+        <table class="table table-blue mt-1" :class="{ 'small-text': smallText }">
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name + column.label" v-for="column in sortableColumns">
-                <div class="thead-actions">
+                <div :class="{ 'thead-actions': !align, 'thead-actions-align': align }">
                   <span v-if="!column.noHandle" class="handle ic-Drag-Column-Icon" />
                   <span>{{ column.label }}</span>
                   <DataTableOrderArrow
@@ -45,7 +45,7 @@
                   />
                 </div>
               </th>
-              <th v-if="size !== undefined" :key="'btnAdd'">
+              <th v-if="size" :key="'btnAdd'">
                 <button
                   type="button"
                   class="btn btn-light btn-sm float-right"
@@ -64,9 +64,11 @@
                   :format="column.format"
                   :item="row[column.name]"
                   :row="row"
+                  :visible-columns="sortableColumns"
+                  @colEvent="$emit('colEvent', $event)"
                 />
               </td>
-              <td v-if="size !== undefined">
+              <td v-if="size">
                 <slot name="actions" :row="row" />
               </td>
             </tr>
@@ -115,6 +117,7 @@ export default {
           visible: Boolean, // Affichage par défaut de la colonne dans la table
           visibleWhen: Function, // fonction qui controle la visibilité en plus du boolean (visible)
           fixed: Boolean, // si fixed = true, alors impossible d'enlever la colonne de la table
+          noHandle: Boolean, // désactiver le drag&drop
 
           // Optionel, objet pour customiser le format de la céllule
           format: {
@@ -162,6 +165,14 @@ export default {
       type: String,
       required: false,
     },
+    align: {
+      type: Boolean,
+      required: false,
+    },
+    smallText: {
+      type: Boolean,
+      required: false,
+    },
   },
 
   data() {
@@ -187,7 +198,8 @@ export default {
       set(orderedCells) {
         const notVisibleCells = this.usableColumns.filter(c => !c.visible);
         this.usableColumns = orderedCells.concat(notVisibleCells);
-        this.saveColumnsToLocalStorage(this.usableColumns);
+        const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+        this.saveColumnsToLocalStorage([...columnsWithCondition, ...this.usableColumns]);
       },
     },
 
@@ -253,7 +265,8 @@ export default {
     },
     setColumns(newColumns) {
       this.usableColumns = newColumns;
-      this.saveColumnsToLocalStorage(newColumns);
+      const columnsWithCondition = this.columns.filter(c => c.visibleWhen);
+      this.saveColumnsToLocalStorage([...columnsWithCondition, ...newColumns]);
       this.close();
     },
     close() {
@@ -309,34 +322,6 @@ export default {
 <style lang="scss" scoped>
 .form-group {
   margin-bottom: 0; //reset bootstrap
-}
-.table-blue thead {
-  background-color: $primary;
-  color: white;
-
-  .sortable-chosen {
-    background-color: #0c62b2;
-  }
-}
-.table-blue {
-  background: white !important;
-  font-size: 1rem;
-  line-height: 24px;
-}
-
-.table-blue td {
-  color: $dark-gray;
-}
-
-.table-blue th {
-  font-weight: normal;
-  color: #ffffff;
-  font-size: 0.9rem;
-}
-
-.table-blue td .fa-blue {
-  position: relative;
-  top: 5px;
 }
 
 .handle {
@@ -399,6 +384,12 @@ select {
   display: flex;
   flex-direction: row;
 }
+.thead-actions-align {
+  // display: block;
+  // text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+}
 
 label {
   display: flex;
@@ -414,6 +405,10 @@ thead th {
   //evite les retours à la ligne dans l'entête de la table de l'historique des actes de gestion
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.small-text {
+  font-size: 0.8rem !important;
 }
 
 @media only screen and (max-width: 1024px) {

@@ -1,7 +1,7 @@
 import { query } from './utils';
 
 export async function fetchUnitActionsTotals(massActionId) {
-  const paginationInfo = `, pagination: {page: 0, limit: 1}`;
+  const paginationInfo = `, pagination: {page: 0, limit: 20}`;
   const orderingInfo = `sorting: {field: id, order: DESC}`;
 
   const queryStr = `
@@ -106,4 +106,42 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   if (unitActionId) {
     gqlFilters.push(`unitActionId: "${unitActionId.value}"`);
   }
+}
+
+export async function fetchUnitActionsWithaccessPoint(
+  accessPointId,
+  statuses,
+  pagination,
+  filters = []
+) {
+  const paginationInfo = `, pagination: {page: 0, limit: 20}`;
+  const sorting = null;
+
+  const queryStr = `
+  query {
+    unitActions(filter: {${formatFilters(
+      filters
+    )} accessPointId: "${accessPointId}", status: [${statuses.join(
+    ','
+  )}]} ${paginationInfo}, sorting: ${sorting}) {
+    total
+    items {
+      id
+      msisdn
+      ICCID
+      status
+      statusDate
+      dueDate
+      imsi
+      error_reason
+      manufacturer
+      deviceReference
+      imei
+      actionType
+    }
+  }
+}
+  `;
+  const response = await query(queryStr);
+  return response.data.unitActions;
 }

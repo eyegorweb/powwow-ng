@@ -1,6 +1,8 @@
 $icomoon-font-family: 'powwow' !default;
 $icomoon-font-path: 'assets/icons' !default;
 
+$ic-phone-incoming: '\e94f';
+$ic-phone-outgoing: '\e950';
 $ic-Alert-Icon: '\e900';
 $ic-Alt-Icon: '\e901';
 $ic-Amplifier-Icon: '\e902';
@@ -97,7 +99,7 @@ $ic-Wifi-Icon: '\e94e';
 [class^='ic-'],
 [class*=' ic-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'powwow' !important;
+  font-family: '#{$icomoon-font-family}' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -110,6 +112,16 @@ $ic-Wifi-Icon: '\e94e';
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ic-phone-incoming {
+  &:before {
+    content: $ic-phone-incoming;
+  }
+}
+.ic-phone-outgoing {
+  &:before {
+    content: $ic-phone-outgoing;
+  }
+}
 .ic-Alert-Icon {
   &:before {
     content: $ic-Alert-Icon;

@@ -201,6 +201,7 @@ export default {
           return { stayInForm: true };
         }
 
+        // Garder le rapport pour la première étape
         this.report = response.data.changeServices;
         if (this.report.containsErrors) {
           return { stayInForm: true };

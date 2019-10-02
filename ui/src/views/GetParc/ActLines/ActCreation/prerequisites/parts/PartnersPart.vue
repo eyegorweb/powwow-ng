@@ -31,6 +31,10 @@ export default {
       type: Object,
       required: false,
     },
+    limitToPartnersInSearchBar: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
@@ -47,7 +51,11 @@ export default {
       return;
     }
 
-    if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
+    if (
+      this.limitToPartnersInSearchBar &&
+      this.selectedPartnersValues &&
+      this.selectedPartnersValues.length
+    ) {
       this.limitedPartnersToSelectFrom = [...this.selectedPartnersValues];
 
       if (this.limitedPartnersToSelectFrom.length === 1) {

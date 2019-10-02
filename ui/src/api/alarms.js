@@ -1,19 +1,22 @@
 import { query } from './utils';
 
-export async function getAlarmEvents(filter) {
-  let filterObject = {
-    searchBy: filter.searchBy,
-    id: filter.id,
-  };
-
+export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
   query {
-    alarmEvents(searchBy: ${filterObject.searchBy}, id: ${filterObject.id}) {
+    alarmInstances(searchBy: ACCESSPOINT_ID, id: ${id}) {
       id
-      emissionDate
       alarm {
         id
         type
+        level1
+        level1Up
+        level1Down
+        level2
+        level2Up
+        level2Down
+        level3
+        level3Up
+        level3Down
         party {
           id
           name
@@ -24,5 +27,33 @@ export async function getAlarmEvents(filter) {
   `;
 
   const response = await query(queryStr);
-  return response.data.alarmEvents;
+  return response.data.alarmInstances;
+}
+
+export async function fetchAlarmsWithInfos(simCardInstanceId) {
+  const queryStr = `
+  query {
+    alarmsWithInfo(simCardInstanceId: ${simCardInstanceId}) {
+      isTriggered
+      isActive
+      alarm {
+        id
+        type
+        observationDelay
+        level1
+        level1Up
+        level1Down
+        level2
+        level2Up
+        level2Down
+        level3
+        level3Up
+        level3Down
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.alarmsWithInfo;
 }

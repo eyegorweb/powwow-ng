@@ -5,42 +5,31 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.offer') }}:</h6>
-            <p>
-              {{ getFromContent('accessPoint.offer.marketingOffer.description') }}
-            </p>
+            <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
-            <p class="text-success">
-              {{ $t(simStatus) }}
-            </p>
+            <p class="text-success">{{ $t(simStatus) }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
-            <p class="text-danger">
-              Oui
-            </p>
+            <p v-if="alarmTriggered" class="text-success">{{ $t('common.YES') }}</p>
+            <p v-if="!alarmTriggered" class="text-danger">{{ $t('common.NO') }}</p>
           </div>
         </div>
         <hr />
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-            <p>
-              {{ getFromContent('iccid') }}
-            </p>
+            <p>{{ getFromContent('iccid') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.manufacturer') }}:</h6>
-            <p>
-              {{ getFromContent('deviceInstance.manufacturer') }}
-            </p>
+            <p>{{ getFromContent('deviceInstance.manufacturer') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.model') }}:</h6>
-            <p>
-              {{ getFromContent('deviceInstance.deviceReference') }}
-            </p>
+            <p>{{ getFromContent('deviceInstance.deviceReference') }}</p>
           </div>
         </div>
       </div>
@@ -49,21 +38,21 @@
       <div class="bg-white p-4 rounded">
         <div class="d-flex">
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.data') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
             <p>
               <!-- total DATA consommées -->
               {{ totalUsed('DATA', 'used') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.sms') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
             <p>
               <!-- total SMS consommées -->
               {{ totalUsed('SMS', 'used') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.voice') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
             <p>
               <!-- total VOIX consommées -->
               {{ totalUsed('VOICE', 'used') }}
@@ -73,21 +62,21 @@
         <hr />
         <div class="d-flex">
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalData') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.data') }}:</h6>
             <p>
               <!-- prévisionnel DATA  -->
               {{ totalUsed('DATA') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalSms') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.sms') }}:</h6>
             <p>
               <!-- prévisionnel SMS  -->
               {{ totalUsed('SMS') }}
             </p>
           </div>
           <div class="item">
-            <h6>{{ $t('getparc.lineDetail.previsionalVoice') }}:</h6>
+            <h6>{{ $t('getparc.lineDetail.estimated.voice') }}:</h6>
             <p>
               <!-- prévisionnel VOIX  -->
               {{ totalUsed('VOICE') }}
@@ -103,10 +92,19 @@
 import get from 'lodash.get';
 import { formatBytes } from '@/api/utils';
 import moment from 'moment';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 export default {
+  async mounted() {
+    this.fetchAlarms();
+  },
   props: {
     content: Object,
+  },
+  data() {
+    return {
+      alarmTriggered: false,
+    };
   },
   computed: {
     simStatus() {
@@ -140,6 +138,11 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    async fetchAlarms() {
+      const response = await fetchAlarmsWithInfos(this.content.id);
+      if (!response || !response.lenth) return;
+      this.alarmTriggered = response[0].isTriggered;
     },
     totalUsed(type, mode) {
       let usedTotal,

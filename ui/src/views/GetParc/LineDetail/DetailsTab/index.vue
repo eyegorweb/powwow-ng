@@ -15,10 +15,11 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <LineInfoSection v-if="section === 'line_info'" :content="content" />
+      <LineInfoSection v-if="section === 'line_info' && content" :content="content" />
       <ActsHistory v-if="section === 'acts_history'" :content="content" />
       <LineServicesSection v-if="section === 'line_services'" :content="content" />
       <BillingSection v-if="section === 'billing'" :content="content" />
+      <AlarmList v-if="section === 'alarm_list'" :content="content" />
     </div>
   </div>
 </template>
@@ -28,6 +29,7 @@ import LineInfoSection from './LineInfoSection';
 import LineServicesSection from './LineServicesSection';
 import BillingSection from './BillingSection';
 import ActsHistory from './ActsHistory';
+import AlarmList from './AlarmList';
 
 export default {
   components: {
@@ -35,6 +37,7 @@ export default {
     LineServicesSection,
     BillingSection,
     ActsHistory,
+    AlarmList,
   },
   props: {
     content: Object,

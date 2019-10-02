@@ -19,7 +19,7 @@
           >
             <ActHistoryPartnersFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.actCreator')" :key="'el2'" draggable>
+          <FoldableBlock :title="$t('filters.orderCreator')" :key="'el2'" draggable>
             <OrderCreatorFilter
               :selected-partners-values="selectedPartnersValues"
               :selected-order-creator-values="selectedOrderCreatorValues"

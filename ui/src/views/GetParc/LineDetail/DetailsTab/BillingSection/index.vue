@@ -37,27 +37,35 @@
           <div class="d-flex">
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.simStatus') }}:</h6>
-              <p class="mb-0">{{ simStatus }}</p>
-              <p class="mb-0">{{ simStatusDate }}</p>
+              <p v-if="simStatusDate" class="mb-0">{{ simStatus }}</p>
+              <p class="mb-0">{{ formatDate(simStatusDate) }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.lineStatus') }}:</h6>
-              <p>{{ lineStatus }}</p>
+              <p v-if="lineStatus">{{ lineStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
-              <p class="mb-0">{{ networkStatus }}</p>
-              <p class="mb-0">{{ getFromContent('accessPoint.activationDate') }}</p>
+              <p v-if="getFromContent('accessPoint.activationDate')" class="mb-0">
+                {{ networkStatus }}
+              </p>
+              <p class="mb-0">{{ formatDate(getFromContent('accessPoint.activationDate')) }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p class="mb-0">{{ billingStatus }}</p>
-              <p class="mb-0">{{ getFromContent('accessPoint.billingStatusChangeDate') }}</p>
+              <p v-if="getFromContent('accessPoint.billingStatusChangeDate')" class="mb-0">
+                {{ billingStatus }}
+              </p>
+              <p class="mb-0">{{ billingStatusChangeDate }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
-              <p class="mb-0">{{ commercialStatus }}</p>
-              <p class="mb-0">{{ getFromContent('accessPoint.commercialStatusDate') }}</p>
+              <p v-if="getFromContent('accessPoint.commercialStatusDate')" class="mb-0">
+                {{ commercialStatus }}
+              </p>
+              <p class="mb-0">
+                {{ formatDate(getFromContent('accessPoint.commercialStatusDate')) }}
+              </p>
             </div>
           </div>
         </template>
@@ -66,13 +74,21 @@
         <template slot="title">{{
           $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
         }}</template>
+
         <template slot="content">
-          <div class="d-flex">
-            <div class="item">
-              <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.remainingTime') }}:</h6>
-              <p>
-                {{ $t('getparc.lineDetail.tab1.billingOffer.descriptionTimeForSuspendedOffer') }}
-              </p>
+          <div v-if="remainingTime !== undefined">
+            <div class="d-flex">
+              <div class="item">
+                <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.remainingTime') }}:</h6>
+                <p>
+                  {{
+                    $t('getparc.lineDetail.tab1.billingOffer.descriptionTimeForSuspendedOffer', {
+                      total: remainingTime,
+                      date: suspensionDate,
+                    })
+                  }}
+                </p>
+              </div>
             </div>
           </div>
         </template>
@@ -83,6 +99,7 @@
 
 <script>
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
+import { fetchCommercialStatuses } from '@/api/linesActions';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
@@ -93,11 +110,40 @@ export default {
     ContentBlock,
   },
 
+  async mounted() {
+    this.commercialStatuses = await fetchCommercialStatuses();
+    const status = get(this.content, 'accessPoint.commercialStatus');
+    if (!status) return;
+    const formattedStatus = this.capitalize(status);
+    const foundCommercialStatus = this.commercialStatuses.map(l =>
+      this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`)
+    );
+    const foundCommercialStatusIndex = foundCommercialStatus.indexOf(formattedStatus);
+    this.commercialStatus =
+      foundCommercialStatusIndex !== -1
+        ? `${foundCommercialStatus[foundCommercialStatusIndex]} ${this.$t('fromThe')}`
+        : '-';
+  },
+
   props: {
     content: Object,
   },
 
   computed: {
+    billingStatusChangeDate() {
+      const date = this.getFromContent('accessPoint.billingStatusChangeDate');
+      return moment(date, 'DD-MM-YYYY').format('DD/MM/YYYY');
+    },
+    remainingTime() {
+      return this.getFromContent('accessPoint.remainingSuspension')
+        ? this.getFromContent('accessPoint.remainingSuspension')
+        : undefined;
+    },
+    suspensionDate() {
+      return moment()
+        .add('days', this.remainingTime)
+        .format('DD-MM-YYYY');
+    },
     commercialStatus() {
       if (get(this.content, 'accessPoint.commercialStatus')) {
         return `${this.$t(
@@ -197,6 +243,9 @@ export default {
   },
 
   methods: {
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
     formatDate(date) {
       let dateOnly = date.substr(0, date.indexOf(' '));
       return date && date.length ? moment(dateOnly, 'DD-MM-YYYY').format('DD/MM/YYYY') : '-';

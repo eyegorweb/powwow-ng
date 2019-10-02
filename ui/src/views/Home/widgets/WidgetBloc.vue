@@ -6,18 +6,23 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col">
-            <span class="handle ic-Drag-Column-Icon" />
-            <span>{{ widget.title }}</span>
+          <div class="col-9">
+            <div class="d-flex">
+              <span class="handle ic-Drag-Column-Icon" />
+              <span :class="{ 'mock-value': mocked }">
+                <WidgetTitle :title="widget.title" />
+              </span>
+              <slot name="header" />
+            </div>
           </div>
-          <div class="col">
+          <div class="col-3" v-if="widget.seeMore">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
-              Voir plus
+              {{ $t('seeMore') }}
             </button>
           </div>
         </div>
       </div>
-      <div class="card-body pt-0">
+      <div class="card-body" :class="className">
         <slot />
       </div>
     </div>
@@ -25,9 +30,21 @@
 </template>
 
 <script>
+import WidgetTitle from './WidgetTitle';
+
 export default {
+  components: {
+    WidgetTitle,
+  },
   props: {
     widget: Object,
+    noPadding: Boolean,
+    mocked: Boolean,
+  },
+  computed: {
+    className() {
+      return this.noPadding ? 'p-0' : 'pt-0';
+    },
   },
 };
 </script>
@@ -41,6 +58,11 @@ export default {
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     padding: 0.75rem 1.25rem;
+  }
+
+  .card-body {
+    height: 16rem;
+    overflow: hidden;
   }
 }
 

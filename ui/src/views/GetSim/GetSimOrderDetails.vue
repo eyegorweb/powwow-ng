@@ -6,7 +6,8 @@
           <div class="checked checkmark" />
         </div>
         <div class="ml-3">
-          {{ $t('orders.new.message.confirmation') }}<br />
+          {{ $t('orders.new.message.confirmation') }}
+          <br />
           {{ $t('orders.new.message.delivery') }}
         </div>
         <div class="cross-loader load-complete">
@@ -70,12 +71,17 @@
           <h4 class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase">
             {{ $t('orders.detail.simCardOffer') }}
           </h4>
-          <UiButton v-if="order.status === 'TERMINATED'" variant="import">{{
-            $t('getsim.actions.SHOW_SIM')
-          }}</UiButton>
-          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">{{
-            $t('getsim.actions.IMPORT_SIM')
-          }}</UiButton>
+          <UiButton
+            @click="gotoCorrespondingLines"
+            v-if="order.status === 'TERMINATED'"
+            variant="import"
+            >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
+          >
+          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
+            <span class="mock-value">
+              {{ $t('getsim.actions.IMPORT_SIM') }}
+            </span>
+          </UiButton>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -272,6 +278,15 @@ export default {
 
     close() {
       if (this.order.isNew) this.order.isNew = false;
+    },
+    gotoCorrespondingLines() {
+      const queryFilters = [{ id: 'filters.lines.orderID', value: this.order.id }];
+      this.$router.push({
+        name: 'actLines',
+        params: {
+          queryFilters,
+        },
+      });
     },
   },
 

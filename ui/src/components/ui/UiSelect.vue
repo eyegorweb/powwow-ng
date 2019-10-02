@@ -1,6 +1,6 @@
 <template>
   <div class="select-container">
-    <div class="select">
+    <div class="select" :class="{ 'small-format': small }">
       <select
         class="form-control"
         v-model="model"
@@ -14,9 +14,8 @@
             :key="option.value"
             :value="option.value"
             :disabled="option.disabled"
+            >{{ option.label }}</option
           >
-            {{ option.label }}
-          </option>
         </slot>
       </select>
     </div>
@@ -51,6 +50,7 @@ export default {
       type: String,
       required: false,
     },
+    small: Boolean,
   },
   computed: {
     formattedOptions() {
@@ -80,5 +80,16 @@ select {
   padding: 0.55rem 0.8rem;
   padding-right: 0 !important;
   border-radius: 0;
+}
+
+.small-format {
+  select {
+    padding: 0;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+      'Noto Color Emoji';
+    font-weight: 500;
+    border: none;
+  }
 }
 </style>

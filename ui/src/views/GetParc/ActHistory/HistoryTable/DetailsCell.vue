@@ -1,7 +1,5 @@
 <template>
-  <div>
-    {{ content }}
-  </div>
+  <div>{{ content }}</div>
 </template>
 
 <script>
@@ -13,13 +11,28 @@ export default {
   props: {
     row: Object,
   },
+  methods: {
+    generateNewStatus(transitionName) {
+      if (transitionName.includes('suspendre')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.suspended');
+      } else if (transitionName.includes('reactiver')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.reactivated');
+      } else if (transitionName.includes('activer')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.activated');
+      } else if (transitionName.includes('resilier')) {
+        return this.$t('getparc.history.details.CHANGE_STATUS.terminated');
+      } else {
+        return transitionName;
+      }
+    },
+  },
   computed: {
     ...mapGetters(['userIsBO']),
     content() {
       switch (this.row.actionType) {
         case 'PREACTIVATION_ACTIVATION':
         case 'ACTIVATION': {
-          return `Offer: ${this.row.offerName}`;
+          return `Offre: ${this.row.offerName}`;
         }
 
         case 'SERVICE_CHANGE': {
@@ -30,15 +43,17 @@ export default {
         }
 
         case 'STATUS_CHANGE': {
-          return `Nouveau statut : ${this.row.transitionName}`;
+          return `${this.$t('getparc.history.details.newStatus')}: ${this.generateNewStatus(
+            this.row.transitionName
+          )} `;
         }
 
         case 'CHANGE_CUSTOMER_ACCOUNT': {
-          return `Nouveau C.F ${this.row.destinationCustomerAccountCode}`;
+          return `Nouveau C.F: ${this.row.destinationCustomerAccountCode}`;
         }
 
         case 'CHANGE_OFFER': {
-          return `Nouvelle offre : ${this.row.offerName}`;
+          return `Nouvelle offre: ${this.row.offerName}`;
         }
 
         case 'SIMCARD_TRANSFER': {
@@ -65,7 +80,7 @@ export default {
             this.row.custom5,
             this.row.custom6,
           ].filter(c => c != null);
-          return `Libellé : ${customFields.join(',')}`;
+          return `Libellé: ${customFields.join(',')}`;
         }
 
         case 'UPDATE_COMMITMENT': {

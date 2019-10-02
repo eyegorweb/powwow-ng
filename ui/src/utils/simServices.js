@@ -60,3 +60,59 @@ export function initDataService(offer, selectedDataService, servicesInitialized)
 
   return dataServiceRet;
 }
+
+export function isBarrinServiceEnabled(catalogOffer, code) {
+  const data = getServiceData(catalogOffer, code);
+  return {
+    checked: !data,
+    editable: data ? data.partyAccess : false,
+    data,
+  };
+}
+
+export function isNormalServiceEnabled(catalogOffer, code) {
+  const data = getServiceData(catalogOffer, code);
+  return {
+    checked: !!data,
+    editable: data ? data.partyAccess : false,
+    data,
+  };
+}
+
+export const barringServices = [
+  {
+    name: 'VOIX_ENTRANTE',
+    code: '2175',
+  },
+  {
+    name: 'VOIX_SORTANTE',
+    code: '2023',
+  },
+  {
+    name: 'SMS_ENTRANT',
+    code: '2171',
+  },
+  {
+    name: 'SMS_SORTANT',
+    code: '2174',
+  },
+  {
+    name: 'NUMERO_DATA_CSD',
+    code: '2188',
+  },
+  {
+    name: 'DATA_CSD_ENTRANTE',
+    code: '2172',
+  },
+  {
+    name: 'DATA_CSD_SORTANTE',
+    code: '2173',
+  },
+];
+
+export const normalServices = [
+  {
+    name: 'ROAMING',
+    code: '77',
+  },
+];

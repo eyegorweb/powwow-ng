@@ -3,13 +3,14 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
+    <NetworkTestControl :content="simcard" />
+    <SMSTable :simcard="simcard" />
     <div id="nav">
       <router-link to="/getsim">GetSim</router-link>|
       <router-link to="/filters">Filters</router-link>|
       <router-link to="/secured">Secured</router-link>|
     </div>
     <div class="container">
-      <NavBars is-backoffice-profile />
       <StepperNonLinear :stepper-data="stepperData" />
       <hr />
       <div class="container">
@@ -119,7 +120,6 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import TransitionCollapse from '@/components/TransitionCollapse';
 import Stepper from '@/components/ui/Stepper';
 import UiTabs from '@/components/ui/Tabs';
-import NavBars from '@/components/NavBars';
 import MultiChoices from '@/components/MultiChoices';
 import SearchWithSelect from '@/components/SearchWithSelect';
 import UiDateRange from '@/components/ui/UiDateRange';
@@ -127,9 +127,27 @@ import InputRange from '@/components/ui/InputRange';
 import { searchAddress } from '@/api/address';
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
+import SMSTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/SMSTable';
+import NetworkTestControl from '@/views/GetParc/LineDetail/DiagnosisTab/NetworkTestControl';
 
 export default {
   name: 'Home',
+  components: {
+    UiCheckbox,
+    UiButton,
+    Stepper,
+    UiTabs,
+    TransitionCollapse,
+    MultiChoices,
+    SearchWithSelect,
+    UiApiAutocomplete,
+    UiDateRange,
+    InputRange,
+    StepperNonLinear,
+    SearchTranslationKey,
+    SMSTable,
+    NetworkTestControl,
+  },
   data() {
     const columns = [
       {
@@ -217,6 +235,9 @@ export default {
       },
     ];
     return {
+      simcard: {
+        id: 330,
+      },
       columns,
       selectedAddress: {},
       show: false,
@@ -248,22 +269,6 @@ export default {
 
   methods: {
     searchAddress,
-  },
-
-  components: {
-    UiCheckbox,
-    UiButton,
-    Stepper,
-    UiTabs,
-    TransitionCollapse,
-    NavBars,
-    MultiChoices,
-    SearchWithSelect,
-    UiApiAutocomplete,
-    UiDateRange,
-    InputRange,
-    StepperNonLinear,
-    SearchTranslationKey,
   },
 };
 </script>

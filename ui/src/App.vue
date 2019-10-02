@@ -65,4 +65,10 @@ h4 {
     font-size: 10px;
   }
 }
+
+@media (width: 1366px) {
+  .container {
+    max-width: 1200px;
+  }
+}
 </style>

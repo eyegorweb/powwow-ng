@@ -1,7 +1,15 @@
 <template>
   <div>
     <template v-if="!format">{{ item }}</template>
-    <component v-else-if="component" :is="component" :format="format" :item="item" :row="row" />
+    <component
+      v-else-if="component"
+      :is="component"
+      :format="format"
+      :item="item"
+      :row="row"
+      :visible-columns="visibleColumns"
+      @colEvent="$emit('colEvent', $event)"
+    />
   </div>
 </template>
 <script>
@@ -16,6 +24,7 @@ export default {
       type: [Object, String, Number, Array, Boolean],
     },
     row: Object,
+    visibleColumns: Array,
   },
   data() {
     return {

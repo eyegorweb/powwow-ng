@@ -20,7 +20,7 @@ export const state = {
 export const getters = {
   activeWidgets: state => state.homeWidgets.filter(w => w.checked),
 };
-
+// home.widgets.userActs
 export const mutations = {
   setHomeWidgets: (state, widgets) => {
     state.homeWidgets = [...widgets];

@@ -217,7 +217,7 @@ describe('store/filters.module', () => {
           selectedOrderCreatorValues: [],
         },
       };
-      filterModule.actions.setPartnersFilter(store, []);
+      filterModule.actions.setPartnersFilter(store, { partners: [] });
 
       expect(store.commit.mock.calls[0]).toEqual([
         'selectFilterValue',
@@ -277,7 +277,7 @@ describe('store/filters.module', () => {
         },
       ];
 
-      filterModule.actions.setPartnersFilter(store, partners);
+      filterModule.actions.setPartnersFilter(store, { partners });
 
       expect(store.commit.mock.calls[1]).toEqual([
         'setBillingAccountsFilter',
@@ -334,7 +334,7 @@ describe('store/filters.module', () => {
       api.fetchCustomFields = jest.fn();
       api.fetchCustomFields.mockResolvedValue(mockCustomFields);
 
-      await filterModule.actions.setPartnersFilter(store, partners);
+      await filterModule.actions.setPartnersFilter(store, { partners });
 
       expect(store.commit.mock.calls[4]).toEqual([
         'setFilterCustomFieldsList',

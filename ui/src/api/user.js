@@ -6,6 +6,7 @@ export async function fetchCurrentUserInfos() {
     query {
       getCurrentUser {
         ... on User {
+          id
           email
           name {
             title
@@ -19,6 +20,7 @@ export async function fetchCurrentUserInfos() {
           }
         }
         ... on UserParty {
+          id
           email
           name {
             title
@@ -37,6 +39,7 @@ export async function fetchCurrentUserInfos() {
           }
         }
         ... on UserPartyGroup {
+          id
           email
           name {
             title

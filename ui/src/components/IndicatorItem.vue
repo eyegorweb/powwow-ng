@@ -5,7 +5,7 @@
       <button
         :class="`btn btn-link p-0 ${indicator.color || classColor}`"
         :disabled="!indicator.clickable"
-        @click.prevent="onClick(indicator)"
+        @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
         <span v-if="!isLoading">{{ total }}</span>
@@ -16,12 +16,15 @@
 
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
     indicator: Object,
-    partners: Object,
-    onClick: Function,
+    onClick: {
+      type: Function,
+      required: false,
+    },
   },
   data() {
     return {
@@ -38,11 +41,15 @@ export default {
     this.refreshIndicator();
   },
 
+  computed: {
+    ...mapGetters('userContext', ['contextFilters']),
+  },
+
   methods: {
     async refreshIndicator() {
       this.isLoading = true;
       try {
-        const res = await this.indicator.fetch(this.indicator, this.partners);
+        const res = await this.indicator.fetch(this.indicator, this.contextFilters);
         if (res) {
           this.total = res.total;
           if (res.color) {

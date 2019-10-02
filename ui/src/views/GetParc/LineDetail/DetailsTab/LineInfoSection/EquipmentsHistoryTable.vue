@@ -4,16 +4,61 @@
     :rows="rows || []"
     :order-by.sync="orderBy"
     @change-order="changeCellsOrder"
-  >
-  </DataTable>
+  ></DataTable>
 </template>
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
+import get from 'lodash.get';
+import moment from 'moment';
 
 export default {
   components: {
     DataTable,
+  },
+  props: {
+    content: Object,
+  },
+  mounted() {
+    const getPeriod = (min, max) => {
+      if (min && max) {
+        return this.$t('getsim.between-min-max', {
+          min,
+          max,
+        });
+      }
+
+      if (min) {
+        return this.$t('getsim.date-since', { startDate: min });
+      }
+    };
+
+    const rows = [
+      {
+        imei: get(this.content, 'deviceInstance.imei', ''),
+        model: get(this.content, 'deviceInstance.deviceReference', ''),
+        manufacturer: get(this.content, 'deviceInstance.manufacturer', ''),
+        macAdress: get(this.content, 'deviceInstance.mac', ''),
+        usagePeriod: getPeriod(
+          get(this.content, 'deviceInstance.auditable.updated'),
+          moment().format('DD-MM-YYYY')
+        ),
+      },
+    ];
+
+    if (get(this.content, 'deviceInstance.imeiPrevious')) {
+      rows.push({
+        imei: get(this.content, 'deviceInstance.imeiPrevious', ''),
+        model: get(this.content, 'deviceInstance.deviceReferencePrevious', ''),
+        manufacturer: get(this.content, 'deviceInstance.manufacturerPrevious', ''),
+        macAdress: get(this.content, 'deviceInstance.macPrevious', ''),
+        usagePeriod: getPeriod(
+          get(this.content, 'deviceInstance.auditable.created'),
+          get(this.content, 'deviceInstance.auditable.updated')
+        ),
+      });
+    }
+    this.rows = rows;
   },
   data() {
     return {
@@ -54,15 +99,7 @@ export default {
           visible: true,
         },
       ],
-      rows: [
-        {
-          imei: '123123123123',
-          model: 'Cinterion BFS4-V',
-          manufacturer: 'Gemalto GbmH',
-          macAdress: '46:09:d4:e6:99:a1',
-          usagePeriod: 'du 15/11/2016 au 26/09/2017',
-        },
-      ],
+      rows: [],
       orderBy: {
         key: 'msisdn',
         direction: 'DESC',

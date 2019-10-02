@@ -1,7 +1,7 @@
 <template>
   <ActWithFileUploadContainer
     :act-mutation-fn="changeMSISDN"
-    act-code="MSISDN"
+    act-code="CHANGE_MSISDN"
     confirmation-message="getparc.actCreation.changeMSISDN.confirmationWarning"
   />
 </template>
