@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.254+20191002151630
+2019-10-02
+
+### Fixes
+
+- deploy uat (7b2ab53b0d9179e4ecf95eb94ce3c42dbc52f798)
+
 ## 0.3.0-master.253+20191002083530
 2019-10-02
 
