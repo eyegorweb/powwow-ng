@@ -54,8 +54,8 @@
     },
     "widgets": {
       "orders": "Mes commandes",
-      "bills": "Dernière factures",
-      "currentUsage": "En cours de consomation",
+      "bills": "Dernières factures",
+      "currentUsage": "En cours de consommation",
       "orderStatus": "Statut des commandes",
       "acts": "Acte de gestion",
       "activationAct": "Actes: Activation",

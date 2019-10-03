@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
-      {{ $t('noResult') }}
-    </div>
-    <DataTable
-      v-else
-      :columns.sync="columns"
-      :rows="rows || []"
-      :page.sync="page"
-      :total="total || 0"
-      :order-by.sync="orderBy"
-      :page-limit.sync="pageLimit"
-      :size="6"
-      :show-extra-columns.sync="showExtraCells"
-    />
-  </div>
+  <DataTable
+    :columns.sync="columns"
+    :rows="rows || []"
+    :page.sync="page"
+    :total="total || 0"
+    :order-by.sync="orderBy"
+    :page-limit.sync="pageLimit"
+    :size="6"
+    :show-extra-columns.sync="showExtraCells"
+  />
 </template>
 
 <script>

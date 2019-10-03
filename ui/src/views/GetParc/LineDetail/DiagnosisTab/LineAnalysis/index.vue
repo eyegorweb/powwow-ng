@@ -103,7 +103,7 @@
     </div>
 
     <div class="row">
-      <div class="col d-flex justify-content-center pt-2">
+      <div class="col d-flex justify-content-center pt-2 mt-3 mb-3">
         <div>
           <Toggle
             v-if="toggleValues"
@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-5">
       <div class="col">
         <AnalyzeTable
           v-if="selectedAnalzeTab && selectedAnalzeTab.id === 'localisation'"

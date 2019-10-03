@@ -5,11 +5,7 @@
       <CircleLoader />
     </button>
     <template v-else>
-      <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
-        {{ $t('noResult') }}
-      </div>
       <DataTable
-        v-else
         :columns.sync="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -26,6 +22,7 @@
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
+import CircleLoader from '@/components/ui/CircleLoader';
 
 export default {
   props: {
@@ -47,6 +44,7 @@ export default {
   },
   components: {
     DataTable,
+    CircleLoader,
   },
   watch: {
     page() {
