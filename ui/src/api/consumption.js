@@ -188,14 +188,11 @@ export async function dataUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: DATA, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+    dataUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false ${paginationInfo}) {
       total
       items {
-        dataHistory {
-          startDate
-          endDate
+        pdpConnectionHistory {
           connectionStatus
-          connectionClosingReason
           uploadVolume
           downloadVolume
           apn
@@ -210,14 +207,21 @@ export async function dataUsage(simInstanceId, pagination) {
           isLast
           partyId
 
-          #location
-          #operator
-          #countryISO3
-          #plmn
-          #zipCode
-          #city
-          #cellLatitude
-          #cellLongitude
+        }
+      	pdpConnectionDateInfo {
+          startDate
+          endDate
+          connectionClosingReason
+        }
+        location {
+          detail
+          cellLatitude
+          cellLongitude
+          zipCode
+          cellId
+          countryIso3
+          referentialIso3
+          operator
         }
       }
     }
@@ -226,7 +230,7 @@ export async function dataUsage(simInstanceId, pagination) {
 
   const response = await query(queryStr);
 
-  return response.data.consumableUsageHistory;
+  return response.data.dataUsageHistory;
 }
 
 export async function fetchDataConsumptionForGraph(simCardInstanceId) {

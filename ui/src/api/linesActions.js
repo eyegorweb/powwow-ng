@@ -68,6 +68,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
         party{
           id
           name
+          partyType
           custom1FieldLabel
           custom2FieldLabel
           custom3FieldLabel
