@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="row mt-2">
-      <div class="col">
+      <div class="col" v-if="coverageForPartnerType">
         <a
           class="btn btn-block btn-outline-primary"
           target="_blank"
@@ -67,6 +67,7 @@ export default {
   props: {
     data: Object,
     loading: Boolean,
+    coverageForPartnerType: Boolean,
   },
   components: {
     GoogleMap,
