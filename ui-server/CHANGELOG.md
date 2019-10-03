@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.255+20191003094843
+2019-10-03
+
+### Fixes
+
+- Afficher un message d'erreur quand la table est vide (a00887d596ad16fe81779198124bc87f6e8dae5f)
+- **line detail:** mise à jour de l'API des consommations data pour afficher l'analyse de la ligne (529b7c263ec3a11fe01ad8550d9af93a9386cbf2)
+
 ## 0.3.0-master.254+20191002151630
 2019-10-02
 
