@@ -45,98 +45,47 @@ export async function smsUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: SMS, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+    smsUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
       total
       items{
-        smsHistory {
+        smsHistoryData{
           accessPointId
           incomming
           recordOpeningTime
           recordOpeningSlice
           partyId
-          countryISO3
           plmn
           updatedDate
           partitionId
           offerCode
           callingNumber
           calledNumber
-          cellId
           usageType
           typeAppel
+          imei
+          offerCode
+        }
+        location {
+          detail
+          cellLatitude
+          cellLongitude
           zipCode
           city
-          imei
-          cellLongitude
-          cellLatitude
+          cellId
+          countryIso3
+          referentialIso3
+          operator
         }
       }
 
     }
   }
+
   `;
 
   const response = await query(queryStr);
-  /*
-  const response = {
-    data: {
-      consumableUsageHistory: {
-        total: 2,
-        items: [
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-              zipCode: null,
-              city: null,
-              imei: '35985702142700',
-              cellLongitude: null,
-              cellLatitude: null,
-            },
-          },
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-              zipCode: null,
-              city: null,
-              imei: '35985702142700',
-              cellLongitude: null,
-              cellLatitude: null,
-            },
-          },
-        ],
-      },
-    },
-  };//*/
 
-  return response.data.consumableUsageHistory;
+  return response.data.smsUsageHistory;
 }
 
 export async function voiceUsage(simInstanceId, pagination) {
