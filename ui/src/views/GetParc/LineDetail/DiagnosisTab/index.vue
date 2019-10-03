@@ -90,22 +90,22 @@ export default {
         {
           section: 'line_analysis',
           title: 'getparc.lineDetail.tab2.lineAnalysis',
-          partnerForType: ['M2M', 'CUSTOMER'],
+          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_location_test',
           title: 'getparc.lineDetail.tab2.networkLocationTest',
-          partnerForType: ['M2M', 'CUSTOMER'],
+          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_test_control',
           title: 'getparc.lineDetail.tab2.networkTestControl',
-          partnerForType: ['M2M', 'CUSTOMER'],
+          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'supervision',
           title: 'getparc.lineDetail.tab2.supervision',
-          partnerForType: ['M2M', 'CUSTOMER'],
+          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_history',
@@ -115,7 +115,7 @@ export default {
         {
           section: 'last_tests',
           title: 'getparc.lineDetail.tab2.lastTests',
-          partnerForType: ['M2M', 'CUSTOMER'],
+          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_information',
@@ -128,6 +128,7 @@ export default {
   computed: {
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
+      console.log(typeForPartner);
       let visibleItems = this.menuItems.filter(m =>
         m.partnerForType.some(p => p === typeForPartner)
       );
