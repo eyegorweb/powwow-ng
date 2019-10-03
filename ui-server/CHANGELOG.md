@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.257+20191003142344
+2019-10-03
+
+### Fixes
+
+- adapter l'API consommation sms (d03f6b57a0fe9e9d7d03e5481805cc19dd54aecc)
+
 ## 0.3.0-master.256+20191003133619
 2019-10-03
 
