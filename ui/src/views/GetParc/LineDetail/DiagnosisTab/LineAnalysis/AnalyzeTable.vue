@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-2">
+  <div class="bg-white p-2 mt-2 analyze-container">
     <PaginatedDataTable :columns="columns" :fetch-data-fn="getFetchDataFn()" :size="7" />
   </div>
 </template>
@@ -67,6 +67,54 @@ export default {
           type: 'ObjectAttribute',
           path: 'pdpConnectionStatus',
         }),
+        col('Date de début', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'pdpConnectionStartDate',
+        }),
+        col('Date de fin', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'pdpConnectionEndDate',
+        }),
+        col('Statut réseau', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'networkStatus',
+        }),
+        col('Offre', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'offerCode',
+        }),
+        col('Nom du partenaire', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'Party.name',
+        }),
+        col('Référence commerciale', 'deviceInstance', false, false, {
+          type: 'ObjectAttribute',
+          path: 'deviceReference',
+        }),
+        col('Constructeur', 'deviceInstance', false, false, {
+          type: 'ObjectAttribute',
+          path: 'manufacturer',
+        }),
+        col('Constructeur', 'deviceInstance', false, false, {
+          type: 'ObjectAttribute',
+          path: 'manufacturer',
+        }),
+        col('Type IP', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'ipAddressType',
+        }),
+        col('Adresse IPv4', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'ipV4Address',
+        }),
+        col('Adresse IPv6', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'ipV6Address',
+        }),
+        col('APN', 'geolocation', false, false, {
+          type: 'ObjectAttribute',
+          path: 'apn',
+        }),
       ],
     };
   },
@@ -85,4 +133,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.analyze-container {
+  min-height: 10rem;
+}
+</style>

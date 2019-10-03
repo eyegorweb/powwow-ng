@@ -33,8 +33,18 @@ export default {
       }
     };
 
-    const rows = [
-      {
+    const rows = [];
+
+    const haveRow1 = [
+      'deviceInstance.imei',
+      'deviceInstance.deviceReference',
+      'deviceInstance.manufacturer',
+      'deviceInstance.mac',
+      'deviceInstance.auditable.updated',
+    ].filter(key => get(this.content, key)).length;
+
+    if (haveRow1) {
+      rows.push({
         imei: get(this.content, 'deviceInstance.imei', ''),
         model: get(this.content, 'deviceInstance.deviceReference', ''),
         manufacturer: get(this.content, 'deviceInstance.manufacturer', ''),
@@ -43,20 +53,30 @@ export default {
           get(this.content, 'deviceInstance.auditable.updated'),
           moment().format('DD-MM-YYYY')
         ),
-      },
-    ];
+      });
+    }
 
     if (get(this.content, 'deviceInstance.imeiPrevious')) {
-      rows.push({
-        imei: get(this.content, 'deviceInstance.imeiPrevious', ''),
-        model: get(this.content, 'deviceInstance.deviceReferencePrevious', ''),
-        manufacturer: get(this.content, 'deviceInstance.manufacturerPrevious', ''),
-        macAdress: get(this.content, 'deviceInstance.macPrevious', ''),
-        usagePeriod: getPeriod(
-          get(this.content, 'deviceInstance.auditable.created'),
-          get(this.content, 'deviceInstance.auditable.updated')
-        ),
-      });
+      const haveRow2 = [
+        'deviceInstance.imeiPrevious',
+        'deviceInstance.imeiPrevious',
+        'deviceInstance.manufacturerPrevious',
+        'deviceInstance.macPrevious',
+        'deviceInstance.auditable.created',
+        'deviceInstance.auditable.updated',
+      ].filter(key => get(this.content, key)).length;
+      if (haveRow2) {
+        rows.push({
+          imei: get(this.content, 'deviceInstance.imeiPrevious', ''),
+          model: get(this.content, 'deviceInstance.deviceReferencePrevious', ''),
+          manufacturer: get(this.content, 'deviceInstance.manufacturerPrevious', ''),
+          macAdress: get(this.content, 'deviceInstance.macPrevious', ''),
+          usagePeriod: getPeriod(
+            get(this.content, 'deviceInstance.auditable.created'),
+            get(this.content, 'deviceInstance.auditable.updated')
+          ),
+        });
+      }
     }
     this.rows = rows;
   },

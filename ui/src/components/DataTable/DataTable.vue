@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+    {{ $t('noResult') }}
+  </div>
+  <div v-else>
     <DataTableConfiguration
       v-if="showExtraColumns"
       :columns="usableColumns"
