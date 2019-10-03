@@ -11,7 +11,7 @@
           <h4 class="text-primary text-uppercase">
             {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.locationSection') }}
           </h4>
-          <LocalisationBlock :loading="loadingGeoloc" :data="geographicalLocation" :coverage-for-partner-type="showCoverage" />
+          <LocalisationBlock :loading="loadingGeoloc" :data="geographicalLocation" />
         </div>
       </div>
       <div class="col-md-7">
@@ -172,10 +172,6 @@ export default {
   computed: {
     isLigneActive() {
       return this.content.statuts === 'ALLOCATED';
-    },
-    showCoverage() {
-      const typePartner = this.getValue(this.content, 'party.partyType');
-      return typePartner === 'M2M';
     },
   },
   props: {
