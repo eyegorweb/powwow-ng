@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.256+20191003133619
+2019-10-03
+
+### Fixes
+
+- **line detail:** affichage du sous menu en fonction du type de partenaire (9eae0d8f366109704831264c8c082cfd7acf2b9d)
+
 ## 0.3.0-master.255+20191003094843
 2019-10-03
 
