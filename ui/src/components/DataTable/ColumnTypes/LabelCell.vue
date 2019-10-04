@@ -2,7 +2,7 @@
   <div>
     <div class="label" :class="{ opened: isOpened, closed: isClosed }">
       <span v-if="isOpened || isClosed" class="circle" />
-      {{ getLabel }}
+      {{ label }}
     </div>
   </div>
 </template>
@@ -10,17 +10,24 @@
 <script>
 export default {
   props: {
-    item: String,
+    format: {
+      type: Object,
+      required: true,
+    },
+    row: Object,
   },
   computed: {
-    getLabel() {
-      if (this.item === 'F') {
+    value() {
+      return this.format.getValue(this.row);
+    },
+    label() {
+      if (this.value === 'F') {
         return 'Fermé';
-      } else if (this.item === 'O') {
+      } else if (this.value === 'O') {
         return 'Ouvert';
-      } else if (this.item === 'N') {
+      } else if (this.value === 'N') {
         return 'Normale';
-      } else if (this.item === 'A') {
+      } else if (this.value === 'A') {
         return 'Autre';
       } else {
         return '';
@@ -28,11 +35,11 @@ export default {
     },
 
     isClosed() {
-      return this.item === 'F';
+      return this.value === 'F';
     },
 
     isOpened() {
-      return this.item === 'O';
+      return this.value === 'O';
     },
   },
 };
