@@ -80,7 +80,6 @@ export async function smsUsage(simInstanceId, pagination) {
 
     }
   }
-
   `;
 
   const response = await query(queryStr);
@@ -93,43 +92,50 @@ export async function voiceUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: VOICE, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
-      total
-      items {
-        voiceHistory{
-          tiketId
-          accessPointId
-          incomming
-          recordOpeningTime
-          recordOpeningSlice
-          partyId
-          countryISO3
-          plmn
-          updatedDate
-          partitionId
-          offerCode
-          callingNumber
-          calledNumber
-          duration
-          cellId
-          details
-          usageType
-          typeAppel
-          imei
-          zipCode
-          city
-          cellLatitude
-          cellLongitude
+    voiceUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+        total
+        items{
+          voiceHistoryData{
+            accessPointId
+            incomming
+            recordOpeningTime
+            recordOpeningSlice
+            partyId
+            plmn
+            updatedDate
+            partitionId
+            offerCode
+            callingNumber
+            calledNumber
+            usageType
+            typeAppel
+            imei
+            offerCode
+            duration
+            usageType
+            callingNumber
+            details
+          }
+          location {
+            detail
+            cellLatitude
+            cellLongitude
+            zipCode
+            city
+            cellId
+            countryIso3
+            referentialIso3
+            operator
+          }
         }
-      }
 
+      }
     }
-  }
-  `;
+    `;
 
   const response = await query(queryStr);
 
-  return response.data.consumableUsageHistory;
+  return response.data.voiceUsageHistory;
 }
 
 export async function dataUsage(simInstanceId, pagination) {
