@@ -61,7 +61,7 @@ export default {
     },
   },
   mounted() {
-    this.orderBy = this.order;
+    this.orderBy = { ...this.order };
     this.refreshTable();
   },
   computed: {
