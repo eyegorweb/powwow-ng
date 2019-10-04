@@ -48,6 +48,8 @@
   "to": "au",
   "input": "Entrant",
   "output": "Sortant",
+  "notAvailable": "Non disponible",
+  "notDefined": "Non déterminé",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"

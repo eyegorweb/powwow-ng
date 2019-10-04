@@ -133,8 +133,21 @@ export default {
           false,
           true,
           {
-            type: 'ObjectAttribute',
-            path: 'ipAddressType',
+            type: 'Getter',
+            getter: row => {
+              const ipAddressType = get(row, 'pdpConnectionHistory.ipAddressType');
+              if (ipAddressType === null) {
+                return this.$t('notAvailable');
+              } else if (ipAddressType === 1) {
+                return 'ipv4';
+              } else if (ipAddressType === 2) {
+                return 'ipv6';
+              } else if (ipAddressType === 3) {
+                return 'ipv4/ipv6';
+              } else {
+                return this.$t('notDefined');
+              }
+            },
           }
         ),
         col('IMEI', 'pdpConnectionHistory', false, false, {
@@ -161,20 +174,20 @@ export default {
             path: 'cellId',
           }
         ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.device'),
-          'device',
-          false,
-          false
-        ),
-        col(
-          this.$t(
-            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.manufacturer'
-          ),
-          'manufacturer',
-          false,
-          false
-        ),
+        // col(
+        //   this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.device'),
+        //   'device',
+        //   false,
+        //   false
+        // ),
+        // col(
+        //   this.$t(
+        //     'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.manufacturer'
+        //   ),
+        //   'manufacturer',
+        //   false,
+        //   false
+        // ),
       ],
       rows: [],
       page: 1,
