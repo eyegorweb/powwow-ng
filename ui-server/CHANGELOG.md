@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.263+20191004145159
+2019-10-04
+
+### Fixes
+
+- 794 formatter les nombres (f02b4f17ba604510baf643cdc262f48f82753fb5)
+
 ## 0.3.0-master.262+20191004124312
 2019-10-04
 
