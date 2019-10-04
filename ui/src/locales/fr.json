@@ -946,7 +946,7 @@
       },
       "message": {
         "confirmation": "La commande a bien été enregistrée.",
-        "delivery": "Les commandes sont habituellement livrées dans les 3 jours."
+        "delivery": "Les commandes sont habituellement livrées dans les 3 jours ouvrés."
       },
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",
