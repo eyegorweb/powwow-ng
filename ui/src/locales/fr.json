@@ -402,8 +402,8 @@
             "P": "OUVERTE"
           },
           "connectionClosingReason": {
-            "A": "ANORMALE",
-            "N": "NORMALE"
+            "A": "Autre",
+            "N": "Normale"
           },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",

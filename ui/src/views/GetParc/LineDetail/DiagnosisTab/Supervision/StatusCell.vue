@@ -8,6 +8,8 @@
 </template>
 
 <script>
+// TODO: Voir si on ne peut pas réfactorer tout les status cell ensemble
+
 export default {
   props: {
     format: {
@@ -17,29 +19,29 @@ export default {
     row: Object,
   },
   computed: {
-    value() {
-      return this.format.getValue(this.row);
+    status() {
+      if (this.row && this.row.pdpConnectionHistory.connectionStatus) {
+        return this.row.pdpConnectionHistory.connectionStatus;
+      } else {
+        return '';
+      }
     },
     label() {
-      if (this.value === 'F') {
+      if (this.status === 'F') {
         return 'Fermé';
-      } else if (this.value === 'O') {
+      } else if (this.status === 'O') {
         return 'Ouvert';
-      } else if (this.value === 'N') {
-        return 'Normale';
-      } else if (this.value === 'A') {
-        return 'Autre';
       } else {
         return '';
       }
     },
 
     isClosed() {
-      return this.value === 'F';
+      return this.status === 'F';
     },
 
     isOpened() {
-      return this.value === 'O';
+      return this.status === 'O';
     },
   },
 };

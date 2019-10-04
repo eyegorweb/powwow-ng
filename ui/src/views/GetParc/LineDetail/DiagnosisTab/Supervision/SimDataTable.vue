@@ -13,6 +13,8 @@ import { dataUsage } from '@/api/consumption';
 import { col } from '@/components/DataTable/utils';
 import DataCol from './DataCol';
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
+import get from 'lodash.get';
+import StatusCell from './StatusCell';
 
 export default {
   props: {
@@ -68,10 +70,7 @@ export default {
           true,
           true,
           {
-            type: 'LabelCell',
-            getValue: row => {
-              return row.pdpConnectionHistory.connectionStatus;
-            },
+            component: StatusCell,
           }
         ),
         col(
@@ -82,9 +81,20 @@ export default {
           true,
           true,
           {
-            type: 'LabelCell',
-            getValue: row => {
-              return row.pdpConnectionDateInfo.connectionClosingReason;
+            type: 'Getter',
+            getter: row => {
+              const closing = get(row, 'pdpConnectionDateInfo.connectionClosingReason');
+              if (closing === 'N') {
+                return this.$t(
+                  'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.N'
+                );
+              } else if (closing === 'A') {
+                return this.$t(
+                  'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.A'
+                );
+              } else {
+                return '';
+              }
             },
           }
         ),
@@ -120,7 +130,7 @@ export default {
         col(
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.ip'),
           'pdpConnectionHistory',
-          true,
+          false,
           true,
           {
             type: 'ObjectAttribute',
@@ -134,7 +144,7 @@ export default {
         col(
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.offer'),
           'pdpConnectionHistory',
-          true,
+          false,
           true,
           {
             type: 'ObjectAttribute',
