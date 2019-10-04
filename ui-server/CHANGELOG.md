@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.268+20191004153025
+2019-10-04
+
+### Fixes
+
+- **line detail:** configuration de la colonne ip (a9d66c242260d716866465f8c134937faf181598)
+
 ## 0.3.0-master.267+20191004160443
 2019-10-04
 
