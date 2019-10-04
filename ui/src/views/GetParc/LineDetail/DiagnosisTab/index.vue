@@ -128,7 +128,6 @@ export default {
   computed: {
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
-      console.log(typeForPartner);
       let visibleItems = this.menuItems.filter(m =>
         m.partnerForType.some(p => p === typeForPartner)
       );

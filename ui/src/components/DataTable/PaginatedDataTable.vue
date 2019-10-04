@@ -6,6 +6,7 @@
     </button>
     <template v-else>
       <DataTable
+        v-if="orderBy"
         :columns.sync="columns"
         :rows="rows || []"
         :page.sync="page"
