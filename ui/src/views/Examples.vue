@@ -129,6 +129,7 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import SMSTable from '@/views/GetParc/LineDetail/DiagnosisTab/Supervision/SMSTable';
 import NetworkTestControl from '@/views/GetParc/LineDetail/DiagnosisTab/NetworkTestControl';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   name: 'Home',
@@ -147,6 +148,9 @@ export default {
     SearchTranslationKey,
     SMSTable,
     NetworkTestControl,
+  },
+  mounted() {
+    console.log(formatLargeNumber(1234567));
   },
   data() {
     const columns = [

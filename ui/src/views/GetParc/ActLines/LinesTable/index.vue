@@ -9,9 +9,9 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}</span>
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
           </ExportButton>
         </div>
       </div>
@@ -48,6 +48,7 @@ import IdCell from './IdCell';
 import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -227,7 +228,8 @@ export default {
     },
 
     total() {
-      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      const total = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      return formatLargeNumber(total);
     },
     rows() {
       return this.linesActionsResponse ? this.linesActionsResponse.items : [];
