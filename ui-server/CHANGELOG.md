@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.260+20191004104134
+2019-10-04
+
+### Fixes
+
+- 603 Adapter la datatable à l'API de consommation Voix (e1ef22bb2357695d02c7f3161ba0c82220f9eadd)
+
 ## 0.3.0-master.259+20191004092155
 2019-10-04
 
