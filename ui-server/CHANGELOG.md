@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.262+20191004124312
+2019-10-04
+
+### Fixes
+
+- **line detail:** affichage de la table de consommation data (69a419b67c7a975a8e9187871a62a872007ad5bc)
+
 ## 0.3.0-master.261+20191004132610
 2019-10-04
 
