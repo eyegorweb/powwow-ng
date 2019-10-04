@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.266+20191004151955
+2019-10-04
+
+### Fixes
+
+- 792 Ajout du message 'ouvrés' (6a7cfc08a085a92ad4713b0214d3e75d9590092b)
+
 ## 0.3.0-master.265+20191004150653
 2019-10-04
 
