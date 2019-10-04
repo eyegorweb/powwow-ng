@@ -4,7 +4,7 @@
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.actLines.total', { total: total }) }}
+            {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col">
@@ -228,8 +228,10 @@ export default {
     },
 
     total() {
-      const total = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
-      return formatLargeNumber(total);
+      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
     },
     rows() {
       return this.linesActionsResponse ? this.linesActionsResponse.items : [];
