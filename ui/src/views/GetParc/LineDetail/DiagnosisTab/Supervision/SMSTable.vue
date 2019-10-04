@@ -73,10 +73,12 @@ export default {
           type: 'ObjectAttribute',
           path: 'offerCode',
         }),
+        /*
         col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
           type: 'ObjectAttribute',
           path: 'order.id',
         }),
+        //*/
         col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
           type: 'ObjectAttribute',
           path: 'deviceInstance.deviceReference',
