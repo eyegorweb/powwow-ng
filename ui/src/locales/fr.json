@@ -263,7 +263,7 @@
       }
     },
     "actDetail": {
-      "title": "{total} lignes trouvées",
+      "title": "{total} lignes trouvée(s)",
       "actionChoice": "Choisir une action",
       "discharge": "Acquitter les actes en échec ",
       "restart": "Relancer les actes en échec",
