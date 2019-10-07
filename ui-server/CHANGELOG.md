@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.269+20191007091419
+2019-10-07
+
+### Fixes
+
+- 798 Corriger les colonnes champs libres pour les utilisateurs partenaires (7fc1791decf96a0b0b0d2aa3139a259e830bf952)
+
 ## 0.3.0-master.268+20191004153025
 2019-10-04
 
