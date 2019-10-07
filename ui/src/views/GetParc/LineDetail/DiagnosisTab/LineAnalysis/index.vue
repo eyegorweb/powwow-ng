@@ -171,7 +171,9 @@ export default {
   },
   computed: {
     isLigneActive() {
-      return this.content.statuts === 'ALLOCATED';
+      const networkStatus = get(this.content, 'accessPoint.networkStatus');
+      const simStatus = get(this.content, 'statuts');
+      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
     },
   },
   props: {

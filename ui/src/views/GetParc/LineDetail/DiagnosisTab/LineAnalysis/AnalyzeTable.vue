@@ -118,15 +118,21 @@ export default {
       ],
     };
   },
+
   methods: {
     getFetchDataFn() {
       return async pageInfo => {
-        const response = await accessPointsByLocalisation(
-          this.line.id,
-          pageInfo,
-          this.localisationType
-        );
-        return { rows: response.items, total: response.total };
+        try {
+          const response = await accessPointsByLocalisation(
+            this.line.id,
+            pageInfo,
+            this.localisationType
+          );
+          return { rows: response.items, total: response.total };
+        } catch (e) {
+          console.log(e.message);
+          return { rows: [], total: 0 };
+        }
       };
     },
   },
