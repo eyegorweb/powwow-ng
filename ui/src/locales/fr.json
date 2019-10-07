@@ -325,7 +325,21 @@
         "sms_in": "SMS entrante",
         "voice_io": "Voix E/S",
         "voice_out": "Voix sortante",
-        "voice_in": "Voix entrante"
+        "voice_in": "Voix entrante",
+        "ALARM_TYPE": {
+          "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
+          "COUNTRY_CHANGE": "Changement de pays",
+          "IMEI_CHANGE": "Changement de module",
+          "NOCHANGE_STATUS": "Non changement de statut sur une période",
+          "OVER_CONSUMPTION_VOLUME": "Sur-consommation",
+          "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte",
+          "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
+          "PLMN_CHANGE": "Changement d'opérateur",
+          "STATUS_CHANGE": "Changement de statut",
+          "SOLD_OVER_THRESHOLD": "Solde au-dessus du seuil",
+          "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
+          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation"
+        }
       },
       "consummated": {
         "data": "Data consommées",
