@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.270+20191007122220
+2019-10-07
+
+### Fixes
+
+- affiche la liste des alarmes (da5f9afadb79c1a1aad8c4c7570e8227711a927d)
+
 ## 0.3.0-master.269+20191007091419
 2019-10-07
 
