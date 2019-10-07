@@ -14,7 +14,7 @@
         </div>
       </div>
       <DataTable
-        storage-id="getsim.orders"
+        :storage-id="storageId"
         storage-version="002"
         :columns="columns"
         :rows="rows || []"
@@ -86,8 +86,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
     ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'isLoading']),
+    storageId() {
+      return this.userName + 'getsim.orders';
+    },
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
@@ -132,7 +135,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const customFieldsColumns = customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.map(c => {
         return {
           id: c.id,
           label: c.label,
@@ -146,9 +149,9 @@ export default {
           },
         };
       });
-      this.columns = [...this.commonColumns, ...customFieldsColumns];
+      this.columns = [...this.commonColumns, ...partnerCustomFieldsColumns];
     } else {
-      this.columns = [...this.commonColumns];
+      this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
   },
   data() {
@@ -313,6 +316,8 @@ export default {
             component: GetSimOrdersMassActionIdsColumn,
           },
         },
+      ],
+      defaultCustomFieldsColumns: [
         {
           id: 15,
           label: this.$t('col.customFields', { num: 1 }),
