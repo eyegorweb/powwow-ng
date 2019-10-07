@@ -38,8 +38,17 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
       isActive
       alarm {
         id
+        startDate
+        expiryDate
         type
+        party {
+          id
+          name
+          partyType
+
+        }
         observationDelay
+        name
         level1
         level1Up
         level1Down
@@ -49,6 +58,8 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
         level3
         level3Up
         level3Down
+        observationCycle
+        alarmScope
       }
     }
   }
