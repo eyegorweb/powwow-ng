@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.276+20191008151036
+2019-10-08
+
+### Fixes
+
+- affiche le msisdn lors de l'ouverture du volet du détail de la ligne (9ef570368ded18e83e040e64dcbe51417ebf95d0)
+
 ## 0.3.0-master.275+20191008140843
 2019-10-08
 
