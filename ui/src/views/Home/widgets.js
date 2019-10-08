@@ -14,7 +14,7 @@ export default [
   {
     title: 'home.widgets.orders',
     description: '',
-    checked: false,
+    checked: true,
     large: true,
     seeMore: true,
     component: OrdersWidget,
@@ -22,7 +22,7 @@ export default [
   {
     title: 'home.widgets.bills',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     seeMore: true,
     component: BillsWidget,
@@ -30,7 +30,7 @@ export default [
   {
     title: 'home.widgets.currentUsage',
     description: '',
-    checked: false,
+    checked: true,
     large: true,
     seeMore: true,
     component: ConsoWidget,
@@ -38,7 +38,7 @@ export default [
   {
     title: 'home.widgets.orderStatus',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     seeMore: true,
     component: OrdersStatusesWidget,
@@ -46,7 +46,7 @@ export default [
   {
     title: 'home.widgets.acts',
     description: '',
-    checked: false,
+    checked: true,
     large: true,
     seeMore: true,
     component: MassActionTable,
@@ -54,7 +54,7 @@ export default [
   {
     title: 'home.widgets.activationAct',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     component: ActivationWidget,
     seeMore: false,
@@ -62,7 +62,7 @@ export default [
   {
     title: 'home.widgets.preactandActivationAct',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     component: PreactivationActivationWidget,
     seeMore: false,
@@ -70,7 +70,7 @@ export default [
   {
     title: 'home.widgets.cancelationAct',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     component: CanceledWidget,
     seeMore: false,
@@ -78,7 +78,7 @@ export default [
   {
     title: 'home.widgets.actsStatus',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     seeMore: false,
     component: GenericWidget,
@@ -86,7 +86,7 @@ export default [
   {
     title: 'home.widgets.searchLine',
     description: '',
-    checked: false,
+    checked: true,
     large: false,
     seeMore: false,
     component: SearchLinesByIdWidget,
@@ -94,7 +94,7 @@ export default [
   {
     title: 'home.widgets.userActs',
     description: '',
-    checked: false,
+    checked: true,
     large: true,
     clickable: true,
     seeMore: true,
