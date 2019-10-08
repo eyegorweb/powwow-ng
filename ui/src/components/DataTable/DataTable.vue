@@ -298,6 +298,16 @@ export default {
           return c;
         }
 
+        if (c.format && c.format.type === 'Getter') {
+          const correspondingColumn = this.columns.find(cf => {
+            return c.id === cf.id;
+          });
+          if (correspondingColumn) {
+            c.format.getter = correspondingColumn.format.getter;
+            c.visibleWhen = correspondingColumn.visibleWhen;
+          }
+        }
+
         return c;
       });
     },

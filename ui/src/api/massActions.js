@@ -47,7 +47,7 @@ export async function exportAllMassActions(columns, pagination, exportFormat) {
 
 export async function searchMassActionsById(massActionId) {
   const response = await searchMassActions(
-    { key: 'id', direction: 'DESC' },
+    { key: 'ID', direction: 'DESC' },
     { page: 0, limit: 1 },
     [{ id: 'filters.massActionId', value: massActionId }]
   );
@@ -75,7 +75,6 @@ export async function fetchTotalMassActions(filters) {
   return response.data.massActions;
 }
 
-// TODO: Optimiser cette requette, il faudra appeler les fields au besoin
 export async function searchMassActions(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
@@ -86,125 +85,53 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
 
   const queryStr = `
   query {
-    massActions(
-      filter: {
-        ${formatFilters(filters)}
-      }
-      ${paginationInfo}
-      ${orderingInfo}
-    ) {
+    massActionsV2(filter: {${formatFilters(filters)}}${paginationInfo}${orderingInfo}) {
       total
       items {
-        party {
-          id
-          name
-        }
-        massActionResponse {
+        massAction {
           id
           actionType
-          startDate
-          dueDate
-          message
-          shortCode
           created
-          endDate
-          targetActionNumber
-          completedActionNumber
-          inProgressActionNumber
-          errorActionNumber
-          partyId
+          dueDate
           status
-          offerName
-          addedServices
-          removeServices
-          transitionName
-          destinationCustomerAccountCode
-          creator
-          custom1
-          custom2
-          custom3
-          custom4
-          custom5
-          custom6
-          creatorDetails {
-            id
-            name {
-              title
-              firstName
-              lastName
-            }
-            username
-            email
-          }
-          creatorParty {
-            id
-            name
-          }
+          started
+          ended
+          targetEntitiesNumber
         }
-        user {
-          id
-          name {
-            title
-            firstName
-            lastName
-          }
-          username
-          email
-          isUserParty
-          isBackOffice
-          roles {
-            category
-          }
-        }
-        party {
-          id
-          name
-          code
-          siren
-          naf
-          contractReference
-        }
-        fromParty {
-          id
-          name
-          code
-          siren
-          naf
-          contractReference
-        }
-        toParty {
-          id
-          name
-          code
-          siren
-          naf
-          contractReference
-        }
+        failedEntitiesNumber
+        completedEntitiesNumber
+        pendingEntitiesNumber
+        partyName
+        creatorUsername
+        info
+        type
+        partyName
+        creatorEmail
       }
     }
-  }`;
-
+  }
+  `;
   const response = await query(queryStr);
-  return response.data.massActions;
+  return response.data.massActionsV2;
 }
 
 export async function countTotalForMassAction(filters) {
   const pagination = {
     page: 0,
-    limit: 0,
+    limit: 1,
   };
   const paginationInfo = `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`;
   const queryStr = `
   query {
 
-    massActions(filter: {${formatFilters(filters)}} ${paginationInfo} ) {
+    massActionsV2(filter: {${formatFilters(filters)}} ${paginationInfo} ) {
       total
     }
 
   }
   `;
   const response = await query(queryStr);
-  return response.data.massActions;
+  return response.data.massActionsV2;
 }
 
 export async function countTotalByMassActionIndicators(
@@ -214,28 +141,28 @@ export async function countTotalByMassActionIndicators(
 ) {
   const pagination = {
     page: 0,
-    limit: 0,
+    limit: 1,
   };
   const paginationInfo = `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`;
   const queryStr = `
   query {
-    totalMassActions: massActions(filter: {}, pagination: {limit:0, page:0}) {
+    totalMassActions: massActionsV2(filter: {}, pagination: {limit:0, page:0}) {
       total
     }
 
-    indicatorActionsInProgress: massActions(filter: {${formatFilters(
+    indicatorActionsInProgress: massActionsV2(filter: {${formatFilters(
       filterIndicatorActionsInProgress
     )}} ${paginationInfo} ) {
       total
     }
 
-    indicatorActionsFailed: massActions(filter: {${formatFilters(
+    indicatorActionsFailed: massActionsV2(filter: {${formatFilters(
       filterIndicatorActionsFailed
     )}} ${paginationInfo} ) {
       total
     }
 
-    indicatorActionsToApply: massActions(filter:  {${formatFilters(
+    indicatorActionsToApply: massActionsV2(filter:  {${formatFilters(
       filterIndicatorActionsToApply
     )}} ${paginationInfo} ) {
       total

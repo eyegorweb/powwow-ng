@@ -33,9 +33,7 @@
             class="list-group-item-action"
           >
             <i slot="icon" />
-            <span slot="title">
-              {{ $t(action) }}
-            </span>
+            <span slot="title">{{ $t(action) }}</span>
           </ExportButton>
         </div>
       </div>
@@ -47,7 +45,7 @@
 import UiDropdownButton from '@/components/ui/UiDropdownButton';
 import UiButton from '@/components/ui/Button';
 import { exportMassAction, cancelMassAction } from '@/api/massActions';
-import DetailsCell from '@/views/GetParc/ActDetail/DetailsCell';
+import DetailsCell from '@/views/GetParc/UnitActionsPage/DetailsCell';
 import ExportButton from '@/components/ExportButton';
 
 export default {

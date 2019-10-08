@@ -11,15 +11,13 @@
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-              </span>
+              <span slot="title">{{
+                $t('getparc.history.details.EXPORT_LINES', { total: total })
+              }}</span>
             </ExportButton>
           </div>
         </div>
         <DataTable
-          :storage-id="storageId"
-          :storage-version="storageVersion"
           :columns="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -45,7 +43,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
-import DetailsCell from './DetailsCell';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
 import { mapMutations } from 'vuex';
@@ -61,7 +58,7 @@ export default {
     massActionId: String,
     storageId: String,
     storageVersion: String,
-    statuses: Array,
+    groupedStatus: String,
     total: [Number, String],
   },
 
@@ -87,7 +84,7 @@ export default {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
           this.massActionId,
-          this.statuses,
+          this.groupedStatus,
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',
@@ -117,19 +114,17 @@ export default {
       try {
         const response = await fetchUnitActions(
           this.$route.params.massActionId,
-          this.statuses,
+          { groupedStatus: this.groupedStatus },
           this.getPageInfo,
           this.orderBy,
           searchFilter
         );
-        this.rows = response.items;
-        this.$emit('update:total', response.total);
+        this.rows = response.items.map(i => ({ ...i, ...i.unitAction }));
       } catch (e) {
         this.flashMessage({
           level: 'danger',
           message: "Erreur lors de l'éxécution de la requette ",
         });
-        this.$emit('update:total', '-');
       }
 
       this.isLoading = false;
@@ -189,7 +184,7 @@ export default {
       page: 1,
       pageLimit: 20,
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
       showExtraCells: false,
@@ -205,12 +200,9 @@ export default {
         {
           id: 2,
           label: this.$t('getparc.actDetail.col.details'),
-          name: 'ICCID',
+          name: 'info',
           orderable: true,
           visible: true,
-          format: {
-            component: DetailsCell,
-          },
         },
         {
           id: 3,
@@ -248,7 +240,7 @@ export default {
         {
           id: 7,
           label: this.$t('getparc.actDetail.col.failReason'),
-          name: 'error_reason',
+          name: 'error',
           orderable: true,
           visible: false,
           // exportId: 'UNKNOWN',
@@ -264,7 +256,7 @@ export default {
         {
           id: 9,
           label: this.$t('getparc.actDetail.col.constructor'),
-          name: 'manufacturer',
+          name: 'deviceManufacturer',
           orderable: true,
           visible: false,
           exportId: 'DEVICE_MANUFACTURER',

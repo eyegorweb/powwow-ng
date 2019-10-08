@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 
-export function col(label, name, visible = true, orderable = false, format = undefined) {
+export function col(label, name, visible = true, orderable = false, format = undefined, extra) {
   return {
     id: uuid(),
     label,
@@ -8,5 +8,6 @@ export function col(label, name, visible = true, orderable = false, format = und
     orderable,
     visible,
     format,
+    ...extra,
   };
 }

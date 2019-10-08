@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="text-success">{{ success }} / </span>
+    <span class="text-success">{{ success }} /</span>
     <span class="text-danger">{{ fail }}</span>
   </div>
 </template>
@@ -13,12 +13,12 @@ export default {
   },
   computed: {
     success() {
-      return `${this.row.completedActionNumber} ${this.$t(
+      return `${this.row.completedEntitiesNumber} ${this.$t(
         'getparc.history.col.success'
       )}`.toLocaleLowerCase();
     },
     fail() {
-      return `${this.row.errorActionNumber} ${this.$t(
+      return `${this.row.failedEntitiesNumber} ${this.$t(
         'getparc.history.col.fail'
       )}`.toLocaleLowerCase();
     },

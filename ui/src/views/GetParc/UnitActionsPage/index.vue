@@ -44,29 +44,26 @@
           :mass-action-id="$route.params.massActionId"
           @refreshTables="refreshTables"
           :total.sync="tabs[0].total"
-          @is-loading="tabs[0].isLoading = $event"
         />
       </div>
       <div slot="ongoing">
         <UnitActsTable
           storage-id="getparc.actdetail.ongoing"
           storage-version="001"
+          grouped-status="PENDING"
           :key="'tab2'"
           :mass-action-id="$route.params.massActionId"
-          :statuses="['WAITING', 'SENT', 'IN_PROGRESS']"
           :total.sync="tabs[1].total"
-          @is-loading="tabs[1].isLoading = $event"
         />
       </div>
       <div slot="finished">
         <UnitActsTable
           storage-id="getparc.actdetail.finished"
           storage-version="001"
+          grouped-status="COMPLETED"
           :key="'tab3'"
           :mass-action-id="$route.params.massActionId"
-          :statuses="['OK']"
           :total.sync="tabs[2].total"
-          @is-loading="tabs[2].isLoading = $event"
         />
       </div>
     </UiTabs>
@@ -78,9 +75,8 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import FailedTable from './FailedTable';
 import UnitActsTable from './UnitActsTable';
-import ActHistoryDetailPage from '@/views/GetParc/ActHistory/ActHistoryDetailPage';
+import ActHistoryDetailPage from '@/views/GetParc/MassActionsPage/ActHistoryDetailPage';
 import { searchMassActionsById } from '@/api/massActions';
-import { fetchUnitActionsTotals } from '@/api/unitActions';
 import get from 'lodash.get';
 
 export default {
@@ -124,38 +120,22 @@ export default {
   },
   methods: {
     async refreshTables() {
-      this.refreshCurrentMassAction();
+      await this.refreshCurrentMassAction();
 
-      const setLoading = value => {
-        this.tabs = this.tabs.map(c => {
-          return { ...c, isLoading: value };
-        });
-      };
-      setLoading(true);
-      let totals;
-      try {
-        totals = await fetchUnitActionsTotals(this.$route.params.massActionId);
-      } catch {
-        setLoading(false);
-      }
-      setLoading(false);
-
-      if (totals) {
-        this.tabs = [
-          {
-            ...this.tabs[0],
-            total: get(totals, 'failed.total', 0),
-          },
-          {
-            ...this.tabs[1],
-            total: get(totals, 'ongoing.total', 0),
-          },
-          {
-            ...this.tabs[2],
-            total: get(totals, 'finished.total', 0),
-          },
-        ];
-      }
+      this.tabs = [
+        {
+          ...this.tabs[0],
+          total: get(this.massAction, 'failedEntitiesNumber', 0),
+        },
+        {
+          ...this.tabs[1],
+          total: get(this.massAction, 'pendingEntitiesNumber', 0),
+        },
+        {
+          ...this.tabs[2],
+          total: get(this.massAction, 'completedEntitiesNumber', 0),
+        },
+      ];
     },
     getMassActionItem(response) {
       if (response) {

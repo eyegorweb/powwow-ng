@@ -9,9 +9,9 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </span>
+            <span slot="title">{{
+              $t('getparc.history.details.EXPORT_LINES', { total: total })
+            }}</span>
           </ExportButton>
         </div>
       </div>
@@ -45,7 +45,7 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 // import LinkTo from './LinkTo';
-import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
+import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
