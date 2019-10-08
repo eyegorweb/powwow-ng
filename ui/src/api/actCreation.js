@@ -486,3 +486,30 @@ export async function changeSingleICCID(params) {
 
   return await query(queryStr);
 }
+
+export async function changeSingleCustomerAccount(params) {
+  const { partyId, dueDate, notifEmail, simCardInstanceId, targetCustomerAccount } = params;
+
+  const queryStr = `
+  mutation {
+    changeCustomerAccountV2(
+      input: {
+        partyId: ${partyId},
+        simCardInstanceIds: [${simCardInstanceId}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}",
+        targetCustomerAccountId: ${targetCustomerAccount}
+      })
+      {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+      }
+  }
+  `;
+
+  return await query(queryStr);
+}
