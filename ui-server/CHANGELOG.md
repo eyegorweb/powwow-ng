@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.273+20191008125729
+2019-10-08
+
+### Fixes
+
+- correctif appliquant l'id de la simcardinstance (1e96c2b554def03b084b5ae1f42c9999efc7bd2b)
+
 ## 0.3.0-master.272+20191008105348
 2019-10-08
 
