@@ -84,7 +84,7 @@ export default {
         },
       ],
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
     };
@@ -115,12 +115,13 @@ export default {
       this.isLoading = true;
       const response = await fetchUnitActions(
         this.massActionId,
-        this.statuses,
+        { statuses: this.statuses },
         this.getPageInfo,
         this.orderBy,
         searchFilter
       );
-      this.unitActions = response.items;
+      this.unitActions = response.items.map(i => ({ ...i, ...i.unitAction }));
+      console.log(this.unitActions);
 
       this.total = response.total;
 

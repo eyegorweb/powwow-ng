@@ -32,7 +32,7 @@ import { mapState, mapMutations } from 'vuex';
 import GetSimCreateOrderPanel from '@/views/GetSim/CreateOrder/CreateOrderPanel';
 import GetSimOrderDetails from '@/views/GetSim/GetSimOrderDetails';
 import GetSimCreatorDetails from '@/views/GetSim/GetSimCreatorDetails';
-import ActHistoryDetailPanel from '@/views/GetParc/ActHistory/ActHistoryDetailPanel';
+import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDetailPanel';
 import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
 import CustomizePanel from '@/views/Home/CustomizePanel';

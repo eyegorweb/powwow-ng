@@ -17,7 +17,7 @@
       </div>
       <DataTable
         storage-id="getparc.actHistory"
-        storage-version="001"
+        storage-version="002"
         :columns.sync="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -44,8 +44,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
-import Creator from './Creator';
-import DetailsCell from './DetailsCell';
 import ActionCell from './ActionCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
@@ -90,6 +88,7 @@ export default {
           id: 1,
           label: this.$t('col.id'),
           name: 'id',
+          sortingName: 'ID',
           orderable: true,
           visible: true,
           format: {
@@ -100,7 +99,7 @@ export default {
           id: 2,
           label: this.$t('getparc.history.col.action'),
           name: 'actionType',
-          orderable: true,
+          orderable: false,
           visible: true,
           format: {
             component: ActionCell,
@@ -110,48 +109,45 @@ export default {
           id: 3,
           label: this.$t('getparc.history.col.actDate'),
           name: 'dueDate',
-          orderable: true,
+          orderable: false,
           visible: true,
         },
         {
           id: 4,
           label: this.$t('getparc.history.col.details'),
-          name: 'actionType',
-          orderable: true,
+          name: 'info',
+          orderable: false,
           visible: true,
-          format: {
-            component: DetailsCell,
-          },
         },
         {
           id: 5,
           label: this.$t('getparc.history.col.target'),
-          name: 'targetActionNumber',
-          sortingName: 'target_Action_Number',
+          name: 'targetEntitiesNumber',
+          sortingName: 'TARGET_ENTITIES_NUMBER',
           orderable: true,
           visible: true,
         },
         {
           id: 6,
           label: this.$t('getparc.history.col.success'),
-          sortingName: 'completed_Action_Number',
-          name: 'completedActionNumber',
+          sortingName: 'UNIT_ACTIONS_COMPLETED',
+          name: 'completedEntitiesNumber',
           orderable: true,
           visible: true,
         },
         {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
-          name: 'inProgressActionNumber',
-          sortingName: 'in_Progess_Action_Number',
+          name: 'pendingEntitiesNumber',
+          sortingName: 'UNIT_ACTIONS_PENDING',
           orderable: true,
           visible: true,
         },
         {
           id: 8,
           label: this.$t('getparc.history.col.fail'),
-          name: 'errorActionNumber',
-          sortingName: 'error_Action_Number',
+          name: 'failedEntitiesNumber',
+          sortingName: 'UNIT_ACTIONS_FAILED',
           orderable: true,
           visible: false,
         },
@@ -160,49 +156,50 @@ export default {
           id: 9,
           label: this.$t('getparc.history.col.created'),
           name: 'created',
-          orderable: true,
+          orderable: false,
           visible: false,
         },
         {
           id: 10,
           label: this.$t('getparc.history.col.endDate'),
-          name: 'endDate',
-          orderable: true,
+          name: 'ended',
+          orderable: false,
           visible: false,
         },
         {
           id: 11,
           label: this.$t('getparc.history.col.partyId'),
-          name: 'party',
+          name: 'partyName',
           orderable: true,
-          sortingName: 'partyName',
+          sortingName: 'PARTY',
           visible: false,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'name',
-          },
         },
         {
           id: 12,
           label: this.$t('getparc.history.col.creator'),
-          name: 'creator',
+          name: 'creatorUsername',
+          sortingName: 'CREATOR',
           orderable: true,
           visible: false,
-          format: {
-            component: Creator,
-          },
         },
         {
           id: 13,
           label: this.$t('getparc.history.col.status'),
           name: 'status',
           orderable: true,
+          sortingName: 'STATUS',
           visible: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
+            },
+          },
         },
       ],
       pageLimit: 20,
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
       showExtraCells: false,
@@ -268,15 +265,7 @@ export default {
     // Pour chaque item/objet, on joue la valeur de massActionResponse pour la remonter d'un niveau et pour qu'elle se trouve à coté de "user, party, fromParty, toParty"
     formatResponse(response) {
       if (response) {
-        return response.map(i => {
-          const tempObject = {
-            user: i.user,
-            party: i.party,
-            fromParty: i.fromParty,
-            toParty: i.toParty,
-          };
-          return Object.assign({}, i.massActionResponse, tempObject);
-        });
+        return response.map(i => ({ ...i, ...i.massAction }));
       }
     },
     getExportFn() {

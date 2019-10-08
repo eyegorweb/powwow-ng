@@ -149,7 +149,7 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import MSISDNHistoryTable from './MSISDNHistoryTable';
 import EquipmentsHistoryTable from './EquipmentsHistoryTable';
 import draggable from 'vuedraggable';
-import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
+import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import moment from 'moment';
 import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';

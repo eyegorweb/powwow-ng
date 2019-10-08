@@ -4,7 +4,7 @@
       storage-id="getparc.actdetail.failed"
       storage-version="001"
       :mass-action-id="$route.params.massActionId"
-      :statuses="['KO']"
+      grouped-status="FAILED"
       :total.sync="totalFailed"
       @is-loading="$emit('is-loading', $event)"
     >
@@ -170,7 +170,7 @@ export default {
         {
           id: 8,
           label: this.$t('getparc.actDetail.col.constructor'),
-          name: 'manufacturer',
+          name: 'deviceManufacturer',
           orderable: true,
           visible: false,
           exportId: 'LINE_MANUFACTURER',
@@ -194,7 +194,7 @@ export default {
       page: 0,
       pageLimit: 20,
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
       showExtraCells: false,
