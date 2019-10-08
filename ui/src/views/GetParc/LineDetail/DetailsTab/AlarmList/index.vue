@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     async fetchAlarms() {
-      this.alarms = await fetchAlarmsWithInfos(this.content.party.id);
+      this.alarms = await fetchAlarmsWithInfos(this.content.id);
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
