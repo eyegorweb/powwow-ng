@@ -619,7 +619,10 @@
       },
 
       "transfertCF": {
-        "successMessage": "La demande de changement de compte de facturation a bien été prise en compte."
+        "confirmationWarning": "Confirmez-vous le changement du compte de facturation ?",
+        "successMessage": "La demande de changement de compte de facturation a bien été prise en compte.",
+        "currentBillingAccount": "Compte de facturation actuel",
+        "newBillingAccount": "Nouveau compte de facturation"
       },
 
       "phaseTest": {
