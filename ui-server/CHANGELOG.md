@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.272+20191008105348
+2019-10-08
+
+### Fixes
+
+- 823 Afficher les champs libres dans la liste des lignes (0a5b4531e3a46382bbad0c865961bfe9f38f9667)
+
 ## 0.3.0-master.271+20191008091031
 2019-10-08
 
