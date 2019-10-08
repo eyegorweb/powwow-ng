@@ -20,7 +20,9 @@ export default {
     openDetailPanel() {
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getparc.actLines.details.title', { id: this.row.iccid }),
+          title: this.$t('getparc.lineDetail.title', {
+            msisdn: this.row.accessPoint.lines[0].msisdn,
+          }),
           panelId: 'getparc.actLines.details.title',
           payload: this.row,
           wide: false,
