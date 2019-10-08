@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.274+20191008130847
+2019-10-08
+
+### Features
+
+- **line detail:** ajout de l'acte de création "Changer de compte de facturation" (8646d24bb5e2b6bbfbd4e81663cd43ee772a10b3)
+
 ## 0.3.0-master.273+20191008125729
 2019-10-08
 
