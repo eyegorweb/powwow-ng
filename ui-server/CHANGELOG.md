@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.277+20191009084752
+2019-10-09
+
+### Features
+
+- maquette pour l'écran "tester le réseau et la localisation" (14428ad54a28a6944d50911ae036182b38b2f6bd)
+
 ## 0.3.0-master.276+20191008151036
 2019-10-08
 
