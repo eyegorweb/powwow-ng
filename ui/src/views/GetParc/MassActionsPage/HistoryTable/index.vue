@@ -4,20 +4,20 @@
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.history.total', { total: total }) }}
+            {{ $t('getparc.history.total', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
             <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
             </span>
           </ExportButton>
         </div>
       </div>
       <DataTable
         storage-id="getparc.actHistory"
-        storage-version="002"
+        storage-version="003"
         :columns.sync="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -48,6 +48,7 @@ import ActionCell from './ActionCell';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -307,6 +308,9 @@ export default {
     },
     total() {
       return this.massActionsResponse ? this.massActionsResponse.total : 0;
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
     },
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };

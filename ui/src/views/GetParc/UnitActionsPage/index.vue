@@ -39,32 +39,13 @@
         </UiTab>
       </template>
       <div slot="fail">
-        <FailedTable
-          :key="'tab1'"
-          :mass-action-id="$route.params.massActionId"
-          @refreshTables="refreshTables"
-          :total.sync="tabs[0].total"
-        />
+        <FailedTable :total="tabs[0].total" @refreshTables="refreshTables" />
       </div>
       <div slot="ongoing">
-        <UnitActsTable
-          storage-id="getparc.actdetail.ongoing"
-          storage-version="001"
-          grouped-status="PENDING"
-          :key="'tab2'"
-          :mass-action-id="$route.params.massActionId"
-          :total.sync="tabs[1].total"
-        />
+        <PendingTable :total="tabs[1].total" />
       </div>
       <div slot="finished">
-        <UnitActsTable
-          storage-id="getparc.actdetail.finished"
-          storage-version="001"
-          grouped-status="COMPLETED"
-          :key="'tab3'"
-          :mass-action-id="$route.params.massActionId"
-          :total.sync="tabs[2].total"
-        />
+        <FinishedTable :total="tabs[2].total" />
       </div>
     </UiTabs>
   </div>
@@ -74,10 +55,11 @@
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import FailedTable from './FailedTable';
-import UnitActsTable from './UnitActsTable';
 import ActHistoryDetailPage from '@/views/GetParc/MassActionsPage/ActHistoryDetailPage';
 import { searchMassActionsById } from '@/api/massActions';
 import get from 'lodash.get';
+import FinishedTable from './FinishedTable';
+import PendingTable from './PendingTable';
 
 export default {
   components: {
@@ -85,7 +67,8 @@ export default {
     UiTab,
     FailedTable,
     ActHistoryDetailPage,
-    UnitActsTable,
+    FinishedTable,
+    PendingTable,
   },
 
   async mounted() {

@@ -1,10 +1,9 @@
 <template>
   <div>
     <UnitActsTable
-      storage-id="getparc.actdetail.failed"
-      storage-version="001"
       :mass-action-id="$route.params.massActionId"
       grouped-status="FAILED"
+      :columns="columns"
       :total.sync="totalFailed"
       @is-loading="$emit('is-loading', $event)"
     >
@@ -89,7 +88,6 @@ export default {
     UnitActsTable,
   },
   props: {
-    massActionId: String,
     rows: Array,
     total: [Number, String],
   },
@@ -154,7 +152,7 @@ export default {
         {
           id: 7,
           label: this.$t('getparc.actDetail.col.failReason'),
-          name: 'error_reason',
+          name: 'error',
           orderable: true,
           visible: true,
           // exportId: 'UNKNOWN',
@@ -210,7 +208,7 @@ export default {
       this.acknowledgeTxt = '';
     },
     async saveAcknowledgement() {
-      await acknowledgeFailedUnitActions(this.acknowledgeTxt, this.massActionId);
+      await acknowledgeFailedUnitActions(this.acknowledgeTxt, this.$route.params.massActionId);
       this.$emit('refreshTables');
       this.closeAcknowledgement();
     },
@@ -219,7 +217,7 @@ export default {
     },
     async restartFailedActs() {
       this.replayPopUp = true;
-      await replayFailedUnitsActions(this.massActionId);
+      await replayFailedUnitsActions(this.$route.params.massActionId);
       this.$emit('refreshTables');
     },
     getExportFn() {

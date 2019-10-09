@@ -1,10 +1,5 @@
 <template>
-  <div v-if="!isLigneActive" class="warning-message">
-    <h3 class="text-warning text-center mt-5">
-      {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.inactiveLineWarning') }}
-    </h3>
-  </div>
-  <div v-else>
+  <div>
     <div class="row">
       <div class="col-md-5">
         <div>
@@ -169,19 +164,12 @@ export default {
       ],
     };
   },
-  computed: {
-    isLigneActive() {
-      const networkStatus = get(this.content, 'accessPoint.networkStatus');
-      const simStatus = get(this.content, 'statuts');
-      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
-    },
-  },
+
   props: {
     content: Object,
-    menuActive: Boolean,
   },
   async mounted() {
-    if (this.getValue(this.content, 'id') && this.isLigneActive) {
+    if (this.getValue(this.content, 'id')) {
       const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
       if (pdpResponse && pdpResponse.length) {
         this.pdpConnexionData = pdpResponse[0].dataHistroy;
@@ -190,7 +178,6 @@ export default {
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
       this.loadingGeoloc = false;
     }
-    this.$emit('update:menuActive', this.isLigneActive);
   },
   methods: {
     getValue(objectToUse, path, defaultValue = '') {
