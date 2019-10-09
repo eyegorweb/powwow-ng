@@ -9,13 +9,14 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}</span>
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
           </ExportButton>
         </div>
       </div>
       <DataTable
+        v-if="columns"
         storage-id="getparc.lines"
         storage-version="0"
         :columns="columns"
@@ -172,6 +173,7 @@ export default {
   },
   data() {
     return {
+      columns: undefined,
       commonColumns: [
         {
           id: 99,
