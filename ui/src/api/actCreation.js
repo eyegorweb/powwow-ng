@@ -513,3 +513,11 @@ export async function changeSingleCustomerAccount(params) {
 
   return await query(queryStr);
 }
+
+export async function createGeoLocationMassAction(simCardId) {
+  return await query(`
+  mutation {
+    createGeoLocationMassAction(simCardInstanceId: ${simCardId})
+  }
+  `);
+}

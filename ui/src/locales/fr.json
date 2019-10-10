@@ -479,7 +479,31 @@
         "statuses": {
           "RUNNING": "En cours",
           "WAITING": "En attente",
-          "TERMINATED": "Terminé"
+          "TERMINATED": "Terminé",
+          "TEST_OK": "Test OK",
+          "TEST_KO": "Test KO"
+        },
+
+        "localisation": {
+          "requestDate": "Date de la demande",
+          "requestStatus": "Statut de la demande",
+          "reload": "Rafraîchir",
+          "createRequest": "Faire une nouvelle demande",
+          "warningMsg": "Voulez vous enregistrer une nouvelle demande ?",
+          "errors": {
+            "PT03-LOC_DER10501": "Code 10501 - La ligne est en situation de roaming.",
+            "PT03-LOC_DER10005": "Code 10005 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10006": "Code 10601 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10003": "Code 1003 - La ligne n'est pas activée sur la plateforme de test&localisation réseau.",
+            "PT03-LOC_DER10004": "Code 1003 - La ligne n'est pas activée sur la plateforme de test&localisation réseau.",
+            "PT03-LOC_DER10601": "Code 10601 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10602": "Code 10602 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10007": "Code 10700 - La demande n'a pas pu être traitée.",
+            "PT03-LOC_DER10500": "Code 10500 - La ligne n'est pas accrochée au réseau actuellement.",
+            "CANCELLED": "Echec de la geolocalisation",
+            "WAITING": "En attente de réponse",
+            "generic": "La localisation n'a pas pu être effectuée - code erreur : {errorCode}"
+          }
         },
         "errors": {
           "DMD_CONSO_CPT": {

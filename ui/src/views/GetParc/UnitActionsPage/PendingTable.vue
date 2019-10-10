@@ -63,7 +63,7 @@ export default {
         {
           id: 6,
           label: this.$t('getparc.actDetail.col.startDate'),
-          name: 'statusDate',
+          name: 'dueDate',
           orderable: true,
           visible: true,
           // exportId: 'UNKNOWN',

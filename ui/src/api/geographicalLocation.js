@@ -59,3 +59,13 @@ export async function accessPointsByLocalisation(
 
   return response.data.accessPointsByLocalisation;
 }
+
+export async function getNetworkWeatherUrl() {
+  const response = await query(`
+  {
+    getUrl(typeUrl: NETWORK_WEATHER)
+  }
+  `);
+
+  return response.data.getUrl;
+}
