@@ -5,7 +5,7 @@
         v-for="(id, index) in list"
         :key="id"
         class="btn btn-link p-0 id"
-        @click.prevent="openDetails"
+        @click.prevent="$emit('click', id)"
       >
         {{ index ? ', ' : '' }}{{ id }}
       </button>
@@ -15,7 +15,7 @@
         v-for="(id, index) in list"
         :key="id"
         class="btn btn-link p-0 id"
-        @click.prevent="openDetails"
+        @click.prevent="$emit('click', id)"
       >
         {{ index ? ', ' : '' }}{{ id }}
       </button>
@@ -60,11 +60,6 @@ export default {
     },
     remainingItems() {
       return this.content.length - this.limit;
-    },
-  },
-  methods: {
-    openDetails() {
-      console.log('ouverture détail de l acte');
     },
   },
 };
