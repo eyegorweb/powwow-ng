@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.278+20191010143150
+2019-10-10
+
+### Features
+
+- Ecran : tester le réseau et la localisation (e835d4074f150975779ab678791f1517e36518a4)
+
 ## 0.3.0-master.277+20191009084752
 2019-10-09
 
