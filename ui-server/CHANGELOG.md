@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.280+20191010153246
+2019-10-10
+
+### Fixes
+
+- **orders:** ouvrir le volet de l'acte de gestion à partir de l'id de gestion (a9144037a569ef8f12c6b8557d606be468b04c2a)
+
 ## 0.3.0-master.279+20191010151028
 2019-10-10
 
