@@ -1,6 +1,6 @@
 <template>
   <div class="status">
-    <CheckMark :is-error="isError" />
+    <CheckMark v-if="!noCheck" :is-error="isError" />
     <div class="label" :class="{ error: isError }">
       <slot />
     </div>
@@ -15,7 +15,17 @@ export default {
     CheckMark,
   },
   props: {
-    isError: Boolean,
+    /**
+     * ERROR
+     * SUCCESS
+     */
+    state: String,
+    noCheck: Boolean,
+  },
+  computed: {
+    isError() {
+      return this.state === 'ERROR';
+    },
   },
 };
 </script>

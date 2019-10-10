@@ -25,11 +25,13 @@
       </div>
       <div class="col">
         <a
+          v-if="networkWeatherUrl"
           target="_blank"
-          href="https://valid-supportexploitation.bouyguestelecom-entreprises.fr"
+          :href="networkWeatherUrl"
           class="btn btn-block btn-outline-primary"
-          >{{ $t('getparc.lineDetail.tab3.networkMeteo') }}</a
         >
+          {{ $t('getparc.lineDetail.tab3.networkMeteo') }}
+        </a>
       </div>
     </div>
   </div>
@@ -38,6 +40,7 @@
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
 import SimpleMap from '@/components/SimpleMap';
+import { getNetworkWeatherUrl } from '@/api/geographicalLocation';
 
 export default {
   props: {
@@ -47,6 +50,16 @@ export default {
   components: {
     CircleLoader,
     SimpleMap,
+  },
+
+  data() {
+    return {
+      networkWeatherUrl: undefined,
+    };
+  },
+
+  async mounted() {
+    this.networkWeatherUrl = await getNetworkWeatherUrl();
   },
 
   computed: {

@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-9 pt-3" v-if="content">
       <template v-if="isLigneActive">
-        <LineAnalysis v-if="section === 'line_analysis'" :content="content" />
+        <LineAnalysisSubMenu1 v-if="section === 'line_analysis'" :content="content" />
         <NetworkStatusSubMenu2 v-if="section === 'network_location_test'" :content="content" />
         <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
         <Supervision v-if="section === 'supervision'" :content="content" />
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import LineAnalysis from './LineAnalysis';
+import LineAnalysisSubMenu1 from './LineAnalysisSubMenu1';
 import NetworkStatusSubMenu2 from './NetworkStatusSubMenu2';
 import NetworkTestControl from './NetworkTestControl';
 import Supervision from './Supervision';
@@ -50,7 +50,7 @@ import get from 'lodash.get';
 
 export default {
   components: {
-    LineAnalysis,
+    LineAnalysisSubMenu1,
     NetworkStatusSubMenu2,
     NetworkTestControl,
     Supervision,

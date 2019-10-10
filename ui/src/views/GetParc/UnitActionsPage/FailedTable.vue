@@ -77,6 +77,7 @@
 <script>
 import Modal from '@/components/Modal';
 import UnitActsTable from './UnitActsTable';
+import { col } from '@/components/DataTable/utils';
 
 import { exportLines } from '@/api/unitActions';
 
@@ -157,6 +158,7 @@ export default {
           visible: true,
           // exportId: 'UNKNOWN',
         },
+        col(this.$t('getparc.actDetail.col.startDate'), 'dueDate', false),
         {
           id: 5,
           label: this.$t('getparc.actDetail.col.imsi'),

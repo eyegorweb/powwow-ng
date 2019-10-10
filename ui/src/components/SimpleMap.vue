@@ -1,19 +1,11 @@
 <template>
   <GoogleMap
+    v-if="options"
     :center="center"
     :zoom="zoomLevel"
     map-type-id="roadmap"
     style="width: 100%; height: 22.7rem"
-    :options="{
-      zoomControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      fullscreenControl: false,
-      disableDefaultUi: false,
-      draggable: false,
-    }"
+    :options="options"
   >
     <GMarker
       :key="m.id"
@@ -28,6 +20,7 @@
 
 <script>
 import { Map as GoogleMap, Marker as GMarker } from 'vue2-google-maps';
+import uuid from 'uuid/v1';
 
 export default {
   components: {
@@ -35,16 +28,29 @@ export default {
     GMarker,
   },
   props: {
-    markers: {
-      type: Array,
-    },
+    markers: Array,
+    zoom: Boolean,
+    draggable: Boolean,
   },
   data() {
     return {
+      options: undefined,
       center: {
         lat: 46.8989,
         lng: 2.3522,
       },
+    };
+  },
+  mounted() {
+    this.options = {
+      zoomControl: this.zoom,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+      disableDefaultUi: false,
+      draggable: this.draggable,
     };
   },
   computed: {
@@ -52,7 +58,7 @@ export default {
       if (!this.markers) return;
       return this.markers.map(m => {
         return {
-          id: 0,
+          id: uuid(),
           position: {
             lat: m.latitude,
             lng: m.longitude,
