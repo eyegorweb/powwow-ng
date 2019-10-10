@@ -75,6 +75,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
           custom4FieldLabel
           custom5FieldLabel
           custom6FieldLabel
+          partyType
          }
         id
         iccid
@@ -542,4 +543,10 @@ export async function exportCurrentConsumption(simcardId, exportFormat) {
   }
 
   return response.data.exportCurrentConsumption;
+}
+
+export async function unthrottleLine(accessPointId) {
+  const queryStr = `mutation { unthrottleLine(accessPointId: ${accessPointId}) }`;
+  const response = await query(queryStr);
+  return response.data.unthrottleLine;
 }
