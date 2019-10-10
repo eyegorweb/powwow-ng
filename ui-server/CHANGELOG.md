@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.279+20191010151028
+2019-10-10
+
+### Features
+
+- activer la levée de coupure (618af5a0b453c90d7cbe385c963ed713f7b95adf)
+
 ## 0.3.0-master.278+20191010143150
 2019-10-10
 
