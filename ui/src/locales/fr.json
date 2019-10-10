@@ -439,7 +439,8 @@
           "gaugeConsumtion": "Jauge de consommation",
           "stateStopService": "Etat Coupure",
           "tresholdStopService": "Seuil Coupure",
-          "tmpDebarring": "Debarring Tempraire"
+          "tmpDebarring": "Debarring Tempraire",
+          "activationEndingStopService": "Activation de la levée de coupure"
         },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data",

@@ -320,3 +320,20 @@ export async function removeConsumptionOnDemand(consumptionOnDemandId) {
   `;
   return await query(queryStr);
 }
+
+export async function networkInformationForLine(msisdn) {
+  const queryStr = `
+  query {
+    networkInformationForLine(lineMSISDN: "${msisdn}") {
+      dataConsumtionAmount
+      barringStatus
+      barringTreshhold
+      temporaryBarring
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.networkInformationForLine;
+}
