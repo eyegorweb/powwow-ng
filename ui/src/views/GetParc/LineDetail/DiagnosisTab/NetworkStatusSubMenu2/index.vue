@@ -4,9 +4,7 @@
       Historique des demandes de test Réseau / Localisation
     </h4>
     <div v-if="isLoading" class="loading">{{ $t('loading') }}...</div>
-    <div v-else-if="items && !items.length" class="alert alert-light" role="alert">
-      {{ $t('noResult') }}
-    </div>
+
     <div v-else class="row">
       <div class="col-5">
         <div class="bg-white p-2">
@@ -14,7 +12,10 @@
         </div>
       </div>
       <div class="col-7">
-        <table class="table table-blue mt-1">
+        <div v-if="items && !items.length" class="alert alert-light" role="alert">
+          {{ $t('noResult') }}
+        </div>
+        <table v-else class="table table-blue mt-1">
           <thead>
             <tr>
               <th>{{ $t('getparc.lineDetail.tab3.localisation.requestDate') }}</th>
