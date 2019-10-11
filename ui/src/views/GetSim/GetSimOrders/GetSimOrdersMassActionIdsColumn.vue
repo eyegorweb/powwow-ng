@@ -8,6 +8,7 @@
 import TruncateList from '@/components/ui/TruncateList';
 import { mapState, mapMutations } from 'vuex';
 import { searchMassActionsById } from '@/api/massActions';
+import get from 'lodash.get';
 
 export default {
   name: 'GetSimOrdersMassActionIdsColumn',
@@ -31,10 +32,14 @@ export default {
     async openActHistoryDetailsPanel(id) {
       const massAction = await searchMassActionsById(id);
       if (!massAction) return;
-
+      const type = get(massAction, 'type');
+      const date = this.formattedDate(get(massAction, 'massAction.dueDate'));
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getparc.history.details.title'),
+          title: this.$t('getparc.history.details.manageActTitle', {
+            type,
+            date,
+          }),
           panelId: 'getparc.history.details.title',
           payload: massAction,
           wide: false,
@@ -47,6 +52,11 @@ export default {
       } else {
         openTrigger();
       }
+    },
+
+    formattedDate(date) {
+      const parts = date.split(' ');
+      return parts[0];
     },
   },
 };

@@ -6,7 +6,9 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-// import { setTimeout } from 'timers';
+import { setTimeout } from 'timers';
+import get from 'lodash.get';
+import { searchMassActionsById } from '@/api/massActions';
 
 export default {
   name: 'IdCell',
@@ -17,25 +19,33 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
 
-    openActHistoryDetailsPanel() {
-      // attente api
-      // const openTrigger = () => {
-      //   this.openPanel({
-      //     title: this.$t('getparc.history.details.title', { id: this.row.id }),
-      //     panelId: 'getparc.history.details.title',
-      //     payload: this.row,
-      //     wide: false,
-      //     backdrop: false,
-      //   });
-      // };
-      /**
-       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
-       */
-      // if (this.isOpen) {
-      //   setTimeout(openTrigger, 500);
-      // } else {
-      //   openTrigger();
-      // }
+    async openActHistoryDetailsPanel() {
+      const massAction = await searchMassActionsById(this.row.massActionId);
+      if (!massAction) return;
+      const type = get(massAction, 'type');
+      const date = this.formattedDate(get(massAction, 'massAction.dueDate'));
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t('getparc.history.details.manageActTitle', {
+            type,
+            date,
+          }),
+          panelId: 'getparc.history.details.title',
+          payload: massAction,
+          wide: false,
+          backdrop: false,
+        });
+      };
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
+    },
+
+    formattedDate(date) {
+      const parts = date.split(' ');
+      return parts[0];
     },
   },
   computed: mapState({
