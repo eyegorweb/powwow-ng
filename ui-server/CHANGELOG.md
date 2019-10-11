@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.283+20191011100352
+2019-10-11
+
+### Features
+
+- 570 Barre de recherche par ligne (f23086ba83b71b740dd631f802a8c1462882009a)
+
 ## 0.3.0-master.282+20191011094846
 2019-10-11
 
