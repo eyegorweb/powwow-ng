@@ -2,6 +2,37 @@
 
 <!--- next entry here -->
 
+## 0.8.0
+2019-10-11
+
+### Features
+
+- 570 Tables pour analyser les lignes sur la même localisation (d4296a0aa62c87e309a80f74a70de6d34ff512ff)
+- **line detail:** ajout de l'acte de création "Changer de compte de facturation" (8646d24bb5e2b6bbfbd4e81663cd43ee772a10b3)
+- maquette pour l'écran "tester le réseau et la localisation" (14428ad54a28a6944d50911ae036182b38b2f6bd)
+- Ecran : tester le réseau et la localisation (e835d4074f150975779ab678791f1517e36518a4)
+- activer la levée de coupure (618af5a0b453c90d7cbe385c963ed713f7b95adf)
+- 570 Barre de recherche par ligne (f23086ba83b71b740dd631f802a8c1462882009a)
+
+### Fixes
+
+- deploy uat (7b2ab53b0d9179e4ecf95eb94ce3c42dbc52f798)
+- Afficher un message d'erreur quand la table est vide (a00887d596ad16fe81779198124bc87f6e8dae5f)
+- **line detail:** mise à jour de l'API des consommations data pour afficher l'analyse de la ligne (529b7c263ec3a11fe01ad8550d9af93a9386cbf2)
+- **line detail:** affichage du sous menu en fonction du type de partenaire (9eae0d8f366109704831264c8c082cfd7acf2b9d)
+- adapter l'API consommation sms (d03f6b57a0fe9e9d7d03e5481805cc19dd54aecc)
+- 603 Adapter la datatable à l'API de consommation Voix (e1ef22bb2357695d02c7f3161ba0c82220f9eadd)
+- **line detail:** affichage de la table de consommation data (69a419b67c7a975a8e9187871a62a872007ad5bc)
+- 794 formatter les nombres (f02b4f17ba604510baf643cdc262f48f82753fb5)
+- 792 Ajout du message 'ouvrés' (6a7cfc08a085a92ad4713b0214d3e75d9590092b)
+- **line detail:** configuration de la colonne ip (a9d66c242260d716866465f8c134937faf181598)
+- 798 Corriger les colonnes champs libres pour les utilisateurs partenaires (7fc1791decf96a0b0b0d2aa3139a259e830bf952)
+- affiche la liste des alarmes (da5f9afadb79c1a1aad8c4c7570e8227711a927d)
+- 823 Afficher les champs libres dans la liste des lignes (0a5b4531e3a46382bbad0c865961bfe9f38f9667)
+- correctif appliquant l'id de la simcardinstance (1e96c2b554def03b084b5ae1f42c9999efc7bd2b)
+- affiche le msisdn lors de l'ouverture du volet du détail de la ligne (9ef570368ded18e83e040e64dcbe51417ebf95d0)
+- **orders:** ouvrir le volet de l'acte de gestion à partir de l'id de gestion (a9144037a569ef8f12c6b8557d606be468b04c2a)
+
 ## 0.7.0
 2019-10-02
 
