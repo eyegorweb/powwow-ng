@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.287+20191011141623
+2019-10-11
+
+### Fixes
+
+- ouverture du volet de l'acte de gestion (498cb4ec293d442fc27c17d6398389fdad0137d9)
+
 ## 0.3.0-master.286+20191011134432
 2019-10-11
 
