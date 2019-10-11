@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.286+20191011134432
+2019-10-11
+
+### Fixes
+
+- brancher la colonne opérateur (845d788b5d1d83ac2d246adbdc0fa0141803f7b3)
+
 ## 0.3.0-master.285+20191011130458
 2019-10-11
 
