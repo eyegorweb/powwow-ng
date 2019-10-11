@@ -4,7 +4,7 @@
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.actLines.total', { total: total }) }}
+            {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col">
@@ -16,8 +16,9 @@
         </div>
       </div>
       <DataTable
+        v-if="columns"
         storage-id="getparc.lines"
-        storage-version="011"
+        storage-version="0"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -37,6 +38,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
+import { fetchCustomFields } from '@/api/customFields';
 import CheckBoxCell from './CheckBoxCell';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
@@ -45,9 +47,11 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 // import LinkTo from './LinkTo';
-import DateStatus from '@/views/GetParc/ActDetail/DateStatus';
+import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
+import { formatLargeNumber } from '@/utils/numbers';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -60,9 +64,117 @@ export default {
   props: {
     creationMode: Boolean,
   },
+
+  computed: {
+    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
+    ...mapState('actLines', ['limitPerPage']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
+
+    pageLimit: {
+      get() {
+        return this.limitPerPage;
+      },
+      set(value) {
+        this.setPageLimit(value);
+      },
+    },
+
+    total() {
+      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
+    rows() {
+      return this.linesActionsResponse ? this.linesActionsResponse.items : [];
+    },
+    page: {
+      get() {
+        return this.linePage || 0;
+      },
+      set(newVal) {
+        this.setPage(newVal);
+      },
+    },
+    getPageInfo() {
+      return { page: this.page - 1, limit: this.pageLimit };
+    },
+    msisdn() {
+      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
+    },
+  },
+  methods: {
+    ...mapActions('actLines', ['fetchLinesActionsFromApi']),
+    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
+
+    searchById(params) {
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
+    },
+    async fetchLinesActions() {
+      this.fetchLinesActionsFromApi({
+        orderBy: this.orderBy,
+        pageInfo: this.getPageInfo,
+        appliedFilters: this.appliedFilters,
+      });
+    },
+
+    getExportFn() {
+      return async (columns, orderBy, exportFormat) => {
+        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
+      };
+    },
+  },
+  watch: {
+    rows(items) {
+      this.$emit('noResults', items.length === 0);
+    },
+    linePage() {
+      this.fetchLinesActions();
+    },
+    orderBy() {
+      this.page = 1;
+      this.fetchLinesActions();
+    },
+    pageLimit() {
+      this.page = 1;
+      this.fetchLinesActions();
+    },
+    appliedFilters() {
+      this.fetchLinesActions();
+    },
+  },
+  async mounted() {
+    if (this.userIsPartner) {
+      const partnerId = get(this.userInfos, 'party.id');
+      const customFields = await fetchCustomFields(partnerId);
+      const partnerCustomFieldsColumns = customFields.map(c => {
+        return {
+          id: c.id,
+          label: c.label,
+          name: 'accessPoint',
+          orderable: false,
+          visible: false,
+          // exportId: 'ORDER_STATUS',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'customFields.' + c.codeInOrder,
+          },
+        };
+      });
+      this.columns = [...this.commonColumns, ...partnerCustomFieldsColumns];
+    } else {
+      this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
+    }
+  },
   data() {
     return {
-      columns: [
+      columns: undefined,
+      commonColumns: [
         {
           id: 99,
           label: '',
@@ -206,91 +318,80 @@ export default {
           visible: false,
         },
       ],
+      defaultCustomFieldsColumns: [
+        {
+          id: 15,
+          label: this.$t('col.customFields', { num: 1 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_1',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom1',
+          },
+        },
+        {
+          id: 16,
+          label: this.$t('col.customFields', { num: 2 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_2',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom2',
+          },
+        },
+        {
+          id: 17,
+          label: this.$t('col.customFields', { num: 3 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_3',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom3',
+          },
+        },
+        {
+          id: 18,
+          label: this.$t('col.customFields', { num: 4 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_4',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom4',
+          },
+        },
+        {
+          id: 19,
+          label: this.$t('col.customFields', { num: 5 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_5',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom5',
+          },
+        },
+        {
+          id: 20,
+          label: this.$t('col.customFields', { num: 6 }),
+          name: 'customFields',
+          visible: false,
+          exportId: 'ORDER_CUSTOMFIELD_6',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'custom5',
+          },
+        },
+      ],
       orderBy: {
         key: 'id',
         direction: 'DESC',
       },
       showExtraCells: false,
     };
-  },
-  computed: {
-    ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
-    ...mapState('actLines', ['limitPerPage']),
-
-    pageLimit: {
-      get() {
-        return this.limitPerPage;
-      },
-      set(value) {
-        this.setPageLimit(value);
-      },
-    },
-
-    total() {
-      return this.linesActionsResponse ? this.linesActionsResponse.total : 0;
-    },
-    rows() {
-      return this.linesActionsResponse ? this.linesActionsResponse.items : [];
-    },
-    page: {
-      get() {
-        return this.linePage || 0;
-      },
-      set(newVal) {
-        this.setPage(newVal);
-      },
-    },
-    getPageInfo() {
-      return { page: this.page - 1, limit: this.pageLimit };
-    },
-    msisdn() {
-      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
-    },
-  },
-  methods: {
-    ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
-
-    searchById(params) {
-      this.forceAppliedFilters([
-        {
-          id: params.id,
-          value: params.value,
-        },
-      ]);
-    },
-    async fetchLinesActions() {
-      this.fetchLinesActionsFromApi({
-        orderBy: this.orderBy,
-        pageInfo: this.getPageInfo,
-        appliedFilters: this.appliedFilters,
-      });
-    },
-
-    getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
-      };
-    },
-  },
-  watch: {
-    rows(items) {
-      this.$emit('noResults', items.length === 0);
-    },
-    linePage() {
-      this.fetchLinesActions();
-    },
-    orderBy() {
-      this.page = 1;
-      this.fetchLinesActions();
-    },
-    pageLimit() {
-      this.page = 1;
-      this.fetchLinesActions();
-    },
-    appliedFilters() {
-      this.fetchLinesActions();
-    },
   },
 };
 </script>

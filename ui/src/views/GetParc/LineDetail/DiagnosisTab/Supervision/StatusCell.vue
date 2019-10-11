@@ -2,37 +2,46 @@
   <div>
     <div class="label" :class="{ opened: isOpened, closed: isClosed }">
       <span v-if="isOpened || isClosed" class="circle" />
-      {{ getLabel }}
+      {{ label }}
     </div>
   </div>
 </template>
 
 <script>
+// TODO: Voir si on ne peut pas réfactorer tout les status cell ensemble
+
 export default {
   props: {
-    item: String,
+    format: {
+      type: Object,
+      required: true,
+    },
+    row: Object,
   },
   computed: {
-    getLabel() {
-      if (this.item === 'F') {
+    status() {
+      if (this.row && this.row.pdpConnectionHistory.connectionStatus) {
+        return this.row.pdpConnectionHistory.connectionStatus;
+      } else {
+        return '';
+      }
+    },
+    label() {
+      if (this.status === 'F') {
         return 'Fermé';
-      } else if (this.item === 'O') {
+      } else if (this.status === 'O') {
         return 'Ouvert';
-      } else if (this.item === 'N') {
-        return 'Normale';
-      } else if (this.item === 'A') {
-        return 'Autre';
       } else {
         return '';
       }
     },
 
     isClosed() {
-      return this.item === 'F';
+      return this.status === 'F';
     },
 
     isOpened() {
-      return this.item === 'O';
+      return this.status === 'O';
     },
   },
 };

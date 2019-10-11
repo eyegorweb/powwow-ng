@@ -1,24 +1,26 @@
 <template>
-  <ConsumptionTable :columns.sync="columns" :fetch-data-fn="getFetchDataFn()" />
+  <PaginatedDataTable :columns="columns" :fetch-data-fn="getFetchDataFn()" :size="7" />
 </template>
 
 <script>
-import ConsumptionTable from './ConsumptionTable';
+import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
+
 import { smsUsage } from '@/api/consumption';
+import { col } from '@/components/DataTable/utils';
 
 export default {
   props: {
     simcard: Object,
   },
   components: {
-    ConsumptionTable,
+    PaginatedDataTable,
   },
   methods: {
     getFetchDataFn() {
       return async pageInfo => {
         const response = await smsUsage(this.simcard.id, pageInfo);
         const rows = response.items.map(r => {
-          return { ...r.smsHistory, simcard: this.simcard };
+          return { ...r, simcard: this.simcard };
         });
         const total = response.total;
         return { rows, total };
@@ -33,132 +35,54 @@ export default {
         direction: 'DESC',
       },
       columns: [
-        {
-          id: 1,
-          label: this.$t('date'),
-          name: 'recordOpeningTime',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 2,
-          label: 'Entrant/Sortant',
-          orderable: false,
-          visible: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.incoming ? 'Entrant' : 'Sortant';
-            },
+        col(this.$t('date'), 'smsHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'recordOpeningTime',
+        }),
+        col('Entrant/Sortant', 'smsHistoryData', true, false, {
+          type: 'Getter',
+          getter: row => {
+            return row.smsHistoryData && row.smsHistoryData.incoming ? 'Entrant' : 'Sortant';
           },
-        },
-        {
-          id: 3,
-          label: this.$t('getparc.actDetail.col.msisdn'),
-          name: 'callingNumber', // composant à faire
-          orderable: false,
-          visible: true,
-        },
-        /*
-        {
-          id: 4,
-          label: this.$t(
+        }),
+        col(this.$t('getparc.actDetail.col.msisdn'), 'smsHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'callingNumber',
+        }),
+        col(
+          this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.location'
           ),
-          name: 'localisation', // ??
-          orderable: false,
-          visible: true,
-        },
-        //*/
-        {
-          id: 5,
-          label: this.$t('filters.country'),
-          name: 'countryISO3',
-          orderable: false,
-          visible: true,
-        },
+          'location',
+          true,
+          false,
+          {
+            type: 'ObjectAttribute',
+            path: 'detail',
+          }
+        ),
+        col('PLMN', 'smsHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'plmn',
+        }),
+        col(this.$t('getparc.actDetail.col.imei'), 'smsHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'imei',
+        }),
+        col(this.$t('getparc.lineDetail.offer'), 'smsHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'offerCode',
+        }),
         /*
-        {
-          id: 6,
-          label: this.$t(
-            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.operator'
-          ),
-          name: 'operator', // ??
-          orderable: false,
-          visible: true,
-        },
+        col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
+          type: 'ObjectAttribute',
+          path: 'order.id',
+        }),
         //*/
-        {
-          id: 7,
-          label: 'PLMN',
-          name: 'plmn',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 8,
-          label: this.$t('filters.postalCode'),
-          name: 'zipCode',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 9,
-          label: this.$t('filters.city'),
-          name: 'city',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 10,
-          label: this.$t('getparc.actDetail.col.imei'),
-          name: 'imei',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 11,
-          label: this.$t('getparc.lineDetail.offer'),
-          name: 'offerCode',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 12,
-          label: this.$t('getparc.actDetail.col.commercialRef'),
-          name: 'simcard',
-          orderable: false,
-          visible: false,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'order.id',
-          },
-        },
-        {
-          id: 13,
-          label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'simcard',
-          orderable: false,
-          visible: false,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'deviceInstance.deviceReference',
-          },
-        },
-        {
-          id: 15,
-          label: 'Longitude',
-          name: 'cellLongitude',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 14,
-          label: 'Latitude',
-          name: 'cellLatitude',
-          orderable: false,
-          visible: false,
-        },
+        col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
+          type: 'ObjectAttribute',
+          path: 'deviceInstance.deviceReference',
+        }),
       ],
       rows: [],
       page: 1,

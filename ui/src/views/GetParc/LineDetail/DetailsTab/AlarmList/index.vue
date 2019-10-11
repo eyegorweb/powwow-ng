@@ -26,7 +26,9 @@ import IdCell from './IdCell';
 import StatusCell from './StatusCell';
 import TriggerCell from './TriggerCell';
 import ActionsCell from './ActionsCell';
+import TypeCell from './TypeCell';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
+import { col } from '@/components/DataTable/utils';
 
 export default {
   components: {
@@ -46,71 +48,26 @@ export default {
       pageLimit: 20,
       total: 0,
       columns: [
-        {
-          id: 1,
-          label: 'ID',
-          name: 'id',
-          orderable: false,
-          visible: true,
-          format: {
-            component: IdCell,
-          },
-        },
-        {
-          id: 2,
-          label: this.$t('getparc.lineDetail.alarms.name'),
-          name: 'id',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 3,
-          label: this.$t('getparc.lineDetail.alarms.threshold'),
-          name: 'id',
-          orderable: false,
-          visible: true,
-          format: {
-            component: ThresholdTriggers,
-          },
-        },
-        {
-          id: 4,
-          label: this.$t('col.status'),
-          name: 'id',
-          orderable: false,
-          visible: true,
-          format: {
-            component: StatusCell,
-          },
-        },
-        {
-          id: 5,
-          label: this.$t('getparc.lineDetail.alarms.trigger'),
-          name: 'id',
-          orderable: false,
-          visible: true,
-          format: {
-            component: TriggerCell,
-          },
-        },
-        {
-          id: 6,
-          label: this.$t('getparc.lineDetail.alarms.scope'),
-          name: 'id',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 7,
-          label: this.$t('getparc.lineDetail.alarms.observationCycle'),
-          name: 'alarm',
-          orderable: false,
-          visible: false,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'observationDelay',
-          },
-        },
+        col(this.$t('col.id'), 'id', true, false, {
+          component: IdCell,
+        }),
+        col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
+          component: TypeCell,
+        }),
+        col(this.$t('getparc.lineDetail.alarms.threshold'), 'threshold', true, false, {
+          component: ThresholdTriggers,
+        }),
+        col(this.$t('col.status'), 'status', true, false, {
+          component: StatusCell,
+        }),
+        col(this.$t('getparc.lineDetail.alarms.trigger'), 'trigger', true, false, {
+          component: TriggerCell,
+        }),
+        col(this.$t('getparc.lineDetail.alarms.scope'), 'scope', false, false),
+        col(this.$t('getparc.lineDetail.alarms.observationCycle'), 'alarm', false, false, {
+          type: 'ObjectAttribute',
+          path: 'observationDelay',
+        }),
       ],
       orderBy: {
         key: 'id',
@@ -135,7 +92,7 @@ export default {
   },
   methods: {
     async fetchAlarms() {
-      this.alarms = await fetchAlarmsWithInfos(this.content.party.id);
+      this.alarms = await fetchAlarmsWithInfos(this.content.id);
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);

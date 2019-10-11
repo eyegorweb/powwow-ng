@@ -14,8 +14,7 @@ import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import GenericTableWidget from './GenericTableWidget';
 import { searchMassActions } from '@/api/massActions';
 
-import ActionCell from '@/views/GetParc/ActHistory/HistoryTable/ActionCell';
-import DetailsCell from '@/views/GetParc/ActHistory/HistoryTable/DetailsCell';
+import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
 
 export default {
   components: {
@@ -37,7 +36,7 @@ export default {
   methods: {
     async refreshTable() {
       this.resultsPromise = searchMassActions(
-        { key: 'id', direction: 'DESC' },
+        { key: 'ID', direction: 'DESC' },
         { page: 0, limit: 3 },
         this.widgetFilters
       );
@@ -54,15 +53,7 @@ export default {
     },
     formatResponse(items) {
       if (items) {
-        return items.map(i => {
-          const tempObject = {
-            user: i.user,
-            party: i.party,
-            fromParty: i.fromParty,
-            toParty: i.toParty,
-          };
-          return Object.assign({}, i.massActionResponse, tempObject);
-        });
+        return items.map(i => ({ ...i, ...i.massAction }));
       }
     },
   },
@@ -119,19 +110,15 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.history.col.details'),
-          name: 'actionType',
+          name: 'info',
           orderable: false,
           visible: true,
-          noHandle: true,
-          format: {
-            component: DetailsCell,
-          },
         },
         {
           id: 5,
           label: this.$t('getparc.history.col.target'),
-          name: 'targetActionNumber',
-          sortingName: 'target_Action_Number',
+          name: 'targetEntitiesNumber',
+          sortingName: 'TARGET_ENTITIES_NUMBER',
           orderable: false,
           visible: true,
           noHandle: true,
@@ -148,6 +135,13 @@ export default {
           id: 13,
           label: this.$t('getparc.history.col.status'),
           name: 'status',
+          sortingName: 'STATUS',
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
+            },
+          },
           orderable: false,
           visible: true,
           noHandle: true,

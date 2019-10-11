@@ -11,9 +11,7 @@
 
 <script>
 import WidgetBloc from './WidgetBloc';
-import DetailsCell from '@/views/GetParc/ActHistory/HistoryTable/DetailsCell';
-import RateCell from '@/views/GetParc/ActHistory/HistoryTable/RateCell';
-import StatusCell from '@/views/GetParc/LineDetail/DetailsTab/ActsHistory/StatusCell';
+import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
 import { searchMassActions } from '@/api/massActions';
 import GenericTableWidget from './GenericTableWidget';
 import { mapGetters } from 'vuex';
@@ -66,15 +64,10 @@ export default {
         {
           id: 1,
           label: this.$t('getparc.history.col.partyId'),
-          name: 'party',
+          name: 'partyName',
           orderable: false,
           noHandle: true,
-          sortingName: 'partyName',
           visible: true,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'name',
-          },
         },
         {
           id: 2,
@@ -101,13 +94,10 @@ export default {
         {
           id: 3,
           label: this.$t('getparc.history.col.details'),
-          name: 'actionType',
+          name: 'info',
           orderabel: false,
           noHandle: true,
           visible: true,
-          format: {
-            component: DetailsCell,
-          },
         },
         {
           id: 4,
@@ -117,7 +107,10 @@ export default {
           noHandle: true,
           visible: true,
           format: {
-            component: StatusCell,
+            type: 'Getter',
+            getter: row => {
+              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
+            },
           },
         },
         {
@@ -157,7 +150,7 @@ export default {
   methods: {
     async refreshTable() {
       this.resultsPromise = searchMassActions(
-        { key: 'id', direction: 'DESC' },
+        { key: 'ID', direction: 'DESC' },
         { page: 0, limit: 3 },
         this.widgetFilters
       );
@@ -174,15 +167,7 @@ export default {
     },
     formatResponse(response) {
       if (response) {
-        return response.map(i => {
-          const tempObject = {
-            user: i.user,
-            party: i.party,
-            fromParty: i.fromParty,
-            toParty: i.toParty,
-          };
-          return Object.assign({}, i.massActionResponse, tempObject);
-        });
+        return response.map(i => ({ ...i, ...i.massAction }));
       }
     },
   },

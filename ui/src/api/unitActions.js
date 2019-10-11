@@ -1,56 +1,72 @@
 import { query } from './utils';
 
-export async function fetchUnitActionsTotals(massActionId) {
-  const paginationInfo = `, pagination: {page: 0, limit: 20}`;
-  const orderingInfo = `sorting: {field: id, order: DESC}`;
-
-  const queryStr = `
-query {
-  failed: unitActions(filter: {massActionId: ${massActionId}, status: [KO] } ${paginationInfo} ${orderingInfo}) { total }
-  ongoing: unitActions(filter: {massActionId: ${massActionId}, status: [WAITING, SENT, IN_PROGRESS] } ${paginationInfo} ${orderingInfo}) { total }
-  finished: unitActions(filter: {massActionId: ${massActionId}, status: [OK, REPLAYED, CANCELLED] } ${paginationInfo} ${orderingInfo}) { total }
+export async function fetchUnitActions(massActionId, extraArgs, pagination, orderBy, filters = []) {
+  const extraFilters = [];
+  if (extraArgs.statuses) {
+    extraFilters.push({
+      id: 'filters.statuses',
+      values: extraArgs.statuses,
+    });
+  }
+  if (extraArgs.groupedStatus) {
+    extraFilters.push({
+      id: 'filters.groupedStatus',
+      values: extraArgs.groupedStatus,
+    });
+  }
+  return await fetchUnitActions2(
+    [
+      ...filters,
+      ...extraFilters,
+      {
+        id: 'filters.massActionId',
+        value: massActionId,
+      },
+    ],
+    pagination,
+    orderBy
+  );
 }
-`;
 
-  const response = await query(queryStr);
-  return response.data;
-}
-
-export async function fetchUnitActions(massActionId, statuses, pagination, orderBy, filters = []) {
+export async function fetchUnitActions2(filters = [], pagination, orderBy) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const orderingInfo = orderBy
-    ? `, sorting: {field: ${orderBy.key}, order: ${orderBy.direction}}`
+    ? `, sorting: {field: ${orderBy.key}, sorting: ${orderBy.direction}}`
     : '';
 
   const queryStr = `
-  query {
-    unitActions(filter: {${formatFilters(
-      filters
-    )} massActionId: "${massActionId}", status: [${statuses.join(
-    ','
-  )}]} ${paginationInfo} ${orderingInfo}) {
-    total
-    items {
-      id
-      msisdn
-      ICCID
-      status
-      statusDate
-      dueDate
-      imsi
-      error_reason
-      manufacturer
-      deviceReference
-      imei
-      actionType
+    query {
+      unitActionsV2(filter: {${formatFilters(filters)} } ${paginationInfo} ${orderingInfo}) {
+      total
+      items {
+        unitAction {
+          id
+          actionType
+          accessPointId
+          dueDate
+          created
+          status
+          statusDate
+          errorCode
+        }
+        msisdn
+        imsi
+        iccid
+        imei
+        deviceReference
+        deviceManufacturer
+        info
+        error
+        massActionId
+        geoloc
+      }
     }
   }
-}
-  `;
+    `;
   const response = await query(queryStr);
-  return response.data.unitActions;
+  return response.data.unitActionsV2;
 }
 
 export async function exportLines(columns, orderBy, exportFormat) {
@@ -85,6 +101,11 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
   const unitActionId = selectedFilters.find(f => f.id === 'filters.unitActionId');
+  const actionType = selectedFilters.find(f => f.id === 'filters.actionType');
+  const massActionId = selectedFilters.find(f => f.id === 'filters.massActionId');
+  const groupedStatus = selectedFilters.find(f => f.id === 'filters.groupedStatus');
+  const statuses = selectedFilters.find(f => f.id === 'filters.statuses');
+  const accessPointId = selectedFilters.find(f => f.id === 'filters.accessPointId');
 
   if (iccid) {
     gqlFilters.push(`accesPointFilter: {iccid: "${iccid.value}"}`);
@@ -106,42 +127,19 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   if (unitActionId) {
     gqlFilters.push(`unitActionId: "${unitActionId.value}"`);
   }
-}
-
-export async function fetchUnitActionsWithaccessPoint(
-  accessPointId,
-  statuses,
-  pagination,
-  filters = []
-) {
-  const paginationInfo = `, pagination: {page: 0, limit: 20}`;
-  const sorting = null;
-
-  const queryStr = `
-  query {
-    unitActions(filter: {${formatFilters(
-      filters
-    )} accessPointId: "${accessPointId}", status: [${statuses.join(
-    ','
-  )}]} ${paginationInfo}, sorting: ${sorting}) {
-    total
-    items {
-      id
-      msisdn
-      ICCID
-      status
-      statusDate
-      dueDate
-      imsi
-      error_reason
-      manufacturer
-      deviceReference
-      imei
-      actionType
-    }
+  if (actionType) {
+    gqlFilters.push(`actionType: ${actionType.value}`);
   }
-}
-  `;
-  const response = await query(queryStr);
-  return response.data.unitActions;
+  if (massActionId) {
+    gqlFilters.push(`massActionId: ${massActionId.value}`);
+  }
+  if (groupedStatus) {
+    gqlFilters.push(`groupedStatus: ${groupedStatus.value}`);
+  }
+  if (accessPointId) {
+    gqlFilters.push(`accessPointId: ${accessPointId.value}`);
+  }
+  if (statuses) {
+    gqlFilters.push(`status: [${statuses.values.join(',')}]`);
+  }
 }

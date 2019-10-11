@@ -6,8 +6,8 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 import Home from '@/views/Home';
 import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
-import GetParcActHistory from '@/views/GetParc/ActHistory';
-import GetParcActDetail from '@/views/GetParc/ActDetail';
+import MassActionsPage from '@/views/GetParc/MassActionsPage';
+import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
 
@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/act-history',
       name: 'actHistory',
-      component: GetParcActHistory,
+      component: MassActionsPage,
     },
     {
       path: '/act-detail/:massActionId',

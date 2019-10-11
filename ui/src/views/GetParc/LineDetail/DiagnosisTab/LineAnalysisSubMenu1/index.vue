@@ -1,10 +1,5 @@
 <template>
-  <div v-if="!isLigneActive" class="warning-message">
-    <h3 class="text-warning text-center mt-5">
-      {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.inactiveLineWarning') }}
-    </h3>
-  </div>
-  <div v-else>
+  <div>
     <div class="row">
       <div class="col-md-5">
         <div>
@@ -101,10 +96,43 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-center pt-2 mt-3 mb-3">
+        <div>
+          <Toggle
+            v-if="toggleValues"
+            no-default
+            @update="selectedAnalzeTab = $event"
+            :values="toggleValues"
+            class="pl-2"
+          ></Toggle>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col">
+        <AnalyzeTable
+          v-if="selectedAnalzeTab && selectedAnalzeTab.id === 'localisation'"
+          :key="selectedAnalzeTab.id"
+          :line="content"
+          localisation-type="CP"
+        />
+        <AnalyzeTable
+          v-if="selectedAnalzeTab && selectedAnalzeTab.id === 'cell'"
+          :key="selectedAnalzeTab.id"
+          :line="content"
+          localisation-type="CELL"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Toggle from '@/components/ui/UiToggle2';
+import AnalyzeTable from './AnalyzeTable';
+
 import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
@@ -113,25 +141,35 @@ import LocalisationBlock from './LocalisationBlock';
 export default {
   components: {
     LocalisationBlock,
+    Toggle,
+    AnalyzeTable,
   },
   data() {
     return {
       pdpConnexionData: undefined,
       geographicalLocation: undefined,
       loadingGeoloc: false,
+      selectedAnalzeTab: undefined,
+      toggleValues: [
+        {
+          id: 'localisation',
+          label: 'getparc.lineDetail.tab3.analyzeLocation',
+          default: false,
+        },
+        {
+          id: 'cell',
+          label: 'getparc.lineDetail.tab3.analyzeCell',
+          default: false,
+        },
+      ],
     };
   },
-  computed: {
-    isLigneActive() {
-      return this.content.statuts === 'ALLOCATED';
-    },
-  },
+
   props: {
     content: Object,
-    menuActive: Boolean,
   },
   async mounted() {
-    if (this.getValue(this.content, 'id') && this.isLigneActive) {
+    if (this.getValue(this.content, 'id')) {
       const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
       if (pdpResponse && pdpResponse.length) {
         this.pdpConnexionData = pdpResponse[0].dataHistroy;
@@ -140,7 +178,6 @@ export default {
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
       this.loadingGeoloc = false;
     }
-    this.$emit('update:menuActive', this.isLigneActive);
   },
   methods: {
     getValue(objectToUse, path, defaultValue = '') {

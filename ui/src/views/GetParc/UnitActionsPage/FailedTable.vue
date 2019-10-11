@@ -1,10 +1,9 @@
 <template>
   <div>
     <UnitActsTable
-      storage-id="getparc.actdetail.failed"
-      storage-version="001"
       :mass-action-id="$route.params.massActionId"
-      :statuses="['KO']"
+      grouped-status="FAILED"
+      :columns="columns"
       :total.sync="totalFailed"
       @is-loading="$emit('is-loading', $event)"
     >
@@ -78,6 +77,7 @@
 <script>
 import Modal from '@/components/Modal';
 import UnitActsTable from './UnitActsTable';
+import { col } from '@/components/DataTable/utils';
 
 import { exportLines } from '@/api/unitActions';
 
@@ -89,7 +89,6 @@ export default {
     UnitActsTable,
   },
   props: {
-    massActionId: String,
     rows: Array,
     total: [Number, String],
   },
@@ -154,11 +153,12 @@ export default {
         {
           id: 7,
           label: this.$t('getparc.actDetail.col.failReason'),
-          name: 'error_reason',
+          name: 'error',
           orderable: true,
           visible: true,
           // exportId: 'UNKNOWN',
         },
+        col(this.$t('getparc.actDetail.col.startDate'), 'dueDate', false),
         {
           id: 5,
           label: this.$t('getparc.actDetail.col.imsi'),
@@ -170,7 +170,7 @@ export default {
         {
           id: 8,
           label: this.$t('getparc.actDetail.col.constructor'),
-          name: 'manufacturer',
+          name: 'deviceManufacturer',
           orderable: true,
           visible: false,
           exportId: 'LINE_MANUFACTURER',
@@ -194,7 +194,7 @@ export default {
       page: 0,
       pageLimit: 20,
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
       showExtraCells: false,
@@ -210,7 +210,7 @@ export default {
       this.acknowledgeTxt = '';
     },
     async saveAcknowledgement() {
-      await acknowledgeFailedUnitActions(this.acknowledgeTxt, this.massActionId);
+      await acknowledgeFailedUnitActions(this.acknowledgeTxt, this.$route.params.massActionId);
       this.$emit('refreshTables');
       this.closeAcknowledgement();
     },
@@ -219,7 +219,7 @@ export default {
     },
     async restartFailedActs() {
       this.replayPopUp = true;
-      await replayFailedUnitsActions(this.massActionId);
+      await replayFailedUnitsActions(this.$route.params.massActionId);
       this.$emit('refreshTables');
     },
     getExportFn() {

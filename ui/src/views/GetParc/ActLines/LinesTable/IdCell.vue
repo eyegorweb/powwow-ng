@@ -7,6 +7,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
+import get from 'lodash.get';
 
 export default {
   name: 'IdCell',
@@ -18,9 +19,12 @@ export default {
     ...mapMutations(['openPanel']),
 
     openDetailPanel() {
+      const msisdn = get(this.row, 'accessPoint.lines[0].msisdn');
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getparc.actLines.details.title', { id: this.row.iccid }),
+          title: this.$t('getparc.lineDetail.title', {
+            msisdn: msisdn,
+          }),
           panelId: 'getparc.actLines.details.title',
           payload: this.row,
           wide: false,

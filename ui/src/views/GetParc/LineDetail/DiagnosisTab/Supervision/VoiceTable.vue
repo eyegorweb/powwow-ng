@@ -5,6 +5,7 @@
 <script>
 import ConsumptionTable from './ConsumptionTable';
 import { voiceUsage } from '@/api/consumption';
+import { col } from '@/components/DataTable/utils';
 
 export default {
   props: {
@@ -18,7 +19,7 @@ export default {
       return async pageInfo => {
         const response = await voiceUsage(this.simcard.id, pageInfo);
         const rows = response.items.map(r => {
-          return { ...r.voiceHistory, simcard: this.simcard };
+          return { ...r, simcard: this.simcard };
         });
         const total = response.total;
         return { rows, total };
@@ -33,129 +34,70 @@ export default {
         direction: 'DESC',
       },
       columns: [
-        {
-          id: 1,
-          label: this.$t('date'),
-          name: 'recordOpeningTime',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 2,
-          label: 'Durée',
-          name: 'duration',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 3,
-          label: 'Type',
-          name: 'usageType',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 4,
-          label: 'Détail usage',
-          name: 'details',
-          orderable: false,
-          visible: true,
-        },
-        {
-          id: 5,
-          label: 'Entrant / Sortant',
-          name: 'incomming',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 6,
-          label: 'MSISDN du correspondant',
-          name: 'callingNumber',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 7,
-          label: 'ID de la cellule',
-          name: 'cellId',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 8,
-          label: 'Pays',
-          name: 'countryISO3',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 9,
-          label: 'PLMN',
-          name: 'plmn',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 10,
-          label: 'Code postal',
-          name: 'zipCode',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 10,
-          label: 'ville',
-          name: 'city',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 11,
-          label: 'IMEI',
-          name: 'imei',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 12,
-          label: 'Offre',
-          name: 'offerCode',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 12,
-          label: 'Offre',
-          name: 'offerCode',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 13,
-          label: this.$t('getparc.actLines.col.manufacturer'),
-          name: 'simcard',
-          orderable: false,
-          visible: false,
-          format: {
-            type: 'ObjectAttribute',
-            path: 'deviceInstance.deviceReference',
+        col('Date de l’appel', 'voiceHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'recordOpeningTime',
+        }),
+        col('Durée', 'voiceHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'duration',
+        }),
+        col('Type', 'voiceHistoryData', true, false, {
+          type: 'ObjectAttribute',
+          path: 'usageType',
+        }),
+        col('Entrant/Sortant', 'smsHistoryData', true, false, {
+          type: 'Getter',
+          getter: row => {
+            return row.voiceHistoryData && row.voiceHistoryData.incoming ? 'Entrant' : 'Sortant';
           },
-        },
-        {
-          id: 15,
-          label: 'Longitude',
-          name: 'cellLongitude',
-          orderable: false,
-          visible: false,
-        },
-        {
-          id: 14,
-          label: 'Latitude',
-          name: 'cellLatitude',
-          orderable: false,
-          visible: false,
-        },
+        }),
+        col(
+          this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.location'
+          ),
+          'location',
+          true,
+          false,
+          {
+            type: 'ObjectAttribute',
+            path: 'detail',
+          }
+        ),
+        col('Détail usage', 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'details',
+        }),
+        col('MSISDN du correspondant', 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'callingNumber',
+        }),
+        col('ID de la cellule', 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'cellId',
+        }),
+        col('PLMN', 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'plmn',
+        }),
+        col(this.$t('getparc.actDetail.col.imei'), 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'imei',
+        }),
+        col(this.$t('getparc.lineDetail.offer'), 'voiceHistoryData', false, false, {
+          type: 'ObjectAttribute',
+          path: 'offerCode',
+        }),
+        /*
+        col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
+          type: 'ObjectAttribute',
+          path: 'order.id',
+        }),
+        //*/
+        col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
+          type: 'ObjectAttribute',
+          path: 'deviceInstance.deviceReference',
+        }),
       ],
       rows: [],
       page: 1,
@@ -165,5 +107,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

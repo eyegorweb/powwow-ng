@@ -17,8 +17,14 @@
 export default {
   data() {
     return {
-      chosenValue: this.values.find(i => i.default == true) || this.values[0],
+      chosenValue: undefined,
     };
+  },
+  mounted() {
+    this.chosenValue = this.values.find(i => i.default == true);
+    if (!this.noDefault && !this.chosenValue) {
+      this.chosenValue = this.values[0];
+    }
   },
   watch: {
     chosenValue(newVal) {
@@ -26,6 +32,7 @@ export default {
     },
   },
   props: {
+    noDefault: Boolean,
     values: {
       type: Array,
       required: true,

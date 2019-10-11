@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+    {{ $t('noResult') }}
+  </div>
+  <div v-else>
     <DataTableConfiguration
       v-if="showExtraColumns"
       :columns="usableColumns"
@@ -295,6 +298,16 @@ export default {
           return c;
         }
 
+        if (c.format && c.format.type === 'Getter') {
+          const correspondingColumn = this.columns.find(cf => {
+            return c.id === cf.id;
+          });
+          if (correspondingColumn) {
+            c.format.getter = correspondingColumn.format.getter;
+            c.visibleWhen = correspondingColumn.visibleWhen;
+          }
+        }
+
         return c;
       });
     },
@@ -400,11 +413,14 @@ label {
     margin-left: 5px;
   }
 }
-
-thead th {
-  //evite les retours à la ligne dans l'entête de la table de l'historique des actes de gestion
-  vertical-align: middle;
-  white-space: nowrap;
+</style>
+<style lang="scss">
+.table-blue {
+  thead th {
+    //evite les retours à la ligne dans l'entête de la table de l'historique des actes de gestion
+    vertical-align: middle;
+    white-space: nowrap;
+  }
 }
 
 .small-text {

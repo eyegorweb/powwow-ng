@@ -48,14 +48,16 @@
   "to": "au",
   "input": "Entrant",
   "output": "Sortant",
+  "notAvailable": "Non disponible",
+  "notDefined": "Non déterminé",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
     },
     "widgets": {
       "orders": "Mes commandes",
-      "bills": "Dernière factures",
-      "currentUsage": "En cours de consomation",
+      "bills": "Dernières factures",
+      "currentUsage": "En cours de consommation",
       "orderStatus": "Statut des commandes",
       "acts": "Acte de gestion",
       "activationAct": "Actes: Activation",
@@ -263,7 +265,7 @@
       }
     },
     "actDetail": {
-      "title": "{total} lignes trouvées",
+      "title": "{total} lignes trouvée(s)",
       "actionChoice": "Choisir une action",
       "discharge": "Acquitter les actes en échec ",
       "restart": "Relancer les actes en échec",
@@ -323,7 +325,21 @@
         "sms_in": "SMS entrante",
         "voice_io": "Voix E/S",
         "voice_out": "Voix sortante",
-        "voice_in": "Voix entrante"
+        "voice_in": "Voix entrante",
+        "ALARM_TYPE": {
+          "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
+          "COUNTRY_CHANGE": "Changement de pays",
+          "IMEI_CHANGE": "Changement de module",
+          "NOCHANGE_STATUS": "Non changement de statut sur une période",
+          "OVER_CONSUMPTION_VOLUME": "Sur-consommation",
+          "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte",
+          "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
+          "PLMN_CHANGE": "Changement d'opérateur",
+          "STATUS_CHANGE": "Changement de statut",
+          "SOLD_OVER_THRESHOLD": "Solde au-dessus du seuil",
+          "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
+          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation"
+        }
       },
       "consummated": {
         "data": "Data consommées",
@@ -402,8 +418,8 @@
             "P": "OUVERTE"
           },
           "connectionClosingReason": {
-            "A": "ANORMALE",
-            "N": "NORMALE"
+            "A": "Autre",
+            "N": "Normale"
           },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
@@ -423,7 +439,8 @@
           "gaugeConsumtion": "Jauge de consommation",
           "stateStopService": "Etat Coupure",
           "tresholdStopService": "Seuil Coupure",
-          "tmpDebarring": "Debarring Tempraire"
+          "tmpDebarring": "Debarring Tempraire",
+          "activationEndingStopService": "Activation de la levée de coupure"
         },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data",
@@ -454,12 +471,40 @@
         }
       },
       "tab3": {
+        "networkCoverage": "Couverture du réseau",
+        "networkMeteo": "Météo du réseau",
+        "analyzeLocation": "Analyser la localisation",
+        "analyzeCell": "Analyser la cellule",
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
         "newDemand": "Faire une nouvelle demande",
         "statuses": {
           "RUNNING": "En cours",
           "WAITING": "En attente",
-          "TERMINATED": "Terminé"
+          "TERMINATED": "Terminé",
+          "TEST_OK": "Test OK",
+          "TEST_KO": "Test KO"
+        },
+
+        "localisation": {
+          "requestDate": "Date de la demande",
+          "requestStatus": "Statut de la demande",
+          "reload": "Rafraîchir",
+          "createRequest": "Faire une nouvelle demande",
+          "warningMsg": "Voulez vous enregistrer une nouvelle demande ?",
+          "errors": {
+            "PT03-LOC_DER10501": "Code 10501 - La ligne est en situation de roaming.",
+            "PT03-LOC_DER10005": "Code 10005 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10006": "Code 10601 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10003": "Code 1003 - La ligne n'est pas activée sur la plateforme de test&localisation réseau.",
+            "PT03-LOC_DER10004": "Code 1003 - La ligne n'est pas activée sur la plateforme de test&localisation réseau.",
+            "PT03-LOC_DER10601": "Code 10601 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10602": "Code 10602 - La ligne n'est pas accrochée au réseau actuellement.",
+            "PT03-LOC_DER10007": "Code 10700 - La demande n'a pas pu être traitée.",
+            "PT03-LOC_DER10500": "Code 10500 - La ligne n'est pas accrochée au réseau actuellement.",
+            "CANCELLED": "Echec de la geolocalisation",
+            "WAITING": "En attente de réponse",
+            "generic": "La localisation n'a pas pu être effectuée - code erreur : {errorCode}"
+          }
         },
         "errors": {
           "DMD_CONSO_CPT": {
@@ -599,7 +644,10 @@
       },
 
       "transfertCF": {
-        "successMessage": "La demande de changement de compte de facturation a bien été prise en compte."
+        "confirmationWarning": "Confirmez-vous le changement du compte de facturation ?",
+        "successMessage": "La demande de changement de compte de facturation a bien été prise en compte.",
+        "currentBillingAccount": "Compte de facturation actuel",
+        "newBillingAccount": "Nouveau compte de facturation"
       },
 
       "phaseTest": {
@@ -649,7 +697,7 @@
     },
     "actLines": {
       "details": {
-        "title": "Detail ici",
+        "title": "Detail de la ligne",
         "upcommingChanges": "Changements à venir",
         "alarmsInfo": "ALARMES",
         "partners": "Partenaires",
@@ -942,7 +990,7 @@
       },
       "message": {
         "confirmation": "La commande a bien été enregistrée.",
-        "delivery": "Les commandes sont habituellement livrées dans les 3 jours."
+        "delivery": "Les commandes sont habituellement livrées dans les 3 jours ouvrés."
       },
       "deliveryStep": {
         "last": "Dernière adresse de livraison utilisée:",

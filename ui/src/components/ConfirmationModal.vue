@@ -55,6 +55,9 @@ export default {
       this.isLoading = true;
       await this.actionToConfirm.actionFn();
       this.isLoading = false;
+      if (this.actionToConfirm.doAfterFn) {
+        this.actionToConfirm.doAfterFn();
+      }
       this.closeAction();
     },
   },

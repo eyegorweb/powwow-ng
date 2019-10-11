@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button v-if="row.isTriggered" class="btn btn-link p-0">{{ $t('common.YES') }}</button>
-    <button v-else class="btn btn-link p-0">{{ $t('common.NO') }}</button>
+    <span v-if="row.isTriggered">{{ $t('common.YES') }}</span>
+    <span v-else>{{ $t('common.NO') }}</span>
   </div>
 </template>
 

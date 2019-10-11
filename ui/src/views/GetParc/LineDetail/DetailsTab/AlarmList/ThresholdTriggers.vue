@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled mb-0">
       <li>
         {{ get('getparc.lineDetail.alarms.data_io', row.alarm.level1, 'MB') }}
         {{ get('getparc.lineDetail.alarms.data_out', row.alarm.level1Up, 'MB') }}
@@ -42,4 +42,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+li {
+  font-size: 0.75rem;
+}
+</style>

@@ -13,7 +13,7 @@
               <div class="mt-2" slot="graph">
                 <DataGraph :sim-id="content.id" />
               </div>
-              <div slot="table">
+              <div slot="table" class="mt-3">
                 <SimDataTable :simcard="content" />
               </div>
             </TableGraphicContentBlock>
@@ -28,7 +28,7 @@
               <div class="mt-2" slot="graph">
                 <SMSGraph :sim-id="content.id" />
               </div>
-              <div slot="table">
+              <div slot="table" class="mt-3">
                 <SMSTable :simcard="content" />
               </div>
             </TableGraphicContentBlock>
@@ -43,7 +43,7 @@
               <div class="mt-2" slot="graph">
                 <VoiceGraph :sim-id="content.id" />
               </div>
-              <div slot="table">
+              <div slot="table" class="mt-3">
                 <VoiceTable :simcard="content" />
               </div>
             </TableGraphicContentBlock>

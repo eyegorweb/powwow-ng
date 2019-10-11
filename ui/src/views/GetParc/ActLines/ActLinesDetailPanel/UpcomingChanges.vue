@@ -9,7 +9,7 @@
       <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
         <h6>Le : {{ i.dueDate }}</h6>
         <p>{{ $t('getparc.actTypes.' + i.actionType) }}</p>
-        <DetailsCell :row="i" />
+        {{ i.info }}
       </div>
     </div>
     <div v-else>
@@ -21,7 +21,6 @@
 <script>
 import { searchMassActions } from '@/api/massActions';
 import get from 'lodash.get';
-import DetailsCell from '@/views/GetParc/ActHistory/HistoryTable/DetailsCell';
 
 export default {
   data() {
@@ -29,9 +28,7 @@ export default {
       massActions: [],
     };
   },
-  components: {
-    DetailsCell,
-  },
+  components: {},
   props: {
     content: {
       type: Object,
@@ -44,7 +41,7 @@ export default {
   },
   async mounted() {
     const response = await searchMassActions(
-      { key: 'id', direction: 'DESC' },
+      { key: 'ID', direction: 'DESC' },
       { page: 0, limit: 99 },
       [
         {
@@ -58,15 +55,7 @@ export default {
       ]
     );
     if (response) {
-      this.massActions = response.items.map(i => {
-        const tempObject = {
-          user: i.user,
-          party: i.party,
-          fromParty: i.fromParty,
-          toParty: i.toParty,
-        };
-        return Object.assign({}, i.massActionResponse, tempObject);
-      });
+      this.massActions = response.items.map(i => ({ ...i, ...i.massAction }));
     }
   },
 };

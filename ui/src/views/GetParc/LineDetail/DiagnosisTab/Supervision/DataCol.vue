@@ -3,13 +3,13 @@
     <li>
       <i class="ic-phone-incoming"></i>
       {{ $t('input') }}:
-      {{ row.downloadVolume }}
+      {{ row.pdpConnectionHistory.downloadVolume }}
       Mo
     </li>
     <li>
       <i class="ic-phone-outgoing"></i>
       {{ $t('output') }}:
-      {{ row.uploadVolume }}
+      {{ row.pdpConnectionHistory.uploadVolume }}
       Mo
     </li>
   </ul>

@@ -45,30 +45,36 @@ export async function smsUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: SMS, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+    smsUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
       total
       items{
-        smsHistory {
+        smsHistoryData{
           accessPointId
           incomming
           recordOpeningTime
           recordOpeningSlice
           partyId
-          countryISO3
           plmn
           updatedDate
           partitionId
           offerCode
           callingNumber
           calledNumber
-          cellId
           usageType
           typeAppel
+          imei
+          offerCode
+        }
+        location {
+          detail
+          cellLatitude
+          cellLongitude
           zipCode
           city
-          imei
-          cellLongitude
-          cellLatitude
+          cellId
+          countryIso3
+          referentialIso3
+          operator
         }
       }
 
@@ -77,66 +83,8 @@ export async function smsUsage(simInstanceId, pagination) {
   `;
 
   const response = await query(queryStr);
-  /*
-  const response = {
-    data: {
-      consumableUsageHistory: {
-        total: 2,
-        items: [
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-              zipCode: null,
-              city: null,
-              imei: '35985702142700',
-              cellLongitude: null,
-              cellLatitude: null,
-            },
-          },
-          {
-            smsHistory: {
-              accessPointId: 5915471,
-              incomming: true,
-              recordOpeningTime: '25-09-2018',
-              recordOpeningSlice: 'T1',
-              partyId: 397,
-              countryISO3: 'FRA',
-              plmn: '20820',
-              updatedDate: '25-09-2018',
-              partitionId: 71,
-              offerCode: 'COMPTEUR_CSD_FR',
-              callingNumber: '33620793108',
-              calledNumber: '336112670262253',
-              cellId: '4ED50EFA',
-              usageType: 'SMS',
-              typeAppel: 'SMSMT',
-              zipCode: null,
-              city: null,
-              imei: '35985702142700',
-              cellLongitude: null,
-              cellLatitude: null,
-            },
-          },
-        ],
-      },
-    },
-  };//*/
 
-  return response.data.consumableUsageHistory;
+  return response.data.smsUsageHistory;
 }
 
 export async function voiceUsage(simInstanceId, pagination) {
@@ -144,43 +92,50 @@ export async function voiceUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: VOICE, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
-      total
-      items {
-        voiceHistory{
-          tiketId
-          accessPointId
-          incomming
-          recordOpeningTime
-          recordOpeningSlice
-          partyId
-          countryISO3
-          plmn
-          updatedDate
-          partitionId
-          offerCode
-          callingNumber
-          calledNumber
-          duration
-          cellId
-          details
-          usageType
-          typeAppel
-          imei
-          zipCode
-          city
-          cellLatitude
-          cellLongitude
+    voiceUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+        total
+        items{
+          voiceHistoryData{
+            accessPointId
+            incomming
+            recordOpeningTime
+            recordOpeningSlice
+            partyId
+            plmn
+            updatedDate
+            partitionId
+            offerCode
+            callingNumber
+            calledNumber
+            usageType
+            typeAppel
+            imei
+            offerCode
+            duration
+            usageType
+            callingNumber
+            details
+          }
+          location {
+            detail
+            cellLatitude
+            cellLongitude
+            zipCode
+            city
+            cellId
+            countryIso3
+            referentialIso3
+            operator
+          }
         }
-      }
 
+      }
     }
-  }
-  `;
+    `;
 
   const response = await query(queryStr);
 
-  return response.data.consumableUsageHistory;
+  return response.data.voiceUsageHistory;
 }
 
 export async function dataUsage(simInstanceId, pagination) {
@@ -188,14 +143,11 @@ export async function dataUsage(simInstanceId, pagination) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `{
-    consumableUsageHistory(consumableToGet: DATA, simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
+    dataUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false ${paginationInfo}) {
       total
       items {
-        dataHistory {
-          startDate
-          endDate
+        pdpConnectionHistory {
           connectionStatus
-          connectionClosingReason
           uploadVolume
           downloadVolume
           apn
@@ -210,14 +162,21 @@ export async function dataUsage(simInstanceId, pagination) {
           isLast
           partyId
 
-          #location
-          #operator
-          #countryISO3
-          #plmn
-          #zipCode
-          #city
-          #cellLatitude
-          #cellLongitude
+        }
+      	pdpConnectionDateInfo {
+          startDate
+          endDate
+          connectionClosingReason
+        }
+        location {
+          detail
+          cellLatitude
+          cellLongitude
+          zipCode
+          cellId
+          countryIso3
+          referentialIso3
+          operator
         }
       }
     }
@@ -226,7 +185,7 @@ export async function dataUsage(simInstanceId, pagination) {
 
   const response = await query(queryStr);
 
-  return response.data.consumableUsageHistory;
+  return response.data.dataUsageHistory;
 }
 
 export async function fetchDataConsumptionForGraph(simCardInstanceId) {
@@ -360,4 +319,21 @@ export async function removeConsumptionOnDemand(consumptionOnDemandId) {
   }
   `;
   return await query(queryStr);
+}
+
+export async function networkInformationForLine(msisdn) {
+  const queryStr = `
+  query {
+    networkInformationForLine(lineMSISDN: "${msisdn}") {
+      dataConsumtionAmount
+      barringStatus
+      barringTreshhold
+      temporaryBarring
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.networkInformationForLine;
 }

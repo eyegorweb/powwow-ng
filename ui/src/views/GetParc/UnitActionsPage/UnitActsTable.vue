@@ -11,15 +11,13 @@
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-              </span>
+              <span slot="title">{{
+                $t('getparc.history.details.EXPORT_LINES', { total: total })
+              }}</span>
             </ExportButton>
           </div>
         </div>
         <DataTable
-          :storage-id="storageId"
-          :storage-version="storageVersion"
           :columns="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -45,7 +43,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
-import DetailsCell from './DetailsCell';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
 import { mapMutations } from 'vuex';
@@ -61,8 +58,9 @@ export default {
     massActionId: String,
     storageId: String,
     storageVersion: String,
-    statuses: Array,
+    groupedStatus: String,
     total: [Number, String],
+    columns: Array,
   },
 
   async mounted() {
@@ -87,7 +85,7 @@ export default {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
           this.massActionId,
-          this.statuses,
+          this.groupedStatus,
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',
@@ -117,19 +115,17 @@ export default {
       try {
         const response = await fetchUnitActions(
           this.$route.params.massActionId,
-          this.statuses,
+          { groupedStatus: this.groupedStatus },
           this.getPageInfo,
           this.orderBy,
           searchFilter
         );
-        this.rows = response.items;
-        this.$emit('update:total', response.total);
+        this.rows = response.items.map(i => ({ ...i, ...i.unitAction }));
       } catch (e) {
         this.flashMessage({
           level: 'danger',
           message: "Erreur lors de l'éxécution de la requette ",
         });
-        this.$emit('update:total', '-');
       }
 
       this.isLoading = false;
@@ -189,103 +185,10 @@ export default {
       page: 1,
       pageLimit: 20,
       orderBy: {
-        key: 'id',
+        key: 'ID',
         direction: 'DESC',
       },
       showExtraCells: false,
-      columns: [
-        {
-          id: 1,
-          label: this.$t('getparc.actDetail.col.id'),
-          name: 'id',
-          orderable: true,
-          visible: true,
-          // exportId: 'UNKNOWN',
-        },
-        {
-          id: 2,
-          label: this.$t('getparc.actDetail.col.details'),
-          name: 'ICCID',
-          orderable: true,
-          visible: true,
-          format: {
-            component: DetailsCell,
-          },
-        },
-        {
-          id: 3,
-          label: this.$t('getparc.actDetail.col.msisdn'),
-          name: 'msisdn',
-          orderable: true,
-          visible: true,
-          exportId: 'MSISDN',
-        },
-        {
-          id: 4,
-          label: this.$t('getparc.actDetail.col.iccid'),
-          name: 'ICCID',
-          orderable: true,
-          visible: true,
-          exportId: 'ICCID',
-        },
-
-        {
-          id: 5,
-          label: this.$t('getparc.actDetail.col.actState'),
-          name: 'status',
-          orderable: true,
-          visible: true,
-          exportId: 'UNIT_ACTION_STATUS',
-        },
-        {
-          id: 6,
-          label: this.$t('getparc.actDetail.col.failDate'),
-          name: 'statusDate',
-          orderable: true,
-          visible: true,
-          // exportId: 'UNKNOWN',
-        },
-        {
-          id: 7,
-          label: this.$t('getparc.actDetail.col.failReason'),
-          name: 'error_reason',
-          orderable: true,
-          visible: false,
-          // exportId: 'UNKNOWN',
-        },
-        {
-          id: 8,
-          label: this.$t('getparc.actDetail.col.imsi'),
-          name: 'imsi',
-          orderable: true,
-          visible: false,
-          // exportId: 'UNKNOWN',
-        },
-        {
-          id: 9,
-          label: this.$t('getparc.actDetail.col.constructor'),
-          name: 'manufacturer',
-          orderable: true,
-          visible: false,
-          exportId: 'DEVICE_MANUFACTURER',
-        },
-        {
-          id: 10,
-          label: this.$t('getparc.actDetail.col.commercialRef'),
-          name: 'deviceReference',
-          orderable: true,
-          visible: false,
-          exportId: 'DEVICE_REFERENCE',
-        },
-        {
-          id: 11,
-          label: this.$t('getparc.actDetail.col.imei'),
-          name: 'imei',
-          orderable: true,
-          visible: false,
-          exportId: 'IMEI',
-        },
-      ],
     };
   },
 };
