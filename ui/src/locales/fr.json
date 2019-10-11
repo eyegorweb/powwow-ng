@@ -220,6 +220,7 @@
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "manageActTitle": "{type} - {date}",
         "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
         "quantityTargeted": "Quantité ciblée",

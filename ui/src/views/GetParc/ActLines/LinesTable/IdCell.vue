@@ -23,7 +23,7 @@ export default {
       const openTrigger = () => {
         this.openPanel({
           title: this.$t('getparc.lineDetail.title', {
-            msisdn: msisdn,
+            msisdn,
           }),
           panelId: 'getparc.actLines.details.title',
           payload: this.row,

@@ -243,7 +243,7 @@ export default {
           },
         ],
       },
-      actStatus: this.content.status,
+      actStatus: this.content.massAction.status,
     };
   },
   methods: {
