@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.288+20191014104556
+2019-10-14
+
+### Fixes
+
+- Afficher le nom de la société dans le détail de la commande (7dac3b0615702435de18b36bb855d8c70a3cf0ca)
+
 ## 0.3.0-master.287+20191011141623
 2019-10-11
 
