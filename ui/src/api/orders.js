@@ -20,6 +20,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         preActivationAsked
         importedQuantity
         externalId
+        company
         contactInformation {
           email
           phone

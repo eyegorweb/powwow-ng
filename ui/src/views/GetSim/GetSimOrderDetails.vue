@@ -40,7 +40,7 @@
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creator') }} :</h6>
           <p class="m-0">
-            {{ $t('common.' + getFromOrder('auditable.creator.name.title')) }}
+            {{ creatorTitle }}
             {{
               `${getFromOrder('auditable.creator.name.firstName')} ${getFromOrder(
                 'auditable.creator.name.lastName'
@@ -78,9 +78,7 @@
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
           <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
-            <span class="mock-value">
-              {{ $t('getsim.actions.IMPORT_SIM') }}
-            </span>
+            <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
           </UiButton>
         </div>
         <div class="overview-item">
@@ -291,6 +289,11 @@ export default {
   },
 
   computed: {
+    creatorTitle() {
+      const title = this.getFromOrder('auditable.creator.name.title');
+      if (!title) return '';
+      return this.$t('common.' + title);
+    },
     steps() {
       let stepsToUse;
       if (this.order.status === 'CANCELED') {
