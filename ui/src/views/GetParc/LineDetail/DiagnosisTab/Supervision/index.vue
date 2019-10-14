@@ -8,6 +8,11 @@
               {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
             </span>
           </template>
+          <template slot="export">
+            <ExportButton :export-fn="getExportFn()">
+              <span slot="title">{{ $t('getparc.lineDetail.tab2.supervisionContent.export') }}</span>
+            </ExportButton>
+          </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
@@ -64,6 +69,8 @@ import SMSGraph from './SMSGraph';
 import VoiceGraph from './VoiceGraph';
 import SMSTable from './SMSTable';
 import VoiceTable from './VoiceTable';
+import ExportButton from '@/components/ExportButton';
+import { exportDataHistory } from '@/api/consumption';
 
 export default {
   components: {
@@ -76,10 +83,19 @@ export default {
     SMSTable,
     VoiceGraph,
     VoiceTable,
+    ExportButton,
   },
 
   props: {
     content: Object,
+  },
+
+  methods: {
+    getExportFn() {
+      return async (columns, orderBy, exportFormat) => {
+        return await exportDataHistory(this.content.id, exportFormat);
+      };
+    },
   },
 };
 </script>

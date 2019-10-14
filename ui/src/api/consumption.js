@@ -337,3 +337,47 @@ export async function networkInformationForLine(msisdn) {
 
   return response.data.networkInformationForLine;
 }
+
+export async function exportDataHistory(simCardInstanceId, exportFormat) {
+  const queryStr = `
+    query {
+      exportDataHistory(
+        simCardInstanceId: ${simCardInstanceId}
+        columns: [
+          MSISDN
+          CONNECTION_START_DATE
+          CONNECTION_END_DATE
+          REASON
+          UL_VOLUME
+          DL_VOLUME
+          IP_TYPE
+          APN
+          IP_V4_ADDRESS
+          IP_V6_ADDRESS
+          OPERATOR
+          PLMN
+          ZIP_CODE
+          CITY
+          COUNTRY
+          IMEI
+          OFFER
+          CELL_ID
+          LONGITUDE
+          LATITUDE
+        ]
+        exportFormat: ${exportFormat}
+      ) {
+        downloadUri
+        total
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.exportDataHistory;
+}
