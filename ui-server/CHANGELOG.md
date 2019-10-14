@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.289+20191014134025
+2019-10-14
+
+### Fixes
+
+- utilisation de l'API V2 pour récupérer les datas (f5a12ca6263c1b0bce96b022720e4c2c09573e4a)
+
 ## 0.3.0-master.288+20191014104556
 2019-10-14
 
