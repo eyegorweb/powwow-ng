@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.290+20191014141014
+2019-10-14
+
+### Features
+
+- export des données de la consommation DATA (56901e04ae410f46ec58a487d1133b72fa00cacb)
+
 ## 0.3.0-master.289+20191014134025
 2019-10-14
 
