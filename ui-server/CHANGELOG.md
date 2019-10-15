@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.293+20191015092300
+2019-10-15
+
+### Fixes
+
+- ajout de l'info asynchrone (7e7b96c6934fe8fcfe70c7458125f28ac852d76e)
+
 ## 0.3.0-master.292+20191015101252
 2019-10-15
 
