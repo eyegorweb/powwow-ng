@@ -272,6 +272,7 @@ export async function exportSmsHistory(simCardInstanceId, exportFormat) {
       exportSmsHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONSUMPTION_DATE, DIRECTION, CALLING_NUMBER, CALLED_NUMBER, OPERATOR, PLMN, ZIP_CODE, CITY, CELL_ID, IMEI, OFFER, LONGITUDE, LATITUDE, COUNTRY]) {
         downloadUri
         total
+        asyncRequired
       }
     }
     `
@@ -292,6 +293,7 @@ export async function exportDataHistory(simCardInstanceId, exportFormat) {
       exportDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE]) {
         downloadUri
         total
+        asyncRequired
       }
     }
     `
@@ -311,6 +313,7 @@ export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
       exportVoiceHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONSUMPTION_DATE, DURATION, USAGE_TYPE, DETAILS, DIRECTION, CALLING_NUMBER, CALLED_NUMBER, OPERATOR, PLMN, ZIP_CODE, CITY, CELL_ID, IMEI, OFFER, LONGITUDE, LATITUDE]) {
         downloadUri
         total
+        asyncRequired
       }
     }
     `
