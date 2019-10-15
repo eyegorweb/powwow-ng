@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.292+20191015101252
+2019-10-15
+
+### Fixes
+
+- Corriger le drag & drop sur le volet supervision (36c32c95e3fff2405ef0c8c1cabcbf2655557b44)
+
 ## 0.3.0-master.291+20191015094135
 2019-10-15
 
