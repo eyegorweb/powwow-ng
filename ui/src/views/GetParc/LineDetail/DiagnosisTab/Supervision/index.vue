@@ -4,18 +4,14 @@
       <transition-group>
         <ContentBlock :key="'block1'">
           <template slot="title">
-            <div class="row">
-              <div class="col-md-7">
-                {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
-              </div>
-              <div class="col-md-5">
-                <ExportButton :export-fn="getDataExportFn()">
-                  <span slot="title">
-                    {{ $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption') }}
-                  </span>
-                </ExportButton>
-              </div>
-            </div>
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
+          </template>
+          <template slot="topRight">
+            <ExportButton :export-fn="getDataExportFn()">
+              <span slot="title">
+                {{ $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption') }}
+              </span>
+            </ExportButton>
           </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
@@ -30,16 +26,14 @@
         </ContentBlock>
         <ContentBlock :key="'block0'">
           <template slot="title">
-            <div class="row">
-              <div class="col-md-7">{{ $t('getparc.lineDetail.tab2.supervisionContent.sms') }}</div>
-              <div class="col-md-5">
-                <ExportButton :export-fn="getSMSExportFn()">
-                  <span slot="title">
-                    {{ $t('getparc.lineDetail.tab2.supervisionContent.exportSMSConsumption') }}
-                  </span>
-                </ExportButton>
-              </div>
-            </div>
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.sms') }}
+          </template>
+          <template slot="topRight">
+            <ExportButton :export-fn="getSMSExportFn()">
+              <span slot="title">
+                {{ $t('getparc.lineDetail.tab2.supervisionContent.exportSMSConsumption') }}
+              </span>
+            </ExportButton>
           </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
@@ -54,18 +48,14 @@
         </ContentBlock>
         <ContentBlock :key="'block3'">
           <template slot="title">
-            <div class="row">
-              <div class="col-md-7">
-                {{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}
-              </div>
-              <div class="col-md-5">
-                <ExportButton :export-fn="getVoiceExportFn()">
-                  <span slot="title">
-                    {{ $t('getparc.lineDetail.tab2.supervisionContent.exportVoiceConsumption') }}
-                  </span>
-                </ExportButton>
-              </div>
-            </div>
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}
+          </template>
+          <template slot="topRight">
+            <ExportButton :export-fn="getVoiceExportFn()">
+              <span slot="title">{{
+                $t('getparc.lineDetail.tab2.supervisionContent.exportVoiceConsumption')
+              }}</span>
+            </ExportButton>
           </template>
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
