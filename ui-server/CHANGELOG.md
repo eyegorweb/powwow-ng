@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.291+20191015083021
+2019-10-15
+
+### Features
+
+- Exporter les consommations de ma ligne (c8f414c1221af2d400e7c2eb24b3ba61b9931ec1)
+
 ## 0.3.0-master.290+20191014141014
 2019-10-14
 
