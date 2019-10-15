@@ -445,7 +445,9 @@
         },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data",
-          "export": "Exporter la consommation data journalière",
+          "exportDataConsumption": "Exporter la consommation data journalière",
+          "exportSMSConsumption": "Exporter la consommation SMS journalière",
+          "exportVoiceConsumption": "Exporter la consommation voix journalière",
           "sms": "Consommation SMS",
           "voice": "Consommation voix",
           "smsTable": {},

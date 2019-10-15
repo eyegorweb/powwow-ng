@@ -1,14 +1,9 @@
 <template>
   <div class="mb-4">
-    <div class="d-flex align-items-center">
-      <h4 class="text-primary text-uppercase">
-        <i class="handle ic-Drag-Column-Icon"></i>
-        <slot name="title" />
-      </h4>
-      <div class="flex-grow-1">
-        <slot name="export" />
-      </div>
-    </div>
+    <h4 class="text-primary text-uppercase">
+      <i class="handle ic-Drag-Column-Icon"></i>
+      <slot name="title" />
+    </h4>
     <div>
       <div class="bg-white p-4 rounded">
         <slot name="content" />

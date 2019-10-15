@@ -27,7 +27,7 @@ export default {
     const formattedData = data.reduce(
       (all, item) => {
         const dateFirstSplit = item.date.split(' ');
-        const dateParts = dateFirstSplit[0].split('-');
+        const dateParts = dateFirstSplit[0].split('/');
         const formattedObj = {
           ...item,
           date: Date.UTC(

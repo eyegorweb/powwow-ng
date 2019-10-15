@@ -73,8 +73,14 @@ export default {
     Modal,
   },
   props: {
-    columns: Array,
-    orderBy: Object,
+    columns: {
+      type: Array,
+      required: false,
+    },
+    orderBy: {
+      type: Object,
+      required: false,
+    },
     exportFn: Function,
     buttonStyle: Boolean,
   },
