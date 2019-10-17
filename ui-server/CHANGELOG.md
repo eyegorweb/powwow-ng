@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.296+20191017131632
+2019-10-17
+
+### Fixes
+
+- Correction des retours de la review (a6d2ed3524e8102646114c520a564e83eabd1a2f)
+
 ## 0.3.0-master.295+20191017094835
 2019-10-17
 
