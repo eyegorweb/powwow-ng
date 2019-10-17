@@ -1,5 +1,4 @@
 <template>
-  <!-- <ConsumptionTable :columns.sync="columns" :fetch-data-fn="getFetchDataFn()" /> -->
   <PaginatedDataTable
     :key="tableVersion"
     :columns="columns"

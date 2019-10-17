@@ -385,7 +385,7 @@ function addDateFilter2(filterKey, dateFromKey, dateEndKey, gqlFilters, selected
 
   function formatDateForGql(inDate) {
     if (!inDate) return '';
-    const startDate = inDate.replace(/\//g, '-');
+    const startDate = inDate.replace(/\//g, '/');
     const parts = startDate.split(' ');
     if (parts) {
       if (parts.length === 2) {
@@ -397,20 +397,20 @@ function addDateFilter2(filterKey, dateFromKey, dateEndKey, gqlFilters, selected
   }
 
   function prepareEndDateForBackend(inDate) {
-    const dateToEdit = inDate.replace(/\//g, '-');
+    const dateToEdit = inDate.replace(/\//g, '/');
     const parts = dateToEdit.split(' ');
     let endDate;
     let formatToUse;
 
     if (parts.length === 2) {
-      formatToUse = 'DD-MM-YYYY hh:mm:ss';
+      formatToUse = 'DD/MM/YYYY hh:mm:ss';
       endDate = moment(dateToEdit, formatToUse);
       if (!dateFilter.sameDay) {
         endDate = endDate.add(1, 'days');
       }
       return endDate.format(formatToUse);
     } else {
-      formatToUse = 'DD-MM-YYYY';
+      formatToUse = 'DD/MM/YYYY';
       endDate = moment(`${parts[0]}`, formatToUse);
       if (!dateFilter.sameDay) {
         endDate = endDate.add(1, 'days');
