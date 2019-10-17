@@ -57,6 +57,12 @@ export default {
           name: 'actionType',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('getparc.actTypes.' + row.actionType);
+            },
+          },
         },
         {
           id: 3,
