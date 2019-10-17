@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.295+20191017094835
+2019-10-17
+
+### Fixes
+
+- correction des retours (657e0ee20e1c20c496aed5b1d42b64b383b9ccce)
+
 ## 0.3.0-master.294+20191015132438
 2019-10-15
 
