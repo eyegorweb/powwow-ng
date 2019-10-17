@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div v-if="isLigneActive" class="mb-4">
     <div class="row mt-2">
       <div class="col">
         <h2 class="text-gray font-weight-light" style="font-size: 2rem">
@@ -107,6 +107,11 @@
       </tbody>
     </table>
   </div>
+  <div v-else class="warning-message">
+    <h3 class="text-warning text-center mt-5">
+      {{ $t('getparc.lineDetail.tab2.lineAnalysisContent.inactiveLineWarning') }}
+    </h3>
+  </div>
 </template>
 
 <script>
@@ -114,6 +119,7 @@ import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesAc
 import ExportButton from '@/components/ExportButton';
 import { formatBytes } from '@/api/utils';
 import moment from 'moment';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -126,6 +132,13 @@ export default {
     return {
       consumptionData: undefined,
     };
+  },
+  computed: {
+    isLigneActive() {
+      const networkStatus = get(this.content, 'accessPoint.networkStatus');
+      const simStatus = get(this.content, 'statuts');
+      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
+    },
   },
   async mounted() {
     this.consumptionData = await fetchCurrentConsumption(this.content.id);

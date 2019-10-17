@@ -6,7 +6,7 @@
           <template slot="title">
             {{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}
           </template>
-          <template slot="topRight">
+          <template v-if="canExportData" slot="topRight">
             <ExportButton :export-fn="getDataExportFn()">
               <span slot="title">
                 {{ $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption') }}
@@ -16,7 +16,7 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <DataGraph :sim-id="content.id" />
+                <DataGraph :sim-id="content.id" @haveContent="canExportData = true" />
               </div>
               <div slot="table" class="mt-3">
                 <SimDataTable :simcard="content" />
@@ -28,7 +28,7 @@
           <template slot="title">
             {{ $t('getparc.lineDetail.tab2.supervisionContent.sms') }}
           </template>
-          <template slot="topRight">
+          <template v-if="canExportSMS" slot="topRight">
             <ExportButton :export-fn="getSMSExportFn()">
               <span slot="title">
                 {{ $t('getparc.lineDetail.tab2.supervisionContent.exportSMSConsumption') }}
@@ -38,7 +38,7 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <SMSGraph :sim-id="content.id" />
+                <SMSGraph :sim-id="content.id" @haveContent="canExportSMS = true" />
               </div>
               <div slot="table" class="mt-3">
                 <SMSTable :simcard="content" />
@@ -50,7 +50,7 @@
           <template slot="title">
             {{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}
           </template>
-          <template slot="topRight">
+          <template v-if="canExportVoice" slot="topRight">
             <ExportButton :export-fn="getVoiceExportFn()">
               <span slot="title">{{
                 $t('getparc.lineDetail.tab2.supervisionContent.exportVoiceConsumption')
@@ -60,7 +60,7 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <VoiceGraph :sim-id="content.id" />
+                <VoiceGraph :sim-id="content.id" @haveContent="canExportVoice = true" />
               </div>
               <div slot="table" class="mt-3">
                 <VoiceTable :simcard="content" />
@@ -103,6 +103,14 @@ export default {
 
   props: {
     content: Object,
+  },
+
+  data() {
+    return {
+      canExportData: false,
+      canExportSMS: false,
+      canExportVoice: false,
+    };
   },
 
   methods: {

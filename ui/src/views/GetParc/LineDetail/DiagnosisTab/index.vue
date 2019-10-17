@@ -68,37 +68,37 @@ export default {
         {
           section: 'line_analysis',
           title: 'getparc.lineDetail.tab2.lineAnalysis',
-          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_location_test',
           title: 'getparc.lineDetail.tab2.networkLocationTest',
-          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_test_control',
           title: 'getparc.lineDetail.tab2.networkTestControl',
-          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'supervision',
           title: 'getparc.lineDetail.tab2.supervision',
-          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_history',
           title: 'getparc.lineDetail.tab2.networkHistory',
-          partnerForType: ['MVNO'],
+          compatiblePartnerTypes: ['M2M', 'MVNO'],
         },
         {
           section: 'last_tests',
           title: 'getparc.lineDetail.tab2.lastTests',
-          partnerForType: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_information',
           title: 'getparc.lineDetail.tab2.networkInformation',
-          partnerForType: ['MVNO'],
+          compatiblePartnerTypes: ['MVNO'],
         },
       ],
     };
@@ -112,7 +112,7 @@ export default {
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
       let visibleItems = this.menuItems.filter(m =>
-        m.partnerForType.some(p => p === typeForPartner)
+        m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );
       return visibleItems;
     },

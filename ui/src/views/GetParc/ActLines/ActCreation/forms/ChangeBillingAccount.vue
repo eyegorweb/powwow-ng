@@ -71,7 +71,7 @@ export default {
     };
   },
   mounted() {
-    this.actDate = moment().format('DD-MM-YYYY');
+    this.actDate = moment().format('DD/MM/YYYY');
   },
 
   methods: {

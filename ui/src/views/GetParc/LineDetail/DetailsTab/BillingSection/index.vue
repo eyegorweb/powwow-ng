@@ -132,7 +132,7 @@ export default {
   computed: {
     billingStatusChangeDate() {
       const date = this.getFromContent('accessPoint.billingStatusChangeDate');
-      return moment(date, 'DD-MM-YYYY').format('DD/MM/YYYY');
+      return moment(date, 'DD/MM/YYYY').format('DD/MM/YYYY');
     },
     remainingTime() {
       return this.getFromContent('accessPoint.remainingSuspension')
@@ -142,7 +142,7 @@ export default {
     suspensionDate() {
       return moment()
         .add('days', this.remainingTime)
-        .format('DD-MM-YYYY');
+        .format('DD/MM/YYYY');
     },
     commercialStatus() {
       if (get(this.content, 'accessPoint.commercialStatus')) {
@@ -248,7 +248,7 @@ export default {
     },
     formatDate(date) {
       let dateOnly = date.substr(0, date.indexOf(' '));
-      return date && date.length ? moment(dateOnly, 'DD-MM-YYYY').format('DD/MM/YYYY') : '-';
+      return date && date.length ? moment(dateOnly, 'DD/MM/YYYY').format('DD/MM/YYYY') : '-';
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);

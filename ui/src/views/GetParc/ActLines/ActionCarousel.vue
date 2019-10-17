@@ -13,6 +13,7 @@
               :title="item.title"
               :subtitle="item.subtitle"
               :item="item"
+              :default-disabled="defaultDisabled"
               @click="() => $emit('itemClick', item)"
             />
           </slick>
@@ -40,6 +41,7 @@ export default {
       type: Array,
       required: true,
     },
+    defaultDisabled: Boolean,
   },
   data() {
     return {

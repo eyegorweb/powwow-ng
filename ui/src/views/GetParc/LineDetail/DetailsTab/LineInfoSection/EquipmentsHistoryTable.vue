@@ -51,7 +51,7 @@ export default {
         macAdress: get(this.content, 'deviceInstance.mac', ''),
         usagePeriod: getPeriod(
           get(this.content, 'deviceInstance.auditable.updated'),
-          moment().format('DD-MM-YYYY')
+          moment().format('DD/MM/YYYY')
         ),
       });
     }

@@ -41,7 +41,7 @@ import { countTotalByMassActionIndicators } from '@/api/massActions';
 import { mapMutations, mapState } from 'vuex';
 import moment from 'moment';
 
-const dateFormat = 'DD-MM-YYYY';
+const dateFormat = 'DD/MM/YYYY';
 
 export default {
   data() {

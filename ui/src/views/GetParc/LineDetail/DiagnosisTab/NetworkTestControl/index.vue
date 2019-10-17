@@ -135,8 +135,8 @@ export default {
 
       if (haveErrors) return;
 
-      const dateFromParam = this.dateFrom.replace(/\//g, '-');
-      const dateToParam = this.dateTo.replace(/\//g, '-');
+      const dateFromParam = this.dateFrom.replace(/\//g, '/');
+      const dateToParam = this.dateTo.replace(/\//g, '/');
 
       const response = await createConsumptionOnDemand(this.content.id, dateFromParam, dateToParam);
 
