@@ -17,6 +17,7 @@ export async function fetchAlarmInstancesByAP(id) {
         level3
         level3Up
         level3Down
+        startDate
         party {
           id
           name

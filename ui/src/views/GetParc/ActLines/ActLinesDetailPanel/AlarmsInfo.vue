@@ -7,12 +7,18 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.positionedAlarms') }} :</h6>
-      <p v-for="alarm in positionedAlarms" :key="alarm.type">{{ alarm.type }}</p>
+      <p v-for="alarm in positionedAlarms" :key="alarm.type">
+        {{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + alarm.type) }}
+      </p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.triggeredAlarms') }} :</h6>
       <p v-for="alarm in triggeredAlarms" :key="alarm.type">
-        {{ `${alarm.type} ' - ' ${alarm.emissionDate}` }}
+        {{
+          `${$t('getparc.lineDetail.alarms.ALARM_TYPE.' + alarm.alarm.type)} - ${
+            alarm.alarm.startDate
+          }`
+        }}
       </p>
     </div>
   </div>
@@ -38,6 +44,7 @@ export default {
   async mounted() {
     if (!this.get('accessPoint.id')) return;
     this.triggeredAlarms = await fetchAlarmInstancesByAP(this.get('accessPoint.id'));
+    console.log(this.triggeredAlarms);
   },
 
   methods: {

@@ -18,7 +18,7 @@ import CheckMark from '@/components/ui/CheckMark';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'GetSimOrdersStatusCell',
+  name: 'StatusCell',
   components: {
     CheckMark,
   },
@@ -31,7 +31,7 @@ export default {
   computed: {
     ...mapGetters('getsim', ['isLoading']),
     isError() {
-      return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED';
+      return this.item === 'NOT_VALIDATED' || this.item === 'CANCELED' || this.item === 'KO';
     },
   },
 };
