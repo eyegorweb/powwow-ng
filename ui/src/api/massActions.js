@@ -134,6 +134,19 @@ export async function countTotalForMassAction(filters) {
   return response.data.massActionsV2;
 }
 
+export async function fetchSingleIndicator(filters, contextFilters = []) {
+  const filtersToUse = [...filters, ...contextFilters];
+  const queryStr = `
+  query {
+    massActionsV2(filter: { ${formatFilters(
+      filtersToUse
+    )} }, pagination: {page: 0, limit: 1}) { total }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.massActionsV2;
+}
+
 export async function countTotalByMassActionIndicators(
   filterIndicatorActionsInProgress,
   filterIndicatorActionsFailed,
