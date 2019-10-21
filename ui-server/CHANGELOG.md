@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.305+20191021150210
+2019-10-21
+
+### Fixes
+
+- **line detail:** mise à jour des tables pour le menu Historique réseau et itinérance (9ee4c4df9f64cbf58513c5ce3b5db6456d8a3c47)
+
 ## 0.3.0-master.304+20191021130634
 2019-10-21
 
