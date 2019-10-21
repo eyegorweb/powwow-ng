@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.300+20191021084744
+2019-10-21
+
+### Fixes
+
+- corriger le chargement des indicateurs (fde16a81e111cbf546a584f703323963a7c9f2ad)
+
 ## 0.3.0-master.299+20191021083031
 2019-10-21
 
