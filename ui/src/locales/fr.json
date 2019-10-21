@@ -31,6 +31,7 @@
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
   "noResult": "Aucun résulat",
+  "noConso": "Pas de consommation",
   "back": "Retour",
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
@@ -309,7 +310,7 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
-      "analysingTool": "ANALYSER LA LIGNE",
+      "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "alarms": {
         "name": "Nom de l'alarme",
         "threshold": "Seuil de déclenchement",
@@ -442,6 +443,12 @@
           "tresholdStopService": "Seuil Coupure",
           "tmpDebarring": "Debarring Tempraire",
           "activationEndingStopService": "Activation de la levée de coupure"
+        },
+        "networkHistoryContent": {
+          "lastPLMN": "Historique des pays visités",
+          "cellsConsumption": "Historique des cellules de consommation",
+          "exportLastPLMN": "Exporter l'historique des pays visités",
+          "exportCellsConsumption": "Exporter l'historique des cellules de consommation"
         },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data",

@@ -40,12 +40,7 @@ export default {
         all.in.push([formattedObj.date, formattedObj.numberOfReceivedSMS]);
         all.out.push([formattedObj.date, formattedObj.numberOfSentSMS]);
 
-        if (formattedObj.numberOfReceivedSMS || formattedObj.numberOfSentSMS) {
-          if (!this.haveContent) {
-            this.haveContent = true;
-            this.$emit('haveContent', true);
-          }
-        }
+        this.$emit('haveContent', false);
 
         return all;
       },

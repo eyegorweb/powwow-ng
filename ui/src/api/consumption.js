@@ -326,3 +326,94 @@ export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
   }
   return response.data.exportVoiceHistory;
 }
+
+export async function fetchLastVisitedCountries(accessPointId) {
+  const queryStr = `
+    query {
+      lastVisitedCountries(accessPointId: ${accessPointId}){
+        countryName
+        operator
+        PLMN
+        visitDate
+        type
+        usage
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.lastVisitedCountries;
+}
+
+export async function exportLastVisitedCountries(accessPointId, exportFormat) {
+  const response = await query(
+    `
+    query {
+      exportLastVisitedCountries(accessPointId: ${accessPointId} , exportFormat: ${exportFormat}){
+        downloadUri
+        total
+        asyncRequired
+      }
+    }
+  `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportLastVisitedCountries;
+}
+
+export async function fetchCellsHistoryConsumption(accessPointId, pagination) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+    query {
+      cellsHistory(accessPointId: ${accessPointId} ${paginationInfo}) {
+        total
+        items {
+          cellId
+          cellChangeDate
+          country
+          operator
+          PLMN
+          realPLMN
+          zipCode
+          city
+          longitude
+          latitude
+        }
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.cellsHistory;
+}
+
+export async function exportCellsHistory(accessPointId, exportFormat) {
+  const response = await query(
+    `
+    query{
+      exportCellsHistory(accessPointId: ${accessPointId},  exportFormat: ${exportFormat}, columns:[CELLID CELLCHANGEDATE COUNTRY OPERATOR PLMN REALPLMN ZIPCODE CITY LONGITUDE LATITUDE]) {
+          total
+          downloadUri
+          asyncRequired
+        }
+      }
+    `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportCellsHistory;
+}
