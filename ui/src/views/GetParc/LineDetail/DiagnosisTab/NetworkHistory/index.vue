@@ -20,7 +20,7 @@
                 :key="tableVersion"
                 :columns="columnsForLastVisitedCountries"
                 :fetch-data-fn="fetchDataLastVisitedCountries()"
-                :size="0"
+                :size="6"
               />
             </div>
           </template>
@@ -43,7 +43,7 @@
                 :key="tableVersion"
                 :columns="columnsForCellsConsumption"
                 :fetch-data-fn="fetchDataCellsConsumption()"
-                :size="0"
+                :size="5"
               />
             </div>
           </template>
@@ -93,13 +93,13 @@ export default {
       ],
       columnsForCellsConsumption: [
         col('ID de la cellule', 'cellId', true, true),
-        col('Date de changement de cellule', 'cellChangeDate', true, true),
+        col('Date de changement', 'cellChangeDate', true, true),
         col('Opérateur', 'operator', true, true),
         col('PLMN', 'PLMN', true, true),
         col('Code postal', 'zipCode', true, true),
-        col('Ville', 'city', true, true),
-        col('Longitude', 'longitude', true, true),
-        col('Latitude', 'latitude', true, true),
+        col('Ville', 'city', false, true),
+        col('Longitude', 'longitude', false, true),
+        col('Latitude', 'latitude', false, true),
       ],
       noResults: {
         lastVisitedCountries: false,
