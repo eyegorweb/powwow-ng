@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.301+20191021093313
+2019-10-21
+
+### Features
+
+- **line detail:** affiche les fonctionnalités compmètes du menu Historique réseau et itinérance (472e37f44970e4bbb4fb925b4cc5377a6f8a6a1a)
+
 ## 0.3.0-master.300+20191021084744
 2019-10-21
 
