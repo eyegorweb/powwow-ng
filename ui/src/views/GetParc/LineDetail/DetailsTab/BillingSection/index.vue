@@ -70,13 +70,13 @@
           </div>
         </template>
       </ContentBlock>
-      <ContentBlock :key="'block3'">
+      <ContentBlock v-if="remainingTime !== undefined" :key="'block3'">
         <template slot="title">{{
           $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
         }}</template>
 
         <template slot="content">
-          <div v-if="remainingTime !== undefined">
+          <div>
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.remainingTime') }}:</h6>
