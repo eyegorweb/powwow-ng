@@ -72,6 +72,9 @@ export default {
     partners() {
       this.refreshIndicator();
     },
+    contextFilters() {
+      this.refreshIndicator();
+    },
   },
 };
 </script>
