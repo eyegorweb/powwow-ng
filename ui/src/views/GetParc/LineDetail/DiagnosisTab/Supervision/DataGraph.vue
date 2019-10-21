@@ -39,14 +39,8 @@ export default {
         all.in.push([formattedObj.date, formattedObj.upload]);
         all.out.push([formattedObj.date, formattedObj.download]);
         all.pdp.push([formattedObj.date, formattedObj.pdpConnectionsNumber]);
-        // console.log(formattedObj.upload, formattedObj.download, formattedObj.pdpConnectionsNumber);
 
-        if (formattedObj.upload || formattedObj.download || formattedObj.pdpConnectionsNumber) {
-          if (!this.haveContent) {
-            this.haveContent = true;
-            this.$emit('haveContent', true);
-          }
-        }
+        this.$emit('haveContent', false);
 
         return all;
       },

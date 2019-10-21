@@ -6,7 +6,7 @@
           v-for="item in visibleMenuItems"
           :key="item.title"
           class="list-group-item"
-          :class="{ '-inactive': !isLigneActive }"
+          :class="{ '-inactive': !isLineActive }"
         >
           <a
             @click.prevent="section = item.section"
@@ -20,7 +20,7 @@
       </ul>
     </div>
     <div class="col-md-9 pt-3" v-if="content">
-      <template v-if="isLigneActive">
+      <template v-if="isLineActive">
         <LineAnalysisSubMenu1 v-if="section === 'line_analysis'" :content="content" />
         <NetworkStatusSubMenu2 v-if="section === 'network_location_test'" :content="content" />
         <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
@@ -61,39 +61,42 @@ export default {
   props: {
     content: Object,
   },
+  mounted() {
+    this.initializeSection();
+  },
   data() {
     return {
-      section: 'line_analysis',
+      section: undefined,
       menuItems: [
         {
           section: 'line_analysis',
           title: 'getparc.lineDetail.tab2.lineAnalysis',
-          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_location_test',
           title: 'getparc.lineDetail.tab2.networkLocationTest',
-          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_test_control',
           title: 'getparc.lineDetail.tab2.networkTestControl',
-          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'supervision',
           title: 'getparc.lineDetail.tab2.supervision',
-          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_history',
           title: 'getparc.lineDetail.tab2.networkHistory',
-          compatiblePartnerTypes: ['M2M', 'MVNO'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO'],
         },
         {
           section: 'last_tests',
           title: 'getparc.lineDetail.tab2.lastTests',
-          compatiblePartnerTypes: ['M2M', 'CUSTOMER', 'MULTI_CUSTOMER'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'network_information',
@@ -104,7 +107,7 @@ export default {
     };
   },
   computed: {
-    isLigneActive() {
+    isLineActive() {
       const networkStatus = get(this.content, 'accessPoint.networkStatus');
       const simStatus = get(this.content, 'statuts');
       return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
@@ -115,6 +118,16 @@ export default {
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );
       return visibleItems;
+    },
+  },
+  methods: {
+    initializeSection() {
+      const typeForPartner = get(this.content, 'party.partyType');
+      if (typeForPartner === 'MVNO') {
+        this.section = 'network_history';
+      } else {
+        this.section = 'line_analysis';
+      }
     },
   },
 };

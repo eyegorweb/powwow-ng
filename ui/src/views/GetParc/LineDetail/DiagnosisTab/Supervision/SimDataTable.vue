@@ -30,6 +30,14 @@ export default {
           return { ...r, simcard: this.simcard };
         });
         const total = response.total;
+
+        if (rows.length) {
+          if (!this.haveContent) {
+            this.haveContent = true;
+            this.$emit('haveContent', true);
+          }
+        }
+
         return { rows, total };
       };
     },
@@ -192,6 +200,7 @@ export default {
       page: 1,
       pageLimit: 20,
       total: 0,
+      haveContent: false,
     };
   },
 };

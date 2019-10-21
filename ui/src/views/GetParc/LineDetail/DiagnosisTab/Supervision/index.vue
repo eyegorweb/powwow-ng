@@ -16,10 +16,10 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <DataGraph :sim-id="content.id" @haveContent="canExportData = true" />
+                <DataGraph :sim-id="content.id" @haveContent="canExportData = false" />
               </div>
               <div slot="table" class="mt-3">
-                <SimDataTable :simcard="content" />
+                <SimDataTable :simcard="content" @haveContent="canExportData = true" />
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -38,10 +38,10 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <SMSGraph :sim-id="content.id" @haveContent="canExportSMS = true" />
+                <SMSGraph :sim-id="content.id" @haveContent="canExportSMS = false" />
               </div>
               <div slot="table" class="mt-3">
-                <SMSTable :simcard="content" />
+                <SMSTable :simcard="content" @haveContent="canExportSMS = true" />
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -60,10 +60,10 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <VoiceGraph :sim-id="content.id" @haveContent="canExportVoice = true" />
+                <VoiceGraph :sim-id="content.id" @haveContent="canExportVoice = false" />
               </div>
               <div slot="table" class="mt-3">
-                <VoiceTable :simcard="content" />
+                <VoiceTable :simcard="content" @haveContent="canExportVoice = true" />
               </div>
             </TableGraphicContentBlock>
           </template>

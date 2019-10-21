@@ -46,19 +46,7 @@ export default {
         all.totalVoiceIO.push([formattedObj.date, formattedObj.totalVoiceIO]);
         all.totalMinutesIO.push([formattedObj.date, formattedObj.totalMinutesIO]);
 
-        if (
-          formattedObj.outgoing ||
-          formattedObj.incoming ||
-          formattedObj.outgoingMinutesTotal ||
-          formattedObj.incomingMinutesTotal ||
-          formattedObj.totalVoiceIO ||
-          formattedObj.totalMinutesIO
-        ) {
-          if (!this.haveContent) {
-            this.haveContent = true;
-            this.$emit('haveContent', true);
-          }
-        }
+        this.$emit('haveContent', false);
 
         return all;
       },
