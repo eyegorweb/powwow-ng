@@ -37,9 +37,10 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsBO', 'userIsPartner']),
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
+      if (this.userIsBO) return true;
 
       return this.actCreationPrerequisites.partner.partyType !== 'MVNO';
     },
