@@ -366,13 +366,14 @@ export async function exportLastVisitedCountries(accessPointId, exportFormat) {
   return response.data.exportLastVisitedCountries;
 }
 
-export async function fetchCellsHistoryConsumption(accessPointId, pagination) {
+export async function fetchCellsHistoryConsumption(accessPointId, pagination, orderBy) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
     query {
-      cellsHistory(accessPointId: ${accessPointId} ${paginationInfo}) {
+      cellsHistory(accessPointId: ${accessPointId} ${paginationInfo} ${orderingInfo}) {
         total
         items {
           cellId

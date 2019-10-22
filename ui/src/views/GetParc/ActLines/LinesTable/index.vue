@@ -18,7 +18,7 @@
       <DataTable
         v-if="columns"
         storage-id="getparc.lines"
-        storage-version="0"
+        storage-version="001"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -197,6 +197,8 @@ export default {
           visible: true,
           name: 'iccid',
           exportId: 'LINE_ICCID',
+          noHandle: true,
+          fixed: true,
           format: {
             component: IdCell,
           },
