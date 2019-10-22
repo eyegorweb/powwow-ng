@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.306+20191022082124
+2019-10-22
+
+### Fixes
+
+- **line detail:** correctif appliqué à la récupération des données du tableau Historique des pays visités (78fb7b73196f9e129e0973fcac2ca89fd44f7bcc)
+
 ## 0.3.0-master.305+20191021150210
 2019-10-21
 
