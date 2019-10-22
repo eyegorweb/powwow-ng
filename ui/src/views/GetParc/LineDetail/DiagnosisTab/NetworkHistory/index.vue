@@ -44,6 +44,7 @@
                 :columns="columnsForCellsConsumption"
                 :fetch-data-fn="fetchDataCellsConsumption()"
                 :size="5"
+                :order="orderByForCellsHistory"
               />
             </div>
           </template>
@@ -105,6 +106,8 @@ export default {
         lastVisitedCountries: false,
         cellsConsumption: false,
       },
+      orderByForCellsHistory: { key: 'cellChangeDate', direction: 'DESC' },
+      orderByForLastVisitedCountries: { key: 'visitDate', direction: 'DESC' },
     };
   },
 
@@ -142,8 +145,12 @@ export default {
       };
     },
     fetchDataCellsConsumption() {
-      return async pageInfo => {
-        const response = await fetchCellsHistoryConsumption(this.content.accessPoint.id, pageInfo);
+      return async (pageInfo, orderBy) => {
+        const response = await fetchCellsHistoryConsumption(
+          this.content.accessPoint.id,
+          pageInfo,
+          orderBy
+        );
         if (!response || !response.total) this.noResults.cellsConsumption = true;
         return {
           rows: response.items,
