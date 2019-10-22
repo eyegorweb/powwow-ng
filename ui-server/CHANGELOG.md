@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.307+20191022144407
+2019-10-22
+
+### Fixes
+
+- **line detail:** ajour du tri pour la table Historique des cellules de consommation (96d478214e2dd328355dc55ed45cff3160cc9582)
+
 ## 0.3.0-master.306+20191022082124
 2019-10-22
 
