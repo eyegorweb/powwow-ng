@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.310+20191023153156
+## 0.3.0-master.311+20191023143704
 2019-10-23
 
 ### Fixes
 
+- affiche le tableau d'encours de consommation pour le type de partenaire MVNO (5edbd229ae874a9ac14946bba6e1f249e0fbf4fe)
 - utiliser un timepicker pour ajouter des nouvelles demandes de contrôle de consommation (dc435b955b3f523cb62049bff0e9463bcd85643d)
 
 ## 0.3.0-master.309+20191023144637
