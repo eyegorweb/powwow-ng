@@ -110,5 +110,9 @@ export default {
       color: $gray-680;
     }
   }
+
+  img {
+    max-height: 7rem;
+  }
 }
 </style>

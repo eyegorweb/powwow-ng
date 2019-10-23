@@ -231,7 +231,7 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
 export async function createConsumptionOnDemand(simId, startDate, endDate) {
   const queryStr = `
   mutation {
-    createConsumptionOnDemand(startDate: "${startDate} 00:00:00", endDate: "${endDate} 00:00:00", simCardInstanceId: ${simId}) {
+    createConsumptionOnDemand(startDate: "${startDate}", endDate: "${endDate}", simCardInstanceId: ${simId}) {
       id
     }
   }
