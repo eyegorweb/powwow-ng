@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.309+20191023144637
+2019-10-23
+
+### Fixes
+
+- Corriger la création de commandes sur IE (edd20c6a441a29de48cf136613db1e708854893e)
+
 ## 0.3.0-master.308+20191023092809
 2019-10-23
 
