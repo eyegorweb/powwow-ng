@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     dateFormat() {
-      if (this.timePicker) return 'DD/MM/YYYY hh:mm:ss';
+      if (this.timePicker) return 'DD/MM/YYYY HH:mm:ss';
       else return 'DD/MM/YYYY';
     },
   },
