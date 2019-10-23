@@ -3,14 +3,14 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tab2.networkHistoryContent.lastPLMN')
-          }}</template>
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tab2.networkHistoryContent.lastPLMN') }}
+          </template>
           <template v-if="!noResults.lastVisitedCountries" slot="topRight">
             <ExportButton :export-fn="getExportForLastVisitedCountries()">
-              <span slot="title">{{
-                $t('getparc.lineDetail.tab2.networkHistoryContent.exportLastPLMN')
-              }}</span>
+              <span slot="title">
+                {{ $t('getparc.lineDetail.tab2.networkHistoryContent.exportLastPLMN') }}
+              </span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -25,15 +25,15 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block2'" v-if="!compatiblePartnerTypes">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tab2.networkHistoryContent.cellsConsumption')
-          }}</template>
+        <ContentBlock :key="'block2'" v-if="!partnerTypeMVNO">
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tab2.networkHistoryContent.cellsConsumption') }}
+          </template>
           <template v-if="!noResults.cellsConsumption" slot="topRight">
             <ExportButton :export-fn="getExportForCellsConsumption()">
-              <span slot="title">{{
-                $t('getparc.lineDetail.tab2.networkHistoryContent.exportCellsConsumption')
-              }}</span>
+              <span slot="title">
+                {{ $t('getparc.lineDetail.tab2.networkHistoryContent.exportCellsConsumption') }}
+              </span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -112,15 +112,15 @@ export default {
   },
 
   computed: {
-    compatiblePartnerTypes() {
+    partnerTypeMVNO() {
       const typeForPartner = get(this.content, 'party.partyType');
-      let isMVNO;
+      let isMVNOPartner;
       if (typeForPartner === 'MVNO') {
-        isMVNO = true;
+        isMVNOPartner = true;
       } else {
-        isMVNO = false;
+        isMVNOPartner = false;
       }
-      return isMVNO;
+      return isMVNOPartner;
     },
   },
 
