@@ -36,7 +36,7 @@
           </h2>
           <h2 v-else class="panel-title">{{ $t('getsim.choose-sim-amount') }}</h2>
           <UiInput
-            :placeholder="1"
+            :placeholder="null"
             v-model="selectedNumberOfSims"
             value
             class="d-block w-50 mx-auto"
