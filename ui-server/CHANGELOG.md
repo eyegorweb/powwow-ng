@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.313+20191023154747
+2019-10-23
+
+### Fixes
+
+- spécirfiaction du style du tableau encours de consommation (32168792ea578dcd1f3d41aeb056b603e2580f93)
+
 ## 0.3.0-master.312+20191023155647
 2019-10-23
 
