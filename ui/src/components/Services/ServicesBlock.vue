@@ -29,6 +29,7 @@
 </template>
 
 <script>
+// DEPRECATED
 import BarringServiceToggle from '@/components/Services/BarringServiceToggle';
 import NormalServiceToggle from '@/components/Services/NormalServiceToggle';
 import DataServiceToggle from '@/components/Services/DataServiceToggle';

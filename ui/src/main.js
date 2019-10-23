@@ -15,16 +15,6 @@ Vue.prototype.mina = window.mina;
 import $ from 'jquery';
 import addGaugeSupport from '@/dep/GaugeMeter.js';
 
-import * as VueGoogleMaps from 'vue2-google-maps';
-
-Vue.use(VueGoogleMaps, {
-  load: {
-    client: 'gme-docapostbposas',
-    channel: 'uat',
-  },
-  installComponents: true,
-});
-
 addGaugeSupport($);
 
 new Vue({

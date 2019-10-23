@@ -29,9 +29,8 @@
           target="_blank"
           :href="networkWeatherUrl"
           class="btn btn-block btn-outline-primary"
+          >{{ $t('getparc.lineDetail.tab3.networkMeteo') }}</a
         >
-          {{ $t('getparc.lineDetail.tab3.networkMeteo') }}
-        </a>
       </div>
     </div>
   </div>
@@ -39,7 +38,7 @@
 
 <script>
 import CircleLoader from '@/components/ui/CircleLoader';
-import SimpleMap from '@/components/SimpleMap';
+import SimpleMap from '@/components/GoogleMaps/SimpleMap';
 import { getNetworkWeatherUrl } from '@/api/geographicalLocation';
 
 export default {
