@@ -351,7 +351,17 @@
         "nationalConsumption": "Consommations nationales",
         "internationalConsumption": "Consommations internationales",
         "incoming": "Entrantes",
-        "outgoing": "Sortantes"
+        "outgoing": "Sortantes",
+        "totalVoice": "Voix facturée",
+        "totalSMS": "SMS facturé",
+        "totalData": "Data facturée",
+        "voiceIncomingNationalConsumption": "Voix  national entrant",
+        "voiceOutgoingNationalConsumption": "Voix  national sortant",
+        "voiceRoaming": "Voix roaming",
+        "smsIncomingNationalConsumption": "SMS national entrant",
+        "smsOutgoingNationalConsumption": "SMS national sortant",
+        "smsIncomingInternationalConsumption": "SMS roaming entrant",
+        "smsOutgoingInternationalConsumption": "SMS roaming sortant"
       },
       "estimated": {
         "data": "Prévisionnel Data",
