@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.310+20191023153156
+2019-10-23
+
+### Fixes
+
+- utiliser un timepicker pour ajouter des nouvelles demandes de contrôle de consommation (dc435b955b3f523cb62049bff0e9463bcd85643d)
+
 ## 0.3.0-master.309+20191023144637
 2019-10-23
 
