@@ -301,4 +301,9 @@ export default {
 .table thead th {
   text-align: right;
 }
+
+.partnerTypeMVNO tr td:nth-child(2) {
+  width: 50%;
+  padding-right: 30%;
+}
 </style>
