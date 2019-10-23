@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.308+20191023092809
+2019-10-23
+
+### Fixes
+
+- Corriger l'accès à l'application depuis IE (1dd0e9aed89907b85967e9a63489a64fbd752c9e)
+
 ## 0.3.0-master.307+20191022144407
 2019-10-22
 
