@@ -4,7 +4,7 @@
     <img class="loader" v-if="isLoading" src="@/assets/spinner.svg" />
     <div :class="{ 'is-loading': isLoading }">
       <slot v-if="!isLoading" />
-      <span v-else>{{ $t('searching') }}</span>
+      <span v-else>{{ $t(loadingKey) }}</span>
     </div>
   </div>
 </template>
@@ -13,6 +13,10 @@
 export default {
   props: {
     isLoading: Boolean,
+    loadingKey: {
+      type: String,
+      default: 'searching',
+    },
   },
 };
 </script>

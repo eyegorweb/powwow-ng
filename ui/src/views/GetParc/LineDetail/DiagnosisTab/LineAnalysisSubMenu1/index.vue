@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <LoaderContainer :is-loading="loadingGeoloc" loading-key="loading">
     <div class="row">
       <div class="col-md-5">
         <div>
           <h4 class="text-primary text-uppercase">
             {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.locationSection') }}
           </h4>
-          <LocalisationBlock :loading="loadingGeoloc" :data="geographicalLocation" />
+          <LocalisationBlock :data="geographicalLocation" />
         </div>
       </div>
       <div class="col-md-7">
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div v-if="geographicalLocation" class="row">
       <div class="col-md-12">
         <h4 class="text-primary text-uppercase">
           {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.LastLocation') }}
@@ -91,6 +91,17 @@
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.useTypeAndDetail') }}:</h6>
               <p>{{ getValue(geographicalLocation, 'usageDetailsByDirection') }}</p>
+            </div>
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.technology') }}:</h6>
+              <p>
+                {{
+                  $t(
+                    'getparc.lineDetail.tab2.lineAnalysisContent.technologies.' +
+                      getValue(geographicalLocation, 'ticketGeneration', 'none')
+                  )
+                }}
+              </p>
             </div>
           </div>
         </div>
@@ -126,12 +137,13 @@
         />
       </div>
     </div>
-  </div>
+  </LoaderContainer>
 </template>
 
 <script>
 import Toggle from '@/components/ui/UiToggle2';
 import AnalyzeTable from './AnalyzeTable';
+import LoaderContainer from '@/components/LoaderContainer';
 
 import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
@@ -143,6 +155,7 @@ export default {
     LocalisationBlock,
     Toggle,
     AnalyzeTable,
+    LoaderContainer,
   },
   data() {
     return {
@@ -170,11 +183,11 @@ export default {
   },
   async mounted() {
     if (this.getValue(this.content, 'id')) {
+      this.loadingGeoloc = true;
       const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
       if (pdpResponse && pdpResponse.length) {
         this.pdpConnexionData = pdpResponse[0].dataHistroy;
       }
-      this.loadingGeoloc = true;
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
       this.loadingGeoloc = false;
     }
@@ -185,7 +198,6 @@ export default {
         return '-';
       }
       const value = get(objectToUse, path, defaultValue);
-
       return value !== null ? value : '-';
     },
     getConnectionStatus() {
