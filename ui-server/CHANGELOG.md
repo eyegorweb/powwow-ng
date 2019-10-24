@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.314+20191024092346
+2019-10-24
+
+### Fixes
+
+- Ajouter le champ technologie sur le bloc de geolocalisation (45cddc58238efc513ed76cac03a583f7de9db2a1)
+
 ## 0.3.0-master.313+20191023154747
 2019-10-23
 
