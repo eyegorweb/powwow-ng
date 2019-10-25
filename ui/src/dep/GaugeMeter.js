@@ -47,6 +47,7 @@ export function gaugeMeter($) {
         text_size: 0.22,
         fill: '',
         showvalue: false,
+        formatValueFn: undefined,
       },
       t
     );
@@ -294,7 +295,11 @@ export function gaugeMeter($) {
             option.fgcolor = getThemeColor(M);
             drawGauge(Math.min(M, c) / 100);
             if (valueTag && M) {
-              valueTag.text('' + M);
+              if (option.formatValueFn) {
+                valueTag.text(option.formatValueFn(M, option.append));
+              } else {
+                valueTag.text('' + M + ' ' + option.append);
+              }
             }
           }, p));
       }
@@ -324,6 +329,7 @@ export function gaugeMeter($) {
           'text_size',
           'fill',
           'showvalue',
+          'formatValueFn',
         ],
         option = {},
         c = 0,
@@ -354,7 +360,7 @@ export function gaugeMeter($) {
 
       if (option.text !== '' && option.text !== null && option.text !== undefined) {
         if (option.append !== '' && option.append !== null && option.append !== undefined) {
-          r = option.text + '<u>' + option.append + '</u>';
+          r = option.text + ' ' + option.append;
         } else {
           r = option.text;
         }
@@ -372,7 +378,7 @@ export function gaugeMeter($) {
         }
 
         if (option.append !== '' && option.append !== null && option.append !== undefined) {
-          r = r + '<u>' + option.append + '</u>';
+          r = r + ' ' + option.append;
         }
       }
 

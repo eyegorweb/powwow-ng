@@ -16,13 +16,19 @@
     <div class="conso-container">
       <div class="row">
         <div class="col-md-4">
-          <Gauge :value="35" title="25Mo" subtitle="18/11/2018" right-corner="∞" />
+          <Gauge :value="35" max-value="∞" unit="Mo" subtitle="18/11/2018" />
         </div>
         <div class="col-md-4">
-          <Gauge :value="100" subtitle="18/11/2018" arc-style="danger" right-corner="40" />
+          <Gauge :value="120" max-value="200" subtitle="18/11/2018" arc-style="danger" />
         </div>
         <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
-          <Gauge :value="49" title="110" subtitle="18/11/2018" right-corner="120" />
+          <Gauge
+            time-max-value
+            :value="35"
+            max-value="65"
+            :format-value-fn="getTimeFormatFn()"
+            subtitle="18/11/2018"
+          />
         </div>
       </div>
     </div>
@@ -54,6 +60,27 @@ export default {
         value: o.code,
       }));
     }
+  },
+  methods: {
+    getTimeFormatFn() {
+      return valueToShow => {
+        let sec_num = parseInt(valueToShow, 10);
+        let hours = Math.floor(sec_num / 3600);
+        let minutes = Math.floor((sec_num - hours * 3600) / 60);
+        let seconds = sec_num - hours * 3600 - minutes * 60;
+
+        if (hours < 10) {
+          hours = '0' + hours;
+        }
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        return hours + ':' + minutes + ':' + seconds;
+      };
+    },
   },
 
   data() {
