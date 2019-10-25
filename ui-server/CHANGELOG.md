@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.315+20191025151742
+2019-10-25
+
+### Fixes
+
+- modifier le design des gauges (c09e5b68e14d7c03014fd99915cb4772dd81bb4b)
+
 ## 0.3.0-master.314+20191024092346
 2019-10-24
 
