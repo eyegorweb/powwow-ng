@@ -1,5 +1,8 @@
 <template>
   <div :style="containerStyle">
+    <div class="gauge_title" :style="gaugeTitleStyle">
+      <slot />
+    </div>
     <div ref="gauge" class="GaugeMeter mx-auto" :style="mainGaugeStyle"></div>
     <div class="gauge_corners mx-auto" :style="cornersStyle">
       <div class="gauge_min">{{ minValue }}</div>
@@ -45,6 +48,7 @@ export default {
       mainGaugeStyle: {},
       containerStyle: {},
       maxCornerStyle: {},
+      gaugeTitleStyle: {},
     };
   },
   filters: {
@@ -78,22 +82,21 @@ export default {
     let gaugeSize = 250;
     let gaugeWidth = 15;
     let gaugeTopSpacing = gaugeSize / 4;
-    let containerBottomSpacing = gaugeSize / 10;
+    let titleSpacing = 78;
 
     if (window.innerWidth <= 1024) {
       gaugeSize = 150;
       gaugeWidth = 8;
       gaugeTopSpacing = 40;
-      containerBottomSpacing = 12;
+      titleSpacing = 47;
     }
 
     if (window.innerWidth >= 1366 && window.innerWidth < 1920) {
-      gaugeSize = 180;
+      gaugeSize = 170;
       gaugeWidth = 8;
-      containerBottomSpacing = 6;
 
       gaugeTopSpacing = 45;
-      containerBottomSpacing = 2;
+      titleSpacing = 57;
     }
 
     const options = {
@@ -112,17 +115,20 @@ export default {
       maxCorner: '100',
       formatValueFn: (unitPercent, unit) => {
         const valueToShow = (unitPercent * this.value) / this.getMaxPercent();
-
         if (this.formatValueFn) return this.formatValueFn(valueToShow);
-
         return valueToShow + ' ' + unit;
       },
     };
 
     this.cornersStyle = { width: percent(85, gaugeSize) + 'px' };
     this.mainGaugeStyle = { top: gaugeTopSpacing + 'px' };
-    this.containerStyle = { paddingBottom: containerBottomSpacing + 'px' };
+    //  this.containerStyle = { paddingBottom: containerBottomSpacing + 'px' };
     if (this.timeMaxValue) this.maxCornerStyle = { position: 'relative', left: '43px' };
+
+    this.gaugeTitleStyle = {
+      top: titleSpacing + 'px',
+      position: 'relative',
+    };
 
     $(this.$refs.gauge).gaugeMeter(options);
   },
@@ -175,5 +181,10 @@ export default {
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.gauge_title {
+  font-weight: 500;
+  text-align: center;
 }
 </style>

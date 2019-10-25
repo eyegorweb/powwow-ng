@@ -2,24 +2,29 @@
   <WidgetBloc :widget="widget" mocked>
     <div slot="header">
       <div class="d-flex offer-select">
-        <span>Pour l'offre</span>
-        <UiSelect
-          v-if="offers.length"
-          class="text-gray"
-          v-model="selectedOffer"
-          :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
-          :options="offers"
-          small
-        ></UiSelect>
+        <template v-if="!loadingOffers">
+          <span>Pour l'offre</span>
+          <UiSelect
+            v-if="offers.length"
+            class="text-gray"
+            v-model="selectedOffer"
+            :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
+            :options="offers"
+            small
+          ></UiSelect>
+        </template>
+        <template v-else>
+          <span>{{ $t('loading') }}</span>
+        </template>
       </div>
     </div>
     <div class="conso-container">
       <div class="row">
         <div class="col-md-4">
-          <Gauge :value="35" max-value="∞" unit="Mo" subtitle="18/11/2018" />
+          <Gauge :value="35" max-value="∞" unit="Mo" subtitle="18/11/2018">DATA</Gauge>
         </div>
         <div class="col-md-4">
-          <Gauge :value="120" max-value="200" subtitle="18/11/2018" arc-style="danger" />
+          <Gauge :value="120" max-value="200" subtitle="18/11/2018" arc-style="danger">SMS</Gauge>
         </div>
         <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
           <Gauge
@@ -28,7 +33,8 @@
             max-value="65"
             :format-value-fn="getTimeFormatFn()"
             subtitle="18/11/2018"
-          />
+            >VOIX</Gauge
+          >
         </div>
       </div>
     </div>
@@ -52,7 +58,9 @@ export default {
     contextFilters: Array,
   },
   async mounted() {
+    this.loadingOffers = true;
     const data = await fetchOffers('', [...this.contextFilters], { page: 0, limit: 99 });
+    this.loadingOffers = false;
     if (data) {
       this.offers = data.map(o => ({
         id: o.code,
@@ -87,6 +95,7 @@ export default {
     return {
       selectedOffer: undefined,
       offers: [],
+      loadingOffers: false,
     };
   },
   watch: {
