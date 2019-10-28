@@ -2,6 +2,37 @@
 
 <!--- next entry here -->
 
+## 0.9.0
+2019-10-28
+
+### Features
+
+- export des données de la consommation DATA (56901e04ae410f46ec58a487d1133b72fa00cacb)
+- Exporter les consommations de ma ligne (c8f414c1221af2d400e7c2eb24b3ba61b9931ec1)
+- **line detail:** affiche les fonctionnalités compmètes du menu Historique réseau et itinérance (472e37f44970e4bbb4fb925b4cc5377a6f8a6a1a)
+
+### Fixes
+
+- brancher la colonne opérateur (845d788b5d1d83ac2d246adbdc0fa0141803f7b3)
+- ouverture du volet de l'acte de gestion (498cb4ec293d442fc27c17d6398389fdad0137d9)
+- Afficher le nom de la société dans le détail de la commande (7dac3b0615702435de18b36bb855d8c70a3cf0ca)
+- utilisation de l'API V2 pour récupérer les datas (f5a12ca6263c1b0bce96b022720e4c2c09573e4a)
+- ajout de l'info asynchrone (7e7b96c6934fe8fcfe70c7458125f28ac852d76e)
+- Corriger le drag & drop sur le volet supervision (36c32c95e3fff2405ef0c8c1cabcbf2655557b44)
+- correction des retours (657e0ee20e1c20c496aed5b1d42b64b383b9ccce)
+- Correction des retours de la review (a6d2ed3524e8102646114c520a564e83eabd1a2f)
+- corriger le chargement des indicateurs (fde16a81e111cbf546a584f703323963a7c9f2ad)
+- **line detail:** mise à jour des tables pour le menu Historique réseau et itinérance (9ee4c4df9f64cbf58513c5ce3b5db6456d8a3c47)
+- **line detail:** correctif appliqué à la récupération des données du tableau Historique des pays visités (78fb7b73196f9e129e0973fcac2ca89fd44f7bcc)
+- **line detail:** ajour du tri pour la table Historique des cellules de consommation (96d478214e2dd328355dc55ed45cff3160cc9582)
+- Corriger l'accès à l'application depuis IE (1dd0e9aed89907b85967e9a63489a64fbd752c9e)
+- affiche le tableau d'encours de consommation pour le type de partenaire MVNO (5edbd229ae874a9ac14946bba6e1f249e0fbf4fe)
+- Corriger la création de commandes sur IE (edd20c6a441a29de48cf136613db1e708854893e)
+- utiliser un timepicker pour ajouter des nouvelles demandes de contrôle de consommation (dc435b955b3f523cb62049bff0e9463bcd85643d)
+- spécirfiaction du style du tableau encours de consommation (32168792ea578dcd1f3d41aeb056b603e2580f93)
+- Ajouter le champ technologie sur le bloc de geolocalisation (45cddc58238efc513ed76cac03a583f7de9db2a1)
+- modifier le design des gauges (c09e5b68e14d7c03014fd99915cb4772dd81bb4b)
+
 ## 0.8.0
 2019-10-11
 
