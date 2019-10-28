@@ -71,8 +71,8 @@ export default {
           id: 'filters.orderDate',
           startDate: moment()
             .subtract(6, 'month')
-            .format('DD-MM-YYYY'),
-          endDate: moment().format('DD-MM-YYYY'),
+            .format('DD/MM/YYYY'),
+          endDate: moment().format('DD/MM/YYYY'),
         },
       ],
       resultsPromise: undefined,

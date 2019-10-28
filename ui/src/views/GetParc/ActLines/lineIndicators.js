@@ -53,7 +53,7 @@ export default [
         id: 'filters.actDateCreation',
         endDate: moment()
           .subtract(6, 'month')
-          .format('DD-MM-YYYY'),
+          .format('DD/MM/YYYY'),
       };
       return await fetchTotalMassActions([...indicator.filters, dateFilter]);
     },

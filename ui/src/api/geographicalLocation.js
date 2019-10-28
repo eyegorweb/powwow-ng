@@ -71,6 +71,7 @@ export async function accessPointsByLocalisation(filters, pagination, localisati
           usageType
           ticketGeneration
           pdpConnectionStatus
+          operator
         }
         deviceInstance {
           manufacturer

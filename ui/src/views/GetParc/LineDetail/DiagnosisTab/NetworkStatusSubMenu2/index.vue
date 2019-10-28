@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap';
+import SimpleMap from '@/components/GoogleMaps/SimpleMap';
 import StatusWithLocation from './StatusWithLocation';
 import { fetchUnitActions2 } from '@/api/unitActions';
 import { mapMutations } from 'vuex';

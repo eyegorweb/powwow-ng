@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { fetchUnitActions } from '@/api/unitActions';
+import { fetchUnitActions2 } from '@/api/unitActions';
 import DataTable from '@/components/DataTable/DataTable';
 import IdCell from './IdCell';
 import StatusCell from './StatusCell';
@@ -57,6 +57,12 @@ export default {
           name: 'actionType',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('getparc.actTypes.' + row.actionType);
+            },
+          },
         },
         {
           id: 3,
@@ -113,15 +119,8 @@ export default {
   methods: {
     async fetchUnitActs(searchFilter = [{ id: 'filters.iccid', value: this.content.iccid }]) {
       this.isLoading = true;
-      const response = await fetchUnitActions(
-        this.massActionId,
-        { statuses: this.statuses },
-        this.getPageInfo,
-        this.orderBy,
-        searchFilter
-      );
+      const response = await fetchUnitActions2(searchFilter, this.getPageInfo, this.orderBy);
       this.unitActions = response.items.map(i => ({ ...i, ...i.unitAction }));
-      console.log(this.unitActions);
 
       this.total = response.total;
 

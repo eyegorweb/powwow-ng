@@ -12,9 +12,7 @@
 </template>
 
 <script>
-// DEPRECATED
 import UiToggle from '@/components/ui/UiToggle';
-import { initDataService } from '@/utils/simServices';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
 
 export default {
@@ -24,11 +22,7 @@ export default {
   },
 
   props: {
-    catalogOffer: Object,
-    instanceOffer: {
-      type: Object,
-      default: undefined,
-    },
+    service: Object,
   },
 
   data() {
@@ -36,25 +30,22 @@ export default {
       editable: true,
       checked: false,
       apns: [],
-      data: undefined,
     };
   },
   mounted() {
-    const data = initDataService(this.catalogOffer);
-    if (data) {
-      this.apns = data.apns;
-      this.checked = data.checked;
-      this.editable = data.editable;
-    } else {
-      this.apns = [
-        {
-          code: 'TEST',
-          label: 'testrnis.fr',
-          selectable: false,
-          selected: true,
-        },
-      ];
-    }
+    const data = {
+      checked: this.service.activated,
+      editable: this.service.editable,
+      apns: this.service.parameters.map(s => ({
+        code: s.code,
+        label: s.value,
+        selectable: s.editable,
+        selected: s.active,
+      })),
+    };
+    this.apns = data.apns;
+    this.checked = data.checked;
+    this.editable = data.editable;
   },
   methods: {
     toggleApn(apn) {

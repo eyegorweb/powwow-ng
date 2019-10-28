@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-export const DATE_FORMAT = 'DD-MM-YYYY';
-export const DATE_FORMAT_EXTENDED = 'DD-MM-YYYY HH:mm:ss';
+export const DATE_FORMAT = 'DD/MM/YYYY';
+export const DATE_FORMAT_EXTENDED = 'DD/MM/YYYY HH:mm:ss';
 
 export function currentDateMinusMounts(numberOfMonths) {
   return moment()

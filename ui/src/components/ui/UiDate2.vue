@@ -38,6 +38,13 @@ export default {
      */
     fixed: Boolean,
     large: Boolean,
+    timePicker: Boolean,
+  },
+  computed: {
+    dateFormat() {
+      if (this.timePicker) return 'DD/MM/YYYY HH:mm:ss';
+      else return 'DD/MM/YYYY';
+    },
   },
   methods: {
     clearValue() {
@@ -46,13 +53,13 @@ export default {
     createDatePicker() {
       let startDate;
       if (this.start) {
-        startDate = moment(this.value, 'DD/MM/YYYY');
+        startDate = moment(this.value, this.dateFormat);
       } else {
         // startDate = moment();
       }
 
       const onDateSelected = value => {
-        this.$emit('change', value.format('DD/MM/YYYY'));
+        this.$emit('change', value.format(this.dateFormat));
       };
 
       // TODO: add i18n support
@@ -61,8 +68,10 @@ export default {
           singleDatePicker: true,
           startDate,
           drops: 'up',
+          timePicker: this.timePicker,
+          timePicker24Hour: true,
           locale: {
-            format: 'DD/MM/YYYY',
+            format: this.dateFormat,
             separator: ' - ',
             applyLabel: 'Appliquer',
             cancelLabel: 'Annuler',

@@ -18,7 +18,11 @@
       </div>
     </div>
     <LineSummary v-if="lineData" :content="lineData" />
-    <ActionCarousel :actions="carouselItems" @itemClick="onCarouselItemClick" />
+    <ActionCarousel
+      :actions="carouselItems"
+      :default-disabled="!isLigneActive"
+      @itemClick="onCarouselItemClick"
+    />
     <div class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
@@ -50,6 +54,7 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import { searchLines } from '@/api/linesActions';
 import { mapMutations } from 'vuex';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -115,6 +120,11 @@ export default {
     };
   },
   computed: {
+    isLigneActive() {
+      const networkStatus = get(this.lineData, 'accessPoint.networkStatus');
+      const simStatus = get(this.lineData, 'statuts');
+      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
+    },
     msisdn() {
       return this.lineData &&
         this.lineData.accessPoint &&

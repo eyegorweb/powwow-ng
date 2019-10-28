@@ -24,9 +24,7 @@
         <p v-if="item.orderDate" class="last-order mt-1">
           {{ $t('getsim.sim-type-labels.orderDate') }}: {{ formattedDate }}
         </p>
-        <p v-else class="last-order mt-1">
-          {{ $t('getsim.never-ordered') }}
-        </p>
+        <p v-else class="last-order mt-1">{{ $t('getsim.never-ordered') }}</p>
       </div>
     </div>
     <div class="simtype__item">
@@ -114,7 +112,7 @@ export default {
   }
 
   img {
-    max-height: 100%;
+    max-height: 7rem;
   }
 }
 </style>

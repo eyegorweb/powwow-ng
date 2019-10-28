@@ -216,7 +216,7 @@ export default {
 
     formatDate(date) {
       let dateOnly = date.substr(0, date.indexOf(' '));
-      return date && date.length ? moment(dateOnly, 'DD-MM-YYYY').format('DD/MM/YYYY') : '-';
+      return date && date.length ? moment(dateOnly, 'DD/MM/YYYY').format('DD/MM/YYYY') : '-';
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);

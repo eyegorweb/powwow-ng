@@ -1,14 +1,8 @@
 import { query } from './utils';
-import moment from 'moment';
 
 export async function fetchSMSConsumption(simInstanceId) {
-  const startDate = moment()
-    .subtract(6, 'month')
-    .format('DD-MM-YYYY HH:mm:ss');
-  const endDate = moment().format('DD-MM-YYYY HH:mm:ss');
-
   const queryStr = `{
-    smsConsumptionGraph(simCardInstanceId: ${simInstanceId}, startDate: {goe: "${startDate}"}, endDate: {lt: "${endDate}"}) {
+    smsConsumptionGraph(simCardInstanceId: ${simInstanceId}) {
       date
       numberOfSentSMS
       numberOfReceivedSMS
@@ -21,12 +15,8 @@ export async function fetchSMSConsumption(simInstanceId) {
 }
 
 export async function fetchVoiceUsageForGraph(simInstanceId) {
-  const startDate = moment()
-    .subtract(6, 'month')
-    .format('DD-MM-YYYY HH:mm:ss');
-  const endDate = moment().format('DD-MM-YYYY HH:mm:ss');
   const queryStr = `{
-    voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}, startDate: {goe: "${startDate}"}, endDate: {lt: "${endDate}"}) {
+    voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}) {
       date
       outgoing
       incoming
@@ -233,69 +223,6 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
   }
   `;
 
-  /*
-  const response = {
-    data: {
-      consumptionOnDemand: {
-        isAllowCreateConsumptionOnDemand: false,
-        consumptionsOnDemands: {
-          total: 1,
-          items: [
-            {
-              id: 0,
-              periodStartDate: '23-05-2015 00:00:00',
-              periodEndDate: '23-05-2015 00:00:00',
-              fistIncomingTicketDate: '23-05-2015 00:00:00',
-              fistOutgoingTicketDate: '23-05-2015 00:00:00',
-              lastIncomingTicketDate: '23-05-2015 00:00:00',
-              lastOutgoingTicketDate: '23-05-2015 00:00:00',
-              dataIn: 22,
-              dataOut: 35,
-              smsIn: 10,
-              smsOut: 14,
-              voiceIn: 36,
-              voiceOut: 70,
-              Statut: 'RUNNING',
-            },
-            {
-              id: 1,
-              periodStartDate: '23-05-2015 00:00:00',
-              periodEndDate: '23-05-2015 00:00:00',
-              fistIncomingTicketDate: '23-05-2015 00:00:00',
-              fistOutgoingTicketDate: '23-05-2015 00:00:00',
-              lastIncomingTicketDate: '23-05-2015 00:00:00',
-              lastOutgoingTicketDate: '23-05-2015 00:00:00',
-              dataIn: 22,
-              dataOut: 35,
-              smsIn: 10,
-              smsOut: 14,
-              voiceIn: 36,
-              voiceOut: 70,
-              Statut: 'WAITING',
-            },
-            {
-              id: 3,
-              periodStartDate: '23-05-2015 00:00:00',
-              periodEndDate: '23-05-2015 00:00:00',
-              fistIncomingTicketDate: '23-05-2015 00:00:00',
-              fistOutgoingTicketDate: '23-05-2015 00:00:00',
-              lastIncomingTicketDate: '23-05-2015 00:00:00',
-              lastOutgoingTicketDate: '23-05-2015 00:00:00',
-              dataIn: 22,
-              dataOut: 35,
-              smsIn: 10,
-              smsOut: 14,
-              voiceIn: 36,
-              voiceOut: 70,
-              Statut: 'TERMINATED',
-            },
-          ],
-        },
-      },
-    },
-  };
-  //*/
-
   const response = await query(queryStr);
 
   return response.data.consumptionOnDemand;
@@ -304,7 +231,7 @@ export async function consumptionOnDemand(simCardInstanceId, pagination) {
 export async function createConsumptionOnDemand(simId, startDate, endDate) {
   const queryStr = `
   mutation {
-    createConsumptionOnDemand(startDate: "${startDate} 00:00:00", endDate: "${endDate} 00:00:00", simCardInstanceId: ${simId}) {
+    createConsumptionOnDemand(startDate: "${startDate}", endDate: "${endDate}", simCardInstanceId: ${simId}) {
       id
     }
   }
@@ -336,4 +263,158 @@ export async function networkInformationForLine(msisdn) {
   const response = await query(queryStr);
 
   return response.data.networkInformationForLine;
+}
+
+export async function exportSmsHistory(simCardInstanceId, exportFormat) {
+  const response = await query(
+    `
+    {
+      exportSmsHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONSUMPTION_DATE, DIRECTION, CALLING_NUMBER, CALLED_NUMBER, OPERATOR, PLMN, ZIP_CODE, CITY, CELL_ID, IMEI, OFFER, LONGITUDE, LATITUDE, COUNTRY]) {
+        downloadUri
+        total
+        asyncRequired
+      }
+    }
+    `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportSmsHistory;
+}
+
+export async function exportDataHistory(simCardInstanceId, exportFormat) {
+  const response = await query(
+    `
+    {
+      exportDataHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONNECTION_START_DATE, CONNECTION_END_DATE, CONNECTION_STATUS, REASON, UL_VOLUME, DL_VOLUME, IP_TYPE, APN, IP_V4_ADDRESS, IP_V6_ADDRESS, OPERATOR, PLMN, ZIP_CODE, CITY, COUNTRY, IMEI, OFFER, CELL_ID, LONGITUDE, LATITUDE]) {
+        downloadUri
+        total
+        asyncRequired
+      }
+    }
+    `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportDataHistory;
+}
+export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
+  const response = await query(
+    `
+    {
+      exportVoiceHistory(simCardInstanceId: ${simCardInstanceId}, exportFormat: ${exportFormat}, getLastOnly: true, columns: [MSISDN, CONSUMPTION_DATE, DURATION, USAGE_TYPE, DETAILS, DIRECTION, CALLING_NUMBER, CALLED_NUMBER, OPERATOR, PLMN, ZIP_CODE, CITY, CELL_ID, IMEI, OFFER, LONGITUDE, LATITUDE]) {
+        downloadUri
+        total
+        asyncRequired
+      }
+    }
+    `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportVoiceHistory;
+}
+
+export async function fetchLastVisitedCountries(accessPointId) {
+  const queryStr = `
+    query {
+      lastVisitedCountries(accessPointId: ${accessPointId}){
+        countryName
+        operator
+        PLMN
+        visitDate
+        type
+        usage
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.lastVisitedCountries;
+}
+
+export async function exportLastVisitedCountries(accessPointId, exportFormat) {
+  const response = await query(
+    `
+    query {
+      exportLastVisitedCountries(accessPointId: ${accessPointId} , exportFormat: ${exportFormat}){
+        downloadUri
+        total
+        asyncRequired
+      }
+    }
+  `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportLastVisitedCountries;
+}
+
+export async function fetchCellsHistoryConsumption(accessPointId, pagination, orderBy) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+    query {
+      cellsHistory(accessPointId: ${accessPointId} ${paginationInfo} ${orderingInfo}) {
+        total
+        items {
+          cellId
+          cellChangeDate
+          country
+          operator
+          PLMN
+          realPLMN
+          zipCode
+          city
+          longitude
+          latitude
+        }
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.cellsHistory;
+}
+
+export async function exportCellsHistory(accessPointId, exportFormat) {
+  const response = await query(
+    `
+    query{
+      exportCellsHistory(accessPointId: ${accessPointId},  exportFormat: ${exportFormat}, columns:[CELLID CELLCHANGEDATE COUNTRY OPERATOR PLMN REALPLMN ZIPCODE CITY LONGITUDE LATITUDE]) {
+          total
+          downloadUri
+          asyncRequired
+        }
+      }
+    `
+  );
+  if (!response) {
+    return { errors: ['unknown'] };
+  }
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.exportCellsHistory;
 }

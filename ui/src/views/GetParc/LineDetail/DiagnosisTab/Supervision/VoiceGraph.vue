@@ -27,7 +27,7 @@ export default {
     const formattedData = data.reduce(
       (all, item) => {
         const dateFirstSplit = item.date.split(' ');
-        const dateParts = dateFirstSplit[0].split('-');
+        const dateParts = dateFirstSplit[0].split('/');
         const formattedObj = {
           ...item,
           totalVoiceIO: item.outgoing + item.incoming,
@@ -46,6 +46,8 @@ export default {
         all.totalVoiceIO.push([formattedObj.date, formattedObj.totalVoiceIO]);
         all.totalMinutesIO.push([formattedObj.date, formattedObj.totalMinutesIO]);
 
+        this.$emit('haveContent', false);
+
         return all;
       },
       {
@@ -62,6 +64,7 @@ export default {
   data() {
     return {
       chartOptions: undefined,
+      haveContent: false,
     };
   },
 

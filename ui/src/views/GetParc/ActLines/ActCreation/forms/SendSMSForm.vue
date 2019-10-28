@@ -84,7 +84,7 @@ export default {
     UiDate,
   },
   mounted() {
-    this.smsDate = moment().format('DD-MM-YYYY');
+    this.smsDate = moment().format('DD/MM/YYYY');
   },
 
   computed: {

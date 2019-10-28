@@ -24,6 +24,7 @@
                 <div class="form-group">
                   <label for="message">{{ $t('filters.actDateStart') }}</label>
                   <UiDate
+                    time-picker
                     @change="newVal => (dateFrom = newVal)"
                     :value="dateFrom"
                     class="d-block"
@@ -37,6 +38,7 @@
                 <div class="form-group">
                   <label for="message">{{ $t('filters.actDateEnd') }}</label>
                   <UiDate
+                    time-picker
                     @change="newVal => (dateTo = newVal)"
                     :value="dateTo"
                     class="d-block"
@@ -135,8 +137,8 @@ export default {
 
       if (haveErrors) return;
 
-      const dateFromParam = this.dateFrom.replace(/\//g, '-');
-      const dateToParam = this.dateTo.replace(/\//g, '-');
+      const dateFromParam = this.dateFrom.replace(/\//g, '/');
+      const dateToParam = this.dateTo.replace(/\//g, '/');
 
       const response = await createConsumptionOnDemand(this.content.id, dateFromParam, dateToParam);
 

@@ -16,7 +16,7 @@ import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
 
-const dateFormat = 'DD-MM-YYYY';
+const dateFormat = 'DD/MM/YYYY';
 
 export default {
   components: {
@@ -126,8 +126,8 @@ export default {
               id: 'filters.orderDate',
               startDate: moment()
                 .subtract(4, 'hours')
-                .format('DD-MM-YYYY HH:mm:ss'),
-              endDate: moment().format('DD-MM-YYYY HH:mm:ss'),
+                .format('DD/MM/YYYY HH:mm:ss'),
+              endDate: moment().format('DD/MM/YYYY HH:mm:ss'),
               sameDay: true,
             },
           ],
@@ -154,7 +154,7 @@ export default {
                 .format(dateFormat),
               endDate: moment()
                 .subtract(48, 'hours')
-                .format('DD-MM-YYYY HH:mm:ss'),
+                .format('DD/MM/YYYY HH:mm:ss'),
             },
           ],
           fetch: async (indicator, contextFilters) => {

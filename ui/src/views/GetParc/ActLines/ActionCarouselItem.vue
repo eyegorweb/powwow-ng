@@ -3,7 +3,7 @@
     <div
       class="card"
       v-tooltip="tooltipMessage"
-      :class="{ inactive: isDisabled, selected: selected }"
+      :class="{ inactive: isInactive, selected: selected }"
       @click="onClick"
     >
       <div class="card-body">
@@ -27,6 +27,7 @@ export default {
     title: String,
     subtitle: String,
     item: Object,
+    defaultDisabled: Boolean,
   },
   data() {
     return {
@@ -41,6 +42,9 @@ export default {
       if (!this.actToCreate) return false;
 
       return this.actToCreate.title === this.title;
+    },
+    isInactive() {
+      return this.defaultDisabled || this.isDisabled;
     },
   },
   watch: {
@@ -100,7 +104,7 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.isDisabled) return;
+      if (this.isInactive) return;
 
       this.$emit('click');
     },

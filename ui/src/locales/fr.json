@@ -31,6 +31,7 @@
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
   "noResult": "Aucun résulat",
+  "noConso": "Pas de consommation",
   "back": "Retour",
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
@@ -220,6 +221,7 @@
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "manageActTitle": "{type} - {date}",
         "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
         "quantityTargeted": "Quantité ciblée",
@@ -308,7 +310,7 @@
       "previsionalVoice": "Prévisionnel Voix",
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
-      "analysingTool": "ANALYSER LA LIGNE",
+      "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "alarms": {
         "name": "Nom de l'alarme",
         "threshold": "Seuil de déclenchement",
@@ -349,7 +351,17 @@
         "nationalConsumption": "Consommations nationales",
         "internationalConsumption": "Consommations internationales",
         "incoming": "Entrantes",
-        "outgoing": "Sortantes"
+        "outgoing": "Sortantes",
+        "totalVoice": "Voix facturée",
+        "totalSMS": "SMS facturé",
+        "totalData": "Data facturée",
+        "voiceIncomingNationalConsumption": "Voix  national entrant",
+        "voiceOutgoingNationalConsumption": "Voix  national sortant",
+        "voiceRoaming": "Voix roaming",
+        "smsIncomingNationalConsumption": "SMS national entrant",
+        "smsOutgoingNationalConsumption": "SMS national sortant",
+        "smsIncomingInternationalConsumption": "SMS roaming entrant",
+        "smsOutgoingInternationalConsumption": "SMS roaming sortant"
       },
       "estimated": {
         "data": "Prévisionnel Data",
@@ -432,7 +444,22 @@
           "currentIPv6Address": "Adresse IPv6 actuelle",
           "geographicalCoordinates": "Coordonnées géographiques",
           "lastLocationDate": "Date de la dernière localisation",
-          "useTypeAndDetail": "Type et détail d'usage"
+          "useTypeAndDetail": "Type et détail d'usage",
+          "technology": "Technologie",
+          "technologies": {
+            "DATA_V_1": "3G",
+            "DATA_V_6": "4G",
+            "DATA_V_EMPTY": "Inconnue",
+            "DATA_V_UNKNOWN": "Inconnue",
+            "DATA_F_MISSING": "2G",
+            "OTHERS_V_3G": "3G",
+            "OTHERS_V_4G": "4G",
+            "OTHERS_F_MISSING": "Inconnue",
+            "OTHERS_V_UNKNOWN": "2G",
+            "OTHERS_V_EMPTY_NAT": "2G",
+            "OTHERS_V_EMPTY_RO": "Autre ou 2G",
+            "none": "Inconnue"
+          }
         },
         "networkInfoContent": {
           "dataControl": "Contrôle data roaming",
@@ -442,8 +469,17 @@
           "tmpDebarring": "Debarring Tempraire",
           "activationEndingStopService": "Activation de la levée de coupure"
         },
+        "networkHistoryContent": {
+          "lastPLMN": "Historique des pays visités",
+          "cellsConsumption": "Historique des cellules de consommation",
+          "exportLastPLMN": "Exporter l'historique des pays visités",
+          "exportCellsConsumption": "Exporter l'historique des cellules de consommation"
+        },
         "supervisionContent": {
           "dataConsumptionPerDay": "Consommation data",
+          "exportDataConsumption": "Exporter la consommation data journalière",
+          "exportSMSConsumption": "Exporter la consommation SMS journalière",
+          "exportVoiceConsumption": "Exporter la consommation voix journalière",
           "sms": "Consommation SMS",
           "voice": "Consommation voix",
           "smsTable": {},
@@ -487,7 +523,7 @@
 
         "localisation": {
           "requestDate": "Date de la demande",
-          "requestStatus": "Statut de la demande",
+          "requestStatus": "Ajouter une demande",
           "reload": "Rafraîchir",
           "createRequest": "Faire une nouvelle demande",
           "warningMsg": "Voulez vous enregistrer une nouvelle demande ?",

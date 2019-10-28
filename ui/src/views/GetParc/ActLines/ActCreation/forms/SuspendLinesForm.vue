@@ -1,7 +1,7 @@
 <template>
   <ActFormContainer :validate-fn="onValidate">
     <div>
-      <div class="row">
+      <div class="row" v-if="!userIsPartner">
         <div class="col d-flex">
           <UiCheckbox v-model="notEditable" />
           <span>{{ $t('getparc.actCreation.suspend.notEditable') }}</span>
@@ -37,8 +37,10 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userIsBO', 'userIsPartner']),
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
+      if (this.userIsBO) return true;
 
       return this.actCreationPrerequisites.partner.partyType !== 'MVNO';
     },

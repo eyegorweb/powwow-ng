@@ -89,7 +89,17 @@ export default {
           { type: 'ObjectAttribute', path: 'msisdn' },
           { exportId: 'MSISDN' }
         ),
-        col('Opérateur', 'operator', true, false, undefined, { exportId: 'OPERATOR' }), // ?
+        col(
+          'Opérateur',
+          'geolocation',
+          true,
+          false,
+          {
+            type: 'ObjectAttribute',
+            path: 'operator',
+          },
+          { exportId: 'OPERATOR' }
+        ),
         col(
           'Pays',
           'geolocation',

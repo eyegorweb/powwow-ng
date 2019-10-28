@@ -11,7 +11,7 @@ export async function fetchUnitActions(massActionId, extraArgs, pagination, orde
   if (extraArgs.groupedStatus) {
     extraFilters.push({
       id: 'filters.groupedStatus',
-      values: extraArgs.groupedStatus,
+      value: extraArgs.groupedStatus,
     });
   }
   return await fetchUnitActions2(
@@ -35,7 +35,6 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
   const orderingInfo = orderBy
     ? `, sorting: {field: ${orderBy.key}, sorting: ${orderBy.direction}}`
     : '';
-
   const queryStr = `
     query {
       unitActionsV2(filter: {${formatFilters(filters)} } ${paginationInfo} ${orderingInfo}) {

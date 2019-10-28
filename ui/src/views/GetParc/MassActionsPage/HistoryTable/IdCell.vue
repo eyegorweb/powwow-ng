@@ -5,6 +5,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
+import get from 'lodash.get';
 
 export default {
   name: 'IdCell',
@@ -16,24 +17,30 @@ export default {
     ...mapMutations(['openPanel']),
 
     openActHistoryDetailsPanel() {
+      const type = get(this.row, 'type');
+      const date = this.formattedDate(get(this.row, 'massAction.dueDate'));
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getparc.history.details.title', { id: this.row.id }),
+          title: this.$t('getparc.history.details.manageActTitle', {
+            type,
+            date,
+          }),
           panelId: 'getparc.history.details.title',
           payload: this.row,
           wide: false,
           backdrop: false,
         });
       };
-
-      /**
-       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
-       */
       if (this.isOpen) {
         setTimeout(openTrigger, 500);
       } else {
         openTrigger();
       }
+    },
+
+    formattedDate(date) {
+      const parts = date.split(' ');
+      return parts[0];
     },
   },
   computed: mapState({

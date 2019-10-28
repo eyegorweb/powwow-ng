@@ -27,7 +27,7 @@ export default {
     const formattedData = data.reduce(
       (all, item) => {
         const dateFirstSplit = item.date.split(' ');
-        const dateParts = dateFirstSplit[0].split('-');
+        const dateParts = dateFirstSplit[0].split('/');
         const formattedObj = {
           ...item,
           date: Date.UTC(
@@ -40,6 +40,8 @@ export default {
         all.in.push([formattedObj.date, formattedObj.numberOfReceivedSMS]);
         all.out.push([formattedObj.date, formattedObj.numberOfSentSMS]);
 
+        this.$emit('haveContent', false);
+
         return all;
       },
       { in: [], out: [] }
@@ -49,6 +51,7 @@ export default {
   data() {
     return {
       chartOptions: undefined,
+      haveContent: false,
     };
   },
 
