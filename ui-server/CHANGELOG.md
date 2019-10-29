@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.317+20191029155158
+2019-10-29
+
+### Fixes
+
+- Correction de bugs (a7f839def293cacbcc69ae79796ebbcd290492e8)
+
 ## 0.3.0-master.316+20191029110341
 2019-10-29
 
