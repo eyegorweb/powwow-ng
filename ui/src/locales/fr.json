@@ -232,7 +232,7 @@
         "massActionDateCreated": "Date de création de l'action de masse",
         "massActionDateStarted": "Date d'application de l'action de masse",
         "massActionDateEnded": "Date de fin de l'action de masse",
-        "lines": "lignes",
+        "lines": "ligne(s)",
         "offer": "offre",
         "name": "Nom",
         "creator": "Demandeur",
@@ -776,7 +776,12 @@
           "KO": "Ko",
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé",
-          "TERMINATED": "Terminé"
+          "CANCELED": "Annulé",
+          "TERMINATED": "Terminé",
+          "TEST": "Test",
+          "NOT_PREACTIVATED": "Non préactivée",
+          "PREACTIVATED": "Préactivée",
+          "ACTIVATED": "Activée"
         }
       },
       "alarmList": {

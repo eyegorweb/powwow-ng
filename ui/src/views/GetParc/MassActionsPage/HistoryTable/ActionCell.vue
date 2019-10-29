@@ -1,6 +1,6 @@
 <template>
   <div class="truncate">
-    <Truncate :limit="30" :content="translatedAction"> </Truncate>
+    <Truncate :limit="30" :content="row.type"></Truncate>
   </div>
 </template>
 
@@ -14,11 +14,6 @@ export default {
   },
   components: {
     Truncate,
-  },
-  computed: {
-    translatedAction() {
-      return this.$t('getparc.actTypes.' + this.row.actionType);
-    },
   },
 };
 </script>

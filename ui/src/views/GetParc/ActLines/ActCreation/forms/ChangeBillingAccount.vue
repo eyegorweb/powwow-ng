@@ -4,13 +4,12 @@
     success-message="getparc.actCreation.transfertCF.successMessage"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
-      <PartnerBillingAccountChoice
+      <BillingAccountChoice
         :key="actCreationPrerequisites.partner.id"
+        :partner-id="actCreationPrerequisites.partner.id"
         @set:billingAccount="setBillingAccount"
         :errors="errors"
-        :initial-parnter="actCreationPrerequisites.partner"
-        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      ></PartnerBillingAccountChoice>
+      />
       <div class="row">
         <div class="col d-flex">
           <UiCheckbox v-model="notificationCheck" />
@@ -38,7 +37,7 @@
 
 <script>
 import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
-import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+import BillingAccountChoice from './parts/BillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
@@ -48,7 +47,7 @@ import { changeCustomerAccount } from '@/api/actCreation2';
 export default {
   components: {
     ActFormEmptyContainer,
-    PartnerBillingAccountChoice,
+    BillingAccountChoice,
     UiDate,
     UiCheckbox,
   },
