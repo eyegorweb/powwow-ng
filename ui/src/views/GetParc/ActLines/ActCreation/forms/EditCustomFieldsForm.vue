@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import CustomFields from '@/components/CustomFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
-import { updateCustomFields } from '@/api/actCreation';
+import { updateCustomFields } from '@/api/actCreation2';
 import Modal from '@/components/Modal';
 
 export default {
@@ -121,6 +121,7 @@ export default {
         custom4: getCustomFieldValue('custom4'),
         custom5: getCustomFieldValue('custom5'),
         custom6: getCustomFieldValue('custom6'),
+        tempDataUuid: contextValues.tempDataUuid,
       };
       return await updateCustomFields(
         this.appliedFilters,

@@ -24,7 +24,11 @@ export async function query(q) {
       return res;
     } catch (e) {
       if (e && e.response && e.response.status) {
-        if (e.response.status === 401 || e.response.status === 403) {
+        if (
+          e.response.status === 401 ||
+          e.response.status === 403 ||
+          (e.response && e.response.error && e.response.error === 'invalid_token')
+        ) {
           if (tries > 0) {
             tries -= 1;
             store.commit('startRefreshingToken');
@@ -123,4 +127,8 @@ export function formatBytes(bytes, decimals = 2) {
 
   const index = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / Math.pow(k, index)).toFixed(dm))} ${sizes[index]}`;
+}
+
+export function boolStr(value) {
+  return value ? 'true' : 'false';
 }

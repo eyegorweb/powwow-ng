@@ -1,6 +1,7 @@
 <template>
   <ActFormContainer
     exclude-default-fields
+    :validate-fn="onValidate"
     success-message="getparc.actCreation.sendSMS.successMessage"
   >
     <form>
@@ -36,7 +37,7 @@
         </div>
       </div>
     </form>
-    <div slot="bottom">
+    <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col">
           <UiDate @change="onSmsDateChange" :value="smsDate" fixed class="d-block">
@@ -45,7 +46,7 @@
         </div>
         <div class="col">
           <button
-            @click="onValidate"
+            @click="containerValidationFn"
             :disabled="!acceptConditions"
             class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
           >
@@ -57,23 +58,24 @@
     <div slot="messages">
       <ul class="list-unstyled">
         <li>
-          <i class="ic-Info-Icon" /> {{ $t('getparc.actCreation.sendSMS.nbCharacters') }}:
+          <i class="ic-Info-Icon" />
+          {{ $t('getparc.actCreation.sendSMS.nbCharacters') }}:
           {{ texMessage.length }}
         </li>
-        <li><i class="ic-Info-Icon" /> Nombre de SMS par message: 0</li>
+        <li class="mock-value"><i class="ic-Info-Icon" /> Nombre de SMS par message: 0</li>
       </ul>
     </div>
   </ActFormContainer>
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
-import { sendSMS } from '@/api/actCreation';
+import { sendSMS } from '@/api/actCreation2';
 import moment from 'moment';
 
 export default {
@@ -123,38 +125,15 @@ export default {
     onSmsDateChange(value) {
       this.smsDate = value;
     },
-    async onValidate() {
-      if (this.checkErrors()) return;
-
-      const response = await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
+    async onValidate(contextValues) {
+      return await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.smsDate,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
         numberOfSMS: 0,
         shortCode: this.selectedShortCode.label,
+        tempDataUuid: contextValues.tempDataUuid,
       });
-
-      if (!response) {
-        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
-      }
-
-      if (response) {
-        if (response.errors) {
-          response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.description });
-          });
-        } else {
-          const successMessage = this.successMessage
-            ? this.$t(this.successMessage)
-            : 'Opération effectuée avec succès';
-          this.flashMessage({ level: 'success', message: successMessage });
-
-          // sortir du mode création acte
-          this.setActToCreate(null);
-          this.setActCreationPrerequisites(null);
-          this.setSelectedLinesForActCreation([]);
-        }
-      }
     },
     checkErrors() {
       if (!this.selectedShortCode) {

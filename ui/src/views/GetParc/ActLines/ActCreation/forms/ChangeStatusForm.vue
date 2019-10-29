@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" @update:date="chekdate">
+  <ActFormContainer :validate-fn="onValidate" @update:date="chekdate" no-modal>
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
       <button
         @click="waitForConfirmation = true"
@@ -9,17 +9,13 @@
         <i :class="[canValidate ? 'ic-Minus-Icon' : 'ic-Check-Icon']" />
         {{ $t('getparc.actCreation.changeStatus.changeCardsStatus') }}
       </button>
-      <div class="info">
-        {{ info }}
-      </div>
+      <div class="info">{{ info }}</div>
       <Modal v-if="waitForConfirmation">
         <div slot="body">
-          <div class="text-warning">
-            {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
-          </div>
+          <div class="text-warning">{{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}</div>
           <p>
-            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span
-            ><br />
+            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+            <br />
             <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
           </p>
         </div>
@@ -49,9 +45,9 @@
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
-import { terminateLines } from '@/api/actCreation';
+import { terminateLines } from '@/api/actCreation2';
 import Modal from '@/components/Modal';
 
 export default {
@@ -87,6 +83,7 @@ export default {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
+        tempDataUuid: contextValues.tempDataUuid,
       });
     },
     chekdate(value) {

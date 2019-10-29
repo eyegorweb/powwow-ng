@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
+import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { changeCustomerAccount } from '@/api/actCreation';
+import { changeCustomerAccount } from '@/api/actCreation2';
 
 export default {
   components: {
@@ -84,13 +84,14 @@ export default {
     },
 
     checkErrors() {},
-    async validate() {
+    async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
 
         targetCustomerAccount: this.chosenBillingAccount.id,
         notifEmail: this.notificationCheck,
+        tempDataUuid: contextValues.tempDataUuid,
       };
 
       return await changeCustomerAccount(

@@ -38,7 +38,7 @@
             </div>
           </div>
           <slot v-else name="validate-btn-content" :containerValidationFn="validate"></slot>
-          <slot name="bottom"></slot>
+          <slot name="bottom" :containerValidationFn="validate"></slot>
         </div>
         <div class="col-5">
           <div class="text-right">
@@ -48,6 +48,17 @@
             </button>
           </div>
           <slot name="messages"></slot>
+          <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
+            <FormReport v-if="validationErrors" :data="validationErrors" />
+            <button
+              v-if="tempDataUuid"
+              @click="doubleConfirm"
+              class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+            >
+              <i class="ic-Check-Icon" />
+              {{ $t('confirm') }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -59,13 +70,13 @@ import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapMutations } from 'vuex';
 import moment from 'moment';
-
-// DEPRECATED
+import FormReport from './FormReport';
 
 export default {
   components: {
     UiDate,
     UiCheckbox,
+    FormReport,
   },
 
   props: {
@@ -73,6 +84,7 @@ export default {
     checkErrorsFn: Function,
     excludeDefaultFields: Boolean,
     successMessage: String,
+    noModal: Boolean,
   },
 
   data() {
@@ -80,6 +92,8 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
+      validationErrors: undefined,
+      tempDataUuid: undefined,
     };
   },
 
@@ -88,7 +102,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['flashMessage', 'confirmAction']),
     ...mapMutations('actLines', [
       'setActToCreate',
       'setActCreationPrerequisites',
@@ -101,36 +115,60 @@ export default {
     },
 
     async validate() {
-      if (this.haveErrors()) return;
+      const actionFn = async () => {
+        this.tempDataUuid = undefined;
+        if (this.haveErrors()) return;
 
+        const response = await this.validateFn({
+          actDate: this.actDate,
+          notificationCheck: this.notificationCheck,
+        });
+
+        if (response) {
+          if (response.errors && response.errors.length) {
+            this.validationErrors = { errors: response.errors };
+            this.tempDataUuid = response.tempDataUuid;
+          } else {
+            this.onSuccess();
+          }
+        } else {
+          this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        }
+      };
+
+      if (this.noModal) {
+        await actionFn();
+      } else {
+        this.confirmAction({
+          message: 'confirmAction',
+          actionFn,
+        });
+      }
+    },
+
+    async doubleConfirm() {
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
+        tempDataUuid: this.tempDataUuid,
       });
-
-      if (!response) {
+      if (response) {
+        this.onSuccess();
+      } else {
         this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
       }
+    },
 
-      if (response) {
-        if (response.stayInForm) return;
+    onSuccess() {
+      const successMessage = this.successMessage
+        ? this.$t(this.successMessage)
+        : 'Opération effectuée avec succès';
+      this.flashMessage({ level: 'success', message: successMessage });
 
-        if (response.errors) {
-          response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.message });
-          });
-        } else {
-          const successMessage = this.successMessage
-            ? this.$t(this.successMessage)
-            : 'Opération effectuée avec succès';
-          this.flashMessage({ level: 'success', message: successMessage });
-
-          // sortir du mode création acte
-          this.setActToCreate(null);
-          this.setActCreationPrerequisites(null);
-          this.setSelectedLinesForActCreation([]);
-        }
-      }
+      // sortir du mode création acte
+      this.setActToCreate(null);
+      this.setActCreationPrerequisites(null);
+      this.setSelectedLinesForActCreation([]);
     },
 
     haveErrors() {

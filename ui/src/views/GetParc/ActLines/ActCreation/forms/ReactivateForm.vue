@@ -1,11 +1,11 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate"> </ActFormContainer>
+  <ActFormContainer :validate-fn="onValidate" />
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
-import { reactivateLines } from '@/api/actCreation';
+import { reactivateLines } from '@/api/actCreation2';
 
 export default {
   components: {
@@ -24,6 +24,7 @@ export default {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
+        tempDataUuid: contextValues.tempDataUuid,
       });
     },
   },
