@@ -41,7 +41,7 @@
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
 

@@ -1,81 +1,159 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon }">
-    <input placeholder="../../...." type="text" v-bind="$attrs" ref="dateValue" />
-    <slot name="icon" />
-  </label>
+  <div>
+    <div ref="singledate" class="row datepicker" :class="{ error: !!error, large: large }">
+      <div class="col">
+        <i class="icon ic-Calendar-Icon" />
+      </div>
+      <div class="col-9 value" style="padding: 0">
+        <span>{{ value }}</span>
+      </div>
+      <div>
+        <button v-if="value && !fixed" @click.stop="clearValue" class="btn btn-link">
+          <i class="icon ic-Cross-Icon" />
+        </button>
+      </div>
+    </div>
+    <span v-if="error" class="error-text">{{ $t(error) }}</span>
+  </div>
 </template>
 
 <script>
-// DEPRECATED to be replaced with UiDate2 next sprint
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css';
-import { propWithSync } from '@/mixins';
-import { French } from 'flatpickr/dist/l10n/fr.js';
+import $ from 'jquery';
+import 'daterangepicker/daterangepicker.js';
+import 'daterangepicker/daterangepicker.css';
+
+import moment from 'moment';
 
 export default {
-  name: 'UiDate',
-
-  mixins: [propWithSync('dateValue')],
-
-  mounted() {
-    this.createFlatpickr();
+  props: {
+    value: {
+      type: String,
+    },
+    error: {
+      type: String,
+      required: false,
+    },
+    /**
+     * enlève la possibilité de mettre une valeur vide
+     */
+    fixed: Boolean,
+    large: Boolean,
+    timePicker: Boolean,
   },
-
+  computed: {
+    dateFormat() {
+      if (this.timePicker) return 'DD/MM/YYYY HH:mm:ss';
+      else return 'DD/MM/YYYY';
+    },
+  },
   methods: {
-    onChange([dateValue]) {
-      this.dateValue_ = dateValue;
+    clearValue() {
+      this.$emit('change', '');
     },
+    createDatePicker() {
+      let startDate;
+      if (this.start) {
+        startDate = moment(this.value, this.dateFormat);
+      } else {
+        // startDate = moment();
+      }
 
-    createFlatpickr() {
-      this.fp = flatpickr(this.$refs.dateValue, {
-        dateFormat: 'd/m/y',
-        allowInput: true,
-        // closeOnSelect: false,
-        onChange: this.onChange,
-        locale: French,
-      });
+      const onDateSelected = value => {
+        this.$emit('change', value.format(this.dateFormat));
+      };
+
+      // TODO: add i18n support
+      this.dateInstance = $(this.$refs.singledate).daterangepicker(
+        {
+          singleDatePicker: true,
+          startDate,
+          drops: 'up',
+          timePicker: this.timePicker,
+          timePicker24Hour: true,
+          locale: {
+            format: this.dateFormat,
+            separator: ' - ',
+            applyLabel: 'Appliquer',
+            cancelLabel: 'Annuler',
+            fromLabel: 'Du',
+            toLabel: 'Au',
+            customRangeLabel: 'Autres',
+            daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            monthNames: [
+              'Janvier',
+              'Fevrier',
+              'Mars',
+              'Avril',
+              'Mai',
+              'Juin',
+              'Juillet',
+              'Août',
+              'Septembre',
+              'Octobre',
+              'Novembre',
+              'Decembre',
+            ],
+            firstDay: 1,
+          },
+        },
+        onDateSelected
+      );
     },
+  },
+  watch: {
+    value(newValue) {
+      // le date picker garde la dernière date séléctionnée, la seule façon de la vider est de recréer le date picker
+      if (!newValue && this.dateInstance) {
+        this.createDatePicker();
+      }
+    },
+  },
+  mounted() {
+    this.createDatePicker();
   },
 };
 </script>
 
-<style scoped lang="scss">
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins/border-radius';
+<style lang="scss" scoped>
+.datepicker {
+  background: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin: 0;
 
-label {
-  position: relative;
-
-  .input-group > &:not(:last-child) {
-    @include border-right-radius(0);
+  &.error {
+    border: 1px solid $orange;
+    border-radius: 3px;
   }
 
-  .input-group > &:not(:first-child) {
-    @include border-left-radius(0);
+  .col {
+    padding: 0;
   }
 
-  .input-group > & + & {
-    margin-left: -$input-border-width;
+  button {
+    padding: 0;
   }
 
-  input {
-    padding: 0.5rem 0.8rem;
-    border-radius: $box-radius;
-    border: 1px solid $medium-gray;
-    width: 100%;
+  &.large {
+    padding-top: 0.3rem;
+    padding-bottom: 0.4rem;
 
-    &:disabled {
-      background-color: $light-gray;
+    .icon {
+      font-size: 1.4rem;
+      top: 0.2rem;
+      position: relative;
+    }
+
+    .value {
+      font-size: 1.3rem;
     }
   }
-
-  & > *:last-child {
-    display: block;
-    position: absolute;
-    right: 1rem;
-    transform: translateY(-50%);
-    top: 50%;
-  }
+}
+</style>
+<style lang="scss">
+.daterangepicker {
+  z-index: 9999 !important;
 }
 </style>

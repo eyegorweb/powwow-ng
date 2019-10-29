@@ -81,7 +81,7 @@ import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';

@@ -84,7 +84,7 @@ import SMSCol from './SMSCol';
 import VoiceCol from './VoiceCol';
 
 import Modal from '@/components/Modal';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 
 import BackendErrors from '@/components/BackendErrors';
 import { formatBackErrors } from '@/utils/errors';

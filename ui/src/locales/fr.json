@@ -51,6 +51,7 @@
   "output": "Sortant",
   "notAvailable": "Non disponible",
   "notDefined": "Non déterminé",
+  "confirmAction": "Confirmer la demande ?",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"

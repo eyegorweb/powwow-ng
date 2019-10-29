@@ -60,5 +60,8 @@ export async function fetchCurrentUserInfos() {
     `
   );
 
-  return response.data.getCurrentUser;
+  if (response && response.data) {
+    return response.data.getCurrentUser;
+  }
+  return undefined;
 }

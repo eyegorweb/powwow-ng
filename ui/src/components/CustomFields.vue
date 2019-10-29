@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-for="item in fields" :key="item.id" class=" mb-1">
+    <div v-for="item in fields" :key="item.id" class="mb-1">
       <div v-if="item.type === 'TEXT'">
         {{ item.label }}
-        <span v-if="showOptionalField && item.isOptional" class="text-optional">
-          [{{ $t('optional') }}]</span
+        <span v-if="showOptionalField && item.isOptional" class="text-optional"
+          >[{{ $t('optional') }}]</span
         >
 
         <UiInput
@@ -17,8 +17,8 @@
       <div class="form-group" v-if="!editingList && item.type === 'LIST'">
         <label>
           {{ item.label }}
-          <span v-if="showOptionalField && item.isOptional" class="text-optional">
-            [{{ $t('optional') }}]</span
+          <span v-if="showOptionalField && item.isOptional" class="text-optional"
+            >[{{ $t('optional') }}]</span
           >
           <button v-if="canEditList" class="btn btn-link p-0" @click="editingList = true">
             {{ $t('modify') }}
@@ -37,8 +37,8 @@
       <div class="form-group" v-if="editingList && item.type === 'LIST'">
         <label>
           {{ item.label }}
-          <span v-if="showOptionalField && item.isOptional" class="text-optional">
-            [{{ $t('optional') }}]</span
+          <span v-if="showOptionalField && item.isOptional" class="text-optional"
+            >[{{ $t('optional') }}]</span
           >
         </label>
         <EditCustomField
@@ -50,8 +50,8 @@
       </div>
       <div v-if="item.type === 'DATE'">
         {{ item.label }}
-        <span v-if="showOptionalField && item.isOptional" class="text-optional">
-          [{{ $t('optional') }}]</span
+        <span v-if="showOptionalField && item.isOptional" class="text-optional"
+          >[{{ $t('optional') }}]</span
         >
         <UiDate
           @change="newVal => onValueChanged(item, newVal)"
@@ -69,7 +69,7 @@
 <script>
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import EditCustomField from '@/components/EditCustomField';
 
 export default {

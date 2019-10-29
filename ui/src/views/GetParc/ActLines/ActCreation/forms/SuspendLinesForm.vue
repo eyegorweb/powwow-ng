@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapGetters } from 'vuex';
-import { suspendLines } from '@/api/actCreation';
+import { suspendLines } from '@/api/actCreation2';
 
 export default {
   components: {
@@ -53,6 +53,7 @@ export default {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
+        tempDataUuid: contextValues.tempDataUuid,
       });
     },
   },
