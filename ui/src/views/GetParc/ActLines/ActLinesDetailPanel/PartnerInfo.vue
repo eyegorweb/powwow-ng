@@ -11,7 +11,10 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('common.billingAccount') }} :</h6>
-      <p>-</p>
+      <p>
+        {{ get('accessPoint.offerGroup.customerAccount.code') }} -
+        {{ get('accessPoint.offerGroup.customerAccount.name') }}
+      </p>
     </div>
   </div>
 </template>

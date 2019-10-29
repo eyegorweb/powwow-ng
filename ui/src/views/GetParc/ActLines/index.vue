@@ -28,7 +28,7 @@
 
         <FilterBar />
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 extra-bottom-margin">
         <Title
           num="1"
           v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
@@ -269,5 +269,9 @@ export default {
   padding-left: 5px;
   font-size: 16px;
   font-weight: bold;
+}
+
+.extra-bottom-margin {
+  margin-bottom: 5rem;
 }
 </style>
