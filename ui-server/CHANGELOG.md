@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.316+20191029110341
+2019-10-29
+
+### Features
+
+- Mise en place de la nouvelle gestion de la table de travail pour les actes de gestion (8065e44bffa93e5c0a1ef9002311b138e27e9694)
+
 ## 0.3.0-master.315+20191025151742
 2019-10-25
 
