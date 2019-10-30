@@ -11,6 +11,9 @@ export function initState() {
      *  Ouverture du réultat dans le panel de détail si le résultat est unique
      */
     openResultInDetailPanel: false,
+
+    searchResponse: undefined,
+    searchPage: 1,
   };
 }
 
@@ -159,6 +162,10 @@ export function setQueryFilterAndSearch(state) {
 export function initMutations() {
   return {
     setQueryFilterAndSearch,
+
+    setSearchResponse(state, res) {
+      state.searchResponse = res;
+    },
 
     setOpenDetailPanel(state, value) {
       state.openResultInDetailPanel = value;

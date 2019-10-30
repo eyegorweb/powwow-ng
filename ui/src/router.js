@@ -6,6 +6,7 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 import Home from '@/views/Home';
 import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
+import GetVision from '@/views/GetVision';
 import MassActionsPage from '@/views/GetParc/MassActionsPage';
 import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
@@ -61,6 +62,11 @@ export default new Router({
       path: '/act-lines',
       name: 'actLines',
       component: GetParcManagementActLines,
+    },
+    {
+      path: '/get-vision',
+      name: 'getVision',
+      component: GetVision,
     },
     {
       path: '/exemples',

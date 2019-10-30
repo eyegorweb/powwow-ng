@@ -154,6 +154,23 @@
       "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
     }
   },
+  "getvsion": {
+    "manage-alarms": "Gestion des alarmes",
+    "manage-alarms-tooltip": "TODO description",
+    "tab-1-parc-alarms": "Alarmes de parc",
+    "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "table": {
+      "total": "{total} alarmes paramétrées",
+      "create-alarm": "Créer une alarme",
+      "thresholds": "Seuil(s) de déclenchement",
+      "targetedLines": "Lignes ciblées",
+      "triggers": "Déclenchements"
+    },
+    "indicators": {
+      "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
+      "triggered_last_month": "Déclenchement mois précédent"
+    }
+  },
   "getparc": {
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
