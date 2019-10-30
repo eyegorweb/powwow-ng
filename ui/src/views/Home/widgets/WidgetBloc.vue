@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="card-body" :class="className">
-        <slot />
+        <slot v-if="canViewContent" />
       </div>
     </div>
   </div>
@@ -31,6 +31,8 @@
 
 <script>
 import WidgetTitle from './WidgetTitle';
+import $ from 'jquery';
+import { isElementInViewport } from '@/utils';
 
 export default {
   components: {
@@ -45,6 +47,35 @@ export default {
     className() {
       return this.noPadding ? 'p-0' : 'pt-0';
     },
+  },
+  data() {
+    return {
+      canViewContent: false,
+    };
+  },
+  mounted() {
+    function onVisibilityChange(el, callback) {
+      let old_visible;
+      return function() {
+        let visible = isElementInViewport(el);
+        if (visible != old_visible) {
+          old_visible = visible;
+          if (typeof callback == 'function') {
+            callback();
+          }
+        }
+      };
+    }
+    $(window).on(
+      'DOMContentLoaded load resize scroll',
+      onVisibilityChange(this.$el, () => {
+        this.canViewContent = true;
+      })
+    );
+
+    if (isElementInViewport(this.$el)) {
+      this.canViewContent = true;
+    }
   },
 };
 </script>

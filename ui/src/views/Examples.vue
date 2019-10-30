@@ -8,7 +8,6 @@
         <ServicesBlock2 :services="services" />
       </div>
       <div class="col-md-6">
-        {{ testvar }}
         <UiInput
           :placeholder="null"
           v-model="testvar"
@@ -20,6 +19,8 @@
         <input :placeholder="null" type="number" :min="1" v-model="testvar" />
       </div>
     </div>
+
+    <TableSkeleton :columns="columns" />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import { formatLargeNumber } from '@/utils/numbers';
 import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
 import UiInput from '@/components/ui/UiInput';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
 export default {
   name: 'Home',
@@ -36,6 +38,7 @@ export default {
     SearchTranslationKey,
     ServicesBlock2,
     UiInput,
+    TableSkeleton,
   },
   mounted() {
     console.log(formatLargeNumber(1234567));
@@ -48,6 +51,16 @@ export default {
   data() {
     return {
       testvar: undefined,
+      columns: [
+        {
+          id: 1,
+          label: this.$t('col.id'),
+        },
+        {
+          id: 2,
+          label: this.$t('col.externalId'),
+        },
+      ],
       services: [
         {
           code: 'SERVICE_1',
