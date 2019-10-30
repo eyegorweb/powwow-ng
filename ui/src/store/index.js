@@ -7,6 +7,7 @@ import * as ui from './ui.module';
 import * as actHistory from './getparc/actHistory.module';
 import * as actLines from './getparc/actLines.module';
 import * as userContext from './userContext.module';
+import * as alarms from './getvision/alarms.module';
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     actHistory,
     userContext,
     actLines,
+    alarms,
   },
 });

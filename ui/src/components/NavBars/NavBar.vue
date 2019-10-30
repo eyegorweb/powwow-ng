@@ -118,7 +118,7 @@ export default {
             },
           ],
         },
-        { label: 'GetVision', to: { name: 'exemples' } },
+        { label: 'GetVision', to: { name: 'getVision' } },
         { label: 'GetReport', to: { name: 'exemples' } },
         { label: 'GetAdmin', to: { name: 'exemples' } },
         { label: 'GetSupport', to: { name: 'exemples' } },
