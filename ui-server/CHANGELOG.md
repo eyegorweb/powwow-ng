@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.319+20191030153759
+2019-10-30
+
+### Fixes
+
+- utiliser un skeleton comme indicateur de chargement (b0c3ce1bad1f9b34ded0948b49f40b5c9c8cc91b)
+
 ## 0.3.0-master.318+20191030104941
 2019-10-30
 
