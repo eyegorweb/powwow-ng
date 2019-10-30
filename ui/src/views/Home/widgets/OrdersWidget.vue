@@ -52,6 +52,14 @@ export default {
       });
     },
   },
+  async mounted() {
+    const pageInfo = { page: 0, limit: 3 };
+    this.resultsPromise = searchOrders(this.orderBy, pageInfo, this.widgetFilters);
+    const res = await this.resultsPromise;
+    if (res.items) {
+      this.rows = res.items;
+    }
+  },
   data() {
     return {
       filters: [

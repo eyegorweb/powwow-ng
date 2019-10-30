@@ -1,6 +1,8 @@
 <template>
   <Promised :promise="resultsPromise">
-    <div slot="pending">{{ $t('loading') }}...</div>
+    <div slot="pending">
+      <TableSkeleton :columns="columns" :size="3" />
+    </div>
     <div slot="rejected" slot-scope="{ error }">{{ error }}</div>
     <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
       {{ $t('noResult') }}
@@ -21,11 +23,13 @@
 <script>
 import { Promised } from 'vue-promised';
 import DataTable from '@/components/DataTable/DataTable';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
 export default {
   components: {
     Promised,
     DataTable,
+    TableSkeleton,
   },
   props: {
     columns: Array,

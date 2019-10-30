@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -49,6 +52,7 @@ import SearchByActId from '@/views/GetParc/SearchByActId';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   components: {
@@ -57,6 +61,7 @@ export default {
     HistoryActions,
     SearchByActId,
     ExportButton,
+    SearchResultSkeleton,
   },
   async mounted() {},
 

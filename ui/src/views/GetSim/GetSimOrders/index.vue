@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
@@ -55,6 +58,7 @@ import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
 import GetSimOrdersBillingAccountCell from './GetSimOrdersBillingAccountCell';
 import GetSimOrdersProductCell from './GetSimOrdersProductCell';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   name: 'Orders',
@@ -64,6 +68,7 @@ export default {
     SearchByIdInput,
     LoaderContainer,
     ExportButton,
+    SearchResultSkeleton,
   },
   props: {
     isPanelOpen: Boolean,

@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -52,6 +55,7 @@ import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   components: {
@@ -59,6 +63,7 @@ export default {
     LoaderContainer,
     SearchByLinesId,
     ExportButton,
+    SearchResultSkeleton,
   },
 
   props: {
