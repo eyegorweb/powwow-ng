@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.320+20191031143832
+2019-10-31
+
+### Fixes
+
+- traduction des graphes en français (f1bc5d029c00cb705d8d2181c37e5df60ed34a0b)
+
 ## 0.3.0-master.319+20191030153759
 2019-10-30
 
