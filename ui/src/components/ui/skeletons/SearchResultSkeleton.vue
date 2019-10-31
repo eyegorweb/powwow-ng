@@ -7,7 +7,7 @@
         </h2>
       </div>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-4">
       <div class="col">
         <h2 class="text-gray font-weight-light" style="font-size: 2rem">
           <div class="animated-line"></div>

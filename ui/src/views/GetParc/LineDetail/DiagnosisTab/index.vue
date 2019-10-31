@@ -91,7 +91,7 @@ export default {
         {
           section: 'network_history',
           title: 'getparc.lineDetail.tab2.networkHistory',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO'],
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'BO'],
         },
         {
           section: 'last_tests',
@@ -114,6 +114,7 @@ export default {
     },
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
+      console.log(typeForPartner);
       let visibleItems = this.menuItems.filter(m =>
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );

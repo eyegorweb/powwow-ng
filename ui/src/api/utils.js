@@ -27,6 +27,8 @@ export async function query(q) {
         if (
           e.response.status === 401 ||
           e.response.status === 403 ||
+          e.response.status === 503 ||
+          e.response.status === 504 ||
           (e.response && e.response.error && e.response.error === 'invalid_token')
         ) {
           if (tries > 0) {

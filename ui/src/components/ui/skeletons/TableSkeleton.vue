@@ -31,8 +31,18 @@ export default {
       return Math.floor(Math.random() * 51) + 50;
     },
     limitedColumns() {
-      return this.columns.filter(c => c.visible);
+      return this.columns.filter(c => {
+        if (c.visibleWhen) return c.visibleWhen();
+        return c.visible;
+      });
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.table thead tr th {
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+</style>

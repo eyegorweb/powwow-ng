@@ -18,7 +18,7 @@ export const state = {
   ...filterUtils.initState(),
   linePage: 1,
   limitPerPage: 20,
-  linesActionsResponse: [],
+  linesActionsResponse: undefined,
   filterCustomFieldsList: [],
 
   selectedLinesForActCreation: [],

@@ -137,7 +137,7 @@ export default {
             data: data.out,
           },
           {
-            name: 'Nb cnx pdp',
+            name: 'Nombre de connexions PDP',
             type: 'spline',
             dashStyle: 'shortdot',
             yAxis: 1,

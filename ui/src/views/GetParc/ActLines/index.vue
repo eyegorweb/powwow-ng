@@ -117,7 +117,7 @@ export default {
       'actCreationPrerequisites',
       'selectedFileForActCreation',
     ]),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner']),
 
     ...mapState({
@@ -184,7 +184,7 @@ export default {
 
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
-      if (this.prevRoute === 'lineDetail') return;
+      if (this.prevRoute === 'lineDetail' && this.linesActionsResponse) return;
       if (this.$route.params && this.$route.params.queryFilters) {
         this.setRouteParamsFilters(this.$route.params.queryFilters);
       }
