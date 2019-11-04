@@ -53,6 +53,7 @@
   "notAvailable": "Non disponible",
   "notDefined": "Non déterminé",
   "confirmAction": "Confirmer la demande ?",
+  "requestError": "Erreur durant le traitement de la requête",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -542,7 +543,8 @@
 
         "localisation": {
           "requestDate": "Date de la demande",
-          "requestStatus": "Ajouter une demande",
+          "requestStatus": "Status de la demande",
+          "addRequest": "Ajouter une demande",
           "reload": "Rafraîchir",
           "createRequest": "Faire une nouvelle demande",
           "warningMsg": "Voulez vous enregistrer une nouvelle demande ?",

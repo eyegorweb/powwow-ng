@@ -9,7 +9,7 @@
       <tr v-for="index in size" :key="index">
         <td v-for="column in limitedColumns" :key="'row_' + column.id">
           <span>
-            <div class="animated-line" :style="{ width: colSize + '%' }"></div>
+            <div class="skeleton-line" :style="{ width: colSize + '%' }"></div>
           </span>
         </td>
       </tr>
