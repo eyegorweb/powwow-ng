@@ -330,15 +330,19 @@ export async function exportVoiceHistory(simCardInstanceId, exportFormat) {
 export async function fetchLastVisitedCountries(accessPointId) {
   const queryStr = `
     query {
-      lastVisitedCountries(accessPointId: ${accessPointId}){
-        countryName
-        operator
-        PLMN
-        visitDate
-        type
-        usage
+      lastVisitedCountries(accessPointId: ${accessPointId}) {
+        total
+        items {
+          countryName
+          operator
+          PLMN
+          visitDate
+          type
+          usage
+        }
       }
     }
+
   `;
 
   const response = await query(queryStr);

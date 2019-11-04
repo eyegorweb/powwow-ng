@@ -1,33 +1,32 @@
 <template>
-  <div>
-    <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-      {{ $t('loading') }}
-      <CircleLoader />
-    </button>
-    <template v-else>
-      <DataTable
-        v-if="orderBy"
-        :columns.sync="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :page-limit.sync="pageLimit"
-        :size="size"
-        :show-extra-columns.sync="showExtraCells"
-        @colEvent="$emit('colEvent', $event)"
-      >
-        <template slot="topLeftCorner">
-          <slot name="topLeftCorner" />
-        </template>
-      </DataTable>
-    </template>
-  </div>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <TableSkeleton :columns="columns" :size="3" />
+    </div>
+    <div v-if="isError" class="alert alert-light" role="alert">{{ $t('requestError') }}</div>
+    <DataTable
+      v-if="!isError && orderBy"
+      :columns.sync="columns"
+      :rows="rows || []"
+      :page.sync="page"
+      :total="total || 0"
+      :order-by.sync="orderBy"
+      :page-limit.sync="pageLimit"
+      :size="size"
+      :show-extra-columns.sync="showExtraCells"
+      @colEvent="$emit('colEvent', $event)"
+    >
+      <template slot="topLeftCorner">
+        <slot name="topLeftCorner" />
+      </template>
+    </DataTable>
+  </LoaderContainer>
 </template>
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
-import CircleLoader from '@/components/ui/CircleLoader';
+import LoaderContainer from '@/components/LoaderContainer';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
 export default {
   props: {
@@ -55,7 +54,8 @@ export default {
   },
   components: {
     DataTable,
-    CircleLoader,
+    TableSkeleton,
+    LoaderContainer,
   },
   watch: {
     page() {
@@ -91,15 +91,27 @@ export default {
   methods: {
     async refreshTable() {
       this.isLoading = true;
-      const response = await this.fetchDataFn(this.pageInfo, this.orderBy, this.additionalFilters);
-      this.isLoading = false;
-      this.rows = response.rows;
-      this.total = response.total;
+      this.isError = false;
+      try {
+        const response = await this.fetchDataFn(
+          this.pageInfo,
+          this.orderBy,
+          this.additionalFilters
+        );
+        this.isLoading = false;
+        this.rows = response.rows;
+        this.total = response.total;
+      } catch (e) {
+        this.isLoading = false;
+        this.isError = true;
+        console.error(e);
+      }
     },
   },
   data() {
     return {
       isLoading: false,
+      isError: false,
       showExtraCells: false,
       orderBy: undefined,
       rows: undefined,
