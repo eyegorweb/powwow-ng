@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.322+20191104143101
+2019-11-04
+
+### Features
+
+- historique des cellules dans le menu "réseau et itinérance" (9092c97c181ddadf30eff8a109d437c990196ed1)
+
 ## 0.3.0-master.321+20191104094726
 2019-11-04
 
