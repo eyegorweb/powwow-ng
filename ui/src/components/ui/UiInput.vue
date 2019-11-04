@@ -20,6 +20,10 @@
       :style="inputStyle"
       type="text"
     />
+    <button v-if="value_" @click.prevent="resetValue" class="btn">
+      <i class="select-icon ic-Cross-Icon"></i>
+    </button>
+
     <slot name="afterInput" />
 
     <span v-if="error" class="error-text">{{ $t(error) }}</span>
@@ -57,6 +61,13 @@ export default {
       required: false,
     },
     noHoverStyle: Boolean,
+    haveCrossButton: Boolean,
+  },
+
+  methods: {
+    resetValue() {
+      this.$emit('update:value', '');
+    },
   },
 };
 </script>
@@ -117,6 +128,18 @@ label {
     width: 1em;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  button {
+    display: block;
+    position: absolute;
+    right: 0.8rem;
+    width: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 900 !important;
+    padding: 0;
+    padding-right: 5px;
   }
 }
 </style>

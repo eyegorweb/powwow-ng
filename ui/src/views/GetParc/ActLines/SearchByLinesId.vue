@@ -3,6 +3,7 @@
     :types="valuesForSelectOptions"
     :selected-search-type.sync="selectedSearchType"
     :input-placeholder="$t('searchLineById')"
+    :init-value="initValue"
     @findType="findType"
     @searchById="searchById"
     :inline="inline"
@@ -21,6 +22,10 @@ export default {
     inline: {
       type: Boolean,
       default: true,
+    },
+    initValue: {
+      type: String,
+      required: false,
     },
   },
   data() {

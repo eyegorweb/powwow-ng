@@ -1,6 +1,11 @@
 <template>
   <div class="search-container d-flex">
-    <UiInput :placeholder="inputPlaceholder" class="flex-grow-1 input-container" v-model="query_">
+    <UiInput
+      :placeholder="inputPlaceholder"
+      class="flex-grow-1 input-container"
+      v-model="query_"
+      have-cross-button
+    >
       <i slot="icon" class="select-icon ic-Magnify-Icon" />
     </UiInput>
     <UiSelect
