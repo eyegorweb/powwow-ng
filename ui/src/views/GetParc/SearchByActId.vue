@@ -1,11 +1,14 @@
 <template>
-  <SearchIdInput
-    :types="options"
-    :selected-search-type.sync="selectedSearchType"
-    :input-placeholder="$t('searchActById')"
-    @findType="findType"
-    @searchById="searchById"
-  />
+  <div>
+    <SearchIdInput
+      :types="options"
+      :selected-search-type.sync="selectedSearchType"
+      :input-placeholder="$t('searchActById')"
+      :init-value="initValue"
+      @findType="findType"
+      @searchById="searchById"
+    />
+  </div>
 </template>
 
 <script>
@@ -37,6 +40,10 @@ export default {
   props: {
     options: {
       type: Array,
+    },
+    initValue: {
+      type: String,
+      required: false,
     },
   },
   methods: {

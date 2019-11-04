@@ -12,9 +12,9 @@
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-            }}</span>
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
+            </span>
           </ExportButton>
         </div>
       </div>
@@ -31,7 +31,11 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchByActId @searchById="searchById" :options="searchOptions" />
+          <SearchByActId
+            @searchById="searchById"
+            :options="searchOptions"
+            :init-value="searchByIdValue"
+          />
         </template>
         <template slot="actions" slot-scope="{ row }">
           <HistoryActions :item="row" />
@@ -245,6 +249,7 @@ export default {
           label: this.$t('getparc.search.act-unit-id'),
         },
       ],
+      searchByIdValue: undefined,
     };
   },
   methods: {
@@ -252,6 +257,7 @@ export default {
     ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
 
     async searchById(params) {
+      this.searchByIdValue = params.value;
       this.forceAppliedFilters([
         {
           id: params.id,
