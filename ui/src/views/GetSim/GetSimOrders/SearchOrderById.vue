@@ -18,16 +18,18 @@ export default {
     return {
       additionalIds: [
         {
+          code: 'c5',
+          value: 'idOrder',
+          label: this.$t('orders.search.order-id'),
+          checkFn: value =>
+            value.length !== 0 &&
+            (value.length !== 19 || value.length !== 15 || value.length !== 11),
+        },
+        {
           code: 'c6',
-          value: 'accessPointId',
-          label: "AP_ID (identifiant de l'access point)",
-          checkFn: value => {
-            if (isNaN(value)) return true;
-            return (
-              value.length !== 0 &&
-              (value.length !== 19 || value.length !== 15 || value.length !== 11)
-            );
-          },
+          value: 'orderReference',
+          label: this.$t('orders.search.client-reference'),
+          checkFn: value => isNaN(value),
         },
       ],
     };

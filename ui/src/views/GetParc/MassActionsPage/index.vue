@@ -25,7 +25,7 @@
 <script>
 import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
-import MassActionsIndicators from './MassActionsIndicators2';
+import MassActionsIndicators from './MassActionsIndicators';
 import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
 
 export default {

@@ -19,8 +19,8 @@ export default {
       additionalIds: [
         {
           code: 'c6',
-          value: 'accessPointId',
-          label: "AP_ID (identifiant de l'access point)",
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
           checkFn: value => {
             if (isNaN(value)) return true;
             return (
