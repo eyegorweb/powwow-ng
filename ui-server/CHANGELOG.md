@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.323+20191105144953
+2019-11-05
+
+### Fixes
+
+- comportement recherche unitaire (commandes, actes de gestion et lignes) (83f4e0d194a794a05174e531b529b2b5b5f5e5ca)
+
 ## 0.3.0-master.322+20191104143101
 2019-11-04
 
