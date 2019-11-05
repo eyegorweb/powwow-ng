@@ -193,6 +193,7 @@ export default {
       isAsyncExportAlertOpen: false,
       isExportFormatChoiceOpen: false,
       columns: undefined,
+      searchByIdValue: undefined,
       commonColumns: [
         {
           id: 1,
