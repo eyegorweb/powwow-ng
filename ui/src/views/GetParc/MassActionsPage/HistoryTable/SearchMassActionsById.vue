@@ -19,8 +19,8 @@ export default {
       additionalIds: [
         {
           code: 'c6',
-          value: 'accessPointId',
-          label: "AP_ID (identifiant de l'access point)",
+          value: 'massActionID',
+          label: this.$t('getparc.search.act-mass-id'),
           checkFn: value => {
             if (isNaN(value)) return true;
             return (
@@ -28,6 +28,11 @@ export default {
               (value.length !== 19 || value.length !== 15 || value.length !== 11)
             );
           },
+        },
+        {
+          code: 'c7',
+          value: 'unitActionId',
+          label: this.$t('getparc.search.act-unit-id'),
         },
       ],
     };

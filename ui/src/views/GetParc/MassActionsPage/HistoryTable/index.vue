@@ -18,29 +18,33 @@
           </ExportButton>
         </div>
       </div>
-      <DataTable
-        storage-id="getparc.actHistory"
-        storage-version="003"
-        :columns.sync="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        :size="7"
-      >
-        <template slot="topLeftCorner">
-          <SearchByActId
-            @searchById="searchById"
-            :options="searchOptions"
-            :init-value="searchByIdValue"
-          />
-        </template>
-        <template slot="actions" slot-scope="{ row }">
-          <HistoryActions :item="row" />
-        </template>
-      </DataTable>
+      <template v-if="rows && rows.length">
+        <DataTable
+          storage-id="getparc.actHistory"
+          storage-version="003"
+          :columns.sync="columns"
+          :rows="rows || []"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :order-by.sync="orderBy"
+          :show-extra-columns.sync="showExtraCells"
+          :size="7"
+        >
+          <template slot="topLeftCorner">
+            <SearchMassActionsById @searchById="searchById" :init-value="searchByIdValue" />
+          </template>
+          <template slot="actions" slot-scope="{ row }">
+            <HistoryActions :item="row" />
+          </template>
+        </DataTable>
+      </template>
+      <template v-else>
+        <div v-if="searchByIdValue">
+          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+        </div>
+        <div class="alert alert-light">{{ $t('noResult') }}</div>
+      </template>
     </div>
   </LoaderContainer>
 </template>
@@ -52,7 +56,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import ActionCell from './ActionCell';
-import SearchByActId from '@/views/GetParc/SearchByActId';
+import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
@@ -63,7 +67,7 @@ export default {
     DataTable,
     LoaderContainer,
     HistoryActions,
-    SearchByActId,
+    SearchMassActionsById,
     ExportButton,
     SearchResultSkeleton,
   },
@@ -212,43 +216,6 @@ export default {
         direction: 'DESC',
       },
       showExtraCells: false,
-      searchOptions: [
-        {
-          code: 'c1',
-          value: 'iccid',
-          label: 'ICCID',
-        },
-        {
-          code: 'c2',
-          value: 'imsi',
-          label: 'IMSI',
-        },
-        {
-          code: 'c3',
-          value: 'msisdn',
-          label: 'MSISDN',
-        },
-        {
-          code: 'c4',
-          value: 'msisdnA',
-          label: 'A-MSISDN',
-        },
-        {
-          code: 'c5',
-          value: 'imei',
-          label: 'IMEI',
-        },
-        {
-          code: 'c6',
-          value: 'massActionID',
-          label: this.$t('getparc.search.act-mass-id'),
-        },
-        {
-          code: 'c6',
-          value: 'unitActionId',
-          label: this.$t('getparc.search.act-unit-id'),
-        },
-      ],
       searchByIdValue: undefined,
     };
   },
@@ -264,6 +231,10 @@ export default {
           value: params.value,
         },
       ]);
+    },
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.forceAppliedFilters([]);
     },
     async fetchMassActions() {
       this.fetchActionsFromApi({
