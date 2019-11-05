@@ -5,6 +5,7 @@
     <input
       v-if="inputType === 'number'"
       :placeholder="placeholder"
+      :class="{ noNumberArrows: noNumberArrows }"
       v-bind="$attrs"
       v-model="value_"
       type="number"
@@ -62,6 +63,7 @@ export default {
     },
     noHoverStyle: Boolean,
     haveCrossButton: Boolean,
+    noNumberArrows: Boolean,
   },
 
   methods: {
@@ -141,5 +143,16 @@ label {
     padding: 0;
     padding-right: 5px;
   }
+}
+
+.noNumberArrows {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  -moz-appearance: textfield; /* Firefox */
 }
 </style>

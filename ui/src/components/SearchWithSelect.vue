@@ -4,6 +4,8 @@
       :placeholder="inputPlaceholder"
       class="flex-grow-1 input-container"
       v-model="query_"
+      input-type="number"
+      no-number-arrows
       have-cross-button
     >
       <i slot="icon" class="select-icon ic-Magnify-Icon" />
