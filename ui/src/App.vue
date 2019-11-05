@@ -76,5 +76,8 @@ h4 {
   .container {
     max-width: 1200px;
   }
+  html {
+    font-size: 12px;
+  }
 }
 </style>
