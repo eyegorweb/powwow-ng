@@ -23,6 +23,9 @@ export default {
   components: {
     StepperNonLinearStep,
   },
+  mounted() {
+    console.log('data steps', this.stepperData);
+  },
 };
 </script>
 
