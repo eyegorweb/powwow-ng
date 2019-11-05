@@ -234,13 +234,13 @@ export default {
           {
             code: 'IN_PROGRESS',
             label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: this.content.dueDate,
+            date: this.content.started,
             index: 1,
           },
           {
             code: 'TERMINATED',
             label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: this.content.endDate,
+            date: this.content.ended,
             index: 2,
           },
         ],
