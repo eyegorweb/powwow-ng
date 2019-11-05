@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.327+20191105160604
+2019-11-05
+
+### Fixes
+
+- affiche la date de fin sous le statut Terminé d'un acte de gestion (1a20b659887d246e81f7a36f47a64311e5bfee1f)
+
 ## 0.3.0-master.326+20191105152628
 2019-11-05
 
