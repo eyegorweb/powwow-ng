@@ -91,7 +91,13 @@ export default {
       titleSpacing = 47;
     }
 
-    if (window.innerWidth >= 1366 && window.innerWidth < 1920) {
+    if (window.innerWidth === 1280) {
+      gaugeSize = 160;
+      gaugeWidth = 8;
+
+      gaugeTopSpacing = 45;
+      titleSpacing = 57;
+    } else if (window.innerWidth >= 1366 && window.innerWidth < 1920) {
       gaugeSize = 170;
       gaugeWidth = 8;
 
