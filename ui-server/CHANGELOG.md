@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.329+20191105161622
+2019-11-05
+
+### Fixes
+
+- erreur dans la recherche unitaire d'acte de masse si saisir de lettre au lieu de chiffre (686ea37fdea070a33694ff2855232338730e4a29)
+
 ## 0.3.0-master.328+20191105160635
 2019-11-05
 
