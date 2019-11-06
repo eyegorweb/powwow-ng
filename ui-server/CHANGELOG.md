@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.331+20191106101222
+2019-11-06
+
+### Fixes
+
+- Améliorer l'animation du spinner (2a108687412bd860ae8d9a27a63e8fbb53d6a6db)
+
 ## 0.3.0-master.330+20191106095013
 2019-11-06
 
