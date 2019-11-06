@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <div id="loader" v-if="!appIsReady">
-      <div class="spinner spinner-l spinner-dark"></div>
-    </div>
-
     <div v-if="appIsReady" class="container">
       <NavBars :is-backoffice-profile="!userIsPartner" />
       <router-view />
@@ -27,6 +23,7 @@ import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
 import { mapMutations, mapGetters } from 'vuex';
+import $ from 'jquery';
 
 export default {
   name: 'App',
@@ -46,6 +43,11 @@ export default {
   watch: {
     $route() {
       this.closePanel();
+    },
+    appIsReady(value) {
+      if (value) {
+        $('#app-loader').fadeOut(400);
+      }
     },
   },
 };
