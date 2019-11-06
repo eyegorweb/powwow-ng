@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.330+20191106095013
+2019-11-06
+
+### Fixes
+
+- Ajouter un spinner durant le chargement de l'application (fef15f2f1139f5b72f898ab1c457b25b5c33a696)
+
 ## 0.3.0-master.329+20191105161622
 2019-11-05
 
