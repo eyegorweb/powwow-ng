@@ -1,9 +1,17 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div id="loader" v-if="!appIsReady">
+      <div class="spinner spinner-l spinner-dark"></div>
+    </div>
+
+    <div v-if="appIsReady" class="container">
       <NavBars :is-backoffice-profile="!userIsPartner" />
       <router-view />
       <PanelSwitcher />
+    </div>
+    <div v-else-if="$route.name === 'callback' || $route.name === 'refresh'">
+      {{ /* On garde que la partie routeur pour gérer le callback appelé lors de l'enregistrement du token */}}
+      <router-view />
     </div>
 
     <Authentication />
@@ -33,7 +41,7 @@ export default {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'appIsReady']),
   },
   watch: {
     $route() {

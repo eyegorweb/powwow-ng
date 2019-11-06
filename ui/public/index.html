@@ -9,8 +9,65 @@
       content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src 'self' data: https:;font-src 'self' data: https:;"
     />
 
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title>powwow-ng-front</title>
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico?new" />
+    <title>NG</title>
+    <style type="text/css">
+      body {
+        background-color: #f3f3f3;
+      }
+      .loader {
+        color: #3c4859;
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        position: fixed;
+        background: #fff;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 100;
+      }
+      .spinner {
+        color: #3c4859;
+        -webkit-font-smoothing: antialiased;
+        outline: none;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        display: inline-block;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-sizing: border-box;
+        border-style: solid;
+        border-color: #1f2d3d transparent transparent;
+        width: 50px;
+        height: 50px;
+        border-width: 3px;
+        position: absolute;
+        z-index: 20;
+        top: 50%;
+        left: 50%;
+        margin: -26px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(359deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -19,7 +76,11 @@
         enable it to continue.</strong
       >
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <div id="loader">
+        <div class="spinner spinner-l spinner-dark"></div>
+      </div>
+    </div>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?client=<%= VUE_APP_GMAP_CLIENT %>&channel=<%= VUE_APP_GMAP_CHANNEL %>"
