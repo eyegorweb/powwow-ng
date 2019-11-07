@@ -234,7 +234,7 @@ export default {
           {
             code: 'IN_PROGRESS',
             label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: this.content.started,
+            date: this.content.dueDate,
             index: 1,
           },
           {
