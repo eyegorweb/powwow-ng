@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.333+20191107104124
+2019-11-07
+
+### Fixes
+
+- mise à jour des conditions de validation pour l'envoi de SMS (c1d1eb35ae851b53af0d10fd1b9f472f9127f70d)
+
 ## 0.3.0-master.332+20191106104103
 2019-11-06
 
