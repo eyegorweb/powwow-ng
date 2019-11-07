@@ -47,7 +47,7 @@
         <div class="col">
           <button
             @click="containerValidationFn"
-            :disabled="!acceptConditions"
+            :disabled="!applyConditions"
             class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
           >
             {{ $t('set') }}
@@ -105,6 +105,10 @@ export default {
           label: s,
         };
       });
+    },
+
+    applyConditions() {
+      return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0;
     },
   },
 
