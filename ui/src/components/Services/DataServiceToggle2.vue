@@ -1,5 +1,5 @@
 <template>
-  <div class="s-container">
+  <div v-if="!vertical" class="s-container">
     <div class="line">
       <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
     </div>
@@ -7,6 +7,19 @@
       <span class="mt-4 mb-4">Apn:</span>
 
       <MultiChoiceList :items="apns" @change="toggleApn" />
+    </div>
+  </div>
+  <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
+    <div class="row">
+      <div class="col">
+        <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
+      </div>
+      <div class="col">
+        <div v-if="apns && apns.length" class="apn-container">
+          <span>Apn:</span>
+          <MultiChoiceList :items="apns" @change="toggleApn" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +36,7 @@ export default {
 
   props: {
     service: Object,
+    vertical: Boolean,
   },
 
   data() {
@@ -34,11 +48,12 @@ export default {
   },
   mounted() {
     const data = {
-      checked: this.service.activated,
+      checked: this.service.checked,
       editable: this.service.editable,
       apns: this.service.parameters.map(s => ({
+        ...s,
         code: s.code,
-        label: s.value,
+        label: s.label,
         selectable: s.editable,
         selected: s.active,
       })),
@@ -46,6 +61,7 @@ export default {
     this.apns = data.apns;
     this.checked = data.checked;
     this.editable = data.editable;
+    this.$emit('apnChange', this.apns);
   },
   methods: {
     toggleApn(apn) {
@@ -55,6 +71,7 @@ export default {
         }
         return a;
       });
+      this.$emit('apnChange', this.apns);
     },
     changeValue() {
       this.$emit('change', {

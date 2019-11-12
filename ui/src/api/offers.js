@@ -26,49 +26,28 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
         id
         code
         workflowDescription
-        }
         ${rCardGqlParam}
-
+        initialOffer {
+          id
+          marketingServices {
+            code
+            activated
+            editable
+            optional
+            parameters {
+              activated
+              value
+              code
+              editable
+            }
+          }
+        }
+      }
     }
   }
   `;
   const response = await query(queryStr);
   return response.data.workflows.items;
-
-  /*
-    initialOffer {
-        id
-        code
-        nonSystemServiceGroupList {
-          id
-          system
-          type
-          code
-          standardAndSemiGlobalCatalogServiceGroups {
-            id
-            activatedByDefault
-            partyAccess
-            catalogService {
-              id
-              code
-              label
-            }
-            catalogServiceParameters {
-              id
-              setOnActivation
-              defaultValue
-              label
-              partyAccess
-              serviceParameter {
-                id
-                code
-                name
-              }
-            }
-          }
-        }
-      }
-  //*/
 }
 
 export async function fetchOffersForPartnerId(partnerId) {

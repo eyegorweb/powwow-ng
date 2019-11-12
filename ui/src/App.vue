@@ -46,6 +46,7 @@ export default {
     },
     appIsReady(value) {
       if (value) {
+        // Jquery est utilisé ici car le loader ne fait pas partie de l'application Vue
         $('#app-loader').fadeOut(400);
       }
     },

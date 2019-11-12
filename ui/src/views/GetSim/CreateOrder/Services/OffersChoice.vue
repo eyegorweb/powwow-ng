@@ -2,7 +2,7 @@
   <UiSelect
     class="form-offers mt-4"
     :class="selectedOffer_ ? '' : 'disabled'"
-    v-model="selectedOffer_"
+    v-model="chosenOffer"
     :placeholder="$t('orders.select-offer-placeholder')"
     :options="formattedOffers"
     :arrow-blue="true"
@@ -24,6 +24,14 @@ export default {
     isRcard: Boolean,
   },
   computed: {
+    chosenOffer: {
+      get() {
+        return this.selectedOffer ? this.selectedOffer_.code : undefined;
+      },
+      set(value) {
+        this.$emit('update:selectedOffer', this.offers.find(o => o.code === value));
+      },
+    },
     formattedOffers() {
       return this.offers.map(i => {
         let workflowIsNotCompatible = false;

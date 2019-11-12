@@ -1,6 +1,6 @@
 <template>
   <WidgetBloc :widget="widget" mocked>
-    <table class="table mock-value">
+    <table class="table">
       <tbody>
         <tr>
           <td>6.15544.77 du 10/10/2018 au 11/11/2018</td>
@@ -43,19 +43,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-group-item {
-  border-right: none;
-  border-left: none;
-  color: $dark-gray;
-
-  &:first-child {
-    border-top: none;
-  }
-}
-
 .table {
   td {
     font-size: 0.8rem;
+    color: #454545;
   }
 }
 </style>

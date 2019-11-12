@@ -9,8 +9,17 @@ import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
+import TriggeredAlarms from './widgets/TriggeredAlarms';
 
 export default [
+  {
+    title: 'home.widgets.topTriggeredAlarms',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: true,
+    component: TriggeredAlarms,
+  },
   {
     title: 'home.widgets.orders',
     description: '',
