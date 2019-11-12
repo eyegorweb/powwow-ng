@@ -54,6 +54,7 @@
   "notDefined": "Non déterminé",
   "confirmAction": "Confirmer la demande ?",
   "requestError": "Erreur durant le traitement de la requête",
+  "status": "statut",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -70,7 +71,19 @@
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
-      "topTriggeredAlarms": "Top 5 des alarmes déclenchées"
+      "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
+      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "stateParc": {
+        "title": "ETAT DU PARC",
+        "stockLines": "Lignes en stock",
+        "preactivatedLines": "Lignes pré-activées",
+        "activatedLines": "Lignes activées",
+        "suspendedLines": "Lignes suspendues",
+        "cancellationLines": "Lignes en cours de résiliation",
+        "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
+        "currentMonth": "Mois en cours",
+        "prevMonth": "M-1"
+      }
     }
   },
   "menu": {

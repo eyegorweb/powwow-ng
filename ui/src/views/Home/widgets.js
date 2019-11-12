@@ -9,6 +9,7 @@ import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
+import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
 
 export default [
@@ -108,5 +109,13 @@ export default [
     clickable: true,
     seeMore: true,
     component: MassActionsByUserTableWidget,
+  },
+  {
+    title: 'home.widgets.stateParc.title',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: true,
+    component: ParcStateWidget,
   },
 ];
