@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.336+20191112131818
+2019-11-12
+
+### Features
+
+- **widget:** affichage du widget Etat du parc (983d0ae79cc4885646024fe349df888393f38304)
+
 ## 0.3.0-master.335+20191112110329
 2019-11-12
 
