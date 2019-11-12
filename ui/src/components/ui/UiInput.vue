@@ -21,7 +21,7 @@
       :style="inputStyle"
       type="text"
     />
-    <button v-if="value_" @click.prevent="resetValue" class="btn">
+    <button v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
       <i class="select-icon ic-Cross-Icon"></i>
     </button>
 

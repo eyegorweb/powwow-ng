@@ -16,55 +16,30 @@
             <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
             <UiToggle label="Activation" v-model="activation" />
           </div>
-          <div v-if="activation && offers && offers.length">
-            <div class>
-              <OffersChoice
-                v-model="selectedOffer"
-                :offers="offers"
-                :partner-id="partnerId"
-                :is-rcard="isrcard"
-              />
+          <LoaderContainer :is-loading="isLoadingOffers">
+            <div v-if="activation && offers && offers.length">
+              <div class>
+                <OffersChoice
+                  v-model="selectedOffer"
+                  :offers="offers"
+                  :partner-id="partnerId"
+                  :is-rcard="isrcard"
+                />
+              </div>
+              <template v-if="selectedOffer">
+                <div>
+                  <h2 class="title text-center">{{ $t('orders.personalize-services') }}</h2>
+                </div>
+                <ServicesBlock2
+                  v-if="selectedOffer"
+                  :key="selectedOffer.label"
+                  :services="offerServices"
+                  vertical
+                  @change="onServiceChange"
+                />
+              </template>
             </div>
-
-            <template v-if="selectedOfferData">
-              <div>
-                <h2 class="title">{{ $t('orders.personalize-services') }}</h2>
-              </div>
-
-              <div class="services-container">
-                <div
-                  :key="service.id"
-                  v-for="service in basicServices"
-                  class="single-service mt-3 mb-3"
-                >
-                  <UiToggle
-                    :label="$t('services.' + service.name)"
-                    :editable="service.editable"
-                    v-model="service.checked"
-                  />
-                </div>
-              </div>
-
-              <div v-if="dataService" class="services-container mt-3">
-                <div class="single-service">
-                  <UiToggle
-                    :label="$t('services.DATA')"
-                    :editable="dataService.editable"
-                    v-model="dataService.checked"
-                  />
-                </div>
-                <div
-                  v-if="dataService && dataService.apns && dataService.apns.length"
-                  class="single-service"
-                >
-                  <div class="apn-container">
-                    <span>Apn:</span>
-                    <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
-                  </div>
-                </div>
-              </div>
-            </template>
-          </div>
+          </LoaderContainer>
         </div>
       </div>
     </div>
@@ -74,10 +49,10 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import OffersChoice from './OffersChoice';
-import MultiChoiceList from '@/components/ui/MultiChoiceList';
+import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
+import LoaderContainer from '@/components/LoaderContainer';
 
 import get from 'lodash.get';
-import flatten from 'lodash.flatten';
 import { fetchOffersForPartnerId } from '@/api/offers';
 
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
@@ -87,8 +62,9 @@ export default {
   components: {
     UiToggle,
     OffersChoice,
-    MultiChoiceList,
+    ServicesBlock2,
     CreateOrderStepContainer,
+    LoaderContainer,
   },
   props: {
     synthesis: {
@@ -98,6 +74,32 @@ export default {
   },
 
   computed: {
+    offerServices() {
+      return this.selectedOffer.initialOffer.marketingServices
+        .filter(s => !!s)
+        .map(s => {
+          const service = {
+            code: s.code,
+            checked: s.activated,
+            editable: s.editable,
+            optional: s.optional,
+          };
+          if (s.code === '878') {
+            service.parameters = s.parameters
+              .filter(ps => !!ps)
+              .map(p => {
+                return {
+                  active: p.activated,
+                  label: p.value,
+                  editable: p.editable,
+                  code: p.code,
+                  name: p.code,
+                };
+              });
+          }
+          return service;
+        });
+    },
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
       const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
@@ -118,7 +120,9 @@ export default {
     this.activation = get(this.synthesis, 'services.selection.activation', false);
     this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
 
+    this.isLoadingOffers = true;
     const offers = await fetchOffersForPartnerId(this.partnerId);
+    this.isLoadingOffers = false;
     this.offers = offers.map(o => {
       return {
         ...o,
@@ -134,16 +138,6 @@ export default {
     }
     // this.preFillServices();
   },
-  watch: {
-    selectedOffer(selectedValue) {
-      this.selectedOfferData = this.activation
-        ? this.offers.find(o => o.value === selectedValue)
-        : {};
-      this.initServicesForOffer();
-      this.initDataService();
-      this.servicesInitialized = true;
-    },
-  },
   methods: {
     done() {
       this.$emit('done', this.assembleSynthesis());
@@ -151,115 +145,11 @@ export default {
     prev() {
       this.$emit('prev', this.assembleSynthesis());
     },
-    preFillServices() {
-      const basicServices = get(this.synthesis, 'services.selection.basicServices');
-      const dataService = get(this.synthesis, 'services.selection.dataService');
-      if (basicServices) {
-        this.basicServices = basicServices;
-      }
-      if (dataService) {
-        this.dataService = dataService;
-      }
+
+    onServiceChange(services) {
+      this.servicesChoice = services;
     },
-    /**
-     * Il faut scanner tout les éléments de nonSystemServiceGroupList > standardAndSemiGlobalCatalogServiceGroups > catalogService pour extraire les données du service
-     */
-    getServiceData(dependencyCode) {
-      const groupServices = this.selectedOfferData.initialOffer.nonSystemServiceGroupList.map(
-        g => g.standardAndSemiGlobalCatalogServiceGroups
-      );
-      const result = flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
-      return result;
-    },
-    initServicesForOffer() {
-      const initServices = () => {
-        this.basicServices = this.defaultBasicServices.map(s => {
-          const serviceData = this.getServiceData(s.code);
-          if (serviceData) {
-            const isEditable = serviceData.partyAccess || false;
-            const isChecked = serviceData.activatedByDefault || false;
-            return {
-              ...s,
-              checked: isChecked,
-              editable: isEditable,
-              data: { ...serviceData },
-            };
-          }
 
-          return s;
-        });
-      };
-
-      if (!this.servicesInitialized) {
-        const selectedBasicServices = get(this.synthesis, 'services.selection.basicServices');
-        if (selectedBasicServices) {
-          this.basicServices = selectedBasicServices;
-        } else {
-          initServices();
-        }
-      } else {
-        initServices();
-      }
-    },
-    initDataService() {
-      const initService = () => {
-        const data = this.getServiceData('878');
-        if (!data) return;
-        let serviceParameters = [];
-        if (data && data.catalogServiceParameters) {
-          serviceParameters = data.catalogServiceParameters;
-        }
-
-        const containTestApn = serviceParameters.find(
-          s => s.defaultValue.indexOf('testrnis.fr') !== -1
-        );
-        const isEditable = data.partyAccess || false;
-        const isChecked = data && data.activatedByDefault && !containTestApn;
-
-        const dataService = {
-          checked: isChecked,
-          editable: isEditable,
-          apns: [],
-          data: { ...data },
-        };
-
-        const apns = serviceParameters.map(p => {
-          return {
-            label: p.defaultValue,
-            selectable: p.partyAccess,
-            selected: p.setOnActivation,
-            id: p.id,
-          };
-        });
-
-        dataService.apns = apns;
-
-        this.dataService = dataService;
-      };
-
-      this.dataService = undefined;
-
-      if (!this.servicesInitialized) {
-        const selectedDataService = get(this.synthesis, 'services.selection.dataService');
-        if (selectedDataService) {
-          this.dataService = selectedDataService;
-        } else {
-          initService();
-        }
-      } else {
-        initService();
-      }
-    },
-    toggleApn(apn) {
-      const apns = this.dataService.apns.map(a => {
-        if (a.selectable && a.label === apn.label) {
-          a.selected = !a.selected;
-        }
-        return a;
-      });
-
-      this.dataService = { ...this.dataService, apns };
-    },
     assembleSynthesis() {
       return {
         services: {
@@ -278,9 +168,6 @@ export default {
           selection: {
             activation: !!this.activation,
             preActivation: !!this.preActivation,
-            basicServices: this.basicServices,
-            dataService: this.dataService,
-            selectedOfferData: this.selectedOfferData,
           },
         },
       };
@@ -293,118 +180,14 @@ export default {
       preActivationValue: false,
       partnerId: undefined,
       offers: [],
-      selectedOfferData: undefined,
-
-      dataService: undefined,
-      servicesInitialized: false,
-      basicServices: [],
-      defaultBasicServices: [
-        {
-          id: 0,
-          name: 'VOIX_ENTRANTE',
-          code: '2175',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 1,
-          name: 'VOIX_SORTANTE',
-          code: '2023',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 2,
-          name: 'SMS_ENTRANT',
-          code: '2171',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 3,
-          name: 'SMS_SORTANT',
-          code: '2174',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 4,
-          name: 'NUMERO_DATA_CSD',
-          code: '2188',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 5,
-          name: 'DATA_CSD_ENTRANTE',
-          code: '2172',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 6,
-          name: 'DATA_CSD_SORTANTE',
-          code: '2173',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 7,
-          name: 'ROAMING',
-          code: '77',
-          checked: false,
-          editable: false,
-          data: undefined,
-        },
-      ],
+      isLoadingOffers: false,
+      servicesChoice: undefined,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1366px) {
-  .services-container {
-    width: 100% !important;
-  }
-}
-
-@media screen and (max-height: 768px) {
-  .get-sim-services {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-  }
-}
-.toggle {
-  max-width: 220px;
-}
-
-.services-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
-  .single-service {
-    flex-basis: 50%;
-  }
-}
-.title {
-  background-color: transparent;
-  color: $dark-gray;
-  font-weight: 300;
-  font-size: 2rem;
-  margin: 50px 0 30px;
-  padding: 0;
-  text-align: center;
-}
-
 .toggles-container {
   flex-grow: 1;
   display: flex;
@@ -417,6 +200,16 @@ export default {
     flex: 1 100%;
     flex-grow: 1;
   }
+}
+
+.title {
+  background-color: transparent;
+  color: $dark-gray;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 50px 0 30px;
+  padding: 0;
+  text-align: center;
 }
 
 .form-offers {
@@ -451,35 +244,6 @@ select {
     max-height: 50px;
     max-width: 180px;
     overflow-y: auto;
-  }
-}
-
-@media screen and (max-width: 1366px) {
-  .services-container {
-    width: 100% !important;
-  }
-}
-
-.services-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: auto;
-  .single-service {
-    flex-basis: 50%;
-  }
-}
-
-.apn-container {
-  display: flex;
-  flex-direction: row;
-  span {
-    flex-grow: 0;
-  }
-  .card {
-    max-width: 210px;
-    flex-grow: 1;
-    margin-left: 10px;
   }
 }
 </style>

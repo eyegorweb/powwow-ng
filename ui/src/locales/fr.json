@@ -69,7 +69,8 @@
       "cancelationAct": "Actes: Résiliation",
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
-      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »"
+      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "topTriggeredAlarms": "Top 5 des alarmes déclenchées"
     }
   },
   "menu": {
@@ -939,13 +940,13 @@
     }
   },
   "services": {
-    "VOIX_ENTRANTE": "Voix entrante",
-    "VOIX_SORTANTE": "Voix sortante",
-    "SMS_ENTRANT": "SMS entrant",
-    "SMS_SORTANT": "SMS sortant",
-    "NUMERO_DATA_CSD": "Numéro data csd",
-    "DATA_CSD_ENTRANTE": "Data csd entrante",
-    "DATA_CSD_SORTANTE": "Data csd sortante",
+    "INCOMING_VOICE": "Voix entrante",
+    "OUTGOING_VOICE": "Voix sortante",
+    "INCOMING_SMS": "SMS entrant",
+    "OUTGOING_SMS": "SMS sortant",
+    "DATA_CSD_NUMBER": "Numéro data csd",
+    "INCOMING_DATA_CSD": "Data csd entrante",
+    "OUTGOING_DATA_CSD": "Data csd sortante",
     "ROAMING": "Roaming",
     "DATA": "Data",
     "compatibility": "-non compatible"

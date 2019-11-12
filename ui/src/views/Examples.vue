@@ -27,7 +27,6 @@
 <script>
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import { formatLargeNumber } from '@/utils/numbers';
 import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
 import UiInput from '@/components/ui/UiInput';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
@@ -39,9 +38,6 @@ export default {
     ServicesBlock2,
     UiInput,
     TableSkeleton,
-  },
-  mounted() {
-    console.log(formatLargeNumber(1234567));
   },
   methods: {
     onChane(e) {
@@ -62,50 +58,38 @@ export default {
         },
       ],
       services: [
+        { code: 'INCOMING_VOICE', checked: true, editable: false, optional: false },
+        { code: 'OUTGOING_VOICE', checked: true, editable: false, optional: false },
+        { code: 'INCOMING_SMS', checked: true, editable: false, optional: false },
+        { code: 'OUTGOING_SMS', checked: true, editable: false, optional: false },
+        { code: 'DATA_CSD_NUMBER', checked: false, editable: false, optional: false },
+        { code: 'INCOMING_DATA_CSD', checked: true, editable: false, optional: false },
+        { code: 'ROAMING', checked: true, editable: false, optional: false },
+        { code: 'OUTGOING_DATA_CSD', checked: true, editable: false, optional: false },
         {
-          code: 'SERVICE_1',
-          activated: false,
-          editable: true,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_2',
-          activated: true,
+          code: '878',
+          checked: true,
           editable: false,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_3',
-          activated: false,
-          editable: true,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_4',
-          activated: true,
-          editable: false,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'DATA',
-          activated: false,
-          editable: true,
           optional: false,
           parameters: [
-            {
-              active: false,
-              value: 'apn1.testrnis.fr',
-              editable: true,
-              code: 'APN1',
-              name: 'APN1',
-            },
+            { active: false, label: 'manaty3.fr', editable: true, code: 'APN3', name: 'APN3' },
           ],
-          barring: false,
         },
+        { code: '1147', checked: false, editable: true, optional: false },
+        { code: '1247', checked: false, editable: true, optional: false },
+        { code: '15', checked: true, editable: true, optional: false },
+        { code: '77', checked: false, editable: true, optional: false },
+        { code: '1290', checked: true, editable: false, optional: false },
+        { code: '9001', checked: true, editable: false, optional: false },
+        { code: '9004', checked: false, editable: true, optional: false },
+        { code: '2', checked: false, editable: true, optional: false },
+        { code: '9', checked: false, editable: false, optional: false },
+        { code: '18', checked: true, editable: true, optional: false },
+        { code: '107', checked: false, editable: true, optional: false },
+        { code: '799', checked: false, editable: false, optional: false },
+        { code: '10', checked: true, editable: true, optional: false },
+        { code: '1168', checked: true, editable: false, optional: false },
+        { code: 'X', checked: true, editable: true, optional: false },
       ],
     };
   },
