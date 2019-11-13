@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.338+20191113161352
+2019-11-13
+
+### Features
+
+- intégration des indicateurs pré calculés (73d542605da715c1ff28116a49445844e6b7dc5d)
+
 ## 0.3.0-master.337+20191113094326
 2019-11-13
 
