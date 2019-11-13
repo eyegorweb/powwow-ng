@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.337+20191113094326
+2019-11-13
+
+### Features
+
+- Limiter le choix de type de partenaires à 1 (153afc0132536c089f663d951e0b7c2b0705db93)
+
 ## 0.3.0-master.336+20191112131818
 2019-11-12
 
