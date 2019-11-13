@@ -32,9 +32,9 @@
           v-if="isMaximumItemsReached"
         >
           {{
-          showAll
-          ? $t('ui.MultiSelectSearch.showLess')
-          : `+${selectedItems.length - maximumSelectableItems}`
+            showAll
+              ? $t('ui.MultiSelectSearch.showLess')
+              : `+${selectedItems.length - maximumSelectableItems}`
           }}
         </button>
       </template>
@@ -49,7 +49,8 @@
               updateTextLabel($event, results.map(r => r.item))
           "
           class="text-secondary"
-        >{{ labelText }} ({{ results.length }})</UiCheckbox>
+          >{{ labelText }} ({{ results.length }})</UiCheckbox
+        >
         <UiCheckbox
           v-for="result in results"
           v-model="selectedItems"

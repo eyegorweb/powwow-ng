@@ -45,11 +45,13 @@
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
-          <td><span>
+          <td>
+            <span>
               <a href="#" @click.prevent="onClick">
                 345
               </a>
-            </span></td>
+            </span>
+          </td>
           <td>342</td>
         </tr>
         <tr>
