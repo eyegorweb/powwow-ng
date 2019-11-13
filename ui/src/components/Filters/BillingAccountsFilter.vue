@@ -26,8 +26,8 @@ export default {
       this.$emit('update:values', values);
     },
 
-    async fetchApi(q, partners, partnerTypes, { page, limit }) {
-      const data = await fetchBillingAccounts(q, partners, { page, limit, partnerTypes });
+    async fetchApi(q, partners, partnerType, { page, limit }) {
+      const data = await fetchBillingAccounts(q, partners, { page, limit, partnerType });
       if (data) {
         return data.map(p => ({
           id: p.id,

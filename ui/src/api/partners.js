@@ -1,15 +1,14 @@
 import { query } from './utils';
 import get from 'lodash.get';
 
-export async function fetchpartners(q, { page, limit, partnerTypesIn }) {
-  let partnerTypesGqlFilter = '';
-  if (partnerTypesIn && partnerTypesIn.length) {
-    const ids = partnerTypesIn.map(p => `${p.id}`).join(',');
-    partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
+export async function fetchpartners(q, { page, limit, partnerType }) {
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
   const queryStr = `
   query{
-    partys(filter:{name: {contains: "${q}"}${partnerTypesGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {contains: "${q}"}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id

@@ -22,8 +22,8 @@ export default {
   },
 
   methods: {
-    async fetchApi(q, partners, partnerTypes, { page, limit }) {
-      const data = await fetchOffers(q, partners, { page, limit, partnerTypes });
+    async fetchApi(q, partners, partnerType, { page, limit }) {
+      const data = await fetchOffers(q, partners, { page, limit, partnerType });
       if (data) {
         return data.map(o => ({
           id: o.code,

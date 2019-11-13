@@ -30,7 +30,7 @@
                 <div>
                   <h2 class="title text-center">{{ $t('orders.personalize-services') }}</h2>
                 </div>
-                <ServicesBlock2
+                <ServicesBlock
                   v-if="selectedOffer"
                   :key="selectedOffer.label"
                   :services="offerServices"
@@ -49,7 +49,7 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import OffersChoice from './OffersChoice';
-import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import LoaderContainer from '@/components/LoaderContainer';
 
 import get from 'lodash.get';
@@ -57,12 +57,14 @@ import { fetchOffersForPartnerId } from '@/api/offers';
 
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
+import { getOfferServices } from '@/components/Services/utils.js';
+
 export default {
   name: 'CreateOrderStepServices',
   components: {
     UiToggle,
     OffersChoice,
-    ServicesBlock2,
+    ServicesBlock,
     CreateOrderStepContainer,
     LoaderContainer,
   },
@@ -75,30 +77,7 @@ export default {
 
   computed: {
     offerServices() {
-      return this.selectedOffer.initialOffer.marketingServices
-        .filter(s => !!s)
-        .map(s => {
-          const service = {
-            code: s.code,
-            checked: s.activated,
-            editable: s.editable,
-            optional: s.optional,
-          };
-          if (s.code === '878') {
-            service.parameters = s.parameters
-              .filter(ps => !!ps)
-              .map(p => {
-                return {
-                  active: p.activated,
-                  label: p.value,
-                  editable: p.editable,
-                  code: p.code,
-                  name: p.code,
-                };
-              });
-          }
-          return service;
-        });
+      return getOfferServices(this.selectedOffer.initialOffer);
     },
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];

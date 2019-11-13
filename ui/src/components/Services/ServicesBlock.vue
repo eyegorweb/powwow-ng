@@ -1,105 +1,92 @@
 <template>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="s-container">
-        <div :key="service.name" v-for="service in barringServices" class="service">
-          <BarringServiceToggle
-            :code="service.code"
-            :catalog-offer="offer"
-            :instance-offer="{}"
-            :label="'services.' + service.name"
-            @change="value => onBarringChange(service, value)"
-          />
+  <div v-if="!vertical">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="s-container">
+          <div :key="service.code" v-for="service in otherServices" class="service">
+            <UiToggle
+              :label="$t('services.' + service.code)"
+              :editable="service.editable"
+              v-model="service.checked"
+              @change="onServiceChange"
+            />
+          </div>
         </div>
-        <div :key="service.name" v-for="service in normalServices" class="service">
-          <NormalServiceToggle
-            :code="service.code"
-            :catalog-offer="offer"
-            :instance-offer="{}"
-            :label="'services.' + service.name"
-            @change="value => onNormalChange(service, value)"
+      </div>
+      <div v-if="dataService" class="col-md-4">
+        <DataServiceToggle :service="dataService" @change="onServiceChange" />
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <div>
+      <div class="services-container">
+        <div :key="service.id" v-for="service in otherServices" class="single-service mt-3 mb-3">
+          <UiToggle
+            :label="$t('services.' + service.code)"
+            :editable="service.editable"
+            v-model="service.checked"
+            @change="onServiceChange"
           />
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <DataServiceToggle :catalog-offer="offer" @change="onDataChange" />
+      <div v-if="dataService" class="services-container mt-3">
+        <DataServiceToggle
+          :service="dataService"
+          vertical
+          @change="onServiceChange"
+          @apnChange="onApnChange"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// DEPRECATED
-import BarringServiceToggle from '@/components/Services/BarringServiceToggle';
-import NormalServiceToggle from '@/components/Services/NormalServiceToggle';
-import DataServiceToggle from '@/components/Services/DataServiceToggle';
-import {
-  barringServices,
-  normalServices,
-  isBarrinServiceEnabled,
-  isNormalServiceEnabled,
-  initDataService,
-} from '@/utils/simServices';
+import UiToggle from '@/components/ui/UiToggle';
+import DataServiceToggle from './DataServiceToggle';
 
 export default {
-  props: {
-    offer: {
-      type: Object,
-      default: undefined,
-    },
-  },
-
   components: {
-    BarringServiceToggle,
+    UiToggle,
     DataServiceToggle,
-    NormalServiceToggle,
   },
-
-  mounted() {
-    // initialiser l'état des services
-    this.barringServices = barringServices.map(s => {
-      const { checked, editable } = isBarrinServiceEnabled(this.offer, s.code);
-      return {
-        ...s,
-        checked,
-        editable,
-      };
-    });
-    this.normalServices = normalServices.map(s => {
-      const { checked, editable } = isNormalServiceEnabled(this.offer, s.code);
-      return {
-        ...s,
-        checked,
-        editable,
-      };
-    });
-    this.dataService = initDataService(this.offer);
-
-    this.$emit('barringChange', this.barringServices);
-    this.$emit('normalChange', this.normalServices);
-    this.$emit('dataChange', this.dataService);
+  props: {
+    services: Array,
+    vertical: Boolean,
   },
-
   methods: {
-    onBarringChange(service, value) {
-      service.checked = value;
-      this.$emit('barringChange', this.barringServices);
+    onServiceChange() {
+      this.$emit('change', {
+        services: [...this.otherServices],
+        dataService: { ...this.dataService },
+      });
     },
-    onNormalChange(service, value) {
-      service.checked = value;
-      this.$emit('normalChange', this.normalServices);
+    onApnChange(apns) {
+      this.dataService = { ...this.dataService, parameters: [...apns] };
+      this.onServiceChange();
     },
-    onDataChange(value) {
-      this.$emit('dataChange', value);
+    setup() {
+      const dataService = this.services.find(s => s.code === '878');
+      if (dataService) {
+        this.dataService = { ...dataService };
+      }
+      this.otherServices = [...this.services.filter(s => s.code !== '878')];
     },
   },
-
   data() {
     return {
-      barringServices: [],
-      normalServices: [],
+      otherServices: undefined,
       dataService: undefined,
     };
+  },
+  watch: {
+    services() {
+      this.setup();
+    },
+  },
+  mounted() {
+    this.setup();
   },
 };
 </script>
@@ -113,5 +100,53 @@ export default {
 .service {
   flex-basis: 45%;
   margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 1366px) {
+  .services-container {
+    width: 100% !important;
+  }
+}
+
+.toggle {
+  max-width: 220px;
+}
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  .single-service {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .services-container {
+    width: 100% !important;
+  }
+}
+
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  .single-service {
+    flex-basis: 50%;
+  }
+}
+
+.apn-container {
+  display: flex;
+  flex-direction: row;
+  span {
+    flex-grow: 0;
+  }
+  .card {
+    max-width: 210px;
+    flex-grow: 1;
+    margin-left: 10px;
+  }
 }
 </style>

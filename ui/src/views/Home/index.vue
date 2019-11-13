@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapGetters(['activeWidgets']),
     ...mapGetters('userContext', ['contextFilters']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
@@ -75,7 +75,7 @@ export default {
     },
   },
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {

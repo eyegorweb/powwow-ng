@@ -46,8 +46,8 @@ export default {
      * utilisée pour limiter les résultats au partenaires des types choisis,
      * ce paramètre n'est pris en compte que si la prop ignoreUserContext est à true
      */
-    partnerTypesIn: {
-      type: Array,
+    partnerType: {
+      type: String,
       required: false,
     },
   },
@@ -58,7 +58,7 @@ export default {
       partners: [],
       canGetNextPage: true,
       asyncMode: true,
-      localPartnerTypesIn: [],
+      localPartnerTypeIn: undefined,
     };
   },
   async mounted() {
@@ -74,12 +74,12 @@ export default {
           this.asyncMode = false;
           return;
         }
-        if (this.contextPartnersTypes && this.contextPartnersTypes.length) {
-          this.localPartnerTypesIn = this.contextPartnersTypes;
+        if (this.contextPartnersType) {
+          this.localPartnerTypeIn = this.contextPartnersType;
         }
       } else {
         // à priori la seule fois où on ignore le context utilisateur est dans la barre de contexte ( haut de la page)
-        this.localPartnerTypesIn = this.partnerTypesIn;
+        this.localPartnerTypeIn = this.partnerType;
       }
       this.page = 0;
       this.canGetNextPage = true;
@@ -90,7 +90,7 @@ export default {
       const data = await fetchpartners(q, {
         page,
         limit,
-        partnerTypesIn: this.localPartnerTypesIn,
+        partnerType: this.localPartnerTypeIn,
       });
       if (data) {
         return data.map(p => ({
@@ -127,7 +127,7 @@ export default {
     },
   },
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
 
     selectedPartners: {
       get() {
@@ -139,14 +139,14 @@ export default {
     },
   },
   watch: {
-    partnerTypesIn(partnerTypesIn) {
-      if (partnerTypesIn) {
-        this.localPartnerTypesIn = partnerTypesIn;
+    partnerType(partnerType) {
+      if (partnerType) {
+        this.localPartnerTypeIn = partnerType;
         // reset search with new partner Types
         this.searchValueChanged('');
       }
     },
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initPartnersList();
     },
     contextPartners() {

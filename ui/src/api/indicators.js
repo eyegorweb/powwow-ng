@@ -1,4 +1,4 @@
-import { query } from './utils';
+import { query, getFilterValue, getFilterValues } from './utils';
 
 export async function fetchIndicators() {
   const response = await query(
@@ -35,7 +35,7 @@ function formatFilters(filters) {
 
   let partyTypes;
 
-  const partyTypesParam = getFilterValues(filters, 'filters.partnerTypes');
+  const partyTypesParam = getFilterValue(filters, 'filters.partnerType');
   if (partyTypesParam) {
     partyTypes = partyTypesParam.map(i => `${i.id}`).join(',');
   }
@@ -49,15 +49,6 @@ function formatFilters(filters) {
   }
 
   return allFilters.join(',');
-}
-
-function getFilterValues(filters, filterId) {
-  if (!filters) return;
-
-  const foundFilter = filters.find(f => f.id === filterId);
-  if (foundFilter) {
-    return foundFilter.values;
-  }
 }
 
 function getValuesIds(filters, filterId) {

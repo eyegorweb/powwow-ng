@@ -35,7 +35,7 @@ export default {
     MassActionsIndicators,
   },
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapGetters('actHistory', ['currentFilters']),
   },
   data() {
@@ -79,7 +79,7 @@ export default {
     },
   },
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {

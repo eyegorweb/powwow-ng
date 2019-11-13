@@ -26,8 +26,8 @@ export default {
       this.$emit('setOrderCreatorFilter', creators);
     },
 
-    async fetchApi(q, partners, partnerTypes, { page, limit }) {
-      const data = await fetchUsers(q, partners, { page, limit, partnerTypes });
+    async fetchApi(q, partners, partnerType, { page, limit }) {
+      const data = await fetchUsers(q, partners, { page, limit, partnerType });
       if (data) {
         return data.map(p => {
           const formattedUser = {

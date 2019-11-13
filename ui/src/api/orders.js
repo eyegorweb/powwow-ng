@@ -1,4 +1,4 @@
-import { query, addDateFilter } from './utils';
+import { query, addDateFilter, getValuesIds, getFilterValue, getFilterValues } from './utils';
 import get from 'lodash.get';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
@@ -202,14 +202,10 @@ function formatFilters(filters) {
     allFilters.push(`partyId: {in:[${partyIds}]}`);
   }
 
-  let partyTypes;
+  const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
 
-  const partyTypesParam = getFilterValues(filters, 'filters.partnerTypes');
-  if (partyTypesParam) {
-    partyTypes = partyTypesParam.map(i => `${i.id}`).join(',');
-  }
-  if (partyTypes) {
-    allFilters.push(`partyType: {in:[${partyTypes}]}`);
+  if (partyTypeParam) {
+    allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
 
   const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
@@ -327,22 +323,6 @@ function addCountries(gqlFilters, selectedFilters) {
   const countries = getValuesIds(selectedFilters, 'filters.countries');
   if (countries) {
     gqlFilters.push(`country: {in: [${countries}]}`);
-  }
-}
-
-function getFilterValues(filters, filterId) {
-  if (!filters) return;
-
-  const foundFilter = filters.find(f => f.id === filterId);
-  if (foundFilter) {
-    return foundFilter.values;
-  }
-}
-
-function getValuesIds(filters, filterId) {
-  const values = getFilterValues(filters, filterId);
-  if (values) {
-    return values.map(i => `"${i.id}"`).join(',');
   }
 }
 

@@ -94,7 +94,6 @@ export default {
   },
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
   },
   methods: {
     ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),

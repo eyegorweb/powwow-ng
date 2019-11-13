@@ -134,3 +134,28 @@ export function formatBytes(bytes, decimals = 2) {
 export function boolStr(value) {
   return value ? 'true' : 'false';
 }
+
+export function getFilterValues(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.values;
+  }
+}
+
+export function getFilterValue(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.value;
+  }
+}
+
+export function getValuesIds(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `"${i.id}"`).join(',');
+  }
+}
