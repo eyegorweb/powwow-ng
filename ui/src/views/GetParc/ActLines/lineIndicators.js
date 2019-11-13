@@ -79,7 +79,7 @@ export default [
         ],
       },
     ],
-    fetchKey: '',
+    fetchKey: 'SIM_NOT_PREACTIVATED',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
