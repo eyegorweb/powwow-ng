@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Indicators v-if="indicators" :meta="indicators" :on-click="onClick" />
+    <Indicators v-if="indicators" :meta="indicators" :on-click="onClick" precalculated />
   </div>
 </template>
 
@@ -47,6 +47,7 @@ export default {
               .format(dateFormat),
           },
         ],
+        fetchKey: 'ACT_IN_PROGRESS',
         fetch: async (indicator, contextFilters) => {
           return await fetchSingleIndicator(indicator.filters, contextFilters);
         },
@@ -70,6 +71,7 @@ export default {
               .format(dateFormat),
           },
         ],
+        fetchKey: 'ACT_FAILED',
         fetch: async (indicator, contextFilters) => {
           return await fetchSingleIndicator(indicator.filters, contextFilters);
         },
@@ -86,6 +88,7 @@ export default {
             startDate: moment.min().format(dateFormat),
           },
         ],
+        fetchKey: 'ACT_SCHEDULED',
         fetch: async (indicator, contextFilters) => {
           return await fetchSingleIndicator(indicator.filters, contextFilters);
         },

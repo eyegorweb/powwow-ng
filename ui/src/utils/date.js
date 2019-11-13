@@ -22,3 +22,10 @@ export function formattedCurrentDate() {
 export function formattedCurrentDateExtended() {
   return moment().format(DATE_FORMAT_EXTENDED);
 }
+
+export function isBefore(expectedBefore, expectedAfter) {
+  const a = moment(expectedBefore, DATE_FORMAT_EXTENDED);
+  const b = moment(expectedAfter, DATE_FORMAT_EXTENDED);
+
+  return a.isBefore(b);
+}

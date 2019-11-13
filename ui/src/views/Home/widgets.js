@@ -2,15 +2,16 @@ import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
 import BillsWidget from './widgets/BillsWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
-import ActivationWidget from './widgets/ActWidgets/ActivationWidget';
-import PreactivationActivationWidget from './widgets/ActWidgets/PreactivationActivationWidget';
-import CanceledWidget from './widgets/ActWidgets/CanceledWidget';
-import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
+
+import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
+import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
+import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
+import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
 
 export default [
   {
@@ -66,7 +67,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: ActivationWidget,
+    component: ActivationActsWidget,
     seeMore: false,
   },
   {
@@ -74,7 +75,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: PreactivationActivationWidget,
+    component: PreacActivationActsWidget,
     seeMore: false,
   },
   {
@@ -82,7 +83,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: CanceledWidget,
+    component: FailedActsWidget,
     seeMore: false,
   },
   {
@@ -91,7 +92,7 @@ export default [
     checked: true,
     large: false,
     seeMore: false,
-    component: GenericWidget,
+    component: StatusActsWidget,
   },
   {
     title: 'home.widgets.searchLine',

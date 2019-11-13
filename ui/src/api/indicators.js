@@ -57,3 +57,32 @@ function getValuesIds(filters, filterId) {
     return values.map(i => `"${i.id}"`).join(',');
   }
 }
+
+export async function fetchPrecalculatedIndicators(keys, partners, partnerType) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+
+  const queryStr = `
+  query{
+    indicators(names: [${keys.join(',')}]${partnerGql}${partnerTypeGql}) {
+      name
+      stringValue
+      dateValue
+      updateDate
+      updateRequestDate
+      numberValue
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.indicators;
+}

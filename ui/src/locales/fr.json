@@ -55,6 +55,7 @@
   "confirmAction": "Confirmer la demande ?",
   "requestError": "Erreur durant le traitement de la requête",
   "status": "statut",
+  "lastUpdate": "Dernière Mise à jour",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
