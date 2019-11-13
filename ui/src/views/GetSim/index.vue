@@ -9,9 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3">
-        <UiButton variant="accent" block class="float-right" @click="openCreateOrderPanel()">
-          {{ $t('getsim.order-sim') }}
-        </UiButton>
+        <UiButton variant="accent" block class="float-right" @click="openCreateOrderPanel()">{{
+          $t('getsim.order-sim')
+        }}</UiButton>
       </div>
     </div>
     <div class="row">
@@ -71,7 +71,7 @@ export default {
     },
   },
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState({
       isPanelOpen: state => state.ui.isPanelOpen,
     }),
@@ -92,7 +92,7 @@ export default {
     this.initFilterForContext();
   },
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {

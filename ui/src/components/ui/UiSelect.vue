@@ -8,7 +8,9 @@
         :size="numberOfVisibleItems"
       >
         <slot>
-          <option v-if="placeholder" disabled selected :value="null">{{ placeholder }}</option>
+          <option v-if="placeholder" disabled selected hidden value="none">
+            {{ placeholder }}
+          </option>
           <option
             v-for="option in formattedOptions"
             :key="option.value"
@@ -57,7 +59,9 @@ export default {
       return this.options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
     },
     model: {
-      get: ({ value }) => value,
+      get: ({ value }) => {
+        return value || 'none';
+      },
       set(model) {
         this.$emit('input', model);
       },

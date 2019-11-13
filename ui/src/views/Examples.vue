@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <ServicesBlock2 :services="services" />
+        <ServicesBlock :services="services" />
       </div>
       <div class="col-md-6">
         <UiInput
@@ -27,7 +27,7 @@
 <script>
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import UiInput from '@/components/ui/UiInput';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
@@ -35,7 +35,7 @@ export default {
   name: 'Home',
   components: {
     SearchTranslationKey,
-    ServicesBlock2,
+    ServicesBlock,
     UiInput,
     TableSkeleton,
   },

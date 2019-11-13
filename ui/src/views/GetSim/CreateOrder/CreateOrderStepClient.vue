@@ -81,8 +81,11 @@ export default {
       if (this.contextPartners && this.contextPartners.length) {
         return this.contextPartners;
       }
-      const partnerTypesIn = this.contextPartnersTypes;
-      const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
+      const data = await fetchpartners(q, {
+        page,
+        limit: 10,
+        partnerType: this.contextPartnersType,
+      });
       return data.map(p => ({
         id: p.id,
         label: p.name,
@@ -133,7 +136,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
 
     canGoToNextStep() {
       if (this.selectedBillingAccount) {

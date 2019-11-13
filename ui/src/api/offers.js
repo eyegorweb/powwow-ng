@@ -1,7 +1,7 @@
 import { query } from './utils';
 
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
-export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
+export async function fetchOffers(q, partners, { page, limit, partnerType }) {
   let partnersIds,
     partnerGqlParam = '',
     rCardGqlParam = '';
@@ -12,15 +12,14 @@ export async function fetchOffers(q, partners, { page, limit, partnerTypes }) {
     rCardGqlParam = `rCard(partyId: ${partnersIds.replace(/['"]+/g, '')})`;
   }
 
-  let partnerTypesGqlFilter = '';
-  if (partnerTypes && partnerTypes.length) {
-    const ids = partnerTypes.map(p => `${p.id}`).join(',');
-    partnerTypesGqlFilter = `, partyType: {in: [${ids}]}`;
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
   }
 
   const queryStr = `
   query{
-    workflows(filter:{description: {contains: "${q}"}${partnerGqlParam}${partnerTypesGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {contains: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id

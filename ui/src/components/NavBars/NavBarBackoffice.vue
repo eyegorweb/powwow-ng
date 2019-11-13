@@ -8,12 +8,10 @@
     <div class="contentPart">
       <div class="d-flex">
         <div class="partnerTypeSelect">
-          <MultiSelectSearch
+          <UiSelect
+            v-model="partnerType"
             :placeholder="$t('partnerType')"
-            :items="formattedPartnersTypeOptions"
-            :default-selected-items="partnerTypes"
-            @update:defaultSelectedItems="setLocalPartnerTypes"
-            collapsed
+            :options="partnersTypesOptions"
           />
         </div>
         <div class="partnerSelect">
@@ -21,7 +19,7 @@
             class="flex-fill"
             :values="partners"
             :placeholder="$t('choosePartner')"
-            :partner-types-in="partnerTypes"
+            :partner-type="partnerType"
             @updatePartners="setLocalPartners"
             collapsed
             ignore-user-context
@@ -51,56 +49,65 @@
 <script>
 import PartnersFilter from '@/components/Filters/PartnersFilter';
 import UiButton from '@/components/ui/Button';
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import UiSelect from '@/components/ui/UiSelect';
 
 import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'NavBarBackoffice',
   components: {
-    MultiSelectSearch,
     PartnersFilter,
     UiButton,
+    UiSelect,
   },
   data() {
     return {
-      partnersTypesOptions: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+      // 'CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'
+      partnersTypesOptions: [
+        {
+          label: 'CUSTOMER',
+          value: 'CUSTOMER',
+        },
+        {
+          label: 'MVNO',
+          value: 'MVNO',
+        },
+        {
+          label: 'MULTI_CUSTOMER',
+          value: 'MULTI_CUSTOMER',
+        },
+      ],
 
       // selected values
-      partnerTypes: [],
       partners: [],
+      partnerType: undefined,
     };
   },
 
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
-    formattedPartnersTypeOptions() {
-      return this.partnersTypesOptions.map(a => ({ id: a, label: this.$t('partnerTypes.' + a) }));
-    },
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
   },
 
   methods: {
-    ...mapMutations('userContext', ['setPartnerTypes', 'setPartners']),
-    setLocalPartnerTypes(values) {
-      this.partnerTypes = values;
-    },
+    ...mapMutations('userContext', ['setPartnerType', 'setPartners']),
+
     setLocalPartners(values) {
       this.partners = values;
     },
 
     savePartnerContext() {
-      this.setPartnerTypes(this.partnerTypes);
+      this.setPartnerType(this.partnerType);
       this.setPartners(this.partners);
     },
 
     revertSelection() {
-      this.partnerTypes = this.contextPartnersTypes;
+      this.partnerType = this.contextPartnersType;
       this.partners = this.contextPartners;
     },
   },
 
   watch: {
-    partnerTypes() {
+    partnerType() {
       // Ré initialiser la séléction des partnenaires quand le type de partenaire est modifié
       this.setLocalPartners([]);
     },

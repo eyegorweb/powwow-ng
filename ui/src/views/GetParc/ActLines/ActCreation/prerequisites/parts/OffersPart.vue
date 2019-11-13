@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     selectedOffer: {
       get() {
         return this.offer;
@@ -42,7 +42,7 @@ export default {
       const data = await fetchOffers(q, partnerParam, {
         page,
         limit: 10,
-        partnerTypes: this.contextPartnersTypes,
+        partnerType: this.contextPartnersType,
       });
       if (data) {
         return data.map(o => ({

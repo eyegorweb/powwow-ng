@@ -111,7 +111,7 @@ export default {
   },
 
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', [
       'defaultAppliedFilters',
       'actCreationPrerequisites',
@@ -244,7 +244,7 @@ export default {
   },
 
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {

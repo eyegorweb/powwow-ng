@@ -41,7 +41,7 @@ export default {
     this.initComponent();
   },
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     selectedItems: {
       get() {
         return this.values;
@@ -64,7 +64,7 @@ export default {
     async contextPartners() {
       this.initComponent();
     },
-    async contextPartnersTypes() {
+    async contextPartnersType() {
       this.initComponent();
     },
   },
@@ -77,16 +77,13 @@ export default {
     },
     async fetchFormattedForDatatable(q, { page, limit }) {
       let forPartners = [];
-      let partnerTypes = [];
       if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
         forPartners = this.selectedPartnersValues;
       } else if (this.contextPartners && this.contextPartners.length) {
         forPartners = this.contextPartners;
       }
-      if (this.contextPartnersTypes && this.contextPartnersTypes.length) {
-        partnerTypes = this.contextPartnersTypes;
-      }
-      return await this.fetchApi(q, forPartners, partnerTypes, { page, limit });
+
+      return await this.fetchApi(q, forPartners, this.contextPartnersType, { page, limit });
     },
     async searchValueChanged(q) {
       this.items = await this.fetchFormattedForDatatable(q, {

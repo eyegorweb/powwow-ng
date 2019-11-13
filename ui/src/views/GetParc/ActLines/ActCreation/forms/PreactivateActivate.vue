@@ -19,10 +19,11 @@
     </div>
     <div v-if="selectedOffer && selectedOffer.data">
       <ServicesBlock
-        :offer="selectedOffer.data"
-        @barringChange="barringServices = $event"
-        @normalChange="normalServices = $event"
-        @dataChange="dataService = $event"
+        v-if="selectedOffer"
+        :key="selectedOffer.label"
+        :services="offerServices"
+        vertical
+        @change="onServiceChange"
       />
     </div>
     <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
@@ -85,26 +86,25 @@ import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer';
-
-import ServicesBlock from '@/components/Services/ServicesBlock';
-
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
-
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
 
 import { preactivateAndActivateSImcardInstance } from '@/api/actCreation';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
+
+import { getOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
     ActFormContainer,
     UiToggle,
     OffersPart,
-    ServicesBlock,
     CustomFields,
     PartnerBillingAccountChoice,
     Modal,
     CircleLoader,
+    ServicesBlock,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -113,6 +113,9 @@ export default {
 
     partner() {
       return this.actCreationPrerequisites.partner;
+    },
+    offerServices() {
+      return getOfferServices(this.selectedOffer.data.initialOffer);
     },
   },
   data() {
@@ -126,11 +129,9 @@ export default {
       customFieldsValues: [],
       chosenBillingAccount: undefined,
       errors: {},
-      barringServices: [],
-      normalServices: [],
-      dataService: undefined,
       isLoading: false,
       waitForReportConfirmation: false,
+      servicesChoice: undefined,
     };
   },
 
@@ -145,6 +146,10 @@ export default {
   },
 
   methods: {
+    onServiceChange(services) {
+      this.servicesChoice = services;
+    },
+
     async doRequest(contextValues) {
       const response = await this.doPreactivate(contextValues);
       return response;
@@ -156,8 +161,6 @@ export default {
         dueDate: contextValues.actDate,
         notifEmail: contextValues.notificationCheck,
         offer: this.selectedOffer.data.initialOffer.code,
-        barringServices: this.barringServices,
-        dataService: this.dataService,
       };
       return await preactivateAndActivateSImcardInstance(
         this.appliedFilters,
