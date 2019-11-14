@@ -77,9 +77,11 @@
             variant="import"
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
-          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
-            <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
-          </UiButton>
+          <ff-wip>
+            <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
+              <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
+            </UiButton>
+          </ff-wip>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>

@@ -172,7 +172,7 @@ export default [
         ],
       },
     ],
-    fetchKey: 'SIM_SUSPENDED',
+    fetchKey: 'SIM_TRAFFICKING',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },

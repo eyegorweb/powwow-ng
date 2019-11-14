@@ -13,6 +13,7 @@
     <Authentication />
     <FlashMessages />
     <ConfirmationModal />
+    <ff-toggle />
   </div>
 </template>
 

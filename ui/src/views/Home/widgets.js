@@ -12,8 +12,9 @@ import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidge
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
 import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
+import { excludeMocked } from '@/featureFlipping/plugin';
 
-export default [
+export default excludeMocked([
   {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
@@ -21,6 +22,7 @@ export default [
     large: false,
     seeMore: true,
     component: TriggeredAlarms,
+    mock: true,
   },
   {
     title: 'home.widgets.orders',
@@ -37,6 +39,7 @@ export default [
     large: false,
     seeMore: true,
     component: BillsWidget,
+    mock: true,
   },
   {
     title: 'home.widgets.currentUsage',
@@ -45,6 +48,7 @@ export default [
     large: true,
     seeMore: true,
     component: ConsoWidget,
+    mock: true,
   },
   {
     title: 'home.widgets.orderStatus',
@@ -118,5 +122,6 @@ export default [
     large: false,
     seeMore: true,
     component: ParcStateWidget,
+    mock: true,
   },
-];
+]);

@@ -1,4 +1,6 @@
-export default [
+import { excludeMocked } from '@/featureFlipping/plugin';
+
+export default excludeMocked([
   {
     icon: 'ic-Heart-Rythm-Icon',
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
@@ -136,6 +138,7 @@ export default [
     subtitle: '',
     selected: false,
     color: 'blue',
+    mock: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -322,4 +325,4 @@ export default [
       },
     ],
   },
-];
+]);
