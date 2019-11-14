@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.340+20191114141426
+2019-11-14
+
+### Features
+
+- Cacher les composants en cours de développement (72715d885a7eb0930b89e11a3eb0e5c9d7b04381)
+
 ## 0.3.0-master.339+20191114082600
 2019-11-14
 
