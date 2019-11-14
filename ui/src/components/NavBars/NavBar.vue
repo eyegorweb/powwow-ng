@@ -22,7 +22,6 @@
                 aria-labelledby="dropdownMenuLink"
                 x-placement="bottom-start"
                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 2.5rem, 0px);"
-                @click="foceCurrentIndex('GetParc/GetDiag')"
               >
                 <router-link
                   :key="item.label"
@@ -97,6 +96,7 @@ export default {
   },
   mounted() {
     this.currentUrlName = this.$route.name;
+    this.chooseCurrentMenu();
   },
   data() {
     return {
@@ -133,34 +133,35 @@ export default {
     };
   },
   methods: {
-    foceCurrentIndex(label) {
-      this.currentIndex = this.getIndexOfItemByLabel(label);
-      this.currentIndexIsForced = true;
-    },
-    getIndexOfItemByLabel(label) {
-      if (!this.navbarLinks) {
-        return 0;
+    chooseCurrentMenu() {
+      let currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+
+      if (currentIndex === -1) {
+        const mainMenu = this.navbarLinks.find(l => {
+          if (!l.submenu) {
+            return false;
+          }
+          return l.submenu.find(sml => sml.to.name === this.currentUrlName);
+        });
+        if (mainMenu) {
+          currentIndex = this.navbarLinks.findIndex(link => link.label === mainMenu.label);
+        }
       }
-      return this.navbarLinks.findIndex(link => link.label === label);
+
+      this.currentIndex = currentIndex;
     },
   },
   computed: {
     ...mapGetters(['userName', 'userInfos']),
-    currentLinkIndex() {
-      return this.navbarLinks.findIndex(link => link.to.name === this.$route.name);
-    },
+
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
     },
   },
   watch: {
     $route(newRoute) {
-      if (this.currentIndexIsForced) {
-        this.currentIndexIsForced = false;
-        return;
-      }
       this.currentUrlName = newRoute.name;
-      this.currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+      this.chooseCurrentMenu();
     },
   },
 };
