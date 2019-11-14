@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.341+20191114154629
+2019-11-14
+
+### Fixes
+
+- Correction du lien selectionné par défaut après l'authentification (1f3f674901877f17d84c31399a005f2a8723c3b5)
+
 ## 0.3.0-master.340+20191114141426
 2019-11-14
 
