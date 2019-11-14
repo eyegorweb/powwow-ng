@@ -62,7 +62,7 @@ export async function fetchPrecalculatedIndicators(keys, partners, partnerType) 
   let partnerGql = '';
   let partnerTypeGql = '';
 
-  if (partners) {
+  if (partners && partners.length) {
     partnerGql = `, partyIds: [${partners.join(',')}]`;
   }
 
