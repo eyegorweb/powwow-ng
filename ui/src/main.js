@@ -6,8 +6,10 @@ import store from './store';
 import i18n from './i18n';
 
 import VTooltip from 'v-tooltip';
+import FeatureFlipping from './featureFlipping/plugin';
 
 Vue.use(VTooltip);
+Vue.use(FeatureFlipping);
 
 Vue.config.productionTip = false;
 Vue.prototype.mina = window.mina;

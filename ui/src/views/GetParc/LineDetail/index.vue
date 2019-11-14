@@ -55,6 +55,7 @@ import UiTab from '@/components/ui/Tab';
 import { searchLines } from '@/api/linesActions';
 import { mapMutations } from 'vuex';
 import get from 'lodash.get';
+import { excludeMocked } from '@/featureFlipping/plugin';
 
 export default {
   components: {
@@ -90,7 +91,7 @@ export default {
           total: 0,
         },
       ],
-      carouselItems: [
+      carouselItems: excludeMocked([
         {
           icon: 'ic-Heart-Rythm-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
@@ -115,8 +116,9 @@ export default {
           icon: 'ic-Heart-Rythm-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
           selected: false,
+          mock: true,
         },
-      ],
+      ]),
     };
   },
   computed: {

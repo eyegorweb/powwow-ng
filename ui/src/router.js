@@ -12,6 +12,8 @@ import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
 
+import { excludeMocked } from '@/featureFlipping/plugin';
+
 // const Home = () => import('@/views/Home');
 // const GetSim = () => import('@/views/GetSim/index');
 // const GetSimOrdersBillingAccount = () => import('@/views/GetSimOrdersBillingAccount');
@@ -22,7 +24,7 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
-  routes: [
+  routes: excludeMocked([
     {
       path: '/',
       name: 'home',
@@ -72,6 +74,7 @@ export default new Router({
       path: '/exemples',
       name: 'exemples',
       component: Examples,
+      mock: true,
     },
-  ],
+  ]),
 });

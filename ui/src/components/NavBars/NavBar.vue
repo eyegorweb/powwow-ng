@@ -47,7 +47,9 @@
         </a>
       </div>
       <div class="nav">
-        <div class="icon ic-Clock-Icon" />
+        <ff-wip>
+          <div class="icon ic-Clock-Icon" />
+        </ff-wip>
         <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
           <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
           <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
@@ -82,6 +84,8 @@ import { mapGetters } from 'vuex';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
+import { excludeMocked } from '@/featureFlipping/plugin.js';
+
 export default {
   name: 'NavBar',
   components: {
@@ -99,7 +103,7 @@ export default {
       currentIndex: 0,
       currentUrlName: '',
       currentIndexIsForced: false,
-      navbarLinks: [
+      navbarLinks: excludeMocked([
         {
           label: 'GetSIM',
           to: { name: 'orders' },
@@ -118,12 +122,12 @@ export default {
             },
           ],
         },
-        { label: 'GetVision', to: { name: 'getVision' } },
-        { label: 'GetReport', to: { name: 'exemples' } },
-        { label: 'GetAdmin', to: { name: 'exemples' } },
-        { label: 'GetSupport', to: { name: 'exemples' } },
-        { label: 'GetDevice', to: { name: 'exemples' } },
-      ],
+        { label: 'GetVision', to: { name: 'getVision' }, mock: true },
+        { label: 'GetReport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
+        { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
+      ]),
 
       userMenuVisible: false,
     };

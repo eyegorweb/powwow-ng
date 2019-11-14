@@ -47,6 +47,7 @@ import NetworkHistory from './NetworkHistorySubMenu5';
 import LastTests from './LastTests';
 import NetworkInformation from './NetworkInformation';
 import get from 'lodash.get';
+import { excludeMocked } from '@/featureFlipping/plugin';
 
 export default {
   components: {
@@ -67,7 +68,7 @@ export default {
   data() {
     return {
       section: undefined,
-      menuItems: [
+      menuItems: excludeMocked([
         {
           section: 'line_analysis',
           title: 'getparc.lineDetail.tab2.lineAnalysis',
@@ -97,13 +98,14 @@ export default {
           section: 'last_tests',
           title: 'getparc.lineDetail.tab2.lastTests',
           compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+          mock: true,
         },
         {
           section: 'network_information',
           title: 'getparc.lineDetail.tab2.networkInformation',
           compatiblePartnerTypes: ['MVNO'],
         },
-      ],
+      ]),
     };
   },
   computed: {
