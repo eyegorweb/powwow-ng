@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.345+20191115144629
+2019-11-15
+
+### Fixes
+
+- ajout d'une requête pour récupérer la liste des shortCodes en tant que partenaire (301895aa96937b6d631fd9a3dcbd915e18f86290)
+
 ## 0.3.0-master.344+20191115144726
 2019-11-15
 
