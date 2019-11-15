@@ -113,11 +113,14 @@ export function formatDateForGql(inDate) {
   const startDate = inDate.replace(/\//g, '/');
   const parts = startDate.split(' ');
   if (parts) {
+    return `${parts[0]}`;
+    /*
     if (parts.length === 2) {
       return startDate;
     } else {
       return `${parts[0]} 00:00:00`;
     }
+    //*/
   }
 }
 
