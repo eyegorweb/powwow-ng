@@ -370,9 +370,9 @@ export async function changeService(filters, lines, params) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
     }
 
-    let codesToEnable;
-    let codesToDisable;
-    let dataCodeParams;
+    let codesToEnable = [];
+    let codesToDisable = [];
+    let dataCodeParams = '';
 
     if (servicesToEnable && servicesToEnable.length) {
       codesToEnable = servicesToEnable.map(s => `{serviceCode: "${s.code}", action: ADD}`);
