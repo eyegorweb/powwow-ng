@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.346+20191115153307
+2019-11-15
+
+### Fixes
+
+- Correction de bug d'affichage lors du choix de l'offre (2695ef184312ef692495b9d1a9b0bacc27a46bc4)
+
 ## 0.3.0-master.345+20191115144629
 2019-11-15
 
