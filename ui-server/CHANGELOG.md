@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.342+20191115141202
+2019-11-15
+
+### Features
+
+- Intégration de l'API changement de services (7193362961054b2db4cdfb0012d0b55565709c33)
+
 ## 0.3.0-master.341+20191114154629
 2019-11-14
 
