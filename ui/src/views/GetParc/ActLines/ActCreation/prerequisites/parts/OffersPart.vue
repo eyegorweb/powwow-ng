@@ -38,18 +38,22 @@ export default {
 
   methods: {
     async fetchApi(q, page = 0) {
-      const partnerParam = this.partner ? [this.partner] : this.contextPartners;
-      const data = await fetchOffers(q, partnerParam, {
-        page,
-        limit: 10,
-        partnerType: this.contextPartnersType,
-      });
-      if (data) {
-        return data.map(o => ({
-          id: o.code,
-          label: o.workflowDescription,
-          data: o,
-        }));
+      let partnerParam = this.partner ? [this.partner] : this.contextPartners;
+      partnerParam = partnerParam.filter(p => p.label !== '');
+
+      if (partnerParam && partnerParam.length) {
+        const data = await fetchOffers(q, partnerParam, {
+          page,
+          limit: 10,
+          partnerType: this.contextPartnersType,
+        });
+        if (data) {
+          return data.map(o => ({
+            id: o.code,
+            label: o.workflowDescription,
+            data: o,
+          }));
+        }
       }
     },
   },

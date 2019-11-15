@@ -9,6 +9,7 @@
         <div>
           <h5>{{ $t('col.offer') }}</h5>
           <OffersPart
+            :key="`offerchoice_${selectedPartner ? selectedPartner.label : ''}`"
             :partner="selectedPartner"
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
