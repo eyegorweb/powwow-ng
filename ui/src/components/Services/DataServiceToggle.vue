@@ -77,7 +77,7 @@ export default {
       this.$emit('change', {
         checked: this.checked,
         apns: this.apns,
-        code: '878',
+        code: 'DATA',
       });
     },
   },

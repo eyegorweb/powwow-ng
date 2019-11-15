@@ -67,11 +67,11 @@ export default {
       this.onServiceChange();
     },
     setup() {
-      const dataService = this.services.find(s => s.code === '878');
+      const dataService = this.services.find(s => s.code === 'DATA');
       if (dataService) {
         this.dataService = { ...dataService };
       }
-      this.otherServices = [...this.services.filter(s => s.code !== '878')];
+      this.otherServices = [...this.services.filter(s => s.code !== 'DATA')];
     },
   },
   data() {

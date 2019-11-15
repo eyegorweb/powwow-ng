@@ -351,3 +351,89 @@ export async function terminateLines(filters, lines, params) {
     return response.data.terminateLinesV2;
   });
 }
+
+export async function changeService(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesToEnable,
+      servicesToDisable,
+      dataService,
+      offerCode,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    let codesToEnable;
+    let codesToDisable;
+    let dataCodeParams;
+
+    if (servicesToEnable && servicesToEnable.length) {
+      codesToEnable = servicesToEnable.map(s => `{serviceCode: "${s.code}", action: ADD}`);
+    }
+
+    if (servicesToDisable && servicesToDisable.length) {
+      codesToDisable = servicesToDisable.map(s => `{serviceCode: "${s.code}", action: DELETE}`);
+    }
+
+    if (dataService) {
+      const apnToAddParams = dataService.apns
+        .filter(a => a.selected)
+        .map(a => `{parameterCode: "${a.code}", action: ADD}`);
+
+      const apnsToDeleteParams = dataService.apns
+        .filter(a => !a.selected)
+        .map(a => `{parameterCode: "${a.code}", action: DELETE}`);
+
+      const catalogServiceParameters = `${[...apnToAddParams, ...apnsToDeleteParams].join(',')}`;
+
+      dataCodeParams = `{serviceCode: "${
+        dataService.code
+      }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+    } else {
+      dataCodeParams = `{serviceCode: "DATA", action: DELETE}`;
+    }
+    let changeServicesParamsGql = '';
+
+    if (dataCodeParams || codesToDisable || codesToDisable) {
+      changeServicesParamsGql = `, changeServices: [${[
+        ...codesToEnable,
+        ...codesToDisable,
+        dataCodeParams,
+      ].join(',')}]`;
+    }
+
+    const queryStr = `
+    mutation {
+      changeServices(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          marketingOfferCode: "${offerCode}"
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response) return response.data.changeServices;
+  });
+}

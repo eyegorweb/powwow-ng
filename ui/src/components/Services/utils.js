@@ -1,6 +1,6 @@
 export function getOfferServices(offer) {
   return offer.marketingServices
-    .filter(s => !!s)
+    .filter(s => !!s && !s.optional)
     .map(s => {
       const service = {
         code: s.code,
@@ -8,7 +8,7 @@ export function getOfferServices(offer) {
         editable: s.editable,
         optional: s.optional,
       };
-      if (s.code === '878') {
+      if (s.code === 'DATA') {
         service.parameters = s.parameters
           .filter(ps => !!ps)
           .map(p => {
