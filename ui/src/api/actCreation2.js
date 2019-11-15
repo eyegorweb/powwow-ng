@@ -352,6 +352,19 @@ export async function terminateLines(filters, lines, params) {
   });
 }
 
+export async function fetchShortCodes(partnerId) {
+  const queryStr = `
+  query{
+    party(id: ${partnerId}) {
+      shortCodes
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  // console.log('data', response.data.party.shortCodes);
+  return response.data.party.shortCodes;
+}
+
 export async function changeService(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {

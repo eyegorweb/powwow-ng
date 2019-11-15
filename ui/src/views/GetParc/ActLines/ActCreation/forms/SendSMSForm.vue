@@ -75,7 +75,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiDate from '@/components/ui/UiDate';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
-import { sendSMS } from '@/api/actCreation2';
+import { sendSMS, fetchShortCodes } from '@/api/actCreation2';
 import moment from 'moment';
 
 export default {
@@ -85,20 +85,21 @@ export default {
     UiCheckbox,
     UiDate,
   },
-  mounted() {
+  async mounted() {
     this.smsDate = moment().format('DD/MM/YYYY');
+    this.shortCodesValues = await this.fetchShortCodes();
   },
 
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'filterCustomFieldsList', 'shortCodesList']),
+    ...mapGetters(['userIsPartner', 'userInfos']),
 
     shortCodes() {
-      const shortCodesStr = get(this.actCreationPrerequisites, 'partner.shortCodes');
-      if (!shortCodesStr || shortCodesStr.length === 0) {
+      if (!this.shortCodesValues || this.shortCodesValues.length === 0) {
         return [];
       }
-      const splitted = shortCodesStr.split(';');
+      const splitted = this.shortCodesValues.split(';');
       return splitted.map(s => {
         return {
           id: s,
@@ -118,6 +119,7 @@ export default {
       texMessage: '',
       acceptConditions: false,
       smsDate: undefined,
+      shortCodesValues: undefined,
       errors: {
         shortCode: undefined,
       },
@@ -145,6 +147,16 @@ export default {
         return true;
       }
       return false;
+    },
+
+    async fetchShortCodes() {
+      if (!this.userIsPartner) {
+        const shortCodesValues = get(this.actCreationPrerequisites, 'partner.shortCodes');
+        return shortCodesValues;
+      }
+      const partnerId = get(this.userInfos, 'party.id');
+      const shortCodes = await fetchShortCodes(partnerId);
+      return shortCodes;
     },
   },
 };
