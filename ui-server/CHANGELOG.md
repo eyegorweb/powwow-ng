@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.347+20191118150531
+2019-11-18
+
+### Fixes
+
+- Brancher les services sur la création de commandes et changement de services (769d9c7ea4724bd575cc399e28057038fdbc22e6)
+
 ## 0.3.0-master.346+20191115153307
 2019-11-15
 
