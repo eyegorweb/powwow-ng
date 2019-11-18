@@ -2,6 +2,36 @@
 
 <!--- next entry here -->
 
+## 0.10.0
+2019-11-18
+
+### Features
+
+- Mise en place de la nouvelle gestion de la table de travail pour les actes de gestion (8065e44bffa93e5c0a1ef9002311b138e27e9694)
+- historique des cellules dans le menu "réseau et itinérance" (9092c97c181ddadf30eff8a109d437c990196ed1)
+- **widget:** affichage du widget Etat du parc (983d0ae79cc4885646024fe349df888393f38304)
+- Limiter le choix de type de partenaires à 1 (153afc0132536c089f663d951e0b7c2b0705db93)
+- intégration des indicateurs pré calculés (73d542605da715c1ff28116a49445844e6b7dc5d)
+- Cacher les composants en cours de développement (72715d885a7eb0930b89e11a3eb0e5c9d7b04381)
+- Intégration de l'API changement de services (7193362961054b2db4cdfb0012d0b55565709c33)
+
+### Fixes
+
+- Correction de bugs (a7f839def293cacbcc69ae79796ebbcd290492e8)
+- utiliser un skeleton comme indicateur de chargement (b0c3ce1bad1f9b34ded0948b49f40b5c9c8cc91b)
+- traduction des graphes en français (f1bc5d029c00cb705d8d2181c37e5df60ed34a0b)
+- comportement recherche unitaire (commandes, actes de gestion et lignes) (83f4e0d194a794a05174e531b529b2b5b5f5e5ca)
+- Gérer la largeur d'écran 1280 (524176e9b251b09f67285de9be1a9907f136acd1)
+- affiche la date de fin sous le statut Terminé d'un acte de gestion (1a20b659887d246e81f7a36f47a64311e5bfee1f)
+- erreur dans la recherche unitaire d'acte de masse si saisir de lettre au lieu de chiffre (686ea37fdea070a33694ff2855232338730e4a29)
+- Ajouter un spinner durant le chargement de l'application (fef15f2f1139f5b72f898ab1c457b25b5c33a696)
+- Améliorer l'animation du spinner (2a108687412bd860ae8d9a27a63e8fbb53d6a6db)
+- mise à jour des conditions de validation pour l'envoi de SMS (c1d1eb35ae851b53af0d10fd1b9f472f9127f70d)
+- Correction du lien selectionné par défaut après l'authentification (1f3f674901877f17d84c31399a005f2a8723c3b5)
+- ajout d'une requête pour récupérer la liste des shortCodes en tant que partenaire (301895aa96937b6d631fd9a3dcbd915e18f86290)
+- Correction de bug d'affichage lors du choix de l'offre (2695ef184312ef692495b9d1a9b0bacc27a46bc4)
+- Brancher les services sur la création de commandes et changement de services (769d9c7ea4724bd575cc399e28057038fdbc22e6)
+
 ## 0.9.0
 2019-10-28
 
