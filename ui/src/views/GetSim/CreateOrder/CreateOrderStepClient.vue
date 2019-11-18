@@ -93,7 +93,12 @@ export default {
       }));
     },
     done() {
-      this.$emit('done', {
+      const alreadyChosenBillingAccount = get(
+        this.synthesis,
+        'billingAccount.selection.billingAccount.id'
+      );
+
+      let synthesis = {
         billingAccount: {
           label: 'common.billingAccount',
           value: {
@@ -106,6 +111,17 @@ export default {
             partner: this.selectedPartner,
           },
         },
+      };
+
+      if (
+        alreadyChosenBillingAccount &&
+        alreadyChosenBillingAccount !== this.selectedBillingAccount.id
+      ) {
+        synthesis = { ...synthesis, services: {} };
+      }
+
+      this.$emit('done', {
+        ...synthesis,
       });
     },
 

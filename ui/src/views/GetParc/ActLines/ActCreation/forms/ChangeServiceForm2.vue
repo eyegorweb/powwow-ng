@@ -2,22 +2,30 @@
   <ActFormContainer :validate-fn="onValidate">
     <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToEnable')
-        }}</span>
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
+        </span>
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToDisable')
-        }}</span>
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
+        </span>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <ServicesChoice :offer="selectedOffer" :selected-items.sync="servicesToEnable" />
+        <ServicesChoice
+          :offer="selectedOffer"
+          :selected-items.sync="servicesToEnable"
+          :items-to-disable="servicesToDisable"
+        />
       </div>
       <div class="col">
-        <ServicesChoice :offer="selectedOffer" :selected-items.sync="servicesToDisable" />
+        <ServicesChoice
+          :offer="selectedOffer"
+          :selected-items.sync="servicesToDisable"
+          :items-to-disable="servicesToEnable"
+        />
       </div>
     </div>
     <div class="row">

@@ -2,14 +2,14 @@
   <ActFormContainer :validate-fn="doRequest">
     <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToEnable')
+        }}</span>
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToDisable')
+        }}</span>
       </div>
     </div>
     <div v-if="selectedOffer" class="row">
@@ -121,6 +121,7 @@
 </template>
 
 <script>
+// DEPRECATED
 import ActFormContainer from './parts/ActFormContainer';
 import FormReport from './parts/FormReport';
 // import SelectOffer from './parts/SelectOffer';

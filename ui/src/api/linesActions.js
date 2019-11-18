@@ -1,4 +1,4 @@
-import { query, addDateFilter, postFile } from './utils';
+import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
 export async function fetchCardTypes() {
   const queryStr = `
@@ -196,6 +196,14 @@ export function formatFilters(filters) {
   if (partyIds) {
     allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
+
+  /*
+  const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
+
+  if (partyTypeParam) {
+    allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
+  }
+  //*/
 
   const offers = getValuesIds(filters, 'filters.offers');
   if (offers) {
@@ -395,24 +403,6 @@ function getValuesIdsWithoutQuotes(filters, filterId) {
   const values = getFilterValues(filters, filterId);
   if (values) {
     return values.map(i => `${i.id}`).join(',');
-  }
-}
-
-function getFilterValues(filters, filterId) {
-  if (!filters) return;
-
-  const foundFilter = filters.find(f => f.id === filterId);
-  if (foundFilter) {
-    return foundFilter.values;
-  }
-}
-
-function getFilterValue(filters, filterId) {
-  if (!filters) return;
-
-  const foundFilter = filters.find(f => f.id === filterId);
-  if (foundFilter) {
-    return foundFilter.value;
   }
 }
 
