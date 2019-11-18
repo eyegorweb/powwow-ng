@@ -15,6 +15,10 @@ export default {
   props: {
     offer: Object,
     selectedItems: Array,
+    itemsToDisable: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     MultiSelectSearch,
@@ -42,12 +46,16 @@ export default {
         };
       };
       this.offerServices = offerServices.filter(s => s.code !== 'DATA').map(multiselectFormat);
-      this.disabledServices = this.offerServices.filter(s => !s.editable);
+      const disabledServices = this.offerServices.filter(s => !s.editable);
+      this.disabledServices = [...disabledServices, ...this.itemsToDisable];
     },
   },
 
   watch: {
     offer() {
+      this.initServices();
+    },
+    itemsToDisable() {
       this.initServices();
     },
   },

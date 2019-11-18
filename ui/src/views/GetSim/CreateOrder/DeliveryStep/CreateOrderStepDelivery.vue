@@ -2,7 +2,7 @@
   <CreateOrderStepContainer
     @done="done"
     @prev="prev"
-    :can-go-to-next-step="selectedAdress"
+    :can-go-to-next-step="!!selectedAdress"
     :no-buttons="inEditMode"
   >
     <CreateOrderDeliveryNewAddress

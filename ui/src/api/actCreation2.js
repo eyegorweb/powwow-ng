@@ -395,31 +395,29 @@ export async function changeService(filters, lines, params) {
       codesToDisable = servicesToDisable.map(s => `{serviceCode: "${s.code}", action: DELETE}`);
     }
 
+    let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
+
     if (dataService) {
-      const apnToAddParams = dataService.apns
-        .filter(a => a.selected)
-        .map(a => `{parameterCode: "${a.code}", action: ADD}`);
+      if (dataService.checked) {
+        const apnToAddParams = dataService.apns
+          .filter(a => a.selected)
+          .map(a => `{parameterCode: "${a.code}", action: ADD}`);
 
-      const apnsToDeleteParams = dataService.apns
-        .filter(a => !a.selected)
-        .map(a => `{parameterCode: "${a.code}", action: DELETE}`);
+        const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-      const catalogServiceParameters = `${[...apnToAddParams, ...apnsToDeleteParams].join(',')}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+      } else {
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
+      }
 
-      dataCodeParams = `{serviceCode: "${
-        dataService.code
-      }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
-    } else {
-      dataCodeParams = `{serviceCode: "DATA", action: DELETE}`;
+      codesToaddToGqlQuery.push(dataCodeParams);
     }
     let changeServicesParamsGql = '';
 
-    if (dataCodeParams || codesToDisable || codesToDisable) {
-      changeServicesParamsGql = `, changeServices: [${[
-        ...codesToEnable,
-        ...codesToDisable,
-        dataCodeParams,
-      ].join(',')}]`;
+    if (codesToaddToGqlQuery && codesToaddToGqlQuery.length) {
+      changeServicesParamsGql = `, changeServices: [${codesToaddToGqlQuery.join(',')}]`;
     }
 
     const queryStr = `

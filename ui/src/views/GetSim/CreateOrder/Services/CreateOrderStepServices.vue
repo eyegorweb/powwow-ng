@@ -143,6 +143,7 @@ export default {
             activation: this.activation,
             preActivation: this.preActivation,
             selectedOffer: this.selectedOffer,
+            servicesChoice: this.servicesChoice,
           },
           selection: {
             activation: !!this.activation,
