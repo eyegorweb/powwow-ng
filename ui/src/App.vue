@@ -1,14 +1,19 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div v-if="appIsReady" class="container">
       <NavBars :is-backoffice-profile="!userIsPartner" />
       <router-view />
       <PanelSwitcher />
+    </div>
+    <div v-else-if="$route.name === 'callback' || $route.name === 'refresh'">
+      {{ /* On garde que la partie routeur pour gérer le callback appelé lors de l'enregistrement du token */}}
+      <router-view />
     </div>
 
     <Authentication />
     <FlashMessages />
     <ConfirmationModal />
+    <ff-toggle />
   </div>
 </template>
 
@@ -19,6 +24,7 @@ import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
 import { mapMutations, mapGetters } from 'vuex';
+import $ from 'jquery';
 
 export default {
   name: 'App',
@@ -33,11 +39,17 @@ export default {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'appIsReady']),
   },
   watch: {
     $route() {
       this.closePanel();
+    },
+    appIsReady(value) {
+      if (value) {
+        // Jquery est utilisé ici car le loader ne fait pas partie de l'application Vue
+        $('#app-loader').fadeOut(400);
+      }
     },
   },
 };
@@ -69,6 +81,15 @@ h4 {
 @media (width: 1366px) {
   .container {
     max-width: 1200px;
+  }
+}
+
+@media (width: 1280px) {
+  .container {
+    max-width: 1200px;
+  }
+  html {
+    font-size: 12px;
   }
 }
 </style>

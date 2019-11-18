@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <TableSkeleton :columns="columns" :size="3" />
+    </div>
     <div>
       <div v-if="!total" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
       <div v-else>
@@ -11,27 +14,35 @@
           </div>
           <div class="col">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">{{
-                $t('getparc.history.details.EXPORT_LINES', { total: total })
-              }}</span>
+              <span slot="title">
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+              </span>
             </ExportButton>
           </div>
         </div>
-        <DataTable
-          :columns="columns"
-          :rows="rows || []"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-          :order-by.sync="orderBy"
-          :show-extra-columns.sync="showExtraCells"
-          :size="7"
-          v-if="total !== '-'"
-        >
-          <template slot="topLeftCorner">
-            <SearchByActId @searchById="searchById" :options="searchOptions" />
-          </template>
-        </DataTable>
+        <template v-if="rows && rows.length">
+          <DataTable
+            :columns="columns"
+            :rows="rows || []"
+            :page.sync="page"
+            :page-limit.sync="pageLimit"
+            :total="total || 0"
+            :order-by.sync="orderBy"
+            :show-extra-columns.sync="showExtraCells"
+            :size="7"
+            v-if="total !== '-'"
+          >
+            <template slot="topLeftCorner">
+              <SearchUnitActionsById @searchById="searchById" :init-value="searchByIdValue" />
+            </template>
+          </DataTable>
+        </template>
+        <template v-else>
+          <div v-if="searchByIdValue">
+            <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+          </div>
+          <div class="alert alert-light">{{ $t('noResult') }}</div>
+        </template>
       </div>
       <slot name="after"></slot>
     </div>
@@ -41,18 +52,21 @@
 <script>
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
-import SearchByActId from '@/views/GetParc/SearchByActId';
+import SearchUnitActionsById from './SearchUnitActionsById';
 import ExportButton from '@/components/ExportButton';
 import { fetchUnitActions } from '@/api/unitActions';
 import { exportMassAction } from '@/api/massActions';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+
 import { mapMutations } from 'vuex';
 
 export default {
   components: {
     DataTable,
     LoaderContainer,
-    SearchByActId,
+    SearchUnitActionsById,
     ExportButton,
+    TableSkeleton,
   },
   props: {
     massActionId: String,
@@ -77,8 +91,14 @@ export default {
     ...mapMutations(['flashMessage']),
 
     async searchById(params) {
+      this.searchByIdValue = params.value;
       const currentFilters = [params];
       await this.fetchUnitActs(currentFilters);
+      this.page = 1;
+    },
+    async resetFilters() {
+      this.searchByIdValue = undefined;
+      await this.fetchUnitActs();
       this.page = 1;
     },
     getExportFn() {
@@ -149,38 +169,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      searchOptions: [
-        {
-          code: 'c1',
-          value: 'iccid',
-          label: 'ICCID',
-        },
-        {
-          code: 'c2',
-          value: 'imsi',
-          label: 'IMSI',
-        },
-        {
-          code: 'c3',
-          value: 'msisdn',
-          label: 'MSISDN',
-        },
-        {
-          code: 'c4',
-          value: 'msisdnA',
-          label: 'A-MSISDN',
-        },
-        {
-          code: 'c5',
-          value: 'imei',
-          label: 'IMEI',
-        },
-        {
-          code: 'c6',
-          value: 'unitActionId',
-          label: this.$t('getparc.search.act-unit-id'),
-        },
-      ],
+      searchByIdValue: undefined,
       rows: [],
       page: 1,
       pageLimit: 20,

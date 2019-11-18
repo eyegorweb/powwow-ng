@@ -44,7 +44,6 @@ export default {
   async mounted() {
     if (!this.get('accessPoint.id')) return;
     this.triggeredAlarms = await fetchAlarmInstancesByAP(this.get('accessPoint.id'));
-    console.log(this.triggeredAlarms);
   },
 
   methods: {

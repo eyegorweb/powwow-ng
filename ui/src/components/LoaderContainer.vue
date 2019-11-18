@@ -1,11 +1,13 @@
 <template>
   <div class="position-relative" :class="{ isLoading: isLoading }">
     <!-- min-height pour gérer le positionnement du loader lorsqu'aucune commande n'est retournée -->
-    <img class="loader" v-if="isLoading" src="@/assets/spinner.svg" />
-    <div :class="{ 'is-loading': isLoading }">
-      <slot v-if="!isLoading" />
-      <span v-else>{{ $t(loadingKey) }}</span>
-    </div>
+    <slot v-if="isLoading" name="on-loading">
+      <img class="loader" src="@/assets/spinner.svg" />
+      <div :class="{ 'is-loading': isLoading }">
+        <span>{{ $t(loadingKey) }}</span>
+      </div>
+    </slot>
+    <slot v-else />
   </div>
 </template>
 

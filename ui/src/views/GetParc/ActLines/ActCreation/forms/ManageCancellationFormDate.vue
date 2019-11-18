@@ -5,7 +5,7 @@
         <i slot="icon" class="select-icon ic-Flag-Icon" />
       </UiDate>
       <!-- <UiCheckbox v-model="applyCharges" />
-      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span> -->
+      <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span>-->
     </div>
     <div class="d-flex validation">
       <button @click="manageRefuse" class="btn btn-cancel pl-4 pr-4 pt-2 pb-2">
@@ -25,7 +25,7 @@
 
 <script>
 // import UiCheckbox from '@/components/ui/Checkbox';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 
 export default {
   components: {

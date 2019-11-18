@@ -23,12 +23,12 @@
 
     <div class="row">
       <div class="col-md-3">
-        <Indicators :meta="indicators" :on-click="onClick" />
+        <Indicators :meta="indicators" :on-click="onClick" precalculated />
         <br />
 
         <FilterBar />
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 extra-bottom-margin">
         <Title
           num="1"
           v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
@@ -111,13 +111,13 @@ export default {
   },
 
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', [
       'defaultAppliedFilters',
       'actCreationPrerequisites',
       'selectedFileForActCreation',
     ]),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner']),
 
     ...mapState({
@@ -184,7 +184,7 @@ export default {
 
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
-      if (this.prevRoute === 'lineDetail') return;
+      if (this.prevRoute === 'lineDetail' && this.linesActionsResponse) return;
       if (this.$route.params && this.$route.params.queryFilters) {
         this.setRouteParamsFilters(this.$route.params.queryFilters);
       }
@@ -244,7 +244,7 @@ export default {
   },
 
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {
@@ -269,5 +269,9 @@ export default {
   padding-left: 5px;
   font-size: 16px;
   font-weight: bold;
+}
+
+.extra-bottom-margin {
+  margin-bottom: 5rem;
 }
 </style>

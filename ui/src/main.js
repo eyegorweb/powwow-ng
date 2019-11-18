@@ -6,16 +6,20 @@ import store from './store';
 import i18n from './i18n';
 
 import VTooltip from 'v-tooltip';
+import FeatureFlipping from './featureFlipping/plugin';
 
 Vue.use(VTooltip);
+Vue.use(FeatureFlipping);
 
 Vue.config.productionTip = false;
 Vue.prototype.mina = window.mina;
 
 import $ from 'jquery';
 import addGaugeSupport from '@/dep/GaugeMeter.js';
+import configureHighcharts from '@/dep/highcharts';
 
 addGaugeSupport($);
+configureHighcharts();
 
 new Vue({
   router,

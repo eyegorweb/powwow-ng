@@ -1,17 +1,19 @@
 <template>
   <div class="mt-2">
-    <div class="bloc d-inline-block p-1 wide">
-      <div class="card">
-        <div class="card-header">ZONE FIXE NOTIFICATIONS</div>
-        <div class="card-body">Notifications ici</div>
+    <ff-wip>
+      <div class="bloc d-inline-block p-1 wide">
+        <div class="card">
+          <div class="card-header">ZONE FIXE NOTIFICATIONS</div>
+          <div class="card-body">Notifications ici</div>
+        </div>
       </div>
-    </div>
-    <div class="bloc d-inline-block p-1 narrow">
-      <div class="card">
-        <div class="card-header">ZONE FIXE PROMOTION</div>
-        <div class="card-body">promotions ici</div>
+      <div class="bloc d-inline-block p-1 narrow">
+        <div class="card">
+          <div class="card-header">ZONE FIXE PROMOTION</div>
+          <div class="card-body">promotions ici</div>
+        </div>
       </div>
-    </div>
+    </ff-wip>
 
     <draggable v-model="widgetsInPanel" handle=".handle">
       <transition-group name="widgets">
@@ -44,7 +46,7 @@ export default {
   computed: {
     ...mapGetters(['activeWidgets']),
     ...mapGetters('userContext', ['contextFilters']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
@@ -75,7 +77,7 @@ export default {
     },
   },
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.initFilterForContext();
     },
     contextPartners() {

@@ -5,6 +5,7 @@
     <input
       v-if="inputType === 'number'"
       :placeholder="placeholder"
+      :class="{ noNumberArrows: noNumberArrows }"
       v-bind="$attrs"
       v-model="value_"
       type="number"
@@ -20,6 +21,10 @@
       :style="inputStyle"
       type="text"
     />
+    <button v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
+      <i class="select-icon ic-Cross-Icon"></i>
+    </button>
+
     <slot name="afterInput" />
 
     <span v-if="error" class="error-text">{{ $t(error) }}</span>
@@ -57,6 +62,14 @@ export default {
       required: false,
     },
     noHoverStyle: Boolean,
+    haveCrossButton: Boolean,
+    noNumberArrows: Boolean,
+  },
+
+  methods: {
+    resetValue() {
+      this.$emit('update:value', '');
+    },
   },
 };
 </script>
@@ -118,5 +131,28 @@ label {
     top: 50%;
     transform: translateY(-50%);
   }
+
+  button {
+    display: block;
+    position: absolute;
+    right: 0.8rem;
+    width: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 900 !important;
+    padding: 0;
+    padding-right: 5px;
+  }
+}
+
+.noNumberArrows {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  -moz-appearance: textfield; /* Firefox */
 }
 </style>

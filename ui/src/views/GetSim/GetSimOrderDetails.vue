@@ -77,9 +77,11 @@
             variant="import"
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
-          <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
-            <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
-          </UiButton>
+          <ff-wip>
+            <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
+              <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
+            </UiButton>
+          </ff-wip>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -398,83 +400,6 @@ $fontSize: 0.8rem;
       div {
         font-size: $fontSize;
       }
-    }
-  }
-
-  .circle-loader {
-    border: 3px solid rgba(0, 0, 0, 0.2);
-    border-left-color: $secondary;
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    border-radius: 50%;
-    width: $loader-size;
-    height: $loader-size;
-  }
-  .cross-loader {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    border-radius: 50%;
-    width: 1.5em;
-    height: 1.5em;
-    position: absolute;
-    right: 20px;
-  }
-
-  .load-complete {
-    border-color: $check-color;
-    background-color: transparent;
-    border-width: 1px;
-    transition: border 500ms ease-out;
-  }
-
-  .checkmark {
-    display: none;
-
-    &.checked {
-      display: block;
-    }
-    &:after {
-      opacity: 1;
-      height: $check-height;
-      width: $check-width;
-      transform-origin: left top;
-      border-right: $check-thickness solid $success;
-      border-top: $check-thickness solid $success;
-      content: '';
-      left: $check-left;
-      top: $check-height;
-      position: absolute;
-      transform: scaleX(-1) rotate(135deg);
-    }
-  }
-
-  .cross {
-    $cross-size: $loader-size / 2;
-
-    height: $cross-size;
-    width: $cross-size;
-    position: absolute;
-    right: 0;
-    font-size: 24px;
-    margin: -0.5rem 0 0 0;
-
-    &:before,
-    &:after {
-      position: absolute;
-      left: 0.55rem;
-      top: $cross-size / 2;
-      content: ' ';
-      height: $cross-size;
-      width: 2px;
-      background-color: $success;
-    }
-    &:before {
-      transform: rotate(45deg);
-    }
-    &:after {
-      transform: rotate(-45deg);
     }
   }
 }

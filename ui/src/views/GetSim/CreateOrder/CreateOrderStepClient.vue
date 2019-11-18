@@ -81,8 +81,11 @@ export default {
       if (this.contextPartners && this.contextPartners.length) {
         return this.contextPartners;
       }
-      const partnerTypesIn = this.contextPartnersTypes;
-      const data = await fetchpartners(q, { page, limit: 10, partnerTypesIn });
+      const data = await fetchpartners(q, {
+        page,
+        limit: 10,
+        partnerType: this.contextPartnersType,
+      });
       return data.map(p => ({
         id: p.id,
         label: p.name,
@@ -90,7 +93,12 @@ export default {
       }));
     },
     done() {
-      this.$emit('done', {
+      const alreadyChosenBillingAccount = get(
+        this.synthesis,
+        'billingAccount.selection.billingAccount.id'
+      );
+
+      let synthesis = {
         billingAccount: {
           label: 'common.billingAccount',
           value: {
@@ -103,6 +111,17 @@ export default {
             partner: this.selectedPartner,
           },
         },
+      };
+
+      if (
+        alreadyChosenBillingAccount &&
+        alreadyChosenBillingAccount !== this.selectedBillingAccount.id
+      ) {
+        synthesis = { ...synthesis, services: {} };
+      }
+
+      this.$emit('done', {
+        ...synthesis,
       });
     },
 
@@ -133,7 +152,7 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos']),
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
 
     canGoToNextStep() {
       if (this.selectedBillingAccount) {

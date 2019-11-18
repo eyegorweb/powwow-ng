@@ -24,7 +24,13 @@ export async function query(q) {
       return res;
     } catch (e) {
       if (e && e.response && e.response.status) {
-        if (e.response.status === 401 || e.response.status === 403) {
+        if (
+          e.response.status === 401 ||
+          e.response.status === 403 ||
+          e.response.status === 503 ||
+          e.response.status === 504 ||
+          (e.response && e.response.error && e.response.error === 'invalid_token')
+        ) {
           if (tries > 0) {
             tries -= 1;
             store.commit('startRefreshingToken');
@@ -107,11 +113,14 @@ export function formatDateForGql(inDate) {
   const startDate = inDate.replace(/\//g, '/');
   const parts = startDate.split(' ');
   if (parts) {
+    return `${parts[0]}`;
+    /*
     if (parts.length === 2) {
       return startDate;
     } else {
       return `${parts[0]} 00:00:00`;
     }
+    //*/
   }
 }
 
@@ -123,4 +132,33 @@ export function formatBytes(bytes, decimals = 2) {
 
   const index = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / Math.pow(k, index)).toFixed(dm))} ${sizes[index]}`;
+}
+
+export function boolStr(value) {
+  return value ? 'true' : 'false';
+}
+
+export function getFilterValues(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.values;
+  }
+}
+
+export function getFilterValue(filters, filterId) {
+  if (!filters) return;
+
+  const foundFilter = filters.find(f => f.id === filterId);
+  if (foundFilter) {
+    return foundFilter.value;
+  }
+}
+
+export function getValuesIds(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `"${i.id}"`).join(',');
+  }
 }

@@ -5,6 +5,7 @@
     :on-click="indicator => $emit('click', indicator)"
     :no-borders="noBorders"
     :small="small"
+    precalculated
   />
 </template>
 
@@ -60,6 +61,7 @@ export default {
               endDate: moment().format(dateFormat),
             },
           ],
+          fetchKey: 'ORDER_TO_VALIDATE',
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
@@ -94,6 +96,7 @@ export default {
               endDate: moment().format(dateFormat),
             },
           ],
+          fetchKey: 'ORDER_IN_PROCESS',
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
@@ -131,6 +134,7 @@ export default {
               sameDay: true,
             },
           ],
+          fetchKey: 'ORDER_NOT_CONFIRMED',
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
@@ -157,6 +161,7 @@ export default {
                 .format('DD/MM/YYYY HH:mm:ss'),
             },
           ],
+          fetchKey: 'ORDER_FAILED',
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
@@ -180,6 +185,7 @@ export default {
               ],
             },
           ],
+          fetchKey: 'ORDER_TO_VALIDATE_BO',
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
@@ -192,6 +198,7 @@ export default {
           clickable: false,
           total: '-',
           filters: [],
+          fetchKey: 'ORDER_DELAY',
           fetch: async (indicator, contextFilters) => {
             const total = await fetchAverageProcessingTime(contextFilters);
             let color = '';

@@ -2,13 +2,13 @@ import get from 'lodash.get';
 
 export const namespaced = true;
 export const state = {
-  contextPartnersTypes: [],
+  contextPartnersType: undefined,
   contextPartners: [],
 };
 
 export const mutations = {
-  setPartnerTypes(state, types) {
-    state.contextPartnersTypes = types;
+  setPartnerType(state, value) {
+    state.contextPartnersType = value;
   },
   setPartners(state, contextPartners) {
     state.contextPartners = contextPartners;
@@ -45,11 +45,11 @@ export const getters = {
       });
     }
 
-    const defaultPartnerTypesValues = get(rootState, 'userContext.contextPartnersTypes', []);
-    if (defaultPartnerTypesValues.length) {
+    const defaultPartnerTypesValue = get(rootState, 'userContext.contextPartnersType');
+    if (defaultPartnerTypesValue) {
       defaultFilters.push({
-        id: 'filters.partnerTypes',
-        values: defaultPartnerTypesValues,
+        id: 'filters.partnerType',
+        value: defaultPartnerTypesValue,
         hidden: true,
       });
     }

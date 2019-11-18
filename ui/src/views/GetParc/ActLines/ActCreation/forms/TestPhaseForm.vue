@@ -6,9 +6,7 @@
           <i class="ic-Arrow-Forward-Icon" />
           {{ $t('getparc.actCreation.phaseTest.end') }}
         </button>
-        <div>
-          {{ info }}
-        </div>
+        <div>{{ info }}</div>
       </div>
       <div slot="messages" class="text-warning">
         <span>
@@ -21,9 +19,9 @@
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
-import { endPhaseTest } from '@/api/actCreation';
+import { endPhaseTest } from '@/api/actCreation2';
 
 export default {
   components: {
@@ -50,6 +48,7 @@ export default {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
+        tempDataUuid: contextValues.tempDataUuid,
       });
     },
   },

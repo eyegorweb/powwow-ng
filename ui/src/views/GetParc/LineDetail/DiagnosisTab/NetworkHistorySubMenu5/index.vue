@@ -3,14 +3,14 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
-          <template slot="title">
-            {{ $t('getparc.lineDetail.tab2.networkHistoryContent.lastPLMN') }}
-          </template>
+          <template slot="title">{{
+            $t('getparc.lineDetail.tab2.networkHistoryContent.lastPLMN')
+          }}</template>
           <template v-if="!noResults.lastVisitedCountries" slot="topRight">
             <ExportButton :export-fn="getExportForLastVisitedCountries()">
-              <span slot="title">
-                {{ $t('getparc.lineDetail.tab2.networkHistoryContent.exportLastPLMN') }}
-              </span>
+              <span slot="title">{{
+                $t('getparc.lineDetail.tab2.networkHistoryContent.exportLastPLMN')
+              }}</span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -25,15 +25,15 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block2'" v-if="!partnerTypeMVNO">
-          <template slot="title">
-            {{ $t('getparc.lineDetail.tab2.networkHistoryContent.cellsConsumption') }}
-          </template>
+        <ContentBlock :key="'block2'" v-if="userIsBO && !partnerTypeMVNO">
+          <template slot="title">{{
+            $t('getparc.lineDetail.tab2.networkHistoryContent.cellsConsumption')
+          }}</template>
           <template v-if="!noResults.cellsConsumption" slot="topRight">
             <ExportButton :export-fn="getExportForCellsConsumption()">
-              <span slot="title">
-                {{ $t('getparc.lineDetail.tab2.networkHistoryContent.exportCellsConsumption') }}
-              </span>
+              <span slot="title">{{
+                $t('getparc.lineDetail.tab2.networkHistoryContent.exportCellsConsumption')
+              }}</span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -58,6 +58,8 @@
 import draggable from 'vuedraggable';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import ExportButton from '@/components/ExportButton';
+import { mapGetters } from 'vuex';
+
 import {
   fetchLastVisitedCountries,
   fetchCellsHistoryConsumption,
@@ -112,6 +114,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsBO']),
+
     partnerTypeMVNO() {
       const typeForPartner = get(this.content, 'party.partyType');
       let isMVNOPartner;
@@ -140,7 +144,8 @@ export default {
         const response = await fetchLastVisitedCountries(this.content.accessPoint.id, pageInfo);
         if (!response || !response.length) this.noResults.lastVisitedCountries = true;
         return {
-          rows: response,
+          rows: response.items,
+          total: response.total,
         };
       };
     },

@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" exclude-default-fields>
+  <ActFormContainer :validate-fn="onValidate" exclude-default-fields no-modal>
     <div class="form-container mb-3">
       <span class="font-weight-bold"
         >{{ $t('getparc.actCreation.ManageCancellation.choose') }}:</span
@@ -67,8 +67,8 @@ import { mapState, mapGetters, mapMutations } from 'vuex';
 import UiCheckbox from '@/components/ui/Checkbox';
 import ManageCancellationFormDelay from './ManageCancellationFormDelay';
 import ManageCancellationFormDate from './ManageCancellationFormDate';
-import ActFormContainer from './parts/ActFormContainer';
-import { manageCancellation } from '@/api/actCreation';
+import ActFormContainer from './parts/ActFormContainer2';
+import { manageCancellation } from '@/api/actCreation2';
 import Modal from '@/components/Modal';
 
 export default {
@@ -104,12 +104,13 @@ export default {
       this.options = options;
       this.waitForConfirmation = true;
     },
-    async onValidate() {
+    async onValidate(contextValues) {
       if (this.checkErrors()) return;
       return await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.options.date ? this.options.date : '',
         partyId: this.actCreationPrerequisites.partner.id,
         validate: this.validate,
+        tempDataUuid: contextValues.tempDataUuid,
       });
     },
     async confirmValdation(containerValidationFn) {

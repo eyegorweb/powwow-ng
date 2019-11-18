@@ -10,10 +10,12 @@ export const state = {
   accessToken: undefined,
   userInfos: undefined,
   refreshingToken: false,
+  appIsReady: false,
 };
 
 export const getters = {
   token: state => state.token,
+  appIsReady: state => state.appIsReady,
   accessToken: state => state.accessToken,
   refreshingToken: state => state.refreshingToken,
   userName: state => (state.token ? state.token.user_name : ''),
@@ -76,5 +78,8 @@ export const mutations = {
   },
   setCurrentUser(state, userInfos) {
     state.userInfos = userInfos;
+  },
+  appIsReady(state) {
+    state.appIsReady = true;
   },
 };

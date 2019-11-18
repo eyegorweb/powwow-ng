@@ -1,15 +1,13 @@
 <template>
-  <div>
-    Redirecting ...
-  </div>
+  <div></div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'AuthCallback',
-  async created() {
+  async mounted() {
     const hashParts = this.$route.hash.split('=');
     this.setAuthToken(hashParts[1].split('&')[0]);
     await this.fetchUserInfos();
@@ -21,9 +19,11 @@ export default {
     } else {
       this.$router.push('/');
     }
+    this.appIsReady();
   },
   methods: {
     ...mapActions(['fetchUserInfos', 'setAuthToken']),
+    ...mapMutations(['appIsReady']),
   },
 };
 </script>

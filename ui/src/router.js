@@ -6,10 +6,13 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 import Home from '@/views/Home';
 import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
+import GetVision from '@/views/GetVision';
 import MassActionsPage from '@/views/GetParc/MassActionsPage';
 import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
+
+import { excludeMocked } from '@/featureFlipping/plugin';
 
 // const Home = () => import('@/views/Home');
 // const GetSim = () => import('@/views/GetSim/index');
@@ -21,7 +24,7 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
-  routes: [
+  routes: excludeMocked([
     {
       path: '/',
       name: 'home',
@@ -63,9 +66,15 @@ export default new Router({
       component: GetParcManagementActLines,
     },
     {
+      path: '/get-vision',
+      name: 'getVision',
+      component: GetVision,
+    },
+    {
       path: '/exemples',
       name: 'exemples',
       component: Examples,
+      mock: true,
     },
-  ],
+  ]),
 });

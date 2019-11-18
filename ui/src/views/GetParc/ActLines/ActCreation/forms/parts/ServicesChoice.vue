@@ -1,6 +1,6 @@
 <template>
   <MultiSelectSearch
-    :items="basicServices"
+    :items="offerServices"
     :disabled-items="disabledServices"
     :default-selected-items.sync="selectedServices"
   />
@@ -9,14 +9,13 @@
 <script>
 // import get from 'lodash.get';
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
-
-import flatten from 'lodash.flatten';
+import { getOfferServices } from '@/components/Services/utils.js';
 
 export default {
   props: {
     offer: Object,
     selectedItems: Array,
-    ignoredItems: {
+    itemsToDisable: {
       type: Array,
       default: () => [],
     },
@@ -32,96 +31,23 @@ export default {
   data() {
     return {
       disabledServices: [],
-      basicServices: [],
-      defaultBasicServices: [
-        {
-          id: 0,
-          name: 'VOIX_ENTRANTE',
-          code: '2175',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 1,
-          name: 'VOIX_SORTANTE',
-          code: '2023',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 2,
-          name: 'SMS_ENTRANT',
-          code: '2171',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 3,
-          name: 'SMS_SORTANT',
-          code: '2174',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 4,
-          name: 'NUMERO_DATA_CSD',
-          code: '2188',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 5,
-          name: 'DATA_CSD_ENTRANTE',
-          code: '2172',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 6,
-          name: 'DATA_CSD_SORTANTE',
-          code: '2173',
-          editable: false,
-          data: undefined,
-        },
-        {
-          id: 7,
-          name: 'ROAMING',
-          code: '77',
-          editable: false,
-          data: undefined,
-        },
-      ],
+      offerServices: [],
     };
   },
 
   methods: {
     initServices() {
-      if (!this.offer) return;
-      this.basicServices = this.defaultBasicServices.map(s => {
-        const serviceData = this.getServiceData(s.code);
-        s.label = this.$t('services.' + s.name);
-        if (serviceData) {
-          const isEditable = serviceData.partyAccess || false;
-          return {
-            ...s,
-            editable: isEditable,
-            data: { ...serviceData },
-          };
-        }
-
-        return s;
-      });
-      this.disabledServices = [
-        ...this.basicServices.filter(c => !c.editable),
-        ...this.ignoredItems,
-      ];
-    },
-    getServiceData(dependencyCode) {
-      const groupServices = this.offer.data.initialOffer.nonSystemServiceGroupList.map(
-        g => g.standardAndSemiGlobalCatalogServiceGroups
-      );
-      const result = flatten(groupServices).find(s => s.catalogService.code === dependencyCode);
-      return result;
+      const offerServices = getOfferServices(this.offer.initialOffer);
+      const multiselectFormat = s => {
+        return {
+          ...s,
+          id: s.code,
+          label: this.$t('services.' + s.code),
+        };
+      };
+      this.offerServices = offerServices.filter(s => s.code !== 'DATA').map(multiselectFormat);
+      const disabledServices = this.offerServices.filter(s => !s.editable);
+      this.disabledServices = [...disabledServices, ...this.itemsToDisable];
     },
   },
 
@@ -129,7 +55,7 @@ export default {
     offer() {
       this.initServices();
     },
-    ignoredItems() {
+    itemsToDisable() {
       this.initServices();
     },
   },

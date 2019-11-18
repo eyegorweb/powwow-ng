@@ -70,32 +70,6 @@ export async function fetchCustomFields(partnerId) {
   `;
   const response = await query(queryStr);
   return formatCustomFieldsResponse(get(response, 'data.party'));
-  /*
-  const customFields = [];
-
-  for (let i = 1, max = 6; i <= max; i++) {
-    addCustomField(response, i);
-  }
-
-  function addCustomField(response, index) {
-    const label = get(response, `data.party.custom${index}FieldLabel`);
-    if (!label) return;
-
-    const data = {
-      id: partnerId + 'customField' + index,
-      codeInOrder: 'custom' + index,
-      code: 'custom' + index,
-      label,
-      type: get(response, `data.party.custom${index}FieldType`),
-      value: get(response, `data.party.custom${index}ValidatedValuesAsList`),
-      mandatory: get(response, `data.party.custom${index}FieldMandatory`),
-      enteredValue: undefined,
-    };
-    customFields.push(data);
-  }
-
-  return customFields;
-  //*/
 }
 
 function formatCustomFieldsResponse(response) {

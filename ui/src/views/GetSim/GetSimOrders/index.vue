@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
@@ -13,25 +16,33 @@
           </ExportButton>
         </div>
       </div>
-      <DataTable
-        :storage-id="storageId"
-        storage-version="002"
-        :columns="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        :size="7"
-      >
-        <template slot="topLeftCorner">
-          <SearchByIdInput />
-        </template>
-        <template slot="actions" slot-scope="{ row }">
-          <GetSimOrdersActions :order="row" />
-        </template>
-      </DataTable>
+      <template v-if="rows && rows.length">
+        <DataTable
+          :storage-id="storageId"
+          storage-version="002"
+          :columns="columns"
+          :rows="rows || []"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :order-by.sync="orderBy"
+          :show-extra-columns.sync="showExtraCells"
+          :size="7"
+        >
+          <template slot="topLeftCorner">
+            <SearchOrderById @searchById="searchById" :init-value="searchByIdValue" />
+          </template>
+          <template slot="actions" slot-scope="{ row }">
+            <GetSimOrdersActions :order="row" />
+          </template>
+        </DataTable>
+      </template>
+      <template v-else>
+        <div v-if="searchByIdValue">
+          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+        </div>
+        <div class="alert alert-light">{{ $t('noResult') }}</div>
+      </template>
     </div>
   </LoaderContainer>
 </template>
@@ -44,7 +55,7 @@ import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { exportFile } from '@/api/orders';
-import SearchByIdInput from './SearchByIdInput';
+import SearchOrderById from './SearchOrderById';
 import LoaderContainer from '@/components/LoaderContainer';
 import ExportButton from '@/components/ExportButton';
 
@@ -55,27 +66,38 @@ import GetSimOrdersIdCell from './GetSimOrdersIdCell';
 import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
 import GetSimOrdersBillingAccountCell from './GetSimOrdersBillingAccountCell';
 import GetSimOrdersProductCell from './GetSimOrdersProductCell';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   name: 'Orders',
   components: {
     DataTable,
     GetSimOrdersActions,
-    SearchByIdInput,
+    SearchOrderById,
     LoaderContainer,
     ExportButton,
+    SearchResultSkeleton,
   },
   props: {
     isPanelOpen: Boolean,
   },
   methods: {
     ...mapActions('getsim', ['fetchOrdersFromApi']),
-    ...mapMutations('getsim', ['setPage', 'setCurrentFilters', 'applyFilters']),
+    ...mapMutations('getsim', [
+      'forceAppliedFilters',
+      'setPage',
+      'setCurrentFilters',
+      'applyFilters',
+    ]),
     ...mapMutations(['openModal']),
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
         return await exportFile(columns, orderBy, exportFormat, this.appliedFilters);
       };
+    },
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.forceAppliedFilters([]);
     },
     async fetchOrders() {
       this.fetchOrdersFromApi({
@@ -83,6 +105,18 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
+    },
+
+    searchById(params) {
+      this.searchByIdValue = params.value;
+      // la table de résultats ( GetSimOrders) lance une recherche à chaque fois que le filtre est modifié ( appliqué ), pour effectuer une recherche par ID,
+      // on applique directement un filtre sans passer par le process normal ( selection -> appliquer les filtres)
+      this.forceAppliedFilters([
+        {
+          id: params.id,
+          value: params.value,
+        },
+      ]);
     },
   },
   computed: {
@@ -159,6 +193,7 @@ export default {
       isAsyncExportAlertOpen: false,
       isExportFormatChoiceOpen: false,
       columns: undefined,
+      searchByIdValue: undefined,
       commonColumns: [
         {
           id: 1,

@@ -3,60 +3,63 @@
     <h4 class="text-primary text-uppercase">
       Historique des demandes de test Réseau / Localisation
     </h4>
-    <div v-if="isLoading" class="loading">{{ $t('loading') }}...</div>
-
-    <div v-else class="row">
-      <div class="col-5">
-        <div class="bg-white p-2">
-          <SimpleMap :markers="markers" zoom draggable />
-        </div>
+    <LoaderContainer :is-loading="isLoading" loading-key="loading">
+      <div slot="on-loading">
+        <Skeleton />
       </div>
-      <div class="col-7">
-        <div v-if="items && !items.length" class="alert alert-light" role="alert">
-          {{ $t('noResult') }}
+      <div class="row">
+        <div class="col-5">
+          <div class="bg-white p-2">
+            <SimpleMap :markers="markers" zoom draggable />
+          </div>
         </div>
-        <table v-else class="table table-blue mt-1">
-          <thead>
-            <tr>
-              <th>{{ $t('getparc.lineDetail.tab3.localisation.requestDate') }}</th>
-              <th>{{ $t('getparc.lineDetail.tab3.localisation.requestStatus') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="line"
-              :class="{ active: item === selectedItem }"
-              v-for="item in items"
-              :key="item.unitAction.id"
-              @click="() => toggleItem(item)"
-            >
-              <td>{{ item.unitAction.statusDate }}</td>
-              <td>
-                <StatusWithLocation :act="item" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="col-7">
+          <div v-if="items && !items.length" class="alert alert-light" role="alert">
+            {{ $t('noResult') }}
+          </div>
+          <table v-else class="table table-blue mt-1">
+            <thead>
+              <tr>
+                <th>{{ $t('getparc.lineDetail.tab3.localisation.requestDate') }}</th>
+                <th>{{ $t('getparc.lineDetail.tab3.localisation.requestStatus') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="line"
+                :class="{ active: item === selectedItem }"
+                v-for="item in items"
+                :key="item.unitAction.id"
+                @click="() => toggleItem(item)"
+              >
+                <td>{{ item.unitAction.statusDate }}</td>
+                <td>
+                  <StatusWithLocation :act="item" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-        <div class="row">
-          <div class="col-2"></div>
-          <div class="col-10">
-            <div class="row">
-              <div class="col">
-                <button @click="refreshTable" class="btn btn-block btn-outline-primary">
-                  {{ $t('getparc.lineDetail.tab3.localisation.reload') }}
-                </button>
-              </div>
-              <div class="col">
-                <button @click="confirmNewDemand" class="btn btn-block btn-primary">
-                  {{ $t('getparc.lineDetail.tab3.localisation.requestStatus') }}
-                </button>
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+              <div class="row">
+                <div class="col">
+                  <button @click="refreshTable" class="btn btn-block btn-outline-primary">
+                    {{ $t('getparc.lineDetail.tab3.localisation.reload') }}
+                  </button>
+                </div>
+                <div class="col">
+                  <button @click="confirmNewDemand" class="btn btn-block btn-primary">
+                    {{ $t('getparc.lineDetail.tab3.localisation.addRequest') }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </LoaderContainer>
   </div>
 </template>
 
@@ -66,11 +69,15 @@ import StatusWithLocation from './StatusWithLocation';
 import { fetchUnitActions2 } from '@/api/unitActions';
 import { mapMutations } from 'vuex';
 import { createGeoLocationMassAction } from '@/api/actCreation';
+import LoaderContainer from '@/components/LoaderContainer';
+import Skeleton from './ContentSkeleton';
 
 export default {
   components: {
     SimpleMap,
     StatusWithLocation,
+    LoaderContainer,
+    Skeleton,
   },
   props: {
     content: Object,

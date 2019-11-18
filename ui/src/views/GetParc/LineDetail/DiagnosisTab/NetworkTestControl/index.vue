@@ -84,7 +84,7 @@ import SMSCol from './SMSCol';
 import VoiceCol from './VoiceCol';
 
 import Modal from '@/components/Modal';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 
 import BackendErrors from '@/components/BackendErrors';
 import { formatBackErrors } from '@/utils/errors';
@@ -174,7 +174,6 @@ export default {
       columns: [
         col('Période d’observation', 'id', true, false, { component: ObservationRangeCol }),
         col('Consommation réelle', 'id', true, false, { component: RealConsumtionCol }),
-        col('Statut', 'Statut', true, false),
         col('Statut', 'id', true, false, { component: StatutCol }),
         col('DATA', 'id', true, false, { component: DataCol }),
         col('SMS', 'id', true, false, { component: SMSCol }),

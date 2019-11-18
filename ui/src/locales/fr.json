@@ -13,6 +13,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "cancel": "Annuler",
+  "resetFilters": "Réinitialiser le filtre",
   "confirm": "Confirmer",
   "delete": "Supprimer",
   "modify": "Modifier",
@@ -51,6 +52,10 @@
   "output": "Sortant",
   "notAvailable": "Non disponible",
   "notDefined": "Non déterminé",
+  "confirmAction": "Confirmer la demande ?",
+  "requestError": "Erreur durant le traitement de la requête",
+  "status": "statut",
+  "lastUpdate": "Dernière Mise à jour",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -66,7 +71,20 @@
       "cancelationAct": "Actes: Résiliation",
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
-      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »"
+      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
+      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "stateParc": {
+        "title": "ETAT DU PARC",
+        "stockLines": "Lignes en stock",
+        "preactivatedLines": "Lignes pré-activées",
+        "activatedLines": "Lignes activées",
+        "suspendedLines": "Lignes suspendues",
+        "cancellationLines": "Lignes en cours de résiliation",
+        "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
+        "currentMonth": "Mois en cours",
+        "prevMonth": "M-1"
+      }
     }
   },
   "menu": {
@@ -153,6 +171,23 @@
       "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
     }
   },
+  "getvsion": {
+    "manage-alarms": "Gestion des alarmes",
+    "manage-alarms-tooltip": "TODO description",
+    "tab-1-parc-alarms": "Alarmes de parc",
+    "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "table": {
+      "total": "{total} alarmes paramétrées",
+      "create-alarm": "Créer une alarme",
+      "thresholds": "Seuil(s) de déclenchement",
+      "targetedLines": "Lignes ciblées",
+      "triggers": "Déclenchements"
+    },
+    "indicators": {
+      "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
+      "triggered_last_month": "Déclenchement mois précédent"
+    }
+  },
   "getparc": {
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
@@ -231,7 +266,7 @@
         "massActionDateCreated": "Date de création de l'action de masse",
         "massActionDateStarted": "Date d'application de l'action de masse",
         "massActionDateEnded": "Date de fin de l'action de masse",
-        "lines": "lignes",
+        "lines": "ligne(s)",
         "offer": "offre",
         "name": "Nom",
         "creator": "Demandeur",
@@ -523,7 +558,8 @@
 
         "localisation": {
           "requestDate": "Date de la demande",
-          "requestStatus": "Ajouter une demande",
+          "requestStatus": "Status de la demande",
+          "addRequest": "Ajouter une demande",
           "reload": "Rafraîchir",
           "createRequest": "Faire une nouvelle demande",
           "warningMsg": "Voulez vous enregistrer une nouvelle demande ?",
@@ -775,7 +811,12 @@
           "KO": "Ko",
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé",
-          "TERMINATED": "Terminé"
+          "CANCELED": "Annulé",
+          "TERMINATED": "Terminé",
+          "TEST": "Test",
+          "NOT_PREACTIVATED": "Non préactivée",
+          "PREACTIVATED": "Préactivée",
+          "ACTIVATED": "Activée"
         }
       },
       "alarmList": {
@@ -913,13 +954,13 @@
     }
   },
   "services": {
-    "VOIX_ENTRANTE": "Voix entrante",
-    "VOIX_SORTANTE": "Voix sortante",
-    "SMS_ENTRANT": "SMS entrant",
-    "SMS_SORTANT": "SMS sortant",
-    "NUMERO_DATA_CSD": "Numéro data csd",
-    "DATA_CSD_ENTRANTE": "Data csd entrante",
-    "DATA_CSD_SORTANTE": "Data csd sortante",
+    "INCOMING_VOICE": "Voix entrante",
+    "OUTGOING_VOICE": "Voix sortante",
+    "INCOMING_SMS": "SMS entrant",
+    "OUTGOING_SMS": "SMS sortant",
+    "DATA_CSD_NUMBER": "Numéro data csd",
+    "INCOMING_DATA_CSD": "Data csd entrante",
+    "OUTGOING_DATA_CSD": "Data csd sortante",
     "ROAMING": "Roaming",
     "DATA": "Data",
     "compatibility": "-non compatible"

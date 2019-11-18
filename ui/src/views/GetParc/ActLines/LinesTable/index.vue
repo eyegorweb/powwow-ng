@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div>
       <div class="row mb-3">
         <div class="col">
@@ -15,23 +18,31 @@
           </ExportButton>
         </div>
       </div>
-      <DataTable
-        v-if="columns"
-        storage-id="getparc.lines"
-        storage-version="001"
-        :columns="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        :size="7"
-      >
-        <template slot="topLeftCorner">
-          <SearchByLinesId @searchById="searchById" />
-        </template>
-      </DataTable>
+      <template v-if="rows && rows.length">
+        <DataTable
+          v-if="columns"
+          storage-id="getparc.lines"
+          storage-version="001"
+          :columns="columns"
+          :rows="rows || []"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :order-by.sync="orderBy"
+          :show-extra-columns.sync="showExtraCells"
+          :size="7"
+        >
+          <template slot="topLeftCorner">
+            <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+          </template>
+        </DataTable>
+      </template>
+      <template v-else>
+        <div v-if="searchByIdValue">
+          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+        </div>
+        <div class="alert alert-light">{{ $t('noResult') }}</div>
+      </template>
     </div>
   </LoaderContainer>
 </template>
@@ -52,6 +63,7 @@ import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   components: {
@@ -59,6 +71,7 @@ export default {
     LoaderContainer,
     SearchByLinesId,
     ExportButton,
+    SearchResultSkeleton,
   },
 
   props: {
@@ -107,7 +120,13 @@ export default {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
     ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
 
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.forceAppliedFilters([]);
+    },
+
     searchById(params) {
+      this.searchByIdValue = params.value;
       this.forceAppliedFilters([
         {
           id: params.id,
@@ -173,6 +192,7 @@ export default {
   },
   data() {
     return {
+      searchByIdValue: undefined,
       columns: undefined,
       commonColumns: [
         {

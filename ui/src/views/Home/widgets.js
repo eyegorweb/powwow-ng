@@ -2,15 +2,28 @@ import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
 import BillsWidget from './widgets/BillsWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
-import ActivationWidget from './widgets/ActWidgets/ActivationWidget';
-import PreactivationActivationWidget from './widgets/ActWidgets/PreactivationActivationWidget';
-import CanceledWidget from './widgets/ActWidgets/CanceledWidget';
-import GenericWidget from './widgets/ActWidgets/GenericWidget';
 import MassActionTable from './widgets/MassActionTable';
 import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
+import ParcStateWidget from './widgets/ParcStateWidget';
+import TriggeredAlarms from './widgets/TriggeredAlarms';
 
-export default [
+import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
+import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
+import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
+import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
+import { excludeMocked } from '@/featureFlipping/plugin';
+
+export default excludeMocked([
+  {
+    title: 'home.widgets.topTriggeredAlarms',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: true,
+    component: TriggeredAlarms,
+    mock: true,
+  },
   {
     title: 'home.widgets.orders',
     description: '',
@@ -26,6 +39,7 @@ export default [
     large: false,
     seeMore: true,
     component: BillsWidget,
+    mock: true,
   },
   {
     title: 'home.widgets.currentUsage',
@@ -34,6 +48,7 @@ export default [
     large: true,
     seeMore: true,
     component: ConsoWidget,
+    mock: true,
   },
   {
     title: 'home.widgets.orderStatus',
@@ -56,7 +71,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: ActivationWidget,
+    component: ActivationActsWidget,
     seeMore: false,
   },
   {
@@ -64,7 +79,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: PreactivationActivationWidget,
+    component: PreacActivationActsWidget,
     seeMore: false,
   },
   {
@@ -72,7 +87,7 @@ export default [
     description: '',
     checked: true,
     large: false,
-    component: CanceledWidget,
+    component: FailedActsWidget,
     seeMore: false,
   },
   {
@@ -81,7 +96,7 @@ export default [
     checked: true,
     large: false,
     seeMore: false,
-    component: GenericWidget,
+    component: StatusActsWidget,
   },
   {
     title: 'home.widgets.searchLine',
@@ -100,4 +115,13 @@ export default [
     seeMore: true,
     component: MassActionsByUserTableWidget,
   },
-];
+  {
+    title: 'home.widgets.stateParc.title',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: true,
+    component: ParcStateWidget,
+    mock: true,
+  },
+]);

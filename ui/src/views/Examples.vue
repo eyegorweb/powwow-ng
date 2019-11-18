@@ -5,20 +5,9 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <ServicesBlock2 :services="services" />
+        <ServicesChoice :offer="offer" :selected-items.sync="selectedServices" />
       </div>
-      <div class="col-md-6">
-        {{ testvar }}
-        <UiInput
-          :placeholder="null"
-          v-model="testvar"
-          value
-          class="d-block w-50 mx-auto"
-          input-type="number"
-        />
-
-        <input :placeholder="null" type="number" :min="1" v-model="testvar" />
-      </div>
+      <div class="col-md-6">{{ selectedServices }}</div>
     </div>
   </div>
 </template>
@@ -26,74 +15,101 @@
 <script>
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import { formatLargeNumber } from '@/utils/numbers';
-import ServicesBlock2 from '@/components/Services/ServicesBlock2.vue';
-import UiInput from '@/components/ui/UiInput';
+import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
 
 export default {
   name: 'Home',
   components: {
     SearchTranslationKey,
-    ServicesBlock2,
-    UiInput,
+    ServicesChoice,
   },
-  mounted() {
-    console.log(formatLargeNumber(1234567));
-  },
-  methods: {
-    onChane(e) {
-      console.log('AAA>', e);
-    },
-  },
+
   data() {
     return {
-      testvar: undefined,
-      services: [
-        {
-          code: 'SERVICE_1',
-          activated: false,
-          editable: true,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_2',
-          activated: true,
-          editable: false,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_3',
-          activated: false,
-          editable: true,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'SERVICE_4',
-          activated: true,
-          editable: false,
-          optional: false,
-          barring: false,
-        },
-        {
-          code: 'DATA',
-          activated: false,
-          editable: true,
-          optional: false,
-          parameters: [
+      selectedServices: [],
+      offer: {
+        id: '3',
+        code: 'OFFRE_TEST',
+        workflowDescription: 'Catalog Test',
+        rCard: false,
+        initialOffer: {
+          id: '116',
+          marketingServices: [
             {
-              active: false,
-              value: 'apn1.testrnis.fr',
+              code: 'INCOMING_VOICE',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'OUTGOING_VOICE',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'INCOMING_SMS',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'OUTGOING_SMS',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'DATA_CSD_NUMBER',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'INCOMING_DATA_CSD',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'ROAMING',
+              activated: true,
               editable: true,
-              code: 'APN1',
-              name: 'APN1',
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'OUTGOING_DATA_CSD',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [null],
+            },
+            {
+              code: 'DATA',
+              activated: true,
+              editable: false,
+              optional: false,
+              parameters: [
+                {
+                  activated: false,
+                  value: 'manaty3.fr',
+                  code: 'APN3',
+                  editable: true,
+                },
+              ],
             },
           ],
-          barring: false,
         },
-      ],
+        label: 'Catalog Test',
+        value: 'OFFRE_TEST',
+      },
     };
   },
 };

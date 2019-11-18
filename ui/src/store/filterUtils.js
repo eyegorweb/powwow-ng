@@ -11,6 +11,9 @@ export function initState() {
      *  Ouverture du réultat dans le panel de détail si le résultat est unique
      */
     openResultInDetailPanel: false,
+
+    searchResponse: undefined,
+    searchPage: 1,
   };
 }
 
@@ -136,12 +139,12 @@ export function initFilterForContext(store, setPartnersFilter) {
     });
   }
 
-  const defaultPartnerTypesValues = get(store, 'rootState.userContext.contextPartnersTypes', []);
+  const defaultPartnerTypesValue = get(store, 'rootState.userContext.contextPartnersType');
 
-  if (defaultPartnerTypesValues.length) {
+  if (defaultPartnerTypesValue) {
     defaultFilters.push({
-      id: 'filters.partnerTypes',
-      values: defaultPartnerTypesValues,
+      id: 'filters.partnerType',
+      value: defaultPartnerTypesValue,
       hidden: true,
     });
   }
@@ -159,6 +162,10 @@ export function setQueryFilterAndSearch(state) {
 export function initMutations() {
   return {
     setQueryFilterAndSearch,
+
+    setSearchResponse(state, res) {
+      state.searchResponse = res;
+    },
 
     setOpenDetailPanel(state, value) {
       state.openResultInDetailPanel = value;
@@ -186,13 +193,13 @@ export function initMutations() {
     applyFilters(state) {
       let currentFilters = state.currentFilters;
       // Décider si on ajoute les partenaires choisis par défaut
-      const defaultPartnerTypes = state.defaultAppliedFilters.find(
-        f => f.id === 'filters.partnerTypes'
+      const defaultPartnerType = state.defaultAppliedFilters.find(
+        f => f.id === 'filters.partnerType'
       );
       const additionalFilters = [];
 
-      if (defaultPartnerTypes) {
-        additionalFilters.push(defaultPartnerTypes);
+      if (defaultPartnerType) {
+        additionalFilters.push(defaultPartnerType);
       }
 
       // Ajouter les partenaires par défaut si aucun partenaire n'est choisi

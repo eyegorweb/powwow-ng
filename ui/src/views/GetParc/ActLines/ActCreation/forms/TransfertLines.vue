@@ -1,5 +1,9 @@
 <template>
-  <ActFormEmptyContainer :validate-fn="validate" :check-errors-fn="checkErrors">
+  <ActFormEmptyContainer
+    :validate-fn="validate"
+    :check-errors-fn="checkErrors"
+    confirm-msg="getparc.actCreation.selectOffer.confirmationWarning"
+  >
     <div slot="main" slot-scope="{ containerValidationFn }">
       <div>
         <PartnerBillingAccountChoice
@@ -28,7 +32,7 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
             <span>
               <i class="ic-Shuffle-Icon"></i>
               {{ $t('getparc.actCreation.selectOffer.save') }}
@@ -36,42 +40,18 @@
           </button>
         </div>
       </div>
-
-      <Modal v-if="waitForConfirmation">
-        <div slot="body">
-          <div class="text-danger">
-            <i class="ic-Alert-Icon"></i>
-            {{ $t('getparc.actCreation.selectOffer.confirmationWarning') }}
-          </div>
-        </div>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="waitForConfirmation = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn btn-success btn-sm ml-1"
-            @click.stop="confirmValdation(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
-        </div>
-      </Modal>
     </div>
   </ActFormEmptyContainer>
 </template>
 
 <script>
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
+import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
-import Modal from '@/components/Modal';
-import { transferSIMCards } from '@/api/actCreation';
+import { transferSIMCards } from '@/api/actCreation2';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -80,7 +60,6 @@ export default {
     PartnerBillingAccountChoice,
     UiDate,
     UiApiAutocomplete,
-    Modal,
   },
   data() {
     return {
@@ -158,7 +137,7 @@ export default {
       }
       return isError;
     },
-    async validate() {
+    async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
@@ -166,6 +145,7 @@ export default {
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,
         toWorkflowId: this.selectedOffer.id,
+        tempDataUuid: contextValues.tempDataUuid,
       };
       return await transferSIMCards(this.appliedFilters, this.selectedLinesForActCreation, params);
     },

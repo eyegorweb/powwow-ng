@@ -37,6 +37,10 @@ export default {
       default: true,
       required: false,
     },
+    initValue: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {
@@ -44,6 +48,11 @@ export default {
       selectPlaceholder: this.$t('type'),
       inputSearchValue: undefined,
     };
+  },
+  mounted() {
+    if (this.initValue) {
+      this.resultQuery = this.initValue;
+    }
   },
 
   computed: {

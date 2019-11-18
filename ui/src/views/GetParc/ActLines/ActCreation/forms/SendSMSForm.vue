@@ -1,6 +1,7 @@
 <template>
   <ActFormContainer
     exclude-default-fields
+    :validate-fn="onValidate"
     success-message="getparc.actCreation.sendSMS.successMessage"
   >
     <form>
@@ -36,7 +37,7 @@
         </div>
       </div>
     </form>
-    <div slot="bottom">
+    <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col">
           <UiDate @change="onSmsDateChange" :value="smsDate" fixed class="d-block">
@@ -45,8 +46,8 @@
         </div>
         <div class="col">
           <button
-            @click="onValidate"
-            :disabled="!acceptConditions"
+            @click="containerValidationFn"
+            :disabled="!applyConditions"
             class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
           >
             {{ $t('set') }}
@@ -57,23 +58,24 @@
     <div slot="messages">
       <ul class="list-unstyled">
         <li>
-          <i class="ic-Info-Icon" /> {{ $t('getparc.actCreation.sendSMS.nbCharacters') }}:
+          <i class="ic-Info-Icon" />
+          {{ $t('getparc.actCreation.sendSMS.nbCharacters') }}:
           {{ texMessage.length }}
         </li>
-        <li><i class="ic-Info-Icon" /> Nombre de SMS par message: 0</li>
+        <li class="mock-value"><i class="ic-Info-Icon" /> Nombre de SMS par message: 0</li>
       </ul>
     </div>
   </ActFormContainer>
 </template>
 
 <script>
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
-import { sendSMS } from '@/api/actCreation';
+import { sendSMS, fetchShortCodes } from '@/api/actCreation2';
 import moment from 'moment';
 
 export default {
@@ -83,26 +85,31 @@ export default {
     UiCheckbox,
     UiDate,
   },
-  mounted() {
+  async mounted() {
     this.smsDate = moment().format('DD/MM/YYYY');
+    this.shortCodesValues = await this.fetchShortCodes();
   },
 
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'filterCustomFieldsList', 'shortCodesList']),
+    ...mapGetters(['userIsPartner', 'userInfos']),
 
     shortCodes() {
-      const shortCodesStr = get(this.actCreationPrerequisites, 'partner.shortCodes');
-      if (!shortCodesStr || shortCodesStr.length === 0) {
+      if (!this.shortCodesValues || this.shortCodesValues.length === 0) {
         return [];
       }
-      const splitted = shortCodesStr.split(';');
+      const splitted = this.shortCodesValues.split(';');
       return splitted.map(s => {
         return {
           id: s,
           label: s,
         };
       });
+    },
+
+    applyConditions() {
+      return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0;
     },
   },
 
@@ -112,6 +119,7 @@ export default {
       texMessage: '',
       acceptConditions: false,
       smsDate: undefined,
+      shortCodesValues: undefined,
       errors: {
         shortCode: undefined,
       },
@@ -123,38 +131,15 @@ export default {
     onSmsDateChange(value) {
       this.smsDate = value;
     },
-    async onValidate() {
-      if (this.checkErrors()) return;
-
-      const response = await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
+    async onValidate(contextValues) {
+      return await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.smsDate,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
         numberOfSMS: 0,
         shortCode: this.selectedShortCode.label,
+        tempDataUuid: contextValues.tempDataUuid,
       });
-
-      if (!response) {
-        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
-      }
-
-      if (response) {
-        if (response.errors) {
-          response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.description });
-          });
-        } else {
-          const successMessage = this.successMessage
-            ? this.$t(this.successMessage)
-            : 'Opération effectuée avec succès';
-          this.flashMessage({ level: 'success', message: successMessage });
-
-          // sortir du mode création acte
-          this.setActToCreate(null);
-          this.setActCreationPrerequisites(null);
-          this.setSelectedLinesForActCreation([]);
-        }
-      }
     },
     checkErrors() {
       if (!this.selectedShortCode) {
@@ -162,6 +147,16 @@ export default {
         return true;
       }
       return false;
+    },
+
+    async fetchShortCodes() {
+      if (!this.userIsPartner) {
+        const shortCodesValues = get(this.actCreationPrerequisites, 'partner.shortCodes');
+        return shortCodesValues;
+      }
+      const partnerId = get(this.userInfos, 'party.id');
+      const shortCodes = await fetchShortCodes(partnerId);
+      return shortCodes;
     },
   },
 };

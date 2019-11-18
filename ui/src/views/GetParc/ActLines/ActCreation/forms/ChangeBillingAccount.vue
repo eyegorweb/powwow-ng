@@ -4,13 +4,12 @@
     success-message="getparc.actCreation.transfertCF.successMessage"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
-      <PartnerBillingAccountChoice
+      <BillingAccountChoice
         :key="actCreationPrerequisites.partner.id"
+        :partner-id="actCreationPrerequisites.partner.id"
         @set:billingAccount="setBillingAccount"
         :errors="errors"
-        :initial-parnter="actCreationPrerequisites.partner"
-        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      ></PartnerBillingAccountChoice>
+      />
       <div class="row">
         <div class="col d-flex">
           <UiCheckbox v-model="notificationCheck" />
@@ -37,18 +36,18 @@
 </template>
 
 <script>
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
-import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
+import BillingAccountChoice from './parts/BillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { changeCustomerAccount } from '@/api/actCreation';
+import { changeCustomerAccount } from '@/api/actCreation2';
 
 export default {
   components: {
     ActFormEmptyContainer,
-    PartnerBillingAccountChoice,
+    BillingAccountChoice,
     UiDate,
     UiCheckbox,
   },
@@ -84,13 +83,14 @@ export default {
     },
 
     checkErrors() {},
-    async validate() {
+    async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
 
         targetCustomerAccount: this.chosenBillingAccount.id,
         notifEmail: this.notificationCheck,
+        tempDataUuid: contextValues.tempDataUuid,
       };
 
       return await changeCustomerAccount(

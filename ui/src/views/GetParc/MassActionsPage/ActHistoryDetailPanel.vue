@@ -25,15 +25,33 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-          <p>{{ content.failedEntitiesNumber > 0 ? content.failedEntitiesNumber : '-' }}</p>
+          <p>
+            {{
+              content.failedEntitiesNumber > 0
+                ? `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                : '-'
+            }}
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-          <p>{{ content.pendingEntitiesNumber > 0 ? content.pendingEntitiesNumber : '-' }}</p>
+          <p>
+            {{
+              content.pendingEntitiesNumber > 0
+                ? `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                : '-'
+            }}
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-          <p>{{ content.completedEntitiesNumber > 0 ? content.completedEntitiesNumber : '-' }}</p>
+          <p>
+            {{
+              content.completedEntitiesNumber > 0
+                ? `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                : '-'
+            }}
+          </p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
@@ -222,7 +240,7 @@ export default {
           {
             code: 'TERMINATED',
             label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: this.content.endDate,
+            date: this.content.ended,
             index: 2,
           },
         ],

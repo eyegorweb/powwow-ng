@@ -1,5 +1,5 @@
 <template>
-  <div class="s-container">
+  <div v-if="!vertical" class="s-container">
     <div class="line">
       <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
     </div>
@@ -9,12 +9,23 @@
       <MultiChoiceList :items="apns" @change="toggleApn" />
     </div>
   </div>
+  <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
+    <div class="row">
+      <div class="col">
+        <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
+      </div>
+      <div class="col">
+        <div v-if="apns && apns.length" class="apn-container">
+          <span>Apn:</span>
+          <MultiChoiceList :items="apns" @change="toggleApn" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-// DEPRECATED
 import UiToggle from '@/components/ui/UiToggle';
-import { initDataService } from '@/utils/simServices';
 import MultiChoiceList from '@/components/ui/MultiChoiceList';
 
 export default {
@@ -24,11 +35,8 @@ export default {
   },
 
   props: {
-    catalogOffer: Object,
-    instanceOffer: {
-      type: Object,
-      default: undefined,
-    },
+    service: Object,
+    vertical: Boolean,
   },
 
   data() {
@@ -36,25 +44,24 @@ export default {
       editable: true,
       checked: false,
       apns: [],
-      data: undefined,
     };
   },
   mounted() {
-    const data = initDataService(this.catalogOffer);
-    if (data) {
-      this.apns = data.apns;
-      this.checked = data.checked;
-      this.editable = data.editable;
-    } else {
-      this.apns = [
-        {
-          code: 'TEST',
-          label: 'testrnis.fr',
-          selectable: false,
-          selected: true,
-        },
-      ];
-    }
+    const data = {
+      checked: this.service.checked,
+      editable: this.service.editable,
+      apns: this.service.parameters.map(s => ({
+        ...s,
+        code: s.code,
+        label: s.label,
+        selectable: s.editable,
+        selected: s.active,
+      })),
+    };
+    this.apns = data.apns;
+    this.checked = data.checked;
+    this.editable = data.editable;
+    this.$emit('apnChange', this.apns);
   },
   methods: {
     toggleApn(apn) {
@@ -64,12 +71,13 @@ export default {
         }
         return a;
       });
+      this.$emit('apnChange', this.apns);
     },
     changeValue() {
       this.$emit('change', {
         checked: this.checked,
         apns: this.apns,
-        code: '878',
+        code: 'DATA',
       });
     },
   },

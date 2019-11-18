@@ -1,6 +1,7 @@
 <template>
   <p :class="statusColor">
-    {{ get('accessPoint.billingStatus') }} - {{ get('accessPoint.billingStatusChangeDate') }}
+    {{ translatedValue }}
+    {{ get('accessPoint.billingStatusChangeDate') }}
   </p>
 </template>
 
@@ -19,6 +20,13 @@ export default {
     },
   },
   computed: {
+    translatedValue() {
+      const status = this.get('accessPoint.billingStatus');
+      if (!status) {
+        return '';
+      }
+      return this.$t('getparc.actLines.massActionsHistory.statuses.' + status) + ' - ';
+    },
     statusColor() {
       let status = this.get('accessPoint.billingStatus');
       let color;

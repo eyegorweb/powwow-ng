@@ -31,12 +31,12 @@ export default {
     act: Object,
   },
   computed: {
-    ...mapState('userContext', ['contextPartnersTypes', 'contextPartners']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['defaultAppliedFilters']),
     ...mapGetters(['userIsPartner']),
   },
   watch: {
-    contextPartnersTypes() {
+    contextPartnersType() {
       this.resetPrerequs();
     },
     contextPartners() {

@@ -1,5 +1,8 @@
 <template>
   <LoaderContainer :is-loading="loadingGeoloc" loading-key="loading">
+    <div slot="on-loading">
+      <LineAnalysisSkeleton />
+    </div>
     <div class="row">
       <div class="col-md-5">
         <div>
@@ -149,6 +152,7 @@ import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
 import LocalisationBlock from './LocalisationBlock';
+import LineAnalysisSkeleton from './LineAnalysisSkeleton';
 
 export default {
   components: {
@@ -156,6 +160,7 @@ export default {
     Toggle,
     AnalyzeTable,
     LoaderContainer,
+    LineAnalysisSkeleton,
   },
   data() {
     return {

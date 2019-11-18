@@ -1,4 +1,4 @@
-import { query, addDateFilter } from './utils';
+import { query, addDateFilter, getValuesIds, getFilterValue, getFilterValues } from './utils';
 import get from 'lodash.get';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
@@ -202,14 +202,10 @@ function formatFilters(filters) {
     allFilters.push(`partyId: {in:[${partyIds}]}`);
   }
 
-  let partyTypes;
+  const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
 
-  const partyTypesParam = getFilterValues(filters, 'filters.partnerTypes');
-  if (partyTypesParam) {
-    partyTypes = partyTypesParam.map(i => `${i.id}`).join(',');
-  }
-  if (partyTypes) {
-    allFilters.push(`partyType: {in:[${partyTypes}]}`);
+  if (partyTypeParam) {
+    allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
 
   const customerAccountIds = getValuesIds(filters, 'filters.billingAccounts');
@@ -330,22 +326,6 @@ function addCountries(gqlFilters, selectedFilters) {
   }
 }
 
-function getFilterValues(filters, filterId) {
-  if (!filters) return;
-
-  const foundFilter = filters.find(f => f.id === filterId);
-  if (foundFilter) {
-    return foundFilter.values;
-  }
-}
-
-function getValuesIds(filters, filterId) {
-  const values = getFilterValues(filters, filterId);
-  if (values) {
-    return values.map(i => `"${i.id}"`).join(',');
-  }
-}
-
 /**
  * Finds a date filter based on filterId and formats it to be used by a gql
  * query. In the future, this function could have moer arguments to handle different
@@ -399,48 +379,43 @@ export async function createOrder(synthesis) {
   }
 
   const orderReference = get(synthesis, 'orderReference.selection.orderReference');
-  let orderReferenceParam = 'externalId: ""'; // Fix temporaire : suite à un bug backend, on est obligé de passer une valeur
+  let orderReferenceParam = ',externalId: ""'; // Fix temporaire : suite à un bug backend, on est obligé de passer une valeur
   if (orderReference) {
-    orderReferenceParam = `externalId: "${orderReference}"`;
+    orderReferenceParam = `,externalId: "${orderReference}"`;
   }
 
-  let selectedServiceInputParam = '';
-  let gqlServicesParamArr = [];
+  let gqlServicesParamGql = '';
   let gqlWorkflowId = '';
-  // pick services
-  if (synthesis.services) {
-    const isActivation = get(synthesis, 'services.value.activation');
-    if (isActivation) {
-      const offerId = get(synthesis, 'services.selection.selectedOfferData.id');
-      gqlWorkflowId = `workflowId: ${offerId}`;
-      const basicServices = get(synthesis, 'services.selection.basicServices', []);
-      const basicServicesParam = basicServices
-        .filter(s => s.data && s.checked)
-        .map(s => `{ catalogServiceGroupId: ${s.data.id}, catalogServiceParameters: [] }`);
-      gqlServicesParamArr = gqlServicesParamArr.concat(basicServicesParam);
 
-      const dataService = get(synthesis, 'services.selection.dataService', []);
-      if (dataService && dataService.data && dataService.checked) {
-        const id = dataService.data.id;
-        const apns = dataService.apns || [];
-        const apnIdsParam = apns
-          .filter(s => s.selected)
-          .map(a => {
-            return `${a.id}`;
-          })
-          .join(',');
+  const offerCode = get(synthesis, 'services.value.selectedOffer.id');
 
-        gqlServicesParamArr.push(
-          `{ catalogServiceGroupId: ${id}, catalogServiceParameters: [${apnIdsParam}] }`
-        );
+  if (offerCode) {
+    gqlWorkflowId = `, workflowId:${offerCode}`;
+  }
+
+  if (get(synthesis, 'services.value.activation')) {
+    let serviceParamsArr = [];
+    const dataServiceChoice = get(synthesis, 'services.value.servicesChoice.dataService');
+
+    if (dataServiceChoice) {
+      if (dataServiceChoice.checked) {
+        const paramsArr = dataServiceChoice.parameters.map(p => `"${p.code}"`);
+        serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
       }
     }
-  }
 
-  if (gqlServicesParamArr.length) {
-    selectedServiceInputParam = `selectedServiceInput: [
-      ${gqlServicesParamArr.join(',')}
-    ]`;
+    const servicesChoice = get(synthesis, 'services.value.servicesChoice.services');
+
+    if (servicesChoice) {
+      const checkedServices = servicesChoice
+        .filter(s => s.checked)
+        .map(s => `{serviceCode: "${s.code}"}`);
+      serviceParamsArr = [...serviceParamsArr, ...checkedServices];
+    }
+
+    if (serviceParamsArr && serviceParamsArr.length) {
+      gqlServicesParamGql = `, services:[${serviceParamsArr.join(',')}]`;
+    }
   }
 
   const queryStr = `
@@ -472,12 +447,10 @@ export async function createOrder(synthesis) {
       simCardQuantity: ${get(synthesis, 'quantity.value.content')},
       preActivationAsked: ${get(synthesis, 'services.value.preActivation') ? 'true' : 'false'},
       activationAsked: ${get(synthesis, 'services.value.activation') ? 'true' : 'false'},
-      simCardId: ${get(synthesis, 'product.value.id')}
+      simCardId: ${get(synthesis, 'product.value.id')},
       customFieldsDTO: ${customFieldsDTO}
-      ${orderReferenceParam}
-      ${selectedServiceInputParam}
-      ${gqlWorkflowId}
-    }) {
+      ${orderReferenceParam}${gqlWorkflowId}
+    }${gqlServicesParamGql}) {
       id
     }
   }

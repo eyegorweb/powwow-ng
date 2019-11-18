@@ -29,8 +29,8 @@
         <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
           <Gauge
             time-max-value
-            :value="35"
-            max-value="65"
+            :value="875"
+            max-value="971"
             :format-value-fn="getTimeFormatFn()"
             subtitle="18/11/2018"
             >VOIX</Gauge

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import ChangeServiceForm from './forms/ChangeServiceForm';
+import ChangeServiceForm from './forms/ChangeServiceForm2';
 import ReactivateForm from './forms/ReactivateForm';
 import SuspendLinesForm from './forms/SuspendLinesForm';
 import ChangeStatusForm from './forms/ChangeStatusForm';

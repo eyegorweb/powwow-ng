@@ -25,6 +25,7 @@ export default [
         value: true,
       },
     ],
+    fetchKey: 'ACT_TERMINATION_NOT_PROCESSED',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
@@ -48,6 +49,7 @@ export default [
         ],
       },
     ],
+    fetchKey: 'ACT_FAILED',
     fetch: async indicator => {
       const dateFilter = {
         id: 'filters.actDateCreation',
@@ -77,6 +79,7 @@ export default [
         ],
       },
     ],
+    fetchKey: 'SIM_NOT_PREACTIVATED',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
@@ -99,6 +102,8 @@ export default [
         ],
       },
     ],
+    fetchKey: 'SIM_PREACTIVATED',
+
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
@@ -121,6 +126,7 @@ export default [
         ],
       },
     ],
+    fetchKey: 'SIM_ACTIVATED',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
@@ -143,6 +149,7 @@ export default [
         ],
       },
     ],
+    fetchKey: 'SIM_SUSPENDED',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },
@@ -165,6 +172,7 @@ export default [
         ],
       },
     ],
+    fetchKey: 'SIM_TRAFFICKING',
     fetch: async (indicator, contextFilters) => {
       return await fetchSingleIndicator(indicator.filters, contextFilters);
     },

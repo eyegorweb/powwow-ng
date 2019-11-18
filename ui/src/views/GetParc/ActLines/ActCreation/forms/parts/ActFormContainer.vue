@@ -55,10 +55,12 @@
 </template>
 
 <script>
-import UiDate from '@/components/ui/UiDate2';
+import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapMutations } from 'vuex';
 import moment from 'moment';
+
+// DEPRECATED
 
 export default {
   components: {

@@ -22,7 +22,6 @@
                 aria-labelledby="dropdownMenuLink"
                 x-placement="bottom-start"
                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 2.5rem, 0px);"
-                @click="foceCurrentIndex('GetParc/GetDiag')"
               >
                 <router-link
                   :key="item.label"
@@ -47,7 +46,9 @@
         </a>
       </div>
       <div class="nav">
-        <div class="icon ic-Clock-Icon" />
+        <ff-wip>
+          <div class="icon ic-Clock-Icon" />
+        </ff-wip>
         <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
           <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
           <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
@@ -82,6 +83,8 @@ import { mapGetters } from 'vuex';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
+import { excludeMocked } from '@/featureFlipping/plugin.js';
+
 export default {
   name: 'NavBar',
   components: {
@@ -93,13 +96,14 @@ export default {
   },
   mounted() {
     this.currentUrlName = this.$route.name;
+    this.chooseCurrentMenu();
   },
   data() {
     return {
       currentIndex: 0,
       currentUrlName: '',
       currentIndexIsForced: false,
-      navbarLinks: [
+      navbarLinks: excludeMocked([
         {
           label: 'GetSIM',
           to: { name: 'orders' },
@@ -118,45 +122,46 @@ export default {
             },
           ],
         },
-        { label: 'GetVision', to: { name: 'exemples' } },
-        { label: 'GetReport', to: { name: 'exemples' } },
-        { label: 'GetAdmin', to: { name: 'exemples' } },
-        { label: 'GetSupport', to: { name: 'exemples' } },
-        { label: 'GetDevice', to: { name: 'exemples' } },
-      ],
+        { label: 'GetVision', to: { name: 'getVision' }, mock: true },
+        { label: 'GetReport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
+        { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
+      ]),
 
       userMenuVisible: false,
     };
   },
   methods: {
-    foceCurrentIndex(label) {
-      this.currentIndex = this.getIndexOfItemByLabel(label);
-      this.currentIndexIsForced = true;
-    },
-    getIndexOfItemByLabel(label) {
-      if (!this.navbarLinks) {
-        return 0;
+    chooseCurrentMenu() {
+      let currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+
+      if (currentIndex === -1) {
+        const mainMenu = this.navbarLinks.find(l => {
+          if (!l.submenu) {
+            return false;
+          }
+          return l.submenu.find(sml => sml.to.name === this.currentUrlName);
+        });
+        if (mainMenu) {
+          currentIndex = this.navbarLinks.findIndex(link => link.label === mainMenu.label);
+        }
       }
-      return this.navbarLinks.findIndex(link => link.label === label);
+
+      this.currentIndex = currentIndex;
     },
   },
   computed: {
     ...mapGetters(['userName', 'userInfos']),
-    currentLinkIndex() {
-      return this.navbarLinks.findIndex(link => link.to.name === this.$route.name);
-    },
+
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
     },
   },
   watch: {
     $route(newRoute) {
-      if (this.currentIndexIsForced) {
-        this.currentIndexIsForced = false;
-        return;
-      }
       this.currentUrlName = newRoute.name;
-      this.currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+      this.chooseCurrentMenu();
     },
   },
 };

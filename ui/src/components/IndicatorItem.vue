@@ -25,6 +25,7 @@ export default {
       type: Function,
       required: false,
     },
+    precalculated: Boolean,
   },
   data() {
     return {
@@ -38,7 +39,7 @@ export default {
   },
 
   async mounted() {
-    this.refreshIndicator();
+    this.loadValue();
   },
 
   computed: {
@@ -46,6 +47,23 @@ export default {
   },
 
   methods: {
+    async loadValue() {
+      if (this.precalculated) {
+        this.setPrecalculatedValue();
+      } else {
+        this.refreshIndicator();
+      }
+    },
+    async setPrecalculatedValue() {
+      if (this.indicator.precalculatedValue) {
+        this.total = this.indicator.precalculatedValue.numberValue;
+      } else {
+        this.total = 0;
+      }
+      if (this.total === 0 && this.indicator.hideZeroValue) {
+        this.$emit('removeme', this.indicator);
+      }
+    },
     async refreshIndicator() {
       this.isLoading = true;
       try {
@@ -70,10 +88,14 @@ export default {
 
   watch: {
     partners() {
-      this.refreshIndicator();
+      if (!this.precalculated) {
+        this.refreshIndicator();
+      }
     },
     contextFilters() {
-      this.refreshIndicator();
+      if (!this.precalculated) {
+        this.refreshIndicator();
+      }
     },
   },
 };

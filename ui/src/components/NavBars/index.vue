@@ -17,8 +17,8 @@ export default {
   name: 'NavBars',
   data() {
     return {
-      partnersTypes: ['un', 'deux', 'trois', 'quatre', 'cinq'],
-      partnersNames: ['un', 'deux', 'trois', 'quatre'],
+      partnersTypes: [],
+      partnersNames: [],
     };
   },
   props: {
