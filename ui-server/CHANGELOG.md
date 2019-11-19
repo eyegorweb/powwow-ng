@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.350+20191119105313
+2019-11-19
+
+### Fixes
+
+- corriger le problème d'affichage sur laptop (a8a6d197bfb33ba89600d473cbe45cae2cd4a03f)
+
 ## 0.3.0-master.349+20191119100412
 2019-11-19
 
