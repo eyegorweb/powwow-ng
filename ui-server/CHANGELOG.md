@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.356+20191119162353
+2019-11-19
+
+### Fixes
+
+- **orders:** correctif appliqué aux indicateurs de commande et aux filtres de dates (f563f90a1a021328ab0614242b279b15886577cb)
+
 ## 0.3.0-master.355+20191119161301
 2019-11-19
 
