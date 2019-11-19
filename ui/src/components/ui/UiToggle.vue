@@ -7,8 +7,8 @@
     <label>
       <input type="checkbox" v-bind="$attrs" v-model="model" />
       <span class="slider" />
-      <span class="state state--on">On</span>
-      <span class="state state--off">Off</span>
+      <span class="state state--on">{{ onText }}</span>
+      <span class="state state--off">{{ offText }}</span>
     </label>
   </div>
 </template>
@@ -33,6 +33,14 @@ export default {
     editable: {
       type: Boolean,
       default: true,
+    },
+    onText: {
+      type: String,
+      default: 'On',
+    },
+    offText: {
+      type: String,
+      default: 'Off',
     },
   },
 
@@ -170,7 +178,7 @@ export default {
     }
 
     &--off {
-      right: 8px;
+      right: 3px;
     }
   }
 

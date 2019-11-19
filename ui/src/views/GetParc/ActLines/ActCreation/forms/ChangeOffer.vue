@@ -5,24 +5,56 @@
     :check-errors-fn="checkErrors"
   >
     <div slot="main" slot-scope="{ containerValidationFn }">
-      <PartnerBillingAccountChoice
+      <BillingAccountChoice
+        :key="actCreationPrerequisites.partner.id"
+        :partner-id="actCreationPrerequisites.partner.id"
         @set:billingAccount="setBillingAccount"
         :errors="errors"
-        :initial-parnter="actCreationPrerequisites.partner"
-        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      >
-        <div slot="bottom">
-          <div>
-            <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
-            <UiApiAutocomplete
-              :items="offers"
-              v-model="selectedOffer"
-              :error="errors.offer"
-              display-results-while-empty
-            />
-          </div>
+      />
+
+      <template>
+        <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+        <OffersPart :partner="actCreationPrerequisites.partner" :offer.sync="selectedOffer" />
+      </template>
+
+      <div v-if="selectedOffer && selectedOffer.data" class="row">
+        <div class="col-md-8 mb-3">
+          <UiToggle
+            label="Avec changement de services ?"
+            v-model="canChangeServices"
+            on-text="Oui"
+            off-text="Non"
+          />
         </div>
-      </PartnerBillingAccountChoice>
+        <hr />
+      </div>
+
+      <div v-if="canChangeServices" class="toggles-container">
+        <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
+        <UiToggle label="Activation" v-model="activation" />
+      </div>
+
+      <div v-if="canChangeServices && activation">
+        <ServicesBlock
+          v-if="selectedOffer"
+          :key="selectedOffer.label"
+          :services="offerServices"
+          vertical
+          @change="onServiceChange"
+        />
+      </div>
+      <template v-if="selectedOffer && selectedOffer.data">
+        <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
+        <div>
+          <CustomFields
+            :fields="allCustomFields"
+            :get-selected-value="getSelectedValue"
+            :errors="customFieldsErrors"
+            show-optional-field
+            @change="onValueChanged"
+          />
+        </div>
+      </template>
 
       <div class="col d-flex">
         <UiCheckbox v-model="notificationCheck" />
@@ -76,27 +108,36 @@
 </template>
 
 <script>
-import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+import BillingAccountChoice from './parts/BillingAccountChoice';
+import UiToggle from '@/components/ui/UiToggle';
+import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 
 import { mapState, mapGetters } from 'vuex';
-import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
 import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import Modal from '@/components/Modal';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
+import CustomFields from '@/components/CustomFields';
 
 import { changeOffer } from '@/api/offers';
+import { fetchCustomFields } from '@/api/customFields';
+
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
-    PartnerBillingAccountChoice,
+    UiToggle,
+    BillingAccountChoice,
     ActFormEmptyContainer,
     UiDate,
     UiCheckbox,
-    UiApiAutocomplete,
     Modal,
+    ServicesBlock,
+    CustomFields,
+    OffersPart,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -116,6 +157,15 @@ export default {
       canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
+      activation: false,
+      preActivation: true,
+
+      customFieldsErrors: undefined,
+      allCustomFields: [],
+      customFieldsValues: [],
+      offerServices: undefined,
+      servicesChoice: undefined,
+      canChangeServices: false,
     };
   },
 
@@ -136,9 +186,62 @@ export default {
         this.actDate = moment().format('DD/MM/YYYY');
         this.canChangeDate = true;
     }
+
+    this.loadCustomFields();
+  },
+
+  watch: {
+    selectedOffer(selectedOffer) {
+      if (selectedOffer)
+        this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+    },
+    activation() {
+      this.decideOnMandatoryCustomFields();
+    },
   },
 
   methods: {
+    getSelectedValue(code) {
+      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      if (existingFieldValue) {
+        return existingFieldValue.enteredValue;
+      }
+    },
+    onValueChanged(customField, enteredValue) {
+      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      if (existingFieldValue) {
+        this.customFieldsValues = this.customFieldsValues.map(c => {
+          if (c.code === customField.code) {
+            return {
+              ...c,
+              enteredValue,
+            };
+          }
+          return c;
+        });
+      } else {
+        customField.enteredValue = enteredValue;
+        this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
+      }
+    },
+    async loadCustomFields() {
+      this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
+      this.decideOnMandatoryCustomFields();
+    },
+
+    decideOnMandatoryCustomFields() {
+      this.allCustomFields = this.allCustomFields.map(c => {
+        c.isOptional = true;
+        if (this.activation && c.mandatory === 'ACTIVATION') {
+          c.isOptional = false;
+        }
+        return c;
+      });
+    },
+    onServiceChange(servicesChoice) {
+      this.servicesChoice = servicesChoice;
+      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+    },
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
       this.refreshOffers();
