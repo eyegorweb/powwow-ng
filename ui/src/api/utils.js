@@ -162,3 +162,28 @@ export function getValuesIds(filters, filterId) {
     return values.map(i => `"${i.id}"`).join(',');
   }
 }
+
+export function formatServicesForGQL(servicesChoice) {
+  const dataServiceChoice = servicesChoice.data;
+  const services = servicesChoice.services;
+
+  let serviceParamsArr = [];
+  let gqlServicesParamGql = '';
+  if (dataServiceChoice) {
+    if (dataServiceChoice.checked) {
+      const paramsArr = dataServiceChoice.parameters.map(p => `"${p.code}"`);
+      serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
+    }
+  }
+
+  if (services) {
+    const checkedServices = services.filter(s => s.checked).map(s => `{serviceCode: "${s.code}"}`);
+    serviceParamsArr = [...serviceParamsArr, ...checkedServices];
+  }
+
+  if (serviceParamsArr && serviceParamsArr.length) {
+    gqlServicesParamGql = `, services:[${serviceParamsArr.join(',')}]`;
+  }
+
+  return gqlServicesParamGql;
+}

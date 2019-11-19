@@ -1,5 +1,9 @@
-export function getOfferServices(offer) {
-  return offer.marketingServices
+export function getMarketingOfferServices(offer) {
+  return getOfferServices(offer.marketingServices);
+}
+
+export function getOfferServices(services) {
+  return services
     .filter(s => !!s && !s.optional)
     .map(s => {
       const service = {

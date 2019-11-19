@@ -30,7 +30,6 @@ import LineServicesSection from './LineServicesSection';
 import BillingSection from './BillingSection';
 import ActsHistory from './ActsHistory';
 import AlarmList from './AlarmList';
-import { excludeMocked } from '@/featureFlipping/plugin';
 
 export default {
   components: {
@@ -47,7 +46,7 @@ export default {
     return {
       section: 'line_info',
 
-      menuItems: excludeMocked([
+      menuItems: [
         {
           section: 'line_info',
           title: 'getparc.lineDetail.tab1.lineInfo',
@@ -59,7 +58,6 @@ export default {
         {
           section: 'line_services',
           title: 'getparc.lineDetail.tab1.lineServices',
-          mock: true,
         },
         {
           section: 'alarm_list',
@@ -69,7 +67,7 @@ export default {
           section: 'acts_history',
           title: 'getparc.lineDetail.tab1.actsHistory',
         },
-      ]),
+      ],
     };
   },
 };

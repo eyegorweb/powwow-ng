@@ -2,14 +2,14 @@
   <ActFormContainer :validate-fn="onValidate">
     <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToEnable')
+        }}</span>
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToDisable')
+        }}</span>
       </div>
     </div>
     <div class="row">
@@ -52,7 +52,7 @@ import { mapState, mapGetters } from 'vuex';
 import UiCheckbox from '@/components/ui/Checkbox';
 
 import DataServiceToggle from '@/components/Services/DataServiceToggle';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { changeService } from '@/api/actCreation2.js';
 
 export default {
@@ -79,7 +79,7 @@ export default {
     },
   },
   mounted() {
-    this.dataService = getOfferServices(this.selectedOffer.initialOffer).find(
+    this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
       s => s.code === 'DATA'
     );
   },

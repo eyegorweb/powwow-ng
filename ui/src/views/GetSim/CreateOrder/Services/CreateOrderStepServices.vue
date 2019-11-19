@@ -57,7 +57,7 @@ import { fetchOffersForPartnerId } from '@/api/offers';
 
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   name: 'CreateOrderStepServices',
@@ -77,7 +77,7 @@ export default {
 
   computed: {
     offerServices() {
-      return getOfferServices(this.selectedOffer.initialOffer);
+      return getMarketingOfferServices(this.selectedOffer.initialOffer);
     },
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];

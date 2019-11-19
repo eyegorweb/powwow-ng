@@ -1,4 +1,11 @@
-import { query, addDateFilter, getValuesIds, getFilterValue, getFilterValues } from './utils';
+import {
+  query,
+  addDateFilter,
+  getValuesIds,
+  getFilterValue,
+  getFilterValues,
+  formatServicesForGQL,
+} from './utils';
 import get from 'lodash.get';
 
 // TODO: Optimiser cette requette, il faudra appeler les fields au besoin
@@ -394,28 +401,10 @@ export async function createOrder(synthesis) {
   }
 
   if (get(synthesis, 'services.value.activation')) {
-    let serviceParamsArr = [];
-    const dataServiceChoice = get(synthesis, 'services.value.servicesChoice.dataService');
-
-    if (dataServiceChoice) {
-      if (dataServiceChoice.checked) {
-        const paramsArr = dataServiceChoice.parameters.map(p => `"${p.code}"`);
-        serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
-      }
-    }
-
-    const servicesChoice = get(synthesis, 'services.value.servicesChoice.services');
-
-    if (servicesChoice) {
-      const checkedServices = servicesChoice
-        .filter(s => s.checked)
-        .map(s => `{serviceCode: "${s.code}"}`);
-      serviceParamsArr = [...serviceParamsArr, ...checkedServices];
-    }
-
-    if (serviceParamsArr && serviceParamsArr.length) {
-      gqlServicesParamGql = `, services:[${serviceParamsArr.join(',')}]`;
-    }
+    gqlServicesParamGql = formatServicesForGQL({
+      data: get(synthesis, 'services.value.servicesChoice.dataService'),
+      services: get(synthesis, 'services.value.servicesChoice.services'),
+    });
   }
 
   const queryStr = `

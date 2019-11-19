@@ -1,4 +1,4 @@
-import { query, formatDateForGql, boolStr } from './utils';
+import { query, formatDateForGql, boolStr, formatServicesForGQL } from './utils';
 import { formatFilters } from './linesActions';
 
 async function actCreationMutation(filters, lines, creationActFn) {
@@ -401,7 +401,7 @@ export async function changeService(filters, lines, params) {
       if (dataService.checked) {
         const apnToAddParams = dataService.apns
           .filter(a => a.selected)
-          .map(a => `{parameterCode: "${a.code}", action: ADD}`);
+          .map(a => `{parameterCode: "${a.code}"}`);
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
@@ -446,5 +446,57 @@ export async function changeService(filters, lines, params) {
 
     const response = await query(queryStr);
     if (response && response.data) return response.data.changeServices;
+  });
+}
+
+export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesChoice,
+      customerAccountID,
+      workflowCode,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const changeServicesParamsGql = formatServicesForGQL({
+      data: servicesChoice.dataService,
+      services: servicesChoice.services,
+    });
+
+    const queryStr = `
+    mutation {
+      preactivateAndActivateSImcardInstanceV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountID: ${customerAccountID},
+          workflowCode: "${workflowCode}",
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.preactivateAndActivateSImcardInstanceV2;
   });
 }

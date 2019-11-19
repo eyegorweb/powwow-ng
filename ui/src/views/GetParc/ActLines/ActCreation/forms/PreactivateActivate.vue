@@ -4,7 +4,7 @@
       <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
       <UiToggle label="Activation" v-model="activation" />
     </div>
-    <div>
+    <div v-if="activation">
       <label class="font-weight-bold">{{ $t('col.offer') }}</label>
       <OffersPart :partner="partner" :offer.sync="selectedOffer" />
     </div>
@@ -26,7 +26,9 @@
         @change="onServiceChange"
       />
     </div>
-    <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
+    <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">
+      {{ $t('common.customFields') }}
+    </label>
     <div>
       <CustomFields
         :fields="allCustomFields"
@@ -90,10 +92,10 @@ import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
 
-import { preactivateAndActivateSImcardInstance } from '@/api/actCreation';
+import { preactivateAndActivateSImcardInstance } from '@/api/actCreation2';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
@@ -114,9 +116,6 @@ export default {
     partner() {
       return this.actCreationPrerequisites.partner;
     },
-    offerServices() {
-      return getOfferServices(this.selectedOffer.data.initialOffer);
-    },
   },
   data() {
     return {
@@ -131,6 +130,7 @@ export default {
       errors: {},
       isLoading: false,
       waitForReportConfirmation: false,
+      offerServices: undefined,
       servicesChoice: undefined,
     };
   },
@@ -140,14 +140,21 @@ export default {
   },
 
   watch: {
+    selectedOffer(selectedOffer) {
+      if (selectedOffer)
+        this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+    },
     activation() {
       this.decideOnMandatoryCustomFields();
+      this.offerServices = undefined;
+      this.selectedOffer = undefined;
     },
   },
 
   methods: {
-    onServiceChange(services) {
-      this.servicesChoice = services;
+    onServiceChange(servicesChoice) {
+      this.servicesChoice = servicesChoice;
+      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
     },
 
     async doRequest(contextValues) {
@@ -160,7 +167,10 @@ export default {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: contextValues.actDate,
         notifEmail: contextValues.notificationCheck,
-        offer: this.selectedOffer.data.initialOffer.code,
+        workflowCode: this.selectedOffer.id,
+        servicesChoice: this.servicesChoice,
+        customerAccountID: this.chosenBillingAccount.id,
+        tempDataUuid: contextValues.tempDataUuid,
       };
       return await preactivateAndActivateSImcardInstance(
         this.appliedFilters,
