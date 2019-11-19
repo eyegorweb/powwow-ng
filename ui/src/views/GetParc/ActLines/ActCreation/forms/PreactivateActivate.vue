@@ -87,7 +87,6 @@ import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer';
-import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 import BillingAccountChoice from './parts/BillingAccountChoice';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
@@ -103,7 +102,6 @@ export default {
     UiToggle,
     OffersPart,
     CustomFields,
-    PartnerBillingAccountChoice,
     BillingAccountChoice,
     Modal,
     CircleLoader,
