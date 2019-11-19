@@ -179,6 +179,7 @@ export default {
   .toggle {
     flex: 1 100%;
     flex-grow: 1;
+    padding-right: 5px;
   }
 }
 
@@ -187,7 +188,7 @@ export default {
   color: $dark-gray;
   font-weight: 300;
   font-size: 2rem;
-  margin: 50px 0 30px;
+  margin: 3rem 0 2rem;
   padding: 0;
   text-align: center;
 }
