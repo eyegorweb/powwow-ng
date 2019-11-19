@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.348+20191119085754
+2019-11-19
+
+### Fixes
+
+- utiliser l'API V2 pour l'acte : Préactiver ou activer (52c03238021673c42aadce2f706d1e215250ae62)
+
 ## 0.3.0-master.347+20191118150531
 2019-11-18
 
