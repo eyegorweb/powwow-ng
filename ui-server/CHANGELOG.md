@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.353+20191119143151
+2019-11-19
+
+### Fixes
+
+- mise à jour des champs de l'export de fichier des gestions de lignes (beedc1227e48a6ab095234209d6214c055180fb1)
+
 ## 0.3.0-master.352+20191119140740
 2019-11-19
 
