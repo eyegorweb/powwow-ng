@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.354+20191119150221
+2019-11-19
+
+### Fixes
+
+- partie interface du changement d'offre (cb3403b5aac98802207898471c65c8e86e58d879)
+
 ## 0.3.0-master.353+20191119143151
 2019-11-19
 
