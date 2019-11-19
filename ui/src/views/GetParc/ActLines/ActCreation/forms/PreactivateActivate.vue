@@ -9,13 +9,12 @@
       <OffersPart :partner="partner" :offer.sync="selectedOffer" />
     </div>
     <div>
-      <PartnerBillingAccountChoice
+      <BillingAccountChoice
         :key="actCreationPrerequisites.partner.id"
+        :partner-id="actCreationPrerequisites.partner.id"
         @set:billingAccount="setBillingAccount"
         :errors="errors"
-        :initial-parnter="actCreationPrerequisites.partner"
-        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      ></PartnerBillingAccountChoice>
+      />
     </div>
     <div v-if="selectedOffer && selectedOffer.data">
       <ServicesBlock
@@ -89,6 +88,7 @@ import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer';
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+import BillingAccountChoice from './parts/BillingAccountChoice';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
 
@@ -104,6 +104,7 @@ export default {
     OffersPart,
     CustomFields,
     PartnerBillingAccountChoice,
+    BillingAccountChoice,
     Modal,
     CircleLoader,
     ServicesBlock,
@@ -167,7 +168,7 @@ export default {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: contextValues.actDate,
         notifEmail: contextValues.notificationCheck,
-        workflowCode: this.selectedOffer.id,
+        workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
         servicesChoice: this.servicesChoice,
         customerAccountID: this.chosenBillingAccount.id,
         tempDataUuid: contextValues.tempDataUuid,
