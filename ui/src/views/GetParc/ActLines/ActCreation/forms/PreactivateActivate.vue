@@ -86,7 +86,7 @@ import CustomFields from '@/components/CustomFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 
-import ActFormContainer from './parts/ActFormContainer';
+import ActFormContainer from './parts/ActFormContainer2';
 import BillingAccountChoice from './parts/BillingAccountChoice';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
@@ -157,11 +157,6 @@ export default {
     },
 
     async doRequest(contextValues) {
-      const response = await this.doPreactivate(contextValues);
-      return response;
-    },
-
-    async doPreactivate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: contextValues.actDate,

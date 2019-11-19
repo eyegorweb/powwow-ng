@@ -1,110 +1,60 @@
 <template>
-  <ActFormEmptyContainer
-    :validate-fn="validate"
+  <ActFormContainer2
+    :validate-fn="doRequest"
     success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
-      <BillingAccountChoice
-        :key="actCreationPrerequisites.partner.id"
-        :partner-id="actCreationPrerequisites.partner.id"
-        @set:billingAccount="setBillingAccount"
-        :errors="errors"
-      />
+    <BillingAccountChoice
+      :key="actCreationPrerequisites.partner.id"
+      :partner-id="actCreationPrerequisites.partner.id"
+      @set:billingAccount="setBillingAccount"
+      :errors="errors"
+    />
 
-      <template>
-        <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
-        <OffersPart :partner="actCreationPrerequisites.partner" :offer.sync="selectedOffer" />
-      </template>
+    <template>
+      <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+      <OffersPart :partner="actCreationPrerequisites.partner" :offer.sync="selectedOffer" />
+    </template>
 
-      <div v-if="selectedOffer && selectedOffer.data" class="row">
-        <div class="col-md-8 mb-3">
-          <UiToggle
-            label="Avec changement de services ?"
-            v-model="canChangeServices"
-            on-text="Oui"
-            off-text="Non"
-          />
-        </div>
-        <hr />
-      </div>
-
-      <div v-if="canChangeServices" class="toggles-container">
-        <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
-        <UiToggle label="Activation" v-model="activation" />
-      </div>
-
-      <div v-if="canChangeServices && activation">
-        <ServicesBlock
-          v-if="selectedOffer"
-          :key="selectedOffer.label"
-          :services="offerServices"
-          vertical
-          @change="onServiceChange"
+    <div v-if="selectedOffer && selectedOffer.data" class="row">
+      <div class="col-md-8 mb-3">
+        <UiToggle
+          label="Avec changement de services ?"
+          v-model="canChangeServices"
+          on-text="Oui"
+          off-text="Non"
         />
       </div>
-      <template v-if="selectedOffer && selectedOffer.data">
-        <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
-        <div>
-          <CustomFields
-            :fields="allCustomFields"
-            :get-selected-value="getSelectedValue"
-            :errors="customFieldsErrors"
-            show-optional-field
-            @change="onValueChanged"
-          />
-        </div>
-      </template>
-
-      <div class="col d-flex">
-        <UiCheckbox v-model="notificationCheck" />
-        <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <UiDate
-            @change="onActDateChange"
-            :value="actDate"
-            fixed
-            :class="{ disabled: !canChangeDate }"
-          >
-            <i slot="icon" class="select-icon ic-Flag-Icon" />
-          </UiDate>
-        </div>
-        <div class="col">
-          <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-            <span>
-              <i class="ic-Shuffle-Icon"></i>
-              {{ $t('getparc.actCreation.changeOffer.validateButton') }}
-            </span>
-          </button>
-        </div>
-      </div>
-      <Modal v-if="waitForConfirmation">
-        <div slot="body">
-          <div class="text-danger">
-            <i class="ic-Alert-Icon"></i>
-            {{ $t('getparc.actCreation.changeOffer.confirmationWarning') }}
-          </div>
-        </div>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="waitForConfirmation = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn btn-success btn-sm ml-1"
-            @click.stop="confirmValdation(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
-        </div>
-      </Modal>
+      <hr />
     </div>
-  </ActFormEmptyContainer>
+
+    <div v-if="canChangeServices" class="toggles-container">
+      <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
+      <UiToggle label="Activation" v-model="activation" />
+    </div>
+
+    <div v-if="canChangeServices && activation">
+      <ServicesBlock
+        v-if="selectedOffer"
+        :key="selectedOffer.label"
+        :services="offerServices"
+        vertical
+        @change="onServiceChange"
+      />
+    </div>
+    <template v-if="selectedOffer && selectedOffer.data">
+      <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
+      <div>
+        <CustomFields
+          :fields="allCustomFields"
+          :get-selected-value="getSelectedValue"
+          :errors="customFieldsErrors"
+          show-optional-field
+          @change="onValueChanged"
+        />
+      </div>
+    </template>
+  </ActFormContainer2>
 </template>
 
 <script>
@@ -113,16 +63,13 @@ import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 
 import { mapState, mapGetters } from 'vuex';
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
-import UiDate from '@/components/ui/UiDate';
-import UiCheckbox from '@/components/ui/Checkbox';
+import ActFormContainer2 from './parts/ActFormContainer2';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
-import Modal from '@/components/Modal';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import CustomFields from '@/components/CustomFields';
 
-import { changeOffer } from '@/api/offers';
+import { changeOffer } from '@/api/actCreation2';
 import { fetchCustomFields } from '@/api/customFields';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
@@ -131,10 +78,7 @@ export default {
   components: {
     UiToggle,
     BillingAccountChoice,
-    ActFormEmptyContainer,
-    UiDate,
-    UiCheckbox,
-    Modal,
+    ActFormContainer2,
     ServicesBlock,
     CustomFields,
     OffersPart,
@@ -192,8 +136,9 @@ export default {
 
   watch: {
     selectedOffer(selectedOffer) {
-      if (selectedOffer)
+      if (selectedOffer && selectedOffer.data) {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+      }
     },
     activation() {
       this.decideOnMandatoryCustomFields();
@@ -292,19 +237,20 @@ export default {
       }
       return isError;
     },
-    async validate() {
+
+    async doRequest(contextValues) {
       const params = {
+        notifEmail: contextValues.notificationCheck,
+        dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: this.actDate,
-        notifEmail: this.notificationCheck,
-        sourceWorkflowID: this.currentOffer,
-        targertWorkflowId: this.selectedOffer.id,
-        customerAccountId: this.chosenBillingAccount.id,
+        tempDataUuid: contextValues.tempDataUuid,
+        servicesChoice: this.servicesChoice,
+        customerAccountID: this.chosenBillingAccount.id,
+        sourceWorkflowID: this.actCreationPrerequisites.offer.data.id,
+        targetWorkflowID: this.selectedOffer.data.id,
       };
       return await changeOffer(this.appliedFilters, this.selectedLinesForActCreation, params);
     },
-
-    doRequest() {},
   },
 };
 </script>

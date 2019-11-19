@@ -500,3 +500,57 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
     if (response && response.data) return response.data.preactivateAndActivateSImcardInstanceV2;
   });
 }
+
+export async function changeOffer(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesChoice,
+      customerAccountID,
+      sourceWorkflowID,
+      targetWorkflowID,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const changeServicesParamsGql = formatServicesForGQL({
+      data: servicesChoice.dataService,
+      services: servicesChoice.services,
+    });
+
+    const queryStr = `
+    mutation {
+      changeOfferV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountID: ${customerAccountID},
+          sourceWorkflowID: ${sourceWorkflowID},
+          targetWorkflowID: ${targetWorkflowID},
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.changeOfferV2;
+  });
+}
