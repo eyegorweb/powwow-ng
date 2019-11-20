@@ -473,10 +473,14 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
     }
 
-    const changeServicesParamsGql = formatServicesForGQL({
-      data: servicesChoice.dataService,
-      services: servicesChoice.services,
-    });
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
+    }
 
     const queryStr = `
     mutation {
