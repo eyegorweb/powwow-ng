@@ -11,8 +11,12 @@ export default excludeMocked([
         id: 'filters.lines.SIMCardStatus',
         values: [
           {
-            id: 'ACTIVATED',
-            label: 'Activée',
+            id: 'NOT_PREACTIVATED',
+            label: 'Non préactivée',
+          },
+          {
+            id: 'PREACTIVATED',
+            label: 'Préactivée',
           },
         ],
       },
