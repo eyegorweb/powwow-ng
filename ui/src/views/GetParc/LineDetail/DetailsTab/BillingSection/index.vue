@@ -99,7 +99,6 @@
 
 <script>
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
-import { fetchCommercialStatuses } from '@/api/linesActions';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
@@ -110,19 +109,8 @@ export default {
     ContentBlock,
   },
 
-  async mounted() {
-    this.commercialStatuses = await fetchCommercialStatuses();
-    const status = get(this.content, 'accessPoint.commercialStatus');
-    if (!status) return;
-    const formattedStatus = this.capitalize(status);
-    const foundCommercialStatus = this.commercialStatuses.map(l =>
-      this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`)
-    );
-    const foundCommercialStatusIndex = foundCommercialStatus.indexOf(formattedStatus);
-    this.commercialStatus =
-      foundCommercialStatusIndex !== -1
-        ? `${foundCommercialStatus[foundCommercialStatusIndex]} ${this.$t('fromThe')}`
-        : '-';
+  mounted() {
+    this.getCommercialStatus();
   },
 
   props: {
@@ -143,22 +131,6 @@ export default {
       return moment()
         .add('days', this.remainingTime)
         .format('DD/MM/YYYY');
-    },
-    commercialStatus: {
-      // TODO
-      get() {
-        if (get(this.content, 'accessPoint.commercialStatus')) {
-          return `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`;
-        }
-
-        return '-';
-      },
-      set(newValue) {
-        console.log('new value', newValue);
-      },
     },
 
     simStatus() {
@@ -233,6 +205,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      commercialStatus: undefined,
+    };
+  },
+
   methods: {
     capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -244,6 +222,14 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    getCommercialStatus() {
+      this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
+        ? `${this.$t(
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`
+        : '-';
     },
   },
 };
