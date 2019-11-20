@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.360+20191120113225
+2019-11-20
+
+### Fixes
+
+- mise à jour du statut commercial (5f8708f288ca4b4bbdc397017f43ce3174ac9d75)
+
 ## 0.3.0-master.359+20191120104239
 2019-11-20
 
