@@ -1,14 +1,14 @@
 <template>
   <div class="toggle" :class="[label ? 'with-label' : 'without-label', statusClassName]">
-    <div v-if="label" class="before-label">
+    <div v-if="label" class="before-label" :class="{ 'font-weight-bold': boldLabel }">
       <p class="before-label__label">{{ label }}</p>
       <p class="before-label__dots" />
     </div>
     <label>
       <input type="checkbox" v-bind="$attrs" v-model="model" />
       <span class="slider" />
-      <span class="state state--on">On</span>
-      <span class="state state--off">Off</span>
+      <span class="state state--on">{{ onText }}</span>
+      <span class="state state--off">{{ offText }}</span>
     </label>
   </div>
 </template>
@@ -33,6 +33,15 @@ export default {
     editable: {
       type: Boolean,
       default: true,
+    },
+    boldLabel: Boolean,
+    onText: {
+      type: String,
+      default: 'On',
+    },
+    offText: {
+      type: String,
+      default: 'Off',
     },
   },
 
@@ -170,7 +179,7 @@ export default {
     }
 
     &--off {
-      right: 8px;
+      right: 3px;
     }
   }
 

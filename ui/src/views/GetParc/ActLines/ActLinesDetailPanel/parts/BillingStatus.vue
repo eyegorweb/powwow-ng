@@ -25,7 +25,7 @@ export default {
       if (!status) {
         return '';
       }
-      return this.$t('getparc.actLines.massActionsHistory.statuses.' + status) + ' - ';
+      return this.$t('getparc.actLines.simStatuses.' + status);
     },
     statusColor() {
       let status = this.get('accessPoint.billingStatus');

@@ -346,7 +346,7 @@ export default {
           label: this.$t('col.customFields', { num: 1 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_1',
+          exportId: 'LINE_CUSTOM_FIELD1',
           format: {
             type: 'ObjectAttribute',
             path: 'custom1',
@@ -357,7 +357,7 @@ export default {
           label: this.$t('col.customFields', { num: 2 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_2',
+          exportId: 'LINE_CUSTOM_FIELD2',
           format: {
             type: 'ObjectAttribute',
             path: 'custom2',
@@ -368,7 +368,7 @@ export default {
           label: this.$t('col.customFields', { num: 3 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_3',
+          exportId: 'LINE_CUSTOM_FIELD3',
           format: {
             type: 'ObjectAttribute',
             path: 'custom3',
@@ -379,7 +379,7 @@ export default {
           label: this.$t('col.customFields', { num: 4 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_4',
+          exportId: 'LINE_CUSTOM_FIELD4',
           format: {
             type: 'ObjectAttribute',
             path: 'custom4',
@@ -390,7 +390,7 @@ export default {
           label: this.$t('col.customFields', { num: 5 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_5',
+          exportId: 'LINE_CUSTOM_FIELD5',
           format: {
             type: 'ObjectAttribute',
             path: 'custom5',
@@ -401,7 +401,7 @@ export default {
           label: this.$t('col.customFields', { num: 6 }),
           name: 'customFields',
           visible: false,
-          exportId: 'ORDER_CUSTOMFIELD_6',
+          exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'ObjectAttribute',
             path: 'custom5',

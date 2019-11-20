@@ -1,102 +1,73 @@
 <template>
-  <ActFormEmptyContainer
-    :validate-fn="validate"
+  <ActFormContainer2
+    :validate-fn="doRequest"
     success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
-      <PartnerBillingAccountChoice
-        @set:billingAccount="setBillingAccount"
-        :errors="errors"
-        :initial-parnter="actCreationPrerequisites.partner"
-        :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
-      >
-        <div slot="bottom">
-          <div>
-            <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
-            <UiApiAutocomplete
-              :items="offers"
-              v-model="selectedOffer"
-              :error="errors.offer"
-              display-results-while-empty
-            />
-          </div>
-        </div>
-      </PartnerBillingAccountChoice>
+    <BillingAccountChoice
+      :key="actCreationPrerequisites.partner.id"
+      :partner-id="actCreationPrerequisites.partner.id"
+      @set:billingAccount="setBillingAccount"
+      :errors="errors"
+    />
 
-      <div class="col d-flex">
-        <UiCheckbox v-model="notificationCheck" />
-        <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
-      </div>
+    <template>
+      <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+      <OffersPart :partner="actCreationPrerequisites.partner" :offer.sync="selectedOffer" />
+    </template>
 
-      <div class="row">
-        <div class="col">
-          <UiDate
-            @change="onActDateChange"
-            :value="actDate"
-            fixed
-            :class="{ disabled: !canChangeDate }"
-          >
-            <i slot="icon" class="select-icon ic-Flag-Icon" />
-          </UiDate>
-        </div>
-        <div class="col">
-          <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-            <span>
-              <i class="ic-Shuffle-Icon"></i>
-              {{ $t('getparc.actCreation.changeOffer.validateButton') }}
-            </span>
-          </button>
-        </div>
+    <div v-if="selectedOffer && selectedOffer.data" class="row">
+      <div class="col-md-8 mb-3">
+        <UiToggle
+          label="Avec changement de services ?"
+          v-model="canChangeServices"
+          on-text="Oui"
+          off-text="Non"
+        />
       </div>
-      <Modal v-if="waitForConfirmation">
-        <div slot="body">
-          <div class="text-danger">
-            <i class="ic-Alert-Icon"></i>
-            {{ $t('getparc.actCreation.changeOffer.confirmationWarning') }}
-          </div>
-        </div>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            @click.stop="waitForConfirmation = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn btn-success btn-sm ml-1"
-            @click.stop="confirmValdation(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
-        </div>
-      </Modal>
+      <hr />
     </div>
-  </ActFormEmptyContainer>
+
+    <div v-if="canChangeServices" class="toggles-container">
+      <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
+      <UiToggle label="Activation" v-model="activation" />
+    </div>
+
+    <div v-if="canChangeServices && activation">
+      <ServicesBlock
+        v-if="selectedOffer"
+        :key="selectedOffer.label"
+        :services="offerServices"
+        :data-params-needed="isDataParamsError"
+        vertical
+        @change="onServiceChange"
+      />
+    </div>
+  </ActFormContainer2>
 </template>
 
 <script>
-import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
+import BillingAccountChoice from './parts/BillingAccountChoice';
+import UiToggle from '@/components/ui/UiToggle';
+import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 
 import { mapState, mapGetters } from 'vuex';
-import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer';
-import UiDate from '@/components/ui/UiDate';
-import UiCheckbox from '@/components/ui/Checkbox';
+import ActFormContainer2 from './parts/ActFormContainer2';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
-import Modal from '@/components/Modal';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
-import { changeOffer } from '@/api/offers';
+import { changeOffer } from '@/api/actCreation2';
+
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
-    PartnerBillingAccountChoice,
-    ActFormEmptyContainer,
-    UiDate,
-    UiCheckbox,
-    UiApiAutocomplete,
-    Modal,
+    UiToggle,
+    BillingAccountChoice,
+    ActFormContainer2,
+    ServicesBlock,
+    OffersPart,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -116,6 +87,13 @@ export default {
       canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
+      activation: false,
+      preActivation: true,
+
+      offerServices: undefined,
+      servicesChoice: undefined,
+      canChangeServices: false,
+      isDataParamsError: false,
     };
   },
 
@@ -138,7 +116,19 @@ export default {
     }
   },
 
+  watch: {
+    selectedOffer(selectedOffer) {
+      if (selectedOffer && selectedOffer.data) {
+        this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+      }
+    },
+  },
+
   methods: {
+    onServiceChange(servicesChoice) {
+      this.servicesChoice = servicesChoice;
+      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
+    },
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
       this.refreshOffers();
@@ -171,6 +161,7 @@ export default {
     },
     checkErrors() {
       let isError = false;
+      this.isDataParamsError = false;
       this.errors = {};
       if (this.chosenBillingAccount) {
         if (!this.chosenBillingAccount.partner) {
@@ -187,21 +178,31 @@ export default {
         this.errors.offer = 'errors.mandatory';
         isError = true;
       }
+
+      if (this.servicesChoice && this.servicesChoice.dataService) {
+        this.isDataParamsError =
+          this.servicesChoice.dataService &&
+          this.servicesChoice.dataService.parameters &&
+          this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
+        isError = this.isDataParamsError;
+      }
+
       return isError;
     },
-    async validate() {
+
+    async doRequest(contextValues) {
       const params = {
+        notifEmail: contextValues.notificationCheck,
+        dueDate: contextValues.actDate,
         partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: this.actDate,
-        notifEmail: this.notificationCheck,
-        sourceWorkflowID: this.currentOffer,
-        targertWorkflowId: this.selectedOffer.id,
-        customerAccountId: this.chosenBillingAccount.id,
+        tempDataUuid: contextValues.tempDataUuid,
+        servicesChoice: this.servicesChoice,
+        customerAccountID: this.chosenBillingAccount.id,
+        sourceWorkflowID: this.actCreationPrerequisites.offer.data.id,
+        targetWorkflowID: this.selectedOffer.data.id,
       };
       return await changeOffer(this.appliedFilters, this.selectedLinesForActCreation, params);
     },
-
-    doRequest() {},
   },
 };
 </script>

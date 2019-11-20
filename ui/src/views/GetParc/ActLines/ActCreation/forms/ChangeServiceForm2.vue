@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate">
+  <ActFormContainer :validate-fn="onValidate" :check-errors-fn="checkErrors">
     <div class="row">
       <div class="col">
         <span class="font-weight-bold mt-4 mb-4">
@@ -38,6 +38,7 @@
       v-if="shouldChangeData"
       :service="dataService"
       vertical
+      :data-params-needed="isDataParamsError"
       @change="onDataServiceChange"
       @apnChange="onApnChange"
     />
@@ -52,7 +53,7 @@ import { mapState, mapGetters } from 'vuex';
 import UiCheckbox from '@/components/ui/Checkbox';
 
 import DataServiceToggle from '@/components/Services/DataServiceToggle';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import { changeService } from '@/api/actCreation2.js';
 
 export default {
@@ -68,6 +69,7 @@ export default {
       servicesToEnable: [],
       servicesToDisable: [],
       dataService: undefined,
+      isDataParamsError: false,
     };
   },
   computed: {
@@ -79,11 +81,23 @@ export default {
     },
   },
   mounted() {
-    this.dataService = getOfferServices(this.selectedOffer.initialOffer).find(
+    this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
       s => s.code === 'DATA'
     );
   },
   methods: {
+    checkErrors() {
+      let isError = false;
+      this.isDataParamsError = false;
+      if (this.shouldChangeData) {
+        this.isDataParamsError =
+          this.dataService &&
+          this.dataService.parameters &&
+          this.dataService.parameters.filter(p => p.selected).length === 0;
+        isError = this.isDataParamsError;
+      }
+      return isError;
+    },
     async onValidate(contextValues) {
       return await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
         notifEmail: contextValues.notificationCheck,

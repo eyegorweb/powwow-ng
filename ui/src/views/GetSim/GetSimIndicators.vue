@@ -128,9 +128,12 @@ export default {
             {
               id: 'filters.orderDate',
               startDate: moment()
+                .subtract(12, 'month')
                 .subtract(4, 'hours')
                 .format('DD/MM/YYYY HH:mm:ss'),
-              endDate: moment().format('DD/MM/YYYY HH:mm:ss'),
+              endDate: moment()
+                .subtract(4, 'hours')
+                .format('DD/MM/YYYY HH:mm:ss'),
               sameDay: true,
             },
           ],
@@ -154,8 +157,9 @@ export default {
             {
               id: 'filters.orderDate',
               startDate: moment()
-                .subtract(6, 'month')
-                .format(dateFormat),
+                .subtract(12, 'month')
+                .subtract(48, 'hours')
+                .format('DD/MM/YYYY HH:mm:ss'),
               endDate: moment()
                 .subtract(48, 'hours')
                 .format('DD/MM/YYYY HH:mm:ss'),

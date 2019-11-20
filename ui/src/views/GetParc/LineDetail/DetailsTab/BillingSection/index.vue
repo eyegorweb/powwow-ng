@@ -99,7 +99,6 @@
 
 <script>
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
-import { fetchCommercialStatuses } from '@/api/linesActions';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
@@ -110,19 +109,8 @@ export default {
     ContentBlock,
   },
 
-  async mounted() {
-    this.commercialStatuses = await fetchCommercialStatuses();
-    const status = get(this.content, 'accessPoint.commercialStatus');
-    if (!status) return;
-    const formattedStatus = this.capitalize(status);
-    const foundCommercialStatus = this.commercialStatuses.map(l =>
-      this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`)
-    );
-    const foundCommercialStatusIndex = foundCommercialStatus.indexOf(formattedStatus);
-    this.commercialStatus =
-      foundCommercialStatusIndex !== -1
-        ? `${foundCommercialStatus[foundCommercialStatusIndex]} ${this.$t('fromThe')}`
-        : '-';
+  mounted() {
+    this.getCommercialStatus();
   },
 
   props: {
@@ -143,15 +131,6 @@ export default {
       return moment()
         .add('days', this.remainingTime)
         .format('DD/MM/YYYY');
-    },
-    commercialStatus() {
-      if (get(this.content, 'accessPoint.commercialStatus')) {
-        return `${this.$t(
-          'getparc.actLines.commercialStatuses.' + get(this.content, 'accessPoint.commercialStatus')
-        )} ${this.$t('fromThe')}`;
-      }
-
-      return '-';
     },
 
     simStatus() {
@@ -205,34 +184,18 @@ export default {
 
     billingStatus() {
       let billingStatus = get(this.content, 'accessPoint.billingStatus');
-      if (billingStatus === 'ACTIVATED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.ACTIVATED');
-      } else if (billingStatus === 'SUSPENDED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.SUSPENDED');
-      } else if (billingStatus === 'CANCELED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.CANCELED');
-      } else if (billingStatus === 'TEST') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.TEST');
-      } else {
-        billingStatus = '-';
+      if (!billingStatus) {
+        return '-';
       }
-      return `${billingStatus} ${this.$t('fromThe')}`;
+      return this.$t('getparc.actLines.simStatuses.' + billingStatus) + ' ' + this.$t('fromThe');
     },
 
     networkStatus() {
       let networkStatus = get(this.content, 'accessPoint.networkStatus');
-      if (networkStatus === 'ACTIVATED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.ACTIVATED');
-      } else if (networkStatus === 'SUSPENDED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.SUSPENDED');
-      } else if (networkStatus === 'CANCELED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.CANCELED');
-      } else if (networkStatus === 'BARRED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.BARRED');
-      } else {
-        networkStatus = '-';
+      if (!networkStatus) {
+        return '-';
       }
-      return `${networkStatus} ${this.$t('fromThe')}`;
+      return this.$t('getparc.actLines.simStatuses.' + networkStatus) + ' ' + this.$t('fromThe');
     },
 
     dateCommitmentEnd() {
@@ -240,6 +203,12 @@ export default {
       if (!commitmentEnd) return '-';
       return commitmentEnd;
     },
+  },
+
+  data() {
+    return {
+      commercialStatus: undefined,
+    };
   },
 
   methods: {
@@ -253,6 +222,14 @@ export default {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
+    },
+    getCommercialStatus() {
+      this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
+        ? `${this.$t(
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`
+        : '-';
     },
   },
 };

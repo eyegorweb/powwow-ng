@@ -197,13 +197,10 @@ export function formatFilters(filters) {
     allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
 
-  /*
   const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
-
   if (partyTypeParam) {
     allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
-  //*/
 
   const offers = getValuesIds(filters, 'filters.offers');
   if (offers) {
@@ -539,4 +536,25 @@ export async function unthrottleLine(accessPointId) {
   const queryStr = `mutation { unthrottleLine(accessPointId: ${accessPointId}) }`;
   const response = await query(queryStr);
   return response.data.unthrottleLine;
+}
+
+export async function fetchLineServices(simCardInstanceId) {
+  const queryStr = `
+  {
+    marketingServices(simCardInstanceId: ${simCardInstanceId}) {
+      code
+      activated
+      editable
+      optional
+      parameters {
+        activated
+        value
+        code
+        editable
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.marketingServices;
 }

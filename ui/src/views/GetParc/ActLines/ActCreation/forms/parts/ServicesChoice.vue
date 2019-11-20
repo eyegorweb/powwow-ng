@@ -9,7 +9,7 @@
 <script>
 // import get from 'lodash.get';
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   props: {
@@ -37,7 +37,7 @@ export default {
 
   methods: {
     initServices() {
-      const offerServices = getOfferServices(this.offer.initialOffer);
+      const offerServices = getMarketingOfferServices(this.offer.initialOffer);
       const multiselectFormat = s => {
         return {
           ...s,

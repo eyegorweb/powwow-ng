@@ -155,7 +155,7 @@ export default {
   top: 0;
   right: 0;
   height: 100%;
-  width: 60px;
+  width: 4rem;
   /* image replacement */
   display: inline-block;
   overflow: hidden;
@@ -166,10 +166,10 @@ export default {
     /* close icon created in CSS */
     content: '';
     position: absolute;
-    top: 22px;
-    left: 20px;
-    height: 3px;
-    width: 20px;
+    top: 1.5rem;
+    left: 1.2rem;
+    height: 0.3rem;
+    width: 2rem;
     background-color: #424f5c;
     /* this fixes a bug where pseudo elements are slighty off position */
     backface-visibility: hidden;
@@ -326,5 +326,16 @@ $size-narrow: 30%;
   bottom: 0;
   height: 10%;
   width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .wide {
+    .cd-panel__header {
+      width: 82%;
+    }
+    .cd-panel__container {
+      width: 82%;
+    }
+  }
 }
 </style>

@@ -12,9 +12,9 @@
       <GetSimCreateOrderPanelSynthesisItem :item="synthesis.customFields" />
     </div>
     <div class="footer pt-3" v-if="canSave">
-      <UiCheckbox v-model="accept" :disabled="!canSave">
-        {{ $t('orders.new.acceptConditions') }}
-      </UiCheckbox>
+      <UiCheckbox v-model="accept" :disabled="!canSave">{{
+        $t('orders.new.acceptConditions')
+      }}</UiCheckbox>
       <button
         type="button"
         class="btn btn-accent btn-lg btn-block mt-1"
@@ -77,6 +77,19 @@ export default {
     div.synthesis-content {
       min-height: 75vh;
       max-height: 75vh;
+    }
+    .footer /deep/ label {
+      padding-top: 10px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (max-height: 588px) {
+  .new-order-synthesis {
+    div.synthesis-content {
+      min-height: 73vh;
+      max-height: 73vh;
     }
     .footer /deep/ label {
       padding-top: 10px;
