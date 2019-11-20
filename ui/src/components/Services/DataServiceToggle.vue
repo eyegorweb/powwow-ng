@@ -6,7 +6,7 @@
     <div v-if="apns && apns.length" class="line">
       <span class="mt-4 mb-4">Apn:</span>
 
-      <MultiChoiceList :items="apns" @change="toggleApn" />
+      <MultiChoiceList :items="apns" @change="toggleApn" :empty-error-message="dataParamsNeeded" />
     </div>
   </div>
   <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
@@ -17,7 +17,11 @@
       <div class="col">
         <div v-if="apns && apns.length" class="apn-container">
           <span>Apn:</span>
-          <MultiChoiceList :items="apns" @change="toggleApn" />
+          <MultiChoiceList
+            :empty-error-message="dataParamsNeeded"
+            :items="apns"
+            @change="toggleApn"
+          />
         </div>
       </div>
     </div>
@@ -37,6 +41,7 @@ export default {
   props: {
     service: Object,
     vertical: Boolean,
+    dataParamsNeeded: Boolean,
   },
 
   data() {

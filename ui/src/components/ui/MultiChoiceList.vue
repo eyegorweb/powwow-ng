@@ -1,21 +1,24 @@
 <template>
-  <div class="card">
-    <div class="card-body p-1">
-      <ul class="list-unstyled m-0">
-        <li
-          class="item"
-          :key="item.label"
-          v-for="item in items"
-          :class="{ selected: item.selected, 'not-selectable': !item.selectable }"
-          @click="() => selectItem(item)"
-        >
-          <div>
-            {{ item.label }}
-            <i class="ic-Check-Icon" v-if="item.selected" />
-          </div>
-        </li>
-      </ul>
+  <div>
+    <div class="card">
+      <div class="card-body p-1" :class="{ 'have-error': emptyErrorMessage }">
+        <ul class="list-unstyled m-0">
+          <li
+            class="item"
+            :key="item.label"
+            v-for="item in items"
+            :class="{ selected: item.selected, 'not-selectable': !item.selectable }"
+            @click="() => selectItem(item)"
+          >
+            <div>
+              {{ item.label }}
+              <i class="ic-Check-Icon" v-if="item.selected" />
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
+    <div v-if="emptyErrorMessage" class="text-danger">Veuillez choisir une valeur</div>
   </div>
 </template>
 
@@ -25,6 +28,7 @@ export default {
     items: {
       type: Array,
     },
+    emptyErrorMessage: Boolean,
   },
   data() {
     return {
@@ -42,6 +46,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.have-error {
+  border: 1px solid red;
+}
 li.not-selectable {
   cursor: not-allowed !important;
 }

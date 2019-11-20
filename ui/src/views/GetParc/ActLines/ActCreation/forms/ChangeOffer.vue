@@ -38,6 +38,7 @@
         v-if="selectedOffer"
         :key="selectedOffer.label"
         :services="offerServices"
+        :data-params-needed="isDataParamsError"
         vertical
         @change="onServiceChange"
       />
@@ -92,6 +93,7 @@ export default {
       offerServices: undefined,
       servicesChoice: undefined,
       canChangeServices: false,
+      isDataParamsError: false,
     };
   },
 
@@ -159,6 +161,7 @@ export default {
     },
     checkErrors() {
       let isError = false;
+      this.isDataParamsError = false;
       this.errors = {};
       if (this.chosenBillingAccount) {
         if (!this.chosenBillingAccount.partner) {
@@ -175,6 +178,15 @@ export default {
         this.errors.offer = 'errors.mandatory';
         isError = true;
       }
+
+      if (this.servicesChoice && this.servicesChoice.dataService) {
+        this.isDataParamsError =
+          this.servicesChoice.dataService &&
+          this.servicesChoice.dataService.parameters &&
+          this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
+        isError = this.isDataParamsError;
+      }
+
       return isError;
     },
 

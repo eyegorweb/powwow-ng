@@ -8,13 +8,19 @@
               :label="$t('services.' + service.code)"
               :editable="service.editable"
               v-model="service.checked"
+              :bold-label="isChanged(service)"
               @change="onServiceChange"
             />
           </div>
         </div>
       </div>
       <div v-if="dataService" class="col-md-4">
-        <DataServiceToggle :service="dataService" @change="onServiceChange" />
+        <DataServiceToggle
+          :service="dataService"
+          @change="onServiceChange"
+          :data-params-needed="dataParamsNeeded"
+          :bold-label="isChanged(dataService)"
+        />
       </div>
     </div>
   </div>
@@ -25,6 +31,7 @@
           <UiToggle
             :label="$t('services.' + service.code)"
             :editable="service.editable"
+            :bold-label="isChanged(service)"
             v-model="service.checked"
             @change="onServiceChange"
           />
@@ -33,7 +40,9 @@
       <div v-if="dataService" class="services-container mt-3">
         <DataServiceToggle
           :service="dataService"
+          :bold-label="isChanged(dataService)"
           vertical
+          :data-params-needed="dataParamsNeeded"
           @change="onServiceChange"
           @apnChange="onApnChange"
         />
@@ -53,25 +62,41 @@ export default {
   },
   props: {
     services: Array,
+    initialServices: {
+      type: Array,
+      default: () => [],
+    },
     vertical: Boolean,
+    dataParamsNeeded: Boolean,
   },
   methods: {
-    onServiceChange() {
-      this.$emit('change', {
-        services: [...this.otherServices],
-        dataService: { ...this.dataService },
-      });
-    },
-    onApnChange(apns) {
-      this.dataService = { ...this.dataService, parameters: [...apns] };
-      this.onServiceChange();
-    },
     setup() {
       const dataService = this.services.find(s => s.code === 'DATA');
       if (dataService) {
         this.dataService = { ...dataService };
       }
       this.otherServices = [...this.services.filter(s => s.code !== 'DATA')];
+    },
+    isChanged(service) {
+      if (!this.initialServices || !this.initialServices.length) return false;
+      const initialService = this.initialServices.find(s => s.code === service.code);
+      return initialService.checked !== service.checked;
+    },
+    onServiceChange(changes) {
+      if (typeof changes !== 'object') return;
+      const dataService = {
+        ...this.dataService,
+        checked: changes.checked,
+        parameters: [...changes.apns],
+      };
+      this.$emit('change', {
+        services: [...this.otherServices],
+        dataService,
+      });
+    },
+    onApnChange(apns) {
+      this.dataService = { ...this.dataService, parameters: [...apns] };
+      this.onServiceChange();
     },
   },
   data() {

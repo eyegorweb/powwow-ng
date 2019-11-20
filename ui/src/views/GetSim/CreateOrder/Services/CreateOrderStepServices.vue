@@ -1,9 +1,5 @@
 <template>
-  <CreateOrderStepContainer
-    @done="done"
-    @prev="prev"
-    :can-go-to-next-step="!(activation && !selectedOffer)"
-  >
+  <CreateOrderStepContainer @done="done" @prev="prev" :can-go-to-next-step="canGoNext()">
     <div class="step-client-container">
       <div class="panel-vertical-container">
         <div class="main-content">
@@ -34,6 +30,7 @@
                   v-if="selectedOffer"
                   :key="selectedOffer.label"
                   :services="offerServices"
+                  :data-params-needed="isDataParamsError"
                   vertical
                   @change="onServiceChange"
                 />
@@ -118,8 +115,26 @@ export default {
     // this.preFillServices();
   },
   methods: {
+    canGoNext() {
+      this.isDataParamsError =
+        this.servicesChoice &&
+        this.servicesChoice.dataService &&
+        this.servicesChoice.dataService.parameters &&
+        this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
+
+      if (this.activation) {
+        if (!this.selectedOffer) {
+          return false;
+        } else {
+          return !this.isDataParamsError;
+        }
+      }
+      return true;
+    },
     done() {
-      this.$emit('done', this.assembleSynthesis());
+      if (this.canGoNext()) {
+        this.$emit('done', this.assembleSynthesis());
+      }
     },
     prev() {
       this.$emit('prev', this.assembleSynthesis());
@@ -136,7 +151,7 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${this.activation ? this.selectedOffer : ''}`,
+              `Offre:  ${this.activation ? this.selectedOffer.code : ''}`,
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
@@ -162,6 +177,7 @@ export default {
       offers: [],
       isLoadingOffers: false,
       servicesChoice: undefined,
+      isDataParamsError: false,
     };
   },
 };
