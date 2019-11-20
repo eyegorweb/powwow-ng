@@ -2,6 +2,28 @@
 
 <!--- next entry here -->
 
+## 0.11.0
+2019-11-20
+
+### Features
+
+- brancher les services au front end (28edaaa24994b7cb7dc784a33712352cf69831a6)
+
+### Fixes
+
+- utiliser l'API V2 pour l'acte : Préactiver ou activer (52c03238021673c42aadce2f706d1e215250ae62)
+- corriger le problème d'affichage sur laptop (a8a6d197bfb33ba89600d473cbe45cae2cd4a03f)
+- mise à jour des champs de l'export de fichier des gestions de lignes (beedc1227e48a6ab095234209d6214c055180fb1)
+- partie interface du changement d'offre (cb3403b5aac98802207898471c65c8e86e58d879)
+- **orders:** correctif appliqué aux indicateurs de commande et aux filtres de dates (f563f90a1a021328ab0614242b279b15886577cb)
+- modification des noms des types de partenaire (fad9508636f2dd6f3842d4127aa3b41709bb82bb)
+- **line detail:** correctif erreur javascript (c6611ec84beb0a9a3bd87ee490f2f098e99a002d)
+- mise à jour du statut commercial (5f8708f288ca4b4bbdc397017f43ce3174ac9d75)
+- **lines:** filtrer la recherche de lignes en fonction du contexte des partenaires (aec2c81cbba661245dac9a5ce3a80f4c8f9f2a4f)
+- **line detail:** traduction du statut commercial (21969092fd687fb879bbfe5e0cd9bfa492018ba7)
+- modification du filtre de l'indicateur des actes en échec (b468c8388808a0e1f6290afb311bf13b5b274000)
+- correction du filtre de préactivation/activation (0b0fd20a73e3c81223192b8958348bd522d06a1b)
+
 ## 0.10.0
 2019-11-18
 
