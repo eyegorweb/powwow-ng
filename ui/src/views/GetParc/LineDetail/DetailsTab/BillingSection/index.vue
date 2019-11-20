@@ -144,14 +144,21 @@ export default {
         .add('days', this.remainingTime)
         .format('DD/MM/YYYY');
     },
-    commercialStatus() {
-      if (get(this.content, 'accessPoint.commercialStatus')) {
-        return `${this.$t(
-          'getparc.actLines.commercialStatuses.' + get(this.content, 'accessPoint.commercialStatus')
-        )} ${this.$t('fromThe')}`;
-      }
+    commercialStatus: {
+      // TODO
+      get() {
+        if (get(this.content, 'accessPoint.commercialStatus')) {
+          return `${this.$t(
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`;
+        }
 
-      return '-';
+        return '-';
+      },
+      set(newValue) {
+        console.log('new value', newValue);
+      },
     },
 
     simStatus() {
@@ -205,34 +212,18 @@ export default {
 
     billingStatus() {
       let billingStatus = get(this.content, 'accessPoint.billingStatus');
-      if (billingStatus === 'ACTIVATED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.ACTIVATED');
-      } else if (billingStatus === 'SUSPENDED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.SUSPENDED');
-      } else if (billingStatus === 'CANCELED') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.CANCELED');
-      } else if (billingStatus === 'TEST') {
-        billingStatus = this.$t('getparc.actLines.simStatuses.TEST');
-      } else {
-        billingStatus = '-';
+      if (!billingStatus) {
+        return '-';
       }
-      return `${billingStatus} ${this.$t('fromThe')}`;
+      return this.$t('getparc.actLines.simStatuses.' + billingStatus) + ' ' + this.$t('fromThe');
     },
 
     networkStatus() {
       let networkStatus = get(this.content, 'accessPoint.networkStatus');
-      if (networkStatus === 'ACTIVATED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.ACTIVATED');
-      } else if (networkStatus === 'SUSPENDED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.SUSPENDED');
-      } else if (networkStatus === 'CANCELED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.CANCELED');
-      } else if (networkStatus === 'BARRED') {
-        networkStatus = this.$t('getparc.actLines.simStatuses.BARRED');
-      } else {
-        networkStatus = '-';
+      if (!networkStatus) {
+        return '-';
       }
-      return `${networkStatus} ${this.$t('fromThe')}`;
+      return this.$t('getparc.actLines.simStatuses.' + networkStatus) + ' ' + this.$t('fromThe');
     },
 
     dateCommitmentEnd() {
