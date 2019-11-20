@@ -25,7 +25,7 @@ import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
 import { mapMutations, mapGetters } from 'vuex';
 import $ from 'jquery';
-
+ 
 export default {
   name: 'App',
   components: {
