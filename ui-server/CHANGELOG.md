@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.364+20191120152857
+2019-11-20
+
+### Features
+
+- brancher les services au front end (28edaaa24994b7cb7dc784a33712352cf69831a6)
+
+### Fixes
+
+- correction du filtre de préactivation/activation (0b0fd20a73e3c81223192b8958348bd522d06a1b)
+
 ## 0.3.0-master.363+20191120143021
 2019-11-20
 
