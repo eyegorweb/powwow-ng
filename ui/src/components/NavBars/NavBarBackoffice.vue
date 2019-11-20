@@ -62,10 +62,9 @@ export default {
   },
   data() {
     return {
-      // 'CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'
       partnersTypesOptions: [
         {
-          label: 'CUSTOMER',
+          label: 'M2M',
           value: 'CUSTOMER',
         },
         {
@@ -73,12 +72,10 @@ export default {
           value: 'MVNO',
         },
         {
-          label: 'MULTI_CUSTOMER',
+          label: 'MARQUE BLANCHE',
           value: 'MULTI_CUSTOMER',
         },
       ],
-
-      // selected values
       partners: [],
       partnerType: undefined,
     };
