@@ -512,6 +512,43 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
   });
 }
 
+export async function preactivateSimCardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID, workflowCode } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      preactivateSimCardInstanceV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountId: ${customerAccountID},
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.preactivateSimCardInstanceV2;
+  });
+}
+
 export async function changeOffer(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
