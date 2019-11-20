@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.358+20191120090737
+2019-11-20
+
+### Fixes
+
+- modification des noms des types de partenaire (fad9508636f2dd6f3842d4127aa3b41709bb82bb)
+
 ## 0.3.0-master.357+20191120083413
 2019-11-20
 
