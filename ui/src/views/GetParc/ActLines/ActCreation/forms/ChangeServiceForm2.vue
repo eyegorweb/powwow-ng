@@ -1,15 +1,15 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate">
+  <ActFormContainer :validate-fn="onValidate" :check-errors-fn="checkErrors">
     <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToEnable')
-        }}</span>
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
+        </span>
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">{{
-          $t('getparc.actCreation.changeService.servicesToDisable')
-        }}</span>
+        <span class="font-weight-bold mt-4 mb-4">
+          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
+        </span>
       </div>
     </div>
     <div class="row">
@@ -38,6 +38,7 @@
       v-if="shouldChangeData"
       :service="dataService"
       vertical
+      :data-params-needed="isDataParamsError"
       @change="onDataServiceChange"
       @apnChange="onApnChange"
     />
@@ -68,6 +69,7 @@ export default {
       servicesToEnable: [],
       servicesToDisable: [],
       dataService: undefined,
+      isDataParamsError: false,
     };
   },
   computed: {
@@ -84,6 +86,18 @@ export default {
     );
   },
   methods: {
+    checkErrors() {
+      let isError = false;
+      this.isDataParamsError = false;
+      if (this.shouldChangeData) {
+        this.isDataParamsError =
+          this.dataService &&
+          this.dataService.parameters &&
+          this.dataService.parameters.filter(p => p.selected).length === 0;
+        isError = this.isDataParamsError;
+      }
+      return isError;
+    },
     async onValidate(contextValues) {
       return await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
         notifEmail: contextValues.notificationCheck,

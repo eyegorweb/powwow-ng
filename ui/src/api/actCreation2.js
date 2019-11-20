@@ -399,7 +399,7 @@ export async function changeService(filters, lines, params) {
 
     if (dataService) {
       if (dataService.checked) {
-        const apnToAddParams = dataService.apns
+        const apnToAddParams = dataService.parameters
           .filter(a => a.selected)
           .map(a => `{parameterCode: "${a.code}"}`);
 
@@ -445,7 +445,14 @@ export async function changeService(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
-    if (response && response.data) return response.data.changeServices;
+    if (response) {
+      if (response.data) {
+        return response.data.changeServices;
+      }
+      if (response.errors) {
+        return response;
+      }
+    }
   });
 }
 

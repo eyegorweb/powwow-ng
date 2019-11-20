@@ -1,6 +1,6 @@
 <template>
   <div class="toggle" :class="[label ? 'with-label' : 'without-label', statusClassName]">
-    <div v-if="label" class="before-label">
+    <div v-if="label" class="before-label" :class="{ 'font-weight-bold': boldLabel }">
       <p class="before-label__label">{{ label }}</p>
       <p class="before-label__dots" />
     </div>
@@ -34,6 +34,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    boldLabel: Boolean,
     onText: {
       type: String,
       default: 'On',
