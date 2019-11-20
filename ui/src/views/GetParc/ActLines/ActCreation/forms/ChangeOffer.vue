@@ -42,18 +42,6 @@
         @change="onServiceChange"
       />
     </div>
-    <template v-if="selectedOffer && selectedOffer.data">
-      <label class="font-weight-bold">{{ $t('common.customFields') }}</label>
-      <div>
-        <CustomFields
-          :fields="allCustomFields"
-          :get-selected-value="getSelectedValue"
-          :errors="customFieldsErrors"
-          show-optional-field
-          @change="onValueChanged"
-        />
-      </div>
-    </template>
   </ActFormContainer2>
 </template>
 
@@ -67,10 +55,8 @@ import ActFormContainer2 from './parts/ActFormContainer2';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
-import CustomFields from '@/components/CustomFields';
 
 import { changeOffer } from '@/api/actCreation2';
-import { fetchCustomFields } from '@/api/customFields';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
@@ -80,7 +66,6 @@ export default {
     BillingAccountChoice,
     ActFormContainer2,
     ServicesBlock,
-    CustomFields,
     OffersPart,
   },
   computed: {
@@ -104,9 +89,6 @@ export default {
       activation: false,
       preActivation: true,
 
-      customFieldsErrors: undefined,
-      allCustomFields: [],
-      customFieldsValues: [],
       offerServices: undefined,
       servicesChoice: undefined,
       canChangeServices: false,
@@ -130,8 +112,6 @@ export default {
         this.actDate = moment().format('DD/MM/YYYY');
         this.canChangeDate = true;
     }
-
-    this.loadCustomFields();
   },
 
   watch: {
@@ -140,49 +120,9 @@ export default {
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
       }
     },
-    activation() {
-      this.decideOnMandatoryCustomFields();
-    },
   },
 
   methods: {
-    getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
-      if (existingFieldValue) {
-        return existingFieldValue.enteredValue;
-      }
-    },
-    onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
-      if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
-          if (c.code === customField.code) {
-            return {
-              ...c,
-              enteredValue,
-            };
-          }
-          return c;
-        });
-      } else {
-        customField.enteredValue = enteredValue;
-        this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
-      }
-    },
-    async loadCustomFields() {
-      this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
-      this.decideOnMandatoryCustomFields();
-    },
-
-    decideOnMandatoryCustomFields() {
-      this.allCustomFields = this.allCustomFields.map(c => {
-        c.isOptional = true;
-        if (this.activation && c.mandatory === 'ACTIVATION') {
-          c.isOptional = false;
-        }
-        return c;
-      });
-    },
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
       this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
