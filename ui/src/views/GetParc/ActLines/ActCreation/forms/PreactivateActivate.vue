@@ -25,9 +25,9 @@
         @change="onServiceChange"
       />
     </div>
-    <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">
-      {{ $t('common.customFields') }}
-    </label>
+    <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
+      $t('common.customFields')
+    }}</label>
     <div>
       <CustomFields
         :fields="allCustomFields"
@@ -51,7 +51,10 @@ import { fetchCustomFields } from '@/api/customFields';
 import ActFormContainer from './parts/ActFormContainer2';
 import BillingAccountChoice from './parts/BillingAccountChoice';
 
-import { preactivateAndActivateSImcardInstance } from '@/api/actCreation2';
+import {
+  preactivateAndActivateSImcardInstance,
+  preactivateSimCardInstance,
+} from '@/api/actCreation2';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
@@ -124,11 +127,19 @@ export default {
         customerAccountID: this.chosenBillingAccount.id,
         tempDataUuid: contextValues.tempDataUuid,
       };
-      return await preactivateAndActivateSImcardInstance(
-        this.appliedFilters,
-        this.selectedLinesForActCreation,
-        params
-      );
+      if (this.activation) {
+        return await preactivateAndActivateSImcardInstance(
+          this.appliedFilters,
+          this.selectedLinesForActCreation,
+          params
+        );
+      } else {
+        return await preactivateSimCardInstance(
+          this.appliedFilters,
+          this.selectedLinesForActCreation,
+          params
+        );
+      }
     },
 
     async confirmValdation(containerValidationFn) {
