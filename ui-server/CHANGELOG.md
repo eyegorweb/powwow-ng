@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.359+20191120104239
+2019-11-20
+
+### Fixes
+
+- **line detail:** correctif erreur javascript (c6611ec84beb0a9a3bd87ee490f2f098e99a002d)
+
 ## 0.3.0-master.358+20191120090737
 2019-11-20
 
