@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.361+20191120132149
+2019-11-20
+
+### Fixes
+
+- **lines:** filtrer la recherche de lignes en fonction du contexte des partenaires (aec2c81cbba661245dac9a5ce3a80f4c8f9f2a4f)
+
 ## 0.3.0-master.360+20191120113225
 2019-11-20
 
