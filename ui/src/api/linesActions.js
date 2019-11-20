@@ -197,13 +197,10 @@ export function formatFilters(filters) {
     allFilters.push(`idParty: {in: [${partyIds}]}`);
   }
 
-  /*
   const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
-
   if (partyTypeParam) {
     allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
-  //*/
 
   const offers = getValuesIds(filters, 'filters.offers');
   if (offers) {
