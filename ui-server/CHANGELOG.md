@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.363+20191120143021
+2019-11-20
+
+### Fixes
+
+- modification du filtre de l'indicateur des actes en échec (b468c8388808a0e1f6290afb311bf13b5b274000)
+
 ## 0.3.0-master.362+20191120135420
 2019-11-20
 
