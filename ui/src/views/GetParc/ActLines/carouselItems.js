@@ -142,7 +142,6 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'blue',
-    mock: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
