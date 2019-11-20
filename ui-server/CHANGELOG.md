@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.362+20191120135420
+2019-11-20
+
+### Fixes
+
+- **line detail:** traduction du statut commercial (21969092fd687fb879bbfe5e0cd9bfa492018ba7)
+
 ## 0.3.0-master.361+20191120132149
 2019-11-20
 
