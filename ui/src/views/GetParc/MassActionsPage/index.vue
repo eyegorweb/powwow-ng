@@ -27,6 +27,7 @@ import FilterBar from './FilterBar';
 import HistoryTable from './HistoryTable';
 import MassActionsIndicators from './MassActionsIndicators';
 import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
+import moment from 'moment';
 
 export default {
   components: {
@@ -71,6 +72,13 @@ export default {
                   label: 'En erreur',
                 },
               ],
+            },
+            {
+              id: 'filters.actDateStart',
+              startDate: undefined,
+              endDate: moment()
+                .subtract(6, 'month')
+                .format('DD/MM/YYYY'),
             },
           ]);
           this.applyFilters();

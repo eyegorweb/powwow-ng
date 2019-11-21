@@ -405,9 +405,7 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${
-          dataService.code
-        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
@@ -515,6 +513,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 export async function preactivateSimCardInstance(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID, workflowCode } = params;
+    console.log('worklowCode', workflowCode);
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
