@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.369+20191121141314
+2019-11-21
+
+### Fixes
+
+- Ajouter le skeleton de la page détails d'acte de gestion (3763f1436cada74daf82b0d8eabd0db904c102b1)
+
 ## 0.3.0-master.368+20191121103553
 2019-11-21
 
