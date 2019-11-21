@@ -2,7 +2,6 @@ import { fetchSingleIndicator } from '@/api/linesActions';
 import { fetchTotalMassActions } from '@/api/massActions';
 import moment from 'moment';
 
-const dateFormat = 'DD/MM/YYYY';
 export default [
   {
     name: 'notProcessedResiliations',
@@ -48,13 +47,6 @@ export default [
             label: 'En erreur',
           },
         ],
-      },
-      {
-        id: 'filters.actDateStart',
-        startDate: undefined,
-        endDate: moment()
-          .subtract(6, 'month')
-          .format(dateFormat),
       },
     ],
     fetchKey: 'ACT_FAILED',
