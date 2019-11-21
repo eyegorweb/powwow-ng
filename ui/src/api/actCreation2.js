@@ -512,8 +512,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 
 export async function preactivateSimCardInstance(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID, workflowCode } = params;
-    console.log('worklowCode', workflowCode);
+    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID } = params;
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
