@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.373+20191122102118
+2019-11-22
+
+### Fixes
+
+- rendre la selection d'offre obligatoire sur l'acte de changement d'offre (c1bee9e9bf68d950ce2cc5a8123202a4cb05a86d)
+
 ## 0.3.0-master.372+20191122092004
 2019-11-22
 
