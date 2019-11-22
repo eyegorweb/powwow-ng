@@ -122,7 +122,6 @@ export default {
     async validate() {
       const actionFn = async () => {
         this.tempDataUuid = undefined;
-        if (this.haveErrors()) return;
 
         const response = await this.validateFn({
           actDate: this.actDate,
@@ -140,6 +139,8 @@ export default {
           this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
         }
       };
+
+      if (this.haveErrors()) return;
 
       if (this.noModal) {
         await actionFn();
