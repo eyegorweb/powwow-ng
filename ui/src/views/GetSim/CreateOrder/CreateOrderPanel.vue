@@ -227,6 +227,8 @@ export default {
         })
         .map(c => c.code);
 
+      console.log(get(this.synthesis, 'billingAccount.selection.partner.orderNumberIsMandatory'));
+
       const isOrderNumberMandatory = get(
         this.synthesis,
         'billingAccount.selection.partner.orderNumberIsMandatory',

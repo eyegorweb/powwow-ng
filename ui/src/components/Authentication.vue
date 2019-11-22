@@ -50,6 +50,7 @@ export default {
             );
           } catch (e) {
             log('Erreur token', e, frame.target.contentDocument.location);
+            this.redirectToLogin();
           }
 
           this.stopRefreshingToken();
