@@ -405,7 +405,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
@@ -562,13 +564,17 @@ export async function changeOffer(filters, lines, params) {
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
-      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+      gqlTempDataUuid = `,tempDataUuid: "${tempDataUuid}"`;
     }
 
-    const changeServicesParamsGql = formatServicesForGQL({
-      data: servicesChoice.dataService,
-      services: servicesChoice.services,
-    });
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
+    }
 
     const queryStr = `
     mutation {
@@ -581,7 +587,7 @@ export async function changeOffer(filters, lines, params) {
           dueDate: "${formatDateForGql(dueDate)}",
           customerAccountID: ${customerAccountID},
           sourceWorkflowID: ${sourceWorkflowID},
-          targetWorkflowID: ${targetWorkflowID},
+          targetWorkflowID: ${targetWorkflowID}
           ${gqlTempDataUuid}
           ${changeServicesParamsGql}
         })
