@@ -72,7 +72,13 @@ export default {
     } else if (this.order) {
       this.preFill();
     } else if (this.userIsPartner) {
-      this.selectedPartner = await fetchpartnerById(this.userInfos.party.id);
+      const partner = await fetchpartnerById(this.userInfos.party.id);
+
+      this.selectedPartner = {
+        id: partner.id,
+        label: partner.name,
+        orderNumberIsMandatory: partner.orderNumberRequired,
+      };
     }
   },
 
