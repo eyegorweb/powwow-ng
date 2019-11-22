@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.372+20191122092004
+2019-11-22
+
+### Fixes
+
+- Changement d'offre si aucun service n'est choisi (2060e4ba33c5c700f468bad28c609dd4f064d672)
+
 ## 0.3.0-master.371+20191122085522
 2019-11-22
 
