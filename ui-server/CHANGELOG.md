@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.371+20191122085522
+2019-11-22
+
+### Fixes
+
+- Mettre les séparateurs de milliers (51e3bde966007cd7ba28969b6aaf8b0ec537f49c)
+
 ## 0.3.0-master.370+20191121155838
 2019-11-21
 
