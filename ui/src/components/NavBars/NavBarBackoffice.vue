@@ -64,6 +64,10 @@ export default {
     return {
       partnersTypesOptions: [
         {
+          label: '',
+          value: '',
+        },
+        {
           label: 'M2M',
           value: 'CUSTOMER',
         },
