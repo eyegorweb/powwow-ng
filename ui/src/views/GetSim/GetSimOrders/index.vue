@@ -7,12 +7,12 @@
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('ordersFound', { total: total }) }}
+            {{ $t('ordersFound', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{ $t('getsim.export', { total: total }) }}</span>
+            <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
         </div>
       </div>
@@ -67,6 +67,7 @@ import GetSimOrdersMassActionIdsColumn from './GetSimOrdersMassActionIdsColumn';
 import GetSimOrdersBillingAccountCell from './GetSimOrdersBillingAccountCell';
 import GetSimOrdersProductCell from './GetSimOrdersProductCell';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   name: 'Orders',
@@ -122,6 +123,9 @@ export default {
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
     ...mapGetters('getsim', ['appliedFilters', 'ordersResponse', 'orderPage', 'isLoading']),
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
     storageId() {
       return this.userName + 'getsim.orders';
     },
