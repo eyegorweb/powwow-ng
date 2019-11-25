@@ -10,7 +10,6 @@
       :key="widgetVersion"
       v-if="indicators"
       :meta="indicators"
-      :on-click="onCounterClick"
       no-borders
       small
       precalculated
@@ -60,8 +59,9 @@ export default {
     this.indicators = [
       {
         labelKey: 'col.activationAsked',
-        clickable: true,
+        clickable: false,
         total: '-',
+        unit: this.unit,
         filters: [
           {
             id: 'filters.actTypes',
@@ -72,8 +72,9 @@ export default {
       },
       {
         labelKey: 'col.preActivationAsked',
-        clickable: true,
+        clickable: false,
         total: '-',
+        unit: this.unit,
         filters: [
           {
             id: 'filters.actTypes',
@@ -89,8 +90,9 @@ export default {
       },
       {
         labelKey: 'suspension',
-        clickable: true,
+        clickable: false,
         total: '-',
+        unit: this.unit,
         filters: [
           {
             id: 'filters.actTypes',
@@ -105,8 +107,9 @@ export default {
       },
       {
         labelKey: 'getparc.actTypes.SERVICE_CHANGE',
-        clickable: true,
+        clickable: false,
         total: '-',
+        unit: this.unit,
         filters: [
           {
             id: 'filters.actTypes',
@@ -117,8 +120,9 @@ export default {
       },
       {
         labelKey: 'getparc.actTypes.ICCID_CHANGE',
-        clickable: true,
+        clickable: false,
         total: '-',
+        unit: this.unit,
         filters: [
           {
             id: 'filters.actTypes',
@@ -136,20 +140,13 @@ export default {
       indicators: undefined,
       widgetVersion: 1,
       period: 'DAY',
+      unit: 'h',
     };
   },
   methods: {
     updateContentType(newVal) {
       this.contentType = newVal.id.toUpperCase();
       this.period = this.contentType;
-    },
-    onCounterClick(indicator) {
-      this.$router.push({
-        name: 'actHistory',
-        params: {
-          queryFilters: [...indicator.filters, ...this.contextFilters],
-        },
-      });
     },
   },
   watch: {

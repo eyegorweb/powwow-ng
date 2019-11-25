@@ -130,7 +130,7 @@ export default excludeMocked([
     description: '',
     checked: true,
     large: false,
-    seeMore: true,
+    seeMore: false,
     component: AverageTimeAct,
   },
 ]);
