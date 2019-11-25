@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget" @seeMore="onSeeMore" mocked>
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore" scrolling mocked>
     <div slot="header">
       <div class="d-flex">
         <UiSelect
@@ -12,7 +12,7 @@
         ></UiSelect>
       </div>
     </div>
-    <table class="table  table-sm mock-value">
+    <table class="table mock-value">
       <thead>
         <tr>
           <th scope="col">{{ $t('status') }}</th>
@@ -157,12 +157,18 @@ export default {
 
 <style lang="scss" scoped>
 .table {
-  font-size: 0.8rem;
-  thead th {
+  th {
+    font-size: 0.7rem;
     border-top: none;
-    color: $gray-680;
+    color: $dark-gray;
     text-transform: uppercase;
-    font-weight: normal;
+    font-weight: 500;
+    padding: 0.5rem 0.5rem 0.4rem;
+  }
+  td {
+    font-size: 0.9rem;
+    color: $dark-gray;
+    padding: 0.5rem 0.5rem 0.4rem;
   }
 }
 </style>
