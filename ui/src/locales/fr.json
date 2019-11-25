@@ -917,11 +917,11 @@
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
-      "TO_BE_CONFIRMED": "À confirmer",
+      "TO_BE_CONFIRMED": "Confirmation automatique en cours",
       "TO_BE_CONFIRMED_BY_BO": "À confirmer par le BO",
-      "CONFIRMATION_IN_PROGRESS": "En cours de confirmation",
+      "CONFIRMATION_IN_PROGRESS": "Fichier de commande transmis ",
       "CONFIRMED": "Confirmée",
-      "FAILED": "Échouée",
+      "FAILED": "Commande en erreur",
       "TERMINATED": "Terminée",
       "CANCELED": "Annulée"
     }

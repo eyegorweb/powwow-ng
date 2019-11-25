@@ -2,16 +2,16 @@
   <div>
     <draggable handle=".handle">
       <transition-group>
-        <ff-wip :key="'ffblock1'">
-          <ContentBlock :key="'block1'">
-            <template slot="title">{{
-              $t('getparc.lineDetail.tabServices.optionalServices')
-            }}</template>
-            <template slot="content">
-              <div>contenu ici</div>
-            </template>
-          </ContentBlock>
-        </ff-wip>
+        <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
+          <template slot="title">
+            {{ $t('getparc.lineDetail.tabServices.optionalServices') }}
+          </template>
+          <template slot="content">
+            <div>
+              <ServicesBlock :services="optionalServices" full-width />
+            </div>
+          </template>
+        </ContentBlock>
 
         <ContentBlock :key="'block2'">
           <template slot="title">{{ $t('getparc.lineDetail.tabServices.services') }}</template>
@@ -77,7 +77,7 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
-import { getOfferServices } from '@/components/Services/utils.js';
+import { getOfferServices, getOptionalServices } from '@/components/Services/utils.js';
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation2.js';
 import { formattedCurrentDate } from '@/utils/date';
@@ -106,6 +106,8 @@ export default {
       savingChanges: false,
       servicesVersion: 1,
       isDataParamsError: false,
+
+      optionalServices: undefined,
     };
   },
   async mounted() {
@@ -114,6 +116,7 @@ export default {
     this.isLoadingServices = false;
     const offerServices = getOfferServices(services);
     this.initialServices = cloneDeep(offerServices);
+    this.optionalServices = getOptionalServices(services);
     this.services = offerServices;
   },
   methods: {
