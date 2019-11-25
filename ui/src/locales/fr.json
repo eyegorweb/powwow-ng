@@ -56,6 +56,11 @@
   "requestError": "Erreur durant le traitement de la requête",
   "status": "statut",
   "lastUpdate": "Dernière Mise à jour",
+  "day": "jour",
+  "week": "semaine",
+  "month": "mois",
+  "quarter": "trimestre",
+  "suspension": "Suspension",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -84,7 +89,8 @@
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
         "currentMonth": "Mois en cours",
         "prevMonth": "M-1"
-      }
+      },
+      "averageTimeAction": "Délais moyens"
     }
   },
   "menu": {
@@ -198,7 +204,7 @@
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
       "ACTIVATION": "Activation",
       "STATUS_CHANGE": "Changement de statut",
-      "ICCID_CHANGE": "Changement ICCID",
+      "ICCID_CHANGE": "Changement de carte SIM",
       "EUICC_NOTIFICATION": "Notification EUICC",
       "EUICC_AUDIT": "Audit EUICC",
       "MSISDN_CHANGE": "Changement MSISDN",

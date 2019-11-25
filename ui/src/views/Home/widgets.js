@@ -7,6 +7,7 @@ import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
+import AverageTimeAct from './widgets/AverageTimeAct';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
@@ -123,5 +124,13 @@ export default excludeMocked([
     seeMore: true,
     component: ParcStateWidget,
     mock: true,
+  },
+  {
+    title: 'home.widgets.averageTimeAction',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: true,
+    component: AverageTimeAct,
   },
 ]);

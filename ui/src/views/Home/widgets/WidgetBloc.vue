@@ -41,6 +41,7 @@ export default {
   props: {
     widget: Object,
     noPadding: Boolean,
+    scrolling: Boolean,
     mocked: Boolean,
   },
   computed: {
@@ -93,7 +94,6 @@ export default {
 
   .card-body {
     height: 16rem;
-    overflow: hidden;
   }
 }
 
