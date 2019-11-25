@@ -56,10 +56,10 @@
   "requestError": "Erreur durant le traitement de la requête",
   "status": "statut",
   "lastUpdate": "Dernière Mise à jour",
-  "day": "jour",
-  "week": "semaine",
-  "month": "mois",
-  "quarter": "trimestre",
+  "day": "Jour",
+  "week": "Semaine",
+  "month": "Mois",
+  "quarter": "Trimestre",
   "suspension": "Suspension",
   "home": {
     "customize": {
