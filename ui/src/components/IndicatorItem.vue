@@ -8,7 +8,7 @@
         @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
-        <span v-if="!isLoading">{{ formattedTotal }}</span>
+        <span v-if="!isLoading">{{ formattedTotal }}{{ formattedUnit }}</span>
       </button>
     </div>
   </li>
@@ -50,6 +50,10 @@ export default {
         return formatLargeNumber(this.total);
       }
       return this.total;
+    },
+    formattedUnit() {
+      if (!this.indicator.unit) return;
+      return this.indicator.unit;
     },
   },
 
