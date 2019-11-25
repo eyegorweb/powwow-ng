@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.379+20191125153752
+2019-11-25
+
+### Fixes
+
+- modification des labels du widget Délai moyen (c5e64996b130018efd7790c814b7b40b111d5c46)
+
 ## 0.3.0-master.378+20191125144222
 2019-11-25
 
