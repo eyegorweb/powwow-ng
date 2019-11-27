@@ -55,4 +55,4 @@ ui-server/nbdist/
 ui-server/.nb-gradle/
 ui-server/src/main/resources/public
 
-
+ui/cypress/video

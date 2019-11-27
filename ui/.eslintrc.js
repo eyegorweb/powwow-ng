@@ -39,7 +39,6 @@ module.exports = {
     },
 
     // jest
-    'jest/consistent-test-it': 'error',
     'import/newline-after-import': ['error', { count: 1 }],
   },
 

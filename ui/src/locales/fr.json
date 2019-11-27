@@ -606,7 +606,7 @@
         }
       },
       "tabServices": {
-        "optionalServices": "Services optionels",
+        "optionalServices": "Services optionnels",
         "services": "Services",
         "ipAdress": "Adresse IP Fixe"
       }
@@ -783,7 +783,7 @@
         "DETAIL": "Voir le détail de la ligne"
       },
       "chooseAct": "Choisir un acte de gestion",
-      "total": "{total} ligne(s) trouvé(s)",
+      "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "billingAccount": "séléctionner un compte de facturation",
