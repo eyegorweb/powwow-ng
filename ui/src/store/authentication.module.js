@@ -2,6 +2,7 @@ import { fetchCurrentUserInfos } from '@/api/user';
 import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
+import moment from 'moment';
 
 const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 2000;
 
@@ -45,16 +46,19 @@ export const actions = {
     headers.common.Authorization = `Bearer ${tokenStr}`;
     api.defaults.headers = headers;
 
-    const expireDate = new Date(state.token.exp * 1000);
-    const now = new Date();
-
-    const secondsToExpire = (expireDate.getTime() - now.getTime()) / 1000;
-    const waitBeforeRefresh = Math.abs(secondsToExpire);
+    const expirationDate = moment(state.token.exp * 1000);
+    const waitBeforeRefresh = expirationDate.diff(moment(), 'seconds');
 
     if (waitBeforeRefresh > 0) {
-      setTimeout(() => {
-        commit('startRefreshingToken');
-      }, waitBeforeRefresh * 1000);
+      const waitInMs = waitBeforeRefresh * 1000;
+      // 2147483647 valeur maximale authorisée pour le setTimeout
+      if (waitInMs < 2147483647) {
+        setTimeout(() => {
+          commit('startRefreshingToken');
+        }, waitInMs);
+      }
+    } else {
+      commit('startRefreshingToken');
     }
   },
 };
