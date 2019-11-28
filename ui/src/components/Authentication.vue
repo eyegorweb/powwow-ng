@@ -30,8 +30,9 @@ export default {
     redirectToLogin() {
       // _ = route avant la redirection
       localStorage.setItem('_', this.$route.path);
+      console.log('Redirecting to login');
       redirectTo(
-        `${process.env.VUE_APP_AUTH_SERVER_URL}/oauth/authorize?response_type=token&client_id=${
+        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
         }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
       );
@@ -43,7 +44,7 @@ export default {
     */
     onRefreshTokenPageLoaded(frame) {
       try {
-        console.log('***Refresh URL TOKEN ===', frame.target.contentDocument.location.href);
+        console.log('*** URL WITH NEW TOKEN ===', frame.target.contentDocument.location.href);
         if (frame.target.contentDocument) {
           try {
             this.setAuthToken(
@@ -66,13 +67,18 @@ export default {
   },
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
+    authUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+      return process.env.VUE_APP_AUTH_SERVER_URL && process.env.VUE_APP_AUTH_SERVER_URL.length
+        ? process.env.VUE_APP_AUTH_SERVER_URL
+        : sameUrl;
+    },
     refreshUrl() {
-      const url = `${
-        process.env.VUE_APP_AUTH_SERVER_URL
-      }/oauth/authorize?response_type=token&client_id=${
+      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
       }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
-      console.log('New refresh url ===', url);
+      console.log('*** URL TO REQUEST NEW TOKEN ===', url);
 
       return url;
     },
