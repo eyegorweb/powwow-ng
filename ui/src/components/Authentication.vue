@@ -43,6 +43,7 @@ export default {
     */
     onRefreshTokenPageLoaded(frame) {
       try {
+        console.log('***Refresh URL TOKEN ===', frame.target.contentDocument.location.href);
         if (frame.target.contentDocument) {
           try {
             this.setAuthToken(

@@ -40,11 +40,12 @@ export const actions = {
       return JSON.parse(window.atob(base64));
     }
     const token = parseJwt(tokenStr);
-    commit('setAuthToken', { token, tokenStr });
 
     const headers = cloneDeep(api.defaults.headers);
     headers.common.Authorization = `Bearer ${tokenStr}`;
     api.defaults.headers = headers;
+
+    commit('setAuthToken', { token, tokenStr });
 
     const expirationDate = moment(state.token.exp * 1000);
     const waitBeforeRefresh = expirationDate.diff(moment(), 'seconds');
@@ -55,7 +56,7 @@ export const actions = {
     console.log('-------------------------');
 
     if (waitBeforeRefresh > 0) {
-      const waitInMs = waitBeforeRefresh * 1000;
+      const waitInMs = waitBeforeRefresh * 1000 + 2000;
       // 2147483647 valeur maximale authorisée pour le setTimeout
       if (waitInMs < 2147483647) {
         setTimeout(() => {
@@ -63,12 +64,12 @@ export const actions = {
         }, waitInMs);
       }
     } else {
-      setTimeout(() => {
-        commit('startRefreshingToken');
-      }, 2000);
+      commit('startRefreshingToken');
     }
   },
 };
+
+let refreshTokenClearTimeout = undefined;
 
 export const mutations = {
   setAuthToken(state, { token, tokenStr }) {
@@ -79,12 +80,16 @@ export const mutations = {
   startRefreshingToken(state) {
     if (!state.refreshingToken) {
       state.refreshingToken = true;
-      setTimeout(() => {
+      refreshTokenClearTimeout = setTimeout(() => {
         state.refreshingToken = false;
       }, MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS);
     }
   },
   stopRefreshingToken(state) {
+    if (refreshTokenClearTimeout) {
+      clearTimeout(refreshTokenClearTimeout);
+      refreshTokenClearTimeout = undefined;
+    }
     state.refreshingToken = false;
   },
   setCurrentUser(state, userInfos) {
