@@ -51,6 +51,7 @@ export const actions = {
     console.log('Wait before refresh = ', waitBeforeRefresh);
     console.log('expiration date = ', expirationDate.format('DD/MM/YYYY HH:mm:ss'));
     console.log('Now = ', moment().format('DD/MM/YYYY HH:mm:ss'));
+    console.log('Token = ', tokenStr);
     console.log('-------------------------');
 
     if (waitBeforeRefresh > 0) {
@@ -62,7 +63,9 @@ export const actions = {
         }, waitInMs);
       }
     } else {
-      commit('startRefreshingToken');
+      setTimeout(() => {
+        commit('startRefreshingToken');
+      }, 2000);
     }
   },
 };
