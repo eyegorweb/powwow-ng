@@ -66,16 +66,14 @@ export default {
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
     refreshUrl() {
-      return `${
+      const url = `${
         process.env.VUE_APP_AUTH_SERVER_URL
       }/oauth/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
       }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
-    },
-  },
-  watch: {
-    refreshUrl(newValue) {
-      console.log('New refresh url', newValue);
+      console.log('New refresh url ===', url);
+
+      return url;
     },
   },
 };
