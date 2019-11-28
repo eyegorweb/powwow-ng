@@ -48,6 +48,10 @@ export const actions = {
 
     const expirationDate = moment(state.token.exp * 1000);
     const waitBeforeRefresh = expirationDate.diff(moment(), 'seconds');
+    console.log('Wait before refresh = ', waitBeforeRefresh);
+    console.log('expiration date = ', expirationDate.format('DD/MM/YYYY HH:mm:ss'));
+    console.log('Now = ', moment().format('DD/MM/YYYY HH:mm:ss'));
+    console.log('-------------------------');
 
     if (waitBeforeRefresh > 0) {
       const waitInMs = waitBeforeRefresh * 1000;
