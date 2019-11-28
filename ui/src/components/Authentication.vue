@@ -73,6 +73,11 @@ export default {
       }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
     },
   },
+  watch: {
+    refreshUrl(newValue) {
+      console.log('New refresh url', newValue);
+    },
+  },
 };
 </script>
 
