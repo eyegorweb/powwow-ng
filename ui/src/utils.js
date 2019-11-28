@@ -9,6 +9,9 @@ export function isDevMode() {
 export function log(...args) {
   if (isDevMode()) {
     console.log(...args);
+  } else {
+    // temporaire
+    console.log(...args);
   }
 }
 
