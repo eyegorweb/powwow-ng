@@ -3,6 +3,7 @@ image: gradle:5.1.1
 stages:
   - version
   - build
+  - e2e
   - test
   - release
   - deploy
@@ -156,7 +157,7 @@ deploy_uat:
     - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
     - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
     - kubectl config use-context m2m-node-uat
-    
+
   script:
     - kubectl get po
     - . build_info
@@ -194,3 +195,26 @@ undeploy_uat:
   except:
     - tags
   dependencies: []
+
+e2e_integration:
+  image: cypress/base:10
+  stage: e2e
+  when: manual
+  variables:
+    CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
+  cache:
+    paths:
+      - ui/node_modules
+  only:
+    - master
+  script:
+    - cd ui
+    - yarn install --frozen-lockfile --check-files
+    - yarn e2e
+    - cd ../
+  artifacts:
+    when: always
+    expire_in: 1 day
+    paths:
+      - ui/cypress/videos
+      - ui/cypress/screenshots
