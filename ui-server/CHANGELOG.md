@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.391+20191129152002
+2019-11-29
+
+### Fixes
+
+- Correction de la recherche unitaire dans le détail de ligne (d1e1ca31fced206f7e9920de518b8b0c47f2c968)
+
 ## 0.3.0-master.390+20191129112646
 2019-11-29
 
