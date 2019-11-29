@@ -1,7 +1,6 @@
 image: gradle:5.1.1
 
 stages:
-  - e2e
   - version
   - build
   - e2e
@@ -9,6 +8,7 @@ stages:
   - release
   - deploy
   - undeploy
+  - e2e
 
 variables:
   http_proxy: "http://proxyace2.prod.extelia.fr:8080"
