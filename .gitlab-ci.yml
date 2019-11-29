@@ -19,6 +19,8 @@ variables:
   GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
   GSG_BUILD_TMPL: '{{ commitTS.Format "20060102150405" }}'
   GSG_INITIAL_DEVELOPMENT: "true"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -79,6 +81,8 @@ pre-release:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - cache/Cypress
+
   only:
     - master
   except:
@@ -103,6 +107,7 @@ release:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - cache/Cypress
   only:
     - uat
   except:
@@ -207,6 +212,7 @@ e2e_integration:
     key: "$CI_COMMIT_REF_NAME"
     paths:
       - ui/node_modules
+      - cache/Cypress
   only:
     - master
   script:
