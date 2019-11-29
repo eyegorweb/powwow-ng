@@ -54,6 +54,7 @@ build:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - cache/Cypress
   artifacts:
     paths:
       - build_info
