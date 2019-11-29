@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.392+20191129155650
+2019-11-29
+
+### Fixes
+
+- Correction de la mise à jour de la commande lors des actions depuis le volet (15a6b927908a754fb6507a9d0733cbf5df8d4851)
+
 ## 0.3.0-master.391+20191129152002
 2019-11-29
 
