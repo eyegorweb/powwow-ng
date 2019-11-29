@@ -178,6 +178,7 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+
   clearAllFilters(state) {
     state.currentFilters = [];
     state.filterCustomFieldsList = [];
@@ -293,6 +294,17 @@ export const mutations = {
 
   setOrdersResponse(state, ordersResponse) {
     state.ordersResponse = ordersResponse;
+  },
+  updateOrderInTable(state, order) {
+    state.ordersResponse = {
+      total: state.ordersResponse.total,
+      items: state.ordersResponse.items.map(o => {
+        if (o.id === order.id) {
+          return order;
+        }
+        return o;
+      }),
+    };
   },
   setPage(state, newPage) {
     state.orderPage = newPage;
