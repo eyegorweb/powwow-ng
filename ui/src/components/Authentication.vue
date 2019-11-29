@@ -30,7 +30,6 @@ export default {
     redirectToLogin() {
       // _ = route avant la redirection
       localStorage.setItem('_', this.$route.path);
-      console.log('Redirecting to login');
       redirectTo(
         `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
@@ -44,7 +43,6 @@ export default {
     */
     onRefreshTokenPageLoaded(frame) {
       try {
-        console.log('*** URL WITH NEW TOKEN ===', frame.target.contentDocument.location.href);
         if (frame.target.contentDocument) {
           try {
             this.setAuthToken(
@@ -78,7 +76,6 @@ export default {
       const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
       }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
-      console.log('*** URL TO REQUEST NEW TOKEN ===', url);
 
       return url;
     },

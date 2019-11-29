@@ -2,7 +2,7 @@ import { fetchCurrentUserInfos } from '@/api/user';
 import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
-import moment from 'moment';
+// import moment from 'moment';
 
 const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 2000;
 
@@ -47,6 +47,7 @@ export const actions = {
 
     commit('setAuthToken', { token, tokenStr });
 
+    /*
     const expirationDate = moment(state.token.exp * 1000);
     const waitBeforeRefresh = expirationDate.diff(moment(), 'seconds');
     console.log('Wait before refresh = ', waitBeforeRefresh);
@@ -66,6 +67,7 @@ export const actions = {
     } else {
       commit('startRefreshingToken');
     }
+    //*/
   },
 };
 
