@@ -1,6 +1,7 @@
 image: gradle:5.1.1
 
 stages:
+  - e2e
   - version
   - build
   - e2e
@@ -203,13 +204,14 @@ e2e_integration:
   variables:
     CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
   cache:
+    key: "$CI_COMMIT_REF_NAME"
     paths:
       - ui/node_modules
   only:
     - master
   script:
     - cd ui
-    - yarn install --frozen-lockfile --check-files
+    - yarn install --frozen-lockfile
     - yarn e2e
     - cd ../
   artifacts:
