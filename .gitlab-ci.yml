@@ -55,6 +55,7 @@ build:
       - ui/.gradle/yarn
       - ui/node_modules
       - cache/Cypress
+      - .cache/Cypress
   artifacts:
     paths:
       - build_info
@@ -83,6 +84,7 @@ pre-release:
       - ui/.gradle/yarn
       - ui/node_modules
       - cache/Cypress
+      - .cache/Cypress
 
   only:
     - master
@@ -108,6 +110,7 @@ release:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - .cache/Cypress
       - cache/Cypress
   only:
     - uat
@@ -214,6 +217,7 @@ e2e_integration:
     paths:
       - ui/node_modules
       - cache/Cypress
+      - .cache/Cypress
   only:
     - master
   script:
