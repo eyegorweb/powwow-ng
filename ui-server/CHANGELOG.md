@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.393+20191202093132
+2019-12-02
+
+### Fixes
+
+- Corriger le job gitlab pour les tests (5c26543b8921cfc9adbbbc37b4de17e754b849dd)
+
 ## 0.3.0-master.392+20191129155650
 2019-11-29
 
