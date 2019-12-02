@@ -1,21 +1,25 @@
 <template>
   <div>
     <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
-    <DataTable
-      :columns.sync="columns"
-      :rows="alarms || []"
-      :order-by.sync="orderBy"
-      @change-order="changeCellsOrder"
-      :page.sync="page"
-      :page-limit.sync="pageLimit"
-      :total="total || 0"
-      :size="5"
-      :show-extra-columns.sync="showExtraCells"
-    >
-      <template slot="actions" slot-scope="{ row }">
-        <ActionsCell :row="row" />
-      </template>
-    </DataTable>
+    <div class="bg-white p-4 rounded">
+      <div class="d-flex">
+        <DataTable
+          :columns.sync="columns"
+          :rows="alarms || []"
+          :order-by.sync="orderBy"
+          @change-order="changeCellsOrder"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :size="5"
+          :show-extra-columns.sync="showExtraCells"
+        >
+          <template slot="actions" slot-scope="{ row }">
+            <ActionsCell :row="row" />
+          </template>
+        </DataTable>
+      </div>
+    </div>
   </div>
 </template>
 
