@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex toggle">
-    <div class="item">
+  <div class="d-flex">
+    <div class="item toggle">
       <button
         v-for="item in values"
         :key="item.id"
