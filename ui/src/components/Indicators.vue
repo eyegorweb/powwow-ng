@@ -10,6 +10,7 @@
         @removeme="i => removeIndicator(i)"
       />
     </ul>
+    <div v-if="infoMessage" class="info-message">{{ infoMessage }}</div>
     <div v-if="lastUpdateDate" class="update-date">
       {{ $t('lastUpdate') }}: {{ lastUpdateDate }}
     </div>
@@ -35,6 +36,7 @@ export default {
     noBorders: Boolean,
     small: Boolean,
     precalculated: Boolean,
+    infoMessage: String,
   },
 
   data() {
@@ -91,7 +93,10 @@ export default {
 
       const unknownKeys = this.meta.filter(i => i.fetchKey === '');
       if (unknownKeys && unknownKeys.length) {
-        console.warn('Indicateurs inconnus : ', unknownKeys.map(i => this.$t(i.labelKey)));
+        console.warn(
+          'Indicateurs inconnus : ',
+          unknownKeys.map(i => this.$t(i.labelKey))
+        );
       }
 
       let partners;
@@ -152,5 +157,11 @@ export default {
   font-size: 11px;
   font-style: italic;
   padding-right: 5px;
+}
+.info-message {
+  font-size: 0.8rem;
+  font-style: italic;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 </style>

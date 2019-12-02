@@ -90,7 +90,13 @@
         "currentMonth": "Mois en cours",
         "prevMonth": "M-1"
       },
-      "averageTimeAction": "Délais moyens"
+      "averageTimeAction": "Délais moyens",
+      "simTopActivation": "Top 5 lignes activées",
+      "simTopTermination": "Top 5 lignes résiliées",
+      "simTopScheduledTermination": "Top 5 résiliations programmées",
+      "message": {
+        "scheduleTermination": "pas d’autre résiliation programmée"
+      }
     }
   },
   "menu": {
