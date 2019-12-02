@@ -17,6 +17,8 @@ variables:
   GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
   GSG_BUILD_TMPL: '{{ commitTS.Format "20060102150405" }}'
   GSG_INITIAL_DEVELOPMENT: "true"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -50,6 +52,8 @@ build:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - cache/Cypress
+      - .cache/Cypress
   artifacts:
     paths:
       - build_info
@@ -77,6 +81,9 @@ pre-release:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - cache/Cypress
+      - .cache/Cypress
+
   only:
     - master
   except:
@@ -101,6 +108,8 @@ release:
       - ui/.gradle/nodejs
       - ui/.gradle/yarn
       - ui/node_modules
+      - .cache/Cypress
+      - cache/Cypress
   only:
     - uat
   except:
@@ -156,7 +165,7 @@ deploy_uat:
     - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
     - kubectl config view -o jsonpath='{.contexts[*].name}' | tr " " "\n"
     - kubectl config use-context m2m-node-uat
-    
+
   script:
     - kubectl get po
     - . build_info
@@ -194,3 +203,29 @@ undeploy_uat:
   except:
     - tags
   dependencies: []
+
+e2e_integration:
+  image: cypress/base:10
+  stage: test
+  when: manual
+  variables:
+    CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - ui/node_modules
+      - cache/Cypress
+      - .cache/Cypress
+  only:
+    - master
+  script:
+    - cd ui
+    - yarn install --frozen-lockfile
+    - yarn e2e
+    - cd ../
+  artifacts:
+    when: always
+    expire_in: 1 day
+    paths:
+      - ui/cypress/videos
+      - ui/cypress/screenshots

@@ -54,7 +54,7 @@
         </ul>
       </fieldset>
     </Promised>
-    <span class="error-text">{{ $t(error) }}</span>
+    <span v-if="error" class="error-text">{{ $t(error) }}</span>
   </div>
 </template>
 

@@ -37,7 +37,7 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import CreateOrderStepContainer from './CreateOrderStepContainer';
-import { fetchpartners } from '@/api/partners';
+import { fetchpartners, fetchpartnerById } from '@/api/partners';
 import { fetchBillibAccountForPartnerId } from '@/api/billingAccounts';
 import get from 'lodash.get';
 import { mapGetters, mapState } from 'vuex';
@@ -61,7 +61,7 @@ export default {
     order: Object,
   },
 
-  mounted() {
+  async mounted() {
     if (
       this.synthesis &&
       this.synthesis.billingAccount &&
@@ -72,7 +72,13 @@ export default {
     } else if (this.order) {
       this.preFill();
     } else if (this.userIsPartner) {
-      this.selectedPartner = this.userInfos.party;
+      const partner = await fetchpartnerById(this.userInfos.party.id);
+
+      this.selectedPartner = {
+        id: partner.id,
+        label: partner.name,
+        orderNumberIsMandatory: partner.orderNumberRequired,
+      };
     }
   },
 

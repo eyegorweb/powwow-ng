@@ -30,7 +30,11 @@
                   :actDate="actDate"
                   :notificationCheck="notificationCheck"
                 >
-                  <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+                  <button
+                    @click="validate"
+                    :disabled="preventSend"
+                    class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+                  >
                     <span>{{ $t('set') }}</span>
                   </button>
                 </slot>
@@ -85,6 +89,7 @@ export default {
     excludeDefaultFields: Boolean,
     successMessage: String,
     noModal: Boolean,
+    preventSend: Boolean,
   },
 
   data() {
@@ -117,7 +122,6 @@ export default {
     async validate() {
       const actionFn = async () => {
         this.tempDataUuid = undefined;
-        if (this.haveErrors()) return;
 
         const response = await this.validateFn({
           actDate: this.actDate,
@@ -135,6 +139,8 @@ export default {
           this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
         }
       };
+
+      if (this.haveErrors()) return;
 
       if (this.noModal) {
         await actionFn();

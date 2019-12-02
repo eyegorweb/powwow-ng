@@ -1,5 +1,9 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" :check-errors-fn="checkErrors">
+  <ActFormContainer
+    :validate-fn="onValidate"
+    :check-errors-fn="checkErrors"
+    :prevent-send="!canSend"
+  >
     <div class="row">
       <div class="col">
         <span class="font-weight-bold mt-4 mb-4">
@@ -79,6 +83,13 @@ export default {
       if (!this.actCreationPrerequisites) return;
       return this.actCreationPrerequisites.offer.data;
     },
+    canSend() {
+      return (
+        this.shouldChangeData ||
+        (this.servicesToEnable && this.servicesToEnable.length) ||
+        (this.servicesToDisable && this.servicesToDisable.length)
+      );
+    },
   },
   mounted() {
     this.dataService = getMarketingOfferServices(this.selectedOffer.initialOffer).find(
@@ -99,6 +110,10 @@ export default {
       return isError;
     },
     async onValidate(contextValues) {
+      console.log(this.servicesToEnable);
+      console.log(this.servicesToDisable);
+      console.log(this.shouldChangeData);
+
       return await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,

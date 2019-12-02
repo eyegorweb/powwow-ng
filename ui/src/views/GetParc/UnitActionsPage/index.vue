@@ -1,54 +1,59 @@
 <template>
-  <div class="mt-4">
-    <div class="row">
-      <div class="col-md-9">
-        <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
-          <i class="ic-Arrow-Previous-Icon" />
-          {{ $t('back') }}
-        </button>
-      </div>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <PageSkeleton />
     </div>
-    <div class="row mb-5">
-      <div class="col-md-9">
-        <h4>
-          <b>GetParc</b>
-          - {{ $t('getparc.management-act-detail') }}
-          <i class="ic-Info-Icon" />
-        </h4>
+    <div class="mt-4">
+      <div class="row">
+        <div class="col-md-9">
+          <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
+            <i class="ic-Arrow-Previous-Icon" />
+            {{ $t('back') }}
+          </button>
+        </div>
       </div>
-    </div>
-    <ActHistoryDetailPage v-if="massAction" :content="massAction" />
-    <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
-      <template slot-scope="{ tab, index, selectedIndex }">
-        <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-          <a href="#" @click.prevent="() => (currentLinkIndex = index)">
-            {{ tab.title }}
-            <img v-if="tab.isLoading" class="loader" src="@/assets/spinner.svg" />
+      <div class="row mb-5">
+        <div class="col-md-9">
+          <h4>
+            <b>GetParc</b>
+            - {{ $t('getparc.management-act-detail') }}
+            <i class="ic-Info-Icon" />
+          </h4>
+        </div>
+      </div>
+      <ActHistoryDetailPage v-if="massAction" :content="massAction" />
+      <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
+        <template slot-scope="{ tab, index, selectedIndex }">
+          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+            <a href="#" @click.prevent="() => (currentLinkIndex = index)">
+              {{ tab.title }}
+              <img v-if="tab.isLoading" class="loader" src="@/assets/spinner.svg" />
 
-            <span
-              v-if="!tab.isLoading"
-              class="badge badge-pill"
-              :class="{
-                'badge-danger': index === 0,
-                'badge-info': index === 1,
-                'badge-success': index === 2,
-              }"
-              >{{ tab.total }}</span
-            >
-          </a>
-        </UiTab>
-      </template>
-      <div slot="fail">
-        <FailedTable :total="tabs[0].total" @refreshTables="refreshTables" />
-      </div>
-      <div slot="ongoing">
-        <PendingTable :total="tabs[1].total" />
-      </div>
-      <div slot="finished">
-        <FinishedTable :total="tabs[2].total" />
-      </div>
-    </UiTabs>
-  </div>
+              <span
+                v-if="!tab.isLoading"
+                class="badge badge-pill"
+                :class="{
+                  'badge-danger': index === 0,
+                  'badge-info': index === 1,
+                  'badge-success': index === 2,
+                }"
+                >{{ tab.total }}</span
+              >
+            </a>
+          </UiTab>
+        </template>
+        <div slot="fail">
+          <FailedTable :total="tabs[0].total" @refreshTables="refreshTables" />
+        </div>
+        <div slot="ongoing">
+          <PendingTable :total="tabs[1].total" />
+        </div>
+        <div slot="finished">
+          <FinishedTable :total="tabs[2].total" />
+        </div>
+      </UiTabs>
+    </div>
+  </LoaderContainer>
 </template>
 
 <script>
@@ -60,6 +65,8 @@ import { searchMassActionsById } from '@/api/massActions';
 import get from 'lodash.get';
 import FinishedTable from './FinishedTable';
 import PendingTable from './PendingTable';
+import PageSkeleton from './PageSkeleton';
+import LoaderContainer from '@/components/LoaderContainer';
 
 export default {
   components: {
@@ -69,6 +76,8 @@ export default {
     ActHistoryDetailPage,
     FinishedTable,
     PendingTable,
+    LoaderContainer,
+    PageSkeleton,
   },
 
   async mounted() {
@@ -77,6 +86,7 @@ export default {
 
   data() {
     return {
+      isLoading: true,
       currentLinkIndex: 0,
       massAction: null,
       tabs: [
@@ -103,7 +113,9 @@ export default {
   },
   methods: {
     async refreshTables() {
+      this.isLoading = true;
       await this.refreshCurrentMassAction();
+      this.isLoading = false;
 
       this.tabs = [
         {

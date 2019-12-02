@@ -5,6 +5,7 @@
     display-results-while-empty
     scroll-for-next
     :disabled="disabled"
+    :error="error"
   />
 </template>
 
@@ -22,6 +23,10 @@ export default {
     partner: Object,
     offer: Object,
     disabled: Boolean,
+    error: {
+      type: String,
+      required: false,
+    },
   },
 
   computed: {

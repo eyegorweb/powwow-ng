@@ -13,7 +13,11 @@
 
     <template>
       <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
-      <OffersPart :partner="actCreationPrerequisites.partner" :offer.sync="selectedOffer" />
+      <OffersPart
+        :partner="actCreationPrerequisites.partner"
+        :offer.sync="selectedOffer"
+        :error="errors.offer"
+      />
     </template>
 
     <div v-if="selectedOffer && selectedOffer.data" class="row">

@@ -14,7 +14,7 @@
             </ExportButton>
           </template>
           <template slot="content">
-            <div v-if="noResults.lastVisitedCountries">{{ $t('noConso') }}</div>
+            <div v-if="noResults.lastVisitedCountries" class="alert-light">{{ $t('noConso') }}</div>
             <div v-else>
               <PaginatedDataTable
                 :key="tableVersion"
@@ -37,7 +37,7 @@
             </ExportButton>
           </template>
           <template slot="content">
-            <div v-if="noResults.cellsConsumption">{{ $t('noConso') }}</div>
+            <div v-if="noResults.cellsConsumption" class="alert-light">{{ $t('noConso') }}</div>
             <div v-else>
               <PaginatedDataTable
                 :key="tableVersion"

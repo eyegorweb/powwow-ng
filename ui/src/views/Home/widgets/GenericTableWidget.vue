@@ -4,7 +4,7 @@
       <TableSkeleton :columns="columns" :size="3" />
     </div>
     <div slot="rejected" slot-scope="{ error }">{{ error }}</div>
-    <div v-if="!rows || !rows.length" class="alert alert-light" role="alert">
+    <div v-if="!rows || !rows.length" class="alert-light" role="alert">
       {{ $t('noResult') }}
     </div>
     <DataTable

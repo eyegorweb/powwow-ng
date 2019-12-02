@@ -1,9 +1,14 @@
 <template>
   <div v-if="!vertical">
     <div class="row">
-      <div class="col-md-8">
+      <div :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }">
         <div class="s-container">
-          <div :key="service.code" v-for="service in otherServices" class="service">
+          <div
+            :key="service.code"
+            v-for="service in otherServices"
+            class="service"
+            :class="{ 'quarter-size': fullWidth }"
+          >
             <UiToggle
               :label="$t('services.' + service.code)"
               :editable="service.editable"
@@ -68,6 +73,7 @@ export default {
     },
     vertical: Boolean,
     dataParamsNeeded: Boolean,
+    fullWidth: Boolean,
   },
   methods: {
     setup() {
@@ -125,6 +131,10 @@ export default {
 .service {
   flex-basis: 45%;
   margin-bottom: 1.5rem;
+}
+
+.quarter-size {
+  flex-basis: 25% !important;
 }
 
 @media screen and (max-width: 1366px) {

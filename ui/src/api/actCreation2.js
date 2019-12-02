@@ -514,7 +514,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
 
 export async function preactivateSimCardInstance(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID, workflowCode } = params;
+    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID } = params;
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -564,13 +564,17 @@ export async function changeOffer(filters, lines, params) {
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
-      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+      gqlTempDataUuid = `,tempDataUuid: "${tempDataUuid}"`;
     }
 
-    const changeServicesParamsGql = formatServicesForGQL({
-      data: servicesChoice.dataService,
-      services: servicesChoice.services,
-    });
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
+    }
 
     const queryStr = `
     mutation {
@@ -583,7 +587,7 @@ export async function changeOffer(filters, lines, params) {
           dueDate: "${formatDateForGql(dueDate)}",
           customerAccountID: ${customerAccountID},
           sourceWorkflowID: ${sourceWorkflowID},
-          targetWorkflowID: ${targetWorkflowID},
+          targetWorkflowID: ${targetWorkflowID}
           ${gqlTempDataUuid}
           ${changeServicesParamsGql}
         })

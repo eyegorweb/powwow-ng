@@ -56,6 +56,11 @@
   "requestError": "Erreur durant le traitement de la requête",
   "status": "statut",
   "lastUpdate": "Dernière Mise à jour",
+  "day": "Jour",
+  "week": "Semaine",
+  "month": "Mois",
+  "quarter": "Trimestre",
+  "suspension": "Suspension",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -84,6 +89,13 @@
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
         "currentMonth": "Mois en cours",
         "prevMonth": "M-1"
+      },
+      "averageTimeAction": "Délais moyens",
+      "simTopActivation": "Top 5 lignes activées",
+      "simTopTermination": "Top 5 lignes résiliées",
+      "simTopScheduledTermination": "Top 5 résiliations programmées",
+      "message": {
+        "scheduleTermination": "pas d’autre résiliation programmée"
       }
     }
   },
@@ -198,7 +210,7 @@
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
       "ACTIVATION": "Activation",
       "STATUS_CHANGE": "Changement de statut",
-      "ICCID_CHANGE": "Changement ICCID",
+      "ICCID_CHANGE": "Changement de carte SIM",
       "EUICC_NOTIFICATION": "Notification EUICC",
       "EUICC_AUDIT": "Audit EUICC",
       "MSISDN_CHANGE": "Changement MSISDN",
@@ -600,7 +612,7 @@
         }
       },
       "tabServices": {
-        "optionalServices": "Services optionels",
+        "optionalServices": "Services optionnels",
         "services": "Services",
         "ipAdress": "Adresse IP Fixe"
       }
@@ -777,7 +789,7 @@
         "DETAIL": "Voir le détail de la ligne"
       },
       "chooseAct": "Choisir un acte de gestion",
-      "total": "{total} ligne(s) trouvé(s)",
+      "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
       "billingAccount": "séléctionner un compte de facturation",
@@ -917,11 +929,11 @@
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
-      "TO_BE_CONFIRMED": "À confirmer",
+      "TO_BE_CONFIRMED": "Confirmation automatique en cours",
       "TO_BE_CONFIRMED_BY_BO": "À confirmer par le BO",
-      "CONFIRMATION_IN_PROGRESS": "En cours de confirmation",
+      "CONFIRMATION_IN_PROGRESS": "Fichier de commande transmis ",
       "CONFIRMED": "Confirmée",
-      "FAILED": "Échouée",
+      "FAILED": "Commande en erreur",
       "TERMINATED": "Terminée",
       "CANCELED": "Annulée"
     }

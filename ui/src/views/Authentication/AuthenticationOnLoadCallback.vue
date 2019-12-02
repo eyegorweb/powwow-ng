@@ -8,6 +8,7 @@ import { mapActions, mapMutations } from 'vuex';
 export default {
   name: 'AuthCallback',
   async mounted() {
+    // First token is loaded here
     const hashParts = this.$route.hash.split('=');
     this.setAuthToken(hashParts[1].split('&')[0]);
     await this.fetchUserInfos();

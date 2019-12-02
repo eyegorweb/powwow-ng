@@ -37,14 +37,24 @@
       </UiTabs>
     </div>
     <div class="flex-part">
-      <div class="lang-flags">
-        <a href="#" @click.prevent="$i18n.locale = 'fr'" :class="{ active: $i18n.locale === 'fr' }">
-          <img src="@/assets/fr.png" />
-        </a>
-        <a href="#" @click.prevent="$i18n.locale = 'en'" :class="{ active: $i18n.locale === 'en' }">
-          <img src="@/assets/en.png" />
-        </a>
-      </div>
+      <ff-wip>
+        <div class="lang-flags">
+          <a
+            href="#"
+            @click.prevent="$i18n.locale = 'fr'"
+            :class="{ active: $i18n.locale === 'fr' }"
+          >
+            <img src="@/assets/fr.png" />
+          </a>
+          <a
+            href="#"
+            @click.prevent="$i18n.locale = 'en'"
+            :class="{ active: $i18n.locale === 'en' }"
+          >
+            <img src="@/assets/en.png" />
+          </a>
+        </div>
+      </ff-wip>
       <div class="nav">
         <ff-wip>
           <div class="icon ic-Clock-Icon" />

@@ -31,7 +31,7 @@ export default {
             date,
           }),
           panelId: 'getparc.history.details.title',
-          payload: massAction,
+          payload: { ...massAction, id: '' + this.row.massActionId },
           wide: false,
           backdrop: false,
         });

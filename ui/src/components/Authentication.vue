@@ -31,7 +31,7 @@ export default {
       // _ = route avant la redirection
       localStorage.setItem('_', this.$route.path);
       redirectTo(
-        `${process.env.VUE_APP_AUTH_SERVER_URL}/oauth/authorize?response_type=token&client_id=${
+        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
         }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
       );
@@ -50,6 +50,7 @@ export default {
             );
           } catch (e) {
             log('Erreur token', e, frame.target.contentDocument.location);
+            this.redirectToLogin();
           }
 
           this.stopRefreshingToken();
@@ -64,12 +65,19 @@ export default {
   },
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
+    authUrl() {
+      const sameUrl =
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+      return process.env.VUE_APP_AUTH_SERVER_URL && process.env.VUE_APP_AUTH_SERVER_URL.length
+        ? process.env.VUE_APP_AUTH_SERVER_URL
+        : sameUrl;
+    },
     refreshUrl() {
-      return `${
-        process.env.VUE_APP_AUTH_SERVER_URL
-      }/oauth/authorize?response_type=token&client_id=${
+      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
         process.env.VUE_APP_CLIENT_ID
       }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
+
+      return url;
     },
   },
 };

@@ -7,6 +7,10 @@ import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
+import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
+import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
+import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
+import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
@@ -123,5 +127,37 @@ export default excludeMocked([
     seeMore: true,
     component: ParcStateWidget,
     mock: true,
+  },
+  {
+    title: 'home.widgets.averageTimeAction',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: AverageTimeAct,
+  },
+  {
+    title: 'home.widgets.simTopActivation',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: SimTopActivation,
+  },
+  {
+    title: 'home.widgets.simTopTermination',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: SimTopTermination,
+  },
+  {
+    title: 'home.widgets.simTopScheduledTermination',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: SimTopScheduledTermination,
   },
 ]);

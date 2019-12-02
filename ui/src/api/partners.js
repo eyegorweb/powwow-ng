@@ -25,6 +25,29 @@ export async function fetchpartners(q, { page, limit, partnerType }) {
   return response.data.partys.items;
 }
 
+export async function fetchpartnerById(id) {
+  const queryStr = `
+  query{
+    partys(filter:{id: {eq: ${id}}}, pagination: {limit: 1, page: 0}, sorting: {name: ASC}) {
+      total,
+      items {
+        id
+        code
+        name
+        orderNumberRequired
+        shortCodes
+        partyType
+      },
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data.partys.items && response.data.partys.items.length) {
+    return response.data.partys.items[0];
+  }
+  return response.data.partys.items;
+}
+
 export async function fetchpartnerAddresses(id) {
   const queryForLastAdress = `
   query {

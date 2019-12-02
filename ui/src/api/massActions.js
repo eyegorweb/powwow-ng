@@ -134,6 +134,24 @@ export async function countTotalForMassAction(filters) {
   return response.data.massActionsV2;
 }
 
+export async function averageTimeMassAction(partyId, period, actionTypes) {
+  const queryStr = `
+  query {
+    massActionAverageTime(partyIds:[${partyId}] averageType: ${period}, ${formatFilters(
+    actionTypes
+  )}){
+      total
+      items {
+        key
+        value
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.massActionAverageTime;
+}
+
 export async function fetchSingleIndicator(filters, contextFilters = []) {
   const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `

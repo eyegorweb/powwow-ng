@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex toggle">
-    <div class="item">
+  <div class="d-flex">
+    <div class="item toggle">
       <button
         v-for="item in values"
         :key="item.id"
@@ -45,15 +45,22 @@ export default {
 .toggle {
   color: $gray-680;
 
+  .item {
+    display: flex !important;
+    flex: 0 0 100% !important;
+  }
+
   button {
     appearance: none;
     border: 2px solid $primary;
     background-color: transparent;
-    border-radius: 5px;
+    // border-radius: 5px;
     font-weight: bold;
     font-size: 0.8rem;
     color: $primary;
     padding: 5px 20px;
+    margin-left: -2px;
+    flex: 1;
 
     &.active {
       background-color: $primary;
@@ -62,12 +69,13 @@ export default {
     }
 
     &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      margin-left: 0px;
     }
     &:last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
   }
 }

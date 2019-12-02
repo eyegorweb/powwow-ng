@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
+import get from 'lodash.get';
 
 import store from '@/store';
 
@@ -11,6 +12,8 @@ const WAIT_BEFORE_RETRY_IN_MS = 1000;
  *  Besoin de gérer les erreurs
  */
 export async function simpleQuery(q) {
+  const haveToken = get(api, 'defaults.headers.common.Authorization');
+  if (!haveToken) return;
   const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
   return response.data;
 }
