@@ -86,3 +86,28 @@ export async function fetchPrecalculatedIndicators(keys, partners, partnerType) 
   const response = await query(queryStr);
   return response.data.indicators;
 }
+export async function fetchPrecalculatedTopIndicators(keys, partners, partnerType) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners && partners.length) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+
+  const queryStr = `
+  query{
+    topIndicators(names: [${keys.join(',')}]${partnerGql}${partnerTypeGql}, limit: 5) {
+      name
+      partyName
+      numberValue
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.topIndicators;
+}
