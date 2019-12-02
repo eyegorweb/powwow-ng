@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.395+20191202103214
+2019-12-02
+
+### Features
+
+- **widgets:** création des widgets "TOP" (caa7f07392b9e41ca99fd52f7f14d50338612763)
+
 ## 0.3.0-master.394+20191202093551
 2019-12-02
 
