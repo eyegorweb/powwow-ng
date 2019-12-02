@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.398+20191202153244
+2019-12-02
+
+### Fixes
+
+- correction pour traduire les status des actes unitaires (138825faafb35afd9905559dd9e29808df14f2fa)
+
 ## 0.3.0-master.397+20191202110916
 2019-12-02
 
