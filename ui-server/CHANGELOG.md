@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.395+20191202103214
+## 0.3.0-master.396+20191202103222
 2019-12-02
 
 ### Features
 
 - **widgets:** création des widgets "TOP" (caa7f07392b9e41ca99fd52f7f14d50338612763)
+
+### Fixes
+
+- Corriger l'affichage des boutons sur IE sous la résolution 1024 (3c9c83c5a430dd4d2260951980c42f71a008df36)
 
 ## 0.3.0-master.394+20191202093551
 2019-12-02
