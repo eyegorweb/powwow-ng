@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.397+20191202110916
+2019-12-02
+
+### Fixes
+
+- bug détail de la ligne (68d19f11307b5fa4fd6061b42b50a796f97193ec)
+
 ## 0.3.0-master.396+20191202103222
 2019-12-02
 
