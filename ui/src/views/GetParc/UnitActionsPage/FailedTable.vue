@@ -77,6 +77,7 @@
 <script>
 import Modal from '@/components/Modal';
 import UnitActsTable from './UnitActsTable';
+import StatusCell from '@/views/GetParc/LineDetail/DetailsTab/ActsHistory/StatusCell';
 import { col } from '@/components/DataTable/utils';
 
 import { exportLines } from '@/api/unitActions';
@@ -141,6 +142,9 @@ export default {
           orderable: true,
           visible: true,
           exportId: 'LINE_SIM_STATUS_DATE',
+          format: {
+            component: StatusCell,
+          },
         },
         {
           id: 6,

@@ -3,15 +3,19 @@
     <h4 class="text-primary text-uppercase">
       {{ $t('getparc.actLines.massActionsHistory.title') }}
     </h4>
-    <DataTable
-      :columns.sync="columns"
-      :rows="unitActions || []"
-      :order-by.sync="orderBy"
-      @change-order="changeCellsOrder"
-      :page.sync="page"
-      :page-limit.sync="pageLimit"
-      :total="total || 0"
-    ></DataTable>
+    <div class="bg-white p-4 rounded">
+      <div class="d-flex">
+        <DataTable
+          :columns.sync="columns"
+          :rows="unitActions || []"
+          :order-by.sync="orderBy"
+          @change-order="changeCellsOrder"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+        ></DataTable>
+      </div>
+    </div>
   </div>
 </template>
 

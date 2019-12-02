@@ -26,33 +26,6 @@ export default {
       [`${'SIM_TOP_SCHEDULED_TERMINATION_'}${this.period}`],
       ...this.contextFilters
     );
-    // Mock for local test
-    // const mockTopIndicators = {
-    //   data: {
-    //     topIndicators: [
-    //       {
-    //         name: 'SIM_TOP_SCHEDULED_TERMINATION_DAY',
-    //         partyName: 'INGENICO',
-    //         numberValue: 0,
-    //       },
-    //       // {
-    //       //   name: 'SIM_TOP_SCHEDULED_TERMINATION_DAY',
-    //       //   partyName: 'LYRA NETWORK',
-    //       //   numberValue: 0,
-    //       // },
-    //       // {
-    //       //   name: 'SIM_TOP_SCHEDULED_TERMINATION_DAY',
-    //       //   partyName: 'EDELIA',
-    //       //   numberValue: 0,
-    //       // },
-    //       // {
-    //       //   name: 'SIM_TOP_SCHEDULED_TERMINATION_DAY',
-    //       //   partyName: 'Numericable',
-    //       //   numberValue: 0,
-    //       // },
-    //     ],
-    //   },
-    // };
 
     this.indicators = listTopIndicators.map(i => {
       return {
