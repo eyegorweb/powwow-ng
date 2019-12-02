@@ -2,6 +2,26 @@
 
 <!--- next entry here -->
 
+## 0.12.0
+2019-12-02
+
+### Features
+
+- **widgets:** création des widgets "TOP" (caa7f07392b9e41ca99fd52f7f14d50338612763)
+
+### Fixes
+
+- Ajouter le skeleton de la page détails d'acte de gestion (3763f1436cada74daf82b0d8eabd0db904c102b1)
+- Mettre les séparateurs de milliers (51e3bde966007cd7ba28969b6aaf8b0ec537f49c)
+- Changement d'offre si aucun service n'est choisi (2060e4ba33c5c700f468bad28c609dd4f064d672)
+- rendre la selection d'offre obligatoire sur l'acte de changement d'offre (c1bee9e9bf68d950ce2cc5a8123202a4cb05a86d)
+- modification des labels du widget Délai moyen (c5e64996b130018efd7790c814b7b40b111d5c46)
+- Correction de la recherche unitaire dans le détail de ligne (d1e1ca31fced206f7e9920de518b8b0c47f2c968)
+- Correction de la mise à jour de la commande lors des actions depuis le volet (15a6b927908a754fb6507a9d0733cbf5df8d4851)
+- Corriger le job gitlab pour les tests (5c26543b8921cfc9adbbbc37b4de17e754b849dd)
+- correctif de l'alignement sur les zones de non résultat (3fb9a4125b376998d7ea4376005f333e3c6941b7)
+- Corriger l'affichage des boutons sur IE sous la résolution 1024 (3c9c83c5a430dd4d2260951980c42f71a008df36)
+
 ## 0.11.1
 2019-11-20
 
