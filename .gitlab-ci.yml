@@ -3,12 +3,10 @@ image: gradle:5.1.1
 stages:
   - version
   - build
-  - e2e
   - test
   - release
   - deploy
   - undeploy
-  - e2e
 
 variables:
   http_proxy: "http://proxyace2.prod.extelia.fr:8080"
@@ -208,7 +206,7 @@ undeploy_uat:
 
 e2e_integration:
   image: cypress/base:10
-  stage: e2e
+  stage: test
   when: manual
   variables:
     CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
