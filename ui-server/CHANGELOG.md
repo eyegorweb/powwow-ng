@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.399+20191203140051
+2019-12-03
+
+### Features
+
+- 673 Filtres partenaire, compte de facturation et offre dans la recherche des alarmes (d80086f26cfb65fbed0f252d92067f680322fd58)
+
 ## 0.3.0-master.398+20191202153244
 2019-12-02
 
