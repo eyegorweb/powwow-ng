@@ -23,7 +23,12 @@
 
     <div class="row">
       <div class="col-md-3">
-        <Indicators :meta="indicators" :on-click="onClick" precalculated />
+        <Indicators
+          :meta="indicators"
+          :on-click="onClick"
+          :disable-click="!!creationMode"
+          precalculated
+        />
         <br />
 
         <FilterBar />
