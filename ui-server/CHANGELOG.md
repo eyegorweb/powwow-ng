@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.400+20191203150746
+2019-12-03
+
+### Fixes
+
+- Correction du bug : si on quitte la page de création d'un acte de gestion en cours de création, le mode création est toujours actif (b38276d0d7c08a2ba5290249a712d3360cc28293)
+
 ## 0.3.0-master.399+20191203140051
 2019-12-03
 
