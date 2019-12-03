@@ -1,4 +1,4 @@
-import { query } from './utils';
+import { query, getValuesIdsWithoutQuotes } from './utils';
 
 export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
@@ -68,4 +68,40 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
 
   const response = await query(queryStr);
   return response.data.alarmsWithInfo;
+}
+
+export async function searchAlarms(orderBy, pagination, filters = []) {
+  // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+  query {
+    alarms(alarmFilterInput: {
+      ${formatFilters(filters)}
+    }${paginationInfo}) {
+      total
+      items {
+        id
+        type
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.alarms;
+}
+
+function formatFilters(selectedFilters) {
+  const gqlFilters = [];
+
+  addPartnerFilter(gqlFilters, selectedFilters);
+
+  return gqlFilters.join(',');
+}
+
+function addPartnerFilter(gqlFilters, selectedFilters) {
+  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'filters.partners');
+  if (partyIds) {
+    gqlFilters.push(`partyID: {in: [${partyIds}]}`);
+  }
 }

@@ -141,6 +141,13 @@ export function boolStr(value) {
   return value ? 'true' : 'false';
 }
 
+export function getValuesIdsWithoutQuotes(filters, filterId) {
+  const values = getFilterValues(filters, filterId);
+  if (values) {
+    return values.map(i => `${i.id}`).join(',');
+  }
+}
+
 export function getFilterValues(filters, filterId) {
   if (!filters) return;
 

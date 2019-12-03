@@ -14,6 +14,7 @@ export function initState() {
 
     searchResponse: undefined,
     searchPage: 1,
+    limitPerPage: 20,
   };
 }
 
@@ -23,6 +24,8 @@ export function initGetters() {
     appliedFilters: state => state.appliedFilters,
     defaultAppliedFilters: state => state.defaultAppliedFilters,
     isLoading: state => state.isLoading,
+    searchPage: state => state.searchPage,
+
     canShowSelectedFilter: state =>
       !!state.currentFilters.find(
         f =>
@@ -162,6 +165,14 @@ export function setQueryFilterAndSearch(state) {
 export function initMutations() {
   return {
     setQueryFilterAndSearch,
+
+    setPage(state, newPage) {
+      state.searchPage = newPage;
+    },
+
+    setPageLimit(state, limit) {
+      state.limitPerPage = limit;
+    },
 
     setSearchResponse(state, res) {
       state.searchResponse = res;
