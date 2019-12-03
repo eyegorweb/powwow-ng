@@ -62,6 +62,7 @@ export default {
         return this.searchPage || 0;
       },
       set(newVal) {
+        console.log('Page = ', newVal);
         this.setPage(newVal);
       },
     },
@@ -76,7 +77,7 @@ export default {
     },
   },
   watch: {
-    orderPage() {
+    searchPage() {
       this.fetchAlarms();
     },
     orderBy() {
@@ -99,6 +100,7 @@ export default {
     ...mapMutations('alarms', ['setPage', 'setCurrentFilters', 'applyFilters']),
     createAlarm() {},
     fetchAlarms() {
+      console.log('FETCHING ALARM');
       this.fetchAlarmsFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
