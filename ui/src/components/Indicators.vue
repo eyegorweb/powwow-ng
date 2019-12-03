@@ -5,6 +5,7 @@
         v-for="indicator in indicatorsWithCompatibleRoles"
         :key="indicator.labelKey"
         :indicator="indicator"
+        :disable-click="disableClick"
         :on-click="onClick"
         :precalculated="precalculated"
         @removeme="i => removeIndicator(i)"
@@ -33,6 +34,7 @@ export default {
       type: Function,
       required: false,
     },
+    disableClick: Boolean,
     noBorders: Boolean,
     small: Boolean,
     precalculated: Boolean,

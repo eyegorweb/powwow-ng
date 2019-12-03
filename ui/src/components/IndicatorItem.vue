@@ -4,7 +4,7 @@
     <div class="float-right">
       <button
         :class="`btn btn-link p-0 ${indicator.color || classColor}`"
-        :disabled="!indicator.clickable"
+        :disabled="disableClick || !indicator.clickable"
         @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
@@ -27,6 +27,7 @@ export default {
       required: false,
     },
     precalculated: Boolean,
+    disableClick: Boolean,
   },
   data() {
     return {
