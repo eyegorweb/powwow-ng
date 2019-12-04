@@ -24,6 +24,12 @@
           <FoldableBlock :title="$t('filters.lines.associatedOffer')" :key="'el5'" draggable>
             <AlarmsOffersFilter />
           </FoldableBlock>
+          <FoldableBlock :title="$t('getvsion.filters.ALARMS_OFFER')" :key="'el6'" draggable>
+            <AlarmsRange />
+          </FoldableBlock>
+          <FoldableBlock :title="$t('getvsion.filters.ALARM_TYPE')" :key="'el7'" draggable>
+            <AlarmType />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -61,6 +67,8 @@ import SelectedFilters from '@/components/Filters/SelectedFilters';
 import AlarmsPartnersFilter from './AlarmsPartnersFilter';
 import AlarmsBillingAccount from './AlarmsBillingAccount';
 import AlarmsOffersFilter from './AlarmsOffersFilter';
+import AlarmsRange from './AlarmsRange';
+import AlarmType from './AlarmType';
 
 export default {
   components: {
@@ -70,6 +78,8 @@ export default {
     AlarmsPartnersFilter,
     AlarmsBillingAccount,
     AlarmsOffersFilter,
+    AlarmsRange,
+    AlarmType,
   },
   data() {
     return {

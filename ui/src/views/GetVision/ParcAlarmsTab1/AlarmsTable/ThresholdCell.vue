@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Thresholds :alarm="row.alarm" />
+    <Thresholds :alarm="row" />
   </div>
 </template>
 

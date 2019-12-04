@@ -7,7 +7,7 @@ const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
 // const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
-// const findFilterValueById = filterUtils.findFilterValueById;
+const findFilterValueById = filterUtils.findFilterValueById;
 
 const initFilterForContext = store => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
@@ -21,8 +21,10 @@ export const getters = {
   ...filterUtils.initGetters(),
   selectedPartnersValues: findFilterValuesById('filters.partners'),
   selectedBillingAccountsValues: findFilterValuesById('filters.billingAccounts'),
+  selectedAlarmRange: findFilterValuesById('getvsion.filters.ALARMS_OFFER'),
+  selectedAlarmType: findFilterValueById('getvsion.filters.ALARM_TYPE'),
   selectedOffersValues: state => {
-    return selectedFilterValuesById(state)('filters.lines.associatedOffer');
+    return selectedFilterValuesById(state)('filters.alarms.associatedOffer');
   },
 };
 
@@ -79,9 +81,8 @@ export const actions = {
     const { commit } = store;
     commit('startLoading');
 
-    console.log('Fetch alarms here > ', orderBy, pageInfo, appliedFilters);
-
     let response = { total: 0, items: [] };
+
     try {
       response = await searchAlarms(orderBy, pageInfo, appliedFilters);
     } catch (e) {
@@ -117,8 +118,20 @@ export const mutations = {
 
   setOffersFilter(state, offers) {
     selectFilterValue(state, {
-      id: 'filters.lines.associatedOffer',
+      id: 'filters.alarms.associatedOffer',
       values: offers,
+    });
+  },
+  setAlarmRange(state, values) {
+    selectFilterValue(state, {
+      id: 'getvsion.filters.ALARMS_OFFER',
+      values,
+    });
+  },
+  setAlarmType(state, value) {
+    selectFilterValue(state, {
+      id: 'getvsion.filters.ALARM_TYPE',
+      ...value,
     });
   },
 };
