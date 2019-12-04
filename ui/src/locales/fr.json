@@ -76,7 +76,6 @@
       "cancelationAct": "Actes: Résiliation",
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
-      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
       "stateParc": {
@@ -131,7 +130,8 @@
     "code": "Code",
     "firstName": "Prénom",
     "lastName": "Nom",
-    "email": "Email"
+    "email": "Email",
+    "line": "Line"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -183,6 +183,22 @@
       "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
     }
   },
+  "alarms": {
+    "OVER_CONSUMPTION_VOLUME": "Sur-consommation",
+    "UNDER_CONSUMPTION_VOLUME": "Sous-Consommation",
+    "PLMN_CHANGE": "Changement d'opérateur ",
+    "NOCHANGE_STATUS": "Non changement de statut sur une période",
+    "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
+    "SOLD_OVER_THRESHOLD": "Solde au-dessus du seuil",
+    "ACTION": "Action",
+    "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
+    "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
+    "STATUS_CHANGE": "Changement de statut",
+    "IMEI_CHANGE": "Changement de module",
+    "COUNTRY_CHANGE": "Changement de pays",
+    "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte"
+  },
   "getvsion": {
     "manage-alarms": "Gestion des alarmes",
     "manage-alarms-tooltip": "TODO description",
@@ -198,6 +214,10 @@
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
       "triggered_last_month": "Déclenchement mois précédent"
+    },
+    "filters": {
+      "ALARMS_OFFER": "Portée de l'alame",
+      "ALARM_TYPE": "Type d'alarme"
     }
   },
   "getparc": {

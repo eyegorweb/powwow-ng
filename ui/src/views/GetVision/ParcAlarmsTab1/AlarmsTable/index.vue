@@ -32,6 +32,11 @@ import UiButton from '@/components/ui/Button';
 import { col } from '@/components/DataTable/utils';
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
+import AlarmNameCell from './AlarmNameCell.vue';
+import ThresholdCell from './ThresholdCell.vue';
+import TargetedLinesCell from './TargetedLinesCell.vue';
+import TriggeredEventsCell from './TriggeredEventsCell.vue';
+
 export default {
   components: {
     DataTable,
@@ -42,10 +47,18 @@ export default {
       showExtraCells: false,
       columns: [
         col(this.$t('col.id'), 'id', true, true),
-        col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false),
-        col(this.$t('getvsion.table.thresholds'), 'thresholds', true, false),
-        col(this.$t('getvsion.table.targetedLines '), 'targetedLines', true, false),
-        col(this.$t('getvsion.table.triggers '), 'triggers', true, false),
+        col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
+          component: AlarmNameCell,
+        }),
+        col(this.$t('getvsion.table.thresholds'), 'thresholds', true, false, {
+          component: ThresholdCell,
+        }),
+        col(this.$t('getvsion.table.targetedLines'), 'targetedLines', true, false, {
+          component: TargetedLinesCell,
+        }),
+        col(this.$t('getvsion.table.triggers '), 'triggers', true, false, {
+          component: TriggeredEventsCell,
+        }),
       ],
       pageLimit: 20,
       orderBy: {
@@ -62,7 +75,6 @@ export default {
         return this.searchPage || 0;
       },
       set(newVal) {
-        console.log('Page = ', newVal);
         this.setPage(newVal);
       },
     },
@@ -100,7 +112,6 @@ export default {
     ...mapMutations('alarms', ['setPage', 'setCurrentFilters', 'applyFilters']),
     createAlarm() {},
     fetchAlarms() {
-      console.log('FETCHING ALARM');
       this.fetchAlarmsFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
