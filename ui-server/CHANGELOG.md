@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.401+20191204145326
+2019-12-04
+
+### Features
+
+- filtres portée de l'alarme et type de l'alarme dans la recherche des alarmes (8792ba9a23bc4b33ce8e083caf972bcd9555a781)
+
 ## 0.3.0-master.400+20191203150746
 2019-12-03
 
