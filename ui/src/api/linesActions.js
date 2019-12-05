@@ -548,7 +548,7 @@ export async function fetchLineServices(simCardInstanceId) {
       optional
       parameters {
         activated
-        value
+        name
         code
         editable
       }
