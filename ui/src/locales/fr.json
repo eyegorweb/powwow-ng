@@ -6,6 +6,7 @@
   "search": "Rechercher",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",
+  "partnerAlarm": "Type d'alarme",
   "choosePartner": "Sélectionner des partenaires",
   "chooseBillingAccounts": "Sélectionner des comptes de facturation",
   "selectAll": "Tout sélectionner",
@@ -131,7 +132,7 @@
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",
-    "line": "Line"
+    "line": "Ligne"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",

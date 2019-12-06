@@ -1,4 +1,4 @@
-import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
+import { query, getValuesIdsWithoutQuotes } from './utils';
 
 export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
