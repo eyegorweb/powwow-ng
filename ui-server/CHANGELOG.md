@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.13.1
+2019-12-06
+
+### Fixes
+
+- modifie la clé name des paramètres de services (fb186ded6e903f328328bdb2717e2b9b84f4aada)
+- traduction dans les filtres d'alarme (53a16f93e6b1986effb4eb4c9e5d96f0c6e469ba)
+
 ## 0.13.0
 2019-12-06
 
