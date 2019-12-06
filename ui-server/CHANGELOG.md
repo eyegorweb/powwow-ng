@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.402+20191205152501
+2019-12-05
+
+### Fixes
+
+- correctif d'une clé sur l'api marketingServices (47cb2a8ce13cd4ca5c985aaf29a914fefd1d4056)
+
 ## 0.3.0-master.401+20191204145326
 2019-12-04
 
