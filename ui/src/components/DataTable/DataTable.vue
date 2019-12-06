@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!rows || !rows.length" class="alert-light" role="alert">
+  <div v-if="!rows || !rows.length" class="alert alert-light m-0" role="alert">
     {{ $t('noResult') }}
   </div>
   <div v-else>

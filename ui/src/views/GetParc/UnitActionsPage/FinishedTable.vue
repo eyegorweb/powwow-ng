@@ -10,6 +10,7 @@
 <script>
 import UnitActsTable from './UnitActsTable';
 import { col } from '@/components/DataTable/utils';
+import StatusCell from '@/views/GetParc/LineDetail/DetailsTab/ActsHistory/StatusCell';
 
 export default {
   components: {
@@ -60,6 +61,9 @@ export default {
           orderable: true,
           visible: true,
           exportId: 'UNIT_ACTION_STATUS',
+          format: {
+            component: StatusCell,
+          },
         },
         {
           id: 6,

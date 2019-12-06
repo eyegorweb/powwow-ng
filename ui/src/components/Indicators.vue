@@ -5,6 +5,7 @@
         v-for="indicator in indicatorsWithCompatibleRoles"
         :key="indicator.labelKey"
         :indicator="indicator"
+        :disable-click="disableClick"
         :on-click="onClick"
         :precalculated="precalculated"
         @removeme="i => removeIndicator(i)"
@@ -33,6 +34,7 @@ export default {
       type: Function,
       required: false,
     },
+    disableClick: Boolean,
     noBorders: Boolean,
     small: Boolean,
     precalculated: Boolean,
@@ -93,10 +95,7 @@ export default {
 
       const unknownKeys = this.meta.filter(i => i.fetchKey === '');
       if (unknownKeys && unknownKeys.length) {
-        console.warn(
-          'Indicateurs inconnus : ',
-          unknownKeys.map(i => this.$t(i.labelKey))
-        );
+        console.warn('Indicateurs inconnus : ', unknownKeys.map(i => this.$t(i.labelKey)));
       }
 
       let partners;

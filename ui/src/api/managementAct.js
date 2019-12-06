@@ -2,7 +2,7 @@ import { query } from './utils';
 
 export async function getManagementActTypes() {
   const queryStr = `query {
-    __type(name: "ActionTypeEnum") {
+    __type(name: "ActionTypeSearchEnum") {
         enumValues{name}
       }
   }`;

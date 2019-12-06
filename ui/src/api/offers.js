@@ -35,7 +35,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
             optional
             parameters {
               activated
-              value
+              name
               code
               editable
             }
