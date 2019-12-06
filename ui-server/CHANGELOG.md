@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.404+20191206113107
+2019-12-06
+
+### Fixes
+
+- correctif d'une clé sur l'api marketingServices (47cb2a8ce13cd4ca5c985aaf29a914fefd1d4056)
+- modifie la clé name des paramètres de services (fb186ded6e903f328328bdb2717e2b9b84f4aada)
+- traduction dans les filtres d'alarme (53a16f93e6b1986effb4eb4c9e5d96f0c6e469ba)
+
 ## 0.3.0-master.403+20191206094236
 2019-12-06
 
