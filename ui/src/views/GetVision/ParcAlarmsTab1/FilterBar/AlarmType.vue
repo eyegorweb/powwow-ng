@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiSelect v-model="alarmType" :placeholder="$t('partnerType')" :options="items" />
+    <UiSelect v-model="alarmType" :placeholder="$t('partnerAlarm')" :options="items" />
   </div>
 </template>
 
