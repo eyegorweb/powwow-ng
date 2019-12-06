@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 0.13.0
+2019-12-06
+
+### Features
+
+- 673 Filtres partenaire, compte de facturation et offre dans la recherche des alarmes (d80086f26cfb65fbed0f252d92067f680322fd58)
+- filtres portée de l'alarme et type de l'alarme dans la recherche des alarmes (8792ba9a23bc4b33ce8e083caf972bcd9555a781)
+
+### Fixes
+
+- bug détail de la ligne (68d19f11307b5fa4fd6061b42b50a796f97193ec)
+- correction pour traduire les status des actes unitaires (138825faafb35afd9905559dd9e29808df14f2fa)
+- Correction du bug : si on quitte la page de création d'un acte de gestion en cours de création, le mode création est toujours actif (b38276d0d7c08a2ba5290249a712d3360cc28293)
+- correctif d'une clé sur l'api marketingServices (47cb2a8ce13cd4ca5c985aaf29a914fefd1d4056)
+
 ## 0.12.0
 2019-12-02
 
