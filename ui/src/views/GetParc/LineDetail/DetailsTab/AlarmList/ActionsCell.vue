@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       alarmIsToggled: false,
-      warningMsg: this.$t('getparc.actLines.alarmList.confirmationWarning'),
+      warningMsg: undefined,
     };
   },
 
@@ -50,8 +50,10 @@ export default {
         formattedCurrentDate(),
       ];
       if (this.alarm.isActive) {
+        this.warningMsg = this.$t('getparc.actLines.alarmList.confirmationWarning');
         actionFn = deleteAlarmInstance;
       } else {
+        this.warningMsg = 'confirmAction';
         actionFn = createAlarmInstance;
       }
 
