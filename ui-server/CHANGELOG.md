@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.410+20191209142330
+2019-12-09
+
+### Features
+
+- ajout du filtre de date de déclenchement (aaf66a3c3021d8996c520a780a9910155bd09e35)
+
 ## 0.3.0-master.409+20191209140414
 2019-12-09
 
