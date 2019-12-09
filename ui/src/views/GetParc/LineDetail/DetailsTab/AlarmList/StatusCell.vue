@@ -10,6 +10,7 @@ export default {
   name: 'IdCell',
   props: {
     row: Object,
+    isActive: Boolean,
   },
 };
 </script>

@@ -1,18 +1,67 @@
 <template>
   <div>
-    <button v-if="row.isActive" class="btn btn-link p-0">
-      {{ $t('getparc.lineDetail.alarms.disableLine') }}
-    </button>
-    <button v-else class="btn btn-link p-0">
-      {{ $t('getparc.lineDetail.alarms.enableLine') }}
+    <span v-if="alarmIsToggled">{{ $t(processingActionText) }}...</span>
+    <button v-else @click.prevent="toggleAlarmInstance" class="btn btn-link p-0">
+      {{ $t(actionText) }}
     </button>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import { formattedCurrentDate } from '@/utils/date';
+import { createAlarmInstance, deleteAlarmInstance } from '@/api/alarms';
+
 export default {
   props: {
-    row: Object,
+    alarm: Object,
+    simcard: Object,
+  },
+  data() {
+    return {
+      alarmIsToggled: false,
+    };
+  },
+
+  computed: {
+    actionText() {
+      return this.alarm.isActive
+        ? 'getparc.lineDetail.alarms.disableLine'
+        : 'getparc.lineDetail.alarms.enableLine';
+    },
+
+    processingActionText() {
+      return this.alarm.isActive
+        ? 'getparc.actLines.simStatuses.DEACTIVATION'
+        : 'getparc.actLines.simStatuses.ACTIVATING';
+    },
+  },
+
+  methods: {
+    ...mapMutations(['confirmAction']),
+
+    toggleAlarmInstance() {
+      let actionFn;
+      const args = [
+        this.simcard.id,
+        this.alarm.alarm.id,
+        this.simcard.party.id,
+        formattedCurrentDate(),
+      ];
+      if (this.alarm.isActive) {
+        actionFn = deleteAlarmInstance;
+      } else {
+        actionFn = createAlarmInstance;
+      }
+
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await actionFn(...args);
+          this.alarmIsToggled = !this.alarmIsToggled;
+        },
+      });
+    },
   },
 };
 </script>

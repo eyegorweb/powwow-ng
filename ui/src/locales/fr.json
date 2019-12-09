@@ -853,7 +853,8 @@
         }
       },
       "alarmList": {
-        "title": "Liste des alarmes"
+        "title": "Liste des alarmes",
+        "confirmationWarning": "Attention ! Toutes les données seront perdues."
       },
       "simStatuses": {
         "NOT_PREACTIVATED": "Non préactivée",
@@ -862,6 +863,7 @@
         "SUSPENDED": "Suspendue",
         "RELEASED": "Résiliée",
         "ACTIVATING": "Activation en cours",
+        "DEACTIVATION": "Désactivation en cours",
         "CANCELED": "Annulée",
         "TEST": "Test",
         "BARRED": "Barré",
