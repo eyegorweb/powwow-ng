@@ -30,6 +30,9 @@
           <FoldableBlock :title="$t('getvsion.filters.ALARM_TYPE')" :key="'el7'" draggable>
             <AlarmType />
           </FoldableBlock>
+          <FoldableBlock :title="$t('getvsion.filters.DATE_TRIGGER')" :key="'el8'" draggable>
+            <DateTriggerAlarm />
+          </FoldableBlock>
         </transition-group>
       </draggable>
     </div>
@@ -69,6 +72,7 @@ import AlarmsBillingAccount from './AlarmsBillingAccount';
 import AlarmsOffersFilter from './AlarmsOffersFilter';
 import AlarmsRange from './AlarmsRange';
 import AlarmType from './AlarmType';
+import DateTriggerAlarm from './DateTriggerAlarm';
 
 export default {
   components: {
@@ -80,6 +84,7 @@ export default {
     AlarmsOffersFilter,
     AlarmsRange,
     AlarmType,
+    DateTriggerAlarm,
   },
   data() {
     return {
