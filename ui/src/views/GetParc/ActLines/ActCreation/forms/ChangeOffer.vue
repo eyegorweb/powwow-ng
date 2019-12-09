@@ -29,13 +29,15 @@
           off-text="Non"
         />
       </div>
-      <hr />
     </div>
 
-    <div v-if="canChangeServices" class="toggles-container">
-      <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
-      <UiToggle label="Activation" v-model="activation" />
+    <div v-if="canChangeServices" class="row">
+      <div class="col-md-8 mb-3">
+        <UiToggle label="Activation" v-model="activation" />
+      </div>
     </div>
+
+    <hr />
 
     <div v-if="canChangeServices && activation">
       <ServicesBlock
@@ -92,7 +94,6 @@ export default {
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
       activation: false,
-      preActivation: true,
 
       offerServices: undefined,
       servicesChoice: undefined,
