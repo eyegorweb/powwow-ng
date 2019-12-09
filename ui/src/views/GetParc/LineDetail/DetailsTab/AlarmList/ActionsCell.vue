@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       alarmIsToggled: false,
+      warningMsg: this.$t('getparc.actLines.alarmList.confirmationWarning'),
     };
   },
 
@@ -55,7 +56,7 @@ export default {
       }
 
       this.confirmAction({
-        message: 'confirmAction',
+        message: this.warningMsg,
         actionFn: async () => {
           await actionFn(...args);
           this.alarmIsToggled = !this.alarmIsToggled;
