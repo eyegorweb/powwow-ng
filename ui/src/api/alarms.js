@@ -1,4 +1,4 @@
-import { query, getValuesIdsWithoutQuotes } from './utils';
+import { query, getValuesIdsWithoutQuotes, formatDateForGql } from './utils';
 
 export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
@@ -143,4 +143,40 @@ function addAlarmType(gqlFilters, selectedFilters) {
   if (foundFilter) {
     gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
   }
+}
+
+export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+  const queryStr = `
+  mutation {
+    createAlarmInstance(alarmInput: {
+      alarmId: ${alarmId}
+      simCardInstanceId: ${simCardInstanceId}
+      partyId: ${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification: false
+      adminSkipGDM: false
+    })
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.createAlarmInstance;
+}
+
+export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+  const queryStr = `
+  mutation {
+    deleteAlarmInstance(alarmInput: {
+      alarmId: ${alarmId}
+      simCardInstanceId: ${simCardInstanceId}
+      partyId: ${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification: false
+      adminSkipGDM: false
+    })
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.deleteAlarmInstance;
 }

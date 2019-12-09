@@ -2,23 +2,21 @@
   <div>
     <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
     <div class="bg-white p-4 rounded">
-      <div class="d-flex">
-        <DataTable
-          :columns.sync="columns"
-          :rows="alarms || []"
-          :order-by.sync="orderBy"
-          @change-order="changeCellsOrder"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-          :size="5"
-          :show-extra-columns.sync="showExtraCells"
-        >
-          <template slot="actions" slot-scope="{ row }">
-            <ActionsCell :row="row" />
-          </template>
-        </DataTable>
-      </div>
+      <DataTable
+        :columns.sync="columns"
+        :rows="alarms || []"
+        :order-by.sync="orderBy"
+        @change-order="changeCellsOrder"
+        :page.sync="page"
+        :page-limit.sync="pageLimit"
+        :total="total || 0"
+        :size="5"
+        :show-extra-columns.sync="showExtraCells"
+      >
+        <template slot="actions" slot-scope="{ row }">
+          <ActionsCell :alarm="row" :simcard="content" />
+        </template>
+      </DataTable>
     </div>
   </div>
 </template>
@@ -31,8 +29,8 @@ import StatusCell from './StatusCell';
 import TriggerCell from './TriggerCell';
 import ActionsCell from './ActionsCell';
 import TypeCell from './TypeCell';
-import { fetchAlarmsWithInfos } from '@/api/alarms';
 import { col } from '@/components/DataTable/utils';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 export default {
   components: {
@@ -77,8 +75,13 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-
       alarms: undefined,
+      showValidationModal: false,
+      confirmationMessage: this.$t('getparc.actLines.alarmList.confirmationWarning'),
+      isLoading: false,
+      dueDate: undefined,
+      isActive: undefined,
+      isTriggered: false,
     };
   },
   watch: {
