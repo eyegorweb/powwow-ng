@@ -1,4 +1,5 @@
-import { query, getValuesIdsWithoutQuotes, formatDateForGql } from './utils';
+import { query, getValuesIdsWithoutQuotes } from './utils';
+import moment from 'moment';
 
 export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
@@ -106,45 +107,6 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
-function formatFilters(selectedFilters) {
-  const gqlFilters = [];
-
-  addPartnerFilter(gqlFilters, selectedFilters);
-  addCustomerAccount(gqlFilters, selectedFilters);
-  addScope(gqlFilters, selectedFilters);
-  addAlarmType(gqlFilters, selectedFilters);
-
-  return gqlFilters.join(',');
-}
-
-function addPartnerFilter(gqlFilters, selectedFilters) {
-  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'filters.partners');
-  if (partyIds) {
-    gqlFilters.push(`partyID: {in: [${partyIds}]}`);
-  }
-}
-
-function addCustomerAccount(gqlFilters, selectedFilters) {
-  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'filters.billingAccounts');
-  if (ids) {
-    gqlFilters.push(`customerAccount: {in: [${ids}]}`);
-  }
-}
-
-function addScope(gqlFilters, selectedFilters) {
-  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'getvsion.filters.ALARMS_OFFER');
-  if (ids) {
-    gqlFilters.push(`alarmScope: {in: [${ids}]}`);
-  }
-}
-
-function addAlarmType(gqlFilters, selectedFilters) {
-  const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
-  if (foundFilter) {
-    gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
-  }
-}
-
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
@@ -179,4 +141,93 @@ export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, d
 
   const response = await query(queryStr);
   return response.data.deleteAlarmInstance;
+}
+
+function formatFilters(selectedFilters) {
+  const gqlFilters = [];
+
+  addPartnerFilter(gqlFilters, selectedFilters);
+  addCustomerAccount(gqlFilters, selectedFilters);
+  addScope(gqlFilters, selectedFilters);
+  addAlarmType(gqlFilters, selectedFilters);
+  addDateTriggerAlarm(gqlFilters, selectedFilters);
+
+  return gqlFilters.join(',');
+}
+
+function addPartnerFilter(gqlFilters, selectedFilters) {
+  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'filters.partners');
+  if (partyIds) {
+    gqlFilters.push(`partyID: {in: [${partyIds}]}`);
+  }
+}
+
+function addCustomerAccount(gqlFilters, selectedFilters) {
+  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'filters.billingAccounts');
+  if (ids) {
+    gqlFilters.push(`customerAccount: {in: [${ids}]}`);
+  }
+}
+
+function addScope(gqlFilters, selectedFilters) {
+  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'getvsion.filters.ALARMS_OFFER');
+  if (ids) {
+    gqlFilters.push(`alarmScope: {in: [${ids}]}`);
+  }
+}
+
+function addAlarmType(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
+  if (foundFilter) {
+    gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
+  }
+}
+
+function addDateTriggerAlarm(gqlFilters, selectedFilters) {
+  const dateFilter = selectedFilters.find(f => f.id === 'getvsion.filters.DATE_TRIGGER');
+  if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
+    const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
+
+    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
+
+    gqlFilters.push(
+      `triggerDateStart: {eq: "${formattedStartDate}"}, triggerDateEnd: {eq: "${formattedEndDate}"}`
+    );
+  }
+
+  function prepareEndDateForBackend(inDate) {
+    const dateToEdit = inDate.replace(/\//g, '/');
+    const parts = dateToEdit.split(' ');
+    let endDate;
+    let formatToUse;
+
+    if (parts.length === 2) {
+      formatToUse = 'DD/MM/YYYY hh:mm:ss';
+      endDate = moment(dateToEdit, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse);
+    } else {
+      formatToUse = 'DD/MM/YYYY';
+      endDate = moment(`${parts[0]}`, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse) + ' 00:00:00';
+    }
+  }
+}
+
+function formatDateForGql(inDate) {
+  if (!inDate) return '';
+  const startDate = inDate.replace(/\//g, '/');
+  const parts = startDate.split(' ');
+  if (parts) {
+    if (parts.length === 2) {
+      return startDate;
+    } else {
+      return `${parts[0]} 00:00:00`;
+    }
+  }
 }

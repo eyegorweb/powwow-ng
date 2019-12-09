@@ -26,6 +26,8 @@ export const getters = {
   selectedOffersValues: state => {
     return selectedFilterValuesById(state)('filters.alarms.associatedOffer');
   },
+  selectedAlarmDateTrigger: state =>
+    state.currentFilters.find(f => f.id === 'getvsion.filters.DATE_TRIGGER'),
 };
 
 // Actions
@@ -132,6 +134,15 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'getvsion.filters.ALARM_TYPE',
       ...value,
+    });
+  },
+  setAlarmDateFilter(state, { startDate, endDate }) {
+    if (!startDate || !endDate) return;
+
+    selectFilterValue(state, {
+      id: 'getvsion.filters.DATE_TRIGGER',
+      startDate,
+      endDate,
     });
   },
 };

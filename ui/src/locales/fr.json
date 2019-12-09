@@ -218,7 +218,8 @@
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
-      "ALARM_TYPE": "Type d'alarme"
+      "ALARM_TYPE": "Type d'alarme",
+      "DATE_TRIGGER": "Date de déclenchement"
     }
   },
   "getparc": {
