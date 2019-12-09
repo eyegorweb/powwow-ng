@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.408+20191209124027
+2019-12-09
+
+### Fixes
+
+- personnalisation du message de confirmation lors de l'activation de l'alarme d'une ligne (90fe73d20e7dc236e63e98b1924fdc9d4e0d9c5d)
+
 ## 0.3.0-master.407+20191209103333
 2019-12-09
 
