@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.407+20191209103333
+2019-12-09
+
+### Features
+
+- activation de l'alarme pour une ligne (55b6073b82434ea736c6ec126bb7f9b7a5dbfbfb)
+
+### Fixes
+
+- mise à jour de message de confirmation pour l'activation d'une ligne (b1a5b2d7358e5a1a60bc9a4a57401fc2870742fd)
+
 ## 0.3.0-master.406+20191209102353
 2019-12-09
 
