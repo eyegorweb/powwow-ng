@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.409+20191209140414
+2019-12-09
+
+### Fixes
+
+- enlever la demande de préactivation du changement d'offre. (184710f631f6bb939342f8262dd2be343b5f33f2)
+
 ## 0.3.0-master.408+20191209124027
 2019-12-09
 
