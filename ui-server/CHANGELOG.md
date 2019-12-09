@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.405+20191209091845
+2019-12-09
+
+### Fixes
+
+- Ne pas modifier le service data dans le changement de services quand ce service n'est pas modifiable (5b409bd61b4d9d0e049523e9f4cc91378cec33b5)
+
 ## 0.3.0-master.404+20191206113107
 2019-12-06
 
