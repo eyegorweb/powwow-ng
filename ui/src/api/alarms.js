@@ -1,4 +1,4 @@
-import { query, getValuesIdsWithoutQuotes } from './utils';
+import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
 import moment from 'moment';
 
 export async function fetchAlarmInstancesByAP(id) {
@@ -29,6 +29,7 @@ export async function fetchAlarmInstancesByAP(id) {
   `;
 
   const response = await query(queryStr);
+  if (!response.data) return;
   return response.data.alarmInstances;
 }
 
@@ -68,6 +69,8 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
   `;
 
   const response = await query(queryStr);
+  if (!response.data) return;
+
   return response.data.alarmsWithInfo;
 }
 
@@ -151,8 +154,16 @@ function formatFilters(selectedFilters) {
   addScope(gqlFilters, selectedFilters);
   addAlarmType(gqlFilters, selectedFilters);
   addDateTriggerAlarm(gqlFilters, selectedFilters);
+  addId(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
+}
+
+function addId(gqlFilters, selectedFilters) {
+  const partyIds = getFilterValue(selectedFilters, 'filters.alarmId');
+  if (partyIds) {
+    gqlFilters.push(`partyID: {in: [${partyIds}]}`);
+  }
 }
 
 function addPartnerFilter(gqlFilters, selectedFilters) {

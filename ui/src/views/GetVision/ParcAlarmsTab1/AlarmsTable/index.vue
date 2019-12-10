@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <SearchResultSkeleton :columns="columns" />
+    </div>
     <div class="row mb-3 mt-3">
       <div class="col-md-8">
         <h2 class="text-gray font-weight-light" style="font-size: 2rem">
@@ -13,17 +16,29 @@
         </UiButton>
       </div>
     </div>
-    <DataTable
-      :columns="columns"
-      :rows="rows || []"
-      :page.sync="page"
-      :page-limit.sync="pageLimit"
-      :total="total || 0"
-      :order-by.sync="orderBy"
-      :show-extra-columns.sync="showExtraCells"
-      :size="7"
-    ></DataTable>
-  </div>
+    <template v-if="rows && rows.length">
+      <DataTable
+        :columns="columns"
+        :rows="rows || []"
+        :page.sync="page"
+        :page-limit.sync="pageLimit"
+        :total="total || 0"
+        :order-by.sync="orderBy"
+        :show-extra-columns.sync="showExtraCells"
+        :size="7"
+      >
+        <template slot="topLeftCorner">
+          <SearchAlarmById @search="isSearchingById = true" />
+        </template>
+      </DataTable>
+    </template>
+    <template v-else>
+      <div v-if="isSearchingById">
+        <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+      </div>
+      <div class="alert alert-light">{{ $t('noResult') }}</div>
+    </template>
+  </LoaderContainer>
 </template>
 
 <script>
@@ -36,11 +51,18 @@ import AlarmNameCell from './AlarmNameCell.vue';
 import ThresholdCell from './ThresholdCell.vue';
 import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
+import SearchAlarmById from './SearchAlarmById.vue';
+
+import LoaderContainer from '@/components/LoaderContainer';
+import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
   components: {
+    LoaderContainer,
+    SearchResultSkeleton,
     DataTable,
     UiButton,
+    SearchAlarmById,
   },
   data() {
     return {
@@ -65,6 +87,7 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
+      isSearchingById: false,
     };
   },
   computed: {
@@ -109,14 +132,27 @@ export default {
   },
   methods: {
     ...mapActions('alarms', ['fetchAlarmsFromApi']),
-    ...mapMutations('alarms', ['setPage', 'setCurrentFilters', 'applyFilters']),
+    ...mapMutations('alarms', [
+      'setPage',
+      'setCurrentFilters',
+      'applyFilters',
+      'forceAppliedFilters',
+      'startLoading',
+      'stopLoading',
+    ]),
     createAlarm() {},
-    fetchAlarms() {
-      this.fetchAlarmsFromApi({
+    async fetchAlarms() {
+      this.startLoading();
+      await this.fetchAlarmsFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
+      this.stopLoading();
+    },
+    resetFilters() {
+      this.isSearchingById = false;
+      this.forceAppliedFilters([]);
     },
   },
 };
