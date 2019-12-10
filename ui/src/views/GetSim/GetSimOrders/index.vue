@@ -238,6 +238,14 @@ export default {
           orderable: true,
           visible: true,
           exportId: 'ORDER_STATUS',
+          tootltipText: item => {
+            const isError = item === 'NOT_VALIDATED' || item === 'CANCELED';
+
+            return {
+              content: this.$t('col.statuses.' + item),
+              classes: [isError ? 'error-tooltip' : 'success-tooltip'],
+            };
+          },
           format: {
             component: GetSimOrdersStatusCell,
           },
