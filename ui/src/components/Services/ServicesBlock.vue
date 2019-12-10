@@ -165,7 +165,7 @@ export default {
 .services-container {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
   margin: auto;
   .single-service {
     flex-basis: 50%;
