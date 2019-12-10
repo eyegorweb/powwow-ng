@@ -131,8 +131,20 @@
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="noResults" class="alert-light" role="alert">{{ $t('noResult') }}</div>
+              <div v-if="noResults" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
               <div class="item" v-for="item in currentCustomFields" :key="item.index">
+                <h6>{{ item.label }}</h6>
+                <p>{{ item.value }}</p>
+              </div>
+            </div>
+          </template>
+        </ContentBlock>
+        <ContentBlock :key="'block7'">
+          <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
+          <template slot="content">
+            <div class="d-flex">
+              <div v-if="!noSpecificResults" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
+              <div v-else class="item" v-for="item in currentSpecificFields" :key="item.index">
                 <h6>{{ item.label }}</h6>
                 <p>{{ item.value }}</p>
               </div>
@@ -181,7 +193,6 @@ export default {
     lines() {
       return this.getFromContent('accessPoint.lines', undefined);
     },
-
     currentCustomFields() {
       const customFields = get(this.content, 'accessPoint.customFields');
       const customLabels = get(this.content, 'party');
@@ -202,9 +213,32 @@ export default {
       }
       return customFieldsArray;
     },
+    specificField1Value() {
+      return get(this.content, 'accessPoint.spec1');
+    },
+    specificField2Value() {
+      return get(this.content, 'accessPoint.spec2');
+    },
+    currentSpecificFields() {
+      let specificFieldsArray = [];
+      const value = [this.specificField1Value, this.specificField2Value];
+      for (let i = 0; i < 2; i++) {
+        let suffix = 1 + i;
+        specificFieldsArray.push({
+          value: value[i],
+          label: 'Champ spécifique ' + suffix,
+        });
+      }
+      return specificFieldsArray;
+    },
     noResults() {
       let found = false;
       if (!this.currentCustomFields || !this.currentCustomFields.length) found = true;
+      return found;
+    },
+    noSpecificResults() {
+      if (!this.currentSpecificFields && !this.currentSpecificFields.length) return;
+      let found = this.currentSpecificFields.every(c => c.value);
       return found;
     },
   },

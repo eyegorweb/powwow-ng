@@ -181,6 +181,8 @@ export async function searchLines(orderBy, pagination, filters = []) {
           }
           workflowCode
           remainingSuspension
+          spec1
+          spec2
         }
       }
     }
