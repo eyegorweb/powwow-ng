@@ -380,6 +380,11 @@
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "specificFields": {
+        "title": "Champs spécifiques",
+        "label1": "Champ spécifique 1",
+        "label2": "Champ spécifique 2"
+      },
       "alarms": {
         "name": "Nom de l'alarme",
         "threshold": "Seuil de déclenchement",
