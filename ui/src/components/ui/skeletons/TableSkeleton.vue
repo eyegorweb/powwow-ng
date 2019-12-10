@@ -1,20 +1,29 @@
 <template>
-  <table class="table table-blue mt-1">
-    <thead>
-      <tr>
-        <th v-for="column in limitedColumns" :key="'th_' + column.id">{{ column.label }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="index in size" :key="index">
-        <td v-for="column in limitedColumns" :key="'row_' + column.id">
-          <span>
-            <div class="skeleton-line" :style="{ width: colSize + '%' }"></div>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <div v-if="paginated" class="row">
+      <div class="col-md-6 offset-md-6 ">
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <div class="skeleton-line"></div>
+        </h2>
+      </div>
+    </div>
+    <table class="table table-blue mt-1">
+      <thead>
+        <tr>
+          <th v-for="column in limitedColumns" :key="'th_' + column.id">{{ column.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="index in size" :key="index">
+          <td v-for="column in limitedColumns" :key="'row_' + column.id">
+            <span>
+              <div class="skeleton-line" :style="{ width: colSize + '%' }"></div>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -25,6 +34,7 @@ export default {
       type: Number,
       default: 20,
     },
+    paginated: Boolean,
   },
   computed: {
     colSize() {

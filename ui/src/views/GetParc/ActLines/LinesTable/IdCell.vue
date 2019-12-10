@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.prevent="openDetailPanel">
+  <button class="btn btn-link p-0" @click.stop="openDetailPanel">
     {{ row.iccid }}
   </button>
 </template>

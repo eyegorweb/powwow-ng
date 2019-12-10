@@ -2,21 +2,26 @@
   <div>
     <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
     <div class="bg-white p-4 rounded">
-      <DataTable
-        :columns.sync="columns"
-        :rows="alarms || []"
-        :order-by.sync="orderBy"
-        @change-order="changeCellsOrder"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :size="5"
-        :show-extra-columns.sync="showExtraCells"
-      >
-        <template slot="actions" slot-scope="{ row }">
-          <ActionsCell :alarm="row" :simcard="content" />
-        </template>
-      </DataTable>
+      <LoaderContainer :is-loading="isLoading">
+        <div slot="on-loading">
+          <TableSkeleton :columns="columns" :size="5" paginated />
+        </div>
+        <DataTable
+          :columns.sync="columns"
+          :rows="alarms || []"
+          :order-by.sync="orderBy"
+          @change-order="changeCellsOrder"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :size="5"
+          :show-extra-columns.sync="showExtraCells"
+        >
+          <template slot="actions" slot-scope="{ row }">
+            <ActionsCell :alarm="row" :simcard="content" />
+          </template>
+        </DataTable>
+      </LoaderContainer>
     </div>
   </div>
 </template>
@@ -32,10 +37,15 @@ import TypeCell from './TypeCell';
 import { col } from '@/components/DataTable/utils';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
 
+import LoaderContainer from '@/components/LoaderContainer';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+
 export default {
   components: {
     DataTable,
     ActionsCell,
+    LoaderContainer,
+    TableSkeleton,
   },
   props: {
     content: Object,
@@ -99,7 +109,9 @@ export default {
   },
   methods: {
     async fetchAlarms() {
+      this.isLoading = true;
       this.alarms = await fetchAlarmsWithInfos(this.content.id);
+      this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
