@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.411+20191210082320
+2019-12-10
+
+### Features
+
+- Utiliser une tooltip pour afficher le statut de la command (68433aba58c3e2957a383485abe06839854b0890)
+
 ## 0.3.0-master.410+20191209142330
 2019-12-09
 
