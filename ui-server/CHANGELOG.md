@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.412+20191210153436
+2019-12-10
+
+### Features
+
+- rechercher unitairement des alarme (776123cf312442556017480da36cbcfbe0e566de)
+
 ## 0.3.0-master.411+20191210083242
 2019-12-10
 
