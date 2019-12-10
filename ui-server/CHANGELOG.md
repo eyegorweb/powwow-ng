@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.413+20191210155941
+2019-12-10
+
+### Features
+
+- **line detail:** afficher les champs spécifique (d090e5384f0903b50f39cf389866f1e212080f38)
+
 ## 0.3.0-master.412+20191210153436
 2019-12-10
 
