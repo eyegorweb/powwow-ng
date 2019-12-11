@@ -21,9 +21,9 @@
       :style="inputStyle"
       type="text"
     />
-    <button v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
+    <a v-if="haveCrossButton && value_" @click.prevent="resetValue" class="btn">
       <i class="select-icon ic-Cross-Icon"></i>
-    </button>
+    </a>
 
     <slot name="afterInput" />
 
@@ -132,7 +132,7 @@ label {
     transform: translateY(-50%);
   }
 
-  button {
+  a {
     display: block;
     position: absolute;
     right: 0.8rem;
@@ -142,6 +142,10 @@ label {
     font-weight: 900 !important;
     padding: 0;
     padding-right: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
