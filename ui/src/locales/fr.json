@@ -201,6 +201,7 @@
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte"
   },
   "getvsion": {
+    "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
     "manage-alarms-tooltip": "TODO description",
     "tab-1-parc-alarms": "Alarmes de parc",

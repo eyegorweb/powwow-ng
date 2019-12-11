@@ -1,13 +1,15 @@
 <template>
-  <form class="searchInput">
+  <form class="searchInput" @submit.prevent="searchById">
     <div class="form-row">
       <div class="form-group mb-0 col-md-8">
         <UiInput
           class="d-block"
-          :placeholder="$t('orders.add-custom-field-to-list')"
+          :placeholder="$t('getvsion.search-by-id')"
           v-model="searchValue"
           have-cross-button
-        />
+        >
+          <i slot="icon" class="select-icon ic-Magnify-Icon" />
+        </UiInput>
       </div>
       <div class="form-group col-md-3 mb-0">
         <UiButton
@@ -25,12 +27,18 @@
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
 
-import { mapMutations } from 'vuex';
-
 export default {
   components: {
     UiInput,
     UiButton,
+  },
+  props: {
+    initValue: {
+      type: String,
+    },
+  },
+  mounted() {
+    this.searchValue = this.initValue;
   },
   computed: {
     isDisabled() {
@@ -43,15 +51,16 @@ export default {
     };
   },
   methods: {
-    ...mapMutations('alarms', ['forceAppliedFilters']),
     async searchById() {
-      this.$emit('search');
-      this.forceAppliedFilters([
-        {
-          id: 'filters.alarmId',
-          value: this.searchValue,
-        },
-      ]);
+      this.$emit('searchById', this.searchValue);
+    },
+  },
+
+  watch: {
+    searchValue(newValue, oldValue) {
+      if (!newValue && oldValue) {
+        this.$emit('searchById', newValue);
+      }
     },
   },
 };

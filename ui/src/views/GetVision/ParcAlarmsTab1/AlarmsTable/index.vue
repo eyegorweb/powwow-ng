@@ -28,7 +28,11 @@
         :size="7"
       >
         <template slot="topLeftCorner">
-          <SearchAlarmById @search="isSearchingById = true" />
+          <SearchAlarmById
+            :init-value="searchedId"
+            @search="isSearchingById = true"
+            @searchById="searchById"
+          />
         </template>
       </DataTable>
     </template>
@@ -88,6 +92,7 @@ export default {
         direction: 'DESC',
       },
       isSearchingById: false,
+      searchedId: undefined,
     };
   },
   computed: {
@@ -152,7 +157,21 @@ export default {
     },
     resetFilters() {
       this.isSearchingById = false;
+      this.searchedId = undefined;
       this.forceAppliedFilters([]);
+    },
+
+    searchById(value) {
+      if (!value) {
+        this.resetFilters();
+      }
+      this.searchedId = value;
+      this.forceAppliedFilters([
+        {
+          id: 'filters.alarmId',
+          value,
+        },
+      ]);
     },
   },
 };

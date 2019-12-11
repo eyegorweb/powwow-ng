@@ -162,7 +162,7 @@ function formatFilters(selectedFilters) {
 function addId(gqlFilters, selectedFilters) {
   const partyIds = getFilterValue(selectedFilters, 'filters.alarmId');
   if (partyIds) {
-    gqlFilters.push(`partyID: {in: [${partyIds}]}`);
+    gqlFilters.push(`alarmId: {eq: ${partyIds}}`);
   }
 }
 
