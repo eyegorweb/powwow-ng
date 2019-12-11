@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.414+20191211091236
+2019-12-11
+
+### Fixes
+
+- corriger la recherche par ID (d94de103ab337775adc47b9b48655b8f817ad7f5)
+
 ## 0.3.0-master.413+20191210155941
 2019-12-10
 
