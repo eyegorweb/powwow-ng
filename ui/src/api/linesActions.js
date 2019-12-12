@@ -76,6 +76,8 @@ export async function searchLines(orderBy, pagination, filters = []) {
           custom5FieldLabel
           custom6FieldLabel
           partyType
+          spec1_label
+          spec2_label
          }
         id
         iccid
