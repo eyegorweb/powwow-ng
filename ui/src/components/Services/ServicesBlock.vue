@@ -12,7 +12,11 @@
             <div v-if="service.name" class="serviceOptional">
               <div class="serviceOptional-name">{{ service.name }} :</div>
               <div class="serviceOptional-status" :class="service.checked ? 'enable' : 'disable'">
-                {{ service.checked ? 'Activé le' : 'Désactivé le' }}
+                {{
+                  service.checked
+                    ? $t('getparc.lineDetail.tab1.activatedAt')
+                    : $t('getparc.lineDetail.tab1.disableAt')
+                }}
               </div>
               <div class="serviceOptional-date">{{ service.activationDate }}</div>
             </div>
