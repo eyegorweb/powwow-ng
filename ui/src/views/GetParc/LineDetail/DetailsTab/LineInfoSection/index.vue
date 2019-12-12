@@ -213,22 +213,19 @@ export default {
       }
       return customFieldsArray;
     },
-    specificField1Value() {
-      return get(this.content, 'accessPoint.spec1');
-    },
-    specificField2Value() {
-      return get(this.content, 'accessPoint.spec2');
-    },
     currentSpecificFields() {
-      let specificFieldsArray = [];
-      const value = [this.specificField1Value, this.specificField2Value];
-      for (let i = 0; i < 2; i++) {
-        let suffix = 1 + i;
-        specificFieldsArray.push({
-          value: value[i],
-          label: 'Champ spécifique ' + suffix,
-        });
-      }
+      let specificFieldsArray = [
+        {
+          label: get(this.content, 'party.spec1_label'),
+          value: get(this.content, 'accessPoint.spec1'),
+          index: 0,
+        },
+        {
+          label: get(this.content, 'party.spec2_label'),
+          value: get(this.content, 'accessPoint.spec2'),
+          index: 1,
+        },
+      ];
       return specificFieldsArray;
     },
     noResults() {
@@ -237,7 +234,7 @@ export default {
       return found;
     },
     noSpecificResults() {
-      if (!this.currentSpecificFields && !this.currentSpecificFields.length) return;
+      if (this.currentSpecificFields && !this.currentSpecificFields.length) return;
       let found = this.currentSpecificFields.every(c => c.value);
       return found;
     },
