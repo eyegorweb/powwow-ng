@@ -464,6 +464,7 @@
         "actsHistory": "Historique des actes de gestion",
         "preactivatedAt": "Préactivé le",
         "activatedAt": "Activé le",
+        "disableAt": "Désactivé le",
         "pinCode": "Code pin",
         "pukCode": "Code PUK",
         "dualSim": "Dual SIM",

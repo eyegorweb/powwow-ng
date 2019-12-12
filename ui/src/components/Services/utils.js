@@ -16,6 +16,8 @@ function formatServices(s) {
     checked: s.activated,
     editable: s.editable,
     optional: s.optional,
+    name: s.name,
+    activationDate: s.activationDate,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters
