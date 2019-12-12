@@ -95,7 +95,9 @@
       "simTopTermination": "Top 5 lignes résiliées",
       "simTopScheduledTermination": "Top 5 résiliations programmées",
       "message": {
-        "scheduleTermination": "pas d’autre résiliation programmée"
+        "scheduleTermination": "pas d’autre résiliation programmée",
+        "termination": "pas d’autre résiliation",
+        "activation": "pas d’autre activation"
       }
     }
   },
