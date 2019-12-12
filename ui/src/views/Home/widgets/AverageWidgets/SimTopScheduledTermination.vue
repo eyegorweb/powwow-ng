@@ -6,6 +6,7 @@
     :indicators="indicators"
     :context-filters="contextFilters"
     :info-message="specificMessage"
+    :no-results="noResults"
   />
 </template>
 
@@ -21,50 +22,49 @@ export default {
     widget: Object,
   },
   async mounted() {
-    this.contentType = '' + this.period;
-    const listTopIndicators = await fetchPrecalculatedTopIndicators(
-      [`${'SIM_TOP_SCHEDULED_TERMINATION_'}${this.period}`],
-      ...this.contextFilters
-    );
-
-    this.indicators = listTopIndicators.map(i => {
-      return {
-        total: i.numberValue,
-        clickable: false,
-        labelKey: i.partyName,
-        fetchKey: i.name,
-      };
-    });
-
-    this.displayInfoMessage();
+    await this.refreshIndicatorsForPeriod();
   },
   data() {
     return {
-      contentType: undefined,
       indicators: undefined,
       period: 'DAY',
       contextFilters: [],
       specificMessage: undefined,
     };
   },
-  methods: {
-    updateContentType(newVal) {
-      this.contentType = newVal.id.toUpperCase();
-      this.period = this.contentType;
-    },
-    displayInfoMessage() {
-      if (!this.indicators.length) return;
-      if (this.indicators.length && this.indicators.length < 5) {
-        this.specificMessage = this.$t('home.widgets.message.scheduleTermination');
-      }
+  computed: {
+    noResults() {
+      return this.indicators && !this.indicators.length ? true : false;
     },
   },
-  watch: {
-    async contentType() {
-      return await fetchPrecalculatedTopIndicators(
-        [`${'SIM_TOP_SCHEDULED_TERMINATION_'}${this.period}`],
+  methods: {
+    async updateContentType(newVal) {
+      this.period = newVal.id.toUpperCase();
+      await this.refreshIndicatorsForPeriod();
+    },
+    async refreshIndicatorsForPeriod() {
+      const listTopIndicators = await fetchPrecalculatedTopIndicators(
+        [`SIM_TOP_SCHEDULED_TERMINATION_${this.period}`],
         ...this.contextFilters
       );
+
+      this.indicators = listTopIndicators.map(i => {
+        return {
+          total: i.numberValue,
+          clickable: false,
+          labelKey: i.partyName,
+          fetchKey: i.name,
+        };
+      });
+      this.displayInfoMessage();
+    },
+    displayInfoMessage() {
+      if (this.noResults) return;
+      if (this.indicators && this.indicators.length && this.indicators.length < 5) {
+        this.specificMessage = this.$t('home.widgets.message.scheduleTermination');
+      } else {
+        this.specificMessage = '';
+      }
     },
   },
 };
