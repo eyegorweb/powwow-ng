@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.417+20191212145321
+2019-12-12
+
+### Features
+
+- ajout des champs spécifiques au détail de la ligne (d1a425ee3bb11fcc8ca5347751c8b405f4b31f66)
+
 ## 0.3.0-master.416+20191212135100
 2019-12-12
 
