@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.416+20191212135100
+2019-12-12
+
+### Fixes
+
+- configuration des "Top" widget (6051e0be0b672643d74a35875db5448733d5f160)
+
 ## 0.3.0-master.415+20191211135604
 2019-12-11
 
