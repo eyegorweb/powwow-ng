@@ -7,15 +7,24 @@
             :key="service.code"
             v-for="service in otherServices"
             class="service"
-            :class="{ 'quarter-size': fullWidth }"
+            :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
           >
-            <UiToggle
-              :label="$t('services.' + service.code)"
-              :editable="service.editable"
-              v-model="service.checked"
-              :bold-label="isChanged(service)"
-              @change="onServiceChange"
-            />
+            <div v-if="service.name" class="serviceOptional">
+              <div class="serviceOptional-name">{{ service.name }} :</div>
+              <div class="serviceOptional-status" :class="service.checked ? 'enable' : 'disable'">
+                {{ service.checked ? 'Activé le' : 'Désactivé le' }}
+              </div>
+              <div class="serviceOptional-date">{{ service.activationDate }}</div>
+            </div>
+            <div v-else>
+              <UiToggle
+                :label="service.name ? service.name : $t('services.' + service.code)"
+                :editable="service.editable"
+                v-model="service.checked"
+                :bold-label="isChanged(service)"
+                @change="onServiceChange"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -162,10 +171,26 @@ export default {
   }
 }
 
+.serviceOptional {
+  display: flex;
+
+  > div {
+    margin-right: 0.5rem;
+  }
+
+  &-status {
+    &.enable {
+      color: $success;
+    }
+    &.disable {
+      color: $orange;
+    }
+  }
+}
 .services-container {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   margin: auto;
   .single-service {
     flex-basis: 50%;

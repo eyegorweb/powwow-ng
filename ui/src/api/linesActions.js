@@ -323,6 +323,7 @@ function addZipCodeFilter(gqlFilters, selectedFilters) {
   const zipCode = selectedFilters.find(f => f.id === 'filters.postalCode');
   zipCode && gqlFilters.push(`zipCode: {startsWith: "${zipCode.value.toString()}"}`);
 }
+
 function addFileImportId(gqlFilters, selectedFilters) {
   const filter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
   if (filter && filter.values && filter.values.length) {
@@ -449,10 +450,14 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
     `
   );
   if (!response) {
-    return { errors: ['unknown'] };
+    return {
+      errors: ['unknown'],
+    };
   }
   if (response.errors) {
-    return { errors: response.errors };
+    return {
+      errors: response.errors,
+    };
   }
   return response.data.exportErrors;
 }
@@ -473,7 +478,9 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
     `
   );
   if (response.errors) {
-    return { errors: response.errors };
+    return {
+      errors: response.errors,
+    };
   }
 
   return response.data.exportSimCardInstances;
@@ -526,7 +533,9 @@ export async function exportCurrentConsumption(simcardId, exportFormat) {
   const response = await query(queryStr);
 
   if (response.errors) {
-    return { errors: response.errors };
+    return {
+      errors: response.errors,
+    };
   }
 
   return response.data.exportCurrentConsumption;
@@ -546,6 +555,8 @@ export async function fetchLineServices(simCardInstanceId) {
       activated
       editable
       optional
+      name
+      activationDate
       parameters {
         activated
         name
