@@ -174,6 +174,9 @@ export default {
       vm.initAfterRouteIsSet();
     });
   },
+  mounted() {
+    this.setActToCreate(null);
+  },
   methods: {
     ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
     ...mapMutations('actLines', [
