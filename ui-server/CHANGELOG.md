@@ -2,6 +2,28 @@
 
 <!--- next entry here -->
 
+## 0.14.0
+2019-12-13
+
+### Features
+
+- activation de l'alarme pour une ligne (55b6073b82434ea736c6ec126bb7f9b7a5dbfbfb)
+- ajout du filtre de date de déclenchement (aaf66a3c3021d8996c520a780a9910155bd09e35)
+- Utiliser une tooltip pour afficher le statut de la command (68433aba58c3e2957a383485abe06839854b0890)
+- rechercher unitairement des alarme (776123cf312442556017480da36cbcfbe0e566de)
+- **line detail:** afficher les champs spécifique (d090e5384f0903b50f39cf389866f1e212080f38)
+- ajout des champs spécifiques au détail de la ligne (d1a425ee3bb11fcc8ca5347751c8b405f4b31f66)
+
+### Fixes
+
+- Ne pas modifier le service data dans le changement de services quand ce service n'est pas modifiable (5b409bd61b4d9d0e049523e9f4cc91378cec33b5)
+- mise à jour de message de confirmation pour l'activation d'une ligne (b1a5b2d7358e5a1a60bc9a4a57401fc2870742fd)
+- personnalisation du message de confirmation lors de l'activation de l'alarme d'une ligne (90fe73d20e7dc236e63e98b1924fdc9d4e0d9c5d)
+- enlever la demande de préactivation du changement d'offre. (184710f631f6bb939342f8262dd2be343b5f33f2)
+- Corriger le problème d'affichage des services pour la résolution 1024 (d48223e2aa6273f83c7920d825ddbdb549f41436)
+- corriger la recherche par ID (d94de103ab337775adc47b9b48655b8f817ad7f5)
+- configuration des "Top" widget (6051e0be0b672643d74a35875db5448733d5f160)
+
 ## 0.13.1
 2019-12-06
 
