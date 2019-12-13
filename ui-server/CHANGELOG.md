@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.421+20191213150719
+2019-12-13
+
+### Fixes
+
+- Il ne faut pas fermer le panel de création de commande sur un clic en dehors (9270738aaf1c48f2ec2798d7aa2855bde1c58d81)
+
 ## 0.3.0-master.420+20191213150131
 2019-12-13
 
