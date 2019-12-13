@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.419+20191213133223
+2019-12-13
+
+### Fixes
+
+- Corriger le panel de détail d'acte de masse (57b232c516cbf3e0a8ac8618a478c924671bed4a)
+
 ## 0.3.0-master.418+20191212152230
 2019-12-12
 
