@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.prevent="openActHistoryDetailsPanel">{{ row.id }}</button>
+  <button class="btn btn-link p-0" @click.stop="openActHistoryDetailsPanel">{{ row.id }}</button>
 </template>
 
 <script>
