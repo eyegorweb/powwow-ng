@@ -10,8 +10,8 @@
       }"
       id="main-sliding-panel"
     >
-      <header class="ignore-clickaway cd-panel__header">
-        <h1 class="ignore-clickaway font-weight-light">{{ displayedTitle }}</h1>
+      <header class="cd-panel__header">
+        <h1 class="font-weight-light">{{ displayedTitle }}</h1>
 
         <a href="#0" class="cd-panel__close js-cd-close" @click.prevent="$emit('close')">Close</a>
       </header>
@@ -36,6 +36,7 @@ export default {
     titleConf: Object,
     isOpen: Boolean,
     wide: Boolean,
+    ignoreClickAway: Boolean,
     backdrop: {
       type: Boolean,
       default: true,
@@ -68,13 +69,13 @@ export default {
       // pas la peine d ecacher un panel déjà caché
       if (!this.isOpen) return;
 
-      if (this.backdrop) {
+      if (this.backdrop && !this.ignoreClickAway) {
         // detecter le click dehors de la zone de contenu
         if (e.target.classList.contains('js-cd-panel-main')) {
           this.$emit('close');
         }
       } else {
-        if (!e.target.classList.contains('ignore-clickaway')) {
+        if (!this.ignoreClickAway) {
           this.$emit('close');
         }
       }
