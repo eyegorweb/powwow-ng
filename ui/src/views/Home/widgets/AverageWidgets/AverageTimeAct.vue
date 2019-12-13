@@ -10,13 +10,14 @@
     />
     <div v-if="lastUpdateDate" class="update-date">
       {{ $t('lastUpdate') }}: {{ lastUpdateDate }}
-  </div>
+    </div>
   </div>
 </template>
 
 <script>
 import AverageIndicators from './AverageIndicators';
 import { fetchPrecalculatedIndicators } from '@/api/indicators.js';
+import { isBefore } from '@/utils/date.js';
 
 const defaultTimeUnit = 'h';
 
