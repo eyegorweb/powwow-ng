@@ -6,6 +6,7 @@
     @close="closePanel"
     :wide="wide"
     :backdrop="backdrop"
+    :ignore-click-away="ignoreClickAway"
   >
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
@@ -59,6 +60,7 @@ export default {
     payload: state => state.ui.panelPayload,
     backdrop: state => state.ui.backdrop,
     titleConf: state => state.ui.panelTitleConf,
+    ignoreClickAway: state => state.ui.ignoreClickAway,
   }),
 };
 </script>
