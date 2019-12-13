@@ -7,7 +7,6 @@
   </div>
   <div class="order-status" v-else>
     <CheckMark :is-error="isError" />
-    <div class="label" :class="{ error: isError }">{{ $t('col.statuses.' + item) }}</div>
   </div>
 </template>
 

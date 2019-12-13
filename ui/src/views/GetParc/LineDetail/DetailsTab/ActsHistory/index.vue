@@ -5,15 +5,20 @@
     </h4>
     <div class="bg-white p-4 rounded">
       <div class="d-flex">
-        <DataTable
-          :columns.sync="columns"
-          :rows="unitActions || []"
-          :order-by.sync="orderBy"
-          @change-order="changeCellsOrder"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-        ></DataTable>
+        <LoaderContainer :is-loading="isLoading">
+          <div slot="on-loading">
+            <TableSkeleton :columns="columns" :size="5" paginated />
+          </div>
+          <DataTable
+            :columns.sync="columns"
+            :rows="unitActions || []"
+            :order-by.sync="orderBy"
+            @change-order="changeCellsOrder"
+            :page.sync="page"
+            :page-limit.sync="pageLimit"
+            :total="total || 0"
+          ></DataTable>
+        </LoaderContainer>
       </div>
     </div>
   </div>
@@ -25,12 +30,18 @@ import DataTable from '@/components/DataTable/DataTable';
 import IdCell from './IdCell';
 import StatusCell from './StatusCell';
 
+import LoaderContainer from '@/components/LoaderContainer';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+
 export default {
   components: {
     DataTable,
+    LoaderContainer,
+    TableSkeleton,
   },
   data() {
     return {
+      isLoading: false,
       unitActions: undefined,
       statuses: ['WAITING, SENT, IN_PROGRESS, OK, KO, REPLAYED, CANCELLED'],
       massActionId: '',

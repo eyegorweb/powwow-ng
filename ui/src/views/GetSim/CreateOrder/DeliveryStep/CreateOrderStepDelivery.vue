@@ -258,7 +258,7 @@ export default {
   overflow-y: auto;
 
   @media only screen and (max-height: 768px) {
-    max-height: 50rem;
+    max-height: 67vh;
   }
 
   @media only screen and (min-height: 769px) {

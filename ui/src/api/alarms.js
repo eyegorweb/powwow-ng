@@ -1,4 +1,5 @@
-import { query, getValuesIdsWithoutQuotes } from './utils';
+import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
+import moment from 'moment';
 
 export async function fetchAlarmInstancesByAP(id) {
   const queryStr = `
@@ -28,6 +29,7 @@ export async function fetchAlarmInstancesByAP(id) {
   `;
 
   const response = await query(queryStr);
+  if (!response.data) return;
   return response.data.alarmInstances;
 }
 
@@ -67,6 +69,8 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
   `;
 
   const response = await query(queryStr);
+  if (!response.data) return;
+
   return response.data.alarmsWithInfo;
 }
 
@@ -106,6 +110,42 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
+export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+  const queryStr = `
+  mutation {
+    createAlarmInstance(alarmInput: {
+      alarmId: ${alarmId}
+      simCardInstanceId: ${simCardInstanceId}
+      partyId: ${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification: false
+      adminSkipGDM: false
+    })
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.createAlarmInstance;
+}
+
+export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+  const queryStr = `
+  mutation {
+    deleteAlarmInstance(alarmInput: {
+      alarmId: ${alarmId}
+      simCardInstanceId: ${simCardInstanceId}
+      partyId: ${partyId}
+      dueDate: "${formatDateForGql(dueDate)}"
+      notification: false
+      adminSkipGDM: false
+    })
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.deleteAlarmInstance;
+}
+
 function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
@@ -113,8 +153,17 @@ function formatFilters(selectedFilters) {
   addCustomerAccount(gqlFilters, selectedFilters);
   addScope(gqlFilters, selectedFilters);
   addAlarmType(gqlFilters, selectedFilters);
+  addDateTriggerAlarm(gqlFilters, selectedFilters);
+  addId(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
+}
+
+function addId(gqlFilters, selectedFilters) {
+  const partyIds = getFilterValue(selectedFilters, 'filters.alarmId');
+  if (partyIds) {
+    gqlFilters.push(`alarmId: {eq: ${partyIds}}`);
+  }
 }
 
 function addPartnerFilter(gqlFilters, selectedFilters) {
@@ -142,5 +191,54 @@ function addAlarmType(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
   if (foundFilter) {
     gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
+  }
+}
+
+function addDateTriggerAlarm(gqlFilters, selectedFilters) {
+  const dateFilter = selectedFilters.find(f => f.id === 'getvsion.filters.DATE_TRIGGER');
+  if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
+    const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
+
+    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
+
+    gqlFilters.push(
+      `triggerDateStart: {eq: "${formattedStartDate}"}, triggerDateEnd: {eq: "${formattedEndDate}"}`
+    );
+  }
+
+  function prepareEndDateForBackend(inDate) {
+    const dateToEdit = inDate.replace(/\//g, '/');
+    const parts = dateToEdit.split(' ');
+    let endDate;
+    let formatToUse;
+
+    if (parts.length === 2) {
+      formatToUse = 'DD/MM/YYYY hh:mm:ss';
+      endDate = moment(dateToEdit, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse);
+    } else {
+      formatToUse = 'DD/MM/YYYY';
+      endDate = moment(`${parts[0]}`, formatToUse);
+      if (!dateFilter.sameDay) {
+        endDate = endDate.add(1, 'days');
+      }
+      return endDate.format(formatToUse) + ' 00:00:00';
+    }
+  }
+}
+
+function formatDateForGql(inDate) {
+  if (!inDate) return '';
+  const startDate = inDate.replace(/\//g, '/');
+  const parts = startDate.split(' ');
+  if (parts) {
+    if (parts.length === 2) {
+      return startDate;
+    } else {
+      return `${parts[0]} 00:00:00`;
+    }
   }
 }

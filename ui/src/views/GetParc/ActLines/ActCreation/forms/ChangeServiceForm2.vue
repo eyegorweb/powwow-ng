@@ -34,7 +34,7 @@
     </div>
     <div class="row">
       <div class="col d-flex">
-        <UiCheckbox v-model="shouldChangeData" />
+        <UiCheckbox v-model="shouldChangeData" :disabled="!(dataService && dataService.editable)" />
         <span>{{ $t('getparc.actCreation.changeService.shouldChangeData') }}</span>
       </div>
     </div>

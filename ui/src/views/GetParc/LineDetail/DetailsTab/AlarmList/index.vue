@@ -2,7 +2,10 @@
   <div>
     <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
     <div class="bg-white p-4 rounded">
-      <div class="d-flex">
+      <LoaderContainer :is-loading="isLoading">
+        <div slot="on-loading">
+          <TableSkeleton :columns="columns" :size="5" paginated />
+        </div>
         <DataTable
           :columns.sync="columns"
           :rows="alarms || []"
@@ -15,10 +18,10 @@
           :show-extra-columns.sync="showExtraCells"
         >
           <template slot="actions" slot-scope="{ row }">
-            <ActionsCell :row="row" />
+            <ActionsCell :alarm="row" :simcard="content" />
           </template>
         </DataTable>
-      </div>
+      </LoaderContainer>
     </div>
   </div>
 </template>
@@ -31,13 +34,18 @@ import StatusCell from './StatusCell';
 import TriggerCell from './TriggerCell';
 import ActionsCell from './ActionsCell';
 import TypeCell from './TypeCell';
-import { fetchAlarmsWithInfos } from '@/api/alarms';
 import { col } from '@/components/DataTable/utils';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
+
+import LoaderContainer from '@/components/LoaderContainer';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
 export default {
   components: {
     DataTable,
     ActionsCell,
+    LoaderContainer,
+    TableSkeleton,
   },
   props: {
     content: Object,
@@ -77,8 +85,13 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-
       alarms: undefined,
+      showValidationModal: false,
+      confirmationMessage: this.$t('getparc.actLines.alarmList.confirmationWarning'),
+      isLoading: false,
+      dueDate: undefined,
+      isActive: undefined,
+      isTriggered: false,
     };
   },
   watch: {
@@ -96,7 +109,9 @@ export default {
   },
   methods: {
     async fetchAlarms() {
+      this.isLoading = true;
       this.alarms = await fetchAlarmsWithInfos(this.content.id);
+      this.isLoading = false;
     },
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);

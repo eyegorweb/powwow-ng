@@ -62,7 +62,11 @@
           </draggable>
           <tbody>
             <tr :key="row.id" v-for="row in rows">
-              <td :key="column.name + column.label + row.id" v-for="column in sortableColumns">
+              <td
+                :key="column.name + column.label + row.id"
+                v-for="column in sortableColumns"
+                v-tooltip="getTooltipConfig(column, row)"
+              >
                 <DatatableColumnTypeSwitcher
                   :format="column.format"
                   :item="row[column.name]"
@@ -248,6 +252,12 @@ export default {
   },
 
   methods: {
+    getTooltipConfig(column, row) {
+      if (!column.tootltipText) {
+        return;
+      }
+      return column.tootltipText(row[column.name]);
+    },
     checkStorageVersion() {
       if (!this.storageId) return;
 
@@ -293,6 +303,7 @@ export default {
           if (correspondingColumn) {
             c.format.component = correspondingColumn.format.component;
             c.visibleWhen = correspondingColumn.visibleWhen;
+            c.tootltipText = correspondingColumn.tootltipText;
           }
 
           return c;

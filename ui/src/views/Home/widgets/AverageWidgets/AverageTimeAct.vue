@@ -1,11 +1,17 @@
 <template>
-  <AverageIndicators
-    :widget="widget"
-    :period="period"
-    :update-content-type="updateContentType"
-    :indicators="indicators"
-    :context-filters="contextFilters"
-  />
+  <div>
+    <AverageIndicators
+      :widget="widget"
+      :period="period"
+      :update-content-type="updateContentType"
+      :indicators="indicators"
+      :context-filters="contextFilters"
+      :no-results="noResults"
+    />
+    <div v-if="lastUpdateDate" class="update-date">
+      {{ $t('lastUpdate') }}: {{ lastUpdateDate }}
+  </div>
+  </div>
 </template>
 
 <script>
@@ -21,58 +27,58 @@ export default {
   props: {
     widget: Object,
   },
-  mounted() {
-    this.contentType = '' + this.period;
-    this.indicators = [
-      {
-        labelKey: 'col.activationAsked',
-        clickable: false,
-        total: '-',
-        unit: defaultTimeUnit,
-        fetchKey: 'ACT_DELAY_ACTIVATION_DAY',
-      },
-      {
-        labelKey: 'col.preActivationAsked',
-        clickable: false,
-        total: '-',
-        unit: defaultTimeUnit,
-        fetchKey: 'ACT_DELAY_PREACTIVATION_DAY',
-      },
-      {
-        labelKey: 'suspension',
-        clickable: false,
-        total: '-',
-        unit: defaultTimeUnit,
-        fetchKey: 'ACT_DELAY_SUSPENDION_DAY',
-      },
-      {
-        labelKey: 'getparc.actTypes.SERVICE_CHANGE',
-        clickable: false,
-        total: '-',
-        unit: defaultTimeUnit,
-        fetchKey: 'ACT_DELAY_SERVICE_CHANGE_DAY',
-      },
-      {
-        labelKey: 'getparc.actTypes.ICCID_CHANGE',
-        clickable: false,
-        total: '-',
-        unit: defaultTimeUnit,
-        fetchKey: 'ACT_DELAY_ICCID_CHANGE_DAY',
-      },
-    ];
+  computed: {
+    noResults() {
+      return this.indicators && !this.indicators.length ? true : false;
+    },
+  },
+  async mounted() {
+    await this.refreshIndicatorsForPeriod();
   },
   data() {
     return {
-      contentType: undefined,
       indicators: undefined,
       period: 'DAY',
       contextFilters: [],
+      lastUpdateDate: undefined,
     };
   },
   methods: {
-    updateContentType(newVal) {
-      this.contentType = newVal.id.toUpperCase();
-      this.period = this.contentType;
+    async updateContentType(newVal) {
+      this.period = newVal.id.toUpperCase();
+      await this.refreshIndicatorsForPeriod();
+    },
+    async refreshIndicatorsForPeriod() {
+      const listIndicators = await fetchPrecalculatedIndicators(
+        [
+          `${'ACT_DELAY_ACTIVATION_'}${this.period}`,
+          `${'ACT_DELAY_PREACTIVATION_'}${this.period}`,
+          `${'ACT_DELAY_SUSPENDION_'}${this.period}`,
+          `${'ACT_DELAY_SERVICE_CHANGE_'}${this.period}`,
+          `${'ACT_DELAY_ICCID_CHANGE_'}${this.period}`,
+        ],
+        ...this.contextFilters
+      );
+
+      this.indicators = listIndicators.map(i => {
+        return {
+          total: i.numberValue,
+          clickable: false,
+          labelKey: i.partyName,
+          fetchKey: i.name,
+          unit: defaultTimeUnit,
+        };
+      });
+
+      const ordered = this.indicators
+        .filter(i => !!i.precalculatedValue)
+        .sort((a, b) =>
+          isBefore(a.precalculatedValue.updateDate, b.precalculatedValue.updateDate) ? -1 : 1
+        );
+
+      if (ordered.length) {
+        this.lastUpdateDate = ordered[0].precalculatedValue.updateDate;
+      }
     },
   },
   watch: {
