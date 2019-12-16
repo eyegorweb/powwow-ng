@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.423+20191216103147
+2019-12-16
+
+### Fixes
+
+- ne pas afficher le toggle activation pour l'acte "changement d'offre" (d1cadbae79fa3ed609675c2afaab1a5d3f1b2426)
+
 ## 0.3.0-master.422+20191216082836
 2019-12-16
 
