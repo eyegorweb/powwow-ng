@@ -63,6 +63,7 @@ export default {
             wide: true,
             backdrop: true,
             payload: this.order,
+            ignoreClickAway: true,
           });
           break;
         }
