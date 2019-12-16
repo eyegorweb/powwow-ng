@@ -135,8 +135,8 @@ export default {
         {
           id: 5,
           label: this.$t('getparc.history.col.target'),
-          name: 'targetEntitiesNumber',
-          sortingName: 'TARGET_ENTITIES_NUMBER',
+          name: 'targetActionNumber',
+          sortingName: 'TARGET_ACTION_NUMBER',
           orderable: true,
           visible: true,
         },
@@ -285,6 +285,7 @@ export default {
       'isLoading',
     ]),
     rows() {
+      console.log('rows =>>>>>', this.formatResponse(this.massActionsResponse.items));
       return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },
     total() {
