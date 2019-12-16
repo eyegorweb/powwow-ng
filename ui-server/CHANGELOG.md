@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.427+20191216154721
+2019-12-16
+
+### Fixes
+
+- affichage de la quantité ciblée pour les actes de masse unitaire (8812f5ce4f5b2ceee772204ded9bfeb7185a886a)
+
 ## 0.3.0-master.426+20191216154059
 2019-12-16
 
