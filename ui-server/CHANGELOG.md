@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.425+20191216123837
+2019-12-16
+
+### Fixes
+
+- ne pas fermer le volet de création de commandes quand on cli à l'exptérieur (a815322c86be990188ae32c4396ea0316ee6548f)
+
 ## 0.3.0-master.424+20191216102631
 2019-12-16
 
