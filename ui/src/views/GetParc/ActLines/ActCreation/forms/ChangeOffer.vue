@@ -31,15 +31,9 @@
       </div>
     </div>
 
-    <div v-if="canChangeServices" class="row">
-      <div class="col-md-8 mb-3">
-        <UiToggle label="Activation" v-model="activation" />
-      </div>
-    </div>
-
     <hr />
 
-    <div v-if="canChangeServices && activation">
+    <div v-if="canChangeServices">
       <ServicesBlock
         v-if="selectedOffer"
         :key="selectedOffer.label"
@@ -93,7 +87,6 @@ export default {
       canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
-      activation: false,
 
       offerServices: undefined,
       servicesChoice: undefined,
