@@ -116,6 +116,8 @@ export default {
         custom4: getCustomFieldValue('custom4'),
         custom5: getCustomFieldValue('custom5'),
         custom6: getCustomFieldValue('custom6'),
+        spec1: getCustomFieldValue('spec1'),
+        spec2: getCustomFieldValue('spec2'),
       };
       const response = await updateCustomFields([], [this.lineData], params);
       if (response) {
