@@ -121,6 +121,8 @@ export default {
         custom4: getCustomFieldValue('custom4'),
         custom5: getCustomFieldValue('custom5'),
         custom6: getCustomFieldValue('custom6'),
+        spec1: getCustomFieldValue('spec1'),
+        spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
       return await updateCustomFields(

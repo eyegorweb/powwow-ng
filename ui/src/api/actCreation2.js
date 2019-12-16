@@ -24,6 +24,8 @@ export async function updateCustomFields(filters, lines, params) {
       custom4,
       custom5,
       custom6,
+      spec1,
+      spec2,
       tempDataUuid,
     } = params;
 
@@ -47,6 +49,8 @@ export async function updateCustomFields(filters, lines, params) {
           custom4: "${custom4}",
           custom5: "${custom5}",
           custom6: "${custom6}",
+          spec1: "${spec1}",
+          spec2: "${spec2}",
           ${gqlTempDataUuid}
         }
         ){
@@ -405,9 +409,7 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${
-          dataService.code
-        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
