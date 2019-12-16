@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.423+20191216103147
+## 0.3.0-master.424+20191216102516
 2019-12-16
+
+### Features
+
+- update specific fields (06d5dfeedb3fc87e4fd96d936ce2ebde788d833c)
 
 ### Fixes
 
