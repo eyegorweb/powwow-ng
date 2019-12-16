@@ -2,7 +2,7 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.424+20191216102516
+## 0.3.0-master.424+20191216102631
 2019-12-16
 
 ### Features
@@ -11,6 +11,7 @@
 
 ### Fixes
 
+- Corriger la clé de traduction activationDate (ce128c42606cc23883debc54d91058b3d9372b81)
 - ne pas afficher le toggle activation pour l'acte "changement d'offre" (d1cadbae79fa3ed609675c2afaab1a5d3f1b2426)
 
 ## 0.3.0-master.422+20191216082836
