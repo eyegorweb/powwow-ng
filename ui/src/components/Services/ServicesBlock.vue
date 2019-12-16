@@ -15,7 +15,9 @@
                 {{
                   service.checked
                     ? $t('getparc.lineDetail.tab1.activatedAt')
-                    : $t('getparc.lineDetail.tab1.disableAt')
+                    : service.activationDate
+                    ? $t('getparc.lineDetail.tab1.disableAt')
+                    : $t('orders.detail.deActivate')
                 }}
               </div>
               <div class="serviceOptional-date">{{ service.activationDate }}</div>
