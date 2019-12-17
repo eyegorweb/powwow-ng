@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.429+20191217105720
+2019-12-17
+
+### Features
+
+- update carousel icons (b4b1001d317f65b583e955bafbc93614f2aabbc9)
+
 ## 0.3.0-master.428+20191217100142
 2019-12-17
 
