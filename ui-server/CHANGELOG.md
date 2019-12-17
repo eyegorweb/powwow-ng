@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.428+20191217100142
+2019-12-17
+
+### Fixes
+
+- ajouter de nouvelles icones (dec22455da562b54ae1f69f6c8784bd82195a7a1)
+
 ## 0.3.0-master.427+20191216154721
 2019-12-16
 
