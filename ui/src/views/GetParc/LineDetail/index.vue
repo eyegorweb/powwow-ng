@@ -93,27 +93,27 @@ export default {
       ],
       carouselItems: excludeMocked([
         {
-          icon: 'ic-Heart-Rythm-Icon',
+          icon: 'ic-Sim-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
           selected: false,
         },
         {
-          icon: 'ic-Heart-Rythm-Icon',
+          icon: 'ic-Smartphone-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
           selected: false,
         },
         {
-          icon: 'ic-Heart-Rythm-Icon',
+          icon: 'ic-Edit-Icon',
           title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
           selected: false,
         },
         {
-          icon: 'ic-Heart-Rythm-Icon',
+          icon: 'ic-Wallet-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_CF',
           selected: false,
         },
         {
-          icon: 'ic-Heart-Rythm-Icon',
+          icon: 'ic-Ticket-Icon',
           title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
           selected: false,
           mock: true,
