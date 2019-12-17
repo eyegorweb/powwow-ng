@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.14.1
+2019-12-17
+
+### Fixes
+
+- change build & run doc (773f13d2d3a1032beedca7cfe675bc2abb0e3a96)
+
 ## 0.14.0
 2019-12-13
 
