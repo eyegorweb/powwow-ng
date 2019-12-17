@@ -1,6 +1,8 @@
 $icomoon-font-family: 'powwow' !default;
 $icomoon-font-path: 'assets/icons' !default;
 
+$ic-toggle-on: '\e951';
+$ic-pause-circle: '\e952';
 $ic-phone-incoming: '\e94f';
 $ic-phone-outgoing: '\e950';
 $ic-Alert-Icon: '\e900';
@@ -112,6 +114,16 @@ $ic-Wifi-Icon: '\e94e';
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ic-toggle-on {
+  &:before {
+    content: $ic-toggle-on;
+  }
+}
+.ic-pause-circle {
+  &:before {
+    content: $ic-pause-circle;
+  }
+}
 .ic-phone-incoming {
   &:before {
     content: $ic-phone-incoming;
