@@ -16,7 +16,7 @@
                   <DateStatus :row="content">
                     <div slot="content" slot-scope="{ lineStatus, dateStatus }">
                       {{ getPrefix(lineStatus) }}
-                      {{ formatDate(dateStatus) }}
+                      {{ dateStatus ? dateStatus : '' }}
                     </div>
                   </DateStatus>
                 </p>
