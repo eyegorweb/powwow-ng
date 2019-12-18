@@ -16,7 +16,7 @@
                   <DateStatus :row="content">
                     <div slot="content" slot-scope="{ lineStatus, dateStatus }">
                       {{ getPrefix(lineStatus) }}
-                      {{ formatDate(dateStatus) }}
+                      {{ dateStatus ? dateStatus : '' }}
                     </div>
                   </DateStatus>
                 </p>
@@ -37,9 +37,7 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title"
-            >CARTE SIM</template
-          >
+          <template slot="title">CARTE SIM</template>
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -131,9 +129,7 @@
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="noResults" class="alert alert-light" role="alert">
-                {{ $t('noResult') }}
-              </div>
+              <div v-if="noResults" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
               <div class="item" v-for="item in currentCustomFields" :key="item.index">
                 <h6>{{ item.label }}</h6>
                 <p>{{ item.value }}</p>
@@ -145,9 +141,11 @@
           <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="!noSpecificResults" class="alert alert-light" role="alert">
-                {{ $t('noResult') }}
-              </div>
+              <div
+                v-if="!noSpecificResults"
+                class="alert alert-light"
+                role="alert"
+              >{{ $t('noResult') }}</div>
               <div v-else class="item" v-for="item in currentSpecificFields" :key="item.index">
                 <h6>{{ item.label }}</h6>
                 <p>{{ item.value }}</p>
@@ -250,8 +248,7 @@ export default {
     },
 
     formatDate(date) {
-      let dateOnly = date.substr(0, date.indexOf(' '));
-      return date && date.length ? moment(dateOnly, 'DD/MM/YYYY').format('DD/MM/YYYY') : '-';
+      return date && date.length ? moment(date, 'DD-MM-YYYY').format('DD/MM/YYYY') : '';
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
