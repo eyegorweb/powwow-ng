@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.432+20191219111750
+2019-12-19
+
+### Fixes
+
+- corriger la modification de champs libre sur des partenaires sans champs libres (285f60e5c76c82f3fa24ffd46f5dd1f7aa90a888)
+
 ## 0.3.0-master.431+20191219082213
 2019-12-19
 
