@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.433+20191219133015
+2019-12-19
+
+### Fixes
+
+- Correction de l'affichage de la liste des actes de gestion dans le détail de la ligne (451b59d4a7a8f0518fd3f4c5b61537f1fb1ec98d)
+
 ## 0.3.0-master.432+20191219111750
 2019-12-19
 
