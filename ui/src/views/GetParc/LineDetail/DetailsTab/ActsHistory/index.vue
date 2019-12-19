@@ -4,22 +4,20 @@
       {{ $t('getparc.actLines.massActionsHistory.title') }}
     </h4>
     <div class="bg-white p-4 rounded">
-      <div class="d-flex">
-        <LoaderContainer :is-loading="isLoading">
-          <div slot="on-loading">
-            <TableSkeleton :columns="columns" :size="5" paginated />
-          </div>
-          <DataTable
-            :columns.sync="columns"
-            :rows="unitActions || []"
-            :order-by.sync="orderBy"
-            @change-order="changeCellsOrder"
-            :page.sync="page"
-            :page-limit.sync="pageLimit"
-            :total="total || 0"
-          ></DataTable>
-        </LoaderContainer>
-      </div>
+      <LoaderContainer :is-loading="isLoading">
+        <div slot="on-loading">
+          <TableSkeleton :columns="columns" :size="5" paginated />
+        </div>
+        <DataTable
+          :columns.sync="columns"
+          :rows="unitActions || []"
+          :order-by.sync="orderBy"
+          @change-order="changeCellsOrder"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+        ></DataTable>
+      </LoaderContainer>
     </div>
   </div>
 </template>
@@ -67,7 +65,7 @@ export default {
           },
         },
         {
-          id: 2,
+          id: 7,
           label: this.$t('getparc.actLines.massActionsHistory.columns.actionType'),
           name: 'actionType',
           orderable: false,
