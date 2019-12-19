@@ -21,7 +21,7 @@
 import ActFormContainer from './parts/ActFormContainer2';
 import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapGetters } from 'vuex';
-import { suspendLines } from '@/api/actCreation2';
+import { suspendLines } from '@/api/actCreation';
 
 export default {
   components: {

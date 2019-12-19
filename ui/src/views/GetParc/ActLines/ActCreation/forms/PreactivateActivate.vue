@@ -54,7 +54,7 @@ import BillingAccountChoice from './parts/BillingAccountChoice';
 import {
   preactivateAndActivateSImcardInstance,
   preactivateSimCardInstance,
-} from '@/api/actCreation2';
+} from '@/api/actCreation';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';

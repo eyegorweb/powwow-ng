@@ -75,7 +75,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiDate from '@/components/ui/UiDate';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
-import { sendSMS, fetchShortCodes } from '@/api/actCreation2';
+import { sendSMS, fetchShortCodes } from '@/api/actCreation';
 import moment from 'moment';
 
 export default {

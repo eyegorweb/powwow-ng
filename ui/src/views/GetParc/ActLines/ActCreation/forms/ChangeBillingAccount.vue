@@ -42,7 +42,7 @@ import { mapState, mapGetters } from 'vuex';
 import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { changeCustomerAccount } from '@/api/actCreation2';
+import { changeCustomerAccount } from '@/api/actCreation';
 
 export default {
   components: {

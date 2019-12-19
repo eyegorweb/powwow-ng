@@ -1,174 +1,5 @@
-import { query, formatDateForGql } from './utils';
+import { query, formatDateForGql, boolStr, formatServicesForGQL } from './utils';
 import { formatFilters } from './linesActions';
-
-async function suspendReactivateLines(filters, lines, params, suspension) {
-  const { suspendreFacturation, notifEmail, dueDate, nonModifiableParClient, partyId } = params;
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
-  const queryStr = `
-  mutation {
-    suspendReactivateLines(
-      input: {
-        filter: {${gqlFilter}},
-        partyId: ${partyId},
-        simCardInstanceIds: [${lineIds}],
-        suspendBilling: ${boolStr(suspendreFacturation)},
-        notification: ${boolStr(notifEmail)},
-        suspend: ${suspension},
-        nonModifiableByCustomer: ${boolStr(nonModifiableParClient)},
-        dueDate: "${formatDateForGql(dueDate)}"
-      })
-  }
-  `;
-
-  return await query(queryStr);
-}
-
-function boolStr(value) {
-  return value ? 'true' : 'false';
-}
-
-export async function suspendLines(filters, lines, params) {
-  return await suspendReactivateLines(filters, lines, params, true);
-}
-
-export async function reactivateLines(filters, lines, params) {
-  return await suspendReactivateLines(filters, lines, params, false);
-}
-
-export async function sendSMS(filters, lines, params) {
-  const { partyId, notifEmail, dueDate, texMessage, numberOfSMS, shortCode } = params;
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
-  const queryStr = `
-  mutation {
-    sendSMS(
-      input: {
-        filter: {${gqlFilter}},
-        partyId: ${partyId},
-        simCardInstanceIds: [${lineIds}],
-        notification: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}"
-        textMessage: "${texMessage}",
-        numberOfSMS: ${numberOfSMS},
-        shortCode: "${shortCode}"
-        }
-      )
-  }
-  `;
-
-  return await query(queryStr);
-}
-
-export async function endPhaseTest(filters, lines, params) {
-  const { notifEmail, dueDate, partyId } = params;
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
-  const queryStr = `
-
-  mutation {
-    terminatePhaseTest(input: {adminSkipGDM: false, filter: {${gqlFilter}}, partyId: ${partyId}, simCardInstanceIds: [${lineIds}], notification: ${boolStr(
-    notifEmail
-  )}, dueDate: "${formatDateForGql(dueDate)}"})
-     {tempDataUuid}
-    }
-
-    `;
-
-  return await query(queryStr);
-}
-
-export async function updateCustomFields(filters, lines, params) {
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
-  const {
-    partyId,
-    notifEmail,
-    dueDate,
-    custom1,
-    custom2,
-    custom3,
-    custom4,
-    custom5,
-    custom6,
-  } = params;
-
-  const queryStr = `
-    mutation {
-      changeCustomFields(
-        input: {
-          filter: {${gqlFilter}},
-          partyId: ${partyId},
-          simCardInstanceIds: [${lineIds}],
-          notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
-          custom1: "${custom1}",
-          custom2: "${custom2}",
-          custom3: "${custom3}",
-          custom4: "${custom4}",
-          custom5: "${custom5}",
-          custom6: "${custom6}"
-        }
-        )
-    }
-    `;
-
-  return await query(queryStr);
-}
-
-export async function transferSIMCards(filters, lines, params) {
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
-  const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId } = params;
-
-  const queryStr = `
-    mutation {
-      transferSIMCards(
-        input: {
-          filter: {${gqlFilter}},
-          partyId: ${partyId},
-          simCardInstanceIds: [${lineIds}],
-          notification: false,
-          dueDate: "${formatDateForGql(dueDate)}",
-          toPartyId: ${toPartyId},
-          toCustomerAccountId: ${toCustomerAccountId},
-          toWorkflowId: "${toWorkflowId}",
-        })
-    }
-    `;
-
-  return await query(queryStr);
-}
 
 async function actCreationMutation(filters, lines, creationActFn) {
   let gqlFilter = '';
@@ -181,119 +12,22 @@ async function actCreationMutation(filters, lines, creationActFn) {
   return await creationActFn(gqlFilter, lineIds);
 }
 
-export async function changeCustomerAccount(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { partyId, dueDate, notifEmail, targetCustomerAccount } = params;
-
-    const queryStr = `
-    mutation {
-      changeCustomerAccount(
-        input: {
-          filter: {${gqlFilter}},
-          partyId: ${partyId},
-          simCardInstanceIds: [${gqlLines}],
-          notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
-          targetCustomerAccountId: ${targetCustomerAccount}
-        })
-    }
-    `;
-
-    return await query(queryStr);
-  });
-}
-
-export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
-  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { dueDate, barringServices } = params;
-
-    /**
-     * Pour les barring, on ajoute le code si le service est décoché
-     */
-    const gqlBarringServicesParam = barringServices
-      .filter(s => !s.checked)
-      .map(code => `{catalogServiceGroupId: ${code}, catalogServiceParameters: []}`);
-
-    const gqlSelectedServiceInputParam = [...gqlBarringServicesParam].join(',');
-    const queryStr = `
-    mutation {
-      preactivateAndActivateSImcardInstance (
-      input: {${gqlFilter}},
-      simCardInstanceIds: [${gqlLines}],
-      dueDate: "${formatDateForGql(dueDate)}",
-      userRef: ""
-      selectedServiceInput: [${gqlSelectedServiceInputParam}],
-      ) {
-          tempDataUuid
-          errors{
-            key
-            number
-          }
-        }
-      }
-    `;
-    return await query(queryStr);
-  });
-}
-
-export async function changeServices(filters, lines, params) {
+export async function updateCustomFields(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       partyId,
-      dueDate,
       notifEmail,
-      offer,
-      servicesToActivate,
-      servicesToDesactivate,
+      dueDate,
+      custom1,
+      custom2,
+      custom3,
+      custom4,
+      custom5,
+      custom6,
+      spec1,
+      spec2,
       tempDataUuid,
-      dataService,
     } = params;
-
-    let gqlDataServiceParam = undefined;
-
-    if (dataService && dataService.shouldChangeData) {
-      if (dataService.dataService.checked) {
-        const catalogServiceParameters = dataService.dataService.apns
-          .filter(s => s.selected)
-          .map(a => {
-            return `{
-              parameterCode:"${a.code}",
-               action:ADD
-              }`;
-          })
-          .join(',');
-
-        gqlDataServiceParam = `{
-          serviceCode:"878",
-          action: ADD,
-          catalogServiceParameters: [${catalogServiceParameters}]
-        }`;
-      } else {
-        gqlDataServiceParam = `{
-          serviceCode:"878",
-          action: DELETE
-        }`;
-      }
-    }
-    const gqlServicesAddParam = servicesToActivate.map(
-      id => `{
-      serviceCode:"${id}",
-      action: ADD
-    }`
-    );
-
-    const gqlServicesDeleteParam = servicesToDesactivate.map(
-      id => `{
-      serviceCode:"${id}",
-      action: DELETE
-    }`
-    );
-
-    const gqlChangeServicesParam = [
-      ...gqlServicesAddParam,
-      ...gqlServicesDeleteParam,
-      gqlDataServiceParam,
-    ].join(',');
 
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
@@ -302,19 +36,24 @@ export async function changeServices(filters, lines, params) {
 
     const queryStr = `
     mutation {
-      changeServices (
-      input: {
-        filter: {${gqlFilter}},
-        partyId: ${partyId},
-        simCardInstanceIds: [${gqlLines}],
-        notification: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}",
-        marketingOfferCode: "${offer}",
-        adminSkipGDM: false,
-        changeServices: [${gqlChangeServicesParam}],
-        ${gqlTempDataUuid}
-      }
-      ) {
+      changeCustomFieldsV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          custom1: "${custom1}",
+          custom2: "${custom2}",
+          custom3: "${custom3}",
+          custom4: "${custom4}",
+          custom5: "${custom5}",
+          custom6: "${custom6}",
+          spec1: "${spec1}",
+          spec2: "${spec2}",
+          ${gqlTempDataUuid}
+        }
+        ){
           tempDataUuid
           validated
           errors{
@@ -322,68 +61,554 @@ export async function changeServices(filters, lines, params) {
             number
           }
         }
-      }
+    }
     `;
 
-    return await query(queryStr);
+    const response = await query(queryStr);
+
+    return response.data.changeCustomFieldsV2;
+  });
+}
+
+export async function suspendLines(filters, lines, params) {
+  return await suspendReactivateLines(filters, lines, params, true);
+}
+
+export async function reactivateLines(filters, lines, params) {
+  return await suspendReactivateLines(filters, lines, params, false);
+}
+
+async function suspendReactivateLines(filters, lines, params, suspension) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      suspendreFacturation,
+      notifEmail,
+      dueDate,
+      nonModifiableParClient,
+      tempDataUuid,
+      partyId,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      suspendReactivateLinesV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          suspendBilling: ${boolStr(suspendreFacturation)},
+          notification: ${boolStr(notifEmail)},
+          suspend: ${suspension},
+          nonModifiableByCustomer: ${boolStr(nonModifiableParClient)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+        }
+    }
+    `;
+
+    const response = await query(queryStr);
+    return response.data.suspendReactivateLinesV2;
+  });
+}
+
+export async function changeCustomerAccount(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { partyId, dueDate, notifEmail, targetCustomerAccount, tempDataUuid } = params;
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+    const queryStr = `
+    mutation {
+      changeCustomerAccountV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          targetCustomerAccountId: ${targetCustomerAccount},
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+        }
+    }
+    `;
+
+    const response = await query(queryStr);
+    return response.data.changeCustomerAccountV2;
+  });
+}
+
+export async function transferSIMCards(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId, tempDataUuid } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+      mutation {
+        transferSIMCardsV2(
+          input: {
+            filter: {${gqlFilter}},
+            partyId: ${partyId},
+            simCardInstanceIds: [${gqlLines}],
+            notification: false,
+            dueDate: "${formatDateForGql(dueDate)}",
+            toPartyId: ${toPartyId},
+            toCustomerAccountId: ${toCustomerAccountId},
+            toWorkflowId: "${toWorkflowId}",
+            ${gqlTempDataUuid}
+          })
+          {
+            tempDataUuid
+            validated
+            errors{
+              key
+              number
+            }
+          }
+      }
+      `;
+
+    const response = await query(queryStr);
+    return response.data.transferSIMCardsV2;
+  });
+}
+
+export async function manageCancellation(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { dueDate, partyId, validate, tempDataUuid } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation{
+      validateRefuseLinesV2(
+          input :{
+            filter: {${gqlFilter}},
+            simCardInstanceIds: [${gqlLines}],
+            notification: false,
+            validate: ${validate},
+            partyId: ${partyId},
+            dueDate: "${formatDateForGql(dueDate)}",
+            ${gqlTempDataUuid}
+          }
+      )
+      {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+      }
+    }
+    `;
+
+    const response = await query(queryStr);
+    return response.data.validateRefuseLinesV2;
+  });
+}
+
+export async function endPhaseTest(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { notifEmail, dueDate, partyId, tempDataUuid } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      terminatePhaseTest(input: {
+        adminSkipGDM: false,
+        filter: {${gqlFilter}},
+        partyId: ${partyId},
+        simCardInstanceIds: [${gqlLines}],
+        notification: ${boolStr(notifEmail)},
+        dueDate: "${formatDateForGql(dueDate)}",
+        ${gqlTempDataUuid}
+      })
+       {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+       }
+      }
+
+      `;
+
+    const response = await query(queryStr);
+    return response.data.terminatePhaseTest;
+  });
+}
+
+export async function sendSMS(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      partyId,
+      notifEmail,
+      dueDate,
+      texMessage,
+      numberOfSMS,
+      shortCode,
+      tempDataUuid,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+    const queryStr = `
+    mutation {
+      sendSMSV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}"
+          textMessage: "${texMessage}",
+          numberOfSMS: ${numberOfSMS},
+          shortCode: "${shortCode}",
+          ${gqlTempDataUuid}
+          }
+        )
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    return response.data.sendSMSV2;
   });
 }
 
 export async function terminateLines(filters, lines, params) {
-  const { notifEmail, dueDate, partyId } = params;
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { notifEmail, dueDate, partyId, tempDataUuid } = params;
 
-  const queryStr = `
-  mutation {
-    terminateLines(
-      input: {
-        filter: {${gqlFilter}},
-        partyId: ${partyId},
-        simCardInstanceIds: [${lineIds}],
-        notification: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}"
-      })
-  }
-  `;
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
 
-  return await query(queryStr);
+    const queryStr = `
+    mutation {
+      terminateLinesV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}"
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    return response.data.terminateLinesV2;
+  });
 }
 
-export async function manageCancellation(filters, lines, params) {
-  const { dueDate, partyId, validate } = params;
-  let gqlFilter = '';
-  let lineIds = '';
-  if (lines && lines.length > 0) {
-    lineIds = lines.map(l => l.id).join(',');
-  } else {
-    gqlFilter = formatFilters(filters);
-  }
-
+export async function fetchShortCodes(partnerId) {
   const queryStr = `
-  mutation{
-    validateRefuseLinesV2(
-        input :{filter: {${gqlFilter}}, simCardInstanceIds: [${lineIds}], notification: false, validate: ${validate}, partyId: ${partyId}, dueDate: "${formatDateForGql(
-    dueDate
-  )}" }
-    )
-    {
-      tempDataUuid
-      validated
-      errors{
-        key
-        number
-      }
+  query{
+    party(id: ${partnerId}) {
+      shortCodes
     }
   }
   `;
+  const response = await query(queryStr);
+  // console.log('data', response.data.party.shortCodes);
+  return response.data.party.shortCodes;
+}
 
-  return await query(queryStr);
+export async function changeService(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesToEnable,
+      servicesToDisable,
+      dataService,
+      offerCode,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    let codesToEnable = [];
+    let codesToDisable = [];
+    let dataCodeParams = '';
+
+    if (servicesToEnable && servicesToEnable.length) {
+      codesToEnable = servicesToEnable.map(s => `{serviceCode: "${s.code}", action: ADD}`);
+    }
+
+    if (servicesToDisable && servicesToDisable.length) {
+      codesToDisable = servicesToDisable.map(s => `{serviceCode: "${s.code}", action: DELETE}`);
+    }
+
+    let codesToaddToGqlQuery = [...codesToEnable, ...codesToDisable];
+
+    if (dataService) {
+      if (dataService.checked) {
+        const apnToAddParams = dataService.parameters
+          .filter(a => a.selected)
+          .map(a => `{parameterCode: "${a.code}"}`);
+
+        const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
+
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+      } else {
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
+      }
+
+      codesToaddToGqlQuery.push(dataCodeParams);
+    }
+    let changeServicesParamsGql = '';
+
+    if (codesToaddToGqlQuery && codesToaddToGqlQuery.length) {
+      changeServicesParamsGql = `, changeServices: [${codesToaddToGqlQuery.join(',')}]`;
+    }
+
+    const queryStr = `
+    mutation {
+      changeServices(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          marketingOfferCode: "${offerCode}"
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response) {
+      if (response.data) {
+        return response.data.changeServices;
+      }
+      if (response.errors) {
+        return response;
+      }
+    }
+  });
+}
+
+export async function preactivateAndActivateSImcardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesChoice,
+      customerAccountID,
+      workflowCode,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
+    }
+
+    const queryStr = `
+    mutation {
+      preactivateAndActivateSImcardInstanceV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountID: ${customerAccountID},
+          workflowCode: "${workflowCode}",
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.preactivateAndActivateSImcardInstanceV2;
+  });
+}
+
+export async function preactivateSimCardInstance(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const { notifEmail, dueDate, partyId, tempDataUuid, customerAccountID } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    const queryStr = `
+    mutation {
+      preactivateSimCardInstanceV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountId: ${customerAccountID},
+          ${gqlTempDataUuid}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.preactivateSimCardInstanceV2;
+  });
+}
+
+export async function changeOffer(filters, lines, params) {
+  return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
+    const {
+      notifEmail,
+      dueDate,
+      partyId,
+      tempDataUuid,
+      servicesChoice,
+      customerAccountID,
+      sourceWorkflowID,
+      targetWorkflowID,
+    } = params;
+
+    let gqlTempDataUuid = '';
+    if (tempDataUuid) {
+      gqlTempDataUuid = `,tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
+    }
+
+    const queryStr = `
+    mutation {
+      changeOfferV2(
+        input: {
+          filter: {${gqlFilter}},
+          partyId: ${partyId},
+          simCardInstanceIds: [${gqlLines}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountID: ${customerAccountID},
+          sourceWorkflowID: ${sourceWorkflowID},
+          targetWorkflowID: ${targetWorkflowID}
+          ${gqlTempDataUuid}
+          ${changeServicesParamsGql}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+    const response = await query(queryStr);
+    if (response && response.data) return response.data.changeOfferV2;
+  });
 }
 
 export async function changeMSISDN(params) {
@@ -411,6 +636,7 @@ export async function changeMSISDN(params) {
 
   return await query(queryStr);
 }
+
 export async function changeSingleMSISDN(params) {
   const { notifEmail, dueDate, partyId, msisdn, newMsisdn } = params;
   const queryStr = `

@@ -50,7 +50,7 @@ import ActFormContainer from './parts/ActFormContainer2';
 import CustomFields from '@/components/CustomFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
-import { updateCustomFields } from '@/api/actCreation2';
+import { updateCustomFields } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 
 export default {

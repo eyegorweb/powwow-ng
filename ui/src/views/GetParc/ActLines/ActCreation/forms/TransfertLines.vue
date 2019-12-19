@@ -51,7 +51,7 @@ import UiDate from '@/components/ui/UiDate';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
-import { transferSIMCards } from '@/api/actCreation2';
+import { transferSIMCards } from '@/api/actCreation';
 import { mapState, mapGetters } from 'vuex';
 
 export default {

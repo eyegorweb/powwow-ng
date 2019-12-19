@@ -58,7 +58,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 
 import DataServiceToggle from '@/components/Services/DataServiceToggle';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
-import { changeService } from '@/api/actCreation2.js';
+import { changeService } from '@/api/actCreation.js';
 
 export default {
   components: {

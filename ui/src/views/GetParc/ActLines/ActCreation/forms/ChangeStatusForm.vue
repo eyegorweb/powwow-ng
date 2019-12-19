@@ -47,7 +47,7 @@
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
-import { terminateLines } from '@/api/actCreation2';
+import { terminateLines } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 
 export default {

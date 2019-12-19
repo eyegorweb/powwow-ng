@@ -57,7 +57,7 @@ import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
-import { changeOffer } from '@/api/actCreation2';
+import { changeOffer } from '@/api/actCreation';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
