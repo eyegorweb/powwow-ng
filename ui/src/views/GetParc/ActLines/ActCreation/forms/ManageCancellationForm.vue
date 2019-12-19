@@ -68,7 +68,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import ManageCancellationFormDelay from './ManageCancellationFormDelay';
 import ManageCancellationFormDate from './ManageCancellationFormDate';
 import ActFormContainer from './parts/ActFormContainer2';
-import { manageCancellation } from '@/api/actCreation2';
+import { manageCancellation } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 
 export default {

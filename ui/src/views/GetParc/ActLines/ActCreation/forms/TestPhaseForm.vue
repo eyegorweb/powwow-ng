@@ -21,7 +21,7 @@
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
-import { endPhaseTest } from '@/api/actCreation2';
+import { endPhaseTest } from '@/api/actCreation';
 
 export default {
   components: {

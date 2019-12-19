@@ -3,9 +3,9 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
-          <template slot="title">
-            {{ $t('getparc.lineDetail.tabServices.optionalServices') }}
-          </template>
+          <template slot="title">{{
+            $t('getparc.lineDetail.tabServices.optionalServices')
+          }}</template>
           <template slot="content">
             <div>
               <ServicesBlock :services="optionalServices" full-width />
@@ -79,7 +79,7 @@ import draggable from 'vuedraggable';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { getOfferServices, getOptionalServices } from '@/components/Services/utils.js';
 import { fetchLineServices } from '@/api/linesActions.js';
-import { changeService } from '@/api/actCreation2.js';
+import { changeService } from '@/api/actCreation.js';
 import { formattedCurrentDate } from '@/utils/date';
 import { mapMutations } from 'vuex';
 
