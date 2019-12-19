@@ -37,7 +37,9 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title">CARTE SIM</template>
+          <template slot="title"
+            >CARTE SIM</template
+          >
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -129,7 +131,9 @@
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="noResults" class="alert alert-light" role="alert">{{ $t('noResult') }}</div>
+              <div v-if="noResults" class="alert alert-light" role="alert">
+                {{ $t('noResult') }}
+              </div>
               <div class="item" v-for="item in currentCustomFields" :key="item.index">
                 <h6>{{ item.label }}</h6>
                 <p>{{ item.value }}</p>
@@ -141,11 +145,9 @@
           <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div
-                v-if="!noSpecificResults"
-                class="alert alert-light"
-                role="alert"
-              >{{ $t('noResult') }}</div>
+              <div v-if="!noSpecificResults" class="alert alert-light" role="alert">
+                {{ $t('noResult') }}
+              </div>
               <div v-else class="item" v-for="item in currentSpecificFields" :key="item.index">
                 <h6>{{ item.label }}</h6>
                 <p>{{ item.value }}</p>

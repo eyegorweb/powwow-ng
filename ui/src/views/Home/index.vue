@@ -28,7 +28,7 @@
         </template>
       </transition-group>
     </draggable>
-    <button class="panel-toggle bg-secondary" @click="openCustomizePanel">
+    <button class="panel-toggle bg-secondary" @click.stop="openCustomizePanel">
       <i class="ic-Wheel-Icon" />
       <span>Personaliser ma home</span>
     </button>

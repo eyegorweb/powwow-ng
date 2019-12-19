@@ -9,7 +9,11 @@
       />
     </div>
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
-      <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+      <button
+        @click="waitForConfirmation = true"
+        :disabled="!allCustomFields.length"
+        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+      >
         <i class="ic-Edit-Icon" />
         {{ $t('getparc.actCreation.editCustomFields.validateBtn') }}
       </button>
