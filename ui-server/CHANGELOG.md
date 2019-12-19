@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.434+20191219134834
+2019-12-19
+
+### Fixes
+
+- Corriger les filtres de l'acte "Changement de champs libres" (ae0462da86a9a3ceaabf0c151e9e5017bb88c28b)
+
 ## 0.3.0-master.433+20191219133015
 2019-12-19
 
