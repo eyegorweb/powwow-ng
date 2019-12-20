@@ -7,8 +7,9 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.step2Titles.CUSTOM_FIELDS') }} :</h6>
       <div>
-        <CustomFields
-          :fields="allCustomFields"
+        <PartnerFields
+          :custom-fields="allCustomFields"
+          :specific-fields="allSpecificFields"
           :get-selected-value="getSelectedValue"
           :errors="customFieldsErrors"
           @change="onValueChanged"
@@ -25,7 +26,7 @@
 import BaseForm from './BaseForm';
 import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 import { mapState, mapGetters } from 'vuex';
 import { updateCustomFields } from '@/api/actCreation';
 import FormReport from './FormReport';
@@ -33,7 +34,7 @@ import FormReport from './FormReport';
 export default {
   components: {
     BaseForm,
-    CustomFields,
+    PartnerFields,
     FormReport,
   },
 
@@ -45,6 +46,7 @@ export default {
     return {
       canSend: false,
       allCustomFields: [],
+      allSpecificFields: [],
       customFieldsValues: [],
       customFieldsErrors: [],
       waitForConfirmation: false,
@@ -70,7 +72,9 @@ export default {
   methods: {
     async fetchCustomFieldsForPartner() {
       const partnerId = get(this.lineData, 'party.id');
-      this.allCustomFields = await fetchCustomFields(partnerId);
+      const customFields = await fetchCustomFields(partnerId);
+      this.allCustomFields = customFields.customFields;
+      this.allSpecificFields = customFields.specificFields;
     },
 
     getSelectedValue(code) {
@@ -122,7 +126,7 @@ export default {
       const response = await updateCustomFields([], [this.lineData], params);
       if (response) {
         return {
-          report: { successful: response.data.changeCustomFields },
+          report: { successful: response },
           errors: response.errors,
         };
       }

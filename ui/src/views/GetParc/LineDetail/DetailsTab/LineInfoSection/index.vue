@@ -131,7 +131,7 @@
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="noResults" class="alert alert-light" role="alert">
+              <div v-if="noResults" class="alert-light" role="alert">
                 {{ $t('noResult') }}
               </div>
               <div class="item" v-for="item in currentCustomFields" :key="item.index">
@@ -145,7 +145,7 @@
           <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
           <template slot="content">
             <div class="d-flex">
-              <div v-if="!noSpecificResults" class="alert alert-light" role="alert">
+              <div v-if="!noSpecificResults" class="alert-light" role="alert">
                 {{ $t('noResult') }}
               </div>
               <div v-else class="item" v-for="item in currentSpecificFields" :key="item.index">
@@ -222,11 +222,13 @@ export default {
         {
           label: get(this.content, 'party.spec1_label'),
           value: get(this.content, 'accessPoint.spec1'),
+          code: 'spec1',
           index: 0,
         },
         {
           label: get(this.content, 'party.spec2_label'),
           value: get(this.content, 'accessPoint.spec2'),
+          code: 'spec2',
           index: 1,
         },
       ];
@@ -246,7 +248,8 @@ export default {
   methods: {
     async fetchCustomFieldsForPartner() {
       const partnerId = get(this.content, 'party.id');
-      this.allCustomFields = await fetchCustomFields(partnerId);
+      const customFields = await fetchCustomFields(partnerId);
+      this.allCustomFields = customFields.customFields;
     },
 
     formatDate(date) {

@@ -1,8 +1,9 @@
 <template>
   <ActFormContainer :validate-fn="onValidate">
     <div>
-      <CustomFields
-        :fields="allCustomFields"
+      <PartnerFields
+        :custom-fields="allCustomFields"
+        :specific-fields="allSpecificFields"
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
         @change="onValueChanged"
@@ -51,7 +52,7 @@
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 import { updateCustomFields } from '@/api/actCreation';
@@ -60,12 +61,13 @@ import Modal from '@/components/Modal';
 export default {
   components: {
     ActFormContainer,
-    CustomFields,
+    PartnerFields,
     Modal,
   },
   data() {
     return {
       allCustomFields: [],
+      allSpecificFields: [],
       customFieldsValues: [],
       customFieldsErrors: [],
       waitForConfirmation: false,
@@ -81,7 +83,9 @@ export default {
   methods: {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.actCreationPrerequisites.partner.id;
-      this.allCustomFields = await fetchCustomFields(partnerId);
+      const customFields = await fetchCustomFields(partnerId);
+      this.allCustomFields = customFields.customFields;
+      this.allSpecificFields = customFields.specificFields;
     },
 
     getSelectedValue(code) {

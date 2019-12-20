@@ -104,7 +104,7 @@ async function refreshCustomFilters({ commit }, partners) {
   if (partners.length === 1) {
     // appel api pour charger les custom fields
     const customFields = await fetchCustomFields(partners[0].id);
-    commit('setFilterCustomFieldsList', customFields);
+    commit('setFilterCustomFieldsList', customFields.customFields);
   } else {
     commit('setFilterCustomFieldsList', []);
   }
