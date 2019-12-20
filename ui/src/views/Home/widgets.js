@@ -11,15 +11,17 @@ import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
 import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
 import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
+import Weather from './widgets/Weather';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
 import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
-import { excludeMocked } from '@/featureFlipping/plugin';
+import {
+  excludeMocked
+} from '@/featureFlipping/plugin';
 
-export default excludeMocked([
-  {
+export default excludeMocked([{
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
     checked: true,
@@ -159,5 +161,13 @@ export default excludeMocked([
     large: false,
     seeMore: false,
     component: SimTopScheduledTermination,
+  },
+  {
+    title: 'getparc.lineDetail.tab3.networkMeteo',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: Weather,
   },
 ]);
