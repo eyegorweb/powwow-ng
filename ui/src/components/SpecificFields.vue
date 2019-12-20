@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-for="item in customFields" :key="item.id" class="mb-1">
+    <div v-for="item in specificFields" :key="item.id" class="mb-1">
       <div v-if="item.type === 'TEXT'">
-        {{ item.label }}
+        {{ item.spec }}
         <span v-if="showOptionalField && item.isOptional" class="text-optional"
           >[{{ $t('optional') }}]</span
         >
@@ -16,7 +16,7 @@
       </div>
       <div class="form-group" v-if="!editingList && item.type === 'LIST'">
         <label>
-          {{ item.label }}
+          {{ item.spec }}
           <span v-if="showOptionalField && item.isOptional" class="text-optional"
             >[{{ $t('optional') }}]</span
           >
@@ -36,7 +36,7 @@
       </div>
       <div class="form-group" v-if="editingList && item.type === 'LIST'">
         <label>
-          {{ item.label }}
+          {{ item.spec }}
           <span v-if="showOptionalField && item.isOptional" class="text-optional"
             >[{{ $t('optional') }}]</span
           >
@@ -49,7 +49,7 @@
         />
       </div>
       <div v-if="item.type === 'DATE'">
-        {{ item.label }}
+        {{ item.spec }}
         <span v-if="showOptionalField && item.isOptional" class="text-optional"
           >[{{ $t('optional') }}]</span
         >
@@ -77,7 +77,7 @@ export default {
     /**
      * format : {id, code, type, value}
      */
-    customFields: {
+    specificFields: {
       type: Array,
     },
     getSelectedValue: Function,

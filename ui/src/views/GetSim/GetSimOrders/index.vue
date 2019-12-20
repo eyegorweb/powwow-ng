@@ -173,7 +173,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
           id: c.id,
           label: c.label,

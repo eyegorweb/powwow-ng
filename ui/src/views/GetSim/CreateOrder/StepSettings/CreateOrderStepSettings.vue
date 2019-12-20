@@ -13,8 +13,8 @@
         </h3>
         <div class="subcontainer">
           <div>
-            <CustomFields
-              :fields="allCustomFields"
+            <PartnerFields
+              :custom-fields="allCustomFields"
               :get-selected-value="getSelectedValue"
               :errors="customFieldsErrors"
               can-edit-list
@@ -49,7 +49,7 @@
 <script>
 import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
 import CreateOrderAddCustomField from './CreateOrderAddCustomField';
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
 import get from 'lodash.get';
@@ -125,8 +125,8 @@ export default {
       const isActivationAsked = get(this.synthesis, 'services.selection.activation', false);
 
       const allCustomFields = await fetchCustomFields(partnerId);
-      this.refreshCustomFieldsInFilterBar(allCustomFields);
-      this.allCustomFields = allCustomFields.map(c => {
+      this.refreshCustomFieldsInFilterBar(allCustomFields.customFields);
+      this.allCustomFields = allCustomFields.customFields.map(c => {
         c.isOptional = true;
         if (c.mandatory === 'ORDER') {
           c.isOptional = false;
@@ -267,7 +267,7 @@ export default {
     CreateOrderAddOrderReference,
     CreateOrderAddCustomField,
     UiButton,
-    CustomFields,
+    PartnerFields,
     CreateOrderStepContainer,
   },
 };
