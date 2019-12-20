@@ -17,7 +17,7 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="parcAlarms">
-          <ParcAlarmsTab1 />
+          <ParcAlarmsTab />
         </div>
         <div slot="cockpitM2M">M2M</div>
       </UiTabs>
@@ -30,14 +30,14 @@ import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
-import ParcAlarmsTab1 from './ParcAlarmsTab1';
+import ParcAlarmsTab from './ParcAlarmsTab';
 
 export default {
   components: {
     Tooltip,
     UiTabs,
     UiTab,
-    ParcAlarmsTab1,
+    ParcAlarmsTab,
   },
   data() {
     return {
