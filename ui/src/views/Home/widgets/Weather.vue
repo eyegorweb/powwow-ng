@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" :class="'weatherWidget'">
     <div class="weatherWidget-img">
-      <img src="../../../assets/weather.svg" />
+      <img src="@/assets/weather.svg" />
     </div>
     <a
       v-if="networkWeatherUrl"
