@@ -8,19 +8,18 @@
       target="_blank"
       :href="networkWeatherUrl"
       class="btn btn-block btn-outline-primary"
-    >{{ $t('accessTo')}} {{ $t('getparc.lineDetail.tab3.networkMeteo') }}</a>
+      >{{ $t('accessTo') }} {{ $t('getparc.lineDetail.tab3.networkMeteo') }}</a
+    >
   </WidgetBloc>
 </template>
 
 <script>
 import WidgetBloc from './WidgetBloc';
-import Button from '@/components/ui/Button';
 import { getNetworkWeatherUrl } from '@/api/geographicalLocation';
 
 export default {
   components: {
     WidgetBloc,
-    Button,
   },
   data() {
     return {

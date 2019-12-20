@@ -17,11 +17,10 @@ import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidge
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
 import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacActivationActsWidget';
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
-import {
-  excludeMocked
-} from '@/featureFlipping/plugin';
+import { excludeMocked } from '@/featureFlipping/plugin';
 
-export default excludeMocked([{
+export default excludeMocked([
+  {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
     checked: true,
