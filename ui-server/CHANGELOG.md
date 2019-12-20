@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.437+20191220150338
+2019-12-20
+
+### Features
+
+- configuration de modification des champs spécifiques (fb3cc217644bcf24b3c20d1fdaac37ec6e9270ef)
+
 ## 0.3.0-master.436+20191220144724
 2019-12-20
 
