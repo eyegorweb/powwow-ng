@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.438+20191224091501
+2019-12-24
+
+### Fixes
+
+- change build & run doc (93a33caac2c578f5e3472baf04badd0afe19d265)
+
 ## 0.3.0-master.437+20191220150338
 2019-12-20
 
