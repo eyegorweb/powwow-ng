@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.439+20191226104208
+2019-12-26
+
+### Features
+
+- Volet de détail d'alarme (5636f1a3c41308ec1fb129fc849f0eb2c043815b)
+
 ## 0.3.0-master.438+20191224091501
 2019-12-24
 
