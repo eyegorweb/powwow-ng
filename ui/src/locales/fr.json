@@ -211,6 +211,7 @@
     "manage-alarms-tooltip": "TODO description",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "alarm-detail": "Historique de déclenchement",
     "table": {
       "total": "{total} alarmes paramétrées",
       "create-alarm": "Créer une alarme",

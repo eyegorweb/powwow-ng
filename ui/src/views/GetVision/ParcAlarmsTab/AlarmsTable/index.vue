@@ -55,6 +55,7 @@ import AlarmNameCell from './AlarmNameCell.vue';
 import ThresholdCell from './ThresholdCell.vue';
 import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
+import AlarmIdCell from './AlarmIdCell.vue';
 import SearchAlarmById from './SearchAlarmById.vue';
 
 import LoaderContainer from '@/components/LoaderContainer';
@@ -72,7 +73,9 @@ export default {
     return {
       showExtraCells: false,
       columns: [
-        col(this.$t('col.id'), 'id', true, true),
+        col(this.$t('col.id'), 'id', true, true, {
+          component: AlarmIdCell,
+        }),
         col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
           component: AlarmNameCell,
         }),

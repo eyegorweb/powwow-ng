@@ -22,6 +22,7 @@
         :content="payload"
       />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
+      <AlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -37,6 +38,7 @@ import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDet
 import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
 import CustomizePanel from '@/views/Home/CustomizePanel';
+import AlarmDetailPanel from '@/views/GetVision/ParcAlarmsTab/AlarmDetailPanel';
 
 export default {
   components: {
@@ -48,6 +50,7 @@ export default {
     ActLinesDetailPanel,
     ActCreationPanel,
     CustomizePanel,
+    AlarmDetailPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),
