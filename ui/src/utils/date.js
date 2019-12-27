@@ -29,3 +29,7 @@ export function isBefore(expectedBefore, expectedAfter) {
 
   return a.isBefore(b);
 }
+
+export function formatDateToUTC(value) {
+  return moment(value, DATE_FORMAT).valueOf();
+}

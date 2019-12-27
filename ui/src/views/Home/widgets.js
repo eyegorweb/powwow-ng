@@ -1,5 +1,6 @@
 import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
+import ConsoGraphWidget from './widgets/ConsoGraphWidget';
 import BillsWidget from './widgets/BillsWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
 import MassActionTable from './widgets/MassActionTable';
@@ -37,6 +38,7 @@ export default excludeMocked([
     seeMore: true,
     component: OrdersWidget,
   },
+
   {
     title: 'home.widgets.bills',
     description: '',
@@ -63,6 +65,15 @@ export default excludeMocked([
     seeMore: true,
     component: OrdersStatusesWidget,
   },
+  {
+    title: 'home.widgets.dataVoiceConso',
+    description: '',
+    checked: true,
+    large: true,
+    seeMore: false,
+    component: ConsoGraphWidget,
+  },
+
   {
     title: 'home.widgets.acts',
     description: '',
