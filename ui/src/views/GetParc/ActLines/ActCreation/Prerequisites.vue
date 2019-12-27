@@ -5,14 +5,15 @@
       @set:preprequisites="setPrerequisites"
     />
     <OfferPrerequisite
-      v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
+      v-if="
+        [
+          'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+          'getparc.actCreation.carouselItem.CHANGE_OFFER',
+        ].find(a => a === act.title)
+      "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
-    />
-    <OfferPrerequisite
-      v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
-      @set:preprequisites="setPrerequisites"
-      :partner="userPartner"
+      :can-select-billing-account="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
     />
   </div>
 </template>
