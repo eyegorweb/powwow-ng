@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.440+20191227133130
+2019-12-27
+
+### Features
+
+- création d'acte pour le changement d'offre (7ad0fcfcb101b25c44397a510eaca0a162d2bcd4)
+
 ## 0.3.0-master.439+20191226104208
 2019-12-26
 
