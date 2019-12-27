@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.442+20191227152620
+2019-12-27
+
+### Fixes
+
+- Correction de bugs divers (381cd8df7a7ba374ceb4048bc9f20c4ad65f7c37)
+
 ## 0.3.0-master.441+20191227133645
 2019-12-27
 
