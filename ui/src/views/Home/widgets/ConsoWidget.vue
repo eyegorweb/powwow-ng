@@ -59,14 +59,18 @@ export default {
   },
   async mounted() {
     this.loadingOffers = true;
-    const data = await fetchOffers('', [...this.contextFilters], { page: 0, limit: 99 });
-    this.loadingOffers = false;
-    if (data) {
-      this.offers = data.map(o => ({
-        id: o.code,
-        label: o.workflowDescription,
-        value: o.code,
-      }));
+    try {
+      const data = await fetchOffers('', [...this.contextFilters], { page: 0, limit: 99 });
+      this.loadingOffers = false;
+      if (data) {
+        this.offers = data.map(o => ({
+          id: o.code,
+          label: o.workflowDescription,
+          value: o.code,
+        }));
+      }
+    } catch (e) {
+      this.loadingOffers = false;
     }
   },
   methods: {

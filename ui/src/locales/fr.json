@@ -80,6 +80,7 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "dataVoiceConso": "CONSOMMATION DATA / MOIS",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Lignes en stock",
@@ -1012,7 +1013,9 @@
     "OUTGOING_DATA_CSD": "Data csd sortante",
     "ROAMING": "Roaming",
     "DATA": "Data",
-    "compatibility": "-non compatible"
+    "compatibility": "-non compatible",
+    "SMS": "SMS",
+    "VOICE": "Voix"
   },
   "filters": {
     "idOrder": "ID de commande",
