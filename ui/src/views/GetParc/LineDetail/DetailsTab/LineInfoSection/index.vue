@@ -37,9 +37,7 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title"
-            >CARTE SIM</template
-          >
+          <template slot="title">CARTE SIM</template>
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -272,8 +270,11 @@ export default {
         return this.$t('getparc.lineDetail.tab1.statuses.activated');
       }
 
-      if (status === 'LINE_IS_SUSPENDED' || status === 'LINE_IS_RELEASED') {
-        return this.$t('getparc.lineDetail.tab1.statuses.suspendedReleased');
+      if (status === 'LINE_IS_SUSPENDED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.suspended');
+      }
+      if (status === 'LINE_IS_RELEASED') {
+        return this.$t('getparc.lineDetail.tab1.statuses.RELEASED');
       }
 
       return '-';

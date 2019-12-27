@@ -1,6 +1,8 @@
 <template>
   <button class="btn btn-link p-0" @click.stop="openDetailPanel">
-    {{ row.id }}
+    <slot>
+      {{ row.id }}
+    </slot>
   </button>
 </template>
 

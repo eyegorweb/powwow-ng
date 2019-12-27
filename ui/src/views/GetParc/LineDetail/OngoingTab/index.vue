@@ -223,7 +223,10 @@ export default {
     isLigneActive() {
       const networkStatus = get(this.content, 'accessPoint.networkStatus');
       const simStatus = get(this.content, 'statuts');
-      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
+      return (
+        simStatus === 'ALLOCATED' &&
+        (networkStatus === 'ACTIVATED' || networkStatus === 'SUSPENDED')
+      );
     },
     partnerTypeMVNO() {
       const typeForPartner = get(this.content, 'party.partyType');

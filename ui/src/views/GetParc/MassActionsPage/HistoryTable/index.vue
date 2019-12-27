@@ -285,7 +285,6 @@ export default {
       'isLoading',
     ]),
     rows() {
-      console.log('rows =>>>>>', this.formatResponse(this.massActionsResponse.items));
       return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },
     total() {

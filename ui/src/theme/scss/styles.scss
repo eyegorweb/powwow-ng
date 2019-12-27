@@ -8,9 +8,12 @@
 // Theme
 @import 'overrides/buttons';
 
-$theme-colors: map-merge($theme-colors,
-  ('accent': $accent,
-  ));
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'accent': $accent,
+  )
+);
 
 // Optional
 @import '~bootstrap/scss/root';
@@ -53,7 +56,6 @@ $theme-colors: map-merge($theme-colors,
 }
 
 .btn-link-unstyled {
-
   &:hover,
   &:active {
     text-decoration: none !important;
@@ -147,10 +149,6 @@ $theme-colors: map-merge($theme-colors,
   .sortable-chosen {
     background-color: #0c62b2;
   }
-}
-
-.list-group-item {
-  padding: .30rem 1.25rem !important;
 }
 
 .table-blue {
