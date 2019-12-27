@@ -6,21 +6,21 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.name') }}:</h6>
-        <p>{{ content.name }}</p>
+        <p>{{ content.alarm.name }}</p>
       </div>
-      <div class="overview-item mr-5 mock-value">
+      <div class="overview-item mr-5 ">
         <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-        <p>1234</p>
+        <p>{{ content.iccid }}</p>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
-        <Thresholds :alarm="content" />
+        <Thresholds :alarm="content.alarm" />
       </div>
     </div>
 
     <div class="overview-container m-3 bg-white">
       <div class="overview-item mr-5">
-        <h6>{{ $t('getvsion.alarm-detail') }}:</h6>
+        <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
 
       <div class="overview-item mr-5 mock-value">

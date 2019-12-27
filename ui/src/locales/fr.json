@@ -212,7 +212,7 @@
     "manage-alarms-tooltip": "TODO description",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
-    "alarm-detail": "Historique de déclenchement",
+    "alarm-detail": "Détail de l'alarm",
     "table": {
       "total": "{total} alarmes paramétrées",
       "create-alarm": "Créer une alarme",
@@ -394,6 +394,7 @@
         "label2": "Champ spécifique 2"
       },
       "alarms": {
+        "trigger-history": "Historique de déclenchement",
         "name": "Nom de l'alarme",
         "threshold": "Seuil de déclenchement",
         "trigger": "Déclenchement",
@@ -481,11 +482,11 @@
           "notPreactivated": "Non préactivée depuis le :",
           "preactivated": "Préactivée depuis le :",
           "activated": "Activée depuis le :",
-          "suspendedReleased": "Suspendue ou Résiliée depuis le :",
+          "suspended": "Suspendue depuis le :",
           "RELEASED": "Résiliée depuis le :",
           "ALLOCATED": "Allouée depuis le :",
           "AVAILABLE": "Disponible depuis le :",
-          "ALLOCATING": "En cours d'allocation depuis le :",
+          "ALLOCATING": "En cours de préactivation depuis le :",
           "RESERVED": "Réservée depuis le :"
         }
       },
@@ -882,7 +883,7 @@
         "CANCELED": "Annulée",
         "TEST": "Test",
         "BARRED": "Barré",
-        "ALLOCATING": "En cours d'allocation"
+        "ALLOCATING": "En cours de préactivation"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Demande de résiliation",

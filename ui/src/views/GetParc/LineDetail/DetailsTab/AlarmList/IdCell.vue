@@ -1,25 +1,21 @@
 <template>
-  <button class="btn btn-link p-0" @click.prevent="openPanel">{{ row.alarm.id }}</button>
+  <button class="btn btn-link p-0" @click.stop="openPanel">
+    {{ row.alarm.id }}
+  </button>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
-
 export default {
   name: 'IdCell',
   props: {
     row: Object,
   },
-
   methods: {
-    ...mapMutations(['openPanel']),
-
     openPanel() {
-      console.log('openPanel');
+      this.$emit('colEvent', { action: 'openAlarmPanel', row: this.row });
     },
   },
-  computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
-  }),
 };
 </script>
+
+<style lang="scss" scoped></style>
