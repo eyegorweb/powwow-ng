@@ -147,6 +147,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
           }
           offerGroup {
             customerAccount {
+              id
               name
               code
             }
