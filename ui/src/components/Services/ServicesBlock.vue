@@ -11,16 +11,18 @@
           >
             <div v-if="service.name" class="serviceOptional">
               <div class="serviceOptional-name">{{ service.name }} :</div>
-              <div class="serviceOptional-status" :class="service.checked ? 'enable' : 'disable'">
-                {{
-                  service.checked
-                    ? $t('getparc.lineDetail.tab1.activatedAt')
-                    : service.activationDate
-                    ? $t('getparc.lineDetail.tab1.disableAt')
-                    : $t('orders.detail.deActivate')
-                }}
+              <div :style="{ lineHeight: '1rem' }">
+                <div class="serviceOptional-status" :class="service.checked ? 'enable' : 'disable'">
+                  {{
+                    service.checked
+                      ? $t('getparc.lineDetail.tab1.activatedAt')
+                      : service.activationDate
+                      ? $t('getparc.lineDetail.tab1.disableAt')
+                      : $t('orders.detail.deActivate')
+                  }}
+                </div>
+                <div class="serviceOptional-date">{{ service.activationDate }}</div>
               </div>
-              <div class="serviceOptional-date">{{ service.activationDate }}</div>
             </div>
             <div v-else>
               <UiToggle
@@ -214,5 +216,11 @@ export default {
     flex-grow: 1;
     margin-left: 10px;
   }
+}
+
+.serviceOptional-date {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $gray-400;
 }
 </style>
