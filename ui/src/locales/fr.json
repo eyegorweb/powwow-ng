@@ -779,7 +779,8 @@
       "editCustomFields": {
         "validateBtn": "Modifier les champs",
         "confirmationWarning": "Attention ! Les nouvelles valeurs vont écraser toute valeur déjà présente.",
-        "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
+        "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes",
+        "noResult": "Pas de champ libre de défini."
       },
 
       "ManageCancellation": {
