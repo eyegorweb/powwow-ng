@@ -12,7 +12,7 @@
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
       <button
         @click="waitForConfirmation = true"
-        :disabled="!allCustomFields.length"
+        :disabled="!canValidate"
         class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
       >
         <i class="ic-Edit-Icon" />
@@ -44,7 +44,10 @@
     <div slot="messages" class="text-info">
       <span>
         <i class="ic-Alert-Icon" />
-        {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
+        <template v-if="allFields && allFields.length">{{
+          $t('getparc.actCreation.editCustomFields.infoMessage')
+        }}</template>
+        <template v-else>{{ $t('getparc.actCreation.editCustomFields.noResult') }}</template>
       </span>
     </div>
   </ActFormContainer>
@@ -68,14 +71,22 @@ export default {
     return {
       allCustomFields: [],
       allSpecificFields: [],
-      customFieldsValues: [],
+      allFields: [],
+      allFieldsValues: [],
       customFieldsErrors: [],
       waitForConfirmation: false,
+      canSend: false,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    canValidate() {
+      if (this.allFields && this.allFields.length && this.canSend) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
     this.fetchCustomFieldsForPartner();
@@ -86,18 +97,24 @@ export default {
       const customFields = await fetchCustomFields(partnerId);
       this.allCustomFields = customFields.customFields;
       this.allSpecificFields = customFields.specificFields;
+      this.allFields = customFields.customFields.concat(customFields.specificFields);
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
+      if (enteredValue) {
+        this.canSend = true;
+      } else {
+        this.canSend = false;
+      }
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.allFieldsValues = this.allFieldsValues.map(c => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -108,12 +125,12 @@ export default {
         });
       } else {
         customField.enteredValue = enteredValue;
-        this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
+        this.allFieldsValues = [...this.allFieldsValues, { ...customField }];
       }
     },
     async onValidate(contextValues) {
       const getCustomFieldValue = code => {
-        const found = this.customFieldsValues.filter(c => c.code === code);
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
