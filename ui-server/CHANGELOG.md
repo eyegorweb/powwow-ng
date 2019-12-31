@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.443+20191231135704
+2019-12-31
+
+### Fixes
+
+- validation des champs libres et des champs spécifiques au cours de l'acte de modification des champs libres (2c5598e64ae05bd1ab0ce6110e189dcadbc59d30)
+
 ## 0.3.0-master.442+20191227152620
 2019-12-27
 
