@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.444+20191231143234
+2019-12-31
+
+### Fixes
+
+- Corriger l'affichage des dates sur les services optionels (d9f959ab1acf5224a2c2f197b53360c1d8cdc220)
+
 ## 0.3.0-master.443+20191231135704
 2019-12-31
 
