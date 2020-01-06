@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.448+20200106144321
+2020-01-06
+
+### Fixes
+
+- ajout des champs spécifiques lors de l'acte de modification des champs libres (573c7c86d48db22ffa921fcf89196990e5f5e43c)
+
 ## 0.3.0-master.447+20200106135816
 2020-01-06
 
