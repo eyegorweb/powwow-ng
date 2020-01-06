@@ -213,6 +213,18 @@
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
     "alarm-detail": "Détail de l'alarm",
+    "account-info": "Informations compte",
+    "notifications": "Notifications",
+    "notify-mail": "Notification mail",
+    "notify-ws": "Notification web service",
+    "mailing-list": "Liste de diffusion",
+    "detail-panel": {
+      "stepper": {
+        "created": "Créée"
+      },
+      "change-alarm": "Modifier l’alarme",
+      "triggered-events": "Voir les déclenchements"
+    },
     "table": {
       "total": "{total} alarmes paramétrées",
       "create-alarm": "Créer une alarme",
@@ -396,7 +408,9 @@
       },
       "alarms": {
         "trigger-history": "Historique de déclenchement",
+        "id": "ID de l'alarme",
         "name": "Nom de l'alarme",
+        "type": "Type d'alarme",
         "threshold": "Seuil de déclenchement",
         "trigger": "Déclenchement",
         "scope": "Portée",

@@ -1,7 +1,7 @@
 <template>
-  <div class="mock-value">
-    <div>Sur-conso Linky Prod</div>
-    <div class="subtitle">Sur-consommation</div>
+  <div>
+    <div>{{ row.name }}</div>
+    <div class="subtitle">{{ row.type }}</div>
   </div>
 </template>
 
