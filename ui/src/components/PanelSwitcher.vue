@@ -22,10 +22,11 @@
         :content="payload"
       />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
-      <AlarmDetailPanel
+      <LineAlarmDetailPanel
         v-if="panelId === 'getparc.lineDetail.alarms.trigger-history'"
         :content="payload"
       />
+      <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -41,7 +42,8 @@ import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDet
 import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
 import CustomizePanel from '@/views/Home/CustomizePanel';
-import AlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
+import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
+import TheAlarmDetailPanel from '@/views/GetVision/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
 
 export default {
   components: {
@@ -53,7 +55,8 @@ export default {
     ActLinesDetailPanel,
     ActCreationPanel,
     CustomizePanel,
-    AlarmDetailPanel,
+    LineAlarmDetailPanel,
+    TheAlarmDetailPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),
