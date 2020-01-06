@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.448+20200106144321
+## 0.3.0-master.449+20200106144656
 2020-01-06
+
+### Features
+
+- evolution e l'api des types d'actes de gestion (d5716dfc8b4c22f9841ee723c7e0e8a731891f09)
 
 ### Fixes
 
