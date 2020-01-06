@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.446+20191231144641
+2020-01-06
+
+### Fixes
+
+- Corriger le format de la date sur les status de facturation (4238489318e808c9a9e4b0a322f0f8e1caea3418)
+
 ## 0.3.0-master.445+20200106083321
 2020-01-06
 
