@@ -10,7 +10,7 @@
         @change="onValueChanged"
       />
     </template>
-    <template v-if="specificFields">
+    <template v-if="specificFields && !userIsPartner">
       <SpecificFields
         :specific-fields="specificFields"
         :get-selected-value="getSelectedValue"
@@ -26,6 +26,7 @@
 <script>
 import CustomFields from '@/components/CustomFields';
 import SpecificFields from '@/components/SpecificFields';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -58,6 +59,9 @@ export default {
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },
+  },
+  computed: {
+    ...mapGetters(['userIsPartner']),
   },
 };
 </script>
