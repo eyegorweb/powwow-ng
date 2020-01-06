@@ -1,11 +1,12 @@
 import { query } from './utils';
 
 export async function getManagementActTypes() {
-  const queryStr = `query {
-    __type(name: "ActionTypeSearchEnum") {
-        enumValues{name}
-      }
+  const queryStr = `query{
+    actionType: getActionTypeSearch {
+      code
+      label
+    }
   }`;
   const response = await query(queryStr);
-  return response.data.__type.enumValues.map(e => e.name);
+  return response.data.actionType;
 }
