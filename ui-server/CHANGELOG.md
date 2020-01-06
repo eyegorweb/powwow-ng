@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.450+20200106150558
+2020-01-06
+
+### Fixes
+
+- mis à jour de l'information du statut de la ligne (4dff94816ef26f0e042c96853702472bf88f11ce)
+
 ## 0.3.0-master.449+20200106144656
 2020-01-06
 
