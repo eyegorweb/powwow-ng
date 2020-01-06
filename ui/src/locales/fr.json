@@ -222,7 +222,8 @@
     },
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
-      "triggered_last_month": "Déclenchement mois précédent"
+      "triggered_last_month": "Déclenchement mois précédent",
+      "triggered_before_last_month": "Déclenchement {month}"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",

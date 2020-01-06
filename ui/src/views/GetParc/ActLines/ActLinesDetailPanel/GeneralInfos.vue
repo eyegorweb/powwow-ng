@@ -19,7 +19,7 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.offer') }} :</h6>
-      <p>{{ get('accessPoint.Workflow.description') }}</p>
+      <p>{{ get('accessPoint.offer.marketingOffer.description') }}</p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.lineStatus') }} :</h6>
