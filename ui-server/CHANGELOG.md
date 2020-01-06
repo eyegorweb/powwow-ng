@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.445+20200106083335
+2020-01-06
+
+### Features
+
+- affiche les indicateurs des alarmes (ee66619921d88e42e57c72e41e260eedfbdb6b8e)
+- détail d'une alarme dans un volet (d0582213449429a2ca7196f9a005315a6af52190)
+
 ## 0.3.0-master.444+20191231143234
 2019-12-31
 
