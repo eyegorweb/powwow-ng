@@ -207,11 +207,6 @@ export function formatFilters(filters) {
     allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
   }
 
-  const offers = getValuesIds(filters, 'filters.offers');
-  if (offers) {
-    allFilters.push(`workflowCode: {in: [${offers}]}`);
-  }
-
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
@@ -374,7 +369,10 @@ function addOrderRef(gqlFilters, selectedFilters) {
 }
 
 function addOfferFilterFilter(gqlFilters, selectedFilters) {
-  const offers = getValuesIds(selectedFilters, 'filters.lines.associatedOffer');
+  const offerFilter = selectedFilters.find(o => o.id === 'filters.lines.associatedOffer');
+  if (!offerFilter) return;
+
+  const offers = offerFilter.values.map(o => `"${o.productCode}"`).join(',');
   if (offers) {
     gqlFilters.push(`productCode: {in: [${offers}]}`);
   }

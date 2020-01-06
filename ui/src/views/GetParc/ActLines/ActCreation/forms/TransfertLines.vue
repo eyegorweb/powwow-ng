@@ -108,6 +108,7 @@ export default {
           id: o.id,
           code: o.code,
           label: o.workflowDescription,
+          productCode: o.initialOffer.code,
         }));
       }
     },

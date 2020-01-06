@@ -28,6 +28,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
         ${rCardGqlParam}
         initialOffer {
           id
+          code
           marketingServices {
             code
             activated

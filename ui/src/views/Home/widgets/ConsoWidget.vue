@@ -67,6 +67,7 @@ export default {
           id: o.code,
           label: o.workflowDescription,
           value: o.code,
+          productCode: o.initialOffer.code,
         }));
       }
     } catch (e) {
