@@ -28,6 +28,7 @@ export default {
         return data.map(o => ({
           id: o.code,
           label: o.workflowDescription,
+          productCode: o.initialOffer.code,
         }));
       }
     },
