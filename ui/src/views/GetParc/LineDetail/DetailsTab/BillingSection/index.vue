@@ -171,11 +171,17 @@ export default {
     },
 
     lineStatus() {
-      const lineStatus = get(this.content, 'line.statuts');
+      const lineStatus = get(this.content, 'accessPoint.lines[0].status');
       if (lineStatus === 'ALLOCATED') {
-        return `${lineStatus} ${get(this.content, 'line.created')}`;
+        return `${lineStatus} ${this.$t('fromThe')} ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.created'
+        )}`;
       } else if (lineStatus === 'RELEASED') {
-        return `${lineStatus} ${this.$t('fromThe')} ${get(this.content, 'line.updated')}`;
+        return `${lineStatus} ${this.$t('fromThe')} ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.updated'
+        )}`;
       } else {
         return '-';
       }
