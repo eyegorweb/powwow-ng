@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.447+20200106135816
+2020-01-06
+
+### Fixes
+
+- Correction de la recherche de lignes par offre (e65c8548edc4f2ac0f7a8c773f861065ae669d6f)
+
 ## 0.3.0-master.446+20191231144641
 2020-01-06
 
