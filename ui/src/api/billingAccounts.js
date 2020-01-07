@@ -6,7 +6,10 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
     partnerGqlParam = '';
 
   if (partners && partners.length > 0) {
-    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnersIds = partners
+      .filter(i => i.id)
+      .map(i => `"${i.id}"`)
+      .join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
 
