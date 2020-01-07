@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.451+20200107152741
+2020-01-07
+
+### Fixes
+
+- correctifs de bugs sur la gestion de l'affichage du tableau et de la ligne d'export (d1382b57d89045070c4164b52c7402ab63079eae)
+
 ## 0.3.0-master.450+20200106150558
 2020-01-06
 
