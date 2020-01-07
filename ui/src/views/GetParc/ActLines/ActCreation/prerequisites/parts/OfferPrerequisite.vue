@@ -124,7 +124,7 @@ export default {
       this.refreshOffers();
     },
     async refreshOffers() {
-      if (!this.chosenBillingAccount) return;
+      if (!this.chosenBillingAccount || !this.chosenBillingAccount.label) return;
       this.selectedOffer = undefined;
       this.offers = [];
 
