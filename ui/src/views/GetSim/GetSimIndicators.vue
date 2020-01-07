@@ -12,7 +12,6 @@
 <script>
 import Indicators from '@/components/Indicators';
 import { fetchSingleIndicator } from '@/api/orders';
-import { fetchAverageProcessingTime } from '@/api/indicators';
 import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
@@ -194,25 +193,6 @@ export default {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
           hideZeroValue: true,
-        },
-
-        {
-          name: 'averageProcessingTime',
-          labelKey: 'indicators.getsim.averageProcessingTime',
-          clickable: false,
-          total: '-',
-          filters: [],
-          fetchKey: 'ORDER_DELAY',
-          fetch: async (indicator, contextFilters) => {
-            const total = await fetchAverageProcessingTime(contextFilters);
-            let color = '';
-            if (total < 5) {
-              color = 'text-success';
-            } else if (total >= 5) {
-              color = 'text-warning';
-            }
-            return { total, color };
-          },
         },
       ],
     };

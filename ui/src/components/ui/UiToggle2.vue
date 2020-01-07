@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex">
-    <div class="item toggle">
+  <div class="d-flex" :class="{ 'slim-toggles': slimToggles }">
+    <div class="item toggle" :class="{ 'block-toggles': block }">
       <button
         v-for="item in values"
         :key="item.id"
@@ -37,6 +37,8 @@ export default {
       type: Array,
       required: true,
     },
+    slimToggles: Boolean,
+    block: Boolean,
   },
 };
 </script>
@@ -78,5 +80,14 @@ export default {
       border-bottom-right-radius: 5px;
     }
   }
+}
+
+.slim-toggles /deep/ button {
+  padding: 0px 20px;
+}
+
+.block-toggles {
+  width: 100%;
+  display: flex;
 }
 </style>

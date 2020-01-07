@@ -115,7 +115,7 @@ export default excludeMocked([
     component: StatusActsWidget,
   },
   {
-    title: 'home.widgets.searchLine',
+    title: 'searchLineById',
     description: '',
     checked: true,
     large: false,

@@ -15,6 +15,7 @@ import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
 import { searchMassActions } from '@/api/massActions';
 import GenericTableWidget from './GenericTableWidget';
 import { mapGetters } from 'vuex';
+import { truncateLabel } from '@/utils';
 
 export default {
   components: {
@@ -68,6 +69,15 @@ export default {
           orderable: false,
           noHandle: true,
           visible: true,
+          tootltipText: (item, row) => {
+            return row.partyName;
+          },
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return truncateLabel(row.partyName);
+            },
+          },
         },
         {
           id: 2,
@@ -90,14 +100,10 @@ export default {
               return this.$t('getparc.actTypes.' + actType);
             },
           },
-        },
-        {
-          id: 3,
-          label: this.$t('getparc.history.col.details'),
-          name: 'info',
-          orderabel: false,
-          noHandle: true,
-          visible: true,
+
+          tootltipText: (item, row) => {
+            return row.info;
+          },
         },
         {
           id: 4,
@@ -120,6 +126,17 @@ export default {
           orderabel: false,
           noHandle: true,
           visible: true,
+          tootltipText: (item, row) => {
+            return row.created;
+          },
+          format: {
+            type: 'Getter',
+            getter: row => {
+              if (!row.created) return '';
+              const parts = row.created.split(' ');
+              return parts[0];
+            },
+          },
         },
         {
           id: 6,
@@ -128,6 +145,17 @@ export default {
           orderabel: false,
           noHandle: true,
           visible: true,
+          tootltipText: (item, row) => {
+            return row.dueDate;
+          },
+          format: {
+            type: 'Getter',
+            getter: row => {
+              if (!row.dueDate) return '';
+              const parts = row.dueDate.split(' ');
+              return parts[0];
+            },
+          },
         },
         {
           id: 7,

@@ -15,6 +15,15 @@
   }
 }
 
+.warning-tooltip {
+  .tooltip-inner {
+    background: $warning !important;
+  }
+  .tooltip-arrow {
+    border-color: $warning !important;
+  }
+}
+
 .tooltip {
   display: block !important;
   z-index: 10000;
