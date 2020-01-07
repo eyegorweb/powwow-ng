@@ -5,7 +5,8 @@
         v-if="toggleValues"
         @update="updateGraph"
         :values="toggleValues"
-        class="pl-2 slim-toggles"
+        slim-toggles
+        class="pl-2"
       />
     </div>
 
@@ -74,9 +75,5 @@ export default {
   display: flex;
   width: 60%;
   justify-content: center;
-}
-
-.slim-toggles /deep/ button {
-  padding: 0px 20px;
 }
 </style>

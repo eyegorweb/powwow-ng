@@ -11,12 +11,12 @@
 
 <script>
 import { searchOrders } from '@/api/orders';
-import GetSimOrdersProductCell from '@/views/GetSim/GetSimOrders/GetSimOrdersProductCell';
 import GetSimOrdersStatusCell from '@/views/GetSim/GetSimOrders/GetSimOrdersStatusCell';
 import { mapGetters } from 'vuex';
 import WidgetBloc from './WidgetBloc';
 import moment from 'moment';
 import GenericTableWidget from './GenericTableWidget';
+import { truncateLabel } from '@/utils';
 
 export default {
   components: {
@@ -116,9 +116,15 @@ export default {
           sortingName: 'partyName',
           visible: true,
           exportId: 'ORDER_PARTY',
+
+          tootltipText: (item, row) => {
+            return row.party.name;
+          },
           format: {
-            type: 'ObjectAttribute',
-            path: 'name',
+            type: 'Getter',
+            getter: row => {
+              return truncateLabel(row.party.name);
+            },
           },
         },
         {
@@ -130,8 +136,14 @@ export default {
           visible: true,
           sortingName: 'simcardDesc',
           exportId: 'ORDER_SIMCARD_TYPE',
+          tootltipText: (item, row) => {
+            return row.orderedSIMCard.description;
+          },
           format: {
-            component: GetSimOrdersProductCell,
+            type: 'Getter',
+            getter: row => {
+              return truncateLabel(row.orderedSIMCard.description, 20);
+            },
           },
         },
         {
@@ -142,6 +154,7 @@ export default {
           noHandle: true,
           visible: true,
           exportId: 'ORDER_STATUS',
+
           format: {
             component: GetSimOrdersStatusCell,
           },

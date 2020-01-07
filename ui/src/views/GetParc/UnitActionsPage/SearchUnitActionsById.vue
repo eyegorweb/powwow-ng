@@ -1,5 +1,10 @@
 <template>
-  <SearchById @searchById="searchById" :additional-ids="additionalIds" :init-value="initValue" />
+  <SearchById
+    @searchById="searchById"
+    :additional-ids="additionalIds"
+    :init-value="initValue"
+    placeholder="searchActById"
+  />
 </template>
 
 <script>

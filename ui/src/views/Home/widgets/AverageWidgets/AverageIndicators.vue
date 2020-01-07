@@ -5,7 +5,9 @@
       @update="updateContentType"
       :values="toggleValues"
       class="pl-2"
-    ></Toggle>
+      slim-toggles
+      block
+    />
     <ul v-if="!noResults" class="list-group bg-white">
       <li
         class="list-group-item"

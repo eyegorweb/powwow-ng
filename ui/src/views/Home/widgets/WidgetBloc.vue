@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="bloc d-inline-block p-1 widgets-item"
-    :class="{ wide: widget.large, narrow: !widget.large }"
-  >
+  <div class="bloc d-inline-block p-1 widgets-item">
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -98,12 +95,6 @@ export default {
 }
 
 .bloc {
-  &.narrow {
-    width: 33.3333%;
-  }
-
-  &.wide {
-    width: 66.6666%;
-  }
+  width: 100%;
 }
 </style>

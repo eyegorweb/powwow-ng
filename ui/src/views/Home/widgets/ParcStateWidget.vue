@@ -76,17 +76,6 @@
           </td>
           <td>2</td>
         </tr>
-        <tr>
-          <td>{{ $t('home.widgets.stateParc.suspendedAndNotBilledLines') }}</td>
-          <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                0
-              </a>
-            </span>
-          </td>
-          <td>0</td>
-        </tr>
       </tbody>
     </table>
   </WidgetBloc>

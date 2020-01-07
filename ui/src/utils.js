@@ -22,3 +22,9 @@ export function isElementInViewport(el) {
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
+
+export function truncateLabel(value, size = 12) {
+  if (!value) return '';
+  if (value.length <= size) return value;
+  return value.substr(0, size) + '...';
+}

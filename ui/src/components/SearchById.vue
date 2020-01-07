@@ -2,7 +2,7 @@
   <SearchIdInput
     :types="idsOptions"
     :selected-search-type.sync="selectedSearchType"
-    :input-placeholder="$t('searchLineById')"
+    :input-placeholder="$t(placeholder)"
     :init-value="initValue"
     @findType="findType"
     @searchById="searchById"
@@ -33,6 +33,10 @@ export default {
       default: () => {
         return [];
       },
+    },
+    placeholder: {
+      type: String,
+      default: '',
     },
   },
   computed: {
