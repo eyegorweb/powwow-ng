@@ -6,7 +6,7 @@
     <div v-if="apns && apns.length" class="line">
       <span class="mt-4 mb-4">Apn:</span>
 
-      <MultiChoiceList :items="apns" @change="toggleApn" :empty-error-message="dataParamsNeeded" />
+      <MultiChoiceList :items="apns" @change="toggleApn" :empty-error-message="needToChekForApn" />
     </div>
   </div>
   <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
@@ -18,7 +18,7 @@
         <div v-if="apns && apns.length" class="apn-container">
           <span>Apn:</span>
           <MultiChoiceList
-            :empty-error-message="dataParamsNeeded"
+            :empty-error-message="needToChekForApn"
             :items="apns"
             @change="toggleApn"
           />
@@ -50,6 +50,11 @@ export default {
       checked: false,
       apns: [],
     };
+  },
+  computed: {
+    needToChekForApn() {
+      return this.dataParamsNeeded && this.checked;
+    },
   },
   mounted() {
     const data = {

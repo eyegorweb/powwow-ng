@@ -72,10 +72,16 @@ export default {
     },
   },
 
-  computed: {
-    offerServices() {
-      return getMarketingOfferServices(this.selectedOffer.initialOffer);
+  watch: {
+    selectedOffer(newOffer, oldOffer) {
+      if (newOffer && oldOffer && newOffer.id !== oldOffer.id) {
+        this.chosenServices = undefined;
+      }
+      this.offerServices = this.getOfferServices(this.selectedOffer);
     },
+  },
+
+  computed: {
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
       const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
@@ -109,12 +115,31 @@ export default {
 
     const selectedOffer = get(this.synthesis, 'services.value.selectedOffer');
 
+    // this.preFillServices();
+
+    const previouslyChosenServices = get(this.synthesis, 'services.value.servicesChoice');
+    if (previouslyChosenServices) {
+      this.chosenServices = [
+        ...previouslyChosenServices.services,
+        previouslyChosenServices.dataService,
+      ];
+    }
+
     if (selectedOffer) {
       this.selectedOffer = selectedOffer;
+      this.offerServices = this.getOfferServices(selectedOffer);
     }
-    // this.preFillServices();
   },
   methods: {
+    getOfferServices(selectedOffer) {
+      const offerServices = getMarketingOfferServices(selectedOffer.initialOffer);
+
+      if (this.chosenServices) {
+        return offerServices.map(os => this.chosenServices.find(s => s.code === os.code));
+      }
+
+      return offerServices;
+    },
     canGoNext() {
       this.isDataParamsError =
         this.servicesChoice &&
@@ -170,6 +195,8 @@ export default {
   },
   data() {
     return {
+      offerServices: undefined,
+      chosenServices: undefined,
       selectedOffer: null,
       activation: false,
       preActivationValue: false,

@@ -104,19 +104,18 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         }
         orderedMarketingOffer {
           description
-          code
-          buyingPriceInEuroCentHT
-          recurringPriceInEuroCentHT
-          buyingPriceInEuroCentTTC
-          recurringPriceInEuroCentTTC
-          groupCode
-          groupName
-          servicesLabel
-          servicesGroup
         }
         orderStatusHistories{
           status
           statusDate
+        }
+        marketingServices {
+          code
+          activated
+          editable
+          optional
+          name
+          activationDate
         }
       }
     }

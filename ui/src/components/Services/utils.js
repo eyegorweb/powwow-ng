@@ -25,7 +25,7 @@ function formatServices(s) {
       .map(p => {
         return {
           active: p.activated,
-          label: p.name,
+          label: p.name || p.code,
           editable: p.editable,
           code: p.code,
           name: p.code,
