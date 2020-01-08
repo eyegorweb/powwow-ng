@@ -145,7 +145,7 @@ export default {
 
 <style lang="scss">
 .vue-grid-item.vue-grid-placeholder {
-  background: $gray-400;
+  background: $gray-400 !important;
 }
 </style>
 
