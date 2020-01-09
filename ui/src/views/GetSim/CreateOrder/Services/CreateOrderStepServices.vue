@@ -144,6 +144,7 @@ export default {
       this.isDataParamsError =
         this.servicesChoice &&
         this.servicesChoice.dataService &&
+        this.servicesChoice.dataService.checked &&
         this.servicesChoice.dataService.parameters &&
         this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
 
