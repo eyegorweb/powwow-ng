@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.456+20200109090354
+2020-01-09
+
+### Fixes
+
+- Corriger la recherche par offre (5bfda08f85679538fe77c6b7efd24ab4f7ca7031)
+
 ## 0.3.0-master.455+20200108131914
 2020-01-08
 
