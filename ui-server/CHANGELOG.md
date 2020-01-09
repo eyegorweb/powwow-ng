@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.457+20200109111112
+2020-01-09
+
+### Fixes
+
+- vider l'input dans le multiselect après le choix d'une option (758fe3b0d8b7f797ed376959ae6aaf81bea21296)
+
 ## 0.3.0-master.456+20200109090354
 2020-01-09
 
