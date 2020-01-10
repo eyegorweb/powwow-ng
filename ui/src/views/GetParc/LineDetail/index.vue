@@ -116,7 +116,6 @@ export default {
           icon: 'ic-Ticket-Icon',
           title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
           selected: false,
-          mock: true,
         },
       ]),
     };
