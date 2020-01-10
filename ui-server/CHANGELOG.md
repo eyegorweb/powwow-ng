@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.460+20200110132129
+2020-01-10
+
+### Features
+
+- changement d'offre depuis le détail de la ligne (d60e4994fa650ab47a3ce0955d4b97ea1284eccc)
+
 ## 0.3.0-master.459+20200110131316
 2020-01-10
 
