@@ -171,17 +171,22 @@ export default {
     },
 
     assembleSynthesis() {
+      let offerCode = '';
+
+      if (this.selectedOffer) {
+        offerCode = this.selectedOffer.code;
+      }
       return {
         services: {
           label: 'common.services',
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${this.activation ? this.selectedOffer.code : ''}`,
+              `Offre:  ${this.activation ? offerCode : ''}`,
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
-            offerCode: this.selectedOffer.code,
+            offerCode,
             activation: this.activation,
             preActivation: this.preActivation,
             selectedOffer: this.selectedOffer,
