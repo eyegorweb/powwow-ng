@@ -104,6 +104,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         }
         orderedMarketingOffer {
           description
+          code
         }
         orderStatusHistories{
           status
@@ -116,6 +117,14 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           optional
           name
           activationDate
+          parameters {
+            name
+            activated
+            editable
+            code
+            ipAdress
+            versionIp
+          }
         }
       }
     }

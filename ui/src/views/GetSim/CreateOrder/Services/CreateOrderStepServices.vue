@@ -113,9 +113,9 @@ export default {
       };
     });
 
-    const selectedOffer = get(this.synthesis, 'services.value.selectedOffer');
-
-    // this.preFillServices();
+    const selectedOffer = this.offers.find(
+      o => o.initialOffer.code === get(this.synthesis, 'services.value.offerCode')
+    );
 
     const previouslyChosenServices = get(this.synthesis, 'services.value.servicesChoice');
     if (previouslyChosenServices) {
@@ -181,6 +181,7 @@ export default {
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
+            offerCode: this.selectedOffer.code,
             activation: this.activation,
             preActivation: this.preActivation,
             selectedOffer: this.selectedOffer,
