@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.458+20200110103215
+2020-01-10
+
+### Fixes
+
+- Pré remplir les services lors de la duplication de commandes (c89b7b199465c009c012e256a7ebb06f6729ba74)
+
 ## 0.3.0-master.457+20200109111112
 2020-01-09
 
