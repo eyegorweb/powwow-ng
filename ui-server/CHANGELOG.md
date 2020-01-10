@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.461+20200110134202
+2020-01-10
+
+### Fixes
+
+- delete prop mock to carousel item change offer (ca07d4850dd490732d3820ac5117fa560ab6f932)
+
 ## 0.3.0-master.460+20200110132129
 2020-01-10
 
