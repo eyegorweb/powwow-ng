@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.461+20200110134202
+## 0.3.0-master.462+20200110134347
 2020-01-10
 
 ### Fixes
 
 - delete prop mock to carousel item change offer (ca07d4850dd490732d3820ac5117fa560ab6f932)
+- correction de la création de commandes sans définir les services (697dfd153fe0cf68608324f14f102d2c9986c68a)
 
 ## 0.3.0-master.460+20200110132129
 2020-01-10
