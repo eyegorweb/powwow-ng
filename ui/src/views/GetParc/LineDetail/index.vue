@@ -94,12 +94,12 @@ export default {
       carouselItems: excludeMocked([
         {
           icon: 'ic-Sim-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
           selected: false,
         },
         {
           icon: 'ic-Smartphone-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
           selected: false,
         },
         {
@@ -109,12 +109,12 @@ export default {
         },
         {
           icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_CF',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
           selected: false,
         },
         {
           icon: 'ic-Ticket-Icon',
-          title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
+          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
           selected: false,
           mock: true,
         },
