@@ -17,7 +17,7 @@
     <grid-layout
       :key="'grid_' + version"
       v-if="layout"
-      :layout.sync="layout"
+      :layout="layout"
       :col-num="3"
       :row-height="30"
       :is-draggable="true"
@@ -26,6 +26,7 @@
       :vertical-compact="true"
       :margin="[10, 10]"
       :use-css-transforms="true"
+      @layout-updated="onLayoutUpdate"
     >
       <grid-item
         v-for="item in layout"
@@ -88,11 +89,19 @@ export default {
     return {
       layout: undefined,
       version: 0,
+      startWatchingWidgets: false,
     };
   },
   mounted() {
     this.initFilterForContext();
-    this.createLayout();
+    const layout = this.loadLayout();
+    if (layout) {
+      this.layout = layout;
+    } else {
+      this.createLayout();
+    }
+
+    this.startWatchingWidgets = true;
   },
   methods: {
     ...mapMutations(['openPanel', 'setHomeWidgets']),
@@ -129,6 +138,7 @@ export default {
         x += width;
       }
       this.layout = layout;
+      this.saveLayout(layout);
       this.version += 1;
     },
 
@@ -141,10 +151,46 @@ export default {
         backdrop: false,
       });
     },
+
+    saveLayout(layout) {
+      const layoutToSave = layout.map(l => {
+        return {
+          x: l.x,
+          y: l.y,
+          w: l.w,
+          i: l.i,
+          h: this.cellHeight,
+          title: l.meta.title,
+        };
+      });
+
+      localStorage.setItem('_layout_', JSON.stringify(layoutToSave));
+    },
+
+    loadLayout() {
+      const layoutInLS = localStorage.getItem('_layout_');
+
+      if (layoutInLS) {
+        const parsed = JSON.parse(layoutInLS);
+
+        return parsed.map(l => {
+          return {
+            ...l,
+            meta: this.homeWidgets.find(w => w.title === l.title),
+          };
+        });
+      }
+
+      return undefined;
+    },
+
+    onLayoutUpdate(newLayout) {
+      this.saveLayout(newLayout);
+    },
   },
   watch: {
     homeWidgets() {
-      this.createLayout();
+      if (this.startWatchingWidgets) this.createLayout();
     },
     contextPartnersType() {
       this.initFilterForContext();
