@@ -10,17 +10,23 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-      <UiTabs :tabs="tabs" :selected-index="currentTab">
-        <template slot-scope="{ tab, index, selectedIndex }">
-          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
-          </UiTab>
-        </template>
-        <div class="pt-4 pl-4" slot="parcAlarms">
+      <ff-wip>
+        <UiTabs :tabs="tabs" :selected-index="currentTab">
+          <template slot-scope="{ tab, index, selectedIndex }">
+            <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+              <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+            </UiTab>
+          </template>
+          <div class="pt-4 pl-4" slot="parcAlarms">
+            <ParcAlarmsTab />
+          </div>
+          <div slot="cockpitM2M">M2M</div>
+        </UiTabs>
+
+        <template slot="orelse">
           <ParcAlarmsTab />
-        </div>
-        <div slot="cockpitM2M">M2M</div>
-      </UiTabs>
+        </template>
+      </ff-wip>
     </div>
   </div>
 </template>
