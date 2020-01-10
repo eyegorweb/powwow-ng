@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.465+20200110212220
+2020-01-10
+
+### Features
+
+- Enregisrer la disposition des widgets en local storage (b32198c85f8190f05b68791e019b2b59ffaef151)
+
 ## 0.3.0-master.464+20200110135454
 2020-01-10
 
