@@ -53,12 +53,13 @@
           >
             <img src="@/assets/en.png" />
           </a>
+
+          <a href="#">
+            <i class="icon ic-Clock-Icon"></i>
+          </a>
         </div>
       </ff-wip>
       <div class="nav">
-        <ff-wip>
-          <div class="icon ic-Clock-Icon" />
-        </ff-wip>
         <ul class="nav navbar-nav">
           <li class="dropdown" :class="{ show: userMenuVisible }">
             <a href="#" class="nav-link" @click.prevent="userMenuVisible = !userMenuVisible">
@@ -285,10 +286,6 @@ a {
   position: relative;
   color: $dark-gray;
   font-size: 1.5rem;
-
-  &:last-child {
-    margin-left: 2rem;
-  }
 
   .arrow {
     display: inline-block;
