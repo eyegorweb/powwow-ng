@@ -20,8 +20,8 @@ export default {
 
 .status-icon {
   @include circle;
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   justify-content: center;
   font-size: 1rem;

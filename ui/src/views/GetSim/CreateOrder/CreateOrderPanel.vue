@@ -20,7 +20,13 @@
           />
         </div>
         <div slot="Services">
-          <CreateOrderStepServices @done="stepisDone" @prev="previousStep" :synthesis="synthesis" />
+          <CreateOrderStepServices
+            @done="stepisDone"
+            @prev="previousStep"
+            @saveSynthesis="saveSynthesis"
+            :synthesis="synthesis"
+            :order="order"
+          />
         </div>
         <div slot="Livraison">
           <CreateOrderStepDelivery
@@ -64,6 +70,8 @@ import CreateOrderStepDelivery from './DeliveryStep/CreateOrderStepDelivery';
 import CreateOrderStepServices from './Services/CreateOrderStepServices';
 import { createOrder, searchSingleOrder } from '@/api/orders';
 import { mapMutations, mapState, mapActions } from 'vuex';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
+
 import get from 'lodash.get';
 
 export default {
@@ -117,28 +125,7 @@ export default {
     En cas de duplication pré remplir la synthèse avec les données de la commande à dupliquer
     */
     if (this.order) {
-      // Assemble adress
-      const adressOrder = [];
-
-      if (this.order.name) {
-        adressOrder.push(this.order.name.firstName + ' ' + this.order.name.lastName);
-      }
-
-      adressOrder.push(this.order.address.address1);
-
-      if (this.order.address.address2 && this.order.address.address2 !== 'null') {
-        adressOrder.push(this.order.address.address2);
-      }
-
-      if (this.order.address.address3 && this.order.address.address3 !== 'null') {
-        adressOrder.push(this.order.address.address3);
-      }
-
-      adressOrder.push(this.order.address.zipCode + ' - ' + this.order.address.city);
-      if (this.order.contactInformation) {
-        adressOrder.push(this.order.contactInformation.email);
-        adressOrder.push(this.order.contactInformation.phone);
-      }
+      this.prefillServices();
     }
   },
 
@@ -146,6 +133,44 @@ export default {
     ...mapMutations(['openPanel', 'closePanel']),
     ...mapMutations('getsim', ['refreshIndicators']),
     ...mapActions('getsim', ['resetOrderFilters']),
+
+    prefillServices() {
+      // Assemble services
+      const preActivation = this.order.preActivationAsked;
+      const activation = this.order.activationAsked;
+      const offerCode = this.order.orderedMarketingOffer.code;
+
+      const offerServices = getMarketingOfferServices(this.order);
+
+      const servicesChoice = {
+        services: offerServices.filter(f => f.code !== 'DATA'),
+        dataService: offerServices.find(f => f.code == 'DATA'),
+      };
+
+      this.synthesis = {
+        ...this.synthesis,
+        services: {
+          label: 'common.services',
+          value: {
+            id: 'common.services',
+            content: [
+              `Offre:  ${activation ? offerCode : ''}`,
+              `Activation: ${activation ? 'Oui' : 'Non'}`,
+              `Préactivation: ${preActivation ? 'Oui' : 'Non'}`,
+            ],
+            activation,
+            preActivation,
+            // selectedOffer: this.selectedOffer,
+            offerCode,
+            servicesChoice,
+          },
+          selection: {
+            activation: !!activation,
+            preActivation: !!preActivation,
+          },
+        },
+      };
+    },
 
     reset() {
       this.currentStep = 0;

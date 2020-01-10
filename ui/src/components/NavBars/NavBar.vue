@@ -236,6 +236,19 @@ a {
   .sub-menu {
     position: absolute;
     z-index: 99;
+    transform: translateX(-3.6rem);
+  }
+
+  @media only screen and (width: 1920px) {
+    .sub-menu {
+      transform: translateX(-4rem);
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    .sub-menu {
+      transform: translateX(-4rem);
+    }
   }
 
   .list-group-item {
@@ -257,10 +270,10 @@ a {
 .icon {
   position: relative;
   color: $dark-gray;
-  font-size: 24px;
+  font-size: 1.5rem;
 
   &:last-child {
-    margin-left: 30px;
+    margin-left: 2rem;
   }
 
   .arrow {
