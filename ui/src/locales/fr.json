@@ -687,7 +687,11 @@
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
         "lineDetail": {
-          "CUSTOM_FIELDS": "Modifier les champs libres"
+          "CHANGE_SIMCARD": "Changer de carte SIM",
+          "CHANGE_MSISDN": "Changer de MSISDN",
+          "CUSTOM_FIELDS": "Modifier les champs libres",
+          "CHANGE_CF": "Changement de C.F.",
+          "CHANGE_OFFER": "Changer d'offre"
         },
         "MANAGE_CANCELLATION": "Gérer des résiliations",
         "MODAL_WARNING": "Attention ! Cette action est définitive",
@@ -821,10 +825,11 @@
         "save": "Transférer"
       },
       "changeOffer": {
-        "confirmationWarning": "Attention ! Toutes les lignes sélectionnées seront modifiées.",
+        "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre",
-        "successMessage": "La demande de changement d'offre a bien été prise en compte."
+        "successMessage": "La demande de changement d'offre a bien été prise en compte.",
+        "currentOffer": "Offre actuelle"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",

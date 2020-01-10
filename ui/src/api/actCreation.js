@@ -740,6 +740,43 @@ export async function changeSingleCustomerAccount(params) {
   return await query(queryStr);
 }
 
+export async function changeSingleOffer(params) {
+  const {
+    notifEmail,
+    dueDate,
+    partyId,
+    simCardInstanceId,
+    customerAccountID,
+    sourceWorkflowID,
+    targetWorkflowID,
+  } = params;
+
+  const queryStr = `
+    mutation {
+      changeOfferV2(
+        input: {
+          partyId: ${partyId},
+          simCardInstanceIds: [${simCardInstanceId}],
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${formatDateForGql(dueDate)}",
+          customerAccountID: ${customerAccountID},
+          sourceWorkflowID: ${sourceWorkflowID},
+          targetWorkflowID: ${targetWorkflowID}
+        })
+        {
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+         }
+    }
+    `;
+
+  return await query(queryStr);
+}
+
 export async function createGeoLocationMassAction(simCardId) {
   return await query(`
   mutation {
