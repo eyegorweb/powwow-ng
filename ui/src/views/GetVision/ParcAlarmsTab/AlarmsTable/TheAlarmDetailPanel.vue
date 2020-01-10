@@ -4,13 +4,16 @@
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
-      <div class="overview-item mock-value">
-        <StepperNonLinear
-          v-if="statusStepperIndex != null"
-          :stepper-data="steps"
-          :current-index="statusStepperIndex"
-        />
-      </div>
+      <ff-wip>
+        <div class="overview-item mock-value">
+          <StepperNonLinear
+            v-if="statusStepperIndex != null"
+            :stepper-data="steps"
+            :current-index="statusStepperIndex"
+          />
+        </div>
+      </ff-wip>
+
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.id') }}:</h6>
         <p>{{ content.id }}</p>
@@ -23,10 +26,13 @@
         <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
         <p>{{ content.alarmScope }}</p>
       </div>
-      <div class="overview-item mr-5 mock-value">
-        <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
-        <p>18</p>
-      </div>
+      <ff-wip>
+        <div class="overview-item mr-5 mock-value">
+          <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
+          <p>18</p>
+        </div>
+      </ff-wip>
+
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
         <Thresholds :alarm="content" />
@@ -35,10 +41,12 @@
         <h6>{{ $t('getparc.lineDetail.alarms.observationCycle') }}:</h6>
         <p>{{ content.observationCycle }}</p>
       </div>
-      <div class="overview-item mr-5 mock-value">
-        <h6>{{ $t('filters.lines.activationDate') }}:</h6>
-        <p>01/01/2020</p>
-      </div>
+      <ff-wip>
+        <div class="overview-item mr-5 mock-value">
+          <h6>{{ $t('filters.lines.activationDate') }}:</h6>
+          <p>01/01/2020</p>
+        </div>
+      </ff-wip>
     </div>
     <div v-if="userIsPartner" class="overview-container m-3 bg-white">
       <div class="overview-item">
@@ -66,16 +74,18 @@
         <p>{{ content.notifyByWs ? 'Oui' : 'Non' }}</p>
       </div>
     </div>
-    <div slot="footer" class="action-buttons">
-      <div>
-        <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
+    <ff-wip>
+      <div slot="footer" class="action-buttons">
+        <div>
+          <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
+        </div>
+        <div>
+          <UiButton variant="primary" block>
+            {{ $t('getvsion.detail-panel.triggered-events') }}
+          </UiButton>
+        </div>
       </div>
-      <div>
-        <UiButton variant="primary" block>{{
-          $t('getvsion.detail-panel.triggered-events')
-        }}</UiButton>
-      </div>
-    </div>
+    </ff-wip>
   </BaseDetailPanelContent>
 </template>
 
@@ -122,5 +132,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

@@ -107,7 +107,8 @@
   },
   "menu": {
     "massActions": "Historique d'actes de gestion",
-    "actLines": "Gestion des lignes"
+    "actLines": "Gestion des lignes",
+    "alarms": "Gestion des alarmes"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
