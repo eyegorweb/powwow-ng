@@ -12,7 +12,7 @@
       v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS'"
       :line-data="content.lineData"
     />
-    <changeCustomerAccount
+    <ChangeCustomerAccount
       v-if="content.title === 'getparc.actCreation.carouselItem.CHANGE_CF'"
       :line-data="content.lineData"
     />
@@ -25,7 +25,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import ChangeICCID from './ChangeICCID';
 import ChangeMSISDN from './ChangeMSISDN';
 import ChangeCustomFields from './ChangeCustomFields';
-import changeCustomerAccount from './changeCustomerAccount';
+import ChangeCustomerAccount from './ChangeCustomerAccount';
 
 export default {
   props: {
@@ -36,7 +36,8 @@ export default {
     ChangeICCID,
     ChangeMSISDN,
     ChangeCustomFields,
-    changeCustomerAccount,
+    ChangeCustomerAccount,
   },
-};</script
-><style lang="scss" scoped></style>
+};
+</script>
+<style lang="scss" scoped></style>
