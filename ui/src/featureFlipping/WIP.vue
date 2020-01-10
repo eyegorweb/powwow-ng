@@ -1,6 +1,7 @@
 <template>
   <div>
     <slot v-if="show" />
+    <slot v-else name="orelse"></slot>
   </div>
 </template>
 

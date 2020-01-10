@@ -10,10 +10,12 @@
         </h2>
       </div>
       <div class="col-md-4">
-        <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
-          <i class="select-icon ic-Amplifier-Icon" />
-          {{ $t('getvsion.table.create-alarm') }}
-        </UiButton>
+        <ff-wip>
+          <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+            <i class="select-icon ic-Amplifier-Icon" />
+            {{ $t('getvsion.table.create-alarm') }}
+          </UiButton>
+        </ff-wip>
       </div>
     </div>
     <template v-if="rows && rows.length">

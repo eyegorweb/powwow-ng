@@ -100,20 +100,33 @@ export default {
 
     createLayout() {
       const layout = [];
-      let lastLineIndex = 0;
+      let y = 0;
       let x = 0;
+      let spaceInLine = 3;
       for (let i = 0; i < this.activeWidgets.length; i++) {
         const meta = this.activeWidgets[i];
 
         const width = meta.large ? 2 : 1;
-        if (x + width > 2) {
-          lastLineIndex += 1;
-        }
-        layout.push({ x, y: lastLineIndex, w: width, h: this.cellHeight, i, meta });
-        x += width;
-        if (x > 2) {
+
+        if (width > spaceInLine) {
+          spaceInLine = 3;
+          y += 1;
           x = 0;
         }
+
+        // console.log('lastLineIndex >', lastLineIndex);
+        layout.push({
+          x,
+          y,
+          w: width,
+          h: this.cellHeight,
+          title: meta.title,
+          i,
+          meta,
+        });
+
+        spaceInLine -= width;
+        x += width;
       }
       this.layout = layout;
       this.version += 1;
