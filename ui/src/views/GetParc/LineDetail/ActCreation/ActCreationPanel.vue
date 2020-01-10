@@ -13,7 +13,7 @@
       :line-data="content.lineData"
     />
     <ChangeCustomerAccount
-      v-if="content.title === 'getparc.actCreation.carouselItemlineDetail.CHANGE_CF'"
+      v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF'"
       :line-data="content.lineData"
     />
     <ChangeOffer
@@ -29,7 +29,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import ChangeICCID from './ChangeICCID';
 import ChangeMSISDN from './ChangeMSISDN';
 import ChangeCustomFields from './ChangeCustomFields';
-import ChangeCustomerAccount from './ChangeCustomerAccount.vue';
+import ChangeCustomerAccount from './ChangeCustomerAccount';
 import ChangeOffer from './ChangeOffer';
 
 export default {
