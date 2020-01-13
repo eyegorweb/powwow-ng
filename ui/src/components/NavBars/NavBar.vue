@@ -140,11 +140,11 @@ export default {
         },
         {
           label: 'GetVision',
-          to: { name: 'getVision' },
+          to: { name: 'alarms' },
           submenu: [
             {
               label: 'menu.alarms',
-              to: { name: 'getVision' },
+              to: { name: 'alarms' },
             },
           ],
         },
