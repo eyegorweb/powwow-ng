@@ -2,6 +2,51 @@
 
 <!--- next entry here -->
 
+## 0.15.0
+2020-01-13
+
+### Features
+
+- update specific fields (06d5dfeedb3fc87e4fd96d936ce2ebde788d833c)
+- update carousel icons (b4b1001d317f65b583e955bafbc93614f2aabbc9)
+- configuration de modification des champs spécifiques (fb3cc217644bcf24b3c20d1fdaac37ec6e9270ef)
+- Volet de détail d'alarme (5636f1a3c41308ec1fb129fc849f0eb2c043815b)
+- création d'acte pour le changement d'offre (7ad0fcfcb101b25c44397a510eaca0a162d2bcd4)
+- graphes de consommation mensuelle du parc par mois (bef78c2ffe6adee20e70dc322f859718bc5de33c)
+- affiche les indicateurs des alarmes (ee66619921d88e42e57c72e41e260eedfbdb6b8e)
+- détail d'une alarme dans un volet (d0582213449429a2ca7196f9a005315a6af52190)
+- evolution e l'api des types d'actes de gestion (d5716dfc8b4c22f9841ee723c7e0e8a731891f09)
+- changement d'offre depuis le détail de la ligne (d60e4994fa650ab47a3ce0955d4b97ea1284eccc)
+
+### Fixes
+
+- Corriger le panel de détail d'acte de masse (57b232c516cbf3e0a8ac8618a478c924671bed4a)
+- correction du bug "si on quitte la page de création d'un acte de gestion en cours de création, le mode création est toujours actif" (515cac52956a3002abbbe5e61d961885612cd7db)
+- Il ne faut pas fermer le panel de création de commande sur un clic en dehors (9270738aaf1c48f2ec2798d7aa2855bde1c58d81)
+- Corriger la clé de traduction activationDate (ce128c42606cc23883debc54d91058b3d9372b81)
+- ne pas afficher le toggle activation pour l'acte "changement d'offre" (d1cadbae79fa3ed609675c2afaab1a5d3f1b2426)
+- ne pas fermer le volet de création de commandes quand on cli à l'exptérieur (a815322c86be990188ae32c4396ea0316ee6548f)
+- affichage de la quantité ciblée pour les actes de masse unitaire (8812f5ce4f5b2ceee772204ded9bfeb7185a886a)
+- ajouter de nouvelles icones (dec22455da562b54ae1f69f6c8784bd82195a7a1)
+- corriger la modification de champs libre sur des partenaires sans champs libres (285f60e5c76c82f3fa24ffd46f5dd1f7aa90a888)
+- Correction de l'affichage de la liste des actes de gestion dans le détail de la ligne (451b59d4a7a8f0518fd3f4c5b61537f1fb1ec98d)
+- Corriger les filtres de l'acte "Changement de champs libres" (ae0462da86a9a3ceaabf0c151e9e5017bb88c28b)
+- correction du cic sur le caroussel (0ab0bd885c1297b89927d43925c0df5590a4e5cb)
+- change build & run doc (93a33caac2c578f5e3472baf04badd0afe19d265)
+- Correction de bugs divers (381cd8df7a7ba374ceb4048bc9f20c4ad65f7c37)
+- validation des champs libres et des champs spécifiques au cours de l'acte de modification des champs libres (2c5598e64ae05bd1ab0ce6110e189dcadbc59d30)
+- Corriger l'affichage des dates sur les services optionels (d9f959ab1acf5224a2c2f197b53360c1d8cdc220)
+- Corriger le format de la date sur les status de facturation (4238489318e808c9a9e4b0a322f0f8e1caea3418)
+- Correction de la recherche de lignes par offre (e65c8548edc4f2ac0f7a8c773f861065ae669d6f)
+- ajout des champs spécifiques lors de l'acte de modification des champs libres (573c7c86d48db22ffa921fcf89196990e5f5e43c)
+- mis à jour de l'information du statut de la ligne (4dff94816ef26f0e042c96853702472bf88f11ce)
+- correctifs de bugs sur la gestion de l'affichage du tableau et de la ligne d'export (d1382b57d89045070c4164b52c7402ab63079eae)
+- Corriger la recherche par offre (5bfda08f85679538fe77c6b7efd24ab4f7ca7031)
+- vider l'input dans le multiselect après le choix d'une option (758fe3b0d8b7f797ed376959ae6aaf81bea21296)
+- Pré remplir les services lors de la duplication de commandes (c89b7b199465c009c012e256a7ebb06f6729ba74)
+- delete prop mock to carousel item change offer (ca07d4850dd490732d3820ac5117fa560ab6f932)
+- correction de la création de commandes sans définir les services (697dfd153fe0cf68608324f14f102d2c9986c68a)
+
 ## 0.14.1
 2019-12-17
 
