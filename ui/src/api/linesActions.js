@@ -1,13 +1,27 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchCardTypes() {
+export async function fetchCardTypes(orderBy, filters = []) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
-  query {
-    getTypeSimcards
-  }
+    query {
+      simcards(filter: { ${formatFilters(filters)} } ${orderingInfo} ) {
+        total
+        items {
+          simCard {
+            label
+            id
+            name
+            code
+            type
+            number
+          }
+        }
+      }
+    }
   `;
   const response = await query(queryStr);
-  return response.data.getTypeSimcards;
+  console.log('response', response);
+  return response.data.simcards.items;
 }
 
 export async function fetchCommercialStatuses() {
@@ -227,7 +241,7 @@ export function formatFilters(filters) {
   addOrderId(allFilters, filters);
   addOrderRef(allFilters, filters);
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
-  valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
+  valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'f');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
   valuesFromMutiselectFilter(
