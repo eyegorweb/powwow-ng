@@ -72,10 +72,16 @@ export default {
     },
   },
 
-  computed: {
-    offerServices() {
-      return getMarketingOfferServices(this.selectedOffer.initialOffer);
+  watch: {
+    selectedOffer(newOffer, oldOffer) {
+      if (newOffer && oldOffer && newOffer.id !== oldOffer.id) {
+        this.chosenServices = undefined;
+      }
+      this.offerServices = this.getOfferServices(this.selectedOffer);
     },
+  },
+
+  computed: {
     isrcard() {
       const rCardValues = ['RCARD', 'RCARD_INTER_MERE', 'RCARD_INTER_FILLE'];
       const currentCategory = get(this.synthesis, 'product.selection.product.simCard.category');
@@ -107,18 +113,38 @@ export default {
       };
     });
 
-    const selectedOffer = get(this.synthesis, 'services.value.selectedOffer');
+    const selectedOffer = this.offers.find(
+      o => o.initialOffer.code === get(this.synthesis, 'services.value.offerCode')
+    );
+
+    const previouslyChosenServices = get(this.synthesis, 'services.value.servicesChoice');
+    if (previouslyChosenServices) {
+      this.chosenServices = [
+        ...previouslyChosenServices.services,
+        previouslyChosenServices.dataService,
+      ];
+    }
 
     if (selectedOffer) {
       this.selectedOffer = selectedOffer;
+      this.offerServices = this.getOfferServices(selectedOffer);
     }
-    // this.preFillServices();
   },
   methods: {
+    getOfferServices(selectedOffer) {
+      const offerServices = getMarketingOfferServices(selectedOffer.initialOffer);
+
+      if (this.chosenServices) {
+        return offerServices.map(os => this.chosenServices.find(s => s.code === os.code));
+      }
+
+      return offerServices;
+    },
     canGoNext() {
       this.isDataParamsError =
         this.servicesChoice &&
         this.servicesChoice.dataService &&
+        this.servicesChoice.dataService.checked &&
         this.servicesChoice.dataService.parameters &&
         this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
 
@@ -145,16 +171,22 @@ export default {
     },
 
     assembleSynthesis() {
+      let offerCode = '';
+
+      if (this.selectedOffer) {
+        offerCode = this.selectedOffer.code;
+      }
       return {
         services: {
           label: 'common.services',
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${this.activation ? this.selectedOffer.code : ''}`,
+              `Offre:  ${this.activation ? offerCode : ''}`,
               `Activation: ${this.activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${this.preActivation ? 'Oui' : 'Non'}`,
             ],
+            offerCode,
             activation: this.activation,
             preActivation: this.preActivation,
             selectedOffer: this.selectedOffer,
@@ -170,6 +202,8 @@ export default {
   },
   data() {
     return {
+      offerServices: undefined,
+      chosenServices: undefined,
       selectedOffer: null,
       activation: false,
       preActivationValue: false,

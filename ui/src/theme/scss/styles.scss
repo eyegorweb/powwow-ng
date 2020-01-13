@@ -67,6 +67,7 @@ $theme-colors: map-merge(
   color: $dark-gray;
   background-color: $white;
   border: 1px solid $medium-gray;
+
   &:disabled {
     background: $medium-gray;
     color: white;
@@ -86,6 +87,7 @@ $theme-colors: map-merge(
 .panel-vertical-container {
   display: flex;
   flex-direction: column;
+
   div.main-content {
     flex: 1;
     min-height: 75vh;
@@ -100,14 +102,15 @@ $theme-colors: map-merge(
   .panel-vertical-container {
     div.main-content {
       max-height: 87vh;
-      min-height: 80vh;
+      min-height: 87vh;
     }
   }
 }
+
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
     div.main-content {
-      min-height: 75vh;
+      min-height: 87vh;
       max-height: 87vh;
     }
   }
@@ -121,6 +124,7 @@ $theme-colors: map-merge(
 .export-link {
   color: $accent;
   float: right;
+
   &:hover {
     text-decoration: none;
   }
@@ -128,6 +132,7 @@ $theme-colors: map-merge(
 
 .export-button {
   width: 40%;
+
   img {
     width: 100%;
   }
@@ -145,10 +150,11 @@ $theme-colors: map-merge(
     background-color: #0c62b2;
   }
 }
+
 .table-blue {
   background: white !important;
   font-size: 1rem;
-  line-height: 24px;
+  line-height: 18px;
 }
 
 .table-blue td {

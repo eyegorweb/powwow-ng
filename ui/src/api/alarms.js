@@ -88,6 +88,15 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
       items {
         id
         name
+        type
+        alarmScope
+        observationCycle
+        notifyByWs
+        notifyByEmail
+        mailingList {
+          name
+          emails
+        }
         party {
           id
           name

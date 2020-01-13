@@ -51,7 +51,7 @@ import UiDate from '@/components/ui/UiDate';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
-import { transferSIMCards } from '@/api/actCreation2';
+import { transferSIMCards } from '@/api/actCreation';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -108,6 +108,7 @@ export default {
           id: o.id,
           code: o.code,
           label: o.workflowDescription,
+          productCode: o.initialOffer.code,
         }));
       }
     },

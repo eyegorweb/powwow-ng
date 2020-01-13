@@ -49,6 +49,7 @@
     "snapsvg-cjs": "^0.0.6",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
+    "vue-grid-layout": "^2.3.7",
     "vue-i18n": "^8.0.0",
     "vue-promised": "^1.0.0",
     "vue-prop-data-fallback": "^1.0.1",

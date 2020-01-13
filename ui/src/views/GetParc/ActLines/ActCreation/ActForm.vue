@@ -17,7 +17,7 @@
       <TestPhaseForm
         v-if="act.title === 'getparc.actCreation.carouselItem.TEST_PHASE' && !isLoading"
       />
-      <EditCustomFieldsForm
+      <EditPartnerFieldsForm
         v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS' && !isLoading"
       />
       <ManageCancellationForm
@@ -52,7 +52,7 @@ import SuspendLinesForm from './forms/SuspendLinesForm';
 import ChangeStatusForm from './forms/ChangeStatusForm';
 import SendSMSForm from './forms/SendSMSForm';
 import TestPhaseForm from './forms/TestPhaseForm';
-import EditCustomFieldsForm from './forms/EditCustomFieldsForm';
+import EditPartnerFieldsForm from './forms/EditPartnerFieldsForm';
 import ManageCancellationForm from './forms/ManageCancellationForm';
 import TransfertLines from './forms/TransfertLines';
 import ChangeBillingAccount from './forms/ChangeBillingAccount';
@@ -71,7 +71,7 @@ export default {
     ChangeStatusForm,
     SendSMSForm,
     TestPhaseForm,
-    EditCustomFieldsForm,
+    EditPartnerFieldsForm,
     ManageCancellationForm,
     TransfertLines,
     ChangeBillingAccount,

@@ -1,19 +1,23 @@
 <template>
   <BaseDetailPanelContent>
     <ChangeICCID
-      v-if="content.title === 'getparc.actCreation.carouselItem.CHANGE_SIMCARD'"
+      v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD'"
       :line-data="content.lineData"
     />
     <ChangeMSISDN
-      v-if="content.title === 'getparc.actCreation.carouselItem.CHANGE_MSISDN'"
+      v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN'"
       :line-data="content.lineData"
     />
     <ChangeCustomFields
       v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS'"
       :line-data="content.lineData"
     />
-    <changeCustomerAccount
-      v-if="content.title === 'getparc.actCreation.carouselItem.CHANGE_CF'"
+    <ChangeCustomerAccount
+      v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF'"
+      :line-data="content.lineData"
+    />
+    <ChangeOffer
+      v-if="content.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER'"
       :line-data="content.lineData"
     />
   </BaseDetailPanelContent>
@@ -25,7 +29,8 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import ChangeICCID from './ChangeICCID';
 import ChangeMSISDN from './ChangeMSISDN';
 import ChangeCustomFields from './ChangeCustomFields';
-import changeCustomerAccount from './changeCustomerAccount';
+import ChangeCustomerAccount from './ChangeCustomerAccount';
+import ChangeOffer from './ChangeOffer';
 
 export default {
   props: {
@@ -36,7 +41,9 @@ export default {
     ChangeICCID,
     ChangeMSISDN,
     ChangeCustomFields,
-    changeCustomerAccount,
+    ChangeCustomerAccount,
+    ChangeOffer,
   },
-};</script
-><style lang="scss" scoped></style>
+};
+</script>
+<style lang="scss" scoped></style>

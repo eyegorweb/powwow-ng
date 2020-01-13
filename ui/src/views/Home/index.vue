@@ -14,21 +14,39 @@
         </div>
       </div>
     </ff-wip>
+    <grid-layout
+      :key="'grid_' + version"
+      v-if="layout"
+      :layout.sync="layout"
+      :col-num="3"
+      :row-height="30"
+      :is-draggable="true"
+      :is-resizable="false"
+      :is-mirrored="false"
+      :vertical-compact="true"
+      :margin="[10, 10]"
+      :use-css-transforms="true"
+    >
+      <grid-item
+        v-for="item in layout"
+        :x="item.x"
+        :y="item.y"
+        :w="item.w"
+        :h="item.h"
+        :i="item.i"
+        :key="item.i"
+      >
+        <component
+          :is="item.meta.component"
+          :key="item.meta.title"
+          v-if="item.meta.component"
+          :widget="item.meta"
+          :context-filters="contextFilters"
+        />
+      </grid-item>
+    </grid-layout>
 
-    <draggable v-model="widgetsInPanel" handle=".handle">
-      <transition-group name="widgets">
-        <template v-for="w in activeWidgets">
-          <component
-            :key="w.title"
-            v-if="w.component"
-            :is="w.component"
-            :widget="w"
-            :context-filters="contextFilters"
-          />
-        </template>
-      </transition-group>
-    </draggable>
-    <button class="panel-toggle bg-secondary" @click="openCustomizePanel">
+    <button class="panel-toggle bg-secondary" @click.stop="openCustomizePanel">
       <i class="ic-Wheel-Icon" />
       <span>Personaliser ma home</span>
     </button>
@@ -36,35 +54,83 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import VueGridLayout from 'vue-grid-layout';
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 
 export default {
   components: {
-    draggable,
+    GridLayout: VueGridLayout.GridLayout,
+    GridItem: VueGridLayout.GridItem,
   },
   computed: {
-    ...mapGetters(['activeWidgets']),
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
-    widgetsInPanel: {
-      get() {
-        return this.homeWidgets;
-      },
-      set(newValues) {
-        this.setHomeWidgets(newValues);
-      },
+    cellHeight() {
+      if (window.innerWidth <= 1024) {
+        return 4;
+      }
+      if (window.innerWidth > 1024 && window.innerWidth <= 1366) {
+        return 5;
+      }
+      return 8;
     },
+    activeWidgets() {
+      if (!this.homeWidgets) return [];
+
+      return this.homeWidgets.filter(w => w.checked);
+    },
+  },
+  data() {
+    return {
+      layout: undefined,
+      version: 0,
+    };
   },
   mounted() {
     this.initFilterForContext();
+    this.createLayout();
   },
   methods: {
     ...mapMutations(['openPanel', 'setHomeWidgets']),
     ...mapActions('getsim', ['initFilterForContext']),
+
+    createLayout() {
+      const layout = [];
+      let y = 0;
+      let x = 0;
+      let spaceInLine = 3;
+      for (let i = 0; i < this.activeWidgets.length; i++) {
+        const meta = this.activeWidgets[i];
+
+        const width = meta.large ? 2 : 1;
+
+        if (width > spaceInLine) {
+          spaceInLine = 3;
+          y += 1;
+          x = 0;
+        }
+
+        // console.log('lastLineIndex >', lastLineIndex);
+        layout.push({
+          x,
+          y,
+          w: width,
+          h: this.cellHeight,
+          title: meta.title,
+          i,
+          meta,
+        });
+
+        spaceInLine -= width;
+        x += width;
+      }
+      this.layout = layout;
+      this.version += 1;
+    },
 
     openCustomizePanel() {
       this.openPanel({
@@ -77,6 +143,9 @@ export default {
     },
   },
   watch: {
+    homeWidgets() {
+      this.createLayout();
+    },
     contextPartnersType() {
       this.initFilterForContext();
     },
@@ -86,6 +155,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.vue-grid-item.vue-grid-placeholder {
+  background: $gray-400 !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .bloc {

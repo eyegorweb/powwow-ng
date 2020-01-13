@@ -20,9 +20,9 @@
       }}</UiButton>
     </div>
     <div>
-      <UiButton variant="accent" block :disabled="order.status !== 'TERMINATED'">{{
-        $t('getsim.actions.EXPORT')
-      }}</UiButton>
+      <UiButton variant="accent" block :disabled="order.status !== 'TERMINATED'">
+        <span class="small-button">{{ $t('getsim.actions.EXPORT') }}</span>
+      </UiButton>
     </div>
     <div
       v-if="
@@ -104,6 +104,7 @@ export default {
           wide: true,
           backdrop: true,
           payload: this.order,
+          ignoreClickAway: true,
         });
       };
       setTimeout(() => {
@@ -127,5 +128,9 @@ export default {
   button {
     padding: 0;
   }
+}
+
+.small-button {
+  font-size: 0.9rem;
 }
 </style>

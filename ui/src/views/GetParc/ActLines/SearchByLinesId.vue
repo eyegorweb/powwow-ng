@@ -1,9 +1,16 @@
 <template>
-  <SearchById @searchById="searchById" :additional-ids="additionalIds" :init-value="initValue" />
+  <SearchById
+    v-if="additionalIds"
+    @searchById="searchById"
+    :init-value="initValue"
+    :additional-ids="additionalIds"
+    placeholder="searchLine"
+  />
 </template>
 
 <script>
 import SearchById from '@/components/SearchById';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -14,13 +21,13 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
-      additionalIds: [
+  mounted() {
+    if (this.userIsBO) {
+      this.additionalIds = [
         {
           code: 'c6',
           value: 'accessPointId',
-          label: "AP_ID (identifiant de l'access point)",
+          label: 'AP_ID',
           checkFn: value => {
             if (isNaN(value)) return true;
             return (
@@ -29,10 +36,19 @@ export default {
             );
           },
         },
-      ],
+      ];
+    } else {
+      this.additionalIds = [];
+    }
+  },
+  data() {
+    return {
+      additionalIds: undefined,
     };
   },
   methods: {
+    ...mapGetters(['userIsBO']),
+
     searchById(params) {
       this.$emit('searchById', params);
     },

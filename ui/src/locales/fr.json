@@ -4,6 +4,7 @@
   "searchLineById": "Rechercher une ligne par identifiant",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
+  "accessTo": "Accéder à",
   "numberPerPage": "Nb per page",
   "partnerType": "Type de partenaire",
   "partnerAlarm": "Type d'alarme",
@@ -79,6 +80,7 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
+      "dataVoiceConso": "CONSOMMATION DATA / MOIS",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Lignes en stock",
@@ -98,12 +100,15 @@
         "scheduleTermination": "pas d’autre résiliation programmée",
         "termination": "pas d’autre résiliation",
         "activation": "pas d’autre activation"
-      }
+      },
+      "viewOneResult": "Consulter le résultat",
+      "viewXResults": "Consulter les {num} résultats"
     }
   },
   "menu": {
     "massActions": "Historique d'actes de gestion",
-    "actLines": "Gestion des lignes"
+    "actLines": "Gestion des lignes",
+    "alarms": "Gestion des alarmes"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -208,6 +213,19 @@
     "manage-alarms-tooltip": "TODO description",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "alarm-detail": "Détail de l'alarm",
+    "account-info": "Informations compte",
+    "notifications": "Notifications",
+    "notify-mail": "Notification mail",
+    "notify-ws": "Notification web service",
+    "mailing-list": "Liste de diffusion",
+    "detail-panel": {
+      "stepper": {
+        "created": "Créée"
+      },
+      "change-alarm": "Modifier l’alarme",
+      "triggered-events": "Voir les déclenchements"
+    },
     "table": {
       "total": "{total} alarmes paramétrées",
       "create-alarm": "Créer une alarme",
@@ -217,7 +235,8 @@
     },
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
-      "triggered_last_month": "Déclenchement mois précédent"
+      "triggered_last_month": "Déclenchement mois précédent",
+      "triggered_before_last_month": "Déclenchement {month}"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
@@ -389,7 +408,10 @@
         "label2": "Champ spécifique 2"
       },
       "alarms": {
+        "trigger-history": "Historique de déclenchement",
+        "id": "ID de l'alarme",
         "name": "Nom de l'alarme",
+        "type": "Type d'alarme",
         "threshold": "Seuil de déclenchement",
         "trigger": "Déclenchement",
         "scope": "Portée",
@@ -476,11 +498,11 @@
           "notPreactivated": "Non préactivée depuis le :",
           "preactivated": "Préactivée depuis le :",
           "activated": "Activée depuis le :",
-          "suspendedReleased": "Suspendue ou Résiliée depuis le :",
+          "suspended": "Suspendue depuis le :",
           "RELEASED": "Résiliée depuis le :",
           "ALLOCATED": "Allouée depuis le :",
           "AVAILABLE": "Disponible depuis le :",
-          "ALLOCATING": "En cours d'allocation depuis le :",
+          "ALLOCATING": "En cours de préactivation depuis le :",
           "RESERVED": "Réservée depuis le :"
         }
       },
@@ -665,7 +687,11 @@
         "TEST_PHASE": "Terminer une phase de test",
         "CUSTOM_FIELDS": "Modifier les champs libres",
         "lineDetail": {
-          "CUSTOM_FIELDS": "Modifier les champs libres"
+          "CHANGE_SIMCARD": "Changer de carte SIM",
+          "CHANGE_MSISDN": "Changer de MSISDN",
+          "CUSTOM_FIELDS": "Modifier les champs libres",
+          "CHANGE_CF": "Changement de C.F.",
+          "CHANGE_OFFER": "Changer d'offre"
         },
         "MANAGE_CANCELLATION": "Gérer des résiliations",
         "MODAL_WARNING": "Attention ! Cette action est définitive",
@@ -773,7 +799,8 @@
       "editCustomFields": {
         "validateBtn": "Modifier les champs",
         "confirmationWarning": "Attention ! Les nouvelles valeurs vont écraser toute valeur déjà présente.",
-        "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes"
+        "infoMessage": "Seuls les champs modifiés auront un impact sur les valeurs déjà présentes",
+        "noResult": "Pas de champ libre de défini."
       },
 
       "ManageCancellation": {
@@ -798,10 +825,11 @@
         "save": "Transférer"
       },
       "changeOffer": {
-        "confirmationWarning": "Attention ! Toutes les lignes sélectionnées seront modifiées.",
+        "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre",
-        "successMessage": "La demande de changement d'offre a bien été prise en compte."
+        "successMessage": "La demande de changement d'offre a bien été prise en compte.",
+        "currentOffer": "Offre actuelle"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
@@ -877,7 +905,7 @@
         "CANCELED": "Annulée",
         "TEST": "Test",
         "BARRED": "Barré",
-        "ALLOCATING": "En cours d'allocation"
+        "ALLOCATING": "En cours de préactivation"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Demande de résiliation",
@@ -1008,7 +1036,9 @@
     "OUTGOING_DATA_CSD": "Data csd sortante",
     "ROAMING": "Roaming",
     "DATA": "Data",
-    "compatibility": "-non compatible"
+    "compatibility": "-non compatible",
+    "SMS": "SMS",
+    "VOICE": "Voix"
   },
   "filters": {
     "idOrder": "ID de commande",

@@ -5,6 +5,15 @@
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
+      <div v-if="canSelectBillingAccount" class="col">
+        <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
+        <BillingAccountsPart
+          :key="`billingAccount_${selectedPartner ? selectedPartner.label : ''}`"
+          :partner="selectedPartner"
+          :offer.sync="selectedOffer"
+          @set:billingAccount="setBillingAccount"
+        />
+      </div>
       <div class="col">
         <div>
           <h5>{{ $t('col.offer') }}</h5>
@@ -45,9 +54,10 @@
 <script>
 import PartnersPart from './PartnersPart';
 import OffersPart from './OffersPart';
+import BillingAccountsPart from './BillingAccountsPart';
 import PrereqContainer from './PrereqContainer';
 import get from 'lodash.get';
-
+import { fetchOffers } from '@/api/offers';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -55,11 +65,14 @@ export default {
     PartnersPart,
     PrereqContainer,
     OffersPart,
+    BillingAccountsPart,
   },
   data() {
     return {
       selectedPartner: null,
       offerData: null,
+      chosenBillingAccount: null,
+      offers: [],
     };
   },
   props: {
@@ -67,6 +80,7 @@ export default {
       type: Object,
       default: undefined,
     },
+    canSelectBillingAccount: Boolean,
   },
   watch: {
     partner(newValue) {
@@ -105,11 +119,34 @@ export default {
       this.selectedPartner = chosenPartner;
       this.selectedOffer = undefined;
     },
+    setBillingAccount(billingAccount) {
+      this.chosenBillingAccount = billingAccount;
+      this.refreshOffers();
+    },
+    async refreshOffers() {
+      if (!this.chosenBillingAccount || !this.chosenBillingAccount.label) return;
+      this.selectedOffer = undefined;
+      this.offers = [];
+
+      const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
+        page: 0,
+        limit: 99,
+      });
+      if (data) {
+        this.offers = data.map(o => ({
+          id: o.id,
+          code: o.code,
+          label: o.workflowDescription,
+          productCode: o.initialOffer.code,
+        }));
+      }
+    },
     validatePrerequisites() {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
         offer: this.selectedOffer,
         search: !!this.selectedPartner && !!this.selectedOffer,
+        billingAccount: this.chosenBillingAccount,
       });
     },
   },

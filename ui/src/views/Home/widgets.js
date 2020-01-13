@@ -1,5 +1,6 @@
 import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
+import ConsoGraphWidget from './widgets/ConsoGraphWidget';
 import BillsWidget from './widgets/BillsWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
 import MassActionTable from './widgets/MassActionTable';
@@ -11,6 +12,7 @@ import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
 import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
 import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
+import Weather from './widgets/Weather';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
@@ -36,6 +38,7 @@ export default excludeMocked([
     seeMore: true,
     component: OrdersWidget,
   },
+
   {
     title: 'home.widgets.bills',
     description: '',
@@ -62,6 +65,15 @@ export default excludeMocked([
     seeMore: true,
     component: OrdersStatusesWidget,
   },
+  {
+    title: 'home.widgets.dataVoiceConso',
+    description: '',
+    checked: true,
+    large: true,
+    seeMore: false,
+    component: ConsoGraphWidget,
+  },
+
   {
     title: 'home.widgets.acts',
     description: '',
@@ -103,7 +115,7 @@ export default excludeMocked([
     component: StatusActsWidget,
   },
   {
-    title: 'home.widgets.searchLine',
+    title: 'searchLineById',
     description: '',
     checked: true,
     large: false,
@@ -159,5 +171,13 @@ export default excludeMocked([
     large: false,
     seeMore: false,
     component: SimTopScheduledTermination,
+  },
+  {
+    title: 'getparc.lineDetail.tab3.networkMeteo',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: Weather,
   },
 ]);

@@ -5,7 +5,9 @@
       <FilterBar />
     </div>
     <div class="col-md-9">
-      <AlarmsPerDayGraph />
+      <ff-wip>
+        <AlarmsPerDayGraph />
+      </ff-wip>
       <AlarmsTable />
     </div>
   </div>

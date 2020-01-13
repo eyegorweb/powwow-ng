@@ -256,7 +256,7 @@ export default {
       if (!column.tootltipText) {
         return;
       }
-      return column.tootltipText(row[column.name]);
+      return column.tootltipText(row[column.name], row);
     },
     checkStorageVersion() {
       if (!this.storageId) return;

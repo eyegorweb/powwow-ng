@@ -11,6 +11,7 @@
           :rows="alarms || []"
           :order-by.sync="orderBy"
           @change-order="changeCellsOrder"
+          @colEvent="openAlarmPanel"
           :page.sync="page"
           :page-limit.sync="pageLimit"
           :total="total || 0"
@@ -39,6 +40,8 @@ import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 import LoaderContainer from '@/components/LoaderContainer';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -108,6 +111,8 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['openPanel']),
+
     async fetchAlarms() {
       this.isLoading = true;
       this.alarms = await fetchAlarmsWithInfos(this.content.id);
@@ -116,6 +121,31 @@ export default {
     changeCellsOrder(orderedCells) {
       const notVisibleCells = this.columns.filter(c => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
+    },
+    openAlarmPanel(payload) {
+      if (payload.action !== 'openAlarmPanel') return;
+      const title = 'getparc.lineDetail.alarms.trigger-history';
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t(title),
+          panelId: title,
+          wide: false,
+          backdrop: false,
+          payload: {
+            ...payload.row,
+            iccid: this.content.iccid,
+          },
+        });
+      };
+
+      /**
+       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div clas="container">
-    <CustomFields
-      :fields="customFields"
+    <PartnerFields
+      :custom-fields="customFields"
       :get-selected-value="getSelectedValue"
       @change="onValueChanged"
     />
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 
 export default {
   name: 'GetSimCustomFields',
@@ -78,7 +78,7 @@ export default {
   },
 
   components: {
-    CustomFields,
+    PartnerFields,
   },
 };
 </script>

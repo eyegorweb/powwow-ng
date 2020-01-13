@@ -4,7 +4,7 @@
       class="card"
       v-tooltip="tooltipMessage"
       :class="{ inactive: isInactive, selected: selected }"
-      @click="onClick"
+      @click.stop="onClick"
     >
       <div class="card-body">
         <div class="icon-block">

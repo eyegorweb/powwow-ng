@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in fields" :key="item.id" class="mb-1">
+    <div v-for="item in customFields" :key="item.id" class="mb-1">
       <div v-if="item.type === 'TEXT'">
         {{ item.label }}
         <span v-if="showOptionalField && item.isOptional" class="text-optional"
@@ -77,7 +77,7 @@ export default {
     /**
      * format : {id, code, type, value}
      */
-    fields: {
+    customFields: {
       type: Array,
     },
     getSelectedValue: Function,

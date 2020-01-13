@@ -29,8 +29,8 @@
       $t('common.customFields')
     }}</label>
     <div>
-      <CustomFields
-        :fields="allCustomFields"
+      <PartnerFields
+        :custom-fields="allCustomFields"
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
         show-optional-field
@@ -43,7 +43,7 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
@@ -54,7 +54,7 @@ import BillingAccountChoice from './parts/BillingAccountChoice';
 import {
   preactivateAndActivateSImcardInstance,
   preactivateSimCardInstance,
-} from '@/api/actCreation2';
+} from '@/api/actCreation';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
@@ -64,7 +64,7 @@ export default {
     ActFormContainer,
     UiToggle,
     OffersPart,
-    CustomFields,
+    PartnerFields,
     BillingAccountChoice,
     ServicesBlock,
   },
@@ -164,7 +164,7 @@ export default {
     },
 
     decideOnMandatoryCustomFields() {
-      this.allCustomFields = this.allCustomFields.map(c => {
+      this.allCustomFields = this.allCustomFields.customFields.map(c => {
         c.isOptional = true;
         if (this.activation && c.mandatory === 'ACTIVATION') {
           c.isOptional = false;

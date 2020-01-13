@@ -3,7 +3,7 @@
     {{ $t(indicator.labelKey) }}
     <div class="float-right">
       <button
-        :class="`btn btn-link p-0 ${indicator.color || classColor}`"
+        :class="`btn btn-link p-0 ${formattedColor || classColor}`"
         :disabled="disableClick || !indicator.clickable"
         @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
@@ -55,6 +55,16 @@ export default {
     formattedUnit() {
       if (!this.indicator.unit) return;
       return this.indicator.unit;
+    },
+    formattedColor() {
+      if (!this.indicator.color) {
+        if (this.total === 0) {
+          return 'text-success';
+        } else {
+          return 'text-warning';
+        }
+      }
+      return this.indicator.color;
     },
   },
 

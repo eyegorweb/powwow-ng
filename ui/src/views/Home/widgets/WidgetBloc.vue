@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="bloc d-inline-block p-1 widgets-item"
-    :class="{ wide: widget.large, narrow: !widget.large }"
-  >
+  <div class="bloc d-inline-block p-1 widgets-item">
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -23,7 +20,7 @@
         </div>
       </div>
       <div class="card-body" :class="className">
-        <slot v-if="canViewContent" />
+        <slot />
       </div>
     </div>
   </div>
@@ -31,8 +28,6 @@
 
 <script>
 import WidgetTitle from './WidgetTitle';
-import $ from 'jquery';
-import { isElementInViewport } from '@/utils';
 
 export default {
   components: {
@@ -48,35 +43,6 @@ export default {
     className() {
       return this.noPadding ? 'p-0' : 'pt-0';
     },
-  },
-  data() {
-    return {
-      canViewContent: false,
-    };
-  },
-  mounted() {
-    function onVisibilityChange(el, callback) {
-      let old_visible;
-      return function() {
-        let visible = isElementInViewport(el);
-        if (visible != old_visible) {
-          old_visible = visible;
-          if (typeof callback == 'function') {
-            callback();
-          }
-        }
-      };
-    }
-    $(window).on(
-      'DOMContentLoaded load resize scroll',
-      onVisibilityChange(this.$el, () => {
-        this.canViewContent = true;
-      })
-    );
-
-    if (isElementInViewport(this.$el)) {
-      this.canViewContent = true;
-    }
   },
 };
 </script>
@@ -98,12 +64,6 @@ export default {
 }
 
 .bloc {
-  &.narrow {
-    width: 33.3333%;
-  }
-
-  &.wide {
-    width: 66.6666%;
-  }
+  width: 100%;
 }
 </style>

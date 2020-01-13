@@ -53,29 +53,35 @@
           >
             <img src="@/assets/en.png" />
           </a>
+
+          <a href="#">
+            <i class="icon ic-Clock-Icon"></i>
+          </a>
         </div>
       </ff-wip>
       <div class="nav">
-        <ff-wip>
-          <div class="icon ic-Clock-Icon" />
-        </ff-wip>
-        <div class="icon ic-User-Icon" @click="userMenuVisible = !userMenuVisible">
-          <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
-          <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
-          <div v-if="userMenuVisible" class="sub-menu">
-            <ul class="list-group">
-              <li class="list-group-item">
+        <ul class="nav navbar-nav">
+          <li class="dropdown" :class="{ show: userMenuVisible }">
+            <a href="#" class="nav-link" @click.prevent="userMenuVisible = !userMenuVisible">
+              <i class="icon ic-User-Icon"></i>
+              <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
+              <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right position-absolute"
+              :class="{ show: userMenuVisible }"
+            >
+              <span class="dropdown-item hover-pointer">
                 {{ userInfos.name.firstName }}
                 {{ userInfos.name.lastName }}
                 <br />
                 {{ userInfos.email }}
-              </li>
-              <li class="list-group-item">
-                <a :href="logoutUrl">{{ $t('logout') }}</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+              </span>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" :href="logoutUrl">{{ $t('logout') }}</a>
+            </div>
+          </li>
+        </ul>
       </div>
       <img
         v-if="!isBackofficeProfile"
@@ -132,7 +138,16 @@ export default {
             },
           ],
         },
-        { label: 'GetVision', to: { name: 'getVision' }, mock: true },
+        {
+          label: 'GetVision',
+          to: { name: 'getVision' },
+          submenu: [
+            {
+              label: 'menu.alarms',
+              to: { name: 'getVision' },
+            },
+          ],
+        },
         { label: 'GetReport', to: { name: 'exemples' }, mock: true },
         { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
         { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
@@ -236,6 +251,19 @@ a {
   .sub-menu {
     position: absolute;
     z-index: 99;
+    transform: translateX(-3.6rem);
+  }
+
+  @media only screen and (width: 1920px) {
+    .sub-menu {
+      transform: translateX(-4rem);
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    .sub-menu {
+      transform: translateX(-4rem);
+    }
   }
 
   .list-group-item {
@@ -257,11 +285,7 @@ a {
 .icon {
   position: relative;
   color: $dark-gray;
-  font-size: 24px;
-
-  &:last-child {
-    margin-left: 30px;
-  }
+  font-size: 1.5rem;
 
   .arrow {
     display: inline-block;

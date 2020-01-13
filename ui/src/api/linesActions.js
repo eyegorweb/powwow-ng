@@ -147,6 +147,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
           }
           offerGroup {
             customerAccount {
+              id
               name
               code
             }
@@ -204,11 +205,6 @@ export function formatFilters(filters) {
   const partyTypeParam = getFilterValue(filters, 'filters.partnerType');
   if (partyTypeParam) {
     allFilters.push(`partyType: {in:[${partyTypeParam}]}`);
-  }
-
-  const offers = getValuesIds(filters, 'filters.offers');
-  if (offers) {
-    allFilters.push(`workflowCode: {in: [${offers}]}`);
   }
 
   const customFields = getFilterValues(filters, 'filters.customFields');
@@ -373,7 +369,10 @@ function addOrderRef(gqlFilters, selectedFilters) {
 }
 
 function addOfferFilterFilter(gqlFilters, selectedFilters) {
-  const offers = getValuesIds(selectedFilters, 'filters.lines.associatedOffer');
+  const offerFilter = selectedFilters.find(o => o.id === 'filters.lines.associatedOffer');
+  if (!offerFilter) return;
+
+  const offers = offerFilter.values.map(o => `"${o.productCode}"`).join(',');
   if (offers) {
     gqlFilters.push(`productCode: {in: [${offers}]}`);
   }

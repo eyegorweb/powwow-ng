@@ -96,11 +96,11 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
           status
           started
           ended
-          targetEntitiesNumber
         }
         failedEntitiesNumber
         completedEntitiesNumber
         pendingEntitiesNumber
+        targetActionNumber
         partyName
         creatorUsername
         info

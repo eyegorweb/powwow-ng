@@ -107,6 +107,10 @@ label {
     &:disabled {
       background-color: $light-gray;
     }
+
+    &::placeholder {
+      font-size: 0.7rem;
+    }
   }
 
   &.no-hover-style {

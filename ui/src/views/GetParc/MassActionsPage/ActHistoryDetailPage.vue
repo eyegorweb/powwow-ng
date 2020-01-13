@@ -65,7 +65,7 @@
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
             <p>
-              {{ getFromContent('massAction.targetEntitiesNumber') }}
+              {{ getFromContent('targetActionNumber') }}
               {{ $t('getparc.history.details.lines') }}
             </p>
           </div>
@@ -339,7 +339,7 @@ export default {
       return stepperIndex;
     },
     total() {
-      return this.content ? this.content.massAction.targetEntitiesNumber : 0;
+      return this.content ? this.content.targetActionNumber : 0;
     },
   },
 

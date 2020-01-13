@@ -697,6 +697,87 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@interactjs/actions@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/actions/-/actions-1.7.3.tgz#978ad2b96e20b89fe2ec2bb24a9a50f7e25709ed"
+  integrity sha512-oC0hWgoX3xqZXUZa9AoyY0bnomX9Vq27GaEStyptViSL4GoUvcxhGEVnZmb1D7RXZyd0U+rCMgGX4S/Cd916kw==
+
+"@interactjs/auto-scroll@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/auto-scroll/-/auto-scroll-1.7.3.tgz#2cac386a90811087ca84d9b9bbd8662a337d2ac6"
+  integrity sha512-9I+tZl9DbeUuq/xYohoi+fh0eow1K2Q3FyhsTMnMe6oA4fSnAqUfQN8F+miGR8XUq/qXxDutYcZnuwGQCikDOg==
+
+"@interactjs/auto-start@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/auto-start/-/auto-start-1.7.3.tgz#0bfcd379aa82399159966f75ae7ee54e96d2e24a"
+  integrity sha512-BquOLaJsyl9LJZAviitxJyIWJNcHHebSW8wYRnVqTxy9f4Sb9LjfrALmk+MkvuZRM0YFBM29RfHNqE8dKAtmBg==
+
+"@interactjs/core@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/core/-/core-1.7.3.tgz#135254af8614b70d510ca163e44ed45890518e8c"
+  integrity sha512-Qlcmf/HZfhkvSLiOwcrnAbBNC2gCNT1yd6l0cd89HEphd4X9HpQyONbA07wDqn1F1Zh1W/v4HGzd1psgHnPc6A==
+
+"@interactjs/dev-tools@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/dev-tools/-/dev-tools-1.7.3.tgz#468e91f7e3e495122949469a0236d50f9e71c499"
+  integrity sha512-ac9eOnK8hk3BWX7yZBw1jDXyoML5j0bKA443rkZL9sYhhPXuly+qfbwC0XFDNLXHZMLXf6EhcdfydfJZqXAG5Q==
+  dependencies:
+    "@interactjs/utils" "1.7.3"
+
+"@interactjs/inertia@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/inertia/-/inertia-1.7.3.tgz#fdc99f76c1587d8a4a3e4ae63dd1d3946456f6c3"
+  integrity sha512-Am4JZVRLqTG9VcyFvSr0bIOn0UaI3WzPYXNAdu3zQaByx7k46mLpXzbs8Ezq2gUMjjUd/VdwDHlcPWYMidjp4Q==
+
+"@interactjs/interact@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/interact/-/interact-1.7.3.tgz#292573c6ad41cd5fe1447190341ade5094440f6a"
+  integrity sha512-omsauCTVnhhHXNiFKtERPm31Yo5Ly1NbuepSJLztkHyeKAfHDCT1GW0avjZ4ee1zmcaBJRcLuu9KbkFVpibTSw==
+
+"@interactjs/interactjs@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/interactjs/-/interactjs-1.7.3.tgz#dc461018c251ebad2203f0671ed1adc2a9154179"
+  integrity sha512-UYKHE5H5QJXKpsetx5yiqK27abUk66jCuQCpdck5Y3IFJADpW7ILODmjqVF20o5tYc5TBwztaeF3alPl1uyw0Q==
+  dependencies:
+    "@interactjs/types" "1.7.3"
+
+"@interactjs/modifiers@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/modifiers/-/modifiers-1.7.3.tgz#818b1b3a1938c49f26eb5ea90a7e01cf946f0e81"
+  integrity sha512-4uxacQFHA1d/yOb9GoCMAr4j+brvIsML5InkXyUErRk+tMap/BdenvkmBjoOIEb1anDFv8dPJ2vcFEOcW5SnZA==
+
+"@interactjs/pointer-events@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/pointer-events/-/pointer-events-1.7.3.tgz#7134a475148ad58497b3816ae6c30c590d7029a7"
+  integrity sha512-Xiuopd6Osgc9NrqbAUVLwI8OpV+ZKqEf5IAdhr/DTqcT6Mk71vhvnEvFueiUf95joEJHPh6eqjrcFJ8Fbj0YBA==
+
+"@interactjs/reflow@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/reflow/-/reflow-1.7.3.tgz#bb73b7e2dec8840189fb5c4dcc879e0ce661676e"
+  integrity sha512-0xiVbXuRZKk/jqfIvN7evHUAHcI/000uMIOmeJ7oeOOhHvkq6Y8sHxf5v2f4PKlKNqX0b62RkAWwDYKFGdJmOQ==
+
+"@interactjs/types@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/types/-/types-1.7.3.tgz#e26d528b4c84164e487fadc37ba8df30686d4151"
+  integrity sha512-2+ewGREySUWNqGaGpSCeN6sYeKCulznlLMBcCBOOW9sPq5Fss9P7Lj67OZETUQ2tOfE5BJhopfEWviuOKRYABw==
+  dependencies:
+    "@interactjs/actions" "1.7.3"
+    "@interactjs/auto-scroll" "1.7.3"
+    "@interactjs/auto-start" "1.7.3"
+    "@interactjs/core" "1.7.3"
+    "@interactjs/dev-tools" "1.7.3"
+    "@interactjs/inertia" "1.7.3"
+    "@interactjs/interact" "1.7.3"
+    "@interactjs/modifiers" "1.7.3"
+    "@interactjs/pointer-events" "1.7.3"
+    "@interactjs/reflow" "1.7.3"
+    "@interactjs/utils" "1.7.3"
+
+"@interactjs/utils@1.7.3":
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/@interactjs/utils/-/utils-1.7.3.tgz#2dbbf75fd777a0d4d769fcab0ec13c790d4b6df4"
+  integrity sha512-GKE+cdwqVru7veZRDKvPtjsm/ii/iBjd0xyTMKDChiQUkcZ4LFKIJGD/3vjeNH5IU8pZIeY+KBqBm1F+8IVEzQ==
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -2132,6 +2213,11 @@ base@^0.11.1:
     isobject "^3.0.1"
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
+
+batch-processor@^1.0.0:
+  version "1.0.0"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/batch-processor/-/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
+  integrity sha1-dclcMrdI4IUNEMKxaPa9vpiRrOg=
 
 batch@0.6.1:
   version "0.6.1"
@@ -3840,6 +3926,13 @@ elegant-spinner@^1.0.1:
   version "1.0.1"
   resolved "https://outils.docapost.tech/nexus/repository/npm-central/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
   integrity sha1-2wQ1IcldfjA/2PNFvtwzSc+wcp4=
+
+element-resize-detector@^1.1.15:
+  version "1.1.15"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/element-resize-detector/-/element-resize-detector-1.1.15.tgz#48eba1a2eaa26969a4c998d972171128c971d8d2"
+  integrity sha512-16/5avDegXlUxytGgaumhjyQoM6hpp5j3+L79sYq5hlXfTNRy5WMMuTVWkZU3egp/CokCmTmvf18P3KeB57Iog==
+  dependencies:
+    batch-processor "^1.0.0"
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -5555,6 +5648,14 @@ inquirer@^3.0.6:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+interactjs@^1.6.3:
+  version "1.7.3"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/interactjs/-/interactjs-1.7.3.tgz#ae5002bd4da0ef18fb80dbab750d95bfb8c3e5c9"
+  integrity sha512-2DvhItFT+l3DRswUJ1WPnf/rGhSpLaXyPzbUNeDffcxtElTp09kUAEqQbsnK4IdCrMiQeNY2QFJ4iD8HYeyyiQ==
+  dependencies:
+    "@interactjs/interactjs" "1.7.3"
+    "@interactjs/types" "1.7.3"
 
 internal-ip@^4.2.0:
   version "4.2.0"
@@ -10665,6 +10766,14 @@ vue-eslint-parser@^5.0.0:
     espree "^4.1.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
+
+vue-grid-layout@^2.3.7:
+  version "2.3.7"
+  resolved "https://outils.docapost.tech/nexus/repository/npm-central/vue-grid-layout/-/vue-grid-layout-2.3.7.tgz#d148f013ef2ca9dc1cb5d5298e7966aa50f54431"
+  integrity sha512-q3FMiuog0hPsK/IUKtlg2A/lwPo86YlLaX9+wEiCTjUU++GabM2o9hDhRVruDJZLUah55iTg8LRttBxrxPv0WQ==
+  dependencies:
+    element-resize-detector "^1.1.15"
+    interactjs "^1.6.3"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"

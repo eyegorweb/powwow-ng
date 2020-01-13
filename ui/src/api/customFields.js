@@ -65,6 +65,14 @@ export async function fetchCustomFields(partnerId) {
       custom6FieldType
     	custom6FieldMandatory
       custom6ValidatedValuesAsList
+      spec1_label
+      speci1FieldType
+      speci1FieldMandatory
+      speci1ValidatedValuesAsList
+      spec2_label
+      speci2FieldType
+      speci2FieldMandatory
+      speci2ValidatedValuesAsList
     }
   }
   `;
@@ -74,9 +82,11 @@ export async function fetchCustomFields(partnerId) {
 
 function formatCustomFieldsResponse(response) {
   const customFields = [];
+  const specificFields = [];
 
   for (let i = 1, max = 6; i <= max; i++) {
     addCustomField(response, i);
+    addSpecField(response, i);
   }
 
   function addCustomField(response, index) {
@@ -95,8 +105,24 @@ function formatCustomFieldsResponse(response) {
     };
     customFields.push(data);
   }
+  function addSpecField(response, index) {
+    const spec = get(response, `spec${index}_label`);
+    if (!spec) return;
 
-  return customFields;
+    const data = {
+      id: 'specField' + index,
+      codeInOrder: 'spec' + index,
+      code: 'spec' + index,
+      spec,
+      type: get(response, `speci${index}FieldType`),
+      value: get(response, `speci${index}ValidatedValuesAsList`),
+      mandatory: get(response, `speci${index}FieldMandatory`),
+      enteredValue: undefined,
+    };
+    specificFields.push(data);
+  }
+
+  return { customFields, specificFields };
 }
 
 export async function createCustomField({ partyId, label, type, values, mandatoryVal }) {

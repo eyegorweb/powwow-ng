@@ -6,14 +6,14 @@
   >
     <div class="row">
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToEnable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToEnable')
+        }}</span>
       </div>
       <div class="col">
-        <span class="font-weight-bold mt-4 mb-4">
-          {{ $t('getparc.actCreation.changeService.servicesToDisable') }}
-        </span>
+        <span class="font-weight-bold mt-4 mb-4">{{
+          $t('getparc.actCreation.changeService.servicesToDisable')
+        }}</span>
       </div>
     </div>
     <div class="row">
@@ -58,7 +58,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 
 import DataServiceToggle from '@/components/Services/DataServiceToggle';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
-import { changeService } from '@/api/actCreation2.js';
+import { changeService } from '@/api/actCreation.js';
 
 export default {
   components: {
@@ -110,10 +110,6 @@ export default {
       return isError;
     },
     async onValidate(contextValues) {
-      console.log(this.servicesToEnable);
-      console.log(this.servicesToDisable);
-      console.log(this.shouldChangeData);
-
       return await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,

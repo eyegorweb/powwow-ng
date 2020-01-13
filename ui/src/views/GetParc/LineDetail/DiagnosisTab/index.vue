@@ -112,7 +112,10 @@ export default {
     isLineActive() {
       const networkStatus = get(this.content, 'accessPoint.networkStatus');
       const simStatus = get(this.content, 'statuts');
-      return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
+      return (
+        simStatus === 'ALLOCATED' &&
+        (networkStatus === 'ACTIVATED' || networkStatus === 'SUSPENDED')
+      );
     },
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');

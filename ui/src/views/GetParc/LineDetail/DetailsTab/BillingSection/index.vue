@@ -56,7 +56,7 @@
               <p v-if="getFromContent('accessPoint.billingStatusChangeDate')" class="mb-0">
                 {{ billingStatus }}
               </p>
-              <p class="mb-0">{{ billingStatusChangeDate }}</p>
+              <p class="mb-0">{{ billingStatusChangeDate || '-' }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
@@ -119,8 +119,7 @@ export default {
 
   computed: {
     billingStatusChangeDate() {
-      const date = this.getFromContent('accessPoint.billingStatusChangeDate');
-      return moment(date, 'DD/MM/YYYY').format('DD/MM/YYYY');
+      return this.getFromContent('accessPoint.billingStatusChangeDate');
     },
     remainingTime() {
       return this.getFromContent('accessPoint.remainingSuspension')
@@ -172,11 +171,17 @@ export default {
     },
 
     lineStatus() {
-      const lineStatus = get(this.content, 'line.statuts');
+      const lineStatus = get(this.content, 'accessPoint.lines[0].status');
       if (lineStatus === 'ALLOCATED') {
-        return `${lineStatus} ${get(this.content, 'line.created')}`;
+        return `${lineStatus} ${this.$t('fromThe')} ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.created'
+        )}`;
       } else if (lineStatus === 'RELEASED') {
-        return `${lineStatus} ${this.$t('fromThe')} ${get(this.content, 'line.updated')}`;
+        return `${lineStatus} ${this.$t('fromThe')} ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.updated'
+        )}`;
       } else {
         return '-';
       }
@@ -217,7 +222,7 @@ export default {
     },
     formatDate(date) {
       let dateOnly = date.substr(0, date.indexOf(' '));
-      return date && date.length ? moment(dateOnly, 'DD/MM/YYYY').format('DD/MM/YYYY') : '-';
+      return date && date.length ? dateOnly : '-';
     },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);

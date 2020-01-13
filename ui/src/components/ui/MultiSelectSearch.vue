@@ -5,6 +5,7 @@
       :fields="inputFields"
       :collapsed-mode="collapsed"
       :placeholder="placeholder"
+      :value.sync="searchValue"
       @clear="removeSelection()"
       @update:value="$emit('update:search', $event)"
     >
@@ -105,6 +106,7 @@ export default {
       maximumSelectableItems: 2,
       showAll: false,
       canNotifyScrollLimit: true,
+      searchValue: undefined,
     };
   },
 
@@ -172,6 +174,8 @@ export default {
           });
         }
       }
+      this.searchValue = '';
+
       this.labelText = isMatching(displayedItems) ? this.$t('unSelectAll') : this.$t('selectAll');
     },
     onScroll() {

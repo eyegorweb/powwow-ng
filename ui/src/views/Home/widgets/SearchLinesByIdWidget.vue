@@ -2,7 +2,25 @@
   <WidgetBloc :widget="widget" no-padding>
     <div class="pl-3 pr-3 pb-3">
       <SearchByLinesId @searchById="searchById" :inline="inline" />
-      <div v-if="noResults" class="alert-light" role="alert">{{ $t('noResult') }}</div>
+      <div v-if="lastSearchResult && noResults" class="alert-light" role="alert">
+        {{ $t('noResult') }}
+      </div>
+      <button v-if="searching" class="btn btn-primary btn-block" disabled>
+        {{ $t('processing') }}
+        <CircleLoader />
+      </button>
+      <button
+        v-if="!searching && lastSearchResult && !noResults"
+        class="btn btn-primary btn-block"
+        @click.stop="viewResult"
+      >
+        <template v-if="lastSearchResult.total === 1">{{
+          $t('home.widgets.viewOneResult')
+        }}</template>
+        <template v-else>
+          {{ $t('home.widgets.viewXResults', { num: lastSearchResult.total }) }}
+        </template>
+      </button>
     </div>
   </WidgetBloc>
 </template>
@@ -11,11 +29,13 @@
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import WidgetBloc from './WidgetBloc';
 import { searchLines } from '@/api/linesActions';
+import CircleLoader from '@/components/ui/CircleLoader';
 
 export default {
   components: {
     WidgetBloc,
     SearchByLinesId,
+    CircleLoader,
   },
   props: {
     widget: Object,
@@ -25,28 +45,37 @@ export default {
     return {
       noResults: false,
       inline: false,
+      lastSearchResult: undefined,
+      lastSEarchFiler: undefined,
+      searching: false,
     };
   },
 
   methods: {
     async searchById(filterObj) {
+      this.lastSEarchFiler = filterObj;
+      this.searching = true;
       const result = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         ...this.contextFilters,
         filterObj,
       ]);
+      this.searching = false;
 
-      if (!result || !result.items || !result.items.length) {
-        this.noResults = true;
-      } else if (result.total === 1) {
+      this.lastSearchResult = result;
+      this.noResults = !result || !result.items || !result.items.length;
+    },
+
+    viewResult() {
+      if (this.lastSearchResult.total === 1) {
         this.$router.push({
           name: 'lineDetail',
-          params: { lineId: result.items[0].id },
+          params: { lineId: this.lastSearchResult.items[0].id },
         });
       } else {
         this.$router.push({
           name: 'actLines',
           params: {
-            queryFilters: [...this.contextFilters, filterObj],
+            queryFilters: [...this.contextFilters, this.lastSEarchFiler],
           },
         });
       }

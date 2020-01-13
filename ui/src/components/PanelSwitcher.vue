@@ -6,6 +6,7 @@
     @close="closePanel"
     :wide="wide"
     :backdrop="backdrop"
+    :ignore-click-away="ignoreClickAway"
   >
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
@@ -21,6 +22,11 @@
         :content="payload"
       />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
+      <LineAlarmDetailPanel
+        v-if="panelId === 'getparc.lineDetail.alarms.trigger-history'"
+        :content="payload"
+      />
+      <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -36,6 +42,8 @@ import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDet
 import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
 import CustomizePanel from '@/views/Home/CustomizePanel';
+import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
+import TheAlarmDetailPanel from '@/views/GetVision/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
 
 export default {
   components: {
@@ -47,6 +55,8 @@ export default {
     ActLinesDetailPanel,
     ActCreationPanel,
     CustomizePanel,
+    LineAlarmDetailPanel,
+    TheAlarmDetailPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),
@@ -59,6 +69,7 @@ export default {
     payload: state => state.ui.panelPayload,
     backdrop: state => state.ui.backdrop,
     titleConf: state => state.ui.panelTitleConf,
+    ignoreClickAway: state => state.ui.ignoreClickAway,
   }),
 };
 </script>

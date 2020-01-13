@@ -10,17 +10,23 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-      <UiTabs :tabs="tabs" :selected-index="currentTab">
-        <template slot-scope="{ tab, index, selectedIndex }">
-          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
-          </UiTab>
+      <ff-wip>
+        <UiTabs :tabs="tabs" :selected-index="currentTab">
+          <template slot-scope="{ tab, index, selectedIndex }">
+            <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+              <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+            </UiTab>
+          </template>
+          <div class="pt-4 pl-4" slot="parcAlarms">
+            <ParcAlarmsTab />
+          </div>
+          <div slot="cockpitM2M">M2M</div>
+        </UiTabs>
+
+        <template slot="orelse">
+          <ParcAlarmsTab />
         </template>
-        <div class="pt-4 pl-4" slot="parcAlarms">
-          <ParcAlarmsTab1 />
-        </div>
-        <div slot="cockpitM2M">M2M</div>
-      </UiTabs>
+      </ff-wip>
     </div>
   </div>
 </template>
@@ -30,14 +36,14 @@ import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
-import ParcAlarmsTab1 from './ParcAlarmsTab1';
+import ParcAlarmsTab from './ParcAlarmsTab';
 
 export default {
   components: {
     Tooltip,
     UiTabs,
     UiTab,
-    ParcAlarmsTab1,
+    ParcAlarmsTab,
   },
   data() {
     return {

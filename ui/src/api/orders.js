@@ -105,18 +105,26 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         orderedMarketingOffer {
           description
           code
-          buyingPriceInEuroCentHT
-          recurringPriceInEuroCentHT
-          buyingPriceInEuroCentTTC
-          recurringPriceInEuroCentTTC
-          groupCode
-          groupName
-          servicesLabel
-          servicesGroup
         }
         orderStatusHistories{
           status
           statusDate
+        }
+        marketingServices {
+          code
+          activated
+          editable
+          optional
+          name
+          activationDate
+          parameters {
+            name
+            activated
+            editable
+            code
+            ipAdress
+            versionIp
+          }
         }
       }
     }
@@ -220,10 +228,12 @@ function formatFilters(filters) {
     allFilters.push(`customerAccountId: {in:[${customerAccountIds}]}`);
   }
 
+  /*
   const offers = getValuesIds(filters, 'filters.offers');
   if (offers) {
     allFilters.push(`workflowCode: {in: [${offers}]}`);
   }
+  //*/
 
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
@@ -234,6 +244,7 @@ function formatFilters(filters) {
     allFilters.push(customFeldsGQLparams);
   }
 
+  addOfferFilterFilter(allFilters, filters);
   addQuantityFilter(allFilters, filters);
   addDateFilter(allFilters, filters, 'orderDate', 'filters.orderDate');
   addCityFilter(allFilters, filters);
@@ -296,6 +307,16 @@ function addQuantityFilter(gqlFilters, selectedFilters) {
     if (quantityFilter.from && quantityFilter.to) {
       gqlFilters.push(`quantity: {goe: ${quantityFilter.from}, loe: ${quantityFilter.to}}`);
     }
+  }
+}
+
+function addOfferFilterFilter(gqlFilters, selectedFilters) {
+  const offerFilter = selectedFilters.find(o => o.id === 'filters.offers');
+  if (!offerFilter) return;
+
+  const offers = offerFilter.values.map(o => `"${o.productCode}"`).join(',');
+  if (offers) {
+    gqlFilters.push(`workflowCode: {in: [${offers}]}`);
   }
 }
 

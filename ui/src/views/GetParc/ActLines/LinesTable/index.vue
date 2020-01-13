@@ -10,7 +10,7 @@
             {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
           </h2>
         </div>
-        <div class="col">
+        <div class="col" v-if="hasResults">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
               {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -18,7 +18,7 @@
           </ExportButton>
         </div>
       </div>
-      <template v-if="rows && rows.length">
+      <template v-if="hasResults">
         <DataTable
           v-if="columns"
           storage-id="getparc.lines"
@@ -115,6 +115,9 @@ export default {
     msisdn() {
       return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
     },
+    hasResults() {
+      return !!(this.rows && this.rows.length);
+    },
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
@@ -172,7 +175,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
           id: c.id,
           label: c.label,

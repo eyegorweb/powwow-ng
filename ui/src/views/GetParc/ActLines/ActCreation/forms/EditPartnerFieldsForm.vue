@@ -1,15 +1,20 @@
 <template>
   <ActFormContainer :validate-fn="onValidate">
     <div>
-      <CustomFields
-        :fields="allCustomFields"
+      <PartnerFields
+        :custom-fields="allCustomFields"
+        :specific-fields="allSpecificFields"
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
         @change="onValueChanged"
       />
     </div>
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
-      <button @click="waitForConfirmation = true" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+      <button
+        @click="waitForConfirmation = true"
+        :disabled="!canValidate"
+        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+      >
         <i class="ic-Edit-Icon" />
         {{ $t('getparc.actCreation.editCustomFields.validateBtn') }}
       </button>
@@ -39,7 +44,10 @@
     <div slot="messages" class="text-info">
       <span>
         <i class="ic-Alert-Icon" />
-        {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
+        <template v-if="allFields && allFields.length">{{
+          $t('getparc.actCreation.editCustomFields.infoMessage')
+        }}</template>
+        <template v-else>{{ $t('getparc.actCreation.editCustomFields.noResult') }}</template>
       </span>
     </div>
   </ActFormContainer>
@@ -47,29 +55,38 @@
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
-import CustomFields from '@/components/CustomFields';
+import PartnerFields from '@/components/PartnerFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
-import { updateCustomFields } from '@/api/actCreation2';
+import { updateCustomFields } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 
 export default {
   components: {
     ActFormContainer,
-    CustomFields,
+    PartnerFields,
     Modal,
   },
   data() {
     return {
       allCustomFields: [],
-      customFieldsValues: [],
+      allSpecificFields: [],
+      allFields: [],
+      allFieldsValues: [],
       customFieldsErrors: [],
       waitForConfirmation: false,
+      canSend: false,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    canValidate() {
+      if (this.allFields && this.allFields.length && this.canSend) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted() {
     this.fetchCustomFieldsForPartner();
@@ -77,19 +94,27 @@ export default {
   methods: {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.actCreationPrerequisites.partner.id;
-      this.allCustomFields = await fetchCustomFields(partnerId);
+      const customFields = await fetchCustomFields(partnerId);
+      this.allCustomFields = customFields.customFields;
+      this.allSpecificFields = customFields.specificFields;
+      this.allFields = customFields.customFields.concat(customFields.specificFields);
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
+      if (enteredValue) {
+        this.canSend = true;
+      } else {
+        this.canSend = false;
+      }
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.allFieldsValues = this.allFieldsValues.map(c => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -100,12 +125,12 @@ export default {
         });
       } else {
         customField.enteredValue = enteredValue;
-        this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
+        this.allFieldsValues = [...this.allFieldsValues, { ...customField }];
       }
     },
     async onValidate(contextValues) {
       const getCustomFieldValue = code => {
-        const found = this.customFieldsValues.filter(c => c.code === code);
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -121,6 +146,8 @@ export default {
         custom4: getCustomFieldValue('custom4'),
         custom5: getCustomFieldValue('custom5'),
         custom6: getCustomFieldValue('custom6'),
+        spec1: getCustomFieldValue('spec1'),
+        spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
       return await updateCustomFields(

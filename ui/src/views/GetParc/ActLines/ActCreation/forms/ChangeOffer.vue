@@ -4,13 +4,6 @@
     success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
   >
-    <BillingAccountChoice
-      :key="actCreationPrerequisites.partner.id"
-      :partner-id="actCreationPrerequisites.partner.id"
-      @set:billingAccount="setBillingAccount"
-      :errors="errors"
-    />
-
     <template>
       <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
       <OffersPart
@@ -31,15 +24,9 @@
       </div>
     </div>
 
-    <div v-if="canChangeServices" class="row">
-      <div class="col-md-8 mb-3">
-        <UiToggle label="Activation" v-model="activation" />
-      </div>
-    </div>
-
     <hr />
 
-    <div v-if="canChangeServices && activation">
+    <div v-if="canChangeServices">
       <ServicesBlock
         v-if="selectedOffer"
         :key="selectedOffer.label"
@@ -53,24 +40,21 @@
 </template>
 
 <script>
-import BillingAccountChoice from './parts/BillingAccountChoice';
 import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 
 import { mapState, mapGetters } from 'vuex';
 import ActFormContainer2 from './parts/ActFormContainer2';
-import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
-import { changeOffer } from '@/api/actCreation2';
+import { changeOffer } from '@/api/actCreation';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
     UiToggle,
-    BillingAccountChoice,
     ActFormContainer2,
     ServicesBlock,
     OffersPart,
@@ -86,14 +70,12 @@ export default {
     return {
       offers: [],
       selectedOffer: undefined,
-      chosenBillingAccount: undefined,
       actDate: null,
       errors: {},
       notificationCheck: false,
       canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
-      activation: false,
 
       offerServices: undefined,
       servicesChoice: undefined,
@@ -134,28 +116,6 @@ export default {
       this.servicesChoice = servicesChoice;
       this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
     },
-    setBillingAccount(billingAccount) {
-      this.chosenBillingAccount = billingAccount;
-      this.refreshOffers();
-    },
-
-    async refreshOffers() {
-      if (!this.chosenBillingAccount) return;
-      this.selectedOffer = undefined;
-      this.offers = [];
-
-      const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
-        page: 0,
-        limit: 99,
-      });
-      if (data) {
-        this.offers = data.map(o => ({
-          id: o.id,
-          code: o.code,
-          label: o.workflowDescription,
-        }));
-      }
-    },
     onActDateChange(value) {
       this.actDate = value;
     },
@@ -168,16 +128,6 @@ export default {
       let isError = false;
       this.isDataParamsError = false;
       this.errors = {};
-      if (this.chosenBillingAccount) {
-        if (!this.chosenBillingAccount.partner) {
-          this.errors.partner = 'errors.mandatory';
-          isError = true;
-        }
-      } else {
-        this.errors.billingAccount = 'errors.mandatory';
-        this.errors.partner = 'errors.mandatory';
-        isError = true;
-      }
 
       if (!this.selectedOffer) {
         this.errors.offer = 'errors.mandatory';
@@ -202,7 +152,7 @@ export default {
         partyId: this.actCreationPrerequisites.partner.id,
         tempDataUuid: contextValues.tempDataUuid,
         servicesChoice: this.servicesChoice,
-        customerAccountID: this.chosenBillingAccount.id,
+        customerAccountID: this.actCreationPrerequisites.billingAccount.id,
         sourceWorkflowID: this.actCreationPrerequisites.offer.data.id,
         targetWorkflowID: this.selectedOffer.data.id,
       };
