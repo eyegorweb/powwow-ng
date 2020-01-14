@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.470+20200114162614
+2020-01-14
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (5658d0f7a3fdd9b32ccf2c283caaf9189c0a1822)
+
 ## 0.3.0-master.469+20200114141826
 2020-01-14
 
