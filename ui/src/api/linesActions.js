@@ -1,10 +1,21 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchCardTypes(orderBy, filters = []) {
-  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+export async function fetchCardTypes(q, partners, { page, limit, partnerType }) {
+  let partnersIds,
+    partnerGqlParam = '';
+
+  if (partners && partners.length > 0) {
+    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
+  }
+
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
+  }
   const queryStr = `
     query {
-      simcards(filter: { ${formatFilters(filters)} } ${orderingInfo} ) {
+      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { label: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
         total
         items {
           simCard {
