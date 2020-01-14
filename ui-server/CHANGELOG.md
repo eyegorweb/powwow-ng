@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.467+20200114094138
+2020-01-14
+
+### Fixes
+
+- spécifications des conditions d'application du changement d'offre pour les actes en masse (a4b434ddaaebe586ada9b0fff288a87f24a30302)
+
 ## 0.3.0-master.466+20200113095741
 2020-01-13
 

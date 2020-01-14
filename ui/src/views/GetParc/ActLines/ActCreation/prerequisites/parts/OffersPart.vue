@@ -10,10 +10,9 @@
 </template>
 
 <script>
-// import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -31,6 +30,12 @@ export default {
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    ...mapState('actLines', ['actCreationPrerequisites']),
+    prerequisiteOffer() {
+      return this.actCreationPrerequisites && this.actCreationPrerequisites.offer
+        ? this.actCreationPrerequisites.offer.data
+        : '';
+    },
     selectedOffer: {
       get() {
         return this.offer;
@@ -42,6 +47,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('actLines', ['stopLoading']),
     async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
       partnerParam = partnerParam.filter(p => p.label !== '');
@@ -53,12 +59,14 @@ export default {
           partnerType: this.contextPartnersType,
         });
         if (data) {
-          return data.map(o => ({
-            id: o.code,
-            label: o.workflowDescription,
-            data: o,
-            productCode: o.initialOffer.code,
-          }));
+          return data
+            .filter(o => o.code !== this.prerequisiteOffer.code)
+            .map(o => ({
+              id: o.code,
+              label: o.workflowDescription,
+              data: o,
+              productCode: o.initialOffer.code,
+            }));
         }
       }
     },
