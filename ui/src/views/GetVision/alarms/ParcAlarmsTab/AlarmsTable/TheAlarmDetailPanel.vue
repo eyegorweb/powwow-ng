@@ -4,15 +4,13 @@
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
-      <ff-wip>
-        <div class="overview-item mock-value">
-          <StepperNonLinear
-            v-if="statusStepperIndex != null"
-            :stepper-data="steps"
-            :current-index="statusStepperIndex"
-          />
-        </div>
-      </ff-wip>
+      <div class="overview-item">
+        <StepperNonLinear
+          v-if="statusStepperIndex != null"
+          :stepper-data="steps"
+          :current-index="statusStepperIndex"
+        />
+      </div>
 
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.id') }}:</h6>
