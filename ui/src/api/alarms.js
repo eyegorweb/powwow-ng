@@ -112,6 +112,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         level3
         level3Up
         level3Down
+        startDate
       }
     }
   }`;
