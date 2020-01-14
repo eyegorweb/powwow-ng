@@ -80,9 +80,9 @@
           <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block>{{
-            $t('getvsion.detail-panel.triggered-events')
-          }}</UiButton>
+          <UiButton variant="primary" block>
+            {{ $t('getvsion.detail-panel.triggered-events') }}
+          </UiButton>
         </div>
       </div>
     </ff-wip>
@@ -124,7 +124,7 @@ export default {
           },
         ],
       },
-      statusStepperIndex: 0,
+      statusStepperIndex: this.content.startDate ? 1 : 0,
     };
   },
   computed: {
