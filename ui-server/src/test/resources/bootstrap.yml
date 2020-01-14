@@ -4,3 +4,5 @@ spring:
   cloud:
     config: 
       enabled: false
+    kubernetes:
+      enabled: false
