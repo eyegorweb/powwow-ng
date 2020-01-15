@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.472+20200115083712
+2020-01-15
+
+### Features
+
+- Kubernetes Discovery support (f632a60b90d6c6a3cbc013764d4b95d19d45e293)
+
 ## 0.3.0-master.471+20200114163054
 2020-01-14
 
