@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.475+20200115151702
+2020-01-15
+
+### Fixes
+
+- Envoyer les bons APNS lors de la création de commande (870ce6366364121852d749db4dd72169a4408812)
+
 ## 0.3.0-master.474+20200115130007
 2020-01-15
 
