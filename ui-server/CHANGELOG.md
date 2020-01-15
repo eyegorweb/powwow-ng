@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.474+20200115130007
+2020-01-15
+
+### Features
+
+- récupération des données des adresses ip pour chaque service (5f8a65c872aaf9e75db4924b88975cdb16a8f94c)
+
 ## 0.3.0-master.473+20200115100006
 2020-01-15
 
