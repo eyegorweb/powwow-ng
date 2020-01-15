@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ui-server
+    name: ui
   cloud:
     config:
       enabled: true
