@@ -2,6 +2,51 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.474+20200115130007
+2020-01-15
+
+### Features
+
+- récupération des données des adresses ip pour chaque service (5f8a65c872aaf9e75db4924b88975cdb16a8f94c)
+
+## 0.3.0-master.473+20200115100006
+2020-01-15
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (da63b88c81e7c2d2434a5fdee85fe1c0367fd61c)
+
+## 0.3.0-master.472+20200115083712
+2020-01-15
+
+### Features
+
+- Kubernetes Discovery support (f632a60b90d6c6a3cbc013764d4b95d19d45e293)
+
+## 0.3.0-master.471+20200114163054
+2020-01-14
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (1d75af2c72b63bab26143726e94749c980062cea)
+
+## 0.3.0-master.470+20200114162614
+2020-01-14
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (5658d0f7a3fdd9b32ccf2c283caaf9189c0a1822)
+
+## 0.3.0-master.469+20200114141826
+2020-01-14
+
+### Fixes
+
+- enlever le mock (65746a15d1868e39346801ec8436cf5e151ca20e)
+
+## 0.3.0-master.468+20200114132930
+2020-01-14
+
 ## 0.3.0-master.467+20200114094138
 2020-01-14
 

@@ -4,15 +4,13 @@
       <div class="overview-item">
         <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
       </div>
-      <ff-wip>
-        <div class="overview-item mock-value">
-          <StepperNonLinear
-            v-if="statusStepperIndex != null"
-            :stepper-data="steps"
-            :current-index="statusStepperIndex"
-          />
-        </div>
-      </ff-wip>
+      <div class="overview-item">
+        <StepperNonLinear
+          v-if="statusStepperIndex != null"
+          :stepper-data="steps"
+          :current-index="statusStepperIndex"
+        />
+      </div>
 
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.id') }}:</h6>
@@ -80,9 +78,9 @@
           <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block>{{
-            $t('getvsion.detail-panel.triggered-events')
-          }}</UiButton>
+          <UiButton variant="primary" block>
+            {{ $t('getvsion.detail-panel.triggered-events') }}
+          </UiButton>
         </div>
       </div>
     </ff-wip>
@@ -124,7 +122,7 @@ export default {
           },
         ],
       },
-      statusStepperIndex: 0,
+      statusStepperIndex: this.content.startDate ? 1 : 0,
     };
   },
   computed: {

@@ -590,6 +590,9 @@ export async function fetchLineServices(simCardInstanceId) {
         name
         code
         editable
+        versionIp
+        ipAdress
+
       }
     }
   }
