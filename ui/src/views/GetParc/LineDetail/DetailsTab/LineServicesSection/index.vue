@@ -56,14 +56,46 @@
           </template>
         </ContentBlock>
 
-        <ff-wip :key="'ffblock3'">
-          <ContentBlock :key="'block3'">
-            <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</template>
-            <template slot="content">
-              <div>contenu ici</div>
-            </template>
-          </ContentBlock>
-        </ff-wip>
+        <ContentBlock :key="'block3'">
+          <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
+          <template slot="content">
+            <div class="row" v-if="canShowTable">
+              <div class="col-md-12">
+                <table class="table table-blue mt-1 small-text">
+                  <thead>
+                    <tr>
+                      <th>
+                        {{ $t('getparc.lineDetail.tabServices.apn') }}
+                      </th>
+                      <th>
+                        {{ $t('getparc.lineDetail.tabServices.ipAdress') }}
+                      </th>
+                      <th>
+                        {{ $t('getparc.lineDetail.tabServices.version') }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="service in apnServices[0]" :key="service.code">
+                      <td>
+                        {{ getValue(service, 'name') }}
+                      </td>
+                      <td>
+                        {{ getValue(service, 'ipAdress') }}
+                      </td>
+                      <td>
+                        {{ getValue(service, 'version') }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div v-else class="alert-light" role="alert">
+              {{ $t('noResult') }}
+            </div>
+          </template>
+        </ContentBlock>
       </transition-group>
     </draggable>
   </div>
@@ -77,7 +109,11 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
-import { getOfferServices, getOptionalServices } from '@/components/Services/utils.js';
+import {
+  getOfferServices,
+  getOptionalServices,
+  getApnServices,
+} from '@/components/Services/utils.js';
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation.js';
 import { formattedCurrentDate } from '@/utils/date';
@@ -102,6 +138,7 @@ export default {
     return {
       services: undefined,
       initialServices: undefined,
+      apnServices: undefined,
       isLoadingServices: true,
       savingChanges: false,
       servicesVersion: 1,
@@ -118,6 +155,7 @@ export default {
     this.initialServices = cloneDeep(offerServices);
     this.optionalServices = getOptionalServices(services);
     this.services = offerServices;
+    this.apnServices = getApnServices(services);
   },
   methods: {
     ...mapMutations(['flashMessage']),
@@ -175,6 +213,18 @@ export default {
     },
     onServiceChange(selectedServices) {
       this.services = [...selectedServices.services, selectedServices.dataService];
+    },
+    getValue(objectToUse, path, defaultValue = '') {
+      if (objectToUse == null || objectToUse == undefined) {
+        return '-';
+      }
+      const value = get(objectToUse, path, defaultValue);
+      return value !== null ? value : '-';
+    },
+  },
+  computed: {
+    canShowTable() {
+      return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
     },
   },
 };

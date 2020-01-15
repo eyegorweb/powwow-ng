@@ -667,7 +667,10 @@
       "tabServices": {
         "optionalServices": "Services optionnels",
         "services": "Services",
-        "ipAdress": "Adresse IP Fixe"
+        "ipAdressFix": "Adresse IP Fixe",
+        "apn": "APN",
+        "ipAdress": "Adresse IP",
+        "version": "Version"
       }
     },
     "actCreation": {
