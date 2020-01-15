@@ -31,7 +31,6 @@ export async function fetchCardTypes(q, partners, { page, limit, partnerType }) 
     }
   `;
   const response = await query(queryStr);
-  console.log('response', response);
   return response.data.simcards.items;
 }
 
