@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.478+20200116143719
+2020-01-16
+
+### Fixes
+
+- Correction du changement de services pour une ligne (42d6d31284acc08fc9e94802fcbffcd48c8aa8ab)
+
 ## 0.3.0-master.477+20200116132517
 2020-01-16
 
