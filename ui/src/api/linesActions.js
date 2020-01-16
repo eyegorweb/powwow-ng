@@ -251,7 +251,7 @@ export function formatFilters(filters) {
   addOrderId(allFilters, filters);
   addOrderRef(allFilters, filters);
   valuesFromMutiselectFilter(allFilters, filters, 'simStatus', 'filters.lines.SIMCardStatus');
-  valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'f');
+  valuesFromMutiselectFilter(allFilters, filters, 'billingStatus', 'filters.lines.billingStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'networkStatus', 'filters.lines.networkStatus');
   valuesFromMutiselectFilter(allFilters, filters, 'simCardName', 'filters.lines.typeSIMCard', true);
   valuesFromMutiselectFilter(
