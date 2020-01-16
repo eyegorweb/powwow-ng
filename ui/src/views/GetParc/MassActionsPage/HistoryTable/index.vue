@@ -10,7 +10,7 @@
             {{ $t('getparc.history.total', { total: formattedTotal }) }}
           </h2>
         </div>
-        <div class="col">
+        <div class="col" v-if="formattedTotal > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
             <span slot="title">
               {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -272,7 +272,8 @@ export default {
             'LOGIN',
           ],
           this.getPageInfo,
-          exportFormat
+          exportFormat,
+          this.appliedFilters
         );
       };
     },

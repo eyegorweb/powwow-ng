@@ -25,14 +25,16 @@ export async function exportMassAction(massActonId, statuses, columns, paginatio
 
   return response.data.exportMassAction;
 }
-export async function exportAllMassActions(columns, pagination, exportFormat) {
+export async function exportAllMassActions(columns, pagination, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `
   query  {
-    exportMassAction(filter: {}, columns: [${columnsParam}] ${paginationInfo}, exportFormat: ${exportFormat}){
+    exportMassAction(filter: {${formatFilters(
+      filters
+    )}}, columns: [${columnsParam}] ${paginationInfo}, exportFormat: ${exportFormat}){
       downloadUri
       total
       asyncRequired

@@ -10,7 +10,7 @@
             {{ $t('ordersFound', { total: formattedTotal }) }}
           </h2>
         </div>
-        <div class="col">
+        <div class="col" v-if="formattedTotal > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
