@@ -69,7 +69,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 2,
+      currentTab: 0,
       tabs: [
         {
           label: 'trigger2Month',
