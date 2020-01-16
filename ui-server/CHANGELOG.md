@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.480+20200116145200
+## 0.3.0-master.480+20200116145414
 2020-01-16
 
 ### Fixes
 
 - ecran détail de l'alarme (775f974e56996a804e26ab62b5cb4c5c4d41da51)
+- **orders:** correction de la mise à jour de la validation de commande (7be68b76102cdc9b3975ad9004ec17909c62807c)
 
 ## 0.3.0-master.479+20200116143842
 2020-01-16
