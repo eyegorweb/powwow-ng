@@ -827,6 +827,8 @@
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
       },
+
+      "changeBillingAccount": "Changer le compte de facturation",
       "changeOffer": {
         "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",

@@ -9,11 +9,15 @@
         [
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
+          'getparc.actCreation.carouselItem.CHANGE_CF',
         ].find(a => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
-      :can-select-billing-account="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
+      :can-select-billing-account="
+        act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+      "
     />
   </div>
 </template>
@@ -78,7 +82,6 @@ export default {
         'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
         'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
         'getparc.actCreation.carouselItem.TRANSFERT_LINES',
-        'getparc.actCreation.carouselItem.CHANGE_CF',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
