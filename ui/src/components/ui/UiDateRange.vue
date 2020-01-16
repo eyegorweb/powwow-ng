@@ -26,6 +26,10 @@ export default {
     end: {
       type: String,
     },
+    direction: {
+      type: String,
+      default: 'down',
+    },
   },
   mounted() {
     let startDate;
@@ -50,6 +54,7 @@ export default {
       {
         startDate,
         endDate,
+        drops: this.direction,
         locale: {
           format: 'DD/MM/YYYY',
           separator: ' - ',
