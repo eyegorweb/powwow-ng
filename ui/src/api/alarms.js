@@ -74,6 +74,19 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
   return response.data.alarmsWithInfo;
 }
 
+export async function searchAlarmById(id) {
+  const orderBy = {};
+  const pagination = { page: 0, limit: 10 };
+  const filters = [{ id: 'filters.alarmId', value: id }];
+  const response = await searchAlarms(orderBy, pagination, filters);
+
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+
+  return;
+}
+
 export async function searchAlarms(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
