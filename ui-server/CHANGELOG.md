@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.482+20200116163517
+2020-01-16
+
+### Fixes
+
+- ajout du context du partenarie pour l'acte de création du changement de compte de facturation (a30421021f12531ab67bd06fec7d313cac26f795)
+
 ## 0.3.0-master.481+20200116153123
 2020-01-16
 
