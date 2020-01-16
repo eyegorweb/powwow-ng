@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.476+20200116132320
+2020-01-16
+
+### Fixes
+
+- mise à jour de l'acte de création Changement de compte de facturation (9d672fb61f870849297dce3adaeb26336e5d9bf7)
+
 ## 0.3.0-master.475+20200115151702
 2020-01-15
 
