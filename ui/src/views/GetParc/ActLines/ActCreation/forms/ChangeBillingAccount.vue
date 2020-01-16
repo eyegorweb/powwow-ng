@@ -58,14 +58,23 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userInfos']),
 
     canChangeDate() {
       if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
-      return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      return this.actCreationPrerequisites.partner.partyType === 'MVNO' || this.isPartnerMVNO;
     },
     canSend() {
       if (this.chosenBillingAccount && this.chosenBillingAccount.id) return true;
       return false;
+    },
+    isPartnerMVNO() {
+      if (!this.userInfos || !this.userInfos.roles) return;
+      const found = this.userInfos.roles.find(r => {
+        return r.name === 'mvno';
+      });
+      console.log('found', !!found);
+      return !!found;
     },
   },
   data() {
