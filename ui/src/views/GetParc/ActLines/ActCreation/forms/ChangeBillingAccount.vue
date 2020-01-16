@@ -23,10 +23,14 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button
+            @click="containerValidationFn"
+            :disabled="!canSend"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+          >
             <span>
-              <i class="ic-Shuffle-Icon"></i>
-              {{ $t('getparc.actCreation.selectOffer.save') }}
+              <i class="ic-Wallet-Icon"></i>
+              {{ $t('getparc.actCreation.changeBillingAccount') }}
             </span>
           </button>
         </div>
@@ -58,6 +62,10 @@ export default {
     canChangeDate() {
       if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
       return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+    },
+    canSend() {
+      if (this.chosenBillingAccount && this.chosenBillingAccount.id) return true;
+      return false;
     },
   },
   data() {
