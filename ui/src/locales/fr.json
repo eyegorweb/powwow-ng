@@ -839,7 +839,7 @@
         "save": "Transférer"
       },
 
-      "changeBillingAccount": "Changer le compte de facturation",
+      "changeBillingAccount": "Changer le compte",
       "changeOffer": {
         "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",
