@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.478+20200116143719
+## 0.3.0-master.479+20200116143842
 2020-01-16
 
 ### Fixes
 
 - Correction du changement de services pour une ligne (42d6d31284acc08fc9e94802fcbffcd48c8aa8ab)
+- mise à jour de l'API du filtre Type de carte sim (b1241b740eaeec9df6fc18ab99a903d0fc2a7130)
 
 ## 0.3.0-master.477+20200116132517
 2020-01-16
