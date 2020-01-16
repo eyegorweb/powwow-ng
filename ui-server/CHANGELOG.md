@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.480+20200116145200
+2020-01-16
+
+### Fixes
+
+- ecran détail de l'alarme (775f974e56996a804e26ab62b5cb4c5c4d41da51)
+
 ## 0.3.0-master.479+20200116143842
 2020-01-16
 
