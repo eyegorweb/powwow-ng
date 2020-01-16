@@ -3,9 +3,9 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tabServices.optionalServices')
-          }}</template>
+          <template slot="title">
+            <span>{{ $t('getparc.lineDetail.tabServices.optionalServices') }}</span>
+          </template>
           <template slot="content">
             <div>
               <ServicesBlock :services="optionalServices" full-width />
@@ -38,6 +38,7 @@
                 <button
                   v-if="!savingChanges"
                   @click="saveChanges"
+                  :disabled="!canSave"
                   class="btn btn-primary float-right"
                 >
                   <i class="ic-Settings-Icon"></i>
@@ -64,36 +65,22 @@
                 <table class="table table-blue mt-1 small-text">
                   <thead>
                     <tr>
-                      <th>
-                        {{ $t('getparc.lineDetail.tabServices.apn') }}
-                      </th>
-                      <th>
-                        {{ $t('getparc.lineDetail.tabServices.ipAdress') }}
-                      </th>
-                      <th>
-                        {{ $t('getparc.lineDetail.tabServices.version') }}
-                      </th>
+                      <th>{{ $t('getparc.lineDetail.tabServices.apn') }}</th>
+                      <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                      <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="service in apnServices[0]" :key="service.code">
-                      <td>
-                        {{ getValue(service, 'name') }}
-                      </td>
-                      <td>
-                        {{ getValue(service, 'ipAdress') }}
-                      </td>
-                      <td>
-                        {{ getValue(service, 'version') }}
-                      </td>
+                      <td>{{ getValue(service, 'name') }}</td>
+                      <td>{{ getValue(service, 'ipAdress') }}</td>
+                      <td>{{ getValue(service, 'version') }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div v-else class="alert-light" role="alert">
-              {{ $t('noResult') }}
-            </div>
+            <div v-else class="alert-light" role="alert">{{ $t('noResult') }}</div>
           </template>
         </ContentBlock>
       </transition-group>
@@ -161,19 +148,9 @@ export default {
     ...mapMutations(['flashMessage']),
 
     async saveChanges() {
-      const changedServices = this.services.filter(s => {
-        const originalService = this.initialServices.find(os => os.code === s.code);
-        return originalService.checked !== s.checked;
-      });
-      const servicesToEnable = changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => s.checked);
-      const servicesToDisable = changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => !s.checked);
       const partyId = this.content.party.id;
-      const dataService = changedServices.find(s => s.code === 'DATA');
       const offerCode = get(this.content, 'accessPoint.offer.marketingOffer.code');
+      const { servicesToEnable, servicesToDisable, dataService } = this.changes;
 
       try {
         this.isDataParamsError =
@@ -225,6 +202,40 @@ export default {
   computed: {
     canShowTable() {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
+    },
+    changes() {
+      if (!this.services) {
+        return {
+          servicesToEnable: undefined,
+          servicesToDisable: undefined,
+          dataService: undefined,
+        };
+      }
+      const changedServices = this.services.filter(s => {
+        const originalService = this.initialServices.find(os => os.code === s.code);
+        return originalService.checked !== s.checked;
+      });
+
+      const servicesToEnable = changedServices
+        .filter(s => s.code !== 'DATA')
+        .filter(s => s.checked);
+      const servicesToDisable = changedServices
+        .filter(s => s.code !== 'DATA')
+        .filter(s => !s.checked);
+
+      const dataService = changedServices.find(s => s.code === 'DATA');
+
+      return { servicesToEnable, servicesToDisable, dataService };
+    },
+
+    canSave() {
+      const { servicesToEnable, servicesToDisable, dataService } = this.changes;
+
+      return !!(
+        (servicesToEnable && servicesToEnable.length) ||
+        (servicesToDisable && servicesToDisable.length) ||
+        dataService
+      );
     },
   },
 };
