@@ -19,7 +19,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           :storage-id="storageId"
-          storage-version="002"
+          storage-version="003"
           :columns="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -350,7 +350,6 @@ export default {
           label: this.$t('col.massActionIds'),
           name: 'massActionIds',
           visible: false,
-          exportId: 'ORDER_MASSACTIONIDS',
           format: {
             component: GetSimOrdersMassActionIdsColumn,
           },
