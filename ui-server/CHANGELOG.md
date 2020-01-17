@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.484+20200117145142
+2020-01-17
+
+### Fixes
+
+- configuration du changement de date lors du changement de compte de facturation (b1939756a347b1fa4f683db8d5dbdc296ff64608)
+
 ## 0.3.0-master.483+20200117083946
 2020-01-17
 
