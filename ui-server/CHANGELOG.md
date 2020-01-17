@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.485+20200117152749
+2020-01-17
+
+### Fixes
+
+- mise à jour de l'api pour filtrer les types de carte sim (e3b991ca171b14628919d3b7de1c8c7e8d09d899)
+
 ## 0.3.0-master.484+20200117145142
 2020-01-17
 
