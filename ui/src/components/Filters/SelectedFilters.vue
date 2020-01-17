@@ -18,7 +18,7 @@
     </div>
     <div class="actions d-flex flex-column flex-md-row">
       <ff-wip>
-        <UiDropdownButton>
+        <UiDropdownButton v-if="canSave">
           <UiButton
             slot="trigger"
             slot-scope="{ staticClass, toggle }"
@@ -49,7 +49,6 @@
           </div>
         </UiDropdownButton>
       </ff-wip>
-
       <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1"
         >Appliquer le filtre</UiButton
       >
@@ -74,6 +73,8 @@ export default {
       type: Array,
       required: false,
     },
+
+    canSave: Boolean,
   },
 
   data() {

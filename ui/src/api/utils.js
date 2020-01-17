@@ -181,7 +181,9 @@ export function formatServicesForGQL(servicesChoice) {
   let gqlServicesParamGql = '';
   if (dataServiceChoice) {
     if (dataServiceChoice.checked) {
-      const paramsArr = dataServiceChoice.parameters.map(p => `"${p.code}"`);
+      const paramsArr = dataServiceChoice.parameters
+        .filter(p => p.selected)
+        .map(p => `"${p.code}"`);
       serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
     }
   }

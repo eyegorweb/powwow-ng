@@ -12,7 +12,7 @@
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
-import { mapState, mapMutations } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -47,7 +47,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations('actLines', ['stopLoading']),
     async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
       partnerParam = partnerParam.filter(p => p.label !== '');

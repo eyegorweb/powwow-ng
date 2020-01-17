@@ -242,6 +242,17 @@
       "ALARMS_OFFER": "Portée de l'alame",
       "ALARM_TYPE": "Type d'alarme",
       "DATE_TRIGGER": "Date de déclenchement"
+    },
+
+    "alarm": {
+      "triggered_x_month": "Déclenchements dans {month} derniers mois",
+      "triggered_lines": "Lignes ciblées par l'alarme",
+      "excluded_sim_from_alarms": "Cartes sim exclues de l'alarme",
+      "trigger_reason": "Motifs de déclenchement",
+      "trigger_date": "Date de dernier déclenchement",
+      "disable_alarm_lines": "Désactiver l'alarme des lignes",
+      "react_alarm_lines": "Réactiver l'alarme des lignes",
+      "alarm_availability": "Présence de l'alarme"
     }
   },
   "getparc": {
@@ -827,6 +838,8 @@
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
       },
+
+      "changeBillingAccount": "Changer le compte",
       "changeOffer": {
         "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",

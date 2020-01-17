@@ -2,6 +2,54 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.483+20200117083946
+2020-01-17
+
+### Fixes
+
+- Ne pas demander la colonne id de gestion durant l'export de commandes (aca4d13b517799dd98ecc84734a316a75bc7a5db)
+
+## 0.3.0-master.482+20200116163517
+2020-01-16
+
+### Fixes
+
+- ajout du context du partenarie pour l'acte de création du changement de compte de facturation (a30421021f12531ab67bd06fec7d313cac26f795)
+
+## 0.3.0-master.481+20200116153123
+2020-01-16
+
+## 0.3.0-master.480+20200116145414
+2020-01-16
+
+### Fixes
+
+- ecran détail de l'alarme (775f974e56996a804e26ab62b5cb4c5c4d41da51)
+- **orders:** correction de la mise à jour de la validation de commande (7be68b76102cdc9b3975ad9004ec17909c62807c)
+
+## 0.3.0-master.479+20200116143842
+2020-01-16
+
+### Fixes
+
+- Correction du changement de services pour une ligne (42d6d31284acc08fc9e94802fcbffcd48c8aa8ab)
+- mise à jour de l'API du filtre Type de carte sim (b1241b740eaeec9df6fc18ab99a903d0fc2a7130)
+
+## 0.3.0-master.477+20200116132517
+2020-01-16
+
+### Fixes
+
+- mise à jour de l'acte de création Changement de compte de facturation (9d672fb61f870849297dce3adaeb26336e5d9bf7)
+- activation des filtres appliqués lors de l'export des actes de gestion (fc6f60135d2c958715a6a82ab8ffc76dee4a99fd)
+
+## 0.3.0-master.475+20200115151702
+2020-01-15
+
+### Fixes
+
+- Envoyer les bons APNS lors de la création de commande (870ce6366364121852d749db4dd72169a4408812)
+
 ## 0.3.0-master.474+20200115130007
 2020-01-15
 
