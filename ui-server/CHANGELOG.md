@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.483+20200117083946
+2020-01-17
+
+### Fixes
+
+- Ne pas demander la colonne id de gestion durant l'export de commandes (aca4d13b517799dd98ecc84734a316a75bc7a5db)
+
 ## 0.3.0-master.482+20200116163517
 2020-01-16
 
