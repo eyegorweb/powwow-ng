@@ -58,11 +58,17 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
 
     canChangeDate() {
-      if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
-      return this.actCreationPrerequisites.partner.partyType === 'MVNO' || this.isPartnerMVNO;
+      if (this.userIsBo) {
+        if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
+        return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      } else if (this.userIsPartner) {
+        return this.isPartnerMVNO;
+      } else {
+        return true;
+      }
     },
     canSend() {
       if (this.chosenBillingAccount && this.chosenBillingAccount.id) return true;
@@ -71,9 +77,8 @@ export default {
     isPartnerMVNO() {
       if (!this.userInfos || !this.userInfos.roles) return;
       const found = this.userInfos.roles.find(r => {
-        return r.name === 'mvno';
+        return r.description === 'MVNO';
       });
-      console.log('found', !!found);
       return !!found;
     },
   },
