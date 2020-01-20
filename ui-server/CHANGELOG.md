@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.491+20200120143454
+2020-01-20
+
+### Fixes
+
+- formatte type filter ids (ea53d5f60f9274f13bee9630f51e962deb22d9bc)
+
 ## 0.3.0-master.490+20200120134012
 2020-01-20
 
