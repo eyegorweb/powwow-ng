@@ -159,8 +159,6 @@ export default {
         servicesToEnable,
         servicesToDisable,
         // dataService,
-        dataChanged,
-        dataParams,
       } = this.changes;
 
       try {
@@ -216,7 +214,7 @@ export default {
         this.dataCheck = selectedServices.dataService.checked;
       } else {
         this.lastDataParams = undefined;
-        this.dataCheck = undefined;
+        this.dataCheck = false;
       }
 
       this.services = [...selectedServices.services, selectedServices.dataService];
@@ -277,7 +275,7 @@ export default {
       return {
         servicesToEnable,
         servicesToDisable,
-        dataChanged: this.dataCheck !== this.initDataCheck,
+        dataChanged: this.dataCheck != this.initDataCheck,
         dataParams,
       };
     },
