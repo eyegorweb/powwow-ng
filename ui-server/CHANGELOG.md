@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.490+20200120134012
+2020-01-20
+
+### Fixes
+
+- Correction du changement de services (6657f22069ac1b17e7b6494cb6b64a29f052b431)
+
 ## 0.3.0-master.489+20200120131951
 2020-01-20
 
