@@ -18,15 +18,25 @@ export default {
   props: {
     selectedTypeSimCardValues: Array,
     selectedPartnersValues: Array,
+    formatFn: {
+      type: Function,
+      required: false,
+    },
   },
   methods: {
     async fetchApi(q, partners, partnerType, { page, limit }) {
       const data = await fetchCardTypes(q, partners, { page, limit, partnerType });
       if (data) {
-        return data.map(c => ({
-          id: c.simCard.id,
-          label: c.simCard.description,
-        }));
+        return data.map(c => {
+          if (this.formatFn) {
+            return this.formatFn(c);
+          } else {
+            return {
+              id: c.simCard.code,
+              label: c.simCard.description,
+            };
+          }
+        });
       }
     },
   },

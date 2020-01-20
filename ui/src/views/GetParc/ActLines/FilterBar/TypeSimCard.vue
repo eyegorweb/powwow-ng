@@ -2,6 +2,7 @@
   <SimCardTypeFilter
     :selected-type-sim-card-values="selectedTypeSimCardValues"
     :selected-partners-values="selectedPartnersValues"
+    :format-fn="formatItem"
     @setTypeSimCardFilter="setTypeSimCardFilter"
   />
 </template>
@@ -17,6 +18,12 @@ export default {
 
   methods: {
     ...mapMutations('actLines', ['setTypeSimCardFilter']),
+    formatItem(item) {
+      return {
+        id: item.simCard.description,
+        label: item.simCard.description,
+      };
+    },
   },
   computed: {
     ...mapGetters('actLines', ['selectedTypeSimCardValues', 'selectedPartnersValues']),
