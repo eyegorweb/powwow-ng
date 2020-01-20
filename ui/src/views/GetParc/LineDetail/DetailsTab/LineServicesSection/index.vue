@@ -132,6 +132,11 @@ export default {
       isDataParamsError: false,
 
       optionalServices: undefined,
+
+      initialDataParams: undefined,
+      lastDataParams: undefined,
+      initDataCheck: false,
+      dataCheck: false,
     };
   },
   async mounted() {
@@ -150,17 +155,28 @@ export default {
     async saveChanges() {
       const partyId = this.content.party.id;
       const offerCode = get(this.content, 'accessPoint.offer.marketingOffer.code');
-      const { servicesToEnable, servicesToDisable, dataService } = this.changes;
+      const {
+        servicesToEnable,
+        servicesToDisable,
+        // dataService,
+        dataChanged,
+        dataParams,
+      } = this.changes;
 
       try {
         this.isDataParamsError =
-          dataService &&
-          dataService.parameters &&
-          dataService.parameters.filter(p => p.selected).length === 0;
+          this.dataCheck &&
+          this.lastDataParams &&
+          this.lastDataParams.filter(p => p.selected).length === 0;
 
         if (this.isDataParamsError) return;
 
         this.savingChanges = true;
+        const dataService = {
+          checked: this.dataCheck,
+          parameters: this.lastDataParams,
+          code: 'DATA',
+        };
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(),
@@ -171,8 +187,9 @@ export default {
           dataService,
           offerCode,
         });
+
         this.savingChanges = false;
-        if (response.errors && response.errors.length) {
+        if (response && response.errors && response.errors.length) {
           response.errors.forEach(e => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
@@ -189,6 +206,19 @@ export default {
       this.servicesVersion += 1;
     },
     onServiceChange(selectedServices) {
+      if (!this.initialDataParams && selectedServices.dataService) {
+        this.initialDataParams = cloneDeep(selectedServices.dataService.parameters);
+        this.initDataCheck = selectedServices.dataService.checked;
+      }
+
+      if (selectedServices.dataService && selectedServices.dataService.checked) {
+        this.lastDataParams = cloneDeep(selectedServices.dataService.parameters);
+        this.dataCheck = selectedServices.dataService.checked;
+      } else {
+        this.lastDataParams = undefined;
+        this.dataCheck = undefined;
+      }
+
       this.services = [...selectedServices.services, selectedServices.dataService];
     },
     getValue(objectToUse, path, defaultValue = '') {
@@ -223,18 +253,43 @@ export default {
         .filter(s => s.code !== 'DATA')
         .filter(s => !s.checked);
 
-      const dataService = changedServices.find(s => s.code === 'DATA');
+      const changedParameters = this.lastDataParams;
+      let arrayIsNotIdentical = false;
 
-      return { servicesToEnable, servicesToDisable, dataService };
+      if (this.initialDataParams && changedParameters) {
+        for (let i = 0, max = this.initialDataParams.length; i < max; i++) {
+          const current = this.initialDataParams[i];
+          const correspondingInChanges = changedParameters.find(s => s.code === current.code);
+
+          if (correspondingInChanges && current.selected !== correspondingInChanges.selected) {
+            arrayIsNotIdentical = true;
+            break;
+          }
+        }
+      }
+
+      let dataParams = undefined;
+
+      if (arrayIsNotIdentical) {
+        dataParams = this.lastDataParams;
+      }
+
+      return {
+        servicesToEnable,
+        servicesToDisable,
+        dataChanged: this.dataCheck !== this.initDataCheck,
+        dataParams,
+      };
     },
 
     canSave() {
-      const { servicesToEnable, servicesToDisable, dataService } = this.changes;
+      const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
 
       return !!(
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
-        dataService
+        (dataParams && dataParams.length) ||
+        dataChanged
       );
     },
   },
