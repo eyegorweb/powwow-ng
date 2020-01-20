@@ -12,9 +12,9 @@
         </div>
         <div class="col" v-if="hasResults">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
-            </span>
+            <span slot="title">{{
+              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
+            }}</span>
           </ExportButton>
         </div>
       </div>

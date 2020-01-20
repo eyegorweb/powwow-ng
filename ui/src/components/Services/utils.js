@@ -34,3 +34,24 @@ function formatServices(s) {
   }
   return service;
 }
+
+export function getApnServices(services) {
+  return services
+    .filter(s => {
+      // caution: s.parameters can return null or [null]
+      return !!s && !!s.parameters && !!s.parameters.length && !!s.parameters[0];
+    })
+    .map(p => {
+      const parameters = p.parameters
+        .filter(p => !!p.ipAdress)
+        .map(p => {
+          return {
+            code: p.code,
+            name: p.name,
+            version: p.versionIp,
+            ipAdress: p.ipAdress,
+          };
+        });
+      return parameters;
+    });
+}

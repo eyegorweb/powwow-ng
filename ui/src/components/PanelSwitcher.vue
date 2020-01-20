@@ -43,7 +43,7 @@ import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
 import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
 import CustomizePanel from '@/views/Home/CustomizePanel';
 import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
-import TheAlarmDetailPanel from '@/views/GetVision/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
+import TheAlarmDetailPanel from '@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
 
 export default {
   components: {

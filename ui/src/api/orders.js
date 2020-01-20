@@ -254,7 +254,7 @@ function formatFilters(filters) {
   addCountries(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addCreatorFilter(allFilters, filters);
-  valuesFromMutiselectFilter(allFilters, filters, 'simcardDesc', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(allFilters, filters, 'simcardCode', 'filters.lines.typeSIMCard', true);
 
   return allFilters.join(',');
 }

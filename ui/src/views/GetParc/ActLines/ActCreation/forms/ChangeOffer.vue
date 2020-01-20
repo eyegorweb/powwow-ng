@@ -3,6 +3,7 @@
     :validate-fn="doRequest"
     success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
+    :prevent-send="!canSend"
   >
     <template>
       <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
@@ -65,10 +66,13 @@ export default {
     currentOffer() {
       return this.actCreationPrerequisites.offer.data.id;
     },
+    canSend() {
+      if (this.selectedOffer && this.selectedOffer.id) return true;
+      return false;
+    },
   },
   data() {
     return {
-      offers: [],
       selectedOffer: undefined,
       actDate: null,
       errors: {},

@@ -6,7 +6,8 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 import Home from '@/views/Home';
 import Examples from '@/views/Examples';
 import GetSim from '@/views/GetSim';
-import GetVision from '@/views/GetVision';
+import Alarms from '@/views/GetVision/alarms';
+import AlarmDetail from '@/views/GetVision/alarmDetail';
 import MassActionsPage from '@/views/GetParc/MassActionsPage';
 import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
@@ -66,9 +67,15 @@ export default new Router({
       component: GetParcManagementActLines,
     },
     {
-      path: '/get-vision',
-      name: 'getVision',
-      component: GetVision,
+      path: '/alarms',
+      name: 'alarms',
+      component: Alarms,
+    },
+    {
+      path: '/alarm/:alarmId',
+      name: 'alarmDetail',
+      component: AlarmDetail,
+      mock: true,
     },
     {
       path: '/exemples',

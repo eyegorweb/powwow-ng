@@ -27,8 +27,17 @@
       </div>
     </div>
     <div v-else>
-      <div class="d-flex justify-content-center">
-        <div class="w-50">
+      <div class="row">
+        <div v-if="canSelectBillingAccount" class="col">
+          <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
+          <BillingAccountsPart
+            :key="`billingAccount_${selectedPartner ? selectedPartner.label : ''}`"
+            :partner="selectedPartner"
+            :offer.sync="selectedOffer"
+            @set:billingAccount="setBillingAccount"
+          />
+        </div>
+        <div class="col">
           <h5>{{ $t('col.offer') }}</h5>
           <OffersPart
             :partner="selectedPartner"

@@ -5,8 +5,12 @@
     </div>
     <div v-if="apns && apns.length" class="line">
       <span class="mt-4 mb-4">Apn:</span>
-
-      <MultiChoiceList :items="apns" @change="toggleApn" :empty-error-message="needToChekForApn" />
+      <MultiChoiceList
+        :items="apns"
+        @change="toggleApn"
+        :empty-error-message="needToChekForApn"
+        :disabled="!checked"
+      />
     </div>
   </div>
   <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
@@ -21,6 +25,7 @@
             :empty-error-message="needToChekForApn"
             :items="apns"
             @change="toggleApn"
+            :disabled="!checked"
           />
         </div>
       </div>

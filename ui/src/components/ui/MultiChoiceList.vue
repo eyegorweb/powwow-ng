@@ -7,7 +7,11 @@
             class="item"
             :key="item.label"
             v-for="item in items"
-            :class="{ selected: item.selected, 'not-selectable': !item.selectable }"
+            :class="{
+              selected: item.selected,
+              'not-selectable': disabled || !item.selectable,
+              disabled: disabled,
+            }"
             @click="() => selectItem(item)"
           >
             <div>
@@ -29,6 +33,7 @@ export default {
       type: Array,
     },
     emptyErrorMessage: Boolean,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -37,6 +42,8 @@ export default {
   },
   methods: {
     selectItem(item) {
+      if (this.disabled) return;
+
       if (item.selectable) {
         this.$emit('change', { ...item, selected: !item.selected });
       }
@@ -51,6 +58,10 @@ export default {
 }
 li.not-selectable {
   cursor: not-allowed !important;
+}
+
+li.disabled {
+  color: $gray-400 !important;
 }
 .card-body {
   overflow-y: auto;

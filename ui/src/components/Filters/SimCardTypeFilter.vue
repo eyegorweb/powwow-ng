@@ -1,39 +1,43 @@
 <template>
-  <MultiSelectSearch
-    :items="items"
-    :default-selected-items="selectedTypeSimCardValues"
-    @update:defaultSelectedItems="setFilterValues"
+  <AutoCompleteByPartnerContext
+    :values="selectedTypeSimCardValues"
+    :selected-partners-values="selectedPartnersValues"
+    :fetch-api="fetchApi"
+    @update:values="values => $emit('setTypeSimCardFilter', values)"
   />
 </template>
 
 <script>
-import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import AutoCompleteByPartnerContext from '@/components/AutoCompleteByPartnerContext';
 import { fetchCardTypes } from '@/api/linesActions';
 
 export default {
   components: {
-    MultiSelectSearch,
-  },
-  data() {
-    return {
-      items: [],
-    };
+    AutoCompleteByPartnerContext,
   },
   props: {
     selectedTypeSimCardValues: Array,
-  },
-  async mounted() {
-    const data = await fetchCardTypes();
-    this.items = data.map(l => {
-      return {
-        id: l,
-        label: l,
-      };
-    });
+    selectedPartnersValues: Array,
+    formatFn: {
+      type: Function,
+      required: false,
+    },
   },
   methods: {
-    setFilterValues(values) {
-      this.$emit('setTypeSimCardFilter', values);
+    async fetchApi(q, partners, partnerType, { page, limit }) {
+      const data = await fetchCardTypes(q, partners, { page, limit, partnerType });
+      if (data) {
+        return data.map(c => {
+          if (this.formatFn) {
+            return this.formatFn(c);
+          } else {
+            return {
+              id: c.simCard.code,
+              label: c.simCard.description,
+            };
+          }
+        });
+      }
     },
   },
 };

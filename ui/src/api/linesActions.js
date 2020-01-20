@@ -1,13 +1,38 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchCardTypes() {
-  const queryStr = `
-  query {
-    getTypeSimcards
+export async function fetchCardTypes(q, partners, { page, limit, partnerType }) {
+  let partnersIds,
+    partnerGqlParam = '';
+
+  if (partners && partners.length > 0) {
+    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
+
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
+  }
+  const queryStr = `
+    query {
+      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+        total
+        items {
+          simCard {
+            label
+            id
+            name
+            code
+            type
+            number
+            description
+          }
+        }
+      }
+    }
   `;
   const response = await query(queryStr);
-  return response.data.getTypeSimcards;
+  return response.data.simcards.items;
 }
 
 export async function fetchCommercialStatuses() {
@@ -565,6 +590,9 @@ export async function fetchLineServices(simCardInstanceId) {
         name
         code
         editable
+        versionIp
+        ipAdress
+
       }
     }
   }

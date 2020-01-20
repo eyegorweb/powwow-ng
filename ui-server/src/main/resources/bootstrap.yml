@@ -8,7 +8,10 @@ spring:
       label: 'master'
       discovery:
         enabled: true
-        serviceId: configserver
+        serviceId: config
+    kubernetes:
+      enabled: false
+
 eureka:
   instance:
     preferIpAddress: true  # Best with true in a docker env

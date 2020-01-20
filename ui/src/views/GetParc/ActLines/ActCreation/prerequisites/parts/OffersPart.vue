@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { fetchOffers } from '@/api/offers';
 import { mapState } from 'vuex';
@@ -31,6 +30,12 @@ export default {
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    ...mapState('actLines', ['actCreationPrerequisites']),
+    prerequisiteOffer() {
+      return this.actCreationPrerequisites && this.actCreationPrerequisites.offer
+        ? this.actCreationPrerequisites.offer.data
+        : '';
+    },
     selectedOffer: {
       get() {
         return this.offer;
@@ -53,12 +58,14 @@ export default {
           partnerType: this.contextPartnersType,
         });
         if (data) {
-          return data.map(o => ({
-            id: o.code,
-            label: o.workflowDescription,
-            data: o,
-            productCode: o.initialOffer.code,
-          }));
+          return data
+            .filter(o => o.code !== this.prerequisiteOffer.code)
+            .map(o => ({
+              id: o.code,
+              label: o.workflowDescription,
+              data: o,
+              productCode: o.initialOffer.code,
+            }));
         }
       }
     },

@@ -36,6 +36,9 @@
             @searchById="searchById"
           />
         </template>
+        <template slot="actions" slot-scope="{ row }">
+          <AlarmsActions :alarm="row" />
+        </template>
       </DataTable>
     </template>
     <template v-else>
@@ -59,6 +62,7 @@ import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
 import AlarmIdCell from './AlarmIdCell.vue';
 import SearchAlarmById from './SearchAlarmById.vue';
+import AlarmsActions from './AlarmsActions.vue';
 
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
@@ -70,6 +74,7 @@ export default {
     DataTable,
     UiButton,
     SearchAlarmById,
+    AlarmsActions,
   },
   data() {
     return {

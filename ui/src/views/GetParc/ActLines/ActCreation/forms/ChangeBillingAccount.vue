@@ -23,10 +23,14 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button
+            @click="containerValidationFn"
+            :disabled="!canSend"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+          >
             <span>
-              <i class="ic-Shuffle-Icon"></i>
-              {{ $t('getparc.actCreation.selectOffer.save') }}
+              <i class="ic-Wallet-Icon"></i>
+              {{ $t('getparc.actCreation.changeBillingAccount') }}
             </span>
           </button>
         </div>
@@ -54,10 +58,28 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
 
     canChangeDate() {
-      if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
-      return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      if (this.userIsBo) {
+        if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
+        return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      } else if (this.userIsPartner) {
+        return this.isPartnerMVNO;
+      } else {
+        return true;
+      }
+    },
+    canSend() {
+      if (this.chosenBillingAccount && this.chosenBillingAccount.id) return true;
+      return false;
+    },
+    isPartnerMVNO() {
+      if (!this.userInfos || !this.userInfos.roles) return;
+      const found = this.userInfos.roles.find(r => {
+        return r.description === 'MVNO';
+      });
+      return !!found;
     },
   },
   data() {

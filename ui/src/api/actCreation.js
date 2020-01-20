@@ -434,8 +434,7 @@ export async function changeService(filters, lines, params) {
           notification: ${boolStr(notifEmail)},
           dueDate: "${formatDateForGql(dueDate)}",
           marketingOfferCode: "${offerCode}"
-          ${gqlTempDataUuid}
-          ${changeServicesParamsGql}
+          ${gqlTempDataUuid}${changeServicesParamsGql}
         })
         {
           tempDataUuid

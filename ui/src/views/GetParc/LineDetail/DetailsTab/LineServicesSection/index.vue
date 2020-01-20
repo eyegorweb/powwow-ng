@@ -3,9 +3,9 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tabServices.optionalServices')
-          }}</template>
+          <template slot="title">
+            <span>{{ $t('getparc.lineDetail.tabServices.optionalServices') }}</span>
+          </template>
           <template slot="content">
             <div>
               <ServicesBlock :services="optionalServices" full-width />
@@ -38,6 +38,7 @@
                 <button
                   v-if="!savingChanges"
                   @click="saveChanges"
+                  :disabled="!canSave"
                   class="btn btn-primary float-right"
                 >
                   <i class="ic-Settings-Icon"></i>
@@ -56,14 +57,32 @@
           </template>
         </ContentBlock>
 
-        <ff-wip :key="'ffblock3'">
-          <ContentBlock :key="'block3'">
-            <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</template>
-            <template slot="content">
-              <div>contenu ici</div>
-            </template>
-          </ContentBlock>
-        </ff-wip>
+        <ContentBlock :key="'block3'">
+          <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
+          <template slot="content">
+            <div class="row" v-if="canShowTable">
+              <div class="col-md-12">
+                <table class="table table-blue mt-1 small-text">
+                  <thead>
+                    <tr>
+                      <th>{{ $t('getparc.lineDetail.tabServices.apn') }}</th>
+                      <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                      <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="service in apnServices[0]" :key="service.code">
+                      <td>{{ getValue(service, 'name') }}</td>
+                      <td>{{ getValue(service, 'ipAdress') }}</td>
+                      <td>{{ getValue(service, 'version') }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div v-else class="alert-light" role="alert">{{ $t('noResult') }}</div>
+          </template>
+        </ContentBlock>
       </transition-group>
     </draggable>
   </div>
@@ -77,7 +96,11 @@ import CircleLoader from '@/components/ui/CircleLoader';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
-import { getOfferServices, getOptionalServices } from '@/components/Services/utils.js';
+import {
+  getOfferServices,
+  getOptionalServices,
+  getApnServices,
+} from '@/components/Services/utils.js';
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation.js';
 import { formattedCurrentDate } from '@/utils/date';
@@ -102,12 +125,18 @@ export default {
     return {
       services: undefined,
       initialServices: undefined,
+      apnServices: undefined,
       isLoadingServices: true,
       savingChanges: false,
       servicesVersion: 1,
       isDataParamsError: false,
 
       optionalServices: undefined,
+
+      initialDataParams: undefined,
+      lastDataParams: undefined,
+      initDataCheck: false,
+      dataCheck: false,
     };
   },
   async mounted() {
@@ -118,34 +147,40 @@ export default {
     this.initialServices = cloneDeep(offerServices);
     this.optionalServices = getOptionalServices(services);
     this.services = offerServices;
+    this.apnServices = getApnServices(services);
   },
   methods: {
     ...mapMutations(['flashMessage']),
 
     async saveChanges() {
-      const changedServices = this.services.filter(s => {
-        const originalService = this.initialServices.find(os => os.code === s.code);
-        return originalService.checked !== s.checked;
-      });
-      const servicesToEnable = changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => s.checked);
-      const servicesToDisable = changedServices
-        .filter(s => s.code !== 'DATA')
-        .filter(s => !s.checked);
       const partyId = this.content.party.id;
-      const dataService = changedServices.find(s => s.code === 'DATA');
       const offerCode = get(this.content, 'accessPoint.offer.marketingOffer.code');
+      const {
+        servicesToEnable,
+        servicesToDisable,
+        // dataService,
+        dataChanged,
+        dataParams,
+      } = this.changes;
 
       try {
         this.isDataParamsError =
-          dataService &&
-          dataService.parameters &&
-          dataService.parameters.filter(p => p.selected).length === 0;
+          this.dataCheck &&
+          this.lastDataParams &&
+          this.lastDataParams.filter(p => p.selected).length === 0;
 
         if (this.isDataParamsError) return;
 
+        const canSaveData = dataChanged || (dataParams && dataParams.length);
+
         this.savingChanges = true;
+        const dataService = canSaveData
+          ? {
+              checked: this.dataCheck,
+              parameters: this.lastDataParams,
+              code: 'DATA',
+            }
+          : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(),
@@ -156,8 +191,9 @@ export default {
           dataService,
           offerCode,
         });
+
         this.savingChanges = false;
-        if (response.errors && response.errors.length) {
+        if (response && response.errors && response.errors.length) {
           response.errors.forEach(e => {
             this.flashMessage({ level: 'danger', message: e.message });
           });
@@ -174,7 +210,91 @@ export default {
       this.servicesVersion += 1;
     },
     onServiceChange(selectedServices) {
+      if (!this.initialDataParams && selectedServices.dataService) {
+        this.initialDataParams = cloneDeep(selectedServices.dataService.parameters);
+        this.initDataCheck = selectedServices.dataService.checked;
+      }
+
+      if (selectedServices.dataService && selectedServices.dataService.checked) {
+        this.lastDataParams = cloneDeep(selectedServices.dataService.parameters);
+        this.dataCheck = selectedServices.dataService.checked;
+      } else {
+        this.lastDataParams = undefined;
+        this.dataCheck = false;
+      }
+
       this.services = [...selectedServices.services, selectedServices.dataService];
+    },
+    getValue(objectToUse, path, defaultValue = '') {
+      if (objectToUse == null || objectToUse == undefined) {
+        return '-';
+      }
+      const value = get(objectToUse, path, defaultValue);
+      return value !== null ? value : '-';
+    },
+  },
+  computed: {
+    canShowTable() {
+      return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
+    },
+    changes() {
+      if (!this.services) {
+        return {
+          servicesToEnable: undefined,
+          servicesToDisable: undefined,
+          dataService: undefined,
+        };
+      }
+      const changedServices = this.services.filter(s => {
+        const originalService = this.initialServices.find(os => os.code === s.code);
+        return originalService.checked !== s.checked;
+      });
+
+      const servicesToEnable = changedServices
+        .filter(s => s.code !== 'DATA')
+        .filter(s => s.checked);
+      const servicesToDisable = changedServices
+        .filter(s => s.code !== 'DATA')
+        .filter(s => !s.checked);
+
+      const changedParameters = this.lastDataParams;
+      let arrayIsNotIdentical = false;
+
+      if (this.initialDataParams && changedParameters) {
+        for (let i = 0, max = this.initialDataParams.length; i < max; i++) {
+          const current = this.initialDataParams[i];
+          const correspondingInChanges = changedParameters.find(s => s.code === current.code);
+
+          if (correspondingInChanges && current.selected !== correspondingInChanges.selected) {
+            arrayIsNotIdentical = true;
+            break;
+          }
+        }
+      }
+
+      let dataParams = undefined;
+
+      if (arrayIsNotIdentical) {
+        dataParams = this.lastDataParams;
+      }
+
+      return {
+        servicesToEnable,
+        servicesToDisable,
+        dataChanged: this.dataCheck != this.initDataCheck,
+        dataParams,
+      };
+    },
+
+    canSave() {
+      const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
+
+      return !!(
+        (servicesToEnable && servicesToEnable.length) ||
+        (servicesToDisable && servicesToDisable.length) ||
+        (dataParams && dataParams.length) ||
+        dataChanged
+      );
     },
   },
 };
