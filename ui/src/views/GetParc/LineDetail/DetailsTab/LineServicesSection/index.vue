@@ -159,6 +159,8 @@ export default {
         servicesToEnable,
         servicesToDisable,
         // dataService,
+        dataChanged,
+        dataParams,
       } = this.changes;
 
       try {
@@ -169,12 +171,16 @@ export default {
 
         if (this.isDataParamsError) return;
 
+        const canSaveData = dataChanged || (dataParams && dataParams.length);
+
         this.savingChanges = true;
-        const dataService = {
-          checked: this.dataCheck,
-          parameters: this.lastDataParams,
-          code: 'DATA',
-        };
+        const dataService = canSaveData
+          ? {
+              checked: this.dataCheck,
+              parameters: this.lastDataParams,
+              code: 'DATA',
+            }
+          : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
           dueDate: formattedCurrentDate(),
