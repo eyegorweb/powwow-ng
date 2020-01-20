@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.489+20200120131951
+2020-01-20
+
+### Fixes
+
+- mise à jour de l'api de mutation du changement de services et du filtre de type de cartes sim (f3c3cb50c8da97d06e9e7a2398dbf46f9b84f94c)
+
 ## 0.3.0-master.488+20200120111802
 2020-01-20
 
