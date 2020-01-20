@@ -25,7 +25,7 @@ export default {
       if (data) {
         return data.map(c => ({
           id: c.simCard.id,
-          label: c.simCard.label,
+          label: c.simCard.description,
         }));
       }
     },

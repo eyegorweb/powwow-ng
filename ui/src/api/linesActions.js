@@ -15,7 +15,7 @@ export async function fetchCardTypes(q, partners, { page, limit, partnerType }) 
   }
   const queryStr = `
     query {
-      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { label: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
         total
         items {
           simCard {
@@ -25,6 +25,7 @@ export async function fetchCardTypes(q, partners, { page, limit, partnerType }) 
             code
             type
             number
+            description
           }
         }
       }

@@ -118,7 +118,7 @@ export default {
         servicesToEnable: this.servicesToEnable,
         servicesToDisable: this.servicesToDisable,
         dataService: this.shouldChangeData ? this.dataService : undefined,
-        offerCode: this.actCreationPrerequisites.offer.data.code,
+        offerCode: this.actCreationPrerequisites.offer.productCode,
       });
     },
     onDataServiceChange(data) {
