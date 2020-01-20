@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.486+20200120083949
+2020-01-20
+
+### Fixes
+
+- Afficher les types de carte sim correspondant au partenaires séléctionnés dans le filtre (f92c2b3a3277f5d304dbec5a082b9d545e6dfeb8)
+
 ## 0.3.0-master.485+20200117152749
 2020-01-17
 
