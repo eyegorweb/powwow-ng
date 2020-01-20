@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.487+20200120111802
+2020-01-20
+
+### Fixes
+
+- Corriger le changement de services (e856ff8653947906f32ad1b56386b0368a038a21)
+
 ## 0.3.0-master.486+20200120083949
 2020-01-20
 
