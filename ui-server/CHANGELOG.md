@@ -2,6 +2,39 @@
 
 <!--- next entry here -->
 
+## 0.16.0
+2020-01-20
+
+### Features
+
+- Enregisrer la disposition des widgets en local storage (b32198c85f8190f05b68791e019b2b59ffaef151)
+- Spring Cloud Kubernetes Discovery Support (5658d0f7a3fdd9b32ccf2c283caaf9189c0a1822)
+- Spring Cloud Kubernetes Discovery Support (1d75af2c72b63bab26143726e94749c980062cea)
+- Kubernetes Discovery support (f632a60b90d6c6a3cbc013764d4b95d19d45e293)
+- Spring Cloud Kubernetes Discovery Support (da63b88c81e7c2d2434a5fdee85fe1c0367fd61c)
+- récupération des données des adresses ip pour chaque service (5f8a65c872aaf9e75db4924b88975cdb16a8f94c)
+
+### Fixes
+
+- spécifications des conditions d'application du changement d'offre pour les actes en masse (a4b434ddaaebe586ada9b0fff288a87f24a30302)
+- enlever le mock (65746a15d1868e39346801ec8436cf5e151ca20e)
+- Envoyer les bons APNS lors de la création de commande (870ce6366364121852d749db4dd72169a4408812)
+- mise à jour de l'acte de création Changement de compte de facturation (9d672fb61f870849297dce3adaeb26336e5d9bf7)
+- activation des filtres appliqués lors de l'export des actes de gestion (fc6f60135d2c958715a6a82ab8ffc76dee4a99fd)
+- Correction du changement de services pour une ligne (42d6d31284acc08fc9e94802fcbffcd48c8aa8ab)
+- mise à jour de l'API du filtre Type de carte sim (b1241b740eaeec9df6fc18ab99a903d0fc2a7130)
+- ecran détail de l'alarme (775f974e56996a804e26ab62b5cb4c5c4d41da51)
+- **orders:** correction de la mise à jour de la validation de commande (7be68b76102cdc9b3975ad9004ec17909c62807c)
+- ajout du context du partenarie pour l'acte de création du changement de compte de facturation (a30421021f12531ab67bd06fec7d313cac26f795)
+- Ne pas demander la colonne id de gestion durant l'export de commandes (aca4d13b517799dd98ecc84734a316a75bc7a5db)
+- configuration du changement de date lors du changement de compte de facturation (b1939756a347b1fa4f683db8d5dbdc296ff64608)
+- mise à jour de l'api pour filtrer les types de carte sim (e3b991ca171b14628919d3b7de1c8c7e8d09d899)
+- Afficher les types de carte sim correspondant au partenaires séléctionnés dans le filtre (f92c2b3a3277f5d304dbec5a082b9d545e6dfeb8)
+- Corriger le changement de services (e856ff8653947906f32ad1b56386b0368a038a21)
+- mise à jour de l'api de mutation du changement de services et du filtre de type de cartes sim (f3c3cb50c8da97d06e9e7a2398dbf46f9b84f94c)
+- Correction du changement de services (6657f22069ac1b17e7b6494cb6b64a29f052b431)
+- formatte type filter ids (ea53d5f60f9274f13bee9630f51e962deb22d9bc)
+
 ## 0.15.0
 2020-01-13
 
