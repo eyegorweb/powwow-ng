@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.492+20200121151007
+2020-01-21
+
+### Fixes
+
+- traduction des actions du widget Délais moyen (e7c9fa561e09ac64c67a35c1e9b1f4f707ea41ea)
+
 ## 0.3.0-master.491+20200120143454
 2020-01-20
 
