@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.493+20200121154717
+## 0.3.0-master.494+20200121154957
 2020-01-21
 
 ### Fixes
 
 - affichage du widget consommation mensuelle du parc (185c06f68f6a9130def4943c87e62708483c2b54)
+- Ajouter la quantité dans le détail de l'alarme (f0dd4333b1d3c0b3c71f61a9b7f92bf5b2a6c016)
 
 ## 0.3.0-master.492+20200121151007
 2020-01-21
