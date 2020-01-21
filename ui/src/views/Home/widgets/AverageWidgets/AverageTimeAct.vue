@@ -65,7 +65,7 @@ export default {
         return {
           total: i.numberValue,
           clickable: false,
-          labelKey: i.partyName,
+          labelKey: i.name,
           fetchKey: i.name,
           unit: defaultTimeUnit,
         };
