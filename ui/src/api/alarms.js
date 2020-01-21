@@ -126,6 +126,9 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         level3Up
         level3Down
         startDate
+        auditable {
+          created
+        }
       }
     }
   }`;
