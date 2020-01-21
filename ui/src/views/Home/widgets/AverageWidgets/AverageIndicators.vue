@@ -14,7 +14,7 @@
         v-for="indicator in indicators"
         :key="indicator.name + indicator.labelKey"
       >
-        {{ $t(indicator.labelKey) }}
+        {{ $t(averageTimeAction(indicator.labelKey)) }}
         <div class="float-right">
           <button class="btn btn-link p-0" :disabled="true">
             <span>{{ indicator.total }} {{ indicator.unit }}</span>
@@ -49,6 +49,29 @@ export default {
     contextFilters: Array,
     infoMessage: String,
     noResults: Boolean,
+  },
+  methods: {
+    getLabel(name, from, to) {
+      return name.slice(from, to);
+    },
+    averageTimeAction(label) {
+      const action = this.getLabel(label, 'act_delay_'.length, label.lastIndexOf('_'));
+      if (action === 'ACTIVATION') {
+        return 'getparc.actTypes.ACTIVATION';
+      }
+      if (action === 'PREACTIVATION') {
+        return 'getparc.actTypes.PREACTIVATION';
+      }
+      if (action === 'SUSPENDION') {
+        return 'getparc.actTypes.SUSPENDION';
+      }
+      if (action === 'SERVICE_CHANGE') {
+        return 'getparc.actTypes.SERVICE_CHANGE';
+      }
+      if (action === 'ICCID_CHANGE') {
+        return 'getparc.actTypes.ICCID_CHANGE';
+      }
+    },
   },
   data() {
     return {
