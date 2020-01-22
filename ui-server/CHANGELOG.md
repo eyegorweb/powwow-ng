@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.495+20200122090052
+2020-01-22
+
+### Features
+
+- intégration de l'écran de creation d'alarme en mode mock (ba873bf9ceff91b87c23f8eadb3c2ce5746c40b3)
+
 ## 0.3.0-master.494+20200121154957
 2020-01-21
 
