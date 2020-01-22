@@ -27,6 +27,7 @@
         :content="payload"
       />
       <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
+      <AlarmCreationPanel v-if="panelId === 'getvsion.table.create-alarm'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -44,6 +45,7 @@ import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreation
 import CustomizePanel from '@/views/Home/CustomizePanel';
 import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
 import TheAlarmDetailPanel from '@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
+import AlarmCreationPanel from '@/views/GetVision/AlarmCreationPanel';
 
 export default {
   components: {
@@ -57,6 +59,7 @@ export default {
     CustomizePanel,
     LineAlarmDetailPanel,
     TheAlarmDetailPanel,
+    AlarmCreationPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),

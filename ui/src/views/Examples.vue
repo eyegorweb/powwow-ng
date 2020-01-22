@@ -3,6 +3,16 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
+
+    {{ selectedPartner }}
+
+    <PartnerCombo :value.sync="selectedPartner" />
+
+    <div class="row">
+      <div class="col-8">
+        <FormAlarm />
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6">
         <ServicesChoice :offer="offer" :selected-items.sync="selectedServices" />
@@ -16,16 +26,22 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
+import FormAlarm from '@/views/GetVision/AlarmCreationPanel/forms/CONSO_GROUPED.vue';
+
+import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
 export default {
   name: 'Home',
   components: {
     SearchTranslationKey,
     ServicesChoice,
+    FormAlarm,
+    PartnerCombo,
   },
 
   data() {
     return {
+      selectedPartner: undefined,
       selectedServices: [],
       offer: {
         id: '3',

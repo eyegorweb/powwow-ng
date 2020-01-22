@@ -92,4 +92,13 @@ h4 {
     font-size: 10px;
   }
 }
+
+@media (min-width: 1300px) and (max-width: 1450px) {
+  .container {
+    max-width: 1300px;
+  }
+  html {
+    font-size: 11px;
+  }
+}
 </style>

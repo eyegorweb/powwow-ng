@@ -155,7 +155,17 @@ export default {
       'startLoading',
       'stopLoading',
     ]),
-    createAlarm() {},
+    ...mapMutations(['openPanel']),
+
+    createAlarm() {
+      this.openPanel({
+        title: this.$t('getvsion.table.create-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+      });
+    },
     async fetchAlarms() {
       this.startLoading();
       await this.fetchAlarmsFromApi({

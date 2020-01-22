@@ -63,6 +63,8 @@
   "month": "Mois",
   "quarter": "Trimestre",
   "suspension": "Suspension",
+  "mailNotification": "Être notifié par e-mail",
+  "webserviceNotification": "Être notifié par webservice",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -205,7 +207,9 @@
     "IMEI_CHANGE": "Changement de module",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte",
+
+    "CONSO_GROUPED": "Consommation mutualisée"
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
@@ -245,14 +249,17 @@
     },
 
     "alarm": {
-      "triggered_x_month": "Déclenchements dans {month} derniers mois",
+      "triggered_x_month": "Déclenchements dans les {month} derniers mois",
       "triggered_lines": "Lignes ciblées par l'alarme",
       "excluded_sim_from_alarms": "Cartes sim exclues de l'alarme",
       "trigger_reason": "Motifs de déclenchement",
       "trigger_date": "Date de dernier déclenchement",
       "disable_alarm_lines": "Désactiver l'alarme des lignes",
       "react_alarm_lines": "Réactiver l'alarme des lignes",
-      "alarm_availability": "Présence de l'alarme"
+      "alarm_availability": "Présence de l'alarme",
+
+      "enableAlarm": "Activer l'alarme",
+      "saveAlarm": "Enregistrer l'alarme"
     }
   },
   "getparc": {
