@@ -5,10 +5,10 @@
     </div>
     <div v-else>
       <chart
-      :key="'conso_' + version"
-      v-if="chartOptions && partners && partners.length"
-      :options="chartOptions"
-    />
+        :key="'conso_' + version"
+        v-if="chartOptions && partners && partners.length"
+        :options="chartOptions"
+      />
     </div>
   </div>
 </template>
