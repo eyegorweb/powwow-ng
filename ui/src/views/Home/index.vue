@@ -173,12 +173,16 @@ export default {
       if (layoutInLS) {
         const parsed = JSON.parse(layoutInLS);
 
-        return parsed.map(l => {
-          return {
-            ...l,
-            meta: this.homeWidgets.find(w => w.title === l.title),
-          };
-        });
+        return parsed
+          .filter(l => {
+            return !!this.homeWidgets.find(w => w.title === l.title);
+          })
+          .map(l => {
+            return {
+              ...l,
+              meta: this.homeWidgets.find(w => w.title === l.title),
+            };
+          });
       }
 
       return undefined;
