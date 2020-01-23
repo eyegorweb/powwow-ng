@@ -1,109 +1,114 @@
 <template>
   <div class="panel-vertical-container">
-    <div class="main-content data-detail-container">
-      <div class="overview-container m-3 bg-white">
-        <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
-        </div>
-        <div class="overview-item">
-          <StepperNonLinear
-            v-if="statusStepperIndex"
-            :stepper-data="steps"
-            :current-index="statusStepperIndex"
-          />
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-          <p>{{ getFromContent('info') }}</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-          <p>
-            {{ getFromContent('targetActionNumber') }}
-            {{ $t('getparc.history.details.lines') }}
-          </p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-          <p>
-            {{
-              content.failedEntitiesNumber > 0
-                ? `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                : '-'
-            }}
-          </p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-          <p>
-            {{
-              content.pendingEntitiesNumber > 0
-                ? `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                : '-'
-            }}
-          </p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-          <p>
-            {{
-              content.completedEntitiesNumber > 0
-                ? `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                : '-'
-            }}
-          </p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-          <p>{{ getFromContent('massAction.created') }}</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-          <p>{{ getFromContent('massAction.dueDate') }}</p>
-        </div>
-        <div class="overview-item">
-          <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-          <p>{{ getFromContent('massAction.ended') }}</p>
-        </div>
-      </div>
-
-      <div class="overview-container m-3 bg-white">
-        <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
-        </div>
-        <div class="overview-item mr-5">
-          <h6>{{ $t('getparc.history.details.name') }} :</h6>
-          <p>{{ getFromContent('partyName') }}</p>
-        </div>
-        <div class="overview-item mr-5">
-          <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-          <p>{{ getFromContent('creatorUsername') }}</p>
-        </div>
-        <div class="overview-item mr-5">
-          <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-          <p>{{ getFromContent('creatorEmail') }}</p>
-        </div>
-      </div>
+    <div v-if="!content"  class="alert" role="alert">
+      {{ $t('getparc.history.details.noResult') }}
     </div>
-    <div class="footer-back">
-      <div class="action-buttons">
-        <div>
-          <ExportButton
-            :export-fn="getExportFn()"
-            :columns="columns"
-            :order-by="orderBy"
-            button-style
-          >
-            <span slot="title">{{ $t('getparc.history.details.EXPORT_ACT') }}</span>
-          </ExportButton>
+    <div v-else>
+      <div class="main-content data-detail-container">
+        <div class="overview-container m-3 bg-white">
+          <div class="overview-item">
+            <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information') }}</h4>
+          </div>
+          <div class="overview-item">
+            <StepperNonLinear
+              v-if="statusStepperIndex"
+              :stepper-data="steps"
+              :current-index="statusStepperIndex"
+            />
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
+            <p>{{ getFromContent('info') }}</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
+            <p>
+              {{ getFromContent('targetActionNumber') }}
+              {{ $t('getparc.history.details.lines') }}
+            </p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
+            <p>
+              {{
+                content.failedEntitiesNumber > 0
+                  ? `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                  : '-'
+              }}
+            </p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
+            <p>
+              {{
+                content.pendingEntitiesNumber > 0
+                  ? `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                  : '-'
+              }}
+            </p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
+            <p>
+              {{
+                content.completedEntitiesNumber > 0
+                  ? `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}`
+                  : '-'
+              }}
+            </p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
+            <p>{{ getFromContent('massAction.created') }}</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
+            <p>{{ getFromContent('massAction.dueDate') }}</p>
+          </div>
+          <div class="overview-item">
+            <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
+            <p>{{ getFromContent('massAction.ended') }}</p>
+          </div>
         </div>
-        <div>
-          <UiButton
-            variant="primary"
-            block
-            @click="$router.push({ name: 'actDetail', params: { massActionId: content.id } })"
-            >{{ $t('getparc.history.details.RESULT') }}</UiButton
-          >
+
+        <div class="overview-container m-3 bg-white">
+          <div class="overview-item">
+            <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.name') }} :</h6>
+            <p>{{ getFromContent('partyName') }}</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.creator') }} :</h6>
+            <p>{{ getFromContent('creatorUsername') }}</p>
+          </div>
+          <div class="overview-item mr-5">
+            <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
+            <p>{{ getFromContent('creatorEmail') }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-back">
+        <div class="action-buttons">
+          <div>
+            <ExportButton
+              :export-fn="getExportFn()"
+              :columns="columns"
+              :order-by="orderBy"
+              button-style
+            >
+              <span slot="title">{{ $t('getparc.history.details.EXPORT_ACT') }}</span>
+            </ExportButton>
+          </div>
+          <div>
+            <UiButton
+              variant="primary"
+              block
+              @click="$router.push({ name: 'actDetail', params: { massActionId: content.id } })"
+              >{{ $t('getparc.history.details.RESULT') }}</UiButton
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -124,6 +129,50 @@ export default {
       type: Object,
     },
   },
+  mounted() {
+    if (this.content) {
+      this.actStatus = this.content.massAction.status;
+      this.confirmationStepper = {
+        data: [
+          {
+            code: 'WAITING',
+            label: this.$t('getparc.history.details.actStatuses.CREATED'),
+            date: this.content.created,
+            index: 0,
+          },
+          {
+            code: 'IN_PROGRESS',
+            label: this.$t('getparc.history.details.actStatuses.STARTED'),
+            date: this.content.dueDate,
+            index: 1,
+          },
+          {
+            code: 'TERMINATED',
+            label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
+            date: this.content.ended,
+            index: 2,
+          },
+        ],
+      };
+      this.cancelStepper = {
+        data: [
+          {
+            code: 'WAITING',
+            label: this.$t('getparc.history.details.actStatuses.CREATED'),
+            date: this.content.created,
+            index: 0,
+          },
+          {
+            code: 'CANCELLED',
+            label: this.$t('getparc.history.details.actStatuses.STARTED'),
+            date: '',
+            index: 1,
+          },
+        ],
+      };
+    }
+  },
+
   data() {
     return {
       orderBy: {
@@ -223,45 +272,10 @@ export default {
           exportId: 'IMEI',
         },
       ],
-      confirmationStepper: {
-        data: [
-          {
-            code: 'WAITING',
-            label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
-            index: 0,
-          },
-          {
-            code: 'IN_PROGRESS',
-            label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: this.content.dueDate,
-            index: 1,
-          },
-          {
-            code: 'TERMINATED',
-            label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: this.content.ended,
-            index: 2,
-          },
-        ],
-      },
-      cancelStepper: {
-        data: [
-          {
-            code: 'WAITING',
-            label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
-            index: 0,
-          },
-          {
-            code: 'CANCELLED',
-            label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: '',
-            index: 1,
-          },
-        ],
-      },
-      actStatus: this.content.massAction.status,
+      confirmationStepper: undefined,
+      cancelStepper: undefined,
+      // actStatus: this.content.massAction.status,
+      actStatus: undefined,
     };
   },
   methods: {
