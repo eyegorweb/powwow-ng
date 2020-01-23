@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.497+20200123152831
+2020-01-23
+
+### Fixes
+
+- correction et amélioration de l'ouverture du panel de détail de la commande (78872be8b2292272aace24e420f6808b4b376430)
+
 ## 0.3.0-master.496+20200122123227
 2020-01-22
 
