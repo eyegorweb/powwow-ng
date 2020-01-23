@@ -331,6 +331,7 @@
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "noResult": "L'acte de gestion n'a pas été trouvé",
         "manageActTitle": "{type} - {date}",
         "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
