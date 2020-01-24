@@ -566,20 +566,7 @@
           "lastLocationDate": "Date de la dernière localisation",
           "useTypeAndDetail": "Type et détail d'usage",
           "technology": "Technologie",
-          "technologies": {
-            "DATA_V_1": "3G",
-            "DATA_V_6": "4G",
-            "DATA_V_EMPTY": "Inconnue",
-            "DATA_V_UNKNOWN": "Inconnue",
-            "DATA_F_MISSING": "2G",
-            "OTHERS_V_3G": "3G",
-            "OTHERS_V_4G": "4G",
-            "OTHERS_F_MISSING": "Inconnue",
-            "OTHERS_V_UNKNOWN": "2G",
-            "OTHERS_V_EMPTY_NAT": "2G",
-            "OTHERS_V_EMPTY_RO": "Autre ou 2G",
-            "none": "Inconnue"
-          }
+          "technologies": "{value}"
         },
         "networkInfoContent": {
           "dataControl": "Contrôle data roaming",

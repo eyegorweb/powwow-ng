@@ -44,19 +44,19 @@
             <ul class="content-cell list-unstyled">
               <li>{{ consumptionData.smsNationalConsumption }} SMS</li>
               <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
-              <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsOutgoingNationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceNationalConsumption) }}
               </li>
               <li>
                 {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
               </li>
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceOutgoingNationalConsumption) }}
               </li>
             </ul>
           </td>
@@ -84,7 +84,7 @@
             <ul class="content-cell list-unstyled">
               <li>{{ consumptionData.smsInternationalConsumption }} SMS</li>
               <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
-              <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsOutgoingInternationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
@@ -96,7 +96,7 @@
                 {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
               </li>
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceOutgoingInternationalConsumption) }}
               </li>
             </ul>
           </td>
@@ -203,8 +203,7 @@
 <script>
 import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
-import { formatBytes } from '@/api/utils';
-import moment from 'moment';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 import get from 'lodash.get';
 
 export default {
@@ -255,7 +254,7 @@ export default {
           return formatBytes(value);
 
         case 'VOICE':
-          return moment(value, 'HHmmss').format('HH:mm:ss');
+          return formattedValueFromSeconds(value);
       }
     },
   },
