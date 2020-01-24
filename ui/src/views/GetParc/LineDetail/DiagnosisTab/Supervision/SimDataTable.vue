@@ -14,6 +14,8 @@ import DataCol from './DataCol';
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 import get from 'lodash.get';
 import StatusCell from './StatusCell';
+import LocationCell from './LocationCell';
+import OfferCell from './OfferCell';
 
 export default {
   props: {
@@ -55,7 +57,7 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.start'),
           'pdpConnectionDateInfo',
           true,
-          true,
+          false,
           {
             type: 'ObjectAttribute',
             path: 'startDate',
@@ -65,7 +67,7 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.end'),
           'pdpConnectionDateInfo',
           true,
-          true,
+          false,
           {
             type: 'ObjectAttribute',
             path: 'endDate',
@@ -75,7 +77,7 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.status'),
           'pdpConnectionHistory',
           true,
-          true,
+          false,
           {
             component: StatusCell,
           }
@@ -86,7 +88,7 @@ export default {
           ),
           'pdpConnectionDateInfo',
           true,
-          true,
+          false,
           {
             type: 'Getter',
             getter: row => {
@@ -109,7 +111,7 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'),
           'data',
           true,
-          true,
+          false,
           { component: DataCol }
         ),
         col(
@@ -118,17 +120,16 @@ export default {
           ),
           'location',
           true,
-          true,
+          false,
           {
-            type: 'ObjectAttribute',
-            path: 'detail',
+            component: LocationCell,
           }
         ),
         col(
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.apn'),
           'pdpConnectionHistory',
           true,
-          true,
+          false,
           {
             type: 'ObjectAttribute',
             path: 'apn',
@@ -138,7 +139,7 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.ip'),
           'pdpConnectionHistory',
           false,
-          true,
+          false,
           {
             type: 'Getter',
             getter: row => {
@@ -165,10 +166,9 @@ export default {
           this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.offer'),
           'pdpConnectionHistory',
           false,
-          true,
+          false,
           {
-            type: 'ObjectAttribute',
-            path: 'offerCode',
+            component: OfferCell,
           }
         ),
         col(

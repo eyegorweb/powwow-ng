@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div v-if="geographicalLocation" class="row">
+    <div class="row">
       <div class="col-md-12">
         <h4 class="text-primary text-uppercase">
           {{ $t('getparc.lineDetail.tab2.lineAnalysisTitles.LastLocation') }}
@@ -99,10 +99,9 @@
               <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.technology') }}:</h6>
               <p>
                 {{
-                  $t(
-                    'getparc.lineDetail.tab2.lineAnalysisContent.technologies.' +
-                      getValue(geographicalLocation, 'ticketGeneration', 'none')
-                  )
+                  $t('getparc.lineDetail.tab2.lineAnalysisContent.technologies', {
+                    value: technology,
+                  })
                 }}
               </p>
             </div>
@@ -225,6 +224,12 @@ export default {
         'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.' +
           connectionClosingReason
       );
+    },
+  },
+  computed: {
+    technology() {
+      if (!this.geographicalLocation) return '-';
+      return this.getValue(this.geographicalLocation, 'ticketGeneration');
     },
   },
 };

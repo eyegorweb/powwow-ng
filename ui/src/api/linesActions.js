@@ -517,7 +517,7 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
 export async function fetchCurrentConsumption(simcardId) {
   const queryStr = `
   query {
-    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+    currentConsumptionV2(simCardInstanceId: ${simcardId}){
       dataNationalConsumption
       dataIncomingNationalConsumption
       dataOutgoingNationalConsumption
@@ -545,7 +545,7 @@ export async function fetchCurrentConsumption(simcardId) {
 
   const response = await query(queryStr);
 
-  return response.data.currentConsumption;
+  return response.data.currentConsumptionV2;
 }
 
 export async function exportCurrentConsumption(simcardId, exportFormat) {
