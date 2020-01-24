@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.498+20200124140640
+2020-01-24
+
+### Fixes
+
+- corrections de l'affichage des datas pour la consommation dans le détail de la ligne (e770173a000f61989f7bc550ea14c1cf091c39dd)
+
 ## 0.3.0-master.497+20200123152831
 2020-01-23
 
