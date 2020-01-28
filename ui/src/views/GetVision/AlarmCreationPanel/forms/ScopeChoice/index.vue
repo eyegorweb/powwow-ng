@@ -1,9 +1,8 @@
 <template>
   <div class="mb-3">
-    <h5 class="text-primary text-uppercase">
-      <span class="badge badge-pill badge-primary">{{ num }}</span>
-      <span class="title">Choisir la portée de l'alarme</span>
-    </h5>
+    <SectionTitle :num="num">
+      Choisir la portée de l'alarme
+    </SectionTitle>
 
     <div class="scope-container" :style="{ maxHeight: maxHeight }">
       <div class="scope-selection">
@@ -38,6 +37,7 @@ import SearchLineByIdChoice from './SearchLineByIdChoice';
 import OfferChoice from './OfferChoice';
 import OfferBillingAccountChoice from './OfferBillingAccountChoice.vue';
 import FileImportChoice from './FileImportChoice.vue';
+import SectionTitle from '../SectionTitle.vue';
 
 import get from 'lodash.get';
 
@@ -48,6 +48,7 @@ export default {
     OfferChoice,
     OfferBillingAccountChoice,
     FileImportChoice,
+    SectionTitle,
   },
   props: {
     num: Number,
