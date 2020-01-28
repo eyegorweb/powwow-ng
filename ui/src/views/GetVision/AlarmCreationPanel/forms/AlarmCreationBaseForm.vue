@@ -2,10 +2,9 @@
   <div class="p-4 slide-up-reveal ">
     <div v-if="shouldSelectPartner" class="row mb-2">
       <div class="col-md-6">
-        <h5 class="text-primary text-uppercase">
-          <span class="badge badge-pill badge-primary">1</span>
-          <span class="title"> {{ $t('getparc.history.col.partyId') }}</span>
-        </h5>
+        <SectionTitle :num="1">
+          {{ $t('getparc.history.col.partyId') }}
+        </SectionTitle>
         <PartnerCombo :value.sync="selectedPartner" />
       </div>
     </div>
@@ -23,6 +22,7 @@
 <script>
 import ScopeChoice from './ScopeChoice';
 import NotificationChoice from './NotificationChoice';
+import SectionTitle from './SectionTitle';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
 export default {
@@ -30,6 +30,7 @@ export default {
     ScopeChoice,
     NotificationChoice,
     PartnerCombo,
+    SectionTitle,
   },
   props: {
     alarm: Object,

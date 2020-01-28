@@ -1,9 +1,8 @@
 <template>
   <AlarmCreationBaseForm :alarm="alarm" have-form>
-    <h5 class="text-primary text-uppercase">
-      <span class="badge badge-pill badge-primary">3</span>
-      <span class="title"> Définir une liste d'opérateurs</span>
-    </h5>
+    <SectionTitle :num="3">
+      Définir une liste d'opérateurs
+    </SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_plmn.isp_list"

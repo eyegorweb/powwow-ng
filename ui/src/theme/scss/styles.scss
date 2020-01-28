@@ -203,6 +203,28 @@ $theme-colors: map-merge(
   }
 }
 
+.fade-in-reveal {
+  display: initial;
+  animation: fade-in 0.4s ease;
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: initial;
+    opacity: 0;
+  }
+
+  100% {
+    display: initial;
+    opacity: 1;
+  }
+}
+
 .alert-blue {
   background: #ecf6fb !important;
   border-color: #ecf6fb !important;

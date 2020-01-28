@@ -1,9 +1,8 @@
 <template>
   <AlarmCreationBaseForm :alarm="alarm" have-form>
-    <h5 class="text-primary text-uppercase">
-      <span class="badge badge-pill badge-primary">3</span>
-      <span class="title"> Définir une liste de pays autorisés</span>
-    </h5>
+    <SectionTitle :num="3">
+      Définir une liste de pays autorisés
+    </SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_country.countries_list"
@@ -15,12 +14,14 @@
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
+import SectionTitle from './SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 
 export default {
   components: {
     AlarmCreationBaseForm,
     GroupMultiSelect,
+    SectionTitle,
   },
   props: {
     alarm: Object,
