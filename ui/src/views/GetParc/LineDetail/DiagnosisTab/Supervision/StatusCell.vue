@@ -20,28 +20,28 @@ export default {
   },
   computed: {
     status() {
-      if (this.row && this.row.pdpConnectionHistory.connectionStatus) {
-        return this.row.pdpConnectionHistory.connectionStatus;
+      if (this.row && this.row.connectionStatusTranslated) {
+        return this.row.connectionStatusTranslated;
       } else {
         return '';
       }
     },
     label() {
-      if (this.status === 'F') {
-        return 'Fermé';
-      } else if (this.status === 'O') {
-        return 'Ouvert';
+      if (this.status === 'FERMEE') {
+        return 'Fermée';
+      } else if (this.status === 'OUVERTE') {
+        return 'Ouverte';
       } else {
         return '';
       }
     },
 
     isClosed() {
-      return this.status === 'F';
+      return this.status === 'FERMEE';
     },
 
     isOpened() {
-      return this.status === 'O';
+      return this.status === 'OUVERTE';
     },
   },
 };
@@ -52,7 +52,7 @@ export default {
 
 div {
   .label {
-    padding: 0.25rem 0.4rem;
+    padding: 0 0.2rem;
     &.closed {
       .circle {
         @include circle;
