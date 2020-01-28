@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.499+20200128092958
+2020-01-28
+
+### Features
+
+- Partie front end pour l'écran de changement de pays (199c1410162fdbf5fdaebc2c1c27d946ec51cd69)
+
 ## 0.3.0-master.498+20200124140640
 2020-01-24
 
