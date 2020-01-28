@@ -74,6 +74,19 @@ export async function fetchSingleIndicator(filters, contextFilters = []) {
   return response.data.simCardInstances;
 }
 
+export async function countLines(filters) {
+  const queryStr = `
+  query {
+    simCardInstances(filter: {
+      ${formatFilters(filters)}
+    }){total}
+  }`;
+
+  const response = await query(queryStr);
+  if (response && response.data.simCardInstances) return response.data.simCardInstances.total;
+  return undefined;
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination

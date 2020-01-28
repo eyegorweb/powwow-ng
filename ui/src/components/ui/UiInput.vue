@@ -1,5 +1,12 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon, error: !!error, 'no-hover-style': noHoverStyle }">
+  <label
+    :class="{
+      'has-icon': $slots.icon,
+      error: !!error,
+      'no-hover-style': noHoverStyle,
+      'full-width': block,
+    }"
+  >
     <slot name="icon" />
     <slot name="beforeInput" />
     <input
@@ -64,6 +71,7 @@ export default {
     noHoverStyle: Boolean,
     haveCrossButton: Boolean,
     noNumberArrows: Boolean,
+    block: Boolean,
   },
 
   methods: {
@@ -162,5 +170,9 @@ label {
   }
 
   -moz-appearance: textfield; /* Firefox */
+}
+
+.full-width {
+  width: 100%;
 }
 </style>

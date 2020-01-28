@@ -49,6 +49,7 @@ export default {
   .currentForm {
     flex-grow: 1;
     background: white;
+    overflow: auto;
   }
 }
 </style>

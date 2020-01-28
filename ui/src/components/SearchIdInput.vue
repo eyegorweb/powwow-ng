@@ -10,7 +10,7 @@
           :select-placeholder="selectPlaceholder"
         />
       </div>
-      <div class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
+      <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
           :variant="isDisabled ? 'primary' : ''"
           :disabled="!isDisabled"
@@ -32,6 +32,7 @@ export default {
     types: Array,
     selectedSearchType: String,
     inputPlaceholder: String,
+    noSearchButton: Boolean,
     inline: {
       type: Boolean,
       default: true,
@@ -62,6 +63,9 @@ export default {
       },
       set(newType) {
         this.$emit('update:selectedSearchType', newType);
+        setTimeout(() => {
+          this.$emit('valueChange', { type: newType, value: this.resultQuery });
+        });
       },
     },
     resultQuery: {
@@ -71,6 +75,9 @@ export default {
       set(newValue) {
         this.$emit('findType', newValue);
         this.inputSearchValue = newValue;
+        setTimeout(() => {
+          this.$emit('valueChange', { type: this.resultType, value: newValue });
+        });
       },
     },
     isDisabled: {

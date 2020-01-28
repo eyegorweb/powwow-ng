@@ -50,6 +50,29 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
   return response.data.workflows.items;
 }
 
+export async function fetchOfferWithBilligAccount(partners, page = 0) {
+  const partnerIds = partners ? partners.map(p => `${p.id}`).join(',') : [];
+  const queryStr = `
+  query {
+    workFlowByCustomerAccount(partyId: [${partnerIds}], pagination: {page: ${page}, limit: 20}) {
+      total
+      items{
+        workflow {
+          id
+          workflowDescription
+        }
+        customerAccount {
+          id
+          code
+          name
+        }
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.workFlowByCustomerAccount.items;
+}
+
 export async function fetchOffersForPartnerId(partnerId) {
   return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50 });
 }
