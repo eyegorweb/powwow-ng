@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.501+20200128105056
+2020-01-28
+
+### Features
+
+- Partie front pour la création de l'alarme "Changement d'opérateur" (dcf1bb6b968bcc71e24d1f5e49ce2253fc330170)
+
 ## 0.3.0-master.500+20200128103451
 2020-01-28
 
