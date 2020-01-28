@@ -92,12 +92,12 @@ export default {
           {
             type: 'Getter',
             getter: row => {
-              const closing = get(row, 'pdpConnectionDateInfo.connectionClosingReason');
-              if (closing === 'N') {
+              const closing = get(row, 'pdpConnectionDateInfo.connectionClosingReasonTranslated');
+              if (closing === 'NORMALE') {
                 return this.$t(
                   'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.N'
                 );
-              } else if (closing === 'A') {
+              } else if (closing === 'AUTRE') {
                 return this.$t(
                   'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.A'
                 );
@@ -143,18 +143,7 @@ export default {
           {
             type: 'Getter',
             getter: row => {
-              const ipAddressType = get(row, 'pdpConnectionHistory.ipAddressType');
-              if (ipAddressType === null) {
-                return this.$t('notAvailable');
-              } else if (ipAddressType === 1) {
-                return 'ipv4';
-              } else if (ipAddressType === 2) {
-                return 'ipv6';
-              } else if (ipAddressType === 3) {
-                return 'ipv4/ipv6';
-              } else {
-                return this.$t('notDefined');
-              }
+              return get(row, 'ipAddressTypeTranslated');
             },
           }
         ),

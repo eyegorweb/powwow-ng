@@ -136,12 +136,12 @@ export async function dataUsage(simInstanceId, pagination) {
     dataUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false ${paginationInfo}) {
       total
       items {
+        ipAddressTypeTranslated
+        connectionStatusTranslated
         pdpConnectionHistory {
-          connectionStatus
           uploadVolume
           downloadVolume
           apn
-          ipAddressType
           imei
           offerCode
           connectionId
@@ -156,7 +156,7 @@ export async function dataUsage(simInstanceId, pagination) {
       	pdpConnectionDateInfo {
           startDate
           endDate
-          connectionClosingReason
+          connectionClosingReasonTranslated
         }
         location {
           detail
@@ -164,7 +164,7 @@ export async function dataUsage(simInstanceId, pagination) {
           cellLongitude
           zipCode
           cellId
-          countryIso3
+          countryIso3Translated
           referentialIso3
           operator
         }

@@ -55,7 +55,7 @@
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'ipAddressType') }}</p>
+                <p>{{ getValue(pdpConnexionData, 'ipAddressTypeTranslated') }}</p>
               </div>
             </div>
             <hr />
@@ -191,6 +191,7 @@ export default {
       const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
       if (pdpResponse && pdpResponse.items && pdpResponse.items.length) {
         this.pdpConnexionData = {
+          ...pdpResponse.items[0],
           ...pdpResponse.items[0].pdpConnectionDateInfo,
           ...pdpResponse.items[0].pdpConnectionHistory,
         };
@@ -208,22 +209,17 @@ export default {
       return value !== null ? value : '-';
     },
     getConnectionStatus() {
-      const connectionStatus = this.getValue(this.pdpConnexionData, 'connectionStatus');
+      const connectionStatus = this.getValue(this.pdpConnexionData, 'connectionStatusTranslated');
       if (connectionStatus === '-') return '-';
-      return this.$t(
-        'getparc.lineDetail.tab2.lineAnalysisContent.connectionStatus.' + connectionStatus
-      );
+      return connectionStatus;
     },
     getClosingReason() {
       const connectionClosingReason = this.getValue(
         this.pdpConnexionData,
-        'connectionClosingReason'
+        'connectionClosingReasonTranslated'
       );
       if (connectionClosingReason === '-') return '-';
-      return this.$t(
-        'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.' +
-          connectionClosingReason
-      );
+      return connectionClosingReason;
     },
   },
   computed: {
