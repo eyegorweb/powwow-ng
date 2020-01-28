@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.502+20200128153315
+2020-01-28
+
+### Features
+
+- Ecran pour l'alarme sur consommation (746f345e1319d7f83a3d1192b12983bfc3820ace)
+
 ## 0.3.0-master.501+20200128105056
 2020-01-28
 
