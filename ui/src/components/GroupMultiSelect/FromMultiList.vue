@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-3">
+  <div class="bordered bg-white p-3">
     <h6>{{ $t(title) }}</h6>
     <SearchInput
       :items="items"
@@ -8,7 +8,7 @@
       :value.sync="searchValue"
       block
     >
-      <div slot-scope="{ results }">
+      <div class="items-container" slot-scope="{ results }">
         <ItemSelector
           v-for="result in getVisibleItems(results)"
           :key="'from_' + result.item.id"
@@ -49,4 +49,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.items-container {
+  height: 11rem;
+  overflow-y: auto;
+}
+
+.bordered {
+  border: 1px solid $medium-gray;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+}
+</style>

@@ -263,6 +263,10 @@
       "change_country": {
         "countries_list": "Tous les pays:",
         "chosen_countries": "Pays autorisés:"
+      },
+      "change_plmn": {
+        "isp_list": "Tous les opérateurs:",
+        "chosen_isp": "Opérateurs autorisés:"
       }
     }
   },
