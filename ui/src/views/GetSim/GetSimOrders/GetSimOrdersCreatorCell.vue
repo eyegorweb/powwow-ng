@@ -1,5 +1,7 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="onClick">{{ row.auditable.creator.name.firstName }} {{ row.auditable.creator.name.lastName }}</button>
+  <button class="btn btn-link p-0" @click.stop="onClick">
+    {{ row.auditable.creator.name.firstName }} {{ row.auditable.creator.name.lastName }}
+  </button>
 </template>
 
 <script>

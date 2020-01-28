@@ -115,3 +115,31 @@ export async function fetchPrecalculatedTopIndicators(keys, partners, partnerTyp
   const response = await query(queryStr);
   return response.data.topIndicators;
 }
+
+export async function fetchEntitiesIndicators(keys, partners, partnerType) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners && partners.length) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+  const queryStr = `
+  query{
+    topIndicatorsEntities(names: [${keys.join(',')}]${partnerGql}${partnerTypeGql}, limit:5 ) {
+      name
+      partyName
+      numberValue
+      stringValue
+      updateDate
+      updateRequestDate
+      entityId
+    }
+   }
+  `;
+  const response = await query(queryStr);
+  return response.data.topIndicatorsEntities;
+}

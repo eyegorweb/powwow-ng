@@ -104,7 +104,8 @@
         "activation": "pas d’autre activation"
       },
       "viewOneResult": "Consulter le résultat",
-      "viewXResults": "Consulter les {num} résultats"
+      "viewXResults": "Consulter les {num} résultats",
+      "linesConsumption": "Lignes les plus consommatrices du mois"
     }
   },
   "menu": {

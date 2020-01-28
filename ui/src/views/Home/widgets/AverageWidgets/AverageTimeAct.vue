@@ -7,6 +7,7 @@
       :indicators="indicators"
       :context-filters="contextFilters"
       :no-results="noResults"
+      :toggle-values="toggleValues"
     />
     <div v-if="lastUpdateDate" class="update-date">
       {{ $t('lastUpdate') }}: {{ lastUpdateDate }}
@@ -42,6 +43,23 @@ export default {
       period: 'DAY',
       contextFilters: [],
       lastUpdateDate: undefined,
+      toggleValues: [
+        {
+          id: 'day',
+          label: 'day',
+          default: this.period === 'DAY',
+        },
+        {
+          id: 'month',
+          label: 'month',
+          default: this.period === 'MONTH',
+        },
+        {
+          id: 'quarter',
+          label: 'quarter',
+          default: this.period === 'QUARTER',
+        },
+      ],
     };
   },
   methods: {
@@ -66,8 +84,9 @@ export default {
           total: i.numberValue,
           clickable: false,
           labelKey: i.name,
-          fetchKey: i.name,
+          id: i.name,
           unit: defaultTimeUnit,
+          linked: false,
         };
       });
 

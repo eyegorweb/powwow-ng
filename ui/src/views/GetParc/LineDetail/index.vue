@@ -68,6 +68,9 @@ export default {
     UiTab,
   },
   mounted() {
+    if (this.$route.params && this.$route.params.tabIndex) {
+      this.currentLinkIndex = this.$route.params.tabIndex;
+    }
     this.loadLineData();
   },
   data() {

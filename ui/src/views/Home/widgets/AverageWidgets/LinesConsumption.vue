@@ -13,7 +13,7 @@
 
 <script>
 import AverageIndicators from './AverageIndicators';
-import { fetchPrecalculatedTopIndicators } from '@/api/indicators.js';
+import { fetchEntitiesIndicators } from '@/api/indicators.js';
 
 export default {
   components: {
@@ -28,24 +28,24 @@ export default {
   data() {
     return {
       indicators: undefined,
-      period: 'DAY',
+      period: 'DATA',
       contextFilters: [],
       specificMessage: undefined,
       toggleValues: [
         {
-          id: 'day',
-          label: 'day',
-          default: this.period === 'DAY',
+          id: 'data',
+          label: 'Data',
+          default: this.period === 'DATA',
         },
         {
-          id: 'month',
-          label: 'month',
-          default: this.period === 'MONTH',
+          id: 'sms',
+          label: 'SMS',
+          default: this.period === 'SMS',
         },
         {
-          id: 'quarter',
-          label: 'quarter',
-          default: this.period === 'QUARTER',
+          id: 'voice',
+          label: 'Voice',
+          default: this.period === 'VOICE',
         },
       ],
     };
@@ -61,18 +61,21 @@ export default {
       await this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
-      const listTopIndicators = await fetchPrecalculatedTopIndicators(
-        [`SIM_TOP_ACTIVATION_${this.period}`],
+      const listTopIndicators = await fetchEntitiesIndicators(
+        [`LINE_CONSUMPTION_${this.period}`],
         ...this.contextFilters
       );
 
       this.indicators = listTopIndicators.map((i, index) => {
         return {
           total: i.numberValue,
-          clickable: false,
+          clickable: true,
           labelKey: i.partyName,
           id: `${i.name}_${index}`,
-          linked: false,
+          // id: i.name,
+          entityId: i.entityId,
+          stringValue: i.stringValue,
+          linked: true,
         };
       });
       this.displayInfoMessage();
