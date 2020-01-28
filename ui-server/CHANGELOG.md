@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.500+20200128103451
+2020-01-28
+
+### Fixes
+
+- corrections et modifications sur les détails de la consommation ligne (05d973ed4eee52bde188744fb4ce94406f8b8177)
+
 ## 0.3.0-master.499+20200128092958
 2020-01-28
 
