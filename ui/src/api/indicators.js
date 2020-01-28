@@ -84,7 +84,11 @@ export async function fetchPrecalculatedIndicators(keys, partners, partnerType) 
   `;
 
   const response = await query(queryStr);
-  return response.data.indicators;
+  if (response && response.data && response.data.indicators) {
+    return response.data.indicators;
+  }
+
+  return undefined;
 }
 export async function fetchPrecalculatedTopIndicators(keys, partners, partnerType) {
   let partnerGql = '';

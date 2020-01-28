@@ -207,9 +207,7 @@
     "IMEI_CHANGE": "Changement de module",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte",
-
-    "CONSO_GROUPED": "Consommation mutualisée"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée"
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
@@ -260,6 +258,12 @@
 
       "enableAlarm": "Activer l'alarme",
       "saveAlarm": "Enregistrer l'alarme"
+    },
+    "alarm-creation": {
+      "change_country": {
+        "countries_list": "Tous les pays:",
+        "chosen_countries": "Pays autorisés:"
+      }
     }
   },
   "getparc": {

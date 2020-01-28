@@ -202,3 +202,15 @@ $theme-colors: map-merge(
     transform: translateY(0);
   }
 }
+
+.alert-blue {
+  background: #ecf6fb !important;
+  border-color: #ecf6fb !important;
+
+  p {
+    color: #0b5ca8 !important;
+  }
+  h5 {
+    color: #0b5ca8 !important;
+  }
+}

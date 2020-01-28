@@ -47,22 +47,17 @@ export default {
     return {
       currentAlarm: undefined,
       alarms: [
-        { id: 'CONSO_GROUPED' },
-        { id: 'CONSUMPTION_ON_PLMN' },
-        { id: 'COUNTRY_CHANGE' },
-        { id: 'IMEI_CHANGE' },
-        { id: 'NOCHANGE_STATUS' },
         {
           id: 'OVER_CONSUMPTION_VOLUME',
           description: `L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.`,
         },
-        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
-        { id: 'OVER_CONSUMPTION_VOLUME_ROUNDED' },
+        { id: 'UNDER_CONSUMPTION_VOLUME' },
         { id: 'PLMN_CHANGE' },
         { id: 'STATUS_CHANGE' },
-        { id: 'SOLD_OVER_THRESHOLD' },
-        { id: 'SOLD_UNDER_THRESHOLD' },
-        { id: 'UNDER_CONSUMPTION_VOLUME' },
+
+        { id: 'IMEI_CHANGE' },
+        { id: 'COUNTRY_CHANGE' },
+        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
       ],
     };
   },
@@ -83,7 +78,6 @@ export default {
 
   .btn-label {
     font-size: 0.8rem;
-    font-weight: 800;
   }
 
   ul {

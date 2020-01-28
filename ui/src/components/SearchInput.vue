@@ -2,8 +2,9 @@
   <div class="search-input">
     <UiInput
       v-model="$value"
-      @update:value="updateValue"
+      :block="block"
       :placeholder="placeholder"
+      @update:value="updateValue"
       @click="suggestionsAreVisible = true"
     >
       <!-- TODO:Utiliser la bonne icone -->
@@ -48,6 +49,7 @@ export default {
       default: '',
       required: false,
     },
+    block: Boolean,
   },
   directives: { clickaway },
 
