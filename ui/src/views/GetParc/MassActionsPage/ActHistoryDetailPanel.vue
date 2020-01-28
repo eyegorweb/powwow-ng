@@ -1,6 +1,6 @@
 <template>
   <div class="panel-vertical-container">
-    <div v-if="!content"  class="alert" role="alert">
+    <div v-if="!content" class="alert" role="alert">
       {{ $t('getparc.history.details.noResult') }}
     </div>
     <div v-else>

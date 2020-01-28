@@ -239,7 +239,11 @@ export default {
     },
   },
   async mounted() {
-    this.consumptionData = await fetchCurrentConsumption(this.content.id);
+    if (this.$route.params && this.$route.params.tabIndex) {
+      this.consumptionData = await fetchCurrentConsumption(this.$route.params.lineId);
+    } else {
+      this.consumptionData = await fetchCurrentConsumption(this.content.id);
+    }
   },
   methods: {
     getExportFn() {
