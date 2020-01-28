@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.503+20200128154400
+2020-01-28
+
+### Features
+
+- création du widget Lignes les plus consommatrices du mois (5a84a5455c14f81b9b02f30edd4d939410b79789)
+
 ## 0.3.0-master.502+20200128153315
 2020-01-28
 
