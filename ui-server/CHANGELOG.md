@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.505+20200129095822
+2020-01-29
+
+### Fixes
+
+- **orders:** mise à jour de la requête sur les commandes pour récupérer la référence du contrat (f820c905f6a2c89a126972eeb71605b346a4d6b4)
+
 ## 0.3.0-master.504+20200128155100
 2020-01-28
 
