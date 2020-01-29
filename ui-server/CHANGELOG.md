@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.506+20200129101207
+2020-01-29
+
+### Fixes
+
+- Corriger la recherche de lignes par ID (059890a70b12eeb0808b2507decf1086162ad136)
+
 ## 0.3.0-master.505+20200129095822
 2020-01-29
 
