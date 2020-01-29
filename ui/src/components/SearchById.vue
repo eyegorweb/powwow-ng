@@ -8,7 +8,7 @@
     @searchById="searchById"
     @valueChange="$emit('valueChange', $event)"
     :inline="inline"
-    no-search-button
+    :no-search-button="noSearchButton"
   />
 </template>
 
