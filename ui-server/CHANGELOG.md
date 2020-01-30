@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.508+20200130104737
+2020-01-30
+
+### Fixes
+
+- tronquage de la cellule Détails (70b89c972fb6a0e53899b796938af7a34128ecdb)
+
 ## 0.3.0-master.507+20200130092210
 2020-01-30
 
