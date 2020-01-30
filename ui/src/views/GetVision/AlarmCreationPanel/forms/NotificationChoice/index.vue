@@ -2,7 +2,7 @@
   <div>
     <h5 class="text-primary text-uppercase">
       <span class="badge badge-pill badge-primary">{{ num }}</span>
-      <span class="title">Choisir la portée de l'alarme</span>
+      <span class="title">Choisir un moyen de notification</span>
     </h5>
 
     <div class="row">

@@ -1,10 +1,8 @@
 <template>
-  <div class="p-4 slide-up-reveal ">
+  <div class="p-4 slide-up-reveal">
     <div v-if="shouldSelectPartner" class="row mb-2">
       <div class="col-md-6">
-        <SectionTitle :num="1">
-          {{ $t('getparc.history.col.partyId') }}
-        </SectionTitle>
+        <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
         <PartnerCombo :value.sync="selectedPartner" />
       </div>
     </div>
@@ -13,8 +11,13 @@
       :key="'choice_' + (selectedPartner ? selectedPartner.id : '')"
       :num="scopeIndex"
       :partner="selectedPartner"
-    />
-    <slot />
+      :containerHeight="containerHeight"
+    >
+      <slot name="scopechoice" :partner="selectedPartner"></slot>
+    </ScopeChoice>
+    <div class="mb-4">
+      <slot />
+    </div>
     <NotificationChoice :num="notifIndex" />
   </div>
 </template>
@@ -35,6 +38,10 @@ export default {
   props: {
     alarm: Object,
     haveForm: Boolean,
+    containerHeight: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {

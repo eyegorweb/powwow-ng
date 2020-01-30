@@ -47,6 +47,7 @@ export default {
     return {
       currentAlarm: undefined,
       alarms: [
+        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
         {
           id: 'OVER_CONSUMPTION_VOLUME',
           description: `L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.`,
@@ -57,7 +58,6 @@ export default {
 
         { id: 'IMEI_CHANGE' },
         { id: 'COUNTRY_CHANGE' },
-        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
       ],
     };
   },

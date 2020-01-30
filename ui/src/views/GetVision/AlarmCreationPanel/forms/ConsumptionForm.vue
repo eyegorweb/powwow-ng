@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-4">
     <SectionTitle :num="3">
       Définir un seuil de déclenchement par usage
     </SectionTitle>
@@ -48,6 +48,21 @@
         <UiInput class="value-input" v-model="voiceIn" />
       </div>
     </div>
+
+    <div class="mt-4 mb-2">
+      <h6>Cycle d'observation</h6>
+      <Toggle
+        v-if="toggleValues"
+        @update="currentPeriod = $event.id"
+        :values="toggleValues"
+        class="pl-2"
+      />
+    </div>
+
+    <div v-if="currentPeriod === 'custom'" class="custom-observation">
+      <UiInput class="value-input" v-model="customPeriodValue" />
+      <span>Jours</span>
+    </div>
   </div>
 </template>
 
@@ -55,11 +70,13 @@
 import SectionTitle from './SectionTitle';
 import UiInput from '@/components/ui/UiInput';
 import UiToggle from '@/components/ui/UiToggle';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
     UiInput,
     UiToggle,
+    Toggle,
     SectionTitle,
   },
   props: {
@@ -82,6 +99,28 @@ export default {
       smsES: undefined,
       smsIn: undefined,
       smsOut: undefined,
+
+      currentPeriod: 'daily',
+      customPeriodValue: undefined,
+
+      toggleValues: [
+        {
+          id: 'daily',
+          label: 'Journalier',
+        },
+        {
+          id: 'weekly',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'mounthly',
+          label: 'Mensuel',
+        },
+        {
+          id: 'custom',
+          label: 'Personalisé',
+        },
+      ],
     };
   },
 
@@ -178,6 +217,21 @@ export default {
       padding-right: 1rem;
       flex-basis: 40%;
     }
+  }
+}
+
+.custom-observation {
+  display: flex;
+
+  label {
+    flex-basis: 7%;
+  }
+  span {
+    font-size: 1rem;
+    font-weight: bold;
+    position: relative;
+    top: 0.5rem;
+    padding-left: 0.5rem;
   }
 }
 </style>
