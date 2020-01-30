@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.507+20200130092210
+2020-01-30
+
+### Features
+
+- écran de creation d'alarme pour la consommation mutualisée (a9f8b45caa73ec5701b1b81c7673b10d00878d81)
+
 ## 0.3.0-master.506+20200129101207
 2020-01-29
 
