@@ -56,6 +56,7 @@ import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import ActionCell from './ActionCell';
+import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
@@ -131,6 +132,9 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
+          format: {
+            component: DetailsCell,
+          },
         },
         {
           id: 5,
