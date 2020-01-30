@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.510+20200130152505
+2020-01-30
+
+### Fixes
+
+- traduction du filtre statut de la ligne (27b5e0bfd2f2a11315c987938ec40960e64c6fe6)
+
 ## 0.3.0-master.509+20200130141025
 2020-01-30
 
