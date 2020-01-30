@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.509+20200130141025
+2020-01-30
+
+### Fixes
+
+- masque les valeurs sur les histogrammes (a7d07de677c94bbce61c0a91a71b96e9d2adbe53)
+
 ## 0.3.0-master.508+20200130104737
 2020-01-30
 
