@@ -205,7 +205,7 @@
     "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
     "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
     "STATUS_CHANGE": "Changement de statut",
-    "IMEI_CHANGE": "Changement de module",
+    "IMEI_CHANGE": "Changement d'équipement",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée"
@@ -394,9 +394,9 @@
       "restart-confirmation": "Etes-vous sur de vouloir relancer les actes en échec?",
       "enterMessage": "Entrez un message",
       "titleListCard": {
-        "FAIL": "liste des cartes en échec",
-        "ONGOING": "liste des cartes en cours",
-        "TERMINATED": "liste des cartes terminées"
+        "FAIL": "liste des actes en échec",
+        "ONGOING": "liste des actes en cours",
+        "TERMINATED": "liste des actes terminées"
       },
       "col": {
         "id": "ID de l’acte unitaire",

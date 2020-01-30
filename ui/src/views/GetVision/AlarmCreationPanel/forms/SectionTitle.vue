@@ -1,5 +1,5 @@
 <template>
-  <h5 class="text-primary text-uppercase">
+  <h5 class="text-primary text-uppercase mb-4">
     <span class="badge badge-pill badge-primary">{{ num }}</span>
     <span class="title"> <slot /></span>
   </h5>

@@ -14,12 +14,14 @@
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
+import SectionTitle from './SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 
 export default {
   components: {
     AlarmCreationBaseForm,
     GroupMultiSelect,
+    SectionTitle,
   },
   props: {
     alarm: Object,

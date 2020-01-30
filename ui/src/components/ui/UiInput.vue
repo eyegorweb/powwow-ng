@@ -18,6 +18,7 @@
       type="number"
       :style="inputStyle"
       :min="minValue"
+      :max="maxValue"
     />
     <input
       v-else
@@ -57,6 +58,10 @@ export default {
       default: 'text',
     },
     minValue: {
+      type: Number,
+      required: false,
+    },
+    maxValue: {
       type: Number,
       required: false,
     },

@@ -1,31 +1,26 @@
 <template>
-  <div class="mb-3">
-    <SectionTitle :num="num">
-      Choisir la portée de l'alarme
-    </SectionTitle>
+  <div class="mb-4">
+    <SectionTitle :num="num">Choisir la portée de l'alarme</SectionTitle>
 
     <div class="scope-container" :style="{ maxHeight: maxHeight }">
-      <div class="scope-selection">
-        <UiSelect v-model="selectedType" :options="types" block />
-      </div>
-      <SearchLineByIdChoice v-if="selectedType === 'line'" @change="filterForCreation = $event" />
-      <OfferChoice
-        :key="'offer_' + (partner ? partner.id : '')"
-        v-if="selectedType === 'offer'"
-        :partner="partner"
-        @change="filterForCreation = $event"
-      />
-      <OfferBillingAccountChoice
-        :key="'offercf_' + (partner ? partner.id : '')"
-        v-if="selectedType === 'offercf'"
-        :partner="partner"
-        @change="filterForCreation = $event"
-      />
-      <FileImportChoice
-        v-if="selectedType === 'fileimport'"
-        :partner="partner"
-        @change="filterForCreation = $event"
-      />
+      <slot>
+        <div class="scope-selection">
+          <UiSelect v-model="selectedType" :options="types" block />
+        </div>
+        <SearchLineByIdChoice v-if="selectedType === 'line'" @change="filterForCreation = $event" />
+        <OfferChoice
+          :key="'offer_' + (partner ? partner.id : '')"
+          v-if="selectedType === 'offer'"
+          :partner="partner"
+          @change="filterForCreation = $event"
+        />
+
+        <FileImportChoice
+          v-if="selectedType === 'fileimport'"
+          :partner="partner"
+          @change="filterForCreation = $event"
+        />
+      </slot>
     </div>
   </div>
 </template>
@@ -53,9 +48,15 @@ export default {
   props: {
     num: Number,
     partner: Object,
+    containerHeight: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     maxHeight() {
+      if (this.containerHeight) return this.containerHeight;
+
       if (this.selectedType === 'fileimport') {
         if (!get(this.filterForCreation, 'searchByFile')) {
           return '15rem';
@@ -95,10 +96,12 @@ export default {
           label: 'Offre',
           value: 'offer',
         },
+        /*
         {
           label: 'Offre / CF',
           value: 'offercf',
         },
+        //*/
         {
           label: 'Import',
           value: 'fileimport',

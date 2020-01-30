@@ -3,9 +3,7 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
-
     {{ selectedPartner }}
-
     <PartnerCombo :value.sync="selectedPartner" />
 
     <div class="row">
@@ -26,7 +24,7 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
-import FormAlarm from '@/views/GetVision/AlarmCreationPanel/forms/OVER_CONSUMPTION_VOLUME.vue';
+import FormAlarm from '@/views/GetVision/AlarmCreationPanel/forms/OVER_CONSUMPTION_VOLUME_FLOTTE.vue';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
