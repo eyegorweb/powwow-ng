@@ -869,6 +869,7 @@
         "DETAIL": "Voir le détail de la ligne"
       },
       "chooseAct": "Choisir un acte de gestion",
+      "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
@@ -1101,7 +1102,7 @@
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",
-      "SIMCardStatus": "Statut de la carte SIM",
+      "SIMCardStatus": "Statut de la ligne",
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",

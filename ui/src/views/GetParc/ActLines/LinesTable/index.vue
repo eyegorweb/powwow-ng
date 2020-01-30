@@ -7,7 +7,7 @@
       <div class="row mb-3">
         <div class="col">
           <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
+            {{ $t('getparc.actLines.selected', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col" v-if="hasResults">
