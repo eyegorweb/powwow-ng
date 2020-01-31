@@ -236,3 +236,8 @@ $theme-colors: map-merge(
     color: #0b5ca8 !important;
   }
 }
+
+.bordered {
+  border: 1px solid $medium-gray;
+  border-radius: 0.2rem;
+}

@@ -14,6 +14,7 @@ export const state = {
   messages: [],
   actionToConfirm: undefined,
   ignoreClickAway: false,
+  width: undefined,
 
   homeWidgets,
 };
@@ -27,7 +28,7 @@ export const mutations = {
     state.homeWidgets = [...widgets];
   },
   openPanel: (state, conf) => {
-    const { title, panelId, payload, wide, backdrop, titleConf, ignoreClickAway } = conf;
+    const { title, panelId, payload, wide, backdrop, titleConf, ignoreClickAway, width } = conf;
     state.isPanelOpen = true;
     state.panelTitle = title;
     state.panelId = panelId || title;
@@ -36,6 +37,7 @@ export const mutations = {
     state.backdrop = !!backdrop;
     state.panelTitleConf = titleConf;
     state.ignoreClickAway = !!ignoreClickAway;
+    state.width = width;
   },
   closePanel: state => {
     state.isPanelOpen = false;

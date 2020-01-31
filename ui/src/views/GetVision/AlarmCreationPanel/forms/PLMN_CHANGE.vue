@@ -1,8 +1,6 @@
 <template>
   <AlarmCreationBaseForm :alarm="alarm" have-form>
-    <SectionTitle :num="3">
-      Définir une liste d'opérateurs
-    </SectionTitle>
+    <SectionTitle :num="3">Définir une liste d'opérateurs</SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_plmn.isp_list"
@@ -14,7 +12,7 @@
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 
 export default {

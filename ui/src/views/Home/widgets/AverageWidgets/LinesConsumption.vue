@@ -66,6 +66,8 @@ export default {
         ...this.contextFilters
       );
 
+      if (!listTopIndicators) return;
+
       this.indicators = listTopIndicators.map((i, index) => {
         return {
           total: i.numberValue,

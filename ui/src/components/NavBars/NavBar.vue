@@ -28,8 +28,7 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
-                  >{{ $t(item.label) }}</router-link
-                >
+                >{{ $t(item.label) }}</router-link>
               </div>
             </div>
           </UiTab>
@@ -148,7 +147,7 @@ export default {
             },
           ],
         },
-        { label: 'GetReport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetReport', to: { name: 'reports' }, mock: true },
         { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
         { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
         { label: 'GetDevice', to: { name: 'exemples' }, mock: true },

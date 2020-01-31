@@ -5,6 +5,7 @@
     :is-open="isOpen"
     @close="closePanel"
     :wide="wide"
+    :width="width"
     :backdrop="backdrop"
     :ignore-click-away="ignoreClickAway"
   >
@@ -12,15 +13,9 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
-      <ActHistoryDetailPanel
-        v-if="panelId === 'getparc.history.details.title'"
-        :content="payload"
-      />
+      <ActHistoryDetailPanel v-if="panelId === 'getparc.history.details.title'" :content="payload" />
       <ActLinesDetailPanel v-if="panelId === 'getparc.actLines.details.title'" :content="payload" />
-      <ActCreationPanel
-        v-if="panelId === 'getparc.actLines.details.createAct'"
-        :content="payload"
-      />
+      <ActCreationPanel v-if="panelId === 'getparc.actLines.details.createAct'" :content="payload" />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
       <LineAlarmDetailPanel
         v-if="panelId === 'getparc.lineDetail.alarms.trigger-history'"
@@ -28,6 +23,7 @@
       />
       <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
       <AlarmCreationPanel v-if="panelId === 'getvsion.table.create-alarm'" :content="payload" />
+      <ReportCreationPanel v-if="panelId === 'getreport.create_report'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -46,6 +42,7 @@ import CustomizePanel from '@/views/Home/CustomizePanel';
 import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
 import TheAlarmDetailPanel from '@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
 import AlarmCreationPanel from '@/views/GetVision/AlarmCreationPanel';
+import ReportCreationPanel from '@/views/GetReport/ReportCreationPanel';
 
 export default {
   components: {
@@ -60,6 +57,7 @@ export default {
     LineAlarmDetailPanel,
     TheAlarmDetailPanel,
     AlarmCreationPanel,
+    ReportCreationPanel,
   },
   methods: {
     ...mapMutations(['closePanel']),
@@ -73,6 +71,7 @@ export default {
     backdrop: state => state.ui.backdrop,
     titleConf: state => state.ui.panelTitleConf,
     ignoreClickAway: state => state.ui.ignoreClickAway,
+    width: state => state.ui.width,
   }),
 };
 </script>

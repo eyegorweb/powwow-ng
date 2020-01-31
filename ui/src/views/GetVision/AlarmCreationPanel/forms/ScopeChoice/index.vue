@@ -32,7 +32,7 @@ import SearchLineByIdChoice from './SearchLineByIdChoice';
 import OfferChoice from './OfferChoice';
 import OfferBillingAccountChoice from './OfferBillingAccountChoice.vue';
 import FileImportChoice from './FileImportChoice.vue';
-import SectionTitle from '../SectionTitle.vue';
+import SectionTitle from '@/components/SectionTitle.vue';
 
 import get from 'lodash.get';
 

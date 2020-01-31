@@ -4,19 +4,19 @@
       class="cd-panel cd-panel--from-right js-cd-panel-main"
       :class="{
         'cd-panel--is-visible': isOpen,
-        wide: wide,
-        narrow: !wide,
+        wide: !width && wide,
+        narrow: !width && !wide,
         'with-backdrop': backdrop,
       }"
       id="main-sliding-panel"
     >
-      <header class="cd-panel__header">
+      <header class="cd-panel__header" :style="{width}">
         <h1 class="font-weight-light">{{ displayedTitle }}</h1>
 
         <a href="#0" class="cd-panel__close js-cd-close" @click.prevent="$emit('close')">Close</a>
       </header>
 
-      <div class="cd-panel__container" v-clickaway="hidePanel">
+      <div class="cd-panel__container" :style="{width}" v-clickaway="hidePanel">
         <div class="cd-panel__content">
           <slot />
         </div>
@@ -32,6 +32,10 @@ import { clickaway } from '@/directives/clickaway';
 export default {
   name: 'SlidePanel',
   props: {
+    width: {
+      type: String,
+      required: false,
+    },
     title: String,
     titleConf: Object,
     isOpen: Boolean,

@@ -1,8 +1,6 @@
 <template>
   <AlarmCreationBaseForm :alarm="alarm" has-form>
-    <SectionTitle :num="3">
-      Définir les status supervisés
-    </SectionTitle>
+    <SectionTitle :num="3">Définir les status supervisés</SectionTitle>
     <Toggle
       v-if="toggleValues"
       @update="currentPeriod = $event.id"
@@ -15,7 +13,7 @@
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import Toggle from '@/components/ui/UiToggle2';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 
 export default {
   components: {

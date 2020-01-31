@@ -72,11 +72,11 @@ export default {
   data() {
     return {
       sholdNotify: false,
-      notifList: undefined,
       webserviceNotification: false,
       alarmName: undefined,
       enableAlarm: false,
 
+      notifList: undefined,
       notifLists: [
         {
           label: 'Liste 1',
