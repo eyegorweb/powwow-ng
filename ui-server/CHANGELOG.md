@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.511+20200131141112
+## 0.3.0-master.511+20200131141731
 2020-01-31
 
 ### Features
 
 - Ecran pour la création de rapports (43f67045036acef197462ae2b64f97955461400d)
+- **widget:** ajout du widget Top 5 des alarmes déclenchées (123f619566b79abc04a19e0f0774918a87daa939)
 
 ## 0.3.0-master.510+20200130152505
 2020-01-30
