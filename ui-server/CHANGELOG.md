@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.511+20200131141112
+2020-01-31
+
+### Features
+
+- Ecran pour la création de rapports (43f67045036acef197462ae2b64f97955461400d)
+
 ## 0.3.0-master.510+20200130152505
 2020-01-30
 
