@@ -1,8 +1,6 @@
 <template>
   <AlarmCreationBaseForm :alarm="alarm" have-form>
-    <SectionTitle :num="3">
-      Définir une liste de pays autorisés
-    </SectionTitle>
+    <SectionTitle :num="3">Définir une liste de pays autorisés</SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_country.countries_list"
@@ -14,7 +12,7 @@
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 
 export default {

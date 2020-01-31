@@ -78,6 +78,12 @@ export default new Router({
       mock: true,
     },
     {
+      path: '/reports',
+      name: 'reports',
+      component: () => import('@/views/GetReport/reports/index.vue'),
+      mock: true,
+    },
+    {
       path: '/exemples',
       name: 'exemples',
       component: Examples,

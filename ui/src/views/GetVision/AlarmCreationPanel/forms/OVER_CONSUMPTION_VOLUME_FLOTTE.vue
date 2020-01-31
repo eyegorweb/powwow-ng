@@ -28,7 +28,7 @@
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import Toggle from '@/components/ui/UiToggle2';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 import OverConsoDataForm from './OverConsoForms/OverConsoDataForm';
 import OverConsoSMSForm from './OverConsoForms/OverConsoSMSForm';
 import OverConsoVoiceForm from './OverConsoForms/OverConsoVoiceForm';

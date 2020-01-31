@@ -141,5 +141,5 @@ export async function fetchEntitiesIndicators(keys, partners, partnerType) {
    }
   `;
   const response = await query(queryStr);
-  return response.data.topIndicatorsEntities;
+  if (response.data) return response.data.topIndicatorsEntities;
 }

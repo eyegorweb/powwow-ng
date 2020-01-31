@@ -39,6 +39,11 @@ export default {
     fixed: Boolean,
     large: Boolean,
     timePicker: Boolean,
+    direction: {
+      type: String,
+      required: false,
+      default: 'up',
+    },
   },
   computed: {
     dateFormat() {
@@ -67,7 +72,7 @@ export default {
         {
           singleDatePicker: true,
           startDate,
-          drops: 'up',
+          drops: this.direction,
           timePicker: this.timePicker,
           timePicker24Hour: true,
           locale: {

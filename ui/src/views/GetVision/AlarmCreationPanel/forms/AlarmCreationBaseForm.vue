@@ -25,7 +25,7 @@
 <script>
 import ScopeChoice from './ScopeChoice';
 import NotificationChoice from './NotificationChoice';
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
 export default {

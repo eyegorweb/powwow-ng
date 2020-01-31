@@ -1,11 +1,11 @@
 <template>
-  <div class="foldable-block pt-3" :class="{ disabled }">
+  <div class="foldable-block pt-3" :class="{ disabled, 'is-open': isOpen }">
     <div class="d-flex align-items-center">
       <span v-if="!disabled && draggable" class="handle">
         <i class="ic-Drag-Column-Icon" />
       </span>
       <span class="title flex-grow-1">{{ title }}</span>
-      <a v-if="!disabled" class=" p-0" @click.prevent="toggleShow">
+      <a v-if="!disabled" class="p-0" @click.prevent="toggleShow">
         <i :class="iconClass" />
       </a>
     </div>

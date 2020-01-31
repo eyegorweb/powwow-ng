@@ -105,10 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bordered {
-  border: 1px solid $medium-gray;
-  border-radius: 0.2rem;
-}
 .line-container {
   display: flex;
   .value {

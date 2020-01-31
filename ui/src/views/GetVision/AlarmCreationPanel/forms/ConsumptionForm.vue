@@ -1,12 +1,10 @@
 <template>
   <div class="mb-4">
-    <SectionTitle :num="3">
-      Définir un seuil de déclenchement par usage
-    </SectionTitle>
+    <SectionTitle :num="3">Définir un seuil de déclenchement par usage</SectionTitle>
 
     <div class="d-flex mb-2">
       <span :class="{ bold: !isAdvanced }">Mode Standard</span>
-      <UiToggle v-model="isAdvanced" on-text="" off-text="" />
+      <UiToggle v-model="isAdvanced" on-text off-text />
       <span :class="{ bold: isAdvanced }">Mode Avancé</span>
     </div>
 
@@ -67,7 +65,7 @@
 </template>
 
 <script>
-import SectionTitle from './SectionTitle';
+import SectionTitle from '@/components/SectionTitle';
 import UiInput from '@/components/ui/UiInput';
 import UiToggle from '@/components/ui/UiToggle';
 import Toggle from '@/components/ui/UiToggle2';

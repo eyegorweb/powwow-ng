@@ -24,7 +24,7 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
-import FormAlarm from '@/views/GetVision/AlarmCreationPanel/forms/OVER_CONSUMPTION_VOLUME_FLOTTE.vue';
+import FormAlarm from '@/views/GetReport/ReportCreationPanel/index.vue';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
