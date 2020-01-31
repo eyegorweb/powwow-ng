@@ -21,7 +21,7 @@
           </div>
         </div>
         <div v-else>
-          <span>{{ $t(averageTimeAction(indicator.labelKey)) }}</span>
+          <span>{{ indicator.labelKey }}</span>
           <div class="float-right">
             <button class="btn btn-link p-0" :disabled="true">
               <span>{{ indicator.total }} {{ indicator.unit }}</span>
@@ -61,27 +61,6 @@ export default {
     toggleValues: Array,
   },
   methods: {
-    getLabel(name, from, to) {
-      return name.slice(from, to);
-    },
-    averageTimeAction(label) {
-      const action = this.getLabel(label, 'act_delay_'.length, label.lastIndexOf('_'));
-      if (action === 'ACTIVATION') {
-        return 'getparc.actTypes.ACTIVATION';
-      }
-      if (action === 'PREACTIVATION') {
-        return 'getparc.actTypes.PREACTIVATION';
-      }
-      if (action === 'SUSPENDION') {
-        return 'getparc.actTypes.SUSPENDION';
-      }
-      if (action === 'SERVICE_CHANGE') {
-        return 'getparc.actTypes.SERVICE_CHANGE';
-      }
-      if (action === 'ICCID_CHANGE') {
-        return 'getparc.actTypes.ICCID_CHANGE';
-      }
-    },
     onClick(id) {
       this.$router.push({
         name: 'lineDetail',
