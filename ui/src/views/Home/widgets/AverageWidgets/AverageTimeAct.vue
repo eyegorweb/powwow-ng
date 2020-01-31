@@ -80,10 +80,11 @@ export default {
       );
 
       this.indicators = listIndicators.map(i => {
+        const labelKey = this.averageTimeAction(i.name);
         return {
           total: i.numberValue,
           clickable: false,
-          labelKey: i.name,
+          labelKey: labelKey,
           id: i.name,
           unit: defaultTimeUnit,
           linked: false,
@@ -99,6 +100,38 @@ export default {
       if (ordered.length) {
         this.lastUpdateDate = ordered[0].precalculatedValue.updateDate;
       }
+    },
+    getLabel(name, from, to) {
+      return name.slice(from, to);
+    },
+    averageTimeAction(label) {
+      const action = this.getLabel(label, 'act_delay_'.length, label.lastIndexOf('_'));
+      let value;
+      switch (action) {
+        case 'ACTIVATION':
+          value = this.$t('getparc.actTypes.ACTIVATION');
+          break;
+
+        case 'PREACTIVATION':
+          value = this.$t('getparc.actTypes.PREACTIVATION');
+          break;
+
+        case 'SUSPENDION':
+          value = this.$t('getparc.actTypes.SUSPENDION');
+          break;
+
+        case 'SERVICE_CHANGE':
+          value = this.$t('getparc.actTypes.SERVICE_CHANGE');
+          break;
+
+        case 'ICCID_CHANGE':
+          value = this.$t('getparc.actTypes.ICCID_CHANGE');
+          break;
+
+        default:
+          value = label;
+      }
+      return value;
     },
   },
   watch: {

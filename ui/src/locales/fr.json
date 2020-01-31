@@ -65,6 +65,7 @@
   "suspension": "Suspension",
   "mailNotification": "Être notifié par e-mail",
   "webserviceNotification": "Être notifié par webservice",
+  "lines": "Lignes",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -101,7 +102,8 @@
       "message": {
         "scheduleTermination": "pas d’autre résiliation programmée",
         "termination": "pas d’autre résiliation",
-        "activation": "pas d’autre activation"
+        "activation": "pas d’autre activation",
+        "triggeredAlarm": "pas d’autre alarme déclenchée"
       },
       "viewOneResult": "Consulter le résultat",
       "viewXResults": "Consulter les {num} résultats",

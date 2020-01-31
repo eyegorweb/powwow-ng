@@ -29,7 +29,6 @@ export default excludeMocked([
     large: false,
     seeMore: true,
     component: TriggeredAlarms,
-    mock: true,
   },
   {
     title: 'home.widgets.orders',

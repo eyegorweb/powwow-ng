@@ -1,27 +1,32 @@
 <template>
-  <WidgetBloc :widget="widget" mocked>
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore">
     <table class="table">
       <thead>
         <tr>
-          <th>OFFRE</th>
-          <th>NOM DE L'ALARME</th>
-          <th>LIGNES</th>
+          <th v-if="!userIsPartner">{{ $t('orders.new.customer') }}</th>
+          <th>{{ $t('getparc.lineDetail.alarms.name') }}</th>
+          <th>{{ $t('lines') }}</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Linky-Prod</td>
-          <td>Alarme surconso offre 4G</td>
+      <tbody v-if="!noResults">
+        <tr v-for="indicator in indicators" :key="indicator.id">
+          <td v-if="!userIsPartner">{{ indicator.labelKey }}</td>
+          <td>{{ indicator.name }}</td>
           <td>
-            <button class="btn btn-link p-0">50</button>
+            <button class="btn btn-link p-0">
+              <span>{{ indicator.total }}</span>
+            </button>
           </td>
         </tr>
+        <tr v-if="specificMessage">
+          <td><em>{{ specificMessage }}</em></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+      <tbody v-else>
         <tr>
-          <td>Linky-Prod</td>
-          <td>Alarme surconso Data</td>
-          <td>
-            <button class="btn btn-link p-0">50</button>
-          </td>
+          <td>{{ $t('noResult') }}</td>
         </tr>
       </tbody>
     </table>
@@ -30,6 +35,8 @@
 
 <script>
 import WidgetBloc from './WidgetBloc';
+import { fetchEntitiesIndicators } from '@/api/indicators.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -39,14 +46,64 @@ export default {
     widget: Object,
     contextFilters: Array,
   },
+  data() {
+    return {
+      indicators: undefined,
+      specificMessage: undefined,
+    };
+  },
+  computed: {
+    ...mapGetters(['userIsPartner', 'appIsReady']),
+    noResults() {
+      return this.indicators && !this.indicators.length ? true : false;
+    },
+  },
+  async mounted() {
+    await this.loadListTriggeredAlarms();
+  },
+  methods: {
+    async loadListTriggeredAlarms() {
+      const listTopIndicators = await fetchEntitiesIndicators([`ALARM_TRIGGERED`]);
+      this.indicators = listTopIndicators.map((i, index) => {
+        return {
+          total: i.numberValue,
+          name: i.stringValue,
+          clickable: true,
+          labelKey: i.partyName,
+          id: `${i.name}_${index}`,
+          entityId: i.entityId,
+          stringValue: i.stringValue,
+          linked: true,
+        };
+      });
+      this.displayInfoMessage();
+    },
+    displayInfoMessage() {
+      if (this.noResults) return;
+      if (this.indicators && this.indicators.length && this.indicators.length < 5) {
+        this.specificMessage = this.$t('home.widgets.message.triggeredAlarm');
+      } else {
+        this.specificMessage = '';
+      }
+    },
+    onSeeMore() {
+      this.$router.push({
+        name: 'alarms',
+        params: {
+          queryFilters: [],
+        },
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .table {
   td {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: $dark-gray;
+    padding: 0.5rem 0.75rem 0.4rem;
     button {
       color: $orange;
     }
@@ -55,6 +112,7 @@ export default {
     font-size: 0.7rem;
     font-weight: 500;
     color: $dark-gray;
+    text-transform: uppercase;
   }
 }
 </style>
