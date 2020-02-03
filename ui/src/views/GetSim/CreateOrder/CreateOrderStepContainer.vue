@@ -1,22 +1,24 @@
 <template>
-  <div class="order-step-container">
-    <div class="order-step-content">
+  <div class="orderStepContainer">
+    <div class="orderStepContent">
       <slot></slot>
     </div>
-    <div v-if="!noButtons" class="order-sep-actions">
-      <div class="col-md-12">
+    <div v-if="!noButtons" class="orderStepButtons">
+      <div>
         <UiButton
           v-if="!noPreviousButton"
           variant="round-button"
           @click="$emit('prev')"
-          class="float-left ic-Arrow-Previous-Icon prev-btn"
+          class="ic-Arrow-Previous-Icon prev-btn"
         />
+      </div>
+      <div>
         <UiButton
           v-if="!noNextButton"
           variant="round-button"
           @click="$emit('done')"
           :disabled="!canGoToNextStep"
-          class="float-right ic-Arrow-Next-Icon next-btn"
+          class="ic-Arrow-Next-Icon next-btn"
         />
       </div>
     </div>
@@ -40,20 +42,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.order-step-container {
+.orderStepContainer {
   display: flex;
-  height: 86vh;
   flex-direction: column;
-}
-.order-step-content {
-  flex-grow: 1;
-  padding: 0 2rem;
-  @media screen and (min-width: 1440px) {
+  height: 100%;
+
+  .orderStepContent {
+    flex-grow: 1;
     padding: 0 7rem;
   }
-}
 
-.order-sep-actions {
-  height: 2vh;
+  .orderStepButtons {
+    flex-basis: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>

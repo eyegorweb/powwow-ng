@@ -12,9 +12,9 @@
             :order-by="orderBy"
             button-style
           >
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </span>
+            <span slot="title">{{
+              $t('getparc.history.details.EXPORT_LINES', { total: total })
+            }}</span>
           </ExportButton>
         </div>
       </div>
@@ -71,21 +71,15 @@
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>
-              {{ content.failedEntitiesNumber > 0 ? content.failedEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.failedEntitiesNumber > 0 ? content.failedEntitiesNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <p>
-              {{ content.pendingEntitiesNumber > 0 ? content.pendingEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.pendingEntitiesNumber > 0 ? content.pendingEntitiesNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <p>
-              {{ content.completedEntitiesNumber > 0 ? content.completedEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.completedEntitiesNumber > 0 ? content.completedEntitiesNumber : '-' }}</p>
           </div>
         </div>
       </div>
@@ -268,7 +262,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
-          this.content.massActionResponse.id,
+          this.content.massAction.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           [
             'MASS_ACTION_ID',

@@ -1,7 +1,7 @@
 <template>
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
-      <div class="main-content">
+      <div class="main-content2">
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"

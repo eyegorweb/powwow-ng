@@ -11,7 +11,7 @@
       :key="'choice_' + (selectedPartner ? selectedPartner.id : '')"
       :num="scopeIndex"
       :partner="selectedPartner"
-      :containerHeight="containerHeight"
+      :container-height="containerHeight"
     >
       <slot name="scopechoice" :partner="selectedPartner"></slot>
     </ScopeChoice>

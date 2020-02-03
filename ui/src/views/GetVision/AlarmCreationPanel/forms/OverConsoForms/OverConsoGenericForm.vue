@@ -5,15 +5,17 @@
         <span>{{ valueLabel }}</span>
         <UiInput
           class="value-input"
-          inputType="number"
-          :minValue="0"
-          :maxValue="100"
+          input-type="number"
+          :min-value="0"
+          :max-value="100"
           v-model="line.value"
         />
       </div>
       <div class="limitDate">
         <span>
-          <template v-if="!!getPercentValFn(line.value)">{{ getPercentValFn(line.value) }} Avant le</template>
+          <template v-if="!!getPercentValFn(line.value)"
+            >{{ getPercentValFn(line.value) }} Avant le</template
+          >
         </span>
         <UiSelect :options="options" v-model="line.limit" />
       </div>
@@ -29,17 +31,17 @@
         <span>{{ valueLabel }}</span>
         <UiInput
           class="value-input"
-          inputType="number"
-          :minValue="0"
-          :maxValue="100"
+          input-type="number"
+          :min-value="0"
+          :max-value="100"
           v-model="basePercent"
         />
       </div>
       <div class="limitDate">
         <span>
-          <template
-            v-if="!!getPercentValFn(basePercent)"
-          >{{ getPercentValFn(basePercent) }} Avant la fin du mois</template>
+          <template v-if="!!getPercentValFn(basePercent)"
+            >{{ getPercentValFn(basePercent) }} Avant la fin du mois</template
+          >
         </span>
       </div>
       <div v-if="lines.length < 2" class="deleteButton">
