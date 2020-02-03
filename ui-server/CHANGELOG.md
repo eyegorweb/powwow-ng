@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.512+20200203122525
+2020-02-03
+
+### Fixes
+
+- Corriger les boutons du panel de création de comandes (8d630546f83e04977073cec2654b0935dd355c66)
+
 ## 0.3.0-master.511+20200131141731
 2020-01-31
 
