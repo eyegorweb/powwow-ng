@@ -84,7 +84,7 @@ export default {
         return {
           total: i.numberValue,
           clickable: false,
-          labelKey: labelKey,
+          labelKey,
           id: i.name,
           unit: defaultTimeUnit,
           linked: false,

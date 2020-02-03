@@ -62,6 +62,7 @@ import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
 import AlarmIdCell from './AlarmIdCell.vue';
 import SearchAlarmById from './SearchAlarmById.vue';
+import AlarmStatusCell from './AlarmStatusCell.vue';
 import AlarmsActions from './AlarmsActions.vue';
 
 import LoaderContainer from '@/components/LoaderContainer';
@@ -92,8 +93,24 @@ export default {
         col(this.$t('getvsion.table.targetedLines'), 'targetedLines', true, false, {
           component: TargetedLinesCell,
         }),
-        col(this.$t('getvsion.table.triggers '), 'triggers', true, false, {
+        col(this.$t('getvsion.table.triggers'), 'triggers', false, false, {
           component: TriggeredEventsCell,
+        }),
+        col(this.$t('filters.lines.activationDate'), 'startDate', false, false),
+        col(this.$t('col.partner'), 'party', false, false, {
+          type: 'ObjectAttribute',
+          path: 'name',
+        }),
+        col(this.$t('getvsion.table.alarmStatus'), 'startDate', true, false, {
+          component: AlarmStatusCell,
+        }),
+        col(this.$t('getparc.lineDetail.offer'), 'autoPositionWorkflow', false, false, {
+          type: 'ObjectAttribute',
+          path: 'workflowDescription',
+        }),
+        col(this.$t('common.billingAccount'), 'autoPositionCustAccount', false, false, {
+          type: 'ObjectAttribute',
+          path: 'name',
         }),
       ],
       pageLimit: 20,

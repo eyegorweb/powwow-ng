@@ -289,6 +289,12 @@ export default {
       flex-basis: 4rem;
     }
 
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      .steps {
+        overflow: hidden;
+      }
+    }
+
     .stepContent {
       flex-grow: 1;
     }

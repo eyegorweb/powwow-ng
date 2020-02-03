@@ -236,7 +236,8 @@
       "create-alarm": "Créer une alarme",
       "thresholds": "Seuil(s) de déclenchement",
       "targetedLines": "Lignes ciblées",
-      "triggers": "Déclenchements"
+      "triggers": "Déclenchements",
+      "alarmStatus": "Statut de l'alarme"
     },
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
@@ -260,7 +261,12 @@
       "alarm_availability": "Présence de l'alarme",
 
       "enableAlarm": "Activer l'alarme",
-      "saveAlarm": "Enregistrer l'alarme"
+      "saveAlarm": "Enregistrer l'alarme",
+      "statuses": {
+        "created": "Créée",
+        "activated": "Activée",
+        "disabled": "Désactivée"
+      }
     },
     "alarm-creation": {
       "change_country": {

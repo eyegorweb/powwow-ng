@@ -102,6 +102,9 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         id
         name
         type
+        startDate
+        disabled
+        type
         alarmScope
         observationCycle
         notifyByWs
@@ -111,6 +114,17 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
           emails
         }
         party {
+          id
+          name
+        }
+        auditable {
+          created
+          updated
+        }
+        autoPositionWorkflow {
+          workflowDescription
+        }
+        autoPositionCustAccount {
           id
           name
         }
