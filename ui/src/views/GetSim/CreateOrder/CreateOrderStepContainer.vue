@@ -53,7 +53,7 @@ export default {
   }
 
   .orderStepButtons {
-    flex-basis: 2rem;
+    flex-basis: 4rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -19,7 +19,9 @@
           </td>
         </tr>
         <tr v-if="specificMessage">
-          <td><em>{{ specificMessage }}</em></td>
+          <td>
+            <em>{{ specificMessage }}</em>
+          </td>
           <td></td>
           <td></td>
         </tr>
