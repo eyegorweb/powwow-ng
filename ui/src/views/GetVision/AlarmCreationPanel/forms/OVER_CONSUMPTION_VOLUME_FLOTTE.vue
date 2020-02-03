@@ -1,5 +1,5 @@
 <template>
-  <AlarmCreationBaseForm :alarm="alarm" have-form :containerHeight="'4rem'">
+  <AlarmCreationBaseForm :alarm="alarm" have-form :container-height="'4rem'">
     <SectionTitle :num="3">Définir des seuils de déclenchement par usage (3 max.)</SectionTitle>
 
     <div class="d-flex justify-content-center mt-4 mb-2">
@@ -15,7 +15,7 @@
     <OverConsoSMSForm v-if="currentPeriod == 'sms'" />
     <OverConsoVoiceForm v-if="currentPeriod == 'voice'" />
 
-    <template v-slot:scopechoice="{partner}">
+    <template v-slot:scopechoice="{ partner }">
       <OfferBillingAccountChoice
         :key="'offercf_' + (partner ? partner.id : '')"
         :partner="partner"

@@ -1,9 +1,9 @@
 <template>
   <CreateOrderStepContainer @done="done" @prev="prev" :can-go-to-next-step="!!canGoToNextStep">
-    <div class="main-content">
+    <div class="main-content2">
       <div v-if="filteredSimTypes && filteredSimTypes.length > 0">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('getsim.step-product') }}</h3>
-        <div class="subcontainer">
+        <div class="productChoices">
           <form>
             <GetSimTypeOption
               @update:defaultSelectedItem="checkForCurrentSimType"
@@ -236,7 +236,7 @@ export default {
 </script>
 
 <style lang="scss">
-.subcontainer {
+.productChoices {
   // max-height: 400px;
   max-height: 21rem;
   overflow-y: auto;
@@ -268,17 +268,6 @@ export default {
 .display-nb-bobines {
   font-size: 1.2rem;
   font-weight: 600;
-}
-
-.next-btn {
-  position: absolute;
-  right: 1rem;
-  bottom: 0;
-}
-.prev-btn {
-  position: absolute;
-  left: 1rem;
-  bottom: 0;
 }
 
 .choose-amount {

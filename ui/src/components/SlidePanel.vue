@@ -10,13 +10,13 @@
       }"
       id="main-sliding-panel"
     >
-      <header class="cd-panel__header" :style="{width}">
+      <header class="cd-panel__header" :style="{ width }">
         <h1 class="font-weight-light">{{ displayedTitle }}</h1>
 
         <a href="#0" class="cd-panel__close js-cd-close" @click.prevent="$emit('close')">Close</a>
       </header>
 
-      <div class="cd-panel__container" :style="{width}" v-clickaway="hidePanel">
+      <div class="cd-panel__container" :style="{ width }" v-clickaway="hidePanel">
         <div class="cd-panel__content">
           <slot />
         </div>

@@ -3,7 +3,11 @@
     <div class="panelContent">
       <div class="checkBoxesContainer">
         <SectionTitle :num="1">Choisir les informations</SectionTitle>
-        <p>Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.</p>
+        <p>
+          Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire
+          apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces
+          informations dans votre tableur préféré.
+        </p>
 
         <div class="mt-4 mb-2">
           <h6>à partir d'un modèle du rapport</h6>
@@ -13,9 +17,13 @@
         <div class="checkbox-groups">
           <FoldableBlock :title="group.title" :key="group.title" v-for="group in groups">
             <div class="bg-white p-3 bordered checkboxes-container">
-              <div v-for="checkbox in group.checkboxes" class="d-flex pt-3 item">
+              <div
+                :key="checkbox.label"
+                v-for="checkbox in group.checkboxes"
+                class="d-flex pt-3 item"
+              >
                 <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
-                <span>{{checkbox.label}}</span>
+                <span>{{ checkbox.label }}</span>
               </div>
             </div>
           </FoldableBlock>
@@ -65,7 +73,7 @@
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
               <i class="ic-Minus-Icon"></i>
             </button>
-            {{i.label}}
+            {{ i.label }}
           </li>
         </ul>
       </div>
@@ -95,7 +103,6 @@ import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
 import UiSelect from '@/components/ui/UiSelect';
 import FoldableBlock from '@/components/FoldableBlock';
-import UiToggle from '@/components/ui/UiToggle';
 import UiInput from '@/components/ui/UiInput';
 
 export default {
@@ -106,7 +113,6 @@ export default {
     UiCheckbox,
     UiSelect,
     FoldableBlock,
-    UiToggle,
     UiInput,
   },
 

@@ -21,7 +21,7 @@ export default {
   methods: {
     onActionClicked(action) {
       if (action === 'getsim.actions.DETAIL') {
-        //this.$router.push({ name: 'alarmDetail', params: { alarmId: this.alarm.id } });
+        // this.$router.push({ name: 'alarmDetail', params: { alarmId: this.alarm.id } });
       }
     },
   },

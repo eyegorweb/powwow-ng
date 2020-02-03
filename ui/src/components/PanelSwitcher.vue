@@ -13,9 +13,15 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
-      <ActHistoryDetailPanel v-if="panelId === 'getparc.history.details.title'" :content="payload" />
+      <ActHistoryDetailPanel
+        v-if="panelId === 'getparc.history.details.title'"
+        :content="payload"
+      />
       <ActLinesDetailPanel v-if="panelId === 'getparc.actLines.details.title'" :content="payload" />
-      <ActCreationPanel v-if="panelId === 'getparc.actLines.details.createAct'" :content="payload" />
+      <ActCreationPanel
+        v-if="panelId === 'getparc.actLines.details.createAct'"
+        :content="payload"
+      />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
       <LineAlarmDetailPanel
         v-if="panelId === 'getparc.lineDetail.alarms.trigger-history'"

@@ -30,7 +30,6 @@ import UiSelect from '@/components/ui/UiSelect';
 
 import SearchLineByIdChoice from './SearchLineByIdChoice';
 import OfferChoice from './OfferChoice';
-import OfferBillingAccountChoice from './OfferBillingAccountChoice.vue';
 import FileImportChoice from './FileImportChoice.vue';
 import SectionTitle from '@/components/SectionTitle.vue';
 
@@ -41,7 +40,6 @@ export default {
     UiSelect,
     SearchLineByIdChoice,
     OfferChoice,
-    OfferBillingAccountChoice,
     FileImportChoice,
     SectionTitle,
   },

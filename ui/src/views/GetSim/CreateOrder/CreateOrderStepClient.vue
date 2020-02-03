@@ -4,7 +4,7 @@
     @done="done"
     :can-go-to-next-step="!!canGoToNextStep"
   >
-    <div class="main-content">
+    <div class="main-content2">
       <div v-if="!userIsPartner">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
 
@@ -204,27 +204,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@media screen and (max-height: 768px) {
-  .panel-vertical-container {
-    div.step-content {
-      max-height: 87vh;
-      min-height: 60vh !important;
-    }
-  }
-}
-@media screen and (min-height: 769px) {
-  .panel-vertical-container {
-    div.step-content {
-      min-height: 60vh;
-      max-height: 87vh;
-    }
-  }
-}
-
-.subcontainer {
-  width: 65%;
-  margin: 0 auto;
-}
-</style>

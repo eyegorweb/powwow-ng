@@ -12,7 +12,7 @@
       :partner-id="synthesis.billingAccount.value.partnerId"
       :address-edit="addressToEdit"
     />
-    <div class="main-content" v-if="!inEditMode">
+    <div class="main-content2" v-if="!inEditMode">
       <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-delivery') }}</h3>
 
       <div class="subcontainer">
