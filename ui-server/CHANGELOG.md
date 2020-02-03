@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.513+20200203153921
+2020-02-03
+
+### Features
+
+- rechercher unitairement des alarmes et configurer ma table de résultat depuis la home des alarmes (4c1832c7a5ddac4e6137c3768f855d3da22f149f)
+
 ## 0.3.0-master.512+20200203122525
 2020-02-03
 
