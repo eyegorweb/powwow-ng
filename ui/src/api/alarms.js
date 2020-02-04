@@ -150,6 +150,27 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
+export async function triggerHistory(id) {
+  const queryStr = `
+  query {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${id}}}, pagination: {page: 0, limit: 20}) {
+      items {
+        id
+        alarm {
+            id,
+          startDate,
+          level1,
+          level2,
+          level3,
+        }
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.alarmEvents;
+}
+
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
