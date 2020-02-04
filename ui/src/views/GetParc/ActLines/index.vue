@@ -176,6 +176,13 @@ export default {
   },
   mounted() {
     this.setActToCreate(null);
+
+    /**
+     * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
+     */
+    if (this.$route.params && this.$route.params.fromDetail) {
+      this.tableIsEmpty = false;
+    }
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
