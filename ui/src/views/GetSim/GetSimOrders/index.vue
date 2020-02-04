@@ -160,6 +160,7 @@ export default {
       this.fetchOrders();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchOrders();
     },
     isPanelOpen() {

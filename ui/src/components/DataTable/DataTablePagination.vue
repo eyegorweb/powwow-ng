@@ -50,7 +50,7 @@ export default {
     pagesToShow() {
       if (this.pageCount > this.pageWindow) {
         // first x pages
-        if (this.page <= this.pageWindow) {
+        if (this.page <= this.pageWindow - 1) {
           return this.pageWindow;
         }
 
