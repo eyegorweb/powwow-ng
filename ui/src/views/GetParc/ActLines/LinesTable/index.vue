@@ -168,6 +168,7 @@ export default {
       this.fetchLinesActions();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchLinesActions();
     },
   },
