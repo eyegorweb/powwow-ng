@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.515+20200204103445
+## 0.3.0-master.515+20200204103508
 2020-02-04
+
+### Features
+
+- Ajout de l'historique de déclenchement d'alarmes détail ligne (b9683ae93ae7b24856b73b0ccd88a3a0fab0eff7)
 
 ### Fixes
 
