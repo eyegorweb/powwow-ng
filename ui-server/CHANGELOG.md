@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.514+20200204083549
+2020-02-04
+
+### Fixes
+
+- Corriger le bouton "annuler" de la barre de contexte (092f27f11c467b7c690a3ad6b7c5afb2cbc8cf7d)
+
 ## 0.3.0-master.513+20200203153921
 2020-02-03
 
