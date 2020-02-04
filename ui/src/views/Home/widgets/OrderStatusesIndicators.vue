@@ -61,44 +61,14 @@ export default {
             },
           ],
           fetchKey: 'ORDER_TO_VALIDATE',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
-          },
         },
         {
-          name: 'ordersInProgress',
-          labelKey: 'indicators.getsim.ordersInProgress',
-          color: 'text-success',
-          clickable: true,
+          name: 'averageProcessingTime',
+          labelKey: 'indicators.getsim.averageProcessingTime',
+          clickable: false,
           total: '-',
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [
-                { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
-                {
-                  id: 'TO_BE_CONFIRMED_BY_BO',
-                  label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
-                },
-                {
-                  id: 'CONFIRMATION_IN_PROGRESS',
-                  label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
-                },
-                { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
-              ],
-            },
-            {
-              id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(6, 'month')
-                .format(dateFormat),
-              endDate: moment().format(dateFormat),
-            },
-          ],
-          fetchKey: 'ORDER_IN_PROCESS',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
-          },
+          filters: [],
+          fetchKey: 'ORDER_DELAY',
         },
         {
           name: 'ordersNotConfirmed',
@@ -137,9 +107,7 @@ export default {
             },
           ],
           fetchKey: 'ORDER_NOT_CONFIRMED',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
-          },
+
           hideZeroValue: true,
         },
         {
@@ -165,9 +133,7 @@ export default {
             },
           ],
           fetchKey: 'ORDER_FAILED',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
-          },
+
           hideZeroValue: true,
         },
         {
@@ -189,18 +155,8 @@ export default {
             },
           ],
           fetchKey: 'ORDER_TO_VALIDATE_BO',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
-          },
+
           hideZeroValue: true,
-        },
-        {
-          name: 'averageProcessingTime',
-          labelKey: 'indicators.getsim.averageProcessingTime',
-          clickable: false,
-          total: '-',
-          filters: [],
-          fetchKey: 'ORDER_DELAY',
         },
       ],
     };
