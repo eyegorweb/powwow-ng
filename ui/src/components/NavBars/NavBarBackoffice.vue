@@ -10,6 +10,7 @@
         <div class="partnerTypeSelect">
           <UiSelect
             v-model="partnerType"
+            @input="canCancel = true"
             :placeholder="$t('partnerType')"
             :options="partnersTypesOptions"
           />
@@ -34,6 +35,7 @@
             >{{ $t('set') }}</UiButton
           >
           <UiButton
+            v-if="canCancel"
             slot="trigger"
             variant="danger"
             class="flex-grow-1 py-1 px-3 ml-1"
@@ -62,6 +64,7 @@ export default {
   },
   data() {
     return {
+      canCancel: false,
       partnersTypesOptions: [
         {
           label: '',
@@ -93,17 +96,20 @@ export default {
     ...mapMutations('userContext', ['setPartnerType', 'setPartners']),
 
     setLocalPartners(values) {
+      this.canCancel = true;
       this.partners = values;
     },
 
     savePartnerContext() {
       this.setPartnerType(this.partnerType);
       this.setPartners(this.partners);
+      this.canCancel = false;
     },
 
     revertSelection() {
       this.partnerType = this.contextPartnersType;
       this.partners = this.contextPartners;
+      this.canCancel = false;
     },
   },
 
