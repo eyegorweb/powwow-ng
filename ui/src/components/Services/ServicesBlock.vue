@@ -49,7 +49,7 @@
   <div v-else>
     <div>
       <div class="services-container">
-        <div :key="service.id" v-for="service in otherServices" class="single-service mt-3 mb-3">
+        <div :key="service.id" v-for="service in otherServices" class="single-service">
           <UiToggle
             :label="$t('services.' + service.code)"
             :editable="service.editable"
@@ -170,6 +170,7 @@ export default {
   margin: auto;
   .single-service {
     flex-basis: 50%;
+    margin: 0.6rem 0;
   }
 }
 
