@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.517+20200204140832
+2020-02-04
+
+### Fixes
+
+- Corriger la disposition des widgets (8a5f8f92d911c06a80c055167a0063c5c8bef871)
+
 ## 0.3.0-master.516+20200204130310
 2020-02-04
 
