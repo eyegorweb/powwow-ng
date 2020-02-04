@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.515+20200204103445
+2020-02-04
+
+### Fixes
+
+- Changement d'ICCID après détail de ligne (fcd1118ce18a73e85af95f2e4673fb8d6a4f89c1)
+
 ## 0.3.0-master.514+20200204083549
 2020-02-04
 
