@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.516+20200204130310
+2020-02-04
+
+### Fixes
+
+- Corriger le message en double lors du changement ICCID (c81b38698e9d688fa3ed32d7128dc0b448dc6211)
+
 ## 0.3.0-master.515+20200204103508
 2020-02-04
 
