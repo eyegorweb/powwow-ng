@@ -33,7 +33,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-blue mt-1" :class="{ 'small-text': smallText }">
+        <table class="table table-blue table-hover mt-1" :class="{ 'small-text': smallText }">
           <draggable tag="thead" v-model="sortableColumns" handle=".handle">
             <transition-group tag="tr" name="table">
               <th :key="column.name + column.label" v-for="column in sortableColumns">

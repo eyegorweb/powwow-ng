@@ -17,6 +17,10 @@ export default {
           `div > .checkboxes > .checkbox-container:nth-child(${nth}) > .filled > .checkmark`
         ).click();
       },
+      filterByName(searchTerm) {
+        cy.get('.pt-3 > .container > .search-input > .has-icon > input').click();
+        cy.get('.pt-3 > .container > .search-input > .has-icon > input').type(searchTerm);
+      },
       chosenItems() {
         return cy.get(
           '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-3 > div.card.filter-bar > div.card-body.hide-all-filters > div.mb-3 > div:nth-child(1) > div > div'
