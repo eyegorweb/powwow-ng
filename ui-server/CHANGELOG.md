@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.521+20200205152432
+2020-02-05
+
+### Fixes
+
+- Possibilité d'appliquer un changement de MSISDN même si le champ est vide (a2689cb7acf64612ccc488449550728b6b74f3f9)
+
 ## 0.3.0-master.520+20200205085731
 2020-02-05
 
