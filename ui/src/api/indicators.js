@@ -1,4 +1,4 @@
-import { query, getFilterValue, getFilterValues } from './utils';
+import { query } from './utils';
 
 export async function fetchIndicators() {
   const response = await query(

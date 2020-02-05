@@ -11,7 +11,6 @@
 
 <script>
 import Indicators from '@/components/Indicators';
-import { fetchSingleIndicator } from '@/api/orders';
 import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
