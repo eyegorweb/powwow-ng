@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.520+20200205085731
+2020-02-05
+
+### Fixes
+
+- remplacer Commandes en cours de traitement par le délai dans le widget commandes. (66d7989480bdede4ffa27781217eb501c9a772d2)
+
 ## 0.3.0-master.519+20200204150707
 2020-02-04
 
