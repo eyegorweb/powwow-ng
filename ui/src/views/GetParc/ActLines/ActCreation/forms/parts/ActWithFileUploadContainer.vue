@@ -22,16 +22,12 @@
             class="modal-default-button btn btn-danger btn-sm"
             v-if="!isLoading"
             @click.stop="showValidationModal = false"
-          >
-            {{ $t('cancel') }}
-          </button>
+          >{{ $t('cancel') }}</button>
           <button
             class="modal-default-button btn btn-success btn-sm ml-1"
             v-if="!isLoading"
             @click.stop="validateFile(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
+          >{{ $t('save') }}</button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
             {{ $t('processing') }}
             <CircleLoader />
@@ -135,11 +131,19 @@ export default {
         this.tempDataUuid = response.tempDataUuid;
         this.contextValues = contextValues;
       } else {
-        this.requestErrors = [
-          {
-            message: response.error,
-          },
-        ];
+        if (response.error.includes('400')) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+            },
+          ];
+        } else {
+          this.requestErrors = [
+            {
+              message: response.error,
+            },
+          ];
+        }
         return { stayInForm: true };
       }
 
@@ -177,7 +181,6 @@ export default {
             : 'Opération effectuée avec succès';
           this.flashMessage({ level: 'success', message: successMessage });
         }
-
         // sortir du mode création acte
         this.setActToCreate(null);
         this.setActCreationPrerequisites(null);
