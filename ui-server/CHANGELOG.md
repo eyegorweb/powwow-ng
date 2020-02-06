@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.526+20200206132715
+2020-02-06
+
+### Fixes
+
+- corrections de bugs dans le détail de l'unité de masse (aa7a6f31cfaa42438a3d79d73d03f885aaecdce8)
+
 ## 0.3.0-master.525+20200206125837
 2020-02-06
 
