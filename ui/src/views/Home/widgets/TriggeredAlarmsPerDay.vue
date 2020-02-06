@@ -12,7 +12,12 @@
         ></UiSelect>
       </div>
     </div>
-    <AlarmsPerDayGraph :display-title="showTitle" :selected-parner-id="selectedParnerId" />
+    <AlarmsPerDayGraph
+      :display-title="showTitle"
+      :partners="partnerIds"
+      @haveResults="haveResults = $event"
+    />
+    <div v-if="!haveResults" class="alert-light p-3">{{ $t('noResult') }}</div>
   </WidgetBloc>
 </template>
 
@@ -41,6 +46,7 @@ export default {
       partners: [],
       names: [],
       selectedParnerId: undefined,
+      haveResults: false,
     };
   },
   computed: {
@@ -48,6 +54,13 @@ export default {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     canSelectPartner() {
       return this.names && this.names.length > 0 && !this.userIsPartner;
+    },
+    partnerIds() {
+      if (this.selectedParnerId) {
+        return [this.selectedParnerId];
+      }
+
+      return undefined;
     },
   },
   mounted() {

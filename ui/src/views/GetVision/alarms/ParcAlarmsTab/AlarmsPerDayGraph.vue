@@ -1,10 +1,5 @@
 <template>
-  <div>
-    <div v-if="noResult" class="alert-light">{{ $t('noResult') }}</div>
-    <template v-else>
-      <chart v-if="chartOptions" :options="chartOptions" />
-    </template>
-  </div>
+  <chart v-if="!noResult && chartOptions" :options="chartOptions" />
 </template>
 
 <script>
@@ -23,7 +18,10 @@ export default {
       type: Boolean,
       default: true,
     },
-    selectedParnerId: String,
+    partners: {
+      type: Array,
+      default: () => [],
+    },
   },
   mounted() {
     this.refreshChart();
@@ -47,6 +45,7 @@ export default {
       } else {
         this.noResult = false;
       }
+      this.$emit('haveResults', !this.noResult);
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -115,7 +114,7 @@ export default {
       const filledValues = await fetchAlarmInstancesIndicators(
         ['ALARM_TRIGGERED_DAY'],
         nbDaysCurrentMonth,
-        [this.selectedParnerId]
+        this.partners
       );
 
       if (filledValues[0] && filledValues[0].histories && filledValues[0].histories.length) {
@@ -136,7 +135,7 @@ export default {
     },
   },
   watch: {
-    selectedParnerId() {
+    partners() {
       this.refreshChart();
     },
   },
