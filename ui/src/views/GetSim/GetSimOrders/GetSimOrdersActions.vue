@@ -63,8 +63,13 @@ export default {
           break;
         }
         case 'getsim.actions.SHOW_SIM': {
-          // TODO
-          console.log(' TODO show lines');
+          const queryFilters = [{ id: 'filters.lines.orderID', value: this.order.id }];
+          this.$router.push({
+            name: 'actLines',
+            params: {
+              queryFilters,
+            },
+          });
           break;
         }
         case 'getsim.actions.VALIDATE': {
