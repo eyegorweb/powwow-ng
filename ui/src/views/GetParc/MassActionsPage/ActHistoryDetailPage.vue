@@ -100,6 +100,12 @@ export default {
       type: Object,
     },
   },
+  mounted() {
+    this.confirmationStepper.data[0].date = this.createdDate;
+    this.confirmationStepper.data[1].date = this.dueDate;
+    this.confirmationStepper.data[2].date = this.endedDate;
+    this.cancelStepper.data[0].date = this.createdDate;
+  },
   data() {
     return {
       orderBy: {
@@ -204,19 +210,19 @@ export default {
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
+            date: undefined,
             index: 0,
           },
           {
             code: 'IN_PROGRESS',
             label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: this.content.dueDate,
+            date: undefined,
             index: 1,
           },
           {
             code: 'TERMINATED',
             label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: this.content.endDate,
+            date: undefined,
             index: 2,
           },
         ],
@@ -226,7 +232,7 @@ export default {
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
+            date: undefined,
             index: 0,
           },
           {
@@ -237,7 +243,6 @@ export default {
           },
         ],
       },
-      actStatus: this.content.status,
     };
   },
 
@@ -334,6 +339,18 @@ export default {
     },
     total() {
       return this.content ? this.content.targetActionNumber : 0;
+    },
+    actStatus() {
+      return this.content ? this.content.massAction.status : '';
+    },
+    createdDate() {
+      return this.content ? this.content.massAction.created : '';
+    },
+    dueDate() {
+      return this.content ? this.content.massAction.dueDate : '';
+    },
+    endedDate() {
+      return this.content ? this.content.massAction.endDate : '';
     },
   },
 
