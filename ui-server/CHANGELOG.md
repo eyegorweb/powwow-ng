@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.524+20200206103312
+2020-02-06
+
+### Fixes
+
+- Afficher les cartes sim correspondantes à la commande (499e423313a7ef4d07114bce125462d7ad1a0333)
+
 ## 0.3.0-master.523+20200206082811
 2020-02-06
 
