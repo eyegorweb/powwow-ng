@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.527+20200206142553
+2020-02-06
+
+### Fixes
+
+- écran de recherche d'une alarme (686bd3df4dcba1af8b7207ead7a5695006aed27f)
+
 ## 0.3.0-master.526+20200206132715
 2020-02-06
 
