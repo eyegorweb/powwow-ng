@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.523+20200206082811
+2020-02-06
+
+### Fixes
+
+- Changement du message d'erreur au chargement de fichier (2d40a04332baaed8dd9edb363e9a2181302fccde)
+
 ## 0.3.0-master.522+20200205154651
 2020-02-05
 
