@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.525+20200206125837
+2020-02-06
+
+### Features
+
+- ajout du widget Nombre d'alarmes déclenchées par jour (d6a32728a4f2cdd4b2d0974aa3ed55e8fae09229)
+
 ## 0.3.0-master.524+20200206103312
 2020-02-06
 
