@@ -1,6 +1,9 @@
 <template>
   <div>
-    <chart v-if="chartOptions" :options="chartOptions" />
+    <div v-if="noResult" class="alert-light">{{ $t('noResult') }}</div>
+    <template v-else>
+      <chart v-if="chartOptions" :options="chartOptions" />
+    </template>
   </div>
 </template>
 
@@ -8,28 +11,42 @@
 import { Chart } from 'highcharts-vue';
 import Highcharts from 'highcharts';
 import 'highcharts/css/highcharts.css';
+import { fetchAlarmInstancesIndicators } from '@/api/alarms';
+import moment from 'moment';
 
 export default {
   components: {
     Chart,
   },
-  props: {},
-  async mounted() {
-    const data = [];
-    for (let i = 1; i < 29; i++) {
-      data.push([Date.UTC(2019, 10, i), Math.floor(Math.random() * Math.floor(3)) + 1]);
-    }
-    this.createChart(data);
+  props: {
+    displayTitle: {
+      type: Boolean,
+      default: true,
+    },
+    selectedParnerId: String,
+  },
+  mounted() {
+    this.refreshChart();
   },
   data() {
     return {
       chartOptions: undefined,
       haveContent: false,
+      noResult: false,
     };
   },
-
+  computed: {
+    title() {
+      return this.displayTitle ? this.$t('home.widgets.topTriggeredAlarmsPerDay') : '';
+    },
+  },
   methods: {
     createChart(data) {
+      if (data && !data.length) {
+        this.noResult = true;
+      } else {
+        this.noResult = false;
+      }
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -39,7 +56,7 @@ export default {
           height: 200,
         },
         title: {
-          text: "Nombre d'alarmes déclenchées",
+          text: this.title,
           align: 'left',
         },
 
@@ -91,6 +108,36 @@ export default {
           },
         ],
       };
+    },
+    async refreshChart() {
+      const data = [];
+      const nbDaysCurrentMonth = moment().daysInMonth();
+      const filledValues = await fetchAlarmInstancesIndicators(
+        ['ALARM_TRIGGERED_DAY'],
+        nbDaysCurrentMonth,
+        [this.selectedParnerId]
+      );
+
+      if (filledValues[0] && filledValues[0].histories && filledValues[0].histories.length) {
+        filledValues[0].histories.map(i => {
+          const dateParts = i.applicationDate.split('/');
+          const formattedObj = {
+            date: Date.UTC(
+              parseInt(dateParts[2]),
+              parseInt(dateParts[1] - 1),
+              parseInt(dateParts[0])
+            ),
+            value: i.numberValue,
+          };
+          data.push([formattedObj.date, formattedObj.value]);
+        });
+      }
+      this.createChart(data);
+    },
+  },
+  watch: {
+    selectedParnerId() {
+      this.refreshChart();
     },
   },
 };

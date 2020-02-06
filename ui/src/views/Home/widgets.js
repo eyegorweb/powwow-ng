@@ -8,6 +8,7 @@ import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
+import TriggeredAlarmsPerDay from './widgets/TriggeredAlarmsPerDay';
 import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
 import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
@@ -187,5 +188,13 @@ export default excludeMocked([
     large: false,
     seeMore: false,
     component: LinesConsumption,
+  },
+  {
+    title: 'home.widgets.topTriggeredAlarmsPerDay',
+    description: '',
+    checked: true,
+    large: true,
+    seeMore: true,
+    component: TriggeredAlarmsPerDay,
   },
 ]);

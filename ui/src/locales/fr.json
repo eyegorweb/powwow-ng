@@ -108,7 +108,8 @@
       },
       "viewOneResult": "Consulter le résultat",
       "viewXResults": "Consulter les {num} résultats",
-      "linesConsumption": "Lignes les plus consommatrices du mois"
+      "linesConsumption": "Lignes les plus consommatrices du mois",
+      "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour"
     }
   },
   "menu": {

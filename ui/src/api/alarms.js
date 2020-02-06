@@ -207,6 +207,41 @@ export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, d
   return response.data.deleteAlarmInstance;
 }
 
+export async function fetchAlarmInstancesIndicators(
+  keys,
+  nbDaysCurrentMonth,
+  partners,
+  partnerType
+) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners && partners.length) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+  const queryStr = `
+  query {
+    indicatorsHistory(names: [${keys.join(
+      ','
+    )}]${partnerGql}${partnerTypeGql}, historyDepth: ${nbDaysCurrentMonth}) {
+      name
+      frequency
+      histories {
+        numberValue
+        applicationDate
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.indicatorsHistory;
+}
+
 function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
