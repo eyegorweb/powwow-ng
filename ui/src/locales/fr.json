@@ -122,7 +122,7 @@
     "MULTI_CUSTOMER": "Marque blanche"
   },
   "errors": {
-    "all": "Erreurs",
+    "all": "Erreur(s)",
     "mandatory": "* Champ obligatoire"
   },
   "common": {
