@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.531+20200207152223
+2020-02-07
+
+### Fixes
+
+- ajout d'une traduction pour un message d'erreur sur la commande (43380b214b84396c058c3038bd2d38167131d182)
+
 ## 0.3.0-master.530+20200207134801
 2020-02-07
 
