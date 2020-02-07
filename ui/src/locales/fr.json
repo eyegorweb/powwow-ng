@@ -195,7 +195,8 @@
     "tooltip-text": "Vous pouvez retrouver l’historique des commandes passées, suivre leurs statuts, consulter les informations de détail et accéder aux cartes SIM associées.",
     "never-ordered": "Jamais commandé",
     "errors": {
-      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
+      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà",
+      "AlreadyExists": "Une commande avec cette référence existe déjà"
     }
   },
   "alarms": {
