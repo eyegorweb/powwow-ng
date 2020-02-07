@@ -48,7 +48,7 @@ export default {
       slickOptions: {
         infinite: false,
         slidesToShow: 5,
-        slidesToScroll: 1,
+        slidesToScroll: 5,
         nextArrow:
           '<div class="slider-next slider-button d-block"><span class="ic-Arrow-Next-Icon"></span></div>',
         prevArrow:

@@ -2,7 +2,7 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 
 export default excludeMocked([
   {
-    icon: 'ic-toggle-on',
+    icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
