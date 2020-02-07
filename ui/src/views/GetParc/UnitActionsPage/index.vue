@@ -16,7 +16,7 @@
         <div class="col-md-9">
           <h4>
             <b>GetParc</b>
-            - {{ $t('getparc.management-act-detail') }}
+            {{ massActionsTitleInfos }}
             <i class="ic-Info-Icon" />
           </h4>
         </div>
@@ -147,6 +147,15 @@ export default {
       if (data) {
         this.massAction = data;
       }
+    },
+  },
+  computed: {
+    massActionsTitleInfos() {
+      return this.massAction
+        ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${
+            this.massAction.massAction.id
+          } - ${this.massAction.type}`
+        : '';
     },
   },
 };
