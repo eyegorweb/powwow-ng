@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.529+20200207104330
+2020-02-07
+
+### Fixes
+
+- modification du scroll sur le carousel (c1650464a94f2444275994f869a5c51f03cca50f)
+
 ## 0.3.0-master.528+20200207092211
 2020-02-07
 
