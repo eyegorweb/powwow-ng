@@ -20,6 +20,8 @@
     </div>
     <template v-if="rows && rows.length">
       <DataTable
+        :storage-id="storageId"
+        storage-version="000"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -125,6 +127,7 @@ export default {
   computed: {
     ...mapState('alarms', ['searchResponse', 'searchPage']),
     ...mapGetters('alarms', ['appliedFilters', 'isLoading']),
+    ...mapGetters(['userName']),
     page: {
       get() {
         return this.searchPage || 0;
@@ -141,6 +144,9 @@ export default {
     },
     rows() {
       return this.searchResponse ? this.searchResponse.items : [];
+    },
+    storageId() {
+      return this.userName + 'getvision.alarms';
     },
   },
   watch: {
