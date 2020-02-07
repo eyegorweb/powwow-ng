@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.528+20200207092211
+2020-02-07
+
+### Fixes
+
+- ajout d'infos sur le titre du détail d'un acte de masse (7cc1a2fd7926548a900e53b826a3de31ee17d1eb)
+
 ## 0.3.0-master.527+20200206142553
 2020-02-06
 
