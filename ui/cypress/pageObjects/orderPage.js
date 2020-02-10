@@ -18,7 +18,7 @@ export default {
           `div > .checkboxes > .checkbox-container:nth-child(${nth}) > .filled > .checkmark`
         ).click();
       },
-      filterByName(searchTerm) {
+      filter(searchTerm) {
         cy.get('.pt-3 > .container > .search-input > .has-icon > input').click();
         cy.get('.pt-3 > .container > .search-input > .has-icon > input').type(searchTerm);
       },
@@ -30,6 +30,17 @@ export default {
     },
   },
   getTotal(onTotalLoaded) {
-    return filterBarSelectors.getTotal(onTotalLoaded);
+    return cy
+      .get(
+        '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div.row.mb-3 > div:nth-child(1) > h2'
+      )
+      .then(e => {
+        const parts = e
+          .text()
+          .trim()
+          .split(' ');
+        const value = parseInt(parts[0]);
+        onTotalLoaded(value);
+      });
   },
 };

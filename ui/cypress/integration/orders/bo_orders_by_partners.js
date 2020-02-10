@@ -7,7 +7,7 @@ describe('Orders', function() {
 
     orderPage.init();
     orderPage.filterBar.partner.toggle();
-    orderPage.filterBar.partner.filterByName('lyra');
+    orderPage.filterBar.partner.filter('lyra');
     orderPage.filterBar.partner.choose(1);
     orderPage.filterBar.partner.chosenItems().should('have.length', 1);
     orderPage.filterBar.apply();

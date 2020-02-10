@@ -16,8 +16,8 @@ export default {
       choose(nth) {
         filterBarSelectors.filterBarItems(1).multiselect.choose(nth);
       },
-      filterByName(searchTerm) {
-        filterBarSelectors.filterBarItems(1).multiselect.filterByName(searchTerm);
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
       },
     },
     offer: {
@@ -27,9 +27,20 @@ export default {
       choose(nth) {
         filterBarSelectors.filterBarItems(3).multiselect.choose(nth);
       },
-      filterByName(searchTerm) {
-        filterBarSelectors.filterBarItems(3).multiselect.filterByName(searchTerm);
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(3).multiselect.filter(searchTerm);
       },
     },
+  },
+
+  getTotal(onTotalLoaded) {
+    return cy.get('.col-md-9 > .position-relative > .row > .col-md-8 > .text-gray').then(e => {
+      const parts = e
+        .text()
+        .trim()
+        .split(' ');
+      const value = parseInt(parts[0]);
+      onTotalLoaded(value);
+    });
   },
 };
