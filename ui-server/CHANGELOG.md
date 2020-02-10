@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.537+20200210144605
+2020-02-10
+
+### Fixes
+
+- le nombre de SMS est rendu dynamiquement (4dc1ac931863afaa0d10d3b783809b4f99eedc84)
+
 ## 0.3.0-master.536+20200210142301
 2020-02-10
 
