@@ -156,7 +156,7 @@ export default {
         dueDate: this.smsDate,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
-        numberOfSMS: 0,
+        numberOfSMS: this.numberOfSMS,
         shortCode: this.selectedShortCode.label,
         tempDataUuid: contextValues.tempDataUuid,
       });
