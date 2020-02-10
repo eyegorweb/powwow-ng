@@ -245,7 +245,7 @@ export default {
   padding-left: 2rem;
   padding-right: 2rem;
   flex-basis: 50%;
-  margin: .6rem 0;
+  margin: 0.6rem 0;
 }
 .apn-container {
   display: flex;
