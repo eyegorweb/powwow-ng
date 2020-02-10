@@ -67,6 +67,7 @@
   "mailNotification": "Être notifié par e-mail",
   "webserviceNotification": "Être notifié par webservice",
   "lines": "Lignes",
+  "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -505,7 +506,8 @@
         "smsIncomingNationalConsumption": "SMS national entrant",
         "smsOutgoingNationalConsumption": "SMS national sortant",
         "smsIncomingInternationalConsumption": "SMS roaming entrant",
-        "smsOutgoingInternationalConsumption": "SMS roaming sortant"
+        "smsOutgoingInternationalConsumption": "SMS roaming sortant",
+        "nbOfSMS": "Nombre de SMS"
       },
       "estimated": {
         "data": "Prévisionnel Data",
