@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.536+20200210142301
+2020-02-10
+
+### Fixes
+
+- chercher par compte d efacturation (30b5f513d78e7a2ddfd08fa6ee8f0e374a033495)
+
 ## 0.3.0-master.535+20200210124416
 2020-02-10
 
