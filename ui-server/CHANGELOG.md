@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.535+20200210124416
+2020-02-10
+
+### Fixes
+
+- undifiend a vide (eeb6b0ef7701d1fb09969501374f6638a79a4b4a)
+
 ## 0.3.0-master.534+20200210102913
 2020-02-10
 
