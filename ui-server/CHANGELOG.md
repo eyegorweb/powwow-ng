@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.532+20200210095517
+## 0.3.0-master.533+20200210100655
 2020-02-10
+
+### Features
+
+- changement des prérequis pour l'acte "Préactivation/activation" d'offre (dd3cd50fe68b5ee1eba3e994d3b5c798eec9334a)
 
 ### Fixes
 
