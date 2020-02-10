@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.532+20200210095517
+2020-02-10
+
+### Fixes
+
+- configuration du calcul du nombre de sms par message (f8e5d1b659ce6b5c68a82c765c36d88825f1f2d6)
+
 ## 0.3.0-master.531+20200207152223
 2020-02-07
 
