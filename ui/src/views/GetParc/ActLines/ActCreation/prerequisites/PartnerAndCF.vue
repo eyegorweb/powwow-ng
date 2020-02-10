@@ -90,6 +90,7 @@ export default {
       this.$emit('set:preprequisites', {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
+        search: !this.isPartnerEmpty && !this.isChosenBillingAccountEmpty,
       });
     },
   },

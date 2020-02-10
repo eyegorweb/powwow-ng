@@ -78,6 +78,7 @@ export default {
       'resetForm',
       'setPageLimit',
       'setActToCreate',
+      'setBillingAccountsFilter',
     ]),
 
     actWithNoPrerequs(actTitle) {
@@ -123,6 +124,10 @@ export default {
           partners: [allPrereq.partner],
           isHidden: !!allPrereq.isPartnerHidden,
         });
+      }
+
+      if (allPrereq.billingAccount) {
+        this.setBillingAccountsFilter([allPrereq.billingAccount]);
       }
 
       if (allPrereq.offer) {
