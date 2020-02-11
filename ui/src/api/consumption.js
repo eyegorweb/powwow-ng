@@ -160,6 +160,7 @@ export async function dataUsage(simInstanceId, pagination) {
         }
         location {
           detail
+          detailTranslated
           cellLatitude
           cellLongitude
           zipCode

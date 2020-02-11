@@ -24,7 +24,7 @@ export default {
       return this.visibleColumns.length > MAX_SIZE_BEFORE_TRUNCATE;
     },
     locationDetails() {
-      return this.row.location.detail ? this.row.location.detail : '-';
+      return this.row.location.detailTranslated ? this.row.location.detailTranslated : '-';
     },
   },
 };
