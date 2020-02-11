@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.541+20200211161221
+2020-02-11
+
+### Fixes
+
+- Brancher le champ localisation (2e0038846181029b2c78e20c80b658a423e4d8e8)
+
 ## 0.3.0-master.540+20200211152427
 2020-02-11
 
