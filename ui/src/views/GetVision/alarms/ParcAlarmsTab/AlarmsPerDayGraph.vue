@@ -8,15 +8,16 @@ import Highcharts from 'highcharts';
 import 'highcharts/css/highcharts.css';
 import { fetchAlarmInstancesIndicators } from '@/api/alarms';
 import moment from 'moment';
+import { isBefore, DATE_FORMAT } from '@/utils/date.js';
 
 export default {
   components: {
     Chart,
   },
   props: {
-    displayTitle: {
-      type: Boolean,
-      default: true,
+    title: {
+      type: String,
+      required: false,
     },
     partners: {
       type: Array,
@@ -33,11 +34,7 @@ export default {
       noResult: false,
     };
   },
-  computed: {
-    title() {
-      return this.displayTitle ? this.$t('home.widgets.topTriggeredAlarmsPerDay') : '';
-    },
-  },
+
   methods: {
     createChart(data) {
       if (data && !data.length) {
@@ -55,7 +52,7 @@ export default {
           height: 200,
         },
         title: {
-          text: this.title,
+          text: this.title || '',
           align: 'left',
         },
 
@@ -118,18 +115,20 @@ export default {
       );
 
       if (filledValues[0] && filledValues[0].histories && filledValues[0].histories.length) {
-        filledValues[0].histories.map(i => {
-          const dateParts = i.applicationDate.split('/');
-          const formattedObj = {
-            date: Date.UTC(
-              parseInt(dateParts[2]),
-              parseInt(dateParts[1] - 1),
-              parseInt(dateParts[0])
-            ),
-            value: i.numberValue,
-          };
-          data.push([formattedObj.date, formattedObj.value]);
-        });
+        filledValues[0].histories
+          .sort((a, b) => (isBefore(a.applicationDate, b.applicationDate, DATE_FORMAT) ? -1 : 1))
+          .map(i => {
+            const dateParts = i.applicationDate.split('/');
+            const formattedObj = {
+              date: Date.UTC(
+                parseInt(dateParts[2]),
+                parseInt(dateParts[1] - 1),
+                parseInt(dateParts[0])
+              ),
+              value: i.numberValue,
+            };
+            data.push([formattedObj.date, formattedObj.value]);
+          });
       }
       this.createChart(data);
     },

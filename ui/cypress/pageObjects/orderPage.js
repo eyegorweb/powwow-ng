@@ -6,21 +6,16 @@ export default {
     layout.menu.getSim();
   },
   filterBar: {
-    apply() {
-      cy.get('.card.filter-bar > .card-body > .mb-3 > .actions > button.btn-primary').click();
-    },
+    apply: filterBarSelectors.applySearch,
     partner: {
       toggle() {
         filterBarSelectors.filterBarItems(1).toggle();
       },
       choose(nth) {
-        cy.get(
-          `div > .checkboxes > .checkbox-container:nth-child(${nth}) > .filled > .checkmark`
-        ).click();
+        filterBarSelectors.filterBarItems(1).multiselect.choose(nth);
       },
       filter(searchTerm) {
-        cy.get('.pt-3 > .container > .search-input > .has-icon > input').click();
-        cy.get('.pt-3 > .container > .search-input > .has-icon > input').type(searchTerm);
+        filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
       },
       chosenItems() {
         return cy.get(

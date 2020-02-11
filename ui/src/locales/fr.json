@@ -563,8 +563,8 @@
         "networkInformation": "Informations réseau",
         "lineAnalysisTitles": {
           "locationSection": "Localisation sur carte",
-          "lastConnectionStatus": "Statut de la dernière connexion pdp",
-          "ApnIdLastConnexion": "Apn & ip de la dernière connexion pdp",
+          "lastConnectionStatus": "Statut de la dernière connexion data",
+          "ApnIdLastConnexion": "Apn & ip de la dernière connexion data",
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
@@ -582,7 +582,7 @@
           },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
-          "closingConnexionReason": "Raison de la fermeture de la connexion",
+          "closingConnexionReason": "Raison de la fermeture",
           "connexionDebut": "Début de la connexion",
           "connexionEnd": "Fin de la connexion",
           "currentApn": "APN actuel",

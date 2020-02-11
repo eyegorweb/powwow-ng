@@ -17,14 +17,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-md-6">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToEnable"
           :items-to-disable="servicesToDisable"
         />
       </div>
-      <div class="col">
+      <div class="col-md-6">
         <ServicesChoice
           :offer="selectedOffer"
           :selected-items.sync="servicesToDisable"
