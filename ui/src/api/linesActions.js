@@ -564,7 +564,7 @@ export async function fetchCurrentConsumption(simcardId) {
 export async function exportCurrentConsumption(simcardId, exportFormat) {
   const queryStr = `
   query {
-    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+    exportCurrentConsumption(simCardInstanceId: ${simcardId}, exportFormat: ${exportFormat}){
       downloadUri
       asyncRequired
     }

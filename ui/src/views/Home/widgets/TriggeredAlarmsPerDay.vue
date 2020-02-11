@@ -12,11 +12,7 @@
         ></UiSelect>
       </div>
     </div>
-    <AlarmsPerDayGraph
-      :display-title="showTitle"
-      :partners="partnerIds"
-      @haveResults="haveResults = $event"
-    />
+    <AlarmsPerDayGraph :partners="partnerIds" @haveResults="haveResults = $event" />
     <div v-if="!haveResults" class="alert-light p-3">{{ $t('noResult') }}</div>
   </WidgetBloc>
 </template>
@@ -41,7 +37,6 @@ export default {
   },
   data() {
     return {
-      showTitle: false,
       selectedPartner: undefined,
       partners: [],
       names: [],

@@ -25,35 +25,38 @@ export default {
   },
   methods: {
     openDetail() {
-      console.log('openDetail');
+      this.$router.push({
+        name: 'lineDetail',
+        params: { lineId: this.row.id, tabIndex: 1 },
+      });
     },
   },
   computed: {
     dataField() {
-      const counter1DownRounded = get('accessPoint.usageCounter.counter1DownRounded')
-        ? Number(get('accessPoint.usageCounter.counter1DownRounded'))
-        : '';
-      const counter1UpRounded = get('accessPoint.usageCounter.counter1UpRounded')
-        ? Number(get('accessPoint.usageCounter.counter1UpRounded'))
-        : '';
+      const counter1DownRounded = get(this.row, 'accessPoint.usageCounter.counter1DownRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter1DownRounded'))
+        : 0;
+      const counter1UpRounded = get(this.row, 'accessPoint.usageCounter.counter1UpRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter1UpRounded'))
+        : 0;
       return counter1DownRounded + counter1UpRounded;
     },
     voiceField() {
-      const counter2DownRounded = get('accessPoint.usageCounter.counter2DownRounded')
-        ? Number(get('accessPoint.usageCounter.counter1DownRounded'))
-        : '';
-      const counter2UpRounded = get('accessPoint.usageCounter.counter2UpRounded')
-        ? Number(get('accessPoint.usageCounter.counter2UpRounded'))
-        : '';
+      const counter2DownRounded = get(this.row, 'accessPoint.usageCounter.counter2DownRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter1DownRounded'))
+        : 0;
+      const counter2UpRounded = get(this.row, 'accessPoint.usageCounter.counter2UpRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter2UpRounded'))
+        : 0;
       return counter2DownRounded + counter2UpRounded;
     },
     smsField() {
-      const counter3DownRounded = get('accessPoint.usageCounter.counter3DownRounded')
-        ? Number(get('accessPoint.usageCounter.counter3DownRounded'))
-        : '';
-      const counter3UpRounded = get('accessPoint.usageCounter.counter3UpRounded')
-        ? Number(get('accessPoint.usageCounter.counter3UpRounded'))
-        : '';
+      const counter3DownRounded = get(this.row, 'accessPoint.usageCounter.counter3DownRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter3DownRounded'))
+        : 0;
+      const counter3UpRounded = get(this.row, 'accessPoint.usageCounter.counter3UpRounded')
+        ? Number(get(this.row, 'accessPoint.usageCounter.counter3UpRounded'))
+        : 0;
       return counter3DownRounded + counter3UpRounded;
     },
   },
