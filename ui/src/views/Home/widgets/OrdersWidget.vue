@@ -5,6 +5,7 @@
       :columns="columns"
       :rows="rows"
       :results-promise="resultsPromise"
+      :orderBy.sync="orderBy"
     />
   </WidgetBloc>
 </template>
@@ -62,6 +63,8 @@ export default {
   },
   data() {
     return {
+      orderBy: { key: 'creationDate', direction: 'DESC' },
+
       filters: [
         {
           id: 'filters.orderStatus',

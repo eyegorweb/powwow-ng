@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex justify-content-between">
     <div>
-      <p>Data : {{ dataField }}</p>
-      <p>{{ $t('getparc.actLines.col.voice') }} : {{ voiceField }}</p>
+      <p>Data : {{ formatBytes(dataField) }}</p>
+      <p>{{ $t('getparc.actLines.col.voice') }} : {{ formattedValueFromSeconds(voiceField) }}</p>
       <p>Sms : {{ smsField }}</p>
     </div>
     <UiButton @click="openDetail" class="btn btn-outline-primary">
@@ -14,6 +14,7 @@
 <script>
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 
 export default {
   name: 'UsageCounter',
@@ -29,6 +30,13 @@ export default {
         name: 'lineDetail',
         params: { lineId: this.row.id, tabIndex: 1 },
       });
+    },
+
+    formatBytes(value) {
+      return formatBytes(value);
+    },
+    formattedValueFromSeconds(value) {
+      return formattedValueFromSeconds(value);
     },
   },
   computed: {

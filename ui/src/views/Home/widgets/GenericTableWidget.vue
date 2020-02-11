@@ -14,7 +14,7 @@
       :page.sync="page"
       :page-limit.sync="pageLimit"
       :total="0"
-      :order-by.sync="orderBy"
+      :order-by.sync="_orderBY"
       small-text
     />
   </Promised>
@@ -35,13 +35,26 @@ export default {
     columns: Array,
     rows: Array,
     resultsPromise: Promise,
+    orderBy: {
+      type: Object,
+    },
+  },
+  //{ key: 'creationDate', direction: 'DESC' };
+  computed: {
+    _orderBY: {
+      get() {
+        return this.orderBy;
+      },
+      set(value) {
+        this.$emit('update:orderBy', value);
+      },
+    },
   },
 
   data() {
     return {
       page: 0,
       pageLimit: 10,
-      orderBy: { key: 'creationDate', direction: 'DESC' },
     };
   },
 };
