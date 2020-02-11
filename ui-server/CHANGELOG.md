@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.539+20200211143916
+2020-02-11
+
+### Fixes
+
+- succès et échecs des actes de gestion dans la même colonne (852d6f4016b39822726469bbf0cf4075ec1b0a53)
+
 ## 0.3.0-master.538+20200211124814
 2020-02-11
 
