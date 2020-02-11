@@ -21,7 +21,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           storage-id="getparc.actHistory"
-          storage-version="003"
+          storage-version="005"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"

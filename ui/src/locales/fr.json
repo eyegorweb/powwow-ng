@@ -353,7 +353,7 @@
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut",
-        "rate": "succès / échec"
+        "rate": "Succès / Échec"
       },
       "details": {
         "title": "Acte de gestion {id}",
