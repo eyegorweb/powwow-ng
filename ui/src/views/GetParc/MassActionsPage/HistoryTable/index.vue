@@ -62,6 +62,7 @@ import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
+import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
 
 export default {
   components: {
@@ -145,29 +146,26 @@ export default {
           visible: true,
         },
         {
-          id: 6,
-          label: this.$t('getparc.history.col.success'),
-          sortingName: 'UNIT_ACTIONS_COMPLETED',
-          name: 'completedEntitiesNumber',
-          orderable: true,
-          visible: true,
-        },
-        {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
           name: 'pendingEntitiesNumber',
           sortingName: 'UNIT_ACTIONS_PENDING',
           orderable: true,
-          visible: true,
-        },
-        {
-          id: 8,
-          label: this.$t('getparc.history.col.fail'),
-          name: 'failedEntitiesNumber',
-          sortingName: 'UNIT_ACTIONS_FAILED',
-          orderable: true,
           visible: false,
         },
+        {
+          id: 14,
+          label: this.$t('getparc.history.col.rate'),
+          name: 'rateActionNumber',
+          sortingName: 'UNIT_ACTIONS_FAILED',
+          orderable: true,
+          noHandle: true,
+          visible: true,
+          format: {
+            component: RateCell,
+          },
+        },
+
         // colonnes cachées par défaut
         {
           id: 9,

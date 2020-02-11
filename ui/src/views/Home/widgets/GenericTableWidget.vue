@@ -39,7 +39,6 @@ export default {
       type: Object,
     },
   },
-  //{ key: 'creationDate', direction: 'DESC' };
   computed: {
     _orderBY: {
       get() {
