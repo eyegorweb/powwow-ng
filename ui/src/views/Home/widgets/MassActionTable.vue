@@ -4,6 +4,7 @@
       v-if="resultsPromise"
       :columns="columns"
       :rows="rows"
+      :orderBy.sync="orderBy"
       :results-promise="resultsPromise"
     />
   </WidgetBloc>
@@ -64,6 +65,7 @@ export default {
   },
   data() {
     return {
+      orderBy: { key: 'creationDate', direction: 'DESC' },
       filters: [
         {
           id: 'filters.actStatus',

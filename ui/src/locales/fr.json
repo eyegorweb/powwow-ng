@@ -348,12 +348,12 @@
         "target": "Ciblée(s)",
         "success": "Succès",
         "ongoing": "En cours",
-        "fail": "Échec",
+        "fail": "Échec(s)",
         "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut",
-        "rate": "Taux d'échec / succès"
+        "rate": "succès / échec"
       },
       "details": {
         "title": "Acte de gestion {id}",
