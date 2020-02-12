@@ -53,12 +53,13 @@ export default {
     const specificFilters = [
       {
         id: 'filters.actTypes',
-        values: [{ id: 'STATUS_CHANGE', label: this.$t('getparc.actTypes.STATUS_CHANGE') }],
+        values: [
+          {
+            id: 'STATUS_CHANGE',
+            label: this.$t('getparc.actLines.commercialStatuses.demandeDeResiliation'),
+          },
+        ],
       },
-      // {
-      //   id: 'filters.transitionName',
-      //   value: 'valider',
-      // },
     ];
     this.indicators = [
       {
