@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.542+20200212085804
+2020-02-12
+
+### Fixes
+
+- Correction de bugs d'affichage (f84bdb630fd9d5f744c6d6dcf702ddd33daccfcd)
+
 ## 0.3.0-master.541+20200211161221
 2020-02-11
 
