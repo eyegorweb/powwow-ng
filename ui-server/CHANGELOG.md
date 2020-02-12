@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.551+20200212145025
+2020-02-12
+
+### Fixes
+
+- Export de commande et d'actes de gestion (57e83f7f06875b89c72e1832aeaae3da8610cf7a)
+
 ## 0.3.0-master.550+20200212144712
 2020-02-12
 
