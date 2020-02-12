@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.549+20200212141857
+2020-02-12
+
+### Fixes
+
+- correction du filtre de type d'acte de gestion pour les actes de résiliation (b3d1c2b9746d81cf51e12b049425de885bab8113)
+
 ## 0.3.0-master.548+20200212140840
 2020-02-12
 
