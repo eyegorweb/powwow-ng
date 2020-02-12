@@ -87,8 +87,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
-            startDate: formattedCurrentDate(),
-            endDate: currentDateMinusMounts(6),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_PREAC_ACTIVATION_IN_PROGRESS',
