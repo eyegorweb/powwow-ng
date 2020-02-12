@@ -175,7 +175,7 @@
     "le": "Inférieure à",
     "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
-    "date-over": "Au delà de {endDate}",
+    "date-over": "Avant le {endDate}",
     "details": {
       "title": "Commande n° {id}"
     },
