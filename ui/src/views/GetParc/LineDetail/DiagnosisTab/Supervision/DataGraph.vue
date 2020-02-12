@@ -8,6 +8,7 @@
 import { Chart } from 'highcharts-vue';
 import Highcharts from 'highcharts';
 import { fetchDataConsumptionForGraph } from '@/api/consumption.js';
+import { formatBytes } from '@/api/utils.js';
 
 export default {
   components: {
@@ -77,7 +78,9 @@ export default {
         yAxis: [
           {
             labels: {
-              format: '{value}ko',
+              formatter() {
+                return formatBytes(this.value, 0);
+              },
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
@@ -91,6 +94,7 @@ export default {
           },
           {
             // Secondary yAxis
+            allowDecimals: false,
             title: {
               text: 'Nombre de connexions pdp',
               style: {
@@ -108,6 +112,19 @@ export default {
         ],
         tooltip: {
           shared: true,
+          useHTML: true,
+          pointFormatter() {
+            if (this.series.userOptions.name === 'Nombre de connexions PDP') {
+              return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>${this.series.userOptions.name}
+               : ${this.y} <br/>`;
+            } else {
+              return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
+                this.series.userOptions.color
+              }; display: inline-block; margin-right: 0.5rem"></div>${
+                this.series.userOptions.name
+              } : ${formatBytes(this.y)} <br/>`;
+            }
+          },
         },
         series: [
           {
