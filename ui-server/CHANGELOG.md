@@ -2,6 +2,73 @@
 
 <!--- next entry here -->
 
+## 0.17.0
+2020-02-12
+
+### Features
+
+- intégration de l'écran de creation d'alarme en mode mock (ba873bf9ceff91b87c23f8eadb3c2ce5746c40b3)
+- Partie front end pour l'écran de changement de pays (199c1410162fdbf5fdaebc2c1c27d946ec51cd69)
+- Partie front pour la création de l'alarme "Changement d'opérateur" (dcf1bb6b968bcc71e24d1f5e49ce2253fc330170)
+- Ecran pour l'alarme sur consommation (746f345e1319d7f83a3d1192b12983bfc3820ace)
+- création du widget Lignes les plus consommatrices du mois (5a84a5455c14f81b9b02f30edd4d939410b79789)
+- Ecran de création d'alarme "sous consommation" (2faa70632f0f3092c8bda21631d2fc85cd5f3b73)
+- écran de creation d'alarme pour la consommation mutualisée (a9f8b45caa73ec5701b1b81c7673b10d00878d81)
+- Ecran pour la création de rapports (43f67045036acef197462ae2b64f97955461400d)
+- **widget:** ajout du widget Top 5 des alarmes déclenchées (123f619566b79abc04a19e0f0774918a87daa939)
+- rechercher unitairement des alarmes et configurer ma table de résultat depuis la home des alarmes (4c1832c7a5ddac4e6137c3768f855d3da22f149f)
+- Ajout de l'historique de déclenchement d'alarmes détail ligne (b9683ae93ae7b24856b73b0ccd88a3a0fab0eff7)
+- ajout du widget Nombre d'alarmes déclenchées par jour (d6a32728a4f2cdd4b2d0974aa3ed55e8fae09229)
+- changement des prérequis pour l'acte "Préactivation/activation" d'offre (dd3cd50fe68b5ee1eba3e994d3b5c798eec9334a)
+
+### Fixes
+
+- traduction des actions du widget Délais moyen (e7c9fa561e09ac64c67a35c1e9b1f4f707ea41ea)
+- affichage du widget consommation mensuelle du parc (185c06f68f6a9130def4943c87e62708483c2b54)
+- Ajouter la quantité dans le détail de l'alarme (f0dd4333b1d3c0b3c71f61a9b7f92bf5b2a6c016)
+- correction et amélioration de l'ouverture du panel de détail de la commande (78872be8b2292272aace24e420f6808b4b376430)
+- corrections de l'affichage des datas pour la consommation dans le détail de la ligne (e770173a000f61989f7bc550ea14c1cf091c39dd)
+- corrections et modifications sur les détails de la consommation ligne (05d973ed4eee52bde188744fb4ce94406f8b8177)
+- **orders:** mise à jour de la requête sur les commandes pour récupérer la référence du contrat (f820c905f6a2c89a126972eeb71605b346a4d6b4)
+- Corriger la recherche de lignes par ID (059890a70b12eeb0808b2507decf1086162ad136)
+- tronquage de la cellule Détails (70b89c972fb6a0e53899b796938af7a34128ecdb)
+- masque les valeurs sur les histogrammes (a7d07de677c94bbce61c0a91a71b96e9d2adbe53)
+- traduction du filtre statut de la ligne (27b5e0bfd2f2a11315c987938ec40960e64c6fe6)
+- Corriger les boutons du panel de création de comandes (8d630546f83e04977073cec2654b0935dd355c66)
+- Corriger le bouton "annuler" de la barre de contexte (092f27f11c467b7c690a3ad6b7c5afb2cbc8cf7d)
+- Changement d'ICCID après détail de ligne (fcd1118ce18a73e85af95f2e4673fb8d6a4f89c1)
+- Corriger le message en double lors du changement ICCID (c81b38698e9d688fa3ed32d7128dc0b448dc6211)
+- Corriger la disposition des widgets (8a5f8f92d911c06a80c055167a0063c5c8bef871)
+- remplacer Commandes en cours de traitement par le délai dans le widget commandes. (af69c5be6000dafe6aa42bfb2dda8586d7760759)
+- Pagination sur filtre + ordre de pagination (2032d3baca80a34985f697168dfa8ba4e094ee13)
+- remplacer Commandes en cours de traitement par le délai dans le widget commandes. (66d7989480bdede4ffa27781217eb501c9a772d2)
+- Possibilité d'appliquer un changement de MSISDN même si le champ est vide (a2689cb7acf64612ccc488449550728b6b74f3f9)
+- Correction de bugs d'affichage (9761b480c9df9c0877bf5b58c1af4cf130abd582)
+- Changement du message d'erreur au chargement de fichier (2d40a04332baaed8dd9edb363e9a2181302fccde)
+- Afficher les cartes sim correspondantes à la commande (499e423313a7ef4d07114bce125462d7ad1a0333)
+- corrections de bugs dans le détail de l'unité de masse (aa7a6f31cfaa42438a3d79d73d03f885aaecdce8)
+- écran de recherche d'une alarme (686bd3df4dcba1af8b7207ead7a5695006aed27f)
+- ajout d'infos sur le titre du détail d'un acte de masse (7cc1a2fd7926548a900e53b826a3de31ee17d1eb)
+- modification du scroll sur le carousel (c1650464a94f2444275994f869a5c51f03cca50f)
+- ajout d'une traduction pour un message d'erreur sur la commande (43380b214b84396c058c3038bd2d38167131d182)
+- configuration du calcul du nombre de sms par message (f8e5d1b659ce6b5c68a82c765c36d88825f1f2d6)
+- undifiend a vide (eeb6b0ef7701d1fb09969501374f6638a79a4b4a)
+- chercher par compte d efacturation (30b5f513d78e7a2ddfd08fa6ee8f0e374a033495)
+- le nombre de SMS est rendu dynamiquement (4dc1ac931863afaa0d10d3b783809b4f99eedc84)
+- Correction de bugs (544858ae08cb395f907a68660b9770d717ea17f1)
+- succès et échecs des actes de gestion dans la même colonne (852d6f4016b39822726469bbf0cf4075ec1b0a53)
+- Brancher le champ localisation (2e0038846181029b2c78e20c80b658a423e4d8e8)
+- Correction de bugs d'affichage (f84bdb630fd9d5f744c6d6dcf702ddd33daccfcd)
+- correction des dates d'application sur les filtres (279bf42229b9c86c6d5fd20036010a1c8551879f)
+- Corriger la traduction du message d'erreur (52686c834baafb1b129ba400918d0e2e3f9de523)
+- inversion et formation graphique supervision (f8023f255058de7fb115f6f3b3190c957ca7dbf3)
+- ne pas afficher les champs spécifiques pour les utilisateurs autres que BO (f54d75a63e3b4162a68fdba6ddeb341e0411c53f)
+- correction des indicateurs d'actes en échec (e82846b86c5d2084caae9cee1b11d8261e1cd458)
+- Le clic sur "voir le détail" dans la liste des commandes n'ouvre pas le volet (3ae08242b3aa5a5721d99c3f45ce293ba3573c10)
+- correction du filtre de type d'acte de gestion pour les actes de résiliation (b3d1c2b9746d81cf51e12b049425de885bab8113)
+- ajout de la traduction du statut de la ligne (81a9fc7c54d4918844f59d71cb59f03ca6ae9fe6)
+- Export de commande et d'actes de gestion (57e83f7f06875b89c72e1832aeaae3da8610cf7a)
+
 ## 0.16.0
 2020-01-20
 
