@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.550+20200212144712
+2020-02-12
+
+### Fixes
+
+- ajout de la traduction du statut de la ligne (81a9fc7c54d4918844f59d71cb59f03ca6ae9fe6)
+
 ## 0.3.0-master.549+20200212141857
 2020-02-12
 
