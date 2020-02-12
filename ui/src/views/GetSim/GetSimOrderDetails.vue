@@ -154,8 +154,12 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.deliveryAddress') }}</h6>
           <p>{{ getFromOrder('address.address1') }}</p>
-          <p v-if="getFromOrder('address.address2')">{{ getFromOrder('address.address2') }}</p>
-          <p v-if="getFromOrder('address.address3')">{{ getFromOrder('address.address3') }}</p>
+          <p v-if="getFromOrder('address.address2') && getFromOrder('address.address2') !== 'null'">
+            {{ getFromOrder('address.address2') }}
+          </p>
+          <p v-if="getFromOrder('address.address3') && getFromOrder('address.address3') !== 'null'">
+            {{ getFromOrder('address.address3') }}
+          </p>
           <p v-if="getFromOrder('address.city')">
             {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
           </p>

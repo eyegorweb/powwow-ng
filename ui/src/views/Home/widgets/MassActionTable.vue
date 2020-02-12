@@ -4,7 +4,7 @@
       v-if="resultsPromise"
       :columns="columns"
       :rows="rows"
-      :orderBy.sync="orderBy"
+      :order-by.sync="orderBy"
       :results-promise="resultsPromise"
     />
   </WidgetBloc>
