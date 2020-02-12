@@ -197,7 +197,8 @@
     "never-ordered": "Jamais commandé",
     "errors": {
       "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà",
-      "AlreadyExists": "Une commande avec cette référence existe déjà"
+      "AlreadyExists": "Une commande avec cette référence existe déjà",
+      "validateMandatoryFields": "Veuillez saisir une référence client"
     }
   },
   "alarms": {

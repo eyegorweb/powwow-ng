@@ -141,6 +141,7 @@ export default {
         {
           label: 'GetVision',
           to: { name: 'alarms' },
+          mock: true,
           submenu: [
             {
               label: 'menu.alarms',

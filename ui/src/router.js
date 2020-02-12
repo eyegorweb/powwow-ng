@@ -4,8 +4,21 @@ import AuthenticationOnLoadCallback from './views/Authentication/AuthenticationO
 import AuthenticationRefreshCallback from './views/Authentication/AuthenticationRefreshCallback.vue';
 
 import Home from '@/views/Home';
+import Examples from '@/views/Examples';
+import GetSim from '@/views/GetSim';
+import Alarms from '@/views/GetVision/alarms';
+import AlarmDetail from '@/views/GetVision/alarmDetail';
+import MassActionsPage from '@/views/GetParc/MassActionsPage';
+import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
+import GetParcManagementActLines from '@/views/GetParc/ActLines';
+import GetParcLineDetail from '@/views/GetParc/LineDetail';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
+
+// const Home = () => import('@/views/Home');
+// const GetSim = () => import('@/views/GetSim/index');
+// const GetSimOrdersBillingAccount = () => import('@/views/GetSimOrdersBillingAccount');
+// const GetSimOrdersPartners = () => import('@/views/GetSimOrdersPartners');
 
 Vue.use(Router);
 
@@ -21,7 +34,7 @@ export default new Router({
     {
       path: '/orders',
       name: 'orders',
-      component: () => import('@/views/GetSim/index.vue'),
+      component: GetSim,
     },
     {
       path: '/callback',
@@ -36,32 +49,32 @@ export default new Router({
     {
       path: '/act-history',
       name: 'actHistory',
-      component: () => import('@/views/GetParc/MassActionsPage/index.vue'),
+      component: MassActionsPage,
     },
     {
       path: '/act-detail/:massActionId',
       name: 'actDetail',
-      component: () => import('@/views/GetParc/UnitActionsPage/index.vue'),
+      component: GetParcActDetail,
     },
     {
       path: '/line-detail/:lineId',
       name: 'lineDetail',
-      component: () => import('@/views/GetParc/LineDetail'),
+      component: GetParcLineDetail,
     },
     {
       path: '/act-lines',
       name: 'actLines',
-      component: () => import('@/views/GetParc/ActLines'),
+      component: GetParcManagementActLines,
     },
     {
       path: '/alarms',
       name: 'alarms',
-      component: () => import('@/views/GetVision/alarms'),
+      component: Alarms,
     },
     {
       path: '/alarm/:alarmId',
       name: 'alarmDetail',
-      component: () => import('@/views/GetVision/alarmDetail'),
+      component: AlarmDetail,
       mock: true,
     },
     {
@@ -73,7 +86,7 @@ export default new Router({
     {
       path: '/exemples',
       name: 'exemples',
-      component: () => import('@/views/Examples'),
+      component: Examples,
       mock: true,
     },
   ]),
