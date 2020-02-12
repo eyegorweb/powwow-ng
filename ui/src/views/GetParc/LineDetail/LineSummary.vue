@@ -90,7 +90,7 @@
 
 <script>
 import get from 'lodash.get';
-import { formatBytes } from '@/api/utils';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
 
@@ -211,7 +211,9 @@ export default {
           internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
           // total
           usedTotal = nationalTotal + internationalTotal;
-          estimatedTotal = (daysInMonth * (nationalTotal + internationalTotal)) / pastDays;
+          estimatedTotal = Math.floor(
+            (daysInMonth * (nationalTotal + internationalTotal)) / pastDays
+          );
           break;
         case 'VOICE':
           // Nationales
@@ -237,11 +239,10 @@ export default {
           // total international
           internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
           // total
-          usedTotal = moment(nationalTotal + internationalTotal, 'HHmmss').format('HH:mm:ss');
-          estimatedTotal = moment(
-            (daysInMonth * (nationalTotal + internationalTotal)) / pastDays,
-            'HHmmss'
-          ).format('HH:mm:ss');
+          usedTotal = formattedValueFromSeconds(nationalTotal + internationalTotal);
+          estimatedTotal = formattedValueFromSeconds(
+            (daysInMonth * (nationalTotal + internationalTotal)) / pastDays
+          );
           break;
       }
       let total;

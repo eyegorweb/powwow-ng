@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import PartnersPart from './PartnersPart';
-import OffersPart from './OffersPart';
-import BillingAccountsPart from './BillingAccountsPart';
-import PrereqContainer from './PrereqContainer';
+import PartnersPart from './parts/PartnersPart';
+import OffersPart from './parts/OffersPart';
+import BillingAccountsPart from './parts/BillingAccountsPart';
+import PrereqContainer from './parts/PrereqContainer';
 import get from 'lodash.get';
 import { fetchOffers } from '@/api/offers';
 import { mapMutations } from 'vuex';

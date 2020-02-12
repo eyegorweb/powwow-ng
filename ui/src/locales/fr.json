@@ -5,7 +5,7 @@
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "accessTo": "Accéder à",
-  "numberPerPage": "Nb per page",
+  "numberPerPage": "Nb par page",
   "partnerType": "Type de partenaire",
   "partnerAlarm": "Type d'alarme",
   "choosePartner": "Sélectionner des partenaires",
@@ -15,6 +15,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "cancel": "Annuler",
+  "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
   "confirm": "Confirmer",
   "delete": "Supprimer",
@@ -63,6 +64,10 @@
   "month": "Mois",
   "quarter": "Trimestre",
   "suspension": "Suspension",
+  "mailNotification": "Être notifié par e-mail",
+  "webserviceNotification": "Être notifié par webservice",
+  "lines": "Lignes",
+  "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -99,10 +104,13 @@
       "message": {
         "scheduleTermination": "pas d’autre résiliation programmée",
         "termination": "pas d’autre résiliation",
-        "activation": "pas d’autre activation"
+        "activation": "pas d’autre activation",
+        "triggeredAlarm": "pas d’autre alarme déclenchée"
       },
       "viewOneResult": "Consulter le résultat",
-      "viewXResults": "Consulter les {num} résultats"
+      "viewXResults": "Consulter les {num} résultats",
+      "linesConsumption": "Lignes les plus consommatrices du mois",
+      "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour"
     }
   },
   "menu": {
@@ -116,7 +124,7 @@
     "MULTI_CUSTOMER": "Marque blanche"
   },
   "errors": {
-    "all": "Erreurs",
+    "all": "Erreur(s)",
     "mandatory": "* Champ obligatoire"
   },
   "common": {
@@ -167,7 +175,7 @@
     "le": "Inférieure à",
     "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
-    "date-over": "Au delà de {endDate}",
+    "date-over": "Avant le {endDate}",
     "details": {
       "title": "Commande n° {id}"
     },
@@ -188,7 +196,9 @@
     "tooltip-text": "Vous pouvez retrouver l’historique des commandes passées, suivre leurs statuts, consulter les informations de détail et accéder aux cartes SIM associées.",
     "never-ordered": "Jamais commandé",
     "errors": {
-      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
+      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà",
+      "AlreadyExists": "Une commande avec cette référence existe déjà",
+      "validateMandatoryFields": "Veuillez saisir une référence client"
     }
   },
   "alarms": {
@@ -202,10 +212,10 @@
     "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
     "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
     "STATUS_CHANGE": "Changement de statut",
-    "IMEI_CHANGE": "Changement de module",
+    "IMEI_CHANGE": "Changement d'équipement",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée"
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
@@ -231,7 +241,8 @@
       "create-alarm": "Créer une alarme",
       "thresholds": "Seuil(s) de déclenchement",
       "targetedLines": "Lignes ciblées",
-      "triggers": "Déclenchements"
+      "triggers": "Déclenchements",
+      "alarmStatus": "Statut de l'alarme"
     },
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
@@ -245,15 +256,38 @@
     },
 
     "alarm": {
-      "triggered_x_month": "Déclenchements dans {month} derniers mois",
+      "triggered_x_month": "Déclenchements dans les {month} derniers mois",
       "triggered_lines": "Lignes ciblées par l'alarme",
       "excluded_sim_from_alarms": "Cartes sim exclues de l'alarme",
       "trigger_reason": "Motifs de déclenchement",
       "trigger_date": "Date de dernier déclenchement",
       "disable_alarm_lines": "Désactiver l'alarme des lignes",
       "react_alarm_lines": "Réactiver l'alarme des lignes",
-      "alarm_availability": "Présence de l'alarme"
+      "alarm_availability": "Présence de l'alarme",
+
+      "enableAlarm": "Activer l'alarme",
+      "saveAlarm": "Enregistrer l'alarme",
+      "statuses": {
+        "created": "Créée",
+        "activated": "Activée",
+        "disabled": "Désactivée"
+      }
+    },
+    "alarm-creation": {
+      "change_country": {
+        "countries_list": "Tous les pays:",
+        "chosen_countries": "Pays autorisés:"
+      },
+      "change_plmn": {
+        "isp_list": "Tous les opérateurs:",
+        "chosen_isp": "Opérateurs autorisés:"
+      }
     }
+  },
+  "getreport": {
+    "pageTitle": "Modèles de rapports",
+    "reports_tooltip": "tooltip ici",
+    "create_report": "Créer un rapport"
   },
   "getparc": {
     "management-act": "Historique des actes de gestion",
@@ -289,7 +323,8 @@
       "RECOVERY_SUSPEND": "Suspension pour impayé",
       "RECOVERY_RELEASED": "Résiliation du compte",
       "GEO_LOCATION": "Localisation M2M",
-      "UPDATE_COMMITMENT": "Durée engagement"
+      "UPDATE_COMMITMENT": "Durée engagement",
+      "SUSPENDION": "Suspension"
     },
     "actStatuses": {
       "WAITING": "En attente",
@@ -314,15 +349,16 @@
         "target": "Ciblée(s)",
         "success": "Succès",
         "ongoing": "En cours",
-        "fail": "Échec",
+        "fail": "Échec(s)",
         "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut",
-        "rate": "Taux d'échec / succès"
+        "rate": "Succès / Échec"
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "noResult": "L'acte de gestion n'a pas été trouvé",
         "manageActTitle": "{type} - {date}",
         "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
@@ -376,9 +412,9 @@
       "restart-confirmation": "Etes-vous sur de vouloir relancer les actes en échec?",
       "enterMessage": "Entrez un message",
       "titleListCard": {
-        "FAIL": "liste des cartes en échec",
-        "ONGOING": "liste des cartes en cours",
-        "TERMINATED": "liste des cartes terminées"
+        "FAIL": "liste des actes en échec",
+        "ONGOING": "liste des actes en cours",
+        "TERMINATED": "liste des actes terminées"
       },
       "col": {
         "id": "ID de l’acte unitaire",
@@ -471,7 +507,8 @@
         "smsIncomingNationalConsumption": "SMS national entrant",
         "smsOutgoingNationalConsumption": "SMS national sortant",
         "smsIncomingInternationalConsumption": "SMS roaming entrant",
-        "smsOutgoingInternationalConsumption": "SMS roaming sortant"
+        "smsOutgoingInternationalConsumption": "SMS roaming sortant",
+        "nbOfSMS": "Nombre de SMS"
       },
       "estimated": {
         "data": "Prévisionnel Data",
@@ -527,8 +564,8 @@
         "networkInformation": "Informations réseau",
         "lineAnalysisTitles": {
           "locationSection": "Localisation sur carte",
-          "lastConnectionStatus": "Statut de la dernière connexion pdp",
-          "ApnIdLastConnexion": "Apn & ip de la dernière connexion pdp",
+          "lastConnectionStatus": "Statut de la dernière connexion data",
+          "ApnIdLastConnexion": "Apn & ip de la dernière connexion data",
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
@@ -546,7 +583,7 @@
           },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
-          "closingConnexionReason": "Raison de la fermeture de la connexion",
+          "closingConnexionReason": "Raison de la fermeture",
           "connexionDebut": "Début de la connexion",
           "connexionEnd": "Fin de la connexion",
           "currentApn": "APN actuel",
@@ -557,20 +594,7 @@
           "lastLocationDate": "Date de la dernière localisation",
           "useTypeAndDetail": "Type et détail d'usage",
           "technology": "Technologie",
-          "technologies": {
-            "DATA_V_1": "3G",
-            "DATA_V_6": "4G",
-            "DATA_V_EMPTY": "Inconnue",
-            "DATA_V_UNKNOWN": "Inconnue",
-            "DATA_F_MISSING": "2G",
-            "OTHERS_V_3G": "3G",
-            "OTHERS_V_4G": "4G",
-            "OTHERS_F_MISSING": "Inconnue",
-            "OTHERS_V_UNKNOWN": "2G",
-            "OTHERS_V_EMPTY_NAT": "2G",
-            "OTHERS_V_EMPTY_RO": "Autre ou 2G",
-            "none": "Inconnue"
-          }
+          "technologies": "{value}"
         },
         "networkInfoContent": {
           "dataControl": "Contrôle data roaming",
@@ -864,6 +888,7 @@
         "DETAIL": "Voir le détail de la ligne"
       },
       "chooseAct": "Choisir un acte de gestion",
+      "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
       "step1Partner": "séléctionner un partenaire",
@@ -1096,7 +1121,7 @@
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",
-      "SIMCardStatus": "Statut de la carte SIM",
+      "SIMCardStatus": "Statut de la ligne",
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",

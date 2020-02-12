@@ -101,11 +101,8 @@ export default {
         partners = this.contextPartners.map(p => p.id);
       }
 
-      const responseIndicators = await fetchPrecalculatedIndicators(
-        keys,
-        partners,
-        this.contextPartnersType
-      );
+      const responseIndicators =
+        (await fetchPrecalculatedIndicators(keys, partners, this.contextPartnersType)) || [];
       this.indicators = this.meta.map(i => {
         const response = responseIndicators.find(r => r.name === i.fetchKey);
         if (response) {

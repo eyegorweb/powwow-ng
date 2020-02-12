@@ -5,6 +5,7 @@
       :columns="columns"
       :rows="rows"
       :results-promise="resultsPromise"
+      :order-by.sync="orderBy"
     />
   </WidgetBloc>
 </template>
@@ -28,6 +29,9 @@ export default {
   },
   watch: {
     contextFilters() {
+      this.refreshTable();
+    },
+    orderBy() {
       this.refreshTable();
     },
   },
@@ -161,8 +165,8 @@ export default {
           id: 7,
           label: this.$t('getparc.history.col.rate'),
           name: 'rateActionNumber',
-          sortingName: 'rate_Action_Number',
-          orderabel: false,
+          sortingName: 'UNIT_ACTIONS_FAILED',
+          orderable: true,
           noHandle: true,
           visible: true,
           format: {
@@ -170,6 +174,7 @@ export default {
           },
         },
       ],
+      orderBy: { key: 'UNIT_ACTIONS_FAILED', direction: 'DESC' },
       resultsPromise: undefined,
       rows: [],
     };
@@ -178,7 +183,7 @@ export default {
   methods: {
     async refreshTable() {
       this.resultsPromise = searchMassActions(
-        { key: 'ID', direction: 'DESC' },
+        this.orderBy,
         { page: 0, limit: 3 },
         this.widgetFilters
       );

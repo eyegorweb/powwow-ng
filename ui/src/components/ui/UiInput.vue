@@ -1,5 +1,12 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon, error: !!error, 'no-hover-style': noHoverStyle }">
+  <label
+    :class="{
+      'has-icon': $slots.icon,
+      error: !!error,
+      'no-hover-style': noHoverStyle,
+      'full-width': block,
+    }"
+  >
     <slot name="icon" />
     <slot name="beforeInput" />
     <input
@@ -11,6 +18,7 @@
       type="number"
       :style="inputStyle"
       :min="minValue"
+      :max="maxValue"
     />
     <input
       v-else
@@ -53,6 +61,10 @@ export default {
       type: Number,
       required: false,
     },
+    maxValue: {
+      type: Number,
+      required: false,
+    },
     error: {
       type: String,
       required: false,
@@ -64,6 +76,7 @@ export default {
     noHoverStyle: Boolean,
     haveCrossButton: Boolean,
     noNumberArrows: Boolean,
+    block: Boolean,
   },
 
   methods: {
@@ -162,5 +175,9 @@ label {
   }
 
   -moz-appearance: textfield; /* Firefox */
+}
+
+.full-width {
+  width: 100%;
 }
 </style>

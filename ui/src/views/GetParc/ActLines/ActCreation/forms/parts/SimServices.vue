@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="services-container">
-      <div :key="service.id" v-for="service in basicServices" class="single-service mt-3 mb-3">
+      <div :key="service.id" v-for="service in basicServices" class="single-service">
         <UiToggle
           :label="$t('services.' + service.name)"
           :editable="service.editable"
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div v-if="dataService" class="services-container">
-      <div class="single-service mt-3 mb-3">
+      <div class="single-service">
         <UiToggle
           :label="$t('services.DATA')"
           :editable="dataService.editable"
@@ -18,10 +18,7 @@
         />
       </div>
 
-      <div
-        v-if="dataService && dataService.apns && dataService.apns.length"
-        class="single-service mt-3 mb-3"
-      >
+      <div v-if="dataService && dataService.apns && dataService.apns.length" class="single-service">
         <span>Apn:</span>
         <MultiChoiceList :items="dataService.apns" @change="toggleApn" />
       </div>
@@ -248,6 +245,7 @@ export default {
   padding-left: 2rem;
   padding-right: 2rem;
   flex-basis: 50%;
+  margin: 0.6rem 0;
 }
 .apn-container {
   display: flex;

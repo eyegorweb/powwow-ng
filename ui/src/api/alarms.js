@@ -102,6 +102,9 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         id
         name
         type
+        startDate
+        disabled
+        type
         alarmScope
         observationCycle
         notifyByWs
@@ -111,6 +114,17 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
           emails
         }
         party {
+          id
+          name
+        }
+        auditable {
+          created
+          updated
+        }
+        autoPositionWorkflow {
+          workflowDescription
+        }
+        autoPositionCustAccount {
           id
           name
         }
@@ -126,11 +140,35 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         level3Up
         level3Down
         startDate
+        auditable {
+          created
+        }
       }
     }
   }`;
   const response = await query(queryStr);
   return response.data.alarms;
+}
+
+export async function triggerHistory(id) {
+  const queryStr = `
+  query {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${id}}}, pagination: {page: 0, limit: 20}) {
+      items {
+        id
+        alarm {
+            id,
+          startDate,
+          level1,
+          level2,
+          level3,
+        }
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.alarmEvents;
 }
 
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
@@ -167,6 +205,41 @@ export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, d
 
   const response = await query(queryStr);
   return response.data.deleteAlarmInstance;
+}
+
+export async function fetchAlarmInstancesIndicators(
+  keys,
+  nbDaysCurrentMonth,
+  partners,
+  partnerType
+) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners && partners.length) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+  const queryStr = `
+  query {
+    indicatorsHistory(names: [${keys.join(
+      ','
+    )}]${partnerGql}${partnerTypeGql}, historyDepth: ${nbDaysCurrentMonth}) {
+      name
+      frequency
+      histories {
+        numberValue
+        applicationDate
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.indicatorsHistory;
 }
 
 function formatFilters(selectedFilters) {

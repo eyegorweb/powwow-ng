@@ -5,6 +5,7 @@
     :is-open="isOpen"
     @close="closePanel"
     :wide="wide"
+    :width="width"
     :backdrop="backdrop"
     :ignore-click-away="ignoreClickAway"
   >
@@ -27,6 +28,12 @@
         :content="payload"
       />
       <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
+      <AlarmCreationPanel v-if="panelId === 'getvsion.table.create-alarm'" :content="payload" />
+      <ReportCreationPanel v-if="panelId === 'getreport.create_report'" :content="payload" />
+      <ImportSimCardsToOrderPanel
+        v-if="panelId === 'getsim.actions.IMPORT_SIM'"
+        :content="payload"
+      />
     </div>
   </SlidePanel>
 </template>
@@ -35,28 +42,23 @@
 import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
-import GetSimCreateOrderPanel from '@/views/GetSim/CreateOrder/CreateOrderPanel';
-import GetSimOrderDetails from '@/views/GetSim/GetSimOrderDetails';
-import GetSimCreatorDetails from '@/views/GetSim/GetSimCreatorDetails';
-import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDetailPanel';
-import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
-import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
-import CustomizePanel from '@/views/Home/CustomizePanel';
-import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
-import TheAlarmDetailPanel from '@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
-
 export default {
   components: {
     SlidePanel,
-    GetSimCreateOrderPanel,
-    GetSimOrderDetails,
-    GetSimCreatorDetails,
-    ActHistoryDetailPanel,
-    ActLinesDetailPanel,
-    ActCreationPanel,
-    CustomizePanel,
-    LineAlarmDetailPanel,
-    TheAlarmDetailPanel,
+    GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
+    GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
+    GetSimCreatorDetails: () => import('@/views/GetSim/GetSimCreatorDetails'),
+    ActHistoryDetailPanel: () => import('@/views/GetParc/MassActionsPage/ActHistoryDetailPanel'),
+    ActLinesDetailPanel: () => import('@/views/GetParc/ActLines/ActLinesDetailPanel'),
+    ActCreationPanel: () => import('@/views/GetParc/LineDetail/ActCreation/ActCreationPanel'),
+    CustomizePanel: () => import('@/views/Home/CustomizePanel'),
+    LineAlarmDetailPanel: () =>
+      import('@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel'),
+    TheAlarmDetailPanel: () =>
+      import('@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue'),
+    AlarmCreationPanel: () => import('@/views/GetVision/AlarmCreationPanel'),
+    ReportCreationPanel: () => import('@/views/GetReport/ReportCreationPanel'),
+    ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),
@@ -70,6 +72,7 @@ export default {
     backdrop: state => state.ui.backdrop,
     titleConf: state => state.ui.panelTitleConf,
     ignoreClickAway: state => state.ui.ignoreClickAway,
+    width: state => state.ui.width,
   }),
 };
 </script>

@@ -12,9 +12,9 @@
             :order-by="orderBy"
             button-style
           >
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </span>
+            <span slot="title">{{
+              $t('getparc.history.details.EXPORT_LINES', { total: total })
+            }}</span>
           </ExportButton>
         </div>
       </div>
@@ -71,21 +71,15 @@
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>
-              {{ content.failedEntitiesNumber > 0 ? content.failedEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.failedEntitiesNumber > 0 ? content.failedEntitiesNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <p>
-              {{ content.pendingEntitiesNumber > 0 ? content.pendingEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.pendingEntitiesNumber > 0 ? content.pendingEntitiesNumber : '-' }}</p>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <p>
-              {{ content.completedEntitiesNumber > 0 ? content.completedEntitiesNumber : '-' }}
-            </p>
+            <p>{{ content.completedEntitiesNumber > 0 ? content.completedEntitiesNumber : '-' }}</p>
           </div>
         </div>
       </div>
@@ -105,6 +99,12 @@ export default {
     content: {
       type: Object,
     },
+  },
+  mounted() {
+    this.confirmationStepper.data[0].date = this.createdDate;
+    this.confirmationStepper.data[1].date = this.dueDate;
+    this.confirmationStepper.data[2].date = this.endedDate;
+    this.cancelStepper.data[0].date = this.createdDate;
   },
   data() {
     return {
@@ -210,19 +210,19 @@ export default {
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
+            date: undefined,
             index: 0,
           },
           {
             code: 'IN_PROGRESS',
             label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: this.content.dueDate,
+            date: undefined,
             index: 1,
           },
           {
             code: 'TERMINATED',
             label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: this.content.endDate,
+            date: undefined,
             index: 2,
           },
         ],
@@ -232,7 +232,7 @@ export default {
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: this.content.created,
+            date: undefined,
             index: 0,
           },
           {
@@ -243,7 +243,6 @@ export default {
           },
         ],
       },
-      actStatus: this.content.status,
     };
   },
 
@@ -268,7 +267,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
-          this.content.massActionResponse.id,
+          this.content.massAction.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           [
             'MASS_ACTION_ID',
@@ -340,6 +339,18 @@ export default {
     },
     total() {
       return this.content ? this.content.targetActionNumber : 0;
+    },
+    actStatus() {
+      return this.content ? this.content.massAction.status : '';
+    },
+    createdDate() {
+      return this.content ? this.content.massAction.created : '';
+    },
+    dueDate() {
+      return this.content ? this.content.massAction.dueDate : '';
+    },
+    endedDate() {
+      return this.content ? this.content.massAction.endDate : '';
     },
   },
 

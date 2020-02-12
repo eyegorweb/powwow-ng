@@ -6,11 +6,12 @@
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('ordersFound', { total: formattedTotal }) }}
-          </h2>
+          <h2
+            class="text-gray font-weight-light"
+            style="font-size: 2rem"
+          >{{ $t('ordersFound', { total: formattedTotal }) }}</h2>
         </div>
-        <div class="col" v-if="formattedTotal > 0">
+        <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
@@ -160,6 +161,7 @@ export default {
       this.fetchOrders();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchOrders();
     },
     isPanelOpen() {

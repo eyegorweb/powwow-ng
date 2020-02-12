@@ -9,6 +9,13 @@ export function currentDateMinusMounts(numberOfMonths) {
     .format(DATE_FORMAT);
 }
 
+export function currentMonthString(date) {
+  date = new Date(date);
+  let month = date.getMonth();
+  month++;
+  return moment(month, 'MM').format('MMMM');
+}
+
 export function currentDateMinusDays(value) {
   return moment()
     .subtract(value, 'days')
@@ -23,9 +30,9 @@ export function formattedCurrentDateExtended() {
   return moment().format(DATE_FORMAT_EXTENDED);
 }
 
-export function isBefore(expectedBefore, expectedAfter) {
-  const a = moment(expectedBefore, DATE_FORMAT_EXTENDED);
-  const b = moment(expectedAfter, DATE_FORMAT_EXTENDED);
+export function isBefore(expectedBefore, expectedAfter, format = DATE_FORMAT_EXTENDED) {
+  const a = moment(expectedBefore, format);
+  const b = moment(expectedAfter, format);
 
   return a.isBefore(b);
 }

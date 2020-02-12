@@ -87,8 +87,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
-            startDate: formattedCurrentDate(),
-            endDate: currentDateMinusMounts(6),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_PREAC_ACTIVATION_IN_PROGRESS',
@@ -119,6 +118,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
             endDate: currentDateMinusDays(2),
           },
         ],
@@ -143,6 +143,11 @@ export default {
                 label: this.$t('getparc.actStatuses.IN_ERROR'),
               },
             ],
+          },
+          {
+            id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_PREAC_ACTIVATION_FAILED',
@@ -169,6 +174,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
             endDate: currentDateMinusDays(2),
           },
         ],

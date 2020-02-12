@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" @seeMore="onSeeMore" no-padding>
     <div class="pl-3 pr-3 pb-0">
-      <GetSimIndicators no-borders small @click="onIndicatorClick" />
+      <OrderStatusesIndicators no-borders small @click="onIndicatorClick" />
       <UiButton
         v-if="userIsPartner"
         variant="accent"
@@ -18,13 +18,13 @@
 import UiButton from '@/components/ui/Button';
 
 import WidgetBloc from './WidgetBloc';
-import GetSimIndicators from '@/views/GetSim/GetSimIndicators';
+import OrderStatusesIndicators from './OrderStatusesIndicators';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     WidgetBloc,
-    GetSimIndicators,
+    OrderStatusesIndicators,
     UiButton,
   },
   props: {

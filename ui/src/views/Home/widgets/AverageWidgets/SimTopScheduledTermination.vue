@@ -7,6 +7,7 @@
     :context-filters="contextFilters"
     :info-message="specificMessage"
     :no-results="noResults"
+    :toggle-values="toggleValues"
   />
 </template>
 
@@ -30,6 +31,23 @@ export default {
       period: 'DAY',
       contextFilters: [],
       specificMessage: undefined,
+      toggleValues: [
+        {
+          id: 'day',
+          label: 'day',
+          default: this.period === 'DAY',
+        },
+        {
+          id: 'month',
+          label: 'month',
+          default: this.period === 'MONTH',
+        },
+        {
+          id: 'quarter',
+          label: 'quarter',
+          default: this.period === 'QUARTER',
+        },
+      ],
     };
   },
   computed: {
@@ -48,12 +66,13 @@ export default {
         ...this.contextFilters
       );
 
-      this.indicators = listTopIndicators.map(i => {
+      this.indicators = listTopIndicators.map((i, index) => {
         return {
           total: i.numberValue,
           clickable: false,
           labelKey: i.partyName,
-          fetchKey: i.name,
+          id: `${i.name}_${index}`,
+          linked: false,
         };
       });
       this.displayInfoMessage();

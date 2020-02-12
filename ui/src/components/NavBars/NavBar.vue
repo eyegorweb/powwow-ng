@@ -141,6 +141,7 @@ export default {
         {
           label: 'GetVision',
           to: { name: 'alarms' },
+          mock: true,
           submenu: [
             {
               label: 'menu.alarms',
@@ -148,7 +149,7 @@ export default {
             },
           ],
         },
-        { label: 'GetReport', to: { name: 'exemples' }, mock: true },
+        { label: 'GetReport', to: { name: 'reports' }, mock: true },
         { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
         { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
         { label: 'GetDevice', to: { name: 'exemples' }, mock: true },

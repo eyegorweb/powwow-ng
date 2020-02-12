@@ -4,6 +4,7 @@
       v-if="resultsPromise"
       :columns="columns"
       :rows="rows"
+      :order-by.sync="orderBy"
       :results-promise="resultsPromise"
     />
   </WidgetBloc>
@@ -13,8 +14,8 @@
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import GenericTableWidget from './GenericTableWidget';
 import { searchMassActions } from '@/api/massActions';
-
 import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
+import DetailsCell from '@/views/GetParc/MassActionsPage/HistoryTable/DetailsCell';
 
 export default {
   components: {
@@ -64,6 +65,7 @@ export default {
   },
   data() {
     return {
+      orderBy: { key: 'creationDate', direction: 'DESC' },
       filters: [
         {
           id: 'filters.actStatus',
@@ -113,6 +115,9 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
+          format: {
+            component: DetailsCell,
+          },
         },
         {
           id: 5,

@@ -50,7 +50,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creatorMail') }} :</h6>
-          <p>{{ getFromOrder('contactInformation.email') }}</p>
+          <p>{{ getFromOrder('auditable.creator.email') }}</p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.manageID') }} :</h6>
@@ -78,9 +78,18 @@
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
           <ff-wip>
-            <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
-              <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
-            </UiButton>
+            <template v-if="order.status === 'CONFIRMED'">
+              <UiButton
+                v-if="order.importedQuantity < order.quantity"
+                @click="openImportSimPanel"
+                variant="import"
+              >
+                <span>{{ $t('getsim.actions.IMPORT_SIM') }}</span>
+              </UiButton>
+              <UiButton v-else @click="gotoCorrespondingLines" variant="import">{{
+                $t('getsim.actions.SHOW_SIM')
+              }}</UiButton>
+            </template>
           </ff-wip>
         </div>
         <div class="overview-item">
@@ -145,8 +154,12 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.deliveryAddress') }}</h6>
           <p>{{ getFromOrder('address.address1') }}</p>
-          <p v-if="getFromOrder('address.address2')">{{ getFromOrder('address.address2') }}</p>
-          <p v-if="getFromOrder('address.address3')">{{ getFromOrder('address.address3') }}</p>
+          <p v-if="getFromOrder('address.address2') && getFromOrder('address.address2') !== 'null'">
+            {{ getFromOrder('address.address2') }}
+          </p>
+          <p v-if="getFromOrder('address.address3') && getFromOrder('address.address3') !== 'null'">
+            {{ getFromOrder('address.address3') }}
+          </p>
           <p v-if="getFromOrder('address.city')">
             {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
           </p>
@@ -216,6 +229,7 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
+import { mapMutations } from 'vuex';
 // import moment from 'moment';
 
 export default {
@@ -271,6 +285,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['switchPanel']),
+
     getFromOrder(path, defaultValue = '') {
       const value = get(this.order, path, defaultValue);
       return value !== null ? value : '';
@@ -286,6 +302,15 @@ export default {
         params: {
           queryFilters,
         },
+      });
+    },
+    openImportSimPanel() {
+      this.switchPanel({
+        title: this.$t('getsim.actions.IMPORT_SIM'),
+        panelId: 'getsim.actions.IMPORT_SIM',
+        payload: { order: this.order },
+        wide: false,
+        backdrop: false,
       });
     },
   },

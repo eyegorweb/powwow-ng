@@ -74,6 +74,19 @@ export async function fetchSingleIndicator(filters, contextFilters = []) {
   return response.data.simCardInstances;
 }
 
+export async function countLines(filters) {
+  const queryStr = `
+  query {
+    simCardInstances(filter: {
+      ${formatFilters(filters)}
+    }){total}
+  }`;
+
+  const response = await query(queryStr);
+  if (response && response.data.simCardInstances) return response.data.simCardInstances.total;
+  return undefined;
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
@@ -517,7 +530,7 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
 export async function fetchCurrentConsumption(simcardId) {
   const queryStr = `
   query {
-    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+    currentConsumptionV2(simCardInstanceId: ${simcardId}){
       dataNationalConsumption
       dataIncomingNationalConsumption
       dataOutgoingNationalConsumption
@@ -545,13 +558,13 @@ export async function fetchCurrentConsumption(simcardId) {
 
   const response = await query(queryStr);
 
-  return response.data.currentConsumption;
+  return response.data.currentConsumptionV2;
 }
 
 export async function exportCurrentConsumption(simcardId, exportFormat) {
   const queryStr = `
   query {
-    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+    exportCurrentConsumption(simCardInstanceId: ${simcardId}, exportFormat: ${exportFormat}){
       downloadUri
       asyncRequired
     }

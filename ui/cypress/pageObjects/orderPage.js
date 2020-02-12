@@ -1,21 +1,21 @@
 import layout from './layout';
+import * as filterBarSelectors from './selectors/filterbar';
 
 export default {
   init() {
     layout.menu.getSim();
   },
   filterBar: {
-    apply() {
-      cy.get('.card > .card-body > .mb-3 > .actions > button.btn-primary').click();
-    },
+    apply: filterBarSelectors.applySearch,
     partner: {
       toggle() {
-        cy.get('span > .foldable-block:nth-child(1) > .d-flex > .p-0 > i').click();
+        filterBarSelectors.filterBarItems(1).toggle();
       },
       choose(nth) {
-        cy.get(
-          `div > .checkboxes > .checkbox-container:nth-child(${nth}) > .filled > .checkmark`
-        ).click();
+        filterBarSelectors.filterBarItems(1).multiselect.choose(nth);
+      },
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
       },
       chosenItems() {
         return cy.get(

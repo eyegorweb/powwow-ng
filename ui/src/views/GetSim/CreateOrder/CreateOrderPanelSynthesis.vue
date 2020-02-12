@@ -56,10 +56,10 @@ export default {
   padding: 1em !important;
   display: flex;
   flex-direction: column;
+  height: 100%;
   .synthesis-content {
-    flex: 1;
     overflow-y: auto;
-    min-height: 73vh;
+    flex-grow: 1;
   }
   h6 {
     margin-bottom: 2em;
@@ -74,10 +74,6 @@ export default {
 
 @media screen and (max-height: 768px) {
   .new-order-synthesis {
-    div.synthesis-content {
-      min-height: 75vh;
-      max-height: 75vh;
-    }
     .footer /deep/ label {
       padding-top: 10px;
       font-size: 0.9rem;
@@ -87,10 +83,6 @@ export default {
 
 @media (max-height: 588px) {
   .new-order-synthesis {
-    div.synthesis-content {
-      min-height: 73vh;
-      max-height: 73vh;
-    }
     .footer /deep/ label {
       padding-top: 10px;
       font-size: 0.9rem;

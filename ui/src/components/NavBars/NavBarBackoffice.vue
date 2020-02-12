@@ -34,11 +34,12 @@
             >{{ $t('set') }}</UiButton
           >
           <UiButton
+            v-if="canCancel"
             slot="trigger"
             variant="danger"
             class="flex-grow-1 py-1 px-3 ml-1"
             @click="revertSelection"
-            >{{ $t('cancel') }}</UiButton
+            >{{ $t('reset') }}</UiButton
           >
         </div>
       </div>
@@ -87,6 +88,10 @@ export default {
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+
+    canCancel() {
+      return !!this.contextPartnersType || !!(this.contextPartners && this.contextPartners.length);
+    },
   },
 
   methods: {
@@ -102,8 +107,7 @@ export default {
     },
 
     revertSelection() {
-      this.partnerType = this.contextPartnersType;
-      this.partners = this.contextPartners;
+      location.reload();
     },
   },
 

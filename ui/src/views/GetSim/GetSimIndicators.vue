@@ -194,6 +194,14 @@ export default {
           },
           hideZeroValue: true,
         },
+        {
+          name: 'averageProcessingTime',
+          labelKey: 'indicators.getsim.averageProcessingTime',
+          clickable: false,
+          total: '-',
+          filters: [],
+          fetchKey: 'ORDER_DELAY',
+        },
       ],
     };
   },

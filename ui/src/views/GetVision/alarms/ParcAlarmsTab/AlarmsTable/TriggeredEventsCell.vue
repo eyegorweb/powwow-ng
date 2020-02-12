@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: 'TriggeredEventsCell',
   props: {
     row: Object,
   },

@@ -6,7 +6,9 @@
     :init-value="initValue"
     @findType="findType"
     @searchById="searchById"
+    @valueChange="$emit('valueChange', $event)"
     :inline="inline"
+    :no-search-button="noSearchButton"
   />
 </template>
 
@@ -38,6 +40,8 @@ export default {
       type: String,
       default: '',
     },
+
+    noSearchButton: Boolean,
   },
   computed: {
     idsOptions() {

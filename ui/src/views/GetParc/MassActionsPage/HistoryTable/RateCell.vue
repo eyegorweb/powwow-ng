@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="text-success">{{ success }} /</span>
+    <span class="text-success">{{ success }} / </span>
     <span class="text-danger">{{ fail }}</span>
   </div>
 </template>

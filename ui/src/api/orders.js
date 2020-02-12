@@ -92,6 +92,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           custom4FieldLabel
           custom5FieldLabel
           custom6FieldLabel
+          contractReference
         }
         quantity
         customFields {

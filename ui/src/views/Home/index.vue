@@ -58,6 +58,8 @@
 import VueGridLayout from 'vue-grid-layout';
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 
+const LAYOUT_NAME = '_layout_';
+
 export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
@@ -72,10 +74,10 @@ export default {
     }),
     cellHeight() {
       if (window.innerWidth <= 1024) {
-        return 4;
+        return 5;
       }
       if (window.innerWidth > 1024 && window.innerWidth <= 1366) {
-        return 5;
+        return 5.5;
       }
       return 8;
     },
@@ -164,21 +166,32 @@ export default {
         };
       });
 
-      localStorage.setItem('_layout_', JSON.stringify(layoutToSave));
+      localStorage.setItem(LAYOUT_NAME, JSON.stringify(layoutToSave));
+      localStorage.setItem('layout_resolution', '' + window.innerWidth);
     },
 
     loadLayout() {
-      const layoutInLS = localStorage.getItem('_layout_');
+      const layoutResolution = localStorage.getItem('layout_resolution');
+      const layoutInLS = localStorage.getItem(LAYOUT_NAME);
 
       if (layoutInLS) {
+        if (layoutResolution !== '' + window.innerWidth) {
+          localStorage.removeItem(LAYOUT_NAME);
+          return;
+        }
+
         const parsed = JSON.parse(layoutInLS);
 
-        return parsed.map(l => {
-          return {
-            ...l,
-            meta: this.homeWidgets.find(w => w.title === l.title),
-          };
-        });
+        return parsed
+          .filter(l => {
+            return !!this.homeWidgets.find(w => w.title === l.title);
+          })
+          .map(l => {
+            return {
+              ...l,
+              meta: this.homeWidgets.find(w => w.title === l.title),
+            };
+          });
       }
 
       return undefined;

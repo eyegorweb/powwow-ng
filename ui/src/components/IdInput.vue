@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      value: undefined,
+      value: '',
     };
   },
 
@@ -28,16 +28,16 @@ export default {
       return this.value && !!this.value.length;
     },
     isValid() {
-      if (this.value) {
-        const len = this.value.length;
+      const len = this.value.length;
 
-        if (this.type === 'ICCID') {
-          return len === 19 && startsWith(this.value, '893320');
-        }
+      if (this.type === 'ICCID') {
+        return len === 19 && startsWith(this.value, '893320');
+      }
 
-        if (this.type === 'MSISDN') {
-          return (len === 15 || len === 11) && startsWith(this.value, '33');
-        }
+      if (this.type === 'MSISDN') {
+        return (
+          ((len === 15 || len === 11) && startsWith(this.value, '33')) || this.value.length === 0
+        );
       }
       return false;
     },

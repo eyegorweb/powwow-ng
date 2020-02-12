@@ -32,9 +32,9 @@ export default {
 
     async openActHistoryDetailsPanel(id) {
       const massAction = await searchMassActionsById(id);
-      if (!massAction) return;
-      const type = get(massAction, 'type');
-      const date = this.formattedDate(get(massAction, 'massAction.dueDate'));
+      // if (!massAction) return;
+      const type = massAction ? get(massAction, 'type') : '';
+      const date = massAction ? this.formattedDate(get(massAction, 'massAction.dueDate')) : '';
       const openTrigger = () => {
         this.openPanel({
           title: this.$t('getparc.history.details.manageActTitle', {
