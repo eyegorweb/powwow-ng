@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.543+20200212103849
+2020-02-12
+
+### Fixes
+
+- correction des dates d'application sur les filtres (279bf42229b9c86c6d5fd20036010a1c8551879f)
+
 ## 0.3.0-master.542+20200212085804
 2020-02-12
 
