@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.546+20200212131157
+2020-02-12
+
+### Fixes
+
+- correction des indicateurs d'actes en échec (e82846b86c5d2084caae9cee1b11d8261e1cd458)
+
 ## 0.3.0-master.545+20200212130427
 2020-02-12
 
