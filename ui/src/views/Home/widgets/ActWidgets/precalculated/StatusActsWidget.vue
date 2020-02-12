@@ -103,6 +103,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
             endDate: currentDateMinusDays(2),
           },
         ],
@@ -126,6 +127,11 @@ export default {
                 label: this.$t('getparc.actStatuses.IN_ERROR'),
               },
             ],
+          },
+          {
+            id: 'filters.actDateStart',
+            label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_FAILED',
@@ -151,6 +157,7 @@ export default {
           {
             id: 'filters.actDateStart',
             label: this.$t('filters.actDateStart'),
+            startDate: currentDateMinusMounts(6),
             endDate: currentDateMinusDays(2),
           },
         ],
