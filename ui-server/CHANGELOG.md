@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.544+20200212123825
+2020-02-12
+
+### Fixes
+
+- inversion et formation graphique supervision (f8023f255058de7fb115f6f3b3190c957ca7dbf3)
+
 ## 0.3.0-master.543+20200212103849
 2020-02-12
 
