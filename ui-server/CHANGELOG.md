@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.545+20200212130427
+2020-02-12
+
+### Fixes
+
+- Corriger la traduction du message d'erreur (52686c834baafb1b129ba400918d0e2e3f9de523)
+- ne pas afficher les champs spécifiques pour les utilisateurs autres que BO (f54d75a63e3b4162a68fdba6ddeb341e0411c53f)
+
 ## 0.3.0-master.544+20200212123825
 2020-02-12
 
