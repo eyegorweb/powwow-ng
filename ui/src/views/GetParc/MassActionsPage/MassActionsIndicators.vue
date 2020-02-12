@@ -8,6 +8,7 @@
 import Indicators from '@/components/Indicators';
 import moment from 'moment';
 import { fetchSingleIndicator } from '@/api/massActions';
+import { currentDateMinusMounts } from '@/utils/date';
 
 const dateFormat = 'DD/MM/YYYY';
 import { mapMutations, mapState } from 'vuex';
@@ -41,10 +42,7 @@ export default {
           },
           {
             id: 'filters.actDateStart',
-            startDate: undefined,
-            endDate: moment()
-              .subtract(6, 'month')
-              .format(dateFormat),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_IN_PROGRESS',
@@ -65,10 +63,7 @@ export default {
           },
           {
             id: 'filters.actDateStart',
-            startDate: undefined,
-            endDate: moment()
-              .subtract(6, 'month')
-              .format(dateFormat),
+            startDate: currentDateMinusMounts(6),
           },
         ],
         fetchKey: 'ACT_FAILED',
