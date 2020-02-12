@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.548+20200212140840
+2020-02-12
+
+### Fixes
+
+- Le clic sur "voir le détail" dans la liste des commandes n'ouvre pas le volet (3ae08242b3aa5a5721d99c3f45ce293ba3573c10)
+
 ## 0.3.0-master.547+20200212134222
 2020-02-12
 
