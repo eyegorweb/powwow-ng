@@ -226,6 +226,10 @@ export default excludeMocked([
             id: 'ACTIVATED',
             label: 'Activée',
           },
+          {
+            id: 'SUSPENDED',
+            label: 'Suspendue',
+          },
         ],
       },
       {
@@ -315,6 +319,10 @@ export default excludeMocked([
           {
             id: 'ACTIVATED',
             label: 'Activée',
+          },
+          {
+            id: 'SUSPENDED',
+            label: 'Suspendue',
           },
         ],
       },

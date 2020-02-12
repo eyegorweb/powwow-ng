@@ -5,7 +5,7 @@
       :columns="columns"
       :rows="rows"
       :results-promise="resultsPromise"
-      :orderBy.sync="orderBy"
+      :order-by.sync="orderBy"
     />
   </WidgetBloc>
 </template>
@@ -167,7 +167,6 @@ export default {
       page: 0,
       pageLimit: 5,
       total: 0,
-      orderBy: { key: 'creationDate', direction: 'DESC' },
     };
   },
   watch: {

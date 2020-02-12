@@ -1,6 +1,6 @@
 <template>
   <div class="card filter-bar">
-    <div class="card-body show-all-filters" >
+    <div class="card-body show-all-filters">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <SelectedFilters
         v-if="canShowSelectedFilter"

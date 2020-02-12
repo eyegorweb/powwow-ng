@@ -5,7 +5,7 @@
       :columns="columns"
       :rows="rows"
       :results-promise="resultsPromise"
-      :orderBy.sync="orderBy"
+      :order-by.sync="orderBy"
     />
   </WidgetBloc>
 </template>
