@@ -115,6 +115,7 @@ export default {
           type: 'ObjectAttribute',
           path: 'name',
         }),
+        /*
         col(
           this.$t('getparc.lineDetail.alarms.observationCycle'),
           'observationCycle',
@@ -133,6 +134,35 @@ export default {
             return this.$t('alarms.alarmScope.' + row.alarmScope);
           },
         }),
+        //*/
+        {
+          id: 2,
+          label: this.$t('getparc.lineDetail.alarms.observationCycle'),
+          orderable: false,
+          visible: false,
+          name: 'observationCycle',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.observationCycles.' + row.observationCycle);
+            },
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.filters.ALARMS_OFFER'),
+          orderable: false,
+          visible: false,
+          name: 'alarmScope',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.alarmScope.' + row.alarmScope);
+            },
+          },
+        },
       ],
       pageLimit: 20,
       orderBy: {
