@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.553+20200213152636
+2020-02-13
+
+### Fixes
+
+- ajouter les colonnes cycle d'observation et portée à la table des alarmes (8bc851ed2ae12ddd2f1c9847d083e39dade2c5bf)
+
 ## 0.3.0-master.552+20200213131124
 2020-02-13
 
