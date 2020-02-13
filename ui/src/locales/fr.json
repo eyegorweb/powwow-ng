@@ -215,7 +215,21 @@
     "IMEI_CHANGE": "Changement d'équipement",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée",
+
+    "observationCycles": {
+      "DAILY": "Quotidien",
+      "WEEKLY": "Hebdomadaire",
+      "MONTHLY": "Mensuel",
+      "CUSTOM": "Personnalisé"
+    },
+    "alarmScope": {
+      "LINE": "Ligne",
+      "OFFER": "Offre",
+      "CUSTOMER_ACCOUNT": "Compte de facturation",
+      "PARTY": "Partenaire",
+      "CUSTOM_FIELDS": "Champ libres"
+    }
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
