@@ -107,10 +107,10 @@ export default {
     },
     async refreshChart() {
       const data = [];
-      const nbDaysCurrentMonth = moment().daysInMonth();
+      const historyDepth = 30;
       const filledValues = await fetchAlarmInstancesIndicators(
         ['ALARM_TRIGGERED_DAY'],
-        nbDaysCurrentMonth,
+        historyDepth,
         this.partners
       );
 

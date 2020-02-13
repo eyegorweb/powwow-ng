@@ -207,12 +207,7 @@ export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, d
   return response.data.deleteAlarmInstance;
 }
 
-export async function fetchAlarmInstancesIndicators(
-  keys,
-  nbDaysCurrentMonth,
-  partners,
-  partnerType
-) {
+export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners, partnerType) {
   let partnerGql = '';
   let partnerTypeGql = '';
 
@@ -227,7 +222,7 @@ export async function fetchAlarmInstancesIndicators(
   query {
     indicatorsHistory(names: [${keys.join(
       ','
-    )}]${partnerGql}${partnerTypeGql}, historyDepth: ${nbDaysCurrentMonth}) {
+    )}]${partnerGql}${partnerTypeGql}, historyDepth: ${historyDepth}) {
       name
       frequency
       histories {
