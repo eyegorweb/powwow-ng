@@ -22,7 +22,7 @@
     <template v-if="rows && rows.length">
       <DataTable
         :storage-id="storageId"
-        storage-version="002"
+        storage-version="003"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -115,26 +115,6 @@ export default {
           type: 'ObjectAttribute',
           path: 'name',
         }),
-        /*
-        col(
-          this.$t('getparc.lineDetail.alarms.observationCycle'),
-          'observationCycle',
-          false,
-          false,
-          {
-            type: 'Getter',
-            getter: row => {
-              return this.$t('alarms.observationCycles.' + row.observationCycle);
-            },
-          }
-        ),
-        col(this.$t('getvsion.filters.ALARMS_OFFER'), 'alarmScope', false, false, {
-          type: 'Getter',
-          getter: row => {
-            return this.$t('alarms.alarmScope.' + row.alarmScope);
-          },
-        }),
-        //*/
         {
           id: 2,
           label: this.$t('getparc.lineDetail.alarms.observationCycle'),
