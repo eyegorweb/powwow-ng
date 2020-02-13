@@ -2,12 +2,8 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.552+20200213131154
+## 0.3.0-master.552+20200213131124
 2020-02-13
-
-### Features
-
-- ajout du widget Etat du parc (11487c36d3b5dac109a5f85bda6a87a5f1497af9)
 
 ### Fixes
 
