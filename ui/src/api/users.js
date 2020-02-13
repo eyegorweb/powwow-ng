@@ -16,7 +16,7 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
 
   const queryStr = `
   query{
-    users(filter:{fullname: {contains: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
+    users(filter:{fullname: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {id: DESC}) {
       total
       items {
         __typename

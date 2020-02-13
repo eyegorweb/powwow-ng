@@ -19,7 +19,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
 
   const queryStr = `
   query{
-    workflows(filter:{description: {contains: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id

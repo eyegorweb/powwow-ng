@@ -8,7 +8,7 @@ export async function fetchpartners(q, { page, limit, partnerType }) {
   }
   const queryStr = `
   query{
-    partys(filter:{name: {contains: "${q}"}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    partys(filter:{name: {startsWith: "${q}"}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id

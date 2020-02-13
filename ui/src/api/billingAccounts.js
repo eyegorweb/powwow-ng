@@ -20,7 +20,7 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
 
   const queryStr = `
   query{
-    customerAccounts(filter:{code: {contains: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
+    customerAccounts(filter:{code: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, pagination: {limit: ${limit}, page: ${page}}, sorting: {name: ASC}) {
       total,
       items {
         id
