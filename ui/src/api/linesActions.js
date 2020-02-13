@@ -248,7 +248,7 @@ export function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {contains: "${c.value}"}`)
+      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
