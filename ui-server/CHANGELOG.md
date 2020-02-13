@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.552+20200213131154
+2020-02-13
+
+### Features
+
+- ajout du widget Etat du parc (11487c36d3b5dac109a5f85bda6a87a5f1497af9)
+
+### Fixes
+
+- Optimiser les requêtes e recherche partenaire et CF (22a4e86b4a68fbd4fd382199c88899cb39bd7f99)
+
 ## 0.3.0-master.551+20200212145025
 2020-02-12
 
