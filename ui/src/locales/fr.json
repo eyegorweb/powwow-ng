@@ -94,8 +94,8 @@
         "suspendedLines": "Lignes suspendues",
         "cancellationLines": "Lignes en cours de résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
-        "currentMonth": "Mois en cours",
-        "prevMonth": "M-1"
+        "currentMonth": "courant",
+        "prevMonth": "au 1er"
       },
       "averageTimeAction": "Délais moyens",
       "simTopActivation": "Top 5 lignes activées",
