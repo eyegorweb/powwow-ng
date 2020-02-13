@@ -5,9 +5,10 @@
     </div>
     <div class="row mb-3 mt-3">
       <div class="col-md-8">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-          {{ $t('getvsion.table.total', { total: total }) }}
-        </h2>
+        <h2
+          class="text-gray font-weight-light"
+          style="font-size: 2rem"
+        >{{ $t('getvsion.table.total', { total: total }) }}</h2>
       </div>
       <div class="col-md-4">
         <ff-wip>
@@ -21,7 +22,7 @@
     <template v-if="rows && rows.length">
       <DataTable
         :storage-id="storageId"
-        storage-version="000"
+        storage-version="002"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -29,7 +30,7 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        :size="7"
+        :size="5"
       >
         <template slot="topLeftCorner">
           <SearchAlarmById
@@ -113,6 +114,24 @@ export default {
         col(this.$t('common.billingAccount'), 'autoPositionCustAccount', false, false, {
           type: 'ObjectAttribute',
           path: 'name',
+        }),
+        col(
+          this.$t('getparc.lineDetail.alarms.observationCycle'),
+          'observationCycle',
+          false,
+          false,
+          {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.observationCycles.' + row.observationCycle);
+            },
+          }
+        ),
+        col(this.$t('getvsion.filters.ALARMS_OFFER'), 'alarmScope', false, false, {
+          type: 'Getter',
+          getter: row => {
+            return this.$t('alarms.alarmScope.' + row.alarmScope);
+          },
         }),
       ],
       pageLimit: 20,
