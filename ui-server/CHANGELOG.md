@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.556+20200214141752
+2020-02-14
+
+### Fixes
+
+- concaténation des indicateurs du widget Etat du parc (46ca63dea7d799fff1b30d5b9971b299181ba3b1)
+
 ## 0.3.0-master.555+20200214103652
 2020-02-14
 
