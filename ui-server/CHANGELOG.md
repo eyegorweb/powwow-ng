@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.555+20200214103652
+2020-02-14
+
+### Fixes
+
+- ne pas lancer systématiquement une recherche de lignes (615282f42a77fbea1c37558ddc466fbac9676ead)
+
 ## 0.3.0-master.554+20200213154657
 2020-02-13
 
