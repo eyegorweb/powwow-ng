@@ -4,48 +4,58 @@
       <SearchResultSkeleton :columns="columns" />
     </div>
     <div>
-      <div class="row mb-3">
-        <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{
+      <template v-if="!showInfoMessage">
+        <div class="row mb-3">
+          <div class="col">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+              {{
               $t('getparc.actLines.total', {
-                total: formattedTotal,
+              total: formattedTotal,
               })
-            }}
-          </h2>
+              }}
+            </h2>
+          </div>
+          <div class="col" v-if="hasResults">
+            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <span slot="title">
+                {{
+                $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
+                }}
+              </span>
+            </ExportButton>
+          </div>
         </div>
-        <div class="col" v-if="hasResults">
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-            }}</span>
-          </ExportButton>
-        </div>
-      </div>
-      <template v-if="hasResults">
-        <DataTable
-          v-if="columns"
-          storage-id="getparc.lines"
-          storage-version="001"
-          :columns="columns"
-          :rows="rows || []"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-          :order-by.sync="orderBy"
-          :show-extra-columns.sync="showExtraCells"
-          :size="7"
-        >
-          <template slot="topLeftCorner">
-            <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-          </template>
-        </DataTable>
+        <template v-if="hasResults">
+          <DataTable
+            v-if="columns"
+            storage-id="getparc.lines"
+            storage-version="001"
+            :columns="columns"
+            :rows="rows || []"
+            :page.sync="page"
+            :page-limit.sync="pageLimit"
+            :total="total || 0"
+            :order-by.sync="orderBy"
+            :show-extra-columns.sync="showExtraCells"
+            :size="7"
+          >
+            <template slot="topLeftCorner">
+              <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+            </template>
+          </DataTable>
+        </template>
+        <template v-else>
+          <div v-if="searchByIdValue">
+            <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+          </div>
+          <div class="alert alert-light">{{ $t('noResult') }}</div>
+        </template>
       </template>
       <template v-else>
-        <div v-if="searchByIdValue">
-          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
-        </div>
-        <div class="alert alert-light">{{ $t('noResult') }}</div>
+        <div
+          class="alert alert-primary text-center"
+          role="alert"
+        >Ecran de recherche de lignes et création d'actes de gestion</div>
       </template>
     </div>
   </LoaderContainer>
@@ -143,6 +153,10 @@ export default {
       ]);
     },
     async fetchLinesActions() {
+      if (!this.canSearchLines) return;
+
+      if (this.showInfoMessage) this.showInfoMessage = false;
+
       this.fetchLinesActionsFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
@@ -161,18 +175,25 @@ export default {
       this.$emit('noResults', items.length === 0);
     },
     linePage() {
+      console.log('> linePage');
       this.fetchLinesActions();
     },
     orderBy() {
       this.page = 1;
+      console.log('> orderBy');
+
       this.fetchLinesActions();
     },
     pageLimit() {
       this.page = 1;
+      console.log('> pageLimit');
+
       this.fetchLinesActions();
     },
     appliedFilters() {
       this.page = 1;
+      console.log('> appliedFilters');
+
       this.fetchLinesActions();
     },
   },
@@ -198,9 +219,15 @@ export default {
     } else {
       this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
+
+    setTimeout(() => {
+      this.canSearchLines = true;
+    });
   },
   data() {
     return {
+      canSearchLines: false,
+      showInfoMessage: true,
       searchByIdValue: undefined,
       columns: undefined,
       commonColumns: [
