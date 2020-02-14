@@ -22,9 +22,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $t('home.widgets.stateParc.stockLines') }} et {{ $t('home.widgets.stateParc.preactivatedLines') }}</td>
-          <td>{{ totalCurrentMonthPreactivatedLines }}</td>
-          <td>{{ totalPreviousMonthPreactivatedLines }}</td>
+          <td>{{ $t('home.widgets.stateParc.stockLines') }}</td>
+          <td>{{ totalCurrentMonthNotPreactivatedLines }} ({{ totalCurrentMonthPreactivatedLines }})</td>
+          <td>{{ totalPreviousMonthNotPreactivatedLines }} ({{ totalPreviousMonthPreactivatedLines }})</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
@@ -32,9 +32,9 @@
           <td>{{ totalPreviousMonthActivatedLines }}</td>
         </tr>
         <tr>
-          <td>{{ $t('home.widgets.stateParc.suspendedLines') }} et {{ $t('home.widgets.stateParc.suspendedAndNotBilledLines') }} </td>
-          <td>{{ totalCurrentMonthSuspendedLines }}</td>
-          <td>{{ totalPreviousMonthSuspendedLines }}</td>
+          <td>{{ $t('home.widgets.stateParc.suspendedLines') }}</td>
+          <td>{{ totalCurrentMonthSuspendedLines }} ({{ totalCurrentMonthNotSuspendedLines }})</td>
+          <td>{{ totalPreviousMonthSuspendedLines }} ({{ totalPreviousNotMonthSuspendedLines }})</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.cancellationLines') }}</td>
@@ -134,17 +134,17 @@ export default {
     canSelectPartner() {
       return this.names && this.names.length > 0 && !this.userIsPartner;
     },
+    totalCurrentMonthNotPreactivatedLines() {
+      return parseInt(this.histories[0].currentMonthValue);
+    },
+    totalPreviousMonthNotPreactivatedLines() {
+      return parseInt(this.histories[0].previousMonthValue);
+    },
     totalCurrentMonthPreactivatedLines() {
-      const total =
-        parseInt(this.histories[0].currentMonthValue) +
-        parseInt(this.histories[1].currentMonthValue);
-      return total;
+      return parseInt(this.histories[1].currentMonthValue);
     },
     totalPreviousMonthPreactivatedLines() {
-      const total =
-        parseInt(this.histories[0].previousMonthValue) +
-        parseInt(this.histories[1].previousMonthValue);
-      return total;
+      return parseInt(this.histories[1].previousMonthValue);
     },
     totalCurrentMonthActivatedLines() {
       return parseInt(this.histories[2].currentMonthValue);
@@ -163,6 +163,12 @@ export default {
         parseInt(this.histories[3].previousMonthValue) +
         parseInt(this.histories[4].previousMonthValue);
       return total;
+    },
+    totalCurrentMonthNotSuspendedLines() {
+      return parseInt(this.histories[4].currentMonthValue);
+    },
+    totalPreviousNotMonthSuspendedLines() {
+      return parseInt(this.histories[4].previousMonthValue);
     },
     totalCurrentMonthTerminatedLines() {
       return parseInt(this.histories[5].currentMonthValue);

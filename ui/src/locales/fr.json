@@ -88,10 +88,10 @@
       "dataVoiceConso": "CONSOMMATION DATA / MOIS",
       "stateParc": {
         "title": "ETAT DU PARC",
-        "stockLines": "Lignes en stock",
+        "stockLines": "Lignes en stock  (préactivées)",
         "preactivatedLines": "Lignes pré-activées",
         "activatedLines": "Lignes activées",
-        "suspendedLines": "Lignes suspendues",
+        "suspendedLines": "Lignes suspendues (non facturées)",
         "cancellationLines": "Lignes en cours de résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
         "currentMonth": "courant",
