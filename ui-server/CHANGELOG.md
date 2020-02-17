@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.557+20200217112153
+2020-02-17
+
+### Fixes
+
+- correction de la traduction des statuts de facturation (1301ddce3bd9ee04211c9ac0e59bf95da2ac517e)
+
 ## 0.3.0-master.556+20200214141752
 2020-02-14
 
