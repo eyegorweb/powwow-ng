@@ -96,7 +96,6 @@ export default {
       actDate: null,
       errors: {},
       notificationCheck: false,
-      // canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
 
@@ -106,25 +105,6 @@ export default {
       isDataParamsError: false,
     };
   },
-
-  // mounted() {
-  //   // droits sur la date
-  //   switch (this.actCreationPrerequisites.partner.partyType) {
-  //     case 'MVNO':
-  //       this.actDate = moment().format('DD/MM/YYYY');
-  //       this.canChangeDate = false;
-  //       break;
-  //     case 'M2M':
-  //       this.actDate = moment()
-  //         .endOf('month')
-  //         .format('DD/MM/YYYY');
-  //       this.canChangeDate = false;
-  //       break;
-  //     default:
-  //       this.actDate = moment().format('DD/MM/YYYY');
-  //       this.canChangeDate = true;
-  //   }
-  // },
 
   watch: {
     selectedOffer(selectedOffer) {
