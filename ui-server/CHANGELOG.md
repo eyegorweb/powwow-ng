@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.558+20200217144533
+2020-02-17
+
+### Fixes
+
+- modification des prérequis pour les actes de gestion Changement d'offre et Changement de Compte de facturation (20d92b9ba6a2f1f0db5526ace63304a6a24bd7fc)
+
 ## 0.3.0-master.557+20200217112153
 2020-02-17
 
