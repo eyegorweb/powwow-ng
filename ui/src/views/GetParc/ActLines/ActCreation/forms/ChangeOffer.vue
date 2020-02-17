@@ -1,9 +1,10 @@
 <template>
-  <ActFormContainer2
+  <ActFormContainer
     :validate-fn="doRequest"
     success-message="getparc.actCreation.changeOffer.successMessage"
     :check-errors-fn="checkErrors"
     :prevent-send="!canSend"
+    :can-change-date="canChangeDate"
   >
     <template>
       <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
@@ -37,7 +38,7 @@
         @change="onServiceChange"
       />
     </div>
-  </ActFormContainer2>
+  </ActFormContainer>
 </template>
 
 <script>
@@ -45,7 +46,7 @@ import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
 
 import { mapState, mapGetters } from 'vuex';
-import ActFormContainer2 from './parts/ActFormContainer2';
+import ActFormContainer from './parts/ActFormContainer2';
 import moment from 'moment';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
@@ -56,19 +57,37 @@ import { getMarketingOfferServices } from '@/components/Services/utils.js';
 export default {
   components: {
     UiToggle,
-    ActFormContainer2,
+    ActFormContainer,
     ServicesBlock,
     OffersPart,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
     currentOffer() {
       return this.actCreationPrerequisites.offer.data.id;
     },
     canSend() {
       if (this.selectedOffer && this.selectedOffer.id) return true;
       return false;
+    },
+    canChangeDate() {
+      if (this.userIsBo) {
+        if (!this.actCreationPrerequisites || !this.actCreationPrerequisites.partner) return false;
+        return this.actCreationPrerequisites.partner.partyType === 'MVNO';
+      } else if (this.userIsPartner) {
+        return this.isPartnerMVNO;
+      } else {
+        return true;
+      }
+    },
+    isPartnerMVNO() {
+      if (!this.userInfos || !this.userInfos.roles) return;
+      const found = this.userInfos.roles.find(r => {
+        return r.description === 'MVNO';
+      });
+      return !!found;
     },
   },
   data() {
@@ -77,7 +96,7 @@ export default {
       actDate: null,
       errors: {},
       notificationCheck: false,
-      canChangeDate: undefined,
+      // canChangeDate: undefined,
       waitForConfirmation: false,
       limitToPartnersInSearchBar: true,
 
@@ -88,24 +107,24 @@ export default {
     };
   },
 
-  mounted() {
-    // droits sur la date
-    switch (this.actCreationPrerequisites.partner.partyType) {
-      case 'MVNO':
-        this.actDate = moment().format('DD/MM/YYYY');
-        this.canChangeDate = false;
-        break;
-      case 'M2M':
-        this.actDate = moment()
-          .endOf('month')
-          .format('DD/MM/YYYY');
-        this.canChangeDate = false;
-        break;
-      default:
-        this.actDate = moment().format('DD/MM/YYYY');
-        this.canChangeDate = true;
-    }
-  },
+  // mounted() {
+  //   // droits sur la date
+  //   switch (this.actCreationPrerequisites.partner.partyType) {
+  //     case 'MVNO':
+  //       this.actDate = moment().format('DD/MM/YYYY');
+  //       this.canChangeDate = false;
+  //       break;
+  //     case 'M2M':
+  //       this.actDate = moment()
+  //         .endOf('month')
+  //         .format('DD/MM/YYYY');
+  //       this.canChangeDate = false;
+  //       break;
+  //     default:
+  //       this.actDate = moment().format('DD/MM/YYYY');
+  //       this.canChangeDate = true;
+  //   }
+  // },
 
   watch: {
     selectedOffer(selectedOffer) {

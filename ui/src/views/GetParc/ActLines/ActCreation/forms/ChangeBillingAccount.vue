@@ -1,59 +1,44 @@
 <template>
-  <ActFormEmptyContainer
+  <ActFormContainer
     :validate-fn="validate"
     success-message="getparc.actCreation.transfertCF.successMessage"
+    :prevent-send="!canSend"
+    :can-change-date="canChangeDate"
   >
-    <div slot="main" slot-scope="{ containerValidationFn }">
+    <div>
       <BillingAccountChoice
         :key="actCreationPrerequisites.partner.id"
         :partner-id="actCreationPrerequisites.partner.id"
         @set:billingAccount="setBillingAccount"
         :errors="errors"
       />
-      <div class="row">
-        <div class="col d-flex">
-          <UiCheckbox v-model="notificationCheck" />
-          <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div v-if="canChangeDate" class="col">
-          <UiDate @change="onActDateChange" :value="actDate" fixed class="d-block">
-            <i slot="icon" class="select-icon ic-Flag-Icon" />
-          </UiDate>
-        </div>
-        <div class="col">
-          <button
-            @click="containerValidationFn"
-            :disabled="!canSend"
-            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
-          >
-            <span>
-              <i class="ic-Wallet-Icon"></i>
-              {{ $t('getparc.actCreation.changeBillingAccount') }}
-            </span>
-          </button>
-        </div>
-      </div>
     </div>
-  </ActFormEmptyContainer>
+    <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
+      <button
+        @click="containerValidationFn"
+        :disabled="!canSend"
+        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+      >
+        <span>
+          <i class="ic-Wallet-Icon"></i>
+          {{ $t('getparc.actCreation.changeBillingAccount') }}
+        </span>
+      </button>
+    </div>
+  </ActFormContainer>
 </template>
 
 <script>
-import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
+import ActFormContainer from './parts/ActFormContainer2';
 import BillingAccountChoice from './parts/BillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
-import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
-import UiCheckbox from '@/components/ui/Checkbox';
 import { changeCustomerAccount } from '@/api/actCreation';
 
 export default {
   components: {
-    ActFormEmptyContainer,
+    ActFormContainer,
     BillingAccountChoice,
-    UiDate,
-    UiCheckbox,
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
@@ -91,9 +76,6 @@ export default {
       notificationCheck: false,
     };
   },
-  mounted() {
-    this.actDate = moment().format('DD/MM/YYYY');
-  },
 
   methods: {
     setBillingAccount(billingAccount) {
@@ -108,8 +90,7 @@ export default {
     async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: this.actDate,
-
+        dueDate: contextValues.actDate,
         targetCustomerAccount: this.chosenBillingAccount.id,
         notifEmail: this.notificationCheck,
         tempDataUuid: contextValues.tempDataUuid,
