@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.564+20200218141706
+2020-02-18
+
+### Features
+
+- lorsque je clique sur la quantité ciblées dans le volet de l'alarme, le détail de l'alarme s'ouvre sur le second onglet (7e8f147ca9c6fceecdfcd611489364dda6363bb5)
+
 ## 0.3.0-master.563+20200218134530
 2020-02-18
 
