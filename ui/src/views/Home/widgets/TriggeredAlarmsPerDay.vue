@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget" @seeMore="onSeeMore">
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore" small>
     <div slot="header">
       <div class="d-flex">
         <UiSelect
