@@ -10,7 +10,6 @@
       </thead>
       <tbody v-if="!noResults">
         <tr v-for="indicator in indicators" :key="indicator.id">
-          <!-- <td v-if="!userIsPartner">{{ indicator.labelKey }}</td> -->
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>{{ indicator.name }}</td>
           <td>

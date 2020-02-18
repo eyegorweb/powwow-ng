@@ -13,6 +13,7 @@ import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
 import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
 import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
+import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
 import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
 
@@ -196,5 +197,13 @@ export default excludeMocked([
     large: true,
     seeMore: true,
     component: TriggeredAlarmsPerDay,
+  },
+  {
+    title: 'home.widgets.topBillingExchange',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: TopFlopCA,
   },
 ]);
