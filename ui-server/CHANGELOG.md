@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.565+20200218151208
+2020-02-18
+
+### Features
+
+- création du widget Top/Flop CA (22919d46c41ace10e22c9e9e9f68c8c2b215a374)
+
 ## 0.3.0-master.564+20200218141706
 2020-02-18
 
