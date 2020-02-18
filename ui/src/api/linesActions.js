@@ -527,10 +527,18 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
   return response.data.exportSimCardInstances;
 }
 
-export async function fetchCurrentConsumption(simcardId) {
+export async function fetchCurrentConsumption(filters) {
+  const filtersGQL = [];
+
+  for (const [key, value] of Object.entries(filters)) {
+    if (['simCardInstanceId', 'partyId', 'workflowId', 'customerAccoutId'].find(k => k === key)) {
+      filtersGQL.push(`${key}:${value}`);
+    }
+  }
+
   const queryStr = `
   query {
-    currentConsumptionV2(simCardInstanceId: ${simcardId}){
+    currentConsumptionV2(${filtersGQL.join(',')}){
       dataNationalConsumption
       dataIncomingNationalConsumption
       dataOutgoingNationalConsumption

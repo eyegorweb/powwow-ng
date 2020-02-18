@@ -49,9 +49,7 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li>
-                {{ formattedData('VOICE', consumptionData.voiceNationalConsumption) }}
-              </li>
+              <li>{{ formattedData('VOICE', consumptionData.voiceNationalConsumption) }}</li>
               <li>
                 {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
               </li>
@@ -129,9 +127,7 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="total-value">
-                {{ formattedData('VOICE', consumptionData.voiceTotal) }}
-              </li>
+              <li class="total-value">{{ formattedData('VOICE', consumptionData.voiceTotal) }}</li>
               <li class="value-line">
                 {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
               </li>
@@ -184,9 +180,7 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="total-value">
-                {{ formattedData('DATA', consumptionData.dataTotal) }}
-              </li>
+              <li class="total-value">{{ formattedData('DATA', consumptionData.dataTotal) }}</li>
             </ul>
           </td>
         </tr>
@@ -240,9 +234,11 @@ export default {
   },
   async mounted() {
     if (this.$route.params && this.$route.params.tabIndex) {
-      this.consumptionData = await fetchCurrentConsumption(this.$route.params.lineId);
+      this.consumptionData = await fetchCurrentConsumption({
+        simCardInstanceId: this.$route.params.lineId,
+      });
     } else {
-      this.consumptionData = await fetchCurrentConsumption(this.content.id);
+      this.consumptionData = await fetchCurrentConsumption({ simCardInstanceId: this.content.id });
     }
   },
   methods: {

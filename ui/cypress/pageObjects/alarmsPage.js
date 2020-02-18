@@ -1,6 +1,14 @@
 import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
+function itemPosition(myIndex) {
+  if (cy.userIsMonoPartner) {
+    return myIndex - 1;
+  }
+
+  return myIndex;
+}
+
 export default {
   init() {
     layout.menu.alarms();
@@ -18,6 +26,18 @@ export default {
       },
       filter(searchTerm) {
         filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
+      },
+    },
+    billingAccount: {
+      toggle() {
+        filterBarSelectors.filterBarItems(itemPosition(2)).toggle();
+      },
+
+      choose(nth) {
+        filterBarSelectors.filterBarItems(itemPosition(2)).multiselect.choose(nth);
+      },
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(itemPosition(2)).multiselect.filter(searchTerm);
       },
     },
     offer: {

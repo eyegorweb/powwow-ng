@@ -45,7 +45,8 @@
 import WidgetBloc from './WidgetBloc';
 import Gauge from '@/components/widgets/Gauge';
 import UiSelect from '@/components/ui/UiSelect';
-import { fetchOffers } from '@/api/offers';
+import { fetchOfferWithBilligAccount } from '@/api/offers.js';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -60,14 +61,13 @@ export default {
   async mounted() {
     this.loadingOffers = true;
     try {
-      const data = await fetchOffers('', [...this.contextFilters], { page: 0, limit: 99 });
+      const data = await fetchOfferWithBilligAccount(this.partners);
       this.loadingOffers = false;
       if (data) {
         this.offers = data.map(o => ({
-          id: o.code,
-          label: o.workflowDescription,
-          value: o.code,
-          productCode: o.initialOffer.code,
+          value: o.workflow.id + '_' + o.customerAccount.id,
+          label: `${o.workflow.workflowDescription} / ${o.customerAccount.name}`,
+          meta: o,
         }));
       }
     } catch (e) {
@@ -93,6 +93,23 @@ export default {
         }
         return hours + ':' + minutes + ':' + seconds;
       };
+    },
+  },
+
+  computed: {
+    ...mapState('userContext', ['contextPartners']),
+    ...mapState('getsim', ['defaultAppliedFilters']),
+
+    partners() {
+      console.log(
+        this.defaultAppliedFilters.filter(f => f.id === 'filters.partners').map(f => f.values)
+      );
+      if (!this.defaultAppliedFilters) return [];
+
+      return this.defaultAppliedFilters
+        .filter(f => f.id === 'filters.partners')
+        .map(f => f.values)
+        .flat();
     },
   },
 

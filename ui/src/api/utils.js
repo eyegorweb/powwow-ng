@@ -4,6 +4,8 @@ import get from 'lodash.get';
 
 import store from '@/store';
 
+import { isOnDebugMode } from '@/featureFlipping/plugin';
+
 export const api = axios.create();
 
 const WAIT_BEFORE_RETRY_IN_MS = 1000;
@@ -20,6 +22,10 @@ export async function simpleQuery(q) {
 
 export async function query(q) {
   let tries = 10;
+
+  if (isOnDebugMode()) {
+    console.log(q);
+  }
 
   const singleTry = async () => {
     try {

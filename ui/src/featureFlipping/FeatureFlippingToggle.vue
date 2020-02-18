@@ -14,21 +14,49 @@
         <div class="ff-text">Mocks invisibles</div>
       </template>
     </div>
+
+    <div
+      v-if="canShowToggle"
+      class="ff-container"
+      style="bottom: 1.5rem;"
+      @click.stop="debugMode = !debugMode"
+    >
+      <template v-if="debugMode">
+        <span class="ff-icon">
+          <i class="ic-Amplifier-Icon"></i>
+        </span>
+        <div class="ff-text">Debug : ON</div>
+      </template>
+      <template v-else>
+        <span class="ff-icon">
+          <i class="ic-Alt-Icon"></i>
+        </span>
+        <div class="ff-text">Debug : OFF</div>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
-import { HIDE_MOCKS, isProdEnv } from './plugin';
+import { HIDE_MOCKS, DEBUG_MODE_ON, isProdEnv } from './plugin';
 
 export default {
   data() {
     return {
       mockIsVisible: true,
+      debugMode: false,
     };
   },
   watch: {
     mockIsVisible(value) {
       this.saveVisibilityState(value);
+    },
+    debugMode(value) {
+      if (value) {
+        localStorage.setItem(DEBUG_MODE_ON, DEBUG_MODE_ON);
+      } else {
+        localStorage.removeItem(DEBUG_MODE_ON);
+      }
     },
   },
   computed: {
@@ -38,6 +66,7 @@ export default {
   },
   mounted() {
     this.mockIsVisible = !localStorage.getItem(HIDE_MOCKS);
+    this.debugMode = !!localStorage.getItem(DEBUG_MODE_ON);
   },
   methods: {
     saveVisibilityState(value) {

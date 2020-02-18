@@ -70,6 +70,7 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
     }
   }`;
   const response = await query(queryStr);
+
   return response.data.workFlowByCustomerAccount.items;
 }
 
