@@ -52,7 +52,16 @@
       <template v-else>
         <div class="alert alert-primary text-center" role="alert">
           Ecran de recherche de lignes et création d'actes de gestion
+          <br />
+          <UiButton variant="primary" class="flex-grow-1 py-1 px-3 ml- mt-3" @click="resetFilters()"
+            >Afficher toutes les lignes</UiButton
+          >
         </div>
+
+        <ff-wip>
+          <h4>Rechercher une ligne par ID</h4>
+          <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+        </ff-wip>
       </template>
     </div>
   </LoaderContainer>
@@ -74,6 +83,7 @@ import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import UiButton from '@/components/ui/Button';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
@@ -83,6 +93,7 @@ export default {
     SearchByLinesId,
     ExportButton,
     SearchResultSkeleton,
+    UiButton,
   },
 
   props: {
@@ -172,24 +183,20 @@ export default {
       this.$emit('noResults', items.length === 0);
     },
     linePage() {
-      console.log('> linePage');
       this.fetchLinesActions();
     },
     orderBy() {
       this.page = 1;
-      console.log('> orderBy');
 
       this.fetchLinesActions();
     },
     pageLimit() {
       this.page = 1;
-      console.log('> pageLimit');
 
       this.fetchLinesActions();
     },
     appliedFilters() {
       this.page = 1;
-      console.log('> appliedFilters');
 
       this.fetchLinesActions();
     },

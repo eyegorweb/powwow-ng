@@ -40,7 +40,7 @@
     <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col">
-          <UiDate @change="onSmsDateChange" :value="smsDate" fixed class="d-block">
+          <UiDate @change="onSmsDateChange" :value="smsDate" fixed time-picker class="d-block">
             <i slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>

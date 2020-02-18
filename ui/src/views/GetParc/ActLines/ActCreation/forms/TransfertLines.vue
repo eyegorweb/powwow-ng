@@ -27,7 +27,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <UiDate @change="onActDateChange" :value="actDate" fixed class="d-block">
+          <UiDate @change="onActDateChange" :value="actDate" fixed time-picker class="d-block">
             <i slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>

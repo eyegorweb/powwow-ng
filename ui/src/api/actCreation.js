@@ -1,4 +1,4 @@
-import { query, formatDateForGql, boolStr, formatServicesForGQL } from './utils';
+import { query, boolStr, formatServicesForGQL } from './utils';
 import { formatFilters } from './linesActions';
 
 async function actCreationMutation(filters, lines, creationActFn) {
@@ -42,7 +42,7 @@ export async function updateCustomFields(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           custom1: "${custom1}",
           custom2: "${custom2}",
           custom3: "${custom3}",
@@ -105,7 +105,7 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
           notification: ${boolStr(notifEmail)},
           suspend: ${suspension},
           nonModifiableByCustomer: ${boolStr(nonModifiableParClient)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           ${gqlTempDataUuid}
         })
         {
@@ -139,7 +139,7 @@ export async function changeCustomerAccount(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           targetCustomerAccountId: ${targetCustomerAccount},
           ${gqlTempDataUuid}
         })
@@ -176,7 +176,7 @@ export async function transferSIMCards(filters, lines, params) {
             partyId: ${partyId},
             simCardInstanceIds: [${gqlLines}],
             notification: false,
-            dueDate: "${formatDateForGql(dueDate)}",
+            dueDate: "${dueDate}",
             toPartyId: ${toPartyId},
             toCustomerAccountId: ${toCustomerAccountId},
             toWorkflowId: "${toWorkflowId}",
@@ -216,7 +216,7 @@ export async function manageCancellation(filters, lines, params) {
             notification: false,
             validate: ${validate},
             partyId: ${partyId},
-            dueDate: "${formatDateForGql(dueDate)}",
+            dueDate: "${dueDate}",
             ${gqlTempDataUuid}
           }
       )
@@ -253,7 +253,7 @@ export async function endPhaseTest(filters, lines, params) {
         partyId: ${partyId},
         simCardInstanceIds: [${gqlLines}],
         notification: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}",
+        dueDate: "${dueDate}",
         ${gqlTempDataUuid}
       })
        {
@@ -297,7 +297,7 @@ export async function sendSMS(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}"
+          dueDate: "${dueDate}"
           textMessage: "${texMessage}",
           numberOfSMS: ${numberOfSMS},
           shortCode: "${shortCode}",
@@ -337,7 +337,7 @@ export async function terminateLines(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}"
+          dueDate: "${dueDate}"
           ${gqlTempDataUuid}
         })
         {
@@ -432,7 +432,7 @@ export async function changeService(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           marketingOfferCode: "${offerCode}"
           ${gqlTempDataUuid}${changeServicesParamsGql}
         })
@@ -493,7 +493,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           customerAccountID: ${customerAccountID},
           workflowCode: "${workflowCode}",
           ${gqlTempDataUuid}
@@ -532,7 +532,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           customerAccountId: ${customerAccountID},
           ${gqlTempDataUuid}
         })
@@ -587,7 +587,7 @@ export async function changeOffer(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           customerAccountID: ${customerAccountID},
           sourceWorkflowID: ${sourceWorkflowID},
           targetWorkflowID: ${targetWorkflowID}
@@ -617,7 +617,7 @@ export async function changeMSISDN(params) {
   mutation{
     changeMSISDN(input:{
       partyId:${partyId}
-      dueDate: "${formatDateForGql(dueDate)}"
+      dueDate: "${dueDate}"
       notification:${boolStr(notifEmail)}
       adminSkipGDM:false
       tempDataUuid: "${tempDataUuid}"
@@ -642,7 +642,7 @@ export async function changeSingleMSISDN(params) {
   mutation{
     changeMSISDN(input:{
       partyId:${partyId}
-      dueDate: "${formatDateForGql(dueDate)}"
+      dueDate: "${dueDate}"
       notification:${boolStr(notifEmail)}
       adminSkipGDM:false
       msisdnInput: {msisdn: "${msisdn}", newMsisdn: "${newMsisdn}"}
@@ -668,7 +668,7 @@ export async function changeICCID(params) {
   mutation{
     changeICCID(input:{
       partyId:${partyId}
-      dueDate: "${formatDateForGql(dueDate)}"
+      dueDate: "${dueDate}"
       notification:${boolStr(notifEmail)}
       adminSkipGDM:false
       tempDataUuid: "${tempDataUuid}"
@@ -693,7 +693,7 @@ export async function changeSingleICCID(params) {
   mutation{
     changeICCID(input:{
       partyId:${partyId}
-      dueDate: "${formatDateForGql(dueDate)}"
+      dueDate: "${dueDate}"
       notification:${boolStr(notifEmail)}
       adminSkipGDM:false
       iccidInput: {iccid: "${iccid}", newIccid: "${newIccid}"}
@@ -722,7 +722,7 @@ export async function changeSingleCustomerAccount(params) {
         partyId: ${partyId},
         simCardInstanceIds: [${simCardInstanceId}],
         notification: ${boolStr(notifEmail)},
-        dueDate: "${formatDateForGql(dueDate)}",
+        dueDate: "${dueDate}",
         targetCustomerAccountId: ${targetCustomerAccount}
       })
       {
@@ -757,7 +757,7 @@ export async function changeSingleOffer(params) {
           partyId: ${partyId},
           simCardInstanceIds: [${simCardInstanceId}],
           notification: ${boolStr(notifEmail)},
-          dueDate: "${formatDateForGql(dueDate)}",
+          dueDate: "${dueDate}",
           customerAccountID: ${customerAccountID},
           sourceWorkflowID: ${sourceWorkflowID},
           targetWorkflowID: ${targetWorkflowID}

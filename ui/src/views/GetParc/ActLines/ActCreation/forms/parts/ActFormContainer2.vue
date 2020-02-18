@@ -18,6 +18,7 @@
                   :value="actDate"
                   :error="dateError"
                   class="d-block"
+                  time-picker
                   fixed
                 >
                   <i slot="icon" class="select-icon ic-Flag-Icon" />
