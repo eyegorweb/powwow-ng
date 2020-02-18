@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.561+20200218105248
+2020-02-18
+
+### Fixes
+
+- Ne charger que le alarmes de l'utilisateur (0cdfb7e1bf763da74d85b1fd5e8e57a187c14d44)
+- newMSISDN undefined à vide (764ebec1a3badbc668113c6ac05e4084c7215d6e)
+
 ## 0.3.0-master.560+20200218103228
 2020-02-18
 
