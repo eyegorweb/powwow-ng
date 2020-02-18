@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.563+20200218134530
+2020-02-18
+
+### Fixes
+
+- saisir les heures dans la création des actes de gestion (f0cd856bba2704de25a74b51918d2456cf7d181d)
+
 ## 0.3.0-master.562+20200218123615
 2020-02-18
 
