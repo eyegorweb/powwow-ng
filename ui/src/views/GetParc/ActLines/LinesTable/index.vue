@@ -9,18 +9,16 @@
           <div class="col">
             <h2 class="text-gray font-weight-light" style="font-size: 2rem">
               {{
-              $t('getparc.actLines.total', {
-              total: formattedTotal,
-              })
+                $t('getparc.actLines.total', {
+                  total: formattedTotal,
+                })
               }}
             </h2>
           </div>
           <div class="col" v-if="hasResults">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
               <span slot="title">
-                {{
-                $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-                }}
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
               </span>
             </ExportButton>
           </div>
@@ -52,10 +50,9 @@
         </template>
       </template>
       <template v-else>
-        <div
-          class="alert alert-primary text-center"
-          role="alert"
-        >Ecran de recherche de lignes et création d'actes de gestion</div>
+        <div class="alert alert-primary text-center" role="alert">
+          Ecran de recherche de lignes et création d'actes de gestion
+        </div>
       </template>
     </div>
   </LoaderContainer>

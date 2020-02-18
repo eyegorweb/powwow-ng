@@ -32,7 +32,6 @@
 import ActFormContainer from './parts/ActFormContainer2';
 import BillingAccountChoice from './parts/BillingAccountChoice';
 import { mapState, mapGetters } from 'vuex';
-import moment from 'moment';
 import { changeCustomerAccount } from '@/api/actCreation';
 
 export default {

@@ -23,8 +23,12 @@
       <tbody>
         <tr>
           <td>{{ $t('home.widgets.stateParc.stockLines') }}</td>
-          <td>{{ totalCurrentMonthNotPreactivatedLines }} ({{ totalCurrentMonthPreactivatedLines }})</td>
-          <td>{{ totalPreviousMonthNotPreactivatedLines }} ({{ totalPreviousMonthPreactivatedLines }})</td>
+          <td>
+            {{ totalCurrentMonthNotPreactivatedLines }} ({{ totalCurrentMonthPreactivatedLines }})
+          </td>
+          <td>
+            {{ totalPreviousMonthNotPreactivatedLines }} ({{ totalPreviousMonthPreactivatedLines }})
+          </td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
@@ -34,7 +38,9 @@
         <tr>
           <td>{{ $t('home.widgets.stateParc.suspendedLines') }}</td>
           <td>{{ totalCurrentMonthSuspendedLines }} ({{ totalCurrentMonthNotSuspendedLines }})</td>
-          <td>{{ totalPreviousMonthSuspendedLines }} ({{ totalPreviousNotMonthSuspendedLines }})</td>
+          <td>
+            {{ totalPreviousMonthSuspendedLines }} ({{ totalPreviousNotMonthSuspendedLines }})
+          </td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.cancellationLines') }}</td>

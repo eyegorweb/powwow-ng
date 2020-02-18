@@ -47,7 +47,6 @@ import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts
 
 import { mapState, mapGetters } from 'vuex';
 import ActFormContainer from './parts/ActFormContainer2';
-import moment from 'moment';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { changeOffer } from '@/api/actCreation';
