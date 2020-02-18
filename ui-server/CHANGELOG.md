@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.560+20200218103228
+2020-02-18
+
+### Fixes
+
+- tronquer les noms du widget Alarmes déclenchées (dc9fa3aabaa73617d63a3e63a196a4f7bef6703c)
+
 ## 0.3.0-master.559+20200217150421
 2020-02-17
 
