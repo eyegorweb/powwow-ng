@@ -26,7 +26,15 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
-        <p>{{ content.numberOfTargetedLines ? content.numberOfTargetedLines : '-' }}</p>
+        <a
+          style="font-size:0.8rem"
+          v-if="content.numberOfTargetedLines"
+          href="#"
+          @click.prevent="gotoTargetedAlarms()"
+        >
+          {{ content.numberOfTargetedLines }}
+        </a>
+        <p v-else>-</p>
       </div>
 
       <div class="overview-item mr-5">
@@ -126,6 +134,15 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner']),
+  },
+
+  methods: {
+    gotoTargetedAlarms() {
+      this.$router.push({
+        name: 'alarmDetail',
+        params: { alarmId: this.content.id, tabIndex: 1 },
+      });
+    },
   },
 };
 </script>
