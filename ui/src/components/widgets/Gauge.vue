@@ -81,28 +81,18 @@ export default {
 
     let gaugeSize = 250;
     let gaugeWidth = 15;
-    let gaugeTopSpacing = gaugeSize / 4;
-    let titleSpacing = 78;
 
     if (window.innerWidth <= 1024) {
       gaugeSize = 150;
       gaugeWidth = 8;
-      gaugeTopSpacing = 40;
-      titleSpacing = 47;
     }
 
     if (window.innerWidth === 1280) {
       gaugeSize = 160;
       gaugeWidth = 8;
-
-      gaugeTopSpacing = 45;
-      titleSpacing = 57;
     } else if (window.innerWidth >= 1366 && window.innerWidth < 1920) {
       gaugeSize = 170;
       gaugeWidth = 8;
-
-      gaugeTopSpacing = 45;
-      titleSpacing = 57;
     }
 
     const options = {
@@ -127,14 +117,16 @@ export default {
     };
 
     this.cornersStyle = { width: percent(85, gaugeSize) + 'px' };
-    this.mainGaugeStyle = { top: gaugeTopSpacing + 'px' };
+    // this.mainGaugeStyle = { top: gaugeTopSpacing + 'px' };
     //  this.containerStyle = { paddingBottom: containerBottomSpacing + 'px' };
     if (this.timeMaxValue) this.maxCornerStyle = { position: 'relative', left: '43px' };
 
+    /*
     this.gaugeTitleStyle = {
       top: titleSpacing + 'px',
       position: 'relative',
     };
+    //*/
 
     $(this.$refs.gauge).gaugeMeter(options);
   },
@@ -147,6 +139,7 @@ export default {
   text-align: Center;
   overflow: Hidden;
   cursor: Default;
+  height: 12rem;
 }
 
 .GaugeMeter span,
