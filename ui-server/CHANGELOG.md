@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.566+20200218154151
+2020-02-18
+
+### Fixes
+
+- ne pas afficher le bouton d'export en cas de résultat vide (eae926446f1e149d75fe4b24f21fda02b9778436)
+
 ## 0.3.0-master.565+20200218151208
 2020-02-18
 
