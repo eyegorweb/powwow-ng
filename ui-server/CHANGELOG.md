@@ -2,6 +2,29 @@
 
 <!--- next entry here -->
 
+## 0.18.0
+2020-02-19
+
+### Features
+
+- ajout du widget Etat du parc (11487c36d3b5dac109a5f85bda6a87a5f1497af9)
+- lorsque je clique sur la quantité ciblées dans le volet de l'alarme, le détail de l'alarme s'ouvre sur le second onglet (7e8f147ca9c6fceecdfcd611489364dda6363bb5)
+- création du widget Top/Flop CA (22919d46c41ace10e22c9e9e9f68c8c2b215a374)
+
+### Fixes
+
+- Optimiser les requêtes e recherche partenaire et CF (22a4e86b4a68fbd4fd382199c88899cb39bd7f99)
+- ajouter les colonnes cycle d'observation et portée à la table des alarmes (8bc851ed2ae12ddd2f1c9847d083e39dade2c5bf)
+- ne pas lancer systématiquement une recherche de lignes (615282f42a77fbea1c37558ddc466fbac9676ead)
+- concaténation des indicateurs du widget Etat du parc (46ca63dea7d799fff1b30d5b9971b299181ba3b1)
+- correction de la traduction des statuts de facturation (1301ddce3bd9ee04211c9ac0e59bf95da2ac517e)
+- modification des prérequis pour les actes de gestion Changement d'offre et Changement de Compte de facturation (20d92b9ba6a2f1f0db5526ace63304a6a24bd7fc)
+- tronquer les noms du widget Alarmes déclenchées (dc9fa3aabaa73617d63a3e63a196a4f7bef6703c)
+- Ne charger que le alarmes de l'utilisateur (0cdfb7e1bf763da74d85b1fd5e8e57a187c14d44)
+- newMSISDN undefined à vide (764ebec1a3badbc668113c6ac05e4084c7215d6e)
+- saisir les heures dans la création des actes de gestion (f0cd856bba2704de25a74b51918d2456cf7d181d)
+- ne pas afficher le bouton d'export en cas de résultat vide (eae926446f1e149d75fe4b24f21fda02b9778436)
+
 ## 0.17.0
 2020-02-12
 
