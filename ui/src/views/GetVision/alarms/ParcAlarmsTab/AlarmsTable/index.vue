@@ -21,7 +21,7 @@
     <template v-if="rows && rows.length">
       <DataTable
         :storage-id="storageId"
-        storage-version="000"
+        storage-version="003"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -29,7 +29,7 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        :size="7"
+        :size="5"
       >
         <template slot="topLeftCorner">
           <SearchAlarmById
@@ -114,6 +114,34 @@ export default {
           type: 'ObjectAttribute',
           path: 'name',
         }),
+        {
+          id: 2,
+          label: this.$t('getparc.lineDetail.alarms.observationCycle'),
+          orderable: false,
+          visible: false,
+          name: 'observationCycle',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.observationCycles.' + row.observationCycle);
+            },
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.filters.ALARMS_OFFER'),
+          orderable: false,
+          visible: false,
+          name: 'alarmScope',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.alarmScope.' + row.alarmScope);
+            },
+          },
+        },
       ],
       pageLimit: 20,
       orderBy: {
@@ -165,9 +193,7 @@ export default {
       this.fetchAlarms();
     },
   },
-  mounted() {
-    this.fetchAlarms();
-  },
+
   methods: {
     ...mapActions('alarms', ['fetchAlarmsFromApi']),
     ...mapMutations('alarms', [

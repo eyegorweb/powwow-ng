@@ -6,16 +6,15 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2
-            class="text-gray font-weight-light"
-            style="font-size: 2rem"
-          >{{ $t('getparc.history.total', { total: formattedTotal }) }}</h2>
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            {{ $t('getparc.history.total', { total: formattedTotal }) }}
+          </h2>
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
-            <span
-              slot="title"
-            >{{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}</span>
+            <span slot="title">{{
+              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
+            }}</span>
           </ExportButton>
         </div>
       </div>

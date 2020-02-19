@@ -12,16 +12,25 @@
               </div>
             </div>
             <div class="row">
-              <div class="col">
+              <div class="col" v-if="canChangeDate">
                 <UiDate
                   @change="onActDateChange"
                   :value="actDate"
                   :error="dateError"
                   class="d-block"
+                  time-picker
                   fixed
                 >
                   <i slot="icon" class="select-icon ic-Flag-Icon" />
                 </UiDate>
+              </div>
+              <div v-else class="col">
+                <div class="ml-1 mt-2">
+                  <span>
+                    <i class="icon ic-Calendar-Icon"></i>
+                  </span>
+                  <span class="col">{{ actDate }}</span>
+                </div>
               </div>
               <div class="col">
                 <slot
@@ -72,7 +81,7 @@
 <script>
 import UiDate from '@/components/ui/UiDate';
 import UiCheckbox from '@/components/ui/Checkbox';
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import moment from 'moment';
 import FormReport from './FormReport';
 
@@ -90,6 +99,10 @@ export default {
     successMessage: String,
     noModal: Boolean,
     preventSend: Boolean,
+    canChangeDate: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
@@ -103,7 +116,18 @@ export default {
   },
 
   mounted() {
-    this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
+    if (this.canChangeDate) {
+      this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
+    } else {
+      this.actDate = moment()
+        .add(1, 'month')
+        .startOf('month')
+        .format('DD/MM/YYYY 00:00:00');
+    }
+  },
+
+  computed: {
+    ...mapState('actLines', ['actCreationPrerequisites']),
   },
 
   methods: {

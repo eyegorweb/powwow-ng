@@ -6,7 +6,7 @@
           <div class="col-9">
             <div class="d-flex">
               <span class="handle ic-Drag-Column-Icon" />
-              <span :class="{ 'mock-value': mocked }">
+              <span :class="{ 'mock-value': mocked, 'col-6': small }">
                 <WidgetTitle :title="widget.title" />
               </span>
               <slot name="header" />
@@ -38,6 +38,7 @@ export default {
     noPadding: Boolean,
     scrolling: Boolean,
     mocked: Boolean,
+    small: Boolean,
   },
   computed: {
     className() {

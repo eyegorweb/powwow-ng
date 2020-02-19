@@ -113,6 +113,9 @@ export default {
   },
 
   async mounted() {
+    if (this.$route.params && this.$route.params.tabIndex) {
+      this.currentTab = this.$route.params.tabIndex;
+    }
     this.alarm = await searchAlarmById(this.$route.params.alarmId);
   },
 

@@ -1,7 +1,7 @@
 <template>
   <p :class="statusColor">
-    {{ translatedValue }}
-    {{ get('accessPoint.billingStatusChangeDate') }}
+    {{ status }}
+    {{ dateStatus }}
   </p>
 </template>
 
@@ -20,12 +20,19 @@ export default {
     },
   },
   computed: {
-    translatedValue() {
+    status() {
       const status = this.get('accessPoint.billingStatus');
-      if (!status) {
-        return '';
+      if (!status || status === '-') {
+        return '-';
       }
       return this.$t('getparc.actLines.simStatuses.' + status);
+    },
+    dateStatus() {
+      const date = this.get('accessPoint.billingStatusChangeDate');
+      if (!date || date === '-') {
+        return '';
+      }
+      return date;
     },
     statusColor() {
       let status = this.get('accessPoint.billingStatus');

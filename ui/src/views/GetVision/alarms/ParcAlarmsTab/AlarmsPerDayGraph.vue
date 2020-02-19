@@ -7,7 +7,6 @@ import { Chart } from 'highcharts-vue';
 import Highcharts from 'highcharts';
 import 'highcharts/css/highcharts.css';
 import { fetchAlarmInstancesIndicators } from '@/api/alarms';
-import moment from 'moment';
 import { isBefore, DATE_FORMAT } from '@/utils/date.js';
 
 export default {
@@ -107,10 +106,10 @@ export default {
     },
     async refreshChart() {
       const data = [];
-      const nbDaysCurrentMonth = moment().daysInMonth();
+      const historyDepth = 30;
       const filledValues = await fetchAlarmInstancesIndicators(
         ['ALARM_TRIGGERED_DAY'],
-        nbDaysCurrentMonth,
+        historyDepth,
         this.partners
       );
 

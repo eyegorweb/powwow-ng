@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget" @seeMore="onSeeMore" scrolling mocked>
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore" scrolling small>
     <div slot="header">
       <div class="d-flex">
         <UiSelect
@@ -7,12 +7,12 @@
           class="text-gray"
           v-model="selectedPartner"
           :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
-          :options="partners"
+          :options="names"
           small
         ></UiSelect>
       </div>
     </div>
-    <table class="table mock-value">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">{{ $t('status') }}</th>
@@ -24,57 +24,28 @@
         <tr>
           <td>{{ $t('home.widgets.stateParc.stockLines') }}</td>
           <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                7
-              </a>
-            </span>
+            {{ totalCurrentMonthNotPreactivatedLines }} ({{ totalCurrentMonthPreactivatedLines }})
           </td>
-          <td>7</td>
-        </tr>
-        <tr>
-          <td>{{ $t('home.widgets.stateParc.preactivatedLines') }}</td>
           <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                6
-              </a>
-            </span>
+            {{ totalPreviousMonthNotPreactivatedLines }} ({{ totalPreviousMonthPreactivatedLines }})
           </td>
-          <td>9</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
-          <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                345
-              </a>
-            </span>
-          </td>
-          <td>342</td>
+          <td>{{ totalCurrentMonthActivatedLines }}</td>
+          <td>{{ totalPreviousMonthActivatedLines }}</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.suspendedLines') }}</td>
+          <td>{{ totalCurrentMonthSuspendedLines }} ({{ totalCurrentMonthNotSuspendedLines }})</td>
           <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                4
-              </a>
-            </span>
+            {{ totalPreviousMonthSuspendedLines }} ({{ totalPreviousNotMonthSuspendedLines }})
           </td>
-          <td>4</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.cancellationLines') }}</td>
-          <td>
-            <span>
-              <a href="#" @click.prevent="onClick">
-                2
-              </a>
-            </span>
-          </td>
-          <td>2</td>
+          <td>{{ totalCurrentMonthTerminatedLines }}</td>
+          <td>{{ totalPreviousMonthTerminatedLines }}</td>
         </tr>
       </tbody>
     </table>
@@ -84,7 +55,19 @@
 <script>
 import WidgetBloc from './WidgetBloc';
 import UiSelect from '@/components/ui/UiSelect';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
+import { fetchpartners } from '@/api/partners';
+import { fetchAlarmInstancesIndicators } from '@/api/alarms';
+import moment from 'moment';
+import { DATE_FORMAT } from '@/utils/date';
+
+const currentMonth = moment()
+  .startOf('month')
+  .format(DATE_FORMAT);
+const prevCurrentMonth = moment()
+  .subtract(1, 'month')
+  .startOf('month')
+  .format(DATE_FORMAT);
 
 export default {
   components: {
@@ -98,7 +81,42 @@ export default {
   data() {
     return {
       selectedPartner: undefined,
-      partners: ['auchan', 'ingenico', 'carrefour'],
+      partners: [],
+      names: [],
+      selectedParnerId: undefined,
+      historyDepth: 2,
+      histories: [
+        {
+          name: 'SIM_NOT_PREACTIVATED',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+        {
+          name: 'SIM_PREACTIVATED',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+        {
+          name: 'SIM_ACTIVATED',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+        {
+          name: 'SIM_SUSPENDED',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+        {
+          name: 'SIM_SUSPENDED_NOT_BILLED',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+        {
+          name: 'SIM_TERMINATION_IN_PROGRESS',
+          currentMonthValue: null,
+          previousMonthValue: null,
+        },
+      ],
       filters: [
         {
           id: 'filters.actStatus',
@@ -112,7 +130,117 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.initPartners();
+    this.refreshTable(this.selectedParnerId);
+  },
+  computed: {
+    ...mapGetters(['userIsPartner']),
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    canSelectPartner() {
+      return this.names && this.names.length > 0 && !this.userIsPartner;
+    },
+    totalCurrentMonthNotPreactivatedLines() {
+      return parseInt(this.histories[0].currentMonthValue);
+    },
+    totalPreviousMonthNotPreactivatedLines() {
+      return parseInt(this.histories[0].previousMonthValue);
+    },
+    totalCurrentMonthPreactivatedLines() {
+      return parseInt(this.histories[1].currentMonthValue);
+    },
+    totalPreviousMonthPreactivatedLines() {
+      return parseInt(this.histories[1].previousMonthValue);
+    },
+    totalCurrentMonthActivatedLines() {
+      return parseInt(this.histories[2].currentMonthValue);
+    },
+    totalPreviousMonthActivatedLines() {
+      return parseInt(this.histories[2].previousMonthValue);
+    },
+    totalCurrentMonthSuspendedLines() {
+      const total =
+        parseInt(this.histories[3].currentMonthValue) +
+        parseInt(this.histories[4].currentMonthValue);
+      return total;
+    },
+    totalPreviousMonthSuspendedLines() {
+      const total =
+        parseInt(this.histories[3].previousMonthValue) +
+        parseInt(this.histories[4].previousMonthValue);
+      return total;
+    },
+    totalCurrentMonthNotSuspendedLines() {
+      return parseInt(this.histories[4].currentMonthValue);
+    },
+    totalPreviousNotMonthSuspendedLines() {
+      return parseInt(this.histories[4].previousMonthValue);
+    },
+    totalCurrentMonthTerminatedLines() {
+      return parseInt(this.histories[5].currentMonthValue);
+    },
+    totalPreviousMonthTerminatedLines() {
+      return parseInt(this.histories[5].previousMonthValue);
+    },
+  },
   methods: {
+    async fetchPartners(q, { page, limit }) {
+      const data = await fetchpartners(q, {
+        page,
+        limit,
+        partnerType: this.contextPartnersType,
+      });
+      if (data) {
+        return data.map(p => ({
+          id: p.id,
+          name: p.name,
+        }));
+      }
+      return undefined;
+    },
+    fetchPartnerId(id) {
+      const found = this.partners.find(p => p.name === id);
+      this.selectedParnerId = found ? found.id : '';
+    },
+    async initPartners() {
+      if (this.contextPartners && this.contextPartners.length > 0) {
+        this.partners = this.contextPartners.map(p => ({
+          id: p.id,
+          name: p.name,
+        }));
+      } else {
+        this.partners = await this.fetchPartners('', { page: 0, limit: 999 });
+      }
+      this.names = this.partners.map(p => p.name);
+    },
+    async refreshTable(id) {
+      if (id) this.fetchPartnerId(id);
+      const response = await fetchAlarmInstancesIndicators(
+        [
+          'SIM_NOT_PREACTIVATED',
+          'SIM_PREACTIVATED',
+          'SIM_ACTIVATED',
+          'SIM_SUSPENDED',
+          'SIM_TERMINATION_IN_PROGRESS',
+          'SIM_SUSPENDED_NOT_BILLED',
+        ],
+        this.historyDepth,
+        [this.selectedParnerId]
+      );
+      if (response) {
+        this.histories.filter((h, index) => {
+          const data = response.filter(r => r.name === h.name).map(r => r.histories);
+          this.histories[index].currentMonthValue = data[0]
+            .filter(h => h.applicationDate === currentMonth)
+            .map(v => v.numberValue)
+            .join('');
+          this.histories[index].previousMonthValue = data[0]
+            .filter(h => h.applicationDate === prevCurrentMonth)
+            .map(v => v.numberValue)
+            .join('');
+        });
+      }
+    },
     onClick() {
       this.$router.push({
         name: 'actLines',
@@ -123,22 +251,19 @@ export default {
     },
     onSeeMore() {
       this.$router.push({
-        name: 'exemples',
+        name: 'reports',
         params: {
           queryFilters: [],
         },
       });
     },
   },
-  computed: {
-    ...mapGetters(['userIsPartner']),
-    canSelectPartner() {
-      return this.partners && this.partners.length > 0 && !this.userIsPartner;
-    },
-  },
   watch: {
     selectedPartner(newValue) {
-      console.log('select new partner', newValue);
+      this.refreshTable(newValue);
+    },
+    contextPartners() {
+      this.initPartners();
     },
   },
 };

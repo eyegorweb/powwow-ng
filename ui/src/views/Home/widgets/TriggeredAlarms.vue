@@ -10,7 +10,7 @@
       </thead>
       <tbody v-if="!noResults">
         <tr v-for="indicator in indicators" :key="indicator.id">
-          <td v-if="!userIsPartner">{{ indicator.labelKey }}</td>
+          <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>{{ indicator.name }}</td>
           <td>
             <button class="btn btn-link p-0">
@@ -39,6 +39,7 @@
 import WidgetBloc from './WidgetBloc';
 import { fetchEntitiesIndicators } from '@/api/indicators.js';
 import { mapGetters } from 'vuex';
+import { truncateLabel } from '@/utils';
 
 export default {
   components: {
@@ -79,6 +80,9 @@ export default {
         };
       });
       this.displayInfoMessage();
+    },
+    formattedLabel(label) {
+      return truncateLabel(label);
     },
     displayInfoMessage() {
       if (this.noResults) return;

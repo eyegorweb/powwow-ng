@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-      newMSISDN: undefined,
+      newMSISDN: '',
       canSend: true,
     };
   },

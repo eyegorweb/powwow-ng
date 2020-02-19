@@ -88,14 +88,14 @@
       "dataVoiceConso": "CONSOMMATION DATA / MOIS",
       "stateParc": {
         "title": "ETAT DU PARC",
-        "stockLines": "Lignes en stock",
+        "stockLines": "Lignes en stock  (préactivées)",
         "preactivatedLines": "Lignes pré-activées",
         "activatedLines": "Lignes activées",
-        "suspendedLines": "Lignes suspendues",
+        "suspendedLines": "Lignes suspendues (non facturées)",
         "cancellationLines": "Lignes en cours de résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
-        "currentMonth": "Mois en cours",
-        "prevMonth": "M-1"
+        "currentMonth": "courant",
+        "prevMonth": "au 1er"
       },
       "averageTimeAction": "Délais moyens",
       "simTopActivation": "Top 5 lignes activées",
@@ -110,7 +110,8 @@
       "viewOneResult": "Consulter le résultat",
       "viewXResults": "Consulter les {num} résultats",
       "linesConsumption": "Lignes les plus consommatrices du mois",
-      "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour"
+      "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
+      "topBillingExchange": "TOP / FLOP CA"
     }
   },
   "menu": {
@@ -215,7 +216,21 @@
     "IMEI_CHANGE": "Changement d'équipement",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée",
+
+    "observationCycles": {
+      "DAILY": "Quotidien",
+      "WEEKLY": "Hebdomadaire",
+      "MONTHLY": "Mensuel",
+      "CUSTOM": "Personnalisé"
+    },
+    "alarmScope": {
+      "LINE": "Ligne",
+      "OFFER": "Offre",
+      "CUSTOMER_ACCOUNT": "Compte de facturation",
+      "PARTY": "Partenaire",
+      "CUSTOM_FIELDS": "Champ libres"
+    }
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
