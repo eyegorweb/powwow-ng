@@ -77,7 +77,10 @@ export default {
       if (this.currentFilters && this.currentFilters.length) {
         this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
       }
-      this.$emit('filterEvent', { name: 'removeEvent', id: filterId });
+
+      if (!this.currentFilters || !this.currentFilters.length) {
+        this.$emit('noMoreFilters');
+      }
     },
     onChangeValue(filter, value) {
       if (!filter.onChange) {
