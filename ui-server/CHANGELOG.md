@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.568+20200220143942
+2020-02-20
+
+### Features
+
+- écran de détail de l'alarme (65b0296a445c2b95364afaa4a6143099ebe2dc1b)
+
 ## 0.3.0-master.567+20200220104914
 2020-02-20
 
