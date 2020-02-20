@@ -23,13 +23,17 @@
       </div>
     </div>
 
-    <AlarmSummary :content="alarm" />
+    <AlarmSummary v-if="alarm" :content="alarm" />
 
-    <div class="mt-4">
+    <div v-if="alarm" class="mt-4">
       <UiTabs :tabs="tabs" :selected-index="currentTab">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+            <a href="#" @click.prevent="() => (currentTab = index)"
+              >{{ tab.title }}
+
+              <span class="badge badge-primary">{{ tab.total }}</span>
+            </a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="trigger2Month">
@@ -56,6 +60,7 @@ import TargetedLinesByAlarmTab from './TargetedLinesByAlarmTab';
 import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
 import { searchAlarmById } from '@/api/alarms';
+import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
 
 export default {
   components: {
@@ -74,41 +79,20 @@ export default {
         {
           label: 'trigger2Month',
           title: this.$t('getvsion.alarm.triggered_x_month', { month: 2 }),
+          total: 0,
         },
         {
           label: 'targetedLines',
           title: this.$t('getvsion.alarm.triggered_lines'),
+          total: 0,
         },
         {
           label: 'excludedSimFromAlarm',
           title: this.$t('getvsion.alarm.excluded_sim_from_alarms'),
+          total: 0,
         },
       ],
-      alarm: {
-        id: '1',
-        name: 'UNDER_CONSUMPTION_VOLUME',
-        type: 'UNDER_CONSUMPTION_VOLUME',
-        alarmScope: 'LINE',
-        observationCycle: 'CUSTOM',
-        notifyByWs: false,
-        notifyByEmail: true,
-        mailingList: null,
-        party: {
-          id: '1',
-          name: 'INGENICO',
-        },
-        numberOfTargetedLines: 2,
-        numberOfTriggerEvents: 2,
-        level1: 1,
-        level1Up: null,
-        level1Down: null,
-        level2: 2,
-        level2Up: null,
-        level2Down: null,
-        level3: 3,
-        level3Up: null,
-        level3Down: null,
-      },
+      alarm: undefined,
     };
   },
 
@@ -116,11 +100,44 @@ export default {
     if (this.$route.params && this.$route.params.tabIndex) {
       this.currentTab = this.$route.params.tabIndex;
     }
+
     this.alarm = await searchAlarmById(this.$route.params.alarmId);
+
+    this.refreshTotals();
   },
 
   methods: {
     modifyAlarm() {},
+
+    async refreshTotals() {
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+        {
+          id: 'filters.partyId',
+          value: this.alarm.party.id,
+        },
+      ];
+
+      const lasTriggered = await fetchAlarmTriggersFor2Months(
+        undefined,
+        {
+          page: 0,
+          limit: 10,
+        },
+        mandatoryFilters
+      );
+
+      this.tabs = this.tabs.map(t => {
+        if (t.label === 'trigger2Month') {
+          t.total = lasTriggered.total;
+        }
+
+        return t;
+      });
+    },
   },
 };
 </script>

@@ -14,7 +14,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
-            <p>18</p>
+            <p>{{ content.numberOfTargetedLines }}</p>
           </div>
         </div>
         <hr />
@@ -42,7 +42,7 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('filters.lines.activationDate') }}:</h6>
-                <p>01/01/2020</p>
+                <p>{{ content.startDate ? content.startDate : '-' }}</p>
               </div>
 
               <div class="item">
@@ -86,25 +86,29 @@ export default {
     content: Object,
   },
 
+  mounted() {
+    this.steps = {
+      data: [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('getvsion.detail-panel.stepper.created'),
+          date: this.content.auditable.created,
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
+          date: this.content.StartDate,
+          index: 1,
+        },
+      ],
+    };
+  },
+
   data() {
     return {
       statusStepperIndex: 1,
-      steps: {
-        data: [
-          {
-            code: 'NOT_VALIDATED',
-            label: this.$t('getvsion.detail-panel.stepper.created'),
-            date: null,
-            index: 0,
-          },
-          {
-            code: 'VALIDATED',
-            label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
-            date: null,
-            index: 1,
-          },
-        ],
-      },
+      steps: {},
     };
   },
 };

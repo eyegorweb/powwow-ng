@@ -1,7 +1,11 @@
 <template>
   <div class="row">
     <div class="col-md-3 pl-0">
-      <FilterBar :filter-components="filters" @applyFilters="doSearch" />
+      <FilterBar
+        :filter-components="filters"
+        @applyFilters="doSearch"
+        @noMoreFilters="onAllFiltersCleared"
+      />
     </div>
     <div class="col-md-9">
       <div class="row mb-3">
@@ -95,6 +99,9 @@ export default {
   },
 
   methods: {
+    onAllFiltersCleared() {
+      this.refreshTable([], this.currentOrderBy);
+    },
     refreshTable(filters, orderBy) {
       this.$emit('applyFilters', {
         orderBy,

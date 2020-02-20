@@ -36,10 +36,12 @@ import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import TriggerReasonFilter from '../filters/TriggerReasonFilter';
 import TriggerDateFilter from '../filters/TriggerDateFilter';
 import Actions from './Actions';
+import ThisMonthTriggerCell from './ThisMonthTriggerCell';
+import LastMonthTriggerCell from './LastMonthTriggerCell';
 
 import ExportButton from '@/components/ExportButton';
 
-import { fetchData } from '@/api/mockApi.js';
+import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
 
 export default {
   components: {
@@ -74,11 +76,27 @@ export default {
         filters: [],
       };
 
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+        {
+          id: 'filters.partyId',
+          value: this.alarm.party.id,
+        },
+      ];
+
       this.lastUsedFilters = filters;
-      const data = await fetchData(this.orderBy, pagination, filters);
+      const data = await fetchAlarmTriggersFor2Months(this.orderBy, pagination, [
+        ...filters,
+        ...mandatoryFilters,
+      ]);
+
+      console.log(data.items);
 
       this.total = data.total;
-      this.rows = data.data;
+      this.rows = data.items;
     },
   },
 
@@ -89,18 +107,53 @@ export default {
       columns: [
         {
           id: 2,
-          label: this.$t('col.id'),
+          label: this.$t('getparc.actDetail.col.iccid'),
           orderable: true,
           visible: true,
-          name: 'name',
-          exportId: 'ID',
+          name: 'iccid',
+          // exportId: 'ID',
           noHandle: true,
           fixed: true,
+          /*
           format: {
             type: 'Getter',
             getter: row => {
               return row.name;
             },
+          },
+          //*/
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.activation_date'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+        },
+        {
+          id: 4,
+          label: this.$t('getvsion.triggered_this_month'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: ThisMonthTriggerCell,
+          },
+        },
+        {
+          id: 5,
+          label: this.$t('getvsion.last_month_triggered'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: LastMonthTriggerCell,
           },
         },
       ],

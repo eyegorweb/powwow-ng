@@ -244,6 +244,9 @@
     "notify-mail": "Notification mail",
     "notify-ws": "Notification web service",
     "mailing-list": "Liste de diffusion",
+    "activation_date": "Date d'activation",
+    "triggered_this_month": "Déclenchements mois en cours",
+    "last_month_triggered": "Déclenchement M-1",
     "detail-panel": {
       "stepper": {
         "created": "Créée"

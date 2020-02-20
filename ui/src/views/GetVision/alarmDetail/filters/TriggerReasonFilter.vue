@@ -33,44 +33,40 @@ export default {
     return {
       options: [
         {
-          label: 'Tous',
-          value: 'all',
-        },
-        {
           label: 'Data ou Data E/S',
-          value: 'level1',
+          value: 'DATA',
         },
         {
           label: 'Data sortante',
-          value: 'level1Up',
+          value: 'DATA_OUT',
         },
         {
           label: 'Data entrante',
-          value: 'level1Down',
+          value: 'DATA_IN',
         },
         {
           label: 'SMS E/S',
-          value: 'level2',
+          value: 'SMS',
         },
         {
           label: 'SMS sortants',
-          value: 'level2Up',
+          value: 'SMS_OUT',
         },
         {
           label: 'SMS entrants',
-          value: 'level2Down',
+          value: 'SMS_IN',
         },
         {
           label: 'Voix E/S',
-          value: 'level3',
+          value: 'VOICE',
         },
         {
           label: 'Voix sortante',
-          value: 'level3Up',
+          value: 'VOICE_OUT',
         },
         {
           label: 'Voix entrante',
-          value: 'level3Down',
+          value: 'VOICE_IN',
         },
       ],
     };
