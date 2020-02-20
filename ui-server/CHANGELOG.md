@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.567+20200220104914
+2020-02-20
+
+### Fixes
+
+- Upload des fichiers avec erreurs côté front (b9fdc719580482f53c64799559e0c26149c590c3)
+
 ## 0.3.0-master.566+20200218154151
 2020-02-18
 
