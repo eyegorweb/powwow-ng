@@ -14,8 +14,6 @@ export default {
   components: {
     ActWithFileUploadContainer,
   },
-
-  computed: {},
   methods: {
     async changeMSISDN(params) {
       return await changeMSISDN(params);

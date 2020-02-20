@@ -828,6 +828,7 @@
       "report": {
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
+        "DATA_SIZE_EXCEED": "Le fichier est trop volumineux",
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
