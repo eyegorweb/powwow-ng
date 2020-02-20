@@ -92,9 +92,11 @@ export default {
       isLoading: false,
     };
   },
+
   watch: {
-    selectedFileForActCreation() {
+    selectedFileForActCreation(value) {
       this.resetForm();
+      this.validFile(value);
     },
 
     actCreationPrerequisites() {
@@ -122,6 +124,22 @@ export default {
       'setSelectedLinesForActCreation',
     ]),
     ...mapMutations(['flashMessage']),
+
+    validFile(file) {
+      if (file.type !== 'application/vnd.ms-excel') {
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+          },
+        ];
+      } else if (file.size > 1000000) {
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED'),
+          },
+        ];
+      }
+    },
 
     resetForm() {
       this.tempDataUuid = undefined;
