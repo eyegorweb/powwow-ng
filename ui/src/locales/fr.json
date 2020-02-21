@@ -247,6 +247,8 @@
     "activation_date": "Date d'activation",
     "triggered_this_month": "Déclenchements mois en cours",
     "last_month_triggered": "Déclenchement M-1",
+    "last_triggered": "Dernier déclenchement",
+    "associated_alarms": "Alarmes associées",
     "detail-panel": {
       "stepper": {
         "created": "Créée"

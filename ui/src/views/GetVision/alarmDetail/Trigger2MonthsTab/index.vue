@@ -6,6 +6,7 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
+      :size="0"
       @applyFilters="applyFilters"
     >
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
@@ -93,8 +94,6 @@ export default {
         ...mandatoryFilters,
       ]);
 
-      console.log(data.items);
-
       this.total = data.total;
       this.rows = data.items;
     },
@@ -111,17 +110,8 @@ export default {
           orderable: true,
           visible: true,
           name: 'iccid',
-          // exportId: 'ID',
           noHandle: true,
           fixed: true,
-          /*
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.name;
-            },
-          },
-          //*/
         },
         {
           id: 3,

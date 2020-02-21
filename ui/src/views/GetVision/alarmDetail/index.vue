@@ -60,7 +60,7 @@ import TargetedLinesByAlarmTab from './TargetedLinesByAlarmTab';
 import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
 import { searchAlarmById } from '@/api/alarms';
-import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
+import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
 
 export default {
   components: {
@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 0,
+      currentTab: 1,
       tabs: [
         {
           label: 'trigger2Month',
@@ -130,9 +130,22 @@ export default {
         mandatoryFilters
       );
 
+      const linesBoundToAlarm = await fetchLinesBoundToAlarm(
+        undefined,
+        {
+          page: 0,
+          limit: 10,
+        },
+        mandatoryFilters
+      );
+
       this.tabs = this.tabs.map(t => {
         if (t.label === 'trigger2Month') {
           t.total = lasTriggered.total;
+        }
+
+        if (t.label === 'targetedLines') {
+          t.total = linesBoundToAlarm.total;
         }
 
         return t;

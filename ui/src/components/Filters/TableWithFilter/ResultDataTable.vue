@@ -8,6 +8,7 @@
     :order-by.sync="currentOrderBy"
     :show-extra-columns.sync="showExtraCells"
     :size="size"
+    @colEvent="$emit('colEvent', $event)"
   >
     <template slot="topLeftCorner">
       <slot name="topLeftCorner"></slot>

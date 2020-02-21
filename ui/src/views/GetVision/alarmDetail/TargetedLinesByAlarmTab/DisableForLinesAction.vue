@@ -9,7 +9,7 @@
               {{ $t('getvsion.alarm.disable_alarm_lines') }}
             </button>
           </div>
-          <div class="text-info">{{ total }} lignes seront exclues de l'alarme</div>
+          <div class="text-info">{{ rows.length }} lignes seront exclues de l'alarme</div>
         </div>
         <div class="col-5">
           <div class="text-info">

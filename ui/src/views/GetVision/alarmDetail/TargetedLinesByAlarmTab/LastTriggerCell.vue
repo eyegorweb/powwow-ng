@@ -1,5 +1,5 @@
 <template>
-  <TriggerInfo :info="row.lastTriggerThisMonth" />
+  <TriggerInfo :info="row" />
 </template>
 
 <script>
