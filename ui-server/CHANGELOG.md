@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.569+20200221102135
+2020-02-21
+
+### Features
+
+- onglet "lignes ciblées par l'alarme" dans l''écran de détail de l'alarme (f3dd3076bb76893bbb089a1eed247b26eed4fa67)
+
 ## 0.3.0-master.568+20200220143942
 2020-02-20
 
