@@ -25,6 +25,8 @@
         :page.sync="page"
         :page-limit.sync="pageLimit"
         :order-by.sync="currentOrderBy"
+        :size="size"
+        @colEvent="$emit('colEvent', $event)"
       >
         <div slot="topLeftCorner">
           <slot name="topLeft"></slot>
@@ -55,6 +57,10 @@ export default {
     rows: Array,
     total: Number,
     orderBy: Object,
+    size: {
+      type: Number,
+      default: 7,
+    },
   },
 
   data() {

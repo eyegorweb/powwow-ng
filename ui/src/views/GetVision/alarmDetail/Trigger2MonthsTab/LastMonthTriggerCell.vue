@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TriggerInfo from './TriggerInfo';
+import TriggerInfo from '../TriggerInfo';
 
 export default {
   components: {
