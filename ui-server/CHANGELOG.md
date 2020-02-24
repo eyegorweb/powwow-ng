@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.574+20200224162009
+2020-02-24
+
+### Fixes
+
+- Margin bottom sur le detail de ligne onglet consommation (6ec4f9f584c742246058649b4a8601592234714e)
+
 ## 0.3.0-master.573+20200224161148
 2020-02-24
 
