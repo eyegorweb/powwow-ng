@@ -262,6 +262,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.partnerTypeM2M {
+  margin-bottom: 20rem !important;
+}
 .partnerTypeM2M .content-cell {
   li:nth-child(1) {
     color: $dark-gray;
