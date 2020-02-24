@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.573+20200224161148
+2020-02-24
+
+### Fixes
+
+- formattage du délai pour les indicateurs (f5278067003f1083ac7c35aa8d7b0560d7f7e79c)
+
 ## 0.3.0-master.572+20200224135845
 2020-02-24
 
