@@ -140,7 +140,6 @@ export default excludeMocked([
     large: false,
     seeMore: true,
     component: ParcStateWidget,
-    mock: true,
   },
   {
     title: 'home.widgets.averageTimeAction',
