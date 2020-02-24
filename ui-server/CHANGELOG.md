@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.572+20200224135845
+2020-02-24
+
+### Fixes
+
+- mise à jour des coordonnées de géo localisation (948be72ea93eed96a88077a41e339f036f29e85d)
+
 ## 0.3.0-master.571+20200224102440
 2020-02-24
 
