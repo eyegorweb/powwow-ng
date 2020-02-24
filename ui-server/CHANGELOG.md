@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.571+20200224102440
+2020-02-24
+
+### Fixes
+
+- suppression de la propriété mock pour le widget Etat du parc (cde38cbd82a52118c46416aaca00a547d5f2446a)
+
 ## 0.3.0-master.570+20200221152638
 2020-02-21
 
