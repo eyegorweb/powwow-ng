@@ -201,6 +201,7 @@ export default {
           total: '-',
           filters: [],
           fetchKey: 'ORDER_DELAY',
+          unit: true,
         },
       ],
     };
