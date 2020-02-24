@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.574+20200224162009
+## 0.3.0-master.575+20200224162058
 2020-02-24
 
 ### Fixes
 
 - Margin bottom sur le detail de ligne onglet consommation (6ec4f9f584c742246058649b4a8601592234714e)
+- 1025 Supprimer bouton si commande pas terminé (bd1b387794ed3eeac3eef080d8f7da4a9894567b)
 
 ## 0.3.0-master.573+20200224161148
 2020-02-24
