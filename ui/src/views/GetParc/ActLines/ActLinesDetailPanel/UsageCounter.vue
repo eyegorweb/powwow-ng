@@ -49,7 +49,7 @@ export default {
         : 0;
       return counter1DownRounded + counter1UpRounded;
     },
-    voiceField() {
+    smsField() {
       const counter2DownRounded = get(this.row, 'accessPoint.usageCounter.counter2DownRounded')
         ? Number(get(this.row, 'accessPoint.usageCounter.counter1DownRounded'))
         : 0;
@@ -58,7 +58,7 @@ export default {
         : 0;
       return counter2DownRounded + counter2UpRounded;
     },
-    smsField() {
+    voiceField() {
       const counter3DownRounded = get(this.row, 'accessPoint.usageCounter.counter3DownRounded')
         ? Number(get(this.row, 'accessPoint.usageCounter.counter3DownRounded'))
         : 0;
