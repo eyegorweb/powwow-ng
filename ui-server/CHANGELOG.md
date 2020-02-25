@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.579+20200225135948
+2020-02-25
+
+### Fixes
+
+- correctif des données entre sms et voix sur le volet du détail de la ligne (e0870cd6c5c6949ee8c154b6624e87a7929525df)
+
 ## 0.3.0-master.578+20200225134206
 2020-02-25
 
