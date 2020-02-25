@@ -53,7 +53,10 @@
         <div class="alert alert-primary text-center" role="alert">
           Ecran de recherche de lignes et création d'actes de gestion
           <br />
-          <UiButton variant="primary" class="flex-grow-1 py-1 px-3 ml- mt-3" @click="resetFilters()"
+          <UiButton
+            variant="primary"
+            class="flex-grow-1 py-1 px-3 ml- mt-3"
+            @click="fetchLinesActions()"
             >Afficher toutes les lignes</UiButton
           >
         </div>
