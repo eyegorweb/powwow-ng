@@ -64,6 +64,7 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
   }
 
   `;
+  console.log(queryStr);
 
   // const response = await query(queryStr);
 
@@ -312,26 +313,26 @@ function addLineId(gqlFilters, selectedFilters) {
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
   if (_id) {
-    idsFilters.push(`id: {eq: "${_id.value}"}`);
+    idsFilters.push(`id: "${_id.value}"`);
   }
   if (iccid) {
-    idsFilters.push(`iccid: {eq: "${iccid.value}"}`);
+    idsFilters.push(`iccid: "${iccid.value}"`);
   }
   if (imsi) {
-    idsFilters.push(`imsi: {eq: "${imsi.value}"}`);
+    idsFilters.push(`imsi: "${imsi.value}"`);
   }
   if (msisdn) {
-    idsFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+    idsFilters.push(`msisdn: "${msisdn.value}"`);
   }
   if (imei) {
-    idsFilters.push(`imei: {eq: "${imei.value}"}`);
+    idsFilters.push(`imei: "${imei.value}"`);
   }
   if (msisdnA) {
-    idsFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+    idsFilters.push(`msisdnA: "${msisdnA.value}"`);
   }
   if (accessPointId) {
-    idsFilters.push(`accessPointId: {eq: "${accessPointId.value}"}`);
+    idsFilters.push(`accessPointId: "${accessPointId.value}"`);
   }
 
-  if (idsFilters && idsFilters.length) gqlFilters.push(`lineIdentifier: ${idsFilters.join(',')}`);
+  if (idsFilters && idsFilters.length) gqlFilters.push(`lineIdentifier: {${idsFilters.join(',')}}`);
 }

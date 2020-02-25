@@ -81,8 +81,24 @@ export default {
       };
     },
 
-    searchById(value) {
-      console.log('search by id > ', value);
+    async searchById(value) {
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+        {
+          id: 'filters.partyId',
+          value: this.alarm.party.id,
+        },
+      ];
+      const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
+        ...mandatoryFilters,
+        value,
+      ]);
+
+      this.total = data.total;
+      this.rows = data.items;
     },
 
     onColEvent(payload) {
