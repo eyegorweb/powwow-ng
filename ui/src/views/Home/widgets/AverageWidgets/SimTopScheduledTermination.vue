@@ -14,6 +14,7 @@
 <script>
 import AverageIndicators from './AverageIndicators';
 import { fetchPrecalculatedTopIndicators } from '@/api/indicators.js';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -51,6 +52,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -61,9 +63,14 @@ export default {
       await this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
+      let partners;
+      if (this.contextPartners) {
+        partners = this.contextPartners.map(p => p.id);
+      }
       const listTopIndicators = await fetchPrecalculatedTopIndicators(
         [`SIM_TOP_SCHEDULED_TERMINATION_${this.period}`],
-        ...this.contextFilters
+        partners,
+        this.contextPartnersType
       );
 
       this.indicators = listTopIndicators.map((i, index) => {
@@ -84,6 +91,14 @@ export default {
       } else {
         this.specificMessage = '';
       }
+    },
+  },
+  watch: {
+    async contextPartners() {
+      await this.refreshIndicatorsForPeriod();
+    },
+    async contextPartnersType() {
+      await this.refreshIndicatorsForPeriod();
     },
   },
 };

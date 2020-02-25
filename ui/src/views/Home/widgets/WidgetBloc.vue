@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div class="col-9">
+          <div :class="{'col-12' : large, 'col-9': !large}">
             <div class="d-flex">
               <span class="handle ic-Drag-Column-Icon" />
               <span :class="{ 'mock-value': mocked, 'col-6': small }">
@@ -39,6 +39,7 @@ export default {
     scrolling: Boolean,
     mocked: Boolean,
     small: Boolean,
+    large: Boolean,
   },
   computed: {
     className() {

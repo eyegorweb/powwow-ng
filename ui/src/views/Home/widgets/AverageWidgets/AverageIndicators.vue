@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget">
+  <WidgetBloc :widget="widget" :large="large">
     <Toggle
       v-if="toggleValues"
       @update="updateContentType"
@@ -59,6 +59,7 @@ export default {
     infoMessage: String,
     noResults: Boolean,
     toggleValues: Array,
+    large: Boolean,
   },
   methods: {
     onClick(id) {

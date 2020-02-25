@@ -34,6 +34,7 @@
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
 import { fetchBillingExchange } from '@/api/indicators.js';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -44,6 +45,7 @@ export default {
     widget: Object,
   },
   computed: {
+    ...mapState('userContext', ['contextPartnersType']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -55,7 +57,6 @@ export default {
     return {
       indicators: undefined,
       period: '0',
-      contextFilters: [],
       specificMessage: undefined,
       toggleValues: [
         {
@@ -85,7 +86,7 @@ export default {
       let period = this.period;
       let top3;
       let flop2;
-      const listIndicators = await fetchBillingExchange(period, ...this.contextFilters);
+      const listIndicators = await fetchBillingExchange(period, this.contextPartnersType);
       const temp = listIndicators.map((i, index) => {
         return {
           total: i.amount,
@@ -140,7 +141,7 @@ export default {
     },
   },
   watch: {
-    async contextFilters() {
+    async contextPartnersType() {
       await this.refreshIndicatorsForPeriod();
     },
   },
