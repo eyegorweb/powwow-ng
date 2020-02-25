@@ -19,6 +19,7 @@
 import AverageIndicators from './AverageIndicators';
 import { fetchPrecalculatedIndicators } from '@/api/indicators.js';
 import { isBefore } from '@/utils/date.js';
+import { mapState } from 'vuex';
 
 const defaultTimeUnit = 'h';
 
@@ -30,6 +31,7 @@ export default {
     widget: Object,
   },
   computed: {
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -43,6 +45,7 @@ export default {
       period: 'DAY',
       contextFilters: [],
       lastUpdateDate: undefined,
+      partners: [],
       toggleValues: [
         {
           id: 'day',
@@ -68,6 +71,9 @@ export default {
       await this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
+      if (this.contextPartners) {
+        this.partners = this.contextPartners.map(p => p.id);
+      }
       const listIndicators = await fetchPrecalculatedIndicators(
         [
           `${'ACT_DELAY_ACTIVATION_'}${this.period}`,
@@ -76,7 +82,8 @@ export default {
           `${'ACT_DELAY_SERVICE_CHANGE_'}${this.period}`,
           `${'ACT_DELAY_ICCID_CHANGE_'}${this.period}`,
         ],
-        ...this.contextFilters
+        this.partners,
+        this.contextPartnersType
       );
 
       this.indicators = listIndicators.map(i => {
@@ -144,8 +151,15 @@ export default {
           `${'ACT_DELAY_SERVICE_CHANGE_'}${this.period}`,
           `${'ACT_DELAY_ICCID_CHANGE_'}${this.period}`,
         ],
-        ...this.contextFilters
+        this.partners,
+        this.contextPartnersType
       );
+    },
+    async contextPartners() {
+      await this.refreshIndicatorsForPeriod();
+    },
+    async contextPartnersType() {
+      await this.refreshIndicatorsForPeriod();
     },
   },
 };

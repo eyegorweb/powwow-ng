@@ -68,6 +68,7 @@
   "webserviceNotification": "Être notifié par webservice",
   "lines": "Lignes",
   "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
+  "personalizeHome": "Personnaliser ma home",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
