@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.576+20200225131822
+## 0.3.0-master.577+20200225131659
 2020-02-25
+
+### Fixes
+
+- ajout du contexte de partenaires pour les Top widgets (7b1b99cf202ce352c25376718e8af8c3910c9c80)
 
 ## 0.3.0-master.575+20200224162058
 2020-02-24
