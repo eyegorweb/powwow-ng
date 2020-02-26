@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.581+20200226131517
+2020-02-26
+
+### Fixes
+
+- Erreur de surface sur le filtre par fichier (50efcad9a6e1b48a322a34def5bc6fce537af1c1)
+
 ## 0.3.0-master.580+20200226090244
 2020-02-26
 
