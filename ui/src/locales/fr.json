@@ -112,7 +112,8 @@
       "viewXResults": "Consulter les {num} résultats",
       "linesConsumption": "Lignes les plus consommatrices du mois",
       "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
-      "topBillingExchange": "TOP / FLOP CA"
+      "topBillingExchangeCA": "TOP / FLOP CA",
+      "topBillingExchangePO": "Prise d'ordre"
     }
   },
   "menu": {
