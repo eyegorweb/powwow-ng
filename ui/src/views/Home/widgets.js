@@ -14,6 +14,7 @@ import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
 import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
 import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
+import PriseOrdre from './widgets/AverageWidgets/PriseOrdre';
 import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
 
@@ -198,11 +199,19 @@ export default excludeMocked([
     component: TriggeredAlarmsPerDay,
   },
   {
-    title: 'home.widgets.topBillingExchange',
+    title: 'home.widgets.topBillingExchangeCA',
     description: '',
     checked: true,
     large: false,
     seeMore: false,
     component: TopFlopCA,
+  },
+  {
+    title: 'home.widgets.topBillingExchangePO',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: PriseOrdre,
   },
 ]);

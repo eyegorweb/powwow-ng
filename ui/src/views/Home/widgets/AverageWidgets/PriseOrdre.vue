@@ -58,7 +58,7 @@ export default {
       indicators: undefined,
       period: '0',
       specificMessage: undefined,
-      rubric: 'CA',
+      rubric: 'PO',
       toggleValues: [
         {
           id: '1',
