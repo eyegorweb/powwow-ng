@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.580+20200226090244
+2020-02-26
+
+### Features
+
+- création du widget Prise d'ordre (7a50ad32e3d697acf9d917a2c1a418d4b6e9699b)
+
 ## 0.3.0-master.579+20200225135948
 2020-02-25
 
