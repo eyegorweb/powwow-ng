@@ -69,6 +69,8 @@
   "lines": "Lignes",
   "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
   "personalizeHome": "Personnaliser ma home",
+  "genericSuccessMessage": "Opération effectuée avec succès",
+  "genericErrorMessage": "Erreur inconnue",
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"

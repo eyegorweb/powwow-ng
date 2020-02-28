@@ -20,6 +20,12 @@
           :partner="partner"
           @change="filterForCreation = $event"
         />
+
+        <PartnerChoice
+          v-if="selectedType === 'partner'"
+          :partner="partner"
+          @change="filterForCreation = $event"
+        />
       </slot>
     </div>
   </div>
@@ -31,6 +37,7 @@ import UiSelect from '@/components/ui/UiSelect';
 import SearchLineByIdChoice from './SearchLineByIdChoice';
 import OfferChoice from './OfferChoice';
 import FileImportChoice from './FileImportChoice.vue';
+import PartnerChoice from './PartnerChoice.vue';
 import SectionTitle from '@/components/SectionTitle.vue';
 
 import get from 'lodash.get';
@@ -42,6 +49,7 @@ export default {
     OfferChoice,
     FileImportChoice,
     SectionTitle,
+    PartnerChoice,
   },
   props: {
     num: Number,
@@ -51,6 +59,7 @@ export default {
       required: false,
     },
   },
+
   computed: {
     maxHeight() {
       if (this.containerHeight) return this.containerHeight;
@@ -68,6 +77,17 @@ export default {
         return '23rem';
       }
 
+      if (this.selectedType === 'partner') {
+        if (
+          this.filterForCreation &&
+          this.filterForCreation.partner &&
+          this.filterForCreation.partner.id
+        ) {
+          return '4rem';
+        }
+        return '3rem';
+      }
+
       // max-height: 9rem;
 
       return '9rem';
@@ -76,6 +96,9 @@ export default {
   watch: {
     selectedType() {
       this.filterForCreation = undefined;
+    },
+    filterForCreation() {
+      this.$emit('scope', this.filterForCreation);
     },
   },
   data() {
