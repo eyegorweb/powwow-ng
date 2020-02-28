@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.584+20200228101728
+2020-02-28
+
+### Features
+
+- import de fichiers des cartes SIM (6fa81ee9bd576cffae440c57e799f4cf4fe2458f)
+
 ## 0.3.0-master.583+20200228095940
 2020-02-28
 
