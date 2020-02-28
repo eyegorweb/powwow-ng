@@ -64,11 +64,7 @@ export default {
   methods: {
     onScopeChange(scopeChoice) {
       this.lastChosenScope = scopeChoice;
-      let scopeChoiceParam = scopeChoice;
-      if (this.selectedPartner) {
-        scopeChoiceParam = { ...scopeChoice, partnerId: this.selectedPartner.id };
-      }
-      this.$emit('scope', scopeChoiceParam);
+      this.$emit('scope', scopeChoice);
     },
   },
 
@@ -85,9 +81,7 @@ export default {
         formIsValid = this.checkErrorsFn();
       }
 
-      let alarmInfoIsValid = true;
-
-      return !!scopeIsValid && !!formIsValid && !!alarmInfoIsValid;
+      return !!scopeIsValid && !!formIsValid;
     },
     scopeIndex() {
       return this.shouldSelectPartner ? 2 : 1;

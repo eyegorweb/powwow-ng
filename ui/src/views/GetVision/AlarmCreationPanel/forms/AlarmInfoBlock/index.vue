@@ -48,6 +48,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import UiSelect from '@/components/ui/UiSelect';
 import UiInput from '@/components/ui/UiInput';
 import UiButton from '@/components/ui/Button';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -67,15 +68,14 @@ export default {
   computed: {
     mailingLists() {
       if (!this.partner) return [];
-
-      return this.partner.data.mailingLists.map(m => ({ label: m.name, value: m.id }));
+      const mailingLists = get(this.partner, 'data.mailingLists', []);
+      return mailingLists.map(m => ({ label: m.name, value: m.id }));
     },
     canSaveAlarm() {
       let notifCondition = true;
       if (this.sholdNotify) {
         notifCondition = !!this.notifList;
       }
-      // console.log('canSAve > ', notifCondition, this.alarmName, this.canSave);
 
       return notifCondition && this.alarmName && this.canSave;
     },
