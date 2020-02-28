@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.589+20200228160447
+2020-02-28
+
+### Fixes
+
+- corriger le choix de partenaires (22e4fc9cf720994d099a23a1a91aca33b7c6755d)
+
 ## 0.3.0-master.588+20200228154226
 2020-02-28
 
