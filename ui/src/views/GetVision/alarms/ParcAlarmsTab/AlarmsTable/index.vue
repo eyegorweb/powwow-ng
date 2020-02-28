@@ -217,8 +217,8 @@ export default {
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
-        onClosePanel({ resetSearch }) {
-          if (resetSearch) {
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
             doReset();
           }
         },

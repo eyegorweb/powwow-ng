@@ -1,7 +1,7 @@
 <template>
   <AlarmCreationBaseForm
     :alarm="alarm"
-    :check-errors-fn="checkErrors"
+    :check-errors-fn="isFormValid"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
@@ -54,7 +54,7 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
 
-    checkErrors() {
+    isFormValid() {
       return this.selectedOptions && this.selectedOptions.length;
     },
     async onSave(payload) {
