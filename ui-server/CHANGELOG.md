@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.586+20200228151839
+2020-02-28
+
+### Features
+
+- import des cartes SIM depuis le volet des détails de la commande (9558dce9520cbac8ceafa32547a7f6d4787b1bfe)
+
 ## 0.3.0-master.585+20200228144754
 2020-02-28
 
