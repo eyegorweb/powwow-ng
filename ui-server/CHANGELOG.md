@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.582+20200228090445
+## 0.3.0-master.582+20200228091927
 2020-02-28
+
+### Features
+
+- alarme de changement d'opérateur depuis la home des alarmes (68747ed554b6019a60f67ea33da6577bcd6b13d6)
 
 ## 0.3.0-master.581+20200226131517
 2020-02-26
