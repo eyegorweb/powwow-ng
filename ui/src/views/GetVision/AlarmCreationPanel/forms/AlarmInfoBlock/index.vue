@@ -18,7 +18,7 @@
       </div>
       <div class="col">
         <h5>Liste de diffusion</h5>
-        <UiSelect v-model="notifList" :options="notifLists" block />
+        <UiSelect v-model="notifList" :options="mailingLists" block />
       </div>
     </div>
 
@@ -35,7 +35,7 @@
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
 
-        <UiButton variant="primary" class="p-3" block @click="saveAlarm">
+        <UiButton variant="primary" class="p-3" block @click="saveAlarm" :disabled="!canSaveAlarm">
           <span class="btn-label">{{ $t('getvsion.alarm.saveAlarm') }}</span>
         </UiButton>
       </div>
@@ -57,15 +57,39 @@ export default {
     UiButton,
   },
   props: {
+    partner: Object,
+    canSave: Boolean,
     num: {
       type: Number,
       default: 3,
     },
   },
+  computed: {
+    mailingLists() {
+      if (!this.partner) return [];
+
+      return this.partner.data.mailingLists.map(m => ({ label: m.name, value: m.id }));
+    },
+    canSaveAlarm() {
+      let notifCondition = true;
+      if (this.sholdNotify) {
+        notifCondition = !!this.notifList;
+      }
+      //console.log('canSAve > ', notifCondition, this.alarmName, this.canSave);
+
+      return notifCondition && this.alarmName && this.canSave;
+    },
+  },
 
   methods: {
     saveAlarm() {
-      console.log('Save Alarm >>');
+      this.$emit('save', {
+        alarmName: this.alarmName,
+        enableAlarm: this.enableAlarm,
+        notifList: this.notifList,
+        sholdNotify: this.sholdNotify,
+        webserviceNotification: this.webserviceNotification,
+      });
     },
   },
 
@@ -77,12 +101,6 @@ export default {
       enableAlarm: false,
 
       notifList: undefined,
-      notifLists: [
-        {
-          label: 'Liste 1',
-          value: 'list1',
-        },
-      ],
     };
   },
 };

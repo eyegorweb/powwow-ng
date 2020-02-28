@@ -207,12 +207,21 @@ export default {
     ...mapMutations(['openPanel']),
 
     createAlarm() {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
       this.openPanel({
         title: this.$t('getvsion.table.create-alarm'),
         panelId: 'getvsion.table.create-alarm',
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
+        onClosePanel({ resetSearch }) {
+          if (resetSearch) {
+            doReset();
+          }
+        },
       });
     },
     async fetchAlarms() {

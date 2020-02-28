@@ -4,12 +4,7 @@
       <FromMultiList :title="fromTitle" :items="items" @click="selectItem" />
     </div>
     <div class="col">
-      <DestinationList
-        :title="toTitle"
-        v-if="selectedItems.length"
-        :items="selectedItems"
-        @click="removeItem"
-      />
+      <DestinationList :title="toTitle" :items="selectedItems" @click="removeItem" />
     </div>
   </div>
 </template>

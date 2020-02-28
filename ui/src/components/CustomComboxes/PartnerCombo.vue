@@ -19,6 +19,7 @@ export default {
 
   props: {
     value: Object,
+    includeMailingLists: Boolean,
   },
   computed: {
     ...mapState('userContext', [' contextPartnersType', 'contextPartners']),
@@ -46,10 +47,12 @@ export default {
         page,
         limit: 10,
         partnerType: this.contextPartnersType,
+        includeMailingLists: this.includeMailingLists,
       });
       return data.map(p => ({
         id: p.id,
         label: p.name,
+        data: p,
       }));
     },
   },

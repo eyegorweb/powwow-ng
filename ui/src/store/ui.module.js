@@ -24,7 +24,17 @@ export const getters = {
 };
 
 function openPanel(state, conf) {
-  const { title, panelId, payload, wide, backdrop, titleConf, ignoreClickAway, width } = conf;
+  const {
+    title,
+    panelId,
+    payload,
+    wide,
+    backdrop,
+    titleConf,
+    ignoreClickAway,
+    width,
+    onClosePanel,
+  } = conf;
   state.isPanelOpen = true;
   state.panelTitle = title;
   state.panelId = panelId || title;
@@ -34,6 +44,7 @@ function openPanel(state, conf) {
   state.panelTitleConf = titleConf;
   state.ignoreClickAway = !!ignoreClickAway;
   state.width = width;
+  state.onClosePanel = onClosePanel;
 }
 
 export const mutations = {
@@ -41,9 +52,13 @@ export const mutations = {
     state.homeWidgets = [...widgets];
   },
   openPanel,
-  closePanel: state => {
+  closePanel: (state, params) => {
     state.isPanelOpen = false;
     state.panelId = undefined;
+    if (state.onClosePanel) {
+      state.onClosePanel(params);
+      state.onClosePanel = undefined;
+    }
   },
 
   switchPanel: (state, conf) => {
