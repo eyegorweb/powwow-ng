@@ -64,7 +64,11 @@ export default {
   methods: {
     onScopeChange(scopeChoice) {
       this.lastChosenScope = scopeChoice;
-      this.$emit('scope', scopeChoice);
+      let scopeChoiceParam = scopeChoice;
+      if (this.selectedPartner) {
+        scopeChoiceParam = { ...scopeChoice, partnerId: this.selectedPartner.id };
+      }
+      this.$emit('scope', scopeChoiceParam);
     },
   },
 

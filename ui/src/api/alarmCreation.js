@@ -5,6 +5,8 @@ export async function alarmOnChangeISP(params) {
   const gqlParams = getFormGQLParams(params);
   gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
 
+  console.log(params);
+
   const queryStr = `mutation {
     createPLMNChangeAlarm(
       filter: {${getScopeGQLParams(params)}},
@@ -21,7 +23,10 @@ export async function alarmOnChangeISP(params) {
 
   const response = await query(queryStr);
 
-  return response.data.createPLMNChangeAlarm;
+  if (response.data) {
+    return response.data.createPLMNChangeAlarm;
+  }
+  return { errors: response.errors };
 }
 
 export async function alarmOnDeviceChange(params) {
@@ -45,7 +50,84 @@ export async function alarmOnDeviceChange(params) {
 
   const response = await query(queryStr);
 
-  return response.data.createDeviceChangeAlarm;
+  if (response.data) {
+    return response.data.createDeviceChangeAlarm;
+  }
+  return { errors: response.errors };
+}
+
+export async function alarmOnOverConso(params) {
+  const response = await consoQuery('createOverConsumptionAlarm', params);
+
+  if (response.data) {
+    return response.data.createOverConsumptionAlarm;
+  }
+  return { errors: response.errors };
+}
+
+export async function alarmOnUnderConso(params) {
+  const response = consoQuery('createUnderConsumptionAlarm', params);
+  if (response.data) {
+    return response.data.createUnderConsumptionAlarm;
+  }
+  return { errors: response.errors };
+}
+
+async function consoQuery(queryName, params) {
+  const gqlParams = getFormGQLParams(params);
+
+  const alarmLevels = [];
+
+  if (params.formData) {
+    if (params.formData.dataES) {
+      alarmLevels.push(`level1: ${params.formData.dataES}`);
+    }
+    if (params.formData.dataOut) {
+      alarmLevels.push(`level1Up: ${params.formData.dataOut}`);
+    }
+    if (params.formData.dataIn) {
+      alarmLevels.push(`level1Down: ${params.formData.dataIn}`);
+    }
+    if (params.formData.smsES) {
+      alarmLevels.push(`level2: ${params.formData.smsES}`);
+    }
+    if (params.formData.smsIn) {
+      alarmLevels.push(`level2Down: ${params.formData.smsIn}`);
+    }
+    if (params.formData.smsOut) {
+      alarmLevels.push(`level2Up: ${params.formData.smsOut}`);
+    }
+    if (params.formData.voiceES) {
+      alarmLevels.push(`level3: ${params.formData.voiceES}`);
+    }
+    if (params.formData.voiceIn) {
+      alarmLevels.push(`level3Down: ${params.formData.voiceIn}`);
+    }
+    if (params.formData.VoiceOut) {
+      alarmLevels.push(`level3Up: ${params.formData.VoiceOut}`);
+    }
+    alarmLevels.push(`observationCycle: ${params.formData.period}`);
+  }
+
+  gqlParams.push(`alarmLevels: {${alarmLevels.join(',')}}`);
+
+  const queryStr = `
+  mutation {
+    ${queryName}(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+      ) {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  return await query(queryStr);
 }
 
 function getFormGQLParams(params) {
@@ -90,19 +172,19 @@ function getScopeGQLParams(params) {
     return `idParty: {eq: ${params.scope.partner.id}}`;
   }
 
-  const searchById = get(params, 'scope.searchById.type');
+  const searchById = get(params, 'scope.searchById');
 
   if (searchById) {
-    return `${searchById.type}: {eq: ${searchById.value}}`;
+    return `${searchById.type}: {eq: "${searchById.value}"}`;
   }
 
   const offer = get(params, 'scope.offer.id');
   const billingAccount = get(params, 'scope.billingAccount.value');
 
   if (offer) {
-    const offerGqlParams = [];
+    const offerGqlParams = [`idParty: {eq: ${params.scope.partnerId}}`];
 
-    offerGqlParams.push(`offer: {eq: ${offer}}`);
+    offerGqlParams.push(`relatedOffers: {eq: "${offer}"}`);
 
     if (billingAccount) {
       offerGqlParams.push(`idCF: {eq: ${billingAccount}}`);

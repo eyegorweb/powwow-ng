@@ -11,39 +11,39 @@
     <div class="values-container" :class="{ 'standard-mode': !isAdvanced }">
       <div class="item">
         <span>DATA E/S</span>
-        <UiInput class="value-input" v-model="dataES" />
+        <UiInput class="value-input" input-type="number" v-model="dataES" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Data Sortante</span>
-        <UiInput class="value-input" v-model="dataOut" />
+        <UiInput class="value-input" input-type="number" v-model="dataOut" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Data Entrante</span>
-        <UiInput class="value-input" v-model="dataIn" />
+        <UiInput class="value-input" input-type="number" v-model="dataIn" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS E/S</span>
-        <UiInput class="value-input" v-model="smsES" />
+        <UiInput class="value-input" input-type="number" v-model="smsES" />
       </div>
       <div class="item">
         <span>SMS Sortant</span>
-        <UiInput class="value-input" v-model="smsOut" />
+        <UiInput class="value-input" input-type="number" v-model="smsOut" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS Entrant</span>
-        <UiInput class="value-input" v-model="smsIn" />
+        <UiInput class="value-input" input-type="number" v-model="smsIn" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Voix E/S</span>
-        <UiInput class="value-input" v-model="voiceES" />
+        <UiInput class="value-input" input-type="number" v-model="voiceES" />
       </div>
       <div class="item">
         <span>Voix Sortante</span>
-        <UiInput class="value-input" v-model="VoiceOut" />
+        <UiInput class="value-input" input-type="number" v-model="VoiceOut" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Voix Entrante</span>
-        <UiInput class="value-input" v-model="voiceIn" />
+        <UiInput class="value-input" input-type="number" v-model="voiceIn" />
       </div>
     </div>
 
@@ -57,8 +57,8 @@
       />
     </div>
 
-    <div v-if="currentPeriod === 'custom'" class="custom-observation">
-      <UiInput class="value-input" v-model="customPeriodValue" />
+    <div v-if="currentPeriod === 'CUSTOM'" class="custom-observation">
+      <UiInput class="value-input" v-model="customPeriodValue" input-type="number" />
       <span>Jours</span>
     </div>
   </div>
@@ -98,24 +98,24 @@ export default {
       smsIn: undefined,
       smsOut: undefined,
 
-      currentPeriod: 'daily',
+      currentPeriod: 'DAILY',
       customPeriodValue: undefined,
 
       toggleValues: [
         {
-          id: 'daily',
+          id: 'DAILY',
           label: 'Journalier',
         },
         {
-          id: 'weekly',
+          id: 'WEEKLY',
           label: 'Hebdomadaire',
         },
         {
-          id: 'mounthly',
+          id: 'MONTHLY',
           label: 'Mensuel',
         },
         {
-          id: 'custom',
+          id: 'CUSTOM',
           label: 'Personalisé',
         },
       ],
@@ -134,6 +134,8 @@ export default {
         voiceES: this.voiceES,
         voiceIn: this.voiceIn,
         VoiceOut: this.VoiceOut,
+        period: this.currentPeriod,
+        customPeriodValue: this.customPeriodValue,
       });
     },
   },
@@ -175,6 +177,12 @@ export default {
       this.emitChange();
     },
     smsOut() {
+      this.emitChange();
+    },
+    currentPeriod() {
+      this.emitChange();
+    },
+    customPeriodValue() {
       this.emitChange();
     },
   },
