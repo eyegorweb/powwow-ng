@@ -182,7 +182,11 @@
     "date-since": "À partir du {startDate}",
     "date-over": "Avant le {endDate}",
     "details": {
-      "title": "Commande n° {id}"
+      "title": "Commande n° {id}",
+      "fromFile": {
+        "chooseFormatFile": "Chosir un format de fichier",
+        "import-file": "Choisir un fichier CSV ou EXCEL"
+      }
     },
     "creator": {
       "title": "Utilisateur {firstName} {lastName}"
@@ -925,9 +929,16 @@
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
         "notFoundLines": "lignes ne sont pas compatibles",
+        "rejectedLines": "lignes sont rejetées",
+        "titleSimCard": "Import de carte SIM par fichier",
         "errors": {
           "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
-          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu."
+          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+          "import": {
+            "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
+            "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+            "NEW_DATA_ALREADY_EXISTS": "L'{idType} existe déjà."
+          }
         }
       },
       "massActionsHistory": {

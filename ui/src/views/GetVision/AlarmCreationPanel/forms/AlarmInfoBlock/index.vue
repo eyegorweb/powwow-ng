@@ -75,7 +75,7 @@ export default {
       if (this.sholdNotify) {
         notifCondition = !!this.notifList;
       }
-      //console.log('canSAve > ', notifCondition, this.alarmName, this.canSave);
+      // console.log('canSAve > ', notifCondition, this.alarmName, this.canSave);
 
       return notifCondition && this.alarmName && this.canSave;
     },

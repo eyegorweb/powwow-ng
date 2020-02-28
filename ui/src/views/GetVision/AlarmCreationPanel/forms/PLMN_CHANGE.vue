@@ -1,7 +1,7 @@
 <template>
   <AlarmCreationBaseForm
     :alarm="alarm"
-    :checkErrorsFn="checkErrors"
+    :check-errors-fn="checkErrors"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"

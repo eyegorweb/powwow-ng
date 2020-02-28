@@ -53,7 +53,11 @@
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <LinesTable v-if="canShowTable" :creation-mode="canShowForm" @noResults="checkTableResult" />
+        <LinesTable
+          v-if="canShowTable"
+          :creation-mode="canShowForm"
+          @noResults="checkTableResult"
+        />
 
         <Title
           num="2"

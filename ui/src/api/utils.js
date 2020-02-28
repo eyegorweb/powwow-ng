@@ -61,7 +61,9 @@ export async function postFile(url, formData) {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const response = await api.post(url, formData, config);
+    const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '';
+
+    const response = await api.post(baseUrl + url, formData, config);
     return response.data;
   } catch (e) {
     return { error: e.message };

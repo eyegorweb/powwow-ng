@@ -3,7 +3,7 @@
     <div v-if="shouldSelectPartner" class="row mb-2">
       <div class="col-md-6">
         <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
-        <PartnerCombo :value.sync="selectedPartner" includeMailingLists />
+        <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
       </div>
     </div>
     <ScopeChoice
@@ -21,7 +21,7 @@
     <AlarmInfoBlock
       :num="notifIndex"
       @save="$emit('save', $event)"
-      :canSave="canSave"
+      :can-save="canSave"
       :partner="selectedPartner"
     />
   </div>
