@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.587+20200228152622
+2020-02-28
+
+### Fixes
+
+- correction css du bouton confirmer l'import des cartes SIM (b146c0bba7f54846a77bd0889aa589b071fae447)
+
 ## 0.3.0-master.586+20200228151839
 2020-02-28
 
