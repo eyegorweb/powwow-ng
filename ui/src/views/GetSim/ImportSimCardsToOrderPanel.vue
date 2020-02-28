@@ -42,8 +42,8 @@
               </ul>
             </li>
           </ul>
-          <div v-if="fileResponse.tempDataUuid" class="overview-item mr-5">
-            <button @click="confirmRequest(true)" class="btn btn-success pl-4 pr-4 pt-2 pb-2">
+          <div v-if="fileResponse.tempDataUuid" class="mt-5">
+            <button @click="confirmRequest(true)" class="btn btn-success btn-block">
               <span>{{ $t('confirm') }}</span>
             </button>
           </div>
