@@ -145,7 +145,6 @@ export default {
   },
   watch: {
     async selectedFile(newFile) {
-      console.log('new file selected', newFile);
       if (newFile) {
         this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
         this.$emit('response', {
