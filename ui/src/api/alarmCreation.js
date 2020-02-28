@@ -2,10 +2,13 @@ import { query } from './utils';
 import get from 'lodash.get';
 
 export async function alarmOnChangeISP(params) {
+  const gqlParams = getFormGQLParams(params);
+  gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+
   const queryStr = `mutation {
     createPLMNChangeAlarm(
       filter: {${getScopeGQLParams(params)}},
-      alarmCreationInput: {${getFormGQLParams(params)}}
+      alarmCreationInput: {${gqlParams.join(',')}}
     ) {
       tempDataUuid
       validated
@@ -21,6 +24,30 @@ export async function alarmOnChangeISP(params) {
   return response.data.createPLMNChangeAlarm;
 }
 
+export async function alarmOnDeviceChange(params) {
+  const gqlParams = getFormGQLParams(params);
+
+  const queryStr = `
+  mutation {
+    createDeviceChangeAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+      ) {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.createDeviceChangeAlarm;
+}
+
 function getFormGQLParams(params) {
   const gqlParams = [];
 
@@ -33,9 +60,7 @@ function getFormGQLParams(params) {
     gqlParams.push(`mailingList:${params.notifList}`);
   }
 
-  gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
-
-  return gqlParams.join(',');
+  return gqlParams;
 }
 
 function getScope(params) {
