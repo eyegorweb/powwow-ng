@@ -516,6 +516,25 @@ export async function exportFile(columns, orderBy, exportFormat, filters = []) {
   return response.data.ordersExport;
 }
 
+export async function importIccids(orderId, tempDataUuid) {
+  const response = await query(
+    `
+    mutation {
+      importIccids(orderId: "${orderId}", uuid: "${tempDataUuid}") {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+      }
+    }
+
+    `
+  );
+  return response.data.importIccids;
+}
+
 function valuesFromMutiselectFilter(
   gqlFilters,
   selectedFilters,

@@ -42,6 +42,11 @@
               </ul>
             </li>
           </ul>
+          <div v-if="fileResponse.tempDataUuid" class="overview-item mr-5">
+            <button @click="confirmRequest(true)" class="btn btn-success pl-4 pr-4 pt-2 pb-2">
+              <span>{{ $t('confirm') }}</span>
+            </button>
+          </div>
         </div>
         <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
       </div>
@@ -54,6 +59,8 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiSelect from '@/components/ui/UiSelect';
 import FileSelect from '@/components/ui/FileSelect';
 import { uploadFileSimCards } from '@/api/linesActions';
+import { importIccids } from '@/api/orders';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -82,6 +89,7 @@ export default {
         },
       ],
       placeholder: this.$t('getsim.details.fromFile.import-file'),
+      successMessage: undefined,
     };
   },
   computed: {
@@ -102,7 +110,6 @@ export default {
     },
     selectedFile() {
       if (!this.fileMeta) return null;
-      console.log('selected file', this.fileMeta);
       return this.fileMeta;
     },
     totalNotCompatible() {
@@ -114,8 +121,31 @@ export default {
       }, 0);
     },
   },
+  methods: {
+    ...mapMutations(['flashMessage']),
+    async confirmRequest(showMessage = false) {
+      const response = await importIccids(this.orderId, this.fileResponse.tempDataUuid);
+      if (response.errors && response.errors.length) {
+        this.fileResponse.errors = response.errors;
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        if (showMessage) {
+          const successMessage = this.successMessage
+            ? this.$t(this.successMessage)
+            : 'Opération effectuée avec succès';
+          this.flashMessage({ level: 'success', message: successMessage });
+        }
+        this.resetForm();
+      }
+      return response;
+    },
+    resetForm() {
+      this.fileResponse = undefined;
+    },
+  },
   watch: {
     async selectedFile(newFile) {
+      console.log('new file selected', newFile);
       if (newFile) {
         this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
         this.$emit('response', {
