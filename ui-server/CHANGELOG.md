@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.585+20200228144754
+2020-02-28
+
+### Features
+
+- Alarmes de consommation (b4e2d9f601f9d8cfb289718c6ae8395039b19637)
+
 ## 0.3.0-master.584+20200228101728
 2020-02-28
 
