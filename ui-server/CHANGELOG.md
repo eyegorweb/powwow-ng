@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.583+20200228095940
+2020-02-28
+
+### Features
+
+- alarme sur le changement d’équipements (a362af14be9d91595a699356d02142b40b6f8d5e)
+
 ## 0.3.0-master.582+20200228091927
 2020-02-28
 
