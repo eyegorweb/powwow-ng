@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.591+20200302133019
+2020-03-02
+
+### Features
+
+- Alarme sur le changement de pays (a97ddad2e8a862902c52e0c189ae83fef0f607d4)
+
 ## 0.3.0-master.590+20200302122840
 2020-03-02
 
