@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.590+20200302122840
+2020-03-02
+
+### Fixes
+
+- Retours sur l'alarme de consommation (798652c2867c842fc26aaeda1da505ccafef4df0)
+
 ## 0.3.0-master.589+20200228160447
 2020-02-28
 
