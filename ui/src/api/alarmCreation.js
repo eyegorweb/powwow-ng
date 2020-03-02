@@ -5,8 +5,6 @@ export async function alarmOnChangeISP(params) {
   const gqlParams = getFormGQLParams(params);
   gqlParams.push(`plmnList:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
 
-  console.log(params);
-
   const queryStr = `mutation {
     createPLMNChangeAlarm(
       filter: {${getScopeGQLParams(params)}},
@@ -25,6 +23,32 @@ export async function alarmOnChangeISP(params) {
 
   if (response.data) {
     return response.data.createPLMNChangeAlarm;
+  }
+  return { errors: response.errors };
+}
+
+export async function alarmOnChangeCountry(params) {
+  const gqlParams = getFormGQLParams(params);
+  gqlParams.push(`countryIsoCodes:[${params.formData.map(p => `"${p.id}"`).join(',')}]`);
+
+  const queryStr = `mutation {
+    createCountryChangeAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+    ) {
+      tempDataUuid
+      validated
+      errors{
+        key
+        number
+      }
+    }
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response.data) {
+    return response.data.createCountryChangeAlarm;
   }
   return { errors: response.errors };
 }
