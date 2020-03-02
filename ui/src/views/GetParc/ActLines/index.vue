@@ -135,7 +135,10 @@ export default {
       return carouselItems;
     },
     canShowForm() {
-      return this.creationMode && this.actCreationPrerequisites && !this.tableIsEmpty;
+      const actWithFileUpload = this.creationMode && this.creationMode.containFile;
+      let resultsConstraint = actWithFileUpload || !this.tableIsEmpty;
+
+      return this.creationMode && this.actCreationPrerequisites && resultsConstraint;
     },
     selectedFile: {
       get() {
