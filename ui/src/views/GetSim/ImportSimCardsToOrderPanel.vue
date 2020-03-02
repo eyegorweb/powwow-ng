@@ -11,20 +11,13 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.actLines.fileImport.titleSimCard') }} :</h6>
-        <UiSelect
-          class="pb-3 d-block"
-          v-model="selectedType"
-          :options="options"
-          :placeholder="$t('getsim.details.fromFile.chooseFormatFile')"
-          :arrow-blue="true"
-        />
-        <FileSelect v-model="fileMeta" :disabled="!selectedType" :placeholder="placeholder" />
+        <FileSelect v-model="fileMeta" :placeholder="placeholder" />
         <div v-if="fileResponse && !error">
           <ul class="list-unstyled m-0">
             <li>
               <i class="ic-Check-Icon mr-2 text-success" />
               {{ fileResponse.validated }}
-              {{ $t('getparc.actLines.fileImport.foundLines') }}.
+              {{ $t('getparc.actLines.fileImport.foundSimcards') }}.
             </li>
             <li v-if="totalNotCompatible > 0">
               <i class="ic-Cross-Icon mr-2 text-danger" />
@@ -43,7 +36,15 @@
             </li>
           </ul>
           <div v-if="fileResponse.tempDataUuid" class="mt-5">
-            <button @click="confirmRequest(true)" class="btn btn-success btn-block">
+            <button
+              :disabled="!fileResponse.validated"
+              @click="confirmRequest(true)"
+              class="btn btn-block"
+              :class="{
+                'btn-success': fileResponse.validated,
+                'btn-light': !fileResponse.validated,
+              }"
+            >
               <span>{{ $t('confirm') }}</span>
             </button>
           </div>
@@ -56,7 +57,6 @@
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import UiSelect from '@/components/ui/UiSelect';
 import FileSelect from '@/components/ui/FileSelect';
 import { uploadFileSimCards } from '@/api/linesActions';
 import { importIccids } from '@/api/orders';
@@ -65,7 +65,6 @@ import { mapMutations } from 'vuex';
 export default {
   components: {
     BaseDetailPanelContent,
-    UiSelect,
     FileSelect,
   },
   props: {
@@ -74,20 +73,7 @@ export default {
   data() {
     return {
       fileMeta: undefined,
-      selectedType: undefined,
       fileResponse: undefined,
-      options: [
-        {
-          code: 'c1',
-          label: 'Fichier CSV',
-          value: 'CSV',
-        },
-        {
-          code: 'c2',
-          label: 'Fichier EXCEL',
-          value: 'EXCEL',
-        },
-      ],
       placeholder: this.$t('getsim.details.fromFile.import-file'),
       successMessage: undefined,
     };
@@ -125,6 +111,7 @@ export default {
     ...mapMutations(['flashMessage']),
     async confirmRequest(showMessage = false) {
       const response = await importIccids(this.orderId, this.fileResponse.tempDataUuid);
+
       if (response.errors && response.errors.length) {
         this.fileResponse.errors = response.errors;
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });

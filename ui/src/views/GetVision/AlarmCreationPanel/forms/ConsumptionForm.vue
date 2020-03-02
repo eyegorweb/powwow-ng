@@ -13,7 +13,7 @@
         <span>DATA E/S (Mo)</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="dataES"
           positive-number
@@ -23,7 +23,7 @@
         <span>Data Sortante (Mo)</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="dataOut"
           positive-number
@@ -33,7 +33,7 @@
         <span>Data Entrante (Mo)</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="dataIn"
           positive-number
@@ -41,13 +41,18 @@
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS E/S</span>
-        <UiInput class="value-input" :inputStyle="inputStyle" input-type="number" v-model="smsES" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="smsES"
+        />
       </div>
       <div class="item">
         <span>SMS Sortant</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="smsOut"
           positive-number
@@ -55,13 +60,18 @@
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS Entrant</span>
-        <UiInput class="value-input" :inputStyle="inputStyle" input-type="number" v-model="smsIn" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="smsIn"
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Voix E/S</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="voiceES"
           positive-number
@@ -71,7 +81,7 @@
         <span>Voix Sortante (Min)</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="VoiceOut"
           positive-number
@@ -81,7 +91,7 @@
         <span>Voix Entrante (Min)</span>
         <UiInput
           class="value-input"
-          :inputStyle="inputStyle"
+          :input-style="inputStyle"
           input-type="number"
           v-model="voiceIn"
           positive-number

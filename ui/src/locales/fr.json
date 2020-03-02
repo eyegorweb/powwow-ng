@@ -928,6 +928,7 @@
       "selectOffer": "sélectionner une offre",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
+        "foundSimcards": "lignes à importer",
         "notFoundLines": "lignes ne sont pas compatibles",
         "rejectedLines": "lignes sont rejetées",
         "titleSimCard": "Import de carte SIM par fichier",
