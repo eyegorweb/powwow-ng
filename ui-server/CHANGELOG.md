@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.594+20200302160415
+2020-03-02
+
+### Fixes
+
+- corrections de la confirmation d'import des cartes sim (e6113cca43c37a942b996818e9bc60669509fb7b)
+
 ## 0.3.0-master.593+20200302150235
 2020-03-02
 
