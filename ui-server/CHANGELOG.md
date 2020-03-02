@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.593+20200302150235
+2020-03-02
+
+### Fixes
+
+- Correction du bug "acte de gestion sans lignes chargées" (b8993054f6dbcc56ac74c2dff35c20b41f222208)
+
 ## 0.3.0-master.592+20200302134715
 2020-03-02
 
