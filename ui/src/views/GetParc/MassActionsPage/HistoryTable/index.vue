@@ -6,15 +6,18 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.history.total', { total: formattedTotal }) }}
-          </h2>
+          <h2
+            class="text-gray font-weight-light"
+            style="font-size: 2rem"
+          >{{ $t('getparc.history.total', { total: formattedTotal }) }}</h2>
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
-            <span slot="title">{{
+            <span slot="title">
+              {{
               $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-            }}</span>
+              }}
+            </span>
           </ExportButton>
         </div>
       </div>
@@ -260,6 +263,10 @@ export default {
             'MASS_ACTION_INFO',
             'UNIT_ACTION_ID',
             'UNIT_ACTION_TYPE',
+            'COUNT_TOTAL_ACTION',
+            'COUNT_FAILED_ACTION',
+            'COUNT_COMPLETED_ACTION',
+            'COUNT_INPROGRESS_ACTION',
             'UNIT_ACTION_INFO',
             'ICCID',
             'UNIT_ACTION_STATUS',
