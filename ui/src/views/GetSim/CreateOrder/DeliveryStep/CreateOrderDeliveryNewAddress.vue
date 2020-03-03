@@ -191,7 +191,7 @@ export default {
         'firstName',
         'lastName',
         'phone',
-        'email',
+        // 'email',
         'company',
         'address',
         'zipCode',
@@ -229,7 +229,9 @@ export default {
       this.form.lastName = this.addressEdit.name.lastName;
       this.form.title = this.addressEdit.name.title;
       this.form.phone = this.addressEdit.contactInformation.phone;
-      this.form.email = this.addressEdit.contactInformation.email;
+      this.form.email = this.addressEdit.contactInformation.email
+        ? this.addressEdit.contactInformation.email
+        : '';
       this.form.company = this.addressEdit.company;
       this.form.address = this.addressEdit.address.address1;
       this.selectedAddress = { label: this.addressEdit.address.address1 };
