@@ -23,9 +23,14 @@ export default {
       required: false,
     },
   },
+  data() {
+    return {
+      limit: 999,
+    };
+  },
   methods: {
-    async fetchApi(q, partners, partnerType, { page, limit }) {
-      const data = await fetchCardTypes(q, partners, { page, limit, partnerType });
+    async fetchApi(q, partners, partnerType, { page }, limit = this.limit) {
+      const data = await fetchCardTypes(q, partners, { page, partnerType }, limit);
       if (data) {
         return data.map(c => {
           if (this.formatFn) {
