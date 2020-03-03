@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.595+20200303101557
+2020-03-03
+
+### Fixes
+
+- correction de la limite des suggestions retournées lors de la recherche des types de cartes sim (fe1cae3ff166d355cfb3e30890b259dd7069c5f9)
+
 ## 0.3.0-master.594+20200302160415
 2020-03-02
 
