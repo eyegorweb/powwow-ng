@@ -60,7 +60,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import FileSelect from '@/components/ui/FileSelect';
 import { uploadFileSimCards } from '@/api/linesActions';
 import { importIccids } from '@/api/orders';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -76,9 +76,15 @@ export default {
       fileResponse: undefined,
       placeholder: this.$t('getsim.details.fromFile.import-file'),
       successMessage: undefined,
+      pageLimit: 20,
+      orderBy: {
+        key: 'id',
+        direction: 'DESC',
+      },
     };
   },
   computed: {
+    ...mapGetters('getsim', ['appliedFilters']),
     partner() {
       return this.content ? this.content.order.party.name : '';
     },
@@ -109,6 +115,7 @@ export default {
   },
   methods: {
     ...mapMutations(['flashMessage']),
+    ...mapActions('getsim', ['fetchOrdersFromApi']),
     async confirmRequest(showMessage = false) {
       const response = await importIccids(this.orderId, this.fileResponse.tempDataUuid);
 
@@ -122,12 +129,20 @@ export default {
             : 'Opération effectuée avec succès';
           this.flashMessage({ level: 'success', message: successMessage });
         }
+        this.fetchOrders();
         this.resetForm();
       }
       return response;
     },
     resetForm() {
       this.fileResponse = undefined;
+    },
+    async fetchOrders() {
+      this.fetchOrdersFromApi({
+        orderBy: this.orderBy,
+        pageInfo: this.getPageInfo,
+        appliedFilters: this.appliedFilters,
+      });
     },
   },
   watch: {
