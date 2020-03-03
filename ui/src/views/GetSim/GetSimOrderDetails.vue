@@ -73,11 +73,11 @@
           </h4>
           <UiButton
             @click="gotoCorrespondingLines"
-            v-if="order.status === 'TERMINATED' && !userIsBO"
+            v-if="order.status === 'TERMINATED'"
             variant="import"
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
-          <template v-if="order.status === 'CONFIRMED' && userIsBO">
+          <template v-if="userIsBO && order.status === 'CONFIRMED'">
             <UiButton
               v-if="order.importedQuantity < order.quantity"
               @click="openImportSimPanel"
@@ -85,9 +85,6 @@
             >
               <span>{{ $t('getsim.actions.IMPORT_SIM') }}</span>
             </UiButton>
-            <UiButton v-else @click="gotoCorrespondingLines" variant="import">{{
-              $t('getsim.actions.SHOW_SIM')
-            }}</UiButton>
           </template>
         </div>
         <div class="overview-item">

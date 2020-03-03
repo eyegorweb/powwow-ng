@@ -1,19 +1,15 @@
 import { query } from './utils';
 import moment from 'moment';
 
-export async function exportMassAction(massActonId, statuses, columns, pagination, exportFormat) {
+export async function exportMassAction(massActonId, statuses, columns, exportFormat) {
   const columnsParam = columns.join(',');
   const statusesParam = statuses.join(',');
-  const paginationInfo = pagination
-    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
 
   const queryStr = `
   query  {
     exportMassAction(filter: {massActionId: ${massActonId}},
       unitActionStatus:[${statusesParam}],
       columns: [${columnsParam}],
-      ${paginationInfo},
       exportFormat: ${exportFormat}){
       downloadUri
       total
@@ -25,16 +21,14 @@ export async function exportMassAction(massActonId, statuses, columns, paginatio
 
   return response.data.exportMassAction;
 }
-export async function exportAllMassActions(columns, pagination, exportFormat, filters = []) {
+export async function exportAllMassActions(columns, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
-  const paginationInfo = pagination
-    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
+
   const queryStr = `
   query  {
     exportMassAction(filter: {${formatFilters(
       filters
-    )}}, columns: [${columnsParam}] ${paginationInfo}, exportFormat: ${exportFormat}){
+    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}){
       downloadUri
       total
       asyncRequired
