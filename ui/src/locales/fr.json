@@ -71,6 +71,11 @@
   "personalizeHome": "Personnaliser ma home",
   "genericSuccessMessage": "Opération effectuée avec succès",
   "genericErrorMessage": "Erreur inconnue",
+  "actions": {
+    "DUPLICATE": "Dupliquer",
+    "DISABLE": "Désactiver",
+    "ENABLE": "Activer"
+  },
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
