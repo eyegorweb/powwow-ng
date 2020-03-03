@@ -273,7 +273,6 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          this.getPageInfo,
           exportFormat,
           this.appliedFilters
         );
