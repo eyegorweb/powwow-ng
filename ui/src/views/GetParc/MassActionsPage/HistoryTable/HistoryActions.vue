@@ -198,7 +198,6 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          { page: 0, limit: 1 },
           exportFormat
         );
       };
