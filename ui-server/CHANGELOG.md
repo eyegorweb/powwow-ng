@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.596+20200303105706
+2020-03-03
+
+### Fixes
+
+- correction pour mettre en place l'exemption de l'email pour la création de commandes (51aeea5f5e7b849301a6182dc455462c7961e559)
+
 ## 0.3.0-master.595+20200303101557
 2020-03-03
 
