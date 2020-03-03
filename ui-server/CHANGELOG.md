@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.603+20200303165716
+2020-03-03
+
+### Fixes
+
+- appel serveur pour rafraichir la commande après un import de cartes SIM (fcc6e41c0e078d0384fd4d72ace0d1e9b97cba54)
+
 ## 0.3.0-master.602+20200303155658
 2020-03-03
 
