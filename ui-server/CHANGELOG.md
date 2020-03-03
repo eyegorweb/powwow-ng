@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.597+20200303134052
+2020-03-03
+
+### Fixes
+
+- adaptation aux changements de l'API d'export (3b108f5d9acdc526841b793a19f496b09ac55e78)
+
 ## 0.3.0-master.596+20200303105706
 2020-03-03
 
