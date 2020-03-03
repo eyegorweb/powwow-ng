@@ -281,7 +281,7 @@ export default {
     order: Object,
   },
 
-  mounted() {
+  async mounted() {
     this.orderData = await searchSingleOrder(this.order.id);
   },
 

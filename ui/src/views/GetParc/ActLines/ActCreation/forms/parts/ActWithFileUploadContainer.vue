@@ -22,12 +22,16 @@
             class="modal-default-button btn btn-danger btn-sm"
             v-if="!isLoading"
             @click.stop="showValidationModal = false"
-          >{{ $t('cancel') }}</button>
+          >
+            {{ $t('cancel') }}
+          </button>
           <button
             class="modal-default-button btn btn-success btn-sm ml-1"
             v-if="!isLoading"
             @click.stop="validateFile(containerValidationFn)"
-          >{{ $t('save') }}</button>
+          >
+            {{ $t('save') }}
+          </button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
             {{ $t('processing') }}
             <CircleLoader />
