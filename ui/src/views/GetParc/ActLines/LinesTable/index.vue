@@ -9,17 +9,17 @@
           <div class="col">
             <h2 class="text-gray font-weight-light" style="font-size: 2rem">
               {{
-                $t('getparc.actLines.total', {
-                  total: formattedTotal,
-                })
+              $t('getparc.actLines.total', {
+              total: formattedTotal,
+              })
               }}
             </h2>
           </div>
           <div class="col" v-if="hasResults">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">
-                {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
-              </span>
+              <span
+                slot="title"
+              >{{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}</span>
             </ExportButton>
           </div>
         </div>
@@ -27,7 +27,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="001"
+            storage-version="002"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -57,8 +57,7 @@
             variant="primary"
             class="flex-grow-1 py-1 px-3 ml- mt-3"
             @click="fetchLinesActions()"
-            >Afficher toutes les lignes</UiButton
-          >
+          >Afficher toutes les lignes</UiButton>
         </div>
 
         <ff-wip>
@@ -308,7 +307,7 @@ export default {
         },
         {
           id: 5,
-          label: this.$t('getparc.actLines.col.simStatus'),
+          label: this.$t('getparc.actLines.col.lineStatus'),
           orderable: true,
           sortingName: 'simStatus',
           visible: true,
