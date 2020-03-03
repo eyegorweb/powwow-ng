@@ -226,10 +226,12 @@ import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
+import { searchSingleOrder } from '@/api/orders';
 
 export default {
   data() {
     return {
+      orderData: undefined,
       confirmationStepper: [
         {
           code: 'NOT_VALIDATED',
@@ -279,11 +281,15 @@ export default {
     order: Object,
   },
 
+  mounted() {
+    this.orderData = await searchSingleOrder(this.order.id);
+  },
+
   methods: {
     ...mapMutations(['switchPanel']),
 
     getFromOrder(path, defaultValue = '') {
-      const value = get(this.order, path, defaultValue);
+      const value = get(this.orderData, path, defaultValue);
       return value !== null ? value : '';
     },
 
