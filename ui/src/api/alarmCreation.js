@@ -21,10 +21,11 @@ export async function alarmOnChangeISP(params) {
 
   const response = await query(queryStr);
 
-  if (response.data) {
-    return response.data.createPLMNChangeAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createPLMNChangeAlarm;
 }
 
 export async function alarmOnChangeCountry(params) {
@@ -47,10 +48,11 @@ export async function alarmOnChangeCountry(params) {
 
   const response = await query(queryStr);
 
-  if (response.data) {
-    return response.data.createCountryChangeAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createCountryChangeAlarm;
 }
 
 export async function alarmOnDeviceChange(params) {
@@ -74,27 +76,31 @@ export async function alarmOnDeviceChange(params) {
 
   const response = await query(queryStr);
 
-  if (response.data) {
-    return response.data.createDeviceChangeAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createDeviceChangeAlarm;
 }
 
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 
-  if (response.data) {
-    return response.data.createOverConsumptionAlarm;
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createOverConsumptionAlarm;
 }
 
 export async function alarmOnUnderConso(params) {
   const response = consoQuery('createUnderConsumptionAlarm', params);
-  if (response.data) {
-    return response.data.createUnderConsumptionAlarm;
+
+  if (response.errors) {
+    return { errors: response.errors };
   }
-  return { errors: response.errors };
+
+  return response.data.createUnderConsumptionAlarm;
 }
 
 async function consoQuery(queryName, params) {
