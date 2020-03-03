@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.600+20200303150630
+2020-03-03
+
+### Fixes
+
+- Afficher des données à jour dans le paneau de détail de commande (e67e532c6bf5b36f397d533b1c24476ed33f0d54)
+
 ## 0.3.0-master.599+20200303140936
 2020-03-03
 
