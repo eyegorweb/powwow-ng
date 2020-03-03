@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.599+20200303140936
+2020-03-03
+
+### Fixes
+
+- Modification de l'affichage de la date de statut dans le résultat des lignes (f02516fcfeb8a06c60932c528ba347a6490c199f)
+
 ## 0.3.0-master.598+20200303135151
 2020-03-03
 
