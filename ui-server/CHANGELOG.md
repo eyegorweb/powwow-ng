@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.598+20200303135151
+2020-03-03
+
+### Fixes
+
+- corriger l'export d'actes (94dde91639a750cc7548bbc0ec5536183e8906ad)
+- Désactivé le bouton de validation si erreur d'upload (d4df15570a13def6d47c68e18b4d252a27b76185)
+
 ## 0.3.0-master.597+20200303134052
 2020-03-03
 
