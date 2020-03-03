@@ -191,17 +191,17 @@ export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, d
 
 export async function enableAlarm(alarmId) {
   const response = await query(`mutation{activateAlarm (alarmID : ${alarmId})}`);
-  return response.activateAlarm;
+  return response.data.activateAlarm;
 }
 
 export async function disableAlarm(alarmId) {
   const response = await query(`mutation{deactivateAlarm (alarmID : ${alarmId})}`);
-  return response.deactivateAlarm;
+  return response.data.deactivateAlarm;
 }
 
 export async function deleteAlarm(alarmId) {
   const response = await query(`mutation{deleteAlarm (alarmID : ${alarmId})}`);
-  return response.deleteAlarm;
+  return response.data.deleteAlarm;
 }
 
 export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
