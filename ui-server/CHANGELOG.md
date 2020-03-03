@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.601+20200303151943
+2020-03-03
+
+### Fixes
+
+- 1213 Changement du label 'Statut de la SIM' (0458a5d4f62af9474f39daf3f0dca93866ffdedb)
+- Corriger la création d'alarmes (7bbedbbd703aac934a150909fff950c464d3505e)
+
 ## 0.3.0-master.600+20200303150630
 2020-03-03
 
