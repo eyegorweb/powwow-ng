@@ -22,16 +22,12 @@
             class="modal-default-button btn btn-danger btn-sm"
             v-if="!isLoading"
             @click.stop="showValidationModal = false"
-          >
-            {{ $t('cancel') }}
-          </button>
+          >{{ $t('cancel') }}</button>
           <button
             class="modal-default-button btn btn-success btn-sm ml-1"
             v-if="!isLoading"
             @click.stop="validateFile(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
+          >{{ $t('save') }}</button>
           <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
             {{ $t('processing') }}
             <CircleLoader />
@@ -87,6 +83,7 @@ export default {
       requestErrors: undefined,
       contextValues: undefined,
       report: undefined,
+      disableForced: false,
 
       showValidationModal: false,
       isLoading: false,
@@ -107,7 +104,11 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedFileForActCreation', 'actCreationPrerequisites']),
     canValidateRequest() {
-      return this.selectedFileForActCreation && !this.tempDataUuid;
+      if (this.disableForced) {
+        return false;
+      } else {
+        return this.selectedFileForActCreation && !this.tempDataUuid;
+      }
     },
     haveBusinessErrors() {
       if (!this.report) return 0;
@@ -127,17 +128,21 @@ export default {
 
     validFile(file) {
       if (file.type !== 'application/vnd.ms-excel') {
+        this.disableForced = true;
         this.requestErrors = [
           {
             message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
           },
         ];
       } else if (file.size > 1000000) {
+        this.disableForced = true;
         this.requestErrors = [
           {
             message: this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED'),
           },
         ];
+      } else {
+        this.disableForced = false;
       }
     },
 
