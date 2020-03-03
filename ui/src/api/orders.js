@@ -392,7 +392,10 @@ export async function createOrder(synthesis) {
   const lastName = get(synthesis, 'delivery.value.detail.name.lastName', '');
   const title = get(synthesis, 'delivery.value.detail.name.title', '');
 
-  const email = get(synthesis, 'delivery.value.detail.contactInformation.email', '');
+  let email = get(synthesis, 'delivery.value.detail.contactInformation.email', '');
+  if (!email) {
+    email = '';
+  }
   const phone = get(synthesis, 'delivery.value.detail.contactInformation.phone', '');
 
   let customFieldsDTO = '{}';
