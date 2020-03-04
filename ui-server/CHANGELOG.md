@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.605+20200304105743
+2020-03-04
+
+### Features
+
+- actions sur les alarmes depuis la table de résultat (e194f66b4e2a53a7680c7e12fefb9b529f621edb)
+
 ## 0.3.0-master.604+20200304090954
 2020-03-04
 
