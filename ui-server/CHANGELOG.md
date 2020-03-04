@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.604+20200304090954
+2020-03-04
+
+### Fixes
+
+- Corriger la colonne status dans l'historique des actes de gestion de la ligne (82b01030198c23624f3aa90131fdfee52087fa03)
+
 ## 0.3.0-master.603+20200303165716
 2020-03-03
 
