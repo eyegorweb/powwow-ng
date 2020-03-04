@@ -74,7 +74,8 @@
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
-    "ENABLE": "Activer"
+    "ENABLE": "Activer",
+    "DELETE": "Supprimer"
   },
   "home": {
     "customize": {

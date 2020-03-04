@@ -39,7 +39,7 @@
           />
         </template>
         <template slot="actions" slot-scope="{ row }">
-          <AlarmsActions :alarm="row" />
+          <AlarmsActions :alarm="row" @actionIsDone="fetchAlarms()" />
         </template>
       </DataTable>
     </template>
