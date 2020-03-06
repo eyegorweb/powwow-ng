@@ -34,12 +34,10 @@ export default {
   mounted() {
     let startDate;
     let endDate;
+
     if (this.start && this.end) {
       startDate = moment(this.start, 'DD/MM/YYYY');
       endDate = moment(this.end, 'DD/MM/YYYY');
-    } else {
-      startDate = moment().subtract(29, 'days');
-      endDate = moment();
     }
 
     const onDateSelected = (start, end) => {
