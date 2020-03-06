@@ -33,7 +33,8 @@
             max-value="971"
             :format-value-fn="getTimeFormatFn()"
             subtitle="18/11/2018"
-          >VOIX</Gauge>
+            >VOIX</Gauge
+          >
         </div>
       </div>
     </div>

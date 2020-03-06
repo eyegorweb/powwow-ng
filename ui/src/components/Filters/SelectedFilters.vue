@@ -27,7 +27,8 @@
             class="flex-grow-1 py-1 px-3"
             @click.prevent="toggle"
             :class="staticClass"
-          >Enregistrer</UiButton>
+            >Enregistrer</UiButton
+          >
           <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
             <button
               type="button"
@@ -49,11 +50,9 @@
           </div>
         </UiDropdownButton>
       </ff-wip>
-      <UiButton
-        variant="primary"
-        @click="applyFilters()"
-        class="flex-grow-1 py-1 px-3 ml-1"
-      >Appliquer le filtre</UiButton>
+      <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1"
+        >Appliquer le filtre</UiButton
+      >
     </div>
   </div>
 </template>

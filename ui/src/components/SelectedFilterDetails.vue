@@ -14,39 +14,28 @@
       <span v-else-if="filter.value" class="detail">{{ filter.value }}</span>
 
       <span v-else-if="filter.startDate && filter.endDate" class="detail">
-        {{
-        $t('getsim.date-from-to', dateFilter)
-        }}
+        {{ $t('getsim.date-from-to', dateFilter) }}
       </span>
 
       <span v-else-if="filter.startDate && !filter.endDate" class="detail">
-        {{
-        $t('getsim.date-since', dateFilter)
-        }}
+        {{ $t('getsim.date-since', dateFilter) }}
       </span>
       <span v-else-if="!filter.startDate && filter.endDate" class="detail">
-        {{
-        $t('getsim.date-over', dateFilter)
-        }}
+        {{ $t('getsim.date-over', dateFilter) }}
       </span>
 
       <span v-else-if="filter.from && filter.to" class="detail">
-        {{
-        $t('getsim.between-min-max', rangeFilter)
-        }}
+        {{ $t('getsim.between-min-max', rangeFilter) }}
       </span>
-      <span
-        v-else-if="filter.from && !filter.to && !filter.type"
-        class="detail"
-      >{{ $t('getsim.ge') }} {{ filter.from }}</span>
-      <span
-        v-else-if="filter.from && !filter.to && filter.type == 'regex'"
-        class="detail"
-      >{{ $t('getsim.beginWith') }} {{ filter.from }}</span>
-      <span
-        v-else-if="!filter.from && filter.to"
-        class="detail"
-      >{{ $t('getsim.le') }} {{ filter.to }}</span>
+      <span v-else-if="filter.from && !filter.to && !filter.type" class="detail"
+        >{{ $t('getsim.ge') }} {{ filter.from }}</span
+      >
+      <span v-else-if="filter.from && !filter.to && filter.type == 'regex'" class="detail"
+        >{{ $t('getsim.beginWith') }} {{ filter.from }}</span
+      >
+      <span v-else-if="!filter.from && filter.to" class="detail"
+        >{{ $t('getsim.le') }} {{ filter.to }}</span
+      >
     </div>
 
     <button
