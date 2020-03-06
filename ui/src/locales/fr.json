@@ -2,6 +2,7 @@
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
+  "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "accessTo": "Accéder à",
@@ -127,7 +128,8 @@
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
-    "alarms": "Gestion des alarmes"
+    "alarms": "Gestion des alarmes",
+    "users": "Gestion des utilisateurs"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -316,6 +318,15 @@
         "isp_list": "Tous les opérateurs:",
         "chosen_isp": "Opérateurs autorisés:"
       }
+    }
+  },
+  "getadmin": {
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "fullName": "Nom ou prénom",
+      "email": "Email",
+      "partnerGroup": "Groupe de partenaire",
+      "total": "{total} utilisateur(s) trouvé(s)"
     }
   },
   "getreport": {
