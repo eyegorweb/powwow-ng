@@ -12,6 +12,7 @@ import MassActionsPage from '@/views/GetParc/MassActionsPage';
 import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
+import SearchUsers from '@/views/GetAdmin/SearchUsers';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -81,6 +82,12 @@ export default new Router({
       path: '/reports',
       name: 'reports',
       component: () => import('@/views/GetReport/reports/index.vue'),
+      mock: true,
+    },
+    {
+      path: '/getamin/users',
+      name: 'getAdminUsers',
+      component: SearchUsers,
       mock: true,
     },
     {
