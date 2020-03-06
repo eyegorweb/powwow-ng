@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.606+20200306160622
+2020-03-06
+
+### Features
+
+- création de la page d'index Gestion des utilisateurs et ajout de filtres de recherche (db46e172964278b5e9b7a01c6a1b43321be1f276)
+
+### Fixes
+
+- Correction de la recherche par date (a89f3ca3648dc2fdc80f2da6edf88aa12c247cf8)
+
 ## 0.3.0-master.605+20200304105743
 2020-03-04
 
