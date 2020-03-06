@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UiDateRange @change="setAlarmDateFilter" :start="startDate" :end="endDate" />
+    <UiDateRange
+      :key="'triggerdate_' + version"
+      @change="setAlarmDateFilter"
+      :start="startDate"
+      :end="endDate"
+    />
   </div>
 </template>
 
@@ -16,6 +21,16 @@ export default {
   methods: {
     ...mapMutations('alarms', ['setAlarmDateFilter']),
   },
+  data() {
+    return {
+      version: 0,
+    };
+  },
+  watch: {
+    isDateEmpty() {
+      this.version++;
+    },
+  },
   computed: {
     ...mapGetters('alarms', ['selectedAlarmDateTrigger']),
     startDate() {
@@ -23,6 +38,9 @@ export default {
     },
     endDate() {
       return get(this.selectedAlarmDateTrigger, 'endDate', '');
+    },
+    isDateEmpty() {
+      return this.startDate === '' && this.endDate === '';
     },
   },
 };

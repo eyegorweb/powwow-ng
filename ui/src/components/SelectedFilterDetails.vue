@@ -1,5 +1,5 @@
 <template>
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
+  <div class="selected-filter alert alert-info alert-dismissible fade show" role="alert">
     <span class="detail-title">{{ $t(filter.id) }}</span>
     <div data-test="content">
       <template v-if="filter.values">
@@ -13,29 +13,40 @@
 
       <span v-else-if="filter.value" class="detail">{{ filter.value }}</span>
 
-      <span v-else-if="filter.startDate && filter.endDate" class="detail">{{
+      <span v-else-if="filter.startDate && filter.endDate" class="detail">
+        {{
         $t('getsim.date-from-to', dateFilter)
-      }}</span>
+        }}
+      </span>
 
-      <span v-else-if="filter.startDate && !filter.endDate" class="detail">{{
+      <span v-else-if="filter.startDate && !filter.endDate" class="detail">
+        {{
         $t('getsim.date-since', dateFilter)
-      }}</span>
-      <span v-else-if="!filter.startDate && filter.endDate" class="detail">{{
+        }}
+      </span>
+      <span v-else-if="!filter.startDate && filter.endDate" class="detail">
+        {{
         $t('getsim.date-over', dateFilter)
-      }}</span>
+        }}
+      </span>
 
-      <span v-else-if="filter.from && filter.to" class="detail">{{
+      <span v-else-if="filter.from && filter.to" class="detail">
+        {{
         $t('getsim.between-min-max', rangeFilter)
-      }}</span>
-      <span v-else-if="filter.from && !filter.to && !filter.type" class="detail"
-        >{{ $t('getsim.ge') }} {{ filter.from }}</span
-      >
-      <span v-else-if="filter.from && !filter.to && filter.type == 'regex'" class="detail"
-        >{{ $t('getsim.beginWith') }} {{ filter.from }}</span
-      >
-      <span v-else-if="!filter.from && filter.to" class="detail"
-        >{{ $t('getsim.le') }} {{ filter.to }}</span
-      >
+        }}
+      </span>
+      <span
+        v-else-if="filter.from && !filter.to && !filter.type"
+        class="detail"
+      >{{ $t('getsim.ge') }} {{ filter.from }}</span>
+      <span
+        v-else-if="filter.from && !filter.to && filter.type == 'regex'"
+        class="detail"
+      >{{ $t('getsim.beginWith') }} {{ filter.from }}</span>
+      <span
+        v-else-if="!filter.from && filter.to"
+        class="detail"
+      >{{ $t('getsim.le') }} {{ filter.to }}</span>
     </div>
 
     <button
