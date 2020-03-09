@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.608+20200309103518
+2020-03-09
+
+### Fixes
+
+- mise à jour de l'api getCurrentUser (ae5ba8c5d976b3fd6323c8a3d80fb894f1ae7a4d)
+
 ## 0.3.0-master.607+20200309090904
 2020-03-09
 
