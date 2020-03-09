@@ -99,14 +99,14 @@ export async function fetchEntitiesIndicators(keys, partners, partnerType) {
   if (response.data) return response.data.topIndicatorsEntities;
 }
 
-export async function fetchBillingExchange(period, partnerType) {
+export async function fetchBillingExchange(rubric, period, partnerType) {
   let partnerTypeGql = '';
   if (partnerType) {
     partnerTypeGql = `, partyType: ${partnerType}`;
   }
   const queryStr = `
   query{
-    topBillingExchanges(rubricEnum: CA, depth: ${period} ${partnerTypeGql}) {
+    topBillingExchanges(rubricEnum: ${rubric}, depth: ${period} ${partnerTypeGql}) {
       partyId
       partyName
       amount

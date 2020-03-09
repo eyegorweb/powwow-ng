@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UiDateRange @change="setActDateEndFilter" :start="startDate" :end="endDate" />
+    <UiDateRange
+      :key="'enddate_' + version"
+      @change="setActDateEndFilter"
+      :start="startDate"
+      :end="endDate"
+    />
   </div>
 </template>
 
@@ -13,6 +18,16 @@ export default {
   components: {
     UiDateRange,
   },
+  data() {
+    return {
+      version: 0,
+    };
+  },
+  watch: {
+    isDateEmpty() {
+      this.version++;
+    },
+  },
   methods: {
     ...mapMutations('actHistory', ['setActDateEndFilter']),
   },
@@ -23,6 +38,10 @@ export default {
     },
     endDate() {
       return get(this.selectedActDateEnd, 'endDate', '');
+    },
+
+    isDateEmpty() {
+      return this.startDate === '' && this.endDate === '';
     },
   },
 };

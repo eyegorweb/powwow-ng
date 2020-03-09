@@ -1,6 +1,6 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchCardTypes(q, partners, { page, limit, partnerType }) {
+export async function fetchCardTypes(q, partners, { page, limit = 999, partnerType }) {
   let partnersIds,
     partnerGqlParam = '';
 
@@ -471,8 +471,15 @@ export async function uploadSearchFile(file, idType) {
   var formData = new FormData();
   formData.append('file', file);
   formData.append('idType', idType);
-  const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '';
-  return await postFile(`${baseUrl}/api/file/upload`, formData);
+  return await postFile(`/api/file/upload`, formData);
+}
+
+export async function uploadFileSimCards(file, orderId) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('orderId', orderId);
+  formData.append('idType', 'CREATE_ICCID');
+  return await postFile(`/api/file/uploadIccids`, formData);
 }
 
 export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {

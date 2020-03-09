@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UiDateRange @change="setDate" :start="startDate" :end="endDate" />
+    <UiDateRange
+      :key="'datefilter_' + version"
+      @change="setDate"
+      :start="startDate"
+      :end="endDate"
+    />
   </div>
 </template>
 
@@ -23,6 +28,16 @@ export default {
       this.$store.commit(`${this.ns}/${this.setter}`, { ...value, filterKey: this.filterKey });
     },
   },
+  data() {
+    return {
+      version: 0,
+    };
+  },
+  watch: {
+    isDateEmpty() {
+      this.version++;
+    },
+  },
   computed: {
     selectedDate() {
       return this.$store.getters[`${this.ns}/${this.getter}`](this.filterKey);
@@ -32,6 +47,10 @@ export default {
     },
     endDate() {
       return get(this.selectedDate, 'endDate', '');
+    },
+
+    isDateEmpty() {
+      return this.startDate === '' && this.endDate === '';
     },
   },
 };

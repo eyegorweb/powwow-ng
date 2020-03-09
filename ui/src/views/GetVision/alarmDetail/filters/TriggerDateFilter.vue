@@ -1,6 +1,12 @@
 <template>
   <div>
-    <UiDateRange @change="setDate" :start="startDate" :end="endDate" direction="up" />
+    <UiDateRange
+      :key="'triggerdate_' + version"
+      @change="setDate"
+      :start="startDate"
+      :end="endDate"
+      direction="up"
+    />
   </div>
 </template>
 
@@ -15,6 +21,17 @@ export default {
     selectedData: Object,
   },
 
+  data() {
+    return {
+      version: 0,
+    };
+  },
+  watch: {
+    isDateEmpty() {
+      this.version++;
+    },
+  },
+
   computed: {
     startDate() {
       if (!this.selectedData) return '';
@@ -24,6 +41,10 @@ export default {
     endDate() {
       if (!this.selectedData) return '';
       return this.selectedData.startDate;
+    },
+
+    isDateEmpty() {
+      return this.startDate === '' && this.endDate === '';
     },
   },
   methods: {

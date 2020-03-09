@@ -6,7 +6,9 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
+      :size="0"
       @applyFilters="applyFilters"
+      @colEvent="onColEvent"
     >
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
@@ -29,7 +31,7 @@
       <div slot="after">
         <DisableForLinesAction
           :alarm="alarm"
-          :rows="rows"
+          :rows="selectedRows"
           :filters="lastUsedFilters"
           :total="total"
         />
@@ -46,10 +48,14 @@ import TriggerReasonFilter from '../filters/TriggerReasonFilter';
 import TriggerDateFilter from '../filters/TriggerDateFilter';
 import Actions from './Actions';
 import DisableForLinesAction from './DisableForLinesAction';
+import LastTriggerCell from './LastTriggerCell';
+import AssociatedAlarmsCell from './AssociatedAlarmsCell';
+import CheckBoxCell from './CheckBoxCell';
 
 import ExportButton from '@/components/ExportButton';
 
-import { fetchData } from '@/api/mockApi.js';
+import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -75,8 +81,33 @@ export default {
       };
     },
 
-    searchById(value) {
-      console.log('search by id > ', value);
+    async searchById(value) {
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+        {
+          id: 'filters.partyId',
+          value: this.alarm.party.id,
+        },
+      ];
+      const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
+        ...mandatoryFilters,
+        value,
+      ]);
+
+      this.total = data.total;
+      this.rows = data.items;
+    },
+
+    onColEvent(payload) {
+      if (payload.add) {
+        this.selectedRows.push(payload.add);
+      }
+      if (payload.remove) {
+        this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+      }
     },
 
     async applyFilters(payload) {
@@ -85,16 +116,31 @@ export default {
         filters: [],
       };
 
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+        {
+          id: 'filters.partyId',
+          value: this.alarm.party.id,
+        },
+      ];
+
       this.lastUsedFilters = filters;
-      const data = await fetchData(this.orderBy, pagination, filters);
+      const data = await fetchLinesBoundToAlarm(this.orderBy, pagination, [
+        ...filters,
+        ...mandatoryFilters,
+      ]);
 
       this.total = data.total;
-      this.rows = data.data;
+      this.rows = data.items;
     },
   },
 
   data() {
     return {
+      selectedRows: [],
       filters: [
         {
           title: 'getvsion.alarm.trigger_reason',
@@ -122,19 +168,63 @@ export default {
       ],
       columns: [
         {
+          id: 99,
+          label: '',
+          name: 'partner',
+          orderable: false,
+          visible: true,
+          noHandle: true,
+          notConfigurable: true,
+          format: {
+            component: CheckBoxCell,
+          },
+        },
+        {
           id: 2,
-          label: this.$t('col.id'),
+          label: this.$t('getparc.actDetail.col.iccid'),
           orderable: true,
           visible: true,
-          name: 'name',
-          exportId: 'ID',
+          name: 'iccid',
+          noHandle: true,
+          fixed: true,
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.activation_date'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
           noHandle: true,
           fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
-              return row.name;
+              return get(row, 'alarmInstance.created');
             },
+          },
+        },
+        {
+          id: 4,
+          label: this.$t('getvsion.last_triggered'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: LastTriggerCell,
+          },
+        },
+        {
+          id: 5,
+          label: this.$t('getvsion.associated_alarms'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: AssociatedAlarmsCell,
           },
         },
       ],

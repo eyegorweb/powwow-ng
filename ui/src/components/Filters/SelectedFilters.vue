@@ -1,7 +1,8 @@
 <template>
   <div class="mb-3">
-    <div v-for="filter in visibleCurrentFilters" :key="filter.name">
+    <template v-for="filter in visibleCurrentFilters">
       <SelectedFilterDetails
+        :key="filter.name"
         v-if="
           filter &&
             ((filter.values && filter.values.length) ||
@@ -15,7 +16,7 @@
         :fixed="checkIfFilterIsFixed(filter)"
         @clear="onClear"
       />
-    </div>
+    </template>
     <div class="actions d-flex flex-column flex-md-row">
       <ff-wip>
         <UiDropdownButton v-if="canSave">

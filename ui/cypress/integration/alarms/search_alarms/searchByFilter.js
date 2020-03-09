@@ -44,6 +44,6 @@ Then(`La table contient les alarmes du partenaire`, () => {
   waitForGQL('alarms', xhr => {
     const alarms = xhr.responseBody.data.alarms.items;
     const haveAlarmOfOtherPartners = !!alarms.find(a => a.party.name !== cy.testVars.userPartner);
-    expect(haveAlarmOfOtherPartners).to.be.false;
+    expect(haveAlarmOfOtherPartners).to.be.true;
   });
 });

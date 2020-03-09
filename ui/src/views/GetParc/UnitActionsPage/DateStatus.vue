@@ -15,6 +15,9 @@ export default {
     row: Object,
   },
   computed: {
+    commercialStatusDate() {
+      return get(this.row, 'accessPoint.commercialStatusDate');
+    },
     lineStatus() {
       const commercialStatus = get(this.row, 'accessPoint.commercialStatus');
       const simStatus = get(this.row, 'statuts');
@@ -49,23 +52,24 @@ export default {
       return undefined;
     },
     dateStatus() {
-      if (this.lineStatus === 'LINE_NOT_PREACTIVATED') {
-        return get(this.row, 'auditable.created');
-      }
+      if (!this.commercialStatusDate) {
+        if (this.lineStatus === 'LINE_NOT_PREACTIVATED') {
+          return get(this.row, 'auditable.created');
+        }
 
-      if (this.lineStatus === 'LINE_IS_PREACTIVATED') {
-        return get(this.row, 'accessPoint.preactivationDate');
-      }
+        if (this.lineStatus === 'LINE_IS_PREACTIVATED') {
+          return get(this.row, 'accessPoint.preactivationDate');
+        }
 
-      if (this.lineStatus === 'LINE_IS_ACTIVATED') {
-        return get(this.row, 'accessPoint.activationDate');
-      }
+        if (this.lineStatus === 'LINE_IS_ACTIVATED') {
+          return get(this.row, 'accessPoint.activationDate');
+        }
 
-      if (this.lineStatus === 'LINE_IS_SUSPENDED' || this.lineStatus === 'LINE_IS_RELEASED') {
-        return get(this.row, 'accessPoint.commercialStatusDate');
+        if (this.lineStatus === 'LINE_IS_SUSPENDED' || this.lineStatus === 'LINE_IS_RELEASED') {
+          return get(this.row, 'accessPoint.commercialStatusDate');
+        }
       }
-
-      return '-';
+      return this.commercialStatusDate;
     },
   },
 };

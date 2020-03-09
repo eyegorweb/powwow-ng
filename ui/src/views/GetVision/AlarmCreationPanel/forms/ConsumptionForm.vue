@@ -10,44 +10,96 @@
 
     <div class="values-container" :class="{ 'standard-mode': !isAdvanced }">
       <div class="item">
-        <span>DATA E/S</span>
-        <UiInput class="value-input" v-model="dataES" />
+        <span>DATA E/S (Mo)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="dataES"
+          positive-number
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Data Sortante</span>
-        <UiInput class="value-input" v-model="dataOut" />
+        <span>Data Sortante (Mo)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="dataOut"
+          positive-number
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Data Entrante</span>
-        <UiInput class="value-input" v-model="dataIn" />
+        <span>Data Entrante (Mo)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="dataIn"
+          positive-number
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS E/S</span>
-        <UiInput class="value-input" v-model="smsES" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="smsES"
+        />
       </div>
       <div class="item">
         <span>SMS Sortant</span>
-        <UiInput class="value-input" v-model="smsOut" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="smsOut"
+          positive-number
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS Entrant</span>
-        <UiInput class="value-input" v-model="smsIn" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="smsIn"
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Voix E/S</span>
-        <UiInput class="value-input" v-model="voiceES" />
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="voiceES"
+          positive-number
+        />
       </div>
       <div class="item">
-        <span>Voix Sortante</span>
-        <UiInput class="value-input" v-model="VoiceOut" />
+        <span>Voix Sortante (Min)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="VoiceOut"
+          positive-number
+        />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Voix Entrante</span>
-        <UiInput class="value-input" v-model="voiceIn" />
+        <span>Voix Entrante (Min)</span>
+        <UiInput
+          class="value-input"
+          :input-style="inputStyle"
+          input-type="number"
+          v-model="voiceIn"
+          positive-number
+        />
       </div>
     </div>
 
-    <div class="mt-4 mb-2">
+    <div v-if="isAdvanced" class="mt-4 mb-2">
       <h6>Cycle d'observation</h6>
       <Toggle
         v-if="toggleValues"
@@ -57,8 +109,13 @@
       />
     </div>
 
-    <div v-if="currentPeriod === 'custom'" class="custom-observation">
-      <UiInput class="value-input" v-model="customPeriodValue" />
+    <div v-if="currentPeriod === 'CUSTOM'" class="custom-observation">
+      <UiInput
+        class="value-input"
+        v-model="customPeriodValue"
+        input-type="number"
+        positive-number
+      />
       <span>Jours</span>
     </div>
   </div>
@@ -98,27 +155,32 @@ export default {
       smsIn: undefined,
       smsOut: undefined,
 
-      currentPeriod: 'daily',
+      currentPeriod: 'DAILY',
       customPeriodValue: undefined,
 
       toggleValues: [
         {
-          id: 'daily',
+          id: 'DAILY',
           label: 'Journalier',
         },
         {
-          id: 'weekly',
+          id: 'WEEKLY',
           label: 'Hebdomadaire',
         },
         {
-          id: 'mounthly',
+          id: 'MONTHLY',
           label: 'Mensuel',
         },
         {
-          id: 'custom',
+          id: 'CUSTOM',
           label: 'Personalisé',
         },
       ],
+      inputStyle: {
+        padding: '0.3rem',
+        fontSize: '0.8rem',
+        height: '2.2rem',
+      },
     };
   },
 
@@ -134,6 +196,8 @@ export default {
         voiceES: this.voiceES,
         voiceIn: this.voiceIn,
         VoiceOut: this.VoiceOut,
+        period: this.currentPeriod,
+        customPeriodValue: this.customPeriodValue,
       });
     },
   },
@@ -177,6 +241,12 @@ export default {
     smsOut() {
       this.emitChange();
     },
+    currentPeriod() {
+      this.emitChange();
+    },
+    customPeriodValue() {
+      this.emitChange();
+    },
   },
 };
 </script>
@@ -205,7 +275,7 @@ export default {
     justify-content: flex-end;
 
     span {
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       top: 0.4rem;
       position: relative;
     }

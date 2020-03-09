@@ -1,7 +1,11 @@
 <template>
   <div class="row">
     <div class="col-md-3 pl-0">
-      <FilterBar :filter-components="filters" @applyFilters="doSearch" />
+      <FilterBar
+        :filter-components="filters"
+        @applyFilters="doSearch"
+        @noMoreFilters="onAllFiltersCleared"
+      />
     </div>
     <div class="col-md-9">
       <div class="row mb-3">
@@ -21,6 +25,8 @@
         :page.sync="page"
         :page-limit.sync="pageLimit"
         :order-by.sync="currentOrderBy"
+        :size="size"
+        @colEvent="$emit('colEvent', $event)"
       >
         <div slot="topLeftCorner">
           <slot name="topLeft"></slot>
@@ -51,6 +57,10 @@ export default {
     rows: Array,
     total: Number,
     orderBy: Object,
+    size: {
+      type: Number,
+      default: 7,
+    },
   },
 
   data() {
@@ -95,6 +105,9 @@ export default {
   },
 
   methods: {
+    onAllFiltersCleared() {
+      this.refreshTable([], this.currentOrderBy);
+    },
     refreshTable(filters, orderBy) {
       this.$emit('applyFilters', {
         orderBy,

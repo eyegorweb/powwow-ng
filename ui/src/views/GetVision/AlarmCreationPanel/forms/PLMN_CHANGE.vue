@@ -1,5 +1,11 @@
 <template>
-  <AlarmCreationBaseForm :alarm="alarm" have-form>
+  <AlarmCreationBaseForm
+    :alarm="alarm"
+    :check-errors-fn="isFormValid"
+    have-form
+    @save="onSave"
+    @scope="scopeChoice = $event"
+  >
     <SectionTitle :num="3">Définir une liste d'opérateurs</SectionTitle>
 
     <GroupMultiSelect
@@ -14,6 +20,9 @@
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
+import { fetchIsps } from '@/api/isp';
+import { alarmOnChangeISP } from '@/api/alarmCreation';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -24,31 +33,56 @@ export default {
   props: {
     alarm: Object,
   },
+  async mounted() {
+    const isps = await fetchIsps();
+
+    if (!isps || !isps.total) return;
+
+    const options = isps.items.map(i => {
+      i.label = i.operator;
+      return i;
+    });
+
+    this.options = options.reduce((all, current) => {
+      const alreadyInOptions = all.find(o => o.label === current.label);
+      if (!alreadyInOptions) {
+        all.push(current);
+      }
+      return all;
+    }, []);
+  },
+  methods: {
+    ...mapMutations(['flashMessage', 'closePanel']),
+
+    isFormValid() {
+      return this.selectedOptions && this.selectedOptions.length;
+    },
+    async onSave(payload) {
+      const params = {
+        ...payload,
+        scope: this.scopeChoice,
+        formData: this.selectedOptions,
+      };
+
+      const response = await alarmOnChangeISP(params);
+      if (response.errors && response.errors.length) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+
+      this.closePanel({ resetSearch: true });
+    },
+  },
   data() {
     return {
-      options: [
-        {
-          id: 1,
-          label: 'Bouygues',
-        },
-        {
-          id: 2,
-          label: 'Free',
-        },
-        {
-          id: 3,
-          label: 'SFR',
-        },
-        {
-          id: 4,
-          label: 'Orange',
-        },
-      ],
+      options: [],
+      scopeChoice: undefined,
     };
   },
-  watch: {
-    options() {
-      console.log('Changed >>');
+  computed: {
+    selectedOptions() {
+      return this.options.filter(o => o.selected);
     },
   },
 };

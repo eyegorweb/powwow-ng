@@ -101,9 +101,6 @@ export default {
     ...mapState('getsim', ['defaultAppliedFilters']),
 
     partners() {
-      console.log(
-        this.defaultAppliedFilters.filter(f => f.id === 'filters.partners').map(f => f.values)
-      );
       if (!this.defaultAppliedFilters) return [];
 
       return this.defaultAppliedFilters

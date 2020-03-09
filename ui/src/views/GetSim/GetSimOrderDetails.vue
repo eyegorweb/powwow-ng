@@ -77,20 +77,15 @@
             variant="import"
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
-          <ff-wip>
-            <template v-if="order.status === 'CONFIRMED'">
-              <UiButton
-                v-if="order.importedQuantity < order.quantity"
-                @click="openImportSimPanel"
-                variant="import"
-              >
-                <span>{{ $t('getsim.actions.IMPORT_SIM') }}</span>
-              </UiButton>
-              <UiButton v-else @click="gotoCorrespondingLines" variant="import">{{
-                $t('getsim.actions.SHOW_SIM')
-              }}</UiButton>
-            </template>
-          </ff-wip>
+          <template v-if="userIsBO && order.status === 'CONFIRMED'">
+            <UiButton
+              v-if="order.importedQuantity < order.quantity"
+              @click="openImportSimPanel"
+              variant="import"
+            >
+              <span>{{ $t('getsim.actions.IMPORT_SIM') }}</span>
+            </UiButton>
+          </template>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -230,11 +225,12 @@ import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
-// import moment from 'moment';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
+      orderData: undefined,
       confirmationStepper: [
         {
           code: 'NOT_VALIDATED',
@@ -316,6 +312,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsBO']),
     creatorTitle() {
       const title = this.getFromOrder('auditable.creator.name.title');
       if (!title) return '';

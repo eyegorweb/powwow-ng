@@ -54,6 +54,7 @@ export default {
         this.params = {
           offer,
           billingAccount: this.selectedBillingAccount,
+          partnerId: this.partner.id,
         };
       } else {
         this.params = undefined;
@@ -66,6 +67,7 @@ export default {
       if (this.selectedOffer && billingAccount) {
         this.params = {
           offer: this.selectedOffer,
+          partnerId: this.partner.id,
           billingAccount,
         };
       } else {

@@ -109,7 +109,7 @@ export default {
       indicators: lineIndicators,
       tableIsEmpty: true,
       prevRoute: undefined,
-
+      file: undefined,
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
@@ -135,7 +135,10 @@ export default {
       return carouselItems;
     },
     canShowForm() {
-      return this.creationMode && this.actCreationPrerequisites && !this.tableIsEmpty;
+      const actWithFileUpload = this.creationMode && this.creationMode.containFile;
+      let resultsConstraint = actWithFileUpload || !this.tableIsEmpty;
+
+      return this.creationMode && this.actCreationPrerequisites && resultsConstraint;
     },
     selectedFile: {
       get() {
@@ -143,6 +146,7 @@ export default {
       },
       set(newFile) {
         this.setSelectedFileForActCreation(newFile);
+        this.file = newFile;
       },
     },
     creationMode() {

@@ -67,15 +67,9 @@ export default {
         {
           id: 7,
           label: this.$t('getparc.actLines.massActionsHistory.columns.actionType'),
-          name: 'actionType',
+          name: 'type',
           orderable: false,
           visible: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return this.$t('getparc.actTypes.' + row.actionType);
-            },
-          },
         },
         {
           id: 3,

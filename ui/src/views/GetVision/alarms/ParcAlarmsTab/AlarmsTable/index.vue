@@ -39,7 +39,7 @@
           />
         </template>
         <template slot="actions" slot-scope="{ row }">
-          <AlarmsActions :alarm="row" />
+          <AlarmsActions :alarm="row" @actionIsDone="fetchAlarms()" />
         </template>
       </DataTable>
     </template>
@@ -207,12 +207,21 @@ export default {
     ...mapMutations(['openPanel']),
 
     createAlarm() {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
       this.openPanel({
         title: this.$t('getvsion.table.create-alarm'),
         panelId: 'getvsion.table.create-alarm',
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
       });
     },
     async fetchAlarms() {

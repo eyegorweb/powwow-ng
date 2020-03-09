@@ -12,9 +12,9 @@
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-            }}</span>
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
+            </span>
           </ExportButton>
         </div>
       </div>
@@ -260,6 +260,10 @@ export default {
             'MASS_ACTION_INFO',
             'UNIT_ACTION_ID',
             'UNIT_ACTION_TYPE',
+            'COUNT_TOTAL_ACTION',
+            'COUNT_FAILED_ACTION',
+            'COUNT_COMPLETED_ACTION',
+            'COUNT_INPROGRESS_ACTION',
             'UNIT_ACTION_INFO',
             'ICCID',
             'UNIT_ACTION_STATUS',
@@ -273,7 +277,6 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          this.getPageInfo,
           exportFormat,
           this.appliedFilters
         );

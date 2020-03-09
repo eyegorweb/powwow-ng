@@ -42,7 +42,6 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
       items {
         unitAction {
           id
-          actionType
           accessPointId
           dueDate
           created
@@ -50,6 +49,7 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
           statusDate
           errorCode
         }
+        type
         msisdn
         imsi
         iccid

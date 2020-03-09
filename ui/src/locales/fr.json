@@ -2,6 +2,7 @@
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
+  "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "accessTo": "Accéder à",
@@ -68,6 +69,15 @@
   "webserviceNotification": "Être notifié par webservice",
   "lines": "Lignes",
   "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
+  "personalizeHome": "Personnaliser ma home",
+  "genericSuccessMessage": "Opération effectuée avec succès",
+  "genericErrorMessage": "Erreur inconnue",
+  "actions": {
+    "DUPLICATE": "Dupliquer",
+    "DISABLE": "Désactiver",
+    "ENABLE": "Activer",
+    "DELETE": "Supprimer"
+  },
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -111,13 +121,15 @@
       "viewXResults": "Consulter les {num} résultats",
       "linesConsumption": "Lignes les plus consommatrices du mois",
       "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
-      "topBillingExchange": "TOP / FLOP CA"
+      "topBillingExchangeCA": "TOP / FLOP CA",
+      "topBillingExchangePO": "Prise d'ordre"
     }
   },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
-    "alarms": "Gestion des alarmes"
+    "alarms": "Gestion des alarmes",
+    "users": "Gestion des utilisateurs"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -178,7 +190,11 @@
     "date-since": "À partir du {startDate}",
     "date-over": "Avant le {endDate}",
     "details": {
-      "title": "Commande n° {id}"
+      "title": "Commande n° {id}",
+      "fromFile": {
+        "chooseFormatFile": "Chosir un format de fichier",
+        "import-file": "Choisir un fichier CSV ou EXCEL"
+      }
     },
     "creator": {
       "title": "Utilisateur {firstName} {lastName}"
@@ -244,6 +260,11 @@
     "notify-mail": "Notification mail",
     "notify-ws": "Notification web service",
     "mailing-list": "Liste de diffusion",
+    "activation_date": "Date d'activation",
+    "triggered_this_month": "Déclenchements mois en cours",
+    "last_month_triggered": "Déclenchement M-1",
+    "last_triggered": "Dernier déclenchement",
+    "associated_alarms": "Alarmes associées",
     "detail-panel": {
       "stepper": {
         "created": "Créée"
@@ -297,6 +318,15 @@
         "isp_list": "Tous les opérateurs:",
         "chosen_isp": "Opérateurs autorisés:"
       }
+    }
+  },
+  "getadmin": {
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "fullName": "Nom ou prénom",
+      "email": "Email",
+      "partnerGroup": "Groupe de partenaire",
+      "total": "{total} utilisateur(s) trouvé(s)"
     }
   },
   "getreport": {
@@ -828,6 +858,7 @@
       "report": {
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
+        "DATA_SIZE_EXCEED": "Le fichier est trop volumineux",
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
@@ -914,10 +945,18 @@
       "selectOffer": "sélectionner une offre",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
+        "foundSimcards": "lignes à importer",
         "notFoundLines": "lignes ne sont pas compatibles",
+        "rejectedLines": "lignes sont rejetées",
+        "titleSimCard": "Import de carte SIM par fichier",
         "errors": {
           "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
-          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu."
+          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+          "import": {
+            "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
+            "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+            "NEW_DATA_ALREADY_EXISTS": "L'{idType} existe déjà."
+          }
         }
       },
       "massActionsHistory": {

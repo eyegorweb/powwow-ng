@@ -14,7 +14,7 @@
         }}</Tab>
       </slot>
     </ol>
-    <div class="tab-content">
+    <div class="tab">
       <slot :name="selectedTabName" />
     </div>
   </div>

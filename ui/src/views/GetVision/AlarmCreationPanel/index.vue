@@ -49,7 +49,8 @@ export default {
   .currentForm {
     width: 70%;
     background: white;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 </style>

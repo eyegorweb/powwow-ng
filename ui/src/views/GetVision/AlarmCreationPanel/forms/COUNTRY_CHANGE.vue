@@ -1,5 +1,11 @@
 <template>
-  <AlarmCreationBaseForm :alarm="alarm" have-form>
+  <AlarmCreationBaseForm
+    :alarm="alarm"
+    :check-errors-fn="isFormValid"
+    have-form
+    @save="onSave"
+    @scope="scopeChoice = $event"
+  >
     <SectionTitle :num="3">Définir une liste de pays autorisés</SectionTitle>
 
     <GroupMultiSelect
@@ -14,6 +20,9 @@
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
+import { fetchDeliveryCountries } from '@/api/filters';
+import { alarmOnChangeCountry } from '@/api/alarmCreation';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -24,29 +33,45 @@ export default {
   props: {
     alarm: Object,
   },
+  methods: {
+    ...mapMutations(['flashMessage', 'closePanel']),
+    isFormValid() {
+      return this.selectedOptions && this.selectedOptions.length;
+    },
+    async onSave(payload) {
+      const params = {
+        ...payload,
+        scope: this.scopeChoice,
+        formData: this.selectedOptions,
+      };
+
+      const response = await alarmOnChangeCountry(params);
+      if (response.errors && response.errors.length) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+
+      this.closePanel({ resetSearch: true });
+    },
+  },
+  computed: {
+    selectedOptions() {
+      return this.options.filter(o => o.selected);
+    },
+  },
+  async mounted() {
+    const countries = await fetchDeliveryCountries(this.$i18n.locale);
+    this.options = countries.map(c => ({
+      id: c.codeIso3,
+      label: c.name,
+      data: c,
+    }));
+  },
   data() {
     return {
-      options: [
-        {
-          id: 1,
-          label: 'Europe',
-          groupParent: true,
-        },
-        {
-          id: 2,
-          label: 'France',
-          parent: 1,
-        },
-        {
-          id: 3,
-          label: 'Allemagne',
-          parent: 1,
-        },
-        {
-          id: 4,
-          label: 'Russie',
-        },
-      ],
+      options: [],
+      scopeChoice: undefined,
     };
   },
   watch: {

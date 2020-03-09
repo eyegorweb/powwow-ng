@@ -150,7 +150,17 @@ export default {
           ],
         },
         { label: 'GetReport', to: { name: 'reports' }, mock: true },
-        { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
+        {
+          label: 'GetAdmin',
+          to: { name: 'exemples' },
+          mock: true,
+          submenu: [
+            {
+              label: 'menu.users',
+              to: { name: 'getAdminUsers' },
+            },
+          ],
+        },
         { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
         { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
       ]),

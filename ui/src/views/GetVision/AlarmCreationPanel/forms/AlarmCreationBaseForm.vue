@@ -3,41 +3,50 @@
     <div v-if="shouldSelectPartner" class="row mb-2">
       <div class="col-md-6">
         <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
-        <PartnerCombo :value.sync="selectedPartner" />
+        <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
       </div>
     </div>
-
     <ScopeChoice
       :key="'choice_' + (selectedPartner ? selectedPartner.id : '')"
       :num="scopeIndex"
       :partner="selectedPartner"
       :container-height="containerHeight"
+      @scope="onScopeChange"
     >
       <slot name="scopechoice" :partner="selectedPartner"></slot>
     </ScopeChoice>
     <div class="mb-4">
-      <slot />
+      <slot @change="onChange" />
     </div>
-    <NotificationChoice :num="notifIndex" />
+    <AlarmInfoBlock
+      :num="notifIndex"
+      @save="$emit('save', $event)"
+      :can-save="canSave"
+      :partner="selectedPartner"
+    />
   </div>
 </template>
 
 <script>
 import ScopeChoice from './ScopeChoice';
-import NotificationChoice from './NotificationChoice';
+import AlarmInfoBlock from './AlarmInfoBlock';
 import SectionTitle from '@/components/SectionTitle';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 
 export default {
   components: {
     ScopeChoice,
-    NotificationChoice,
+    AlarmInfoBlock,
     PartnerCombo,
     SectionTitle,
   },
   props: {
     alarm: Object,
     haveForm: Boolean,
+    checkErrorsFn: {
+      type: Function,
+      required: false,
+    },
     containerHeight: {
       type: String,
       required: false,
@@ -48,10 +57,32 @@ export default {
     return {
       selectedPartner: undefined,
       shouldSelectPartner: true,
+      lastChosenScope: undefined,
     };
   },
 
+  methods: {
+    onScopeChange(scopeChoice) {
+      this.lastChosenScope = scopeChoice;
+      this.$emit('scope', scopeChoice);
+    },
+  },
+
   computed: {
+    canSave() {
+      let scopeIsValid =
+        this.lastChosenScope &&
+        (this.lastChosenScope.partner ||
+          this.lastChosenScope.searchById ||
+          this.lastChosenScope.offer);
+
+      let formIsValid = true;
+      if (this.checkErrorsFn) {
+        formIsValid = this.checkErrorsFn();
+      }
+
+      return !!scopeIsValid && !!formIsValid;
+    },
     scopeIndex() {
       return this.shouldSelectPartner ? 2 : 1;
     },

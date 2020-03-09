@@ -189,6 +189,21 @@ export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, d
   return response.data.createAlarmInstance;
 }
 
+export async function enableAlarm(alarmId) {
+  const response = await query(`mutation{activateAlarm (alarmID : ${alarmId})}`);
+  return response.data.activateAlarm;
+}
+
+export async function disableAlarm(alarmId) {
+  const response = await query(`mutation{deactivateAlarm (alarmID : ${alarmId})}`);
+  return response.data.deactivateAlarm;
+}
+
+export async function deleteAlarm(alarmId) {
+  const response = await query(`mutation{deleteAlarm (alarmID : ${alarmId})}`);
+  return response.data.deleteAlarm;
+}
+
 export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {

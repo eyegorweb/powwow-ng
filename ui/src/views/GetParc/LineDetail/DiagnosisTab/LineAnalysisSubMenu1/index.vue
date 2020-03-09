@@ -225,7 +225,7 @@ export default {
   computed: {
     technology() {
       if (!this.geographicalLocation) return '-';
-      return this.getValue(this.geographicalLocation, 'ticketGeneration');
+      return this.getValue(this.geographicalLocation, 'ticketGenerationTranslated');
     },
   },
 };

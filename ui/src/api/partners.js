@@ -1,10 +1,17 @@
 import { query } from './utils';
 import get from 'lodash.get';
 
-export async function fetchpartners(q, { page, limit, partnerType }) {
+export async function fetchpartners(q, { page, limit, partnerType, includeMailingLists }) {
   let partnerTypeGqlFilter = '';
   if (partnerType) {
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
+  }
+  const extraFields = [];
+  if (includeMailingLists) {
+    extraFields.push(`mailingLists {
+      id
+      name
+    }`);
   }
   const queryStr = `
   query{
@@ -17,6 +24,7 @@ export async function fetchpartners(q, { page, limit, partnerType }) {
         orderNumberRequired
         shortCodes
         partyType
+        ${extraFields.join(',')}
       },
     }
   }

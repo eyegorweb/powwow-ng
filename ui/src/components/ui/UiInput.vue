@@ -17,8 +17,9 @@
       v-model="value_"
       type="number"
       :style="inputStyle"
-      :min="minValue"
+      :min="positiveNumber ? 0 : minValue"
       :max="maxValue"
+      :onkeyup="onKeyUpFn"
     />
     <input
       v-else
@@ -76,7 +77,18 @@ export default {
     noHoverStyle: Boolean,
     haveCrossButton: Boolean,
     noNumberArrows: Boolean,
+    positiveNumber: Boolean,
     block: Boolean,
+  },
+
+  computed: {
+    onKeyUpFn() {
+      if (this.positiveNumber) {
+        return 'if(this.value<0){this.value=this.value * -1}';
+      }
+
+      return '';
+    },
   },
 
   methods: {

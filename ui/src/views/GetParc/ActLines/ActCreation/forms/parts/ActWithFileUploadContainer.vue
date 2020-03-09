@@ -87,14 +87,17 @@ export default {
       requestErrors: undefined,
       contextValues: undefined,
       report: undefined,
+      disableForced: false,
 
       showValidationModal: false,
       isLoading: false,
     };
   },
+
   watch: {
-    selectedFileForActCreation() {
+    selectedFileForActCreation(value) {
       this.resetForm();
+      this.validFile(value);
     },
 
     actCreationPrerequisites() {
@@ -105,7 +108,11 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedFileForActCreation', 'actCreationPrerequisites']),
     canValidateRequest() {
-      return this.selectedFileForActCreation && !this.tempDataUuid;
+      if (this.disableForced) {
+        return false;
+      } else {
+        return this.selectedFileForActCreation && !this.tempDataUuid;
+      }
     },
     haveBusinessErrors() {
       if (!this.report) return 0;
@@ -122,6 +129,26 @@ export default {
       'setSelectedLinesForActCreation',
     ]),
     ...mapMutations(['flashMessage']),
+
+    validFile(file) {
+      if (file.type !== 'application/vnd.ms-excel') {
+        this.disableForced = true;
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+          },
+        ];
+      } else if (file.size > 1000000) {
+        this.disableForced = true;
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED'),
+          },
+        ];
+      } else {
+        this.disableForced = false;
+      }
+    },
 
     resetForm() {
       this.tempDataUuid = undefined;

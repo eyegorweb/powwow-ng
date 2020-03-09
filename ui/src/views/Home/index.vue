@@ -49,7 +49,7 @@
 
     <button class="panel-toggle bg-secondary" @click.stop="openCustomizePanel">
       <i class="ic-Wheel-Icon" />
-      <span>Personaliser ma home</span>
+      <span>{{ $t('personalizeHome') }}</span>
     </button>
   </div>
 </template>

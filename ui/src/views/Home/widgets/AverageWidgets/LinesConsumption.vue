@@ -8,12 +8,14 @@
     :info-message="specificMessage"
     :no-results="noResults"
     :toggle-values="toggleValues"
+    :large="isLarge"
   />
 </template>
 
 <script>
 import AverageIndicators from './AverageIndicators';
 import { fetchEntitiesIndicators } from '@/api/indicators.js';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -48,9 +50,11 @@ export default {
           default: this.period === 'VOICE',
         },
       ],
+      isLarge: true,
     };
   },
   computed: {
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -61,9 +65,14 @@ export default {
       await this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
+      let partners;
+      if (this.contextPartners) {
+        partners = this.contextPartners.map(p => p.id);
+      }
       const listTopIndicators = await fetchEntitiesIndicators(
         [`LINE_CONSUMPTION_${this.period}`],
-        ...this.contextFilters
+        partners,
+        this.contextPartnersType
       );
 
       if (!listTopIndicators) return;
@@ -89,6 +98,14 @@ export default {
       } else {
         this.specificMessage = '';
       }
+    },
+  },
+  watch: {
+    async contextPartners() {
+      await this.refreshIndicatorsForPeriod();
+    },
+    async contextPartnersType() {
+      await this.refreshIndicatorsForPeriod();
     },
   },
 };
