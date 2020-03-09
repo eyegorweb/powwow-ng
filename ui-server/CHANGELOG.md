@@ -2,6 +2,55 @@
 
 <!--- next entry here -->
 
+## 0.19.0
+2020-03-09
+
+### Features
+
+- écran de détail de l'alarme (65b0296a445c2b95364afaa4a6143099ebe2dc1b)
+- onglet "lignes ciblées par l'alarme" dans l''écran de détail de l'alarme (f3dd3076bb76893bbb089a1eed247b26eed4fa67)
+- création du widget Prise d'ordre (7a50ad32e3d697acf9d917a2c1a418d4b6e9699b)
+- alarme de changement d'opérateur depuis la home des alarmes (68747ed554b6019a60f67ea33da6577bcd6b13d6)
+- alarme sur le changement d’équipements (a362af14be9d91595a699356d02142b40b6f8d5e)
+- import de fichiers des cartes SIM (6fa81ee9bd576cffae440c57e799f4cf4fe2458f)
+- Alarmes de consommation (b4e2d9f601f9d8cfb289718c6ae8395039b19637)
+- import des cartes SIM depuis le volet des détails de la commande (9558dce9520cbac8ceafa32547a7f6d4787b1bfe)
+- Alarme sur le changement de pays (a97ddad2e8a862902c52e0c189ae83fef0f607d4)
+- actions sur les alarmes depuis la table de résultat (e194f66b4e2a53a7680c7e12fefb9b529f621edb)
+- création de la page d'index Gestion des utilisateurs et ajout de filtres de recherche (db46e172964278b5e9b7a01c6a1b43321be1f276)
+
+### Fixes
+
+- Upload des fichiers avec erreurs côté front (b9fdc719580482f53c64799559e0c26149c590c3)
+- suppression de la propriété mock pour le widget Etat du parc (cde38cbd82a52118c46416aaca00a547d5f2446a)
+- mise à jour des coordonnées de géo localisation (948be72ea93eed96a88077a41e339f036f29e85d)
+- formattage du délai pour les indicateurs (f5278067003f1083ac7c35aa8d7b0560d7f7e79c)
+- Margin bottom sur le detail de ligne onglet consommation (6ec4f9f584c742246058649b4a8601592234714e)
+- 1025 Supprimer bouton si commande pas terminé (bd1b387794ed3eeac3eef080d8f7da4a9894567b)
+- ajout du contexte de partenaires pour les Top widgets (7b1b99cf202ce352c25376718e8af8c3910c9c80)
+- corriger la recherche initiale de lignes (eff95d30de9c303a7fcc1a304eeddfbdfa242dda)
+- correctif des données entre sms et voix sur le volet du détail de la ligne (e0870cd6c5c6949ee8c154b6624e87a7929525df)
+- Erreur de surface sur le filtre par fichier (50efcad9a6e1b48a322a34def5bc6fce537af1c1)
+- correction css du bouton confirmer l'import des cartes SIM (b146c0bba7f54846a77bd0889aa589b071fae447)
+- corriger le choix de partenaires (22e4fc9cf720994d099a23a1a91aca33b7c6755d)
+- Retours sur l'alarme de consommation (798652c2867c842fc26aaeda1da505ccafef4df0)
+- augmentation de la limite des suggestions retournées lors de la recherche des types de cartes sim (d06505f9486b496791c3b2047048998e550bf843)
+- Correction du bug "acte de gestion sans lignes chargées" (b8993054f6dbcc56ac74c2dff35c20b41f222208)
+- corrections de la confirmation d'import des cartes sim (e6113cca43c37a942b996818e9bc60669509fb7b)
+- correction de la limite des suggestions retournées lors de la recherche des types de cartes sim (fe1cae3ff166d355cfb3e30890b259dd7069c5f9)
+- correction pour mettre en place l'exemption de l'email pour la création de commandes (51aeea5f5e7b849301a6182dc455462c7961e559)
+- adaptation aux changements de l'API d'export (3b108f5d9acdc526841b793a19f496b09ac55e78)
+- corriger l'export d'actes (94dde91639a750cc7548bbc0ec5536183e8906ad)
+- Désactivé le bouton de validation si erreur d'upload (d4df15570a13def6d47c68e18b4d252a27b76185)
+- Modification de l'affichage de la date de statut dans le résultat des lignes (f02516fcfeb8a06c60932c528ba347a6490c199f)
+- Afficher des données à jour dans le paneau de détail de commande (e67e532c6bf5b36f397d533b1c24476ed33f0d54)
+- 1213 Changement du label 'Statut de la SIM' (0458a5d4f62af9474f39daf3f0dca93866ffdedb)
+- Corriger la création d'alarmes (7bbedbbd703aac934a150909fff950c464d3505e)
+- correction pour mettre en place l'exemption de l'email pour la création de commandes (606e2848a47ff9d362b1169e122f32b84a86271e)
+- appel serveur pour rafraichir la commande après un import de cartes SIM (fcc6e41c0e078d0384fd4d72ace0d1e9b97cba54)
+- Corriger la colonne status dans l'historique des actes de gestion de la ligne (82b01030198c23624f3aa90131fdfee52087fa03)
+- Correction de la recherche par date (a89f3ca3648dc2fdc80f2da6edf88aa12c247cf8)
+
 ## 0.18.0
 2020-02-19
 
