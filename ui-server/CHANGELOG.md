@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.609+20200309135747
+2020-03-09
+
+### Fixes
+
+- mise à jour de l'api users (939000ff0860ed8f6aa809e3f3beeac99e675fed)
+
 ## 0.3.0-master.608+20200309103518
 2020-03-09
 
