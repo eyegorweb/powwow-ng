@@ -14,6 +14,7 @@ Given(`Je choisis le partenaire {string}`, partnerName => {
   orderPage.filterBar.partner.filter(partnerName);
   orderPage.filterBar.partner.choose(1);
   orderPage.filterBar.partner.chosenItems().should('have.length', 1);
+  
 });
 
 When(`Je lance la recherche`, () => {
