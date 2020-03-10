@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.615+20200310125537
+2020-03-10
+
+### Fixes
+
+- correction pour afficher l'iccid des actes unitaires (8e328d2345ce237a2413da894cf9502a1a8a9763)
+
 ## 0.3.0-master.614+20200310104051
 2020-03-10
 
