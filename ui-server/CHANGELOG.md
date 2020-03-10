@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.613+20200310103848
+2020-03-10
+
+### Fixes
+
+- ne pas relancer une requête en cas d'erreur 504 (633679343d8a6ee8a3f894ea12ec583d3e99b383)
+
 ## 0.3.0-master.612+20200310101322
 2020-03-10
 
