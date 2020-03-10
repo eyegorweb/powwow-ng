@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.611+20200310091904
+2020-03-10
+
+### Fixes
+
+- ajout des libellés ligne(s) dans le rapport de quantité (42c6bf718447c0683eeaf28f30fa08a3c832d977)
+
 ## 0.3.0-master.610+20200310085424
 2020-03-10
 
