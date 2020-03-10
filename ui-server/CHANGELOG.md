@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.610+20200310085424
+2020-03-10
+
+### Fixes
+
+- correction de la route du widget Acte de gestion (f3f5055f97d73788524a5a58d72e469d27cd60cb)
+
 ## 0.3.0-master.609+20200309135747
 2020-03-09
 
