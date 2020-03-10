@@ -130,7 +130,7 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.iccid'),
-          name: 'ICCID',
+          name: 'iccid',
           orderable: true,
           visible: true,
           exportId: 'LINE_ICCID',

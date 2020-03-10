@@ -74,7 +74,7 @@ export default {
         {
           id: 3,
           label: this.$t('getparc.actLines.massActionsHistory.columns.extraInfo'),
-          name: 'extraInfo',
+          name: 'info',
           orderable: false,
           visible: true,
         },

@@ -69,7 +69,7 @@ export default {
     TableSkeleton,
   },
   props: {
-    massActionId: String,
+    massActionId: Number,
     storageId: String,
     storageVersion: String,
     groupedStatus: String,
