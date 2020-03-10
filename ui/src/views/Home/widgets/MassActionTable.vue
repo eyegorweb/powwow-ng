@@ -46,7 +46,7 @@ export default {
     },
     onSeeMore() {
       this.$router.push({
-        name: 'actLines',
+        name: 'actHistory',
         params: {
           queryFilters: [...this.widgetFilters],
         },
