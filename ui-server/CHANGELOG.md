@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.612+20200310101322
+2020-03-10
+
+### Fixes
+
+- correction du comportement de sélection des filtres dans la gestion des utilisateurs (7b49f7efd37e390e1cd8cb0ee66426a6fb5e3a6a)
+
 ## 0.3.0-master.611+20200310091904
 2020-03-10
 
