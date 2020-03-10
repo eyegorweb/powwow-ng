@@ -106,6 +106,7 @@ export default {
 
   methods: {
     onAllFiltersCleared() {
+      this.lastSelectedFilters = [];
       this.refreshTable([], this.currentOrderBy);
     },
     refreshTable(filters, orderBy) {
