@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.617+20200311132722
+2020-03-11
+
+### Fixes
+
+- **actlines:** Tri des lignes par date de statut de la ligne (4a980778d552a89e33d292d5fe3b7d684d930a45)
+
 ## 0.3.0-master.616+20200311113925
 2020-03-11
 
