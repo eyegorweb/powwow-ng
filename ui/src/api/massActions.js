@@ -1,7 +1,13 @@
 import { query } from './utils';
 import moment from 'moment';
 
-export async function exportMassAction(massActonId, statuses, columns, exportFormat) {
+export async function exportMassAction(
+  massActonId,
+  statuses,
+  groupedStatus,
+  columns,
+  exportFormat
+) {
   const columnsParam = columns.join(',');
   const statusesParam = statuses.join(',');
 
@@ -9,10 +15,13 @@ export async function exportMassAction(massActonId, statuses, columns, exportFor
   query  {
     exportMassAction(filter: {massActionId: ${massActonId}},
       unitActionStatus:[${statusesParam}],
+      groupedStatus: ${groupedStatus}
       columns: [${columnsParam}],
+      unitActionSorting:{field:ID sorting:ASC}
       exportFormat: ${exportFormat}){
       downloadUri
       total
+      asyncRequired
     }
   }
   `;

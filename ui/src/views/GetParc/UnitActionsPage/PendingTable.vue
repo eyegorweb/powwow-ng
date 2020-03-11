@@ -1,7 +1,7 @@
 <template>
   <UnitActsTable
     grouped-status="PENDING"
-    :mass-action-id="$route.params.massActionId"
+    :mass-action-id="massActionId"
     :total.sync="total"
     :columns="columns"
   />
@@ -20,6 +20,7 @@ export default {
   },
   data() {
     return {
+      massActionId: parseInt(this.$route.params.massActionId),
       columns: [
         {
           id: 1,

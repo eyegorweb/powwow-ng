@@ -105,6 +105,7 @@ export default {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportMassAction(
           this.massActionId,
+          ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           this.groupedStatus,
           [
             'MASS_ACTION_ID',
@@ -133,7 +134,7 @@ export default {
       this.$emit('is-loading', true);
       try {
         const response = await fetchUnitActions(
-          this.$route.params.massActionId,
+          this.massActionId,
           { groupedStatus: this.groupedStatus },
           this.getPageInfo,
           this.orderBy,
