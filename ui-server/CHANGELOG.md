@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.616+20200311113925
+2020-03-11
+
+### Fixes
+
+- ajout de la clé groupedStatus pour exporter les actes unitaires (4d732384214d217500bfa1952dd6fac85537b174)
+
 ## 0.3.0-master.615+20200310125537
 2020-03-10
 
