@@ -327,7 +327,8 @@ export default {
           id: 6,
           label: this.$t('filters.lines.statusDate'),
           name: 'accessPoint',
-          orderable: false,
+          orderable: true,
+          sortingName: 'commercialStatusDate',
           visible: true,
           exportId: 'LINE_SIM_STATUS_DATE',
           format: {
