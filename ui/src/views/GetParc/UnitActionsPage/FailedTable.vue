@@ -1,7 +1,7 @@
 <template>
   <div>
     <UnitActsTable
-      :mass-action-id="$route.params.massActionId"
+      :mass-action-id="massActionId"
       grouped-status="FAILED"
       :columns="columns"
       :total.sync="totalFailed"
@@ -107,6 +107,7 @@ export default {
 
   data() {
     return {
+      massActionId: parseInt(this.$route.params.massActionId),
       acknowledgePopUp: false,
       replayPopUp: false,
       acknowledgeTxt: '',
