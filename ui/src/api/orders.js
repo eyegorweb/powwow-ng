@@ -380,12 +380,21 @@ export async function createOrder(synthesis) {
   if (synthesis.delivery.value.detail.address) {
     address1 = get(synthesis, 'delivery.value.detail.address.address1');
     address1 = address1 !== 'null' && address1 !== 'undefined' ? address1 : '';
+    if (!address1) {
+      address1 = '';
+    }
 
     address2 = get(synthesis, 'delivery.value.detail.address.address2');
     address2 = address2 !== 'null' && address2 !== 'undefined' ? address2 : '';
+    if (!address2) {
+      address2 = '';
+    }
 
     address3 = get(synthesis, 'delivery.value.detail.address.address3');
     address3 = address3 !== 'null' && address3 !== 'undefined' ? address3 : '';
+    if (!address3) {
+      address3 = '';
+    }
   }
 
   const firstName = get(synthesis, 'delivery.value.detail.name.firstName', '');
@@ -396,6 +405,12 @@ export async function createOrder(synthesis) {
   if (!email) {
     email = '';
   }
+
+  let state = get(synthesis, 'delivery.value.detail.address.state', '');
+  if (!state) {
+    state = '';
+  }
+
   const phone = get(synthesis, 'delivery.value.detail.contactInformation.phone', '');
 
   let customFieldsDTO = '{}';
@@ -445,7 +460,7 @@ export async function createOrder(synthesis) {
           zipCode: "${get(synthesis, 'delivery.value.detail.address.zipCode')}",
           city: "${get(synthesis, 'delivery.value.detail.address.city')}",
           country: "${get(synthesis, 'delivery.value.detail.address.country')}",
-          state: "${get(synthesis, 'delivery.value.detail.address.state')}"
+          state: "${state}"
         },
         name: {
           title: ${title || 'MR'},

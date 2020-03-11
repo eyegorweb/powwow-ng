@@ -241,8 +241,12 @@ export default {
         c =>
           c.name === this.addressEdit.address.country || c.code === this.addressEdit.address.country
       );
-      this.form.extraInfos = this.addressEdit.address.address2;
-      this.form.extraInfos2 = this.addressEdit.address.address3;
+      this.form.extraInfos = this.addressEdit.address.address2
+        ? this.addressEdit.address.address2
+        : '';
+      this.form.extraInfos2 = this.addressEdit.address.address3
+        ? this.addressEdit.address.address3
+        : '';
     }
   },
 
