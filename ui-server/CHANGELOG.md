@@ -2,6 +2,23 @@
 
 <!--- next entry here -->
 
+## 0.19.1
+2020-03-12
+
+### Fixes
+
+- mise à jour de l'api getCurrentUser (ae5ba8c5d976b3fd6323c8a3d80fb894f1ae7a4d)
+- mise à jour de l'api users (939000ff0860ed8f6aa809e3f3beeac99e675fed)
+- correction de la route du widget Acte de gestion (f3f5055f97d73788524a5a58d72e469d27cd60cb)
+- ajout des libellés ligne(s) dans le rapport de quantité (42c6bf718447c0683eeaf28f30fa08a3c832d977)
+- correction du comportement de sélection des filtres dans la gestion des utilisateurs (7b49f7efd37e390e1cd8cb0ee66426a6fb5e3a6a)
+- ne pas relancer une requête en cas d'erreur 504 (633679343d8a6ee8a3f894ea12ec583d3e99b383)
+- Clic sur "retour" depuis le détail de la ligne (0987c12737814ae6664db5be5fcb6397a72d091f)
+- correction pour afficher l'iccid des actes unitaires (8e328d2345ce237a2413da894cf9502a1a8a9763)
+- ajout de la clé groupedStatus pour exporter les actes unitaires (4d732384214d217500bfa1952dd6fac85537b174)
+- **actlines:** Tri des lignes par date de statut de la ligne (4a980778d552a89e33d292d5fe3b7d684d930a45)
+- **linedetail:** Mise à jour de l'appel API MarketingServices (ff87b0bab1f006307bdde03f8ee310575f9b3896)
+
 ## 0.19.0
 2020-03-09
 
