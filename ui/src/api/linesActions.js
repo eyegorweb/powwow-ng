@@ -608,6 +608,7 @@ export async function fetchLineServices(simCardInstanceId) {
   {
     marketingServices(simCardInstanceId: ${simCardInstanceId}) {
       code
+      labelService
       activated
       editable
       optional

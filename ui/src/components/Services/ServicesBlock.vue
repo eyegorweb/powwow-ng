@@ -26,7 +26,7 @@
             </div>
             <div v-else>
               <UiToggle
-                :label="service.name ? service.name : $t('services.' + service.code)"
+                :label="service.name ? service.name : service.labelService"
                 :editable="service.editable"
                 v-model="service.checked"
                 :bold-label="isChanged(service)"
@@ -51,7 +51,7 @@
       <div class="services-container">
         <div :key="service.id" v-for="service in otherServices" class="single-service">
           <UiToggle
-            :label="$t('services.' + service.code)"
+            :label="service.labelService"
             :editable="service.editable"
             :bold-label="isChanged(service)"
             v-model="service.checked"

@@ -1,90 +1,102 @@
 <template>
   <div>
-    <draggable handle=".handle">
-      <transition-group>
-        <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
-          <template slot="title">
-            <span>{{ $t('getparc.lineDetail.tabServices.optionalServices') }}</span>
-          </template>
-          <template slot="content">
-            <div>
-              <ServicesBlock :services="optionalServices" full-width />
-            </div>
-          </template>
-        </ContentBlock>
+    <template v-if="!services || !services.length">
+      <h4 class="text-primary text-uppercase">
+        {{ $t('getparc.lineDetail.tabServices.services') }}
+      </h4>
+      <div class="bg-white p-4 rounded">
+        <div class="alert alert-light m-0" role="alert">
+          {{ $t('noResult') }}
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <draggable handle=".handle">
+        <transition-group>
+          <ContentBlock :key="'block1'" v-if="optionalServices && optionalServices.length">
+            <template slot="title">
+              <span>{{ $t('getparc.lineDetail.tabServices.optionalServices') }}</span>
+            </template>
+            <template slot="content">
+              <div>
+                <ServicesBlock :services="optionalServices" full-width />
+              </div>
+            </template>
+          </ContentBlock>
 
-        <ContentBlock :key="'block2'">
-          <template slot="title">{{ $t('getparc.lineDetail.tabServices.services') }}</template>
-          <template slot="content">
-            <div class="row">
-              <div class="col">
-                <LoaderContainer :is-loading="isLoadingServices">
-                  <div slot="on-loading">
-                    <ServicesSkeleton />
-                  </div>
-                  <ServicesBlock
-                    :key="servicesVersion"
-                    v-if="services"
-                    :services="services"
-                    :initial-services="initialServices"
-                    :data-params-needed="isDataParamsError"
-                    @change="onServiceChange"
-                  />
-                </LoaderContainer>
+          <ContentBlock :key="'block2'">
+            <template slot="title">{{ $t('getparc.lineDetail.tabServices.services') }}</template>
+            <template slot="content">
+              <div class="row">
+                <div class="col">
+                  <LoaderContainer :is-loading="isLoadingServices">
+                    <div slot="on-loading">
+                      <ServicesSkeleton />
+                    </div>
+                    <ServicesBlock
+                      :key="servicesVersion"
+                      v-if="services"
+                      :services="services"
+                      :initial-services="initialServices"
+                      :data-params-needed="isDataParamsError"
+                      @change="onServiceChange"
+                    />
+                  </LoaderContainer>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <button
-                  v-if="!savingChanges"
-                  @click="saveChanges"
-                  :disabled="!canSave"
-                  class="btn btn-primary float-right"
-                >
-                  <i class="ic-Settings-Icon"></i>
-                  Modifier les services
-                </button>
-                <button v-else class="btn btn-primary float-right" disabled>
-                  {{ $t('processing') }}
-                  <CircleLoader />
-                </button>
-                <button class="btn btn-outline-primary float-right mr-3" @click="revertServices">
-                  <i class="ic-Refresh-Icon"></i>
-                  Annuler les modifications
-                </button>
+              <div class="row">
+                <div class="col">
+                  <button
+                    v-if="!savingChanges"
+                    @click="saveChanges"
+                    :disabled="!canSave"
+                    class="btn btn-primary float-right"
+                  >
+                    <i class="ic-Settings-Icon"></i>
+                    Modifier les services
+                  </button>
+                  <button v-else class="btn btn-primary float-right" disabled>
+                    {{ $t('processing') }}
+                    <CircleLoader />
+                  </button>
+                  <button class="btn btn-outline-primary float-right mr-3" @click="revertServices">
+                    <i class="ic-Refresh-Icon"></i>
+                    Annuler les modifications
+                  </button>
+                </div>
               </div>
-            </div>
-          </template>
-        </ContentBlock>
+            </template>
+          </ContentBlock>
 
-        <ContentBlock :key="'block3'">
-          <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
-          <template slot="content">
-            <div class="row" v-if="canShowTable">
-              <div class="col-md-12">
-                <table class="table table-blue mt-1 small-text">
-                  <thead>
-                    <tr>
-                      <th>{{ $t('getparc.lineDetail.tabServices.apn') }}</th>
-                      <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
-                      <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="service in apnServices[0]" :key="service.code">
-                      <td>{{ getValue(service, 'name') }}</td>
-                      <td>{{ getValue(service, 'ipAdress') }}</td>
-                      <td>{{ getValue(service, 'version') }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <ContentBlock :key="'block3'">
+            <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
+            <template slot="content">
+              <div class="row" v-if="canShowTable">
+                <div class="col-md-12">
+                  <table class="table table-blue mt-1 small-text">
+                    <thead>
+                      <tr>
+                        <th>{{ $t('getparc.lineDetail.tabServices.apn') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.ipAdress') }}</th>
+                        <th>{{ $t('getparc.lineDetail.tabServices.version') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="service in apnServices[0]" :key="service.code">
+                        <td>{{ getValue(service, 'name') }}</td>
+                        <td>{{ getValue(service, 'ipAdress') }}</td>
+                        <td>{{ getValue(service, 'version') }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-            <div v-else class="alert-light" role="alert">{{ $t('noResult') }}</div>
-          </template>
-        </ContentBlock>
-      </transition-group>
-    </draggable>
+              <div v-else class="alert-light" role="alert">{{ $t('noResult') }}</div>
+            </template>
+          </ContentBlock>
+        </transition-group>
+      </draggable>
+    </template>
   </div>
 </template>
 
@@ -143,11 +155,13 @@ export default {
     this.isLoadingServices = true;
     const services = await fetchLineServices(this.content.id);
     this.isLoadingServices = false;
-    const offerServices = getOfferServices(services);
-    this.initialServices = cloneDeep(offerServices);
-    this.optionalServices = getOptionalServices(services);
-    this.services = offerServices;
-    this.apnServices = getApnServices(services);
+    if (services && services.length) {
+      const offerServices = getOfferServices(services);
+      this.initialServices = cloneDeep(offerServices);
+      this.optionalServices = getOptionalServices(services);
+      this.services = offerServices;
+      this.apnServices = getApnServices(services);
+    }
   },
   methods: {
     ...mapMutations(['flashMessage']),

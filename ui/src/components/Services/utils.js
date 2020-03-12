@@ -18,6 +18,7 @@ function formatServices(s) {
     optional: s.optional,
     name: s.name,
     activationDate: s.activationDate,
+    labelService: s.labelService,
   };
   if (s.code === 'DATA') {
     service.parameters = s.parameters
