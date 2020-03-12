@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.619+20200312131910
+2020-03-12
+
+### Fixes
+
+- **linedetail:** Mise à jour de l'appel API MarketingServices (ff87b0bab1f006307bdde03f8ee310575f9b3896)
+
 ## 0.3.0-master.618+20200311151253
 2020-03-11
 
