@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.620+20200312152233
+2020-03-12
+
+### Fixes
+
+- mise à jour api et optimisation perf (moins de requêtes) (6a7a811ca3dfefd45dac4cd3348fff9b9ce45247)
+
 ## 0.3.0-master.619+20200312131910
 2020-03-12
 
