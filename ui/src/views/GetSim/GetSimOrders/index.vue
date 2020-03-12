@@ -6,7 +6,7 @@
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <h2 class="text-gray font-weight-light total" style="font-size: 2rem">
             {{ $t('ordersFound', { total: formattedTotal }) }}
           </h2>
         </div>

@@ -10,44 +10,22 @@ export async function searchUsers(orderBy, pagination, filters = []) {
     users(filter: {${formatFilters(filters)}}${paginationInfo}${orderingInfo}) {
       total
       items {
-        __typename
-        ... on User {
-          id
-          email
-          name {
-            title
-            firstName
-            lastName
-          }
-          username
+        id
+        type
+        email
+        username
+        name {
+          title
+          firstName
+          lastName
         }
-        ... on UserParty {
-          id
-          email
-          name {
-            title
-            firstName
-            lastName
-          }
-          party {
-            id
-            name
-          }
-          disabled
+        permissions {
+          domain
+          action
         }
-        ... on UserPartyGroup {
+        partners {
+          name
           id
-          email
-          PartyGroup {
-            id
-            name
-          }
-          name {
-            title
-            firstName
-            lastName
-          }
-          username
         }
       }
     }

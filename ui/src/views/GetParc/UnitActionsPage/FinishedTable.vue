@@ -1,7 +1,7 @@
 <template>
   <UnitActsTable
     grouped-status="COMPLETED"
-    :mass-action-id="$route.params.massActionId"
+    :mass-action-id="massActionId"
     :columns="columns"
     :total="total"
   />
@@ -21,6 +21,7 @@ export default {
   },
   data() {
     return {
+      massActionId: parseInt(this.$route.params.massActionId),
       columns: [
         {
           id: 1,
@@ -48,7 +49,7 @@ export default {
         {
           id: 4,
           label: this.$t('getparc.actDetail.col.iccid'),
-          name: 'ICCID',
+          name: 'iccid',
           orderable: true,
           visible: true,
           exportId: 'ICCID',

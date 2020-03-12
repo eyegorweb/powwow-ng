@@ -21,8 +21,8 @@ Then(`je peux appliquer le filtre`, () => {
     const dateFrom = moment(parts[0], 'DD/MM/YYYY');
     const dateTo = moment(parts[1], 'DD/MM/YYYY');
 
-    const diffInDays = dateTo.diff(dateFrom, 'days') + 1;
+    const diffInMonths = dateTo.diff(dateFrom, 'month');
 
-    expect(diffInDays).to.equal(30);
+    expect(diffInMonths).to.equal(1);
   });
 });

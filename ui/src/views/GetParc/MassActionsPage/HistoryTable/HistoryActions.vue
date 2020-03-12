@@ -180,6 +180,7 @@ export default {
         return await exportMassAction(
           this.item.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
+          '',
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',

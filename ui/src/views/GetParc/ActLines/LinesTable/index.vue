@@ -17,9 +17,9 @@
           </div>
           <div class="col" v-if="hasResults">
             <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-              <span slot="title">{{
-                $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-              }}</span>
+              <span slot="title">
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
+              </span>
             </ExportButton>
           </div>
         </div>
@@ -227,9 +227,14 @@ export default {
       this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
 
-    setTimeout(() => {
+    if (this.rows.length > 0) {
       this.canSearchLines = true;
-    });
+      this.showInfoMessage = false;
+    } else {
+      setTimeout(() => {
+        this.canSearchLines = true;
+      });
+    }
   },
   data() {
     return {
@@ -322,7 +327,8 @@ export default {
           id: 6,
           label: this.$t('filters.lines.statusDate'),
           name: 'accessPoint',
-          orderable: false,
+          orderable: true,
+          sortingName: 'commercialStatusDate',
           visible: true,
           exportId: 'LINE_SIM_STATUS_DATE',
           format: {
