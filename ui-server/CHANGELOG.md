@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.621+20200312163804
+2020-03-12
+
+### Fixes
+
+- affichage des mois pour le widget Top/Flop (6ca9c79765eb7407d5b47d86f8e6b74c294de4a6)
+
 ## 0.3.0-master.620+20200312152233
 2020-03-12
 
