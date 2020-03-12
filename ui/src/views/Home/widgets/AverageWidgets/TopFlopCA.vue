@@ -51,94 +51,93 @@ export default {
     },
   },
   async mounted() {
-    await this.refreshIndicatorsForPeriod();
+    this.listIndicators = await fetchBillingExchange(this.rubric, this.contextPartnersType);
+    this.refreshIndicatorsForPeriod();
   },
   data() {
     return {
+      listIndicators: undefined,
       indicators: undefined,
       period: '0',
       specificMessage: undefined,
       rubric: 'CA',
       toggleValues: [
         {
-          id: '1',
+          id: '0',
           label: 'M-1',
+          default: this.period === '0',
+        },
+        {
+          id: '1',
+          label: 'M-2',
           default: this.period === '1',
         },
         {
           id: '2',
-          label: 'M-2',
-          default: this.period === '2',
-        },
-        {
-          id: '3',
           label: 'M-3',
-          default: this.period === '3',
+          default: this.period === '2',
         },
       ],
     };
   },
   methods: {
-    async updateContentType(newVal) {
+    updateContentType(newVal) {
       this.period = newVal.id;
-      await this.refreshIndicatorsForPeriod();
+      this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
       let period = this.period;
       let top3;
       let flop2;
-      const listIndicators = await fetchBillingExchange(
-        this.rubric,
-        period,
-        this.contextPartnersType
-      );
-      const temp = listIndicators.map((i, index) => {
-        return {
-          total: i.amount,
-          labelKey: i.partyName,
-          id: i.partyId,
-          indice: `${index + 1}. `,
-        };
-      });
-
-      // On récupère les 3 premiers éléments pour définir le Top 3
-      top3 = temp.slice(0, 3).map(i => {
-        return {
-          ...i,
-          class: 'top',
-        };
-      });
-      this.displayInfoMessage();
-
-      // Si on a en tout 4 éléments, alors on a un Top 3 et un Flop 1
-      if (temp.length === 4) {
-        flop2 = temp.slice(-1).map(i => {
+      let temp;
+      if (this.listIndicators && this.listIndicators.length) {
+        temp = this.listIndicators[period].billingExchanges.map((i, index) => {
           return {
-            ...i,
-            class: 'flop',
+            total: i.amount,
+            labelKey: i.partyName,
+            id: i.partyId,
+            indice: `${index + 1}. `,
           };
         });
-        this.indicators = top3.concat(flop2);
-      }
-      // Sinon si on a plus de 4 éléments on récupère un Top 3 et un Flop 2
-      else if (temp.length > 4) {
-        flop2 = temp.slice(-2).map(i => {
+
+        // On récupère les 3 premiers éléments pour définir le Top 3
+        top3 = temp.slice(0, 3).map(i => {
           return {
             ...i,
-            class: 'flop',
+            class: 'top',
           };
         });
-        this.indicators = top3.concat(flop2);
-      }
-      // Sinon on n'a qu'un Top 3 et pas de Flop
-      else {
-        this.indicators = top3;
+        this.displayInfoMessage(temp);
+        // Si on a en tout 4 éléments, alors on a un Top 3 et un Flop 1
+        if (temp.length === 4) {
+          flop2 = temp.slice(-1).map(i => {
+            return {
+              ...i,
+              class: 'flop',
+            };
+          });
+          this.indicators = top3.concat(flop2);
+        }
+        // Sinon si on a plus de 4 éléments on récupère un Top 3 et un Flop 2
+        else if (temp.length > 4) {
+          flop2 = temp.slice(-2).map(i => {
+            return {
+              ...i,
+              class: 'flop',
+            };
+          });
+          this.indicators = top3.concat(flop2);
+        }
+        // Sinon on n'a qu'un Top 3 et pas de Flop
+        else {
+          this.indicators = top3;
+        }
       }
     },
     // Fonction pour insérer un '-' si on a moins de 5 éléments à la première ligne vide rencontréd
-    displayInfoMessage(limit = 5) {
+    displayInfoMessage(array, limit = 5) {
       if (this.noResults) return;
-      if (this.indicators && this.indicators.length && this.indicators.length < limit) {
+      if (array && array.length && array.length < limit) {
         this.specificMessage = '-';
       } else {
         this.specificMessage = '';
