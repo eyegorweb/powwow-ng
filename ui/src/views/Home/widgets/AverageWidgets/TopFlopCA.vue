@@ -35,6 +35,7 @@ import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
 import { fetchBillingExchange } from '@/api/indicators.js';
 import { mapState } from 'vuex';
+import moment from 'moment';
 
 export default {
   components: {
@@ -52,6 +53,7 @@ export default {
   },
   async mounted() {
     this.listIndicators = await fetchBillingExchange(this.rubric, this.contextPartnersType);
+    this.getMonth();
     this.refreshIndicatorsForPeriod();
   },
   data() {
@@ -64,23 +66,34 @@ export default {
       toggleValues: [
         {
           id: '0',
-          label: 'M-1',
+          label: '',
           default: this.period === '0',
         },
         {
           id: '1',
-          label: 'M-2',
+          label: '',
           default: this.period === '1',
         },
         {
           id: '2',
-          label: 'M-3',
+          label: '',
           default: this.period === '2',
         },
       ],
     };
   },
   methods: {
+    getMonth() {
+      if (!this.listIndicators && !this.listIndicators.length) return;
+      this.listIndicators.map((t, index) => {
+        const parts = this.listIndicators[index].periode.split('/');
+        let nb = parseInt(parts[1]) - 1;
+        const month = moment()
+          .month(nb)
+          .format('MMMM');
+        this.toggleValues[index].label = month;
+      });
+    },
     updateContentType(newVal) {
       this.period = newVal.id;
       this.refreshIndicatorsForPeriod();
