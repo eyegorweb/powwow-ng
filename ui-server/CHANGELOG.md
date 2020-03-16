@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.624+20200316152226
+2020-03-16
+
+### Fixes
+
+- correctif du calcul de la valeur de délai basé sur l'heure (7b4ef7a56b662c93974a16d068326dd0c3ba64d9)
+
 ## 0.3.0-master.623+20200316142429
 2020-03-16
 
