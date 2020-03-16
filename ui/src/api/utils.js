@@ -263,9 +263,11 @@ export function resumeFormattedValueFromSeconds(value) {
 }
 
 export function resumeFormattedValueFromHours(value) {
-  let hours = value;
-  let duration = hours;
-  let days = duration / 3600;
+  let initialSeconds = value * 60 * 60;
+  let duration = initialSeconds;
+  let days = duration / 86400;
+  duration = duration % 86400;
+  let hours = parseInt(duration / 3600);
   duration = duration % 3600;
   let min = parseInt(duration / 60);
   duration = duration % 60;
@@ -277,18 +279,17 @@ export function resumeFormattedValueFromHours(value) {
   if (min < 10) {
     min = `0${min}`;
   }
-
-  if (value > 86400) {
+  if (initialSeconds > 86400) {
     if (hours > 9) {
       return `${parseInt(days)}j${parseInt(hours, 10)}h${min}min${sec}sec`;
     }
     return `${parseInt(days)}j0${parseInt(hours, 10)}h${min}min${sec}sec`;
-  } else if (value < 86400 && value > 3600) {
+  } else if (initialSeconds < 86400 && initialSeconds > 3600) {
     if (parseInt(hours, 10) > 0) {
       return `${parseInt(hours, 10)}h${min}min${sec}sec`;
     }
     return `0${parseInt(hours, 10)}h${min}min${sec}sec`;
-  } else if (value === 0) {
+  } else if (initialSeconds === 0) {
     return `0`;
   } else {
     return `${min}min${sec}sec`;
