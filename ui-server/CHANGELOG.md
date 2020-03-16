@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.622+20200316091252
+2020-03-16
+
+### Fixes
+
+- ne pas relancer la requête si l'appel renvoi une erreur 503 (0bca669d256d9a42a540a5b9e7133310e7656d06)
+
 ## 0.3.0-master.621+20200312163804
 2020-03-12
 
