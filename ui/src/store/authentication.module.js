@@ -74,6 +74,9 @@ export const mutations = {
   },
   setCurrentUser(state, userInfos) {
     state.userInfos = userInfos;
+    if (userInfos) {
+      localStorage.setItem('username', userInfos.username);
+    }
   },
   appIsReady(state) {
     state.appIsReady = true;
