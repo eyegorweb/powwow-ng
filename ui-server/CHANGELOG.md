@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.630+20200317212919
+2020-03-17
+
+### Fixes
+
+- enlever partyID de la requête des lignes rattachés à une alarme (43713bfc67a98413074f3980165d1faa357f37b4)
+- Correction de la requête de création d'alarme de sur conso et sous conso (db69199fa5a873927f5ead561d391a0ea2ec6453)
+
 ## 0.3.0-master.629+20200317162326
 2020-03-17
 
