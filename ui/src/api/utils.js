@@ -227,42 +227,8 @@ export function formattedValueFromSeconds(value) {
   return `0${parseInt(hours, 10)}:${min}:${sec}`;
 }
 
-export function resumeFormattedValueFromSeconds(value) {
-  let seconds = value;
-  let duration = seconds;
-  let days = duration / 86400;
-  duration = duration % 86400;
-  let hours = parseInt(duration / 3600);
-  duration = duration % 3600;
-  let min = parseInt(duration / 60);
-  duration = duration % 60;
-  let sec = parseInt(duration);
-
-  if (sec < 10) {
-    sec = `0${sec}`;
-  }
-  if (min < 10) {
-    min = `0${min}`;
-  }
-
-  if (value > 86400) {
-    if (hours > 9) {
-      return `${parseInt(days)}j${parseInt(hours, 10)}h${min}min${sec}sec`;
-    }
-    return `${parseInt(days)}j0${parseInt(hours, 10)}h${min}min${sec}sec`;
-  } else if (value < 86400 && value > 3600) {
-    if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)}h${min}min${sec}sec`;
-    }
-    return `0${parseInt(hours, 10)}h${min}min${sec}sec`;
-  } else if (value === 0) {
-    return `0`;
-  } else {
-    return `${min}min${sec}sec`;
-  }
-}
-
 export function resumeFormattedValueFromHours(value) {
+  if (typeof value !== 'number') return;
   let initialSeconds = value * 60 * 60;
   let duration = initialSeconds;
   let days = duration / 86400;
