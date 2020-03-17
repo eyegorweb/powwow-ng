@@ -115,10 +115,6 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
-        {
-          id: 'filters.partyId',
-          value: this.alarm.party.id,
-        },
       ];
 
       const lasTriggered = await fetchAlarmTriggersFor2Months(

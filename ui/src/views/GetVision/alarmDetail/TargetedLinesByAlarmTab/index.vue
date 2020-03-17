@@ -87,11 +87,14 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
+        /*
         {
           id: 'filters.partyId',
           value: this.alarm.party.id,
         },
+        //*/
       ];
+
       const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
         ...mandatoryFilters,
         value,
@@ -121,10 +124,11 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
+        /*
         {
           id: 'filters.partyId',
           value: this.alarm.party.id,
-        },
+        },//*/
       ];
 
       this.lastUsedFilters = filters;
@@ -132,6 +136,8 @@ export default {
         ...filters,
         ...mandatoryFilters,
       ]);
+
+      console.log('By ID >> ', data);
 
       this.total = data.total;
       this.rows = data.items;
