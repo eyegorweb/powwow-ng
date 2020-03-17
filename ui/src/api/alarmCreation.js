@@ -94,7 +94,7 @@ export async function alarmOnOverConso(params) {
 }
 
 export async function alarmOnUnderConso(params) {
-  const response = consoQuery('createUnderConsumptionAlarm', params);
+  const response = await consoQuery('createUnderConsumptionAlarm', params);
 
   if (response.errors) {
     return { errors: response.errors };
