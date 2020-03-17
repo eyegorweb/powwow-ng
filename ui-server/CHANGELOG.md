@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.626+20200317141307
+2020-03-17
+
+### Fixes
+
+- vérification de la valeur de type Number (0057bae2640747acb89dad8ce165fce64dad54f1)
+
 ## 0.3.0-master.625+20200317084743
 2020-03-17
 
