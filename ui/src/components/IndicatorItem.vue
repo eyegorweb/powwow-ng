@@ -55,6 +55,7 @@ export default {
     },
     formattedUnit() {
       if (!this.indicator.unit) return this.formattedTotal;
+      if (isNaN(this.formattedTotal)) return;
       return resumeFormattedValueFromHours(this.formattedTotal);
     },
     formattedColor() {
