@@ -2,6 +2,27 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.629+20200317162326
+2020-03-17
+
+### Fixes
+
+- arrondi sur la valeur de l'indicateur du Délai moyen (82dfbbcb123e6c4023a69a77c1efc0edcd9fe12e)
+
+## 0.3.0-master.628+20200317152138
+2020-03-17
+
+### Fixes
+
+- correctif sur la valeur de l'indicateur de Délai moyen (21125ccb16dae56c9a0ec041da9ab64c0508a940)
+
+## 0.3.0-master.627+20200317150531
+2020-03-17
+
+### Fixes
+
+- enlever partyID de la requête des lignes rattachés à une alarme (43713bfc67a98413074f3980165d1faa357f37b4)
+
 ## 0.3.0-master.626+20200317141307
 2020-03-17
 
