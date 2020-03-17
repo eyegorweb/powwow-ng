@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.625+20200317084743
+2020-03-17
+
+### Fixes
+
+- Correction du problème d'affichage des widgets de la homepage (1d0102dd7507443e67c5f1c5adacddcfd9ff1ee8)
+
 ## 0.3.0-master.624+20200316152226
 2020-03-16
 
