@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.628+20200317152138
+2020-03-17
+
+### Fixes
+
+- correctif sur la valeur de l'indicateur de Délai moyen (21125ccb16dae56c9a0ec041da9ab64c0508a940)
+
 ## 0.3.0-master.627+20200317150531
 2020-03-17
 
