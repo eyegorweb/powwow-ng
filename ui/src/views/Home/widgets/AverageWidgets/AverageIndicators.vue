@@ -16,7 +16,15 @@
           </a>
           <div class="float-right">
             <button class="btn btn-link p-0" :disabled="true">
-              <span>{{ formattedData(indicator.total) }}</span>
+              <span>
+                <template v-if="indicator.unity === 'DATA'">{{
+                  formattedData(indicator.total)
+                }}</template>
+                <template v-else-if="indicator.unity === 'VOICE'">{{
+                  formattedVoice(indicator.total)
+                }}</template>
+                <template v-else>{{ indicator.total }}</template>
+              </span>
             </button>
           </div>
         </div>
@@ -40,7 +48,7 @@
 <script>
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
-import { formatBytes } from '@/api/utils';
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 
 export default {
   components: {
@@ -70,6 +78,9 @@ export default {
     },
     formattedData(value) {
       return formatBytes(value);
+    },
+    formattedVoice(value) {
+      return resumeFormattedValueFromSeconds(value);
     },
   },
   data() {
