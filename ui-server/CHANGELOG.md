@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.631+20200318060355
+2020-03-18
+
+### Fixes
+
+- mise à jour des unités du Widget "Lignes les plus consommatrices du mois" (2abeee53a591d8955cea6e48b1426b320aa9fb0d)
+
 ## 0.3.0-master.630+20200317212919
 2020-03-17
 
