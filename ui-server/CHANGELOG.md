@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.632+20200318114032
+2020-03-18
+
+### Features
+
+- alarm sur le changement de statut (43c0e23737a1976b5265f4f5fc7d8d78e8ba9f74)
+
+### Fixes
+
+- Reset de la pagination à l'application de filtre (1471f0663812cf5e00e5892cf48b1b67993fe78d)
+
 ## 0.3.0-master.631+20200318060355
 2020-03-18
 
