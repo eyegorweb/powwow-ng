@@ -1,5 +1,11 @@
 <template>
-  <AlarmCreationBaseForm :alarm="alarm" has-form>
+  <AlarmCreationBaseForm
+    :alarm="alarm"
+    has-form
+    :check-errors-fn="isFormValid"
+    @save="onSave"
+    @scope="scopeChoice = $event"
+  >
     <SectionTitle :num="3">Définir les status supervisés</SectionTitle>
     <Toggle
       v-if="toggleValues"
@@ -14,6 +20,8 @@
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import Toggle from '@/components/ui/UiToggle2';
 import SectionTitle from '@/components/SectionTitle';
+import { createStatusChangeAlarm } from '@/api/alarmCreation';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -27,26 +35,52 @@ export default {
 
   data() {
     return {
-      currentPeriod: 'all',
+      scopeChoice: undefined,
+
+      currentPeriod: 'ALL',
       toggleValues: [
         {
-          id: 'all',
+          id: 'ALL',
           label: 'Tous',
         },
         {
-          id: 'activate_reactivate',
+          id: 'ACTIVATION',
           label: 'Activation/Réactivation',
         },
         {
-          id: 'suspend',
+          id: 'SUSPENSION',
           label: 'Suspension',
         },
         {
-          id: 'terminate',
+          id: 'TERMINATION',
           label: 'Résiliation ',
         },
       ],
     };
+  },
+
+  methods: {
+    ...mapMutations(['flashMessage', 'closePanel']),
+
+    isFormValid() {
+      return true;
+    },
+    async onSave(payload) {
+      const params = {
+        ...payload,
+        scope: this.scopeChoice,
+        formData: this.currentPeriod,
+      };
+
+      const response = await createStatusChangeAlarm(params);
+      if (response.errors && response.errors.length) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+
+      this.closePanel({ resetSearch: true });
+    },
   },
 };
 </script>
