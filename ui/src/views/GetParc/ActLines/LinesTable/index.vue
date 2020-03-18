@@ -190,17 +190,14 @@ export default {
     },
     orderBy() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
     pageLimit() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
     appliedFilters() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
   },
