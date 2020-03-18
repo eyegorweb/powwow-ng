@@ -25,7 +25,7 @@ export default function configureHighcharts() {
         'Avr',
         'Mai',
         'Jui',
-        'Jui',
+        'Juil',
         'Aoû',
         'Sep',
         'Oct',
