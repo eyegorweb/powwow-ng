@@ -20,7 +20,7 @@ export default function configureHighcharts() {
       weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
       shortMonths: [
         'Jan',
-        'Fev',
+        'Fév',
         'Mar',
         'Avr',
         'Mai',
