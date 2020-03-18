@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.634+20200318153529
+2020-03-18
+
+### Fixes
+
+- correction de l'abbreviation du mois de février (a805456958964f093c0a62e251e05fa7b18bae55)
+
 ## 0.3.0-master.633+20200318152712
 2020-03-18
 
