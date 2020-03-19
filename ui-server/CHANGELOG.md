@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.635+20200319105141
+2020-03-19
+
+### Features
+
+- onglet "déclenchements dans les 2 derniers mois" dans l''écran de détail de l'alarme (e30f004eac768d7cca613bedffcb438a57731188)
+
 ## 0.3.0-master.634+20200318153123
 2020-03-18
 
