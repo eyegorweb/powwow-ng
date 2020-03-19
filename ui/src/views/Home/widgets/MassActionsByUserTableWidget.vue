@@ -174,7 +174,7 @@ export default {
           },
         },
       ],
-      orderBy: { key: 'UNIT_ACTIONS_FAILED', direction: 'DESC' },
+      orderBy: { key: 'DUE_DATE', direction: 'DESC' },
       resultsPromise: undefined,
       rows: [],
     };
