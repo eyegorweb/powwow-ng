@@ -1,6 +1,6 @@
 <template>
-  <ul class="list-unstyled mock-value">
-    <li :key="boundAlarm.alarm.name" v-for="boundAlarm in boundAlarms">
+  <ul class="list-unstyled">
+    <li :key="boundAlarm.id" v-for="boundAlarm in boundAlarms">
       {{ boundAlarm.alarm ? boundAlarm.alarm.name : '' }}
     </li>
   </ul>

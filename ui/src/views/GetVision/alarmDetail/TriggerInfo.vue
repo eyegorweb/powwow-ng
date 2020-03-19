@@ -1,14 +1,41 @@
 <template>
-  <ul class="list-unstyled mock-value">
-    <li class="data-info">Data Sortante: 3.0 Go</li>
-    <li class="date-info">01/01/2019</li>
+  <ul class="list-unstyled">
+    <li class="data-info">{{ reason }}</li>
+    <li class="date-info">{{ triggerDate }}</li>
   </ul>
 </template>
 
 <script>
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+
 export default {
   props: {
     info: Object,
+  },
+  computed: {
+    triggerDate() {
+      return this.info.triggerDate;
+    },
+    reason() {
+      if (this.info && this.info.reasonAndValue && this.info.reasonAndValue.length) {
+        const reasonVal = this.info.reasonAndValue[0];
+
+        const reasonTxt = this.$t('getparc.lineDetail.alarms.' + reasonVal.reason.toLowerCase());
+        let reasonValue = reasonVal.value;
+
+        if (['DATA_IN', 'DATA_OUT', 'DATA'].includes(reasonVal.reason)) {
+          reasonValue = formatBytes(reasonVal.value);
+        }
+
+        if (['VOICE', 'VOICE_OUT', 'VOICE_IN'].includes(reasonVal.reason)) {
+          reasonValue = formattedValueFromSeconds(reasonVal.value);
+        }
+
+        return `${reasonTxt}: ${reasonValue}`;
+      }
+
+      return '-';
+    },
   },
 };
 </script>
