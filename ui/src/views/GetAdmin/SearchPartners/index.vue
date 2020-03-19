@@ -63,7 +63,7 @@ export default {
         },
         {
           title: 'filters.lines.typeSIMCard',
-          component:TypeSimCardFilter,
+          component: TypeSimCardFilter,
           onChange(chosenValues) {
             return {
               id: 'filters.lines.typeSIMCard',

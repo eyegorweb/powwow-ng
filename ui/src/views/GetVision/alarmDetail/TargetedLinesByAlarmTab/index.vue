@@ -7,7 +7,7 @@
       :total="total"
       :order-by.sync="orderBy"
       :size="0"
-      :isLoading="isLoading"
+      :is-loading="isLoading"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >
