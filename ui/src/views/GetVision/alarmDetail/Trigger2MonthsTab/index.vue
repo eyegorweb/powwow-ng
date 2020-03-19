@@ -7,7 +7,9 @@
       :total="total"
       :order-by.sync="orderBy"
       :size="0"
+      :isLoading="isLoading"
       @applyFilters="applyFilters"
+      @colEvent="openDetailPanel"
     >
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
@@ -39,10 +41,12 @@ import TriggerDateFilter from '../filters/TriggerDateFilter';
 import Actions from './Actions';
 import ThisMonthTriggerCell from './ThisMonthTriggerCell';
 import LastMonthTriggerCell from './LastMonthTriggerCell';
+import ICCIDCell from './ICCIDCell';
 
 import ExportButton from '@/components/ExportButton';
 
 import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -60,6 +64,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openPanel']),
+
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
         console.log(columns, orderBy, exportFormat);
@@ -67,8 +73,51 @@ export default {
       };
     },
 
-    searchById(value) {
-      console.log('search by id > ', value);
+    openDetailPanel(payload) {
+      if (payload.action !== 'openAlarmPanel') return;
+      const title = 'getparc.lineDetail.alarms.trigger-history';
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t(title),
+          panelId: title,
+          wide: false,
+          backdrop: false,
+          payload: {
+            alarm: this.alarm,
+            sim: payload.row,
+          },
+        });
+      };
+
+      /**
+       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
+    },
+
+    async searchById(value) {
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+        },
+      ];
+
+      this.isLoading = true;
+
+      const data = await fetchAlarmTriggersFor2Months(this.orderBy, { page: 0, limit: 10 }, [
+        ...mandatoryFilters,
+        value,
+      ]);
+
+      this.isLoading = false;
+
+      this.total = data.total;
+      this.rows = data.items;
     },
 
     async applyFilters(payload) {
@@ -82,17 +131,16 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
-        {
-          id: 'filters.partyId',
-          value: this.alarm.party.id,
-        },
       ];
 
       this.lastUsedFilters = filters;
+
+      this.isLoading = true;
       const data = await fetchAlarmTriggersFor2Months(this.orderBy, pagination, [
         ...filters,
         ...mandatoryFilters,
       ]);
+      this.isLoading = false;
 
       this.total = data.total;
       this.rows = data.items;
@@ -101,6 +149,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       searchByIdValue: undefined,
       lastUsedFilters: [],
       columns: [
@@ -112,6 +161,9 @@ export default {
           name: 'iccid',
           noHandle: true,
           fixed: true,
+          format: {
+            component: ICCIDCell,
+          },
         },
         {
           id: 3,

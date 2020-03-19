@@ -1,5 +1,6 @@
 <template>
-  <div class="row">
+  <TableWithFilterSkeleton v-if="isLoading" :columns="columns" />
+  <div v-else class="row">
     <div class="col-md-3 pl-0">
       <FilterBar
         :filter-components="filters"
@@ -44,11 +45,13 @@
 <script>
 import FilterBar from './FilterBar';
 import ResultDataTable from './ResultDataTable';
+import TableWithFilterSkeleton from './TableWithFilterSkeleton';
 
 export default {
   components: {
     FilterBar,
     ResultDataTable,
+    TableWithFilterSkeleton,
   },
 
   props: {
@@ -57,6 +60,7 @@ export default {
     rows: Array,
     total: Number,
     orderBy: Object,
+    isLoading: Boolean,
     size: {
       type: Number,
       default: 7,
