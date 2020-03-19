@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.636+20200319151929
+2020-03-19
+
+### Fixes
+
+- libellé "lignes sélectionnées" au lieu de "lignes trouvées' quand je crée un acte de gestion (b90fc89ff859ad0ec8889d133d2a438f237ec790)
+- ajout dynamique des onglets pour les widgets Top/Flop (40490b48becf6d3fe1005cdbcdc8b5b43ebb2f63)
+
 ## 0.3.0-master.635+20200319105141
 2020-03-19
 
