@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget">
     <Toggle
-      v-if="toggleValues"
+      v-if="toggleValues && chosenPeriod !== undefined"
       @update="updateContentType"
       :values="toggleValues"
       class="pl-2"
@@ -36,6 +36,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import { fetchBillingExchange } from '@/api/indicators.js';
 import { mapState } from 'vuex';
 import moment from 'moment';
+import { capitalize } from '@/utils';
 
 export default {
   components: {
@@ -53,53 +54,51 @@ export default {
   },
   async mounted() {
     this.listIndicators = await fetchBillingExchange(this.rubric, this.contextPartnersType);
-    this.getMonth();
+    this.chosenPeriod = this.listIndicators.length - 1;
+    this.toggleValues = this.fillToggleValues(this.listIndicators);
+    this.getMonth(this.listIndicators);
     this.refreshIndicatorsForPeriod();
   },
   data() {
     return {
       listIndicators: undefined,
       indicators: undefined,
-      period: '0',
+      chosenPeriod: undefined,
       specificMessage: undefined,
       rubric: 'CA',
-      toggleValues: [
-        {
-          id: '0',
-          label: '',
-          default: this.period === '0',
-        },
-        {
-          id: '1',
-          label: '',
-          default: this.period === '1',
-        },
-        {
-          id: '2',
-          label: '',
-          default: this.period === '2',
-        },
-      ],
+      toggleValues: [],
     };
   },
   methods: {
-    getMonth() {
-      if (!this.listIndicators && !this.listIndicators.length) return;
-      this.listIndicators.map((t, index) => {
-        const parts = this.listIndicators[index].periode.split('/');
+    fillToggleValues(array) {
+      if (!array && !array.length) return;
+      let index = array.length;
+      return array.map(() => {
+        index--;
+        return {
+          id: index,
+          label: '',
+          default: this.chosenPeriod === index,
+        };
+      });
+    },
+    getMonth(array) {
+      if (!array && !array.length) return;
+      for (let i = array.length - 1, index = 0; i >= 0; i--, index++) {
+        const parts = array[index].periode.split('/');
         let nb = parseInt(parts[1]) - 1;
         const month = moment()
           .month(nb)
           .format('MMMM');
-        this.toggleValues[index].label = month;
-      });
+        this.toggleValues[i].label = capitalize(month);
+      }
     },
     updateContentType(newVal) {
-      this.period = newVal.id;
+      this.chosenPeriod = newVal.id;
       this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
-      let period = this.period;
+      let period = this.chosenPeriod;
       let top3;
       let flop2;
       let temp;
