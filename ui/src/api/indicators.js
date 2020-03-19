@@ -118,6 +118,5 @@ export async function fetchBillingExchange(rubric, partnerType) {
   `;
 
   const response = await query(queryStr);
-  // console.log('response', response);
   if (response.data) return response.data.topBillingExchanges;
 }
