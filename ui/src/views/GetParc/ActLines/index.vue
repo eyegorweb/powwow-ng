@@ -53,11 +53,15 @@
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <LinesTable
-          v-if="canShowTable"
-          :creation-mode="canShowForm"
-          @noResults="checkTableResult"
-        />
+        <LinesTable v-if="canShowTable" :creation-mode="canShowForm" @noResults="checkTableResult">
+          <template v-if="canShowForm" slot="title">
+            {{
+              $t('getparc.actLines.selected', {
+                total: totalSelected,
+              })
+            }}
+          </template>
+        </LinesTable>
 
         <Title
           num="2"
@@ -121,6 +125,7 @@ export default {
       'defaultAppliedFilters',
       'actCreationPrerequisites',
       'selectedFileForActCreation',
+      'selectedLinesForActCreation',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner']),
@@ -128,6 +133,11 @@ export default {
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+
+    totalSelected() {
+      const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      return this.selectedLinesForActCreation.length || responseTotal;
+    },
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems.filter(i => !i.boOnly);

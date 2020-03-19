@@ -23,11 +23,7 @@
         <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
       <div>
-        <div
-          v-for="(item, index) in triggerHistory.items"
-          :key="item.id"
-          class="overview-item mr-5"
-        >
+        <div v-for="item in triggerHistory.items" :key="item.id" class="overview-item mr-5">
           <h6>{{ item.monthName }}</h6>
           <p>{{ item.emissionDate }}</p>
           <Thresholds :alarm="item.alarm" />
