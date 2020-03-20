@@ -30,6 +30,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
           id
           code
           marketingServices {
+            labelService
             code
             activated
             editable
