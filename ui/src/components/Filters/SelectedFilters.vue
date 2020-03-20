@@ -50,11 +50,7 @@
           </div>
         </UiDropdownButton>
       </ff-wip>
-      <UiButton
-        v-if="canApplyFilters"
-        variant="primary"
-        @click="applyFilters()"
-        class="flex-grow-1 py-1 px-3 ml-1"
+      <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1"
         >Appliquer le filtre</UiButton
       >
     </div>
@@ -106,15 +102,6 @@ export default {
   computed: {
     visibleCurrentFilters() {
       return this.currentFilters.filter(f => !f.hidden);
-    },
-    hasValue() {
-      return !!this.currentFilters.find(f => f.value && f.value !== '');
-    },
-    hasValues() {
-      return !!this.currentFilters.find(f => f.values && f.values.length > 0);
-    },
-    canApplyFilters() {
-      return this.hasValue || this.hasValues;
     },
   },
 };
