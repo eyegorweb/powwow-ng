@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.639+20200320093650
+2020-03-20
+
+### Fixes
+
+- libellés des services n'apparaissent pas dans la création de commande (6f7d14a4febf3469c8b34e1ec5eceb0df1a006cf)
+
 ## 0.3.0-master.638+20200320091223
 2020-03-20
 
