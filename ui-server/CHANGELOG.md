@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.638+20200320091223
+2020-03-20
+
+### Fixes
+
+- correction du bug pour appliquer le filtre sur les dates dans l'historique des actes de gestion (8ab7baa67d86bdc254c159921ce5c60f26e307c7)
+
 ## 0.3.0-master.637+20200319152823
 2020-03-19
 
