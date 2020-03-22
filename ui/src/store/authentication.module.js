@@ -22,10 +22,10 @@ export const getters = {
   userName: state => (state.token ? state.token.user_name : ''),
   userInfos: state => state.userInfos,
   userIsPartner: state => {
-    return state.userInfos && !!state.userInfos.party;
+    return state.userInfos && state.userInfos.type === 'PARTNER';
   },
   userIsBO: state => {
-    return !(state.userInfos && !!state.userInfos.party);
+    return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
 };
 

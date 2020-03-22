@@ -60,7 +60,6 @@ function saveFormattedWidgets(widgets) {
     };
   });
   localStorage.setItem('__homewidgets__', JSON.stringify(widgetsToSave));
-  console.log('PROFILE >>', getProfile());
   localStorage.setItem('_widgets_profile_', getProfile());
 }
 

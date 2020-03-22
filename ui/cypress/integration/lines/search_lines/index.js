@@ -6,7 +6,11 @@ Given(`je suis sur la page recherche de lignes`, () => {
   linesPage.init();
 });
 Given(`J'ouvre le détail d'une ligne`, () => {
+  cy.wait(200);
+
   linesPage.showAllLines();
+  cy.wait(200);
+
   linesPage.panel.openForLine(1);
   linesPage.panel.goToDetail();
 });

@@ -43,6 +43,7 @@ Then(`La table contient le resultat de ma recherche`, () => {
 Then(`La table contient les alarmes du partenaire`, () => {
   waitForGQL('alarms', xhr => {
     const alarms = xhr.responseBody.data.alarms.items;
+    console.log('alarms >> ', alarms);
     const haveAlarmOfOtherPartners = !!alarms.find(a => a.party.name !== cy.testVars.userPartner);
     expect(haveAlarmOfOtherPartners).to.be.false;
   });

@@ -62,7 +62,7 @@
           <br />
           <UiButton
             variant="primary"
-            class="flex-grow-1 py-1 px-3 ml- mt-3"
+            class="show-all-lines flex-grow-1 py-1 px-3 ml- mt-3"
             @click="fetchLinesActions()"
             >Afficher toutes les lignes</UiButton
           >

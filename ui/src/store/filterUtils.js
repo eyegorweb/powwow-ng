@@ -104,8 +104,8 @@ export function initFilterForPartnerUser(store, setPartnersFilter) {
   if (store.rootGetters.userIsPartner) {
     const partnerFilterValues = [
       {
-        id: store.rootGetters.userInfos.party.id,
-        label: store.rootGetters.userInfos.party.name,
+        id: store.rootGetters.userInfos.partners[0].id,
+        label: store.rootGetters.userInfos.partners[0].name,
       },
     ];
     const defaultFilters = [
