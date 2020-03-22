@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.640+20200322115059
+2020-03-22
+
+### Fixes
+
+- Correction des tests cypress (7ffc586bb4f1412a093ecd5cfefa574f593db92f)
+
 ## 0.3.0-master.639+20200320093650
 2020-03-20
 
