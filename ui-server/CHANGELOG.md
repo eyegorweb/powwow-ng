@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.641+20200323132900
+## 0.3.0-master.641+20200323132822
 2020-03-23
 
 ### Features
 
 - **admin:** ajout du filtre Groupe de partenaire (62cf899c845d4e5e8b0ad2172f521320d27b533c)
-- Bouton Historique des actes de gestion (10cd351fbbe55436d0f589f7b5c78e2f5aa5fbb7)
 
 ### Fixes
 
