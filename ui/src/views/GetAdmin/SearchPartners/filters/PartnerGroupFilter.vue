@@ -10,7 +10,7 @@ export default {
   components: {
     MultiSelectSearch,
   },
-  
+
   props: {},
 
   data() {
@@ -21,16 +21,16 @@ export default {
   },
 
   mounted() {
-    (async () => { 
-    const response = await fetchPartnerGroups();
-    if (response) {
-      this.items = response.map(p => {
-        return {
-          id: p.id,
-          label: p.name,
-        };
-      });
-    }
+    (async () => {
+      const response = await fetchPartnerGroups();
+      if (response) {
+        this.items = response.map(p => {
+          return {
+            id: p.id,
+            label: p.name,
+          };
+        });
+      }
     })();
   },
 
@@ -40,7 +40,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped></style>

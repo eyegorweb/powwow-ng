@@ -31,7 +31,8 @@
           v-if="content.numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
-        >{{ content.numberOfTargetedLines }}</a>
+          >{{ content.numberOfTargetedLines }}</a
+        >
         <p v-else>-</p>
       </div>
 
@@ -80,7 +81,9 @@
           <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block>{{ $t('getvsion.detail-panel.triggered-events') }}</UiButton>
+          <UiButton variant="primary" block>{{
+            $t('getvsion.detail-panel.triggered-events')
+          }}</UiButton>
         </div>
       </div>
     </ff-wip>

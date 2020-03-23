@@ -10,6 +10,7 @@
       </div>
     </div>
     <TableWithFilter
+      v-if="filters"
       :filters="filters"
       :columns="columns"
       :rows="rows"
@@ -41,6 +42,7 @@ import SearchByLogin from './filters/SearchByLogin';
 import GroupPartnerFilter from './filters/GroupPartnerFilter';
 import { searchUsers } from '@/api/users';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -50,38 +52,7 @@ export default {
   },
   data() {
     return {
-      filters: [
-        {
-          title: 'getadmin.users.fullName',
-          component: FullNameFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.fullName',
-              value: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'getadmin.users.email',
-          component: EmailFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.email',
-              value: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'getadmin.users.partnerGroup',
-          component: GroupPartnerFilter,
-          onChange(chosenValues) {
-            return {
-              id: 'getadmin.users.partnerGroup',
-              values: chosenValues,
-            };
-          },
-        },
-      ],
+      filters: undefined,
       columns: [
         {
           id: 1,
@@ -175,7 +146,43 @@ export default {
     };
   },
   mounted() {
+    this.filters = [
+      {
+        title: 'getadmin.users.fullName',
+        component: FullNameFilter,
+        onChange(chosenValue) {
+          return {
+            id: 'getadmin.users.fullName',
+            value: chosenValue,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.email',
+        component: EmailFilter,
+        onChange(chosenValue) {
+          return {
+            id: 'getadmin.users.email',
+            value: chosenValue,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.partnerGroup',
+        component: GroupPartnerFilter,
+        disabled: !this.userIsBO,
+        onChange(chosenValues) {
+          return {
+            id: 'getadmin.users.partnerGroup',
+            values: chosenValues,
+          };
+        },
+      },
+    ];
     this.applyFilters();
+  },
+  computed: {
+    ...mapGetters(['userIsBO']),
   },
   methods: {
     async applyFilters(payload) {
