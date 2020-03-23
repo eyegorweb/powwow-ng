@@ -1,7 +1,7 @@
 <template>
   <AutoCompleteByPartnerContext
     :values="selectedTypeSimCardValues"
-    @update:values="values => selectedTypeSimCardValues = values"
+    @update:values="values => (selectedTypeSimCardValues = values)"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
   />

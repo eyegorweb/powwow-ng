@@ -27,14 +27,16 @@
             variant="primary"
             class="flex-grow-1 py-1 px-3"
             @click="savePartnerContext"
-          >{{ $t('set') }}</UiButton>
+            >{{ $t('set') }}</UiButton
+          >
           <UiButton
             v-if="canCancel"
             slot="trigger"
             variant="danger"
             class="flex-grow-1 py-1 px-3 ml-1"
             @click="revertSelection"
-          >{{ $t('reset') }}</UiButton>
+            >{{ $t('reset') }}</UiButton
+          >
         </div>
       </div>
     </div>

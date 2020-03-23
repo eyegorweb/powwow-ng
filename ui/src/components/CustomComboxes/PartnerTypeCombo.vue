@@ -1,5 +1,9 @@
 <template>
-  <UiSelect v-model="partnerType" :placeholder="$t('partnerType')" :options="partnersTypesOptions" />
+  <UiSelect
+    v-model="partnerType"
+    :placeholder="$t('partnerType')"
+    :options="partnersTypesOptions"
+  />
 </template>
 
 <script>
@@ -20,10 +24,7 @@ export default {
         return this.value ? this.value.label : '';
       },
       set(value) {
-        this.$emit(
-          'input',
-          this.partnersTypesOptions.find(o => o.value === value)
-        );
+        this.$emit('input', this.partnersTypesOptions.find(o => o.value === value));
       },
     },
   },
