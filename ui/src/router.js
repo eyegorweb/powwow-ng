@@ -13,6 +13,7 @@ import GetParcActDetail from '@/views/GetParc/UnitActionsPage';
 import GetParcManagementActLines from '@/views/GetParc/ActLines';
 import GetParcLineDetail from '@/views/GetParc/LineDetail';
 import SearchUsers from '@/views/GetAdmin/SearchUsers';
+import SearchPartners from '@/views/GetAdmin/SearchPartners';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -88,6 +89,12 @@ export default new Router({
       path: '/getamin/users',
       name: 'getAdminUsers',
       component: SearchUsers,
+      mock: true,
+    },
+    {
+      path: '/getamin/partners',
+      name: 'getAdminPartners',
+      component: SearchPartners,
       mock: true,
     },
     {
