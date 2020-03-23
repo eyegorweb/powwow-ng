@@ -159,6 +159,10 @@ export default {
               label: 'menu.users',
               to: { name: 'getAdminUsers' },
             },
+            {
+              label: 'menu.partners',
+              to: { name: 'getAdminPartners' },
+            },
           ],
         },
         { label: 'GetSupport', to: { name: 'exemples' }, mock: true },

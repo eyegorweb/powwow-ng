@@ -129,7 +129,8 @@
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
-    "users": "Gestion des utilisateurs"
+    "users": "Gestion des utilisateurs",
+    "partners": "Gestion des partenaires"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -327,6 +328,9 @@
       "email": "Email",
       "partnerGroup": "Groupe de partenaire",
       "total": "{total} utilisateur(s) trouvé(s)"
+    },
+    "partners": {
+      "name": "Raison sociale"
     }
   },
   "getreport": {

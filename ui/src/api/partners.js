@@ -1,6 +1,7 @@
-import { query } from './utils';
+import { query, getFilterValue, getFilterValues } from './utils';
 import get from 'lodash.get';
 
+// TO REFACTOR -----------------------
 export async function fetchpartners(q, { page, limit, partnerType, includeMailingLists }) {
   let partnerTypeGqlFilter = '';
   if (partnerType) {
@@ -32,7 +33,7 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
   const response = await query(queryStr);
   return response.data.partys.items;
 }
-
+// ------------------------------------
 export async function fetchpartnerById(id) {
   const queryStr = `
   query{
@@ -215,4 +216,90 @@ export async function fetchPartyTypes() {
   }`;
   const response = await query(queryStr);
   return response.data.__type.enumValues.map(e => e.name);
+}
+
+export async function fetchAllPartners(orderBy, pagination, filters = []) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+    query{
+      partys(filter:{${formatFilters(filters)}} ${paginationInfo} ${orderingInfo}) {
+        total,
+        items {
+          id
+          name
+          code
+          partyType
+          disabled
+          partyGroups {
+            name
+          }
+        },
+      }
+    }
+  `;
+  const response = await query(queryStr);
+  return response.data.partys;
+}
+
+export async function fetchPartnerGroups(q = '') {
+  const queryStr = `
+  query {
+    partyGroups(name: {contains: "${q}"}) {
+      name
+      id
+      parties {
+        id
+        name
+        partyType
+        code
+      }
+      roles {
+        category
+        name
+      }
+      flagStatisticsEnabled
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.partyGroups;
+}
+
+export function formatFilters(selectedFilters) {
+  const gqlFilters = [];
+
+  addPartnerNameFilter(gqlFilters, selectedFilters);
+  addPartnerTypeFilter(gqlFilters, selectedFilters);
+  addPartnerGroupFilter(gqlFilters, selectedFilters);
+
+  return gqlFilters.join(',');
+}
+
+function addPartnerNameFilter(gqlFilters, selectedFilters) {
+  const partnerName = getFilterValue(selectedFilters, 'getadmin.partners.name');
+
+  if (partnerName) {
+    gqlFilters.push(`name: {startsWith: "${partnerName}"}`);
+  }
+}
+
+function addPartnerTypeFilter(gqlFilters, selectedFilters) {
+  const partnerType = selectedFilters.find(f => f.id === 'partnerType');
+
+  if (partnerType) {
+    gqlFilters.push(`partyType: {eq: ${partnerType.data.value}}`);
+  }
+}
+
+function addPartnerGroupFilter(gqlFilters, selectedFilters) {
+  const values = getFilterValues(selectedFilters, 'getadmin.users.partnerGroup');
+  if (values && values.length) {
+    const partnerGroups = values.map(p => `${p.id}`).join(',');
+    gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
+    console.log(partnerGroups + ' ' + values);
+  }
 }

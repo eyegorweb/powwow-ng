@@ -8,18 +8,14 @@
     <div class="contentPart">
       <div class="d-flex">
         <div class="partnerTypeSelect">
-          <UiSelect
-            v-model="partnerType"
-            :placeholder="$t('partnerType')"
-            :options="partnersTypesOptions"
-          />
+          <PartnerTypeCombo v-model="partnerType" />
         </div>
         <div class="partnerSelect">
           <PartnersFilter
             class="flex-fill"
             :values="partners"
             :placeholder="$t('choosePartner')"
-            :partner-type="partnerType"
+            :partner-type="partnerTypeValue"
             @updatePartners="setLocalPartners"
             collapsed
             ignore-user-context
@@ -31,16 +27,14 @@
             variant="primary"
             class="flex-grow-1 py-1 px-3"
             @click="savePartnerContext"
-            >{{ $t('set') }}</UiButton
-          >
+          >{{ $t('set') }}</UiButton>
           <UiButton
             v-if="canCancel"
             slot="trigger"
             variant="danger"
             class="flex-grow-1 py-1 px-3 ml-1"
             @click="revertSelection"
-            >{{ $t('reset') }}</UiButton
-          >
+          >{{ $t('reset') }}</UiButton>
         </div>
       </div>
     </div>
@@ -50,7 +44,7 @@
 <script>
 import PartnersFilter from '@/components/Filters/PartnersFilter';
 import UiButton from '@/components/ui/Button';
-import UiSelect from '@/components/ui/UiSelect';
+import PartnerTypeCombo from '@/components/CustomComboxes/PartnerTypeCombo.vue';
 
 import { mapMutations, mapState } from 'vuex';
 
@@ -59,28 +53,10 @@ export default {
   components: {
     PartnersFilter,
     UiButton,
-    UiSelect,
+    PartnerTypeCombo,
   },
   data() {
     return {
-      partnersTypesOptions: [
-        {
-          label: '',
-          value: '',
-        },
-        {
-          label: 'M2M',
-          value: 'CUSTOMER',
-        },
-        {
-          label: 'MVNO',
-          value: 'MVNO',
-        },
-        {
-          label: 'MARQUE BLANCHE',
-          value: 'MULTI_CUSTOMER',
-        },
-      ],
       partners: [],
       partnerType: undefined,
     };
@@ -92,6 +68,10 @@ export default {
     canCancel() {
       return !!this.contextPartnersType || !!(this.contextPartners && this.contextPartners.length);
     },
+
+    partnerTypeValue() {
+      return this.partnerType ? this.partnerType.value : undefined;
+    },
   },
 
   methods: {
@@ -102,7 +82,7 @@ export default {
     },
 
     savePartnerContext() {
-      this.setPartnerType(this.partnerType);
+      this.setPartnerType(this.partnerTypeValue);
       this.setPartners(this.partners);
     },
 
