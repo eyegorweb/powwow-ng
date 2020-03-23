@@ -18,11 +18,11 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
-        <p>{{ content.type }}</p>
+        <p>{{ $t('alarms.' + content.type) }}</p>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
-        <p>{{ content.alarmScope }}</p>
+        <p>{{ $t('alarms.alarmScope.' + content.alarmScope) }}</p>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
@@ -31,9 +31,7 @@
           v-if="content.numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
-        >
-          {{ content.numberOfTargetedLines }}
-        </a>
+        >{{ content.numberOfTargetedLines }}</a>
         <p v-else>-</p>
       </div>
 
@@ -82,9 +80,7 @@
           <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
         </div>
         <div>
-          <UiButton variant="primary" block>
-            {{ $t('getvsion.detail-panel.triggered-events') }}
-          </UiButton>
+          <UiButton variant="primary" block>{{ $t('getvsion.detail-panel.triggered-events') }}</UiButton>
         </div>
       </div>
     </ff-wip>
