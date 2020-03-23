@@ -72,6 +72,8 @@
   "personalizeHome": "Personnaliser ma home",
   "genericSuccessMessage": "Opération effectuée avec succès",
   "genericErrorMessage": "Erreur inconnue",
+  "lastMassActions": "Derniers actes de gestion",
+  "showAllHistory": "Voir l'historique complet",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",

@@ -37,12 +37,13 @@
       </UiTabs>
     </div>
     <div class="flex-part">
-      <ff-wip>
-        <div class="lang-flags">
+      <div class="lang-flags">
+        <ff-wip>
           <a
             href="#"
             @click.prevent="$i18n.locale = 'fr'"
             :class="{ active: $i18n.locale === 'fr' }"
+            class="flag"
           >
             <img src="@/assets/fr.png" />
           </a>
@@ -50,15 +51,14 @@
             href="#"
             @click.prevent="$i18n.locale = 'en'"
             :class="{ active: $i18n.locale === 'en' }"
+            class="flag"
           >
             <img src="@/assets/en.png" />
           </a>
+        </ff-wip>
 
-          <a href="#">
-            <i class="icon ic-Clock-Icon"></i>
-          </a>
-        </div>
-      </ff-wip>
+        <ActHistoryButton />
+      </div>
       <div class="nav">
         <ul class="nav navbar-nav">
           <li class="dropdown" :class="{ show: userMenuVisible }">
@@ -98,6 +98,7 @@ import { mapGetters } from 'vuex';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import ActHistoryButton from './ActHistoryButton';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 
@@ -106,6 +107,7 @@ export default {
   components: {
     UiTabs,
     UiTab,
+    ActHistoryButton,
   },
   props: {
     isBackofficeProfile: Boolean,
@@ -207,7 +209,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .navbars {
   margin: 0 auto;
   padding: 0 10px;
@@ -306,20 +308,6 @@ a {
     display: inline-block;
   }
 
-  &.ic-Clock-Icon:after {
-    content: '8';
-    display: block;
-    font-size: 0.7rem;
-    color: $white;
-    background-color: $orange;
-    position: absolute;
-    top: -0.4rem;
-    right: -0.5rem;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 50%;
-    padding: 0.1rem 0.2rem;
-  }
-
   &:hover {
     cursor: pointer;
   }
@@ -338,5 +326,10 @@ a {
 
 .dropdown {
   display: inherit;
+}
+
+.flag {
+  bottom: 0.5rem;
+  position: relative;
 }
 </style>
