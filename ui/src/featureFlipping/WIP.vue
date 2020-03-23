@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <Fragment>
     <slot v-if="show" />
     <slot v-else name="orelse"></slot>
-  </div>
+  </Fragment>
 </template>
 
 <script>
@@ -10,8 +10,12 @@
  * Work in progress
  */
 import { shouldFilterMocked } from './plugin';
+import { Fragment } from 'vue-fragment';
 
 export default {
+  components: {
+    Fragment,
+  },
   data() {
     return {
       show: true,
