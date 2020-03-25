@@ -236,12 +236,14 @@
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée",
+    "MORE_DETAIL": "Voir le détail de l'alarme",
 
     "observationCycles": {
       "DAILY": "Quotidien",
       "WEEKLY": "Hebdomadaire",
       "MONTHLY": "Mensuel",
-      "CUSTOM": "Personnalisé"
+      "CUSTOM": "Personnalisé",
+      "DAYS": "jour(s)"
     },
     "alarmScope": {
       "LINE": "Ligne",
@@ -257,7 +259,7 @@
     "manage-alarms-tooltip": "TODO description",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
-    "alarm-detail": "Détail de l'alarm",
+    "alarm-detail": "Détail de l'alarme",
     "account-info": "Informations compte",
     "notifications": "Notifications",
     "notify-mail": "Notification mail",

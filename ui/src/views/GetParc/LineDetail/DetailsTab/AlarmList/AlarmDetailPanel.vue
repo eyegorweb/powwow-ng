@@ -37,7 +37,7 @@
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import Thresholds from '@/components/Thresholds';
 import { fetchTriggerHistory } from '@/api/alarms';
-import { currentMonthString } from '@/utils/date';
+import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
@@ -65,9 +65,9 @@ export default {
     if (triggerHistory) {
       const items = triggerHistory.items.map(element => {
         element.monthName =
-          currentMonthString(element.emissionDate)
+          getMonthString(element.emissionDate)
             .charAt(0)
-            .toUpperCase() + currentMonthString(element.emissionDate).slice(1);
+            .toUpperCase() + getMonthString(element.emissionDate).slice(1);
         return element;
       });
 

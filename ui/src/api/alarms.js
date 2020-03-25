@@ -107,6 +107,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         type
         alarmScope
         observationCycle
+        observationDelay
         notifyByWs
         notifyByEmail
         mailingList {
