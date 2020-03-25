@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.644+20200325141240
+2020-03-25
+
+### Features
+
+- ajout de plusieurs informations dans le panel de du détail d'alarme (99e841a41c40c43ef8f5806561fb913ccee4bb82)
+
 ## 0.3.0-master.643+20200325063255
 2020-03-25
 
