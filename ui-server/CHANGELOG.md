@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.643+20200325063255
+2020-03-25
+
+### Fixes
+
+- suppression des labels se superposant au-dessus des barres des graphiques (cebf8a4c7ff991ce4d1e007ea6f26c6177e2ba56)
+
 ## 0.3.0-master.642+20200323134404
 2020-03-23
 
