@@ -106,14 +106,6 @@ export default {
         tooltip: {
           shared: true,
         },
-        plotOptions: {
-          column: {
-            stacking: 'normal',
-            dataLabels: {
-              enabled: true,
-            },
-          },
-        },
         series: [
           {
             name: 'Minutes Reçues',
