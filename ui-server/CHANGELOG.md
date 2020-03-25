@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.645+20200325150512
+2020-03-25
+
+### Features
+
+- **admin:** ajout du filtre Partenaires pour la gestion des utilisateurs (cfa9fbd1898bbbc3ff6713fafe54600542000cbe)
+
 ## 0.3.0-master.644+20200325141240
 2020-03-25
 
