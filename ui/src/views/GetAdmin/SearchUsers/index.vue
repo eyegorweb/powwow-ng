@@ -182,8 +182,7 @@ export default {
       {
         title: 'getadmin.users.filters.partners',
         component: PartnerFilter,
-        // disabled: !this.userIsGroupAccount,
-        disabled: false,
+        disabled: !this.userIsGroupAccount,
         onChange(chosenValues) {
           return {
             id: 'getadmin.users.filters.partners',

@@ -4,7 +4,6 @@
 
 <script>
 import PartnersFilter from '@/components/Filters/PartnersFilter';
-import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
