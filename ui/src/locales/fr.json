@@ -328,9 +328,12 @@
   "getadmin": {
     "users": {
       "title": "Gestion des utilisateurs",
-      "fullName": "Nom ou prénom",
-      "email": "Email",
-      "partnerGroup": "Groupe de partenaire",
+      "filters": {
+        "fullName": "Nom ou prénom",
+        "email": "Email",
+        "partnerGroup": "Groupe de partenaire",
+        "partners": "Partenaires"
+      },
       "total": "{total} utilisateur(s) trouvé(s)"
     },
     "partners": {

@@ -40,6 +40,7 @@ import FullNameFilter from './filters/FullNameFilter';
 import EmailFilter from './filters/EmailFilter';
 import SearchByLogin from './filters/SearchByLogin';
 import GroupPartnerFilter from './filters/GroupPartnerFilter';
+import PartnerFilter from './filters/PartnerFilter';
 import { searchUsers } from '@/api/users';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
@@ -108,7 +109,7 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              return get(row, 'party.name');
+              return row.partners ? row.partners.map(p => p.name).join(',') : '';
             },
           },
         },
@@ -148,32 +149,44 @@ export default {
   mounted() {
     this.filters = [
       {
-        title: 'getadmin.users.fullName',
+        title: 'getadmin.users.filters.fullName',
         component: FullNameFilter,
         onChange(chosenValue) {
           return {
-            id: 'getadmin.users.fullName',
+            id: 'getadmin.users.filters.fullName',
             value: chosenValue,
           };
         },
       },
       {
-        title: 'getadmin.users.email',
+        title: 'getadmin.users.filters.email',
         component: EmailFilter,
         onChange(chosenValue) {
           return {
-            id: 'getadmin.users.email',
+            id: 'getadmin.users.filters.email',
             value: chosenValue,
           };
         },
       },
       {
-        title: 'getadmin.users.partnerGroup',
+        title: 'getadmin.users.filters.partnerGroup',
         component: GroupPartnerFilter,
         disabled: !this.userIsBO,
         onChange(chosenValues) {
           return {
-            id: 'getadmin.users.partnerGroup',
+            id: 'getadmin.users.filters.partnerGroup',
+            values: chosenValues,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.filters.partners',
+        component: PartnerFilter,
+        // disabled: !this.userIsGroupAccount,
+        disabled: false,
+        onChange(chosenValues) {
+          return {
+            id: 'getadmin.users.filters.partners',
             values: chosenValues,
           };
         },
@@ -182,7 +195,7 @@ export default {
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'userIsGroupAccount']),
   },
   methods: {
     async applyFilters(payload) {
