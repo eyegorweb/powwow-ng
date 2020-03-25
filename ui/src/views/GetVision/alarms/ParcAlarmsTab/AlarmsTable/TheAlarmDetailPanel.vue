@@ -105,20 +105,18 @@
       </div>
     </div>
 
-    <ff-wip>
-      <div slot="footer" class="action-buttons">
-        <div>
-          <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
-        </div>
-        <div>
-          <UiButton variant="primary" block>
-            {{
-            $t('alarms.MORE_DETAIL')
-            }}
-          </UiButton>
-        </div>
+    <div slot="footer" class="action-buttons">
+      <div>
+        <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
       </div>
-    </ff-wip>
+      <div>
+        <UiButton variant="primary" block>
+          {{
+          $t('alarms.MORE_DETAIL')
+          }}
+        </UiButton>
+      </div>
+    </div>
   </BaseDetailPanelContent>
 </template>
 
