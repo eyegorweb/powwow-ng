@@ -27,6 +27,14 @@ export const getters = {
   userIsBO: state => {
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
+  userIsGroupAccount: state => {
+    return (
+      state.userInfos &&
+      state.userInfos.type === 'PARTNER' &&
+      state.userInfos.partners &&
+      state.userInfos.partners.length > 1
+    );
+  },
 };
 
 export const actions = {
