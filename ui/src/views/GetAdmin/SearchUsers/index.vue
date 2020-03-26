@@ -171,7 +171,7 @@ export default {
       {
         title: 'getadmin.users.filters.partnerGroup',
         component: GroupPartnerFilter,
-        disabled: !this.userIsBO,
+        visible: this.userIsBO,
         onChange(chosenValues) {
           return {
             id: 'getadmin.users.filters.partnerGroup',
@@ -182,7 +182,7 @@ export default {
       {
         title: 'getadmin.users.filters.partners',
         component: PartnerFilter,
-        disabled: !this.userIsGroupAccount,
+        visible: this.userIsGroupAccount || this.userIsBO,
         onChange(chosenValues) {
           return {
             id: 'getadmin.users.filters.partners',
