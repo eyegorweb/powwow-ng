@@ -187,7 +187,7 @@ export default {
           component: PartnerFilter,
           onChange(chosenValues) {
             return {
-              id: 'getadmin.users.partners',
+              id: 'getadmin.users.filters.partners',
               values: chosenValues,
             };
           },
@@ -199,7 +199,7 @@ export default {
         component: PartnerFilter,
         onChange(chosenValues) {
           return {
-            id: 'getadmin.users.partners',
+            id: 'getadmin.users.filters.partners',
             values: chosenValues,
           };
         },
