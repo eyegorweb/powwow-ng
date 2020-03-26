@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div v-if="visible" class="foldable-block pt-3" :class="{ disabled, 'is-open': isOpen }">
-      <div class="d-flex align-items-center">
-        <span v-if="!disabled && draggable" class="handle">
-          <i class="ic-Drag-Column-Icon" />
-        </span>
-        <span class="title flex-grow-1">{{ title }}</span>
-        <a v-if="!disabled" class="p-0" @click.prevent="toggleShow">
-          <i :class="iconClass" />
-        </a>
-      </div>
-      <div class="pt-3">
-        <TransitionCollapse>
-          <slot v-if="canShowContent" />
-        </TransitionCollapse>
-      </div>
+  <div class="foldable-block pt-3" :class="{ disabled, 'is-open': isOpen }">
+    <div class="d-flex align-items-center">
+      <span v-if="!disabled && draggable" class="handle">
+        <i class="ic-Drag-Column-Icon" />
+      </span>
+      <span class="title flex-grow-1">{{ title }}</span>
+      <a v-if="!disabled" class="p-0" @click.prevent="toggleShow">
+        <i :class="iconClass" />
+      </a>
+    </div>
+    <div class="pt-3">
+      <TransitionCollapse>
+        <slot v-if="canShowContent" />
+      </TransitionCollapse>
     </div>
   </div>
 </template>
@@ -29,10 +27,6 @@ export default {
     title: String,
     draggable: Boolean,
     disabled: Boolean,
-    visible: {
-      type: Boolean,
-      default: true,
-    },
   },
 
   computed: {
