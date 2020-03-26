@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.648+20200326102049
+2020-03-26
+
+### Fixes
+
+- ajout d'une propriété de visibilité pour afficher les blocs de filtres (1e23b955ef413c909501300b84572d7ebd6a0517)
+
 ## 0.3.0-master.647+20200325151400
 2020-03-25
 
