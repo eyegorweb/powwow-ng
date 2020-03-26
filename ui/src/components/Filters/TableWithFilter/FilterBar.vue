@@ -13,7 +13,6 @@
         <transition-group>
           <FoldableBlock
             v-for="filter in filterComponents"
-            :disabled="filter.disabled"
             :title="$t(filter.title)"
             :key="filter.title"
             draggable

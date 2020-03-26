@@ -147,7 +147,7 @@ export default {
     };
   },
   mounted() {
-    this.filters = [
+    let currentVisibleFilters = [
       {
         title: 'getadmin.users.filters.fullName',
         component: FullNameFilter,
@@ -168,29 +168,45 @@ export default {
           };
         },
       },
-      {
-        title: 'getadmin.users.filters.partnerGroup',
-        component: GroupPartnerFilter,
-        disabled: !this.userIsBO,
-        onChange(chosenValues) {
-          return {
-            id: 'getadmin.users.filters.partnerGroup',
-            values: chosenValues,
-          };
+    ];
+
+    if (this.userIsBO) {
+      currentVisibleFilters.push(
+        {
+          title: 'getadmin.users.filters.partnerGroup',
+          component: GroupPartnerFilter,
+          onChange(chosenValues) {
+            return {
+              id: 'getadmin.users.filters.partnerGroup',
+              values: chosenValues,
+            };
+          },
         },
-      },
-      {
+        {
+          title: 'getadmin.users.filters.partners',
+          component: PartnerFilter,
+          onChange(chosenValues) {
+            return {
+              id: 'getadmin.users.partners',
+              values: chosenValues,
+            };
+          },
+        }
+      );
+    } else if (this.userIsGroupAccount) {
+      currentVisibleFilters.push({
         title: 'getadmin.users.filters.partners',
         component: PartnerFilter,
-        disabled: !this.userIsGroupAccount,
         onChange(chosenValues) {
           return {
-            id: 'getadmin.users.filters.partners',
+            id: 'getadmin.users.partners',
             values: chosenValues,
           };
         },
-      },
-    ];
+      });
+    }
+
+    this.filters = currentVisibleFilters;
     this.applyFilters();
   },
   computed: {
