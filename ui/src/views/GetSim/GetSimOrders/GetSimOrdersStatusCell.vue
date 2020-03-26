@@ -1,9 +1,7 @@
 <template>
   <div class="order-status d-flex flex-wrap align-items-center" v-if="isLoading">
     <div class="circle" />
-    <div class="label label--loading" :class="{ error: isError }">
-      {{ $t('col.statuses.' + item) }}
-    </div>
+    <div class="label label--loading" :class="{ error: isError }">{{ $t('col.statuses.' + item) }}</div>
   </div>
   <div class="order-status" v-tooltip="getTooltipConfig()" v-else>
     <StatusIcon :icon="icon" :color="iconColor" />
@@ -58,17 +56,17 @@ export default {
     iconColor() {
       switch (this.item) {
         case 'NOT_VALIDATED':
+        case 'CANCELED':
         case 'TO_BE_CONFIRMED_BY_BO':
           return color_warning;
 
         case 'FAILED':
-        case 'CANCELED':
           return color_error;
 
-        case 'VALIDATED':
         case 'TO_BE_CONFIRMED':
         case 'CONFIRMATION_IN_PROGRESS':
         case 'CONFIRMED':
+        case 'VALIDATED':
         default:
           return color_success;
       }
@@ -76,20 +74,21 @@ export default {
 
     icon() {
       switch (this.item) {
+        case 'VALIDATED':
+        case 'TO_BE_CONFIRMED':
+        case 'TO_BE_CONFIRMED_BY_BO':
+        case 'CONFIRMATION_IN_PROGRESS':
+        case 'CONFIRMED':
+          return 'ic-Clock-Icon';
+
         case 'NOT_VALIDATED':
           return 'ic-Alt-Icon';
 
         case 'FAILED':
         case 'CANCELED':
           return 'ic-Cross-Icon';
-
-        case 'VALIDATED':
-        case 'TO_BE_CONFIRMED':
-        case 'TO_BE_CONFIRMED_BY_BO':
-        case 'CONFIRMATION_IN_PROGRESS':
-        case 'CONFIRMED':
         default:
-          return 'ic-Clock-Icon';
+          return 'ic-Check-Icon';
       }
     },
   },
