@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.652+20200326164733
+2020-03-26
+
+### Fixes
+
+- Changement des icones et leurs couleurs + FIX: centrer les icones (90c0b0caf8b864afe73cdb8dd75002c7aaa0d97d)
+- ajout du contexte Partenaires pour afficher les indicateurs de commande (037f55e0579f50fa52ad111a2eca2b53434a6e8d)
+
 ## 0.3.0-master.651+20200326163237
 2020-03-26
 
