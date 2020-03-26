@@ -29,6 +29,7 @@ export default {
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters', 'indicatorsVersion']),
     ...mapGetters('userContext', ['contextFilters']),
+    ...mapGetters(['userIsPartner']),
   },
   watch: {
     contextFilters() {
@@ -38,68 +39,71 @@ export default {
   methods: {
     ...mapMutations('getsim', ['refreshIndicators']),
   },
-  data() {
-    return {
-      indicators: [
-        {
-          name: 'toBeConfirmed',
-          labelKey: 'indicators.getsim.ordersToBeConfirmed',
-          color: 'text-danger',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [{ id: 'NOT_VALIDATED', label: this.$t('col.statuses.NOT_VALIDATED') }],
-            },
-            {
-              id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(6, 'month')
-                .format(dateFormat),
-              endDate: moment().format(dateFormat),
-            },
-          ],
-          fetchKey: 'ORDER_TO_VALIDATE',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
+  mounted() {
+    let indicators = [
+      {
+        name: 'toBeConfirmed',
+        labelKey: 'indicators.getsim.ordersToBeConfirmed',
+        color: 'text-danger',
+        clickable: true,
+        total: '-',
+        filters: [
+          {
+            id: 'filters.orderStatus',
+            values: [{ id: 'NOT_VALIDATED', label: this.$t('col.statuses.NOT_VALIDATED') }],
           },
-        },
-        {
-          name: 'ordersInProgress',
-          labelKey: 'indicators.getsim.ordersInProgress',
-          color: 'text-success',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [
-                { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
-                {
-                  id: 'TO_BE_CONFIRMED_BY_BO',
-                  label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
-                },
-                {
-                  id: 'CONFIRMATION_IN_PROGRESS',
-                  label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
-                },
-                { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
-              ],
-            },
-            {
-              id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(6, 'month')
-                .format(dateFormat),
-              endDate: moment().format(dateFormat),
-            },
-          ],
-          fetchKey: 'ORDER_IN_PROCESS',
-          fetch: async (indicator, contextFilters) => {
-            return await fetchSingleIndicator(indicator.filters, contextFilters);
+          {
+            id: 'filters.orderDate',
+            startDate: moment()
+              .subtract(6, 'month')
+              .format(dateFormat),
+            endDate: moment().format(dateFormat),
           },
+        ],
+        fetchKey: 'ORDER_TO_VALIDATE',
+        fetch: async (indicator, contextFilters) => {
+          return await fetchSingleIndicator(indicator.filters, contextFilters);
         },
+      },
+      {
+        name: 'ordersInProgress',
+        labelKey: 'indicators.getsim.ordersInProgress',
+        color: 'text-success',
+        clickable: true,
+        total: '-',
+        filters: [
+          {
+            id: 'filters.orderStatus',
+            values: [
+              { id: 'TO_BE_CONFIRMED', label: this.$t('col.statuses.TO_BE_CONFIRMED') },
+              {
+                id: 'TO_BE_CONFIRMED_BY_BO',
+                label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+              },
+              {
+                id: 'CONFIRMATION_IN_PROGRESS',
+                label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
+              },
+              { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
+            ],
+          },
+          {
+            id: 'filters.orderDate',
+            startDate: moment()
+              .subtract(6, 'month')
+              .format(dateFormat),
+            endDate: moment().format(dateFormat),
+          },
+        ],
+        fetchKey: 'ORDER_IN_PROCESS',
+        fetch: async (indicator, contextFilters) => {
+          return await fetchSingleIndicator(indicator.filters, contextFilters);
+        },
+      },
+    ];
+
+    if (!this.userIsPartner) {
+      indicators.push(
         {
           name: 'ordersNotConfirmed',
           labelKey: 'indicators.getsim.ordersNotConfirmed',
@@ -202,8 +206,15 @@ export default {
           filters: [],
           fetchKey: 'ORDER_DELAY',
           unit: true,
-        },
-      ],
+        }
+      );
+    }
+
+    this.indicators = indicators;
+  },
+  data() {
+    return {
+      indicators: [],
     };
   },
 };
