@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.651+20200326163237
+2020-03-26
+
+### Fixes
+
+- correctif du filtre Partenaires pour la gestion des utilisateurs (e5fdd26a517f4091d937cea3d2cc05b189ba5523)
+
 ## 0.3.0-master.650+20200326140922
 2020-03-26
 
