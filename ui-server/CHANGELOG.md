@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.650+20200326140922
+2020-03-26
+
+### Fixes
+
+- simplification des états d'affichage des filtres dans la gestion des utilisateurs (d4012340da26f0383abca09fb3101e665df50728)
+
 ## 0.3.0-master.649+20200326102629
 2020-03-26
 
