@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.655+20200327105103
+2020-03-27
+
+### Features
+
+- Mise en place de l'écran de l'utilisateur. (fc8acdee47e6f58ff658e6631d2e785fa0f14881)
+
 ## 0.3.0-master.654+20200326165835
 2020-03-27
 
