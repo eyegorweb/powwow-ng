@@ -74,6 +74,7 @@
   "genericErrorMessage": "Erreur inconnue",
   "lastMassActions": "Derniers actes de gestion",
   "showAllHistory": "Voir l'historique complet",
+  "groupAccount": "Compte groupe",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -132,7 +133,8 @@
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
     "users": "Gestion des utilisateurs",
-    "partners": "Gestion des partenaires"
+    "partners": "Gestion des partenaires",
+    "account": "Compte"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -337,7 +339,18 @@
       "total": "{total} utilisateur(s) trouvé(s)"
     },
     "partners": {
-      "name": "Raison sociale"
+      "name": "Raison sociale",
+      "mainAdmin": "Administrateur principal",
+      "users": "Utilisateurs",
+      "deliveryPlaces": "Adresses de livraison",
+      "broadcastList": "Liste de diffusion",
+      "salesEngineer": "Ingénieur commercial",
+      "lastBill": "Dernière facture (cumul)",
+      "customize": "Personnalisation",
+      "offersAndSim": "Offres et cartes SIM",
+      "accountDetail": "Détail du compte",
+      "admins": "Administrateurs",
+      "activityLog": "Journal d'activité"
     }
   },
   "getreport": {
@@ -1151,7 +1164,7 @@
     "title": "FILTRES",
     "partners": "Partenaires",
     "countries": "Pays",
-    "billingAccounts": "Compte de facturation",
+    "billingAccounts": "Comptes de facturation",
     "orderStatus": "Statut de la commande",
     "orderReference": "Référence de la commande",
     "orderDate": "Date de la commande",
