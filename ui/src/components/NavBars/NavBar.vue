@@ -9,7 +9,7 @@
           alt
         />
       </a>
-      <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
+      <UiTabs v-if="navbarLinks" :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
             <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
@@ -114,6 +114,69 @@ export default {
   },
   mounted() {
     this.currentUrlName = this.$route.name;
+
+    const getAdminExtra = [];
+
+    if (this.userIsPartner) {
+      getAdminExtra.push({
+        label: 'menu.account',
+        to: {
+          name: 'getAdminPartnerDetails',
+          params: { id: this.userInfos.partners[0].id },
+        },
+      });
+    }
+
+    this.navbarLinks = excludeMocked([
+      {
+        label: 'GetSIM',
+        to: { name: 'orders' },
+      },
+      {
+        label: 'GetParc/GetDiag',
+        to: 'getParc',
+        submenu: [
+          {
+            label: 'menu.actLines',
+            to: { name: 'actLines' },
+          },
+          {
+            label: 'menu.massActions',
+            to: { name: 'actHistory' },
+          },
+        ],
+      },
+      {
+        label: 'GetVision',
+        to: { name: 'alarms' },
+        mock: true,
+        submenu: [
+          {
+            label: 'menu.alarms',
+            to: { name: 'alarms' },
+          },
+        ],
+      },
+      { label: 'GetReport', to: { name: 'reports' }, mock: true },
+      {
+        label: 'GetAdmin',
+        to: { name: 'exemples' },
+        mock: true,
+        submenu: [
+          {
+            label: 'menu.users',
+            to: { name: 'getAdminUsers' },
+          },
+          {
+            label: 'menu.partners',
+            to: { name: 'getAdminPartners' },
+          },
+          ...getAdminExtra,
+        ],
+      },
+      { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
+      { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
+    ]);
     this.chooseCurrentMenu();
   },
   data() {
@@ -121,55 +184,7 @@ export default {
       currentIndex: 0,
       currentUrlName: '',
       currentIndexIsForced: false,
-      navbarLinks: excludeMocked([
-        {
-          label: 'GetSIM',
-          to: { name: 'orders' },
-        },
-        {
-          label: 'GetParc/GetDiag',
-          to: 'getParc',
-          submenu: [
-            {
-              label: 'menu.actLines',
-              to: { name: 'actLines' },
-            },
-            {
-              label: 'menu.massActions',
-              to: { name: 'actHistory' },
-            },
-          ],
-        },
-        {
-          label: 'GetVision',
-          to: { name: 'alarms' },
-          mock: true,
-          submenu: [
-            {
-              label: 'menu.alarms',
-              to: { name: 'alarms' },
-            },
-          ],
-        },
-        { label: 'GetReport', to: { name: 'reports' }, mock: true },
-        {
-          label: 'GetAdmin',
-          to: { name: 'exemples' },
-          mock: true,
-          submenu: [
-            {
-              label: 'menu.users',
-              to: { name: 'getAdminUsers' },
-            },
-            {
-              label: 'menu.partners',
-              to: { name: 'getAdminPartners' },
-            },
-          ],
-        },
-        { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
-        { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
-      ]),
+      navbarLinks: undefined,
 
       userMenuVisible: false,
     };
@@ -194,7 +209,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos']),
+    ...mapGetters(['userName', 'userInfos', 'userIsPartner']),
 
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
