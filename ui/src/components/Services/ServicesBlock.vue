@@ -26,7 +26,7 @@
             </div>
             <div v-else>
               <UiToggle
-                :label="service.name ? service.name : service.labelService"
+                :label="service.labelService"
                 :editable="service.editable"
                 v-model="service.checked"
                 :bold-label="isChanged(service)"

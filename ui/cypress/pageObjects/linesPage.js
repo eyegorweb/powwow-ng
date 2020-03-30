@@ -6,7 +6,7 @@ export default {
   },
 
   showAllLines() {
-    cy.get('.col-md-9 > .position-relative > div > .alert > .flex-grow-1').click({ force: true });
+    cy.get('.show-all-lines').click({ force: true });
   },
 
   getRows(callback) {

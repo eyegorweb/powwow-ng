@@ -25,10 +25,19 @@ export default {
   display: flex;
   justify-content: center;
   font-size: 1rem;
+  position: relative;
 
   .icon-container {
     color: white;
-    align-self: center;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    i {
+    }
   }
 }
 </style>

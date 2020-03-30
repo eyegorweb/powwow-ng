@@ -54,10 +54,18 @@
           :uppercase="true"
         />
         <LinesTable
-          v-if="canShowTable"
+          v-if="canShowTable && canMounTable"
           :creation-mode="canShowForm"
           @noResults="checkTableResult"
-        />
+        >
+          <template v-if="canShowForm" slot="title">
+            {{
+              $t('getparc.actLines.selected', {
+                total: totalSelected,
+              })
+            }}
+          </template>
+        </LinesTable>
 
         <Title
           num="2"
@@ -105,6 +113,7 @@ export default {
   },
   data() {
     return {
+      canMounTable: true,
       prereqSet: false,
       indicators: lineIndicators,
       tableIsEmpty: true,
@@ -118,9 +127,12 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', [
+      'currentFilters',
       'defaultAppliedFilters',
       'actCreationPrerequisites',
       'selectedFileForActCreation',
+      'selectedLinesForActCreation',
+      'formVersion',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner']),
@@ -128,6 +140,11 @@ export default {
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+
+    totalSelected() {
+      const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      return this.selectedLinesForActCreation.length || responseTotal;
+    },
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems.filter(i => !i.boOnly);
@@ -199,6 +216,8 @@ export default {
       'setSelectedFileForActCreation',
       'setPageLimit',
       'setRouteParamsFilters',
+      'resetAfterFilterClear',
+      'resetState',
     ]),
 
     initAfterRouteIsSet() {
@@ -231,8 +250,20 @@ export default {
         }
 
         if (item.filters) {
-          this.setActToCreate(item);
-          this.mergeCurrentFiltersWith(item.filters);
+          let needToReset = item.havePrereqs;
+
+          if (!this.userIsPartner && !item.havePrereqs) {
+            needToReset = true;
+          }
+
+          if (needToReset) {
+            this.resetState();
+          }
+
+          this.$nextTick(() => {
+            this.setActToCreate(item);
+            this.mergeCurrentFiltersWith(item.filters);
+          });
         }
       } else {
         this.setPageLimit(20);
@@ -263,6 +294,29 @@ export default {
   },
 
   watch: {
+    formVersion() {
+      this.canMounTable = false;
+      this.$nextTick(() => {
+        this.canMounTable = true;
+      });
+    },
+    currentFilters(currentFilters) {
+      const haveValues = !!currentFilters.find(filter => {
+        return (
+          (filter.values && filter.values.length) ||
+          filter.value ||
+          filter.startDate ||
+          filter.endDate ||
+          filter.from ||
+          filter.to
+        );
+      });
+
+      if (!haveValues) {
+        this.resetAfterFilterClear();
+      }
+    },
+
     contextPartnersType() {
       this.initFilterForContext();
     },
@@ -273,7 +327,10 @@ export default {
       // refresh indicators
       this.indicators = [...this.indicators];
     },
-    actToCreate() {
+    actToCreate(newValue, oldValue) {
+      if (!newValue && oldValue) {
+        this.resetState();
+      }
       this.actToCreateFormVersionChange += 1;
     },
     actCreationPrerequisites() {

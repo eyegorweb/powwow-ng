@@ -87,6 +87,7 @@ export default {
           entityId: i.entityId,
           stringValue: i.stringValue,
           linked: true,
+          unity: this.period,
         };
       });
       this.displayInfoMessage();

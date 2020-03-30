@@ -132,8 +132,8 @@ export default {
           wide: false,
           backdrop: false,
           payload: {
-            ...payload.row,
-            iccid: this.content.iccid,
+            alarm: payload.row.alarm,
+            sim: this.content,
           },
         });
       };

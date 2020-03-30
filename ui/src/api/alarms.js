@@ -107,6 +107,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         type
         alarmScope
         observationCycle
+        observationDelay
         notifyByWs
         notifyByEmail
         mailingList {
@@ -150,12 +151,20 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
-export async function triggerHistory(id) {
+export async function fetchTriggerHistory(alarmId, simIds = []) {
+  let simIdsGQLparam = '';
+
+  if (simIds && simIds.length) {
+    simIdsGQLparam = `, simCardInstanceId: {in: [${simIds.join(',')}]}`;
+  }
+
   const queryStr = `
   query {
-    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${id}}}, pagination: {page: 0, limit: 20}) {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}${simIdsGQLparam}}, pagination: {page: 0, limit: 20}) {
       items {
         id
+        emissionDate,
+
         alarm {
             id,
           startDate,
@@ -168,7 +177,9 @@ export async function triggerHistory(id) {
   }
   `;
   const response = await query(queryStr);
-  return response.data.alarmEvents;
+  if (response.data) return response.data.alarmEvents;
+
+  console.log(response);
 }
 
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {

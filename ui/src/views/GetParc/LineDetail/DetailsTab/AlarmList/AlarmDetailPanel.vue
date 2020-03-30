@@ -10,7 +10,7 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
-        <p>{{ content.iccid }}</p>
+        <p>{{ content.sim.iccid }}</p>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
@@ -23,7 +23,7 @@
         <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
       <div>
-        <div v-for="(item, index) in triggerHistory.items" :key="index" class="overview-item mr-5">
+        <div v-for="item in triggerHistory.items" :key="item.id" class="overview-item mr-5">
           <h6>{{ item.monthName }}</h6>
           <p>{{ item.emissionDate }}</p>
           <Thresholds :alarm="item.alarm" />
@@ -36,8 +36,8 @@
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import Thresholds from '@/components/Thresholds';
-import { triggerHistory } from '@/api/alarms';
-import { currentMonthString } from '@/utils/date';
+import { fetchTriggerHistory } from '@/api/alarms';
+import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
@@ -45,6 +45,12 @@ export default {
     Thresholds,
   },
   props: {
+    /*
+    {
+      alarm: Object,
+      sim: Object
+    }
+    */
     content: Object,
   },
 
@@ -55,14 +61,19 @@ export default {
   },
 
   async mounted() {
-    this.triggerHistory = await triggerHistory(this.content.alarm.id);
+    const triggerHistory = await fetchTriggerHistory(this.content.alarm.id);
     if (triggerHistory) {
-      this.triggerHistory.items.forEach(element => {
+      const items = triggerHistory.items.map(element => {
         element.monthName =
-          currentMonthString(element.emissionDate)
+          getMonthString(element.emissionDate)
             .charAt(0)
-            .toUpperCase() + currentMonthString(element.emissionDate).slice(1);
+            .toUpperCase() + getMonthString(element.emissionDate).slice(1);
+        return element;
       });
+
+      triggerHistory.items = items;
+
+      this.triggerHistory = triggerHistory;
     }
   },
 };

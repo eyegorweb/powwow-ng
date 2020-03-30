@@ -8,11 +8,15 @@
         <div class="row mb-3">
           <div class="col">
             <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-              {{
-                $t('getparc.actLines.total', {
-                  total: formattedTotal,
-                })
-              }}
+              <slot name="title">
+                <template>
+                  {{
+                    $t('getparc.actLines.total', {
+                      total: formattedTotal,
+                    })
+                  }}
+                </template>
+              </slot>
             </h2>
           </div>
           <div class="col" v-if="hasResults">
@@ -50,21 +54,19 @@
         </template>
       </template>
       <template v-else>
-        <div class="alert alert-primary text-center" role="alert">
+        <h4>Rechercher une ligne par ID</h4>
+        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+
+        <div class="alert alert-primary text-center mt-2" role="alert">
           Ecran de recherche de lignes et création d'actes de gestion
           <br />
           <UiButton
             variant="primary"
-            class="flex-grow-1 py-1 px-3 ml- mt-3"
+            class="show-all-lines flex-grow-1 py-1 px-3 ml- mt-3"
             @click="fetchLinesActions()"
             >Afficher toutes les lignes</UiButton
           >
         </div>
-
-        <ff-wip>
-          <h4>Rechercher une ligne par ID</h4>
-          <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-        </ff-wip>
       </template>
     </div>
   </LoaderContainer>
@@ -190,17 +192,14 @@ export default {
     },
     orderBy() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
     pageLimit() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
     appliedFilters() {
       this.page = 1;
-
       this.fetchLinesActions();
     },
   },

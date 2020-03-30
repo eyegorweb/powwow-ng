@@ -24,7 +24,9 @@ import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacA
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
 import { excludeMocked } from '@/featureFlipping/plugin';
 
-export default excludeMocked([
+import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
+
+const defaultWidgets = [
   {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
@@ -214,4 +216,30 @@ export default excludeMocked([
     seeMore: false,
     component: PriseOrdre,
   },
-]);
+];
+
+export function loadWidgets() {
+  const savedProfile = localStorage.getItem('_widgets_profile_');
+
+  if (savedProfile && savedProfile !== getProfile()) {
+    localStorage.removeItem('__homewidgets__');
+  }
+
+  let savedWidgets = localStorage.getItem('__homewidgets__');
+
+  if (savedWidgets) {
+    const loadedWidgets = JSON.parse(savedWidgets);
+    return excludeMocked(
+      loadedWidgets.map(w => {
+        const widget = defaultWidgets.find(f => f.title === w.title);
+        return { ...w, component: widget.component };
+      })
+    );
+  } else {
+    return excludeMocked(defaultWidgets);
+  }
+}
+
+export function getProfile() {
+  return `_${localStorage.getItem('username')}_${localStorage.getItem(HIDE_MOCKS)}_`;
+}

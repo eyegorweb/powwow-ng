@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget">
     <Toggle
-      v-if="toggleValues"
+      v-if="toggleValues && chosenPeriod !== undefined"
       @update="updateContentType"
       :values="toggleValues"
       class="pl-2"
@@ -35,6 +35,8 @@ import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
 import { fetchBillingExchange } from '@/api/indicators.js';
 import { mapState } from 'vuex';
+import moment from 'moment';
+import { capitalize } from '@/utils';
 
 export default {
   components: {
@@ -51,94 +53,103 @@ export default {
     },
   },
   async mounted() {
-    await this.refreshIndicatorsForPeriod();
+    this.listIndicators = await fetchBillingExchange(this.rubric, this.contextPartnersType);
+    this.chosenPeriod = this.listIndicators.length - 1;
+    this.toggleValues = this.fillToggleValues(this.listIndicators);
+    this.getMonth(this.listIndicators);
+    this.refreshIndicatorsForPeriod();
   },
   data() {
     return {
+      listIndicators: undefined,
       indicators: undefined,
-      period: '0',
+      chosenPeriod: undefined,
       specificMessage: undefined,
       rubric: 'PO',
-      toggleValues: [
-        {
-          id: '1',
-          label: 'M-1',
-          default: this.period === '1',
-        },
-        {
-          id: '2',
-          label: 'M-2',
-          default: this.period === '2',
-        },
-        {
-          id: '3',
-          label: 'M-3',
-          default: this.period === '3',
-        },
-      ],
+      toggleValues: [],
     };
   },
   methods: {
-    async updateContentType(newVal) {
-      this.period = newVal.id;
-      await this.refreshIndicatorsForPeriod();
+    fillToggleValues(array) {
+      if (!array && !array.length) return;
+      let index = array.length;
+      return array.map(() => {
+        index--;
+        return {
+          id: index,
+          label: '',
+          default: this.chosenPeriod === index,
+        };
+      });
+    },
+    getMonth(array) {
+      if (!array && !array.length) return;
+      for (let i = array.length - 1, index = 0; i >= 0; i--, index++) {
+        const parts = array[index].periode.split('/');
+        let nb = parseInt(parts[1]) - 1;
+        const month = moment()
+          .month(nb)
+          .format('MMMM');
+        this.toggleValues[i].label = capitalize(month);
+      }
+    },
+    updateContentType(newVal) {
+      this.chosenPeriod = newVal.id;
+      this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
-      let period = this.period;
+      let period = this.chosenPeriod;
       let top3;
       let flop2;
-      const listIndicators = await fetchBillingExchange(
-        this.rubric,
-        period,
-        this.contextPartnersType
-      );
-      const temp = listIndicators.map((i, index) => {
-        return {
-          total: i.amount,
-          labelKey: i.partyName,
-          id: i.partyId,
-          indice: `${index + 1}. `,
-        };
-      });
-
-      // On récupère les 3 premiers éléments pour définir le Top 3
-      top3 = temp.slice(0, 3).map(i => {
-        return {
-          ...i,
-          class: 'top',
-        };
-      });
-      this.displayInfoMessage();
-
-      // Si on a en tout 4 éléments, alors on a un Top 3 et un Flop 1
-      if (temp.length === 4) {
-        flop2 = temp.slice(-1).map(i => {
+      let temp;
+      if (this.listIndicators && this.listIndicators.length) {
+        temp = this.listIndicators[period].billingExchanges.map((i, index) => {
           return {
-            ...i,
-            class: 'flop',
+            total: i.amount,
+            labelKey: i.partyName,
+            id: i.partyId,
+            indice: `${index + 1}. `,
           };
         });
-        this.indicators = top3.concat(flop2);
-      }
-      // Sinon si on a plus de 4 éléments on récupère un Top 3 et un Flop 2
-      else if (temp.length > 4) {
-        flop2 = temp.slice(-2).map(i => {
+
+        // On récupère les 3 premiers éléments pour définir le Top 3
+        top3 = temp.slice(0, 3).map(i => {
           return {
             ...i,
-            class: 'flop',
+            class: 'top',
           };
         });
-        this.indicators = top3.concat(flop2);
-      }
-      // Sinon on n'a qu'un Top 3 et pas de Flop
-      else {
-        this.indicators = top3;
+        this.displayInfoMessage(temp);
+        // Si on a en tout 4 éléments, alors on a un Top 3 et un Flop 1
+        if (temp.length === 4) {
+          flop2 = temp.slice(-1).map(i => {
+            return {
+              ...i,
+              class: 'flop',
+            };
+          });
+          this.indicators = top3.concat(flop2);
+        }
+        // Sinon si on a plus de 4 éléments on récupère un Top 3 et un Flop 2
+        else if (temp.length > 4) {
+          flop2 = temp.slice(-2).map(i => {
+            return {
+              ...i,
+              class: 'flop',
+            };
+          });
+          this.indicators = top3.concat(flop2);
+        }
+        // Sinon on n'a qu'un Top 3 et pas de Flop
+        else {
+          this.indicators = top3;
+        }
       }
     },
     // Fonction pour insérer un '-' si on a moins de 5 éléments à la première ligne vide rencontréd
-    displayInfoMessage(limit = 5) {
+    displayInfoMessage(array, limit = 5) {
       if (this.noResults) return;
-      if (this.indicators && this.indicators.length && this.indicators.length < limit) {
+      if (array && array.length && array.length < limit) {
         this.specificMessage = '-';
       } else {
         this.specificMessage = '';

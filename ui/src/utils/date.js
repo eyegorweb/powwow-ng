@@ -9,11 +9,8 @@ export function currentDateMinusMounts(numberOfMonths) {
     .format(DATE_FORMAT);
 }
 
-export function currentMonthString(date) {
-  date = new Date(date);
-  let month = date.getMonth();
-  month++;
-  return moment(month, 'MM').format('MMMM');
+export function getMonthString(dateStr) {
+  return moment(dateStr, DATE_FORMAT).format('MMMM');
 }
 
 export function currentDateMinusDays(value) {
@@ -24,6 +21,10 @@ export function currentDateMinusDays(value) {
 
 export function formattedCurrentDate() {
   return moment().format(DATE_FORMAT);
+}
+
+export function getCurrentMonthName() {
+  return getMonthString(formattedCurrentDate());
 }
 
 export function formattedCurrentDateExtended() {

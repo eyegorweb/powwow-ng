@@ -99,17 +99,20 @@ export async function fetchEntitiesIndicators(keys, partners, partnerType) {
   if (response.data) return response.data.topIndicatorsEntities;
 }
 
-export async function fetchBillingExchange(rubric, period, partnerType) {
+export async function fetchBillingExchange(rubric, partnerType) {
   let partnerTypeGql = '';
   if (partnerType) {
     partnerTypeGql = `, partyType: ${partnerType}`;
   }
   const queryStr = `
   query{
-    topBillingExchanges(rubricEnum: ${rubric}, depth: ${period} ${partnerTypeGql}) {
-      partyId
-      partyName
-      amount
+    topBillingExchanges(rubricEnum: ${rubric}, depth: 2 ${partnerTypeGql}) {
+        periode
+        billingExchanges {
+          partyId
+          partyName
+          amount
+        }
     }
   }
   `;

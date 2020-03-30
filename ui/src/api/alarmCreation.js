@@ -83,6 +83,35 @@ export async function alarmOnDeviceChange(params) {
   return response.data.createDeviceChangeAlarm;
 }
 
+export async function createStatusChangeAlarm(params) {
+  const gqlParams = getFormGQLParams(params);
+
+  gqlParams.push(`status: ${params.formData}`);
+
+  const queryStr = `
+  mutation {
+    createStatusChangeAlarm(
+      filter: {${getScopeGQLParams(params)}},
+      alarmCreationInput: {${gqlParams.join(',')}}
+      ) {
+        tempDataUuid
+        validated
+        errors{
+          key
+          number
+        }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.data) {
+    return response.data.createStatusChangeAlarm;
+  }
+  return { errors: response.errors };
+}
+
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 
@@ -94,7 +123,7 @@ export async function alarmOnOverConso(params) {
 }
 
 export async function alarmOnUnderConso(params) {
-  const response = consoQuery('createUnderConsumptionAlarm', params);
+  const response = await consoQuery('createUnderConsumptionAlarm', params);
 
   if (response.errors) {
     return { errors: response.errors };

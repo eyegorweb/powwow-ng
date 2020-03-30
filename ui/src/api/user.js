@@ -15,6 +15,7 @@ export async function fetchCurrentUserInfos() {
         username
         partners {
           id
+          name
         }
         type
         isAdminOrBackOffice

@@ -36,13 +36,13 @@
             </a>
           </UiTab>
         </template>
-        <div class="pt-4 pl-4" slot="trigger2Month">
+        <div class="pt-4 pl-4 extra-space" slot="trigger2Month">
           <Trigger2MonthsTab :alarm="alarm" />
         </div>
-        <div class="pt-4 pl-4" slot="targetedLines">
+        <div class="pt-4 pl-4 extra-space" slot="targetedLines">
           <TargetedLinesByAlarmTab :alarm="alarm" />
         </div>
-        <div class="pt-4 pl-4" slot="excludedSimFromAlarm">
+        <div class="pt-4 pl-4 extra-space" slot="excludedSimFromAlarm">
           <ExcludedLinesFromAlarmTab :alarm="alarm" />
         </div>
       </UiTabs>
@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 1,
+      currentTab: 0,
       tabs: [
         {
           label: 'trigger2Month',
@@ -114,10 +114,6 @@ export default {
         {
           id: 'filters.alarmId',
           value: this.alarm.id,
-        },
-        {
-          id: 'filters.partyId',
-          value: this.alarm.party.id,
         },
       ];
 
@@ -165,5 +161,9 @@ a {
 
 .back-btn {
   color: $gray-680;
+}
+
+.extra-space {
+  margin-bottom: 20rem !important;
 }
 </style>

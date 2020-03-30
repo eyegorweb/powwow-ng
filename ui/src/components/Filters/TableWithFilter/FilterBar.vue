@@ -90,6 +90,14 @@ export default {
       const filterExists = this.currentFilters.find(c => c.id === selectedValue.id);
 
       if (filterExists) {
+        const haveEmptyValue = selectedValue && selectedValue.value === '';
+        const haveEmptyArrayOfValues =
+          selectedValue && selectedValue.values && selectedValue.values.length === 0;
+
+        const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues;
+        if (shouldRemoveFilter) {
+          this.currentFilters = this.currentFilters.filter(f => f.id !== selectedValue.id);
+        }
         this.currentFilters = this.currentFilters.map(c => {
           if (c.id === selectedValue.id) {
             return selectedValue;

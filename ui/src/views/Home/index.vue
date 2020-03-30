@@ -58,8 +58,6 @@
 import VueGridLayout from 'vue-grid-layout';
 import { mapMutations, mapGetters, mapState, mapActions } from 'vuex';
 
-const LAYOUT_NAME = '_layout_';
-
 export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
@@ -92,57 +90,21 @@ export default {
       layout: undefined,
       version: 0,
       startWatchingWidgets: false,
+      updating: false,
     };
   },
   mounted() {
+    this.initHomeWidgets();
     this.initFilterForContext();
-    const layout = this.loadLayout();
-    if (layout) {
-      this.layout = layout;
-    } else {
-      this.createLayout();
-    }
+    this.setWidgetsToLayout();
+    this.updateLayoutInfoInWigets(this.layout);
 
     this.startWatchingWidgets = true;
   },
+
   methods: {
-    ...mapMutations(['openPanel', 'setHomeWidgets']),
+    ...mapMutations(['openPanel', 'setHomeWidgets', 'initHomeWidgets']),
     ...mapActions('getsim', ['initFilterForContext']),
-
-    createLayout() {
-      const layout = [];
-      let y = 0;
-      let x = 0;
-      let spaceInLine = 3;
-      for (let i = 0; i < this.activeWidgets.length; i++) {
-        const meta = this.activeWidgets[i];
-
-        const width = meta.large ? 2 : 1;
-
-        if (width > spaceInLine) {
-          spaceInLine = 3;
-          y += 1;
-          x = 0;
-        }
-
-        // console.log('lastLineIndex >', lastLineIndex);
-        layout.push({
-          x,
-          y,
-          w: width,
-          h: this.cellHeight,
-          title: meta.title,
-          i,
-          meta,
-        });
-
-        spaceInLine -= width;
-        x += width;
-      }
-      this.layout = layout;
-      this.saveLayout(layout);
-      this.version += 1;
-    },
 
     openCustomizePanel() {
       this.openPanel({
@@ -154,56 +116,90 @@ export default {
       });
     },
 
-    saveLayout(layout) {
-      const layoutToSave = layout.map(l => {
-        return {
-          x: l.x,
-          y: l.y,
-          w: l.w,
-          i: l.i,
-          h: this.cellHeight,
-          title: l.meta.title,
-        };
-      });
-
-      localStorage.setItem(LAYOUT_NAME, JSON.stringify(layoutToSave));
-      localStorage.setItem('layout_resolution', '' + window.innerWidth);
-    },
-
-    loadLayout() {
-      const layoutResolution = localStorage.getItem('layout_resolution');
-      const layoutInLS = localStorage.getItem(LAYOUT_NAME);
-
-      if (layoutInLS) {
-        if (layoutResolution !== '' + window.innerWidth) {
-          localStorage.removeItem(LAYOUT_NAME);
-          return;
+    updateLayoutInfoInWigets(layout) {
+      const homeWidgets = this.homeWidgets.map(w => {
+        const existingLayout = layout.find(l => l.title === w.title);
+        if (existingLayout) {
+          w.layout = {
+            x: existingLayout.x,
+            y: existingLayout.y,
+            w: existingLayout.w,
+            h: this.cellHeight,
+            title: existingLayout.title,
+            i: existingLayout.i,
+          };
         }
-
-        const parsed = JSON.parse(layoutInLS);
-
-        return parsed
-          .filter(l => {
-            return !!this.homeWidgets.find(w => w.title === l.title);
-          })
-          .map(l => {
-            return {
-              ...l,
-              meta: this.homeWidgets.find(w => w.title === l.title),
-            };
-          });
-      }
-
-      return undefined;
+        return w;
+      });
+      this.updating = true;
+      this.setHomeWidgets(homeWidgets);
+      setTimeout(() => {
+        this.updating = false;
+      });
     },
 
     onLayoutUpdate(newLayout) {
-      this.saveLayout(newLayout);
+      this.updateLayoutInfoInWigets(newLayout);
+    },
+
+    setWidgetsToLayout() {
+      this.layout = this.getLayoutFromHomeWidgets();
+      this.version += 1;
+    },
+
+    getLayoutFromHomeWidgets() {
+      if (!this.homeWidgets) return;
+
+      let layout = [];
+      let y = 0;
+      let x = 0;
+      let spaceInLine = 3;
+
+      if (this.homeWidgets.length && this.homeWidgets[0].layout) {
+        // already have layout data
+        layout = this.homeWidgets
+          .filter(o => o.checked)
+          .map(w => {
+            return { ...w.layout, meta: w };
+          });
+      } else {
+        for (let i = 0; i < this.homeWidgets.length; i++) {
+          const meta = this.homeWidgets[i];
+
+          const width = meta.large ? 2 : 1;
+
+          if (width > spaceInLine) {
+            spaceInLine = 3;
+            y += this.cellHeight;
+            x = 0;
+          }
+
+          if (meta.checked) {
+            layout.push({
+              x,
+              y,
+              w: width,
+              h: this.cellHeight,
+              title: meta.title,
+              i,
+              meta,
+            });
+          }
+
+          spaceInLine -= width;
+          x += width;
+        }
+      }
+
+      return layout;
     },
   },
   watch: {
     homeWidgets() {
-      if (this.startWatchingWidgets) this.createLayout();
+      // recalculate layout
+      if (!this.updating) {
+        this.setWidgetsToLayout();
+      }
     },
     contextPartnersType() {
       this.initFilterForContext();

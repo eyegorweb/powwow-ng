@@ -6,6 +6,7 @@ export default excludeMocked([
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
+    havePrereqs: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -50,6 +51,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SERVICES',
     subtitle: '',
     selected: false,
+    havePrereqs: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -133,6 +135,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_OFFER',
     subtitle: '',
     selected: false,
+    havePrereqs: true,
     color: 'blue',
     filters: [
       {
@@ -152,6 +155,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_CF',
     subtitle: '',
     selected: false,
+    havePrereqs: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',

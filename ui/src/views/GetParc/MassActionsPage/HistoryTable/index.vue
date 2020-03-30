@@ -88,6 +88,7 @@ export default {
       this.fetchMassActions();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchMassActions();
     },
     isPanelOpen() {

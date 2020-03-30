@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="appIsReady" class="container">
-      <NavBars :is-backoffice-profile="!userIsPartner" />
+      <NavBars :is-backoffice-profile="userIsBO" />
       <router-view />
       <PanelSwitcher />
     </div>
@@ -39,7 +39,7 @@ export default {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'appIsReady']),
+    ...mapGetters(['userIsBO', 'appIsReady']),
   },
   watch: {
     $route() {

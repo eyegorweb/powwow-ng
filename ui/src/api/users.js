@@ -1,4 +1,4 @@
-import { query, getFilterValue, getFilterValues } from './utils';
+import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
 export async function searchUsers(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
@@ -68,35 +68,43 @@ export function formatFilters(selectedFilters) {
   addEmailFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addLoginFilter(gqlFilters, selectedFilters);
+  addPartnerFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
 
 function addFullNameFilter(gqlFilters, selectedFilters) {
-  const fullName = getFilterValue(selectedFilters, 'getadmin.users.fullName');
+  const fullName = getFilterValue(selectedFilters, 'getadmin.users.filters.fullName');
 
   if (fullName) {
     gqlFilters.push(`fullname: {contains: "${fullName}"}`);
   }
 }
 function addEmailFilter(gqlFilters, selectedFilters) {
-  const email = getFilterValue(selectedFilters, 'getadmin.users.email');
+  const email = getFilterValue(selectedFilters, 'getadmin.users.filters.email');
 
   if (email) {
     gqlFilters.push(`email: {contains: "${email}"}`);
   }
 }
 function addLoginFilter(gqlFilters, selectedFilters) {
-  const login = getFilterValue(selectedFilters, 'getadmin.users.login');
+  const login = getFilterValue(selectedFilters, 'getadmin.users.filters.login');
   if (login) {
     gqlFilters.push(`fullnameOrLogin: {contains: "${login}"}`);
   }
 }
 function addPartnerGroupFilter(gqlFilters, selectedFilters) {
-  const values = getFilterValues(selectedFilters, 'getadmin.users.partnerGroup');
+  const values = getFilterValues(selectedFilters, 'getadmin.users.filters.partnerGroup');
   if (values && values.length) {
     const partnerGroups = values.map(p => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
+  }
+}
+
+function addPartnerFilter(gqlFilters, selectedFilters) {
+  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.partners');
+  if (partyIds) {
+    gqlFilters.push(`partyId: {in: [${partyIds}]}`);
   }
 }
 

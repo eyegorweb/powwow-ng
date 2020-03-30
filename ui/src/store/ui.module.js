@@ -1,5 +1,5 @@
 import uuid from 'uuid/v1';
-import homeWidgets from '@/views/Home/widgets';
+import { loadWidgets, getProfile } from '@/views/Home/widgets';
 
 export const state = {
   isPanelOpen: false,
@@ -16,7 +16,7 @@ export const state = {
   ignoreClickAway: false,
   width: undefined,
 
-  homeWidgets,
+  homeWidgets: loadWidgets(),
 };
 
 export const getters = {
@@ -47,9 +47,29 @@ function openPanel(state, conf) {
   state.onClosePanel = onClosePanel;
 }
 
+function saveFormattedWidgets(widgets) {
+  const widgetsToSave = widgets.map(w => {
+    return {
+      title: w.title,
+      description: w.description,
+      checked: w.checked,
+      large: w.large,
+      seeMore: w.seeMore,
+      mock: w.mock,
+      layout: w.layout,
+    };
+  });
+  localStorage.setItem('__homewidgets__', JSON.stringify(widgetsToSave));
+  localStorage.setItem('_widgets_profile_', getProfile());
+}
+
 export const mutations = {
+  initHomeWidgets(state) {
+    saveFormattedWidgets(state.homeWidgets);
+  },
   setHomeWidgets: (state, widgets) => {
     state.homeWidgets = [...widgets];
+    saveFormattedWidgets(widgets);
   },
   openPanel,
   closePanel: (state, params) => {

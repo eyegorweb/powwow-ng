@@ -18,7 +18,7 @@
 import CircleLoader from '@/components/ui/CircleLoader';
 import { mapGetters } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
-import { resumeFormattedValueFromSeconds } from '@/api/utils';
+import { resumeFormattedValueFromHours } from '@/api/utils';
 
 export default {
   props: {
@@ -55,7 +55,8 @@ export default {
     },
     formattedUnit() {
       if (!this.indicator.unit) return this.formattedTotal;
-      return resumeFormattedValueFromSeconds(this.formattedTotal);
+      if (isNaN(this.formattedTotal)) return;
+      return resumeFormattedValueFromHours(this.formattedTotal);
     },
     formattedColor() {
       if (!this.indicator.color) {

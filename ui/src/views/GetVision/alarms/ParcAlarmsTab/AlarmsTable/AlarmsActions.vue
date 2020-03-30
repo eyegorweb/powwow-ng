@@ -55,6 +55,7 @@ export default {
 
       if (action === 'getsim.actions.DETAIL') {
         this.$router.push({ name: 'alarmDetail', params: { alarmId: this.alarm.id } });
+        return;
       }
 
       if (!this.canDoAsyncAction) return;

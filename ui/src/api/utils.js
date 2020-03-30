@@ -36,7 +36,6 @@ export async function query(q) {
         if (
           e.response.status === 401 ||
           e.response.status === 403 ||
-          e.response.status === 503 ||
           (e.response && e.response.error && e.response.error === 'invalid_token')
         ) {
           if (tries > 0) {
@@ -229,8 +228,8 @@ export function formattedValueFromSeconds(value) {
 }
 
 export function resumeFormattedValueFromSeconds(value) {
-  let seconds = value;
-  let duration = seconds;
+  let initialSeconds = value;
+  let duration = initialSeconds;
   let days = duration / 86400;
   duration = duration % 86400;
   let hours = parseInt(duration / 3600);
@@ -260,5 +259,29 @@ export function resumeFormattedValueFromSeconds(value) {
     return `0`;
   } else {
     return `${min}min${sec}sec`;
+  }
+}
+
+export function resumeFormattedValueFromHours(value) {
+  let initialSeconds = value * 60 * 60;
+  let duration = initialSeconds;
+  let days = duration / 86400;
+  duration = duration % 86400;
+  let hours = parseInt(duration / 3600);
+
+  if (initialSeconds > 86400) {
+    if (hours > 9) {
+      return `${parseInt(days)}j${parseInt(hours, 10)}h`;
+    }
+    return `${parseInt(days)}j0${parseInt(hours, 10)}h`;
+  } else if (initialSeconds < 86400 && initialSeconds > 3600) {
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)}h`;
+    }
+    return `0${parseInt(hours, 10)}h`;
+  } else if (initialSeconds === 0) {
+    return `0`;
+  } else {
+    return ``;
   }
 }

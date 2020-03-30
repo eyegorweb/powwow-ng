@@ -72,7 +72,7 @@ export default {
     } else if (this.order) {
       this.preFill();
     } else if (this.userIsPartner) {
-      const partner = await fetchpartnerById(this.userInfos.party.id);
+      const partner = await fetchpartnerById(this.userInfos.partners[0].id);
 
       this.selectedPartner = {
         id: partner.id,

@@ -7,6 +7,7 @@
       :total="total"
       :order-by.sync="orderBy"
       :size="0"
+      :is-loading="isLoading"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >
@@ -87,15 +88,14 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
-        {
-          id: 'filters.partyId',
-          value: this.alarm.party.id,
-        },
       ];
+
+      this.isLoading = true;
       const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
         ...mandatoryFilters,
         value,
       ]);
+      this.isLoading = false;
 
       this.total = data.total;
       this.rows = data.items;
@@ -121,17 +121,18 @@ export default {
           id: 'filters.alarmId',
           value: this.alarm.id,
         },
-        {
-          id: 'filters.partyId',
-          value: this.alarm.party.id,
-        },
       ];
 
       this.lastUsedFilters = filters;
+
+      this.isLoading = true;
+
       const data = await fetchLinesBoundToAlarm(this.orderBy, pagination, [
         ...filters,
         ...mandatoryFilters,
       ]);
+
+      this.isLoading = false;
 
       this.total = data.total;
       this.rows = data.items;
@@ -239,6 +240,7 @@ export default {
 
       total: 10,
       rows: [],
+      isLoading: false,
     };
   },
 };
