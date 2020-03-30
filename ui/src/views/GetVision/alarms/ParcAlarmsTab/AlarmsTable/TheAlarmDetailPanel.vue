@@ -31,7 +31,9 @@
           v-if="content.numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
-        >{{ content.numberOfTargetedLines }}</a>
+        >
+          {{ content.numberOfTargetedLines }}</a
+        >
         <p v-else>-</p>
       </div>
 
@@ -59,7 +61,7 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('col.partner') }}:</h6>
-        <p>{{ content.party.name }}</p>
+        <p>{{ partner }}</p>
       </div>
     </div>
 
@@ -70,11 +72,13 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('alarms.alarmScope.PARTY') }}:</h6>
-        <p>{{ content.party.name }}</p>
+        <p>{{ partner }}</p>
       </div>
       <div v-if="content.autoPositionCustAccount" class="overview-item mr-5">
         <h6>{{ $t('common.billingAccount') }}:</h6>
-        <p>`{{ content.autoPositionCustAccount.id }} - {{ content.autoPositionCustAccount.name }}`</p>
+        <p>
+          `{{ content.autoPositionCustAccount.id }} - {{ content.autoPositionCustAccount.name }}`
+        </p>
       </div>
       <div v-if="content.autoPositionWorkflow" class="overview-item mr-5">
         <h6>{{ $t('alarms.alarmScope.OFFER') }}:</h6>
@@ -89,9 +93,9 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.notify-mail') }}:</h6>
-        <p
-          :class="{ 'text-success': content.notifyByEmail }"
-        >{{ content.notifyByEmail ? 'Oui' : 'Non' }}</p>
+        <p :class="{ 'text-success': content.notifyByEmail }">
+          {{ content.notifyByEmail ? 'Oui' : 'Non' }}
+        </p>
       </div>
 
       <div v-if="content.mailingList" class="overview-item mr-5">
@@ -101,7 +105,9 @@
 
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.notify-ws') }}:</h6>
-        <p :class="{ 'text-success': content.notifyByWs }">{{ content.notifyByWs ? 'Oui' : 'Non' }}</p>
+        <p :class="{ 'text-success': content.notifyByWs }">
+          {{ content.notifyByWs ? 'Oui' : 'Non' }}
+        </p>
       </div>
     </div>
 
@@ -124,6 +130,7 @@ import UiButton from '@/components/ui/Button';
 import { fetchTriggerHistory } from '@/api/alarms';
 import { mapGetters } from 'vuex';
 import { getCurrentMonthName, getMonthString } from '@/utils/date';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -186,6 +193,10 @@ export default {
       }
 
       return undefined;
+    },
+
+    partner() {
+      return get(this.content, 'party.name', '-');
     },
   },
 
