@@ -25,6 +25,9 @@ export const state = {
   selectedFileForActCreation: undefined,
   actToCreate: null,
   actCreationPrerequisites: null,
+
+  // à incrémenter en cas de RAZ de la page
+  formVersion: 0,
 };
 
 export const getters = {
@@ -402,4 +405,30 @@ export const mutations = {
   setPageLimit(state, limit) {
     state.limitPerPage = limit;
   },
+
+  resetState(state) {
+    filterUtils.resetState(state);
+    resetState(state);
+  },
+
+  resetAfterFilterClear(state) {
+    filterUtils.resetAfterFilterClear(state);
+    resetState(state);
+  },
+  clearResultsForActCreation(state) {
+    filterUtils.clearResultsForActCreation(state);
+  },
 };
+
+function resetState(state) {
+  state.linePage = 1;
+  state.limitPerPage = 20;
+  state.linesActionsResponse = undefined;
+  state.filterCustomFieldsList = [];
+  state.selectedLinesForActCreation = [];
+  state.selectedFileForActCreation = undefined;
+  state.actToCreate = null;
+  state.actCreationPrerequisites = null;
+
+  state.formVersion += 1;
+}

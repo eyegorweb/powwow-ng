@@ -63,6 +63,7 @@ export default {
       'setActToCreate',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'resetState',
     ]),
 
     async validate() {
@@ -99,9 +100,7 @@ export default {
       this.flashMessage({ level: 'success', message: successMessage });
 
       // sortir du mode création acte
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
+      this.resetState();
     },
 
     async doubleConfirm() {
@@ -126,9 +125,7 @@ export default {
     },
 
     clearForm() {
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
+      this.resetState();
     },
   },
 };

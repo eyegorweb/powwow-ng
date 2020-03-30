@@ -13,7 +13,8 @@ export async function supervisionDataGraph(partyIds) {
    }
  }`;
   const response = await query(queryStr);
-  return response.data.supervisionDataGraph;
+
+  return response ? response.data.supervisionDataGraph : undefined;
 }
 
 export async function supervisionSmsGraph(partyIds) {

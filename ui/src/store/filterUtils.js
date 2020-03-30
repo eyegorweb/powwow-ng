@@ -18,6 +18,31 @@ export function initState() {
   };
 }
 
+export function resetState(state) {
+  state.currentFilters = [];
+  resetAfterFilterClear(state);
+}
+
+export function resetAfterFilterClear(state) {
+  state.appliedFilters = [];
+  state.routeParamsFilters = [];
+  state.isLoading = false;
+  state.openResultInDetailPanel = false;
+  state.searchResponse = undefined;
+  state.searchPage = 1;
+  state.limitPerPage = 20;
+}
+
+export function clearResultsForActCreation(state) {
+  state.appliedFilters = [];
+  state.routeParamsFilters = [];
+  state.isLoading = false;
+  state.openResultInDetailPanel = false;
+  state.searchResponse = undefined;
+  state.searchPage = 1;
+  state.limitPerPage = 20;
+}
+
 export function initGetters() {
   return {
     currentFilters: state => state.currentFilters,
