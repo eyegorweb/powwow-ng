@@ -136,6 +136,7 @@ export default {
       'setActToCreate',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'resetState',
     ]),
 
     onActDateChange(value) {
@@ -196,9 +197,7 @@ export default {
       this.flashMessage({ level: 'success', message: successMessage });
 
       // sortir du mode création acte
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
+      this.resetState();
     },
 
     haveErrors() {
@@ -216,9 +215,13 @@ export default {
       return false;
     },
     clearForm() {
+      /*
       this.setActToCreate(null);
       this.setActCreationPrerequisites(null);
       this.setSelectedLinesForActCreation([]);
+      //*/
+
+      this.resetState();
     },
   },
 };
