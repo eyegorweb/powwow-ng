@@ -2,6 +2,51 @@
 
 <!--- next entry here -->
 
+## 0.20.0
+2020-03-30
+
+### Features
+
+- alarm sur le changement de statut (43c0e23737a1976b5265f4f5fc7d8d78e8ba9f74)
+- onglet "déclenchements dans les 2 derniers mois" dans l''écran de détail de l'alarme (e30f004eac768d7cca613bedffcb438a57731188)
+- **admin:** ajout du filtre Groupe de partenaire (62cf899c845d4e5e8b0ad2172f521320d27b533c)
+- Bouton Historique des actes de gestion (10cd351fbbe55436d0f589f7b5c78e2f5aa5fbb7)
+- ajout de plusieurs informations dans le panel de du détail d'alarme (99e841a41c40c43ef8f5806561fb913ccee4bb82)
+- **admin:** ajout du filtre Partenaires pour la gestion des utilisateurs (cfa9fbd1898bbbc3ff6713fafe54600542000cbe)
+- Mise en place de l'écran de l'utilisateur. (fc8acdee47e6f58ff658e6631d2e785fa0f14881)
+
+### Fixes
+
+- mise à jour api et optimisation perf (moins de requêtes) (6a7a811ca3dfefd45dac4cd3348fff9b9ce45247)
+- affichage des mois pour le widget Top/Flop (6ca9c79765eb7407d5b47d86f8e6b74c294de4a6)
+- ne pas relancer la requête si l'appel renvoi une erreur 503 (0bca669d256d9a42a540a5b9e7133310e7656d06)
+- calcul de la valeur de délai basé sur l'heure (9ea403404598f0e96faea962e9407c16951fb53c)
+- correctif du calcul de la valeur de délai basé sur l'heure (7b4ef7a56b662c93974a16d068326dd0c3ba64d9)
+- Correction du problème d'affichage des widgets de la homepage (1d0102dd7507443e67c5f1c5adacddcfd9ff1ee8)
+- vérification de la valeur de type Number (0057bae2640747acb89dad8ce165fce64dad54f1)
+- enlever partyID de la requête des lignes rattachés à une alarme (43713bfc67a98413074f3980165d1faa357f37b4)
+- correctif sur la valeur de l'indicateur de Délai moyen (21125ccb16dae56c9a0ec041da9ab64c0508a940)
+- arrondi sur la valeur de l'indicateur du Délai moyen (82dfbbcb123e6c4023a69a77c1efc0edcd9fe12e)
+- Correction de la requête de création d'alarme de sur conso et sous conso (db69199fa5a873927f5ead561d391a0ea2ec6453)
+- mise à jour des unités du Widget "Lignes les plus consommatrices du mois" (2abeee53a591d8955cea6e48b1426b320aa9fb0d)
+- Reset de la pagination à l'application de filtre (1471f0663812cf5e00e5892cf48b1b67993fe78d)
+- correction des abbreviations des mois (1d9c51cc3a7ee7c4b0ccb595e36f3677453a89e8)
+- correction de l'abbreviation du mois de juillet (8a619518b600af0573e4d4c81c6dcb2c913460da)
+- correction de l'abbreviation du mois de février (a805456958964f093c0a62e251e05fa7b18bae55)
+- libellé "lignes sélectionnées" au lieu de "lignes trouvées' quand je crée un acte de gestion (b90fc89ff859ad0ec8889d133d2a438f237ec790)
+- ajout dynamique des onglets pour les widgets Top/Flop (40490b48becf6d3fe1005cdbcdc8b5b43ebb2f63)
+- derniers actes en premier dans le widget "derniers actes de gestion de l'utilisateur" (d6e560041774a97bced41e59d75d1ca450e82527)
+- correction du bug pour appliquer le filtre sur les dates dans l'historique des actes de gestion (8ab7baa67d86bdc254c159921ce5c60f26e307c7)
+- libellés des services n'apparaissent pas dans la création de commande (6f7d14a4febf3469c8b34e1ec5eceb0df1a006cf)
+- Correction des tests cypress (7ffc586bb4f1412a093ecd5cfefa574f593db92f)
+- Traduction du panel detail d'alarme (f13067510cde5188bd4bd1b3ff46c58dcb7a8041)
+- suppression des labels se superposant au-dessus des barres des graphiques (cebf8a4c7ff991ce4d1e007ea6f26c6177e2ba56)
+- ajout d'une propriété de visibilité pour afficher les blocs de filtres (1e23b955ef413c909501300b84572d7ebd6a0517)
+- simplification des états d'affichage des filtres dans la gestion des utilisateurs (d4012340da26f0383abca09fb3101e665df50728)
+- correctif du filtre Partenaires pour la gestion des utilisateurs (e5fdd26a517f4091d937cea3d2cc05b189ba5523)
+- Changement des icones et leurs couleurs + FIX: centrer les icones (90c0b0caf8b864afe73cdb8dd75002c7aaa0d97d)
+- ajout du contexte Partenaires pour afficher les indicateurs de commande (037f55e0579f50fa52ad111a2eca2b53434a6e8d)
+
 ## 0.19.1
 2020-03-12
 
