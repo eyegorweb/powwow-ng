@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.658+20200330133219
+2020-03-30
+
+### Fixes
+
+- correctif d'évaluation du partenaire dans le détail de l'alarme (82c4dbb9ff5ac6897004936529a78e023562e260)
+
 ## 0.3.0-master.657+20200330095114
 2020-03-30
 
