@@ -300,6 +300,5 @@ function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   if (values && values.length) {
     const partnerGroups = values.map(p => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
-    console.log(partnerGroups + ' ' + values);
   }
 }

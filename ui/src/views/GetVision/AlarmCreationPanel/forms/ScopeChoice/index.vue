@@ -7,10 +7,10 @@
         <div class="scope-selection">
           <UiSelect v-model="selectedType" :options="types" block />
         </div>
-        <SearchLineByIdChoice v-if="selectedType === 'line'" @change="filterForCreation = $event" />
+        <SearchLineByIdChoice v-if="selectedType === 'LINE'" @change="filterForCreation = $event" />
         <OfferChoice
           :key="'offer_' + (partner ? partner.id : '')"
-          v-if="selectedType === 'offer'"
+          v-if="selectedType === 'OFFER'"
           :partner="partner"
           @change="filterForCreation = $event"
         />
@@ -22,7 +22,7 @@
         />
 
         <PartnerChoice
-          v-if="selectedType === 'partner'"
+          v-if="selectedType === 'PARTY'"
           :partner="partner"
           @change="filterForCreation = $event"
         />
@@ -70,14 +70,14 @@ export default {
         }
         return '23rem';
       }
-      if (this.selectedType === 'offer') {
+      if (this.selectedType === 'OFFER') {
         if (!get(this.filterForCreation, 'offer')) {
           return '14rem';
         }
         return '23rem';
       }
 
-      if (this.selectedType === 'partner') {
+      if (this.selectedType === 'PARTY') {
         if (
           this.filterForCreation &&
           this.filterForCreation.partner &&
@@ -103,19 +103,19 @@ export default {
   },
   data() {
     return {
-      selectedType: 'partner',
+      selectedType: 'PARTY',
       types: [
         {
           label: 'Partenaire',
-          value: 'partner',
+          value: 'PARTY',
         },
         {
           label: 'Ligne',
-          value: 'line',
+          value: 'LINE',
         },
         {
           label: 'Offre',
-          value: 'offer',
+          value: 'OFFER',
         },
         /*
         {

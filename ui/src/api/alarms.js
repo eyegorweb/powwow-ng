@@ -110,13 +110,20 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         observationDelay
         notifyByWs
         notifyByEmail
+        plmnsList
+        countriesList
         mailingList {
+          id
           name
           emails
         }
         party {
           id
           name
+          mailingLists {
+            id
+            name
+          }
         }
         auditable {
           created
@@ -178,8 +185,6 @@ export async function fetchTriggerHistory(alarmId, simIds = []) {
   `;
   const response = await query(queryStr);
   if (response.data) return response.data.alarmEvents;
-
-  console.log(response);
 }
 
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {

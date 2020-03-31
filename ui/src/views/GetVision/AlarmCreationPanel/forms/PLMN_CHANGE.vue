@@ -2,11 +2,12 @@
   <AlarmCreationBaseForm
     :alarm="alarm"
     :check-errors-fn="isFormValid"
+    :duplicate-from="duplicateFrom"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="3">Définir une liste d'opérateurs</SectionTitle>
+    <SectionTitle :num="numStep">Définir une liste d'opérateurs</SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_plmn.isp_list"
@@ -22,6 +23,8 @@ import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 import { fetchIsps } from '@/api/isp';
 import { alarmOnChangeISP } from '@/api/alarmCreation';
+import { updateISPList } from '@/api/alarmsModifications';
+
 import { mapMutations } from 'vuex';
 
 export default {
@@ -32,6 +35,7 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
   async mounted() {
     const isps = await fetchIsps();
@@ -43,13 +47,22 @@ export default {
       return i;
     });
 
-    this.options = options.reduce((all, current) => {
+    const formattedOptions = options.reduce((all, current) => {
       const alreadyInOptions = all.find(o => o.label === current.label);
       if (!alreadyInOptions) {
         all.push(current);
       }
       return all;
     }, []);
+
+    if (this.editMode) {
+      this.options = formattedOptions.map(o => {
+        o.selected = !!this.duplicateFrom.plmnsList.find(p => p === '' + o.id);
+        return o;
+      });
+    } else {
+      this.options = formattedOptions;
+    }
   },
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
@@ -64,7 +77,16 @@ export default {
         formData: this.selectedOptions,
       };
 
-      const response = await alarmOnChangeISP(params);
+      // const response = await alarmOnChangeISP(params);
+
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await updateISPList({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await alarmOnChangeISP(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
@@ -83,6 +105,12 @@ export default {
   computed: {
     selectedOptions() {
       return this.options.filter(o => o.selected);
+    },
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      return this.editMode ? 1 : 3;
     },
   },
 };

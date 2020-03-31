@@ -59,11 +59,23 @@ export default {
   },
   props: {
     partner: Object,
+    duplicateFrom: Object,
     canSave: Boolean,
     num: {
       type: Number,
       default: 3,
     },
+  },
+  mounted() {
+    if (this.duplicateFrom) {
+      this.notifList = this.duplicateFrom.mailingList
+        ? this.duplicateFrom.mailingList.id
+        : undefined;
+      this.sholdNotify = this.duplicateFrom.notifyByEmail;
+      this.webserviceNotification = this.duplicateFrom.notifyByWs;
+      this.enableAlarm = !this.duplicateFrom.disabled;
+      this.alarmName = this.duplicateFrom.name;
+    }
   },
   computed: {
     mailingLists() {
