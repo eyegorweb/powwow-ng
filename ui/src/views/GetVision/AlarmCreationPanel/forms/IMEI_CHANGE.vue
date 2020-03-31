@@ -1,11 +1,17 @@
 <template>
-  <AlarmCreationBaseForm :alarm="alarm" @save="onSave" @scope="scopeChoice = $event">
+  <AlarmCreationBaseForm
+    :alarm="alarm"
+    :duplicate-from="duplicateFrom"
+    @save="onSave"
+    @scope="scopeChoice = $event"
+  >
   </AlarmCreationBaseForm>
 </template>
 
 <script>
 import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import { alarmOnDeviceChange } from '@/api/alarmCreation';
+import { updateDeviceChangeAlarm } from '@/api/alarmsModifications';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -14,6 +20,7 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
   data() {
     return {
@@ -30,7 +37,14 @@ export default {
         formData: this.selectedOptions,
       };
 
-      const response = await alarmOnDeviceChange(params);
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await updateDeviceChangeAlarm({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await alarmOnDeviceChange(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

@@ -1,12 +1,13 @@
 <template>
   <AlarmCreationBaseForm
     :alarm="alarm"
+    :duplicate-from="duplicateFrom"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
     :check-errors-fn="isFormValid"
   >
-    <ConsumptionForm @change="values = $event" />
+    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
   </AlarmCreationBaseForm>
 </template>
 
@@ -15,6 +16,7 @@ import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import ConsumptionForm from './ConsumptionForm';
 import { mapMutations } from 'vuex';
 import { alarmOnOverConso } from '@/api/alarmCreation';
+import { modifyOverConso } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -23,12 +25,29 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
   data() {
     return {
       values: undefined,
       scopeChoice: undefined,
+      initValues: undefined,
     };
+  },
+  mounted() {
+    if (this.duplicateFrom) {
+      this.initValues = {
+        dataES: this.duplicateFrom.level1,
+        dataOut: this.duplicateFrom.level1Up,
+        dataIn: this.duplicateFrom.level1Down,
+        smsES: this.duplicateFrom.level2,
+        smsOut: this.duplicateFrom.level2Up,
+        smsIn: this.duplicateFrom.level2Down,
+        voiceES: this.duplicateFrom.level3,
+        voiceOut: this.duplicateFrom.level3Up,
+        voiceIn: this.duplicateFrom.level3Down,
+      };
+    }
   },
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
@@ -60,7 +79,14 @@ export default {
         formData: this.values,
       };
 
-      const response = await alarmOnOverConso(params);
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await alarmOnOverConso(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

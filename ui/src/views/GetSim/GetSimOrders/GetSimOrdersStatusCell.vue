@@ -1,7 +1,9 @@
 <template>
   <div class="order-status d-flex flex-wrap align-items-center" v-if="isLoading">
     <div class="circle" />
-    <div class="label label--loading" :class="{ error: isError }">{{ $t('col.statuses.' + item) }}</div>
+    <div class="label label--loading" :class="{ error: isError }">
+      {{ $t('col.statuses.' + item) }}
+    </div>
   </div>
   <div class="order-status" v-tooltip="getTooltipConfig()" v-else>
     <StatusIcon :icon="icon" :color="iconColor" />

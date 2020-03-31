@@ -1,12 +1,13 @@
 <template>
   <AlarmCreationBaseForm
     :alarm="alarm"
-    has-form
+    :have-form="true"
     :check-errors-fn="isFormValid"
+    :duplicate-from="duplicateFrom"
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="3">Définir les status supervisés</SectionTitle>
+    <SectionTitle :num="numStep">Définir les status supervisés</SectionTitle>
     <Toggle
       v-if="toggleValues"
       @update="currentPeriod = $event.id"
@@ -22,6 +23,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import SectionTitle from '@/components/SectionTitle';
 import { createStatusChangeAlarm } from '@/api/alarmCreation';
 import { mapMutations } from 'vuex';
+import { updateStatusChangeAlarm } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -31,6 +33,7 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
 
   data() {
@@ -59,6 +62,15 @@ export default {
     };
   },
 
+  computed: {
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      return this.editMode ? 1 : 3;
+    },
+  },
+
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
 
@@ -72,7 +84,14 @@ export default {
         formData: this.currentPeriod,
       };
 
-      const response = await createStatusChangeAlarm(params);
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await updateStatusChangeAlarm({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await createStatusChangeAlarm(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

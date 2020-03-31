@@ -61,6 +61,7 @@ import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
 import { searchAlarmById } from '@/api/alarms';
 import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -107,7 +108,21 @@ export default {
   },
 
   methods: {
-    modifyAlarm() {},
+    ...mapMutations(['openPanel']),
+
+    modifyAlarm() {
+      this.openPanel({
+        title: this.$t('getvsion.detail-panel.change-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        payload: { ...this.alarm, toModify: true },
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel() {
+          console.log('Close panel');
+        },
+      });
+    },
 
     async refreshTotals() {
       const mandatoryFilters = [
