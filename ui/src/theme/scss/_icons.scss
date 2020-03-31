@@ -1,89 +1,176 @@
 $icomoon-font-family: 'powwow' !default;
 $icomoon-font-path: 'assets/icons' !default;
 
-$ic-toggle-on: '\e951';
-$ic-pause-circle: '\e952';
-$ic-phone-incoming: '\e94f';
-$ic-phone-outgoing: '\e950';
+$ic-toggle-on: '\e9a4';
+$ic-toggle-on1: '\e99c';
+$ic-pause-circle: '\e9a5';
+$ic-phone-incoming: '\e994';
+$ic-phone-outgoing: '\e996';
 $ic-Alert-Icon: '\e900';
-$ic-Alt-Icon: '\e901';
-$ic-Amplifier-Icon: '\e902';
-$ic-Arrow-Down-Icon: '\e903';
-$ic-Arrow-Filter-Icon: '\e904';
-$ic-Arrow-Forward-Icon: '\e905';
-$ic-Arrow-Left-Icon: '\e906';
-$ic-Arrow-Next-Icon: '\e907';
-$ic-Arrow-Previous-Icon: '\e908';
-$ic-Arrow-Right-Icon: '\e909';
-$ic-Arrow-Up-Icon: '\e90a';
-$ic-Basket-Icon: '\e90b';
-$ic-Bell-Icon: '\e90c';
-$ic-Calendar-Icon: '\e90d';
-$ic-Camera-Icon: '\e90e';
-$ic-Cart-Icon: '\e90f';
-$ic-Check-Icon: '\e910';
-$ic-Check-Rounded-Icon: '\e911';
-$ic-Chronometer-Icon: '\e912';
-$ic-Circle-Icon: '\e913';
+$ic-Alt-Icon: '\e902';
+$ic-Amplifier-Icon: '\e998';
+$ic-Arrow-Down-Icon: '\e904';
+$ic-Arrow-Filter-Icon: '\e906';
+$ic-Arrow-Forward-Icon: '\e908';
+$ic-Arrow-Left-Icon: '\e90a';
+$ic-Arrow-Next-Icon: '\e90c';
+$ic-Arrow-Previous-Icon: '\e90e';
+$ic-Arrow-Right-Icon: '\e99a';
+$ic-Arrow-Up-Icon: '\e910';
+$ic-Basket-Icon: '\e912';
+$ic-Bell-Icon: '\e916';
+$ic-Calendar-Icon: '\e918';
+$ic-Camera-Icon: '\e91a';
+$ic-Cart-Icon: '\e91c';
+$ic-Check-Icon: '\e992';
+$ic-Check-Rounded-Icon: '\e91e';
+$ic-Chronometer-Icon: '\e920';
+$ic-Circle-Icon: '\e922';
+$ic-Clock-Icon1: '\e924';
+$ic-Compass-Icon1: '\e925';
+$ic-Copy-Paste-Icon: '\e926';
+$ic-Cross-Icon: '\e928';
+$ic-Direction-Icon: '\e92a';
+$ic-Dislike-Icon: '\e92c';
+$ic-Download-Icon: '\e92e';
+$ic-Drag-Column-Icon: '\e990';
+$ic-Edit-Icon: '\e930';
+$ic-Enveloppe-Icon: '\e932';
+$ic-Eye-Closed-Icon: '\e934';
+$ic-Eye-Icon: '\e9a2';
+$ic-Filter-Icon: '\e936';
+$ic-Flag-Icon: '\e938';
+$ic-Floppy-Icon: '\e93a';
+$ic-Heart-Add-Icon: '\e93c';
+$ic-Heart-Icon: '\e93e';
+$ic-Heart-Minus-Icon: '\e940';
+$ic-Heart-Rythm-Icon: '\e942';
+$ic-Help-Icon: '\e944';
+$ic-History-Icon: '\e946';
+$ic-Home-Icon: '\e948';
+$ic-Hourglass-Icon: '\e94a';
+$ic-Info-Icon: '\e94c';
+$ic-Instagram-Icon: '\e94e';
+$ic-Like-Icon: '\e950';
+$ic-Link-Icon: '\e952';
+$ic-List-Icon: '\e954';
+$ic-Location-Icon: '\e956';
+$ic-Lock-Closed-Icon: '\e958';
+$ic-Magnify-Icon: '\e98e';
+$ic-Message-Icon: '\e95a';
+$ic-Mic-Icon: '\e95c';
+$ic-Minus-Icon: '\e95e';
+$ic-Network-Icon: '\e960';
+$ic-Pack-Icon: '\e962';
+$ic-Phone-Icon: '\e964';
+$ic-Picture-Icon: '\e966';
+$ic-Pin-Icon: '\e968';
+$ic-Play-Icon: '\e96a';
+$ic-Plug-Icon: '\e96c';
+$ic-Plus-Icon: '\e96e';
+$ic-Printer-Icon: '\e970';
+$ic-Refresh-Icon: '\e972';
+$ic-Settings-Icon: '\e974';
+$ic-Shuffle-Icon: '\e99e';
+$ic-Sim-Icon: '\e9a0';
+$ic-Smartphone-Icon: '\e976';
+$ic-Sort-Icon: '\e978';
+$ic-Star-Icon: '\e97a';
+$ic-Stats-Icon: '\e97c';
+$ic-Sun-Icon: '\e97e';
+$ic-Ticket-Icon: '\e980';
+$ic-Trash-Icon: '\e982';
+$ic-Upload-Icon: '\e984';
+$ic-User-Icon: '\e986';
+$ic-Wallet-Icon: '\e988';
+$ic-Wheel-Icon: '\e98a';
+$ic-Wifi-Icon: '\e98c';
+$ic-check-circle: '\e9a6';
+$ic-file-text: '\e9a7';
+$ic-pause-circle1: '\e99d';
+$ic-phone-incoming1: '\e995';
+$ic-phone-outgoing1: '\e997';
+$ic-Alert-Icon1: '\e901';
+$ic-Alt-Icon1: '\e903';
+$ic-Amplifier-Icon1: '\e999';
+$ic-Arrow-Down-Icon1: '\e905';
+$ic-Arrow-Filter-Icon1: '\e907';
+$ic-Arrow-Forward-Icon1: '\e909';
+$ic-Arrow-Left-Icon1: '\e90b';
+$ic-Arrow-Next-Icon1: '\e90d';
+$ic-Arrow-Previous-Icon1: '\e90f';
+$ic-Arrow-Right-Icon1: '\e99b';
+$ic-Arrow-Up-Icon1: '\e911';
+$ic-Basket-Icon1: '\e913';
+$ic-Bell-Icon1: '\e917';
+$ic-Calendar-Icon1: '\e919';
+$ic-Camera-Icon1: '\e91b';
+$ic-Cart-Icon1: '\e91d';
+$ic-Check-Icon1: '\e993';
+$ic-Check-Rounded-Icon1: '\e91f';
+$ic-Chronometer-Icon1: '\e921';
+$ic-Circle-Icon1: '\e923';
 $ic-Clock-Icon: '\e914';
 $ic-Compass-Icon: '\e915';
-$ic-Copy-Paste-Icon: '\e916';
-$ic-Cross-Icon: '\e917';
-$ic-Direction-Icon: '\e918';
-$ic-Dislike-Icon: '\e919';
-$ic-Download-Icon: '\e91a';
-$ic-Drag-Column-Icon: '\e91b';
-$ic-Edit-Icon: '\e91c';
-$ic-Enveloppe-Icon: '\e91d';
-$ic-Eye-Closed-Icon: '\e91e';
-$ic-Eye-Icon: '\e91f';
-$ic-Filter-Icon: '\e920';
-$ic-Flag-Icon: '\e921';
-$ic-Floppy-Icon: '\e922';
-$ic-Heart-Add-Icon: '\e923';
-$ic-Heart-Icon: '\e924';
-$ic-Heart-Minus-Icon: '\e925';
-$ic-Heart-Rythm-Icon: '\e926';
-$ic-Help-Icon: '\e927';
-$ic-History-Icon: '\e928';
-$ic-Home-Icon: '\e929';
-$ic-Hourglass-Icon: '\e92a';
-$ic-Info-Icon: '\e92b';
-$ic-Instagram-Icon: '\e92c';
-$ic-Like-Icon: '\e92d';
-$ic-Link-Icon: '\e92e';
-$ic-List-Icon: '\e92f';
-$ic-Location-Icon: '\e930';
-$ic-Lock-Closed-Icon: '\e931';
-$ic-Magnify-Icon: '\e932';
-$ic-Message-Icon: '\e933';
-$ic-Mic-Icon: '\e934';
-$ic-Minus-Icon: '\e935';
-$ic-Network-Icon: '\e936';
-$ic-Pack-Icon: '\e937';
-$ic-Phone-Icon: '\e938';
-$ic-Picture-Icon: '\e939';
-$ic-Pin-Icon: '\e93a';
-$ic-Play-Icon: '\e93b';
-$ic-Plug-Icon: '\e93c';
-$ic-Plus-Icon: '\e93d';
-$ic-Printer-Icon: '\e93e';
-$ic-Refresh-Icon: '\e93f';
-$ic-Settings-Icon: '\e940';
-$ic-Shuffle-Icon: '\e941';
-$ic-Sim-Icon: '\e942';
-$ic-Smartphone-Icon: '\e943';
-$ic-Sort-Icon: '\e944';
-$ic-Star-Icon: '\e945';
-$ic-Stats-Icon: '\e946';
-$ic-Sun-Icon: '\e947';
-$ic-Ticket-Icon: '\e948';
-$ic-Trash-Icon: '\e949';
-$ic-Upload-Icon: '\e94a';
-$ic-User-Icon: '\e94b';
-$ic-Wallet-Icon: '\e94c';
-$ic-Wheel-Icon: '\e94d';
-$ic-Wifi-Icon: '\e94e';
+$ic-Copy-Paste-Icon1: '\e927';
+$ic-Cross-Icon1: '\e929';
+$ic-Direction-Icon1: '\e92b';
+$ic-Dislike-Icon1: '\e92d';
+$ic-Download-Icon1: '\e92f';
+$ic-Drag-Column-Icon1: '\e991';
+$ic-Edit-Icon1: '\e931';
+$ic-Enveloppe-Icon1: '\e933';
+$ic-Eye-Closed-Icon1: '\e935';
+$ic-Eye-Icon1: '\e9a3';
+$ic-Filter-Icon1: '\e937';
+$ic-Flag-Icon1: '\e939';
+$ic-Floppy-Icon1: '\e93b';
+$ic-Heart-Add-Icon1: '\e93d';
+$ic-Heart-Icon1: '\e93f';
+$ic-Heart-Minus-Icon1: '\e941';
+$ic-Heart-Rythm-Icon1: '\e943';
+$ic-Help-Icon1: '\e945';
+$ic-History-Icon1: '\e947';
+$ic-Home-Icon1: '\e949';
+$ic-Hourglass-Icon1: '\e94b';
+$ic-Info-Icon1: '\e94d';
+$ic-Instagram-Icon1: '\e94f';
+$ic-Like-Icon1: '\e951';
+$ic-Link-Icon1: '\e953';
+$ic-List-Icon1: '\e955';
+$ic-Location-Icon1: '\e957';
+$ic-Lock-Closed-Icon1: '\e959';
+$ic-Magnify-Icon1: '\e98f';
+$ic-Message-Icon1: '\e95b';
+$ic-Mic-Icon1: '\e95d';
+$ic-Minus-Icon1: '\e95f';
+$ic-Network-Icon1: '\e961';
+$ic-Pack-Icon1: '\e963';
+$ic-Phone-Icon1: '\e965';
+$ic-Picture-Icon1: '\e967';
+$ic-Pin-Icon1: '\e969';
+$ic-Play-Icon1: '\e96b';
+$ic-Plug-Icon1: '\e96d';
+$ic-Plus-Icon1: '\e96f';
+$ic-Printer-Icon1: '\e971';
+$ic-Refresh-Icon1: '\e973';
+$ic-Settings-Icon1: '\e975';
+$ic-Shuffle-Icon1: '\e99f';
+$ic-Sim-Icon1: '\e9a1';
+$ic-Smartphone-Icon1: '\e977';
+$ic-Sort-Icon1: '\e979';
+$ic-Star-Icon1: '\e97b';
+$ic-Stats-Icon1: '\e97d';
+$ic-Sun-Icon1: '\e97f';
+$ic-Ticket-Icon1: '\e981';
+$ic-Trash-Icon1: '\e983';
+$ic-Upload-Icon1: '\e985';
+$ic-User-Icon1: '\e987';
+$ic-Wallet-Icon1: '\e989';
+$ic-Wheel-Icon1: '\e98b';
+$ic-Wifi-Icon1: '\e98d';
+$ic-user-check: '\e9a8';
+$ic-spinner3: '\e9a9';
 
 @font-face {
   font-family: 'powwow';
@@ -117,6 +204,11 @@ $ic-Wifi-Icon: '\e94e';
 .ic-toggle-on {
   &:before {
     content: $ic-toggle-on;
+  }
+}
+.ic-toggle-on1 {
+  &:before {
+    content: $ic-toggle-on1;
   }
 }
 .ic-pause-circle {
@@ -234,14 +326,14 @@ $ic-Wifi-Icon: '\e94e';
     content: $ic-Circle-Icon;
   }
 }
-.ic-Clock-Icon {
+.ic-Clock-Icon1 {
   &:before {
-    content: $ic-Clock-Icon;
+    content: $ic-Clock-Icon1;
   }
 }
-.ic-Compass-Icon {
+.ic-Compass-Icon1 {
   &:before {
-    content: $ic-Compass-Icon;
+    content: $ic-Compass-Icon1;
   }
 }
 .ic-Copy-Paste-Icon {
@@ -527,5 +619,435 @@ $ic-Wifi-Icon: '\e94e';
 .ic-Wifi-Icon {
   &:before {
     content: $ic-Wifi-Icon;
+  }
+}
+.ic-check-circle {
+  &:before {
+    content: $ic-check-circle;
+  }
+}
+.ic-file-text {
+  &:before {
+    content: $ic-file-text;
+  }
+}
+.ic-pause-circle1 {
+  &:before {
+    content: $ic-pause-circle1;
+  }
+}
+.ic-phone-incoming1 {
+  &:before {
+    content: $ic-phone-incoming1;
+  }
+}
+.ic-phone-outgoing1 {
+  &:before {
+    content: $ic-phone-outgoing1;
+  }
+}
+.ic-Alert-Icon1 {
+  &:before {
+    content: $ic-Alert-Icon1;
+  }
+}
+.ic-Alt-Icon1 {
+  &:before {
+    content: $ic-Alt-Icon1;
+  }
+}
+.ic-Amplifier-Icon1 {
+  &:before {
+    content: $ic-Amplifier-Icon1;
+  }
+}
+.ic-Arrow-Down-Icon1 {
+  &:before {
+    content: $ic-Arrow-Down-Icon1;
+  }
+}
+.ic-Arrow-Filter-Icon1 {
+  &:before {
+    content: $ic-Arrow-Filter-Icon1;
+  }
+}
+.ic-Arrow-Forward-Icon1 {
+  &:before {
+    content: $ic-Arrow-Forward-Icon1;
+  }
+}
+.ic-Arrow-Left-Icon1 {
+  &:before {
+    content: $ic-Arrow-Left-Icon1;
+  }
+}
+.ic-Arrow-Next-Icon1 {
+  &:before {
+    content: $ic-Arrow-Next-Icon1;
+  }
+}
+.ic-Arrow-Previous-Icon1 {
+  &:before {
+    content: $ic-Arrow-Previous-Icon1;
+  }
+}
+.ic-Arrow-Right-Icon1 {
+  &:before {
+    content: $ic-Arrow-Right-Icon1;
+  }
+}
+.ic-Arrow-Up-Icon1 {
+  &:before {
+    content: $ic-Arrow-Up-Icon1;
+  }
+}
+.ic-Basket-Icon1 {
+  &:before {
+    content: $ic-Basket-Icon1;
+  }
+}
+.ic-Bell-Icon1 {
+  &:before {
+    content: $ic-Bell-Icon1;
+  }
+}
+.ic-Calendar-Icon1 {
+  &:before {
+    content: $ic-Calendar-Icon1;
+  }
+}
+.ic-Camera-Icon1 {
+  &:before {
+    content: $ic-Camera-Icon1;
+  }
+}
+.ic-Cart-Icon1 {
+  &:before {
+    content: $ic-Cart-Icon1;
+  }
+}
+.ic-Check-Icon1 {
+  &:before {
+    content: $ic-Check-Icon1;
+  }
+}
+.ic-Check-Rounded-Icon1 {
+  &:before {
+    content: $ic-Check-Rounded-Icon1;
+  }
+}
+.ic-Chronometer-Icon1 {
+  &:before {
+    content: $ic-Chronometer-Icon1;
+  }
+}
+.ic-Circle-Icon1 {
+  &:before {
+    content: $ic-Circle-Icon1;
+  }
+}
+.ic-Clock-Icon {
+  &:before {
+    content: $ic-Clock-Icon;
+  }
+}
+.ic-Compass-Icon {
+  &:before {
+    content: $ic-Compass-Icon;
+  }
+}
+.ic-Copy-Paste-Icon1 {
+  &:before {
+    content: $ic-Copy-Paste-Icon1;
+  }
+}
+.ic-Cross-Icon1 {
+  &:before {
+    content: $ic-Cross-Icon1;
+  }
+}
+.ic-Direction-Icon1 {
+  &:before {
+    content: $ic-Direction-Icon1;
+  }
+}
+.ic-Dislike-Icon1 {
+  &:before {
+    content: $ic-Dislike-Icon1;
+  }
+}
+.ic-Download-Icon1 {
+  &:before {
+    content: $ic-Download-Icon1;
+  }
+}
+.ic-Drag-Column-Icon1 {
+  &:before {
+    content: $ic-Drag-Column-Icon1;
+  }
+}
+.ic-Edit-Icon1 {
+  &:before {
+    content: $ic-Edit-Icon1;
+  }
+}
+.ic-Enveloppe-Icon1 {
+  &:before {
+    content: $ic-Enveloppe-Icon1;
+  }
+}
+.ic-Eye-Closed-Icon1 {
+  &:before {
+    content: $ic-Eye-Closed-Icon1;
+  }
+}
+.ic-Eye-Icon1 {
+  &:before {
+    content: $ic-Eye-Icon1;
+  }
+}
+.ic-Filter-Icon1 {
+  &:before {
+    content: $ic-Filter-Icon1;
+  }
+}
+.ic-Flag-Icon1 {
+  &:before {
+    content: $ic-Flag-Icon1;
+  }
+}
+.ic-Floppy-Icon1 {
+  &:before {
+    content: $ic-Floppy-Icon1;
+  }
+}
+.ic-Heart-Add-Icon1 {
+  &:before {
+    content: $ic-Heart-Add-Icon1;
+  }
+}
+.ic-Heart-Icon1 {
+  &:before {
+    content: $ic-Heart-Icon1;
+  }
+}
+.ic-Heart-Minus-Icon1 {
+  &:before {
+    content: $ic-Heart-Minus-Icon1;
+  }
+}
+.ic-Heart-Rythm-Icon1 {
+  &:before {
+    content: $ic-Heart-Rythm-Icon1;
+  }
+}
+.ic-Help-Icon1 {
+  &:before {
+    content: $ic-Help-Icon1;
+  }
+}
+.ic-History-Icon1 {
+  &:before {
+    content: $ic-History-Icon1;
+  }
+}
+.ic-Home-Icon1 {
+  &:before {
+    content: $ic-Home-Icon1;
+  }
+}
+.ic-Hourglass-Icon1 {
+  &:before {
+    content: $ic-Hourglass-Icon1;
+  }
+}
+.ic-Info-Icon1 {
+  &:before {
+    content: $ic-Info-Icon1;
+  }
+}
+.ic-Instagram-Icon1 {
+  &:before {
+    content: $ic-Instagram-Icon1;
+  }
+}
+.ic-Like-Icon1 {
+  &:before {
+    content: $ic-Like-Icon1;
+  }
+}
+.ic-Link-Icon1 {
+  &:before {
+    content: $ic-Link-Icon1;
+  }
+}
+.ic-List-Icon1 {
+  &:before {
+    content: $ic-List-Icon1;
+  }
+}
+.ic-Location-Icon1 {
+  &:before {
+    content: $ic-Location-Icon1;
+  }
+}
+.ic-Lock-Closed-Icon1 {
+  &:before {
+    content: $ic-Lock-Closed-Icon1;
+  }
+}
+.ic-Magnify-Icon1 {
+  &:before {
+    content: $ic-Magnify-Icon1;
+  }
+}
+.ic-Message-Icon1 {
+  &:before {
+    content: $ic-Message-Icon1;
+  }
+}
+.ic-Mic-Icon1 {
+  &:before {
+    content: $ic-Mic-Icon1;
+  }
+}
+.ic-Minus-Icon1 {
+  &:before {
+    content: $ic-Minus-Icon1;
+  }
+}
+.ic-Network-Icon1 {
+  &:before {
+    content: $ic-Network-Icon1;
+  }
+}
+.ic-Pack-Icon1 {
+  &:before {
+    content: $ic-Pack-Icon1;
+  }
+}
+.ic-Phone-Icon1 {
+  &:before {
+    content: $ic-Phone-Icon1;
+  }
+}
+.ic-Picture-Icon1 {
+  &:before {
+    content: $ic-Picture-Icon1;
+  }
+}
+.ic-Pin-Icon1 {
+  &:before {
+    content: $ic-Pin-Icon1;
+  }
+}
+.ic-Play-Icon1 {
+  &:before {
+    content: $ic-Play-Icon1;
+  }
+}
+.ic-Plug-Icon1 {
+  &:before {
+    content: $ic-Plug-Icon1;
+  }
+}
+.ic-Plus-Icon1 {
+  &:before {
+    content: $ic-Plus-Icon1;
+  }
+}
+.ic-Printer-Icon1 {
+  &:before {
+    content: $ic-Printer-Icon1;
+  }
+}
+.ic-Refresh-Icon1 {
+  &:before {
+    content: $ic-Refresh-Icon1;
+  }
+}
+.ic-Settings-Icon1 {
+  &:before {
+    content: $ic-Settings-Icon1;
+  }
+}
+.ic-Shuffle-Icon1 {
+  &:before {
+    content: $ic-Shuffle-Icon1;
+  }
+}
+.ic-Sim-Icon1 {
+  &:before {
+    content: $ic-Sim-Icon1;
+  }
+}
+.ic-Smartphone-Icon1 {
+  &:before {
+    content: $ic-Smartphone-Icon1;
+  }
+}
+.ic-Sort-Icon1 {
+  &:before {
+    content: $ic-Sort-Icon1;
+  }
+}
+.ic-Star-Icon1 {
+  &:before {
+    content: $ic-Star-Icon1;
+  }
+}
+.ic-Stats-Icon1 {
+  &:before {
+    content: $ic-Stats-Icon1;
+  }
+}
+.ic-Sun-Icon1 {
+  &:before {
+    content: $ic-Sun-Icon1;
+  }
+}
+.ic-Ticket-Icon1 {
+  &:before {
+    content: $ic-Ticket-Icon1;
+  }
+}
+.ic-Trash-Icon1 {
+  &:before {
+    content: $ic-Trash-Icon1;
+  }
+}
+.ic-Upload-Icon1 {
+  &:before {
+    content: $ic-Upload-Icon1;
+  }
+}
+.ic-User-Icon1 {
+  &:before {
+    content: $ic-User-Icon1;
+  }
+}
+.ic-Wallet-Icon1 {
+  &:before {
+    content: $ic-Wallet-Icon1;
+  }
+}
+.ic-Wheel-Icon1 {
+  &:before {
+    content: $ic-Wheel-Icon1;
+  }
+}
+.ic-Wifi-Icon1 {
+  &:before {
+    content: $ic-Wifi-Icon1;
+  }
+}
+.ic-user-check {
+  &:before {
+    content: $ic-user-check;
+  }
+}
+.ic-spinner3 {
+  &:before {
+    content: $ic-spinner3;
   }
 }

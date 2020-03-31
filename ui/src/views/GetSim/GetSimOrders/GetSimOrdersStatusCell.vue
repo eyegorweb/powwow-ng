@@ -74,12 +74,18 @@ export default {
 
     icon() {
       switch (this.item) {
-        case 'VALIDATED':
         case 'TO_BE_CONFIRMED':
         case 'TO_BE_CONFIRMED_BY_BO':
-        case 'CONFIRMATION_IN_PROGRESS':
-        case 'CONFIRMED':
           return 'ic-Clock-Icon';
+
+        case 'CONFIRMED':
+          return 'ic-check-circle';
+
+        case 'VALIDATED':
+          return 'ic-user-check';
+
+        case 'CONFIRMATION_IN_PROGRESS':
+          return 'ic-spinner3';
 
         case 'NOT_VALIDATED':
           return 'ic-Alt-Icon';
