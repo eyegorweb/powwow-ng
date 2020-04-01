@@ -1,43 +1,45 @@
 <template>
-  <TableWithFilterSkeleton v-if="isLoading" :columns="columns" />
-  <div v-else class="row">
-    <div class="col-md-3 pl-0">
-      <FilterBar
-        :filter-components="filters"
-        @applyFilters="doSearch"
-        @noMoreFilters="onAllFiltersCleared"
-      />
-    </div>
-    <div class="col-md-9">
-      <div class="row mb-3">
-        <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            <slot name="title"></slot>
-          </h2>
-        </div>
-        <div class="col">
-          <slot name="topRight"></slot>
-        </div>
+  <div>
+    <TableWithFilterSkeleton v-if="isLoading" :columns="columns" />
+    <div class="row" :class="{ hidden: isLoading }">
+      <div class="col-md-3 pl-0">
+        <FilterBar
+          :filter-components="filters"
+          @applyFilters="doSearch"
+          @noMoreFilters="onAllFiltersCleared"
+        />
       </div>
-      <ResultDataTable
-        :columns="columns"
-        :rows="rows"
-        :total="total"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :order-by.sync="currentOrderBy"
-        :size="size"
-        @colEvent="$emit('colEvent', $event)"
-      >
-        <div slot="topLeftCorner">
-          <slot name="topLeft"></slot>
+      <div class="col-md-9">
+        <div class="row mb-3">
+          <div class="col">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+              <slot name="title"></slot>
+            </h2>
+          </div>
+          <div class="col">
+            <slot name="topRight"></slot>
+          </div>
         </div>
-        <div slot="actions">
-          <slot name="actions"></slot>
-        </div>
-      </ResultDataTable>
+        <ResultDataTable
+          :columns="columns"
+          :rows="rows"
+          :total="total"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :order-by.sync="currentOrderBy"
+          :size="size"
+          @colEvent="$emit('colEvent', $event)"
+        >
+          <div slot="topLeftCorner">
+            <slot name="topLeft"></slot>
+          </div>
+          <div slot="actions">
+            <slot name="actions"></slot>
+          </div>
+        </ResultDataTable>
 
-      <slot name="after"></slot>
+        <slot name="after"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -129,4 +131,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.hidden {
+  display: none;
+}
+</style>

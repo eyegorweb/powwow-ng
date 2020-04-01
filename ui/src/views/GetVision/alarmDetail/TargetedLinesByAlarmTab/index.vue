@@ -43,7 +43,7 @@
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
+import SearchByLinesId from '@/components/SearchById';
 
 import TriggerReasonFilter from '../filters/TriggerReasonFilter';
 import TriggerDateFilter from '../filters/TriggerDateFilter';
@@ -54,6 +54,9 @@ import AssociatedAlarmsCell from './AssociatedAlarmsCell';
 import CheckBoxCell from './CheckBoxCell';
 
 import ExportButton from '@/components/ExportButton';
+import ICCIDCell from '../Trigger2MonthsTab/ICCIDCell';
+
+import { mapMutations } from 'vuex';
 
 import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
 import get from 'lodash.get';
@@ -75,6 +78,33 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openPanel']),
+    openDetailPanel(payload) {
+      if (payload.action !== 'openAlarmPanel') return;
+      const title = 'getparc.lineDetail.alarms.trigger-history';
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t(title),
+          panelId: title,
+          wide: false,
+          backdrop: false,
+          payload: {
+            alarm: this.alarm,
+            sim: payload.row,
+          },
+        });
+      };
+
+      /**
+       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
+    },
+
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
         console.log(columns, orderBy, exportFormat);
@@ -82,7 +112,7 @@ export default {
       };
     },
 
-    async searchById(value) {
+    async searchById(params) {
       const mandatoryFilters = [
         {
           id: 'filters.alarmId',
@@ -90,10 +120,12 @@ export default {
         },
       ];
 
+      this.searchByIdValue = params.value;
+
       this.isLoading = true;
       const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
         ...mandatoryFilters,
-        value,
+        params,
       ]);
       this.isLoading = false;
 
@@ -107,6 +139,10 @@ export default {
       }
       if (payload.remove) {
         this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+      }
+
+      if (payload.action === 'openAlarmPanel') {
+        this.openDetailPanel(payload);
       }
     },
 
@@ -188,6 +224,9 @@ export default {
           name: 'iccid',
           noHandle: true,
           fixed: true,
+          format: {
+            component: ICCIDCell,
+          },
         },
         {
           id: 3,

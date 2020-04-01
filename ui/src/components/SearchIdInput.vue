@@ -1,5 +1,5 @@
 <template>
-  <form class="searchInput">
+  <form class="searchInput" @submit.prevent="searchById">
     <div :class="{ 'form-row': inline }">
       <div class="form-group mb-0" :class="{ 'col-md-8': inline }">
         <SearchWithSelect
@@ -12,8 +12,8 @@
       </div>
       <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
-          :variant="isDisabled ? 'primary' : ''"
-          :disabled="!isDisabled"
+          :variant="isEnabled ? 'primary' : ''"
+          :disabled="!isEnabled"
           @click="searchById"
           :class="{ 'flex-grow-1': !inline }"
           >{{ $t('search') }}</UiButton
@@ -80,7 +80,7 @@ export default {
         });
       },
     },
-    isDisabled: {
+    isEnabled: {
       get() {
         return !!this.resultType && !!this.inputSearchValue;
       },
@@ -89,10 +89,12 @@ export default {
 
   methods: {
     async searchById() {
-      this.$emit('searchById', {
-        id: 'filters.' + this.selectedSearchType,
-        value: this.resultQuery,
-      });
+      if (this.isEnabled) {
+        this.$emit('searchById', {
+          id: 'filters.' + this.selectedSearchType,
+          value: this.resultQuery,
+        });
+      }
     },
   },
 

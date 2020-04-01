@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     triggerDate() {
-      return this.info.triggerDate;
+      return this.info ? this.info.triggerDate : '';
     },
     reason() {
       if (this.info && this.info.reasonAndValue && this.info.reasonAndValue.length) {

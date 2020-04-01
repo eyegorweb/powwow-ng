@@ -34,7 +34,8 @@
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
+
+import SearchByLinesId from '@/components/SearchById';
 
 import TriggerReasonFilter from '../filters/TriggerReasonFilter';
 import TriggerDateFilter from '../filters/TriggerDateFilter';
@@ -99,7 +100,7 @@ export default {
       }
     },
 
-    async searchById(value) {
+    async searchById(params) {
       const mandatoryFilters = [
         {
           id: 'filters.alarmId',
@@ -107,11 +108,13 @@ export default {
         },
       ];
 
+      this.searchByIdValue = params.value;
+
       this.isLoading = true;
 
       const data = await fetchAlarmTriggersFor2Months(this.orderBy, { page: 0, limit: 10 }, [
         ...mandatoryFilters,
-        value,
+        params,
       ]);
 
       this.isLoading = false;
