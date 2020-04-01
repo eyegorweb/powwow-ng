@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.664+20200401150033
+2020-04-01
+
+### Fixes
+
+- correction pour assigner immédiatement les indicateurs des commandes (4595adc86b11e15785af11fb8cd9025a99db1ee0)
+
 ## 0.3.0-master.663+20200401140729
 2020-04-01
 
