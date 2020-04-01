@@ -31,7 +31,8 @@
           v-if="content.numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
-        >{{ content.numberOfTargetedLines }}</a>
+          >{{ content.numberOfTargetedLines }}</a
+        >
         <p v-else>-</p>
       </div>
 
@@ -74,7 +75,9 @@
       </div>
       <div v-if="content.autoPositionCustAccount" class="overview-item mr-5">
         <h6>{{ $t('common.billingAccount') }}:</h6>
-        <p>`{{ content.autoPositionCustAccount.id }} - {{ content.autoPositionCustAccount.name }}`</p>
+        <p>
+          `{{ content.autoPositionCustAccount.id }} - {{ content.autoPositionCustAccount.name }}`
+        </p>
       </div>
       <div v-if="content.autoPositionWorkflow" class="overview-item mr-5">
         <h6>{{ $t('alarms.alarmScope.OFFER') }}:</h6>
@@ -89,9 +92,9 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.notify-mail') }}:</h6>
-        <p
-          :class="{ 'text-success': content.notifyByEmail }"
-        >{{ content.notifyByEmail ? 'Oui' : 'Non' }}</p>
+        <p :class="{ 'text-success': content.notifyByEmail }">
+          {{ content.notifyByEmail ? 'Oui' : 'Non' }}
+        </p>
       </div>
 
       <div v-if="content.mailingList" class="overview-item mr-5">
@@ -101,7 +104,9 @@
 
       <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.notify-ws') }}:</h6>
-        <p :class="{ 'text-success': content.notifyByWs }">{{ content.notifyByWs ? 'Oui' : 'Non' }}</p>
+        <p :class="{ 'text-success': content.notifyByWs }">
+          {{ content.notifyByWs ? 'Oui' : 'Non' }}
+        </p>
       </div>
     </div>
 

@@ -6,6 +6,7 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
+      :is-loading="isLoading"
       @applyFilters="applyFilters"
     >
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
@@ -26,7 +27,7 @@
         <Actions />
       </div>
 
-      <div slot="after">
+      <div v-if="total > 0" slot="after">
         <ReactivateForLinesAction
           :alarm="alarm"
           :rows="rows"
@@ -40,17 +41,22 @@
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
+import SearchByLinesId from '@/components/SearchById';
 
 import ExportButton from '@/components/ExportButton';
 import Actions from './Actions';
 import ReactivateForLinesAction from './ReactivateForLinesAction';
 
-import AlarmAvailabilityFilter from './AlarmAvailabilityFilter';
 import BillingAccountFilter from './BillingAccountFilter';
 import OffersFilter from './OffersFilter';
 
-import { fetchData } from '@/api/mockApi.js';
+import CheckBoxCell from '../TargetedLinesByAlarmTab/CheckBoxCell';
+import AssociatedAlarmsCell from '../TargetedLinesByAlarmTab/AssociatedAlarmsCell';
+
+import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import get from 'lodash.get';
+
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -70,18 +76,8 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       filters: [
-        {
-          title: 'getvsion.alarm.alarm_availability',
-          component: AlarmAvailabilityFilter,
-          onChange(chosenValues) {
-            return {
-              id: 'getvsion.alarm.alarm_availability',
-              values: chosenValues,
-              data: chosenValues,
-            };
-          },
-        },
         {
           title: 'common.billingAccount',
           component: BillingAccountFilter,
@@ -107,19 +103,68 @@ export default {
       ],
       columns: [
         {
+          id: 99,
+          label: '',
+          name: 'partner',
+          orderable: false,
+          visible: true,
+          noHandle: true,
+          notConfigurable: true,
+          format: {
+            component: CheckBoxCell,
+          },
+        },
+        {
           id: 2,
-          label: this.$t('col.id'),
+          label: this.$t('getparc.actDetail.col.iccid'),
           orderable: true,
           visible: true,
-          name: 'name',
-          exportId: 'ID',
+          name: 'iccid',
+          noHandle: true,
+          fixed: true,
+        },
+        {
+          id: 3,
+          label: this.$t('col.offer'),
+          orderable: true,
+          visible: true,
+          name: 'offer',
           noHandle: true,
           fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
-              return row.name;
+              return get(row, 'alarmInstance.accessPoint.offer.marketingOffer.description');
             },
+          },
+        },
+        {
+          id: 4,
+          label: this.$t('common.billingAccount'),
+          orderable: true,
+          visible: true,
+          name: 'billingAccount',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              const code = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.code');
+              const name = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.name');
+              return `${code} ${name}`;
+            },
+          },
+        },
+        {
+          id: 5,
+          label: this.$t('getvsion.associated_alarms'),
+          orderable: true,
+          visible: true,
+          name: 'activationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: AssociatedAlarmsCell,
           },
         },
       ],
@@ -138,6 +183,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['flashMessage']),
+
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
         console.log(columns, orderBy, exportFormat);
@@ -145,8 +192,28 @@ export default {
       };
     },
 
-    searchById(value) {
-      console.log('search by id > ', value);
+    async searchById(params) {
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+          notEqual: true,
+        },
+      ];
+
+      this.searchByIdValue = params.value;
+
+      this.isLoading = true;
+
+      const data = await fetchLinesBoundToAlarm(this.orderBy, { page: 0, limit: 10 }, [
+        ...mandatoryFilters,
+        params,
+      ]);
+
+      this.isLoading = false;
+
+      this.total = data.total;
+      this.rows = data.items;
     },
 
     async applyFilters(payload) {
@@ -155,11 +222,34 @@ export default {
         filters: [],
       };
 
+      const mandatoryFilters = [
+        {
+          id: 'filters.alarmId',
+          value: this.alarm.id,
+          notEqual: true,
+        },
+      ];
+
       this.lastUsedFilters = filters;
-      const data = await fetchData(this.orderBy, pagination, filters);
+
+      this.isLoading = true;
+
+      const data = await fetchLinesBoundToAlarm(this.orderBy, pagination, [
+        ...filters,
+        ...mandatoryFilters,
+      ]);
+
+      this.isLoading = false;
+
+      if (data.errors && data.errors.length) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        this.total = 0;
+        this.rows = [];
+        return;
+      }
 
       this.total = data.total;
-      this.rows = data.data;
+      this.rows = data.items;
     },
   },
 };

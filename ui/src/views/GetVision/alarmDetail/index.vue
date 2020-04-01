@@ -150,6 +150,21 @@ export default {
         mandatoryFilters
       );
 
+      const excludedLinesFromAlarm = await fetchLinesBoundToAlarm(
+        undefined,
+        {
+          page: 0,
+          limit: 10,
+        },
+        [
+          {
+            id: 'filters.alarmId',
+            value: this.alarm.id,
+            notEqual: true,
+          },
+        ]
+      );
+
       this.tabs = this.tabs.map(t => {
         if (t.label === 'trigger2Month') {
           t.total = lasTriggered.total;
@@ -157,6 +172,10 @@ export default {
 
         if (t.label === 'targetedLines') {
           t.total = linesBoundToAlarm.total;
+        }
+
+        if (t.label === 'excludedSimFromAlarm') {
+          t.total = excludedLinesFromAlarm.total;
         }
 
         return t;
