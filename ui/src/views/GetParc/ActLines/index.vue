@@ -133,6 +133,7 @@ export default {
       'selectedFileForActCreation',
       'selectedLinesForActCreation',
       'formVersion',
+      'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner']),
@@ -312,7 +313,7 @@ export default {
         );
       });
 
-      if (!haveValues) {
+      if (!haveValues && !this.searchingById) {
         this.resetAfterFilterClear();
       }
     },
