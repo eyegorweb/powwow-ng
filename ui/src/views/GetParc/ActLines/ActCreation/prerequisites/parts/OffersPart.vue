@@ -56,6 +56,7 @@ export default {
           page,
           limit: 10,
           partnerType: this.contextPartnersType,
+          disabledOffer: true,
         });
         if (data) {
           return data

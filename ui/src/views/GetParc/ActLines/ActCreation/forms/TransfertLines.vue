@@ -102,6 +102,7 @@ export default {
       const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
         page: 0,
         limit: 99,
+        disabledOffer: true,
       });
       if (data) {
         this.offers = data.map(o => ({
