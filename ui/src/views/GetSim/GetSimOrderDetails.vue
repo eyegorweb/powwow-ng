@@ -231,32 +231,7 @@ export default {
   data() {
     return {
       orderData: undefined,
-      confirmationStepper: [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          date: null,
-          index: 0,
-        },
-        {
-          code: 'VALIDATED',
-          label: this.$t('orders.detail.statuses.VALIDATED'),
-          date: null,
-          index: 1,
-        },
-        {
-          code: 'CONFIRMED',
-          label: this.$t('orders.detail.statuses.CONFIRMED'),
-          date: null,
-          index: 2,
-        },
-        {
-          code: 'TERMINATED',
-          label: this.$t('orders.detail.statuses.TERMINATED'),
-          date: null,
-          index: 3,
-        },
-      ],
+      confirmationStepper: [],
       cancelStepper: [
         {
           code: 'NOT_VALIDATED',
@@ -274,6 +249,35 @@ export default {
         },
       ],
     };
+  },
+
+  mounted() {
+    this.confirmationStepper = [
+      {
+        code: 'NOT_VALIDATED',
+        label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+        date: null,
+        index: 0,
+      },
+      {
+        code: 'VALIDATED',
+        label: this.$t('orders.detail.statuses.VALIDATED'),
+        date: null,
+        index: 1,
+      },
+      {
+        code: this.confirmStep.code,
+        label: this.confirmStep.label,
+        date: null,
+        index: 2,
+      },
+      {
+        code: 'TERMINATED',
+        label: this.$t('orders.detail.statuses.TERMINATED'),
+        date: null,
+        index: 3,
+      },
+    ];
   },
 
   props: {
@@ -365,6 +369,56 @@ export default {
     },
     massActionsIds() {
       return this.getFromOrder('massActionIds');
+    },
+    confirmStep() {
+      let code, label;
+      if (this.order.status === 'CONFIRMED') {
+        code = 'CONFIRMED';
+        label = this.$t('orders.detail.statuses.CONFIRMED');
+      } else if (this.order.status === 'TO_BE_CONFIRMED') {
+        code = 'TO_BE_CONFIRMED';
+        label = this.$t('col.statuses.TO_BE_CONFIRMED');
+      } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
+        code = 'TO_BE_CONFIRMED_BY_BO';
+        label = this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO');
+      } else {
+        // defaults values are 'CONFIRMED'
+        code = 'CONFIRMED';
+        label = this.$t('orders.detail.statuses.CONFIRMED');
+      }
+      return { code, label };
+    },
+  },
+
+  watch: {
+    confirmStep(newValue) {
+      this.confirmationStepper = [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('orders.detail.statuses.VALIDATED'),
+          date: null,
+          index: 1,
+        },
+        {
+          code: newValue.code,
+          label: newValue.label,
+          date: null,
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: null,
+          index: 3,
+        },
+      ];
+      return this.confirmationStepper;
     },
   },
 

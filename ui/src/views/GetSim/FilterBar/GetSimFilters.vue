@@ -27,10 +27,10 @@
               <UiCheckbox
                 v-for="status in statusResults"
                 :checked="status.checked"
-                :value="{ id: status, label: $t(`col.statuses. ${status}`) }"
+                :value="{ id: status, label: $t(`col.statuses.${status}`) }"
                 :key="status"
                 v-model="orderStatus"
-                >{{ $t(`col.statuses. ${status}`) }}</UiCheckbox
+                >{{ $t(`col.statuses.${status}`) }}</UiCheckbox
               >
             </div>
           </FoldableBlock>
