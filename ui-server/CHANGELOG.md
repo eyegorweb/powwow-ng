@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.665+20200401150626
+2020-04-01
+
+### Fixes
+
+- La recherche unitaire de lignes ne fonctionne plus (04ec4ad98b4f051ac3908e9dc16c25ae05f64a67)
+
 ## 0.3.0-master.664+20200401150033
 2020-04-01
 
