@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.666+20200401152231
+2020-04-01
+
+### Fixes
+
+- Corriger la création d'alarmes (7273a1fb4d0324c9cdc4a456864d600d1bea54d9)
+
 ## 0.3.0-master.665+20200401150626
 2020-04-01
 
