@@ -89,7 +89,7 @@ export default {
         notifCondition = !!this.notifList;
       }
 
-      return notifCondition && this.alarmName && this.canSave && false;
+      return notifCondition && this.alarmName && this.canSave;
     },
   },
 
