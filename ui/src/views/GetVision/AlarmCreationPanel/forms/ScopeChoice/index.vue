@@ -7,7 +7,11 @@
         <div class="scope-selection">
           <UiSelect v-model="selectedType" :options="types" block />
         </div>
-        <SearchLineByIdChoice v-if="selectedType === 'LINE'" @change="filterForCreation = $event" />
+        <SearchLineByIdChoice
+          v-if="selectedType === 'LINE'"
+          @change="filterForCreation = $event"
+          :partner="partner"
+        />
         <OfferChoice
           :key="'offer_' + (partner ? partner.id : '')"
           v-if="selectedType === 'OFFER'"

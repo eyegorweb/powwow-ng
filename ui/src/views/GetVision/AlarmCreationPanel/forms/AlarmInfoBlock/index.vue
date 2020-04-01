@@ -16,7 +16,7 @@
           <span>{{ $t('webserviceNotification') }}</span>
         </div>
       </div>
-      <div class="col">
+      <div class="col" v-if="sholdNotify">
         <h5>Liste de diffusion</h5>
         <UiSelect v-model="notifList" :options="mailingLists" block />
       </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="col">
         <div class="d-flex mb-3 mt-1">
-          <UiCheckbox v-model="enableAlarm" />
+          <UiCheckbox v-model="enableAlarm" :checked="true" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
 
@@ -89,7 +89,7 @@ export default {
         notifCondition = !!this.notifList;
       }
 
-      return notifCondition && this.alarmName && this.canSave;
+      return notifCondition && this.alarmName && this.canSave && false;
     },
   },
 
@@ -110,7 +110,7 @@ export default {
       sholdNotify: false,
       webserviceNotification: false,
       alarmName: undefined,
-      enableAlarm: false,
+      enableAlarm: true,
 
       notifList: undefined,
     };

@@ -43,6 +43,13 @@ export default {
     ScopeSearchMessage,
   },
 
+  props: {
+    partner: {
+      type: Object,
+      default: undefined,
+    },
+  },
+
   data() {
     return {
       searchByIdValue: undefined,
@@ -55,11 +62,14 @@ export default {
   methods: {
     async searchLines() {
       this.isLoading = true;
-
       const filters = [
         {
           id: 'filters.' + this.params.type,
           value: this.params.value,
+        },
+        {
+          id: 'filters.partners',
+          values: [{ id: this.partner.id }],
         },
       ];
 
