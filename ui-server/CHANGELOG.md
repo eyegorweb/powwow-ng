@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.661+20200401121030
+2020-04-01
+
+### Fixes
+
+- gestion du stepper pour le détail de la commande (cf6d3c7c8c000d493b900a09d11dd69c0ffe3a32)
+
 ## 0.3.0-master.660+20200331135502
 2020-03-31
 
