@@ -25,6 +25,7 @@ export const state = {
   selectedFileForActCreation: undefined,
   actToCreate: null,
   actCreationPrerequisites: null,
+  searchingById: false,
 
   // à incrémenter en cas de RAZ de la page
   formVersion: 0,
@@ -176,6 +177,7 @@ export const actions = {
     let response = { total: 0, items: [] };
     try {
       response = await searchLines(orderBy, pageInfo, appliedFilters);
+      commit('stopSearchById');
     } catch (e) {
       commit(
         'flashMessage',
@@ -417,6 +419,16 @@ export const mutations = {
   },
   clearResultsForActCreation(state) {
     filterUtils.clearResultsForActCreation(state);
+  },
+
+  startSearchingById(state, values) {
+    state.appliedFilters = [...values];
+    state.currentFilters = [];
+    state.searchingById = true;
+  },
+
+  stopSearchById(state) {
+    state.searchingById = false;
   },
 };
 
