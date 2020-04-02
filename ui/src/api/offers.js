@@ -81,7 +81,7 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
 }
 
 export async function fetchOffersForPartnerId(partnerId) {
-  return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50, disabledOffer: false });
+  return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50, disabledOffer: true });
 }
 
 export async function changeOffer(filters, lines, params) {
