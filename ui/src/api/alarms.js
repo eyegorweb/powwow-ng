@@ -104,6 +104,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         id
         name
         type
+        triggerCommercialStatus
         startDate
         disabled
         type

@@ -36,29 +36,44 @@ export default {
     duplicateFrom: Object,
   },
 
+  mounted() {
+    let toggleValues = [
+      {
+        id: 'ALL',
+        label: 'Tous',
+      },
+      {
+        id: 'ACTIVATION',
+        label: 'Activation/Réactivation',
+      },
+      {
+        id: 'SUSPENSION',
+        label: 'Suspension',
+      },
+      {
+        id: 'TERMINATION',
+        label: 'Résiliation ',
+      },
+    ];
+    if (this.duplicateFrom) {
+      this.currentPeriod = this.duplicateFrom.triggerCommercialStatus;
+      toggleValues = toggleValues.map(t => {
+        if (t.id === this.duplicateFrom.triggerCommercialStatus) {
+          t.default = true;
+        }
+        return t;
+      });
+    }
+
+    this.toggleValues = toggleValues;
+  },
+
   data() {
     return {
       scopeChoice: undefined,
 
       currentPeriod: 'ALL',
-      toggleValues: [
-        {
-          id: 'ALL',
-          label: 'Tous',
-        },
-        {
-          id: 'ACTIVATION',
-          label: 'Activation/Réactivation',
-        },
-        {
-          id: 'SUSPENSION',
-          label: 'Suspension',
-        },
-        {
-          id: 'TERMINATION',
-          label: 'Résiliation ',
-        },
-      ],
+      toggleValues: undefined,
     };
   },
 
