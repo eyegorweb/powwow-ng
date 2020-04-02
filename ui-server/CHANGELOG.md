@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.670+20200402124218
+2020-04-02
+
+### Fixes
+
+- correction de la mise à jour de l'api workflows pour récupérer les offres uniquement actives (280f932fdd98f91a4db5f224fb4ceaa910382835)
+
 ## 0.3.0-master.669+20200402122249
 2020-04-02
 
