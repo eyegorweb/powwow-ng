@@ -92,11 +92,13 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
     alarms(alarmFilterInput: {
       ${formatFilters(filters)}
-    }${paginationInfo}) {
+    }${paginationInfo}
+    ${orderingInfo}) {
       total
       items {
         id
