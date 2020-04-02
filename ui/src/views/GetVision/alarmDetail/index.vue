@@ -101,7 +101,11 @@ export default {
     if (this.$route.params && this.$route.params.tabIndex) {
       this.currentTab = this.$route.params.tabIndex;
     }
-    this.refreshAlarm();
+
+    await this.refreshAlarm();
+    if (this.$route.params && this.$route.params.editMode) {
+      this.modifyAlarm();
+    }
   },
 
   methods: {

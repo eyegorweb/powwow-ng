@@ -112,7 +112,9 @@
 
     <div slot="footer" class="action-buttons">
       <div>
-        <UiButton variant="import" block>{{ $t('getvsion.detail-panel.change-alarm') }}</UiButton>
+        <UiButton variant="import" @click="editThisAlarm" block>{{
+          $t('getvsion.detail-panel.change-alarm')
+        }}</UiButton>
       </div>
       <div>
         <UiButton variant="primary" block>{{ $t('alarms.MORE_DETAIL') }}</UiButton>
@@ -204,6 +206,13 @@ export default {
       this.$router.push({
         name: 'alarmDetail',
         params: { alarmId: this.content.id, tabIndex: 1 },
+      });
+    },
+
+    editThisAlarm() {
+      this.$router.push({
+        name: 'alarmDetail',
+        params: { alarmId: this.content.id, editMode: true },
       });
     },
   },

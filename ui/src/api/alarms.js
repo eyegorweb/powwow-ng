@@ -75,7 +75,7 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
 }
 
 export async function searchAlarmById(id) {
-  const orderBy = {};
+  const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 10 };
   const filters = [{ id: 'filters.alarmId', value: id }];
   const response = await searchAlarms(orderBy, pagination, filters);
