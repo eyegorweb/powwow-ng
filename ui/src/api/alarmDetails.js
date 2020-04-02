@@ -47,6 +47,13 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
       total
       items {
         iccid
+        triggerReasonAndDate {
+          triggerDate
+          reasonAndValue {
+            reason
+            value
+          }
+        }
         alarmEvent {
           id
         }

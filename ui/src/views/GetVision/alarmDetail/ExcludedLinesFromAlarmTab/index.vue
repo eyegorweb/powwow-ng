@@ -5,6 +5,7 @@
       :columns="columns"
       :rows="rows"
       :total="total"
+      :size="0"
       :order-by.sync="orderBy"
       :is-loading="isLoading"
       @applyFilters="applyFilters"
@@ -21,10 +22,6 @@
 
       <div slot="topLeft">
         <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-      </div>
-
-      <div slot="actions">
-        <Actions />
       </div>
 
       <div v-if="total > 0" slot="after">
@@ -44,7 +41,6 @@ import TableWithFilter from '@/components/Filters/TableWithFilter';
 import SearchByLinesId from '@/components/SearchById';
 
 import ExportButton from '@/components/ExportButton';
-import Actions from './Actions';
 import ReactivateForLinesAction from './ReactivateForLinesAction';
 
 import BillingAccountFilter from './BillingAccountFilter';
@@ -63,7 +59,6 @@ export default {
     TableWithFilter,
     ExportButton,
     SearchByLinesId,
-    Actions,
     ReactivateForLinesAction,
   },
   props: {

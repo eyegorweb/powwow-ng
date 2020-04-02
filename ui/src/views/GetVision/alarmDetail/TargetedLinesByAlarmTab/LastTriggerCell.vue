@@ -1,5 +1,5 @@
 <template>
-  <TriggerInfo :info="row" />
+  <TriggerInfo :info="row.triggerReasonAndDate" />
 </template>
 
 <script>
