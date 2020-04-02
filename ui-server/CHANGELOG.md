@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.671+20200402130413
+2020-04-02
+
+### Fixes
+
+- Modification d'alarme (843f2bcd7b5e7ed5e9a1723e4706d8c4e7db64c0)
+
 ## 0.3.0-master.670+20200402124218
 2020-04-02
 
