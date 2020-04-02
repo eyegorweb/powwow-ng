@@ -166,6 +166,10 @@ async function consoQuery(queryName, params) {
       alarmLevels.push(`level3Up: ${params.formData.VoiceOut}`);
     }
     alarmLevels.push(`observationCycle: ${params.formData.period}`);
+
+    if (params.formData.period === 'CUSTOM') {
+      alarmLevels.push(`observationDelay: ${params.formData.customPeriodValue}`);
+    }
   }
 
   gqlParams.push(`alarmLevels: {${alarmLevels.join(',')}}`);

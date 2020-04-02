@@ -109,7 +109,7 @@
       />
     </div>
 
-    <div v-if="currentPeriod === 'CUSTOM'" class="custom-observation">
+    <div v-if="isAdvanced && currentPeriod === 'CUSTOM'" class="custom-observation">
       <UiInput
         class="value-input"
         v-model="customPeriodValue"
@@ -153,6 +153,19 @@ export default {
       this.voiceES = this.duplicateFrom.level3;
       this.VoiceOut = this.duplicateFrom.level3Up;
       this.voiceIn = this.duplicateFrom.level3Down;
+
+      this.currentPeriod = this.duplicateFrom.observationCycle;
+      this.toggleValues = this.toggleValues.map(t => {
+        if (t.id === this.duplicateFrom.observationCycle) {
+          t.default = true;
+        }
+        return t;
+      });
+
+      if (this.currentPeriod === 'CUSTOM') {
+        this.customPeriodValue = this.duplicateFrom.observationDelay;
+        this.isAdvanced = true;
+      }
     }
   },
 

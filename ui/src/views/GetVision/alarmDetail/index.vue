@@ -101,16 +101,22 @@ export default {
     if (this.$route.params && this.$route.params.tabIndex) {
       this.currentTab = this.$route.params.tabIndex;
     }
-
-    this.alarm = await searchAlarmById(this.$route.params.alarmId);
-
-    this.refreshTotals();
+    this.refreshAlarm();
   },
 
   methods: {
     ...mapMutations(['openPanel']),
 
+    async refreshAlarm() {
+      this.alarm = await searchAlarmById(this.$route.params.alarmId);
+
+      this.refreshTotals();
+    },
+
     modifyAlarm() {
+      const doReset = async () => {
+        this.refreshAlarm();
+      };
       this.openPanel({
         title: this.$t('getvsion.detail-panel.change-alarm'),
         panelId: 'getvsion.table.create-alarm',
@@ -118,8 +124,10 @@ export default {
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
-        onClosePanel() {
-          console.log('Close panel');
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
         },
       });
     },
