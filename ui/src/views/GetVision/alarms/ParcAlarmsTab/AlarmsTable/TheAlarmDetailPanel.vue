@@ -117,7 +117,9 @@
         }}</UiButton>
       </div>
       <div>
-        <UiButton variant="primary" block>{{ $t('alarms.MORE_DETAIL') }}</UiButton>
+        <UiButton variant="primary" @click="gotoDetail" block>{{
+          $t('alarms.MORE_DETAIL')
+        }}</UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -213,6 +215,13 @@ export default {
       this.$router.push({
         name: 'alarmDetail',
         params: { alarmId: this.content.id, editMode: true },
+      });
+    },
+
+    gotoDetail() {
+      this.$router.push({
+        name: 'alarmDetail',
+        params: { alarmId: this.content.id },
       });
     },
   },
