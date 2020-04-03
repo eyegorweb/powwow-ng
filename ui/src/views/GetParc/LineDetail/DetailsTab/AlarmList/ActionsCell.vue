@@ -44,7 +44,7 @@ export default {
     toggleAlarmInstance() {
       let actionFn;
       const args = [
-        this.simcard.id,
+        [this.simcard.id],
         this.alarm.alarm.id,
         this.simcard.party.id,
         formattedCurrentDate(),
