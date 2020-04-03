@@ -2,6 +2,29 @@
 
 <!--- next entry here -->
 
+## 0.21.0
+2020-04-03
+
+### Features
+
+- modifier alarm (d4557157e3c0046654b4ed2f7d8e9026333469ed)
+- brancher onglet exclues alarm (a449a25cb120b31b0dc47bc6a9bf269fd876a282)
+- créer une alarme depuis le détail d'une ligne (5823017ca048feb2bc32fa282c86ab48f5157481)
+
+### Fixes
+
+- correctif d'évaluation du partenaire dans le détail de l'alarme (82c4dbb9ff5ac6897004936529a78e023562e260)
+- gestion du stepper pour le détail de la commande (cf6d3c7c8c000d493b900a09d11dd69c0ffe3a32)
+- Création d'alarme (53936790e91ce89b84cab7892eeb04d4449c64dd)
+- correction de la mise à jour de l'api workflows pour récupérer les offres uniquement actives (7b74fa2d9089d0b065c64524a32534806c74d68c)
+- correction pour assigner immédiatement les indicateurs des commandes (4595adc86b11e15785af11fb8cd9025a99db1ee0)
+- La recherche unitaire de lignes ne fonctionne plus (04ec4ad98b4f051ac3908e9dc16c25ae05f64a67)
+- Corriger la création d'alarmes (7273a1fb4d0324c9cdc4a456864d600d1bea54d9)
+- correction dans le détail d'alarme (cf6ae8592395bcf2af4f688d3f89b8c9ae04dc9c)
+- correction de la mise à jour de l'api workflows pour récupérer les offres uniquement actives (280f932fdd98f91a4db5f224fb4ceaa910382835)
+- Modification d'alarme (843f2bcd7b5e7ed5e9a1723e4706d8c4e7db64c0)
+- ajout d'un espace entre le jour et l'heure sur les indicateurs (3860e19974004ba0bfc06ef33f4527f2fdc1874d)
+
 ## 0.20.0
 2020-03-30
 
