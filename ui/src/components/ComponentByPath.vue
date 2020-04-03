@@ -29,7 +29,6 @@ export default {
       if (!this.path) return;
 
       const componentLoader = () => import('' + this.path);
-      console.log('compo >', this.path, componentLoader);
 
       if (componentLoader) {
         componentLoader()

@@ -77,6 +77,7 @@ export default {
       const data = await fetchOffers('', [{ id: this.lineData.party.id }], {
         page: 0,
         limit: 99,
+        disabledOffer: true,
       });
       if (data) {
         let workflowId = data.find(o => o.code === this.currentOffer.code);

@@ -148,7 +148,12 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
+    ...mapMutations('actLines', [
+      'setPage',
+      'forceAppliedFilters',
+      'setPageLimit',
+      'startSearchingById',
+    ]),
 
     resetFilters() {
       this.searchByIdValue = undefined;
@@ -158,7 +163,7 @@ export default {
     searchById(params) {
       this.searchByIdValue = params.value;
       this.page = 1;
-      this.forceAppliedFilters([
+      this.startSearchingById([
         {
           id: params.id,
           value: params.value,

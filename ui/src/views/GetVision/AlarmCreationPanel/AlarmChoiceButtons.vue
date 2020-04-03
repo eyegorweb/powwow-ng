@@ -9,7 +9,13 @@
         @mouseover="$emit('hover', alarm)"
         @mouseleave="$emit('hover', undefined)"
       >
-        <UiButton :variant="getVariant(alarm)" class="p-3" block @click="() => chooseAlarm(alarm)">
+        <UiButton
+          :disabled="!!duplicateFrom"
+          :variant="getVariant(alarm)"
+          class="p-3"
+          block
+          @click="() => chooseAlarm(alarm)"
+        >
           <span class="btn-label">{{ $t('alarms.' + alarm.id) }}</span>
         </UiButton>
       </li>
@@ -27,6 +33,16 @@ export default {
 
   props: {
     current: Object,
+    duplicateFrom: Object,
+  },
+
+  mounted() {
+    if (this.duplicateFrom) {
+      const alarmToChoose = this.alarms.find(a => a.id === this.duplicateFrom.type);
+      if (alarmToChoose) {
+        this.chooseAlarm(alarmToChoose);
+      }
+    }
   },
 
   methods: {

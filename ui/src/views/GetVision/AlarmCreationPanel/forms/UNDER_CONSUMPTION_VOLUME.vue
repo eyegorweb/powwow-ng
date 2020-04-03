@@ -5,8 +5,9 @@
     @save="onSave"
     @scope="scopeChoice = $event"
     :check-errors-fn="isFormValid"
+    :duplicate-from="duplicateFrom"
   >
-    <ConsumptionForm @change="values = $event" />
+    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
   </AlarmCreationBaseForm>
 </template>
 
@@ -15,6 +16,7 @@ import AlarmCreationBaseForm from './AlarmCreationBaseForm';
 import ConsumptionForm from './ConsumptionForm';
 import { mapMutations } from 'vuex';
 import { alarmOnUnderConso } from '@/api/alarmCreation';
+import { modifyUnderConso } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -23,6 +25,7 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
   data() {
     return {
@@ -60,7 +63,14 @@ export default {
         formData: this.values,
       };
 
-      const response = await alarmOnUnderConso(params);
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await modifyUnderConso({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await alarmOnUnderConso(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

@@ -101,13 +101,15 @@
       "dataVoiceConso": "CONSOMMATION DATA / MOIS",
       "stateParc": {
         "title": "ETAT DU PARC",
-        "stockLines": "Lignes en stock  (préactivées)",
+        "stockLines": "Lignes en stock",
         "preactivatedLines": "Lignes pré-activées",
         "activatedLines": "Lignes activées",
-        "suspendedLines": "Lignes suspendues (non facturées)",
-        "cancellationLines": "Lignes en cours de résiliation",
+        "suspendedLines": "Lignes suspendues",
+        "cancellationLines": "Résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
         "currentMonth": "courant",
+        "linesPreactivated": "(Nombre de lignes préactivées)",
+        "linesSuspended": "(Nombre de lignes suspendues non facturées)",
         "prevMonth": "au 1er"
       },
       "averageTimeAction": "Délais moyens",
@@ -117,7 +119,7 @@
       "message": {
         "scheduleTermination": "pas d’autre résiliation programmée",
         "termination": "pas d’autre résiliation",
-        "activation": "pas d’autre activation",
+        "activation": "Pas d'autres lignes",
         "triggeredAlarm": "pas d’autre alarme déclenchée"
       },
       "viewOneResult": "Consulter le résultat",
@@ -543,6 +545,10 @@
         "voice_io": "Voix E/S",
         "voice_out": "Voix sortante",
         "voice_in": "Voix entrante",
+        "status_change": "Changement de statut",
+        "imei_change": "Changement de module",
+        "plmn_change": "Changement d'opérateur",
+        "country_change": "Changement de pays",
         "ALARM_TYPE": {
           "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
           "COUNTRY_CHANGE": "Changement de pays",

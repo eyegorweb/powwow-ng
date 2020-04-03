@@ -1,4 +1,4 @@
-import { query, getFilterValue, addDateFilter } from './utils';
+import { query, getFilterValue, getValuesIdsWithoutQuotes, addDateFilter } from './utils';
 
 export async function fetchAlarmTriggersFor2Months(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
@@ -47,6 +47,13 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
       total
       items {
         iccid
+        triggerReasonAndDate {
+          triggerDate
+          reasonAndValue {
+            reason
+            value
+          }
+        }
         alarmEvent {
           id
         }
@@ -54,6 +61,21 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
           id
           icv1
           created
+          accessPoint {
+            id
+            offerGroup{
+              customerAccount {
+                code
+                name
+              }
+            }
+            offer {
+              marketingOffer {
+                code
+                description
+              }
+            }
+          }
         }
         boundAlarms {
           id
@@ -69,9 +91,11 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
 
   `;
 
-  // console.log(queryStr);
-
   const response = await query(queryStr);
+
+  if (!response) {
+    return { errors: 'unknown' };
+  }
 
   return response.data.linesBoundToAlarm;
 }
@@ -83,14 +107,41 @@ function formatFilters(selectedFilters) {
   addThreshold(gqlFilters, selectedFilters);
   addLineId(gqlFilters, selectedFilters);
   addDateFilter(gqlFilters, selectedFilters, 'lastTriggerDate', 'getvsion.alarm.trigger_date');
+  addBillingAccount(gqlFilters, selectedFilters);
+  addOffer(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
 
+function addOffer(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'filters.offers');
+  if (foundFilter) {
+    const ids = foundFilter.values.map(v => v.data.initialOffer.id).join(',');
+
+    gqlFilters.push(`offerId: {in: [${ids}]}`);
+  }
+}
+
+function addBillingAccount(gqlFilters, selectedFilters) {
+  const ids = getValuesIdsWithoutQuotes(selectedFilters, 'common.billingAccount');
+  if (ids) {
+    gqlFilters.push(`customerAccount: {in: [${ids}]}`);
+  }
+}
+
 function addAlarmId(gqlFilters, selectedFilters) {
-  const alarmId = getFilterValue(selectedFilters, 'filters.alarmId');
+  let alarmId;
+  let condition = 'eq';
+  const foundFilter = selectedFilters.find(f => f.id === 'filters.alarmId');
+  if (foundFilter) {
+    alarmId = foundFilter.value;
+    if (foundFilter.notEqual) {
+      condition = 'ne';
+    }
+  }
+
   if (alarmId) {
-    gqlFilters.push(`alarmId: {eq: ${alarmId}}`);
+    gqlFilters.push(`alarmId: {${condition}: ${alarmId}}`);
   }
 }
 

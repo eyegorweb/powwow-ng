@@ -16,7 +16,6 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
-      :size="0"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >

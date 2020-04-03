@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <SectionTitle :num="3">Définir un seuil de déclenchement par usage</SectionTitle>
+    <SectionTitle :num="numStep">Définir un seuil de déclenchement par usage</SectionTitle>
 
     <div class="d-flex mb-2">
       <span :class="{ bold: !isAdvanced }">Mode Standard</span>
@@ -109,7 +109,7 @@
       />
     </div>
 
-    <div v-if="currentPeriod === 'CUSTOM'" class="custom-observation">
+    <div v-if="isAdvanced && currentPeriod === 'CUSTOM'" class="custom-observation">
       <UiInput
         class="value-input"
         v-model="customPeriodValue"
@@ -136,6 +136,46 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: {
+      type: Object,
+      required: false,
+    },
+  },
+
+  mounted() {
+    if (this.duplicateFrom) {
+      this.dataES = this.duplicateFrom.level1;
+      this.dataOut = this.duplicateFrom.level1Up;
+      this.dataIn = this.duplicateFrom.level1Down;
+      this.smsES = this.duplicateFrom.level2;
+      this.smsOut = this.duplicateFrom.level2Up;
+      this.smsIn = this.duplicateFrom.level2Down;
+      this.voiceES = this.duplicateFrom.level3;
+      this.VoiceOut = this.duplicateFrom.level3Up;
+      this.voiceIn = this.duplicateFrom.level3Down;
+
+      this.currentPeriod = this.duplicateFrom.observationCycle;
+      this.toggleValues = this.toggleValues.map(t => {
+        if (t.id === this.duplicateFrom.observationCycle) {
+          t.default = true;
+        }
+        return t;
+      });
+
+      if (this.currentPeriod === 'CUSTOM') {
+        this.customPeriodValue = this.duplicateFrom.observationDelay;
+        this.isAdvanced = true;
+      }
+    }
+  },
+
+  computed: {
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      return this.editMode ? 1 : 3;
+    },
   },
 
   data() {

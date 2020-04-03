@@ -16,8 +16,7 @@
           :variant="isDisabled ? 'primary' : ''"
           :disabled="!isDisabled"
           @click="searchById"
-          >{{ $t('search') }}</UiButton
-        >
+        >{{ $t('search') }}</UiButton>
       </div>
     </div>
   </form>

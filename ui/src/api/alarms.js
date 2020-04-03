@@ -75,7 +75,7 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
 }
 
 export async function searchAlarmById(id) {
-  const orderBy = {};
+  const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 10 };
   const filters = [{ id: 'filters.alarmId', value: id }];
   const response = await searchAlarms(orderBy, pagination, filters);
@@ -92,16 +92,19 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
     alarms(alarmFilterInput: {
       ${formatFilters(filters)}
-    }${paginationInfo}) {
+    }${paginationInfo}
+    ${orderingInfo}) {
       total
       items {
         id
         name
         type
+        triggerCommercialStatus
         startDate
         disabled
         type
@@ -110,13 +113,20 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         observationDelay
         notifyByWs
         notifyByEmail
+        plmnsList
+        countriesList
         mailingList {
+          id
           name
           emails
         }
         party {
           id
           name
+          mailingLists {
+            id
+            name
+          }
         }
         auditable {
           created
@@ -178,8 +188,6 @@ export async function fetchTriggerHistory(alarmId, simIds = []) {
   `;
   const response = await query(queryStr);
   if (response.data) return response.data.alarmEvents;
-
-  console.log(response);
 }
 
 export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {

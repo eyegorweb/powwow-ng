@@ -16,7 +16,7 @@
           <span>{{ $t('webserviceNotification') }}</span>
         </div>
       </div>
-      <div class="col">
+      <div class="col" v-if="sholdNotify">
         <h5>Liste de diffusion</h5>
         <UiSelect v-model="notifList" :options="mailingLists" block />
       </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="col">
         <div class="d-flex mb-3 mt-1">
-          <UiCheckbox v-model="enableAlarm" />
+          <UiCheckbox v-model="enableAlarm" :checked="true" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
 
@@ -59,11 +59,23 @@ export default {
   },
   props: {
     partner: Object,
+    duplicateFrom: Object,
     canSave: Boolean,
     num: {
       type: Number,
       default: 3,
     },
+  },
+  mounted() {
+    if (this.duplicateFrom) {
+      this.notifList = this.duplicateFrom.mailingList
+        ? this.duplicateFrom.mailingList.id
+        : undefined;
+      this.sholdNotify = this.duplicateFrom.notifyByEmail;
+      this.webserviceNotification = this.duplicateFrom.notifyByWs;
+      this.enableAlarm = !this.duplicateFrom.disabled;
+      this.alarmName = this.duplicateFrom.name;
+    }
   },
   computed: {
     mailingLists() {
@@ -98,7 +110,7 @@ export default {
       sholdNotify: false,
       webserviceNotification: false,
       alarmName: undefined,
-      enableAlarm: false,
+      enableAlarm: true,
 
       notifList: undefined,
     };

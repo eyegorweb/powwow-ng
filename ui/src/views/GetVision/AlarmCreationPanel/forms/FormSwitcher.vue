@@ -1,6 +1,12 @@
 <template>
   <div>
-    <component :key="'form_' + alarm.id" v-if="alarm && component" :is="component" :alarm="alarm" />
+    <component
+      :key="'form_' + alarm.id"
+      v-if="alarm && component"
+      :is="component"
+      :alarm="alarm"
+      :duplicate-from="duplicateFrom"
+    />
   </div>
 </template>
 
@@ -8,6 +14,7 @@
 export default {
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
 
   data() {

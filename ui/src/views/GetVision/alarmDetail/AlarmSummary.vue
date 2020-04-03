@@ -47,12 +47,12 @@
 
               <div class="item">
                 <h6>{{ $t('col.partner') }}:</h6>
-                <p>{{ content.party.name }}</p>
+                <p>{{ get('party.name') }}</p>
               </div>
 
               <div v-if="content.mailingList" class="item">
                 <h6>{{ $t('getvsion.mailing-list') }}:</h6>
-                <p>{{ content.mailingList.name }}</p>
+                <p>{{ get('mailingList.name') }}</p>
               </div>
             </div>
             <hr />
@@ -76,6 +76,7 @@
 <script>
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import Thresholds from '@/components/Thresholds';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -84,6 +85,12 @@ export default {
   },
   props: {
     content: Object,
+  },
+
+  methods: {
+    get(path) {
+      return get(this.content, path);
+    },
   },
 
   mounted() {

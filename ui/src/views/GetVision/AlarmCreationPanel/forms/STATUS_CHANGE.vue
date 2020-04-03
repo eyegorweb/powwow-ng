@@ -1,12 +1,13 @@
 <template>
   <AlarmCreationBaseForm
     :alarm="alarm"
-    has-form
+    :have-form="true"
     :check-errors-fn="isFormValid"
+    :duplicate-from="duplicateFrom"
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="3">Définir les status supervisés</SectionTitle>
+    <SectionTitle :num="numStep">Définir les status supervisés</SectionTitle>
     <Toggle
       v-if="toggleValues"
       @update="currentPeriod = $event.id"
@@ -22,6 +23,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import SectionTitle from '@/components/SectionTitle';
 import { createStatusChangeAlarm } from '@/api/alarmCreation';
 import { mapMutations } from 'vuex';
+import { updateStatusChangeAlarm } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -31,6 +33,39 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
+  },
+
+  mounted() {
+    let toggleValues = [
+      {
+        id: 'ALL',
+        label: 'Tous',
+      },
+      {
+        id: 'ACTIVATION',
+        label: 'Activation/Réactivation',
+      },
+      {
+        id: 'SUSPENSION',
+        label: 'Suspension',
+      },
+      {
+        id: 'TERMINATION',
+        label: 'Résiliation ',
+      },
+    ];
+    if (this.duplicateFrom) {
+      this.currentPeriod = this.duplicateFrom.triggerCommercialStatus;
+      toggleValues = toggleValues.map(t => {
+        if (t.id === this.duplicateFrom.triggerCommercialStatus) {
+          t.default = true;
+        }
+        return t;
+      });
+    }
+
+    this.toggleValues = toggleValues;
   },
 
   data() {
@@ -38,25 +73,17 @@ export default {
       scopeChoice: undefined,
 
       currentPeriod: 'ALL',
-      toggleValues: [
-        {
-          id: 'ALL',
-          label: 'Tous',
-        },
-        {
-          id: 'ACTIVATION',
-          label: 'Activation/Réactivation',
-        },
-        {
-          id: 'SUSPENSION',
-          label: 'Suspension',
-        },
-        {
-          id: 'TERMINATION',
-          label: 'Résiliation ',
-        },
-      ],
+      toggleValues: undefined,
     };
+  },
+
+  computed: {
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      return this.editMode ? 1 : 3;
+    },
   },
 
   methods: {
@@ -72,7 +99,14 @@ export default {
         formData: this.currentPeriod,
       };
 
-      const response = await createStatusChangeAlarm(params);
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await updateStatusChangeAlarm({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await createStatusChangeAlarm(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {

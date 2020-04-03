@@ -2,11 +2,12 @@
   <AlarmCreationBaseForm
     :alarm="alarm"
     :check-errors-fn="isFormValid"
+    :duplicate-from="duplicateFrom"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="3">Définir une liste de pays autorisés</SectionTitle>
+    <SectionTitle :num="numStep">Définir une liste de pays autorisés</SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_country.countries_list"
@@ -22,6 +23,7 @@ import SectionTitle from '@/components/SectionTitle';
 import GroupMultiSelect from '@/components/GroupMultiSelect';
 import { fetchDeliveryCountries } from '@/api/filters';
 import { alarmOnChangeCountry } from '@/api/alarmCreation';
+import { updateCountryChangeAlarm } from '@/api/alarmsModifications';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -32,6 +34,7 @@ export default {
   },
   props: {
     alarm: Object,
+    duplicateFrom: Object,
   },
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
@@ -45,7 +48,16 @@ export default {
         formData: this.selectedOptions,
       };
 
-      const response = await alarmOnChangeCountry(params);
+      // const response = await alarmOnChangeCountry(params);
+
+      let response;
+
+      if (this.duplicateFrom && this.duplicateFrom.toModify) {
+        response = await updateCountryChangeAlarm({ ...params, id: this.duplicateFrom.id });
+      } else {
+        response = await alarmOnChangeCountry(params);
+      }
+
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
@@ -59,25 +71,35 @@ export default {
     selectedOptions() {
       return this.options.filter(o => o.selected);
     },
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
+    numStep() {
+      return this.editMode ? 1 : 3;
+    },
   },
   async mounted() {
     const countries = await fetchDeliveryCountries(this.$i18n.locale);
-    this.options = countries.map(c => ({
+    const formattedOptions = countries.map(c => ({
       id: c.codeIso3,
       label: c.name,
       data: c,
     }));
+
+    if (this.editMode) {
+      this.options = formattedOptions.map(o => {
+        o.selected = !!this.duplicateFrom.countriesList.find(p => p === '' + o.id);
+        return o;
+      });
+    } else {
+      this.options = formattedOptions;
+    }
   },
   data() {
     return {
       options: [],
       scopeChoice: undefined,
     };
-  },
-  watch: {
-    options() {
-      console.log('Changed >>');
-    },
   },
 };
 </script>

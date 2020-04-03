@@ -61,6 +61,7 @@ import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
 import { searchAlarmById } from '@/api/alarms';
 import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -101,13 +102,39 @@ export default {
       this.currentTab = this.$route.params.tabIndex;
     }
 
-    this.alarm = await searchAlarmById(this.$route.params.alarmId);
-
-    this.refreshTotals();
+    await this.refreshAlarm();
+    if (this.$route.params && this.$route.params.editMode) {
+      this.modifyAlarm();
+    }
   },
 
   methods: {
-    modifyAlarm() {},
+    ...mapMutations(['openPanel']),
+
+    async refreshAlarm() {
+      this.alarm = await searchAlarmById(this.$route.params.alarmId);
+
+      this.refreshTotals();
+    },
+
+    modifyAlarm() {
+      const doReset = async () => {
+        this.refreshAlarm();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.detail-panel.change-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        payload: { ...this.alarm, toModify: true },
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
 
     async refreshTotals() {
       const mandatoryFilters = [
@@ -135,6 +162,21 @@ export default {
         mandatoryFilters
       );
 
+      const excludedLinesFromAlarm = await fetchLinesBoundToAlarm(
+        undefined,
+        {
+          page: 0,
+          limit: 10,
+        },
+        [
+          {
+            id: 'filters.alarmId',
+            value: this.alarm.id,
+            notEqual: true,
+          },
+        ]
+      );
+
       this.tabs = this.tabs.map(t => {
         if (t.label === 'trigger2Month') {
           t.total = lasTriggered.total;
@@ -142,6 +184,10 @@ export default {
 
         if (t.label === 'targetedLines') {
           t.total = linesBoundToAlarm.total;
+        }
+
+        if (t.label === 'excludedSimFromAlarm') {
+          t.total = excludedLinesFromAlarm.total;
         }
 
         return t;

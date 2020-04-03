@@ -87,6 +87,17 @@ export async function countLines(filters) {
   return undefined;
 }
 
+export async function searchLineById(id) {
+  const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
+    {
+      id: 'filters.id',
+      value: id,
+    },
+  ]);
+  if (!response || !response.items || !response.items.length) return;
+  return response.items[0];
+}
+
 export async function searchLines(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination

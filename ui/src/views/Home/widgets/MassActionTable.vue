@@ -16,11 +16,13 @@ import GenericTableWidget from './GenericTableWidget';
 import { searchMassActions } from '@/api/massActions';
 import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
 import DetailsCell from '@/views/GetParc/MassActionsPage/HistoryTable/DetailsCell';
+import Tooltip from './Tooltip';
 
 export default {
   components: {
     WidgetBloc,
     GenericTableWidget,
+    Tooltip,
   },
   props: {
     widget: Object,
@@ -115,8 +117,11 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
+          tootltipText: (item, row) => {
+            return item;
+          },
           format: {
-            component: DetailsCell,
+            component: Tooltip,
           },
         },
         {

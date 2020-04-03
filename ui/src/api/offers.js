@@ -1,10 +1,15 @@
 import { query } from './utils';
 
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
-export async function fetchOffers(q, partners, { page, limit, partnerType }) {
+export async function fetchOffers(q, partners, { page, limit, partnerType, disabledOffer }) {
   let partnersIds,
     partnerGqlParam = '',
-    rCardGqlParam = '';
+    rCardGqlParam = '',
+    offersParam = '';
+
+  if (disabledOffer) {
+    offersParam = `, disabledOffer: false`;
+  }
 
   if (partners && partners.length > 0) {
     partnersIds = partners.map(i => `"${i.id}"`).join(',');
@@ -19,7 +24,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType }) {
 
   const queryStr = `
   query{
-    workflows(filter:{description: {startsWith: "${q}"}${partnerGqlParam}${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
@@ -76,7 +81,7 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
 }
 
 export async function fetchOffersForPartnerId(partnerId) {
-  return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50 });
+  return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50, disabledOffer: true });
 }
 
 export async function changeOffer(filters, lines, params) {

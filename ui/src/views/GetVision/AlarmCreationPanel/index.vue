@@ -5,10 +5,11 @@
         @hover="hoveredAlarm = $event"
         @choose="currentAlarm = $event"
         :current="currentAlarm"
+        :duplicate-from="content"
       />
     </div>
     <div class="currentForm">
-      <FormSwitcher v-if="currentAlarm" :alarm="currentAlarm" />
+      <FormSwitcher v-if="currentAlarm" :alarm="currentAlarm" :duplicate-from="content" />
       <AlarmDescription v-else-if="hoveredAlarm" :alarm="hoveredAlarm" />
     </div>
   </div>
@@ -24,6 +25,9 @@ export default {
     AlarmChoiceButtons,
     FormSwitcher,
     AlarmDescription,
+  },
+  props: {
+    content: Object,
   },
   data() {
     return {

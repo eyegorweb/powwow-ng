@@ -5,9 +5,10 @@
     </div>
     <div class="row mb-3 mt-3">
       <div class="col-md-8">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-          {{ $t('getvsion.table.total', { total: total }) }}
-        </h2>
+        <h2
+          class="text-gray font-weight-light"
+          style="font-size: 2rem"
+        >{{ $t('getvsion.table.total', { total: total }) }}</h2>
       </div>
       <div class="col-md-4">
         <ff-wip>
