@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.677+20200403080729
+2020-04-03
+
+### Fixes
+
+- ajout d'un espace entre le jour et l'heure sur les indicateurs (3860e19974004ba0bfc06ef33f4527f2fdc1874d)
+
 ## 0.3.0-master.676+20200403075147
 2020-04-03
 
