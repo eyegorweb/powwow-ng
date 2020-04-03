@@ -22,30 +22,30 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $t('home.widgets.stateParc.stockLines') }}</td>
           <td>
-            {{ totalCurrentMonthNotPreactivatedLines }} ({{ totalCurrentMonthPreactivatedLines }})
+            {{ $t('home.widgets.stateParc.stockLines') }}
+            <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesPreactivated') }}</Tooltip>
           </td>
-          <td>
-            {{ totalPreviousMonthNotPreactivatedLines }} ({{ totalPreviousMonthPreactivatedLines }})
-          </td>
+          <td>{{ this.formatMoreThanMillion(totalCurrentMonthNotPreactivatedLines) }} ({{ this.formatMoreThanMillion(totalCurrentMonthPreactivatedLines) }})</td>
+          <td>{{ this.formatMoreThanMillion(totalPreviousMonthNotPreactivatedLines) }} ({{ this.formatMoreThanMillion(totalPreviousMonthPreactivatedLines) }})</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
-          <td>{{ totalCurrentMonthActivatedLines }}</td>
-          <td>{{ totalPreviousMonthActivatedLines }}</td>
+          <td>{{ this.formatMoreThanMillion(totalCurrentMonthActivatedLines) }}</td>
+          <td>{{ this.formatMoreThanMillion(totalPreviousMonthActivatedLines) }}</td>
         </tr>
         <tr>
-          <td>{{ $t('home.widgets.stateParc.suspendedLines') }}</td>
-          <td>{{ totalCurrentMonthSuspendedLines }} ({{ totalCurrentMonthNotSuspendedLines }})</td>
           <td>
-            {{ totalPreviousMonthSuspendedLines }} ({{ totalPreviousNotMonthSuspendedLines }})
+            {{ $t('home.widgets.stateParc.suspendedLines') }}
+            <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesSuspended') }}</Tooltip>
           </td>
+          <td>{{ this.formatMoreThanMillion(totalCurrentMonthSuspendedLines) }} ({{ this.formatMoreThanMillion(totalCurrentMonthNotSuspendedLines) }})</td>
+          <td>{{ this.formatMoreThanMillion(totalPreviousMonthSuspendedLines) }} ({{ this.formatMoreThanMillion(totalPreviousNotMonthSuspendedLines) }})</td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.cancellationLines') }}</td>
-          <td>{{ totalCurrentMonthTerminatedLines }}</td>
-          <td>{{ totalPreviousMonthTerminatedLines }}</td>
+          <td>{{ this.formatMoreThanMillion(totalCurrentMonthTerminatedLines) }}</td>
+          <td>{{ this.formatMoreThanMillion(totalPreviousMonthTerminatedLines) }}</td>
         </tr>
       </tbody>
     </table>
@@ -54,6 +54,7 @@
 
 <script>
 import WidgetBloc from './WidgetBloc';
+import Tooltip from '@/components/ui/Tooltip';
 import UiSelect from '@/components/ui/UiSelect';
 import { mapGetters, mapState } from 'vuex';
 import { fetchpartners } from '@/api/partners';
@@ -72,6 +73,7 @@ const prevCurrentMonth = moment()
 export default {
   components: {
     WidgetBloc,
+    Tooltip,
     UiSelect,
   },
   props: {
@@ -184,6 +186,16 @@ export default {
     },
   },
   methods: {
+    formatMoreThanMillion(num) {
+      if (Math.abs(num) > 999999) {
+        return Math.sign(num) * (Math.abs(num) / 1000000).toFixed(2) + 'M';
+      } else if (Math.abs(num) > 9999) {
+        return Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'K';
+      } else {
+        return num;
+      }
+    },
+
     async fetchPartners(q, { page, limit }) {
       const data = await fetchpartners(q, {
         page,
