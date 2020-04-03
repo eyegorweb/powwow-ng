@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.676+20200403075147
+2020-04-03
+
+### Features
+
+- créer une alarme depuis le détail d'une ligne (5823017ca048feb2bc32fa282c86ab48f5157481)
+
 ## 0.3.0-master.675+20200403062822
 2020-04-03
 
