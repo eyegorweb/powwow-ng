@@ -28,8 +28,7 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
-                  >{{ $t(item.label) }}</router-link
-                >
+                >{{ $t(item.label) }}</router-link>
               </div>
             </div>
           </UiTab>
@@ -62,7 +61,7 @@
       <div class="nav">
         <ul class="nav navbar-nav">
           <li class="dropdown" :class="{ show: userMenuVisible }">
-            <a href="#" class="nav-link" @click.prevent="userMenuVisible = !userMenuVisible">
+            <a href="#" class="nav-link">
               <i class="icon ic-User-Icon"></i>
               <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
               <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
@@ -228,6 +227,20 @@ export default {
 .navbars {
   margin: 0 auto;
   padding: 0 10px;
+}
+
+.nav-link {
+  &:hover {
+    & + .dropdown-menu {
+      display: block;
+    }
+  }
+}
+
+.dropdown-menu {
+  &:hover {
+    display: block;
+  }
 }
 
 .flex-container {
