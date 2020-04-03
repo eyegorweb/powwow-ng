@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.678+20200403082836
+2020-04-03
+
+### Fixes
+
+- Correction de l'activation/désacrivation des alarmes depuis le détail d'une ligne (70dc4232e60b7880475250e2cc6cc028ffa6af2e)
+
 ## 0.3.0-master.677+20200403080729
 2020-04-03
 
