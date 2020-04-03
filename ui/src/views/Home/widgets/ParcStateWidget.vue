@@ -24,28 +24,46 @@
         <tr>
           <td>
             {{ $t('home.widgets.stateParc.stockLines') }}
-            <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesPreactivated') }}</Tooltip>
+            <Tooltip direction="right">{{
+              $t('home.widgets.stateParc.linesPreactivated')
+            }}</Tooltip>
           </td>
-          <td>{{ this.formatMoreThanMillion(totalCurrentMonthNotPreactivatedLines) }} ({{ this.formatMoreThanMillion(totalCurrentMonthPreactivatedLines) }})</td>
-          <td>{{ this.formatMoreThanMillion(totalPreviousMonthNotPreactivatedLines) }} ({{ this.formatMoreThanMillion(totalPreviousMonthPreactivatedLines) }})</td>
+          <td>
+            {{ formatMoreThanMillion(totalCurrentMonthNotPreactivatedLines) }} ({{
+              formatMoreThanMillion(totalCurrentMonthPreactivatedLines)
+            }})
+          </td>
+          <td>
+            {{ formatMoreThanMillion(totalPreviousMonthNotPreactivatedLines) }} ({{
+              formatMoreThanMillion(totalPreviousMonthPreactivatedLines)
+            }})
+          </td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.activatedLines') }}</td>
-          <td>{{ this.formatMoreThanMillion(totalCurrentMonthActivatedLines) }}</td>
-          <td>{{ this.formatMoreThanMillion(totalPreviousMonthActivatedLines) }}</td>
+          <td>{{ formatMoreThanMillion(totalCurrentMonthActivatedLines) }}</td>
+          <td>{{ formatMoreThanMillion(totalPreviousMonthActivatedLines) }}</td>
         </tr>
         <tr>
           <td>
             {{ $t('home.widgets.stateParc.suspendedLines') }}
             <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesSuspended') }}</Tooltip>
           </td>
-          <td>{{ this.formatMoreThanMillion(totalCurrentMonthSuspendedLines) }} ({{ this.formatMoreThanMillion(totalCurrentMonthNotSuspendedLines) }})</td>
-          <td>{{ this.formatMoreThanMillion(totalPreviousMonthSuspendedLines) }} ({{ this.formatMoreThanMillion(totalPreviousNotMonthSuspendedLines) }})</td>
+          <td>
+            {{ formatMoreThanMillion(totalCurrentMonthSuspendedLines) }} ({{
+              formatMoreThanMillion(totalCurrentMonthNotSuspendedLines)
+            }})
+          </td>
+          <td>
+            {{ formatMoreThanMillion(totalPreviousMonthSuspendedLines) }} ({{
+              formatMoreThanMillion(totalPreviousNotMonthSuspendedLines)
+            }})
+          </td>
         </tr>
         <tr>
           <td>{{ $t('home.widgets.stateParc.cancellationLines') }}</td>
-          <td>{{ this.formatMoreThanMillion(totalCurrentMonthTerminatedLines) }}</td>
-          <td>{{ this.formatMoreThanMillion(totalPreviousMonthTerminatedLines) }}</td>
+          <td>{{ formatMoreThanMillion(totalCurrentMonthTerminatedLines) }}</td>
+          <td>{{ formatMoreThanMillion(totalPreviousMonthTerminatedLines) }}</td>
         </tr>
       </tbody>
     </table>

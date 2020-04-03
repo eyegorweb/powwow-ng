@@ -9,12 +9,12 @@
         v-if="displaysTruncatedText"
         class="see-less"
         @click="displaysTruncatedText = !displaysTruncatedText"
-      >&nbsp;-</button>
-      <button
-        v-else
-        class="see-more"
-        @click="displaysTruncatedText = !displaysTruncatedText"
-      >&nbsp;+</button>
+      >
+        &nbsp;-
+      </button>
+      <button v-else class="see-more" @click="displaysTruncatedText = !displaysTruncatedText">
+        &nbsp;+
+      </button>
     </div>
   </div>
 </template>

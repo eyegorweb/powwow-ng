@@ -190,17 +190,17 @@ export async function fetchTriggerHistory(alarmId, simIds = []) {
   if (response.data) return response.data.alarmEvents;
 }
 
-export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+export async function createAlarmInstance(simCardInstanceIds, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
     createAlarmInstance(alarmInput: {
       alarmId: ${alarmId}
-      simCardInstanceId: ${simCardInstanceId}
+      simCardInstanceIds: [${simCardInstanceIds.join(',')}]
       partyId: ${partyId}
       dueDate: "${formatDateForGql(dueDate)}"
       notification: false
       adminSkipGDM: false
-    })
+    }){tempDataUuid}
   }
   `;
 
@@ -223,17 +223,17 @@ export async function deleteAlarm(alarmId) {
   return response.data.deleteAlarm;
 }
 
-export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+export async function deleteAlarmInstance(simCardInstanceIds, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
     deleteAlarmInstance(alarmInput: {
       alarmId: ${alarmId}
-      simCardInstanceId: ${simCardInstanceId}
+      simCardInstanceIds: [${simCardInstanceIds.join(',')}]
       partyId: ${partyId}
       dueDate: "${formatDateForGql(dueDate)}"
       notification: false
       adminSkipGDM: false
-    })
+    }){tempDataUuid}
   }
   `;
 

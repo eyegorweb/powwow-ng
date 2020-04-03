@@ -5,18 +5,15 @@
     </div>
     <div class="row mb-3 mt-3">
       <div class="col-md-8">
-        <h2
-          class="text-gray font-weight-light"
-          style="font-size: 2rem"
-        >{{ $t('getvsion.table.total', { total: total }) }}</h2>
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          {{ $t('getvsion.table.total', { total: total }) }}
+        </h2>
       </div>
       <div class="col-md-4">
-        <ff-wip>
-          <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
-            <i class="select-icon ic-Amplifier-Icon" />
-            {{ $t('getvsion.table.create-alarm') }}
-          </UiButton>
-        </ff-wip>
+        <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+          <i class="select-icon ic-Amplifier-Icon" />
+          {{ $t('getvsion.table.create-alarm') }}
+        </UiButton>
       </div>
     </div>
     <template v-if="rows && rows.length">

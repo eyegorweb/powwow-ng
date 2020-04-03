@@ -78,7 +78,6 @@ export default new Router({
       path: '/alarm/:alarmId',
       name: 'alarmDetail',
       component: AlarmDetail,
-      mock: true,
     },
     {
       path: '/reports',

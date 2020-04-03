@@ -28,7 +28,8 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
-                >{{ $t(item.label) }}</router-link>
+                  >{{ $t(item.label) }}</router-link
+                >
               </div>
             </div>
           </UiTab>
@@ -148,7 +149,6 @@ export default {
       {
         label: 'GetVision',
         to: { name: 'alarms' },
-        mock: true,
         submenu: [
           {
             label: 'menu.alarms',
