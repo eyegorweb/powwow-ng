@@ -16,6 +16,7 @@ import GenericTableWidget from './GenericTableWidget';
 import { searchMassActions } from '@/api/massActions';
 import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
 import Tooltip from './Tooltip';
+import { currentDateMinusMounts } from '@/utils/date';
 
 export default {
   components: {
@@ -60,7 +61,13 @@ export default {
   },
   computed: {
     widgetFilters() {
-      return [...this.contextFilters, ...this.filters];
+      const startDate = currentDateMinusMounts(3);
+
+      const dateFilter = {
+        id: 'filters.actDateStart',
+        startDate,
+      };
+      return [...this.contextFilters, ...this.filters, dateFilter];
     },
   },
   data() {
