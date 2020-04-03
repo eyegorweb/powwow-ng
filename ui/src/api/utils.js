@@ -271,7 +271,7 @@ export function resumeFormattedValueFromHours(value) {
 
   if (initialSeconds > 86400) {
     if (hours > 9) {
-      return `${parseInt(days)}j${parseInt(hours, 10)}h`;
+      return `${parseInt(days)}j ${parseInt(hours, 10)}h`;
     }
     return `${parseInt(days)}j0${parseInt(hours, 10)}h`;
   } else if (initialSeconds < 86400 && initialSeconds > 3600) {
