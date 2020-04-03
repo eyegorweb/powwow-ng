@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.679+20200403094754
+2020-04-03
+
+### Fixes
+
+- n'afficher que les actes de gestion des 3 derniers mois dans les widgets de la homepage (73fae832007a8ee187a66d9e311c26d0bb75243e)
+
 ## 0.3.0-master.678+20200403082836
 2020-04-03
 
