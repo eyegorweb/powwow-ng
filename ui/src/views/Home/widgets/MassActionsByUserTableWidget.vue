@@ -18,6 +18,8 @@ import GenericTableWidget from './GenericTableWidget';
 import { mapGetters } from 'vuex';
 import { truncateLabel } from '@/utils';
 
+import { currentDateMinusMounts } from '@/utils/date';
+
 export default {
   components: {
     WidgetBloc,
@@ -60,7 +62,15 @@ export default {
           ],
         },
       ];
-      return [...this.contextFilters, ...userFilter];
+
+      const startDate = currentDateMinusMounts(3);
+
+      const dateFilter = {
+        id: 'filters.actDateStart',
+        startDate,
+      };
+
+      return [...this.contextFilters, ...userFilter, dateFilter];
     },
   },
   data() {
