@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.21.1
+2020-04-03
+
+### Fixes
+
+- Correction de l'activation/désacrivation des alarmes depuis le détail d'une ligne (70dc4232e60b7880475250e2cc6cc028ffa6af2e)
+- n'afficher que les actes de gestion des 3 derniers mois dans les widgets de la homepage (73fae832007a8ee187a66d9e311c26d0bb75243e)
+
 ## 0.21.0
 2020-04-03
 
