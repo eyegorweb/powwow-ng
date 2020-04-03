@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.680+20200403130633
+2020-04-03
+
+### Fixes
+
+- importer des SIM sur une commande, le libellé d'erreur ne s'affiche pas correctement (a7e586aad285ec0b086b2140d22d6e45d5f1f388)
+
 ## 0.3.0-master.679+20200403094754
 2020-04-03
 
