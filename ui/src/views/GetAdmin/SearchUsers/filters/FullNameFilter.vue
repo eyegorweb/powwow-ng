@@ -1,9 +1,6 @@
 <template>
   <div>
-    <SimpleInputFilter
-      :selected-value="selectedFullNameValue"
-      @update:value="$emit('change', $event)"
-    />
+    <SimpleInputFilter :selected-value="selectedValue" @update:value="$emit('change', $event)" />
   </div>
 </template>
 
@@ -14,10 +11,17 @@ export default {
   components: {
     SimpleInputFilter,
   },
-  data() {
-    return {
-      selectedFullNameValue: undefined,
-    };
+
+  props: {
+    selectedData: Object,
+  },
+
+  computed: {
+    selectedValue() {
+      if (!this.selectedData) return;
+
+      return this.selectedData.value;
+    },
   },
 };
 </script>
