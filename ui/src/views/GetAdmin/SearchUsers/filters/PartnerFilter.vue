@@ -1,5 +1,5 @@
 <template>
-  <PartnersFilter :values="selectedPartnersValues" @updatePartners="onChange" />
+  <PartnersFilter :values="selectedValues" @updatePartners="onChange" />
 </template>
 
 <script>
@@ -10,20 +10,21 @@ export default {
     PartnersFilter,
   },
 
-  data() {
-    return {
-      selectedPartnersValues: [],
-    };
+  props: {
+    selectedData: Object,
+  },
+
+  computed: {
+    selectedValues() {
+      if (!this.selectedData) return [];
+
+      return this.selectedData.values;
+    },
   },
 
   methods: {
     onChange(partners) {
-      this.selectedPartnersValues = partners;
-    },
-  },
-  watch: {
-    selectedPartnersValues(values) {
-      this.$emit('change', values);
+      this.$emit('change', partners);
     },
   },
 };

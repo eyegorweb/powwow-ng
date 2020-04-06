@@ -16,7 +16,11 @@ export default {
         const selectedFilter = this.selectedFilters.find(f => f.id === this.filter.title);
 
         if (selectedFilter) {
-          return selectedFilter.data;
+          return {
+            ...selectedFilter,
+            // pour assurer la rétro compatibilité
+            ...selectedFilter.data,
+          };
         }
 
         return undefined;

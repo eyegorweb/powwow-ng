@@ -1,5 +1,5 @@
 <template>
-  <MultiSelectSearch :items="items" :default-selected-items.sync="selectedItems" />
+  <MultiSelectSearch :items="items" :default-selected-items.sync="selectedValues" />
 </template>
 
 <script>
@@ -14,8 +14,24 @@ export default {
   data() {
     return {
       items: [],
-      selectedItems: [],
     };
+  },
+  props: {
+    selectedData: Object,
+  },
+
+  computed: {
+    selectedValues: {
+      get() {
+        if (!this.selectedData) return [];
+
+        return this.selectedData.values;
+      },
+
+      set(values) {
+        this.$emit('change', values);
+      },
+    },
   },
   async mounted() {
     const response = await fetchPartnerGroups();
@@ -27,11 +43,6 @@ export default {
         };
       });
     }
-  },
-  watch: {
-    selectedItems(newValue) {
-      this.$emit('change', newValue);
-    },
   },
 };
 </script>
