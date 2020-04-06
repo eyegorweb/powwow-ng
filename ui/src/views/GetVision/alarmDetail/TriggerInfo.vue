@@ -24,11 +24,11 @@ export default {
         let reasonValue = reasonVal.value;
 
         if (['DATA_IN', 'DATA_OUT', 'DATA'].includes(reasonVal.reason)) {
-          reasonValue = formatBytes(reasonVal.value);
+          reasonValue = formatBytes(parseInt(reasonVal.value));
         }
 
         if (['VOICE', 'VOICE_OUT', 'VOICE_IN'].includes(reasonVal.reason)) {
-          reasonValue = formattedValueFromSeconds(reasonVal.value);
+          reasonValue = formattedValueFromSeconds(parseInt(reasonVal.value));
         }
 
         return `${reasonTxt}: ${reasonValue}`;
