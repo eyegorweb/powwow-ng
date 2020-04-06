@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.682+20200406140002
+2020-04-06
+
+### Fixes
+
+- séléctionner correctement les filtres séléctionnés (0d6fa2efa881f3fe14369f97e30e46645b6fbe7f)
+
 ## 0.3.0-master.681+20200406130110
 2020-04-06
 
