@@ -44,7 +44,6 @@ export default {
 ul {
   .data-info {
     color: $orange;
-    text-decoration: underline;
   }
 
   .date-info {
