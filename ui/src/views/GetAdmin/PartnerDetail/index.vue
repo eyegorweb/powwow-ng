@@ -61,10 +61,6 @@ export default {
           title: this.$t('filters.billingAccounts'),
         },
         {
-          label: 'billingAccounts',
-          title: this.$t('filters.billingAccounts'),
-        },
-        {
           label: 'offersAndSim',
           title: this.$t('getadmin.partners.offersAndSim'),
         },
