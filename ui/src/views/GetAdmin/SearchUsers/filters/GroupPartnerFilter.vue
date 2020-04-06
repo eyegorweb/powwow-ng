@@ -10,7 +10,6 @@ export default {
   components: {
     MultiSelectSearch,
   },
-  props: {},
   data() {
     return {
       items: [],
