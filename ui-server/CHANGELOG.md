@@ -2,7 +2,7 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.681+20200406124159
+## 0.3.0-master.681+20200406130110
 2020-04-06
 
 ### Fixes
@@ -10,6 +10,7 @@
 - Correction de bugs sur les alarmes (18d70c8ab06407210ce063c90de06ac107601b9e)
 - enlever l'onglet en double (292bacad380c0d16c9cb9672f32b39cafa9a9253)
 - Correction des données incohérentes dans le détail de l'alarme (7ba6815a2f3e626931cc2826d23621c0ff7a8547)
+- **détail des alarmes:** correction de la traduction et de la conversion des valeurs sur la colonne des déclenchements (f86884fb7393252f2eeb018c9f198fb000a728c8)
 
 ## 0.3.0-master.680+20200403130633
 2020-04-03
