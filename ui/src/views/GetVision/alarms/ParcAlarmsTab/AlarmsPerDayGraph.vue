@@ -1,5 +1,7 @@
 <template>
-  <chart v-if="!noResult && chartOptions" :options="chartOptions" />
+  <div>
+    <chart v-if="canShowGraph" :options="chartOptions" />
+  </div>
 </template>
 
 <script>
@@ -26,6 +28,11 @@ export default {
   mounted() {
     this.refreshChart();
   },
+  computed: {
+    canShowGraph() {
+      return !this.noResult && this.chartOptions;
+    },
+  },
   data() {
     return {
       chartOptions: undefined,
@@ -36,12 +43,6 @@ export default {
 
   methods: {
     createChart(data) {
-      if (data && !data.length) {
-        this.noResult = true;
-      } else {
-        this.noResult = false;
-      }
-      this.$emit('haveResults', !this.noResult);
       this.chartOptions = {
         credits: {
           enabled: false,

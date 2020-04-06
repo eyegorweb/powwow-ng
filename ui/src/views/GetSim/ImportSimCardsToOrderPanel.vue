@@ -72,7 +72,7 @@ export default {
   },
   data() {
     return {
-      _fileMeta: undefined,
+      localFileMeta: undefined,
       fileResponse: undefined,
       placeholder: this.$t('getsim.details.fromFile.import-file'),
       successMessage: undefined,
@@ -107,11 +107,11 @@ export default {
     },
     fileMeta: {
       get() {
-        return this._fileMeta;
+        return this.localFileMeta;
       },
 
       async set(newFile) {
-        this._fileMeta = newFile;
+        this.localFileMeta = newFile;
 
         if (newFile) {
           this.localError = this.getLocalError(newFile);
