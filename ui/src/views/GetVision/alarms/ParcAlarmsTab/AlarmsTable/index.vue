@@ -18,6 +18,8 @@
     </div>
     <template v-if="rows && rows.length">
       <DataTable
+        :storage-id="storageId"
+        storage-version="004"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -56,6 +58,7 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
 import AlarmNameCell from './AlarmNameCell.vue';
 import ThresholdCell from './ThresholdCell.vue';
+import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
 import AlarmIdCell from './AlarmIdCell.vue';
 import SearchAlarmById from './SearchAlarmById.vue';
@@ -87,7 +90,9 @@ export default {
         col(this.$t('getvsion.table.thresholds'), 'thresholds', true, false, {
           component: ThresholdCell,
         }),
-        col(this.$t('getvsion.table.targetedLines'), 'numberOfTargetedLines', true, false),
+        col(this.$t('getvsion.table.targetedLines'), 'targetedLines', true, false, {
+          component: TargetedLinesCell,
+        }),
         col(this.$t('getvsion.table.triggers'), 'triggers', false, false, {
           component: TriggeredEventsCell,
         }),
