@@ -1,17 +1,17 @@
 <template>
   <ul class="list-unstyled mb-0">
     <li>
-      {{ get('getparc.lineDetail.alarms.data_io', alarm.level1, 'MB') }}
+      {{ get('getparc.lineDetail.alarms.data', alarm.level1, 'MB') }}
       {{ get('getparc.lineDetail.alarms.data_out', alarm.level1Up, 'MB') }}
       {{ get('getparc.lineDetail.alarms.data_in', alarm.level1Down, 'MB') }}
     </li>
     <li>
-      {{ get('getparc.lineDetail.alarms.sms_io', alarm.level2) }}
+      {{ get('getparc.lineDetail.alarms.sms', alarm.level2) }}
       {{ get('getparc.lineDetail.alarms.sms_out', alarm.level2Up) }}
       {{ get('getparc.lineDetail.alarms.sms_in', alarm.level2Down) }}
     </li>
     <li>
-      {{ get('getparc.lineDetail.alarms.voice_io', alarm.level3, 'MN') }}
+      {{ get('getparc.lineDetail.alarms.voice', alarm.level3, 'MN') }}
       {{ get('getparc.lineDetail.alarms.voice_out', alarm.level3Up, 'MN') }}
       {{ get('getparc.lineDetail.alarms.voice_in', alarm.level3Down, 'MN') }}
     </li>
