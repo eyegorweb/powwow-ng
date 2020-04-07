@@ -36,8 +36,8 @@ export default {
             parseInt(dateParts[0])
           ),
         };
-        all.in.push([formattedObj.date, formattedObj.upload]);
-        all.out.push([formattedObj.date, formattedObj.download]);
+        all.in.push([formattedObj.date, formattedObj.download]);
+        all.out.push([formattedObj.date, formattedObj.upload]);
         all.pdp.push([formattedObj.date, formattedObj.pdpConnectionsNumber]);
 
         this.$emit('haveContent', false);
@@ -56,6 +56,15 @@ export default {
   },
 
   methods: {
+    sumAllData(dataOut, dataIn) {
+      let all = dataOut.map(n => {
+        const corresponding = dataIn.find(c => c[0] == n[0]);
+        const sum = n[1] + corresponding[1];
+        return [n[0], sum];
+      });
+      return all;
+    },
+
     createChart(data) {
       this.chartOptions = {
         credits: {
@@ -116,9 +125,7 @@ export default {
           pointFormatter() {
             if (this.series.userOptions.name == 'Nombre de connexions PDP') {
               return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
-                this.series.userOptions.color
-              }; display: inline-block; margin-right: 0.5rem"></div>
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
               ${this.y} <br/>
@@ -150,6 +157,15 @@ export default {
             },
             color: '#f39c12',
             data: data.out,
+          },
+          {
+            name: 'Volume total',
+            type: 'column',
+            tooltip: {
+              valueSuffix: 'Ko',
+            },
+            color: '#05d0a6',
+            data: this.sumAllData(data.out, data.in),
           },
           {
             name: 'Nombre de connexions PDP',
