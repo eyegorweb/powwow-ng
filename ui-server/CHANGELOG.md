@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.686+20200407150039
+2020-04-07
+
+### Features
+
+- Motif de déclenchement pour tous les types d'alarme dans le volet d'historique de déclenchement (dbdb4e5b9261cc9abf60ab632450c66de1ab58ca)
+
+### Fixes
+
+- de l'inversement de données + ajout du total dans le graphique (757165316e670033110149498ee779beca6c261a)
+
 ## 0.3.0-master.685+20200407094450
 2020-04-07
 
