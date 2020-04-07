@@ -181,6 +181,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
             msisdn
             imsi
             status
+            statusTranslated
             auditable {
               created
               updated
