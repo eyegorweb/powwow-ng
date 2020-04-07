@@ -1,15 +1,21 @@
 <template>
-  <div>
-    <span v-if="row.isTriggered">{{ $t('common.YES') }}</span>
-    <span v-else>{{ $t('common.NO') }}</span>
-  </div>
+  <button class="btn btn-link p-0" v-if="row.isTriggered" @click.stop="openPanel">
+    {{ $t('common.YES') }}
+  </button>
+  <span v-else>{{ $t('common.NO') }}</span>
 </template>
 
 <script>
 export default {
-  name: 'IdCell',
+  name: 'TriggerCell',
+
   props: {
     row: Object,
+  },
+  methods: {
+    openPanel() {
+      this.$emit('colEvent', { action: 'openAlarmPanel', row: this.row });
+    },
   },
 };
 </script>
