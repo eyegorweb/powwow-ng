@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.685+20200407094450
+2020-04-07
+
+### Fixes
+
+- **alarmes:** correction traduction (d794d9b0f79683e0b3b80696a1077b7d7c8314df)
+
 ## 0.3.0-master.684+20200407090415
 2020-04-07
 
