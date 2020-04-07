@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.684+20200407090415
+2020-04-07
+
+### Fixes
+
+- correction de la traduction du statut de la carte sim (799e3afc2dbf2a42f39a081d207add468c33ed68)
+
 ## 0.3.0-master.683+20200406141539
 2020-04-06
 
