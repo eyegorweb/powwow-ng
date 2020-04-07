@@ -12,10 +12,8 @@
         <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
         <p>{{ content.sim.iccid }}</p>
       </div>
-      <div class="overview-item mr-5">
-        <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
-        <Thresholds :alarm="content.alarm" />
-      </div>
+
+      <AlarmParameters :alarm="content.alarm" />
     </div>
 
     <div class="overview-container m-3 bg-white" v-if="triggerHistory && triggerHistory.items[0]">
@@ -24,9 +22,7 @@
       </div>
       <div>
         <div v-for="item in triggerHistory.items" :key="item.id" class="overview-item mr-5">
-          <h6>{{ item.monthName }}</h6>
-          <p>{{ item.emissionDate }}</p>
-          <Thresholds :alarm="item.alarm" />
+          <AlarmHistoryItem :item="item" :alarm="content.alarm" />
         </div>
       </div>
     </div>
@@ -35,14 +31,16 @@
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import Thresholds from '@/components/Thresholds';
+import AlarmParameters from './AlarmParameters';
+import AlarmHistoryItem from './AlarmHistoryItem';
 import { fetchTriggerHistory } from '@/api/alarms';
 import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
     BaseDetailPanelContent,
-    Thresholds,
+    AlarmParameters,
+    AlarmHistoryItem,
   },
   props: {
     /*
