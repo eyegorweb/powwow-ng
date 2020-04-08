@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.689+20200408120142
+2020-04-08
+
+### Fixes
+
+- Correction des problème d'affichage de l'historique de déclenchements dans le volet des déclenchements (a778a6265cc3242fc37490acb723c9f68847521a)
+
 ## 0.3.0-master.688+20200408093709
 2020-04-08
 
