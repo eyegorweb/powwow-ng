@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.687+20200408082906
+2020-04-08
+
+### Fixes
+
+- branchement des volets "historique de déclenchement" et "détail de l'alarme" dans le détail de la ligne (6cb8ee8482e8c675241e135a302766d94a2aeee5)
+
 ## 0.3.0-master.686+20200407150039
 2020-04-07
 
