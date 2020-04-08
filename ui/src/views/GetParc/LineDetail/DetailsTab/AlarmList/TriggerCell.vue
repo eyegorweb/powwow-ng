@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     openPanel() {
-      this.$emit('colEvent', { action: 'openAlarmPanel', row: this.row });
+      this.$emit('colEvent', { action: 'openTriggerHistory', row: this.row });
     },
   },
 };
