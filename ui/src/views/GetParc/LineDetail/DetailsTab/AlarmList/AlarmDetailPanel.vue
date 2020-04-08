@@ -17,12 +17,12 @@
     </div>
 
     <TriggerHistorySkeleton v-if="isLoading" />
-    <div class="overview-container m-3 bg-white" v-else-if="triggerHistory">
+    <div class="overview-container m-3 bg-white" v-else-if="groupedItems">
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
       <div>
-        <div v-for="item in triggerHistory.items" :key="item.id" class="overview-item mr-5">
+        <div v-for="item in groupedItems" :key="item.id" class="overview-item mr-5">
           <AlarmHistoryItem :item="item" :alarm="content.alarm" />
         </div>
       </div>
@@ -57,7 +57,7 @@ export default {
 
   data() {
     return {
-      triggerHistory: undefined,
+      groupedItems: undefined,
       isLoading: false,
     };
   },
@@ -76,9 +76,21 @@ export default {
         return element;
       });
 
-      triggerHistory.items = items;
+      const grouped = items.reduce((all, item) => {
+        const found = all.find(o => o.monthName === item.monthName);
+        if (!found) {
+          all.push({
+            monthName: item.monthName,
+            items: [item],
+          });
+        } else {
+          found.items.push(item);
+        }
 
-      this.triggerHistory = triggerHistory;
+        return all;
+      }, []);
+
+      this.groupedItems = grouped;
     }
   },
 };

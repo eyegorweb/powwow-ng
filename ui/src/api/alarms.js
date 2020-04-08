@@ -178,6 +178,15 @@ export async function fetchTriggerHistory(alarmId, simIds = []) {
         emissionDate,
         toStatus
         newIMEI
+        currentValue1
+        currentValue2
+        currentValue3
+        currentValue1Up
+        currentValue2Up
+        currentValue3Up
+        currentValue1Down
+        currentValue2Down
+        currentValue3Down
         alarm {
           id,
           startDate,
