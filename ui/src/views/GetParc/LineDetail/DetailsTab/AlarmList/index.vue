@@ -186,7 +186,7 @@ export default {
       });
     },
 
-    openTriggerHistory() {
+    openTriggerHistory(payload) {
       const title = 'getparc.lineDetail.alarms.trigger-history';
       const openTrigger = () => {
         this.openPanel({

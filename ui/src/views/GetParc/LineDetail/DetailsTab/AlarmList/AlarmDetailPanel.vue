@@ -16,7 +16,8 @@
       <AlarmParameters :alarm="content.alarm" />
     </div>
 
-    <div class="overview-container m-3 bg-white" v-if="triggerHistory && triggerHistory.items[0]">
+    <TriggerHistorySkeleton v-if="isLoading" />
+    <div class="overview-container m-3 bg-white" v-else-if="triggerHistory">
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
@@ -32,6 +33,7 @@
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import AlarmParameters from './AlarmParameters';
+import TriggerHistorySkeleton from './TriggerHistorySkeleton';
 import AlarmHistoryItem from './AlarmHistoryItem';
 import { fetchTriggerHistory } from '@/api/alarms';
 import { getMonthString } from '@/utils/date';
@@ -41,6 +43,7 @@ export default {
     BaseDetailPanelContent,
     AlarmParameters,
     AlarmHistoryItem,
+    TriggerHistorySkeleton,
   },
   props: {
     /*
@@ -55,11 +58,15 @@ export default {
   data() {
     return {
       triggerHistory: undefined,
+      isLoading: false,
     };
   },
 
   async mounted() {
+    this.isLoading = true;
     const triggerHistory = await fetchTriggerHistory(this.content.alarm.id);
+    this.isLoading = false;
+
     if (triggerHistory) {
       const items = triggerHistory.items.map(element => {
         element.monthName =
