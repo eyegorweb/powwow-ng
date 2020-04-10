@@ -98,10 +98,14 @@ export default {
       );
 
       this.total = data.total;
-      this.rows = data.data;
+      this.rows = data.items;
     },
 
     createReport() {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchResults();
+      };
       this.openPanel({
         title: this.$t('getreport.create_report'),
         panelId: 'getreport.create_report',
@@ -109,6 +113,11 @@ export default {
         width: '50%',
         backdrop: true,
         ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
       });
     },
   },
