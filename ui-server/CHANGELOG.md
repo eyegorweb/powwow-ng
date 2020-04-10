@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.692+20200410135551
+2020-04-10
+
+### Features
+
+- créer un rapport pour mon partenaire depuis la home des rapports (be1000a3b08b591018bd426fe5a8036302956335)
+
 ## 0.3.0-master.691+20200410094738
 2020-04-10
 
