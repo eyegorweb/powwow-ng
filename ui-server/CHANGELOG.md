@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.691+20200410094738
+2020-04-10
+
+### Features
+
+- Création de rapports (2a93bfcfcabd29b2ee3738c8f6e121819f132ef0)
+
 ## 0.3.0-master.690+20200410074816
 2020-04-10
 
