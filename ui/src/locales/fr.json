@@ -136,7 +136,9 @@
     "alarms": "Gestion des alarmes",
     "users": "Gestion des utilisateurs",
     "partners": "Gestion des partenaires",
-    "account": "Compte"
+    "account": "Compte",
+    "modelReports": "Rapports",
+    "createReports": "Gestion documentaires"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",

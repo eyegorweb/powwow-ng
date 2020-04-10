@@ -156,7 +156,21 @@ export default {
           },
         ],
       },
-      { label: 'GetReport', to: { name: 'reports' }, mock: true },
+      {
+        label: 'GetReport',
+        to: { name: 'reports' },
+        mock: true,
+        submenu: [
+          {
+            label: 'menu.modelReports',
+            to: { name: 'getReportsModels' },
+          },
+          {
+            label: 'menu.createReports',
+            to: { name: 'getReportsCreation' },
+          },
+        ],
+      },
       {
         label: 'GetAdmin',
         to: { name: 'exemples' },
