@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.690+20200410074816
+2020-04-10
+
+### Features
+
+- **rapports:** affichage des rapports (5fa24bc84a775ec7b663ad1628d7ecf85e4dbd4e)
+
 ## 0.3.0-master.689+20200408120142
 2020-04-08
 
