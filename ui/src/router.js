@@ -15,6 +15,7 @@ import GetParcLineDetail from '@/views/GetParc/LineDetail';
 import SearchUsers from '@/views/GetAdmin/SearchUsers';
 import PartnerDetail from '@/views/GetAdmin/PartnerDetail';
 import SearchPartners from '@/views/GetAdmin/SearchPartners';
+import ReportsModels from '@/views/GetReport/reports/ReportsModels';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -80,10 +81,9 @@ export default new Router({
       component: AlarmDetail,
     },
     {
-      path: '/reports',
-      name: 'reports',
-      component: () => import('@/views/GetReport/reports/index.vue'),
-      mock: true,
+      path: '/getreport/models',
+      name: 'getReportsModels',
+      component: ReportsModels,
     },
     {
       path: '/getamin/users',
