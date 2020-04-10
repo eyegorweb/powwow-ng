@@ -2,23 +2,25 @@
   <div class="creationContainer">
     <div class="panelContent">
       <div class="checkBoxesContainer">
-        <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
+        <template v-if="!userIsPartner">
+          <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-        <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+        </template>
 
-        <SectionTitle :num="2">Choisir les informations</SectionTitle>
+        <SectionTitle :num="baseNumber + 1">Choisir les informations</SectionTitle>
         <p>
           Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire
           apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces
           informations dans votre tableur préféré.
         </p>
 
-        <div class="mt-4 mb-2">
+        <div v-if="reportModels" class="mt-4 mb-2">
           <h6>à partir d'un modèle du rapport</h6>
           <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
         </div>
 
-        <div class="checkbox-groups">
+        <div class="checkbox-groups" v-if="groups">
           <FoldableBlock :title="group.title" :key="group.title" v-for="group in groups">
             <div class="bg-white p-3 bordered checkboxes-container">
               <div
@@ -33,7 +35,7 @@
           </FoldableBlock>
         </div>
 
-        <SectionTitle :num="3">Récurrence et date</SectionTitle>
+        <SectionTitle :num="baseNumber + 2">Récurrence et date</SectionTitle>
         <div class="mb-2">
           <h6>Générer un rapport</h6>
           <Toggle
@@ -56,7 +58,7 @@
           </UiDate>
         </div>
 
-        <SectionTitle :num="4">Notification</SectionTitle>
+        <SectionTitle :num="baseNumber + 3">Notification</SectionTitle>
 
         <div class="row">
           <div class="col">
@@ -118,9 +120,22 @@ import UiButton from '@/components/ui/Button';
 import get from 'lodash.get';
 
 import { createReport } from '@/api/reportCreation.js';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
+
+import { fetchpartnerById } from '@/api/partners.js';
+
+import { reportModels } from '@/api/reportCreation.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+
+function checkIfOneIsPresent(fieldsToCheck, modelFields) {
+  for (let i = 0; i < fieldsToCheck.length; i++) {
+    if (modelFields.find(m => m === fieldsToCheck[i])) {
+      return true;
+    }
+  }
+  return false;
+}
 
 export default {
   components: {
@@ -135,19 +150,173 @@ export default {
     UiButton,
   },
 
+  async mounted() {
+    this.resetCheckboxes();
+
+    if (this.userIsPartner) {
+      const selectedPartner = await fetchpartnerById(this.userInfos.partners[0].id, {
+        includeMailingLists: true,
+      });
+      this.selectedPartner = {
+        ...this.userInfos.partners[0],
+        data: selectedPartner,
+      };
+    }
+
+    await this.loadModels();
+  },
+
+  watch: {
+    reportModel(newValue) {
+      const report = this.reportModels.find(r => r.value === newValue);
+
+      this.preloadCheckBoxes(report.data.fields);
+    },
+    async selectedPartner() {
+      await this.loadModels();
+    },
+  },
+
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
+
+    preloadCheckBoxes(fields) {
+      this.resetCheckboxes();
+
+      const checkboxes = this.groups
+        .map(g => g.checkboxes)
+        .flat()
+        .forEach(c => {
+          let shouldCheck = !!fields.find(f => f === c.code);
+
+          // pour cocher les cases représentant un groupe de colonnes
+          if (!shouldCheck) {
+            if (c.code === 'GRP_DEVICE_INFO') {
+              if (checkIfOneIsPresent(['DEVICE_REFERENCE', 'MANUFACTURER'], fields)) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_CUSTOM_FIELDS') {
+              if (
+                checkIfOneIsPresent(
+                  ['CUSTOM1', 'CUSTOM2', 'CUSTOM3', 'CUSTOM4', 'CUSTOM5', 'CUSTOM6'],
+                  fields
+                )
+              ) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_SPECIFIC_FIELDS') {
+              if (checkIfOneIsPresent(['SPECIFIC_FIELD1', 'SPECIFIC_FIELD2'], fields)) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_SERVICES_APN') {
+              if (
+                checkIfOneIsPresent(
+                  [
+                    'OFFER_ROAMING',
+                    'OFFER_SMS_IN',
+                    'OFFER_SMS_OUT',
+                    'OFFER_VOICE_IN',
+                    'OFFER_VOICE_OUT',
+                    'OFFER_CSD_DATA_IN',
+                    'OFFER_CSD_DATA_OUT',
+                    'OFFER_DATA_4G',
+                    'OFFER_DATA_2G_3G',
+                    'OFFER_APN',
+                  ],
+                  fields
+                )
+              ) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_PREACTIVATE_ACTIVATE') {
+              if (checkIfOneIsPresent(['PREACTIVATION', 'ACTIVATION'], fields)) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_DELIVERY_CONTACT') {
+              if (
+                checkIfOneIsPresent(
+                  [
+                    'FIRSTNAME_DELIVERY',
+                    'LASTNAME_DELIVERY',
+                    'EMAIL_DELIVERY',
+                    'PHONE_DELIVERY',
+                    'MOBILE_DELIVERY',
+                    'FAX_DELIVERY',
+                  ],
+                  fields
+                )
+              ) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_DELIVERY_ADRESS') {
+              if (
+                checkIfOneIsPresent(
+                  [
+                    'ADDRESS1_DELIVERY',
+                    'ADDRESS2_DELIVERY',
+                    'ADDRESS3_DELIVERY',
+                    'ZIPCODE_DELIVERY',
+                    'CITY_DELIVERY',
+                    'COUNTRY_DELIVERY',
+                    'STATE_DELIVERY',
+                  ],
+                  fields
+                )
+              ) {
+                shouldCheck = true;
+              }
+            } else if (c.code === 'GRP_BILLING_ADRESS') {
+              if (
+                checkIfOneIsPresent(
+                  [
+                    'ADDRESS1_BILL',
+                    'ADDRESS2_BILL',
+                    'ADDRESS3_BILL',
+                    'ZIP_CODE_BILL',
+                    'CITY_BILL',
+                    'COUNTRY_BILL',
+                    'STATE_BILL',
+                  ],
+                  fields
+                )
+              ) {
+                shouldCheck = true;
+              }
+            }
+          }
+
+          if (shouldCheck) {
+            c.checked = true;
+            this.toggleCheckbox(c);
+          }
+        });
+    },
+
+    async loadModels() {
+      if (this.selectedPartner) {
+        const models = await reportModels(this.selectedPartner.id);
+
+        this.reportModels = [
+          { label: 'Customisé', value: 'NONE' },
+          ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
+        ];
+      }
+    },
 
     removeItem(checkbox) {
       checkbox.checked = false;
       this.selectedItems = this.selectedItems.filter(i => i.label !== checkbox.label);
     },
-    selectOrRemove(checkbox) {
+    toggleCheckbox(checkbox) {
       if (checkbox.checked) {
         this.selectedItems.push(checkbox);
       } else {
         this.selectedItems = this.selectedItems.filter(i => i.label !== checkbox.label);
       }
+    },
+    selectOrRemove(checkbox) {
+      this.reportModel = 'NONE';
+      this.toggleCheckbox(checkbox);
     },
     async onSaveReport() {
       const params = {
@@ -171,69 +340,42 @@ export default {
 
       this.closePanel({ resetSearch: true });
     },
-  },
 
-  computed: {
-    canSave() {
-      return !!this.selectedPartner && !!this.fileFormat && !!this.name && !!this.generationDate;
-    },
-    mailingLists() {
-      if (!this.selectedPartner) return [];
-      const mailingLists = get(this.selectedPartner, 'data.mailingLists', []);
-      return mailingLists.map(m => ({ label: m.name, value: m.id }));
-    },
-  },
-
-  data() {
-    return {
-      selectedItems: [],
-      generationDate: undefined,
-      dateError: false,
-      shouldNotify: false,
-      reportFrequency: 'ONCE',
-      name: undefined,
-      selectedPartner: undefined,
-      fileFormat: undefined,
-      fileFormats: [
+    resetCheckboxes() {
+      this.selectedItems = [];
+      this.groups = [
         {
-          value: 'CSV',
-          label: 'CSV',
+          title: 'Informations techniques',
+          checkboxes: [
+            { code: 'ICCID', label: 'ICCID', checked: false },
+            { code: 'IMSI', label: 'IMSI', checked: false },
+            { code: 'MSISDN', label: 'MSISDN', checked: false },
+            { code: 'AMSISDN', label: 'A-MSISDN', checked: false },
+            { code: 'IMEI', label: 'IMEI', checked: false },
+            { code: 'GRP_DEVICE_INFO', label: 'Matériel et constructeur', checked: false },
+            { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
+            { code: 'GRP_CUSTOM_FIELDS', label: 'Champs libres', checked: false },
+            { code: 'GRP_SPECIFIC_FIELDS', label: 'Champs spécifiques', checked: false },
+            { code: 'LINE_STATUS', label: 'Statut de la ligne', checked: false },
+            { code: 'NETWORK_STATUS', label: 'Statut réseau', checked: false },
+            { code: 'PIN2', label: 'Code PIN2', checked: false },
+            { code: 'PUK1', label: 'Codes PUK', checked: false },
+            { code: 'AP_ID', label: 'Identifiant point d’accès', checked: false },
+            { code: 'ELECTRIC_PROFILE', label: 'Profil électrique', checked: false },
+            { code: 'GRAPHIC_PROFILE', label: 'Profile graphique', checked: false },
+            { code: 'HARDWARE_TYPE', label: 'Type de hardware', checked: false },
+            { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
+            { code: 'PREACTIVATION_DATE', label: 'Date de préactivation', checked: false },
+            { code: 'ACTIVATION_DATE', label: 'Date d’activation', checked: false },
+            {
+              code: 'LAST_CHANGE_STATUS_DATE',
+              label: 'Date de dernier changement de statut',
+              checked: false,
+            },
+            { code: 'FIXED_IP_ADDRESSES', label: 'Adresse ip fixe', checked: false },
+            { code: 'FLAT_END_DATE', label: "Date de changement d'offre MVNO", checked: false },
+          ],
         },
-        {
-          value: 'EXCEL',
-          label: 'Excel',
-        },
-      ],
-      reportFrequencyChoices: [
-        {
-          id: 'ONCE',
-          label: 'Une seule fois',
-        },
-        {
-          id: 'DAILY',
-          label: 'Journalier',
-        },
-        {
-          id: 'WEEKLY',
-          label: 'Hebdomadaire',
-        },
-        {
-          id: 'MONTHLY',
-          label: 'Mensuel',
-        },
-      ],
-
-      reportModel: undefined,
-      reportModels: [
-        {
-          label: 'Liste 1',
-          value: 'list1',
-        },
-      ],
-
-      notifList: undefined,
-
-      groups: [
         {
           title: 'Informations Dual SIM',
           checkboxes: [
@@ -404,7 +546,83 @@ export default {
             { code: 'LAST_TICKET_GENERATION', label: 'Génération du ticket', checked: false },
           ],
         },
+      ];
+    },
+  },
+
+  computed: {
+    ...mapGetters(['userIsPartner', 'userInfos']),
+
+    baseNumber() {
+      if (this.userIsPartner) return 0;
+
+      return 1;
+    },
+    canSave() {
+      let mailingListValid = true;
+      if (this.shouldNotify) {
+        mailingListValid = !!this.notifList;
+      }
+      return (
+        !!this.selectedPartner &&
+        !!this.fileFormat &&
+        !!this.name &&
+        !!this.generationDate &&
+        mailingListValid
+      );
+    },
+    mailingLists() {
+      if (!this.selectedPartner) return [];
+      const mailingLists = get(this.selectedPartner, 'data.mailingLists', []);
+      return mailingLists.map(m => ({ label: m.name, value: m.id }));
+    },
+  },
+
+  data() {
+    return {
+      selectedItems: [],
+      generationDate: undefined,
+      dateError: false,
+      shouldNotify: false,
+      reportFrequency: 'ONCE',
+      name: undefined,
+      selectedPartner: undefined,
+      fileFormat: undefined,
+      fileFormats: [
+        {
+          value: 'CSV',
+          label: 'CSV',
+        },
+        {
+          value: 'EXCEL',
+          label: 'Excel',
+        },
       ],
+      reportFrequencyChoices: [
+        {
+          id: 'ONCE',
+          label: 'Une seule fois',
+        },
+        {
+          id: 'DAILY',
+          label: 'Journalier',
+        },
+        {
+          id: 'WEEKLY',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'MONTHLY',
+          label: 'Mensuel',
+        },
+      ],
+
+      reportModel: 'NONE',
+      reportModels: undefined,
+
+      notifList: undefined,
+
+      groups: undefined,
     };
   },
 };

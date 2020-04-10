@@ -1,5 +1,24 @@
 import { query, boolStr } from './utils';
 
+export async function reportModels(partnerId) {
+  const queryStr = `
+  query {
+    reportModels( partyId: ${partnerId}) {
+      modelType
+      fields
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.reportModels;
+}
+
 export async function createReport(params) {
   const columns = formatColumns(params.columns);
   const optionalParams = [];
@@ -37,6 +56,17 @@ export async function createReport(params) {
 function formatColumns(inputColumns) {
   return inputColumns.reduce((all, item) => {
     if (item.code.includes('GRP_')) {
+      if (item.code === 'GRP_DEVICE_INFO') {
+        all.push('DEVICE_REFERENCE', 'MANUFACTURER');
+      }
+      if (item.code === 'GRP_CUSTOM_FIELDS') {
+        all.push('CUSTOM1', 'CUSTOM2', 'CUSTOM3', 'CUSTOM4', 'CUSTOM5', 'CUSTOM6');
+      }
+
+      if (item.code === 'GRP_SPECIFIC_FIELDS') {
+        all.push('SPECIFIC_FIELD1', 'SPECIFIC_FIELD2');
+      }
+
       if (item.code === 'GRP_SERVICES_APN') {
         all.push(
           'OFFER_ROAMING',

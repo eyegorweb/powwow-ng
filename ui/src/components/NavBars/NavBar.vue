@@ -165,10 +165,6 @@ export default {
             label: 'menu.modelReports',
             to: { name: 'getReportsModels' },
           },
-          {
-            label: 'menu.createReports',
-            to: { name: 'getReportsCreation' },
-          },
         ],
       },
       {
