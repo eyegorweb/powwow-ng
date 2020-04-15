@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.697+20200415150505
+2020-04-15
+
+### Fixes
+
+- ne pas afficher la mailing list durant la modification de rapports (1a4091d927969f9ef7cf6938e20e6acc066c9d4e)
+
 ## 0.3.0-master.696+20200415142904
 2020-04-15
 
