@@ -195,7 +195,7 @@ export default {
       smsIn: undefined,
       smsOut: undefined,
 
-      currentPeriod: 'DAILY',
+      currentPeriod: 'MONTHLY',
       customPeriodValue: undefined,
 
       toggleValues: [
@@ -210,6 +210,7 @@ export default {
         {
           id: 'MONTHLY',
           label: 'Mensuel',
+          default: true,
         },
         {
           id: 'CUSTOM',

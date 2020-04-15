@@ -157,8 +157,6 @@ export default {
   async mounted() {
     this.resetCheckboxes();
 
-    await this.loadModels();
-
     let partnerID;
 
     if (this.content) {
@@ -194,6 +192,8 @@ export default {
         data: selectedPartner,
       };
     }
+
+    await this.loadModels();
 
     this.canShowForm = true;
   },
@@ -325,7 +325,7 @@ export default {
     },
 
     async loadModels() {
-      if (this.selectedPartner) {
+      if (this.selectedPartner && this.selectedPartner.id) {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
