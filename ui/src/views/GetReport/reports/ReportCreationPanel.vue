@@ -67,10 +67,16 @@
               <span>{{ $t('mailNotification') }}</span>
             </div>
           </div>
-          <div class="col">
+          <div v-if="!content" class="col">
             <div class="d-flex mailing-list">
               <span class="pt-3">Liste de diffusion</span>
-              <UiSelect class="report-field" v-model="notifList" :options="mailingLists" block />
+              <UiSelect
+                class="report-field"
+                v-model="notifList"
+                :disabled="!!content"
+                :options="mailingLists"
+                block
+              />
             </div>
           </div>
         </div>
