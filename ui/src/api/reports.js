@@ -28,8 +28,18 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         generatedReports
         exportFormat
         notification
+        auditable {
+          creator {
+            name {
+              title
+              firstName
+              lastName
+            }
+          }
+        }
         party {
           id
+          name
         }
         mailingList {
           id
