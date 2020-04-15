@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.693+20200415073107
+2020-04-15
+
+### Features
+
+- Page de recherche de documents (ce3015cbd13cf44c240a4b8c6189ba1e7983eb30)
+- **rapports:** affichage de la table des rapports (d1613c96bf37a340941c662ea0b152085f322956)
+
 ## 0.3.0-master.692+20200410135551
 2020-04-10
 
