@@ -290,6 +290,7 @@ export default {
             this.toggleCheckbox(c);
           }
         });
+      return checkboxes;
     },
 
     async loadModels() {

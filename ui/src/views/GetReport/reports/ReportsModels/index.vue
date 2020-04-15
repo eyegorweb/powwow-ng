@@ -37,10 +37,10 @@
 <script>
 import Tooltip from '@/components/ui/Tooltip';
 import UiButton from '@/components/ui/Button';
-import { mapMutations } from 'vuex';
-
 import DataTable from '@/components/DataTable/DataTable';
 import ReportsActions from './ReportsActions';
+import GetSimOrdersCreatorCell from '@/views/GetSim/GetSimOrders/GetSimOrdersCreatorCell.vue';
+import { mapGetters, mapMutations } from 'vuex';
 import { fetchReports } from '@/api/reports.js';
 
 export default {
@@ -50,7 +50,6 @@ export default {
     DataTable,
     ReportsActions,
   },
-
   data() {
     return {
       page: 1,
@@ -58,12 +57,28 @@ export default {
       showExtraCells: false,
       columns: [
         {
-          id: 2,
+          id: 1,
           label: this.$t('col.id'),
+          orderable: true,
+          visible: false,
+          name: 'id',
+          exportId: 'ID',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.id;
+            },
+          },
+        },
+        {
+          id: 2,
+          label: 'Nom du partenaire',
           orderable: true,
           visible: true,
           name: 'name',
-          exportId: 'ID',
+          exportId: 'name',
           noHandle: true,
           fixed: true,
           format: {
@@ -73,32 +88,171 @@ export default {
             },
           },
         },
+        {
+          id: 3,
+          label: 'Date de création',
+          orderable: true,
+          visible: true,
+          name: 'generationDate',
+          exportId: 'generationDate',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              console.log('row', row);
+              return row.generationDate;
+            },
+          },
+        },
+        // Missing api info
+        {
+          id: 4,
+          label: 'Partenaire',
+          orderable: true,
+          visible: true,
+          name: 'partner',
+          exportId: 'partner',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.party && row.party.name ? row.party.name : '';
+            },
+          },
+        },
+        {
+          id: 5,
+          label: 'Fréquence',
+          orderable: true,
+          visible: true,
+          name: 'frequency',
+          exportId: 'frequency',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.frequency;
+            },
+          },
+        },
+        {
+          id: 6,
+          label: 'Rapports générés',
+          orderable: true,
+          visible: true,
+          name: 'generatedReports',
+          exportId: 'generatedReports',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.generatedReports;
+            },
+          },
+        },
+        // Missing api info
+        {
+          id: 7,
+          label: 'Créé par',
+          orderable: true,
+          visible: true,
+          name: 'creator',
+          exportId: 'creator',
+          noHandle: true,
+          fixed: true,
+          format: {
+            component: GetSimOrdersCreatorCell,
+          },
+        },
+        {
+          id: 8,
+          label: 'Champs',
+          orderable: true,
+          visible: true,
+          name: 'fields',
+          exportId: 'fields',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.fields;
+            },
+          },
+        },
+        {
+          id: 9,
+          label: 'Privé',
+          orderable: true,
+          visible: true,
+          name: 'private',
+          exportId: 'private',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.privateReport;
+            },
+          },
+        },
+        {
+          id: 10,
+          label: 'Activé',
+          orderable: true,
+          visible: true,
+          name: 'enableEntity',
+          exportId: 'enableEntity',
+          noHandle: true,
+          fixed: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.enableEntity && row.enableEntity.disabled ? row.enableEntity.disabled : '';
+            },
+          },
+        },
       ],
       orderBy: {
         key: 'id',
         direction: 'DESC',
       },
-
-      total: 10,
+      total: undefined,
       rows: [],
-      partnerID: 2,
     };
   },
   mounted() {
     this.fetchResults();
   },
+  computed: {
+    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
+    partnerId() {
+      return this.userInfos && this.userInfos.id ? this.userInfos.id : null;
+    },
+  },
   methods: {
     ...mapMutations(['openPanel']),
 
-    async fetchResults() {
-      const data = await fetchReports(
-        this.orderBy,
-        { page: this.page - 1, limit: this.pageLimit },
-        this.partnerID
-      );
+    async fetchResults(payload) {
+      const { pagination, orderBy } = payload || {
+        pagination: { page: 0, limit: 10 },
+        orderBy: {
+          key: 'id',
+          direction: 'DESC',
+        },
+      };
+      // test data with id = 5
+      const partnerId = 5;
+      const response = await fetchReports(orderBy, pagination, partnerId);
 
-      this.total = data.total;
-      this.rows = data.items;
+      if (response) {
+        this.total = response.total;
+        this.rows = response.items;
+      }
     },
 
     createReport() {

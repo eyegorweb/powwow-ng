@@ -14,13 +14,17 @@ export default {
   },
   data() {
     return {
-      actions: ['getsim.actions.DETAIL'],
+      actions: [
+        'getreport.actions.DETAIL',
+        'getreport.actions.ACTIVATION',
+        'getreport.actions.SEARCH',
+      ],
     };
   },
 
   methods: {
     onActionClicked(action) {
-      if (action === 'getsim.actions.DETAIL') {
+      if (action === 'getreport.actions.DETAIL') {
         // this.$router.push({ name: 'alarmDetail', params: { alarmId: this.alarm.id } });
       }
     },
