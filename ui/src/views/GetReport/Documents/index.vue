@@ -29,6 +29,7 @@ import { fetchAllDocuments } from '@/api/documents';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
+import get from 'lodash.get';
 
 import { mapGetters } from 'vuex';
 
@@ -43,13 +44,20 @@ export default {
         id: 1,
         label: this.$t('documents.name'),
         name: 'documentName',
+        sortingName: 'name',
         orderable: true,
         visible: true,
       },
       {
         id: 2,
         label: this.$t('documents.partner'),
-        name: 'party.name',
+        name: 'party',
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return get(row, 'party.name', '-');
+          },
+        },
         orderable: true,
         visible: true,
       },
@@ -67,7 +75,7 @@ export default {
         format: {
           type: 'Getter',
           getter: row => {
-            return row.category.name;
+            return get(row, 'category.name', '-');
           },
         },
         orderable: true,
@@ -122,7 +130,7 @@ export default {
       total: 0,
       orderBy: {
         key: 'creationDate',
-        direction: 'DESC',
+        direction: 'ASC',
       },
     };
   },

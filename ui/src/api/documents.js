@@ -22,14 +22,14 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
       documents(documentFilterInput:{${formatFilters(filters)}} ${paginationInfo} ${orderingInfo}) {
         total
         items {
-        documentName
-        creationDate
-        category {
-          name
-        }
-        party {
-          id
-          name
+          documentName
+          creationDate
+          category {
+            name
+          }
+          party {
+            id
+            name
           }
         }
       }
