@@ -57,11 +57,13 @@ export default {
     },
     createDatePicker() {
       let startDate;
-      if (this.start) {
+      if (this.value) {
         startDate = moment(this.value, this.dateFormat);
       } else {
         // startDate = moment();
       }
+
+      console.log('Start date  >>', startDate);
 
       const onDateSelected = value => {
         this.$emit('change', value.format(this.dateFormat));

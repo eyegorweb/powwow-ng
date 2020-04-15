@@ -2,7 +2,12 @@
   <div>
     <div class="d-flex justify-content-end align-items-center">
       {{ $t('display') }}:
-      <Toggle v-if="toggleValues" @update="updateContentType" :values="toggleValues" class="pl-2"></Toggle>
+      <Toggle
+        v-if="toggleValues"
+        @update="updateContentType"
+        :values="toggleValues"
+        class="pl-2"
+      ></Toggle>
     </div>
     <div v-if="toggleValues">
       <slot v-if="contentType === 'graph'" name="graph">Graph</slot>

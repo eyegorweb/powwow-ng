@@ -19,6 +19,39 @@ export async function reportModels(partnerId) {
   return response.data.reportModels;
 }
 
+export async function updateReport(params) {
+  const columns = formatColumns(params.columns);
+  const optionalParams = [];
+
+  if (params.notification) {
+    optionalParams.push(`notification: ${boolStr(params.notification)}`);
+  }
+
+  if (params.mailingListId) {
+    // optionalParams.push(`mailingListId: ${params.mailingListId}`);
+  }
+
+  const queryStr = `mutation {
+    updateReportDefinition( reportDefinition: {
+      id: ${params.id}
+      frequency: ${params.frequency}
+      reportExportColumns: [${columns.join(',')}]
+      exportFormat: ${params.exportFormat}
+      generationDate: "${params.generationDate}"
+      disabled: false
+      ${optionalParams.join(',')}
+    }) { id }
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.updateReportDefinition;
+}
+
 export async function createReport(params) {
   const columns = formatColumns(params.columns);
   const optionalParams = [];

@@ -3,14 +3,14 @@
     <draggable handle=".handle">
       <transition-group>
         <ContentBlock :key="'block1'">
-          <template
-            slot="title"
-          >{{ $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay') }}</template>
+          <template slot="title">{{
+            $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay')
+          }}</template>
           <template v-if="canExportData" slot="topRight">
             <ExportButton :export-fn="getDataExportFn()">
-              <span
-                slot="title"
-              >{{ $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption') }}</span>
+              <span slot="title">{{
+                $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption')
+              }}</span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -25,12 +25,14 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block0'">
-          <template slot="title">{{ $t('getparc.lineDetail.tab2.supervisionContent.sms') }}</template>
+          <template slot="title">{{
+            $t('getparc.lineDetail.tab2.supervisionContent.sms')
+          }}</template>
           <template v-if="canExportSMS" slot="topRight">
             <ExportButton :export-fn="getSMSExportFn()">
-              <span
-                slot="title"
-              >{{ $t('getparc.lineDetail.tab2.supervisionContent.exportSMSConsumption') }}</span>
+              <span slot="title">{{
+                $t('getparc.lineDetail.tab2.supervisionContent.exportSMSConsumption')
+              }}</span>
             </ExportButton>
           </template>
           <template slot="content">
@@ -45,13 +47,13 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block3'">
-          <template slot="title">{{ $t('getparc.lineDetail.tab2.supervisionContent.voice') }}</template>
+          <template slot="title">{{
+            $t('getparc.lineDetail.tab2.supervisionContent.voice')
+          }}</template>
           <template v-if="canExportVoice" slot="topRight">
             <ExportButton :export-fn="getVoiceExportFn()">
               <span slot="title">
-                {{
-                $t('getparc.lineDetail.tab2.supervisionContent.exportVoiceConsumption')
-                }}
+                {{ $t('getparc.lineDetail.tab2.supervisionContent.exportVoiceConsumption') }}
               </span>
             </ExportButton>
           </template>

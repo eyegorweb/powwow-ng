@@ -91,7 +91,7 @@
       <div class="fileInfoContainer">
         <div>
           <h6>Générer un rapport</h6>
-          <UiInput v-model="name" class="d-block" />
+          <UiInput v-model="name" :disabled="!!content" class="d-block" />
         </div>
         <div>
           <h6>Format de ficher</h6>
@@ -119,7 +119,7 @@ import UiButton from '@/components/ui/Button';
 
 import get from 'lodash.get';
 
-import { createReport } from '@/api/reportCreation.js';
+import { createReport, updateReport } from '@/api/reportCreation.js';
 import { mapMutations, mapGetters } from 'vuex';
 
 import { fetchpartnerById } from '@/api/partners.js';
@@ -150,6 +150,10 @@ export default {
     UiButton,
   },
 
+  props: {
+    content: Object,
+  },
+
   async mounted() {
     this.resetCheckboxes();
 
@@ -164,6 +168,27 @@ export default {
     }
 
     await this.loadModels();
+
+    if (this.content) {
+      this.preloadCheckBoxes(this.content.fields.split(','));
+      this.reportFrequency = this.content.frequency;
+      this.name = this.content.name;
+
+      this.reportFrequencyChoices = this.reportFrequencyChoices.map(t => {
+        if (t.id === this.content.frequency) {
+          t.default = true;
+        }
+        return t;
+      });
+
+      this.generationDate = this.content.generationDate + ' 00:00:00';
+      this.shouldNotify = this.content.notification;
+      this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
+
+      this.fileFormat = this.content.exportFormat;
+    }
+
+    this.canShowForm = true;
   },
 
   watch: {
@@ -183,7 +208,7 @@ export default {
     preloadCheckBoxes(fields) {
       this.resetCheckboxes();
 
-      const checkboxes = this.groups
+      this.groups
         .map(g => g.checkboxes)
         .flat()
         .forEach(c => {
@@ -290,7 +315,6 @@ export default {
             this.toggleCheckbox(c);
           }
         });
-      return checkboxes;
     },
 
     async loadModels() {
@@ -331,7 +355,16 @@ export default {
         name: this.name,
       };
 
-      const response = await createReport(params);
+      let response;
+
+      if (this.content) {
+        response = await updateReport({
+          id: this.content.id,
+          ...params,
+        });
+      } else {
+        response = await createReport(params);
+      }
 
       if (response.errors && response.errors.length) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
@@ -561,9 +594,10 @@ export default {
     },
     canSave() {
       let mailingListValid = true;
-      if (this.shouldNotify) {
+      if (!this.content && this.shouldNotify) {
         mailingListValid = !!this.notifList;
       }
+
       return (
         !!this.selectedPartner &&
         !!this.fileFormat &&
@@ -581,6 +615,7 @@ export default {
 
   data() {
     return {
+      canShowForm: false,
       selectedItems: [],
       generationDate: undefined,
       dateError: false,

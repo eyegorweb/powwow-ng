@@ -5,10 +5,16 @@ export async function fetchReports(orderBy, pagination, partnerID) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  let partnerIdParam = '';
+
+  if (partnerID) {
+    partnerIdParam = `partyId: ${partnerID}`;
+  }
+
   const queryStr = `
   query {
     reportDefinitions(
-      partyId: ${partnerID}
+      ${partnerIdParam}
       ${paginationInfo}${orderingInfo}
     ) {
       total
