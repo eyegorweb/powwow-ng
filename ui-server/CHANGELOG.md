@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.694+20200415091621
+2020-04-15
+
+### Features
+
+- Modification de Rapports (4cefea5fdbb30d746a2d554ef4054cd5c3a2a6b8)
+
 ## 0.3.0-master.693+20200415073107
 2020-04-15
 
