@@ -24,7 +24,7 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        :size="7"
+        :size="8"
       >
         <template slot="actions" slot-scope="{ row }">
           <ReportsActions :report="row" />
@@ -57,35 +57,16 @@ export default {
       showExtraCells: false,
       columns: [
         {
-          id: 1,
-          label: this.$t('col.id'),
-          orderable: true,
-          visible: false,
-          name: 'id',
-          exportId: 'ID',
-          noHandle: true,
-          fixed: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.id;
-            },
-          },
-        },
-        {
-          id: 2,
-          label: 'Nom du partenaire',
+          id: 3,
+          label: this.$t('common.lastName'),
           orderable: true,
           visible: true,
           name: 'name',
-          exportId: 'name',
           noHandle: true,
           fixed: true,
           format: {
-            type: 'Getter',
-            getter: row => {
-              return row.name;
-            },
+            type: 'OpenPanel',
+            getConfig: row => this.getPanelConfig(row),
           },
         },
         {
@@ -172,7 +153,7 @@ export default {
           id: 8,
           label: 'Champs',
           orderable: true,
-          visible: true,
+          visible: false,
           name: 'fields',
           exportId: 'fields',
           noHandle: true,
@@ -184,27 +165,12 @@ export default {
             },
           },
         },
-        {
-          id: 9,
-          label: 'Privé',
-          orderable: true,
-          visible: true,
-          name: 'private',
-          exportId: 'private',
-          noHandle: true,
-          fixed: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.privateReport;
-            },
-          },
-        },
+
         {
           id: 10,
           label: 'Activé',
           orderable: true,
-          visible: true,
+          visible: false,
           name: 'enableEntity',
           exportId: 'enableEntity',
           noHandle: true,
@@ -231,11 +197,35 @@ export default {
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner']),
     partnerId() {
-      return this.userInfos && this.userInfos.id ? this.userInfos.id : null;
+      if (this.userIsBO) return undefined;
+      return this.userInfos && this.userInfos.partners && this.userInfos.partners.length
+        ? this.userInfos.partners[0].id
+        : null;
     },
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    getPanelConfig(row) {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchResults();
+      };
+      return {
+        title: this.$t('getreport.create_report'),
+        panelId: 'getreport.create_report',
+        wide: true,
+        width: '50%',
+        backdrop: true,
+        ignoreClickAway: true,
+        payload: row,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      };
+    },
 
     async fetchResults(payload) {
       const { pagination, orderBy } = payload || {
@@ -245,9 +235,8 @@ export default {
           direction: 'DESC',
         },
       };
-      // test data with id = 5
-      const partnerId = 5;
-      const response = await fetchReports(orderBy, pagination, partnerId);
+
+      const response = await fetchReports(orderBy, pagination, this.partnerId);
 
       if (response) {
         this.total = response.total;

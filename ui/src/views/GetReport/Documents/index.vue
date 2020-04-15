@@ -99,11 +99,10 @@ export default {
         {
           title: 'documents.name',
           component: DocumentNameFilter,
-          onChange(chosenValue) {
+          onChange(value) {
             return {
               id: 'documents.name',
-              value: chosenValue.label,
-              data: chosenValue,
+              value: value,
             };
           },
         },
