@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.696+20200415142904
+2020-04-15
+
+### Fixes
+
+- Le cycle d'observation doit être MONTHLY par défaut pour les alarmes de consommation en mode standard. (80a328085e60d0318dae2e330179223ac77bb063)
+
 ## 0.3.0-master.695+20200415130659
 2020-04-15
 
