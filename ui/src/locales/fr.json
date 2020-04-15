@@ -130,11 +130,19 @@
       "topBillingExchangePO": "Prise d'ordre"
     }
   },
+  "documents": {
+    "name": "Nom du document",
+    "partner": "Partenaire",
+    "creationDate": "Date d’ajout",
+    "category": "Catégorie",
+    "model": "Modèle de rapport"
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
     "users": "Gestion des utilisateurs",
+    "documents": "Gestion des documents",
     "partners": "Gestion des partenaires",
     "account": "Compte",
     "modelReports": "Rapports",
