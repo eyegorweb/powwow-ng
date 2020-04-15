@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.695+20200415130659
+2020-04-15
+
+### Features
+
+- **report:** ouverture du volet Créateur (0de3da7fd3e0085fc7a28842749961adfe941aff)
+
+### Fixes
+
+- Retour panel modif raport (6920c439a154f6600ca96513b8ad2e14aaaf9554)
+- Page documents tri sur les documents et affichage des partenaires (1882e6685c75bf75fd9a4ab8d97048e5a4dce2b6)
+
 ## 0.3.0-master.694+20200415091621
 2020-04-15
 
