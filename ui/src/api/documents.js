@@ -1,5 +1,4 @@
-import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
-import get from 'lodash.get';
+import { query, getFilterValue, getValuesIdsWithoutQuotes } from './utils';
 
 export async function fetchAllDocumentsCategory() {
   const queryStr = `
