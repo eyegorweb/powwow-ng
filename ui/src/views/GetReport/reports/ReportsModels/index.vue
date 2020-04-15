@@ -55,9 +55,27 @@ export default {
       page: 1,
       pageLimit: 10,
       showExtraCells: false,
+      reportFrequencyChoices: [
+        {
+          id: 'ONCE',
+          label: 'Une seule fois',
+        },
+        {
+          id: 'DAILY',
+          label: 'Journalier',
+        },
+        {
+          id: 'WEEKLY',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'MONTHLY',
+          label: 'Mensuel',
+        },
+      ],
       columns: [
         {
-          id: 3,
+          id: 2,
           label: this.$t('common.lastName'),
           orderable: true,
           visible: true,
@@ -81,12 +99,10 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              console.log('row', row);
               return row.generationDate;
             },
           },
         },
-        // Missing api info
         {
           id: 4,
           label: 'Partenaire',
@@ -115,7 +131,11 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              return row.frequency;
+              const foundLabelFrequency = this.reportFrequencyChoices.find(
+                r => row.frequency === r.id
+              );
+              if (foundLabelFrequency) return foundLabelFrequency.label;
+              return undefined;
             },
           },
         },
@@ -135,7 +155,6 @@ export default {
             },
           },
         },
-        // Missing api info
         {
           id: 7,
           label: 'Créé par',
