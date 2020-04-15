@@ -28,7 +28,8 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
-                >{{ $t(item.label) }}</router-link>
+                  >{{ $t(item.label) }}</router-link
+                >
               </div>
             </div>
           </UiTab>

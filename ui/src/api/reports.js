@@ -28,6 +28,9 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         generatedReports
         exportFormat
         notification
+        party {
+          id
+        }
         mailingList {
           id
           name

@@ -102,7 +102,7 @@ export default {
           onChange(value) {
             return {
               id: 'documents.name',
-              value: value,
+              value,
             };
           },
         },

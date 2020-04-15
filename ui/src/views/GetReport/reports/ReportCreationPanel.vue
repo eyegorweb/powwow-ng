@@ -157,17 +157,9 @@ export default {
   async mounted() {
     this.resetCheckboxes();
 
-    if (this.userIsPartner) {
-      const selectedPartner = await fetchpartnerById(this.userInfos.partners[0].id, {
-        includeMailingLists: true,
-      });
-      this.selectedPartner = {
-        ...this.userInfos.partners[0],
-        data: selectedPartner,
-      };
-    }
-
     await this.loadModels();
+
+    let partnerID;
 
     if (this.content) {
       this.preloadCheckBoxes(this.content.fields.split(','));
@@ -186,6 +178,21 @@ export default {
       this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
 
       this.fileFormat = this.content.exportFormat;
+
+      partnerID = this.content.party.id;
+    } else if (this.userIsPartner) {
+      partnerID = this.userInfos.partners[0].id;
+    }
+
+    if (partnerID) {
+      const selectedPartner = await fetchpartnerById(partnerID, {
+        includeMailingLists: true,
+      });
+      this.selectedPartner = {
+        id: selectedPartner.id,
+        label: selectedPartner.name,
+        data: selectedPartner,
+      };
     }
 
     this.canShowForm = true;
