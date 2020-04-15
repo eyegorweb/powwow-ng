@@ -28,8 +28,7 @@
                   v-for="item in tab.submenu"
                   class="dropdown-item"
                   :to="item.to"
-                  >{{ $t(item.label) }}</router-link
-                >
+                >{{ $t(item.label) }}</router-link>
               </div>
             </div>
           </UiTab>
@@ -164,6 +163,10 @@ export default {
           {
             label: 'menu.modelReports',
             to: { name: 'getReportsModels' },
+          },
+          {
+            label: 'menu.documents',
+            to: { name: 'documents' },
           },
         ],
       },

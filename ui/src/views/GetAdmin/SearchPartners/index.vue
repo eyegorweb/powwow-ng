@@ -126,11 +126,11 @@ export default {
           },
         },
         {
-          title: 'getadmin.users.partnerGroup',
+          title: 'getadmin.users.filters.partnerGroup',
           component: PartnerGroupFilter,
           onChange(chosenValues) {
             return {
-              id: 'getadmin.users.partnerGroup',
+              id: 'getadmin.users.filters.partnerGroup',
               values: chosenValues,
             };
           },
