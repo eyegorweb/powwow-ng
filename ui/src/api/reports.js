@@ -18,6 +18,15 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         frequency
         fields
         privateReport
+        generationDate
+        generatedReports
+        exportFormat
+        notification
+        mailingList {
+          id
+          name
+          emails
+          }
         }
       }
     }
