@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.703+20200416124847
+2020-04-16
+
+### Fixes
+
+- Correction du filtre partenaire (6a0785b8a4ae7ea718acf408bd61283a8f3d4c9b)
+
 ## 0.3.0-master.702+20200416121332
 2020-04-16
 
