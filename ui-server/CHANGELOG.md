@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.698+20200416051453
+2020-04-16
+
+### Features
+
+- **report:** ouverture du volet de l'utilisateur (47bb25d076ecb1255db6cb1a9f32b0263c43dbe5)
+
 ## 0.3.0-master.697+20200415150505
 2020-04-15
 
