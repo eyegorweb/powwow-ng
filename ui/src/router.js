@@ -16,6 +16,7 @@ import SearchUsers from '@/views/GetAdmin/SearchUsers';
 import PartnerDetail from '@/views/GetAdmin/PartnerDetail';
 import SearchPartners from '@/views/GetAdmin/SearchPartners';
 import ReportsModels from '@/views/GetReport/reports/ReportsModels';
+import Documents from '@/views/GetReport/Documents/index.vue';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -88,7 +89,7 @@ export default new Router({
     {
       path: '/reports/documents',
       name: 'documents',
-      component: () => import('@/views/GetReport/Documents/index.vue'),
+      component: Documents,
     },
     {
       path: '/getamin/users',
