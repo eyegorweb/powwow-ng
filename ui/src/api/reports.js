@@ -35,6 +35,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
               firstName
               lastName
             }
+            email
           }
         }
         party {
