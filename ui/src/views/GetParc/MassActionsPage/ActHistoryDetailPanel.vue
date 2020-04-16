@@ -301,7 +301,7 @@ export default {
         return await exportMassAction(
           this.content.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
-          '',
+          'NONE',
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',
