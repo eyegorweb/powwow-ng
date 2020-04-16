@@ -89,7 +89,6 @@ export default new Router({
       path: '/reports/documents',
       name: 'documents',
       component: () => import('@/views/GetReport/Documents/index.vue'),
-      mock: true,
     },
     {
       path: '/getamin/users',
