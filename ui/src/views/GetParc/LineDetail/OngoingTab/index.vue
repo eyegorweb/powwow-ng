@@ -88,7 +88,7 @@
           <td>
             <ul class="content-cell list-unstyled">
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceInternationalConsumption) }}
               </li>
               <li>
                 {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
