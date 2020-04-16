@@ -24,9 +24,10 @@
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllPartners } from '@/api/partners';
-import PartnerNameFilter from './filters/PartnerNameFilter';
 import PartnerTypeFilter from './filters/PartnerTypeFilter';
-import PartnerGroupFilter from './filters/PartnerGroupFilter';
+import PartnerGroupFilter from '@/components/Filters/GroupPartnerFilter';
+
+import TextFilter from '@/components/Filters/TextFilter.vue';
 
 import { mapGetters } from 'vuex';
 
@@ -106,7 +107,7 @@ export default {
       filters: [
         {
           title: 'getadmin.partners.name',
-          component: PartnerNameFilter,
+          component: TextFilter,
           onChange(chosenValue) {
             return {
               id: 'getadmin.partners.name',

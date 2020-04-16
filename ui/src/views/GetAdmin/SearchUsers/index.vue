@@ -35,10 +35,11 @@
 <script>
 import Tooltip from '@/components/ui/Tooltip';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import FullNameFilter from './filters/FullNameFilter';
-import EmailFilter from './filters/EmailFilter';
 import SearchByLogin from './filters/SearchByLogin';
-import GroupPartnerFilter from './filters/GroupPartnerFilter';
+import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
+
+import TextFilter from '@/components/Filters/TextFilter.vue';
+
 import PartnerFilter from './filters/PartnerFilter';
 import { searchUsers } from '@/api/users';
 import get from 'lodash.get';
@@ -149,7 +150,7 @@ export default {
     let currentVisibleFilters = [
       {
         title: 'getadmin.users.filters.fullName',
-        component: FullNameFilter,
+        component: TextFilter,
         onChange(chosenValue) {
           return {
             id: 'getadmin.users.filters.fullName',
@@ -159,7 +160,7 @@ export default {
       },
       {
         title: 'getadmin.users.filters.email',
-        component: EmailFilter,
+        component: TextFilter,
         onChange(chosenValue) {
           return {
             id: 'getadmin.users.filters.email',
