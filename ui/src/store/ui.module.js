@@ -16,6 +16,9 @@ export const state = {
   ignoreClickAway: false,
   width: undefined,
 
+  exportPanelParams: undefined,
+  isExportFormatChoiceOpen: false,
+
   homeWidgets: loadWidgets(),
 };
 
@@ -66,6 +69,15 @@ function saveFormattedWidgets(widgets) {
 export const mutations = {
   initHomeWidgets(state) {
     saveFormattedWidgets(state.homeWidgets);
+  },
+  openExportChoice(state, params) {
+    state.exportPanelParams = params;
+
+    state.isExportFormatChoiceOpen = true;
+  },
+  closeExportChoice(state) {
+    state.isExportFormatChoiceOpen = false;
+    state.exportPanelParams = undefined;
   },
   setHomeWidgets: (state, widgets) => {
     state.homeWidgets = [...widgets];

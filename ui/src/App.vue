@@ -14,12 +14,14 @@
     <FlashMessages />
     <ConfirmationModal />
     <ff-toggle />
+    <ExportButtonModals />
   </div>
 </template>
 
 <script>
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
+import ExportButtonModals from '@/components/ExportButtonModals';
 import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
@@ -34,6 +36,7 @@ export default {
     PanelSwitcher,
     FlashMessages,
     ConfirmationModal,
+    ExportButtonModals,
   },
   methods: {
     ...mapMutations(['closePanel']),
