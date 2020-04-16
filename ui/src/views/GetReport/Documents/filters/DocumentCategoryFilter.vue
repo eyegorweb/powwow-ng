@@ -20,18 +20,16 @@ export default {
     };
   },
 
-  mounted() {
-    (async () => {
-      const response = await fetchAllDocumentsCategory();
-      if (response) {
-        this.items = response.map(p => {
-          return {
-            id: p.name,
-            label: p.name,
-          };
-        });
-      }
-    })();
+  async mounted() {
+    const response = await fetchAllDocumentsCategory();
+    if (response) {
+      this.items = response.map(p => {
+        return {
+          id: p.name,
+          label: p.name,
+        };
+      });
+    }
   },
 
   watch: {

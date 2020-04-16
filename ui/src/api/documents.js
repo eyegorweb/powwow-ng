@@ -23,14 +23,6 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
         total
         items {
           documentName
-          creationDate
-          category {
-            name
-          }
-          party {
-            id
-            name
-          }
         }
       }
     }
@@ -45,8 +37,16 @@ export function formatFilters(selectedFilters) {
   addPartyIdFilter(gqlFilters, selectedFilters);
   addDocumentNameFilter(gqlFilters, selectedFilters);
   addCategoryFilter(gqlFilters, selectedFilters);
+  addReportModel(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
+}
+
+export function addReportModel(gqlFilters, selectedFilters) {
+  const filterdItem = selectedFilters.find(f => f.id === 'documents.model');
+  if (filterdItem) {
+    gqlFilters.push(`reportId: {in: [${filterdItem.data.id}]}`);
+  }
 }
 
 function addPartyIdFilter(gqlFilters, selectedFilters) {

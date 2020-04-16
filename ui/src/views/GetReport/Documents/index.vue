@@ -29,6 +29,7 @@ import { fetchAllDocuments } from '@/api/documents';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
+import ReportModelFilter from './filters/ReportModelFilter';
 import get from 'lodash.get';
 
 import { mapGetters } from 'vuex';
@@ -121,6 +122,17 @@ export default {
             return {
               id: 'documents.category',
               values: chosenValues,
+            };
+          },
+        },
+        {
+          title: 'documents.model',
+          component: ReportModelFilter,
+          onChange(selectedValue) {
+            return {
+              id: 'documents.model',
+              value: selectedValue.label,
+              data: selectedValue,
             };
           },
         },
