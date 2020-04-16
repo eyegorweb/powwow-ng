@@ -159,7 +159,6 @@ export default {
       {
         label: 'GetReport',
         to: { name: 'reports' },
-        mock: true,
         submenu: [
           {
             label: 'menu.modelReports',
