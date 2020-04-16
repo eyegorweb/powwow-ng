@@ -39,6 +39,7 @@ import Tooltip from '@/components/ui/Tooltip';
 import UiButton from '@/components/ui/Button';
 import DataTable from '@/components/DataTable/DataTable';
 import ReportsActions from './ReportsActions';
+import GeneratedReportsCell from './GeneratedReportsCell';
 import GetSimOrdersCreatorCell from '@/views/GetSim/GetSimOrders/GetSimOrdersCreatorCell.vue';
 import { mapGetters, mapMutations } from 'vuex';
 import { fetchReports } from '@/api/reports.js';
@@ -149,10 +150,7 @@ export default {
           noHandle: true,
           fixed: true,
           format: {
-            type: 'Getter',
-            getter: row => {
-              return row.generatedReports;
-            },
+            component: GeneratedReportsCell,
           },
         },
         {

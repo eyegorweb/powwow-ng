@@ -9,7 +9,7 @@
       </div>
     </div>
     <TableWithFilter
-      v-if="columns"
+      v-if="columns && filters"
       :filters="filters"
       :columns="columns"
       :rows="rows"
@@ -18,7 +18,7 @@
       :size="0"
       @applyFilters="applyFilters"
     >
-      <div slot="title" class="total">{{ $t('getadmin.users.total', { total: total }) }}</div>
+      <div slot="title" class="total">{{ $t('documents.total', { total: total }) }}</div>
     </TableWithFilter>
   </div>
 </template>
@@ -26,6 +26,7 @@
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllDocuments } from '@/api/documents';
+import { fetchReports } from '@/api/reports.js';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
@@ -90,53 +91,76 @@ export default {
       //   visible: true,
       // },
     ];
+    const reportId = get(this.$route, 'params.reportId');
+    this.filters = [
+      {
+        title: 'getadmin.users.filters.partners',
+        component: PartnerNameFilter,
+        onChange(chosenValues) {
+          return {
+            id: 'getadmin.users.filters.partners',
+            values: chosenValues,
+          };
+        },
+      },
+      {
+        title: 'documents.name',
+        component: DocumentNameFilter,
+        onChange(value) {
+          return {
+            id: 'documents.name',
+            value,
+          };
+        },
+      },
+      {
+        title: 'documents.category',
+        component: DocumentCategoryFilter,
+        onChange(chosenValues) {
+          return {
+            id: 'documents.category',
+            values: chosenValues,
+          };
+        },
+      },
+      {
+        title: 'documents.model',
+        component: ReportModelFilter,
+        onChange(selectedValue) {
+          return {
+            id: 'documents.model',
+            value: selectedValue.label,
+            data: selectedValue,
+          };
+        },
+
+        // TODO: Refactor
+        initialize: async currentFilters => {
+          if (!reportId) return;
+          const pagination = { page: 0, limit: 999 };
+          const orderBy = {
+            key: 'id',
+            direction: 'DESC',
+          };
+
+          const response = await fetchReports(orderBy, pagination, this.singlePartger);
+
+          if (response.items) {
+            const selectedItem = response.items.find(i => i.id === reportId);
+            currentFilters.push({
+              id: 'documents.model',
+              value: selectedItem.name,
+              data: selectedItem,
+            });
+          }
+        },
+      },
+    ];
     this.applyFilters();
   },
   data() {
     return {
-      filters: [
-        {
-          title: 'getadmin.users.filters.partners',
-          component: PartnerNameFilter,
-          onChange(chosenValues) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              values: chosenValues,
-            };
-          },
-        },
-        {
-          title: 'documents.name',
-          component: DocumentNameFilter,
-          onChange(value) {
-            return {
-              id: 'documents.name',
-              value,
-            };
-          },
-        },
-        {
-          title: 'documents.category',
-          component: DocumentCategoryFilter,
-          onChange(chosenValues) {
-            return {
-              id: 'documents.category',
-              values: chosenValues,
-            };
-          },
-        },
-        {
-          title: 'documents.model',
-          component: ReportModelFilter,
-          onChange(selectedValue) {
-            return {
-              id: 'documents.model',
-              value: selectedValue.label,
-              data: selectedValue,
-            };
-          },
-        },
-      ],
+      filters: undefined,
       columns: undefined,
       rows: [],
       total: 0,
@@ -147,7 +171,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'singlePartger']),
   },
   methods: {
     async applyFilters(payload) {

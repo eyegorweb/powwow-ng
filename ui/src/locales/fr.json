@@ -131,6 +131,7 @@
     }
   },
   "documents": {
+    "total": "{total} document(s) trouvé(s)",
     "name": "Nom du document",
     "partner": "Partenaire",
     "creationDate": "Date d’ajout",
