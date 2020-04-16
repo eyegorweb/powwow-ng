@@ -8,7 +8,7 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.deActivate') }} :</h6>
-        <p class="text-uppercase">{{ $t('common.' + getFromOrder('activationAsked')) }}</p>
+        <p class="text-uppercase">{{ disabledUser }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.title') }} :</h6>
@@ -72,6 +72,10 @@ export default {
     ...mapGetters(['userName', 'userInfos']),
     roles() {
       return this.userInfos.roles;
+    },
+    disabledUser() {
+      if (!this.userInfos) return;
+      return this.userInfos.disabled ? this.$t('common.YES') : this.$t('common.NO');
     },
   },
 };
