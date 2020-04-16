@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.702+20200416121332
+2020-04-16
+
+### Features
+
+- rechercher mes documents par le modèle de rapport (68cbad30f36d49246f6d253727ccad97b4249596)
+
 ## 0.3.0-master.701+20200416074037
 2020-04-16
 
