@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.699+20200416072156
+2020-04-16
+
+### Fixes
+
+- Correction de l'export des actes (e7954f3bb47339bbe915716bf8df0a02d0a7e968)
+
 ## 0.3.0-master.698+20200416051453
 2020-04-16
 
