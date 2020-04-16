@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.704+20200416125920
+2020-04-16
+
+### Fixes
+
+- **lines:** correction du total de consommation voix internationale (7ce4243424b9069add374b371f5b3332ff46f445)
+
 ## 0.3.0-master.703+20200416124847
 2020-04-16
 
