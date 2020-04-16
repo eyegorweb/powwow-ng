@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.706+20200416145541
+2020-04-16
+
+### Features
+
+- consulter les rapports générés (exports) dans la gestion documentaire depuis la liste des rapports (e3c3c9e49da2b2ce3c130f8501b6252bf26f18a7)
+
 ## 0.3.0-master.705+20200416130442
 2020-04-16
 
