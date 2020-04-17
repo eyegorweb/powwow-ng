@@ -28,6 +28,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         generatedReports
         exportFormat
         notification
+        disabled
         auditable {
           creator {
             name {
@@ -55,4 +56,14 @@ export async function fetchReports(orderBy, pagination, partnerID) {
   const response = await query(queryStr);
 
   return response.data.reportDefinitions;
+}
+
+export async function enableReport(reportId) {
+  const response = await query(`mutation{activateReportDefinition (reportId : ${reportId}){id}}`);
+  if (response.data) return response.data.activateReportDefinition;
+}
+
+export async function disableReport(reportId) {
+  const response = await query(`mutation{disableReportDefinition (reportId : ${reportId}){id}}`);
+  if (response.data) return response.data.disableReportDefinition;
 }
