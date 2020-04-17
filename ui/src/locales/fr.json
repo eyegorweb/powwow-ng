@@ -79,7 +79,8 @@
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
     "ENABLE": "Activer",
-    "DELETE": "Supprimer"
+    "DELETE": "Supprimer",
+    "DOWNLOAD": "Télécharger"
   },
   "home": {
     "customize": {

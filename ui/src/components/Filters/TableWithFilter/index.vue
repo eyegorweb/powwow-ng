@@ -33,8 +33,8 @@
           <div slot="topLeftCorner">
             <slot name="topLeft"></slot>
           </div>
-          <div slot="actions">
-            <slot name="actions"></slot>
+          <div slot="actions" slot-scope="{ row }">
+            <slot name="actions" :row="row"></slot>
           </div>
         </ResultDataTable>
 
