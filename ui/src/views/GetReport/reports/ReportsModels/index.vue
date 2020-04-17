@@ -27,7 +27,7 @@
         :size="8"
       >
         <template slot="actions" slot-scope="{ row }">
-          <ReportsActions :report="row" />
+          <ReportsActions :report="row" @actionIsDone="fetchResults()" />
         </template>
       </DataTable>
     </div>
