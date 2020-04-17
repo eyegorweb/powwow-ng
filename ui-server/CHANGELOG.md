@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.707+20200417114936
+2020-04-17
+
+### Features
+
+- activer / désactiver un rapport de mon partenaire (d60fb675e21cdda3de1308f36340c270942af455)
+
 ## 0.3.0-master.706+20200416145541
 2020-04-16
 
