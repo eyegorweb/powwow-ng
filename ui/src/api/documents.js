@@ -47,6 +47,16 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
               name {title firstName lastName}
             }
           }
+          party{
+            id
+            name
+          }
+          category{
+            name
+          }
+          auditable {
+            created
+          }
         }
       }
     }
