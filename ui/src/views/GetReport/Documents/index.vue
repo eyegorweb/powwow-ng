@@ -51,7 +51,7 @@ export default {
         id: 1,
         label: this.$t('documents.name'),
         name: 'documentName',
-        sortingName: 'name',
+        sortingName: 'documentName',
         orderable: true,
         visible: true,
       },
@@ -74,6 +74,12 @@ export default {
         name: 'creationDate',
         orderable: true,
         visible: true,
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return get(row, 'auditable.created', '-');
+          },
+        },
       },
       {
         id: 4,
