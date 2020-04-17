@@ -70,7 +70,7 @@ export async function createReport(params) {
       reportExportColumns: [${columns.join(',')}]
       exportFormat: ${params.exportFormat}
       generationDate: "${params.generationDate}"
-      disabled: false
+      disabled: ${params.isDisabled}
       partyId: ${params.partyId}
       name: "${params.name}",
       ${optionalParams.join(',')}
