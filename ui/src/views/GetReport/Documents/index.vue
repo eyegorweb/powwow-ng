@@ -15,21 +15,25 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
-      :size="0"
+      :size="8"
       @applyFilters="applyFilters"
     >
-      <div slot="title" class="total">{{ $t('documents.total', { total: total }) }}</div>
+      <div slot="title" class="total">{{ $t('getadmin.users.total', { total: total }) }}</div>
+      <template slot="actions" slot-scope="{ row }">
+        <Actions :row="row" @deleteDocument="onDeleteDcument(row)" />
+      </template>
     </TableWithFilter>
   </div>
 </template>
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import { fetchAllDocuments } from '@/api/documents';
+import { fetchAllDocuments, deleteDocument } from '@/api/documents';
 import { fetchReports } from '@/api/reports.js';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
+import Actions from './Actions';
 import ReportModelFilter from './filters/ReportModelFilter';
 import get from 'lodash.get';
 
@@ -38,6 +42,7 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     TableWithFilter,
+    Actions,
   },
 
   mounted() {
@@ -183,6 +188,16 @@ export default {
       const data = await fetchAllDocuments(this.orderBy, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
+    },
+    refreshAllDocuments(index) {
+      if (index >= 0) {
+        return this.rows.splice(index, 1);
+      }
+    },
+    async onDeleteDcument(document) {
+      await deleteDocument(document.id);
+      const currentIndex = this.rows.findIndex(r => r.id === document.id);
+      this.refreshAllDocuments(currentIndex);
     },
   },
 };

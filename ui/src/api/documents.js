@@ -22,7 +22,31 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
       documents(documentFilterInput:{${formatFilters(filters)}} ${paginationInfo} ${orderingInfo}) {
         total
         items {
+          id
+          fileName
           documentName
+          party {
+            id
+            name
+          }
+          category {
+            name
+            directoryName
+          }
+          partyGroupId
+          reportId
+          auditable {
+            created
+            updated
+            creator {
+              id
+              name {title firstName lastName}
+            }
+            updater {
+              id
+              name {title firstName lastName}
+            }
+          }
         }
       }
     }
@@ -71,4 +95,16 @@ function addCategoryFilter(gqlFilters, selectedFilters) {
   if (categories) {
     gqlFilters.push(`category: {in: ["${categories}"]}`);
   }
+}
+
+export async function deleteDocument(id) {
+  const queryStr = `
+  mutation  {
+    deleteDocument(idDocument:${id})
+    }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.deleteDocument;
 }
