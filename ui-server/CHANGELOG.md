@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.708+20200417124718
+2020-04-17
+
+### Features
+
+- Ajouter le statut du rapport dans la liste et dans le détail (7fbb0849924f497593a36865665034980a86ab60)
+
 ## 0.3.0-master.707+20200417114936
 2020-04-17
 
