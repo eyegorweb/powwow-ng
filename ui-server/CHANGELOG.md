@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.709+20200417133221
+2020-04-17
+
+### Features
+
+- **reports:** ajout de l'action de suppression dans la gestion de documents (200341b5a5ed8156c01534f15e0a88d742c77c85)
+
 ## 0.3.0-master.708+20200417124718
 2020-04-17
 
