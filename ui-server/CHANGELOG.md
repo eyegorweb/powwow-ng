@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.710+20200417141930
+2020-04-17
+
+### Features
+
+- Brancher les colonnes des documents (43da76c92ec1de515c2d414ee4e50f57b4e0549e)
+
 ## 0.3.0-master.709+20200417133221
 2020-04-17
 
