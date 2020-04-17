@@ -30,7 +30,7 @@
           <ReportsActions
             :report="row"
             @actionIsDone="fetchResults()"
-            :panelConfig="getPanelConfig(row)"
+            :panel-config="getPanelConfig(row)"
           />
         </template>
       </DataTable>
