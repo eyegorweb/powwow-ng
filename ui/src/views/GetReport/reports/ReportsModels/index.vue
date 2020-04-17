@@ -24,10 +24,14 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        :size="8"
+        :size="6"
       >
         <template slot="actions" slot-scope="{ row }">
-          <ReportsActions :report="row" @actionIsDone="fetchResults()" />
+          <ReportsActions
+            :report="row"
+            @actionIsDone="fetchResults()"
+            :panelConfig="getPanelConfig(row)"
+          />
         </template>
       </DataTable>
     </div>
@@ -82,7 +86,6 @@ export default {
           visible: true,
           name: 'name',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'OpenPanel',
             getConfig: row => this.getPanelConfig(row),
@@ -96,7 +99,6 @@ export default {
           name: 'generationDate',
           exportId: 'generationDate',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -112,7 +114,6 @@ export default {
           name: 'partner',
           exportId: 'partner',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -128,7 +129,6 @@ export default {
           name: 'frequency',
           exportId: 'frequency',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -148,7 +148,6 @@ export default {
           name: 'generatedReports',
           exportId: 'generatedReports',
           noHandle: true,
-          fixed: true,
           format: {
             component: GeneratedReportsCell,
           },
@@ -161,7 +160,6 @@ export default {
           name: 'creator',
           exportId: 'creator',
           noHandle: true,
-          fixed: true,
           format: {
             component: GetSimOrdersCreatorCell,
           },
@@ -174,7 +172,6 @@ export default {
           name: 'fields',
           exportId: 'fields',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -185,17 +182,18 @@ export default {
 
         {
           id: 10,
-          label: 'Activé',
+          label: 'Statut',
           orderable: true,
           visible: false,
           name: 'enableEntity',
           exportId: 'enableEntity',
           noHandle: true,
-          fixed: true,
           format: {
             type: 'Getter',
             getter: row => {
-              return row.enableEntity && row.enableEntity.disabled ? row.enableEntity.disabled : '';
+              return row.disabled
+                ? this.$t('filters.lines.profileStateFilter.DISABLED')
+                : this.$t('filters.active');
             },
           },
         },

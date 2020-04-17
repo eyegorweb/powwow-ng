@@ -13,6 +13,7 @@ export default {
   },
   props: {
     report: Object,
+    panelConfig: Object,
   },
 
   data() {
@@ -23,7 +24,7 @@ export default {
 
   computed: {
     actions() {
-      const actions = [];
+      const actions = ['getsim.actions.DETAIL'];
 
       if (this.report.disabled) {
         actions.push('actions.ENABLE');
@@ -36,7 +37,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage']),
+    ...mapMutations(['flashMessage', 'openPanel', 'confirmAction']),
 
     async onActionClicked(action) {
       if (!this.canDoAsyncAction) return;
@@ -59,9 +60,22 @@ export default {
         this.canDoAsyncAction = true;
       }
       if (action === 'actions.DISABLE') {
-        this.canDoAsyncAction = false;
-        response = await disableReport(this.report.id);
-        this.canDoAsyncAction = true;
+        this.confirmAction({
+          message: 'confirmAction',
+          actionFn: async () => {
+            this.canDoAsyncAction = false;
+            response = await disableReport(this.report.id);
+            this.canDoAsyncAction = true;
+
+            showMessage(response);
+          },
+        });
+        return;
+      }
+
+      if (action === 'getsim.actions.DETAIL') {
+        this.openPanel(this.panelConfig);
+        return;
       }
 
       showMessage(response);

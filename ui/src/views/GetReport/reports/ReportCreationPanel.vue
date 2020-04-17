@@ -80,6 +80,15 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="d-flex pt-3">
+              <UiCheckbox v-model="isActive" />
+              <span>{{ $t('filters.active') }}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="fieldsRecap">
         <h5>Données du rapport</h5>
@@ -179,6 +188,8 @@ export default {
 
       this.generationDate = this.content.generationDate + ' 00:00:00';
       this.shouldNotify = this.content.notification;
+      console.log(this.content);
+      this.isActive = !this.content.disabled;
       this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
 
       this.fileFormat = this.content.exportFormat;
@@ -366,6 +377,7 @@ export default {
         generationDate: this.generationDate,
         partyId: this.selectedPartner.id,
         name: this.name,
+        isDisabled: !this.isActive,
       };
 
       let response;
@@ -637,6 +649,7 @@ export default {
       name: undefined,
       selectedPartner: undefined,
       fileFormat: undefined,
+      isActive: false,
       fileFormats: [
         {
           value: 'CSV',
