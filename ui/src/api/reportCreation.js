@@ -38,7 +38,7 @@ export async function updateReport(params) {
       reportExportColumns: [${columns.join(',')}]
       exportFormat: ${params.exportFormat}
       generationDate: "${params.generationDate}"
-      disabled: false
+      disabled: ${params.isDisabled}
       ${optionalParams.join(',')}
     }) { id }
   }`;
