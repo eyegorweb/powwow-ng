@@ -25,6 +25,7 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
         orderNumberRequired
         shortCodes
         partyType
+        flagMsisdnA
         ${extraFields.join(',')}
       },
     }
@@ -53,6 +54,7 @@ export async function fetchpartnerById(id, conf) {
         orderNumberRequired
         shortCodes
         partyType
+        flagMsisdnA
         ${extraFields.join(',')}
       },
     }
