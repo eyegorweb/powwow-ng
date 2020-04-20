@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex" :class="{ 'slim-toggles': slimToggles }">
+  <div class="d-flex" :class="{ 'slim-toggles': slimToggles, 'light-theme': lightTheme }">
     <div class="item toggle" :class="{ 'block-toggles': block }">
       <button
         v-for="item in values"
@@ -38,6 +38,7 @@ export default {
       required: true,
     },
     slimToggles: Boolean,
+    lightTheme: Boolean,
     block: Boolean,
   },
 };
@@ -78,6 +79,42 @@ export default {
     &:last-child {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
+    }
+  }
+}
+
+.light-theme {
+  .toggle {
+    display: flex;
+    align-content: stretch;
+    width: 100%;
+    button {
+      border: 1px solid $gray-400;
+      border-left: none;
+      font-size: 1rem;
+      padding: 1rem;
+      color: $dark-gray;
+      &:focus {
+        outline: none;
+      }
+      &.active {
+        background-color: $primary;
+        border-color: $primary;
+        border-radius: 0;
+        color: $white;
+        outline: none;
+      }
+
+      &:first-child {
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        margin-left: 0px;
+        border-left: 1px solid $gray-400;
+      }
+      &:last-child {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
     }
   }
 }

@@ -369,7 +369,7 @@
   },
   "getreport": {
     "pageTitle": "Modèles de rapports",
-    "reports_tooltip": "tooltip ici",
+    "reports_tooltip": "Cette page permet de paramétrer des rapports",
     "create_report": "Créer un rapport",
     "actions": {
       "DETAIL": "Voir   le détail du reporting",

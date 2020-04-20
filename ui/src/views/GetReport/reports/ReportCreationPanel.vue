@@ -42,6 +42,7 @@
             v-if="reportFrequency"
             @update="reportFrequency = $event.id"
             :values="reportFrequencyChoices"
+            light-theme
             class="pl-2"
           />
         </div>
@@ -649,7 +650,7 @@ export default {
       name: undefined,
       selectedPartner: undefined,
       fileFormat: undefined,
-      isActive: false,
+      isActive: true,
       fileFormats: [
         {
           value: 'CSV',

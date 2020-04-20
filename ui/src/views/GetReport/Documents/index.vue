@@ -18,7 +18,7 @@
       :size="8"
       @applyFilters="applyFilters"
     >
-      <div slot="title" class="total">{{ $t('getadmin.users.total', { total: total }) }}</div>
+      <div slot="title" class="total">{{ $t('documents.total', { total: total }) }}</div>
       <template slot="actions" slot-scope="{ row }">
         <Actions :row="row" @deleteDocument="onDeleteDcument(row)" />
       </template>
