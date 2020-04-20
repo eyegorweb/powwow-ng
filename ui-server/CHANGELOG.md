@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.713+20200420124413
+2020-04-20
+
+### Features
+
+- Gérer les permissions sur la création des rapports (8f632224c7eb076967597ab007d0a65be10fbcc9)
+
 ## 0.3.0-master.712+20200420091721
 2020-04-20
 
