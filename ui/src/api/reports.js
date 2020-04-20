@@ -36,6 +36,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
               firstName
               lastName
             }
+            username
             email
           }
         }
