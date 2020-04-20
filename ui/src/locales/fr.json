@@ -137,7 +137,15 @@
     "partner": "Partenaire",
     "creationDate": "Date d’ajout",
     "category": "Catégorie",
-    "model": "Modèle de rapport"
+    "model": "Modèle de rapport",
+    "categories": {
+      "BILL": "Facture",
+      "PORTABILITY": "Portabilité",
+      "EXPORT": "Export",
+      "BALANCE": "Encours non valorisés",
+      "PDP": "PDP",
+      "FDNX": "FDNX"
+    }
   },
   "menu": {
     "massActions": "Historique d'actes de gestion",

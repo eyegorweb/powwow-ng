@@ -21,15 +21,21 @@
         </div>
 
         <div class="checkbox-groups" v-if="groups">
-          <FoldableBlock :title="group.title" :key="group.title" v-for="group in groups">
+          <FoldableBlock
+            v-if="!group.canShow || group.canShow()"
+            :title="group.title"
+            :key="group.title"
+            v-for="group in groups"
+          >
             <div class="bg-white p-3 bordered checkboxes-container">
               <div
+                v-if="!checkbox.canShow || checkbox.canShow()"
                 :key="checkbox.label"
                 v-for="checkbox in group.checkboxes"
                 class="d-flex pt-3 item"
               >
                 <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
-                <span>{{ checkbox.label }}</span>
+                <span>{{ checkbox.label }} </span>
               </div>
             </div>
           </FoldableBlock>
@@ -189,7 +195,6 @@ export default {
 
       this.generationDate = this.content.generationDate + ' 00:00:00';
       this.shouldNotify = this.content.notification;
-      console.log(this.content);
       this.isActive = !this.content.disabled;
       this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
 
@@ -401,6 +406,12 @@ export default {
       this.closePanel({ resetSearch: true });
     },
 
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(
+        p => p.domain === domain && p.action === action
+      );
+    },
+
     resetCheckboxes() {
       this.selectedItems = [];
       this.groups = [
@@ -409,10 +420,28 @@ export default {
           checkboxes: [
             { code: 'ICCID', label: 'ICCID', checked: false },
             { code: 'IMSI', label: 'IMSI', checked: false },
-            { code: 'MSISDN', label: 'MSISDN', checked: false },
-            { code: 'AMSISDN', label: 'A-MSISDN', checked: false },
+            {
+              code: 'MSISDN',
+              label: 'MSISDN',
+              checked: false,
+            },
+            {
+              code: 'AMSISDN',
+              label: 'A-MSISDN',
+              checked: false,
+              canShow: () => {
+                return get(this.selectedPartner, 'data.flagMsisdnA');
+              },
+            },
             { code: 'IMEI', label: 'IMEI', checked: false },
-            { code: 'GRP_DEVICE_INFO', label: 'Matériel et constructeur', checked: false },
+            {
+              code: 'GRP_DEVICE_INFO',
+              label: 'Matériel et constructeur',
+              checked: false,
+              canShow: () => {
+                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
+              },
+            },
             { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
             { code: 'GRP_CUSTOM_FIELDS', label: 'Champs libres', checked: false },
             { code: 'GRP_SPECIFIC_FIELDS', label: 'Champs spécifiques', checked: false },
@@ -423,7 +452,14 @@ export default {
             { code: 'AP_ID', label: 'Identifiant point d’accès', checked: false },
             { code: 'ELECTRIC_PROFILE', label: 'Profil électrique', checked: false },
             { code: 'GRAPHIC_PROFILE', label: 'Profile graphique', checked: false },
-            { code: 'HARDWARE_TYPE', label: 'Type de hardware', checked: false },
+            {
+              code: 'HARDWARE_TYPE',
+              label: 'Type de hardware',
+              checked: false,
+              canShow: () => {
+                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
+              },
+            },
             { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
             { code: 'PREACTIVATION_DATE', label: 'Date de préactivation', checked: false },
             { code: 'ACTIVATION_DATE', label: 'Date d’activation', checked: false },
@@ -432,12 +468,29 @@ export default {
               label: 'Date de dernier changement de statut',
               checked: false,
             },
-            { code: 'FIXED_IP_ADDRESSES', label: 'Adresse ip fixe', checked: false },
-            { code: 'FLAT_END_DATE', label: "Date de changement d'offre MVNO", checked: false },
+            {
+              code: 'FIXED_IP_ADDRESSES',
+              label: 'Adresse ip fixe',
+              checked: false,
+              canShow: () => {
+                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+              },
+            },
+            {
+              code: 'FLAT_END_DATE',
+              label: "Date de changement d'offre MVNO",
+              checked: false,
+              canShow: () => {
+                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+              },
+            },
           ],
         },
         {
           title: 'Informations Dual SIM',
+          canShow: () => {
+            return this.havePermission('getParc', 'manage_dual');
+          },
           checkboxes: [
             { code: 'DUAL_ICCID', label: 'Dual ICCID', checked: false },
             { code: 'DUAL_MSISDN', label: 'Dual MSISDN', checked: false },
@@ -604,6 +657,27 @@ export default {
               checked: false,
             },
             { code: 'LAST_TICKET_GENERATION', label: 'Génération du ticket', checked: false },
+          ],
+        },
+        {
+          title: 'Informations eSIM',
+          checkboxes: [
+            { code: 'ESIM_PROFILE_STATE', label: 'Etat du   profil eSIM', checked: false },
+            {
+              code: 'ESIM_LAST_PROFILE_STATE',
+              label: 'Etat du   dernier profil eSIM',
+              checked: false,
+            },
+            {
+              code: 'ESIM_LAST_RESYNCHRONISATION_DATE',
+              label: 'Date de la dernière resynchronisation',
+              checked: false,
+            },
+            {
+              code: 'ESIM_LAST_MODIFICATION_DATE',
+              label: 'Date de   la dernière modification',
+              checked: false,
+            },
           ],
         },
       ];

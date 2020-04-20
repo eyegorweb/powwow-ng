@@ -26,7 +26,7 @@ export default {
       this.items = response.map(p => {
         return {
           id: p.name,
-          label: p.name,
+          label: this.$t('documents.categories.' + p.name),
         };
       });
     }

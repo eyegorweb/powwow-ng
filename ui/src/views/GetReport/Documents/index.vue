@@ -88,7 +88,7 @@ export default {
         format: {
           type: 'Getter',
           getter: row => {
-            return get(row, 'category.name', '-');
+            return this.$t('documents.categories.' + get(row, 'category.name', '-'));
           },
         },
         orderable: true,
