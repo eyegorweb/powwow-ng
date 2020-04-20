@@ -3,6 +3,15 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
+
+    <Toggle
+      @update="reportFrequency = $event.id"
+      :values="reportFrequencyChoices"
+      light-theme
+      block-toggles
+      class="pl-2"
+    />
+
     {{ selectedPartner }}
     <PartnerCombo :value.sync="selectedPartner" />
 
@@ -24,6 +33,7 @@ import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   name: 'Home',
@@ -31,12 +41,32 @@ export default {
     SearchTranslationKey,
     ServicesChoice,
     PartnerCombo,
+    Toggle,
   },
 
   data() {
     return {
       selectedPartner: undefined,
       selectedServices: [],
+      reportFrequency: undefined,
+      reportFrequencyChoices: [
+        {
+          id: 'ONCE',
+          label: 'Une seule fois',
+        },
+        {
+          id: 'DAILY',
+          label: 'Journalier',
+        },
+        {
+          id: 'WEEKLY',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'MONTHLY',
+          label: 'Mensuel',
+        },
+      ],
       offer: {
         id: '3',
         code: 'OFFRE_TEST',
