@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.712+20200420091721
+2020-04-20
+
+### Fixes
+
+- Retours sur la getReport (fad11772b62eae424f012e9b891ecb84a42428e9)
+
 ## 0.3.0-master.711+20200417144507
 2020-04-17
 
