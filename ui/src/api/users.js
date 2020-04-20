@@ -1,5 +1,18 @@
 import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
+export async function fetchUserByUsername(username) {
+  const orderBy = { key: 'id', direction: 'DESC' };
+  const pagination = { page: 0, limit: 1 };
+  const filters = [
+    {
+      id: 'getadmin.users.filters.userName',
+      value: username,
+    },
+  ];
+  const response = await searchUsers(orderBy, pagination, filters);
+  if (response.items && response.items.length) return response.items[0];
+}
+
 export async function searchUsers(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
@@ -19,6 +32,7 @@ export async function searchUsers(orderBy, pagination, filters = []) {
           firstName
           lastName
         }
+        disabled
         permissions {
           domain
           action
@@ -26,6 +40,11 @@ export async function searchUsers(orderBy, pagination, filters = []) {
         partners {
           name
           id
+        }
+        roles {
+          Id
+          name
+          description
         }
       }
     }
@@ -65,6 +84,7 @@ export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
   addFullNameFilter(gqlFilters, selectedFilters);
+  addUserNameFilter(gqlFilters, selectedFilters);
   addEmailFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addLoginFilter(gqlFilters, selectedFilters);
@@ -78,6 +98,13 @@ function addFullNameFilter(gqlFilters, selectedFilters) {
 
   if (fullName) {
     gqlFilters.push(`fullname: {contains: "${fullName}"}`);
+  }
+}
+function addUserNameFilter(gqlFilters, selectedFilters) {
+  const userName = getFilterValue(selectedFilters, 'getadmin.users.filters.userName');
+
+  if (userName) {
+    gqlFilters.push(`username: {contains: "${userName}"}`);
   }
 }
 function addEmailFilter(gqlFilters, selectedFilters) {
