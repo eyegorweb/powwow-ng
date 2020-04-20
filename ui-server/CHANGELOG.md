@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.714+20200420152129
+2020-04-20
+
+### Fixes
+
+- mise à jour des infos lors de l'ouverture du volet Utilisateur (0b4fb231af4360dde9930a5f69abd4dd7e4a1c3b)
+
 ## 0.3.0-master.713+20200420124413
 2020-04-20
 
