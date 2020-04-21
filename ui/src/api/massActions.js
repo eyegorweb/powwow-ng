@@ -6,10 +6,17 @@ export async function exportMassAction(
   statuses,
   groupedStatus,
   columns,
-  exportFormat
+  exportFormat,
+  asyncExportRequest = false
 ) {
   const columnsParam = columns.join(',');
   const statusesParam = statuses.join(',');
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
 
   const queryStr = `
   query  {
@@ -18,7 +25,8 @@ export async function exportMassAction(
       groupedStatus: ${groupedStatus}
       columns: [${columnsParam}],
       unitActionSorting:{field:ID sorting:ASC}
-      exportFormat: ${exportFormat}){
+      exportFormat: ${exportFormat}
+      ${asyncExportRequestParam}){
       downloadUri
       total
       asyncRequired
@@ -30,14 +38,25 @@ export async function exportMassAction(
 
   return response.data.exportMassAction;
 }
-export async function exportAllMassActions(columns, exportFormat, filters = []) {
+export async function exportAllMassActions(
+  columns,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
 
   const queryStr = `
   query  {
     exportMassAction(filter: {${formatFilters(
       filters
-    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}){
+    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}){
       downloadUri
       total
       asyncRequired

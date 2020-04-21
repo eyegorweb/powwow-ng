@@ -102,7 +102,7 @@ export default {
       this.page = 1;
     },
     getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         return await exportMassAction(
           this.massActionId,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
@@ -125,7 +125,8 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          exportFormat
+          exportFormat,
+          asyncExportRequest
         );
       };
     },

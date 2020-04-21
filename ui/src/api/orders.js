@@ -517,15 +517,26 @@ export async function updateOrderStatus(orderId, newStatus) {
   return response.data.updateOrder;
 }
 
-export async function exportFile(columns, orderBy, exportFormat, filters = []) {
+export async function ordersExport(
+  columns,
+  orderBy,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
   const response = await query(
     `
     query {
       ordersExport(filter: {${formatFilters(
         filters
-      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}) {
+      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}) {
         downloadUri
         asyncRequired
       }
