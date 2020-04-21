@@ -21,24 +21,24 @@
         </div>
 
         <div class="checkbox-groups" v-if="groups">
-          <FoldableBlock
-            v-if="!group.canShow || group.canShow()"
-            :title="group.title"
-            :key="group.title"
-            v-for="group in groups"
-          >
-            <div class="bg-white p-3 bordered checkboxes-container">
-              <div
-                v-if="!checkbox.canShow || checkbox.canShow()"
-                :key="checkbox.label"
-                v-for="checkbox in group.checkboxes"
-                class="d-flex pt-3 item"
-              >
-                <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
-                <span>{{ checkbox.label }} </span>
+          <template v-for="group in groups">
+            <FoldableBlock
+              v-if="!group.canShow || group.canShow()"
+              :title="group.title"
+              :key="group.title"
+            >
+              <div class="bg-white p-3 bordered checkboxes-container">
+                <div
+                  :key="checkbox.label"
+                  v-for="checkbox in filterVisible(group.checkboxes)"
+                  class="d-flex pt-3 item"
+                >
+                  <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
+                  <span>{{ checkbox.label }} </span>
+                </div>
               </div>
-            </div>
-          </FoldableBlock>
+            </FoldableBlock>
+          </template>
         </div>
 
         <SectionTitle :num="baseNumber + 2">Récurrence et date</SectionTitle>
@@ -234,6 +234,10 @@ export default {
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
+
+    filterVisible(checkboxes) {
+      return checkboxes.filter(checkbox => !checkbox.canShow || checkbox.canShow());
+    },
 
     preloadCheckBoxes(fields) {
       this.resetCheckboxes();

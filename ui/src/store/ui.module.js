@@ -77,6 +77,9 @@ export const mutations = {
   },
   closeExportChoice(state) {
     state.isExportFormatChoiceOpen = false;
+  },
+  closeAndResetExportChoice(state) {
+    state.isExportFormatChoiceOpen = false;
     state.exportPanelParams = undefined;
   },
   setHomeWidgets: (state, widgets) => {

@@ -522,15 +522,27 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
   return response.data.exportErrors;
 }
 
-export async function exportSimCardInstances(columns, orderBy, exportFormat, filters = []) {
+export async function exportSimCardInstances(
+  columns,
+  orderBy,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
   const response = await query(
     `
     query {
       exportSimCardInstances(filter: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}) {
         downloadUri
         asyncRequired
       }

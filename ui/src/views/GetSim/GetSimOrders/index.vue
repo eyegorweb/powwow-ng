@@ -54,7 +54,7 @@ import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
-import { exportFile } from '@/api/orders';
+import { ordersExport } from '@/api/orders';
 import SearchOrderById from './SearchOrderById';
 import LoaderContainer from '@/components/LoaderContainer';
 import ExportButton from '@/components/ExportButton';
@@ -92,8 +92,14 @@ export default {
     ]),
     ...mapMutations(['openModal']),
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportFile(columns, orderBy, exportFormat, this.appliedFilters);
+      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+        return await ordersExport(
+          columns,
+          orderBy,
+          exportFormat,
+          this.appliedFilters,
+          asyncExportRequest
+        );
       };
     },
     resetFilters() {

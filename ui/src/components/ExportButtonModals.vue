@@ -11,7 +11,7 @@
         </button>
         <button
           class="modal-default-button btn btn-success btn-sm ml-1"
-          @click.stop="isAsyncExportAlertOpen = false"
+          @click.stop="validateExport"
         >
           {{ $t('export') }}
         </button>
@@ -77,11 +77,26 @@ export default {
       isAsyncExportAlertOpen: false,
       errors: undefined,
       isLoading: false,
+      exportFormat: undefined,
     };
   },
   methods: {
-    ...mapMutations(['closeExportChoice']),
-    async exportFile(exportFormat) {
+    ...mapMutations(['closeExportChoice', 'flashMessage', 'closeAndResetExportChoice']),
+
+    async validateExport() {
+      this.isAsyncExportAlertOpen = false;
+
+      const downloadResponse = await this.doExport(this.exportFormat, true);
+      this.closeAndResetExportChoice();
+
+      if (!downloadResponse || downloadResponse.errors) {
+        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+      } else {
+        this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+      }
+    },
+
+    async doExport(exportFormat, asyncExportRequest) {
       const { columns, exportFn, orderBy } = this.exportPanelParams;
       this.errors = undefined;
       const columnsParam = sortBy(columns, c => !c.visible)
@@ -89,8 +104,20 @@ export default {
         .map(c => c.exportId);
 
       this.isLoading = true;
-      const downloadResponse = await exportFn(columnsParam, orderBy, exportFormat);
+      const downloadResponse = await exportFn(
+        columnsParam,
+        orderBy,
+        exportFormat,
+        asyncExportRequest
+      );
       this.isLoading = false;
+
+      return downloadResponse;
+    },
+
+    async exportFile(exportFormat) {
+      this.exportFormat = exportFormat;
+      const downloadResponse = await this.doExport(exportFormat);
 
       if (downloadResponse.errors) {
         this.errors = downloadResponse.errors;
@@ -105,7 +132,7 @@ export default {
         if (downloadResponse && downloadResponse.downloadUri) {
           window.open(downloadResponse.downloadUri, '_blank');
         }
-        this.closeExportChoice();
+        this.closeAndResetExportChoice();
       }
     },
   },
