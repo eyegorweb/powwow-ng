@@ -22,6 +22,12 @@ export default {
     onActionClicked(action) {
       if (action === 'actions.DELETE') {
         this.$emit('deleteDocument');
+        return;
+      }
+
+      if (action === 'actions.DOWNLOAD') {
+        window.open(`/api/file/download/document/${this.row.id}`, '_blank');
+        return;
       }
     },
   },
