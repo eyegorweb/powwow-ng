@@ -297,11 +297,11 @@ export default {
       }
     },
     getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         return await exportMassAction(
           this.content.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
-          '',
+          'NONE',
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',
@@ -320,7 +320,8 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          exportFormat
+          exportFormat,
+          asyncExportRequest
         );
       };
     },

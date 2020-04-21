@@ -10,18 +10,24 @@ export default {
     ActionButtons,
   },
   props: {
-    report: Object,
+    row: Object,
   },
   data() {
     return {
-      actions: ['getsim.actions.DETAIL'],
+      actions: ['actions.DOWNLOAD', 'actions.DELETE'],
     };
   },
 
   methods: {
     onActionClicked(action) {
-      if (action === 'getsim.actions.DETAIL') {
-        // this.$router.push({ name: 'alarmDetail', params: { alarmId: this.alarm.id } });
+      if (action === 'actions.DELETE') {
+        this.$emit('deleteDocument');
+        return;
+      }
+
+      if (action === 'actions.DOWNLOAD') {
+        window.open(`/api/file/download/document/${this.row.id}`, '_blank');
+        return;
       }
     },
   },

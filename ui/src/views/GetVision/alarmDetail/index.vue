@@ -80,17 +80,17 @@ export default {
         {
           label: 'trigger2Month',
           title: this.$t('getvsion.alarm.triggered_x_month', { month: 2 }),
-          total: 0,
+          total: '-',
         },
         {
           label: 'targetedLines',
           title: this.$t('getvsion.alarm.triggered_lines'),
-          total: 0,
+          total: '-',
         },
         {
           label: 'excludedSimFromAlarm',
           title: this.$t('getvsion.alarm.excluded_sim_from_alarms'),
-          total: 0,
+          total: '-',
         },
       ],
       alarm: undefined,

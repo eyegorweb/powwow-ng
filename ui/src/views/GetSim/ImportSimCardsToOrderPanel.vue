@@ -49,7 +49,7 @@
             </button>
           </div>
         </div>
-        <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
+        <div v-if="localError" class="alert alert-danger" role="alert">{{ localError }}</div>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -72,10 +72,11 @@ export default {
   },
   data() {
     return {
-      fileMeta: undefined,
+      localFileMeta: undefined,
       fileResponse: undefined,
       placeholder: this.$t('getsim.details.fromFile.import-file'),
       successMessage: undefined,
+      localError: undefined,
       pageLimit: 20,
       orderBy: {
         key: 'id',
@@ -104,6 +105,26 @@ export default {
       if (!this.fileMeta) return null;
       return this.fileMeta;
     },
+    fileMeta: {
+      get() {
+        return this.localFileMeta;
+      },
+
+      async set(newFile) {
+        this.localFileMeta = newFile;
+
+        if (newFile) {
+          this.localError = this.getLocalError(newFile);
+          if (!this.localError) {
+            this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
+            this.$emit('response', {
+              file: newFile,
+              ...this.fileResponse,
+            });
+          }
+        }
+      },
+    },
     totalNotCompatible() {
       if (!this.fileResponse.errors) {
         return 0;
@@ -116,6 +137,16 @@ export default {
   methods: {
     ...mapMutations(['flashMessage']),
     ...mapActions('getsim', ['fetchOrdersFromApi']),
+    getLocalError(fileMeta) {
+      if (!fileMeta) return;
+
+      if (fileMeta.type !== 'application/vnd.ms-excel' && fileMeta.type !== 'text/csv') {
+        return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
+      } else if (fileMeta.size > 1000000) {
+        return this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
+      }
+      return;
+    },
     async confirmRequest(showMessage = false) {
       const response = await importIccids(this.orderId, this.fileResponse.tempDataUuid);
 
@@ -143,24 +174,6 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
-    },
-  },
-  watch: {
-    async selectedFile(newFile) {
-      if (newFile) {
-        this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
-        this.$emit('response', {
-          file: newFile,
-          ...this.fileResponse,
-        });
-      }
-    },
-    error() {
-      if (this.fileMeta.type !== 'application/vnd.ms-excel') {
-        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
-      } else if (this.fileMeta.size > 1000000) {
-        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
-      }
     },
   },
 };

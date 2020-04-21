@@ -25,6 +25,7 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
         orderNumberRequired
         shortCodes
         partyType
+        flagMsisdnA
         ${extraFields.join(',')}
       },
     }
@@ -34,7 +35,14 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
   return response.data.partys.items;
 }
 // ------------------------------------
-export async function fetchpartnerById(id) {
+export async function fetchpartnerById(id, conf) {
+  const extraFields = [];
+  if (conf && conf.includeMailingLists) {
+    extraFields.push(`mailingLists {
+      id
+      name
+    }`);
+  }
   const queryStr = `
   query{
     partys(filter:{id: {eq: ${id}}}, pagination: {limit: 1, page: 0}, sorting: {name: ASC}) {
@@ -46,6 +54,8 @@ export async function fetchpartnerById(id) {
         orderNumberRequired
         shortCodes
         partyType
+        flagMsisdnA
+        ${extraFields.join(',')}
       },
     }
   }

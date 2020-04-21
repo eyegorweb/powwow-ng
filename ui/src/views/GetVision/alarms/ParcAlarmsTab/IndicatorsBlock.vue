@@ -1,14 +1,25 @@
 <template>
-  <div class="mb-2">
-    <Indicators :meta="indicators" :on-click="onClick" precalculated />
-  </div>
+  <ul v-if="indicators" class="list-group bg-white mb-3">
+    <li v-for="indicator in indicators" :key="indicator.labelKey" class="list-group-item">
+      {{ $t(indicator.labelKey, indicator.tradArgs) }}
+
+      <div class="float-right">
+        <button
+          :class="`btn btn-link p-0`"
+          @click.prevent="onClick ? onClick(indicator) : () => {}"
+        >
+          <span>{{ indicator.value }}</span>
+        </button>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
-import Indicators from '@/components/Indicators';
 import moment from 'moment';
-import { mapMutations } from 'vuex';
 import { formattedCurrentDate, DATE_FORMAT } from '@/utils/date';
+import { fetchAlarmInstancesIndicators } from '@/api/alarms';
+import { mapState, mapMutations } from 'vuex';
 
 const startOfCurrentMonth = moment().startOf('month');
 const startOfPrevCurrentMonth = moment()
@@ -25,63 +36,77 @@ const endOfPenultimateMonth = moment()
   .endOf('month');
 
 export default {
-  components: {
-    Indicators,
-  },
   data() {
     return {
-      indicators: [
-        {
-          name: 'triggered_current_month_ongoing',
-          labelKey: 'getvsion.indicators.triggered_current_month_ongoing',
-          color: '',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'getvsion.filters.DATE_TRIGGER',
-              startDate: startOfCurrentMonth.format(DATE_FORMAT),
-              endDate: formattedCurrentDate(),
-            },
-          ],
-          fetchKey: 'ALARM_TRIGGERED_M0',
-        },
-        {
-          name: 'triggered_last_month',
-          labelKey: 'getvsion.indicators.triggered_last_month',
-          color: '',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'getvsion.filters.DATE_TRIGGER',
-              startDate: startOfPrevCurrentMonth.format(DATE_FORMAT),
-              endDate: endOfPrevCurrentMonth.format(DATE_FORMAT),
-            },
-          ],
-          fetchKey: 'ALARM_TRIGGERED_M1',
-        },
-        {
-          name: 'triggered_before_last_month',
-          labelKey: this.$t('getvsion.indicators.triggered_before_last_month', {
-            month: startOfPenultimateMonth.format('MMMM'),
-          }),
-          color: '',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'getvsion.filters.DATE_TRIGGER',
-              startDate: startOfPenultimateMonth.format(DATE_FORMAT),
-              endDate: endOfPenultimateMonth.format(DATE_FORMAT),
-            },
-          ],
-          fetchKey: 'ALARM_TRIGGERED_M2',
-        },
-      ],
+      indicators: undefined,
     };
   },
+  computed: {
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+  },
+  mounted() {
+    this.refreshIndicators();
+  },
   methods: {
+    async refreshIndicators() {
+      let partnerIds = undefined;
+      if (this.contextPartners) {
+        partnerIds = this.contextPartners.map(p => p.id);
+      }
+
+      const response = await fetchAlarmInstancesIndicators(
+        ['ALARM_TRIGGERED_MONTH'],
+        3,
+        partnerIds,
+        this.contextPartnersType
+      );
+
+      if (response && response.length) {
+        const history = response[0].histories;
+        const currentMonth = history[0].numberValue;
+        const monthMinus1 = history[1].numberValue;
+        const monthMinus2 = history[2].numberValue;
+
+        this.indicators = [
+          {
+            labelKey: 'getvsion.indicators.triggered_current_month_ongoing',
+            value: currentMonth,
+            filters: [
+              {
+                id: 'getvsion.filters.DATE_TRIGGER',
+                startDate: startOfCurrentMonth.format(DATE_FORMAT),
+                endDate: formattedCurrentDate(),
+              },
+            ],
+          },
+          {
+            labelKey: 'getvsion.indicators.triggered_last_month',
+            value: monthMinus1,
+            filters: [
+              {
+                id: 'getvsion.filters.DATE_TRIGGER',
+                startDate: startOfPrevCurrentMonth.format(DATE_FORMAT),
+                endDate: endOfPrevCurrentMonth.format(DATE_FORMAT),
+              },
+            ],
+          },
+          {
+            labelKey: 'getvsion.indicators.triggered_before_last_month',
+            tradArgs: {
+              month: startOfPenultimateMonth.format('MMMM'),
+            },
+            value: monthMinus2,
+            filters: [
+              {
+                id: 'getvsion.filters.DATE_TRIGGER',
+                startDate: startOfPenultimateMonth.format(DATE_FORMAT),
+                endDate: endOfPenultimateMonth.format(DATE_FORMAT),
+              },
+            ],
+          },
+        ];
+      }
+    },
     ...mapMutations('alarms', ['setCurrentFilters', 'applyFilters']),
     onClick(indicator) {
       this.setCurrentFiltersForIndicator(indicator);

@@ -1,49 +1,87 @@
 <template>
-  <ul class="list-unstyled mb-0">
-    <li>
-      {{ get('getparc.lineDetail.alarms.data_io', alarm.level1, 'MB') }}
-      {{ get('getparc.lineDetail.alarms.data_out', alarm.level1Up, 'MB') }}
-      {{ get('getparc.lineDetail.alarms.data_in', alarm.level1Down, 'MB') }}
-    </li>
-    <li>
-      {{ get('getparc.lineDetail.alarms.sms_io', alarm.level2) }}
-      {{ get('getparc.lineDetail.alarms.sms_out', alarm.level2Up) }}
-      {{ get('getparc.lineDetail.alarms.sms_in', alarm.level2Down) }}
-    </li>
-    <li>
-      {{ get('getparc.lineDetail.alarms.voice_io', alarm.level3, 'MN') }}
-      {{ get('getparc.lineDetail.alarms.voice_out', alarm.level3Up, 'MN') }}
-      {{ get('getparc.lineDetail.alarms.voice_in', alarm.level3Down, 'MN') }}
-    </li>
-  </ul>
+  <Fragment>
+    <span class="item-container" :key="value" v-for="(value, index) in thresholds">
+      <span>
+        {{ value }}
+      </span>
+      <span v-if="index != thresholds.length - 1">, </span>
+    </span>
+  </Fragment>
 </template>
 
 <script>
+import { Fragment } from 'vue-fragment';
+
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+
 export default {
+  components: {
+    Fragment,
+  },
   props: {
     alarm: Object,
   },
-  methods: {
-    get(labelKey, value, unit) {
-      let translatedValue = undefined;
-      if (!value) {
-        return '';
+  computed: {
+    thresholds() {
+      if (!this.alarm) return [];
+
+      const values = [];
+      const labelKey = 'getparc.lineDetail.alarms.';
+
+      if (this.alarm.level1) {
+        values.push(`${this.$t(labelKey + 'data')}: ${formatBytes(parseInt(this.alarm.level1))}`);
       }
-      if (unit) {
-        translatedValue = this.$t(unit, { value });
-      } else {
-        translatedValue = value;
+      if (this.alarm.level1Up) {
+        values.push(
+          `${this.$t(labelKey + 'data_out')}: ${formatBytes(parseInt(this.alarm.level1Up))}`
+        );
       }
-      return `- ${this.$t(labelKey)}: ${translatedValue}`;
+      if (this.alarm.level1Down) {
+        values.push(
+          `${this.$t(labelKey + 'data_in')}: ${formatBytes(parseInt(this.alarm.level1Down))}`
+        );
+      }
+
+      if (this.alarm.level2) {
+        values.push(`${this.$t(labelKey + 'sms')}: ${this.alarm.level2}`);
+      }
+      if (this.alarm.level2Up) {
+        values.push(`${this.$t(labelKey + 'sms_out')}: ${this.alarm.level2Up}`);
+      }
+      if (this.alarm.level2Down) {
+        values.push(`${this.$t(labelKey + 'sms_in')}: ${this.alarm.level2Down}`);
+      }
+
+      if (this.alarm.level3) {
+        values.push(
+          `${this.$t(labelKey + 'voice')}: ${formattedValueFromSeconds(
+            parseInt(this.alarm.level3)
+          )}`
+        );
+      }
+      if (this.alarm.level3Up) {
+        values.push(
+          `${this.$t(labelKey + 'voice_out')}: ${formattedValueFromSeconds(
+            parseInt(this.alarm.level3Up)
+          )}`
+        );
+      }
+      if (this.alarm.level3Down) {
+        values.push(
+          `${this.$t(labelKey + 'voice_in')}: ${formattedValueFromSeconds(
+            parseInt(this.alarm.level3Down)
+          )}`
+        );
+      }
+
+      return values;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-li {
+.item-container {
   font-size: 0.75rem;
-  margin-top: -0.3rem;
-  margin-bottom: -0.3rem;
 }
 </style>

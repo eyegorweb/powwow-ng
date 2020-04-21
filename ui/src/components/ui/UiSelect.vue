@@ -5,6 +5,7 @@
         class="form-control"
         v-model="model"
         :class="{ 'arrow-blue': arrowBlue, error: !!error }"
+        :disabled="disabled"
         :size="numberOfVisibleItems"
       >
         <slot>
@@ -54,6 +55,7 @@ export default {
     },
     small: Boolean,
     block: Boolean,
+    disabled: Boolean,
   },
   computed: {
     formattedOptions() {

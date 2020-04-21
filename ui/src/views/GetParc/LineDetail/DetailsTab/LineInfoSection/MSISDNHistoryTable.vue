@@ -65,7 +65,7 @@ export default {
       this.rows = this.lines.map(l => ({
         msisdn: l.msisdn,
         imsi: l.imsi,
-        status: l.status,
+        status: l.statusTranslated,
         msisdnA: '-',
       }));
     },

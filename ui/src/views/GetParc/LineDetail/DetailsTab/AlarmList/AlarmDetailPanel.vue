@@ -12,21 +12,18 @@
         <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
         <p>{{ content.sim.iccid }}</p>
       </div>
-      <div class="overview-item mr-5">
-        <h6>{{ $t('getvsion.table.thresholds') }}:</h6>
-        <Thresholds :alarm="content.alarm" />
-      </div>
+
+      <AlarmParameters :alarm="content.alarm" />
     </div>
 
-    <div class="overview-container m-3 bg-white" v-if="triggerHistory && triggerHistory.items[0]">
+    <TriggerHistorySkeleton v-if="isLoading" />
+    <div class="overview-container m-3 bg-white" v-else-if="groupedItems">
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.trigger-history') }}:</h6>
       </div>
       <div>
-        <div v-for="item in triggerHistory.items" :key="item.id" class="overview-item mr-5">
-          <h6>{{ item.monthName }}</h6>
-          <p>{{ item.emissionDate }}</p>
-          <Thresholds :alarm="item.alarm" />
+        <div v-for="item in groupedItems" :key="item.id" class="overview-item mr-5">
+          <AlarmHistoryItem :item="item" :alarm="content.alarm" />
         </div>
       </div>
     </div>
@@ -35,14 +32,18 @@
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import Thresholds from '@/components/Thresholds';
+import AlarmParameters from './AlarmParameters';
+import TriggerHistorySkeleton from './TriggerHistorySkeleton';
+import AlarmHistoryItem from './AlarmHistoryItem';
 import { fetchTriggerHistory } from '@/api/alarms';
 import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
     BaseDetailPanelContent,
-    Thresholds,
+    AlarmParameters,
+    AlarmHistoryItem,
+    TriggerHistorySkeleton,
   },
   props: {
     /*
@@ -56,12 +57,16 @@ export default {
 
   data() {
     return {
-      triggerHistory: undefined,
+      groupedItems: undefined,
+      isLoading: false,
     };
   },
 
   async mounted() {
+    this.isLoading = true;
     const triggerHistory = await fetchTriggerHistory(this.content.alarm.id);
+    this.isLoading = false;
+
     if (triggerHistory) {
       const items = triggerHistory.items.map(element => {
         element.monthName =
@@ -71,9 +76,21 @@ export default {
         return element;
       });
 
-      triggerHistory.items = items;
+      const grouped = items.reduce((all, item) => {
+        const found = all.find(o => o.monthName === item.monthName);
+        if (!found) {
+          all.push({
+            monthName: item.monthName,
+            items: [item],
+          });
+        } else {
+          found.items.push(item);
+        }
 
-      this.triggerHistory = triggerHistory;
+        return all;
+      }, []);
+
+      this.groupedItems = grouped;
     }
   },
 };

@@ -183,8 +183,14 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
+      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+        return await exportSimCardInstances(
+          columns,
+          orderBy,
+          exportFormat,
+          this.appliedFilters,
+          asyncExportRequest
+        );
       };
     },
   },

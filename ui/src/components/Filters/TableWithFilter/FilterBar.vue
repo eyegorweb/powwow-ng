@@ -69,6 +69,18 @@ export default {
     },
   },
 
+  async mounted() {
+    for (let i = 0; i < this.filterComponents.length; i++) {
+      const filter = this.filterComponents[i];
+      if (filter.initialize) {
+        await filter.initialize(this.currentFilters);
+      }
+    }
+    if (this.currentFilters && this.currentFilters.length) {
+      this.applyFilters();
+    }
+  },
+
   methods: {
     applyFilters() {
       this.$emit('applyFilters', this.currentFilters);

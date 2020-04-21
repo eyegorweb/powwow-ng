@@ -5,12 +5,10 @@
         <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
       </div>
       <div class="col-md-4">
-        <ff-wip>
-          <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
-            <i class="select-icon ic-Amplifier-Icon" />
-            {{ $t('getvsion.table.create-alarm') }}
-          </UiButton>
-        </ff-wip>
+        <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+          <i class="select-icon ic-Amplifier-Icon" />
+          {{ $t('getvsion.table.create-alarm') }}
+        </UiButton>
       </div>
     </div>
 
@@ -49,7 +47,7 @@ import TriggerCell from './TriggerCell';
 import ActionsCell from './ActionsCell';
 import TypeCell from './TypeCell';
 import { col } from '@/components/DataTable/utils';
-import { fetchAlarmsWithInfos } from '@/api/alarms';
+import { fetchAlarmsWithInfos, searchAlarmById } from '@/api/alarms';
 
 import UiButton from '@/components/ui/Button';
 
@@ -158,7 +156,37 @@ export default {
       this.columns = orderedCells.concat(notVisibleCells);
     },
     openAlarmPanel(payload) {
-      if (payload.action !== 'openAlarmPanel') return;
+      if (payload.action === 'openTriggerHistory') {
+        this.openTriggerHistory(payload);
+      }
+
+      if (payload.action === 'openAlarmModificationPanel') {
+        this.openAlarmModificationPanel(payload);
+      }
+    },
+
+    async openAlarmModificationPanel(payload) {
+      const alarmData = await searchAlarmById(payload.row.alarm.id);
+      const doReset = async () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.detail-panel.change-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        payload: { ...alarmData, toModify: true },
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
+    openTriggerHistory(payload) {
       const title = 'getparc.lineDetail.alarms.trigger-history';
       const openTrigger = () => {
         this.openPanel({

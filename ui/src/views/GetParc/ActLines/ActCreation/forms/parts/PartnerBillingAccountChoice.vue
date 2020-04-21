@@ -7,7 +7,7 @@
       :initial-parnter="initialParnter"
       :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
     />
-    <h6>{{ $t('getparc.actLines.billingAccount') }}</h6>
+    <h6>{{ $t('getparc.actLines.billingAccountTarget') }}</h6>
     <UiApiAutocomplete
       :items="billingAccounts"
       v-model="selectedBillingAccount"

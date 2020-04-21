@@ -3,13 +3,20 @@
     <div class="mb-4">
       <SearchTranslationKey />
     </div>
+
+    <Toggle
+      @update="reportFrequency = $event.id"
+      :values="reportFrequencyChoices"
+      light-theme
+      block-toggles
+      class="pl-2"
+    />
+
     {{ selectedPartner }}
     <PartnerCombo :value.sync="selectedPartner" />
 
     <div class="row">
-      <div class="col-8">
-        <FormAlarm />
-      </div>
+      <div class="col-8"></div>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -24,23 +31,42 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
 import ServicesChoice from '@/views/GetParc/ActLines/ActCreation/forms/parts/ServicesChoice';
-import FormAlarm from '@/views/GetReport/ReportCreationPanel/index.vue';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   name: 'Home',
   components: {
     SearchTranslationKey,
     ServicesChoice,
-    FormAlarm,
     PartnerCombo,
+    Toggle,
   },
 
   data() {
     return {
       selectedPartner: undefined,
       selectedServices: [],
+      reportFrequency: undefined,
+      reportFrequencyChoices: [
+        {
+          id: 'ONCE',
+          label: 'Une seule fois',
+        },
+        {
+          id: 'DAILY',
+          label: 'Journalier',
+        },
+        {
+          id: 'WEEKLY',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'MONTHLY',
+          label: 'Mensuel',
+        },
+      ],
       offer: {
         id: '3',
         code: 'OFFRE_TEST',

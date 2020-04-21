@@ -8,6 +8,7 @@
         </h4>
       </div>
     </div>
+
     <Summary />
 
     <div class="mt-4 mb-4">
@@ -35,6 +36,8 @@ import UiTab from '@/components/ui/Tab';
 
 import UsersTab from './UsersTab';
 
+import { fetchpartnerById } from '@/api/partners.js';
+
 export default {
   components: {
     Summary,
@@ -44,8 +47,13 @@ export default {
     UsersTab,
   },
 
+  async mounted() {
+    this.partner = await fetchpartnerById(this.$route.params.id);
+  },
+
   data() {
     return {
+      partner: undefined,
       currentLinkIndex: 0,
       tabs: [
         {
@@ -55,10 +63,6 @@ export default {
         {
           label: 'customize',
           title: this.$t('getadmin.partners.customize'),
-        },
-        {
-          label: 'billingAccounts',
-          title: this.$t('filters.billingAccounts'),
         },
         {
           label: 'billingAccounts',

@@ -79,7 +79,8 @@
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
     "ENABLE": "Activer",
-    "DELETE": "Supprimer"
+    "DELETE": "Supprimer",
+    "DOWNLOAD": "Télécharger"
   },
   "home": {
     "customize": {
@@ -130,13 +131,32 @@
       "topBillingExchangePO": "Prise d'ordre"
     }
   },
+  "documents": {
+    "total": "{total} document(s) trouvé(s)",
+    "name": "Nom du document",
+    "partner": "Partenaire",
+    "creationDate": "Date d’ajout",
+    "category": "Catégorie",
+    "model": "Modèle de rapport",
+    "categories": {
+      "BILL": "Facture",
+      "PORTABILITY": "Portabilité",
+      "EXPORT": "Export",
+      "BALANCE": "Encours non valorisés",
+      "PDP": "PDP",
+      "FDNX": "FDNX"
+    }
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
     "users": "Gestion des utilisateurs",
+    "documents": "Gestion des documents",
     "partners": "Gestion des partenaires",
-    "account": "Compte"
+    "account": "Compte",
+    "modelReports": "Rapports",
+    "createReports": "Gestion documentaires"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -270,7 +290,7 @@
     "notify-ws": "Notification web service",
     "mailing-list": "Liste de diffusion",
     "activation_date": "Date d'activation",
-    "triggered_this_month": "Déclenchements mois en cours",
+    "triggered_this_month": "Déclenchement mois en cours",
     "last_month_triggered": "Déclenchement M-1",
     "last_triggered": "Dernier déclenchement",
     "associated_alarms": "Alarmes associées",
@@ -357,8 +377,13 @@
   },
   "getreport": {
     "pageTitle": "Modèles de rapports",
-    "reports_tooltip": "tooltip ici",
-    "create_report": "Créer un rapport"
+    "reports_tooltip": "Cette page permet de paramétrer des rapports",
+    "create_report": "Créer un rapport",
+    "actions": {
+      "DETAIL": "Voir   le détail du reporting",
+      "ACTIVATION": "Activer  / Désactiver le rapport",
+      "SEARCH": "Rechercher les rapports"
+    }
   },
   "getparc": {
     "management-act": "Historique des actes de gestion",
@@ -536,13 +561,13 @@
         "observationCycle": "Cycle d’observation",
         "disableLine": "Désactiver pour la ligne",
         "enableLine": "Activer pour la ligne",
-        "data_io": "Data E/S",
+        "data": "Data E/S",
         "data_out": "Data sortante",
         "data_in": "Data entrante",
-        "sms_io": "SMS E/S",
+        "sms": "SMS E/S",
         "sms_out": "SMS sortante",
         "sms_in": "SMS entrante",
-        "voice_io": "Voix E/S",
+        "voice": "Voix E/S",
         "voice_out": "Voix sortante",
         "voice_in": "Voix entrante",
         "status_change": "Changement de statut",
@@ -967,12 +992,14 @@
       "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
-      "step1Partner": "séléctionner un partenaire",
-      "billingAccount": "séléctionner un compte de facturation",
-      "step1File": "séléctionner un fichier de travail",
-      "step1Title": "séléctionner les lignes avec les filtres et le tableau",
+      "step1Partner": "Sélectionner un partenaire cible",
+      "billingAccount": "Sélectionner un compte de facturation",
+      "billingAccountTarget": "Sélectionner un compte de facturation cible",
+      "step1File": "Sélectionner un fichier de travail",
+      "step1Title": "Sélectionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
-      "selectOffer": "sélectionner une offre",
+      "selectOffer": "Sélectionner une offre",
+      "selectOfferTarget": "Sélectionner une offre cible pour les lignes actives",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
         "foundSimcards": "lignes à importer",

@@ -24,6 +24,14 @@ export const getters = {
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
+  singlePartger: state => {
+    if (state.userIsPartner) {
+      return state.userInfos && state.userInfos.partners && state.userInfos.partners.length
+        ? state.userInfos.partners[0].id
+        : undefined;
+    }
+    return undefined;
+  },
   userIsBO: state => {
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
