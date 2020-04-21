@@ -14,7 +14,7 @@
         >
           <div slot="bottom">
             <div>
-              <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+              <h6>{{ $t('getparc.actLines.selectOfferTarget') }}</h6>
               <UiApiAutocomplete
                 :items="offers"
                 v-model="selectedOffer"
