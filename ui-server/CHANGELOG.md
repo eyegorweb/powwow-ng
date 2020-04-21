@@ -2,6 +2,54 @@
 
 <!--- next entry here -->
 
+## 0.22.0
+2020-04-21
+
+### Features
+
+- Motif de déclenchement pour tous les types d'alarme dans le volet d'historique de déclenchement (dbdb4e5b9261cc9abf60ab632450c66de1ab58ca)
+- **rapports:** affichage des rapports (5fa24bc84a775ec7b663ad1628d7ecf85e4dbd4e)
+- Création de rapports (2a93bfcfcabd29b2ee3738c8f6e121819f132ef0)
+- créer un rapport pour mon partenaire depuis la home des rapports (be1000a3b08b591018bd426fe5a8036302956335)
+- Page de recherche de documents (ce3015cbd13cf44c240a4b8c6189ba1e7983eb30)
+- **rapports:** affichage de la table des rapports (d1613c96bf37a340941c662ea0b152085f322956)
+- Modification de Rapports (4cefea5fdbb30d746a2d554ef4054cd5c3a2a6b8)
+- **report:** ouverture du volet Créateur (0de3da7fd3e0085fc7a28842749961adfe941aff)
+- **report:** ouverture du volet de l'utilisateur (47bb25d076ecb1255db6cb1a9f32b0263c43dbe5)
+- rechercher mes documents par le modèle de rapport (68cbad30f36d49246f6d253727ccad97b4249596)
+- consulter les rapports générés (exports) dans la gestion documentaire depuis la liste des rapports (e3c3c9e49da2b2ce3c130f8501b6252bf26f18a7)
+- activer / désactiver un rapport de mon partenaire (d60fb675e21cdda3de1308f36340c270942af455)
+- Ajouter le statut du rapport dans la liste et dans le détail (7fbb0849924f497593a36865665034980a86ab60)
+- **reports:** ajout de l'action de suppression dans la gestion de documents (200341b5a5ed8156c01534f15e0a88d742c77c85)
+- Brancher les colonnes des documents (43da76c92ec1de515c2d414ee4e50f57b4e0549e)
+- Gérer les permissions sur la création des rapports (8f632224c7eb076967597ab007d0a65be10fbcc9)
+- Branchement des exports asynchrones (3060767741d3733524f60afec29d93f407e8724d)
+- Téléchargement de documents (d3575506493a64c73b456cc0afd51c6b676fbcfa)
+
+### Fixes
+
+- importer des SIM sur une commande, le libellé d'erreur ne s'affiche pas correctement (a7e586aad285ec0b086b2140d22d6e45d5f1f388)
+- Correction de bugs sur les alarmes (18d70c8ab06407210ce063c90de06ac107601b9e)
+- enlever l'onglet en double (292bacad380c0d16c9cb9672f32b39cafa9a9253)
+- Correction des données incohérentes dans le détail de l'alarme (7ba6815a2f3e626931cc2826d23621c0ff7a8547)
+- **détail des alarmes:** correction de la traduction et de la conversion des valeurs sur la colonne des déclenchements (f86884fb7393252f2eeb018c9f198fb000a728c8)
+- séléctionner correctement les filtres séléctionnés (0d6fa2efa881f3fe14369f97e30e46645b6fbe7f)
+- correction de la traduction du statut de la carte sim (799e3afc2dbf2a42f39a081d207add468c33ed68)
+- **alarmes:** correction traduction (d794d9b0f79683e0b3b80696a1077b7d7c8314df)
+- de l'inversement de données + ajout du total dans le graphique (757165316e670033110149498ee779beca6c261a)
+- branchement des volets "historique de déclenchement" et "détail de l'alarme" dans le détail de la ligne (6cb8ee8482e8c675241e135a302766d94a2aeee5)
+- Correction des problème d'affichage de l'historique de déclenchements dans le volet des déclenchements (a778a6265cc3242fc37490acb723c9f68847521a)
+- Retour panel modif raport (6920c439a154f6600ca96513b8ad2e14aaaf9554)
+- Page documents tri sur les documents et affichage des partenaires (1882e6685c75bf75fd9a4ab8d97048e5a4dce2b6)
+- Le cycle d'observation doit être MONTHLY par défaut pour les alarmes de consommation en mode standard. (80a328085e60d0318dae2e330179223ac77bb063)
+- ne pas afficher la mailing list durant la modification de rapports (1a4091d927969f9ef7cf6938e20e6acc066c9d4e)
+- Correction de l'export des actes (e7954f3bb47339bbe915716bf8df0a02d0a7e968)
+- Correction du filtre partenaire (6a0785b8a4ae7ea718acf408bd61283a8f3d4c9b)
+- **lines:** correction du total de consommation voix internationale (7ce4243424b9069add374b371f5b3332ff46f445)
+- Retours sur la getReport (fad11772b62eae424f012e9b891ecb84a42428e9)
+- mise à jour des infos lors de l'ouverture du volet Utilisateur (0b4fb231af4360dde9930a5f69abd4dd7e4a1c3b)
+- **lines:** mise à jour de l'acte de création des tranferts des lignes (e260d5631b85cd57ab0c3034cd303082a3d7263b)
+
 ## 0.21.1
 2020-04-03
 
