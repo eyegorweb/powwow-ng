@@ -120,6 +120,13 @@ export default {
           orderable: false,
           visible: true,
           noHandle: true,
+          format: {
+            type: 'Truncated',
+            limit: 30,
+            getter: row => {
+              return row.roles ? row.roles.map(p => p.description).join(', ') : '';
+            },
+          },
         },
         {
           id: 6,
