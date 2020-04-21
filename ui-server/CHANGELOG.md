@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.715+20200421090852
+2020-04-21
+
+### Features
+
+- Branchement des exports asynchrones (3060767741d3733524f60afec29d93f407e8724d)
+
+### Fixes
+
+- **lines:** mise à jour de l'acte de création des tranferts des lignes (e260d5631b85cd57ab0c3034cd303082a3d7263b)
+
 ## 0.3.0-master.714+20200420152129
 2020-04-20
 
