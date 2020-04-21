@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.716+20200421123027
+2020-04-21
+
+### Features
+
+- Téléchargement de documents (d3575506493a64c73b456cc0afd51c6b676fbcfa)
+
 ## 0.3.0-master.715+20200421090852
 2020-04-21
 
