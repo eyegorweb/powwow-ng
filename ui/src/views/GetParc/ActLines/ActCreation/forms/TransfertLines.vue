@@ -18,7 +18,6 @@
               <UiApiAutocomplete
                 :items="offers"
                 v-model="selectedOffer"
-                :error="errors.offer"
                 display-results-while-empty
               />
             </div>
@@ -133,10 +132,6 @@ export default {
         isError = true;
       }
 
-      if (!this.selectedOffer) {
-        this.errors.offer = 'errors.mandatory';
-        isError = true;
-      }
       return isError;
     },
     async validate(contextValues) {
@@ -146,7 +141,7 @@ export default {
 
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,
-        toWorkflowId: this.selectedOffer.id,
+        toWorkflowId: this.selectedOffer ? this.selectedOffer.id : null,
         tempDataUuid: contextValues.tempDataUuid,
       };
       return await transferSIMCards(this.appliedFilters, this.selectedLinesForActCreation, params);
