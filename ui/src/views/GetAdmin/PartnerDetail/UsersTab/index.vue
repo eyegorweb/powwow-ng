@@ -10,12 +10,26 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-9"></div>
+    <div class="col-md-9">
+      <AdminCards v-if="section === 'getadmin.partners.admins'" :partnerid="partnerid" />
+    </div>
   </div>
 </template>
 
 <script>
+import AdminCards from './AdminCards';
+
 export default {
+  props: {
+    partnerid: {
+      type: String,
+      default: undefined,
+    },
+  },
+  components: {
+    AdminCards,
+  },
+
   data() {
     return {
       section: 'getadmin.partners.admins',
