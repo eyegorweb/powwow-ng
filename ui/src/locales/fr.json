@@ -154,6 +154,7 @@
     "users": "Gestion des utilisateurs",
     "documents": "Gestion des documents",
     "partners": "Gestion des partenaires",
+    "admins": "Gestion des administrateurs",
     "account": "Compte",
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires"
@@ -351,6 +352,7 @@
   },
   "getadmin": {
     "users": {
+      "addAdmin": "Ajouter un administrateur",
       "title": "Gestion des utilisateurs",
       "filters": {
         "fullName": "Nom ou prénom",
@@ -363,6 +365,8 @@
     "partners": {
       "name": "Raison sociale",
       "mainAdmin": "Administrateur principal",
+      "secondAdmin": "Administrateur secondaire",
+      "role": "Rôle",
       "users": "Utilisateurs",
       "deliveryPlaces": "Adresses de livraison",
       "broadcastList": "Liste de diffusion",

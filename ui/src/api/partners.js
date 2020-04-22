@@ -67,6 +67,40 @@ export async function fetchpartnerById(id, conf) {
   return response.data.partys.items;
 }
 
+export async function fetchAdminInfos(id) {
+  const queryStr = `
+  query{
+    party(id: "${id}") {
+      mainAdministrator {
+        company
+        name {
+          firstName
+          lastName
+        }
+        contactInformation {
+          email
+          phone
+          mobile
+        }
+      }
+      secondAdministator {
+        company
+        name {
+          firstName
+          lastName
+        }
+        contactInformation {
+          email
+          phone
+          mobile
+        }
+      }
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.party;
+}
+
 export async function fetchpartnerAddresses(id) {
   const queryForLastAdress = `
   query {
