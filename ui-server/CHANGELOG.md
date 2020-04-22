@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.721+20200422130807
+2020-04-22
+
+### Fixes
+
+- **gestion des lignes:** mise à jour de l'acte de gestion transfert des lignes (4d511013e92c4d396032128e783c93d77f097721)
+
 ## 0.3.0-master.720+20200422121835
 2020-04-22
 
