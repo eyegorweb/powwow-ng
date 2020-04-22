@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h6>{{ $t('getparc.actLines.step1Partner') }}</h6>
+    <h6>{{ $t('getparc.actLines.partnerTarget') }}</h6>
     <PartnersPart
       @setpartner="setPartner"
       :error="errors.partner"

@@ -8,15 +8,15 @@
           <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
         </template>
 
-        <SectionTitle :num="baseNumber + 1">Choisir les informations</SectionTitle>
+        <SectionTitle :num="baseNumber + 1">{{
+          $t('getreport.creation.chooseInfos')
+        }}</SectionTitle>
         <p>
-          Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire
-          apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces
-          informations dans votre tableur préféré.
+          {{ $t('getreport.creation.chooseInfosDescription') }}
         </p>
 
         <div v-if="reportModels" class="mt-4 mb-2">
-          <h6>à partir d'un modèle du rapport</h6>
+          <h6>{{ $t('getreport.creation.fromReport') }}</h6>
           <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
         </div>
 
@@ -41,9 +41,11 @@
           </template>
         </div>
 
-        <SectionTitle :num="baseNumber + 2">Récurrence et date</SectionTitle>
+        <SectionTitle :num="baseNumber + 2">{{
+          $t('getreport.creation.generateReport')
+        }}</SectionTitle>
         <div class="mb-2">
-          <h6>Générer un rapport</h6>
+          <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
           <Toggle
             v-if="reportFrequency"
             @update="reportFrequency = $event.id"
@@ -53,7 +55,7 @@
           />
         </div>
         <div class="mt-4 mb-2">
-          <h6>Date de génération</h6>
+          <h6>{{ $t('getreport.creation.dateGenerated') }}</h6>
           <UiDate
             time-picker
             @change="newVal => (generationDate = newVal)"
@@ -65,7 +67,7 @@
           </UiDate>
         </div>
 
-        <SectionTitle :num="baseNumber + 3">Notification</SectionTitle>
+        <SectionTitle :num="baseNumber + 3">{{ $t('getvsion.notifications') }}</SectionTitle>
 
         <div class="row">
           <div class="col">
@@ -76,7 +78,7 @@
           </div>
           <div v-if="!content" class="col">
             <div class="d-flex mailing-list">
-              <span class="pt-3">Liste de diffusion</span>
+              <span class="pt-3">{{ $t('getreport.creation.list') }}</span>
               <UiSelect
                 class="report-field"
                 v-model="notifList"
@@ -98,7 +100,7 @@
         </div>
       </div>
       <div class="fieldsRecap">
-        <h5>Données du rapport</h5>
+        <h5>{{ $t('getreport.creation.dataReport') }}</h5>
         <ul class="list-unstyled">
           <li v-for="i in selectedItems" :key="'remove_' + i.label">
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
@@ -112,11 +114,11 @@
     <div class="fileInfo">
       <div class="fileInfoContainer">
         <div>
-          <h6>Générer un rapport</h6>
+          <h6>{{ $t('getreport.creation.nameReport') }}</h6>
           <UiInput v-model="name" :disabled="!!content" class="d-block" />
         </div>
         <div>
-          <h6>Format de ficher</h6>
+          <h6>{{ $t('getreport.creation.fileFormat') }}</h6>
           <UiSelect class="report-field" v-model="fileFormat" :options="fileFormats" block />
         </div>
         <div>
