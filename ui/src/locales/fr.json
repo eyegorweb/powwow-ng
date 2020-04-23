@@ -311,9 +311,9 @@
       "alarmStatus": "Statut de l'alarme"
     },
     "indicators": {
-      "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
-      "triggered_last_month": "Déclenchement mois précédent",
-      "triggered_before_last_month": "Déclenchement {month}"
+      "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
+      "triggered_last_month": "Déclenchement(s) mois précédent",
+      "triggered_before_last_month": "Déclenchement(s) en {month}"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
