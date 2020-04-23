@@ -84,6 +84,7 @@ export default {
         ],
         tooltip: {
           shared: true,
+          xDateFormat: '%d %b %Y',
         },
         plotOptions: {
           column: {

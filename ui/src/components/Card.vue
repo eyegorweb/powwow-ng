@@ -4,8 +4,8 @@
       <slot></slot>
     </div>
     <div class="cardBloc-buttons">
-      <Button v-if="canDelete" class="button" :variant="'import'">{{$t('delete')}}</Button>
-      <Button :variant="'primary'">{{$t('modify')}}</Button>
+      <Button v-if="canDelete" class="button" :variant="'import'">{{ $t('delete') }}</Button>
+      <Button :variant="'primary'">{{ $t('modify') }}</Button>
     </div>
   </div>
 </template>
