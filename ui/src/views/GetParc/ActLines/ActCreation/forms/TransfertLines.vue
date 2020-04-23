@@ -31,7 +31,11 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button
+            @click="containerValidationFn"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+            :class="{ disabled: !canValidate }"
+          >
             <span>
               <i class="ic-Shuffle-Icon"></i>
               {{ $t('getparc.actCreation.selectOffer.save') }}
@@ -81,6 +85,9 @@ export default {
       if (!this.chosenBillingAccount) return undefined;
 
       return this.chosenBillingAccount.partner;
+    },
+    canValidate() {
+      return this.selectedPartner ? true : false;
     },
   },
   methods: {
@@ -138,7 +145,6 @@ export default {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
-
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,
         toWorkflowId: this.selectedOffer ? this.selectedOffer.id : null,
