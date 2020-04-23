@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.722+20200423065303
+2020-04-23
+
+### Fixes
+
+- mise à jour de l'acte de création de transfert des lignes (4395089a058e9bc1decb9ade13875bfe44607be8)
+
 ## 0.3.0-master.721+20200422130807
 2020-04-22
 
