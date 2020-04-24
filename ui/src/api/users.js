@@ -234,3 +234,29 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
   const response = await query(queryStr);
   return response.data.users.items;
 }
+
+export async function exportUsers(columns, orderBy, exportFormat) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportUsers(filters: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+        downloadUri
+        total
+      }
+    }
+    `
+  );
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.exportUsers;
+}
