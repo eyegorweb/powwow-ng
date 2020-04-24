@@ -18,7 +18,6 @@
               <UiApiAutocomplete
                 :items="offers"
                 v-model="selectedOffer"
-                :error="errors.offer"
                 display-results-while-empty
               />
             </div>
@@ -32,7 +31,11 @@
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button
+            @click="containerValidationFn"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+            :class="{ disabled: !canValidate }"
+          >
             <span>
               <i class="ic-Shuffle-Icon"></i>
               {{ $t('getparc.actCreation.selectOffer.save') }}
@@ -82,6 +85,9 @@ export default {
       if (!this.chosenBillingAccount) return undefined;
 
       return this.chosenBillingAccount.partner;
+    },
+    canValidate() {
+      return this.selectedPartner ? true : false;
     },
   },
   methods: {
@@ -133,20 +139,15 @@ export default {
         isError = true;
       }
 
-      if (!this.selectedOffer) {
-        this.errors.offer = 'errors.mandatory';
-        isError = true;
-      }
       return isError;
     },
     async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
-
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,
-        toWorkflowId: this.selectedOffer.id,
+        toWorkflowId: this.selectedOffer ? this.selectedOffer.id : null,
         tempDataUuid: contextValues.tempDataUuid,
       };
       return await transferSIMCards(this.appliedFilters, this.selectedLinesForActCreation, params);

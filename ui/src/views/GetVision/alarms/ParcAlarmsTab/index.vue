@@ -5,9 +5,7 @@
       <FilterBar />
     </div>
     <div class="col-md-9">
-      <ff-wip>
-        <AlarmsPerDayGraph :partners="selectedPartnerIds" />
-      </ff-wip>
+      <AlarmsPerDayGraph :partners="selectedPartnerIds" />
       <AlarmsTable />
     </div>
   </div>

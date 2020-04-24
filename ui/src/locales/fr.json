@@ -154,6 +154,7 @@
     "users": "Gestion des utilisateurs",
     "documents": "Gestion des documents",
     "partners": "Gestion des partenaires",
+    "admins": "Gestion des administrateurs",
     "account": "Compte",
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires"
@@ -310,9 +311,9 @@
       "alarmStatus": "Statut de l'alarme"
     },
     "indicators": {
-      "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
-      "triggered_last_month": "Déclenchement mois précédent",
-      "triggered_before_last_month": "Déclenchement {month}"
+      "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
+      "triggered_last_month": "Déclenchement(s) mois précédent",
+      "triggered_before_last_month": "Déclenchement(s) en {month}"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
@@ -351,18 +352,22 @@
   },
   "getadmin": {
     "users": {
+      "addAdmin": "Ajouter un administrateur",
       "title": "Gestion des utilisateurs",
       "filters": {
         "fullName": "Nom ou prénom",
         "email": "Email",
         "partnerGroup": "Groupe de partenaire",
-        "partners": "Partenaires"
+        "partners": "Partenaires",
+        "roles": "Rôles"
       },
       "total": "{total} utilisateur(s) trouvé(s)"
     },
     "partners": {
       "name": "Raison sociale",
       "mainAdmin": "Administrateur principal",
+      "secondAdmin": "Administrateur secondaire",
+      "role": "Rôle",
       "users": "Utilisateurs",
       "deliveryPlaces": "Adresses de livraison",
       "broadcastList": "Liste de diffusion",
@@ -383,6 +388,21 @@
       "DETAIL": "Voir   le détail du reporting",
       "ACTIVATION": "Activer  / Désactiver le rapport",
       "SEARCH": "Rechercher les rapports"
+    },
+    "creation": {
+      "chooseInfos": "Choisir les informations",
+      "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
+      "fromReport": "à partir d'un modèle du rapport",
+      "generateReport": "Générer un rapport",
+      "dataReport": "Données du rappot",
+      "nameReport": "Nom du rapport",
+      "fileFormat": "Format de ficher",
+      "list": "Liste de diffusion",
+      "dateGenerated": "Date de génération",
+      "dateAndRecursion": "Récurrence et date"
+    },
+    "errors": {
+      "AlreadyExists": "Un rapport avec ce nom existe déjà"
     }
   },
   "getparc": {
@@ -917,7 +937,7 @@
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
-        "DATA_WRONG_STATUS": "Status invalide",
+        "DATA_WRONG_STATUS": "Statut invalide",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
         "EMPTY_FILE": "Fichier vide"
@@ -992,7 +1012,8 @@
       "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
-      "step1Partner": "Sélectionner un partenaire cible",
+      "step1Partner": "Sélectionner un partenaire",
+      "partnerTarget": "Sélectionner un partenaire cible",
       "billingAccount": "Sélectionner un compte de facturation",
       "billingAccountTarget": "Sélectionner un compte de facturation cible",
       "step1File": "Sélectionner un fichier de travail",
