@@ -107,7 +107,7 @@ export default {
           },
         },
         {
-          id: 4,
+          id: 5,
           label: 'Partenaire',
           name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
           orderable: true,
@@ -121,7 +121,7 @@ export default {
           },
         },
         {
-          id: 5,
+          id: 6,
           label: 'Rôles',
           name: 'ROLES',
           orderable: false,
@@ -136,7 +136,7 @@ export default {
           },
         },
         {
-          id: 6,
+          id: 7,
           label: 'Actif',
           name: 'disabled',
           orderable: true,
