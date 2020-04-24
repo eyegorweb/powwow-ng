@@ -41,6 +41,7 @@ import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 
 import PartnerFilter from './filters/PartnerFilter';
+import RolesFilter from './filters/RolesFilter';
 import { searchUsers } from '@/api/users';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
@@ -172,6 +173,16 @@ export default {
           return {
             id: 'getadmin.users.filters.email',
             value: chosenValue,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.filters.roles',
+        component: RolesFilter,
+        onChange(chosenValues) {
+          return {
+            id: 'getadmin.users.filters.roles',
+            values: chosenValues,
           };
         },
       },

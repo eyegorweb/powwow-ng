@@ -80,6 +80,21 @@ export async function fetchPartnerGroups(q = '') {
   return response.data.partyGroups;
 }
 
+export async function fetchUserRoles() {
+  const queryStr = `
+  query {
+    userAllowedRoles(userId: null) {
+      Id
+      name
+      description
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.userAllowedRoles;
+}
+
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
@@ -89,6 +104,7 @@ export function formatFilters(selectedFilters) {
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addLoginFilter(gqlFilters, selectedFilters);
   addPartnerFilter(gqlFilters, selectedFilters);
+  addRolesFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -132,6 +148,13 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
   const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.partners');
   if (partyIds) {
     gqlFilters.push(`partyId: {in: [${partyIds}]}`);
+  }
+}
+
+function addRolesFilter(gqlFilters, selectedFilters) {
+  const rolesName = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.roles');
+  if (rolesName) {
+    gqlFilters.push(`roleName: {in: ["${rolesName}"]}`);
   }
 }
 

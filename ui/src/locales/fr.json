@@ -358,7 +358,8 @@
         "fullName": "Nom ou prénom",
         "email": "Email",
         "partnerGroup": "Groupe de partenaire",
-        "partners": "Partenaires"
+        "partners": "Partenaires",
+        "roles": "Rôles"
       },
       "total": "{total} utilisateur(s) trouvé(s)"
     },
