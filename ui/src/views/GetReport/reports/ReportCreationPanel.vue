@@ -407,12 +407,15 @@ export default {
       }
 
       if (response.errors && response.errors.length) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        let errorMessage =
+          response.errors[0].extensions.name === 'AlreadyExists'
+            ? this.$t('getreport.errors.AlreadyExists')
+            : this.$t('genericErrorMessage');
+        this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.closePanel({ resetSearch: true });
       }
-
-      this.closePanel({ resetSearch: true });
     },
 
     havePermission(domain, action) {
