@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.727+20200424135810
+2020-04-24
+
+### Features
+
+- export de la liste des utilisateurs (5b9f370df0019f62e197f01b07213df0a7681c2f)
+
 ## 0.3.0-master.726+20200424081739
 2020-04-24
 
