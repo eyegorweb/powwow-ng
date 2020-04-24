@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.724+20200424064231
+## 0.3.0-master.725+20200424065038
 2020-04-24
 
 ### Features
 
 - **gestion des utilisateurs:** ajout du filtre par rôle (a7a8dfd954ddea06e4c4326a5143a4b56b647dd2)
+
+### Fixes
+
+- modifications des besoins du rapport de création (4f86a66dd42d456830c8d714cf475ae646dfb730)
 
 ## 0.3.0-master.723+20200423092501
 2020-04-23
