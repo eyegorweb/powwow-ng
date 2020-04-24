@@ -2,6 +2,22 @@
 
 <!--- next entry here -->
 
+## 0.23.0
+2020-04-24
+
+### Features
+
+- **gestion des utilisateurs:** ajout du filtre par rôle (a7a8dfd954ddea06e4c4326a5143a4b56b647dd2)
+- export de la liste des utilisateurs (5b9f370df0019f62e197f01b07213df0a7681c2f)
+
+### Fixes
+
+- **gestion des lignes:** mise à jour de l'acte de gestion transfert des lignes (4d511013e92c4d396032128e783c93d77f097721)
+- mise à jour de l'acte de création de transfert des lignes (4395089a058e9bc1decb9ade13875bfe44607be8)
+- modifications des besoins du rapport de création (4f86a66dd42d456830c8d714cf475ae646dfb730)
+- ajout d'un gestionnaire d'erreur pour la création de rapport (bcc535c273a3c1ee729857dff315fe6d67cb9d95)
+- correction sur la table des utilisateurs (700d04bd89d6b358f77c9be2ca275d1ffa737bb8)
+
 ## 0.22.0
 2020-04-21
 
