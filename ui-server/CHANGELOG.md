@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.728+20200424140439
+2020-04-24
+
+### Fixes
+
+- correction sur la table des utilisateurs (700d04bd89d6b358f77c9be2ca275d1ffa737bb8)
+
 ## 0.3.0-master.727+20200424135810
 2020-04-24
 
