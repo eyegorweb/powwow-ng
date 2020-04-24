@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.726+20200424081739
+2020-04-24
+
+### Fixes
+
+- ajout d'un gestionnaire d'erreur pour la création de rapport (bcc535c273a3c1ee729857dff315fe6d67cb9d95)
+
 ## 0.3.0-master.725+20200424065038
 2020-04-24
 
