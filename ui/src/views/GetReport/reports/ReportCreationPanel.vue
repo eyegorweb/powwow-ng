@@ -76,7 +76,7 @@
               <span>{{ $t('mailNotification') }}</span>
             </div>
           </div>
-          <div v-if="!content" class="col">
+          <div v-if="!content && shouldNotify" class="col">
             <div class="d-flex mailing-list">
               <span class="pt-3">{{ $t('getreport.creation.list') }}</span>
               <UiSelect
@@ -151,6 +151,7 @@ import { fetchpartnerById } from '@/api/partners.js';
 import { reportModels } from '@/api/reportCreation.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+import { formattedCurrentDateExtended } from '@/utils/date';
 
 function checkIfOneIsPresent(fieldsToCheck, modelFields) {
   for (let i = 0; i < fieldsToCheck.length; i++) {
@@ -205,6 +206,8 @@ export default {
       partnerID = this.content.party.id;
     } else if (this.userIsPartner) {
       partnerID = this.userInfos.partners[0].id;
+    } else {
+      this.generationDate = formattedCurrentDateExtended();
     }
 
     if (partnerID) {
@@ -709,7 +712,8 @@ export default {
         !!this.fileFormat &&
         !!this.name &&
         !!this.generationDate &&
-        mailingListValid
+        mailingListValid &&
+        this.selectedItems.length > 0
       );
     },
     mailingLists() {
