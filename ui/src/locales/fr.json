@@ -400,6 +400,9 @@
       "list": "Liste de diffusion",
       "dateGenerated": "Date de génération",
       "dateAndRecursion": "Récurrence et date"
+    },
+    "errors": {
+      "AlreadyExists": "Un rapport avec ce nom existe déjà"
     }
   },
   "getparc": {
