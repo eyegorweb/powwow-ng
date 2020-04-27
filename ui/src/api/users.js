@@ -262,3 +262,13 @@ export async function exportUsers(columns, orderBy, exportFormat, filters = []) 
   }
   return response.data.exportUsers;
 }
+
+export async function enableUser(userId) {
+  const response = await query(`mutation{activateUser (userId : ${userId})}`);
+  return response.data.activateuser;
+}
+
+export async function disableUser(userId) {
+  const response = await query(`mutation{deactivateUser (userId : ${userId})}`);
+  return response.data.deactivateUser;
+}

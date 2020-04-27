@@ -34,6 +34,15 @@
           :init-value="searchByLoginValue"
         />
       </div>
+
+      <template slot="actions" slot-scope="{ row }">
+        <Actions
+          :user="row"
+          @duplicateUser="onDuplicateUser(row)"
+          @modifyUser="onModifyUser(row)"
+          @actionIsDone="refreshUser(row)"
+        />
+      </template>
     </TableWithFilter>
   </div>
 </template>
@@ -47,6 +56,7 @@ import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import PartnerFilter from './filters/PartnerFilter';
 import RolesFilter from './filters/RolesFilter';
+import Actions from './UserActions';
 import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
@@ -57,6 +67,7 @@ export default {
     TableWithFilter,
     SearchByLogin,
     ExportButton,
+    Actions,
   },
   data() {
     return {
@@ -279,6 +290,15 @@ export default {
           this.currentAppliedFilters
         );
       };
+    },
+    onDuplicateUser(user) {
+      console.log('duplicate user', user);
+    },
+    onModifyUser(user) {
+      console.log('modify user', user);
+    },
+    async refreshUser(user) {
+      user.disabled = !user.disabled;
     },
   },
 };
