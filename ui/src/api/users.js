@@ -89,6 +89,21 @@ export async function fetchPartnerGroups(q = '') {
   return response.data.partyGroups;
 }
 
+export async function fetchUserRoles() {
+  const queryStr = `
+  query {
+    userAllowedRoles(userId: null) {
+      Id
+      name
+      description
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.userAllowedRoles;
+}
+
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
@@ -98,6 +113,7 @@ export function formatFilters(selectedFilters) {
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addLoginFilter(gqlFilters, selectedFilters);
   addPartnerFilter(gqlFilters, selectedFilters);
+  addRolesFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -141,6 +157,13 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
   const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.partners');
   if (partyIds) {
     gqlFilters.push(`partyId: {in: [${partyIds}]}`);
+  }
+}
+
+function addRolesFilter(gqlFilters, selectedFilters) {
+  const rolesName = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.roles');
+  if (rolesName) {
+    gqlFilters.push(`roleName: {in: ["${rolesName}"]}`);
   }
 }
 
@@ -219,4 +242,42 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
 
   const response = await query(queryStr);
   return response.data.users.items;
+}
+
+export async function exportUsers(columns, orderBy, exportFormat, filters = []) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportUsers(filters: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+        downloadUri
+        total
+      }
+    }
+    `
+  );
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.exportUsers;
+}
+
+export async function enableUser(userId) {
+  const response = await query(`mutation{activateUser (userId : ${userId})}`);
+  return response.data.activateuser;
+}
+
+export async function disableUser(userId) {
+  const response = await query(`mutation{deactivateUser (userId : ${userId})}`);
+  return response.data.deactivateUser;
 }

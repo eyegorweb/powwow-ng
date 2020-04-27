@@ -40,6 +40,7 @@
 import UiButton from '@/components/ui/Button';
 import { searchMassActions } from '@/api/massActions';
 import { clickaway } from '@/directives/clickaway';
+import { currentDateMinusMounts } from '@/utils/date';
 
 export default {
   components: {
@@ -72,11 +73,18 @@ export default {
       this.$router.push({ name: 'actHistory' });
     },
     async refreshHistory() {
+      const startDate = currentDateMinusMounts(3);
+
+      const dateFilter = {
+        id: 'filters.actDateStart',
+        startDate,
+      };
+
       this.isLoading = true;
       const response = await searchMassActions(
         { key: 'CREATED_DATE', direction: 'DESC' },
         { page: 0, limit: 3 },
-        []
+        [dateFilter]
       );
       this.isLoading = false;
 

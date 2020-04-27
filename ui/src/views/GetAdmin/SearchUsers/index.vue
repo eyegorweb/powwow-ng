@@ -21,6 +21,12 @@
     >
       <div slot="title">{{ $t('getadmin.users.total', { total: total }) }}</div>
 
+      <div slot="topRight">
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+        </ExportButton>
+      </div>
+
       <div slot="topLeft">
         <SearchByLogin
           @searchByLogin="searchByLogin"
@@ -28,6 +34,15 @@
           :init-value="searchByLoginValue"
         />
       </div>
+
+      <template slot="actions" slot-scope="{ row }">
+        <Actions
+          :user="row"
+          @duplicateUser="onDuplicateUser(row)"
+          @modifyUser="onModifyUser(row)"
+          @actionIsDone="refreshUser(row)"
+        />
+      </template>
     </TableWithFilter>
   </div>
 </template>
@@ -37,11 +52,12 @@ import Tooltip from '@/components/ui/Tooltip';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import SearchByLogin from './filters/SearchByLogin';
 import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
-
+import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
-
 import PartnerFilter from './filters/PartnerFilter';
-import { searchUsers } from '@/api/users';
+import RolesFilter from './filters/RolesFilter';
+import Actions from './UserActions';
+import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
@@ -50,6 +66,8 @@ export default {
     Tooltip,
     TableWithFilter,
     SearchByLogin,
+    ExportButton,
+    Actions,
   },
   data() {
     return {
@@ -66,7 +84,7 @@ export default {
         {
           id: 2,
           label: 'Login',
-          name: 'username',
+          name: 'LOGIN',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -74,7 +92,7 @@ export default {
         {
           id: 3,
           label: 'Nom',
-          name: 'lastname',
+          name: 'NOM',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -88,7 +106,7 @@ export default {
         {
           id: 4,
           label: 'Prénom',
-          name: 'firstname',
+          name: 'PRENOM',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -100,9 +118,9 @@ export default {
           },
         },
         {
-          id: 4,
+          id: 5,
           label: 'Partenaire',
-          name: 'partner',
+          name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -114,9 +132,9 @@ export default {
           },
         },
         {
-          id: 5,
+          id: 6,
           label: 'Rôles',
-          name: 'roles',
+          name: 'ROLES',
           orderable: false,
           visible: true,
           noHandle: true,
@@ -129,7 +147,7 @@ export default {
           },
         },
         {
-          id: 6,
+          id: 7,
           label: 'Actif',
           name: 'disabled',
           orderable: true,
@@ -151,6 +169,7 @@ export default {
       },
       searchByLoginValue: undefined,
       searchLoginResults: [],
+      currentAppliedFilters: [],
     };
   },
   mounted() {
@@ -172,6 +191,16 @@ export default {
           return {
             id: 'getadmin.users.filters.email',
             value: chosenValue,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.filters.roles',
+        component: RolesFilter,
+        onChange(chosenValues) {
+          return {
+            id: 'getadmin.users.filters.roles',
+            values: chosenValues,
           };
         },
       },
@@ -229,6 +258,8 @@ export default {
       const data = await searchUsers(this.orderBy, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
+
+      this.currentAppliedFilters = filters;
     },
     onColEvent(payload) {
       console.log('col event', payload);
@@ -244,12 +275,30 @@ export default {
       this.total = data.total;
       this.rows = data.items;
     },
-
     clearSearch() {
       if (this.searchByLoginValue) {
         this.searchByLoginValue = undefined;
         this.applyFilters();
       }
+    },
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportUsers(
+          ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES'],
+          this.orderBy,
+          exportFormat,
+          this.currentAppliedFilters
+        );
+      };
+    },
+    onDuplicateUser(user) {
+      console.log('duplicate user', user);
+    },
+    onModifyUser(user) {
+      console.log('modify user', user);
+    },
+    async refreshUser(user) {
+      user.disabled = !user.disabled;
     },
   },
 };

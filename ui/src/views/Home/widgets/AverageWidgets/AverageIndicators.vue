@@ -48,7 +48,7 @@
 <script>
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
-import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
+import { formatBytes } from '@/api/utils';
 
 export default {
   components: {
@@ -80,7 +80,8 @@ export default {
       return formatBytes(value);
     },
     formattedVoice(value) {
-      return resumeFormattedValueFromSeconds(value);
+      const formattedValue = value / 60;
+      return formattedValue.toFixed(2) + ' H';
     },
   },
   data() {

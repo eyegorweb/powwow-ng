@@ -2,6 +2,51 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.729+20200427071616
+2020-04-27
+
+## 0.3.0-master.728+20200424140439
+2020-04-24
+
+### Fixes
+
+- correction sur la table des utilisateurs (700d04bd89d6b358f77c9be2ca275d1ffa737bb8)
+
+## 0.3.0-master.727+20200424135810
+2020-04-24
+
+### Features
+
+- export de la liste des utilisateurs (5b9f370df0019f62e197f01b07213df0a7681c2f)
+
+## 0.3.0-master.726+20200424081739
+2020-04-24
+
+### Fixes
+
+- ajout d'un gestionnaire d'erreur pour la création de rapport (bcc535c273a3c1ee729857dff315fe6d67cb9d95)
+
+## 0.3.0-master.725+20200424065038
+2020-04-24
+
+### Features
+
+- **gestion des utilisateurs:** ajout du filtre par rôle (a7a8dfd954ddea06e4c4326a5143a4b56b647dd2)
+
+### Fixes
+
+- modifications des besoins du rapport de création (4f86a66dd42d456830c8d714cf475ae646dfb730)
+
+## 0.3.0-master.723+20200423092501
+2020-04-23
+
+## 0.3.0-master.722+20200423065303
+2020-04-23
+
+### Fixes
+
+- mise à jour de l'acte de création de transfert des lignes (4395089a058e9bc1decb9ade13875bfe44607be8)
+
 ## 0.3.0-master.721+20200422130807
 2020-04-22
 
