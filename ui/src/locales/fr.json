@@ -353,7 +353,9 @@
   "getadmin": {
     "users": {
       "addAdmin": "Ajouter un administrateur",
+      "addUser": "Ajouter un utilisateur",
       "title": "Gestion des utilisateurs",
+      "noInfo": "Non renseigné",
       "filters": {
         "fullName": "Nom ou prénom",
         "email": "Email",

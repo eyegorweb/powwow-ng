@@ -3,49 +3,53 @@
     <Card v-if="admins.mainAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
         {{
-          getFromContent('mainAdministrator.name.firstName') +
-            ' ' +
-            getFromContent('mainAdministrator.name.lastName')
+        getFromContent('mainAdministrator.name.firstName') +
+        ' ' +
+        getFromContent('mainAdministrator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          getFromContent('mainAdministrator.contactInformation.mobile') ||
-            getFromContent('mainAdministrator.contactInformation.phone')
+        getFromContent('mainAdministrator.contactInformation.mobile') ||
+        getFromContent('mainAdministrator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">{{
+        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">
+          {{
           getFromContent('mainAdministrator.contactInformation.email')
-        }}</a>
+          }}
+        </a>
       </div>
-      <div class="cardBloc-infos-role">
-        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
-      </div>
+      <div
+        class="cardBloc-infos-role"
+      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
     </Card>
 
-    <Card v-if="admins.mainAdministrator" :can-delete="false">
+    <Card v-if="admins.secondAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
         {{
-          getFromContent('secondAdministator.name.firstName') +
-            ' ' +
-            getFromContent('secondAdministator.name.lastName')
+        getFromContent('secondAdministator.name.firstName') +
+        ' ' +
+        getFromContent('secondAdministator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          getFromContent('secondAdministator.contactInformation.mobile') ||
-            getFromContent('secondAdministator.contactInformation.phone')
+        getFromContent('secondAdministator.contactInformation.mobile') ||
+        getFromContent('secondAdministator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">{{
+        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">
+          {{
           getFromContent('secondAdministator.contactInformation.email')
-        }}</a>
+          }}
+        </a>
       </div>
-      <div class="cardBloc-infos-role">
-        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
-      </div>
+      <div
+        class="cardBloc-infos-role"
+      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
     </Card>
 
     <div class="addNew">
@@ -100,7 +104,7 @@ export default {
 
   .addNew {
     width: 49%;
-    height: 200px;
+    height: 220px;
     border-radius: 5px;
     font-size: 14px;
     padding: 30px 20px;
@@ -138,7 +142,7 @@ export default {
 
     &-role {
       font-size: 12px;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     &-email {

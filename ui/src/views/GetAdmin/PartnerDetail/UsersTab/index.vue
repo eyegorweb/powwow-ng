@@ -12,12 +12,14 @@
     </div>
     <div class="col-md-9">
       <AdminCards v-if="section === 'getadmin.partners.admins'" :partnerid="partnerid" />
+      <UsersCards v-if="section === 'getadmin.partners.users'" :partnerid="partnerid" />
     </div>
   </div>
 </template>
 
 <script>
 import AdminCards from './AdminCards';
+import UsersCards from './UsersCards';
 
 export default {
   props: {
@@ -28,6 +30,7 @@ export default {
   },
   components: {
     AdminCards,
+    UsersCards,
   },
 
   data() {

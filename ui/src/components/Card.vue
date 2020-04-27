@@ -29,17 +29,21 @@ export default {
 <style lang="scss" scoped>
 .cardBloc {
   width: 49%;
-  height: 200px;
+  height: 220px;
   background-color: white;
   border-radius: 5px;
   font-size: 14px;
-  padding: 30px 20px;
+  padding: 20px;
   margin-bottom: 20px;
+  position: relative;
 
   &-buttons {
     display: flex;
     justify-content: flex-end;
     width: 100%;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
   }
 }
 </style>
