@@ -2,23 +2,27 @@
   <div>
     <div class="searchBar">
       <label for>Rechercher un utilisateur</label>
-      <input type="text" v-model="searchValue" />
+      <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom, prénom ou login" />
     </div>
     <div class="cards">
-      <div class="addNew">
+      <div class="addNew" @click="openCreationPanel">
         <div class="addNew-logo">
           <i class="icon ic-User-Icon"></i>
         </div>
         <div>{{ $t('getadmin.users.addUser') }}</div>
       </div>
-      <Card v-if="users" v-for="user in visibleUsers" :key="user.id" :can-delete="true">
+      <Card
+        v-if="users"
+        v-for="user in visibleUsers"
+        :key="user.id"
+        :can-delete="true"
+        @modify="modifyUser(user)"
+      >
         <div class="cardBloc-infos-name">{{ checkName(user) }}</div>
         <div class="cardBloc-infos-username">{{ user.username }}</div>
         <div class="cardBloc-infos-email">
           <a :href="'mailto:' + user.email">
-            {{
-            user.email
-            }}
+            {{ user.email }}
           </a>
         </div>
         <div class="cardBloc-infos-role">
@@ -32,11 +36,15 @@
 
 <script>
 import Card from '@/components/Card';
+import UiInput from '@/components/ui/UiInput';
+
 import { fetchUsersByPartnerId } from '@/api/users.js';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
     Card,
+    UiInput,
   },
 
   props: {
@@ -51,6 +59,7 @@ export default {
       users: undefined,
       visibleUsers: undefined,
       searchValue: null,
+      roles: [],
     };
   },
 
@@ -76,6 +85,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openPanel']),
+
     usersFilter(searchValue) {
       return this.users.filter(value => {
         return value.name == searchValue;
@@ -93,15 +104,66 @@ export default {
         return e.username;
       }
     },
+
+    modifyUser(user) {
+      const doReset = () => {
+        this.refreshUsers();
+      };
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { duplicateFrom: user, partnerId: this.partnerid },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
+    async refreshUsers() {
+      this.users = await fetchUsersByPartnerId(this.partnerid);
+
+      this.visibleUsers = [...this.users];
+    },
+
+    openCreationPanel() {
+      const doReset = () => {
+        this.refreshUsers();
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { partnerId: this.partnerid },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
   },
   async mounted() {
-    this.users = await fetchUsersByPartnerId(this.partnerid);
-    this.visibleUsers = [...this.users];
+    await this.refreshUsers();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.searchBar {
+  width: 49%;
+  label {
+    font-weight: bold;
+    display: block;
+  }
+}
 .cards {
   display: flex;
   flex-wrap: wrap;

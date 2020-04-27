@@ -1,6 +1,26 @@
 import { query, getFilterValue, getFilterValues } from './utils';
 import get from 'lodash.get';
 
+export async function editAdministrator(type, params) {
+  const queryStr = `
+    mutation {
+    editAdministrator(administratorType: ${type}, administratorFieldInput: {
+      partyId: ${params.partyId},
+      company: "${params.company}",
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}"
+    }) {
+      id
+    }
+  }
+`;
+
+  const response = await query(queryStr);
+
+  if (response.data) return response.data.editAdministrator;
+}
+
 // TO REFACTOR -----------------------
 export async function fetchpartners(q, { page, limit, partnerType, includeMailingLists }) {
   let partnerTypeGqlFilter = '';
@@ -82,6 +102,20 @@ export async function fetchAdminInfos(id) {
           phone
           mobile
         }
+        function
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
+        auditable {
+          created
+          updated
+        }
       }
       secondAdministator {
         company
@@ -93,6 +127,20 @@ export async function fetchAdminInfos(id) {
           email
           phone
           mobile
+        }
+        function
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
+        auditable {
+          created
+          updated
         }
       }
     }

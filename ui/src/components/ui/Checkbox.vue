@@ -102,6 +102,7 @@ export default {
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
+    padding-top: 5px;
     cursor: pointer;
     user-select: none;
   }

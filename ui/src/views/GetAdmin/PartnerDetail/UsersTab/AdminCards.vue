@@ -1,55 +1,55 @@
 <template>
   <div class="cards">
-    <Card v-if="admins.mainAdministrator" :can-delete="false">
+    <Card
+      v-if="admins.mainAdministrator"
+      :can-delete="false"
+      @modify="modifyAdmin(admins.mainAdministrator)"
+    >
       <div class="cardBloc-infos-name">
         {{
-        getFromContent('mainAdministrator.name.firstName') +
-        ' ' +
-        getFromContent('mainAdministrator.name.lastName')
+          getFromContent('mainAdministrator.name.firstName') +
+            ' ' +
+            getFromContent('mainAdministrator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-        getFromContent('mainAdministrator.contactInformation.mobile') ||
-        getFromContent('mainAdministrator.contactInformation.phone')
+          getFromContent('mainAdministrator.contactInformation.mobile') ||
+            getFromContent('mainAdministrator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
         <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">
-          {{
-          getFromContent('mainAdministrator.contactInformation.email')
-          }}
+          {{ getFromContent('mainAdministrator.contactInformation.email') }}
         </a>
       </div>
-      <div
-        class="cardBloc-infos-role"
-      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
+      <div class="cardBloc-infos-role">
+        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
+      </div>
     </Card>
 
     <Card v-if="admins.secondAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
         {{
-        getFromContent('secondAdministator.name.firstName') +
-        ' ' +
-        getFromContent('secondAdministator.name.lastName')
+          getFromContent('secondAdministator.name.firstName') +
+            ' ' +
+            getFromContent('secondAdministator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-        getFromContent('secondAdministator.contactInformation.mobile') ||
-        getFromContent('secondAdministator.contactInformation.phone')
+          getFromContent('secondAdministator.contactInformation.mobile') ||
+            getFromContent('secondAdministator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
         <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">
-          {{
-          getFromContent('secondAdministator.contactInformation.email')
-          }}
+          {{ getFromContent('secondAdministator.contactInformation.email') }}
         </a>
       </div>
-      <div
-        class="cardBloc-infos-role"
-      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
+      <div class="cardBloc-infos-role">
+        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
+      </div>
     </Card>
 
     <div class="addNew">
@@ -65,16 +65,11 @@
 import Card from '@/components/Card';
 import { fetchAdminInfos } from '@/api/partners.js';
 import get from 'lodash.get';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
     Card,
-  },
-
-  methods: {
-    getFromContent(path, defaultValue = '-') {
-      return get(this.admins, path, defaultValue);
-    },
   },
 
   props: {
@@ -92,6 +87,28 @@ export default {
 
   async mounted() {
     this.admins = await fetchAdminInfos(this.partnerid);
+  },
+
+  methods: {
+    ...mapMutations(['openPanel']),
+
+    getFromContent(path, defaultValue = '-') {
+      return get(this.admins, path, defaultValue);
+    },
+
+    modifyAdmin(admin) {
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.adminForm.title'),
+        panelId: 'getadmin.partnerDetail.adminForm.title',
+        payload: {
+          ...admin,
+          partnerId: this.partnerid,
+        },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+      });
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="checkboxes">
-      <Checkbox v-for="v in values" :key="v.code" v-model="model" :value="v">
+      <Checkbox v-for="v in options" :key="v.code" v-model="model" :value="v">
         {{ v.label }}
       </Checkbox>
     </div>
@@ -16,10 +16,10 @@ export default {
 
   components: { Checkbox },
   props: {
-    values: {
+    options: {
       type: Array,
     },
-    selectedValues: {
+    value: {
       type: Array,
     },
   },
@@ -27,10 +27,10 @@ export default {
   computed: {
     model: {
       get() {
-        return this.selectedValues;
+        return this.value;
       },
       set(newValues) {
-        this.$emit('update:selectedValues', newValues);
+        this.$emit('input', newValues);
       },
     },
   },

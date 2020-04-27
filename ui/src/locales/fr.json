@@ -75,6 +75,9 @@
   "lastMassActions": "Derniers actes de gestion",
   "showAllHistory": "Voir l'historique complet",
   "groupAccount": "Compte groupe",
+  "login": "Login",
+  "password": "Mot de passe",
+  "passwordConfirm": "Confirmation du mot de passe",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -160,6 +163,11 @@
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires"
   },
+  "users": {
+    "function": "Fonction [facultatif]",
+    "phone": "Téléphone",
+    "mobile": "Mobile [facultatif]"
+  },
   "partnerTypes": {
     "CUSTOMER": "M2M",
     "MVNO": "MVNO",
@@ -167,7 +175,16 @@
   },
   "errors": {
     "all": "Erreur(s)",
-    "mandatory": "* Champ obligatoire"
+    "mandatory": "* Champ obligatoire",
+    "password": {
+      "length-error": "Le mot de passe doit faire plus de 8 caractères",
+      "confirm-error": "Les mot de passe ne correspondent pas",
+      "name-error": "Le mot de passe doit être différent du nom ou prénom",
+      "uppercase-error": "Le mot de passe doit contenir au moins une minuscule et une majuscule",
+      "special-error": "Une lettre avec accent ou un caractère spécial.",
+      "number-error": "Le mot de passe doit contenir au moins un chiffre.",
+      "email-error": "Veuillez saisir une adresse email valide"
+    }
   },
   "common": {
     "billingAccount": "Compte de facturation",
@@ -381,6 +398,15 @@
       "accountDetail": "Détail du compte",
       "admins": "Administrateurs",
       "activityLog": "Journal d'activité"
+    },
+    "partnerDetail": {
+      "adminForm": {
+        "title": "Formulaire admin"
+      },
+      "userForm": {
+        "title": "Ajouter un utilisateur",
+        "modify-title": "Modification d'un utilisateur"
+      }
     }
   },
   "getreport": {
@@ -1235,6 +1261,7 @@
     "city": "Ville",
     "country": "Pays",
     "action": "Action",
+    "state": "État [facultatif]",
     "actionValues": {
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"

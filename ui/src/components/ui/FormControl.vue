@@ -9,6 +9,7 @@
       :required="required"
       type="number"
       class="form-control"
+      :class="{ 'big-input': big }"
     />
     <input
       v-else
@@ -20,6 +21,7 @@
       :maxlength="maxSize"
       :required="required"
       class="form-control"
+      :class="{ 'big-input': big }"
     />
     <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
   </div>
@@ -49,6 +51,7 @@ export default {
       required: false,
     },
     required: Boolean,
+    big: Boolean,
     maxSize: {
       type: Number,
       required: false,
@@ -66,5 +69,9 @@ export default {
   .error-text {
     color: $orange;
   }
+}
+
+.big-input {
+  font-size: 1.5rem;
 }
 </style>

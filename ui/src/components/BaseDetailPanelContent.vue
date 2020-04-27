@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-vertical-container">
+  <div class="panel-vertical-container" :class="{ 'bg-white': white }">
     <div class="main-content data-detail-container">
       <slot></slot>
     </div>
@@ -10,7 +10,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    white: Boolean,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
