@@ -58,7 +58,9 @@
       <div v-if="passwordConfirmationErrors" class="entries-line">
         <div class="form-entry">
           <ul class="list-unstyled">
-            <li v-for="error in passwordConfirmationErrors" class="error-text">{{ $t(error) }}</li>
+            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
+              {{ $t(error) }}
+            </li>
           </ul>
         </div>
       </div>
@@ -198,7 +200,7 @@ export default {
       }
       // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
 
-      if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(this.form.password)) {
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.form.password)) {
         errors.push('errors.password.special-error');
       }
 

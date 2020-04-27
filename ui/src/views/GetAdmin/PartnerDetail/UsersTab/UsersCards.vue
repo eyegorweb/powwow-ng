@@ -12,7 +12,6 @@
         <div>{{ $t('getadmin.users.addUser') }}</div>
       </div>
       <Card
-        v-if="users"
         v-for="user in visibleUsers"
         :key="user.id"
         :can-delete="true"
@@ -27,7 +26,9 @@
         </div>
         <div class="cardBloc-infos-role">
           Rôle(s):
-          <span v-for="role in user.roles">{{ role.description + ' ' }}</span>
+          <span :key="role.description" v-for="role in user.roles">{{
+            role.description + ' '
+          }}</span>
         </div>
       </Card>
     </div>
@@ -56,8 +57,8 @@ export default {
 
   data() {
     return {
-      users: undefined,
-      visibleUsers: undefined,
+      users: [],
+      visibleUsers: [],
       searchValue: null,
       roles: [],
     };
