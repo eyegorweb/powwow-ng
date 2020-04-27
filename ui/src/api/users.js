@@ -235,13 +235,15 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
   return response.data.users.items;
 }
 
-export async function exportUsers(columns, orderBy, exportFormat) {
+export async function exportUsers(columns, orderBy, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const response = await query(
     `
     query {
-      exportUsers(filters: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+      exportUsers(filters: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
         downloadUri
         total
       }
