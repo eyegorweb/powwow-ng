@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.731+20200427150751
+2020-04-27
+
+### Features
+
+- Création et mise à jour d'utilisateurs depuis le détail de partenaires (d8c8992544db944730f80ad0066375e2680fa691)
+
 ## 0.3.0-master.730+20200427093624
 2020-04-27
 
