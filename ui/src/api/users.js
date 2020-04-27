@@ -55,6 +55,15 @@ export async function searchUsers(orderBy, pagination, filters = []) {
   return response.data.users;
 }
 
+export async function fetchUsersByPartnerId(id) {
+  const response = await searchUsers({ key: 'id', direction: 'DESC' }, { page: 0, limit: 999 }, [
+    { id: 'getadmin.users.filters.partners', values: [{ id }] },
+  ]);
+
+  if (response) {
+    return response.items;
+  }
+}
 export async function fetchPartnerGroups(q = '') {
   const queryStr = `
   query {

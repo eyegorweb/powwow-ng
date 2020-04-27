@@ -3,47 +3,53 @@
     <Card v-if="admins.mainAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
         {{
-          admins.secondAdministator.name.firstName + ' ' + admins.secondAdministator.name.lastName
+        getFromContent('mainAdministrator.name.firstName') +
+        ' ' +
+        getFromContent('mainAdministrator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          admins.secondAdministator.contactInformation.mobile ||
-            admins.secondAdministator.contactInformation.phone ||
-            '-'
+        getFromContent('mainAdministrator.contactInformation.mobile') ||
+        getFromContent('mainAdministrator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a href="mailto:chloédulac@enedis-france.com">{{
-          admins.secondAdministator.contactInformation.email || '-'
-        }}</a>
+        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">
+          {{
+          getFromContent('mainAdministrator.contactInformation.email')
+          }}
+        </a>
       </div>
-      <div class="cardBloc-infos-role">
-        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
-      </div>
+      <div
+        class="cardBloc-infos-role"
+      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
     </Card>
 
-    <Card v-if="admins.secondAdministator" :can-delete="true">
+    <Card v-if="admins.secondAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
         {{
-          admins.secondAdministator.name.firstName + ' ' + admins.secondAdministator.name.lastName
+        getFromContent('secondAdministator.name.firstName') +
+        ' ' +
+        getFromContent('secondAdministator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          admins.secondAdministator.contactInformation.mobile ||
-            admins.secondAdministator.contactInformation.phone ||
-            '-'
+        getFromContent('secondAdministator.contactInformation.mobile') ||
+        getFromContent('secondAdministator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a href="mailto:chloédulac@enedis-france.com">{{
-          admins.secondAdministator.contactInformation.email || '-'
-        }}</a>
+        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">
+          {{
+          getFromContent('secondAdministator.contactInformation.email')
+          }}
+        </a>
       </div>
-      <div class="cardBloc-infos-role">
-        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.secondAdmin') }}
-      </div>
+      <div
+        class="cardBloc-infos-role"
+      >{{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}</div>
     </Card>
 
     <div class="addNew">
@@ -58,10 +64,17 @@
 <script>
 import Card from '@/components/Card';
 import { fetchAdminInfos } from '@/api/partners.js';
+import get from 'lodash.get';
 
 export default {
   components: {
     Card,
+  },
+
+  methods: {
+    getFromContent(path, defaultValue = '-') {
+      return get(this.admins, path, defaultValue);
+    },
   },
 
   props: {
@@ -91,7 +104,7 @@ export default {
 
   .addNew {
     width: 49%;
-    height: 200px;
+    height: 220px;
     border-radius: 5px;
     font-size: 14px;
     padding: 30px 20px;
@@ -129,7 +142,7 @@ export default {
 
     &-role {
       font-size: 12px;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     &-email {

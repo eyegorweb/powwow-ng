@@ -1,0 +1,164 @@
+<template>
+  <div>
+    <div class="searchBar">
+      <label for>Rechercher un utilisateur</label>
+      <input type="text" v-model="searchValue" />
+    </div>
+    <div class="cards">
+      <div class="addNew">
+        <div class="addNew-logo">
+          <i class="icon ic-User-Icon"></i>
+        </div>
+        <div>{{ $t('getadmin.users.addUser') }}</div>
+      </div>
+      <Card v-if="users" v-for="user in visibleUsers" :key="user.id" :can-delete="true">
+        <div class="cardBloc-infos-name">{{ checkName(user) }}</div>
+        <div class="cardBloc-infos-username">{{ user.username }}</div>
+        <div class="cardBloc-infos-email">
+          <a :href="'mailto:' + user.email">
+            {{
+            user.email
+            }}
+          </a>
+        </div>
+        <div class="cardBloc-infos-role">
+          Rôle(s):
+          <span v-for="role in user.roles">{{ role.description + ' ' }}</span>
+        </div>
+      </Card>
+    </div>
+  </div>
+</template>
+
+<script>
+import Card from '@/components/Card';
+import { fetchUsersByPartnerId } from '@/api/users.js';
+
+export default {
+  components: {
+    Card,
+  },
+
+  props: {
+    partnerid: {
+      type: String,
+      default: undefined,
+    },
+  },
+
+  data() {
+    return {
+      users: undefined,
+      visibleUsers: undefined,
+      searchValue: null,
+    };
+  },
+
+  watch: {
+    searchValue(newValue) {
+      if (!newValue) {
+        return (this.visibleUsers = [...this.users]);
+      }
+      this.visibleUsers = this.users.filter(u => {
+        const isUsernameValid =
+          u.username && u.username.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
+
+        let isFirstNameValid, isLastNameValid;
+        if (u.name.firstName) {
+          isFirstNameValid = u.name.firstName.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
+        }
+        if (u.name.lastName) {
+          isLastNameValid = u.name.lastName.toLowerCase().indexOf(newValue.toLowerCase()) !== -1;
+        }
+        return isUsernameValid || isFirstNameValid || isLastNameValid;
+      });
+    },
+  },
+
+  methods: {
+    usersFilter(searchValue) {
+      return this.users.filter(value => {
+        return value.name == searchValue;
+      });
+    },
+
+    checkName(e) {
+      if (e.name.firstName && e.name.lastName) {
+        return e.name.firstName + ' ' + e.name.lastName;
+      } else if (!e.name.lastName) {
+        return e.name.firstName;
+      } else if (!e.name.firstName) {
+        return e.name.lastName;
+      } else {
+        return e.username;
+      }
+    },
+  },
+  async mounted() {
+    this.users = await fetchUsersByPartnerId(this.partnerid);
+    this.visibleUsers = [...this.users];
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .addNew {
+    width: 49%;
+    height: 220px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 20px;
+    border: #dddddd solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    flex-direction: column;
+    cursor: pointer;
+
+    &-logo {
+      width: 50px;
+      height: 50px;
+      background-color: #009dcc;
+      border-radius: 100px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        color: white;
+      }
+    }
+  }
+
+  .cardBloc-infos {
+    &-name {
+      font-weight: 500;
+      color: #454545;
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+
+    &-role {
+      font-size: 12px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    &-email {
+      margin-top: 5px;
+
+      a {
+        color: #009dcc;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+</style>
