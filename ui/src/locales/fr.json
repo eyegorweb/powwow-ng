@@ -80,7 +80,8 @@
     "DISABLE": "Désactiver",
     "ENABLE": "Activer",
     "DELETE": "Supprimer",
-    "DOWNLOAD": "Télécharger"
+    "DOWNLOAD": "Télécharger",
+    "MODIFY": "Modifier"
   },
   "home": {
     "customize": {
