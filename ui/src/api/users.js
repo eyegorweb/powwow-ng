@@ -1,5 +1,65 @@
 import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
+export async function fetchAllowedRoles(userId) {
+  const queryStr = `query {
+    userAllowedRoles(userId: ${userId}, withWS: false) {
+      Id
+      name
+      description
+      category
+      scope
+    }
+  }`;
+
+  const response = await query(queryStr);
+  return response.data.userAllowedRoles;
+}
+
+export async function createUser(params) {
+  const queryStr = `
+  mutation {
+    createUser(userCreationInput: {
+      title: ${params.title},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      username: "${params.username}",
+      password: "${params.password}",
+      confirmPassword: "${params.confirmPassword}",
+      partyId: ${params.partyId},
+      roles: [${params.roles.map(r => r.code).join(',')}]
+    }){
+      id
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.createUser;
+}
+
+export async function updateUser(params) {
+  console.log('params >> ', params);
+  const queryStr = `
+  mutation {
+    updateUser(
+      userToUpdate: ${params.id},
+      userCreationInput: {
+      title: ${params.title},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      username: "${params.username}",
+      password: "${params.password}",
+      confirmPassword: "${params.confirmPassword}",
+      partyId: ${params.partyId},
+      roles: [${params.roles.map(r => r.code).join(',')}]
+    }){
+      id
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.updateUser;
+}
+
 export async function fetchUserByUsername(username) {
   const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 1 };
