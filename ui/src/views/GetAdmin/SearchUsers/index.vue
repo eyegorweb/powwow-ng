@@ -158,6 +158,7 @@ export default {
       },
       searchByLoginValue: undefined,
       searchLoginResults: [],
+      currentAppliedFilters: [],
     };
   },
   mounted() {
@@ -246,6 +247,8 @@ export default {
       const data = await searchUsers(this.orderBy, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
+
+      this.currentAppliedFilters = filters;
     },
     onColEvent(payload) {
       console.log('col event', payload);
@@ -272,7 +275,8 @@ export default {
         return await exportUsers(
           ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES'],
           this.orderBy,
-          exportFormat
+          exportFormat,
+          this.currentAppliedFilters
         );
       };
     },
