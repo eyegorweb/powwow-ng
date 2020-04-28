@@ -494,6 +494,38 @@ export async function uploadFileSimCards(file, orderId) {
   return await postFile(`/api/file/uploadIccids`, formData);
 }
 
+export async function uploadFileSimCardsFromLines(file) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('idType', 'CREATE_ICCID');
+  return await postFile(`/api/file/upload`, formData);
+}
+
+export async function importIccidsFromLines(partnerId, customerAccountId, simCardId, tempDataUuid) {
+  const response = await query(
+    `
+    mutation {
+      importSimcards(
+        input: {
+          uuid: "${tempDataUuid}"
+          partnerId: "${partnerId}"
+          customerAccountId: "${customerAccountId}"
+          simCardId: "${simCardId}"
+        }
+      ) {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+      }
+    }
+    `
+  );
+  return response.data.importSimcards;
+}
+
 export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';

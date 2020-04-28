@@ -8,6 +8,11 @@
           <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
       </div>
+      <div class="col-md-3">
+        <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">
+          {{ $t('getparc.lines-sim-import') }}
+        </UiButton>
+      </div>
     </div>
     <div class="row mb-5">
       <div class="col-md-12">
@@ -89,6 +94,7 @@ import Tooltip from '@/components/ui/Tooltip';
 import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
 import Title from './Title';
+import UiButton from '@/components/ui/Button';
 import ActCreationPrerequisites from './ActCreation/Prerequisites';
 import ActCreationActForm from './ActCreation/ActForm';
 import ActionCarousel from './ActionCarousel';
@@ -110,6 +116,7 @@ export default {
     ActCreationActForm,
     Title,
     DropZone,
+    UiButton,
   },
   data() {
     return {
@@ -220,6 +227,7 @@ export default {
       'resetAfterFilterClear',
       'resetState',
     ]),
+    ...mapMutations(['openPanel']),
 
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
@@ -291,6 +299,16 @@ export default {
 
     onPrereqSet() {
       this.prereqSet = true;
+    },
+
+    openCreateSimCardsPanel() {
+      this.openPanel({
+        title: this.$t('getparc.lines-sim-import'),
+        panelId: 'getparc.lines-sim-import',
+        wide: false,
+        backdrop: true,
+        ignoreClickAway: true,
+      });
     },
   },
 

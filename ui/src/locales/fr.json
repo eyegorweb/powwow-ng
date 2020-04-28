@@ -441,6 +441,7 @@
     }
   },
   "getparc": {
+    "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
@@ -1056,6 +1057,7 @@
       "step2Title": "configurer le changement de compte de facturation",
       "selectOffer": "Sélectionner une offre",
       "selectOfferTarget": "Sélectionner une offre cible pour les lignes actives",
+      "typeSimCard": "Sélectionner un type de cartes SIM",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
         "foundSimcards": "lignes à importer",

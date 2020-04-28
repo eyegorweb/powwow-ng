@@ -34,6 +34,7 @@
         v-if="panelId === 'getsim.actions.IMPORT_SIM'"
         :content="payload"
       />
+      <ActLinesImportSimCards v-if="panelId === 'getparc.lines-sim-import'" :content="payload" />
       <AdminFormPanel
         v-if="panelId === 'getadmin.partnerDetail.adminForm.title'"
         :content="payload"
@@ -67,6 +68,7 @@ export default {
     AlarmCreationPanel: () => import('@/views/GetVision/AlarmCreationPanel'),
     ReportCreationPanel: () => import('@/views/GetReport/reports/ReportCreationPanel.vue'),
     ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),
+    ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
     AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
     UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
   },
