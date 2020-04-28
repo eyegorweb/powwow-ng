@@ -1,18 +1,18 @@
 <template>
   <BaseDetailPanelContent white>
     <div class="m-3">
-      <div class="labels-container mb-4">
+      <div v-if="creationDate" class="labels-container mb-4">
         <div class="overview-item">
           <h6>Créé le :</h6>
-          <p class="mock-value">13/01/2020 11:11:11</p>
+          <p>{{ creationDate }}</p>
         </div>
         <div class="overview-item">
           <h6>Dernière modification le :</h6>
-          <p class="mock-value">13/01/2020 11:11:11</p>
+          <p>{{ updateDate }}</p>
         </div>
         <div v-if="company" class="overview-item">
           <h6>établissement :</h6>
-          <p class="mock-value">{{ company }}</p>
+          <p>{{ company }}</p>
         </div>
       </div>
 
@@ -141,6 +141,8 @@ export default {
   data() {
     return {
       company: undefined,
+      creationDate: undefined,
+      updateDate: undefined,
       form: {
         title: undefined,
         firstName: undefined,
@@ -178,8 +180,8 @@ export default {
     async save() {
       const adminType = get(this.content, 'adminType', 'PRIMARY');
       const response = await editAdministrator(adminType, {
-        partyId: this.content.partnerId,
-        company: this.company,
+        partyId: parseInt(this.content.partnerId),
+        company: this.company || '',
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         email: this.form.email,
@@ -219,6 +221,9 @@ export default {
     }));
 
     if (this.content) {
+      this.creationDate = get(this.content, 'auditable.created');
+      this.updateDate = get(this.content, 'auditable.updated');
+
       this.form.title = get(this.content, 'name.title');
       this.form.firstName = get(this.content, 'name.firstName');
       this.form.lastName = get(this.content, 'name.lastName');

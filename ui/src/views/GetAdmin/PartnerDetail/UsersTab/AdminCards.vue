@@ -31,7 +31,7 @@
       {{ $t('getadmin.users.addAdmin') }}
     </CardButton>
 
-    <Card v-if="admins.secondAdministrator" :can-delete="false">
+    <Card v-if="admins.secondAdministrator">
       <div class="cardBloc-infos-name">
         {{
           getFromContent('secondAdministator.name.firstName') +
