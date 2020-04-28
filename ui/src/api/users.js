@@ -15,6 +15,13 @@ export async function fetchAllowedRoles(userId) {
   return response.data.userAllowedRoles;
 }
 
+export async function deactivateUser(id) {
+  const queryStr = `mutation { deactivateUser(userId: ${id}) }`;
+
+  const response = await query(queryStr);
+  return response.data.deactivateUser;
+}
+
 export async function createUser(params) {
   const queryStr = `
   mutation {
@@ -37,7 +44,6 @@ export async function createUser(params) {
 }
 
 export async function updateUser(params) {
-  console.log('params >> ', params);
   const queryStr = `
   mutation {
     updateUser(

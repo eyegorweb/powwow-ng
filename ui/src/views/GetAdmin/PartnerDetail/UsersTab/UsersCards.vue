@@ -15,6 +15,7 @@
         v-for="user in visibleUsers"
         :key="user.id"
         :can-delete="true"
+        @delete="deleteUser(user)"
         @modify="modifyUser(user)"
       >
         <div class="cardBloc-infos-name">{{ checkName(user) }}</div>
@@ -39,7 +40,7 @@
 import Card from '@/components/Card';
 import UiInput from '@/components/ui/UiInput';
 
-import { fetchUsersByPartnerId } from '@/api/users.js';
+import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -86,7 +87,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'confirmAction']),
 
     usersFilter(searchValue) {
       return this.users.filter(value => {
@@ -121,6 +122,19 @@ export default {
           if (params && params.resetSearch) {
             doReset();
           }
+        },
+      });
+    },
+
+    deleteUser(user) {
+      const doReset = () => {
+        this.refreshUsers();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deactivateUser(user.id);
+          doReset();
         },
       });
     },
