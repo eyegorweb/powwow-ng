@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.735+20200428130047
+## 0.3.0-master.736+20200428130239
 2020-04-28
 
 ### Features
 
 - gestion de l'administrateur principal et secondaire de mon partenaire (b348bb53447eff2c97d820e0e1937cac005de2fe)
+- import de cartes SIM hors commande (4246899ce40b26ab51bf07b84bccaf91b4386c8b)
 
 ## 0.3.0-master.734+20200428075105
 2020-04-28
