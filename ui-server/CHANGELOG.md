@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.735+20200428130047
+2020-04-28
+
+### Features
+
+- gestion de l'administrateur principal et secondaire de mon partenaire (b348bb53447eff2c97d820e0e1937cac005de2fe)
+
 ## 0.3.0-master.734+20200428075105
 2020-04-28
 
