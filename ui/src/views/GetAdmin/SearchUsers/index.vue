@@ -8,6 +8,11 @@
           <Tooltip direction="right">{{ $t('getvsion.manage-alarms-tooltip') }}</Tooltip>
         </h4>
       </div>
+      <div class="col-md-3">
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
+          Ajouter un utilisateur
+        </UiButton>
+      </div>
     </div>
     <TableWithFilter
       v-if="filters"
@@ -48,6 +53,7 @@
 </template>
 
 <script>
+import UiButton from '@/components/ui/Button';
 import Tooltip from '@/components/ui/Tooltip';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import SearchByLogin from './filters/SearchByLogin';
@@ -63,6 +69,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   components: {
+    UiButton,
     Tooltip,
     TableWithFilter,
     SearchByLogin,
@@ -261,6 +268,27 @@ export default {
 
       this.currentAppliedFilters = filters;
     },
+
+    createUserPanel() {
+      const doReset = () => {
+        this.refreshUsers();
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { partnerId: this.partnerid },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
     onColEvent(payload) {
       console.log('col event', payload);
     },

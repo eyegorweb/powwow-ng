@@ -5,12 +5,9 @@
       <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom, prénom ou login" />
     </div>
     <div class="cards">
-      <div class="addNew" @click="openCreationPanel">
-        <div class="addNew-logo">
-          <i class="icon ic-User-Icon"></i>
-        </div>
-        <div>{{ $t('getadmin.users.addUser') }}</div>
-      </div>
+      <CardButton @click="openCreationPanel">
+        {{ $t('getadmin.users.addUser') }}
+      </CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
@@ -38,6 +35,8 @@
 
 <script>
 import Card from '@/components/Card';
+import CardButton from '@/components/CardButton';
+
 import UiInput from '@/components/ui/UiInput';
 
 import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
@@ -46,6 +45,7 @@ import { mapMutations } from 'vuex';
 export default {
   components: {
     Card,
+    CardButton,
     UiInput,
   },
 
@@ -183,36 +183,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  .addNew {
-    width: 49%;
-    height: 220px;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 20px;
-    border: #dddddd solid 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    flex-direction: column;
-    cursor: pointer;
-
-    &-logo {
-      width: 50px;
-      height: 50px;
-      background-color: #009dcc;
-      border-radius: 100px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      i {
-        color: white;
-      }
-    }
-  }
 
   .cardBloc-infos {
     &-name {
