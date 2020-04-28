@@ -31,7 +31,7 @@
       {{ $t('getadmin.users.addAdmin') }}
     </CardButton>
 
-    <Card v-if="admins.secondAdministrator">
+    <Card v-if="admins.secondAdministator" @delete="deleteSecondAdministrator">
       <div class="cardBloc-infos-name">
         {{
           getFromContent('secondAdministator.name.firstName') +
@@ -63,7 +63,7 @@
 <script>
 import Card from '@/components/Card';
 import CardButton from '@/components/CardButton';
-import { fetchAdminInfos } from '@/api/partners.js';
+import { fetchAdminInfos, deleteSecondaryAdministrator } from '@/api/partners.js';
 import get from 'lodash.get';
 import { mapMutations } from 'vuex';
 
@@ -91,7 +91,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'confirmAction']),
 
     getFromContent(path, defaultValue = '-') {
       return get(this.admins, path, defaultValue);
@@ -107,6 +107,19 @@ export default {
 
     async refreshData() {
       this.admins = await fetchAdminInfos(this.partnerid);
+    },
+
+    async deleteSecondAdministrator() {
+      const doReset = () => {
+        this.refreshData();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deleteSecondaryAdministrator(this.partnerid);
+          doReset();
+        },
+      });
     },
 
     modifyAdmin(admin) {

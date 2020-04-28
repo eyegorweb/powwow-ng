@@ -14,6 +14,11 @@ export async function editAdministrator(type, params) {
   if (response.data) return response.data.editAdministrator;
 }
 
+export async function deleteSecondaryAdministrator(partyId) {
+  const response = await mutation('deleteSecondaryAdministrator', { partyId }, '{id}');
+  if (response.data) return response.data.deleteSecondaryAdministrator;
+}
+
 // TO REFACTOR -----------------------
 export async function fetchpartners(q, { page, limit, partnerType, includeMailingLists }) {
   let partnerTypeGqlFilter = '';
