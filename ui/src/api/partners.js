@@ -149,6 +149,24 @@ export async function fetchAdminInfos(id) {
   return response.data.party;
 }
 
+export async function fetchBroadcastLists(id) {
+  const queryStr = `
+  query{
+    party(id: "${id}") {
+      id
+      mailingLists {
+        id
+        name
+        emails
+        __typename
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.party.mailingLists;
+}
+
 export async function fetchpartnerAddresses(id) {
   const queryForLastAdress = `
   query {
