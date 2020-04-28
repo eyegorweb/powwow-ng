@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.733+20200428074754
+2020-04-28
+
+### Features
+
+- liste des utilisateurs d'un partenaire (f19438e9898a6e9a9ac021513decc0fcb82966ac)
+
 ## 0.3.0-master.732+20200427152258
 2020-04-27
 
