@@ -27,6 +27,9 @@
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
       </div>
     </Card>
+    <CardButton v-else @click="addMainAdmin">
+      {{ $t('getadmin.users.addAdmin') }}
+    </CardButton>
 
     <Card v-if="admins.secondAdministrator" :can-delete="false">
       <div class="cardBloc-infos-name">
@@ -51,18 +54,15 @@
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
       </div>
     </Card>
-
-    <div class="addNew">
-      <div class="addNew-logo">
-        <i class="icon ic-User-Icon"></i>
-      </div>
-      <div>{{ $t('getadmin.users.addAdmin') }}</div>
-    </div>
+    <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>
+      {{ $t('getadmin.users.addAdmin') }}
+    </CardButton>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card';
+import CardButton from '@/components/CardButton';
 import { fetchAdminInfos } from '@/api/partners.js';
 import get from 'lodash.get';
 import { mapMutations } from 'vuex';
@@ -70,6 +70,7 @@ import { mapMutations } from 'vuex';
 export default {
   components: {
     Card,
+    CardButton,
   },
 
   props: {
@@ -86,7 +87,7 @@ export default {
   },
 
   async mounted() {
-    this.admins = await fetchAdminInfos(this.partnerid);
+    this.refreshData();
   },
 
   methods: {
@@ -96,7 +97,22 @@ export default {
       return get(this.admins, path, defaultValue);
     },
 
+    addMainAdmin() {
+      this.modifyAdmin();
+    },
+
+    addSecondaryAdmin() {
+      this.modifyAdmin({ adminType: 'SECONDARY' });
+    },
+
+    async refreshData() {
+      this.admins = await fetchAdminInfos(this.partnerid);
+    },
+
     modifyAdmin(admin) {
+      const doReset = () => {
+        this.refreshData();
+      };
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.adminForm.title'),
         panelId: 'getadmin.partnerDetail.adminForm.title',
@@ -107,6 +123,11 @@ export default {
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
       });
     },
   },
@@ -118,36 +139,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  .addNew {
-    width: 49%;
-    height: 220px;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 30px 20px;
-    border: #dddddd solid 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    flex-direction: column;
-    cursor: pointer;
-
-    &-logo {
-      width: 50px;
-      height: 50px;
-      background-color: #009dcc;
-      border-radius: 100px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      i {
-        color: white;
-      }
-    }
-  }
 
   .cardBloc-infos {
     &-name {

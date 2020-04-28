@@ -150,6 +150,9 @@ export default {
         country: undefined,
         function: undefined,
         email: undefined,
+        state: undefined,
+        phone: undefined,
+        mobile: undefined,
       },
 
       selectedAddress: {},
@@ -180,14 +183,29 @@ export default {
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         email: this.form.email,
+        function: this.form.function,
+        language: { type: 'enum', value: 'fr' },
+        title: { type: 'enum', value: this.form.title },
+        contactInformation: {
+          email: this.form.email,
+          phone: this.form.phone,
+          mobile: this.form.mobile,
+        },
+        address: {
+          address1: this.selectedAddress.label,
+          zipCode: this.form.zipCode,
+          city: this.form.city,
+          country: this.form.country.value,
+          state: this.form.state,
+        },
       });
 
       if (!response) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
-        this.flashMessage({ level: 'danger', message: this.$t('genericSuccessMessage') });
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
 
-        this.closePanel();
+        this.closePanel({ resetSearch: true });
       }
     },
   },
@@ -201,6 +219,7 @@ export default {
     }));
 
     if (this.content) {
+      this.form.title = get(this.content, 'name.title');
       this.form.firstName = get(this.content, 'name.firstName');
       this.form.lastName = get(this.content, 'name.lastName');
       this.form.email = get(this.content, 'contactInformation.email');

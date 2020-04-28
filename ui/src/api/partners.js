@@ -1,22 +1,15 @@
-import { query, getFilterValue, getFilterValues } from './utils';
+import { query, getFilterValue, getFilterValues, mutation } from './utils';
 import get from 'lodash.get';
 
 export async function editAdministrator(type, params) {
-  const queryStr = `
-    mutation {
-    editAdministrator(administratorType: ${type}, administratorFieldInput: {
-      partyId: ${params.partyId},
-      company: "${params.company}",
-      firstName: "${params.firstName}",
-      lastName: "${params.lastName}",
-      email: "${params.email}"
-    }) {
-      id
-    }
-  }
-`;
-
-  const response = await query(queryStr);
+  const response = await mutation(
+    'editAdministrator',
+    {
+      administratorType: { type: 'enum', value: type },
+      administratorFieldInput: params,
+    },
+    '{id}'
+  );
 
   if (response.data) return response.data.editAdministrator;
 }
@@ -88,60 +81,41 @@ export async function fetchpartnerById(id, conf) {
 }
 
 export async function fetchAdminInfos(id) {
+  const fields = `
+  company
+  name {
+    title
+    firstName
+    lastName
+  }
+  contactInformation {
+    email
+    phone
+    mobile
+  }
+  function
+  address {
+    address1
+    address2
+    address3
+    zipCode
+    city
+    country
+    state
+  }
+  auditable {
+    created
+    updated
+  }`;
+
   const queryStr = `
   query{
     party(id: "${id}") {
       mainAdministrator {
-        company
-        name {
-          firstName
-          lastName
-        }
-        contactInformation {
-          email
-          phone
-          mobile
-        }
-        function
-        address {
-          address1
-          address2
-          address3
-          zipCode
-          city
-          country
-          state
-        }
-        auditable {
-          created
-          updated
-        }
+        ${fields}
       }
       secondAdministator {
-        company
-        name {
-          firstName
-          lastName
-        }
-        contactInformation {
-          email
-          phone
-          mobile
-        }
-        function
-        address {
-          address1
-          address2
-          address3
-          zipCode
-          city
-          country
-          state
-        }
-        auditable {
-          created
-          updated
-        }
+        ${fields}
       }
     }
   }`;
