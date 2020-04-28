@@ -61,6 +61,9 @@
         <div class="entries-line">
           <div class="form-entry">
             <FormControl big label="common.email" v-model="form.email" />
+            <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
+              $t('errors.password.email-error')
+            }}</span>
           </div>
         </div>
 
@@ -171,12 +174,18 @@ export default {
 
       const isAdressValid = this.selectedAddress && this.selectedAddress.label;
 
-      return !missingFields.length && isAdressValid;
+      return !missingFields.length && isAdressValid && this.isEmailValid(this.form.email);
     },
   },
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
+
+    isEmailValid(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+
     async save() {
       const adminType = get(this.content, 'adminType', 'PRIMARY');
       const response = await editAdministrator(adminType, {
