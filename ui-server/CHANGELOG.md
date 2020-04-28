@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.739+20200428143841
+## 0.3.0-master.740+20200428144455
 2020-04-28
+
+### Fixes
+
+- correctif pour afficher les résultats de la table Gestion des utilisateurs (0bdc035e637d78d926b395fff1da558cbef33ac3)
 
 ## 0.3.0-master.738+20200428143008
 2020-04-28
