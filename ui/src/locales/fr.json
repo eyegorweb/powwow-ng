@@ -383,6 +383,12 @@
       },
       "total": "{total} utilisateur(s) trouvé(s)"
     },
+    "customize": {
+      "addList": "Ajouter une liste de diffusion",
+      "broadcastLists": "Listes de diffusion",
+      "freeField": "Champs libres",
+      "deliveryAddress": "Adresses de livraison"
+    },
     "partners": {
       "name": "Raison sociale",
       "mainAdmin": "Administrateur principal",
