@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.741+20200429091614
+2020-04-29
+
+### Fixes
+
+- ajout du contexte utilisateur pour permettre l'import de cartes SIM hors commande (6297d01757ee212470e0a1d97190dab00cb90fdc)
+
 ## 0.3.0-master.740+20200428144455
 2020-04-28
 
