@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.742+20200429132535
+2020-04-29
+
+### Fixes
+
+- configuration de permissions lors de la création de rapports (afeaf98119353a6923ef51b6b9b51f0b1970fe3c)
+
 ## 0.3.0-master.741+20200429091614
 2020-04-29
 
