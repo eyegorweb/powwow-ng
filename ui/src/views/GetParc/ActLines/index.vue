@@ -8,7 +8,7 @@
           <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" v-if="userIsBO">
         <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">
           {{ $t('getparc.lines-sim-import') }}
         </UiButton>
@@ -143,7 +143,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsBO']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
