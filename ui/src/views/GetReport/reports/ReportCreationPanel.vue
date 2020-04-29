@@ -19,7 +19,6 @@
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
           <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
         </div>
-
         <div class="checkbox-groups" v-if="groups">
           <template v-for="group in groups">
             <FoldableBlock
@@ -652,9 +651,30 @@ export default {
             { code: 'LAST_CONNECTION_APN', label: 'APN', checked: false },
             { code: 'LAST_USAGE_COUNTRY', label: 'Pays', checked: false },
             { code: 'LAST_USAGE_OPERATOR', label: 'Opérateur ', checked: false },
-            { code: 'LAST_USAGE_ZIP_CODE', label: 'Code postal', checked: false },
-            { code: 'LAST_USAGE_CITY', label: 'Ville', checked: false },
-            { code: 'LAST_USAGE_CELL_ID', label: 'Id de cellule', checked: false },
+            {
+              code: 'LAST_USAGE_ZIP_CODE',
+              label: 'Code postal',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
+            {
+              code: 'LAST_USAGE_CITY',
+              label: 'Ville',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
+            {
+              code: 'LAST_USAGE_CELL_ID',
+              label: 'Id de cellule',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
             { code: 'LAST_USAGE_COORDINATES', label: 'Coordonnées géographiques ', checked: false },
             { code: 'LAST_USAGE_DATE', label: 'Date de dernière localisation', checked: false },
             { code: 'LAST_USAGE_TYPE', label: "Type d'usage", checked: false },

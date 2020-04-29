@@ -73,6 +73,7 @@ export async function fetchpartnerById(id, conf) {
         shortCodes
         partyType
         flagMsisdnA
+        optionViewCellId
         ${extraFields.join(',')}
       },
     }
