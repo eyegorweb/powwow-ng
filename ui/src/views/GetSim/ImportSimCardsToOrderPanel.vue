@@ -140,7 +140,11 @@ export default {
     getLocalError(fileMeta) {
       if (!fileMeta) return;
 
-      if (fileMeta.type !== 'application/vnd.ms-excel' && fileMeta.type !== 'text/csv') {
+      if (
+        fileMeta.type !== 'application/vnd.ms-excel' &&
+        fileMeta.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+        fileMeta.type !== 'text/csv'
+      ) {
         return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
       } else if (fileMeta.size > 1000000) {
         return this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
