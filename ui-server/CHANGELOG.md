@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.743+20200429184655
+2020-04-29
+
+### Fixes
+
+- mise à jour du type MIME excel pour l'import de fichiers (5bdebb38324704eb95fd33d71752a1c5fb88a2b8)
+
 ## 0.3.0-master.742+20200429132535
 2020-04-29
 
