@@ -385,9 +385,13 @@
     },
     "customize": {
       "addList": "Ajouter une liste de diffusion",
+      "modifyList": "Modifier une liste de diffusion",
       "broadcastLists": "Listes de diffusion",
       "freeField": "Champs libres",
-      "deliveryAddress": "Adresses de livraison"
+      "deliveryAddress": "Adresses de livraison",
+      "listName": "Nom de la liste de diffusion",
+      "emails": "Adresses emails",
+      "addEmail": "Ajouter un email"
     },
     "partners": {
       "name": "Raison sociale",
