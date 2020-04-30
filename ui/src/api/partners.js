@@ -44,12 +44,16 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
         shortCodes
         partyType
         flagMsisdnA
+        optionViewCellId
         ${extraFields.join(',')}
       },
     }
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.partys.items;
 }
 // ------------------------------------
@@ -80,6 +84,9 @@ export async function fetchpartnerById(id, conf) {
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   if (response.data.partys.items && response.data.partys.items.length) {
     return response.data.partys.items[0];
   }
