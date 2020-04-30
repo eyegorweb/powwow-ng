@@ -181,7 +181,7 @@ export default {
   async mounted() {
     this.resetCheckboxes();
 
-    let partnerID;
+    let partnerID, partnerData;
 
     if (this.content) {
       this.preloadCheckBoxes(this.content.fields.split(','));
@@ -205,6 +205,7 @@ export default {
       partnerID = this.content.party.id;
     } else if (this.userIsPartner) {
       partnerID = this.userInfos.partners[0].id;
+      partnerData = this.userInfos.partners[0];
     } else {
       this.generationDate = formattedCurrentDateExtended();
     }
@@ -213,11 +214,19 @@ export default {
       const selectedPartner = await fetchpartnerById(partnerID, {
         includeMailingLists: true,
       });
-      this.selectedPartner = {
-        id: selectedPartner.id,
-        label: selectedPartner.name,
-        data: selectedPartner,
-      };
+      if (selectedPartner && selectedPartner.errors) {
+        this.selectedPartner = {
+          id: selectedPartner.id,
+          label: selectedPartner.name,
+          data: partnerData,
+        };
+      } else {
+        this.selectedPartner = {
+          id: selectedPartner.id,
+          label: selectedPartner.name,
+          data: selectedPartner,
+        };
+      }
     }
 
     await this.loadModels();
@@ -441,7 +450,7 @@ export default {
               label: 'A-MSISDN',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.flagMsisdnA');
+                return !!get(this.selectedPartner, 'data.flagMsisdnA');
               },
             },
             { code: 'IMEI', label: 'IMEI', checked: false },
@@ -450,7 +459,7 @@ export default {
               label: 'Matériel et constructeur',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
+                return !!get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
               },
             },
             { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
@@ -468,7 +477,7 @@ export default {
               label: 'Type de hardware',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
+                return !!get(this.selectedPartner, 'data.partyType') === 'MVNO';
               },
             },
             { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
@@ -484,7 +493,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return !!get(this.selectedPartner, 'data.partyType') === 'M2M';
               },
             },
             {
@@ -492,7 +501,7 @@ export default {
               label: "Date de changement d'offre MVNO",
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return !!get(this.selectedPartner, 'data.partyType') === 'M2M';
               },
             },
           ],
