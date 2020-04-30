@@ -43,6 +43,7 @@
         v-if="panelId === 'getadmin.partnerDetail.userForm.title'"
         :content="payload"
       />
+      <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -71,6 +72,8 @@ export default {
     ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
     AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
     UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
+    BroadcastListFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),

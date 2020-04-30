@@ -235,6 +235,49 @@ export async function fetchpartnerAddresses(id) {
   return { last, all };
 }
 
+export async function deleteBroadcastList(id) {
+  const queryStr = `mutation {deletMailingListById(mailingListId:${id})}`;
+  const response = await query(queryStr);
+  return response.data.deleteBroadcastList;
+}
+
+export async function updateBroadcastLists(params) {
+  const queryStr = `
+    mutation {
+      updateMailingList(mailingInput:{
+        id:1
+        name:"${params.title}",
+        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+      }) {
+        id
+      }
+    }
+
+  `;
+  const response = await query(queryStr);
+  return response.data.updateMailingList;
+}
+
+export async function createBroadcastLists(params) {
+  const queryStr = `
+    mutation {
+      createMailingList(mailingInput:{
+        partyId:${params.partnerId},
+        name:"${params.title}",
+        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+
+      }) {
+        id
+        name
+        emails
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.createMailingList;
+}
+
 export async function addPartyShippingAddress(formData, partnerId) {
   const queryStr = `
     mutation {

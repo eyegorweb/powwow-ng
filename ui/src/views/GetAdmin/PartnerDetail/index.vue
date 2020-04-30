@@ -15,11 +15,9 @@
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a
-              class="tab-link"
-              href="#"
-              @click.prevent="() => (currentLinkIndex = index)"
-            >{{ tab.title }}</a>
+            <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">{{
+              tab.title
+            }}</a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="users">
