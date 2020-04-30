@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.744+20200430143329
+2020-04-30
+
+### Fixes
+
+- gestion des permissions des partenaires lors de la création de rapports (7582b73703917e5f11be9280b5cdb7f0c47320e1)
+
 ## 0.3.0-master.743+20200429184655
 2020-04-29
 
