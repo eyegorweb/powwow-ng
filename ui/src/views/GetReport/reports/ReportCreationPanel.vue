@@ -214,17 +214,17 @@ export default {
       const selectedPartner = await fetchpartnerById(partnerID, {
         includeMailingLists: true,
       });
-      if (selectedPartner && selectedPartner.errors) {
-        this.selectedPartner = {
-          id: selectedPartner.id,
-          label: selectedPartner.name,
-          data: partnerData,
-        };
-      } else {
+      if (selectedPartner && !selectedPartner.errors) {
         this.selectedPartner = {
           id: selectedPartner.id,
           label: selectedPartner.name,
           data: selectedPartner,
+        };
+      } else if (selectedPartner && selectedPartner.errors) {
+        this.selectedPartner = {
+          id: selectedPartner.id,
+          label: selectedPartner.name,
+          data: partnerData,
         };
       }
     }
@@ -369,7 +369,7 @@ export default {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
-          { label: 'Customisé', value: 'NONE' },
+          { label: 'Customisé', value: 'NONE', data: { fields: [] } },
           ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
       }
@@ -459,7 +459,7 @@ export default {
               label: 'Matériel et constructeur',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
+                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
               },
             },
             { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
@@ -477,7 +477,7 @@ export default {
               label: 'Type de hardware',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.partyType') === 'MVNO';
+                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
               },
             },
             { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
@@ -493,7 +493,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return get(this.selectedPartner, 'data.partyType') === 'M2M';
               },
             },
             {
@@ -501,7 +501,7 @@ export default {
               label: "Date de changement d'offre MVNO",
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return get(this.selectedPartner, 'data.partyType') === 'M2M';
               },
             },
           ],
