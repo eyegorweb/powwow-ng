@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.752+20200504141739
+2020-05-04
+
+### Features
+
+- Consulter les options du partenaire (e6ebc8618c22559feae7037a9a961783c886459b)
+
 ## 0.3.0-master.751+20200504140218
 2020-05-04
 
