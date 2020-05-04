@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.750+20200504134850
+2020-05-04
+
+### Fixes
+
+- correctifs de la table des gestions des partenaires (cc27ded08bc753e63d518c678e8975da0ee44fed)
+
 ## 0.3.0-master.749+20200504131956
 2020-05-04
 
