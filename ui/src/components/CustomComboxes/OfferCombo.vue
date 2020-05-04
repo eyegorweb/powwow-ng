@@ -1,5 +1,5 @@
 <template>
-  <UiApiAutocomplete :api-method="fetchApi" v-model="selectedValue" display-results-while-empty />
+  <UiApiAutocomplete :items="items" v-model="selectedValue" display-results-while-empty />
 </template>
 
 <script>
@@ -16,12 +16,20 @@ export default {
     value: Object,
     partners: Array,
   },
+  data() {
+    return {
+      items: [],
+    };
+  },
   computed: {
     ...mapState('userContext', [' contextPartnersType']),
 
     selectedValue: {
       get() {
-        return this.value;
+        if (this.value && this.items && this.items.length) {
+          return this.items.find(i => i.id === this.value.id);
+        }
+        return undefined;
       },
       set(value) {
         if (value && value.label === '') {
@@ -32,19 +40,17 @@ export default {
       },
     },
   },
-  methods: {
-    async fetchApi(q, page = 0) {
-      const data = await fetchOffers(q, this.partners, {
-        page,
-        limit: 99,
-        partnerType: this.contextPartnersType,
-      });
-      return data.map(p => ({
-        id: p.code,
-        label: p.workflowDescription,
-        meta: p,
-      }));
-    },
+  async mounted() {
+    const data = await fetchOffers('', this.partners, {
+      page: 0,
+      limit: 999,
+      partnerType: this.contextPartnersType,
+    });
+    this.items = data.map(p => ({
+      id: p.code,
+      label: p.workflowDescription,
+      meta: p,
+    }));
   },
 };
 </script>
