@@ -333,7 +333,7 @@ export async function updateBroadcastLists(params) {
   const queryStr = `
     mutation {
       updateMailingList(mailingInput:{
-        id:"${params.id}"
+        id:"${params.id}",
         name:"${params.title}",
         emails: [${params.emails.map(e => `"${e}"`).join(',')}],
       }) {

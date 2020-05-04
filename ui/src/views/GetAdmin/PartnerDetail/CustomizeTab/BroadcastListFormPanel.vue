@@ -15,6 +15,8 @@
               v-model="tag"
               :tags="tags"
               :validation="validation"
+              :allow-edit-tags="true"
+              :add-on-key="[13, ';']"
               @tags-changed="newTags => (tags = newTags)"
               :placeholder="$t('getadmin.customize.addEmail')"
             />
