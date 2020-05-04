@@ -493,8 +493,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
-                console.log('selected partner - FIXED_IP_ADDRESSES', this.selectedPartner);
-                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
               },
             },
             {
@@ -502,7 +501,6 @@ export default {
               label: "Date de changement d'offre MVNO",
               checked: false,
               canShow: () => {
-                console.log('selected partner - FLAT_END_DATE', this.selectedPartner);
                 return get(this.selectedPartner, 'data.partyType') === 'MVNO';
               },
             },
