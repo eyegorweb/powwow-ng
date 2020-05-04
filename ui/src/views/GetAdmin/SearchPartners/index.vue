@@ -76,6 +76,26 @@ export default {
         id: 3,
         label: this.$t('partnerType'),
         name: 'partyType',
+        format: {
+          type: 'Getter',
+          getter: row => {
+            let typeForPartner;
+            if (row && row.partyType) {
+              switch (row.partyType) {
+                case 'MVNO':
+                  typeForPartner = this.$t('partnerTypes.MVNO');
+                  break;
+                case 'CUSTOMER':
+                  typeForPartner = this.$t('partnerTypes.CUSTOMER');
+                  break;
+                case 'MULTI_CUSTOMER':
+                  typeForPartner = this.$t('partnerTypes.MULTI_CUSTOMER');
+                  break;
+              }
+            }
+            return typeForPartner ? typeForPartner : '-';
+          },
+        },
         orderable: true,
         visible: true,
       },
@@ -83,6 +103,12 @@ export default {
         id: 4,
         label: this.$t('getparc.history.details.CHANGE_STATUS.activated'),
         name: 'disabled',
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return row.disabled ? 'Inactif' : 'Actif';
+          },
+        },
         orderable: true,
         visible: true,
       },
