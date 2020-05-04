@@ -19,9 +19,7 @@ export default {
   components: {
     SearchTranslationKey,
   },
-  mounted() {
-    this.openDemoPanel();
-  },
+  mounted() {},
   methods: {
     ...mapMutations(['openPanel']),
 

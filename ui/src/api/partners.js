@@ -1,6 +1,56 @@
 import { query, getFilterValue, getFilterValues, mutation } from './utils';
 import get from 'lodash.get';
 
+export async function getPartyOptions(partyId) {
+  const queryStr = `{
+  getPartyOptions(partyId: ${partyId}) {
+    flagMsisdnA
+    euiccEnabled
+    flagStatisticsEnabled
+    resilationSecurityEnabled
+    resilationSecurityDelay
+    resilationSecurityNotificationEnabled
+    resilationSecurityNotificationMails
+    portabilityAcquittalsEmails
+    dailyCdrEmails
+    otaSensitive
+    smsAuthorized
+    shortCodes
+    mailOrder
+    orderNumberRequired
+    orderPreactivationMandatory
+    orderActivationMandatory
+    userReferenceEnabled
+    crEmail
+    switchRcard
+    smsAuthorized
+    dualSimBilling
+    diffusionList
+    diffusionListEnabled
+    dailyOutstandingReporting
+    msisdnFormatPreactivation
+    wsNotificationParam {
+      notificationOption
+      login
+      password
+      url
+    }
+    msisdnFormatPreactivation
+    defaultWorkflowForActivation {
+      id
+      code
+    }
+    defaultCustomerForActivation {
+      id
+      code
+    }
+  }
+}`;
+
+  const response = await query(queryStr);
+  return response.data.getPartyOptions;
+}
+
 export async function editAdministrator(type, params) {
   const response = await mutation(
     'editAdministrator',

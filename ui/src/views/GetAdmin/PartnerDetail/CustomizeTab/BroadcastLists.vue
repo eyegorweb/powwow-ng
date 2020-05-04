@@ -7,17 +7,18 @@
         </div>
         <div>{{ $t('getadmin.customize.addList') }}</div>
       </div>
-      <Card
-        v-if="broadcastLists"
-        v-for="list in broadcastLists"
-        :key="list.id"
-        :can-delete="true"
-        @delete="deleteList(list.id)"
-        @modify="modifyList(list)"
-      >
-        <div class="cardBloc-infos-name">{{ list.name }}</div>
-        <div class="cardBloc-infos-username">{{ list.emails }}</div>
-      </Card>
+      <template v-if="broadcastLists">
+        <Card
+          v-for="list in broadcastLists"
+          :key="list.id"
+          :can-delete="true"
+          @delete="deleteList(list.id)"
+          @modify="modifyList(list)"
+        >
+          <div class="cardBloc-infos-name">{{ list.name }}</div>
+          <div class="cardBloc-infos-username">{{ list.emails }}</div>
+        </Card>
+      </template>
     </div>
   </div>
 </template>

@@ -187,6 +187,11 @@
     }
   },
   "common": {
+    "billing": "Facturation",
+    "order": "Commande",
+    "export": "Export",
+    "others": "Autres",
+
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
     "product": "Produit",
@@ -206,7 +211,11 @@
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",
-    "line": "Ligne"
+    "line": "Ligne",
+    "simple": "Simple",
+    "detailed": "Détaillé",
+    "unit": "Unité",
+    "mass": "Masse"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -407,9 +416,14 @@
       "offersAndSim": "Offres et cartes SIM",
       "accountDetail": "Détail du compte",
       "admins": "Administrateurs",
-      "activityLog": "Journal d'activité"
+      "activityLog": "Journal d'activité",
+      "options": "Options du partenaire",
+      "accountDescription": "Description du compte partenaire"
     },
     "partnerDetail": {
+      "ELEVEN": "11",
+      "FIFTEEN": "15",
+      "BOTH": "Tous",
       "adminForm": {
         "title": "Formulaire admin"
       },
@@ -433,7 +447,7 @@
       "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
       "fromReport": "à partir d'un modèle du rapport",
       "generateReport": "Générer un rapport",
-      "dataReport": "Données du rappot",
+      "dataReport": "Données du rapport",
       "nameReport": "Nom du rapport",
       "fileFormat": "Format de ficher",
       "list": "Liste de diffusion",

@@ -154,6 +154,10 @@ export default {
   flex-basis: 25% !important;
 }
 
+.third-size {
+  flex-basis: 30% !important;
+}
+
 @media screen and (max-width: 1366px) {
   .services-container {
     width: 100% !important;

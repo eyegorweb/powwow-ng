@@ -2,7 +2,7 @@
   <div class="mb-4">
     <div class="d-flex align-items-center">
       <h4 class="text-primary text-uppercase">
-        <i class="handle ic-Drag-Column-Icon"></i>
+        <i v-if="!noHandle" class="handle ic-Drag-Column-Icon"></i>
         <slot name="title" />
       </h4>
       <div class="flex-grow-1">
@@ -18,7 +18,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    noHandle: Boolean,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

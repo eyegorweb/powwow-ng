@@ -11,14 +11,12 @@
 
     <Summary :partnerid="this.$route.params.id" />
 
-    <div class="mt-4 mb-4">
+    <div v-if="partner" class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
             <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">
-              {{
-              tab.title
-              }}
+              {{ tab.title }}
             </a>
           </UiTab>
         </template>
@@ -27,6 +25,9 @@
         </div>
         <div class="pt-4 pl-4" slot="customize">
           <CustomizeTab :partnerid="this.$route.params.id" />
+        </div>
+        <div class="pt-4 pl-4" slot="accountDetail">
+          <AccountDetail :partner="partner" />
         </div>
       </UiTabs>
     </div>
@@ -41,6 +42,7 @@ import UiTab from '@/components/ui/Tab';
 
 import UsersTab from './UsersTab';
 import CustomizeTab from './CustomizeTab';
+import AccountDetail from './AccountDetail';
 
 import { fetchpartnerById } from '@/api/partners.js';
 
@@ -52,16 +54,17 @@ export default {
 
     UsersTab,
     CustomizeTab,
+    AccountDetail,
   },
 
   async mounted() {
-    this.partner = await fetchpartnerById(this.$route.params.id);
+    this.partner = await fetchpartnerById(this.$route.params.id, { includeMailingLists: true });
   },
 
   data() {
     return {
       partner: undefined,
-      currentLinkIndex: 0,
+      currentLinkIndex: 4,
       tabs: [
         {
           label: 'users',
