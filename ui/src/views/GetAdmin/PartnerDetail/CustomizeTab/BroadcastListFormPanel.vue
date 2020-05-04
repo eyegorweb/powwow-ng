@@ -27,9 +27,7 @@
         <UiButton variant="import" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton :disabled="!canSave" variant="primary" @click="save" block>
-          {{ $t('save') }}
-        </UiButton>
+        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{ $t('save') }}</UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -87,6 +85,7 @@ export default {
       let response;
 
       if (this.content.duplicateFrom) {
+        console.log(this.content.duplicateFrom);
         params.id = this.content.duplicateFrom.id;
         response = await updateBroadcastLists(params);
       } else {

@@ -154,6 +154,44 @@ export async function fetchBroadcastLists(id) {
   return response.data.party.mailingLists;
 }
 
+export async function fetchPartyDetail(id) {
+  const queryStr = `
+  query {
+
+    detailParty(partyId:${id}) {
+    name
+      siren
+      salesEngineer
+      mainAdministrator  {
+        company
+        name {
+          title
+          firstName
+          lastName
+        }
+        contactInformation {
+          phone
+          email
+        }
+      }
+
+      shippingAddressesCount
+      usersCount
+      mailingListsCount
+      workflowsCount
+      customerAccountsCount
+      customFieldsCount
+      availableSimCount
+
+      }
+
+    }
+
+  `;
+  const response = await query(queryStr);
+  return response.data.detailParty;
+}
+
 export async function fetchpartnerAddresses(id) {
   const queryForLastAdress = `
   query {
