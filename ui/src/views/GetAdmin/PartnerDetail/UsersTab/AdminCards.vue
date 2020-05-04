@@ -51,7 +51,7 @@
         </a>
       </div>
       <div class="cardBloc-infos-role">
-        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
+        {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.secondAdmin') }}
       </div>
     </Card>
     <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>
@@ -93,8 +93,9 @@ export default {
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
 
-    getFromContent(path, defaultValue = '-') {
-      return get(this.admins, path, defaultValue);
+    getFromContent(path, defaultValue = '') {
+      const value = get(this.admins, path, defaultValue);
+      return value !== null ? value : '';
     },
 
     addMainAdmin() {
