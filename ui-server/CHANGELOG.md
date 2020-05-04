@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.751+20200504140218
+2020-05-04
+
+### Fixes
+
+- modification de la liste de diffusions avec un id dynamique (bfcee9d2fa1b6fba0636368a204d840dd16c6e23)
+
 ## 0.3.0-master.750+20200504134850
 2020-05-04
 
