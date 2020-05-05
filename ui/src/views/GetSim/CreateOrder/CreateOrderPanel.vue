@@ -152,7 +152,7 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${activation ? offerCode : ''}`,
+              `Offre:  ${activation ? this.order.initialOffer.description : ''}`,
               `Activation: ${activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${preActivation ? 'Oui' : 'Non'}`,
             ],
