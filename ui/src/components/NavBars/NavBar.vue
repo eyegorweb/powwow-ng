@@ -115,16 +115,33 @@ export default {
   mounted() {
     this.currentUrlName = this.$route.name;
 
-    const getAdminExtra = [];
+    let getAdminExtra = [];
 
     if (this.userIsPartner) {
-      getAdminExtra.push({
-        label: 'menu.account',
-        to: {
-          name: 'getAdminPartnerDetails',
-          params: { id: this.userInfos.partners[0].id },
+      getAdminExtra = [
+        {
+          label: 'menu.users',
+          to: { name: 'getAdminUsers' },
         },
-      });
+        {
+          label: 'menu.account',
+          to: {
+            name: 'getAdminPartnerDetails',
+            params: { id: this.userInfos.partners[0].id },
+          },
+        },
+      ];
+    } else {
+      getAdminExtra = [
+        {
+          label: 'menu.users',
+          to: { name: 'getAdminUsers' },
+        },
+        {
+          label: 'menu.partners',
+          to: { name: 'getAdminPartners' },
+        },
+      ];
     }
 
     this.navbarLinks = excludeMocked([
@@ -174,17 +191,7 @@ export default {
         label: 'GetAdmin',
         to: { name: 'exemples' },
         mock: true,
-        submenu: [
-          {
-            label: 'menu.users',
-            to: { name: 'getAdminUsers' },
-          },
-          {
-            label: 'menu.partners',
-            to: { name: 'getAdminPartners' },
-          },
-          ...getAdminExtra,
-        ],
+        submenu: [...getAdminExtra],
       },
       { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
       { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
