@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.761+20200505151617
+2020-05-05
+
+### Features
+
+- Création d'utilisateur (afb7e04b1a71bf69765b3daaab0e6b250d3fffec)
+
 ## 0.3.0-master.760+20200505144609
 2020-05-05
 
