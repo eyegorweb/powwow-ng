@@ -190,7 +190,6 @@ export default {
       {
         label: 'GetAdmin',
         to: { name: 'exemples' },
-        mock: true,
         submenu: [...getAdminExtra],
       },
       { label: 'GetSupport', to: { name: 'exemples' }, mock: true },

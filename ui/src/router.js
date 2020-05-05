@@ -95,19 +95,16 @@ export default new Router({
       path: '/getamin/users',
       name: 'getAdminUsers',
       component: SearchUsers,
-      mock: true,
     },
     {
       path: '/getamin/partners',
       name: 'getAdminPartners',
       component: SearchPartners,
-      mock: true,
     },
     {
       path: '/getamin/partner/:id',
       name: 'getAdminPartnerDetails',
       component: PartnerDetail,
-      mock: true,
     },
     {
       path: '/exemples',
