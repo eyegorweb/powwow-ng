@@ -23,6 +23,15 @@ export async function deactivateUser(id) {
 }
 
 export async function createUser(params) {
+  let partyGroupParam = '';
+  if(params.partyGroupId) {
+    partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
+  }
+
+  let partyParam = '';
+  if(params.partyId) {
+    partyParam = `partyId: ${params.partyId},`;
+  }
   const queryStr = `
   mutation {
     createUser(userCreationInput: {
@@ -33,7 +42,8 @@ export async function createUser(params) {
       username: "${params.username}",
       password: "${params.password}",
       confirmPassword: "${params.confirmPassword}",
-      partyId: ${params.partyId},
+      ${partyParam}
+      ${partyGroupParam}
       roles: [${params.roles.map(r => r.code).join(',')}]
     }){
       id
@@ -44,6 +54,16 @@ export async function createUser(params) {
 }
 
 export async function updateUser(params) {
+  let partyGroupParam = '';
+  if(params.partyGroupId) {
+    partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
+  }
+
+  let partyParam = '';
+  if(params.partyId) {
+    partyParam = `partyId: ${params.partyId},`;
+  }
+
   const queryStr = `
   mutation {
     updateUser(
@@ -56,7 +76,8 @@ export async function updateUser(params) {
       username: "${params.username}",
       password: "${params.password}",
       confirmPassword: "${params.confirmPassword}",
-      partyId: ${params.partyId},
+      ${partyParam}
+      ${partyGroupParam}
       roles: [${params.roles.map(r => r.code).join(',')}]
     }){
       id
