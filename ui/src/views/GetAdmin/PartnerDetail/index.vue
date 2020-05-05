@@ -1,10 +1,18 @@
 <template>
   <div class="mt-4">
+    <div class="row">
+      <div class="col-md-9">
+        <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
+          <i class="ic-Arrow-Previous-Icon" />
+          {{ $t('back') }}
+        </button>
+      </div>
+    </div>
     <div class="row mb-5">
       <div class="col-md-9">
         <h4>
           <b>GetAdmin</b>
-          - USERNAME
+          - {{ partner.name }}
         </h4>
       </div>
     </div>
@@ -88,6 +96,12 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    returnToSearch() {
+      this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
+    },
   },
 };
 </script>
