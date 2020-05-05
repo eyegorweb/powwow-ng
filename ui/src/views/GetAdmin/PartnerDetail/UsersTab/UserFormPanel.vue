@@ -95,7 +95,7 @@
     </div>
     <div slot="footer" class="action-buttons">
       <div>
-        <UiButton variant="import" block>{{ $t('cancel') }}</UiButton>
+        <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
