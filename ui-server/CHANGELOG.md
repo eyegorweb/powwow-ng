@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.754+20200505114209
+2020-05-05
+
+### Fixes
+
+- **commandes:** correctif du nom de l'offre sélectionnée lors de la création de commande (44e5ea4e028ff06abf1097447c480de4459c52f5)
+
 ## 0.3.0-master.753+20200505093514
 2020-05-05
 
