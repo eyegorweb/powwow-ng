@@ -26,7 +26,7 @@
             v-if="tab"
             :is-selected="index === selectedIndex"
             class="tab-grow"
-            :disableMenu="tab.disable"
+            :disable-menu="tab.disable"
           >
             <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">
               {{ tab.title }}

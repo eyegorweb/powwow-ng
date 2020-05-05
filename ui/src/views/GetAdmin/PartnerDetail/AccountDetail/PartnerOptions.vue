@@ -413,7 +413,7 @@ export default {
       });
     },
     async saveOptions() {
-      const response = await updatePartyOptions({
+      await updatePartyOptions({
         partyOptions: {
           partyId: this.partner.id,
           flagMsisdnA: this.getToggle(this.services, 'AMSISDN'),

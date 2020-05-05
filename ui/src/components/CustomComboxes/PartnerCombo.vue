@@ -55,6 +55,8 @@ export default {
       if (this.offline) {
         return this.offlineItems;
       }
+
+      return undefined;
     },
 
     selectedValue: {

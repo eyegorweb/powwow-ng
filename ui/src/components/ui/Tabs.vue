@@ -13,7 +13,7 @@
           :key="tab.label"
           @selected="selectTab(i)"
           :is-selected="$selectedIndex === i"
-          :disableMenu="tab.disable"
+          :disable-menu="tab.disable"
           >{{ tab.label }}
         </Tab>
       </slot>

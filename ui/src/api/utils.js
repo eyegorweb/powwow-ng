@@ -18,7 +18,8 @@ export async function mutation(name, params, ret = '') {
     for (let i = 0; i < keys.length; i++) {
       let value = obj[keys[i]];
 
-      if ((!(value instanceof Object) && isNaN(value)) || value === undefined || value === null) continue;
+      if ((!(value instanceof Object) && isNaN(value)) || value === undefined || value === null)
+        continue;
 
       if (value instanceof Object && value.type !== 'enum') {
         inputs += `${keys[i]}:{${scan(value)}}`;
@@ -46,7 +47,7 @@ export async function mutation(name, params, ret = '') {
     ${name}(${scan(params)})${ret}
   }`;
 
-  console.log('queryStr>>', queryStr)
+  console.log('queryStr>>', queryStr);
 
   return await query(queryStr);
 }

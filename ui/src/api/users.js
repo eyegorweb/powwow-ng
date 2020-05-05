@@ -24,12 +24,12 @@ export async function deactivateUser(id) {
 
 export async function createUser(params) {
   let partyGroupParam = '';
-  if(params.partyGroupId) {
+  if (params.partyGroupId) {
     partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
   }
 
   let partyParam = '';
-  if(params.partyId) {
+  if (params.partyId) {
     partyParam = `partyId: ${params.partyId},`;
   }
   const queryStr = `
@@ -55,12 +55,12 @@ export async function createUser(params) {
 
 export async function updateUser(params) {
   let partyGroupParam = '';
-  if(params.partyGroupId) {
+  if (params.partyGroupId) {
     partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
   }
 
   let partyParam = '';
-  if(params.partyId) {
+  if (params.partyId) {
     partyParam = `partyId: ${params.partyId},`;
   }
 

@@ -14,7 +14,7 @@ export default {
   props: {
     isSelected: Boolean,
     disableMenu: {
-      Type: Boolean,
+      type: Boolean,
       default: false,
     },
   },

@@ -189,13 +189,13 @@ export default {
 
       if (this.userIsBO) {
         if (this.userType === 'PARTNER') {
-          if (!!(this.selectedPartner && this.selectedPartner.id)) {
+          if (this.selectedPartner && this.selectedPartner.id) {
             params.partyId = this.selectedPartner.id;
           }
         }
 
         if (this.userType === 'PARTNER_GROUP') {
-          if (!!(this.selectedGroupPartner && this.selectedGroupPartner.id)) {
+          if (this.selectedGroupPartner && this.selectedGroupPartner.id) {
             params.partyGroupId = this.selectedGroupPartner.id;
           }
         }
