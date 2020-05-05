@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       partner: undefined,
-      currentLinkIndex: 4,
+      currentLinkIndex: 0,
       tabs: [
         {
           label: 'users',
