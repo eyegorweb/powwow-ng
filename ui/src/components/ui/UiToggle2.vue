@@ -40,7 +40,7 @@ export default {
     slimToggles: Boolean,
     lightTheme: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     block: Boolean,
   },
