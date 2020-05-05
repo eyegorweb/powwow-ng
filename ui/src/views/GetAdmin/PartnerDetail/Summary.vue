@@ -45,7 +45,7 @@
     </div>
     <div class="col">
       <div class="bg-white p-4 rounded">
-        <div class="d-flex">
+        <div class="d-flex secondSummary">
           <div class="item">
             <h6>{{ $t('getadmin.partners.salesEngineer') }}:</h6>
             <p>{{ getFromContent('salesEngineer') }}</p>
@@ -113,9 +113,15 @@ hr {
   margin-top: 0;
   margin-bottom: 0.8rem;
 }
+.secondSummary {
+  .item {
+    width: 33%;
+  }
+}
 .item {
   margin-right: 0.5rem;
   flex-grow: 1;
+  width: 25%;
   h6 {
     color: #7d7d7d;
     font-size: 0.8rem;
