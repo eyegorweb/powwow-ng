@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.758+20200505133555
+2020-05-05
+
+### Fixes
+
+- correctifs de navigation dans le détail de la gestion des partenaires (8590b57f32d977b4e7b638b8aba9c61fd03b4d3a)
+
 ## 0.3.0-master.757+20200505132044
 2020-05-05
 
