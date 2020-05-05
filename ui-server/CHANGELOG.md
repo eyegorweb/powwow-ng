@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.760+20200505144609
+2020-05-05
+
+### Fixes
+
+- modification du menu GetAdmin (cc29393a9f44edd6c8d984ed74f289a6b3ee5382)
+
 ## 0.3.0-master.759+20200505135514
 2020-05-05
 
