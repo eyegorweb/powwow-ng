@@ -13,10 +13,7 @@ export default {
   name: 'UiTab',
   props: {
     isSelected: Boolean,
-    disableMenu: {
-      type: Boolean,
-      default: false,
-    },
+    disableMenu: Boolean,
   },
 };
 </script>

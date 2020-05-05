@@ -64,7 +64,7 @@
             <h6>{{ $t('getadmin.partners.lastBill') }}:</h6>
             <p>
               {{ getFromContent('lastBillingAmount.billDate') }} :
-              {{ getFromContent('lastBillingAmount.amount') }}
+              {{ billNumberFormatter(partyDetail.lastBillingAmount.amount) }} €
             </p>
           </div>
           <div class="item">
@@ -83,6 +83,7 @@
 
 <script>
 import { fetchPartyDetail } from '@/api/partners.js';
+import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
 
 export default {
@@ -101,6 +102,9 @@ export default {
   methods: {
     getFromContent(path, defaultValue = '-') {
       return get(this.partyDetail, path, defaultValue);
+    },
+    billNumberFormatter(n) {
+      return n ? formatLargeNumber(n) : '0';
     },
   },
 
