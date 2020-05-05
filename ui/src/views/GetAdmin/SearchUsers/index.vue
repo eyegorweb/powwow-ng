@@ -337,7 +337,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { duplicateFrom: user, partnerId: partnerId },
+        payload: { duplicateFrom: user, partnerId },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
