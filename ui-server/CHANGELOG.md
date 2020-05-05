@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.764+20200505155527
+2020-05-05
+
+### Fixes
+
+- rafraichir la liste des utilisateurs (a40fd44b8d7405d5bba8e80fc21bbd04f56f73de)
+
 ## 0.3.0-master.763+20200505153807
 2020-05-05
 
