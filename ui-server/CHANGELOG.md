@@ -2,6 +2,41 @@
 
 <!--- next entry here -->
 
+## 0.24.0
+2020-05-05
+
+### Features
+
+- Création et mise à jour d'utilisateurs depuis le détail de partenaires (d8c8992544db944730f80ad0066375e2680fa691)
+- liste des utilisateurs d'un partenaire (f19438e9898a6e9a9ac021513decc0fcb82966ac)
+- gestion de l'administrateur principal et secondaire de mon partenaire (b348bb53447eff2c97d820e0e1937cac005de2fe)
+- import de cartes SIM hors commande (4246899ce40b26ab51bf07b84bccaf91b4386c8b)
+- Consulter les options du partenaire (e6ebc8618c22559feae7037a9a961783c886459b)
+- enregistrer les options partenaire (54102f951b9d88a3a2b4a0585f627e6af3ec6d3c)
+- Création d'utilisateur (afb7e04b1a71bf69765b3daaab0e6b250d3fffec)
+
+### Fixes
+
+- admins cards test (2d7d649b22dc530ea331d1e0248e91f680d1a375)
+- correctif pour afficher les résultats de la table Gestion des utilisateurs (0bdc035e637d78d926b395fff1da558cbef33ac3)
+- ajout du contexte utilisateur pour permettre l'import de cartes SIM hors commande (6297d01757ee212470e0a1d97190dab00cb90fdc)
+- configuration de permissions lors de la création de rapports (afeaf98119353a6923ef51b6b9b51f0b1970fe3c)
+- mise à jour du type MIME excel pour l'import de fichiers (5bdebb38324704eb95fd33d71752a1c5fb88a2b8)
+- gestion des permissions des partenaires lors de la création de rapports (7582b73703917e5f11be9280b5cdb7f0c47320e1)
+- correctif des permissions sur la création de rapports (fac66341e0d93e6f626a302219e23a37f8422ea8)
+- gestion des permissions pour la création de rapports (ef2f932318ecfd32aa3e106c47409ccd098acb2e)
+- gestion des permissions pour la création des rapports (629da034aa83896faee505fbfd1846b300298e0f)
+- correctifs des infos sur le détail des partenaires dans la gestion d'administration (0c20f0d9c6c6e5f6235c104f6a58653142f6e517)
+- correctifs de la table des gestions des partenaires (cc27ded08bc753e63d518c678e8975da0ee44fed)
+- modification de la liste de diffusions avec un id dynamique (bfcee9d2fa1b6fba0636368a204d840dd16c6e23)
+- **commandes:** correctif du nom de l'offre sélectionnée lors de la création de commande (44e5ea4e028ff06abf1097447c480de4459c52f5)
+- **commandes:** correction de l'offre sélectionnée dans les services lors de la création de commandes (b306ada407149fc07ddd165a389608746b5d57ef)
+- correction sur l'onglet actif par défaut dans la gestion des utilisateurs (631b5fabf5634a02603480138a052f9f009a2834)
+- correctifs de navigation dans le détail de la gestion des partenaires (8590b57f32d977b4e7b638b8aba9c61fd03b4d3a)
+- correctif de la navigation de retour depuis le détail des utilisateurs (15e780597786982ad281e19dc93505b6849a876c)
+- modification du menu GetAdmin (cc29393a9f44edd6c8d984ed74f289a6b3ee5382)
+- rafraichir la liste des utilisateurs (a40fd44b8d7405d5bba8e80fc21bbd04f56f73de)
+
 ## 0.23.0
 2020-04-24
 
