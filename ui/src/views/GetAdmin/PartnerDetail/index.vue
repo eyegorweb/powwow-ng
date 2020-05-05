@@ -12,7 +12,7 @@
       <div class="col-md-9">
         <h4>
           <b>GetAdmin</b>
-          - {{ partner.name }}
+          - {{ partnerName }}
         </h4>
       </div>
     </div>
@@ -101,6 +101,12 @@ export default {
   methods: {
     returnToSearch() {
       this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
+    },
+  },
+
+  computed: {
+    partnerName() {
+      return this.partner ? this.partner.name : '';
     },
   },
 };
