@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.757+20200505132044
+2020-05-05
+
+### Fixes
+
+- correction sur l'onglet actif par défaut dans la gestion des utilisateurs (631b5fabf5634a02603480138a052f9f009a2834)
+
 ## 0.3.0-master.756+20200505123916
 2020-05-05
 
