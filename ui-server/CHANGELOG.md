@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.756+20200505123916
+2020-05-05
+
+### Fixes
+
+- **commandes:** correction de l'offre sélectionnée dans les services lors de la création de commandes (b306ada407149fc07ddd165a389608746b5d57ef)
+
 ## 0.3.0-master.755+20200505122239
 2020-05-05
 
