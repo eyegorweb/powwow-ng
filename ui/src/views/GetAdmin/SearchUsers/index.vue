@@ -332,7 +332,7 @@ export default {
       const partnerId = partners.length ? partners[0].id : undefined;
 
       const doReset = () => {
-        this.refreshUsers();
+        this.applyFilters(this.lastPayload);
       };
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
