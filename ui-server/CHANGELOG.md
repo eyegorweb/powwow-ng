@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.24.1
+2020-05-05
+
+### Fixes
+
+- enlever le mock de getAdmin (c23c9e0c9bb83b59c0e4c2c0e89a19c1e54b2f07)
+
 ## 0.24.0
 2020-05-05
 
