@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.755+20200505122239
+2020-05-05
+
+### Features
+
+- enregistrer les options partenaire (54102f951b9d88a3a2b4a0585f627e6af3ec6d3c)
+
 ## 0.3.0-master.754+20200505114209
 2020-05-05
 
