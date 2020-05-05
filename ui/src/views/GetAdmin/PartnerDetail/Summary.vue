@@ -62,7 +62,10 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getadmin.partners.lastBill') }}:</h6>
-            <p>-</p>
+            <p>
+              {{ getFromContent('lastBillingAmount.billDate') }} :
+              {{ getFromContent('lastBillingAmount.amount') }}
+            </p>
           </div>
           <div class="item">
             <h6>{{ $t('filters.offers') }}:</h6>

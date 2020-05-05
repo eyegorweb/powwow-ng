@@ -240,6 +240,10 @@ export async function fetchPartyDetail(id) {
     name
       siren
       salesEngineer
+      lastBillingAmount {
+        billDate
+        amount
+      }
       mainAdministrator  {
         company
         name {
