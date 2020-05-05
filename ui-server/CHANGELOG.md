@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.769+20200505210626
+2020-05-05
+
+### Fixes
+
+- enlever le mock de getAdmin (c23c9e0c9bb83b59c0e4c2c0e89a19c1e54b2f07)
+
 ## 0.3.0-master.768+20200505204612
 2020-05-05
 
