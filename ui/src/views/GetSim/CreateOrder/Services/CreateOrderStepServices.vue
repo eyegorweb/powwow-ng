@@ -166,7 +166,7 @@ export default {
       let offerCode = '';
 
       if (this.selectedOffer) {
-        offerCode = this.selectedOffer.code;
+        offerCode = this.selectedOffer.initialOffer.description;
       }
       return {
         services: {
