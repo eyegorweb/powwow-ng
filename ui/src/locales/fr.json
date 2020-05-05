@@ -381,8 +381,8 @@
     "users": {
       "userTypes": {
         "bouygues": "Bouygues",
-        "partner": "partenaire",
-        "group": "compte groupe"
+        "partner": "Partenaire",
+        "group": "Compte groupe"
       },
       "addAdmin": "Ajouter un administrateur",
       "addUser": "Ajouter un utilisateur",
