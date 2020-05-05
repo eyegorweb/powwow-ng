@@ -40,7 +40,7 @@ export default {
       menuItems: [
         'getadmin.partners.admins',
         'getadmin.partners.users',
-        'getadmin.partners.activityLog',
+        // 'getadmin.partners.activityLog',
       ],
     };
   },
