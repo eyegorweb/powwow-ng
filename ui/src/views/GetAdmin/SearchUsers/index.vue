@@ -8,6 +8,11 @@
           <Tooltip direction="right">{{ $t('getvsion.manage-alarms-tooltip') }}</Tooltip>
         </h4>
       </div>
+      <div class="col-md-3">
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
+          Ajouter un utilisateur
+        </UiButton>
+      </div>
     </div>
     <TableWithFilter
       v-if="filters"
@@ -34,11 +39,21 @@
           :init-value="searchByLoginValue"
         />
       </div>
+
+      <template slot="actions" slot-scope="{ row }">
+        <Actions
+          :user="row"
+          @duplicateUser="onDuplicateUser(row)"
+          @modifyUser="onModifyUser(row)"
+          @actionIsDone="refreshUser(row)"
+        />
+      </template>
     </TableWithFilter>
   </div>
 </template>
 
 <script>
+import UiButton from '@/components/ui/Button';
 import Tooltip from '@/components/ui/Tooltip';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import SearchByLogin from './filters/SearchByLogin';
@@ -47,20 +62,24 @@ import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import PartnerFilter from './filters/PartnerFilter';
 import RolesFilter from './filters/RolesFilter';
+import Actions from './UserActions';
 import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
+    UiButton,
     Tooltip,
     TableWithFilter,
     SearchByLogin,
     ExportButton,
+    Actions,
   },
   data() {
     return {
       filters: undefined,
+      lastPayload: undefined,
       columns: [
         {
           id: 1,
@@ -158,6 +177,7 @@ export default {
       },
       searchByLoginValue: undefined,
       searchLoginResults: [],
+      currentAppliedFilters: [],
     };
   },
   mounted() {
@@ -237,7 +257,10 @@ export default {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
   },
   methods: {
+    ...mapMutations(['openPanel']),
+
     async applyFilters(payload) {
+      this.lastPayload = payload;
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 10 },
         filters: [],
@@ -246,7 +269,30 @@ export default {
       const data = await searchUsers(this.orderBy, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
+
+      this.currentAppliedFilters = filters;
     },
+
+    createUserPanel() {
+      const doReset = () => {
+        this.applyFilters(this.lastPayload);
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { partnerId: this.partnerid },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
     onColEvent(payload) {
       console.log('col event', payload);
     },
@@ -272,9 +318,38 @@ export default {
         return await exportUsers(
           ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES'],
           this.orderBy,
-          exportFormat
+          exportFormat,
+          this.currentAppliedFilters
         );
       };
+    },
+    onDuplicateUser(user) {
+      console.log('duplicate user', user);
+    },
+
+    onModifyUser(user) {
+      const partners = get(user, 'partners', []);
+      const partnerId = partners.length ? partners[0].id : undefined;
+
+      const doReset = () => {
+        this.applyFilters(this.lastPayload);
+      };
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { duplicateFrom: user, partnerId },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+    async refreshUser(user) {
+      user.disabled = !user.disabled;
     },
   },
 };

@@ -16,6 +16,15 @@ export async function fetchCurrentUserInfos() {
         partners {
           id
           name
+          partyType
+          flagMsisdnA
+          optionViewCellId
+          mailingLists {
+            id
+            name
+            emails
+            __typename
+          }
         }
         type
         isAdminOrBackOffice

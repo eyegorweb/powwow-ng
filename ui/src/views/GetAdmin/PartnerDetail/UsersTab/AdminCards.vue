@@ -1,67 +1,80 @@
 <template>
   <div class="cards">
-    <Card v-if="admins.mainAdministrator" :can-delete="false">
+    <Card
+      v-if="admins.mainAdministrator"
+      :can-delete="false"
+      @modify="modifyAdmin(admins.mainAdministrator)"
+    >
       <div class="cardBloc-infos-name">
         {{
-          admins.secondAdministator.name.firstName + ' ' + admins.secondAdministator.name.lastName
+          getFromContent('mainAdministrator.name.firstName') +
+            ' ' +
+            getFromContent('mainAdministrator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          admins.secondAdministator.contactInformation.mobile ||
-            admins.secondAdministator.contactInformation.phone ||
-            '-'
+          getFromContent('mainAdministrator.contactInformation.mobile') ||
+            getFromContent('mainAdministrator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a href="mailto:chloédulac@enedis-france.com">{{
-          admins.secondAdministator.contactInformation.email || '-'
-        }}</a>
+        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">
+          {{ getFromContent('mainAdministrator.contactInformation.email') }}
+        </a>
       </div>
       <div class="cardBloc-infos-role">
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
       </div>
     </Card>
+    <CardButton v-else @click="addMainAdmin">
+      {{ $t('getadmin.users.addAdmin') }}
+    </CardButton>
 
-    <Card v-if="admins.secondAdministator" :can-delete="true">
+    <Card
+      v-if="admins.secondAdministator"
+      @delete="deleteSecondAdministrator"
+      @modify="modifyAdmin('SECONDARY', admins.mainAdministrator)"
+    >
       <div class="cardBloc-infos-name">
         {{
-          admins.secondAdministator.name.firstName + ' ' + admins.secondAdministator.name.lastName
+          getFromContent('secondAdministator.name.firstName') +
+            ' ' +
+            getFromContent('secondAdministator.name.lastName')
         }}
       </div>
       <div class="cardBloc-infos-tel">
         {{
-          admins.secondAdministator.contactInformation.mobile ||
-            admins.secondAdministator.contactInformation.phone ||
-            '-'
+          getFromContent('secondAdministator.contactInformation.mobile') ||
+            getFromContent('secondAdministator.contactInformation.phone')
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a href="mailto:chloédulac@enedis-france.com">{{
-          admins.secondAdministator.contactInformation.email || '-'
-        }}</a>
+        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">
+          {{ getFromContent('secondAdministator.contactInformation.email') }}
+        </a>
       </div>
       <div class="cardBloc-infos-role">
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.secondAdmin') }}
       </div>
     </Card>
-
-    <div class="addNew">
-      <div class="addNew-logo">
-        <i class="icon ic-User-Icon"></i>
-      </div>
-      <div>{{ $t('getadmin.users.addAdmin') }}</div>
-    </div>
+    <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>
+      {{ $t('getadmin.users.addAdmin') }}
+    </CardButton>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card';
-import { fetchAdminInfos } from '@/api/partners.js';
+import CardButton from '@/components/CardButton';
+import { fetchAdminInfos, deleteSecondaryAdministrator } from '@/api/partners.js';
+import get from 'lodash.get';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
     Card,
+    CardButton,
   },
 
   props: {
@@ -78,7 +91,64 @@ export default {
   },
 
   async mounted() {
-    this.admins = await fetchAdminInfos(this.partnerid);
+    this.refreshData();
+  },
+
+  methods: {
+    ...mapMutations(['openPanel', 'confirmAction']),
+
+    getFromContent(path, defaultValue = '') {
+      const value = get(this.admins, path, defaultValue);
+      return value !== null ? value : '';
+    },
+
+    addMainAdmin() {
+      this.modifyAdmin();
+    },
+
+    addSecondaryAdmin() {
+      this.modifyAdmin({ adminType: 'SECONDARY' });
+    },
+
+    async refreshData() {
+      this.admins = await fetchAdminInfos(this.partnerid);
+    },
+
+    async deleteSecondAdministrator() {
+      const doReset = () => {
+        this.refreshData();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deleteSecondaryAdministrator(this.partnerid);
+          doReset();
+        },
+      });
+    },
+
+    modifyAdmin(adminType, admin) {
+      const doReset = () => {
+        this.refreshData();
+      };
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.adminForm.title'),
+        panelId: 'getadmin.partnerDetail.adminForm.title',
+        payload: {
+          ...admin,
+          adminType,
+          partnerId: this.partnerid,
+        },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
   },
 };
 </script>
@@ -88,36 +158,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  .addNew {
-    width: 49%;
-    height: 200px;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 30px 20px;
-    border: #dddddd solid 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    flex-direction: column;
-    cursor: pointer;
-
-    &-logo {
-      width: 50px;
-      height: 50px;
-      background-color: #009dcc;
-      border-radius: 100px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      i {
-        color: white;
-      }
-    }
-  }
 
   .cardBloc-infos {
     &-name {
@@ -129,7 +169,7 @@ export default {
 
     &-role {
       font-size: 12px;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     &-email {

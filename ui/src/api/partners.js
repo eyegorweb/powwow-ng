@@ -1,5 +1,101 @@
-import { query, getFilterValue, getFilterValues } from './utils';
+import { query, getFilterValue, getFilterValues, mutation } from './utils';
 import get from 'lodash.get';
+
+export async function updatePartyOptions(params) {
+  const response = await mutation('updatePartyOptions', params, '');
+
+  if (response.data) return response.data.updatePartyOptions;
+}
+
+export async function getPartyOptions(partyId) {
+  const queryStr = `{
+  getPartyOptions(partyId: ${partyId}) {
+    flagMsisdnA
+    euiccEnabled
+    flagStatisticsEnabled
+    resilationSecurityEnabled
+    resilationSecurityDelay
+    resilationSecurityNotificationEnabled
+    resilationSecurityNotificationMails
+    portabilityAcquittalsEmails
+    dailyCdrEmails
+    otaSensitive
+    smsAuthorized
+    shortCodes
+    mailOrder
+    orderNumberRequired
+    orderPreactivationMandatory
+    orderActivationMandatory
+    userReferenceEnabled
+    crEmail
+    switchRcard
+    smsAuthorized
+    dualSimBilling
+    diffusionList
+    diffusionListEnabled
+    dailyOutstandingReporting
+    msisdnFormatPreactivation
+    wsNotificationParam {
+      notificationOption
+      login
+      password
+      url
+    }
+    msisdnFormatPreactivation
+    defaultWorkflowForActivation {
+      id
+      code
+    }
+    defaultCustomerForActivation {
+      id
+      code
+    }
+  }
+}`;
+
+  const response = await query(queryStr);
+  return response.data.getPartyOptions;
+}
+
+export async function editAdministrator(type, params) {
+  const queryStr = `
+  mutation {
+    editAdministrator(administratorType: ${type}, administratorFieldInput: {
+      partyId: ${params.partyId},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      company: "${params.company}",
+      language: ${params.language.value},
+      title: ${params.title.value},
+      contactInformation: {
+        phone: "${params.contactInformation.phone}"
+        email: "${params.contactInformation.email}"
+      },
+        address: {
+          zipCode: "${params.address.zipCode}",
+          address1: "${params.address.address1}",
+          city: "${params.address.city}",
+          country: "${params.address.country}",
+          state: "${params.address.state}",
+        }
+      })
+      {
+      id
+    }
+  }
+
+
+  `;
+
+  const response = await query(queryStr);
+  return response;
+}
+
+export async function deleteSecondaryAdministrator(partyId) {
+  const response = await mutation('deleteSecondaryAdministrator', { partyId }, '{id}');
+  if (response.data) return response.data.deleteSecondaryAdministrator;
+}
 
 // TO REFACTOR -----------------------
 export async function fetchpartners(q, { page, limit, partnerType, includeMailingLists }) {
@@ -26,12 +122,16 @@ export async function fetchpartners(q, { page, limit, partnerType, includeMailin
         shortCodes
         partyType
         flagMsisdnA
+        optionViewCellId
         ${extraFields.join(',')}
       },
     }
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   return response.data.partys.items;
 }
 // ------------------------------------
@@ -55,12 +155,16 @@ export async function fetchpartnerById(id, conf) {
         shortCodes
         partyType
         flagMsisdnA
+        optionViewCellId
         ${extraFields.join(',')}
       },
     }
   }
   `;
   const response = await query(queryStr);
+  if (response.errors) {
+    return { errors: response.errors };
+  }
   if (response.data.partys.items && response.data.partys.items.length) {
     return response.data.partys.items[0];
   }
@@ -68,37 +172,106 @@ export async function fetchpartnerById(id, conf) {
 }
 
 export async function fetchAdminInfos(id) {
+  const fields = `
+  company
+  name {
+    title
+    firstName
+    lastName
+  }
+  contactInformation {
+    email
+    phone
+    mobile
+  }
+  function
+  address {
+    address1
+    address2
+    address3
+    zipCode
+    city
+    country
+    state
+  }
+  auditable {
+    created
+    updated
+  }`;
+
   const queryStr = `
   query{
     party(id: "${id}") {
       mainAdministrator {
-        company
-        name {
-          firstName
-          lastName
-        }
-        contactInformation {
-          email
-          phone
-          mobile
-        }
+        ${fields}
       }
       secondAdministator {
-        company
-        name {
-          firstName
-          lastName
-        }
-        contactInformation {
-          email
-          phone
-          mobile
-        }
+        ${fields}
       }
     }
   }`;
   const response = await query(queryStr);
   return response.data.party;
+}
+
+export async function fetchBroadcastLists(id) {
+  const queryStr = `
+  query{
+    party(id: "${id}") {
+      id
+      mailingLists {
+        id
+        name
+        emails
+        __typename
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.party.mailingLists;
+}
+
+export async function fetchPartyDetail(id) {
+  const queryStr = `
+  query {
+
+    detailParty(partyId:${id}) {
+    name
+      siren
+      salesEngineer
+      lastBillingAmount {
+        billDate
+        amount
+      }
+      mainAdministrator  {
+        company
+        name {
+          title
+          firstName
+          lastName
+        }
+        contactInformation {
+          phone
+          email
+        }
+      }
+
+      shippingAddressesCount
+      usersCount
+      mailingListsCount
+      workflowsCount
+      customerAccountsCount
+      customFieldsCount
+      availableSimCount
+
+      }
+
+    }
+
+  `;
+  const response = await query(queryStr);
+  return response.data.detailParty;
 }
 
 export async function fetchpartnerAddresses(id) {
@@ -180,6 +353,49 @@ export async function fetchpartnerAddresses(id) {
   }
 
   return { last, all };
+}
+
+export async function deleteBroadcastList(id) {
+  const queryStr = `mutation {deletMailingListById(mailingListId:${id})}`;
+  const response = await query(queryStr);
+  return response.data.deleteBroadcastList;
+}
+
+export async function updateBroadcastLists(params) {
+  const queryStr = `
+    mutation {
+      updateMailingList(mailingInput:{
+        id:"${params.id}",
+        name:"${params.title}",
+        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+      }) {
+        id
+      }
+    }
+
+  `;
+  const response = await query(queryStr);
+  return response.data.updateMailingList;
+}
+
+export async function createBroadcastLists(params) {
+  const queryStr = `
+    mutation {
+      createMailingList(mailingInput:{
+        partyId:${params.partnerId},
+        name:"${params.title}",
+        emails: [${params.emails.map(e => `"${e}"`).join(',')}],
+
+      }) {
+        id
+        name
+        emails
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.createMailingList;
 }
 
 export async function addPartyShippingAddress(formData, partnerId) {

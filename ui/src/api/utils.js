@@ -10,6 +10,48 @@ export const api = axios.create();
 
 const WAIT_BEFORE_RETRY_IN_MS = 1000;
 
+export async function mutation(name, params, ret = '') {
+  function scan(obj) {
+    let inputs = '';
+
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      let value = obj[keys[i]];
+
+      if ((!(value instanceof Object) && isNaN(value)) || value === undefined || value === null)
+        continue;
+
+      if (value instanceof Object && value.type !== 'enum') {
+        inputs += `${keys[i]}:{${scan(value)}}`;
+      } else {
+        let val = value;
+        if (typeof value === 'string') {
+          val = `"${value}"`;
+        }
+        if (value instanceof Object && value.type === 'enum') {
+          val = value.value;
+        }
+        inputs += `${keys[i]}: ${val}`;
+      }
+
+      if (i + 1 < keys.length) {
+        inputs += ', ';
+      }
+    }
+
+    return inputs;
+  }
+
+  const queryStr = `
+  mutation {
+    ${name}(${scan(params)})${ret}
+  }`;
+
+  console.log('queryStr>>', queryStr);
+
+  return await query(queryStr);
+}
+
 /**
  *  Besoin de gérer les erreurs
  */

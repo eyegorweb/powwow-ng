@@ -34,6 +34,16 @@
         v-if="panelId === 'getsim.actions.IMPORT_SIM'"
         :content="payload"
       />
+      <ActLinesImportSimCards v-if="panelId === 'getparc.lines-sim-import'" :content="payload" />
+      <AdminFormPanel
+        v-if="panelId === 'getadmin.partnerDetail.adminForm.title'"
+        :content="payload"
+      />
+      <UserFormPanel
+        v-if="panelId === 'getadmin.partnerDetail.userForm.title'"
+        :content="payload"
+      />
+      <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -59,6 +69,11 @@ export default {
     AlarmCreationPanel: () => import('@/views/GetVision/AlarmCreationPanel'),
     ReportCreationPanel: () => import('@/views/GetReport/reports/ReportCreationPanel.vue'),
     ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),
+    ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
+    AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
+    UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
+    BroadcastListFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),

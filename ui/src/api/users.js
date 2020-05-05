@@ -1,5 +1,92 @@
 import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
+export async function fetchAllowedRoles(userId) {
+  const queryStr = `query {
+    userAllowedRoles(userId: ${userId}, withWS: false) {
+      Id
+      name
+      description
+      category
+      scope
+    }
+  }`;
+
+  const response = await query(queryStr);
+  return response.data.userAllowedRoles;
+}
+
+export async function deactivateUser(id) {
+  const queryStr = `mutation { deactivateUser(userId: ${id}) }`;
+
+  const response = await query(queryStr);
+  return response.data.deactivateUser;
+}
+
+export async function createUser(params) {
+  let partyGroupParam = '';
+  if (params.partyGroupId) {
+    partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
+  }
+
+  let partyParam = '';
+  if (params.partyId) {
+    partyParam = `partyId: ${params.partyId},`;
+  }
+  const queryStr = `
+  mutation {
+    createUser(userCreationInput: {
+      title: ${params.title},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      username: "${params.username}",
+      password: "${params.password}",
+      confirmPassword: "${params.confirmPassword}",
+      ${partyParam}
+      ${partyGroupParam}
+      roles: [${params.roles.map(r => r.code).join(',')}]
+    }){
+      id
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.createUser;
+}
+
+export async function updateUser(params) {
+  let partyGroupParam = '';
+  if (params.partyGroupId) {
+    partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
+  }
+
+  let partyParam = '';
+  if (params.partyId) {
+    partyParam = `partyId: ${params.partyId},`;
+  }
+
+  const queryStr = `
+  mutation {
+    updateUser(
+      userToUpdate: ${params.id},
+      userCreationInput: {
+      title: ${params.title},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      username: "${params.username}",
+      password: "${params.password}",
+      confirmPassword: "${params.confirmPassword}",
+      ${partyParam}
+      ${partyGroupParam}
+      roles: [${params.roles.map(r => r.code).join(',')}]
+    }){
+      id
+    }
+  }`;
+  const response = await query(queryStr);
+  return response.data.updateUser;
+}
+
 export async function fetchUserByUsername(username) {
   const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 1 };
@@ -55,6 +142,15 @@ export async function searchUsers(orderBy, pagination, filters = []) {
   return response.data.users;
 }
 
+export async function fetchUsersByPartnerId(id) {
+  const response = await searchUsers({ key: 'id', direction: 'DESC' }, { page: 0, limit: 999 }, [
+    { id: 'getadmin.users.filters.partners', values: [{ id }] },
+  ]);
+
+  if (response) {
+    return response.items;
+  }
+}
 export async function fetchPartnerGroups(q = '') {
   const queryStr = `
   query {
@@ -235,13 +331,15 @@ export async function fetchUsers(q, partners, { page, limit, partnerType }) {
   return response.data.users.items;
 }
 
-export async function exportUsers(columns, orderBy, exportFormat) {
+export async function exportUsers(columns, orderBy, exportFormat, filters = []) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const response = await query(
     `
     query {
-      exportUsers(filters: {}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+      exportUsers(filters: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
         downloadUri
         total
       }
@@ -259,4 +357,14 @@ export async function exportUsers(columns, orderBy, exportFormat) {
     };
   }
   return response.data.exportUsers;
+}
+
+export async function enableUser(userId) {
+  const response = await query(`mutation{activateUser (userId : ${userId})}`);
+  return response.data.activateuser;
+}
+
+export async function disableUser(userId) {
+  const response = await query(`mutation{deactivateUser (userId : ${userId})}`);
+  return response.data.deactivateUser;
 }

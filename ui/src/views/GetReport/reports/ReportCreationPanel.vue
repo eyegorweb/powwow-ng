@@ -19,7 +19,6 @@
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
           <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
         </div>
-
         <div class="checkbox-groups" v-if="groups">
           <template v-for="group in groups">
             <FoldableBlock
@@ -182,7 +181,7 @@ export default {
   async mounted() {
     this.resetCheckboxes();
 
-    let partnerID;
+    let partnerID, partnerData;
 
     if (this.content) {
       this.preloadCheckBoxes(this.content.fields.split(','));
@@ -206,6 +205,7 @@ export default {
       partnerID = this.content.party.id;
     } else if (this.userIsPartner) {
       partnerID = this.userInfos.partners[0].id;
+      partnerData = this.userInfos.partners[0];
     } else {
       this.generationDate = formattedCurrentDateExtended();
     }
@@ -214,11 +214,19 @@ export default {
       const selectedPartner = await fetchpartnerById(partnerID, {
         includeMailingLists: true,
       });
-      this.selectedPartner = {
-        id: selectedPartner.id,
-        label: selectedPartner.name,
-        data: selectedPartner,
-      };
+      if (selectedPartner && !selectedPartner.errors) {
+        this.selectedPartner = {
+          id: selectedPartner.id,
+          label: selectedPartner.name,
+          data: selectedPartner,
+        };
+      } else if (selectedPartner && selectedPartner.errors) {
+        this.selectedPartner = {
+          id: selectedPartner.id,
+          label: selectedPartner.name,
+          data: partnerData,
+        };
+      }
     }
 
     await this.loadModels();
@@ -361,7 +369,7 @@ export default {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
-          { label: 'Customisé', value: 'NONE' },
+          { label: 'Customisé', value: 'NONE', data: { fields: [] } },
           ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
       }
@@ -442,7 +450,7 @@ export default {
               label: 'A-MSISDN',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.flagMsisdnA');
+                return !!get(this.selectedPartner, 'data.flagMsisdnA');
               },
             },
             { code: 'IMEI', label: 'IMEI', checked: false },
@@ -485,7 +493,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
               },
             },
             {
@@ -493,7 +501,7 @@ export default {
               label: "Date de changement d'offre MVNO",
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'M2M';
+                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
               },
             },
           ],
@@ -652,9 +660,30 @@ export default {
             { code: 'LAST_CONNECTION_APN', label: 'APN', checked: false },
             { code: 'LAST_USAGE_COUNTRY', label: 'Pays', checked: false },
             { code: 'LAST_USAGE_OPERATOR', label: 'Opérateur ', checked: false },
-            { code: 'LAST_USAGE_ZIP_CODE', label: 'Code postal', checked: false },
-            { code: 'LAST_USAGE_CITY', label: 'Ville', checked: false },
-            { code: 'LAST_USAGE_CELL_ID', label: 'Id de cellule', checked: false },
+            {
+              code: 'LAST_USAGE_ZIP_CODE',
+              label: 'Code postal',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
+            {
+              code: 'LAST_USAGE_CITY',
+              label: 'Ville',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
+            {
+              code: 'LAST_USAGE_CELL_ID',
+              label: 'Id de cellule',
+              checked: false,
+              canShow: () => {
+                return !!get(this.selectedPartner, 'data.optionViewCellId');
+              },
+            },
             { code: 'LAST_USAGE_COORDINATES', label: 'Coordonnées géographiques ', checked: false },
             { code: 'LAST_USAGE_DATE', label: 'Date de dernière localisation', checked: false },
             { code: 'LAST_USAGE_TYPE', label: "Type d'usage", checked: false },

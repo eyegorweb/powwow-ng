@@ -1,7 +1,7 @@
 <template>
   <li
     class="tab-label d-flex flex-column align-items-center px-4 px-lg-2 px-xl-4 pb-3 "
-    :class="isSelected ? 'is-selected' : ''"
+    :class="{ 'is-selected': isSelected, disableTab: disableMenu }"
     @click="$emit('selected')"
   >
     <slot />
@@ -13,10 +13,10 @@ export default {
   name: 'UiTab',
   props: {
     isSelected: Boolean,
+    disableMenu: Boolean,
   },
 };
 </script>
-
 <style scoped lang="scss">
 .tab-label {
   display: block;

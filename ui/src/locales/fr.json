@@ -75,12 +75,16 @@
   "lastMassActions": "Derniers actes de gestion",
   "showAllHistory": "Voir l'historique complet",
   "groupAccount": "Compte groupe",
+  "login": "Login",
+  "password": "Mot de passe",
+  "passwordConfirm": "Confirmation du mot de passe",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
     "ENABLE": "Activer",
     "DELETE": "Supprimer",
-    "DOWNLOAD": "Télécharger"
+    "DOWNLOAD": "Télécharger",
+    "MODIFY": "Modifier"
   },
   "home": {
     "customize": {
@@ -159,6 +163,11 @@
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires"
   },
+  "users": {
+    "function": "Fonction [facultatif]",
+    "phone": "Téléphone",
+    "mobile": "Mobile [facultatif]"
+  },
   "partnerTypes": {
     "CUSTOMER": "M2M",
     "MVNO": "MVNO",
@@ -166,9 +175,23 @@
   },
   "errors": {
     "all": "Erreur(s)",
-    "mandatory": "* Champ obligatoire"
+    "mandatory": "* Champ obligatoire",
+    "password": {
+      "length-error": "Le mot de passe doit faire plus de 8 caractères",
+      "confirm-error": "Les mot de passe ne correspondent pas",
+      "name-error": "Le mot de passe doit être différent du nom ou prénom",
+      "uppercase-error": "Le mot de passe doit contenir au moins une minuscule et une majuscule",
+      "special-error": "Une lettre avec accent ou un caractère spécial.",
+      "number-error": "Le mot de passe doit contenir au moins un chiffre.",
+      "email-error": "Veuillez saisir une adresse email valide"
+    }
   },
   "common": {
+    "billing": "Facturation",
+    "order": "Commande",
+    "export": "Export",
+    "others": "Autres",
+
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
     "product": "Produit",
@@ -188,7 +211,11 @@
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",
-    "line": "Ligne"
+    "line": "Ligne",
+    "simple": "Simple",
+    "detailed": "Détaillé",
+    "unit": "Unité",
+    "mass": "Masse"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -281,7 +308,7 @@
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
-    "manage-alarms-tooltip": "TODO description",
+    "manage-alarms-tooltip": "Cette page permet de rechercher un utilisateur.",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
     "alarm-detail": "Détail de l'alarme",
@@ -352,8 +379,15 @@
   },
   "getadmin": {
     "users": {
+      "userTypes": {
+        "bouygues": "Bouygues",
+        "partner": "Partenaire",
+        "group": "Compte groupe"
+      },
       "addAdmin": "Ajouter un administrateur",
+      "addUser": "Ajouter un utilisateur",
       "title": "Gestion des utilisateurs",
+      "noInfo": "Non renseigné",
       "filters": {
         "fullName": "Nom ou prénom",
         "email": "Email",
@@ -362,6 +396,16 @@
         "roles": "Rôles"
       },
       "total": "{total} utilisateur(s) trouvé(s)"
+    },
+    "customize": {
+      "addList": "Ajouter une liste de diffusion",
+      "modifyList": "Modifier une liste de diffusion",
+      "broadcastLists": "Listes de diffusion",
+      "freeField": "Champs libres",
+      "deliveryAddress": "Adresses de livraison",
+      "listName": "Nom de la liste de diffusion",
+      "emails": "Adresses emails",
+      "addEmail": "Ajouter un email"
     },
     "partners": {
       "name": "Raison sociale",
@@ -377,7 +421,21 @@
       "offersAndSim": "Offres et cartes SIM",
       "accountDetail": "Détail du compte",
       "admins": "Administrateurs",
-      "activityLog": "Journal d'activité"
+      "activityLog": "Journal d'activité",
+      "options": "Options du partenaire",
+      "accountDescription": "Description du compte partenaire"
+    },
+    "partnerDetail": {
+      "ELEVEN": "11",
+      "FIFTEEN": "15",
+      "BOTH": "Tous",
+      "adminForm": {
+        "title": "Formulaire admin"
+      },
+      "userForm": {
+        "title": "Ajouter un utilisateur",
+        "modify-title": "Modification d'un utilisateur"
+      }
     }
   },
   "getreport": {
@@ -394,7 +452,7 @@
       "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
       "fromReport": "à partir d'un modèle du rapport",
       "generateReport": "Générer un rapport",
-      "dataReport": "Données du rappot",
+      "dataReport": "Données du rapport",
       "nameReport": "Nom du rapport",
       "fileFormat": "Format de ficher",
       "list": "Liste de diffusion",
@@ -406,6 +464,7 @@
     }
   },
   "getparc": {
+    "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
@@ -1021,6 +1080,7 @@
       "step2Title": "configurer le changement de compte de facturation",
       "selectOffer": "Sélectionner une offre",
       "selectOfferTarget": "Sélectionner une offre cible pour les lignes actives",
+      "typeSimCard": "Sélectionner un type de cartes SIM",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
         "foundSimcards": "lignes à importer",
@@ -1232,6 +1292,7 @@
     "city": "Ville",
     "country": "Pays",
     "action": "Action",
+    "state": "État [facultatif]",
     "actionValues": {
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"

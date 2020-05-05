@@ -1,0 +1,432 @@
+<template>
+  <BaseDetailPanelContent white>
+    <!-- ajouter partenaire et groupe de partenaires dans la mutation partyId obligatoire et partyGroupId facultatif -->
+    <div v-if="canShowForm" class="m-3">
+      <div class="row mb-3">
+        <div class="col">
+          <div class="d-flex">
+            <label class="radio-container mr-3">
+              {{ $t('common.MR') }}
+              <input name="civility" type="radio" value="MR" v-model="form.title" />
+              <span class="checkmark" />
+            </label>
+            <label class="radio-container">
+              {{ $t('common.MRS') }}
+              <input name="civility" type="radio" value="MRS" v-model="form.title" />
+              <span class="checkmark" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="userIsBO" class="entries-line mb-3">
+        <div class="form-entry">
+          <Toggle block @update="userType = $event.id" :values="userTypes" class="pl-2" />
+        </div>
+      </div>
+
+      <div class="entries-line">
+        <div v-if="userType == 'PARTNER'" class="form-entry">
+          <label>Partenaire</label>
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
+        </div>
+        <div v-if="userType == 'PARTNER_GROUP'" class="form-entry">
+          <label>Groupe de partenaire</label>
+          <UiApiAutocomplete
+            :items="groupPartners"
+            v-model="selectedGroupPartner"
+            display-results-while-empty
+          />
+        </div>
+      </div>
+
+      <div class="entries-line">
+        <div class="form-entry">
+          <FormControl big label="common.firstName" v-model="form.firstName" />
+        </div>
+        <div class="form-entry pl-2">
+          <FormControl big label="common.lastName" v-model="form.lastName" />
+        </div>
+      </div>
+
+      <div class="entries-line">
+        <div class="form-entry">
+          <FormControl big label="common.email" v-model="form.email" />
+          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
+            $t('errors.password.email-error')
+          }}</span>
+        </div>
+      </div>
+      <div class="entries-line">
+        <div class="form-entry">
+          <FormControl big label="login" v-model="form.username" />
+        </div>
+      </div>
+
+      <div class="entries-line">
+        <div class="form-entry">
+          <FormControl big label="password" input-type="password" v-model="form.password" />
+        </div>
+        <div class="form-entry pl-2">
+          <FormControl
+            big
+            label="passwordConfirm"
+            input-type="password"
+            v-model="form.passwordConfirm"
+          />
+        </div>
+      </div>
+
+      <div v-if="passwordConfirmationErrors" class="entries-line">
+        <div class="form-entry">
+          <ul class="list-unstyled">
+            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
+              {{ $t(error) }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>Rôles</h4>
+
+      <div class="scroll-container">
+        <MultiChoices :options="roles" v-model="selectedRoles" />
+      </div>
+    </div>
+    <div slot="footer" class="action-buttons">
+      <div>
+        <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
+      </div>
+      <div>
+        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
+          $t('save')
+        }}</UiButton>
+      </div>
+    </div>
+  </BaseDetailPanelContent>
+</template>
+
+<script>
+import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
+import UiButton from '@/components/ui/Button';
+import FormControl from '@/components/ui/FormControl';
+import MultiChoices from '@/components/MultiChoices';
+
+import { mapGetters, mapMutations } from 'vuex';
+import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
+import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
+import Toggle from '@/components/ui/UiToggle2';
+
+export default {
+  components: {
+    BaseDetailPanelContent,
+    UiButton,
+    FormControl,
+    MultiChoices,
+    PartnerCombo,
+    UiApiAutocomplete,
+    Toggle,
+  },
+  props: {
+    content: Object,
+  },
+  data() {
+    return {
+      canShowForm: false,
+      roles: [],
+      selectedRoles: [],
+      selectedPartner: undefined,
+      selectedGroupPartner: undefined,
+      groupPartners: [],
+      partnerChoices: [],
+      userTypes: [
+        {
+          id: 'OPERATOR',
+          label: 'getadmin.users.userTypes.bouygues',
+        },
+        {
+          id: 'PARTNER',
+          label: 'getadmin.users.userTypes.partner',
+        },
+        {
+          id: 'PARTNER_GROUP',
+          label: 'getadmin.users.userTypes.group',
+        },
+      ],
+      userType: undefined,
+      form: {
+        title: undefined,
+        firstName: undefined,
+        lastName: undefined,
+        username: undefined,
+        password: undefined,
+        passwordConfirm: undefined,
+        email: undefined,
+      },
+    };
+  },
+
+  methods: {
+    ...mapMutations(['flashMessage', 'closePanel']),
+
+    isEmailValid(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+
+    async save() {
+      const params = {
+        title: this.form.title,
+        firstName: this.form.firstName,
+        lastName: this.form.lastName,
+        email: this.form.email,
+        username: this.form.username,
+        password: this.form.password,
+        confirmPassword: this.form.passwordConfirm,
+        roles: this.selectedRoles,
+      };
+
+      if (this.userIsBO) {
+        if (this.userType === 'PARTNER') {
+          if (this.selectedPartner && this.selectedPartner.id) {
+            params.partyId = this.selectedPartner.id;
+          }
+        }
+
+        if (this.userType === 'PARTNER_GROUP') {
+          if (this.selectedGroupPartner && this.selectedGroupPartner.id) {
+            params.partyGroupId = this.selectedGroupPartner.id;
+          }
+        }
+      }
+
+      let response;
+
+      if (this.content.duplicateFrom) {
+        params.id = this.content.duplicateFrom.id;
+        response = await updateUser(params);
+      } else {
+        response = await createUser(params);
+      }
+
+      if (!response && response.errors && response.errors.length) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+
+      this.closePanel({ resetSearch: true });
+    },
+  },
+
+  computed: {
+    ...mapGetters(['userInfos', 'userIsBO']),
+
+    canSave() {
+      const passwordError = !!this.passwordConfirmationErrors.length;
+      const missingFields = [
+        'title',
+        'firstName',
+        'lastName',
+        'email',
+        'username',
+        'password',
+        'passwordConfirm',
+      ].filter(field => !this.form[field]);
+
+      const roleError = !this.selectedRoles.length;
+
+      let userTypeValid = true;
+
+      if (this.userIsBO) {
+        if (this.userType === 'PARTNER') {
+          userTypeValid = !!(this.selectedPartner && this.selectedPartner.id);
+        }
+
+        if (this.userType === 'PARTNER_GROUP') {
+          userTypeValid = !!(this.selectedGroupPartner && this.selectedGroupPartner.id);
+        }
+      }
+
+      return (
+        !missingFields.length &&
+        !passwordError &&
+        !roleError &&
+        this.isEmailValid(this.form.email) &&
+        userTypeValid
+      );
+    },
+
+    passwordConfirmationErrors() {
+      if (!this.form.password) return [];
+
+      const errors = [];
+
+      // Le mot de passe doit faire plus de 8 caractères.
+      if (this.form.password.length <= 8) {
+        errors.push('errors.password.length-error');
+      }
+
+      // Le mot de passe doit être différent du nom ou prénom.
+      if (this.form.firstName === this.form.password || this.form.lastName === this.form.password) {
+        errors.push('errors.password.name-error');
+      }
+      // Le mot de passe doit contenir au moins une minuscule et une majuscule.
+      if (!/[A-Z]/.test(this.form.password)) {
+        errors.push('errors.password.uppercase-error');
+      }
+      // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
+
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.form.password)) {
+        errors.push('errors.password.special-error');
+      }
+
+      if (!/[0-9]+/.test(this.form.password)) {
+        errors.push('errors.password.number-error');
+      }
+
+      // correspond
+      if (this.form.password && this.form.password != this.form.passwordConfirm) {
+        errors.push('errors.password.confirm-error');
+      }
+
+      return errors;
+    },
+  },
+
+  async mounted() {
+    this.canShowForm = false;
+    if (this.userIsBO) {
+      const groupPartnersResponse = await fetchPartnerGroups();
+      this.groupPartners = groupPartnersResponse.map(p => {
+        return {
+          id: p.id,
+          label: p.name,
+        };
+      });
+    }
+
+    this.selectedPartner = { id: parseInt(this.content.partnerId) };
+
+    const roles = await fetchAllowedRoles(this.userInfos.id);
+
+    this.roles = roles.map(r => ({ code: r.Id, label: r.description, data: r }));
+
+    if (this.content.duplicateFrom) {
+      this.selectedRoles = this.roles.filter(r =>
+        this.content.duplicateFrom.roles.find(rr => rr.Id === r.data.Id)
+      );
+
+      if (this.content.duplicateFrom.name) {
+        this.form.title = this.content.duplicateFrom.name.title;
+        this.form.firstName = this.content.duplicateFrom.name.firstName;
+        this.form.lastName = this.content.duplicateFrom.name.lastName;
+      }
+
+      this.form.username = this.content.duplicateFrom.username;
+      this.form.email = this.content.duplicateFrom.email;
+      const userType = this.content.duplicateFrom.type;
+      this.userType = userType;
+
+      this.userTypes = this.userTypes.map(u => {
+        if (u.id === userType) {
+          u.default = true;
+        }
+        return u;
+      });
+    }
+
+    this.canShowForm = true;
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.scroll-container {
+  max-height: 22rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.form-input {
+  font-size: 1.5rem !important;
+}
+
+.form-entry {
+  flex-grow: 1;
+
+  h5 {
+    font-size: 1rem;
+    color: $dark-gray;
+  }
+}
+
+.overview-item {
+  flex-grow: 1;
+}
+
+.entries-line {
+  display: flex;
+  justify-content: space-between;
+}
+.labels-container {
+  display: flex;
+  border-bottom: 1px dashed $medium-gray;
+  .overview-item {
+    border: none !important;
+  }
+}
+
+.radio-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding-top: 0.3rem;
+  user-select: none;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 1px solid $gray-400;
+}
+
+.radio-container {
+  input:checked ~ .checkmark {
+    background-color: white;
+    border: 1px solid $secondary;
+  }
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.radio-container {
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: $secondary;
+  }
+}
+</style>

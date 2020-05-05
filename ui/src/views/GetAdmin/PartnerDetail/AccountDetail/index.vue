@@ -11,37 +11,32 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <AdminCards v-if="section === 'getadmin.partners.admins'" :partnerid="partnerid" />
-      <UsersCards v-if="section === 'getadmin.partners.users'" :partnerid="partnerid" />
+      <PartnerOptions v-if="section === 'getadmin.partners.options'" :partner="partner" />
     </div>
   </div>
 </template>
 
 <script>
-import AdminCards from './AdminCards';
-import UsersCards from './UsersCards';
+import PartnerOptions from './PartnerOptions';
 
 export default {
+  components: {
+    PartnerOptions,
+  },
+
   props: {
+    partner: Object,
     partnerid: {
       type: String,
       default: undefined,
     },
   },
-  components: {
-    AdminCards,
-    UsersCards,
-  },
 
   data() {
     return {
-      section: 'getadmin.partners.admins',
+      section: 'getadmin.partners.options',
 
-      menuItems: [
-        'getadmin.partners.admins',
-        'getadmin.partners.users',
-        // 'getadmin.partners.activityLog',
-      ],
+      menuItems: ['getadmin.partners.accountDescription', 'getadmin.partners.options'],
     };
   },
 };

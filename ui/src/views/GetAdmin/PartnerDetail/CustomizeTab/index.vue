@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
+        <li
+          v-for="item in menuItems"
+          :key="item"
+          class="list-group-item"
+          :class="{ disableSubMenu: item != 'getadmin.customize.broadcastLists' }"
+        >
           <a @click.prevent="section = item" :class="{ active: section == item }" href="#">
             {{ $t(item) }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
@@ -11,15 +16,16 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <AdminCards v-if="section === 'getadmin.partners.admins'" :partnerid="partnerid" />
-      <UsersCards v-if="section === 'getadmin.partners.users'" :partnerid="partnerid" />
+      <BroadcastLists
+        v-if="section === 'getadmin.customize.broadcastLists'"
+        :partnerid="partnerid"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AdminCards from './AdminCards';
-import UsersCards from './UsersCards';
+import BroadcastLists from './BroadcastLists';
 
 export default {
   props: {
@@ -29,18 +35,17 @@ export default {
     },
   },
   components: {
-    AdminCards,
-    UsersCards,
+    BroadcastLists,
   },
 
   data() {
     return {
-      section: 'getadmin.partners.admins',
+      section: 'getadmin.customize.broadcastLists',
 
       menuItems: [
-        'getadmin.partners.admins',
-        'getadmin.partners.users',
-        // 'getadmin.partners.activityLog',
+        'getadmin.customize.broadcastLists',
+        'getadmin.customize.freeField',
+        'getadmin.customize.deliveryAddress',
       ],
     };
   },

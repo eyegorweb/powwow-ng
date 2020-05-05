@@ -19,6 +19,7 @@
     "e2e": "cypress run"
   },
   "dependencies": {
+    "@johmun/vue-tags-input": "^2.1.0",
     "apollo-server": "^2.2.5",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",

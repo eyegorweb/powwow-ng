@@ -1,7 +1,7 @@
 <template>
   <UiApiAutocomplete
-    :api-method="contextPartners && contextPartners.length ? undefined : searchParty"
-    :items="contextPartners"
+    :api-method="!localItems ? searchParty : undefined"
+    :items="localItems"
     v-model="selectedValue"
     display-results-while-empty
   />
@@ -17,15 +17,56 @@ export default {
     UiApiAutocomplete,
   },
 
+  data() {
+    return {
+      offlineItems: [],
+    };
+  },
+
   props: {
     value: Object,
     includeMailingLists: Boolean,
+    offline: Boolean,
+  },
+
+  async mounted() {
+    if (this.offline) {
+      const data = await fetchpartners('', {
+        page: 0,
+        limit: 999,
+        partnerType: this.contextPartnersType,
+        includeMailingLists: this.includeMailingLists,
+      });
+      this.offlineItems = data.map(p => ({
+        id: p.id,
+        label: p.name,
+        data: p,
+      }));
+    }
   },
   computed: {
     ...mapState('userContext', [' contextPartnersType', 'contextPartners']),
 
+    localItems() {
+      if (this.contextPartners && this.contextPartners.length) {
+        return this.contextPartners;
+      }
+
+      if (this.offline) {
+        return this.offlineItems;
+      }
+
+      return undefined;
+    },
+
     selectedValue: {
       get() {
+        if (this.offline) {
+          if (this.value && this.value.id && this.localItems && this.localItems.length) {
+            return this.localItems.find(i => i.id === this.value.id);
+          }
+        }
+
         return this.value;
       },
       set(value) {

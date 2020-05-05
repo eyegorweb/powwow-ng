@@ -17,7 +17,10 @@ export default {
 
   computed: {
     selectedValue() {
-      if (!this.selectedData) return;
+      if (!this.selectedData) {
+        this.$emit('clear');
+        return;
+      }
 
       return this.selectedData.value;
     },
