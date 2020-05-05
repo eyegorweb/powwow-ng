@@ -1,6 +1,12 @@
 import { query, getFilterValue, getFilterValues, mutation } from './utils';
 import get from 'lodash.get';
 
+export async function updatePartyOptions(params) {
+  const response = await mutation('updatePartyOptions', params, '');
+
+  if(response.data)  return response.data.updatePartyOptions;
+}
+
 export async function getPartyOptions(partyId) {
   const queryStr = `{
   getPartyOptions(partyId: ${partyId}) {

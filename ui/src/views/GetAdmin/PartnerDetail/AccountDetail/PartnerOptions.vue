@@ -60,14 +60,19 @@
               small-label
             />
           </div>
+          <div class="third-size to-bottom pb-3">
+            <UiToggle
+              label="Liste de diffusion activée"
+              :editable="true"
+              :bold-label="diffusionListEnabled"
+              v-model="diffusionListEnabled"
+              small-label
+            />
+          </div>
+
           <div class="third-size pr-4">
             <h6>Liste de diffusion</h6>
-            <UiSelect
-              class="report-field"
-              v-model="resilationSecurityDelay"
-              :options="mailingLists"
-              block
-            />
+            <UiSelect class="report-field" v-model="diffusionList" :options="mailingLists" block />
           </div>
         </div>
 
@@ -117,8 +122,8 @@
             <UiToggle
               label="Export des services"
               :editable="true"
-              :bold-label="exportServices"
-              v-model="exportServices"
+              :bold-label="flagServicesAudit"
+              v-model="flagServicesAudit"
               small-label
             />
           </div>
@@ -205,7 +210,7 @@
 
     <div class="d-flex">
       <div class="save-block">
-        <UiButton variant="primary" class="p-3" block @click="saveOptions" :disabled="!canSave">
+        <UiButton variant="primary" class="p-3" block @click="saveOptions">
           <span class="btn-label">{{ $t('save') }}</span>
         </UiButton>
       </div>
@@ -226,7 +231,7 @@ import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import get from 'lodash.get';
 
-import { getPartyOptions } from '@/api/partners.js';
+import { getPartyOptions, updatePartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -342,10 +347,12 @@ export default {
 
       this.billingDelay = this.partnerOptions.billingNonActDelay;
       this.comptaExport = this.partnerOptions.exportComptaBSCSModeEnabled;
-      this.exportServices = this.partnerOptions.flagServicesAudit;
+      this.flagServicesAudit = this.partnerOptions.flagServicesAudit;
       this.geolocViewLimit = this.partnerOptions.geolocViewLimit;
       this.geolocViewCounter = this.partnerOptions.geolocViewCounter;
       this.dailyCdrEmails = this.partnerOptions.dailyCdrEmails;
+
+      this.diffusionList = this.partnerOptions.diffusionList;
 
       this.checkToggle(
         this.otherToggles,
@@ -403,6 +410,71 @@ export default {
         return r;
       });
     },
+    async saveOptions() {
+      const response = await updatePartyOptions({
+        partyOptions: {
+          partyId: this.partner.id,
+          flagMsisdnA: this.getToggle(this.services, 'AMSISDN'),
+          euiccEnabled: this.getToggle(this.services, 'NOTIF_EUICC'),
+          resilationSecurityEnabled: this.getToggle(this.services, 'SECU_RESIL'),
+          resilationSecurityDelay: parseInt(this.resilationSecurityDelay || 0),
+          resilationSecurityNotificationEnabled: this.getToggle(this.services, 'NOTIF_DEM_RESIL'),
+          resilationSecurityNotificationMails: parseInt(
+            this.resilationSecurityNotificationMails | 0
+          ),
+          otaSensitive: this.getToggle(this.services, 'COMPAT_OTA'),
+          smsAuthorized: this.getToggle(this.services, 'BROADCAST_SMS'),
+          shortCodes: this.shortCodes,
+          mailOrder: parseInt(this.mailOrder),
+          orderNumberRequired: this.getToggle(this.orderToggles, 'REF_CLIENT'),
+          orderPreactivationMandatory: this.getToggle(this.orderToggles, 'PREACTIV_MANDATORY'),
+          orderActivationMandatory: this.getToggle(this.orderToggles, 'MANDATORY_ACTIVATION'),
+          userReferenceEnabled: this.getToggle(this.orderToggles, 'REF_USER'),
+          crEmail: parseInt(this.crEmail),
+          diffusionListEnabled: this.diffusionListEnabled,
+          diffusionList: parseInt(this.diffusionList),
+          flagBillingPDPCellHistory: this.flagBillingPDPCellHistory,
+          flagBillingIMEI: this.getToggle(this.billingToggles, 'FACT_IMEI'),
+          switchRcard: this.getToggle(this.billingToggles, 'SWITCH_RCARD'),
+          controlDeactivateRCard: this.getToggle(this.billingToggles, 'DISABLE_RCARD'),
+          dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
+          offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
+          flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
+          DefautWorkflowActicationDelay: parseInt(this.autoActivationDelay),
+          defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
+          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')),
+          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
+          billingNonActDelay: parseInt(this.billingDelay),
+          exportComptaBSCSModeEnabled: this.comptaExport,
+          flagServicesAudit: this.flagServicesAudit,
+          flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
+          portabilityAcquittalsEmails: parseInt(this.portabilityAcquittalsEmails),
+          importCustomFieldsEnabled: this.getToggle(this.otherToggles, 'CUSTOM_FIELD_IMPORT'),
+          dashBoarDetailsPerCountry: this.getToggle(this.otherToggles, 'DASHBOARD_COUNTRY'),
+          dailyCdrEmails: parseInt(this.dailyCdrEmails),
+          msisdnFormatPreactivation: { type: 'enum', value: this.preactivationFormat },
+          suspensionAuto: this.getToggle(this.otherToggles, 'AUTO_SUSPEND'),
+          optionViewCellId: this.getToggle(this.otherToggles, 'HIDE_ADRESS'),
+          wsNotificationOption: { type: 'enum', value: this.notificationChoice },
+          wsLogin: this.login,
+          wsPassword: this.password,
+          wsUrl: this.webserviceAdress,
+          coachM2MAvailable: this.getToggle(this.otherToggles, 'COACH_M2M'),
+          coachM2MFleetpromotion: this.getToggle(this.otherToggles, 'PROMO_SUPERVISION'),
+          coachM2m24h: this.getToggle(this.otherToggles, 'OPTION_24H'),
+          geolocViewLimit: this.geolocViewLimit,
+          geolocViewCounter: this.geolocViewCounter,
+        },
+      });
+
+      await this.resetOptions();
+    },
+    getToggle(toggles, code) {
+      const toggle = toggles.find(t => t.code === code);
+      if (!toggle) return false;
+
+      return toggle.checked;
+    },
     checkToggle(toggles, code, value) {
       toggles.map(t => {
         if (t.code === code) {
@@ -411,7 +483,6 @@ export default {
         return t;
       });
     },
-    saveOptions() {},
   },
   data() {
     return {
@@ -422,6 +493,8 @@ export default {
       crEmail: undefined,
       resilationSecurityDelay: undefined,
       flagBillingPDPCellHistory: undefined,
+      diffusionListEnabled: undefined,
+      diffusionList: undefined,
       billingDualSIM: undefined,
       autoActivationDelay: undefined,
       selectedOffer: undefined,
@@ -439,7 +512,7 @@ export default {
       resilationSecurityNotificationMails: undefined,
 
       comptaExport: false,
-      exportServices: false,
+      flagServicesAudit: false,
 
       reportConsoValue: undefined,
       reportConsoValues: [
