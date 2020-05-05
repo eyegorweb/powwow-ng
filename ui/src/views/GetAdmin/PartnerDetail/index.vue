@@ -22,7 +22,12 @@
     <div v-if="partner" class="mt-4 mb-4">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
-          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+          <UiTab
+            v-if="tab"
+            :is-selected="index === selectedIndex"
+            class="tab-grow"
+            :disableMenu="tab.disable"
+          >
             <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">
               {{ tab.title }}
             </a>
@@ -85,10 +90,12 @@ export default {
         {
           label: 'billingAccounts',
           title: this.$t('filters.billingAccounts'),
+          disable: true,
         },
         {
           label: 'offersAndSim',
           title: this.$t('getadmin.partners.offersAndSim'),
+          disable: true,
         },
         {
           label: 'accountDetail',

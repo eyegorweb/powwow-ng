@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
+        <li
+          v-for="item in menuItems"
+          :key="item"
+          class="list-group-item"
+          :class="{ disableSubMenu: item != 'getadmin.customize.broadcastLists' }"
+        >
           <a @click.prevent="section = item" :class="{ active: section == item }" href="#">
             {{ $t(item) }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
