@@ -3,7 +3,7 @@
     <div class="m-3">
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl big label="getadmin.customize.listName" v-model="form.title" />
+          <FormControl label="getadmin.customize.listName" v-model="form.title" />
         </div>
       </div>
 
@@ -26,7 +26,7 @@
     </div>
     <div slot="footer" class="action-buttons">
       <div>
-        <UiButton variant="import" block>{{ $t('cancel') }}</UiButton>
+        <UiButton variant="import" block @click="closePanel">{{ $t('cancel') }}</UiButton>
       </div>
       <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
@@ -89,7 +89,6 @@ export default {
       let response;
 
       if (this.content.duplicateFrom) {
-        console.log(this.content.duplicateFrom);
         params.id = this.content.duplicateFrom.id;
         response = await updateBroadcastLists(params);
       } else {
@@ -100,9 +99,8 @@ export default {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.closePanel();
       }
-
-      this.closePanel();
     },
   },
 

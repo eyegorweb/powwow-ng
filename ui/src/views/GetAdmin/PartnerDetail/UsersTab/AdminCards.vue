@@ -31,7 +31,11 @@
       {{ $t('getadmin.users.addAdmin') }}
     </CardButton>
 
-    <Card v-if="admins.secondAdministator" @delete="deleteSecondAdministrator">
+    <Card
+      v-if="admins.secondAdministator"
+      @delete="deleteSecondAdministrator"
+      @modify="modifyAdmin('SECONDARY', admins.mainAdministrator)"
+    >
       <div class="cardBloc-infos-name">
         {{
           getFromContent('secondAdministator.name.firstName') +
@@ -123,7 +127,7 @@ export default {
       });
     },
 
-    modifyAdmin(admin) {
+    modifyAdmin(adminType, admin) {
       const doReset = () => {
         this.refreshData();
       };
@@ -132,6 +136,7 @@ export default {
         panelId: 'getadmin.partnerDetail.adminForm.title',
         payload: {
           ...admin,
+          adminType,
           partnerId: this.partnerid,
         },
         backdrop: true,

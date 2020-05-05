@@ -36,31 +36,31 @@
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="common.firstName" v-model="form.firstName" />
+            <FormControl label="common.firstName" v-model="form.firstName" />
           </div>
           <div class="form-entry pl-2">
-            <FormControl big label="common.lastName" v-model="form.lastName" />
+            <FormControl label="common.lastName" v-model="form.lastName" />
           </div>
         </div>
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="users.function" v-model="form.function" />
+            <FormControl label="users.function" v-model="form.function" />
           </div>
         </div>
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="users.phone" v-model="form.phone" />
+            <FormControl label="users.phone" v-model="form.phone" />
           </div>
           <div class="form-entry pl-2">
-            <FormControl big label="users.mobile" v-model="form.mobile" />
+            <FormControl label="users.mobile" v-model="form.mobile" />
           </div>
         </div>
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="common.email" v-model="form.email" />
+            <FormControl label="common.email" v-model="form.email" />
             <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
               $t('errors.password.email-error')
             }}</span>
@@ -70,17 +70,16 @@
         <div class="entries-line">
           <div class="form-entry">
             <h5>Adresse</h5>
-            <AdressComponent big v-model="selectedAddress" />
+            <AdressComponent v-model="selectedAddress" />
           </div>
         </div>
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="filters.city" v-model="form.city" />
+            <FormControl label="filters.city" v-model="form.city" />
           </div>
           <div class="form-entry pl-2">
             <FormControl
-              big
               label="orders.new.deliveryStep.form.zipcode"
               input-type="number"
               v-model="form.zipCode"
@@ -90,7 +89,7 @@
 
         <div class="entries-line">
           <div class="form-entry">
-            <FormControl big label="filters.state" v-model="form.state" />
+            <FormControl label="filters.state" v-model="form.state" />
           </div>
           <div class="form-entry pl-2">
             <h5>{{ $t('orders.new.deliveryStep.form.country') }}</h5>
@@ -98,7 +97,6 @@
               :items="countries"
               v-model="form.country"
               display-results-while-empty
-              big
             />
           </div>
         </div>
@@ -106,7 +104,7 @@
     </div>
     <div slot="footer" class="action-buttons">
       <div>
-        <UiButton variant="import" block>{{ $t('cancel') }}</UiButton>
+        <UiButton variant="import" block @click="closePanel">{{ $t('cancel') }}</UiButton>
       </div>
       <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
@@ -187,7 +185,7 @@ export default {
     },
 
     async save() {
-      const adminType = get(this.content, 'adminType', 'PRIMARY');
+      const adminType = get(this.content.adminType, 'adminType', 'PRIMARY');
       const response = await editAdministrator(adminType, {
         partyId: parseInt(this.content.partnerId),
         company: this.company || '',
@@ -215,7 +213,6 @@ export default {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-
         this.closePanel({ resetSearch: true });
       }
     },

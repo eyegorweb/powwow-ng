@@ -4,7 +4,7 @@ import get from 'lodash.get';
 export async function updatePartyOptions(params) {
   const response = await mutation('updatePartyOptions', params, '');
 
-  if(response.data)  return response.data.updatePartyOptions;
+  if (response.data) return response.data.updatePartyOptions;
 }
 
 export async function getPartyOptions(partyId) {
@@ -58,16 +58,38 @@ export async function getPartyOptions(partyId) {
 }
 
 export async function editAdministrator(type, params) {
-  const response = await mutation(
-    'editAdministrator',
-    {
-      administratorType: { type: 'enum', value: type },
-      administratorFieldInput: params,
-    },
-    '{id}'
-  );
+  const queryStr = `
+  mutation {
+    editAdministrator(administratorType: ${type}, administratorFieldInput: {
+      partyId: ${params.partyId},
+      firstName: "${params.firstName}",
+      lastName: "${params.lastName}",
+      email: "${params.email}",
+      company: "${params.company}",
+      language: ${params.language.value},
+      title: ${params.title.value},
+      contactInformation: {
+        phone: "${params.contactInformation.phone}"
+        email: "${params.contactInformation.email}"
+      },
+        address: {
+          zipCode: "${params.address.zipCode}",
+          address1: "${params.address.address1}",
+          city: "${params.address.city}",
+          country: "${params.address.country}",
+          state: "${params.address.state}",
+        }
+      })
+      {
+      id
+    }
+  }
 
-  if (response.data) return response.data.editAdministrator;
+
+  `;
+
+  const response = await query(queryStr);
+  return response;
 }
 
 export async function deleteSecondaryAdministrator(partyId) {
