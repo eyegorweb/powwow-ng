@@ -34,6 +34,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType, disab
         initialOffer {
           id
           code
+          description
           marketingServices {
             labelService
             code
