@@ -8,3 +8,13 @@ body {
 .main {
   background-color: $light-gray;
 }
+
+.disableSubMenu,
+.disableTab {
+  background-color: #dadada;
+  a {
+    color: white !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
