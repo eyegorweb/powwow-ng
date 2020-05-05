@@ -379,6 +379,11 @@
   },
   "getadmin": {
     "users": {
+      "userTypes": {
+        "bouygues": "Bouygues",
+        "partner": "partenaire",
+        "group": "compte groupe"
+      },
       "addAdmin": "Ajouter un administrateur",
       "addUser": "Ajouter un utilisateur",
       "title": "Gestion des utilisateurs",

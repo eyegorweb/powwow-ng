@@ -1,6 +1,7 @@
 <template>
   <BaseDetailPanelContent white>
-    <div class="m-3">
+    <!-- ajouter partenaire et groupe de partenaires dans la mutation partyId obligatoire et partyGroupId facultatif -->
+    <div v-if="canShowForm" class="m-3">
       <div class="row mb-3">
         <div class="col">
           <div class="d-flex">
@@ -15,6 +16,27 @@
               <span class="checkmark" />
             </label>
           </div>
+        </div>
+      </div>
+
+      <div v-if="userIsBO" class="entries-line mb-3">
+        <div class="form-entry">
+          <Toggle block @update="userType = $event.id" :values="userTypes" class="pl-2" />
+        </div>
+      </div>
+
+      <div class="entries-line">
+        <div v-if="userType == 'PARTNER'" class="form-entry">
+          <label>Partenaire</label>
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
+        </div>
+        <div v-if="userType == 'PARTNER_GROUP'" class="form-entry">
+          <label>Groupe de partenaire</label>
+          <UiApiAutocomplete
+            :items="groupPartners"
+            v-model="selectedGroupPartner"
+            display-results-while-empty
+          />
         </div>
       </div>
 
@@ -89,8 +111,12 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import MultiChoices from '@/components/MultiChoices';
+
 import { mapGetters, mapMutations } from 'vuex';
-import { fetchAllowedRoles, createUser, updateUser } from '@/api/users.js';
+import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
+import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
+import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
@@ -98,14 +124,37 @@ export default {
     UiButton,
     FormControl,
     MultiChoices,
+    PartnerCombo,
+    UiApiAutocomplete,
+    Toggle,
   },
   props: {
     content: Object,
   },
   data() {
     return {
+      canShowForm: false,
       roles: [],
       selectedRoles: [],
+      selectedPartner: undefined,
+      selectedGroupPartner: undefined,
+      groupPartners: [],
+      partnerChoices: [],
+      userTypes: [
+        {
+          id: 'OPERATOR',
+          label: 'getadmin.users.userTypes.bouygues',
+        },
+        {
+          id: 'PARTNER',
+          label: 'getadmin.users.userTypes.partner',
+        },
+        {
+          id: 'PARTNER_GROUP',
+          label: 'getadmin.users.userTypes.group',
+        },
+      ],
+      userType: undefined,
       form: {
         title: undefined,
         firstName: undefined,
@@ -135,9 +184,22 @@ export default {
         username: this.form.username,
         password: this.form.password,
         confirmPassword: this.form.passwordConfirm,
-        partyId: this.content.partnerId,
         roles: this.selectedRoles,
       };
+
+      if (this.userIsBO) {
+        if (this.userType === 'PARTNER') {
+          if (!!(this.selectedPartner && this.selectedPartner.id)) {
+            params.partyId = this.selectedPartner.id;
+          }
+        }
+
+        if (this.userType === 'PARTNER_GROUP') {
+          if (!!(this.selectedGroupPartner && this.selectedGroupPartner.id)) {
+            params.partyGroupId = this.selectedGroupPartner.id;
+          }
+        }
+      }
 
       let response;
 
@@ -159,7 +221,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['userInfos', 'userIsBO']),
 
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
@@ -175,8 +237,24 @@ export default {
 
       const roleError = !this.selectedRoles.length;
 
+      let userTypeValid = true;
+
+      if (this.userIsBO) {
+        if (this.userType === 'PARTNER') {
+          userTypeValid = !!(this.selectedPartner && this.selectedPartner.id);
+        }
+
+        if (this.userType === 'PARTNER_GROUP') {
+          userTypeValid = !!(this.selectedGroupPartner && this.selectedGroupPartner.id);
+        }
+      }
+
       return (
-        !missingFields.length && !passwordError && !roleError && this.isEmailValid(this.form.email)
+        !missingFields.length &&
+        !passwordError &&
+        !roleError &&
+        this.isEmailValid(this.form.email) &&
+        userTypeValid
       );
     },
 
@@ -218,6 +296,19 @@ export default {
   },
 
   async mounted() {
+    this.canShowForm = false;
+    if (this.userIsBO) {
+      const groupPartnersResponse = await fetchPartnerGroups();
+      this.groupPartners = groupPartnersResponse.map(p => {
+        return {
+          id: p.id,
+          label: p.name,
+        };
+      });
+    }
+
+    this.selectedPartner = { id: parseInt(this.content.partnerId) };
+
     const roles = await fetchAllowedRoles(this.userInfos.id);
 
     this.roles = roles.map(r => ({ code: r.Id, label: r.description, data: r }));
@@ -235,7 +326,18 @@ export default {
 
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
+      const userType = this.content.duplicateFrom.type;
+      this.userType = userType;
+
+      this.userTypes = this.userTypes.map(u => {
+        if (u.id === userType) {
+          u.default = true;
+        }
+        return u;
+      });
     }
+
+    this.canShowForm = true;
   },
 };
 </script>

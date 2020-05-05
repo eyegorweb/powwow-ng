@@ -38,7 +38,10 @@ export default {
       required: true,
     },
     slimToggles: Boolean,
-    lightTheme: Boolean,
+    lightTheme: {
+      type: Boolean,
+      default: true,
+    },
     block: Boolean,
   },
 };

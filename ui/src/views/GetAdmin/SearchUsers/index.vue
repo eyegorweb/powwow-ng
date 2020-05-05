@@ -65,7 +65,7 @@ import RolesFilter from './filters/RolesFilter';
 import Actions from './UserActions';
 import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       filters: undefined,
+      lastPayload: undefined,
       columns: [
         {
           id: 1,
@@ -256,7 +257,10 @@ export default {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
   },
   methods: {
+    ...mapMutations(['openPanel']),
+
     async applyFilters(payload) {
+      this.lastPayload = payload;
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 10 },
         filters: [],
@@ -271,7 +275,7 @@ export default {
 
     createUserPanel() {
       const doReset = () => {
-        this.refreshUsers();
+        this.applyFilters(this.lastPayload);
       };
 
       this.openPanel({

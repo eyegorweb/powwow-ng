@@ -337,11 +337,13 @@ export default {
       );
 
       this.autoActivationDelay = this.partnerOptions.DefautWorkflowActicationDelay;
-      this.selectedOffer = {
-        id: this.partnerOptions.defaultWorkflowForActivation.code,
-        label: this.partnerOptions.defaultWorkflowForActivation.workflowDescription,
-        meta: this.partnerOptions.defaultWorkflowForActivation,
-      };
+      if (this.partnerOptions.defaultWorkflowForActivation) {
+        this.selectedOffer = {
+          id: this.partnerOptions.defaultWorkflowForActivation.code,
+          label: this.partnerOptions.defaultWorkflowForActivation.workflowDescription,
+          meta: this.partnerOptions.defaultWorkflowForActivation,
+        };
+      }
 
       this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
 
