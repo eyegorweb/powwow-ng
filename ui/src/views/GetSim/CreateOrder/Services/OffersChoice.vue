@@ -29,7 +29,10 @@ export default {
         return this.selectedOffer ? this.selectedOffer_.code : undefined;
       },
       set(value) {
-        this.$emit('update:selectedOffer', this.offers.find(o => o.code === value));
+        this.$emit(
+          'update:selectedOffer',
+          this.offers.find(o => o.code === value)
+        );
       },
     },
     formattedOffers() {
@@ -44,8 +47,8 @@ export default {
           id: i.id,
           initialOffer: i.initialOffer,
           label: !workflowIsNotCompatible
-            ? i.label
-            : `${i.label}${this.$t('services.compatibility')}`,
+            ? i.initialOffer.description
+            : `${i.initialOffer.description}${this.$t('services.compatibility')}`,
           value: i.value,
           disabled: workflowIsNotCompatible,
           workflowDescription: i.workflowDescription,
