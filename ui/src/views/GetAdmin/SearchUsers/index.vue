@@ -326,8 +326,27 @@ export default {
     onDuplicateUser(user) {
       console.log('duplicate user', user);
     },
+
     onModifyUser(user) {
-      console.log('modify user', user);
+      const partners = get(user, 'partners', []);
+      const partnerId = partners.length ? partners[0].id : undefined;
+
+      const doReset = () => {
+        this.refreshUsers();
+      };
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { duplicateFrom: user, partnerId: partnerId },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
     },
     async refreshUser(user) {
       user.disabled = !user.disabled;

@@ -30,7 +30,7 @@ export default {
         additionalActions.push('actions.DISABLE');
       }
 
-      return ['getsim.actions.DETAIL', ...additionalActions, 'actions.MODIFY'];
+      return [...additionalActions, 'actions.MODIFY'];
     },
   },
 
