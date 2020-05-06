@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.771+20200506125539
+2020-05-06
+
+### Fixes
+
+- correction pour l'ajout d'un utilisateur (94c1a6eded0e78b169d6283ded8e0e30a1fa6959)
+
 ## 0.3.0-master.770+20200506095313
 2020-05-06
 
