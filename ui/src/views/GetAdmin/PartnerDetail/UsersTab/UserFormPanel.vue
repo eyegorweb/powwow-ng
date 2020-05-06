@@ -21,7 +21,13 @@
 
       <div v-if="userIsBO" class="entries-line mb-3">
         <div class="form-entry">
-          <Toggle block @update="userType = $event.id" :values="userTypes" class="pl-2" />
+          <Toggle
+            block
+            @update="userType = $event.id"
+            :values="userTypes"
+            :disabled="!!content.duplicateFrom"
+            class="pl-2"
+          />
         </div>
       </div>
 

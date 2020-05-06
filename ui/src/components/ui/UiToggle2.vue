@@ -6,6 +6,7 @@
         :key="item.id"
         @click="chosenValue = item"
         :class="{ active: item === chosenValue }"
+        :disabled="disabled"
       >
         {{ $t(item.label) }}
       </button>
@@ -43,6 +44,7 @@ export default {
       default: false,
     },
     block: Boolean,
+    disabled: Boolean,
   },
 };
 </script>
@@ -58,7 +60,7 @@ export default {
 
   button {
     appearance: none;
-    border: 2px solid $primary;
+    border: 1px solid $primary;
     background-color: transparent;
     // border-radius: 5px;
     font-weight: bold;
