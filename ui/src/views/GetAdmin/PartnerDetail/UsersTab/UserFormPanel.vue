@@ -315,7 +315,9 @@ export default {
 
     this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
-    const roles = await fetchAllowedRoles(this.userInfos.id);
+    // const roles = await fetchAllowedRoles(this.userInfos.id);
+    // temp: fix id to null
+    const roles = await fetchAllowedRoles(null);
 
     this.roles = roles.map(r => ({ code: r.Id, label: r.description, data: r }));
 
