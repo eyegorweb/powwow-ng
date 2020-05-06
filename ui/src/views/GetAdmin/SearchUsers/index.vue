@@ -88,11 +88,17 @@ export default {
           orderable: true,
           visible: true,
           noHandle: true,
+          format: {
+            type: 'LinkBtn',
+            onClick: (id, user) => {
+              this.onModifyUser(user);
+            },
+          },
         },
         {
           id: 2,
           label: 'Login',
-          name: 'LOGIN',
+          name: 'username',
           orderable: true,
           visible: true,
           noHandle: true,
