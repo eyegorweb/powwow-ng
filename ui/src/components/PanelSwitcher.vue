@@ -44,6 +44,7 @@
         :content="payload"
       />
       <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
+      <PartnerOfferPanel v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -72,6 +73,8 @@ export default {
     ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
     AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
     UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
+    PartnerOfferPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/OffersTab/PartnerOfferPanel.vue'),
     BroadcastListFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
   },

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="appIsReady" class="container">
-      <NavBars :is-backoffice-profile="userIsBO" />
+      <NavBars v-if="$route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
       <router-view />
       <PanelSwitcher />
     </div>

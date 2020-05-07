@@ -7,7 +7,9 @@
       <Button v-if="canDelete" class="button" :variant="'import'" @click="$emit('delete')">{{
         $t('delete')
       }}</Button>
-      <Button :variant="'primary'" @click="$emit('modify')">{{ $t('modify') }}</Button>
+      <Button v-if="canModify" :variant="'primary'" @click="$emit('modify')">{{
+        $t('modify')
+      }}</Button>
     </div>
   </div>
 </template>
@@ -18,6 +20,10 @@ import Button from '@/components/ui/Button';
 export default {
   props: {
     canDelete: {
+      type: Boolean,
+      default: true,
+    },
+    canModify: {
       type: Boolean,
       default: true,
     },
