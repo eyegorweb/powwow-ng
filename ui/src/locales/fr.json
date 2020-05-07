@@ -384,6 +384,8 @@
         "partner": "Partenaire",
         "group": "Compte groupe"
       },
+      "simcards": "Cartes SIM",
+      "supervision": "Options de supervision",
       "addAdmin": "Ajouter un administrateur",
       "addUser": "Ajouter un utilisateur",
       "title": "Gestion des utilisateurs",
@@ -431,6 +433,9 @@
       "BOTH": "Tous",
       "adminForm": {
         "title": "Formulaire admin"
+      },
+      "offerFromPanel": {
+        "title": "Panel Offre"
       },
       "userForm": {
         "title": "Ajouter un utilisateur",
