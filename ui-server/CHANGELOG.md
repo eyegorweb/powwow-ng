@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.772+20200507125812
+2020-05-07
+
+### Features
+
+- 1182 gérer les offres du partenaire (34d5cd99bea864771259729b02e0b3c23925f2d0)
+
 ## 0.3.0-master.771+20200506125539
 2020-05-06
 
