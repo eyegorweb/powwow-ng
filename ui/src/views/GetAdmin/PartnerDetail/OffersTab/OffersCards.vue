@@ -10,7 +10,7 @@
       <CardsSkeleton v-if="isLoading" />
       <template v-else>
         <CardButton @click="manageOffers">
-          Gérer les offres associés
+          Gérer les offres associées
         </CardButton>
 
         <Card
