@@ -42,6 +42,9 @@
         <div class="pt-4 pl-4" slot="accountDetail">
           <AccountDetail :partner="partner" />
         </div>
+        <div class="pt-4 pl-4" slot="offersAndSim">
+          <OffersTab :partner="partner" />
+        </div>
       </UiTabs>
     </div>
   </div>
@@ -56,6 +59,7 @@ import UiTab from '@/components/ui/Tab';
 import UsersTab from './UsersTab';
 import CustomizeTab from './CustomizeTab';
 import AccountDetail from './AccountDetail';
+import OffersTab from './OffersTab';
 
 import { fetchpartnerById } from '@/api/partners.js';
 
@@ -68,6 +72,7 @@ export default {
     UsersTab,
     CustomizeTab,
     AccountDetail,
+    OffersTab,
   },
 
   async mounted() {
@@ -95,7 +100,6 @@ export default {
         {
           label: 'offersAndSim',
           title: this.$t('getadmin.partners.offersAndSim'),
-          disable: true,
         },
         {
           label: 'accountDetail',

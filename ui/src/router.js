@@ -17,6 +17,7 @@ import PartnerDetail from '@/views/GetAdmin/PartnerDetail';
 import SearchPartners from '@/views/GetAdmin/SearchPartners';
 import ReportsModels from '@/views/GetReport/reports/ReportsModels';
 import Documents from '@/views/GetReport/Documents/index.vue';
+import Catalog from '@/views/Catalog';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -112,5 +113,12 @@ export default new Router({
       component: Examples,
       mock: true,
     },
+    {
+      path: '/components',
+      name: 'catalog',
+      component: Catalog,
+      mock: true,
+    },
+
   ]),
 });

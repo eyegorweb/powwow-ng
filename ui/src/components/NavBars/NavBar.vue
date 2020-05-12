@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="flex-container">
     <div class="flex-part">
       <a href="/">

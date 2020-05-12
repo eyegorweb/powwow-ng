@@ -21,7 +21,13 @@
 
       <div v-if="userIsBO" class="entries-line mb-3">
         <div class="form-entry">
-          <Toggle block @update="userType = $event.id" :values="userTypes" class="pl-2" />
+          <Toggle
+            block
+            @update="userType = $event.id"
+            :values="userTypes"
+            :disabled="!!content.duplicateFrom"
+            class="pl-2"
+          />
         </div>
       </div>
 
@@ -309,7 +315,9 @@ export default {
 
     this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
-    const roles = await fetchAllowedRoles(this.userInfos.id);
+    // const roles = await fetchAllowedRoles(this.userInfos.id);
+    // temp: fix id to null
+    const roles = await fetchAllowedRoles(null);
 
     this.roles = roles.map(r => ({ code: r.Id, label: r.description, data: r }));
 

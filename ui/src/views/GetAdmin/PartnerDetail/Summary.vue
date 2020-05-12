@@ -64,7 +64,7 @@
             <h6>{{ $t('getadmin.partners.lastBill') }}:</h6>
             <p>
               {{ getFromContent('lastBillingAmount.billDate') }} :
-              {{ billNumberFormatter(partyDetail.lastBillingAmount.amount) }} €
+              {{ billNumberFormatter(getFromContent('lastBillingAmount.amount', 0)) }} €
             </p>
           </div>
           <div class="item">

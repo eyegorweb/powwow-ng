@@ -47,7 +47,6 @@ export async function mutation(name, params, ret = '') {
     ${name}(${scan(params)})${ret}
   }`;
 
-  console.log('queryStr>>', queryStr);
 
   return await query(queryStr);
 }

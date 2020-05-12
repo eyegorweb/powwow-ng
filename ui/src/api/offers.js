@@ -1,5 +1,44 @@
 import { query } from './utils';
 
+export async function getAvailableOffer(partnerId) {
+  const queryStr = `{
+  getAvailableOffer(partnerId: ${partnerId}) {
+    partyRelated
+    workflow {
+      id
+      code
+      workflowDescription
+      name
+      initialOffer {
+        marketingServices {
+          code
+          labelService
+          optional
+          editable
+        }
+      }
+    }
+    partyRelated
+  }
+}
+`;
+
+  const response = await query(queryStr);
+  return response.data.getAvailableOffer;
+}
+
+export async function updateOffers(partnerId, offerIds) {
+  const queryStr = `mutation{ updateOffers(partnerId: ${partnerId}, offerIds: [${offerIds.join(', ')}]) }`;
+  const response = await query(queryStr);
+  if (response.data) return response.data.updateOffers;
+}
+
+export async function disableOffer(partnerId, offerId) {
+  const queryStr = `mutation{ disableOffer(partnerId: ${partnerId}, offerId: ${offerId}) }`;
+  const response = await query(queryStr);
+  if (response.data) return response.data.disableOffer;
+}
+
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
 export async function fetchOffers(q, partners, { page, limit, partnerType, disabledOffer }) {
   let partnersIds,
@@ -29,6 +68,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType, disab
       items {
         id
         code
+        name
         workflowDescription
         ${rCardGqlParam}
         initialOffer {
