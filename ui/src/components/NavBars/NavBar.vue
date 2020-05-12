@@ -185,6 +185,10 @@ export default {
             label: 'menu.documents',
             to: { name: 'documents' },
           },
+          {
+            label: 'menu.reportsDashboard',
+            to: { name: 'reportsDashboard' },
+          },
         ],
       },
       {

@@ -1,5 +1,6 @@
 <template>
   <UiApiAutocomplete
+    placeholder="Partenaire"
     :api-method="!localItems ? searchParty : undefined"
     :items="localItems"
     v-model="selectedValue"

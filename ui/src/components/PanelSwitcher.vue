@@ -56,6 +56,10 @@
         v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
         :content="payload"
       />
+      <PartnerOfferPanel
+        v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
+        :content="payload"
+      />
     </div>
   </SlidePanel>
 </template>

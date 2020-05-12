@@ -42,7 +42,7 @@
           <template v-else>
             <li
               v-for="(result, i) in data"
-              :key="result.id"
+              :key="result.key || result.id"
               @click="selectValue(result)"
               @mouseenter="selectedItem = i"
               :class="i === selectedItem && 'is-selected'"

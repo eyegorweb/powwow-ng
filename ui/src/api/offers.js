@@ -28,7 +28,9 @@ export async function getAvailableOffer(partnerId) {
 }
 
 export async function updateOffers(partnerId, offerIds) {
-  const queryStr = `mutation{ updateOffers(partnerId: ${partnerId}, offerIds: [${offerIds.join(', ')}]) }`;
+  const queryStr = `mutation{ updateOffers(partnerId: ${partnerId}, offerIds: [${offerIds.join(
+    ', '
+  )}]) }`;
   const response = await query(queryStr);
   if (response.data) return response.data.updateOffers;
 }

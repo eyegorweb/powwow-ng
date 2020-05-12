@@ -1,5 +1,7 @@
 import Highcharts from 'highcharts';
 
+import mapInit from 'highcharts/modules/map';
+
 export default function configureHighcharts() {
   Highcharts.setOptions({
     lang: {
@@ -34,4 +36,7 @@ export default function configureHighcharts() {
       ],
     },
   });
+  mapInit(Highcharts);
+
+  Highcharts.maps['custom/world'] = window.WORLD_MAP_DATA;
 }

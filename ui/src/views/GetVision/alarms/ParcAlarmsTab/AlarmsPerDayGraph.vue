@@ -7,7 +7,7 @@
 <script>
 import { Chart } from 'highcharts-vue';
 import Highcharts from 'highcharts';
-import 'highcharts/css/highcharts.css';
+// import 'highcharts/css/highcharts.css';
 import { fetchAlarmInstancesIndicators } from '@/api/alarms';
 import { isBefore, DATE_FORMAT } from '@/utils/date.js';
 
