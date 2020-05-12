@@ -161,7 +161,8 @@
     "admins": "Gestion des administrateurs",
     "account": "Compte",
     "modelReports": "Rapports",
-    "createReports": "Gestion documentaires"
+    "createReports": "Gestion documentaires",
+    "reportsDashboard": "Tableau de bord"
   },
   "users": {
     "function": "Fonction [facultatif]",

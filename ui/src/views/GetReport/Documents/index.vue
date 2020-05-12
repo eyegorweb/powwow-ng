@@ -154,7 +154,11 @@ export default {
             direction: 'DESC',
           };
 
-          const response = await fetchReports(orderBy, pagination, this.singlePartger);
+          const response = await fetchReports(
+            orderBy,
+            pagination,
+            this.singlePartner ? this.singlePartner.id : undefined
+          );
 
           if (response.items) {
             const selectedItem = response.items.find(i => i.id === reportId);
@@ -182,7 +186,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'singlePartger']),
+    ...mapGetters(['userIsBO', 'singlePartner']),
   },
   methods: {
     async applyFilters(payload) {
