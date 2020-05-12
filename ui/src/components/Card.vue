@@ -4,12 +4,14 @@
       <slot></slot>
     </div>
     <div class="cardBloc-buttons">
-      <Button v-if="canDelete" class="button" :variant="'import'" @click="$emit('delete')">{{
-        $t('delete')
-      }}</Button>
-      <Button v-if="canModify" :variant="'primary'" @click="$emit('modify')">{{
-        $t('modify')
-      }}</Button>
+      <slot name="buttons">
+        <Button v-if="canDelete" class="button" :variant="'import'" @click="$emit('delete')">{{
+          $t('delete')
+        }}</Button>
+        <Button v-if="canModify" :variant="'primary'" @click="$emit('modify')">{{
+          $t('modify')
+        }}</Button>
+      </slot>
     </div>
   </div>
 </template>
