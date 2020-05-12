@@ -37,10 +37,11 @@
       </div>
     </template>
     <template v-if="isOpen">
-      <CreateOrderAddCustomField
-        @cancel="close"
-        @add-field="onSaveField"
+      <AddCustomField
+        :fixheight="false"
         :number-ofustom-fields="allCustomFields.length"
+        :close="close"
+        @add-field="onSaveField"
       />
     </template>
   </CreateOrderStepContainer>
@@ -48,7 +49,7 @@
 
 <script>
 import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
-import CreateOrderAddCustomField from './CreateOrderAddCustomField';
+import AddCustomField from './AddCustomField';
 import PartnerFields from '@/components/PartnerFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
@@ -57,6 +58,14 @@ import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
 export default {
+  components: {
+    CreateOrderAddOrderReference,
+    AddCustomField,
+    UiButton,
+    PartnerFields,
+    CreateOrderStepContainer,
+  },
+
   data() {
     return {
       isOpen: false,
@@ -261,14 +270,6 @@ export default {
       this.referenceValue = value;
       this.done();
     },
-  },
-
-  components: {
-    CreateOrderAddOrderReference,
-    CreateOrderAddCustomField,
-    UiButton,
-    PartnerFields,
-    CreateOrderStepContainer,
   },
 };
 </script>
