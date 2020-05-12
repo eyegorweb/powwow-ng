@@ -403,11 +403,14 @@
       "addList": "Ajouter une liste de diffusion",
       "modifyList": "Modifier une liste de diffusion",
       "broadcastLists": "Listes de diffusion",
-      "freeField": "Champs libres",
+      "customFields": "Champs libres",
+      "specificFields": "Champs spécifiques",
       "deliveryAddress": "Adresses de livraison",
       "listName": "Nom de la liste de diffusion",
       "emails": "Adresses emails",
-      "addEmail": "Ajouter un email"
+      "addEmail": "Ajouter un email",
+      "addCustomField": "Ajouter un champ libre",
+      "modifyCustomField": "Modifier un champ libre"
     },
     "partners": {
       "name": "Raison sociale",
@@ -1224,7 +1227,7 @@
     "offer": "Offre",
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
-    "customFields": "Champs libres {num}",
+    "customFields": "Champ libre {num}",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
@@ -1359,6 +1362,7 @@
     "add-custom-field-value": "Ajouter une valeur",
     "add-custom-field": "Ajouter un champ libre",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
+    "modify-custom-field": "Modifier un champ libre",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",
     "input-label-custom-field": "Nommer le titre du champ libre",
     "choose-type-custom-field": "Choisir le type de champ libre",

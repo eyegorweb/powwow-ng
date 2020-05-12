@@ -6,9 +6,9 @@
           v-for="item in menuItems"
           :key="item"
           class="list-group-item"
-          :class="{ disableSubMenu: item != 'getadmin.customize.broadcastLists' }"
+          :class="{ disableSubMenu: item === 'getadmin.customize.deliveryAddress' }"
         >
-          <a @click.prevent="section = item" :class="{ active: section == item }" href="#">
+          <a @click.prevent="section = item" :class="{ active: section === item }" href="#">
             {{ $t(item) }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
           </a>
@@ -20,12 +20,20 @@
         v-if="section === 'getadmin.customize.broadcastLists'"
         :partnerid="partnerid"
       />
+      <CustomFields v-if="section === 'getadmin.customize.customFields'" :partnerid="partnerid" />
+      <SpecificFields
+        v-if="section === 'getadmin.customize.specificFields'"
+        :partnerid="partnerid"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import BroadcastLists from './BroadcastLists';
+import CustomFields from './CustomFields';
+import SpecificFields from './SpecificFields';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -36,6 +44,18 @@ export default {
   },
   components: {
     BroadcastLists,
+    CustomFields,
+    SpecificFields,
+  },
+
+  computed: {
+    ...mapGetters(['userIsBO']),
+  },
+
+  mounted() {
+    if (!this.userIsBO) {
+      this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
+    }
   },
 
   data() {
@@ -44,10 +64,20 @@ export default {
 
       menuItems: [
         'getadmin.customize.broadcastLists',
-        'getadmin.customize.freeField',
+        'getadmin.customize.customFields',
+        'getadmin.customize.specificFields',
         'getadmin.customize.deliveryAddress',
       ],
     };
+  },
+
+  methods: {
+    visibleMenuItems(menu, item) {
+      return menu.splice(
+        menu.findIndex(i => i === item),
+        1
+      );
+    },
   },
 };
 </script>
