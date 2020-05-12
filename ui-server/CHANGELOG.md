@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.774+20200512073049
+## 0.3.0-master.775+20200512073813
 2020-05-12
+
+### Features
+
+- gestion des champs libres (052e8c3d2cafae419dc3fa15a6db1ec1ecd2c233)
 
 ## 0.3.0-master.773+20200511154601
 2020-05-11
