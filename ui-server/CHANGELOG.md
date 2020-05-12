@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.25.0
+2020-05-12
+
+### Features
+
+- 1182 gérer les offres du partenaire (34d5cd99bea864771259729b02e0b3c23925f2d0)
+
+### Fixes
+
+- correction pour l'ajout d'un utilisateur (94c1a6eded0e78b169d6283ded8e0e30a1fa6959)
+
 ## 0.24.1
 2020-05-05
 
