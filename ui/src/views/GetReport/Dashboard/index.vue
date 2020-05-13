@@ -40,18 +40,56 @@
     <draggable handle=".handle">
       <transition-group>
         <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
-          <div class="d-flex">
-            <ConsoHistoryGraph />
+          <div>
+            <div class="row">
+              <ConsoHistoryGraph />
+            </div>
+            <div class="row">
+              <LocalisationGraph />
+            </div>
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
-            <LocalisationGraph />
+            <div class="row">
+              <ParcByOffersGraph />
+              <LinesPerZoneGraph />
+              <LinesByPLMNGraph />
+            </div>
+            <div class="row">
+              <ParcStateGraph />
+            </div>
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
           <div>
-            TEST TEST
+            <div class="row">
+              <BilledAmountsGraph />
+            </div>
+            <div class="row">
+              <AmountByBilledLinesGraph />
+            </div>
+            <div class="row">
+              <BilledAmountsByZone />
+            </div>
+            <div class="row">
+              <BilledLinesNBGraph />
+            </div>
+            <div class="row">
+              <BilledLinesByZone />
+            </div>
+
+            <div class="row">
+              <LinesThreshold />
+            </div>
+
+            <div class="row">
+              <ServicesGraph />
+            </div>
+
+            <div class="row">
+              <AlarmsPerDayContainerGraph />
+            </div>
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Commande'" :key="'Commande'" draggable>
@@ -85,6 +123,19 @@ import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
 import ConsoHistoryGraph from './ConsoHistoryGraph';
 import LocalisationGraph from './LocalisationGraph';
+import ParcByOffersGraph from './ParcByOffersGraph';
+import LinesPerZoneGraph from './LinesPerZoneGraph';
+import LinesByPLMNGraph from './LinesByPLMNGraph';
+import ParcStateGraph from './ParcStateGraph';
+import BilledAmountsGraph from './BilledAmountsGraph';
+import BilledAmountsByZone from './BilledAmountsByZone';
+import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
+import BilledLinesNBGraph from './BilledLinesNBGraph';
+import BilledLinesByZone from './BilledLinesByZone';
+import LinesThreshold from './LinesThreshold';
+import ServicesGraph from './ServicesGraph';
+import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -97,6 +148,18 @@ export default {
     FoldableBlock,
     ConsoHistoryGraph,
     LocalisationGraph,
+    ParcByOffersGraph,
+    LinesPerZoneGraph,
+    LinesByPLMNGraph,
+    ParcStateGraph,
+    BilledAmountsGraph,
+    AmountByBilledLinesGraph,
+    BilledAmountsByZone,
+    BilledLinesNBGraph,
+    BilledLinesByZone,
+    LinesThreshold,
+    ServicesGraph,
+    AlarmsPerDayContainerGraph,
   },
 
   mounted() {

@@ -34,13 +34,13 @@ export default {
     createGraph() {
       this.chartOptions = {
         chart: {
-          type: 'column',
+          type: 'Combination chart',
         },
 
-        colors: ['#488bf7', '#083e96', '#dc73de', '#9c109e'],
+        colors: ['#2213ad', '#2c1bc4', '#3e2ce6', '#4e3df2', '#5d4ef2', '#6b5df0'],
 
         title: {
-          text: 'Historique des consommations',
+          text: 'Nombre de lignes par palier',
         },
 
         xAxis: [
@@ -63,36 +63,23 @@ export default {
           },
         ],
 
-        yAxis: {
-          // Primary yAxis
-          labels: {
-            format: '{value} Mo',
-            style: {
-              color: Highcharts.getOptions().colors[1],
+        yAxis: [
+          {
+            // Primary yAxis
+            labels: {
+              format: '{value}',
+              style: {
+                color: Highcharts.getOptions().colors[1],
+              },
+            },
+            title: {
+              text: 'Lignes',
+              style: {
+                color: Highcharts.getOptions().colors[1],
+              },
             },
           },
-          title: {
-            text: 'Conso',
-            style: {
-              color: Highcharts.getOptions().colors[1],
-            },
-          },
-        },
-        tooltip: {
-          formatter() {
-            return (
-              '<b>' +
-              this.x +
-              '</b><br/>' +
-              this.series.name +
-              ': ' +
-              this.y +
-              '<br/>' +
-              'Total: ' +
-              this.point.stackTotal
-            );
-          },
-        },
+        ],
 
         plotOptions: {
           column: {
@@ -107,24 +94,34 @@ export default {
         },
         series: [
           {
-            name: 'France entrant',
+            name: 'Palier 1',
+            type: 'column',
             data: [50, 30, 40, 70, 20, 60, 80, 40, 70, 90, 100, 120],
-            stack: 'entrant',
           },
           {
-            name: 'Roaming entrant',
+            name: 'Palier 1',
+            type: 'column',
             data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
-            stack: 'entrant',
           },
           {
-            name: 'France sortant',
-            data: [20, 50, 60, 20, 10, 20, 10, 30, 40, 20, 20, 10],
-            stack: 'sortant',
+            name: 'Palier 3',
+            type: 'column',
+            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
           },
           {
-            name: 'Roaming sortant',
-            data: [30, 0, 40, 40, 30, 20, 10, 30, 30, 40, 0, 10],
-            stack: 'sortant',
+            name: 'Palier 4',
+            type: 'column',
+            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
+          },
+          {
+            name: 'Palier 5',
+            type: 'column',
+            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
+          },
+          {
+            name: 'Palier 6',
+            type: 'column',
+            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
           },
         ],
       };

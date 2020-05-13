@@ -1,10 +1,12 @@
 <template>
-  <div class="bg-white p-3 m-1" :class="`size-${size}`">
-    <div v-if="canShow">
-      <slot />
-    </div>
-    <div v-else class="text-center error-txt">
-      <slot name="onHide" />
+  <div :class="`col-${size}`">
+    <div class="bg-white p-3 mt-4">
+      <template v-if="canShow">
+        <slot />
+      </template>
+      <template v-else class="text-center error-txt">
+        <slot name="onHide" />
+      </template>
     </div>
   </div>
 </template>
