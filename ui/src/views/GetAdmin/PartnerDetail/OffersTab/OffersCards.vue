@@ -55,7 +55,6 @@ import CardsSkeleton from '@/views/GetAdmin/PartnerDetail/CardsSkeleton.vue';
 import UiInput from '@/components/ui/UiInput';
 import Button from '@/components/ui/Button';
 
-
 import get from 'lodash.get';
 import { mapMutations } from 'vuex';
 

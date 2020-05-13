@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="3" can-show>
+  <GraphContainer :size="12" can-show>
     <div>
       <chart
         v-if="chartOptions"

@@ -1,6 +1,7 @@
 import Highcharts from 'highcharts';
 
 import mapInit from 'highcharts/modules/map';
+import variablepie from 'highcharts/modules/variable-pie';
 
 export default function configureHighcharts() {
   Highcharts.setOptions({
@@ -37,6 +38,7 @@ export default function configureHighcharts() {
     },
   });
   mapInit(Highcharts);
+  variablepie(Highcharts);
 
   Highcharts.maps['custom/world'] = window.WORLD_MAP_DATA;
 }
