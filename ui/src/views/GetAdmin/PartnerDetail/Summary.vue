@@ -5,11 +5,11 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getadmin.partners.name') }}:</h6>
-            <p>{{ getFromContent('name') }}</p>
+            <p>{{ getFromContent('party.name') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('filters.lines.siren') }}:</h6>
-            <p>{{ getFromContent('siren') }}</p>
+            <p>{{ getFromContent('party.siren') }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('filters.lines.typeSIMCard') }}:</h6>
@@ -24,8 +24,8 @@
           <div class="item">
             <h6>{{ $t('getadmin.partners.mainAdmin') }}:</h6>
             <p>
-              {{ getFromContent('mainAdministrator.name.firstName')
-              }}{{ getFromContent('mainAdministrator.name.lastName') }}
+              {{ getFromContent('party.mainAdministrator.name.firstName')
+              }}{{ getFromContent('party.mainAdministrator.name.lastName') }}
             </p>
           </div>
           <div class="item">

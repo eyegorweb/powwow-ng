@@ -215,6 +215,101 @@ export async function fetchAdminInfos(id) {
   return response.data.party;
 }
 
+export async function fetchAccountDetail(id) {
+  const queryStr = `
+  query {
+    partys(filter: {id: {eq : ${id}}}) {
+      total
+      items {
+        tva
+        id
+        name
+        code
+        contractReference
+        siren
+        naf
+        partyType
+        partyGroups {
+          id
+          name
+        }
+        auditable {
+          created
+          updated
+        }
+        contactInformation {
+          phone
+          fax
+        }
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.partys.items[0];
+}
+
+export async function updatePartyDetail(params) {
+  const queryStr = `
+  mutation {
+    updateDetailParty(
+
+      detailsPartyInput:{
+        partyId: ${params.id}
+
+        generalInformationInput: {
+          partyType:${params.partyType}
+          code: "${params.code}"
+          bscsRootAccount: "${params.bscsRootAccount}"
+          defaultPreactivationOfferCode: "${params.defaultPreactivationOfferCode}"
+          preactivationName: "${params.preactivationName}"
+          defaultWorkflowCode: "${params.defaultWorkflowCode}"
+        }
+        legalInformationInput:{
+          name: "${params.partnerName}"
+          siren: "${params.siren}"
+          naf: "${params.naf}"
+          tva: "${params.tva}"
+        }
+        contractInput: {
+          contractReference: "${params.contractReference}"
+          contractDate: ${params.contractDate}
+          contractExpiration: ${params.contractExpiration}
+          salesEngineer: "${params.salesEngineer}"
+          commercialName: "${params.commercialName}"
+          commercialEmail: "${params.commercialEmail}"
+        }
+        contactInformation: {
+          phone: "${params.phone}"
+          address1: "${params.address}"
+          address2: "${params.address2}"
+          zipCode: "${params.zipCode}"
+          city: "${params.city}"
+          country: "${params.country}"
+        }
+      }
+
+    ) {
+      partyType
+      code
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response;
+}
+
 export async function fetchBroadcastLists(id) {
   const queryStr = `
   query{
@@ -236,28 +331,7 @@ export async function fetchBroadcastLists(id) {
 export async function fetchPartyDetail(id) {
   const queryStr = `
   query {
-
-    detailParty(partyId:${id}) {
-    name
-      siren
-      salesEngineer
-      lastBillingAmount {
-        billDate
-        amount
-      }
-      mainAdministrator  {
-        company
-        name {
-          title
-          firstName
-          lastName
-        }
-        contactInformation {
-          phone
-          email
-        }
-      }
-
+    detailParty(partyId: ${id}) {
       shippingAddressesCount
       usersCount
       mailingListsCount
@@ -265,10 +339,54 @@ export async function fetchPartyDetail(id) {
       customerAccountsCount
       customFieldsCount
       availableSimCount
-
+      lastBillingAmount {
+        billDate
+        amount
       }
-
+      party {
+        name
+        siren
+        salesEngineer
+        mainAdministrator {
+          id
+        }
+        bscsRootAccount
+        defaultPreactivationOfferCode
+        preactivationName
+        defaultWorkflowCode
+        portabilityCode
+        tva
+        contractDate
+        contractExpiration
+        salesEngineer
+        commercialName
+        commercialEmail
+        defaultPreactivationOfferCode
+        resilationSecurityNotificationMails
+        diffusionList
+        contactInformation {
+          email
+          phone
+          mobile
+          fax
+        }
+        address {
+          address1
+          address2
+          address3
+          zipCode
+          city
+          country
+          state
+        }
+        mailingLists {
+          id
+          name
+          emails
+        }
+      }
     }
+  }
 
   `;
   const response = await query(queryStr);

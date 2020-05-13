@@ -12,16 +12,22 @@
     </div>
     <div class="col-md-9">
       <PartnerOptions v-if="section === 'getadmin.partners.options'" :partner="partner" />
+      <AccountPartnerDetail
+        v-if="section === 'getadmin.partners.accountDescription'"
+        :partner="partner"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import PartnerOptions from './PartnerOptions';
+import AccountPartnerDetail from './AccountPartnerDetail';
 
 export default {
   components: {
     PartnerOptions,
+    AccountPartnerDetail,
   },
 
   props: {
