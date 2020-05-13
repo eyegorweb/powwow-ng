@@ -1,47 +1,61 @@
 <template>
-  <BaseDetailPanelContent white>
-    <div class="m-3">
-      <div class="entries-line">
-        <div class="form-entry">
-          <template v-if="specificFields.length > 0 && !userIsPartner">
-            <SpecificFields
-              :specific-fields="specificFields"
-              :get-selected-value="getSelectedValue"
-              :errors="errors"
-              :can-edit-list="canEditList"
-              :show-optional-field="showOptionalField"
-              @change="onValueChanged"
-            />
-          </template>
+  <div>
+    <BaseDetailPanelContent v-if="!addSpecificField" white>
+      <div class="m-3">
+        <div class="entries-line">
+          <div class="form-entry">
+            <template v-if="specificFields.length > 0">
+              <SpecificFields
+                :direction="direction"
+                :specific-fields="specificFields"
+                :get-selected-value="getSelectedValue"
+                :errors="errors"
+                :can-edit-list="canEditList"
+                :show-optional-field="showOptionalField"
+                @change="onValueChanged"
+              />
+            </template>
+          </div>
         </div>
       </div>
-    </div>
-    <div slot="footer" class="action-buttons">
-      <div>
-        <UiButton variant="import" block @click="closePanel">{{ $t('cancel') }}</UiButton>
+      <div v-if="!addSpecificField" slot="footer" class="action-buttons">
+        <AddCustomFieldActions
+          @cancel="closePanel"
+          @add-field="save"
+          :can-send="canSend"
+          :text="actionLabel"
+        />
       </div>
-      <div>
-        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
-          $t('save')
-        }}</UiButton>
-      </div>
-    </div>
-  </BaseDetailPanelContent>
+    </BaseDetailPanelContent>
+    <template v-if="addSpecificField">
+      <AddCustomField
+        :panel="panel"
+        :label-title="label"
+        fixheight
+        :close="closePanel"
+        @add-field="save"
+        :number-of-custom-fields="content.currentNbCF"
+      />
+    </template>
+  </div>
 </template>
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import SpecificFields from '@/components/SpecificFields';
+import AddCustomField from '@/views/GetSim/CreateOrder/StepSettings/AddCustomField';
+import AddCustomFieldActions from '@/views/GetSim/CreateOrder/StepSettings/AddCustomFieldActions';
 import { mapMutations } from 'vuex';
 import { updateCustomFields } from '@/api/actCreation';
 import { createCustomField } from '@/api/customFields';
 import { formattedCurrentDate } from '@/utils/date';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
     BaseDetailPanelContent,
     SpecificFields,
+    AddCustomField,
+    AddCustomFieldActions,
   },
 
   props: {
@@ -52,43 +66,47 @@ export default {
     return {
       customFields: [],
       specificFields: [],
-      customFieldsValues: [],
+      specificFieldsValues: [],
       errors: [],
       canEditList: true,
       showOptionalField: true,
       partnerId: undefined,
       canSend: false,
-      addCustomField: false,
+      addSpecificField: false,
+      panel: 'admin',
+      label: 'spécifique',
+      direction: 'down',
     };
   },
 
   mounted() {
     this.partnerId = this.content.partnerId;
-    if (this.content && this.content.modifyCustomField) {
-      this.customFields.push(this.content.modifyCustomField);
-      this.specificFields.push(this.content.modifyCustomField);
+    if (this.content && this.content.modifySpecificField) {
+      this.specificFields.push(this.content.modifySpecificField);
     } else {
-      this.addCustomField = true;
+      this.addSpecificField = true;
     }
   },
 
   computed: {
-    ...mapGetters(['userIsPartner']),
+    actionLabel() {
+      return this.label ? this.$t('orders.modify-custom-field-action', { label: this.label }) : '';
+    },
   },
 
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
     getSelectedValue(code) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.specificFieldsValues.find(c => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.specificFieldsValues.find(c => c.code === customField.code);
       if (enteredValue) this.canSend = true;
       if (existingFieldValue) {
-        this.customFieldsValues = this.customFieldsValues.map(c => {
+        this.specificFieldsValues = this.specificFieldsValues.map(c => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -99,12 +117,12 @@ export default {
         });
       } else {
         customField.enteredValue = enteredValue;
-        this.customFieldsValues = [...this.customFieldsValues, { ...customField }];
+        this.specificFieldsValues = [...this.specificFieldsValues, { ...customField }];
       }
     },
     async save(fieldData) {
       const getCustomFieldValue = code => {
-        const found = this.customFieldsValues.filter(c => c.code === code);
+        const found = this.specificFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -126,7 +144,7 @@ export default {
 
       let response;
 
-      if (this.content.modifyCustomField) {
+      if (this.content.modifySpecificField) {
         response = await updateCustomFields([], [], params);
       } else {
         response = await createCustomField({
@@ -135,6 +153,7 @@ export default {
           type: fieldData.type,
           values: fieldData.values,
           mandatoryVal: fieldData.mandatoryVal,
+          isSpec: true,
         });
       }
 

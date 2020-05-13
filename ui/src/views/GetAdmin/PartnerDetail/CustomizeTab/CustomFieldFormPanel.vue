@@ -6,6 +6,7 @@
           <div class="form-entry">
             <template v-if="customFields.length > 0">
               <CustomFields
+                :direction="direction"
                 :custom-fields="customFields"
                 :get-selected-value="getSelectedValue"
                 :errors="errors"
@@ -22,16 +23,18 @@
           @cancel="closePanel"
           @add-field="save"
           :can-send="canSend"
-          :text="$t('orders.modify-custom-field')"
+          :text="actionLabel"
         />
       </div>
     </BaseDetailPanelContent>
     <template v-if="addCustomField">
       <AddCustomField
+        :panel="panel"
+        :label-title="label"
         fixheight
         :close="closePanel"
         @add-field="save"
-        :number-ofustom-fields="content.currentNbCF"
+        :number-of-custom-fields="content.currentNbCF"
       />
     </template>
   </div>
@@ -42,11 +45,10 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import CustomFields from '@/components/CustomFields';
 import AddCustomField from '@/views/GetSim/CreateOrder/StepSettings/AddCustomField';
 import AddCustomFieldActions from '@/views/GetSim/CreateOrder/StepSettings/AddCustomFieldActions';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { updateCustomFields } from '@/api/actCreation';
 import { createCustomField } from '@/api/customFields';
 import { formattedCurrentDate } from '@/utils/date';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -71,6 +73,9 @@ export default {
       partnerId: undefined,
       canSend: false,
       addCustomField: false,
+      panel: 'admin',
+      label: 'libre',
+      direction: 'down',
     };
   },
 
@@ -78,7 +83,6 @@ export default {
     this.partnerId = this.content.partnerId;
     if (this.content && this.content.modifyCustomField) {
       this.customFields.push(this.content.modifyCustomField);
-      this.specificFields.push(this.content.modifyCustomField);
     } else {
       this.addCustomField = true;
     }
@@ -86,6 +90,9 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner']),
+    actionLabel() {
+      return this.label ? this.$t('orders.modify-custom-field-action', { label: this.label }) : '';
+    },
   },
 
   methods: {
@@ -147,6 +154,7 @@ export default {
           type: fieldData.type,
           values: fieldData.values,
           mandatoryVal: fieldData.mandatoryVal,
+          isSpec: false,
         });
       }
 

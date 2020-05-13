@@ -22,17 +22,6 @@
           <div class="cardBloc-infos-username">{{ cf.label }}</div>
         </Card>
       </template>
-      <template v-if="allSpecificFields">
-        <Card
-          v-for="(sf, index) in allSpecificFields"
-          :key="sf.id"
-          :can-delete="false"
-          @modify="modifyCustomField(sf)"
-        >
-          <div class="cardBloc-infos-name">{{ $t('col.specificFields', { num: ++index }) }}</div>
-          <div class="cardBloc-infos-username">{{ sf.label }}</div>
-        </Card>
-      </template>
     </div>
   </div>
 </template>
@@ -64,7 +53,6 @@ export default {
   data() {
     return {
       allCustomFields: [],
-      allSpecificFields: [],
       customFieldsValues: [],
       customFieldsErrors: [],
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
@@ -81,7 +69,6 @@ export default {
     async fetchCustomFieldsForPartner() {
       const customFields = await fetchCustomFields(this.partnerid);
       this.allCustomFields = customFields.customFields;
-      this.allSpecificFields = customFields.specificFields;
     },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
