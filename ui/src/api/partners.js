@@ -35,6 +35,7 @@ export async function getPartyOptions(partyId) {
     diffusionListEnabled
     dailyOutstandingReporting
     msisdnFormatPreactivation
+    consoReporting
     wsNotificationParam {
       notificationOption
       login

@@ -442,7 +442,7 @@ export default {
           dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
           offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
           flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
-          DefautWorkflowActicationDelay: parseInt(this.autoActivationDelay),
+          defautWorkflowActication: parseInt(this.autoActivationDelay),
           defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
           defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')),
           flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
