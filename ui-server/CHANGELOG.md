@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.778+20200513093825
+2020-05-13
+
+### Features
+
+- gestion et personnalisation des champs spécifiques (8caa0d2c89e6e1f046715fdde4309ad614d0411c)
+
 ## 0.3.0-master.777+20200513075620
 2020-05-13
 
