@@ -1,12 +1,22 @@
 <template>
   <div>
     <div class="cards">
+      <div
+        v-if="allSpecificFields.length < MAX_ALLOWED_SPECIFIC_FIELDS"
+        class="addNew"
+        @click="addNewSpecificField"
+      >
+        <div class="addNew-logo">
+          <i class="icon ic-Edit-Icon"></i>
+        </div>
+        <div>{{ $t('getadmin.customize.addSpecificField') }}</div>
+      </div>
       <template v-if="allSpecificFields">
         <Card
           v-for="(sf, index) in allSpecificFields"
           :key="sf.id"
           :can-delete="false"
-          @modify="modifyCustomField(sf)"
+          @modify="modifySpecificField(sf)"
         >
           <div class="cardBloc-infos-name">{{ $t('col.specificFields', { num: ++index }) }}</div>
           <div class="cardBloc-infos-username">{{ sf.label }}</div>
@@ -45,6 +55,7 @@ export default {
       allSpecificFields: [],
       specificFieldsValues: [],
       specificFieldsErrors: [],
+      MAX_ALLOWED_SPECIFIC_FIELDS: 2,
     };
   },
 
@@ -56,8 +67,8 @@ export default {
     ...mapMutations(['openPanel']),
 
     async fetchCustomFieldsForPartner() {
-      const customFields = await fetchCustomFields(this.partnerid);
-      this.allSpecificFields = customFields.specificFields;
+      const specificFields = await fetchCustomFields(this.partnerid);
+      this.allSpecificFields = specificFields.specificFields;
     },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
@@ -68,14 +79,30 @@ export default {
     async refreshLists() {
       await fetchCustomFields(this.partnerid);
     },
-    modifyCustomField(cf) {
+    addNewSpecificField() {
+      const doReset = () => {
+        this.fetchCustomFieldsForPartner();
+      };
+      this.openPanel({
+        title: this.$t('getadmin.customize.specificFields'),
+        panelId: 'getadmin.customize.specificFields',
+        payload: { currentNbCF: this.allSpecificFields.length, partnerId: this.partnerid },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel() {
+          doReset();
+        },
+      });
+    },
+    modifySpecificField(cf) {
       const doReset = () => {
         this.refreshLists();
       };
       this.openPanel({
         title: this.$t('getadmin.customize.specificFields'),
-        panelId: 'getadmin.customize.addCustomField',
-        payload: { modifyCustomField: cf, partnerId: this.partnerid },
+        panelId: 'getadmin.customize.specificFields',
+        payload: { modifySpecificField: cf, partnerId: this.partnerid },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,

@@ -1,15 +1,22 @@
 <template>
   <BaseDetailPanelContent white :main="!fixheight">
-    <div class="main-content-small">
-      <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.add-custom-field') }}</h3>
-      <p class="subtitle">{{ $t('orders.required-custom-field') }}</p>
+    <div class="m-3">
+      <div v-if="panel === 'order'">
+        <h3 class="font-weight-light text-center mt-4 mb-4">
+          {{ $t('orders.add-custom-field-action', { label: labelTitle }) }}
+        </h3>
+        <p class="subtitle">{{ $t('orders.required-custom-field') }}</p>
+      </div>
       <UiInput class="d-block" placeholder v-model="labelCustomField" value>
         <template slot="beforeInput">
-          {{ $t('orders.input-label-custom-field') }} {{ numberOfustomFields + 1 }} :
+          {{ $t('orders.input-label-custom-field', { label: labelTitle }) }}
+          {{ numberOfCustomFields + 1 }} :
         </template>
       </UiInput>
       <div>
-        <label class="standalone">{{ $t('orders.choose-type-custom-field') }} :</label>
+        <label class="standalone"
+          >{{ $t('orders.choose-type-custom-field', { label: labelTitle }) }} :</label
+        >
         <!-- TODO extraire le btn-group dans un composant avec des slots -->
         <div class="buttons-group-container mt-1">
           <div class="btn-group w-100" role="group">
@@ -56,7 +63,9 @@
       </div>
 
       <div>
-        <label class="standalone mb-2">{{ $t('orders.new.settingsStep.mandatoryField') }} :</label>
+        <label class="standalone mb-2"
+          >{{ $t('orders.mandatory-custom-field', { label: labelTitle }) }} :</label
+        >
 
         <div class="row mb-2">
           <div class="col">
@@ -118,7 +127,7 @@
       @cancel="close"
       @add-field="saveCustomField"
       :can-send="canAddCustomField()"
-      :text="$t('orders.add-custom-field')"
+      :text="actionLabel"
     />
   </BaseDetailPanelContent>
 </template>
@@ -152,9 +161,11 @@ export default {
   },
 
   props: {
-    numberOfustomFields: Number,
+    numberOfCustomFields: Number,
     close: Function,
     fixheight: Boolean,
+    panel: String,
+    labelTitle: String,
   },
 
   watch: {
@@ -172,6 +183,7 @@ export default {
         type: this.customFieldType,
         values: this.listOptions,
         mandatoryVal: this.selectedMandatoryValue,
+        isSpec: false,
       };
       this.$emit('add-field', fieldData);
     },
@@ -189,14 +201,14 @@ export default {
     getAllInput() {
       return this.allInput;
     },
+    actionLabel() {
+      return this.$t('orders.add-custom-field-action', { label: this.labelTitle });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.main-content-small {
-  padding-bottom: 4vh;
-}
 .title {
   background-color: transparent;
   color: $dark-gray;

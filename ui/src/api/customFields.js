@@ -125,7 +125,7 @@ function formatCustomFieldsResponse(response) {
   return { customFields, specificFields };
 }
 
-export async function createCustomField({ partyId, label, type, values, mandatoryVal }) {
+export async function createCustomField({ partyId, label, type, values, mandatoryVal, isSpec }) {
   const valuesStr = values.map(v => `"${v}"`).join(',');
   const queryStr = `
   mutation {
@@ -135,6 +135,7 @@ export async function createCustomField({ partyId, label, type, values, mandator
       customFieldType: ${type}
       customFieldListValues: [${valuesStr}]
       customFieldMandatory: ${mandatoryVal}
+      spec: ${isSpec}
     }) {
       id
     }

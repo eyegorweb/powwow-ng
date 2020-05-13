@@ -31,15 +31,17 @@
             @click="open"
           >
             <i class="btn-round-button ic-Plus-Icon mr-2" />
-            {{ $t('orders.add-custom-field') }}
+            {{ $t('orders.add-custom-field-action', { label }) }}
           </UiButton>
         </div>
       </div>
     </template>
     <template v-if="isOpen">
       <AddCustomField
+        :panel="panel"
+        :label-title="label"
         :fixheight="false"
-        :number-ofustom-fields="allCustomFields.length"
+        :number-of-custom-fields="allCustomFields.length"
         :close="close"
         @add-field="onSaveField"
       />
@@ -74,6 +76,8 @@ export default {
       referenceValue: '',
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
       isOrderNumberMandatory: false,
+      panel: 'order',
+      label: 'libre',
     };
   },
 
@@ -170,6 +174,7 @@ export default {
         type: fieldData.type,
         values: fieldData.values,
         mandatoryVal: fieldData.mandatoryVal,
+        isSpec: false,
       });
 
       this.fetchCustomFieldsForPartner();

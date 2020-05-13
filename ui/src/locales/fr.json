@@ -411,7 +411,9 @@
       "emails": "Adresses emails",
       "addEmail": "Ajouter un email",
       "addCustomField": "Ajouter un champ libre",
-      "modifyCustomField": "Modifier un champ libre"
+      "modifyCustomField": "Modifier un champ libre",
+      "addSpecificField": "Ajouter un champ spécifique",
+      "modifySpecificField": "Modifier un champ spécifique"
     },
     "partners": {
       "name": "Raison sociale",
@@ -1229,6 +1231,7 @@
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
     "customFields": "Champ libre {num}",
+    "specificFields": "Champ spécifique {num}",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
@@ -1361,12 +1364,13 @@
     "personalize-services": "Personnaliser les services",
     "choose-custom-field": "Renseigner les champs libres",
     "add-custom-field-value": "Ajouter une valeur",
-    "add-custom-field": "Ajouter un champ libre",
+    "add-custom-field-action": "Ajouter un champ {label}",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
-    "modify-custom-field": "Modifier un champ libre",
+    "modify-custom-field-action": "Modifier un champ {label}",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",
-    "input-label-custom-field": "Nommer le titre du champ libre",
-    "choose-type-custom-field": "Choisir le type de champ libre",
+    "input-label-custom-field": "Nommer le titre du champ {label}",
+    "choose-type-custom-field": "Choisir le type de champ {label}",
+    "mandatory-custom-field": "Champ {label} obligatoire",
     "select-offer-placeholder": "Sélectionner l'offre",
     "new": {
       "customer": "Client",
