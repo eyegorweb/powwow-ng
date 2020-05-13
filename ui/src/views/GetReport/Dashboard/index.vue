@@ -86,25 +86,13 @@
             <div class="row">
               <ServicesGraph />
             </div>
-
-            <div class="row">
-              <AlarmsPerDayContainerGraph />
-            </div>
-          </div>
-        </FoldableBlock>
-        <FoldableBlock default-open :title="'Commande'" :key="'Commande'" draggable>
-          <div>
-            TEST TEST
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
           <div>
-            TEST TEST
-          </div>
-        </FoldableBlock>
-        <FoldableBlock default-open :title="'Etat des services'" :key="'service_state'" draggable>
-          <div>
-            TEST TEST
+            <div class="row">
+              <AlarmsPerDayContainerGraph />
+            </div>
           </div>
         </FoldableBlock>
       </transition-group>
