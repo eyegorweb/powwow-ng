@@ -11,7 +11,7 @@
 
 <script>
 import GraphContainer from './GraphContainer';
-import Highcharts from 'highcharts';
+// import Highcharts from 'highcharts';
 import { Chart } from 'highcharts-vue';
 
 export default {

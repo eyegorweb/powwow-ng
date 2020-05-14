@@ -2,12 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li
-          v-for="item in menuItems"
-          :key="item"
-          class="list-group-item"
-          :class="{ disableSubMenu: item === 'getadmin.customize.deliveryAddress' }"
-        >
+        <li v-for="item in menuItems" :key="item" class="list-group-item">
           <a @click.prevent="section = item" :class="{ active: section === item }" href="#">
             {{ $t(item) }}
             <i class="ic-Arrow-Next-Icon float-right"></i>
@@ -25,6 +20,10 @@
         v-if="section === 'getadmin.customize.specificFields'"
         :partnerid="partnerid"
       />
+      <DeliveryAddress
+        v-if="section === 'getadmin.customize.deliveryAddress'"
+        :partnerid="partnerid"
+      />
     </div>
   </div>
 </template>
@@ -33,6 +32,7 @@
 import BroadcastLists from './BroadcastLists';
 import CustomFields from './CustomFields';
 import SpecificFields from './SpecificFields';
+import DeliveryAddress from './DeliveryAddress';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -46,6 +46,7 @@ export default {
     BroadcastLists,
     CustomFields,
     SpecificFields,
+    DeliveryAddress,
   },
 
   computed: {
@@ -73,7 +74,10 @@ export default {
 
   methods: {
     visibleMenuItems(menu, item) {
-      return menu.splice(menu.findIndex(i => i === item), 1);
+      return menu.splice(
+        menu.findIndex(i => i === item),
+        1
+      );
     },
   },
 };

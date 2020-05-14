@@ -56,8 +56,8 @@
         v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
         :content="payload"
       />
-      <PartnerOfferPanel
-        v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
+      <DeliveryAddressFormPanel
+        v-if="panelId === 'getadmin.customize.addDeliveryAddress'"
         :content="payload"
       />
     </div>
@@ -96,6 +96,8 @@ export default {
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/CustomFieldFormPanel.vue'),
     SpecificFieldFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/SpecificFieldFormPanel.vue'),
+    DeliveryAddressFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),
