@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.782+20200514070551
+## 0.3.0-master.783+20200514072158
 2020-05-14
+
+### Features
+
+- gestion des adresses de livraison (346d48953d70170ec60e87e9d9d729200c0853ae)
 
 ## 0.3.0-master.781+20200513152217
 2020-05-13
