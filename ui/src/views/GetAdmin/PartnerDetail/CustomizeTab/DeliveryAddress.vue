@@ -21,8 +21,7 @@
         <Card
           v-for="list in filteredAdresses"
           :key="list.id"
-          :can-delete="true"
-          @delete="deleteList(list.id)"
+          :can-delete="false"
           @modify="modifyList(list)"
         >
           <div v-if="list.company" class="cardBloc-infos-name">
@@ -84,7 +83,6 @@ export default {
     ...mapMutations(['openPanel', 'confirmAction']),
 
     openCreationPanel() {
-      console.log('open panel');
       const doReset = () => {
         this.refreshLists();
       };
@@ -92,7 +90,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.customize.addDeliveryAddress'),
         panelId: 'getadmin.customize.addDeliveryAddress',
-        payload: { partnerId: this.partnerid },
+        payload: { partnerId: this.partnerid, inEditMode: false },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
@@ -119,26 +117,11 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.customize.modifyDeliveryAddress'),
         panelId: 'getadmin.customize.addDeliveryAddress',
-        payload: { modifyDA: address, partnerId: this.partnerid },
+        payload: { modifyDA: address, partnerId: this.partnerid, inEditMode: true },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
         onClosePanel() {
-          doReset();
-        },
-      });
-    },
-
-    // TODO: manque la mutation delete address
-    deleteList(id) {
-      console.log('delete id', id);
-      const doReset = () => {
-        this.refreshLists();
-      };
-      this.confirmAction({
-        message: 'confirmAction',
-        actionFn: async () => {
-          await fetchpartnerAddresses(id);
           doReset();
         },
       });
