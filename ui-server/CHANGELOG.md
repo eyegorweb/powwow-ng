@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.784+20200514131745
+2020-05-14
+
+### Fixes
+
+- limitation du nombre de caractères des adresses de livraison (ad78db79a828489a7680d8406a5aa5bc734f0e89)
+
 ## 0.3.0-master.783+20200514072158
 2020-05-14
 
