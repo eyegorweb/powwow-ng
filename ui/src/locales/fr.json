@@ -407,6 +407,8 @@
       "customFields": "Champs libres",
       "specificFields": "Champs spécifiques",
       "deliveryAddress": "Adresses de livraison",
+      "addDeliveryAddress": "Ajouter une adresse de livraison",
+      "modifyDeliveryAddress": "Modifier une adresse de livraison",
       "listName": "Nom de la liste de diffusion",
       "emails": "Adresses emails",
       "addEmail": "Ajouter un email",
