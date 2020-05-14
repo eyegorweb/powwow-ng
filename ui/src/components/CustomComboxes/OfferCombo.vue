@@ -48,18 +48,28 @@ export default {
       },
     },
   },
-  async mounted() {
-    const data = await fetchOffers('', this.partners, {
-      page: 0,
-      limit: 999,
-      partnerType: this.contextPartnersType,
-    });
-    this.items = data.map(p => ({
-      key: uuid(),
-      id: p.code,
-      label: p.workflowDescription,
-      meta: p,
-    }));
+  watch: {
+    async partners() {
+      await this.refreshList();
+    },
+  },
+  methods: {
+    async refreshList() {
+      const data = await fetchOffers('', this.partners, {
+        page: 0,
+        limit: 999,
+        partnerType: this.contextPartnersType,
+      });
+      this.items = data.map(p => ({
+        key: uuid(),
+        id: p.code,
+        label: p.workflowDescription,
+        meta: p,
+      }));
+    },
+  },
+  mounted() {
+    this.refreshList();
   },
 };
 </script>

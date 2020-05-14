@@ -1,4 +1,5 @@
 import { query } from './utils';
+import get from 'lodash.get';
 
 export async function getAvailableOffer(partnerId) {
   const queryStr = `{
@@ -103,12 +104,15 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
   const partnerIds = partners ? partners.map(p => `${p.id}`).join(',') : [];
   const queryStr = `
   query {
-    workFlowByCustomerAccount(partyId: [${partnerIds}], pagination: {page: ${page}, limit: 20}) {
+    workFlowByCustomerAccount(partyId: [${partnerIds}], pagination: {page: ${page}, limit: 999}) {
       total
       items{
         workflow {
           id
           workflowDescription
+          initialOffer{
+            id
+          }
         }
         customerAccount {
           id
@@ -121,6 +125,73 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
   const response = await query(queryStr);
 
   return response.data.workFlowByCustomerAccount.items;
+}
+
+export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
+  const marketingOfferId = get(offerCustoAccount, 'meta.workflow.initialOffer.id');
+  const customerAccountId = get(offerCustoAccount, 'meta.customerAccount.id');
+
+  const queryStr = `
+  {
+    marketingOfferPackage(marketingOfferId:${marketingOfferId}, customerAccountId:${customerAccountId}) {
+      nbLines
+      marketingOfferPackage {
+        total
+        items {
+          __typename
+          usageType
+          envelopeLabel
+          envelopeValue
+          unit
+        }
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  const items = get(response, 'data.marketingOfferPackage.marketingOfferPackage.items');
+
+  let maxData = '∞';
+  let maxVoice = '∞';
+  let maxSMS = '∞';
+
+  if (items && items.length) {
+    const dataOffer = items.find(i => i.usageType === 'DATA');
+    const smsOffer = items.find(i => i.usageType === 'SMS');
+    const voiceOffer = items.find(i => i.usageType === 'VOICE');
+
+    if (dataOffer && dataOffer.envelopeValue > 0) {
+      switch (dataOffer.unit) {
+        case 'Go': {
+          maxData = dataOffer.envelopeValue * 1024 * 1024 * 1024;
+          break;
+        }
+        case 'Mo': {
+          maxData = dataOffer.envelopeValue * 1024 * 1024;
+          break;
+        }
+        case 'Ko': {
+          maxData = dataOffer.envelopeValue * 1024;
+          break;
+        }
+      }
+    }
+    if (smsOffer && smsOffer.envelopeValue > 0) {
+      maxSMS = smsOffer.envelopeValue;
+    }
+
+    if (voiceOffer && voiceOffer.envelopeValue) {
+      maxVoice = voiceOffer.envelopeValue;
+    }
+  }
+
+  return {
+    maxData,
+    maxVoice,
+    maxSMS,
+  };
 }
 
 export async function fetchOffersForPartnerId(partnerId) {
