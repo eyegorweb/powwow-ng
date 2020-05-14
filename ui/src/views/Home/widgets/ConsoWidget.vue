@@ -18,7 +18,9 @@
         </template>
       </div>
     </div>
-    <ConsoGauges :selectedOffer="offerForGauge" />
+    <ConsoGauges :selectedOffer="offerForGauge">
+      <h4>Veuillez choisir une offre</h4>
+    </ConsoGauges>
   </WidgetBloc>
 </template>
 

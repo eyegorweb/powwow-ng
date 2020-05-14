@@ -28,7 +28,7 @@
       </div>
     </div>
     <div v-else>
-      <h4>Veuillez choisir une offre</h4>
+      <slot />
     </div>
   </div>
 </template>
