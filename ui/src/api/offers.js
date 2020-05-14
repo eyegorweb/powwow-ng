@@ -128,8 +128,8 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
 }
 
 export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
-  const marketingOfferId = get(offerCustoAccount, 'meta.workflow.initialOffer.id');
-  const customerAccountId = get(offerCustoAccount, 'meta.customerAccount.id');
+  const marketingOfferId = offerCustoAccount.workflowId;
+  const customerAccountId = offerCustoAccount.customerAccoutId;
 
   const queryStr = `
   {

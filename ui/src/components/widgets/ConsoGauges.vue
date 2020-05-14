@@ -101,12 +101,11 @@ export default {
   watch: {
     async selectedOffer(selectedOffer) {
       if (selectedOffer) {
-        console.log('selectedOffer >> ', selectedOffer)
         const { maxData, maxVoice, maxSMS } = await fetMaxValuesFromOfferPackage(selectedOffer);
 
         const values = await fetchCurrentConsumption({
-          customerAccoutId: selectedOffer.meta.customerAccount.id,
-          workflowId: selectedOffer.meta.workflow.id,
+          customerAccoutId: selectedOffer.customerAccoutId,
+          workflowId: selectedOffer.workflowId,
         });
 
         if (maxData) {
@@ -137,20 +136,6 @@ export default {
   .row {
     align-self: flex-end;
     width: 100%;
-  }
-}
-
-.offer-select {
-  align-items: flex-end;
-  span {
-    margin-left: 0.4rem;
-    font-size: 0.7rem;
-    color: $gray;
-    font-weight: 400;
-    line-height: 1rem;
-  }
-  select {
-    color: $gray;
   }
 }
 </style>
