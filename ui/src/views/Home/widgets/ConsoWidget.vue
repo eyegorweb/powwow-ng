@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" mocked>
     <div slot="header">
-      <div class="d-flex offer-select">
+      <div @click.stop="" class="d-flex offer-select">
         <template v-if="!loadingOffers">
           <span>Pour l'offre</span>
           <UiSelect
@@ -19,23 +19,39 @@
       </div>
     </div>
     <div class="conso-container">
-      <div class="row">
+      <div v-if="selectedOffer" class="row">
         <div class="col-md-4">
-          <Gauge :value="35" max-value="∞" unit="Mo" subtitle="18/11/2018">DATA</Gauge>
+          <Gauge
+            :key="'datag' + gaugeVersion"
+            :value="dataValue"
+            :max-value="maxData"
+            :format-value-fn="getDataFormat()"
+            >DATA</Gauge
+          >
         </div>
         <div class="col-md-4">
-          <Gauge :value="120" max-value="200" subtitle="18/11/2018" arc-style="danger">SMS</Gauge>
+          <Gauge
+            :key="'smsg' + gaugeVersion"
+            :value="smsValue"
+            :max-value="maxSMS"
+            arc-style="danger"
+            >SMS</Gauge
+          >
         </div>
         <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
           <Gauge
+            :key="'voiceg' + gaugeVersion"
             time-max-value
-            :value="875"
-            max-value="971"
+            :value="voiceValue"
+            :max-value="maxVoice"
+            font-size="1.5rem"
             :format-value-fn="getTimeFormatFn()"
-            subtitle="18/11/2018"
             >VOIX</Gauge
           >
         </div>
+      </div>
+      <div v-else>
+        <h4>Veuillez choisir une offre</h4>
       </div>
     </div>
   </WidgetBloc>
@@ -45,8 +61,11 @@
 import WidgetBloc from './WidgetBloc';
 import Gauge from '@/components/widgets/Gauge';
 import UiSelect from '@/components/ui/UiSelect';
-import { fetchOfferWithBilligAccount } from '@/api/offers.js';
+import { fetchOfferWithBilligAccount, fetMaxValuesFromOfferPackage } from '@/api/offers.js';
+import { fetchCurrentConsumption } from '@/api/linesActions';
+
 import { mapState } from 'vuex';
+import { formatBytes } from '@/api/utils';
 
 export default {
   components: {
@@ -75,8 +94,19 @@ export default {
     }
   },
   methods: {
+    getDataFormat() {
+      return (valueToShow, originalValue) => {
+        if (isNaN(valueToShow)) {
+          return originalValue;
+        }
+        return formatBytes(valueToShow);
+      };
+    },
     getTimeFormatFn() {
-      return valueToShow => {
+      return (valueToShow, originalValue) => {
+        if (isNaN(valueToShow)) {
+          return originalValue;
+        }
         let sec_num = parseInt(valueToShow, 10);
         let hours = Math.floor(sec_num / 3600);
         let minutes = Math.floor((sec_num - hours * 3600) / 60);
@@ -115,11 +145,45 @@ export default {
       selectedOffer: undefined,
       offers: [],
       loadingOffers: false,
+
+      gaugeVersion: 0,
+
+      dataValue: undefined,
+      maxData: undefined,
+
+      voiceValue: undefined,
+      maxVoice: undefined,
+
+      smsValue: undefined,
+      maxSMS: undefined,
     };
   },
   watch: {
-    selectedOffer(newValue) {
-      console.log(newValue);
+    async selectedOffer(newValue) {
+      const selectedOffer = this.offers.find(o => newValue === o.value);
+      if (selectedOffer) {
+        const { maxData, maxVoice, maxSMS } = await fetMaxValuesFromOfferPackage(selectedOffer);
+
+        const values = await fetchCurrentConsumption({
+          customerAccoutId: 2,
+          workflowId: 10,
+        });
+
+        if (maxData) {
+          this.maxData = '' + maxData;
+        }
+        if (maxVoice) {
+          this.maxVoice = '' + maxVoice;
+        }
+        if (maxSMS) {
+          this.maxSMS = '' + maxSMS;
+        }
+
+        this.dataValue = values.dataTotal;
+        this.smsValue = values.smsTotal;
+        this.voiceValue = values.voiceTotal;
+        this.gaugeVersion += 1;
+      }
     },
   },
 };

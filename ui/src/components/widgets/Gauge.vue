@@ -13,6 +13,7 @@
 
 <script>
 import $ from 'jquery';
+import { formattedCurrentDate } from '@/utils/date';
 
 function percent(v, max) {
   return (v * max) / 100;
@@ -28,7 +29,6 @@ export default {
       type: String,
       default: 'success',
     },
-    subtitle: String,
     unit: String,
     formatValueFn: Function,
     timeMaxValue: Boolean,
@@ -39,6 +39,11 @@ export default {
     maxValue: {
       type: String,
       default: '100',
+    },
+
+    fontSize: {
+      type: String,
+      required: false,
     },
   },
 
@@ -60,7 +65,7 @@ export default {
   },
   computed: {
     formattedMaxValue() {
-      if (this.formatValueFn) return this.formatValueFn(parseInt(this.maxValue));
+      if (this.formatValueFn) return this.formatValueFn(parseInt(this.maxValue), this.maxValue);
       return this.maxValue;
     },
   },
@@ -72,6 +77,9 @@ export default {
 
         return (value * 100) / max;
       } else {
+        if (parseInt(this.value) < 100) {
+          return 100;
+        }
         return this.value;
       }
     },
@@ -97,6 +105,7 @@ export default {
 
     const options = {
       size: gaugeSize,
+      font_size: this.fontSize,
       theme: 'Green-Orange',
       back: 'RGBa(0,0,0,.1)',
       animate_gauge_colors: true,
@@ -105,13 +114,13 @@ export default {
       style: 'Arch',
       percent: this.getMaxPercent(),
       append: this.unit,
-      label: this.subtitle,
+      label: formattedCurrentDate(),
       text_size: 0.15,
       minCorner: '0',
       maxCorner: '100',
       formatValueFn: (unitPercent, unit) => {
         const valueToShow = (unitPercent * this.value) / this.getMaxPercent();
-        if (this.formatValueFn) return this.formatValueFn(valueToShow);
+        if (this.formatValueFn) return this.formatValueFn(this.value);
         return valueToShow + ' ' + unit;
       },
     };
@@ -119,7 +128,8 @@ export default {
     this.cornersStyle = { width: percent(85, gaugeSize) + 'px' };
     // this.mainGaugeStyle = { top: gaugeTopSpacing + 'px' };
     //  this.containerStyle = { paddingBottom: containerBottomSpacing + 'px' };
-    if (this.timeMaxValue) this.maxCornerStyle = { position: 'relative', left: '43px' };
+    if (!isNaN(this.maxValue) && this.timeMaxValue)
+      this.maxCornerStyle = { position: 'relative', left: '43px' };
 
     /*
     this.gaugeTitleStyle = {

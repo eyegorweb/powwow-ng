@@ -60,7 +60,8 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: ConsoWidget,
-    mock: true,
+    notDraggable: true,
+    partnerOnly: true,
   },
   {
     title: 'home.widgets.orderStatus',
@@ -232,7 +233,12 @@ export function loadWidgets() {
     return excludeMocked(
       loadedWidgets.map(w => {
         const widget = defaultWidgets.find(f => f.title === w.title);
-        return { ...w, component: widget.component };
+        return {
+          ...w,
+          component: widget.component,
+          notDraggable: widget.notDraggable,
+          partnerOnly: widget.partnerOnly,
+        };
       })
     );
   } else {

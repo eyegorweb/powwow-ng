@@ -45,12 +45,14 @@ export function gaugeMeter($) {
         label_color: 'Black',
         text: '',
         text_size: 0.22,
+        font_size: 0,
         fill: '',
         showvalue: false,
         formatValueFn: undefined,
       },
       t
     );
+
     return this.each(function() {
       function getThemeColor(e) {
         var t = '#2C94E0';
@@ -235,7 +237,7 @@ export function gaugeMeter($) {
           .html(r)
           .css({
             'line-height': option.size + 'px',
-            'font-size': option.text_size * option.size + 'px',
+            'font-size': option.font_size || (option.text_size * option.size + 'px'),
             color: fgcolor,
           });
       }
@@ -309,6 +311,7 @@ export function gaugeMeter($) {
         dataAttr = [
           'percent',
           'used',
+          'font_size',
           'min',
           'total',
           'size',
