@@ -53,7 +53,7 @@
         v-model="form.company"
         :error="errors.company"
       />
-      <label data-v-4eacd3ee>{{ $t('orders.new.deliveryStep.form.address') }}</label>
+      <label>{{ $t('orders.new.deliveryStep.form.address') }}</label>
       <UiApiAutocomplete
         :api-method="searchAddress"
         v-model="selectedAddress"
@@ -99,12 +99,12 @@
     </div>
 
     <div slot="footer" class="action-buttons">
-      <div>
-        <UiButton variant="import" block @click="closePanel">{{ $t('cancel') }}</UiButton>
-      </div>
-      <div>
-        <UiButton variant="primary" @click="onSubmitAddress" block>{{ $t('save') }}</UiButton>
-      </div>
+      <AddCustomFieldActions
+        @cancel="closePanel"
+        @add-field="onSubmitAddress"
+        can-send
+        :text="actionLabel"
+      />
     </div>
   </BaseDetailPanelContent>
 </template>
@@ -113,7 +113,7 @@
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import UiButton from '@/components/ui/Button';
+import AddCustomFieldActions from '@/views/GetSim/CreateOrder/StepSettings/AddCustomFieldActions';
 import { searchAddress } from '@/api/address';
 import { addPartyShippingAddress, updatePartyShippingAddress } from '@/api/partners';
 import { fetchDeliveryCountries } from '@/api/filters';
@@ -124,7 +124,7 @@ export default {
     BaseDetailPanelContent,
     FormControl,
     UiApiAutocomplete,
-    UiButton,
+    AddCustomFieldActions,
   },
 
   props: {
@@ -152,6 +152,7 @@ export default {
         title: '',
       },
       errors: {},
+      inEditMode: false,
     };
   },
 
@@ -159,12 +160,13 @@ export default {
     this.partnerId = this.content.partnerId;
     if (this.content && this.content.modifyDA) {
       this.addressEdit = this.content.modifyDA;
+      this.inEditMode = this.content.inEditMode;
     }
   },
 
   computed: {
-    canSave() {
-      return this.checkForErrors();
+    actionLabel() {
+      return this.inEditMode ? this.$t('getadmin.partnerDetail.update') : this.$t('save');
     },
   },
 
@@ -220,6 +222,10 @@ export default {
         all[field] = 'errors.mandatory';
         return all;
       }, {});
+      if (this.form.address.length > 35) {
+        this.errors['address'] = 'errors.limitAddress';
+        fieldsWithErrors.push('address');
+      }
       return fieldsWithErrors.length === 0;
     },
   },
