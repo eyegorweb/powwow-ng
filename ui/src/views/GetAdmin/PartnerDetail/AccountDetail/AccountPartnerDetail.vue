@@ -2,7 +2,6 @@
   <div class="accountdetail">
     <div class="accountdetail-generalInfos">
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
-      z
       <div class="accountdetail-generalInfos-bloc">
         <div class="accountdetail-generalInfos-bloc-details">
           <div class="accountdetail-generalInfos-box">
@@ -143,9 +142,11 @@
             <FormControl big label="getadmin.partnerDetail.state" v-model="form.state" />
             <FormControl big label="getadmin.partnerDetail.country" v-model="form.country" />
           </div>
-          <Button :variant="'primary'" @click="save">{{
+          <Button :variant="'primary'" @click="save">
+            {{
             $t('getadmin.partnerDetail.update')
-          }}</Button>
+            }}
+          </Button>
         </div>
       </div>
     </div>
