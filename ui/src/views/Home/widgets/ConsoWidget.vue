@@ -18,6 +18,7 @@
         </template>
       </div>
     </div>
+    <ConsoGauges :selectedOffer="offerForGauge" />
     <div class="conso-container">
       <div v-if="selectedOffer" class="row">
         <div class="col-md-4">
@@ -61,6 +62,7 @@
 import WidgetBloc from './WidgetBloc';
 import Gauge from '@/components/widgets/Gauge';
 import UiSelect from '@/components/ui/UiSelect';
+import ConsoGauges from '@/components/widgets/ConsoGauges.vue'
 import { fetchOfferWithBilligAccount, fetMaxValuesFromOfferPackage } from '@/api/offers.js';
 import { fetchCurrentConsumption } from '@/api/linesActions';
 
@@ -72,6 +74,7 @@ export default {
     WidgetBloc,
     Gauge,
     UiSelect,
+    ConsoGauges
   },
   props: {
     widget: Object,
@@ -138,6 +141,12 @@ export default {
         .map(f => f.values)
         .flat();
     },
+    offerForGauge() {
+      if (this.selectedOffer) {
+        return this.offers.find(o => this.selectedOffer === o.value);
+      }
+      return undefined;
+    }
   },
 
   data() {
