@@ -60,6 +60,7 @@
         v-if="panelId === 'getadmin.customize.addDeliveryAddress'"
         :content="payload"
       />
+      <BillDetailPanel v-if="panelId === 'bills.detailPanel'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -98,6 +99,7 @@ export default {
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/SpecificFieldFormPanel.vue'),
     DeliveryAddressFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
+    BillDetailPanel: () => import('@/views/GetReport/Bill/BillDetailPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),

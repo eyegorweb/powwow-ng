@@ -13,6 +13,13 @@ export function getMonthString(dateStr) {
   return moment(dateStr, DATE_FORMAT).format('MMMM');
 }
 
+export function getMonthAndYear(dateStr) {
+  const month = moment(dateStr, DATE_FORMAT).format('MMMM');
+  const year = moment(dateStr, DATE_FORMAT).format('YYYY');
+
+  return `${month} ${year}`;
+}
+
 export function currentDateMinusDays(value) {
   return moment()
     .subtract(value, 'days')
