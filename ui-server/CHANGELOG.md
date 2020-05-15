@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.790+20200515170714
+2020-05-15
+
+### Features
+
+- Panel détail de facture (e5b38a7837107eb72091468b356d1308a1f26af4)
+
 ## 0.3.0-master.789+20200515164428
 2020-05-15
 
