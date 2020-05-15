@@ -40,6 +40,8 @@
             >
             <br v-if="list.address.city" />
             {{ list.address.zipCode }} - {{ list.address.city }}
+            <br v-if="list.address.country" />
+            {{ list.address.country }}
           </div>
         </Card>
       </template>
@@ -51,6 +53,7 @@
 import Card from '@/components/Card';
 import UiInput from '@/components/ui/UiInput';
 import { fetchpartnerAddresses } from '@/api/partners';
+import { fetchDeliveryCountries } from '@/api/filters';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -70,7 +73,6 @@ export default {
     return {
       adresses: undefined,
       filterValue: '',
-      lastSelectedAdress: undefined,
       filteredAdresses: [],
     };
   },
@@ -102,9 +104,14 @@ export default {
 
     async refreshLists() {
       const data = await fetchpartnerAddresses(this.partnerid);
+      const countries = await fetchDeliveryCountries(this.$i18n.locale);
       if (data && data.all) {
         this.adresses = data.all;
-        this.lastSelectedAdress = data.last;
+        data.all = data.all.map(a => {
+          if (!a.id) return;
+          const foundCountry = countries.find(c => c.code === a.address.country);
+          a.address.country = foundCountry.name;
+        });
         this.filteredAdresses = [...this.adresses];
       }
     },
