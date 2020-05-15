@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.786+20200515042721
+2020-05-15
+
+### Fixes
+
+- correctif d'affichage du pays sur la carte des adresses de livraison (9877a6dcdaf4f92ff952a9a2bd2c344958a55352)
+
 ## 0.3.0-master.785+20200514154223
 2020-05-14
 
