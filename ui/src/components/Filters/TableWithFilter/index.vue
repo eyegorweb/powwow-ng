@@ -24,7 +24,7 @@
           :columns="columns"
           :rows="rows"
           :total="total"
-          :page.sync="page"
+          :page.sync="noPagination ? undefined : page"
           :page-limit.sync="pageLimit"
           :order-by.sync="currentOrderBy"
           :size="size"
@@ -63,6 +63,7 @@ export default {
     total: Number,
     orderBy: Object,
     isLoading: Boolean,
+    noPagination: Boolean,
     size: {
       type: Number,
       default: 7,

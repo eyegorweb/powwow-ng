@@ -18,7 +18,7 @@
         </template>
       </div>
     </div>
-    <ConsoGauges :selectedOffer="offerForGauge">
+    <ConsoGauges :selected-offer="offerForGauge">
       <h4>Veuillez choisir une offre</h4>
     </ConsoGauges>
   </WidgetBloc>
@@ -26,21 +26,17 @@
 
 <script>
 import WidgetBloc from './WidgetBloc';
-import Gauge from '@/components/widgets/Gauge';
 import UiSelect from '@/components/ui/UiSelect';
-import ConsoGauges from '@/components/widgets/ConsoGauges.vue'
-import { fetchOfferWithBilligAccount, fetMaxValuesFromOfferPackage } from '@/api/offers.js';
-import { fetchCurrentConsumption } from '@/api/linesActions';
+import ConsoGauges from '@/components/widgets/ConsoGauges.vue';
+import { fetchOfferWithBilligAccount } from '@/api/offers.js';
 
 import { mapState } from 'vuex';
-import { formatBytes } from '@/api/utils';
 
 export default {
   components: {
     WidgetBloc,
-    Gauge,
     UiSelect,
-    ConsoGauges
+    ConsoGauges,
   },
   props: {
     widget: Object,
@@ -81,10 +77,10 @@ export default {
         return {
           customerAccoutId: selectedOffer.meta.customerAccount.id,
           workflowId: selectedOffer.meta.workflow.id,
-        }
+        };
       }
       return undefined;
-    }
+    },
   },
 
   data() {
@@ -98,7 +94,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .offer-select {
   align-items: flex-end;
   span {
