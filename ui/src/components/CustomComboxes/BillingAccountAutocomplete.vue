@@ -25,6 +25,8 @@ export default {
   data() {
     return {
       localItems: undefined,
+      isRefreshing: false,
+      partnershaveChanged: false,
     };
   },
   async mounted() {
@@ -32,21 +34,39 @@ export default {
   },
   watch: {
     async partners() {
-      await this.refreshList();
+      if (this.isRefreshing) {
+        this.partnershaveChanged = true;
+      } else {
+        await this.refreshList();
+      }
+    },
+    async isRefreshing(newValue, oldValue) {
+      // console.log('Values>>', newValue, oldValue)
+      if (newValue === false && oldValue === true && this.partnershaveChanged) {
+        this.partnershaveChanged = false;
+        await this.refreshList();
+      }
     },
   },
   methods: {
     async refreshList() {
-      const data = await fetchBillingAccounts('', this.partners, {
-        page: 0,
-        limit: 999,
-        partnerType: this.contextPartnersType,
-      });
-      this.localItems = data.map(p => ({
-        id: p.id,
-        label: p.name,
-        data: p,
-      }));
+      try {
+        this.isRefreshing = true;
+        const data = await fetchBillingAccounts('', this.partners, {
+          page: 0,
+          limit: 999,
+          partnerType: this.contextPartnersType,
+        });
+        this.localItems = data.map(p => ({
+          id: p.id,
+          label: p.name,
+          data: p,
+        }));
+        this.isRefreshing = false;
+      } catch (e) {
+        console.log('Erreur api', e);
+        this.isRefreshing = false;
+      }
     },
   },
   computed: {

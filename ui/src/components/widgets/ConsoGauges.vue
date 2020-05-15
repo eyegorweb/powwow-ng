@@ -38,7 +38,6 @@ import Gauge from '@/components/widgets/Gauge';
 import { fetMaxValuesFromOfferPackage } from '@/api/offers.js';
 import { fetchCurrentConsumption } from '@/api/linesActions';
 
-import { mapState } from 'vuex';
 import { formatBytes } from '@/api/utils';
 
 export default {
@@ -82,10 +81,8 @@ export default {
     },
   },
 
-
   data() {
     return {
-
       gaugeVersion: 0,
 
       dataValue: undefined,

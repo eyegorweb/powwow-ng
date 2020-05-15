@@ -162,7 +162,8 @@
     "account": "Compte",
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires",
-    "reportsDashboard": "Tableau de bord"
+    "reportsDashboard": "Tableau de bord",
+    "reportsBill": "Facture"
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -193,6 +194,7 @@
     "order": "Commande",
     "export": "Export",
     "others": "Autres",
+    "period": "Période",
 
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
@@ -218,6 +220,10 @@
     "detailed": "Détaillé",
     "unit": "Unité",
     "mass": "Masse"
+  },
+  "bills": {
+    "total": "{total} factures disponibles",
+    "searchByRef": "Rechercher une facture par référence"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -1267,6 +1273,9 @@
     "recipient": "Destinataire",
     "partner": "Partenaire",
     "product": "Produit",
+    "billsReference": "Référence",
+    "amountTTC": "Montant TTC",
+    "amountHT": "Montant HT",
     "externalId": "Ref. client",
     "massActionIds": "Id de gestion",
     "offer": "Offre",

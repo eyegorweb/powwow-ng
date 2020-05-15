@@ -1,4 +1,4 @@
-<template>
+<fetchCurrentConsumptiontemplate>
   <div class="bloc d-inline-block p-1 widgets-item">
     <div class="card">
       <div class="card-header">
