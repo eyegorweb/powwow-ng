@@ -388,7 +388,7 @@
   "getadmin": {
     "users": {
       "userTypes": {
-        "bouygues": "Bouygues",
+        "bouygues": "Interne",
         "partner": "Partenaire",
         "group": "Compte groupe"
       },
