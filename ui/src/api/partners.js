@@ -259,6 +259,48 @@ export async function fetchAccountDetail(id) {
   return response.data.partys.items[0];
 }
 
+export async function fetchCustomerAccounts(id) {
+  const queryStr = `
+  query {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 10, page: 0}) {
+      total
+      items {
+        id
+        code
+        name
+        siret
+        siren
+        company
+        status
+        massActionsDisabled
+        auditable {
+          created
+        }
+        party {
+          id
+        }
+        bankAccount {
+          name
+          number
+          establishmentCode
+        }
+        address {
+          address1
+          address2
+          zipCode
+          city
+          country
+          state
+        }
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.customerAccounts.items;
+}
+
 export async function updatePartyDetail(params) {
   const queryStr = `
   mutation {

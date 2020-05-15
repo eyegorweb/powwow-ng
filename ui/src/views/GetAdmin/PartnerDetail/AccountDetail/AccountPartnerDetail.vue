@@ -143,9 +143,7 @@
             <FormControl big label="getadmin.partnerDetail.country" v-model="form.country" />
           </div>
           <Button :variant="'primary'" @click="save">
-            {{
-            $t('getadmin.partnerDetail.update')
-            }}
+            {{ $t('getadmin.partnerDetail.update') }}
           </Button>
         </div>
       </div>
