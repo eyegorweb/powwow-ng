@@ -223,7 +223,8 @@
   },
   "bills": {
     "total": "{total} factures disponibles",
-    "searchByRef": "Rechercher une facture par référence"
+    "searchByRef": "Rechercher une facture par référence",
+    "detailPanel": "Facture N° {reference}"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",

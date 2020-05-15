@@ -39,6 +39,7 @@ import { fetchBills } from '@/api/bills';
 import DateBills from './filters/DateBills';
 import BillsAccounts from './filters/BillsAccounts.vue';
 import SearchByReference from './filters/SearchByReference';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -92,6 +93,27 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['openPanel']),
+
+    getPanelConfig(row) {
+      const doReset = () => {
+        this.searchByRefValue = undefined;
+        this.applyFilters();
+      };
+      return {
+        title: this.$t('bills.detailPanel', { reference: row.reference }),
+        panelId: 'bills.detailPanel',
+        width: '35%',
+        backdrop: true,
+        ignoreClickAway: true,
+        payload: row,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      };
+    },
     clearSearch() {
       if (this.searchByRefValue) {
         this.searchByRefValue = undefined;
@@ -101,7 +123,6 @@ export default {
 
     async doSearchByRef(value) {
       this.searchByRefValue = value;
-      console.log('value >>', value);
       this.applyFilters([
         {
           id: 'reference',
@@ -129,6 +150,10 @@ export default {
         orderable: true,
         noHandle: true,
         visible: true,
+        format: {
+          type: 'OpenPanel',
+          getConfig: row => this.getPanelConfig(row),
+        },
       },
       {
         id: 1,
