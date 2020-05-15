@@ -28,9 +28,9 @@
             class="tab-grow"
             :disable-menu="tab.disable"
           >
-            <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">
-              {{ tab.title }}
-            </a>
+            <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">{{
+              tab.title
+            }}</a>
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="users">
@@ -38,6 +38,9 @@
         </div>
         <div class="pt-4 pl-4" slot="customize">
           <CustomizeTab :partnerid="this.$route.params.id" />
+        </div>
+        <div class="pt-4 pl-4" slot="billingAccounts">
+          <BillAccounts :partner="partner" />
         </div>
         <div class="pt-4 pl-4" slot="accountDetail">
           <AccountDetail :partner="partner" />
@@ -60,6 +63,7 @@ import UsersTab from './UsersTab';
 import CustomizeTab from './CustomizeTab';
 import AccountDetail from './AccountDetail';
 import OffersTab from './OffersTab';
+import BillAccounts from './BillAccounts';
 
 import { fetchpartnerById } from '@/api/partners.js';
 
@@ -69,6 +73,7 @@ export default {
     UiTabs,
     UiTab,
 
+    BillAccounts,
     UsersTab,
     CustomizeTab,
     AccountDetail,
@@ -95,7 +100,6 @@ export default {
         {
           label: 'billingAccounts',
           title: this.$t('filters.billingAccounts'),
-          disable: true,
         },
         {
           label: 'offersAndSim',
