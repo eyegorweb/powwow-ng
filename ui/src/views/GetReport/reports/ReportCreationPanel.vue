@@ -5,7 +5,7 @@
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists :disabled="disabled" />
         </template>
 
         <SectionTitle :num="baseNumber + 1">{{
@@ -767,6 +767,7 @@ export default {
       selectedPartner: undefined,
       fileFormat: undefined,
       isActive: true,
+      disabled: true,
       fileFormats: [
         {
           value: 'CSV',

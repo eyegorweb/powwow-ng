@@ -5,6 +5,7 @@
     :items="localItems"
     v-model="selectedValue"
     display-results-while-empty
+    :disabled="disabled"
   />
 </template>
 
@@ -28,6 +29,7 @@ export default {
     value: Object,
     includeMailingLists: Boolean,
     offline: Boolean,
+    disabled: Boolean,
   },
 
   async mounted() {
