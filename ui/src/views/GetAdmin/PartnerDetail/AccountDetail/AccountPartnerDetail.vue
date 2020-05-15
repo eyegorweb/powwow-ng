@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div class="accountdetail-legalInfos">
+    <div class="accountdetail-legalInfos" v-if="!userIsPartner">
       <h3>{{ $t('getadmin.partnerDetail.contract') }}</h3>
 
       <div class="accountdetail-bloc">
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import FormControl from '@/components/ui/FormControl';
 import Button from '@/components/ui/Button';
 import { fetchAccountDetail, updatePartyDetail, fetchPartyDetail } from '@/api/partners.js';
@@ -238,6 +238,7 @@ export default {
 
   methods: {
     ...mapMutations(['flashMessage']),
+    ...mapGetters(['userIsPartner']),
 
     getFromContent(path, defaultValue = '-') {
       return get(this.accountDetail, path, defaultValue);
