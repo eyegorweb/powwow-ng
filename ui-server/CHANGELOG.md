@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.789+20200515164428
+2020-05-15
+
+### Fixes
+
+- gestion des rôles pour l'administration d'utilisateur (c351e2f782b78de328d7bd3257807c1b660975f2)
+
 ## 0.3.0-master.788+20200515153715
 2020-05-15
 
