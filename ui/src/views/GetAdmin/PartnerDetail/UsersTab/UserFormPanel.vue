@@ -44,6 +44,7 @@
         <div v-if="userType == 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
+            :placeholder="$t('getadmin.users.filters.partnerGroup')"
             :items="groupPartners"
             v-model="selectedGroupPartner"
             display-results-while-empty
@@ -229,6 +230,14 @@ export default {
 
       this.closePanel({ resetSearch: true });
     },
+
+    formattedRoles(roles) {
+      this.roles = roles.map(r => ({
+        code: r.Id,
+        label: r.description,
+        data: r,
+      }));
+    },
   },
 
   computed: {
@@ -323,11 +332,7 @@ export default {
 
     if (this.content.duplicateFrom) {
       roles = await fetchAllowedRoles(this.userInfos.id, null, null);
-      this.roles = roles.map(r => ({
-        code: r.Id,
-        label: r.description,
-        data: r,
-      }));
+      this.formattedRoles(roles);
       this.selectedGroupPartner = this.groupPartners[0].label;
       this.selectedRoles = this.roles.filter(r =>
         this.content.duplicateFrom.roles.find(rr => rr.Id === r.data.Id)
@@ -359,31 +364,16 @@ export default {
       // Et Modification :
       // userId = id de l'utilisateur consulté
       if (this.userIsBO) {
-        console.log('I am a user BO');
         roles = await fetchAllowedRoles(null, null, null);
-        this.roles = roles.map(r => ({
-          code: r.Id,
-          label: r.description,
-          data: r,
-        }));
+        this.formattedRoles(roles);
       } else if (this.userIsPartner) {
-        console.log('I am a user partner');
         roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        this.roles = roles.map(r => ({
-          code: r.Id,
-          label: r.description,
-          data: r,
-        }));
+        this.formattedRoles(roles);
       } else if (this.userIsGroupAccount) {
-        console.log('I am a user group account');
         const groupPartnerId =
           this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
         roles = await fetchAllowedRoles(null, null, groupPartnerId);
-        this.roles = roles.map(r => ({
-          code: r.Id,
-          label: r.description,
-          data: r,
-        }));
+        this.formattedRoles(roles);
       }
     }
 
@@ -393,27 +383,22 @@ export default {
   watch: {
     async selectedPartner() {
       if (!this.content.duplicateFrom) {
-        let roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        this.roles = roles.map(r => ({
-          code: r.Id,
-          label: r.description,
-          data: r,
-        }));
+        if (!this.selectedPartner) return;
+        const roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        this.formattedRoles(roles);
       }
     },
     async selectedGroupPartner() {
       if (!this.content.duplicateFrom) {
-        console.log('I am a user group account');
         const groupPartnerId =
           this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
         let roles = await fetchAllowedRoles(null, null, groupPartnerId);
-        this.roles = roles.map(r => ({
-          code: r.Id,
-          label: r.description,
-          data: r,
-        }));
+        this.formattedRoles(roles);
       }
     },
+    // userType(value) {
+    //   console.log('user type value', value);
+    // },
   },
 };
 </script>
