@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.792+20200518103229
+2020-05-18
+
+### Features
+
+- Kubernetes Discovery support (f632a60b90d6c6a3cbc013764d4b95d19d45e293)
+- Spring Cloud Kubernetes Discovery Support (eeeab2bf33a96200538e4dc695fe8b7e62e83bef)
+- architecture v3, detailed content in MIGRATION.md (c49f09502afcd385f10b3d163c799b1e1b3dc7be)
+
 ## 0.3.0-master.791+20200518054002
 2020-05-18
 
