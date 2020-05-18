@@ -18,6 +18,7 @@
       :size="0"
       @applyFilters="applyFilters"
       no-pagination
+      :is-table-visible-fn="isTableVisible"
     >
       <div slot="title" class="total">{{ $t('bills.total', { total: rows.length }) }}</div>
       <div slot="topLeft">
@@ -27,13 +28,18 @@
           :init-value="searchByRefValue"
         />
       </div>
+      <div slot="onTableNotVisible">
+        <div class="alert alert-warning" role="alert">
+          Veuillez choisir un partenaire
+        </div>
+      </div>
     </TableWithFilter>
   </div>
 </template>
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import PartnerNameFilter from './filters/BillsPartnerFilter';
+import BillsPartnerFilter from './filters/BillsPartnerFilter';
 // import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import { fetchBills } from '@/api/bills';
 import DateBills from './filters/DateBills';
@@ -50,11 +56,57 @@ export default {
   data() {
     return {
       searchByRefValue: undefined,
-      columns: undefined,
+      columns: [
+        {
+          id: 1,
+          label: this.$t('col.billsReference'),
+          name: 'reference',
+          orderable: false,
+          noHandle: true,
+          visible: true,
+          format: {
+            type: 'OpenPanel',
+            getConfig: row => this.getPanelConfig(row),
+          },
+        },
+        {
+          id: 1,
+          label: this.$t('date'),
+          name: 'date',
+          orderable: false,
+          visible: true,
+        },
+        {
+          id: 2,
+          label: this.$t('menu.account'),
+          name: 'customerAccountCode',
+          orderable: false,
+          visible: true,
+        },
+        {
+          id: 3,
+          label: this.$t('col.amountHT'),
+          name: 'amountExclTaxes',
+          orderable: false,
+          visible: true,
+        },
+        {
+          id: 4,
+          label: this.$t('col.amountTTC'),
+          name: 'amount',
+          orderable: false,
+          visible: true,
+        },
+        {
+          id: 5,
+          visible: true,
+          noHandle: true,
+        },
+      ],
       filters: [
         {
           title: 'getadmin.users.filters.partners',
-          component: PartnerNameFilter,
+          component: BillsPartnerFilter,
           onChange(chosenValue) {
             return {
               id: 'getadmin.users.filters.partners',
@@ -94,6 +146,10 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    isTableVisible(appliedFilters) {
+      return appliedFilters && appliedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+    },
 
     getPanelConfig(row) {
       const doReset = () => {
@@ -142,54 +198,6 @@ export default {
     },
   },
   mounted() {
-    this.columns = [
-      {
-        id: 1,
-        label: this.$t('col.billsReference'),
-        name: 'reference',
-        orderable: true,
-        noHandle: true,
-        visible: true,
-        format: {
-          type: 'OpenPanel',
-          getConfig: row => this.getPanelConfig(row),
-        },
-      },
-      {
-        id: 1,
-        label: this.$t('date'),
-        name: 'date',
-        orderable: true,
-        visible: true,
-      },
-      {
-        id: 2,
-        label: this.$t('menu.account'),
-        name: 'customerAccountCode',
-        orderable: true,
-        visible: true,
-      },
-      {
-        id: 3,
-        label: this.$t('col.amountHT'),
-        name: 'amountExclTaxes',
-        orderable: true,
-        visible: true,
-      },
-      {
-        id: 4,
-        label: this.$t('col.amountTTC'),
-        name: 'amount',
-        orderable: true,
-        visible: true,
-      },
-      {
-        id: 5,
-        visible: true,
-        noHandle: true,
-      },
-    ];
-
     this.applyFilters();
   },
 };
