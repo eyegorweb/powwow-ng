@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.794+20200518132417
+2020-05-18
+
+### Features
+
+- Branchement de la carte du monde (89fe3b7f6c1edaa54249f5caa4b322cdebd13d92)
+
 ## 0.3.0-master.793+20200518105207
 2020-05-18
 
