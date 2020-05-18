@@ -32,20 +32,20 @@
         <tbody>
           <tr :key="item.label" v-for="item in getContent('headings', [])">
             <td>{{ item.label }}</td>
-            <td>{{ item.nbSim }}</td>
-            <td>{{ item.amountExcTaxe }} €</td>
+            <td class="text-end">{{ item.nbSim }}</td>
+            <td class="text-end">{{ item.amountExcTaxe }} €</td>
           </tr>
           <tr class="top-line font-weight-bold">
             <td colspan="2">Total H.T.</td>
-            <td>{{ getContent('amountExclTaxes') }} €</td>
+            <td class="text-end">{{ getContent('amountExclTaxes') }} €</td>
           </tr>
           <tr>
             <td colspan="2">T.V.A.(20%)</td>
-            <td>{{ tva }}</td>
+            <td class="text-end">{{ tva }} €</td>
           </tr>
           <tr class="top-line font-weight-bold">
             <td colspan="2">Total T.T.C.</td>
-            <td>{{ getContent('amount') }} €</td>
+            <td class="text-end">{{ getContent('amount') }} €</td>
           </tr>
         </tbody>
       </table>
@@ -93,5 +93,9 @@ export default {
 
 .top-line {
   border-top: 2px solid black;
+}
+
+.text-end{
+  text-align: end;
 }
 </style>

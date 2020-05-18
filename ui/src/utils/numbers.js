@@ -20,3 +20,11 @@ export function formatLargeNumber(value) {
     .join('')
     .trim();
 }
+
+export function formatCurrency(value) {
+  if(!value) return value;
+
+  const parts = ('' + value).split('.')
+
+  return `${formatLargeNumber(parseInt(parts[0]))},${parts[1]}`
+}

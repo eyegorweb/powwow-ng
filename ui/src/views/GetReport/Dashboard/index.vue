@@ -124,6 +124,8 @@ import ReportGauges from './ReportGauges';
 
 import { mapGetters } from 'vuex';
 
+import { formatCurrency } from '@/utils/numbers.js';
+
 export default {
   components: {
     UiButton,
@@ -186,6 +188,9 @@ export default {
   },
 
   methods: {
+    formatCurrency(value) {
+      return formatCurrency(value);
+    },
     async doFilter() {
       if (this.selectedPartner) {
         this.appliedPartner = { ...this.selectedPartner };
