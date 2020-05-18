@@ -7,12 +7,6 @@
           - {{ $t('menu.reportsDashboard') }}
         </h4>
       </div>
-      <div class="col-md-3">
-        <UiButton variant="primary" block class="float-right">
-          <i class="select-icon ic-Amplifier-Icon" />
-          {{ $t('getreport.create_report') }}
-        </UiButton>
-      </div>
     </div>
     <div class="filters-container">
       <div v-if="userIsBO" class="filter-item">
