@@ -2,14 +2,13 @@
   <GraphWithToggle :size="12" can-show>
     <chart v-if="chartOptions" :options="chartOptions" />
 
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">Texte d'erreur ici</div>
   </GraphWithToggle>
 </template>
 
 <script>
 import GraphWithToggle from './GraphWithToggle';
+// import { fetchDistributionInfo } from '@/api/ParcStateGraph';
 import { Chart } from 'highcharts-vue';
 
 export default {
@@ -29,6 +28,12 @@ export default {
   },
 
   methods: {
+    // async DistibutionInfo() {
+    //   // const data = await fetchDistributionInfo();
+    //   // this offer = data.offer;
+    //   // this accessPointNumber = data.accessPointNumber;
+    //   // this percentage = data.percentage;
+    // },
     createGraph() {
       this.chartOptions = {
         chart: {

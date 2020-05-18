@@ -3,9 +3,7 @@
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">Texte d'erreur ici</div>
   </GraphContainer>
 </template>
 
@@ -32,6 +30,8 @@ export default {
 
   methods: {
     createGraph() {
+      // faire la requête
+      // transformer les données
       this.chartOptions = {
         chart: {
           type: 'column',

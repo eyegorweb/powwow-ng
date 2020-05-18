@@ -3,14 +3,13 @@
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">Texte d'erreur ici</div>
   </GraphContainer>
 </template>
 
 <script>
 import GraphContainer from './GraphContainer';
+import { fetchDistributionInfo } from '@/api/LinesByPLMNGraph';
 import { Chart } from 'highcharts-vue';
 
 export default {
@@ -25,61 +24,38 @@ export default {
     };
   },
 
-  mounted() {
-    this.createGraph();
-  },
-
-  methods: {
-    createGraph() {
-      this.chartOptions = {
-        chart: {
-          renderTo: 'container',
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
+  async mounted() {
+    const data = await fetchDistributionInfo();
+    const formateddata = data.reduce((all, item) => {
+      all.push({
+        name: item.plmn + '-' + item.operator,
+        y: item.percentage,
+        z: item.accessPointNumber,
+      });
+      return all;
+    }, []);
+    this.chartOptions = {
+      chart: {
+        type: 'variablepie',
+      },
+      title: {
+        text: 'Répartition du parc par PLMN',
+      },
+      tooltip: {
+        headerFormat: '',
+        pointFormat:
+          '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
+          'Nombre de lignes: <b>{point.z}</b><br/>',
+      },
+      series: [
+        {
+          innerSize: '70%',
+          zMin: 0,
+          name: 'PLMN',
+          data: formateddata,
         },
-        title: {
-          text: 'Répartition des lignes par PLMN FR',
-        },
-        tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-          percentageDecimals: 1,
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              color: '#000000',
-              connectorColor: '#000000',
-              formatter() {
-                return '<b>' + this.point.name + '</b>: ' + this.percentage + '%';
-              },
-            },
-          },
-        },
-        series: [
-          {
-            type: 'pie',
-            name: 'PLMN',
-            innerSize: '80%',
-            data: [
-              ['20820 : Bouygues Telecom', 88.0],
-              ['20888 : Bouygues Télécom, GSM / UMTS (zones blanches)', 6.0],
-              {
-                name: '20802 : Orange France, (itinérance zones blanches)',
-                y: 2.0,
-                sliced: true,
-                selected: true,
-              },
-              ['20813 : SFR, GSM / UMTS (zones blanches)', 2.0],
-              ['20815 : Free Mobile UMTS, LTE (code principal)', 2.0],
-            ],
-          },
-        ],
-      };
-    },
+      ],
+    };
   },
 };
 </script>
