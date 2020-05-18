@@ -42,6 +42,9 @@
         <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
           <div>
             <div class="row">
+              <ReportGauges :offer="appliedOffer" :billing-account="appliedBillingAccount" />
+            </div>
+            <div class="row">
               <ConsoHistoryGraph />
             </div>
             <div class="row">
@@ -123,6 +126,7 @@ import BilledLinesByZone from './BilledLinesByZone';
 import LinesThreshold from './LinesThreshold';
 import ServicesGraph from './ServicesGraph';
 import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
+import ReportGauges from './ReportGauges';
 
 import { mapGetters } from 'vuex';
 
@@ -148,6 +152,7 @@ export default {
     LinesThreshold,
     ServicesGraph,
     AlarmsPerDayContainerGraph,
+    ReportGauges,
   },
 
   mounted() {
@@ -166,6 +171,10 @@ export default {
       selectedBillingAccount: undefined,
       selectedOffer: undefined,
       partnersForFilters: undefined,
+
+      appliedPartner: undefined,
+      appliedBillingAccount: undefined,
+      appliedOffer: undefined,
     };
   },
   computed: {
@@ -184,7 +193,17 @@ export default {
 
   methods: {
     async doFilter() {
-      console.log(this.selectedPartner, this.selectedBillingAccount, this.selectedOffer);
+      if (this.selectedPartner) {
+        this.appliedPartner = { ...this.selectedPartner };
+      }
+
+      if (this.selectedBillingAccount) {
+        this.appliedBillingAccount = { ...this.selectedBillingAccount };
+      }
+
+      if (this.selectedOffer) {
+        this.appliedOffer = { ...this.selectedOffer };
+      }
     },
   },
 };

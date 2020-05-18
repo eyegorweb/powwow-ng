@@ -10,35 +10,44 @@
         />
       </div>
       <div class="col-md-9">
-        <div class="row mb-3">
-          <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-              <slot name="title"></slot>
-            </h2>
-          </div>
-          <div class="col">
-            <slot name="topRight"></slot>
-          </div>
-        </div>
-        <ResultDataTable
-          :columns="columns"
-          :rows="rows"
-          :total="total"
-          :page.sync="noPagination ? undefined : page"
-          :page-limit.sync="pageLimit"
-          :order-by.sync="currentOrderBy"
-          :size="size"
-          @colEvent="$emit('colEvent', $event)"
+        <template
+          v-if="!isTableVisibleFn || (isTableVisibleFn && isTableVisibleFn(lastSelectedFilters))"
         >
-          <div slot="topLeftCorner">
-            <slot name="topLeft"></slot>
+          <div class="row mb-3">
+            <div class="col">
+              <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+                <slot name="title"></slot>
+              </h2>
+            </div>
+            <div class="col">
+              <slot name="topRight"></slot>
+            </div>
           </div>
-          <div slot="actions" slot-scope="{ row }">
-            <slot name="actions" :row="row"></slot>
-          </div>
-        </ResultDataTable>
 
-        <slot name="after"></slot>
+          <ResultDataTable
+            :columns="columns"
+            :rows="rows"
+            :total="total"
+            :page.sync="noPagination ? undefined : page"
+            :page-limit.sync="pageLimit"
+            :order-by.sync="currentOrderBy"
+            :size="size"
+            @colEvent="$emit('colEvent', $event)"
+          >
+            <div slot="topLeftCorner">
+              <slot name="topLeft"></slot>
+            </div>
+            <div slot="actions" slot-scope="{ row }">
+              <slot name="actions" :row="row"></slot>
+            </div>
+          </ResultDataTable>
+
+          <slot name="after"></slot>
+        </template>
+        <slot
+          v-if="isTableVisibleFn && !isTableVisibleFn(lastSelectedFilters)"
+          name="onTableNotVisible"
+        />
       </div>
     </div>
   </div>
@@ -67,6 +76,10 @@ export default {
     size: {
       type: Number,
       default: 7,
+    },
+    isTableVisibleFn: {
+      type: Function,
+      required: false,
     },
   },
 
