@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.796+20200518145005
+2020-05-18
+
+### Features
+
+- branchement des filtres des graphes ( carte du monde ) (8b5d535bdc2f38875fb07f2ebb5f1ba4219ba80f)
+
 ## 0.3.0-master.795+20200518133451
 2020-05-18
 
