@@ -6,6 +6,7 @@
 import ConsumptionTable from './ConsumptionTable';
 import { voiceUsage } from '@/api/consumption';
 import { col } from '@/components/DataTable/utils';
+import { formattedValueFromSeconds } from '@/api/utils';
 
 export default {
   props: {
@@ -47,8 +48,12 @@ export default {
           path: 'recordOpeningTime',
         }),
         col('Durée', 'voiceHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'duration',
+          type: 'Getter',
+          getter: row => {
+            return row.voiceHistoryData && row.voiceHistoryData.duration
+              ? formattedValueFromSeconds(row.voiceHistoryData.duration)
+              : '-';
+          },
         }),
         col('Type', 'voiceHistoryData', true, false, {
           type: 'ObjectAttribute',

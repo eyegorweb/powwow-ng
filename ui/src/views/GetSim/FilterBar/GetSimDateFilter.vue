@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UiDateRange @change="setOrderDateFilter" :start="startDate" :end="endDate" />
+    <UiDateRange
+      :key="'simdate_' + version"
+      @change="setOrderDateFilter"
+      :start="startDate"
+      :end="endDate"
+    />
   </div>
 </template>
 
@@ -16,6 +21,11 @@ export default {
   methods: {
     ...mapMutations('getsim', ['setOrderDateFilter']),
   },
+  data() {
+    return {
+      version: 0,
+    };
+  },
   computed: {
     ...mapGetters('getsim', ['selectedOrderDate']),
     startDate() {
@@ -23,6 +33,16 @@ export default {
     },
     endDate() {
       return get(this.selectedOrderDate, 'endDate', '');
+    },
+
+    isDateEmpty() {
+      return this.startDate === '' && this.endDate === '';
+    },
+  },
+
+  watch: {
+    isDateEmpty() {
+      this.version++;
     },
   },
 };

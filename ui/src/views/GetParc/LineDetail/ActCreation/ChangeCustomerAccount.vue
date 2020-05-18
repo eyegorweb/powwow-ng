@@ -78,12 +78,14 @@ export default {
 
     async fetchBillingAccounts() {
       const data = await fetchBillibAccountForPartnerId(this.lineData.party.id);
-      this.billingAccounts = data.map(ba => ({
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        partnerId: ba.party.id,
-        partner: ba.party,
-      }));
+      this.billingAccounts = data
+        .filter(ba => ba.id !== this.idCurrentBillingAccount)
+        .map(ba => ({
+          id: ba.id,
+          label: `${ba.code} - ${ba.name}`,
+          partnerId: ba.party.id,
+          partner: ba.party,
+        }));
     },
   },
 
@@ -92,6 +94,10 @@ export default {
       const code = get(this.lineData, 'accessPoint.offerGroup.customerAccount.code');
       const name = get(this.lineData, 'accessPoint.offerGroup.customerAccount.name');
       return `${code} - ${name}`;
+    },
+
+    idCurrentBillingAccount() {
+      return get(this.lineData, 'accessPoint.offerGroup.customerAccount.id');
     },
 
     canSend() {

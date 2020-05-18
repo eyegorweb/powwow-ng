@@ -7,12 +7,14 @@
     :context-filters="contextFilters"
     :info-message="specificMessage"
     :no-results="noResults"
+    :toggle-values="toggleValues"
   />
 </template>
 
 <script>
 import AverageIndicators from './AverageIndicators';
 import { fetchPrecalculatedTopIndicators } from '@/api/indicators.js';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -30,9 +32,27 @@ export default {
       period: 'DAY',
       contextFilters: [],
       specificMessage: undefined,
+      toggleValues: [
+        {
+          id: 'day',
+          label: 'day',
+          default: this.period === 'DAY',
+        },
+        {
+          id: 'month',
+          label: 'month',
+          default: this.period === 'MONTH',
+        },
+        {
+          id: 'quarter',
+          label: 'quarter',
+          default: this.period === 'QUARTER',
+        },
+      ],
     };
   },
   computed: {
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     noResults() {
       return this.indicators && !this.indicators.length ? true : false;
     },
@@ -43,17 +63,23 @@ export default {
       await this.refreshIndicatorsForPeriod();
     },
     async refreshIndicatorsForPeriod() {
+      let partners;
+      if (this.contextPartners) {
+        partners = this.contextPartners.map(p => p.id);
+      }
       const listTopIndicators = await fetchPrecalculatedTopIndicators(
         [`SIM_TOP_ACTIVATION_${this.period}`],
-        ...this.contextFilters
+        partners,
+        this.contextPartnersType
       );
 
-      this.indicators = listTopIndicators.map(i => {
+      this.indicators = listTopIndicators.map((i, index) => {
         return {
           total: i.numberValue,
           clickable: false,
           labelKey: i.partyName,
-          fetchKey: i.name,
+          id: `${i.name}_${index}`,
+          linked: false,
         };
       });
       this.displayInfoMessage();
@@ -65,6 +91,14 @@ export default {
       } else {
         this.specificMessage = '';
       }
+    },
+  },
+  watch: {
+    async contextPartners() {
+      await this.refreshIndicatorsForPeriod();
+    },
+    async contextPartnersType() {
+      await this.refreshIndicatorsForPeriod();
     },
   },
 };

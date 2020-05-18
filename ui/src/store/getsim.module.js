@@ -300,7 +300,7 @@ export const mutations = {
       total: state.ordersResponse.total,
       items: state.ordersResponse.items.map(o => {
         if (o.id === order.id) {
-          return order;
+          return { ...o, ...order };
         }
         return o;
       }),

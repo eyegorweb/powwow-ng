@@ -1,6 +1,8 @@
 <template>
   <div class="step" :class="{ validated: validated }">
-    <div class="checkmark-line"><CheckMark :checked="validated" :is-error="isError" /></div>
+    <div class="checkmark-line">
+      <CheckMark :checked="validated" :is-error="isError" />
+    </div>
     <p class="label" :class="{ 'is-error': isError }">{{ label }}</p>
     <p class="time">{{ date }}</p>
   </div>
@@ -42,6 +44,11 @@ p {
   color: $gray-680;
   font-size: 12px;
   flex-grow: 1;
+
+  p.time {
+    font-size: 0.7rem !important;
+    color: $gray;
+  }
 
   .checkmark-line {
     position: relative;
@@ -88,11 +95,9 @@ p {
 
   .label {
     margin-top: 10px;
+    padding: 0.2rem 0;
   }
 
-  .time {
-    font-size: 10px;
-  }
   &:last-child {
     .checkmark-line {
       position: relative;

@@ -19,8 +19,8 @@
         $t('getsim.actions.CANCEL')
       }}</UiButton>
     </div>
-    <div>
-      <UiButton variant="accent" block :disabled="order.status !== 'TERMINATED'">
+    <div v-if="order.status == 'TERMINATED'">
+      <UiButton variant="accent" block>
         <span class="small-button">{{ $t('getsim.actions.EXPORT') }}</span>
       </UiButton>
     </div>

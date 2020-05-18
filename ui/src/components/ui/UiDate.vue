@@ -39,6 +39,11 @@ export default {
     fixed: Boolean,
     large: Boolean,
     timePicker: Boolean,
+    direction: {
+      type: String,
+      required: false,
+      default: 'up',
+    },
   },
   computed: {
     dateFormat() {
@@ -52,11 +57,13 @@ export default {
     },
     createDatePicker() {
       let startDate;
-      if (this.start) {
+      if (this.value) {
         startDate = moment(this.value, this.dateFormat);
       } else {
         // startDate = moment();
       }
+
+      console.log('Start date  >>', startDate);
 
       const onDateSelected = value => {
         this.$emit('change', value.format(this.dateFormat));
@@ -67,7 +74,7 @@ export default {
         {
           singleDatePicker: true,
           startDate,
-          drops: 'up',
+          drops: this.direction,
           timePicker: this.timePicker,
           timePicker24Hour: true,
           locale: {

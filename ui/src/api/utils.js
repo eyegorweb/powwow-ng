@@ -4,9 +4,51 @@ import get from 'lodash.get';
 
 import store from '@/store';
 
+import { isOnDebugMode } from '@/featureFlipping/plugin';
+
 export const api = axios.create();
 
 const WAIT_BEFORE_RETRY_IN_MS = 1000;
+
+export async function mutation(name, params, ret = '') {
+  function scan(obj) {
+    let inputs = '';
+
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      let value = obj[keys[i]];
+
+      if ((!(value instanceof Object) && isNaN(value)) || value === undefined || value === null)
+        continue;
+
+      if (value instanceof Object && value.type !== 'enum') {
+        inputs += `${keys[i]}:{${scan(value)}}`;
+      } else {
+        let val = value;
+        if (typeof value === 'string') {
+          val = `"${value}"`;
+        }
+        if (value instanceof Object && value.type === 'enum') {
+          val = value.value;
+        }
+        inputs += `${keys[i]}: ${val}`;
+      }
+
+      if (i + 1 < keys.length) {
+        inputs += ', ';
+      }
+    }
+
+    return inputs;
+  }
+
+  const queryStr = `
+  mutation {
+    ${name}(${scan(params)})${ret}
+  }`;
+
+  return await query(queryStr);
+}
 
 /**
  *  Besoin de gérer les erreurs
@@ -21,6 +63,10 @@ export async function simpleQuery(q) {
 export async function query(q) {
   let tries = 10;
 
+  if (isOnDebugMode()) {
+    console.log(q);
+  }
+
   const singleTry = async () => {
     try {
       const res = await simpleQuery(q);
@@ -30,8 +76,6 @@ export async function query(q) {
         if (
           e.response.status === 401 ||
           e.response.status === 403 ||
-          e.response.status === 503 ||
-          e.response.status === 504 ||
           (e.response && e.response.error && e.response.error === 'invalid_token')
         ) {
           if (tries > 0) {
@@ -55,7 +99,9 @@ export async function postFile(url, formData) {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const response = await api.post(url, formData, config);
+    const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '';
+
+    const response = await api.post(baseUrl + url, formData, config);
     return response.data;
   } catch (e) {
     return { error: e.message };
@@ -181,7 +227,9 @@ export function formatServicesForGQL(servicesChoice) {
   let gqlServicesParamGql = '';
   if (dataServiceChoice) {
     if (dataServiceChoice.checked) {
-      const paramsArr = dataServiceChoice.parameters.map(p => `"${p.code}"`);
+      const paramsArr = dataServiceChoice.parameters
+        .filter(p => p.selected)
+        .map(p => `"${p.code}"`);
       serviceParamsArr.push(`{serviceCode: "DATA", serviceParameters: [${paramsArr.join(',')}]}`);
     }
   }
@@ -196,4 +244,84 @@ export function formatServicesForGQL(servicesChoice) {
   }
 
   return gqlServicesParamGql;
+}
+
+export function formattedValueFromSeconds(value) {
+  let seconds = value;
+  let duration = seconds;
+  let hours = duration / 3600;
+  duration = duration % 3600;
+  let min = parseInt(duration / 60);
+  duration = duration % 60;
+  let sec = parseInt(duration);
+
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (min < 10) {
+    min = `0${min}`;
+  }
+  if (parseInt(hours, 10) > 0) {
+    return `${parseInt(hours, 10)}:${min}:${sec}`;
+  }
+  return `0${parseInt(hours, 10)}:${min}:${sec}`;
+}
+
+export function resumeFormattedValueFromSeconds(value) {
+  let initialSeconds = value;
+  let duration = initialSeconds;
+  let days = duration / 86400;
+  duration = duration % 86400;
+  let hours = parseInt(duration / 3600);
+  duration = duration % 3600;
+  let min = parseInt(duration / 60);
+  duration = duration % 60;
+  let sec = parseInt(duration);
+
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (min < 10) {
+    min = `0${min}`;
+  }
+
+  if (value > 86400) {
+    if (hours > 9) {
+      return `${parseInt(days)}j${parseInt(hours, 10)}h${min}min${sec}sec`;
+    }
+    return `${parseInt(days)}j0${parseInt(hours, 10)}h${min}min${sec}sec`;
+  } else if (value < 86400 && value > 3600) {
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)}h${min}min${sec}sec`;
+    }
+    return `0${parseInt(hours, 10)}h${min}min${sec}sec`;
+  } else if (value === 0) {
+    return `0`;
+  } else {
+    return `${min}min${sec}sec`;
+  }
+}
+
+export function resumeFormattedValueFromHours(value) {
+  let initialSeconds = value * 60 * 60;
+  let duration = initialSeconds;
+  let days = duration / 86400;
+  duration = duration % 86400;
+  let hours = parseInt(duration / 3600);
+
+  if (initialSeconds > 86400) {
+    if (hours > 9) {
+      return `${parseInt(days)}j ${parseInt(hours, 10)}h`;
+    }
+    return `${parseInt(days)}j0${parseInt(hours, 10)}h`;
+  } else if (initialSeconds < 86400 && initialSeconds > 3600) {
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)}h`;
+    }
+    return `0${parseInt(hours, 10)}h`;
+  } else if (initialSeconds === 0) {
+    return `0`;
+  } else {
+    return ``;
+  }
 }

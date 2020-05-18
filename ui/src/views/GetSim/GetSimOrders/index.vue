@@ -6,11 +6,11 @@
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <h2 class="text-gray font-weight-light total" style="font-size: 2rem">
             {{ $t('ordersFound', { total: formattedTotal }) }}
           </h2>
         </div>
-        <div class="col">
+        <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
@@ -19,7 +19,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           :storage-id="storageId"
-          storage-version="002"
+          storage-version="003"
           :columns="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -54,7 +54,7 @@ import { fetchCustomFields } from '@/api/customFields';
 import DataTable from '@/components/DataTable/DataTable';
 import GetSimOrdersActions from './GetSimOrdersActions';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
-import { exportFile } from '@/api/orders';
+import { ordersExport } from '@/api/orders';
 import SearchOrderById from './SearchOrderById';
 import LoaderContainer from '@/components/LoaderContainer';
 import ExportButton from '@/components/ExportButton';
@@ -92,8 +92,14 @@ export default {
     ]),
     ...mapMutations(['openModal']),
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportFile(columns, orderBy, exportFormat, this.appliedFilters);
+      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+        return await ordersExport(
+          columns,
+          orderBy,
+          exportFormat,
+          this.appliedFilters,
+          asyncExportRequest
+        );
       };
     },
     resetFilters() {
@@ -160,6 +166,7 @@ export default {
       this.fetchOrders();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchOrders();
     },
     isPanelOpen() {
@@ -350,7 +357,6 @@ export default {
           label: this.$t('col.massActionIds'),
           name: 'massActionIds',
           visible: false,
-          exportId: 'ORDER_MASSACTIONIDS',
           format: {
             component: GetSimOrdersMassActionIdsColumn,
           },

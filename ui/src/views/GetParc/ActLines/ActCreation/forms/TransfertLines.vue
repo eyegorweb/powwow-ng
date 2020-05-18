@@ -14,11 +14,10 @@
         >
           <div slot="bottom">
             <div>
-              <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+              <h6>{{ $t('getparc.actLines.selectOfferTarget') }}</h6>
               <UiApiAutocomplete
                 :items="offers"
                 v-model="selectedOffer"
-                :error="errors.offer"
                 display-results-while-empty
               />
             </div>
@@ -27,12 +26,16 @@
       </div>
       <div class="row">
         <div class="col">
-          <UiDate @change="onActDateChange" :value="actDate" fixed class="d-block">
+          <UiDate @change="onActDateChange" :value="actDate" fixed time-picker class="d-block">
             <i slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>
         <div class="col">
-          <button @click="containerValidationFn" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
+          <button
+            @click="containerValidationFn"
+            class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+            :class="{ disabled: !canValidate }"
+          >
             <span>
               <i class="ic-Shuffle-Icon"></i>
               {{ $t('getparc.actCreation.selectOffer.save') }}
@@ -83,6 +86,9 @@ export default {
 
       return this.chosenBillingAccount.partner;
     },
+    canValidate() {
+      return this.selectedPartner ? true : false;
+    },
   },
   methods: {
     onActDateChange(value) {
@@ -102,6 +108,7 @@ export default {
       const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
         page: 0,
         limit: 99,
+        disabledOffer: true,
       });
       if (data) {
         this.offers = data.map(o => ({
@@ -132,20 +139,15 @@ export default {
         isError = true;
       }
 
-      if (!this.selectedOffer) {
-        this.errors.offer = 'errors.mandatory';
-        isError = true;
-      }
       return isError;
     },
     async validate(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
         dueDate: this.actDate,
-
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,
-        toWorkflowId: this.selectedOffer.id,
+        toWorkflowId: this.selectedOffer ? this.selectedOffer.id : null,
         tempDataUuid: contextValues.tempDataUuid,
       };
       return await transferSIMCards(this.appliedFilters, this.selectedLinesForActCreation, params);

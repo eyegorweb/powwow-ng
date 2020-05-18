@@ -30,6 +30,7 @@ export async function fetchAlarmInstancesByAP(id) {
 
   const response = await query(queryStr);
   if (!response.data) return;
+
   return response.data.alarmInstances;
 }
 
@@ -41,6 +42,7 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
       isActive
       alarm {
         id
+        triggerCommercialStatus
         startDate
         expiryDate
         type
@@ -74,30 +76,68 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
   return response.data.alarmsWithInfo;
 }
 
+export async function searchAlarmById(id) {
+  const orderBy = { key: 'id', direction: 'DESC' };
+  const pagination = { page: 0, limit: 10 };
+  const filters = [{ id: 'filters.alarmId', value: id }];
+  const response = await searchAlarms(orderBy, pagination, filters);
+
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+
+  return;
+}
+
 export async function searchAlarms(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
     alarms(alarmFilterInput: {
       ${formatFilters(filters)}
-    }${paginationInfo}) {
+    }${paginationInfo}
+    ${orderingInfo}) {
       total
       items {
         id
         name
         type
+        triggerCommercialStatus
+        startDate
+        disabled
+        type
         alarmScope
         observationCycle
+        observationDelay
         notifyByWs
         notifyByEmail
+        plmnsList
+        countriesList
         mailingList {
+          id
           name
           emails
         }
         party {
+          id
+          name
+          mailingLists {
+            id
+            name
+          }
+        }
+        auditable {
+          created
+          updated
+        }
+        autoPositionWorkflow {
+          workflowDescription
+        }
+        autoPositionCustAccount {
           id
           name
         }
@@ -113,6 +153,9 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         level3Up
         level3Down
         startDate
+        auditable {
+          created
+        }
       }
     }
   }`;
@@ -120,17 +163,62 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   return response.data.alarms;
 }
 
-export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+export async function fetchTriggerHistory(alarmId, simIds = []) {
+  let simIdsGQLparam = '';
+
+  if (simIds && simIds.length) {
+    simIdsGQLparam = `, simCardInstanceId: {in: [${simIds.join(',')}]}`;
+  }
+
+  const queryStr = `
+  query {
+    alarmEvents(alarmEventsFilterInput: {alarmId: {eq: ${alarmId}}${simIdsGQLparam}}, pagination: {page: 0, limit: 20}) {
+      items {
+        id
+        emissionDate,
+        toStatus
+        newIMEI
+        currentValue1
+        currentValue2
+        currentValue3
+        currentValue1Up
+        currentValue2Up
+        currentValue3Up
+        currentValue1Down
+        currentValue2Down
+        currentValue3Down
+        alarm {
+          id,
+          startDate,
+          level1
+          level1Up
+          level1Down
+          level2
+          level2Up
+          level2Down
+          level3
+          level3Up
+          level3Down
+        }
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.alarmEvents;
+}
+
+export async function createAlarmInstance(simCardInstanceIds, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
     createAlarmInstance(alarmInput: {
       alarmId: ${alarmId}
-      simCardInstanceId: ${simCardInstanceId}
+      simCardInstanceIds: [${simCardInstanceIds.join(',')}]
       partyId: ${partyId}
       dueDate: "${formatDateForGql(dueDate)}"
       notification: false
       adminSkipGDM: false
-    })
+    }){tempDataUuid}
   }
   `;
 
@@ -138,22 +226,67 @@ export async function createAlarmInstance(simCardInstanceId, alarmId, partyId, d
   return response.data.createAlarmInstance;
 }
 
-export async function deleteAlarmInstance(simCardInstanceId, alarmId, partyId, dueDate) {
+export async function enableAlarm(alarmId) {
+  const response = await query(`mutation{activateAlarm (alarmID : ${alarmId})}`);
+  return response.data.activateAlarm;
+}
+
+export async function disableAlarm(alarmId) {
+  const response = await query(`mutation{deactivateAlarm (alarmID : ${alarmId})}`);
+  return response.data.deactivateAlarm;
+}
+
+export async function deleteAlarm(alarmId) {
+  const response = await query(`mutation{deleteAlarm (alarmID : ${alarmId})}`);
+  return response.data.deleteAlarm;
+}
+
+export async function deleteAlarmInstance(simCardInstanceIds, alarmId, partyId, dueDate) {
   const queryStr = `
   mutation {
     deleteAlarmInstance(alarmInput: {
       alarmId: ${alarmId}
-      simCardInstanceId: ${simCardInstanceId}
+      simCardInstanceIds: [${simCardInstanceIds.join(',')}]
       partyId: ${partyId}
       dueDate: "${formatDateForGql(dueDate)}"
       notification: false
       adminSkipGDM: false
-    })
+    }){tempDataUuid}
   }
   `;
 
   const response = await query(queryStr);
   return response.data.deleteAlarmInstance;
+}
+
+export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners, partnerType) {
+  let partnerGql = '';
+  let partnerTypeGql = '';
+
+  if (partners && partners.length) {
+    partnerGql = `, partyIds: [${partners.join(',')}]`;
+  }
+
+  if (partnerType) {
+    partnerTypeGql = `, partyType: ${partnerType}`;
+  }
+  const queryStr = `
+  query {
+    indicatorsHistory(names: [${keys.join(
+      ','
+    )}]${partnerGql}${partnerTypeGql}, historyDepth: ${historyDepth}) {
+      name
+      frequency
+      histories {
+        numberValue
+        applicationDate
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.indicatorsHistory;
 }
 
 function formatFilters(selectedFilters) {

@@ -4,44 +4,69 @@
       <SearchResultSkeleton :columns="columns" />
     </div>
     <div>
-      <div class="row mb-3">
-        <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-            {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
-          </h2>
+      <template v-if="!showInfoMessage">
+        <div class="row mb-3">
+          <div class="col">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+              <slot name="title">
+                <template>
+                  {{
+                    $t('getparc.actLines.total', {
+                      total: formattedTotal,
+                    })
+                  }}
+                </template>
+              </slot>
+            </h2>
+          </div>
+          <div class="col" v-if="hasResults">
+            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <span slot="title">
+                {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
+              </span>
+            </ExportButton>
+          </div>
         </div>
-        <div class="col" v-if="hasResults">
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
-            </span>
-          </ExportButton>
-        </div>
-      </div>
-      <template v-if="hasResults">
-        <DataTable
-          v-if="columns"
-          storage-id="getparc.lines"
-          storage-version="001"
-          :columns="columns"
-          :rows="rows || []"
-          :page.sync="page"
-          :page-limit.sync="pageLimit"
-          :total="total || 0"
-          :order-by.sync="orderBy"
-          :show-extra-columns.sync="showExtraCells"
-          :size="7"
-        >
-          <template slot="topLeftCorner">
-            <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-          </template>
-        </DataTable>
+        <template v-if="hasResults">
+          <DataTable
+            v-if="columns"
+            storage-id="getparc.lines"
+            storage-version="002"
+            :columns="columns"
+            :rows="rows || []"
+            :page.sync="page"
+            :page-limit.sync="pageLimit"
+            :total="total || 0"
+            :order-by.sync="orderBy"
+            :show-extra-columns.sync="showExtraCells"
+            :size="7"
+          >
+            <template slot="topLeftCorner">
+              <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+            </template>
+          </DataTable>
+        </template>
+        <template v-else>
+          <div v-if="searchByIdValue">
+            <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+          </div>
+          <div class="alert alert-light">{{ $t('noResult') }}</div>
+        </template>
       </template>
       <template v-else>
-        <div v-if="searchByIdValue">
-          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+        <h4>Rechercher une ligne par ID</h4>
+        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+
+        <div class="alert alert-primary text-center mt-2" role="alert">
+          Ecran de recherche de lignes et création d'actes de gestion
+          <br />
+          <UiButton
+            variant="primary"
+            class="show-all-lines flex-grow-1 py-1 px-3 ml- mt-3"
+            @click="fetchLinesActions()"
+            >Afficher toutes les lignes</UiButton
+          >
         </div>
-        <div class="alert alert-light">{{ $t('noResult') }}</div>
       </template>
     </div>
   </LoaderContainer>
@@ -63,6 +88,7 @@ import ExportButton from '@/components/ExportButton';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import UiButton from '@/components/ui/Button';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
 export default {
@@ -72,6 +98,7 @@ export default {
     SearchByLinesId,
     ExportButton,
     SearchResultSkeleton,
+    UiButton,
   },
 
   props: {
@@ -121,7 +148,12 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['fetchLinesActionsFromApi']),
-    ...mapMutations('actLines', ['setPage', 'forceAppliedFilters', 'setPageLimit']),
+    ...mapMutations('actLines', [
+      'setPage',
+      'forceAppliedFilters',
+      'setPageLimit',
+      'startSearchingById',
+    ]),
 
     resetFilters() {
       this.searchByIdValue = undefined;
@@ -131,7 +163,7 @@ export default {
     searchById(params) {
       this.searchByIdValue = params.value;
       this.page = 1;
-      this.forceAppliedFilters([
+      this.startSearchingById([
         {
           id: params.id,
           value: params.value,
@@ -139,6 +171,10 @@ export default {
       ]);
     },
     async fetchLinesActions() {
+      if (!this.canSearchLines) return;
+
+      if (this.showInfoMessage) this.showInfoMessage = false;
+
       this.fetchLinesActionsFromApi({
         orderBy: this.orderBy,
         pageInfo: this.getPageInfo,
@@ -147,8 +183,14 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportSimCardInstances(columns, orderBy, exportFormat, this.appliedFilters);
+      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+        return await exportSimCardInstances(
+          columns,
+          orderBy,
+          exportFormat,
+          this.appliedFilters,
+          asyncExportRequest
+        );
       };
     },
   },
@@ -168,6 +210,7 @@ export default {
       this.fetchLinesActions();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchLinesActions();
     },
   },
@@ -193,9 +236,20 @@ export default {
     } else {
       this.columns = [...this.commonColumns, ...this.defaultCustomFieldsColumns];
     }
+
+    if (this.rows.length > 0) {
+      this.canSearchLines = true;
+      this.showInfoMessage = false;
+    } else {
+      setTimeout(() => {
+        this.canSearchLines = true;
+      });
+    }
   },
   data() {
     return {
+      canSearchLines: false,
+      showInfoMessage: true,
       searchByIdValue: undefined,
       columns: undefined,
       commonColumns: [
@@ -269,7 +323,7 @@ export default {
         },
         {
           id: 5,
-          label: this.$t('getparc.actLines.col.simStatus'),
+          label: this.$t('getparc.actLines.col.lineStatus'),
           orderable: true,
           sortingName: 'simStatus',
           visible: true,
@@ -283,7 +337,8 @@ export default {
           id: 6,
           label: this.$t('filters.lines.statusDate'),
           name: 'accessPoint',
-          orderable: false,
+          orderable: true,
+          sortingName: 'commercialStatusDate',
           visible: true,
           exportId: 'LINE_SIM_STATUS_DATE',
           format: {

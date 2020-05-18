@@ -9,7 +9,7 @@
           alt
         />
       </a>
-      <UiTabs :tabs="navbarLinks" :selected-index="currentIndex">
+      <UiTabs v-if="navbarLinks" :tabs="navbarLinks" :selected-index="currentIndex">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
             <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
@@ -37,12 +37,13 @@
       </UiTabs>
     </div>
     <div class="flex-part">
-      <ff-wip>
-        <div class="lang-flags">
+      <div class="lang-flags">
+        <ff-wip>
           <a
             href="#"
             @click.prevent="$i18n.locale = 'fr'"
             :class="{ active: $i18n.locale === 'fr' }"
+            class="flag"
           >
             <img src="@/assets/fr.png" />
           </a>
@@ -50,19 +51,18 @@
             href="#"
             @click.prevent="$i18n.locale = 'en'"
             :class="{ active: $i18n.locale === 'en' }"
+            class="flag"
           >
             <img src="@/assets/en.png" />
           </a>
+        </ff-wip>
 
-          <a href="#">
-            <i class="icon ic-Clock-Icon"></i>
-          </a>
-        </div>
-      </ff-wip>
+        <ActHistoryButton />
+      </div>
       <div class="nav">
         <ul class="nav navbar-nav">
           <li class="dropdown" :class="{ show: userMenuVisible }">
-            <a href="#" class="nav-link" @click.prevent="userMenuVisible = !userMenuVisible">
+            <a href="#" class="nav-link">
               <i class="icon ic-User-Icon"></i>
               <i v-if="!userMenuVisible" class="arrow ic-Arrow-Down-Icon" />
               <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
@@ -98,6 +98,7 @@ import { mapGetters } from 'vuex';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import ActHistoryButton from './ActHistoryButton';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 
@@ -106,12 +107,102 @@ export default {
   components: {
     UiTabs,
     UiTab,
+    ActHistoryButton,
   },
   props: {
     isBackofficeProfile: Boolean,
   },
   mounted() {
     this.currentUrlName = this.$route.name;
+
+    let getAdminExtra = [];
+
+    if (this.userIsPartner) {
+      getAdminExtra = [
+        {
+          label: 'menu.users',
+          to: { name: 'getAdminUsers' },
+        },
+        {
+          label: 'menu.account',
+          to: {
+            name: 'getAdminPartnerDetails',
+            params: { id: this.userInfos.partners[0].id },
+          },
+        },
+      ];
+    } else {
+      getAdminExtra = [
+        {
+          label: 'menu.users',
+          to: { name: 'getAdminUsers' },
+        },
+        {
+          label: 'menu.partners',
+          to: { name: 'getAdminPartners' },
+        },
+      ];
+    }
+
+    this.navbarLinks = excludeMocked([
+      {
+        label: 'GetSIM',
+        to: { name: 'orders' },
+      },
+      {
+        label: 'GetParc/GetDiag',
+        to: 'getParc',
+        submenu: [
+          {
+            label: 'menu.actLines',
+            to: { name: 'actLines' },
+          },
+          {
+            label: 'menu.massActions',
+            to: { name: 'actHistory' },
+          },
+        ],
+      },
+      {
+        label: 'GetVision',
+        to: { name: 'alarms' },
+        submenu: [
+          {
+            label: 'menu.alarms',
+            to: { name: 'alarms' },
+          },
+        ],
+      },
+      {
+        label: 'GetReport',
+        to: { name: 'reports' },
+        submenu: [
+          {
+            label: 'menu.modelReports',
+            to: { name: 'getReportsModels' },
+          },
+          {
+            label: 'menu.documents',
+            to: { name: 'documents' },
+          },
+          {
+            label: 'menu.reportsDashboard',
+            to: { name: 'reportsDashboard' },
+          },
+          {
+            label: 'menu.reportsBill',
+            to: { name: 'reportsBill' },
+          },
+        ],
+      },
+      {
+        label: 'GetAdmin',
+        to: { name: 'exemples' },
+        submenu: [...getAdminExtra],
+      },
+      { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
+      { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
+    ]);
     this.chooseCurrentMenu();
   },
   data() {
@@ -119,40 +210,7 @@ export default {
       currentIndex: 0,
       currentUrlName: '',
       currentIndexIsForced: false,
-      navbarLinks: excludeMocked([
-        {
-          label: 'GetSIM',
-          to: { name: 'orders' },
-        },
-        {
-          label: 'GetParc/GetDiag',
-          to: 'getParc',
-          submenu: [
-            {
-              label: 'menu.actLines',
-              to: { name: 'actLines' },
-            },
-            {
-              label: 'menu.massActions',
-              to: { name: 'actHistory' },
-            },
-          ],
-        },
-        {
-          label: 'GetVision',
-          to: { name: 'alarms' },
-          submenu: [
-            {
-              label: 'menu.alarms',
-              to: { name: 'alarms' },
-            },
-          ],
-        },
-        { label: 'GetReport', to: { name: 'exemples' }, mock: true },
-        { label: 'GetAdmin', to: { name: 'exemples' }, mock: true },
-        { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
-        { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
-      ]),
+      navbarLinks: undefined,
 
       userMenuVisible: false,
     };
@@ -177,7 +235,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos']),
+    ...mapGetters(['userName', 'userInfos', 'userIsPartner']),
 
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
@@ -192,10 +250,24 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .navbars {
   margin: 0 auto;
   padding: 0 10px;
+}
+
+.nav-link {
+  &:hover {
+    & + .dropdown-menu {
+      display: block;
+    }
+  }
+}
+
+.dropdown-menu {
+  &:hover {
+    display: block;
+  }
 }
 
 .flex-container {
@@ -291,20 +363,6 @@ a {
     display: inline-block;
   }
 
-  &.ic-Clock-Icon:after {
-    content: '8';
-    display: block;
-    font-size: 0.7rem;
-    color: $white;
-    background-color: $orange;
-    position: absolute;
-    top: -0.4rem;
-    right: -0.5rem;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 50%;
-    padding: 0.1rem 0.2rem;
-  }
-
   &:hover {
     cursor: pointer;
   }
@@ -323,5 +381,10 @@ a {
 
 .dropdown {
   display: inherit;
+}
+
+.flag {
+  bottom: 0.5rem;
+  position: relative;
 }
 </style>

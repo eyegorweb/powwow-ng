@@ -5,6 +5,7 @@
     :is-open="isOpen"
     @close="closePanel"
     :wide="wide"
+    :width="width"
     :backdrop="backdrop"
     :ignore-click-away="ignoreClickAway"
   >
@@ -27,6 +28,39 @@
         :content="payload"
       />
       <TheAlarmDetailPanel v-if="panelId === 'getvsion.alarm-detail'" :content="payload" />
+      <AlarmCreationPanel v-if="panelId === 'getvsion.table.create-alarm'" :content="payload" />
+      <ReportCreationPanel v-if="panelId === 'getreport.create_report'" :content="payload" />
+      <ImportSimCardsToOrderPanel
+        v-if="panelId === 'getsim.actions.IMPORT_SIM'"
+        :content="payload"
+      />
+      <ActLinesImportSimCards v-if="panelId === 'getparc.lines-sim-import'" :content="payload" />
+      <AdminFormPanel
+        v-if="panelId === 'getadmin.partnerDetail.adminForm.title'"
+        :content="payload"
+      />
+      <UserFormPanel
+        v-if="panelId === 'getadmin.partnerDetail.userForm.title'"
+        :content="payload"
+      />
+      <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
+      <CustomFieldFormPanel
+        v-if="panelId === 'getadmin.customize.addCustomField'"
+        :content="payload"
+      />
+      <SpecificFieldFormPanel
+        v-if="panelId === 'getadmin.customize.specificFields'"
+        :content="payload"
+      />
+      <PartnerOfferPanel
+        v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
+        :content="payload"
+      />
+      <DeliveryAddressFormPanel
+        v-if="panelId === 'getadmin.customize.addDeliveryAddress'"
+        :content="payload"
+      />
+      <BillDetailPanel v-if="panelId === 'bills.detailPanel'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -35,28 +69,37 @@
 import SlidePanel from '@/components/SlidePanel';
 import { mapState, mapMutations } from 'vuex';
 
-import GetSimCreateOrderPanel from '@/views/GetSim/CreateOrder/CreateOrderPanel';
-import GetSimOrderDetails from '@/views/GetSim/GetSimOrderDetails';
-import GetSimCreatorDetails from '@/views/GetSim/GetSimCreatorDetails';
-import ActHistoryDetailPanel from '@/views/GetParc/MassActionsPage/ActHistoryDetailPanel';
-import ActLinesDetailPanel from '@/views/GetParc/ActLines/ActLinesDetailPanel';
-import ActCreationPanel from '@/views/GetParc/LineDetail/ActCreation/ActCreationPanel';
-import CustomizePanel from '@/views/Home/CustomizePanel';
-import LineAlarmDetailPanel from '@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel';
-import TheAlarmDetailPanel from '@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue';
-
 export default {
   components: {
     SlidePanel,
-    GetSimCreateOrderPanel,
-    GetSimOrderDetails,
-    GetSimCreatorDetails,
-    ActHistoryDetailPanel,
-    ActLinesDetailPanel,
-    ActCreationPanel,
-    CustomizePanel,
-    LineAlarmDetailPanel,
-    TheAlarmDetailPanel,
+    GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
+    GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
+    GetSimCreatorDetails: () => import('@/views/GetSim/GetSimCreatorDetails'),
+    ActHistoryDetailPanel: () => import('@/views/GetParc/MassActionsPage/ActHistoryDetailPanel'),
+    ActLinesDetailPanel: () => import('@/views/GetParc/ActLines/ActLinesDetailPanel'),
+    ActCreationPanel: () => import('@/views/GetParc/LineDetail/ActCreation/ActCreationPanel'),
+    CustomizePanel: () => import('@/views/Home/CustomizePanel'),
+    LineAlarmDetailPanel: () =>
+      import('@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel'),
+    TheAlarmDetailPanel: () =>
+      import('@/views/GetVision/alarms/ParcAlarmsTab/AlarmsTable/TheAlarmDetailPanel.vue'),
+    AlarmCreationPanel: () => import('@/views/GetVision/AlarmCreationPanel'),
+    ReportCreationPanel: () => import('@/views/GetReport/reports/ReportCreationPanel.vue'),
+    ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),
+    ActLinesImportSimCards: () => import('@/views/GetParc/ActLines/ActLinesImportSimCards.vue'),
+    AdminFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminFormPanel.vue'),
+    UserFormPanel: () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UserFormPanel.vue'),
+    PartnerOfferPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/OffersTab/PartnerOfferPanel.vue'),
+    BroadcastListFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
+    CustomFieldFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/CustomFieldFormPanel.vue'),
+    SpecificFieldFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/SpecificFieldFormPanel.vue'),
+    DeliveryAddressFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
+    BillDetailPanel: () => import('@/views/GetReport/Bill/BillDetailPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),
@@ -70,6 +113,7 @@ export default {
     backdrop: state => state.ui.backdrop,
     titleConf: state => state.ui.panelTitleConf,
     ignoreClickAway: state => state.ui.ignoreClickAway,
+    width: state => state.ui.width,
   }),
 };
 </script>

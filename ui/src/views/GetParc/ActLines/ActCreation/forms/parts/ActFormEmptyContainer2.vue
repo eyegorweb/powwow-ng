@@ -7,6 +7,12 @@
           <slot name="bottom"></slot>
         </div>
         <div class="col-5">
+          <div class="text-right">
+            <button @click="clearForm" class="clear-form">
+              {{ $t('cancel') }}
+              <i class="ic-Cross-Icon" />
+            </button>
+          </div>
           <slot name="messages"></slot>
           <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
             <FormReport v-if="validationErrors" :data="validationErrors" />
@@ -42,6 +48,7 @@ export default {
       type: String,
       default: 'confirmAction',
     },
+    preventSend: Boolean,
   },
   data() {
     return {
@@ -56,6 +63,7 @@ export default {
       'setActToCreate',
       'setActCreationPrerequisites',
       'setSelectedLinesForActCreation',
+      'resetState',
     ]),
 
     async validate() {
@@ -92,9 +100,7 @@ export default {
       this.flashMessage({ level: 'success', message: successMessage });
 
       // sortir du mode création acte
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
+      this.resetState();
     },
 
     async doubleConfirm() {
@@ -117,6 +123,10 @@ export default {
 
       return false;
     },
+
+    clearForm() {
+      this.resetState();
+    },
   },
 };
 </script>
@@ -126,5 +136,11 @@ export default {
   align-items: flex-end;
   display: flex;
   margin-bottom: 1rem;
+}
+.clear-form {
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
 }
 </style>

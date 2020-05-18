@@ -18,6 +18,31 @@ export function initState() {
   };
 }
 
+export function resetState(state) {
+  state.currentFilters = [];
+  resetAfterFilterClear(state);
+}
+
+export function resetAfterFilterClear(state) {
+  state.appliedFilters = [];
+  state.routeParamsFilters = [];
+  state.isLoading = false;
+  state.openResultInDetailPanel = false;
+  state.searchResponse = undefined;
+  state.searchPage = 1;
+  state.limitPerPage = 20;
+}
+
+export function clearResultsForActCreation(state) {
+  state.appliedFilters = [];
+  state.routeParamsFilters = [];
+  state.isLoading = false;
+  state.openResultInDetailPanel = false;
+  state.searchResponse = undefined;
+  state.searchPage = 1;
+  state.limitPerPage = 20;
+}
+
 export function initGetters() {
   return {
     currentFilters: state => state.currentFilters,
@@ -104,8 +129,8 @@ export function initFilterForPartnerUser(store, setPartnersFilter) {
   if (store.rootGetters.userIsPartner) {
     const partnerFilterValues = [
       {
-        id: store.rootGetters.userInfos.party.id,
-        label: store.rootGetters.userInfos.party.name,
+        id: store.rootGetters.userInfos.partners[0].id,
+        label: store.rootGetters.userInfos.partners[0].name,
       },
     ];
     const defaultFilters = [

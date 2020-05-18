@@ -1,7 +1,7 @@
 <template>
   <CreateOrderStepContainer @done="done" @prev="prev" no-next-button :no-buttons="isOpen">
     <template v-if="!isOpen">
-      <div class="main-content">
+      <div class="main-content2">
         <CreateOrderAddOrderReference
           :value="referenceValue"
           @input="onReferenceSet"
@@ -31,16 +31,19 @@
             @click="open"
           >
             <i class="btn-round-button ic-Plus-Icon mr-2" />
-            {{ $t('orders.add-custom-field') }}
+            {{ $t('orders.add-custom-field-action', { label }) }}
           </UiButton>
         </div>
       </div>
     </template>
     <template v-if="isOpen">
-      <CreateOrderAddCustomField
-        @cancel="close"
+      <AddCustomField
+        :panel="panel"
+        :label-title="label"
+        :fixheight="false"
+        :number-of-custom-fields="allCustomFields.length"
+        :close="close"
         @add-field="onSaveField"
-        :number-ofustom-fields="allCustomFields.length"
       />
     </template>
   </CreateOrderStepContainer>
@@ -48,7 +51,7 @@
 
 <script>
 import CreateOrderAddOrderReference from './CreateOrderAddOrderReference';
-import CreateOrderAddCustomField from './CreateOrderAddCustomField';
+import AddCustomField from './AddCustomField';
 import PartnerFields from '@/components/PartnerFields';
 import UiButton from '@/components/ui/Button';
 import { fetchCustomFields, createCustomField, addItemToCustomFieldList } from '@/api/customFields';
@@ -57,6 +60,14 @@ import { mapMutations, mapGetters } from 'vuex';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
 export default {
+  components: {
+    CreateOrderAddOrderReference,
+    AddCustomField,
+    UiButton,
+    PartnerFields,
+    CreateOrderStepContainer,
+  },
+
   data() {
     return {
       isOpen: false,
@@ -65,6 +76,8 @@ export default {
       referenceValue: '',
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
       isOrderNumberMandatory: false,
+      panel: 'order',
+      label: 'libre',
     };
   },
 
@@ -161,6 +174,7 @@ export default {
         type: fieldData.type,
         values: fieldData.values,
         mandatoryVal: fieldData.mandatoryVal,
+        isSpec: false,
       });
 
       this.fetchCustomFieldsForPartner();
@@ -261,14 +275,6 @@ export default {
       this.referenceValue = value;
       this.done();
     },
-  },
-
-  components: {
-    CreateOrderAddOrderReference,
-    CreateOrderAddCustomField,
-    UiButton,
-    PartnerFields,
-    CreateOrderStepContainer,
   },
 };
 </script>

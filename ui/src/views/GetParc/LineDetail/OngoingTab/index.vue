@@ -44,19 +44,17 @@
             <ul class="content-cell list-unstyled">
               <li>{{ consumptionData.smsNationalConsumption }} SMS</li>
               <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
-              <li>{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsOutgoingNationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
+              <li>{{ formattedData('VOICE', consumptionData.voiceNationalConsumption) }}</li>
               <li>
                 {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
               </li>
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
-              </li>
-              <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceOutgoingNationalConsumption) }}
               </li>
             </ul>
           </td>
@@ -84,19 +82,19 @@
             <ul class="content-cell list-unstyled">
               <li>{{ consumptionData.smsInternationalConsumption }} SMS</li>
               <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
-              <li>{{ consumptionData.smsIncomingInternationalConsumption }} SMS</li>
+              <li>{{ consumptionData.smsOutgoingInternationalConsumption }} SMS</li>
             </ul>
           </td>
           <td>
             <ul class="content-cell list-unstyled">
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceInternationalConsumption) }}
               </li>
               <li>
                 {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
               </li>
               <li>
-                {{ formattedData('VOICE', consumptionData.voiceIncomingInternationalConsumption) }}
+                {{ formattedData('VOICE', consumptionData.voiceOutgoingInternationalConsumption) }}
               </li>
             </ul>
           </td>
@@ -129,9 +127,7 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="total-value">
-                {{ formattedData('VOICE', consumptionData.voiceTotal) }}
-              </li>
+              <li class="total-value">{{ formattedData('VOICE', consumptionData.voiceTotal) }}</li>
               <li class="value-line">
                 {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
               </li>
@@ -184,9 +180,7 @@
           </td>
           <td>
             <ul class="content-cell list-unstyled">
-              <li class="total-value">
-                {{ formattedData('DATA', consumptionData.dataTotal) }}
-              </li>
+              <li class="total-value">{{ formattedData('DATA', consumptionData.dataTotal) }}</li>
             </ul>
           </td>
         </tr>
@@ -203,8 +197,7 @@
 <script>
 import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
-import { formatBytes } from '@/api/utils';
-import moment from 'moment';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 import get from 'lodash.get';
 
 export default {
@@ -240,7 +233,13 @@ export default {
     },
   },
   async mounted() {
-    this.consumptionData = await fetchCurrentConsumption(this.content.id);
+    if (this.$route.params && this.$route.params.tabIndex) {
+      this.consumptionData = await fetchCurrentConsumption({
+        simCardInstanceId: this.$route.params.lineId,
+      });
+    } else {
+      this.consumptionData = await fetchCurrentConsumption({ simCardInstanceId: this.content.id });
+    }
   },
   methods: {
     getExportFn() {
@@ -255,7 +254,7 @@ export default {
           return formatBytes(value);
 
         case 'VOICE':
-          return moment(value, 'HHmmss').format('HH:mm:ss');
+          return formattedValueFromSeconds(value);
       }
     },
   },
@@ -263,6 +262,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.partnerTypeM2M {
+  margin-bottom: 20rem !important;
+}
 .partnerTypeM2M .content-cell {
   li:nth-child(1) {
     color: $dark-gray;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FileSelect v-model="selectedFile" :disabled="!idType" />
+    <FileSelect v-model="selectedFile" :disabled="!idType" :placeholder="placeholder" />
     <div v-if="fileMeta && !error">
       <ul class="list-unstyled m-0">
         <li>
@@ -25,9 +25,9 @@
         </li>
         <li v-if="totalNotCompatible > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.actLines.export', { total: totalNotCompatible }) }}
-            </span>
+            <span slot="title">{{
+              $t('getparc.actLines.export', { total: totalNotCompatible })
+            }}</span>
           </ExportButton>
         </li>
       </ul>
@@ -59,13 +59,24 @@ export default {
         direction: 'DESC',
       },
       lastSelectedFile: null,
-      // lastSelectedFileResponse: null,
+      placeholder: this.$t('filters.lines.fromFile.import-file'),
     };
   },
-  computed: {
+  watch: {
     error() {
-      if (!this.fileMeta) return false;
-      return this.fileMeta.error;
+      if (this.selectedFile.type !== 'application/vnd.ms-excel') {
+        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
+      } else if (this.selectedFile.size > 1000000) {
+        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
+      }
+    },
+  },
+  computed: {
+    error: {
+      get() {
+        if (!this.fileMeta) return null;
+        return this.fileMeta.error;
+      },
     },
     selectedFile: {
       get() {

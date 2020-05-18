@@ -5,6 +5,7 @@
       :columns="columns"
       :rows="rows"
       :results-promise="resultsPromise"
+      :order-by.sync="orderBy"
     />
   </WidgetBloc>
 </template>
@@ -17,6 +18,8 @@ import GenericTableWidget from './GenericTableWidget';
 import { mapGetters } from 'vuex';
 import { truncateLabel } from '@/utils';
 
+import { currentDateMinusMounts } from '@/utils/date';
+
 export default {
   components: {
     WidgetBloc,
@@ -28,6 +31,9 @@ export default {
   },
   watch: {
     contextFilters() {
+      this.refreshTable();
+    },
+    orderBy() {
       this.refreshTable();
     },
   },
@@ -56,7 +62,15 @@ export default {
           ],
         },
       ];
-      return [...this.contextFilters, ...userFilter];
+
+      const startDate = currentDateMinusMounts(3);
+
+      const dateFilter = {
+        id: 'filters.actDateStart',
+        startDate,
+      };
+
+      return [...this.contextFilters, ...userFilter, dateFilter];
     },
   },
   data() {
@@ -161,8 +175,8 @@ export default {
           id: 7,
           label: this.$t('getparc.history.col.rate'),
           name: 'rateActionNumber',
-          sortingName: 'rate_Action_Number',
-          orderabel: false,
+          sortingName: 'UNIT_ACTIONS_FAILED',
+          orderable: true,
           noHandle: true,
           visible: true,
           format: {
@@ -170,6 +184,7 @@ export default {
           },
         },
       ],
+      orderBy: { key: 'DUE_DATE', direction: 'DESC' },
       resultsPromise: undefined,
       rows: [],
     };
@@ -178,7 +193,7 @@ export default {
   methods: {
     async refreshTable() {
       this.resultsPromise = searchMassActions(
-        { key: 'ID', direction: 'DESC' },
+        this.orderBy,
         { page: 0, limit: 3 },
         this.widgetFilters
       );

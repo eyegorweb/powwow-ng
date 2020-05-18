@@ -1,0 +1,43 @@
+<template>
+  <MultiSelectSearch :items="items" :default-selected-items.sync="selectedItems" />
+</template>
+
+<script>
+import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import { fetchAllDocumentsCategory } from '@/api/documents';
+
+export default {
+  components: {
+    MultiSelectSearch,
+  },
+
+  props: {},
+
+  data() {
+    return {
+      items: [],
+      selectedItems: [],
+    };
+  },
+
+  async mounted() {
+    const response = await fetchAllDocumentsCategory();
+    if (response) {
+      this.items = response.map(p => {
+        return {
+          id: p.name,
+          label: this.$t('documents.categories.' + p.name),
+        };
+      });
+    }
+  },
+
+  watch: {
+    selectedItems(newValue) {
+      this.$emit('change', newValue);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>

@@ -141,7 +141,7 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block7'">
+        <ContentBlock v-if="userIsBO" :key="'block7'">
           <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
           <template slot="content">
             <div class="d-flex">
@@ -169,6 +169,7 @@ import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import moment from 'moment';
 import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -191,6 +192,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['userIsBO']),
+
     msisdn() {
       return get(this.lines[0], 'msisdn', '');
     },

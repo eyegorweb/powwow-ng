@@ -8,7 +8,7 @@
         @click.prevent="onClick ? onClick(indicator) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
-        <span v-if="!isLoading">{{ formattedTotal }}{{ formattedUnit }}</span>
+        <span v-if="!isLoading">{{ formattedUnit }}</span>
       </button>
     </div>
   </li>
@@ -18,6 +18,7 @@
 import CircleLoader from '@/components/ui/CircleLoader';
 import { mapGetters } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
+import { resumeFormattedValueFromHours } from '@/api/utils';
 
 export default {
   props: {
@@ -53,8 +54,9 @@ export default {
       return this.total;
     },
     formattedUnit() {
-      if (!this.indicator.unit) return;
-      return this.indicator.unit;
+      if (!this.indicator.unit) return this.formattedTotal;
+      if (isNaN(this.formattedTotal)) return;
+      return resumeFormattedValueFromHours(this.formattedTotal);
     },
     formattedColor() {
       if (!this.indicator.color) {

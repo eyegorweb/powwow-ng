@@ -10,7 +10,7 @@
             {{ $t('getparc.history.total', { total: formattedTotal }) }}
           </h2>
         </div>
-        <div class="col">
+        <div class="col" v-if="total > 0">
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
             <span slot="title">
               {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -21,7 +21,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           storage-id="getparc.actHistory"
-          storage-version="003"
+          storage-version="005"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -56,11 +56,13 @@ import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
 import IdCell from './IdCell';
 import ActionCell from './ActionCell';
+import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
 import { exportAllMassActions } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
+import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
 
 export default {
   components: {
@@ -86,6 +88,7 @@ export default {
       this.fetchMassActions();
     },
     appliedFilters() {
+      this.page = 1;
       this.fetchMassActions();
     },
     isPanelOpen() {
@@ -131,6 +134,9 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
+          format: {
+            component: DetailsCell,
+          },
         },
         {
           id: 5,
@@ -141,29 +147,26 @@ export default {
           visible: true,
         },
         {
-          id: 6,
-          label: this.$t('getparc.history.col.success'),
-          sortingName: 'UNIT_ACTIONS_COMPLETED',
-          name: 'completedEntitiesNumber',
-          orderable: true,
-          visible: true,
-        },
-        {
           id: 7,
           label: this.$t('getparc.history.col.ongoing'),
           name: 'pendingEntitiesNumber',
           sortingName: 'UNIT_ACTIONS_PENDING',
           orderable: true,
-          visible: true,
-        },
-        {
-          id: 8,
-          label: this.$t('getparc.history.col.fail'),
-          name: 'failedEntitiesNumber',
-          sortingName: 'UNIT_ACTIONS_FAILED',
-          orderable: true,
           visible: false,
         },
+        {
+          id: 14,
+          label: this.$t('getparc.history.col.rate'),
+          name: 'rateActionNumber',
+          sortingName: 'UNIT_ACTIONS_FAILED',
+          orderable: true,
+          noHandle: true,
+          visible: true,
+          format: {
+            component: RateCell,
+          },
+        },
+
         // colonnes cachées par défaut
         {
           id: 9,
@@ -258,6 +261,10 @@ export default {
             'MASS_ACTION_INFO',
             'UNIT_ACTION_ID',
             'UNIT_ACTION_TYPE',
+            'COUNT_TOTAL_ACTION',
+            'COUNT_FAILED_ACTION',
+            'COUNT_COMPLETED_ACTION',
+            'COUNT_INPROGRESS_ACTION',
             'UNIT_ACTION_INFO',
             'ICCID',
             'UNIT_ACTION_STATUS',
@@ -271,8 +278,8 @@ export default {
             'IMEI',
             'LOGIN',
           ],
-          this.getPageInfo,
-          exportFormat
+          exportFormat,
+          this.appliedFilters
         );
       };
     },

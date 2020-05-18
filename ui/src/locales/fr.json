@@ -2,10 +2,11 @@
   "searchOrderById": "Rechercher une commande par identifiant",
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
+  "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "accessTo": "Accéder à",
-  "numberPerPage": "Nb per page",
+  "numberPerPage": "Nb par page",
   "partnerType": "Type de partenaire",
   "partnerAlarm": "Type d'alarme",
   "choosePartner": "Sélectionner des partenaires",
@@ -15,6 +16,7 @@
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
   "cancel": "Annuler",
+  "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
   "confirm": "Confirmer",
   "delete": "Supprimer",
@@ -63,6 +65,27 @@
   "month": "Mois",
   "quarter": "Trimestre",
   "suspension": "Suspension",
+  "mailNotification": "Être notifié par e-mail",
+  "webserviceNotification": "Être notifié par webservice",
+  "lines": "Lignes",
+  "reachMaxLength": "Vous avez atteint le nombre maximum de caractère",
+  "personalizeHome": "Personnaliser ma home",
+  "genericSuccessMessage": "Opération effectuée avec succès",
+  "genericErrorMessage": "Erreur inconnue",
+  "lastMassActions": "Derniers actes de gestion",
+  "showAllHistory": "Voir l'historique complet",
+  "groupAccount": "Compte groupe",
+  "login": "Login",
+  "password": "Mot de passe",
+  "passwordConfirm": "Confirmation du mot de passe",
+  "actions": {
+    "DUPLICATE": "Dupliquer",
+    "DISABLE": "Désactiver",
+    "ENABLE": "Activer",
+    "DELETE": "Supprimer",
+    "DOWNLOAD": "Télécharger",
+    "MODIFY": "Modifier"
+  },
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
@@ -87,10 +110,12 @@
         "preactivatedLines": "Lignes pré-activées",
         "activatedLines": "Lignes activées",
         "suspendedLines": "Lignes suspendues",
-        "cancellationLines": "Lignes en cours de résiliation",
+        "cancellationLines": "Résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
-        "currentMonth": "Mois en cours",
-        "prevMonth": "M-1"
+        "currentMonth": "courant",
+        "linesPreactivated": "(Nombre de lignes préactivées)",
+        "linesSuspended": "(Nombre de lignes suspendues non facturées)",
+        "prevMonth": "au 1er"
       },
       "averageTimeAction": "Délais moyens",
       "simTopActivation": "Top 5 lignes activées",
@@ -99,16 +124,51 @@
       "message": {
         "scheduleTermination": "pas d’autre résiliation programmée",
         "termination": "pas d’autre résiliation",
-        "activation": "pas d’autre activation"
+        "activation": "Pas d'autres lignes",
+        "triggeredAlarm": "pas d’autre alarme déclenchée"
       },
       "viewOneResult": "Consulter le résultat",
-      "viewXResults": "Consulter les {num} résultats"
+      "viewXResults": "Consulter les {num} résultats",
+      "linesConsumption": "Lignes les plus consommatrices du mois",
+      "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
+      "topBillingExchangeCA": "TOP / FLOP CA",
+      "topBillingExchangePO": "Prise d'ordre"
+    }
+  },
+  "documents": {
+    "total": "{total} document(s) trouvé(s)",
+    "name": "Nom du document",
+    "partner": "Partenaire",
+    "creationDate": "Date d’ajout",
+    "category": "Catégorie",
+    "model": "Modèle de rapport",
+    "categories": {
+      "BILL": "Facture",
+      "PORTABILITY": "Portabilité",
+      "EXPORT": "Export",
+      "BALANCE": "Encours non valorisés",
+      "PDP": "PDP",
+      "FDNX": "FDNX"
     }
   },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
-    "alarms": "Gestion des alarmes"
+    "alarms": "Gestion des alarmes",
+    "users": "Gestion des utilisateurs",
+    "documents": "Gestion des documents",
+    "partners": "Gestion des partenaires",
+    "admins": "Gestion des administrateurs",
+    "account": "Compte",
+    "modelReports": "Rapports",
+    "createReports": "Gestion documentaires",
+    "reportsDashboard": "Tableau de bord",
+    "reportsBill": "Facture"
+  },
+  "users": {
+    "function": "Fonction [facultatif]",
+    "phone": "Téléphone",
+    "mobile": "Mobile [facultatif]"
   },
   "partnerTypes": {
     "CUSTOMER": "M2M",
@@ -116,10 +176,26 @@
     "MULTI_CUSTOMER": "Marque blanche"
   },
   "errors": {
-    "all": "Erreurs",
-    "mandatory": "* Champ obligatoire"
+    "all": "Erreur(s)",
+    "mandatory": "* Champ obligatoire",
+    "password": {
+      "length-error": "Le mot de passe doit faire plus de 8 caractères",
+      "confirm-error": "Les mot de passe ne correspondent pas",
+      "name-error": "Le mot de passe doit être différent du nom ou prénom",
+      "uppercase-error": "Le mot de passe doit contenir au moins une minuscule et une majuscule",
+      "special-error": "Une lettre avec accent ou un caractère spécial.",
+      "number-error": "Le mot de passe doit contenir au moins un chiffre.",
+      "email-error": "Veuillez saisir une adresse email valide"
+    },
+    "limitAddress": "Adresse limitée à 35 caractères"
   },
   "common": {
+    "billing": "Facturation",
+    "order": "Commande",
+    "export": "Export",
+    "others": "Autres",
+    "period": "Période",
+
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
     "product": "Produit",
@@ -139,7 +215,16 @@
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",
-    "line": "Ligne"
+    "line": "Ligne",
+    "simple": "Simple",
+    "detailed": "Détaillé",
+    "unit": "Unité",
+    "mass": "Masse"
+  },
+  "bills": {
+    "total": "{total} factures disponibles",
+    "searchByRef": "Rechercher une facture par référence",
+    "detailPanel": "Facture N° {reference}"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -167,9 +252,13 @@
     "le": "Inférieure à",
     "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
-    "date-over": "Au delà de {endDate}",
+    "date-over": "Avant le {endDate}",
     "details": {
-      "title": "Commande n° {id}"
+      "title": "Commande n° {id}",
+      "fromFile": {
+        "chooseFormatFile": "Chosir un format de fichier",
+        "import-file": "Choisir un fichier CSV ou EXCEL"
+      }
     },
     "creator": {
       "title": "Utilisateur {firstName} {lastName}"
@@ -188,7 +277,9 @@
     "tooltip-text": "Vous pouvez retrouver l’historique des commandes passées, suivre leurs statuts, consulter les informations de détail et accéder aux cartes SIM associées.",
     "never-ordered": "Jamais commandé",
     "errors": {
-      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà"
+      "NotUniqueExternalIdForParty": "Une commande avec cette référence existe déjà",
+      "AlreadyExists": "Une commande avec cette référence existe déjà",
+      "validateMandatoryFields": "Veuillez saisir une référence client"
     }
   },
   "alarms": {
@@ -202,23 +293,44 @@
     "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
     "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
     "STATUS_CHANGE": "Changement de statut",
-    "IMEI_CHANGE": "Changement de module",
+    "IMEI_CHANGE": "Changement d'équipement",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-consommation de la flotte"
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée",
+    "MORE_DETAIL": "Voir le détail de l'alarme",
+
+    "observationCycles": {
+      "DAILY": "Quotidien",
+      "WEEKLY": "Hebdomadaire",
+      "MONTHLY": "Mensuel",
+      "CUSTOM": "Personnalisé",
+      "DAYS": "jour(s)"
+    },
+    "alarmScope": {
+      "LINE": "Ligne",
+      "OFFER": "Offre",
+      "CUSTOMER_ACCOUNT": "Compte de facturation",
+      "PARTY": "Partenaire",
+      "CUSTOM_FIELDS": "Champ libres"
+    }
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
-    "manage-alarms-tooltip": "TODO description",
+    "manage-alarms-tooltip": "Cette page permet de rechercher un utilisateur.",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
-    "alarm-detail": "Détail de l'alarm",
+    "alarm-detail": "Détail de l'alarme",
     "account-info": "Informations compte",
     "notifications": "Notifications",
     "notify-mail": "Notification mail",
     "notify-ws": "Notification web service",
     "mailing-list": "Liste de diffusion",
+    "activation_date": "Date d'activation",
+    "triggered_this_month": "Déclenchement mois en cours",
+    "last_month_triggered": "Déclenchement M-1",
+    "last_triggered": "Dernier déclenchement",
+    "associated_alarms": "Alarmes associées",
     "detail-panel": {
       "stepper": {
         "created": "Créée"
@@ -231,20 +343,186 @@
       "create-alarm": "Créer une alarme",
       "thresholds": "Seuil(s) de déclenchement",
       "targetedLines": "Lignes ciblées",
-      "triggers": "Déclenchements"
+      "triggers": "Déclenchements",
+      "alarmStatus": "Statut de l'alarme"
     },
     "indicators": {
-      "triggered_current_month_ongoing": "Déclenchement sur le mois en cours",
-      "triggered_last_month": "Déclenchement mois précédent",
-      "triggered_before_last_month": "Déclenchement {month}"
+      "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
+      "triggered_last_month": "Déclenchement(s) mois précédent",
+      "triggered_before_last_month": "Déclenchement(s) en {month}"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
       "ALARM_TYPE": "Type d'alarme",
       "DATE_TRIGGER": "Date de déclenchement"
+    },
+
+    "alarm": {
+      "triggered_x_month": "Déclenchements dans les {month} derniers mois",
+      "triggered_lines": "Lignes ciblées par l'alarme",
+      "excluded_sim_from_alarms": "Cartes sim exclues de l'alarme",
+      "trigger_reason": "Motifs de déclenchement",
+      "trigger_date": "Date de dernier déclenchement",
+      "disable_alarm_lines": "Désactiver l'alarme des lignes",
+      "react_alarm_lines": "Réactiver l'alarme des lignes",
+      "alarm_availability": "Présence de l'alarme",
+
+      "enableAlarm": "Activer l'alarme",
+      "saveAlarm": "Enregistrer l'alarme",
+      "statuses": {
+        "created": "Créée",
+        "activated": "Activée",
+        "disabled": "Désactivée"
+      }
+    },
+    "alarm-creation": {
+      "change_country": {
+        "countries_list": "Tous les pays:",
+        "chosen_countries": "Pays autorisés:"
+      },
+      "change_plmn": {
+        "isp_list": "Tous les opérateurs:",
+        "chosen_isp": "Opérateurs autorisés:"
+      }
+    }
+  },
+  "getadmin": {
+    "users": {
+      "userTypes": {
+        "bouygues": "Interne",
+        "partner": "Partenaire",
+        "group": "Compte groupe"
+      },
+      "simcards": "Cartes SIM",
+      "supervision": "Options de supervision",
+      "addAdmin": "Ajouter un administrateur",
+      "addUser": "Ajouter un utilisateur",
+      "title": "Gestion des utilisateurs",
+      "noInfo": "Non renseigné",
+      "filters": {
+        "fullName": "Nom ou prénom",
+        "email": "Email",
+        "partnerGroup": "Groupe de partenaire",
+        "partners": "Partenaires",
+        "roles": "Rôles"
+      },
+      "total": "{total} utilisateur(s) trouvé(s)"
+    },
+    "customize": {
+      "addList": "Ajouter une liste de diffusion",
+      "modifyList": "Modifier une liste de diffusion",
+      "broadcastLists": "Listes de diffusion",
+      "customFields": "Champs libres",
+      "specificFields": "Champs spécifiques",
+      "deliveryAddress": "Adresses de livraison",
+      "addDeliveryAddress": "Ajouter une adresse de livraison",
+      "modifyDeliveryAddress": "Modifier une adresse de livraison",
+      "listName": "Nom de la liste de diffusion",
+      "emails": "Adresses emails",
+      "addEmail": "Ajouter un email",
+      "addCustomField": "Ajouter un champ libre",
+      "modifyCustomField": "Modifier un champ libre",
+      "addSpecificField": "Ajouter un champ spécifique",
+      "modifySpecificField": "Modifier un champ spécifique"
+    },
+    "partners": {
+      "name": "Raison sociale",
+      "mainAdmin": "Administrateur principal",
+      "secondAdmin": "Administrateur secondaire",
+      "role": "Rôle",
+      "users": "Utilisateurs",
+      "deliveryPlaces": "Adresses de livraison",
+      "broadcastList": "Liste de diffusion",
+      "salesEngineer": "Ingénieur commercial",
+      "lastBill": "Dernière facture (cumul)",
+      "customize": "Personnalisation",
+      "offersAndSim": "Offres et cartes SIM",
+      "accountDetail": "Détail du compte",
+      "admins": "Administrateurs",
+      "activityLog": "Journal d'activité",
+      "options": "Options du partenaire",
+      "accountDescription": "Description du compte partenaire"
+    },
+    "partnerDetail": {
+      "generalInformations": "Informations générales",
+      "legalInformations": "Informations légales",
+      "contactDetail": "Coordonnées",
+      "created": "Créé le",
+      "lastModification": "Dernière modification",
+      "partnerName": "Raison social :",
+      "siren": "Numéro SIREN :",
+      "naf": "Code NAF :",
+      "tva": "TVA intra-communautaire :",
+      "tel": "Téléphone :",
+      "fax": "Fax (facultatif) :",
+      "address": "Adresse :",
+      "address2": "Complément :",
+      "code": "Code :",
+      "zipCode": "Code postal :",
+      "city": "Ville :",
+      "bscs": "Compte root BSCS :",
+      "contractReference": "Référence du contrat cadre :",
+      "contractDate": "Date du contrat :",
+      "contractExpiration": "Fin du contrat :",
+      "salesEngineer": "Ingénieur commercial :",
+      "commercialName": "Nom du commercial :",
+      "commercialEmail": "Email du commercial :",
+      "vpn": "VPN :",
+      "group": "Groupe :",
+      "contract": "contrat",
+      "partyGroup": "Compte groupe :",
+      "partnerTree": "Arborescence des partenaires :",
+      "partnerType": "Type de partenaire :",
+      "preActOffer": "Offre pré-activation :",
+      "preActGDM": "GDM pré-activation :",
+      "maxViews": "Nb max de vues :",
+      "workflow": "Workflow par défaut :",
+      "portabilityCode": "Code opérateur de portabilité :",
+      "state": "État (facultatif) :",
+      "update": "Mettre à jour  ",
+      "country": "Pays :",
+      "ELEVEN": "11",
+      "FIFTEEN": "15",
+      "BOTH": "Tous",
+      "adminForm": {
+        "title": "Formulaire admin"
+      },
+      "offerFromPanel": {
+        "title": "Panel Offre"
+      },
+      "userForm": {
+        "title": "Ajouter un utilisateur",
+        "modify-title": "Modification d'un utilisateur"
+      }
+    }
+  },
+  "getreport": {
+    "pageTitle": "Modèles de rapports",
+    "reports_tooltip": "Cette page permet de paramétrer des rapports",
+    "create_report": "Créer un rapport",
+    "actions": {
+      "DETAIL": "Voir   le détail du reporting",
+      "ACTIVATION": "Activer  / Désactiver le rapport",
+      "SEARCH": "Rechercher les rapports"
+    },
+    "creation": {
+      "chooseInfos": "Choisir les informations",
+      "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
+      "fromReport": "à partir d'un modèle du rapport",
+      "generateReport": "Générer un rapport",
+      "dataReport": "Données du rapport",
+      "nameReport": "Nom du rapport",
+      "fileFormat": "Format de ficher",
+      "list": "Liste de diffusion",
+      "dateGenerated": "Date de génération",
+      "dateAndRecursion": "Récurrence et date"
+    },
+    "errors": {
+      "AlreadyExists": "Un rapport avec ce nom existe déjà"
     }
   },
   "getparc": {
+    "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
@@ -278,7 +556,8 @@
       "RECOVERY_SUSPEND": "Suspension pour impayé",
       "RECOVERY_RELEASED": "Résiliation du compte",
       "GEO_LOCATION": "Localisation M2M",
-      "UPDATE_COMMITMENT": "Durée engagement"
+      "UPDATE_COMMITMENT": "Durée engagement",
+      "SUSPENDION": "Suspension"
     },
     "actStatuses": {
       "WAITING": "En attente",
@@ -303,15 +582,16 @@
         "target": "Ciblée(s)",
         "success": "Succès",
         "ongoing": "En cours",
-        "fail": "Échec",
+        "fail": "Échec(s)",
         "onfailing": "En échec",
         "partyId": "Partenaire",
         "creator": "Nom du créateur",
         "status": "Statut",
-        "rate": "Taux d'échec / succès"
+        "rate": "Succès / Échec"
       },
       "details": {
         "title": "Acte de gestion {id}",
+        "noResult": "L'acte de gestion n'a pas été trouvé",
         "manageActTitle": "{type} - {date}",
         "detailTitle": "Détail de l'acte de gestion",
         "massActionDetail": "Détail de l'action de masse",
@@ -365,9 +645,9 @@
       "restart-confirmation": "Etes-vous sur de vouloir relancer les actes en échec?",
       "enterMessage": "Entrez un message",
       "titleListCard": {
-        "FAIL": "liste des cartes en échec",
-        "ONGOING": "liste des cartes en cours",
-        "TERMINATED": "liste des cartes terminées"
+        "FAIL": "liste des actes en échec",
+        "ONGOING": "liste des actes en cours",
+        "TERMINATED": "liste des actes terminées"
       },
       "col": {
         "id": "ID de l’acte unitaire",
@@ -418,15 +698,19 @@
         "observationCycle": "Cycle d’observation",
         "disableLine": "Désactiver pour la ligne",
         "enableLine": "Activer pour la ligne",
-        "data_io": "Data E/S",
+        "data": "Data E/S",
         "data_out": "Data sortante",
         "data_in": "Data entrante",
-        "sms_io": "SMS E/S",
+        "sms": "SMS E/S",
         "sms_out": "SMS sortante",
         "sms_in": "SMS entrante",
-        "voice_io": "Voix E/S",
+        "voice": "Voix E/S",
         "voice_out": "Voix sortante",
         "voice_in": "Voix entrante",
+        "status_change": "Changement de statut",
+        "imei_change": "Changement de module",
+        "plmn_change": "Changement d'opérateur",
+        "country_change": "Changement de pays",
         "ALARM_TYPE": {
           "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
           "COUNTRY_CHANGE": "Changement de pays",
@@ -460,7 +744,8 @@
         "smsIncomingNationalConsumption": "SMS national entrant",
         "smsOutgoingNationalConsumption": "SMS national sortant",
         "smsIncomingInternationalConsumption": "SMS roaming entrant",
-        "smsOutgoingInternationalConsumption": "SMS roaming sortant"
+        "smsOutgoingInternationalConsumption": "SMS roaming sortant",
+        "nbOfSMS": "Nombre de SMS"
       },
       "estimated": {
         "data": "Prévisionnel Data",
@@ -516,8 +801,8 @@
         "networkInformation": "Informations réseau",
         "lineAnalysisTitles": {
           "locationSection": "Localisation sur carte",
-          "lastConnectionStatus": "Statut de la dernière connexion pdp",
-          "ApnIdLastConnexion": "Apn & ip de la dernière connexion pdp",
+          "lastConnectionStatus": "Statut de la dernière connexion data",
+          "ApnIdLastConnexion": "Apn & ip de la dernière connexion data",
           "LastLocation": "Dernière localisation géographique"
         },
         "lineAnalysisContent": {
@@ -535,7 +820,7 @@
           },
           "inactiveLineWarning": "La ligne n'est pas active",
           "connexionStatus": "Statut de la connexion",
-          "closingConnexionReason": "Raison de la fermeture de la connexion",
+          "closingConnexionReason": "Raison de la fermeture",
           "connexionDebut": "Début de la connexion",
           "connexionEnd": "Fin de la connexion",
           "currentApn": "APN actuel",
@@ -546,20 +831,7 @@
           "lastLocationDate": "Date de la dernière localisation",
           "useTypeAndDetail": "Type et détail d'usage",
           "technology": "Technologie",
-          "technologies": {
-            "DATA_V_1": "3G",
-            "DATA_V_6": "4G",
-            "DATA_V_EMPTY": "Inconnue",
-            "DATA_V_UNKNOWN": "Inconnue",
-            "DATA_F_MISSING": "2G",
-            "OTHERS_V_3G": "3G",
-            "OTHERS_V_4G": "4G",
-            "OTHERS_F_MISSING": "Inconnue",
-            "OTHERS_V_UNKNOWN": "2G",
-            "OTHERS_V_EMPTY_NAT": "2G",
-            "OTHERS_V_EMPTY_RO": "Autre ou 2G",
-            "none": "Inconnue"
-          }
+          "technologies": "{value}"
         },
         "networkInfoContent": {
           "dataControl": "Contrôle data roaming",
@@ -667,7 +939,10 @@
       "tabServices": {
         "optionalServices": "Services optionnels",
         "services": "Services",
-        "ipAdress": "Adresse IP Fixe"
+        "ipAdressFix": "Adresse IP Fixe",
+        "apn": "APN",
+        "ipAdress": "Adresse IP",
+        "version": "Version"
       }
     },
     "actCreation": {
@@ -775,10 +1050,11 @@
       "report": {
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
+        "DATA_SIZE_EXCEED": "Le fichier est trop volumineux",
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
-        "DATA_WRONG_STATUS": "Status invalide",
+        "DATA_WRONG_STATUS": "Statut invalide",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
         "EMPTY_FILE": "Fichier vide"
@@ -824,6 +1100,8 @@
         "confirmationWarning": "Attention ! Toutes les lignes sélectionnées vont perdre le roaming ! Cette action est irréversible si votre ligne est à l’étranger.",
         "save": "Transférer"
       },
+
+      "changeBillingAccount": "Changer le compte",
       "changeOffer": {
         "confirmationWarning": "Confirmez-vous le changement d'offre ?",
         "chooseOffer": "Choisir une offre cible",
@@ -848,20 +1126,33 @@
         "DETAIL": "Voir le détail de la ligne"
       },
       "chooseAct": "Choisir un acte de gestion",
+      "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",
       "export": "Exporter {total} ligne(s)",
-      "step1Partner": "séléctionner un partenaire",
-      "billingAccount": "séléctionner un compte de facturation",
-      "step1File": "séléctionner un fichier de travail",
-      "step1Title": "séléctionner les lignes avec les filtres et le tableau",
+      "step1Partner": "Sélectionner un partenaire",
+      "partnerTarget": "Sélectionner un partenaire cible",
+      "billingAccount": "Sélectionner un compte de facturation",
+      "billingAccountTarget": "Sélectionner un compte de facturation cible",
+      "step1File": "Sélectionner un fichier de travail",
+      "step1Title": "Sélectionner les lignes avec les filtres et le tableau",
       "step2Title": "configurer le changement de compte de facturation",
-      "selectOffer": "sélectionner une offre",
+      "selectOffer": "Sélectionner une offre",
+      "selectOfferTarget": "Sélectionner une offre cible pour les lignes actives",
+      "typeSimCard": "Sélectionner un type de cartes SIM",
       "fileImport": {
         "foundLines": "lignes ont été trouvées",
+        "foundSimcards": "lignes à importer",
         "notFoundLines": "lignes ne sont pas compatibles",
+        "rejectedLines": "lignes sont rejetées",
+        "titleSimCard": "Import de carte SIM par fichier",
         "errors": {
           "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
-          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu."
+          "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+          "import": {
+            "DATA_INVALID_FORMAT": "{count} lignes ont un {idType} erroné.",
+            "DATA_NOT_FOUND": "{count} lignes ont un {idType} inconnu.",
+            "NEW_DATA_ALREADY_EXISTS": "L'{idType} existe déjà."
+          }
         }
       },
       "massActionsHistory": {
@@ -974,6 +1265,8 @@
     "creationDate": "Date de création",
     "orderDate": "Date de commande",
     "activationAsked": "Activation",
+    "company": "Société",
+    "label": "Libellé",
     "preActivationAsked": "Préactivation",
     "creator": "Créateur",
     "quantity": "Quantité",
@@ -981,12 +1274,19 @@
     "recipient": "Destinataire",
     "partner": "Partenaire",
     "product": "Produit",
+    "billsReference": "Référence",
+    "amountTTC": "Montant TTC",
+    "amountHT": "Montant HT",
     "externalId": "Ref. client",
     "massActionIds": "Id de gestion",
     "offer": "Offre",
+    "active": "Actif",
+    "locked": "Verouillé",
+    "closed": "Clos",
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
-    "customFields": "Champs libres {num}",
+    "customFields": "Champ libre {num}",
+    "specificFields": "Champ spécifique {num}",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
@@ -1045,7 +1345,7 @@
     "title": "FILTRES",
     "partners": "Partenaires",
     "countries": "Pays",
-    "billingAccounts": "Compte de facturation",
+    "billingAccounts": "Comptes de facturation",
     "orderStatus": "Statut de la commande",
     "orderReference": "Référence de la commande",
     "orderDate": "Date de la commande",
@@ -1059,6 +1359,7 @@
     "city": "Ville",
     "country": "Pays",
     "action": "Action",
+    "state": "État [facultatif]",
     "actionValues": {
       "ACTIVATED": "Activé",
       "PREACTIVATED": "Pré-activé"
@@ -1080,7 +1381,7 @@
       "typeSIMCard": "Type de carte SIM",
       "associatedOffer": "Offre associée",
       "orderID": "Id de la commande",
-      "SIMCardStatus": "Statut de la carte SIM",
+      "SIMCardStatus": "Statut de la ligne",
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",
@@ -1118,11 +1419,13 @@
     "personalize-services": "Personnaliser les services",
     "choose-custom-field": "Renseigner les champs libres",
     "add-custom-field-value": "Ajouter une valeur",
-    "add-custom-field": "Ajouter un champ libre",
+    "add-custom-field-action": "Ajouter un champ {label}",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
+    "modify-custom-field-action": "Modifier un champ {label}",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",
-    "input-label-custom-field": "Nommer le titre du champ libre",
-    "choose-type-custom-field": "Choisir le type de champ libre",
+    "input-label-custom-field": "Nommer le titre du champ {label}",
+    "choose-type-custom-field": "Choisir le type de champ {label}",
+    "mandatory-custom-field": "Champ {label} obligatoire",
     "select-offer-placeholder": "Sélectionner l'offre",
     "new": {
       "customer": "Client",

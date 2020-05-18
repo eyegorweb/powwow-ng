@@ -50,7 +50,7 @@
       <FormReport v-if="report && haveBusinessErrors" :data="report" />
       <button
         v-if="tempDataUuid"
-        @click="confirmRequest()"
+        @click="confirmRequest(true)"
         class="btn btn-success pl-4 pr-4 pt-2 pb-2"
       >
         <span>{{ $t('confirm') }}</span>
@@ -87,14 +87,17 @@ export default {
       requestErrors: undefined,
       contextValues: undefined,
       report: undefined,
+      disableForced: false,
 
       showValidationModal: false,
       isLoading: false,
     };
   },
+
   watch: {
-    selectedFileForActCreation() {
+    selectedFileForActCreation(value) {
       this.resetForm();
+      this.validFile(value);
     },
 
     actCreationPrerequisites() {
@@ -105,7 +108,11 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedFileForActCreation', 'actCreationPrerequisites']),
     canValidateRequest() {
-      return this.selectedFileForActCreation && !this.tempDataUuid;
+      if (this.disableForced) {
+        return false;
+      } else {
+        return this.selectedFileForActCreation && !this.tempDataUuid;
+      }
     },
     haveBusinessErrors() {
       if (!this.report) return 0;
@@ -123,6 +130,26 @@ export default {
     ]),
     ...mapMutations(['flashMessage']),
 
+    validFile(file) {
+      if (file.type !== 'application/vnd.ms-excel') {
+        this.disableForced = true;
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+          },
+        ];
+      } else if (file.size > 1000000) {
+        this.disableForced = true;
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED'),
+          },
+        ];
+      } else {
+        this.disableForced = false;
+      }
+    },
+
     resetForm() {
       this.tempDataUuid = undefined;
       this.requestErrors = undefined;
@@ -135,11 +162,19 @@ export default {
         this.tempDataUuid = response.tempDataUuid;
         this.contextValues = contextValues;
       } else {
-        this.requestErrors = [
-          {
-            message: response.error,
-          },
-        ];
+        if (response.error.includes('400')) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+            },
+          ];
+        } else {
+          this.requestErrors = [
+            {
+              message: response.error,
+            },
+          ];
+        }
         return { stayInForm: true };
       }
 
@@ -158,7 +193,7 @@ export default {
       this.isLoading = false;
     },
 
-    async confirmRequest() {
+    async confirmRequest(showMessage = false) {
       const params = {
         notifEmail: this.contextValues.notificationCheck,
         dueDate: this.contextValues.actDate,
@@ -171,10 +206,12 @@ export default {
       if (response.errors) {
         this.requestErrors = response.errors;
       } else {
-        const successMessage = this.successMessage
-          ? this.$t(this.successMessage)
-          : 'Opération effectuée avec succès';
-        this.flashMessage({ level: 'success', message: successMessage });
+        if (showMessage) {
+          const successMessage = this.successMessage
+            ? this.$t(this.successMessage)
+            : 'Opération effectuée avec succès';
+          this.flashMessage({ level: 'success', message: successMessage });
+        }
         // sortir du mode création acte
         this.setActToCreate(null);
         this.setActCreationPrerequisites(null);

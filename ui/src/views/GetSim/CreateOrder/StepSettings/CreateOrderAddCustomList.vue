@@ -5,7 +5,12 @@
         <ul class="list-container list-unstyled">
           <li class="option" v-for="option in localOptions" :key="option">
             <span>{{ option }}</span>
-            <a href="#" @click.prevent="() => deleteOption(option)">Supprimer</a>
+            <a
+              href="#"
+              @click.prevent="() => deleteOption(option)"
+              :class="{ inner: isOpen, outter: !isOpen }"
+              >{{ $t('delete') }}</a
+            >
           </li>
           <li v-if="isAddingOption">
             <form @submit.prevent="addOption">
@@ -37,6 +42,7 @@ export default {
     options: {
       type: Array,
     },
+    isOpen: Boolean,
   },
   computed: {
     localOptions: {
@@ -86,8 +92,13 @@ export default {
 
       a {
         float: right;
-        transform: translateX(150%);
         color: $gray;
+        .outter {
+          transform: translate(150%);
+        }
+        &.inner {
+          transform: translateY(-20%);
+        }
       }
     }
     &.add-option {

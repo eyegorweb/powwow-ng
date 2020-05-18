@@ -8,29 +8,27 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.deActivate') }} :</h6>
-        <p class="text-uppercase">{{ $t('common.' + getFromOrder('activationAsked')) }}</p>
+        <p class="text-uppercase">{{ disabledUser }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.title') }} :</h6>
-        <p>{{ $t('common.' + getFromOrder('auditable.creator.name.title')) }}</p>
+        <p>{{ $t('common.' + getFromCreator('name.title')) }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
-        <p>{{ getFromOrder('auditable.creator.name.lastName') }}</p>
+        <p>{{ getFromCreator('name.lastName') }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.firstName') }} :</h6>
-        <p>{{ getFromOrder('auditable.creator.name.firstName') }}</p>
+        <p>{{ getFromCreator('name.firstName') }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.email') }} :</h6>
-        <a :href="getFromOrder('contactInformation.email')">{{
-          getFromOrder('auditable.creator.email')
-        }}</a>
+        <a :href="getFromCreator('contactInformation.email')">{{ getFromCreator('email') }}</a>
       </div>
       <div class="overview-item">
         <h6>Login :</h6>
-        <p>{{ userName }}</p>
+        <p>{{ getFromCreator('username') }}</p>
       </div>
     </div>
     <div class="overview-container m-3 bg-white">
@@ -39,7 +37,11 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
-        <p>{{ getFromOrder('party.name') }}</p>
+        <p>
+          <span v-for="(r, index) in partners" :key="r.name"
+            >{{ index ? ', ' : '' }}{{ r.description }}</span
+          >
+        </p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.roles') }} :</h6>
@@ -55,23 +57,39 @@
 
 <script>
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
+import { fetchUserByUsername } from '@/api/users';
 
 export default {
+  data() {
+    return {
+      creator: undefined,
+    };
+  },
   props: {
     order: Object,
   },
+  async mounted() {
+    this.creator = await fetchUserByUsername(this.order.auditable.creator.username);
+  },
   methods: {
-    getFromOrder(path, defaultValue = '') {
-      const value = get(this.order, path, defaultValue);
+    getFromCreator(path, defaultValue = '') {
+      const value = get(this.creator, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos']),
     roles() {
-      return this.userInfos.roles;
+      if (!this.creator) return;
+      return this.creator.roles;
+    },
+    partners() {
+      if (!this.creator) return;
+      return this.creator.partners;
+    },
+    disabledUser() {
+      if (!this.creator) return;
+      return this.creator.disabled ? this.$t('common.YES') : this.$t('common.NO');
     },
   },
 };

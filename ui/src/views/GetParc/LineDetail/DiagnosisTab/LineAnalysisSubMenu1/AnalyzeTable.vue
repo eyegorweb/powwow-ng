@@ -6,7 +6,7 @@
           {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
         </h2>
       </div>
-      <div class="col">
+      <div class="col" v-if="hasResults">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="pageInfo">
           <span slot="title">{{
             $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
@@ -373,6 +373,9 @@ export default {
     },
     pageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
+    },
+    hasResults() {
+      return !!(this.rows && this.rows.length);
     },
   },
   mounted() {

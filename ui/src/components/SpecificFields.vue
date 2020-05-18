@@ -54,6 +54,7 @@
           >[{{ $t('optional') }}]</span
         >
         <UiDate
+          :direction="direction"
           @change="newVal => onValueChanged(item, newVal)"
           :value="getSelectedValue(item.code)"
           class="d-block"
@@ -86,6 +87,7 @@ export default {
     },
     canEditList: Boolean,
     showOptionalField: Boolean,
+    direction: String,
   },
   components: {
     UiInput,

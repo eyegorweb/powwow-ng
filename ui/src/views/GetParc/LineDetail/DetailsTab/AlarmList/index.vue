@@ -1,6 +1,17 @@
 <template>
   <div>
-    <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
+    <div class="row mb-3 mt-3">
+      <div class="col-md-8">
+        <h4 class="text-primary text-uppercase">{{ $t('getparc.actLines.alarmList.title') }}</h4>
+      </div>
+      <div class="col-md-4">
+        <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+          <i class="select-icon ic-Amplifier-Icon" />
+          {{ $t('getvsion.table.create-alarm') }}
+        </UiButton>
+      </div>
+    </div>
+
     <div class="bg-white p-4 rounded">
       <LoaderContainer :is-loading="isLoading">
         <div slot="on-loading">
@@ -36,7 +47,9 @@ import TriggerCell from './TriggerCell';
 import ActionsCell from './ActionsCell';
 import TypeCell from './TypeCell';
 import { col } from '@/components/DataTable/utils';
-import { fetchAlarmsWithInfos } from '@/api/alarms';
+import { fetchAlarmsWithInfos, searchAlarmById } from '@/api/alarms';
+
+import UiButton from '@/components/ui/Button';
 
 import LoaderContainer from '@/components/LoaderContainer';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
@@ -49,6 +62,7 @@ export default {
     ActionsCell,
     LoaderContainer,
     TableSkeleton,
+    UiButton,
   },
   props: {
     content: Object,
@@ -113,6 +127,25 @@ export default {
   methods: {
     ...mapMutations(['openPanel']),
 
+    createAlarm() {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.table.create-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
     async fetchAlarms() {
       this.isLoading = true;
       this.alarms = await fetchAlarmsWithInfos(this.content.id);
@@ -123,7 +156,37 @@ export default {
       this.columns = orderedCells.concat(notVisibleCells);
     },
     openAlarmPanel(payload) {
-      if (payload.action !== 'openAlarmPanel') return;
+      if (payload.action === 'openTriggerHistory') {
+        this.openTriggerHistory(payload);
+      }
+
+      if (payload.action === 'openAlarmModificationPanel') {
+        this.openAlarmModificationPanel(payload);
+      }
+    },
+
+    async openAlarmModificationPanel(payload) {
+      const alarmData = await searchAlarmById(payload.row.alarm.id);
+      const doReset = async () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.detail-panel.change-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        payload: { ...alarmData, toModify: true },
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
+    openTriggerHistory(payload) {
       const title = 'getparc.lineDetail.alarms.trigger-history';
       const openTrigger = () => {
         this.openPanel({
@@ -132,8 +195,8 @@ export default {
           wide: false,
           backdrop: false,
           payload: {
-            ...payload.row,
-            iccid: this.content.iccid,
+            alarm: payload.row.alarm,
+            sim: this.content,
           },
         });
       };

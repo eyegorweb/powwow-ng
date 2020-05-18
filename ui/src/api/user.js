@@ -5,55 +5,40 @@ export async function fetchCurrentUserInfos() {
     `
     query {
       getCurrentUser {
-        ... on User {
-          id
-          email
-          name {
-            title
-            firstName
-            lastName
-          }
-          roles {
-            name
-            description
-            category
-          }
+        id
+        name {
+          title
+          firstName
+          lastName
         }
-        ... on UserParty {
+        email
+        username
+        partners {
           id
-          email
-          name {
-            title
-            firstName
-            lastName
-          }
-          roles {
-            name
-            description
-            category
-          }
-          party {
+          name
+          partyType
+          flagMsisdnA
+          optionViewCellId
+          mailingLists {
             id
             name
-            code
+            emails
+            __typename
           }
         }
-        ... on UserPartyGroup {
-          id
-          email
-          name {
-            title
-            firstName
-            lastName
-          }
-          roles {
-            name
-            description
-            category
-          }
+        type
+        isAdminOrBackOffice
+        disabled
+        roles {
+          Id
+          name
+          description
+          category
+          scope
         }
-        ... on Node {
-          __typename
+        permissions {
+          domain
+          action
         }
       }
     }

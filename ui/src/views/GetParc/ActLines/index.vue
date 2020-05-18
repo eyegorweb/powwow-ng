@@ -8,6 +8,11 @@
           <Tooltip direction="right">{{ $t('getparc.tooltip-title-text') }}</Tooltip>
         </h4>
       </div>
+      <div class="col-md-3" v-if="userIsBO">
+        <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">
+          {{ $t('getparc.lines-sim-import') }}
+        </UiButton>
+      </div>
     </div>
     <div class="row mb-5">
       <div class="col-md-12">
@@ -54,10 +59,18 @@
           :uppercase="true"
         />
         <LinesTable
-          v-if="canShowTable"
+          v-if="canShowTable && canMounTable"
           :creation-mode="canShowForm"
           @noResults="checkTableResult"
-        />
+        >
+          <template v-if="canShowForm" slot="title">
+            {{
+              $t('getparc.actLines.selected', {
+                total: totalSelected,
+              })
+            }}
+          </template>
+        </LinesTable>
 
         <Title
           num="2"
@@ -81,6 +94,7 @@ import Tooltip from '@/components/ui/Tooltip';
 import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
 import Title from './Title';
+import UiButton from '@/components/ui/Button';
 import ActCreationPrerequisites from './ActCreation/Prerequisites';
 import ActCreationActForm from './ActCreation/ActForm';
 import ActionCarousel from './ActionCarousel';
@@ -102,14 +116,16 @@ export default {
     ActCreationActForm,
     Title,
     DropZone,
+    UiButton,
   },
   data() {
     return {
+      canMounTable: true,
       prereqSet: false,
       indicators: lineIndicators,
       tableIsEmpty: true,
       prevRoute: undefined,
-
+      file: undefined,
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
@@ -118,16 +134,25 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', [
+      'currentFilters',
       'defaultAppliedFilters',
       'actCreationPrerequisites',
       'selectedFileForActCreation',
+      'selectedLinesForActCreation',
+      'formVersion',
+      'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsBO']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+
+    totalSelected() {
+      const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
+      return this.selectedLinesForActCreation.length || responseTotal;
+    },
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems.filter(i => !i.boOnly);
@@ -135,7 +160,10 @@ export default {
       return carouselItems;
     },
     canShowForm() {
-      return this.creationMode && this.actCreationPrerequisites && !this.tableIsEmpty;
+      const actWithFileUpload = this.creationMode && this.creationMode.containFile;
+      let resultsConstraint = actWithFileUpload || !this.tableIsEmpty;
+
+      return this.creationMode && this.actCreationPrerequisites && resultsConstraint;
     },
     selectedFile: {
       get() {
@@ -143,6 +171,7 @@ export default {
       },
       set(newFile) {
         this.setSelectedFileForActCreation(newFile);
+        this.file = newFile;
       },
     },
     creationMode() {
@@ -176,6 +205,13 @@ export default {
   },
   mounted() {
     this.setActToCreate(null);
+
+    /**
+     * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
+     */
+    if (this.$route.params && this.$route.params.fromDetail) {
+      this.tableIsEmpty = false;
+    }
   },
   methods: {
     ...mapActions('actLines', ['initFilterForContext', 'mergeCurrentFiltersWith']),
@@ -188,7 +224,10 @@ export default {
       'setSelectedFileForActCreation',
       'setPageLimit',
       'setRouteParamsFilters',
+      'resetAfterFilterClear',
+      'resetState',
     ]),
+    ...mapMutations(['openPanel']),
 
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
@@ -220,8 +259,20 @@ export default {
         }
 
         if (item.filters) {
-          this.setActToCreate(item);
-          this.mergeCurrentFiltersWith(item.filters);
+          let needToReset = item.havePrereqs;
+
+          if (!this.userIsPartner && !item.havePrereqs) {
+            needToReset = true;
+          }
+
+          if (needToReset) {
+            this.resetState();
+          }
+
+          this.$nextTick(() => {
+            this.setActToCreate(item);
+            this.mergeCurrentFiltersWith(item.filters);
+          });
         }
       } else {
         this.setPageLimit(20);
@@ -249,9 +300,42 @@ export default {
     onPrereqSet() {
       this.prereqSet = true;
     },
+
+    openCreateSimCardsPanel() {
+      this.openPanel({
+        title: this.$t('getparc.lines-sim-import'),
+        panelId: 'getparc.lines-sim-import',
+        wide: false,
+        backdrop: true,
+        ignoreClickAway: true,
+      });
+    },
   },
 
   watch: {
+    formVersion() {
+      this.canMounTable = false;
+      this.$nextTick(() => {
+        this.canMounTable = true;
+      });
+    },
+    currentFilters(currentFilters) {
+      const haveValues = !!currentFilters.find(filter => {
+        return (
+          (filter.values && filter.values.length) ||
+          filter.value ||
+          filter.startDate ||
+          filter.endDate ||
+          filter.from ||
+          filter.to
+        );
+      });
+
+      if (!haveValues && !this.searchingById) {
+        this.resetAfterFilterClear();
+      }
+    },
+
     contextPartnersType() {
       this.initFilterForContext();
     },
@@ -262,7 +346,10 @@ export default {
       // refresh indicators
       this.indicators = [...this.indicators];
     },
-    actToCreate() {
+    actToCreate(newValue, oldValue) {
+      if (!newValue && oldValue) {
+        this.resetState();
+      }
       this.actToCreateFormVersionChange += 1;
     },
     actCreationPrerequisites() {

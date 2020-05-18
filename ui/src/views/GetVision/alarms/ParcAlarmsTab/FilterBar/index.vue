@@ -1,6 +1,6 @@
 <template>
   <div class="card filter-bar">
-    <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
+    <div class="card-body show-all-filters">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <SelectedFilters
         v-if="canShowSelectedFilter"
@@ -36,28 +36,6 @@
         </transition-group>
       </draggable>
     </div>
-    <div class="text-right">
-      <a
-        v-if="!allFiltersVisible"
-        href="#"
-        @click.prevent="showAllFilters"
-        class="show-all-types text-right"
-      >
-        Plus de filtres
-        <i class="arrow ic-Arrow-Down-Icon" />
-      </a>
-    </div>
-    <div class="text-right">
-      <a
-        v-if="allFiltersVisible"
-        href="#"
-        @click.prevent="showAllFilters"
-        class="show-all-types text-right"
-      >
-        Moins de filtres
-        <i class="arrow ic-Arrow-Up-Icon" />
-      </a>
-    </div>
   </div>
 </template>
 
@@ -86,11 +64,7 @@ export default {
     AlarmType,
     DateTriggerAlarm,
   },
-  data() {
-    return {
-      allFiltersVisible: false,
-    };
-  },
+
   computed: {
     ...mapGetters(['userIsPartner']),
     ...mapGetters('alarms', ['currentFilters', 'canShowSelectedFilter']),
@@ -98,10 +72,6 @@ export default {
   methods: {
     ...mapMutations('alarms', ['applyFilters']),
     ...mapActions('alarms', ['clearFilter']),
-
-    showAllFilters() {
-      this.allFiltersVisible = !this.allFiltersVisible;
-    },
   },
 };
 </script>

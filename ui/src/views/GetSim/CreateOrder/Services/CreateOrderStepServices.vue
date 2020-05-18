@@ -1,44 +1,36 @@
 <template>
   <CreateOrderStepContainer @done="done" @prev="prev" :can-go-to-next-step="canGoNext()">
-    <div class="step-client-container">
-      <div class="panel-vertical-container">
-        <div class="main-content">
-          <div>
-            <h3 class="font-weight-light text-center mt-4 mb-4">
-              {{ $t('orders.choose-services') }}
-            </h3>
-          </div>
-          <div class="toggles-container">
-            <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
-            <UiToggle label="Activation" v-model="activation" />
-          </div>
-          <LoaderContainer :is-loading="isLoadingOffers">
-            <div v-if="activation && offers && offers.length">
-              <div class>
-                <OffersChoice
-                  v-model="selectedOffer"
-                  :offers="offers"
-                  :partner-id="partnerId"
-                  :is-rcard="isrcard"
-                />
-              </div>
-              <template v-if="selectedOffer">
-                <div>
-                  <h2 class="title text-center">{{ $t('orders.personalize-services') }}</h2>
-                </div>
-                <ServicesBlock
-                  v-if="selectedOffer"
-                  :key="selectedOffer.label"
-                  :services="offerServices"
-                  :data-params-needed="isDataParamsError"
-                  vertical
-                  @change="onServiceChange"
-                />
-              </template>
-            </div>
-          </LoaderContainer>
+    <div class="servicesStep">
+      <div class="activationChoice">
+        <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-services') }}</h3>
+        <div class="toggles-container">
+          <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
+          <UiToggle label="Activation" v-model="activation" />
         </div>
       </div>
+      <LoaderContainer :is-loading="isLoadingOffers">
+        <template v-if="activation && offers && offers.length">
+          <div class="offerChoice">
+            <OffersChoice
+              v-model="selectedOffer"
+              :offers="offers"
+              :partner-id="partnerId"
+              :is-rcard="isrcard"
+            />
+          </div>
+          <div class="servicesChoice" v-if="selectedOffer">
+            <h2 class="title text-center">{{ $t('orders.personalize-services') }}</h2>
+            <ServicesBlock
+              v-if="selectedOffer"
+              :key="selectedOffer.label"
+              :services="offerServices"
+              :data-params-needed="isDataParamsError"
+              vertical
+              @change="onServiceChange"
+            />
+          </div>
+        </template>
+      </LoaderContainer>
     </div>
   </CreateOrderStepContainer>
 </template>
@@ -174,7 +166,7 @@ export default {
       let offerCode = '';
 
       if (this.selectedOffer) {
-        offerCode = this.selectedOffer.code;
+        offerCode = this.selectedOffer.initialOffer.description;
       }
       return {
         services: {
@@ -238,7 +230,7 @@ export default {
   color: $dark-gray;
   font-weight: 300;
   font-size: 2rem;
-  margin: 3rem 0 2rem;
+  margin: 1rem 0 1rem;
   padding: 0;
   text-align: center;
 }

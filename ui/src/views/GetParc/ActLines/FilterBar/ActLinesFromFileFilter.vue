@@ -1,29 +1,14 @@
 <template>
-  <div>
-    <UiSelect
-      class="pb-3 d-block"
-      v-model="selectedType"
-      :options="options"
-      :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
-      :arrow-blue="true"
-    />
-    <ActLinesFileImport
-      :id-type="selectedType"
-      :file-meta="fileMeta"
-      @response="setFileImportFilter"
-    />
-  </div>
+  <SearchLinesByFileImportFilter :file-meta="fileMeta" @clear="onClear" @setFilter="onSetFilter" />
 </template>
 
 <script>
-import UiSelect from '@/components/ui/UiSelect';
-import ActLinesFileImport from '@/views/GetParc/ActLines/ActLinesFileImport';
+import SearchLinesByFileImportFilter from '@/components/Filters/SearchLinesByFileImportFilter.vue';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
-    UiSelect,
-    ActLinesFileImport,
+    SearchLinesByFileImportFilter,
   },
   computed: {
     ...mapGetters('actLines', ['selectedFileImportValues']),
@@ -38,47 +23,14 @@ export default {
   methods: {
     ...mapMutations('actLines', ['setFileImportFilter']),
     ...mapActions('actLines', ['clearFilter']),
-  },
 
-  watch: {
-    selectedType() {
-      if (this.selectedFileImportValues && this.selectedFileImportValues.length) {
-        this.clearFilter('filters.lines.fromFile.title');
-      }
+    onClear() {
+      this.clearFilter('filters.lines.fromFile.title');
     },
-  },
 
-  data() {
-    return {
-      selectedType: null,
-      options: [
-        {
-          code: 'c1',
-          label: 'ICCID',
-          value: 'ICCID',
-        },
-        {
-          code: 'msc2isdn',
-          label: 'MSISDN',
-          value: 'MSISDN',
-        },
-        {
-          code: 'c3',
-          label: 'AMSISDN',
-          value: 'AMSISDN',
-        },
-        {
-          code: 'c4',
-          label: 'IMSI',
-          value: 'IMSI',
-        },
-        {
-          code: 'c5',
-          label: 'IMEI',
-          value: 'IMEI',
-        },
-      ],
-    };
+    onSetFilter(value) {
+      this.setFileImportFilter(value);
+    },
   },
 };
 </script>

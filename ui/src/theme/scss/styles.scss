@@ -14,6 +14,12 @@ $theme-colors: map-merge(
     'accent': $accent,
   )
 );
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'white': $white,
+  )
+);
 
 // Optional
 @import '~bootstrap/scss/root';
@@ -110,8 +116,8 @@ $theme-colors: map-merge(
 @media screen and (min-height: 769px) {
   .panel-vertical-container {
     div.main-content {
-      min-height: 87vh;
-      max-height: 87vh;
+      min-height: 85vh;
+      max-height: 85vh;
     }
   }
 }
@@ -180,4 +186,90 @@ $theme-colors: map-merge(
 
 .bottom-space {
   margin-bottom: 10rem;
+}
+
+.slide-up-reveal {
+  animation: slide-up 0.4s ease;
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-reveal {
+  display: initial;
+  animation: fade-in 0.4s ease;
+}
+
+@keyframes fade-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: initial;
+    opacity: 0;
+  }
+
+  100% {
+    display: initial;
+    opacity: 1;
+  }
+}
+
+.alert-blue {
+  background: #ecf6fb !important;
+  border-color: #ecf6fb !important;
+
+  p {
+    color: #0b5ca8 !important;
+  }
+  h5 {
+    color: #0b5ca8 !important;
+  }
+}
+
+.bordered {
+  border: 1px solid $medium-gray;
+  border-radius: 0.2rem;
+}
+
+.overview-item {
+  padding: 7px 10px 7px 0;
+  border-bottom: 1px dashed $medium-gray;
+  $fontSize: 0.8rem;
+
+  &:first-child {
+    border-bottom: none;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+
+  h4 {
+    font-size: 0.875rem;
+  }
+
+  h6 {
+    color: $gray-680;
+    font-size: $fontSize;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: $fontSize;
+    margin: 0;
+  }
+
+  div {
+    font-size: $fontSize;
+  }
 }

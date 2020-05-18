@@ -19,11 +19,15 @@ export default {
         const response = await supervisionDataGraph(partners);
         const formatData = v => Math.floor(v / Math.pow(1024, 3)); // octet => Go
 
-        return response.map(d => ({
-          date: formatDateToUTC(d.date),
-          out: formatData(d.upload),
-          in: formatData(d.download),
-        }));
+        if (response) {
+          return response.map(d => ({
+            date: formatDateToUTC(d.date),
+            out: formatData(d.upload),
+            in: formatData(d.download),
+          }));
+        } else {
+          console.log('Erreur API ', response);
+        }
       }
     },
   },

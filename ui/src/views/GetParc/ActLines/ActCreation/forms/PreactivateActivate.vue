@@ -1,42 +1,42 @@
 <template>
-  <ActFormContainer :validate-fn="doRequest">
+  <ActFormContainer :validate-fn="doRequest" :check-errors-fn="haveFieldErrors">
     <div class="toggles-container">
       <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
       <UiToggle label="Activation" v-model="activation" />
     </div>
-    <div v-if="activation">
-      <label class="font-weight-bold">{{ $t('col.offer') }}</label>
-      <OffersPart :partner="partner" :offer.sync="selectedOffer" />
-    </div>
-    <div>
-      <BillingAccountChoice
-        :key="actCreationPrerequisites.partner.id"
-        :partner-id="actCreationPrerequisites.partner.id"
-        @set:billingAccount="setBillingAccount"
-        :errors="errors"
-      />
-    </div>
-    <div v-if="selectedOffer && selectedOffer.data">
-      <ServicesBlock
-        v-if="selectedOffer"
-        :key="selectedOffer.label"
-        :services="offerServices"
-        vertical
-        @change="onServiceChange"
-      />
-    </div>
-    <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
-      $t('common.customFields')
-    }}</label>
-    <div>
-      <PartnerFields
-        :custom-fields="allCustomFields"
-        :get-selected-value="getSelectedValue"
-        :errors="customFieldsErrors"
-        show-optional-field
-        @change="onValueChanged"
-      />
-    </div>
+
+    <template v-if="activation">
+      <div>
+        <label class="font-weight-bold">
+          {{ $t('col.offer') }}
+          <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
+            {{ $t('required') }}
+          </div>
+        </label>
+        <OffersPart :partner="partner" :offer.sync="selectedOffer" />
+      </div>
+
+      <div v-if="selectedOffer && selectedOffer.data">
+        <ServicesBlock
+          :key="selectedOffer.label"
+          :services="offerServices"
+          vertical
+          @change="onServiceChange"
+        />
+      </div>
+      <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
+        $t('common.customFields')
+      }}</label>
+      <div>
+        <PartnerFields
+          :custom-fields="allCustomFields"
+          :get-selected-value="getSelectedValue"
+          :errors="customFieldsErrors"
+          show-optional-field
+          @change="onValueChanged"
+        />
+      </div>
+    </template>
   </ActFormContainer>
 </template>
 
@@ -49,7 +49,6 @@ import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 
 import ActFormContainer from './parts/ActFormContainer2';
-import BillingAccountChoice from './parts/BillingAccountChoice';
 
 import {
   preactivateAndActivateSImcardInstance,
@@ -65,7 +64,6 @@ export default {
     UiToggle,
     OffersPart,
     PartnerFields,
-    BillingAccountChoice,
     ServicesBlock,
   },
   computed: {
@@ -86,8 +84,8 @@ export default {
       customFieldsErrors: undefined,
       allCustomFields: [],
       customFieldsValues: [],
-      chosenBillingAccount: undefined,
       errors: {},
+      fieldErrors: undefined,
       isLoading: false,
       waitForReportConfirmation: false,
       offerServices: undefined,
@@ -101,13 +99,17 @@ export default {
 
   watch: {
     selectedOffer(selectedOffer) {
-      if (selectedOffer)
+      if (selectedOffer && selectedOffer.data)
         this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
     },
-    activation() {
+    activation(newValue) {
       this.decideOnMandatoryCustomFields();
       this.offerServices = undefined;
       this.selectedOffer = undefined;
+
+      if (!newValue) {
+        this.selectedOffer = undefined;
+      }
     },
   },
 
@@ -117,6 +119,20 @@ export default {
       this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
     },
 
+    haveFieldErrors() {
+      const fieldErrors = {};
+      let haveError = false;
+      if (this.activation) {
+        if (!this.selectedOffer || !this.selectedOffer.data) {
+          fieldErrors.offer = true;
+          haveError = true;
+        }
+      }
+
+      this.fieldErrors = fieldErrors;
+      return haveError;
+    },
+
     async doRequest(contextValues) {
       const params = {
         partyId: this.actCreationPrerequisites.partner.id,
@@ -124,7 +140,7 @@ export default {
         notifEmail: contextValues.notificationCheck,
         workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
         servicesChoice: this.servicesChoice,
-        customerAccountID: this.chosenBillingAccount.id,
+        customerAccountID: this.actCreationPrerequisites.billingAccount.id,
         tempDataUuid: contextValues.tempDataUuid,
       };
       if (this.activation) {
@@ -154,23 +170,21 @@ export default {
     },
     checkErrors() {},
 
-    setBillingAccount(billingAccount) {
-      this.chosenBillingAccount = billingAccount;
-    },
-
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
       this.decideOnMandatoryCustomFields();
     },
 
     decideOnMandatoryCustomFields() {
-      this.allCustomFields = this.allCustomFields.customFields.map(c => {
-        c.isOptional = true;
-        if (this.activation && c.mandatory === 'ACTIVATION') {
-          c.isOptional = false;
-        }
-        return c;
-      });
+      if (this.allCustomFields && this.allCustomFields.customFields) {
+        this.allCustomFields = this.allCustomFields.customFields.map(c => {
+          c.isOptional = true;
+          if (this.activation && c.mandatory === 'ACTIVATION') {
+            c.isOptional = false;
+          }
+          return c;
+        });
+      }
     },
 
     getSelectedValue(code) {
@@ -215,5 +229,10 @@ export default {
     flex-grow: 1;
     margin-right: 1rem;
   }
+}
+
+.text-danger {
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 </style>

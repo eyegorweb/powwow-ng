@@ -1,56 +1,54 @@
 <template>
-  <div class="row" :style="{ height: '100%' }">
-    <div class="col-md-8 content">
-      <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep">
-        <div slot="Client">
-          <CreateOrderStepClient
-            :synthesis="synthesis"
-            :order="order"
-            @done="stepisDone"
-            @saveSynthesis="saveSynthesis"
-          />
-        </div>
-        <div slot="Produit">
-          <CreateOrderStepProduct
-            :synthesis="synthesis"
-            :order="order"
-            @done="stepisDone"
-            @prev="previousStep"
-            @saveSynthesis="saveSynthesis"
-          />
-        </div>
-        <div slot="Services">
-          <CreateOrderStepServices
-            @done="stepisDone"
-            @prev="previousStep"
-            @saveSynthesis="saveSynthesis"
-            :synthesis="synthesis"
-            :order="order"
-          />
-        </div>
-        <div slot="Livraison">
-          <CreateOrderStepDelivery
-            :synthesis="synthesis"
-            :order="order"
-            @done="stepisDone"
-            @prev="previousStep"
-          />
-        </div>
-        <div slot="Paramètres">
-          <CreateOrderStepSettings
-            :synthesis="synthesis"
-            :custom-fields-errors="customFieldsErrors"
-            :order-reference-error="orderReferenceError"
-            :order="order"
-            @prev="previousStep"
-            @done="lastStep"
-            @customFieldsMeta="setCustomFieldsMeta"
-            @saveSynthesis="saveSynthesis"
-          />
-        </div>
-      </Stepper>
+  <div class="orderCreationPanel">
+    <div class="orderStep">
+      <div class="steps">
+        <Stepper :key="$i18n.locale" :steps="steps" :selected-index="currentStep" />
+      </div>
+      <div class="stepContent">
+        <CreateOrderStepClient
+          v-if="currentStep === 0"
+          :synthesis="synthesis"
+          :order="order"
+          @done="stepisDone"
+          @saveSynthesis="saveSynthesis"
+        />
+        <CreateOrderStepProduct
+          v-if="currentStep === 1"
+          :synthesis="synthesis"
+          :order="order"
+          @done="stepisDone"
+          @prev="previousStep"
+          @saveSynthesis="saveSynthesis"
+        />
+        <CreateOrderStepServices
+          v-if="currentStep === 2"
+          @done="stepisDone"
+          @prev="previousStep"
+          @saveSynthesis="saveSynthesis"
+          :synthesis="synthesis"
+          :order="order"
+        />
+        <CreateOrderStepDelivery
+          v-if="currentStep === 3"
+          :synthesis="synthesis"
+          :order="order"
+          @done="stepisDone"
+          @prev="previousStep"
+        />
+        <CreateOrderStepSettings
+          v-if="currentStep === 4"
+          :synthesis="synthesis"
+          :custom-fields-errors="customFieldsErrors"
+          :order-reference-error="orderReferenceError"
+          :order="order"
+          @prev="previousStep"
+          @done="lastStep"
+          @customFieldsMeta="setCustomFieldsMeta"
+          @saveSynthesis="saveSynthesis"
+        />
+      </div>
     </div>
-    <div class="col-md-4 synthesis-bar">
+    <div class="orderSynthesis">
       <GetSimCreateOrderPanelSynthesis
         :synthesis="synthesis"
         :can-save="currentStep === steps.length - 1"
@@ -154,7 +152,7 @@ export default {
           value: {
             id: 'common.services',
             content: [
-              `Offre:  ${activation ? offerCode : ''}`,
+              `Offre:  ${activation ? this.order.initialOffer.description : ''}`,
               `Activation: ${activation ? 'Oui' : 'Non'}`,
               `Préactivation: ${preActivation ? 'Oui' : 'Non'}`,
             ],
@@ -272,8 +270,41 @@ export default {
 .content {
   background: #fff;
 }
-.synthesis-bar {
+
+.orderCreationPanel {
+  display: flex;
+  flex-flow: row nowrap;
   height: 100%;
-  background: #f3f3f3;
+
+  .orderStep {
+    width: 70%;
+    background: white;
+    overflow: auto;
+    padding: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+
+    .steps {
+      flex-basis: 4rem;
+    }
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      .steps {
+        overflow: hidden;
+      }
+    }
+
+    .stepContent {
+      flex-grow: 1;
+    }
+  }
+
+  .orderSynthesis {
+    width: 30%;
+    background: #f1f1f1;
+    overflow: auto;
+    padding: 1rem;
+  }
 }
 </style>

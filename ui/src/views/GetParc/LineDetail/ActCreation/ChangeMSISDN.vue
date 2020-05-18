@@ -40,8 +40,8 @@ export default {
 
   data() {
     return {
-      newMSISDN: undefined,
-      canSend: false,
+      newMSISDN: '',
+      canSend: true,
     };
   },
 
@@ -51,7 +51,7 @@ export default {
       this.canSend = true;
     },
     onInvalidValue() {
-      this.newMSISDN = undefined;
+      this.newMSISDN = '';
       this.canSend = false;
     },
     async doRequest(context) {

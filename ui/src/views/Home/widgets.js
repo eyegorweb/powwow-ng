@@ -8,10 +8,14 @@ import SearchLinesByIdWidget from './widgets/SearchLinesByIdWidget';
 import MassActionsByUserTableWidget from './widgets/MassActionsByUserTableWidget';
 import ParcStateWidget from './widgets/ParcStateWidget';
 import TriggeredAlarms from './widgets/TriggeredAlarms';
+import TriggeredAlarmsPerDay from './widgets/TriggeredAlarmsPerDay';
 import AverageTimeAct from './widgets/AverageWidgets/AverageTimeAct';
 import SimTopActivation from './widgets/AverageWidgets/SimTopActivation';
 import SimTopTermination from './widgets/AverageWidgets/SimTopTermination';
 import SimTopScheduledTermination from './widgets/AverageWidgets/SimTopScheduledTermination';
+import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
+import PriseOrdre from './widgets/AverageWidgets/PriseOrdre';
+import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
@@ -20,7 +24,9 @@ import PreacActivationActsWidget from './widgets/ActWidgets/precalculated/PreacA
 import FailedActsWidget from './widgets/ActWidgets/precalculated/FailedActsWidget';
 import { excludeMocked } from '@/featureFlipping/plugin';
 
-export default excludeMocked([
+import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
+
+const defaultWidgets = [
   {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
@@ -28,7 +34,6 @@ export default excludeMocked([
     large: false,
     seeMore: true,
     component: TriggeredAlarms,
-    mock: true,
   },
   {
     title: 'home.widgets.orders',
@@ -55,7 +60,8 @@ export default excludeMocked([
     large: true,
     seeMore: true,
     component: ConsoWidget,
-    mock: true,
+    notDraggable: true,
+    partnerOnly: true,
   },
   {
     title: 'home.widgets.orderStatus',
@@ -138,7 +144,6 @@ export default excludeMocked([
     large: false,
     seeMore: true,
     component: ParcStateWidget,
-    mock: true,
   },
   {
     title: 'home.widgets.averageTimeAction',
@@ -180,4 +185,67 @@ export default excludeMocked([
     seeMore: false,
     component: Weather,
   },
-]);
+  {
+    title: 'home.widgets.linesConsumption',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: LinesConsumption,
+  },
+  {
+    title: 'home.widgets.topTriggeredAlarmsPerDay',
+    description: '',
+    checked: true,
+    large: true,
+    seeMore: true,
+    component: TriggeredAlarmsPerDay,
+  },
+  {
+    title: 'home.widgets.topBillingExchangeCA',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: TopFlopCA,
+  },
+  {
+    title: 'home.widgets.topBillingExchangePO',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: PriseOrdre,
+  },
+];
+
+export function loadWidgets() {
+  const savedProfile = localStorage.getItem('_widgets_profile_');
+
+  if (savedProfile && savedProfile !== getProfile()) {
+    localStorage.removeItem('__homewidgets__');
+  }
+
+  let savedWidgets = localStorage.getItem('__homewidgets__');
+
+  if (savedWidgets) {
+    const loadedWidgets = JSON.parse(savedWidgets);
+    return excludeMocked(
+      loadedWidgets.map(w => {
+        const widget = defaultWidgets.find(f => f.title === w.title);
+        return {
+          ...w,
+          component: widget.component,
+          notDraggable: widget.notDraggable,
+          partnerOnly: widget.partnerOnly,
+        };
+      })
+    );
+  } else {
+    return excludeMocked(defaultWidgets);
+  }
+}
+
+export function getProfile() {
+  return `_${localStorage.getItem('username')}_${localStorage.getItem(HIDE_MOCKS)}_`;
+}

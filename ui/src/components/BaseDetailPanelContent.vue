@@ -1,6 +1,6 @@
 <template>
-  <div class="panel-vertical-container">
-    <div class="main-content data-detail-container">
+  <div class="panel-vertical-container" :class="{ 'bg-white': white }">
+    <div class="data-detail-container" :class="{ 'main-content': !main }">
       <slot></slot>
     </div>
     <div class="footer-panel-buttons">
@@ -10,7 +10,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    white: Boolean,
+    main: Boolean,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

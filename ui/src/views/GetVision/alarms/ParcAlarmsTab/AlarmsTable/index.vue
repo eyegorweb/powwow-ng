@@ -10,16 +10,16 @@
         </h2>
       </div>
       <div class="col-md-4">
-        <ff-wip>
-          <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
-            <i class="select-icon ic-Amplifier-Icon" />
-            {{ $t('getvsion.table.create-alarm') }}
-          </UiButton>
-        </ff-wip>
+        <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+          <i class="select-icon ic-Amplifier-Icon" />
+          {{ $t('getvsion.table.create-alarm') }}
+        </UiButton>
       </div>
     </div>
     <template v-if="rows && rows.length">
       <DataTable
+        :storage-id="storageId"
+        storage-version="004"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -27,7 +27,7 @@
         :total="total || 0"
         :order-by.sync="orderBy"
         :show-extra-columns.sync="showExtraCells"
-        :size="7"
+        :size="5"
       >
         <template slot="topLeftCorner">
           <SearchAlarmById
@@ -35,6 +35,9 @@
             @search="isSearchingById = true"
             @searchById="searchById"
           />
+        </template>
+        <template slot="actions" slot-scope="{ row }">
+          <AlarmsActions :alarm="row" @actionIsDone="fetchAlarms()" />
         </template>
       </DataTable>
     </template>
@@ -55,10 +58,11 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
 import AlarmNameCell from './AlarmNameCell.vue';
 import ThresholdCell from './ThresholdCell.vue';
-import TargetedLinesCell from './TargetedLinesCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
 import AlarmIdCell from './AlarmIdCell.vue';
 import SearchAlarmById from './SearchAlarmById.vue';
+import AlarmStatusCell from './AlarmStatusCell.vue';
+import AlarmsActions from './AlarmsActions.vue';
 
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
@@ -70,6 +74,7 @@ export default {
     DataTable,
     UiButton,
     SearchAlarmById,
+    AlarmsActions,
   },
   data() {
     return {
@@ -84,12 +89,54 @@ export default {
         col(this.$t('getvsion.table.thresholds'), 'thresholds', true, false, {
           component: ThresholdCell,
         }),
-        col(this.$t('getvsion.table.targetedLines'), 'targetedLines', true, false, {
-          component: TargetedLinesCell,
-        }),
-        col(this.$t('getvsion.table.triggers '), 'triggers', true, false, {
+        col(this.$t('getvsion.table.targetedLines'), 'numberOfTargetedLines', true, false),
+        col(this.$t('getvsion.table.triggers'), 'triggers', false, false, {
           component: TriggeredEventsCell,
         }),
+        col(this.$t('filters.lines.activationDate'), 'startDate', false, false),
+        col(this.$t('col.partner'), 'party', false, false, {
+          type: 'ObjectAttribute',
+          path: 'name',
+        }),
+        col(this.$t('getvsion.table.alarmStatus'), 'startDate', true, false, {
+          component: AlarmStatusCell,
+        }),
+        col(this.$t('getparc.lineDetail.offer'), 'autoPositionWorkflow', false, false, {
+          type: 'ObjectAttribute',
+          path: 'workflowDescription',
+        }),
+        col(this.$t('common.billingAccount'), 'autoPositionCustAccount', false, false, {
+          type: 'ObjectAttribute',
+          path: 'name',
+        }),
+        {
+          id: 2,
+          label: this.$t('getparc.lineDetail.alarms.observationCycle'),
+          orderable: false,
+          visible: false,
+          name: 'observationCycle',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.observationCycles.' + row.observationCycle);
+            },
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.filters.ALARMS_OFFER'),
+          orderable: false,
+          visible: false,
+          name: 'alarmScope',
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$t('alarms.alarmScope.' + row.alarmScope);
+            },
+          },
+        },
       ],
       pageLimit: 20,
       orderBy: {
@@ -103,6 +150,7 @@ export default {
   computed: {
     ...mapState('alarms', ['searchResponse', 'searchPage']),
     ...mapGetters('alarms', ['appliedFilters', 'isLoading']),
+    ...mapGetters(['userName']),
     page: {
       get() {
         return this.searchPage || 0;
@@ -119,6 +167,9 @@ export default {
     },
     rows() {
       return this.searchResponse ? this.searchResponse.items : [];
+    },
+    storageId() {
+      return this.userName + 'getvision.alarms';
     },
   },
   watch: {
@@ -137,9 +188,7 @@ export default {
       this.fetchAlarms();
     },
   },
-  mounted() {
-    this.fetchAlarms();
-  },
+
   methods: {
     ...mapActions('alarms', ['fetchAlarmsFromApi']),
     ...mapMutations('alarms', [
@@ -150,7 +199,26 @@ export default {
       'startLoading',
       'stopLoading',
     ]),
-    createAlarm() {},
+    ...mapMutations(['openPanel']),
+
+    createAlarm() {
+      const doReset = () => {
+        this.page = 1;
+        this.fetchAlarms();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.table.create-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
     async fetchAlarms() {
       this.startLoading();
       await this.fetchAlarmsFromApi({

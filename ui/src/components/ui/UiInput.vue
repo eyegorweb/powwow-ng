@@ -1,5 +1,12 @@
 <template>
-  <label :class="{ 'has-icon': $slots.icon, error: !!error, 'no-hover-style': noHoverStyle }">
+  <label
+    :class="{
+      'has-icon': $slots.icon,
+      error: !!error,
+      'no-hover-style': noHoverStyle,
+      'full-width': block,
+    }"
+  >
     <slot name="icon" />
     <slot name="beforeInput" />
     <input
@@ -10,7 +17,9 @@
       v-model="value_"
       type="number"
       :style="inputStyle"
-      :min="minValue"
+      :min="positiveNumber ? 0 : minValue"
+      :max="maxValue"
+      :onkeyup="onKeyUpFn"
     />
     <input
       v-else
@@ -53,6 +62,10 @@ export default {
       type: Number,
       required: false,
     },
+    maxValue: {
+      type: Number,
+      required: false,
+    },
     error: {
       type: String,
       required: false,
@@ -64,6 +77,18 @@ export default {
     noHoverStyle: Boolean,
     haveCrossButton: Boolean,
     noNumberArrows: Boolean,
+    positiveNumber: Boolean,
+    block: Boolean,
+  },
+
+  computed: {
+    onKeyUpFn() {
+      if (this.positiveNumber) {
+        return 'if(this.value<0){this.value=this.value * -1}';
+      }
+
+      return '';
+    },
   },
 
   methods: {
@@ -162,5 +187,9 @@ label {
   }
 
   -moz-appearance: textfield; /* Firefox */
+}
+
+.full-width {
+  width: 100%;
 }
 </style>

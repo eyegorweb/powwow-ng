@@ -22,10 +22,26 @@ export const getters = {
   userName: state => (state.token ? state.token.user_name : ''),
   userInfos: state => state.userInfos,
   userIsPartner: state => {
-    return state.userInfos && !!state.userInfos.party;
+    return state.userInfos && state.userInfos.type === 'PARTNER';
+  },
+  singlePartner: (state, getters) => {
+    if (getters.userIsPartner) {
+      return state.userInfos && state.userInfos.partners && state.userInfos.partners.length
+        ? state.userInfos.partners[0]
+        : undefined;
+    }
+    return undefined;
   },
   userIsBO: state => {
-    return !(state.userInfos && !!state.userInfos.party);
+    return state.userInfos && state.userInfos.isAdminOrBackOffice;
+  },
+  userIsGroupAccount: state => {
+    return (
+      state.userInfos &&
+      state.userInfos.type === 'PARTNER' &&
+      state.userInfos.partners &&
+      state.userInfos.partners.length > 1
+    );
   },
 };
 
@@ -74,6 +90,9 @@ export const mutations = {
   },
   setCurrentUser(state, userInfos) {
     state.userInfos = userInfos;
+    if (userInfos) {
+      localStorage.setItem('username', userInfos.username);
+    }
   },
   appIsReady(state) {
     state.appIsReady = true;

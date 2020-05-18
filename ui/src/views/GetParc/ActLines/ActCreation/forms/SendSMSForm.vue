@@ -23,7 +23,7 @@
         </label>
         <textarea
           v-model="texMessage"
-          :maxlength="160"
+          :maxlength="maxSMSLength"
           class="form-control"
           id="message"
           rows="3"
@@ -40,7 +40,7 @@
     <div slot="bottom" slot-scope="{ containerValidationFn }">
       <div class="row">
         <div class="col">
-          <UiDate @change="onSmsDateChange" :value="smsDate" fixed class="d-block">
+          <UiDate @change="onSmsDateChange" :value="smsDate" fixed time-picker class="d-block">
             <i slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>
@@ -62,7 +62,16 @@
           {{ $t('getparc.actCreation.sendSMS.nbCharacters') }}:
           {{ texMessage.length }}
         </li>
-        <li class="mock-value"><i class="ic-Info-Icon" /> Nombre de SMS par message: 0</li>
+        <li>
+          <i class="ic-Info-Icon" /> {{ $t('getparc.lineDetail.consummated.nbOfSMS') }}:
+          {{ numberOfSMS }}
+        </li>
+        <li v-if="reachMaxLength" class="warning">
+          <span>
+            <i class="ic-Alert-Icon"></i>
+            {{ $t('reachMaxLength') }}.
+          </span>
+        </li>
       </ul>
     </div>
   </ActFormContainer>
@@ -107,7 +116,16 @@ export default {
         };
       });
     },
-
+    numberOfSMS() {
+      return this.texMessage && this.texMessage.length
+        ? Math.ceil(this.texMessage.length / this.maxSizeBySMS)
+        : 0;
+    },
+    reachMaxLength() {
+      return this.texMessage && this.texMessage.length
+        ? this.texMessage.length === this.maxSMSLength
+        : false;
+    },
     applyConditions() {
       return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0;
     },
@@ -123,6 +141,8 @@ export default {
       errors: {
         shortCode: undefined,
       },
+      maxSMSLength: 1071,
+      maxSizeBySMS: 160,
     };
   },
   methods: {
@@ -136,7 +156,7 @@ export default {
         dueDate: this.smsDate,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
-        numberOfSMS: 0,
+        numberOfSMS: this.numberOfSMS,
         shortCode: this.selectedShortCode.label,
         tempDataUuid: contextValues.tempDataUuid,
       });
@@ -162,4 +182,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.warning {
+  color: $orange;
+}
+</style>

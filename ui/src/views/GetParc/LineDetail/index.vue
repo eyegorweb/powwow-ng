@@ -2,7 +2,7 @@
   <div class="mt-4">
     <div class="row">
       <div class="col-md-9">
-        <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
+        <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
           <i class="ic-Arrow-Previous-Icon" />
           {{ $t('back') }}
         </button>
@@ -68,6 +68,9 @@ export default {
     UiTab,
   },
   mounted() {
+    if (this.$route.params && this.$route.params.tabIndex) {
+      this.currentLinkIndex = this.$route.params.tabIndex;
+    }
     this.loadLineData();
   },
   data() {
@@ -137,6 +140,9 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+    returnToSearch() {
+      this.$router.push({ name: 'actLines', params: { fromDetail: true } });
+    },
 
     onCarouselItemClick(item) {
       this.openPanel({

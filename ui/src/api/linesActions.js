@@ -1,13 +1,38 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchCardTypes() {
-  const queryStr = `
-  query {
-    getTypeSimcards
+export async function fetchCardTypes(q, partners, { page, limit = 999, partnerType }) {
+  let partnersIds,
+    partnerGqlParam = '';
+
+  if (partners && partners.length > 0) {
+    partnersIds = partners.map(i => `"${i.id}"`).join(',');
+    partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
   }
+
+  let partnerTypeGqlFilter = '';
+  if (partnerType) {
+    partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
+  }
+  const queryStr = `
+    query {
+      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+        total
+        items {
+          simCard {
+            label
+            id
+            name
+            code
+            type
+            number
+            description
+          }
+        }
+      }
+    }
   `;
   const response = await query(queryStr);
-  return response.data.getTypeSimcards;
+  return response.data.simcards.items;
 }
 
 export async function fetchCommercialStatuses() {
@@ -47,6 +72,30 @@ export async function fetchSingleIndicator(filters, contextFilters = []) {
   `;
   const response = await query(queryStr);
   return response.data.simCardInstances;
+}
+
+export async function countLines(filters) {
+  const queryStr = `
+  query {
+    simCardInstances(filter: {
+      ${formatFilters(filters)}
+    }){total}
+  }`;
+
+  const response = await query(queryStr);
+  if (response && response.data.simCardInstances) return response.data.simCardInstances.total;
+  return undefined;
+}
+
+export async function searchLineById(id) {
+  const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
+    {
+      id: 'filters.id',
+      value: id,
+    },
+  ]);
+  if (!response || !response.items || !response.items.length) return;
+  return response.items[0];
 }
 
 export async function searchLines(orderBy, pagination, filters = []) {
@@ -132,6 +181,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
             msisdn
             imsi
             status
+            statusTranslated
             auditable {
               created
               updated
@@ -210,7 +260,7 @@ export function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {contains: "${c.value}"}`)
+      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
@@ -433,8 +483,47 @@ export async function uploadSearchFile(file, idType) {
   var formData = new FormData();
   formData.append('file', file);
   formData.append('idType', idType);
-  const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '';
-  return await postFile(`${baseUrl}/api/file/upload`, formData);
+  return await postFile(`/api/file/upload`, formData);
+}
+
+export async function uploadFileSimCards(file, orderId) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('orderId', orderId);
+  formData.append('idType', 'CREATE_ICCID');
+  return await postFile(`/api/file/uploadIccids`, formData);
+}
+
+export async function uploadFileSimCardsFromLines(file) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('idType', 'CREATE_ICCID');
+  return await postFile(`/api/file/upload`, formData);
+}
+
+export async function importIccidsFromLines(partnerId, customerAccountId, simCardId, tempDataUuid) {
+  const response = await query(
+    `
+    mutation {
+      importSimcards(
+        input: {
+          uuid: "${tempDataUuid}"
+          partnerId: "${partnerId}"
+          customerAccountId: "${customerAccountId}"
+          simCardId: "${simCardId}"
+        }
+      ) {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+      }
+    }
+    `
+  );
+  return response.data.importSimcards;
 }
 
 export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {
@@ -465,15 +554,27 @@ export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, 
   return response.data.exportErrors;
 }
 
-export async function exportSimCardInstances(columns, orderBy, exportFormat, filters = []) {
+export async function exportSimCardInstances(
+  columns,
+  orderBy,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
   const response = await query(
     `
     query {
       exportSimCardInstances(filter: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}) {
         downloadUri
         asyncRequired
       }
@@ -489,10 +590,18 @@ export async function exportSimCardInstances(columns, orderBy, exportFormat, fil
   return response.data.exportSimCardInstances;
 }
 
-export async function fetchCurrentConsumption(simcardId) {
+export async function fetchCurrentConsumption(filters) {
+  const filtersGQL = [];
+
+  for (const [key, value] of Object.entries(filters)) {
+    if (['simCardInstanceId', 'partyId', 'workflowId', 'customerAccoutId'].find(k => k === key)) {
+      filtersGQL.push(`${key}:${value}`);
+    }
+  }
+
   const queryStr = `
   query {
-    currentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}){
+    currentConsumptionV2(${filtersGQL.join(',')}){
       dataNationalConsumption
       dataIncomingNationalConsumption
       dataOutgoingNationalConsumption
@@ -520,13 +629,13 @@ export async function fetchCurrentConsumption(simcardId) {
 
   const response = await query(queryStr);
 
-  return response.data.currentConsumption;
+  return response.data.currentConsumptionV2;
 }
 
 export async function exportCurrentConsumption(simcardId, exportFormat) {
   const queryStr = `
   query {
-    exportCurrentConsumption(filter: {key: SIMCARDINSTANCEID, value: ${simcardId}}, exportFormat: ${exportFormat}){
+    exportCurrentConsumption(simCardInstanceId: ${simcardId}, exportFormat: ${exportFormat}){
       downloadUri
       asyncRequired
     }
@@ -555,16 +664,19 @@ export async function fetchLineServices(simCardInstanceId) {
   {
     marketingServices(simCardInstanceId: ${simCardInstanceId}) {
       code
+      labelService
       activated
       editable
       optional
-      name
       activationDate
       parameters {
         activated
         name
         code
         editable
+        versionIp
+        ipAdress
+
       }
     }
   }

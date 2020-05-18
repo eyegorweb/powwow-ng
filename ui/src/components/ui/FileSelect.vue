@@ -2,7 +2,7 @@
   <label class="file-select d-block">
     <div class="select-button" :class="{ disabled: disabled }">
       <span v-if="value">{{ value.name }}</span>
-      <span v-else>{{ $t('filters.lines.fromFile.import-file') }}</span>
+      <span v-else>{{ placeholder }}</span>
     </div>
     <input :key="version" type="file" @change="handleFileChange" :disabled="disabled" />
   </label>
@@ -13,6 +13,7 @@ export default {
   props: {
     value: File,
     disabled: Boolean,
+    placeholder: String,
   },
   data() {
     return {

@@ -2,6 +2,1925 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.791+20200518054002
+2020-05-18
+
+### Fixes
+
+- gestion des rôles pour l'administration d'utilisateur (55912134598170cf7f4d276505250e37d1cec4e4)
+
+## 0.3.0-master.790+20200515170714
+2020-05-15
+
+### Features
+
+- Panel détail de facture (e5b38a7837107eb72091468b356d1308a1f26af4)
+
+## 0.3.0-master.789+20200515164428
+2020-05-15
+
+### Fixes
+
+- gestion des rôles pour l'administration d'utilisateur (c351e2f782b78de328d7bd3257807c1b660975f2)
+
+## 0.3.0-master.788+20200515153715
+2020-05-15
+
+### Features
+
+- Page factures (877a83b339193b33b987d8314146bd70ce6704b1)
+
+## 0.3.0-master.787+20200515150655
+2020-05-15
+
+## 0.3.0-master.786+20200515042721
+2020-05-15
+
+### Fixes
+
+- correctif d'affichage du pays sur la carte des adresses de livraison (9877a6dcdaf4f92ff952a9a2bd2c344958a55352)
+
+## 0.3.0-master.785+20200514154223
+2020-05-14
+
+## 0.3.0-master.784+20200514131745
+2020-05-14
+
+### Fixes
+
+- limitation du nombre de caractères des adresses de livraison (ad78db79a828489a7680d8406a5aa5bc734f0e89)
+
+## 0.3.0-master.783+20200514072158
+2020-05-14
+
+### Features
+
+- gestion des adresses de livraison (346d48953d70170ec60e87e9d9d729200c0853ae)
+
+## 0.3.0-master.781+20200513152217
+2020-05-13
+
+## 0.3.0-master.780+20200513151123
+2020-05-13
+
+## 0.3.0-master.779+20200513145834
+2020-05-13
+
+## 0.3.0-master.778+20200513093825
+2020-05-13
+
+### Features
+
+- gestion et personnalisation des champs spécifiques (8caa0d2c89e6e1f046715fdde4309ad614d0411c)
+
+## 0.3.0-master.777+20200513075620
+2020-05-13
+
+## 0.3.0-master.776+20200512120247
+2020-05-12
+
+## 0.3.0-master.775+20200512073813
+2020-05-12
+
+### Features
+
+- gestion des champs libres (052e8c3d2cafae419dc3fa15a6db1ec1ecd2c233)
+
+## 0.3.0-master.773+20200511154601
+2020-05-11
+
+## 0.3.0-master.772+20200507125812
+2020-05-07
+
+### Features
+
+- 1182 gérer les offres du partenaire (34d5cd99bea864771259729b02e0b3c23925f2d0)
+
+## 0.3.0-master.771+20200506125539
+2020-05-06
+
+### Fixes
+
+- correction pour l'ajout d'un utilisateur (94c1a6eded0e78b169d6283ded8e0e30a1fa6959)
+
+## 0.3.0-master.770+20200506095313
+2020-05-06
+
+## 0.3.0-master.769+20200505210626
+2020-05-05
+
+### Fixes
+
+- enlever le mock de getAdmin (c23c9e0c9bb83b59c0e4c2c0e89a19c1e54b2f07)
+
+## 0.3.0-master.768+20200505204612
+2020-05-05
+
+## 0.3.0-master.767+20200505202410
+2020-05-05
+
+## 0.3.0-master.766+20200505163108
+2020-05-05
+
+## 0.3.0-master.764+20200505155527
+2020-05-05
+
+### Fixes
+
+- rafraichir la liste des utilisateurs (a40fd44b8d7405d5bba8e80fc21bbd04f56f73de)
+
+## 0.3.0-master.763+20200505153807
+2020-05-05
+
+## 0.3.0-master.762+20200505152059
+2020-05-05
+
+### Features
+
+- Création d'utilisateur (afb7e04b1a71bf69765b3daaab0e6b250d3fffec)
+
+## 0.3.0-master.760+20200505144609
+2020-05-05
+
+### Fixes
+
+- modification du menu GetAdmin (cc29393a9f44edd6c8d984ed74f289a6b3ee5382)
+
+## 0.3.0-master.759+20200505135514
+2020-05-05
+
+### Fixes
+
+- correctif de la navigation de retour depuis le détail des utilisateurs (15e780597786982ad281e19dc93505b6849a876c)
+
+## 0.3.0-master.758+20200505133555
+2020-05-05
+
+### Fixes
+
+- correctifs de navigation dans le détail de la gestion des partenaires (8590b57f32d977b4e7b638b8aba9c61fd03b4d3a)
+
+## 0.3.0-master.757+20200505132044
+2020-05-05
+
+### Fixes
+
+- correction sur l'onglet actif par défaut dans la gestion des utilisateurs (631b5fabf5634a02603480138a052f9f009a2834)
+
+## 0.3.0-master.756+20200505123916
+2020-05-05
+
+### Fixes
+
+- **commandes:** correction de l'offre sélectionnée dans les services lors de la création de commandes (b306ada407149fc07ddd165a389608746b5d57ef)
+
+## 0.3.0-master.755+20200505122239
+2020-05-05
+
+### Features
+
+- enregistrer les options partenaire (54102f951b9d88a3a2b4a0585f627e6af3ec6d3c)
+
+## 0.3.0-master.754+20200505114209
+2020-05-05
+
+### Fixes
+
+- **commandes:** correctif du nom de l'offre sélectionnée lors de la création de commande (44e5ea4e028ff06abf1097447c480de4459c52f5)
+
+## 0.3.0-master.753+20200505093514
+2020-05-05
+
+## 0.3.0-master.752+20200504141739
+2020-05-04
+
+### Features
+
+- Consulter les options du partenaire (e6ebc8618c22559feae7037a9a961783c886459b)
+
+## 0.3.0-master.751+20200504140218
+2020-05-04
+
+### Fixes
+
+- modification de la liste de diffusions avec un id dynamique (bfcee9d2fa1b6fba0636368a204d840dd16c6e23)
+
+## 0.3.0-master.750+20200504134850
+2020-05-04
+
+### Fixes
+
+- correctifs de la table des gestions des partenaires (cc27ded08bc753e63d518c678e8975da0ee44fed)
+
+## 0.3.0-master.749+20200504131956
+2020-05-04
+
+### Fixes
+
+- correctifs des infos sur le détail des partenaires dans la gestion d'administration (0c20f0d9c6c6e5f6235c104f6a58653142f6e517)
+
+## 0.3.0-master.748+20200504082048
+2020-05-04
+
+### Fixes
+
+- gestion des permissions pour la création des rapports (629da034aa83896faee505fbfd1846b300298e0f)
+
+## 0.3.0-master.747+20200504075929
+2020-05-04
+
+### Fixes
+
+- gestion des permissions pour la création de rapports (ef2f932318ecfd32aa3e106c47409ccd098acb2e)
+
+## 0.3.0-master.746+20200501125356
+2020-05-01
+
+### Fixes
+
+- correctif des permissions sur la création de rapports (fac66341e0d93e6f626a302219e23a37f8422ea8)
+
+## 0.3.0-master.745+20200430150756
+2020-04-30
+
+## 0.3.0-master.744+20200430143329
+2020-04-30
+
+### Fixes
+
+- gestion des permissions des partenaires lors de la création de rapports (7582b73703917e5f11be9280b5cdb7f0c47320e1)
+
+## 0.3.0-master.743+20200429184655
+2020-04-29
+
+### Fixes
+
+- mise à jour du type MIME excel pour l'import de fichiers (5bdebb38324704eb95fd33d71752a1c5fb88a2b8)
+
+## 0.3.0-master.742+20200429132535
+2020-04-29
+
+### Fixes
+
+- configuration de permissions lors de la création de rapports (afeaf98119353a6923ef51b6b9b51f0b1970fe3c)
+
+## 0.3.0-master.741+20200429091614
+2020-04-29
+
+### Fixes
+
+- ajout du contexte utilisateur pour permettre l'import de cartes SIM hors commande (6297d01757ee212470e0a1d97190dab00cb90fdc)
+
+## 0.3.0-master.740+20200428144455
+2020-04-28
+
+### Fixes
+
+- correctif pour afficher les résultats de la table Gestion des utilisateurs (0bdc035e637d78d926b395fff1da558cbef33ac3)
+
+## 0.3.0-master.738+20200428143008
+2020-04-28
+
+## 0.3.0-master.737+20200428132543
+2020-04-28
+
+## 0.3.0-master.736+20200428130239
+2020-04-28
+
+### Features
+
+- gestion de l'administrateur principal et secondaire de mon partenaire (b348bb53447eff2c97d820e0e1937cac005de2fe)
+- import de cartes SIM hors commande (4246899ce40b26ab51bf07b84bccaf91b4386c8b)
+
+## 0.3.0-master.734+20200428075105
+2020-04-28
+
+### Features
+
+- liste des utilisateurs d'un partenaire (f19438e9898a6e9a9ac021513decc0fcb82966ac)
+
+## 0.3.0-master.732+20200427152258
+2020-04-27
+
+## 0.3.0-master.731+20200427150751
+2020-04-27
+
+### Features
+
+- Création et mise à jour d'utilisateurs depuis le détail de partenaires (d8c8992544db944730f80ad0066375e2680fa691)
+
+## 0.3.0-master.730+20200427093624
+2020-04-27
+
+### Fixes
+
+- admins cards test (2d7d649b22dc530ea331d1e0248e91f680d1a375)
+
+## 0.3.0-master.729+20200427071616
+2020-04-27
+
+## 0.3.0-master.728+20200424140439
+2020-04-24
+
+### Fixes
+
+- correction sur la table des utilisateurs (700d04bd89d6b358f77c9be2ca275d1ffa737bb8)
+
+## 0.3.0-master.727+20200424135810
+2020-04-24
+
+### Features
+
+- export de la liste des utilisateurs (5b9f370df0019f62e197f01b07213df0a7681c2f)
+
+## 0.3.0-master.726+20200424081739
+2020-04-24
+
+### Fixes
+
+- ajout d'un gestionnaire d'erreur pour la création de rapport (bcc535c273a3c1ee729857dff315fe6d67cb9d95)
+
+## 0.3.0-master.725+20200424065038
+2020-04-24
+
+### Features
+
+- **gestion des utilisateurs:** ajout du filtre par rôle (a7a8dfd954ddea06e4c4326a5143a4b56b647dd2)
+
+### Fixes
+
+- modifications des besoins du rapport de création (4f86a66dd42d456830c8d714cf475ae646dfb730)
+
+## 0.3.0-master.723+20200423092501
+2020-04-23
+
+## 0.3.0-master.722+20200423065303
+2020-04-23
+
+### Fixes
+
+- mise à jour de l'acte de création de transfert des lignes (4395089a058e9bc1decb9ade13875bfe44607be8)
+
+## 0.3.0-master.721+20200422130807
+2020-04-22
+
+### Fixes
+
+- **gestion des lignes:** mise à jour de l'acte de gestion transfert des lignes (4d511013e92c4d396032128e783c93d77f097721)
+
+## 0.3.0-master.720+20200422121835
+2020-04-22
+
+## 0.3.0-master.719+20200422113717
+2020-04-22
+
+## 0.3.0-master.718+20200421173522
+2020-04-21
+
+## 0.3.0-master.717+20200421143402
+2020-04-21
+
+## 0.3.0-master.716+20200421123027
+2020-04-21
+
+### Features
+
+- Téléchargement de documents (d3575506493a64c73b456cc0afd51c6b676fbcfa)
+
+## 0.3.0-master.715+20200421090852
+2020-04-21
+
+### Features
+
+- Branchement des exports asynchrones (3060767741d3733524f60afec29d93f407e8724d)
+
+### Fixes
+
+- **lines:** mise à jour de l'acte de création des tranferts des lignes (e260d5631b85cd57ab0c3034cd303082a3d7263b)
+
+## 0.3.0-master.714+20200420152129
+2020-04-20
+
+### Fixes
+
+- mise à jour des infos lors de l'ouverture du volet Utilisateur (0b4fb231af4360dde9930a5f69abd4dd7e4a1c3b)
+
+## 0.3.0-master.713+20200420124413
+2020-04-20
+
+### Features
+
+- Gérer les permissions sur la création des rapports (8f632224c7eb076967597ab007d0a65be10fbcc9)
+
+## 0.3.0-master.712+20200420091721
+2020-04-20
+
+### Fixes
+
+- Retours sur la getReport (fad11772b62eae424f012e9b891ecb84a42428e9)
+
+## 0.3.0-master.711+20200417144507
+2020-04-17
+
+## 0.3.0-master.710+20200417141930
+2020-04-17
+
+### Features
+
+- Brancher les colonnes des documents (43da76c92ec1de515c2d414ee4e50f57b4e0549e)
+
+## 0.3.0-master.709+20200417133221
+2020-04-17
+
+### Features
+
+- **reports:** ajout de l'action de suppression dans la gestion de documents (200341b5a5ed8156c01534f15e0a88d742c77c85)
+
+## 0.3.0-master.708+20200417124718
+2020-04-17
+
+### Features
+
+- Ajouter le statut du rapport dans la liste et dans le détail (7fbb0849924f497593a36865665034980a86ab60)
+
+## 0.3.0-master.707+20200417114936
+2020-04-17
+
+### Features
+
+- activer / désactiver un rapport de mon partenaire (d60fb675e21cdda3de1308f36340c270942af455)
+
+## 0.3.0-master.706+20200416145541
+2020-04-16
+
+### Features
+
+- consulter les rapports générés (exports) dans la gestion documentaire depuis la liste des rapports (e3c3c9e49da2b2ce3c130f8501b6252bf26f18a7)
+
+## 0.3.0-master.705+20200416130442
+2020-04-16
+
+## 0.3.0-master.704+20200416125920
+2020-04-16
+
+### Fixes
+
+- **lines:** correction du total de consommation voix internationale (7ce4243424b9069add374b371f5b3332ff46f445)
+
+## 0.3.0-master.703+20200416124847
+2020-04-16
+
+### Fixes
+
+- Correction du filtre partenaire (6a0785b8a4ae7ea718acf408bd61283a8f3d4c9b)
+
+## 0.3.0-master.702+20200416121332
+2020-04-16
+
+### Features
+
+- rechercher mes documents par le modèle de rapport (68cbad30f36d49246f6d253727ccad97b4249596)
+
+## 0.3.0-master.701+20200416074037
+2020-04-16
+
+## 0.3.0-master.700+20200416073203
+2020-04-16
+
+## 0.3.0-master.699+20200416072156
+2020-04-16
+
+### Fixes
+
+- Correction de l'export des actes (e7954f3bb47339bbe915716bf8df0a02d0a7e968)
+
+## 0.3.0-master.698+20200416051453
+2020-04-16
+
+### Features
+
+- **report:** ouverture du volet de l'utilisateur (47bb25d076ecb1255db6cb1a9f32b0263c43dbe5)
+
+## 0.3.0-master.697+20200415150505
+2020-04-15
+
+### Fixes
+
+- ne pas afficher la mailing list durant la modification de rapports (1a4091d927969f9ef7cf6938e20e6acc066c9d4e)
+
+## 0.3.0-master.696+20200415142904
+2020-04-15
+
+### Fixes
+
+- Le cycle d'observation doit être MONTHLY par défaut pour les alarmes de consommation en mode standard. (80a328085e60d0318dae2e330179223ac77bb063)
+
+## 0.3.0-master.695+20200415130659
+2020-04-15
+
+### Features
+
+- **report:** ouverture du volet Créateur (0de3da7fd3e0085fc7a28842749961adfe941aff)
+
+### Fixes
+
+- Retour panel modif raport (6920c439a154f6600ca96513b8ad2e14aaaf9554)
+- Page documents tri sur les documents et affichage des partenaires (1882e6685c75bf75fd9a4ab8d97048e5a4dce2b6)
+
+## 0.3.0-master.694+20200415091621
+2020-04-15
+
+### Features
+
+- Modification de Rapports (4cefea5fdbb30d746a2d554ef4054cd5c3a2a6b8)
+
+## 0.3.0-master.693+20200415073107
+2020-04-15
+
+### Features
+
+- Page de recherche de documents (ce3015cbd13cf44c240a4b8c6189ba1e7983eb30)
+- **rapports:** affichage de la table des rapports (d1613c96bf37a340941c662ea0b152085f322956)
+
+## 0.3.0-master.692+20200410135551
+2020-04-10
+
+### Features
+
+- créer un rapport pour mon partenaire depuis la home des rapports (be1000a3b08b591018bd426fe5a8036302956335)
+
+## 0.3.0-master.691+20200410094738
+2020-04-10
+
+### Features
+
+- Création de rapports (2a93bfcfcabd29b2ee3738c8f6e121819f132ef0)
+
+## 0.3.0-master.690+20200410074816
+2020-04-10
+
+### Features
+
+- **rapports:** affichage des rapports (5fa24bc84a775ec7b663ad1628d7ecf85e4dbd4e)
+
+## 0.3.0-master.689+20200408120142
+2020-04-08
+
+### Fixes
+
+- Correction des problème d'affichage de l'historique de déclenchements dans le volet des déclenchements (a778a6265cc3242fc37490acb723c9f68847521a)
+
+## 0.3.0-master.688+20200408093709
+2020-04-08
+
+## 0.3.0-master.687+20200408082906
+2020-04-08
+
+### Fixes
+
+- branchement des volets "historique de déclenchement" et "détail de l'alarme" dans le détail de la ligne (6cb8ee8482e8c675241e135a302766d94a2aeee5)
+
+## 0.3.0-master.686+20200407150039
+2020-04-07
+
+### Features
+
+- Motif de déclenchement pour tous les types d'alarme dans le volet d'historique de déclenchement (dbdb4e5b9261cc9abf60ab632450c66de1ab58ca)
+
+### Fixes
+
+- de l'inversement de données + ajout du total dans le graphique (757165316e670033110149498ee779beca6c261a)
+
+## 0.3.0-master.685+20200407094450
+2020-04-07
+
+### Fixes
+
+- **alarmes:** correction traduction (d794d9b0f79683e0b3b80696a1077b7d7c8314df)
+
+## 0.3.0-master.684+20200407090415
+2020-04-07
+
+### Fixes
+
+- correction de la traduction du statut de la carte sim (799e3afc2dbf2a42f39a081d207add468c33ed68)
+
+## 0.3.0-master.683+20200406141539
+2020-04-06
+
+## 0.3.0-master.682+20200406140002
+2020-04-06
+
+### Fixes
+
+- séléctionner correctement les filtres séléctionnés (0d6fa2efa881f3fe14369f97e30e46645b6fbe7f)
+
+## 0.3.0-master.681+20200406130110
+2020-04-06
+
+### Fixes
+
+- Correction de bugs sur les alarmes (18d70c8ab06407210ce063c90de06ac107601b9e)
+- enlever l'onglet en double (292bacad380c0d16c9cb9672f32b39cafa9a9253)
+- Correction des données incohérentes dans le détail de l'alarme (7ba6815a2f3e626931cc2826d23621c0ff7a8547)
+- **détail des alarmes:** correction de la traduction et de la conversion des valeurs sur la colonne des déclenchements (f86884fb7393252f2eeb018c9f198fb000a728c8)
+
+## 0.3.0-master.680+20200403130633
+2020-04-03
+
+### Fixes
+
+- importer des SIM sur une commande, le libellé d'erreur ne s'affiche pas correctement (a7e586aad285ec0b086b2140d22d6e45d5f1f388)
+
+## 0.3.0-master.679+20200403094754
+2020-04-03
+
+### Fixes
+
+- n'afficher que les actes de gestion des 3 derniers mois dans les widgets de la homepage (73fae832007a8ee187a66d9e311c26d0bb75243e)
+
+## 0.3.0-master.678+20200403082836
+2020-04-03
+
+### Fixes
+
+- Correction de l'activation/désacrivation des alarmes depuis le détail d'une ligne (70dc4232e60b7880475250e2cc6cc028ffa6af2e)
+
+## 0.3.0-master.677+20200403080729
+2020-04-03
+
+### Fixes
+
+- ajout d'un espace entre le jour et l'heure sur les indicateurs (3860e19974004ba0bfc06ef33f4527f2fdc1874d)
+
+## 0.3.0-master.676+20200403075147
+2020-04-03
+
+### Features
+
+- créer une alarme depuis le détail d'une ligne (5823017ca048feb2bc32fa282c86ab48f5157481)
+
+## 0.3.0-master.675+20200403062822
+2020-04-03
+
+## 0.3.0-master.674+20200402160246
+2020-04-02
+
+## 0.3.0-master.673+20200402133914
+2020-04-02
+
+## 0.3.0-master.672+20200402132956
+2020-04-02
+
+## 0.3.0-master.671+20200402130413
+2020-04-02
+
+### Fixes
+
+- Modification d'alarme (843f2bcd7b5e7ed5e9a1723e4706d8c4e7db64c0)
+
+## 0.3.0-master.670+20200402124218
+2020-04-02
+
+### Fixes
+
+- correction de la mise à jour de l'api workflows pour récupérer les offres uniquement actives (280f932fdd98f91a4db5f224fb4ceaa910382835)
+
+## 0.3.0-master.669+20200402122249
+2020-04-02
+
+## 0.3.0-master.668+20200402085458
+2020-04-02
+
+### Fixes
+
+- correction dans le détail d'alarme (cf6ae8592395bcf2af4f688d3f89b8c9ae04dc9c)
+
+## 0.3.0-master.667+20200401152757
+2020-04-02
+
+## 0.3.0-master.666+20200401152231
+2020-04-01
+
+### Fixes
+
+- Corriger la création d'alarmes (7273a1fb4d0324c9cdc4a456864d600d1bea54d9)
+
+## 0.3.0-master.665+20200401150626
+2020-04-01
+
+### Fixes
+
+- La recherche unitaire de lignes ne fonctionne plus (04ec4ad98b4f051ac3908e9dc16c25ae05f64a67)
+
+## 0.3.0-master.664+20200401150033
+2020-04-01
+
+### Fixes
+
+- correction pour assigner immédiatement les indicateurs des commandes (4595adc86b11e15785af11fb8cd9025a99db1ee0)
+
+## 0.3.0-master.663+20200401140729
+2020-04-01
+
+### Features
+
+- brancher onglet exclues alarm (a449a25cb120b31b0dc47bc6a9bf269fd876a282)
+
+## 0.3.0-master.662+20200401134335
+2020-04-01
+
+### Fixes
+
+- correction de la mise à jour de l'api workflows pour récupérer les offres uniquement actives (7b74fa2d9089d0b065c64524a32534806c74d68c)
+
+## 0.3.0-master.661+20200401121050
+2020-04-01
+
+### Fixes
+
+- gestion du stepper pour le détail de la commande (cf6d3c7c8c000d493b900a09d11dd69c0ffe3a32)
+- Création d'alarme (53936790e91ce89b84cab7892eeb04d4449c64dd)
+
+## 0.3.0-master.660+20200331135502
+2020-03-31
+
+## 0.3.0-master.659+20200331133843
+2020-03-31
+
+## 0.3.0-master.658+20200330133219
+2020-03-30
+
+### Fixes
+
+- correctif d'évaluation du partenaire dans le détail de l'alarme (82c4dbb9ff5ac6897004936529a78e023562e260)
+
+## 0.3.0-master.657+20200330095114
+2020-03-30
+
+## 0.3.0-master.656+20200327105631
+2020-03-27
+
+## 0.3.0-master.655+20200327105103
+2020-03-27
+
+### Features
+
+- Mise en place de l'écran de l'utilisateur. (fc8acdee47e6f58ff658e6631d2e785fa0f14881)
+
+## 0.3.0-master.654+20200326165835
+2020-03-27
+
+## 0.3.0-master.653+20200326164657
+2020-03-26
+
+### Fixes
+
+- Changement des icones et leurs couleurs + FIX: centrer les icones (90c0b0caf8b864afe73cdb8dd75002c7aaa0d97d)
+
+## 0.3.0-master.651+20200326163237
+2020-03-26
+
+### Fixes
+
+- correctif du filtre Partenaires pour la gestion des utilisateurs (e5fdd26a517f4091d937cea3d2cc05b189ba5523)
+
+## 0.3.0-master.650+20200326140922
+2020-03-26
+
+### Fixes
+
+- simplification des états d'affichage des filtres dans la gestion des utilisateurs (d4012340da26f0383abca09fb3101e665df50728)
+
+## 0.3.0-master.649+20200326102629
+2020-03-26
+
+### Fixes
+
+- ajout d'une propriété de visibilité pour afficher les blocs de filtres (1e23b955ef413c909501300b84572d7ebd6a0517)
+
+## 0.3.0-master.647+20200325151400
+2020-03-25
+
+## 0.3.0-master.645+20200325150512
+2020-03-25
+
+### Features
+
+- **admin:** ajout du filtre Partenaires pour la gestion des utilisateurs (cfa9fbd1898bbbc3ff6713fafe54600542000cbe)
+
+## 0.3.0-master.644+20200325141240
+2020-03-25
+
+### Features
+
+- ajout de plusieurs informations dans le panel de du détail d'alarme (99e841a41c40c43ef8f5806561fb913ccee4bb82)
+
+## 0.3.0-master.643+20200325063255
+2020-03-25
+
+### Fixes
+
+- suppression des labels se superposant au-dessus des barres des graphiques (cebf8a4c7ff991ce4d1e007ea6f26c6177e2ba56)
+
+## 0.3.0-master.642+20200323134404
+2020-03-23
+
+## 0.3.0-master.641+20200323132822
+2020-03-23
+
+### Features
+
+- **admin:** ajout du filtre Groupe de partenaire (62cf899c845d4e5e8b0ad2172f521320d27b533c)
+
+### Fixes
+
+- Traduction du panel detail d'alarme (f13067510cde5188bd4bd1b3ff46c58dcb7a8041)
+
+## 0.3.0-master.640+20200322115059
+2020-03-22
+
+### Fixes
+
+- Correction des tests cypress (7ffc586bb4f1412a093ecd5cfefa574f593db92f)
+
+## 0.3.0-master.639+20200320093650
+2020-03-20
+
+### Fixes
+
+- libellés des services n'apparaissent pas dans la création de commande (6f7d14a4febf3469c8b34e1ec5eceb0df1a006cf)
+
+## 0.3.0-master.638+20200320091223
+2020-03-20
+
+### Fixes
+
+- correction du bug pour appliquer le filtre sur les dates dans l'historique des actes de gestion (8ab7baa67d86bdc254c159921ce5c60f26e307c7)
+
+## 0.3.0-master.637+20200319152823
+2020-03-19
+
+### Fixes
+
+- libellé "lignes sélectionnées" au lieu de "lignes trouvées' quand je crée un acte de gestion (b90fc89ff859ad0ec8889d133d2a438f237ec790)
+- ajout dynamique des onglets pour les widgets Top/Flop (40490b48becf6d3fe1005cdbcdc8b5b43ebb2f63)
+- derniers actes en premier dans le widget "derniers actes de gestion de l'utilisateur" (d6e560041774a97bced41e59d75d1ca450e82527)
+
+## 0.3.0-master.636+20200319151929
+2020-03-19
+
+### Fixes
+
+- libellé "lignes sélectionnées" au lieu de "lignes trouvées' quand je crée un acte de gestion (b90fc89ff859ad0ec8889d133d2a438f237ec790)
+- ajout dynamique des onglets pour les widgets Top/Flop (40490b48becf6d3fe1005cdbcdc8b5b43ebb2f63)
+
+## 0.3.0-master.635+20200319105141
+2020-03-19
+
+### Features
+
+- onglet "déclenchements dans les 2 derniers mois" dans l''écran de détail de l'alarme (e30f004eac768d7cca613bedffcb438a57731188)
+
+## 0.3.0-master.634+20200318153123
+2020-03-18
+
+### Fixes
+
+- correction des abbreviations des mois (1d9c51cc3a7ee7c4b0ccb595e36f3677453a89e8)
+- correction de l'abbreviation du mois de juillet (8a619518b600af0573e4d4c81c6dcb2c913460da)
+
+## 0.3.0-master.632+20200318114032
+2020-03-18
+
+### Features
+
+- alarm sur le changement de statut (43c0e23737a1976b5265f4f5fc7d8d78e8ba9f74)
+
+### Fixes
+
+- Reset de la pagination à l'application de filtre (1471f0663812cf5e00e5892cf48b1b67993fe78d)
+
+## 0.3.0-master.631+20200318060355
+2020-03-18
+
+### Fixes
+
+- mise à jour des unités du Widget "Lignes les plus consommatrices du mois" (2abeee53a591d8955cea6e48b1426b320aa9fb0d)
+
+## 0.3.0-master.630+20200317212919
+2020-03-17
+
+### Fixes
+
+- enlever partyID de la requête des lignes rattachés à une alarme (43713bfc67a98413074f3980165d1faa357f37b4)
+- Correction de la requête de création d'alarme de sur conso et sous conso (db69199fa5a873927f5ead561d391a0ea2ec6453)
+
+## 0.3.0-master.629+20200317162326
+2020-03-17
+
+### Fixes
+
+- arrondi sur la valeur de l'indicateur du Délai moyen (82dfbbcb123e6c4023a69a77c1efc0edcd9fe12e)
+
+## 0.3.0-master.628+20200317152138
+2020-03-17
+
+### Fixes
+
+- correctif sur la valeur de l'indicateur de Délai moyen (21125ccb16dae56c9a0ec041da9ab64c0508a940)
+
+## 0.3.0-master.627+20200317150531
+2020-03-17
+
+### Fixes
+
+- enlever partyID de la requête des lignes rattachés à une alarme (43713bfc67a98413074f3980165d1faa357f37b4)
+
+## 0.3.0-master.626+20200317141307
+2020-03-17
+
+### Fixes
+
+- vérification de la valeur de type Number (0057bae2640747acb89dad8ce165fce64dad54f1)
+
+## 0.3.0-master.625+20200317084743
+2020-03-17
+
+### Fixes
+
+- Correction du problème d'affichage des widgets de la homepage (1d0102dd7507443e67c5f1c5adacddcfd9ff1ee8)
+
+## 0.3.0-master.624+20200316152226
+2020-03-16
+
+### Fixes
+
+- correctif du calcul de la valeur de délai basé sur l'heure (7b4ef7a56b662c93974a16d068326dd0c3ba64d9)
+
+## 0.3.0-master.623+20200316142429
+2020-03-16
+
+### Fixes
+
+- calcul de la valeur de délai basé sur l'heure (9ea403404598f0e96faea962e9407c16951fb53c)
+
+## 0.3.0-master.622+20200316091252
+2020-03-16
+
+### Fixes
+
+- ne pas relancer la requête si l'appel renvoi une erreur 503 (0bca669d256d9a42a540a5b9e7133310e7656d06)
+
+## 0.3.0-master.621+20200312163804
+2020-03-12
+
+### Fixes
+
+- affichage des mois pour le widget Top/Flop (6ca9c79765eb7407d5b47d86f8e6b74c294de4a6)
+
+## 0.3.0-master.620+20200312152233
+2020-03-12
+
+### Fixes
+
+- mise à jour api et optimisation perf (moins de requêtes) (6a7a811ca3dfefd45dac4cd3348fff9b9ce45247)
+
+## 0.3.0-master.619+20200312131910
+2020-03-12
+
+### Fixes
+
+- **linedetail:** Mise à jour de l'appel API MarketingServices (ff87b0bab1f006307bdde03f8ee310575f9b3896)
+
+## 0.3.0-master.618+20200311151253
+2020-03-11
+
+## 0.3.0-master.617+20200311132722
+2020-03-11
+
+### Fixes
+
+- **actlines:** Tri des lignes par date de statut de la ligne (4a980778d552a89e33d292d5fe3b7d684d930a45)
+
+## 0.3.0-master.616+20200311113925
+2020-03-11
+
+### Fixes
+
+- ajout de la clé groupedStatus pour exporter les actes unitaires (4d732384214d217500bfa1952dd6fac85537b174)
+
+## 0.3.0-master.615+20200310125537
+2020-03-10
+
+### Fixes
+
+- correction pour afficher l'iccid des actes unitaires (8e328d2345ce237a2413da894cf9502a1a8a9763)
+
+## 0.3.0-master.614+20200310104051
+2020-03-10
+
+### Fixes
+
+- ne pas relancer une requête en cas d'erreur 504 (633679343d8a6ee8a3f894ea12ec583d3e99b383)
+- Clic sur "retour" depuis le détail de la ligne (0987c12737814ae6664db5be5fcb6397a72d091f)
+
+## 0.3.0-master.612+20200310101322
+2020-03-10
+
+### Fixes
+
+- correction du comportement de sélection des filtres dans la gestion des utilisateurs (7b49f7efd37e390e1cd8cb0ee66426a6fb5e3a6a)
+
+## 0.3.0-master.611+20200310091904
+2020-03-10
+
+### Fixes
+
+- ajout des libellés ligne(s) dans le rapport de quantité (42c6bf718447c0683eeaf28f30fa08a3c832d977)
+
+## 0.3.0-master.610+20200310085424
+2020-03-10
+
+### Fixes
+
+- correction de la route du widget Acte de gestion (f3f5055f97d73788524a5a58d72e469d27cd60cb)
+
+## 0.3.0-master.609+20200309135747
+2020-03-09
+
+### Fixes
+
+- mise à jour de l'api users (939000ff0860ed8f6aa809e3f3beeac99e675fed)
+
+## 0.3.0-master.608+20200309103518
+2020-03-09
+
+### Fixes
+
+- mise à jour de l'api getCurrentUser (ae5ba8c5d976b3fd6323c8a3d80fb894f1ae7a4d)
+
+## 0.3.0-master.607+20200309090904
+2020-03-09
+
+## 0.3.0-master.606+20200306160622
+2020-03-06
+
+### Features
+
+- création de la page d'index Gestion des utilisateurs et ajout de filtres de recherche (db46e172964278b5e9b7a01c6a1b43321be1f276)
+
+### Fixes
+
+- Correction de la recherche par date (a89f3ca3648dc2fdc80f2da6edf88aa12c247cf8)
+
+## 0.3.0-master.605+20200304105743
+2020-03-04
+
+### Features
+
+- actions sur les alarmes depuis la table de résultat (e194f66b4e2a53a7680c7e12fefb9b529f621edb)
+
+## 0.3.0-master.604+20200304090954
+2020-03-04
+
+### Fixes
+
+- Corriger la colonne status dans l'historique des actes de gestion de la ligne (82b01030198c23624f3aa90131fdfee52087fa03)
+
+## 0.3.0-master.603+20200303165716
+2020-03-03
+
+### Fixes
+
+- appel serveur pour rafraichir la commande après un import de cartes SIM (fcc6e41c0e078d0384fd4d72ace0d1e9b97cba54)
+
+## 0.3.0-master.602+20200303155658
+2020-03-03
+
+### Fixes
+
+- correction pour mettre en place l'exemption de l'email pour la création de commandes (606e2848a47ff9d362b1169e122f32b84a86271e)
+
+## 0.3.0-master.601+20200303151943
+2020-03-03
+
+### Fixes
+
+- 1213 Changement du label 'Statut de la SIM' (0458a5d4f62af9474f39daf3f0dca93866ffdedb)
+- Corriger la création d'alarmes (7bbedbbd703aac934a150909fff950c464d3505e)
+
+## 0.3.0-master.600+20200303150630
+2020-03-03
+
+### Fixes
+
+- Afficher des données à jour dans le paneau de détail de commande (e67e532c6bf5b36f397d533b1c24476ed33f0d54)
+
+## 0.3.0-master.599+20200303140936
+2020-03-03
+
+### Fixes
+
+- Modification de l'affichage de la date de statut dans le résultat des lignes (f02516fcfeb8a06c60932c528ba347a6490c199f)
+
+## 0.3.0-master.598+20200303135151
+2020-03-03
+
+### Fixes
+
+- corriger l'export d'actes (94dde91639a750cc7548bbc0ec5536183e8906ad)
+- Désactivé le bouton de validation si erreur d'upload (d4df15570a13def6d47c68e18b4d252a27b76185)
+
+## 0.3.0-master.597+20200303134052
+2020-03-03
+
+### Fixes
+
+- adaptation aux changements de l'API d'export (3b108f5d9acdc526841b793a19f496b09ac55e78)
+
+## 0.3.0-master.596+20200303105706
+2020-03-03
+
+### Fixes
+
+- correction pour mettre en place l'exemption de l'email pour la création de commandes (51aeea5f5e7b849301a6182dc455462c7961e559)
+
+## 0.3.0-master.595+20200303101557
+2020-03-03
+
+### Fixes
+
+- correction de la limite des suggestions retournées lors de la recherche des types de cartes sim (fe1cae3ff166d355cfb3e30890b259dd7069c5f9)
+
+## 0.3.0-master.594+20200302160415
+2020-03-02
+
+### Fixes
+
+- corrections de la confirmation d'import des cartes sim (e6113cca43c37a942b996818e9bc60669509fb7b)
+
+## 0.3.0-master.593+20200302150235
+2020-03-02
+
+### Fixes
+
+- Correction du bug "acte de gestion sans lignes chargées" (b8993054f6dbcc56ac74c2dff35c20b41f222208)
+
+## 0.3.0-master.592+20200302134715
+2020-03-02
+
+### Features
+
+- Alarme sur le changement de pays (a97ddad2e8a862902c52e0c189ae83fef0f607d4)
+
+### Fixes
+
+- augmentation de la limite des suggestions retournées lors de la recherche des types de cartes sim (d06505f9486b496791c3b2047048998e550bf843)
+
+## 0.3.0-master.590+20200302122840
+2020-03-02
+
+### Fixes
+
+- Retours sur l'alarme de consommation (798652c2867c842fc26aaeda1da505ccafef4df0)
+
+## 0.3.0-master.589+20200228160447
+2020-02-28
+
+### Fixes
+
+- corriger le choix de partenaires (22e4fc9cf720994d099a23a1a91aca33b7c6755d)
+
+## 0.3.0-master.588+20200228154226
+2020-02-28
+
+## 0.3.0-master.587+20200228152622
+2020-02-28
+
+### Fixes
+
+- correction css du bouton confirmer l'import des cartes SIM (b146c0bba7f54846a77bd0889aa589b071fae447)
+
+## 0.3.0-master.586+20200228151839
+2020-02-28
+
+### Features
+
+- import des cartes SIM depuis le volet des détails de la commande (9558dce9520cbac8ceafa32547a7f6d4787b1bfe)
+
+## 0.3.0-master.585+20200228144754
+2020-02-28
+
+### Features
+
+- Alarmes de consommation (b4e2d9f601f9d8cfb289718c6ae8395039b19637)
+
+## 0.3.0-master.584+20200228101728
+2020-02-28
+
+### Features
+
+- import de fichiers des cartes SIM (6fa81ee9bd576cffae440c57e799f4cf4fe2458f)
+
+## 0.3.0-master.583+20200228095940
+2020-02-28
+
+### Features
+
+- alarme sur le changement d’équipements (a362af14be9d91595a699356d02142b40b6f8d5e)
+
+## 0.3.0-master.582+20200228091927
+2020-02-28
+
+### Features
+
+- alarme de changement d'opérateur depuis la home des alarmes (68747ed554b6019a60f67ea33da6577bcd6b13d6)
+
+## 0.3.0-master.581+20200226131517
+2020-02-26
+
+### Fixes
+
+- Erreur de surface sur le filtre par fichier (50efcad9a6e1b48a322a34def5bc6fce537af1c1)
+
+## 0.3.0-master.580+20200226090244
+2020-02-26
+
+### Features
+
+- création du widget Prise d'ordre (7a50ad32e3d697acf9d917a2c1a418d4b6e9699b)
+
+## 0.3.0-master.579+20200225135948
+2020-02-25
+
+### Fixes
+
+- correctif des données entre sms et voix sur le volet du détail de la ligne (e0870cd6c5c6949ee8c154b6624e87a7929525df)
+
+## 0.3.0-master.578+20200225134206
+2020-02-25
+
+### Fixes
+
+- corriger la recherche initiale de lignes (eff95d30de9c303a7fcc1a304eeddfbdfa242dda)
+
+## 0.3.0-master.577+20200225131659
+2020-02-25
+
+### Fixes
+
+- ajout du contexte de partenaires pour les Top widgets (7b1b99cf202ce352c25376718e8af8c3910c9c80)
+
+## 0.3.0-master.575+20200224162058
+2020-02-24
+
+### Fixes
+
+- Margin bottom sur le detail de ligne onglet consommation (6ec4f9f584c742246058649b4a8601592234714e)
+- 1025 Supprimer bouton si commande pas terminé (bd1b387794ed3eeac3eef080d8f7da4a9894567b)
+
+## 0.3.0-master.573+20200224161148
+2020-02-24
+
+### Fixes
+
+- formattage du délai pour les indicateurs (f5278067003f1083ac7c35aa8d7b0560d7f7e79c)
+
+## 0.3.0-master.572+20200224135845
+2020-02-24
+
+### Fixes
+
+- mise à jour des coordonnées de géo localisation (948be72ea93eed96a88077a41e339f036f29e85d)
+
+## 0.3.0-master.571+20200224102440
+2020-02-24
+
+### Fixes
+
+- suppression de la propriété mock pour le widget Etat du parc (cde38cbd82a52118c46416aaca00a547d5f2446a)
+
+## 0.3.0-master.570+20200221152638
+2020-02-21
+
+## 0.3.0-master.569+20200221102135
+2020-02-21
+
+### Features
+
+- onglet "lignes ciblées par l'alarme" dans l''écran de détail de l'alarme (f3dd3076bb76893bbb089a1eed247b26eed4fa67)
+
+## 0.3.0-master.568+20200220143942
+2020-02-20
+
+### Features
+
+- écran de détail de l'alarme (65b0296a445c2b95364afaa4a6143099ebe2dc1b)
+
+## 0.3.0-master.567+20200220104914
+2020-02-20
+
+### Fixes
+
+- Upload des fichiers avec erreurs côté front (b9fdc719580482f53c64799559e0c26149c590c3)
+
+## 0.3.0-master.566+20200218154151
+2020-02-18
+
+### Fixes
+
+- ne pas afficher le bouton d'export en cas de résultat vide (eae926446f1e149d75fe4b24f21fda02b9778436)
+
+## 0.3.0-master.565+20200218151208
+2020-02-18
+
+### Features
+
+- création du widget Top/Flop CA (22919d46c41ace10e22c9e9e9f68c8c2b215a374)
+
+## 0.3.0-master.564+20200218141706
+2020-02-18
+
+### Features
+
+- lorsque je clique sur la quantité ciblées dans le volet de l'alarme, le détail de l'alarme s'ouvre sur le second onglet (7e8f147ca9c6fceecdfcd611489364dda6363bb5)
+
+## 0.3.0-master.563+20200218134530
+2020-02-18
+
+### Fixes
+
+- saisir les heures dans la création des actes de gestion (f0cd856bba2704de25a74b51918d2456cf7d181d)
+
+## 0.3.0-master.562+20200218123615
+2020-02-18
+
+## 0.3.0-master.561+20200218105248
+2020-02-18
+
+### Fixes
+
+- Ne charger que le alarmes de l'utilisateur (0cdfb7e1bf763da74d85b1fd5e8e57a187c14d44)
+- newMSISDN undefined à vide (764ebec1a3badbc668113c6ac05e4084c7215d6e)
+
+## 0.3.0-master.560+20200218103228
+2020-02-18
+
+### Fixes
+
+- tronquer les noms du widget Alarmes déclenchées (dc9fa3aabaa73617d63a3e63a196a4f7bef6703c)
+
+## 0.3.0-master.559+20200217150421
+2020-02-17
+
+## 0.3.0-master.558+20200217144533
+2020-02-17
+
+### Fixes
+
+- modification des prérequis pour les actes de gestion Changement d'offre et Changement de Compte de facturation (20d92b9ba6a2f1f0db5526ace63304a6a24bd7fc)
+
+## 0.3.0-master.557+20200217112153
+2020-02-17
+
+### Fixes
+
+- correction de la traduction des statuts de facturation (1301ddce3bd9ee04211c9ac0e59bf95da2ac517e)
+
+## 0.3.0-master.556+20200214141752
+2020-02-14
+
+### Fixes
+
+- concaténation des indicateurs du widget Etat du parc (46ca63dea7d799fff1b30d5b9971b299181ba3b1)
+
+## 0.3.0-master.555+20200214103652
+2020-02-14
+
+### Fixes
+
+- ne pas lancer systématiquement une recherche de lignes (615282f42a77fbea1c37558ddc466fbac9676ead)
+
+## 0.3.0-master.554+20200213154657
+2020-02-13
+
+## 0.3.0-master.553+20200213152636
+2020-02-13
+
+### Fixes
+
+- ajouter les colonnes cycle d'observation et portée à la table des alarmes (8bc851ed2ae12ddd2f1c9847d083e39dade2c5bf)
+
+## 0.3.0-master.552+20200213131124
+2020-02-13
+
+### Fixes
+
+- Optimiser les requêtes e recherche partenaire et CF (22a4e86b4a68fbd4fd382199c88899cb39bd7f99)
+
+## 0.3.0-master.551+20200212145025
+2020-02-12
+
+### Fixes
+
+- Export de commande et d'actes de gestion (57e83f7f06875b89c72e1832aeaae3da8610cf7a)
+
+## 0.3.0-master.550+20200212144712
+2020-02-12
+
+### Fixes
+
+- ajout de la traduction du statut de la ligne (81a9fc7c54d4918844f59d71cb59f03ca6ae9fe6)
+
+## 0.3.0-master.549+20200212141857
+2020-02-12
+
+### Fixes
+
+- correction du filtre de type d'acte de gestion pour les actes de résiliation (b3d1c2b9746d81cf51e12b049425de885bab8113)
+
+## 0.3.0-master.548+20200212140840
+2020-02-12
+
+### Fixes
+
+- Le clic sur "voir le détail" dans la liste des commandes n'ouvre pas le volet (3ae08242b3aa5a5721d99c3f45ce293ba3573c10)
+
+## 0.3.0-master.547+20200212134222
+2020-02-12
+
+## 0.3.0-master.546+20200212131157
+2020-02-12
+
+### Fixes
+
+- correction des indicateurs d'actes en échec (e82846b86c5d2084caae9cee1b11d8261e1cd458)
+
+## 0.3.0-master.545+20200212130427
+2020-02-12
+
+### Fixes
+
+- Corriger la traduction du message d'erreur (52686c834baafb1b129ba400918d0e2e3f9de523)
+- ne pas afficher les champs spécifiques pour les utilisateurs autres que BO (f54d75a63e3b4162a68fdba6ddeb341e0411c53f)
+
+## 0.3.0-master.544+20200212123825
+2020-02-12
+
+### Fixes
+
+- inversion et formation graphique supervision (f8023f255058de7fb115f6f3b3190c957ca7dbf3)
+
+## 0.3.0-master.543+20200212103849
+2020-02-12
+
+### Fixes
+
+- correction des dates d'application sur les filtres (279bf42229b9c86c6d5fd20036010a1c8551879f)
+
+## 0.3.0-master.542+20200212085804
+2020-02-12
+
+### Fixes
+
+- Correction de bugs d'affichage (f84bdb630fd9d5f744c6d6dcf702ddd33daccfcd)
+
+## 0.3.0-master.541+20200211161221
+2020-02-11
+
+### Fixes
+
+- Brancher le champ localisation (2e0038846181029b2c78e20c80b658a423e4d8e8)
+
+## 0.3.0-master.540+20200211152427
+2020-02-11
+
+## 0.3.0-master.539+20200211143916
+2020-02-11
+
+### Fixes
+
+- succès et échecs des actes de gestion dans la même colonne (852d6f4016b39822726469bbf0cf4075ec1b0a53)
+
+## 0.3.0-master.538+20200211124814
+2020-02-11
+
+### Fixes
+
+- Correction de bugs (544858ae08cb395f907a68660b9770d717ea17f1)
+
+## 0.3.0-master.537+20200210144605
+2020-02-10
+
+### Fixes
+
+- le nombre de SMS est rendu dynamiquement (4dc1ac931863afaa0d10d3b783809b4f99eedc84)
+
+## 0.3.0-master.536+20200210142301
+2020-02-10
+
+### Fixes
+
+- chercher par compte d efacturation (30b5f513d78e7a2ddfd08fa6ee8f0e374a033495)
+
+## 0.3.0-master.535+20200210124416
+2020-02-10
+
+### Fixes
+
+- undifiend a vide (eeb6b0ef7701d1fb09969501374f6638a79a4b4a)
+
+## 0.3.0-master.534+20200210102913
+2020-02-10
+
+## 0.3.0-master.533+20200210100655
+2020-02-10
+
+### Features
+
+- changement des prérequis pour l'acte "Préactivation/activation" d'offre (dd3cd50fe68b5ee1eba3e994d3b5c798eec9334a)
+
+### Fixes
+
+- configuration du calcul du nombre de sms par message (f8e5d1b659ce6b5c68a82c765c36d88825f1f2d6)
+
+## 0.3.0-master.531+20200207152223
+2020-02-07
+
+### Fixes
+
+- ajout d'une traduction pour un message d'erreur sur la commande (43380b214b84396c058c3038bd2d38167131d182)
+
+## 0.3.0-master.530+20200207134801
+2020-02-07
+
+## 0.3.0-master.529+20200207104330
+2020-02-07
+
+### Fixes
+
+- modification du scroll sur le carousel (c1650464a94f2444275994f869a5c51f03cca50f)
+
+## 0.3.0-master.528+20200207092211
+2020-02-07
+
+### Fixes
+
+- ajout d'infos sur le titre du détail d'un acte de masse (7cc1a2fd7926548a900e53b826a3de31ee17d1eb)
+
+## 0.3.0-master.527+20200206142553
+2020-02-06
+
+### Fixes
+
+- écran de recherche d'une alarme (686bd3df4dcba1af8b7207ead7a5695006aed27f)
+
+## 0.3.0-master.526+20200206132715
+2020-02-06
+
+### Fixes
+
+- corrections de bugs dans le détail de l'unité de masse (aa7a6f31cfaa42438a3d79d73d03f885aaecdce8)
+
+## 0.3.0-master.525+20200206125837
+2020-02-06
+
+### Features
+
+- ajout du widget Nombre d'alarmes déclenchées par jour (d6a32728a4f2cdd4b2d0974aa3ed55e8fae09229)
+
+## 0.3.0-master.524+20200206103312
+2020-02-06
+
+### Fixes
+
+- Afficher les cartes sim correspondantes à la commande (499e423313a7ef4d07114bce125462d7ad1a0333)
+
+## 0.3.0-master.523+20200206082811
+2020-02-06
+
+### Fixes
+
+- Changement du message d'erreur au chargement de fichier (2d40a04332baaed8dd9edb363e9a2181302fccde)
+
+## 0.3.0-master.522+20200205154651
+2020-02-05
+
+### Fixes
+
+- Correction de bugs d'affichage (9761b480c9df9c0877bf5b58c1af4cf130abd582)
+
+## 0.3.0-master.521+20200205152432
+2020-02-05
+
+### Fixes
+
+- Possibilité d'appliquer un changement de MSISDN même si le champ est vide (a2689cb7acf64612ccc488449550728b6b74f3f9)
+
+## 0.3.0-master.520+20200205085731
+2020-02-05
+
+### Fixes
+
+- remplacer Commandes en cours de traitement par le délai dans le widget commandes. (66d7989480bdede4ffa27781217eb501c9a772d2)
+
+## 0.3.0-master.519+20200204150707
+2020-02-04
+
+### Fixes
+
+- remplacer Commandes en cours de traitement par le délai dans le widget commandes. (af69c5be6000dafe6aa42bfb2dda8586d7760759)
+- Pagination sur filtre + ordre de pagination (2032d3baca80a34985f697168dfa8ba4e094ee13)
+
+## 0.3.0-master.517+20200204140832
+2020-02-04
+
+### Fixes
+
+- Corriger la disposition des widgets (8a5f8f92d911c06a80c055167a0063c5c8bef871)
+
+## 0.3.0-master.516+20200204130310
+2020-02-04
+
+### Fixes
+
+- Corriger le message en double lors du changement ICCID (c81b38698e9d688fa3ed32d7128dc0b448dc6211)
+
+## 0.3.0-master.515+20200204103508
+2020-02-04
+
+### Features
+
+- Ajout de l'historique de déclenchement d'alarmes détail ligne (b9683ae93ae7b24856b73b0ccd88a3a0fab0eff7)
+
+### Fixes
+
+- Changement d'ICCID après détail de ligne (fcd1118ce18a73e85af95f2e4673fb8d6a4f89c1)
+
+## 0.3.0-master.514+20200204083549
+2020-02-04
+
+### Fixes
+
+- Corriger le bouton "annuler" de la barre de contexte (092f27f11c467b7c690a3ad6b7c5afb2cbc8cf7d)
+
+## 0.3.0-master.513+20200203153921
+2020-02-03
+
+### Features
+
+- rechercher unitairement des alarmes et configurer ma table de résultat depuis la home des alarmes (4c1832c7a5ddac4e6137c3768f855d3da22f149f)
+
+## 0.3.0-master.512+20200203122525
+2020-02-03
+
+### Fixes
+
+- Corriger les boutons du panel de création de comandes (8d630546f83e04977073cec2654b0935dd355c66)
+
+## 0.3.0-master.511+20200131141731
+2020-01-31
+
+### Features
+
+- Ecran pour la création de rapports (43f67045036acef197462ae2b64f97955461400d)
+- **widget:** ajout du widget Top 5 des alarmes déclenchées (123f619566b79abc04a19e0f0774918a87daa939)
+
+## 0.3.0-master.510+20200130152505
+2020-01-30
+
+### Fixes
+
+- traduction du filtre statut de la ligne (27b5e0bfd2f2a11315c987938ec40960e64c6fe6)
+
+## 0.3.0-master.509+20200130141025
+2020-01-30
+
+### Fixes
+
+- masque les valeurs sur les histogrammes (a7d07de677c94bbce61c0a91a71b96e9d2adbe53)
+
+## 0.3.0-master.508+20200130104737
+2020-01-30
+
+### Fixes
+
+- tronquage de la cellule Détails (70b89c972fb6a0e53899b796938af7a34128ecdb)
+
+## 0.3.0-master.507+20200130092210
+2020-01-30
+
+### Features
+
+- écran de creation d'alarme pour la consommation mutualisée (a9f8b45caa73ec5701b1b81c7673b10d00878d81)
+
+## 0.3.0-master.506+20200129101207
+2020-01-29
+
+### Fixes
+
+- Corriger la recherche de lignes par ID (059890a70b12eeb0808b2507decf1086162ad136)
+
+## 0.3.0-master.505+20200129095822
+2020-01-29
+
+### Fixes
+
+- **orders:** mise à jour de la requête sur les commandes pour récupérer la référence du contrat (f820c905f6a2c89a126972eeb71605b346a4d6b4)
+
+## 0.3.0-master.504+20200128155100
+2020-01-28
+
+### Features
+
+- Ecran de création d'alarme "sous consommation" (2faa70632f0f3092c8bda21631d2fc85cd5f3b73)
+
+## 0.3.0-master.503+20200128154400
+2020-01-28
+
+### Features
+
+- création du widget Lignes les plus consommatrices du mois (5a84a5455c14f81b9b02f30edd4d939410b79789)
+
+## 0.3.0-master.502+20200128153315
+2020-01-28
+
+### Features
+
+- Ecran pour l'alarme sur consommation (746f345e1319d7f83a3d1192b12983bfc3820ace)
+
+## 0.3.0-master.501+20200128105056
+2020-01-28
+
+### Features
+
+- Partie front pour la création de l'alarme "Changement d'opérateur" (dcf1bb6b968bcc71e24d1f5e49ce2253fc330170)
+
+## 0.3.0-master.500+20200128103451
+2020-01-28
+
+### Fixes
+
+- corrections et modifications sur les détails de la consommation ligne (05d973ed4eee52bde188744fb4ce94406f8b8177)
+
+## 0.3.0-master.499+20200128092958
+2020-01-28
+
+### Features
+
+- Partie front end pour l'écran de changement de pays (199c1410162fdbf5fdaebc2c1c27d946ec51cd69)
+
+## 0.3.0-master.498+20200124140640
+2020-01-24
+
+### Fixes
+
+- corrections de l'affichage des datas pour la consommation dans le détail de la ligne (e770173a000f61989f7bc550ea14c1cf091c39dd)
+
+## 0.3.0-master.497+20200123152831
+2020-01-23
+
+### Fixes
+
+- correction et amélioration de l'ouverture du panel de détail de la commande (78872be8b2292272aace24e420f6808b4b376430)
+
+## 0.3.0-master.496+20200122123227
+2020-01-22
+
+## 0.3.0-master.495+20200122090052
+2020-01-22
+
+### Features
+
+- intégration de l'écran de creation d'alarme en mode mock (ba873bf9ceff91b87c23f8eadb3c2ce5746c40b3)
+
+## 0.3.0-master.494+20200121154957
+2020-01-21
+
+### Fixes
+
+- affichage du widget consommation mensuelle du parc (185c06f68f6a9130def4943c87e62708483c2b54)
+- Ajouter la quantité dans le détail de l'alarme (f0dd4333b1d3c0b3c71f61a9b7f92bf5b2a6c016)
+
+## 0.3.0-master.492+20200121151007
+2020-01-21
+
+### Fixes
+
+- traduction des actions du widget Délais moyen (e7c9fa561e09ac64c67a35c1e9b1f4f707ea41ea)
+
+## 0.3.0-master.491+20200120143454
+2020-01-20
+
+### Fixes
+
+- formatte type filter ids (ea53d5f60f9274f13bee9630f51e962deb22d9bc)
+
+## 0.3.0-master.490+20200120134012
+2020-01-20
+
+### Fixes
+
+- Correction du changement de services (6657f22069ac1b17e7b6494cb6b64a29f052b431)
+
+## 0.3.0-master.489+20200120131951
+2020-01-20
+
+### Fixes
+
+- mise à jour de l'api de mutation du changement de services et du filtre de type de cartes sim (f3c3cb50c8da97d06e9e7a2398dbf46f9b84f94c)
+
+## 0.3.0-master.488+20200120111802
+2020-01-20
+
+### Fixes
+
+- Corriger le changement de services (e856ff8653947906f32ad1b56386b0368a038a21)
+
+## 0.3.0-master.486+20200120083949
+2020-01-20
+
+### Fixes
+
+- Afficher les types de carte sim correspondant au partenaires séléctionnés dans le filtre (f92c2b3a3277f5d304dbec5a082b9d545e6dfeb8)
+
+## 0.3.0-master.485+20200117152749
+2020-01-17
+
+### Fixes
+
+- mise à jour de l'api pour filtrer les types de carte sim (e3b991ca171b14628919d3b7de1c8c7e8d09d899)
+
+## 0.3.0-master.484+20200117145142
+2020-01-17
+
+### Fixes
+
+- configuration du changement de date lors du changement de compte de facturation (b1939756a347b1fa4f683db8d5dbdc296ff64608)
+
+## 0.3.0-master.483+20200117083946
+2020-01-17
+
+### Fixes
+
+- Ne pas demander la colonne id de gestion durant l'export de commandes (aca4d13b517799dd98ecc84734a316a75bc7a5db)
+
+## 0.3.0-master.482+20200116163517
+2020-01-16
+
+### Fixes
+
+- ajout du context du partenarie pour l'acte de création du changement de compte de facturation (a30421021f12531ab67bd06fec7d313cac26f795)
+
+## 0.3.0-master.481+20200116153123
+2020-01-16
+
+## 0.3.0-master.480+20200116145414
+2020-01-16
+
+### Fixes
+
+- ecran détail de l'alarme (775f974e56996a804e26ab62b5cb4c5c4d41da51)
+- **orders:** correction de la mise à jour de la validation de commande (7be68b76102cdc9b3975ad9004ec17909c62807c)
+
+## 0.3.0-master.479+20200116143842
+2020-01-16
+
+### Fixes
+
+- Correction du changement de services pour une ligne (42d6d31284acc08fc9e94802fcbffcd48c8aa8ab)
+- mise à jour de l'API du filtre Type de carte sim (b1241b740eaeec9df6fc18ab99a903d0fc2a7130)
+
+## 0.3.0-master.477+20200116132517
+2020-01-16
+
+### Fixes
+
+- mise à jour de l'acte de création Changement de compte de facturation (9d672fb61f870849297dce3adaeb26336e5d9bf7)
+- activation des filtres appliqués lors de l'export des actes de gestion (fc6f60135d2c958715a6a82ab8ffc76dee4a99fd)
+
+## 0.3.0-master.475+20200115151702
+2020-01-15
+
+### Fixes
+
+- Envoyer les bons APNS lors de la création de commande (870ce6366364121852d749db4dd72169a4408812)
+
+## 0.3.0-master.474+20200115130007
+2020-01-15
+
+### Features
+
+- récupération des données des adresses ip pour chaque service (5f8a65c872aaf9e75db4924b88975cdb16a8f94c)
+
+## 0.3.0-master.473+20200115100006
+2020-01-15
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (da63b88c81e7c2d2434a5fdee85fe1c0367fd61c)
+
 ## 0.3.0-master.472+20200115083712
 2020-01-15
 

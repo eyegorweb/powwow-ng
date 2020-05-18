@@ -20,8 +20,8 @@ export const getters = {
     if (rootGetters.userIsPartner) {
       const partnerFilterValues = [
         {
-          id: rootGetters.userInfos.party.id,
-          label: rootGetters.userInfos.party.name,
+          id: rootGetters.userInfos.partners[0].id,
+          label: rootGetters.userInfos.partners[0].name,
         },
       ];
       const defaultFilters = [

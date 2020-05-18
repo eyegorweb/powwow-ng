@@ -1,7 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="openDetailPanel">
-    {{ row.iccid }}
-  </button>
+  <button class="btn btn-link btn-select p-0" @click.stop="openDetailPanel">{{ row.iccid }}</button>
 </template>
 
 <script>
@@ -47,3 +45,9 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+.btn-select {
+  user-select: initial;
+}
+</style>

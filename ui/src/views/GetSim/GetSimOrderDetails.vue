@@ -50,7 +50,7 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.creatorMail') }} :</h6>
-          <p>{{ getFromOrder('contactInformation.email') }}</p>
+          <p>{{ getFromOrder('auditable.creator.email') }}</p>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.detail.manageID') }} :</h6>
@@ -77,11 +77,15 @@
             variant="import"
             >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
           >
-          <ff-wip>
-            <UiButton v-if="order.status === 'CONFIRMED'" variant="import">
-              <span class="mock-value">{{ $t('getsim.actions.IMPORT_SIM') }}</span>
+          <template v-if="userIsBO && order.status === 'CONFIRMED'">
+            <UiButton
+              v-if="order.importedQuantity < order.quantity"
+              @click="openImportSimPanel"
+              variant="import"
+            >
+              <span>{{ $t('getsim.actions.IMPORT_SIM') }}</span>
             </UiButton>
-          </ff-wip>
+          </template>
         </div>
         <div class="overview-item">
           <h6>{{ $t('type') }} :</h6>
@@ -145,8 +149,12 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.deliveryAddress') }}</h6>
           <p>{{ getFromOrder('address.address1') }}</p>
-          <p v-if="getFromOrder('address.address2')">{{ getFromOrder('address.address2') }}</p>
-          <p v-if="getFromOrder('address.address3')">{{ getFromOrder('address.address3') }}</p>
+          <p v-if="getFromOrder('address.address2') && getFromOrder('address.address2') !== 'null'">
+            {{ getFromOrder('address.address2') }}
+          </p>
+          <p v-if="getFromOrder('address.address3') && getFromOrder('address.address3') !== 'null'">
+            {{ getFromOrder('address.address3') }}
+          </p>
           <p v-if="getFromOrder('address.city')">
             {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
           </p>
@@ -216,37 +224,14 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
-// import moment from 'moment';
+import { mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
-      confirmationStepper: [
-        {
-          code: 'NOT_VALIDATED',
-          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
-          date: null,
-          index: 0,
-        },
-        {
-          code: 'VALIDATED',
-          label: this.$t('orders.detail.statuses.VALIDATED'),
-          date: null,
-          index: 1,
-        },
-        {
-          code: 'CONFIRMED',
-          label: this.$t('orders.detail.statuses.CONFIRMED'),
-          date: null,
-          index: 2,
-        },
-        {
-          code: 'TERMINATED',
-          label: this.$t('orders.detail.statuses.TERMINATED'),
-          date: null,
-          index: 3,
-        },
-      ],
+      orderData: undefined,
+      confirmationStepper: [],
       cancelStepper: [
         {
           code: 'NOT_VALIDATED',
@@ -266,11 +251,42 @@ export default {
     };
   },
 
+  mounted() {
+    this.confirmationStepper = [
+      {
+        code: 'NOT_VALIDATED',
+        label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+        date: null,
+        index: 0,
+      },
+      {
+        code: 'VALIDATED',
+        label: this.$t('orders.detail.statuses.VALIDATED'),
+        date: null,
+        index: 1,
+      },
+      {
+        code: this.confirmStep.code,
+        label: this.confirmStep.label,
+        date: null,
+        index: 2,
+      },
+      {
+        code: 'TERMINATED',
+        label: this.$t('orders.detail.statuses.TERMINATED'),
+        date: null,
+        index: 3,
+      },
+    ];
+  },
+
   props: {
     order: Object,
   },
 
   methods: {
+    ...mapMutations(['switchPanel']),
+
     getFromOrder(path, defaultValue = '') {
       const value = get(this.order, path, defaultValue);
       return value !== null ? value : '';
@@ -288,9 +304,19 @@ export default {
         },
       });
     },
+    openImportSimPanel() {
+      this.switchPanel({
+        title: this.$t('getsim.actions.IMPORT_SIM'),
+        panelId: 'getsim.actions.IMPORT_SIM',
+        payload: { order: this.order },
+        wide: false,
+        backdrop: false,
+      });
+    },
   },
 
   computed: {
+    ...mapGetters(['userIsBO']),
     creatorTitle() {
       const title = this.getFromOrder('auditable.creator.name.title');
       if (!title) return '';
@@ -343,6 +369,56 @@ export default {
     },
     massActionsIds() {
       return this.getFromOrder('massActionIds');
+    },
+    confirmStep() {
+      let code, label;
+      if (this.order.status === 'CONFIRMED') {
+        code = 'CONFIRMED';
+        label = this.$t('orders.detail.statuses.CONFIRMED');
+      } else if (this.order.status === 'TO_BE_CONFIRMED') {
+        code = 'TO_BE_CONFIRMED';
+        label = this.$t('col.statuses.TO_BE_CONFIRMED');
+      } else if (this.order.status === 'TO_BE_CONFIRMED_BY_BO') {
+        code = 'TO_BE_CONFIRMED_BY_BO';
+        label = this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO');
+      } else {
+        // defaults values are 'CONFIRMED'
+        code = 'CONFIRMED';
+        label = this.$t('orders.detail.statuses.CONFIRMED');
+      }
+      return { code, label };
+    },
+  },
+
+  watch: {
+    confirmStep(newValue) {
+      this.confirmationStepper = [
+        {
+          code: 'NOT_VALIDATED',
+          label: this.$t('orders.detail.statuses.NOT_VALIDATED'),
+          date: null,
+          index: 0,
+        },
+        {
+          code: 'VALIDATED',
+          label: this.$t('orders.detail.statuses.VALIDATED'),
+          date: null,
+          index: 1,
+        },
+        {
+          code: newValue.code,
+          label: newValue.label,
+          date: null,
+          index: 2,
+        },
+        {
+          code: 'TERMINATED',
+          label: this.$t('orders.detail.statuses.TERMINATED'),
+          date: null,
+          index: 3,
+        },
+      ];
+      return this.confirmationStepper;
     },
   },
 

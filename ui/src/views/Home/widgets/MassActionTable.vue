@@ -4,6 +4,7 @@
       v-if="resultsPromise"
       :columns="columns"
       :rows="rows"
+      :order-by.sync="orderBy"
       :results-promise="resultsPromise"
     />
   </WidgetBloc>
@@ -13,8 +14,9 @@
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import GenericTableWidget from './GenericTableWidget';
 import { searchMassActions } from '@/api/massActions';
-
 import ActionCell from '@/views/GetParc/MassActionsPage/HistoryTable/ActionCell';
+import Tooltip from './Tooltip';
+import { currentDateMinusMounts } from '@/utils/date';
 
 export default {
   components: {
@@ -45,7 +47,7 @@ export default {
     },
     onSeeMore() {
       this.$router.push({
-        name: 'actLines',
+        name: 'actHistory',
         params: {
           queryFilters: [...this.widgetFilters],
         },
@@ -59,11 +61,18 @@ export default {
   },
   computed: {
     widgetFilters() {
-      return [...this.contextFilters, ...this.filters];
+      const startDate = currentDateMinusMounts(3);
+
+      const dateFilter = {
+        id: 'filters.actDateStart',
+        startDate,
+      };
+      return [...this.contextFilters, ...this.filters, dateFilter];
     },
   },
   data() {
     return {
+      orderBy: { key: 'creationDate', direction: 'DESC' },
       filters: [
         {
           id: 'filters.actStatus',
@@ -113,6 +122,12 @@ export default {
           name: 'info',
           orderable: false,
           visible: true,
+          tootltipText: item => {
+            return item;
+          },
+          format: {
+            component: Tooltip,
+          },
         },
         {
           id: 5,

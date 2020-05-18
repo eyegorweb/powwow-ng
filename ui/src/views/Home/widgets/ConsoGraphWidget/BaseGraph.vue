@@ -1,10 +1,15 @@
 <template>
   <div>
-    <chart
-      :key="'conso_' + version"
-      v-if="chartOptions && partners && partners.length"
-      :options="chartOptions"
-    />
+    <div v-if="!partners.length" class="alert-light">
+      {{ $t('choosePartner') }}
+    </div>
+    <div v-else>
+      <chart
+        :key="'conso_' + version"
+        v-if="chartOptions && partners && partners.length"
+        :options="chartOptions"
+      />
+    </div>
   </div>
 </template>
 
@@ -13,7 +18,7 @@ import { Chart } from 'highcharts-vue';
 import { mapState, mapGetters } from 'vuex';
 import get from 'lodash.get';
 
-import 'highcharts/css/highcharts.css';
+// import 'highcharts/css/highcharts.css';
 
 export default {
   components: {

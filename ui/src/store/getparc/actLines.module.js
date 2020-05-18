@@ -25,6 +25,10 @@ export const state = {
   selectedFileForActCreation: undefined,
   actToCreate: null,
   actCreationPrerequisites: null,
+  searchingById: false,
+
+  // à incrémenter en cas de RAZ de la page
+  formVersion: 0,
 };
 
 export const getters = {
@@ -173,6 +177,7 @@ export const actions = {
     let response = { total: 0, items: [] };
     try {
       response = await searchLines(orderBy, pageInfo, appliedFilters);
+      commit('stopSearchById');
     } catch (e) {
       commit(
         'flashMessage',
@@ -402,4 +407,40 @@ export const mutations = {
   setPageLimit(state, limit) {
     state.limitPerPage = limit;
   },
+
+  resetState(state) {
+    filterUtils.resetState(state);
+    resetState(state);
+  },
+
+  resetAfterFilterClear(state) {
+    filterUtils.resetAfterFilterClear(state);
+    resetState(state);
+  },
+  clearResultsForActCreation(state) {
+    filterUtils.clearResultsForActCreation(state);
+  },
+
+  startSearchingById(state, values) {
+    state.appliedFilters = [...values];
+    state.currentFilters = [];
+    state.searchingById = true;
+  },
+
+  stopSearchById(state) {
+    state.searchingById = false;
+  },
 };
+
+function resetState(state) {
+  state.linePage = 1;
+  state.limitPerPage = 20;
+  state.linesActionsResponse = undefined;
+  state.filterCustomFieldsList = [];
+  state.selectedLinesForActCreation = [];
+  state.selectedFileForActCreation = undefined;
+  state.actToCreate = null;
+  state.actCreationPrerequisites = null;
+
+  state.formVersion += 1;
+}

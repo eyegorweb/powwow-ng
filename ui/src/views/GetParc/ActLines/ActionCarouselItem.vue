@@ -139,7 +139,7 @@ export default {
     }
   }
   .card-body {
-    padding: 1.25rem 1rem 0.5rem;
+    padding: 1rem;
     .title {
       display: table-cell;
       vertical-align: middle;

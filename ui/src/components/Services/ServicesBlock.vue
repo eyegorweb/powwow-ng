@@ -26,7 +26,7 @@
             </div>
             <div v-else>
               <UiToggle
-                :label="service.name ? service.name : $t('services.' + service.code)"
+                :label="service.labelService"
                 :editable="service.editable"
                 v-model="service.checked"
                 :bold-label="isChanged(service)"
@@ -49,9 +49,9 @@
   <div v-else>
     <div>
       <div class="services-container">
-        <div :key="service.id" v-for="service in otherServices" class="single-service mt-3 mb-3">
+        <div :key="service.id" v-for="service in otherServices" class="single-service">
           <UiToggle
-            :label="$t('services.' + service.code)"
+            :label="service.labelService"
             :editable="service.editable"
             :bold-label="isChanged(service)"
             v-model="service.checked"
@@ -154,6 +154,10 @@ export default {
   flex-basis: 25% !important;
 }
 
+.third-size {
+  flex-basis: 30% !important;
+}
+
 @media screen and (max-width: 1366px) {
   .services-container {
     width: 100% !important;
@@ -170,6 +174,7 @@ export default {
   margin: auto;
   .single-service {
     flex-basis: 50%;
+    margin: 0.6rem 0;
   }
 }
 

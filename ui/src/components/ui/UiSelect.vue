@@ -1,16 +1,17 @@
 <template>
-  <div class="select-container">
+  <div class="select-container" :class="{ block: block }">
     <div class="select" :class="{ 'small-format': small }">
       <select
         class="form-control"
         v-model="model"
         :class="{ 'arrow-blue': arrowBlue, error: !!error }"
+        :disabled="disabled"
         :size="numberOfVisibleItems"
       >
         <slot>
-          <option v-if="placeholder" disabled selected hidden value="none">
-            {{ placeholder }}
-          </option>
+          <option v-if="placeholder" disabled selected hidden value="none">{{
+            placeholder
+          }}</option>
           <option
             v-for="option in formattedOptions"
             :key="option.value"
@@ -53,6 +54,8 @@ export default {
       required: false,
     },
     small: Boolean,
+    block: Boolean,
+    disabled: Boolean,
   },
   computed: {
     formattedOptions() {
@@ -95,5 +98,9 @@ select {
     font-weight: 500;
     border: none;
   }
+}
+
+.block {
+  width: 100%;
 }
 </style>

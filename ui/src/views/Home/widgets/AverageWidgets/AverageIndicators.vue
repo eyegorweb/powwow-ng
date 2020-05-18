@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget">
+  <WidgetBloc :widget="widget" :large="large">
     <Toggle
       v-if="toggleValues"
       @update="updateContentType"
@@ -9,16 +9,32 @@
       block
     />
     <ul v-if="!noResults" class="list-group bg-white">
-      <li
-        class="list-group-item"
-        v-for="indicator in indicators"
-        :key="indicator.name + indicator.labelKey"
-      >
-        {{ $t(indicator.labelKey) }}
-        <div class="float-right">
-          <button class="btn btn-link p-0" :disabled="true">
-            <span>{{ indicator.total }} {{ indicator.unit }}</span>
-          </button>
+      <li class="list-group-item" v-for="indicator in indicators" :key="indicator.id">
+        <div v-if="indicator.linked">
+          <a href="#" @click.prevent="onClick(indicator.entityId)">
+            {{ indicator.stringValue }}
+          </a>
+          <div class="float-right">
+            <button class="btn btn-link p-0" :disabled="true">
+              <span>
+                <template v-if="indicator.unity === 'DATA'">{{
+                  formattedData(indicator.total)
+                }}</template>
+                <template v-else-if="indicator.unity === 'VOICE'">{{
+                  formattedVoice(indicator.total)
+                }}</template>
+                <template v-else>{{ indicator.total }}</template>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div v-else>
+          <span>{{ indicator.labelKey }}</span>
+          <div class="float-right">
+            <button class="btn btn-link p-0" :disabled="true">
+              <span>{{ indicator.total }} {{ indicator.unit }}</span>
+            </button>
+          </div>
         </div>
       </li>
       <li v-if="infoMessage" class="list-group-item">
@@ -32,6 +48,7 @@
 <script>
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
+import { formatBytes } from '@/api/utils';
 
 export default {
   components: {
@@ -49,27 +66,27 @@ export default {
     contextFilters: Array,
     infoMessage: String,
     noResults: Boolean,
+    toggleValues: Array,
+    large: Boolean,
+  },
+  methods: {
+    onClick(id) {
+      this.$router.push({
+        name: 'lineDetail',
+        params: { lineId: id, tabIndex: 1 },
+      });
+    },
+    formattedData(value) {
+      return formatBytes(value);
+    },
+    formattedVoice(value) {
+      const formattedValue = value / 60;
+      return formattedValue.toFixed(2) + ' H';
+    },
   },
   data() {
     return {
       widgetVersion: 1,
-      toggleValues: [
-        {
-          id: 'day',
-          label: 'day',
-          default: this.period === 'DAY',
-        },
-        {
-          id: 'month',
-          label: 'month',
-          default: this.period === 'MONTH',
-        },
-        {
-          id: 'quarter',
-          label: 'quarter',
-          default: this.period === 'QUARTER',
-        },
-      ],
     };
   },
   watch: {

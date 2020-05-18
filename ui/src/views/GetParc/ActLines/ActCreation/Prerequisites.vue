@@ -4,29 +4,41 @@
       v-if="!userIsPartner && actWithNoPrerequs(act.title)"
       @set:preprequisites="setPrerequisites"
     />
+    <PartnerAndCF
+      v-if="['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title)"
+      @set:preprequisites="setPrerequisites"
+      :partner="userPartner"
+    />
     <OfferPrerequisite
       v-if="
         [
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
+          'getparc.actCreation.carouselItem.CHANGE_CF',
         ].find(a => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
-      :can-select-billing-account="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER'"
+      :can-select-billing-account="
+        act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+      "
     />
   </div>
 </template>
 
 <script>
+// ACTIVATE_PREACTIVATE
 import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
-import OfferPrerequisite from './prerequisites/parts/OfferPrerequisite';
+import OfferPrerequisite from './prerequisites/OfferPrerequisite';
+import PartnerAndCF from './prerequisites/PartnerAndCF';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
     NoPrerequisitesPre,
     OfferPrerequisite,
+    PartnerAndCF,
   },
   props: {
     act: Object,
@@ -66,6 +78,7 @@ export default {
       'resetForm',
       'setPageLimit',
       'setActToCreate',
+      'setBillingAccountsFilter',
     ]),
 
     actWithNoPrerequs(actTitle) {
@@ -78,10 +91,8 @@ export default {
         'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
         'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
         'getparc.actCreation.carouselItem.TRANSFERT_LINES',
-        'getparc.actCreation.carouselItem.CHANGE_CF',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
-        'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
       ].find(a => a === actTitle);
     },
 
@@ -113,6 +124,10 @@ export default {
           partners: [allPrereq.partner],
           isHidden: !!allPrereq.isPartnerHidden,
         });
+      }
+
+      if (allPrereq.billingAccount) {
+        this.setBillingAccountsFilter([allPrereq.billingAccount]);
       }
 
       if (allPrereq.offer) {

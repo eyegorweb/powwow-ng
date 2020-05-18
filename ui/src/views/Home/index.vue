@@ -36,6 +36,7 @@
         :h="item.h"
         :i="item.i"
         :key="item.i"
+        :is-draggable="!item.notDraggable"
       >
         <component
           :is="item.meta.component"
@@ -49,7 +50,7 @@
 
     <button class="panel-toggle bg-secondary" @click.stop="openCustomizePanel">
       <i class="ic-Wheel-Icon" />
-      <span>Personaliser ma home</span>
+      <span>{{ $t('personalizeHome') }}</span>
     </button>
   </div>
 </template>
@@ -66,16 +67,17 @@ export default {
   computed: {
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    ...mapGetters(['userIsPartner']),
 
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
     cellHeight() {
       if (window.innerWidth <= 1024) {
-        return 4;
-      }
-      if (window.innerWidth > 1024 && window.innerWidth <= 1366) {
         return 5;
+      }
+      if (window.innerWidth > 1024 && window.innerWidth <= 1460) {
+        return 5.5;
       }
       return 8;
     },
@@ -90,57 +92,21 @@ export default {
       layout: undefined,
       version: 0,
       startWatchingWidgets: false,
+      updating: false,
     };
   },
   mounted() {
+    this.initHomeWidgets();
     this.initFilterForContext();
-    const layout = this.loadLayout();
-    if (layout) {
-      this.layout = layout;
-    } else {
-      this.createLayout();
-    }
+    this.setWidgetsToLayout();
+    this.updateLayoutInfoInWigets(this.layout);
 
     this.startWatchingWidgets = true;
   },
+
   methods: {
-    ...mapMutations(['openPanel', 'setHomeWidgets']),
+    ...mapMutations(['openPanel', 'setHomeWidgets', 'initHomeWidgets']),
     ...mapActions('getsim', ['initFilterForContext']),
-
-    createLayout() {
-      const layout = [];
-      let y = 0;
-      let x = 0;
-      let spaceInLine = 3;
-      for (let i = 0; i < this.activeWidgets.length; i++) {
-        const meta = this.activeWidgets[i];
-
-        const width = meta.large ? 2 : 1;
-
-        if (width > spaceInLine) {
-          spaceInLine = 3;
-          y += 1;
-          x = 0;
-        }
-
-        // console.log('lastLineIndex >', lastLineIndex);
-        layout.push({
-          x,
-          y,
-          w: width,
-          h: this.cellHeight,
-          title: meta.title,
-          i,
-          meta,
-        });
-
-        spaceInLine -= width;
-        x += width;
-      }
-      this.layout = layout;
-      this.saveLayout(layout);
-      this.version += 1;
-    },
 
     openCustomizePanel() {
       this.openPanel({
@@ -152,45 +118,105 @@ export default {
       });
     },
 
-    saveLayout(layout) {
-      const layoutToSave = layout.map(l => {
-        return {
-          x: l.x,
-          y: l.y,
-          w: l.w,
-          i: l.i,
-          h: this.cellHeight,
-          title: l.meta.title,
-        };
-      });
-
-      localStorage.setItem('_layout_', JSON.stringify(layoutToSave));
-    },
-
-    loadLayout() {
-      const layoutInLS = localStorage.getItem('_layout_');
-
-      if (layoutInLS) {
-        const parsed = JSON.parse(layoutInLS);
-
-        return parsed.map(l => {
-          return {
-            ...l,
-            meta: this.homeWidgets.find(w => w.title === l.title),
+    updateLayoutInfoInWigets(layout) {
+      const homeWidgets = this.homeWidgets.map(w => {
+        const existingLayout = layout.find(l => l.title === w.title);
+        if (existingLayout) {
+          w.layout = {
+            x: existingLayout.x,
+            y: existingLayout.y,
+            w: existingLayout.w,
+            h: this.cellHeight,
+            title: existingLayout.title,
+            i: existingLayout.i,
+            notDraggable: existingLayout.notDraggable,
+            partnerOnly: existingLayout.partnerOnly,
           };
-        });
-      }
-
-      return undefined;
+        }
+        return w;
+      });
+      this.updating = true;
+      this.setHomeWidgets(homeWidgets);
+      setTimeout(() => {
+        this.updating = false;
+      });
     },
 
     onLayoutUpdate(newLayout) {
-      this.saveLayout(newLayout);
+      this.updateLayoutInfoInWigets(newLayout);
+    },
+
+    setWidgetsToLayout() {
+      this.layout = this.getLayoutFromHomeWidgets();
+      this.version += 1;
+    },
+
+    getLayoutFromHomeWidgets() {
+      if (!this.homeWidgets) return;
+
+      let layout = [];
+      let y = 0;
+      let x = 0;
+      let spaceInLine = 3;
+
+      if (this.homeWidgets.length && this.homeWidgets[0].layout) {
+        // already have layout data
+        layout = this.homeWidgets
+          .filter(o => o.checked)
+          .map(w => {
+            return {
+              ...w.layout,
+              meta: w,
+              notDraggable: w.notDraggable,
+              partnerOnly: w.partnerOnly,
+            };
+          });
+      } else {
+        for (let i = 0; i < this.homeWidgets.length; i++) {
+          const meta = this.homeWidgets[i];
+
+          const width = meta.large ? 2 : 1;
+
+          if (width > spaceInLine) {
+            spaceInLine = 3;
+            y += this.cellHeight;
+            x = 0;
+          }
+
+          if (meta.checked) {
+            layout.push({
+              x,
+              y,
+              w: width,
+              h: this.cellHeight,
+              title: meta.title,
+              i,
+              meta,
+              notDraggable: meta.notDraggable,
+              partnerOnly: meta.partnerOnly,
+            });
+          }
+
+          spaceInLine -= width;
+          x += width;
+        }
+      }
+
+      const userIsPartner = this.userIsPartner;
+      return layout.filter(e => {
+        if (e.partnerOnly && !userIsPartner) {
+          return false;
+        }
+        return true;
+      });
     },
   },
   watch: {
     homeWidgets() {
-      if (this.startWatchingWidgets) this.createLayout();
+      // recalculate layout
+      if (!this.updating) {
+        this.setWidgetsToLayout();
+      }
     },
     contextPartnersType() {
       this.initFilterForContext();

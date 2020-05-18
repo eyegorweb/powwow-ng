@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="alarmIsToggled">{{ $t(processingActionText) }}...</span>
-    <button v-else @click.prevent="toggleAlarmInstance" class="btn btn-link p-0">
+    <button v-else @click.prevent="toggleAlarmInstance" class="btn btn-link">
       {{ $t(actionText) }}
     </button>
   </div>
@@ -44,7 +44,7 @@ export default {
     toggleAlarmInstance() {
       let actionFn;
       const args = [
-        this.simcard.id,
+        [this.simcard.id],
         this.alarm.alarm.id,
         this.simcard.party.id,
         formattedCurrentDate(),
@@ -73,5 +73,6 @@ export default {
 button {
   text-align: inherit;
   font-weight: 600;
+  min-width: 11rem;
 }
 </style>

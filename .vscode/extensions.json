@@ -14,10 +14,6 @@
     // https://github.com/Microsoft/vscode-eslint
     "dbaeumer.vscode-eslint",
 
-    // Lint-on-save with Stylelint
-    // https://github.com/shinnn/vscode-stylelint
-    "shinnn.stylelint",
-
     // Format-on-save with Prettier
     // https://github.com/prettier/prettier-vscode
     "esbenp.prettier-vscode",
@@ -36,6 +32,8 @@
 
     // Usefull snippets for Vue files
     // https://github.com/sdras/vue-vscode-snippets.git
-    "sdras.vue-vscode-snippets"
+    "sdras.vue-vscode-snippets",
+
+    "stylelint.vscode-stylelint"
   ]
 }

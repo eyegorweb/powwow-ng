@@ -55,6 +55,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
               firstName
               lastName
             }
+            username
             email
           }
         }
@@ -92,6 +93,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           custom4FieldLabel
           custom5FieldLabel
           custom6FieldLabel
+          contractReference
         }
         quantity
         customFields {
@@ -238,7 +240,7 @@ function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {contains: "${c.value}"}`)
+      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);
@@ -254,7 +256,7 @@ function formatFilters(filters) {
   addCountries(allFilters, filters);
   addIdsFilter(allFilters, filters);
   addCreatorFilter(allFilters, filters);
-  valuesFromMutiselectFilter(allFilters, filters, 'simcardDesc', 'filters.lines.typeSIMCard', true);
+  valuesFromMutiselectFilter(allFilters, filters, 'simcardCode', 'filters.lines.typeSIMCard', true);
 
   return allFilters.join(',');
 }
@@ -379,19 +381,37 @@ export async function createOrder(synthesis) {
   if (synthesis.delivery.value.detail.address) {
     address1 = get(synthesis, 'delivery.value.detail.address.address1');
     address1 = address1 !== 'null' && address1 !== 'undefined' ? address1 : '';
+    if (!address1) {
+      address1 = '';
+    }
 
     address2 = get(synthesis, 'delivery.value.detail.address.address2');
     address2 = address2 !== 'null' && address2 !== 'undefined' ? address2 : '';
+    if (!address2) {
+      address2 = '';
+    }
 
     address3 = get(synthesis, 'delivery.value.detail.address.address3');
     address3 = address3 !== 'null' && address3 !== 'undefined' ? address3 : '';
+    if (!address3) {
+      address3 = '';
+    }
   }
 
   const firstName = get(synthesis, 'delivery.value.detail.name.firstName', '');
   const lastName = get(synthesis, 'delivery.value.detail.name.lastName', '');
   const title = get(synthesis, 'delivery.value.detail.name.title', '');
 
-  const email = get(synthesis, 'delivery.value.detail.contactInformation.email', '');
+  let email = get(synthesis, 'delivery.value.detail.contactInformation.email', '');
+  if (!email) {
+    email = '';
+  }
+
+  let state = get(synthesis, 'delivery.value.detail.address.state', '');
+  if (!state) {
+    state = '';
+  }
+
   const phone = get(synthesis, 'delivery.value.detail.contactInformation.phone', '');
 
   let customFieldsDTO = '{}';
@@ -441,7 +461,7 @@ export async function createOrder(synthesis) {
           zipCode: "${get(synthesis, 'delivery.value.detail.address.zipCode')}",
           city: "${get(synthesis, 'delivery.value.detail.address.city')}",
           country: "${get(synthesis, 'delivery.value.detail.address.country')}",
-          state: "${get(synthesis, 'delivery.value.detail.address.state')}"
+          state: "${state}"
         },
         name: {
           title: ${title || 'MR'},
@@ -497,15 +517,26 @@ export async function updateOrderStatus(orderId, newStatus) {
   return response.data.updateOrder;
 }
 
-export async function exportFile(columns, orderBy, exportFormat, filters = []) {
+export async function ordersExport(
+  columns,
+  orderBy,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
   const response = await query(
     `
     query {
       ordersExport(filter: {${formatFilters(
         filters
-      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}) {
+      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}) {
         downloadUri
         asyncRequired
       }
@@ -513,6 +544,25 @@ export async function exportFile(columns, orderBy, exportFormat, filters = []) {
     `
   );
   return response.data.ordersExport;
+}
+
+export async function importIccids(orderId, tempDataUuid) {
+  const response = await query(
+    `
+    mutation {
+      importIccids(orderId: "${orderId}", uuid: "${tempDataUuid}") {
+        tempDataUuid
+        validated
+        errors {
+          key
+          number
+        }
+      }
+    }
+
+    `
+  );
+  return response.data.importIccids;
 }
 
 function valuesFromMutiselectFilter(

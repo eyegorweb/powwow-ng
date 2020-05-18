@@ -1,22 +1,35 @@
 import { query } from './utils';
 import moment from 'moment';
 
-export async function exportMassAction(massActonId, statuses, columns, pagination, exportFormat) {
+export async function exportMassAction(
+  massActonId,
+  statuses,
+  groupedStatus,
+  columns,
+  exportFormat,
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const statusesParam = statuses.join(',');
-  const paginationInfo = pagination
-    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
 
   const queryStr = `
   query  {
     exportMassAction(filter: {massActionId: ${massActonId}},
       unitActionStatus:[${statusesParam}],
+      groupedStatus: ${groupedStatus}
       columns: [${columnsParam}],
-      ${paginationInfo},
-      exportFormat: ${exportFormat}){
+      unitActionSorting:{field:ID sorting:ASC}
+      exportFormat: ${exportFormat}
+      ${asyncExportRequestParam}){
       downloadUri
       total
+      asyncRequired
     }
   }
   `;
@@ -25,14 +38,25 @@ export async function exportMassAction(massActonId, statuses, columns, paginatio
 
   return response.data.exportMassAction;
 }
-export async function exportAllMassActions(columns, pagination, exportFormat) {
+export async function exportAllMassActions(
+  columns,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
-  const paginationInfo = pagination
-    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
+
   const queryStr = `
   query  {
-    exportMassAction(filter: {}, columns: [${columnsParam}] ${paginationInfo}, exportFormat: ${exportFormat}){
+    exportMassAction(filter: {${formatFilters(
+      filters
+    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}){
       downloadUri
       total
       asyncRequired
@@ -250,7 +274,7 @@ function formatFilters(filters) {
   const customFields = getFilterValues(filters, 'filters.customFields');
   if (customFields && customFields.length > 0) {
     const customFeldsGQLparams = customFields
-      .map(c => `${c.id}: {contains: "${c.value}"}`)
+      .map(c => `${c.id}: {startsWith: "${c.value}"}`)
       .join(',');
 
     allFilters.push(customFeldsGQLparams);

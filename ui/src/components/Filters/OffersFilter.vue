@@ -25,11 +25,20 @@ export default {
     async fetchApi(q, partners, partnerType, { page, limit }) {
       const data = await fetchOffers(q, partners, { page, limit, partnerType });
       if (data) {
-        return data.map(o => ({
-          id: o.code,
-          label: o.workflowDescription,
-          productCode: o.initialOffer.code,
-        }));
+        return data
+          .map(o => ({
+            id: o.code,
+            label: o.workflowDescription,
+            productCode: o.initialOffer.code,
+            data: o,
+          }))
+          .reduce((all, offer) => {
+            const isFound = all.find(w => w.id === offer.id);
+            if (!isFound) {
+              all.push(offer);
+            }
+            return all;
+          }, []);
       }
     },
   },

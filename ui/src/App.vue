@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="appIsReady" class="container">
-      <NavBars :is-backoffice-profile="!userIsPartner" />
+      <NavBars v-if="$route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
       <router-view />
       <PanelSwitcher />
     </div>
@@ -14,12 +14,14 @@
     <FlashMessages />
     <ConfirmationModal />
     <ff-toggle />
+    <ExportButtonModals />
   </div>
 </template>
 
 <script>
 import Authentication from '@/components/Authentication';
 import NavBars from '@/components/NavBars';
+import ExportButtonModals from '@/components/ExportButtonModals';
 import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
@@ -34,12 +36,13 @@ export default {
     PanelSwitcher,
     FlashMessages,
     ConfirmationModal,
+    ExportButtonModals,
   },
   methods: {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsPartner', 'appIsReady']),
+    ...mapGetters(['userIsBO', 'appIsReady']),
   },
   watch: {
     $route() {
@@ -90,6 +93,15 @@ h4 {
   }
   html {
     font-size: 10px;
+  }
+}
+
+@media (min-width: 1300px) and (max-width: 1450px) {
+  .container {
+    max-width: 1300px;
+  }
+  html {
+    font-size: 11px;
   }
 }
 </style>

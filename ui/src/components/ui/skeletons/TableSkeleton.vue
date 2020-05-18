@@ -41,10 +41,12 @@ export default {
       return Math.floor(Math.random() * 51) + 50;
     },
     limitedColumns() {
-      return this.columns.filter(c => {
-        if (c.visibleWhen) return c.visibleWhen();
-        return c.visible;
-      });
+      return this.columns
+        ? this.columns.filter(c => {
+            if (c.visibleWhen) return c.visibleWhen();
+            return c.visible;
+          })
+        : [];
     },
   },
 };

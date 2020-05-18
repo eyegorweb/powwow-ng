@@ -1,7 +1,7 @@
 <template>
   <div class="toggle" :class="[label ? 'with-label' : 'without-label', statusClassName]">
     <div v-if="label" class="before-label" :class="{ 'font-weight-bold': boldLabel }">
-      <p class="before-label__label">{{ label }}</p>
+      <p class="before-label__label" :class="{ 'small-label': smallLabel }">{{ label }}</p>
       <p class="before-label__dots" />
     </div>
     <label>
@@ -43,6 +43,7 @@ export default {
       type: String,
       default: 'Off',
     },
+    smallLabel: Boolean,
   },
 
   computed: {
@@ -67,6 +68,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.small-label {
+  font-size: 0.9rem !important;
+}
 .toggle {
   display: flex;
   flex-flow: row nowrap;

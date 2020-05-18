@@ -10,6 +10,7 @@
           :disabled="disabled"
           type="text"
           class="form-control"
+          :class="{ 'big-input': big }"
           style="height: calc(1.5em + 1rem + 2px)"
           v-model="$value"
           ref="input"
@@ -41,7 +42,7 @@
           <template v-else>
             <li
               v-for="(result, i) in data"
-              :key="result.id"
+              :key="result.key || result.id"
               @click="selectValue(result)"
               @mouseenter="selectedItem = i"
               :class="i === selectedItem && 'is-selected'"
@@ -104,6 +105,7 @@ export default {
       required: false,
     },
     disabled: Boolean,
+    big: Boolean,
   },
 
   computed: {
@@ -246,6 +248,10 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+
+.big-input {
+  font-size: 1.5rem;
+}
 
 .icon-default {
   display: block;

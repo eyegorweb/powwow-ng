@@ -28,3 +28,8 @@ export function truncateLabel(value, size = 12) {
   if (value.length <= size) return value;
   return value.substr(0, size) + '...';
 }
+
+export function capitalize(s) {
+  if (typeof s !== 'string') return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
