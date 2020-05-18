@@ -33,19 +33,19 @@
           <tr :key="item.label" v-for="item in getContent('headings', [])">
             <td>{{ item.label }}</td>
             <td class="text-end">{{ item.nbSim }}</td>
-            <td class="text-end">{{ item.amountExcTaxe }} €</td>
+            <td class="text-end">{{ formatCurrency(item.amountExcTaxe) }} €</td>
           </tr>
           <tr class="top-line font-weight-bold">
             <td colspan="2">Total H.T.</td>
-            <td class="text-end">{{ getContent('amountExclTaxes') }} €</td>
+            <td class="text-end">{{ formatCurrency(getContent('amountExclTaxes')) }} €</td>
           </tr>
           <tr>
             <td colspan="2">T.V.A.(20%)</td>
-            <td class="text-end">{{ tva }} €</td>
+            <td class="text-end">{{ formatCurrency(tva) }} €</td>
           </tr>
           <tr class="top-line font-weight-bold">
             <td colspan="2">Total T.T.C.</td>
-            <td class="text-end">{{ getContent('amount') }} €</td>
+            <td class="text-end">{{ formatCurrency(getContent('amount')) }} €</td>
           </tr>
         </tbody>
       </table>
@@ -57,6 +57,7 @@
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import get from 'lodash.get';
 import { getMonthAndYear } from '@/utils/date.js';
+import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
   components: {
@@ -68,6 +69,9 @@ export default {
   methods: {
     getContent(path, defaultValue) {
       return get(this.content, path, defaultValue);
+    },
+    formatCurrency(value) {
+      return formatCurrency(value);
     },
   },
 
@@ -95,7 +99,7 @@ export default {
   border-top: 2px solid black;
 }
 
-.text-end{
+.text-end {
   text-align: end;
 }
 </style>

@@ -42,7 +42,7 @@
               <ConsoHistoryGraph />
             </div>
             <div class="row">
-              <LocalisationGraph />
+              <LocalisationGraph :partner="appliedPartner" />
             </div>
           </div>
         </FoldableBlock>
@@ -51,7 +51,7 @@
             <div class="row">
               <ParcByOffersGraph />
               <LinesPerZoneGraph />
-              <LinesByPLMNGraph />
+              <LinesByPLMNGraph :partner="appliedPartner" />
             </div>
             <div class="row">
               <ParcStateGraph />

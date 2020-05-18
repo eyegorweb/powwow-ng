@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="12" can-show>
+  <GraphContainer :size="12" :can-show="!!(partner && partner.id)">
     <div>
       <chart
         v-if="chartOptions"
@@ -8,7 +8,7 @@
         class="map"
       />
     </div>
-    <div slot="onHide">Texte d'erreur ici</div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
   </GraphContainer>
 </template>
 
@@ -34,53 +34,71 @@ export default {
     };
   },
 
+  props: {
+    partner: Object,
+  },
+
   async mounted() {
-    const countriesData = await fetchDistributionInfo();
-    const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
-      const correspondingItemInCountriesData = countriesData.find(
-        d => d.countryIsoCode2.toLowerCase() === c[0]
-      );
-      if (correspondingItemInCountriesData) {
-        c[1] = correspondingItemInCountriesData.accessPointNumber;
-      }
-      return c;
-    });
+    this.refreshData();
+  },
 
-    this.chartOptions = {
-      chart: {
-        map: 'custom/world',
-      },
-      title: {
-        text: '',
-      },
+  watch: {
+    partner() {
+      this.refreshData();
+    },
+  },
 
-      mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-          alignTo: 'spacingBox',
+  methods: {
+    async refreshData() {
+      if (!this.partner) return;
+
+      const countriesData = await fetchDistributionInfo(this.partner.id);
+      const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
+        const correspondingItemInCountriesData = countriesData.find(
+          d => d.countryIsoCode2.toLowerCase() === c[0]
+        );
+        if (correspondingItemInCountriesData) {
+          c[1] = correspondingItemInCountriesData.accessPointNumber;
+        }
+        return c;
+      });
+
+      this.chartOptions = {
+        chart: {
+          map: 'custom/world',
         },
-      },
+        title: {
+          text: '',
+        },
 
-      colorAxis: {
-        min: 0,
-      },
-      series: [
-        {
-          name: 'DATA',
-          states: {
-            hover: {
-              color: '#BADA55',
+        mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+            alignTo: 'spacingBox',
+          },
+        },
+
+        colorAxis: {
+          min: 0,
+        },
+        series: [
+          {
+            name: 'DATA',
+            states: {
+              hover: {
+                color: '#BADA55',
+              },
             },
+            dataLabels: {
+              enabled: false,
+              format: '{point.name}',
+            },
+            allAreas: false,
+            data: formatedData,
           },
-          dataLabels: {
-            enabled: false,
-            format: '{point.name}',
-          },
-          allAreas: false,
-          data: formatedData,
-        },
-      ],
-    };
+        ],
+      };
+    },
   },
 };
 

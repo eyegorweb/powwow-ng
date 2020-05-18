@@ -31,7 +31,9 @@ export default {
       // _ = route avant la redirection
       localStorage.setItem('_', this.$route.path);
       redirectTo(
-        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
+        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+          process.env.VUE_APP_CLIENT_ID
+        }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
       );
     },
 
@@ -71,7 +73,9 @@ export default {
         : sameUrl;
     },
     refreshUrl() {
-      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
+      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+        process.env.VUE_APP_CLIENT_ID
+      }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
 
       return url;
     },
