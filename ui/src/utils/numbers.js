@@ -22,9 +22,11 @@ export function formatLargeNumber(value) {
 }
 
 export function formatCurrency(value) {
-  if(!value) return value;
+  if (!value) return value;
 
-  const parts = ('' + value).split('.')
+  const toFixed = parseFloat(value).toFixed(2);
 
-  return `${formatLargeNumber(parseInt(parts[0]))},${parts[1]}`
+  const parts = ('' + toFixed).split('.');
+
+  return `${formatLargeNumber(parseInt(parts[0]))},${parts[1]}`;
 }

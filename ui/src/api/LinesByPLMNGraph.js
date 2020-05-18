@@ -1,9 +1,9 @@
 import { query } from './utils';
 
-export async function fetchDistributionInfo() {
+export async function fetchDistributionInfo(partnerId) {
   const queryStr = `query {
     doughnutPlmnFrDistribution(filter: {
-      partnerId: 2
+      partnerId: ${partnerId}
     }) {
       plmn
       operator
