@@ -20,9 +20,9 @@ export async function fetchBills(filters = []) {
     }
   }
     `;
-  //const response = await query(queryStr);
+  const response = await query(queryStr);
 
-  //*
+  /*
   const response = {
     data: {
       getBills: [
