@@ -17,9 +17,7 @@ export default {
     content() {
       switch (this.row.actionType) {
         case 'STATUS_CHANGE': {
-          return `Ancien statut : ${this.row.commercialStatusFrom} Nouveau statut : ${
-            this.row.commercialStatusTo
-          }`;
+          return `Ancien statut : ${this.row.commercialStatusFrom} Nouveau statut : ${this.row.commercialStatusTo}`;
         }
 
         case 'ICCID_CHANGE': {
@@ -35,24 +33,18 @@ export default {
         }
 
         case 'GEO_LOCATION': {
-          return `${this.row.status} | ${this.row.errorCode}| ${this.row.errorDescription} | ${
-            this.row.geolocation
-          }`;
+          return `${this.row.status} | ${this.row.errorCode}| ${this.row.errorDescription} | ${this.row.geolocation}`;
         }
 
         case 'PORT_IN': {
           return `
-          Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${
-            this.row.portabilityDate
-          }, OPD: ${this.row.OPD}, OPR: ${this.row.OPR}, MSISDN: ${this.row.oldMSISDN}
+          Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${this.row.portabilityDate}, OPD: ${this.row.OPD}, OPR: ${this.row.OPR}, MSISDN: ${this.row.oldMSISDN}
           `;
         }
 
         case 'PORT_OUT': {
           return `
-          Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${
-            this.row.portabilityDate
-          }, OPD: ${this.row.OPD}, OPR: ${this.row.OPR}, MSISDN: ${this.row.newMSISDN}
+          Id portabilité: ${this.row.portabilityId}, Date de portabilité: ${this.row.portabilityDate}, OPD: ${this.row.OPD}, OPR: ${this.row.OPR}, MSISDN: ${this.row.newMSISDN}
           `;
         }
 
