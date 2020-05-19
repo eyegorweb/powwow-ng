@@ -1,9 +1,23 @@
 <template>
-  <GraphContainer :size="12" can-show>
+  <GraphContainer :size="12" :can-show="canShow">
     <div>
+      {{ offer }}
+      <div class="d-flex justify-content-end">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentUsage = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">Texte d'erreur ici</div>
+    <div slot="onHide">
+      <template v-if="offer">
+        {{ $t('getreport.errors.dontSelectOffer') }}
+      </template>
+      {{ $t('getreport.errors.partnerRequired') }}
+    </div>
   </GraphContainer>
 </template>
 
@@ -11,17 +25,64 @@
 import GraphContainer from './GraphContainer';
 import Highcharts from 'highcharts';
 import { Chart } from 'highcharts-vue';
+import { fetchConsoHistory } from '@/api/consumption.js';
+import { getMonthString } from '@/utils/date';
+import Toggle from '@/components/ui/UiToggle2';
 
 export default {
   components: {
     Chart,
     GraphContainer,
+    Toggle,
+  },
+
+  props: {
+    partner: Object,
+    offer: Object,
+    billingAccount: Object,
+  },
+
+  computed: {
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+
+      return partnerChosen && !offerChosen;
+    }
   },
 
   data() {
     return {
       chartOptions: undefined,
+      apiData: undefined,
+      currentUsage: 'data',
+      toggleValues: [
+        {
+          id: 'data',
+          label: 'services.DATA',
+        },
+        {
+          id: 'sms',
+          label: 'services.SMS',
+        },
+        {
+          id: 'voice',
+          label: 'services.VOICE',
+        },
+      ],
     };
+  },
+
+  watch: {
+    partner() {
+      this.createGraph();
+    },
+    billingAccount() {
+      this.createGraph();
+    },
+    currentUsage() {
+      this.createGraph();
+    },
   },
 
   mounted() {
@@ -29,8 +90,59 @@ export default {
   },
 
   methods: {
-    createGraph() {
-      // faire la requête
+    async createGraph() {
+      if (!this.canShow) return;
+
+      if (!this.apiData) {
+        const params = {
+          partyId: this.partner.id,
+        };
+
+        if (this.billingAccount) {
+          params.customerAccountCode = this.billingAccount.data.code;
+        }
+        this.apiData = await fetchConsoHistory(params);
+      }
+
+      const smsConsumption = this.apiData.smsConsumption;
+      const voiceConsumption = this.apiData.voiceConsumption;
+      const dataConsumption = this.apiData.dataConsumption;
+
+      let consuptionToUse = undefined;
+
+      if (this.currentUsage === 'data') {
+        consuptionToUse = dataConsumption;
+      }
+
+      if (this.currentUsage === 'sms') {
+        consuptionToUse = smsConsumption;
+      }
+
+      if (this.currentUsage === 'voice') {
+        consuptionToUse = voiceConsumption;
+      }
+
+      if (!consuptionToUse) return;
+
+      const dataSeries = consuptionToUse.reduce(
+        (all, c) => {
+          const month = getMonthString(c.consumptionDate);
+          all.categories.push(month.slice(0, 3));
+          all.consumptionFrIn.push(c.consumptionFrIn);
+          all.consumptionFrOut.push(c.consumptionFrOut);
+          all.consumptionRoamingIn.push(c.consumptionRoamingIn);
+          all.consumptionRoamingOut.push(c.consumptionRoamingOut);
+          return all;
+        },
+        {
+          categories: [],
+          consumptionFrIn: [],
+          consumptionFrOut: [],
+          consumptionRoamingIn: [],
+          consumptionRoamingOut: [],
+        }
+      );
+
       // transformer les données
       this.chartOptions = {
         chart: {
@@ -45,20 +157,7 @@ export default {
 
         xAxis: [
           {
-            categories: [
-              'Jan',
-              'Fev',
-              'Mar',
-              'Avr',
-              'Mai',
-              'Jun',
-              'Jul',
-              'Aou',
-              'Sep',
-              'Oct',
-              'Nov',
-              'Dec',
-            ],
+            categories: dataSeries.categories,
             crosshair: true,
           },
         ],
@@ -66,7 +165,7 @@ export default {
         yAxis: {
           // Primary yAxis
           labels: {
-            format: '{value} Mo',
+            format: '{value}',
             style: {
               color: Highcharts.getOptions().colors[1],
             },
@@ -105,25 +204,26 @@ export default {
             ],
           },
         },
+
         series: [
           {
             name: 'France entrant',
-            data: [50, 30, 40, 70, 20, 60, 80, 40, 70, 90, 100, 120],
+            data: dataSeries.consumptionFrIn,
             stack: 'entrant',
           },
           {
             name: 'Roaming entrant',
-            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
+            data: dataSeries.consumptionRoamingIn,
             stack: 'entrant',
           },
           {
             name: 'France sortant',
-            data: [20, 50, 60, 20, 10, 20, 10, 30, 40, 20, 20, 10],
+            data: dataSeries.consumptionFrOut,
             stack: 'sortant',
           },
           {
             name: 'Roaming sortant',
-            data: [30, 0, 40, 40, 30, 20, 10, 30, 30, 40, 0, 10],
+            data: dataSeries.consumptionRoamingOut,
             stack: 'sortant',
           },
         ],
