@@ -50,7 +50,6 @@ export default {
     },
   },
 
-
   computed: {
     workflowCode() {
       if (!this.offer) return;
@@ -59,14 +58,18 @@ export default {
     customerAccountId() {
       if (!this.offer) return;
       return this.billingAccount.data.id;
-    }
+    },
   },
 
   methods: {
     async refreshData() {
       if (!this.partner) return;
 
-      const countriesData = await countryLinesDistribution(this.partner.id, this.workflowCode, this.customerAccountId);
+      const countriesData = await countryLinesDistribution(
+        this.partner.id,
+        this.workflowCode,
+        this.customerAccountId
+      );
       const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
         const correspondingItemInCountriesData = countriesData.find(
           d => d.countryIsoCode2.toLowerCase() === c[0]

@@ -37,7 +37,7 @@ export default {
     customerAccountId() {
       if (!this.offer) return;
       return this.billingAccount.data.id;
-    }
+    },
   },
 
   async mounted() {
@@ -52,7 +52,11 @@ export default {
     async refreshData() {
       if (!this.partner) return;
 
-      const data = await doughnutAreaDistribution(this.partner.id, this.workflowCode, this.customerAccountId);
+      const data = await doughnutAreaDistribution(
+        this.partner.id,
+        this.workflowCode,
+        this.customerAccountId
+      );
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.areaLabel,

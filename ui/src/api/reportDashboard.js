@@ -1,14 +1,14 @@
 import { query } from './utils';
 
-export async function fetchPLMNDistribution(partnerId,  workflowCode, customerAccountId) {
+export async function fetchPLMNDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
-  params.push(`partnerId:${partnerId}`)
-  if(workflowCode) {
+  params.push(`partnerId:${partnerId}`);
+  if (workflowCode) {
     params.push(`workflowCode:"${workflowCode}"`);
   }
 
-  if(customerAccountId) {
+  if (customerAccountId) {
     params.push(`customerAccountId:${customerAccountId}`);
   }
   const queryStr = `query {
@@ -24,16 +24,15 @@ export async function fetchPLMNDistribution(partnerId,  workflowCode, customerAc
   return response.data.doughnutPlmnFrDistribution;
 }
 
-
 export async function countryLinesDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
-  params.push(`partnerId:${partnerId}`)
-  if(workflowCode) {
+  params.push(`partnerId:${partnerId}`);
+  if (workflowCode) {
     params.push(`workflowCode:"${workflowCode}"`);
   }
 
-  if(customerAccountId) {
+  if (customerAccountId) {
     params.push(`customerAccountId:${customerAccountId}`);
   }
   const queryStr = `query {
@@ -52,16 +51,15 @@ export async function countryLinesDistribution(partnerId, workflowCode, customer
   return response.data.countryLinesDistribution;
 }
 
-
 export async function doughnutAreaDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
-  params.push(`partnerId:${partnerId}`)
-  if(workflowCode) {
+  params.push(`partnerId:${partnerId}`);
+  if (workflowCode) {
     params.push(`workflowCode:"${workflowCode}"`);
   }
 
-  if(customerAccountId) {
+  if (customerAccountId) {
     params.push(`customerAccountId:${customerAccountId}`);
   }
   const queryStr = `query {
@@ -79,12 +77,12 @@ export async function doughnutAreaDistribution(partnerId, workflowCode, customer
 export async function getDoughnutOfferDistributionInfo(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
-  params.push(`partnerId:${partnerId}`)
-  if(workflowCode) {
+  params.push(`partnerId:${partnerId}`);
+  if (workflowCode) {
     params.push(`workflowCode:"${workflowCode}"`);
   }
 
-  if(customerAccountId) {
+  if (customerAccountId) {
     params.push(`customerAccountId:${customerAccountId}`);
   }
 
