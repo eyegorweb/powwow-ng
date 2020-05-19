@@ -410,7 +410,10 @@
         "partners": "Partenaires",
         "roles": "Rôles"
       },
-      "total": "{total} utilisateur(s) trouvé(s)"
+      "total": "{total} utilisateur(s) trouvé(s)",
+      "errors": {
+        "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission."
+      }
     },
     "customize": {
       "addList": "Ajouter une liste de diffusion",

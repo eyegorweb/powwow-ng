@@ -284,8 +284,11 @@ export default {
       let response;
 
       response = await updatePartyDetail(params);
-      if (!response && response.errors && response.errors.length) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response && response.errors && response.errors.length) {
+        // this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        response.errors.forEach(e => {
+          this.flashMessage({ level: 'danger', message: e.message });
+        });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
