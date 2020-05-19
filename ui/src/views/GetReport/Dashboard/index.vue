@@ -43,7 +43,11 @@
               />
             </div>
             <div class="row">
-              <ConsoHistoryGraph />
+              <ConsoHistoryGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
             <div class="row">
               <LocalisationGraph
@@ -134,11 +138,11 @@ import ParcByOffersGraph from './ParcByOffersGraph';
 import LinesPerZoneGraph from './LinesPerZoneGraph';
 import LinesByPLMNGraph from './LinesByPLMNGraph';
 import ParcStateGraph from './ParcStateGraph';
-//import BilledAmountsGraph from './BilledAmountsGraph';
-//import BilledAmountsByZone from './BilledAmountsByZone';
-//import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
-//import BilledLinesNBGraph from './BilledLinesNBGraph';
-//import BilledLinesByZone from './BilledLinesByZone';
+// import BilledAmountsGraph from './BilledAmountsGraph';
+// import BilledAmountsByZone from './BilledAmountsByZone';
+// import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
+// import BilledLinesNBGraph from './BilledLinesNBGraph';
+// import BilledLinesByZone from './BilledLinesByZone';
 // import LinesThreshold from './LinesThreshold';
 // import ServicesGraph from './ServicesGraph';
 import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
@@ -163,10 +167,10 @@ export default {
     LinesByPLMNGraph,
     ParcStateGraph,
     // BilledAmountsGraph,
-    //AmountByBilledLinesGraph,
-    //BilledAmountsByZone,
-    //BilledLinesNBGraph,
-    //BilledLinesByZone,
+    // AmountByBilledLinesGraph,
+    // BilledAmountsByZone,
+    // BilledLinesNBGraph,
+    // BilledLinesByZone,
     // LinesThreshold,
     // ServicesGraph,
     AlarmsPerDayContainerGraph,
@@ -218,14 +222,20 @@ export default {
     async doFilter() {
       if (this.selectedPartner) {
         this.appliedPartner = { ...this.selectedPartner };
+      } else {
+        this.appliedPartner = undefined;
       }
 
       if (this.selectedBillingAccount) {
         this.appliedBillingAccount = { ...this.selectedBillingAccount };
+      } else {
+        this.appliedBillingAccount = undefined;
       }
 
       if (this.selectedOffer) {
         this.appliedOffer = { ...this.selectedOffer };
+      } else {
+        this.appliedOffer = undefined;
       }
     },
   },
@@ -239,7 +249,7 @@ export default {
     flex-basis: 15%;
   }
 
-   .filter-item-large {
+  .filter-item-large {
     flex-basis: 20%;
   }
 }

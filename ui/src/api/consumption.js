@@ -423,3 +423,47 @@ export async function exportCellsHistory(accessPointId, exportFormat) {
   }
   return response.data.exportCellsHistory;
 }
+
+export async function fetchConsoHistory(filters) {
+  const params = [];
+
+  params.push(`partyId:${filters.partyId}`);
+  if (filters.customerAccountCode) {
+    params.push(`customerAccountCode:"${filters.customerAccountCode}"`);
+  }
+
+  const queryStr = `
+  {
+    consumptionHistory(${params.join(',')}) {
+      partyId
+      smsConsumption{
+        consumptionDate
+        consumptionFrIn
+        consumptionFrOut
+        consumptionRoamingIn
+        consumptionRoamingOut
+      }
+
+      voiceConsumption{
+        consumptionDate
+        consumptionFrIn
+        consumptionFrOut
+        consumptionRoamingIn
+        consumptionRoamingOut
+      }
+
+      dataConsumption{
+        consumptionDate
+        consumptionFrIn
+        consumptionFrOut
+        consumptionRoamingIn
+        consumptionRoamingOut
+      }
+    }
+
+
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.consumptionHistory;
+}

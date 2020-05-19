@@ -39,7 +39,7 @@ export default {
     billingAccount: Object,
   },
 
-  mounted() { },
+  mounted() {},
 
   data() {
     return {
