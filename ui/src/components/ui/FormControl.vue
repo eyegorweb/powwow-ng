@@ -24,6 +24,7 @@
       :class="{ 'big-input': big }"
     />
     <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
+    <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
   </div>
 </template>
 

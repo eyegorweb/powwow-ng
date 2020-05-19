@@ -55,16 +55,24 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="common.firstName" v-model="form.firstName" />
+          <FormControl
+            label="common.firstName"
+            v-model="form.firstName"
+            :required="isRequired('firstName')"
+          />
         </div>
         <div class="form-entry pl-2">
-          <FormControl label="common.lastName" v-model="form.lastName" />
+          <FormControl
+            label="common.lastName"
+            v-model="form.lastName"
+            :required="isRequired('lastName')"
+          />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="common.email" v-model="form.email" />
+          <FormControl label="common.email" v-model="form.email" :required="isRequired('email')" />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
             $t('errors.password.email-error')
           }}</span>
@@ -72,19 +80,25 @@
       </div>
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="login" v-model="form.username" />
+          <FormControl label="login" v-model="form.username" :required="isRequired('username')" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="password" input-type="password" v-model="form.password" />
+          <FormControl
+            label="password"
+            input-type="password"
+            v-model="form.password"
+            :required="isRequired('password')"
+          />
         </div>
         <div class="form-entry pl-2">
           <FormControl
             label="passwordConfirm"
             input-type="password"
             v-model="form.passwordConfirm"
+            :required="isRequired('passwordConfirm')"
           />
         </div>
       </div>
@@ -99,7 +113,7 @@
         </div>
       </div>
 
-      <h4>Rôles</h4>
+      <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
 
       <div class="scroll-container">
         <MultiChoices :options="roles" v-model="selectedRoles" />
@@ -187,6 +201,23 @@ export default {
       return re.test(email);
     },
 
+    isRequired(currentField) {
+      const requiredFields = [
+        'title',
+        'firstName',
+        'lastName',
+        'email',
+        'username',
+        'password',
+        'passwordConfirm',
+      ]
+        .filter(f => f === currentField)
+        .filter(field => {
+          return !this.form[field];
+        });
+      return !!requiredFields.length;
+    },
+
     async save() {
       const params = {
         title: this.form.title,
@@ -222,8 +253,14 @@ export default {
         response = await createUser(params);
       }
 
-      if (!response && response.errors && response.errors.length) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response && response.errors && response.errors.length) {
+        response.errors.forEach(e => {
+          let errorMessage =
+            response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
+              ? this.$t('getadmin.users.errors.AccessDeniedForThisUser')
+              : this.$t('genericErrorMessage');
+          this.flashMessage({ level: 'danger', message: errorMessage });
+        });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
@@ -242,6 +279,23 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
+
+    // required() {
+    //   const requiredFields = [
+    //     'title',
+    //     'firstName',
+    //     'lastName',
+    //     'email',
+    //     'username',
+    //     'password',
+    //     'passwordConfirm',
+    //   ].filter(field => {
+    //     console.log('required field', !this.form[field]);
+    //     return !this.form[field];
+    //   });
+    //   console.log('array requied fields', requiredFields);
+    //   return !!requiredFields.length;
+    // },
 
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
@@ -333,7 +387,8 @@ export default {
     if (this.content.duplicateFrom) {
       roles = await fetchAllowedRoles(this.userInfos.id, null, null);
       this.formattedRoles(roles);
-      this.selectedGroupPartner = this.groupPartners[0].label;
+      this.selectedGroupPartner =
+        this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
       this.selectedRoles = this.roles.filter(r =>
         this.content.duplicateFrom.roles.find(rr => rr.Id === r.data.Id)
       );
