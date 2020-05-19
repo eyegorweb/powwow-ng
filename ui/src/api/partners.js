@@ -301,6 +301,33 @@ export async function fetchCustomerAccounts(id) {
   return response.data.customerAccounts.items;
 }
 
+export async function getCustomerAccount(code) {
+  const queryStr = `
+  query {
+    customerAccounts(filter: {code: {eq: "${code}"}}) {
+      total
+      items {
+        id
+        code
+        name
+        company
+        massActionsDisabled
+        address {
+          address1
+          zipCode
+          city
+          country
+          state
+        }
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response.data.customerAccounts.items;
+}
+
 export async function updatePartyDetail(params) {
   const queryStr = `
   mutation {
@@ -345,6 +372,27 @@ export async function updatePartyDetail(params) {
       partyType
       code
     }
+  }
+  `;
+
+  const response = await query(queryStr);
+  return response;
+}
+
+export async function updateCustomerAccount(params) {
+  const queryStr = `
+  mutation {
+    updateCustomerAccount(input: {
+      id: ${params.id},
+      code: "${params.code}",
+      label: "${params.label}",
+      actBlockade: ${params.actBlock},
+      company: "${params.company}",
+      address: "${params.address}",
+      zipCode: "${params.zipCode}",
+      city: "${params.city}",
+      country: "${params.country}"
+    })
   }
   `;
 
