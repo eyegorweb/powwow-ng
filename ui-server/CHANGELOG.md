@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.807+20200519161342
+2020-05-19
+
+### Fixes
+
+- modification tooltip (3493e8eb34c6f221bd2e33270b1e6a253b513dbd)
+
 ## 0.3.0-master.806+20200519160803
 2020-05-19
 
