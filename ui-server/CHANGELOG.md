@@ -2,6 +2,34 @@
 
 <!--- next entry here -->
 
+## 0.26.0
+2020-05-19
+
+### Features
+
+- Spring Cloud Kubernetes Discovery Support (eeeab2bf33a96200538e4dc695fe8b7e62e83bef)
+- gestion des champs libres (052e8c3d2cafae419dc3fa15a6db1ec1ecd2c233)
+- gestion et personnalisation des champs spécifiques (8caa0d2c89e6e1f046715fdde4309ad614d0411c)
+- architecture v3, detailed content in MIGRATION.md (c49f09502afcd385f10b3d163c799b1e1b3dc7be)
+- gestion des adresses de livraison (346d48953d70170ec60e87e9d9d729200c0853ae)
+- Page factures (877a83b339193b33b987d8314146bd70ce6704b1)
+- Panel détail de facture (e5b38a7837107eb72091468b356d1308a1f26af4)
+- Branchement de la carte du monde (89fe3b7f6c1edaa54249f5caa4b322cdebd13d92)
+- branchement des filtres des graphes ( carte du monde ) (8b5d535bdc2f38875fb07f2ebb5f1ba4219ba80f)
+- Table encours conso (e5e0a4f1a7ba1e2fbc935a6d5d221089da85c2c8)
+- historique des consommations de mon parc (92b4bfa908c42abf9ddaec1b2f0a5fdd190de5a5)
+- état de mon parc par mois (e3809bac77b6637e27f3edb93697186cd0ba597e)
+
+### Fixes
+
+- limitation du nombre de caractères des adresses de livraison (ad78db79a828489a7680d8406a5aa5bc734f0e89)
+- correctif d'affichage du pays sur la carte des adresses de livraison (9877a6dcdaf4f92ff952a9a2bd2c344958a55352)
+- gestion des rôles pour l'administration d'utilisateur (c351e2f782b78de328d7bd3257807c1b660975f2)
+- gestion des rôles pour l'administration d'utilisateur (55912134598170cf7f4d276505250e37d1cec4e4)
+- amélioration expérience utilisateur formulaire de modification (b8cfb61e9182072b12c4c3f29cffa1d7dcf73364)
+- gestion des permissions pour la modification d'utilisateur (6302e1aaab1a62aa27c43bd3f5a33ae3015c48a2)
+- annulation des champs obligatoires pour le formulaire de modification d'un utilisateur (f933ae617843e6a11a2264e6df57999b44be7daf)
+
 ## 0.25.0
 2020-05-12
 
