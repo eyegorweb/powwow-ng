@@ -55,24 +55,16 @@
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl
-            label="common.firstName"
-            v-model="form.firstName"
-            :required="isRequired('firstName')"
-          />
+          <FormControl label="common.firstName" v-model="form.firstName" />
         </div>
         <div class="form-entry pl-2">
-          <FormControl
-            label="common.lastName"
-            v-model="form.lastName"
-            :required="isRequired('lastName')"
-          />
+          <FormControl label="common.lastName" v-model="form.lastName" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="common.email" v-model="form.email" :required="isRequired('email')" />
+          <FormControl label="common.email" v-model="form.email" />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
             $t('errors.password.email-error')
           }}</span>
@@ -80,25 +72,19 @@
       </div>
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl label="login" v-model="form.username" :required="isRequired('username')" />
+          <FormControl label="login" v-model="form.username" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl
-            label="password"
-            input-type="password"
-            v-model="form.password"
-            :required="isRequired('password')"
-          />
+          <FormControl label="password" input-type="password" v-model="form.password" />
         </div>
         <div class="form-entry pl-2">
           <FormControl
             label="passwordConfirm"
             input-type="password"
             v-model="form.passwordConfirm"
-            :required="isRequired('passwordConfirm')"
           />
         </div>
       </div>
@@ -201,23 +187,6 @@ export default {
       return re.test(email);
     },
 
-    isRequired(currentField) {
-      const requiredFields = [
-        'title',
-        'firstName',
-        'lastName',
-        'email',
-        'username',
-        'password',
-        'passwordConfirm',
-      ]
-        .filter(f => f === currentField)
-        .filter(field => {
-          return !this.form[field];
-        });
-      return !!requiredFields.length;
-    },
-
     async save() {
       const params = {
         title: this.form.title,
@@ -279,23 +248,6 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
-
-    // required() {
-    //   const requiredFields = [
-    //     'title',
-    //     'firstName',
-    //     'lastName',
-    //     'email',
-    //     'username',
-    //     'password',
-    //     'passwordConfirm',
-    //   ].filter(field => {
-    //     console.log('required field', !this.form[field]);
-    //     return !this.form[field];
-    //   });
-    //   console.log('array requied fields', requiredFields);
-    //   return !!requiredFields.length;
-    // },
 
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
