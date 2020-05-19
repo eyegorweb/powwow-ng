@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.799+20200519130015
+2020-05-19
+
+### Features
+
+- historique des consommations de mon parc (92b4bfa908c42abf9ddaec1b2f0a5fdd190de5a5)
+
 ## 0.3.0-master.798+20200519090145
 2020-05-19
 
