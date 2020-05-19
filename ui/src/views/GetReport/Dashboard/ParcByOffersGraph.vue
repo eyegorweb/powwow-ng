@@ -1,13 +1,16 @@
 <template>
-  <GraphContainer
-    title="Répartition du parc par offre"
-    :size="4"
-    :can-show="!!(partner && partner.id)"
-  >
+  <GraphContainer title="Répartition du parc par offre" :size="4" :can-show="canShow">
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
+    <div slot="onHide">
+      <template v-if="offer || billingAccount">
+        {{ $t('getreport.errors.dontSelectOfferOrCF') }}
+      </template>
+      <template v-else>
+        {{ $t('getreport.errors.partnerRequired') }}
+      </template>
+    </div>
   </GraphContainer>
 </template>
 
@@ -43,6 +46,14 @@ export default {
       if (!this.billingAccount) return;
       return this.billingAccount.data.id;
     },
+
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
+
+      return partnerChosen && !offerChosen && !billingAccountChosen;
+    },
   },
 
   async mounted() {
@@ -57,7 +68,7 @@ export default {
 
   methods: {
     async refreshData() {
-      if (!this.partner) return;
+      if (!this.canShow) return;
 
       const data = await getDoughnutOfferDistributionInfo(
         this.partner.id,

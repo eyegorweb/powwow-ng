@@ -43,6 +43,13 @@ export default {
       if (!this.billingAccount) return;
       return this.billingAccount.data.id;
     },
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
+
+      return partnerChosen && !offerChosen && !billingAccountChosen;
+    },
   },
 
   async mounted() {

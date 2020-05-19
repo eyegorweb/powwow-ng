@@ -118,7 +118,11 @@
         <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
           <div>
             <div class="row">
-              <AlarmsPerDayContainerGraph :partner="appliedPartner" />
+              <AlarmsPerDayContainerGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
           </div>
         </FoldableBlock>

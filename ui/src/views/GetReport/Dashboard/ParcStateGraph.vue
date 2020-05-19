@@ -12,8 +12,8 @@
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
     <div slot="onHide">
-      <template v-if="offer">
-        {{ $t('getreport.errors.dontSelectOffer') }}
+      <template v-if="offer || billingAccount">
+        {{ $t('getreport.errors.dontSelectOfferOrCF') }}
       </template>
       <template v-else>
         {{ $t('getreport.errors.partnerRequired') }}
@@ -45,8 +45,9 @@ export default {
     canShow() {
       const partnerChosen = !!(this.partner && this.partner.id);
       const offerChosen = !!(this.offer && this.offer.id);
+      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
 
-      return partnerChosen && !offerChosen;
+      return partnerChosen && !offerChosen && !billingAccountChosen;
     },
   },
 
