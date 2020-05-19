@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="filters-container">
-      <div v-if="userIsBO" class="filter-item">
+      <div v-if="userIsBO" class="filter-item-large">
         <PartnerCombo :value.sync="selectedPartner" offline />
       </div>
       <div class="filter-item">
@@ -36,7 +36,11 @@
         <FoldableBlock default-open :title="'Consommation'" :key="'Consommation'" draggable>
           <div>
             <div class="row">
-              <ReportGauges :offer="appliedOffer" :billing-account="appliedBillingAccount" />
+              <ReportGauges
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
             <div class="row">
               <ConsoHistoryGraph />
@@ -130,13 +134,13 @@ import ParcByOffersGraph from './ParcByOffersGraph';
 import LinesPerZoneGraph from './LinesPerZoneGraph';
 import LinesByPLMNGraph from './LinesByPLMNGraph';
 import ParcStateGraph from './ParcStateGraph';
-import BilledAmountsGraph from './BilledAmountsGraph';
-import BilledAmountsByZone from './BilledAmountsByZone';
-import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
-import BilledLinesNBGraph from './BilledLinesNBGraph';
-import BilledLinesByZone from './BilledLinesByZone';
-import LinesThreshold from './LinesThreshold';
-import ServicesGraph from './ServicesGraph';
+//import BilledAmountsGraph from './BilledAmountsGraph';
+//import BilledAmountsByZone from './BilledAmountsByZone';
+//import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
+//import BilledLinesNBGraph from './BilledLinesNBGraph';
+//import BilledLinesByZone from './BilledLinesByZone';
+// import LinesThreshold from './LinesThreshold';
+// import ServicesGraph from './ServicesGraph';
 import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
 import ReportGauges from './ReportGauges';
 
@@ -158,13 +162,13 @@ export default {
     LinesPerZoneGraph,
     LinesByPLMNGraph,
     ParcStateGraph,
-    BilledAmountsGraph,
-    AmountByBilledLinesGraph,
-    BilledAmountsByZone,
-    BilledLinesNBGraph,
-    BilledLinesByZone,
-    LinesThreshold,
-    ServicesGraph,
+    // BilledAmountsGraph,
+    //AmountByBilledLinesGraph,
+    //BilledAmountsByZone,
+    //BilledLinesNBGraph,
+    //BilledLinesByZone,
+    // LinesThreshold,
+    // ServicesGraph,
     AlarmsPerDayContainerGraph,
     ReportGauges,
   },
@@ -233,6 +237,10 @@ export default {
   display: flex;
   .filter-item {
     flex-basis: 15%;
+  }
+
+   .filter-item-large {
+    flex-basis: 20%;
   }
 }
 </style>

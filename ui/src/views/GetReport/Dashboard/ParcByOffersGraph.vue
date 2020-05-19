@@ -38,7 +38,7 @@ export default {
     customerAccountId() {
       if (!this.offer) return;
       return this.billingAccount.data.id;
-    }
+    },
   },
 
   async mounted() {
@@ -55,7 +55,11 @@ export default {
     async refreshData() {
       if (!this.partner) return;
 
-      const data = await getDoughnutOfferDistributionInfo(this.partner.id, this.workflowCode, this.customerAccountId);
+      const data = await getDoughnutOfferDistributionInfo(
+        this.partner.id,
+        this.workflowCode,
+        this.customerAccountId
+      );
       const formateddata = data.reduce((all, item) => {
         all.push({ name: item.offer, y: item.percentage, z: item.accessPointNumber });
         return all;
@@ -82,10 +86,8 @@ export default {
           },
         ],
       };
-    }
+    },
   },
-
-
 };
 </script>
 

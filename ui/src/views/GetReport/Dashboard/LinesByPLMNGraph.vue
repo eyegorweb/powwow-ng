@@ -38,7 +38,7 @@ export default {
     customerAccountId() {
       if (!this.offer) return;
       return this.billingAccount.data.id;
-    }
+    },
   },
 
   async mounted() {
@@ -54,7 +54,11 @@ export default {
   methods: {
     async refreshData() {
       if (!this.partner) return;
-      const data = await fetchPLMNDistribution(this.partner.id, this.workflowCode, this.customerAccountId);
+      const data = await fetchPLMNDistribution(
+        this.partner.id,
+        this.workflowCode,
+        this.customerAccountId
+      );
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.plmn + '-' + item.operator,

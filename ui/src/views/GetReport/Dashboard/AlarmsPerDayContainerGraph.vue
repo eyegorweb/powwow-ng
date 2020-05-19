@@ -20,13 +20,11 @@ export default {
     AlarmsPerDayGraph,
   },
 
-
   props: {
     partner: Object,
     offer: Object,
     billingAccount: Object,
   },
-
 
   watch: {
     partner() {
