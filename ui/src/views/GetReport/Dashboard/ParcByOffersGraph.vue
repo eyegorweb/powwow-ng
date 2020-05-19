@@ -1,5 +1,9 @@
 <template>
-  <GraphContainer :size="4" :can-show="!!(partner && partner.id)">
+  <GraphContainer
+    title="Répartition du parc par offre"
+    :size="4"
+    :can-show="!!(partner && partner.id)"
+  >
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
@@ -69,7 +73,7 @@ export default {
           type: 'variablepie',
         },
         title: {
-          text: 'Répartition du parc par offre',
+          text: '',
         },
         tooltip: {
           headerFormat: '',

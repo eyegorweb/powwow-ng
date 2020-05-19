@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="12" :can-show="!!offerForGauge">
+  <GraphContainer title="Encours de consommation" :size="12" :can-show="!!offerForGauge">
     <div class="d-flex justify-content-end">
       <Toggle
         v-if="toggleValues"

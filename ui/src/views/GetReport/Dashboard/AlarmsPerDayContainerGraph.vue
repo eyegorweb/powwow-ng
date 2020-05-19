@@ -1,10 +1,11 @@
 <template>
-  <GraphContainer :size="12" :can-show="!!(partner && partner.id)">
+  <GraphContainer
+    title="Nombre d'alarmes déclenchées par jour"
+    :size="12"
+    :can-show="!!(partner && partner.id)"
+  >
     <div>
-      <AlarmsPerDayGraph
-        title="Nombre d'alarmes déclenchées par jour"
-        :partners="selectedPartnerIds"
-      />
+      <AlarmsPerDayGraph title="" :partners="selectedPartnerIds" />
     </div>
     <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
   </GraphContainer>

@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="12" :can-show="!!(partner && partner.id)">
+  <GraphContainer title="Carte du monde à J-1" :size="12" :can-show="!!(partner && partner.id)">
     <div>
       <chart
         v-if="chartOptions"

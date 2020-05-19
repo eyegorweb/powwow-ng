@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="12" :can-show="canShow">
+  <GraphContainer title="Etat du parc" :size="12" :can-show="canShow">
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -139,7 +139,7 @@ export default {
           type: 'column',
         },
         title: {
-          text: 'Etat du parc',
+          text: '',
         },
 
         xAxis: {
