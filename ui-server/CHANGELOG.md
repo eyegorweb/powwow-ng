@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.800+20200519141030
+2020-05-19
+
+### Fixes
+
+- amélioration expérience utilisateur formulaire de modification (b8cfb61e9182072b12c4c3f29cffa1d7dcf73364)
+
 ## 0.3.0-master.799+20200519130015
 2020-05-19
 
