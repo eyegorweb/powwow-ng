@@ -18,7 +18,8 @@ import SearchPartners from '@/views/GetAdmin/SearchPartners';
 import ReportsModels from '@/views/GetReport/reports/ReportsModels';
 import Documents from '@/views/GetReport/Documents/index.vue';
 import Catalog from '@/views/Catalog';
-
+import GetReportDashboard from '@/views/GetReport/Dashboard/index.vue';
+import GetReportBill from '@/views/GetReport/Bill/index.vue';
 import { excludeMocked } from '@/featureFlipping/plugin';
 
 // const Home = () => import('@/views/Home');
@@ -93,6 +94,16 @@ export default new Router({
       component: Documents,
     },
     {
+      path: '/reports/dashboard',
+      name: 'reportsDashboard',
+      component: GetReportDashboard,
+    },
+    {
+      path: '/reports/bill',
+      name: 'reportsBill',
+      component: GetReportBill,
+    },
+    {
       path: '/getamin/users',
       name: 'getAdminUsers',
       component: SearchUsers,
@@ -119,6 +130,5 @@ export default new Router({
       component: Catalog,
       mock: true,
     },
-
   ]),
 });

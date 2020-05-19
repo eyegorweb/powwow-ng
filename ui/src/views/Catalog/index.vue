@@ -14,7 +14,7 @@
       <PropsConfigurator
         :key="'conf' + confVersion"
         v-if="activeFixture && activeFixture.id"
-        :initialValues="activeSetValues"
+        :initial-values="activeSetValues"
         :config="activeFixture"
         @change="onPropsChange"
       />
@@ -35,6 +35,7 @@ import PropsConfigurator from './PropsConfigurator';
 import ComponentViewer from './ComponentViewer';
 
 import fixtures from './fixtures/all';
+
 export default {
   components: {
     UiApiAutocomplete,

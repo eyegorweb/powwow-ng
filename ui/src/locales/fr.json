@@ -161,7 +161,9 @@
     "admins": "Gestion des administrateurs",
     "account": "Compte",
     "modelReports": "Rapports",
-    "createReports": "Gestion documentaires"
+    "createReports": "Gestion documentaires",
+    "reportsDashboard": "Tableau de bord",
+    "reportsBill": "Facture"
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -184,13 +186,19 @@
       "special-error": "Une lettre avec accent ou un caractère spécial.",
       "number-error": "Le mot de passe doit contenir au moins un chiffre.",
       "email-error": "Veuillez saisir une adresse email valide"
-    }
+    },
+    "limitAddress": "Adresse limitée à 35 caractères"
   },
   "common": {
     "billing": "Facturation",
     "order": "Commande",
     "export": "Export",
     "others": "Autres",
+    "period": "Période",
+
+    "months_12": "12 Mois",
+    "months_24": "24 Mois",
+    "months_36": "36 Mois",
 
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
@@ -216,6 +224,11 @@
     "detailed": "Détaillé",
     "unit": "Unité",
     "mass": "Masse"
+  },
+  "bills": {
+    "total": "{total} factures disponibles",
+    "searchByRef": "Rechercher une facture par référence",
+    "detailPanel": "Facture N° {reference}"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -380,7 +393,7 @@
   "getadmin": {
     "users": {
       "userTypes": {
-        "bouygues": "Bouygues",
+        "bouygues": "Interne",
         "partner": "Partenaire",
         "group": "Compte groupe"
       },
@@ -397,17 +410,27 @@
         "partners": "Partenaires",
         "roles": "Rôles"
       },
-      "total": "{total} utilisateur(s) trouvé(s)"
+      "total": "{total} utilisateur(s) trouvé(s)",
+      "errors": {
+        "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission."
+      }
     },
     "customize": {
       "addList": "Ajouter une liste de diffusion",
       "modifyList": "Modifier une liste de diffusion",
       "broadcastLists": "Listes de diffusion",
-      "freeField": "Champs libres",
+      "customFields": "Champs libres",
+      "specificFields": "Champs spécifiques",
       "deliveryAddress": "Adresses de livraison",
+      "addDeliveryAddress": "Ajouter une adresse de livraison",
+      "modifyDeliveryAddress": "Modifier une adresse de livraison",
       "listName": "Nom de la liste de diffusion",
       "emails": "Adresses emails",
-      "addEmail": "Ajouter un email"
+      "addEmail": "Ajouter un email",
+      "addCustomField": "Ajouter un champ libre",
+      "modifyCustomField": "Modifier un champ libre",
+      "addSpecificField": "Ajouter un champ spécifique",
+      "modifySpecificField": "Modifier un champ spécifique"
     },
     "partners": {
       "name": "Raison sociale",
@@ -428,6 +451,47 @@
       "accountDescription": "Description du compte partenaire"
     },
     "partnerDetail": {
+      "generalInformations": "Informations générales",
+      "legalInformations": "Informations légales",
+      "backToCF": "Retour à la liste des C.F.",
+      "contactDetail": "Coordonnées",
+      "created": "Créé le",
+      "blockAct": "Blocage des actes de gestion",
+      "lastModification": "Dernière modification",
+      "partnerName": "Raison social :",
+      "siren": "Numéro SIREN :",
+      "naf": "Code NAF :",
+      "tva": "TVA intra-communautaire :",
+      "tel": "Téléphone :",
+      "fax": "Fax (facultatif) :",
+      "address": "Adresse :",
+      "address2": "Complément :",
+      "code": "Code :",
+      "zipCode": "Code postal :",
+      "city": "Ville :",
+      "bscs": "Compte root BSCS :",
+      "label": "Libellé :",
+      "company": "Societé :",
+      "contractReference": "Référence du contrat cadre :",
+      "contractDate": "Date du contrat :",
+      "contractExpiration": "Fin du contrat :",
+      "salesEngineer": "Ingénieur commercial :",
+      "commercialName": "Nom du commercial :",
+      "commercialEmail": "Email du commercial :",
+      "vpn": "VPN :",
+      "group": "Groupe :",
+      "contract": "contrat",
+      "partyGroup": "Compte groupe :",
+      "partnerTree": "Arborescence des partenaires :",
+      "partnerType": "Type de partenaire :",
+      "preActOffer": "Offre pré-activation :",
+      "preActGDM": "GDM pré-activation :",
+      "maxViews": "Nb max de vues :",
+      "workflow": "Workflow par défaut :",
+      "portabilityCode": "Code opérateur de portabilité :",
+      "state": "État (facultatif) :",
+      "update": "Mettre à jour  ",
+      "country": "Pays :",
       "ELEVEN": "11",
       "FIFTEEN": "15",
       "BOTH": "Tous",
@@ -452,6 +516,7 @@
       "ACTIVATION": "Activer  / Désactiver le rapport",
       "SEARCH": "Rechercher les rapports"
     },
+
     "creation": {
       "chooseInfos": "Choisir les informations",
       "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
@@ -465,7 +530,10 @@
       "dateAndRecursion": "Récurrence et date"
     },
     "errors": {
-      "AlreadyExists": "Un rapport avec ce nom existe déjà"
+      "AlreadyExists": "Un rapport avec ce nom existe déjà",
+      "partnerRequired": "Veuillez sélectionner un partenaire",
+      "dontSelectOffer": "Veuillez ne pas sélectionner d'offre",
+      "dontSelectOfferOrCF": "Veuillez ne pas sélectionner de CF et d'offre"
     }
   },
   "getparc": {
@@ -1212,6 +1280,8 @@
     "creationDate": "Date de création",
     "orderDate": "Date de commande",
     "activationAsked": "Activation",
+    "company": "Société",
+    "label": "Libellé",
     "preActivationAsked": "Préactivation",
     "creator": "Créateur",
     "quantity": "Quantité",
@@ -1219,12 +1289,19 @@
     "recipient": "Destinataire",
     "partner": "Partenaire",
     "product": "Produit",
+    "billsReference": "Référence",
+    "amountTTC": "Montant TTC",
+    "amountHT": "Montant HT",
     "externalId": "Ref. client",
     "massActionIds": "Id de gestion",
     "offer": "Offre",
+    "active": "Actif",
+    "locked": "Verouillé",
+    "closed": "Clos",
     "managementId": "Id gestion",
     "billingAccount": "Compte de facturation",
-    "customFields": "Champs libres {num}",
+    "customFields": "Champ libre {num}",
+    "specificFields": "Champ spécifique {num}",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
@@ -1357,11 +1434,13 @@
     "personalize-services": "Personnaliser les services",
     "choose-custom-field": "Renseigner les champs libres",
     "add-custom-field-value": "Ajouter une valeur",
-    "add-custom-field": "Ajouter un champ libre",
+    "add-custom-field-action": "Ajouter un champ {label}",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
+    "modify-custom-field-action": "Modifier un champ {label}",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",
-    "input-label-custom-field": "Nommer le titre du champ libre",
-    "choose-type-custom-field": "Choisir le type de champ libre",
+    "input-label-custom-field": "Nommer le titre du champ {label}",
+    "choose-type-custom-field": "Choisir le type de champ {label}",
+    "mandatory-custom-field": "Champ {label} obligatoire",
     "select-offer-placeholder": "Sélectionner l'offre",
     "new": {
       "customer": "Client",

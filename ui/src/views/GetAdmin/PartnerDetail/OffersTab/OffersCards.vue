@@ -13,13 +13,7 @@
           Gérer les offres associées
         </CardButton>
 
-        <Card
-          v-for="offer in visibleOffers"
-          :key="offer.id"
-          :can-delete="true"
-          :can-modify="false"
-          @delete="deleteOffer(offer)"
-        >
+        <Card v-for="offer in visibleOffers" :key="offer.id" :can-delete="true" :can-modify="false">
           <h4>{{ offer.name }}</h4>
 
           <div class="info-block mt-3">
@@ -43,6 +37,11 @@
               </template>
             </div>
           </div>
+          <div slot="buttons">
+            <Button class="button" :variant="'import'" @click="deleteOffer(offer)">{{
+              $t('actions.DISABLE')
+            }}</Button>
+          </div>
         </Card>
       </template>
     </div>
@@ -54,6 +53,7 @@ import Card from '@/components/Card';
 import CardButton from '@/components/CardButton';
 import CardsSkeleton from '@/views/GetAdmin/PartnerDetail/CardsSkeleton.vue';
 import UiInput from '@/components/ui/UiInput';
+import Button from '@/components/ui/Button';
 
 import get from 'lodash.get';
 import { mapMutations } from 'vuex';
@@ -66,6 +66,7 @@ export default {
     Card,
     CardsSkeleton,
     UiInput,
+    Button,
   },
 
   props: {

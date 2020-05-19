@@ -351,7 +351,6 @@ export default {
 .handle {
   font-size: 20px;
   position: relative;
-  top: 3px;
   &:hover {
     cursor: move;
   }

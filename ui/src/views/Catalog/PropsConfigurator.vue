@@ -3,9 +3,10 @@
     <template v-if="cmpProps">
       <SinglePropConfig
         v-for="cmpProp in cmpProps"
+        :key="cmpProp.label"
         :ptype="cmpProp.type"
         :label="cmpProp.label"
-        :initValue="getInitValue(cmpProp.label)"
+        :init-value="getInitValue(cmpProp.label)"
         @change="onPropChange($event, cmpProp)"
       />
     </template>
@@ -14,6 +15,7 @@
 
 <script>
 import SinglePropConfig from './SinglePropConfig';
+
 export default {
   components: {
     SinglePropConfig,

@@ -1,11 +1,18 @@
 <template>
-  <UiApiAutocomplete :items="items" v-model="selectedValue" display-results-while-empty />
+  <UiApiAutocomplete
+    placeholder="Offre"
+    :items="items"
+    v-model="selectedValue"
+    :disabled="disabled"
+    display-results-while-empty
+  />
 </template>
 
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { mapState } from 'vuex';
 import { fetchOffers } from '@/api/offers';
+import uuid from 'uuid/v1';
 
 export default {
   components: {
@@ -15,6 +22,7 @@ export default {
   props: {
     value: Object,
     partners: Array,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -40,17 +48,28 @@ export default {
       },
     },
   },
-  async mounted() {
-    const data = await fetchOffers('', this.partners, {
-      page: 0,
-      limit: 999,
-      partnerType: this.contextPartnersType,
-    });
-    this.items = data.map(p => ({
-      id: p.code,
-      label: p.workflowDescription,
-      meta: p,
-    }));
+  watch: {
+    async partners() {
+      await this.refreshList();
+    },
+  },
+  methods: {
+    async refreshList() {
+      const data = await fetchOffers('', this.partners, {
+        page: 0,
+        limit: 999,
+        partnerType: this.contextPartnersType,
+      });
+      this.items = data.map(p => ({
+        key: uuid(),
+        id: p.code,
+        label: p.workflowDescription,
+        meta: p,
+      }));
+    },
+  },
+  mounted() {
+    this.refreshList();
   },
 };
 </script>

@@ -179,7 +179,7 @@ export default {
       total: 0,
       orderBy: {
         key: 'id',
-        direction: 'DESC',
+        direction: 'ASC',
       },
     };
   },

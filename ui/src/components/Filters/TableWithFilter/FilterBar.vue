@@ -29,6 +29,7 @@
                   @change="value => onChangeValue(filter, value)"
                   @clear="filterId => clearFilter(filterId)"
                   :selected-data="selectedData"
+                  :selected-filters="currentFilters"
                 />
               </template>
             </FilterBarSlot>

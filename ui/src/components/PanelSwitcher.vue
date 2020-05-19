@@ -44,7 +44,23 @@
         :content="payload"
       />
       <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
-      <PartnerOfferPanel v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'" :content="payload" />
+      <CustomFieldFormPanel
+        v-if="panelId === 'getadmin.customize.addCustomField'"
+        :content="payload"
+      />
+      <SpecificFieldFormPanel
+        v-if="panelId === 'getadmin.customize.specificFields'"
+        :content="payload"
+      />
+      <PartnerOfferPanel
+        v-if="panelId === 'getadmin.partnerDetail.offerFromPanel.title'"
+        :content="payload"
+      />
+      <DeliveryAddressFormPanel
+        v-if="panelId === 'getadmin.customize.addDeliveryAddress'"
+        :content="payload"
+      />
+      <BillDetailPanel v-if="panelId === 'bills.detailPanel'" :content="payload" />
     </div>
   </SlidePanel>
 </template>
@@ -77,6 +93,13 @@ export default {
       import('@/views/GetAdmin/PartnerDetail/OffersTab/PartnerOfferPanel.vue'),
     BroadcastListFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/BroadcastListFormPanel.vue'),
+    CustomFieldFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/CustomFieldFormPanel.vue'),
+    SpecificFieldFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/SpecificFieldFormPanel.vue'),
+    DeliveryAddressFormPanel: () =>
+      import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
+    BillDetailPanel: () => import('@/views/GetReport/Bill/BillDetailPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),

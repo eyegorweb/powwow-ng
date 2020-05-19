@@ -1,8 +1,17 @@
 import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
-export async function fetchAllowedRoles(userId) {
+export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
+  let partyGroupParam = '';
+  if (partyGroupId) {
+    partyGroupParam = `partyGroupId: ${partyGroupId},`;
+  }
+
+  let partyParam = '';
+  if (partyId) {
+    partyParam = `partyId: ${partyId},`;
+  }
   const queryStr = `query {
-    userAllowedRoles(userId: ${userId}, withWS: false) {
+    userAllowedRoles(userId: ${userId}, withWS: false, ${partyParam} ${partyGroupParam}) {
       Id
       name
       description
@@ -84,6 +93,16 @@ export async function updateUser(params) {
     }
   }`;
   const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.updateUser;
 }
 
@@ -179,16 +198,17 @@ export async function fetchPartnerGroups(q = '') {
 export async function fetchUserRoles() {
   const queryStr = `
   query {
-    userAllowedRoles(userId: null) {
+    rolesForCurrentUser {
       Id
       name
       description
+      scope
     }
   }
   `;
 
   const response = await query(queryStr);
-  return response.data.userAllowedRoles;
+  return response.data.rolesForCurrentUser;
 }
 
 export function formatFilters(selectedFilters) {

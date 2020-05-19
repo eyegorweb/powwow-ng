@@ -24,7 +24,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['singlePartger']),
+    ...mapGetters(['singlePartner']),
   },
   watch: {
     selectedData(selectedData) {
@@ -58,7 +58,11 @@ export default {
       direction: 'DESC',
     };
 
-    const response = await fetchReports(orderBy, pagination, this.singlePartger);
+    const response = await fetchReports(
+      orderBy,
+      pagination,
+      this.singlePartner ? this.singlePartner.id : undefined
+    );
 
     if (response.items) {
       this.items = response.items.map(i => ({ id: i.id, label: i.name }));

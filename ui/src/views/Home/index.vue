@@ -36,6 +36,7 @@
         :h="item.h"
         :i="item.i"
         :key="item.i"
+        :is-draggable="!item.notDraggable"
       >
         <component
           :is="item.meta.component"
@@ -66,6 +67,7 @@ export default {
   computed: {
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    ...mapGetters(['userIsPartner']),
 
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
@@ -74,7 +76,7 @@ export default {
       if (window.innerWidth <= 1024) {
         return 5;
       }
-      if (window.innerWidth > 1024 && window.innerWidth <= 1366) {
+      if (window.innerWidth > 1024 && window.innerWidth <= 1460) {
         return 5.5;
       }
       return 8;
@@ -127,6 +129,8 @@ export default {
             h: this.cellHeight,
             title: existingLayout.title,
             i: existingLayout.i,
+            notDraggable: existingLayout.notDraggable,
+            partnerOnly: existingLayout.partnerOnly,
           };
         }
         return w;
@@ -160,7 +164,12 @@ export default {
         layout = this.homeWidgets
           .filter(o => o.checked)
           .map(w => {
-            return { ...w.layout, meta: w };
+            return {
+              ...w.layout,
+              meta: w,
+              notDraggable: w.notDraggable,
+              partnerOnly: w.partnerOnly,
+            };
           });
       } else {
         for (let i = 0; i < this.homeWidgets.length; i++) {
@@ -183,6 +192,8 @@ export default {
               title: meta.title,
               i,
               meta,
+              notDraggable: meta.notDraggable,
+              partnerOnly: meta.partnerOnly,
             });
           }
 
@@ -191,7 +202,13 @@ export default {
         }
       }
 
-      return layout;
+      const userIsPartner = this.userIsPartner;
+      return layout.filter(e => {
+        if (e.partnerOnly && !userIsPartner) {
+          return false;
+        }
+        return true;
+      });
     },
   },
   watch: {

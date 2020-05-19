@@ -33,31 +33,38 @@
 
       <div class="entries-line">
         <div v-if="userType == 'PARTNER'" class="form-entry">
-          <label>Partenaire</label>
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
+          <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
+          <PartnerCombo
+            :value.sync="selectedPartner"
+            include-mailing-lists
+            offline
+            :disabled="!!content.duplicateFrom"
+          />
         </div>
         <div v-if="userType == 'PARTNER_GROUP'" class="form-entry">
-          <label>Groupe de partenaire</label>
+          <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
+            :placeholder="$t('getadmin.users.filters.partnerGroup')"
             :items="groupPartners"
             v-model="selectedGroupPartner"
             display-results-while-empty
+            :disabled="!!content.duplicateFrom"
           />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl big label="common.firstName" v-model="form.firstName" />
+          <FormControl label="common.firstName" v-model="form.firstName" />
         </div>
         <div class="form-entry pl-2">
-          <FormControl big label="common.lastName" v-model="form.lastName" />
+          <FormControl label="common.lastName" v-model="form.lastName" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl big label="common.email" v-model="form.email" />
+          <FormControl label="common.email" v-model="form.email" />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
             $t('errors.password.email-error')
           }}</span>
@@ -65,17 +72,16 @@
       </div>
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl big label="login" v-model="form.username" />
+          <FormControl label="login" v-model="form.username" />
         </div>
       </div>
 
       <div class="entries-line">
         <div class="form-entry">
-          <FormControl big label="password" input-type="password" v-model="form.password" />
+          <FormControl label="password" input-type="password" v-model="form.password" />
         </div>
         <div class="form-entry pl-2">
           <FormControl
-            big
             label="passwordConfirm"
             input-type="password"
             v-model="form.passwordConfirm"
@@ -93,9 +99,9 @@
         </div>
       </div>
 
-      <h4>Rôles</h4>
+      <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
 
-      <div class="scroll-container">
+      <div>
         <MultiChoices :options="roles" v-model="selectedRoles" />
       </div>
     </div>
@@ -216,18 +222,33 @@ export default {
         response = await createUser(params);
       }
 
-      if (!response && response.errors && response.errors.length) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response && response.errors && response.errors.length) {
+        response.errors.forEach(e => {
+          console.log(e);
+          let errorMessage =
+            response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
+              ? this.$t('getadmin.users.errors.AccessDeniedForThisUser')
+              : this.$t('genericErrorMessage');
+          this.flashMessage({ level: 'danger', message: errorMessage });
+        });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
 
       this.closePanel({ resetSearch: true });
     },
+
+    formattedRoles(roles) {
+      this.roles = roles.map(r => ({
+        code: r.Id,
+        label: r.description,
+        data: r,
+      }));
+    },
   },
 
   computed: {
-    ...mapGetters(['userInfos', 'userIsBO']),
+    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
 
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
@@ -303,6 +324,7 @@ export default {
 
   async mounted() {
     this.canShowForm = false;
+    let roles;
     if (this.userIsBO) {
       const groupPartnersResponse = await fetchPartnerGroups();
       this.groupPartners = groupPartnersResponse.map(p => {
@@ -315,13 +337,11 @@ export default {
 
     this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
-    // const roles = await fetchAllowedRoles(this.userInfos.id);
-    // temp: fix id to null
-    const roles = await fetchAllowedRoles(null);
-
-    this.roles = roles.map(r => ({ code: r.Id, label: r.description, data: r }));
-
     if (this.content.duplicateFrom) {
+      roles = await fetchAllowedRoles(this.userInfos.id, null, null);
+      this.formattedRoles(roles);
+      this.selectedGroupPartner =
+        this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
       this.selectedRoles = this.roles.filter(r =>
         this.content.duplicateFrom.roles.find(rr => rr.Id === r.data.Id)
       );
@@ -343,20 +363,55 @@ export default {
         }
         return u;
       });
+    } else {
+      // en mode création, on veut savoir quel type d'utilisateur on a
+      // Création
+      // user interne:  userId = null,  partyId = null, partyGroupId = null
+      // user party: userId = null,  partyId = id du party, partyGroupId = null
+      // user partyGroup: userId = null,  partyId = null, partyGroupId = id
+      // Et Modification :
+      // userId = id de l'utilisateur consulté
+      if (this.userIsBO) {
+        roles = await fetchAllowedRoles(null, null, null);
+        this.formattedRoles(roles);
+      } else if (this.userIsPartner) {
+        roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        this.formattedRoles(roles);
+      } else if (this.userIsGroupAccount) {
+        const groupPartnerId =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
+        roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        this.formattedRoles(roles);
+      }
     }
 
     this.canShowForm = true;
+  },
+
+  watch: {
+    async selectedPartner() {
+      if (!this.content.duplicateFrom) {
+        if (!this.selectedPartner) return;
+        const roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        this.formattedRoles(roles);
+      }
+    },
+    async selectedGroupPartner() {
+      if (!this.content.duplicateFrom) {
+        const groupPartnerId =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
+        let roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        this.formattedRoles(roles);
+      }
+    },
+    // userType(value) {
+    //   console.log('user type value', value);
+    // },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.scroll-container {
-  max-height: 22rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
 .form-input {
   font-size: 1.5rem !important;
 }

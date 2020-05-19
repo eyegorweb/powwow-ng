@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" mocked>
     <div slot="header">
-      <div class="d-flex offer-select">
+      <div @click.stop="" class="d-flex offer-select">
         <template v-if="!loadingOffers">
           <span>Pour l'offre</span>
           <UiSelect
@@ -18,41 +18,25 @@
         </template>
       </div>
     </div>
-    <div class="conso-container">
-      <div class="row">
-        <div class="col-md-4">
-          <Gauge :value="35" max-value="∞" unit="Mo" subtitle="18/11/2018">DATA</Gauge>
-        </div>
-        <div class="col-md-4">
-          <Gauge :value="120" max-value="200" subtitle="18/11/2018" arc-style="danger">SMS</Gauge>
-        </div>
-        <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
-          <Gauge
-            time-max-value
-            :value="875"
-            max-value="971"
-            :format-value-fn="getTimeFormatFn()"
-            subtitle="18/11/2018"
-            >VOIX</Gauge
-          >
-        </div>
-      </div>
-    </div>
+    <ConsoGauges :selected-offer="offerForGauge">
+      <h4>Veuillez choisir une offre</h4>
+    </ConsoGauges>
   </WidgetBloc>
 </template>
 
 <script>
 import WidgetBloc from './WidgetBloc';
-import Gauge from '@/components/widgets/Gauge';
 import UiSelect from '@/components/ui/UiSelect';
+import ConsoGauges from '@/components/widgets/ConsoGauges.vue';
 import { fetchOfferWithBilligAccount } from '@/api/offers.js';
+
 import { mapState } from 'vuex';
 
 export default {
   components: {
     WidgetBloc,
-    Gauge,
     UiSelect,
+    ConsoGauges,
   },
   props: {
     widget: Object,
@@ -74,27 +58,6 @@ export default {
       this.loadingOffers = false;
     }
   },
-  methods: {
-    getTimeFormatFn() {
-      return valueToShow => {
-        let sec_num = parseInt(valueToShow, 10);
-        let hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - hours * 3600) / 60);
-        let seconds = sec_num - hours * 3600 - minutes * 60;
-
-        if (hours < 10) {
-          hours = '0' + hours;
-        }
-        if (minutes < 10) {
-          minutes = '0' + minutes;
-        }
-        if (seconds < 10) {
-          seconds = '0' + seconds;
-        }
-        return hours + ':' + minutes + ':' + seconds;
-      };
-    },
-  },
 
   computed: {
     ...mapState('userContext', ['contextPartners']),
@@ -108,6 +71,16 @@ export default {
         .map(f => f.values)
         .flat();
     },
+    offerForGauge() {
+      if (this.selectedOffer) {
+        const selectedOffer = this.offers.find(o => this.selectedOffer === o.value);
+        return {
+          customerAccoutId: selectedOffer.meta.customerAccount.id,
+          workflowId: selectedOffer.meta.workflow.id,
+        };
+      }
+      return undefined;
+    },
   },
 
   data() {
@@ -117,25 +90,10 @@ export default {
       loadingOffers: false,
     };
   },
-  watch: {
-    selectedOffer(newValue) {
-      console.log(newValue);
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.conso-container {
-  display: flex;
-  height: 100%;
-
-  .row {
-    align-self: flex-end;
-    width: 100%;
-  }
-}
-
 .offer-select {
   align-items: flex-end;
   span {

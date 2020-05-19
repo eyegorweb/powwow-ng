@@ -24,10 +24,10 @@ export const getters = {
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
-  singlePartger: state => {
-    if (state.userIsPartner) {
+  singlePartner: (state, getters) => {
+    if (getters.userIsPartner) {
       return state.userInfos && state.userInfos.partners && state.userInfos.partners.length
-        ? state.userInfos.partners[0].id
+        ? state.userInfos.partners[0]
         : undefined;
     }
     return undefined;
