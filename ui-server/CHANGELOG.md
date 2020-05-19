@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.802+20200519143642
+2020-05-19
+
+### Features
+
+- état de mon parc par mois (e3809bac77b6637e27f3edb93697186cd0ba597e)
+
 ## 0.3.0-master.801+20200519142438
 2020-05-19
 
