@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.798+20200519090145
+2020-05-19
+
+### Features
+
+- Table encours conso (e5e0a4f1a7ba1e2fbc935a6d5d221089da85c2c8)
+
 ## 0.3.0-master.797+20200519080506
 2020-05-19
 
