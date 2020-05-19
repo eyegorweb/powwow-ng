@@ -11,7 +11,6 @@
           type="text"
           class="form-control"
           :class="{ 'big-input': big }"
-          style="height: calc(1.5em + 1rem + 2px)"
           v-model="$value"
           ref="input"
           @focus="onInputFocus"
