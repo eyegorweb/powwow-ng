@@ -196,6 +196,10 @@
     "others": "Autres",
     "period": "Période",
 
+    "months_12": "12 Mois",
+    "months_24": "24 Mois",
+    "months_36": "36 Mois",
+
     "billingAccount": "Compte de facturation",
     "delivery": "Livraison",
     "product": "Produit",

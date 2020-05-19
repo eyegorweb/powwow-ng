@@ -42,22 +42,39 @@
               <ConsoHistoryGraph />
             </div>
             <div class="row">
-              <LocalisationGraph :partner="appliedPartner" />
+              <LocalisationGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
             <div class="row">
-              <ParcByOffersGraph />
-              <LinesPerZoneGraph />
-              <LinesByPLMNGraph :partner="appliedPartner" />
+              <ParcByOffersGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+              <LinesPerZoneGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+              <LinesByPLMNGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
             <div class="row">
               <ParcStateGraph />
             </div>
           </div>
         </FoldableBlock>
+        <!--
         <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
           <div>
             <div class="row">
@@ -85,10 +102,11 @@
             </div>
           </div>
         </FoldableBlock>
+        -->
         <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
           <div>
             <div class="row">
-              <AlarmsPerDayContainerGraph />
+              <AlarmsPerDayContainerGraph :partner="appliedPartner" />
             </div>
           </div>
         </FoldableBlock>
@@ -158,6 +176,8 @@ export default {
         label: this.singlePartner.name,
         data: this.singlePartner,
       };
+
+      this.appliedPartner = { ...this.selectedPartner };
     }
   },
 
