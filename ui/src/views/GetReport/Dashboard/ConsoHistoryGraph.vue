@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer :size="12" :can-show="canShow">
+  <GraphContainer title="Historique des consommations" :size="12" :can-show="canShow">
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -153,7 +153,7 @@ export default {
         colors: ['#488bf7', '#083e96', '#dc73de', '#9c109e'],
 
         title: {
-          text: 'Historique des consommations',
+          text: '',
         },
 
         xAxis: [

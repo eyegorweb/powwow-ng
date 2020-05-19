@@ -144,9 +144,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.partnerTypeM2M {
-  margin-bottom: 20rem !important;
-}
 .partnerTypeM2M .content-cell {
   li:nth-child(1) {
     color: $dark-gray;
@@ -168,26 +165,6 @@ export default {
     text-align: right;
   }
 }
-.partnerTypeMVNO .content-cell {
-  li.total-line {
-    color: $dark-gray;
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 40px;
-    text-align: right;
-  }
-  li.total-value {
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 40px;
-    text-align: left;
-  }
-  li.value-line {
-    font-size: 1rem;
-    line-height: 1.4rem;
-    text-align: right;
-  }
-}
 
 .total-line {
   font-size: 2rem;
@@ -199,10 +176,5 @@ export default {
 
 .table thead th {
   text-align: right;
-}
-
-.partnerTypeMVNO tr td:nth-child(2) {
-  width: 50%;
-  padding-right: 30%;
 }
 </style>
