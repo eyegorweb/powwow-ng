@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.26.1
+2020-05-19
+
+### Fixes
+
+- modification tooltip (3493e8eb34c6f221bd2e33270b1e6a253b513dbd)
+
 ## 0.26.0
 2020-05-19
 
