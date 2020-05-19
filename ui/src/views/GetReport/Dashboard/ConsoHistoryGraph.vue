@@ -1,7 +1,6 @@
 <template>
   <GraphContainer :size="12" :can-show="canShow">
     <div>
-      {{ offer }}
       <div class="d-flex justify-content-end">
         <Toggle
           v-if="toggleValues"
@@ -16,7 +15,9 @@
       <template v-if="offer">
         {{ $t('getreport.errors.dontSelectOffer') }}
       </template>
-      {{ $t('getreport.errors.partnerRequired') }}
+      <template v-else>
+        {{ $t('getreport.errors.partnerRequired') }}
+      </template>
     </div>
   </GraphContainer>
 </template>
@@ -48,7 +49,7 @@ export default {
       const offerChosen = !!(this.offer && this.offer.id);
 
       return partnerChosen && !offerChosen;
-    }
+    },
   },
 
   data() {

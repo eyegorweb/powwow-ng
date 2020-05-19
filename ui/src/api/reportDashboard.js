@@ -1,5 +1,29 @@
 import { query } from './utils';
 
+export async function parcStatusByMonth(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    parcStatusByMonth(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      countStock
+      countPreactivated
+      countActivated
+      countCancellationInProgress
+      countTest
+      countReleased
+      countSuspended
+      date
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.parcStatusByMonth;
+}
+
 export async function fetchPLMNDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
