@@ -13,7 +13,7 @@
     </ConsoGauges>
     <ConsoTable v-else :partner="partner" :offer="offer" :billing-account="billingAccount" />
     <div slot="onHide">
-      Veuillez choisir une offre et un compte de facturation
+      Veuillez sélectionner un CF et une offre.
     </div>
   </GraphContainer>
 </template>

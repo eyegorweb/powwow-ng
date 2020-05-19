@@ -1,7 +1,7 @@
 <template>
   <div :class="`col-${size}`">
     <div class="bg-white p-3 mt-4">
-      <h3>{{ title }}</h3>
+      <h4>{{ title }}</h4>
       <template v-if="canShow">
         <slot />
       </template>

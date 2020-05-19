@@ -531,8 +531,9 @@
     },
     "errors": {
       "AlreadyExists": "Un rapport avec ce nom existe déjà",
-      "partnerRequired": "Veuillez choisir un partenaire",
-      "dontSelectOffer": "Veuillez désélectionner l'offre"
+      "partnerRequired": "Veuillez sélectionner un partenaire",
+      "dontSelectOffer": "Veuillez ne pas sélectionner d'offre",
+      "dontSelectOfferOrCF": "Veuillez ne pas sélectionner de CF et d'offre"
     }
   },
   "getparc": {
