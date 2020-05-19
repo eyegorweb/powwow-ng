@@ -1,25 +1,87 @@
 <template>
-  <GraphWithToggle :size="12" can-show>
-    <chart v-if="chartOptions" :options="chartOptions" />
-
-    <div slot="onHide">Texte d'erreur ici</div>
-  </GraphWithToggle>
+  <GraphContainer :size="12" :can-show="canShow">
+    <div>
+      <div class="d-flex justify-content-end">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentPeriod = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
+      <chart v-if="chartOptions" :options="chartOptions" />
+    </div>
+    <div slot="onHide">
+      <template v-if="offer">
+        {{ $t('getreport.errors.dontSelectOffer') }}
+      </template>
+      <template v-else>
+        {{ $t('getreport.errors.partnerRequired') }}
+      </template>
+    </div>
+  </GraphContainer>
 </template>
-
 <script>
-import GraphWithToggle from './GraphWithToggle';
-// import { getDoughnutOfferDistributionInfo } from '@/api/reportDashboard';
+import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
+import { parcStatusByMonth } from '@/api/reportDashboard.js';
+import Toggle from '@/components/ui/UiToggle2';
+import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
     Chart,
-    GraphWithToggle,
+    GraphContainer,
+    Toggle,
+  },
+
+  props: {
+    partner: Object,
+    offer: Object,
+    billingAccount: Object,
+  },
+
+  computed: {
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+
+      return partnerChosen && !offerChosen;
+    },
+  },
+
+  watch: {
+    partner() {
+      this.createGraph();
+    },
+    billingAccount() {
+      this.createGraph();
+    },
+    currentPeriod() {
+      this.createGraph();
+    },
   },
 
   data() {
     return {
       chartOptions: undefined,
+      currentPeriod: 'MONTH12',
+      apiData: undefined,
+      toggleValues: [
+        {
+          id: 'MONTH12',
+          label: 'common.months_12',
+          default: true,
+        },
+        {
+          id: 'MONTH24',
+          label: 'common.months_24',
+        },
+        {
+          id: 'MONTH36',
+          label: 'common.months_36',
+        },
+      ],
     };
   },
 
@@ -28,13 +90,50 @@ export default {
   },
 
   methods: {
-    // async DistibutionInfo() {
-    //   // const data = await fetchDistributionInfo();
-    //   // this offer = data.offer;
-    //   // this accessPointNumber = data.accessPointNumber;
-    //   // this percentage = data.percentage;
-    // },
-    createGraph() {
+    async createGraph() {
+      if (!this.canShow) return;
+
+      if (!this.apiData) {
+        const params = {
+          partyId: this.partner.id,
+        };
+
+        if (this.billingAccount) {
+          params.customerAccountCode = this.billingAccount.data.code;
+        }
+        this.apiData = await parcStatusByMonth(
+          params.partyId,
+          params.customerAccountCode,
+          this.currentPeriod
+        );
+      }
+
+      const dataSeries = this.apiData.reduce(
+        (all, c) => {
+          const month = getMonthString(c.date);
+          all.categories.push(month.slice(0, 3));
+          all.countStock.push(c.countStock);
+          all.countPreactivated.push(c.countPreactivated);
+          all.countActivated.push(c.countActivated);
+          all.countCancellationInProgress.push(c.countCancellationInProgress);
+          all.countTest.push(c.countTest);
+          all.countReleased.push(c.countReleased);
+          all.countSuspended.push(c.countSuspended);
+          return all;
+        },
+        {
+          categories: [],
+          countStock: [],
+          countPreactivated: [],
+          countActivated: [],
+          countCancellationInProgress: [],
+          countTest: [],
+          countReleased: [],
+          countSuspended: [],
+        }
+      );
+      //* /
+
       this.chartOptions = {
         chart: {
           type: 'column',
@@ -44,26 +143,13 @@ export default {
         },
 
         xAxis: {
-          categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-          ],
+          categories: dataSeries.categories,
           crosshair: true,
         },
         yAxis: {
           min: 0,
           title: {
-            text: 'Rainfall (mm)',
+            text: '',
           },
         },
         tooltip: {
@@ -83,20 +169,28 @@ export default {
         },
         series: [
           {
-            name: 'Tokyo',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            name: 'Stock',
+            data: dataSeries.countStock,
           },
           {
-            name: 'New York',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3],
+            name: 'Pré-activé',
+            data: dataSeries.countPreactivated,
           },
           {
-            name: 'London',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2],
+            name: 'Test',
+            data: dataSeries.countTest,
           },
           {
-            name: 'Berlin',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1],
+            name: 'Activé',
+            data: dataSeries.countActivated,
+          },
+          {
+            name: 'Suspendu',
+            data: dataSeries.countSuspended,
+          },
+          {
+            name: 'Résilié',
+            data: dataSeries.countReleased,
           },
         ],
       };

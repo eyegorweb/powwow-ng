@@ -78,7 +78,11 @@
               />
             </div>
             <div class="row">
-              <ParcStateGraph />
+              <ParcStateGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
             </div>
           </div>
         </FoldableBlock>
