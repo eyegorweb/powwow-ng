@@ -18,7 +18,7 @@
       <template v-else>
         {{ $t('getreport.errors.partnerRequired') }}
       </template>
-    </div>
+    </div> 
   </GraphContainer>
 </template>
 <script>
