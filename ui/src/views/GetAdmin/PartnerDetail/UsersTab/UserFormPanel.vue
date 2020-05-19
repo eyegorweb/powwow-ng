@@ -115,7 +115,7 @@
 
       <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
 
-      <div class="scroll-container">
+      <div>
         <MultiChoices :options="roles" v-model="selectedRoles" />
       </div>
     </div>
@@ -459,12 +459,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scroll-container {
-  max-height: 22rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
 .form-input {
   font-size: 1.5rem !important;
 }
