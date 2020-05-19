@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.801+20200519142438
+2020-05-19
+
+### Fixes
+
+- gestion des permissions pour la modification d'utilisateur (6302e1aaab1a62aa27c43bd3f5a33ae3015c48a2)
+
 ## 0.3.0-master.800+20200519141030
 2020-05-19
 
