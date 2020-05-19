@@ -125,7 +125,7 @@ export default {
       return this.offer.meta.id;
     },
     customerAccountId() {
-      if (!this.offer) return;
+      if (!this.billingAccount) return;
       return this.billingAccount.data.id;
     },
   },

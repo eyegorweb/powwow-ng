@@ -36,7 +36,7 @@ export default {
       return this.offer.meta.code;
     },
     customerAccountId() {
-      if (!this.offer) return;
+      if (!this.billingAccount) return;
       return this.billingAccount.data.id;
     },
   },
