@@ -14,7 +14,7 @@
 
 <script>
 import GraphContainer from './GraphContainer';
-import { fetchDistributionInfo } from '@/api/LocalisationGraph';
+import { countryLinesDistribution } from '@/api/reportDashboard';
 import { Chart } from 'highcharts-vue';
 
 export default {
@@ -36,6 +36,8 @@ export default {
 
   props: {
     partner: Object,
+    offer: Object,
+    billingAccount: Object,
   },
 
   async mounted() {
@@ -48,11 +50,23 @@ export default {
     },
   },
 
+
+  computed: {
+    workflowCode() {
+      if (!this.offer) return;
+      return this.offer.meta.code;
+    },
+    customerAccountId() {
+      if (!this.offer) return;
+      return this.billingAccount.data.id;
+    }
+  },
+
   methods: {
     async refreshData() {
       if (!this.partner) return;
 
-      const countriesData = await fetchDistributionInfo(this.partner.id);
+      const countriesData = await countryLinesDistribution(this.partner.id, this.workflowCode, this.customerAccountId);
       const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
         const correspondingItemInCountriesData = countriesData.find(
           d => d.countryIsoCode2.toLowerCase() === c[0]

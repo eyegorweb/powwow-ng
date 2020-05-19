@@ -244,6 +244,7 @@ export function formatFilters(selectedFilters) {
 
   return gqlFilters.join(',');
 }
+
 function addPartyIdFilter(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
 

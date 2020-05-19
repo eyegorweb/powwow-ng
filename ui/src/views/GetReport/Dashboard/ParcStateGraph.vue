@@ -8,7 +8,7 @@
 
 <script>
 import GraphWithToggle from './GraphWithToggle';
-// import { fetchDistributionInfo } from '@/api/ParcStateGraph';
+// import { getDoughnutOfferDistributionInfo } from '@/api/reportDashboard';
 import { Chart } from 'highcharts-vue';
 
 export default {

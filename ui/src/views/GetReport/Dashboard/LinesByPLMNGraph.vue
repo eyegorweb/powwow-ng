@@ -9,7 +9,7 @@
 
 <script>
 import GraphContainer from './GraphContainer';
-import { fetchDistributionInfo } from '@/api/LinesByPLMNGraph';
+import { fetchPLMNDistribution } from '@/api/reportDashboard';
 import { Chart } from 'highcharts-vue';
 
 export default {
@@ -20,16 +20,8 @@ export default {
 
   props: {
     partner: Object,
-  },
-
-  data() {
-    return {
-      chartOptions: undefined,
-    };
-  },
-
-  async mounted() {
-    this.refreshData();
+    offer: Object,
+    billingAccount: Object,
   },
 
   watch: {
@@ -38,10 +30,31 @@ export default {
     },
   },
 
+  computed: {
+    workflowCode() {
+      if (!this.offer) return;
+      return this.offer.meta.code;
+    },
+    customerAccountId() {
+      if (!this.offer) return;
+      return this.billingAccount.data.id;
+    }
+  },
+
+  async mounted() {
+    this.refreshData();
+  },
+
+  data() {
+    return {
+      chartOptions: undefined,
+    };
+  },
+
   methods: {
     async refreshData() {
       if (!this.partner) return;
-      const data = await fetchDistributionInfo(this.partner.id);
+      const data = await fetchPLMNDistribution(this.partner.id, this.workflowCode, this.customerAccountId);
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.plmn + '-' + item.operator,

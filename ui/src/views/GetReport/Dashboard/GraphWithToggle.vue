@@ -41,16 +41,16 @@ export default {
       toggleValues: [
         {
           id: '12',
-          label: '12 Mois',
+          label: 'common.months_12',
           default: true,
         },
         {
           id: '24',
-          label: '24 Mois',
+          label: 'common.months_24',
         },
         {
           id: '36',
-          label: '36 Mois',
+          label: 'common.months_36',
         },
       ],
     };

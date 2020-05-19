@@ -1,14 +1,12 @@
 <template>
-  <GraphContainer :size="12" can-show>
+  <GraphContainer :size="12" :can-show="!!(partner && partner.id)">
     <div>
       <AlarmsPerDayGraph
         title="Nombre d'alarmes déclenchées par jour"
         :partners="selectedPartnerIds"
       />
     </div>
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
   </GraphContainer>
 </template>
 
@@ -22,9 +20,31 @@ export default {
     AlarmsPerDayGraph,
   },
 
+
+  props: {
+    partner: Object,
+    offer: Object,
+    billingAccount: Object,
+  },
+
+
+  watch: {
+    partner() {
+      if (this.partner) {
+        this.selectedPartnerIds = [this.partner.id];
+      }
+    },
+  },
+
+  mounted() {
+    if (this.partner) {
+      this.selectedPartnerIds = [this.partner.id];
+    }
+  },
+
   data() {
     return {
-      selectedPartnerIds: [2],
+      selectedPartnerIds: [],
     };
   },
 };
