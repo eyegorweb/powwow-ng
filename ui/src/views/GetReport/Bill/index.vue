@@ -47,6 +47,8 @@ import DateBills from './filters/DateBills';
 import BillsAccounts from './filters/BillsAccounts.vue';
 import SearchByReference from './filters/SearchByReference';
 import { mapGetters, mapMutations } from 'vuex';
+import { formatCurrency } from '@/utils/numbers.js';
+
 
 export default {
   components: {
@@ -90,6 +92,12 @@ export default {
           name: 'amountExclTaxes',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return `${formatCurrency(row.amountExclTaxes)} €`;
+            },
+          },
         },
         {
           id: 4,
@@ -97,11 +105,12 @@ export default {
           name: 'amount',
           orderable: false,
           visible: true,
-        },
-        {
-          id: 5,
-          visible: true,
-          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return `${formatCurrency(row.amount)} €`;
+            },
+          },
         },
       ],
       filters: undefined,
