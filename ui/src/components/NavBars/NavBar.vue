@@ -9,7 +9,11 @@
           alt
         />
       </a>
-      <UiTabs v-if="navbarLinks" :tabs="navbarLinks" :selected-index="currentIndex">
+      <UiTabs
+        v-if="navbarLinks"
+        :tabs="filterByPermission(navbarLinks)"
+        :selected-index="currentIndex"
+      >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
             <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
@@ -25,7 +29,7 @@
               >
                 <router-link
                   :key="item.label"
-                  v-for="item in tab.submenu"
+                  v-for="item in filterByPermission(tab.submenu)"
                   class="dropdown-item"
                   :to="item.to"
                   >{{ $t(item.label) }}</router-link
@@ -122,6 +126,7 @@ export default {
         {
           label: 'menu.users',
           to: { name: 'getAdminUsers' },
+          permission: { domain: 'getSim', action: 'read' },
         },
         {
           label: 'menu.account',
@@ -129,6 +134,7 @@ export default {
             name: 'getAdminPartnerDetails',
             params: { id: this.userInfos.partners[0].id },
           },
+          permission: { domain: 'getSim', action: 'read' },
         },
       ];
     } else {
@@ -136,10 +142,12 @@ export default {
         {
           label: 'menu.users',
           to: { name: 'getAdminUsers' },
+          permission: { domain: 'getSim', action: 'read' },
         },
         {
           label: 'menu.partners',
           to: { name: 'getAdminPartners' },
+          permission: { domain: 'getSim', action: 'read' },
         },
       ];
     }
@@ -148,50 +156,61 @@ export default {
       {
         label: 'GetSIM',
         to: { name: 'orders' },
+        permission: { domain: 'getSim', action: 'read' },
       },
       {
         label: 'GetParc/GetDiag',
         to: 'getParc',
+        permission: { domain: 'getSim', action: 'read' },
         submenu: [
           {
             label: 'menu.actLines',
             to: { name: 'actLines' },
+            permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.massActions',
             to: { name: 'actHistory' },
+            permission: { domain: 'getSim', action: 'read' },
           },
         ],
       },
       {
         label: 'GetVision',
         to: { name: 'alarms' },
+        permission: { domain: 'getSim', action: 'read' },
         submenu: [
           {
             label: 'menu.alarms',
             to: { name: 'alarms' },
+            permission: { domain: 'getSim', action: 'read' },
           },
         ],
       },
       {
         label: 'GetReport',
         to: { name: 'reports' },
+        permission: { domain: 'getSim', action: 'read' },
         submenu: [
           {
             label: 'menu.modelReports',
             to: { name: 'getReportsModels' },
+            permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.documents',
             to: { name: 'documents' },
+            permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.reportsDashboard',
             to: { name: 'reportsDashboard' },
+            permission: { domain: 'getSim', action: 'read' },
           },
           {
             label: 'menu.reportsBill',
             to: { name: 'reportsBill' },
+            permission: { domain: 'getSim', action: 'read' },
           },
         ],
       },
@@ -199,9 +218,20 @@ export default {
         label: 'GetAdmin',
         to: { name: 'exemples' },
         submenu: [...getAdminExtra],
+        permission: { domain: 'getSim', action: 'read' },
       },
-      { label: 'GetSupport', to: { name: 'exemples' }, mock: true },
-      { label: 'GetDevice', to: { name: 'exemples' }, mock: true },
+      {
+        label: 'GetSupport',
+        to: { name: 'exemples' },
+        permission: { domain: 'getSim', action: 'read' },
+        mock: true,
+      },
+      {
+        label: 'GetDevice',
+        to: { name: 'exemples' },
+        permission: { domain: 'getSim', action: 'read' },
+        mock: true,
+      },
     ]);
     this.chooseCurrentMenu();
   },
@@ -216,6 +246,12 @@ export default {
     };
   },
   methods: {
+    filterByPermission(arrayInput) {
+      return arrayInput.filter(a => {
+        if (!a.permission) return false;
+        return this.havePermission(a.permission.domain, a.permission.action);
+      });
+    },
     chooseCurrentMenu() {
       let currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
 
@@ -235,7 +271,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos', 'userIsPartner']),
+    ...mapGetters(['userName', 'userInfos', 'userIsPartner', 'havePermission']),
 
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';

@@ -21,6 +21,18 @@ export const getters = {
   refreshingToken: state => state.refreshingToken,
   userName: state => (state.token ? state.token.user_name : ''),
   userInfos: state => state.userInfos,
+  haveRole: state => role => {
+    if (state.userInfos) {
+      return !!state.userInfos.roles.find(r => r.name === role);
+    }
+    return false;
+  },
+  havePermission: state => (domain, action) => {
+    if (state.userInfos) {
+      return !!state.userInfos.permissions.find(p => p.domain === domain && p.action === action);
+    }
+    return false;
+  },
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },

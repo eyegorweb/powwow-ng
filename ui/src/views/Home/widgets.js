@@ -34,6 +34,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: TriggeredAlarms,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.orders',
@@ -42,6 +43,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: OrdersWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
 
   {
@@ -51,6 +53,8 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: BillsWidget,
+    permission: { domain: 'getSim', action: 'read' },
+
     mock: true,
   },
   {
@@ -60,6 +64,8 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: ConsoWidget,
+    permission: { domain: 'getSim', action: 'read' },
+
     notDraggable: true,
     partnerOnly: true,
   },
@@ -70,6 +76,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: OrdersStatusesWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.dataVoiceConso',
@@ -78,6 +85,7 @@ const defaultWidgets = [
     large: true,
     seeMore: false,
     component: ConsoGraphWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
 
   {
@@ -87,6 +95,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: MassActionTable,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.activationAct',
@@ -94,6 +103,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: ActivationActsWidget,
+    permission: { domain: 'getSim', action: 'read' },
+
     seeMore: false,
   },
   {
@@ -102,6 +113,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: PreacActivationActsWidget,
+    permission: { domain: 'getSim', action: 'read' },
+
     seeMore: false,
   },
   {
@@ -110,6 +123,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: FailedActsWidget,
+    permission: { domain: 'getSim', action: 'read' },
+
     seeMore: false,
   },
   {
@@ -119,6 +134,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: StatusActsWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'searchLineById',
@@ -127,6 +143,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SearchLinesByIdWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.userActs',
@@ -136,6 +153,7 @@ const defaultWidgets = [
     clickable: true,
     seeMore: true,
     component: MassActionsByUserTableWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.stateParc.title',
@@ -144,6 +162,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: ParcStateWidget,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.averageTimeAction',
@@ -152,6 +171,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: AverageTimeAct,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.simTopActivation',
@@ -160,6 +180,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopActivation,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.simTopTermination',
@@ -168,6 +189,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopTermination,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.simTopScheduledTermination',
@@ -176,6 +198,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopScheduledTermination,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'getparc.lineDetail.tab3.networkMeteo',
@@ -184,6 +207,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: Weather,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.linesConsumption',
@@ -192,6 +216,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: LinesConsumption,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.topTriggeredAlarmsPerDay',
@@ -200,6 +225,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: TriggeredAlarmsPerDay,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.topBillingExchangeCA',
@@ -208,6 +234,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: TopFlopCA,
+    permission: { domain: 'getSim', action: 'read' },
   },
   {
     title: 'home.widgets.topBillingExchangePO',
@@ -216,6 +243,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: PriseOrdre,
+    permission: { domain: 'getSim', action: 'read' },
   },
 ];
 
@@ -231,13 +259,11 @@ export function loadWidgets() {
   if (savedWidgets) {
     const loadedWidgets = JSON.parse(savedWidgets);
     return excludeMocked(
-      loadedWidgets.map(w => {
-        const widget = defaultWidgets.find(f => f.title === w.title);
+      defaultWidgets.map(d => {
+        const widget = loadedWidgets.find(f => f.title === d.title);
         return {
-          ...w,
-          component: widget.component,
-          notDraggable: widget.notDraggable,
-          partnerOnly: widget.partnerOnly,
+          ...widget,
+          ...d,
         };
       })
     );
