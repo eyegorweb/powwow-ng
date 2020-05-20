@@ -57,8 +57,6 @@ export default {
     selectedBillingAccount(selectedBillingAccount) {
       if (!this.isReady) return;
 
-      console.log('selectedBillingAccount >>', selectedBillingAccount);
-
       if (selectedBillingAccount) {
         if (selectedBillingAccount.id) {
           this.$emit('change', selectedBillingAccount);

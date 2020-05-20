@@ -5,6 +5,7 @@
       <div class="col-md-3 pl-0">
         <FilterBar
           :filter-components="filters"
+          :default-values="defaultValues"
           @applyFilters="doSearch"
           @noMoreFilters="onAllFiltersCleared"
         />
@@ -81,6 +82,10 @@ export default {
       type: Function,
       required: false,
     },
+    defaultValues: {
+      type: Array,
+      required: false,
+    },
   },
 
   data() {
@@ -126,8 +131,8 @@ export default {
 
   methods: {
     onAllFiltersCleared() {
-      this.lastSelectedFilters = [];
-      this.refreshTable([], this.currentOrderBy);
+      this.lastSelectedFilters = this.defaultValues ? this.defaultValues : [];
+      this.refreshTable(this.lastSelectedFilters, this.currentOrderBy);
     },
     refreshTable(filters, orderBy) {
       this.$emit('applyFilters', {

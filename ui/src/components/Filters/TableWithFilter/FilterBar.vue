@@ -56,6 +56,10 @@ export default {
 
   props: {
     filterComponents: Array,
+    defaultValues: {
+      type: Array,
+      required: false,
+    },
   },
 
   data() {
@@ -67,7 +71,11 @@ export default {
 
   computed: {
     canShowSelectedFilter() {
-      return this.currentFilters && this.currentFilters.length;
+      return this.visibleFilters && this.visibleFilters.length;
+    },
+
+    visibleFilters() {
+      return this.currentFilters.filter(f => !f.hidden);
     },
   },
 
@@ -77,6 +85,9 @@ export default {
       if (filter.initialize) {
         await filter.initialize(this.currentFilters);
       }
+    }
+    if (this.defaultValues) {
+      this.currentFilters = [...this.currentFilters, ...this.defaultValues];
     }
     if (this.currentFilters && this.currentFilters.length) {
       this.applyFilters();
@@ -92,7 +103,7 @@ export default {
         this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
       }
 
-      if (!this.currentFilters || !this.currentFilters.length) {
+      if (!this.visibleFilters || !this.visibleFilters.length) {
         this.$emit('noMoreFilters');
       }
     },
