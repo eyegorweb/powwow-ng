@@ -304,8 +304,6 @@ export default {
     },
 
     preloadCheckBoxes(fields) {
-      this.resetCheckboxes();
-
       this.groups
         .map(g => g.checkboxes)
         .flat()

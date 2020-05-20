@@ -54,9 +54,7 @@
                   </div>
                 </div>
               </div>
-              <Button :variant="'primary'" @click="save">
-                {{ $t('getadmin.partnerDetail.update') }}
-              </Button>
+              <Button :variant="'primary'" @click="save">{{ $t('getadmin.partnerDetail.update') }}</Button>
             </div>
           </div>
         </div>
