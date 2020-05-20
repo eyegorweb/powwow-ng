@@ -34,6 +34,12 @@ export function getCurrentMonthName() {
   return getMonthString(formattedCurrentDate());
 }
 
+export function currentDateTimeWithAdd(time, timeName) {
+  return moment()
+    .add(10, 'minutes')
+    .format(DATE_FORMAT_EXTENDED);
+}
+
 export function formattedCurrentDateExtended() {
   return moment().format(DATE_FORMAT_EXTENDED);
 }
