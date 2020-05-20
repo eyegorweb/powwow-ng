@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.808+20200520090742
+2020-05-20
+
+### Fixes
+
+- cacher le filtre partenaire (7335913b738a18e5710547d9da26eb4f62f0cf60)
+
 ## 0.3.0-master.807+20200519161342
 2020-05-19
 
