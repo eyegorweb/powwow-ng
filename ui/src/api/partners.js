@@ -212,6 +212,16 @@ export async function fetchAdminInfos(id) {
     }
   }`;
   const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.party;
 }
 

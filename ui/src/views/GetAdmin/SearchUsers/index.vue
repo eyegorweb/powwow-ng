@@ -10,7 +10,7 @@
       </div>
       <div class="col-md-3">
         <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
-          Ajouter un utilisateur
+          {{ $t('getadmin.users.addUser') }}
         </UiButton>
       </div>
     </div>
