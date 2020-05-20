@@ -49,7 +49,6 @@ import SearchByReference from './filters/SearchByReference';
 import { mapGetters, mapMutations } from 'vuex';
 import { formatCurrency } from '@/utils/numbers.js';
 
-
 export default {
   components: {
     TableWithFilter,

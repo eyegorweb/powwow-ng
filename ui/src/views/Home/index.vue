@@ -67,11 +67,18 @@ export default {
   computed: {
     ...mapGetters('userContext', ['contextFilters']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'havePermission']),
 
     ...mapState({
       homeWidgets: state => state.ui.homeWidgets,
     }),
+
+    permittedHomeWidgets() {
+      return this.homeWidgets.filter(w => {
+        if (!w.permission) return false;
+        return this.havePermission(w.permission.domain, w.permission.action);
+      });
+    },
     cellHeight() {
       if (window.innerWidth <= 1024) {
         return 5;
@@ -82,9 +89,9 @@ export default {
       return 8;
     },
     activeWidgets() {
-      if (!this.homeWidgets) return [];
+      if (!this.permittedHomeWidgets) return [];
 
-      return this.homeWidgets.filter(w => w.checked);
+      return this.permittedHomeWidgets.filter(w => w.checked);
     },
   },
   data() {
@@ -112,14 +119,16 @@ export default {
       this.openPanel({
         title: this.$t('home.customize.title'),
         panelId: 'home.customize.title',
-        payload: {},
+        payload: {
+          homeWidgets: this.permittedHomeWidgets,
+        },
         wide: false,
         backdrop: false,
       });
     },
 
     updateLayoutInfoInWigets(layout) {
-      const homeWidgets = this.homeWidgets.map(w => {
+      const homeWidgets = this.permittedHomeWidgets.map(w => {
         const existingLayout = layout.find(l => l.title === w.title);
         if (existingLayout) {
           w.layout = {
@@ -152,16 +161,16 @@ export default {
     },
 
     getLayoutFromHomeWidgets() {
-      if (!this.homeWidgets) return;
+      if (!this.permittedHomeWidgets) return;
 
       let layout = [];
       let y = 0;
       let x = 0;
       let spaceInLine = 3;
 
-      if (this.homeWidgets.length && this.homeWidgets[0].layout) {
+      if (this.permittedHomeWidgets.length && this.permittedHomeWidgets[0].layout) {
         // already have layout data
-        layout = this.homeWidgets
+        layout = this.permittedHomeWidgets
           .filter(o => o.checked)
           .map(w => {
             return {
@@ -172,8 +181,8 @@ export default {
             };
           });
       } else {
-        for (let i = 0; i < this.homeWidgets.length; i++) {
-          const meta = this.homeWidgets[i];
+        for (let i = 0; i < this.permittedHomeWidgets.length; i++) {
+          const meta = this.permittedHomeWidgets[i];
 
           const width = meta.large ? 2 : 1;
 

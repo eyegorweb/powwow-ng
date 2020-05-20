@@ -34,9 +34,9 @@ export function getCurrentMonthName() {
   return getMonthString(formattedCurrentDate());
 }
 
-export function currentDateTimeWithAdd(time, timeName) {
+export function currentDateTimeWithAdd(time = 10, timeName = 'minutes') {
   return moment()
-    .add(10, 'minutes')
+    .add(time, timeName)
     .format(DATE_FORMAT_EXTENDED);
 }
 

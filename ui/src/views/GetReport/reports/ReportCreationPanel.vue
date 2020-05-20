@@ -8,7 +8,9 @@
           <PartnerCombo :value.sync="selectedPartner" include-mailing-lists :disabled="disabled" />
         </template>
 
-        <SectionTitle :num="baseNumber + 1">{{ $t('getreport.creation.chooseInfos') }}</SectionTitle>
+        <SectionTitle :num="baseNumber + 1">{{
+          $t('getreport.creation.chooseInfos')
+        }}</SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
         <div v-if="reportModels" class="mt-4 mb-2">
@@ -36,7 +38,9 @@
           </template>
         </div>
 
-        <SectionTitle :num="baseNumber + 2">{{ $t('getreport.creation.generateReport') }}</SectionTitle>
+        <SectionTitle :num="baseNumber + 2">{{
+          $t('getreport.creation.generateReport')
+        }}</SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
           <Toggle
@@ -53,7 +57,7 @@
             time-picker
             @change="newVal => (generationDate = newVal)"
             :value="generationDate"
-            :startDate="generationDate"
+            :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
             class="d-block report-field"
           >

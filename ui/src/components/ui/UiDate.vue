@@ -22,8 +22,6 @@ import $ from 'jquery';
 import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
 
-import moment from 'moment';
-
 export default {
   props: {
     value: {
@@ -56,15 +54,6 @@ export default {
       this.$emit('change', '');
     },
     createDatePicker() {
-      let startDate;
-      if (this.value) {
-        startDate = moment(this.value, this.dateFormat);
-      } else {
-        // startDate = moment();
-      }
-
-      console.log('Start date  >>', this.value);
-
       const onDateSelected = value => {
         this.$emit('change', value.format(this.dateFormat));
       };
