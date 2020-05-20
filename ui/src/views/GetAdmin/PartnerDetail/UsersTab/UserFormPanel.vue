@@ -99,9 +99,8 @@
         </div>
       </div>
 
-      <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
-
-      <div>
+      <div v-if="canShowRoles">
+        <h4 v-if="roles.length > 0">{{ $t('getadmin.users.filters.roles') }}</h4>
         <MultiChoices :options="roles" v-model="selectedRoles" />
       </div>
     </div>
@@ -250,6 +249,10 @@ export default {
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
 
+    canShowRoles() {
+      return this.userType === 'OPERATOR' || !!this.selectedPartner || !!this.selectedGroupPartner;
+    },
+
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
       const missingFields = [
@@ -262,7 +265,7 @@ export default {
         'passwordConfirm',
       ].filter(field => !this.form[field]);
 
-      const roleError = !this.selectedRoles.length;
+      const roleError = this.roles.length > 0 ? !this.selectedRoles.length : false;
 
       let userTypeValid = true;
 
@@ -303,6 +306,9 @@ export default {
       if (!/[A-Z]/.test(this.form.password)) {
         errors.push('errors.password.uppercase-error');
       }
+      if (!/[a-z]/.test(this.form.password)) {
+        errors.push('errors.password.lowercase-error');
+      }
       // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
 
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.form.password)) {
@@ -325,7 +331,12 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
-    if (this.userIsBO) {
+    // this.selectedPartner = { id: parseInt(this.content.partnerId) };
+
+    if (this.content.duplicateFrom) {
+      roles = await fetchAllowedRoles(this.userInfos.id, null, null);
+      this.formattedRoles(roles);
+
       const groupPartnersResponse = await fetchPartnerGroups();
       this.groupPartners = groupPartnersResponse.map(p => {
         return {
@@ -333,13 +344,7 @@ export default {
           label: p.name,
         };
       });
-    }
 
-    this.selectedPartner = { id: parseInt(this.content.partnerId) };
-
-    if (this.content.duplicateFrom) {
-      roles = await fetchAllowedRoles(this.userInfos.id, null, null);
-      this.formattedRoles(roles);
       this.selectedGroupPartner =
         this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
       this.selectedRoles = this.roles.filter(r =>
@@ -371,7 +376,7 @@ export default {
       // user partyGroup: userId = null,  partyId = null, partyGroupId = id
       // Et Modification :
       // userId = id de l'utilisateur consulté
-      if (this.userIsBO) {
+      if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(null, null, null);
         this.formattedRoles(roles);
       } else if (this.userIsPartner) {
@@ -404,9 +409,25 @@ export default {
         this.formattedRoles(roles);
       }
     },
-    // userType(value) {
-    //   console.log('user type value', value);
-    // },
+    async userType(value) {
+      if (value === 'OPERATOR') {
+        const roles = await fetchAllowedRoles(null, null, null);
+        this.formattedRoles(roles);
+        this.selectedPartner = undefined;
+        this.selectedGroupPartner = undefined;
+      } else if (value === 'PARTNER') {
+        this.selectedGroupPartner = undefined;
+      } else if (value === 'PARTNER_GROUP') {
+        this.selectedPartner = undefined;
+        const groupPartnersResponse = await fetchPartnerGroups();
+        this.groupPartners = groupPartnersResponse.map(p => {
+          return {
+            id: p.id,
+            label: p.name,
+          };
+        });
+      }
+    },
   },
 };
 </script>

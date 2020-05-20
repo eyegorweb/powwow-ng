@@ -182,7 +182,8 @@
       "length-error": "Le mot de passe doit faire plus de 8 caractères",
       "confirm-error": "Les mot de passe ne correspondent pas",
       "name-error": "Le mot de passe doit être différent du nom ou prénom",
-      "uppercase-error": "Le mot de passe doit contenir au moins une minuscule et une majuscule",
+      "uppercase-error": "Le mot de passe doit contenir au moins une lettre majuscule",
+      "lowercase-error": "Le mot de passe doit contenir au moins une lettre minuscule",
       "special-error": "Une lettre avec accent ou un caractère spécial.",
       "number-error": "Le mot de passe doit contenir au moins un chiffre.",
       "email-error": "Veuillez saisir une adresse email valide"
