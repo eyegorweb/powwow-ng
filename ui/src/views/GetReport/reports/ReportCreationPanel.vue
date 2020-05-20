@@ -8,12 +8,8 @@
           <PartnerCombo :value.sync="selectedPartner" include-mailing-lists :disabled="disabled" />
         </template>
 
-        <SectionTitle :num="baseNumber + 1">{{
-          $t('getreport.creation.chooseInfos')
-        }}</SectionTitle>
-        <p>
-          {{ $t('getreport.creation.chooseInfosDescription') }}
-        </p>
+        <SectionTitle :num="baseNumber + 1">{{ $t('getreport.creation.chooseInfos') }}</SectionTitle>
+        <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
         <div v-if="reportModels" class="mt-4 mb-2">
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
@@ -33,16 +29,14 @@
                   class="d-flex pt-3 item"
                 >
                   <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
-                  <span>{{ checkbox.label }} </span>
+                  <span>{{ checkbox.label }}</span>
                 </div>
               </div>
             </FoldableBlock>
           </template>
         </div>
 
-        <SectionTitle :num="baseNumber + 2">{{
-          $t('getreport.creation.generateReport')
-        }}</SectionTitle>
+        <SectionTitle :num="baseNumber + 2">{{ $t('getreport.creation.generateReport') }}</SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
           <Toggle
@@ -59,6 +53,7 @@
             time-picker
             @change="newVal => (generationDate = newVal)"
             :value="generationDate"
+            :startDate="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
             class="d-block report-field"
           >
@@ -150,7 +145,7 @@ import { fetchpartnerById } from '@/api/partners.js';
 import { reportModels } from '@/api/reportCreation.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
-import { formattedCurrentDateExtended } from '@/utils/date';
+import { currentDateTimeWithAdd } from '@/utils/date';
 
 function checkIfOneIsPresent(fieldsToCheck, modelFields) {
   for (let i = 0; i < fieldsToCheck.length; i++) {
@@ -176,6 +171,57 @@ export default {
 
   props: {
     content: Object,
+  },
+
+  data() {
+    return {
+      canShowForm: false,
+      selectedItems: [],
+      generationDate: undefined,
+      dateError: false,
+      shouldNotify: false,
+      reportFrequency: 'ONCE',
+      name: undefined,
+      selectedPartner: undefined,
+      fileFormat: undefined,
+      isActive: true,
+      disabled: true,
+      fileFormats: [
+        {
+          value: 'CSV',
+          label: 'CSV',
+        },
+        {
+          value: 'EXCEL',
+          label: 'Excel',
+        },
+      ],
+      reportFrequencyChoices: [
+        {
+          id: 'ONCE',
+          label: 'Une seule fois',
+        },
+        {
+          id: 'DAILY',
+          label: 'Journalier',
+        },
+        {
+          id: 'WEEKLY',
+          label: 'Hebdomadaire',
+        },
+        {
+          id: 'MONTHLY',
+          label: 'Mensuel',
+        },
+      ],
+
+      reportModel: 'NONE',
+      reportModels: undefined,
+
+      notifList: undefined,
+
+      groups: undefined,
+    };
   },
 
   async mounted() {
@@ -206,8 +252,9 @@ export default {
     } else if (this.userIsPartner) {
       partnerID = this.userInfos.partners[0].id;
       partnerData = this.userInfos.partners[0];
+      this.generationDate = currentDateTimeWithAdd(10, 'minutes');
     } else {
-      this.generationDate = formattedCurrentDateExtended();
+      this.generationDate = currentDateTimeWithAdd(10, 'minutes');
     }
 
     if (partnerID) {
@@ -753,57 +800,6 @@ export default {
       const mailingLists = get(this.selectedPartner, 'data.mailingLists', []);
       return mailingLists.map(m => ({ label: m.name, value: m.id }));
     },
-  },
-
-  data() {
-    return {
-      canShowForm: false,
-      selectedItems: [],
-      generationDate: undefined,
-      dateError: false,
-      shouldNotify: false,
-      reportFrequency: 'ONCE',
-      name: undefined,
-      selectedPartner: undefined,
-      fileFormat: undefined,
-      isActive: true,
-      disabled: true,
-      fileFormats: [
-        {
-          value: 'CSV',
-          label: 'CSV',
-        },
-        {
-          value: 'EXCEL',
-          label: 'Excel',
-        },
-      ],
-      reportFrequencyChoices: [
-        {
-          id: 'ONCE',
-          label: 'Une seule fois',
-        },
-        {
-          id: 'DAILY',
-          label: 'Journalier',
-        },
-        {
-          id: 'WEEKLY',
-          label: 'Hebdomadaire',
-        },
-        {
-          id: 'MONTHLY',
-          label: 'Mensuel',
-        },
-      ],
-
-      reportModel: 'NONE',
-      reportModels: undefined,
-
-      notifList: undefined,
-
-      groups: undefined,
-    };
   },
 };
 </script>
