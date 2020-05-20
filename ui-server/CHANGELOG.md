@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.812+20200520151521
+2020-05-20
+
+### Features
+
+- Gestion des permissions (bba4744d3b860ecaa9937e168eb843c4d9ed2f55)
+
 ## 0.3.0-master.811+20200520135315
 2020-05-20
 
