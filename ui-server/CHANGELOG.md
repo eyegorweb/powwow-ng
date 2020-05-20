@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.811+20200520135315
+2020-05-20
+
+### Fixes
+
+- Creation de rapport, ajout de 10min en plus à la date et affichage dans le datePicker (22bcbbe860574091247fd9d2b14dc6e4aacab4c1)
+
 ## 0.3.0-master.810+20200520130125
 2020-05-20
 
