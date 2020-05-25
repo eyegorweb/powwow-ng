@@ -3,6 +3,7 @@
     <TableWithFilterSkeleton v-if="isLoading" :columns="columns" />
     <div class="row" :class="{ hidden: isLoading }">
       <div class="col-md-3 pl-0">
+        <slot name="before-filters" />
         <FilterBar
           :filter-components="filters"
           :default-values="defaultValues"
@@ -11,6 +12,8 @@
         />
       </div>
       <div class="col-md-9">
+        <slot name="before-table" />
+
         <template
           v-if="!isTableVisibleFn || (isTableVisibleFn && isTableVisibleFn(lastSelectedFilters))"
         >
