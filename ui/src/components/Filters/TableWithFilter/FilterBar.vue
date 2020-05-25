@@ -119,7 +119,12 @@ export default {
         const haveEmptyArrayOfValues =
           selectedValue && selectedValue.values && selectedValue.values.length === 0;
 
-        const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues;
+        const haveEmptyRange =
+          selectedValue &&
+          (!selectedValue.from || selectedValue.from === '') &&
+          (!selectedValue.to || selectedValue.to === '');
+
+        const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues || haveEmptyRange;
         if (shouldRemoveFilter) {
           this.currentFilters = this.currentFilters.filter(f => f.id !== selectedValue.id);
         }

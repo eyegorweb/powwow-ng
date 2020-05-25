@@ -228,9 +228,8 @@ export default {
       },
       {
         label: 'GetDevice',
-        to: { name: 'exemples' },
+        to: { name: 'getDevice' },
         permission: { domain: 'getSim', action: 'read' },
-        mock: true,
       },
     ]);
     this.chooseCurrentMenu();

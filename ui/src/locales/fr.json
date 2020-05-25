@@ -319,6 +319,13 @@
       "CUSTOM_FIELDS": "Champ libres"
     }
   },
+  "getDevice": {
+    "title": "Gestion de mes équipements",
+    "tooltip": "Cette page permet de gérer vos équipements.",
+    "imeiRange": "Plage IMEI",
+    "manufacturer": "Constructeur",
+    "deviceReference": "Réf. Commerciale"
+  },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
