@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.815+20200525154125
+2020-05-25
+
+### Features
+
+- structure de base pour la page de gestion des equipements (64babf9d810984c46416fd3e5f8204659d99f8e1)
+
 ## 0.3.0-master.814+20200525082008
 2020-05-25
 
