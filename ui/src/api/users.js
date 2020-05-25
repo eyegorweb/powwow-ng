@@ -17,6 +17,8 @@ export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
       description
       category
       scope
+      editable
+      activated
     }
   }`;
 
