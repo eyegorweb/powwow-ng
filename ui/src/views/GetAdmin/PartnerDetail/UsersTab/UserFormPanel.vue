@@ -238,7 +238,8 @@ export default {
     },
 
     formattedRoles(roles) {
-      this.roles = roles.map(r => ({
+      if (!roles) return [];
+      return roles.map(r => ({
         code: r.Id,
         label: r.description,
         data: r,
@@ -265,7 +266,7 @@ export default {
         'passwordConfirm',
       ].filter(field => !this.form[field]);
 
-      const roleError = this.roles.length > 0 ? !this.selectedRoles.length : false;
+      const roleError = this.roles.length > 0 ? !this.roles.length : false;
 
       let userTypeValid = true;
 
@@ -275,7 +276,7 @@ export default {
         }
 
         if (this.userType === 'PARTNER_GROUP') {
-          userTypeValid = !!(this.selectedGroupPartner && this.selectedGroupPartner.id);
+          userTypeValid = !!this.selectedGroupPartner;
         }
       }
 
@@ -331,36 +332,48 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
-    // this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
     if (this.content.duplicateFrom) {
-      roles = await fetchAllowedRoles(this.userInfos.id, null, null);
-      this.formattedRoles(roles);
+      // Mode modification
+      const userType = this.content.duplicateFrom.type;
+      this.userType = userType;
 
-      const groupPartnersResponse = await fetchPartnerGroups();
-      this.groupPartners = groupPartnersResponse.map(p => {
-        return {
-          id: p.id,
-          label: p.name,
-        };
-      });
+      this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
-      this.selectedGroupPartner =
-        this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
-      this.selectedRoles = this.roles.filter(r =>
-        this.content.duplicateFrom.roles.find(rr => rr.Id === r.data.Id)
-      );
+      if (this.userType === 'OPERATOR') {
+        roles = await fetchAllowedRoles(this.userInfos.id, null, null); // todo: null instead userInfos.id
+        this.roles = this.formattedRoles(roles);
+        this.selectedRoles = this.roles.filter(r => r.data.activated);
+      } else if (this.userType === 'PARTNER') {
+        roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        this.roles = this.formattedRoles(roles);
+        this.selectedRoles = this.roles.filter(r => r.data.activated);
+      } else if (this.userType === 'PARTNER_GROUP') {
+        const groupPartnersResponse = await fetchPartnerGroups();
+        this.groupPartners = groupPartnersResponse.map(p => {
+          return {
+            id: p.id,
+            label: p.name,
+          };
+        });
+        this.selectedGroupPartner =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].label : '';
+        const groupPartnerId =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
 
+        roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        this.roles = this.formattedRoles(roles);
+        this.selectedRoles = this.roles.filter(r => r.data.activated);
+      }
+
+      // Pré-remplissage formulaire
       if (this.content.duplicateFrom.name) {
         this.form.title = this.content.duplicateFrom.name.title;
         this.form.firstName = this.content.duplicateFrom.name.firstName;
         this.form.lastName = this.content.duplicateFrom.name.lastName;
       }
-
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
-      const userType = this.content.duplicateFrom.type;
-      this.userType = userType;
 
       this.userTypes = this.userTypes.map(u => {
         if (u.id === userType) {
@@ -369,24 +382,18 @@ export default {
         return u;
       });
     } else {
-      // en mode création, on veut savoir quel type d'utilisateur on a
-      // Création
-      // user interne:  userId = null,  partyId = null, partyGroupId = null
-      // user party: userId = null,  partyId = id du party, partyGroupId = null
-      // user partyGroup: userId = null,  partyId = null, partyGroupId = id
-      // Et Modification :
-      // userId = id de l'utilisateur consulté
-      if (this.userType === 'OPERATOR') {
+      // Mode création
+      if (this.userIsBO) {
         roles = await fetchAllowedRoles(null, null, null);
-        this.formattedRoles(roles);
+        this.roles = this.formattedRoles(roles);
       } else if (this.userIsPartner) {
         roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        this.formattedRoles(roles);
+        this.roles = this.formattedRoles(roles);
       } else if (this.userIsGroupAccount) {
         const groupPartnerId =
           this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
         roles = await fetchAllowedRoles(null, null, groupPartnerId);
-        this.formattedRoles(roles);
+        this.roles = this.formattedRoles(roles);
       }
     }
 
@@ -398,21 +405,22 @@ export default {
       if (!this.content.duplicateFrom) {
         if (!this.selectedPartner) return;
         const roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        this.formattedRoles(roles);
+        this.roles = this.formattedRoles(roles);
       }
     },
     async selectedGroupPartner() {
       if (!this.content.duplicateFrom) {
         const groupPartnerId =
           this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
-        let roles = await fetchAllowedRoles(null, null, groupPartnerId);
-        this.formattedRoles(roles);
+        const roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        this.roles = this.formattedRoles(roles);
       }
     },
     async userType(value) {
+      if (this.content.duplicateFrom) return;
       if (value === 'OPERATOR') {
         const roles = await fetchAllowedRoles(null, null, null);
-        this.formattedRoles(roles);
+        this.roles = this.formattedRoles(roles);
         this.selectedPartner = undefined;
         this.selectedGroupPartner = undefined;
       } else if (value === 'PARTNER') {
