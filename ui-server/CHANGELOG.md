@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.814+20200525082008
+2020-05-25
+
+### Features
+
+- gestion des cas des créations et modifications des utilisateurs (c854e4c16754074d06546858e22cbd5062f2e068)
+
 ## 0.3.0-master.813+20200520151548
 2020-05-20
 
