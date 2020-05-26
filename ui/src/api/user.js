@@ -26,6 +26,10 @@ export async function fetchCurrentUserInfos() {
             __typename
           }
         }
+        partyGroup {
+          id
+          name
+        }
         type
         isAdminOrBackOffice
         disabled

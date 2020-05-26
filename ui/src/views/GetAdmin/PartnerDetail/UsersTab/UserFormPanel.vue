@@ -25,14 +25,14 @@
             block
             @update="userType = $event.id"
             :values="userTypes"
-            :disabled="!!content.duplicateFrom"
+            :disabled="canShowTypes"
             class="pl-2"
           />
         </div>
       </div>
 
       <div class="entries-line">
-        <div v-if="userType == 'PARTNER'" class="form-entry">
+        <div v-if="userType === 'PARTNER'" class="form-entry">
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo
             :value.sync="selectedPartner"
@@ -41,7 +41,7 @@
             :disabled="!!content.duplicateFrom"
           />
         </div>
-        <div v-if="userType == 'PARTNER_GROUP'" class="form-entry">
+        <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
             :placeholder="$t('getadmin.users.filters.partnerGroup')"
@@ -251,7 +251,21 @@ export default {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
 
     canShowRoles() {
-      return this.userType === 'OPERATOR' || !!this.selectedPartner || !!this.selectedGroupPartner;
+      return (
+        this.userType === 'OPERATOR' ||
+        !!this.selectedPartner ||
+        !!this.selectedGroupPartner ||
+        (this.userInfos.type === 'PARTNER' &&
+          this.userInfos.partners[0].length > 0 &&
+          !!this.userInfos.partners[0].id) ||
+        (this.userInfos.type === 'PARTNER_GROUP' &&
+          !!this.userInfos.partyGroup &&
+          !!this.userInfos.partyGroup.id)
+      );
+    },
+
+    canShowTypes() {
+      return !!this.content.duplicateFrom;
     },
 
     canSave() {
@@ -341,11 +355,15 @@ export default {
       this.selectedPartner = { id: parseInt(this.content.partnerId) };
 
       if (this.userType === 'OPERATOR') {
-        roles = await fetchAllowedRoles(this.userInfos.id, null, null); // todo: null instead userInfos.id
+        roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
       } else if (this.userType === 'PARTNER') {
-        roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
+        roles = await fetchAllowedRoles(
+          this.content.duplicateFrom.id,
+          this.selectedPartner.id,
+          null
+        );
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
       } else if (this.userType === 'PARTNER_GROUP') {
@@ -361,7 +379,7 @@ export default {
         const groupPartnerId =
           this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
 
-        roles = await fetchAllowedRoles(null, null, groupPartnerId);
+        roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
       }
@@ -383,17 +401,41 @@ export default {
       });
     } else {
       // Mode création
-      if (this.userIsBO) {
-        roles = await fetchAllowedRoles(null, null, null);
-        this.roles = this.formattedRoles(roles);
-      } else if (this.userIsPartner) {
-        roles = await fetchAllowedRoles(null, this.selectedPartner.id, null);
-        this.roles = this.formattedRoles(roles);
-      } else if (this.userIsGroupAccount) {
-        const groupPartnerId =
-          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
-        roles = await fetchAllowedRoles(null, null, groupPartnerId);
-        this.roles = this.formattedRoles(roles);
+      if (this.content.fromUserMenu) {
+        if (this.userInfos.type === 'OPERATOR') {
+          roles = await fetchAllowedRoles(null, null, null);
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        } else if (this.userInfos.type === 'PARTNER') {
+          // BUG userId null is not supported by api
+          roles = await fetchAllowedRoles(null, this.userInfos.partners[0].id, null);
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        } else if (this.userInfos.type === 'PARTNER_GROUP') {
+          roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        }
+      } else if (this.content.fromPartnerMenu) {
+        // from partnerMenu
+        if (this.userInfos.type === 'OPERATOR') {
+          roles = await fetchAllowedRoles(null, this.content.partnerId, null);
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        } else if (this.userInfos.type === 'PARTNER') {
+          // BUG userId null is not supported by api
+          roles = await fetchAllowedRoles(null, this.content.partnerId, null);
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        } else if (this.userInfos.type === 'PARTNER_GROUP') {
+          roles = await fetchAllowedRoles(
+            null,
+            this.content.partnerId,
+            this.userInfos.partyGroup.id
+          );
+          this.roles = this.formattedRoles(roles);
+          this.selectedRoles = this.roles.filter(r => r.data.activated);
+        }
       }
     }
 
@@ -417,12 +459,19 @@ export default {
       }
     },
     async userType(value) {
+      console.log('watch', this.content);
+      let roles;
       if (this.content.duplicateFrom) return;
       if (value === 'OPERATOR') {
-        const roles = await fetchAllowedRoles(null, null, null);
-        this.roles = this.formattedRoles(roles);
+        // Appelé en plus de l'initialisation => corriger donc
         this.selectedPartner = undefined;
         this.selectedGroupPartner = undefined;
+        if (this.content.fromUserMenu) {
+          roles = await fetchAllowedRoles(null, null, null);
+        } else if (this.content.fromPartnerMenu) {
+          roles = await fetchAllowedRoles(null, this.content.partnerId, null);
+        }
+        this.roles = this.formattedRoles(roles);
       } else if (value === 'PARTNER') {
         this.selectedGroupPartner = undefined;
       } else if (value === 'PARTNER_GROUP') {
