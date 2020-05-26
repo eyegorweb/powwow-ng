@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.816+20200526092241
+2020-05-26
+
+### Features
+
+- gestion des utilisateurs partenaires (5abcdd8efae5576082080a57feb56609b6dd8988)
+
 ## 0.3.0-master.815+20200525154125
 2020-05-25
 
