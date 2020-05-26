@@ -287,7 +287,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { partnerId: this.partnerid },
+        payload: { fromUserMenu: true, partnerId: this.partnerid },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
