@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.820+20200527114634
+2020-05-27
+
+### Fixes
+
+- tooltip text getDevice page (e9af3925e5fd384a73f89cd9feeecfc4c37b9925)
+
 ## 0.3.0-master.819+20200527113410
 2020-05-27
 
