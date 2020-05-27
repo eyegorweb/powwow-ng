@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.823+20200527160121
+2020-05-27
+
+### Fixes
+
+- restrictToParty dans l'api users (4f97b5701ac27cd2969318666d6cc575f1d36334)
+
 ## 0.3.0-master.822+20200527143031
 2020-05-27
 
