@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.817+20200527051804
+2020-05-27
+
+### Features
+
+- intégration des menus getDevice (ffa01e43187d19932d06779110f5e3a65cfba31a)
+
 ## 0.3.0-master.816+20200526092241
 2020-05-26
 
