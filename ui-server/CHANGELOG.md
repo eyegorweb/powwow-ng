@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.818+20200527095828
+2020-05-27
+
+### Fixes
+
+- Modification visuel OfferCard pour le détail du partenaire (9a4b7ad810308cac5dcacf7500551e963188f845)
+
 ## 0.3.0-master.817+20200527051804
 2020-05-27
 
