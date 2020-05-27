@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.819+20200527113410
+2020-05-27
+
+### Fixes
+
+- ajout du texte par défaut de sélection de rôles (b7f12519d3136ec86ffaa9f9ca0299b47bcd870a)
+
 ## 0.3.0-master.818+20200527095828
 2020-05-27
 
