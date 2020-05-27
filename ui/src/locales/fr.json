@@ -163,7 +163,8 @@
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
-    "reportsBill": "Facture"
+    "reportsBill": "Facture",
+    "monitoring": "Supervision"
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -347,6 +348,10 @@
     "last_month_triggered": "Déclenchement M-1",
     "last_triggered": "Dernier déclenchement",
     "associated_alarms": "Alarmes associées",
+    "allUsages": "Usage data,SMS,Voix",
+    "dataUsage": "Usage data",
+    "m2mCockpit": "Cockpit M2M",
+
     "detail-panel": {
       "stepper": {
         "created": "Créée"
@@ -365,7 +370,11 @@
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
       "triggered_last_month": "Déclenchement(s) mois précédent",
-      "triggered_before_last_month": "Déclenchement(s) en {month}"
+      "triggered_before_last_month": "Déclenchement(s) en {month}",
+      "globalActif": "Parc global actif",
+      "lineWithoutTraffic": "Lignes sans aucun trafic",
+      "linesWIthoutTraffic30Days": "Lignes sans trafic depuis 30j",
+      "linesNonLocalizedTraffic": "Lignes avec trafic non localisées"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
@@ -400,6 +409,9 @@
         "isp_list": "Tous les opérateurs:",
         "chosen_isp": "Opérateurs autorisés:"
       }
+    },
+    "monitoring": {
+      "filterByFile": "Filtrer à partir d'un fichier"
     }
   },
   "getadmin": {
@@ -1384,6 +1396,7 @@
     "active": "Activé",
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
+    "zone": "Zone",
     "city": "Ville",
     "country": "Pays",
     "action": "Action",

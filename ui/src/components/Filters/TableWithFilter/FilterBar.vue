@@ -119,10 +119,11 @@ export default {
         const haveEmptyArrayOfValues =
           selectedValue && selectedValue.values && selectedValue.values.length === 0;
 
-        const haveEmptyRange =
-          selectedValue &&
-          (!selectedValue.from || selectedValue.from === '') &&
-          (!selectedValue.to || selectedValue.to === '');
+        let haveEmptyRange = false;
+
+        if (selectedValue && (selectedValue.from || selectedValue.to)) {
+          haveEmptyRange = selectedValue.from === '' && selectedValue.to === '';
+        }
 
         const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues || haveEmptyRange;
         if (shouldRemoveFilter) {
