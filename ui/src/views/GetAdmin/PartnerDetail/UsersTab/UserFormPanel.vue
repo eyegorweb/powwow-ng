@@ -99,9 +99,17 @@
         </div>
       </div>
 
-      <div v-if="canShowRoles">
-        <h4 v-if="roles.length > 0">{{ $t('getadmin.users.filters.roles') }}</h4>
-        <MultiChoices :options="roles" v-model="selectedRoles" />
+      <div>
+        <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
+        <div class="overview-item mr-5" v-if="!canShowRoles">
+          <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
+          <h6 v-if="userType === 'PARTNER_GROUP'">
+            {{ $t('getadmin.partnerDetail.selectPartyGroup') }}
+          </h6>
+        </div>
+        <div v-else>
+          <MultiChoices :options="roles" v-model="selectedRoles" />
+        </div>
       </div>
     </div>
     <div slot="footer" class="action-buttons">
@@ -459,7 +467,6 @@ export default {
       }
     },
     async userType(value) {
-      console.log('watch', this.content);
       let roles;
       if (this.content.duplicateFrom) return;
       if (value === 'OPERATOR') {
