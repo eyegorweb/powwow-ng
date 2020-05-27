@@ -50,6 +50,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
         }
         auditable {
           creator {
+            id
             name {
               title
               firstName

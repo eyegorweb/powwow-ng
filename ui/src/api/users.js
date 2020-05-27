@@ -313,8 +313,8 @@ function addRolesFilter(gqlFilters, selectedFilters) {
 }
 
 function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
-  const restrictToParty = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.restrictToParty');
-  if (restrictToParty) {
+  const restrictToParty = getFilterValue(selectedFilters, 'getadmin.users.filters.restrictToParty');
+  if (!restrictToParty && restrictToParty !== undefined) {
     gqlFilters.push(`restrictToParty:${restrictToParty}`);
   }
 }
