@@ -5,7 +5,7 @@
         <h4>
           <b>GetDevice</b>
           - {{ $t('getDevice.title') }}
-          <Tooltip direction="right">{{ $t('getDevice.title') }}</Tooltip>
+          <Tooltip direction="right">{{ $t('getDevice.tooltip') }}</Tooltip>
         </h4>
       </div>
     </div>
