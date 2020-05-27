@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.822+20200527143031
+2020-05-27
+
+### Fixes
+
+- chargement du volet du créateur de la commande dans la recherche de commande (7fd784538d7f2bedf7374b9e139bcade87871a30)
+
 ## 0.3.0-master.821+20200527135213
 2020-05-27
 
