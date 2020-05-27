@@ -57,7 +57,7 @@
 
 <script>
 import get from 'lodash.get';
-import { fetchUserByUsername } from '@/api/users';
+import { fetchUserById } from '@/api/users';
 
 export default {
   data() {
@@ -69,7 +69,7 @@ export default {
     order: Object,
   },
   async mounted() {
-    this.creator = await fetchUserByUsername(this.order.auditable.creator.username);
+    this.creator = await fetchUserById(this.order.auditable.creator.id);
   },
   methods: {
     getFromCreator(path, defaultValue = '') {

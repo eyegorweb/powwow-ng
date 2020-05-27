@@ -121,6 +121,23 @@ export async function fetchUserByUsername(username) {
   if (response.items && response.items.length) return response.items[0];
 }
 
+export async function fetchUserById(userId) {
+  const orderBy = { key: 'id', direction: 'DESC' };
+  const pagination = { page: 0, limit: 1 };
+  const filters = [
+    {
+      id: 'getadmin.users.filters.id',
+      value: userId,
+    },
+    {
+      id: 'getadmin.users.filters.restrictToParty',
+      value: false, 
+    },
+  ];
+  const response = await searchUsers(orderBy, pagination, filters);
+  if (response.items && response.items.length) return response.items[0];
+}
+
 export async function searchUsers(orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
@@ -226,6 +243,7 @@ export async function fetchUserRoles() {
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
+  addIdFilter(gqlFilters, selectedFilters);
   addFullNameFilter(gqlFilters, selectedFilters);
   addUserNameFilter(gqlFilters, selectedFilters);
   addEmailFilter(gqlFilters, selectedFilters);
@@ -233,10 +251,18 @@ export function formatFilters(selectedFilters) {
   addLoginFilter(gqlFilters, selectedFilters);
   addPartnerFilter(gqlFilters, selectedFilters);
   addRolesFilter(gqlFilters, selectedFilters);
+  addRestrictToPartyFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
 
+function addIdFilter(gqlFilters, selectedFilters) {
+  const id = getFilterValue(selectedFilters, 'getadmin.users.filters.id');
+
+  if (id) {
+    gqlFilters.push(`userId: {eq: ${id}}`);
+  }
+}
 function addFullNameFilter(gqlFilters, selectedFilters) {
   const fullName = getFilterValue(selectedFilters, 'getadmin.users.filters.fullName');
 
@@ -283,6 +309,13 @@ function addRolesFilter(gqlFilters, selectedFilters) {
   const rolesName = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.roles');
   if (rolesName) {
     gqlFilters.push(`roleName: {in: ["${rolesName}"]}`);
+  }
+}
+
+function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
+  const restrictToParty = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.restrictToParty');
+  if (restrictToParty) {
+    gqlFilters.push(`restrictToParty:${restrictToParty}`);
   }
 }
 
