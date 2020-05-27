@@ -324,7 +324,11 @@
     "tooltip": "Cette page permet de gérer vos équipements.",
     "imeiRange": "Plage IMEI",
     "manufacturer": "Constructeur",
-    "deviceReference": "Réf. Commerciale"
+    "deviceReference": "Réf. Commerciale",
+    "tab-1-inventory": "Etat des lieux",
+    "tab-2-boxes": "Agir sur les boitiers",
+    "tab-3-conso-energy": "Conso énergétique",
+    "tab-4-google-device": "Google device"
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",

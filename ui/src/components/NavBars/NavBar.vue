@@ -229,7 +229,7 @@ export default {
       {
         label: 'GetDevice',
         to: { name: 'getDevice' },
-        permission: { domain: 'getSim', action: 'read' },
+        permission: { domain: 'getDevice', action: 'read' },
       },
     ]);
     this.chooseCurrentMenu();
