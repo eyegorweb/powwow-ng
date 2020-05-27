@@ -185,6 +185,11 @@ export default {
             to: { name: 'alarms' },
             permission: { domain: 'getSim', action: 'read' },
           },
+          {
+            label: 'menu.monitoring',
+            to: { name: 'getVisionMonitoring' },
+            permission: { domain: 'getSim', action: 'read' },
+          },
         ],
       },
       {

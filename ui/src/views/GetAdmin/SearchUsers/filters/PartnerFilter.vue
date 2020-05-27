@@ -1,5 +1,7 @@
 <template>
-  <PartnersFilter :values="selectedValues" @updatePartners="onChange" />
+  <div>
+    <PartnersFilter :values="selectedValues" @updatePartners="onChange" />
+  </div>
 </template>
 
 <script>
@@ -12,6 +14,11 @@ export default {
 
   props: {
     selectedData: Object,
+  },
+  data() {
+    return {
+      testv: [],
+    };
   },
 
   computed: {

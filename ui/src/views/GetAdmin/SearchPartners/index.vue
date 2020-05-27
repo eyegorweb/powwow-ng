@@ -25,7 +25,7 @@
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllPartners } from '@/api/partners';
 import PartnerTypeFilter from './filters/PartnerTypeFilter';
-import PartnerGroupFilter from '@/components/Filters/GroupPartnerFilter';
+import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
 
 import TextFilter from '@/components/Filters/TextFilter.vue';
 
@@ -154,7 +154,7 @@ export default {
         },
         {
           title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupFilter,
+          component: GroupPartnerFilter,
           onChange(chosenValues) {
             return {
               id: 'getadmin.users.filters.partnerGroup',
