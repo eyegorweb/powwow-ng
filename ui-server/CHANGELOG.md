@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.825+20200528095348
+2020-05-28
+
+### Fixes
+
+- corrections bugs sur le tableau de bord (71245ceb92e876b558fb0243340d1388b292b100)
+
 ## 0.3.0-master.824+20200528090231
 2020-05-28
 
