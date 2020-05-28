@@ -131,7 +131,7 @@ export async function fetchUserById(userId) {
     },
     {
       id: 'getadmin.users.filters.restrictToParty',
-      value: false, 
+      value: false,
     },
   ];
   const response = await searchUsers(orderBy, pagination, filters);

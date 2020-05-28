@@ -1,7 +1,7 @@
 <template>
   <div class="row mt-4 mb-4">
     <div class="col-3">
-      <MonitoringIndicators :appliedFilters="appliedFilters" :usage="currentUsage" />
+      <MonitoringIndicators :applied-filters="appliedFilters" :usage="currentUsage" />
       <FilterBar
         v-if="filters"
         :filter-components="filters"
@@ -27,6 +27,10 @@
           </div>
         </div>
       </div>
+
+      <div class="mt-3 mb-3">
+        <SupervisionMap :applied-filters="appliedFilters" :usage="currentUsage" />
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +39,6 @@
 import FilterBar from '@/components/Filters/TableWithFilter/FilterBar.vue';
 import BillsPartnerFilter from '@/views/GetReport/Bill/filters/BillsPartnerFilter.vue';
 import OfferFilter from './filters/OfferFilter';
-import TextFilter from '@/components/Filters/TextFilter.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import FileFilter from './filters/FileFilter';
 import PartnerGroupChoice from './filters/PartnerGroupChoice';
@@ -44,16 +47,17 @@ import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
 
+import SupervisionMap from './SupervisionMap';
 
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     FilterBar,
-    LocalisationFilter,
     Toggle,
     MapLegend,
     MonitoringIndicators,
+    SupervisionMap,
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
@@ -62,8 +66,8 @@ export default {
     return {
       filters: undefined,
       toggleValues: undefined,
-      currentUsage: undefined,
-      appliedFilters: undefined
+      currentUsage: 'ALL',
+      appliedFilters: undefined,
     };
   },
 
@@ -90,7 +94,7 @@ export default {
             return {
               id: 'getadmin.users.filters.partnerGroup',
               value: chosen.label,
-              data: chosen
+              data: chosen,
             };
           },
         },
@@ -104,16 +108,17 @@ export default {
               data: chosenValue,
             };
           },
-        },
+        }
       );
     } else if (this.userIsGroupAccount) {
       currentVisibleFilters.push({
         title: 'getadmin.users.filters.partners',
-        component: PartnerFilter,
-        onChange(chosenValues) {
+        component: BillsPartnerFilter,
+        onChange(chosenValue) {
           return {
             id: 'getadmin.users.filters.partners',
-            values: chosenValues,
+            value: chosenValue ? chosenValue.label : '',
+            data: chosenValue,
           };
         },
       });
@@ -131,7 +136,7 @@ export default {
       },
       checkVisibleFn(currentFilters) {
         return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
-      }
+      },
     });
 
     currentVisibleFilters.push({
@@ -157,14 +162,14 @@ export default {
 
     this.toggleValues = [
       {
-        id: 'allUsages',
+        id: 'ALL',
         label: 'getvsion.allUsages',
-        default: this.value === 'allUsages',
+        default: this.value === 'ALL',
       },
       {
-        id: 'dataUsage',
+        id: 'DATA',
         label: 'getvsion.dataUsage',
-        default: this.value === 'dataUsage',
+        default: this.value === 'DATA',
       },
       {
         id: 'm2mCockpit',
@@ -178,7 +183,7 @@ export default {
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
   },
 };
 </script>

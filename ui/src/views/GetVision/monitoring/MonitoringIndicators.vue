@@ -19,13 +19,13 @@ export default {
   },
   props: {
     usage: String,
-    appliedFilters: Array
+    appliedFilters: Array,
   },
 
   watch: {
     appliedFilters() {
       this.version += 1;
-    }
+    },
   },
 
   data() {
@@ -38,7 +38,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
-          fetch: async indicator => {
+          fetch: async () => {
             return { total: await globalActifParc(this.formatFilters()) };
           },
         },
@@ -48,7 +48,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
-          fetch: async indicator => {
+          fetch: async () => {
             return { total: 99 };
           },
         },
@@ -58,7 +58,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
-          fetch: async indicator => {
+          fetch: async () => {
             return { total: 99 };
           },
         },
@@ -68,7 +68,7 @@ export default {
           color: 'text-success',
           clickable: true,
           total: '-',
-          fetch: async indicator => {
+          fetch: async () => {
             return { total: 99 };
           },
         },
@@ -85,7 +85,7 @@ export default {
       if (!this.appliedFilters || !this.appliedFilters.length) return;
 
       return this.appliedFilters.reduce((filters, item) => {
-        console.log('Item >>', item)
+        console.log('Item >>', item);
         if (item.id === 'getvsion.monitoring.filterByFile') {
           filters.tempDataUuid = item.data.tempDataUuid;
         }
@@ -118,12 +118,12 @@ export default {
 
         return filters;
       }, {});
-    }
+    },
   },
 
   computed: {
     currentIndicators() {
-      if (this.usage === 'allUsages') {
+      if (this.usage === 'ALL') {
         return this.allUsageIndicators;
       }
 
