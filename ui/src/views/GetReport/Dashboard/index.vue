@@ -29,6 +29,11 @@
       <div class="action-btn pl-2">
         <UiButton variant="primary" @click="doFilter">Filtrer</UiButton>
       </div>
+      <div class="action-btn pl-2">
+        <UiButton v-if="canCancel" variant="danger" @click="revertSelection">{{
+          $t('reset')
+        }}</UiButton>
+      </div>
     </div>
 
     <draggable handle=".handle">
@@ -211,6 +216,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO', 'singlePartner']),
+    canCancel() {
+      return !!this.userIsBO || !!(this.singlePartner && this.singlePartner.length);
+    },
   },
   watch: {
     singlePartner() {
@@ -245,6 +253,9 @@ export default {
       } else {
         this.appliedOffer = undefined;
       }
+    },
+    revertSelection() {
+      location.reload();
     },
   },
 };

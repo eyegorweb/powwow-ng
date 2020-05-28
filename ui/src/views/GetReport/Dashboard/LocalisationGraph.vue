@@ -23,11 +23,6 @@ export default {
     GraphContainer,
   },
 
-  // accessPointNumber
-  //   countryIsoCode3
-  //   countryIsoCode2
-  //   countryName
-  //   percentage
   data() {
     return {
       chartOptions: undefined,
@@ -71,9 +66,9 @@ export default {
         this.customerAccountId
       );
       const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
-        const correspondingItemInCountriesData = countriesData.find(
-          d => d.countryIsoCode2.toLowerCase() === c[0]
-        );
+        const correspondingItemInCountriesData = countriesData.find(d => {
+          return d.countryIsoCode2.toLowerCase() === c[0];
+        });
         if (correspondingItemInCountriesData) {
           c[1] = correspondingItemInCountriesData.accessPointNumber;
         }
