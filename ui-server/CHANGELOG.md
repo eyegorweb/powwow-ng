@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.827+20200528203123
+2020-05-28
+
+### Features
+
+- première version de la carte de supervision (c3046f9a5c150e3a255be95fd7d9156cfb6ccef9)
+
 ## 0.3.0-master.826+20200528124609
 2020-05-28
 
