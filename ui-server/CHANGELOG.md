@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.826+20200528124935
+## 0.3.0-master.826+20200528124609
 2020-05-28
 
 ### Features
 
 - ajout des filtres de la page getDevice (424ccddb44cdd7733f3b45ff03f13a45133e8dd6)
-- Mise en place des permissions sur les widgets (e238412de0fd12b36ac643c7f52463bc5031be18)
 
 ## 0.3.0-master.825+20200528095348
 2020-05-28
