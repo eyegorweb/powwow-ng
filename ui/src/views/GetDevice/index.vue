@@ -54,9 +54,9 @@
             </div>
           </TableWithFilter>
         </div>
-        <div slot="boxes">content second tab</div>
-        <div slot="conso-energy">content third tab</div>
-        <div slot="google-device">content fourth tab</div>
+        <div slot="boxes"></div>
+        <div slot="conso-energy"></div>
+        <div slot="google-device"></div>
       </UiTabs>
     </div>
   </div>
@@ -75,8 +75,9 @@ import Indicators from '@/components/Indicators';
 import Top5Manufacturer from './Top5Manufacturer';
 import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
-
 import deviceIndicators from './deviceIndicators';
+
+import { getDevices } from '@/api/manufacturers.js';
 
 export default {
   components: {
@@ -152,12 +153,28 @@ export default {
       ],
       rows: [],
       total: 0,
-      orderBy: { id: 'DESC' },
+      orderBy: {
+        key: 'statusDate',
+        direction: 'ASC',
+      },
+      currentAppliedFilters: [],
     };
   },
+  mounted() {
+    this.applyFilters();
+  },
   methods: {
-    applyFilters() {},
-    searchById() {},
+    async applyFilters(payload) {
+      const { pagination, filters } = payload || {
+        pagination: { page: 0, limit: 30 },
+        filters: [],
+      };
+
+      const data = await getDevices(this.orderBy, pagination, filters);
+      this.total = data.total;
+      this.rows = data.items;
+      this.currentAppliedFilters = filters;
+    },
   },
 };
 </script>

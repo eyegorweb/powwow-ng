@@ -17,6 +17,10 @@ export default {
   data() {
     return {
       localItems: [],
+      orderBy: {
+        key: 'manufacturer',
+        direction: 'ASC',
+      },
     };
   },
   props: {
@@ -35,9 +39,14 @@ export default {
   },
 
   async mounted() {
-    const data = await getManufacturers();
-    this.localItems = data.map(p => ({
-      id: p.manufacturer,
+    const { pagination } = {
+      pagination: { page: 0, limit: 30 },
+    };
+    const data = await getManufacturers(this.orderBy, pagination);
+    console.log('data manufacturers', data);
+    if (!data) return;
+    this.localItems = data.map((p, index) => ({
+      id: `${p.manufacturer}_${index}`,
       label: p.manufacturer,
       data: p,
     }));
