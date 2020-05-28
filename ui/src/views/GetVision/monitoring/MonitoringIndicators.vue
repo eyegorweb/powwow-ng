@@ -1,6 +1,11 @@
 <template>
   <div class="mb-3">
-    <Indicators v-if="currentIndicators" :meta="currentIndicators" :on-click="onIndicatorClick" />
+    <Indicators
+      :key="version"
+      v-if="currentIndicators"
+      :meta="currentIndicators"
+      :on-click="onIndicatorClick"
+    />
   </div>
 </template>
 
@@ -14,9 +19,18 @@ export default {
   },
   props: {
     usage: String,
+    appliedFilters: Array
   },
+
+  watch: {
+    appliedFilters() {
+      this.version += 1;
+    }
+  },
+
   data() {
     return {
+      version: 0,
       allUsageIndicators: [
         {
           name: 'globalActif',
@@ -25,8 +39,7 @@ export default {
           clickable: true,
           total: '-',
           fetch: async indicator => {
-            const result = await globalActifParc();
-            return { total: 99 };
+            return { total: await globalActifParc(this.formatFilters()) };
           },
         },
         {
@@ -65,8 +78,47 @@ export default {
 
   methods: {
     onIndicatorClick(indicator) {
-      console.log('INDOCATOR >>', indicator);
+      console.log('INDICATOR >>', indicator);
     },
+
+    formatFilters() {
+      if (!this.appliedFilters || !this.appliedFilters.length) return;
+
+      return this.appliedFilters.reduce((filters, item) => {
+        console.log('Item >>', item)
+        if (item.id === 'getvsion.monitoring.filterByFile') {
+          filters.tempDataUuid = item.data.tempDataUuid;
+        }
+
+        if (item.id === 'getadmin.users.filters.partnerGroup') {
+          filters.partiesDomain = item.data.value;
+        }
+
+        if (item.id === 'getadmin.users.filters.partners') {
+          filters.partyId = item.data.id;
+        }
+
+        if (item.id === 'filters.offers') {
+          filters.offerCode = item.data.meta.initialOffer.code;
+        }
+
+        if (item.id === 'filters.zone') {
+          const selection = item.data;
+          if (selection.zone.world) {
+            if (selection.country) {
+              filters.iso3CountryCode = selection.country.codeIso3;
+            }
+          } else {
+            filters.iso3CountryCode = 'FRA';
+            if (selection.zipCode) {
+              filters.zipCode = selection.zipCode;
+            }
+          }
+        }
+
+        return filters;
+      }, {});
+    }
   },
 
   computed: {
