@@ -12,7 +12,7 @@ export default {
     UiSelect,
   },
   props: {
-    selectedData: Object
+    selectedData: Object,
   },
   computed: {
     selectedOption: {
@@ -22,7 +22,7 @@ export default {
       set(value) {
         this.$emit('change', this.options.find(o => o.value === value));
       },
-    }
+    },
   },
   data() {
     return {
@@ -34,16 +34,15 @@ export default {
         {
           label: ' M2M Automobile & télématique',
           value: 'M2M_AUTOMOTIVE',
-        }, {
+        },
+        {
           label: ' M2M Utilities, sécurité & monétique',
           value: 'M2M_UTILITIES',
         },
-      ]
-    }
+      ],
+    };
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

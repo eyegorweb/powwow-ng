@@ -178,13 +178,12 @@ export default {
   }
 }
 
-.partnerSimOfferTitle{
-    font-size: large;
-    font-weight: bold;
+.partnerSimOfferTitle {
+  font-size: large;
+  font-weight: bold;
 }
 
-.partnerSimOfferSubTitle{
-    font-weight: bold;
+.partnerSimOfferSubTitle {
+  font-weight: bold;
 }
-
 </style>

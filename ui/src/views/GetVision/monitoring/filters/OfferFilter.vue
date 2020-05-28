@@ -14,7 +14,7 @@ export default {
 
   props: {
     selectedData: Object,
-    selectedFilters: Array
+    selectedFilters: Array,
   },
 
   computed: {
@@ -26,7 +26,7 @@ export default {
       },
       set(value) {
         this.$emit('change', value);
-      }
+      },
     },
     partnersForFilters() {
       if (!this.selectedFilters || !this.selectedFilters.length) return [];
@@ -38,13 +38,9 @@ export default {
       }
 
       return [];
-    }
+    },
   },
-
-
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

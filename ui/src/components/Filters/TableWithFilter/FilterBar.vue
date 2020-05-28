@@ -79,9 +79,11 @@ export default {
     },
 
     visibleComponents() {
-      if (!this.filterComponents) return []
-      return this.filterComponents.filter(filter => (!filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)))
-    }
+      if (!this.filterComponents) return [];
+      return this.filterComponents.filter(
+        filter => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
+      );
+    },
   },
 
   async mounted() {
