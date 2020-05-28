@@ -12,7 +12,7 @@
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
-            v-for="filter in filterComponents"
+            v-for="filter in visibleComponents"
             :title="$t(filter.title)"
             :key="filter.title"
             draggable
@@ -77,6 +77,11 @@ export default {
     visibleFilters() {
       return this.currentFilters.filter(f => !f.hidden);
     },
+
+    visibleComponents() {
+      if (!this.filterComponents) return []
+      return this.filterComponents.filter(filter => (!filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)))
+    }
   },
 
   async mounted() {

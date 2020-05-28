@@ -1,10 +1,11 @@
 import { query } from './utils';
 
-export async function globalActifParc() {
+export async function globalActifParc(filters = {}) {
   return geoCounter({
     filter: {
       counter: 'COUNTER1',
       usageType: 'ALL',
+      ...filters
     },
   });
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="row mt-4 mb-4">
     <div class="col-3">
-      <MonitoringIndicators :usage="currentUsage" />
+      <MonitoringIndicators :appliedFilters="appliedFilters" :usage="currentUsage" />
       <FilterBar
         v-if="filters"
         :filter-components="filters"
@@ -33,15 +33,17 @@
 
 <script>
 import FilterBar from '@/components/Filters/TableWithFilter/FilterBar.vue';
-import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
-import PartnerFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
-import OffersFilter from '@/views/GetVision/alarmDetail/ExcludedLinesFromAlarmTab/OffersFilter.vue';
+import BillsPartnerFilter from '@/views/GetReport/Bill/filters/BillsPartnerFilter.vue';
+import OfferFilter from './filters/OfferFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import FileFilter from './filters/FileFilter';
+import PartnerGroupChoice from './filters/PartnerGroupChoice';
 import LocalisationFilter from './filters/LocalisationFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
+import cloneDeep from 'lodash.clonedeep';
+
 
 import { mapGetters } from 'vuex';
 
@@ -61,6 +63,7 @@ export default {
       filters: undefined,
       toggleValues: undefined,
       currentUsage: undefined,
+      appliedFilters: undefined
     };
   },
 
@@ -82,24 +85,26 @@ export default {
       currentVisibleFilters.push(
         {
           title: 'getadmin.users.filters.partnerGroup',
-          component: GroupPartnerFilter,
-          onChange(chosenValues) {
+          component: PartnerGroupChoice,
+          onChange(chosen) {
             return {
               id: 'getadmin.users.filters.partnerGroup',
-              values: chosenValues,
+              value: chosen.label,
+              data: chosen
             };
           },
         },
         {
           title: 'getadmin.users.filters.partners',
-          component: PartnerFilter,
-          onChange(chosenValues) {
+          component: BillsPartnerFilter,
+          onChange(chosenValue) {
             return {
               id: 'getadmin.users.filters.partners',
-              values: chosenValues,
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
             };
           },
-        }
+        },
       );
     } else if (this.userIsGroupAccount) {
       currentVisibleFilters.push({
@@ -116,14 +121,17 @@ export default {
 
     currentVisibleFilters.push({
       title: 'filters.offers',
-      component: OffersFilter,
-      onChange(chosenValues) {
+      component: OfferFilter,
+      onChange(chosenValue) {
         return {
           id: 'filters.offers',
-          values: chosenValues,
-          data: chosenValues,
+          value: chosenValue ? chosenValue.label : '',
+          data: chosenValue,
         };
       },
+      checkVisibleFn(currentFilters) {
+        return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      }
     });
 
     currentVisibleFilters.push({
@@ -167,8 +175,10 @@ export default {
   },
 
   methods: {
-    doSearch() {},
-    onAllFiltersCleared() {},
+    doSearch(appliedFilters) {
+      this.appliedFilters = cloneDeep(appliedFilters);
+    },
+    onAllFiltersCleared() { },
   },
 };
 </script>

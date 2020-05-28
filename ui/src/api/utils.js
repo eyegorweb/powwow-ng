@@ -68,7 +68,7 @@ export async function query(q, variables) {
   let tries = 10;
 
   if (isOnDebugMode()) {
-    console.log(q);
+    console.log(q, variables);
   }
 
   const singleTry = async () => {

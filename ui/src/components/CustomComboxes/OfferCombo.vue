@@ -1,11 +1,15 @@
 <template>
-  <UiApiAutocomplete
-    placeholder="Offre"
-    :items="items"
-    v-model="selectedValue"
-    :disabled="disabled"
-    display-results-while-empty
-  />
+  <div>
+    <div v-if="isLoading" class="skeleton-line"></div>
+    <UiApiAutocomplete
+      v-else
+      placeholder="Offre"
+      :items="items"
+      v-model="selectedValue"
+      :disabled="disabled"
+      display-results-while-empty
+    />
+  </div>
 </template>
 
 <script>
@@ -27,6 +31,7 @@ export default {
   data() {
     return {
       items: [],
+      isLoading: true,
     };
   },
   computed: {
@@ -55,6 +60,7 @@ export default {
   },
   methods: {
     async refreshList() {
+      this.isLoading = true;
       const data = await fetchOffers('', this.partners, {
         page: 0,
         limit: 999,
@@ -66,6 +72,7 @@ export default {
         label: p.workflowDescription,
         meta: p,
       }));
+      this.isLoading = false;
     },
   },
   mounted() {
