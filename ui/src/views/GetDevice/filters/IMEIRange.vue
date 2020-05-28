@@ -1,19 +1,27 @@
 <template>
   <div>
-    <UiInput v-model="inputFrom" block />
-    <UiInput v-model="inputTo" block />
+    <DoubleInput :value1="inputFrom" :value2="inputTo" @input="onChange" />
   </div>
 </template>
 
 <script>
-import UiInput from '@/components/ui/UiInput';
+import DoubleInput from '@/components/ui/DoubleInput';
 
 export default {
   components: {
-    UiInput,
+    DoubleInput,
   },
   props: {
     selectedData: Object,
+  },
+
+  methods: {
+    onChange({ inputFrom, inputTo }) {
+      this.$emit('change', {
+        from: inputFrom,
+        to: inputTo,
+      });
+    },
   },
 
   computed: {
