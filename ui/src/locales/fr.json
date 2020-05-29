@@ -103,7 +103,7 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
-      "dataVoiceConso": "CONSOMMATION MENSUELLE DU PARC",
+      "dataVoiceConso": "CONSOMMATION MENSUELLE",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Lignes en stock",
