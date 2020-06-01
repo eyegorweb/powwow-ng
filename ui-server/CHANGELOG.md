@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.829+20200601041946
+2020-06-01
+
+### Features
+
+- **devices:** ajout de la page getDevices (bdfbef5f692cfa822cd9bec72fc3d0133f1bd48c)
+
 ## 0.3.0-master.828+20200529094742
 2020-05-29
 
