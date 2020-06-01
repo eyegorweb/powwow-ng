@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.830+20200601092231
+2020-06-01
+
+### Fixes
+
+- correction du filtre groupe partenaire de la page gestion des partenaires (1492eb7d25387621fe9f23cf4700a872ce10305c)
+
 ## 0.3.0-master.829+20200601041946
 2020-06-01
 
