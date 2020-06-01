@@ -1,18 +1,38 @@
 <template>
   <div>
-    <DoubleInput :value1="inputFrom" :value2="inputTo" @input="onChange" />
+    <div class="row">
+      <div class="col d-flex">
+        <UiCheckbox v-model="isRangeMode" />
+        <span>{{ $t('range') }}</span>
+      </div>
+    </div>
+    <UiInput v-model="inputFrom" />
+    <UiInput v-if="isRangeMode" v-model="inputTo" />
   </div>
 </template>
 
 <script>
-import DoubleInput from '@/components/ui/DoubleInput';
+import UiInput from '@/components/ui/UiInput';
+import UiCheckbox from '@/components/ui/Checkbox';
 
 export default {
   components: {
-    DoubleInput,
+    UiInput,
+    UiCheckbox,
   },
   props: {
     selectedData: Object,
+  },
+
+  watch: {
+    isRangeMode() {
+      this.emitNewValues(this.inputFrom, this.inputTo);
+    },
+  },
+  data() {
+    return {
+      isRangeMode: false,
+    };
   },
 
   methods: {
@@ -21,6 +41,18 @@ export default {
         from: inputFrom,
         to: inputTo,
       });
+    },
+    emitNewValues(value1, value2) {
+      if (this.isRangeMode) {
+        this.$emit('input', {
+          value1,
+          value2,
+        });
+      } else {
+        this.$emit('input', {
+          value1,
+        });
+      }
     },
   },
 

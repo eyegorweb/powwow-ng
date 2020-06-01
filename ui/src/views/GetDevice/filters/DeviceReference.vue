@@ -35,9 +35,13 @@ export default {
   },
 
   async mounted() {
-    const data = await getManufacturers();
-    this.localItems = data.map(p => ({
-      id: p.marketingName,
+    const { pagination } = {
+      pagination: { page: 0, limit: 30 },
+    };
+    const data = await getManufacturers(this.orderBy, pagination);
+    if (!data) return;
+    this.localItems = data.map((p, index) => ({
+      id: `${p.marketingName}_${index}`,
       label: p.marketingName,
       data: p,
     }));

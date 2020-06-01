@@ -43,7 +43,6 @@ export default {
       pagination: { page: 0, limit: 30 },
     };
     const data = await getManufacturers(this.orderBy, pagination);
-    console.log('data manufacturers', data);
     if (!data) return;
     this.localItems = data.map((p, index) => ({
       id: `${p.manufacturer}_${index}`,

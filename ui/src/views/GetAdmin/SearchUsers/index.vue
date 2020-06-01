@@ -306,7 +306,7 @@ export default {
       this.searchByLoginValue = value;
       const data = await searchUsers(this.orderBy, { page: 0, limit: 10 }, [
         {
-          id: 'getadmin.users.login',
+          id: 'getadmin.users.filters.login',
           value,
         },
       ]);

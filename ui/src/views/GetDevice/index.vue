@@ -29,7 +29,6 @@
             :rows="rows"
             :total="total"
             :order-by.sync="orderBy"
-            :size="0"
             @applyFilters="applyFilters"
           >
             <div slot="before-table">
@@ -50,7 +49,11 @@
             </div>
 
             <div slot="topLeft">
-              <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+              <SearchByLinesId
+                @searchById="searchById"
+                :init-value="searchByIdValue"
+                placeholder="searchLine"
+              />
             </div>
           </TableWithFilter>
         </div>
@@ -71,13 +74,15 @@ import IMEIRange from './filters/IMEIRange';
 import Manufacturer from './filters/Manufacturer';
 import DeviceReference from './filters/DeviceReference';
 import SearchByLinesId from '@/components/SearchById';
+// import SimStatusCell from '@/views/GetParc/ActLines/LinesTable/SimStatusCell';
+// import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import Indicators from '@/components/Indicators';
 import Top5Manufacturer from './Top5Manufacturer';
 import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
-
 import { getDevices } from '@/api/manufacturers.js';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -117,7 +122,206 @@ export default {
       currentTab: 0,
       searchByIdValue: undefined,
       indicators: deviceIndicators,
-      columns: [],
+      columns: [
+        {
+          id: 1,
+          label: 'IMEI',
+          name: 'imei',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'imei');
+            },
+          },
+        },
+        {
+          id: 2,
+          label: 'Fabricant (IMEI)',
+          name: 'manufacturer',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'manufacturer');
+            },
+          },
+        },
+        {
+          id: 3,
+          label: 'Modèle (IMEI)',
+          name: 'deviceReference',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'deviceReference');
+            },
+          },
+        },
+        {
+          id: 4,
+          label: 'TAC',
+          name: 'tac',
+          orderable: false, // Not parametrable for ordering in the api devices
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'tac');
+            },
+          },
+        },
+        {
+          id: 5,
+          label: 'Fréquence',
+          name: 'bands',
+          orderable: false, // Not parametrable for ordering in the api devices
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'bands');
+            },
+          },
+        },
+        {
+          id: 6,
+          label: 'ICCID',
+          name: 'iccid',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'iccid');
+            },
+          },
+        },
+        {
+          id: 7,
+          label: 'Partenaire',
+          name: 'partyName',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'party.name'); // return row.party && row.party.name ? row.party.name : '';
+            },
+          },
+        },
+        {
+          id: 8,
+          label: 'MSISDN',
+          name: 'msisdn',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'msisdn');
+            },
+          },
+        },
+        {
+          id: 9,
+          label: 'IMSI',
+          name: 'imsi',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'imsi');
+            },
+          },
+        },
+        {
+          id: 10,
+          label: 'Statut de la ligne',
+          name: 'status',
+          orderable: false, // Not parametrable for ordering in the api devices
+          visible: false,
+          noHandle: true,
+          format: {
+            // component: SimStatusCell,
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'status');
+            },
+          },
+        },
+        {
+          id: 11,
+          label: 'Date du statut',
+          name: 'statusDate',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            // component: DateStatus,
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'statusDate');
+            },
+          },
+        },
+        {
+          id: 12,
+          label: 'Offre',
+          name: 'offer',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'offer');
+            },
+          },
+        },
+        {
+          id: 13,
+          label: 'Dernier pays (ancien PLMN)',
+          name: 'lastPLMN',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'lastPLMN');
+            },
+          },
+        },
+        {
+          id: 14,
+          label: 'A-MSISDN',
+          name: 'msisdnA',
+          orderable: true,
+          visible: false,
+          noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'msisdnA');
+            },
+          },
+        },
+      ],
       filters: [
         {
           title: 'getDevice.imeiRange',
@@ -158,6 +362,7 @@ export default {
         direction: 'ASC',
       },
       currentAppliedFilters: [],
+      isLoading: false,
     };
   },
   mounted() {
@@ -174,6 +379,19 @@ export default {
       this.total = data.total;
       this.rows = data.items;
       this.currentAppliedFilters = filters;
+    },
+    async searchById(params) {
+      // Test with value imei 893325591621934
+      this.searchByIdValue = params.value;
+
+      this.isLoading = true;
+      console.log('params search by id', params);
+      const data = await getDevices(this.orderBy, { page: 0, limit: 10 }, [params]);
+
+      this.isLoading = false;
+
+      this.total = data.total;
+      this.rows = data.items;
     },
   },
 };

@@ -71,7 +71,7 @@ export async function getDevices(orderBy, pagination, filters = []) {
   const response = await query(queryStr);
 
   if (response && response.data) {
-    return response.data.devices.items;
+    return response.data.devices;
   }
 }
 
@@ -80,6 +80,8 @@ export function formatFilters(selectedFilters) {
 
   addRangeFilter(gqlFilters, selectedFilters, 'imei', 'getDevice.imeiRange');
   addManufacturerFilter(gqlFilters, selectedFilters);
+  addDeviceReferenceFilter(gqlFilters, selectedFilters);
+  addIdsFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -89,6 +91,13 @@ function addManufacturerFilter(gqlFilters, selectedFilters) {
 
   if (manufacturers) {
     gqlFilters.push(`manufacturer: {in: ["${manufacturers}"]}`);
+  }
+}
+function addDeviceReferenceFilter(gqlFilters, selectedFilters) {
+  const deviceReferences = getValuesIdsWithoutQuotes(selectedFilters, 'getDevice.deviceReference');
+
+  if (deviceReferences) {
+    gqlFilters.push(`deviceReference: {in: ["${deviceReferences}"]}`);
   }
 }
 
@@ -107,5 +116,29 @@ function addRangeFilter(gqlFilters, selectedFilters, gqlParamName, keyInCurrentF
     }
   } else {
     return;
+  }
+}
+
+function addIdsFilter(gqlFilters, selectedFilters) {
+  const iccid = selectedFilters.find(f => f.id === 'filters.iccid');
+  const imsi = selectedFilters.find(f => f.id === 'filters.imsi');
+  const msisdn = selectedFilters.find(f => f.id === 'filters.msisdn');
+  const imei = selectedFilters.find(f => f.id === 'filters.imei');
+  const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
+
+  if (iccid) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  }
+  if (imsi) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  }
+  if (msisdn) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  }
+  if (imei) {
+    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  }
+  if (msisdnA) {
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
   }
 }
