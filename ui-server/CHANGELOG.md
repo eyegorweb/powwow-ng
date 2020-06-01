@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.831+20200601202144
+2020-06-01
+
+### Fixes
+
+- correction du tri sur la table de résultats des rapports (9da62bb7dcff25bf6db6a436d1153d78b428357e)
+
 ## 0.3.0-master.830+20200601092231
 2020-06-01
 
