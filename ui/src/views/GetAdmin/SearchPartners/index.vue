@@ -17,7 +17,9 @@
       :order-by.sync="orderBy"
       :size="0"
       @applyFilters="applyFilters"
-    ></TableWithFilter>
+    >
+      <div slot="title">{{ $t('getadmin.partners.total', { total: total }) }}</div>
+    </TableWithFilter>
   </div>
 </template>
 

@@ -472,7 +472,8 @@
       "admins": "Administrateurs",
       "activityLog": "Journal d'activité",
       "options": "Options du partenaire",
-      "accountDescription": "Description du compte partenaire"
+      "accountDescription": "Description du compte partenaire",
+      "total": "{total} partenaire(s) trouvé(s)"
     },
     "partnerDetail": {
       "generalInformations": "Informations générales",
