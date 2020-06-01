@@ -106,7 +106,7 @@ export default {
         {
           id: 3,
           label: 'Nom',
-          name: 'NOM',
+          name: 'fullname',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -135,7 +135,7 @@ export default {
           id: 5,
           label: 'Partenaire',
           name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
-          orderable: true,
+          orderable: false,
           visible: true,
           noHandle: true,
           format: {
@@ -164,7 +164,7 @@ export default {
           id: 7,
           label: 'Actif',
           name: 'disabled',
-          orderable: true,
+          orderable: false,
           visible: true,
           noHandle: true,
           format: {
