@@ -83,6 +83,7 @@ import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
 import { getDevices } from '@/api/manufacturers.js';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -122,7 +123,8 @@ export default {
       currentTab: 0,
       searchByIdValue: undefined,
       indicators: deviceIndicators,
-      columns: [
+      columns: undefined,
+      commonColumns: [
         {
           id: 1,
           label: 'IMEI',
@@ -143,7 +145,6 @@ export default {
           name: 'manufacturer',
           orderable: true,
           visible: true,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -157,7 +158,6 @@ export default {
           name: 'deviceReference',
           orderable: true,
           visible: true,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -171,7 +171,6 @@ export default {
           name: 'tac',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -185,7 +184,6 @@ export default {
           name: 'bands',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -199,25 +197,10 @@ export default {
           name: 'iccid',
           orderable: true,
           visible: true,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
               return get(row, 'iccid');
-            },
-          },
-        },
-        {
-          id: 7,
-          label: 'Partenaire',
-          name: 'partyName',
-          orderable: true,
-          visible: true,
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return get(row, 'party.name'); // return row.party && row.party.name ? row.party.name : '';
             },
           },
         },
@@ -227,7 +210,6 @@ export default {
           name: 'msisdn',
           orderable: true,
           visible: false,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -241,7 +223,6 @@ export default {
           name: 'imsi',
           orderable: true,
           visible: false,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -255,7 +236,6 @@ export default {
           name: 'status',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: false,
-          noHandle: true,
           format: {
             // component: SimStatusCell,
             type: 'Getter',
@@ -270,7 +250,6 @@ export default {
           name: 'statusDate',
           orderable: true,
           visible: false,
-          noHandle: true,
           format: {
             // component: DateStatus,
             type: 'Getter',
@@ -285,25 +264,10 @@ export default {
           name: 'offer',
           orderable: true,
           visible: false,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
               return get(row, 'offer');
-            },
-          },
-        },
-        {
-          id: 13,
-          label: 'Dernier pays (ancien PLMN)',
-          name: 'lastPLMN',
-          orderable: true,
-          visible: false,
-          noHandle: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return get(row, 'lastPLMN');
             },
           },
         },
@@ -313,7 +277,6 @@ export default {
           name: 'msisdnA',
           orderable: true,
           visible: false,
-          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
@@ -366,6 +329,44 @@ export default {
     };
   },
   mounted() {
+    const partnerColumn = [
+      {
+        id: 7,
+        label: 'Partenaire',
+        name: 'partyName',
+        orderable: true,
+        visible: false,
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return get(row, 'party.name');
+          },
+        },
+      },
+    ];
+    const PLMNColumn = [
+      {
+        id: 13,
+        label: 'Dernier pays (ancien PLMN)',
+        name: 'lastPLMN',
+        orderable: true,
+        visible: false,
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return get(row, 'lastPLMN');
+          },
+        },
+      },
+    ];
+    if (this.canShowPartnerColumn) {
+      this.columns = [...this.commonColumns, ...partnerColumn];
+    } else {
+      this.columns = [...this.commonColumns];
+    }
+    if (this.canShowPLMNColumn) {
+      this.columns = [...this.columns, ...PLMNColumn];
+    }
     this.applyFilters();
   },
   methods: {
@@ -392,6 +393,20 @@ export default {
 
       this.total = data.total;
       this.rows = data.items;
+    },
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(
+        p => p.domain === domain && p.action === action
+      );
+    },
+  },
+  computed: {
+    ...mapGetters(['userInfos', 'userIsBO']),
+    canShowPartnerColumn() {
+      return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
+    },
+    canShowPLMNColumn() {
+      return this.userIsBO && this.havePermission('getVision', 'read');
     },
   },
 };
