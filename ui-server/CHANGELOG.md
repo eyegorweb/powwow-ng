@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.835+20200602172203
+2020-06-02
+
+### Features
+
+- export des équipements (417ef1a8f4adb99684b99ed26386f31c1e890234)
+
 ## 0.3.0-master.834+20200602124414
 2020-06-02
 
