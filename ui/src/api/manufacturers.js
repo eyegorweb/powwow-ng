@@ -142,3 +142,31 @@ function addIdsFilter(gqlFilters, selectedFilters) {
     gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
   }
 }
+
+export async function exportDevices(columns, orderBy, exportFormat, filters = []) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const response = await query(
+    `
+    query {
+      exportDevices(filters: {${formatFilters(
+        filters
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat} ) {
+        downloadUri
+        total
+      }
+    }
+    `
+  );
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.exportDevices;
+}

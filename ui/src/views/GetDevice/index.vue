@@ -55,6 +55,12 @@
                 placeholder="searchLine"
               />
             </div>
+
+            <div slot="topRight">
+              <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+                <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+              </ExportButton>
+            </div>
           </TableWithFilter>
         </div>
         <div slot="boxes"></div>
@@ -74,14 +80,13 @@ import IMEIRange from './filters/IMEIRange';
 import Manufacturer from './filters/Manufacturer';
 import DeviceReference from './filters/DeviceReference';
 import SearchByLinesId from '@/components/SearchById';
-// import SimStatusCell from '@/views/GetParc/ActLines/LinesTable/SimStatusCell';
-// import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
+import ExportButton from '@/components/ExportButton';
 import Indicators from '@/components/Indicators';
 import Top5Manufacturer from './Top5Manufacturer';
 import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
-import { getDevices } from '@/api/manufacturers.js';
+import { getDevices, exportDevices } from '@/api/manufacturers.js';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
@@ -96,6 +101,7 @@ export default {
     Top5Manufacturer,
     TechnologyRepartitionGraph,
     Top5References,
+    ExportButton,
   },
   data() {
     return {
@@ -237,7 +243,6 @@ export default {
           orderable: false, // Not parametrable for ordering in the api devices
           visible: false,
           format: {
-            // component: SimStatusCell,
             type: 'Getter',
             getter: row => {
               return get(row, 'status');
@@ -251,7 +256,6 @@ export default {
           orderable: true,
           visible: false,
           format: {
-            // component: DateStatus,
             type: 'Getter',
             getter: row => {
               return get(row, 'statusDate');
@@ -382,17 +386,40 @@ export default {
       this.currentAppliedFilters = filters;
     },
     async searchById(params) {
-      // Test with value imei 893325591621934
       this.searchByIdValue = params.value;
 
       this.isLoading = true;
-      console.log('params search by id', params);
       const data = await getDevices(this.orderBy, { page: 0, limit: 10 }, [params]);
 
       this.isLoading = false;
 
       this.total = data.total;
       this.rows = data.items;
+    },
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportDevices(
+          [
+            'IMEI',
+            'MANUFACTURER',
+            'DEVICE_REFERENCE',
+            'TAC',
+            'BANDS',
+            'ICCID',
+            'PARTY',
+            'MSISDN',
+            'IMSI',
+            'OFFER',
+            'USAGE_LAST_COUNTRY',
+            'AMSISDN',
+            'SIM_STATUS',
+            'SIM_STATUS_DATE',
+          ],
+          this.orderBy,
+          exportFormat,
+          this.currentAppliedFilters
+        );
+      };
     },
     havePermission(domain, action) {
       return !!get(this.userInfos, 'permissions', []).find(
