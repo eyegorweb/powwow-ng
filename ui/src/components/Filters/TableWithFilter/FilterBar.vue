@@ -7,7 +7,14 @@
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
+        :hide-apply="alwaysShowButton"
       />
+
+      <div v-if="alwaysShowButton" class="actions d-flex flex-column flex-md-row mb-2">
+        <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
+          >Appliquer / Rafraichir</UiButton
+        >
+      </div>
 
       <draggable handle=".handle">
         <transition-group>
@@ -44,6 +51,7 @@
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
+import UiButton from '@/components/ui/Button';
 import FilterBarSlot from './FilterBarSlot';
 
 export default {
@@ -52,10 +60,12 @@ export default {
     FoldableBlock,
     draggable,
     FilterBarSlot,
+    UiButton,
   },
 
   props: {
     filterComponents: Array,
+    alwaysShowButton: Boolean,
     defaultValues: {
       type: Array,
       required: false,

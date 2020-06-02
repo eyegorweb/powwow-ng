@@ -8,6 +8,8 @@
         :map-overlay="mapOverlay"
         :adjust-position="adjustPosition"
         :map-position="mapPosition"
+        @activeClick="() => $emit('activeClick', { marker: m, locationType: locationType })"
+        @passiveClick="() => $emit('passiveClick', { marker: m, locationType: locationType })"
       />
     </template>
   </div>
@@ -25,6 +27,9 @@ import {
   fetchDataForCells,
   fetchDataForCities,
 } from '@/api/supervisionIndicators.js';
+
+import { filterFormatter } from '@/views/GetVision/monitoring/index.vue';
+
 import uuid from 'uuid/v1';
 
 const CONTINENT_ZOOM_LEVEL = 4;
@@ -94,6 +99,9 @@ export default {
       mapOverlay: undefined,
       adjustPosition: undefined,
       geocoder: undefined,
+      isReady: false,
+
+      locationType: 'CONTINENT',
     };
   },
 
@@ -114,7 +122,11 @@ export default {
       this.mapOverlay = new this.google.maps.OverlayView();
       this.mapOverlay.setMap(this.map);
       this.google.maps.event.addListener(this.map, 'idle', () => {
-        this.refreshData();
+        if (this.isReady) {
+          this.refreshData();
+        } else {
+          this.isReady = true;
+        }
       });
     });
   },
@@ -129,81 +141,143 @@ export default {
     async refreshData() {
       if (this.isLoading) return;
 
-      this.isLoading = true;
-      this.markers = [];
+      try {
+        this.isLoading = true;
+        this.markers = [];
 
-      const countryCode = await this.getCenteredCountry();
-      const zoomLevel = this.map.getZoom();
+        const countryCode = await this.getCenteredCountry();
+        const zoomLevel = this.map.getZoom();
 
-      if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
-        await this.loadDataForContinents();
-      } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
-        if (countryCode == 'US' && zoomLevel == 5) {
-          await this.loadDataForUsStates();
-        } else {
-          await this.loadDataForCountries();
-        }
-      } else if (zoomLevel >= 6 && zoomLevel < 8) {
-        if (countryCode == 'FR') {
-          await this.loadDataForFrenchRegions();
-        } else if (countryCode == 'US') {
-          await this.loadDataForUsStates();
-        } else {
-          await this.loadDataForCountries();
-        }
-      } else if (zoomLevel >= 8 && zoomLevel < CITY_ZOOM_LEVEL) {
-        if (countryCode == 'FR') {
-          await this.loadDataForFrenchDepartments();
-        } else if (countryCode == 'US') {
-          await this.loadDataForUsStates();
-        } else {
-          if (zoomLevel > 8) {
-            await this.loadDataForCells(countryCode);
+        if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
+          await this.loadDataForContinents();
+        } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
+          if (countryCode == 'US' && zoomLevel == 5) {
+            await this.loadDataForUsStates();
           } else {
             await this.loadDataForCountries();
           }
-        }
-      } else if (zoomLevel >= CITY_ZOOM_LEVEL && zoomLevel < CELL_ZOOM_LEVEL) {
-        if (countryCode == 'FR') {
-          await this.loadDataForCities(countryCode);
-        } else {
+        } else if (zoomLevel >= 6 && zoomLevel < 8) {
+          if (countryCode == 'FR') {
+            await this.loadDataForFrenchRegions();
+          } else if (countryCode == 'US') {
+            await this.loadDataForUsStates();
+          } else {
+            await this.loadDataForCountries();
+          }
+        } else if (zoomLevel >= 8 && zoomLevel < CITY_ZOOM_LEVEL) {
+          if (countryCode == 'FR') {
+            await this.loadDataForFrenchDepartments();
+          } else if (countryCode == 'US') {
+            await this.loadDataForUsStates();
+          } else {
+            if (zoomLevel > 8) {
+              await this.loadDataForCells(countryCode);
+            } else {
+              await this.loadDataForCountries();
+            }
+          }
+        } else if (zoomLevel >= CITY_ZOOM_LEVEL && zoomLevel < CELL_ZOOM_LEVEL) {
+          if (countryCode == 'FR') {
+            await this.loadDataForCities(countryCode);
+          } else {
+            await this.loadDataForCells(countryCode);
+          }
+        } else if (zoomLevel >= CELL_ZOOM_LEVEL) {
           await this.loadDataForCells(countryCode);
         }
-      } else if (zoomLevel >= CELL_ZOOM_LEVEL) {
-        await this.loadDataForCells(countryCode);
-      }
 
-      this.isLoading = false;
+        this.isLoading = false;
+      } catch (e) {
+        console.log(e);
+        this.isLoading = false;
+      }
+    },
+
+    formatFilters() {
+      if (!this.appliedFilters);
+
+      return filterFormatter(this.appliedFilters);
     },
 
     async loadDataForCities(countryCode) {
+      this.locationType = 'CITY';
+
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchDataForCities(countryCode, this.usage, this.getBounds());
+      let filters = this.formatFilters();
+      if (filters.iso3CountryCode) {
+        delete filters.iso3CountryCode;
+      }
+      filters.iso2CountryCode = countryCode;
+      const data = await fetchDataForCities(this.usage, this.getBounds(), filters);
       this.markers = this.formatMarkers(data);
     },
 
     async loadDataForCells(countryCode) {
+      this.locationType = 'CELL';
+
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchDataForCells(countryCode, this.usage, this.getBounds());
+      let filters = this.formatFilters();
+
+      if (filters.iso3CountryCode) {
+        delete filters.iso3CountryCode;
+      }
+      filters.iso2CountryCode = countryCode;
+      const data = await fetchDataForCells(this.usage, this.getBounds(), filters);
       this.markers = this.formatMarkers(data);
     },
 
     async loadDataForFrenchRegions() {
+      this.locationType = 'REGION';
+
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchRegionsData(this.usage, this.getBounds());
+      const data = await fetchFrenchRegionsData(this.usage, this.getBounds(), this.formatFilters());
       this.markers = this.formatMarkers(data);
     },
 
     async loadDataForFrenchDepartments() {
+      this.locationType = 'DEPARTMENT';
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchDepartmentsData(this.usage, this.getBounds());
-      console.log('dep >>', data);
+      const data = await fetchFrenchDepartmentsData(
+        this.usage,
+        this.getBounds(),
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 
     async loadDataForUsStates() {
+      this.locationType = 'COUNTRY'; // maybe STATE ?
+
       this.adjustPosition = adjustPositionForStates;
-      const data = await fetchStatesData(this.usage, this.getBounds());
+      const data = await fetchStatesData(this.usage, this.getBounds(), this.formatFilters());
+      this.markers = this.formatMarkers(data);
+    },
+
+    async loadDataForContinents() {
+      this.locationType = 'CONTINENT';
+      this.adjustPosition = adjustPositionForContinent;
+      const data = await fetchContinentData(this.usage, this.formatFilters());
+      this.markers = data.map(d => {
+        const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
+        if (defaultData) {
+          return {
+            id: uuid(),
+            ...defaultData,
+            label: d.locationNameFr,
+            activeCount: d.activeCount,
+            passiveCount: d.passiveCount,
+            position: new this.google.maps.LatLng(defaultData.lat, defaultData.lng),
+            data: d,
+          };
+        }
+      });
+    },
+
+    async loadDataForCountries() {
+      this.locationType = 'COUNTRY';
+
+      this.adjustPosition = adjustPositionForCoutries;
+      const data = await fetchCountriesData(this.usage);
       this.markers = this.formatMarkers(data);
     },
 
@@ -219,41 +293,17 @@ export default {
       };
     },
 
-    async loadDataForContinents() {
-      this.adjustPosition = adjustPositionForContinent;
-      const data = await fetchContinentData(this.usage);
-      this.markers = data.map(d => {
-        const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
-        if (defaultData) {
-          return {
-            id: uuid(),
-            ...defaultData,
-            label: d.locationNameFr,
-            activeCount: d.activeCount,
-            passiveCount: d.passiveCount,
-            position: new this.google.maps.LatLng(defaultData.lat, defaultData.lng),
-          };
-        }
-      });
-    },
-
-    async loadDataForCountries() {
-      this.adjustPosition = adjustPositionForCoutries;
-      const data = await fetchCountriesData(this.usage);
-      this.markers = this.formatMarkers(data);
-    },
-
     formatMarkers(data) {
       return data.map(d => {
         return {
           id: uuid(),
-          label: d.locationNameFr || d.locationName,
           activeCount: d.activeCount,
           passiveCount: d.passiveCount,
           position: new this.google.maps.LatLng(
             parseFloat(d.locationLatitude),
             parseFloat(d.locationLongitude)
           ),
+          data: d,
         };
       });
     },
@@ -267,7 +317,6 @@ export default {
           },
           (results, status) => {
             let result;
-            console.log('Country Res = ', results);
             if (status == this.google.maps.GeocoderStatus.OK) {
               if (results[0]) {
                 result = extractFromAdress(results[0].address_components, 'country');

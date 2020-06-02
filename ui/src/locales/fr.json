@@ -1414,6 +1414,10 @@
     "actDateStart": "Date de début",
     "actDateEnd": "Date de fin",
     "actCreator": "Créateur de l’acte",
+    "lastUsage": "Dernier usage",
+    "usageType": "Type d'usage",
+    "direction": "Sens",
+    "pdpStatus": "Statut PDP",
     "lines": {
       "fromFile": {
         "title": "Filtrer à partir d’un fichier",

@@ -50,7 +50,11 @@
           </div>
         </UiDropdownButton>
       </ff-wip>
-      <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1"
+      <UiButton
+        v-if="!hideApply"
+        variant="primary"
+        @click="applyFilters()"
+        class="flex-grow-1 py-1 px-3 ml-1"
         >Appliquer le filtre</UiButton
       >
     </div>
@@ -76,6 +80,7 @@ export default {
     },
 
     canSave: Boolean,
+    hideApply: Boolean,
   },
 
   data() {

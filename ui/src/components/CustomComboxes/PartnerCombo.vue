@@ -30,6 +30,10 @@ export default {
     includeMailingLists: Boolean,
     offline: Boolean,
     disabled: Boolean,
+    partyType: {
+      type: String,
+      required: false,
+    },
   },
 
   async mounted() {
@@ -37,7 +41,7 @@ export default {
       const data = await fetchpartners('', {
         page: 0,
         limit: 999,
-        partnerType: this.contextPartnersType,
+        partnerType: this.partyType || this.contextPartnersType,
         includeMailingLists: this.includeMailingLists,
       });
       this.offlineItems = data.map(p => ({

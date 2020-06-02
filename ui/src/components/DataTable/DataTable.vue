@@ -1,6 +1,10 @@
 <template>
-  <div v-if="!rows || !rows.length" class="alert alert-light m-0" role="alert">
-    {{ $t('noResult') }}
+  <div v-if="!rows || !rows.length">
+    <slot name="noResult">
+      <div class="alert alert-light m-0" role="alert">
+        {{ $t('noResult') }}
+      </div>
+    </slot>
   </div>
   <div v-else>
     <DataTableConfiguration

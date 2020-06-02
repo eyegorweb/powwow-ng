@@ -1,5 +1,5 @@
 <template>
-  <div class="map-container">
+  <div class="map-container" :class="{ hidden: !visible }">
     <GoogleMapLoader :map-config="mapConfig" :css-style="cssStyle">
       <template slot-scope="{ google, map }">
         <MapContent
@@ -8,6 +8,8 @@
           :applied-filters="appliedFilters"
           :usage="usage"
           :loading.sync="loading"
+          @activeClick="$emit('activeClick', $event)"
+          @passiveClick="$emit('passiveClick', $event)"
         />
       </template>
     </GoogleMapLoader>
@@ -28,6 +30,7 @@ export default {
   props: {
     appliedFilters: Array,
     usage: String,
+    visible: Boolean,
   },
 
   data() {
@@ -75,5 +78,9 @@ export default {
 .map-container {
   position: relative;
   overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }
 </style>

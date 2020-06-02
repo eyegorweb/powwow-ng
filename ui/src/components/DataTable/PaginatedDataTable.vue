@@ -19,6 +19,9 @@
       <template slot="topLeftCorner">
         <slot name="topLeftCorner" />
       </template>
+      <template slot="noResult">
+        <slot name="noResult" />
+      </template>
     </DataTable>
   </LoaderContainer>
 </template>
@@ -98,6 +101,7 @@ export default {
           this.orderBy,
           this.additionalFilters
         );
+
         this.isLoading = false;
         this.rows = response.rows;
         this.total = response.total;

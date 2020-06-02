@@ -1,11 +1,11 @@
 <template>
   <div class="supervision-marker" :style="cssStyle">
-    <div class="active cell">
-      <span>{{ data.label }}</span>
-      <br />
+    <div class="active cell" @click="$emit('activeClick')">
+      <div v-if="data.label" class="mb-1">{{ data.label }}</div>
+
       <span>{{ data.activeCount }}</span>
     </div>
-    <div class="passive cell">{{ data.passiveCount }}</div>
+    <div class="passive cell" @click="$emit('passiveClick')">{{ data.passiveCount }}</div>
   </div>
 </template>
 

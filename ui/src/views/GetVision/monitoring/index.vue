@@ -1,12 +1,17 @@
 <template>
   <div class="row mt-4 mb-4">
     <div class="col-3">
-      <MonitoringIndicators :applied-filters="appliedFilters" :usage="currentUsage" />
+      <MonitoringIndicators
+        :applied-filters="appliedFilters"
+        :usage="currentUsage"
+        @click="onIndicatorClick"
+      />
       <FilterBar
         v-if="filters"
         :filter-components="filters"
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
+        always-show-button
       />
     </div>
     <div class="col-9">
@@ -29,7 +34,19 @@
       </div>
 
       <div class="mt-3 mb-3">
-        <SupervisionMap :applied-filters="appliedFilters" :usage="currentUsage" />
+        <SupervisionMap
+          :visible="!refreshLinesFn"
+          :applied-filters="appliedFilters"
+          :usage="currentUsage"
+          @activeClick="onActiveClick"
+          @passiveClick="onPassiveClick"
+        />
+        <SupervisionTable
+          v-if="refreshLinesFn"
+          :refresh-lines-fn="refreshLinesFn"
+          :total="indicatorTotal"
+          @gotomap="refreshLinesFn = undefined"
+        />
       </div>
     </div>
   </div>
@@ -37,7 +54,7 @@
 
 <script>
 import FilterBar from '@/components/Filters/TableWithFilter/FilterBar.vue';
-import BillsPartnerFilter from '@/views/GetReport/Bill/filters/BillsPartnerFilter.vue';
+import MultiCustomerPartnerFilter from './filters/MultiCustomerPartnerFilter.vue';
 import OfferFilter from './filters/OfferFilter';
 import Toggle from '@/components/ui/UiToggle2';
 import FileFilter from './filters/FileFilter';
@@ -48,6 +65,9 @@ import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
 
 import SupervisionMap from './SupervisionMap';
+import SupervisionTable from './SupervisionTable';
+
+import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervisionIndicators.js';
 
 import { mapGetters } from 'vuex';
 
@@ -58,6 +78,7 @@ export default {
     MapLegend,
     MonitoringIndicators,
     SupervisionMap,
+    SupervisionTable,
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
@@ -68,6 +89,8 @@ export default {
       toggleValues: undefined,
       currentUsage: 'ALL',
       appliedFilters: undefined,
+      refreshLinesFn: undefined,
+      indicatorTotal: undefined,
     };
   },
 
@@ -100,7 +123,7 @@ export default {
         },
         {
           title: 'getadmin.users.filters.partners',
-          component: BillsPartnerFilter,
+          component: MultiCustomerPartnerFilter,
           onChange(chosenValue) {
             return {
               id: 'getadmin.users.filters.partners',
@@ -113,7 +136,7 @@ export default {
     } else if (this.userIsGroupAccount) {
       currentVisibleFilters.push({
         title: 'getadmin.users.filters.partners',
-        component: BillsPartnerFilter,
+        component: MultiCustomerPartnerFilter,
         onChange(chosenValue) {
           return {
             id: 'getadmin.users.filters.partners',
@@ -184,8 +207,81 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
     },
     onAllFiltersCleared() {},
+
+    onIndicatorClick(payload) {
+      const { indicator, total } = payload;
+      const usage = this.currentUsage;
+      const counter = indicator.counter;
+      this.indicatorTotal = total;
+
+      this.refreshLinesFn = undefined;
+
+      setTimeout(() => {
+        this.refreshLinesFn = async (pagination, sorting) => {
+          return await fetchLinesForCounter(counter, usage, pagination, sorting);
+        };
+      });
+    },
+
+    onActiveClick(payload) {
+      this.onMarkerClick(payload, 'ACTIVE');
+      this.indicatorTotal = payload.marker.activeCount;
+    },
+
+    onPassiveClick(payload) {
+      this.onMarkerClick(payload, 'PASSIVE');
+      this.indicatorTotal = payload.marker.activeCount;
+    },
+
+    onMarkerClick(payload, activityType) {
+      const { marker, locationType } = payload;
+
+      this.refreshLinesFn = async (pagination, sorting) => {
+        const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
+
+        const filters = {
+          usageType: this.currentUsage,
+          activityType,
+          ...formattedAppliedFilters,
+        };
+
+        filters.locationCodes = [marker.data.locationCode];
+        const rows = await fetchLinesForMarker(locationType, filters, pagination, sorting);
+        return rows;
+      };
+    },
   },
 };
+
+export function filterFormatter(appliedFilters) {
+  return appliedFilters.reduce((filters, item) => {
+    if (item.id === 'getadmin.users.filters.partners') {
+      filters.partyId = item.data.id;
+    }
+
+    if (item.id === 'getvsion.monitoring.filterByFile') {
+      filters.tempDataUuid = item.data.tempDataUuid;
+    }
+
+    if (item.id === 'getadmin.users.filters.partnerGroup') {
+      filters.partiesDomain = item.data.value;
+    }
+
+    if (item.id === 'filters.zone') {
+      if (item.data.zone.world) {
+        if (item.data.country) {
+          filters.iso3CountryCode = item.data.country.codeIso3;
+        }
+      } else {
+        if (item.data.zipCode) {
+          filters.zipCode = item.data.zipCode;
+          filters.iso3CountryCode = 'FRA';
+        }
+      }
+    }
+    return filters;
+  }, {});
+}
 </script>
 
 <style lang="scss" scoped></style>

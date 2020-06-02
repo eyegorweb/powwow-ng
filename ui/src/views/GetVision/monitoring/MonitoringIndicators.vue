@@ -11,7 +11,7 @@
 
 <script>
 import Indicators from '@/components/Indicators';
-import { globalActifParc } from '@/api/supervisionIndicators.js';
+import { globalActifParc, linesWithoutTraffic } from '@/api/supervisionIndicators.js';
 
 export default {
   components: {
@@ -36,11 +36,12 @@ export default {
           name: 'globalActif',
           labelKey: 'getvsion.indicators.globalActif',
           color: 'text-success',
-          clickable: true,
+          clickable: false,
           total: '-',
           fetch: async () => {
             return { total: await globalActifParc(this.formatFilters()) };
           },
+          counter: 'COUNTER1',
         },
         {
           name: 'lineWithoutTraffic',
@@ -49,8 +50,9 @@ export default {
           clickable: true,
           total: '-',
           fetch: async () => {
-            return { total: 99 };
+            return { total: await linesWithoutTraffic(this.formatFilters()) };
           },
+          counter: 'COUNTER2',
         },
         {
           name: 'linesWIthoutTraffic30Days',
@@ -77,15 +79,14 @@ export default {
   },
 
   methods: {
-    onIndicatorClick(indicator) {
-      console.log('INDICATOR >>', indicator);
+    onIndicatorClick(indicator, total) {
+      this.$emit('click', { indicator, total });
     },
 
     formatFilters() {
       if (!this.appliedFilters || !this.appliedFilters.length) return;
 
       return this.appliedFilters.reduce((filters, item) => {
-        console.log('Item >>', item);
         if (item.id === 'getvsion.monitoring.filterByFile') {
           filters.tempDataUuid = item.data.tempDataUuid;
         }
