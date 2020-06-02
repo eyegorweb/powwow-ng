@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.832+20200602101400
+2020-06-02
+
+### Fixes
+
+- ajout des filtres de la page getDevice (a080837e5b1bfa04609c44ee0882530573f2bc41)
+
 ## 0.3.0-master.831+20200601202144
 2020-06-01
 
