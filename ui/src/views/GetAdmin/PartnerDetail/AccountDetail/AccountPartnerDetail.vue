@@ -140,7 +140,14 @@
           </div>
           <div class="accountdetail-contact-txt-flex">
             <FormControl big label="getadmin.partnerDetail.state" v-model="form.state" />
-            <FormControl big label="getadmin.partnerDetail.country" v-model="form.country" />
+            <div>
+              <label>{{ $t('getadmin.partnerDetail.country') }}</label>
+              <UiApiAutocomplete
+                :items="countries"
+                v-model="form.country"
+                display-results-while-empty
+              />
+            </div>
           </div>
           <Button :variant="'primary'" @click="save">
             {{ $t('getadmin.partnerDetail.update') }}
@@ -158,6 +165,8 @@ import Button from '@/components/ui/Button';
 import { fetchAccountDetail, updatePartyDetail, fetchPartyDetail } from '@/api/partners.js';
 import get from 'lodash.get';
 import UiDate from '@/components/ui/UiDate';
+import { fetchDeliveryCountries } from '@/api/filters';
+import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 
 export default {
   props: {
@@ -168,6 +177,7 @@ export default {
     FormControl,
     Button,
     UiDate,
+    UiApiAutocomplete,
   },
 
   data() {
@@ -202,12 +212,20 @@ export default {
       },
       actDate: null,
       dateError: null,
+      countries: [],
     };
   },
 
   async mounted() {
     this.accountDetail = await fetchAccountDetail(this.partner.id);
     this.partnerDetail = await fetchPartyDetail(this.partner.id);
+    const countries = await fetchDeliveryCountries(this.$i18n.locale);
+
+    this.countries = countries.map(c => ({
+      ...c,
+      label: c.name,
+      value: c.code,
+    }));
 
     if (this.accountDetail) {
       this.form.partnerName = this.accountDetail.name;
@@ -305,16 +323,16 @@ export default {
     color: $primary;
   }
 
+  label {
+    font-size: 14px;
+    color: #454545;
+    font-weight: 600;
+  }
+
   &-input {
     &-date {
       width: 48%;
       margin-bottom: 15px;
-
-      label {
-        font-size: 14px;
-        color: #454545;
-        font-weight: 600;
-      }
 
       .d-block {
         width: 100%;
@@ -436,6 +454,14 @@ export default {
     float: right;
     width: 100%;
     max-width: 250px;
+  }
+}
+
+.position-relative {
+  input {
+    width: 17.5rem;
+    height: 3rem;
+    font-size: 1.5rem;
   }
 }
 </style>
