@@ -5,12 +5,14 @@
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists :disabled="disabled" />
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
         </template>
 
-        <SectionTitle :num="baseNumber + 1">{{
+        <SectionTitle :num="baseNumber + 1">
+          {{
           $t('getreport.creation.chooseInfos')
-        }}</SectionTitle>
+          }}
+        </SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
         <div v-if="reportModels" class="mt-4 mb-2">
@@ -38,9 +40,11 @@
           </template>
         </div>
 
-        <SectionTitle :num="baseNumber + 2">{{
+        <SectionTitle :num="baseNumber + 2">
+          {{
           $t('getreport.creation.generateReport')
-        }}</SectionTitle>
+          }}
+        </SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
           <Toggle
@@ -427,6 +431,7 @@ export default {
     removeItem(checkbox) {
       checkbox.checked = false;
       this.selectedItems = this.selectedItems.filter(i => i.label !== checkbox.label);
+      this.reportModel = 'NONE';
     },
     toggleCheckbox(checkbox) {
       if (checkbox.checked) {
