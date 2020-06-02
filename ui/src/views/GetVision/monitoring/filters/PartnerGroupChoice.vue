@@ -28,7 +28,7 @@ export default {
     return {
       options: [
         {
-          label: '',
+          label: 'Aucun',
           value: '',
         },
         {
