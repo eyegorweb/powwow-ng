@@ -3,7 +3,7 @@
     <Card
       v-if="admins.mainAdministrator"
       :can-delete="false"
-      @modify="modifyAdmin(admins.mainAdministrator)"
+      @modify="modifyAdmin('PRIMARY', admins.mainAdministrator)"
     >
       <div class="cardBloc-infos-name">
         {{
@@ -19,22 +19,20 @@
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">
-          {{ getFromContent('mainAdministrator.contactInformation.email') }}
-        </a>
+        <a :href="'mailto:' + getFromContent('mainAdministrator.contactInformation.email')">{{
+          getFromContent('mainAdministrator.contactInformation.email')
+        }}</a>
       </div>
       <div class="cardBloc-infos-role">
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
       </div>
     </Card>
-    <CardButton v-else @click="addMainAdmin">
-      {{ $t('getadmin.users.addAdmin') }}
-    </CardButton>
+    <CardButton v-else @click="addMainAdmin">{{ $t('getadmin.users.addAdmin') }}</CardButton>
 
     <Card
       v-if="admins.secondAdministator"
       @delete="deleteSecondAdministrator"
-      @modify="modifyAdmin('SECONDARY', admins.mainAdministrator)"
+      @modify="modifyAdmin('SECONDARY', admins.secondAdministator)"
     >
       <div class="cardBloc-infos-name">
         {{
@@ -50,17 +48,17 @@
         }}
       </div>
       <div class="cardBloc-infos-email">
-        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">
-          {{ getFromContent('secondAdministator.contactInformation.email') }}
-        </a>
+        <a :href="'mailto:' + getFromContent('secondAdministator.contactInformation.email')">{{
+          getFromContent('secondAdministator.contactInformation.email')
+        }}</a>
       </div>
       <div class="cardBloc-infos-role">
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.secondAdmin') }}
       </div>
     </Card>
-    <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>
-      {{ $t('getadmin.users.addAdmin') }}
-    </CardButton>
+    <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>{{
+      $t('getadmin.users.addAdmin')
+    }}</CardButton>
   </div>
 </template>
 
