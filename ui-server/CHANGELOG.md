@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.834+20200602124414
+2020-06-02
+
+### Features
+
+- gestion du clic sur les marqueurs (4274e4828f4faca20442cb32184b842dfea25476)
+
 ## 0.3.0-master.833+20200602121950
 2020-06-02
 
