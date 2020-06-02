@@ -185,7 +185,7 @@ export default {
     },
 
     async save() {
-      const adminType = get(this.content.adminType, 'adminType', 'PRIMARY');
+      const adminType = get(this.content.adminType, 'adminType', this.content.adminType);
       const response = await editAdministrator(adminType, {
         partyId: parseInt(this.content.partnerId),
         company: this.company || '',
