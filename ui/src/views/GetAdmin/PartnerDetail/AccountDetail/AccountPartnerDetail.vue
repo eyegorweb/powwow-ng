@@ -149,9 +149,7 @@
               />
             </div>
           </div>
-          <Button :variant="'primary'" @click="save">
-            {{ $t('getadmin.partnerDetail.update') }}
-          </Button>
+          <Button :variant="'primary'" @click="save">{{ $t('getadmin.partnerDetail.update') }}</Button>
         </div>
       </div>
     </div>
@@ -248,7 +246,9 @@ export default {
       this.form.city = this.accountDetail.address.city;
       this.form.zipCode = this.accountDetail.address.zipCode;
       this.form.state = this.accountDetail.address.state;
-      this.form.country = this.accountDetail.address.country;
+      this.form.country = this.countries.find(
+        c => c.code === this.accountDetail.address.country
+      ).name;
       this.form.contractDate = this.partnerDetail.party.contractDate;
       this.form.contractExpiration = this.partnerDetail.party.contractExpiration;
     }
@@ -285,7 +285,7 @@ export default {
         city: this.form.city || '',
         zipCode: this.form.zipCode || '',
         state: this.form.state || '',
-        country: this.form.country || '',
+        country: this.countries.find(c => c.name === this.form.country).code || '',
         bscsRootAccount: this.form.bscs || '',
         contractReference: this.form.contractReference || '',
         defaultPreactivationOfferCode: this.form.preActOffer || '',
