@@ -5,7 +5,7 @@
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
         </template>
 
         <SectionTitle :num="baseNumber + 1">
