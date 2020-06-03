@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.841+20200603133433
+2020-06-03
+
+### Features
+
+- carte Cockpit M2M (64d6cb97468e07aa83c57947812b48befc5fc7aa)
+
+### Fixes
+
+- Pas de limite pour la liste des partenaires dans le reportPanel (dcd1c809e7990cdabb47348797a2efe837a6f870)
+
 ## 0.3.0-master.840+20200603121659
 2020-06-03
 
