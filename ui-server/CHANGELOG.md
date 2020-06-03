@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.839+20200603092252
+2020-06-03
+
+### Features
+
+- création des graphes de la page getDevice (2aca42cd382345ab2f9f020baaa30c6ae9065c5d)
+
 ## 0.3.0-master.838+20200603085930
 2020-06-03
 
