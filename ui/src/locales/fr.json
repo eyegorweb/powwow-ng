@@ -103,7 +103,7 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
-      "dataVoiceConso": "CONSOMMATION DATA / MOIS",
+      "dataVoiceConso": "CONSOMMATION MENSUELLE",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Lignes en stock",
@@ -163,7 +163,8 @@
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
-    "reportsBill": "Facture"
+    "reportsBill": "Facture",
+    "monitoring": "Supervision"
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -182,7 +183,8 @@
       "length-error": "Le mot de passe doit faire plus de 8 caractères",
       "confirm-error": "Les mot de passe ne correspondent pas",
       "name-error": "Le mot de passe doit être différent du nom ou prénom",
-      "uppercase-error": "Le mot de passe doit contenir au moins une minuscule et une majuscule",
+      "uppercase-error": "Le mot de passe doit contenir au moins une lettre majuscule",
+      "lowercase-error": "Le mot de passe doit contenir au moins une lettre minuscule",
       "special-error": "Une lettre avec accent ou un caractère spécial.",
       "number-error": "Le mot de passe doit contenir au moins un chiffre.",
       "email-error": "Veuillez saisir une adresse email valide"
@@ -318,6 +320,17 @@
       "CUSTOM_FIELDS": "Champ libres"
     }
   },
+  "getDevice": {
+    "title": "Gestion de mes équipements",
+    "tooltip": "Cette page permet de gérer vos équipements.",
+    "imeiRange": "Plage IMEI",
+    "manufacturer": "Constructeur",
+    "deviceReference": "Réf. Commerciale",
+    "tab-1-inventory": "Etat des lieux",
+    "tab-2-boxes": "Agir sur les boitiers",
+    "tab-3-conso-energy": "Conso énergétique",
+    "tab-4-google-device": "Google device"
+  },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
@@ -335,6 +348,10 @@
     "last_month_triggered": "Déclenchement M-1",
     "last_triggered": "Dernier déclenchement",
     "associated_alarms": "Alarmes associées",
+    "allUsages": "Usage data,SMS,Voix",
+    "dataUsage": "Usage data",
+    "m2mCockpit": "Cockpit M2M",
+
     "detail-panel": {
       "stepper": {
         "created": "Créée"
@@ -353,7 +370,11 @@
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
       "triggered_last_month": "Déclenchement(s) mois précédent",
-      "triggered_before_last_month": "Déclenchement(s) en {month}"
+      "triggered_before_last_month": "Déclenchement(s) en {month}",
+      "globalActif": "Parc global actif",
+      "lineWithoutTraffic": "Lignes sans aucun trafic",
+      "linesWIthoutTraffic30Days": "Lignes sans trafic depuis 30j",
+      "linesNonLocalizedTraffic": "Lignes avec trafic non localisées"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",
@@ -388,6 +409,9 @@
         "isp_list": "Tous les opérateurs:",
         "chosen_isp": "Opérateurs autorisés:"
       }
+    },
+    "monitoring": {
+      "filterByFile": "Filtrer à partir d'un fichier"
     }
   },
   "getadmin": {
@@ -448,7 +472,8 @@
       "admins": "Administrateurs",
       "activityLog": "Journal d'activité",
       "options": "Options du partenaire",
-      "accountDescription": "Description du compte partenaire"
+      "accountDescription": "Description du compte partenaire",
+      "total": "{total} partenaire(s) trouvé(s)"
     },
     "partnerDetail": {
       "generalInformations": "Informations générales",
@@ -482,6 +507,7 @@
       "group": "Groupe :",
       "contract": "contrat",
       "partyGroup": "Compte groupe :",
+      "selectPartyGroup": "Sélectionner un compte groupe",
       "partnerTree": "Arborescence des partenaires :",
       "partnerType": "Type de partenaire :",
       "preActOffer": "Offre pré-activation :",
@@ -1371,6 +1397,7 @@
     "active": "Activé",
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
+    "zone": "Zone",
     "city": "Ville",
     "country": "Pays",
     "action": "Action",
@@ -1387,6 +1414,10 @@
     "actDateStart": "Date de début",
     "actDateEnd": "Date de fin",
     "actCreator": "Créateur de l’acte",
+    "lastUsage": "Dernier usage",
+    "usageType": "Type d'usage",
+    "direction": "Sens",
+    "pdpStatus": "Statut PDP",
     "lines": {
       "fromFile": {
         "title": "Filtrer à partir d’un fichier",

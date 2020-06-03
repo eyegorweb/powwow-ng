@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="checkboxes">
-      <Checkbox v-for="v in options" :key="v.code" v-model="model" :value="v">
+      <Checkbox
+        v-for="v in options"
+        :key="v.code"
+        v-model="model"
+        :value="v"
+        :disabled="!v.data.editable"
+      >
         {{ v.label }}
       </Checkbox>
     </div>

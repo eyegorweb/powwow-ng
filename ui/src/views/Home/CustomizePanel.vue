@@ -20,7 +20,7 @@
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiButton from '@/components/ui/Button';
 import HomePanelOption from './HomePanelOption';
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
 
 export default {
@@ -33,13 +33,9 @@ export default {
   props: {
     content: Object,
   },
-  computed: {
-    ...mapState({
-      homeWidgets: state => state.ui.homeWidgets,
-    }),
-  },
+
   mounted() {
-    this.localWidgets = cloneDeep(this.homeWidgets);
+    this.localWidgets = cloneDeep(this.content.homeWidgets);
   },
   methods: {
     ...mapMutations(['setHomeWidgets', 'closePanel']),

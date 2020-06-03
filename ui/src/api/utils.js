@@ -53,23 +53,27 @@ export async function mutation(name, params, ret = '') {
 /**
  *  Besoin de gérer les erreurs
  */
-export async function simpleQuery(q) {
+export async function simpleQuery(q, variables) {
   const haveToken = get(api, 'defaults.headers.common.Authorization');
   if (!haveToken) return;
-  const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
+  const payload = { query: q };
+  if (variables) {
+    payload.variables = variables;
+  }
+  const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
   return response.data;
 }
 
-export async function query(q) {
+export async function query(q, variables) {
   let tries = 10;
 
   if (isOnDebugMode()) {
-    console.log(q);
+    console.log(q, variables);
   }
 
   const singleTry = async () => {
     try {
-      const res = await simpleQuery(q);
+      const res = await simpleQuery(q, variables);
       return res;
     } catch (e) {
       if (e && e.response && e.response.status) {

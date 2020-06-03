@@ -3,13 +3,17 @@
     <TableWithFilterSkeleton v-if="isLoading" :columns="columns" />
     <div class="row" :class="{ hidden: isLoading }">
       <div class="col-md-3 pl-0">
+        <slot name="before-filters" />
         <FilterBar
           :filter-components="filters"
+          :default-values="defaultValues"
           @applyFilters="doSearch"
           @noMoreFilters="onAllFiltersCleared"
         />
       </div>
       <div class="col-md-9">
+        <slot name="before-table" />
+
         <template
           v-if="!isTableVisibleFn || (isTableVisibleFn && isTableVisibleFn(lastSelectedFilters))"
         >
@@ -81,6 +85,10 @@ export default {
       type: Function,
       required: false,
     },
+    defaultValues: {
+      type: Array,
+      required: false,
+    },
   },
 
   data() {
@@ -126,8 +134,8 @@ export default {
 
   methods: {
     onAllFiltersCleared() {
-      this.lastSelectedFilters = [];
-      this.refreshTable([], this.currentOrderBy);
+      this.lastSelectedFilters = this.defaultValues ? this.defaultValues : [];
+      this.refreshTable(this.lastSelectedFilters, this.currentOrderBy);
     },
     refreshTable(filters, orderBy) {
       this.$emit('applyFilters', {

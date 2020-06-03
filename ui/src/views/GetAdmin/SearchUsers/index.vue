@@ -10,7 +10,7 @@
       </div>
       <div class="col-md-3">
         <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
-          Ajouter un utilisateur
+          {{ $t('getadmin.users.addUser') }}
         </UiButton>
       </div>
     </div>
@@ -106,7 +106,7 @@ export default {
         {
           id: 3,
           label: 'Nom',
-          name: 'NOM',
+          name: 'fullname',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -135,7 +135,7 @@ export default {
           id: 5,
           label: 'Partenaire',
           name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
-          orderable: true,
+          orderable: false,
           visible: true,
           noHandle: true,
           format: {
@@ -164,7 +164,7 @@ export default {
           id: 7,
           label: 'Actif',
           name: 'disabled',
-          orderable: true,
+          orderable: false,
           visible: true,
           noHandle: true,
           format: {
@@ -179,7 +179,7 @@ export default {
       total: 0,
       orderBy: {
         key: 'id',
-        direction: 'DESC',
+        direction: 'ASC',
       },
       searchByLoginValue: undefined,
       searchLoginResults: [],
@@ -287,7 +287,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { partnerId: this.partnerid },
+        payload: { fromUserMenu: true, partnerId: this.partnerid },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
@@ -306,7 +306,7 @@ export default {
       this.searchByLoginValue = value;
       const data = await searchUsers(this.orderBy, { page: 0, limit: 10 }, [
         {
-          id: 'getadmin.users.login',
+          id: 'getadmin.users.filters.login',
           value,
         },
       ]);

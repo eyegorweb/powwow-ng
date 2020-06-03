@@ -34,6 +34,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: TriggeredAlarms,
+    permission: { domain: 'widget', action: 'alarm_top' },
   },
   {
     title: 'home.widgets.orders',
@@ -42,6 +43,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: OrdersWidget,
+    permission: { domain: 'widget', action: 'order_current' },
   },
 
   {
@@ -51,6 +53,8 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: BillsWidget,
+    permission: { domain: 'widget', action: 'bill_history' },
+
     mock: true,
   },
   {
@@ -60,6 +64,8 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: ConsoWidget,
+    permission: { domain: 'widget', action: 'parc_current_consumption' },
+
     notDraggable: true,
     partnerOnly: true,
   },
@@ -70,6 +76,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: OrdersStatusesWidget,
+    permission: { domain: 'widget', action: 'order_status' },
   },
   {
     title: 'home.widgets.dataVoiceConso',
@@ -78,6 +85,7 @@ const defaultWidgets = [
     large: true,
     seeMore: false,
     component: ConsoGraphWidget,
+    permission: { domain: 'widget', action: 'parc_consumption_history' },
   },
 
   {
@@ -87,6 +95,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: MassActionTable,
+    permission: { domain: 'widget', action: 'act_all' },
   },
   {
     title: 'home.widgets.activationAct',
@@ -94,6 +103,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: ActivationActsWidget,
+    permission: { domain: 'widget', action: 'act_activation' },
+
     seeMore: false,
   },
   {
@@ -102,6 +113,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: PreacActivationActsWidget,
+    permission: { domain: 'widget', action: 'act_preactivation_activation' },
+
     seeMore: false,
   },
   {
@@ -110,6 +123,8 @@ const defaultWidgets = [
     checked: true,
     large: false,
     component: FailedActsWidget,
+    permission: { domain: 'widget', action: 'act_cancellation' },
+
     seeMore: false,
   },
   {
@@ -119,6 +134,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: StatusActsWidget,
+    permission: { domain: 'widget', action: 'act_status' },
   },
   {
     title: 'searchLineById',
@@ -127,6 +143,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SearchLinesByIdWidget,
+    permission: { domain: 'widget', action: 'line_search' },
   },
   {
     title: 'home.widgets.userActs',
@@ -136,6 +153,7 @@ const defaultWidgets = [
     clickable: true,
     seeMore: true,
     component: MassActionsByUserTableWidget,
+    permission: { domain: 'widget', action: 'act_login' },
   },
   {
     title: 'home.widgets.stateParc.title',
@@ -144,6 +162,7 @@ const defaultWidgets = [
     large: false,
     seeMore: true,
     component: ParcStateWidget,
+    permission: { domain: 'widget', action: 'parc_state' },
   },
   {
     title: 'home.widgets.averageTimeAction',
@@ -152,6 +171,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: AverageTimeAct,
+    permission: { domain: 'widget', action: 'act_delay' },
   },
   {
     title: 'home.widgets.simTopActivation',
@@ -160,6 +180,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopActivation,
+    permission: { domain: 'widget', action: 'line_top_activation' },
   },
   {
     title: 'home.widgets.simTopTermination',
@@ -168,6 +189,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopTermination,
+    permission: { domain: 'widget', action: 'line_top_cancellation' },
   },
   {
     title: 'home.widgets.simTopScheduledTermination',
@@ -176,6 +198,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: SimTopScheduledTermination,
+    permission: { domain: 'widget', action: 'line_top_scheduled_cancellation' },
   },
   {
     title: 'getparc.lineDetail.tab3.networkMeteo',
@@ -184,6 +207,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: Weather,
+    permission: { domain: 'widget', action: 'network_weather' },
   },
   {
     title: 'home.widgets.linesConsumption',
@@ -192,6 +216,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: LinesConsumption,
+    permission: { domain: 'widget', action: 'line_consumption' },
   },
   {
     title: 'home.widgets.topTriggeredAlarmsPerDay',
@@ -200,6 +225,7 @@ const defaultWidgets = [
     large: true,
     seeMore: true,
     component: TriggeredAlarmsPerDay,
+    permission: { domain: 'widget', action: 'alarm_history' },
   },
   {
     title: 'home.widgets.topBillingExchangeCA',
@@ -208,6 +234,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: TopFlopCA,
+    permission: { domain: 'widget', action: 'bill_top_turnover' },
   },
   {
     title: 'home.widgets.topBillingExchangePO',
@@ -216,6 +243,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: PriseOrdre,
+    permission: { domain: 'widget', action: 'bill_top_order' },
   },
 ];
 
@@ -231,13 +259,11 @@ export function loadWidgets() {
   if (savedWidgets) {
     const loadedWidgets = JSON.parse(savedWidgets);
     return excludeMocked(
-      loadedWidgets.map(w => {
-        const widget = defaultWidgets.find(f => f.title === w.title);
+      defaultWidgets.map(d => {
+        const widget = loadedWidgets.find(f => f.title === d.title);
         return {
-          ...w,
-          component: widget.component,
-          notDraggable: widget.notDraggable,
-          partnerOnly: widget.partnerOnly,
+          ...widget,
+          ...d,
         };
       })
     );

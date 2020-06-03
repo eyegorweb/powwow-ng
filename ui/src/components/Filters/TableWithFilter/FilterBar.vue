@@ -7,12 +7,19 @@
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
+        :hide-apply="alwaysShowButton"
       />
+
+      <div v-if="alwaysShowButton" class="actions d-flex flex-column flex-md-row mb-2">
+        <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
+          >Appliquer / Rafraichir</UiButton
+        >
+      </div>
 
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
-            v-for="filter in filterComponents"
+            v-for="filter in visibleComponents"
             :title="$t(filter.title)"
             :key="filter.title"
             draggable
@@ -44,6 +51,7 @@
 import SelectedFilters from '@/components/Filters/SelectedFilters';
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
+import UiButton from '@/components/ui/Button';
 import FilterBarSlot from './FilterBarSlot';
 
 export default {
@@ -52,10 +60,16 @@ export default {
     FoldableBlock,
     draggable,
     FilterBarSlot,
+    UiButton,
   },
 
   props: {
     filterComponents: Array,
+    alwaysShowButton: Boolean,
+    defaultValues: {
+      type: Array,
+      required: false,
+    },
   },
 
   data() {
@@ -67,7 +81,18 @@ export default {
 
   computed: {
     canShowSelectedFilter() {
-      return this.currentFilters && this.currentFilters.length;
+      return this.visibleFilters && this.visibleFilters.length;
+    },
+
+    visibleFilters() {
+      return this.currentFilters.filter(f => !f.hidden);
+    },
+
+    visibleComponents() {
+      if (!this.filterComponents) return [];
+      return this.filterComponents.filter(
+        filter => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
+      );
     },
   },
 
@@ -77,6 +102,9 @@ export default {
       if (filter.initialize) {
         await filter.initialize(this.currentFilters);
       }
+    }
+    if (this.defaultValues) {
+      this.currentFilters = [...this.currentFilters, ...this.defaultValues];
     }
     if (this.currentFilters && this.currentFilters.length) {
       this.applyFilters();
@@ -92,7 +120,7 @@ export default {
         this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
       }
 
-      if (!this.currentFilters || !this.currentFilters.length) {
+      if (!this.visibleFilters || !this.visibleFilters.length) {
         this.$emit('noMoreFilters');
       }
     },
@@ -108,7 +136,13 @@ export default {
         const haveEmptyArrayOfValues =
           selectedValue && selectedValue.values && selectedValue.values.length === 0;
 
-        const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues;
+        let haveEmptyRange = false;
+
+        if (selectedValue && (selectedValue.from || selectedValue.to)) {
+          haveEmptyRange = selectedValue.from === '' && selectedValue.to === '';
+        }
+
+        const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues || haveEmptyRange;
         if (shouldRemoveFilter) {
           this.currentFilters = this.currentFilters.filter(f => f.id !== selectedValue.id);
         }

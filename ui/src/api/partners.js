@@ -212,6 +212,16 @@ export async function fetchAdminInfos(id) {
     }
   }`;
   const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.party;
 }
 
@@ -713,31 +723,6 @@ export async function fetchAllPartners(orderBy, pagination, filters = []) {
   return response.data.partys;
 }
 
-export async function fetchPartnerGroups(q = '') {
-  const queryStr = `
-  query {
-    partyGroups(name: {contains: "${q}"}) {
-      name
-      id
-      parties {
-        id
-        name
-        partyType
-        code
-      }
-      roles {
-        category
-        name
-      }
-      flagStatisticsEnabled
-    }
-  }
-  `;
-
-  const response = await query(queryStr);
-  return response.data.partyGroups;
-}
-
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
@@ -765,7 +750,7 @@ function addPartnerTypeFilter(gqlFilters, selectedFilters) {
 }
 
 function addPartnerGroupFilter(gqlFilters, selectedFilters) {
-  const values = getFilterValues(selectedFilters, 'getadmin.users.partnerGroup');
+  const values = getFilterValues(selectedFilters, 'getadmin.users.filters.partnerGroup');
   if (values && values.length) {
     const partnerGroups = values.map(p => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);

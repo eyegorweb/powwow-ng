@@ -22,8 +22,6 @@ import $ from 'jquery';
 import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
 
-import moment from 'moment';
-
 export default {
   props: {
     value: {
@@ -56,55 +54,49 @@ export default {
       this.$emit('change', '');
     },
     createDatePicker() {
-      let startDate;
-      if (this.value) {
-        startDate = moment(this.value, this.dateFormat);
-      } else {
-        // startDate = moment();
-      }
-
-      console.log('Start date  >>', startDate);
-
       const onDateSelected = value => {
         this.$emit('change', value.format(this.dateFormat));
       };
 
       // TODO: add i18n support
-      this.dateInstance = $(this.$refs.singledate).daterangepicker(
-        {
-          singleDatePicker: true,
-          startDate,
-          drops: this.direction,
-          timePicker: this.timePicker,
-          timePicker24Hour: true,
-          locale: {
-            format: this.dateFormat,
-            separator: ' - ',
-            applyLabel: 'Appliquer',
-            cancelLabel: 'Annuler',
-            fromLabel: 'Du',
-            toLabel: 'Au',
-            customRangeLabel: 'Autres',
-            daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-            monthNames: [
-              'Janvier',
-              'Fevrier',
-              'Mars',
-              'Avril',
-              'Mai',
-              'Juin',
-              'Juillet',
-              'Août',
-              'Septembre',
-              'Octobre',
-              'Novembre',
-              'Decembre',
-            ],
-            firstDay: 1,
+      // Problème avec l'utilisation de la librairie, obligatoire pour refresh le state startDate
+      setTimeout(() => {
+        this.dateInstance = $(this.$refs.singledate).daterangepicker(
+          {
+            singleDatePicker: true,
+            startDate: this.value,
+            drops: this.direction,
+            timePicker: this.timePicker,
+            timePicker24Hour: true,
+            locale: {
+              format: this.dateFormat,
+              separator: ' - ',
+              applyLabel: 'Appliquer',
+              cancelLabel: 'Annuler',
+              fromLabel: 'Du',
+              toLabel: 'Au',
+              customRangeLabel: 'Autres',
+              daysOfWeek: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+              monthNames: [
+                'Janvier',
+                'Fevrier',
+                'Mars',
+                'Avril',
+                'Mai',
+                'Juin',
+                'Juillet',
+                'Août',
+                'Septembre',
+                'Octobre',
+                'Novembre',
+                'Decembre',
+              ],
+              firstDay: 1,
+            },
           },
-        },
-        onDateSelected
-      );
+          onDateSelected
+        );
+      });
     },
   },
   watch: {

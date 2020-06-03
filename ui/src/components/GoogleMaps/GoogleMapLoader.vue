@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="google-map" ref="googleMap"></div>
+    <div class="google-map" ref="googleMap" :style="cssStyle"></div>
     <template v-if="!!google && !!map">
       <slot :map="map" :google="google" />
     </template>
@@ -11,6 +11,10 @@
 export default {
   props: {
     mapConfig: Object,
+    cssStyle: {
+      type: Object,
+      required: false,
+    },
   },
   data() {
     return {

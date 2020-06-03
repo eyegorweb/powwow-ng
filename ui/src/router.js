@@ -20,6 +20,8 @@ import Documents from '@/views/GetReport/Documents/index.vue';
 import Catalog from '@/views/Catalog';
 import GetReportDashboard from '@/views/GetReport/Dashboard/index.vue';
 import GetReportBill from '@/views/GetReport/Bill/index.vue';
+import GetDevice from '@/views/GetDevice/index.vue';
+import GetVisionMonitoring from '@/views/GetVision/monitoring';
 import { excludeMocked } from '@/featureFlipping/plugin';
 
 // const Home = () => import('@/views/Home');
@@ -117,6 +119,16 @@ export default new Router({
       path: '/getamin/partner/:id',
       name: 'getAdminPartnerDetails',
       component: PartnerDetail,
+    },
+    {
+      path: '/devices',
+      name: 'getDevice',
+      component: GetDevice,
+    },
+    {
+      path: '/monitoring',
+      name: 'getVisionMonitoring',
+      component: GetVisionMonitoring,
     },
     {
       path: '/exemples',

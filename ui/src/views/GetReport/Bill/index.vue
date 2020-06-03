@@ -9,7 +9,7 @@
       </div>
     </div>
     <TableWithFilter
-      v-if="columns"
+      v-if="columns && filters"
       :filters="filters"
       :columns="columns"
       :rows="rows"
@@ -19,6 +19,7 @@
       @applyFilters="applyFilters"
       no-pagination
       :is-table-visible-fn="isTableVisible"
+      :default-values="defaultValues"
     >
       <div slot="title" class="total">{{ $t('bills.total', { total: rows.length }) }}</div>
       <div slot="topLeft">
@@ -45,7 +46,8 @@ import { fetchBills } from '@/api/bills';
 import DateBills from './filters/DateBills';
 import BillsAccounts from './filters/BillsAccounts.vue';
 import SearchByReference from './filters/SearchByReference';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { formatCurrency } from '@/utils/numbers.js';
 
 export default {
   components: {
@@ -89,6 +91,12 @@ export default {
           name: 'amountExclTaxes',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return `${formatCurrency(row.amountExclTaxes)} €`;
+            },
+          },
         },
         {
           id: 4,
@@ -96,52 +104,19 @@ export default {
           name: 'amount',
           orderable: false,
           visible: true,
-        },
-        {
-          id: 5,
-          visible: true,
-          noHandle: true,
-        },
-      ],
-      filters: [
-        {
-          title: 'getadmin.users.filters.partners',
-          component: BillsPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'filters.billingAccounts',
-          component: BillsAccounts,
-
-          onChange(chosenValue) {
-            return {
-              id: 'filters.billingAccounts',
-              value: chosenValue ? chosenValue.name : '',
-              data: chosenValue,
-            };
-          },
-        },
-        {
-          title: 'common.period',
-          component: DateBills,
-          onChange(values) {
-            return {
-              id: 'common.period',
-              startDate: values.startDate,
-              endDate: values.endDate,
-            };
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return `${formatCurrency(row.amount)} €`;
+            },
           },
         },
       ],
+      filters: undefined,
       rows: [],
       total: 0,
       orderBy: {},
+      defaultValues: [],
     };
   },
   methods: {
@@ -197,7 +172,64 @@ export default {
       this.rows = data.items || [];
     },
   },
+  computed: {
+    ...mapGetters(['userIsPartner', 'singlePartner']),
+  },
   mounted() {
+    const commonFilters = [
+      {
+        title: 'filters.billingAccounts',
+        component: BillsAccounts,
+
+        onChange(chosenValue) {
+          return {
+            id: 'filters.billingAccounts',
+            value: chosenValue ? chosenValue.name : '',
+            data: chosenValue,
+          };
+        },
+      },
+      {
+        title: 'common.period',
+        component: DateBills,
+        onChange(values) {
+          return {
+            id: 'common.period',
+            startDate: values.startDate,
+            endDate: values.endDate,
+          };
+        },
+      },
+    ];
+
+    let partnerFilter = [];
+
+    if (!this.userIsPartner) {
+      partnerFilter = [
+        {
+          title: 'getadmin.users.filters.partners',
+          component: BillsPartnerFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.users.filters.partners',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+        },
+      ];
+    } else {
+      this.defaultValues = [
+        {
+          id: 'getadmin.users.filters.partners',
+          value: this.singlePartner ? this.singlePartner.name : '',
+          data: this.singlePartner,
+          hidden: true,
+        },
+      ];
+    }
+
+    this.filters = [...partnerFilter, ...commonFilters];
     this.applyFilters();
   },
 };

@@ -94,7 +94,7 @@ export default {
         {
           id: 3,
           label: 'Date de création',
-          orderable: true,
+          orderable: false,
           visible: true,
           name: 'generationDate',
           exportId: 'generationDate',
@@ -109,7 +109,7 @@ export default {
         {
           id: 4,
           label: 'Partenaire',
-          orderable: true,
+          orderable: false,
           visible: true,
           name: 'partner',
           exportId: 'partner',
@@ -155,7 +155,7 @@ export default {
         {
           id: 7,
           label: 'Créé par',
-          orderable: true,
+          orderable: false,
           visible: true,
           name: 'creator',
           exportId: 'creator',
@@ -183,7 +183,7 @@ export default {
         {
           id: 10,
           label: 'Statut',
-          orderable: true,
+          orderable: false,
           visible: false,
           name: 'enableEntity',
           exportId: 'enableEntity',
@@ -245,10 +245,7 @@ export default {
     async fetchResults(payload) {
       const { pagination, orderBy } = payload || {
         pagination: { page: 0, limit: 10 },
-        orderBy: {
-          key: 'id',
-          direction: 'DESC',
-        },
+        orderBy: this.orderBy,
       };
 
       const response = await fetchReports(orderBy, pagination, this.partnerId);
@@ -277,6 +274,12 @@ export default {
           }
         },
       });
+    },
+  },
+  watch: {
+    orderBy() {
+      this.page = 1;
+      this.fetchResults();
     },
   },
 };

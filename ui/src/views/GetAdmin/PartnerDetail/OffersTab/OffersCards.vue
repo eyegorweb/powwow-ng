@@ -14,11 +14,11 @@
         </CardButton>
 
         <Card v-for="offer in visibleOffers" :key="offer.id" :can-delete="true" :can-modify="false">
-          <h4>{{ offer.name }}</h4>
+          <div class="partnerSimOfferTitle">{{ offer.name }}</div>
 
-          <div class="info-block mt-3">
-            <h5>Services activés par défaut:</h5>
-            <div class="mt-2" v-tooltip="offer.defaultServices.join('\n')">
+          <div class="info-block mt-1">
+            <div class="partnerSimOfferSubTitle">Services activés par défaut:</div>
+            <div v-tooltip="offer.defaultServices.join('\n')">
               {{ offer.defaultServices.slice(0, 5).join(', ') }}
               <template v-if="offer.defaultServices.length > 6">
                 ...
@@ -27,10 +27,10 @@
           </div>
           <div
             v-if="offer.editableServices && offer.editableServices.length"
-            class="info-block mt-3"
+            class="info-block mt-1"
           >
-            <h5>Services modifiables:</h5>
-            <div class="mt-2" v-tooltip="offer.editableServices.join('\n')">
+            <div class="partnerSimOfferSubTitle">Services modifiables:</div>
+            <div v-tooltip="offer.editableServices.join('\n')">
               {{ offer.editableServices.slice(0, 5).join(', ') }}
               <template v-if="offer.editableServices.length > 6">
                 ...
@@ -176,5 +176,14 @@ export default {
   h5 {
     color: $gray-680;
   }
+}
+
+.partnerSimOfferTitle {
+  font-size: large;
+  font-weight: bold;
+}
+
+.partnerSimOfferSubTitle {
+  font-weight: bold;
 }
 </style>

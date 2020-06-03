@@ -1,9 +1,11 @@
 <template>
-  <OffersFilter
-    :selected-offers-values="selectedData || []"
-    :selected-partners-values="[]"
-    @setOffersFilter="values => $emit('change', values)"
-  />
+  <div>
+    <OffersFilter
+      :selected-offers-values="selectedValues"
+      :selected-partners-values="[]"
+      @setOffersFilter="values => $emit('change', values)"
+    />
+  </div>
 </template>
 
 <script>
@@ -14,7 +16,14 @@ export default {
     OffersFilter,
   },
   props: {
-    selectedData: Array,
+    selectedData: Object,
+  },
+  computed: {
+    selectedValues() {
+      if (!this.selectedData) return [];
+
+      return this.selectedData.values;
+    },
   },
 };
 </script>

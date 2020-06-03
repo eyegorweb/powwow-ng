@@ -5,7 +5,7 @@
       <button
         :class="`btn btn-link p-0 ${formattedColor || classColor}`"
         :disabled="disableClick || !indicator.clickable"
-        @click.prevent="onClick ? onClick(indicator) : () => {}"
+        @click.prevent="onClick ? onClick(indicator, total) : () => {}"
       >
         <CircleLoader v-if="isLoading" />
         <span v-if="!isLoading">{{ formattedUnit }}</span>
