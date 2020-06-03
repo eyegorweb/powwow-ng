@@ -1,4 +1,10 @@
-import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
+import {
+  query,
+  getFilterValue,
+  getFilterValues,
+  getValuesIds,
+  getValuesIdsWithoutQuotes,
+} from './utils';
 
 export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
   let partyGroupParam = '';
@@ -306,9 +312,9 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
 }
 
 function addRolesFilter(gqlFilters, selectedFilters) {
-  const rolesName = getValuesIdsWithoutQuotes(selectedFilters, 'getadmin.users.filters.roles');
-  if (rolesName) {
-    gqlFilters.push(`roleName: {in: ["${rolesName}"]}`);
+  const values = getValuesIds(selectedFilters, 'getadmin.users.filters.roles');
+  if (values) {
+    gqlFilters.push(`roleName: {in: [${values}]}`);
   }
 }
 
