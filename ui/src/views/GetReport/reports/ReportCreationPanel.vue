@@ -9,9 +9,7 @@
         </template>
 
         <SectionTitle :num="baseNumber + 1">
-          {{
-          $t('getreport.creation.chooseInfos')
-          }}
+          {{ $t('getreport.creation.chooseInfos') }}
         </SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
@@ -41,9 +39,7 @@
         </div>
 
         <SectionTitle :num="baseNumber + 2">
-          {{
-          $t('getreport.creation.generateReport')
-          }}
+          {{ $t('getreport.creation.generateReport') }}
         </SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>

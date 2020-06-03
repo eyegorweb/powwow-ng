@@ -20,10 +20,7 @@ export default {
         return this.selectedData ? this.selectedData.data.value : '';
       },
       set(value) {
-        this.$emit(
-          'change',
-          this.options.find(o => o.value === value)
-        );
+        this.$emit('change', this.options.find(o => o.value === value));
       },
     },
   },
