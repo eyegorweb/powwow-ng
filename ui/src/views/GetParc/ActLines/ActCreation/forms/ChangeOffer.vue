@@ -5,6 +5,7 @@
     :check-errors-fn="checkErrors"
     :prevent-send="!canSend"
     :can-change-date="canChangeDate"
+    :partner-type="partnerType"
   >
     <template>
       <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
@@ -102,7 +103,14 @@ export default {
       servicesChoice: undefined,
       canChangeServices: false,
       isDataParamsError: false,
+      partnerType: undefined,
     };
+  },
+
+  mounted() {
+    if (this.actCreationPrerequisites.partner.partyType) {
+      this.partnerType = this.actCreationPrerequisites.partner.partyType;
+    }
   },
 
   watch: {
