@@ -28,10 +28,9 @@ export default {
     };
   },
   async mounted() {
-    if (!this.partner) return;
-    const data = await lineDistributionByTechno(this.partner.id);
-    console.log(this.partner.id);
-    console.log(lineDistributionByTechno);
+    const partnerIds = this.partnerIds ? this.partnerIds.id : undefined;
+    const data = await lineDistributionByTechno(partnerIds);
+
     const formatedData = data.reduce((all, item) => {
       all.push({
         name: item.label,

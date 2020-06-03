@@ -29,8 +29,8 @@ export default {
     };
   },
   async mounted() {
-    if (!this.partner) return;
-    const data = await lineDistributionByDeviceReference(this.partner.id);
+    const partnerIds = this.partnerIds ? this.partnerIds.id : undefined;
+    const data = await lineDistributionByDeviceReference(partnerIds);
 
     const formatedData = data.reduce((all, item) => {
       all.push({
