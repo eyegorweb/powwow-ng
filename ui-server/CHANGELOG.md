@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.844+20200603170346
+2020-06-03
+
+### Fixes
+
+- Branchement des graphes getDevice (35157b0cc6af9009b0247076f7df9bda44a2cdbb)
+
 ## 0.3.0-master.843+20200603155713
 2020-06-03
 
