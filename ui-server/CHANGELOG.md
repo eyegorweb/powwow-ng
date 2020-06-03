@@ -2,6 +2,40 @@
 
 <!--- next entry here -->
 
+## 0.27.0
+2020-06-03
+
+### Features
+
+- Gestion des permissions (bba4744d3b860ecaa9937e168eb843c4d9ed2f55)
+- gestion des cas des créations et modifications des utilisateurs (c854e4c16754074d06546858e22cbd5062f2e068)
+- structure de base pour la page de gestion des equipements (64babf9d810984c46416fd3e5f8204659d99f8e1)
+- gestion des utilisateurs partenaires (5abcdd8efae5576082080a57feb56609b6dd8988)
+- intégration des menus getDevice (ffa01e43187d19932d06779110f5e3a65cfba31a)
+- ajout des filtres de la page getDevice (424ccddb44cdd7733f3b45ff03f13a45133e8dd6)
+- Mise en place des permissions sur les widgets (e238412de0fd12b36ac643c7f52463bc5031be18)
+- première version de la carte de supervision (c3046f9a5c150e3a255be95fd7d9156cfb6ccef9)
+- **devices:** ajout de la page getDevices (bdfbef5f692cfa822cd9bec72fc3d0133f1bd48c)
+- gestion du clic sur les marqueurs (4274e4828f4faca20442cb32184b842dfea25476)
+- export des équipements (417ef1a8f4adb99684b99ed26386f31c1e890234)
+
+### Fixes
+
+- cacher le filtre partenaire (7335913b738a18e5710547d9da26eb4f62f0cf60)
+- gestion des rôles pour la gestion d'utilisateur (bd78c826bf9d5dd7a699dbef38af0e07430578fe)
+- Creation de rapport, ajout de 10min en plus à la date et affichage dans le datePicker (22bcbbe860574091247fd9d2b14dc6e4aacab4c1)
+- Modification visuel OfferCard pour le détail du partenaire (9a4b7ad810308cac5dcacf7500551e963188f845)
+- ajout du texte par défaut de sélection de rôles (b7f12519d3136ec86ffaa9f9ca0299b47bcd870a)
+- tooltip text getDevice page (e9af3925e5fd384a73f89cd9feeecfc4c37b9925)
+- chargement du volet du créateur de la commande dans la recherche de commande (7fd784538d7f2bedf7374b9e139bcade87871a30)
+- restrictToParty dans l'api users (4f97b5701ac27cd2969318666d6cc575f1d36334)
+- corrections bugs sur le tableau de bord (71245ceb92e876b558fb0243340d1388b292b100)
+- correction du filtre groupe partenaire de la page gestion des partenaires (1492eb7d25387621fe9f23cf4700a872ce10305c)
+- correction du tri sur la table de résultats des rapports (9da62bb7dcff25bf6db6a436d1153d78b428357e)
+- ajout des filtres de la page getDevice (a080837e5b1bfa04609c44ee0882530573f2bc41)
+- Changement code de pays par Pays (b8582d70bd7390f1705e4f73210d50b8a139bfa7)
+- correction de la recherche par filtres (33f0b10f5ea80e71e2684b05e6e2f67f0b05cd34)
+
 ## 0.26.1
 2020-05-19
 
