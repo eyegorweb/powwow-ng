@@ -1,22 +1,39 @@
 <template>
   <div class="markers-container">
     <template v-if="mapOverlay && adjustPosition && markers && markers.length">
-      <SupervisionMarker
-        :key="m.id"
-        v-for="m in markers"
-        :data="m"
-        :map-overlay="mapOverlay"
-        :adjust-position="adjustPosition"
-        :map-position="mapPosition"
-        @activeClick="() => $emit('activeClick', { marker: m, locationType: locationType })"
-        @passiveClick="() => $emit('passiveClick', { marker: m, locationType: locationType })"
-      />
+      <template v-if="usage === 'COCKPIT'">
+        <CockpitMarker
+          :key="m.id"
+          v-for="m in markers"
+          :data="m"
+          :map-overlay="mapOverlay"
+          :adjust-position="adjustPosition"
+          :map-position="mapPosition"
+          @clickVoice="() => $emit('cockpitClick', { marker: m, type: 'VOICE' })"
+          @clickData="() => $emit('cockpitClick', { marker: m, type: 'DATA' })"
+          @clickSms="() => $emit('cockpitClick', { marker: m, type: 'SMS' })"
+          @alertClick="() => $emit('cockpitClick', { marker: m, type: 'ALERT' })"
+        />
+      </template>
+      <template v-else>
+        <SupervisionMarker
+          :key="m.id"
+          v-for="m in markers"
+          :data="m"
+          :map-overlay="mapOverlay"
+          :adjust-position="adjustPosition"
+          :map-position="mapPosition"
+          @activeClick="() => $emit('activeClick', { marker: m, locationType: locationType })"
+          @passiveClick="() => $emit('passiveClick', { marker: m, locationType: locationType })"
+        />
+      </template>
     </template>
   </div>
 </template>
 
 <script>
 import SupervisionMarker from './SupervisionMarker';
+import CockpitMarker from './CockpitMarker';
 
 import {
   fetchContinentData,
@@ -26,7 +43,8 @@ import {
   fetchFrenchDepartmentsData,
   fetchDataForCells,
   fetchDataForCities,
-} from '@/api/supervisionIndicators.js';
+  fetchCockpitMarkers,
+} from '@/api/supervision.js';
 
 import { filterFormatter } from '@/views/GetVision/monitoring/index.vue';
 
@@ -83,6 +101,7 @@ function extractFromAdress(components, type) {
 export default {
   components: {
     SupervisionMarker,
+    CockpitMarker,
   },
   props: {
     google: Object,
@@ -148,42 +167,46 @@ export default {
         const countryCode = await this.getCenteredCountry();
         const zoomLevel = this.map.getZoom();
 
-        if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
-          await this.loadDataForContinents();
-        } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
-          if (countryCode == 'US' && zoomLevel == 5) {
-            await this.loadDataForUsStates();
-          } else {
-            await this.loadDataForCountries();
-          }
-        } else if (zoomLevel >= 6 && zoomLevel < 8) {
-          if (countryCode == 'FR') {
-            await this.loadDataForFrenchRegions();
-          } else if (countryCode == 'US') {
-            await this.loadDataForUsStates();
-          } else {
-            await this.loadDataForCountries();
-          }
-        } else if (zoomLevel >= 8 && zoomLevel < CITY_ZOOM_LEVEL) {
-          if (countryCode == 'FR') {
-            await this.loadDataForFrenchDepartments();
-          } else if (countryCode == 'US') {
-            await this.loadDataForUsStates();
-          } else {
-            if (zoomLevel > 8) {
-              await this.loadDataForCells(countryCode);
+        if (this.usage === 'COCKPIT') {
+          await this.loadDataForM2MCockpit();
+        } else {
+          if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
+            await this.loadDataForContinents();
+          } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
+            if (countryCode == 'US' && zoomLevel == 5) {
+              await this.loadDataForUsStates();
             } else {
               await this.loadDataForCountries();
             }
-          }
-        } else if (zoomLevel >= CITY_ZOOM_LEVEL && zoomLevel < CELL_ZOOM_LEVEL) {
-          if (countryCode == 'FR') {
-            await this.loadDataForCities(countryCode);
-          } else {
+          } else if (zoomLevel >= 6 && zoomLevel < 8) {
+            if (countryCode == 'FR') {
+              await this.loadDataForFrenchRegions();
+            } else if (countryCode == 'US') {
+              await this.loadDataForUsStates();
+            } else {
+              await this.loadDataForCountries();
+            }
+          } else if (zoomLevel >= 8 && zoomLevel < CITY_ZOOM_LEVEL) {
+            if (countryCode == 'FR') {
+              await this.loadDataForFrenchDepartments();
+            } else if (countryCode == 'US') {
+              await this.loadDataForUsStates();
+            } else {
+              if (zoomLevel > 8) {
+                await this.loadDataForCells(countryCode);
+              } else {
+                await this.loadDataForCountries();
+              }
+            }
+          } else if (zoomLevel >= CITY_ZOOM_LEVEL && zoomLevel < CELL_ZOOM_LEVEL) {
+            if (countryCode == 'FR') {
+              await this.loadDataForCities(countryCode);
+            } else {
+              await this.loadDataForCells(countryCode);
+            }
+          } else if (zoomLevel >= CELL_ZOOM_LEVEL) {
             await this.loadDataForCells(countryCode);
           }
-        } else if (zoomLevel >= CELL_ZOOM_LEVEL) {
-          await this.loadDataForCells(countryCode);
         }
 
         this.isLoading = false;
@@ -197,6 +220,46 @@ export default {
       if (!this.appliedFilters);
 
       return filterFormatter(this.appliedFilters);
+    },
+
+    formatFiltersForCockpit() {
+      if (!this.appliedFilters);
+
+      return this.appliedFilters.reduce((filters, item) => {
+        if (item.id === 'getadmin.users.filters.partners') {
+          filters.partnerId = item.data.id;
+        }
+
+        if (item.id === 'getadmin.users.filters.partnerGroup') {
+          filters.partiesDomain = item.data.value;
+        }
+
+        if (item.id === 'filters.offers') {
+          filters.offerCode = item.data.id;
+        }
+      }, {});
+    },
+
+    async loadDataForM2MCockpit() {
+      this.adjustPosition = defaultAdjustment;
+
+      const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
+      this.markers = data.map(d => {
+        return {
+          id: uuid(),
+          alertNumber: d.alertNumber,
+          activeAlertNumber: d.activeAlertNumber,
+          enoughValues: d.enoughValues,
+          smsTrafic: d.smsTrafic,
+          dataTrafic: d.dataTrafic,
+          voiceTrafic: d.voiceTrafic,
+          position: new this.google.maps.LatLng(
+            parseFloat(d.locationLatitude),
+            parseFloat(d.locationLongitude)
+          ),
+          data: d,
+        };
+      });
     },
 
     async loadDataForCities(countryCode) {

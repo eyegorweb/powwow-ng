@@ -5,13 +5,11 @@
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
         </template>
 
         <SectionTitle :num="baseNumber + 1">
-          {{
-          $t('getreport.creation.chooseInfos')
-          }}
+          {{ $t('getreport.creation.chooseInfos') }}
         </SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
@@ -41,9 +39,7 @@
         </div>
 
         <SectionTitle :num="baseNumber + 2">
-          {{
-          $t('getreport.creation.generateReport')
-          }}
+          {{ $t('getreport.creation.generateReport') }}
         </SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>

@@ -226,7 +226,7 @@ export default {
         const rows = await this.refreshLinesFn(pageInfo, sorting);
         return {
           rows,
-          total: this.total,
+          total: this.total || 0,
         };
       };
     },

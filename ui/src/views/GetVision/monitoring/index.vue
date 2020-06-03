@@ -1,7 +1,8 @@
 <template>
   <div class="row mt-4 mb-4">
-    <div class="col-3">
+    <div :key="'bar_' + currentUsage" class="col-3">
       <MonitoringIndicators
+        :can-refresh="canShowIndicators"
         :applied-filters="appliedFilters"
         :usage="currentUsage"
         @click="onIndicatorClick"
@@ -12,6 +13,7 @@
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
         always-show-button
+        :disabled="!canFilter"
       />
     </div>
     <div class="col-9">
@@ -28,25 +30,33 @@
             />
           </div>
           <div class="col-5">
-            <MapLegend />
+            <MapLegend :usage="currentUsage" />
           </div>
         </div>
       </div>
 
-      <div class="mt-3 mb-3">
-        <SupervisionMap
-          :visible="!refreshLinesFn"
-          :applied-filters="appliedFilters"
-          :usage="currentUsage"
-          @activeClick="onActiveClick"
-          @passiveClick="onPassiveClick"
-        />
-        <SupervisionTable
-          v-if="refreshLinesFn"
-          :refresh-lines-fn="refreshLinesFn"
-          :total="indicatorTotal"
-          @gotomap="refreshLinesFn = undefined"
-        />
+      <div :key="'content_' + currentUsage" class="mt-3 mb-3">
+        <template v-if="cockpitMarkerToDetail">
+          <div>
+            <CockpitDetails :markerData="cockpitMarkerToDetail" :applied-filters="appliedFilters" />
+          </div>
+        </template>
+        <template v-else>
+          <SupervisionMap
+            :visible="!refreshLinesFn"
+            :applied-filters="appliedFilters"
+            :usage="currentUsage"
+            @activeClick="onActiveClick"
+            @passiveClick="onPassiveClick"
+            @cockpitClick="onCockpitClick"
+          />
+          <SupervisionTable
+            v-if="refreshLinesFn"
+            :refresh-lines-fn="refreshLinesFn"
+            :total="indicatorTotal"
+            @gotomap="refreshLinesFn = undefined"
+          />
+        </template>
       </div>
     </div>
   </div>
@@ -66,8 +76,9 @@ import cloneDeep from 'lodash.clonedeep';
 
 import SupervisionMap from './SupervisionMap';
 import SupervisionTable from './SupervisionTable';
+import CockpitDetails from './CockpitDetails';
 
-import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervisionIndicators.js';
+import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js';
 
 import { mapGetters } from 'vuex';
 
@@ -79,9 +90,13 @@ export default {
     MonitoringIndicators,
     SupervisionMap,
     SupervisionTable,
+    CockpitDetails
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
+    canFilter() {
+      return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
+    }
   },
   data() {
     return {
@@ -91,97 +106,29 @@ export default {
       appliedFilters: undefined,
       refreshLinesFn: undefined,
       indicatorTotal: undefined,
+      canShowIndicators: false,
+      cockpitMarkerToDetail: undefined
     };
   },
 
+  watch: {
+    currentUsage() {
+      this.appliedFilters = undefined;
+      this.refreshLinesFn = undefined;
+      this.indicatorTotal = undefined;
+      this.canShowIndicators = false;
+      this.cockpitMarkerToDetail = undefined;
+
+      if (this.currentUsage === 'COCKPIT') {
+        this.filters = this.getCockpitFilters();
+      } else {
+        this.filters = this.getUsageFilters();
+      }
+    },
+  },
+
   mounted() {
-    const currentVisibleFilters = [
-      {
-        title: 'getvsion.monitoring.filterByFile',
-        component: FileFilter,
-        onChange(chosenValue) {
-          return {
-            id: 'getvsion.monitoring.filterByFile',
-            value: chosenValue.file.name,
-            data: chosenValue,
-          };
-        },
-      },
-    ];
-    if (this.userIsBO) {
-      currentVisibleFilters.push(
-        {
-          title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupChoice,
-          onChange(chosen) {
-            return {
-              id: 'getadmin.users.filters.partnerGroup',
-              value: chosen.label,
-              data: chosen,
-            };
-          },
-        },
-        {
-          title: 'getadmin.users.filters.partners',
-          component: MultiCustomerPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
-          },
-        }
-      );
-    } else if (this.userIsGroupAccount) {
-      currentVisibleFilters.push({
-        title: 'getadmin.users.filters.partners',
-        component: MultiCustomerPartnerFilter,
-        onChange(chosenValue) {
-          return {
-            id: 'getadmin.users.filters.partners',
-            value: chosenValue ? chosenValue.label : '',
-            data: chosenValue,
-          };
-        },
-      });
-    }
-
-    currentVisibleFilters.push({
-      title: 'filters.offers',
-      component: OfferFilter,
-      onChange(chosenValue) {
-        return {
-          id: 'filters.offers',
-          value: chosenValue ? chosenValue.label : '',
-          data: chosenValue,
-        };
-      },
-      checkVisibleFn(currentFilters) {
-        return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
-      },
-    });
-
-    currentVisibleFilters.push({
-      title: 'filters.zone',
-      component: LocalisationFilter,
-      onChange(chosenValue) {
-        const zone = chosenValue.zone.world ? 'Monde' : 'France';
-        const country = chosenValue.country ? chosenValue.country.label : undefined;
-        const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
-
-        const labels = [{ id: zone, label: `Zone: ${zone}` }];
-        if (country) labels.push({ id: country, label: `Pays: ${country}` });
-        if (zipCode) labels.push({ id: zipCode, label: `Code postale: ${zipCode}` });
-        return {
-          id: 'filters.zone',
-          values: labels,
-          data: chosenValue,
-        };
-      },
-    });
-
-    this.filters = currentVisibleFilters;
+    this.filters = this.getUsageFilters();
 
     this.toggleValues = [
       {
@@ -195,9 +142,9 @@ export default {
         default: this.value === 'DATA',
       },
       {
-        id: 'm2mCockpit',
+        id: 'COCKPIT',
         label: 'getvsion.m2mCockpit',
-        default: this.value === 'm2mCockpit',
+        default: this.value === 'COCKPIT',
       },
     ];
   },
@@ -205,8 +152,154 @@ export default {
   methods: {
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
+      this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
+
+    getCockpitFilters() {
+      const currentVisibleFilters = [];
+      if (this.userIsBO) {
+        currentVisibleFilters.push(
+          {
+            title: 'getadmin.users.filters.partnerGroup',
+            component: PartnerGroupChoice,
+            onChange(chosen) {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: chosen.label,
+                data: chosen,
+              };
+            },
+          },
+          {
+            title: 'getadmin.users.filters.partners',
+            component: MultiCustomerPartnerFilter,
+            onChange(chosenValue) {
+              return {
+                id: 'getadmin.users.filters.partners',
+                value: chosenValue ? chosenValue.label : '',
+                data: chosenValue,
+              };
+            },
+          }
+        );
+      } else if (this.userIsGroupAccount) {
+        currentVisibleFilters.push({
+          title: 'getadmin.users.filters.partners',
+          component: MultiCustomerPartnerFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.users.filters.partners',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+        });
+      }
+
+      currentVisibleFilters.push({
+        title: 'filters.offers',
+        component: OfferFilter,
+        onChange(chosenValue) {
+          return {
+            id: 'filters.offers',
+            value: chosenValue ? chosenValue.label : '',
+            data: chosenValue,
+          };
+        },
+      });
+      return currentVisibleFilters;
+    },
+
+    getUsageFilters() {
+      const currentVisibleFilters = [
+        {
+          title: 'getvsion.monitoring.filterByFile',
+          component: FileFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getvsion.monitoring.filterByFile',
+              value: chosenValue.file.name,
+              data: chosenValue,
+            };
+          },
+        },
+      ];
+      if (this.userIsBO) {
+        currentVisibleFilters.push(
+          {
+            title: 'getadmin.users.filters.partnerGroup',
+            component: PartnerGroupChoice,
+            onChange(chosen) {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: chosen.label,
+                data: chosen,
+              };
+            },
+          },
+          {
+            title: 'getadmin.users.filters.partners',
+            component: MultiCustomerPartnerFilter,
+            onChange(chosenValue) {
+              return {
+                id: 'getadmin.users.filters.partners',
+                value: chosenValue ? chosenValue.label : '',
+                data: chosenValue,
+              };
+            },
+          }
+        );
+      } else if (this.userIsGroupAccount) {
+        currentVisibleFilters.push({
+          title: 'getadmin.users.filters.partners',
+          component: MultiCustomerPartnerFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'getadmin.users.filters.partners',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+        });
+      }
+
+      currentVisibleFilters.push({
+        title: 'filters.offers',
+        component: OfferFilter,
+        onChange(chosenValue) {
+          return {
+            id: 'filters.offers',
+            value: chosenValue ? chosenValue.label : '',
+            data: chosenValue,
+          };
+        },
+        checkVisibleFn(currentFilters) {
+          return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
+        },
+      });
+
+      currentVisibleFilters.push({
+        title: 'filters.zone',
+        component: LocalisationFilter,
+        onChange(chosenValue) {
+          const zone = chosenValue.zone.world ? 'Monde' : 'France';
+          const country = chosenValue.country ? chosenValue.country.label : undefined;
+          const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
+
+          const labels = [{ id: zone, label: `Zone: ${zone}` }];
+          if (country) labels.push({ id: country, label: `Pays: ${country}` });
+          if (zipCode) labels.push({ id: zipCode, label: `Code postale: ${zipCode}` });
+          return {
+            id: 'filters.zone',
+            values: labels,
+            data: chosenValue,
+          };
+        },
+      });
+
+      return currentVisibleFilters;
+    },
 
     onIndicatorClick(payload) {
       const { indicator, total } = payload;
@@ -250,6 +343,10 @@ export default {
         return rows;
       };
     },
+
+    onCockpitClick(payload) {
+      this.cockpitMarkerToDetail = payload;
+    },
   },
 };
 
@@ -261,6 +358,10 @@ export function filterFormatter(appliedFilters) {
 
     if (item.id === 'getvsion.monitoring.filterByFile') {
       filters.tempDataUuid = item.data.tempDataUuid;
+    }
+
+    if (item.id === 'filters.offers') {
+      filters.offerCode = item.data.id;
     }
 
     if (item.id === 'getadmin.users.filters.partnerGroup') {

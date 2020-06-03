@@ -6,6 +6,7 @@
         :key="indicator.labelKey"
         :indicator="indicator"
         :disable-click="disableClick"
+        :can-refresh="canRefresh"
         :on-click="onClick"
         :precalculated="precalculated"
         @removeme="i => removeIndicator(i)"
@@ -32,6 +33,10 @@ export default {
     onClick: {
       type: Function,
       required: false,
+    },
+    canRefresh: {
+      type: Boolean,
+      default: true,
     },
     disableClick: Boolean,
     noBorders: Boolean,

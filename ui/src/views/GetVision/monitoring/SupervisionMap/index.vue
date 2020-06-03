@@ -10,6 +10,7 @@
           :loading.sync="loading"
           @activeClick="$emit('activeClick', $event)"
           @passiveClick="$emit('passiveClick', $event)"
+          @cockpitClick="$emit('cockpitClick', $event)"
         />
       </template>
     </GoogleMapLoader>

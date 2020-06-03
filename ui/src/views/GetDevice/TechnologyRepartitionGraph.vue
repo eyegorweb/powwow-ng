@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-3 mt-4">
+  <div class="bg-white p-3 mt-4" :can-show="!!(partner && partner.id)">
     <h5>Nombre de lignes par techno</h5>
     <chart v-if="chartOptions" :options="chartOptions" />
   </div>
@@ -7,10 +7,20 @@
 
 <script>
 import { Chart } from 'highcharts-vue';
+import { lineDistributionByTechno } from '@/api/deviceGraph';
 
 export default {
   components: {
     Chart,
+  },
+  props: {
+    partner: Object,
+  },
+
+  watch: {
+    partner() {
+      this.refreshData();
+    },
   },
   data() {
     return {
@@ -18,6 +28,17 @@ export default {
     };
   },
   async mounted() {
+    const partnerIds = this.partnerIds ? this.partnerIds.id : undefined;
+    const data = await lineDistributionByTechno(partnerIds);
+
+    const formatedData = data.reduce((all, item) => {
+      all.push({
+        name: item.label,
+        y: item.accessPointNumber,
+      });
+      return all;
+    }, []);
+
     this.chartOptions = {
       chart: {
         type: 'bar',
@@ -53,15 +74,7 @@ export default {
       series: [
         {
           name: 'Population',
-          data: [
-            ['2G', 24.2],
-            ['3G', 20.8],
-            ['4G', 14.9],
-            ['5G', 13.7],
-            ['LTEM', 13.1],
-            ['NBIOT', 12.7],
-            ['LOR', 12.4],
-          ],
+          data: formatedData,
         },
       ],
     };

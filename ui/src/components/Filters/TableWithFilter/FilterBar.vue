@@ -22,6 +22,7 @@
             v-for="filter in visibleComponents"
             :title="$t(filter.title)"
             :key="filter.title"
+            :disabled="disabled"
             draggable
           >
             <FilterBarSlot
@@ -66,6 +67,7 @@ export default {
   props: {
     filterComponents: Array,
     alwaysShowButton: Boolean,
+    disabled: Boolean,
     defaultValues: {
       type: Array,
       required: false,

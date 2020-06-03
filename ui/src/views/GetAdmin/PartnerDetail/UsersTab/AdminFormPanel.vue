@@ -22,12 +22,22 @@
             <div class="d-flex">
               <label class="radio-container mr-3">
                 {{ $t('common.MR') }}
-                <input name="civility" type="radio" value="MR" v-model="form.title" />
+                <input
+                  name="civility"
+                  type="radio"
+                  value="MR"
+                  v-model="form.title"
+                />
                 <span class="checkmark" />
               </label>
               <label class="radio-container">
                 {{ $t('common.MRS') }}
-                <input name="civility" type="radio" value="MRS" v-model="form.title" />
+                <input
+                  name="civility"
+                  type="radio"
+                  value="MRS"
+                  v-model="form.title"
+                />
                 <span class="checkmark" />
               </label>
             </div>
@@ -61,9 +71,11 @@
         <div class="entries-line">
           <div class="form-entry">
             <FormControl label="common.email" v-model="form.email" />
-            <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
+            <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
+              {{
               $t('errors.password.email-error')
-            }}</span>
+              }}
+            </span>
           </div>
         </div>
 
@@ -107,9 +119,11 @@
         <UiButton variant="import" block @click="closePanel">{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
+        <UiButton :disabled="!canSave" variant="primary" @click="save" block>
+          {{
           $t('save')
-        }}</UiButton>
+          }}
+        </UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>

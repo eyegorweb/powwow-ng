@@ -4,6 +4,7 @@
       :key="version"
       v-if="currentIndicators"
       :meta="currentIndicators"
+      :can-refresh="canRefresh"
       :on-click="onIndicatorClick"
     />
   </div>
@@ -11,7 +12,14 @@
 
 <script>
 import Indicators from '@/components/Indicators';
-import { globalActifParc, linesWithoutTraffic } from '@/api/supervisionIndicators.js';
+import {
+  globalActifParc,
+  linesWithoutTraffic,
+  linesWIthoutTraffic30Days,
+  linesNonLocalizedTraffic,
+  fetchIndicator,
+  fetchCockpitIndicator,
+} from '@/api/supervision.js';
 
 export default {
   components: {
@@ -19,11 +27,16 @@ export default {
   },
   props: {
     usage: String,
+    canRefresh: Boolean,
     appliedFilters: Array,
   },
 
   watch: {
     appliedFilters() {
+      this.version += 1;
+    },
+
+    usage() {
       this.version += 1;
     },
   },
@@ -61,8 +74,9 @@ export default {
           clickable: true,
           total: '-',
           fetch: async () => {
-            return { total: 99 };
+            return { total: await linesWIthoutTraffic30Days(this.formatFilters()) };
           },
+          counter: 'COUNTER3',
         },
         {
           name: 'linesNonLocalizedTraffic',
@@ -71,8 +85,105 @@ export default {
           clickable: true,
           total: '-',
           fetch: async () => {
-            return { total: 99 };
+            return { total: await linesNonLocalizedTraffic(this.formatFilters()) };
           },
+          counter: 'COUNTER4',
+        },
+      ],
+
+      dataUsageIndicators: [
+        {
+          name: 'globalActif',
+          labelKey: 'getvsion.indicators.globalActif',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await globalActifParc(this.formatFilters()) };
+          },
+          counter: 'COUNTER1',
+        },
+        {
+          name: 'linesNeverOpenedDataSession',
+          labelKey: 'getvsion.indicators.linesNeverOpenedDataSession',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchIndicator('COUNTER2', 'DATA', this.formatFilters()) };
+          },
+          counter: 'COUNTER2',
+        },
+        {
+          name: 'linesWithLastSession30Days',
+          labelKey: 'getvsion.indicators.linesWithLastSession30Days',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchIndicator('COUNTER3', 'DATA', this.formatFilters()) };
+          },
+          counter: 'COUNTER3',
+        },
+        {
+          name: 'nonLocalisableSessions30Days',
+          labelKey: 'getvsion.indicators.nonLocalisableSessions30Days',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchIndicator('COUNTER4', 'DATA', this.formatFilters()) };
+          },
+          counter: 'COUNTER4',
+        },
+      ],
+
+      cockpitIndicators: [
+        {
+          name: 'globalActif',
+          labelKey: 'getvsion.indicators.globalActif',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await globalActifParc(this.formatFilters()) };
+          },
+          counter: 'COUNTER1',
+        },
+
+        {
+          name: 'cockpitData',
+          labelKey: 'services.DATA',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchCockpitIndicator(this.formatFilters(), 'DATA') };
+          },
+          counter: 'DATA',
+        },
+
+        {
+          name: 'cockpitSMS',
+          labelKey: 'services.SMS',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchCockpitIndicator(this.formatFilters(), 'SMS') };
+          },
+          counter: 'SMS',
+        },
+        {
+          name: 'cockpitVOICE',
+          labelKey: 'services.VOICE',
+          color: 'text-success',
+          clickable: false,
+          total: '-',
+          fetch: async () => {
+            return { total: await fetchCockpitIndicator(this.formatFilters(), 'VOICE') };
+          },
+          counter: 'VOICE',
         },
       ],
     };
@@ -126,6 +237,14 @@ export default {
     currentIndicators() {
       if (this.usage === 'ALL') {
         return this.allUsageIndicators;
+      }
+
+      if (this.usage === 'DATA') {
+        return this.dataUsageIndicators;
+      }
+
+      if (this.usage === 'COCKPIT') {
+        return this.cockpitIndicators;
       }
 
       return undefined;
