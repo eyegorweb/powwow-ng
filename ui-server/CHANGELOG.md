@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.838+20200603085930
+2020-06-03
+
+### Fixes
+
+- correction de la recherche par filtres (33f0b10f5ea80e71e2684b05e6e2f67f0b05cd34)
+
 ## 0.3.0-master.837+20200602183024
 2020-06-03
 
