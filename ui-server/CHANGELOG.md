@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 0.28.0
+2020-06-03
+
+### Features
+
+- création des graphes de la page getDevice (2aca42cd382345ab2f9f020baaa30c6ae9065c5d)
+- carte Cockpit M2M (64d6cb97468e07aa83c57947812b48befc5fc7aa)
+- table des alertes (d798db14e739f5814c63ad7195889d09047ca2b1)
+
+### Fixes
+
+- **utilisateurs:** correction du filtre Roles (3f106fe143cf595ea5ea7093f596e3c03c1a621f)
+- Pas de limite pour la liste des partenaires dans le reportPanel (dcd1c809e7990cdabb47348797a2efe837a6f870)
+- Branchement des graphes getDevice (35157b0cc6af9009b0247076f7df9bda44a2cdbb)
+
 ## 0.27.0
 2020-06-03
 
