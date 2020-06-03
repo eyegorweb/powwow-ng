@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.836+20200602182719
-2020-06-02
+## 0.3.0-master.837+20200602183024
+2020-06-03
+
+### Fixes
+
+- Changement code de pays par Pays (b8582d70bd7390f1705e4f73210d50b8a139bfa7)
 
 ## 0.3.0-master.835+20200602172203
 2020-06-02
