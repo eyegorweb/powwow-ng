@@ -374,7 +374,10 @@
       "globalActif": "Parc global actif",
       "lineWithoutTraffic": "Lignes sans aucun trafic",
       "linesWIthoutTraffic30Days": "Lignes sans trafic depuis 30j",
-      "linesNonLocalizedTraffic": "Lignes avec trafic non localisées"
+      "linesNonLocalizedTraffic": "Lignes avec trafic non localisées",
+      "linesNeverOpenedDataSession": "Lignes n’ayant jamais ouvert de session data",
+      "linesWithLastSession30Days": "Lignes dont la dernière session data, date de plus de 30 jours",
+      "nonLocalisableSessions30Days": "Lignes ayant une session data ces 30 derniers jours mais non localisables"
     },
     "filters": {
       "ALARMS_OFFER": "Portée de l'alame",

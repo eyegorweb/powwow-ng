@@ -27,6 +27,10 @@ export default {
       type: Function,
       required: false,
     },
+    canRefresh: {
+      type: Boolean,
+      default: true,
+    },
     precalculated: Boolean,
     disableClick: Boolean,
   },
@@ -89,6 +93,7 @@ export default {
       }
     },
     async refreshIndicator() {
+      if (!this.canRefresh) return;
       this.isLoading = true;
       try {
         const res = await this.indicator.fetch(this.indicator, this.contextFilters);
