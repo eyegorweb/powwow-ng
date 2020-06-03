@@ -13,6 +13,7 @@
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
         always-show-button
+        :disabled="!canFilter"
       />
     </div>
     <div class="col-9">
@@ -35,20 +36,27 @@
       </div>
 
       <div :key="'content_' + currentUsage" class="mt-3 mb-3">
-        <SupervisionMap
-          :visible="!refreshLinesFn"
-          :applied-filters="appliedFilters"
-          :usage="currentUsage"
-          @activeClick="onActiveClick"
-          @passiveClick="onPassiveClick"
-          @cockpitClick="onCockpitClick"
-        />
-        <SupervisionTable
-          v-if="refreshLinesFn"
-          :refresh-lines-fn="refreshLinesFn"
-          :total="indicatorTotal"
-          @gotomap="refreshLinesFn = undefined"
-        />
+        <template v-if="cockpitMarkerToDetail">
+          <div>
+            <CockpitDetails :markerData="cockpitMarkerToDetail" :applied-filters="appliedFilters" />
+          </div>
+        </template>
+        <template v-else>
+          <SupervisionMap
+            :visible="!refreshLinesFn"
+            :applied-filters="appliedFilters"
+            :usage="currentUsage"
+            @activeClick="onActiveClick"
+            @passiveClick="onPassiveClick"
+            @cockpitClick="onCockpitClick"
+          />
+          <SupervisionTable
+            v-if="refreshLinesFn"
+            :refresh-lines-fn="refreshLinesFn"
+            :total="indicatorTotal"
+            @gotomap="refreshLinesFn = undefined"
+          />
+        </template>
       </div>
     </div>
   </div>
@@ -68,6 +76,7 @@ import cloneDeep from 'lodash.clonedeep';
 
 import SupervisionMap from './SupervisionMap';
 import SupervisionTable from './SupervisionTable';
+import CockpitDetails from './CockpitDetails';
 
 import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js';
 
@@ -81,9 +90,13 @@ export default {
     MonitoringIndicators,
     SupervisionMap,
     SupervisionTable,
+    CockpitDetails
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
+    canFilter() {
+      return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
+    }
   },
   data() {
     return {
@@ -94,6 +107,7 @@ export default {
       refreshLinesFn: undefined,
       indicatorTotal: undefined,
       canShowIndicators: false,
+      cockpitMarkerToDetail: undefined
     };
   },
 
@@ -103,6 +117,7 @@ export default {
       this.refreshLinesFn = undefined;
       this.indicatorTotal = undefined;
       this.canShowIndicators = false;
+      this.cockpitMarkerToDetail = undefined;
 
       if (this.currentUsage === 'COCKPIT') {
         this.filters = this.getCockpitFilters();
@@ -139,7 +154,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -330,7 +345,7 @@ export default {
     },
 
     onCockpitClick(payload) {
-      console.log('PAYLOAD >>', payload);
+      this.cockpitMarkerToDetail = payload;
     },
   },
 };
