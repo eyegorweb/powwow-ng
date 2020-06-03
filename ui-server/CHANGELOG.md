@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.840+20200603121659
+2020-06-03
+
+### Fixes
+
+- **utilisateurs:** correction du filtre Roles (3f106fe143cf595ea5ea7093f596e3c03c1a621f)
+
 ## 0.3.0-master.839+20200603092252
 2020-06-03
 
