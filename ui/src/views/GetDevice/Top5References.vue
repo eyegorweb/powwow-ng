@@ -1,47 +1,45 @@
 <template>
-  <div class="bg-white p-3 mt-4">
-    <h5>Top 5 Fabriquant M-1</h5>
+  <div class="bg-white p-3 mt-4" :can-show="!!(partner && partner.id)">
+    <h5>Top 5 des Références Commerciales M-1</h5>
     <chart v-if="chartOptions" :options="chartOptions" />
   </div>
 </template>
 
 <script>
 import { Chart } from 'highcharts-vue';
+import { lineDistributionByDeviceReference } from '@/api/deviceGraph';
 
 export default {
   components: {
     Chart,
   },
+  props: {
+    partner: Object,
+  },
+
+  watch: {
+    partner() {
+      this.refreshData();
+    },
+  },
+
   data() {
     return {
       chartOptions: undefined,
     };
   },
   async mounted() {
-    // il faudra remplir les données ici
-    // s'inspirer de ça ui/src/views/GetReport/Dashboard/LinesPerZoneGraph.vue
-    const formateddata = [
-      {
-        name: 'Spain',
-        y: 505370,
-        z: 92.9,
-      },
-      {
-        name: 'France',
-        y: 551500,
-        z: 118.7,
-      },
-      {
-        name: 'France',
-        y: 5500,
-        z: 118.7,
-      },
-      {
-        name: 'France',
-        y: 50,
-        z: 118.7,
-      },
-    ];
+    if (!this.partner) return;
+    const data = await lineDistributionByDeviceReference(this.partner.id);
+
+    const formatedData = data.reduce((all, item) => {
+      all.push({
+        name: item.label,
+        y: item.accessPointNumber,
+        z: 0,
+      });
+      return all;
+    }, []);
 
     this.chartOptions = {
       chart: {
@@ -67,7 +65,7 @@ export default {
           innerSize: '70%',
           zMin: 0,
           name: 'Zone',
-          data: formateddata,
+          data: formatedData,
         },
       ],
     };

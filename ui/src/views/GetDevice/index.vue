@@ -34,13 +34,13 @@
             <div slot="before-table">
               <div class="row">
                 <div class="col-4">
-                  <Top5Manufacturer />
+                  <Top5Manufacturer :partner="appliedPartner" />
                 </div>
                 <div class="col-4">
-                  <TechnologyRepartitionGraph />
+                  <TechnologyRepartitionGraph :partner="appliedPartner" />
                 </div>
                 <div class="col-4">
-                  <Top5References />
+                  <Top5References :partner="appliedPartner" />
                 </div>
               </div>
             </div>
@@ -87,6 +87,7 @@ import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
 import { getDevices, exportDevices } from '@/api/manufacturers.js';
+import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
@@ -128,6 +129,7 @@ export default {
       ],
       currentTab: 0,
       searchByIdValue: undefined,
+      appliedPartner: undefined,
       indicators: deviceIndicators,
       columns: undefined,
       commonColumns: [
@@ -290,6 +292,16 @@ export default {
         },
       ],
       filters: [
+        {
+          title: 'getadmin.users.filters.partners',
+          component: PartnerNameFilter,
+          onChange(chosenValues) {
+            return {
+              id: 'getadmin.users.filters.partners',
+              values: chosenValues,
+            };
+          },
+        },
         {
           title: 'getDevice.imeiRange',
           component: IMEIRange,
