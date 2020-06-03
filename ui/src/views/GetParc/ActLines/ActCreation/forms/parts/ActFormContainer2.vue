@@ -99,6 +99,7 @@ export default {
     successMessage: String,
     noModal: Boolean,
     preventSend: Boolean,
+    partnerType: String,
     canChangeDate: {
       type: Boolean,
       default: true,
@@ -116,13 +117,14 @@ export default {
   },
 
   mounted() {
-    if (this.canChangeDate) {
+    if (this.canChangeDate && this.partnerType !== 'CUSTOMER') {
       this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
     } else {
       this.actDate = moment()
         .add(1, 'month')
         .startOf('month')
-        .format('DD/MM/YYYY 00:00:00');
+        .subtract(1, 'day')
+        .format('DD/MM/YYYY 23:59:59');
     }
   },
 
