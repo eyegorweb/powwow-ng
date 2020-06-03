@@ -15,6 +15,7 @@ export async function getManufacturers(orderBy, pagination, filters = []) {
       {
         total
         items {
+          tac
           manufacturer
           marketingName
         }

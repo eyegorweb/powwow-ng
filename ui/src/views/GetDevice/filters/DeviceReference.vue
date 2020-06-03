@@ -40,8 +40,8 @@ export default {
     };
     const data = await getManufacturers(this.orderBy, pagination);
     if (!data) return;
-    this.localItems = data.map((p, index) => ({
-      id: `${p.marketingName}_${index}`,
+    this.localItems = data.map(p => ({
+      id: `${p.tac}`,
       label: p.marketingName,
       data: p,
     }));
