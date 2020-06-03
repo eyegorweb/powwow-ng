@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.843+20200603155713
+2020-06-03
+
+### Features
+
+- table des alertes (d798db14e739f5814c63ad7195889d09047ca2b1)
+
 ## 0.3.0-master.842+20200603152907
 2020-06-03
 
