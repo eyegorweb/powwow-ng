@@ -155,7 +155,7 @@ export default {
           name: 'cockpitData',
           labelKey: 'services.DATA',
           color: 'text-success',
-          clickable: true,
+          clickable: false,
           total: '-',
           fetch: async () => {
             return { total: await fetchCockpitIndicator(this.formatFilters(), 'DATA') };
@@ -167,7 +167,7 @@ export default {
           name: 'cockpitSMS',
           labelKey: 'services.SMS',
           color: 'text-success',
-          clickable: true,
+          clickable: false,
           total: '-',
           fetch: async () => {
             return { total: await fetchCockpitIndicator(this.formatFilters(), 'SMS') };
@@ -178,7 +178,7 @@ export default {
           name: 'cockpitVOICE',
           labelKey: 'services.VOICE',
           color: 'text-success',
-          clickable: true,
+          clickable: false,
           total: '-',
           fetch: async () => {
             return { total: await fetchCockpitIndicator(this.formatFilters(), 'VOICE') };

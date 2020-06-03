@@ -12,6 +12,7 @@
           @clickVoice="() => $emit('cockpitClick', { marker: m, type: 'VOICE' })"
           @clickData="() => $emit('cockpitClick', { marker: m, type: 'DATA' })"
           @clickSms="() => $emit('cockpitClick', { marker: m, type: 'SMS' })"
+          @alertClick="() => $emit('cockpitClick', { marker: m, type: 'ALERT' })"
         />
       </template>
       <template v-else>

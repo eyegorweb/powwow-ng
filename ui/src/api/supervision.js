@@ -51,6 +51,65 @@ export async function supervisionVoiceGraph(partyIds) {
 
 // Page supervision
 
+export async function fetchSupervisionAlerts(filters, pagination, sorting) {
+  const queryStr = `query SupervisionAlerts($filters: SupervisionAlertFilterInput!, $sorting: SupervisionAlertSorting, $pagination: Pagination!){
+    supervisionAlerts(filter:$filters, sorting:$sorting, pagination: $pagination){
+      total
+      items{
+        alertId
+        partnerName
+        startDate
+        endDate
+        type
+        status
+        usage
+        label
+        countryName
+        countryNameFr
+      }
+    }
+  }
+  `;
+
+  const variables = {
+    filters: filters || {},
+    pagination,
+  };
+
+  if (sorting) {
+    variables.sorting = sorting;
+  }
+
+  const response = await query(queryStr, variables);
+
+  /*
+  const response = {
+    data: {
+      countServicesStateByCountry: {
+        items: [
+          {
+            alertId: 'sit 539',
+            partnerName: 'Adipiscing',
+            startDate: '01/01/2020',
+            endDate: '01/01/2020',
+            type: 'leo',
+            status: 'dui',
+            usage: 'orci',
+            label: 'Proin',
+            countryName: 'commodo',
+            countryNameFr: 'sit',
+          },
+        ],
+      }
+    },
+  };
+  //*/
+
+  if (response.data) {
+    return response.data.countServicesStateByCountry;
+  }
+}
+
 export async function fetchCockpitMarkers(filters) {
   const queryStr = `query CountServicesStateByCountry($filter:ServicesStateFilterInput ){
     countServicesStateByCountry(filter: $filter ){
@@ -74,6 +133,32 @@ export async function fetchCockpitMarkers(filters) {
   `;
 
   const response = await query(queryStr, filters);
+
+  /*
+  const response = {
+    data: {
+      countServicesStateByCountry: [
+        {
+          locationCode: 'leo',
+          locationCodeISO2: 'porta.',
+          countryCode: 'vel',
+          locationName: 'leo',
+          locationNameFr: 'orci',
+          locationLatitude: '30',
+          locationLongitude: '19',
+          alertNumber: 33,
+          activeAlertNumber: 1,
+          dataTrafic: '10',
+          smsTrafic: '20',
+          voiceTrafic: '30',
+          validFineGrainedSearch: 'imperdiet 6311',
+          enoughValues: true,
+          raiseAlert: 'sit 6828',
+        },
+      ],
+    },
+  };
+  //*/
 
   if (response.data) {
     return response.data.countServicesStateByCountry;

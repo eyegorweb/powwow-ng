@@ -8,8 +8,10 @@
     }"
     :style="cssStyle"
   >
-    <div class=" cell" @click="$emit('cockpitClick')">
-      <div v-if="data.alertNumber" class="mb-1">{{ data.alertNumber }}</div>
+    <div class=" cell">
+      <div v-if="data.alertNumber" class="mb-1" @click="$emit('alertClick')">
+        {{ data.alertNumber }}
+      </div>
 
       <div class="d-flex values">
         <div @click="$emit('clickVoice')">{{ data.voiceTrafic }}</div>
