@@ -12,7 +12,7 @@
         </UiTab>
       </template>
       <div class="pt-4 pl-4" slot="alerts">
-        <CockpitAlerts :markerData="markerData" :appliedFilters="appliedFilters" />
+        <CockpitAlerts :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
       <div class="pt-4 pl-4" slot="graphs">
         Graphs
@@ -30,7 +30,7 @@ export default {
   components: {
     UiTabs,
     UiTab,
-    CockpitAlerts
+    CockpitAlerts,
   },
   props: {
     markerData: Object,
@@ -50,12 +50,10 @@ export default {
           title: 'Graphiques',
         },
         //*/
-      ]
-    }
+      ],
+    };
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

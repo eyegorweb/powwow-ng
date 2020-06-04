@@ -55,9 +55,7 @@
                 </div>
               </div>
               <Button :variant="'primary'" @click="save">
-                {{
-                $t('getadmin.partnerDetail.update')
-                }}
+                {{ $t('getadmin.partnerDetail.update') }}
               </Button>
             </div>
           </div>

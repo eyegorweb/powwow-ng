@@ -99,7 +99,10 @@
             </div>
           </div>
           <FormControl label="getadmin.partnerDetail.salesEngineer" v-model="form.salesEngineer" />
-          <FormControl label="getadmin.partnerDetail.commercialName" v-model="form.commercialName" />
+          <FormControl
+            label="getadmin.partnerDetail.commercialName"
+            v-model="form.commercialName"
+          />
           <FormControl
             label="getadmin.partnerDetail.commercialEmail"
             v-model="form.commercialEmail"

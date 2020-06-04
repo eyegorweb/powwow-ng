@@ -99,11 +99,14 @@ export async function deleteSecondaryAdministrator(partyId) {
 }
 
 // TO REFACTOR -----------------------
-export async function fetchpartners(q, { page, limit, partnerType,partnerTypes, includeMailingLists }) {
+export async function fetchpartners(
+  q,
+  { page, limit, partnerType, partnerTypes, includeMailingLists }
+) {
   let partnerTypeGqlFilter = '';
   if (!partnerTypes && partnerType) {
     partnerTypeGqlFilter = `, partyType: {in: [${partnerType}]}`;
-  } else if(partnerTypes && partnerTypes.length) {
+  } else if (partnerTypes && partnerTypes.length) {
     partnerTypeGqlFilter = `, partyType: {in: [${partnerTypes.join(', ')}]}`;
   }
 
