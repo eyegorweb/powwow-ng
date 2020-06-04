@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.853+20200604162617
+2020-06-04
+
+### Fixes
+
+- ne pas définir l'orderBy (e0da6133fb886e2a1bc2b3321fb9ee165d213e8e)
+
 ## 0.3.0-master.852+20200604161032
 2020-06-04
 
