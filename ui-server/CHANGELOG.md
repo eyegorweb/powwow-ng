@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.845+20200604034755
+2020-06-04
+
+### Fixes
+
+- **devices:** amélioration du chargement des composants graphes (50cd353424e25701b28024b7fa1f36d5b1cac7f2)
+
 ## 0.3.0-master.844+20200603170346
 2020-06-03
 
