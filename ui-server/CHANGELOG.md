@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.850+20200604123703
+2020-06-04
+
+### Fixes
+
+- réactivité des graphes (697457fe67f955685d70786de0e77bf0c0f09c5d)
+
 ## 0.3.0-master.849+20200604113259
 2020-06-04
 
