@@ -465,8 +465,8 @@ export default {
       const formatedData = data.reduce((all, item) => {
         all.push({
           name: item.label,
-          y: item.accessPointNumber,
-          z: 0,
+          z: item.accessPointNumber,
+          y: item.percentage,
         });
         return all;
       }, []);
@@ -541,7 +541,7 @@ export default {
           enabled: false,
         },
         tooltip: {
-          pointFormat: '<b>{point.y:.1f}</b>',
+          pointFormat: '<b>{point.y} lignes</b>',
         },
         series: [
           {
@@ -557,8 +557,8 @@ export default {
       const formatedData = data.reduce((all, item) => {
         all.push({
           name: item.label,
-          y: item.accessPointNumber,
-          z: 0,
+          z: item.accessPointNumber,
+          y: item.percentage,
         });
         return all;
       }, []);
