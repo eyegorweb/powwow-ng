@@ -415,7 +415,7 @@ export default {
         filters: [],
       };
 
-      const data = await getDevices(this.orderBy, pagination, filters);
+      const data = await getDevices(undefined, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
       this.currentAppliedFilters = filters;
@@ -437,7 +437,7 @@ export default {
       this.searchByIdValue = params.value;
 
       this.isLoading = true;
-      const data = await getDevices(this.orderBy, { page: 0, limit: 10 }, [params]);
+      const data = await getDevices(undefined, { page: 0, limit: 10 }, [params]);
 
       this.isLoading = false;
 
