@@ -149,7 +149,9 @@
               />
             </div>
           </div>
-          <Button :variant="'primary'" @click="save">{{ $t('getadmin.partnerDetail.update') }}</Button>
+          <Button :variant="'primary'" @click="save">{{
+            $t('getadmin.partnerDetail.update')
+          }}</Button>
         </div>
       </div>
     </div>
@@ -441,7 +443,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .accountdetail-legalInfos,
 .accountdetail-contact {
   h4 {
