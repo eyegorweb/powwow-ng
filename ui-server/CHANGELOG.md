@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.849+20200604113259
+2020-06-04
+
+### Fixes
+
+- Multi-check sur les code et noms des pays dans les inputs du detail de partenaire (dd69c0b83666d2872f618dd09cbd8b9a8f27839d)
+
 ## 0.3.0-master.848+20200604103622
 2020-06-04
 
