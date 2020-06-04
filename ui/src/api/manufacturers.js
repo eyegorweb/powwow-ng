@@ -91,7 +91,7 @@ export function formatFilters(selectedFilters) {
 function addPartnerFilter(gqlFilters, selectedFilters) {
   const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.filters.partners');
   if (partyIds) {
-    gqlFilters.push(`partnerIds: {in: [${partyIds}]}`);
+    gqlFilters.push(`partnerIds:[${partyIds}]`);
   }
 }
 
