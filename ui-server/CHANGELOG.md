@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.851+20200604124932
+2020-06-04
+
+### Fixes
+
+- traduction du titre du graphe TOP5 Référnces Commerciales (89f0b969242d02c79b13511ec270cffbbe4b2f3f)
+
 ## 0.3.0-master.850+20200604123703
 2020-06-04
 
