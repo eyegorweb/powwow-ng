@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white p-3 mt-4" :can-show="!!(partner && partner.id)">
-    <h5>Top 5 Fabriquant M-1</h5>
+  <div class="bg-white p-3 mt-4">
+    <h5>{{ $t('getdevice.graphes.title-graph-top5-manufacturers') }}</h5>
     <chart v-if="chartOptions" :options="chartOptions" />
   </div>
 </template>
@@ -13,14 +13,9 @@ export default {
   components: {
     Chart,
   },
+
   props: {
     partner: Object,
-  },
-
-  watch: {
-    partner() {
-      this.refreshData();
-    },
   },
 
   data() {
@@ -28,10 +23,11 @@ export default {
       chartOptions: undefined,
     };
   },
+
   async mounted() {
-    const partnerIds = this.partnerIds ? this.partnerIds.id : undefined;
-    const data = await lineDistributionByManufacturer(partnerIds);
-    
+    const partnerId = this.partner ? this.partner.id : undefined;
+    const data = await lineDistributionByManufacturer(partnerId);
+
     const formatedData = data.reduce((all, item) => {
       all.push({
         name: item.label,
@@ -69,6 +65,12 @@ export default {
         },
       ],
     };
+  },
+
+  watch: {
+    partner() {
+      this.refreshData();
+    },
   },
 };
 </script>

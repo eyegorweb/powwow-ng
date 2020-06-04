@@ -320,7 +320,7 @@
       "CUSTOM_FIELDS": "Champ libres"
     }
   },
-  "getDevice": {
+  "getdevice": {
     "title": "Gestion de mes équipements",
     "tooltip": "Cette page permet de gérer vos équipements.",
     "imeiRange": "Plage IMEI",
@@ -329,7 +329,12 @@
     "tab-1-inventory": "Etat des lieux",
     "tab-2-boxes": "Agir sur les boitiers",
     "tab-3-conso-energy": "Conso énergétique",
-    "tab-4-google-device": "Google device"
+    "tab-4-google-device": "Google device",
+    "graphes": {
+      "title-graph-top5-manufacturers": "Top 5 Fabriquant",
+      "title-graph-techno-repartition": "Nombre de lignes par techno",
+      "title-graph-top5-references": "Top 5 des Références Commerciales"
+    }
   },
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",

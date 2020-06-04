@@ -4,8 +4,8 @@
       <div class="col-md-9">
         <h4>
           <b>GetDevice</b>
-          - {{ $t('getDevice.title') }}
-          <Tooltip direction="right">{{ $t('getDevice.tooltip') }}</Tooltip>
+          - {{ $t('getdevice.title') }}
+          <Tooltip direction="right">{{ $t('getdevice.tooltip') }}</Tooltip>
         </h4>
       </div>
     </div>
@@ -34,13 +34,13 @@
             <div slot="before-table">
               <div class="row">
                 <div class="col-4">
-                  <Top5Manufacturer :partner="appliedPartner" />
+                  <Top5Manufacturer :partner="selectedPartner" />
                 </div>
                 <div class="col-4">
-                  <TechnologyRepartitionGraph :partner="appliedPartner" />
+                  <TechnologyRepartitionGraph :partner="selectedPartner" />
                 </div>
                 <div class="col-4">
-                  <Top5References :partner="appliedPartner" />
+                  <Top5References :partner="selectedPartner" />
                 </div>
               </div>
             </div>
@@ -109,34 +109,35 @@ export default {
       tabs: [
         {
           label: 'inventory',
-          title: this.$t('getDevice.tab-1-inventory'),
+          title: this.$t('getdevice.tab-1-inventory'),
         },
         {
           label: 'boxes',
-          title: this.$t('getDevice.tab-2-boxes'),
+          title: this.$t('getdevice.tab-2-boxes'),
           disable: true,
         },
         {
           label: 'conso-energy',
-          title: this.$t('getDevice.tab-3-conso-energy'),
+          title: this.$t('getdevice.tab-3-conso-energy'),
           disable: true,
         },
         {
           label: 'google-device',
-          title: this.$t('getDevice.tab-4-google-device'),
+          title: this.$t('getdevice.tab-4-google-device'),
           disable: true,
         },
       ],
       currentTab: 0,
       searchByIdValue: undefined,
-      appliedPartner: undefined,
+      partner: undefined,
+      selectedPartner: undefined,
       indicators: deviceIndicators,
-      columns: undefined,
-      commonColumns: [
+      columns: [
         {
           id: 1,
           label: 'IMEI',
           name: 'imei',
+          exportId: 'IMEI',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -151,6 +152,7 @@ export default {
           id: 2,
           label: 'Fabricant (IMEI)',
           name: 'manufacturer',
+          exportId: 'MANUFACTURER',
           orderable: true,
           visible: true,
           format: {
@@ -164,6 +166,7 @@ export default {
           id: 3,
           label: 'Modèle (IMEI)',
           name: 'deviceReference',
+          exportId: 'DEVICE_REFERENCE',
           orderable: true,
           visible: true,
           format: {
@@ -177,6 +180,7 @@ export default {
           id: 4,
           label: 'TAC',
           name: 'tac',
+          exportId: 'TAC',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
           format: {
@@ -190,6 +194,7 @@ export default {
           id: 5,
           label: 'Fréquence',
           name: 'bands',
+          exportId: 'BANDS',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
           format: {
@@ -203,6 +208,7 @@ export default {
           id: 6,
           label: 'ICCID',
           name: 'iccid',
+          exportId: 'ICCID',
           orderable: true,
           visible: true,
           format: {
@@ -213,9 +219,27 @@ export default {
           },
         },
         {
+          id: 7,
+          label: 'Partenaire',
+          name: 'partyName',
+          exportId: 'PARTY',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'party.name');
+            },
+          },
+          visibleWhen: () => {
+            return this.canShowPartnerColumn;
+          },
+        },
+        {
           id: 8,
           label: 'MSISDN',
           name: 'msisdn',
+          exportId: 'MSISDN',
           orderable: true,
           visible: false,
           format: {
@@ -229,6 +253,7 @@ export default {
           id: 9,
           label: 'IMSI',
           name: 'imsi',
+          exportId: 'IMSI',
           orderable: true,
           visible: false,
           format: {
@@ -242,6 +267,7 @@ export default {
           id: 10,
           label: 'Statut de la ligne',
           name: 'status',
+          exportId: 'SIM_STATUS',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: false,
           format: {
@@ -255,6 +281,7 @@ export default {
           id: 11,
           label: 'Date du statut',
           name: 'statusDate',
+          exportId: 'SIM_STATUS_DATE',
           orderable: true,
           visible: false,
           format: {
@@ -268,6 +295,7 @@ export default {
           id: 12,
           label: 'Offre',
           name: 'offer',
+          exportId: 'OFFER',
           orderable: true,
           visible: false,
           format: {
@@ -278,9 +306,27 @@ export default {
           },
         },
         {
+          id: 13,
+          label: 'Dernier pays (ancien PLMN)',
+          name: 'lastPLMN',
+          exportId: 'USAGE_LAST_COUNTRY',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'lastPLMN');
+            },
+          },
+          visibleWhen: () => {
+            return this.canShowPLMNColumn;
+          },
+        },
+        {
           id: 14,
           label: 'A-MSISDN',
           name: 'msisdnA',
+          exportId: 'AMSISDN',
           orderable: true,
           visible: false,
           format: {
@@ -297,38 +343,38 @@ export default {
           component: PartnerNameFilter,
           onChange(chosenValues) {
             return {
-              id: 'getadmin.users.filters.partners',
+              id: 'getdevice.filters.partners',
               values: chosenValues,
             };
           },
         },
         {
-          title: 'getDevice.imeiRange',
+          title: 'getdevice.imeiRange',
           component: IMEIRange,
           onChange(values) {
             return {
-              id: 'getDevice.imeiRange',
+              id: 'getdevice.imeiRange',
               from: values.from,
               to: values.to,
             };
           },
         },
         {
-          title: 'getDevice.manufacturer',
+          title: 'getdevice.manufacturer',
           component: Manufacturer,
           onChange(values) {
             return {
-              id: 'getDevice.manufacturer',
+              id: 'getdevice.manufacturer',
               values,
             };
           },
         },
         {
-          title: 'getDevice.deviceReference',
+          title: 'getdevice.deviceReference',
           component: DeviceReference,
           onChange(values) {
             return {
-              id: 'getDevice.deviceReference',
+              id: 'getdevice.deviceReference',
               values,
             };
           },
@@ -345,44 +391,6 @@ export default {
     };
   },
   mounted() {
-    const partnerColumn = [
-      {
-        id: 7,
-        label: 'Partenaire',
-        name: 'partyName',
-        orderable: true,
-        visible: false,
-        format: {
-          type: 'Getter',
-          getter: row => {
-            return get(row, 'party.name');
-          },
-        },
-      },
-    ];
-    const PLMNColumn = [
-      {
-        id: 13,
-        label: 'Dernier pays (ancien PLMN)',
-        name: 'lastPLMN',
-        orderable: true,
-        visible: false,
-        format: {
-          type: 'Getter',
-          getter: row => {
-            return get(row, 'lastPLMN');
-          },
-        },
-      },
-    ];
-    if (this.canShowPartnerColumn) {
-      this.columns = [...this.commonColumns, ...partnerColumn];
-    } else {
-      this.columns = [...this.commonColumns];
-    }
-    if (this.canShowPLMNColumn) {
-      this.columns = [...this.columns, ...PLMNColumn];
-    }
     this.applyFilters();
   },
   methods: {
@@ -411,22 +419,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportDevices(
-          [
-            'IMEI',
-            'MANUFACTURER',
-            'DEVICE_REFERENCE',
-            'TAC',
-            'BANDS',
-            'ICCID',
-            'PARTY',
-            'MSISDN',
-            'IMSI',
-            'OFFER',
-            'USAGE_LAST_COUNTRY',
-            'AMSISDN',
-            'SIM_STATUS',
-            'SIM_STATUS_DATE',
-          ],
+          columnsParam,
           this.orderBy,
           exportFormat,
           this.currentAppliedFilters
@@ -441,6 +434,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsBO']),
+    // canShowPartner() {
+    //   return !!(this.partner && this.partner.id);
+    // },
     canShowPartnerColumn() {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
     },
