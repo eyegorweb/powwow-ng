@@ -34,13 +34,22 @@
             <div slot="before-table">
               <div class="row">
                 <div class="col-4">
-                  <Top5Manufacturer :partner="selectedPartner" />
+                  <Top5Manufacturer
+                    :refresh-data="refreshDataTop5Manufacturers"
+                    :chart-options="chartOptions"
+                  />
                 </div>
                 <div class="col-4">
-                  <TechnologyRepartitionGraph :partner="selectedPartner" />
+                  <TechnologyRepartitionGraph
+                    :refresh-data="refreshDataTechnoRepartition"
+                    :chart-options="chartOptions2"
+                  />
                 </div>
                 <div class="col-4">
-                  <Top5References :partner="selectedPartner" />
+                  <Top5References
+                    :refresh-data="refreshDataTop5References"
+                    :chart-options="chartOptions3"
+                  />
                 </div>
               </div>
             </div>
@@ -86,7 +95,12 @@ import Top5Manufacturer from './Top5Manufacturer';
 import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
-import { getDevices, exportDevices } from '@/api/manufacturers.js';
+import { getDevices, exportDevices } from '@/api/manufacturers';
+import {
+  lineDistributionByManufacturer,
+  lineDistributionByTechno,
+  lineDistributionByDeviceReference,
+} from '@/api/deviceGraph';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
@@ -129,8 +143,6 @@ export default {
       ],
       currentTab: 0,
       searchByIdValue: undefined,
-      partner: undefined,
-      selectedPartner: undefined,
       indicators: deviceIndicators,
       columns: [
         {
@@ -339,11 +351,11 @@ export default {
       ],
       filters: [
         {
-          title: 'getadmin.users.filters.partners',
+          title: 'getdevice.partners',
           component: PartnerNameFilter,
           onChange(chosenValues) {
             return {
-              id: 'getdevice.filters.partners',
+              id: 'getdevice.partners',
               values: chosenValues,
             };
           },
@@ -388,6 +400,9 @@ export default {
       },
       currentAppliedFilters: [],
       isLoading: false,
+      chartOptions: undefined,
+      chartOptions2: undefined,
+      chartOptions3: undefined,
     };
   },
   mounted() {
@@ -404,6 +419,19 @@ export default {
       this.total = data.total;
       this.rows = data.items;
       this.currentAppliedFilters = filters;
+      if (filters && !filters[0]) {
+        this.refreshDataTop5Manufacturers();
+        this.refreshDataTechnoRepartition();
+        this.refreshDataTop5References();
+      } else {
+        const partners = filters[0].values.map(p => ({
+          id: p.id,
+        }));
+        const selectedPartnerIds = partners.map(p => p.id);
+        this.refreshDataTop5Manufacturers(selectedPartnerIds);
+        this.refreshDataTechnoRepartition(selectedPartnerIds);
+        this.refreshDataTop5References(selectedPartnerIds);
+      }
     },
     async searchById(params) {
       this.searchByIdValue = params.value;
@@ -431,12 +459,142 @@ export default {
         p => p.domain === domain && p.action === action
       );
     },
+    async refreshDataTop5Manufacturers(partnerIds) {
+      const data = await lineDistributionByManufacturer(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          y: item.accessPointNumber,
+          z: 0,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions = {
+        chart: {
+          type: 'variablepie',
+          height: 200,
+        },
+        plotOptions: {
+          variablepie: {
+            size: 90,
+          },
+        },
+        title: {
+          text: '',
+        },
+        tooltip: {
+          headerFormat: '',
+          pointFormat:
+            '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
+            'Nombre de lignes: <b>{point.z}</b><br/>',
+        },
+        series: [
+          {
+            innerSize: '70%',
+            zMin: 0,
+            name: 'Zone',
+            data: formatedData,
+          },
+        ],
+      };
+    },
+    async refreshDataTechnoRepartition(partnerIds) {
+      const data = await lineDistributionByTechno(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          y: item.accessPointNumber,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions2 = {
+        chart: {
+          type: 'bar',
+          height: 200,
+        },
+        title: {
+          text: '',
+        },
+        subtitle: {
+          text: '',
+        },
+        xAxis: {
+          type: 'category',
+          labels: {
+            style: {
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: '',
+          },
+        },
+        legend: {
+          enabled: false,
+        },
+        tooltip: {
+          pointFormat: '<b>{point.y:.1f}</b>',
+        },
+        series: [
+          {
+            name: 'Population',
+            data: formatedData,
+          },
+        ],
+      };
+    },
+    async refreshDataTop5References(partnerIds) {
+      const data = await lineDistributionByDeviceReference(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          y: item.accessPointNumber,
+          z: 0,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions3 = {
+        chart: {
+          type: 'variablepie',
+          height: 200,
+        },
+        plotOptions: {
+          variablepie: {
+            size: 90,
+          },
+        },
+        title: {
+          text: '',
+        },
+        tooltip: {
+          headerFormat: '',
+          pointFormat:
+            '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
+            'Nombre de lignes: <b>{point.z}</b><br/>',
+        },
+        series: [
+          {
+            innerSize: '70%',
+            zMin: 0,
+            name: 'Zone',
+            data: formatedData,
+          },
+        ],
+      };
+    },
   },
   computed: {
     ...mapGetters(['userInfos', 'userIsBO']),
-    // canShowPartner() {
-    //   return !!(this.partner && this.partner.id);
-    // },
     canShowPartnerColumn() {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
     },

@@ -323,6 +323,7 @@
   "getdevice": {
     "title": "Gestion de mes équipements",
     "tooltip": "Cette page permet de gérer vos équipements.",
+    "partners": "Partenaires",
     "imeiRange": "Plage IMEI",
     "manufacturer": "Constructeur",
     "deviceReference": "Réf. Commerciale",
