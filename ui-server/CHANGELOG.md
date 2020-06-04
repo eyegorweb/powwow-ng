@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.846+20200604072043
+2020-06-04
+
+### Fixes
+
+- correction du paramètre partenaire de l'appel api devices (d329779786cc984494000fb7bd0806df4f2a2e6f)
+
 ## 0.3.0-master.845+20200604034755
 2020-06-04
 
