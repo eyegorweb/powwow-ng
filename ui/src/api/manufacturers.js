@@ -89,7 +89,7 @@ export function formatFilters(selectedFilters) {
 }
 
 function addPartnerFilter(gqlFilters, selectedFilters) {
-  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.filters.partners');
+  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.partners');
   if (partyIds) {
     gqlFilters.push(`partnerIds:[${partyIds}]`);
   }
