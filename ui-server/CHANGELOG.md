@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.847+20200604094326
+2020-06-04
+
+### Fixes
+
+- Affichage des partenaires de types CUSTOMER et MULTI_CUSTOMER dans le filtre de supervision (af78903167e9bcbfde8f7aee4ea5b0e7a9d1b0df)
+
 ## 0.3.0-master.846+20200604072043
 2020-06-04
 
