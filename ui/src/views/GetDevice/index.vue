@@ -9,7 +9,7 @@
         </h4>
       </div>
     </div>
-    <div class="mt-4 mb-4">
+    <div class="mt-4 bottom-space">
       <UiTabs :tabs="tabs" :selected-index="currentTab">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab
@@ -30,7 +30,7 @@
             :total="total"
             :order-by.sync="orderBy"
             @applyFilters="applyFilters"
-            :isLoading="isLoading"
+            :is-table-loading="isLoading"
           >
             <div slot="before-table">
               <div class="row">
