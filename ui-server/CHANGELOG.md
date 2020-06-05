@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.860+20200605142536
+2020-06-05
+
+### Fixes
+
+- correction de l'indicateur de chargement de la page getDevice (b2b4e5fd68c7bad408e4f0521bfa071e01871d40)
+
 ## 0.3.0-master.859+20200605122234
 2020-06-05
 
