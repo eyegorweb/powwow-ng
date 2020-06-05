@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.856+20200605092649
+## 0.3.0-master.856+20200605092205
 2020-06-05
 
 ### Features
 
 - Ajout d'une preselection de 3 mois pour le filtre de début (3304c267efd8fef8b2198d1e6b6a42ce07ebc973)
-- Ajout de la colonne de statut dans lexport des users (f65bd85dc3ee9b2ea7fef0c7b3443b20e95ecb43)
 
 ## 0.3.0-master.855+20200605084450
 2020-06-05
