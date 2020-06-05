@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.862+20200605152245
+2020-06-05
+
+### Fixes
+
+- Filtre Créateur de la demande (6510fa5b540bd86b6f6f21e2913cbd2985aa23aa)
+
 ## 0.3.0-master.861+20200605150625
 2020-06-05
 
