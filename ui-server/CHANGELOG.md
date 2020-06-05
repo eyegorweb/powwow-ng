@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.30.1
+2020-06-05
+
+### Fixes
+
+- correction de l'indicateur de chargement de la page getDevice (b2b4e5fd68c7bad408e4f0521bfa071e01871d40)
+- Correction de la séléction de partenaires dans la création de raports (f83060fb39aa2a0679857d96717dd64532d5545f)
+
 ## 0.30.0
 2020-06-05
 
