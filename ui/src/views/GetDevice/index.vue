@@ -30,6 +30,7 @@
             :total="total"
             :order-by.sync="orderBy"
             @applyFilters="applyFilters"
+            :isLoading="isLoading"
           >
             <div slot="before-table">
               <div class="row">
