@@ -191,6 +191,7 @@ export default {
         } else if (name) {
           return name.name;
         }
+        return '';
       }
     },
   },

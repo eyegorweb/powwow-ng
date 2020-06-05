@@ -1,5 +1,6 @@
 import { query } from './utils';
 
+// TODO: Refact : utiliser la fonction fetchSupervisionGraphData
 export async function supervisionDataGraph(partyIds) {
   const queryStr = `
   query {
@@ -438,5 +439,81 @@ async function geoMap(filters) {
 
   if (response.data) {
     return response.data.geoMap;
+  }
+}
+
+export async function fetchSupervisionGraphData(filters) {
+  const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
+      supervisionDataGraph(
+        supervisionType: $supervisionType,
+        params: $params,
+        beginDate: $beginDate,
+        endDate: $endDate
+      ) {
+        date
+        upload
+        download
+        numberRequests
+        numberTraffSims
+        numberRequestsOpening
+      }
+    }`;
+
+  const response = await query(queryStr, filters);
+
+  if (response.data) {
+    return response.data.supervisionDataGraph;
+  }
+}
+
+export async function fetchSupervisionGraphSMS(filters) {
+  const queryStr = `query SupervisionSmsGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
+      supervisionSmsGraph(
+        supervisionType: $supervisionType,
+        params: $params,
+        beginDate: $beginDate,
+        endDate: $endDate
+      ) {
+        date
+        numberOfSentSMS
+        numberOfReceivedSMS
+        numberOfTraffSims
+      }
+    }`;
+
+  const response = await query(queryStr, filters);
+
+  if (response.data) {
+    return response.data.supervisionSmsGraph;
+  }
+}
+
+export async function fetchSupervisionGraphVoice(filters) {
+  const queryStr = `query SupervisionVoiceGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
+    $beginDate: Date,
+    $endDate: Date){
+      supervisionVoiceGraph(
+        supervisionType: $supervisionType,
+        params: $params,
+        beginDate: $beginDate,
+        endDate: $endDate
+      ) {
+        date
+        volumeIn
+        volumeOut
+        numberCallsIn
+        numberCallsOut
+        numberTraffSims
+      }
+    }`;
+
+  const response = await query(queryStr, filters);
+
+  if (response.data) {
+    return response.data.supervisionVoiceGraph;
   }
 }
