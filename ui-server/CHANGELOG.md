@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.30.0
+2020-06-05
+
+### Features
+
+- mise à jour des apis devices (292861f32a43441a4ef070cab1c23ad48f97c809)
+
 ## 0.29.0
 2020-06-05
 
