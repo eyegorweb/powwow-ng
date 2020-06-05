@@ -414,8 +414,9 @@ export default {
         pagination: { page: 0, limit: 30 },
         filters: [],
       };
-
+      this.isLoading = true;
       const data = await getDevices(undefined, pagination, filters);
+      this.isLoading = false;
       this.total = data.total;
       this.rows = data.items;
       this.currentAppliedFilters = filters;
