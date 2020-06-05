@@ -159,7 +159,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -288,7 +288,7 @@ export default {
         title: 'filters.zone',
         component: LocalisationFilter,
         onChange(chosenValue) {
-          const zone = chosenValue.zone.world ? 'Monde' : 'France';
+          const zone = chosenValue.zone.label;
           const country = chosenValue.country ? chosenValue.country.label : undefined;
           const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
 
