@@ -275,10 +275,11 @@ export async function fetchAccountDetail(id) {
   return response.data.partys.items[0];
 }
 
-export async function fetchCustomerAccounts(id) {
+export async function fetchCustomerAccounts(id, orderBy) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 10, page: 0}) {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 10, page: 0} ${orderingInfo})  {
       total
       items {
         id
