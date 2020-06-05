@@ -44,7 +44,11 @@ export const getters = {
     }
     return undefined;
   },
+  userPartyGroup: state => {
+    return state.userInfos && state.userInfos.partyGroup;
+  },
   userIsBO: state => {
+    console.log(state.userInfos);
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
   },
   userIsGroupAccount: state => {

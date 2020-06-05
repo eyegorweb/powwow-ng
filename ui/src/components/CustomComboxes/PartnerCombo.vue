@@ -41,7 +41,7 @@ export default {
       const data = await fetchpartners('', {
         page: 0,
         limit: 999,
-        partnerTypes: this.partyTypes || [this.contextPartnersType],
+        partnerTypes: this.partnerTypesParam,
         includeMailingLists: this.includeMailingLists,
       });
       this.offlineItems = data.map(p => ({
@@ -54,6 +54,17 @@ export default {
   computed: {
     ...mapState('userContext', [' contextPartnersType', 'contextPartners']),
 
+    partnerTypesParam() {
+      let partnerTypesParam = [];
+
+      if (this.partyTypes) {
+        partnerTypesParam = this.partyTypes;
+      } else if (this.contextPartnersType) {
+        partnerTypesParam = [this.contextPartnersType];
+      }
+
+      return partnerTypesParam;
+    },
     localItems() {
       if (this.contextPartners && this.contextPartners.length) {
         return this.contextPartners;
@@ -94,7 +105,7 @@ export default {
       const data = await fetchpartners(q, {
         page,
         limit: 10,
-        partnerTypes: this.partyTypes || [this.contextPartnersType],
+        partnerTypes: this.partnerTypesParam,
         includeMailingLists: this.includeMailingLists,
       });
       return data.map(p => ({
