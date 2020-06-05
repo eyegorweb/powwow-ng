@@ -27,8 +27,9 @@
               <slot name="topRight"></slot>
             </div>
           </div>
-
+          <TableSkeleton v-if="isTableLoading" :columns="columns" :size="10" />
           <ResultDataTable
+            v-else
             :columns="columns"
             :rows="rows"
             :total="total"
@@ -61,12 +62,14 @@
 import FilterBar from './FilterBar';
 import ResultDataTable from './ResultDataTable';
 import TableWithFilterSkeleton from './TableWithFilterSkeleton';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
 
 export default {
   components: {
     FilterBar,
     ResultDataTable,
     TableWithFilterSkeleton,
+    TableSkeleton,
   },
 
   props: {
@@ -76,6 +79,7 @@ export default {
     total: Number,
     orderBy: Object,
     isLoading: Boolean,
+    isTableLoading: Boolean,
     noPagination: Boolean,
     size: {
       type: Number,

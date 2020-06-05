@@ -1,38 +1,51 @@
 <template>
   <div>
-    <ZonePart v-model="zone" />
+    <div class="mb-3">
+      <h6>Zone</h6>
+      <UiSelect class="text-gray" block v-model="zone" :options="zones" />
+    </div>
 
-    <CountriesPart v-if="zone.world" v-model="country" />
-
-    <UiInput v-if="zone.france" v-model="zipCode" placeholder="Code postale" />
+    <template v-if="zone == 'world'">
+      <h6>Pays</h6>
+      <CountriesPart v-if="zone == 'world'" v-model="country" />
+    </template>
+    <template v-if="zone == 'france'">
+      <h6>Code postale</h6>
+      <UiInput v-model="zipCode" placeholder="Code postale" />
+    </template>
   </div>
 </template>
 
 <script>
-import ZonePart from './ZonePart';
 import CountriesPart from './CountriesPart';
 import UiInput from '@/components/ui/UiInput';
+import UiSelect from '@/components/ui/UiSelect';
 
 export default {
   components: {
-    ZonePart,
     CountriesPart,
     UiInput,
+    UiSelect,
   },
   props: {
     selectedData: Object,
   },
+  data() {
+    return {
+      zones: [{ label: 'Monde', value: 'world' }, { label: 'France', value: 'france' }],
+    };
+  },
   computed: {
     zone: {
       get() {
-        if (!this.selectedData) return { world: true, france: false };
-        return this.selectedData.data.zone;
+        if (!this.selectedData) return;
+        return this.selectedData.data.zone.value;
       },
-      set(zone) {
+      set(value) {
         this.$emit('change', {
-          zone,
-          country: zone.world ? this.country : undefined,
-          zipCode: zone.france ? this.zipCode : undefined,
+          zone: this.zones.find(z => z.value === value),
+          country: value === 'world' ? this.country : undefined,
+          zipCode: value === 'france' ? this.zipCode : undefined,
         });
       },
     },
@@ -44,7 +57,7 @@ export default {
       },
       set(country) {
         this.$emit('change', {
-          zone: this.zone,
+          zone: this.zones.find(z => z.value === this.zone),
           country,
           zipCode: this.zipCode,
         });
@@ -58,7 +71,7 @@ export default {
       },
       set(zipCode) {
         this.$emit('change', {
-          zone: this.zone,
+          zone: this.zones.find(z => z.value === this.zone),
           country: this.country,
           zipCode,
         });
