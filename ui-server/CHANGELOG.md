@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.857+20200605115305
+2020-06-05
+
+### Features
+
+- mise à jour des apis devices (292861f32a43441a4ef070cab1c23ad48f97c809)
+
 ## 0.3.0-master.856+20200605092205
 2020-06-05
 
