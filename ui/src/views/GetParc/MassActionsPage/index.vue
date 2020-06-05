@@ -52,7 +52,12 @@ export default {
   },
   methods: {
     ...mapActions('actHistory', ['initFilterForContext']),
-    ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters', 'setRouteParamsFilters']),
+    ...mapMutations('actHistory', [
+      'setCurrentFilters',
+      'applyFilters',
+      'setRouteParamsFilters',
+      'setActDateStartFilter',
+    ]),
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
       if (this.prevRoute === 'actDetail') return;
@@ -83,6 +88,16 @@ export default {
           ]);
           this.applyFilters();
         }, 500);
+      } else {
+        setTimeout(() => {
+          this.setActDateStartFilter({
+            startDate: moment()
+              .subtract(3, 'month')
+              .format('DD/MM/YYYY'),
+            endDate: moment().format('DD/MM/YYYY'),
+          });
+          this.applyFilters();
+        });
       }
     },
   },
