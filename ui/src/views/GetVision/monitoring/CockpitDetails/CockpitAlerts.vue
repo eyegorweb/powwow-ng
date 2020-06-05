@@ -88,7 +88,7 @@ export default {
   methods: {
     fetchDataFn() {
       return async pageInfo => {
-        const sorting = {};
+        const sorting = { partnerName: 'DESC' };
         const filters = {};
 
         if (this.appliedFilters) {
@@ -100,7 +100,7 @@ export default {
           }
         }
 
-        const data = await fetchSupervisionAlerts(filters, pageInfo, { partnerName: 'DESC' });
+        const data = await fetchSupervisionAlerts(filters, pageInfo, sorting);
         if (!data) return { rows: [], total: 0 };
         return {
           rows: data.items,

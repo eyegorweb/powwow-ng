@@ -15,7 +15,15 @@
         <CockpitAlerts :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
       <div class="pt-4 pl-4" slot="graphs">
-        Graphs
+        <h5>Data</h5>
+        <CockpitGraphs :marker-data="markerData" :applied-filters="appliedFilters" />
+
+        <h5>SMS</h5>
+        <CockpitSmsGraph :marker-data="markerData" :applied-filters="appliedFilters" />
+
+        <h5>Voix</h5>
+
+        <CockpitVoiceGraph :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
     </UiTabs>
   </div>
@@ -25,12 +33,18 @@
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import CockpitAlerts from './CockpitAlerts';
+import CockpitGraphs from './CockpitGraphs';
+import CockpitSmsGraph from './CockpitSmsGraph';
+import CockpitVoiceGraph from './CockpitVoiceGraph';
 
 export default {
   components: {
     UiTabs,
     UiTab,
     CockpitAlerts,
+    CockpitGraphs,
+    CockpitSmsGraph,
+    CockpitVoiceGraph,
   },
   props: {
     markerData: Object,
@@ -44,12 +58,10 @@ export default {
           label: 'alerts',
           title: 'Alertes',
         },
-        /*
         {
           label: 'graphs',
           title: 'Graphiques',
         },
-        //*/
       ],
     };
   },

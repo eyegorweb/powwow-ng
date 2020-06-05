@@ -358,6 +358,13 @@
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
 
+    "supervisionTypes": {
+      "INTRA_DAY": "6h",
+      "INTRADAY_CUMUL": "Cumulé 6h",
+      "DAY": "Jour",
+      "MONTH": "Mois"
+    },
+
     "detail-panel": {
       "stepper": {
         "created": "Créée"
