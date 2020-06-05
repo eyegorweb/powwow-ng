@@ -2,6 +2,25 @@
 
 <!--- next entry here -->
 
+## 0.29.0
+2020-06-05
+
+### Features
+
+- monitoring graphs (b382ffb55363023795c200685369f8f1068a5c16)
+- Ajout d'une preselection de 3 mois pour le filtre de début (3304c267efd8fef8b2198d1e6b6a42ce07ebc973)
+- Ajout de la colonne de statut dans lexport des users (f65bd85dc3ee9b2ea7fef0c7b3443b20e95ecb43)
+
+### Fixes
+
+- **devices:** amélioration du chargement des composants graphes (50cd353424e25701b28024b7fa1f36d5b1cac7f2)
+- correction du paramètre partenaire de l'appel api devices (d329779786cc984494000fb7bd0806df4f2a2e6f)
+- Affichage des partenaires de types CUSTOMER et MULTI_CUSTOMER dans le filtre de supervision (af78903167e9bcbfde8f7aee4ea5b0e7a9d1b0df)
+- Multi-check sur les code et noms des pays dans les inputs du detail de partenaire (dd69c0b83666d2872f618dd09cbd8b9a8f27839d)
+- réactivité des graphes (697457fe67f955685d70786de0e77bf0c0f09c5d)
+- traduction du titre du graphe TOP5 Référnces Commerciales (89f0b969242d02c79b13511ec270cffbbe4b2f3f)
+- ne pas définir l'orderBy (e0da6133fb886e2a1bc2b3321fb9ee165d213e8e)
+
 ## 0.28.0
 2020-06-03
 
