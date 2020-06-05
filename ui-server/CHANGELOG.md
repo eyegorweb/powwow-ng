@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.861+20200605150625
+2020-06-05
+
+### Fixes
+
+- Correction de la séléction de partenaires dans la création de raports (f83060fb39aa2a0679857d96717dd64532d5545f)
+
 ## 0.3.0-master.860+20200605142536
 2020-06-05
 
