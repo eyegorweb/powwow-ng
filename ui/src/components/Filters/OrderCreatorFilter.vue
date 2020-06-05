@@ -9,7 +9,7 @@
 
 <script>
 import AutoCompleteByPartnerContext from '@/components/AutoCompleteByPartnerContext';
-import { fetchUsers } from '@/api/users';
+import { searchUsers } from '@/api/users';
 
 export default {
   components: {
@@ -26,10 +26,11 @@ export default {
       this.$emit('setOrderCreatorFilter', creators);
     },
 
-    async fetchApi(q, partners, partnerType, { page, limit }) {
-      const data = await fetchUsers(q, partners, { page, limit, partnerType });
+    async fetchApi(q, forPartners, contextPartnersType, pagination) {
+      const orderBy = { key: 'id', direction: 'ASC' };
+      const data = await searchUsers(orderBy, pagination, []);
       if (data) {
-        return data.map(p => {
+        return data.items.map(p => {
           const formattedUser = {
             id: p.id,
             label: `${p.name.firstName || ''} ${p.name.lastName || ''}`,
