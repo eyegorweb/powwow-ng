@@ -6,6 +6,7 @@ export async function lineDistributionByManufacturer(partnerIds = []) {
   )}]) {
     label
     accessPointNumber
+    percentage
   }
   }
   `;
@@ -20,6 +21,7 @@ export async function lineDistributionByDeviceReference(partnerIds = []) {
   )}]) {
     label
     accessPointNumber
+    percentage
   }
   }
   `;
@@ -32,6 +34,7 @@ export async function lineDistributionByTechno(partnerIds = []) {
   const queryStr = `query {lineDistributionByTechno(initialPartyIds:[${partnerIds.join(',')}]) {
     label
     accessPointNumber
+    percentage
   }
   }
   `;
