@@ -30,8 +30,8 @@ export default {
     includeMailingLists: Boolean,
     offline: Boolean,
     disabled: Boolean,
-    partyType: {
-      type: String,
+    partyTypes: {
+      type: Array,
       required: false,
     },
   },
@@ -41,7 +41,7 @@ export default {
       const data = await fetchpartners('', {
         page: 0,
         limit: 999,
-        partnerType: this.partyType || this.contextPartnersType,
+        partnerTypes: this.partyTypes || [this.contextPartnersType],
         includeMailingLists: this.includeMailingLists,
       });
       this.offlineItems = data.map(p => ({
@@ -94,7 +94,7 @@ export default {
       const data = await fetchpartners(q, {
         page,
         limit: 10,
-        partnerType: this.contextPartnersType,
+        partnerTypes: this.partyTypes || [this.contextPartnersType],
         includeMailingLists: this.includeMailingLists,
       });
       return data.map(p => ({

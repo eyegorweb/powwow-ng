@@ -25,20 +25,15 @@
           <div class="accountdetail-generalInfos-input-img"></div>
           <div class="accountdetail-generalInfos-input-txt">
             <div class="accountdetail-generalInfos-input-txt-flexHalf">
-              <FormControl big label="getadmin.partnerDetail.code" v-model="form.code" />
-              <FormControl big label="getadmin.partnerDetail.bscs" v-model="form.bscs" />
+              <FormControl label="getadmin.partnerDetail.code" v-model="form.code" />
+              <FormControl label="getadmin.partnerDetail.bscs" v-model="form.bscs" />
             </div>
             <div class="accountdetail-generalInfos-input-txt-flexHalf">
-              <FormControl
-                big
-                label="getadmin.partnerDetail.preActOffer"
-                v-model="form.preActOffer"
-              />
-              <FormControl big label="getadmin.partnerDetail.preActGDM" v-model="form.preActGDM" />
+              <FormControl label="getadmin.partnerDetail.preActOffer" v-model="form.preActOffer" />
+              <FormControl label="getadmin.partnerDetail.preActGDM" v-model="form.preActGDM" />
             </div>
-            <FormControl big label="getadmin.partnerDetail.workflow" v-model="form.workflow" />
+            <FormControl label="getadmin.partnerDetail.workflow" v-model="form.workflow" />
             <FormControl
-              big
               label="getadmin.partnerDetail.portabilityCode"
               v-model="form.portabilityCode"
             />
@@ -57,11 +52,11 @@
           <input type="file" name="changeLogotype" id="changeLogotype" />-->
         </div>
         <div class="accountdetail-legalInfos-txt">
-          <FormControl big label="getadmin.partnerDetail.partnerName" v-model="form.partnerName" />
-          <FormControl big label="getadmin.partnerDetail.siren" v-model="form.siren" />
+          <FormControl label="getadmin.partnerDetail.partnerName" v-model="form.partnerName" />
+          <FormControl label="getadmin.partnerDetail.siren" v-model="form.siren" />
           <div class="accountdetail-legalInfos-txt-flex">
-            <FormControl big label="getadmin.partnerDetail.naf" v-model="form.naf" />
-            <FormControl big label="getadmin.partnerDetail.tva" v-model="form.tva" />
+            <FormControl label="getadmin.partnerDetail.naf" v-model="form.naf" />
+            <FormControl label="getadmin.partnerDetail.tva" v-model="form.tva" />
           </div>
         </div>
       </div>
@@ -73,7 +68,6 @@
         <div class="accountdetail-legalInfos-img"></div>
         <div class="accountdetail-legalInfos-txt">
           <FormControl
-            big
             label="getadmin.partnerDetail.contractReference"
             v-model="form.contractReference"
           />
@@ -104,18 +98,12 @@
               </UiDate>
             </div>
           </div>
+          <FormControl label="getadmin.partnerDetail.salesEngineer" v-model="form.salesEngineer" />
           <FormControl
-            big
-            label="getadmin.partnerDetail.salesEngineer"
-            v-model="form.salesEngineer"
-          />
-          <FormControl
-            big
             label="getadmin.partnerDetail.commercialName"
             v-model="form.commercialName"
           />
           <FormControl
-            big
             label="getadmin.partnerDetail.commercialEmail"
             v-model="form.commercialEmail"
           />
@@ -129,17 +117,17 @@
         <div class="accountdetail-contact-img"></div>
         <div class="accountdetail-contact-txt">
           <div class="accountdetail-contact-txt-flexHalf">
-            <FormControl big label="getadmin.partnerDetail.tel" v-model="form.phone" />
-            <FormControl big label="getadmin.partnerDetail.fax" v-model="form.fax" />
+            <FormControl label="getadmin.partnerDetail.tel" v-model="form.phone" />
+            <FormControl label="getadmin.partnerDetail.fax" v-model="form.fax" />
           </div>
-          <FormControl big label="getadmin.partnerDetail.address" v-model="form.address" />
-          <FormControl big label="getadmin.partnerDetail.address2" v-model="form.address2" />
+          <FormControl label="getadmin.partnerDetail.address" v-model="form.address" />
+          <FormControl label="getadmin.partnerDetail.address2" v-model="form.address2" />
           <div class="accountdetail-contact-txt-flex">
-            <FormControl big label="getadmin.partnerDetail.zipCode" v-model="form.zipCode" />
-            <FormControl big label="getadmin.partnerDetail.city" v-model="form.city" />
+            <FormControl label="getadmin.partnerDetail.zipCode" v-model="form.zipCode" />
+            <FormControl label="getadmin.partnerDetail.city" v-model="form.city" />
           </div>
           <div class="accountdetail-contact-txt-flex">
-            <FormControl big label="getadmin.partnerDetail.state" v-model="form.state" />
+            <FormControl label="getadmin.partnerDetail.state" v-model="form.state" />
             <div>
               <label>{{ $t('getadmin.partnerDetail.country') }}</label>
               <UiApiAutocomplete
@@ -149,7 +137,9 @@
               />
             </div>
           </div>
-          <Button :variant="'primary'" @click="save">{{ $t('getadmin.partnerDetail.update') }}</Button>
+          <Button :variant="'primary'" @click="save">{{
+            $t('getadmin.partnerDetail.update')
+          }}</Button>
         </div>
       </div>
     </div>
@@ -214,6 +204,22 @@ export default {
     };
   },
 
+  computed: {
+    checkCountry() {
+      if (this.accountDetail.address.country === 'null' || !this.accountDetail.address.country) {
+        return '';
+      } else {
+        const code = this.countries.find(c => c.code === this.accountDetail.address.country);
+        const name = this.countries.find(c => c.name === this.accountDetail.address.country);
+        if (code) {
+          return code.name;
+        } else if (name) {
+          return name.name;
+        }
+        return '';
+      }
+    },
+  },
   async mounted() {
     this.accountDetail = await fetchAccountDetail(this.partner.id);
     this.partnerDetail = await fetchPartyDetail(this.partner.id);
@@ -246,9 +252,7 @@ export default {
       this.form.city = this.accountDetail.address.city;
       this.form.zipCode = this.accountDetail.address.zipCode;
       this.form.state = this.accountDetail.address.state;
-      this.form.country = this.countries.find(
-        c => c.code === this.accountDetail.address.country
-      ).name;
+      this.form.country = this.checkCountry;
       this.form.contractDate = this.partnerDetail.party.contractDate;
       this.form.contractExpiration = this.partnerDetail.party.contractExpiration;
     }
@@ -414,8 +418,11 @@ export default {
 
         .form-group {
           &:first-child {
-            width: 35%;
+            width: 40%;
             margin-right: 15px;
+          }
+          &:last-child {
+            width: 60%;
           }
         }
       }
@@ -425,6 +432,8 @@ export default {
         justify-content: space-between;
 
         .form-group {
+          width: 50%;
+
           &:first-child {
             margin-right: 15px;
           }
@@ -441,7 +450,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .accountdetail-legalInfos,
 .accountdetail-contact {
   h4 {
@@ -459,9 +468,7 @@ export default {
 
 .position-relative {
   input {
-    width: 17.5rem;
-    height: 3rem;
-    font-size: 1.5rem;
+    width: 16rem;
   }
 }
 </style>

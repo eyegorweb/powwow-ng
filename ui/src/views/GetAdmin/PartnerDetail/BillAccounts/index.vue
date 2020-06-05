@@ -54,9 +54,9 @@
                   </div>
                 </div>
               </div>
-              <Button :variant="'primary'" @click="save">{{
-                $t('getadmin.partnerDetail.update')
-              }}</Button>
+              <Button :variant="'primary'" @click="save">
+                {{ $t('getadmin.partnerDetail.update') }}
+              </Button>
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default {
               this.form.zipCode = this.account[0].address.zipCode;
               this.form.city = this.account[0].address.city;
               this.form.state = this.account[0].address.state;
-              this.form.country = this.account[0].address.country;
+              this.form.country = this.checkCountry;
               this.showDetail = true;
             },
           },
@@ -179,7 +179,22 @@ export default {
       },
     };
   },
-
+  computed: {
+    checkCountry() {
+      if (this.account[0].address.country === 'null' || !this.account[0].address.country) {
+        return '';
+      } else {
+        const code = this.countries.find(c => c.code === this.account[0].address.country);
+        const name = this.countries.find(c => c.name === this.account[0].address.country);
+        if (code) {
+          return code.name;
+        } else if (name) {
+          return name.name;
+        }
+        return '';
+      }
+    },
+  },
   methods: {
     ...mapMutations(['flashMessage']),
 
@@ -194,7 +209,7 @@ export default {
         zipCode: this.form.zipCode,
         city: this.form.city,
         state: this.form.state,
-        country: this.form.country,
+        country: this.countries.find(c => c.name === this.form.country).code || '',
       };
 
       let response;

@@ -38,7 +38,10 @@
       <div :key="'content_' + currentUsage" class="mt-3 mb-3">
         <template v-if="cockpitMarkerToDetail">
           <div>
-            <CockpitDetails :markerData="cockpitMarkerToDetail" :applied-filters="appliedFilters" />
+            <CockpitDetails
+              :marker-data="cockpitMarkerToDetail"
+              :applied-filters="appliedFilters"
+            />
           </div>
         </template>
         <template v-else>
@@ -82,6 +85,8 @@ import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js'
 
 import { mapGetters } from 'vuex';
 
+import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
+
 export default {
   components: {
     FilterBar,
@@ -90,13 +95,13 @@ export default {
     MonitoringIndicators,
     SupervisionMap,
     SupervisionTable,
-    CockpitDetails
+    CockpitDetails,
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
     canFilter() {
       return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
-    }
+    },
   },
   data() {
     return {
@@ -107,7 +112,7 @@ export default {
       refreshLinesFn: undefined,
       indicatorTotal: undefined,
       canShowIndicators: false,
-      cockpitMarkerToDetail: undefined
+      cockpitMarkerToDetail: undefined,
     };
   },
 
@@ -345,7 +350,9 @@ export default {
     },
 
     onCockpitClick(payload) {
-      this.cockpitMarkerToDetail = payload;
+      if (!shouldFilterMocked()) {
+        this.cockpitMarkerToDetail = payload;
+      }
     },
   },
 };

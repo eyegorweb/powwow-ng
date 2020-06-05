@@ -9,9 +9,12 @@
         </h4>
       </div>
       <div class="col-md-3">
-        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
-          {{ $t('getadmin.users.addUser') }}
-        </UiButton>
+        <UiButton
+          variant="accent"
+          block
+          class="float-right"
+          @click="createUserPanel()"
+        >{{ $t('getadmin.users.addUser') }}</UiButton>
       </div>
     </div>
     <TableWithFilter
@@ -322,7 +325,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportUsers(
-          ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES'],
+          ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES', 'STATUT'],
           this.orderBy,
           exportFormat,
           this.currentAppliedFilters

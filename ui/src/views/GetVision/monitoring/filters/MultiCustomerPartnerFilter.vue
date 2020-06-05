@@ -1,5 +1,9 @@
 <template>
-  <PartnerCombo :value.sync="selectedPartner" party-type="MULTI_CUSTOMER" offline />
+  <PartnerCombo
+    :value.sync="selectedPartner"
+    :party-types="['MULTI_CUSTOMER', 'CUSTOMER']"
+    offline
+  />
 </template>
 
 <script>

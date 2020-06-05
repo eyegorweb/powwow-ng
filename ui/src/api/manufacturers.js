@@ -79,23 +79,31 @@ export async function getDevices(orderBy, pagination, filters = []) {
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
-  addRangeFilter(gqlFilters, selectedFilters, 'imei', 'getDevice.imeiRange');
+  addRangeFilter(gqlFilters, selectedFilters, 'imei', 'getdevice.imeiRange');
   addManufacturerFilter(gqlFilters, selectedFilters);
   addDeviceReferenceFilter(gqlFilters, selectedFilters);
   addIdsFilter(gqlFilters, selectedFilters);
+  addPartnerFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
 
+function addPartnerFilter(gqlFilters, selectedFilters) {
+  const partyIds = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.partners');
+  if (partyIds) {
+    gqlFilters.push(`partnerIds:[${partyIds}]`);
+  }
+}
+
 function addManufacturerFilter(gqlFilters, selectedFilters) {
-  const manufacturers = getValuesIdsWithoutQuotes(selectedFilters, 'getDevice.manufacturer');
+  const manufacturers = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.manufacturer');
 
   if (manufacturers) {
     gqlFilters.push(`manufacturer: {in: ["${manufacturers}"]}`);
   }
 }
 function addDeviceReferenceFilter(gqlFilters, selectedFilters) {
-  const deviceReferences = getValuesIdsWithoutQuotes(selectedFilters, 'getDevice.deviceReference');
+  const deviceReferences = getValuesIdsWithoutQuotes(selectedFilters, 'getdevice.deviceReference');
 
   if (deviceReferences) {
     gqlFilters.push(`deviceReference: {in: ["${deviceReferences}"]}`);

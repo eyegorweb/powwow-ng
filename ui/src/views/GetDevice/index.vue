@@ -4,8 +4,8 @@
       <div class="col-md-9">
         <h4>
           <b>GetDevice</b>
-          - {{ $t('getDevice.title') }}
-          <Tooltip direction="right">{{ $t('getDevice.tooltip') }}</Tooltip>
+          - {{ $t('getdevice.title') }}
+          <Tooltip direction="right">{{ $t('getdevice.tooltip') }}</Tooltip>
         </h4>
       </div>
     </div>
@@ -34,13 +34,22 @@
             <div slot="before-table">
               <div class="row">
                 <div class="col-4">
-                  <Top5Manufacturer :partner="appliedPartner" />
+                  <Top5Manufacturer
+                    :refresh-data="refreshDataTop5Manufacturers"
+                    :chart-options="chartOptions"
+                  />
                 </div>
                 <div class="col-4">
-                  <TechnologyRepartitionGraph :partner="appliedPartner" />
+                  <TechnologyRepartitionGraph
+                    :refresh-data="refreshDataTechnoRepartition"
+                    :chart-options="chartOptions2"
+                  />
                 </div>
                 <div class="col-4">
-                  <Top5References :partner="appliedPartner" />
+                  <Top5References
+                    :refresh-data="refreshDataTop5References"
+                    :chart-options="chartOptions3"
+                  />
                 </div>
               </div>
             </div>
@@ -86,7 +95,12 @@ import Top5Manufacturer from './Top5Manufacturer';
 import TechnologyRepartitionGraph from './TechnologyRepartitionGraph';
 import Top5References from './Top5References';
 import deviceIndicators from './deviceIndicators';
-import { getDevices, exportDevices } from '@/api/manufacturers.js';
+import { getDevices, exportDevices } from '@/api/manufacturers';
+import {
+  lineDistributionByManufacturer,
+  lineDistributionByTechno,
+  lineDistributionByDeviceReference,
+} from '@/api/deviceGraph';
 import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
@@ -109,34 +123,33 @@ export default {
       tabs: [
         {
           label: 'inventory',
-          title: this.$t('getDevice.tab-1-inventory'),
+          title: this.$t('getdevice.tab-1-inventory'),
         },
         {
           label: 'boxes',
-          title: this.$t('getDevice.tab-2-boxes'),
+          title: this.$t('getdevice.tab-2-boxes'),
           disable: true,
         },
         {
           label: 'conso-energy',
-          title: this.$t('getDevice.tab-3-conso-energy'),
+          title: this.$t('getdevice.tab-3-conso-energy'),
           disable: true,
         },
         {
           label: 'google-device',
-          title: this.$t('getDevice.tab-4-google-device'),
+          title: this.$t('getdevice.tab-4-google-device'),
           disable: true,
         },
       ],
       currentTab: 0,
       searchByIdValue: undefined,
-      appliedPartner: undefined,
       indicators: deviceIndicators,
-      columns: undefined,
-      commonColumns: [
+      columns: [
         {
           id: 1,
           label: 'IMEI',
           name: 'imei',
+          exportId: 'IMEI',
           orderable: true,
           visible: true,
           noHandle: true,
@@ -151,6 +164,7 @@ export default {
           id: 2,
           label: 'Fabricant (IMEI)',
           name: 'manufacturer',
+          exportId: 'MANUFACTURER',
           orderable: true,
           visible: true,
           format: {
@@ -164,6 +178,7 @@ export default {
           id: 3,
           label: 'Modèle (IMEI)',
           name: 'deviceReference',
+          exportId: 'DEVICE_REFERENCE',
           orderable: true,
           visible: true,
           format: {
@@ -177,6 +192,7 @@ export default {
           id: 4,
           label: 'TAC',
           name: 'tac',
+          exportId: 'TAC',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
           format: {
@@ -190,6 +206,7 @@ export default {
           id: 5,
           label: 'Fréquence',
           name: 'bands',
+          exportId: 'BANDS',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: true,
           format: {
@@ -203,6 +220,7 @@ export default {
           id: 6,
           label: 'ICCID',
           name: 'iccid',
+          exportId: 'ICCID',
           orderable: true,
           visible: true,
           format: {
@@ -213,9 +231,27 @@ export default {
           },
         },
         {
+          id: 7,
+          label: 'Partenaire',
+          name: 'partyName',
+          exportId: 'PARTY',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'party.name');
+            },
+          },
+          visibleWhen: () => {
+            return this.canShowPartnerColumn;
+          },
+        },
+        {
           id: 8,
           label: 'MSISDN',
           name: 'msisdn',
+          exportId: 'MSISDN',
           orderable: true,
           visible: false,
           format: {
@@ -229,6 +265,7 @@ export default {
           id: 9,
           label: 'IMSI',
           name: 'imsi',
+          exportId: 'IMSI',
           orderable: true,
           visible: false,
           format: {
@@ -242,6 +279,7 @@ export default {
           id: 10,
           label: 'Statut de la ligne',
           name: 'status',
+          exportId: 'SIM_STATUS',
           orderable: false, // Not parametrable for ordering in the api devices
           visible: false,
           format: {
@@ -255,6 +293,7 @@ export default {
           id: 11,
           label: 'Date du statut',
           name: 'statusDate',
+          exportId: 'SIM_STATUS_DATE',
           orderable: true,
           visible: false,
           format: {
@@ -268,6 +307,7 @@ export default {
           id: 12,
           label: 'Offre',
           name: 'offer',
+          exportId: 'OFFER',
           orderable: true,
           visible: false,
           format: {
@@ -278,9 +318,27 @@ export default {
           },
         },
         {
+          id: 13,
+          label: 'Dernier pays (ancien PLMN)',
+          name: 'lastPLMN',
+          exportId: 'USAGE_LAST_COUNTRY',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'lastPLMN');
+            },
+          },
+          visibleWhen: () => {
+            return this.canShowPLMNColumn;
+          },
+        },
+        {
           id: 14,
           label: 'A-MSISDN',
           name: 'msisdnA',
+          exportId: 'AMSISDN',
           orderable: true,
           visible: false,
           format: {
@@ -293,42 +351,42 @@ export default {
       ],
       filters: [
         {
-          title: 'getadmin.users.filters.partners',
+          title: 'getdevice.partners',
           component: PartnerNameFilter,
           onChange(chosenValues) {
             return {
-              id: 'getadmin.users.filters.partners',
+              id: 'getdevice.partners',
               values: chosenValues,
             };
           },
         },
         {
-          title: 'getDevice.imeiRange',
+          title: 'getdevice.imeiRange',
           component: IMEIRange,
           onChange(values) {
             return {
-              id: 'getDevice.imeiRange',
+              id: 'getdevice.imeiRange',
               from: values.from,
               to: values.to,
             };
           },
         },
         {
-          title: 'getDevice.manufacturer',
+          title: 'getdevice.manufacturer',
           component: Manufacturer,
           onChange(values) {
             return {
-              id: 'getDevice.manufacturer',
+              id: 'getdevice.manufacturer',
               values,
             };
           },
         },
         {
-          title: 'getDevice.deviceReference',
+          title: 'getdevice.deviceReference',
           component: DeviceReference,
           onChange(values) {
             return {
-              id: 'getDevice.deviceReference',
+              id: 'getdevice.deviceReference',
               values,
             };
           },
@@ -342,47 +400,12 @@ export default {
       },
       currentAppliedFilters: [],
       isLoading: false,
+      chartOptions: undefined,
+      chartOptions2: undefined,
+      chartOptions3: undefined,
     };
   },
   mounted() {
-    const partnerColumn = [
-      {
-        id: 7,
-        label: 'Partenaire',
-        name: 'partyName',
-        orderable: true,
-        visible: false,
-        format: {
-          type: 'Getter',
-          getter: row => {
-            return get(row, 'party.name');
-          },
-        },
-      },
-    ];
-    const PLMNColumn = [
-      {
-        id: 13,
-        label: 'Dernier pays (ancien PLMN)',
-        name: 'lastPLMN',
-        orderable: true,
-        visible: false,
-        format: {
-          type: 'Getter',
-          getter: row => {
-            return get(row, 'lastPLMN');
-          },
-        },
-      },
-    ];
-    if (this.canShowPartnerColumn) {
-      this.columns = [...this.commonColumns, ...partnerColumn];
-    } else {
-      this.columns = [...this.commonColumns];
-    }
-    if (this.canShowPLMNColumn) {
-      this.columns = [...this.columns, ...PLMNColumn];
-    }
     this.applyFilters();
   },
   methods: {
@@ -392,16 +415,29 @@ export default {
         filters: [],
       };
 
-      const data = await getDevices(this.orderBy, pagination, filters);
+      const data = await getDevices(undefined, pagination, filters);
       this.total = data.total;
       this.rows = data.items;
       this.currentAppliedFilters = filters;
+      if (filters && !filters[0]) {
+        this.refreshDataTop5Manufacturers();
+        this.refreshDataTechnoRepartition();
+        this.refreshDataTop5References();
+      } else {
+        const partners = filters[0].values.map(p => ({
+          id: p.id,
+        }));
+        const selectedPartnerIds = partners.map(p => p.id);
+        this.refreshDataTop5Manufacturers(selectedPartnerIds);
+        this.refreshDataTechnoRepartition(selectedPartnerIds);
+        this.refreshDataTop5References(selectedPartnerIds);
+      }
     },
     async searchById(params) {
       this.searchByIdValue = params.value;
 
       this.isLoading = true;
-      const data = await getDevices(this.orderBy, { page: 0, limit: 10 }, [params]);
+      const data = await getDevices(undefined, { page: 0, limit: 10 }, [params]);
 
       this.isLoading = false;
 
@@ -411,22 +447,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportDevices(
-          [
-            'IMEI',
-            'MANUFACTURER',
-            'DEVICE_REFERENCE',
-            'TAC',
-            'BANDS',
-            'ICCID',
-            'PARTY',
-            'MSISDN',
-            'IMSI',
-            'OFFER',
-            'USAGE_LAST_COUNTRY',
-            'AMSISDN',
-            'SIM_STATUS',
-            'SIM_STATUS_DATE',
-          ],
+          columnsParam,
           this.orderBy,
           exportFormat,
           this.currentAppliedFilters
@@ -437,6 +458,139 @@ export default {
       return !!get(this.userInfos, 'permissions', []).find(
         p => p.domain === domain && p.action === action
       );
+    },
+    async refreshDataTop5Manufacturers(partnerIds) {
+      const data = await lineDistributionByManufacturer(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          z: item.accessPointNumber,
+          y: item.percentage,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions = {
+        chart: {
+          type: 'variablepie',
+          height: 200,
+        },
+        plotOptions: {
+          variablepie: {
+            size: 90,
+          },
+        },
+        title: {
+          text: '',
+        },
+        tooltip: {
+          headerFormat: '',
+          pointFormat:
+            '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
+            'Nombre de lignes: <b>{point.z}</b><br/>',
+        },
+        series: [
+          {
+            innerSize: '70%',
+            zMin: 0,
+            name: 'Zone',
+            data: formatedData,
+          },
+        ],
+      };
+    },
+    async refreshDataTechnoRepartition(partnerIds) {
+      const data = await lineDistributionByTechno(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          y: item.accessPointNumber,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions2 = {
+        chart: {
+          type: 'bar',
+          height: 200,
+        },
+        title: {
+          text: '',
+        },
+        subtitle: {
+          text: '',
+        },
+        xAxis: {
+          type: 'category',
+          labels: {
+            style: {
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif',
+            },
+          },
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: '',
+          },
+        },
+        legend: {
+          enabled: false,
+        },
+        tooltip: {
+          pointFormat: '<b>{point.y} lignes</b>',
+        },
+        series: [
+          {
+            name: 'Population',
+            data: formatedData,
+          },
+        ],
+      };
+    },
+    async refreshDataTop5References(partnerIds) {
+      const data = await lineDistributionByDeviceReference(partnerIds);
+
+      const formatedData = data.reduce((all, item) => {
+        all.push({
+          name: item.label,
+          z: item.accessPointNumber,
+          y: item.percentage,
+        });
+        return all;
+      }, []);
+
+      this.chartOptions3 = {
+        chart: {
+          type: 'variablepie',
+          height: 200,
+        },
+        plotOptions: {
+          variablepie: {
+            size: 90,
+          },
+        },
+        title: {
+          text: '',
+        },
+        tooltip: {
+          headerFormat: '',
+          pointFormat:
+            '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
+            'Nombre de lignes: <b>{point.z}</b><br/>',
+        },
+        series: [
+          {
+            innerSize: '70%',
+            zMin: 0,
+            name: 'Zone',
+            data: formatedData,
+          },
+        ],
+      };
     },
   },
   computed: {

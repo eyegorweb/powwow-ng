@@ -9,7 +9,7 @@
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
-import { fetchSupervisionAlerts } from '@/api/supervision.js'
+import { fetchSupervisionAlerts } from '@/api/supervision.js';
 import uuid from 'uuid/v1';
 
 export default {
@@ -37,7 +37,8 @@ export default {
           orderable: false,
           visible: true,
           name: 'endDate',
-        }, {
+        },
+        {
           id: uuid(),
           label: 'Compte',
           orderable: false,
@@ -81,24 +82,25 @@ export default {
         },
       ],
       orderBy: undefined,
-
-    }
+    };
   },
 
   methods: {
     fetchDataFn() {
-      return async (pageInfo) => {
-        const sorting = {};
+      return async pageInfo => {
+        const sorting = { partnerName: 'DESC' };
         const filters = {};
 
         if (this.appliedFilters) {
-          const partnerFilter = this.appliedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+          const partnerFilter = this.appliedFilters.find(
+            f => f.id === 'getadmin.users.filters.partners'
+          );
           if (partnerFilter) {
             filters.partnerId = partnerFilter.data.id;
           }
         }
 
-        const data = await fetchSupervisionAlerts(filters, pageInfo, { partnerName: 'DESC' });
+        const data = await fetchSupervisionAlerts(filters, pageInfo, sorting);
         if (!data) return { rows: [], total: 0 };
         return {
           rows: data.items,
@@ -107,9 +109,7 @@ export default {
       };
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
