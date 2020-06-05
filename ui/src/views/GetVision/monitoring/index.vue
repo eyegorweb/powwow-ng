@@ -85,6 +85,8 @@ import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js'
 
 import { mapGetters } from 'vuex';
 
+import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
+
 export default {
   components: {
     FilterBar,
@@ -157,7 +159,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -348,7 +350,9 @@ export default {
     },
 
     onCockpitClick(payload) {
-      this.cockpitMarkerToDetail = payload;
+      if (!shouldFilterMocked()) {
+        this.cockpitMarkerToDetail = payload;
+      }
     },
   },
 };
