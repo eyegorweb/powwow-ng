@@ -5,6 +5,7 @@
     v-model="selectedValue"
     :disabled="disabled"
     display-results-while-empty
+    :default-open="defaultOpen"
   />
 </template>
 
@@ -21,6 +22,7 @@ export default {
     value: Object,
     partners: Array,
     disabled: Boolean,
+    defaultOpen: Boolean,
   },
   data() {
     return {
