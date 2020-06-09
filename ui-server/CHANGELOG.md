@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.865+20200609123040
+2020-06-09
+
+### Fixes
+
+- correctifs sur l'écran getDevices (63a63d2b240eeecc36a4527f96933a4c3ab03acc)
+
 ## 0.3.0-master.864+20200609073410
 2020-06-09
 
