@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.867+20200609143102
+## 0.3.0-master.868+20200609143504
 2020-06-09
 
 ### Features
 
 - ajouter le bouton pour ré initialiser la recherche (9f1a2fab37e797f9e704da2c420249b93a4c3adc)
+
+### Fixes
+
+- corrections de la recherche des factures (706dd4eebaf2b9dc3a4e8370003a16ab23d56315)
 
 ## 0.3.0-master.866+20200609123112
 2020-06-09
