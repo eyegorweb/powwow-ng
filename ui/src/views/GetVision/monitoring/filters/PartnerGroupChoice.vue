@@ -1,6 +1,11 @@
 <template>
   <div class="pb-4">
-    <UiSelect v-model="selectedOption" placeholder="Groupe de partenaires" :options="options" />
+    <UiSelect
+      v-model="selectedOption"
+      placeholder="Groupe de partenaires"
+      :options="options"
+      :disabled="!!partner"
+    />
   </div>
 </template>
 
@@ -13,8 +18,13 @@ export default {
   },
   props: {
     selectedData: Object,
+    selectedFilters: Array,
   },
   computed: {
+    partner() {
+      const partner = this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+      return partner;
+    },
     selectedOption: {
       get() {
         return this.selectedData ? this.selectedData.data.value : '';

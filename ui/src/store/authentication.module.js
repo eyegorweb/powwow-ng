@@ -48,8 +48,10 @@ export const getters = {
     return state.userInfos && state.userInfos.partyGroup;
   },
   userIsBO: state => {
-    console.log(state.userInfos);
     return state.userInfos && state.userInfos.isAdminOrBackOffice;
+  },
+  userIsMultiPartner: state => {
+    return state.userInfos && state.userInfos.partners && state.userInfos.partners.length > 1;
   },
   userIsGroupAccount: state => {
     return (

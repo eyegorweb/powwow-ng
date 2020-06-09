@@ -14,6 +14,7 @@
         @noMoreFilters="onAllFiltersCleared"
         always-show-button
         :disabled="!canFilter"
+        :default-values="defaultValues"
       />
     </div>
     <div class="col-9">
@@ -98,7 +99,14 @@ export default {
     CockpitDetails,
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userPartyGroup']),
+    ...mapGetters([
+      'userIsBO',
+      'userIsGroupAccount',
+      'userPartyGroup',
+      'userIsMultiPartner',
+      'userIsPartner',
+      'singlePartner',
+    ]),
     canFilter() {
       return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
     },
@@ -113,6 +121,57 @@ export default {
       indicatorTotal: undefined,
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
+      defaultValues: undefined,
+
+      commonFilters: {
+        partnerGroup: {
+          title: 'getadmin.users.filters.partnerGroup',
+          component: PartnerGroupChoice,
+          onChange(chosen, clearFilter) {
+            clearFilter('getadmin.users.filters.partners');
+            clearFilter('filters.offers');
+            if (!chosen || !chosen.value) {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: '', // pour supprimer ce choix des filtres séléctionnés
+              };
+            } else {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: chosen.label,
+                data: chosen,
+              };
+            }
+          },
+        },
+        partners: {
+          title: 'getadmin.users.filters.partners',
+          component: MultiCustomerPartnerFilter,
+          onChange(chosenValue, clearFilter) {
+            clearFilter('filters.offers');
+            return {
+              id: 'getadmin.users.filters.partners',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+          onRemove(clearFilter) {
+            console.log('Removing Filter>>');
+            clearFilter('filters.offers');
+          },
+        },
+        offers: {
+          title: 'filters.offers',
+          component: OfferFilter,
+          onChange(chosenValue) {
+            return {
+              id: 'filters.offers',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+        },
+      },
     };
   },
 
@@ -164,44 +223,14 @@ export default {
     getCockpitFilters() {
       const currentVisibleFilters = [];
       if (this.userIsBO) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupChoice,
-          onChange(chosen) {
-            return {
-              id: 'getadmin.users.filters.partnerGroup',
-              value: chosen.label,
-              data: chosen,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
       if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partners',
-          component: MultiCustomerPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partners);
       }
 
-      currentVisibleFilters.push({
-        title: 'filters.offers',
-        component: OfferFilter,
-        onChange(chosenValue) {
-          return {
-            id: 'filters.offers',
-            value: chosenValue ? chosenValue.label : '',
-            data: chosenValue,
-          };
-        },
-      });
+      currentVisibleFilters.push(this.commonFilters.offers);
       return currentVisibleFilters;
     },
 
@@ -220,47 +249,23 @@ export default {
         },
       ];
       if (this.userIsBO) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupChoice,
-          onChange(chosen) {
-            return {
-              id: 'getadmin.users.filters.partnerGroup',
-              value: chosen.label,
-              data: chosen,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
       if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partners',
-          component: MultiCustomerPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
+        currentVisibleFilters.push(this.commonFilters.partners);
+      } else if (this.userIsPartner) {
+        this.defaultValues = [
+          {
+            id: 'getadmin.users.filters.partners',
+            value: this.singlePartner ? this.singlePartner.name : '',
+            data: this.singlePartner,
+            hidden: true,
           },
-        });
+        ];
       }
 
-      currentVisibleFilters.push({
-        title: 'filters.offers',
-        component: OfferFilter,
-        onChange(chosenValue) {
-          return {
-            id: 'filters.offers',
-            value: chosenValue ? chosenValue.label : '',
-            data: chosenValue,
-          };
-        },
-        checkVisibleFn(currentFilters) {
-          return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
-        },
-      });
+      currentVisibleFilters.push(this.commonFilters.offers);
 
       currentVisibleFilters.push({
         title: 'filters.zone',

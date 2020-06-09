@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <OfferCombo :value.sync="selectedOffer" :partners="partnersForFilters" />
-  </div>
+  <OfferCombo
+    :value.sync="selectedOffer"
+    :partners="partnersForFilters"
+    :disabled="!partner || !!partnerGroup"
+  />
 </template>
 
 <script>
@@ -18,6 +20,16 @@ export default {
   },
 
   computed: {
+    partnerGroup() {
+      const partnerGroup = this.selectedFilters.find(
+        f => f.id === 'getadmin.users.filters.partnerGroup'
+      );
+
+      return partnerGroup && partnerGroup.data.value;
+    },
+    partner() {
+      return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
+    },
     selectedOffer: {
       get() {
         if (!this.selectedData) return;
