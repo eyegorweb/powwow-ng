@@ -579,6 +579,7 @@
     }
   },
   "getparc": {
+    "user": "Utilisateur",
     "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
