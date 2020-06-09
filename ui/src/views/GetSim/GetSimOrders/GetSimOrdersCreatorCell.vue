@@ -1,7 +1,8 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="onClick">
-    {{ creatorFirstName }} {{ creatorLastName }}
-  </button>
+  <button
+    class="btn btn-link p-0"
+    @click.stop="onClick"
+  >{{ creatorFirstName }} {{ creatorLastName }}</button>
 </template>
 
 <script>
