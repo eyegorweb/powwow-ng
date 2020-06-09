@@ -97,7 +97,7 @@ export default {
             endDate: moment().format('DD/MM/YYYY'),
           });
           this.applyFilters();
-        });
+        }, 100);
       }
     },
   },
