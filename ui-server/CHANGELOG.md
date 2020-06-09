@@ -2,19 +2,13 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.866+20200609123912
-2020-06-09
-
-### Fixes
-
-- Ajout du click user sur la table actes de gestion avec panel (81d97a91ee2f07f46425892c21c9abeda2dc1179)
-
-## 0.3.0-master.865+20200609123040
+## 0.3.0-master.866+20200609123112
 2020-06-09
 
 ### Fixes
 
 - correctifs sur l'écran getDevices (63a63d2b240eeecc36a4527f96933a4c3ab03acc)
+- Ajout d'un delais pour la prise en compte du filtre (6935ff32f57222ed50e4761c04a80dc96b37d3b5)
 
 ## 0.3.0-master.864+20200609073410
 2020-06-09
