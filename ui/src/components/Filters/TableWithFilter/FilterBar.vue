@@ -6,7 +6,7 @@
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="onRemoveFilter"
         :hide-apply="alwaysShowButton"
       />
 
@@ -117,6 +117,16 @@ export default {
     applyFilters() {
       this.$emit('applyFilters', this.currentFilters);
     },
+    onRemoveFilter(filterId) {
+      const filterToRemove = this.filterComponents.find(f => f.title === filterId);
+      console.log('HERE', filterToRemove);
+      if (filterToRemove) {
+        if (filterToRemove.onRemove) {
+          filterToRemove.onRemove(this.clearFilter);
+        }
+        this.clearFilter(filterId);
+      }
+    },
     clearFilter(filterId) {
       if (this.currentFilters && this.currentFilters.length) {
         this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
@@ -130,7 +140,7 @@ export default {
       if (!filter.onChange) {
         return;
       }
-      const selectedValue = filter.onChange(value);
+      const selectedValue = filter.onChange(value, this.clearFilter);
       const filterExists = this.currentFilters.find(c => c.id === selectedValue.id);
 
       if (filterExists) {
