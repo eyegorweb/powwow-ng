@@ -29,8 +29,10 @@
             :rows="rows"
             :total="total"
             :order-by.sync="orderBy"
-            @applyFilters="applyFilters"
             :is-table-loading="isLoading"
+            :show-reset="!!searchByIdValue"
+            @resetSearch="resetFilters"
+            @applyFilters="applyFilters"
           >
             <div slot="before-table">
               <div class="row">
@@ -410,6 +412,10 @@ export default {
     this.applyFilters();
   },
   methods: {
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.applyFilters();
+    },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 30 },

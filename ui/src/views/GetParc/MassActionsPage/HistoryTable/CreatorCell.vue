@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 import { fetchUserFromUsername } from '@/api/users';
 

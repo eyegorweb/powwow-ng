@@ -13,10 +13,16 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
-      <GetSimCreatorDetails v-if="panelId === 'getparc.creator.title'" :order="payload" />
-      <ActHistoryDetailPanel v-if="panelId === 'getparc.history.details.title'" :content="payload" />
+      <GetParcCreatorDetails v-if="panelId === 'getparc.creator.title'" :order="payload" />
+      <ActHistoryDetailPanel
+        v-if="panelId === 'getparc.history.details.title'"
+        :content="payload"
+      />
       <ActLinesDetailPanel v-if="panelId === 'getparc.actLines.details.title'" :content="payload" />
-      <ActCreationPanel v-if="panelId === 'getparc.actLines.details.createAct'" :content="payload" />
+      <ActCreationPanel
+        v-if="panelId === 'getparc.actLines.details.createAct'"
+        :content="payload"
+      />
       <CustomizePanel v-if="panelId === 'home.customize.title'" :content="payload" />
       <LineAlarmDetailPanel
         v-if="panelId === 'getparc.lineDetail.alarms.trigger-history'"
@@ -34,7 +40,10 @@
         v-if="panelId === 'getadmin.partnerDetail.adminForm.title'"
         :content="payload"
       />
-      <UserFormPanel v-if="panelId === 'getadmin.partnerDetail.userForm.title'" :content="payload" />
+      <UserFormPanel
+        v-if="panelId === 'getadmin.partnerDetail.userForm.title'"
+        :content="payload"
+      />
       <BroadcastListFormPanel v-if="panelId === 'getadmin.customize.addList'" :content="payload" />
       <CustomFieldFormPanel
         v-if="panelId === 'getadmin.customize.addCustomField'"
@@ -67,7 +76,7 @@ export default {
     GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
     GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
     GetSimCreatorDetails: () => import('@/views/GetSim/GetSimCreatorDetails'),
-    GetSimCreatorDetails: () =>
+    GetParcCreatorDetails: () =>
       import('@/views/GetParc/MassActionsPage/HistoryTable/GetParcCreatorDetails'),
     ActHistoryDetailPanel: () => import('@/views/GetParc/MassActionsPage/ActHistoryDetailPanel'),
     ActLinesDetailPanel: () => import('@/views/GetParc/ActLines/ActLinesDetailPanel'),
