@@ -152,6 +152,11 @@ export default {
     contextPartners() {
       this.initPartnersList();
     },
+    selectedPartners(partners) {
+      if (!partners.length) {
+        this.initPartnersList();
+      }
+    },
   },
 };
 </script>

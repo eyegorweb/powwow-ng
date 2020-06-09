@@ -64,12 +64,15 @@ export default {
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.areaLabel,
-          y: item.percentage,
+          y: Math.round(item.percentage * 100) / 100,
           z: item.accessPointNumber,
         });
         return all;
       }, []);
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'variablepie',
         },

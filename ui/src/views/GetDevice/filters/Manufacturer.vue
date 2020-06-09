@@ -1,24 +1,29 @@
 <template>
-  <SimpleMultiSelect
-    :options="localItems"
-    :values="selectedValue || []"
-    @updateValues="onUpdateValue"
+  <MultiSelectSearch
+    :items="items"
+    :default-selected-items.sync="selectedValues"
+    @update:search="searchValueChanged"
+    @scroll:limit="nextPage"
   />
 </template>
 
 <script>
-import SimpleMultiSelect from '@/components/Filters/SimpleMultiSelect';
+import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
+import { mapState } from 'vuex';
 import { getManufacturers } from '@/api/manufacturers.js';
 
 export default {
   components: {
-    SimpleMultiSelect,
+    MultiSelectSearch,
   },
   data() {
     return {
-      localItems: [],
+      items: [],
+      lastSearchTerm: '',
+      canFetchNextPage: true,
+      page: 0,
       orderBy: {
-        key: 'manufacturer',
+        key: 'tac',
         direction: 'ASC',
       },
     };
@@ -27,28 +32,83 @@ export default {
     selectedData: Object,
   },
   methods: {
+    async initComponent() {
+      this.items = await this.fetchFormattedForDatatable('', {
+        page: 0,
+        limit: 10,
+      });
+    },
+    async fetchFormattedForDatatable(q, { page, limit }) {
+      let forPartners = [];
+      if (this.selectedPartnersValues && this.selectedPartnersValues.length) {
+        forPartners = this.selectedPartnersValues;
+      } else if (this.contextPartners && this.contextPartners.length) {
+        forPartners = this.contextPartners;
+      }
+
+      return await this.fetchApi(q, forPartners, this.contextPartnersType, { page, limit });
+    },
     onUpdateValue(values) {
       this.$emit('change', values);
+    },
+    async fetchApi(q, partners, partnerType, pagination) {
+      const data = await getManufacturers(this.orderBy, pagination);
+      if (!data) return;
+      return data.map(p => ({
+        id: `${p.tac}`,
+        label: p.manufacturer,
+        data: p,
+      }));
+    },
+    async searchValueChanged(q) {
+      this.items = await this.fetchFormattedForDatatable(q, {
+        page: 0,
+        limit: 10,
+      });
+      this.lastSearchTerm = q;
+      this.page = 0;
+      this.canFetchNextPage = true;
+    },
+    async nextPage() {
+      if (!this.canFetchNextPage) return;
+
+      this.page += 1;
+      const res = await this.fetchFormattedForDatatable(this.lastSearchTerm, {
+        page: this.page,
+        limit: 10,
+      });
+      if (res && res.length > 0) {
+        this.items = this.items.concat(res);
+      } else {
+        this.canFetchNextPage = false;
+      }
     },
   },
 
   computed: {
-    selectedValue() {
-      return this.selectedData && this.selectedData.values;
+    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
+    selectedValues: {
+      get() {
+        if (!this.selectedData) return [];
+        return this.selectedData.values;
+      },
+      set(newValues) {
+        this.$emit('change', newValues);
+      },
     },
   },
 
   async mounted() {
-    const { pagination } = {
-      pagination: { page: 0, limit: 30 },
-    };
-    const data = await getManufacturers(this.orderBy, pagination);
-    if (!data) return;
-    this.localItems = data.map(p => ({
-      id: `${p.tac}`,
-      label: p.manufacturer,
-      data: p,
-    }));
+    this.initComponent();
+  },
+
+  watch: {
+    async contextPartners() {
+      this.initComponent();
+    },
+    async contextPartnersType() {
+      this.initComponent();
+    },
   },
 };
 </script>
