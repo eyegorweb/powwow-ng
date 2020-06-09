@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.870+20200609170346
+2020-06-09
+
+### Fixes
+
+- correctifs sur la consultation des offres du partenaire (97a7142662ddfdff4c99090107bd2d427bcddb61)
+
 ## 0.3.0-master.869+20200609144439
 2020-06-09
 
