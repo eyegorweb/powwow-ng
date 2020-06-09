@@ -21,6 +21,8 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
+      :show-reset="!!searchByLoginValue"
+      @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >
@@ -264,6 +266,11 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.applyFilters();
+    },
 
     async applyFilters(payload) {
       this.lastPayload = payload;

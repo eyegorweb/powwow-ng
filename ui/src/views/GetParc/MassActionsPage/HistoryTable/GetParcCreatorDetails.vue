@@ -2,7 +2,9 @@
   <div class="data-detail-container">
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
-        <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.personalInformations') }}</h4>
+        <h4 class="font-weight-normal text-uppercase">
+          {{ $t('orders.detail.personalInformations') }}
+        </h4>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.deActivate') }} :</h6>
@@ -36,16 +38,17 @@
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
         <p>
-          <span
-            v-for="(r, index) in partners"
-            :key="r.name"
-          >{{ index ? ', ' : '' }}{{ r.description }}</span>
+          <span v-for="(r, index) in partners" :key="r.name"
+            >{{ index ? ', ' : '' }}{{ r.description }}</span
+          >
         </p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.roles') }} :</h6>
         <p>
-          <span v-for="(r, index) in roles" :key="r.name">{{ index ? ', ' : '' }}{{ r.description }}</span>
+          <span v-for="(r, index) in roles" :key="r.name"
+            >{{ index ? ', ' : '' }}{{ r.description }}</span
+          >
         </p>
       </div>
     </div>
@@ -54,7 +57,6 @@
 
 <script>
 import get from 'lodash.get';
-import { fetchUserById } from '@/api/users';
 
 export default {
   data() {

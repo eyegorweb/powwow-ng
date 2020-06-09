@@ -119,7 +119,6 @@ export default {
     },
     onRemoveFilter(filterId) {
       const filterToRemove = this.filterComponents.find(f => f.title === filterId);
-      console.log('HERE', filterToRemove);
       if (filterToRemove) {
         if (filterToRemove.onRemove) {
           filterToRemove.onRemove(this.clearFilter);
