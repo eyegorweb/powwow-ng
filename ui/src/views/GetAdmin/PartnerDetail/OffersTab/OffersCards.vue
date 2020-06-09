@@ -9,12 +9,12 @@
     <div class="cards">
       <CardsSkeleton v-if="isLoading" />
       <template v-else>
-        <CardButton @click="manageOffers">
+        <CardButton v-if="canShowActions" @click="manageOffers">
           Gérer les offres associées
         </CardButton>
 
         <Card v-for="offer in visibleOffers" :key="offer.id" :can-delete="true" :can-modify="false">
-          <div class="partnerSimOfferTitle">{{ offer.name }}</div>
+          <div class="partnerSimOfferTitle">{{ offer.name }} ({{ offer.code }})</div>
 
           <div class="info-block mt-1">
             <div class="partnerSimOfferSubTitle">Services activés par défaut:</div>
@@ -38,9 +38,13 @@
             </div>
           </div>
           <div slot="buttons">
-            <Button class="button" :variant="'import'" @click="deleteOffer(offer)">{{
-              $t('actions.DISABLE')
-            }}</Button>
+            <Button
+              v-if="canShowActions"
+              class="button"
+              :variant="'import'"
+              @click="deleteOffer(offer)"
+              >{{ $t('actions.DISABLE') }}</Button
+            >
           </div>
         </Card>
       </template>
@@ -56,7 +60,7 @@ import UiInput from '@/components/ui/UiInput';
 import Button from '@/components/ui/Button';
 
 import get from 'lodash.get';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import { fetchOffers, disableOffer } from '@/api/offers.js';
 
@@ -151,6 +155,19 @@ export default {
           doReset();
         },
       });
+    },
+
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(
+        p => p.domain === domain && p.action === action
+      );
+    },
+  },
+
+  computed: {
+    ...mapGetters(['userInfos']),
+    canShowActions() {
+      return this.havePermission('party', 'update_available_catalog_offers');
     },
   },
 };
