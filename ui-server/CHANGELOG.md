@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.866+20200609123912
+2020-06-09
+
+### Fixes
+
+- Ajout du click user sur la table actes de gestion avec panel (81d97a91ee2f07f46425892c21c9abeda2dc1179)
+
 ## 0.3.0-master.865+20200609123040
 2020-06-09
 
