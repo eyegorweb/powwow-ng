@@ -204,6 +204,9 @@ export default {
 
       // transformer les données
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -344,6 +347,9 @@ export default {
 
       // transformer les données
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -484,6 +490,9 @@ export default {
 
       // transformer les données
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -624,6 +633,9 @@ export default {
 
       // transformer les données
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },

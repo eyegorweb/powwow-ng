@@ -99,7 +99,7 @@ export default {
     return {
       lastSelectedFilters: [],
       page: 1,
-      pageLimit: 10,
+      pageLimit: 20,
     };
   },
 

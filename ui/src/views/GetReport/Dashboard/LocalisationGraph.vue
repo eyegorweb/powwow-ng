@@ -76,6 +76,9 @@ export default {
       });
 
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           map: 'custom/world',
         },

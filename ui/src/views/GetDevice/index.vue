@@ -468,7 +468,7 @@ export default {
         all.push({
           name: item.label,
           z: item.accessPointNumber,
-          y: item.percentage,
+          y: Math.round(item.percentage * 100) / 100,
         });
         return all;
       }, []);
@@ -500,6 +500,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
     async refreshDataTechnoRepartition(partnerIds) {
@@ -551,6 +554,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
     async refreshDataTop5References(partnerIds) {
@@ -560,7 +566,7 @@ export default {
         all.push({
           name: item.label,
           z: item.accessPointNumber,
-          y: item.percentage,
+          y: Math.round(item.percentage * 100) / 100,
         });
         return all;
       }, []);
@@ -592,6 +598,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
   },
