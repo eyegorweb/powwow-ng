@@ -11,7 +11,8 @@
       <div class="col-md-3" v-if="canShow">
         <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
           $t('getadmin.users.addUser')
-        }}</UiButton>
+          }}
+        </UiButton>
       </div>
     </div>
     <TableWithFilter
@@ -340,7 +341,23 @@ export default {
       };
     },
     onDuplicateUser(user) {
-      console.log('duplicate user', user);
+      const doReset = () => {
+        this.applyFilters(this.lastPayload);
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { duplicateFrom: user, duplicate: true },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
     },
 
     onModifyUser(user) {
