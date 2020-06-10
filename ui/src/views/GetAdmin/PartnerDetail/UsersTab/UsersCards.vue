@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="searchBar">
-      <label for>Rechercher un utilisateur</label>
+      <label for>{{ $t('getadmin.users.searchUser') }}</label>
       <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom, prénom ou login" />
     </div>
     <div class="cards">
@@ -11,7 +11,8 @@
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
-        :can-delete="true"
+        :can-delete="canShow"
+        :can-modify="canShow"
         @delete="deleteUser(user)"
         @modify="modifyUser(user)"
       >
@@ -40,7 +41,9 @@ import CardButton from '@/components/CardButton';
 import UiInput from '@/components/ui/UiInput';
 
 import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
-import { mapMutations } from 'vuex';
+
+import get from 'lodash.get';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -164,7 +167,21 @@ export default {
         },
       });
     },
+
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(
+        p => p.domain === domain && p.action === action
+      );
+    },
   },
+
+  computed: {
+    ...mapGetters(['userInfos']),
+    canShow() {
+      return this.havePermission('user', 'create');
+    },
+  },
+
   async mounted() {
     await this.refreshUsers();
   },

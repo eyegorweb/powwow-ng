@@ -8,7 +8,7 @@
           <Tooltip direction="right">{{ $t('getvsion.manage-alarms-tooltip') }}</Tooltip>
         </h4>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" v-if="canShow">
         <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
           $t('getadmin.users.addUser')
         }}</UiButton>
@@ -263,6 +263,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO', 'userIsGroupAccount']),
+    canShow() {
+      return this.havePermission('user', 'create');
+    },
   },
   methods: {
     ...mapMutations(['openPanel']),
@@ -363,6 +366,12 @@ export default {
     },
     async refreshUser(user) {
       user.disabled = !user.disabled;
+    },
+
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(
+        p => p.domain === domain && p.action === action
+      );
     },
   },
 };
