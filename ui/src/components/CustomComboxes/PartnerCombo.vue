@@ -6,7 +6,6 @@
     v-model="selectedValue"
     display-results-while-empty
     :disabled="disabled"
-    :default-open="defaultOpen"
   />
 </template>
 
@@ -31,7 +30,6 @@ export default {
     includeMailingLists: Boolean,
     offline: Boolean,
     disabled: Boolean,
-    defaultOpen: Boolean,
     partyTypes: {
       type: Array,
       required: false,

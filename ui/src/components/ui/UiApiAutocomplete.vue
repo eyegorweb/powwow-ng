@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       resultsPromise: null,
-      areSuggestionsVisible: this.defaultOpen,
+      areSuggestionsVisible: false,
       selectedItem: -1,
       isOpen: this.defaultOpen,
       page: 0,
