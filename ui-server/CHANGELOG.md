@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.872+20200610110314
+2020-06-10
+
+### Fixes
+
+- configuration du panel Administrateur (0775c0e827a6bd43b5f893e5cb548884e30ca4db)
+
 ## 0.3.0-master.871+20200610085501
 2020-06-10
 
