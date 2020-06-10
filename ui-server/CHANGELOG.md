@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.871+20200610085501
+2020-06-10
+
+### Fixes
+
+- annulation de la correction sur le tableau de bord (c23013bad976c42e9e5075aa9b3b726d8a0084e2)
+
 ## 0.3.0-master.870+20200609170346
 2020-06-09
 
