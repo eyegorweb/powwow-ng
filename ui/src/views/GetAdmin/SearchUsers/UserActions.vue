@@ -30,7 +30,7 @@ export default {
         additionalActions.push('actions.DISABLE');
       }
 
-      return [...additionalActions, 'actions.MODIFY'];
+      return [...additionalActions, 'actions.DUPLICATE', 'actions.MODIFY'];
     },
   },
 
