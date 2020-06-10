@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.873+20200610134820
+2020-06-10
+
+### Features
+
+- ajout de la permission pour configurer des utilisateurs (5532d4e7a302072c7e11397d59d9a017b8f88d30)
+
 ## 0.3.0-master.872+20200610110314
 2020-06-10
 
