@@ -3,7 +3,13 @@
     <Card
       v-if="admins.mainAdministrator"
       :can-delete="false"
-      @modify="modifyAdmin('PRIMARY', admins.mainAdministrator)"
+      @modify="
+        modifyAdmin(
+          'PRIMARY',
+          admins.mainAdministrator,
+          $t('getadmin.partnerDetail.adminForm.titles.modifyMainAdmin')
+        )
+      "
     >
       <div class="cardBloc-infos-name">
         {{
@@ -32,7 +38,13 @@
     <Card
       v-if="admins.secondAdministator"
       @delete="deleteSecondAdministrator"
-      @modify="modifyAdmin('SECONDARY', admins.secondAdministator)"
+      @modify="
+        modifyAdmin(
+          'SECONDARY',
+          admins.secondAdministator,
+          $t('getadmin.partnerDetail.adminForm.titles.modifySecondAdmin')
+        )
+      "
     >
       <div class="cardBloc-infos-name">
         {{
@@ -101,11 +113,19 @@ export default {
     },
 
     addMainAdmin() {
-      this.modifyAdmin();
+      this.modifyAdmin(
+        undefined,
+        undefined,
+        this.$t('getadmin.partnerDetail.adminForm.titles.addMainAdmin')
+      );
     },
 
     addSecondaryAdmin() {
-      this.modifyAdmin({ adminType: 'SECONDARY' });
+      this.modifyAdmin(
+        { adminType: 'SECONDARY' },
+        undefined,
+        this.$t('getadmin.partnerDetail.adminForm.titles.addSecondAdmin')
+      );
     },
 
     async refreshData() {
@@ -125,12 +145,12 @@ export default {
       });
     },
 
-    modifyAdmin(adminType, admin) {
+    modifyAdmin(adminType, admin, title) {
       const doReset = () => {
         this.refreshData();
       };
       this.openPanel({
-        title: this.$t('getadmin.partnerDetail.adminForm.title'),
+        title,
         panelId: 'getadmin.partnerDetail.adminForm.title',
         payload: {
           ...admin,
