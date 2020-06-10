@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.875+20200610151717
+2020-06-10
+
+### Features
+
+- filtre pays pour le cockpit M2M (d9f89baaa9b1b1b58d43c9d8dc910ea0435ea386)
+
 ## 0.3.0-master.874+20200610140057
 2020-06-10
 
