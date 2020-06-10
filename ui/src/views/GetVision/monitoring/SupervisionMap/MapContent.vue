@@ -237,6 +237,12 @@ export default {
         if (item.id === 'filters.offers') {
           filters.offerCode = item.data.id;
         }
+
+        if (item.id === 'filters.country') {
+          filters.countryCode = item.data.codeIso3;
+        }
+
+        return filters;
       }, {});
     },
 
