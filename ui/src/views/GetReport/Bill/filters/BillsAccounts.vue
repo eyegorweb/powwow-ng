@@ -1,9 +1,5 @@
 <template>
-  <BillingAccountAutocomplete
-    v-model="selectedBillingAccount"
-    :partners="partnersForFilters"
-    default-open
-  />
+  <BillingAccountAutocomplete v-model="selectedBillingAccount" :partners="partnersForFilters" />
 </template>
 
 <script>
