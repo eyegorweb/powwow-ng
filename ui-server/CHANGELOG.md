@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.874+20200610140057
+2020-06-10
+
+### Features
+
+- Ajout de la possibilité de dupliquer des users (2dc124d6c7c06e9267ed32ce005ed542faca3dc2)
+
 ## 0.3.0-master.873+20200610134820
 2020-06-10
 
