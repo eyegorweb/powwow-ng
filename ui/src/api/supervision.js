@@ -83,28 +83,6 @@ export async function fetchSupervisionAlerts(filters, pagination, sorting) {
 
   const response = await query(queryStr, variables);
 
-  /*
-  const response = {
-    data: {
-      countServicesStateByCountry: {
-        items: [
-          {
-            alertId: 'sit 539',
-            partnerName: 'Adipiscing',
-            startDate: '01/01/2020',
-            endDate: '01/01/2020',
-            type: 'leo',
-            status: 'dui',
-            usage: 'orci',
-            label: 'Proin',
-            countryName: 'commodo',
-            countryNameFr: 'sit',
-          },
-        ],
-      }
-    },
-  };
-  //*/
 
   if (response.data) {
     return response.data.countServicesStateByCountry;
@@ -112,7 +90,7 @@ export async function fetchSupervisionAlerts(filters, pagination, sorting) {
 }
 
 export async function fetchCockpitMarkers(filters) {
-  const queryStr = `query CountServicesStateByCountry($filter:ServicesStateFilterInput ){
+  const queryStr = `query CountServicesStateByCountry($filter:ServicesStateFilterInput! ){
     countServicesStateByCountry(filter: $filter ){
       locationCode
       locationCodeISO2
@@ -133,33 +111,9 @@ export async function fetchCockpitMarkers(filters) {
   }
   `;
 
-  const response = await query(queryStr, filters);
-
-  /*
-  const response = {
-    data: {
-      countServicesStateByCountry: [
-        {
-          locationCode: 'leo',
-          locationCodeISO2: 'porta.',
-          countryCode: 'vel',
-          locationName: 'leo',
-          locationNameFr: 'orci',
-          locationLatitude: '30',
-          locationLongitude: '19',
-          alertNumber: 33,
-          activeAlertNumber: 1,
-          dataTrafic: '10',
-          smsTrafic: '20',
-          voiceTrafic: '30',
-          validFineGrainedSearch: 'imperdiet 6311',
-          enoughValues: true,
-          raiseAlert: 'sit 6828',
-        },
-      ],
-    },
-  };
-  //*/
+  const response = await query(queryStr, {
+    filter: filters
+  });
 
   if (response.data) {
     return response.data.countServicesStateByCountry;
@@ -292,15 +246,14 @@ export async function fetchLinesForMarker(
   }
 }
 
-export async function fetchCockpitIndicator(filters = {}, usage = 'DATA') {
+export async function fetchCockpitIndicator(filter = {}, usage = 'DATA') {
   const queryStr = `
-  query CountWorldServiceState($filter: ServicesStateFilterInput, $usage: ServicesStateUsageEnum){
+  query CountWorldServiceState($filter: ServicesStateFilterInput!, $usage: ServicesStateUsageEnum!){
       countWorldServiceState(filter: $filter, usage: $usage)
   }
   `;
 
-  const response = await query(queryStr, { filters, usage });
-  console.log(response);
+  const response = await query(queryStr, { filter, usage });
 
   if (response.data) {
     return response.data.countWorldServiceState;

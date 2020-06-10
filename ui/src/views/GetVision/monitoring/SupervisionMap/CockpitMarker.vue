@@ -62,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 .values {
   div {
-    padding: 5px;
+    padding: 0 5px 0 5px;
 
     &::last-child {
       border-right: none;
@@ -77,8 +77,8 @@ export default {
 
   .cell {
     color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
     font-size: 9px;
     font-style: normal;
     text-align: center;

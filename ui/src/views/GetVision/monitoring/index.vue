@@ -74,6 +74,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import FileFilter from './filters/FileFilter';
 import PartnerGroupChoice from './filters/PartnerGroupChoice';
 import LocalisationFilter from './filters/LocalisationFilter';
+import CountryFilter from './filters/CountryFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -218,7 +219,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -231,6 +232,21 @@ export default {
       }
 
       currentVisibleFilters.push(this.commonFilters.offers);
+
+      currentVisibleFilters.push({
+        title: 'filters.country',
+        component: CountryFilter,
+        onChange(chosenValue) {
+          const country = chosenValue ? chosenValue.label : undefined;
+
+          return {
+            id: 'filters.country',
+            value: country,
+            data: chosenValue,
+          };
+        },
+      });
+
       return currentVisibleFilters;
     },
 
