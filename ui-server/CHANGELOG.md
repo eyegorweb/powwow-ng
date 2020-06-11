@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.879+20200611144516
+2020-06-11
+
+### Fixes
+
+- Correction de l'affichage du montant dans le panel de détail de facture (6df7d3c6ec74fc9eda5d661f9fcfc61eeb375880)
+
 ## 0.3.0-master.878+20200611141510
 2020-06-11
 
