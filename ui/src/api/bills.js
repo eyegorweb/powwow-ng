@@ -105,7 +105,7 @@ export async function fetchBills(filters = []) {
             },
             {
               label: 'Consommations Voix Roaming ',
-              amountExcTaxe: 25.35,
+              amountExcTaxe: 79999.99,
               headingTypeEnum: 'USAGE',
               usage: 'VOICE',
               nbSim: null,

@@ -24,9 +24,9 @@
       <table class="table">
         <thead class="bottom-line">
           <tr>
-            <td>Intitulé</td>
-            <td>Quantité</td>
-            <td>Montant</td>
+            <td class="bill-name">Intitulé</td>
+            <td class="text-end">Quantité</td>
+            <td class="text-end">Montant</td>
           </tr>
         </thead>
         <tbody>
@@ -101,5 +101,9 @@ export default {
 
 .text-end {
   text-align: end;
+}
+
+.bill-name {
+  width: 53%;
 }
 </style>
