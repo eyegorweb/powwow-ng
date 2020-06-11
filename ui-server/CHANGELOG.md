@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.876+20200611100157
+2020-06-11
+
+### Fixes
+
+- ajout de la permission pour ajouter un utilisateur (dc30f1cd505567230f1401e84cb588a12de84a8d)
+
 ## 0.3.0-master.875+20200610151717
 2020-06-10
 
