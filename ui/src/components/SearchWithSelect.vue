@@ -4,7 +4,7 @@
       :placeholder="inputPlaceholder"
       class="flex-grow-1 input-container"
       v-model="query_"
-      input-type="number"
+      input-type="text"
       no-number-arrows
       have-cross-button
     >
@@ -59,7 +59,7 @@ export default {
     padding-right: 2rem;
     text-transform: uppercase;
     background-color: $light-gray;
-    width: 7rem;
+    width: 12rem;
   }
 }
 </style>

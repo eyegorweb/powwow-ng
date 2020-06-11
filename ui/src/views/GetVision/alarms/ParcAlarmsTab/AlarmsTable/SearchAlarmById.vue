@@ -13,7 +13,7 @@
       </div>
       <div class="form-group col-md-3 mb-0">
         <UiButton
-          :variant="isDisabled ? 'primary' : ''"
+          :variant="isDisabled ? 'primary' : 'dark'"
           :disabled="!isDisabled"
           @click="searchById"
           >{{ $t('search') }}</UiButton
