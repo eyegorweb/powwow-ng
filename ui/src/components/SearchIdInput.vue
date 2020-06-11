@@ -12,7 +12,7 @@
       </div>
       <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
-          :variant="isEnabled ? 'primary' : ''"
+          :variant="isEnabled ? 'primary' : 'dark'"
           :disabled="!isEnabled"
           @click="searchById"
           :class="{ 'flex-grow-1': !inline }"
