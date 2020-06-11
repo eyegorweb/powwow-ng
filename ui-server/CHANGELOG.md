@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.880+20200611150138
+2020-06-11
+
+### Fixes
+
+- Corriger le tri sur les documents dans getreport (068be29293caf0c5b8854710cd1c61eec977aabf)
+
 ## 0.3.0-master.879+20200611144516
 2020-06-11
 
