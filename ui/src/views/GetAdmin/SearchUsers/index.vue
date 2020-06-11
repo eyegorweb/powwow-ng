@@ -9,9 +9,8 @@
         </h4>
       </div>
       <div class="col-md-3" v-if="canShow">
-        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
-          $t('getadmin.users.addUser')
-          }}
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()"
+          >{{ $t('getadmin.users.addUser') }}
         </UiButton>
       </div>
     </div>
@@ -263,7 +262,7 @@ export default {
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount']),
+    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userInfos']),
     canShow() {
       return this.havePermission('user', 'create');
     },
@@ -386,9 +385,9 @@ export default {
     },
 
     havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(
-        p => p.domain === domain && p.action === action
-      );
+      return !!get(this.userInfos, 'permissions', []).find(p => {
+        return p.domain === domain && p.action === action;
+      });
     },
   },
 };
