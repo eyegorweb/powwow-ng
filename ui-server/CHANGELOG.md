@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.878+20200611141510
+2020-06-11
+
+### Fixes
+
+- La recherche de commande par réf client ne fonctionne pas (d3344a544c4ca1cf496b424acf0837a4d4165211)
+
 ## 0.3.0-master.877+20200611122733
 2020-06-11
 
