@@ -7,22 +7,12 @@
           <div class="d-flex">
             <label class="radio-container mr-3">
               {{ $t('common.MR') }}
-              <input
-                name="civility"
-                type="radio"
-                value="MR"
-                v-model="form.title"
-              />
+              <input name="civility" type="radio" value="MR" v-model="form.title" />
               <span class="checkmark" />
             </label>
             <label class="radio-container">
               {{ $t('common.MRS') }}
-              <input
-                name="civility"
-                type="radio"
-                value="MRS"
-                v-model="form.title"
-              />
+              <input name="civility" type="radio" value="MRS" v-model="form.title" />
               <span class="checkmark" />
             </label>
           </div>
@@ -76,9 +66,7 @@
         <div class="form-entry">
           <FormControl label="common.email" v-model="form.email" />
           <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
-            {{
-            $t('errors.password.email-error')
-            }}
+            {{ $t('errors.password.email-error') }}
           </span>
         </div>
       </div>
@@ -104,11 +92,9 @@
       <div v-if="passwordConfirmationErrors" class="entries-line">
         <div class="form-entry">
           <ul class="list-unstyled">
-            <li
-              :key="error"
-              v-for="error in passwordConfirmationErrors"
-              class="error-text"
-            >{{ $t(error) }}</li>
+            <li :key="error" v-for="error in passwordConfirmationErrors" class="error-text">
+              {{ $t(error) }}
+            </li>
           </ul>
         </div>
       </div>
@@ -117,9 +103,9 @@
         <h4>{{ $t('getadmin.users.filters.roles') }}</h4>
         <div class="overview-item mr-5" v-if="!canShowRoles">
           <h6 v-if="userType === 'PARTNER'">{{ $t('getparc.actLines.step1Partner') }}</h6>
-          <h6
-            v-if="userType === 'PARTNER_GROUP'"
-          >{{ $t('getadmin.partnerDetail.selectPartyGroup') }}</h6>
+          <h6 v-if="userType === 'PARTNER_GROUP'">
+            {{ $t('getadmin.partnerDetail.selectPartyGroup') }}
+          </h6>
         </div>
         <div v-else>
           <MultiChoices :options="roles" v-model="selectedRoles" />
@@ -132,9 +118,7 @@
       </div>
       <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>
-          {{
-          $t('save')
-          }}
+          {{ $t('save') }}
         </UiButton>
       </div>
     </div>

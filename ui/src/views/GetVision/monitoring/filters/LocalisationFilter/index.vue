@@ -10,8 +10,8 @@
       <CountriesPart v-if="zone == 'world'" v-model="country" />
     </template>
     <template v-if="zone == 'france'">
-      <h6>Code postale</h6>
-      <UiInput v-model="zipCode" placeholder="Code postale" />
+      <h6>Code postal</h6>
+      <UiInput v-model="zipCode" placeholder="Code postal" block />
     </template>
   </div>
 </template>

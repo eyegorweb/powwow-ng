@@ -219,7 +219,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -293,7 +293,7 @@ export default {
 
           const labels = [{ id: zone, label: `Zone: ${zone}` }];
           if (country) labels.push({ id: country, label: `Pays: ${country}` });
-          if (zipCode) labels.push({ id: zipCode, label: `Code postale: ${zipCode}` });
+          if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
           return {
             id: 'filters.zone',
             values: labels,

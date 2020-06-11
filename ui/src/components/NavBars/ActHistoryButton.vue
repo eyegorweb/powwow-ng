@@ -33,9 +33,7 @@
 
       <div class="action-container">
         <UiButton variant="primary" @click="gotoHistoryPage" block>
-          {{
-          $t('showAllHistory')
-          }}
+          {{ $t('showAllHistory') }}
         </UiButton>
       </div>
     </div>

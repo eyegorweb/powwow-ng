@@ -83,7 +83,6 @@ export async function fetchSupervisionAlerts(filters, pagination, sorting) {
 
   const response = await query(queryStr, variables);
 
-
   if (response.data) {
     return response.data.countServicesStateByCountry;
   }
@@ -112,7 +111,7 @@ export async function fetchCockpitMarkers(filters) {
   `;
 
   const response = await query(queryStr, {
-    filter: filters
+    filter: filters,
   });
 
   if (response.data) {

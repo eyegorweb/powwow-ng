@@ -249,8 +249,8 @@ const defaultWidgets = [
 
 export function loadWidgets() {
   const savedProfile = localStorage.getItem('_widgets_profile_');
-
-  if (savedProfile && savedProfile !== getProfile()) {
+  const currentProfile = getProfile();
+  if (savedProfile && savedProfile !== currentProfile) {
     localStorage.removeItem('__homewidgets__');
   }
 
@@ -273,5 +273,5 @@ export function loadWidgets() {
 }
 
 export function getProfile() {
-  return `_${localStorage.getItem('username')}_${localStorage.getItem(HIDE_MOCKS)}_`;
+  return `_${localStorage.getItem('username')}__${localStorage.getItem(HIDE_MOCKS)}_`;
 }

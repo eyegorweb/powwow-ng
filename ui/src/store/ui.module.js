@@ -19,7 +19,7 @@ export const state = {
   exportPanelParams: undefined,
   isExportFormatChoiceOpen: false,
 
-  homeWidgets: loadWidgets(),
+  homeWidgets: undefined,
 };
 
 export const getters = {
@@ -68,6 +68,7 @@ function saveFormattedWidgets(widgets) {
 
 export const mutations = {
   initHomeWidgets(state) {
+    state.homeWidgets = loadWidgets();
     saveFormattedWidgets(state.homeWidgets);
   },
   openExportChoice(state, params) {
