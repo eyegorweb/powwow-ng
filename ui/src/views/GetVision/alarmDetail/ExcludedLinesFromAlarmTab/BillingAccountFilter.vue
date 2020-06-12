@@ -1,7 +1,7 @@
 <template>
   <BillingAccountsFilter
     :selected-billing-accounts-values="selectedData || []"
-    :selected-partners-values="[]"
+    :selected-partners-values="partnerIds"
     @update:values="$emit('change', $event)"
   />
 </template>
@@ -15,6 +15,23 @@ export default {
   },
   props: {
     selectedData: Array,
+    getPageContext: Function,
+  },
+
+  mounted() {
+    console.log('Contexte >>', this.getPageContext());
+  },
+  computed: {
+    partnerIds() {
+      if (!this.getPageContext) return [];
+
+      const pageContext = this.getPageContext();
+      if (pageContext && pageContext.partnerId) {
+        return [{ id: pageContext.partnerId }];
+      }
+
+      return [];
+    },
   },
 };
 </script>
