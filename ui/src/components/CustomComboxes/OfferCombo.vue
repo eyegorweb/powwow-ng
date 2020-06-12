@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       items: [],
-      isLoading: true,
+      isLoading: false,
     };
   },
   computed: {
@@ -60,6 +60,8 @@ export default {
   },
   methods: {
     async refreshList() {
+      if (this.disabled) return;
+
       this.isLoading = true;
       const data = await fetchOffers('', this.partners, {
         page: 0,
