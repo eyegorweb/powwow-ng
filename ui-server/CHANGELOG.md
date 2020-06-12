@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.884+20200612091721
+2020-06-12
+
+### Fixes
+
+- Correction des filtres dans le détail des alarmes (19b78e5168aa1ada4a4e271a4be4ee034bdfcd4c)
+
 ## 0.3.0-master.883+20200612084155
 2020-06-12
 
