@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.881+20200612071145
+2020-06-12
+
+### Fixes
+
+- ajout de la permission pour dupliquer un utilisateur (e514e2a3f18f4f9ae85b97023f21091e9d224e06)
+
 ## 0.3.0-master.880+20200611150138
 2020-06-11
 
