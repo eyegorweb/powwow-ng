@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.886+20200612155933
+2020-06-12
+
+### Fixes
+
+- Cycle d'observation dans la modification d'alarme (f4b0c745b089f6bb0debd770483ad16864baf540)
+
 ## 0.3.0-master.885+20200612135136
 2020-06-12
 
