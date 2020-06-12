@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.885+20200612135136
+2020-06-12
+
+### Fixes
+
+- Correction de bugs sur la barre de filtre (f3618587b4ba1dcb8aa399a1b95dea8c5e0767a3)
+
 ## 0.3.0-master.884+20200612091721
 2020-06-12
 
