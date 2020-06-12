@@ -41,12 +41,7 @@
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS E/S</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="smsES"
-        />
+        <UiInput class="value-input" :input-style="inputStyle" input-type="number" v-model="smsES" />
       </div>
       <div class="item">
         <span>SMS Sortant</span>
@@ -60,12 +55,7 @@
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>SMS Entrant</span>
-        <UiInput
-          class="value-input"
-          :input-style="inputStyle"
-          input-type="number"
-          v-model="smsIn"
-        />
+        <UiInput class="value-input" :input-style="inputStyle" input-type="number" v-model="smsIn" />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
         <span>Voix E/S</span>
@@ -110,12 +100,7 @@
     </div>
 
     <div v-if="isAdvanced && currentPeriod === 'CUSTOM'" class="custom-observation">
-      <UiInput
-        class="value-input"
-        v-model="customPeriodValue"
-        input-type="number"
-        positive-number
-      />
+      <UiInput class="value-input" v-model="customPeriodValue" input-type="number" positive-number />
       <span>Jours</span>
     </div>
   </div>
@@ -153,15 +138,11 @@ export default {
       this.voiceES = this.duplicateFrom.level3;
       this.VoiceOut = this.duplicateFrom.level3Up;
       this.voiceIn = this.duplicateFrom.level3Down;
-
       this.currentPeriod = this.duplicateFrom.observationCycle;
       this.toggleValues = this.toggleValues.map(t => {
-        if (t.id === this.duplicateFrom.observationCycle) {
-          t.default = true;
-        }
+        t.default = t.id === this.duplicateFrom.observationCycle;
         return t;
       });
-
       if (this.currentPeriod === 'CUSTOM') {
         this.customPeriodValue = this.duplicateFrom.observationDelay;
         this.isAdvanced = true;
