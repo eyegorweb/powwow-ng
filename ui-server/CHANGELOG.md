@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.882+20200612080954
+2020-06-12
+
+### Features
+
+- Ajout de la possibilité de suspendre et reactiver une alarme au declenchement (5c15aad4ea2e267d1a7c42019a937304677112ac)
+
 ## 0.3.0-master.881+20200612071145
 2020-06-12
 
