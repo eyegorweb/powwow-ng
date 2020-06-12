@@ -150,6 +150,7 @@ export default {
           component: MultiCustomerPartnerFilter,
           onChange(chosenValue, clearFilter) {
             clearFilter('filters.offers');
+            console.log('chosenValue >>', chosenValue)
             return {
               id: 'getadmin.users.filters.partners',
               value: chosenValue ? chosenValue.label : '',
@@ -219,7 +220,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
