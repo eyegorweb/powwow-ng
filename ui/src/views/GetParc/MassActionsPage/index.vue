@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       prevRoute: undefined,
-      isReady: false
+      isReady: false,
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -101,7 +101,7 @@ export default {
           this.isReady = true;
           setTimeout(() => {
             this.applyFilters();
-          })
+          });
         }, 100);
       }
     },

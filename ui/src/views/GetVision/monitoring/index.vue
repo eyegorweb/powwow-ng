@@ -150,15 +150,13 @@ export default {
           component: MultiCustomerPartnerFilter,
           onChange(chosenValue, clearFilter) {
             clearFilter('filters.offers');
-            console.log('chosenValue >>', chosenValue)
             return {
-              id: 'getadmin.users.filters.partners',
+              id: 'getadmin.users;.filters.partners',
               value: chosenValue ? chosenValue.label : '',
               data: chosenValue,
             };
           },
           onRemove(clearFilter) {
-            console.log('Removing Filter>>');
             clearFilter('filters.offers');
           },
         },
@@ -220,10 +218,10 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     getCockpitFilters() {
-      const currentVisibleFilters = [];
+      const currentVisibeFilters = [];
       if (this.userIsBO) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }

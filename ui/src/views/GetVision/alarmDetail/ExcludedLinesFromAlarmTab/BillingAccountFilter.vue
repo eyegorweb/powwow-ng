@@ -18,9 +18,6 @@ export default {
     getPageContext: Function,
   },
 
-  mounted() {
-    console.log('Contexte >>', this.getPageContext());
-  },
   computed: {
     partnerIds() {
       if (!this.getPageContext) return [];
