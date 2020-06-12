@@ -12,36 +12,39 @@ export default {
 
   props: {
     selectedData: Object,
+    selectedFilters: Array,
   },
 
   data() {
     return {
-      selectedPartner: undefined,
       isReady: false,
     };
   },
 
   mounted() {
-    if (this.selectedData) {
-      this.selectedPartner = this.selectedData.data;
-    }
-
     setTimeout(() => {
       this.isReady = true;
     });
   },
 
-  watch: {
-    selectedPartner(selectedPartner) {
-      if (!this.isReady) return;
+  computed: {
+    selectedPartner: {
+      get() {
+        if (!this.selectedData) return;
 
-      if (selectedPartner) {
-        if (selectedPartner.id) {
-          this.$emit('change', selectedPartner);
+        return this.selectedData.data;
+      },
+      set(selectedPartner) {
+        if (!this.isReady) return;
+
+        if (selectedPartner) {
+          if (selectedPartner.id) {
+            this.$emit('change', selectedPartner);
+          }
+        } else {
+          this.$emit('change', undefined);
         }
-      } else {
-        this.$emit('change', undefined);
-      }
+      },
     },
   },
 

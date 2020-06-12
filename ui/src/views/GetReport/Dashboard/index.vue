@@ -217,7 +217,7 @@ export default {
   computed: {
     ...mapGetters(['userIsBO', 'singlePartner']),
     canCancel() {
-      return !!this.userIsBO || !!(this.singlePartner && this.singlePartner.length);
+      return !!this.selectedPartner || !!(this.singlePartner && this.singlePartner.length);
     },
   },
   watch: {
