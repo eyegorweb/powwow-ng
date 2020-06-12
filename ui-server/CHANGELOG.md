@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.883+20200612084155
+2020-06-12
+
+### Fixes
+
+- correction facture getReport (842ec462f44cbaf4d3f24884527be71fa3ffdc09)
+
 ## 0.3.0-master.882+20200612080954
 2020-06-12
 
