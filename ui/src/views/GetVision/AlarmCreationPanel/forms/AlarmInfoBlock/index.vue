@@ -26,6 +26,15 @@
 
     <div class="row">
       <div class="col to-bottom">
+        <div class="d-flex mb-3 mt-1" v-if="suspension">
+          <UiCheckbox v-model="enableSuspension" :checked="false" />
+          <span>Suspension automatique</span>
+        </div>
+        <div class="d-flex mb-3 mt-1">
+          <UiCheckbox v-model="enableReactivation" :checked="false" :disabled="!enableSuspension" />
+          <span>Réactivation automatique</span>
+        </div>
+
         <h5>Nom de l'alarme</h5>
         <UiInput class="d-block" v-model="alarmName" />
       </div>
@@ -34,7 +43,6 @@
           <UiCheckbox v-model="enableAlarm" :checked="true" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
-
         <UiButton variant="primary" class="p-3" block @click="saveAlarm" :disabled="!canSaveAlarm">
           <span class="btn-label">{{ $t('getvsion.alarm.saveAlarm') }}</span>
         </UiButton>
@@ -61,6 +69,10 @@ export default {
     partner: Object,
     duplicateFrom: Object,
     canSave: Boolean,
+    suspension: {
+      type: Boolean,
+      default: false,
+    },
     num: {
       type: Number,
       default: 3,
@@ -101,6 +113,8 @@ export default {
         notifList: this.notifList,
         sholdNotify: this.sholdNotify,
         webserviceNotification: this.webserviceNotification,
+        enableSuspension: this.enableSuspension,
+        enableReactivation: this.enableReactivation,
       });
     },
   },
@@ -111,7 +125,8 @@ export default {
       webserviceNotification: false,
       alarmName: undefined,
       enableAlarm: true,
-
+      enableSuspension: false,
+      enableReactivation: false,
       notifList: undefined,
     };
   },

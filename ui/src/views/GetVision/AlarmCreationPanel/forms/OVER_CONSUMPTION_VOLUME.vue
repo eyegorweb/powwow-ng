@@ -5,6 +5,7 @@
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
+    :suspension="true"
     :check-errors-fn="isFormValid"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />

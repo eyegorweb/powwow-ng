@@ -195,12 +195,17 @@ async function consoQuery(queryName, params) {
 
 function getFormGQLParams(params) {
   const gqlParams = [];
-
   gqlParams.push(`alarmScope:${getScope(params)}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`activateAlarm:${params.enableAlarm}`);
   gqlParams.push(`emailNotification:${params.sholdNotify}`);
   gqlParams.push(`webServiceNotification:${params.webserviceNotification}`);
+  if (params.enableSuspension) {
+    gqlParams.push(`suspensionAuto: ${params.enableSuspension}`);
+  }
+  if (params.enableReactivation) {
+    gqlParams.push(`reactivationAuto: ${params.enableReactivation}`);
+  }
   if (params.sholdNotify) {
     gqlParams.push(`mailingList:${params.notifList}`);
   }
