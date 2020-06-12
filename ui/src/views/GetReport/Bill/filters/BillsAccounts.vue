@@ -1,5 +1,9 @@
 <template>
-  <BillingAccountAutocomplete v-model="selectedBillingAccount" :partners="partnersForFilters" />
+  <BillingAccountAutocomplete
+    v-model="selectedBillingAccount"
+    :partners="partnersForFilters"
+    :disabled="!partner"
+  />
 </template>
 
 <script>
@@ -20,8 +24,10 @@ export default {
     selectedData: Object,
     selectedFilters: Array,
   },
-
   mounted() {
+    setTimeout(() => {
+      this.isReady = true;
+    });
     this.initComponent();
   },
 
@@ -50,6 +56,11 @@ export default {
       setTimeout(() => {
         this.isReady = true;
       });
+    },
+  },
+  computed: {
+    partner() {
+      return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
     },
   },
 
