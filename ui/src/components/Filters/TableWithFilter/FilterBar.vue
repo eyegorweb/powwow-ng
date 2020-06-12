@@ -38,6 +38,7 @@
                   @clear="filterId => clearFilter(filterId)"
                   :selected-data="selectedData"
                   :selected-filters="currentFilters"
+                  :get-page-context="filter.getPageContext"
                 />
               </template>
             </FilterBarSlot>

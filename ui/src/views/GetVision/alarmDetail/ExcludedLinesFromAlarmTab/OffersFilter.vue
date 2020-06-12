@@ -2,7 +2,7 @@
   <div>
     <OffersFilter
       :selected-offers-values="selectedValues"
-      :selected-partners-values="[]"
+      :selected-partners-values="partnerIds"
       @setOffersFilter="values => $emit('change', values)"
     />
   </div>
@@ -17,12 +17,24 @@ export default {
   },
   props: {
     selectedData: Object,
+    getPageContext: Function,
   },
   computed: {
     selectedValues() {
       if (!this.selectedData) return [];
 
       return this.selectedData.values;
+    },
+
+    partnerIds() {
+      if (!this.getPageContext) return [];
+
+      const pageContext = this.getPageContext();
+      if (pageContext && pageContext.partnerId) {
+        return [{ id: pageContext.partnerId }];
+      }
+
+      return [];
     },
   },
 };

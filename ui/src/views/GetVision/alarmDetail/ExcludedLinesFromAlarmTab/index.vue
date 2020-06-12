@@ -76,6 +76,11 @@ export default {
         {
           title: 'common.billingAccount',
           component: BillingAccountFilter,
+          getPageContext: () => {
+            const partnerId = get(this.alarm, 'party.id');
+            if (!partnerId) return;
+            return { partnerId };
+          },
           onChange(chosenValues) {
             return {
               id: 'common.billingAccount',
@@ -93,6 +98,11 @@ export default {
               values: chosenValues,
               data: chosenValues,
             };
+          },
+          getPageContext: () => {
+            const partnerId = get(this.alarm, 'party.id');
+            if (!partnerId) return;
+            return { partnerId };
           },
         },
       ],
