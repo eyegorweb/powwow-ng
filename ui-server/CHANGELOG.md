@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.887+20200612160532
+2020-06-12
+
+### Fixes
+
+- manage permission create report (7ef133005edee016ad0f2feaa8d45ce0825720a7)
+
 ## 0.3.0-master.886+20200612155933
 2020-06-12
 
