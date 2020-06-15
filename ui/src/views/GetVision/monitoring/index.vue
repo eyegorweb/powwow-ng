@@ -221,7 +221,7 @@ export default {
     onAllFiltersCleared() {},
 
     getCockpitFilters() {
-      const currentVisibeFilters = [];
+      const currentVisibleFilters = [];
       if (this.userIsBO) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }

@@ -13,7 +13,6 @@
       </div>
     </div>
     <AlarmsPerDayGraph :partners="partnerIds" @haveResults="haveResults = $event" />
-    <div v-if="!haveResults" class="alert-light p-3">{{ $t('noResult') }}</div>
   </WidgetBloc>
 </template>
 
