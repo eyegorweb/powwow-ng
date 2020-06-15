@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.889+20200615114355
+2020-06-15
+
+### Fixes
+
+- ajout de la réactivité pour rafraîchir les données du rapport (cd1e43eeee6b241af84ae4f93a5a7ffa5b12af3b)
+
 ## 0.3.0-master.888+20200615084029
 2020-06-15
 
