@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.888+20200615084029
+2020-06-15
+
+### Fixes
+
+- ignorer la France dans le choix des pays pour quand la zone choisie est "Monde" (5ab8b73426915dc29b1e6472da93427788e1c0d9)
+
 ## 0.3.0-master.887+20200612160532
 2020-06-12
 
