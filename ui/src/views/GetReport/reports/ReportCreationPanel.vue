@@ -413,6 +413,7 @@ export default {
 
     async loadModels() {
       if (this.selectedPartner && this.selectedPartner.id) {
+        this.resetCheckboxes();
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
