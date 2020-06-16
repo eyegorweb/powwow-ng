@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.892+20200616130749
+2020-06-16
+
+### Fixes
+
+- correctifs des champs obligatoires sur la mise à jour des options du partenaire (6298794552d1b7d6ad0253cace16c90498f2c318)
+
 ## 0.3.0-master.891+20200616101409
 2020-06-16
 
