@@ -78,7 +78,6 @@ export default {
       type: Array,
       required: false,
     },
-
     canSave: Boolean,
     hideApply: Boolean,
   },

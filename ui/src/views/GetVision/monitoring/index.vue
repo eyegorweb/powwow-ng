@@ -7,14 +7,17 @@
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
+
       <FilterBar
         v-if="filters"
         :filter-components="filters"
-        @applyFilters="doSearch"
-        @noMoreFilters="onAllFiltersCleared"
-        always-show-button
         :disabled="!canFilter"
         :default-values="defaultValues"
+        :frozen-values="fronzenValues"
+        always-show-button
+        @applyFilters="doSearch"
+        @noMoreFilters="onAllFiltersCleared"
+        @currentFiltersChange="onCurrentChange"
       />
     </div>
     <div class="col-9">
@@ -24,7 +27,7 @@
             <label class="font-weight-bold">Type de supervision</label>
             <Toggle
               v-if="toggleValues"
-              @update="currentUsage = $event.id"
+              @update="onUsageChange"
               :values="toggleValues"
               block
               class="pl-2"
@@ -123,11 +126,17 @@ export default {
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
       defaultValues: undefined,
+      currentFilters: [],
+      fronzenValues: [],
+      isFrozen: false,
 
       commonFilters: {
         partnerGroup: {
           title: 'getadmin.users.filters.partnerGroup',
           component: PartnerGroupChoice,
+          isHidden: () => {
+            return this.isFrozen;
+          },
           onChange(chosen, clearFilter) {
             clearFilter('getadmin.users.filters.partners');
             clearFilter('filters.offers');
@@ -148,6 +157,9 @@ export default {
         partners: {
           title: 'getadmin.users.filters.partners',
           component: MultiCustomerPartnerFilter,
+          isHidden: () => {
+            return this.isFrozen;
+          },
           onChange(chosenValue, clearFilter) {
             clearFilter('filters.offers');
             return {
@@ -163,6 +175,9 @@ export default {
         offers: {
           title: 'filters.offers',
           component: OfferFilter,
+          isHidden: () => {
+            return this.isFrozen;
+          },
           onChange(chosenValue) {
             return {
               id: 'filters.offers',
@@ -182,6 +197,8 @@ export default {
       this.indicatorTotal = undefined;
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
+      this.isFrozen = false;
+      this.currentFilters = [];
 
       if (this.currentUsage === 'COCKPIT') {
         this.filters = this.getCockpitFilters();
@@ -214,11 +231,24 @@ export default {
   },
 
   methods: {
+    onUsageChange(usage) {
+      this.currentUsage = usage.id;
+    },
+
+    freezeFilterSelection() {
+      this.isFrozen = true;
+      this.fronzenValues = cloneDeep(this.currentFilters);
+    },
+
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
     onAllFiltersCleared() {},
+
+    onCurrentChange(currentFilters) {
+      this.currentFilters = cloneDeep(currentFilters);
+    },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
@@ -235,6 +265,9 @@ export default {
       currentVisibleFilters.push({
         title: 'filters.country',
         component: CountryFilter,
+        isHidden: () => {
+          return this.isFrozen;
+        },
         onChange(chosenValue) {
           const country = chosenValue ? chosenValue.label : undefined;
 
@@ -350,6 +383,7 @@ export default {
     onCockpitClick(payload) {
       if (!shouldFilterMocked()) {
         this.cockpitMarkerToDetail = payload;
+        this.freezeFilterSelection();
       }
     },
   },

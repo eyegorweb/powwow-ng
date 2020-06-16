@@ -5,6 +5,7 @@
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
+        :fixed-filters="frozenValues"
         @applyFilters="applyFilters"
         @clear="onRemoveFilter"
         :hide-apply="alwaysShowButton"
@@ -23,6 +24,7 @@
             :title="$t(filter.title)"
             :key="filter.title"
             :disabled="disabled"
+            :hidden="filter.isHidden && filter.isHidden()"
             draggable
           >
             <FilterBarSlot
@@ -73,6 +75,12 @@ export default {
       type: Array,
       required: false,
     },
+
+    frozenValues: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
   },
 
   data() {
@@ -80,6 +88,12 @@ export default {
       allFiltersVisible: false,
       currentFilters: [],
     };
+  },
+
+  watch: {
+    currentFilters(currentFilters) {
+      this.$emit('currentFiltersChange', currentFilters);
+    },
   },
 
   computed: {

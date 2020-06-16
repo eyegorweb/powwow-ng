@@ -9,7 +9,11 @@
     :style="cssStyle"
   >
     <div class=" cell">
-      <div v-if="data.alertNumber" class="mb-1" @click="$emit('alertClick')">
+      <div
+        v-if="data.alertNumber !== undefined && data.alertNumber !== null"
+        class="mb-1"
+        @click="$emit('alertClick')"
+      >
         {{ data.alertNumber }}
       </div>
 
