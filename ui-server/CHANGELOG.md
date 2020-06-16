@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.891+20200616101409
+2020-06-16
+
+### Fixes
+
+- k8s api connection issues (Broken Pipe) (2ea525feffcfd1d6f98dd8e618f9a3f87e03c46e)
+
 ## 0.3.0-master.890+20200616074159
 2020-06-16
 
