@@ -22,8 +22,8 @@ export default {
     value: Object,
     ignoreCountries: {
       type: Array,
-      default: []
-    }
+      default: () => [],
+    },
   },
 
   computed: {
@@ -51,7 +51,8 @@ export default {
       .filter(c => {
         const inIgnoredList = !!this.ignoreCountries.find(i => i === c.codeIso3);
         return !inIgnoredList;
-      }).map(c => ({
+      })
+      .map(c => ({
         ...c,
         label: c.name,
         value: c.code,

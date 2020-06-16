@@ -151,7 +151,7 @@ export default {
           onChange(chosenValue, clearFilter) {
             clearFilter('filters.offers');
             return {
-              id: 'getadmin.users;.filters.partners',
+              id: 'getadmin.users.filters.partners',
               value: chosenValue ? chosenValue.label : '',
               data: chosenValue,
             };
