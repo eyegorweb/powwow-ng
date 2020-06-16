@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.894+20200616145356
+2020-06-16
+
+### Features
+
+- cacher les filtres de la carte "état des services" quand on est sur la vue "Tablea des alertes" (abe96cef62a945f8b838b3fe1d48719d83013763)
+
 ## 0.3.0-master.893+20200616130726
 2020-06-16
 
