@@ -490,7 +490,24 @@
       "activityLog": "Journal d'activité",
       "options": "Options du partenaire",
       "accountDescription": "Description du compte partenaire",
-      "total": "{total} partenaire(s) trouvé(s)"
+      "total": "{total} partenaire(s) trouvé(s)",
+      "optionsDetails": {
+        "smsCodes": "Codes courts SMS",
+        "notifyEmail": "Notification par mail",
+        "userReference": "Référence utilisateur",
+        "list": "Liste de diffusion du CR",
+        "dualSimInfo": "Information dual SIM dans la facture",
+        "delayAutoActivation": "Délai avant auto-activation (mois)",
+        "offerActivation": "Offre d'activation",
+        "delayBillings": "Délai avant facturation (mois)",
+        "dataReporting": "Reporting des encours conso",
+        "paymentEmails": "Emails acquittements portabilités",
+        "cdrEmails": "Emails CDRs quotidiens",
+        "preactivateFormat": "Format de Préactivation",
+        "ws-address": "Adresse du webservice",
+        "maxViews": "Nombre maximum de vue",
+        "actualView": "Nombre de vue actuel"
+      }
     },
     "partnerDetail": {
       "generalInformations": "Informations générales",
