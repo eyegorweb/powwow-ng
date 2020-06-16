@@ -1,5 +1,8 @@
 <template>
-  <div class="foldable-block pt-3" :class="{ disabled, 'is-open': isOpen }">
+  <div
+    class="foldable-block"
+    :class="{ disabled, 'is-open': isOpen, 'fade-out-hide': hidden, 'pt-3': !hidden }"
+  >
     <div class="d-flex align-items-center">
       <span v-if="!disabled && draggable" class="handle">
         <i class="ic-Drag-Column-Icon" />
@@ -27,6 +30,7 @@ export default {
     title: String,
     draggable: Boolean,
     disabled: Boolean,
+    hidden: Boolean,
   },
 
   computed: {

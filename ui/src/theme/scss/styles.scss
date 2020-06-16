@@ -225,6 +225,28 @@ $theme-colors: map-merge(
   }
 }
 
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+    width: 100%;
+    height: 100%;
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.fade-out-hide {
+  display: block;
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
 .alert-blue {
   background: #ecf6fb !important;
   border-color: #ecf6fb !important;
