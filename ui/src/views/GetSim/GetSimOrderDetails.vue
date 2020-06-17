@@ -158,6 +158,9 @@
           <p v-if="getFromOrder('address.city')">
             {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
           </p>
+          <p v-if="getFromOrder('address.countryName')">
+            {{ getFromOrder('address.countryName') }}
+          </p>
         </div>
       </div>
 

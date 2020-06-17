@@ -32,11 +32,7 @@ describe('components/SelectedFilterDetails', () => {
     wrapper.setProps({
       filter: {
         id: 'partners',
-        values: [
-          { id: 1, label: 'first' },
-          { id: 2, label: 'second' },
-          { id: 3, label: 'third' },
-        ],
+        values: [{ id: 1, label: 'first' }, { id: 2, label: 'second' }, { id: 3, label: 'third' }],
       },
     });
     expect(wrapper.findAll('[data-test=content] span')).toHaveLength(3);

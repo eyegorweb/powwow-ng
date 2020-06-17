@@ -1,16 +1,18 @@
 <template>
   <div class="pb-4">
     <UiSelect
+      v-if="options"
       v-model="selectedOption"
-      placeholder="Groupe de partenaires"
+      placeholder="Libellé"
       :options="options"
-      :disabled="!!partner"
+      block
     />
   </div>
 </template>
 
 <script>
 import UiSelect from '@/components/ui/UiSelect';
+import { getSupervisionAlertFilters } from '@/api/supervision.js';
 
 export default {
   components: {
@@ -20,11 +22,18 @@ export default {
     selectedData: Object,
     selectedFilters: Array,
   },
+  async mounted() {
+    const alertFilters = await getSupervisionAlertFilters();
+    if (alertFilters) {
+      this.options = alertFilters.labels.map(s => {
+        return {
+          label: s.value,
+          value: s.key,
+        };
+      });
+    }
+  },
   computed: {
-    partner() {
-      const partner = this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
-      return partner;
-    },
     selectedOption: {
       get() {
         return this.selectedData ? this.selectedData.data.value : '';
@@ -36,20 +45,7 @@ export default {
   },
   data() {
     return {
-      options: [
-        {
-          label: 'Aucun',
-          value: '',
-        },
-        {
-          label: ' M2M Automobile & télématique',
-          value: 'M2M_AUTOMOTIVE',
-        },
-        {
-          label: ' M2M Utilities, sécurité & monétique',
-          value: 'M2M_UTILITIES',
-        },
-      ],
+      options: undefined,
     };
   },
 };

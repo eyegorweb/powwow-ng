@@ -78,6 +78,9 @@ import FileFilter from './filters/FileFilter';
 import PartnerGroupChoice from './filters/PartnerGroupChoice';
 import LocalisationFilter from './filters/LocalisationFilter';
 import CountryFilter from './filters/CountryFilter';
+import StatusesFilter from './filters/StatusesFilter';
+import TypesFilter from './filters/TypesFilter';
+import LabelFilter from './filters/LabelFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -112,7 +115,7 @@ export default {
       'singlePartner',
     ]),
     canFilter() {
-      return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
+      return !this.refreshLinesFn;
     },
   },
   data() {
@@ -191,6 +194,11 @@ export default {
   },
 
   watch: {
+    cockpitMarkerToDetail() {
+      if (this.cockpitMarkerToDetail) {
+        this.filters = this.getCockpitFilters();
+      }
+    },
     currentUsage() {
       this.appliedFilters = undefined;
       this.refreshLinesFn = undefined;
@@ -244,7 +252,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -278,6 +286,37 @@ export default {
           };
         },
       });
+
+      // Filters pour alerts
+
+      // StatusesFilter
+
+      if (this.cockpitMarkerToDetail) {
+        const createComboFilter = (name, component) => {
+          currentVisibleFilters.push({
+            title: name,
+            component,
+            onChange(chosen) {
+              if (!chosen || !chosen.value) {
+                return {
+                  id: name,
+                  value: '', // pour supprimer ce choix des filtres séléctionnés
+                };
+              } else {
+                return {
+                  id: name,
+                  value: chosen.label,
+                  data: chosen,
+                };
+              }
+            },
+          });
+        };
+
+        createComboFilter('status', StatusesFilter);
+        createComboFilter('types', TypesFilter);
+        createComboFilter('col.label', LabelFilter);
+      }
 
       return currentVisibleFilters;
     },
