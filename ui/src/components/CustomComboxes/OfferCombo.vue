@@ -32,7 +32,7 @@ export default {
     return {
       items: [],
       isLoading: false,
-      lastPartners: []
+      lastPartners: [],
     };
   },
   computed: {
@@ -57,9 +57,8 @@ export default {
     },
   },
   watch: {
-    async partners(partners) {      { }
+    async partners(partners) {
       if (this.havePartnersChanged(partners)) {
-        console.log('Refresh >>>')
         this.lastPartners = partners;
         await this.refreshList();
       }
@@ -78,7 +77,6 @@ export default {
         return all;
       }, []);
       return !!diff.length;
-
     },
     async refreshList() {
       if (this.disabled) return;

@@ -11,7 +11,7 @@
     <div class=" cell">
       <div
         v-if="data.alertNumber !== undefined && data.alertNumber !== null"
-        class="mb-1"
+        class="mb-1 alert-number"
         @click="$emit('alertClick')"
       >
         {{ data.alertNumber }}
@@ -19,7 +19,7 @@
 
       <div class="d-flex values">
         <div @click="$emit('clickVoice')">{{ data.voiceTrafic }}</div>
-        <div @click="$emit('clickData')">{{ data.dataTrafic }}</div>
+        <div class="middle-value" @click="$emit('clickData')">{{ data.dataTrafic }}</div>
         <div @click="$emit('clickSms')">{{ data.smsTrafic }}</div>
       </div>
     </div>
@@ -64,6 +64,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.alert-number {
+  border-bottom: 1px solid white;
+}
+.middle-value {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
 .values {
   div {
     padding: 0 5px 0 5px;

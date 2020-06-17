@@ -249,6 +249,9 @@ export default {
     async loadDataForM2MCockpit() {
       this.adjustPosition = defaultAdjustment;
 
+      // center to france
+      const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
+
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
       this.markers = data.map(d => {
         return {
@@ -266,6 +269,10 @@ export default {
           data: d,
         };
       });
+
+      this.isReady = false;
+      this.map.setCenter(franceCoords);
+      this.map.setZoom(5);
     },
 
     async loadDataForCities(countryCode) {
