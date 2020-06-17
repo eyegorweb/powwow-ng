@@ -30,6 +30,7 @@ export default {
     };
   },
   async mounted() {
+    if (!this.partners) return;
     await this.refreshList();
   },
   watch: {

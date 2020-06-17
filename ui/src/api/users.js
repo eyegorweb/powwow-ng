@@ -230,6 +230,17 @@ export async function fetchPartnerGroups(q = '') {
   return response.data.partyGroups;
 }
 
+export async function fetchUserFromUsername(username) {
+  const response = await searchUsers(undefined, undefined, [
+    {
+      id: 'getadmin.users.filters.userName',
+      value: username,
+    },
+  ]);
+  console.log(response);
+  return response.items[0];
+}
+
 export async function fetchUserRoles() {
   const queryStr = `
   query {

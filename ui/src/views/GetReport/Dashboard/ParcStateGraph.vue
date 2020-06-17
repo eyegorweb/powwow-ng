@@ -181,6 +181,9 @@ export default {
       //* /
 
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -286,6 +289,9 @@ export default {
       //* /
 
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -391,6 +397,9 @@ export default {
       //* /
 
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },
@@ -496,6 +505,9 @@ export default {
       //* /
 
       this.chartOptions = {
+        credits: {
+          enabled: false,
+        },
         chart: {
           type: 'column',
         },

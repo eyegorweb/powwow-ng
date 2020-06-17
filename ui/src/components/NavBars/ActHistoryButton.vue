@@ -4,13 +4,17 @@
       <i class="icon ic-Clock-Icon nb-acts"></i>
       <!--span class="total-acts">{{ total }}</span-->
     </a>
-    <div class="popover-content ">
+    <div class="popover-content">
       <h5>{{ $t('lastMassActions') }}</h5>
 
       <div v-if="isLoading" class="acts-container">
         <div class="single-act" :key="`sk_${index}`" v-for="index in 3">
-          <div class="act-date"><div class="skeleton-line"></div></div>
-          <div class="act-name"><div class="skeleton-line"></div></div>
+          <div class="act-date">
+            <div class="skeleton-line"></div>
+          </div>
+          <div class="act-name">
+            <div class="skeleton-line"></div>
+          </div>
         </div>
       </div>
       <div v-else class="acts-container">
@@ -28,9 +32,9 @@
       </div>
 
       <div class="action-container">
-        <UiButton variant="primary" @click="gotoHistoryPage" block>{{
-          $t('showAllHistory')
-        }}</UiButton>
+        <UiButton variant="primary" @click="gotoHistoryPage" block>
+          {{ $t('showAllHistory') }}
+        </UiButton>
       </div>
     </div>
   </div>
@@ -82,7 +86,7 @@ export default {
 
       this.isLoading = true;
       const response = await searchMassActions(
-        { key: 'CREATED_DATE', direction: 'DESC' },
+        { key: 'ID', direction: 'DESC' },
         { page: 0, limit: 3 },
         [dateFilter]
       );

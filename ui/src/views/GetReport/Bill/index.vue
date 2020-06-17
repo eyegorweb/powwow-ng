@@ -180,7 +180,6 @@ export default {
       {
         title: 'filters.billingAccounts',
         component: BillsAccounts,
-
         onChange(chosenValue) {
           return {
             id: 'filters.billingAccounts',
@@ -209,12 +208,16 @@ export default {
         {
           title: 'getadmin.users.filters.partners',
           component: BillsPartnerFilter,
-          onChange(chosenValue) {
+          onChange(chosenValue, clearFilter) {
+            clearFilter('filters.billingAccounts');
             return {
               id: 'getadmin.users.filters.partners',
               value: chosenValue ? chosenValue.label : '',
               data: chosenValue,
             };
+          },
+          onRemove(clearFilter) {
+            clearFilter('filters.billingAccounts');
           },
         },
       ];

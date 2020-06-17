@@ -29,8 +29,10 @@
             :rows="rows"
             :total="total"
             :order-by.sync="orderBy"
-            @applyFilters="applyFilters"
             :is-table-loading="isLoading"
+            :show-reset="!!searchByIdValue"
+            @resetSearch="resetFilters"
+            @applyFilters="applyFilters"
           >
             <div slot="before-table">
               <div class="row">
@@ -410,6 +412,10 @@ export default {
     this.applyFilters();
   },
   methods: {
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.applyFilters();
+    },
     async applyFilters(payload) {
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 30 },
@@ -468,7 +474,7 @@ export default {
         all.push({
           name: item.label,
           z: item.accessPointNumber,
-          y: item.percentage,
+          y: Math.round(item.percentage * 100) / 100,
         });
         return all;
       }, []);
@@ -500,6 +506,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
     async refreshDataTechnoRepartition(partnerIds) {
@@ -551,6 +560,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
     async refreshDataTop5References(partnerIds) {
@@ -560,7 +572,7 @@ export default {
         all.push({
           name: item.label,
           z: item.accessPointNumber,
-          y: item.percentage,
+          y: Math.round(item.percentage * 100) / 100,
         });
         return all;
       }, []);
@@ -592,6 +604,9 @@ export default {
             data: formatedData,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
   },

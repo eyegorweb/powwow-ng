@@ -181,7 +181,7 @@ export default {
       total: 0,
       orderBy: {
         key: 'creationDate',
-        direction: 'ASC',
+        direction: 'DESC',
       },
     };
   },

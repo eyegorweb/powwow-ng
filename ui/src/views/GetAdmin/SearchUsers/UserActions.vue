@@ -5,7 +5,8 @@
 <script>
 import ActionButtons from '@/components/DataTable/ActionButtons.vue';
 import { enableUser, disableUser } from '@/api/users';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -21,6 +22,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userInfos']),
     actions() {
       let additionalActions = [];
 
@@ -28,6 +30,10 @@ export default {
         additionalActions.push('actions.ENABLE');
       } else {
         additionalActions.push('actions.DISABLE');
+      }
+
+      if (this.havePermission('user', 'create')) {
+        additionalActions.push('actions.DUPLICATE');
       }
 
       return [...additionalActions, 'actions.MODIFY'];
@@ -77,6 +83,12 @@ export default {
       }
 
       showMessage(response);
+    },
+
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(p => {
+        return p.domain === domain && p.action === action;
+      });
     },
   },
 };

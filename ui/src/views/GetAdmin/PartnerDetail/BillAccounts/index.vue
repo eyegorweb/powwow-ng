@@ -54,9 +54,9 @@
                   </div>
                 </div>
               </div>
-              <Button :variant="'primary'" @click="save">
-                {{ $t('getadmin.partnerDetail.update') }}
-              </Button>
+              <Button :variant="'primary'" @click="save">{{
+                $t('getadmin.partnerDetail.update')
+              }}</Button>
             </div>
           </div>
         </div>
@@ -94,7 +94,6 @@ export default {
   },
 
   async mounted() {
-    this.accounts = await fetchCustomerAccounts(this.partner.id);
     this.refreshTable();
   },
 
@@ -179,6 +178,11 @@ export default {
       },
     };
   },
+  watch: {
+    orderBy() {
+      this.refreshTable();
+    },
+  },
   computed: {
     checkCountry() {
       if (this.account[0].address.country === 'null' || !this.account[0].address.country) {
@@ -222,7 +226,8 @@ export default {
       }
     },
 
-    refreshTable() {
+    async refreshTable() {
+      this.accounts = await fetchCustomerAccounts(this.partner.id, this.orderBy);
       this.rows = this.accounts.map(l => ({
         code: l.code,
         name: l.name,

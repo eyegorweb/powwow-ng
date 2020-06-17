@@ -76,7 +76,11 @@ export default {
         this.customerAccountId
       );
       const formateddata = data.reduce((all, item) => {
-        all.push({ name: item.offer, y: item.percentage, z: item.accessPointNumber });
+        all.push({
+          name: item.offer,
+          y: Math.round(item.percentage * 100) / 100,
+          z: item.accessPointNumber,
+        });
         return all;
       }, []);
       this.chartOptions = {
@@ -100,6 +104,9 @@ export default {
             data: formateddata,
           },
         ],
+        credits: {
+          enabled: false,
+        },
       };
     },
   },

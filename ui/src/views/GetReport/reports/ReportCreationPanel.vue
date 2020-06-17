@@ -141,12 +141,10 @@ import UiButton from '@/components/ui/Button';
 
 import get from 'lodash.get';
 
-import { createReport, updateReport } from '@/api/reportCreation.js';
+import { createReport, updateReport, reportModels } from '@/api/reportCreation.js';
 import { mapMutations, mapGetters } from 'vuex';
 
 import { fetchpartnerById } from '@/api/partners.js';
-
-import { reportModels } from '@/api/reportCreation.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import { currentDateTimeWithAdd } from '@/utils/date';
@@ -415,6 +413,7 @@ export default {
 
     async loadModels() {
       if (this.selectedPartner && this.selectedPartner.id) {
+        this.resetCheckboxes();
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
@@ -656,6 +655,9 @@ export default {
 
         {
           title: 'Informations dernier usage',
+          canShow: () => {
+            return this.havePermission('consumption', 'last_usage');
+          },
           checkboxes: [
             {
               code: 'LAST_CONNECTION_STATUS',
@@ -737,7 +739,11 @@ export default {
             { code: 'LAST_USAGE_COORDINATES', label: 'Coordonnées géographiques ', checked: false },
             { code: 'LAST_USAGE_DATE', label: 'Date de dernière localisation', checked: false },
             { code: 'LAST_USAGE_TYPE', label: "Type d'usage", checked: false },
-            { code: 'LAST_USAGE_DETAILS', label: 'Détail', checked: false },
+            {
+              code: 'LAST_USAGE_DETAILS',
+              label: 'Détail',
+              checked: false,
+            },
             { code: 'LAST_PLMN', label: 'PLMN', checked: false },
             { code: 'LAST_OPERATOR_REAL_PLMN', label: 'PLMN réel ', checked: false },
             { code: 'LAST_TYPE_APPEL', label: 'Type appel', checked: false },
@@ -747,7 +753,11 @@ export default {
               label: 'Code offre du dernier usage ',
               checked: false,
             },
-            { code: 'LAST_TICKET_GENERATION', label: 'Génération du ticket', checked: false },
+            {
+              code: 'LAST_TICKET_GENERATION',
+              label: 'Génération du ticket',
+              checked: false,
+            },
           ],
         },
         {

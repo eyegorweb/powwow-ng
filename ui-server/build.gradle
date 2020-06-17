@@ -80,7 +80,7 @@ jib {
     }
 
     from {
-        image = 'gcr.io/distroless/java:debug'
+        image = 'gcr.io/distroless/java@sha256:9e0947f0c4b4b9a25cdf9f83efbc5f642f8e5e1d04255acc4e81fc446e72e6b2'
     }
 
     to {

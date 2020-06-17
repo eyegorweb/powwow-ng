@@ -163,7 +163,7 @@
     "modelReports": "Rapports",
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
-    "reportsBill": "Facture",
+    "reportsBill": "Factures",
     "monitoring": "Supervision"
   },
   "users": {
@@ -437,6 +437,7 @@
         "partner": "Partenaire",
         "group": "Compte groupe"
       },
+      "searchUser": "Rechercher un utilisateur",
       "simcards": "Cartes SIM",
       "supervision": "Options de supervision",
       "addAdmin": "Ajouter un administrateur",
@@ -489,7 +490,24 @@
       "activityLog": "Journal d'activité",
       "options": "Options du partenaire",
       "accountDescription": "Description du compte partenaire",
-      "total": "{total} partenaire(s) trouvé(s)"
+      "total": "{total} partenaire(s) trouvé(s)",
+      "optionsDetails": {
+        "smsCodes": "Codes courts SMS",
+        "notifyEmail": "Notification par mail",
+        "userReference": "Référence utilisateur",
+        "list": "Liste de diffusion du CR",
+        "dualSimInfo": "Information dual SIM dans la facture",
+        "delayAutoActivation": "Délai avant auto-activation (mois)",
+        "offerActivation": "Offre d'activation",
+        "delayBillings": "Délai avant facturation (mois)",
+        "dataReporting": "Reporting des encours conso",
+        "paymentEmails": "Emails acquittements portabilités",
+        "cdrEmails": "Emails CDRs quotidiens",
+        "preactivateFormat": "Format de Préactivation",
+        "ws-address": "Adresse du webservice",
+        "maxViews": "Nombre maximum de vue",
+        "actualView": "Nombre de vue actuel"
+      }
     },
     "partnerDetail": {
       "generalInformations": "Informations générales",
@@ -538,7 +556,12 @@
       "FIFTEEN": "15",
       "BOTH": "Tous",
       "adminForm": {
-        "title": "Formulaire admin"
+        "titles": {
+          "addMainAdmin": "Ajouter un administrateur principal",
+          "addSecondAdmin": "Ajouter un administrateur secondaire",
+          "modifyMainAdmin": "Modifier le profil administrateur principal",
+          "modifySecondAdmin": "Modifier le profil administrateur secondaire"
+        }
       },
       "offerFromPanel": {
         "title": "Panel Offre"
@@ -579,6 +602,7 @@
     }
   },
   "getparc": {
+    "user": "Utilisateur",
     "lines-sim-import": "Importer des cartes SIM",
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
@@ -1409,7 +1433,7 @@
     "offers": "Offres",
     "quantity": "Quantité",
     "customFields": "Champs libres",
-    "orderCreator": "Créateur de la commande",
+    "orderCreator": "Créateur de la demande",
     "active": "Activé",
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",

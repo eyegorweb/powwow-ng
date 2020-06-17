@@ -7,11 +7,11 @@
 
     <template v-if="zone == 'world'">
       <h6>Pays</h6>
-      <CountriesPart v-if="zone == 'world'" v-model="country" />
+      <CountriesPart v-if="zone == 'world'" :ignore-countries="['FRA']" v-model="country" />
     </template>
     <template v-if="zone == 'france'">
-      <h6>Code postale</h6>
-      <UiInput v-model="zipCode" placeholder="Code postale" />
+      <h6>Code postal</h6>
+      <UiInput v-model="zipCode" placeholder="Code postal" block />
     </template>
   </div>
 </template>
@@ -32,7 +32,10 @@ export default {
   },
   data() {
     return {
-      zones: [{ label: 'Monde', value: 'world' }, { label: 'France', value: 'france' }],
+      zones: [
+        { label: 'Monde', value: 'world' },
+        { label: 'France', value: 'france' },
+      ],
     };
   },
   computed: {

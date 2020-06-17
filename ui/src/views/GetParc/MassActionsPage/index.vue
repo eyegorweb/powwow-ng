@@ -16,7 +16,7 @@
         <FilterBar />
       </div>
       <div class="col-md-9">
-        <HistoryTable />
+        <HistoryTable v-if="isReady" />
       </div>
     </div>
   </div>
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       prevRoute: undefined,
+      isReady: false,
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -87,6 +88,7 @@ export default {
             },
           ]);
           this.applyFilters();
+          this.isReady = true;
         }, 500);
       } else {
         setTimeout(() => {
@@ -96,8 +98,11 @@ export default {
               .format('DD/MM/YYYY'),
             endDate: moment().format('DD/MM/YYYY'),
           });
-          this.applyFilters();
-        });
+          this.isReady = true;
+          setTimeout(() => {
+            this.applyFilters();
+          });
+        }, 100);
       }
     },
   },

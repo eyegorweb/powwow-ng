@@ -16,6 +16,10 @@
     <template slot="actions" slot-scope="{ row }">
       <slot name="actions" :row="row"></slot>
     </template>
+
+    <template slot="noResult">
+      <slot name="noResult"></slot>
+    </template>
   </DataTable>
 </template>
 

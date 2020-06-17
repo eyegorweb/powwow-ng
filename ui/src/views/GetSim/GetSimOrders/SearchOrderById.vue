@@ -27,6 +27,7 @@ export default {
           value: 'idOrder',
           label: this.$t('orders.search.order-id'),
           checkFn: value =>
+            !isNaN(value) &&
             value.length !== 0 &&
             (value.length !== 19 || value.length !== 15 || value.length !== 11),
         },

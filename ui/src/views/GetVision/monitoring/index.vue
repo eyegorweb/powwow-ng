@@ -7,13 +7,17 @@
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
+
       <FilterBar
         v-if="filters"
         :filter-components="filters"
+        :disabled="!canFilter"
+        :default-values="defaultValues"
+        :frozen-values="fronzenValues"
+        always-show-button
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
-        always-show-button
-        :disabled="!canFilter"
+        @currentFiltersChange="onCurrentChange"
       />
     </div>
     <div class="col-9">
@@ -23,7 +27,7 @@
             <label class="font-weight-bold">Type de supervision</label>
             <Toggle
               v-if="toggleValues"
-              @update="currentUsage = $event.id"
+              @update="onUsageChange"
               :values="toggleValues"
               block
               class="pl-2"
@@ -73,6 +77,7 @@ import Toggle from '@/components/ui/UiToggle2';
 import FileFilter from './filters/FileFilter';
 import PartnerGroupChoice from './filters/PartnerGroupChoice';
 import LocalisationFilter from './filters/LocalisationFilter';
+import CountryFilter from './filters/CountryFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -98,7 +103,14 @@ export default {
     CockpitDetails,
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userPartyGroup']),
+    ...mapGetters([
+      'userIsBO',
+      'userIsGroupAccount',
+      'userPartyGroup',
+      'userIsMultiPartner',
+      'userIsPartner',
+      'singlePartner',
+    ]),
     canFilter() {
       return !this.cockpitMarkerToDetail && !this.refreshLinesFn;
     },
@@ -113,6 +125,68 @@ export default {
       indicatorTotal: undefined,
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
+      defaultValues: undefined,
+      currentFilters: [],
+      fronzenValues: [],
+      isFrozen: false,
+
+      commonFilters: {
+        partnerGroup: {
+          title: 'getadmin.users.filters.partnerGroup',
+          component: PartnerGroupChoice,
+          isHidden: () => {
+            return this.isFrozen;
+          },
+          onChange(chosen, clearFilter) {
+            clearFilter('getadmin.users.filters.partners');
+            clearFilter('filters.offers');
+            if (!chosen || !chosen.value) {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: '', // pour supprimer ce choix des filtres séléctionnés
+              };
+            } else {
+              return {
+                id: 'getadmin.users.filters.partnerGroup',
+                value: chosen.label,
+                data: chosen,
+              };
+            }
+          },
+        },
+        partners: {
+          title: 'getadmin.users.filters.partners',
+          component: MultiCustomerPartnerFilter,
+          isHidden: () => {
+            return this.isFrozen;
+          },
+          onChange(chosenValue, clearFilter) {
+            clearFilter('filters.offers');
+            return {
+              id: 'getadmin.users.filters.partners',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+          onRemove(clearFilter) {
+            clearFilter('filters.offers');
+          },
+        },
+        offers: {
+          title: 'filters.offers',
+          component: OfferFilter,
+          isHidden: () => {
+            return this.isFrozen;
+          },
+          onChange(chosenValue) {
+            return {
+              id: 'filters.offers',
+              value: chosenValue ? chosenValue.label : '',
+              data: chosenValue,
+            };
+          },
+        },
+      },
     };
   },
 
@@ -123,6 +197,8 @@ export default {
       this.indicatorTotal = undefined;
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
+      this.isFrozen = false;
+      this.currentFilters = [];
 
       if (this.currentUsage === 'COCKPIT') {
         this.filters = this.getCockpitFilters();
@@ -155,53 +231,54 @@ export default {
   },
 
   methods: {
+    onUsageChange(usage) {
+      this.currentUsage = usage.id;
+    },
+
+    freezeFilterSelection() {
+      this.isFrozen = true;
+      this.fronzenValues = cloneDeep(this.currentFilters);
+    },
+
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
+
+    onCurrentChange(currentFilters) {
+      this.currentFilters = cloneDeep(currentFilters);
+    },
 
     getCockpitFilters() {
       const currentVisibleFilters = [];
       if (this.userIsBO) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupChoice,
-          onChange(chosen) {
-            return {
-              id: 'getadmin.users.filters.partnerGroup',
-              value: chosen.label,
-              data: chosen,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
       if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partners',
-          component: MultiCustomerPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partners);
       }
 
+      currentVisibleFilters.push(this.commonFilters.offers);
+
       currentVisibleFilters.push({
-        title: 'filters.offers',
-        component: OfferFilter,
+        title: 'filters.country',
+        component: CountryFilter,
+        isHidden: () => {
+          return this.isFrozen;
+        },
         onChange(chosenValue) {
+          const country = chosenValue ? chosenValue.label : undefined;
+
           return {
-            id: 'filters.offers',
-            value: chosenValue ? chosenValue.label : '',
+            id: 'filters.country',
+            value: country,
             data: chosenValue,
           };
         },
       });
+
       return currentVisibleFilters;
     },
 
@@ -220,47 +297,23 @@ export default {
         },
       ];
       if (this.userIsBO) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partnerGroup',
-          component: PartnerGroupChoice,
-          onChange(chosen) {
-            return {
-              id: 'getadmin.users.filters.partnerGroup',
-              value: chosen.label,
-              data: chosen,
-            };
-          },
-        });
+        currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
       if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
-        currentVisibleFilters.push({
-          title: 'getadmin.users.filters.partners',
-          component: MultiCustomerPartnerFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'getadmin.users.filters.partners',
-              value: chosenValue ? chosenValue.label : '',
-              data: chosenValue,
-            };
+        currentVisibleFilters.push(this.commonFilters.partners);
+      } else if (this.userIsPartner) {
+        this.defaultValues = [
+          {
+            id: 'getadmin.users.filters.partners',
+            value: this.singlePartner ? this.singlePartner.name : '',
+            data: this.singlePartner,
+            hidden: true,
           },
-        });
+        ];
       }
 
-      currentVisibleFilters.push({
-        title: 'filters.offers',
-        component: OfferFilter,
-        onChange(chosenValue) {
-          return {
-            id: 'filters.offers',
-            value: chosenValue ? chosenValue.label : '',
-            data: chosenValue,
-          };
-        },
-        checkVisibleFn(currentFilters) {
-          return currentFilters.find(f => f.id === 'getadmin.users.filters.partners');
-        },
-      });
+      currentVisibleFilters.push(this.commonFilters.offers);
 
       currentVisibleFilters.push({
         title: 'filters.zone',
@@ -272,7 +325,7 @@ export default {
 
           const labels = [{ id: zone, label: `Zone: ${zone}` }];
           if (country) labels.push({ id: country, label: `Pays: ${country}` });
-          if (zipCode) labels.push({ id: zipCode, label: `Code postale: ${zipCode}` });
+          if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
           return {
             id: 'filters.zone',
             values: labels,
@@ -330,6 +383,7 @@ export default {
     onCockpitClick(payload) {
       if (!shouldFilterMocked()) {
         this.cockpitMarkerToDetail = payload;
+        this.freezeFilterSelection();
       }
     },
   },

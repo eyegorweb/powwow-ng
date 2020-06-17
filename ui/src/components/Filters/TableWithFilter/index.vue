@@ -45,6 +45,14 @@
             <div slot="actions" slot-scope="{ row }">
               <slot name="actions" :row="row"></slot>
             </div>
+            <div slot="noResult">
+              <div v-if="showReset">
+                <button class="btn btn-link" @click="$emit('resetSearch')">
+                  {{ $t('resetFilters') }}
+                </button>
+              </div>
+              <div class="alert alert-light">{{ $t('noResult') }}</div>
+            </div>
           </ResultDataTable>
 
           <slot name="after"></slot>
@@ -81,6 +89,7 @@ export default {
     isLoading: Boolean,
     isTableLoading: Boolean,
     noPagination: Boolean,
+    showReset: Boolean,
     size: {
       type: Number,
       default: 7,
@@ -99,7 +108,7 @@ export default {
     return {
       lastSelectedFilters: [],
       page: 1,
-      pageLimit: 10,
+      pageLimit: 20,
     };
   },
 

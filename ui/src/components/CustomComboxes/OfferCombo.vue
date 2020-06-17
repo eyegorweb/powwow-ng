@@ -31,7 +31,8 @@ export default {
   data() {
     return {
       items: [],
-      isLoading: true,
+      isLoading: false,
+      lastPartners: []
     };
   },
   computed: {
@@ -40,26 +41,48 @@ export default {
     selectedValue: {
       get() {
         if (this.value && this.items && this.items.length) {
-          return this.items.find(i => i.id === this.value.id);
+          const found = this.items.find(i => i.id === this.value.id);
+
+          if (found) {
+            return found;
+          }
+
+          return this.value;
         }
         return undefined;
       },
       set(value) {
-        if (value && value.label === '') {
-          this.$emit('update:value', undefined);
-          return;
-        }
         this.$emit('update:value', value);
       },
     },
   },
   watch: {
-    async partners() {
-      await this.refreshList();
+    async partners(partners) {      { }
+      if (this.havePartnersChanged(partners)) {
+        console.log('Refresh >>>')
+        this.lastPartners = partners;
+        await this.refreshList();
+      }
     },
   },
   methods: {
+    havePartnersChanged(partners) {
+      if (!partners) return false;
+      const diff = partners.reduce((all, p) => {
+        if (p.id) {
+          const found = this.lastPartners.find(f => f.id === p.id);
+          if (!found) {
+            all.push(found);
+          }
+        }
+        return all;
+      }, []);
+      return !!diff.length;
+
+    },
     async refreshList() {
+      if (this.disabled) return;
+
       this.isLoading = true;
       const data = await fetchOffers('', this.partners, {
         page: 0,
@@ -76,6 +99,7 @@ export default {
     },
   },
   mounted() {
+    this.lastPartners = this.partners;
     this.refreshList();
   },
 };

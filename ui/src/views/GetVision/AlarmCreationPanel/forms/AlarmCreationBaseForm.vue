@@ -26,6 +26,7 @@
       @save="$emit('save', $event)"
       :can-save="canSave"
       :partner="selectedPartner"
+      :suspension="suspension"
       :duplicate-from="duplicateFrom"
     />
   </div>
@@ -49,6 +50,7 @@ export default {
     alarm: Object,
     duplicateFrom: Object,
     haveForm: Boolean,
+    suspension: Boolean,
     checkErrorsFn: {
       type: Function,
       required: false,

@@ -13,6 +13,7 @@
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
+      <GetParcCreatorDetails v-if="panelId === 'getparc.creator.title'" :order="payload" />
       <ActHistoryDetailPanel
         v-if="panelId === 'getparc.history.details.title'"
         :content="payload"
@@ -75,6 +76,8 @@ export default {
     GetSimCreateOrderPanel: () => import('@/views/GetSim/CreateOrder/CreateOrderPanel'),
     GetSimOrderDetails: () => import('@/views/GetSim/GetSimOrderDetails'),
     GetSimCreatorDetails: () => import('@/views/GetSim/GetSimCreatorDetails'),
+    GetParcCreatorDetails: () =>
+      import('@/views/GetParc/MassActionsPage/HistoryTable/GetParcCreatorDetails'),
     ActHistoryDetailPanel: () => import('@/views/GetParc/MassActionsPage/ActHistoryDetailPanel'),
     ActLinesDetailPanel: () => import('@/views/GetParc/ActLines/ActLinesDetailPanel'),
     ActCreationPanel: () => import('@/views/GetParc/LineDetail/ActCreation/ActCreationPanel'),

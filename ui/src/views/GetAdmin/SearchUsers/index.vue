@@ -8,10 +8,10 @@
           <Tooltip direction="right">{{ $t('getvsion.manage-alarms-tooltip') }}</Tooltip>
         </h4>
       </div>
-      <div class="col-md-3">
-        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
-          $t('getadmin.users.addUser')
-        }}</UiButton>
+      <div class="col-md-3" v-if="canShow">
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()"
+          >{{ $t('getadmin.users.addUser') }}
+        </UiButton>
       </div>
     </div>
     <TableWithFilter
@@ -21,6 +21,8 @@
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
+      :show-reset="!!searchByLoginValue"
+      @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >
@@ -260,10 +262,18 @@ export default {
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount']),
+    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userInfos']),
+    canShow() {
+      return this.havePermission('user', 'create');
+    },
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    resetFilters() {
+      this.searchByIdValue = undefined;
+      this.applyFilters();
+    },
 
     async applyFilters(payload) {
       this.lastPayload = payload;
@@ -330,7 +340,23 @@ export default {
       };
     },
     onDuplicateUser(user) {
-      console.log('duplicate user', user);
+      const doReset = () => {
+        this.applyFilters(this.lastPayload);
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.partnerDetail.userForm.title'),
+        panelId: 'getadmin.partnerDetail.userForm.title',
+        payload: { duplicateFrom: user, duplicate: true },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
     },
 
     onModifyUser(user) {
@@ -356,6 +382,12 @@ export default {
     },
     async refreshUser(user) {
       user.disabled = !user.disabled;
+    },
+
+    havePermission(domain, action) {
+      return !!get(this.userInfos, 'permissions', []).find(p => {
+        return p.domain === domain && p.action === action;
+      });
     },
   },
 };

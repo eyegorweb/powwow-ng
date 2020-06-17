@@ -6,7 +6,7 @@
         <ToggleGroup :services="services" :size="3" />
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Liste de diffusion</h6>
+            <h6>{{ $t('getvsion.mailing-list') }}</h6>
             <UiSelect
               class="report-field"
               v-model="resilationSecurityNotificationMails"
@@ -15,7 +15,7 @@
             />
           </div>
           <div class="third-size pr-4">
-            <h6>Codes courts SMS</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.smsCodes') }}</h6>
             <UiInput v-model="shortCodes" block />
           </div>
         </div>
@@ -26,7 +26,7 @@
       <template slot="content">
         <div class="d-flex">
           <div class="third-size">
-            <h6>Notification par mail</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.notifyEmail') }}</h6>
             <UiSelect class="report-field" v-model="mailOrder" :options="mailingLists" block />
           </div>
           <div class="two-thirds">
@@ -35,11 +35,11 @@
         </div>
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Référence utilisateur</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.userReference') }}</h6>
             <UiInput v-model="refUser" block />
           </div>
           <div class="third-size pr-4">
-            <h6>Liste de diffusion du CR</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.list') }}</h6>
             <UiSelect class="report-field" v-model="crEmail" :options="mailingLists" block />
           </div>
         </div>
@@ -71,35 +71,39 @@
           </div>
 
           <div class="third-size pr-4">
-            <h6>Liste de diffusion</h6>
+            <h6>{{ $t('getvsion.mailing-list') }}</h6>
             <UiSelect class="report-field" v-model="diffusionList" :options="mailingLists" block />
           </div>
         </div>
 
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Information dual SIM dans la facture</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.dualSimInfo') }}</h6>
             <UiInput v-model="billingDualSIM" block />
           </div>
-          <div class="third-size pr-4">
-            <h6>Délai avant auto-activation (mois)</h6>
+          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'AUTO_ACT_SIM')">
+            <h6>{{ $t('getadmin.partners.optionsDetails.delayAutoActivation') }}</h6>
             <UiInput v-model="autoActivationDelay" input-type="number" block />
+            <small v-if="fieldErrors && errors.autoActivationDelay" class="form-text error-text">{{
+              $t('required')
+            }}</small>
           </div>
-          <div class="third-size pr-4">
-            <h6>Offre d'activation</h6>
+          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'AUTO_ACT_SIM')">
+            <h6>{{ $t('getadmin.partners.optionsDetails.offerActivation') }}</h6>
             <OfferCombo :value.sync="selectedOffer" :partners="[partner]" />
           </div>
         </div>
         <div class="d-flex">
           <div class="third-size pr-4" v-if="selectedOffer">
-            <h6>Compte de facturation</h6>
-
+            <h6>{{ $t('common.billingAccounts') }}</h6>
             <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="[partner]" />
           </div>
-          <div class="third-size pr-4">
-            <h6>Délai avant facturation (mois)</h6>
-
+          <div class="third-size pr-4" v-if="getToggle(billingToggles, 'FACT_SIM_STOCK')">
+            <h6>{{ $t('getadmin.partners.optionsDetails.delayBillings') }}</h6>
             <UiInput v-model="billingDelay" input-type="number" block />
+            <small v-if="fieldErrors && errors.billingDelay" class="form-text error-text">{{
+              $t('required')
+            }}</small>
           </div>
         </div>
       </template>
@@ -129,7 +133,7 @@
           </div>
 
           <div class="third-size">
-            <h6>Reporting des encours conso</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.dataReporting') }}</h6>
             <Toggle
               block
               v-if="reportConsoValues"
@@ -149,7 +153,7 @@
 
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Emails acquittements portabilités</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.paymentEmails') }}</h6>
 
             <UiSelect
               class="report-field"
@@ -159,12 +163,12 @@
             />
           </div>
           <div class="third-size pr-4">
-            <h6>Emails CDRs quotidiens</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.cdrEmails') }}</h6>
 
             <UiSelect class="report-field" v-model="dailyCdrEmails" :options="mailingLists" block />
           </div>
           <div class="third-size pr-4">
-            <h6>Format de Préactivation</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.preactivateFormat') }}</h6>
             <Toggle
               block
               @update="preactivationFormat = $event.id"
@@ -176,32 +180,32 @@
 
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Notification web service</h6>
+            <h6>{{ $t('getvision.notify-ws') }}</h6>
             <Toggle block @update="notificationChoice = $event.id" :values="notificationChoices" />
           </div>
           <div class="third-size pr-4">
-            <h6>Login</h6>
+            <h6>{{ $t('login') }}</h6>
             <UiInput v-model="login" block />
           </div>
           <div class="third-size pr-4">
-            <h6>Mot de passe</h6>
+            <h6>{{ $t('password') }}</h6>
             <UiInput v-model="password" block />
           </div>
         </div>
 
         <div class="d-flex">
           <div class="third-size pr-4">
-            <h6>Adresse du webservice</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.ws-address') }}</h6>
             <UiInput v-model="webserviceAdress" input-type="number" block />
           </div>
 
           <div class="third-size pr-4">
-            <h6>Nombre maximum de vue</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.maxViews') }}</h6>
             <UiInput v-model="geolocViewLimit" block />
           </div>
 
           <div class="third-size pr-4">
-            <h6>Nombre de vue actuel</h6>
+            <h6>{{ $t('getadmin.partners.optionsDetails.actualView') }}</h6>
             <UiInput v-model="geolocViewCounter" block />
           </div>
         </div>
@@ -210,7 +214,13 @@
 
     <div class="d-flex">
       <div class="save-block">
-        <UiButton variant="primary" class="p-3" block @click="saveOptions">
+        <UiButton
+          variant="primary"
+          class="p-3"
+          block
+          @click="saveOptions"
+          :disabled="!!fieldErrors"
+        >
           <span class="btn-label">{{ $t('save') }}</span>
         </UiButton>
       </div>
@@ -253,6 +263,9 @@ export default {
     },
     canSave() {
       return false;
+    },
+    fieldErrors() {
+      return this.haveFieldErrors();
     },
   },
   props: {
@@ -442,11 +455,11 @@ export default {
           dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
           offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
           flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
-          defautWorkflowActication: parseInt(this.autoActivationDelay),
-          defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
-          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')),
-          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
-          billingNonActDelay: parseInt(this.billingDelay),
+          defautWorkflowActication: parseInt(this.autoActivationDelay), // error
+          defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')), // error
+          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')), // error
+          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'), // error
+          billingNonActDelay: parseInt(this.billingDelay), // error
           exportComptaBSCSModeEnabled: this.comptaExport,
           flagServicesAudit: this.flagServicesAudit,
           flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),
@@ -485,6 +498,26 @@ export default {
         return t;
       });
     },
+    haveFieldErrors() {
+      const fieldErrors = {};
+      let haveError = false;
+      if (this.getToggle(this.billingToggles, 'AUTO_ACT_SIM')) {
+        if (!this.autoActivationDelay) {
+          fieldErrors.autoActivationDelay = true;
+          haveError = true;
+        }
+      }
+
+      if (this.getToggle(this.billingToggles, 'FACT_SIM_STOCK')) {
+        if (!this.billingDelay) {
+          fieldErrors.billingDelay = true;
+          haveError = true;
+        }
+      }
+
+      this.errors = fieldErrors;
+      return haveError;
+    },
   },
   data() {
     return {
@@ -512,6 +545,7 @@ export default {
       geolocViewLimit: undefined,
       geolocViewCounter: undefined,
       resilationSecurityNotificationMails: undefined,
+      errors: undefined,
 
       comptaExport: false,
       flagServicesAudit: false,

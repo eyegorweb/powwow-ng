@@ -9,7 +9,11 @@
     :style="cssStyle"
   >
     <div class=" cell">
-      <div v-if="data.alertNumber" class="mb-1" @click="$emit('alertClick')">
+      <div
+        v-if="data.alertNumber !== undefined && data.alertNumber !== null"
+        class="mb-1"
+        @click="$emit('alertClick')"
+      >
         {{ data.alertNumber }}
       </div>
 
@@ -62,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .values {
   div {
-    padding: 5px;
+    padding: 0 5px 0 5px;
 
     &::last-child {
       border-right: none;
@@ -77,8 +81,8 @@ export default {
 
   .cell {
     color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
     font-size: 9px;
     font-style: normal;
     text-align: center;

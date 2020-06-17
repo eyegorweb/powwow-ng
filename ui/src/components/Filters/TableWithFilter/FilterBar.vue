@@ -5,8 +5,9 @@
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
+        :fixed-filters="frozenValues"
         @applyFilters="applyFilters"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="onRemoveFilter"
         :hide-apply="alwaysShowButton"
       />
 
@@ -23,6 +24,7 @@
             :title="$t(filter.title)"
             :key="filter.title"
             :disabled="disabled"
+            :hidden="filter.isHidden && filter.isHidden()"
             draggable
           >
             <FilterBarSlot
@@ -38,6 +40,7 @@
                   @clear="filterId => clearFilter(filterId)"
                   :selected-data="selectedData"
                   :selected-filters="currentFilters"
+                  :get-page-context="filter.getPageContext"
                 />
               </template>
             </FilterBarSlot>
@@ -72,6 +75,12 @@ export default {
       type: Array,
       required: false,
     },
+
+    frozenValues: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
   },
 
   data() {
@@ -79,6 +88,12 @@ export default {
       allFiltersVisible: false,
       currentFilters: [],
     };
+  },
+
+  watch: {
+    currentFilters(currentFilters) {
+      this.$emit('currentFiltersChange', currentFilters);
+    },
   },
 
   computed: {
@@ -117,6 +132,15 @@ export default {
     applyFilters() {
       this.$emit('applyFilters', this.currentFilters);
     },
+    onRemoveFilter(filterId) {
+      const filterToRemove = this.filterComponents.find(f => f.title === filterId);
+      if (filterToRemove) {
+        if (filterToRemove.onRemove) {
+          filterToRemove.onRemove(this.clearFilter);
+        }
+        this.clearFilter(filterId);
+      }
+    },
     clearFilter(filterId) {
       if (this.currentFilters && this.currentFilters.length) {
         this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
@@ -130,7 +154,7 @@ export default {
       if (!filter.onChange) {
         return;
       }
-      const selectedValue = filter.onChange(value);
+      const selectedValue = filter.onChange(value, this.clearFilter);
       const filterExists = this.currentFilters.find(c => c.id === selectedValue.id);
 
       if (filterExists) {

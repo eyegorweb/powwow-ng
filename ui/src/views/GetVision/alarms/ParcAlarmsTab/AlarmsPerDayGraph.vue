@@ -49,7 +49,7 @@ export default {
         },
         chart: {
           zoomType: 'xy',
-          height: 200,
+          height: 160,
         },
         title: {
           text: this.title || '',
@@ -131,6 +131,7 @@ export default {
             data.push([formattedObj.date, formattedObj.value]);
           });
       }
+
       this.createChart(data);
     },
   },
