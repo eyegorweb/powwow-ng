@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.896+20200617141621
+2020-06-17
+
+### Features
+
+- Ajout de pays dans le detail de la commande (e4dd571f209ebf6e8c794e49d49b74cebafc1e0b)
+
 ## 0.3.0-master.895+20200617125252
 2020-06-17
 
