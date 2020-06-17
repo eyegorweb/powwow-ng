@@ -42,9 +42,9 @@
           <p class="m-0">
             {{ creatorTitle }}
             {{
-              `${getFromOrder('auditable.creator.name.firstName')} ${getFromOrder(
-                'auditable.creator.name.lastName'
-              )}`
+            `${getFromOrder('auditable.creator.name.firstName')} ${getFromOrder(
+            'auditable.creator.name.lastName'
+            )}`
             }}
           </p>
         </div>
@@ -55,9 +55,7 @@
         <div class="overview-item">
           <h6>{{ $t('orders.detail.manageID') }} :</h6>
           <p>
-            <span v-for="(id, index) in massActionsIds" :key="id"
-              >{{ index ? ', ' : '' }}{{ id }}</span
-            >
+            <span v-for="(id, index) in massActionsIds" :key="id">{{ index ? ', ' : '' }}{{ id }}</span>
           </p>
         </div>
         <div class="overview-item">
@@ -68,15 +66,14 @@
 
       <div class="overview-container m-3 bg-white">
         <div class="overview-item d-flex">
-          <h4 class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase">
-            {{ $t('orders.detail.simCardOffer') }}
-          </h4>
+          <h4
+            class="align-self-sm-center flex-grow-1 font-weight-normal text-uppercase"
+          >{{ $t('orders.detail.simCardOffer') }}</h4>
           <UiButton
             @click="gotoCorrespondingLines"
             v-if="order.status === 'TERMINATED'"
             variant="import"
-            >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton
-          >
+          >{{ $t('getsim.actions.SHOW_SIM') }}</UiButton>
           <template v-if="userIsBO && order.status === 'CONFIRMED'">
             <UiButton
               v-if="order.importedQuantity < order.quantity"
@@ -101,15 +98,15 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('action') }} :</h6>
-          <p v-if="order.preActivationAsked && order.activationAsked">
-            {{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}
-          </p>
-          <p v-if="order.preActivationAsked && !order.activationAsked">
-            {{ $t('col.preActivationAsked') }}
-          </p>
-          <p v-if="!order.preActivationAsked && order.activationAsked">
-            {{ $t('col.activationAsked') }}
-          </p>
+          <p
+            v-if="order.preActivationAsked && order.activationAsked"
+          >{{ $t('col.preActivationAsked') }} {{ $t('col.activationAsked') }}</p>
+          <p
+            v-if="order.preActivationAsked && !order.activationAsked"
+          >{{ $t('col.preActivationAsked') }}</p>
+          <p
+            v-if="!order.preActivationAsked && order.activationAsked"
+          >{{ $t('col.activationAsked') }}</p>
           <p v-if="!order.preActivationAsked && !order.activationAsked">{{ $t('none') }}</p>
         </div>
         <div class="overview-item">
@@ -120,9 +117,9 @@
 
       <div class="overview-container m-3 bg-white">
         <div class="overview-item">
-          <h4 class="font-weight-normal text-uppercase">
-            {{ $t('orders.new.deliveryStep.form.deliveryCoords') }}
-          </h4>
+          <h4
+            class="font-weight-normal text-uppercase"
+          >{{ $t('orders.new.deliveryStep.form.deliveryCoords') }}</h4>
         </div>
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.company') }}</h6>
@@ -132,9 +129,9 @@
           <h6>{{ $t('col.recipient') }}</h6>
           <p class="m-0">
             {{
-              `${getFromOrder('name.title')} ${getFromOrder('name.firstName')} ${getFromOrder(
-                'name.lastName'
-              )}`
+            `${getFromOrder('name.title')} ${getFromOrder('name.firstName')} ${getFromOrder(
+            'name.lastName'
+            )}`
             }}
           </p>
         </div>
@@ -149,15 +146,16 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.deliveryAddress') }}</h6>
           <p>{{ getFromOrder('address.address1') }}</p>
-          <p v-if="getFromOrder('address.address2') && getFromOrder('address.address2') !== 'null'">
-            {{ getFromOrder('address.address2') }}
-          </p>
-          <p v-if="getFromOrder('address.address3') && getFromOrder('address.address3') !== 'null'">
-            {{ getFromOrder('address.address3') }}
-          </p>
-          <p v-if="getFromOrder('address.city')">
-            {{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}
-          </p>
+          <p
+            v-if="getFromOrder('address.address2') && getFromOrder('address.address2') !== 'null'"
+          >{{ getFromOrder('address.address2') }}</p>
+          <p
+            v-if="getFromOrder('address.address3') && getFromOrder('address.address3') !== 'null'"
+          >{{ getFromOrder('address.address3') }}</p>
+          <p
+            v-if="getFromOrder('address.city')"
+          >{{ getFromOrder('address.zipCode') }} - {{ getFromOrder('address.city') }}</p>
+          <p v-if="getFromOrder('address.countryName')">{{ getFromOrder('address.countryName') }}</p>
         </div>
       </div>
 
@@ -190,12 +188,12 @@
         <div class="overview-item">
           <h6>{{ $t('orders.new.deliveryStep.form.address') }}</h6>
           <p>{{ getFromOrder('customerAccount.address.address1') }}</p>
-          <p v-if="getFromOrder('customerAccount.address.address2')">
-            {{ getFromOrder('customerAccount.address.address2') }}
-          </p>
-          <p v-if="getFromOrder('customerAccount.address.address3')">
-            {{ getFromOrder('customerAccount.address.address3') }}
-          </p>
+          <p
+            v-if="getFromOrder('customerAccount.address.address2')"
+          >{{ getFromOrder('customerAccount.address.address2') }}</p>
+          <p
+            v-if="getFromOrder('customerAccount.address.address3')"
+          >{{ getFromOrder('customerAccount.address.address3') }}</p>
           <p v-if="getFromOrder('customerAccount.address.city')">
             {{ getFromOrder('customerAccount.address.zipCode') }} -
             {{ getFromOrder('customerAccount.address.city') }}

@@ -69,6 +69,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
           city
           country
           state
+          countryName
         }
         customerAccount {
           id

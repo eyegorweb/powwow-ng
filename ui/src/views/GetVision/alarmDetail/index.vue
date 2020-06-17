@@ -29,9 +29,8 @@
       <UiTabs :tabs="tabs" :selected-index="currentTab">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentTab = index)"
-              >{{ tab.title }}
-
+            <a href="#" @click.prevent="() => (currentTab = index)">
+              {{ tab.title }}
               <span class="badge badge-primary">{{ tab.total }}</span>
             </a>
           </UiTab>
@@ -118,6 +117,7 @@ export default {
     },
 
     modifyAlarm() {
+      console.log(this.alarm);
       const doReset = async () => {
         this.refreshAlarm();
       };
