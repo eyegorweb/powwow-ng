@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.32.0
+2020-06-17
+
+### Features
+
+- Ajout de pays dans le detail de la commande (e4dd571f209ebf6e8c794e49d49b74cebafc1e0b)
+- filtres pour le cockpit M2M (partie front) (df04a9ebc5e2557f3fa57202fe26c7230bd64e37)
+
 ## 0.31.0
 2020-06-17
 
