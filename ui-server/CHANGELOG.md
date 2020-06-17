@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.32.1
+2020-06-17
+
+### Fixes
+
+- désactivation des modifications des champs libres et spécifiques dans la personnalisation (045ce1d8bae4c2d008662f538425e24db5f3d4b0)
+
 ## 0.32.0
 2020-06-17
 
