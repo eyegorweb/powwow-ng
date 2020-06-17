@@ -17,6 +17,7 @@
           :key="sf.id"
           :can-delete="false"
           @modify="modifySpecificField(sf)"
+          :can-modify="false"
         >
           <div class="cardBloc-infos-name">{{ $t('col.specificFields', { num: ++index }) }}</div>
           <div class="cardBloc-infos-username">{{ sf.label }}</div>
