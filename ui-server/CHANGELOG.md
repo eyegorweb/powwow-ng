@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.897+20200617151235
+2020-06-17
+
+### Features
+
+- filtres pour le cockpit M2M (partie front) (df04a9ebc5e2557f3fa57202fe26c7230bd64e37)
+
 ## 0.3.0-master.896+20200617141621
 2020-06-17
 
