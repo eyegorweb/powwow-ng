@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.895+20200617125252
+2020-06-17
+
+### Fixes
+
+- correction autocomplete des partenaires et offres (3de697f570c4b71f7f5752029ba2caacd9f333eb)
+
 ## 0.3.0-master.894+20200616145356
 2020-06-16
 
