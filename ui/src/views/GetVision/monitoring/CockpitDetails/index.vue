@@ -55,12 +55,12 @@ export default {
       currentTab: 0,
       tabs: [
         {
-          label: 'alerts',
-          title: 'Alertes',
-        },
-        {
           label: 'graphs',
           title: 'Graphiques',
+        },
+        {
+          label: 'alerts',
+          title: 'Alertes',
         },
       ],
     };

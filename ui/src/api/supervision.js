@@ -469,3 +469,38 @@ export async function fetchSupervisionGraphVoice(filters) {
     return response.data.supervisionVoiceGraph;
   }
 }
+
+let SUPERVISION_FILTERS_CACHE;
+
+async function loadSupervisionAlertFilters() {
+  if (SUPERVISION_FILTERS_CACHE) return;
+
+  const queryStr = `
+  query{
+    getSupervisionAlertFilterLists{
+      statuses{
+        key
+        value
+      }
+      types{
+        key
+        value
+      }
+      labels{
+        key
+        value
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+
+  if (response.data) {
+    SUPERVISION_FILTERS_CACHE = response.data.getSupervisionAlertFilterLists;
+  }
+}
+
+export async function getSupervisionAlertFilters() {
+  await loadSupervisionAlertFilters();
+  return SUPERVISION_FILTERS_CACHE;
+}
