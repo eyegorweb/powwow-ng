@@ -49,8 +49,6 @@ export default {
         params,
       });
 
-      console.log(data);
-
       if (!data) return;
 
       const formattedData = data.reduce(
@@ -151,7 +149,7 @@ export default {
           pointFormatter() {
             return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
-                this.series.userOptions.color
+              this.series.userOptions.color
               }; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
