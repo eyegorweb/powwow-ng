@@ -2,6 +2,45 @@
 
 <!--- next entry here -->
 
+## 0.31.0
+2020-06-17
+
+### Features
+
+- ajouter le bouton pour ré initialiser la recherche (9f1a2fab37e797f9e704da2c420249b93a4c3adc)
+- ajout de la permission pour configurer des utilisateurs (5532d4e7a302072c7e11397d59d9a017b8f88d30)
+- Ajout de la possibilité de dupliquer des users (2dc124d6c7c06e9267ed32ce005ed542faca3dc2)
+- filtre pays pour le cockpit M2M (d9f89baaa9b1b1b58d43c9d8dc910ea0435ea386)
+- Ajout de la possibilité de suspendre et reactiver une alarme au declenchement (5c15aad4ea2e267d1a7c42019a937304677112ac)
+- cacher les filtres de la carte "état des services" quand on est sur la vue "Tablea des alertes" (abe96cef62a945f8b838b3fe1d48719d83013763)
+
+### Fixes
+
+- Filtre Créateur de la demande (6510fa5b540bd86b6f6f21e2913cbd2985aa23aa)
+- Correction des filtres de la page de supervision (fcd17fd9271b76a51e845445440edaca2ac265f5)
+- correctifs sur l'écran getDevices (63a63d2b240eeecc36a4527f96933a4c3ab03acc)
+- Ajout d'un delais pour la prise en compte du filtre (6935ff32f57222ed50e4761c04a80dc96b37d3b5)
+- Ajout du click user sur la table actes de gestion avec panel (81d97a91ee2f07f46425892c21c9abeda2dc1179)
+- corrections de la recherche des factures (706dd4eebaf2b9dc3a4e8370003a16ab23d56315)
+- correctifs sur la consultation des offres du partenaire (97a7142662ddfdff4c99090107bd2d427bcddb61)
+- annulation de la correction sur le tableau de bord (c23013bad976c42e9e5075aa9b3b726d8a0084e2)
+- configuration du panel Administrateur (0775c0e827a6bd43b5f893e5cb548884e30ca4db)
+- ajout de la permission pour ajouter un utilisateur (dc30f1cd505567230f1401e84cb588a12de84a8d)
+- La recherche de commande par réf client ne fonctionne pas (d3344a544c4ca1cf496b424acf0837a4d4165211)
+- Correction de l'affichage du montant dans le panel de détail de facture (6df7d3c6ec74fc9eda5d661f9fcfc61eeb375880)
+- Corriger le tri sur les documents dans getreport (068be29293caf0c5b8854710cd1c61eec977aabf)
+- ajout de la permission pour dupliquer un utilisateur (e514e2a3f18f4f9ae85b97023f21091e9d224e06)
+- correction facture getReport (842ec462f44cbaf4d3f24884527be71fa3ffdc09)
+- Correction des filtres dans le détail des alarmes (19b78e5168aa1ada4a4e271a4be4ee034bdfcd4c)
+- Correction de bugs sur la barre de filtre (f3618587b4ba1dcb8aa399a1b95dea8c5e0767a3)
+- Cycle d'observation dans la modification d'alarme (f4b0c745b089f6bb0debd770483ad16864baf540)
+- manage permission create report (7ef133005edee016ad0f2feaa8d45ce0825720a7)
+- ignorer la France dans le choix des pays pour quand la zone choisie est "Monde" (5ab8b73426915dc29b1e6472da93427788e1c0d9)
+- ajout de la réactivité pour rafraîchir les données du rapport (cd1e43eeee6b241af84ae4f93a5a7ffa5b12af3b)
+- k8s api connection issues (Broken Pipe) (2ea525feffcfd1d6f98dd8e618f9a3f87e03c46e)
+- correctifs des champs obligatoires sur la mise à jour des options du partenaire (6298794552d1b7d6ad0253cace16c90498f2c318)
+- correction autocomplete des partenaires et offres (3de697f570c4b71f7f5752029ba2caacd9f333eb)
+
 ## 0.30.1
 2020-06-05
 
