@@ -17,6 +17,7 @@
           :key="cf.id"
           :can-delete="false"
           @modify="modifyCustomField(cf)"
+          :can-modify="false"
         >
           <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
           <div class="cardBloc-infos-username">{{ cf.label }}</div>
