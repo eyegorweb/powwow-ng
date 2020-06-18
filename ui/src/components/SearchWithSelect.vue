@@ -59,7 +59,6 @@ export default {
     padding-right: 2rem;
     text-transform: uppercase;
     background-color: $light-gray;
-    width: 12rem;
   }
 }
 </style>
