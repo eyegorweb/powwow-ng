@@ -197,6 +197,7 @@ export default {
         label: this.singlePartner.name,
         data: this.singlePartner,
       };
+      this.initialPartner = this.selectedPartner;
 
       this.appliedPartner = { ...this.selectedPartner };
     }
@@ -204,10 +205,11 @@ export default {
 
   data() {
     return {
+      initialPartner: undefined,
       selectedPartner: undefined,
       selectedBillingAccount: undefined,
       selectedOffer: undefined,
-      partnersForFilters: undefined,
+      partnersForFilters: [],
 
       appliedPartner: undefined,
       appliedBillingAccount: undefined,
@@ -227,6 +229,8 @@ export default {
     selectedPartner() {
       if (this.selectedPartner && this.selectedPartner.id) {
         this.partnersForFilters = [{ ...this.selectedPartner }];
+        this.selectedOffer = undefined;
+        this.selectedBillingAccount = undefined;
       }
     },
   },
@@ -255,7 +259,12 @@ export default {
       }
     },
     revertSelection() {
-      location.reload();
+      this.selectedPartner = this.initialPartner;
+      this.appliedPartner = undefined;
+      this.appliedBillingAccount = undefined;
+      this.appliedOffer = undefined;
+      this.selectedBillingAccount = undefined;
+      this.selectedOffer = undefined;
     },
   },
 };
