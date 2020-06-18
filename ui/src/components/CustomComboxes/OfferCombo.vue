@@ -67,9 +67,10 @@ export default {
   methods: {
     havePartnersChanged(partners) {
       if (!partners) return false;
+      const lastPartners = this.lastPartners || [];
       const diff = partners.reduce((all, p) => {
         if (p.id) {
-          const found = this.lastPartners.find(f => f.id === p.id);
+          const found = lastPartners.find(f => f.id === p.id);
           if (!found) {
             all.push(found);
           }

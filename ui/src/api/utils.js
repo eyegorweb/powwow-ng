@@ -68,7 +68,20 @@ export async function query(q, variables) {
   let tries = 10;
 
   if (isOnDebugMode()) {
-    console.log(q, variables);
+    let logStr = `
+    ** requette **
+    ${q}
+    `;
+
+    if(variables) {
+      logStr += `
+      ** paramètres **
+      ${JSON.stringify(variables)}
+
+
+      `
+    }
+    console.log(logStr);
   }
 
   const singleTry = async () => {
