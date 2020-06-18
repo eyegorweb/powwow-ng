@@ -81,6 +81,7 @@ import CountryFilter from './filters/CountryFilter';
 import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
+import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -252,7 +253,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -316,6 +317,19 @@ export default {
         createComboFilter('status', StatusesFilter);
         createComboFilter('types', TypesFilter);
         createComboFilter('col.label', LabelFilter);
+
+        currentVisibleFilters.push({
+          title: 'filters.actDateStart',
+          component: DateRangeFilter,
+          onChange(chosen) {
+            return {
+              id: 'filters.actDateStart',
+              startDate: chosen.startDate,
+              endDate: chosen.endDate,
+              data: chosen,
+            };
+          },
+        });
       }
 
       return currentVisibleFilters;
@@ -339,7 +353,7 @@ export default {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
-      //if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
+      // if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
       if (!this.userIsPartner) {
         currentVisibleFilters.push(this.commonFilters.partners);
       } else {

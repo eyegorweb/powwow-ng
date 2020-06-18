@@ -90,7 +90,7 @@ export default {
   watch: {
     appliedFilters() {
       this.version += 1;
-    }
+    },
   },
 
   methods: {
