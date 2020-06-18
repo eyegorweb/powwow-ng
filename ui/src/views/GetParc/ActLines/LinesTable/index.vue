@@ -54,8 +54,12 @@
         </template>
       </template>
       <template v-else>
-        <h4>Rechercher une ligne par ID</h4>
-        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+        <div class="row">
+          <div class="col-md-8">
+            <h4>Rechercher une ligne par ID</h4>
+            <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+          </div>
+        </div>
 
         <div class="alert alert-primary text-center mt-2" role="alert">
           Ecran de recherche de lignes et création d'actes de gestion

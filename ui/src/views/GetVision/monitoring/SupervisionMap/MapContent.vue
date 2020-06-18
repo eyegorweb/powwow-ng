@@ -253,7 +253,7 @@ export default {
       const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
 
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
-      this.markers = data.map(d => {
+      const markers = data.map(d => {
         return {
           id: uuid(),
           alertNumber: d.alertNumber,
@@ -273,6 +273,10 @@ export default {
       this.isReady = false;
       this.map.setCenter(franceCoords);
       this.map.setZoom(5);
+
+      setTimeout(() => {
+        this.markers = markers;
+      }, 800)
     },
 
     async loadDataForCities(countryCode) {

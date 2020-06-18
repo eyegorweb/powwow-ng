@@ -252,7 +252,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -264,7 +264,7 @@ export default {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
-      if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
+      if (!this.userIsPartner) {
         currentVisibleFilters.push(this.commonFilters.partners);
       }
 
@@ -339,9 +339,10 @@ export default {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
-      if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
+      //if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
+      if (!this.userIsPartner) {
         currentVisibleFilters.push(this.commonFilters.partners);
-      } else if (this.userIsPartner) {
+      } else {
         this.defaultValues = [
           {
             id: 'getadmin.users.filters.partners',
