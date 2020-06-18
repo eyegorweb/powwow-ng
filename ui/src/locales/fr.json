@@ -394,7 +394,7 @@
       "nonLocalisableSessions30Days": "Lignes ayant une session data ces 30 derniers jours mais non localisables"
     },
     "filters": {
-      "ALARMS_OFFER": "Portée de l'alame",
+      "ALARMS_OFFER": "Portée de l'alarme",
       "ALARM_TYPE": "Type d'alarme",
       "DATE_TRIGGER": "Date de déclenchement"
     },
