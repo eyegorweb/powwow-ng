@@ -9,7 +9,11 @@
 
     <div class="mt-2">
       <div :key="supervisionType">
-        <CockpitDataGraph :supervision-type="supervisionType" :partner-id="partnerId" />
+        <CockpitDataGraph :supervision-type="supervisionType" :filters="formatFilters" />
+
+        <CockpitSmsGraph :supervision-type="supervisionType" :filters="formatFilters" />
+
+        <CockpitVoiceGraph :supervision-type="supervisionType" :filters="formatFilters" />
       </div>
     </div>
   </div>
@@ -18,11 +22,15 @@
 <script>
 import Toggle from '@/components/ui/UiToggle2';
 import CockpitDataGraph from './CockpitDataGraph';
+import CockpitSmsGraph from './CockpitSmsGraph';
+import CockpitVoiceGraph from './CockpitVoiceGraph';
 
 export default {
   components: {
     Toggle,
     CockpitDataGraph,
+    CockpitSmsGraph,
+    CockpitVoiceGraph
   },
   props: {
     markerData: Object,
@@ -65,6 +73,20 @@ export default {
       }
       return undefined;
     },
+    formatFilters() {
+      if (!this.appliedFilters) return {};
+
+      return this.appliedFilters.reduce((filters, item) => {
+        if (item.id === 'getadmin.users.filters.partners') {
+          filters.partyIds = [item.data.id];
+        }
+
+        if (item.id === 'filters.country') {
+          filters.locationCode = item.data.codeIso3;
+        }
+        return filters;
+      }, {});
+    }
   },
 };
 </script>

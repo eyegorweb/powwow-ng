@@ -23,7 +23,7 @@ export default {
 
   props: {
     supervisionType: String,
-    partnerId: Number,
+    filters: Object
   },
 
   mounted() {
@@ -41,18 +41,15 @@ export default {
     },
     async refreshData() {
       const params = {};
-      if (this.partnerId) {
-        params.partyIds = [this.partnerId];
-      }
 
       const data = await fetchSupervisionGraphVoice({
         supervisionType: this.supervisionType,
-        params,
+        params: this.filters,
       });
 
       if (!data) return;
 
-      const formattedData = data.reduce(
+      const formattedData = data.responses.reduce(
         (all, item) => {
           const dateFirstSplit = item.date.split(' ');
           const dateParts = dateFirstSplit[0].split('/');
@@ -86,12 +83,12 @@ export default {
           zoomType: 'xy',
         },
         title: {
-          text: '',
-          align: 'left',
+          text: 'Voix par Tranches',
+          align: 'center',
         },
         subtitle: {
-          text: ' ',
-          align: 'left',
+          text: 'Dernière mise à jour:' + data.lastUpdateDate,
+          align: 'center',
         },
         plotOptions: {
           column: {

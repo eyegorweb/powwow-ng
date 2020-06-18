@@ -15,15 +15,7 @@
         <CockpitAlerts :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
       <div class="pt-4 pl-4" slot="graphs">
-        <h5>Data</h5>
         <CockpitGraphs :marker-data="markerData" :applied-filters="appliedFilters" />
-
-        <h5>SMS</h5>
-        <CockpitSmsGraph :marker-data="markerData" :applied-filters="appliedFilters" />
-
-        <h5>Voix</h5>
-
-        <CockpitVoiceGraph :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
     </UiTabs>
   </div>
