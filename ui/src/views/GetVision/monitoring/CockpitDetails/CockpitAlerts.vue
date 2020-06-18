@@ -117,6 +117,10 @@ export default {
         if (item.id === 'col.label') {
           filters.label = item.data.value;
         }
+        if (item.id === 'common.period') {
+          filters.startDate = item.data.startDate;
+          filters.endDate = item.data.endDate;
+        }
 
         return filters;
       }, {});

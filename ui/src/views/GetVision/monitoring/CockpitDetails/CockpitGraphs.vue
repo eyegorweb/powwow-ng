@@ -84,10 +84,6 @@ export default {
         if (item.id === 'filters.country') {
           filters.locationCode = item.data.codeIso3;
         }
-        if (item.id === 'date') {
-          filters.startDate = item.data.startDate;
-          filters.endDate = item.data.endDate;
-        }
 
         return filters;
       }, {});

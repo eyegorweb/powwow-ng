@@ -253,7 +253,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -319,11 +319,11 @@ export default {
         createComboFilter('col.label', LabelFilter);
 
         currentVisibleFilters.push({
-          title: 'filters.actDateStart',
+          title: 'common.period',
           component: DateRangeFilter,
           onChange(chosen) {
             return {
-              id: 'filters.actDateStart',
+              id: 'common.period',
               startDate: chosen.startDate,
               endDate: chosen.endDate,
               data: chosen,
