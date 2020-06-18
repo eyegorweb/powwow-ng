@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.899+20200618084156
+2020-06-18
+
+### Fixes
+
+- Correctif du bug d'affichage de la carte dans la page Cockpit M2M (d9b67b957f5fdb87b5eaa88cefc78d96b3678816)
+
 ## 0.3.0-master.898+20200617161613
 2020-06-17
 
