@@ -1,31 +1,25 @@
 import { query } from './utils';
 
-// TODO: Refact : utiliser la fonction fetchSupervisionGraphData
 export async function supervisionDataGraph(partyIds) {
-  const queryStr = `
-  query {
-    supervisionDataGraph(supervisionType:MONTH, params:{partyIds:[${partyIds.join(',')}]}) {
-     date
-     upload
-     download
-     numberRequests
-     numberTraffSims
-     numberRequestsOpening
-   }
- }`;
-  const response = await query(queryStr);
-
-  return response ? response.data.supervisionDataGraph : undefined;
+  return fetchSupervisionGraphData({
+    supervisionType: 'MONTH',
+    params: {
+      partyIds
+    }
+  });
 }
 
 export async function supervisionSmsGraph(partyIds) {
   const queryStr = `
-  query {
-    supervisionSmsGraph(supervisionType:MONTH, params:{partyIds:[${partyIds.join(',')}]}) {
-      date
-      numberOfSentSMS
-      numberOfReceivedSMS
-      numberOfTraffSims
+  query{
+    supervisionSmsGraphV2(supervisionType:MONTH, params:{partyIds:[${partyIds.join(',')}]}){
+      responses{
+        date
+        numberOfSentSMS
+        numberOfReceivedSMS
+        numberOfTraffSims
+      }
+      lastUpdateDate
     }
   }
   `;
@@ -35,14 +29,18 @@ export async function supervisionSmsGraph(partyIds) {
 
 export async function supervisionVoiceGraph(partyIds) {
   const queryStr = `
-  query {
-    supervisionVoiceGraph(supervisionType:MONTH params:{partyIds:[${partyIds.join(',')}]}) {
-      date
-      volumeIn
-      volumeOut
-      numberCallsIn
-      numberCallsOut
-      numberTraffSims
+  query{
+    supervisionVoiceGraphV2(supervisionType:MONTH params:{partyIds:[${partyIds.join(',')}]}){
+      responses{
+        date
+        volumeIn
+        volumeOut
+        numberCallsIn
+        numberCallsOut
+        numberTraffSims
+
+      }
+      lastUpdateDate
     }
   }
   `;
@@ -398,25 +396,26 @@ export async function fetchSupervisionGraphData(filters) {
   const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
     $beginDate: Date,
     $endDate: Date){
-      supervisionDataGraph(
-        supervisionType: $supervisionType,
+      supervisionDataGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
-        endDate: $endDate
-      ) {
-        date
-        upload
-        download
-        numberRequests
-        numberTraffSims
-        numberRequestsOpening
+        endDate: $endDate) {
+        lastUpdateDate
+        responses {
+          date
+          upload
+          download
+          numberRequests
+          numberTraffSims
+          numberRequestsOpening
+        }
       }
     }`;
 
   const response = await query(queryStr, filters);
 
   if (response.data) {
-    return response.data.supervisionDataGraph;
+    return response.data.supervisionDataGraphV2;
   }
 }
 
@@ -424,23 +423,24 @@ export async function fetchSupervisionGraphSMS(filters) {
   const queryStr = `query SupervisionSmsGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
     $beginDate: Date,
     $endDate: Date){
-      supervisionSmsGraph(
-        supervisionType: $supervisionType,
+      supervisionSmsGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
-        endDate: $endDate
-      ) {
-        date
-        numberOfSentSMS
-        numberOfReceivedSMS
-        numberOfTraffSims
+        endDate: $endDate){
+        responses{
+          date
+          numberOfSentSMS
+          numberOfReceivedSMS
+          numberOfTraffSims
+        }
+        lastUpdateDate
       }
     }`;
 
   const response = await query(queryStr, filters);
 
   if (response.data) {
-    return response.data.supervisionSmsGraph;
+    return response.data.supervisionSmsGraphV2;
   }
 }
 
@@ -448,25 +448,27 @@ export async function fetchSupervisionGraphVoice(filters) {
   const queryStr = `query SupervisionVoiceGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
     $beginDate: Date,
     $endDate: Date){
-      supervisionVoiceGraph(
-        supervisionType: $supervisionType,
+      supervisionVoiceGraphV2(supervisionType: $supervisionType,
         params: $params,
         beginDate: $beginDate,
-        endDate: $endDate
-      ) {
-        date
-        volumeIn
-        volumeOut
-        numberCallsIn
-        numberCallsOut
-        numberTraffSims
+        endDate: $endDate){
+        responses{
+          date
+          volumeIn
+          volumeOut
+          numberCallsIn
+          numberCallsOut
+          numberTraffSims
+
+        }
+        lastUpdateDate
       }
     }`;
 
   const response = await query(queryStr, filters);
 
   if (response.data) {
-    return response.data.supervisionVoiceGraph;
+    return response.data.supervisionVoiceGraphV2;
   }
 }
 
