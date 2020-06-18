@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.900+20200618102123
+2020-06-18
+
+### Fixes
+
+- Correction de problème d'affichage en prod (c031482e6c69932bc5174e3bf092086c017ffaad)
+
 ## 0.3.0-master.899+20200618084156
 2020-06-18
 
