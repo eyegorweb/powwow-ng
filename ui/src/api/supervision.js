@@ -4,8 +4,8 @@ export async function supervisionDataGraph(partyIds) {
   return fetchSupervisionGraphData({
     supervisionType: 'MONTH',
     params: {
-      partyIds
-    }
+      partyIds,
+    },
   });
 }
 

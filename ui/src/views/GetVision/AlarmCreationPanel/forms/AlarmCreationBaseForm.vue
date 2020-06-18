@@ -2,8 +2,8 @@
   <div class="p-4 slide-up-reveal">
     <div v-if="editMode">
       <div>
-        <h5>{{$t('getvsion.filters.ALARMS_OFFER')}} :</h5>
-        <p>{{$t('alarms.alarmScope.' + duplicateFrom.alarmScope)}}</p>
+        <h5>{{ $t('getvsion.filters.ALARMS_OFFER') }} :</h5>
+        <p>{{ $t('alarms.alarmScope.' + duplicateFrom.alarmScope) }}</p>
       </div>
     </div>
     <template v-if="!editMode">

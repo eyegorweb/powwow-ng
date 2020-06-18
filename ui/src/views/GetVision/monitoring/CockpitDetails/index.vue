@@ -26,8 +26,6 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import CockpitAlerts from './CockpitAlerts';
 import CockpitGraphs from './CockpitGraphs';
-import CockpitSmsGraph from './CockpitSmsGraph';
-import CockpitVoiceGraph from './CockpitVoiceGraph';
 
 export default {
   components: {
@@ -35,8 +33,6 @@ export default {
     UiTab,
     CockpitAlerts,
     CockpitGraphs,
-    CockpitSmsGraph,
-    CockpitVoiceGraph,
   },
   props: {
     markerData: Object,

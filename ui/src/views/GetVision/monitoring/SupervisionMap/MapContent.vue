@@ -276,7 +276,7 @@ export default {
 
       setTimeout(() => {
         this.markers = markers;
-      }, 800)
+      }, 800);
     },
 
     async loadDataForCities(countryCode) {
