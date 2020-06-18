@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.901+20200618135411
+2020-06-18
+
+### Features
+
+- ajout du titre dans les graphes du cockpit M2M (b10540053a1c36991cbfcf9d4e9d57a037b7541a)
+- Ajout portée de l'alarme en modification d'alarme (48a8077effd4922dc2f2136b7db13e95a1257192)
+
 ## 0.3.0-master.900+20200618102123
 2020-06-18
 
