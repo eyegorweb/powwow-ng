@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 0.3.0-master.902+20200618142447
+## 0.3.0-master.902+20200618142750
 2020-06-18
 
 ### Features
 
 - filtre date (d9123a131f9808cf640c430e9b4325f11db2f18d)
+
+### Fixes
+
+- Augmenation du nombre de ligne par page sur les comptes de facturations (d38154aa082f57fddaec59e83cc6089279b14c01)
 
 ## 0.3.0-master.901+20200618135411
 2020-06-18
