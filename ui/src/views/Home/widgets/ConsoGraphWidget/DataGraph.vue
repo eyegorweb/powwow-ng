@@ -20,7 +20,7 @@ export default {
         const formatData = v => Math.floor(v / Math.pow(1024, 3)); // octet => Go
 
         if (response) {
-          return response.map(d => ({
+          return response.responses.map(d => ({
             date: formatDateToUTC(d.date),
             out: formatData(d.upload),
             in: formatData(d.download),

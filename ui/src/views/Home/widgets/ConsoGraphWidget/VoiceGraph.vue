@@ -16,9 +16,9 @@ export default {
   methods: {
     async loadDataFn(partners) {
       if (partners && partners.length) {
-        const response = await supervisionVoiceGraph(partners);
+        const data = await supervisionVoiceGraph(partners);
 
-        return response.map(d => ({
+        return data.responses.map(d => ({
           date: formatDateToUTC(d.date),
           out: d.volumeOut,
           in: d.volumeIn,

@@ -10,42 +10,21 @@ export async function supervisionDataGraph(partyIds) {
 }
 
 export async function supervisionSmsGraph(partyIds) {
-  const queryStr = `
-  query{
-    supervisionSmsGraphV2(supervisionType:MONTH, params:{partyIds:[${partyIds.join(',')}]}){
-      responses{
-        date
-        numberOfSentSMS
-        numberOfReceivedSMS
-        numberOfTraffSims
-      }
-      lastUpdateDate
-    }
-  }
-  `;
-  const response = await query(queryStr);
-  return response.data.supervisionSmsGraph;
+  return fetchSupervisionGraphSMS({
+    supervisionType: 'MONTH',
+    params: {
+      partyIds,
+    },
+  });
 }
 
 export async function supervisionVoiceGraph(partyIds) {
-  const queryStr = `
-  query{
-    supervisionVoiceGraphV2(supervisionType:MONTH params:{partyIds:[${partyIds.join(',')}]}){
-      responses{
-        date
-        volumeIn
-        volumeOut
-        numberCallsIn
-        numberCallsOut
-        numberTraffSims
-
-      }
-      lastUpdateDate
-    }
-  }
-  `;
-  const response = await query(queryStr);
-  return response.data.supervisionVoiceGraph;
+  return fetchSupervisionGraphVoice({
+    supervisionType: 'MONTH',
+    params: {
+      partyIds,
+    },
+  });
 }
 
 // Page supervision
