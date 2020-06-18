@@ -279,7 +279,7 @@ export async function fetchCustomerAccounts(id, orderBy) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 10, page: 0} ${orderingInfo})  {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 50, page: 0} ${orderingInfo})  {
       total
       items {
         id
