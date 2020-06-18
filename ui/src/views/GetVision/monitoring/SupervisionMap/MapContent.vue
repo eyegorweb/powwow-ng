@@ -158,7 +158,6 @@ export default {
 
   methods: {
     async refreshData() {
-      console.log('Refresh data')
       if (this.isLoading) return;
 
       try {
@@ -254,7 +253,6 @@ export default {
       const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
 
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
-      console.log('DATA ', data.length, data)
       const markers = data.map(d => {
         return {
           id: uuid(),

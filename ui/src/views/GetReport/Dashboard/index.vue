@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="filters-container">
-      <div v-if="userIsBO" class="filter-item-large">
+      <div v-if="!userIsPartner" class="filter-item-large">
         <PartnerCombo :value.sync="selectedPartner" offline />
       </div>
       <div class="filter-item">
@@ -215,7 +215,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner']),
     canCancel() {
       return !!this.selectedPartner || !!(this.singlePartner && this.singlePartner.length);
     },
