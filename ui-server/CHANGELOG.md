@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.904+20200618153120
+2020-06-18
+
+### Fixes
+
+- Correction de la séléction d'offre dans le tableau de bord (5484b967e83d1d331b69efab037c75ddc6754610)
+
 ## 0.3.0-master.903+20200618144711
 2020-06-18
 
