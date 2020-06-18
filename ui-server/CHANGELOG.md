@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 0.32.2
+2020-06-18
+
+### Fixes
+
+- Correctif du bug d'affichage de la carte dans la page Cockpit M2M (d9b67b957f5fdb87b5eaa88cefc78d96b3678816)
+- Correction de problème d'affichage en prod (c031482e6c69932bc5174e3bf092086c017ffaad)
+
 ## 0.32.1
 2020-06-17
 
