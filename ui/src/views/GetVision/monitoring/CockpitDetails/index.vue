@@ -8,7 +8,7 @@
           :disable-menu="tab.disable"
           class="tab-grow"
         >
-          <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+          <a href="#" @click.prevent="() => onChangeTab(index)">{{ tab.title }}</a>
         </UiTab>
       </template>
       <div class="pt-4 pl-4" slot="alerts">
@@ -52,6 +52,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    onChangeTab(index) {
+      this.currentTab = index;
+      this.$emit('tabchange', this.tabs[index]);
+    }
   },
 };
 </script>
