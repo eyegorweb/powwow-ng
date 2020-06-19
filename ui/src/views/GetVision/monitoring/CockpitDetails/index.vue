@@ -57,7 +57,7 @@ export default {
     onChangeTab(index) {
       this.currentTab = index;
       this.$emit('tabchange', this.tabs[index]);
-    }
+    },
   },
 };
 </script>

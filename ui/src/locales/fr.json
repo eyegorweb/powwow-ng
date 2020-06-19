@@ -495,8 +495,9 @@
       "optionsDetails": {
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",
-        "userReference": "Référence utilisateur",
-        "list": "Liste de diffusion du CR",
+        "userReference": "Saisie de la référence client",
+        "listCR": "Liste de diffusion du CR",
+        "notificationList": "Liste de diffusion des notifications",
         "dualSimInfo": "Information dual SIM dans la facture",
         "delayAutoActivation": "Délai avant auto-activation (mois)",
         "offerActivation": "Offre d'activation",
@@ -507,7 +508,8 @@
         "preactivateFormat": "Format de Préactivation",
         "ws-address": "Adresse du webservice",
         "maxViews": "Nombre maximum de vue",
-        "actualView": "Nombre de vue actuel"
+        "actualView": "Nombre de vue actuel",
+        "delay": "Délai"
       }
     },
     "partnerDetail": {

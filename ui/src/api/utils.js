@@ -73,13 +73,13 @@ export async function query(q, variables) {
     ${q}
     `;
 
-    if(variables) {
+    if (variables) {
       logStr += `
       ** paramètres **
       ${JSON.stringify(variables)}
 
 
-      `
+      `;
     }
     console.log(logStr);
   }

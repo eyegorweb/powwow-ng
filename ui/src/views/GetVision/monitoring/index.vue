@@ -248,8 +248,7 @@ export default {
       this.filters = undefined;
       setTimeout(() => {
         this.refreshCockpitFilters();
-      })
-
+      });
     },
 
     refreshCockpitFilters() {
@@ -270,7 +269,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -336,7 +335,6 @@ export default {
           createComboFilter('types', TypesFilter);
           createComboFilter('col.label', LabelFilter);
         }
-
 
         currentVisibleFilters.push({
           title: 'common.period',
