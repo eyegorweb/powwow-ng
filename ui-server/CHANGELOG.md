@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.905+20200619080027
+2020-06-19
+
+### Fixes
+
+- afficher les bon filtres pour les alertes M2M (b10f843d7b510c8d83113d374a764fa3da83b0ee)
+
 ## 0.3.0-master.904+20200618153120
 2020-06-18
 
