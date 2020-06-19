@@ -120,9 +120,14 @@ export default {
         await filter.initialize(this.currentFilters);
       }
     }
+    if (!this.currentFilters.length) {
+      this.currentFilters = [...this.frozenValues];
+    }
+
     if (this.defaultValues) {
       this.currentFilters = [...this.currentFilters, ...this.defaultValues];
     }
+
     if (this.currentFilters && this.currentFilters.length) {
       this.applyFilters();
     }

@@ -7,7 +7,6 @@
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
-
       <FilterBar
         v-if="filters"
         :filter-components="filters"
@@ -130,7 +129,7 @@ export default {
       indicatorTotal: undefined,
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
-      defaultValues: undefined,
+      defaultValues: [],
       currentFilters: [],
       fronzenValues: [],
       isFrozen: false,
@@ -209,6 +208,7 @@ export default {
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
+      this.fronzenValues = [];
       this.currentFilters = [];
       this.currentTab = 'graphs';
 
@@ -245,7 +245,11 @@ export default {
   methods: {
     onTabChange(tab) {
       this.currentTab = tab.label;
-      this.refreshCockpitFilters();
+      this.filters = undefined;
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      })
+
     },
 
     refreshCockpitFilters() {
@@ -273,7 +277,6 @@ export default {
     },
 
     getCockpitFilters() {
-      console.log('tab >>', this.currentTab)
       const currentVisibleFilters = [];
       if (this.userIsBO) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
