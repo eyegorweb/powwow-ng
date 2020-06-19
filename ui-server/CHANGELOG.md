@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.907+20200619105316
+2020-06-19
+
+### Features
+
+- configuration des options du partenaire (c38141209b38fcc1d07c0d0b8be25093afa2140e)
+
 ## 0.3.0-master.906+20200619090244
 2020-06-19
 
