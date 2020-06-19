@@ -45,6 +45,7 @@
             <CockpitDetails
               :marker-data="cockpitMarkerToDetail"
               :applied-filters="appliedFilters"
+              @tabchange="onTabChange"
             />
           </div>
         </template>
@@ -133,6 +134,7 @@ export default {
       currentFilters: [],
       fronzenValues: [],
       isFrozen: false,
+      currentTab: 'graphs',
 
       commonFilters: {
         partnerGroup: {
@@ -197,7 +199,7 @@ export default {
   watch: {
     cockpitMarkerToDetail() {
       if (this.cockpitMarkerToDetail) {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       }
     },
     currentUsage() {
@@ -208,9 +210,10 @@ export default {
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
       this.currentFilters = [];
+      this.currentTab = 'graphs';
 
       if (this.currentUsage === 'COCKPIT') {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       } else {
         this.filters = this.getUsageFilters();
       }
@@ -240,6 +243,16 @@ export default {
   },
 
   methods: {
+    onTabChange(tab) {
+      this.currentTab = tab.label;
+      this.refreshCockpitFilters();
+    },
+
+    refreshCockpitFilters() {
+      this.filters = this.getCockpitFilters();
+      this.filterBarVersion += 1;
+    },
+
     onUsageChange(usage) {
       this.currentUsage = usage.id;
     },
@@ -253,13 +266,14 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
     },
 
     getCockpitFilters() {
+      console.log('tab >>', this.currentTab)
       const currentVisibleFilters = [];
       if (this.userIsBO) {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
@@ -293,30 +307,33 @@ export default {
       // StatusesFilter
 
       if (this.cockpitMarkerToDetail) {
-        const createComboFilter = (name, component) => {
-          currentVisibleFilters.push({
-            title: name,
-            component,
-            onChange(chosen) {
-              if (!chosen || !chosen.value) {
-                return {
-                  id: name,
-                  value: '', // pour supprimer ce choix des filtres séléctionnés
-                };
-              } else {
-                return {
-                  id: name,
-                  value: chosen.label,
-                  data: chosen,
-                };
-              }
-            },
-          });
-        };
+        if (this.currentTab === 'alerts') {
+          const createComboFilter = (name, component) => {
+            currentVisibleFilters.push({
+              title: name,
+              component,
+              onChange(chosen) {
+                if (!chosen || !chosen.value) {
+                  return {
+                    id: name,
+                    value: '', // pour supprimer ce choix des filtres séléctionnés
+                  };
+                } else {
+                  return {
+                    id: name,
+                    value: chosen.label,
+                    data: chosen,
+                  };
+                }
+              },
+            });
+          };
 
-        createComboFilter('status', StatusesFilter);
-        createComboFilter('types', TypesFilter);
-        createComboFilter('col.label', LabelFilter);
+          createComboFilter('status', StatusesFilter);
+          createComboFilter('types', TypesFilter);
+          createComboFilter('col.label', LabelFilter);
+        }
+
 
         currentVisibleFilters.push({
           title: 'common.period',
