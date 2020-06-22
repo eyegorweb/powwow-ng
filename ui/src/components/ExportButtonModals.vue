@@ -59,6 +59,7 @@
 import Modal from '@/components/Modal';
 import { Fragment } from 'vue-fragment';
 import { mapState, mapMutations } from 'vuex';
+import { getBaseURL } from '@/utils.js';
 import sortBy from 'lodash.sortby';
 
 export default {
@@ -81,7 +82,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['closeExportChoice', 'flashMessage', 'closeAndResetExportChoice']),
+    ...mapMutations([
+      'closeExportChoice',
+      'flashMessage',
+      'closeAndResetExportChoice',
+      'startDownload',
+    ]),
 
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
@@ -130,7 +136,7 @@ export default {
         }, 200);
       } else {
         if (downloadResponse && downloadResponse.downloadUri) {
-          window.open(downloadResponse.downloadUri, '_blank');
+          this.startDownload(getBaseURL() + downloadResponse.downloadUri);
         }
         this.closeAndResetExportChoice();
       }

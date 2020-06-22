@@ -15,6 +15,7 @@
     <ConfirmationModal />
     <ff-toggle />
     <ExportButtonModals />
+    <DownloadManager />
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import ExportButtonModals from '@/components/ExportButtonModals';
 import PanelSwitcher from '@/components/PanelSwitcher';
 import ConfirmationModal from '@/components/ConfirmationModal';
 import FlashMessages from '@/components/ui/messages/FlashMessages';
+import DownloadManager from '@/components/DownloadManager.vue';
 import { mapMutations, mapGetters } from 'vuex';
 import $ from 'jquery';
 
@@ -37,6 +39,7 @@ export default {
     FlashMessages,
     ConfirmationModal,
     ExportButtonModals,
+    DownloadManager,
   },
   methods: {
     ...mapMutations(['closePanel']),

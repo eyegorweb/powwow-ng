@@ -3,6 +3,15 @@
     <div class="mb-4">
       <SearchTranslationKey />
 
+      <button
+        class="btn btn-warning"
+        @click="
+          () => startDownload('http://localhost:8080/api/files/2_orders_4149662630723304519.csv')
+        "
+      >
+        Download URI
+      </button>
+
       <button class="btn btn-primary" @click="freezeFilterSelection">Freeze</button>
 
       <FilterBar
@@ -202,7 +211,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'startDownload']),
 
     openDemoPanel() {
       this.openPanel({
