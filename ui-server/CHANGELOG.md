@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.911+20200622190103
+2020-06-22
+
+### Fixes
+
+- correction de la sélection du compte de facturation pour les options de partenaire (20fb2f393638dd07edc6eca50e3b88dff826718b)
+
 ## 0.3.0-master.910+20200622160754
 2020-06-22
 
