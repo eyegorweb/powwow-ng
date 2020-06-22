@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.908+20200622125803
+2020-06-22
+
+### Fixes
+
+- correction pour récupérer les options des partenaires (0428a42932737c3754c54bbaebf53e62e007d225)
+
 ## 0.3.0-master.907+20200619105316
 2020-06-19
 
