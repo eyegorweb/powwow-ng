@@ -4,6 +4,8 @@
 
 <script>
 import ActionButtons from '@/components/DataTable/ActionButtons.vue';
+import { mapMutations } from 'vuex';
+import { getBaseURL } from '@/utils.js';
 
 export default {
   components: {
@@ -19,6 +21,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['startDownload']),
+
     onActionClicked(action) {
       if (action === 'actions.DELETE') {
         this.$emit('deleteDocument');
@@ -26,7 +30,7 @@ export default {
       }
 
       if (action === 'actions.DOWNLOAD') {
-        window.open(`/api/file/download/document/${this.row.id}`, '_blank');
+        this.startDownload(`${getBaseURL()}/api/file/download/document/${this.row.id}`);
         return;
       }
     },

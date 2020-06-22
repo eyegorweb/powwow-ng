@@ -20,6 +20,8 @@ export const state = {
   isExportFormatChoiceOpen: false,
 
   homeWidgets: undefined,
+
+  downloadURI: undefined,
 };
 
 export const getters = {
@@ -95,6 +97,10 @@ export const mutations = {
       state.onClosePanel(params);
       state.onClosePanel = undefined;
     }
+  },
+
+  startDownload: (state, uri) => {
+    state.downloadURI = uri;
   },
 
   switchPanel: (state, conf) => {
