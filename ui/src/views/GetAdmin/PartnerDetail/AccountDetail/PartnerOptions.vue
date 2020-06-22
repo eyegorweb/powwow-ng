@@ -854,11 +854,11 @@ export default {
           dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
           offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
           flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
-          defautWorkflowActication: parseInt(this.autoActivationDelay), // error
-          defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')), // error
-          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')), // error
-          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'), // error
-          billingNonActDelay: parseInt(this.billingDelay), // error
+          defautWorkflowActication: parseInt(this.autoActivationDelay),
+          defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
+          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')),
+          flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
+          billingNonActDelay: parseInt(this.billingDelay),
           exportComptaBSCSModeEnabled: this.comptaExport,
           flagServicesAudit: this.flagServicesAudit,
           flagStatisticsEnabled: this.getToggle(this.billingToggles, 'FACT_REPORT_CONSO'),

@@ -29,10 +29,32 @@ export async function getPartyOptions(partyId) {
     userReferenceEnabled
     crEmail
     switchRcard
-    smsAuthorized
     dualSimBilling
     diffusionList
     diffusionListEnabled
+    flagBillingPDPCellHistory
+    flagBillingIMEI
+    controlDeactivateRCard
+    offerChangeEnabled
+    flagbillingNonActDelay
+    billingNonActDelay
+    exportComptaBSCSModeEnabled
+    flagServicesAudit
+    importCustomFieldsEnabled
+    dashBoarDetailsPerCountry
+    suspensionAuto
+    optionViewCellId
+    coachM2MAvailable
+    coachM2MFleetpromotion
+    coachM2m24h
+    geolocViewLimit
+    geolocViewCounter
+
+    #flagDefautWorkflowActication
+    #defautWorkflowActication
+    #DefautWorkflowActicationDelay
+    #defaultWorkflowForActivationId
+    #wsNotificationOption
     dailyOutstandingReporting
     msisdnFormatPreactivation
     consoReporting
@@ -42,7 +64,6 @@ export async function getPartyOptions(partyId) {
       password
       url
     }
-    msisdnFormatPreactivation
     defaultWorkflowForActivation {
       id
       code
