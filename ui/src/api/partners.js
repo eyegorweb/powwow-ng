@@ -49,12 +49,8 @@ export async function getPartyOptions(partyId) {
     coachM2m24h
     geolocViewLimit
     geolocViewCounter
-
-    #flagDefautWorkflowActication
-    #defautWorkflowActication
-    #DefautWorkflowActicationDelay
-    #defaultWorkflowForActivationId
-    #wsNotificationOption
+    flagDefautWorkflowActication
+    DefautWorkflowActicationDelay
     dailyOutstandingReporting
     msisdnFormatPreactivation
     consoReporting
