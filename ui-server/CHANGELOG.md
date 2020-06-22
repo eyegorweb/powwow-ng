@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.910+20200622160754
+2020-06-22
+
+### Features
+
+- Gestion de la sécurité dans tout les téléchargements (99221cd6f101ad055c4e4949c9f6b4f2422747f7)
+
 ## 0.3.0-master.909+20200622142113
 2020-06-22
 
