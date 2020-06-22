@@ -856,7 +856,7 @@ export default {
           flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
           defautWorkflowActication: parseInt(this.autoActivationDelay),
           defaultWorkflowForActivationId: parseInt(get(this.selectedOffer, 'meta.id')),
-          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'meta.id')),
+          defaultCustomerForActivationId: parseInt(get(this.selectedBillingAccount, 'id')),
           flagbillingNonActDelay: this.getToggle(this.billingToggles, 'FACT_SIM_STOCK'),
           billingNonActDelay: parseInt(this.billingDelay),
           exportComptaBSCSModeEnabled: this.comptaExport,
