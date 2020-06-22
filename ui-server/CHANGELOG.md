@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.909+20200622142113
+2020-06-22
+
+### Fixes
+
+- mise à jour de la requête pour lire les options des partenaires (6f2d9e48e62c460044e85d8ce688b860aa8cfd4e)
+
 ## 0.3.0-master.908+20200622125803
 2020-06-22
 
