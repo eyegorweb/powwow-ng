@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.912+20200623092235
+2020-06-23
+
+### Fixes
+
+- Correction de la gestion des widgets (e8c93f44b84549fab78bf012852348fe1213de35)
+
 ## 0.3.0-master.911+20200622190103
 2020-06-22
 
