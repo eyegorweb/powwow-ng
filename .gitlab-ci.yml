@@ -16,7 +16,7 @@ variables:
   GSG_RELEASE_BRANCHES: uat
   GSG_PRE_TMPL: '{{ (env "CI_COMMIT_REF_SLUG") }},{{ seq }}'
   GSG_BUILD_TMPL: '{{ commitTS.Format "20060102150405" }}'
-  GSG_INITIAL_DEVELOPMENT: "true"
+  GSG_INITIAL_DEVELOPMENT: "false"
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
