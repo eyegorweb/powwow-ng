@@ -3,22 +3,27 @@
     <li>
       <i class="ic-phone-incoming"></i>
       {{ $t('input') }}:
-      {{ row.dataIn }}
-      Mo
+      {{ formatBytes(row.dataIn) }}
     </li>
     <li>
       <i class="ic-phone-outgoing"></i>
       {{ $t('output') }}:
-      {{ row.dataOut }}
-      Mo
+      {{ formatBytes(row.dataOut) }}
     </li>
   </ul>
 </template>
 
 <script>
+import { formatBytes } from '@/api/utils.js';
+
 export default {
   props: {
     row: Object,
+  },
+  methods: {
+    formatBytes(value) {
+      return formatBytes(value);
+    },
   },
 };
 </script>
