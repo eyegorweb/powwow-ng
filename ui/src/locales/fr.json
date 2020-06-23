@@ -807,7 +807,8 @@
           "STATUS_CHANGE": "Changement de statut",
           "SOLD_OVER_THRESHOLD": "Solde au-dessus du seuil",
           "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
-          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation"
+          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation",
+          "ACTION": "Action"
         }
       },
       "consummated": {
