@@ -264,6 +264,7 @@ export function loadWidgets() {
         return {
           ...widget,
           ...d,
+          checked: widget.checked
         };
       })
     );
