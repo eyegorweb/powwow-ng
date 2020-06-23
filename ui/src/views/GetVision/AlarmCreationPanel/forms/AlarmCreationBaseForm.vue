@@ -68,7 +68,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.duplicateFrom);
     if (this.duplicateFrom) {
       this.selectedPartner = {
         ...get(this.duplicateFrom, 'party', {}),
@@ -99,6 +98,7 @@ export default {
         this.lastChosenScope &&
         (this.lastChosenScope.partner ||
           this.lastChosenScope.searchById ||
+          this.lastChosenScope.searchByFile ||
           this.lastChosenScope.offer);
 
       if (this.editMode) {
@@ -109,7 +109,6 @@ export default {
       if (this.checkErrorsFn) {
         formIsValid = this.checkErrorsFn();
       }
-
       return !!scopeIsValid && !!formIsValid;
     },
     editMode() {
