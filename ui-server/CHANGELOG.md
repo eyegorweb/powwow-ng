@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.2+20200623131212
+## 1.0.0-master.3+20200623131409
 2020-06-23
+
+### Fixes
+
+- Affichage du tableau au clique sur le bouton retour de detail acte de masse (5987cf700b74a769bbe4b8ddd43a92ccc4c34165)
 
 ## 1.0.0-master.1+20200623124725
 2020-06-23
