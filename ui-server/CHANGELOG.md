@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.5+20200623145743
+2020-06-23
+
+### Fixes
+
+- Correction de la gestion du localstorage pour la homepage (808cd2e85a2852a31bc237541c4870816745a1ae)
+
 ## 1.0.0-master.4+20200623134555
 2020-06-23
 
