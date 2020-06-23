@@ -75,7 +75,7 @@ export default {
 
     permittedHomeWidgets() {
       return this.homeWidgets.filter(w => {
-        if (!w.permission) return false;
+        if (!w || !w.permission) return false;
         return this.havePermission(w.permission.domain, w.permission.action);
       });
     },

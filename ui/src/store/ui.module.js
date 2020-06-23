@@ -53,24 +53,27 @@ function openPanel(state, conf) {
 }
 
 function saveFormattedWidgets(widgets) {
-  const widgetsToSave = widgets.map(w => {
-    return {
-      title: w.title,
-      description: w.description,
-      checked: w.checked,
-      large: w.large,
-      seeMore: w.seeMore,
-      mock: w.mock,
-      layout: w.layout,
-    };
-  });
-  localStorage.setItem('__homewidgets__', JSON.stringify(widgetsToSave));
+  const widgetsToSave = widgets
+    .filter(w => !!w)
+    .map(w => {
+      return {
+        title: w.title,
+        description: w.description,
+        checked: w.checked,
+        large: w.large,
+        seeMore: w.seeMore,
+        mock: w.mock,
+        layout: w.layout,
+      };
+    });
+  localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
   localStorage.setItem('_widgets_profile_', getProfile());
 }
 
 export const mutations = {
   initHomeWidgets(state) {
     state.homeWidgets = loadWidgets();
+    console.log('Loaded widgets >> ', state.homeWidgets);
     saveFormattedWidgets(state.homeWidgets);
   },
   openExportChoice(state, params) {

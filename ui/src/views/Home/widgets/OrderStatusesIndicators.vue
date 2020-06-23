@@ -159,14 +159,12 @@ export default {
             fetchKey: 'ORDER_FAILED',
 
             hideZeroValue: true,
-          },
+          }
         );
       }
-    }
+    },
   },
-  mounted() {
-    ;
-  },
+  mounted() {},
   data() {
     return {
       indicators: undefined,
