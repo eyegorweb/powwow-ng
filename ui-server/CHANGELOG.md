@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.916+20200623124148
+2020-06-23
+
+### Fixes
+
+- Correction du widget commandes pour l'utilisateur partenaire (9bd762984606f46360ce792eb29d5b39db285081)
+
 ## 0.3.0-master.915+20200623122028
 2020-06-23
 
