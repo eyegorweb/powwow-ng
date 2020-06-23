@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.6+20200623191635
+2020-06-23
+
+### Fixes
+
+- mise à jour des unités des consommations data (30254790cda996f84eb6760e3f00d3d459e804bd)
+
 ## 1.0.0-master.5+20200623145743
 2020-06-23
 
