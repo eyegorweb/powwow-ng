@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.4+20200623134555
+2020-06-23
+
+### Fixes
+
+- correction de la création de rapports et de la traduction des noms d'alarme (35e293b11d66bf32f0b1cde05ca490d5d5125491)
+
 ## 1.0.0-master.3+20200623131409
 2020-06-23
 
