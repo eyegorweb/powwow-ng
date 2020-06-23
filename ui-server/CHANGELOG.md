@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 0.3.0-master.913+20200623093614
+2020-06-23
+
+### Fixes
+
+- Correction de la recherche unitaire des commandes (5c65871a829bdb038b8fb9b6395865d54155d275)
+
 ## 0.3.0-master.912+20200623092235
 2020-06-23
 
