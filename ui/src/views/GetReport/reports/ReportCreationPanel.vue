@@ -285,6 +285,16 @@ export default {
 
   watch: {
     reportModel(newValue) {
+      // Tout décocher
+
+      if (newValue !== 'NONE') {
+        this.selectedItems.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+        this.selectedItems = [];
+      }
+
+
       const report = this.reportModels.find(r => r.value === newValue);
 
       this.preloadCheckBoxes(report.data.fields);
@@ -776,7 +786,7 @@ export default {
             },
             {
               code: 'ESIM_LAST_MODIFICATION_DATE',
-              label: 'Date de   la dernière modification',
+              label: 'Date de la dernière modification',
               checked: false,
             },
           ],
