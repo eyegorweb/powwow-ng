@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.10+20200624152305
+2020-06-24
+
+### Fixes
+
+- correction du statut de la commande pour l'indicateur commandes non confirmées >4h (66e1501c5c2cb1a58eb4e66c38f72f842004b761)
+
 ## 1.0.0-master.9+20200624145428
 2020-06-24
 
