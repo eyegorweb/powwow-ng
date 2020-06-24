@@ -4,7 +4,6 @@
     <PartnersPart
       @setpartner="setPartner"
       :error="errors.partner"
-      :initial-parnter="initialParnter"
       :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
     />
     <h6>{{ $t('getparc.actLines.billingAccountTarget') }}</h6>
