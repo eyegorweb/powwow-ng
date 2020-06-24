@@ -7,7 +7,6 @@
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
-
       <FilterBar
         v-if="filters"
         :filter-components="filters"
@@ -45,6 +44,7 @@
             <CockpitDetails
               :marker-data="cockpitMarkerToDetail"
               :applied-filters="appliedFilters"
+              @tabchange="onTabChange"
             />
           </div>
         </template>
@@ -129,10 +129,11 @@ export default {
       indicatorTotal: undefined,
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
-      defaultValues: undefined,
+      defaultValues: [],
       currentFilters: [],
       fronzenValues: [],
       isFrozen: false,
+      currentTab: 'graphs',
 
       commonFilters: {
         partnerGroup: {
@@ -197,7 +198,7 @@ export default {
   watch: {
     cockpitMarkerToDetail() {
       if (this.cockpitMarkerToDetail) {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       }
     },
     currentUsage() {
@@ -207,10 +208,12 @@ export default {
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
+      this.fronzenValues = [];
       this.currentFilters = [];
+      this.currentTab = 'graphs';
 
       if (this.currentUsage === 'COCKPIT') {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       } else {
         this.filters = this.getUsageFilters();
       }
@@ -240,6 +243,19 @@ export default {
   },
 
   methods: {
+    onTabChange(tab) {
+      this.currentTab = tab.label;
+      this.filters = undefined;
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      });
+    },
+
+    refreshCockpitFilters() {
+      this.filters = this.getCockpitFilters();
+      this.filterBarVersion += 1;
+    },
+
     onUsageChange(usage) {
       this.currentUsage = usage.id;
     },
@@ -293,30 +309,32 @@ export default {
       // StatusesFilter
 
       if (this.cockpitMarkerToDetail) {
-        const createComboFilter = (name, component) => {
-          currentVisibleFilters.push({
-            title: name,
-            component,
-            onChange(chosen) {
-              if (!chosen || !chosen.value) {
-                return {
-                  id: name,
-                  value: '', // pour supprimer ce choix des filtres séléctionnés
-                };
-              } else {
-                return {
-                  id: name,
-                  value: chosen.label,
-                  data: chosen,
-                };
-              }
-            },
-          });
-        };
+        if (this.currentTab === 'alerts') {
+          const createComboFilter = (name, component) => {
+            currentVisibleFilters.push({
+              title: name,
+              component,
+              onChange(chosen) {
+                if (!chosen || !chosen.value) {
+                  return {
+                    id: name,
+                    value: '', // pour supprimer ce choix des filtres séléctionnés
+                  };
+                } else {
+                  return {
+                    id: name,
+                    value: chosen.label,
+                    data: chosen,
+                  };
+                }
+              },
+            });
+          };
 
-        createComboFilter('status', StatusesFilter);
-        createComboFilter('types', TypesFilter);
-        createComboFilter('col.label', LabelFilter);
+          createComboFilter('status', StatusesFilter);
+          createComboFilter('types', TypesFilter);
+          createComboFilter('col.label', LabelFilter);
+        }
 
         currentVisibleFilters.push({
           title: 'common.period',

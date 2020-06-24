@@ -251,22 +251,28 @@ export function loadWidgets() {
   const savedProfile = localStorage.getItem('_widgets_profile_');
   const currentProfile = getProfile();
   if (savedProfile && savedProfile !== currentProfile) {
-    localStorage.removeItem('__homewidgets__');
+    localStorage.removeItem('___homewidgets___');
   }
 
-  let savedWidgets = localStorage.getItem('__homewidgets__');
-
+  let savedWidgets = localStorage.getItem('___homewidgets___');
   if (savedWidgets) {
     const loadedWidgets = JSON.parse(savedWidgets);
-    return excludeMocked(
+    const ret = excludeMocked(
       defaultWidgets.map(d => {
         const widget = loadedWidgets.find(f => f.title === d.title);
-        return {
+        const conf = {
           ...widget,
           ...d,
         };
+
+        if (widget) {
+          conf.checked = widget.checked;
+        }
+        return conf;
       })
     );
+    console.log('RETURN ', ret);
+    return ret;
   } else {
     return excludeMocked(defaultWidgets);
   }

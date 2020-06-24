@@ -33,3 +33,11 @@ export function capitalize(s) {
   if (typeof s !== 'string') return '';
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+
+export function getBaseURL() {
+  const sameUrl =
+    location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+  return process.env.VUE_APP_AUTH_SERVER_URL && process.env.VUE_APP_AUTH_SERVER_URL.length
+    ? process.env.VUE_APP_AUTH_SERVER_URL
+    : sameUrl;
+}

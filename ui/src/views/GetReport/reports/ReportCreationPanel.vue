@@ -286,7 +286,12 @@ export default {
   watch: {
     reportModel(newValue) {
       const report = this.reportModels.find(r => r.value === newValue);
-
+      if (newValue !== 'NONE') {
+        this.selectedItems.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+        this.selectedItems = [];
+      }
       this.preloadCheckBoxes(report.data.fields);
     },
     async selectedPartner() {
@@ -760,27 +765,27 @@ export default {
             },
           ],
         },
-        {
-          title: 'Informations eSIM',
-          checkboxes: [
-            { code: 'ESIM_PROFILE_STATE', label: 'Etat du   profil eSIM', checked: false },
-            {
-              code: 'ESIM_LAST_PROFILE_STATE',
-              label: 'Etat du   dernier profil eSIM',
-              checked: false,
-            },
-            {
-              code: 'ESIM_LAST_RESYNCHRONISATION_DATE',
-              label: 'Date de la dernière resynchronisation',
-              checked: false,
-            },
-            {
-              code: 'ESIM_LAST_MODIFICATION_DATE',
-              label: 'Date de   la dernière modification',
-              checked: false,
-            },
-          ],
-        },
+        // {
+        //   title: 'Informations eSIM',
+        //   checkboxes: [
+        //     { code: 'ESIM_PROFILE_STATE', label: 'Etat du   profil eSIM', checked: false },
+        //     {
+        //       code: 'ESIM_LAST_PROFILE_STATE',
+        //       label: 'Etat du   dernier profil eSIM',
+        //       checked: false,
+        //     },
+        //     {
+        //       code: 'ESIM_LAST_RESYNCHRONISATION_DATE',
+        //       label: 'Date de la dernière resynchronisation',
+        //       checked: false,
+        //     },
+        //     {
+        //       code: 'ESIM_LAST_MODIFICATION_DATE',
+        //       label: 'Date de   la dernière modification',
+        //       checked: false,
+        //     },
+        //   ],
+        // },
       ];
     },
   },

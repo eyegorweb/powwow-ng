@@ -2,6 +2,106 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.6+20200623191635
+2020-06-23
+
+### Fixes
+
+- mise à jour des unités des consommations data (30254790cda996f84eb6760e3f00d3d459e804bd)
+
+## 1.0.0-master.5+20200623145743
+2020-06-23
+
+### Fixes
+
+- Correction de la gestion du localstorage pour la homepage (808cd2e85a2852a31bc237541c4870816745a1ae)
+
+## 1.0.0-master.4+20200623134555
+2020-06-23
+
+### Fixes
+
+- correction de la création de rapports et de la traduction des noms d'alarme (35e293b11d66bf32f0b1cde05ca490d5d5125491)
+
+## 1.0.0-master.3+20200623131409
+2020-06-23
+
+### Fixes
+
+- Affichage du tableau au clique sur le bouton retour de detail acte de masse (5987cf700b74a769bbe4b8ddd43a92ccc4c34165)
+
+## 1.0.0-master.1+20200623124725
+2020-06-23
+
+### Fixes
+
+- Correction du widget commandes pour l'utilisateur partenaire (9bd762984606f46360ce792eb29d5b39db285081)
+
+## 0.3.0-master.915+20200623122028
+2020-06-23
+
+## 0.3.0-master.914+20200623102115
+2020-06-23
+
+## 0.3.0-master.913+20200623093614
+2020-06-23
+
+### Fixes
+
+- Correction de la recherche unitaire des commandes (5c65871a829bdb038b8fb9b6395865d54155d275)
+
+## 0.3.0-master.912+20200623092235
+2020-06-23
+
+### Fixes
+
+- Correction de la gestion des widgets (e8c93f44b84549fab78bf012852348fe1213de35)
+
+## 0.3.0-master.911+20200622190103
+2020-06-22
+
+### Fixes
+
+- correction de la sélection du compte de facturation pour les options de partenaire (20fb2f393638dd07edc6eca50e3b88dff826718b)
+
+## 0.3.0-master.910+20200622160754
+2020-06-22
+
+### Features
+
+- Gestion de la sécurité dans tout les téléchargements (99221cd6f101ad055c4e4949c9f6b4f2422747f7)
+
+## 0.3.0-master.909+20200622142113
+2020-06-22
+
+### Fixes
+
+- mise à jour de la requête pour lire les options des partenaires (6f2d9e48e62c460044e85d8ce688b860aa8cfd4e)
+
+## 0.3.0-master.908+20200622125803
+2020-06-22
+
+### Fixes
+
+- correction pour récupérer les options des partenaires (0428a42932737c3754c54bbaebf53e62e007d225)
+
+## 0.3.0-master.907+20200619105316
+2020-06-19
+
+### Features
+
+- configuration des options du partenaire (c38141209b38fcc1d07c0d0b8be25093afa2140e)
+
+## 0.3.0-master.906+20200619090244
+2020-06-19
+
+## 0.3.0-master.905+20200619080027
+2020-06-19
+
+### Fixes
+
+- afficher les bon filtres pour les alertes M2M (b10f843d7b510c8d83113d374a764fa3da83b0ee)
+
 ## 0.3.0-master.904+20200618153120
 2020-06-18
 

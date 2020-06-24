@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>{{ row.name }}</div>
-    <div class="subtitle">{{ row.type }}</div>
+    <div class="subtitle">{{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + row.type) }}</div>
   </div>
 </template>
 

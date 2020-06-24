@@ -3,22 +3,27 @@
     <li>
       <i class="ic-phone-incoming"></i>
       {{ $t('input') }}:
-      {{ row.pdpConnectionHistory.downloadVolume }}
-      Mo
+      {{ formatBytes(row.pdpConnectionHistory.downloadVolume) }}
     </li>
     <li>
       <i class="ic-phone-outgoing"></i>
       {{ $t('output') }}:
-      {{ row.pdpConnectionHistory.uploadVolume }}
-      Mo
+      {{ formatBytes(row.pdpConnectionHistory.uploadVolume) }}
     </li>
   </ul>
 </template>
 
 <script>
+import { formatBytes } from '@/api/utils';
+
 export default {
   props: {
     row: Object,
+  },
+  methods: {
+    formatBytes(value) {
+      return formatBytes(value);
+    },
   },
 };
 </script>
