@@ -114,8 +114,16 @@ export default {
                 id: 'filters.orderStatus',
                 values: [
                   {
-                    id: 'VALIDATED',
-                    label: this.$t('col.statuses.VALIDATED'),
+                    id: 'TO_BE_CONFIRMED',
+                    label: this.$t('col.statuses.TO_BE_CONFIRMED'),
+                  },
+                  {
+                    id: 'TO_BE_CONFIRMED_BY_BO',
+                    label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+                  },
+                  {
+                    id: 'CONFIRMATION_IN_PROGRESS',
+                    label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
                   },
                   {
                     id: 'VALIDATED',
