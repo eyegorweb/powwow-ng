@@ -350,6 +350,9 @@ export async function fetchFrenchDepartmentsData(usageType, bounds) {
 }
 
 async function geoMap(filters) {
+  // ignorer la clé zone
+  delete filters.zone;
+
   const queryStr = `
   query GeoMap($filter: GeolocMapFilterInput!) {
     geoMap(filter:$filter) {

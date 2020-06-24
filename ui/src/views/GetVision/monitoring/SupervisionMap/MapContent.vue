@@ -34,6 +34,8 @@
 <script>
 import SupervisionMarker from './SupervisionMarker';
 import CockpitMarker from './CockpitMarker';
+import { isEquivalent } from '@/utils.js';
+import { delay } from '@/api/utils.js';
 
 import {
   fetchContinentData,
@@ -119,6 +121,7 @@ export default {
       adjustPosition: undefined,
       geocoder: undefined,
       isReady: false,
+      isSameFilters: false,
 
       locationType: 'CONTINENT',
     };
@@ -151,7 +154,13 @@ export default {
   },
 
   watch: {
-    appliedFilters() {
+    appliedFilters(newFilters, oldFilters) {
+      const oldFormattedFilters = filterFormatter(oldFilters);
+      const newFormattedFilters = filterFormatter(newFilters);
+      if (oldFilters) {
+        this.isSameFilters = isEquivalent(oldFormattedFilters, newFormattedFilters);
+      }
+
       this.refreshData();
     },
   },
@@ -163,6 +172,7 @@ export default {
       try {
         this.isLoading = true;
         this.markers = [];
+        await this.manageZoom();
 
         const countryCode = await this.getCenteredCountry();
         const zoomLevel = this.map.getZoom();
@@ -214,6 +224,36 @@ export default {
         console.log(e);
         this.isLoading = false;
       }
+      this.isSameFilters = true;
+    },
+
+    centerOnFrance() {
+      const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
+      this.map.setCenter(franceCoords);
+    },
+
+    async manageZoom() {
+      if (this.isSameFilters) return;
+
+      const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
+      const formattedFilters = this.formatFilters()
+      if (zoneFilter) {
+        const zoneName = zoneFilter.data.zone.value;
+        if (zoneName === 'france') {
+          const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
+          this.map.setCenter(franceCoords);
+          this.map.setZoom(6);
+        } else if (zoneName === 'world') {
+          const country = zoneFilter.data.country;
+          if (country) {
+            const countryCoords = new this.google.maps.LatLng(country.latitude, country.longitude);
+            this.map.setCenter(countryCoords);
+            this.map.setZoom(5);
+          }
+
+        }
+      }
+      return await delay(800);
     },
 
     formatFilters() {
@@ -250,7 +290,6 @@ export default {
       this.adjustPosition = defaultAdjustment;
 
       // center to france
-      const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
 
       const data = await fetchCockpitMarkers(this.formatFiltersForCockpit());
       const markers = data.map(d => {
@@ -271,8 +310,8 @@ export default {
       });
 
       this.isReady = false;
-      this.map.setCenter(franceCoords);
-      this.map.setZoom(5);
+      this.centerOnFrance();
+      this.map.setZoom(CONTINENT_ZOOM_LEVEL);
 
       setTimeout(() => {
         this.markers = markers;
@@ -334,6 +373,8 @@ export default {
     },
 
     async loadDataForContinents() {
+      this.centerOnFrance();
+
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
       const data = await fetchContinentData(this.usage, this.formatFilters());
