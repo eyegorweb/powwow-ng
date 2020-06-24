@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.10+20200624152305
+## 1.0.0-master.11+20200624152449
 2020-06-24
+
+### Features
+
+- Niveau zoom dans la carte (bc5bb1d62ec0cf2aa21bd042a9ea224ee9559e34)
 
 ### Fixes
 
