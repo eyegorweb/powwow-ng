@@ -117,6 +117,10 @@ export default {
                     id: 'VALIDATED',
                     label: this.$t('col.statuses.VALIDATED'),
                   },
+                  {
+                    id: 'VALIDATED',
+                    label: this.$t('col.statuses.VALIDATED'),
+                  },
                 ],
               },
               {
