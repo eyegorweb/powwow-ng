@@ -74,7 +74,10 @@ export default {
 
   methods: {
     visibleMenuItems(menu, item) {
-      return menu.splice(menu.findIndex(i => i === item), 1);
+      return menu.splice(
+        menu.findIndex(i => i === item),
+        1
+      );
     },
   },
 };
