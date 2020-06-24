@@ -4,12 +4,12 @@
       <AlarmsPerDayGraph title="" :partners="selectedPartnerIds" />
     </div>
     <div slot="onHide">
-      <template v-if="offer || billingAccount">
+      <div class="alert alert-warning" v-if="offer || billingAccount">
         {{ $t('getreport.errors.dontSelectOfferOrCF') }}
-      </template>
-      <template v-else>
+      </div>
+      <div v-else>
         {{ $t('getreport.errors.partnerRequired') }}
-      </template>
+      </div>
     </div>
   </GraphContainer>
 </template>
@@ -44,7 +44,11 @@ export default {
       const offerChosen = !!(this.offer && this.offer.id);
       const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
 
-      return partnerChosen && !offerChosen && !billingAccountChosen;
+      if (offerChosen && billingAccountChosen) {
+        return !offerChosen && !billingAccountChosen;
+      } else {
+        return partnerChosen && !offerChosen && !billingAccountChosen;
+      }
     },
   },
 
