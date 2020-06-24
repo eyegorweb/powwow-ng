@@ -9,7 +9,7 @@
           class="pl-2"
         />
       </div>
-      <chart :key="version" v-if="chartOptions" :options="chartOptions" />
+      <chart v-if="chartOptions" :options="chartOptions" />
     </div>
     <div slot="onHide">
       <template v-if="offer || billingAccount">
@@ -64,205 +64,49 @@ export default {
   },
 
   data() {
-    return (
-      {
-        version: 0,
-        chartOptions: undefined,
-        currentPeriod: 'MONTH12',
-        apiData: undefined,
-        toggleValues: [
-          {
-            id: 'MONTH12',
-            label: 'common.months_12',
-          },
-          {
-            id: 'MONTH24',
-            label: 'common.months_24',
-          },
-          {
-            id: 'MONTH36',
-            label: 'common.months_36',
-          },
-        ],
-      },
-      {
-        version: 1,
-        chartOptions: undefined,
-        currentPeriod: 'MONTH24',
-        apiData: undefined,
-        toggleValues: [
-          {
-            id: 'MONTH12',
-            label: 'common.months_12',
-          },
-          {
-            id: 'MONTH24',
-            label: 'common.months_24',
-          },
-          {
-            id: 'MONTH36',
-            label: 'common.months_36',
-          },
-        ],
-      },
-      {
-        version: 2,
-        chartOptions: undefined,
-        currentPeriod: 'MONTH36',
-        apiData: undefined,
-        toggleValues: [
-          {
-            id: 'MONTH12',
-            label: 'common.months_12',
-          },
-          {
-            id: 'MONTH24',
-            label: 'common.months_24',
-          },
-          {
-            id: 'MONTH36',
-            label: 'common.months_36',
-          },
-        ],
-      }
-    );
+    return {
+      chartOptions: undefined,
+      currentPeriod: 'MONTH12',
+      toggleValues: [
+        {
+          id: 'MONTH12',
+          label: 'common.months_12',
+        },
+        {
+          id: 'MONTH24',
+          label: 'common.months_24',
+        },
+        {
+          id: 'MONTH36',
+          label: 'common.months_36',
+        },
+      ],
+    };
   },
 
   mounted() {
     this.createGraph();
-    this.createGraph12();
-    this.createGraph24();
-    this.createGraph36();
   },
 
   methods: {
     async createGraph() {
       if (!this.canShow) return;
 
-      if (!this.apiData) {
-        const params = {
-          partyId: this.partner.id,
-        };
-
-        if (this.billingAccount) {
-          params.customerAccountCode = this.billingAccount.data.code;
-        }
-        this.apiData = await parcStatusByMonth(
-          params.partyId,
-          params.customerAccountCode,
-          this.currentPeriod
-        );
-      }
-
-      const dataSeries = this.apiData.reduce(
-        (all, c) => {
-          const month = getMonthString(c.date);
-          all.categories.push(month.slice(0, 3));
-          all.countStock.push(c.countStock);
-          all.countPreactivated.push(c.countPreactivated);
-          all.countActivated.push(c.countActivated);
-          all.countCancellationInProgress.push(c.countCancellationInProgress);
-          all.countTest.push(c.countTest);
-          all.countReleased.push(c.countReleased);
-          all.countSuspended.push(c.countSuspended);
-          return all;
-        },
-        {
-          categories: [],
-          countStock: [],
-          countPreactivated: [],
-          countActivated: [],
-          countCancellationInProgress: [],
-          countTest: [],
-          countReleased: [],
-          countSuspended: [],
-        }
-      );
-      //* /
-
-      this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
-        chart: {
-          type: 'column',
-        },
-        title: {
-          text: '',
-        },
-
-        xAxis: {
-          categories: dataSeries.categories,
-          crosshair: true,
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: '',
-          },
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y} ligne(s) </b></td></tr>',
-          footerFormat: '</table>',
-          shared: true,
-          useHTML: true,
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-          },
-        },
-        series: [
-          {
-            name: 'Stock',
-            data: dataSeries.countStock,
-          },
-          {
-            name: 'Pré-activé',
-            data: dataSeries.countPreactivated,
-          },
-          {
-            name: 'Test',
-            data: dataSeries.countTest,
-          },
-          {
-            name: 'Activé',
-            data: dataSeries.countActivated,
-          },
-          {
-            name: 'Suspendu',
-            data: dataSeries.countSuspended,
-          },
-          {
-            name: 'Résilié',
-            data: dataSeries.countReleased,
-          },
-        ],
+      const params = {
+        partyId: this.partner.id,
       };
-    },
-    async createGraph12() {
-      if (!this.canShow) return;
 
-      if (!this.apiData) {
-        const params = {
-          partyId: this.partner.id,
-        };
-
-        if (this.billingAccount) {
-          params.customerAccountCode = this.billingAccount.data.code;
-        }
-        this.apiData = await parcStatusByMonth(
-          params.partyId,
-          params.customerAccountCode,
-          this.currentPeriod
-        );
+      if (this.billingAccount) {
+        params.customerAccountCode = this.billingAccount.data.code;
       }
 
-      const dataSeries = this.apiData.reduce(
+      const apiData = await parcStatusByMonth(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
+
+      const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
@@ -286,223 +130,6 @@ export default {
           countSuspended: [],
         }
       );
-      //* /
-
-      this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
-        chart: {
-          type: 'column',
-        },
-        title: {
-          text: '',
-        },
-
-        xAxis: {
-          categories: dataSeries.categories,
-          crosshair: true,
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: '',
-          },
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y} ligne(s) </b></td></tr>',
-          footerFormat: '</table>',
-          shared: true,
-          useHTML: true,
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-          },
-        },
-        series: [
-          {
-            name: 'Stock',
-            data: dataSeries.countStock,
-          },
-          {
-            name: 'Pré-activé',
-            data: dataSeries.countPreactivated,
-          },
-          {
-            name: 'Test',
-            data: dataSeries.countTest,
-          },
-          {
-            name: 'Activé',
-            data: dataSeries.countActivated,
-          },
-          {
-            name: 'Suspendu',
-            data: dataSeries.countSuspended,
-          },
-          {
-            name: 'Résilié',
-            data: dataSeries.countReleased,
-          },
-        ],
-      };
-    },
-    async createGraph24() {
-      if (!this.canShow) return;
-
-      if (!this.apiData) {
-        const params = {
-          partyId: this.partner.id,
-        };
-
-        if (this.billingAccount) {
-          params.customerAccountCode = this.billingAccount.data.code;
-        }
-        this.apiData = await parcStatusByMonth(
-          params.partyId,
-          params.customerAccountCode,
-          this.currentPeriod
-        );
-      }
-
-      const dataSeries = this.apiData.reduce(
-        (all, c) => {
-          const month = getMonthString(c.date);
-          all.categories.push(month.slice(0, 3));
-          all.countStock.push(c.countStock);
-          all.countPreactivated.push(c.countPreactivated);
-          all.countActivated.push(c.countActivated);
-          all.countCancellationInProgress.push(c.countCancellationInProgress);
-          all.countTest.push(c.countTest);
-          all.countReleased.push(c.countReleased);
-          all.countSuspended.push(c.countSuspended);
-          return all;
-        },
-        {
-          categories: [],
-          countStock: [],
-          countPreactivated: [],
-          countActivated: [],
-          countCancellationInProgress: [],
-          countTest: [],
-          countReleased: [],
-          countSuspended: [],
-        }
-      );
-      //* /
-
-      this.chartOptions = {
-        credits: {
-          enabled: false,
-        },
-        chart: {
-          type: 'column',
-        },
-        title: {
-          text: '',
-        },
-
-        xAxis: {
-          categories: dataSeries.categories,
-          crosshair: true,
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: '',
-          },
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y} ligne(s) </b></td></tr>',
-          footerFormat: '</table>',
-          shared: true,
-          useHTML: true,
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0,
-          },
-        },
-        series: [
-          {
-            name: 'Stock',
-            data: dataSeries.countStock,
-          },
-          {
-            name: 'Pré-activé',
-            data: dataSeries.countPreactivated,
-          },
-          {
-            name: 'Test',
-            data: dataSeries.countTest,
-          },
-          {
-            name: 'Activé',
-            data: dataSeries.countActivated,
-          },
-          {
-            name: 'Suspendu',
-            data: dataSeries.countSuspended,
-          },
-          {
-            name: 'Résilié',
-            data: dataSeries.countReleased,
-          },
-        ],
-      };
-    },
-    async createGraph36() {
-      if (!this.canShow) return;
-
-      if (!this.apiData) {
-        const params = {
-          partyId: this.partner.id,
-        };
-
-        if (this.billingAccount) {
-          params.customerAccountCode = this.billingAccount.data.code;
-        }
-        this.apiData = await parcStatusByMonth(
-          params.partyId,
-          params.customerAccountCode,
-          this.currentPeriod
-        );
-      }
-
-      const dataSeries = this.apiData.reduce(
-        (all, c) => {
-          const month = getMonthString(c.date);
-          all.categories.push(month.slice(0, 3));
-          all.countStock.push(c.countStock);
-          all.countPreactivated.push(c.countPreactivated);
-          all.countActivated.push(c.countActivated);
-          all.countCancellationInProgress.push(c.countCancellationInProgress);
-          all.countTest.push(c.countTest);
-          all.countReleased.push(c.countReleased);
-          all.countSuspended.push(c.countSuspended);
-          return all;
-        },
-        {
-          categories: [],
-          countStock: [],
-          countPreactivated: [],
-          countActivated: [],
-          countCancellationInProgress: [],
-          countTest: [],
-          countReleased: [],
-          countSuspended: [],
-        }
-      );
-      //* /
 
       this.chartOptions = {
         credits: {
