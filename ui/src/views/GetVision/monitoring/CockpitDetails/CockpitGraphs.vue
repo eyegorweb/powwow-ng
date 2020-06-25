@@ -1,11 +1,18 @@
 <template>
   <div>
-    <Toggle
-      v-if="toggleValues"
-      @update="supervisionType = $event.id"
-      :values="toggleValues"
-      class="pl-2"
-    />
+    <div class="row">
+      <div class="col-2">
+        <slot />
+      </div>
+      <div class="col-10">
+        <Toggle
+          v-if="toggleValues"
+          @update="supervisionType = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
+    </div>
 
     <div class="mt-2">
       <div :key="supervisionType">
@@ -50,12 +57,12 @@ export default {
           label: 'getvsion.supervisionTypes.INTRADAY_CUMUL',
         },
         {
-          id: 'MONTH',
-          label: 'getvsion.supervisionTypes.MONTH',
-        },
-        {
           id: 'DAY',
           label: 'getvsion.supervisionTypes.DAY',
+        },
+        {
+          id: 'MONTH',
+          label: 'getvsion.supervisionTypes.MONTH',
         },
       ],
     };
