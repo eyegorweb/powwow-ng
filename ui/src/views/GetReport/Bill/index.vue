@@ -162,7 +162,7 @@ export default {
       this.applyFilters([
         {
           id: 'reference',
-          value: value,
+          value,
         },
       ]);
     },

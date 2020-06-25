@@ -22,7 +22,8 @@ export async function fetchDeliveryCountries(locale, filters = {}) {
 
   sorting[key] = 'ASC';
 
-  return query(`
+  return query(
+    `
   query Countries($filters: CountryFilterInput, $sorting: CountrySorting!) {
     countries(sorting: $sorting, filter: $filters) {
       total
@@ -35,14 +36,16 @@ export async function fetchDeliveryCountries(locale, filters = {}) {
         ${key}
       }
     }
-  }`, {sorting, filters}).then(res =>
+  }`,
+    { sorting, filters }
+  ).then(res =>
     res.data.countries.countries.map(country => ({
       name: country[key],
       code: country.code,
       codeIso3: country.codeIso3,
       id: country.id,
       latitude: country.latitude,
-      longitude: country.longitude
+      longitude: country.longitude,
     }))
   );
 }

@@ -44,7 +44,7 @@ export default {
     UiTab,
     CockpitAlerts,
     CockpitGraphs,
-    UiButton
+    UiButton,
   },
   props: {
     markerData: Object,

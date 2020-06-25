@@ -236,7 +236,6 @@ export default {
       if (this.isSameFilters) return;
 
       const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
-      const formattedFilters = this.formatFilters()
       if (zoneFilter) {
         const zoneName = zoneFilter.data.zone.value;
         if (zoneName === 'france') {
@@ -250,7 +249,6 @@ export default {
             this.map.setCenter(countryCoords);
             this.map.setZoom(5);
           }
-
         }
       }
       return await delay(800);

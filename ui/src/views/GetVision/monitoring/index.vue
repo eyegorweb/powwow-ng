@@ -82,7 +82,7 @@ import CountryFilter from './filters/CountryFilter';
 import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
-import DateRangeFilter from './filters/DateRangeFilter';
+// import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -95,7 +95,6 @@ import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js'
 
 import { mapGetters } from 'vuex';
 
-import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
 import { fetchDeliveryCountries } from '@/api/filters';
 import { delay } from '@/api/utils.js';
 
@@ -268,11 +267,10 @@ export default {
 
       if (typeof marker.data.locationCode === 'string') {
         const foundCountry = await fetchDeliveryCountries(this.$i18n.locale, {
-          codeIso3: { eq: marker.data.locationCode }
+          codeIso3: { eq: marker.data.locationCode },
         });
 
         if (foundCountry && foundCountry.length) {
-
           const filterEntry = {
             id: 'filters.country',
             value: foundCountry[0].name,
@@ -281,7 +279,6 @@ export default {
 
           return filterEntry;
         }
-
       }
     },
 
@@ -316,7 +313,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -505,8 +502,6 @@ export default {
       this.cockpitMarkerToDetail = payload;
       this.freezeFilterSelection(payload);
     },
-
-
   },
 };
 
