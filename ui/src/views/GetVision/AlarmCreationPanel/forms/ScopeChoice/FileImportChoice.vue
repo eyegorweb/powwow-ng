@@ -54,6 +54,7 @@ export default {
       });
     },
     async searchLines() {
+      console.log(this.fileMeta.tempDataUuid);
       const filters = [
         {
           id: 'filters.lines.fromFile.title',

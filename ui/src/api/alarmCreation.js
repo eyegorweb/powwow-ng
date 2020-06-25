@@ -195,6 +195,7 @@ async function consoQuery(queryName, params) {
 
 function getFormGQLParams(params) {
   const gqlParams = [];
+  console.log(params);
   gqlParams.push(`alarmScope:${getScope(params)}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`activateAlarm:${params.enableAlarm}`);
@@ -220,7 +221,8 @@ function getScope(params) {
     return 'PARTY';
   }
 
-  const searchById = get(params, 'scope.searchById.type');
+  const searchById =
+    get(params, 'scope.searchById.type') || get(params, 'scope.searchByFile.tempDataUuid');
 
   if (searchById) {
     return 'LINE';
@@ -264,6 +266,6 @@ function getScopeGQLParams(params) {
   const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
 
   if (tempDataUuid) {
-    return `tempDataUuid: {eq: ${tempDataUuid}}`;
+    return `tempDataUuid: "${tempDataUuid}"`;
   }
 }
