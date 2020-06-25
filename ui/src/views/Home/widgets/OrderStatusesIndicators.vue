@@ -162,9 +162,13 @@ export default {
           }
         );
       }
+
+      this.indicators = indicators;
     },
   },
-  mounted() {},
+  mounted() {
+    this.refreshIndicators()
+  },
   data() {
     return {
       indicators: undefined,
