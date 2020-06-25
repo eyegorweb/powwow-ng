@@ -147,6 +147,7 @@ export async function fetchpartners(
         partyType
         flagMsisdnA
         optionViewCellId
+        suspensionFree
         ${extraFields.join(',')}
       },
     }
