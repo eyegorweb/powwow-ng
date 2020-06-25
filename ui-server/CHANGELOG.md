@@ -2,6 +2,42 @@
 
 <!--- next entry here -->
 
+## 1.0.0
+2020-06-25
+
+### Features
+
+- ajout du titre dans les graphes du cockpit M2M (b10540053a1c36991cbfcf9d4e9d57a037b7541a)
+- Ajout portée de l'alarme en modification d'alarme (48a8077effd4922dc2f2136b7db13e95a1257192)
+- filtre date (d9123a131f9808cf640c430e9b4325f11db2f18d)
+- configuration des options du partenaire (c38141209b38fcc1d07c0d0b8be25093afa2140e)
+- Gestion de la sécurité dans tout les téléchargements (99221cd6f101ad055c4e4949c9f6b4f2422747f7)
+- Niveau zoom dans la carte (bc5bb1d62ec0cf2aa21bd042a9ea224ee9559e34)
+- permission de suspension de lignes (ceee915041c4fcfa1d037668da56832bc0805017)
+
+### Fixes
+
+- Augmenation du nombre de ligne par page sur les comptes de facturations (d38154aa082f57fddaec59e83cc6089279b14c01)
+- Correction de la séléction d'offre dans le tableau de bord (5484b967e83d1d331b69efab037c75ddc6754610)
+- afficher les bon filtres pour les alertes M2M (b10f843d7b510c8d83113d374a764fa3da83b0ee)
+- correction pour récupérer les options des partenaires (0428a42932737c3754c54bbaebf53e62e007d225)
+- mise à jour de la requête pour lire les options des partenaires (6f2d9e48e62c460044e85d8ce688b860aa8cfd4e)
+- correction de la sélection du compte de facturation pour les options de partenaire (20fb2f393638dd07edc6eca50e3b88dff826718b)
+- Correction de la gestion des widgets (e8c93f44b84549fab78bf012852348fe1213de35)
+- Correction de la recherche unitaire des commandes (5c65871a829bdb038b8fb9b6395865d54155d275)
+- Correction du widget commandes pour l'utilisateur partenaire (9bd762984606f46360ce792eb29d5b39db285081)
+- Affichage du tableau au clique sur le bouton retour de detail acte de masse (5987cf700b74a769bbe4b8ddd43a92ccc4c34165)
+- correction de la création de rapports et de la traduction des noms d'alarme (35e293b11d66bf32f0b1cde05ca490d5d5125491)
+- Correction de la gestion du localstorage pour la homepage (808cd2e85a2852a31bc237541c4870816745a1ae)
+- mise à jour des unités des consommations data (30254790cda996f84eb6760e3f00d3d459e804bd)
+- correction du statut de la commande pour l'indicateur commandes non confirmées >4h (ec57a8a18bd100937d5b7ae1e09b7d88b3eeb00c)
+- correction du statut de la commande pour l'indicateur commandes non confirmées >4h (38e736e3b77264481f8cf76944d0fed5f70e5375)
+- correction du statut de la commande pour l'indicateur commandes non confirmées >4h (66e1501c5c2cb1a58eb4e66c38f72f842004b761)
+- Correction des indicateurs de commande (1321d9f23d4a7e76e7d40be60a414bcad93fd707)
+- correctif pour réinitialiser les champs libres pour les listes (c9763190b530fe135de1987f1ca23309596cbde0)
+- Creation alarme avec import de fichier (df071acdaa04d35aabdc4c653fe35e8537139d8c)
+- Recherche par référence et auto-complete sur le filtre partenaire (74b791b2db7dff713d5232bdf4a98680ca979a3e)
+
 ## 0.32.2
 2020-06-18
 
