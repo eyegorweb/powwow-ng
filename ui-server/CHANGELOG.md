@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.13+20200625141313
+2020-06-25
+
+### Fixes
+
+- Correction des indicateurs de commande (1321d9f23d4a7e76e7d40be60a414bcad93fd707)
+
 ## 1.0.0-master.12+20200625132133
 2020-06-25
 
