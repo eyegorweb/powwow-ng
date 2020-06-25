@@ -11,7 +11,10 @@
         :hide-apply="alwaysShowButton"
       />
 
-      <div v-if="alwaysShowButton" class="actions d-flex flex-column flex-md-row mb-2">
+      <div
+        v-if="alwaysShowButton && !allAreHidden"
+        class="actions d-flex flex-column flex-md-row mb-2"
+      >
         <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
           >Appliquer / Rafraichir</UiButton
         >
@@ -97,6 +100,13 @@ export default {
   },
 
   computed: {
+    allAreHidden() {
+      const hiddenFilters = this.visibleComponents.filter(filter => {
+        return filter.isHidden && filter.isHidden();
+      });
+
+      return hiddenFilters.length === this.visibleComponents.length;
+    },
     canShowSelectedFilter() {
       return this.visibleFilters && this.visibleFilters.length;
     },

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h5>Date de début</h5>
+    <h6>Date de début</h6>
 
     <UiDate @change="onDateStartChange" :value="startDate" class="d-block">
       <i slot="icon" class="select-icon ic-Flag-Icon" />
     </UiDate>
-    <h5>Date de fin</h5>
+    <h6>Date de fin</h6>
 
     <UiDate @change="onDateEndChange" :value="endDate" class="d-block">
       <i slot="icon" class="select-icon ic-Flag-Icon" />
