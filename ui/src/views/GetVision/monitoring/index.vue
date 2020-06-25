@@ -269,7 +269,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -462,34 +462,42 @@ export default {
 };
 
 export function filterFormatter(appliedFilters) {
+  if (!appliedFilters) return {};
+
   return appliedFilters.reduce((filters, item) => {
-    if (item.id === 'getadmin.users.filters.partners') {
-      filters.partyId = item.data.id;
-    }
+    try {
+      if (item.id === 'getadmin.users.filters.partners') {
+        filters.partyId = item.data.id;
+      }
 
-    if (item.id === 'getvsion.monitoring.filterByFile') {
-      filters.tempDataUuid = item.data.tempDataUuid;
-    }
+      if (item.id === 'getvsion.monitoring.filterByFile') {
+        filters.tempDataUuid = item.data.tempDataUuid;
+      }
 
-    if (item.id === 'filters.offers') {
-      filters.offerCode = item.data.id;
-    }
+      if (item.id === 'filters.offers') {
+        filters.offerCode = item.data.id;
+      }
 
-    if (item.id === 'getadmin.users.filters.partnerGroup') {
-      filters.partiesDomain = item.data.value;
-    }
+      if (item.id === 'getadmin.users.filters.partnerGroup') {
+        filters.partiesDomain = item.data.value;
+      }
 
-    if (item.id === 'filters.zone') {
-      if (item.data.zone.world) {
-        if (item.data.country) {
-          filters.iso3CountryCode = item.data.country.codeIso3;
-        }
-      } else {
-        if (item.data.zipCode) {
-          filters.zipCode = item.data.zipCode;
-          filters.iso3CountryCode = 'FRA';
+      if (item.id === 'filters.zone') {
+        filters.zone = item.data.zone.value;
+
+        if (item.data.zone.value === 'world') {
+          if (item.data.country) {
+            filters.iso3CountryCode = item.data.country.codeIso3;
+          }
+        } else {
+          if (item.data.zipCode) {
+            filters.zipCode = item.data.zipCode;
+            filters.iso3CountryCode = 'FRA';
+          }
         }
       }
+    } catch (e) {
+      console.log('Erreur >', e)
     }
     return filters;
   }, {});

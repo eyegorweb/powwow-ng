@@ -27,6 +27,8 @@ export async function fetchDeliveryCountries(locale) {
         id
         code
         codeIso3
+        latitude
+        longitude
         ${key}
       }
     }
@@ -36,6 +38,8 @@ export async function fetchDeliveryCountries(locale) {
       code: country.code,
       codeIso3: country.codeIso3,
       id: country.id,
+      latitude: country.latitude,
+      longitude: country.longitude
     }))
   );
 }
