@@ -12,7 +12,7 @@
         :filter-components="filters"
         :disabled="!canFilter"
         :default-values="defaultValues"
-        :frozen-values="fronzenValues"
+        :frozen-values="frozenValues"
         always-show-button
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
@@ -95,6 +95,8 @@ import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js'
 import { mapGetters } from 'vuex';
 
 import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
+import { fetchDeliveryCountries } from '@/api/filters';
+import { delay } from '@/api/utils.js';
 
 export default {
   components: {
@@ -131,7 +133,7 @@ export default {
       cockpitMarkerToDetail: undefined,
       defaultValues: [],
       currentFilters: [],
-      fronzenValues: [],
+      frozenValues: [],
       isFrozen: false,
       currentTab: 'graphs',
 
@@ -208,7 +210,7 @@ export default {
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
-      this.fronzenValues = [];
+      this.frozenValues = [];
       this.currentFilters = [];
       this.currentTab = 'graphs';
 
@@ -260,9 +262,47 @@ export default {
       this.currentUsage = usage.id;
     },
 
-    freezeFilterSelection() {
+    async preselectCountry(payload) {
+      const { marker } = payload;
+
+      if (typeof marker.data.locationCode === 'string') {
+        const foundCountry = await fetchDeliveryCountries(this.$i18n.locale, {
+          codeIso3: { eq: marker.data.locationCode }
+        });
+
+        if (foundCountry && foundCountry.length) {
+
+          const filterEntry = {
+            id: 'filters.country',
+            value: foundCountry[0].name,
+            data: foundCountry[0],
+          };
+
+          return filterEntry;
+        }
+
+      }
+    },
+
+    async freezeFilterSelection(payload) {
       this.isFrozen = true;
-      this.fronzenValues = cloneDeep(this.currentFilters);
+      const countryFilter = await this.preselectCountry(payload);
+      let frozenValues = cloneDeep(this.currentFilters);
+
+      if (countryFilter) {
+        frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
+        frozenValues.push(countryFilter);
+      }
+
+      this.frozenValues = frozenValues;
+
+      const oldFilters = this.filters;
+
+      this.filters = undefined;
+
+      await delay(20);
+
+      this.filters = oldFilters;
     },
 
     doSearch(appliedFilters) {
@@ -455,9 +495,11 @@ export default {
     onCockpitClick(payload) {
       if (!shouldFilterMocked()) {
         this.cockpitMarkerToDetail = payload;
-        this.freezeFilterSelection();
+        this.freezeFilterSelection(payload);
       }
     },
+
+
   },
 };
 
@@ -497,7 +539,7 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
-      console.log('Erreur >', e)
+      console.log('Erreur >', e);
     }
     return filters;
   }, {});
