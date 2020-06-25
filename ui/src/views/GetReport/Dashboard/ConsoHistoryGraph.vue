@@ -1,5 +1,13 @@
 <template>
   <GraphContainer title="Historique des consommations" :size="12" :can-show="canShow">
+    <div slot="onHide">
+      <div class="alert alert-warning" v-if="offer">
+        {{ $t('getreport.errors.dontSelectOffer') }}
+      </div>
+      <div v-else>
+        {{ $t('getreport.errors.partnerRequired') }}
+      </div>
+    </div>
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -10,14 +18,6 @@
         />
       </div>
       <chart :key="version" v-if="chartOptions" :options="chartOptions" />
-    </div>
-    <div slot="onHide">
-      <template v-if="offer">
-        {{ $t('getreport.errors.dontSelectOffer') }}
-      </template>
-      <template v-else>
-        {{ $t('getreport.errors.partnerRequired') }}
-      </template>
     </div>
   </GraphContainer>
 </template>
@@ -47,8 +47,11 @@ export default {
     canShow() {
       const partnerChosen = !!(this.partner && this.partner.id);
       const offerChosen = !!(this.offer && this.offer.id);
-
-      return partnerChosen && !offerChosen;
+      if (offerChosen) {
+        return offerChosen;
+      } else {
+        return partnerChosen;
+      }
     },
   },
 
