@@ -502,10 +502,8 @@ export default {
     },
 
     onCockpitClick(payload) {
-      if (!shouldFilterMocked()) {
-        this.cockpitMarkerToDetail = payload;
-        this.freezeFilterSelection(payload);
-      }
+      this.cockpitMarkerToDetail = payload;
+      this.freezeFilterSelection(payload);
     },
 
 
