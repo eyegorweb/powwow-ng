@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.14+20200625144255
+2020-06-25
+
+### Features
+
+- permission de suspension de lignes (ceee915041c4fcfa1d037668da56832bc0805017)
+
+### Fixes
+
+- correctif pour réinitialiser les champs libres pour les listes (c9763190b530fe135de1987f1ca23309596cbde0)
+- Creation alarme avec import de fichier (df071acdaa04d35aabdc4c653fe35e8537139d8c)
+- Recherche par référence et auto-complete sur le filtre partenaire (74b791b2db7dff713d5232bdf4a98680ca979a3e)
+
 ## 1.0.0-master.13+20200625141313
 2020-06-25
 
