@@ -16,9 +16,8 @@ export default {
   methods: {
     async loadDataFn(partners) {
       if (partners && partners.length) {
-        const response = await supervisionSmsGraph(partners);
-
-        return response.map(d => ({
+        const data = await supervisionSmsGraph(partners);
+        return data.responses.map(d => ({
           date: formatDateToUTC(d.date),
           out: d.numberOfSentSMS,
           in: d.numberOfSentSMS,

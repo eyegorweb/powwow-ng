@@ -394,7 +394,7 @@
       "nonLocalisableSessions30Days": "Lignes ayant une session data ces 30 derniers jours mais non localisables"
     },
     "filters": {
-      "ALARMS_OFFER": "Portée de l'alame",
+      "ALARMS_OFFER": "Portée de l'alarme",
       "ALARM_TYPE": "Type d'alarme",
       "DATE_TRIGGER": "Date de déclenchement"
     },
@@ -495,8 +495,9 @@
       "optionsDetails": {
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",
-        "userReference": "Référence utilisateur",
-        "list": "Liste de diffusion du CR",
+        "userReference": "Saisie de la référence client",
+        "listCR": "Liste de diffusion du CR",
+        "notificationList": "Liste de diffusion des notifications",
         "dualSimInfo": "Information dual SIM dans la facture",
         "delayAutoActivation": "Délai avant auto-activation (mois)",
         "offerActivation": "Offre d'activation",
@@ -507,7 +508,8 @@
         "preactivateFormat": "Format de Préactivation",
         "ws-address": "Adresse du webservice",
         "maxViews": "Nombre maximum de vue",
-        "actualView": "Nombre de vue actuel"
+        "actualView": "Nombre de vue actuel",
+        "delay": "Délai"
       }
     },
     "partnerDetail": {
@@ -805,7 +807,8 @@
           "STATUS_CHANGE": "Changement de statut",
           "SOLD_OVER_THRESHOLD": "Solde au-dessus du seuil",
           "SOLD_UNDER_THRESHOLD": "Solde sous seuil",
-          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation"
+          "UNDER_CONSUMPTION_VOLUME": "Sous-consommation",
+          "ACTION": "Action"
         }
       },
       "consummated": {

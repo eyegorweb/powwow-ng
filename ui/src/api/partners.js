@@ -29,10 +29,28 @@ export async function getPartyOptions(partyId) {
     userReferenceEnabled
     crEmail
     switchRcard
-    smsAuthorized
     dualSimBilling
     diffusionList
     diffusionListEnabled
+    flagBillingPDPCellHistory
+    flagBillingIMEI
+    controlDeactivateRCard
+    offerChangeEnabled
+    flagbillingNonActDelay
+    billingNonActDelay
+    exportComptaBSCSModeEnabled
+    flagServicesAudit
+    importCustomFieldsEnabled
+    dashBoarDetailsPerCountry
+    suspensionAuto
+    optionViewCellId
+    coachM2MAvailable
+    coachM2MFleetpromotion
+    coachM2m24h
+    geolocViewLimit
+    geolocViewCounter
+    flagDefautWorkflowActication
+    DefautWorkflowActicationDelay
     dailyOutstandingReporting
     msisdnFormatPreactivation
     consoReporting
@@ -42,7 +60,6 @@ export async function getPartyOptions(partyId) {
       password
       url
     }
-    msisdnFormatPreactivation
     defaultWorkflowForActivation {
       id
       code
@@ -130,6 +147,7 @@ export async function fetchpartners(
         partyType
         flagMsisdnA
         optionViewCellId
+        suspensionFree
         ${extraFields.join(',')}
       },
     }
@@ -279,7 +297,7 @@ export async function fetchCustomerAccounts(id, orderBy) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 10, page: 0} ${orderingInfo})  {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 50, page: 0} ${orderingInfo})  {
       total
       items {
         id

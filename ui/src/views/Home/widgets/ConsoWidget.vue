@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc :widget="widget" mocked>
+  <WidgetBloc :widget="widget">
     <div slot="header">
       <div @click.stop="" class="d-flex offer-select">
         <template v-if="!loadingOffers">

@@ -37,6 +37,9 @@ export default {
     placeholder: {
       type: String,
     },
+    canreset: {
+      type: Boolean,
+    },
     options: {
       type: Array,
       default: () => [],
@@ -59,7 +62,13 @@ export default {
   },
   computed: {
     formattedOptions() {
-      return this.options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
+      let options;
+      if (this.canreset) {
+        options = [{ value: 'none', label: '-' }, ...this.options];
+      } else {
+        options = this.options;
+      }
+      return options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
     },
     model: {
       get: ({ value }) => {

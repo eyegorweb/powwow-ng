@@ -1,5 +1,6 @@
 <template>
   <Indicators
+    v-if="indicators"
     :key="indicatorsVersion"
     :meta="indicators"
     :on-click="indicator => $emit('click', indicator)"
@@ -28,6 +29,7 @@ export default {
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters', 'indicatorsVersion']),
     ...mapGetters('userContext', ['contextFilters']),
+    ...mapGetters(['userIsPartner']),
   },
   watch: {
     contextFilters() {
@@ -36,10 +38,8 @@ export default {
   },
   methods: {
     ...mapMutations('getsim', ['refreshIndicators']),
-  },
-  data() {
-    return {
-      indicators: [
+    refreshIndicators() {
+      let indicators = [
         {
           name: 'toBeConfirmed',
           labelKey: 'indicators.getsim.ordersToBeConfirmed',
@@ -69,95 +69,109 @@ export default {
           filters: [],
           fetchKey: 'ORDER_DELAY',
         },
-        {
-          name: 'ordersNotConfirmed',
-          labelKey: 'indicators.getsim.ordersNotConfirmed',
-          color: 'text-warning',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [
-                {
-                  id: 'TO_BE_CONFIRMED',
-                  label: this.$t('col.statuses.TO_BE_CONFIRMED'),
-                },
-                {
-                  id: 'TO_BE_CONFIRMED_BY_BO',
-                  label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
-                },
-                {
-                  id: 'CONFIRMATION_IN_PROGRESS',
-                  label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
-                },
-              ],
-            },
-            {
-              id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(12, 'month')
-                .subtract(4, 'hours')
-                .format('DD/MM/YYYY HH:mm:ss'),
-              endDate: moment()
-                .subtract(4, 'hours')
-                .format('DD/MM/YYYY HH:mm:ss'),
-              sameDay: true,
-            },
-          ],
-          fetchKey: 'ORDER_NOT_CONFIRMED',
+      ];
+      if (!this.userIsPartner) {
+        indicators.push(
+          {
+            name: 'ordersNotConfirmed',
+            labelKey: 'indicators.getsim.ordersNotConfirmed',
+            color: 'text-warning',
+            clickable: true,
+            total: '-',
+            filters: [
+              {
+                id: 'filters.orderStatus',
+                values: [
+                  {
+                    id: 'TO_BE_CONFIRMED',
+                    label: this.$t('col.statuses.TO_BE_CONFIRMED'),
+                  },
+                  {
+                    id: 'TO_BE_CONFIRMED_BY_BO',
+                    label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+                  },
+                  {
+                    id: 'CONFIRMATION_IN_PROGRESS',
+                    label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
+                  },
+                ],
+              },
+              {
+                id: 'filters.orderDate',
+                startDate: moment()
+                  .subtract(12, 'month')
+                  .subtract(4, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment()
+                  .subtract(4, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
+                sameDay: true,
+              },
+              {
+                name: 'orderToBeConfirmedByBO',
+                labelKey: 'indicators.getsim.orderToBeConfirmedByBO',
+                color: 'text-danger',
+                clickable: true,
+                total: '-',
+                roles: ['BO'],
+                filters: [
+                  {
+                    id: 'filters.orderStatus',
+                    values: [
+                      {
+                        id: 'TO_BE_CONFIRMED_BY_BO',
+                        label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
+                      },
+                    ],
+                  },
+                ],
+                fetchKey: 'ORDER_TO_VALIDATE_BO',
 
-          hideZeroValue: true,
-        },
-        {
-          name: 'ordersFailed',
-          labelKey: 'indicators.getsim.ordersFailed',
-          color: 'text-warning',
-          clickable: true,
-          total: '-',
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [{ id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') }],
-            },
-            {
-              id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(12, 'month')
-                .subtract(48, 'hours')
-                .format('DD/MM/YYYY HH:mm:ss'),
-              endDate: moment()
-                .subtract(48, 'hours')
-                .format('DD/MM/YYYY HH:mm:ss'),
-            },
-          ],
-          fetchKey: 'ORDER_FAILED',
+                hideZeroValue: true,
+              },
+            ],
+            fetchKey: 'ORDER_NOT_CONFIRMED',
 
-          hideZeroValue: true,
-        },
-        {
-          name: 'orderToBeConfirmedByBO',
-          labelKey: 'indicators.getsim.orderToBeConfirmedByBO',
-          color: 'text-danger',
-          clickable: true,
-          total: '-',
-          roles: ['BO'],
-          filters: [
-            {
-              id: 'filters.orderStatus',
-              values: [
-                {
-                  id: 'TO_BE_CONFIRMED_BY_BO',
-                  label: this.$t('col.statuses.TO_BE_CONFIRMED_BY_BO'),
-                },
-              ],
-            },
-          ],
-          fetchKey: 'ORDER_TO_VALIDATE_BO',
+            hideZeroValue: true,
+          },
+          {
+            name: 'ordersFailed',
+            labelKey: 'indicators.getsim.ordersFailed',
+            color: 'text-warning',
+            clickable: true,
+            total: '-',
+            filters: [
+              {
+                id: 'filters.orderStatus',
+                values: [{ id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') }],
+              },
+              {
+                id: 'filters.orderDate',
+                startDate: moment()
+                  .subtract(12, 'month')
+                  .subtract(48, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment()
+                  .subtract(48, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
+              },
+            ],
+            fetchKey: 'ORDER_FAILED',
 
-          hideZeroValue: true,
-        },
-      ],
+            hideZeroValue: true,
+          }
+        );
+      }
+
+      this.indicators = indicators;
+    },
+  },
+  mounted() {
+    this.refreshIndicators()
+  },
+  data() {
+    return {
+      indicators: undefined,
     };
   },
 };

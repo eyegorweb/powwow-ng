@@ -36,14 +36,7 @@ export default {
       },
       set(selectedPartner) {
         if (!this.isReady) return;
-
-        if (selectedPartner) {
-          if (selectedPartner.id) {
-            this.$emit('change', selectedPartner);
-          }
-        } else {
-          this.$emit('change', undefined);
-        }
+        this.$emit('change', selectedPartner);
       },
     },
   },

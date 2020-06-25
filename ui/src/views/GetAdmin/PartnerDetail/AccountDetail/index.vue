@@ -23,6 +23,7 @@
 <script>
 import PartnerOptions from './PartnerOptions';
 import AccountPartnerDetail from './AccountPartnerDetail';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -38,12 +39,26 @@ export default {
     },
   },
 
+  mounted() {
+    if (this.userInfos.type === 'OPERATOR') {
+      this.menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
+      this.section = 'getadmin.partners.options';
+    } else {
+      this.menuItems = ['getadmin.partners.accountDescription'];
+      this.section = 'getadmin.partners.accountDescription';
+    }
+  },
+
   data() {
     return {
-      section: 'getadmin.partners.options',
+      section: undefined,
 
-      menuItems: ['getadmin.partners.accountDescription', 'getadmin.partners.options'],
+      menuItems: [],
     };
+  },
+
+  computed: {
+    ...mapGetters(['userInfos']),
   },
 };
 </script>

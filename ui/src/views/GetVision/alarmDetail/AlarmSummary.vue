@@ -22,7 +22,7 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
-            <p>{{ content.type }}</p>
+            <p>{{ $t('getparc.lineDetail.alarms.ALARM_TYPE.' + content.type) }}</p>
           </div>
           <div class="item">
             <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>

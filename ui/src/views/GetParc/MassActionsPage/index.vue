@@ -106,6 +106,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.initAfterRouteIsSet();
+  },
   watch: {
     contextPartnersType() {
       this.initFilterForContext();

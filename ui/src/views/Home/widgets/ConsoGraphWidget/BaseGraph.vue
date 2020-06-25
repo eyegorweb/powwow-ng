@@ -55,7 +55,7 @@ export default {
         chart: {
           renderTo: 'container',
           zoomType: 'xy',
-          height: 250,
+          height: 165,
           type: 'column',
         },
         title: {
@@ -122,7 +122,8 @@ export default {
           return this.contextPartners.map(p => p.id);
         }
       } else {
-        return [get(this.userInfos, 'party.id')];
+        const partners = get(this.userInfos, 'partners', []);
+        return partners.map(p => p.id);
       }
 
       return [];

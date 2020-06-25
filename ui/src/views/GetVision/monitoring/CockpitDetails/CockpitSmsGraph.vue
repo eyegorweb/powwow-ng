@@ -23,7 +23,7 @@ export default {
 
   props: {
     supervisionType: String,
-    partnerId: Number,
+    filters: Object,
   },
 
   mounted() {
@@ -40,18 +40,14 @@ export default {
       return all;
     },
     async refreshData() {
-      const params = {};
-      if (this.partnerId) {
-        params.partyIds = [this.partnerId];
-      }
       const data = await fetchSupervisionGraphSMS({
         supervisionType: this.supervisionType,
-        params,
+        params: this.filters,
       });
 
       if (!data) return;
 
-      const formattedData = data.reduce(
+      const formattedData = data.responses.reduce(
         (all, item) => {
           const dateFirstSplit = item.date.split(' ');
           const dateParts = dateFirstSplit[0].split('/');
@@ -83,12 +79,12 @@ export default {
           zoomType: 'xy',
         },
         title: {
-          text: '',
-          align: 'left',
+          text: 'SMS par Tranches',
+          align: 'center',
         },
         subtitle: {
-          text: ' ',
-          align: 'left',
+          text: 'Dernière mise à jour:' + data.lastUpdateDate,
+          align: 'center',
         },
         plotOptions: {
           column: {
@@ -148,9 +144,7 @@ export default {
           xDateFormat: '%d/%m/%Y',
           pointFormatter() {
             return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
-              this.series.userOptions.color
-              }; display: inline-block; margin-right: 0.5rem"></div>
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
               ${this.y} <br/>

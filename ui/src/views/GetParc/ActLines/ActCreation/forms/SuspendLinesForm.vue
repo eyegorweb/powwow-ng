@@ -40,9 +40,12 @@ export default {
     ...mapGetters(['userIsBO', 'userIsPartner']),
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
-      if (this.userIsBO) return true;
 
-      return this.actCreationPrerequisites.partner.partyType !== 'MVNO';
+      return (
+        this.actCreationPrerequisites.partner.partyType !== 'MVNO' &&
+        this.userIsBO &&
+        this.actCreationPrerequisites.partner.suspensionFree
+      );
     },
   },
   methods: {

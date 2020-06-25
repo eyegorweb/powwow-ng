@@ -15,27 +15,34 @@ export async function fetchPartners(filter, pagination) {
   return response.data.partners;
 }
 
-export async function fetchDeliveryCountries(locale) {
+export async function fetchDeliveryCountries(locale, filters = {}) {
   // fr -> nameFr
   const key = 'name' + capitalize(locale);
+  const sorting = {};
+
+  sorting[key] = 'ASC';
 
   return query(`
-  query {
-    countries(sorting: {${key}: ASC}) {
+  query Countries($filters: CountryFilterInput, $sorting: CountrySorting!) {
+    countries(sorting: $sorting, filter: $filters) {
       total
       countries {
         id
         code
         codeIso3
+        latitude
+        longitude
         ${key}
       }
     }
-  }`).then(res =>
+  }`, {sorting, filters}).then(res =>
     res.data.countries.countries.map(country => ({
       name: country[key],
       code: country.code,
       codeIso3: country.codeIso3,
       id: country.id,
+      latitude: country.latitude,
+      longitude: country.longitude
     }))
   );
 }

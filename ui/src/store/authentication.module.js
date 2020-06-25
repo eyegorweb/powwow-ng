@@ -3,6 +3,7 @@ import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
 // import moment from 'moment';
+import { checkLocalStorageProfile } from '@/utils/localstorage.js';
 
 const MAX_TIME_FOR_REFRESHING_TOKEN_IN_MS = 2000;
 
@@ -107,6 +108,7 @@ export const mutations = {
     state.refreshingToken = false;
   },
   setCurrentUser(state, userInfos) {
+    checkLocalStorageProfile();
     state.userInfos = userInfos;
     if (userInfos) {
       localStorage.setItem('username', userInfos.username);

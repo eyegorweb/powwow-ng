@@ -16,6 +16,8 @@
       :total="total"
       :order-by.sync="orderBy"
       :size="0"
+      :show-reset="!!searchByRefValue"
+      @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       no-pagination
       :is-table-visible-fn="isTableVisible"
@@ -30,9 +32,7 @@
         />
       </div>
       <div slot="onTableNotVisible">
-        <div class="alert alert-warning" role="alert">
-          Veuillez choisir un partenaire
-        </div>
+        <div class="alert alert-warning" role="alert">Veuillez choisir un partenaire</div>
       </div>
     </TableWithFilter>
   </div>
@@ -126,6 +126,11 @@ export default {
       return appliedFilters && appliedFilters.find(f => f.id === 'getadmin.users.filters.partners');
     },
 
+    resetFilters() {
+      this.searchByRefValue = undefined;
+      this.applyFilters();
+    },
+
     getPanelConfig(row) {
       const doReset = () => {
         this.searchByRefValue = undefined;
@@ -157,7 +162,7 @@ export default {
       this.applyFilters([
         {
           id: 'reference',
-          value,
+          value: value,
         },
       ]);
     },
@@ -241,5 +246,9 @@ export default {
 <style lang="scss" scoped>
 .card {
   top: 70px;
+}
+
+.btn-select {
+  user-select: initial;
 }
 </style>

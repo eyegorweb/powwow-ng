@@ -2,6 +2,7 @@
   <div class="toggles-container">
     <div class="single-toggle" :class="sizeClass" :key="service.code" v-for="service in services">
       <UiToggle
+        v-if="service.visible"
         :label="service.labelService"
         :editable="service.editable"
         :bold-label="isChanged(service)"

@@ -7,13 +7,12 @@
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
-
       <FilterBar
         v-if="filters"
         :filter-components="filters"
         :disabled="!canFilter"
         :default-values="defaultValues"
-        :frozen-values="fronzenValues"
+        :frozen-values="frozenValues"
         always-show-button
         @applyFilters="doSearch"
         @noMoreFilters="onAllFiltersCleared"
@@ -45,6 +44,7 @@
             <CockpitDetails
               :marker-data="cockpitMarkerToDetail"
               :applied-filters="appliedFilters"
+              @tabchange="onTabChange"
             />
           </div>
         </template>
@@ -81,6 +81,7 @@ import CountryFilter from './filters/CountryFilter';
 import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
+import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -94,6 +95,8 @@ import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js'
 import { mapGetters } from 'vuex';
 
 import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
+import { fetchDeliveryCountries } from '@/api/filters';
+import { delay } from '@/api/utils.js';
 
 export default {
   components: {
@@ -128,10 +131,11 @@ export default {
       indicatorTotal: undefined,
       canShowIndicators: false,
       cockpitMarkerToDetail: undefined,
-      defaultValues: undefined,
+      defaultValues: [],
       currentFilters: [],
-      fronzenValues: [],
+      frozenValues: [],
       isFrozen: false,
+      currentTab: 'graphs',
 
       commonFilters: {
         partnerGroup: {
@@ -196,7 +200,7 @@ export default {
   watch: {
     cockpitMarkerToDetail() {
       if (this.cockpitMarkerToDetail) {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       }
     },
     currentUsage() {
@@ -206,10 +210,12 @@ export default {
       this.canShowIndicators = false;
       this.cockpitMarkerToDetail = undefined;
       this.isFrozen = false;
+      this.frozenValues = [];
       this.currentFilters = [];
+      this.currentTab = 'graphs';
 
       if (this.currentUsage === 'COCKPIT') {
-        this.filters = this.getCockpitFilters();
+        this.refreshCockpitFilters();
       } else {
         this.filters = this.getUsageFilters();
       }
@@ -239,13 +245,64 @@ export default {
   },
 
   methods: {
+    onTabChange(tab) {
+      this.currentTab = tab.label;
+      this.filters = undefined;
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      });
+    },
+
+    refreshCockpitFilters() {
+      this.filters = this.getCockpitFilters();
+      this.filterBarVersion += 1;
+    },
+
     onUsageChange(usage) {
       this.currentUsage = usage.id;
     },
 
-    freezeFilterSelection() {
+    async preselectCountry(payload) {
+      const { marker } = payload;
+
+      if (typeof marker.data.locationCode === 'string') {
+        const foundCountry = await fetchDeliveryCountries(this.$i18n.locale, {
+          codeIso3: { eq: marker.data.locationCode }
+        });
+
+        if (foundCountry && foundCountry.length) {
+
+          const filterEntry = {
+            id: 'filters.country',
+            value: foundCountry[0].name,
+            data: foundCountry[0],
+          };
+
+          return filterEntry;
+        }
+
+      }
+    },
+
+    async freezeFilterSelection(payload) {
       this.isFrozen = true;
-      this.fronzenValues = cloneDeep(this.currentFilters);
+      const countryFilter = await this.preselectCountry(payload);
+      let frozenValues = cloneDeep(this.currentFilters);
+
+      if (countryFilter) {
+        frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
+        frozenValues.push(countryFilter);
+      }
+
+      this.frozenValues = frozenValues;
+
+      const oldFilters = this.filters;
+
+      this.filters = undefined;
+
+      await delay(20);
+
+      this.filters = oldFilters;
     },
 
     doSearch(appliedFilters) {
@@ -292,30 +349,45 @@ export default {
       // StatusesFilter
 
       if (this.cockpitMarkerToDetail) {
-        const createComboFilter = (name, component) => {
-          currentVisibleFilters.push({
-            title: name,
-            component,
-            onChange(chosen) {
-              if (!chosen || !chosen.value) {
-                return {
-                  id: name,
-                  value: '', // pour supprimer ce choix des filtres séléctionnés
-                };
-              } else {
-                return {
-                  id: name,
-                  value: chosen.label,
-                  data: chosen,
-                };
-              }
-            },
-          });
-        };
+        if (this.currentTab === 'alerts') {
+          const createComboFilter = (name, component) => {
+            currentVisibleFilters.push({
+              title: name,
+              component,
+              onChange(chosen) {
+                if (!chosen || !chosen.value) {
+                  return {
+                    id: name,
+                    value: '', // pour supprimer ce choix des filtres séléctionnés
+                  };
+                } else {
+                  return {
+                    id: name,
+                    value: chosen.label,
+                    data: chosen,
+                  };
+                }
+              },
+            });
+          };
 
-        createComboFilter('status', StatusesFilter);
-        createComboFilter('types', TypesFilter);
-        createComboFilter('col.label', LabelFilter);
+          createComboFilter('status', StatusesFilter);
+          createComboFilter('types', TypesFilter);
+          createComboFilter('col.label', LabelFilter);
+        }
+
+        currentVisibleFilters.push({
+          title: 'common.period',
+          component: DateRangeFilter,
+          onChange(chosen) {
+            return {
+              id: 'common.period',
+              startDate: chosen.startDate,
+              endDate: chosen.endDate,
+              data: chosen,
+            };
+          },
+        });
       }
 
       return currentVisibleFilters;
@@ -339,7 +411,7 @@ export default {
         currentVisibleFilters.push(this.commonFilters.partnerGroup);
       }
 
-      //if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
+      // if (this.userIsBO || this.userIsGroupAccount || this.userPartyGroup) {
       if (!this.userIsPartner) {
         currentVisibleFilters.push(this.commonFilters.partners);
       } else {
@@ -423,41 +495,51 @@ export default {
     onCockpitClick(payload) {
       if (!shouldFilterMocked()) {
         this.cockpitMarkerToDetail = payload;
-        this.freezeFilterSelection();
+        this.freezeFilterSelection(payload);
       }
     },
+
+
   },
 };
 
 export function filterFormatter(appliedFilters) {
+  if (!appliedFilters) return {};
+
   return appliedFilters.reduce((filters, item) => {
-    if (item.id === 'getadmin.users.filters.partners') {
-      filters.partyId = item.data.id;
-    }
+    try {
+      if (item.id === 'getadmin.users.filters.partners') {
+        filters.partyId = item.data.id;
+      }
 
-    if (item.id === 'getvsion.monitoring.filterByFile') {
-      filters.tempDataUuid = item.data.tempDataUuid;
-    }
+      if (item.id === 'getvsion.monitoring.filterByFile') {
+        filters.tempDataUuid = item.data.tempDataUuid;
+      }
 
-    if (item.id === 'filters.offers') {
-      filters.offerCode = item.data.id;
-    }
+      if (item.id === 'filters.offers') {
+        filters.offerCode = item.data.id;
+      }
 
-    if (item.id === 'getadmin.users.filters.partnerGroup') {
-      filters.partiesDomain = item.data.value;
-    }
+      if (item.id === 'getadmin.users.filters.partnerGroup') {
+        filters.partiesDomain = item.data.value;
+      }
 
-    if (item.id === 'filters.zone') {
-      if (item.data.zone.world) {
-        if (item.data.country) {
-          filters.iso3CountryCode = item.data.country.codeIso3;
-        }
-      } else {
-        if (item.data.zipCode) {
-          filters.zipCode = item.data.zipCode;
-          filters.iso3CountryCode = 'FRA';
+      if (item.id === 'filters.zone') {
+        filters.zone = item.data.zone.value;
+
+        if (item.data.zone.value === 'world') {
+          if (item.data.country) {
+            filters.iso3CountryCode = item.data.country.codeIso3;
+          }
+        } else {
+          if (item.data.zipCode) {
+            filters.zipCode = item.data.zipCode;
+            filters.iso3CountryCode = 'FRA';
+          }
         }
       }
+    } catch (e) {
+      console.log('Erreur >', e);
     }
     return filters;
   }, {});
