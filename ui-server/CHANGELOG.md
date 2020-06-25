@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.1
+2020-06-25
+
+### Fixes
+
+- Correctif dans la carte cockpit m2M (8bf1fc37ca12bb32c9eb39390b2b6c7d3e521e5f)
+
 ## 1.0.0
 2020-06-25
 
