@@ -11,11 +11,21 @@
           <a href="#" @click.prevent="() => onChangeTab(index)">{{ tab.title }}</a>
         </UiTab>
       </template>
+
       <div class="pt-4 pl-4" slot="alerts">
+        <UiButton variant="outline-primary" class="mb-4" @click="$emit('gotomap')">
+          <i class="ic-Pin-Icon"></i>
+          Vue carte
+        </UiButton>
         <CockpitAlerts :marker-data="markerData" :applied-filters="appliedFilters" />
       </div>
       <div class="pt-4 pl-4" slot="graphs">
-        <CockpitGraphs :marker-data="markerData" :applied-filters="appliedFilters" />
+        <CockpitGraphs :marker-data="markerData" :applied-filters="appliedFilters">
+          <UiButton variant="outline-primary" class="mb-4" @click="$emit('gotomap')">
+            <i class="ic-Pin-Icon"></i>
+            Vue carte
+          </UiButton>
+        </CockpitGraphs>
       </div>
     </UiTabs>
   </div>
@@ -26,6 +36,7 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import CockpitAlerts from './CockpitAlerts';
 import CockpitGraphs from './CockpitGraphs';
+import UiButton from '@/components/ui/Button';
 
 export default {
   components: {
@@ -33,6 +44,7 @@ export default {
     UiTab,
     CockpitAlerts,
     CockpitGraphs,
+    UiButton
   },
   props: {
     markerData: Object,

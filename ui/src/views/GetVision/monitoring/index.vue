@@ -45,6 +45,7 @@
               :marker-data="cockpitMarkerToDetail"
               :applied-filters="appliedFilters"
               @tabchange="onTabChange"
+              @gotomap="gotoCockpitMap"
             />
           </div>
         </template>
@@ -284,6 +285,12 @@ export default {
       }
     },
 
+    gotoCockpitMap() {
+      this.isFrozen = false;
+      this.frozenValues = [];
+      this.cockpitMarkerToDetail = undefined;
+    },
+
     async freezeFilterSelection(payload) {
       this.isFrozen = true;
       const countryFilter = await this.preselectCountry(payload);
@@ -376,6 +383,7 @@ export default {
           createComboFilter('col.label', LabelFilter);
         }
 
+        /*
         currentVisibleFilters.push({
           title: 'common.period',
           component: DateRangeFilter,
@@ -388,6 +396,7 @@ export default {
             };
           },
         });
+        //*/
       }
 
       return currentVisibleFilters;
