@@ -84,7 +84,9 @@ export default {
   mounted() {
     this.orderBy = { ...this.order };
     this.refreshTable();
-    this.ready = true;
+    setTimeout(() => {
+      this.ready = true;
+    });
   },
   computed: {
     pageInfo() {

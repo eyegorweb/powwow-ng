@@ -9,6 +9,7 @@ import { smsUsage } from '@/api/consumption';
 import { col } from '@/components/DataTable/utils';
 
 export default {
+  name: 'SMSTable',
   props: {
     simcard: Object,
   },
