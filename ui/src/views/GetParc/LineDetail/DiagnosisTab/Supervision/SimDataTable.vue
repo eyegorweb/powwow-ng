@@ -18,6 +18,7 @@ import LocationCell from './LocationCell';
 import OfferCell from './OfferCell';
 
 export default {
+  name: 'SimDataTable',
   props: {
     simcard: Object,
   },

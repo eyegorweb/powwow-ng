@@ -1,19 +1,21 @@
 <template>
-  <ConsumptionTable :columns.sync="columns" :fetch-data-fn="getFetchDataFn()" />
+  <PaginatedDataTable :columns="columns" :fetch-data-fn="getFetchDataFn()" :size="7" />
 </template>
 
 <script>
-import ConsumptionTable from './ConsumptionTable';
+import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
+
 import { voiceUsage } from '@/api/consumption';
 import { col } from '@/components/DataTable/utils';
 import { formattedValueFromSeconds } from '@/api/utils';
 
 export default {
+  name: 'VoiceTable',
   props: {
     simcard: Object,
   },
   components: {
-    ConsumptionTable,
+    PaginatedDataTable,
   },
   methods: {
     getFetchDataFn() {

@@ -16,10 +16,14 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <DataGraph :sim-id="content.id" @haveContent="canExportData = false" />
+                <keep-alive>
+                  <DataGraph :sim-id="content.id" @haveContent="canExportData = false" />
+                </keep-alive>
               </div>
               <div slot="table" class="mt-3">
-                <SimDataTable :simcard="content" @haveContent="canExportData = true" />
+                <keep-alive>
+                  <SimDataTable :simcard="content" @haveContent="canExportData = true" />
+                </keep-alive>
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -38,10 +42,14 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <SMSGraph :sim-id="content.id" @haveContent="canExportSMS = false" />
+                <keep-alive>
+                  <SMSGraph :sim-id="content.id" @haveContent="canExportSMS = false" />
+                </keep-alive>
               </div>
               <div slot="table" class="mt-3">
-                <SMSTable :simcard="content" @haveContent="canExportSMS = true" />
+                <keep-alive>
+                  <SMSTable :simcard="content" @haveContent="canExportSMS = true" />
+                </keep-alive>
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -60,10 +68,14 @@
           <template slot="content">
             <TableGraphicContentBlock starting="graph">
               <div class="mt-2" slot="graph">
-                <VoiceGraph :sim-id="content.id" @haveContent="canExportVoice = false" />
+                <keep-alive>
+                  <VoiceGraph :sim-id="content.id" @haveContent="canExportVoice = false" />
+                </keep-alive>
               </div>
               <div slot="table" class="mt-3">
-                <VoiceTable :simcard="content" @haveContent="canExportVoice = true" />
+                <keep-alive>
+                  <VoiceTable :simcard="content" @haveContent="canExportVoice = true" />
+                </keep-alive>
               </div>
             </TableGraphicContentBlock>
           </template>
@@ -134,3 +146,8 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
+<style lang="scss">
+.graph-skeleton {
+  height: 20rem;
+}
+</style>

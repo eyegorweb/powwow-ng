@@ -1,6 +1,7 @@
 <template>
   <div>
     <chart v-if="chartOptions" :options="chartOptions" />
+    <div v-else class="graph-skeleton skeleton-line"></div>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import Highcharts from 'highcharts';
 import { fetchVoiceUsageForGraph } from '@/api/consumption.js';
 
 export default {
+  name: 'VoiceGraph',
   components: {
     Chart,
   },
@@ -20,7 +22,7 @@ export default {
       default: '',
       required: false,
     },
-    simId: String,
+    simId: [String, Number],
   },
   async mounted() {
     const data = await fetchVoiceUsageForGraph(this.simId);
