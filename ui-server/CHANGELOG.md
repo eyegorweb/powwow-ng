@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.19+20200626080109
+2020-06-26
+
+### Features
+
+- permission de suspension de lignes (0dba3b4a54cf076ea157dfa60b3a5dee74dc180b)
+
 ## 1.0.0-master.18+20200625202446
 2020-06-25
 
