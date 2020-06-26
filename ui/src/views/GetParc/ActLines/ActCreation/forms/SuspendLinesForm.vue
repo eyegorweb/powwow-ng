@@ -44,7 +44,7 @@ export default {
       return (
         this.actCreationPrerequisites.partner.partyType !== 'MVNO' &&
         this.userIsBO &&
-        this.actCreationPrerequisites.partner.suspensionFree
+        this.actCreationPrerequisites.partner.suspendBilling
       );
     },
   },
