@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.22+20200626141601
+2020-06-26
+
+### Features
+
+- filtre msisdn et IMEI (9120d874eeead3d3987836c895261b803d328f6f)
+
 ## 1.0.0-master.21+20200626115724
 2020-06-26
 
