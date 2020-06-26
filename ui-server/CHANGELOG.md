@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.20+20200626100711
+2020-06-26
+
+### Fixes
+
+- correction de bugs dans l'onglet supervision du détail de la ligne (4b62bd8640871f526d24b748622e847b11ec0f25)
+
 ## 1.0.0-master.19+20200626080109
 2020-06-26
 
