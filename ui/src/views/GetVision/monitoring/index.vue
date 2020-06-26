@@ -82,6 +82,8 @@ import CountryFilter from './filters/CountryFilter';
 import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
+import IdentifierFilter from './filters/IdentifierFilter';
+
 // import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
@@ -433,24 +435,52 @@ export default {
 
       currentVisibleFilters.push(this.commonFilters.offers);
 
-      currentVisibleFilters.push({
-        title: 'filters.zone',
-        component: LocalisationFilter,
-        onChange(chosenValue) {
-          const zone = chosenValue.zone.label;
-          const country = chosenValue.country ? chosenValue.country.label : undefined;
-          const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
+      currentVisibleFilters.push(
+        {
+          title: 'filters.zone',
+          component: LocalisationFilter,
+          onChange(chosenValue) {
+            const zone = chosenValue.zone.label;
+            const country = chosenValue.country ? chosenValue.country.label : undefined;
+            const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
 
-          const labels = [{ id: zone, label: `Zone: ${zone}` }];
-          if (country) labels.push({ id: country, label: `Pays: ${country}` });
-          if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
-          return {
-            id: 'filters.zone',
-            values: labels,
-            data: chosenValue,
-          };
+            const labels = [{ id: zone, label: `Zone: ${zone}` }];
+            if (country) labels.push({ id: country, label: `Pays: ${country}` });
+            if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
+            return {
+              id: 'filters.zone',
+              values: labels,
+              data: chosenValue,
+            };
+          },
         },
-      });
+        {
+          title: 'common.identifier',
+          component: IdentifierFilter,
+          onChange(chosenValue) {
+            const labels = [];
+
+            if (chosenValue.imei) {
+              labels.push({
+                id: 'getparc.actDetail.col.imei',
+                label: `IMEI : ${chosenValue.imei}`,
+              });
+            }
+            if (chosenValue.msisdn) {
+              labels.push({
+                id: 'getparc.actDetail.col.msisdn',
+                label: `MSISDN : ${chosenValue.msisdn}`,
+              });
+            }
+
+            return {
+              id: 'common.identifier',
+              data: chosenValue,
+              values: labels,
+            };
+          },
+        }
+      );
 
       return currentVisibleFilters;
     },
@@ -524,6 +554,16 @@ export function filterFormatter(appliedFilters) {
 
       if (item.id === 'getadmin.users.filters.partnerGroup') {
         filters.partiesDomain = item.data.value;
+      }
+
+      if (item.id === 'common.identifier') {
+        if (item.data.imei) {
+          filters.imei = '' + item.data.imei;
+        }
+
+        if (item.data.msisdn) {
+          filters.msisdn = '' + item.data.msisdn;
+        }
       }
 
       if (item.id === 'filters.zone') {
