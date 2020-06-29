@@ -62,6 +62,7 @@
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
             :total="indicatorTotal"
+            :appliedFilters="appliedFilters"
             @gotomap="refreshLinesFn = undefined"
           />
         </template>
@@ -92,8 +93,9 @@ import cloneDeep from 'lodash.clonedeep';
 import SupervisionMap from './SupervisionMap';
 import SupervisionTable from './SupervisionTable';
 import CockpitDetails from './CockpitDetails';
+import ExportButton from '@/components/ExportButton';
 
-import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js';
+import { fetchLinesForCounter, fetchLinesForMarker, geoListExport } from '@/api/supervision.js';
 
 import { mapGetters } from 'vuex';
 
@@ -109,6 +111,7 @@ export default {
     SupervisionMap,
     SupervisionTable,
     CockpitDetails,
+    ExportButton
   },
   computed: {
     ...mapGetters([
@@ -247,6 +250,16 @@ export default {
   },
 
   methods: {
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        console.log('orderBy >>', orderBy)
+        return await geoListExport({
+          filters: filterFormatter(this.appliedFilters),
+          columns: columnsParam,
+          exportFormat
+        });
+      };
+    },
     onTabChange(tab) {
       this.currentTab = tab.label;
       this.filters = undefined;
@@ -315,7 +328,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);

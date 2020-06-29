@@ -107,6 +107,7 @@ export default {
         this.isLoading = false;
         this.rows = response.rows;
         this.total = response.total;
+        this.$emit('total', this.total);
       } catch (e) {
         this.isLoading = false;
         this.isError = true;

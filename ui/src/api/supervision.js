@@ -488,3 +488,27 @@ export async function getSupervisionAlertFilters() {
   await loadSupervisionAlertFilters();
   return SUPERVISION_FILTERS_CACHE;
 }
+
+
+export async function geoListExport(params) {
+  const queryStr = `query GeoListExport($filter: GeolocListFilterInput, $columns: [AccessPointByLocationColumnEnum!]!, $sorting: GeolocListSorting!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
+    geoListExport(filter: $filter, columns: $columns, sorting: $sorting, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {
+        downloadUri
+        total
+        asyncRequired
+    }
+  }`;
+  const response = await query(queryStr, params);
+
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.geoListExport;
+}

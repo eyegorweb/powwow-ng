@@ -1,29 +1,50 @@
 <template>
   <div>
-    <PaginatedDataTable
-      :key="version"
-      :columns="columns"
-      :fetch-data-fn="fetchDataFn()"
-      :size="7"
-      :order="orderBy"
-    >
-      <template slot="topLeftCorner">
-        <UiButton variant="outline-primary" @click="$emit('gotomap')">
-          <i class="ic-Pin-Icon"></i>
-          Vue carte
-        </UiButton>
-      </template>
-      <template slot="noResult">
-        <UiButton variant="outline-primary" @click="$emit('gotomap')">
-          <i class="ic-Pin-Icon"></i>
-          Vue carte
-        </UiButton>
+    <div class="row">
+      <div class="col">
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+        </ExportButton>
+      </div>
+    </div>
+    <template v-if="total < 500">
+      <PaginatedDataTable
+        :key="version"
+        :columns="columns"
+        :fetch-data-fn="fetchDataFn()"
+        :size="7"
+        :order="orderBy"
+      >
+        <template slot="topLeftCorner">
+          <UiButton variant="outline-primary" @click="$emit('gotomap')">
+            <i class="ic-Pin-Icon"></i>
+            Vue carte
+          </UiButton>
+        </template>
+        <template slot="noResult">
+          <UiButton variant="outline-primary" @click="$emit('gotomap')">
+            <i class="ic-Pin-Icon"></i>
+            Vue carte
+          </UiButton>
 
-        <div class="mt-2 alert alert-light m-0" role="alert">
-          {{ $t('noResult') }}
-        </div>
-      </template>
-    </PaginatedDataTable>
+          <div class="mt-2 alert alert-light m-0" role="alert">
+            {{ $t('noResult') }}
+          </div>
+        </template>
+      </PaginatedDataTable>
+    </template>
+    <template v-else-if="total >= 500 && total <= 100000">
+      <div class="alert alert-warning">
+        Plus de 500 lignes sélectionnées, la liste est disponible
+      </div>
+    </template>
+    <template v-else-if="total >= 100000">
+      <div class="alert alert-warning">
+        Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans
+        la gestion documentaire" avec un bouton demande d'export différé. Attention, il faut appeler
+        l'api d'export en mode asynchrone.
+      </div>
+    </template>
   </div>
 </template>
 
@@ -31,22 +52,28 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 import uuid from 'uuid/v1';
 import UiButton from '@/components/ui/Button';
+import ExportButton from '@/components/ExportButton';
+import { geoListExport } from '@/api/supervision.js';
+import { filterFormatter } from '../index.vue';
 
 export default {
   components: {
     PaginatedDataTable,
     UiButton,
+    ExportButton
   },
 
   props: {
     refreshLinesFn: Function,
     total: Number,
+    appliedFilters: Array
   },
 
   data() {
     return {
       version: 0,
       rows: undefined,
+
       columns: [
         {
           id: uuid(),
@@ -230,6 +257,31 @@ export default {
   },
 
   methods: {
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+
+        const sorting = {};
+
+        sorting[orderBy.key] = orderBy.direction;
+        return await geoListExport({
+          filters: filterFormatter(this.appliedFilters),
+          columns: [
+            ...columnsParam,
+            'IMSI',
+            'ICCID',
+            'ADDRESS_IP_TYPE',
+            'ADDRESS_IP_V4',
+            'APN',
+            'DEVICE_REFERENCE',
+            'DEVICE_MANUFACTURER'
+          ],
+          asyncExportRequest: total >= 100000,
+          exportFormat,
+
+        });
+
+      };
+    },
     fetchDataFn() {
       return async (pageInfo, orderBy) => {
         const sorting = {};
