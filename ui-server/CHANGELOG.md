@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.24+20200629132755
+2020-06-29
+
+### Features
+
+- ajout d'un bouton d'export pour les lignes (7f22afb795b16085a771fadaebb684efc3fc3482)
+
 ## 1.0.0-master.23+20200629121528
 2020-06-29
 
