@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.23+20200629121528
+2020-06-29
+
+### Features
+
+- ajout d'un logo temporaire (0dcde25cbb43b52d2c9c2e5066ec4448c276705d)
+
 ## 1.0.0-master.22+20200626141601
 2020-06-26
 
