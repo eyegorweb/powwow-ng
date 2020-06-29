@@ -72,12 +72,15 @@ export default {
           orderable: true,
           visible: true,
           name: 'operatorRealPlmn',
+          sortingName: 'plmn',
         },
         {
           id: uuid(),
           label: this.$t('filters.country'),
           orderable: true,
           visible: true,
+          name: 'country',
+          sortingName: 'countryName',
           format: {
             type: 'Getter',
             getter: row => {
@@ -91,6 +94,7 @@ export default {
           orderable: true,
           visible: true,
           name: 'zipCode',
+          sortingName: 'zipcode'
         },
         {
           id: uuid(),
@@ -104,7 +108,9 @@ export default {
           label: this.$t('filters.lastUsage'),
           orderable: true,
           visible: false,
-          name: 'lastUsageType',
+          name: 'lastUsageDate',
+          sortingName: 'lastUsageDate'
+
         },
 
         {
@@ -113,6 +119,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'imsi',
+          sortingName: 'imsi'
         },
         {
           id: uuid(),
@@ -122,6 +129,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'plmn',
+          sortingName: 'plmn'
         },
         {
           id: uuid(),
@@ -131,6 +139,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'cellid',
+          sortingName: 'cellid'
         },
         {
           id: uuid(),
@@ -138,6 +147,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastUsageType',
+          sortingName: 'lastUsageType'
         },
         {
           id: uuid(),
@@ -152,6 +162,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConStatus',
+          sortingName: 'lastPdpConStatus'
         },
         {
           id: uuid(),
@@ -159,6 +170,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConStartDate',
+          sortingName: 'lastPdpConStartDate'
         },
         {
           id: uuid(),
@@ -166,6 +178,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConEndDate',
+          sortingName: 'lastPdpConEndDate'
         },
         {
           id: uuid(),
@@ -173,6 +186,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'imei',
+          sortingName: 'imei'
         },
         {
           id: uuid(),
@@ -187,6 +201,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'networkStatus',
+          sortingName: 'networkStatus',
         },
         {
           id: uuid(),
@@ -204,12 +219,8 @@ export default {
         },
       ],
       currentPage: 1,
-      orderBy: { key: 'cellid', direction: 'ASC' },
+      orderBy: { key: 'lastUsageDate', direction: 'ASC' },
     };
-  },
-
-  async mounted() {
-    // this.rows = await this.refreshLinesFn();
   },
 
   watch: {
