@@ -90,7 +90,7 @@
       <img
         v-if="!isBackofficeProfile"
         class="logo logo--client"
-        src="@/assets/logo_notfound.png"
+        src="@/assets/logo_clear.png"
         alt
       />
     </div>
@@ -426,5 +426,9 @@ a {
 .flag {
   bottom: 0.5rem;
   position: relative;
+}
+
+.logo--client {
+  width: 32px;
 }
 </style>
