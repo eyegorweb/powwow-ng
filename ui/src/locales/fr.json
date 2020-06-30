@@ -233,7 +233,12 @@
   "bills": {
     "total": "{total} factures disponibles",
     "searchByRef": "Rechercher une facture par référence",
-    "detailPanel": "Facture N° {reference}"
+    "detailPanel": "Facture N° {reference}",
+    "amount": "Montant",
+    "title": "Intitulé",
+    "billDetail": "Détail de facturation",
+    "billPeriod": "Période facturée",
+    "lineTotal": "Nombre de lignes"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
