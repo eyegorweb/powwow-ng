@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.25+20200630073806
+2020-06-30
+
+### Features
+
+- Ajout de la suspension et reactivation auto à la création d'alarme (c602c1ea9def95b9938a0fe6491f55c60b258cb2)
+
 ## 1.0.0-master.24+20200629132755
 2020-06-29
 
