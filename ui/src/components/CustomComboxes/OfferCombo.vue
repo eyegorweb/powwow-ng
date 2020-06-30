@@ -5,7 +5,7 @@
       v-else
       placeholder="Offre"
       :items="items"
-      v-model="selectedValue"
+      v-model="selectedLocalValue"
       :disabled="disabled"
       display-results-while-empty
     />
@@ -33,6 +33,7 @@ export default {
       items: [],
       isLoading: false,
       lastPartners: [],
+      selectedLocalValue: undefined,
     };
   },
   computed: {
@@ -61,6 +62,23 @@ export default {
       if (this.havePartnersChanged(partners)) {
         this.lastPartners = partners;
         await this.refreshList();
+      }
+    },
+    value(newValue) {
+      if (newValue && this.items && this.items.length) {
+        this.selectedLocalValue = this.items.find(i => i.id === newValue.id);
+      }
+      if (!newValue) {
+        this.selectedLocalValue = undefined;
+      }
+    },
+    selectedLocalValue(value) {
+      if (value && value.label === '') {
+        this.$emit('update:value', undefined);
+        return;
+      }
+      if (value && value.id) {
+        this.$emit('update:value', value);
       }
     },
   },
@@ -97,9 +115,12 @@ export default {
       this.isLoading = false;
     },
   },
-  mounted() {
+  async mounted() {
     this.lastPartners = this.partners;
-    this.refreshList();
+    await this.refreshList();
+    if (this.value && this.items && this.items.length) {
+      this.selectedLocalValue = this.items.find(i => i.id === this.value.id);
+    }
   },
 };
 </script>

@@ -489,7 +489,6 @@ export async function getSupervisionAlertFilters() {
   return SUPERVISION_FILTERS_CACHE;
 }
 
-
 export async function geoListExport(params) {
   const queryStr = `query GeoListExport($filter: GeolocListFilterInput, $columns: [AccessPointByLocationColumnEnum!]!, $sorting: GeolocListSorting!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
     geoListExport(filter: $filter, columns: $columns, sorting: $sorting, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {

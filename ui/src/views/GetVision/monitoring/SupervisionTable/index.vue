@@ -60,13 +60,13 @@ export default {
   components: {
     PaginatedDataTable,
     UiButton,
-    ExportButton
+    ExportButton,
   },
 
   props: {
     refreshLinesFn: Function,
     total: Number,
-    appliedFilters: Array
+    appliedFilters: Array,
   },
 
   data() {
@@ -121,7 +121,7 @@ export default {
           orderable: true,
           visible: true,
           name: 'zipCode',
-          sortingName: 'zipcode'
+          sortingName: 'zipcode',
         },
         {
           id: uuid(),
@@ -136,8 +136,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastUsageDate',
-          sortingName: 'lastUsageDate'
-
+          sortingName: 'lastUsageDate',
         },
 
         {
@@ -146,7 +145,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'imsi',
-          sortingName: 'imsi'
+          sortingName: 'imsi',
         },
         {
           id: uuid(),
@@ -156,7 +155,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'plmn',
-          sortingName: 'plmn'
+          sortingName: 'plmn',
         },
         {
           id: uuid(),
@@ -166,7 +165,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'cellid',
-          sortingName: 'cellid'
+          sortingName: 'cellid',
         },
         {
           id: uuid(),
@@ -174,7 +173,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastUsageType',
-          sortingName: 'lastUsageType'
+          sortingName: 'lastUsageType',
         },
         {
           id: uuid(),
@@ -189,7 +188,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConStatus',
-          sortingName: 'lastPdpConStatus'
+          sortingName: 'lastPdpConStatus',
         },
         {
           id: uuid(),
@@ -197,7 +196,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConStartDate',
-          sortingName: 'lastPdpConStartDate'
+          sortingName: 'lastPdpConStartDate',
         },
         {
           id: uuid(),
@@ -205,7 +204,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'lastPdpConEndDate',
-          sortingName: 'lastPdpConEndDate'
+          sortingName: 'lastPdpConEndDate',
         },
         {
           id: uuid(),
@@ -213,7 +212,7 @@ export default {
           orderable: true,
           visible: false,
           name: 'imei',
-          sortingName: 'imei'
+          sortingName: 'imei',
         },
         {
           id: uuid(),
@@ -259,7 +258,6 @@ export default {
   methods: {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-
         const sorting = {};
 
         sorting[orderBy.key] = orderBy.direction;
@@ -273,13 +271,11 @@ export default {
             'ADDRESS_IP_V4',
             'APN',
             'DEVICE_REFERENCE',
-            'DEVICE_MANUFACTURER'
+            'DEVICE_MANUFACTURER',
           ],
-          asyncExportRequest: total >= 100000,
+          asyncExportRequest: this.total >= 100000,
           exportFormat,
-
         });
-
       };
     },
     fetchDataFn() {
