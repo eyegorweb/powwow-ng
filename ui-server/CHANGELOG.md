@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.27+20200630141333
+2020-06-30
+
+### Fixes
+
+- Gestion de l'horaire sur le changement d'offre (e622a522b51d38cd5f3a07f84c57b08d494e8fdb)
+- Ajout des traductions des libellés du detail de facture (45a561ae3b3b57f2abb232674e0acf2668103a68)
+- Bug suspension dune alarme (f96633c49223423154fa8f01e5a5ce9c526d92a9)
+- correctif des contrôles d'affichage pour les adresses de livraison (475d88e3e494ea320ecfdb3c0444267da1390139)
+
 ## 1.0.0-master.26+20200630112219
 2020-06-30
 
