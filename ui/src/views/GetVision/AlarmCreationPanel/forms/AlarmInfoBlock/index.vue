@@ -26,13 +26,19 @@
 
     <div class="row">
       <div class="col to-bottom">
-        <div class="d-flex mb-3 mt-1" v-if="suspension">
-          <UiCheckbox v-model="enableSuspension" :checked="false" />
-          <span>Suspension automatique</span>
-        </div>
-        <div class="d-flex mb-3 mt-1">
-          <UiCheckbox v-model="enableReactivation" :checked="false" :disabled="!enableSuspension" />
-          <span>Réactivation automatique</span>
+        <div v-if="partner.data.suspensionAuto">
+          <div class="d-flex mb-3 mt-1" v-if="suspension">
+            <UiCheckbox v-model="enableSuspension" :checked="false" />
+            <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
+          </div>
+          <div class="d-flex mb-3 mt-1">
+            <UiCheckbox
+              v-model="enableReactivation"
+              :checked="false"
+              :disabled="!enableSuspension"
+            />
+            <span>{{ $t('getvsion.alarm.rea_auto') }}</span>
+          </div>
         </div>
 
         <h5>Nom de l'alarme</h5>

@@ -195,7 +195,6 @@ async function consoQuery(queryName, params) {
 
 function getFormGQLParams(params) {
   const gqlParams = [];
-  console.log(params);
   gqlParams.push(`alarmScope:${getScope(params)}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`activateAlarm:${params.enableAlarm}`);
