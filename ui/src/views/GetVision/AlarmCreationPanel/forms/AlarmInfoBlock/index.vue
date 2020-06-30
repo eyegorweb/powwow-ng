@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col to-bottom">
         <div v-if="partner.data.suspensionAuto">
-          <div class="d-flex mb-3 mt-1" v-if="suspension">
+          <div class="d-flex mb-3 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
           </div>
