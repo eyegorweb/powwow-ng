@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.26+20200630112219
+2020-06-30
+
+### Fixes
+
+- Correction de l'autocomplete du filtre partenaire (bf57f40f94f797fecc505652c50d874a95774ecf)
+
 ## 1.0.0-master.25+20200630073806
 2020-06-30
 
