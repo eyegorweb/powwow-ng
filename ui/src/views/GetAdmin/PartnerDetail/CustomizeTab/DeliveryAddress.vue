@@ -27,21 +27,23 @@
           <div v-if="list.company" class="cardBloc-infos-name">
             {{ list.company }}
           </div>
-          <div class="cardBloc-infos-name">{{ list.name.firstName }} {{ list.name.lastName }}</div>
+          <div class="cardBloc-infos-name">
+            {{ getFromObject(list, 'name.firstName') }} {{ getFromObject(list, 'name.lastName') }}
+          </div>
           <div class="cardBloc-infos-role">
-            {{ list.address.address1 }}
+            {{ getFromObject(list, 'address.address1') }}
             <span v-if="list.address.address2 && list.address.address2 !== 'null'">
               <br />
-              {{ list.address.address2 }}</span
+              {{ getFromObject(list, 'address.address2') }}</span
             >
             <span v-if="list.address.address3 && list.address.address3 !== 'null'">
               <br />
-              {{ list.address.address3 }}</span
+              {{ getFromObject(list, 'address.address3') }}</span
             >
-            <br v-if="list.address.city" />
-            {{ list.address.zipCode }} - {{ list.address.city }}
-            <br v-if="list.address.country" />
-            {{ list.address.country }}
+            <br v-if="list.address && list.address.city" />
+            {{ getFromObject(list, 'address.zipCode') }} - {{ getFromObject(list, 'address.city') }}
+            <br v-if="list.address && list.address.country" />
+            {{ getFromObject(list, 'address.country') }}
           </div>
         </Card>
       </template>
@@ -50,6 +52,8 @@
 </template>
 
 <script>
+import get from 'lodash.get';
+
 import Card from '@/components/Card';
 import UiInput from '@/components/ui/UiInput';
 import { fetchpartnerAddresses } from '@/api/partners';
@@ -83,6 +87,11 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
+
+    getFromObject(object, path, defaultValue = '') {
+      const value = get(object, path, defaultValue);
+      return value !== null ? value : '';
+    },
 
     openCreationPanel() {
       const doReset = () => {
