@@ -2,31 +2,31 @@
   <BaseDetailPanelContent>
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
-        <h4 class="font-weight-normal text-uppercase">
-          Informations générales
-        </h4>
+        <h4 class="font-weight-normal text-uppercase">{{ $t('orders.detail.information')}}</h4>
       </div>
       <div class="overview-item mr-5">
-        <h6>Compte de facturation</h6>
+        <h6>{{ $t('common.billingAccount') }}</h6>
         <p>{{ getContent('customerAccountCode') }}</p>
       </div>
       <div class="overview-item mr-5">
-        <h6>Période facturée</h6>
+        <h6>{{ $t('bills.billPeriod') }}</h6>
         <p>{{ billingPeriod }}</p>
+      </div>
+      <div class="overview-item mr-5">
+        <h6>{{ $t('bills.lineTotal') }}</h6>
+        <p>-</p>
       </div>
     </div>
     <div class="overview-container m-3 bg-white">
       <div class="overview-item">
-        <h4 class="font-weight-normal text-uppercase">
-          Informations générales
-        </h4>
+        <h4 class="font-weight-normal text-uppercase">{{ $t('bills.billDetail') }}</h4>
       </div>
       <table class="table">
         <thead class="bottom-line">
           <tr>
-            <td class="bill-name">Intitulé</td>
-            <td class="text-end">Quantité</td>
-            <td class="text-end">Montant</td>
+            <td class="bill-name">{{ $t('bills.title') }}</td>
+            <td class="text-end">{{ $t('common.quantity') }}</td>
+            <td class="text-end">{{ $t('bills.amount') }}</td>
           </tr>
         </thead>
         <tbody>
