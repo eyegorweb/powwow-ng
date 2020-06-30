@@ -119,7 +119,9 @@ export default {
         data.all = data.all.map(a => {
           if (!a.id) return;
           const foundCountry = countries.find(c => c.code === a.address.country);
-          a.address.country = foundCountry.name;
+          if (foundCountry) {
+            a.address.country = foundCountry.name;
+          }
         });
         this.filteredAdresses = [...this.adresses];
       }
