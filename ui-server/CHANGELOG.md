@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.28+20200630160839
+2020-06-30
+
+### Fixes
+
+- correction des pays pour les adresses de livraison (0193b066db8c99882a050eb41ea17482bb52cccf)
+
 ## 1.0.0-master.27+20200630141333
 2020-06-30
 
