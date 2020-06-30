@@ -410,6 +410,8 @@
       "disable_alarm_lines": "Désactiver l'alarme des lignes",
       "react_alarm_lines": "Réactiver l'alarme des lignes",
       "alarm_availability": "Présence de l'alarme",
+      "rea_auto": "Réactivation automatique",
+      "sus_auto": "Suspension automatique",
 
       "enableAlarm": "Activer l'alarme",
       "saveAlarm": "Enregistrer l'alarme",
