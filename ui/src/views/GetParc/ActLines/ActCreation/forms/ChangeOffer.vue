@@ -1,45 +1,48 @@
 <template>
-  <ActFormContainer
-    :validate-fn="doRequest"
-    success-message="getparc.actCreation.changeOffer.successMessage"
-    :check-errors-fn="checkErrors"
-    :prevent-send="!canSend"
-    :can-change-date="canChangeDate"
-    :partner-type="partnerType"
-  >
-    <template>
-      <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
-      <OffersPart
-        :partner="actCreationPrerequisites.partner"
-        :offer.sync="selectedOffer"
-        :error="errors.offer"
-      />
-    </template>
+  <div>
+    <ActFormContainer
+      v-if="partnerType"
+      :validate-fn="doRequest"
+      success-message="getparc.actCreation.changeOffer.successMessage"
+      :check-errors-fn="checkErrors"
+      :prevent-send="!canSend"
+      :can-change-date="canChangeDate"
+      :partner-type="partnerType"
+    >
+      <template>
+        <h6>{{ $t('getparc.actLines.selectOffer') }}</h6>
+        <OffersPart
+          :partner="actCreationPrerequisites.partner"
+          :offer.sync="selectedOffer"
+          :error="errors.offer"
+        />
+      </template>
 
-    <div v-if="selectedOffer && selectedOffer.data" class="row">
-      <div class="col-md-8 mb-3">
-        <UiToggle
-          label="Avec changement de services ?"
-          v-model="canChangeServices"
-          on-text="Oui"
-          off-text="Non"
+      <div v-if="selectedOffer && selectedOffer.data" class="row">
+        <div class="col-md-8 mb-3">
+          <UiToggle
+            label="Avec changement de services ?"
+            v-model="canChangeServices"
+            on-text="Oui"
+            off-text="Non"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <div v-if="canChangeServices">
+        <ServicesBlock
+          v-if="selectedOffer"
+          :key="selectedOffer.label"
+          :services="offerServices"
+          :data-params-needed="isDataParamsError"
+          vertical
+          @change="onServiceChange"
         />
       </div>
-    </div>
-
-    <hr />
-
-    <div v-if="canChangeServices">
-      <ServicesBlock
-        v-if="selectedOffer"
-        :key="selectedOffer.label"
-        :services="offerServices"
-        :data-params-needed="isDataParamsError"
-        vertical
-        @change="onServiceChange"
-      />
-    </div>
-  </ActFormContainer>
+    </ActFormContainer>
+  </div>
 </template>
 
 <script>
