@@ -117,7 +117,6 @@ export default {
     },
 
     modifyAlarm() {
-      console.log(this.alarm);
       const doReset = async () => {
         this.refreshAlarm();
       };
