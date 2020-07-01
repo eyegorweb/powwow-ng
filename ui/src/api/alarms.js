@@ -129,6 +129,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
             id
             name
           }
+          suspensionAuto
         }
         auditable {
           created
