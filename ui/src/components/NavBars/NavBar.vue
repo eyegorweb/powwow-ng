@@ -16,7 +16,9 @@
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
+            <router-link v-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
+              tab.label
+            }}</router-link>
 
             <div class="dropdown">
               <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ tab.label }}</a>
@@ -31,6 +33,7 @@
                   :key="item.label"
                   v-for="item in filterByPermission(tab.submenu)"
                   class="dropdown-item"
+                  :class="'menu_' + item.to.name"
                   :to="item.to"
                   >{{ $t(item.label) }}</router-link
                 >
