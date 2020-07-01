@@ -10,7 +10,7 @@
 <script>
 import MultiSelectSearch from '@/components/ui/MultiSelectSearch';
 import { mapState } from 'vuex';
-import { getManufacturers } from '@/api/manufacturers.js';
+import { getDeviceReferences } from '@/api/manufacturers.js';
 
 export default {
   components: {
@@ -23,7 +23,7 @@ export default {
       canFetchNextPage: true,
       page: 0,
       orderBy: {
-        key: 'tac',
+        key: 'marketingName',
         direction: 'ASC',
       },
     };
@@ -52,11 +52,11 @@ export default {
       this.$emit('change', values);
     },
     async fetchApi(q, partners, partnerType, pagination) {
-      const data = await getManufacturers(this.orderBy, pagination);
+      const data = await getDeviceReferences(q, this.orderBy, pagination);
       if (!data) return;
       return data.map(p => ({
-        id: `${p.tac}`,
-        label: p.marketingName,
+        id: `${p}`,
+        label: p,
         data: p,
       }));
     },
@@ -103,11 +103,16 @@ export default {
   },
 
   watch: {
-    async contextPartners() {
+    contextPartners() {
       this.initComponent();
     },
-    async contextPartnersType() {
+    contextPartnersType() {
       this.initComponent();
+    },
+    selectedValues(values) {
+      if (!values.length) {
+        this.initComponent();
+      }
     },
   },
 };
