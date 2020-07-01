@@ -23,7 +23,7 @@ export default {
       canFetchNextPage: true,
       page: 0,
       orderBy: {
-        key: 'tac',
+        key: 'manufacturer',
         direction: 'ASC',
       },
     };
@@ -52,11 +52,11 @@ export default {
       this.$emit('change', values);
     },
     async fetchApi(q, partners, partnerType, pagination) {
-      const data = await getManufacturers(this.orderBy, pagination);
+      const data = await getManufacturers(q, this.orderBy, pagination);
       if (!data) return;
       return data.map(p => ({
-        id: `${p.tac}`,
-        label: p.manufacturer,
+        id: `${p}`,
+        label: p,
         data: p,
       }));
     },
@@ -103,11 +103,16 @@ export default {
   },
 
   watch: {
-    async contextPartners() {
+    contextPartners() {
       this.initComponent();
     },
-    async contextPartnersType() {
+    contextPartnersType() {
       this.initComponent();
+    },
+    selectedValues(values) {
+      if (!values.length) {
+        this.initComponent();
+      }
     },
   },
 };
