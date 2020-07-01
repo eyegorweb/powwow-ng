@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.29+20200701114231
+2020-07-01
+
+### Fixes
+
+- mise à jour des apis de filtre Constructeur et Référence commerciale pour le getdevice (6bba6d0f2b75c71ef7907f4f15beace88d85aaf6)
+
 ## 1.0.0-master.28+20200630160839
 2020-06-30
 
