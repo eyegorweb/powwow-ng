@@ -29,7 +29,16 @@ export default {
 
     redirectToLogin() {
       // _ = route avant la redirection
-      localStorage.setItem('_', this.$route.path);
+      const sameUrl =
+        location.protocol +
+        '//' +
+        location.hostname +
+        (location.port ? ':' + location.port : '') +
+        process.env.VUE_APP_BASE_URL;
+
+      const urlToSave = window.location.href.replace(sameUrl, '');
+
+      localStorage.setItem('_', urlToSave);
       redirectTo(
         `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
           process.env.VUE_APP_CLIENT_ID
