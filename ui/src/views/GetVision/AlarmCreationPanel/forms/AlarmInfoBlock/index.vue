@@ -93,6 +93,8 @@ export default {
       this.webserviceNotification = this.duplicateFrom.notifyByWs;
       this.enableAlarm = !this.duplicateFrom.disabled;
       this.alarmName = this.duplicateFrom.name;
+      this.enableSuspension = this.duplicateFrom.suspensionAuto;
+      this.enableReactivation = this.duplicateFrom.reactivationAuto;
     }
   },
   computed: {
