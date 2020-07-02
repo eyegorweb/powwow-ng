@@ -287,7 +287,7 @@ export default {
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          await cancelMassAction(this.content.id);
+          await cancelMassAction(this.content.massAction.id);
           doReset();
         },
       });
