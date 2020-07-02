@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.30+20200702105617
+2020-07-02
+
+### Features
+
+- annuler un acte de gestion (66e715e8b881dbb1936bee813408497a8a55389a)
+
 ## 1.0.0-master.29+20200701114231
 2020-07-01
 
