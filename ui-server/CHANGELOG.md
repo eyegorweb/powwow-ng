@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.31+20200702120228
+2020-07-02
+
+### Features
+
+- ajout des permissions des menus (20dae24d4e2d8d57eef232fbf90358002937b207)
+
 ## 1.0.0-master.30+20200702105617
 2020-07-02
 
