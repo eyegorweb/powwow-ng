@@ -222,7 +222,10 @@ export default {
           actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
       }
 
-      actions.push('getparc.history.actions.CANCEL');
+      if (this.item.cancellable) {
+        actions.push('getparc.history.actions.CANCEL');
+      }
+
 
       return actions;
     },
