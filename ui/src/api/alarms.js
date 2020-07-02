@@ -117,6 +117,8 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         notifyByEmail
         plmnsList
         countriesList
+        reactivationAuto
+        suspensionAuto
         mailingList {
           id
           name
@@ -130,6 +132,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
             name
           }
           suspensionAuto
+
         }
         auditable {
           created
