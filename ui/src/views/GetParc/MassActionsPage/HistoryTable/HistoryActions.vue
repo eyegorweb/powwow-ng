@@ -213,17 +213,16 @@ export default {
       let actions = [];
       switch (this.item.status) {
         case 'WAITING': {
-          actions = [
-            'getparc.history.actions.DETAIL',
-            'getparc.history.actions.EXPORT',
-            'getparc.history.actions.CANCEL',
-          ];
+          actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
+
           break;
         }
 
         default:
           actions = ['getparc.history.actions.DETAIL', 'getparc.history.actions.EXPORT'];
       }
+
+      actions.push('getparc.history.actions.CANCEL');
 
       return actions;
     },

@@ -5,17 +5,24 @@
         <div class="flex-grow-1 mb-3">
           <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
         </div>
-        <div>
-          <ExportButton
-            :export-fn="getExportFn()"
-            :columns="columns"
-            :order-by="orderBy"
-            button-style
-          >
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}</span>
-          </ExportButton>
+        <div class="d-flex">
+          <div class="mr-2">
+            <UiButton variant="danger" block @click="onCancelClick">{{
+              $t('getparc.history.actions.CANCEL')
+            }}</UiButton>
+          </div>
+          <div>
+            <ExportButton
+              :export-fn="getExportFn()"
+              :columns="columns"
+              :order-by="orderBy"
+              button-style
+            >
+              <span slot="title">{{
+                $t('getparc.history.details.EXPORT_LINES', { total: total })
+              }}</span>
+            </ExportButton>
+          </div>
         </div>
       </div>
 
@@ -109,10 +116,17 @@
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import get from 'lodash.get';
 import ExportButton from '@/components/ExportButton';
-import { exportMassAction } from '@/api/massActions';
+import { exportMassAction, cancelMassAction } from '@/api/massActions';
 import DetailsCell from '@/views/GetParc/UnitActionsPage/DetailsCell';
+import UiButton from '@/components/ui/Button';
+import { mapMutations } from 'vuex';
 
 export default {
+  components: {
+    StepperNonLinear,
+    ExportButton,
+    UiButton,
+  },
   props: {
     content: {
       type: Object,
@@ -265,6 +279,19 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['confirmAction']),
+    onCancelClick() {
+      const doReset = () => {
+        this.$emit('cancelled');
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await cancelMassAction(this.content.id);
+          doReset();
+        },
+      });
+    },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
@@ -371,11 +398,6 @@ export default {
     endedDate() {
       return this.content ? this.content.massAction.endDate : '';
     },
-  },
-
-  components: {
-    StepperNonLinear,
-    ExportButton,
   },
 };
 </script>
