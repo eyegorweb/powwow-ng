@@ -23,6 +23,7 @@
             {{ user.email }}
           </a>
         </div>
+        <div class="cardBloc-infos-actif">{{ user.disable ? 'Inactif' : 'Actif' }}</div>
         <div class="cardBloc-infos-role">
           Rôle(s):
           <span :key="role.description" v-for="role in user.roles">{{
@@ -213,6 +214,12 @@ export default {
       font-size: 12px;
       margin-top: 5px;
       margin-bottom: 15px;
+    }
+
+    &-actif {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
     }
 
     &-email {
