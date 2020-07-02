@@ -290,7 +290,7 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel']),
 
     async onCancelClick() {
-      const response = await cancelMassAction(this.item.id);
+      const response = await cancelMassAction(this.content.id);
 
       if (response) {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
