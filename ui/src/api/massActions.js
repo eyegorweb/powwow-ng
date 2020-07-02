@@ -136,7 +136,9 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
     }
   }
   `;
+
   const response = await query(queryStr);
+
   return response.data.massActionsV2;
 }
 

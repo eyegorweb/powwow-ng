@@ -47,6 +47,7 @@ import UiButton from '@/components/ui/Button';
 import { exportMassAction, cancelMassAction } from '@/api/massActions';
 import DetailsCell from '@/views/GetParc/UnitActionsPage/DetailsCell';
 import ExportButton from '@/components/ExportButton';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -159,6 +160,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['confirmAction']),
+
     async onActionClicked(action) {
       switch (action) {
         case 'getparc.history.actions.DETAIL': {
@@ -170,7 +173,17 @@ export default {
           break;
         }
         case 'getparc.history.actions.CANCEL': {
-          await cancelMassAction(this.item.id);
+          const doRefresh = () => {
+            this.$emit('refreshSearch');
+
+          };
+          this.confirmAction({
+            message: 'confirmAction',
+            actionFn: async () => {
+              await cancelMassAction(this.item.id);
+              doRefresh();
+            },
+          });
           break;
         }
       }

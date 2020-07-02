@@ -74,7 +74,6 @@ export default {
     ExportButton,
     SearchResultSkeleton,
   },
-  async mounted() {},
 
   watch: {
     actHistoryPage() {
