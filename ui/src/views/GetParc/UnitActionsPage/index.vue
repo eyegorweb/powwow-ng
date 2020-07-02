@@ -21,7 +21,7 @@
           </h4>
         </div>
       </div>
-      <ActHistoryDetailPage v-if="massAction" :content="massAction" />
+      <ActHistoryDetailPage v-if="massAction" :content="massAction" @cancelled="refreshTables" />
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">

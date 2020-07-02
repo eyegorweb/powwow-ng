@@ -92,14 +92,21 @@
       <div class="footer-back">
         <div class="action-buttons">
           <div>
-            <ExportButton
-              :export-fn="getExportFn()"
-              :columns="columns"
-              :order-by="orderBy"
-              button-style
-            >
-              <span slot="title">{{ $t('getparc.history.details.EXPORT_ACT') }}</span>
-            </ExportButton>
+            <template v-if="!content.cancellable">
+              <ExportButton
+                :export-fn="getExportFn()"
+                :columns="columns"
+                :order-by="orderBy"
+                button-style
+              >
+                <span slot="title">{{ $t('getparc.history.details.EXPORT_ACT') }}</span>
+              </ExportButton>
+            </template>
+            <template v-else>
+              <UiButton variant="accent" block @click="onCancelClick">{{
+                $t('getparc.history.actions.CANCEL')
+              }}</UiButton>
+            </template>
           </div>
           <div>
             <UiButton
@@ -120,8 +127,9 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import UiButton from '@/components/ui/Button';
 import get from 'lodash.get';
 import ExportButton from '@/components/ExportButton';
-import { exportMassAction } from '@/api/massActions';
+import { exportMassAction, cancelMassAction } from '@/api/massActions';
 import DetailsCell from '@/views/GetParc/UnitActionsPage/DetailsCell';
+import { mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -279,6 +287,18 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['flashMessage', 'closePanel']),
+
+    async onCancelClick() {
+      const response = await cancelMassAction(this.item.id);
+
+      if (response) {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.closePanel({ resetSearch: true });
+      } else {
+        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+      }
+    },
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';

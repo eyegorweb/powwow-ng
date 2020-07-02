@@ -35,7 +35,7 @@
             <SearchMassActionsById @searchById="searchById" :init-value="searchByIdValue" />
           </template>
           <template slot="actions" slot-scope="{ row }">
-            <HistoryActions :item="row" />
+            <HistoryActions :item="row" @refreshSearch="onRefreshSearch" />
           </template>
         </DataTable>
       </template>
@@ -229,6 +229,10 @@ export default {
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
     ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
+
+    onRefreshSearch() {
+      this.fetchMassActions();
+    },
 
     async searchById(params) {
       this.searchByIdValue = params.value;

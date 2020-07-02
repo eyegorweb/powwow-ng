@@ -131,6 +131,7 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
         type
         partyName
         creatorEmail
+        cancellable
       }
     }
   }

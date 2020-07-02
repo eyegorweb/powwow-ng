@@ -32,10 +32,7 @@ export default {
   },
   data() {
     return {
-      zones: [
-        { label: 'Monde', value: 'world' },
-        { label: 'France', value: 'france' },
-      ],
+      zones: [{ label: 'Monde', value: 'world' }, { label: 'France', value: 'france' }],
     };
   },
   computed: {
