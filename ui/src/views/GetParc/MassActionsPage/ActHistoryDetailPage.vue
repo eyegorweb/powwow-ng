@@ -6,7 +6,7 @@
           <h4 class="detail-title">{{ $t('getparc.history.details.detailTitle') }}</h4>
         </div>
         <div class="d-flex">
-          <div class="mr-2">
+          <div v-if="content.cancellable" class="mr-2">
             <UiButton variant="danger" block @click="onCancelClick">{{
               $t('getparc.history.actions.CANCEL')
             }}</UiButton>
