@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.37+20200702150515
+2020-07-02
+
+### Features
+
+- Ajout de l'activité d'un user sur les cards users (b5e41a4a37b070aad301b9579dfb6a33a7b56603)
+
+### Fixes
+
+- Suspension et réactivation en création d'alarme et modification (c4a8699d4ea961cbe7e3319c68d63e35dc95c256)
+
 ## 1.0.0-master.36+20200702141524
 2020-07-02
 
