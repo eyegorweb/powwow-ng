@@ -73,7 +73,6 @@ function saveFormattedWidgets(widgets) {
 export const mutations = {
   initHomeWidgets(state) {
     state.homeWidgets = loadWidgets();
-    console.log('Loaded widgets >> ', state.homeWidgets);
     saveFormattedWidgets(state.homeWidgets);
   },
   openExportChoice(state, params) {

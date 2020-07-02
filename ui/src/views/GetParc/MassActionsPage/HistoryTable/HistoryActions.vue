@@ -175,7 +175,6 @@ export default {
         case 'getparc.history.actions.CANCEL': {
           const doRefresh = () => {
             this.$emit('refreshSearch');
-
           };
           this.confirmAction({
             message: 'confirmAction',
@@ -238,7 +237,6 @@ export default {
       if (this.item.cancellable) {
         actions.push('getparc.history.actions.CANCEL');
       }
-
 
       return actions;
     },
