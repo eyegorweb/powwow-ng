@@ -13,6 +13,7 @@
           :get-selected-value="getSelectedValue"
           :errors="customFieldsErrors"
           @change="onValueChanged"
+          show-optional-field
         />
       </div>
       <div slot="after" slot-scope="{ report }">
@@ -48,7 +49,7 @@ export default {
       allCustomFields: [],
       allSpecificFields: [],
       customFieldsValues: [],
-      customFieldsErrors: [],
+      customFieldsErrors: undefined,
       waitForConfirmation: false,
     };
   },
@@ -73,7 +74,14 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = get(this.lineData, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields;
+      this.allCustomFields = customFields.customFields.map(c => {
+        if (c.mandatory === 'NONE') {
+          c.isOptional = true;
+        } else {
+          c.isOptional = false;
+        }
+        return c;
+      });
       this.allSpecificFields = customFields.specificFields;
     },
 
@@ -123,12 +131,17 @@ export default {
         spec1: getCustomFieldValue('spec1'),
         spec2: getCustomFieldValue('spec2'),
       };
+
+      this.chekcForErrors();
       const response = await updateCustomFields([], [this.lineData], params);
-      if (response) {
+      if (!response.errors) {
         return {
           report: { successful: response },
           errors: response.errors,
         };
+      } else {
+        const errors = response.errors;
+        console.log('errors', errors);
       }
     },
     getCustomFieldLabel(index) {
@@ -138,6 +151,25 @@ export default {
       } else {
         return this.$t('customFields.customField', { index });
       }
+    },
+    chekcForErrors() {
+      const getCustomFieldValue = code => {
+        const found = this.customFieldsValues.filter(c => c.code === code);
+        if (found && found.length) {
+          return found[0].enteredValue;
+        }
+        return '';
+      };
+
+      this.customFieldsErrors = this.allCustomFields
+        .filter(c => c.mandatory !== 'NONE')
+        .filter(c => {
+          const value = getCustomFieldValue(c.code);
+          if (!value || value.length === 0) {
+            return true;
+          }
+        })
+        .map(c => c.code);
     },
   },
 
