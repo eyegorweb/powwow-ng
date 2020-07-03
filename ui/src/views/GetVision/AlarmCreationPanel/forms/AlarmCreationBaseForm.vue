@@ -69,7 +69,6 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
-      console.log(this.duplicateFrom);
       this.selectedPartner = {
         ...get(this.duplicateFrom, 'party', {}),
         label: get(this.duplicateFrom, 'party.name'),
