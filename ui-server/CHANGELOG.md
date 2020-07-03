@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.43+20200703150818
+2020-07-03
+
+### Fixes
+
+- mise à jour des modifications des champs libres (175afece40128b7df4232bd440fee4abeec47790)
+
 ## 1.0.0-master.42+20200703134441
 2020-07-03
 
