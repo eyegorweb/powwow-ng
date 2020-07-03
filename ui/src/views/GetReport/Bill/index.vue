@@ -159,12 +159,14 @@ export default {
 
     async doSearchByRef(value) {
       this.searchByRefValue = value;
-      this.applyFilters([
-        {
-          id: 'reference',
-          value,
-        },
-      ]);
+      this.applyFilters({
+        filters: [
+          {
+            id: 'reference',
+            value,
+          },
+        ],
+      });
     },
 
     async applyFilters(payload) {
@@ -249,6 +251,12 @@ export default {
 }
 
 .btn-select {
+  user-select: initial;
+}
+</style>
+
+<style lang="scss">
+.btn-link {
   user-select: initial;
 }
 </style>
