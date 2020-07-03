@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.39+20200703091351
+2020-07-03
+
+### Features
+
+- exporter les données des graphes de l'état de services (c9ef5adb8041ac7fe5a456b0fabe94a1077e1090)
+
 ## 1.0.0-master.38+20200702155913
 2020-07-02
 
