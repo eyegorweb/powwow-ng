@@ -151,6 +151,7 @@ export default {
         payload: { ...item, lineData: this.lineData },
         wide: false,
         backdrop: false,
+        ignoreClickAway: true,
       });
     },
     async loadLineData() {

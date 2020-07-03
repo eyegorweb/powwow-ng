@@ -9,9 +9,7 @@
         :size="numberOfVisibleItems"
       >
         <slot>
-          <option v-if="placeholder" disabled selected hidden value="none">{{
-            placeholder
-          }}</option>
+          <option v-if="placeholder" selected value="none">{{ placeholder }}</option>
           <option
             v-for="option in formattedOptions"
             :key="option.value"
