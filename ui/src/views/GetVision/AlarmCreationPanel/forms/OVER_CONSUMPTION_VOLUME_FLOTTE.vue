@@ -11,9 +11,15 @@
       />
     </div>
 
-    <OverConsoDataForm v-if="currentPeriod == 'data'" />
-    <OverConsoSMSForm v-if="currentPeriod == 'sms'" />
-    <OverConsoVoiceForm v-if="currentPeriod == 'voice'" />
+    <keep-alive>
+      <OverConsoDataForm v-if="currentPeriod == 'data'" />
+    </keep-alive>
+    <keep-alive>
+      <OverConsoSMSForm v-if="currentPeriod == 'sms'" />
+    </keep-alive>
+    <keep-alive>
+      <OverConsoVoiceForm v-if="currentPeriod == 'voice'" />
+    </keep-alive>
 
     <template v-slot:scopechoice="{ partner }">
       <OfferBillingAccountChoice
