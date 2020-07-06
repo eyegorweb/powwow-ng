@@ -85,7 +85,7 @@ export default {
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
         response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
       } else {
-        response = await alarmOnOverConso(params);
+        response = await alarmOnOverConso({ ...params, id: this.scopeChoice.partner.id });
       }
 
       if (response.errors && response.errors.length) {

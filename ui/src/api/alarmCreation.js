@@ -235,7 +235,12 @@ function getScope(params) {
 }
 
 function getScopeGQLParams(params) {
+  const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
   if (!params.scope) return '';
+
+  if (params.scope.partner && params.scope.partner.id && tempDataUuid) {
+    return `idParty: {eq: ${params.scope.partner.id}}, tempDataUuid: "${tempDataUuid}"`;
+  }
 
   if (params.scope.partner && params.scope.partner.id) {
     return `idParty: {eq: ${params.scope.partner.id}}`;
@@ -261,8 +266,6 @@ function getScopeGQLParams(params) {
 
     return offerGqlParams.join(',');
   }
-
-  const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
 
   if (tempDataUuid) {
     return `tempDataUuid: "${tempDataUuid}"`;

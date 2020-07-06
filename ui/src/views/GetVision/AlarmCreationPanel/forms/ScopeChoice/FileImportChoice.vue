@@ -42,7 +42,9 @@ export default {
       totalLines: 0,
     };
   },
-
+  props: {
+    partner: Object,
+  },
   methods: {
     onClear() {
       this.fileMeta = undefined;
@@ -51,14 +53,18 @@ export default {
       this.fileMeta = value;
       this.$emit('change', {
         searchByFile: value,
+        partner: this.partner,
       });
     },
     async searchLines() {
-      console.log(this.fileMeta.tempDataUuid);
       const filters = [
         {
           id: 'filters.lines.fromFile.title',
           values: [{ tempDataUuid: this.fileMeta.tempDataUuid }],
+        },
+        {
+          id: 'idParty',
+          value: this.partner.id,
         },
       ];
       this.isLoading = true;
