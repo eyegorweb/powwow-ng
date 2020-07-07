@@ -14,7 +14,7 @@
         <UiButton
           variant="primary"
           block
-          @click="$router.push({ name: 'lineDetail', params: { lineId: content.id } })"
+          @click="$router.push({ name: 'lineDetail', params: { lineId: '' + content.id } })"
           >{{ $t('getparc.actLines.details.DETAIL') }}</UiButton
         >
       </div>

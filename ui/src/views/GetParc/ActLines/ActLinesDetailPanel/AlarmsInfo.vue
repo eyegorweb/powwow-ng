@@ -27,7 +27,7 @@
 
 <script>
 import get from 'lodash.get';
-import { fetchAlarmInstancesByAP } from '@/api/alarms';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 export default {
   data() {
@@ -42,8 +42,8 @@ export default {
   },
 
   async mounted() {
-    if (!this.get('accessPoint.id')) return;
-    this.triggeredAlarms = await fetchAlarmInstancesByAP(this.get('accessPoint.id'));
+    if (!this.content.id) return;
+    this.triggeredAlarms = await fetchAlarmsWithInfos(this.content.id);
   },
 
   methods: {
