@@ -280,22 +280,22 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const orderReference = selectedFilters.find(f => f.id === 'filters.orderReference');
 
   if (iccid) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
   }
   if (imsi) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
   }
   if (msisdn) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
   }
   if (imei) {
-    gqlFilters.push(`imei: {eq: "${imei.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
   }
   if (idOrder) {
-    gqlFilters.push(`idOrder: {eq: "${idOrder.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`idOrder: {eq: "${idOrder.value.trim()}"}`);
   }
   if (orderReference) {
-    gqlFilters.push(`orderReference: {eq: "${orderReference.value.replace(/\s+/g, '')}"}`);
+    gqlFilters.push(`orderReference: {eq: "${orderReference.value.trim()}"}`);
   }
 }
 
