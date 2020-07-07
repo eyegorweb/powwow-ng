@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.45+20200707090007
+2020-07-07
+
+### Features
+
+- Création d'alarmes mutualisée (546ab2adb937e952e07183509fe9aa038f08fb7f)
+
+### Fixes
+
+- Suppression des espaces en début et fin de string dans la recherche Lines et Orders (4e849c71f6318e3ac5415f97087ec9d628f169dd)
+
 ## 1.0.0-master.44+20200706120413
 2020-07-06
 
