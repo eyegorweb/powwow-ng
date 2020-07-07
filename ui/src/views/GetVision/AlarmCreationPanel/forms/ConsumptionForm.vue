@@ -143,7 +143,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.duplicateFrom);
     if (this.duplicateFrom) {
       this.dataES = this.duplicateFrom.level1;
       this.dataOut = this.duplicateFrom.level1Up;

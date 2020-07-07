@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="col to-bottom">
-        <div v-if="partner.data.suspensionAuto">
+        <div v-if="suspensionAuto">
           <div class="d-flex mb-3 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
@@ -98,6 +98,9 @@ export default {
     }
   },
   computed: {
+    suspensionAuto() {
+      return get(this.partner, 'data.suspensionAuto');
+    },
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'data.mailingLists', []);

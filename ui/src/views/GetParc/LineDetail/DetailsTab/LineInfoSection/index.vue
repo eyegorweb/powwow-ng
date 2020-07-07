@@ -37,7 +37,9 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title">CARTE SIM</template>
+          <template slot="title"
+            >CARTE SIM</template
+          >
           <template slot="content">
             <div class="row">
               <div class="col-md-1">

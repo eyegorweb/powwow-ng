@@ -34,13 +34,12 @@ export default {
 
       let urlToSave = window.location.href.replace(sameUrl, '');
       urlToSave = urlToSave.replace(process.env.VUE_APP_BASE_URL, '');
-      console.log('this url = ', window.location.href);
-      console.log('Same URL = ', sameUrl);
-      console.log('urlToSave = ', urlToSave);
 
       localStorage.setItem('_', urlToSave);
       redirectTo(
-        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
+        `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+          process.env.VUE_APP_CLIENT_ID
+        }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`
       );
     },
 
@@ -80,7 +79,9 @@ export default {
         : sameUrl;
     },
     refreshUrl() {
-      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
+      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${
+        process.env.VUE_APP_CLIENT_ID
+      }&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
 
       return url;
     },

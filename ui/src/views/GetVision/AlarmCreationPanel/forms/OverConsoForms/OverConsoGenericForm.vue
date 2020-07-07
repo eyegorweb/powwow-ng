@@ -9,6 +9,7 @@
           :min-value="0"
           :max-value="100"
           v-model="line.value"
+          @update:value="onValueUpdate()"
         />
       </div>
       <div class="limitDate">
@@ -17,7 +18,7 @@
             >{{ getPercentValFn(line.value) }} Avant le</template
           >
         </span>
-        <UiSelect :options="options" v-model="line.limit" />
+        <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
       </div>
       <div class="deleteButton">
         <UiButton variant="outline-danger" @click="deleteLine(line)">
@@ -35,6 +36,7 @@
           :min-value="0"
           :max-value="100"
           v-model="basePercent"
+          @update:value="onValueUpdate()"
         />
       </div>
       <div class="limitDate">
@@ -91,6 +93,12 @@ export default {
   },
 
   methods: {
+    onValueUpdate() {
+      this.$emit('change', {
+        levels: this.lines,
+        basePercent: this.basePercent,
+      });
+    },
     deleteLine(line) {
       this.lines = this.lines.filter(l => l.id !== line.id);
     },
