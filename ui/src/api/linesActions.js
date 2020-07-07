@@ -91,7 +91,7 @@ export async function searchLineById(id) {
   const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
     {
       id: 'filters.id',
-      value: id,
+      value: '' + id,
     },
   ]);
   if (!response || !response.items || !response.items.length) return;
@@ -319,25 +319,25 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
-  if (_id) {
+  if (_id && _id.value) {
     gqlFilters.push(`id: {eq: "${_id.value.trim()}"}`);
   }
-  if (iccid) {
+  if (iccid && iccid.value) {
     gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
   }
-  if (imsi) {
+  if (imsi && imsi.value) {
     gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
   }
-  if (msisdn) {
+  if (msisdn && msisdn.value) {
     gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
   }
-  if (imei) {
+  if (imei && imei.value) {
     gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
   }
-  if (msisdnA) {
+  if (msisdnA && msisdnA.value) {
     gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.trim()}"}`);
   }
-  if (accessPointId) {
+  if (accessPointId && accessPointId.value) {
     gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.trim()}"}`);
   }
 }
