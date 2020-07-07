@@ -98,10 +98,7 @@ export default {
 
       const unknownKeys = this.meta.filter(i => i.fetchKey === '');
       if (unknownKeys && unknownKeys.length) {
-        console.warn(
-          'Indicateurs inconnus : ',
-          unknownKeys.map(i => this.$t(i.labelKey))
-        );
+        console.warn('Indicateurs inconnus : ', unknownKeys.map(i => this.$t(i.labelKey)));
       }
 
       let partners;

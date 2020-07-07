@@ -65,6 +65,7 @@ export default {
       type: String,
       required: false,
     },
+    skipScopeCheck: Boolean,
   },
 
   mounted() {
@@ -94,21 +95,26 @@ export default {
 
   computed: {
     canSave() {
-      let scopeIsValid =
-        this.lastChosenScope &&
-        (this.lastChosenScope.partner ||
-          this.lastChosenScope.searchById ||
-          this.lastChosenScope.searchByFile ||
-          this.lastChosenScope.offer);
+      let scopeIsValid = true;
 
-      if (this.editMode) {
-        scopeIsValid = true;
+      if (!this.skipScopeCheck) {
+        scopeIsValid =
+          this.lastChosenScope &&
+          (this.lastChosenScope.partner ||
+            this.lastChosenScope.searchById ||
+            this.lastChosenScope.searchByFile ||
+            this.lastChosenScope.offer);
+
+        if (this.editMode) {
+          scopeIsValid = true;
+        }
       }
 
       let formIsValid = true;
       if (this.checkErrorsFn) {
         formIsValid = this.checkErrorsFn();
       }
+
       return !!scopeIsValid && !!formIsValid;
     },
     editMode() {

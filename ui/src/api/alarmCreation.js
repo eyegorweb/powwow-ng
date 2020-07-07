@@ -112,6 +112,21 @@ export async function createStatusChangeAlarm(params) {
   return { errors: response.errors };
 }
 
+export async function createSharedConsumptionAlarm(params) {
+  const queryStr = `mutation CreateSharedConsumptionAlarm($offerAlarmCreationInput: OfferAlarmCreationInput!){
+    createSharedConsumptionAlarm(offerAlarmCreationInput: $offerAlarmCreationInput)
+  }`;
+
+  const response = await query(queryStr, {
+    offerAlarmCreationInput: params,
+  });
+
+  if (response.data) {
+    return response.data.createSharedConsumptionAlarm;
+  }
+  return { errors: response.errors };
+}
+
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 
