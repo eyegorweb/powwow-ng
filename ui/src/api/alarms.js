@@ -1,7 +1,6 @@
 import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
 import moment from 'moment';
 
-
 export async function fetchAlarmsWithInfos(simCardInstanceId) {
   const queryStr = `
   query {
