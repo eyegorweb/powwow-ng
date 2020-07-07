@@ -196,7 +196,6 @@ export default {
       this.closePanel({ resetSearch: true });
     },
     isFormValid() {
-      debugger;
       let isFormValid;
       isFormValid = !!this.filterForCreation;
       if (this.levelsData) {
