@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.47+20200707141710
+2020-07-07
+
+### Fixes
+
+- Mauvaise API appele dans le détail de la ligne (75a87f5cb42872672ae2e2ab6d828cba8eb5b5fc)
+
 ## 1.0.0-master.46+20200707111500
 2020-07-07
 
