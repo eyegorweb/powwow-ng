@@ -186,7 +186,7 @@ export default {
           },
 
           {
-            name: 'SIM Traffiquantes',
+            name: 'SIM Trafiquantes',
             type: 'spline',
             yAxis: 1,
             color: '#c8007b',
