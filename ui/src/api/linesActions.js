@@ -1,5 +1,28 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
+export async function fetchTransferSim() {
+  const queryStr = `
+  query {
+      transferSimRequests
+      {
+        transferId
+        iccid
+        fromPartner
+        toPartner
+        fromCustAccount
+        toCustAccount
+        created
+        status
+      }
+    }
+  `;
+
+  const response = await query(queryStr);
+  console.log(response);
+
+  return response.data;
+}
+
 export async function fetchCardTypes(q, partners, { page, limit = 999, partnerType }) {
   let partnersIds,
     partnerGqlParam = '';
