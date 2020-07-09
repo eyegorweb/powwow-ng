@@ -1052,6 +1052,7 @@
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
         "CHANGE_STATUS": "Résilier",
+        "SIM_TRANSFER": "Transfert de SIM",
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
