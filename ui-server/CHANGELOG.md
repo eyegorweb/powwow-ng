@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.54+20200710134606
+2020-07-10
+
+### Fixes
+
+- afficher correctement les formulaires des actes pour les utilisateurs non BO (2ee4e475558f9cb58737fee880bdb885a322a657)
+
 ## 1.0.0-master.53+20200710123527
 2020-07-10
 
