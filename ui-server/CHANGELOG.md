@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.53+20200710123527
+2020-07-10
+
+### Features
+
+- Enregistrer les filtres (d7b934502192db7bf81bc1f63d8865197b1cae2f)
+
 ## 1.0.0-master.52+20200710120914
 2020-07-10
 
