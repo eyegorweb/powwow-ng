@@ -2,12 +2,14 @@
   <div class="card filter-bar">
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
-      <SelectedFilters
-        v-if="canShowSelectedFilter"
+      <SelectedFiltersManagement
+        module-name="SIM"
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
-        @applyFilters="applyFilters"
+        :can-show-selected-filter="canShowSelectedFilter"
         @clear="filterId => clearFilter(filterId)"
+        @applyFilters="applyFilters"
+        @chooseFilter="chooseFilter"
       />
       <draggable handle=".handle">
         <transition-group>
@@ -334,7 +336,6 @@ import draggable from 'vuedraggable';
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import ActLinesPartnersFilter from './ActLinesPartnersFilter';
 import ActLinesBillingAccountsFilter from './ActLinesBillingAccountsFilter';
-import SelectedFilters from '@/components/Filters/SelectedFilters';
 import TypeSimCard from './TypeSimCard';
 import SimpleInputFilter from '@/components/Filters/SimpleInputFilter';
 import ActLinesOffersFilter from './ActLinesOffersFilter';
@@ -350,12 +351,13 @@ import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 import ActLinesRangeFilter from './ActLinesRangeFilter';
 
+import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
+
 export default {
   components: {
     draggable,
     FoldableBlock,
     ActLinesPartnersFilter,
-    SelectedFilters,
     ActLinesBillingAccountsFilter,
     TypeSimCard,
     SimpleInputFilter,
@@ -371,6 +373,7 @@ export default {
     ActLinesCommercialStatusFilter,
     ActLinesFromFileFilter,
     ActLinesRangeFilter,
+    SelectedFiltersManagement,
   },
   data() {
     return {
@@ -427,11 +430,22 @@ export default {
       'selectIMSIFilter',
       'selectMSISDNFilter',
       'selectIMEIFilter',
+      'setCurrentFilters',
     ]),
     ...mapActions('actLines', ['clearFilter']),
 
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;
+    },
+
+    chooseFilter(savedFilters) {
+      if (savedFilters && savedFilters.filter && savedFilters.filter.length) {
+        const filters = JSON.parse(savedFilters.filter);
+        if (filters) {
+          this.setCurrentFilters(filters);
+          this.applyFilters();
+        }
+      }
     },
   },
 };

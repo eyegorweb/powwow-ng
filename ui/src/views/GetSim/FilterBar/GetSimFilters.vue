@@ -2,13 +2,16 @@
   <div class="card filter-bar">
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
-      <!-- TODO: a voir si ces computed properties sont toujours d'actualité -->
-      <SelectedFilters
-        v-if="canShowSelectedFilter"
+
+      <SelectedFiltersManagement
+        module-name="ORDER"
         :current-filters="currentFilters"
+        :can-show-selected-filter="canShowSelectedFilter"
         @applyFilters="applyFilters"
+        @chooseFilter="chooseFilter"
         @clear="filterId => clearFilter(filterId)"
       />
+
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
@@ -112,9 +115,10 @@ import GetSimActionFilter from './GetSimActionFilter';
 import GetSimQuantityFilter from './GetSimQuantityFilter';
 import GetSimDateFilter from './GetSimDateFilter';
 import GetSimDeliveryCountries from './GetSimDeliveryCountries';
-import SelectedFilters from '@/components/Filters/SelectedFilters';
 import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 import TypeSimCard from './TypeSimCard';
+
+import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 
 export default {
   data() {
@@ -147,12 +151,26 @@ export default {
 
   methods: {
     ...mapActions('getsim', ['setPartnersFilter', 'clearFilter']),
-    ...mapMutations('getsim', ['setOrderStatusFilter', 'applyFilters', 'setOrderCreatorFilter']),
+    ...mapMutations('getsim', [
+      'setOrderStatusFilter',
+      'applyFilters',
+      'setOrderCreatorFilter',
+      'setCurrentFilters',
+    ]),
     setOrderDateFilter({ start: startDate, end: endDate }) {
       this.$store.commit('setOrderDateFilter', { startDate, endDate });
     },
     showAllFilters() {
       this.allFiltersVisible = !this.allFiltersVisible;
+    },
+    chooseFilter(savedFilters) {
+      if (savedFilters && savedFilters.filter && savedFilters.filter.length) {
+        const filters = JSON.parse(savedFilters.filter);
+        if (filters) {
+          this.setCurrentFilters(filters);
+          this.applyFilters();
+        }
+      }
     },
   },
 
@@ -174,9 +192,10 @@ export default {
     GetSimQuantityFilter,
     GetSimDateFilter,
     GetSimDeliveryCountries,
-    SelectedFilters,
     OrderCreatorFilter,
     TypeSimCard,
+
+    SelectedFiltersManagement,
   },
 };
 </script>
