@@ -270,7 +270,7 @@ async function geoCounter(filters) {
 `;
 
   const response = await query(queryStr, filters);
-  if(!response) {
+  if (!response) {
     return '-';
   }
 

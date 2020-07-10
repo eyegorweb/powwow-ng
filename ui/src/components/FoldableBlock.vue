@@ -7,7 +7,7 @@
       <span v-if="!disabled && draggable" class="handle">
         <i class="ic-Drag-Column-Icon" />
       </span>
-      <span class="title flex-grow-1">{{ title }}</span>
+      <span class="title flex-grow-1" :class="{ 'not-draggable': !draggable }">{{ title }}</span>
       <a v-if="!disabled" class="p-0" @click.prevent="toggleShow">
         <i :class="iconClass" />
       </a>
@@ -108,5 +108,9 @@ export default {
   .title {
     color: gray;
   }
+}
+
+.not-draggable {
+  padding-left: 2rem;
 }
 </style>

@@ -49,3 +49,48 @@ export async function fetchDeliveryCountries(locale, filters = {}) {
     }))
   );
 }
+
+export async function fetchFilters(module) {
+  const queryStr = `query GetFiltersModule($module: ModuleEnum!) {
+    getFiltersModule(module: $module) {
+      id
+      name
+      filter
+      userId
+      created
+    }
+  }`;
+
+  const response = await query(queryStr, {
+    module,
+  });
+  return response.data.getFiltersModule;
+}
+
+export async function createFilter(name, module, filter) {
+  const queryStr = `mutation CreateFilterModule($input: FilterModuleInput) {
+    createFilterModule(input: $input) {
+      id
+      name
+      filter
+      userId
+      created
+    }
+  }`;
+
+  const response = await query(queryStr, {
+    input: { name, module, filter },
+  });
+  return response.data.createFilterModule;
+}
+
+export async function deleteFilter(filterModuleId) {
+  const queryStr = `mutation DeleteFilterModule($filterModuleId: Long) {
+    deleteFilterModule(filterModuleId: $filterModuleId)
+  }`;
+
+  const response = await query(queryStr, {
+    filterModuleId,
+  });
+  return response.data.deleteFilterModule;
+}
