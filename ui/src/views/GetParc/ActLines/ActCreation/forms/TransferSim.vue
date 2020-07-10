@@ -15,11 +15,15 @@ import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import { fetchTransferSim } from '@/api/linesActions.js';
 import { col } from '@/components/DataTable/utils';
 import CheckBoxCell from '@/views/GetParc/ActLines/LinesTable/CheckBoxCell.vue';
+import ToPartner from './parts/ToPartner.vue';
+import FromPartner from './parts/FromPartner.vue';
 
 export default {
   components: {
     PaginatedDataTable,
     CheckBoxCell,
+    ToPartner,
+    FromPartner,
   },
 
   data() {
@@ -31,10 +35,12 @@ export default {
         }),
         col('ID', 'transferId', true, true),
         col('ICCID', 'iccid', true, true),
-        col('Vendeur/Source', 'fromPartner', true, true),
-        col('CF', 'fromCustAccount', true, true),
-        col('Client/Destination', 'toPartner', true, true),
-        col('CF', 'toCustAccount', true, true),
+        col('Vendeur/Source', '', true, true, {
+          component: FromPartner,
+        }),
+        col('Client/Destination', '', true, true, {
+          component: ToPartner,
+        }),
         col('Statut de la ligne', 'status', true, true),
         col('Date de statut', 'created', true, true),
       ],

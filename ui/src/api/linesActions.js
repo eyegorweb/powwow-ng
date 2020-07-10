@@ -3,18 +3,18 @@ import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from 
 export async function fetchTransferSim() {
   const queryStr = `
   query {
-      transferSimRequests
-      {
-        transferId
-        iccid
-        fromPartner
-        toPartner
-        fromCustAccount
-        toCustAccount
-        created
-        status
-      }
+    transferSimRequests(pagination: {limit: 999, page: 0}, sorting: { created: DESC})
+    {
+      transferId
+      iccid
+      fromPartner
+      toPartner
+      fromCustAccount
+      toCustAccount
+      created
+      status
     }
+  }
   `;
 
   const response = await query(queryStr);
