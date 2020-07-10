@@ -129,6 +129,7 @@ export function initFilterForPartnerUser(store, setPartnersFilter) {
   if (store.rootGetters.userIsPartner) {
     const partnerFilterValues = [
       {
+        ...store.rootGetters.userInfos.partners[0],
         id: store.rootGetters.userInfos.partners[0].id,
         label: store.rootGetters.userInfos.partners[0].name,
       },
