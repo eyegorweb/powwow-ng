@@ -2,6 +2,39 @@
 
 <!--- next entry here -->
 
+## 1.1.0
+2020-07-13
+
+### Features
+
+- permission de suspension de lignes (0dba3b4a54cf076ea157dfa60b3a5dee74dc180b)
+- filtre msisdn et IMEI (9120d874eeead3d3987836c895261b803d328f6f)
+- ajout d'un logo temporaire (0dcde25cbb43b52d2c9c2e5066ec4448c276705d)
+- ajout d'un bouton d'export pour les lignes (7f22afb795b16085a771fadaebb684efc3fc3482)
+- Ajout de la suspension et reactivation auto à la création d'alarme (c602c1ea9def95b9938a0fe6491f55c60b258cb2)
+- annuler un acte de gestion (66e715e8b881dbb1936bee813408497a8a55389a)
+- ajout des permissions des menus (20dae24d4e2d8d57eef232fbf90358002937b207)
+- Ajout de l'activité d'un user sur les cards users (b5e41a4a37b070aad301b9579dfb6a33a7b56603)
+- exporter les données des graphes de l'état de services (c9ef5adb8041ac7fe5a456b0fabe94a1077e1090)
+- Création d'alarmes mutualisée (546ab2adb937e952e07183509fe9aa038f08fb7f)
+- Enregistrer les filtres (d7b934502192db7bf81bc1f63d8865197b1cae2f)
+
+### Fixes
+
+- correction de bugs dans l'onglet supervision du détail de la ligne (4b62bd8640871f526d24b748622e847b11ec0f25)
+- Correction de l'autocomplete du filtre partenaire (bf57f40f94f797fecc505652c50d874a95774ecf)
+- Gestion de l'horaire sur le changement d'offre (e622a522b51d38cd5f3a07f84c57b08d494e8fdb)
+- Ajout des traductions des libellés du detail de facture (45a561ae3b3b57f2abb232674e0acf2668103a68)
+- Bug suspension dune alarme (f96633c49223423154fa8f01e5a5ce9c526d92a9)
+- correctif des contrôles d'affichage pour les adresses de livraison (475d88e3e494ea320ecfdb3c0444267da1390139)
+- correction des pays pour les adresses de livraison (0193b066db8c99882a050eb41ea17482bb52cccf)
+- mise à jour des apis de filtre Constructeur et Référence commerciale pour le getdevice (6bba6d0f2b75c71ef7907f4f15beace88d85aaf6)
+- Suspension et réactivation en création d'alarme et modification (c4a8699d4ea961cbe7e3319c68d63e35dc95c256)
+- mise à jour des modifications des champs libres (175afece40128b7df4232bd440fee4abeec47790)
+- Suppression des espaces en début et fin de string dans la recherche Lines et Orders (4e849c71f6318e3ac5415f97087ec9d628f169dd)
+- Mauvaise API appele dans le détail de la ligne (75a87f5cb42872672ae2e2ab6d828cba8eb5b5fc)
+- afficher correctement les formulaires des actes pour les utilisateurs non BO (2ee4e475558f9cb58737fee880bdb885a322a657)
+
 ## 1.0.1
 2020-06-25
 
