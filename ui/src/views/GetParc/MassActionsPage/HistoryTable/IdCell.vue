@@ -19,6 +19,10 @@ export default {
     openActHistoryDetailsPanel() {
       const type = get(this.row, 'type');
       const date = this.formattedDate(get(this.row, 'massAction.dueDate'));
+      const doReset = () => {
+        this.$emit('refreshSearch');
+      };
+
       const openTrigger = () => {
         this.openPanel({
           title: this.$t('getparc.history.details.manageActTitle', {
@@ -29,6 +33,11 @@ export default {
           payload: this.row,
           wide: false,
           backdrop: false,
+          onClosePanel(params) {
+            if (params && params.resetSearch) {
+              doReset();
+            }
+          },
         });
       };
       if (this.isOpen) {

@@ -109,6 +109,7 @@ export async function modifyUnderConso(params) {
 async function consoQuery(queryName, params) {
   const gqlParams = getGqlParams(params);
 
+  console.log(params);
   addLevels(params, gqlParams);
 
   const queryStr = `
@@ -170,6 +171,9 @@ function getGqlParams(params) {
   // gqlParams.push(`activateAlarm:${params.enableAlarm}`);
   gqlParams.push(`emailNotification:${params.sholdNotify}`);
   gqlParams.push(`webServiceNotification:${params.webserviceNotification}`);
+  gqlParams.push(`suspensionAuto: ${params.enableSuspension}`);
+  gqlParams.push(`reactivationAuto: ${params.enableReactivation}`);
+
   if (params.sholdNotify) {
     gqlParams.push(`mailingList:${params.notifList}`);
   }

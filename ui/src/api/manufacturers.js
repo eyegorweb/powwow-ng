@@ -1,31 +1,52 @@
 import { query, getValuesIdsWithoutQuotes } from './utils';
 
-export async function getManufacturers(orderBy, pagination, filters = []) {
+export async function getManufacturers(q, orderBy, pagination) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `
   query {
-    getManufacturers(
-      filter: {${formatFilters(filters)}}
+    getManufacturerNames(
+      filter: {manufacturer: {startsWith: "${q}"}}
       ${paginationInfo}
       ${orderingInfo}
       )
       {
         total
-        items {
-          tac
-          manufacturer
-          marketingName
-        }
+        items
       }
   }`;
 
   const response = await query(queryStr);
 
   if (response && response.data) {
-    return response.data.getManufacturers.items;
+    return response.data.getManufacturerNames.items;
+  }
+}
+
+export async function getDeviceReferences(q, orderBy, pagination) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const queryStr = `
+  query {
+    getMarketingNames(
+      filter: {marketingName: {startsWith: "${q}"}}
+      ${paginationInfo}
+      ${orderingInfo}
+      )
+      {
+        total
+        items
+      }
+  }`;
+
+  const response = await query(queryStr);
+
+  if (response && response.data) {
+    return response.data.getMarketingNames.items;
   }
 }
 

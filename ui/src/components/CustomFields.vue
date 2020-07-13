@@ -26,8 +26,8 @@
         </label>
         <br />
         <UiSelect
+          placeholder="-"
           :value="getSelectedValue(item.code)"
-          :canreset="item.mandatory === 'NONE' ? true : false"
           @input="newVal => onValueChanged(item, newVal)"
           :options="item.value"
           class="select-filter"

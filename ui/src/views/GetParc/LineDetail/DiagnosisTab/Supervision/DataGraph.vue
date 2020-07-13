@@ -1,6 +1,7 @@
 <template>
   <div>
     <chart v-if="chartOptions" :options="chartOptions" />
+    <div v-else class="graph-skeleton skeleton-line"></div>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { fetchDataConsumptionForGraph } from '@/api/consumption.js';
 import { formatBytes } from '@/api/utils.js';
 
 export default {
+  name: 'DataGraph',
   components: {
     Chart,
   },
@@ -20,7 +22,7 @@ export default {
       default: '',
       required: false,
     },
-    simId: String,
+    simId: [String, Number],
   },
   async mounted() {
     const data = await fetchDataConsumptionForGraph(this.simId);
@@ -125,7 +127,9 @@ export default {
           pointFormatter() {
             if (this.series.userOptions.name == 'Nombre de connexions PDP') {
               return `
-              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${this.series.userOptions.color}; display: inline-block; margin-right: 0.5rem"></div>
+              <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
+                this.series.userOptions.color
+              }; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
               ${this.y} <br/>
@@ -139,6 +143,18 @@ export default {
             }
           },
         },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            zones: [
+              {
+                color: '#FE2E64',
+                value: 2,
+              },
+            ],
+          },
+        },
+
         series: [
           {
             name: 'Volume entrant',
@@ -148,6 +164,7 @@ export default {
             },
             color: '#3498db',
             data: data.in,
+            stack: 'volume',
           },
           {
             name: 'Volume sortant',
@@ -157,6 +174,7 @@ export default {
             },
             color: '#f39c12',
             data: data.out,
+            stack: 'volume',
           },
           {
             name: 'Volume total',
@@ -184,5 +202,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

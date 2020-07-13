@@ -13,7 +13,7 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.triggeredAlarms') }} :</h6>
-      <p v-for="alarm in triggeredAlarms" :key="'triggered_alarm_' + alarm.type">
+      <p v-for="alarm in triggeredAlarms" :key="'triggered_alarm_' + alarm.alarm.id">
         {{
           `${$t('getparc.lineDetail.alarms.ALARM_TYPE.' + alarm.alarm.type)} - ${
             alarm.alarm.startDate
@@ -27,7 +27,7 @@
 
 <script>
 import get from 'lodash.get';
-import { fetchAlarmInstancesByAP } from '@/api/alarms';
+import { fetchAlarmsWithInfos } from '@/api/alarms';
 
 export default {
   data() {
@@ -42,8 +42,8 @@ export default {
   },
 
   async mounted() {
-    if (!this.get('accessPoint.id')) return;
-    this.triggeredAlarms = await fetchAlarmInstancesByAP(this.get('accessPoint.id'));
+    if (!this.content.id) return;
+    this.triggeredAlarms = await fetchAlarmsWithInfos(this.content.id);
   },
 
   methods: {

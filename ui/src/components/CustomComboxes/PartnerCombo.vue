@@ -3,7 +3,7 @@
     :placeholder="$t('col.partner')"
     :api-method="!localItems ? searchParty : undefined"
     :items="localItems"
-    v-model="selectedValue"
+    v-model="selectedLocalValue"
     display-results-while-empty
     :disabled="disabled"
   />
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       offlineItems: [],
+      selectedLocalValue: undefined,
     };
   },
 
@@ -33,6 +34,30 @@ export default {
     partyTypes: {
       type: Array,
       required: false,
+    },
+  },
+
+  watch: {
+    value(newValue) {
+      if (this.offline) {
+        if (newValue && newValue.id && this.localItems && this.localItems.length) {
+          this.selectedLocalValue = this.localItems.find(i => i.id === newValue.id);
+        }
+        if (!newValue) {
+          this.selectedLocalValue = undefined;
+        }
+      } else {
+        this.selectedLocalValue = newValue;
+      }
+    },
+    selectedLocalValue(value) {
+      if (value && value.label === '') {
+        this.$emit('update:value', undefined);
+        return;
+      }
+      if (value && value.id) {
+        this.$emit('update:value', value);
+      }
     },
   },
 
@@ -49,6 +74,12 @@ export default {
         label: p.name,
         data: p,
       }));
+
+      if (this.offline) {
+        if (this.value && this.value.id && this.localItems && this.localItems.length) {
+          this.selectedLocalValue = this.localItems.find(i => i.id === this.value.id);
+        }
+      }
     }
   },
   computed: {
@@ -75,25 +106,6 @@ export default {
       }
 
       return undefined;
-    },
-
-    selectedValue: {
-      get() {
-        if (this.offline) {
-          if (this.value && this.value.id && this.localItems && this.localItems.length) {
-            return this.localItems.find(i => i.id === this.value.id);
-          }
-        }
-
-        return this.value;
-      },
-      set(value) {
-        if (value && value.label === '') {
-          this.$emit('update:value', undefined);
-          return;
-        }
-        this.$emit('update:value', value);
-      },
     },
   },
   methods: {

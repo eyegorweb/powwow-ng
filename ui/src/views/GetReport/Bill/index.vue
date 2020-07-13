@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       searchByRefValue: undefined,
+      lastFilters: [],
       columns: [
         {
           id: 1,
@@ -159,18 +160,26 @@ export default {
 
     async doSearchByRef(value) {
       this.searchByRefValue = value;
-      this.applyFilters([
-        {
-          id: 'reference',
-          value: value,
-        },
-      ]);
+      this.applyFilters({
+        filters: [
+          {
+            id: 'reference',
+            value,
+          },
+          // Le partenaire est obligatoirement set au lancement de cette method
+          {
+            id: 'partnerId',
+            value: this.lastFilters.find(f => f.id == 'getadmin.users.filters.partners').data.id,
+          },
+        ],
+      });
     },
 
     async applyFilters(payload) {
       const { filters } = payload || {
         filters: [],
       };
+      this.lastFilters = filters;
 
       const data = await fetchBills(filters);
       this.total = data.total;
@@ -249,6 +258,12 @@ export default {
 }
 
 .btn-select {
+  user-select: initial;
+}
+</style>
+
+<style lang="scss">
+.btn-link {
   user-select: initial;
 }
 </style>

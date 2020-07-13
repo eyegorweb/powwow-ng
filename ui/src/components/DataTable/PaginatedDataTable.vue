@@ -84,7 +84,9 @@ export default {
   mounted() {
     this.orderBy = { ...this.order };
     this.refreshTable();
-    this.ready = true;
+    setTimeout(() => {
+      this.ready = true;
+    });
   },
   computed: {
     pageInfo() {
@@ -105,6 +107,7 @@ export default {
         this.isLoading = false;
         this.rows = response.rows;
         this.total = response.total;
+        this.$emit('total', this.total);
       } catch (e) {
         this.isLoading = false;
         this.isError = true;

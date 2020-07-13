@@ -19,7 +19,7 @@
     <template v-if="rows && rows.length">
       <DataTable
         :storage-id="storageId"
-        storage-version="004"
+        storage-version="005"
         :columns="columns"
         :rows="rows || []"
         :page.sync="page"
@@ -80,7 +80,7 @@ export default {
     return {
       showExtraCells: false,
       columns: [
-        col(this.$t('col.id'), 'id', true, true, {
+        col(this.$t('col.id'), 'id', true, false, {
           component: AlarmIdCell,
         }),
         col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {

@@ -167,7 +167,7 @@ export default {
     },
   },
   mounted() {
-    this.refreshIndicators()
+    this.refreshIndicators();
   },
   data() {
     return {

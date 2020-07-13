@@ -7,6 +7,7 @@
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
         @change="onValueChanged"
+        show-optional-field
       />
     </div>
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
@@ -73,7 +74,7 @@ export default {
       allSpecificFields: [],
       allFields: [],
       allFieldsValues: [],
-      customFieldsErrors: [],
+      customFieldsErrors: undefined,
       waitForConfirmation: false,
       canSend: false,
     };
@@ -95,7 +96,14 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.actCreationPrerequisites.partner.id;
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields;
+      this.allCustomFields = customFields.customFields.map(c => {
+        if (c.mandatory === 'NONE') {
+          c.isOptional = true;
+        } else {
+          c.isOptional = false;
+        }
+        return c;
+      });
       this.allSpecificFields = customFields.specificFields;
       this.allFields = customFields.customFields.concat(customFields.specificFields);
     },
@@ -155,11 +163,36 @@ export default {
         this.selectedLinesForActCreation,
         params
       );
+      // if (!response.errors) {
+      //   return response;
+      // } else {
+      //   const errors = response.errors;
+      //   console.log('errors', errors);
+      // }
     },
     async confirmValdation(containerValidationFn) {
       const response = await containerValidationFn();
       this.waitForConfirmation = false;
       return response;
+    },
+    chekcForErrors() {
+      const getCustomFieldValue = code => {
+        const found = this.allFieldsValues.filter(c => c.code === code);
+        if (found && found.length) {
+          return found[0].enteredValue;
+        }
+        return '';
+      };
+
+      this.customFieldsErrors = this.allCustomFields
+        .filter(c => c.mandatory !== 'NONE')
+        .filter(c => {
+          const value = getCustomFieldValue(c.code);
+          if (!value || value.length === 0) {
+            return true;
+          }
+        })
+        .map(c => c.code);
     },
   },
 };

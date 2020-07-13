@@ -148,6 +148,7 @@ export async function fetchpartners(
         flagMsisdnA
         optionViewCellId
         suspensionFree
+        suspensionAuto
         ${extraFields.join(',')}
       },
     }

@@ -368,7 +368,6 @@ export async function fetchShortCodes(partnerId) {
   }
   `;
   const response = await query(queryStr);
-  // console.log('data', response.data.party.shortCodes);
   return response.data.party.shortCodes;
 }
 
@@ -412,7 +411,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }

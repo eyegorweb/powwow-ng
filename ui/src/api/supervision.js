@@ -270,6 +270,9 @@ async function geoCounter(filters) {
 `;
 
   const response = await query(queryStr, filters);
+  if (!response) {
+    return '-';
+  }
 
   if (response.data) {
     return response.data.geoCounter;
@@ -487,4 +490,49 @@ async function loadSupervisionAlertFilters() {
 export async function getSupervisionAlertFilters() {
   await loadSupervisionAlertFilters();
   return SUPERVISION_FILTERS_CACHE;
+}
+
+export async function geoListExport(params) {
+  const queryStr = `query GeoListExport($filter: GeolocListFilterInput, $columns: [AccessPointByLocationColumnEnum!]!, $sorting: GeolocListSorting!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
+    geoListExport(filter: $filter, columns: $columns, sorting: $sorting, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {
+        downloadUri
+        total
+        asyncRequired
+    }
+  }`;
+  const response = await query(queryStr, params);
+
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.geoListExport;
+}
+
+export async function supervisionExport(params) {
+  const queryStr = `query SupervisionExport($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!, $columns: [SupervisionColumnEnum!]!, $exportFormat: ExportFormatEnum!, $beginDate: Date, $endDate: Date) {
+    supervisionExport(supervisionType: $supervisionType, params: $params, exportFormat: $exportFormat, columns: $columns, beginDate: $beginDate, endDate: $endDate) {
+      downloadUri
+      total
+    }
+  }`;
+
+  const response = await query(queryStr, params);
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.supervisionExport;
 }

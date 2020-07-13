@@ -271,7 +271,6 @@ export function loadWidgets() {
         return conf;
       })
     );
-    console.log('RETURN ', ret);
     return ret;
   } else {
     return excludeMocked(defaultWidgets);

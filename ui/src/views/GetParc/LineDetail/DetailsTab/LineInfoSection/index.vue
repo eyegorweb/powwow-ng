@@ -37,7 +37,9 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title">CARTE SIM</template>
+          <template slot="title"
+            >CARTE SIM</template
+          >
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -204,7 +206,7 @@ export default {
       if (!customFields || !customLabels) return [];
       let customFieldsArray = [];
       for (let i = 1; i <= 6; i++) {
-        const value = customFields['custom' + i];
+        const value = customFields['custom' + i] || '-';
         const labels = customLabels['custom' + i + 'FieldLabel'];
         const label = this.getCustomFieldLabel(i);
         if (labels) {

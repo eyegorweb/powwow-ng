@@ -1,39 +1,6 @@
 import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
 import moment from 'moment';
 
-export async function fetchAlarmInstancesByAP(id) {
-  const queryStr = `
-  query {
-    alarmInstances(searchBy: ACCESSPOINT_ID, id: ${id}) {
-      id
-      alarm {
-        id
-        type
-        level1
-        level1Up
-        level1Down
-        level2
-        level2Up
-        level2Down
-        level3
-        level3Up
-        level3Down
-        startDate
-        party {
-          id
-          name
-        }
-      }
-    }
-  }
-  `;
-
-  const response = await query(queryStr);
-  if (!response.data) return;
-
-  return response.data.alarmInstances;
-}
-
 export async function fetchAlarmsWithInfos(simCardInstanceId) {
   const queryStr = `
   query {
@@ -117,6 +84,8 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         notifyByEmail
         plmnsList
         countriesList
+        reactivationAuto
+        suspensionAuto
         mailingList {
           id
           name
@@ -129,6 +98,8 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
             id
             name
           }
+          suspensionAuto
+
         }
         auditable {
           created

@@ -1,5 +1,28 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
+export async function fetchTransferSim() {
+  const queryStr = `
+  query {
+    transferSimRequests(pagination: {limit: 999, page: 0}, sorting: { created: DESC})
+    {
+      transferId
+      iccid
+      fromPartner
+      toPartner
+      fromCustAccount
+      toCustAccount
+      created
+      status
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  console.log(response);
+
+  return response.data;
+}
+
 export async function fetchCardTypes(q, partners, { page, limit = 999, partnerType }) {
   let partnersIds,
     partnerGqlParam = '';
@@ -91,7 +114,7 @@ export async function searchLineById(id) {
   const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
     {
       id: 'filters.id',
-      value: id,
+      value: '' + id,
     },
   ]);
   if (!response || !response.items || !response.items.length) return;
@@ -319,26 +342,26 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const imei = selectedFilters.find(f => f.id === 'filters.imei');
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
-  if (_id) {
-    gqlFilters.push(`id: {eq: "${_id.value}"}`);
+  if (_id && _id.value) {
+    gqlFilters.push(`id: {eq: "${_id.value.trim()}"}`);
   }
-  if (iccid) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value}"}`);
+  if (iccid && iccid.value) {
+    gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
   }
-  if (imsi) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value}"}`);
+  if (imsi && imsi.value) {
+    gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
   }
-  if (msisdn) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value}"}`);
+  if (msisdn && msisdn.value) {
+    gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
   }
-  if (imei) {
-    gqlFilters.push(`imei: {eq: "${imei.value}"}`);
+  if (imei && imei.value) {
+    gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
   }
-  if (msisdnA) {
-    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value}"}`);
+  if (msisdnA && msisdnA.value) {
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.trim()}"}`);
   }
-  if (accessPointId) {
-    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value}"}`);
+  if (accessPointId && accessPointId.value) {
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.trim()}"}`);
   }
 }
 

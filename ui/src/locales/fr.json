@@ -35,7 +35,7 @@
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",
-  "noResult": "Aucun résulat",
+  "noResult": "Aucun résultat",
   "noConso": "Pas de consommation",
   "back": "Retour",
   "searching": "Recherche en cours ...",
@@ -199,6 +199,8 @@
     "others": "Autres",
     "period": "Période",
 
+    "identifier": "Identifiant",
+
     "months_12": "12 Mois",
     "months_24": "24 Mois",
     "months_36": "36 Mois",
@@ -231,7 +233,12 @@
   "bills": {
     "total": "{total} factures disponibles",
     "searchByRef": "Rechercher une facture par référence",
-    "detailPanel": "Facture N° {reference}"
+    "detailPanel": "Facture N° {reference}",
+    "amount": "Montant",
+    "title": "Intitulé",
+    "billDetail": "Détail de facturation",
+    "billPeriod": "Période facturée",
+    "lineTotal": "Nombre de lignes"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -358,6 +365,7 @@
     "allUsages": "Usage data,SMS,Voix",
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
+    "exportGraph": "Exporter les données des graphes",
 
     "supervisionTypes": {
       "INTRA_DAY": "6h",
@@ -408,6 +416,8 @@
       "disable_alarm_lines": "Désactiver l'alarme des lignes",
       "react_alarm_lines": "Réactiver l'alarme des lignes",
       "alarm_availability": "Présence de l'alarme",
+      "rea_auto": "Réactivation automatique",
+      "sus_auto": "Suspension automatique",
 
       "enableAlarm": "Activer l'alarme",
       "saveAlarm": "Enregistrer l'alarme",
@@ -1042,6 +1052,7 @@
         "POSITION_ALARM": "Positionner une alarme",
         "CHANGE_SERVICES": "Modifier services",
         "CHANGE_STATUS": "Résilier",
+        "SIM_TRANSFER": "Transfert de SIM",
         "SEND_SMS": "Envoyer SMS",
         "REACTIVATE": "Réactiver des lignes",
         "TEST_PHASE": "Terminer une phase de test",
@@ -1425,6 +1436,7 @@
     "SMS": "SMS",
     "VOICE": "Voix"
   },
+
   "filters": {
     "idOrder": "ID de commande",
     "title": "FILTRES",

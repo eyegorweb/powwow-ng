@@ -112,6 +112,21 @@ export async function createStatusChangeAlarm(params) {
   return { errors: response.errors };
 }
 
+export async function createSharedConsumptionAlarm(params) {
+  const queryStr = `mutation CreateSharedConsumptionAlarm($offerAlarmCreationInput: OfferAlarmCreationInput!){
+    createSharedConsumptionAlarm(offerAlarmCreationInput: $offerAlarmCreationInput)
+  }`;
+
+  const response = await query(queryStr, {
+    offerAlarmCreationInput: params,
+  });
+
+  if (response.data) {
+    return response.data.createSharedConsumptionAlarm;
+  }
+  return { errors: response.errors };
+}
+
 export async function alarmOnOverConso(params) {
   const response = await consoQuery('createOverConsumptionAlarm', params);
 
@@ -195,7 +210,6 @@ async function consoQuery(queryName, params) {
 
 function getFormGQLParams(params) {
   const gqlParams = [];
-  console.log(params);
   gqlParams.push(`alarmScope:${getScope(params)}`);
   gqlParams.push(`alarmName:"${params.alarmName}"`);
   gqlParams.push(`activateAlarm:${params.enableAlarm}`);
@@ -236,7 +250,12 @@ function getScope(params) {
 }
 
 function getScopeGQLParams(params) {
+  const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
   if (!params.scope) return '';
+
+  if (params.scope.partner && params.scope.partner.id && tempDataUuid) {
+    return `idParty: {eq: ${params.scope.partner.id}}, tempDataUuid: "${tempDataUuid}"`;
+  }
 
   if (params.scope.partner && params.scope.partner.id) {
     return `idParty: {eq: ${params.scope.partner.id}}`;
@@ -262,8 +281,6 @@ function getScopeGQLParams(params) {
 
     return offerGqlParams.join(',');
   }
-
-  const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
 
   if (tempDataUuid) {
     return `tempDataUuid: "${tempDataUuid}"`;

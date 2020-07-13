@@ -1,13 +1,9 @@
 <template>
   <div id="app">
-    <div v-if="appIsReady" class="container">
-      <NavBars v-if="$route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
+    <div :class="{ container: appIsReady }">
+      <NavBars v-if="appIsReady && $route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
       <router-view />
-      <PanelSwitcher />
-    </div>
-    <div v-else-if="$route.name === 'callback' || $route.name === 'refresh'">
-      {{ /* On garde que la partie routeur pour gérer le callback appelé lors de l'enregistrement du token */}}
-      <router-view />
+      <PanelSwitcher v-if="appIsReady" />
     </div>
 
     <Authentication />

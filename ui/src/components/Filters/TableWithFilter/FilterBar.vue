@@ -9,6 +9,7 @@
         @applyFilters="applyFilters"
         @clear="onRemoveFilter"
         :hide-apply="alwaysShowButton"
+        can-save
       />
 
       <div

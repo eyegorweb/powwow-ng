@@ -432,10 +432,9 @@ export default {
         this.refreshDataTechnoRepartition();
         this.refreshDataTop5References();
       } else {
-        const partners = filters[0].values.map(p => ({
-          id: p.id,
-        }));
-        const selectedPartnerIds = partners.map(p => p.id);
+        const partnerFilter = filters.find(f => f.id === 'getdevice.partners');
+        if (!partnerFilter) return;
+        const selectedPartnerIds = partnerFilter.values.map(p => p.id);
         this.refreshDataTop5Manufacturers(selectedPartnerIds);
         this.refreshDataTechnoRepartition(selectedPartnerIds);
         this.refreshDataTop5References(selectedPartnerIds);

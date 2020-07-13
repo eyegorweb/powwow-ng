@@ -26,13 +26,19 @@
 
     <div class="row">
       <div class="col to-bottom">
-        <div class="d-flex mb-3 mt-1" v-if="suspension">
-          <UiCheckbox v-model="enableSuspension" :checked="false" />
-          <span>Suspension automatique</span>
-        </div>
-        <div class="d-flex mb-3 mt-1">
-          <UiCheckbox v-model="enableReactivation" :checked="false" :disabled="!enableSuspension" />
-          <span>Réactivation automatique</span>
+        <div v-if="suspensionAuto">
+          <div class="d-flex mb-3 mt-1">
+            <UiCheckbox v-model="enableSuspension" :checked="false" />
+            <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
+          </div>
+          <div class="d-flex mb-3 mt-1">
+            <UiCheckbox
+              v-model="enableReactivation"
+              :checked="false"
+              :disabled="!enableSuspension"
+            />
+            <span>{{ $t('getvsion.alarm.rea_auto') }}</span>
+          </div>
         </div>
 
         <h5>Nom de l'alarme</h5>
@@ -87,9 +93,14 @@ export default {
       this.webserviceNotification = this.duplicateFrom.notifyByWs;
       this.enableAlarm = !this.duplicateFrom.disabled;
       this.alarmName = this.duplicateFrom.name;
+      this.enableSuspension = this.duplicateFrom.suspensionAuto;
+      this.enableReactivation = this.duplicateFrom.reactivationAuto;
     }
   },
   computed: {
+    suspensionAuto() {
+      return get(this.partner, 'data.suspensionAuto');
+    },
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'data.mailingLists', []);

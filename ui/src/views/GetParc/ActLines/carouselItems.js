@@ -332,4 +332,27 @@ export default excludeMocked([
       },
     ],
   },
+  {
+    icon: 'ic-Sim-Icon',
+    title: 'getparc.actCreation.carouselItem.SIM_TRANSFER',
+    stepTitle: 'getparc.actCreation.carouselItem.SIM_TRANSFER',
+    subtitle: '',
+    selected: false,
+    color: 'orange',
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'ACTIVATED',
+            label: 'Activée',
+          },
+          {
+            id: 'SUSPENDED',
+            label: 'Suspendue',
+          },
+        ],
+      },
+    ],
+  },
 ]);

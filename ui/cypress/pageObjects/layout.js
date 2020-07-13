@@ -20,7 +20,7 @@ export default {
       // cy.get('.tabs > .tabs-bar > .tab-label:nth-child(3)').trigger('mouseover');
 
       cy.get(
-        '.tabs-bar > .tab-label:nth-child(3) > .dropdown > .dropdown-menu > .dropdown-item'
+        '.menu_alarms'
       ).click({ force: true });
     },
   },

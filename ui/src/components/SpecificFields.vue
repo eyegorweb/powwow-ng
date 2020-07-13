@@ -26,7 +26,7 @@
         </label>
         <br />
         <UiSelect
-          placeholder="Choisissez une valeur"
+          placeholder="-"
           :value="getSelectedValue(item.code)"
           @input="newVal => onValueChanged(item, newVal)"
           :options="item.value"

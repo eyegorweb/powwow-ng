@@ -9,9 +9,12 @@
         </h4>
       </div>
       <div class="col-md-3" v-if="userIsBO">
-        <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">
-          {{ $t('getparc.lines-sim-import') }}
-        </UiButton>
+        <UiButton
+          variant="accent"
+          block
+          class="float-right"
+          @click="openCreateSimCardsPanel()"
+        >{{ $t('getparc.lines-sim-import') }}</UiButton>
       </div>
     </div>
     <div class="row mb-5">
@@ -35,10 +38,10 @@
           precalculated
         />
         <br />
-
-        <FilterBar />
+        <FilterBar v-if="!transferSim" />
       </div>
-      <div class="col-md-9 extra-bottom-margin">
+      <TransferSim v-if="transferSim" class="col-md-9" />
+      <div class="col-md-9 extra-bottom-margin" v-if="!transferSim">
         <Title
           num="1"
           v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
@@ -65,9 +68,9 @@
         >
           <template v-if="canShowForm" slot="title">
             {{
-              $t('getparc.actLines.selected', {
-                total: totalSelected,
-              })
+            $t('getparc.actLines.selected', {
+            total: totalSelected,
+            })
             }}
           </template>
         </LinesTable>
@@ -93,6 +96,7 @@
 import Tooltip from '@/components/ui/Tooltip';
 import FilterBar from './FilterBar';
 import LinesTable from './LinesTable';
+import TransferSim from './ActCreation/forms/TransferSim';
 import Title from './Title';
 import UiButton from '@/components/ui/Button';
 import ActCreationPrerequisites from './ActCreation/Prerequisites';
@@ -110,6 +114,7 @@ export default {
     Tooltip,
     FilterBar,
     LinesTable,
+    TransferSim,
     ActionCarousel,
     Indicators,
     ActCreationPrerequisites,
@@ -125,6 +130,7 @@ export default {
       indicators: lineIndicators,
       tableIsEmpty: true,
       prevRoute: undefined,
+      transferSim: false,
       file: undefined,
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
@@ -245,6 +251,10 @@ export default {
     onCarouselItemClick(item) {
       let isSelected = false;
       let newSelectionState = true;
+
+      if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER') {
+        this.transferSim = true;
+      }
 
       if (this.actToCreate) {
         isSelected = this.actToCreate.title === item.title;

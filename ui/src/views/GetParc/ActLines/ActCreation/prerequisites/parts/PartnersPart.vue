@@ -97,6 +97,7 @@ export default {
           orderNumberIsMandatory: p.orderNumberRequired,
           shortCodes: p.shortCodes,
           partyType: p.partyType,
+          suspendBilling: p.suspensionFree,
         }));
       };
     },

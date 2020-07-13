@@ -62,6 +62,7 @@
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
             :total="indicatorTotal"
+            :applied-filters="appliedFilters"
             @gotomap="refreshLinesFn = undefined"
           />
         </template>
@@ -82,7 +83,9 @@ import CountryFilter from './filters/CountryFilter';
 import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
-import DateRangeFilter from './filters/DateRangeFilter';
+import IdentifierFilter from './filters/IdentifierFilter';
+
+// import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -91,11 +94,10 @@ import SupervisionMap from './SupervisionMap';
 import SupervisionTable from './SupervisionTable';
 import CockpitDetails from './CockpitDetails';
 
-import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js';
+import { fetchLinesForCounter, fetchLinesForMarker, geoListExport } from '@/api/supervision.js';
 
 import { mapGetters } from 'vuex';
 
-import { shouldFilterMocked } from '@/featureFlipping/plugin.js';
 import { fetchDeliveryCountries } from '@/api/filters';
 import { delay } from '@/api/utils.js';
 
@@ -246,6 +248,16 @@ export default {
   },
 
   methods: {
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        console.log('orderBy >>', orderBy);
+        return await geoListExport({
+          filters: filterFormatter(this.appliedFilters),
+          columns: columnsParam,
+          exportFormat,
+        });
+      };
+    },
     onTabChange(tab) {
       this.currentTab = tab.label;
       this.filters = undefined;
@@ -268,11 +280,10 @@ export default {
 
       if (typeof marker.data.locationCode === 'string') {
         const foundCountry = await fetchDeliveryCountries(this.$i18n.locale, {
-          codeIso3: { eq: marker.data.locationCode }
+          codeIso3: { eq: marker.data.locationCode },
         });
 
         if (foundCountry && foundCountry.length) {
-
           const filterEntry = {
             id: 'filters.country',
             value: foundCountry[0].name,
@@ -281,7 +292,6 @@ export default {
 
           return filterEntry;
         }
-
       }
     },
 
@@ -316,7 +326,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -436,24 +446,52 @@ export default {
 
       currentVisibleFilters.push(this.commonFilters.offers);
 
-      currentVisibleFilters.push({
-        title: 'filters.zone',
-        component: LocalisationFilter,
-        onChange(chosenValue) {
-          const zone = chosenValue.zone.label;
-          const country = chosenValue.country ? chosenValue.country.label : undefined;
-          const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
+      currentVisibleFilters.push(
+        {
+          title: 'filters.zone',
+          component: LocalisationFilter,
+          onChange(chosenValue) {
+            const zone = chosenValue.zone.label;
+            const country = chosenValue.country ? chosenValue.country.label : undefined;
+            const zipCode = chosenValue.zipCode ? chosenValue.zipCode : undefined;
 
-          const labels = [{ id: zone, label: `Zone: ${zone}` }];
-          if (country) labels.push({ id: country, label: `Pays: ${country}` });
-          if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
-          return {
-            id: 'filters.zone',
-            values: labels,
-            data: chosenValue,
-          };
+            const labels = [{ id: zone, label: `Zone: ${zone}` }];
+            if (country) labels.push({ id: country, label: `Pays: ${country}` });
+            if (zipCode) labels.push({ id: zipCode, label: `Code postal: ${zipCode}` });
+            return {
+              id: 'filters.zone',
+              values: labels,
+              data: chosenValue,
+            };
+          },
         },
-      });
+        {
+          title: 'common.identifier',
+          component: IdentifierFilter,
+          onChange(chosenValue) {
+            const labels = [];
+
+            if (chosenValue.imei) {
+              labels.push({
+                id: 'getparc.actDetail.col.imei',
+                label: `IMEI : ${chosenValue.imei}`,
+              });
+            }
+            if (chosenValue.msisdn) {
+              labels.push({
+                id: 'getparc.actDetail.col.msisdn',
+                label: `MSISDN : ${chosenValue.msisdn}`,
+              });
+            }
+
+            return {
+              id: 'common.identifier',
+              data: chosenValue,
+              values: labels,
+            };
+          },
+        }
+      );
 
       return currentVisibleFilters;
     },
@@ -502,13 +540,9 @@ export default {
     },
 
     onCockpitClick(payload) {
-      if (!shouldFilterMocked()) {
-        this.cockpitMarkerToDetail = payload;
-        this.freezeFilterSelection(payload);
-      }
+      this.cockpitMarkerToDetail = payload;
+      this.freezeFilterSelection(payload);
     },
-
-
   },
 };
 
@@ -531,6 +565,16 @@ export function filterFormatter(appliedFilters) {
 
       if (item.id === 'getadmin.users.filters.partnerGroup') {
         filters.partiesDomain = item.data.value;
+      }
+
+      if (item.id === 'common.identifier') {
+        if (item.data.imei) {
+          filters.imei = '' + item.data.imei;
+        }
+
+        if (item.data.msisdn) {
+          filters.msisdn = '' + item.data.msisdn;
+        }
       }
 
       if (item.id === 'filters.zone') {

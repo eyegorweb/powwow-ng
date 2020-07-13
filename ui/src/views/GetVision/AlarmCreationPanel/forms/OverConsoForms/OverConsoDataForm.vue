@@ -1,5 +1,9 @@
 <template>
-  <OverConsoGenericForm value-label="La data dépasse" :get-percent-val-fn="getPercentVal" />
+  <OverConsoGenericForm
+    value-label="La data dépasse"
+    :get-percent-val-fn="getPercentVal"
+    @change="$emit('change', $event)"
+  />
 </template>
 
 <script>

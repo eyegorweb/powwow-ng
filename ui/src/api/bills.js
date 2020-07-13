@@ -1,26 +1,25 @@
 import { query, getFilterValue } from './utils';
 
 export async function fetchBills(filters = []) {
-  // const queryStr = `
-
-  // {
-  //   getBills(billsFilter: {${formatFilters(filters)}}) {
-  //     date
-  //     reference
-  //     customerAccountCode
-  //     amount
-  //     amountExclTaxes
-  //     headings {
-  //       label
-  //       amountExcTaxe
-  //       headingTypeEnum
-  //       usage
-  //       nbSim
-  //     }
-  //   }
-  // }
-  //   `;
-  // const response = await query(queryStr);
+  const queryStr = `
+    {
+      getBills(billsFilter: {${formatFilters(filters)}}) {
+        date
+        reference
+        customerAccountCode
+        amount
+        amountExclTaxes
+        headings {
+          label
+          amountExcTaxe
+          headingTypeEnum
+          usage
+          nbSim
+        }
+      }
+    }
+      `;
+  const response = await query(queryStr);
 
   return {
     total: 90,

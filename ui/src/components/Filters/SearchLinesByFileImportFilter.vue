@@ -43,7 +43,7 @@ export default {
         {
           code: 'c1',
           label: 'ICCID',
-          value: 'ICCID',
+          value: 'SEARCH_ICCID',
         },
         {
           code: 'msc2isdn',

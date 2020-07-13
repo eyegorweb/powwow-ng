@@ -16,7 +16,9 @@
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <router-link v-if="!tab.submenu" :to="tab.to">{{ tab.label }}</router-link>
+            <router-link v-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
+              tab.label
+            }}</router-link>
 
             <div class="dropdown">
               <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ tab.label }}</a>
@@ -31,6 +33,7 @@
                   :key="item.label"
                   v-for="item in filterByPermission(tab.submenu)"
                   class="dropdown-item"
+                  :class="'menu_' + item.to.name"
                   :to="item.to"
                   >{{ $t(item.label) }}</router-link
                 >
@@ -90,7 +93,7 @@
       <img
         v-if="!isBackofficeProfile"
         class="logo logo--client"
-        src="@/assets/logo_notfound.png"
+        src="@/assets/logo_clear.png"
         alt
       />
     </div>
@@ -126,7 +129,7 @@ export default {
         {
           label: 'menu.users',
           to: { name: 'getAdminUsers' },
-          permission: { domain: 'getSim', action: 'read' },
+          permission: { domain: 'user', action: 'read' },
         },
         {
           label: 'menu.account',
@@ -134,7 +137,7 @@ export default {
             name: 'getAdminPartnerDetails',
             params: { id: this.userInfos.partners[0].id },
           },
-          permission: { domain: 'getSim', action: 'read' },
+          permission: { domain: 'party', action: 'read' },
         },
       ];
     } else {
@@ -142,12 +145,12 @@ export default {
         {
           label: 'menu.users',
           to: { name: 'getAdminUsers' },
-          permission: { domain: 'getSim', action: 'read' },
+          permission: { domain: 'user', action: 'read' },
         },
         {
           label: 'menu.partners',
           to: { name: 'getAdminPartners' },
-          permission: { domain: 'getSim', action: 'read' },
+          permission: { domain: 'party', action: 'read' },
         },
       ];
     }
@@ -161,61 +164,61 @@ export default {
       {
         label: 'GetParc/GetDiag',
         to: 'getParc',
-        permission: { domain: 'getSim', action: 'read' },
+        permission: { domain: 'getParc', action: 'read' },
         submenu: [
           {
             label: 'menu.actLines',
             to: { name: 'actLines' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getParc', action: 'read' },
           },
           {
             label: 'menu.massActions',
             to: { name: 'actHistory' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'act', action: 'manage_main' },
           },
         ],
       },
       {
         label: 'GetVision',
         to: { name: 'alarms' },
-        permission: { domain: 'getSim', action: 'read' },
+        permission: { domain: 'alarm', action: 'read' },
         submenu: [
           {
             label: 'menu.alarms',
             to: { name: 'alarms' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'alarm', action: 'read' },
           },
           {
             label: 'menu.monitoring',
             to: { name: 'getVisionMonitoring' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getVision', action: 'read' },
           },
         ],
       },
       {
         label: 'GetReport',
         to: { name: 'reports' },
-        permission: { domain: 'getSim', action: 'read' },
+        permission: { domain: 'getReport', action: 'read' },
         submenu: [
           {
             label: 'menu.modelReports',
             to: { name: 'getReportsModels' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getReport', action: 'read' },
           },
           {
             label: 'menu.documents',
             to: { name: 'documents' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getReport', action: 'manage_document' },
           },
           {
             label: 'menu.reportsDashboard',
             to: { name: 'reportsDashboard' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getReport', action: 'read_dashboard' },
           },
           {
             label: 'menu.reportsBill',
             to: { name: 'reportsBill' },
-            permission: { domain: 'getSim', action: 'read' },
+            permission: { domain: 'getReport', action: 'read_bill' },
           },
         ],
       },
@@ -223,7 +226,7 @@ export default {
         label: 'GetAdmin',
         to: { name: 'exemples' },
         submenu: [...getAdminExtra],
-        permission: { domain: 'getSim', action: 'read' },
+        permission: { domain: 'user', action: 'read' },
       },
       {
         label: 'GetSupport',
@@ -426,5 +429,9 @@ a {
 .flag {
   bottom: 0.5rem;
   position: relative;
+}
+
+.logo--client {
+  width: 32px;
 }
 </style>

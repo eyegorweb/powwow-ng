@@ -131,11 +131,14 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
         type
         partyName
         creatorEmail
+        cancellable
       }
     }
   }
   `;
+
   const response = await query(queryStr);
+
   return response.data.massActionsV2;
 }
 
