@@ -9,6 +9,7 @@ import Highcharts from 'highcharts';
 import { Chart } from 'highcharts-vue';
 
 import { fetchSupervisionGraphVoice } from '@/api/supervision.js';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -110,7 +111,7 @@ export default {
           {
             labels: {
               formatter() {
-                return this.value;
+                return formatLargeNumber(this.value);
               },
               style: {
                 color: Highcharts.getOptions().colors[1],
@@ -133,6 +134,9 @@ export default {
             },
             labels: {
               format: '{value} trafiquantes',
+              formatter() {
+                return formatLargeNumber(this.value);
+              },
               style: {
                 color: Highcharts.getOptions().colors[0],
               },
@@ -147,7 +151,7 @@ export default {
           pointFormatter() {
             return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
-                this.series.userOptions.color
+              this.series.userOptions.color
               }; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :

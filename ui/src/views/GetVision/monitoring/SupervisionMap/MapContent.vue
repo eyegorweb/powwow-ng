@@ -55,6 +55,7 @@ import uuid from 'uuid/v1';
 const CONTINENT_ZOOM_LEVEL = 4;
 const CITY_ZOOM_LEVEL = 11;
 const CELL_ZOOM_LEVEL = 13;
+const COUNTRY_ZOOM_LEVEL = 5;
 
 const CONTINENTS_CONF = [
   { code: 'NA', label: 'North America', lat: 48.16, lng: -102.14, activeCount: 0, passiveCount: 0 },
@@ -309,7 +310,7 @@ export default {
 
       this.isReady = false;
       this.centerOnFrance();
-      this.map.setZoom(CONTINENT_ZOOM_LEVEL);
+      this.map.setZoom(COUNTRY_ZOOM_LEVEL);
 
       setTimeout(() => {
         this.markers = markers;
