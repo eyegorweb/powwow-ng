@@ -29,6 +29,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
     subtitle: '',
     selected: false,
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -117,6 +118,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_MSISDN',
     selected: false,
     containFile: true,
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -137,6 +139,7 @@ export default excludeMocked([
     selected: false,
     havePrereqs: true,
     color: 'blue',
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -156,6 +159,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     havePrereqs: true,
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -253,6 +257,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',
     subtitle: '',
     selected: false,
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -280,6 +285,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.carouselItem.SEND_SMS',
     subtitle: '',
     selected: false,
+    restrictPartnerType: 'MVNO',
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
