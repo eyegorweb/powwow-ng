@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.55+20200715092831
+2020-07-15
+
+### Fixes
+
+- Cacher des actes de gestion pour MVNO (707b0780b23c4a52677772892ac56c09b3b15385)
+
 ## 1.0.0-master.54+20200710134606
 2020-07-10
 
