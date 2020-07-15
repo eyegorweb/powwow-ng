@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.56+20200715150338
+2020-07-15
+
+### Fixes
+
+- [Etat des services] Retours sur les écrans (0fee8bf3fea312d1af262247ba1d7f8e024526a7)
+
 ## 1.0.0-master.55+20200715092831
 2020-07-15
 
