@@ -49,7 +49,7 @@
             />
           </div>
         </template>
-        <template v-else>
+        <div class="map-container" :class="">
           <SupervisionMap
             :visible="!refreshLinesFn"
             :applied-filters="appliedFilters"
@@ -65,7 +65,7 @@
             :applied-filters="appliedFilters"
             @gotomap="refreshLinesFn = undefined"
           />
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -299,6 +299,7 @@ export default {
       this.isFrozen = false;
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
+      this.refreshCockpitFilters();
     },
 
     async freezeFilterSelection(payload) {
@@ -326,7 +327,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);

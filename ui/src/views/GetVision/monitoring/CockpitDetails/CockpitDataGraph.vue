@@ -10,6 +10,7 @@ import { Chart } from 'highcharts-vue';
 
 import { fetchSupervisionGraphData } from '@/api/supervision.js';
 import { formatBytes } from '@/api/utils.js';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -119,6 +120,7 @@ export default {
             },
             title: {
               text: '',
+
               style: {
                 color: Highcharts.getOptions().colors[1],
               },
@@ -132,8 +134,12 @@ export default {
                 color: Highcharts.getOptions().colors[0],
               },
             },
+
             labels: {
               format: '{value} lignes',
+              formatter() {
+                return formatLargeNumber(this.value);
+              },
               style: {
                 color: Highcharts.getOptions().colors[0],
               },
@@ -150,6 +156,9 @@ export default {
             },
             labels: {
               format: '{value} pdp',
+              formatter() {
+                return formatLargeNumber(this.value);
+              },
               style: {
                 color: Highcharts.getOptions().colors[0],
               },
@@ -166,17 +175,17 @@ export default {
               return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color
-              }; display: inline-block; margin-right: 0.5rem"></div>
+                }; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
-              ${this.y} <br/>
+              ${formatLargeNumber(this.y)} <br/>
               `;
             } else {
               return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color
-              }; display: inline-block; margin-right: 0.5rem"></div>${
+                }; display: inline-block; margin-right: 0.5rem"></div>${
                 this.series.userOptions.name
-              } : ${formatBytes(this.y)} <br/>`;
+                } : ${formatBytes(this.y)} <br/>`;
             }
           },
         },
