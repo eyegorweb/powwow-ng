@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.1.1
+2020-07-16
+
+### Fixes
+
+- Cacher des actes de gestion pour MVNO (707b0780b23c4a52677772892ac56c09b3b15385)
+- [Etat des services] Retours sur les écrans (0fee8bf3fea312d1af262247ba1d7f8e024526a7)
+- permission sur le bouton de création de commande (f848ad2521fe1b65d279a575a6b7d7bfe3918a90)
+- centrer sur le pays lors de la recherche (17e87887976e1f0cf4395e31bfef8d44904c2d5c)
+
 ## 1.1.0
 2020-07-13
 
