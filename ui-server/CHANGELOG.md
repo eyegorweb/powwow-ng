@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.58+20200716101552
+2020-07-16
+
+### Fixes
+
+- centrer sur le pays lors de la recherche (17e87887976e1f0cf4395e31bfef8d44904c2d5c)
+
 ## 1.0.0-master.57+20200716085138
 2020-07-16
 
