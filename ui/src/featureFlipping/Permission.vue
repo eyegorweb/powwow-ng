@@ -14,14 +14,12 @@ export default {
   },
   props: {
     domain: String,
-    action: String
+    action: String,
   },
   computed: {
     ...mapGetters(['havePermission']),
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

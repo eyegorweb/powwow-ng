@@ -175,7 +175,7 @@ export default {
               return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color
-                }; display: inline-block; margin-right: 0.5rem"></div>
+              }; display: inline-block; margin-right: 0.5rem"></div>
               ${this.series.userOptions.name}
               :
               ${formatLargeNumber(this.y)} <br/>
@@ -183,9 +183,9 @@ export default {
             } else {
               return `<div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color
-                }; display: inline-block; margin-right: 0.5rem"></div>${
+              }; display: inline-block; margin-right: 0.5rem"></div>${
                 this.series.userOptions.name
-                } : ${formatBytes(this.y)} <br/>`;
+              } : ${formatBytes(this.y)} <br/>`;
             }
           },
         },

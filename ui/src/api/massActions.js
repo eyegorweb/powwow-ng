@@ -38,6 +38,41 @@ export async function exportMassAction(
 
   return response.data.exportMassAction;
 }
+/**
+ * Exporter les actes de masse seulement
+ */
+
+export async function exportMassActionsOnly(
+  columns,
+  exportFormat,
+  filters = [],
+  asyncExportRequest = false
+) {
+  const columnsParam = columns.join(',');
+
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
+
+  const queryStr = `
+  query  {
+    massActionExport(filter: {${formatFilters(
+      filters
+    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}){
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.massActionExport;
+}
+
 export async function exportAllMassActions(
   columns,
   exportFormat,

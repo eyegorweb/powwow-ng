@@ -21,14 +21,13 @@
 <script>
 import GoogleMapLoader from '@/components/GoogleMaps/GoogleMapLoader.vue';
 import MapContent from './MapContent';
-import LoaderContainer from '@/components/LoaderContainer';
 import LoaderBackdrop from '@/components/LoaderBackdrop.vue';
 
 export default {
   components: {
     GoogleMapLoader,
     MapContent,
-    LoaderBackdrop
+    LoaderBackdrop,
   },
 
   props: {
@@ -69,10 +68,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .map-container {
   position: relative;
   overflow: hidden;
 }
-
 </style>

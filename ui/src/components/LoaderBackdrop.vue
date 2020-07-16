@@ -20,9 +20,9 @@ export default {
     Fragment,
   },
   props: {
-    loading: Boolean
+    loading: Boolean,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +35,6 @@ export default {
   left: 0;
   z-index: 5;
 }
-
 
 .centered {
   position: fixed; /* or absolute */
@@ -51,7 +50,7 @@ export default {
 }
 
 .barSpinner > div {
-  background-color: #FFF;
+  background-color: #fff;
   height: 100%;
   width: 6px;
   margin-right: 1px;
@@ -67,8 +66,8 @@ export default {
 }
 
 .barSpinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 .barSpinner .rect4 {
@@ -82,17 +81,26 @@ export default {
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
-  20% { -webkit-transform: scaleY(1.0) }
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% {
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% {
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
   }
 }
 </style>

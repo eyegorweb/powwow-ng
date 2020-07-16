@@ -21,9 +21,6 @@ import FromPartner from './parts/FromPartner.vue';
 export default {
   components: {
     PaginatedDataTable,
-    CheckBoxCell,
-    ToPartner,
-    FromPartner,
   },
 
   data() {
@@ -49,7 +46,7 @@ export default {
 
   methods: {
     fetchTransferSimData() {
-      return async data => {
+      return async () => {
         const response = await fetchTransferSim();
         return {
           rows: response.transferSimRequests,
@@ -61,5 +58,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

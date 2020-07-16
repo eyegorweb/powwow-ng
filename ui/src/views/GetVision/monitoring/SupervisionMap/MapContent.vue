@@ -313,11 +313,11 @@ export default {
         };
       });
 
-
-
       this.isReady = false;
 
-      const countryFilter = this.appliedFilters ? this.appliedFilters.find(f => f.id === 'filters.country') : undefined;
+      const countryFilter = this.appliedFilters
+        ? this.appliedFilters.find(f => f.id === 'filters.country')
+        : undefined;
 
       if (countryFilter) {
         this.centerOnCountry(countryFilter.data.longitude, countryFilter.data.latitude);
