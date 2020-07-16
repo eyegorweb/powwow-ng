@@ -125,14 +125,13 @@ export default {
           values: [
             {
               ...this.singlePartner,
-              label: this.singlePartner.name
-            }
+              label: this.singlePartner.name,
+            },
           ],
           hidden: true,
         },
       ];
     }
-
 
     filters.push(
       {
@@ -190,7 +189,7 @@ export default {
             });
           }
         },
-      },
+      }
     );
 
     this.filters = filters;
