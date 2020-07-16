@@ -49,7 +49,7 @@
             />
           </div>
         </template>
-        <div class="map-container" :class="">
+        <div :class="{ hidden: !!cockpitMarkerToDetail }">
           <SupervisionMap
             :visible="!refreshLinesFn"
             :applied-filters="appliedFilters"
