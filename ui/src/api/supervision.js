@@ -61,7 +61,7 @@ export async function fetchSupervisionAlerts(filters, pagination, sorting) {
   const response = await query(queryStr, variables);
 
   if (response.data) {
-    return response.data.countServicesStateByCountry;
+    return response.data.supervisionAlerts;
   }
 }
 

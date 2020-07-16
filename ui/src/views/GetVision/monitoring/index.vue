@@ -299,11 +299,12 @@ export default {
       this.isFrozen = false;
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
+      this.refreshCockpitFilters();
       /*
       this.appliedFilters = undefined;
       this.filters = undefined;
       setTimeout(() => {
-        this.refreshCockpitFilters();
+
       });
       //*/
     },
@@ -333,7 +334,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
