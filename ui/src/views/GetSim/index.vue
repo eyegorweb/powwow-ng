@@ -9,9 +9,11 @@
         </h4>
       </div>
       <div class="col-md-3">
-        <UiButton variant="accent" block class="float-right" @click="openCreateOrderPanel()">
-          {{ $t('getsim.order-sim') }}
-        </UiButton>
+        <permission domain="getSim" action="create">
+          <UiButton variant="accent" block class="float-right" @click="openCreateOrderPanel()">
+            {{ $t('getsim.order-sim') }}
+          </UiButton>
+        </permission>
       </div>
     </div>
     <div class="row">

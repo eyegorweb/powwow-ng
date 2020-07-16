@@ -2,14 +2,16 @@
   <WidgetBloc :widget="widget" @seeMore="onSeeMore" no-padding>
     <div class="pl-3 pr-3 pb-0">
       <OrderStatusesIndicators no-borders small @click="onIndicatorClick" />
-      <UiButton
-        v-if="userIsPartner"
-        variant="accent"
-        block
-        class="float-right"
-        @click="createOrder"
-        >{{ $t('getsim.order-sim') }}</UiButton
-      >
+      <permission domain="getSim" action="create">
+        <UiButton
+          v-if="userIsPartner"
+          variant="accent"
+          block
+          class="float-right"
+          @click="createOrder"
+          >{{ $t('getsim.order-sim') }}</UiButton
+        >
+      </permission>
     </div>
   </WidgetBloc>
 </template>
