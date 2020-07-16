@@ -11,6 +11,7 @@
     <TableWithFilter
       v-if="columns && filters"
       :filters="filters"
+      :default-values="defaultValues"
       :columns="columns"
       :rows="rows"
       :total="total"
@@ -103,8 +104,11 @@ export default {
       // },
     ];
     const reportId = get(this.$route, 'params.reportId');
-    this.filters = [
-      {
+
+    const filters = [];
+
+    if (!this.userIsPartner) {
+      filters.push({
         title: 'getadmin.users.filters.partners',
         component: PartnerNameFilter,
         onChange(chosenValues) {
@@ -113,7 +117,24 @@ export default {
             values: chosenValues,
           };
         },
-      },
+      });
+    } else {
+      this.defaultValues = [
+        {
+          id: 'getadmin.users.filters.partners',
+          values: [
+            {
+              ...this.singlePartner,
+              label: this.singlePartner.name
+            }
+          ],
+          hidden: true,
+        },
+      ];
+    }
+
+
+    filters.push(
       {
         title: 'documents.name',
         component: DocumentNameFilter,
@@ -170,7 +191,9 @@ export default {
           }
         },
       },
-    ];
+    );
+
+    this.filters = filters;
     this.applyFilters();
   },
   data() {
@@ -186,7 +209,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO', 'singlePartner']),
+    ...mapGetters(['userIsBO', 'userIsPartner', 'singlePartner']),
   },
   methods: {
     async applyFilters(payload) {
