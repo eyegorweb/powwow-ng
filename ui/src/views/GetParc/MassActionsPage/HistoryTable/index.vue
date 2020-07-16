@@ -59,7 +59,7 @@ import ActionCell from './ActionCell';
 import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
-import { exportAllMassActions } from '@/api/massActions';
+import { exportMassActionsOnly } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
@@ -262,28 +262,22 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, pagination, exportFormat) => {
-        return await exportAllMassActions(
+        return await exportMassActionsOnly(
           [
             'MASS_ACTION_ID',
             'MASS_ACTION_INFO',
-            'UNIT_ACTION_ID',
-            'UNIT_ACTION_TYPE',
-            'COUNT_TOTAL_ACTION',
-            'COUNT_FAILED_ACTION',
-            'COUNT_COMPLETED_ACTION',
-            'COUNT_INPROGRESS_ACTION',
-            'UNIT_ACTION_INFO',
-            'ICCID',
-            'UNIT_ACTION_STATUS',
-            'UNIT_ACTION_START_DATE',
-            'UNIT_ACTION_END_DATE',
-            'UNIT_ACTION_STATUS_DATE',
-            'UNIT_ACTION_STATUS_ERROR',
-            'MSISDN',
-            'DEVICE_MANUFACTURER',
-            'DEVICE_REFERENCE',
-            'IMEI',
-            'LOGIN',
+            'TARGETED',
+            'COMPLETED',
+            'FAILED',
+            'IN_PROGRESS',
+            'ACTION_TYPE',
+            'CREATED',
+            'STARTED',
+            'STATUS',
+            'PARTNER',
+            'CREATOR',
+            'DUE_DATE',
+            'ENDED',
           ],
           exportFormat,
           this.appliedFilters

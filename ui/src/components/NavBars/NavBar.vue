@@ -90,12 +90,6 @@
           </li>
         </ul>
       </div>
-      <img
-        v-if="!isBackofficeProfile"
-        class="logo logo--client"
-        src="@/assets/logo_clear.png"
-        alt
-      />
     </div>
   </div>
 </template>

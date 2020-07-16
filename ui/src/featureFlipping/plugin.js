@@ -1,5 +1,6 @@
 import FeatureFlippingToggle from './FeatureFlippingToggle';
 import WIP from './WIP';
+import Permission from '@/featureFlipping/Permission.vue';
 
 export const HIDE_MOCKS = '_ff_hide_mocks';
 export const DEBUG_MODE_ON = '_ff_debug_mode';
@@ -36,5 +37,6 @@ export default {
     Vue.prototype.$excludeMocked = excludeMocked;
     Vue.component('ff-toggle', FeatureFlippingToggle);
     Vue.component('ff-wip', WIP);
+    Vue.component('permission', Permission);
   },
 };

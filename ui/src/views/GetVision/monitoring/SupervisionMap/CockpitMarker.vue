@@ -18,9 +18,9 @@
       </div>
 
       <div class="d-flex values">
+        <div @click="$emit('clickData')">{{ data.dataTrafic }}</div>
+        <div class="middle-value" @click="$emit('clickSms')">{{ data.smsTrafic }}</div>
         <div @click="$emit('clickVoice')">{{ data.voiceTrafic }}</div>
-        <div class="middle-value" @click="$emit('clickData')">{{ data.dataTrafic }}</div>
-        <div @click="$emit('clickSms')">{{ data.smsTrafic }}</div>
       </div>
     </div>
   </div>

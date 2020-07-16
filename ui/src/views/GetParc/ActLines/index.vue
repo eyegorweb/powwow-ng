@@ -9,12 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3" v-if="userIsBO">
-        <UiButton
-          variant="accent"
-          block
-          class="float-right"
-          @click="openCreateSimCardsPanel()"
-        >{{ $t('getparc.lines-sim-import') }}</UiButton>
+        <UiButton variant="accent" block class="float-right" @click="openCreateSimCardsPanel()">{{
+          $t('getparc.lines-sim-import')
+        }}</UiButton>
       </div>
     </div>
     <div class="row mb-5">
@@ -68,9 +65,9 @@
         >
           <template v-if="canShowForm" slot="title">
             {{
-            $t('getparc.actLines.selected', {
-            total: totalSelected,
-            })
+              $t('getparc.actLines.selected', {
+                total: totalSelected,
+              })
             }}
           </template>
         </LinesTable>
@@ -149,7 +146,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userIsBO']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'singlePartner']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
@@ -161,7 +158,15 @@ export default {
     },
     carouselItems() {
       if (this.userIsPartner) {
-        return carouselItems.filter(i => !i.boOnly);
+        return carouselItems
+          .filter(i => !i.boOnly)
+          .filter(i => {
+            //  console.log(i.restrictPartnerType, this.singlePartner)
+            if (i.restrictPartnerType && this.singlePartner) {
+              return !(this.singlePartner.partyType === i.restrictPartnerType);
+            }
+            return true;
+          });
       }
       return carouselItems;
     },

@@ -1,5 +1,5 @@
 <template>
-  <div>{{row.fromPartner}} - {{ row.fromCustAccount }}</div>
+  <div>{{ row.fromPartner }} - {{ row.fromCustAccount }}</div>
 </template>
 
 <script>
@@ -16,5 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

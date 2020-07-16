@@ -49,7 +49,7 @@
             />
           </div>
         </template>
-        <template v-else>
+        <div :class="{ hidden: !!cockpitMarkerToDetail }">
           <SupervisionMap
             :visible="!refreshLinesFn"
             :applied-filters="appliedFilters"
@@ -65,7 +65,7 @@
             :applied-filters="appliedFilters"
             @gotomap="refreshLinesFn = undefined"
           />
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -299,6 +299,13 @@ export default {
       this.isFrozen = false;
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
+      /*
+      this.appliedFilters = undefined;
+      this.filters = undefined;
+      setTimeout(() => {
+        this.refreshCockpitFilters();
+      });
+      //*/
     },
 
     async freezeFilterSelection(payload) {
