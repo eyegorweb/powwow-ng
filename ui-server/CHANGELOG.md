@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.57+20200716085138
+2020-07-16
+
+### Fixes
+
+- permission sur le bouton de création de commande (f848ad2521fe1b65d279a575a6b7d7bfe3918a90)
+
 ## 1.0.0-master.56+20200715150338
 2020-07-15
 
