@@ -233,6 +233,11 @@ export default {
       this.map.setCenter(franceCoords);
     },
 
+    centerOnCountry(longitude, latitude) {
+      const countryCoords = new this.google.maps.LatLng(latitude, longitude);
+      this.map.setCenter(countryCoords);
+    },
+
     async manageZoom() {
       if (this.isSameFilters) return;
 
@@ -308,8 +313,18 @@ export default {
         };
       });
 
+
+
       this.isReady = false;
-      this.centerOnFrance();
+
+      const countryFilter = this.appliedFilters ? this.appliedFilters.find(f => f.id === 'filters.country') : undefined;
+
+      if (countryFilter) {
+        this.centerOnCountry(countryFilter.data.longitude, countryFilter.data.latitude);
+      } else {
+        this.centerOnFrance();
+      }
+
       this.map.setZoom(COUNTRY_ZOOM_LEVEL);
 
       setTimeout(() => {

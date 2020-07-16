@@ -14,18 +14,21 @@
         />
       </template>
     </GoogleMapLoader>
-    <div v-if="loading" class="backdrop"></div>
+    <LoaderBackdrop :loading="loading" />
   </div>
 </template>
 
 <script>
 import GoogleMapLoader from '@/components/GoogleMaps/GoogleMapLoader.vue';
 import MapContent from './MapContent';
+import LoaderContainer from '@/components/LoaderContainer';
+import LoaderBackdrop from '@/components/LoaderBackdrop.vue';
 
 export default {
   components: {
     GoogleMapLoader,
     MapContent,
+    LoaderBackdrop
   },
 
   props: {
@@ -66,22 +69,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.backdrop {
-  background: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5;
-}
 
 .map-container {
   position: relative;
   overflow: hidden;
 }
 
-.hidden {
-  display: none;
-}
 </style>
