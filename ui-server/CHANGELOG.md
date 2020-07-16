@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.1.2
+2020-07-16
+
+### Fixes
+
+- Corriger les filtres de supervision (ff81756aa78e5bc379ef4ffe34213fb3026b5f77)
+
 ## 1.1.1
 2020-07-16
 
