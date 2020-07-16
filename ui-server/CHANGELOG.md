@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.63+20200716161212
+2020-07-16
+
+### Fixes
+
+- Corriger les filtres de supervision (ff81756aa78e5bc379ef4ffe34213fb3026b5f77)
+
 ## 1.0.0-master.62+20200716154634
 2020-07-16
 
