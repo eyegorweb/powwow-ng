@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.65+20200717083347
+2020-07-17
+
+### Fixes
+
+- optimisation de la création d'utilisateur (72fdd6bf0178cacdcb4376f598dc7e69ff2adef5)
+
 ## 1.0.0-master.64+20200717080418
 2020-07-17
 
