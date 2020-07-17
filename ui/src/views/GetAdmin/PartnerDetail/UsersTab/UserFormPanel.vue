@@ -2,6 +2,18 @@
   <BaseDetailPanelContent white>
     <!-- ajouter partenaire et groupe de partenaires dans la mutation partyId obligatoire et partyGroupId facultatif -->
     <div v-if="canShowForm" class="m-3">
+      <div v-if="userIsBO" class="entries-line mb-3">
+        <div class="form-entry">
+          <Toggle
+            block
+            @update="userType = $event.id"
+            :values="userTypes"
+            :disabled="canShowTypes"
+            class="pl-2"
+          />
+        </div>
+      </div>
+
       <div class="row mb-3">
         <div class="col">
           <div class="d-flex">
@@ -19,27 +31,10 @@
         </div>
       </div>
 
-      <div v-if="userIsBO" class="entries-line mb-3">
-        <div class="form-entry">
-          <Toggle
-            block
-            @update="userType = $event.id"
-            :values="userTypes"
-            :disabled="canShowTypes"
-            class="pl-2"
-          />
-        </div>
-      </div>
-
       <div class="entries-line">
         <div v-if="userType === 'PARTNER'" class="form-entry">
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
-          <PartnerCombo
-            :value.sync="selectedPartner"
-            include-mailing-lists
-            offline
-            :disabled="!!content.duplicateFrom"
-          />
+          <PartnerCombo :value.sync="selectedPartner" offline :disabled="!!content.duplicateFrom" />
         </div>
         <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
@@ -354,9 +349,10 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
-
+    // Mode création
+    if (this.content.fromPartnerMenu) return;
+    // Mode modification
     if (this.content.duplicateFrom) {
-      // Mode modification
       const userType = this.content.duplicateFrom.type;
       this.userType = userType;
 
@@ -407,44 +403,6 @@ export default {
         }
         return u;
       });
-    } else {
-      // Mode création
-      if (this.content.fromUserMenu) {
-        if (this.userInfos.type === 'OPERATOR') {
-          roles = await fetchAllowedRoles(null, null, null);
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        } else if (this.userInfos.type === 'PARTNER') {
-          // BUG userId null is not supported by api
-          roles = await fetchAllowedRoles(null, this.userInfos.partners[0].id, null);
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        } else if (this.userInfos.type === 'PARTNER_GROUP') {
-          roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        }
-      } else if (this.content.fromPartnerMenu) {
-        // from partnerMenu
-        if (this.userInfos.type === 'OPERATOR') {
-          roles = await fetchAllowedRoles(null, this.content.partnerId, null);
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        } else if (this.userInfos.type === 'PARTNER') {
-          // BUG userId null is not supported by api
-          roles = await fetchAllowedRoles(null, this.content.partnerId, null);
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        } else if (this.userInfos.type === 'PARTNER_GROUP') {
-          roles = await fetchAllowedRoles(
-            null,
-            this.content.partnerId,
-            this.userInfos.partyGroup.id
-          );
-          this.roles = this.formattedRoles(roles);
-          this.selectedRoles = this.roles.filter(r => r.data.activated);
-        }
-      }
     }
 
     this.canShowForm = true;
@@ -531,8 +489,7 @@ export default {
   position: relative;
   padding-left: 35px;
   cursor: pointer;
-  font-size: 1.3rem;
-  padding-top: 0.3rem;
+  font-size: 1rem;
   user-select: none;
   input {
     position: absolute;
