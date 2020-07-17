@@ -2,7 +2,7 @@
   <div class="pb-4">
     <UiSelect
       v-model="selectedOption"
-      placeholder="Groupe de partenaires"
+      placeholder="Aucun"
       :options="options"
       :disabled="!!partner"
     />
@@ -37,10 +37,6 @@ export default {
   data() {
     return {
       options: [
-        {
-          label: 'Aucun',
-          value: '',
-        },
         {
           label: ' M2M Automobile & télématique',
           value: 'M2M_AUTOMOTIVE',
