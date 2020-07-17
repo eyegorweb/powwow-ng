@@ -299,14 +299,12 @@ export default {
       this.isFrozen = false;
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
-      this.refreshCockpitFilters();
-      /*
-      this.appliedFilters = undefined;
+
+      // this.appliedFilters = undefined;
       this.filters = undefined;
       setTimeout(() => {
-
+        this.refreshCockpitFilters();
       });
-      //*/
     },
 
     async freezeFilterSelection(payload) {
