@@ -7,7 +7,15 @@
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
-      />
+      >
+        <template v-slot:actions="{ hasAnyValue }">
+          <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
+            <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
+              >Appliquer / Rafraichir</UiButton
+            >
+          </div>
+        </template>
+      </SelectedFilters>
 
       <draggable handle=".handle">
         <transition-group>
@@ -85,6 +93,8 @@ import OrderCreatorFilter from '@/components/Filters/OrderCreatorFilter';
 import DateCreation from './DateCreation';
 import DateStart from './DateStart';
 import DateEnd from './DateEnd';
+import UiButton from '@/components/ui/Button';
+
 
 export default {
   components: {
@@ -99,6 +109,7 @@ export default {
     DateEnd,
     ManagementActStatusFilter,
     ManagementActionServices,
+    UiButton
   },
   data() {
     return {

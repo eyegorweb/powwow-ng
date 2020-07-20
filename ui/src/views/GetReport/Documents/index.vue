@@ -199,6 +199,7 @@ export default {
     return {
       filters: undefined,
       columns: undefined,
+      defaultValues: [],
       rows: [],
       total: 0,
       orderBy: {

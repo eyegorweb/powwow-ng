@@ -250,7 +250,6 @@ export default {
   methods: {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        console.log('orderBy >>', orderBy);
         return await geoListExport({
           filters: filterFormatter(this.appliedFilters),
           columns: columnsParam,
@@ -299,14 +298,12 @@ export default {
       this.isFrozen = false;
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
-      this.refreshCockpitFilters();
-      /*
-      this.appliedFilters = undefined;
+
+      // this.appliedFilters = undefined;
       this.filters = undefined;
       setTimeout(() => {
-
+        this.refreshCockpitFilters();
       });
-      //*/
     },
 
     async freezeFilterSelection(payload) {

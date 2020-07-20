@@ -17,6 +17,7 @@
         @clear="onClear"
       />
     </template>
+    <slot name="actions" :hasAnyValue="hasAnyValue"></slot>
   </div>
 </template>
 
@@ -52,6 +53,15 @@ export default {
     visibleCurrentFilters() {
       return this.currentFilters.filter(f => !f.hidden);
     },
+    hasAnyValue() {
+      return this.currentFilters && !!this.currentFilters.find(f => {
+        return (f.values && f.values.length > 0) ||
+          (f.value && f.value !== '') ||
+          (f.startDate || f.endDate) ||
+          (f.from || f.to);
+      });
+
+    }
   },
 };
 </script>
