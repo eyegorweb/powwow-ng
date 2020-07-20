@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.67+20200720093157
+2020-07-20
+
+### Fixes
+
+- Afficher le bouton 'appliquer les filtres' dans l'historique d'actes (bb2348e54d091a912db934765e1cd7a5adf23cdd)
+
 ## 1.0.0-master.66+20200720090527
 2020-07-20
 
