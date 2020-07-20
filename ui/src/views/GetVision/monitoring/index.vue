@@ -250,7 +250,6 @@ export default {
   methods: {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        console.log('orderBy >>', orderBy);
         return await geoListExport({
           filters: filterFormatter(this.appliedFilters),
           columns: columnsParam,
