@@ -9,7 +9,7 @@
         @clear="filterId => clearFilter(filterId)"
       >
         <template v-slot:actions="{ hasAnyValue }">
-          <div class="actions d-flex flex-column flex-md-row mb-2">
+          <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
             <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
               >Appliquer / Rafraichir</UiButton
             >

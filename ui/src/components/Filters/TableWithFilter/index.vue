@@ -11,7 +11,7 @@
           @noMoreFilters="onAllFiltersCleared"
         >
           <template v-slot:actions="{ hasAnyValue, onSearch }">
-            <div class="actions d-flex flex-column flex-md-row mb-2">
+            <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
               <UiButton variant="primary" @click="onSearch" class="flex-grow-1 py-1 px-3 ml-1"
                 >Appliquer / Rafraichir</UiButton
               >

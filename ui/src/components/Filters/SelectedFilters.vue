@@ -54,11 +54,11 @@ export default {
       return this.currentFilters.filter(f => !f.hidden);
     },
     hasAnyValue() {
-      return !!this.currentFilters.find(f => {
+      return this.currentFilters && !!this.currentFilters.find(f => {
         return (f.values && f.values.length > 0) ||
           (f.value && f.value !== '') ||
-          (filter.startDate || filter.endDate) ||
-          (filter.from || filter.to);
+          (f.startDate || f.endDate) ||
+          (f.from || f.to);
       });
 
     }
