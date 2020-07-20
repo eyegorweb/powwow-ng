@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.1.3
+2020-07-20
+
+### Fixes
+
+- Correction du filtre supervision (6a3da8035bc5f7502e5e34dd3e7d912ca4922ead)
+- optimisation de la création d'utilisateur (72fdd6bf0178cacdcb4376f598dc7e69ff2adef5)
+- Correction du bouton 'appliquer les filtres' (204019609a98718b344502c05fd0a30d7dcf558a)
+- Afficher le bouton 'appliquer les filtres' dans l'historique d'actes (bb2348e54d091a912db934765e1cd7a5adf23cdd)
+
 ## 1.1.2
 2020-07-16
 
