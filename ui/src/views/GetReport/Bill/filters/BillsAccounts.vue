@@ -15,8 +15,6 @@ export default {
   },
   data() {
     return {
-      partnersForFilters: undefined,
-      selectedBillingAccount: undefined,
       isReady: false,
     };
   },
@@ -28,58 +26,45 @@ export default {
     setTimeout(() => {
       this.isReady = true;
     });
-    this.initComponent();
   },
 
-  methods: {
-    initComponent() {
+
+  computed: {
+    partnersForFilters() {
       const foundPartner = this.selectedFilters.find(
         p => p.id === 'getadmin.users.filters.partners'
       );
-      if (foundPartner) {
-        this.partnersForFilters = [foundPartner.data];
+      if (this.partner) {
+        return [this.partner.data];
       }
 
-      if (this.selectedData) {
-        if (foundPartner) {
-          const isSelectedDataValid = this.selectedData.data.party.id === foundPartner.data.id;
-          if (!isSelectedDataValid) {
-            this.selectedBillingAccount = undefined;
-          } else {
-            this.selectedBillingAccount = this.selectedData.data;
-          }
-        } else {
-          this.selectedBillingAccount = this.selectedData.data;
-        }
-      }
-
-      setTimeout(() => {
-        this.isReady = true;
-      });
+      return undefined;
     },
-  },
-  computed: {
+    selectedBillingAccount: {
+      get() {
+        if (!this.selectedData) return;
+        if (!this.partner) return;
+
+        const isSelectedDataValid = this.selectedData.data.party.id === this.partner.data.id;
+        if (isSelectedDataValid) {
+          return this.selectedData.data;
+        }
+
+        return undefined;
+
+      },
+      set(selectedBillingAccount) {
+        if (!this.isReady) return;
+
+        this.$emit('change', selectedBillingAccount);
+      },
+    },
     partner() {
       return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
     },
   },
 
-  watch: {
-    selectedBillingAccount(selectedBillingAccount) {
-      if (!this.isReady) return;
 
-      if (selectedBillingAccount) {
-        if (selectedBillingAccount.id) {
-          this.$emit('change', selectedBillingAccount);
-        }
-      } else {
-        this.$emit('change', undefined);
-      }
-    },
-    selectedFilters() {
-      this.initComponent();
-    },
-  },
 };
 </script>
 

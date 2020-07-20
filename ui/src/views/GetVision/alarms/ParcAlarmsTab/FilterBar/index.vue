@@ -7,7 +7,15 @@
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
-      />
+      >
+        <template v-slot:actions="{ hasAnyValue }">
+          <div class="actions d-flex flex-column flex-md-row mb-2">
+            <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
+              >Appliquer / Rafraichir</UiButton
+            >
+          </div>
+        </template>
+      </SelectedFilters>
       <draggable handle=".handle">
         <transition-group>
           <FoldableBlock
@@ -51,6 +59,7 @@ import AlarmsOffersFilter from './AlarmsOffersFilter';
 import AlarmsRange from './AlarmsRange';
 import AlarmType from './AlarmType';
 import DateTriggerAlarm from './DateTriggerAlarm';
+import UiButton from '@/components/ui/Button';
 
 export default {
   components: {
@@ -63,6 +72,7 @@ export default {
     AlarmsRange,
     AlarmType,
     DateTriggerAlarm,
+    UiButton
   },
 
   computed: {

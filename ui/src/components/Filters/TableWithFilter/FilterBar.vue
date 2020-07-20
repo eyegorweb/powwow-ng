@@ -10,8 +10,11 @@
         @clear="onRemoveFilter"
         :hide-apply="alwaysShowButton"
         can-save
-      />
-
+      >
+        <template v-slot:actions="{ hasAnyValue }">
+          <slot name="actions" :hasAnyValue="hasAnyValue" :onSearch="applyFilters"></slot>
+        </template>
+      </SelectedFilters>
       <div
         v-if="alwaysShowButton && !allAreHidden"
         class="actions d-flex flex-column flex-md-row mb-2"

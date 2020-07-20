@@ -9,7 +9,15 @@
           :default-values="defaultValues"
           @applyFilters="doSearch"
           @noMoreFilters="onAllFiltersCleared"
-        />
+        >
+          <template v-slot:actions="{ hasAnyValue, onSearch }">
+            <div class="actions d-flex flex-column flex-md-row mb-2">
+              <UiButton variant="primary" @click="onSearch" class="flex-grow-1 py-1 px-3 ml-1"
+                >Appliquer / Rafraichir</UiButton
+              >
+            </div>
+          </template>
+        </FilterBar>
       </div>
       <div class="col-md-9">
         <slot name="before-table" />
@@ -71,6 +79,7 @@ import FilterBar from './FilterBar';
 import ResultDataTable from './ResultDataTable';
 import TableWithFilterSkeleton from './TableWithFilterSkeleton';
 import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+import UiButton from '@/components/ui/Button';
 
 export default {
   components: {
@@ -78,6 +87,7 @@ export default {
     ResultDataTable,
     TableWithFilterSkeleton,
     TableSkeleton,
+    UiButton
   },
 
   props: {

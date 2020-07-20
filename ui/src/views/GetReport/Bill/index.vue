@@ -197,7 +197,7 @@ export default {
         onChange(chosenValue) {
           return {
             id: 'filters.billingAccounts',
-            value: chosenValue ? chosenValue.name : '',
+            value: chosenValue ? chosenValue.label : '',
             data: chosenValue,
           };
         },
