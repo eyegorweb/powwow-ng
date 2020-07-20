@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.66+20200720090527
+2020-07-20
+
+### Fixes
+
+- Correction du bouton 'appliquer les filtres' (204019609a98718b344502c05fd0a30d7dcf558a)
+
 ## 1.0.0-master.65+20200717083347
 2020-07-17
 
