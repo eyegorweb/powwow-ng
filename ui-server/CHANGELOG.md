@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.69+20200721095149
+2020-07-21
+
+### Features
+
+- nouveau composant de pagination (815b1bc7d5cb01a471644293098eb69d3d39dca8)
+
 ## 1.0.0-master.68+20200720121644
 2020-07-20
 
