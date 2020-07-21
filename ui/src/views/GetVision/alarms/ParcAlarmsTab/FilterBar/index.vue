@@ -72,7 +72,7 @@ export default {
     AlarmsRange,
     AlarmType,
     DateTriggerAlarm,
-    UiButton
+    UiButton,
   },
 
   computed: {

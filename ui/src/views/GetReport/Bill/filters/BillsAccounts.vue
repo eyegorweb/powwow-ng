@@ -28,12 +28,8 @@ export default {
     });
   },
 
-
   computed: {
     partnersForFilters() {
-      const foundPartner = this.selectedFilters.find(
-        p => p.id === 'getadmin.users.filters.partners'
-      );
       if (this.partner) {
         return [this.partner.data];
       }
@@ -51,7 +47,6 @@ export default {
         }
 
         return undefined;
-
       },
       set(selectedBillingAccount) {
         if (!this.isReady) return;
@@ -63,8 +58,6 @@ export default {
       return this.selectedFilters.find(f => f.id === 'getadmin.users.filters.partners');
     },
   },
-
-
 };
 </script>
 
