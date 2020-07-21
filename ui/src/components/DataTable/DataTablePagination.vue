@@ -1,6 +1,6 @@
 <template>
   <ul class="pagination list-unstyled">
-    <li v-if="page - 10 > 0" :class="{ disabled: page <= 1 }" @click="previousPage(10)">&laquo;</li>
+    <li :class="{ disabled: page <= 1 }" @click="gotoFirst()">&laquo;</li>
     <li :class="{ disabled: page <= 1 }" @click="previousPage()">&lt;</li>
     <li
       :class="{ active: isPageActive(index) }"
@@ -11,7 +11,7 @@
       {{ index }}
     </li>
     <li @click="nextPage()">&gt;</li>
-    <li v-if="page + 10 <= pageCount" @click="nextPage(10)">&raquo;</li>
+    <li @click="gotoLast()">&raquo;</li>
   </ul>
 </template>
 
@@ -55,6 +55,12 @@ export default {
     },
   },
   methods: {
+    gotoFirst() {
+      this.gotoPage(1);
+    },
+    gotoLast() {
+      this.gotoPage(this.pageCount);
+    },
     isPageActive(index) {
       return index === this.page;
     },
@@ -96,10 +102,12 @@ export default {
     }
 
     &:hover {
-      &:not(.active),
-      &:not(.disabled) {
+      cursor: pointer;
+      background: $medium-gray;
+
+      &.active {
         cursor: pointer;
-        background: $medium-gray;
+        background: $primary;
       }
     }
   }
