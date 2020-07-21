@@ -15,10 +15,10 @@
       :max-columns-number="size"
     />
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <slot name="topLeftCorner" />
       </div>
-      <div v-if="page" class="col-md-5">
+      <div v-if="page" class="col-md-6">
         <div class="float-left">
           <label class="form-group">
             {{ $t('numberPerPage') }}:

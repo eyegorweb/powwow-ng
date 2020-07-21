@@ -95,7 +95,6 @@ import DateStart from './DateStart';
 import DateEnd from './DateEnd';
 import UiButton from '@/components/ui/Button';
 
-
 export default {
   components: {
     draggable,
@@ -109,7 +108,7 @@ export default {
     DateEnd,
     ManagementActStatusFilter,
     ManagementActionServices,
-    UiButton
+    UiButton,
   },
   data() {
     return {

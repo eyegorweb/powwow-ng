@@ -87,7 +87,7 @@ export default {
     ResultDataTable,
     TableWithFilterSkeleton,
     TableSkeleton,
-    UiButton
+    UiButton,
   },
 
   props: {

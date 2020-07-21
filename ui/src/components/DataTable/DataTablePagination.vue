@@ -1,28 +1,31 @@
 <template>
-  <ul class="pagination mb-0">
-    <li class="page-item" :class="{ disabled: page <= 1 }">
-      <button class="page-link" @click="previousPage()">
-        <span class="ic-Arrow-Previous-Icon" />
-      </button>
-    </li>
+  <ul class="pagination list-unstyled">
+    <li v-if="page - 10 > 0" :class="{ disabled: page <= 1 }" @click="previousPage(10)">&laquo;</li>
+    <li :class="{ disabled: page <= 1 }" @click="previousPage()">&lt;</li>
     <li
-      class="page-item page-nb"
       :class="{ active: isPageActive(index) }"
       :key="'page_' + index"
       v-for="index in pagesToShow"
+      @click="gotoPage(index)"
     >
-      <button class="page-link" @click="gotoPage(index)">{{ index }}</button>
+      {{ index }}
     </li>
-
-    <li class="page-item" :class="{ disabled: page >= pageCount }">
-      <button class="page-link" @click="nextPage()">
-        <span class="ic-Arrow-Next-Icon" />
-      </button>
-    </li>
+    <li @click="nextPage()">&gt;</li>
+    <li v-if="page + 10 <= pageCount" @click="nextPage(10)">&raquo;</li>
   </ul>
 </template>
 
 <script>
+function getPagingRange(current, { min = 1, total = 20, length = 5 } = {}) {
+  if (length > total) length = total;
+
+  let start = current - Math.floor(length / 2);
+  start = Math.max(start, min);
+  start = Math.min(start, min + total - length);
+
+  return Array.from({ length }, (el, i) => start + i);
+}
+
 export default {
   props: {
     page: {
@@ -40,7 +43,7 @@ export default {
   },
   data() {
     return {
-      pageWindow: 3,
+      pageWindow: 5,
     };
   },
   computed: {
@@ -48,25 +51,7 @@ export default {
       return Math.ceil(this.total / this.pageLimit);
     },
     pagesToShow() {
-      if (this.pageCount > this.pageWindow) {
-        // first x pages
-        if (this.page <= this.pageWindow - 1) {
-          return this.pageWindow;
-        }
-
-        // last x pages
-        if (this.page === this.pageCount) {
-          // TODO: générer dynamiquement ce tableau ?
-          return [this.pageCount - 2, this.pageCount - 1, this.pageCount];
-        }
-        return [this.page - 1, this.page, this.page + 1];
-      }
-
-      if (this.pageCount <= this.pageWindow) {
-        return this.pageCount;
-      }
-
-      return [];
+      return getPagingRange(this.page, { total: this.pageCount, length: this.pageWindow });
     },
   },
   methods: {
@@ -76,51 +61,47 @@ export default {
     gotoPage(newPageNb) {
       this.$emit('update:page', newPageNb);
     },
-    previousPage() {
-      this.gotoPage(this.page - 1);
+    previousPage(nb = 1) {
+      if (this.page - nb > 0) {
+        this.gotoPage(this.page - nb);
+      }
     },
-    nextPage() {
-      this.gotoPage(this.page + 1);
+    nextPage(nb = 1) {
+      if (this.page + nb <= this.pageCount) {
+        this.gotoPage(this.page + nb);
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.page-item {
-  border: none;
+.pagination {
+  display: flex;
+  li {
+    padding: 0;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
 
-  .page-link {
-    border-color: $white;
-  }
-
-  &.disabled {
-    button {
-      color: #e1e1e1;
-      background-color: $light-gray;
-      border-color: currentColor;
+    &.disabled {
+      color: $gray-400;
     }
-  }
 
-  &.active {
-    .page-link {
-      color: inherit;
-      background-color: inherit;
+    &.active {
+      background: $primary;
+      color: white;
     }
-  }
-}
 
-.page-nb {
-  button {
-    background-color: transparent;
-    border: none;
-    font-weight: 500;
-    color: $gray;
-  }
-  &.active button {
-    color: $primary;
-    background-color: transparent;
-    z-index: inherit;
+    &:hover {
+      &:not(.active),
+      &:not(.disabled) {
+        cursor: pointer;
+        background: $medium-gray;
+      }
+    }
   }
 }
 </style>
