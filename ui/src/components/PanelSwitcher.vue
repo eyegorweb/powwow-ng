@@ -5,7 +5,7 @@
     :is-open="isOpen"
     @close="closePanel"
     :wide="wide"
-    :width="width"
+    :width="effectiveWidth"
     :backdrop="backdrop"
     :ignore-click-away="ignoreClickAway"
   >
@@ -62,6 +62,11 @@
         :content="payload"
       />
       <BillDetailPanel v-if="panelId === 'bills.detailPanel'" :content="payload" />
+      <CoachPanel
+        v-if="panelId === 'coach.title'"
+        :content="payload"
+        @setWidth="overridenWidth = $event"
+      />
     </div>
   </SlidePanel>
 </template>
@@ -103,21 +108,44 @@ export default {
     DeliveryAddressFormPanel: () =>
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
     BillDetailPanel: () => import('@/views/GetReport/Bill/BillDetailPanel.vue'),
+    CoachPanel: () => import('@/views/GetParc/CoachM2M/CoachPanel.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),
   },
-  computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
-    title: state => state.ui.panelTitle,
-    panelId: state => state.ui.panelId,
-    wide: state => state.ui.isPanelWide,
-    payload: state => state.ui.panelPayload,
-    backdrop: state => state.ui.backdrop,
-    titleConf: state => state.ui.panelTitleConf,
-    ignoreClickAway: state => state.ui.ignoreClickAway,
-    width: state => state.ui.width,
-  }),
+  computed: {
+    ...mapState({
+      isOpen: state => state.ui.isPanelOpen,
+      title: state => state.ui.panelTitle,
+      panelId: state => state.ui.panelId,
+      wide: state => state.ui.isPanelWide,
+      payload: state => state.ui.panelPayload,
+      backdrop: state => state.ui.backdrop,
+      titleConf: state => state.ui.panelTitleConf,
+      ignoreClickAway: state => state.ui.ignoreClickAway,
+      width: state => state.ui.width,
+    }),
+
+    effectiveWidth() {
+      if (this.overridenWidth) {
+        return this.overridenWidth;
+      }
+
+      return this.width;
+    },
+  },
+
+  watch: {
+    isOpen() {
+      this.overridenWidth = undefined;
+    },
+  },
+
+  data() {
+    return {
+      overridenWidth: undefined,
+    };
+  },
 };
 </script>
 

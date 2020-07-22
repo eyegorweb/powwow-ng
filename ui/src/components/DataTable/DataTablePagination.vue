@@ -84,6 +84,7 @@ export default {
 <style lang="scss" scoped>
 .pagination {
   display: flex;
+  user-select: none;
   li {
     padding: 0;
     border-radius: 50%;
