@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.71+20200722134814
+2020-07-22
+
+### Features
+
+- partie front du panel du coach M2M (b84812f4ca915ea7383a50bd76186734644a3c36)
+
 ## 1.0.0-master.70+20200721115220
 2020-07-21
 
