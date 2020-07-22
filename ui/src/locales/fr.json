@@ -240,6 +240,17 @@
     "billPeriod": "Période facturée",
     "lineTotal": "Nombre de lignes"
   },
+  "coach": {
+    "title": "Coach",
+    "reTest": "Relancer le test",
+    "compare": "Comparer",
+    "cancelTest": "Annuler le diagnostique comparé",
+    "compareOther": "Comparer avec une autre ligne",
+    "testLine": "Tester la ligne",
+    "chooseLine": "Choisir une ligne",
+    "currentLine": "Ligne actuelle {lineId}",
+    "compareLine": "Ligne de comparaison"
+  },
   "getsim": {
     "manage-orders": "Gestion des commandes",
     "step-product": "Choisir un type de carte SIM",

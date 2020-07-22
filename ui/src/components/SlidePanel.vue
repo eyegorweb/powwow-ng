@@ -134,7 +134,7 @@ export default {
   background: white;
   z-index: 3;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s 0s;
+  transition: transform 0.3s 0s, width 0.2s;
   transform: translateY(-4em);
   h1 {
     padding: 0.6em;
@@ -261,7 +261,7 @@ export default {
   top: 0;
   background: #f3f3f3;
   z-index: 2;
-  transition: transform 0.3s 0.3s;
+  transition: transform 0.3s 0.3s, width 0.2s linear;
   box-shadow: -5px -5px 19px rgba(0, 0, 0, 0.2);
 }
 
