@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.74+20200724081834
+2020-07-24
+
+### Fixes
+
+- Annulation d'un acte de masse (67cfb87297334f6e647fb897d9cf34e37976157e)
+
 ## 1.0.0-master.73+20200724074745
 2020-07-24
 
