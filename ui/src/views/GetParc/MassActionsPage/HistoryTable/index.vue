@@ -6,7 +6,7 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
             {{ $t('getparc.history.total', { total: formattedTotal }) }}
           </h2>
         </div>
@@ -30,6 +30,7 @@
           :order-by.sync="orderBy"
           :show-extra-columns.sync="showExtraCells"
           :size="7"
+          @colEvent="onColEvent"
         >
           <template slot="topLeftCorner">
             <SearchMassActionsById @searchById="searchById" :init-value="searchByIdValue" />
@@ -228,6 +229,12 @@ export default {
   methods: {
     ...mapActions('actHistory', ['fetchActionsFromApi']),
     ...mapMutations('actHistory', ['setPage', 'forceAppliedFilters']),
+
+    onColEvent(event) {
+      if (event.resetSearch) {
+        this.fetchMassActions();
+      }
+    },
 
     onRefreshSearch() {
       this.fetchMassActions();

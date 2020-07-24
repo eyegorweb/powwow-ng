@@ -378,7 +378,6 @@ async function geoMap(filters) {
 }
 
 export async function fetchSupervisionGraphData(filters) {
-  console.log(filters);
   const queryStr = `query SupervisionDataGraph($supervisionType: SupervisionGraphType!, $params: GeoLocSearchParams!
     $beginDate: Date,
     $endDate: Date){

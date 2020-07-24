@@ -20,7 +20,7 @@ export default {
       const type = get(this.row, 'type');
       const date = this.formattedDate(get(this.row, 'massAction.dueDate'));
       const doReset = () => {
-        this.$emit('refreshSearch');
+        this.$emit('colEvent', { resetSearch: true });
       };
 
       const openTrigger = () => {
