@@ -31,6 +31,11 @@ export default {
   mounted() {
     this.refreshData();
   },
+  watch: {
+    filters() {
+      this.refreshData();
+    },
+  },
 
   methods: {
     sumAllData(dataOut, dataIn) {
@@ -44,7 +49,7 @@ export default {
     async refreshData() {
       const data = await fetchSupervisionGraphData({
         supervisionType: this.supervisionType,
-        params: this.filters,
+        ...this.filters,
       });
 
       if (!data) return;
