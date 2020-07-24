@@ -397,22 +397,20 @@ export default {
           createComboFilter('types', TypesFilter);
           createComboFilter('col.label', LabelFilter);
         }
-
-        //*
-        currentVisibleFilters.push({
-          title: 'common.period',
-          component: DateRangeFilter,
-          onChange(chosen) {
-            return {
-              id: 'common.period',
-              startDate: chosen.startDate,
-              endDate: chosen.endDate,
-              data: chosen,
-            };
-          },
-        });
-        //*/
       }
+
+      currentVisibleFilters.push({
+        title: 'common.period',
+        component: DateRangeFilter,
+        onChange(chosen) {
+          return {
+            id: 'common.period',
+            startDate: chosen.startDate,
+            endDate: chosen.endDate,
+            data: chosen,
+          };
+        },
+      });
 
       return currentVisibleFilters;
     },

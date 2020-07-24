@@ -31,6 +31,12 @@ export default {
     this.refreshData();
   },
 
+  watch: {
+    filters() {
+      this.refreshData();
+    },
+  },
+
   methods: {
     sumAllData(dataOut, dataIn) {
       let all = dataOut.map(n => {
@@ -43,7 +49,7 @@ export default {
     async refreshData() {
       const data = await fetchSupervisionGraphVoice({
         supervisionType: this.supervisionType,
-        params: this.filters,
+        ...this.filters,
       });
 
       if (!data) return;
