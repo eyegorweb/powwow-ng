@@ -85,7 +85,7 @@ import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
 import IdentifierFilter from './filters/IdentifierFilter';
 
-// import DateRangeFilter from './filters/DateRangeFilter';
+import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -398,7 +398,7 @@ export default {
           createComboFilter('col.label', LabelFilter);
         }
 
-        /*
+        //*
         currentVisibleFilters.push({
           title: 'common.period',
           component: DateRangeFilter,
