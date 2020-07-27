@@ -32,7 +32,9 @@
         </li>
       </ul>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ fileMeta.error }}</div>
+    <div v-if="error" class="alert alert-danger" role="alert">
+      {{ $t('getparc.actCreation.report.' + fileMeta.error) }}
+    </div>
   </div>
 </template>
 
@@ -64,10 +66,15 @@ export default {
   },
   watch: {
     error() {
-      if (this.selectedFile.type !== 'application/vnd.ms-excel') {
-        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
+      if (
+        this.selectedFile.type !== 'application/vnd.ms-excel' &&
+        this.selectedFile.type !==
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+        this.selectedFile.type !== 'text/csv'
+      ) {
+        this.fileMeta.error = 'DATA_INVALID_FORMAT';
       } else if (this.selectedFile.size > 1000000) {
-        this.fileMeta.error = this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
+        this.fileMeta.error = 'FILE_SIZE_LIMIT_EXCEEDED';
       }
     },
   },
@@ -86,6 +93,7 @@ export default {
       async set(lastSelectedFile) {
         if (lastSelectedFile) {
           this.lastSelectedFileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
+          console.log(' this.lastSelectedFileResponse >> ', this.lastSelectedFileResponse);
           this.$emit('response', {
             // fileName: this.lastSelectedFile.name,
             file: lastSelectedFile,

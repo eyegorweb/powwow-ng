@@ -1157,14 +1157,16 @@
       "report": {
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
-        "DATA_SIZE_EXCEED": "Le fichier est trop volumineux",
+        "FILE_SIZE_LIMIT_EXCEEDED": "Le fichier est trop volumineux",
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
         "DATA_WRONG_STATUS": "Statut invalide",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
-        "EMPTY_FILE": "Fichier vide"
+        "EMPTY_FILE": "Fichier vide",
+        "FILE_EXTENSION_INVALID": "Extension de fichier invalide",
+        "FILE_CONTENT_INVALID": "Contenu de fichier invalide"
       },
 
       "transfertCF": {

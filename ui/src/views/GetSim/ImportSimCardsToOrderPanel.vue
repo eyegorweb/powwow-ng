@@ -149,6 +149,11 @@ export default {
       } else if (fileMeta.size > 1000000) {
         return this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
       }
+
+      if (fileMeta.error) {
+        return this.$t('getparc.actCreation.report.' + fileMeta.error);
+      }
+
       return;
     },
     async confirmRequest(showMessage = false) {
