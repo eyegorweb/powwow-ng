@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.75+20200727134407
+2020-07-27
+
+### Fixes
+
+- Réinitialisation du calendrier (265033cf7b5c462e4d99a1ddb62f14c93da4a786)
+
 ## 1.0.0-master.74+20200724081834
 2020-07-24
 
