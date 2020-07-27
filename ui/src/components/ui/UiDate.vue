@@ -4,7 +4,7 @@
       <div class="col">
         <i class="icon ic-Calendar-Icon" />
       </div>
-      <div clasDats="col-9 value" style="padding: 0;">
+      <div class="col-9 value" style="padding: 0;">
         <span>{{ value }}</span>
       </div>
       <div>
