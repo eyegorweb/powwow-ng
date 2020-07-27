@@ -25,7 +25,7 @@ import 'daterangepicker/daterangepicker.css';
 export default {
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   props: {
     value: {

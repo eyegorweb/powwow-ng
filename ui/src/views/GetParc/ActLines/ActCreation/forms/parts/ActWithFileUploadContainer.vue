@@ -131,7 +131,11 @@ export default {
     ...mapMutations(['flashMessage']),
 
     validFile(file) {
-      if (file.type !== 'application/vnd.ms-excel') {
+      if (
+        file.type !== 'application/vnd.ms-excel' &&
+        file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
+        file.type !== 'text/csv'
+      ) {
         this.disableForced = true;
         this.requestErrors = [
           {
@@ -142,7 +146,14 @@ export default {
         this.disableForced = true;
         this.requestErrors = [
           {
-            message: this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED'),
+            message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
+          },
+        ];
+      } else if (file.error) {
+        this.disableForced = true;
+        this.requestErrors = [
+          {
+            message: this.$t('getparc.actCreation.report.' + file.error),
           },
         ];
       } else {
@@ -162,16 +173,10 @@ export default {
         this.tempDataUuid = response.tempDataUuid;
         this.contextValues = contextValues;
       } else {
-        if (response.error.includes('400')) {
+        if (response.error) {
           this.requestErrors = [
             {
-              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
-            },
-          ];
-        } else {
-          this.requestErrors = [
-            {
-              message: response.error,
+              message: this.$t('getparc.actCreation.report.' + response.error),
             },
           ];
         }
