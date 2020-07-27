@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.76+20200727145357
+2020-07-27
+
+### Fixes
+
+- Gestion des nouveaux codes d'erreurs d'import de fichier (d5d0284ec09a28c3fb0c7fdb73940ff5c94551e0)
+
 ## 1.0.0-master.75+20200727134407
 2020-07-27
 
