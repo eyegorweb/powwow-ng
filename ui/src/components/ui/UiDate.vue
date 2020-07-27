@@ -4,7 +4,7 @@
       <div class="col">
         <i class="icon ic-Calendar-Icon" />
       </div>
-      <div class="col-9 value" style="padding: 0">
+      <div clasDats="col-9 value" style="padding: 0;">
         <span>{{ value }}</span>
       </div>
       <div>
@@ -23,6 +23,10 @@ import 'daterangepicker/daterangepicker.js';
 import 'daterangepicker/daterangepicker.css';
 
 export default {
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   props: {
     value: {
       type: String,
@@ -64,7 +68,7 @@ export default {
         this.dateInstance = $(this.$refs.singledate).daterangepicker(
           {
             singleDatePicker: true,
-            startDate: this.value,
+            startDate: this.value ? this.value : undefined,
             drops: this.direction,
             timePicker: this.timePicker,
             timePicker24Hour: true,
