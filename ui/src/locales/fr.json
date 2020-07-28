@@ -87,6 +87,12 @@
     "DOWNLOAD": "Télécharger",
     "MODIFY": "Modifier"
   },
+  "frequencies": {
+    "ONCE": "Une seule fois",
+    "DAILY": "Journalier",
+    "WEEKLY": "Hebdomadaire",
+    "MONTHLY": "Mensuel"
+  },
   "home": {
     "customize": {
       "title": "Ajouter/Supprimer des widgets"
