@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.79+20200728150204
+2020-07-28
+
+### Fixes
+
+- corrections et améliorations des graphes Dashboard de la page getDevices (2866ed00b43f3fc02cdd8fb677e18a69f0a81fbd)
+
 ## 1.0.0-master.78+20200728140931
 2020-07-28
 
