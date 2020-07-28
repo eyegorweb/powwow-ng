@@ -10,21 +10,15 @@
         @colEvent="onRowSelect"
       />
     </div>
-    <UiButton
-      @click="transferRequest('IN_PROGRESS')"
-      :variant="'info'"
-      class="transferSim-button"
-    >Traitement en cours</UiButton>
-    <UiButton
-      @click="transferRequest('VALIDATE')"
-      :variant="'primary'"
-      class="transferSim-button"
-    >Valider le take-over</UiButton>
-    <UiButton
-      @click="transferRequest('CANCEL')"
-      :variant="'danger'"
-      class="transferSim-button"
-    >Refuser le take-over</UiButton>
+    <UiButton @click="transferRequest('IN_PROGRESS')" :variant="'info'" class="transferSim-button"
+      >Traitement en cours</UiButton
+    >
+    <UiButton @click="transferRequest('VALIDATE')" :variant="'primary'" class="transferSim-button"
+      >Valider le take-over</UiButton
+    >
+    <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button"
+      >Refuser le take-over</UiButton
+    >
   </div>
 </template>
 
@@ -40,9 +34,6 @@ import UiButton from '@/components/ui/Button';
 export default {
   components: {
     PaginatedDataTable,
-    CheckBoxCell,
-    ToPartner,
-    FromPartner,
     UiButton,
   },
 
@@ -80,11 +71,11 @@ export default {
     fetchTransferId() {
       this.transferIds = [];
       if (this.selectedRows.length > 0) {
-        this.selectedRows.forEach((e) => {
+        this.selectedRows.forEach(e => {
           this.transferIds.push(e.transferId);
         });
       } else {
-        this.data.transferSimRequests.forEach((e) => {
+        this.data.transferSimRequests.forEach(e => {
           this.transferIds.push(e.transferId);
         });
       }
@@ -96,18 +87,17 @@ export default {
       }
       if (payload.remove) {
         this.selectedRows = this.selectedRows.filter(
-          (r) => r.transferId !== payload.remove.transferId
+          r => r.transferId !== payload.remove.transferId
         );
       }
     },
 
     getFetchTransferSimDataFN() {
-      return async (data) => {
-        const response = await fetchTransferSim();
-        this.data = response;
+      return async () => {
+        this.data = await fetchTransferSim();
         return {
-          rows: response.transferSimRequests,
-          total: response.transferSimRequests.length,
+          rows: this.data.transferSimRequests,
+          total: this.data.transferSimRequests.length,
         };
       };
     },
