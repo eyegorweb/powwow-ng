@@ -1,13 +1,11 @@
 <template>
-  <GraphContainer
-    title="Répartition du parc par zone"
-    :size="4"
-    :can-show="!!(partner && partner.id)"
-  >
+  <GraphContainer title="Répartition du parc par zone" :size="4" :can-show="canShow">
+    <div slot="onHide">
+      {{ $t('getreport.errors.partnerRequired') }}
+    </div>
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
   </GraphContainer>
 </template>
 
@@ -42,6 +40,11 @@ export default {
       if (!this.billingAccount) return;
       return this.billingAccount.data.id;
     },
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      if (partnerChosen) return true;
+      return false;
+    },
   },
 
   async mounted() {
@@ -54,7 +57,7 @@ export default {
   },
   methods: {
     async refreshData() {
-      if (!this.partner) return;
+      if (!this.canShow) return;
 
       const data = await doughnutAreaDistribution(
         this.partner.id,

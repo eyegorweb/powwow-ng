@@ -60,8 +60,10 @@ export default {
           return (
             (f.values && f.values.length > 0) ||
             (f.value && f.value !== '') ||
-            (f.startDate || f.endDate) ||
-            (f.from || f.to)
+            f.startDate ||
+            f.endDate ||
+            f.from ||
+            f.to
           );
         })
       );

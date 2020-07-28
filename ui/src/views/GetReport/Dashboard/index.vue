@@ -48,7 +48,7 @@
               />
             </div>
             <div class="row">
-              <ConsoHistoryGraph
+              <ConsoHistoryGraphs
                 :partner="appliedPartner"
                 :offer="appliedOffer"
                 :billing-account="appliedBillingAccount"
@@ -91,35 +91,6 @@
             </div>
           </div>
         </FoldableBlock>
-        <!--
-        <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
-          <div>
-            <div class="row">
-              <BilledAmountsGraph />
-            </div>
-            <div class="row">
-              <AmountByBilledLinesGraph />
-            </div>
-            <div class="row">
-              <BilledAmountsByZone />
-            </div>
-            <div class="row">
-              <BilledLinesNBGraph />
-            </div>
-            <div class="row">
-              <BilledLinesByZone />
-            </div>
-
-            <div class="row">
-              <LinesThreshold />
-            </div>
-
-            <div class="row">
-              <ServicesGraph />
-            </div>
-          </div>
-        </FoldableBlock>
-        -->
         <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
           <div>
             <div class="row">
@@ -145,19 +116,12 @@ import BillingAccountAutocomplete from '@/components/CustomComboxes/BillingAccou
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
 import FoldableBlock from '@/components/FoldableBlock';
 import draggable from 'vuedraggable';
-import ConsoHistoryGraph from './ConsoHistoryGraph';
+import ConsoHistoryGraphs from './ConsoHistoryGraphs';
 import LocalisationGraph from './LocalisationGraph';
 import ParcByOffersGraph from './ParcByOffersGraph';
 import LinesPerZoneGraph from './LinesPerZoneGraph';
 import LinesByPLMNGraph from './LinesByPLMNGraph';
 import ParcStateGraph from './ParcStateGraph';
-// import BilledAmountsGraph from './BilledAmountsGraph';
-// import BilledAmountsByZone from './BilledAmountsByZone';
-// import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
-// import BilledLinesNBGraph from './BilledLinesNBGraph';
-// import BilledLinesByZone from './BilledLinesByZone';
-// import LinesThreshold from './LinesThreshold';
-// import ServicesGraph from './ServicesGraph';
 import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
 import ReportGauges from './ReportGauges';
 
@@ -173,19 +137,12 @@ export default {
     OfferCombo,
     draggable,
     FoldableBlock,
-    ConsoHistoryGraph,
+    ConsoHistoryGraphs,
     LocalisationGraph,
     ParcByOffersGraph,
     LinesPerZoneGraph,
     LinesByPLMNGraph,
     ParcStateGraph,
-    // BilledAmountsGraph,
-    // AmountByBilledLinesGraph,
-    // BilledAmountsByZone,
-    // BilledLinesNBGraph,
-    // BilledLinesByZone,
-    // LinesThreshold,
-    // ServicesGraph,
     AlarmsPerDayContainerGraph,
     ReportGauges,
   },
@@ -209,7 +166,7 @@ export default {
       selectedPartner: undefined,
       selectedBillingAccount: undefined,
       selectedOffer: undefined,
-      partnersForFilters: [],
+      partnersForFilters: undefined,
 
       appliedPartner: undefined,
       appliedBillingAccount: undefined,

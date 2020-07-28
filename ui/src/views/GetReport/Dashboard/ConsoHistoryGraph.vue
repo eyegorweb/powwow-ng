@@ -1,12 +1,13 @@
 <template>
-  <GraphContainer title="Historique des consommations" :size="12" :can-show="canShow">
+  <GraphContainer
+    title="Historique des consommations"
+    :size="12"
+    :can-show="canShow"
+    :warning="showWarningMsg"
+    :tooltip-msg="tooltipMsg"
+  >
     <div slot="onHide">
-      <div class="alert alert-warning" v-if="offer">
-        {{ $t('getreport.errors.dontSelectOffer') }}
-      </div>
-      <div v-else>
-        {{ $t('getreport.errors.partnerRequired') }}
-      </div>
+      {{ $t('getreport.errors.partnerRequired') }}
     </div>
     <div>
       <div class="d-flex justify-content-end">
@@ -29,6 +30,8 @@ import { Chart } from 'highcharts-vue';
 import { fetchConsoHistory } from '@/api/consumption.js';
 import { getMonthString } from '@/utils/date';
 import Toggle from '@/components/ui/UiToggle2';
+
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 
 export default {
   components: {
@@ -53,6 +56,14 @@ export default {
         return partnerChosen;
       }
     },
+    showWarningMsg() {
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 
   data() {
@@ -60,6 +71,7 @@ export default {
       chartOptions: undefined,
       apiData: undefined,
       currentUsage: 'data',
+      tooltipMsg: this.$t('getdevice.messages.warning2'),
       toggleValues: [
         {
           id: 'data',
@@ -98,57 +110,87 @@ export default {
     async createGraph() {
       if (!this.canShow) return;
 
-      if (!this.apiData) {
-        const params = {
-          partyId: this.partner.id,
-        };
+      const params = {
+        partyId: this.partner.id,
+      };
 
-        if (this.billingAccount) {
-          params.customerAccountCode = this.billingAccount.data.code;
-        }
-        this.apiData = await fetchConsoHistory(params);
+      if (this.billingAccount) {
+        params.customerAccountCode = this.billingAccount.data.code;
       }
+      this.apiData = await fetchConsoHistory(params);
 
       const smsConsumption = this.apiData.smsConsumption;
       const voiceConsumption = this.apiData.voiceConsumption;
       const dataConsumption = this.apiData.dataConsumption;
 
-      let consuptionToUse = undefined;
-
+      let dataSeries = undefined;
       if (this.currentUsage === 'data') {
-        consuptionToUse = dataConsumption;
+        dataSeries = dataConsumption.reduce(
+          (all, c) => {
+            const month = getMonthString(c.consumptionDate);
+            all.categories.push(month.slice(0, 3));
+            all.consumptionFrIn.push(c.consumptionFrIn);
+            all.consumptionFrOut.push(c.consumptionFrOut);
+            all.consumptionRoamingIn.push(c.consumptionRoamingIn);
+            all.consumptionRoamingOut.push(c.consumptionRoamingOut);
+            return all;
+          },
+          {
+            categories: [],
+            consumptionFrIn: [],
+            consumptionFrOut: [],
+            consumptionRoamingIn: [],
+            consumptionRoamingOut: [],
+          }
+        );
       }
 
       if (this.currentUsage === 'sms') {
-        consuptionToUse = smsConsumption;
+        dataSeries = smsConsumption.reduce(
+          (all, c) => {
+            const month = getMonthString(c.consumptionDate);
+            all.categories.push(month.slice(0, 3));
+            all.consumptionFrIn.push(c.consumptionFrIn);
+            all.consumptionFrOut.push(c.consumptionFrOut);
+            all.consumptionRoamingIn.push(c.consumptionRoamingIn);
+            all.consumptionRoamingOut.push(c.consumptionRoamingOut);
+            return all;
+          },
+          {
+            categories: [],
+            consumptionFrIn: [],
+            consumptionFrOut: [],
+            consumptionRoamingIn: [],
+            consumptionRoamingOut: [],
+          }
+        );
       }
 
       if (this.currentUsage === 'voice') {
-        consuptionToUse = voiceConsumption;
+        dataSeries = voiceConsumption.reduce(
+          (all, c) => {
+            const month = getMonthString(c.consumptionDate);
+            all.categories.push(month.slice(0, 3));
+            all.consumptionFrIn.push(c.consumptionFrIn);
+            all.consumptionFrOut.push(c.consumptionFrOut);
+            all.consumptionRoamingIn.push(c.consumptionRoamingIn);
+            all.consumptionRoamingOut.push(c.consumptionRoamingOut);
+            return all;
+          },
+          {
+            categories: [],
+            consumptionFrIn: [],
+            consumptionFrOut: [],
+            consumptionRoamingIn: [],
+            consumptionRoamingOut: [],
+          }
+        );
       }
 
-      if (!consuptionToUse) return;
-
-      const dataSeries = consuptionToUse.reduce(
-        (all, c) => {
-          const month = getMonthString(c.consumptionDate);
-          all.categories.push(month.slice(0, 3));
-          all.consumptionFrIn.push(c.consumptionFrIn);
-          all.consumptionFrOut.push(c.consumptionFrOut);
-          all.consumptionRoamingIn.push(c.consumptionRoamingIn);
-          all.consumptionRoamingOut.push(c.consumptionRoamingOut);
-          return all;
-        },
-        {
-          categories: [],
-          consumptionFrIn: [],
-          consumptionFrOut: [],
-          consumptionRoamingIn: [],
-          consumptionRoamingOut: [],
-        }
-      );
+      if (!dataSeries) return;
 
       // transformer les données
+      const currentUsage = this.currentUsage;
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -187,17 +229,43 @@ export default {
         },
         tooltip: {
           formatter() {
-            return (
-              '<b>' +
-              this.x +
-              '</b><br/>' +
-              this.series.name +
-              ': ' +
-              this.y +
-              '<br/>' +
-              'Total: ' +
-              this.point.stackTotal
-            );
+            if (currentUsage === 'data') {
+              return (
+                '<b>' +
+                this.x +
+                '</b><br/>' +
+                this.series.name +
+                ': ' +
+                formatBytes(this.y) +
+                '<br/>' +
+                'Total: ' +
+                formatBytes(this.point.stackTotal)
+              );
+            } else if (currentUsage === 'voice') {
+              return (
+                '<b>' +
+                this.x +
+                '</b><br/>' +
+                this.series.name +
+                ': ' +
+                resumeFormattedValueFromSeconds(this.y) +
+                '<br/>' +
+                'Total: ' +
+                resumeFormattedValueFromSeconds(this.point.stackTotal)
+              );
+            } else {
+              return (
+                '<b>' +
+                this.x +
+                '</b><br/>' +
+                this.series.name +
+                ': ' +
+                this.y +
+                '<br/>' +
+                'Total: ' +
+                this.point.stackTotal
+              );
+            }
           },
         },
 

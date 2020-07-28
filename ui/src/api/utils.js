@@ -304,18 +304,53 @@ export function resumeFormattedValueFromSeconds(value) {
 
   if (value > 86400) {
     if (hours > 9) {
-      return `${parseInt(days)}j${parseInt(hours, 10)}h${min}min${sec}sec`;
+      return `${parseInt(days)}j ${parseInt(hours, 10)}h ${min}min ${sec}sec`;
     }
     return `${parseInt(days)}j0${parseInt(hours, 10)}h${min}min${sec}sec`;
   } else if (value < 86400 && value > 3600) {
     if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)}h${min}min${sec}sec`;
+      return `${parseInt(hours, 10)}h ${min}min ${sec}sec`;
     }
-    return `0${parseInt(hours, 10)}h${min}min${sec}sec`;
+    return `0${parseInt(hours, 10)}h ${min}min ${sec}sec`;
   } else if (value === 0) {
     return `0`;
   } else {
-    return `${min}min${sec}sec`;
+    return `${min}min ${sec}sec`;
+  }
+}
+// temporaire, en attendant une mise en conformité de la demande pour tous les graphes
+export function resumeAndTruncateFormattedValueFromSeconds(value) {
+  let initialSeconds = value;
+  let duration = initialSeconds;
+  let days = duration / 86400;
+  duration = duration % 86400;
+  let hours = parseInt(duration / 3600);
+  duration = duration % 3600;
+  let min = parseInt(duration / 60);
+  duration = duration % 60;
+  let sec = parseInt(duration);
+
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (min < 10) {
+    min = `0${min}`;
+  }
+
+  if (value > 86400) {
+    if (hours > 9) {
+      return `${parseInt(days)}j`;
+    }
+    return `${parseInt(days)}j0${parseInt(hours, 10)}h${min}min${sec}sec`;
+  } else if (value < 86400 && value > 3600) {
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)}h`;
+    }
+    return `0${parseInt(hours, 10)}h`;
+  } else if (value === 0) {
+    return `0`;
+  } else {
+    return `${min}min`;
   }
 }
 

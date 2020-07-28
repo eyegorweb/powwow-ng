@@ -74,12 +74,10 @@ export default {
       if (!isNaN(this.maxValue)) {
         const value = parseInt(this.value);
         const max = parseInt(this.maxValue);
-
         return (value * 100) / max;
+      } else if (this.maxValue === '∞') {
+        return 50;
       } else {
-        if (parseInt(this.value) < 100) {
-          return 100;
-        }
         return this.value;
       }
     },

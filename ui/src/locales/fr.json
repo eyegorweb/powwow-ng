@@ -18,6 +18,7 @@
   "cancel": "Annuler",
   "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
+  "filter": "Filtrer",
   "confirm": "Confirmer",
   "delete": "Supprimer",
   "modify": "Modifier",
@@ -360,6 +361,10 @@
       "title-graph-top5-manufacturers": "Top 5 Fabriquant",
       "title-graph-techno-repartition": "Nombre de lignes par techno",
       "title-graph-top5-references": "Top 5 Références Commerciales"
+    },
+    "messages": {
+      "warning1": "Les filtres sur les CF et/ou les offres ne sont pas pris en compte",
+      "warning2": "Le filtre sur les offres n'est pas pris en compte"
     }
   },
   "getvsion": {
