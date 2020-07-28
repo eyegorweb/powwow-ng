@@ -6,12 +6,17 @@
           :key="'datag' + gaugeVersion"
           :value="dataValue"
           :max-value="maxData"
+          font-size="1.25rem"
           :format-value-fn="getDataFormat()"
           >DATA</Gauge
         >
       </div>
       <div class="col-md-4">
-        <Gauge :key="'smsg' + gaugeVersion" :value="smsValue" :max-value="maxSMS" arc-style="danger"
+        <Gauge
+          :key="'smsg' + gaugeVersion"
+          :value="smsValue"
+          :max-value="maxSMS"
+          font-size="1.25rem"
           >SMS</Gauge
         >
       </div>
@@ -21,7 +26,7 @@
           time-max-value
           :value="voiceValue"
           :max-value="maxVoice"
-          font-size="1.5rem"
+          font-size="1.25rem"
           :format-value-fn="getTimeFormatFn()"
           >VOIX</Gauge
         >
@@ -38,7 +43,7 @@ import Gauge from '@/components/widgets/Gauge';
 import { fetMaxValuesFromOfferPackage } from '@/api/offers.js';
 import { fetchCurrentConsumption } from '@/api/linesActions';
 
-import { formatBytes } from '@/api/utils';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 
 export default {
   components: {
@@ -46,39 +51,6 @@ export default {
   },
   props: {
     selectedOffer: Object,
-  },
-
-  methods: {
-    getDataFormat() {
-      return (valueToShow, originalValue) => {
-        if (isNaN(valueToShow)) {
-          return originalValue;
-        }
-        return formatBytes(valueToShow);
-      };
-    },
-    getTimeFormatFn() {
-      return (valueToShow, originalValue) => {
-        if (isNaN(valueToShow)) {
-          return originalValue;
-        }
-        let sec_num = parseInt(valueToShow, 10);
-        let hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - hours * 3600) / 60);
-        let seconds = sec_num - hours * 3600 - minutes * 60;
-
-        if (hours < 10) {
-          hours = '0' + hours;
-        }
-        if (minutes < 10) {
-          minutes = '0' + minutes;
-        }
-        if (seconds < 10) {
-          seconds = '0' + seconds;
-        }
-        return hours + ':' + minutes + ':' + seconds;
-      };
-    },
   },
 
   data() {
@@ -95,14 +67,37 @@ export default {
       maxSMS: undefined,
     };
   },
-  watch: {
-    async selectedOffer(selectedOffer) {
-      if (selectedOffer) {
-        const { maxData, maxVoice, maxSMS } = await fetMaxValuesFromOfferPackage(selectedOffer);
+
+  mounted() {
+    this.fetchData();
+  },
+
+  methods: {
+    getDataFormat() {
+      return (valueToShow, originalValue) => {
+        if (isNaN(valueToShow)) {
+          return originalValue;
+        }
+        return formatBytes(valueToShow);
+      };
+    },
+    getTimeFormatFn() {
+      return (valueToShow, originalValue) => {
+        if (isNaN(valueToShow)) {
+          return originalValue;
+        }
+        return formattedValueFromSeconds(valueToShow);
+      };
+    },
+    async fetchData() {
+      if (this.selectedOffer) {
+        const { maxData, maxVoice, maxSMS } = await fetMaxValuesFromOfferPackage(
+          this.selectedOffer
+        );
 
         const values = await fetchCurrentConsumption({
-          customerAccoutId: selectedOffer.customerAccoutId,
-          workflowId: selectedOffer.workflowId,
+          customerAccoutId: this.selectedOffer.customerAccoutId,
+          workflowId: this.selectedOffer.workflowId,
         });
 
         if (maxData) {
@@ -120,6 +115,12 @@ export default {
         this.voiceValue = values.voiceTotal;
         this.gaugeVersion += 1;
       }
+    },
+  },
+
+  watch: {
+    selectedOffer() {
+      this.fetchData();
     },
   },
 };

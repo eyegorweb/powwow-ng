@@ -1,15 +1,16 @@
 <template>
-  <GraphContainer title="Nombre d'alarmes déclenchées par jour" :size="12" :can-show="canShow">
+  <GraphContainer
+    title="Nombre d'alarmes déclenchées par jour"
+    :size="12"
+    :can-show="canShow"
+    :warning="showWarningMsg"
+    :tooltip-msg="tooltipMsg"
+  >
     <div>
       <AlarmsPerDayGraph title="" :partners="selectedPartnerIds" />
     </div>
     <div slot="onHide">
-      <div class="alert alert-warning" v-if="offer || billingAccount">
-        {{ $t('getreport.errors.dontSelectOfferOrCF') }}
-      </div>
-      <div v-else>
-        {{ $t('getreport.errors.partnerRequired') }}
-      </div>
+      {{ $t('getreport.errors.partnerRequired') }}
     </div>
   </GraphContainer>
 </template>
@@ -41,14 +42,15 @@ export default {
   computed: {
     canShow() {
       const partnerChosen = !!(this.partner && this.partner.id);
-      const offerChosen = !!(this.offer && this.offer.id);
-      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
+      if (partnerChosen) return true;
+      return false;
+    },
 
-      if (offerChosen && billingAccountChosen) {
-        return !offerChosen && !billingAccountChosen;
-      } else {
-        return partnerChosen && !offerChosen && !billingAccountChosen;
-      }
+    showWarningMsg() {
+      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (billingAccountChosen || offerChosen) return true;
+      return false;
     },
   },
 
@@ -61,6 +63,7 @@ export default {
   data() {
     return {
       selectedPartnerIds: [],
+      tooltipMsg: this.$t('getdevice.messages.warning1'),
     };
   },
 };
