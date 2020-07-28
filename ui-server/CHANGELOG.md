@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.78+20200728140931
+2020-07-28
+
+### Features
+
+- Ajout des cartes SIM dans le detail de partenaire (c4aa27984b43f2b92229984e0c802372090c6ec4)
+
+### Fixes
+
+- Corriger la consultation des rapports (04e80f48b13fd56b717b305418f73d6e1a06d7ff)
+
 ## 1.0.0-master.77+20200728075209
 2020-07-28
 
