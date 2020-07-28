@@ -201,19 +201,19 @@ export default {
       reportFrequencyChoices: [
         {
           id: 'ONCE',
-          label: 'Une seule fois',
+          label: 'frequencies.ONCE',
         },
         {
           id: 'DAILY',
-          label: 'Journalier',
+          label: 'frequencies.DAILY',
         },
         {
           id: 'WEEKLY',
-          label: 'Hebdomadaire',
+          label: 'frequencies.WEEKLY',
         },
         {
           id: 'MONTHLY',
-          label: 'Mensuel',
+          label: 'frequencies.MONTHLY',
         },
       ],
 
@@ -231,8 +231,8 @@ export default {
 
     let partnerID, partnerData;
 
+    /*
     if (this.content) {
-      this.preloadCheckBoxes(this.content.fields.split(','));
       this.reportFrequency = this.content.frequency;
       this.name = this.content.name;
 
@@ -278,8 +278,65 @@ export default {
       }
     }
 
-    await this.loadModels();
+        await this.loadModels();
 
+    if (this.content) {
+      this.preloadCheckBoxes(this.content.fields.split(','));
+    }
+
+    this.canShowForm = true;
+
+    //*/
+
+    const preselectPartner = async () => {
+      if (this.content) {
+        partnerID = this.content.party.id;
+      } else if (this.userIsPartner) {
+        partnerID = this.userInfos.partners[0].id;
+      }
+      if (partnerID) {
+        partnerData = await fetchpartnerById(partnerID, {
+          includeMailingLists: true,
+        });
+
+        if (partnerData) {
+          this.selectedPartner = {
+            id: partnerData.id,
+            label: partnerData.name,
+            data: partnerData,
+          };
+        }
+      }
+    };
+
+    const prefillForm = async () => {
+      if (this.content) {
+        this.reportFrequency = this.content.frequency;
+        this.name = this.content.name;
+        this.reportFrequencyChoices = this.reportFrequencyChoices.map(t => {
+          if (t.id === this.content.frequency) {
+            t.default = true;
+          }
+          return t;
+        });
+        this.generationDate = this.content.generationDate + ' 00:00:00';
+        this.shouldNotify = this.content.notification;
+        this.isActive = !this.content.disabled;
+        this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
+
+        this.fileFormat = this.content.exportFormat;
+        this.preloadCheckBoxes(this.content.fields.split(','));
+      } else if (this.userIsPartner) {
+        this.generationDate = currentDateTimeWithAdd(10, 'minutes');
+      } else {
+        this.generationDate = currentDateTimeWithAdd(10, 'minutes');
+      }
+    };
+
+    await preselectPartner();
+    this.resetCheckboxes();
+    await this.loadModels();
+    await prefillForm();
     this.canShowForm = true;
   },
 
@@ -294,8 +351,14 @@ export default {
       }
       this.preloadCheckBoxes(report.data.fields);
     },
-    async selectedPartner() {
-      await this.loadModels();
+    async selectedPartner(value, previous) {
+      if (value && value.id) {
+        if (!previous || (previous && previous.id && previous.id !== value.id)) {
+          if (this.canShowForm) {
+            await this.loadModels();
+          }
+        }
+      }
     },
   },
 
@@ -418,13 +481,17 @@ export default {
 
     async loadModels() {
       if (this.selectedPartner && this.selectedPartner.id) {
-        this.resetCheckboxes();
+        if (this.canShowForm) {
+          this.resetCheckboxes();
+        }
+
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
           { label: 'Customisé', value: 'NONE', data: { fields: [] } },
           ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
+        this.reportModel = 'NONE';
       }
     },
 
