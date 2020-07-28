@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.77+20200728075209
+2020-07-28
+
+### Features
+
+- Ajout des actions sur les transferts de SIM (cd9b3a0b4543e7cae37b69ebb3e9c991da379e41)
+
 ## 1.0.0-master.76+20200727145357
 2020-07-27
 
