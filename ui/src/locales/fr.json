@@ -604,6 +604,10 @@
       "userForm": {
         "title": "Ajouter un utilisateur",
         "modify-title": "Modification d'un utilisateur"
+      },
+      "changePassword": {
+        "title": "Modifier le mot de passe",
+        "warning": "Les modifications seront perdues, voulez-vous continuer ?"
       }
     }
   },

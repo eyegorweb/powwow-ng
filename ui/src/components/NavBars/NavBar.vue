@@ -27,7 +27,13 @@
                 class="dropdown-menu"
                 aria-labelledby="dropdownMenuLink"
                 x-placement="bottom-start"
-                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 2.5rem, 0px);"
+                style="
+                  position: absolute;
+                  will-change: transform;
+                  top: 0px;
+                  left: 0px;
+                  transform: translate3d(0px, 2.5rem, 0px);
+                "
               >
                 <router-link
                   :key="item.label"
@@ -75,7 +81,7 @@
               <i v-if="userMenuVisible" class="arrow ic-Arrow-Up-Icon" />
             </a>
             <div
-              class="dropdown-menu dropdown-menu-right position-absolute"
+              class="dropdown-menu dropdown-menu-right position-absolute auth-menu"
               :class="{ show: userMenuVisible }"
             >
               <span class="dropdown-item hover-pointer">
@@ -427,5 +433,9 @@ a {
 
 .logo--client {
   width: 32px;
+}
+
+.auth-menu {
+  margin-top: -5px !important;
 }
 </style>
