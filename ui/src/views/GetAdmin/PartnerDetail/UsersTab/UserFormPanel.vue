@@ -244,7 +244,7 @@ export default {
           width: '40rem',
           ignoreClickAway: true,
         });
-      }
+      };
 
       if (this.fieldsHaveChanged) {
         this.confirmAction({
@@ -257,7 +257,7 @@ export default {
         });
       } else {
         this.closePanel();
-
+        await delay(500);
         openTrigger();
       }
     },
@@ -354,7 +354,9 @@ export default {
     fieldsHaveChanged() {
       if (this.formDataBeforeChange) {
         const fieldsToCheck = ['title', 'firstName', 'lastName', 'email', 'username'];
-        const changedFields = fieldsToCheck.filter(field => this.form[field] !== this.formDataBeforeChange[field]);
+        const changedFields = fieldsToCheck.filter(
+          field => this.form[field] !== this.formDataBeforeChange[field]
+        );
         return !!changedFields.length;
       }
       return false;
@@ -473,8 +475,6 @@ export default {
 
       this.formDataBeforeChange = cloneDeep(this.form);
     }
-
-
 
     this.canShowForm = true;
   },
