@@ -71,7 +71,15 @@
         </div>
       </div>
 
-      <div class="entries-line">
+      <div v-if="content.duplicateFrom" class="entries-line">
+        <div class="form-entry">
+          <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
+            <i class="arrow ic-Plus-Icon" />
+            Modifier le mot de passe
+          </button>
+        </div>
+      </div>
+      <div v-else class="entries-line">
         <div class="form-entry">
           <FormControl label="password" input-type="password" v-model="form.password" />
         </div>
@@ -131,6 +139,41 @@ import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import Toggle from '@/components/ui/UiToggle2';
+import { delay } from '@/api/utils.js';
+import cloneDeep from 'lodash.clonedeep';
+
+export function checkPasswordErrors(password, passwordConfirm) {
+  const errors = [];
+
+  // Le mot de passe doit faire plus de 8 caractères.
+  if (password.length <= 8) {
+    errors.push('errors.password.length-error');
+  }
+
+  // Le mot de passe doit contenir au moins une minuscule et une majuscule.
+  if (!/[A-Z]/.test(password)) {
+    errors.push('errors.password.uppercase-error');
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push('errors.password.lowercase-error');
+  }
+  // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
+
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    errors.push('errors.password.special-error');
+  }
+
+  if (!/[0-9]+/.test(password)) {
+    errors.push('errors.password.number-error');
+  }
+
+  // correspond
+  if (password && password != passwordConfirm) {
+    errors.push('errors.password.confirm-error');
+  }
+
+  return errors;
+}
 
 export default {
   components: {
@@ -169,6 +212,7 @@ export default {
         },
       ],
       userType: undefined,
+      formDataBeforeChange: undefined,
       form: {
         title: undefined,
         firstName: undefined,
@@ -182,11 +226,40 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'closePanel']),
+    ...mapMutations(['flashMessage', 'closePanel', 'openPanel', 'confirmAction']),
 
     isEmailValid(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+
+    async openChangePasswordPanel() {
+      const title = this.$t('getadmin.partnerDetail.changePassword.title');
+
+      const openTrigger = () => {
+        this.openPanel({
+          title,
+          panelId: 'getadmin.partnerDetail.changePassword.title',
+          backdrop: true,
+          width: '40rem',
+          ignoreClickAway: true,
+        });
+      }
+
+      if (this.fieldsHaveChanged) {
+        this.confirmAction({
+          message: 'getadmin.partnerDetail.changePassword.warning',
+          actionFn: async () => {
+            this.closePanel();
+            await delay(500);
+            openTrigger();
+          },
+        });
+      } else {
+        this.closePanel();
+
+        openTrigger();
+      }
     },
 
     async save() {
@@ -196,10 +269,13 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         username: this.form.username,
-        password: this.form.password,
-        confirmPassword: this.form.passwordConfirm,
         roles: this.selectedRoles,
       };
+
+      if (this.createMode) {
+        params.password = this.form.password;
+        params.confirmPassword = this.form.passwordConfirm;
+      }
 
       if (this.userIsBO) {
         if (this.userType === 'PARTNER') {
@@ -271,17 +347,28 @@ export default {
       return !!this.content.duplicateFrom;
     },
 
+    createMode() {
+      return !this.content.duplicateFrom;
+    },
+
+    fieldsHaveChanged() {
+      if (this.formDataBeforeChange) {
+        const fieldsToCheck = ['title', 'firstName', 'lastName', 'email', 'username'];
+        const changedFields = fieldsToCheck.filter(field => this.form[field] !== this.formDataBeforeChange[field]);
+        return !!changedFields.length;
+      }
+      return false;
+    },
+
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
-      const missingFields = [
-        'title',
-        'firstName',
-        'lastName',
-        'email',
-        'username',
-        'password',
-        'passwordConfirm',
-      ].filter(field => !this.form[field]);
+      const fieldsToCheck = ['title', 'firstName', 'lastName', 'email', 'username'];
+
+      if (this.createMode) {
+        fieldsToCheck.push('password', 'passwordConfirm');
+      }
+
+      const missingFields = fieldsToCheck.filter(field => !this.form[field]);
 
       const roleError = this.roles.length > 0 ? !this.roles.length : false;
 
@@ -308,41 +395,21 @@ export default {
 
     passwordConfirmationErrors() {
       if (!this.form.password) return [];
+      if (this.createMode) {
+        const errors = checkPasswordErrors(this.form.password, this.form.passwordConfirm);
 
-      const errors = [];
+        // Le mot de passe doit être différent du nom ou prénom.
+        if (
+          this.form.firstName === this.form.password ||
+          this.form.lastName === this.form.password
+        ) {
+          errors.push('errors.password.name-error');
+        }
 
-      // Le mot de passe doit faire plus de 8 caractères.
-      if (this.form.password.length <= 8) {
-        errors.push('errors.password.length-error');
+        return errors;
       }
 
-      // Le mot de passe doit être différent du nom ou prénom.
-      if (this.form.firstName === this.form.password || this.form.lastName === this.form.password) {
-        errors.push('errors.password.name-error');
-      }
-      // Le mot de passe doit contenir au moins une minuscule et une majuscule.
-      if (!/[A-Z]/.test(this.form.password)) {
-        errors.push('errors.password.uppercase-error');
-      }
-      if (!/[a-z]/.test(this.form.password)) {
-        errors.push('errors.password.lowercase-error');
-      }
-      // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
-
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.form.password)) {
-        errors.push('errors.password.special-error');
-      }
-
-      if (!/[0-9]+/.test(this.form.password)) {
-        errors.push('errors.password.number-error');
-      }
-
-      // correspond
-      if (this.form.password && this.form.password != this.form.passwordConfirm) {
-        errors.push('errors.password.confirm-error');
-      }
-
-      return errors;
+      return [];
     },
   },
 
@@ -403,7 +470,11 @@ export default {
         }
         return u;
       });
+
+      this.formDataBeforeChange = cloneDeep(this.form);
     }
+
+
 
     this.canShowForm = true;
   },
