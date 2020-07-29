@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      canSend: false,
+      // canSend: false,
       allCustomFields: [],
       allSpecificFields: [],
       customFieldsValues: [],
@@ -93,7 +93,6 @@ export default {
     },
     onValueChanged(customField, enteredValue) {
       const existingFieldValue = this.customFieldsValues.find(c => c.code === customField.code);
-      if (enteredValue) this.canSend = true;
       if (existingFieldValue) {
         this.customFieldsValues = this.customFieldsValues.map(c => {
           if (c.code === customField.code) {
@@ -193,6 +192,19 @@ export default {
         }
       }
       return customFieldsArray;
+    },
+    canSend() {
+      // si tous les champs sont optionnels, alors nous pouvons envoyer le formulaire avant tout changement
+      if (this.allCustomFields.filter(c => c.isOptional).length === this.allCustomFields.length) {
+        return true;
+      }
+      // sinon pour chaque champ obligatoire, alors il faut que la valeur ne soit plus nulle
+      else {
+        return (
+          this.allCustomFields.filter(c => !c.isOptional).length ===
+          this.customFieldsValues.filter(c => c.enteredValue).length
+        );
+      }
     },
   },
 };
