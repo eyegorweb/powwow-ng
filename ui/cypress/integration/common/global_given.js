@@ -1,8 +1,8 @@
-Given(`En tant que BO`, () => {
+Given(`en tant que BO`, () => {
   cy.startAsBO();
 });
 
-Given(`En tant que partenaire {word}`, partnerName => {
+Given(`en tant que partenaire {word}`, partnerName => {
   if (partnerName === 'lyra') {
     cy.testVars.userPartner = 'LYRA NETWORK';
     cy.startAsPartner();

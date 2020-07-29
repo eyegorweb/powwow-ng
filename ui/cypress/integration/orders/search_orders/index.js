@@ -9,19 +9,19 @@ Given(`je suis sur la page recherche de commandes`, () => {
   orderPage.init();
 });
 
-Given(`Je choisis le partenaire {string}`, partnerName => {
+Given(`je choisis le partenaire {string}`, partnerName => {
   orderPage.filterBar.partner.toggle();
   orderPage.filterBar.partner.filter(partnerName);
   orderPage.filterBar.partner.choose(1);
   orderPage.filterBar.partner.chosenItems().should('have.length', 1);
-  
+
 });
 
-When(`Je lance la recherche`, () => {
+When(`je lance la recherche`, () => {
   orderPage.filterBar.apply();
 });
 
-Then(`La table contient le resultat de ma recherche`, () => {
+Then(`la table contient le resultat de ma recherche`, () => {
   orderPage.getTotal(total => {
     expect(total).to.be.above(0);
   });

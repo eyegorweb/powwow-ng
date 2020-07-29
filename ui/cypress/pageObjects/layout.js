@@ -12,7 +12,7 @@ export default {
 
     massActions: () => {
       cy.get(
-        '.tabs-bar > .tab-label > .dropdown > .dropdown-menu > .dropdown-item:nth-child(2)'
+        '#app > div.container > div.navbars.bg-white > div > div:nth-child(1) > div > ol > li:nth-child(2) > div > div > a.dropdown-item.menu_actHistory'
       ).click({ force: true });
     },
 

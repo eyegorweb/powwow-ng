@@ -12,35 +12,35 @@ Given(`je suis sur la page recherche d'alarmes`, () => {
   cy.wait(500);
 });
 
-Given(`Je choisis le partenaire {string}`, partnerName => {
+Given(`je choisis le partenaire {string}`, partnerName => {
   alarmsPage.filterBar.partner.toggle();
   alarmsPage.filterBar.partner.filter(partnerName);
   alarmsPage.filterBar.partner.choose(1);
 });
 
-Given(`Je choisis le compte de facturation {string}`, cf => {
+Given(`je choisis le compte de facturation {string}`, cf => {
   alarmsPage.filterBar.billingAccount.toggle();
   alarmsPage.filterBar.billingAccount.filter(cf);
   alarmsPage.filterBar.billingAccount.choose(1);
 });
 
-Given(`Je choisis l'Offre {string}`, offer => {
+Given(`je choisis l'offre {string}`, offer => {
   alarmsPage.filterBar.offer.toggle();
   alarmsPage.filterBar.offer.filter(offer);
   alarmsPage.filterBar.offer.choose(1);
 });
 
-When(`Je lance la recherche`, () => {
+When(`je lance la recherche`, () => {
   alarmsPage.filterBar.apply();
 });
 
-Then(`La table contient le resultat de ma recherche`, () => {
+Then(`la table contient le resultat de ma recherche`, () => {
   alarmsPage.getTotal(total => {
     expect(total).to.be.above(0);
   });
 });
 
-Then(`La table contient les alarmes du partenaire`, () => {
+Then(`la table contient les alarmes du partenaire`, () => {
   waitForGQL('alarms', xhr => {
     const alarms = xhr.responseBody.data.alarms.items;
     console.log('alarms >> ', alarms);

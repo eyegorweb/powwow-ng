@@ -6,7 +6,7 @@ Given(`je suis sur la page de choix d'une offre dans la création de commande`, 
   orderCreationPanel.init();
 });
 
-Given(`Je choisis l'activation et une offre`, () => {
+Given(`je choisis l'activation et une offre`, () => {
   orderCreationPanel.choosePartner('Auchan');
   orderCreationPanel.next();
   orderCreationPanel.chooseProduct(1);
