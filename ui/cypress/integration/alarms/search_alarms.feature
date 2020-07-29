@@ -7,7 +7,7 @@ Feature: Recherche d'alarmes
     And je suis sur la page recherche d'alarmes
     And je choisis le partenaire "INGENICO"
     When je lance la recherche
-    Then la table contient le resultat de ma recherche
+    Then la table contient plus de 0 resultat
 
   Scenario: Recherche par plusieurs filtres
     Given en tant que BO
@@ -15,14 +15,14 @@ Feature: Recherche d'alarmes
     And je choisis le partenaire "lyra"
     And je choisis l'offre "Parc 2"
     When je lance la recherche
-    Then la table contient le resultat de ma recherche
+    Then la table contient plus de 0 resultat
 
   Scenario: Recherche par compte de facturation
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le compte de facturation "INGENICO1"
     When je lance la recherche
-    Then la table contient le resultat de ma recherche
+    Then la table contient plus de 0 resultat
 
   Scenario: En tant que partenaire, charger les alarmes du partenaire
     Given en tant que partenaire lyra

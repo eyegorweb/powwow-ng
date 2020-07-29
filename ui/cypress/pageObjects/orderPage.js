@@ -18,10 +18,18 @@ export default {
         filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
       },
       chosenItems() {
-        return cy.get(
-          //'#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-3 > div.card.filter-bar > div.card-body.hide-all-filters > div.mb-3 > div:nth-child(1) > div > div'
-          '.selected-filter'
-        );
+        return cy.get('.selected-filter');
+      },
+    },
+    offer: {
+      toggle() {
+        filterBarSelectors.filterBarItems(6).toggle();
+      },
+      choose(nth) {
+        filterBarSelectors.filterBarItems(6).multiselect.choose(nth);
+      },
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(6).multiselect.filter(searchTerm);
       },
     },
   },
