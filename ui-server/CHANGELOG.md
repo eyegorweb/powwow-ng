@@ -2,12 +2,8 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.84+20200729140627
+## 1.0.0-master.84+20200729140606
 2020-07-29
-
-### Fixes
-
-- Si "null" dans le detail actHistory alors "-" (c1a5bf5300102109b2bf2cd921e44285014cd46c)
 
 ## 1.0.0-master.83+20200729134959
 2020-07-29
