@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.81+20200729092721
+2020-07-29
+
+### Fixes
+
+- Affichage du compte de facturation corrigé (58f064e6ce033c14bf84f908a039f948751b76be)
+
 ## 1.0.0-master.80+20200729090414
 2020-07-29
 
