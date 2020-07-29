@@ -24,6 +24,9 @@ export default {
       return this.visibleColumns.length > MAX_SIZE_BEFORE_TRUNCATE;
     },
     details() {
+      if (this.row.info == 'null') {
+        return '-';
+      }
       return this.row.info ? this.row.info : '-';
     },
   },
