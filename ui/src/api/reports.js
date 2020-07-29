@@ -31,6 +31,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         disabled
         auditable {
           creator {
+            id
             name {
               title
               firstName
