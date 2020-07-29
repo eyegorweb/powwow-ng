@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.82+20200729095350
+2020-07-29
+
+### Features
+
+- ajout des colonnes préactivation et activation pour l'export des actes unitaires (6ecd0f83e011b6da49265baa0d2c5959850643ae)
+
 ## 1.0.0-master.81+20200729092721
 2020-07-29
 
