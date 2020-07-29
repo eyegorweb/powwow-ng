@@ -34,9 +34,21 @@ When(`je lance la recherche`, () => {
   alarmsPage.filterBar.apply();
 });
 
-Then(`la table contient le resultat de ma recherche`, () => {
+Then(`la table contient {int} resultat`, nbrResult => {
   alarmsPage.getTotal(total => {
-    expect(total).to.be.above(0);
+    expect(total).to.be.equal(nbrResult);
+  });
+});
+
+Then(`la table contient plus de {int} resultat`, nbrResult => {
+  alarmsPage.getTotal(total => {
+    expect(total).to.be.above(nbrResult);
+  });
+});
+
+Then(`la table contient moins de {int} resultat`, nbrResult => {
+  alarmsPage.getTotal(total => {
+    expect(total).to.be.below(nbrResult);
   });
 });
 

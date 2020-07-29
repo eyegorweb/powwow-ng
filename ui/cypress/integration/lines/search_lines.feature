@@ -14,4 +14,4 @@ Feature: Recherche de lignes
     And je suis sur la page recherche de lignes
     And je choisis le partenaire "lyra"
     When je lance la recherche
-    Then la table contient le resultat de ma recherche
+    Then la table contient plus de 0 resultat
