@@ -12,6 +12,7 @@
       v-if="columns"
       :filters="filters"
       :columns="columns"
+      :is-loading="isLoading"
       :rows="rows"
       :total="total"
       :order-by.sync="orderBy"
@@ -132,6 +133,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       filters: [
         {
           title: 'getadmin.partners.name',
@@ -195,7 +197,10 @@ export default {
         filters: [],
       };
 
+      this.isLoading = true;
       const data = await fetchAllPartners(this.orderBy, pagination, filters);
+      this.isLoading = false;
+
       this.total = data.total;
       this.rows = data.items;
     },

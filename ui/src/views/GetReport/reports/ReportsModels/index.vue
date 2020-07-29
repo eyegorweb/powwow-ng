@@ -16,24 +16,29 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-      <DataTable
-        :columns="columns"
-        :rows="rows || []"
-        :page.sync="page"
-        :page-limit.sync="pageLimit"
-        :total="total || 0"
-        :order-by.sync="orderBy"
-        :show-extra-columns.sync="showExtraCells"
-        :size="6"
-      >
-        <template slot="actions" slot-scope="{ row }">
-          <ReportsActions
-            :report="row"
-            @actionIsDone="fetchResults()"
-            :panel-config="getPanelConfig(row)"
-          />
-        </template>
-      </DataTable>
+      <LoaderContainer :is-loading="isLoading">
+        <div slot="on-loading">
+          <TableSkeleton :columns="columns" :size="3" />
+        </div>
+        <DataTable
+          :columns="columns"
+          :rows="rows || []"
+          :page.sync="page"
+          :page-limit.sync="pageLimit"
+          :total="total || 0"
+          :order-by.sync="orderBy"
+          :show-extra-columns.sync="showExtraCells"
+          :size="6"
+        >
+          <template slot="actions" slot-scope="{ row }">
+            <ReportsActions
+              :report="row"
+              @actionIsDone="fetchResults()"
+              :panel-config="getPanelConfig(row)"
+            />
+          </template>
+        </DataTable>
+      </LoaderContainer>
     </div>
   </div>
 </template>
@@ -47,6 +52,8 @@ import GeneratedReportsCell from './GeneratedReportsCell';
 import GetSimOrdersCreatorCell from '@/views/GetSim/GetSimOrders/GetSimOrdersCreatorCell.vue';
 import { mapGetters, mapMutations } from 'vuex';
 import { fetchReports } from '@/api/reports.js';
+import TableSkeleton from '@/components/ui/skeletons/TableSkeleton';
+import LoaderContainer from '@/components/LoaderContainer';
 
 export default {
   components: {
@@ -54,12 +61,15 @@ export default {
     UiButton,
     DataTable,
     ReportsActions,
+    TableSkeleton,
+    LoaderContainer,
   },
   data() {
     return {
       page: 1,
       pageLimit: 10,
       showExtraCells: false,
+      isLoading: true,
       reportFrequencyChoices: [
         {
           id: 'ONCE',
@@ -248,7 +258,9 @@ export default {
         orderBy: this.orderBy,
       };
 
+      this.isLoading = true;
       const response = await fetchReports(orderBy, pagination, this.partnerId);
+      this.isLoading = false;
 
       if (response) {
         this.total = response.total;

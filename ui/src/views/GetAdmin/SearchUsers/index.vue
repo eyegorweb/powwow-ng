@@ -22,6 +22,7 @@
       :total="total"
       :order-by.sync="orderBy"
       :show-reset="!!searchByLoginValue"
+      :is-loading="isLoading"
       @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
@@ -82,6 +83,7 @@ export default {
     return {
       filters: undefined,
       lastPayload: undefined,
+      isLoading: true,
       columns: [
         {
           id: 1,
@@ -282,7 +284,10 @@ export default {
         filters: [],
       };
 
+      this.isLoading = true;
       const data = await searchUsers(this.orderBy, pagination, filters);
+      this.isLoading = false;
+
       this.total = data.total;
       this.rows = data.items;
 
