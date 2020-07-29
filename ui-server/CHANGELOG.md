@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.86+20200729144608
+2020-07-29
+
+### Fixes
+
+- Ajouter un loader dans le chargement des rapports (6d08438757b58edc1d63c334363ecb3c249e8c04)
+
 ## 1.0.0-master.85+20200729141310
 2020-07-29
 
