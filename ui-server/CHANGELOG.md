@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.83+20200729134959
+2020-07-29
+
+### Features
+
+- Panel pour le changement de mot de passe (27175b9a3ece86e168e02ad3ed92fe4982b7860d)
+
 ## 1.0.0-master.82+20200729095350
 2020-07-29
 
