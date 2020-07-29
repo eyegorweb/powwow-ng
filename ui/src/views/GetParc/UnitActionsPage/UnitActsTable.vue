@@ -124,6 +124,8 @@ export default {
             'DEVICE_REFERENCE',
             'IMEI',
             'LOGIN',
+            'PREACTIVATION_DATE',
+            'ACTIVATION_DATE',
           ],
           exportFormat,
           asyncExportRequest
