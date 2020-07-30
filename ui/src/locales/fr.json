@@ -1380,8 +1380,8 @@
       }
     },
     "search": {
-      "act-mass-id": "Id de l’acte de gestion en masse",
-      "act-unit-id": "Id de l’acte de gestion unitaire"
+      "act-mass-id": "Id acte masse",
+      "act-unit-id": "Id acte unitaire"
     }
   },
   "col": {
