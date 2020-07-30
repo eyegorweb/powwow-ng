@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.87+20200730131619
+2020-07-30
+
+### Fixes
+
+- rendu dans le composant de recherche unitaire (c97fa5af6acd90116c57edbda9cbc5ff510e93eb)
+
 ## 1.0.0-master.86+20200729144608
 2020-07-29
 
