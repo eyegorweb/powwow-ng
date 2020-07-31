@@ -85,6 +85,7 @@ export default {
                   label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
                 },
                 { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
+                { id: 'VALIDATED', label: this.$t('col.statuses.VALIDATED') },
               ],
             },
             {
