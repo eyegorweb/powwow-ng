@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.88+20200731142253
+2020-07-31
+
+### Fixes
+
+- Changement des traductions dans la home GetParc (134685586e7a33d880677e495ef06aa38b53c36c)
+- ordre des colonnes des exports (c505735cdc92016cd9f8e56a572b9b569ca7307a)
+- Problème affichage historique de pays detail ligne (c261f0515c4887534e919b1b51e92dede6a469dc)
+- Problème d'export des users avec le filtre username (bb5daf0c16b9d3a885693edacbd54a658942b5e5)
+
 ## 1.0.0-master.87+20200730131619
 2020-07-30
 
