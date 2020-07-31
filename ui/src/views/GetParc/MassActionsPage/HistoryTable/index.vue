@@ -11,7 +11,11 @@
           </h2>
         </div>
         <div class="col" v-if="total > 0">
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="getPageInfo">
+          <ExportButton
+            :export-fn="getExportFn()"
+            :columns="orderedColumns"
+            :order-by="getPageInfo"
+          >
             <span slot="title">{{
               $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
             }}</span>
@@ -21,7 +25,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           storage-id="getparc.actHistory"
-          storage-version="006"
+          storage-version="007"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -31,6 +35,7 @@
           :show-extra-columns.sync="showExtraCells"
           :size="7"
           @colEvent="onColEvent"
+          @columnOrdered="orderedColumns = $event"
         >
           <template slot="topLeftCorner">
             <SearchMassActionsById @searchById="searchById" :init-value="searchByIdValue" />
@@ -100,6 +105,7 @@ export default {
   },
   data() {
     return {
+      orderedColumns: undefined,
       columns: [
         {
           id: 1,
@@ -108,6 +114,7 @@ export default {
           sortingName: 'ID',
           orderable: true,
           visible: true,
+          exportId: 'MASS_ACTION_ID',
           format: {
             component: IdCell,
           },
@@ -118,12 +125,14 @@ export default {
           name: 'actionType',
           orderable: false,
           visible: true,
+          exportId: 'ACTION_TYPE',
           format: {
             component: ActionCell,
           },
         },
         {
           id: 3,
+          exportId: 'DUE_DATE',
           label: this.$t('getparc.history.col.actDate'),
           name: 'dueDate',
           orderable: false,
@@ -131,6 +140,7 @@ export default {
         },
         {
           id: 4,
+          exportId: 'MASS_ACTION_INFO',
           label: this.$t('getparc.history.col.details'),
           name: 'info',
           orderable: false,
@@ -141,6 +151,7 @@ export default {
         },
         {
           id: 5,
+          exportId: 'TARGETED',
           label: this.$t('getparc.history.col.target'),
           name: 'targetActionNumber',
           sortingName: 'TARGET_ACTION_NUMBER',
@@ -149,6 +160,7 @@ export default {
         },
         {
           id: 7,
+          exportId: 'IN_PROGRESS',
           label: this.$t('getparc.history.col.ongoing'),
           name: 'pendingEntitiesNumber',
           sortingName: 'UNIT_ACTIONS_PENDING',
@@ -157,6 +169,7 @@ export default {
         },
         {
           id: 14,
+          exportId: 'CUSTOM_SUCCESS_ERROR',
           label: this.$t('getparc.history.col.rate'),
           name: 'rateActionNumber',
           sortingName: 'UNIT_ACTIONS_FAILED',
@@ -171,6 +184,7 @@ export default {
         // colonnes cachées par défaut
         {
           id: 9,
+          exportId: 'CREATED',
           label: this.$t('getparc.history.col.created'),
           name: 'created',
           orderable: false,
@@ -178,6 +192,7 @@ export default {
         },
         {
           id: 10,
+          exportId: 'ENDED',
           label: this.$t('getparc.history.col.endDate'),
           name: 'ended',
           orderable: false,
@@ -185,6 +200,7 @@ export default {
         },
         {
           id: 11,
+          exportId: 'PARTNER',
           label: this.$t('getparc.history.col.partyId'),
           name: 'partyName',
           orderable: true,
@@ -193,6 +209,7 @@ export default {
         },
         {
           id: 12,
+          exportId: 'CREATOR',
           label: this.$t('getparc.history.col.creator'),
           name: 'creatorUsername',
           sortingName: 'CREATOR',
@@ -204,6 +221,7 @@ export default {
         },
         {
           id: 13,
+          exportId: 'STATUS',
           label: this.$t('getparc.history.col.status'),
           name: 'status',
           orderable: true,
@@ -269,23 +287,17 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, pagination, exportFormat) => {
+        // si CUSTOM_SUCCESS_ERROR est présente alors il mettre à la place les 2 params  COMPLETED et FAILED
+        let columnsToUse = [...columnsParam];
+
+        const customSuccessErrorIndex = columnsParam.findIndex(c => c === 'CUSTOM_SUCCESS_ERROR');
+
+        if (customSuccessErrorIndex > -1) {
+          columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');
+        }
+
         return await exportMassActionsOnly(
-          [
-            'MASS_ACTION_ID',
-            'MASS_ACTION_INFO',
-            'TARGETED',
-            'COMPLETED',
-            'FAILED',
-            'IN_PROGRESS',
-            'ACTION_TYPE',
-            'CREATED',
-            'STARTED',
-            'STATUS',
-            'PARTNER',
-            'CREATOR',
-            'DUE_DATE',
-            'ENDED',
-          ],
+          [...columnsToUse, 'STARTED'],
           exportFormat,
           this.appliedFilters
         );

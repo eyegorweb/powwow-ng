@@ -105,6 +105,7 @@ export default {
     async doExport(exportFormat, asyncExportRequest) {
       const { columns, exportFn, orderBy } = this.exportPanelParams;
       this.errors = undefined;
+      console.log('columns >>>>>>>> ', columns);
       const columnsParam = sortBy(columns, c => !c.visible)
         .filter(c => c.exportId)
         .map(c => c.exportId);

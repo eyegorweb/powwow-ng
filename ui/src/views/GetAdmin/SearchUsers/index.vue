@@ -26,11 +26,12 @@
       @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
+      @columnOrdered="orderedColumns = $event"
     >
       <div slot="title">{{ $t('getadmin.users.total', { total: total }) }}</div>
 
       <div slot="topRight">
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+        <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
           <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
         </ExportButton>
       </div>
@@ -84,6 +85,7 @@ export default {
       filters: undefined,
       lastPayload: undefined,
       isLoading: true,
+      orderedColumns: undefined,
       columns: [
         {
           id: 1,
@@ -102,6 +104,7 @@ export default {
         {
           id: 2,
           label: 'Login',
+          exportId: 'LOGIN',
           name: 'username',
           orderable: true,
           visible: true,
@@ -109,6 +112,7 @@ export default {
         },
         {
           id: 3,
+          exportId: 'NOM',
           label: 'Nom',
           name: 'fullname',
           orderable: true,
@@ -123,6 +127,7 @@ export default {
         },
         {
           id: 4,
+          exportId: 'PRENOM',
           label: 'Prénom',
           name: 'PRENOM',
           orderable: true,
@@ -137,6 +142,7 @@ export default {
         },
         {
           id: 5,
+          exportId: 'PARTENAIRE',
           label: 'Partenaire',
           name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
           orderable: false,
@@ -151,6 +157,7 @@ export default {
         },
         {
           id: 6,
+          exportId: 'ROLES',
           label: 'Rôles',
           name: 'ROLES',
           orderable: false,
@@ -166,7 +173,8 @@ export default {
         },
         {
           id: 7,
-          label: 'Actif',
+          exportId: 'STATUT',
+          label: 'Statut',
           name: 'disabled',
           orderable: false,
           visible: true,
@@ -337,7 +345,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportUsers(
-          ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES', 'STATUT'],
+          columnsParam,
           this.orderBy,
           exportFormat,
           this.currentAppliedFilters

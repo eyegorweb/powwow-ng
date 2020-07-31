@@ -33,6 +33,7 @@
             :show-reset="!!searchByIdValue"
             @resetSearch="resetFilters"
             @applyFilters="applyFilters"
+            @columnOrdered="orderedColumns = $event"
           >
             <div slot="before-table">
               <div class="row">
@@ -69,7 +70,11 @@
             </div>
 
             <div slot="topRight">
-              <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+              <ExportButton
+                :export-fn="getExportFn()"
+                :columns="orderedColumns"
+                :order-by="orderBy"
+              >
                 <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
               </ExportButton>
             </div>
@@ -147,6 +152,7 @@ export default {
       currentTab: 0,
       searchByIdValue: undefined,
       indicators: deviceIndicators,
+      orderedColumns: undefined,
       columns: [
         {
           id: 1,

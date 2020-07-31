@@ -2,12 +2,12 @@
   <div class="bg-white p-2 mt-2 analyze-container">
     <div class="row mb-3">
       <div class="col">
-        <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+        <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
           {{ $t('getparc.actLines.total', { total: formattedTotal }) }}
         </h2>
       </div>
       <div class="col" v-if="hasResults">
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="pageInfo">
+        <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="pageInfo">
           <span slot="title">{{
             $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
           }}</span>
@@ -32,6 +32,7 @@
           :size="7"
           :show-extra-columns.sync="showExtraCells"
           @colEvent="$emit('colEvent', $event)"
+          @columnOrdered="orderedColumns = $event"
         >
           <template slot="topLeftCorner">
             <SearchByLinesId @searchById="searchById" />
@@ -72,6 +73,7 @@ export default {
 
   data() {
     return {
+      orderedColumns: undefined,
       columns: [
         col(
           'ICCID',

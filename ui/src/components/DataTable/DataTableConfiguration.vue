@@ -51,7 +51,16 @@ export default {
 
   created() {
     if (this.columns && this.columns.length) {
-      this.localColumns = cloneDeep(this.columns.filter(c => !c.notConfigurable));
+      this.localColumns = cloneDeep(
+        this.columns
+          .filter(c => !c.notConfigurable)
+          .filter(c => {
+            if (c.visibleWhen) {
+              return c.visibleWhen();
+            }
+            return true;
+          })
+      );
     }
   },
 
