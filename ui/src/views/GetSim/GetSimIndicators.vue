@@ -211,7 +211,7 @@ export default {
             fetchKey: 'ORDER_DELAY',
             getValueWithUnit(value) {
               if (isNaN(value)) return '';
-              return fromHoursToDDHH(25);
+              return fromHoursToDDHH(value);
             },
           }
         );
