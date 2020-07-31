@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.89+20200731153338
+2020-07-31
+
+### Fixes
+
+- Ajouter l'utnité pour l'indicateur délais de traitement (714632ba6669cf2cba915f4c4f7746e263a866c3)
+- Ajouter le filtre « Validée » lors du clic sur l'indicateur "Commandes en cours de traitement" (e5d953b478a157a7507e38b52989c4498822687e)
+
 ## 1.0.0-master.88+20200731142253
 2020-07-31
 
