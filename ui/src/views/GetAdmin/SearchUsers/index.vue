@@ -348,7 +348,10 @@ export default {
           columnsParam,
           this.orderBy,
           exportFormat,
-          this.currentAppliedFilters
+          [
+            ...this.currentAppliedFilters,
+            { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
+          ]
         );
       };
     },
