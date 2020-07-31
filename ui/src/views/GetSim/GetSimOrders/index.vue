@@ -6,12 +6,12 @@
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light total" style="font-size: 2rem">
+          <h2 class="text-gray font-weight-light total" style="font-size: 2rem;">
             {{ $t('ordersFound', { total: formattedTotal }) }}
           </h2>
         </div>
         <div class="col" v-if="total > 0">
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
             <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
         </div>
@@ -19,7 +19,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           :storage-id="storageId"
-          storage-version="003"
+          storage-version="004"
           :columns="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -28,6 +28,7 @@
           :order-by.sync="orderBy"
           :show-extra-columns.sync="showExtraCells"
           :size="7"
+          @columnOrdered="orderedColumns = $event"
         >
           <template slot="topLeftCorner">
             <SearchOrderById @searchById="searchById" :init-value="searchByIdValue" />
@@ -205,6 +206,7 @@ export default {
       isExportFormatChoiceOpen: false,
       columns: undefined,
       searchByIdValue: undefined,
+      orderedColumns: undefined,
       commonColumns: [
         {
           id: 1,

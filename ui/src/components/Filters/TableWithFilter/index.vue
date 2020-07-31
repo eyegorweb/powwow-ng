@@ -27,7 +27,7 @@
         >
           <div class="row mb-3">
             <div class="col">
-              <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+              <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
                 <slot name="title"></slot>
               </h2>
             </div>
@@ -46,6 +46,7 @@
             :order-by.sync="currentOrderBy"
             :size="size"
             @colEvent="$emit('colEvent', $event)"
+            @columnOrdered="$emit('columnOrdered', $event)"
           >
             <div slot="topLeftCorner">
               <slot name="topLeft"></slot>

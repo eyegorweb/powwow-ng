@@ -8,7 +8,7 @@
       <div v-else>
         <div class="row mb-3">
           <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
               {{ $t('getparc.actDetail.title', { total: total }) }}
             </h2>
           </div>
@@ -31,6 +31,7 @@
             :show-extra-columns.sync="showExtraCells"
             :size="7"
             v-if="total !== '-'"
+            @columnOrdered="orderedColumns = $event"
           >
             <template slot="topLeftCorner">
               <SearchUnitActionsById @searchById="searchById" :init-value="searchByIdValue" />
@@ -171,6 +172,7 @@ export default {
   },
   data() {
     return {
+      orderedColumns: undefined,
       isLoading: false,
       searchByIdValue: undefined,
       rows: [],

@@ -255,6 +255,20 @@ export default {
     this.prepareColumns();
   },
 
+  watch: {
+    usableColumns(usableColumns) {
+      this.$emit(
+        'columnOrdered',
+        usableColumns.filter(c => {
+          if (c.visibleWhen) {
+            return c.visibleWhen();
+          }
+          return true;
+        })
+      );
+    },
+  },
+
   methods: {
     getTooltipConfig(column, row) {
       if (!column.tootltipText) {
