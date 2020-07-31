@@ -2,7 +2,7 @@
   <Indicators
     v-if="indicators"
     :meta="indicators"
-    :on-click="indicator => $emit('click', indicator)"
+    :on-click="(indicator) => $emit('click', indicator)"
     :no-borders="noBorders"
     :small="small"
     precalculated
@@ -15,6 +15,7 @@ import { fetchSingleIndicator } from '@/api/orders';
 import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
+import { fromHoursToDDHH } from '@/api/utils';
 
 const dateFormat = 'DD/MM/YYYY';
 
@@ -208,7 +209,10 @@ export default {
             total: '-',
             filters: [],
             fetchKey: 'ORDER_DELAY',
-            unit: true,
+            getValueWithUnit(value) {
+              if (isNaN(value)) return '';
+              return fromHoursToDDHH(25);
+            },
           }
         );
       }

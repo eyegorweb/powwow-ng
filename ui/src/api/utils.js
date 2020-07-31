@@ -354,7 +354,7 @@ export function resumeAndTruncateFormattedValueFromSeconds(value) {
   }
 }
 
-export function resumeFormattedValueFromHours(value) {
+export function fromHoursToDDHH(value) {
   let initialSeconds = value * 60 * 60;
   let duration = initialSeconds;
   let days = duration / 86400;
@@ -365,15 +365,15 @@ export function resumeFormattedValueFromHours(value) {
     if (hours > 9) {
       return `${parseInt(days)}j ${parseInt(hours, 10)}h`;
     }
-    return `${parseInt(days)}j0${parseInt(hours, 10)}h`;
+    return `${parseInt(days)}j 0${parseInt(hours, 10)}h`;
   } else if (initialSeconds < 86400 && initialSeconds > 3600) {
     if (parseInt(hours, 10) > 0) {
       return `${parseInt(hours, 10)}h`;
     }
     return `0${parseInt(hours, 10)}h`;
   } else if (initialSeconds === 0) {
-    return `0`;
+    return 0;
   } else {
-    return ``;
+    return '';
   }
 }

@@ -344,15 +344,10 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        return await exportUsers(
-          columnsParam,
-          this.orderBy,
-          exportFormat,
-          [
-            ...this.currentAppliedFilters,
-            { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
-          ]
-        );
+        return await exportUsers(columnsParam, this.orderBy, exportFormat, [
+          ...this.currentAppliedFilters,
+          { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
+        ]);
       };
     },
     onDuplicateUser(user) {
