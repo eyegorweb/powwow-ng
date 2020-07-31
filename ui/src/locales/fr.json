@@ -1439,11 +1439,11 @@
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
         "failed": "Actes de gestion en échec",
-        "availableSIMCards": "Cartes SIM en stock",
-        "allocatedSIMCards": "Cartes SIM pré-activées",
-        "activatedSIMCards": "Cartes SIM actives",
-        "suspended": "Suspendu",
-        "traffic": "Trafiquantes M",
+        "availableSIMCards": "Lignes en stock (Non-préactivé)",
+        "allocatedSIMCards": "Lignes pré-activées",
+        "activatedSIMCards": "Lignes actives",
+        "suspended": "Lignes suspendues",
+        "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
         "inprogressTwoDays": "Actes en cours > 48 h",
         "failedTwoDays": "Actes en échec > 48 h"
