@@ -11,7 +11,7 @@
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
             <p class="text-success">{{ $t(simStatus) }}</p>
           </div>
-          <div class="item">
+          <div class="item" v-if="!partnerTypeMVNO">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
             <p v-if="alarmTriggered" class="text-success">{{ $t('common.YES') }}</p>
             <p v-if="!alarmTriggered" class="text-danger">{{ $t('common.NO') }}</p>
@@ -40,27 +40,27 @@
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
             <p>
-              <!-- total DATA consommées -->
+              <!-- total DATA consommée -->
               {{ totalUsed('DATA', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
             <p>
-              <!-- total SMS consommées -->
+              <!-- total SMS consommés -->
               {{ totalUsed('SMS', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
             <p>
-              <!-- total VOIX consommées -->
+              <!-- total VOIX consommée -->
               {{ totalUsed('VOICE', 'used') }}
             </p>
           </div>
         </div>
         <hr />
-        <div class="d-flex">
+        <div class="d-flex" v-if="!partnerTypeMVNO">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.estimated.data') }}:</h6>
             <p>
@@ -132,6 +132,13 @@ export default {
       }
 
       return get(this.content, 'statuts');
+    },
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType', '-');
+      if (typeForPartner === 'MVNO') {
+        return true;
+      }
+      return false;
     },
   },
   methods: {
