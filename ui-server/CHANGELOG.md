@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.90+20200803073859
+2020-08-03
+
+### Fixes
+
+- modification de l'affichage pour le type de partenaire MVNO (d36ca98a0fecfcde3ab7750c380fce42ebfe2733)
+
 ## 1.0.0-master.89+20200731153338
 2020-07-31
 
