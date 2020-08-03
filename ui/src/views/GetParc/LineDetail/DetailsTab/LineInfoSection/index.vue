@@ -37,9 +37,7 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title"
-            >CARTE SIM</template
-          >
+          <template slot="title">CARTE SIM</template>
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -92,7 +90,7 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block3'">
+        <ContentBlock :key="'block3'" v-if="!partnerTypeMVNO">
           <template slot="title">{{ $t('getparc.lineDetail.tab1.dualSim') }}</template>
           <template slot="content">
             <div class="d-flex">
@@ -119,7 +117,7 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block5'">
+        <ContentBlock :key="'block5'" v-if="!partnerTypeMVNO">
           <template slot="title">
             <span>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>
@@ -127,7 +125,7 @@
             <EquipmentsHistoryTable v-if="content" :content="content" />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block6'">
+        <ContentBlock :key="'block6'" v-if="!partnerTypeMVNO">
           <template slot="title">{{ $t('common.customFields') }}</template>
           <template slot="content">
             <div class="d-flex">
@@ -141,7 +139,7 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock v-if="userIsBO" :key="'block7'">
+        <ContentBlock v-if="userIsBO && !partnerTypeMVNO" :key="'block7'">
           <template slot="title">{{ $t('getparc.lineDetail.specificFields.title') }}</template>
           <template slot="content">
             <div class="d-flex">
@@ -246,6 +244,13 @@ export default {
       if (this.currentSpecificFields && !this.currentSpecificFields.length) return;
       let found = this.currentSpecificFields.every(c => c.value);
       return found;
+    },
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType', '-');
+      if (typeForPartner === 'MVNO') {
+        return true;
+      }
+      return false;
     },
   },
   methods: {

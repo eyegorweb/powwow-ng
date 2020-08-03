@@ -31,6 +31,8 @@ import BillingSection from './BillingSection';
 import ActsHistory from './ActsHistory';
 import AlarmList from './AlarmList';
 
+import get from 'lodash.get';
+
 export default {
   components: {
     LineInfoSection,
@@ -45,7 +47,6 @@ export default {
   data() {
     return {
       section: 'line_info',
-
       menuItems: [
         {
           section: 'line_info',
@@ -69,6 +70,20 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType', '-');
+      if (typeForPartner === 'MVNO') {
+        return true;
+      }
+      return false;
+    },
+  },
+  mounted() {
+    if (this.partnerTypeMVNO) {
+      this.menuItems.splice(3, 1);
+    }
   },
 };
 </script>

@@ -19,6 +19,7 @@
     </div>
     <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel
+      v-if="lineData"
       :actions="carouselItems"
       :default-disabled="!isLigneActive"
       @itemClick="onCarouselItemClick"
@@ -94,33 +95,7 @@ export default {
           total: 0,
         },
       ],
-      carouselItems: excludeMocked([
-        {
-          icon: 'ic-Sim-Icon',
-          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
-          selected: false,
-        },
-        {
-          icon: 'ic-Smartphone-Icon',
-          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
-          selected: false,
-        },
-        {
-          icon: 'ic-Edit-Icon',
-          title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
-          selected: false,
-        },
-        {
-          icon: 'ic-Wallet-Icon',
-          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
-          selected: false,
-        },
-        {
-          icon: 'ic-Ticket-Icon',
-          title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
-          selected: false,
-        },
-      ]),
+      carouselItems: undefined,
     };
   },
   computed: {
@@ -163,6 +138,43 @@ export default {
       ]);
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
+      if (this.lineData.party.partyType !== 'MVNO') {
+        this.carouselItems = excludeMocked([
+          {
+            icon: 'ic-Sim-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
+            selected: false,
+          },
+          {
+            icon: 'ic-Smartphone-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
+            selected: false,
+          },
+          {
+            icon: 'ic-Edit-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
+            selected: false,
+          },
+          {
+            icon: 'ic-Wallet-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
+            selected: false,
+          },
+          {
+            icon: 'ic-Ticket-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
+            selected: false,
+          },
+        ]);
+      } else {
+        this.carouselItems = excludeMocked([
+          {
+            icon: 'ic-Sim-Icon',
+            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
+            selected: false,
+          },
+        ]);
+      }
     },
   },
 };
