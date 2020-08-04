@@ -11,7 +11,12 @@
           </h2>
         </div>
         <div class="col" v-if="total > 0">
-          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
+          <ExportButton
+            :export-all="true"
+            :export-fn="getExportFn()"
+            :columns="columns"
+            :order-by="orderBy"
+          >
             <span slot="title">{{ $t('getsim.export', { total: formattedTotal }) }}</span>
           </ExportButton>
         </div>
@@ -93,13 +98,22 @@ export default {
     ]),
     ...mapMutations(['openModal']),
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
+        let columnsToUse = columns;
+        let orderToUse = orderBy;
+        let filtersToUse = this.appliedFilters;
+        if (exportAll) {
+          orderToUse = { direction: 'DESC', key: 'id' };
+          filtersToUse = undefined;
+          columnsToUse = [];
+        }
         return await ordersExport(
-          columns,
-          orderBy,
+          columnsToUse,
+          orderToUse,
           exportFormat,
-          this.appliedFilters,
-          asyncExportRequest
+          filtersToUse,
+          asyncExportRequest,
+          exportAll
         );
       };
     },

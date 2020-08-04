@@ -23,6 +23,7 @@ export default {
       required: false,
     },
     exportFn: Function,
+    exportAll: Boolean,
     buttonStyle: Boolean,
   },
   methods: {
@@ -33,6 +34,7 @@ export default {
         columns: this.columns,
         orderBy: this.orderBy,
         exportFn: this.exportFn,
+        exportAll: this.exportAll,
       });
     },
   },
