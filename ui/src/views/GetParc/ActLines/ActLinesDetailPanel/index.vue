@@ -3,7 +3,7 @@
     <div>
       <UpcomingChanges :content="content" />
       <GeneralInfos :content="content" />
-      <AlarmsInfo :content="content" />
+      <AlarmsInfo :content="content" v-if="!partnerTypeMVNO" />
       <PartnerInfo :content="content" />
     </div>
     <div slot="footer" class="action-buttons">
@@ -30,6 +30,8 @@ import AlarmsInfo from './AlarmsInfo';
 import PartnerInfo from './PartnerInfo';
 import UiButton from '@/components/ui/Button';
 
+import get from 'lodash.get';
+
 export default {
   components: {
     BaseDetailPanelContent,
@@ -41,6 +43,15 @@ export default {
   },
   props: {
     content: Object,
+  },
+  computed: {
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType', '-');
+      if (typeForPartner === 'MVNO') {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>
