@@ -524,7 +524,8 @@ export async function ordersExport(
   orderBy,
   exportFormat,
   filters = [],
-  asyncExportRequest = false
+  asyncExportRequest = false,
+  exportAll
 ) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
@@ -538,7 +539,7 @@ export async function ordersExport(
     query {
       ordersExport(filter: {${formatFilters(
         filters
-      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}) {
+      )}}, ${orderingInfo}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}) {
         downloadUri
         asyncRequired
       }
