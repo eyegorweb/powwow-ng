@@ -70,6 +70,55 @@ export async function updateCustomFields(filters, lines, params) {
   });
 }
 
+export async function changeSingleCustomFields(params) {
+  const {
+    partyId,
+    simCardId,
+    notifEmail,
+    dueDate,
+    custom1,
+    custom2,
+    custom3,
+    custom4,
+    custom5,
+    custom6,
+    spec1,
+    spec2,
+  } = params;
+
+  console.log('params', params);
+
+  const queryStr = `
+    mutation {
+      changeCustomFieldsV2(
+        input: {
+          partyId: ${partyId},
+          simCardInstanceIds: ${simCardId},
+          notification: ${boolStr(notifEmail)},
+          dueDate: "${dueDate}",
+          custom1: "${custom1}",
+          custom2: "${custom2}",
+          custom3: "${custom3}",
+          custom4: "${custom4}",
+          custom5: "${custom5}",
+          custom6: "${custom6}",
+          spec1: "${spec1}",
+          spec2: "${spec2}",
+        }
+        ){
+          tempDataUuid
+          validated
+          errors{
+            key
+            number
+          }
+        }
+    }
+    `;
+
+  return await query(queryStr);
+}
+
 export async function suspendLines(filters, lines, params) {
   return await suspendReactivateLines(filters, lines, params, true);
 }
@@ -411,9 +460,7 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${
-          dataService.code
-        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
