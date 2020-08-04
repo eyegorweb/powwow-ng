@@ -2,6 +2,41 @@
 
 <!--- next entry here -->
 
+## 1.2.0
+2020-08-04
+
+### Features
+
+- nouveau composant de pagination (815b1bc7d5cb01a471644293098eb69d3d39dca8)
+- partie front du panel du coach M2M (b84812f4ca915ea7383a50bd76186734644a3c36)
+- Ajout des actions sur les transferts de SIM (cd9b3a0b4543e7cae37b69ebb3e9c991da379e41)
+- Ajout des cartes SIM dans le detail de partenaire (c4aa27984b43f2b92229984e0c802372090c6ec4)
+- ajout des colonnes préactivation et activation pour l'export des actes unitaires (6ecd0f83e011b6da49265baa0d2c5959850643ae)
+- Panel pour le changement de mot de passe (27175b9a3ece86e168e02ad3ed92fe4982b7860d)
+- créer des rapports sur tous les partenaires (c62082d0d13fe3d601da4813293664e87771306d)
+- libellé différent pour la date du rapport suivant la fréquence de génération (3b7fa22af6e835035a47e59cfbec7b08cd3463b8)
+- Ajout de l'export complet de toutes les colonnes (6fd35fd040507fff349fe3885f0bb32f0afaf015)
+
+### Fixes
+
+- Annulation d'un acte de masse (67cfb87297334f6e647fb897d9cf34e37976157e)
+- Réinitialisation du calendrier (265033cf7b5c462e4d99a1ddb62f14c93da4a786)
+- Gestion des nouveaux codes d'erreurs d'import de fichier (d5d0284ec09a28c3fb0c7fdb73940ff5c94551e0)
+- Corriger la consultation des rapports (04e80f48b13fd56b717b305418f73d6e1a06d7ff)
+- corrections et améliorations des graphes Dashboard de la page getDevices (2866ed00b43f3fc02cdd8fb677e18a69f0a81fbd)
+- Affichage du compte de facturation corrigé (58f064e6ce033c14bf84f908a039f948751b76be)
+- Si "null" dans le detail actHistory alors "-" (c1a5bf5300102109b2bf2cd921e44285014cd46c)
+- Ajouter un loader dans le chargement des rapports (6d08438757b58edc1d63c334363ecb3c249e8c04)
+- rendu dans le composant de recherche unitaire (c97fa5af6acd90116c57edbda9cbc5ff510e93eb)
+- Changement des traductions dans la home GetParc (134685586e7a33d880677e495ef06aa38b53c36c)
+- ordre des colonnes des exports (c505735cdc92016cd9f8e56a572b9b569ca7307a)
+- Problème affichage historique de pays detail ligne (c261f0515c4887534e919b1b51e92dede6a469dc)
+- Problème d'export des users avec le filtre username (bb5daf0c16b9d3a885693edacbd54a658942b5e5)
+- Ajouter l'utnité pour l'indicateur délais de traitement (714632ba6669cf2cba915f4c4f7746e263a866c3)
+- Ajouter le filtre « Validée » lors du clic sur l'indicateur "Commandes en cours de traitement" (e5d953b478a157a7507e38b52989c4498822687e)
+- modification de l'affichage pour le type de partenaire MVNO (d36ca98a0fecfcde3ab7750c380fce42ebfe2733)
+- corrections pour masquer les infos pour le partenaire MVNO (775bbb5487a85eae116fc60801800d3cb87130bd)
+
 ## 1.1.3
 2020-07-20
 
