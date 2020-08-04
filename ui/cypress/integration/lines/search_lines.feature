@@ -1,4 +1,4 @@
-Feature: Recherche de lignes
+  Feature: Recherche de lignes
 
   Je veux chercher des lignes avec des filtres
 
@@ -15,3 +15,22 @@ Feature: Recherche de lignes
     And je choisis le partenaire "lyra"
     When je lance la recherche
     Then la table contient plus de 0 resultat
+
+
+  Scenario: je recherche plusieurs filtres
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And je choisis le partenaire "lyra"
+    And je choisis le compte de facturation "TEST"
+    And je choisis le type "M2M sim sans code pin"
+    And je choisis l'offre "Parc 1 compteur"
+    And je choisis l'id "142"
+    When je lance la recherche
+    Then la table contient 1 resultat
+
+  Scenario: je cherche par id de commande
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And je choisis l'id "2"
+    When je lance la recherche
+    Then la table contient 1 resultat

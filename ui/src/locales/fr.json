@@ -23,6 +23,7 @@
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
+  "exportAll": "Export complet",
   "exportError": "Impossible d'exporter",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
@@ -632,6 +633,7 @@
       "fileFormat": "Format de ficher",
       "list": "Liste de diffusion",
       "dateGenerated": "Date de génération",
+      "dateForOneItem": "Date de la demande",
       "dateAndRecursion": "Récurrence et date"
     },
     "errors": {

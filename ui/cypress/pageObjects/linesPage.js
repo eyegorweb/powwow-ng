@@ -58,13 +58,36 @@ export default {
     },
     offer: {
       toggle() {
-        filterBarSelectors.filterBarItems(3).toggle();
+        filterBarSelectors.filterBarItems(5).toggle();
       },
       choose(nth) {
-        filterBarSelectors.filterBarItems(3).multiselect.choose(nth);
+        filterBarSelectors.filterBarItems(5).multiselect.choose(nth);
       },
       filter(searchTerm) {
-        filterBarSelectors.filterBarItems(3).multiselect.filter(searchTerm);
+        filterBarSelectors.filterBarItems(5).multiselect.filter(searchTerm);
+      },
+    },
+    id: {
+      toggle() {
+        filterBarSelectors.filterBarItems(6).toggle();
+      },
+      choose(nth) {
+        filterBarSelectors.filterBarItems(6).multiselect.choose(nth);
+      },
+      filter(searchTerm) {
+        cy.get(`.foldable-block:nth-child(6) > .pt-3 > div > label > input`).click()
+          .type(searchTerm)
+      },
+    },
+    type: {
+      toggle() {
+        filterBarSelectors.filterBarItems(4).toggle();
+      },
+      choose(nth) {
+        filterBarSelectors.filterBarItems(4).multiselect.choose(nth);
+      },
+      filter(searchTerm) {
+        filterBarSelectors.filterBarItems(4).multiselect.filter(searchTerm);
       },
     },
   },
