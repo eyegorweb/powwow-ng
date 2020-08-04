@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.91+20200804081921
+2020-08-04
+
+### Features
+
+- créer des rapports sur tous les partenaires (c62082d0d13fe3d601da4813293664e87771306d)
+
 ## 1.0.0-master.90+20200803073859
 2020-08-03
 
