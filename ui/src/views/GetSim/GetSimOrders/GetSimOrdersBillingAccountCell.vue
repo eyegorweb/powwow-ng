@@ -1,6 +1,6 @@
 <template>
   <div v-if="row.customerAccount">
-    {{ <row class="customer"></row>Account.code }} - {{ row.customerAccount.name }}
+    {{ row.customerAccount.code }} - {{ row.customerAccount.name }}
   </div>
 </template>
 

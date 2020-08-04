@@ -18,8 +18,6 @@ import { Chart } from 'highcharts-vue';
 import { mapState, mapGetters } from 'vuex';
 import get from 'lodash.get';
 
-// import 'highcharts/css/highcharts.css';
-
 export default {
   components: {
     Chart,

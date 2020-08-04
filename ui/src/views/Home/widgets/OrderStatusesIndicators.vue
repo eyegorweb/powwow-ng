@@ -15,6 +15,7 @@ import Indicators from '@/components/Indicators';
 import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
+import { fromHoursToDDHH } from '@/api/utils';
 
 const dateFormat = 'DD/MM/YYYY';
 
@@ -68,6 +69,10 @@ export default {
           total: '-',
           filters: [],
           fetchKey: 'ORDER_DELAY',
+          getValueWithUnit(value) {
+            if (isNaN(value)) return;
+            return fromHoursToDDHH(value);
+          },
         },
       ];
       if (!this.userIsPartner) {

@@ -7,7 +7,7 @@
       <template v-if="!showInfoMessage">
         <div class="row mb-3">
           <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
               <slot name="title">
                 <template>
                   {{
@@ -20,7 +20,7 @@
             </h2>
           </div>
           <div class="col" v-if="hasResults">
-            <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+            <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
               </span>
@@ -40,6 +40,7 @@
             :order-by.sync="orderBy"
             :show-extra-columns.sync="showExtraCells"
             :size="7"
+            @columnOrdered="orderedColumns = $event"
           >
             <template slot="topLeftCorner">
               <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
@@ -256,6 +257,7 @@ export default {
       showInfoMessage: true,
       searchByIdValue: undefined,
       columns: undefined,
+      orderedColumns: undefined,
       commonColumns: [
         {
           id: 99,

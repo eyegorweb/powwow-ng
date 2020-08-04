@@ -15,6 +15,7 @@ import { fetchSingleIndicator } from '@/api/orders';
 import moment from 'moment';
 
 import { mapState, mapGetters, mapMutations } from 'vuex';
+import { fromHoursToDDHH } from '@/api/utils';
 
 const dateFormat = 'DD/MM/YYYY';
 
@@ -84,6 +85,7 @@ export default {
                   label: this.$t('col.statuses.CONFIRMATION_IN_PROGRESS'),
                 },
                 { id: 'CONFIRMED', label: this.$t('col.statuses.CONFIRMED') },
+                { id: 'VALIDATED', label: this.$t('col.statuses.VALIDATED') },
               ],
             },
             {
@@ -208,7 +210,10 @@ export default {
             total: '-',
             filters: [],
             fetchKey: 'ORDER_DELAY',
-            unit: true,
+            getValueWithUnit(value) {
+              if (isNaN(value)) return '';
+              return fromHoursToDDHH(value);
+            },
           }
         );
       }

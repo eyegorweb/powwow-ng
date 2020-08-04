@@ -9,11 +9,11 @@
       <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
       <p>{{ get('iccid') }}</p>
     </div>
-    <div class="overview-item mr-5">
+    <div class="overview-item mr-5" v-if="!partnerTypeMVNO">
       <h6>{{ $t('getparc.actLines.col.manufacturer') }} :</h6>
       <p>{{ get('deviceInstance.manufacturer') }}</p>
     </div>
-    <div class="overview-item mr-5">
+    <div class="overview-item mr-5" v-if="!partnerTypeMVNO">
       <h6>{{ $t('getparc.actLines.col.commercialRef') }} :</h6>
       <p>{{ get('deviceInstance.deviceReference') }}</p>
     </div>
@@ -83,6 +83,16 @@ export default {
   methods: {
     get(path, defaultVal = '-') {
       return get(this.content, path, defaultVal);
+    },
+  },
+
+  computed: {
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType', '-');
+      if (typeForPartner === 'MVNO') {
+        return true;
+      }
+      return false;
     },
   },
 };

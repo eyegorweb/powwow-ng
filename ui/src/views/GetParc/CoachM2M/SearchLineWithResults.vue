@@ -1,0 +1,79 @@
+<template>
+  <div class="bg-white p-3">
+    <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+    <div v-if="isLoading" class="skeleton-line"></div>
+    <template v-else-if="rows && rows.length">
+      <ul v-if="rows.length > 1" class="result list-unstyled">
+        <li v-for="row in rows" :key="row.id">
+          <Checkbox
+            input-type="radio"
+            :value="row"
+            v-model="selectedLine"
+            shape="round"
+            :filled="true"
+          >
+            {{ row.iccid }}</Checkbox
+          >
+        </li>
+      </ul>
+      <template v-if="rows.length === 1">
+        <div class="single-line">
+          <i class="ic-Check-Icon mr-2 text-success" />
+          {{ selectedLine.iccid }}
+        </div>
+      </template>
+      <slot v-if="selectedLine" :selectedLine="selectedLine" />
+    </template>
+  </div>
+</template>
+
+<script>
+import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
+import { searchLines } from '@/api/linesActions';
+import Checkbox from '@/components/ui/Checkbox.vue';
+
+export default {
+  components: {
+    SearchByLinesId,
+    Checkbox,
+  },
+  data() {
+    return {
+      rows: [],
+      searchByIdValue: undefined,
+      selectedLine: undefined,
+      isLoading: false,
+    };
+  },
+
+  methods: {
+    async searchById(filterObj) {
+      this.isLoading = true;
+      this.searchByIdValue = filterObj.value;
+      const result = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
+        filterObj,
+      ]);
+      this.isLoading = false;
+      if (result && result.items) {
+        this.rows = result.items;
+        if (this.rows && this.rows.length === 1) {
+          this.selectedLine = this.rows[0];
+        }
+      }
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.result {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid $gray-400;
+}
+
+.single-line {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+</style>

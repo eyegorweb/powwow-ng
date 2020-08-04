@@ -5,7 +5,12 @@
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
 
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists offline />
+          <PartnerCombo
+            :value.sync="selectedPartner"
+            :options="partnerChoices"
+            include-mailing-lists
+            offline
+          />
         </template>
 
         <SectionTitle :num="baseNumber + 1">
@@ -23,6 +28,7 @@
               v-if="!group.canShow || group.canShow()"
               :title="group.title"
               :key="group.title"
+              :disabled="group.isDisabled && group.isDisabled()"
             >
               <div class="bg-white p-3 bordered checkboxes-container">
                 <div
@@ -52,10 +58,10 @@
           />
         </div>
         <div class="mt-4 mb-2">
-          <h6>{{ $t('getreport.creation.dateGenerated') }}</h6>
+          <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="newVal => (generationDate = newVal)"
+            @change="(newVal) => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -188,6 +194,7 @@ export default {
       fileFormat: undefined,
       isActive: true,
       disabled: true,
+      partnerChoices: undefined,
       fileFormats: [
         {
           value: 'CSV',
@@ -201,19 +208,19 @@ export default {
       reportFrequencyChoices: [
         {
           id: 'ONCE',
-          label: 'Une seule fois',
+          label: 'frequencies.ONCE',
         },
         {
           id: 'DAILY',
-          label: 'Journalier',
+          label: 'frequencies.DAILY',
         },
         {
           id: 'WEEKLY',
-          label: 'Hebdomadaire',
+          label: 'frequencies.WEEKLY',
         },
         {
           id: 'MONTHLY',
-          label: 'Mensuel',
+          label: 'frequencies.MONTHLY',
         },
       ],
 
@@ -231,55 +238,57 @@ export default {
 
     let partnerID, partnerData;
 
-    if (this.content) {
-      this.preloadCheckBoxes(this.content.fields.split(','));
-      this.reportFrequency = this.content.frequency;
-      this.name = this.content.name;
-
-      this.reportFrequencyChoices = this.reportFrequencyChoices.map(t => {
-        if (t.id === this.content.frequency) {
-          t.default = true;
-        }
-        return t;
-      });
-
-      this.generationDate = this.content.generationDate + ' 00:00:00';
-      this.shouldNotify = this.content.notification;
-      this.isActive = !this.content.disabled;
-      this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
-
-      this.fileFormat = this.content.exportFormat;
-
-      partnerID = this.content.party.id;
-    } else if (this.userIsPartner) {
-      partnerID = this.userInfos.partners[0].id;
-      partnerData = this.userInfos.partners[0];
-      this.generationDate = currentDateTimeWithAdd(10, 'minutes');
-    } else {
-      this.generationDate = currentDateTimeWithAdd(10, 'minutes');
-    }
-
-    if (partnerID) {
-      const selectedPartner = await fetchpartnerById(partnerID, {
-        includeMailingLists: true,
-      });
-      if (selectedPartner && !selectedPartner.errors) {
-        this.selectedPartner = {
-          id: selectedPartner.id,
-          label: selectedPartner.name,
-          data: selectedPartner,
-        };
-      } else if (selectedPartner && selectedPartner.errors) {
-        this.selectedPartner = {
-          id: selectedPartner.id,
-          label: selectedPartner.name,
-          data: partnerData,
-        };
+    const preselectPartner = async () => {
+      if (this.content) {
+        partnerID = this.content.party.id;
+      } else if (this.userIsPartner) {
+        partnerID = this.userInfos.partners[0].id;
+      } else if (this.userIsMultiPartner) {
+        this.partnerChoices = this.userInfos.partners;
       }
-    }
+      if (partnerID) {
+        partnerData = await fetchpartnerById(partnerID, {
+          includeMailingLists: true,
+        });
 
+        if (partnerData) {
+          this.selectedPartner = {
+            id: partnerData.id,
+            label: partnerData.name,
+            data: partnerData,
+          };
+        }
+      }
+    };
+
+    const prefillForm = async () => {
+      if (this.content) {
+        this.reportFrequency = this.content.frequency;
+        this.name = this.content.name;
+        this.reportFrequencyChoices = this.reportFrequencyChoices.map(t => {
+          if (t.id === this.content.frequency) {
+            t.default = true;
+          }
+          return t;
+        });
+        this.generationDate = this.content.generationDate + ' 00:00:00';
+        this.shouldNotify = this.content.notification;
+        this.isActive = !this.content.disabled;
+        this.notifList = this.content.mailingList ? this.content.mailingList.id : undefined;
+
+        this.fileFormat = this.content.exportFormat;
+        this.preloadCheckBoxes(this.content.fields.split(','));
+      } else if (this.userIsPartner) {
+        this.generationDate = currentDateTimeWithAdd(10, 'minutes');
+      } else {
+        this.generationDate = currentDateTimeWithAdd(10, 'minutes');
+      }
+    };
+
+    await preselectPartner();
+    this.resetCheckboxes();
     await this.loadModels();
-
+    await prefillForm();
     this.canShowForm = true;
   },
 
@@ -294,8 +303,14 @@ export default {
       }
       this.preloadCheckBoxes(report.data.fields);
     },
-    async selectedPartner() {
-      await this.loadModels();
+    async selectedPartner(value, previous) {
+      if (value && value.id) {
+        if (!previous || (previous && previous.id && previous.id !== value.id)) {
+          if (this.canShowForm) {
+            await this.loadModels();
+          }
+        }
+      }
     },
   },
 
@@ -418,13 +433,17 @@ export default {
 
     async loadModels() {
       if (this.selectedPartner && this.selectedPartner.id) {
-        this.resetCheckboxes();
+        if (this.canShowForm) {
+          this.resetCheckboxes();
+        }
+
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
           { label: 'Customisé', value: 'NONE', data: { fields: [] } },
           ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
+        this.reportModel = 'NONE';
       }
     },
 
@@ -504,7 +523,8 @@ export default {
               label: 'A-MSISDN',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.flagMsisdnA');
+                if (this.userIsOperator) return true;
+                return !!get(this.partnerForOptionCheck, 'data.flagMsisdnA');
               },
             },
             { code: 'IMEI', label: 'IMEI', checked: false },
@@ -513,7 +533,8 @@ export default {
               label: 'Matériel et constructeur',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
+                if (this.userIsOperator) return true;
+                return get(this.partnerForOptionCheck, 'data.partyType') === 'CUSTOMER';
               },
             },
             { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
@@ -531,7 +552,8 @@ export default {
               label: 'Type de hardware',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
+                if (this.userIsOperator) return true;
+                return get(this.partnerForOptionCheck, 'data.partyType') === 'MVNO';
               },
             },
             { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
@@ -547,7 +569,8 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'CUSTOMER';
+                if (this.userIsOperator) return true;
+                return get(this.partnerForOptionCheck, 'data.partyType') === 'CUSTOMER';
               },
             },
             {
@@ -555,7 +578,8 @@ export default {
               label: "Date de changement d'offre MVNO",
               checked: false,
               canShow: () => {
-                return get(this.selectedPartner, 'data.partyType') === 'MVNO';
+                if (this.userIsOperator) return true;
+                return get(this.partnerForOptionCheck, 'data.partyType') === 'MVNO';
               },
             },
           ],
@@ -565,6 +589,8 @@ export default {
           canShow: () => {
             return this.havePermission('getParc', 'manage_dual');
           },
+          isDisabled: () => this.noPartnerSelected,
+
           checkboxes: [
             { code: 'DUAL_ICCID', label: 'Dual ICCID', checked: false },
             { code: 'DUAL_MSISDN', label: 'Dual MSISDN', checked: false },
@@ -576,7 +602,11 @@ export default {
           title: 'Informations commerciales',
           checkboxes: [
             { code: 'OFFER_NAME', label: 'Nom de l’offre', checked: false },
-            { code: 'GRP_SERVICES_APN', label: 'Services de la ligne et APN', checked: false },
+            {
+              code: 'GRP_SERVICES_APN',
+              label: 'Services de la ligne et APN',
+              checked: false,
+            },
             {
               code: 'CUSTOMER_ACCOUNT_NAME',
               label: 'Nom du compte de facturation',
@@ -593,6 +623,7 @@ export default {
             { code: 'COMMERCIAL_STATUS', label: 'Statut commercial ', checked: false },
             { code: 'BILLING_STATUS', label: 'Statut de facturation', checked: false },
           ],
+          isDisabled: () => this.noPartnerSelected,
         },
 
         {
@@ -663,6 +694,8 @@ export default {
           canShow: () => {
             return this.havePermission('consumption', 'last_usage');
           },
+          isDisabled: () => this.noPartnerSelected,
+
           checkboxes: [
             {
               code: 'LAST_CONNECTION_STATUS',
@@ -722,7 +755,8 @@ export default {
               label: 'Code postal',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.optionViewCellId');
+                if (this.userIsOperator) return true;
+                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
               },
             },
             {
@@ -730,7 +764,8 @@ export default {
               label: 'Ville',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.optionViewCellId');
+                if (this.userIsOperator) return true;
+                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
               },
             },
             {
@@ -738,7 +773,8 @@ export default {
               label: 'Id de cellule',
               checked: false,
               canShow: () => {
-                return !!get(this.selectedPartner, 'data.optionViewCellId');
+                if (this.userIsOperator) return true;
+                return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
               },
             },
             { code: 'LAST_USAGE_COORDINATES', label: 'Coordonnées géographiques ', checked: false },
@@ -791,7 +827,30 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMultiPartner', 'userIsOperator']),
+
+    dateLabel() {
+      if (this.reportFrequency === 'ONCE') {
+        return 'getreport.creation.dateForOneItem';
+
+      }
+      return 'getreport.creation.dateGenerated';
+    },
+
+    partnerForOptionCheck() {
+      if (this.selectedPartner) {
+        return this.selectedPartner;
+      }
+      if (this.userIsMultiPartner) {
+        return this.userInfos.partners[0];
+      }
+
+      return undefined;
+    },
+
+    noPartnerSelected() {
+      return !this.selectedPartner || !this.selectedPartner.id;
+    },
 
     baseNumber() {
       if (this.userIsPartner) return 0;
@@ -804,18 +863,23 @@ export default {
         mailingListValid = !!this.notifList;
       }
 
-      return (
-        !!this.selectedPartner &&
+      const canSave =
         !!this.fileFormat &&
         !!this.name &&
         !!this.generationDate &&
         mailingListValid &&
-        this.selectedItems.length > 0
-      );
+        this.selectedItems.length > 0;
+
+      if (this.userIsMultiPartner) {
+        return canSave;
+      }
+
+      return !!this.selectedPartner && canSave;
     },
     mailingLists() {
-      if (!this.selectedPartner) return [];
-      const mailingLists = get(this.selectedPartner, 'data.mailingLists', []);
+      if (!this.partnerForOptionCheck) return [];
+      if (this.userIsOperator) return true;
+      const mailingLists = get(this.partnerForOptionCheck, 'data.mailingLists', []);
       return mailingLists.map(m => ({ label: m.name, value: m.id }));
     },
   },

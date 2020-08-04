@@ -18,10 +18,12 @@
   "cancel": "Annuler",
   "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
+  "filter": "Filtrer",
   "confirm": "Confirmer",
   "delete": "Supprimer",
   "modify": "Modifier",
   "export": "Exporter",
+  "exportAll": "Export complet",
   "exportError": "Impossible d'exporter",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
@@ -86,6 +88,12 @@
     "DELETE": "Supprimer",
     "DOWNLOAD": "Télécharger",
     "MODIFY": "Modifier"
+  },
+  "frequencies": {
+    "ONCE": "Une seule fois",
+    "DAILY": "Journalier",
+    "WEEKLY": "Hebdomadaire",
+    "MONTHLY": "Mensuel"
   },
   "home": {
     "customize": {
@@ -240,6 +248,17 @@
     "billPeriod": "Période facturée",
     "lineTotal": "Nombre de lignes"
   },
+  "coach": {
+    "title": "Coach",
+    "reTest": "Relancer le test",
+    "compare": "Comparer",
+    "cancelTest": "Annuler le diagnostique comparé",
+    "compareOther": "Comparer avec une autre ligne",
+    "testLine": "Tester la ligne",
+    "chooseLine": "Choisir une ligne",
+    "currentLine": "Ligne actuelle {lineId}",
+    "compareLine": "Ligne de comparaison"
+  },
   "getsim": {
     "manage-orders": "Gestion des commandes",
     "step-product": "Choisir un type de carte SIM",
@@ -343,6 +362,10 @@
       "title-graph-top5-manufacturers": "Top 5 Fabriquant",
       "title-graph-techno-repartition": "Nombre de lignes par techno",
       "title-graph-top5-references": "Top 5 Références Commerciales"
+    },
+    "messages": {
+      "warning1": "Les filtres sur les CF et/ou les offres ne sont pas pris en compte",
+      "warning2": "Le filtre sur les offres n'est pas pris en compte"
     }
   },
   "getvsion": {
@@ -460,7 +483,8 @@
         "email": "Email",
         "partnerGroup": "Groupe de partenaire",
         "partners": "Partenaires",
-        "roles": "Rôles"
+        "roles": "Rôles",
+        "status": "Statut"
       },
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
@@ -582,6 +606,10 @@
       "userForm": {
         "title": "Ajouter un utilisateur",
         "modify-title": "Modification d'un utilisateur"
+      },
+      "changePassword": {
+        "title": "Modifier le mot de passe",
+        "warning": "Les modifications seront perdues, voulez-vous continuer ?"
       }
     }
   },
@@ -605,6 +633,7 @@
       "fileFormat": "Format de ficher",
       "list": "Liste de diffusion",
       "dateGenerated": "Date de génération",
+      "dateForOneItem": "Date de la demande",
       "dateAndRecursion": "Récurrence et date"
     },
     "errors": {
@@ -764,10 +793,10 @@
       "offer": "Offre",
       "lineStatus": "Statut de la ligne",
       "triggeredAlarms": "Alarmes déclenchées",
-      "manufacturer": "Fabricant",
+      "manufacturer": "Fabriquant",
       "model": "Modèle",
       "titled": "Intitulés",
-      "data": "Data consommées",
+      "data": "Data consommée",
       "sms": "SMS consommés",
       "voice": "Voix consommée",
       "previsionalData": "Prévisionnel Data",
@@ -1146,14 +1175,16 @@
       "report": {
         "DATA_EXISTS": "Lignes existantes",
         "DATA_INVALID_FORMAT": "Format invalide",
-        "DATA_SIZE_EXCEED": "Le fichier est trop volumineux",
+        "FILE_SIZE_LIMIT_EXCEEDED": "Le fichier est trop volumineux",
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
         "DATA_WRONG_STATUS": "Statut invalide",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
-        "EMPTY_FILE": "Fichier vide"
+        "EMPTY_FILE": "Fichier vide",
+        "FILE_EXTENSION_INVALID": "Extension de fichier invalide",
+        "FILE_CONTENT_INVALID": "Contenu de fichier invalide"
       },
 
       "transfertCF": {
@@ -1352,8 +1383,8 @@
       }
     },
     "search": {
-      "act-mass-id": "Id de l’acte de gestion en masse",
-      "act-unit-id": "Id de l’acte de gestion unitaire"
+      "act-mass-id": "Id acte masse",
+      "act-unit-id": "Id acte unitaire"
     }
   },
   "col": {
@@ -1377,6 +1408,7 @@
     "massActionIds": "Id de gestion",
     "offer": "Offre",
     "active": "Actif",
+    "notActive": "Non actif",
     "locked": "Verouillé",
     "closed": "Clos",
     "managementId": "Id gestion",
@@ -1411,11 +1443,11 @@
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
         "failed": "Actes de gestion en échec",
-        "availableSIMCards": "Cartes SIM en stock",
-        "allocatedSIMCards": "Cartes SIM pré-activées",
-        "activatedSIMCards": "Cartes SIM actives",
-        "suspended": "Suspendu",
-        "traffic": "Trafiquantes M",
+        "availableSIMCards": "Lignes en stock (Non-préactivé)",
+        "allocatedSIMCards": "Lignes pré-activées",
+        "activatedSIMCards": "Lignes actives",
+        "suspended": "Lignes suspendues",
+        "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
         "inprogressTwoDays": "Actes en cours > 48 h",
         "failedTwoDays": "Actes en échec > 48 h"
@@ -1488,7 +1520,7 @@
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",
       "importDate": "Date d’import",
-      "endCommitmentDate": "Date de fin d’engagement",
+      "endCommitmentDate": "Date de fin de forfait",
       "activationDate": "Date d’activation",
       "preActivationDate": "Date de pré-activation",
       "statusDate": "Date de statut",

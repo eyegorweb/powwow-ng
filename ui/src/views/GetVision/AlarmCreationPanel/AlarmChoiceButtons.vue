@@ -25,7 +25,6 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
-import { excludeMocked } from '@/featureFlipping/plugin';
 
 export default {
   components: {
@@ -63,8 +62,8 @@ export default {
   data() {
     return {
       currentAlarm: undefined,
-      alarms: excludeMocked([
-        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE', mock: true },
+      alarms: [
+        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
         {
           id: 'OVER_CONSUMPTION_VOLUME',
           description: `L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.`,
@@ -75,7 +74,7 @@ export default {
 
         { id: 'IMEI_CHANGE' },
         { id: 'COUNTRY_CHANGE' },
-      ]),
+      ],
     };
   },
 };

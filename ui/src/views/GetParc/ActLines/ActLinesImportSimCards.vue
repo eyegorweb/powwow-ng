@@ -147,7 +147,11 @@ export default {
       ) {
         return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
       } else if (fileMeta.size > 1000000) {
-        return this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
+        return this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
+      }
+
+      if (fileMeta.error) {
+        return this.$t('getparc.actCreation.report.' + fileMeta.error);
       }
       return;
     },

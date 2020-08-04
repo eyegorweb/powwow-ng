@@ -1,7 +1,12 @@
 <template>
   <div :class="`col-${size}`">
     <div class="bg-white p-3 mt-4">
-      <h4>{{ title }}</h4>
+      <h4>
+        {{ title }}
+        <template v-if="warning">
+          <i class="ic-Alert-Icon text-warning" v-tooltip="{ content: tooltipMsg }"></i>
+        </template>
+      </h4>
       <template v-if="canShow">
         <slot />
       </template>
@@ -24,6 +29,8 @@ export default {
       type: String,
       default: 'TODO',
     },
+    warning: Boolean,
+    tooltipMsg: String,
   },
 };
 </script>

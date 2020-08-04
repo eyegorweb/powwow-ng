@@ -9,6 +9,7 @@
     :show-extra-columns.sync="showExtraCells"
     :size="size"
     @colEvent="$emit('colEvent', $event)"
+    @columnOrdered="$emit('columnOrdered', $event)"
   >
     <template slot="topLeftCorner">
       <slot name="topLeftCorner"></slot>

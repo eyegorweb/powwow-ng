@@ -1,27 +1,36 @@
 import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
+import { MultiSelectFilter, partnersFilter } from './selectors/filters';
+
 export default {
   init() {
     layout.menu.getSim();
   },
   filterBar: {
     apply: filterBarSelectors.applySearch,
-    partner: {
+    partner: partnersFilter,
+    offer: new MultiSelectFilter(6),
+    type: new MultiSelectFilter(4),
+    billingAccount: new MultiSelectFilter(2),
+
+    status: {
       toggle() {
-        filterBarSelectors.filterBarItems(1).toggle();
+        filterBarSelectors.filterBarItems(3).toggle();
       },
-      choose(nth) {
-        filterBarSelectors.filterBarItems(1).multiselect.choose(nth);
-      },
-      filter(searchTerm) {
-        filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
-      },
-      chosenItems() {
-        return cy.get(
-          //'#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-3 > div.card.filter-bar > div.card-body.hide-all-filters > div.mb-3 > div:nth-child(1) > div > div'
-          '.selected-filter'
-        );
+      choose(statusToChoose) {
+        cy.get('span > .foldable-block:nth-child(3) > .pt-3 > div')
+          .children()
+          .find('label')
+          .then(labelElems => {
+            labelElems.each((index, labelElem) => {
+              if (statusToChoose === labelElem.textContent) {
+                cy.get(labelElem)
+                  .children('.checkmark')
+                  .click({ force: true });
+              }
+            });
+          });
       },
     },
   },

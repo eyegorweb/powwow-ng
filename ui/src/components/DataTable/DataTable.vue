@@ -15,10 +15,10 @@
       :max-columns-number="size"
     />
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <slot name="topLeftCorner" />
       </div>
-      <div v-if="page" class="col-md-5">
+      <div v-if="page" class="col-md-6">
         <div class="float-left">
           <label class="form-group">
             {{ $t('numberPerPage') }}:
@@ -253,6 +253,20 @@ export default {
   mounted() {
     this.checkStorageVersion();
     this.prepareColumns();
+  },
+
+  watch: {
+    usableColumns(usableColumns) {
+      this.$emit(
+        'columnOrdered',
+        usableColumns.filter(c => {
+          if (c.visibleWhen) {
+            return c.visibleWhen();
+          }
+          return true;
+        })
+      );
+    },
   },
 
   methods: {

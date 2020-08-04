@@ -161,7 +161,6 @@ export default {
         return carouselItems
           .filter(i => !i.boOnly)
           .filter(i => {
-            //  console.log(i.restrictPartnerType, this.singlePartner)
             if (i.restrictPartnerType && this.singlePartner) {
               return !(this.singlePartner.partyType === i.restrictPartnerType);
             }

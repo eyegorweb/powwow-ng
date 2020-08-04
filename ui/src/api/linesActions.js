@@ -18,8 +18,17 @@ export async function fetchTransferSim() {
   `;
 
   const response = await query(queryStr);
-  console.log(response);
+  return response.data;
+}
 
+export async function updateTransferSim(ids, status) {
+  const queryStr = `
+    mutation {
+      updateTransferSimRequests(input: {requestIds: [${ids}], status: ${status}})
+    }
+  `;
+
+  const response = await query(queryStr);
   return response.data;
 }
 

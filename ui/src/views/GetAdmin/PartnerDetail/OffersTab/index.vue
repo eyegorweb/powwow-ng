@@ -12,16 +12,19 @@
     </div>
     <div class="col-md-9">
       <OffersCards v-if="section === 'filters.offers'" :partner="partner" />
+      <SimCards v-if="section === 'getadmin.users.simcards'" :partner="partner" />
     </div>
   </div>
 </template>
 
 <script>
 import OffersCards from './OffersCards';
+import SimCards from './SimCards';
 
 export default {
   components: {
     OffersCards,
+    SimCards,
   },
 
   props: {

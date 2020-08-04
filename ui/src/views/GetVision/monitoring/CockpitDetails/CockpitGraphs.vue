@@ -92,17 +92,25 @@ export default {
     formatFilters() {
       if (!this.appliedFilters) return {};
 
-      return this.appliedFilters.reduce((filters, item) => {
-        if (item.id === 'getadmin.users.filters.partners') {
-          filters.partyIds = [item.data.id];
-        }
+      return this.appliedFilters.reduce(
+        (filters, item) => {
+          if (item.id === 'getadmin.users.filters.partners') {
+            filters.params.partyIds = [item.data.id];
+          }
 
-        if (item.id === 'filters.country') {
-          filters.locationCode = item.data.codeIso3;
-        }
+          if (item.id === 'filters.country') {
+            filters.params.locationCode = item.data.codeIso3;
+          }
 
-        return filters;
-      }, {});
+          if (item.id === 'common.period') {
+            filters.beginDate = item.data.startDate;
+            filters.endDate = item.data.endDate;
+          }
+
+          return filters;
+        },
+        { params: {} }
+      );
     },
   },
 

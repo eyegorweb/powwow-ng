@@ -39,6 +39,17 @@ export async function deactivateUser(id) {
   return response.data.deactivateUser;
 }
 
+export async function updateUserPassword(params) {
+  const queryStr = `mutation UpdateUserPassword($userPasswordInput:UserPasswordInput) {
+    updateUserPassword(userPasswordInput: $userPasswordInput)
+  }`;
+
+  const response = await query(queryStr, {
+    userPasswordInput: params
+  });
+  return response.data.updateUserPassword;
+}
+
 export async function createUser(params) {
   let partyGroupParam = '';
   if (params.partyGroupId) {
@@ -71,36 +82,35 @@ export async function createUser(params) {
 }
 
 export async function updateUser(params) {
-  let partyGroupParam = '';
+  const queryParams = {
+    userToUpdate: params.id,
+    userCreationInput: {
+      title: params.title,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email,
+      username: params.username,
+      password: params.password,
+      confirmPassword: params.confirmPassword,
+      roles: params.roles.map(r => r.code).join(','),
+    },
+  };
+
   if (params.partyGroupId) {
-    partyGroupParam = `partyGroupId: ${params.partyGroupId},`;
+    queryParams.partyGroupId = params.partyGroupId;
   }
 
-  let partyParam = '';
   if (params.partyId) {
-    partyParam = `partyId: ${params.partyId},`;
+    queryParams.partyId = params.partyId;
   }
 
   const queryStr = `
-  mutation {
-    updateUser(
-      userToUpdate: ${params.id},
-      userCreationInput: {
-      title: ${params.title},
-      firstName: "${params.firstName}",
-      lastName: "${params.lastName}",
-      email: "${params.email}",
-      username: "${params.username}",
-      password: "${params.password}",
-      confirmPassword: "${params.confirmPassword}",
-      ${partyParam}
-      ${partyGroupParam}
-      roles: [${params.roles.map(r => r.code).join(',')}]
-    }){
+  mutation UpdateUser($userToUpdate: Long!, $userCreationInput: UserCreationInput!){
+    updateUser( userToUpdate: $userToUpdate, userCreationInput: $userCreationInput){
       id
     }
   }`;
-  const response = await query(queryStr);
+  const response = await query(queryStr, queryParams);
   if (!response) {
     return {
       errors: ['unknown'],
@@ -269,6 +279,7 @@ export function formatFilters(selectedFilters) {
   addPartnerFilter(gqlFilters, selectedFilters);
   addRolesFilter(gqlFilters, selectedFilters);
   addRestrictToPartyFilter(gqlFilters, selectedFilters);
+  addStatusFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -333,6 +344,13 @@ function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
   const restrictToParty = getFilterValue(selectedFilters, 'getadmin.users.filters.restrictToParty');
   if (!restrictToParty && restrictToParty !== undefined) {
     gqlFilters.push(`restrictToParty:${restrictToParty}`);
+  }
+}
+
+function addStatusFilter(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.status');
+  if(foundFilter) {
+    gqlFilters.push(`disabled: {eq: ${foundFilter.data.value}}`);
   }
 }
 

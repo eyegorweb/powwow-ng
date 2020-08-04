@@ -1,12 +1,13 @@
 <template>
-  <GraphContainer title="Etat du parc" :size="12" :can-show="canShow">
+  <GraphContainer
+    title="Etat du parc"
+    :size="12"
+    :can-show="canShow"
+    :warning="showWarningMsg"
+    :tooltip-msg="tooltipMsg"
+  >
     <div slot="onHide">
-      <div class="alert alert-warning" v-if="offer || billingAccount">
-        {{ $t('getreport.errors.dontSelectOfferOrCF') }}
-      </div>
-      <div v-else>
-        {{ $t('getreport.errors.partnerRequired') }}
-      </div>
+      {{ $t('getreport.errors.partnerRequired') }}
     </div>
     <div>
       <div class="d-flex justify-content-end">
@@ -45,13 +46,16 @@ export default {
     canShow() {
       const partnerChosen = !!(this.partner && this.partner.id);
       const offerChosen = !!(this.offer && this.offer.id);
-      const billingAccountChosen = !!(this.billingAccount && this.billingAccount.id);
-
-      if (offerChosen && billingAccountChosen) {
-        return offerChosen && billingAccountChosen;
+      if (offerChosen) {
+        return offerChosen;
       } else {
-        return partnerChosen && !offerChosen && !billingAccountChosen;
+        return partnerChosen;
       }
+    },
+    showWarningMsg() {
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) return true;
+      return false;
     },
   },
 
@@ -71,6 +75,7 @@ export default {
     return {
       chartOptions: undefined,
       currentPeriod: 'MONTH12',
+      tooltipMsg: this.$t('getdevice.messages.warning2'),
       toggleValues: [
         {
           id: 'MONTH12',

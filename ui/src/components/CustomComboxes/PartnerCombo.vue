@@ -28,6 +28,7 @@ export default {
 
   props: {
     value: Object,
+    options: Array,
     includeMailingLists: Boolean,
     offline: Boolean,
     disabled: Boolean,
@@ -63,22 +64,26 @@ export default {
 
   async mounted() {
     if (this.offline) {
-      const data = await fetchpartners('', {
-        page: 0,
-        limit: 999,
-        partnerTypes: this.partnerTypesParam,
-        includeMailingLists: this.includeMailingLists,
-      });
-      this.offlineItems = data.map(p => ({
+      if (this.options) {
+        this.offlineItems = this.options;
+      } else {
+        const data = await fetchpartners('', {
+          page: 0,
+          limit: 999,
+          partnerTypes: this.partnerTypesParam,
+          includeMailingLists: this.includeMailingLists,
+        });
+        this.offlineItems = data;
+      }
+
+      this.offlineItems = this.offlineItems.map(p => ({
         id: p.id,
         label: p.name,
         data: p,
       }));
 
-      if (this.offline) {
-        if (this.value && this.value.id && this.localItems && this.localItems.length) {
-          this.selectedLocalValue = this.localItems.find(i => i.id === this.value.id);
-        }
+      if (this.value && this.value.id && this.localItems && this.localItems.length) {
+        this.selectedLocalValue = this.localItems.find(i => i.id === this.value.id);
       }
     }
   },

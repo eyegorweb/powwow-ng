@@ -9,9 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3" v-if="canShow">
-        <UiButton variant="accent" block class="float-right" @click="createUserPanel()"
-          >{{ $t('getadmin.users.addUser') }}
-        </UiButton>
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
+          $t('getadmin.users.addUser')
+        }}</UiButton>
       </div>
     </div>
     <TableWithFilter
@@ -22,14 +22,16 @@
       :total="total"
       :order-by.sync="orderBy"
       :show-reset="!!searchByLoginValue"
+      :is-loading="isLoading"
       @resetSearch="resetFilters"
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
+      @columnOrdered="orderedColumns = $event"
     >
       <div slot="title">{{ $t('getadmin.users.total', { total: total }) }}</div>
 
       <div slot="topRight">
-        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+        <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
           <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
         </ExportButton>
       </div>
@@ -64,6 +66,7 @@ import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import PartnerFilter from './filters/PartnerFilter';
 import RolesFilter from './filters/RolesFilter';
+import StatusFilter from './filters/StatusFilter';
 import Actions from './UserActions';
 import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
@@ -82,6 +85,8 @@ export default {
     return {
       filters: undefined,
       lastPayload: undefined,
+      isLoading: true,
+      orderedColumns: undefined,
       columns: [
         {
           id: 1,
@@ -100,6 +105,7 @@ export default {
         {
           id: 2,
           label: 'Login',
+          exportId: 'LOGIN',
           name: 'username',
           orderable: true,
           visible: true,
@@ -107,6 +113,7 @@ export default {
         },
         {
           id: 3,
+          exportId: 'NOM',
           label: 'Nom',
           name: 'fullname',
           orderable: true,
@@ -121,6 +128,7 @@ export default {
         },
         {
           id: 4,
+          exportId: 'PRENOM',
           label: 'Prénom',
           name: 'PRENOM',
           orderable: true,
@@ -135,6 +143,7 @@ export default {
         },
         {
           id: 5,
+          exportId: 'PARTENAIRE',
           label: 'Partenaire',
           name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
           orderable: false,
@@ -149,6 +158,7 @@ export default {
         },
         {
           id: 6,
+          exportId: 'ROLES',
           label: 'Rôles',
           name: 'ROLES',
           orderable: false,
@@ -164,9 +174,10 @@ export default {
         },
         {
           id: 7,
-          label: 'Actif',
-          name: 'disabled',
-          orderable: false,
+          exportId: 'STATUT',
+          label: 'Statut',
+          name: 'statut',
+          orderable: true,
           visible: true,
           noHandle: true,
           format: {
@@ -217,6 +228,17 @@ export default {
           return {
             id: 'getadmin.users.filters.roles',
             values: chosenValues,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.filters.status',
+        component: StatusFilter,
+        onChange: (selectedStatus) => {
+          return {
+            id: 'getadmin.users.filters.status',
+            value: this.$t(selectedStatus.label),
+            data: selectedStatus
           };
         },
       },
@@ -282,7 +304,10 @@ export default {
         filters: [],
       };
 
+      this.isLoading = true;
       const data = await searchUsers(this.orderBy, pagination, filters);
+      this.isLoading = false;
+
       this.total = data.total;
       this.rows = data.items;
 
@@ -331,12 +356,10 @@ export default {
     },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        return await exportUsers(
-          ['PARTENAIRE', 'LOGIN', 'NOM', 'PRENOM', 'ROLES', 'STATUT'],
-          this.orderBy,
-          exportFormat,
-          this.currentAppliedFilters
-        );
+        return await exportUsers(columnsParam, this.orderBy, exportFormat, [
+          ...this.currentAppliedFilters,
+          { id: 'getadmin.users.filters.userName', value: this.searchByLoginValue },
+        ]);
       };
     },
     onDuplicateUser(user) {

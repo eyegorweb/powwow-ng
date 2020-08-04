@@ -85,7 +85,7 @@ import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
 import IdentifierFilter from './filters/IdentifierFilter';
 
-// import DateRangeFilter from './filters/DateRangeFilter';
+import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
 import MonitoringIndicators from './MonitoringIndicators';
 import cloneDeep from 'lodash.clonedeep';
@@ -331,7 +331,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -397,22 +397,20 @@ export default {
           createComboFilter('types', TypesFilter);
           createComboFilter('col.label', LabelFilter);
         }
-
-        /*
-        currentVisibleFilters.push({
-          title: 'common.period',
-          component: DateRangeFilter,
-          onChange(chosen) {
-            return {
-              id: 'common.period',
-              startDate: chosen.startDate,
-              endDate: chosen.endDate,
-              data: chosen,
-            };
-          },
-        });
-        //*/
       }
+
+      currentVisibleFilters.push({
+        title: 'common.period',
+        component: DateRangeFilter,
+        onChange(chosen) {
+          return {
+            id: 'common.period',
+            startDate: chosen.startDate,
+            endDate: chosen.endDate,
+            data: chosen,
+          };
+        },
+      });
 
       return currentVisibleFilters;
     },

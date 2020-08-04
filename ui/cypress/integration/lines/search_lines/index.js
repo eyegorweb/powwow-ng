@@ -5,8 +5,8 @@ import lineDetailPage from '../../../pageObjects/lineDetailPage';
 Given(`je suis sur la page recherche de lignes`, () => {
   linesPage.init();
 });
-Given(`J'ouvre le détail d'une ligne`, () => {
-  cy.wait(200);
+Given(`j'ouvre le détail d'une ligne`, () => {
+  cy.wait(600);
 
   linesPage.showAllLines();
   cy.wait(200);
@@ -14,11 +14,62 @@ Given(`J'ouvre le détail d'une ligne`, () => {
   linesPage.panel.openForLine(1);
   linesPage.panel.goToDetail();
 });
-When(`Je clique sur retour`, () => {
+When(`je clique sur retour`, () => {
   lineDetailPage.goBack();
 });
-Then(`La table contient les résultats de la page précédente`, () => {
+Then(`la table contient les résultats de la page précédente`, () => {
   linesPage.getRows(elements => {
     expect(elements.length).to.be.above(0);
+  });
+});
+
+Given(`je choisis le partenaire {string}`, partnerName => {
+  linesPage.filterBar.partner.toggle();
+  linesPage.filterBar.partner.filter(partnerName);
+  linesPage.filterBar.partner.choose(1);
+});
+
+Given(`je choisis le compte de facturation {string}`, billingAccount => {
+  linesPage.filterBar.billingAccount.toggle();
+  linesPage.filterBar.billingAccount.filter(billingAccount);
+  linesPage.filterBar.billingAccount.choose(1);
+});
+
+Given(`je choisis le type {string}`, simType => {
+  linesPage.filterBar.type.toggle();
+  linesPage.filterBar.type.filter(simType);
+  linesPage.filterBar.type.choose(1);
+});
+
+Given(`je choisis l'offre {string}`, offer => {
+  linesPage.filterBar.offer.toggle();
+  linesPage.filterBar.offer.filter(offer);
+  linesPage.filterBar.offer.choose(1);
+});
+
+Given(`je choisis l'id {string}`, offer => {
+  linesPage.filterBar.id.toggle();
+  linesPage.filterBar.id.filter(offer);
+});
+
+When(`je lance la recherche`, () => {
+  linesPage.filterBar.apply();
+});
+
+Then(`la table contient {int} resultat`, nbrResult => {
+  linesPage.getTotal(total => {
+    expect(total).to.equal(nbrResult);
+  });
+});
+
+Then(`la table contient plus de {int} resultat`, nbrResult => {
+  linesPage.getTotal(total => {
+    expect(total).to.be.above(nbrResult);
+  });
+});
+
+Then(`la table contient moins de {int} resultat`, nbrResult => {
+  linesPage.getTotal(total => {
+    expect(total).to.be.below(nbrResult);
   });
 });

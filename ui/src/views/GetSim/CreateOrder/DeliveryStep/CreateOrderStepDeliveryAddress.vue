@@ -27,6 +27,9 @@
           >
           <br v-if="item.address.city" />
           {{ item.address.zipCode }} - {{ item.address.city }}
+
+          <br v-if="item.address.countryName" />
+          {{ item.address.countryName }}
         </p>
         <footer v-if="canEdit" class="flex-fixed">
           <a href="#" @click.prevent="$emit('modify', item)">{{ $t('modify') }}</a>

@@ -46,7 +46,13 @@
           <h6 class="text-danger">{{ $t('exportError') }}</h6>
         </div>
       </div>
-      <div slot="footer">
+
+      <div slot="footer" class="footer">
+        <div class="exportAll">
+          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">{{
+            $t('exportAll')
+          }}</Checkbox>
+        </div>
         <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeExportChoice">
           {{ $t('cancel') }}
         </button>
@@ -61,11 +67,13 @@ import { Fragment } from 'vue-fragment';
 import { mapState, mapMutations } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import sortBy from 'lodash.sortby';
+import Checkbox from '@/components/ui/Checkbox.vue';
 
 export default {
   components: {
     Modal,
     Fragment,
+    Checkbox,
   },
   computed: {
     ...mapState({
@@ -79,6 +87,7 @@ export default {
       errors: undefined,
       isLoading: false,
       exportFormat: undefined,
+      exportAll: false,
     };
   },
   methods: {
@@ -91,8 +100,7 @@ export default {
 
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
-
-      const downloadResponse = await this.doExport(this.exportFormat, true);
+      const downloadResponse = await this.doExport(this.exportFormat, true, this.exportAll);
       this.closeAndResetExportChoice();
 
       if (!downloadResponse || downloadResponse.errors) {
@@ -102,9 +110,10 @@ export default {
       }
     },
 
-    async doExport(exportFormat, asyncExportRequest) {
+    async doExport(exportFormat, asyncExportRequest, exportAll) {
       const { columns, exportFn, orderBy } = this.exportPanelParams;
       this.errors = undefined;
+      console.log('columns >>>>>>>> ', columns);
       const columnsParam = sortBy(columns, c => !c.visible)
         .filter(c => c.exportId)
         .map(c => c.exportId);
@@ -114,7 +123,8 @@ export default {
         columnsParam,
         orderBy,
         exportFormat,
-        asyncExportRequest
+        asyncExportRequest,
+        exportAll
       );
       this.isLoading = false;
 
@@ -123,7 +133,7 @@ export default {
 
     async exportFile(exportFormat) {
       this.exportFormat = exportFormat;
-      const downloadResponse = await this.doExport(exportFormat);
+      const downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
 
       if (downloadResponse.errors) {
         this.errors = downloadResponse.errors;
@@ -145,4 +155,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+
+  .exportAll {
+    margin-right: 20px;
+  }
+}
+</style>
