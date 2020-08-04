@@ -2,7 +2,7 @@
   <Indicators
     v-if="indicators"
     :meta="indicators"
-    :on-click="(indicator) => $emit('click', indicator)"
+    :on-click="indicator => $emit('click', indicator)"
     :no-borders="noBorders"
     :small="small"
     precalculated
