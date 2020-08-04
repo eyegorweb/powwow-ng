@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.93+20200804091501
+2020-08-04
+
+### Fixes
+
+- corrections pour masquer les infos pour le partenaire MVNO (775bbb5487a85eae116fc60801800d3cb87130bd)
+
 ## 1.0.0-master.92+20200804083646
 2020-08-04
 
