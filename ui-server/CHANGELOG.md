@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.94+20200804100828
+2020-08-04
+
+### Features
+
+- libellé différent pour la date du rapport suivant la fréquence de génération (3b7fa22af6e835035a47e59cfbec7b08cd3463b8)
+
 ## 1.0.0-master.93+20200804091501
 2020-08-04
 
