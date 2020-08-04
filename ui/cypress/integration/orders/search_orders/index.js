@@ -22,6 +22,23 @@ Given(`je choisis l'offre {string}`, offer => {
   orderPage.filterBar.offer.choose(1);
 });
 
+Given(`je choisis le statut {string}`, orderStatus => {
+  orderPage.filterBar.status.toggle();
+  orderPage.filterBar.status.choose(orderStatus);
+});
+
+Given(`je choisis le type {string}`, simType => {
+  orderPage.filterBar.type.toggle();
+  orderPage.filterBar.type.filter(simType);
+  orderPage.filterBar.type.choose(1);
+});
+
+Given(`je choisis le compte de facturation {string}`, billingAccount => {
+  orderPage.filterBar.billingAccount.toggle();
+  orderPage.filterBar.billingAccount.filter(billingAccount);
+  orderPage.filterBar.billingAccount.choose(1);
+});
+
 When(`je lance la recherche`, () => {
   orderPage.filterBar.apply();
 });
@@ -44,3 +61,8 @@ Then(`la table contient moins de {int} resultat`, nbrResult => {
   });
 });
 
+Then(`la table contient moins de {int} resultat`, nbrResult => {
+  orderPage.getTotal(total => {
+    expect(total).to.be.below(nbrResult);
+  });
+});
