@@ -58,10 +58,10 @@
           />
         </div>
         <div class="mt-4 mb-2">
-          <h6>{{ $t('getreport.creation.dateGenerated') }}</h6>
+          <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="newVal => (generationDate = newVal)"
+            @change="(newVal) => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -828,6 +828,14 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner', 'userInfos', 'userIsMultiPartner', 'userIsOperator']),
+
+    dateLabel() {
+      if (this.reportFrequency === 'ONCE') {
+        return 'getreport.creation.dateForOneItem';
+
+      }
+      return 'getreport.creation.dateGenerated';
+    },
 
     partnerForOptionCheck() {
       if (this.selectedPartner) {

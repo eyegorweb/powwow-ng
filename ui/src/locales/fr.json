@@ -632,6 +632,7 @@
       "fileFormat": "Format de ficher",
       "list": "Liste de diffusion",
       "dateGenerated": "Date de génération",
+      "dateForOneItem": "Date de la demande",
       "dateAndRecursion": "Récurrence et date"
     },
     "errors": {
