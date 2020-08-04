@@ -544,6 +544,7 @@ export async function fetchpartnerAddresses(id) {
           zipCode
           city
           country
+          countryName
           state
         }
       }
@@ -580,6 +581,7 @@ export async function fetchpartnerAddresses(id) {
               city
               state
               country
+              countryName
               }
           }
       }
