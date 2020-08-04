@@ -482,7 +482,8 @@
         "email": "Email",
         "partnerGroup": "Groupe de partenaire",
         "partners": "Partenaires",
-        "roles": "Rôles"
+        "roles": "Rôles",
+        "status": "Statut"
       },
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
@@ -1405,6 +1406,7 @@
     "massActionIds": "Id de gestion",
     "offer": "Offre",
     "active": "Actif",
+    "notActive": "Non actif",
     "locked": "Verouillé",
     "closed": "Clos",
     "managementId": "Id gestion",

@@ -23,11 +23,11 @@
             <h6>{{ $t('getparc.actDetail.col.iccid') }}:</h6>
             <p>{{ getFromContent('iccid') }}</p>
           </div>
-          <div class="item">
+          <div class="item" v-if="!partnerTypeMVNO">
             <h6>{{ $t('getparc.lineDetail.manufacturer') }}:</h6>
             <p>{{ getFromContent('deviceInstance.manufacturer') }}</p>
           </div>
-          <div class="item">
+          <div class="item" v-if="!partnerTypeMVNO">
             <h6>{{ $t('getparc.lineDetail.model') }}:</h6>
             <p>{{ getFromContent('deviceInstance.deviceReference') }}</p>
           </div>

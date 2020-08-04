@@ -277,6 +277,7 @@ export function formatFilters(selectedFilters) {
   addPartnerFilter(gqlFilters, selectedFilters);
   addRolesFilter(gqlFilters, selectedFilters);
   addRestrictToPartyFilter(gqlFilters, selectedFilters);
+  addStatusFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -341,6 +342,13 @@ function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
   const restrictToParty = getFilterValue(selectedFilters, 'getadmin.users.filters.restrictToParty');
   if (!restrictToParty && restrictToParty !== undefined) {
     gqlFilters.push(`restrictToParty:${restrictToParty}`);
+  }
+}
+
+function addStatusFilter(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.status');
+  if(foundFilter) {
+    gqlFilters.push(`disabled: {eq: ${foundFilter.data.value}}`);
   }
 }
 

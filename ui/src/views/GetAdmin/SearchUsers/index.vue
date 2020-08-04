@@ -66,6 +66,7 @@ import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
 import PartnerFilter from './filters/PartnerFilter';
 import RolesFilter from './filters/RolesFilter';
+import StatusFilter from './filters/StatusFilter';
 import Actions from './UserActions';
 import { searchUsers, exportUsers } from '@/api/users';
 import get from 'lodash.get';
@@ -175,8 +176,8 @@ export default {
           id: 7,
           exportId: 'STATUT',
           label: 'Statut',
-          name: 'disabled',
-          orderable: false,
+          name: 'statut',
+          orderable: true,
           visible: true,
           noHandle: true,
           format: {
@@ -227,6 +228,17 @@ export default {
           return {
             id: 'getadmin.users.filters.roles',
             values: chosenValues,
+          };
+        },
+      },
+      {
+        title: 'getadmin.users.filters.status',
+        component: StatusFilter,
+        onChange: (selectedStatus) => {
+          return {
+            id: 'getadmin.users.filters.status',
+            value: this.$t(selectedStatus.label),
+            data: selectedStatus
           };
         },
       },
