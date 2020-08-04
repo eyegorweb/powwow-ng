@@ -44,7 +44,9 @@ export async function updateUserPassword(params) {
     updateUserPassword(userPasswordInput: $userPasswordInput)
   }`;
 
-  const response = await query(queryStr, params);
+  const response = await query(queryStr, {
+    userPasswordInput: params
+  });
   return response.data.updateUserPassword;
 }
 
