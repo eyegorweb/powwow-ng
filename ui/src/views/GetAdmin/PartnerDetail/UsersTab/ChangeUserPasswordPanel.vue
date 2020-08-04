@@ -34,7 +34,7 @@
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import FormControl from '@/components/ui/FormControl';
 import UiButton from '@/components/ui/Button';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 import { checkPasswordErrors } from './UserFormPanel';
 import { updateUserPassword } from '@/api/users.js';
 
@@ -50,8 +50,15 @@ export default {
       passwordConfirm: undefined,
     };
   },
+  props: {
+    content: Object,
+
+  },
   computed: {
-    ...mapGetters(['userInfos']),
+
+    userId() {
+      return this.content.duplicateFrom.id;
+    },
 
     passwordConfirmationErrors() {
       if (!this.password) return [];
@@ -72,7 +79,7 @@ export default {
 
     async save() {
       const params = {
-        userId: this.userInfos.id,
+        userId: this.userId,
         password: this.password,
         confirmPassword: this.passwordConfirm,
       };

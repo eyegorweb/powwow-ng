@@ -242,6 +242,7 @@ export default {
           panelId: 'getadmin.partnerDetail.changePassword.title',
           backdrop: true,
           width: '40rem',
+          payload: this.content,
           ignoreClickAway: true,
         });
       };
