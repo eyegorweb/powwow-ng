@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.100+20200805140639
+2020-08-05
+
+### Fixes
+
+- corrections sur le contrôle de modificaiton pour les champs libre (19b5beb7394f09c6dd98c3b02c4e37ac8cf00fa6)
+
 ## 1.0.0-master.99+20200805122000
 2020-08-05
 
