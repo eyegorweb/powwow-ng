@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.2.1
+2020-08-05
+
+### Fixes
+
+- corrections sur le contrôle de modificaiton pour les champs libre (19b5beb7394f09c6dd98c3b02c4e37ac8cf00fa6)
+
 ## 1.2.0
 2020-08-04
 
