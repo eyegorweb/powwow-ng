@@ -29,7 +29,7 @@ import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';
 import PartnerFields from '@/components/PartnerFields';
 import { mapState, mapGetters } from 'vuex';
-import { updateCustomFields } from '@/api/actCreation';
+import { changeSingleCustomFields } from '@/api/actCreation';
 import FormReport from './FormReport';
 
 export default {
@@ -45,7 +45,6 @@ export default {
 
   data() {
     return {
-      // canSend: false,
       allCustomFields: [],
       allSpecificFields: [],
       customFieldsValues: [],
@@ -119,6 +118,7 @@ export default {
       };
       const params = {
         partyId: this.lineData.party.id,
+        simCardId: this.lineData.id,
         notifEmail: notificationCheck,
         dueDate: actDate,
         custom1: getCustomFieldValue('custom1'),
@@ -132,15 +132,9 @@ export default {
       };
 
       this.chekcForErrors();
-      const response = await updateCustomFields([], [this.lineData], params);
-      if (!response.errors) {
-        return {
-          report: { successful: response },
-          errors: response.errors,
-        };
-      } else {
-        const errors = response.errors;
-        console.log('errors', errors);
+      const response = await changeSingleCustomFields(params);
+      if (response) {
+        return { report: { ...response.data.changeCustomFieldsV2 }, errors: response.errors };
       }
     },
     getCustomFieldLabel(index) {
@@ -202,7 +196,7 @@ export default {
       else {
         return (
           this.allCustomFields.filter(c => !c.isOptional).length ===
-          this.customFieldsValues.filter(c => c.enteredValue).length
+          this.customFieldsValues.filter(c => !c.isOptional && c.enteredValue).length
         );
       }
     },

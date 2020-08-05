@@ -118,6 +118,7 @@ function formatCustomFieldsResponse(response) {
       value: get(response, `speci${index}ValidatedValuesAsList`),
       mandatory: get(response, `speci${index}FieldMandatory`),
       enteredValue: undefined,
+      isOptional: true,
     };
     specificFields.push(data);
   }

@@ -46,7 +46,8 @@ export async function exportMassActionsOnly(
   columns,
   exportFormat,
   filters = [],
-  asyncExportRequest = false
+  asyncExportRequest = false,
+  total=undefined
 ) {
   const columnsParam = columns.join(',');
 
@@ -56,11 +57,17 @@ export async function exportMassActionsOnly(
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
 
+  let totalParam = '';
+
+  if(total) {
+    totalParam = `, nbItems:${total}`;
+  }
+
   const queryStr = `
   query  {
     massActionExport(filter: {${formatFilters(
       filters
-    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}){
+    )}}, columns: [${columnsParam}], exportFormat: ${exportFormat}${asyncExportRequestParam}${totalParam}){
       downloadUri
       total
       asyncRequired
