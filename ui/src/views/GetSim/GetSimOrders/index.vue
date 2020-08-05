@@ -6,9 +6,10 @@
     <div v-if="columns">
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light total" style="font-size: 2rem;">
-            {{ $t('ordersFound', { total: formattedTotal }) }}
-          </h2>
+          <h2
+            class="text-gray font-weight-light total"
+            style="font-size: 2rem;"
+          >{{ $t('ordersFound', { total: formattedTotal }) }}</h2>
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton
@@ -104,7 +105,6 @@ export default {
         let filtersToUse = this.appliedFilters;
         if (exportAll) {
           orderToUse = { direction: 'DESC', key: 'id' };
-          filtersToUse = undefined;
           columnsToUse = [];
         }
         return await ordersExport(
@@ -195,7 +195,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
