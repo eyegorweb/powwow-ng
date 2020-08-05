@@ -299,7 +299,9 @@ export default {
         return await exportMassActionsOnly(
           [...columnsToUse, 'STARTED'],
           exportFormat,
-          this.appliedFilters
+          this.appliedFilters,
+          false,
+          this.total
         );
       };
     },
