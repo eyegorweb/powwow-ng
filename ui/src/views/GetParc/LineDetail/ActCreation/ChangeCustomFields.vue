@@ -164,6 +164,13 @@ export default {
         })
         .map(c => c.code);
     },
+    arraysEqual(arr1, arr2) {
+      if (arr1.length !== arr2.length) return false;
+      for (var i = arr1.length; i--; ) {
+        if (arr1[i] !== arr2[i]) return false;
+      }
+      return true;
+    },
   },
 
   computed: {
@@ -188,15 +195,35 @@ export default {
       return customFieldsArray;
     },
     canSend() {
+      // si les deux tableaux sont identiques après saisie des nouvelles valeurs, alors nous ne pouvons pas valider
+      const areEqualArrays = this.arraysEqual(
+        this.allCustomFields.map(c => {
+          return c.enteredValue;
+        }),
+        this.customFieldsValues.map(c => {
+          return c.enteredValue;
+        })
+      );
+      if (areEqualArrays) return false;
+
       // si tous les champs sont optionnels, alors nous pouvons envoyer le formulaire avant tout changement
       if (this.allCustomFields.filter(c => c.isOptional).length === this.allCustomFields.length) {
         return true;
       }
-      // sinon pour chaque champ obligatoire, alors il faut que la valeur ne soit plus nulle
+
+      // sinon si un champ de type liste est obligatoire, il faut entrer une valeur non nulle (itemListRequiredNotNull) et
+      // pour chaque champ obligatoire, il faut que la valeur ne soit plus vide
       else {
+        const itemListRequiredNotNull = this.customFieldsValues.length
+          ? this.allCustomFields.filter(c => !c.isOptional && c.type === 'LIST').length ===
+            this.customFieldsValues.filter(
+              c => !c.isOptional && c.type === 'LIST' && c.enteredValue !== 'none'
+            ).length
+          : false;
         return (
           this.allCustomFields.filter(c => !c.isOptional).length ===
-          this.customFieldsValues.filter(c => !c.isOptional && c.enteredValue).length
+            this.customFieldsValues.filter(c => !c.isOptional && c.enteredValue).length &&
+          itemListRequiredNotNull
         );
       }
     },
