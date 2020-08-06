@@ -4,7 +4,7 @@
       v-if="toggleValues"
       @update="$emit('change', $event)"
       :values="toggleValues"
-      noDefault
+      no-default
       class="pl-2"
     />
   </div>
@@ -49,7 +49,7 @@ export default {
           this.toggleValues = newToggleValues;
         });
       }
-    }
+    },
   },
 
   data() {
@@ -58,7 +58,7 @@ export default {
         {
           id: 1,
           label: 'col.active',
-          value: true
+          value: true,
         },
         {
           id: 2,

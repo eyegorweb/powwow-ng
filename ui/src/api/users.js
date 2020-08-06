@@ -45,7 +45,7 @@ export async function updateUserPassword(params) {
   }`;
 
   const response = await query(queryStr, {
-    userPasswordInput: params
+    userPasswordInput: params,
   });
   return response.data.updateUserPassword;
 }
@@ -349,7 +349,7 @@ function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
 
 function addStatusFilter(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.status');
-  if(foundFilter) {
+  if (foundFilter) {
     gqlFilters.push(`disabled: {eq: ${foundFilter.data.value}}`);
   }
 }

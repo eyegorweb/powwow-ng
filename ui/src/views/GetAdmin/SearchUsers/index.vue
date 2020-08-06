@@ -234,11 +234,11 @@ export default {
       {
         title: 'getadmin.users.filters.status',
         component: StatusFilter,
-        onChange: (selectedStatus) => {
+        onChange: selectedStatus => {
           return {
             id: 'getadmin.users.filters.status',
             value: this.$t(selectedStatus.label),
-            data: selectedStatus
+            data: selectedStatus,
           };
         },
       },

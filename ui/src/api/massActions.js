@@ -47,7 +47,7 @@ export async function exportMassActionsOnly(
   exportFormat,
   filters = [],
   asyncExportRequest = false,
-  total=undefined
+  total = undefined
 ) {
   const columnsParam = columns.join(',');
 
@@ -59,7 +59,7 @@ export async function exportMassActionsOnly(
 
   let totalParam = '';
 
-  if(total) {
+  if (total) {
     totalParam = `, nbItems:${total}`;
   }
 
