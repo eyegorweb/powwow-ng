@@ -36,7 +36,11 @@
                   v-for="checkbox in filterVisible(group.checkboxes)"
                   class="d-flex pt-3 item"
                 >
-                  <UiCheckbox v-model="checkbox.checked" @change="() => selectOrRemove(checkbox)" />
+                  <UiCheckbox
+                    v-model="checkbox.checked"
+                    @change="() => selectOrRemove(checkbox)"
+                    :disabled="checkbox.isDisabled && checkbox.isDisabled()"
+                  />
                   <span>{{ checkbox.label }}</span>
                 </div>
               </div>
@@ -606,6 +610,7 @@ export default {
               code: 'GRP_SERVICES_APN',
               label: 'Services de la ligne et APN',
               checked: false,
+              isDisabled: () => this.noPartnerSelected,
             },
             {
               code: 'CUSTOMER_ACCOUNT_NAME',
@@ -623,7 +628,6 @@ export default {
             { code: 'COMMERCIAL_STATUS', label: 'Statut commercial ', checked: false },
             { code: 'BILLING_STATUS', label: 'Statut de facturation', checked: false },
           ],
-          isDisabled: () => this.noPartnerSelected,
         },
 
         {
@@ -874,7 +878,11 @@ export default {
         return canSave;
       }
 
-      return !!this.selectedPartner && canSave;
+      if (this.userIsOperator) {
+        return canSave;
+      }
+
+      return !!this.partnerForOptionCheck && canSave;
     },
     mailingLists() {
       if (!this.partnerForOptionCheck) return [];
