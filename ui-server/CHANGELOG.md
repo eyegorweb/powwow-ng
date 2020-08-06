@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.102+20200806151613
+2020-08-06
+
+### Features
+
+- partie front de l'onglet "liste des clients C.F" pour les partenaires marque blanche (ea769e69d47aa8a1434ded43d9208a8e07059f87)
+
 ## 1.0.0-master.101+20200806122850
 2020-08-06
 
