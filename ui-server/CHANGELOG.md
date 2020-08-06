@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.101+20200806122850
+2020-08-06
+
+### Fixes
+
+- Retours sur la création de rapports (27f88b7657aedd2b55c0d5b8acb5f4301857c2dc)
+- Retours sur la création de rapports (34d4e485be5ffa8a6c83d2f86c246c62b10e1cde)
+
 ## 1.0.0-master.100+20200805140639
 2020-08-05
 
