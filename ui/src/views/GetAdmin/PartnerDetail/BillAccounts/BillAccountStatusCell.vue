@@ -1,7 +1,7 @@
 <template>
   <div class="statusCell">
     <div class="statusCell-circle" :class="status"></div>
-    <div class="statusCell-name" :class="status">{{ $t('col.' + status) }}</div>
+    <div class="statusCell-name" v-if="status" :class="status">{{ $t('col.' + status) }}</div>
   </div>
 </template>
 

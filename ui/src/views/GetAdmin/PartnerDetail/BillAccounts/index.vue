@@ -1,16 +1,19 @@
 <template>
   <div>
-    <DataTable
-      :columns.sync="columns"
-      :rows="rows || []"
-      :order-by.sync="orderBy"
+    <PaginatedDataTable
       v-if="!showDetail"
-    ></DataTable>
+      :columns="columns"
+      :order="defaultOrderBy"
+      :fetch-data-fn="getFetchFn()"
+      :size="8"
+    />
     <div class="row" v-if="showDetail">
       <div class="col-md-3">
         <ul class="list-group">
           <li class="list-group-item">
-            <a href="#" @click="showDetail = false">{{ $t('getadmin.partnerDetail.backToCF') }}</a>
+            <a href="#" @click.prevent="showDetail = false">
+              {{ $t('getadmin.partnerDetail.backToCF') }}</a
+            >
           </li>
         </ul>
       </div>
@@ -67,11 +70,11 @@
 <script>
 import { mapMutations } from 'vuex';
 import {
-  fetchCustomerAccounts,
+  fetchCustomerAccountsByPartnerId,
   getCustomerAccount,
   updateCustomerAccount,
 } from '@/api/partners.js';
-import DataTable from '@/components/DataTable/DataTable';
+import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import BillAccountStatusCell from './BillAccountStatusCell';
 import FormControl from '@/components/ui/FormControl';
 import Button from '@/components/ui/Button';
@@ -86,15 +89,11 @@ export default {
     },
   },
   components: {
-    DataTable,
+    PaginatedDataTable,
     FormControl,
     Button,
     UiToggle,
     UiApiAutocomplete,
-  },
-
-  async mounted() {
-    this.refreshTable();
   },
 
   data() {
@@ -166,23 +165,19 @@ export default {
         {
           id: 5,
           label: this.$t('col.creationDate'),
-          name: 'created',
+          name: 'auditable',
           orderable: true,
           visible: true,
+          format: { type: 'ObjectAttribute', path: 'created' },
         },
       ],
-      rows: [],
-      orderBy: {
+      defaultOrderBy: {
         key: 'code',
         direction: 'DESC',
       },
     };
   },
-  watch: {
-    orderBy() {
-      this.refreshTable();
-    },
-  },
+
   computed: {
     checkCountry() {
       if (this.account[0].address.country === 'null' || !this.account[0].address.country) {
@@ -226,15 +221,18 @@ export default {
       }
     },
 
-    async refreshTable() {
-      this.accounts = await fetchCustomerAccounts(this.partner.id, this.orderBy);
-      this.rows = this.accounts.map(l => ({
-        code: l.code,
-        name: l.name,
-        company: l.company,
-        status: l.status,
-        created: l.auditable.created,
-      }));
+    getFetchFn() {
+      return async (pageInfo, orderInfo) => {
+        const response = await fetchCustomerAccountsByPartnerId(
+          this.partner.id,
+          orderInfo,
+          pageInfo
+        );
+        return {
+          rows: response.items,
+          total: response.total,
+        };
+      };
     },
   },
   async created() {

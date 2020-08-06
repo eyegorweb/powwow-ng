@@ -7,6 +7,7 @@
       class="pl-2"
       slim-toggles
       block
+      no-translation
     />
     <ul v-if="!noResults" class="list-group bg-white">
       <li class="list-group-item" v-for="indicator in indicators" :key="indicator.id">
@@ -56,7 +57,6 @@ export default {
     this.listIndicators = await fetchBillingExchange(this.rubric, this.contextPartnersType);
     this.chosenPeriod = this.listIndicators.length - 1;
     this.toggleValues = this.fillToggleValues(this.listIndicators);
-    this.getMonth(this.listIndicators);
     this.refreshIndicatorsForPeriod();
   },
   data() {
@@ -70,28 +70,22 @@ export default {
     };
   },
   methods: {
-    fillToggleValues(array) {
-      if (!array && !array.length) return;
-      let index = array.length;
-      return array.map(() => {
-        index--;
+    fillToggleValues(listIndicators) {
+      if (!listIndicators && !listIndicators.length) return;
+      return listIndicators.map((indicator, index) => {
+        const periodParts = indicator.periode.split('/');
+        const mountNumber = parseInt(periodParts[1]) - 1;
+
         return {
           id: index,
-          label: '',
+          label: capitalize(
+            moment()
+              .month(mountNumber)
+              .format('MMMM')
+          ),
           default: this.chosenPeriod === index,
         };
       });
-    },
-    getMonth(array) {
-      if (!array && !array.length) return;
-      for (let i = array.length - 1, index = 0; i >= 0; i--, index++) {
-        const parts = array[index].periode.split('/');
-        let nb = parseInt(parts[1]) - 1;
-        const month = moment()
-          .month(nb)
-          .format('MMMM');
-        this.toggleValues[i].label = capitalize(month);
-      }
     },
     updateContentType(newVal) {
       this.chosenPeriod = newVal.id;
