@@ -1,14 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
-          <a @click.prevent="section = item" :class="{ active: section == item }" href="#">
-            {{ $t(item) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-      </ul>
+      <TabsSubMenu :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
       <OffersCards v-if="section === 'filters.offers'" :partner="partner" />
@@ -20,11 +13,13 @@
 <script>
 import OffersCards from './OffersCards';
 import SimCards from './SimCards';
+import TabsSubMenu from '@/components/TabsSubMenu.vue';
 
 export default {
   components: {
     OffersCards,
     SimCards,
+    TabsSubMenu,
   },
 
   props: {

@@ -36,17 +36,17 @@ export default {
       toggleValues: [
         {
           id: 'data',
-          label: 'Data',
+          label: 'services.DATA',
           default: this.period === 'DATA',
         },
         {
           id: 'sms',
-          label: 'SMS',
+          label: 'services.SMS',
           default: this.period === 'SMS',
         },
         {
           id: 'voice',
-          label: 'Voice',
+          label: 'services.VOICE',
           default: this.period === 'VOICE',
         },
       ],

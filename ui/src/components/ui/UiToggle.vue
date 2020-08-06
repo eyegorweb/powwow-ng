@@ -5,7 +5,7 @@
       <p class="before-label__dots" />
     </div>
     <label>
-      <input type="checkbox" v-bind="$attrs" v-model="model" />
+      <input type="checkbox" v-bind="$attrs" :disabled="noClick" v-model="model" />
       <span class="slider" />
       <span class="state state--on">{{ onText }}</span>
       <span class="state state--off">{{ offText }}</span>
@@ -44,6 +44,7 @@ export default {
       default: 'Off',
     },
     smallLabel: Boolean,
+    noClick: Boolean,
   },
 
   computed: {

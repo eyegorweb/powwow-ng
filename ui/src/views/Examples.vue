@@ -2,6 +2,11 @@
   <div class="home">
     <div class="mb-4">
       <SearchTranslationKey />
+      <CommercialOfferForm />
+      <br />
+      <br />
+      <br />
+
       <button @click.stop="() => openCoachPanel()">Coach panel</button>
       <div class="row">
         <div class="col-md-6">
@@ -23,6 +28,7 @@ import DataTablePagination from '@/components/DataTable/DataTablePagination.vue'
 import { mapMutations } from 'vuex';
 import SearchLineWithResults from '@/views/GetParc/CoachM2M/SearchLineWithResults.vue';
 import UiButton from '@/components/ui/Button';
+import CommercialOfferForm from '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue';
 
 export default {
   name: 'Home',
@@ -31,6 +37,7 @@ export default {
     DataTablePagination,
     SearchLineWithResults,
     UiButton,
+    CommercialOfferForm,
   },
   mounted() {
     setTimeout(() => {

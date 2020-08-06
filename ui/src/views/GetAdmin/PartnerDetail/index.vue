@@ -17,9 +17,9 @@
       </div>
     </div>
 
-    <Summary :partnerid="this.$route.params.id" />
+    <Summary v-if="partner" :partner-id="this.$route.params.id" :partner-type="partner.partyType" />
 
-    <div v-if="partner" class="mt-4 mb-4">
+    <div v-if="partner" class="mt-4 mb-4 bottom-space">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
         <template slot-scope="{ tab, index, selectedIndex }">
           <UiTab
@@ -41,6 +41,9 @@
         </div>
         <div class="pt-4 pl-4" slot="billingAccounts">
           <BillAccounts :partner="partner" />
+        </div>
+        <div class="pt-4 pl-4" slot="customerList">
+          <PartnerCustomers :partner="partner" />
         </div>
         <div class="pt-4 pl-4" slot="accountDetail">
           <AccountDetail :partner="partner" />
@@ -64,6 +67,7 @@ import CustomizeTab from './CustomizeTab';
 import AccountDetail from './AccountDetail';
 import OffersTab from './OffersTab';
 import BillAccounts from './BillAccounts';
+import PartnerCustomers from './PartnerCustomers';
 
 import { fetchpartnerById } from '@/api/partners.js';
 
@@ -74,6 +78,7 @@ export default {
     UiTab,
 
     BillAccounts,
+    PartnerCustomers,
     UsersTab,
     CustomizeTab,
     AccountDetail,
@@ -82,13 +87,24 @@ export default {
 
   async mounted() {
     this.partner = await fetchpartnerById(this.$route.params.id, { includeMailingLists: true });
+    this.prepareTabs();
   },
 
   data() {
     return {
       partner: undefined,
       currentLinkIndex: 0,
-      tabs: [
+      tabs: [],
+    };
+  },
+
+  methods: {
+    returnToSearch() {
+      this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
+    },
+
+    prepareTabs() {
+      const tabs = [
         {
           label: 'users',
           title: this.$t('menu.users'),
@@ -97,10 +113,21 @@ export default {
           label: 'customize',
           title: this.$t('getadmin.partners.customize'),
         },
-        {
+      ];
+
+      if (this.$shouldShowMocks && this.partner && this.partner.partyType === 'MULTI_CUSTOMER') {
+        tabs.push({
+          label: 'customerList',
+          title: this.$t('getadmin.partners.customerList'),
+        });
+      } else {
+        tabs.push({
           label: 'billingAccounts',
           title: this.$t('filters.billingAccounts'),
-        },
+        });
+      }
+
+      tabs.push(
         {
           label: 'offersAndSim',
           title: this.$t('getadmin.partners.offersAndSim'),
@@ -108,14 +135,10 @@ export default {
         {
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
-        },
-      ],
-    };
-  },
+        }
+      );
 
-  methods: {
-    returnToSearch() {
-      this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
+      this.tabs = tabs;
     },
   },
 

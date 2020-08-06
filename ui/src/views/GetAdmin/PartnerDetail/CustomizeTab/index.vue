@@ -1,14 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
-          <a @click.prevent="section = item" :class="{ active: section === item }" href="#">
-            {{ $t(item) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-      </ul>
+      <TabsSubMenu :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
       <BroadcastLists
@@ -33,6 +26,7 @@ import BroadcastLists from './BroadcastLists';
 import CustomFields from './CustomFields';
 import SpecificFields from './SpecificFields';
 import DeliveryAddress from './DeliveryAddress';
+import TabsSubMenu from '@/components/TabsSubMenu.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -47,6 +41,7 @@ export default {
     CustomFields,
     SpecificFields,
     DeliveryAddress,
+    TabsSubMenu,
   },
 
   computed: {

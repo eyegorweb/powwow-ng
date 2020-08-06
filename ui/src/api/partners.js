@@ -294,11 +294,59 @@ export async function fetchAccountDetail(id) {
   return response.data.partys.items[0];
 }
 
+export async function fetchCustomerAccountsByPartnerId(partnerId, orderBy, pagination) {
+  const sorting = {};
+  sorting[orderBy.key] = orderBy.direction;
+
+  const queryStr = `query CustomerAccounts($partnerId: Long, $sorting: CustomerAccountSorting, $pagination: Pagination) {
+    customerAccounts(filter: {partyId: {eq: $partnerId}}, pagination: $pagination, sorting: $sorting ){
+      total
+      items {
+        id
+        code
+        name
+        siret
+        siren
+        marketLine
+        company
+        status
+        massActionsDisabled
+        auditable {
+          created
+        }
+        party {
+          id
+        }
+        bankAccount {
+          name
+          number
+          establishmentCode
+        }
+        address {
+          address1
+          address2
+          zipCode
+          city
+          country
+          state
+        }
+      }
+    }
+  }`;
+
+  const response = await query(queryStr, {
+    partnerId,
+    sorting,
+    pagination,
+  });
+  return response.data.customerAccounts;
+}
+
 export async function fetchCustomerAccounts(id, orderBy) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 50, page: 0} ${orderingInfo})  {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 999, page: 0} ${orderingInfo})  {
       total
       items {
         id
