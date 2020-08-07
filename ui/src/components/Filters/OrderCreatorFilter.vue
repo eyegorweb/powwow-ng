@@ -3,7 +3,7 @@
     :values="selectedOrderCreatorValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="setOrderCreatorFilter"
+    @update:values="values => $emit('setOrderCreatorFilter', values)"
   />
 </template>
 
@@ -22,13 +22,9 @@ export default {
   },
 
   methods: {
-    setOrderCreatorFilter(creators) {
-      this.$emit('setOrderCreatorFilter', creators);
-    },
-
     async fetchApi(q, forPartners, contextPartnersType, pagination) {
       const orderBy = { key: 'id', direction: 'ASC' };
-      const data = await searchUsers(orderBy, pagination, []);
+      const data = await searchUsers(q, orderBy, pagination, []);
       if (data) {
         return data.items.map(p => {
           const formattedUser = {

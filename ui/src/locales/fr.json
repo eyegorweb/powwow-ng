@@ -890,7 +890,7 @@
         }
       },
       "consummated": {
-        "data": "Data consommées",
+        "data": "Data consommée",
         "sms": "SMS consommés",
         "voice": "Voix consommée",
         "export": "Exporter l'encours de consommation",
