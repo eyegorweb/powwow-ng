@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.103+20200807125404
+2020-08-07
+
+### Fixes
+
+- correction et amélioration de l'historique des actes de gestion (a43c5d874a56ec50f3c88113fe179617dd20717a)
+
 ## 1.0.0-master.102+20200806151613
 2020-08-06
 
