@@ -124,19 +124,6 @@ export async function updateUser(params) {
   return response.data.updateUser;
 }
 
-export async function fetchUserByUsername(username) {
-  const orderBy = { key: 'id', direction: 'DESC' };
-  const pagination = { page: 0, limit: 1 };
-  const filters = [
-    {
-      id: 'getadmin.users.filters.userName',
-      value: username,
-    },
-  ];
-  const response = await searchUsers(orderBy, pagination, filters);
-  if (response.items && response.items.length) return response.items[0];
-}
-
 export async function fetchUserById(userId) {
   const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 1 };
@@ -150,18 +137,19 @@ export async function fetchUserById(userId) {
       value: false,
     },
   ];
-  const response = await searchUsers(orderBy, pagination, filters);
+  const response = await searchUsers('', orderBy, pagination, filters);
   if (response.items && response.items.length) return response.items[0];
 }
 
-export async function searchUsers(orderBy, pagination, filters = []) {
+export async function searchUsers(q, orderBy, pagination, filters = []) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
+  const username = q ? `fullname: {startsWith: "${q}"},` : '';
   const queryStr = `
   {
-    users(filter: {${formatFilters(filters)}}${paginationInfo}${orderingInfo}) {
+    users(filter: {${username}${formatFilters(filters)}}${paginationInfo}${orderingInfo}) {
       total
       items {
         id
@@ -207,9 +195,12 @@ export async function searchUsers(orderBy, pagination, filters = []) {
 }
 
 export async function fetchUsersByPartnerId(id) {
-  const response = await searchUsers({ key: 'id', direction: 'DESC' }, { page: 0, limit: 999 }, [
-    { id: 'getadmin.users.filters.partners', values: [{ id }] },
-  ]);
+  const response = await searchUsers(
+    '',
+    { key: 'id', direction: 'DESC' },
+    { page: 0, limit: 999 },
+    [{ id: 'getadmin.users.filters.partners', values: [{ id }] }]
+  );
 
   if (response) {
     return response.items;
@@ -241,7 +232,7 @@ export async function fetchPartnerGroups(q = '') {
 }
 
 export async function fetchUserFromUsername(username) {
-  const response = await searchUsers(undefined, undefined, [
+  const response = await searchUsers('', undefined, undefined, [
     {
       id: 'getadmin.users.filters.userName',
       value: username,

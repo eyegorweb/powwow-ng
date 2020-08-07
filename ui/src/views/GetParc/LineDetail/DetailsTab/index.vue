@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
+        <li v-for="item in visibleMenuItems" :key="item.title" class="list-group-item">
           <a
             @click.prevent="section = item.section"
             :class="{ active: section == item.section }"
@@ -51,39 +51,39 @@ export default {
         {
           section: 'line_info',
           title: 'getparc.lineDetail.tab1.lineInfo',
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         },
         {
           section: 'billing',
           title: 'getparc.lineDetail.tab1.billingOffer.title',
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         },
         {
           section: 'line_services',
           title: 'getparc.lineDetail.tab1.lineServices',
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         },
         {
           section: 'alarm_list',
           title: 'getparc.lineDetail.tab1.alarmsList',
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         },
         {
           section: 'acts_history',
           title: 'getparc.lineDetail.tab1.actsHistory',
+          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         },
       ],
     };
   },
   computed: {
-    partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType', '-');
-      if (typeForPartner === 'MVNO') {
-        return true;
-      }
-      return false;
+    visibleMenuItems() {
+      const typeForPartner = get(this.content, 'party.partyType');
+      let visibleItems = this.menuItems.filter(m =>
+        m.compatiblePartnerTypes.some(p => p === typeForPartner)
+      );
+      return visibleItems;
     },
-  },
-  mounted() {
-    if (this.partnerTypeMVNO) {
-      this.menuItems.splice(3, 1);
-    }
   },
 };
 </script>

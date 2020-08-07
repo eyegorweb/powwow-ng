@@ -174,6 +174,11 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
         partyName
         creatorEmail
         cancellable
+        creatorTitle
+        creatorFirstname
+        creatorLastname
+        creatorUsername
+        creatorEmail
       }
     }
   }
