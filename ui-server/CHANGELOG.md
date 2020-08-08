@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.104+20200808053037
+2020-08-08
+
+### Fixes
+
+- correction du login affiché dans le volet de l'utilisateur (fe311bc3690e54902bffeb0063fa603e31f987fc)
+
 ## 1.0.0-master.103+20200807125404
 2020-08-07
 
