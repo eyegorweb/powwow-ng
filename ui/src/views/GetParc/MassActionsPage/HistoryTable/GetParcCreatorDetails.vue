@@ -28,7 +28,7 @@
       </div>
       <div class="overview-item">
         <h6>Login :</h6>
-        <p>{{ getFromCreator('username') }}</p>
+        <p>{{ getFromCreator('creatorUsername') }}</p>
       </div>
     </div>
     <div class="overview-container m-3 bg-white">
@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     getFromCreator(path, defaultValue = '') {
+      console.log('order', this.order);
       const value = get(this.order, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
