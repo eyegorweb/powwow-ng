@@ -300,7 +300,7 @@ export default {
           [...columnsToUse, 'STARTED'],
           exportFormat,
           this.appliedFilters,
-          false,
+          true,
           this.total
         );
       };
