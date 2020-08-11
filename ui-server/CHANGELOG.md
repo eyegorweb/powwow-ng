@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.105+20200811080006
+2020-08-11
+
+### Fixes
+
+- modification du paramètre d'export asynchrone (cb5cd34a07200c66de2f6b48e02b5802180b49ec)
+
 ## 1.0.0-master.104+20200808053037
 2020-08-08
 
