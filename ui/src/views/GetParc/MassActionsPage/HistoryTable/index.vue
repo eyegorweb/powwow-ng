@@ -296,6 +296,8 @@ export default {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');
         }
 
+        asyncExportRequest = this.total >= 15000 ? true : false;
+
         return await exportMassActionsOnly(
           [...columnsToUse, 'STARTED'],
           exportFormat,
