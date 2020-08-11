@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.106+20200811083018
+2020-08-11
+
+### Fixes
+
+- ajout de la limite pour gérer la requête asynchrone des exports d'actes unitaires (a96f1c658acf27c29e1b770004e556f034864c53)
+
 ## 1.0.0-master.105+20200811080006
 2020-08-11
 
