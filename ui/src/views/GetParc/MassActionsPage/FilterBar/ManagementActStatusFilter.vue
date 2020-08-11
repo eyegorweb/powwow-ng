@@ -2,10 +2,10 @@
   <div>
     <UiCheckbox
       v-for="status in statuses"
-      :value="{ id: status.id, label: $t(`getparc.actStatuses. ${status.id}`) }"
+      :value="{ id: status.id, label: $t(`getparc.actStatuses.${status.id}`) }"
       :key="status.a"
       v-model="selectedStatus"
-      >{{ $t(`getparc.actStatuses. ${status.id}`) }}</UiCheckbox
+      >{{ $t(`getparc.actStatuses.${status.id}`) }}</UiCheckbox
     >
   </div>
 </template>
