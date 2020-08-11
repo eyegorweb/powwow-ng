@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.108+20200811150855
+2020-08-11
+
+### Fixes
+
+- correction du tri pour le filtre Créateur de la demande (2e17f7fd24bf2f4f126127cc8c7670099e038fe7)
+
 ## 1.0.0-master.107+20200811135705
 2020-08-11
 
