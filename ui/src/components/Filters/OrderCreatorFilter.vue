@@ -23,7 +23,7 @@ export default {
 
   methods: {
     async fetchApi(q, forPartners, contextPartnersType, pagination) {
-      const orderBy = { key: 'id', direction: 'ASC' };
+      const orderBy = { key: 'fullname', direction: 'ASC' };
       const data = await searchUsers(q, orderBy, pagination, []);
       if (data) {
         return data.items.map(p => {
