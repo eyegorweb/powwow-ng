@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.109+20200812073111
+2020-08-12
+
+### Fixes
+
+- correction du filtre statut pour la gestion des utilisateurs (7c10a5d5bbd12cf191c311a354cd9a03b8fcf1a2)
+
 ## 1.0.0-master.108+20200811150855
 2020-08-11
 
