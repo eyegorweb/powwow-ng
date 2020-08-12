@@ -58,12 +58,12 @@ export default {
         {
           id: 1,
           label: 'col.active',
-          value: true,
+          value: false,
         },
         {
           id: 2,
           label: 'col.notActive',
-          value: false,
+          value: true,
         },
       ],
     };
