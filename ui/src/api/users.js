@@ -340,6 +340,7 @@ function addRestrictToPartyFilter(gqlFilters, selectedFilters) {
 
 function addStatusFilter(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getadmin.users.filters.status');
+  console.log('found filter', foundFilter);
   if (foundFilter) {
     gqlFilters.push(`disabled: {eq: ${foundFilter.data.value}}`);
   }
