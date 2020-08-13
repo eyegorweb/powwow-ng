@@ -2,6 +2,7 @@
   <GraphContainer :size="12" can-show>
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
+      <div v-else>{{ $t('noResult') }}</div>
     </div>
     <div slot="onHide">
       Texte d'erreur ici

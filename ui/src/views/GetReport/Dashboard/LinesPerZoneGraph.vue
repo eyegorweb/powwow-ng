@@ -5,6 +5,7 @@
     </div>
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
+      <div v-else>{{ $t('noResult') }}</div>
     </div>
   </GraphContainer>
 </template>
@@ -72,6 +73,9 @@ export default {
         });
         return all;
       }, []);
+
+      if (!formateddata.length) return;
+
       this.chartOptions = {
         credits: {
           enabled: false,
