@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.110+20200813082353
+2020-08-13
+
+### Fixes
+
+- affichage du message d'informations sur les graphes du Tableau de bord (1677c71cf9b4f27c1c3ac46a0fa0bb7f80b5b1fb)
+
 ## 1.0.0-master.109+20200812073111
 2020-08-12
 
