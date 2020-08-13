@@ -19,6 +19,7 @@
         />
       </div>
       <chart v-if="chartOptions" :options="chartOptions" />
+      <div v-else>{{ $t('noResult') }}</div>
     </div>
   </GraphContainer>
 </template>
@@ -139,6 +140,8 @@ export default {
           countSuspended: [],
         }
       );
+
+      // if (!dataSeries) return;
 
       this.chartOptions = {
         credits: {
