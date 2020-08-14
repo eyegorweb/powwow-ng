@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.111+20200814122911
+2020-08-14
+
+### Features
+
+- ajout du filtre Type de cartes SIM pour la gestion des partenaires (2f34302157a8ee2b099420bd8e6e6639efe495d8)
+
 ## 1.0.0-master.110+20200813082353
 2020-08-13
 
