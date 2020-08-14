@@ -1,4 +1,4 @@
-import { query, getFilterValue, getFilterValues, mutation } from './utils';
+import { query, getFilterValue, getFilterValues, getValuesIds, mutation } from './utils';
 import get from 'lodash.get';
 
 export async function updatePartyOptions(params) {
@@ -805,6 +805,7 @@ export function formatFilters(selectedFilters) {
   addPartnerNameFilter(gqlFilters, selectedFilters);
   addPartnerTypeFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
+  addTypeSimCardFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -830,5 +831,12 @@ function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   if (values && values.length) {
     const partnerGroups = values.map(p => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
+  }
+}
+
+function addTypeSimCardFilter(gqlFilters, selectedFilters) {
+  const values = getValuesIds(selectedFilters, 'getadmin.users.filters.typeSIMCard');
+  if (values) {
+    gqlFilters.push(`simcardCode: {in: [${values}]}`);
   }
 }

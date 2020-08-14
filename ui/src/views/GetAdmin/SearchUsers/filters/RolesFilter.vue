@@ -10,7 +10,9 @@ export default {
   components: {
     MultiSelectSearch,
   },
-  props: {},
+  props: {
+    selectedData: Object,
+  },
   data() {
     return {
       items: [],
@@ -18,6 +20,10 @@ export default {
     };
   },
   async mounted() {
+    if (this.selectedData && this.selectedData.id) {
+      this.selectedItems = this.selectedData.values;
+    }
+
     const response = await fetchUserRoles();
 
     if (response) {
@@ -33,6 +39,11 @@ export default {
   watch: {
     selectedItems(newValue) {
       this.$emit('change', newValue);
+    },
+    selectedData(selectedData) {
+      if (!selectedData) {
+        this.selectedItems = [];
+      }
     },
   },
 };
