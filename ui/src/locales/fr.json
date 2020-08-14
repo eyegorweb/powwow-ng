@@ -484,7 +484,8 @@
         "partnerGroup": "Groupe de partenaire",
         "partners": "Partenaires",
         "roles": "Rôles",
-        "status": "Statut"
+        "status": "Statut",
+        "typeSIMCard": "Type de carte SIM"
       },
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {

@@ -25,17 +25,13 @@
 </template>
 
 <script>
-import TableWithFilter from '@/components/Filters/TableWithFilter';
+import { mapGetters } from 'vuex';
 import { fetchAllPartners } from '@/api/partners';
+import TableWithFilter from '@/components/Filters/TableWithFilter';
 import PartnerTypeFilter from './filters/PartnerTypeFilter';
 import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
-
+import TypeSimCardFilter from './filters/TypeSimCardFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
-
-import { mapGetters } from 'vuex';
-
-// Evolution futur
-// import TypeSimCardFilter from './filters/TypeSimCardFilter';
 
 export default {
   components: {
@@ -166,17 +162,16 @@ export default {
             };
           },
         },
-        // Evolution futur
-        // {
-        //   title: 'filters.lines.typeSIMCard',
-        //   component:TypeSimCardFilter,
-        //   onChange(chosenValues) {
-        //     return {
-        //       id: 'filters.lines.typeSIMCard',
-        //       values: chosenValues,
-        //     };
-        //   },
-        // },
+        {
+          title: 'getadmin.users.filters.typeSIMCard',
+          component: TypeSimCardFilter,
+          onChange(chosenValues) {
+            return {
+              id: 'getadmin.users.filters.typeSIMCard',
+              values: chosenValues,
+            };
+          },
+        },
       ],
       columns: undefined,
       rows: [],
