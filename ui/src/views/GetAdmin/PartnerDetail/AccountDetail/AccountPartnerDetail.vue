@@ -1,6 +1,9 @@
 <template>
   <div class="accountdetail">
-    <div class="accountdetail-generalInfos">
+    <div
+      class="accountdetail-generalInfos"
+      v-if="partner && partner.partyType !== 'MULTI_CUSTOMER'"
+    >
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
       <div class="accountdetail-generalInfos-bloc">
         <div class="accountdetail-generalInfos-bloc-details">
@@ -110,7 +113,7 @@
         </div>
       </div>
     </div>
-    <div class="accountdetail-contact">
+    <div class="accountdetail-contact" v-if="partner && partner.partyType !== 'MULTI_CUSTOMER'">
       <h3>{{ $t('getadmin.partnerDetail.contactDetail') }}</h3>
 
       <div class="accountdetail-bloc">
@@ -231,7 +234,7 @@ export default {
       value: c.code,
     }));
 
-    if (this.accountDetail) {
+    if (this.accountDetail && this.partner.partyType !== 'MULTI_CUSTOMER') {
       this.form.partnerName = this.accountDetail.name;
       this.form.siren = this.accountDetail.siren;
       this.form.naf = this.accountDetail.naf;

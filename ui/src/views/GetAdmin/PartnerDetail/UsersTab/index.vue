@@ -21,6 +21,7 @@ export default {
       type: String,
       default: undefined,
     },
+    partner: Object,
   },
   components: {
     AdminCards,
@@ -28,15 +29,17 @@ export default {
     TabsSubMenu,
   },
 
+  mounted() {
+    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
+      this.menuItems.push('getadmin.partners.users', 'getadmin.partners.activityLog');
+    }
+  },
+
   data() {
     return {
       section: 'getadmin.partners.admins',
 
-      menuItems: [
-        'getadmin.partners.admins',
-        'getadmin.partners.users',
-        // 'getadmin.partners.activityLog',
-      ],
+      menuItems: ['getadmin.partners.admins'],
     };
   },
 };

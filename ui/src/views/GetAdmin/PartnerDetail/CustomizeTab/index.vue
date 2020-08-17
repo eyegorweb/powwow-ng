@@ -35,6 +35,7 @@ export default {
       type: String,
       default: undefined,
     },
+    partner: Object,
   },
   components: {
     BroadcastLists,
@@ -52,6 +53,9 @@ export default {
     if (!this.userIsBO) {
       this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
     }
+    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
+      this.menuItems.push('getadmin.customize.deliveryAddress');
+    }
   },
 
   data() {
@@ -62,14 +66,16 @@ export default {
         'getadmin.customize.broadcastLists',
         'getadmin.customize.customFields',
         'getadmin.customize.specificFields',
-        'getadmin.customize.deliveryAddress',
       ],
     };
   },
 
   methods: {
     visibleMenuItems(menu, item) {
-      return menu.splice(menu.findIndex(i => i === item), 1);
+      return menu.splice(
+        menu.findIndex(i => i === item),
+        1
+      );
     },
   },
 };
