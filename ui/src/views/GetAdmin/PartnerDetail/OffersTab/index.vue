@@ -26,11 +26,17 @@ export default {
     partner: Object,
   },
 
+  mounted() {
+    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
+      this.menuItems.push('getadmin.users.supervision');
+    }
+  },
+
   data() {
     return {
       section: 'filters.offers',
 
-      menuItems: ['filters.offers', 'getadmin.users.simcards', 'getadmin.users.supervision'],
+      menuItems: ['filters.offers', 'getadmin.users.simcards'],
     };
   },
 };

@@ -34,10 +34,10 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="users">
-          <UsersTab :partnerid="this.$route.params.id" />
+          <UsersTab :partnerid="this.$route.params.id" :partner="partner" />
         </div>
         <div class="pt-4 pl-4" slot="customize">
-          <CustomizeTab :partnerid="this.$route.params.id" />
+          <CustomizeTab :partnerid="this.$route.params.id" :partner="partner" />
         </div>
         <div class="pt-4 pl-4" slot="billingAccounts">
           <BillAccounts :partner="partner" />
