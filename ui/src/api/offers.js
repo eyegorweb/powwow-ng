@@ -228,6 +228,45 @@ export async function changeOffer(filters, lines, params) {
   return await query(queryStr);
 }
 
+export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId) {
+  let customerAccountGqlParam = '';
+  if (customerAccountId) {
+    customerAccountGqlParam = `, customerAccountId: ${customerAccountId})`;
+  }
+  const queryStr = `
+  query {
+    offerGroup(partyId: ${partnerId} ${customerAccountGqlParam}) {
+      total
+      items {
+        id
+        customerAccount {
+          id
+        }
+        offerGroupDiscounts {
+          discount {
+            code
+            discountType
+          }
+          lowerBound
+        }
+        offerGroupPackages {
+          lowerBound
+          envelopeLabel
+        }
+        marketingOffer {
+          code
+          yorkCommunity
+          allowedSuspensionDuration
+          commitmentDuration
+        }
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.offerGroup;
+}
+
 function formatDateForGql(inDate) {
   if (!inDate) return '';
   const startDate = inDate.replace(/\//g, '-');

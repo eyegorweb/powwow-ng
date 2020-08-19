@@ -54,7 +54,6 @@ import {
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 import ExportButton from '@/components/ExportButton';
 import { formatLargeNumber } from '@/utils/numbers';
-//          exportId: 'IMEI',
 
 export default {
   props: {
