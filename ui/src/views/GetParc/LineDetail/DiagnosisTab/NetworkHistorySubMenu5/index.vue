@@ -142,7 +142,6 @@ export default {
     fetchDataLastVisitedCountries() {
       return async pageInfo => {
         const response = await fetchLastVisitedCountries(this.content.accessPoint.id, pageInfo);
-        console.log(response);
         if (!response || !response.length) this.noResults.lastVisitedCountries = false;
         return {
           rows: response.items,

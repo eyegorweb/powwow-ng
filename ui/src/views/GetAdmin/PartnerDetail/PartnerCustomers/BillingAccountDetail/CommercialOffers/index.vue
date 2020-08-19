@@ -26,12 +26,17 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import UiButton from '@/components/ui/Button';
 import CommercialOfferForm from './CommercialOfferForm';
+import { fetchCommercialOffersForPartnerId } from '@/api/offers';
+import get from 'lodash.get';
 
 export default {
   components: {
     PaginatedDataTable,
     UiButton,
     CommercialOfferForm,
+  },
+  props: {
+    partner: Object,
   },
   data() {
     return {
@@ -48,9 +53,10 @@ export default {
           orderable: true,
           visible: true,
           format: {
-            type: 'LinkBtn',
-            onClick: async (code, row) => {
-              console.log('data -> code, row', code, row);
+            type: 'Getter',
+            getter: row => {
+              console.log('data -> row', row);
+              return get(row, 'marketingOffer.code');
             },
           },
         },
@@ -91,16 +97,13 @@ export default {
       this.showForm = true;
     },
     getFetchFn() {
-      return async (pageInfo, orderInfo) => {
-        console.log('getFetchFn -> pageInfo, orderInfo', pageInfo, orderInfo);
+      return async () => {
+        const partnerId = this.partner.id ? this.partner.id : '';
+        // const customerAccountId = this.partner.id ? this.partner.id : ''; // l'id du CF normalement et pas du partenaire...
+        const response = await fetchCommercialOffersForPartnerId(partnerId);
         return {
-          rows: [
-            {
-              code: 'AZE123',
-              name: 'Name 1',
-            },
-          ],
-          total: 1,
+          rows: response.items,
+          total: response.total,
         };
       };
     },

@@ -10,7 +10,10 @@
       <TabsSubMenu :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
-      <CommercialOffers v-if="section === 'getadmin.partnerDetail.mb.commercialOffer'" />
+      <CommercialOffers
+        v-if="section === 'getadmin.partnerDetail.mb.commercialOffer'"
+        :partner="partner"
+      />
     </div>
   </div>
 </template>
@@ -22,6 +25,7 @@ import CommercialOffers from './CommercialOffers/index.vue';
 export default {
   props: {
     billingAccountToDetail: Object,
+    partner: Object,
   },
 
   components: {

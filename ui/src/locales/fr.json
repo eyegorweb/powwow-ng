@@ -3,6 +3,7 @@
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
   "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
+  "searchByCF": "Rechercher une offre par code C.F., libellé, siret ou ligne de marché",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
   "accessTo": "Accéder à",
@@ -550,6 +551,10 @@
     },
     "partnerDetail": {
       "mb": {
+        "entity": "Nom entité",
+        "accountGroup": "Compte groupe",
+        "contractReference": "Points de vente",
+        "nbCustomers": "Nombre de client",
         "code": "N° du compte de facturation",
         "name": "Libellé de l’établissement",
         "marketLine": "Ligne de marché",
@@ -561,7 +566,6 @@
         "clientContactDescription": "Description du contact client",
         "deliveryAdresses": "Adresses de livraison",
         "paymentMethod": "Mode de paiement",
-
         "commercialOffers": {
           "create": "Créer une offre commerciale",
           "code": "Code de l'offre commerciale",

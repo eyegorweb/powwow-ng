@@ -294,12 +294,28 @@ export async function fetchAccountDetail(id) {
   return response.data.partys.items[0];
 }
 
-export async function fetchCustomerAccountsByPartnerId(partnerId, orderBy, pagination) {
-  const sorting = {};
-  sorting[orderBy.key] = orderBy.direction;
+function addCFMultiSearchFilter(gqlFilters, selectedFilters) {
+  const code = selectedFilters.find(f => f.id === 'getadmin.partners.filters.multisearch');
+  if (code) {
+    gqlFilters.push(`multiSearch: {contains: "${code.value}"}`);
+  }
+}
 
-  const queryStr = `query CustomerAccounts($partnerId: Long, $sorting: CustomerAccountSorting, $pagination: Pagination) {
-    customerAccounts(filter: {partyId: {eq: $partnerId}}, pagination: $pagination, sorting: $sorting ){
+export async function fetchCustomerAccountsByPartnerId(
+  partnerId,
+  orderBy,
+  pagination,
+  filters = []
+) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+
+  const queryStr = `query {
+    customerAccounts(filter: { partyId:{eq:${partnerId}} ${formatFilters(
+    filters
+  )}} ${paginationInfo} ${orderingInfo} ){
       total
       items {
         id
@@ -334,11 +350,7 @@ export async function fetchCustomerAccountsByPartnerId(partnerId, orderBy, pagin
     }
   }`;
 
-  const response = await query(queryStr, {
-    partnerId,
-    sorting,
-    pagination,
-  });
+  const response = await query(queryStr);
   return response.data.customerAccounts;
 }
 
@@ -543,6 +555,10 @@ export async function fetchPartyDetail(id) {
           phone
           mobile
           fax
+        }
+        contractReference
+        partyGroups {
+          name
         }
         address {
           address1
@@ -806,6 +822,7 @@ export function formatFilters(selectedFilters) {
   addPartnerTypeFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addTypeSimCardFilter(gqlFilters, selectedFilters);
+  addCFMultiSearchFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
