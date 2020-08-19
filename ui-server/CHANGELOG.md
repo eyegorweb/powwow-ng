@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.113+20200819103038
+2020-08-19
+
+### Features
+
+- ajout du partenaire de type Marque Blanche et des informations qui en découlent (f43c614009e0845a7f79001652d3103cb2c89411)
+
 ## 1.0.0-master.112+20200817121849
 2020-08-17
 
