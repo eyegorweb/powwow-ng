@@ -346,7 +346,7 @@ export default {
           orderable: true,
           sortingName: 'commercialStatusDate',
           visible: true,
-          exportId: 'LINE_SIM_STATUS_DATE',
+          exportId: 'LINE_COMMERCIAL_DATE',
           format: {
             component: DateStatus,
           },
