@@ -239,8 +239,22 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
       total
       items {
         id
+        description
+        code
+        auditable {
+          created
+          updated
+        }
         customerAccount {
           id
+          code
+          name
+          siret
+          marketLine
+          status
+          auditable {
+            created
+          }
         }
         offerGroupDiscounts {
           discount {

@@ -397,6 +397,50 @@ export async function fetchCustomerAccounts(id, orderBy) {
   return response.data.customerAccounts.items;
 }
 
+export async function exportCustomerAccounts(
+  partnerId,
+  filters,
+  columns,
+  orderBy,
+  exportFormat,
+  asyncExportRequest = false
+) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+  {
+    exportCustomerAccounts(
+      filter: {
+        partyId:{eq:${partnerId}} ${formatFilters(filters)}
+      }
+      columns: [${columnsParam}]
+      ${orderingInfo}
+      exportFormat: ${exportFormat}
+      asyncExportRequest: ${asyncExportRequest}
+    )
+    {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.exportCustomerAccounts;
+}
+
 export async function getCustomerAccount(code) {
   const queryStr = `
   query {

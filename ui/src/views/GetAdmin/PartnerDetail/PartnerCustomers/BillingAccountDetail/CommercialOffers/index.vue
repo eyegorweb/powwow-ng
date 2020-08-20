@@ -53,26 +53,36 @@ export default {
           orderable: true,
           visible: true,
           format: {
-            type: 'Getter',
-            getter: row => {
+            type: 'LinkBtn',
+            onClick: row => {
               console.log('data -> row', row);
-              return get(row, 'marketingOffer.code');
             },
+            // getter: row => {
+            //   console.log('data -> row', row);
+            //   return get(row, 'marketingOffer.code');
+            // },
           },
         },
         {
           id: 2,
           label: this.$t('getadmin.partnerDetail.mb.commercialOffers.name'),
-          name: 'name',
+          name: 'description',
           orderable: true,
           visible: true,
         },
         {
           id: 3,
           label: this.$t('getadmin.partnerDetail.mb.commercialOffers.cfCode'),
-          name: 'cf',
+          name: 'code',
           orderable: true,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              console.log('data -> row', row);
+              return get(row, 'customerAccount.code');
+            },
+          },
         },
         {
           id: 4,
@@ -80,13 +90,25 @@ export default {
           name: 'created',
           orderable: true,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'auditable.created');
+            },
+          },
         },
         {
           id: 5,
           label: this.$t('getadmin.partnerDetail.mb.commercialOffers.edited'),
-          name: 'edited',
+          name: 'updated',
           orderable: true,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return get(row, 'auditable.updated');
+            },
+          },
         },
       ],
     };

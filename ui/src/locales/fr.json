@@ -551,6 +551,8 @@
     },
     "partnerDetail": {
       "mb": {
+        "title": "{total} client(s) (C.F.) trouvé(s)",
+        "export": "Exporter {total} client(s) (C.F.)",
         "entity": "Nom entité",
         "accountGroup": "Compte groupe",
         "contractReference": "Points de vente",

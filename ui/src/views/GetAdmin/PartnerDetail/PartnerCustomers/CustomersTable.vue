@@ -6,27 +6,40 @@
       @back="billingAccountToDetail = undefined"
       :partner="partner"
     />
-    <DataTable
-      v-else-if="columns"
-      :columns.sync="columns"
-      :rows="rows || []"
-      :page.sync="page"
-      :total="total || 0"
-      :order-by.sync="orderBy"
-      :page-limit.sync="pageLimit"
-      :size="8"
-      :show-extra-columns.sync="showExtraCells"
-      @colEvent="$emit('colEvent', $event)"
-      @columnOrdered="orderedColumns = $event"
-    >
-      <div slot="topLeftCorner">
-        <SearchByCFReference
-          @searchByLogin="searchByCF"
-          @inputIsEmpty="clearSearch"
-          :init-value="searchByCFValue"
-        />
+    <div v-else-if="columns">
+      <div class="row mb-3 mt-3">
+        <div class="col-md-8">
+          <h2 class="text-gray font-weight-light">
+            {{ $t('getadmin.partnerDetail.mb.title', { total: total }) }}
+          </h2>
+        </div>
+        <div class="col-md-4">
+          <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
+            <span slot="title">{{ $t('getadmin.partnerDetail.mb.export', { total: total }) }}</span>
+          </ExportButton>
+        </div>
       </div>
-    </DataTable>
+      <DataTable
+        :columns.sync="columns"
+        :rows="rows || []"
+        :page.sync="page"
+        :total="total || 0"
+        :order-by.sync="orderBy"
+        :page-limit.sync="pageLimit"
+        :size="8"
+        :show-extra-columns.sync="showExtraCells"
+        @colEvent="$emit('colEvent', $event)"
+        @columnOrdered="orderedColumns = $event"
+      >
+        <div slot="topLeftCorner">
+          <SearchByCFReference
+            @searchByLogin="searchByCF"
+            @inputIsEmpty="clearSearch"
+            :init-value="searchByCFValue"
+          />
+        </div>
+      </DataTable>
+    </div>
   </div>
 </template>
 
@@ -35,8 +48,9 @@ import DataTable from '@/components/DataTable/DataTable';
 import BillingAccountDetail from './BillingAccountDetail/index.vue';
 import BillAccountStatusCell from '@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountStatusCell.vue';
 import SearchByCFReference from './SearchByCFReference';
+import ExportButton from '@/components/ExportButton';
 
-import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
+import { fetchCustomerAccountsByPartnerId, exportCustomerAccounts } from '@/api/partners.js';
 
 import get from 'lodash.get';
 
@@ -45,6 +59,7 @@ export default {
     DataTable,
     BillingAccountDetail,
     SearchByCFReference,
+    ExportButton,
   },
 
   props: {
@@ -78,6 +93,7 @@ export default {
           name: 'code',
           orderable: true,
           visible: true,
+          exportId: 'CUSTOMER_ACCOUNT_CODE',
           format: {
             type: 'LinkBtn',
             onClick: async (code, row) => {
@@ -91,6 +107,7 @@ export default {
           name: 'name',
           orderable: true,
           visible: true,
+          exportId: 'CUSTOMER_ACCOUNT_NAME',
         },
         {
           id: 3,
@@ -98,6 +115,7 @@ export default {
           name: 'marketLine',
           orderable: true,
           visible: true,
+          exportId: 'MARKET_LINE',
         },
         {
           id: 4,
@@ -105,6 +123,7 @@ export default {
           name: 'siret',
           orderable: true,
           visible: true,
+          exportId: 'SIRET',
         },
         {
           id: 5,
@@ -112,6 +131,7 @@ export default {
           name: 'status',
           orderable: true,
           visible: true,
+          exportId: 'CUSTOMER_ACCOUNT_STATUS',
           format: {
             component: BillAccountStatusCell,
           },
@@ -122,6 +142,7 @@ export default {
           name: 'created',
           orderable: true,
           visible: true,
+          exportId: 'CUSTOMER_ACCOUNT_CREATED',
           format: {
             type: 'Getter',
             getter: row => {
@@ -196,6 +217,24 @@ export default {
         this.searchByCFValue = undefined;
         this.refreshTable();
       }
+    },
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
+        const filters = [
+          {
+            id: 'getadmin.partners.filters.multisearch',
+            value: this.searchByCFValue,
+          },
+        ];
+        return await exportCustomerAccounts(
+          this.partner.id,
+          filters,
+          columnsParam,
+          this.orderBy,
+          exportFormat,
+          asyncExportRequest
+        );
+      };
     },
   },
 };
