@@ -122,3 +122,18 @@ export async function getDoughnutOfferDistributionInfo(partnerId, workflowCode, 
   const response = await query(queryStr);
   return response.data.getDoughnutOfferDistributionInfo;
 }
+
+export async function billedAmountByMonth(partnerId, period) {
+  const queryStr = `
+  {
+    billingAmountGraph(filter: {partnerId: ${partnerId}, period: ${period} }) {
+      date
+      amount
+      nbBilledLines
+      nbNotBilledLines
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billingAmountGraph;
+}
