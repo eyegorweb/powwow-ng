@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.114+20200820084524
+2020-08-20
+
+### Features
+
+- ajout de l'export des clients (C.F.) (8577a8efc3bc5679dfa1c08bd94d61453ade70cb)
+
 ## 1.0.0-master.113+20200819103038
 2020-08-19
 
