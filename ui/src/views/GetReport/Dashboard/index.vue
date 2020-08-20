@@ -102,6 +102,52 @@
             </div>
           </div>
         </FoldableBlock>
+        <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
+          <div>
+            <div class="row">
+              <BilledAmountsGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+            <div class="row">
+              <BilledAmountsByZone
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+            <div class="row">
+              <AmountByBilledLinesGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+            <div class="row">
+              <BilledLinesNBGraph
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+            <div class="row">
+              <BilledLinesByZone
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+            <div class="row">
+              <BilledServices
+                :partner="appliedPartner"
+                :offer="appliedOffer"
+                :billing-account="appliedBillingAccount"
+              />
+            </div>
+          </div>
+        </FoldableBlock>
       </transition-group>
     </draggable>
 
@@ -124,6 +170,12 @@ import LinesByPLMNGraph from './LinesByPLMNGraph';
 import ParcStateGraph from './ParcStateGraph';
 import AlarmsPerDayContainerGraph from './AlarmsPerDayContainerGraph';
 import ReportGauges from './ReportGauges';
+import BilledAmountsGraph from './BilledAmountsGraph';
+import BilledAmountsByZone from './BilledAmountsByZone';
+import AmountByBilledLinesGraph from './AmountByBilledLinesGraph';
+import BilledLinesNBGraph from './BilledLinesNBGraph';
+import BilledLinesByZone from './BilledLinesByZone';
+import BilledServices from './BilledServices';
 
 import { mapGetters } from 'vuex';
 
@@ -145,6 +197,12 @@ export default {
     ParcStateGraph,
     AlarmsPerDayContainerGraph,
     ReportGauges,
+    BilledAmountsGraph,
+    BilledAmountsByZone,
+    AmountByBilledLinesGraph,
+    BilledLinesNBGraph,
+    BilledLinesByZone,
+    BilledServices,
   },
 
   mounted() {
