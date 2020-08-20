@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.116+20200820144800
+2020-08-20
+
+### Features
+
+- ajout du graph de facturation Montants facturés sur 12 / 24 / 36 mois (3350d5b9432e10b2f05b9d2f16dd85ae286facf1)
+
 ## 1.0.0-master.115+20200820141417
 2020-08-20
 
