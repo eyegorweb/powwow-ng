@@ -123,10 +123,15 @@ export async function getDoughnutOfferDistributionInfo(partnerId, workflowCode, 
   return response.data.getDoughnutOfferDistributionInfo;
 }
 
-export async function billedAmountByMonth(partnerId, period) {
+export async function billedAmountByMonth(partnerId, customerAccountCode, period) {
+  const params = [];
+  if (customerAccountCode) {
+    params.push(`customerAccountCode: "${customerAccountCode}",`);
+  }
+
   const queryStr = `
   {
-    billingAmountGraph(filter: {partnerId: ${partnerId}, period: ${period} }) {
+    billingAmountGraph(filter: {partnerId: ${partnerId}, ${params.join(',')} period: ${period}}) {
       date
       amount
       nbBilledLines
@@ -136,4 +141,25 @@ export async function billedAmountByMonth(partnerId, period) {
   `;
   const response = await query(queryStr);
   if (response.data) return response.data.billingAmountGraph;
+}
+
+export async function averageBilledAmountByMonth(partnerId, customerAccountCode, period, usage) {
+  const params = [];
+  if (customerAccountCode) {
+    params.push(`customerAccountCode: "${customerAccountCode}",`);
+  }
+
+  const queryStr = `
+  query {
+    averageBillingGraph(filter:{partnerId: ${partnerId}, ${params.join(
+    ','
+  )} period: ${period}, usage: ${usage} }) {
+     date
+     amount
+     conso
+   }
+   }
+   `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.averageBillingGraph;
 }

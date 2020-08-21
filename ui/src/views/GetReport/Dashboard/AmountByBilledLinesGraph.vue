@@ -33,6 +33,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import { averageBilledAmountByMonth } from '@/api/reportDashboard.js';
 
 export default {
   components: {
@@ -83,7 +84,7 @@ export default {
     return {
       chartOptions: undefined,
       currentPeriod: 'MONTH12',
-      currentUsage: 'data',
+      currentUsage: 'DATA',
       tooltipMsg: this.$t('getdevice.messages.warning2'),
       toggleValuesPeriod: [
         {
@@ -101,15 +102,15 @@ export default {
       ],
       toggleValuesUsage: [
         {
-          id: 'data',
+          id: 'DATA',
           label: 'services.DATA',
         },
         {
-          id: 'sms',
+          id: 'SMS',
           label: 'services.SMS',
         },
         {
-          id: 'voice',
+          id: 'VOICE',
           label: 'services.VOICE',
         },
       ],
@@ -129,74 +130,13 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      // const apiData = await parcStatusByMonth(
-      //   params.partyId,
-      //   params.customerAccountCode,
-      //   this.currentPeriod
-      // );
-      // Data mock:
-      const apiData = [
-        {
-          amount: 50,
-          conso: 30,
-          date: '01/09/2019',
-        },
-        {
-          amount: 30,
-          conso: 40,
-          date: '01/10/2019',
-        },
-        {
-          amount: 40,
-          conso: 40,
-          date: '01/11/2019',
-        },
-        {
-          amount: 70,
-          conso: 20,
-          date: '01/12/2019',
-        },
-        {
-          amount: 20,
-          conso: 50,
-          date: '01/01/2020',
-        },
-        {
-          amount: 60,
-          conso: 0,
-          date: '01/02/2020',
-        },
-        {
-          amount: 80,
-          conso: 50,
-          date: '01/03/2020',
-        },
-        {
-          amount: 40,
-          conso: 40,
-          date: '01/04/2020',
-        },
-        {
-          amount: 70,
-          conso: 20,
-          date: '01/05/2020',
-        },
-        {
-          amount: 90,
-          conso: 10,
-          date: '01/06/2020',
-        },
-        {
-          amount: 100,
-          conso: 40,
-          date: '01/07/2020',
-        },
-        {
-          amount: 120,
-          conso: 100,
-          date: '01/08/2020',
-        },
-      ];
+      const apiData = await averageBilledAmountByMonth(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod,
+        this.currentUsage
+      );
+
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);

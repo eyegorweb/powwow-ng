@@ -106,7 +106,11 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      const apiData = await billedAmountByMonth(params.partyId, this.currentPeriod);
+      const apiData = await billedAmountByMonth(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
