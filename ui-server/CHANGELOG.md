@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.117+20200821045514
+2020-08-21
+
+### Features
+
+- ajout du graphe "Conso et montant moyen par lignefacturée" (189fe8b158103154dfa4a15d30cf1c5890980968)
+
 ## 1.0.0-master.116+20200820144800
 2020-08-20
 
