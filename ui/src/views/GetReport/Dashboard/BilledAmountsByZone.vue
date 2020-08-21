@@ -105,11 +105,13 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
+      // TODO: api billedAmountAndConsoByZoneGraph à brancher
       // const apiData = await parcStatusByMonth(
       //   params.partyId,
       //   params.customerAccountCode,
       //   this.currentPeriod
       // );
+
       // Data mock:
       const apiData = [
         {
