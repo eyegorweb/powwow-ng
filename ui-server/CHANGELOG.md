@@ -2,6 +2,33 @@
 
 <!--- next entry here -->
 
+## 1.3.0
+2020-08-24
+
+### Features
+
+- partie front de l'onglet "liste des clients C.F" pour les partenaires marque blanche (ea769e69d47aa8a1434ded43d9208a8e07059f87)
+- ajout du filtre Type de cartes SIM pour la gestion des partenaires (2f34302157a8ee2b099420bd8e6e6639efe495d8)
+- ajout du partenaire de type Marque Blanche et des informations qui en découlent (f43c614009e0845a7f79001652d3103cb2c89411)
+- ajout de l'export des clients (C.F.) (8577a8efc3bc5679dfa1c08bd94d61453ade70cb)
+- ajout du graph de facturation Montants facturés sur 12 / 24 / 36 mois (3350d5b9432e10b2f05b9d2f16dd85ae286facf1)
+- ajout du graphe "Conso et montant moyen par lignefacturée" (189fe8b158103154dfa4a15d30cf1c5890980968)
+
+### Fixes
+
+- Retours sur la création de rapports (27f88b7657aedd2b55c0d5b8acb5f4301857c2dc)
+- Retours sur la création de rapports (34d4e485be5ffa8a6c83d2f86c246c62b10e1cde)
+- correction et amélioration de l'historique des actes de gestion (a43c5d874a56ec50f3c88113fe179617dd20717a)
+- correction du login affiché dans le volet de l'utilisateur (fe311bc3690e54902bffeb0063fa603e31f987fc)
+- modification du paramètre d'export asynchrone (cb5cd34a07200c66de2f6b48e02b5802180b49ec)
+- ajout de la limite pour gérer la requête asynchrone des exports d'actes unitaires (a96f1c658acf27c29e1b770004e556f034864c53)
+- configuration de la limite pour un export asynchrone des actes unitaires (3167ff6309ac1d788d05f31c1279c2b3c373dd74)
+- correction du tri pour le filtre Créateur de la demande (2e17f7fd24bf2f4f126127cc8c7670099e038fe7)
+- correction du filtre statut pour la gestion des utilisateurs (7c10a5d5bbd12cf191c311a354cd9a03b8fcf1a2)
+- affichage du message d'informations sur les graphes du Tableau de bord (1677c71cf9b4f27c1c3ac46a0fa0bb7f80b5b1fb)
+- modification du type de code postal à la création de commande (33d249e3df340969d027a62e5c0140dbdc87c714)
+- correction de la création de rapports sans partenaire (0be5bb950e7e4c27bc47e50a2e030b559327bab0)
+
 ## 1.2.1
 2020-08-05
 
