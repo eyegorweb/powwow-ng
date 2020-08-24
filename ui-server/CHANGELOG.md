@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.120+20200824084220
+2020-08-24
+
+### Fixes
+
+- correction de la création de rapports sans partenaire (0be5bb950e7e4c27bc47e50a2e030b559327bab0)
+
 ## 1.0.0-master.119+20200824073405
 2020-08-24
 
