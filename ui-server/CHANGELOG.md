@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.121+20200824140803
+2020-08-24
+
+### Features
+
+- Consulter le dernier coach d'une ligne (2f159d519e6c7cd07f2bc554fcb8f6c9754fc62b)
+
 ## 1.0.0-master.120+20200824084220
 2020-08-24
 
