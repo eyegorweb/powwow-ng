@@ -65,7 +65,7 @@
           <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="newVal => (generationDate = newVal)"
+            @change="(newVal) => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -475,10 +475,13 @@ export default {
         frequency: this.reportFrequency,
         exportFormat: this.fileFormat,
         generationDate: this.generationDate,
-        partyId: this.selectedPartner.id,
         name: this.name,
         isDisabled: !this.isActive,
       };
+
+      if (this.selectedPartner) {
+        params.partyId = this.selectedPartner.id;
+      }
 
       let response;
 
