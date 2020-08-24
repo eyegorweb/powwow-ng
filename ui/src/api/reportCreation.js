@@ -64,6 +64,10 @@ export async function createReport(params) {
     optionalParams.push(`mailingListId: ${params.mailingListId}`);
   }
 
+  if (params.partyId) {
+    optionalParams.push(`partyId: ${params.partyId}`);
+  }
+
   const queryStr = `mutation {
     createReport( createReportDefinitionInput: {
       frequency: ${params.frequency}
@@ -71,7 +75,6 @@ export async function createReport(params) {
       exportFormat: ${params.exportFormat}
       generationDate: "${params.generationDate}"
       disabled: ${params.isDisabled}
-      partyId: ${params.partyId}
       name: "${params.name}",
       ${optionalParams.join(',')}
     }) { id }
