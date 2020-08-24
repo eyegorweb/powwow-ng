@@ -24,6 +24,30 @@ export async function parcStatusByMonth(partnerId, customerAccountCode, period) 
   if (response.data) return response.data.parcStatusByMonth;
 }
 
+export async function billedAmountByZone(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedAmountAndConsoByZoneGraph(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      depassement
+      forfait
+      horsForfait
+      data
+      voice
+      sms
+      abonnement
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedAmountAndConsoByZoneGraph;
+}
+
 export async function fetchPLMNDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
