@@ -65,7 +65,7 @@
           <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="(newVal) => (generationDate = newVal)"
+            @change="newVal => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
