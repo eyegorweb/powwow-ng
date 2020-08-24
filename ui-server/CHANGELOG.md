@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.119+20200824073405
+2020-08-24
+
+### Fixes
+
+- modification du type de code postal à la création de commande (33d249e3df340969d027a62e5c0140dbdc87c714)
+
 ## 1.0.0-master.118+20200821123453
 2020-08-21
 
