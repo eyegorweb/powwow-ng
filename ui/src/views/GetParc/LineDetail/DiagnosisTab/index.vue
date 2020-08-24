@@ -21,12 +21,12 @@
     </div>
     <div class="col-md-9 pt-3" v-if="content">
       <template v-if="isLineActive">
+        <LastTests v-if="section === 'last_tests'" :content="content" />
         <LineAnalysisSubMenu1 v-if="section === 'line_analysis'" :content="content" />
         <NetworkStatusSubMenu2 v-if="section === 'network_location_test'" :content="content" />
         <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
         <Supervision v-if="section === 'supervision'" :content="content" />
         <NetworkHistory v-if="section === 'network_history'" :content="content" />
-        <LastTests v-if="section === 'last_tests'" :content="content" />
         <NetworkInformation v-if="section === 'network_information'" :content="content" />
       </template>
       <div v-else class="warning-message">
@@ -70,6 +70,11 @@ export default {
       section: undefined,
       menuItems: excludeMocked([
         {
+          section: 'last_tests',
+          title: 'getparc.lineDetail.tab2.lastTests',
+          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        },
+        {
           section: 'line_analysis',
           title: 'getparc.lineDetail.tab2.lineAnalysis',
           compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
@@ -94,12 +99,7 @@ export default {
           title: 'getparc.lineDetail.tab2.networkHistory',
           compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
         },
-        {
-          section: 'last_tests',
-          title: 'getparc.lineDetail.tab2.lastTests',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-          mock: true,
-        },
+
         {
           section: 'network_information',
           title: 'getparc.lineDetail.tab2.networkInformation',
