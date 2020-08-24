@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.121+20200824140803
+## 1.0.0-master.122+20200824141330
 2020-08-24
 
 ### Features
 
 - Consulter le dernier coach d'une ligne (2f159d519e6c7cd07f2bc554fcb8f6c9754fc62b)
+- Branchement api sur le graph : montant facture par zone (b5fd23a2a8183bff040300ae856a39b8164de79b)
 
 ## 1.0.0-master.120+20200824084220
 2020-08-24
