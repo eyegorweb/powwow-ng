@@ -1,4 +1,4 @@
-import { query, getFilterValue, getFilterValues, mutation } from './utils';
+import { query, getFilterValue, getFilterValues, getValuesIds, mutation } from './utils';
 import get from 'lodash.get';
 
 export async function updatePartyOptions(params) {
@@ -294,11 +294,71 @@ export async function fetchAccountDetail(id) {
   return response.data.partys.items[0];
 }
 
+function addCFMultiSearchFilter(gqlFilters, selectedFilters) {
+  const code = selectedFilters.find(f => f.id === 'getadmin.partners.filters.multisearch');
+  if (code) {
+    gqlFilters.push(`multiSearch: {contains: "${code.value}"}`);
+  }
+}
+
+export async function fetchCustomerAccountsByPartnerId(
+  partnerId,
+  orderBy,
+  pagination,
+  filters = []
+) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+
+  const queryStr = `query {
+    customerAccounts(filter: { partyId:{eq:${partnerId}} ${formatFilters(
+    filters
+  )}} ${paginationInfo} ${orderingInfo} ){
+      total
+      items {
+        id
+        code
+        name
+        siret
+        siren
+        marketLine
+        company
+        status
+        massActionsDisabled
+        auditable {
+          created
+        }
+        party {
+          id
+        }
+        bankAccount {
+          name
+          number
+          establishmentCode
+        }
+        address {
+          address1
+          address2
+          zipCode
+          city
+          country
+          state
+        }
+      }
+    }
+  }`;
+
+  const response = await query(queryStr);
+  return response.data.customerAccounts;
+}
+
 export async function fetchCustomerAccounts(id, orderBy) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 50, page: 0} ${orderingInfo})  {
+    customerAccounts(filter: {partyId: {eq: ${id}}}, pagination: {limit: 999, page: 0} ${orderingInfo})  {
       total
       items {
         id
@@ -335,6 +395,50 @@ export async function fetchCustomerAccounts(id, orderBy) {
 
   const response = await query(queryStr);
   return response.data.customerAccounts.items;
+}
+
+export async function exportCustomerAccounts(
+  partnerId,
+  filters,
+  columns,
+  orderBy,
+  exportFormat,
+  asyncExportRequest = false
+) {
+  const columnsParam = columns.join(',');
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+  {
+    exportCustomerAccounts(
+      filter: {
+        partyId:{eq:${partnerId}} ${formatFilters(filters)}
+      }
+      columns: [${columnsParam}]
+      ${orderingInfo}
+      exportFormat: ${exportFormat}
+      asyncExportRequest: ${asyncExportRequest}
+    )
+    {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.exportCustomerAccounts;
 }
 
 export async function getCustomerAccount(code) {
@@ -495,6 +599,10 @@ export async function fetchPartyDetail(id) {
           phone
           mobile
           fax
+        }
+        contractReference
+        partyGroups {
+          name
         }
         address {
           address1
@@ -757,6 +865,8 @@ export function formatFilters(selectedFilters) {
   addPartnerNameFilter(gqlFilters, selectedFilters);
   addPartnerTypeFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
+  addTypeSimCardFilter(gqlFilters, selectedFilters);
+  addCFMultiSearchFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
 }
@@ -782,5 +892,12 @@ function addPartnerGroupFilter(gqlFilters, selectedFilters) {
   if (values && values.length) {
     const partnerGroups = values.map(p => `${p.id}`).join(',');
     gqlFilters.push(`groupId: {in: [${partnerGroups}]}`);
+  }
+}
+
+function addTypeSimCardFilter(gqlFilters, selectedFilters) {
+  const values = getValuesIds(selectedFilters, 'getadmin.users.filters.typeSIMCard');
+  if (values) {
+    gqlFilters.push(`simcardCode: {in: [${values}]}`);
   }
 }

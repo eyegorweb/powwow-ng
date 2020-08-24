@@ -1,27 +1,95 @@
 <template>
-  <GraphWithToggle :size="12" can-show>
-    <chart v-if="chartOptions" :options="chartOptions" />
-
+  <GraphContainer
+    title="Montants facturés sur 12 / 24 / 36 mois"
+    :size="12"
+    :can-show="canShow"
+    :warning="showWarningMsg"
+    :tooltip-msg="tooltipMsg"
+  >
     <div slot="onHide">
-      Texte d'erreur ici
+      {{ $t('getreport.errors.partnerRequired') }}
     </div>
-  </GraphWithToggle>
+    <div>
+      <div class="d-flex justify-content-end">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentPeriod = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
+      <chart v-if="chartOptions" :options="chartOptions" />
+    </div>
+  </GraphContainer>
 </template>
-
 <script>
-import GraphWithToggle from './GraphWithToggle';
-import Highcharts from 'highcharts';
+import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
+import Toggle from '@/components/ui/UiToggle2';
+import { getMonthString } from '@/utils/date';
+import { billedAmountByMonth } from '@/api/reportDashboard.js';
 
 export default {
   components: {
     Chart,
-    GraphWithToggle,
+    GraphContainer,
+    Toggle,
+  },
+
+  props: {
+    partner: Object,
+    offer: Object,
+    billingAccount: Object,
+  },
+
+  computed: {
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) {
+        return offerChosen;
+      } else {
+        return partnerChosen;
+      }
+    },
+    showWarningMsg() {
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) return true;
+      return false;
+    },
+  },
+
+  watch: {
+    partner() {
+      this.createGraph();
+    },
+    billingAccount() {
+      this.createGraph();
+    },
+    currentPeriod() {
+      this.createGraph();
+    },
   },
 
   data() {
     return {
       chartOptions: undefined,
+      currentPeriod: 'MONTH12',
+      tooltipMsg: this.$t('getdevice.messages.warning2'),
+      toggleValues: [
+        {
+          id: 'MONTH12',
+          label: 'common.months_12',
+        },
+        {
+          id: 'MONTH24',
+          label: 'common.months_24',
+        },
+        {
+          id: 'MONTH36',
+          label: 'common.months_36',
+        },
+      ],
     };
   },
 
@@ -30,7 +98,35 @@ export default {
   },
 
   methods: {
-    createGraph() {
+    async createGraph() {
+      if (!this.canShow) return;
+      const params = {
+        partyId: this.partner.id,
+      };
+      if (this.billingAccount) {
+        params.customerAccountCode = this.billingAccount.data.code;
+      }
+      const apiData = await billedAmountByMonth(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
+      const dataSeries = apiData.reduce(
+        (all, c) => {
+          const month = getMonthString(c.date);
+          all.categories.push(month.slice(0, 3));
+          all.nbBilledLines.push(c.nbBilledLines);
+          all.nbNotBilledLines.push(c.nbNotBilledLines);
+          all.amount.push(c.amount);
+          return all;
+        },
+        {
+          categories: [],
+          nbBilledLines: [],
+          nbNotBilledLines: [],
+          amount: [],
+        }
+      );
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -38,97 +134,52 @@ export default {
         chart: {
           type: 'Combination chart',
         },
-
         colors: ['#488bf7', '#083e96', '#000000'],
-
         title: {
-          text: 'Montants facturés sur 12 / 24 / 36 mois',
+          text: '',
+        },
+        xAxis: {
+          categories: dataSeries.categories,
+          crosshair: true,
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: '',
+          },
         },
 
-        xAxis: [
-          {
-            categories: [
-              'Jan',
-              'Fev',
-              'Mar',
-              'Avr',
-              'Mai',
-              'Jun',
-              'Jul',
-              'Aou',
-              'Sep',
-              'Oct',
-              'Nov',
-              'Dec',
-            ],
-            crosshair: true,
-          },
-        ],
-
-        yAxis: [
-          {
-            // Primary yAxis
-            labels: {
-              format: '{value} €',
-              style: {
-                color: Highcharts.getOptions().colors[1],
-              },
-            },
-            title: {
-              text: 'Montant',
-              style: {
-                color: Highcharts.getOptions().colors[1],
-              },
-            },
-          },
-          {
-            // Secondary yAxis
-            labels: {
-              format: '{value} Mo',
-              style: {
-                color: Highcharts.getOptions().colors[0],
-              },
-            },
-            title: {
-              text: 'Conso',
-              style: {
-                color: Highcharts.getOptions().colors[0],
-              },
-            },
-
-            opposite: true,
-          },
-        ],
-
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
+        },
         plotOptions: {
           column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
             stacking: 'normal',
-            zones: [
-              {
-                color: '#FE2E64',
-                value: 2,
-              },
-            ],
           },
         },
         series: [
           {
             name: 'Facturé',
             type: 'column',
-            data: [50, 30, 40, 70, 20, 60, 80, 40, 70, 90, 100, 120],
+            data: dataSeries.nbBilledLines,
           },
           {
             name: 'Non facturé',
             type: 'column',
-            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
+            data: dataSeries.nbNotBilledLines,
           },
           {
             name: 'Montant',
             type: 'spline',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-            tooltip: {
-              valueSuffix: '°€',
-            },
+            data: dataSeries.amount,
           },
         ],
       };

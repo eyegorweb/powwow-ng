@@ -1,27 +1,94 @@
 <template>
-  <GraphWithToggle :size="12" can-show>
-    <chart v-if="chartOptions" :options="chartOptions" />
-
+  <GraphContainer
+    title="Montants facturés / Conso par zone"
+    :size="12"
+    :can-show="canShow"
+    :warning="showWarningMsg"
+    :tooltip-msg="tooltipMsg"
+  >
     <div slot="onHide">
-      Texte d'erreur ici
+      {{ $t('getreport.errors.partnerRequired') }}
     </div>
-  </GraphWithToggle>
+    <div>
+      <div class="d-flex justify-content-end">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentPeriod = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
+      <chart v-if="chartOptions" :options="chartOptions" />
+    </div>
+  </GraphContainer>
 </template>
-
 <script>
-import GraphWithToggle from './GraphWithToggle';
-import Highcharts from 'highcharts';
+import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
+import Toggle from '@/components/ui/UiToggle2';
+import { getMonthString } from '@/utils/date';
 
 export default {
   components: {
     Chart,
-    GraphWithToggle,
+    GraphContainer,
+    Toggle,
+  },
+
+  props: {
+    partner: Object,
+    offer: Object,
+    billingAccount: Object,
+  },
+
+  computed: {
+    canShow() {
+      const partnerChosen = !!(this.partner && this.partner.id);
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) {
+        return offerChosen;
+      } else {
+        return partnerChosen;
+      }
+    },
+    showWarningMsg() {
+      const offerChosen = !!(this.offer && this.offer.id);
+      if (offerChosen) return true;
+      return false;
+    },
+  },
+
+  watch: {
+    partner() {
+      this.createGraph();
+    },
+    billingAccount() {
+      this.createGraph();
+    },
+    currentPeriod() {
+      this.createGraph();
+    },
   },
 
   data() {
     return {
       chartOptions: undefined,
+      currentPeriod: 'MONTH12',
+      tooltipMsg: this.$t('getdevice.messages.warning2'),
+      toggleValues: [
+        {
+          id: 'MONTH12',
+          label: 'common.months_12',
+        },
+        {
+          id: 'MONTH24',
+          label: 'common.months_24',
+        },
+        {
+          id: 'MONTH36',
+          label: 'common.months_36',
+        },
+      ],
     };
   },
 
@@ -30,149 +97,243 @@ export default {
   },
 
   methods: {
-    createGraph() {
+    async createGraph() {
+      if (!this.canShow) return;
+      const params = {
+        partyId: this.partner.id,
+      };
+      if (this.billingAccount) {
+        params.customerAccountCode = this.billingAccount.data.code;
+      }
+      // TODO: api billedAmountAndConsoByZoneGraph à brancher
+      // const apiData = await parcStatusByMonth(
+      //   params.partyId,
+      //   params.customerAccountCode,
+      //   this.currentPeriod
+      // );
+
+      // Data mock:
+      const apiData = [
+        {
+          overspend: 50,
+          contract: 30,
+          outOfZone: 30,
+          amountData: 7.0,
+          amountVoice: 6.9,
+          amountSMS: 9.5,
+          amountSubscription: 5,
+          date: '01/09/2019',
+        },
+        {
+          overspend: 30,
+          contract: 40,
+          outOfZone: 40,
+          amountData: 7.0,
+          amountVoice: 6.9,
+          amountSMS: 9.5,
+          amountSubscription: 5,
+          date: '01/10/2019',
+        },
+        {
+          overspend: 40,
+          contract: 40,
+          outOfZone: 40,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 18.2,
+          amountSubscription: 5,
+          date: '01/11/2019',
+        },
+        {
+          overspend: 70,
+          contract: 20,
+          outOfZone: 14.5,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 21.5,
+          amountSubscription: 5,
+          date: '01/12/2019',
+        },
+        {
+          overspend: 20,
+          contract: 50,
+          outOfZone: 18.2,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 25.2,
+          amountSubscription: 5,
+          date: '01/01/2020',
+        },
+        {
+          overspend: 60,
+          contract: 0,
+          outOfZone: 21.2,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 26.5,
+          amountSubscription: 5,
+          date: '01/02/2020',
+        },
+        {
+          overspend: 80,
+          contract: 50,
+          outOfZone: 25.2,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 23.3,
+          amountSubscription: 5,
+          date: '01/03/2020',
+        },
+        {
+          overspend: 40,
+          contract: 40,
+          outOfZone: 26.5,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 18.3,
+          amountSubscription: 5,
+          date: '01/04/2020',
+        },
+        {
+          overspend: 70,
+          contract: 20,
+          outOfZone: 23.3,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 13.9,
+          amountSubscription: 5,
+          date: '01/05/2020',
+        },
+        {
+          overspend: 90,
+          contract: 10,
+          outOfZone: 18.3,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 9.6,
+          amountSubscription: 5,
+          date: '01/06/2020',
+        },
+        {
+          overspend: 100,
+          contract: 40,
+          outOfZone: 13.9,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 7.0,
+          amountSubscription: 5,
+          date: '01/07/2020',
+        },
+        {
+          overspend: 120,
+          contract: 100,
+          outOfZone: 9.6,
+          amountData: 9.5,
+          amountVoice: 14.5,
+          amountSMS: 6.9,
+          amountSubscription: 5,
+          date: '01/08/2020',
+        },
+      ];
+      const dataSeries = apiData.reduce(
+        (all, c) => {
+          const month = getMonthString(c.date);
+          all.categories.push(month.slice(0, 3));
+          all.overspend.push(c.overspend);
+          all.contract.push(c.contract);
+          all.outOfZone.push(c.outOfZone);
+          all.amountData.push(c.amountData);
+          all.amountVoice.push(c.amountVoice);
+          all.amountSMS.push(c.amountSMS);
+          all.amountSubscription.push(c.amountSubscription);
+          return all;
+        },
+        {
+          categories: [],
+          overspend: [],
+          contract: [],
+          outOfZone: [],
+          amountData: [],
+          amountVoice: [],
+          amountSMS: [],
+          amountSubscription: [],
+        }
+      );
       this.chartOptions = {
         credits: {
           enabled: false,
         },
         chart: {
-          type: 'column',
+          // type: 'Combination chart',
         },
-
         colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
-
         title: {
-          text: 'Montants facturés / Conso par zone',
+          text: '',
+        },
+        xAxis: {
+          categories: dataSeries.categories,
+          crosshair: true,
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: '',
+          },
         },
 
-        xAxis: [
-          {
-            categories: [
-              'Jan',
-              'Fev',
-              'Mar',
-              'Avr',
-              'Mai',
-              'Jun',
-              'Jul',
-              'Aou',
-              'Sep',
-              'Oct',
-              'Nov',
-              'Dec',
-            ],
-            crosshair: true,
-          },
-        ],
-
-        yAxis: [
-          {
-            // Primary yAxis
-            labels: {
-              format: '{value} €',
-              style: {
-                color: Highcharts.getOptions().colors[1],
-              },
-            },
-            title: {
-              text: 'Montant',
-              style: {
-                color: Highcharts.getOptions().colors[1],
-              },
-            },
-          },
-          {
-            // Secondary yAxis
-            labels: {
-              format: '{value} Mo',
-              style: {
-                color: Highcharts.getOptions().colors[0],
-              },
-            },
-            title: {
-              text: 'Conso',
-              style: {
-                color: Highcharts.getOptions().colors[0],
-              },
-            },
-
-            opposite: true,
-          },
-        ],
         tooltip: {
-          formatter() {
-            return (
-              '<b>' +
-              this.x +
-              '</b><br/>' +
-              this.series.name +
-              ': ' +
-              this.y +
-              '<br/>' +
-              'Total: ' +
-              this.point.stackTotal
-            );
-          },
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
         },
-
         plotOptions: {
           column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
             stacking: 'normal',
-            zones: [
-              {
-                color: '#FE2E64',
-                value: 2,
-              },
-            ],
           },
         },
         series: [
           {
             name: 'Dépassement',
-            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
+            data: dataSeries.overspend,
+            type: 'column',
             stack: 'forfait',
           },
           {
             name: 'Forfait',
-            data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            data: dataSeries.contract,
+            type: 'column',
             stack: 'forfait',
           },
           {
             name: 'Hors zone',
+            data: dataSeries.outOfZone,
             type: 'column',
-            data: [30, 40, 40, 20, 50, 0, 50, 40, 20, 10, 40, 100],
           },
           {
             name: 'Montant Data',
+            data: dataSeries.amountData,
             type: 'spline',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-            tooltip: {
-              valueSuffix: '°€',
-            },
           },
           {
-            name: 'Montant voix',
+            name: 'Montant Voix',
+            data: dataSeries.amountVoice,
             type: 'spline',
-            data: [6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0],
-            tooltip: {
-              valueSuffix: '°€',
-            },
           },
           {
             name: 'Montant SMS',
+            data: dataSeries.amountSMS,
             type: 'spline',
-            data: [9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9],
-            tooltip: {
-              valueSuffix: '°€',
-            },
           },
           {
             name: 'Montant abo',
+            data: dataSeries.amountSubscription,
             type: 'spline',
-            data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-            tooltip: {
-              valueSuffix: '°€',
-            },
           },
         ],
       };

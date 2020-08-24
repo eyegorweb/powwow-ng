@@ -30,6 +30,7 @@
                 :editable="service.editable"
                 v-model="service.checked"
                 :bold-label="isChanged(service)"
+                :no-click="noClick"
                 @change="onServiceChange"
               />
             </div>
@@ -55,6 +56,7 @@
             :editable="service.editable"
             :bold-label="isChanged(service)"
             v-model="service.checked"
+            :no-click="noClick"
             @change="onServiceChange"
           />
         </div>
@@ -91,6 +93,7 @@ export default {
     vertical: Boolean,
     dataParamsNeeded: Boolean,
     fullWidth: Boolean,
+    noClick: Boolean,
   },
   methods: {
     setup() {

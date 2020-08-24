@@ -8,7 +8,12 @@
         :class="{ active: item === chosenValue }"
         :disabled="disabled"
       >
-        {{ $t(item.label) }}
+        <template v-if="noTranslation">
+          {{ item.label }}
+        </template>
+        <template v-else>
+          {{ $t(item.label) }}
+        </template>
       </button>
     </div>
   </div>
@@ -45,6 +50,7 @@ export default {
     },
     block: Boolean,
     disabled: Boolean,
+    noTranslation: Boolean,
   },
 };
 </script>

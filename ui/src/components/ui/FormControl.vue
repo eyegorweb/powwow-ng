@@ -1,30 +1,32 @@
 <template>
   <div class="form-group" :class="{ error: !!error }">
     <label>{{ $t(label) }}</label>
-    <input
-      v-if="inputType === 'number'"
-      :placeholder="placeholder"
-      v-bind="$attrs"
-      v-model="value_"
-      :required="required"
-      type="number"
-      class="form-control"
-      :class="{ 'big-input': big }"
-    />
-    <input
-      v-else
-      :placeholder="placeholder"
-      v-bind="$attrs"
-      v-model="value_"
-      v-on="$listeners"
-      :type="inputType"
-      :maxlength="maxSize"
-      :required="required"
-      class="form-control"
-      :class="{ 'big-input': big }"
-    />
-    <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
-    <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
+    <slot>
+      <input
+        v-if="inputType === 'number'"
+        :placeholder="placeholder"
+        v-bind="$attrs"
+        v-model="value_"
+        :required="required"
+        type="number"
+        class="form-control"
+        :class="{ 'big-input': big }"
+      />
+      <input
+        v-else
+        :placeholder="placeholder"
+        v-bind="$attrs"
+        v-model="value_"
+        v-on="$listeners"
+        :type="inputType"
+        :maxlength="maxSize"
+        :required="required"
+        class="form-control"
+        :class="{ 'big-input': big }"
+      />
+      <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
+      <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
+    </slot>
   </div>
 </template>
 

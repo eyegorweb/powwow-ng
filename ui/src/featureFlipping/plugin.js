@@ -35,6 +35,7 @@ export function excludeMocked(inArray) {
 export default {
   install: Vue => {
     Vue.prototype.$excludeMocked = excludeMocked;
+    Vue.prototype.$shouldShowMocks = !shouldFilterMocked();
     Vue.component('ff-toggle', FeatureFlippingToggle);
     Vue.component('ff-wip', WIP);
     Vue.component('permission', Permission);

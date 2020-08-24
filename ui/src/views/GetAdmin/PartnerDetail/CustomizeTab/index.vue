@@ -1,14 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
-          <a @click.prevent="section = item" :class="{ active: section === item }" href="#">
-            {{ $t(item) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-      </ul>
+      <TabsSubMenu :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
       <BroadcastLists
@@ -33,6 +26,7 @@ import BroadcastLists from './BroadcastLists';
 import CustomFields from './CustomFields';
 import SpecificFields from './SpecificFields';
 import DeliveryAddress from './DeliveryAddress';
+import TabsSubMenu from '@/components/TabsSubMenu.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -41,12 +35,14 @@ export default {
       type: String,
       default: undefined,
     },
+    partner: Object,
   },
   components: {
     BroadcastLists,
     CustomFields,
     SpecificFields,
     DeliveryAddress,
+    TabsSubMenu,
   },
 
   computed: {
@@ -56,6 +52,9 @@ export default {
   mounted() {
     if (!this.userIsBO) {
       this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
+    }
+    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
+      this.menuItems.push('getadmin.customize.deliveryAddress');
     }
   },
 
@@ -67,14 +66,16 @@ export default {
         'getadmin.customize.broadcastLists',
         'getadmin.customize.customFields',
         'getadmin.customize.specificFields',
-        'getadmin.customize.deliveryAddress',
       ],
     };
   },
 
   methods: {
     visibleMenuItems(menu, item) {
-      return menu.splice(menu.findIndex(i => i === item), 1);
+      return menu.splice(
+        menu.findIndex(i => i === item),
+        1
+      );
     },
   },
 };

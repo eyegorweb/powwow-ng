@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import get from 'lodash.get';
+import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
-import { fetchUserFromUsername } from '@/api/users';
 
 export default {
   name: 'CreatorCell',
@@ -14,21 +14,17 @@ export default {
       type: Object,
     },
   },
-  data() {
-    return {
-      user: undefined,
-      creator: undefined,
-    };
-  },
   methods: {
     ...mapMutations(['openPanel']),
 
     onClick() {
+      const firstName = get(this.row, 'creatorFirstname');
+      const lastName = get(this.row, 'creatorLastname');
       const openTrigger = () => {
         this.openPanel({
-          title: this.$t('getsim.creator.title', this.creator),
+          title: this.$t('getsim.creator.title', { firstName, lastName }),
           panelId: 'getparc.creator.title',
-          payload: this.user,
+          payload: this.row,
           wide: false,
         });
       };
@@ -39,10 +35,9 @@ export default {
       }
     },
   },
-  async mounted() {
-    this.user = await fetchUserFromUsername(this.row.creatorUsername);
-    this.creator = this.user.name;
-  },
+  computed: mapState({
+    isOpen: state => state.ui.isPanelOpen,
+  }),
 };
 </script>
 

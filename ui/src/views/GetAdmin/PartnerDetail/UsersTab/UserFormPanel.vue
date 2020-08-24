@@ -60,9 +60,9 @@
       <div class="entries-line">
         <div class="form-entry">
           <FormControl label="common.email" v-model="form.email" />
-          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
-            {{ $t('errors.password.email-error') }}
-          </span>
+          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
+            $t('errors.password.email-error')
+          }}</span>
         </div>
       </div>
       <div class="entries-line">
@@ -120,9 +120,9 @@
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton :disabled="!canSave" variant="primary" @click="save" block>
-          {{ $t('save') }}
-        </UiButton>
+        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
+          $t('save')
+        }}</UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -420,7 +420,10 @@ export default {
     this.canShowForm = false;
     let roles;
     // Mode création
-    if (this.content.fromPartnerMenu) return;
+    if (this.content.fromPartnerMenu) {
+      this.canShowForm = true;
+      return;
+    }
     // Mode modification
     if (this.content.duplicateFrom) {
       const userType = this.content.duplicateFrom.type;

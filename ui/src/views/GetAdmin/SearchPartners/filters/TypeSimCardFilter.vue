@@ -15,9 +15,22 @@ export default {
   components: {
     AutoCompleteByPartnerContext,
   },
+  props: {
+    selectedData: Object,
+  },
+  mounted() {
+    if (this.selectedData && this.selectedData.id) {
+      this.selectedTypeSimCardValues = this.selectedData.values;
+    }
+  },
   watch: {
     selectedTypeSimCardValues(newValue) {
       this.$emit('change', newValue);
+    },
+    selectedData(selectedData) {
+      if (!selectedData) {
+        this.selectedTypeSimCardValues = [];
+      }
     },
   },
   data() {

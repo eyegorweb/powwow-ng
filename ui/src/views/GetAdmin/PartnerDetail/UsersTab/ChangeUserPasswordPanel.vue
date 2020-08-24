@@ -52,10 +52,8 @@ export default {
   },
   props: {
     content: Object,
-
   },
   computed: {
-
     userId() {
       return this.content.duplicateFrom.id;
     },

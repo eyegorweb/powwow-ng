@@ -234,11 +234,11 @@ export default {
       {
         title: 'getadmin.users.filters.status',
         component: StatusFilter,
-        onChange: (selectedStatus) => {
+        onChange: selectedStatus => {
           return {
             id: 'getadmin.users.filters.status',
             value: this.$t(selectedStatus.label),
-            data: selectedStatus
+            data: selectedStatus,
           };
         },
       },
@@ -305,7 +305,7 @@ export default {
       };
 
       this.isLoading = true;
-      const data = await searchUsers(this.orderBy, pagination, filters);
+      const data = await searchUsers('', this.orderBy, pagination, filters);
       this.isLoading = false;
 
       this.total = data.total;
@@ -339,7 +339,7 @@ export default {
     },
     async searchByLogin(value) {
       this.searchByLoginValue = value;
-      const data = await searchUsers(this.orderBy, { page: 0, limit: 10 }, [
+      const data = await searchUsers('', this.orderBy, { page: 0, limit: 10 }, [
         {
           id: 'getadmin.users.filters.login',
           value,

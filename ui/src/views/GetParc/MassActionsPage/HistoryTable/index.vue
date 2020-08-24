@@ -286,7 +286,7 @@ export default {
       }
     },
     getExportFn() {
-      return async (columnsParam, pagination, exportFormat) => {
+      return async (columnsParam, pagination, exportFormat, asyncExportRequest) => {
         // si CUSTOM_SUCCESS_ERROR est présente alors il mettre à la place les 2 params  COMPLETED et FAILED
         let columnsToUse = [...columnsParam];
 
@@ -296,11 +296,13 @@ export default {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');
         }
 
+        asyncExportRequest = this.total >= 15000 ? true : false;
+
         return await exportMassActionsOnly(
           [...columnsToUse, 'STARTED'],
           exportFormat,
           this.appliedFilters,
-          false,
+          asyncExportRequest,
           this.total
         );
       };

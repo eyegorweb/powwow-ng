@@ -122,3 +122,59 @@ export async function getDoughnutOfferDistributionInfo(partnerId, workflowCode, 
   const response = await query(queryStr);
   return response.data.getDoughnutOfferDistributionInfo;
 }
+
+export async function billedAmountByMonth(partnerId, customerAccountCode, period) {
+  const params = [];
+  if (customerAccountCode) {
+    params.push(`customerAccountCode: "${customerAccountCode}",`);
+  }
+
+  const queryStr = `
+  {
+    billingAmountGraph(filter: {partnerId: ${partnerId}, ${params.join(',')} period: ${period}}) {
+      date
+      amount
+      nbBilledLines
+      nbNotBilledLines
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billingAmountGraph;
+}
+
+export async function averageBilledAmountByMonth(partnerId, customerAccountCode, period, usage) {
+  const params = [];
+  if (customerAccountCode) {
+    params.push(`customerAccountCode: "${customerAccountCode}",`);
+  }
+
+  const queryStr = `
+  query {
+    averageBillingGraph(filter:{partnerId: ${partnerId}, ${params.join(
+    ','
+  )} period: ${period}, usage: ${usage} }) {
+     date
+     amount
+     conso
+   }
+   }
+   `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.averageBillingGraph;
+}
+
+// billedAmountAndConsoByZoneGraph api
+// query {
+//   billedAmountAndConsoByZoneGraph(filter:{partnerId:2 period:MONTH24 }) {
+//    date
+//    depassement
+//    forfait
+//    horsForfait
+//    data
+//    voice
+//    sms
+//    abonnement
+
+//  }
+//  }

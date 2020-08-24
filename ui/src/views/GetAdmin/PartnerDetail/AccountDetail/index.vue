@@ -1,14 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <ul class="list-group">
-        <li v-for="item in menuItems" :key="item" class="list-group-item">
-          <a @click.prevent="section = item" :class="{ active: section == item }" href="#">
-            {{ $t(item) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
-        </li>
-      </ul>
+      <TabsSubMenu :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
       <PartnerOptions v-if="section === 'getadmin.partners.options'" :partner="partner" />
@@ -24,11 +17,13 @@
 import PartnerOptions from './PartnerOptions';
 import AccountPartnerDetail from './AccountPartnerDetail';
 import { mapGetters } from 'vuex';
+import TabsSubMenu from '@/components/TabsSubMenu.vue';
 
 export default {
   components: {
     PartnerOptions,
     AccountPartnerDetail,
+    TabsSubMenu,
   },
 
   props: {

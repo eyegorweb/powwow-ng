@@ -12,23 +12,23 @@
       </div>
       <div class="overview-item">
         <h6>{{ $t('orders.detail.title') }} :</h6>
-        <p>{{ $t('common.' + getFromCreator('name.title')) }}</p>
+        <p>{{ $t('common.' + getFromCreator('creatorTitle')) }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.lastName') }} :</h6>
-        <p>{{ getFromCreator('name.lastName') }}</p>
+        <p>{{ getFromCreator('creatorLastname') }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.firstName') }} :</h6>
-        <p>{{ getFromCreator('name.firstName') }}</p>
+        <p>{{ getFromCreator('creatorFirstname') }}</p>
       </div>
       <div class="overview-item">
         <h6>{{ $t('common.email') }} :</h6>
-        <a :href="getFromCreator('contactInformation.email')">{{ getFromCreator('email') }}</a>
+        <a :href="getFromCreator('creatorEmail')">{{ getFromCreator('creatorEmail') }}</a>
       </div>
       <div class="overview-item">
         <h6>Login :</h6>
-        <p>{{ getFromCreator('username') }}</p>
+        <p>{{ getFromCreator('creatorUsername') }}</p>
       </div>
     </div>
     <div class="overview-container m-3 bg-white">
@@ -59,16 +59,12 @@
 import get from 'lodash.get';
 
 export default {
-  data() {
-    return {
-      creator: undefined,
-    };
-  },
   props: {
     order: Object,
   },
   methods: {
     getFromCreator(path, defaultValue = '') {
+      console.log('order', this.order);
       const value = get(this.order, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
