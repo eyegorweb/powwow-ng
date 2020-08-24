@@ -66,7 +66,7 @@
           <div class="col">
             <FormControl
               label="orders.new.deliveryStep.form.zipcode"
-              input-type="number"
+              input-type="text"
               v-model="form.zipCode"
               :error="errors.zipCode"
             />
