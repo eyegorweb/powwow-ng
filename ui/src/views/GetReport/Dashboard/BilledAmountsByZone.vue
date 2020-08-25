@@ -110,11 +110,9 @@ export default {
         params.customerAccountCode,
         this.currentPeriod
       );
-      console.log(apiData);
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
-          console.log(month);
           all.categories.push(month.slice(0, 3));
           all.overspend.push(c.depassement);
           all.contract.push(c.forfait);
