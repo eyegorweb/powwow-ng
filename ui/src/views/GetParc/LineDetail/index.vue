@@ -59,6 +59,8 @@ import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import UiButton from '@/components/ui/Button';
+
 import { searchLines } from '@/api/linesActions';
 import { mapMutations } from 'vuex';
 import get from 'lodash.get';
@@ -73,6 +75,7 @@ export default {
     DiagnosisTab,
     UiTabs,
     UiTab,
+    UiButton
   },
   mounted() {
     if (this.$route.params && this.$route.params.tabIndex) {
