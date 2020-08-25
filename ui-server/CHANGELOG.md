@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.125+20200825124658
+2020-08-25
+
+### Fixes
+
+- gestion des permissions dans le coach M2M (e5964b928108be3238ff52d922ee00e36153afa0)
+
 ## 1.0.0-master.124+20200825114832
 2020-08-25
 
