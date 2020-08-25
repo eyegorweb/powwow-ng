@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.125+20200825124658
+## 1.0.0-master.126+20200825120405
 2020-08-25
 
 ### Fixes
 
+- afficher un message d'erreur si pas de données (d8fd081950644316c9751088cd8184cad2fa4c1b)
 - gestion des permissions dans le coach M2M (e5964b928108be3238ff52d922ee00e36153afa0)
 
 ## 1.0.0-master.124+20200825114832
