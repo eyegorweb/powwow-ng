@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.124+20200825114832
+2020-08-25
+
+### Fixes
+
+- design du bouton coach (93ae147b98e573159a9e82c71969c92cb467d1e0)
+
 ## 1.0.0-master.123+20200825095759
 2020-08-25
 
