@@ -11,9 +11,7 @@
       </div>
       <div v-if="compareMode" class="col">
         <h5 v-if="compareMode">
-          <template v-if="line2"
-            >{{ $t('coach.compareLine', { lineId: line2.id }) }}
-          </template>
+          <template v-if="line2">{{ $t('coach.compareLine', { lineId: line2.id }) }} </template>
           <template v-else>
             {{ $t('coach.chooseLine') }}
           </template>
