@@ -6,10 +6,8 @@
     <div class="d-flex justify-content-start">
       <AnimatedCheckMark :is-loading="isFetchingData" :is-error="!indicator.checked" />
       <div class="item-content">
-        <h6>{{ indicator.title }}</h6>
-        <p>
-          {{ indicator.subTitle }}
-        </p>
+        <h6>{{ $t(indicator.title) }}</h6>
+        <p>{{ indicator.subTitle }} &nbsp;</p>
       </div>
     </div>
   </li>
@@ -36,10 +34,12 @@ export default {
     },
   },
   created() {
+    // if (this.indicator && this.indicator.subTitle) {
     setTimeout(() => {
       this.isFetchingData = false;
       this.isItemError = !this.indicator.checked;
     }, getRandomInt(1000, 6000));
+    // }
   },
   data() {
     return {

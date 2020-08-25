@@ -258,7 +258,8 @@
     "testLine": "Tester la ligne",
     "chooseLine": "Choisir une ligne",
     "currentLine": "Ligne actuelle {lineId}",
-    "compareLine": "Ligne de comparaison"
+    "compareLine": "Ligne de comparaison",
+    "apiError": "Impossible d'effectuer le diagnostic"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -861,6 +862,7 @@
       "noCoach": "Pas de coach sur cette ligne",
       "standardTest": "Tests standards",
       "advancedTest": "Tests avancés",
+      "startCoach": "Coach M2M / Diagnostic",
       "specificFields": {
         "title": "Champs spécifiques",
         "label1": "Champ spécifique 1",
