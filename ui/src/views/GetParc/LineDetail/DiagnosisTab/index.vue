@@ -47,7 +47,7 @@ import NetworkHistory from './NetworkHistorySubMenu5';
 import LastTests from './LastTests';
 import NetworkInformation from './NetworkInformation';
 import get from 'lodash.get';
-import { excludeMocked } from '@/featureFlipping/plugin';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -63,52 +63,55 @@ export default {
     content: Object,
   },
   mounted() {
+    this.menuItems = this.filterByPermission([
+      {
+        section: 'last_tests',
+        title: 'getparc.lineDetail.tab2.lastTests',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        permission: { domain: 'getVision', action: 'read' }
+      },
+      {
+        section: 'line_analysis',
+        title: 'getparc.lineDetail.tab2.lineAnalysis',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+      },
+      {
+        section: 'network_location_test',
+        title: 'getparc.lineDetail.tab2.networkLocationTest',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+      },
+      {
+        section: 'network_test_control',
+        title: 'getparc.lineDetail.tab2.networkTestControl',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+      },
+      {
+        section: 'supervision',
+        title: 'getparc.lineDetail.tab2.supervision',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+      },
+      {
+        section: 'network_history',
+        title: 'getparc.lineDetail.tab2.networkHistory',
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+      },
+
+      {
+        section: 'network_information',
+        title: 'getparc.lineDetail.tab2.networkInformation',
+        compatiblePartnerTypes: ['MVNO'],
+      },
+    ])
     this.initializeSection();
   },
   data() {
     return {
       section: undefined,
-      menuItems: excludeMocked([
-        {
-          section: 'last_tests',
-          title: 'getparc.lineDetail.tab2.lastTests',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'line_analysis',
-          title: 'getparc.lineDetail.tab2.lineAnalysis',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'network_location_test',
-          title: 'getparc.lineDetail.tab2.networkLocationTest',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'network_test_control',
-          title: 'getparc.lineDetail.tab2.networkTestControl',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'supervision',
-          title: 'getparc.lineDetail.tab2.supervision',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'network_history',
-          title: 'getparc.lineDetail.tab2.networkHistory',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-        },
-
-        {
-          section: 'network_information',
-          title: 'getparc.lineDetail.tab2.networkInformation',
-          compatiblePartnerTypes: ['MVNO'],
-        },
-      ]),
+      menuItems: undefined,
     };
   },
   computed: {
+    ...mapGetters(['havePermission']),
     isLineActive() {
       const networkStatus = get(this.content, 'accessPoint.networkStatus');
       const simStatus = get(this.content, 'statuts');
@@ -119,6 +122,7 @@ export default {
     },
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
+      if (!this.menuItems) return [];
       let visibleItems = this.menuItems.filter(m =>
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );
@@ -126,6 +130,12 @@ export default {
     },
   },
   methods: {
+    filterByPermission(arrayInput) {
+      return arrayInput.filter(a => {
+        if (!a.permission) return true;
+        return this.havePermission(a.permission.domain, a.permission.action);
+      });
+    },
     initializeSection() {
       const typeForPartner = get(this.content, 'party.partyType');
       if (typeForPartner === 'MVNO') {

@@ -78,6 +78,8 @@
             </template>
           </ContentBlock>
         </permission>
+
+        <div class="update-date">{{ $t('lastUpdate') }} {{ coachData.updateDate }}</div>
       </template>
       <div v-else class="alert alert-light m-0" role="alert">
         {{ $t('getparc.lineDetail.noCoach') }}
@@ -125,4 +127,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

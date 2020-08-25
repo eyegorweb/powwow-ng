@@ -9,7 +9,7 @@
         :can-refresh="canRefresh"
         :on-click="onClick"
         :precalculated="precalculated"
-        @removeme="i => removeIndicator(i)"
+        @removeme="(i) => removeIndicator(i)"
       />
     </ul>
     <div v-if="lastUpdateDate" class="update-date">
@@ -150,12 +150,6 @@ export default {
     font-size: 0.8rem;
     padding-bottom: 0.4rem;
   }
-}
-.update-date {
-  text-align: right;
-  font-size: 11px;
-  font-style: italic;
-  padding-right: 5px;
 }
 .info-message {
   font-size: 0.8rem;
