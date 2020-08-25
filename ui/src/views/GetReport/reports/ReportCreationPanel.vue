@@ -506,12 +506,6 @@ export default {
       }
     },
 
-    havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(
-        p => p.domain === domain && p.action === action
-      );
-    },
-
     resetCheckboxes() {
       this.selectedItems = [];
       this.groups = [
@@ -834,7 +828,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMultiPartner', 'userIsOperator']),
+    ...mapGetters([
+      'userIsPartner',
+      'userInfos',
+      'userIsMultiPartner',
+      'userIsOperator',
+      'havePermission',
+    ]),
 
     dateLabel() {
       if (this.reportFrequency === 'ONCE') {

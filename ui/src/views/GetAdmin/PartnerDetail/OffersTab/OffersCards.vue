@@ -156,16 +156,10 @@ export default {
         },
       });
     },
-
-    havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(
-        p => p.domain === domain && p.action === action
-      );
-    },
   },
 
   computed: {
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['userInfos', 'havePermission']),
     canShowActions() {
       return this.havePermission('party', 'update_available_catalog_offers');
     },

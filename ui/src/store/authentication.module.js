@@ -29,6 +29,13 @@ export const getters = {
     return false;
   },
   havePermission: state => (domain, action) => {
+    console.log('=======================================+>>>>>>>');
+    console.log(
+      'state.userInfos.permissions.find(p => p.domain === domain && p.action === action)',
+      domain,
+      action,
+      state.userInfos.permissions.find(p => p.domain === domain && p.action === action)
+    );
     if (state.userInfos) {
       return !!state.userInfos.permissions.find(p => p.domain === domain && p.action === action);
     }

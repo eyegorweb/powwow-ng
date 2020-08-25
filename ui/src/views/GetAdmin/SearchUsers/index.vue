@@ -284,7 +284,7 @@ export default {
     this.applyFilters();
   },
   computed: {
-    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userInfos']),
+    ...mapGetters(['userIsBO', 'userIsGroupAccount', 'userInfos', 'havePermission']),
     canShow() {
       return this.havePermission('user', 'create');
     },
@@ -405,12 +405,6 @@ export default {
     },
     async refreshUser(user) {
       user.disabled = !user.disabled;
-    },
-
-    havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(p => {
-        return p.domain === domain && p.action === action;
-      });
     },
   },
 };

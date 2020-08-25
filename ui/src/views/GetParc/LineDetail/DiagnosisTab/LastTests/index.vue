@@ -41,42 +41,43 @@
             </div>
           </template>
         </ContentBlock>
-
-        <ContentBlock>
-          <template slot="title">{{ $t('getparc.lineDetail.advancedTest') }}</template>
-          <template slot="content">
-            <div class="row">
-              <div class="col">
-                <CoachIndicator
-                  label="getparc.lineDetail.localityTest"
-                  :value="coachData.linesLocalityTest"
-                  :success="coachData.linesLocalityTestSuccess"
-                />
+        <permission domain="getVision" action="read">
+          <ContentBlock>
+            <template slot="title">{{ $t('getparc.lineDetail.advancedTest') }}</template>
+            <template slot="content">
+              <div class="row">
+                <div class="col">
+                  <CoachIndicator
+                    label="getparc.lineDetail.localityTest"
+                    :value="coachData.linesLocalityTest"
+                    :success="coachData.linesLocalityTestSuccess"
+                  />
+                </div>
+                <div class="col">
+                  <CoachIndicator
+                    label="getparc.lineDetail.cellAnalysis"
+                    :value="coachData.linesCellTest"
+                    :success="coachData.linesCellTestSuccess"
+                  />
+                </div>
+                <div class="col">
+                  <CoachIndicator
+                    label="getparc.lineDetail.networkDetectionTest"
+                    :value="coachData.lastNetworkDetectionTest"
+                    :success="coachData.lastNetworkDetectionTestSuccess"
+                  />
+                </div>
+                <div class="col">
+                  <CoachIndicator
+                    label="getparc.lineDetail.lastUsageAnalysis"
+                    :value="coachData.lastUsageInformation"
+                    :success="coachData.lastUsageInformationSuccess"
+                  />
+                </div>
               </div>
-              <div class="col">
-                <CoachIndicator
-                  label="getparc.lineDetail.cellAnalysis"
-                  :value="coachData.linesCellTest"
-                  :success="coachData.linesCellTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="getparc.lineDetail.networkDetectionTest"
-                  :value="coachData.lastNetworkDetectionTest"
-                  :success="coachData.lastNetworkDetectionTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="getparc.lineDetail.lastUsageAnalysis"
-                  :value="coachData.lastUsageInformation"
-                  :success="coachData.lastUsageInformationSuccess"
-                />
-              </div>
-            </div>
-          </template>
-        </ContentBlock>
+            </template>
+          </ContentBlock>
+        </permission>
       </template>
       <div v-else class="alert alert-light m-0" role="alert">
         {{ $t('getparc.lineDetail.noCoach') }}
