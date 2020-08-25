@@ -43,7 +43,6 @@ import UiInput from '@/components/ui/UiInput';
 
 import { fetchUsersByPartnerId, deactivateUser } from '@/api/users.js';
 
-import get from 'lodash.get';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
@@ -168,16 +167,10 @@ export default {
         },
       });
     },
-
-    havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(
-        p => p.domain === domain && p.action === action
-      );
-    },
   },
 
   computed: {
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['userInfos', 'havePermission']),
     canShow() {
       return this.havePermission('user', 'create');
     },

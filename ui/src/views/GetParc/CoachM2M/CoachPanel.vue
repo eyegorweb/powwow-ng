@@ -5,7 +5,7 @@
         <h5 v-if="compareMode">{{ $t('coach.currentLine', { lineId: content.id }) }}</h5>
         <CoachPanelIndicatorsRunner
           :key="testNumber"
-          :ap-id="content.accessPoint.id"
+          :ap-id="line1ApId"
           @apiError="canCompare = false"
         />
       </div>
@@ -24,7 +24,7 @@
             $t('coach.testLine')
           }}</UiButton>
         </SearchLineWithResults>
-        <CoachPanelIndicatorsRunner v-else :ap-id="line2.accessPoint.id" />
+        <CoachPanelIndicatorsRunner v-else :ap-id="line2ApId" />
       </div>
     </div>
     <div slot="footer" class="action-buttons" v-if="canCompare">
@@ -61,6 +61,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import CoachPanelIndicatorsRunner from './CoachPanelIndicatorsRunner';
 import UiButton from '@/components/ui/Button';
 import SearchLineWithResults from './SearchLineWithResults';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -95,6 +96,15 @@ export default {
       this.$emit('setWidth', '30%');
       this.compareMode = false;
       this.line2 = undefined;
+    },
+  },
+
+  computed: {
+    line1ApId() {
+      return get(this.content, 'accessPoint.id');
+    },
+    line2ApId() {
+      return get(this.line2, 'accessPoint.id');
     },
   },
 };

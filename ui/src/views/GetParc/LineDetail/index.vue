@@ -75,7 +75,7 @@ export default {
     DiagnosisTab,
     UiTabs,
     UiTab,
-    UiButton
+    UiButton,
   },
   mounted() {
     if (this.$route.params && this.$route.params.tabIndex) {
