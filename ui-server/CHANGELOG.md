@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.127+20200825131605
+2020-08-25
+
+### Features
+
+- ajouter la date de dernière mise à jour (57bfc352126496af69e17a564185bc84a246eebb)
+
 ## 1.0.0-master.126+20200825124936
 2020-08-25
 
