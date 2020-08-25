@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.123+20200825095759
+2020-08-25
+
+### Features
+
+- diagnostiquer une ligne afin de cibler le problème (a27e1f0e6b899ccbe342feedf7b2e87f3c127f0a)
+
 ## 1.0.0-master.122+20200824141330
 2020-08-24
 
