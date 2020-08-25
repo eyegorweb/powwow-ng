@@ -16,6 +16,12 @@
           <i class="ic-Info-Icon" />
         </h4>
       </div>
+      <div class="col-md-3">
+        <UiButton variant="secondary" block class="float-right" @click="openCoachPanel()">
+          <i class="ic-Heart-Rythm-Icon"></i>
+          {{ $t('getparc.lineDetail.startCoach') }}
+        </UiButton>
+      </div>
     </div>
     <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel
@@ -115,6 +121,18 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    openCoachPanel() {
+      this.openPanel({
+        title: this.$t('coach.title'),
+        panelId: 'coach.title',
+        payload: this.lineData,
+        wide: false,
+        backdrop: false,
+        ignoreClickAway: true,
+      });
+    },
+
     returnToSearch() {
       this.$router.push({ name: 'actLines', params: { fromDetail: true } });
     },

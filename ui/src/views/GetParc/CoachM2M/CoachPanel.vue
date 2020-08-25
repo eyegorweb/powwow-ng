@@ -2,13 +2,17 @@
   <BaseDetailPanelContent>
     <div class="row indicators-line">
       <div class="col left-side">
-        <h5 v-if="compareMode">{{ $t('coach.currentLine', { lineId: line1 }) }}</h5>
-        <CoachPanelIndicators :key="testNumber" :line-id="line1" />
+        <h5 v-if="compareMode">{{ $t('coach.currentLine', { lineId: content.id }) }}</h5>
+        <CoachPanelIndicatorsRunner
+          :key="testNumber"
+          :ap-id="content.accessPoint.id"
+          @apiError="canCompare = false"
+        />
       </div>
       <div v-if="compareMode" class="col">
         <h5 v-if="compareMode">
           <template v-if="line2"
-            >{{ $t('coach.compareLine', { lineId: line2 }) }}
+            >{{ $t('coach.compareLine', { lineId: line2.id }) }}
           </template>
           <template v-else>
             {{ $t('coach.chooseLine') }}
@@ -20,10 +24,10 @@
             $t('coach.testLine')
           }}</UiButton>
         </SearchLineWithResults>
-        <CoachPanelIndicators v-else :line-id="line2" />
+        <CoachPanelIndicatorsRunner v-else :ap-id="line2.accessPoint.id" />
       </div>
     </div>
-    <div slot="footer" class="action-buttons">
+    <div slot="footer" class="action-buttons" v-if="canCompare">
       <template v-if="!compareMode">
         <div>
           <UiButton variant="import" block @click="testNumber++">{{ $t('coach.reTest') }}</UiButton>
@@ -54,22 +58,26 @@
 
 <script>
 import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
-import CoachPanelIndicators from './CoachPanelIndicators';
+import CoachPanelIndicatorsRunner from './CoachPanelIndicatorsRunner';
 import UiButton from '@/components/ui/Button';
 import SearchLineWithResults from './SearchLineWithResults';
 
 export default {
   components: {
     BaseDetailPanelContent,
-    CoachPanelIndicators,
+    CoachPanelIndicatorsRunner,
     UiButton,
     SearchLineWithResults,
   },
+  props: {
+    content: Object,
+  },
   data() {
     return {
-      line1: '1',
+      line1: undefined,
       line2: undefined,
       compareMode: false,
+      canCompare: true,
       testNumber: 0,
     };
   },
@@ -80,7 +88,8 @@ export default {
       this.compareMode = true;
     },
     startComparison(selectedLine) {
-      this.line2 = '' + selectedLine.id;
+      this.line2 = selectedLine;
+      console.log('startComparison -> selectedLine', selectedLine);
     },
     cancelComparison() {
       this.$emit('setWidth', '30%');
