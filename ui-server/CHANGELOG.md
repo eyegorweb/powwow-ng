@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.128+20200826092355
+2020-08-26
+
+### Features
+
+- Afficher les alarmes dans la page de supervision (1949f41d555d202aa16eb683e01f001df12359cb)
+
+### Fixes
+
+- Corriger les couleurs des icones dans coach M2M (8b1a10e488bdc96b538d3ba2674ab6780c47fdc3)
+
 ## 1.0.0-master.127+20200825131605
 2020-08-25
 
