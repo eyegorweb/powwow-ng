@@ -1,31 +1,43 @@
 import { query } from './utils';
 
+const coachFields = `id
+simcardTrafficAllowedTest
+simcardTrafficAllowedTestSuccess
+dataTrafficAllowedTest
+dataTrafficAllowedTestSuccess
+simcardAlreadyConnectedTest
+simcardAlreadyConnectedTestSuccess
+simcardAlreadyConnectedTestWarnFlag
+alreadyAssignedIPAdressTest
+alreadyAssignedIPAdressTestSuccess
+alreadyAssignedIPAdressTestWarnFlag
+devicePoweredTest
+devicePoweredTestSuccess
+devicePoweredTestWarnFlag
+devicePoweredLastDate
+localisation
+localisationSuccess
+lastNetworkDetectionTest
+lastNetworkDetectionTestSuccess
+lastUsageInformation
+lastUsageInformationSuccess
+smsConsumption
+voiceConsumption
+dataConsumption
+updateDate
+linesLocalityTest
+linesLocalityTestSuccess
+linesCellTest
+linesCellTestSuccess
+deviceImei
+deviceReference
+deviceManufacturer`;
+
 export async function startAnalysis(accessPointId) {
   const queryStr = `
   mutation{
     coachAnalysis(filter: {type:AP_ID value:"${accessPointId}"}){
-      id
-      simcardTrafficAllowedTest
-      dataTrafficAllowedTest
-      simcardAlreadyConnectedTest
-      simcardAlreadyConnectedTestWarnFlag
-      alreadyAssignedIPAdressTest
-      alreadyAssignedIPAdressTestWarnFlag
-      devicePoweredTest
-      devicePoweredTestWarnFlag
-      devicePoweredLastDate
-      localisation
-      lastNetworkDetectionTest
-      lastUsageInformation
-      smsConsumption
-      voiceConsumption
-      dataConsumption
-      updateDate
-      linesLocalityTest
-      linesCellTest
-      deviceImei
-      deviceReference
-      deviceManufacturer
+      ${coachFields}
     }
   }
   `;
@@ -43,28 +55,7 @@ export async function findCoach(accessPointId) {
   const queryStr = `
   query{
     findCoach(accessPointId: ${accessPointId}){
-      id
-      simcardTrafficAllowedTest
-      dataTrafficAllowedTest
-      simcardAlreadyConnectedTest
-      simcardAlreadyConnectedTestWarnFlag
-      alreadyAssignedIPAdressTest
-      alreadyAssignedIPAdressTestWarnFlag
-      devicePoweredTest
-      devicePoweredTestWarnFlag
-      devicePoweredLastDate
-      localisation
-      lastNetworkDetectionTest
-      lastUsageInformation
-      smsConsumption
-      voiceConsumption
-      dataConsumption
-      updateDate
-      linesLocalityTest
-      linesCellTest
-      deviceImei
-      deviceReference
-      deviceManufacturer
+      ${coachFields}
     }
   }
   `;
