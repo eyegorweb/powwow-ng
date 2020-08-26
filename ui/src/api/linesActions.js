@@ -591,7 +591,8 @@ export async function exportSimCardInstances(
   orderBy,
   exportFormat,
   filters = [],
-  asyncExportRequest = false
+  asyncExportRequest = false,
+  exportAll = false
 ) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
@@ -606,7 +607,7 @@ export async function exportSimCardInstances(
     query {
       exportSimCardInstances(filter: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}) {
         downloadUri
         asyncRequired
       }
