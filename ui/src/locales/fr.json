@@ -390,6 +390,7 @@
     "allUsages": "Usage data,SMS,Voix",
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
+    "alarms": "Alarmes",
     "exportGraph": "Exporter les données des graphes",
 
     "supervisionTypes": {

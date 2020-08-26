@@ -2,13 +2,14 @@
   <div class="row mt-4 mb-4">
     <div :key="'bar_' + currentUsage" class="col-3">
       <MonitoringIndicators
+        v-if="currentUsage !== 'ALARMS'"
         :can-refresh="canShowIndicators"
         :applied-filters="appliedFilters"
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
       <FilterBar
-        v-if="filters"
+        v-if="currentUsage !== 'ALARMS' && filters"
         :filter-components="filters"
         :disabled="!canFilter"
         :default-values="defaultValues"
@@ -244,6 +245,11 @@ export default {
         label: 'getvsion.m2mCockpit',
         default: this.value === 'COCKPIT',
       },
+      {
+        id: 'ALARMS',
+        label: 'getvsion.alarms',
+        default: this.value === 'ALARMS',
+      },
     ];
   },
 
@@ -331,7 +337,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -581,7 +587,7 @@ export function filterFormatter(appliedFilters) {
       }
 
       if (item.id === 'filters.zone') {
-        filters.zone = item.data.zone.value;
+        // filters.zone = item.data.zone.value;
 
         if (item.data.zone.value === 'world') {
           if (item.data.country) {
