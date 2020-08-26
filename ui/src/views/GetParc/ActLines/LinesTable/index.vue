@@ -31,7 +31,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="002"
+            storage-version="003"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
