@@ -12,7 +12,7 @@
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton
-            :export-all="true"
+            export-all
             :export-fn="getExportFn()"
             :columns="columns"
             :order-by="orderBy"
