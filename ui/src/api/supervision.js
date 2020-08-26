@@ -289,11 +289,12 @@ export async function fetchContinentData(usageType, filters = {}) {
   });
 }
 
-export async function fetchCountriesData(usageType) {
+export async function fetchCountriesData(usageType, filters = {}) {
   return geoMap({
     filter: {
       scale: 'COUNTRY',
       usageType,
+      ...filters,
     },
   });
 }
@@ -329,6 +330,8 @@ export async function fetchDataForCities(usageType, bounds, filters = {}) {
     },
   });
 }
+
+export async function fetchDataForAlarms() {}
 
 export async function fetchFrenchRegionsData(usageType, bounds) {
   return geoMap({
@@ -367,6 +370,7 @@ async function geoMap(filters) {
         locationLongitude
         activeCount
         passiveCount
+        nbAlarms
     }
   }`;
 
