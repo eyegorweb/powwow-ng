@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.129+20200826121527
+2020-08-26
+
+### Fixes
+
+- corriger l'export de lignes (d68489b29dc9098045445f736859da80865f2a7b)
+- Cacher le menu administrateurs (96b53e6cc45033bacd53f056dac8b5e33f20b46a)
+
 ## 1.0.0-master.128+20200826092355
 2020-08-26
 
