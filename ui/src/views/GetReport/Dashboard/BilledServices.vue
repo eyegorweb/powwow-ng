@@ -6,9 +6,7 @@
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
   >
-    <div slot="onHide">
-      {{ $t('getreport.errors.partnerRequired') }}
-    </div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -27,6 +25,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import { billedLinesByStep } from '@/api/reportDashboard.js';
 
 export default {
   components: {
@@ -105,110 +104,48 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      // const apiData = await parcStatusByMonth(
-      //   params.partyId,
-      //   params.customerAccountCode,
-      //   this.currentPeriod
-      // );
-      // Data mock:
-      const apiData = [
-        {
-          supervision: 50,
-          rsc: 30,
-          stateServices: 30,
-          date: '01/09/2019',
-        },
-        {
-          supervision: 30,
-          rsc: 40,
-          stateServices: 40,
-          date: '01/10/2019',
-        },
-        {
-          supervision: 40,
-          rsc: 40,
-          stateServices: 40,
-          date: '01/11/2019',
-        },
-        {
-          supervision: 70,
-          rsc: 20,
-          stateServices: 14.5,
-          date: '01/12/2019',
-        },
-        {
-          supervision: 20,
-          rsc: 50,
-          stateServices: 18.2,
-          date: '01/01/2020',
-        },
-        {
-          supervision: 60,
-          rsc: 0,
-          stateServices: 21.2,
-          date: '01/02/2020',
-        },
-        {
-          supervision: 80,
-          rsc: 50,
-          stateServices: 25.2,
-          date: '01/03/2020',
-        },
-        {
-          supervision: 40,
-          rsc: 40,
-          stateServices: 26.5,
-          date: '01/04/2020',
-        },
-        {
-          supervision: 70,
-          rsc: 20,
-          stateServices: 23.3,
-          date: '01/05/2020',
-        },
-        {
-          supervision: 90,
-          rsc: 10,
-          stateServices: 18.3,
-          date: '01/06/2020',
-        },
-        {
-          supervision: 100,
-          rsc: 40,
-          stateServices: 13.9,
-          date: '01/07/2020',
-        },
-        {
-          supervision: 120,
-          rsc: 100,
-          stateServices: 9.6,
-          date: '01/08/2020',
-        },
-      ];
+
+      const apiData = await billedLinesByStep(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
+
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
-          all.supervision.push(c.supervision);
-          all.rsc.push(c.rsc);
-          all.stateServices.push(c.stateServices);
+
+          c.palierValues.forEach((p) => {
+            if (!all.series[p.palier]) {
+              all.series[p.palier] = [];
+            }
+            all.series[p.palier].push(p.billedLine);
+          });
           return all;
         },
         {
           categories: [],
-          supervision: [],
-          rsc: [],
-          stateServices: [],
+          series: {},
         }
       );
+
+      const series = Object.keys(dataSeries.series).map((key) => {
+        return {
+          name: key,
+          data: dataSeries.series[key],
+        };
+      });
+      console.log('createGraph -> series', series);
+
       this.chartOptions = {
         credits: {
           enabled: false,
         },
         chart: {
-          // type: 'Combination chart',
+          type: 'column',
         },
-        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        colors: ['#0047a1', '#004ca7', '#0051ad', '#0156b3', '#165bb9', '#2360bf', '#2d66c5'],
         title: {
           text: '',
         },
@@ -267,23 +204,7 @@ export default {
             stacking: 'normal',
           },
         },
-        series: [
-          {
-            name: 'Supervision',
-            data: dataSeries.supervision,
-            type: 'spline',
-          },
-          {
-            name: 'RSC',
-            data: dataSeries.rsc,
-            type: 'spline',
-          },
-          {
-            name: 'Etat des services',
-            data: dataSeries.stateServices,
-            type: 'spline',
-          },
-        ],
+        series,
       };
     },
   },
