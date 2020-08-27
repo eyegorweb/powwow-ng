@@ -69,6 +69,27 @@ export async function billedLineConsoZone(partnerId, customerAccountCode, period
   if (response.data) return response.data.billedLineAndConsoByZoneGraph;
 }
 
+export async function billedLinesByStep(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedLinesByStep(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      palierValues {
+        palier
+        billedLine
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedLinesByStep;
+}
+
 export async function fetchPLMNDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 
