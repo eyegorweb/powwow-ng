@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.133+20200827122601
+2020-08-27
+
+### Fixes
+
+- export des actes de gestion (f6fd41e0ce5c0df4ff9df70d8dc32ab408d1e966)
+
 ## 1.0.0-master.132+20200827120929
 2020-08-27
 
