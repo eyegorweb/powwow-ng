@@ -9,7 +9,7 @@
         :can-refresh="canRefresh"
         :on-click="onClick"
         :precalculated="precalculated"
-        @removeme="(i) => removeIndicator(i)"
+        @removeme="i => removeIndicator(i)"
       />
     </ul>
     <div v-if="lastUpdateDate" class="update-date">
