@@ -168,8 +168,10 @@ export default {
           },
           // Le partenaire est obligatoirement set au lancement de cette method
           {
-            id: 'partnerId',
-            value: this.selectedPartnerId,
+            id: 'getadmin.users.filters.partners',
+            data: {
+              id: this.selectedPartnerId,
+            },
           },
         ],
       });
