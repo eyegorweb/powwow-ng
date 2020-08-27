@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.132+20200827120929
+2020-08-27
+
+### Features
+
+- Sur le tableau de board, à la sélection du partenaire, lancer le graphe et le tableau des consommations pour le permier CF et la première offre (a4d23fd1a37fa8fc3a98888a41bf9570fe0d2dcd)
+- n'afficher le bouton coachM2M que si l'option est valable (b1221d8a975200100dd08a595fe32a7a42f20c1a)
+
 ## 1.0.0-master.131+20200826151618
 2020-08-26
 
