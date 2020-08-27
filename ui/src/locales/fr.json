@@ -247,7 +247,8 @@
     "title": "Intitulé",
     "billDetail": "Détail de facturation",
     "billPeriod": "Période facturée",
-    "lineTotal": "Nombre de lignes"
+    "lineTotal": "Nombre de lignes",
+    "download": "Télécharger la facture"
   },
   "coach": {
     "title": "Coach",
