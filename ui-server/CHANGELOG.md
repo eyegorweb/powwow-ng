@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.134+20200827133255
+2020-08-27
+
+### Features
+
+- Exporter une facture au format csv (e1aed9b08652c45afe8b972299f43864c08904b6)
+
 ## 1.0.0-master.133+20200827122601
 2020-08-27
 
