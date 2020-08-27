@@ -116,7 +116,7 @@ export default {
   components: {
     SupervisionMarker,
     CockpitMarker,
-    AlarmMarker
+    AlarmMarker,
   },
   props: {
     google: Object,
@@ -314,7 +314,6 @@ export default {
       }, {});
     },
 
-
     async loadDataForM2MCockpit() {
       this.adjustPosition = defaultAdjustment;
 
@@ -388,7 +387,11 @@ export default {
       this.locationType = 'REGION';
 
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchRegionsData(this.usageForQuery, this.getBounds(), this.formatFilters());
+      const data = await fetchFrenchRegionsData(
+        this.usageForQuery,
+        this.getBounds(),
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 
@@ -407,7 +410,11 @@ export default {
       this.locationType = 'COUNTRY'; // maybe STATE ?
 
       this.adjustPosition = adjustPositionForStates;
-      const data = await fetchStatesData(this.usageForQuery, this.getBounds(), this.formatFilters());
+      const data = await fetchStatesData(
+        this.usageForQuery,
+        this.getBounds(),
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 

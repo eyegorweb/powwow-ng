@@ -21,12 +21,14 @@ export default {
     value: Object,
     partners: Array,
     disabled: Boolean,
+    preselectFirst: Boolean,
   },
   data() {
     return {
       localItems: undefined,
       isRefreshing: false,
       partnershaveChanged: false,
+      partnerChangeCount: 0,
     };
   },
   async mounted() {
@@ -38,7 +40,17 @@ export default {
       if (this.isRefreshing) {
         this.partnershaveChanged = true;
       } else {
+        this.partnerChangeCount += 1;
         await this.refreshList();
+
+        /**
+         * Choisir le premier compte de facturation et offre dans la combo, mais pour la première fois
+         * le but est d'avoir un composant visible au premier affichage de la page pour les utilisateurs
+         * de type partenaire...
+         */
+        if (this.preselectFirst && this.partnerChangeCount === 1 && this.localItems) {
+          this.selectedValue = this.localItems[0];
+        }
       }
     },
     async isRefreshing(newValue, oldValue) {

@@ -68,7 +68,7 @@ export default {
         section: 'last_tests',
         title: 'getparc.lineDetail.tab2.lastTests',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        permission: { domain: 'getVision', action: 'read' }
+        permission: { domain: 'getVision', action: 'read' },
       },
       {
         section: 'line_analysis',
@@ -101,7 +101,7 @@ export default {
         title: 'getparc.lineDetail.tab2.networkInformation',
         compatiblePartnerTypes: ['MVNO'],
       },
-    ])
+    ]);
     this.initializeSection();
   },
   data() {
