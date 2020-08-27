@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.136+20200827144102
+2020-08-27
+
+### Features
+
+- usage traduit dans la table des historiques voix dans le détail de la ligne (990eb60ad543a3bcd8e3aaa556dafaa689192383)
+
 ## 1.0.0-master.135+20200827141637
 2020-08-27
 
