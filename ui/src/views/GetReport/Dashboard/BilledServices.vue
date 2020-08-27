@@ -116,7 +116,7 @@ export default {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
 
-          c.palierValues.forEach((p) => {
+          c.palierValues.forEach(p => {
             if (!all.series[p.palier]) {
               all.series[p.palier] = [];
             }
@@ -130,7 +130,7 @@ export default {
         }
       );
 
-      const series = Object.keys(dataSeries.series).map((key) => {
+      const series = Object.keys(dataSeries.series).map(key => {
         return {
           name: key,
           data: dataSeries.series[key],

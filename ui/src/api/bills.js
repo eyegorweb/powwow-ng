@@ -1,5 +1,21 @@
 import { query, getFilterValue } from './utils';
 
+export async function exportBill(partnerId, reference, exportFormat) {
+  const queryStr = `
+  query {
+    exportBill(billsFilter: { partnerId: ${partnerId}, reference: "${reference}" }, exportFormat: ${exportFormat}) {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  return response.data.exportBill;
+}
+
 export async function fetchBills(filters = []) {
   const queryStr = `
     {

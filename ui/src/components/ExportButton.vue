@@ -25,6 +25,10 @@ export default {
     exportFn: Function,
     exportAll: Boolean,
     buttonStyle: Boolean,
+    btnClassName: {
+      type: String,
+      required: false,
+    },
   },
   methods: {
     ...mapMutations(['openExportChoice']),
@@ -40,6 +44,10 @@ export default {
   },
   computed: {
     className() {
+      if (this.btnClassName) {
+        return this.btnClassName;
+      }
+
       if (this.buttonStyle) {
         return 'btn btn-accent btn-block';
       }
