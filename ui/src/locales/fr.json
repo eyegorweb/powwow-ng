@@ -1179,7 +1179,8 @@
 
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
-        "modalConfirmMsg": "Confirmez-vous la résiliation ?"
+        "modalConfirmMsg": "Confirmez-vous la résiliation ?",
+        "modalConfirmRefuse": "Confirmez-vous le refus ?"
       },
       "suspend": {
         "notEditable": "Non modifiable par le client",

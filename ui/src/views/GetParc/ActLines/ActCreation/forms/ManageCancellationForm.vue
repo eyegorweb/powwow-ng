@@ -40,7 +40,8 @@
           <p>
             <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
             <br />
-            <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+            <span v-if="validate">{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+            <span v-else>{{ $t('getparc.actCreation.modal.modalConfirmRefuse') }}</span>
           </p>
         </div>
         <div slot="footer">
