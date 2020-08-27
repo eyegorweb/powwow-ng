@@ -85,6 +85,7 @@ export async function voiceUsage(simInstanceId, pagination) {
     voiceUsageHistory(simCardInstanceId: ${simInstanceId}, getLastOnly: false${paginationInfo}) {
         total
         items{
+          detailsTranslated
           voiceHistoryData{
             accessPointId
             incomming
