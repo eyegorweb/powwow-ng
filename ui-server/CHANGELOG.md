@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.4.1
+2020-08-28
+
+### Fixes
+
+- Correction de la requête graphql quand on clic sur un marqueur (578feb1c16d0ad3da6e95944cf4b0d7ebb983e24)
+- Correction de la requête graphql quand on clic sur un marqueur (907d364e8b248645cbd548b6469e7cdcd08b7217)
+
 ## 1.4.0
 2020-08-28
 
