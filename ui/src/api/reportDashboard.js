@@ -48,6 +48,37 @@ export async function billedAmountByZone(partnerId, customerAccountCode, period)
   if (response.data) return response.data.billedAmountAndConsoByZoneGraph;
 }
 
+export async function billedLineAndAmount(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedLinesAndAmount(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      billedLines
+      totalAmount
+      abonnement
+      depassement
+      dataHorsZone
+      smsHorsZone
+      voixHorsZone
+      dataConsoTest
+      smsConsoTest
+      voixConsoTest
+      dataConsoCompteur
+      smsConsoCompteur
+      voixConsoCompteur
+      palierAmount
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedLinesAndAmount;
+}
+
 export async function billedLineConsoZone(partnerId, customerAccountCode, period) {
   let customerAccountParam = '';
 
