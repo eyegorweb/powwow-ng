@@ -63,7 +63,7 @@
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
             :total="indicatorTotal"
-            :applied-filters="appliedFilters"
+            :filtersForExport="filtersForExport"
             @gotomap="refreshLinesFn = undefined"
           />
         </div>
@@ -128,6 +128,7 @@ export default {
   data() {
     return {
       filters: undefined,
+      filtersForExport: undefined,
       toggleValues: undefined,
       currentUsage: 'ALL',
       appliedFilters: undefined,
@@ -337,7 +338,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -512,6 +513,7 @@ export default {
       this.indicatorTotal = total;
 
       this.refreshLinesFn = undefined;
+      this.filtersForExport = undefined;
 
       setTimeout(() => {
         this.refreshLinesFn = async (pagination, sorting) => {
@@ -543,6 +545,7 @@ export default {
         };
 
         filters.locationCodes = [marker.data.locationCode];
+        this.filtersForExport = { ...filters, locationType };
         const rows = await fetchLinesForMarker(locationType, filters, pagination, sorting);
         return rows;
       };
@@ -601,7 +604,6 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
-      console.log('Erreur >', e);
     }
     return filters;
   }, {});

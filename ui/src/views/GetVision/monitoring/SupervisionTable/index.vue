@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col">
+      <div v-if="filtersForExport" class="col">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
           <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
         </ExportButton>
@@ -34,12 +34,20 @@
       </PaginatedDataTable>
     </template>
     <template v-else-if="total >= 500 && total <= 100000">
-      <div class="alert alert-warning">
+      <UiButton variant="outline-primary" @click="$emit('gotomap')">
+        <i class="ic-Pin-Icon"></i>
+        Vue carte
+      </UiButton>
+      <div class="alert alert-warning mt-2">
         Plus de 500 lignes sélectionnées, la liste est disponible
       </div>
     </template>
     <template v-else-if="total >= 100000">
-      <div class="alert alert-warning">
+      <UiButton variant="outline-primary" @click="$emit('gotomap')">
+        <i class="ic-Pin-Icon"></i>
+        Vue carte
+      </UiButton>
+      <div class="alert alert-warning mt-2">
         Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans
         la gestion documentaire" avec un bouton demande d'export différé. Attention, il faut appeler
         l'api d'export en mode asynchrone.
@@ -66,7 +74,7 @@ export default {
   props: {
     refreshLinesFn: Function,
     total: Number,
-    appliedFilters: Array,
+    filtersForExport: Object,
   },
 
   data() {
@@ -262,7 +270,7 @@ export default {
 
         sorting[orderBy.key] = orderBy.direction;
         return await geoListExport({
-          filters: filterFormatter(this.appliedFilters),
+          filter: this.filtersForExport,
           columns: [
             ...columnsParam,
             'IMSI',
