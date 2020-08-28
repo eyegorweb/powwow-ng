@@ -134,13 +134,15 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row">
-              <BilledLinesByZone
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
+            <ff-wip>
+              <div class="row">
+                <BilledLinesByZone
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+            </ff-wip>
             <div class="row">
               <BilledServices
                 :partner="appliedPartner"
