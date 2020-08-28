@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.137+20200828095956
+2020-08-28
+
+### Fixes
+
+- Correction de l'export dans supervision (b5ead793782f2856992423ff0f58b5cdb70f583b)
+- enlever le champ reportId non utilisé (77ac6cc1daa618db3e090d13309c79338911e338)
+
 ## 1.0.0-master.136+20200827144102
 2020-08-27
 
