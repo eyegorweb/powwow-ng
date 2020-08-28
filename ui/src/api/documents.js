@@ -34,7 +34,6 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
             directoryName
           }
           partyGroupId
-          reportId
           auditable {
             created
             updated
