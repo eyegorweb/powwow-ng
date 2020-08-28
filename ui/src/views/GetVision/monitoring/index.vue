@@ -532,20 +532,25 @@ export default {
       this.indicatorTotal = payload.marker.activeCount;
     },
 
+    getFiltersForExport(clickedMarkerData, activityType) {
+      const { marker, locationType } = clickedMarkerData;
+      const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
+
+      const filters = {
+        usageType: this.currentUsage,
+        activityType,
+        ...formattedAppliedFilters,
+      };
+
+      filters.locationCodes = [marker.data.locationCode];
+      return { ...filters, locationType };
+    },
+
     onMarkerClick(payload, activityType) {
-      const { marker, locationType } = payload;
+      this.filtersForExport = this.getFiltersForExport(payload, activityType);
 
       this.refreshLinesFn = async (pagination, sorting) => {
-        const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
-
-        const filters = {
-          usageType: this.currentUsage,
-          activityType,
-          ...formattedAppliedFilters,
-        };
-
-        filters.locationCodes = [marker.data.locationCode];
-        this.filtersForExport = { ...filters, locationType };
+        this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const rows = await fetchLinesForMarker(locationType, filters, pagination, sorting);
         return rows;
       };
