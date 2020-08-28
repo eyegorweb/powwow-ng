@@ -6,9 +6,7 @@
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
   >
-    <div slot="onHide">
-      {{ $t('getreport.errors.partnerRequired') }}
-    </div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -27,6 +25,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import { billedLineAndAmount } from '@/api/reportDashboard.js';
 
 export default {
   components: {
@@ -105,134 +104,11 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      // const apiData = await parcStatusByMonth(
-      //   params.partyId,
-      //   params.customerAccountCode,
-      //   this.currentPeriod
-      // );
-      // Data mock:
-      const apiData = [
-        {
-          billedLines: 50,
-          totalAmount: 30,
-          suscribeAmount: 30,
-          amountData: 7.0,
-          amountDataOverSpend: 6.9,
-          amountOutOfZone: 9.5,
-          amountTestConso: 5,
-          date: '01/09/2019',
-        },
-        {
-          billedLines: 30,
-          totalAmount: 40,
-          suscribeAmount: 40,
-          amountData: 7.0,
-          amountDataOverSpend: 6.9,
-          amountOutOfZone: 9.5,
-          amountTestConso: 5,
-          date: '01/10/2019',
-        },
-        {
-          billedLines: 40,
-          totalAmount: 40,
-          suscribeAmount: 40,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 18.2,
-          amountTestConso: 5,
-          date: '01/11/2019',
-        },
-        {
-          billedLines: 70,
-          totalAmount: 20,
-          suscribeAmount: 14.5,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 21.5,
-          amountTestConso: 5,
-          date: '01/12/2019',
-        },
-        {
-          billedLines: 20,
-          totalAmount: 50,
-          suscribeAmount: 18.2,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 25.2,
-          amountTestConso: 5,
-          date: '01/01/2020',
-        },
-        {
-          billedLines: 60,
-          totalAmount: 0,
-          suscribeAmount: 21.2,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 26.5,
-          amountTestConso: 5,
-          date: '01/02/2020',
-        },
-        {
-          billedLines: 80,
-          totalAmount: 50,
-          suscribeAmount: 25.2,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 23.3,
-          amountTestConso: 5,
-          date: '01/03/2020',
-        },
-        {
-          billedLines: 40,
-          totalAmount: 40,
-          suscribeAmount: 26.5,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 18.3,
-          amountTestConso: 5,
-          date: '01/04/2020',
-        },
-        {
-          billedLines: 70,
-          totalAmount: 20,
-          suscribeAmount: 23.3,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 13.9,
-          amountTestConso: 5,
-          date: '01/05/2020',
-        },
-        {
-          billedLines: 90,
-          totalAmount: 10,
-          suscribeAmount: 18.3,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 9.6,
-          amountTestConso: 5,
-          date: '01/06/2020',
-        },
-        {
-          billedLines: 100,
-          totalAmount: 40,
-          suscribeAmount: 13.9,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 7.0,
-          amountTestConso: 5,
-          date: '01/07/2020',
-        },
-        {
-          billedLines: 120,
-          totalAmount: 100,
-          suscribeAmount: 9.6,
-          amountData: 9.5,
-          amountDataOverSpend: 14.5,
-          amountOutOfZone: 6.9,
-          amountTestConso: 5,
-          date: '01/08/2020',
-        },
-      ];
+      const apiData = await billedLineAndAmount(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
@@ -241,9 +117,9 @@ export default {
           all.totalAmount.push(c.totalAmount);
           all.suscribeAmount.push(c.suscribeAmount);
           all.amountData.push(c.amountData);
-          all.amountDataOverSpend.push(c.amountDataOverSpend);
-          all.amountOutOfZone.push(c.amountOutOfZone);
-          all.amountTestConso.push(c.amountTestConso);
+          all.amountConso.push(c.dataConsoCompteur + c.smsConsoCompteur + c.voixConsoCompteur);
+          all.amountOutOfZone.push(c.dataHorsZone + c.smsHorsZone + c.voixHorsZone);
+          all.amountTestConso.push(c.dataConsoTest + c.smsConsoTest + c.voixConsoTest);
           return all;
         },
         {
@@ -252,7 +128,7 @@ export default {
           totalAmount: [],
           suscribeAmount: [],
           amountData: [],
-          amountDataOverSpend: [],
+          amountConso: [],
           amountOutOfZone: [],
           amountTestConso: [],
         }
@@ -346,8 +222,8 @@ export default {
             type: 'spline',
           },
           {
-            name: 'Montant dépassement Data',
-            data: dataSeries.amountDataOverSpend,
+            name: 'Montant conso au compteur',
+            data: dataSeries.amountConso,
             type: 'spline',
           },
           {
