@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.139+20200828122802
+2020-08-28
+
+### Fixes
+
+- Corriger le paramètre rôle dans la mise à jour de l'utilisateur (ac8cede753359de889f7bc91ff81cba9ff2834e9)
+
 ## 1.0.0-master.138+20200828121831
 2020-08-28
 
