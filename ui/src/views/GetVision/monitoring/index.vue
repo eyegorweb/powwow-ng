@@ -551,7 +551,9 @@ export default {
 
       this.refreshLinesFn = async (pagination, sorting) => {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
-        const rows = await fetchLinesForMarker(locationType, filters, pagination, sorting);
+        const filtersForapi = { ...this.filtersForExport };
+        delete filtersForapi.locationType;
+        const rows = await fetchLinesForMarker(this.filtersForExport.locationType, filtersForapi, pagination, sorting);
         return rows;
       };
     },
