@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.143+20200828180856
+2020-08-28
+
+### Fixes
+
+- Correction de la requête graphql quand on clic sur un marqueur (578feb1c16d0ad3da6e95944cf4b0d7ebb983e24)
+
 ## 1.0.0-master.142+20200828150717
 2020-08-28
 
