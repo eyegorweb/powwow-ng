@@ -143,7 +143,7 @@ export default {
         width: '35%',
         backdrop: true,
         ignoreClickAway: true,
-        payload: row,
+        payload: { ...row, selectedPartnerId: this.selectedPartnerId },
         onClosePanel(params) {
           if (params && params.resetSearch) {
             doReset();
@@ -168,8 +168,10 @@ export default {
           },
           // Le partenaire est obligatoirement set au lancement de cette method
           {
-            id: 'partnerId',
-            value: this.lastFilters.find(f => f.id == 'getadmin.users.filters.partners').data.id,
+            id: 'getadmin.users.filters.partners',
+            data: {
+              id: this.selectedPartnerId,
+            },
           },
         ],
       });
@@ -188,6 +190,10 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner', 'singlePartner']),
+    selectedPartnerId() {
+      if (!this.lastFilters) return;
+      return this.lastFilters.find(f => f.id == 'getadmin.users.filters.partners').data.id;
+    },
   },
   mounted() {
     const commonFilters = [

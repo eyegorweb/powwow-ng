@@ -292,7 +292,7 @@ function addIdsFilter(gqlFilters, selectedFilters) {
     gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
   }
   if (idOrder) {
-      gqlFilters.push(`idOrder: {eq: "${('' + idOrder.value).trim()}"}`);
+    gqlFilters.push(`idOrder: {eq: "${('' + idOrder.value).trim()}"}`);
   }
   if (orderReference) {
     gqlFilters.push(`orderReference: {eq: "${orderReference.value.trim()}"}`);

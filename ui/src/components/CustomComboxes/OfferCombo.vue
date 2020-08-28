@@ -27,6 +27,7 @@ export default {
     value: Object,
     partners: Array,
     disabled: Boolean,
+    preselectFirst: Boolean,
   },
   data() {
     return {
@@ -34,6 +35,7 @@ export default {
       isLoading: false,
       lastPartners: [],
       selectedLocalValue: undefined,
+      partnerChangeCount: 0,
     };
   },
   computed: {
@@ -60,8 +62,17 @@ export default {
   watch: {
     async partners(partners) {
       if (this.havePartnersChanged(partners)) {
+        this.partnerChangeCount += 1;
         this.lastPartners = partners;
         await this.refreshList();
+        if (
+          this.preselectFirst &&
+          this.partnerChangeCount === 1 &&
+          this.items &&
+          this.items.length
+        ) {
+          this.selectedLocalValue = this.items[0];
+        }
       }
     },
     value(newValue) {

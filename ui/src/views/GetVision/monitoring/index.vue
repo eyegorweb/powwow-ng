@@ -2,13 +2,14 @@
   <div class="row mt-4 mb-4">
     <div :key="'bar_' + currentUsage" class="col-3">
       <MonitoringIndicators
+        v-if="currentUsage !== 'ALARMS'"
         :can-refresh="canShowIndicators"
         :applied-filters="appliedFilters"
         :usage="currentUsage"
         @click="onIndicatorClick"
       />
       <FilterBar
-        v-if="filters"
+        v-if="currentUsage !== 'ALARMS' && filters"
         :filter-components="filters"
         :disabled="!canFilter"
         :default-values="defaultValues"
@@ -62,7 +63,7 @@
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
             :total="indicatorTotal"
-            :applied-filters="appliedFilters"
+            :filtersForExport="filtersForExport"
             @gotomap="refreshLinesFn = undefined"
           />
         </div>
@@ -127,6 +128,7 @@ export default {
   data() {
     return {
       filters: undefined,
+      filtersForExport: undefined,
       toggleValues: undefined,
       currentUsage: 'ALL',
       appliedFilters: undefined,
@@ -244,6 +246,11 @@ export default {
         label: 'getvsion.m2mCockpit',
         default: this.value === 'COCKPIT',
       },
+      {
+        id: 'ALARMS',
+        label: 'getvsion.alarms',
+        default: this.value === 'ALARMS',
+      },
     ];
   },
 
@@ -331,7 +338,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -506,6 +513,7 @@ export default {
       this.indicatorTotal = total;
 
       this.refreshLinesFn = undefined;
+      this.filtersForExport = undefined;
 
       setTimeout(() => {
         this.refreshLinesFn = async (pagination, sorting) => {
@@ -524,19 +532,25 @@ export default {
       this.indicatorTotal = payload.marker.activeCount;
     },
 
+    getFiltersForExport(clickedMarkerData, activityType) {
+      const { marker, locationType } = clickedMarkerData;
+      const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
+
+      const filters = {
+        usageType: this.currentUsage,
+        activityType,
+        ...formattedAppliedFilters,
+      };
+
+      filters.locationCodes = [marker.data.locationCode];
+      return { ...filters, locationType };
+    },
+
     onMarkerClick(payload, activityType) {
-      const { marker, locationType } = payload;
+      this.filtersForExport = this.getFiltersForExport(payload, activityType);
 
       this.refreshLinesFn = async (pagination, sorting) => {
-        const formattedAppliedFilters = filterFormatter(this.appliedFilters || []);
-
-        const filters = {
-          usageType: this.currentUsage,
-          activityType,
-          ...formattedAppliedFilters,
-        };
-
-        filters.locationCodes = [marker.data.locationCode];
+        this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const rows = await fetchLinesForMarker(locationType, filters, pagination, sorting);
         return rows;
       };
@@ -581,7 +595,7 @@ export function filterFormatter(appliedFilters) {
       }
 
       if (item.id === 'filters.zone') {
-        filters.zone = item.data.zone.value;
+        // filters.zone = item.data.zone.value;
 
         if (item.data.zone.value === 'world') {
           if (item.data.country) {
@@ -595,7 +609,6 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
-      console.log('Erreur >', e);
     }
     return filters;
   }, {});

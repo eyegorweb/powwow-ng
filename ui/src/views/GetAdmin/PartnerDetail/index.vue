@@ -115,7 +115,7 @@ export default {
         },
       ];
 
-      if (this.$shouldShowMocks && this.partner && this.partner.partyType === 'MULTI_CUSTOMER') {
+      if (this.partner && this.partner.partyType === 'MULTI_CUSTOMER') {
         tabs.push({
           label: 'customerList',
           title: this.$t('getadmin.partners.customerList'),

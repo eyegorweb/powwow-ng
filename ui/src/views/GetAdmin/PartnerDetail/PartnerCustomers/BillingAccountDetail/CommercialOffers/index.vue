@@ -10,13 +10,15 @@
         :fetch-data-fn="getFetchFn()"
       />
 
-      <div class="row mb-3 mt-3">
-        <div class="col-md-12">
-          <UiButton variant="secondary" class="float-right" @click="createCommercialOffer()">
-            {{ $t('getadmin.partnerDetail.mb.commercialOffers.create') }}
-          </UiButton>
+      <ff-wip>
+        <div class="row mb-3 mt-3">
+          <div class="col-md-12">
+            <UiButton variant="secondary" class="float-right" @click="createCommercialOffer()">
+              {{ $t('getadmin.partnerDetail.mb.commercialOffers.create') }}
+            </UiButton>
+          </div>
         </div>
-      </div>
+      </ff-wip>
     </template>
     <CommercialOfferForm v-else @back="showForm = false" />
   </div>

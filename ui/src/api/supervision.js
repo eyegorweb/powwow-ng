@@ -289,11 +289,12 @@ export async function fetchContinentData(usageType, filters = {}) {
   });
 }
 
-export async function fetchCountriesData(usageType) {
+export async function fetchCountriesData(usageType, filters = {}) {
   return geoMap({
     filter: {
       scale: 'COUNTRY',
       usageType,
+      ...filters,
     },
   });
 }
@@ -329,6 +330,8 @@ export async function fetchDataForCities(usageType, bounds, filters = {}) {
     },
   });
 }
+
+export async function fetchDataForAlarms() {}
 
 export async function fetchFrenchRegionsData(usageType, bounds) {
   return geoMap({
@@ -367,6 +370,7 @@ async function geoMap(filters) {
         locationLongitude
         activeCount
         passiveCount
+        nbAlarms
     }
   }`;
 
@@ -493,8 +497,8 @@ export async function getSupervisionAlertFilters() {
 }
 
 export async function geoListExport(params) {
-  const queryStr = `query GeoListExport($filter: GeolocListFilterInput, $columns: [AccessPointByLocationColumnEnum!]!, $sorting: GeolocListSorting!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
-    geoListExport(filter: $filter, columns: $columns, sorting: $sorting, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {
+  const queryStr = `query GeoListExport($filter: GeolocListFilterInput, $columns: [AccessPointByLocationColumnEnum!]!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
+    geoListExport(filter: $filter, columns: $columns, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {
         downloadUri
         total
         asyncRequired

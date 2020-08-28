@@ -117,7 +117,6 @@ export default {
   },
 
   mounted() {
-    console.log('partenaire tpe : ' + this.partnerType);
     if (this.canChangeDate && this.partnerType !== 'CUSTOMER') {
       this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
     } else {

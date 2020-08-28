@@ -6,9 +6,7 @@
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
   >
-    <div slot="onHide">
-      {{ $t('getreport.errors.partnerRequired') }}
-    </div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -27,6 +25,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import { billedAmountByZone } from '@/api/reportDashboard.js';
 
 export default {
   components: {
@@ -106,146 +105,22 @@ export default {
         params.customerAccountCode = this.billingAccount.data.code;
       }
       // TODO: api billedAmountAndConsoByZoneGraph à brancher
-      // const apiData = await parcStatusByMonth(
-      //   params.partyId,
-      //   params.customerAccountCode,
-      //   this.currentPeriod
-      // );
-
-      // Data mock:
-      const apiData = [
-        {
-          overspend: 50,
-          contract: 30,
-          outOfZone: 30,
-          amountData: 7.0,
-          amountVoice: 6.9,
-          amountSMS: 9.5,
-          amountSubscription: 5,
-          date: '01/09/2019',
-        },
-        {
-          overspend: 30,
-          contract: 40,
-          outOfZone: 40,
-          amountData: 7.0,
-          amountVoice: 6.9,
-          amountSMS: 9.5,
-          amountSubscription: 5,
-          date: '01/10/2019',
-        },
-        {
-          overspend: 40,
-          contract: 40,
-          outOfZone: 40,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 18.2,
-          amountSubscription: 5,
-          date: '01/11/2019',
-        },
-        {
-          overspend: 70,
-          contract: 20,
-          outOfZone: 14.5,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 21.5,
-          amountSubscription: 5,
-          date: '01/12/2019',
-        },
-        {
-          overspend: 20,
-          contract: 50,
-          outOfZone: 18.2,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 25.2,
-          amountSubscription: 5,
-          date: '01/01/2020',
-        },
-        {
-          overspend: 60,
-          contract: 0,
-          outOfZone: 21.2,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 26.5,
-          amountSubscription: 5,
-          date: '01/02/2020',
-        },
-        {
-          overspend: 80,
-          contract: 50,
-          outOfZone: 25.2,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 23.3,
-          amountSubscription: 5,
-          date: '01/03/2020',
-        },
-        {
-          overspend: 40,
-          contract: 40,
-          outOfZone: 26.5,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 18.3,
-          amountSubscription: 5,
-          date: '01/04/2020',
-        },
-        {
-          overspend: 70,
-          contract: 20,
-          outOfZone: 23.3,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 13.9,
-          amountSubscription: 5,
-          date: '01/05/2020',
-        },
-        {
-          overspend: 90,
-          contract: 10,
-          outOfZone: 18.3,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 9.6,
-          amountSubscription: 5,
-          date: '01/06/2020',
-        },
-        {
-          overspend: 100,
-          contract: 40,
-          outOfZone: 13.9,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 7.0,
-          amountSubscription: 5,
-          date: '01/07/2020',
-        },
-        {
-          overspend: 120,
-          contract: 100,
-          outOfZone: 9.6,
-          amountData: 9.5,
-          amountVoice: 14.5,
-          amountSMS: 6.9,
-          amountSubscription: 5,
-          date: '01/08/2020',
-        },
-      ];
+      const apiData = await billedAmountByZone(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
-          all.overspend.push(c.overspend);
-          all.contract.push(c.contract);
-          all.outOfZone.push(c.outOfZone);
-          all.amountData.push(c.amountData);
-          all.amountVoice.push(c.amountVoice);
-          all.amountSMS.push(c.amountSMS);
-          all.amountSubscription.push(c.amountSubscription);
+          all.overspend.push(c.depassement);
+          all.contract.push(c.forfait);
+          all.outOfZone.push(c.horsForfait);
+          all.amountData.push(c.data);
+          all.amountVoice.push(c.voice);
+          all.amountSMS.push(c.sms);
+          all.amountSubscription.push(c.abonnement);
           return all;
         },
         {

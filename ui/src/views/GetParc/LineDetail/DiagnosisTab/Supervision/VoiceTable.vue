@@ -79,10 +79,7 @@ export default {
             path: 'detail',
           }
         ),
-        col('Détail usage', 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'details',
-        }),
+        col('Détail usage', 'detailsTranslated', false, false),
         col('MSISDN du correspondant', 'voiceHistoryData', false, false, {
           type: 'ObjectAttribute',
           path: 'callingNumber',

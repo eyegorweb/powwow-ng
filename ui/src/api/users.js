@@ -92,7 +92,7 @@ export async function updateUser(params) {
       username: params.username,
       password: params.password,
       confirmPassword: params.confirmPassword,
-      roles: params.roles.map(r => r.code).join(','),
+      roles: params.roles.map(r => r.code),
     },
   };
 

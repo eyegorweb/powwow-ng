@@ -467,11 +467,6 @@ export default {
         );
       };
     },
-    havePermission(domain, action) {
-      return !!get(this.userInfos, 'permissions', []).find(
-        p => p.domain === domain && p.action === action
-      );
-    },
     async refreshDataTop5Manufacturers(partnerIds) {
       const data = await lineDistributionByManufacturer(partnerIds);
 
@@ -616,7 +611,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userInfos', 'userIsBO']),
+    ...mapGetters(['userInfos', 'userIsBO', 'havePermission']),
     canShowPartnerColumn() {
       return this.userInfos.type === 'OPERATOR' || this.userInfos.type === 'PARTNER_GROUP';
     },

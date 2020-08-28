@@ -17,6 +17,7 @@
           :disabled="!selectedPartner"
           v-model="selectedBillingAccount"
           :partners="partnersForFilters"
+          preselect-first
         />
       </div>
       <div class="filter-item">
@@ -24,6 +25,7 @@
           :value.sync="selectedOffer"
           :partners="partnersForFilters"
           :disabled="!selectedPartner"
+          preselect-first
         />
       </div>
       <div class="action-btn pl-2">
@@ -132,13 +134,15 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row">
-              <BilledLinesByZone
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
+            <ff-wip>
+              <div class="row">
+                <BilledLinesByZone
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+            </ff-wip>
             <div class="row">
               <BilledServices
                 :partner="appliedPartner"
@@ -229,6 +233,7 @@ export default {
       appliedPartner: undefined,
       appliedBillingAccount: undefined,
       appliedOffer: undefined,
+      initialSearchDone: false,
     };
   },
   computed: {
@@ -248,9 +253,23 @@ export default {
         this.selectedBillingAccount = undefined;
       }
     },
+    selectedBillingAccount() {
+      this.initialSearchWhenNecessary();
+    },
+    selectedOffer() {
+      this.initialSearchWhenNecessary();
+    },
   },
 
   methods: {
+    initialSearchWhenNecessary() {
+      if (!this.userIsPartner && this.initialSearchDone) return;
+      if (this.selectedBillingAccount && this.selectedOffer) {
+        this.initialSearchDone = true;
+
+        this.doFilter();
+      }
+    },
     formatCurrency(value) {
       return formatCurrency(value);
     },

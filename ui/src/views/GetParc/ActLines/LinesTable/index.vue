@@ -20,7 +20,12 @@
             </h2>
           </div>
           <div class="col" v-if="hasResults">
-            <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
+            <ExportButton
+              export-all
+              :export-fn="getExportFn()"
+              :columns="orderedColumns"
+              :order-by="orderBy"
+            >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
               </span>
@@ -31,7 +36,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="002"
+            storage-version="003"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -188,13 +193,14 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest) => {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
         return await exportSimCardInstances(
           columns,
           orderBy,
           exportFormat,
           this.appliedFilters,
-          asyncExportRequest
+          asyncExportRequest,
+          exportAll
         );
       };
     },

@@ -299,3 +299,10 @@ $theme-colors: map-merge(
     font-size: $fontSize;
   }
 }
+
+.update-date {
+  text-align: right;
+  font-size: 11px;
+  font-style: italic;
+  padding-right: 5px;
+}

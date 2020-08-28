@@ -151,12 +151,6 @@ export default {
     padding-bottom: 0.4rem;
   }
 }
-.update-date {
-  text-align: right;
-  font-size: 11px;
-  font-style: italic;
-  padding-right: 5px;
-}
 .info-message {
   font-size: 0.8rem;
   font-style: italic;

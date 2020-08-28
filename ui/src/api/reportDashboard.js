@@ -24,6 +24,103 @@ export async function parcStatusByMonth(partnerId, customerAccountCode, period) 
   if (response.data) return response.data.parcStatusByMonth;
 }
 
+export async function billedAmountByZone(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedAmountAndConsoByZoneGraph(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      depassement
+      forfait
+      horsForfait
+      data
+      voice
+      sms
+      abonnement
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedAmountAndConsoByZoneGraph;
+}
+
+export async function billedLineAndAmount(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedLinesAndAmount(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      billedLines
+      totalAmount
+      abonnement
+      depassement
+      dataHorsZone
+      smsHorsZone
+      voixHorsZone
+      dataConsoTest
+      smsConsoTest
+      voixConsoTest
+      dataConsoCompteur
+      smsConsoCompteur
+      voixConsoCompteur
+      palierAmount
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedLinesAndAmount;
+}
+
+export async function billedLineConsoZone(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedLineAndConsoByZoneGraph(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+    	consoFr
+      consoEU
+      consoHorsEU
+      nbBilledLine
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedLineAndConsoByZoneGraph;
+}
+
+export async function billedLinesByStep(partnerId, customerAccountCode, period) {
+  let customerAccountParam = '';
+
+  if (customerAccountCode) {
+    customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
+  }
+  const queryStr = `
+  {
+    billedLinesByStep(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+      date
+      palierValues {
+        palier
+        billedLine
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  if (response.data) return response.data.billedLinesByStep;
+}
+
 export async function fetchPLMNDistribution(partnerId, workflowCode, customerAccountId) {
   const params = [];
 

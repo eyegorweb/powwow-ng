@@ -15,6 +15,16 @@
           @alertClick="() => $emit('cockpitClick', { marker: m, type: 'ALERT' })"
         />
       </template>
+      <template v-else-if="usage === 'ALARMS'">
+        <AlarmMarker
+          :key="m.id"
+          v-for="m in markers"
+          :data="m"
+          :map-overlay="mapOverlay"
+          :adjust-position="adjustPosition"
+          :map-position="mapPosition"
+        />
+      </template>
       <template v-else>
         <SupervisionMarker
           :key="m.id"
@@ -34,6 +44,7 @@
 <script>
 import SupervisionMarker from './SupervisionMarker';
 import CockpitMarker from './CockpitMarker';
+import AlarmMarker from './AlarmMarker';
 import { isEquivalent } from '@/utils.js';
 import { delay } from '@/api/utils.js';
 
@@ -105,6 +116,7 @@ export default {
   components: {
     SupervisionMarker,
     CockpitMarker,
+    AlarmMarker,
   },
   props: {
     google: Object,
@@ -129,6 +141,13 @@ export default {
   },
 
   computed: {
+    usageForQuery() {
+      if (this.usage === 'ALARMS') {
+        return 'ALL';
+      }
+
+      return this.usage;
+    },
     isLoading: {
       get() {
         return this.loading;
@@ -152,6 +171,10 @@ export default {
         }
       });
     });
+
+    if (this.usage === 'ALARMS') {
+      this.refreshData();
+    }
   },
 
   watch: {
@@ -240,6 +263,7 @@ export default {
 
     async manageZoom() {
       if (this.isSameFilters) return;
+      if (!this.appliedFilters) return;
 
       const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
       if (zoneFilter) {
@@ -341,7 +365,7 @@ export default {
         delete filters.iso3CountryCode;
       }
       filters.iso2CountryCode = countryCode;
-      const data = await fetchDataForCities(this.usage, this.getBounds(), filters);
+      const data = await fetchDataForCities(this.usageForQuery, this.getBounds(), filters);
       this.markers = this.formatMarkers(data);
     },
 
@@ -355,7 +379,7 @@ export default {
         delete filters.iso3CountryCode;
       }
       filters.iso2CountryCode = countryCode;
-      const data = await fetchDataForCells(this.usage, this.getBounds(), filters);
+      const data = await fetchDataForCells(this.usageForQuery, this.getBounds(), filters);
       this.markers = this.formatMarkers(data);
     },
 
@@ -363,7 +387,11 @@ export default {
       this.locationType = 'REGION';
 
       this.adjustPosition = defaultAdjustment;
-      const data = await fetchFrenchRegionsData(this.usage, this.getBounds(), this.formatFilters());
+      const data = await fetchFrenchRegionsData(
+        this.usageForQuery,
+        this.getBounds(),
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 
@@ -371,7 +399,7 @@ export default {
       this.locationType = 'DEPARTMENT';
       this.adjustPosition = defaultAdjustment;
       const data = await fetchFrenchDepartmentsData(
-        this.usage,
+        this.usageForQuery,
         this.getBounds(),
         this.formatFilters()
       );
@@ -382,7 +410,11 @@ export default {
       this.locationType = 'COUNTRY'; // maybe STATE ?
 
       this.adjustPosition = adjustPositionForStates;
-      const data = await fetchStatesData(this.usage, this.getBounds(), this.formatFilters());
+      const data = await fetchStatesData(
+        this.usageForQuery,
+        this.getBounds(),
+        this.formatFilters()
+      );
       this.markers = this.formatMarkers(data);
     },
 
@@ -391,7 +423,7 @@ export default {
 
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
-      const data = await fetchContinentData(this.usage, this.formatFilters());
+      const data = await fetchContinentData(this.usageForQuery, this.formatFilters());
       this.markers = data.map(d => {
         const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
         if (defaultData) {
@@ -412,7 +444,7 @@ export default {
       this.locationType = 'COUNTRY';
 
       this.adjustPosition = adjustPositionForCoutries;
-      const data = await fetchCountriesData(this.usage);
+      const data = await fetchCountriesData(this.usageForQuery, this.formatFilters());
       this.markers = this.formatMarkers(data);
     },
 

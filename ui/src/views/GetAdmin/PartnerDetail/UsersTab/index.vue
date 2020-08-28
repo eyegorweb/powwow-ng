@@ -31,15 +31,15 @@ export default {
 
   mounted() {
     if (this.partner.partyType !== 'MULTI_CUSTOMER') {
-      this.menuItems.push('getadmin.partners.users', 'getadmin.partners.activityLog');
+      this.menuItems.push('getadmin.partners.admins', 'getadmin.partners.activityLog');
     }
   },
 
   data() {
     return {
-      section: 'getadmin.partners.admins',
+      section: 'getadmin.partners.users',
 
-      menuItems: ['getadmin.partners.admins'],
+      menuItems: [],
     };
   },
 };

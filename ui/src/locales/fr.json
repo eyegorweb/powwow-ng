@@ -247,7 +247,8 @@
     "title": "Intitulé",
     "billDetail": "Détail de facturation",
     "billPeriod": "Période facturée",
-    "lineTotal": "Nombre de lignes"
+    "lineTotal": "Nombre de lignes",
+    "download": "Télécharger la facture"
   },
   "coach": {
     "title": "Coach",
@@ -258,7 +259,8 @@
     "testLine": "Tester la ligne",
     "chooseLine": "Choisir une ligne",
     "currentLine": "Ligne actuelle {lineId}",
-    "compareLine": "Ligne de comparaison"
+    "compareLine": "Ligne de comparaison",
+    "apiError": "Impossible d'effectuer le diagnostic"
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -389,6 +391,7 @@
     "allUsages": "Usage data,SMS,Voix",
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
+    "alarms": "Alarmes",
     "exportGraph": "Exporter les données des graphes",
 
     "supervisionTypes": {
@@ -851,6 +854,17 @@
       "consuming": "EN COURS DE CONSOMMATION",
       "consumingFromMonthBeginning": "En cours de la ligne depuis le début du mois",
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
+      "testData": "Test data",
+      "networkTest": "Test du réseau",
+      "ipAssign": "Attribution adresse IP",
+      "localityTest": "Analyse de la localité",
+      "cellAnalysis": "Analise de la cellule",
+      "networkDetectionTest": "Test accroche réseau",
+      "lastUsageAnalysis": "Analyse du dernier usage",
+      "noCoach": "Pas de coach sur cette ligne",
+      "standardTest": "Tests standards",
+      "advancedTest": "Tests avancés",
+      "startCoach": "Coach M2M / Diagnostic",
       "specificFields": {
         "title": "Champs spécifiques",
         "label1": "Champ spécifique 1",
@@ -1165,7 +1179,8 @@
 
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
-        "modalConfirmMsg": "Confirmez-vous la résiliation ?"
+        "modalConfirmMsg": "Confirmez-vous la résiliation ?",
+        "modalConfirmRefuse": "Confirmez-vous le refus ?"
       },
       "suspend": {
         "notEditable": "Non modifiable par le client",

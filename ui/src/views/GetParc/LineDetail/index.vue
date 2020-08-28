@@ -16,6 +16,12 @@
           <i class="ic-Info-Icon" />
         </h4>
       </div>
+      <div v-if="canRunCoach" class="col-md-3">
+        <UiButton variant="secondary" block class="float-right" @click="openCoachPanel()">
+          <i class="ic-Heart-Rythm-Icon"></i>
+          {{ $t('getparc.lineDetail.startCoach') }}
+        </UiButton>
+      </div>
     </div>
     <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel
@@ -53,10 +59,13 @@ import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
+import UiButton from '@/components/ui/Button';
+
 import { searchLines } from '@/api/linesActions';
 import { mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
+import { getPartyOptions } from '@/api/partners.js';
 
 export default {
   components: {
@@ -67,17 +76,20 @@ export default {
     DiagnosisTab,
     UiTabs,
     UiTab,
+    UiButton,
   },
-  mounted() {
+  async mounted() {
     if (this.$route.params && this.$route.params.tabIndex) {
       this.currentLinkIndex = this.$route.params.tabIndex;
     }
-    this.loadLineData();
+    await this.loadLineData();
+    await this.loadLinePartnerPartnerOptions();
   },
   data() {
     return {
       lineData: undefined,
       currentLinkIndex: 0,
+      partnerOptions: undefined,
       tabs: [
         {
           label: 'detail',
@@ -99,6 +111,13 @@ export default {
     };
   },
   computed: {
+    canRunCoach() {
+      if (this.partnerOptions) {
+        return this.partnerOptions.coachM2MAvailable;
+      }
+
+      return false;
+    },
     isLigneActive() {
       const networkStatus = get(this.lineData, 'accessPoint.networkStatus');
       const simStatus = get(this.lineData, 'statuts');
@@ -115,6 +134,27 @@ export default {
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    async loadLinePartnerPartnerOptions() {
+      if (this.lineData) {
+        const partnerId = get(this.lineData, 'party.id');
+        if (partnerId) {
+          this.partnerOptions = await getPartyOptions(partnerId);
+        }
+      }
+    },
+
+    openCoachPanel() {
+      this.openPanel({
+        title: this.$t('coach.title'),
+        panelId: 'coach.title',
+        payload: this.lineData,
+        wide: false,
+        backdrop: false,
+        ignoreClickAway: true,
+      });
+    },
+
     returnToSearch() {
       this.$router.push({ name: 'actLines', params: { fromDetail: true } });
     },

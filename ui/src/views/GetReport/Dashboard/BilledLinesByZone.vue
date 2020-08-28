@@ -6,9 +6,7 @@
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
   >
-    <div slot="onHide">
-      {{ $t('getreport.errors.partnerRequired') }}
-    </div>
+    <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div>
       <div class="d-flex justify-content-end">
         <Toggle
@@ -27,6 +25,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import { billedLineConsoZone } from '@/api/reportDashboard.js';
 
 export default {
   components: {
@@ -105,106 +104,20 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      // const apiData = await parcStatusByMonth(
-      //   params.partyId,
-      //   params.customerAccountCode,
-      //   this.currentPeriod
-      // );
-      // Data mock:
-      const apiData = [
-        {
-          billedLines: 50,
-          consoFrance: 30,
-          consoEU: 30,
-          consoOufOfEU: 7.0,
-          date: '01/09/2019',
-        },
-        {
-          billedLines: 30,
-          consoFrance: 40,
-          consoEU: 40,
-          consoOufOfEU: 7.0,
-          date: '01/10/2019',
-        },
-        {
-          billedLines: 40,
-          consoFrance: 40,
-          consoEU: 40,
-          consoOufOfEU: 9.5,
-          date: '01/11/2019',
-        },
-        {
-          billedLines: 70,
-          consoFrance: 20,
-          consoEU: 14.5,
-          consoOufOfEU: 9.5,
-          date: '01/12/2019',
-        },
-        {
-          billedLines: 20,
-          consoFrance: 50,
-          consoEU: 18.2,
-          consoOufOfEU: 9.5,
-          date: '01/01/2020',
-        },
-        {
-          billedLines: 60,
-          consoFrance: 0,
-          consoEU: 21.2,
-          consoOufOfEU: 9.5,
-          date: '01/02/2020',
-        },
-        {
-          billedLines: 80,
-          consoFrance: 50,
-          consoEU: 25.2,
-          consoOufOfEU: 9.5,
-          date: '01/03/2020',
-        },
-        {
-          billedLines: 40,
-          consoFrance: 40,
-          consoEU: 26.5,
-          consoOufOfEU: 9.5,
-          date: '01/04/2020',
-        },
-        {
-          billedLines: 70,
-          consoFrance: 20,
-          consoEU: 23.3,
-          consoOufOfEU: 9.5,
-          date: '01/05/2020',
-        },
-        {
-          billedLines: 90,
-          consoFrance: 10,
-          consoEU: 18.3,
-          consoOufOfEU: 9.5,
-          date: '01/06/2020',
-        },
-        {
-          billedLines: 100,
-          consoFrance: 40,
-          consoEU: 13.9,
-          consoOufOfEU: 9.5,
-          date: '01/07/2020',
-        },
-        {
-          billedLines: 120,
-          consoFrance: 100,
-          consoEU: 9.6,
-          consoOufOfEU: 9.5,
-          date: '01/08/2020',
-        },
-      ];
+      const apiData = await billedLineConsoZone(
+        params.partyId,
+        params.customerAccountCode,
+        this.currentPeriod
+      );
+
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
-          all.consoFrance.push(c.consoFrance);
+          all.consoFrance.push(c.consoFr);
           all.consoEU.push(c.consoEU);
-          all.consoOufOfEU.push(c.consoOufOfEU);
-          all.billedLines.push(c.billedLines);
+          all.consoOufOfEU.push(c.consoHorsEU);
+          all.billedLines.push(c.nbBilledLine);
           return all;
         },
         {
