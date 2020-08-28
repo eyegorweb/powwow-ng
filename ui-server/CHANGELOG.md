@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.138+20200828121831
+2020-08-28
+
+### Fixes
+
+- Afficher le bouton d'export quand le nombre de lignes est supérieur à 500 (2079207e2c3d101299b0a8b0b4a307c72a7ac7ba)
+
 ## 1.0.0-master.137+20200828095956
 2020-08-28
 
