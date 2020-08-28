@@ -7,7 +7,7 @@
         </li>
       </ul>
       <br />
-      <TabsSubMenu :menu-items="menuItems" v-model="section" />
+      <TabsSubMenu v-if="menuItems" :menu-items="menuItems" v-model="section" />
     </div>
     <div class="col-md-9">
       <CommercialOffers
@@ -34,18 +34,27 @@ export default {
     CommercialOffers,
   },
 
+  mounted() {
+    const menuItems = [
+      'getadmin.partnerDetail.mb.commercialOffer',
+
+    ];
+
+    if (this.$shouldShowMocks) {
+      menuItems.push('getadmin.partnerDetail.mb.offerAndProduct',
+        'getadmin.partnerDetail.mb.customerDescription',
+        'getadmin.partnerDetail.mb.clientContactDescription',
+        'getadmin.partnerDetail.mb.deliveryAdresses',
+        'getadmin.partnerDetail.mb.paymentMethod');
+    }
+    this.menuItems = menuItems;
+  },
+
   data() {
     return {
       section: 'getadmin.partnerDetail.mb.commercialOffer',
 
-      menuItems: [
-        'getadmin.partnerDetail.mb.commercialOffer',
-        'getadmin.partnerDetail.mb.offerAndProduct',
-        'getadmin.partnerDetail.mb.customerDescription',
-        'getadmin.partnerDetail.mb.clientContactDescription',
-        'getadmin.partnerDetail.mb.deliveryAdresses',
-        'getadmin.partnerDetail.mb.paymentMethod',
-      ],
+      menuItems: undefined,
     };
   },
 };
