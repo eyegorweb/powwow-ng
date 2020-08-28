@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.142+20200828150717
+2020-08-28
+
+### Fixes
+
+- mocker les sous menus pour les partenaires marque blanche (771c8c489d2fba927f2caad4e5e1f3bfc6170e4b)
+
 ## 1.0.0-master.141+20200828140006
 2020-08-28
 
