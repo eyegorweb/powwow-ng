@@ -2,6 +2,36 @@
 
 <!--- next entry here -->
 
+## 1.4.0
+2020-08-28
+
+### Features
+
+- Consulter le dernier coach d'une ligne (2f159d519e6c7cd07f2bc554fcb8f6c9754fc62b)
+- Branchement api sur le graph : montant facture par zone (b5fd23a2a8183bff040300ae856a39b8164de79b)
+- diagnostiquer une ligne afin de cibler le problème (a27e1f0e6b899ccbe342feedf7b2e87f3c127f0a)
+- ajouter la date de dernière mise à jour (57bfc352126496af69e17a564185bc84a246eebb)
+- Afficher les alarmes dans la page de supervision (1949f41d555d202aa16eb683e01f001df12359cb)
+- Sur le tableau de board, à la sélection du partenaire, lancer le graphe et le tableau des consommations pour le permier CF et la première offre (a4d23fd1a37fa8fc3a98888a41bf9570fe0d2dcd)
+- n'afficher le bouton coachM2M que si l'option est valable (b1221d8a975200100dd08a595fe32a7a42f20c1a)
+- Exporter une facture au format csv (e1aed9b08652c45afe8b972299f43864c08904b6)
+- usage traduit dans la table des historiques voix dans le détail de la ligne (990eb60ad543a3bcd8e3aaa556dafaa689192383)
+
+### Fixes
+
+- design du bouton coach (93ae147b98e573159a9e82c71969c92cb467d1e0)
+- afficher un message d'erreur si pas de données (d8fd081950644316c9751088cd8184cad2fa4c1b)
+- gestion des permissions dans le coach M2M (e5964b928108be3238ff52d922ee00e36153afa0)
+- Corriger les couleurs des icones dans coach M2M (8b1a10e488bdc96b538d3ba2674ab6780c47fdc3)
+- corriger l'export de lignes (d68489b29dc9098045445f736859da80865f2a7b)
+- Cacher le menu administrateurs (96b53e6cc45033bacd53f056dac8b5e33f20b46a)
+- export des actes de gestion (f6fd41e0ce5c0df4ff9df70d8dc32ab408d1e966)
+- Correction de l'export dans supervision (b5ead793782f2856992423ff0f58b5cdb70f583b)
+- enlever le champ reportId non utilisé (77ac6cc1daa618db3e090d13309c79338911e338)
+- Afficher le bouton d'export quand le nombre de lignes est supérieur à 500 (2079207e2c3d101299b0a8b0b4a307c72a7ac7ba)
+- Corriger le paramètre rôle dans la mise à jour de l'utilisateur (ac8cede753359de889f7bc91ff81cba9ff2834e9)
+- mocker les sous menus pour les partenaires marque blanche (771c8c489d2fba927f2caad4e5e1f3bfc6170e4b)
+
 ## 1.3.0
 2020-08-24
 
