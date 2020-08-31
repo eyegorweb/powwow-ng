@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.144+20200831142233
+2020-08-31
+
+### Fixes
+
+- Formattage des données dans le graph du Dashboard (307c4437602963a7094f53bf53f85cb35ceef706)
+- Corriger le graph Nbre de lignes facturées et conso par zone (e08669034e01099dcfc8db8e3c8351dcbb4a7d04)
+
 ## 1.0.0-master.143+20200828180856
 2020-08-28
 
