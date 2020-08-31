@@ -62,7 +62,6 @@ import uuid from 'uuid/v1';
 import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
 import { geoListExport } from '@/api/supervision.js';
-import { filterFormatter } from '../index.vue';
 
 export default {
   components: {

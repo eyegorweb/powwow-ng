@@ -136,7 +136,6 @@ export default {
           data: dataSeries.series[key],
         };
       });
-      console.log('createGraph -> series', series);
 
       this.chartOptions = {
         credits: {

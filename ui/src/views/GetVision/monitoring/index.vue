@@ -63,7 +63,7 @@
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
             :total="indicatorTotal"
-            :filtersForExport="filtersForExport"
+            :filters-for-export="filtersForExport"
             @gotomap="refreshLinesFn = undefined"
           />
         </div>
@@ -338,7 +338,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -553,7 +553,12 @@ export default {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const filtersForapi = { ...this.filtersForExport };
         delete filtersForapi.locationType;
-        const rows = await fetchLinesForMarker(this.filtersForExport.locationType, filtersForapi, pagination, sorting);
+        const rows = await fetchLinesForMarker(
+          this.filtersForExport.locationType,
+          filtersForapi,
+          pagination,
+          sorting
+        );
         return rows;
       };
     },
@@ -611,6 +616,7 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
+      console.log('if -> e', e);
     }
     return filters;
   }, {});
