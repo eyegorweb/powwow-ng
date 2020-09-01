@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.146+20200901133507
+2020-09-01
+
+### Fixes
+
+- statut de ligne dans la recherche (4384fe0cd7e732e58eb80701036eb38056cf8e65)
+
 ## 1.0.0-master.145+20200901114322
 2020-09-01
 
