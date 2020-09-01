@@ -162,6 +162,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
          }
         id
         iccid
+        statusTranslated
         type
         statuts
         auditable {created}

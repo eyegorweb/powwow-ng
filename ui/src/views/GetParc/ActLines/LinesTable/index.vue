@@ -36,7 +36,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="003"
+            storage-version="004"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -90,7 +90,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
-import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 // import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
@@ -339,11 +338,8 @@ export default {
           orderable: true,
           sortingName: 'simStatus',
           visible: true,
-          name: 'accessPoint',
+          name: 'statusTranslated',
           exportId: 'LINE_SIM_STATUS',
-          format: {
-            component: SimStatusCell,
-          },
         },
         {
           id: 6,

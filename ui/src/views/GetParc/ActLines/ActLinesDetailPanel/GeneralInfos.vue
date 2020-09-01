@@ -24,7 +24,7 @@
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.lineStatus') }} :</h6>
       <p>
-        <SimStatusCell :row="content" />
+        {{ content.statusTranslated }}
       </p>
     </div>
     <div class="overview-item mr-5">
