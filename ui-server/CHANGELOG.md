@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.147+20200901135656
+## 1.0.0-master.147+20200901140408
 2020-09-01
+
+### Fixes
+
+- Le sous-menu description du compte ne présente que le bloc informations générales (24f2739b43fd4e377b5a992e1119c0c85e371301)
 
 ## 1.0.0-master.146+20200901133507
 2020-09-01
