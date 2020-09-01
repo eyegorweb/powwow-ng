@@ -56,7 +56,7 @@ import ICCIDCell from '../Trigger2MonthsTab/ICCIDCell';
 
 import { mapMutations } from 'vuex';
 
-import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetails';
 import get from 'lodash.get';
 
 export default {
