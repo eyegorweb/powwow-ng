@@ -14,13 +14,9 @@
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
       <div slot="topRight">
-        <ff-wip>
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </span>
-          </ExportButton>
-        </ff-wip>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}</span>
+        </ExportButton>
       </div>
 
       <div slot="topLeft">
@@ -109,8 +105,7 @@ export default {
 
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
-        console.log(columns, orderBy, exportFormat);
-        return { errors: 'mock' };
+        return await exportlinesBoundTable(columns, orderBy, exportFormat, this.alarm.id, 'eq');
       };
     },
 
@@ -140,7 +135,7 @@ export default {
         this.selectedRows.push(payload.add);
       }
       if (payload.remove) {
-        this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+        this.selectedRows = this.selectedRows.filter((r) => r.id !== payload.remove.id);
       }
 
       if (payload.action === 'openAlarmPanel') {
@@ -240,7 +235,7 @@ export default {
           fixed: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'alarmInstance.created');
             },
           },
