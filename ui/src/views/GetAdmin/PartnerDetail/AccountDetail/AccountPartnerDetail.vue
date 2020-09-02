@@ -220,9 +220,8 @@ export default {
       }
     },
 
-
     canShowLegalInfos() {
-      return this.partner && this.partner.partyType !== 'MULTI_CUSTOMER'
+      return this.partner && this.partner.partyType !== 'MULTI_CUSTOMER';
     },
   },
   async mounted() {

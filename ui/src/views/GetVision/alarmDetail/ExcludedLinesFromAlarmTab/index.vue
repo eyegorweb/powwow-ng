@@ -15,9 +15,7 @@
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
           <span slot="title">
-            {{
-            $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}
+            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
           </span>
         </ExportButton>
       </div>
@@ -140,7 +138,7 @@ export default {
           fixed: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return get(row, 'alarmInstance.accessPoint.offer.marketingOffer.description');
             },
           },
@@ -155,7 +153,7 @@ export default {
           fixed: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               const code = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.code');
               const name = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.name');
               return `${code} ${name}`;

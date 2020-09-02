@@ -49,7 +49,7 @@ export default {
   methods: {
     async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
-      partnerParam = partnerParam.filter((p) => p.label !== '');
+      partnerParam = partnerParam.filter(p => p.label !== '');
 
       if (partnerParam && partnerParam.length) {
         const data = await fetchOffers(q, partnerParam, {
@@ -60,8 +60,8 @@ export default {
         });
         if (data) {
           return data
-            .filter((o) => o.code !== this.prerequisiteOffer.code)
-            .map((o) => ({
+            .filter(o => o.code !== this.prerequisiteOffer.code)
+            .map(o => ({
               id: o.code,
               label: o.workflowDescription,
               data: o,
