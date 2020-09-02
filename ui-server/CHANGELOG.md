@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.149+20200902145422
+2020-09-02
+
+### Fixes
+
+- Encours conso/ préselection auto d'un CF actif (b7d6fbcb2053bf082ea414a6701460ad8bfc740e)
+
 ## 1.0.0-master.148+20200901142354
 2020-09-01
 
