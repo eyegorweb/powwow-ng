@@ -1,6 +1,7 @@
 import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
+import { MultiSelectFilter} from './selectors/filters';
 function itemPosition(myIndex) {
   if (cy.userIsMonoPartner) {
     return myIndex - 1;
@@ -17,42 +18,21 @@ export default {
   filterBar: {
     apply: filterBarSelectors.applySearch,
 
-    partner: {
-      toggle() {
-        filterBarSelectors.filterBarItems(1).toggle();
-      },
-      choose(nth) {
-        filterBarSelectors.filterBarItems(1).multiselect.choose(nth);
-      },
-      filter(searchTerm) {
-        filterBarSelectors.filterBarItems(1).multiselect.filter(searchTerm);
-      },
-    },
-    billingAccount: {
-      toggle() {
-        filterBarSelectors.filterBarItems(itemPosition(2)).toggle();
-      },
-
-      choose(nth) {
-        filterBarSelectors.filterBarItems(itemPosition(2)).multiselect.choose(nth);
-      },
-      filter(searchTerm) {
-        filterBarSelectors.filterBarItems(itemPosition(2)).multiselect.filter(searchTerm);
-      },
-    },
-    offer: {
-      toggle() {
-        filterBarSelectors.filterBarItems(3).toggle();
-      },
-      choose(nth) {
-        filterBarSelectors.filterBarItems(3).multiselect.choose(nth);
-      },
-      filter(searchTerm) {
-        filterBarSelectors.filterBarItems(3).multiselect.filter(searchTerm);
-      },
-    },
+    partner: new MultiSelectFilter(1),
+    billingAccount: new MultiSelectFilter(2),
+    offer: new MultiSelectFilter(3),
+    alarmRange: new MultiSelectFilter(4),
   },
-
+  idSearch: {
+    typeId(id) {
+      cy.get('.d-block > input')
+        .type(id);
+    },
+    applySearch() {
+      cy.get('.col-md-3 > .btn')
+        .click();
+    }
+  },
   getTotal(onTotalLoaded) {
     return cy.get('.col-md-9 > .position-relative > .row > .col-md-8 > .text-gray').then(e => {
       const parts = e

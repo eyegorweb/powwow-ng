@@ -12,22 +12,33 @@ Given(`je suis sur la page recherche d'alarmes`, () => {
   cy.wait(500);
 });
 
-Given(`je choisis le partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, partnerName => {
   alarmsPage.filterBar.partner.toggle();
   alarmsPage.filterBar.partner.filter(partnerName);
   alarmsPage.filterBar.partner.choose(1);
 });
 
-Given(`je choisis le compte de facturation {string}`, cf => {
+Given(`je choisis le filtre compte de facturation {string}`, cf => {
   alarmsPage.filterBar.billingAccount.toggle();
   alarmsPage.filterBar.billingAccount.filter(cf);
   alarmsPage.filterBar.billingAccount.choose(1);
 });
 
-Given(`je choisis l'offre {string}`, offer => {
+Given(`je choisis le filtre offre {string}`, offer => {
   alarmsPage.filterBar.offer.toggle();
   alarmsPage.filterBar.offer.filter(offer);
   alarmsPage.filterBar.offer.choose(1);
+});
+
+Given(`je choisis le filtre portée de l'alarme {string}`, alarmRange => {
+  alarmsPage.filterBar.alarmRange.toggle();
+  alarmsPage.filterBar.alarmRange.filter(alarmRange);
+  alarmsPage.filterBar.alarmRange.choose(1)
+});
+
+When(`je lance la recherche par ID {string}`, id => {
+  alarmsPage.idSearch.typeId(id);
+  alarmsPage.idSearch.applySearch();
 });
 
 When(`je lance la recherche`, () => {
