@@ -17,8 +17,6 @@ export default {
     },
 
     alarms: () => {
-      // cy.get('.tabs > .tabs-bar > .tab-label:nth-child(3)').trigger('mouseover');
-
       cy.get(
         '.menu_alarms'
       ).click({ force: true });

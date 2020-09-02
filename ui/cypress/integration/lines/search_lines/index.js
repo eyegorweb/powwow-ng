@@ -14,6 +14,12 @@ Given(`j'ouvre le détail d'une ligne`, () => {
   linesPage.panel.openForLine(1);
   linesPage.panel.goToDetail();
 });
+
+When(`je lance la recherche par ID {string}`, id => {
+  linesPage.idSearch.typeId(id);
+  linesPage.idSearch.applySearch();
+});
+
 When(`je clique sur retour`, () => {
   lineDetailPage.goBack();
 });
@@ -23,31 +29,31 @@ Then(`la table contient les résultats de la page précédente`, () => {
   });
 });
 
-Given(`je choisis le partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, partnerName => {
   linesPage.filterBar.partner.toggle();
   linesPage.filterBar.partner.filter(partnerName);
   linesPage.filterBar.partner.choose(1);
 });
 
-Given(`je choisis le compte de facturation {string}`, billingAccount => {
+Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
   linesPage.filterBar.billingAccount.toggle();
   linesPage.filterBar.billingAccount.filter(billingAccount);
   linesPage.filterBar.billingAccount.choose(1);
 });
 
-Given(`je choisis le type {string}`, simType => {
+Given(`je choisis le filtre type {string}`, simType => {
   linesPage.filterBar.type.toggle();
   linesPage.filterBar.type.filter(simType);
   linesPage.filterBar.type.choose(1);
 });
 
-Given(`je choisis l'offre {string}`, offer => {
+Given(`je choisis le filtre offre {string}`, offer => {
   linesPage.filterBar.offer.toggle();
   linesPage.filterBar.offer.filter(offer);
   linesPage.filterBar.offer.choose(1);
 });
 
-Given(`je choisis l'id {string}`, offer => {
+Given(`je choisis le filtre id {string}`, offer => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
 });
