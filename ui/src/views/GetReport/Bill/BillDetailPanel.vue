@@ -116,6 +116,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table th,
+.table td {
+  padding: 0.75rem 0.75rem 0.75rem 0;
+}
 .bottom-line {
   border-bottom: 2px solid black;
 }
