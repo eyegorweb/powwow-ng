@@ -53,6 +53,9 @@ export default {
           label: `${o.workflow.workflowDescription} / ${o.customerAccount.name}`,
           meta: o,
         }));
+        if (this.offers && this.offers.length) {
+          this.selectedOffer = this.offers[0].value;
+        }
       }
     } catch (e) {
       this.loadingOffers = false;
@@ -74,6 +77,7 @@ export default {
     offerForGauge() {
       if (this.selectedOffer) {
         const selectedOffer = this.offers.find(o => this.selectedOffer === o.value);
+        console.log('offerForGauge -> selectedOffer', this.selectedOffer);
         return {
           customerAccoutId: selectedOffer.meta.customerAccount.id,
           workflowId: selectedOffer.meta.workflow.id,

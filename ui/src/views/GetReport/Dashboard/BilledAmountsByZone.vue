@@ -161,8 +161,8 @@ export default {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
           pointFormatter() {
             return `
-            '<tr><td style="color:${series.color};padding:0">${series.name}: </td>' +
-            '<td style="padding:0"><b>${formatBytes(point.y)}</b></td></tr>',
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b>${formatBytes(this.y)}</b></td></tr>
               `;
           },
           footerFormat: '</table>',

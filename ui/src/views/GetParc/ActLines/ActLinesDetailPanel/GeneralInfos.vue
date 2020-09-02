@@ -64,13 +64,11 @@
 
 <script>
 import get from 'lodash.get';
-import SimStatusCell from '@/views/GetParc/ActLines/LinesTable/SimStatusCell';
 import UsageCounter from './UsageCounter';
 import BillingStatus from './parts/BillingStatus';
 
 export default {
   components: {
-    SimStatusCell,
     UsageCounter,
     BillingStatus,
   },
