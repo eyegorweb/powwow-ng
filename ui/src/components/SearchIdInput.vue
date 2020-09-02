@@ -12,12 +12,10 @@
       </div>
       <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
-          :variant="isEnabled ? 'primary' : 'dark'"
-          :disabled="!isEnabled"
+          :variant="'primary'"
           @click="searchById"
           :class="{ 'flex-grow-1': !inline }"
-          >{{ $t('search') }}</UiButton
-        >
+        >{{ $t('search') }}</UiButton>
       </div>
     </div>
   </form>
@@ -89,12 +87,10 @@ export default {
 
   methods: {
     async searchById() {
-      if (this.isEnabled) {
-        this.$emit('searchById', {
-          id: 'filters.' + this.selectedSearchType,
-          value: this.resultQuery,
-        });
-      }
+      this.$emit('searchById', {
+        id: 'filters.' + this.selectedSearchType,
+        value: this.resultQuery,
+      });
     },
   },
 
