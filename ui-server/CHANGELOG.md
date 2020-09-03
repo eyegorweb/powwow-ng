@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.150+20200903135515
+2020-09-03
+
+### Fixes
+
+- ajuster l'affichage des offres dans le détail du partenaire (e1447f9af630826668c37881dbca409a23b916bc)
+
 ## 1.0.0-master.149+20200902145430
 2020-09-02
 
