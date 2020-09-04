@@ -144,12 +144,19 @@ export default {
         {
           title: 'partnerType',
           component: PartnerTypeFilter,
-          onChange(chosenValue) {
-            return {
-              id: 'partnerType',
-              value: chosenValue.label,
-              data: chosenValue,
-            };
+          onChange(chosen) {
+            if (!chosen || !chosen.value) {
+              return {
+                id: 'partnerType',
+                value: '',
+              };
+            } else {
+              return {
+                id: 'partnerType',
+                value: chosen.label,
+                data: chosen,
+              };
+            }
           },
         },
         {
