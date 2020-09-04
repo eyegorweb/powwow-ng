@@ -231,7 +231,7 @@ export async function changeOffer(filters, lines, params) {
 export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId) {
   let customerAccountGqlParam = '';
   if (customerAccountId) {
-    customerAccountGqlParam = `, customerAccountId: ${customerAccountId})`;
+    customerAccountGqlParam = `, customerAccountId: ${customerAccountId}`;
   }
   const queryStr = `
   query {

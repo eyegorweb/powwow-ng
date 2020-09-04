@@ -13,6 +13,7 @@
       <CommercialOffers
         v-if="section === 'getadmin.partnerDetail.mb.commercialOffer'"
         :partner="partner"
+        :billing-account-to-detail="billingAccountToDetail"
       />
     </div>
   </div>
