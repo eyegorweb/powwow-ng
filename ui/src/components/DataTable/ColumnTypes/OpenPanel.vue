@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="triggerOpenPanel">
+  <button class="btn btn-link p-0 user-select-text" @click.stop="triggerOpenPanel">
     <slot>
       {{ item }}
     </slot>
