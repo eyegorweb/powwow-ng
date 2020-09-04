@@ -39,6 +39,7 @@ export default {
   },
   props: {
     partner: Object,
+    billingAccountToDetail: Object,
   },
   data() {
     return {
@@ -123,8 +124,10 @@ export default {
     getFetchFn() {
       return async () => {
         const partnerId = this.partner.id ? this.partner.id : '';
-        // const customerAccountId = this.partner.id ? this.partner.id : ''; // l'id du CF normalement et pas du partenaire...
-        const response = await fetchCommercialOffersForPartnerId(partnerId);
+        const customerAccountId = this.billingAccountToDetail
+          ? this.billingAccountToDetail.id
+          : undefined; // l'id du CF normalement et pas du partenaire...
+        const response = await fetchCommercialOffersForPartnerId(partnerId, customerAccountId);
         return {
           rows: response.items,
           total: response.total,
