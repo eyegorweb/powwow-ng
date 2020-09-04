@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.155+20200904142253
+2020-09-04
+
+### Fixes
+
+- sélectionner les champs d'une table pour faire un copier / coller (fe59f752bd5f34834c6a721f30001781bdd518aa)
+
 ## 1.0.0-master.154+20200904140831
 2020-09-04
 
