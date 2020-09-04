@@ -2,7 +2,11 @@
   <BaseDetailPanelContent white>
     <!-- ajouter partenaire et groupe de partenaires dans la mutation partyId obligatoire et partyGroupId facultatif -->
     <div v-if="canShowForm" class="m-3">
-      <div v-if="userIsBO" class="entries-line mb-3">
+      <div
+        v-if="userIsBO"
+        class="entries-line mb-3"
+        :class="{ noDisplay: fromPagePartner || canHideToggle }"
+      >
         <div class="form-entry">
           <Toggle
             block
@@ -32,7 +36,11 @@
       </div>
 
       <div class="entries-line">
-        <div v-if="userType === 'PARTNER'" class="form-entry">
+        <div
+          v-if="userType === 'PARTNER'"
+          class="form-entry"
+          :class="{ noDisplay: fromPagePartner }"
+        >
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" offline :disabled="!!content.duplicateFrom" />
         </div>
@@ -60,9 +68,9 @@
       <div class="entries-line">
         <div class="form-entry">
           <FormControl label="common.email" v-model="form.email" />
-          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">{{
-            $t('errors.password.email-error')
-          }}</span>
+          <span v-if="form.email && !isEmailValid(form.email)" class="error-text">
+            {{ $t('errors.password.email-error') }}
+          </span>
         </div>
       </div>
       <div class="entries-line">
@@ -120,9 +128,9 @@
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
       <div>
-        <UiButton :disabled="!canSave" variant="primary" @click="save" block>{{
-          $t('save')
-        }}</UiButton>
+        <UiButton :disabled="!canSave" variant="primary" @click="save" block>
+          {{ $t('save') }}
+        </UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -141,6 +149,7 @@ import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import Toggle from '@/components/ui/UiToggle2';
 import { delay } from '@/api/utils.js';
 import cloneDeep from 'lodash.clonedeep';
+import { fetchpartnerById } from '@/api/partners.js';
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -201,14 +210,17 @@ export default {
         {
           id: 'OPERATOR',
           label: 'getadmin.users.userTypes.bouygues',
+          default: this.content.fromPage === 'user',
         },
         {
           id: 'PARTNER',
           label: 'getadmin.users.userTypes.partner',
+          default: this.content.fromPage === 'partner',
         },
         {
           id: 'PARTNER_GROUP',
           label: 'getadmin.users.userTypes.group',
+          default: this.content.fromPage === 'group',
         },
       ],
       userType: undefined,
@@ -302,8 +314,7 @@ export default {
       }
 
       if (response && response.errors && response.errors.length) {
-        response.errors.forEach(e => {
-          console.log(e);
+        response.errors.forEach(() => {
           let errorMessage =
             response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
               ? this.$t('getadmin.users.errors.AccessDeniedForThisUser')
@@ -329,6 +340,21 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
+
+    fromPagePartner() {
+      return this.content.fromPage === 'partner';
+    },
+
+    fromPageUsers() {
+      return this.content.fromPage === 'users';
+    },
+
+    canHideToggle() {
+      return (
+        this.fromPage === 'users' &&
+        (this.userInfos.type === 'PARTNER' || this.userInfos.type === 'PARTNER_GROUP')
+      );
+    },
 
     canShowRoles() {
       return (
@@ -417,8 +443,14 @@ export default {
   },
 
   async mounted() {
+    console.log(this.content);
     this.canShowForm = false;
     let roles;
+
+    // récupération du partenaire si fromPagePartner
+    if (this.fromPagePartner) {
+      this.selectedPartner = await fetchpartnerById(this.content.partnerId);
+    }
     // Mode création
     if (this.content.fromPartnerMenu) {
       this.canShowForm = true;
@@ -530,6 +562,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.noDisplay {
+  display: none !important;
+}
+
 .form-input {
   font-size: 1.5rem !important;
 }
