@@ -9,9 +9,9 @@
         </h4>
       </div>
       <div class="col-md-3" v-if="canShow">
-        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">{{
-          $t('getadmin.users.addUser')
-        }}</UiButton>
+        <UiButton variant="accent" block class="float-right" @click="createUserPanel()">
+          {{ $t('getadmin.users.addUser') }}
+        </UiButton>
       </div>
     </div>
     <TableWithFilter
@@ -322,7 +322,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { fromUserMenu: true, partnerId: this.partnerid },
+        payload: { fromUserMenu: true, partnerId: this.partnerid, fromPage: 'users' },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
