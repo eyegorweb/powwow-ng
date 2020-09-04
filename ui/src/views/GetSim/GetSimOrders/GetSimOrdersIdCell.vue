@@ -1,5 +1,7 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="openOrderDetailsPanel">{{ row.id }}</button>
+  <button class="btn btn-link p-0 user-select-text" @click.stop="openOrderDetailsPanel">
+    {{ row.id }}
+  </button>
 </template>
 
 <script>
