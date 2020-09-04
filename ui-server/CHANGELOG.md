@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.152+20200904092935
+2020-09-04
+
+### Fixes
+
+- Liste des offres commerciales doit être filtrée sur le CF (cff8c6891d6ef5f99f5d723748ef39b502949a06)
+
 ## 1.0.0-master.151+20200904091306
 2020-09-04
 
