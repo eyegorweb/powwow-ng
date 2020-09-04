@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.154+20200904140831
+2020-09-04
+
+### Fixes
+
+- correction du filtre Type de partenaire dans la gestion des partenaires (a494fed2bb80a1695c7f035f179b8afa74ea1e36)
+
 ## 1.0.0-master.153+20200904123613
 2020-09-04
 
