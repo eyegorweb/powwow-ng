@@ -260,7 +260,20 @@
     "chooseLine": "Choisir une ligne",
     "currentLine": "Ligne actuelle {lineId}",
     "compareLine": "Ligne de comparaison",
-    "apiError": "Impossible d'effectuer le diagnostic"
+    "apiError": "Impossible d'effectuer le diagnostic",
+    "indicators": {
+      "lineStatus": "La carte SIM est-elle autorisée à trafiquer ?",
+      "testData": "Le trafic data est-il possible ?",
+      "networkTest": "La ligne s’est-elle déjà connectée ?",
+      "ipAssign": "Une adresse IP a-t-elle été attribuée ?",
+
+      "localityTest": "Détection des lignes dans la même localité :",
+      "cellAnalysis": "Détection des lignes dans la même cellule :",
+      "networkDetectionTest": "Date de Dernière détection de la ligne par le réseau :",
+      "lastUsageAnalysis": "Dernier usage effectué :",
+      "isPowered": "Le boîtier est-il alimenté ?",
+      "isTraced": "La ligne a-t-elle été localisée ?"
+    }
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -856,11 +869,8 @@
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "testData": "Test data",
       "networkTest": "Test du réseau",
-      "ipAssign": "Attribution adresse IP",
       "localityTest": "Analyse de la localité",
       "cellAnalysis": "Analise de la cellule",
-      "networkDetectionTest": "Test accroche réseau",
-      "lastUsageAnalysis": "Analyse du dernier usage",
       "noCoach": "Pas de coach sur cette ligne",
       "standardTest": "Tests standards",
       "advancedTest": "Tests avancés",
