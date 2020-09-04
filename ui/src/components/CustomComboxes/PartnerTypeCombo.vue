@@ -1,9 +1,7 @@
 <template>
-  <UiSelect
-    v-model="partnerType"
-    :placeholder="$t('partnerType')"
-    :options="partnersTypesOptions"
-  />
+  <div class="pb-4">
+    <UiSelect v-model="partnerType" placeholder="Aucun" :options="partnersTypesOptions" />
+  </div>
 </template>
 
 <script>
@@ -16,21 +14,27 @@ export default {
 
   props: {
     value: Object,
+    noEmptyOption: Boolean,
   },
 
-  computed: {
-    partnerType: {
-      get() {
-        return this.value ? this.value.label : '';
-      },
-      set(value) {
-        this.$emit('input', this.partnersTypesOptions.find(o => o.value === value));
-      },
-    },
-  },
-  data() {
-    return {
-      partnersTypesOptions: [
+  mounted() {
+    if (this.noEmptyOption) {
+      this.partnersTypesOptions = [
+        {
+          label: 'M2M',
+          value: 'CUSTOMER',
+        },
+        {
+          label: 'MVNO',
+          value: 'MVNO',
+        },
+        {
+          label: 'MARQUE BLANCHE',
+          value: 'MULTI_CUSTOMER',
+        },
+      ];
+    } else {
+      this.partnersTypesOptions = [
         {
           label: '',
           value: '',
@@ -47,10 +51,33 @@ export default {
           label: 'MARQUE BLANCHE',
           value: 'MULTI_CUSTOMER',
         },
-      ],
+      ];
+    }
+  },
+
+  computed: {
+    partnerType: {
+      get() {
+        return this.value ? this.value.label : '';
+      },
+      set(value) {
+        this.$emit(
+          'input',
+          this.partnersTypesOptions.find(o => o.value === value)
+        );
+      },
+    },
+  },
+  data() {
+    return {
+      partnersTypesOptions: [],
     };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.select-container {
+  display: block;
+}
+</style>
