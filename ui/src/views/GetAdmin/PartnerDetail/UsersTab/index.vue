@@ -31,7 +31,9 @@ export default {
 
   mounted() {
     if (this.partner.partyType !== 'MULTI_CUSTOMER') {
-      this.menuItems.push('getadmin.partners.admins', 'getadmin.partners.activityLog');
+      this.menuItems.push('getadmin.partners.admins', 'getadmin.partners.users');
+    } else {
+      this.menuItems.push('getadmin.partners.users');
     }
   },
 
