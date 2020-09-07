@@ -112,6 +112,7 @@
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
+      "coach": "Coach M2M / Diagnostic",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
       "dataVoiceConso": "CONSOMMATION MENSUELLE",
       "stateParc": {

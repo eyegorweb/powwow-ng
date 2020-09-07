@@ -1,5 +1,5 @@
 import uuid from 'uuid/v1';
-import { loadWidgets, getProfile } from '@/views/Home/widgets';
+import { loadWidgets, getProfile, WIDGETS_STORAGE_VERSION } from '@/views/Home/widgets';
 
 export const state = {
   isPanelOpen: false,
@@ -68,6 +68,7 @@ function saveFormattedWidgets(widgets) {
     });
   localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
   localStorage.setItem('_widgets_profile_', getProfile());
+  localStorage.setItem('widgets.version', WIDGETS_STORAGE_VERSION);
 }
 
 export const mutations = {

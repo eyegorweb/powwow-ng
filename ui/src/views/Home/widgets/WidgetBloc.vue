@@ -6,7 +6,7 @@
           <div :class="{ 'col-12': large, 'col-9': !large }">
             <div class="d-flex">
               <span class="handle ic-Drag-Column-Icon" />
-              <span :class="{ 'mock-value': mocked, 'col-6': small }">
+              <span :class="{ 'mock-value': mocked, 'col-6': small, 'flex-grow-1': titleGrow }">
                 <WidgetTitle :title="widget.title" />
               </span>
               <slot name="header" />
@@ -40,10 +40,15 @@ export default {
     mocked: Boolean,
     small: Boolean,
     large: Boolean,
+    titleGrow: Boolean,
   },
   computed: {
     className() {
-      return this.noPadding ? 'p-0' : 'pt-0';
+      return {
+        'p-0': this.noPadding,
+        'pt-0': !this.noPadding,
+        scrolling: this.scrolling,
+      };
     },
   },
 };
@@ -67,5 +72,9 @@ export default {
 
 .bloc {
   width: 100%;
+}
+
+.scrolling {
+  overflow-y: scroll;
 }
 </style>

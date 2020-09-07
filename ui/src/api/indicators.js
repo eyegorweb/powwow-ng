@@ -1,18 +1,5 @@
 import { query } from './utils';
 
-export async function fetchIndicators() {
-  const response = await query(
-    `
-    query {
-      ordersIndicators {
-        averageProcessingTime
-      }
-    }
-    `
-  );
-  return response.data.ordersIndicators;
-}
-
 export async function fetchPrecalculatedIndicators(keys, partners, partnerType) {
   let partnerGql = '';
   let partnerTypeGql = '';

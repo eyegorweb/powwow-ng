@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0 user-select-text" @click.stop="openOrderDetailsPanel">
+  <button class="btn btn-link p-0 Co" @click.stop="openOrderDetailsPanel">
     {{ row.id }}
   </button>
 </template>
