@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.156+20200907154806
+2020-09-07
+
+### Features
+
+- Ajout du modèle de rapport dans la gestion de documents (c8e5b27dde42cd4e7af9d34c7bdecf3c23656840)
+- coach M2M dans un widget (00bed7dfc3e4f19ee4336cc885658ff5e0860362)
+
 ## 1.0.0-master.155+20200904142253
 2020-09-04
 
