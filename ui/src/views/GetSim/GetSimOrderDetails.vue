@@ -169,7 +169,7 @@
           <h4 class="font-weight-normal text-uppercase">{{ $t('col.partner') }}</h4>
         </div>
         <div class="overview-item">
-          <h6>Code :</h6>
+          <h6>{{ $t('common.code') }} :</h6>
           <p>{{ getFromOrder('party.code') }}</p>
         </div>
         <div class="overview-item">
@@ -202,6 +202,9 @@
           <p v-if="getFromOrder('customerAccount.address.city')">
             {{ getFromOrder('customerAccount.address.zipCode') }} -
             {{ getFromOrder('customerAccount.address.city') }}
+          </p>
+          <p v-if="getFromOrder('address.countryName')">
+            {{ getFromOrder('address.countryName') }}
           </p>
         </div>
       </div>
