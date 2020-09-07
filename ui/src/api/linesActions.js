@@ -77,24 +77,6 @@ export async function fetchCommercialStatuses() {
   return response.data.commercialStatus;
 }
 
-export async function fetchIndicators(metadata, partnerFilter) {
-  const queryParts = metadata.map(i => {
-    const filters = i.filters;
-    if (partnerFilter) {
-      filters.push(partnerFilter);
-    }
-    return `${i.name}: simCardInstances(filter: 	{ ${formatFilters(filters)} }) { total }`;
-  });
-
-  const queryStr = `
-  query {
-    ${queryParts.join(',')}
-  }
-  `;
-  const response = await query(queryStr);
-  return response.data;
-}
-
 export async function fetchSingleIndicator(filters, contextFilters = []) {
   const filtersToUse = [...filters, ...contextFilters];
   const queryStr = `

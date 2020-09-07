@@ -46,6 +46,12 @@ export default {
     };
   },
 
+  watch: {
+    selectedLine(newValue) {
+      this.$emit('choice', newValue);
+    },
+  },
+
   methods: {
     async searchById(filterObj) {
       this.isLoading = true;

@@ -119,7 +119,7 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block5'" v-if="!partnerTypeMVNO">
+        <ContentBlock :key="'block5'">
           <template slot="title">
             <span>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>

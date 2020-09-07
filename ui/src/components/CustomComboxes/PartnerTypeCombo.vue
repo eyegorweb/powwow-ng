@@ -61,10 +61,7 @@ export default {
         return this.value ? this.value.label : '';
       },
       set(value) {
-        this.$emit(
-          'input',
-          this.partnersTypesOptions.find(o => o.value === value)
-        );
+        this.$emit('input', this.partnersTypesOptions.find(o => o.value === value));
       },
     },
   },
