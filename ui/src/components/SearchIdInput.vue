@@ -11,9 +11,13 @@
         />
       </div>
       <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
-        <UiButton :variant="'primary'" @click="searchById" :class="{ 'flex-grow-1': !inline }">{{
-          $t('search')
-        }}</UiButton>
+        <UiButton
+          :variant="'primary'"
+          @click="searchById"
+          :disabled="!isEnabled"
+          :class="{ 'flex-grow-1': !inline }"
+          >{{ $t('search') }}</UiButton
+        >
       </div>
     </div>
   </form>
@@ -38,6 +42,7 @@ export default {
       type: String,
       required: false,
     },
+    disableWhenEmpty: Boolean,
   },
 
   data() {
@@ -76,10 +81,17 @@ export default {
         });
       },
     },
-    isEnabled: {
+    haveValue: {
       get() {
         return !!this.resultType && !!this.inputSearchValue;
       },
+    },
+
+    isEnabled() {
+      if (this.disableWhenEmpty) {
+        return this.haveValue;
+      }
+      return true;
     },
   },
 
