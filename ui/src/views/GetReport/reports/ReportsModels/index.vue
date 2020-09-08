@@ -98,7 +98,7 @@ export default {
           noHandle: true,
           format: {
             type: 'OpenPanel',
-            getConfig: row => this.getPanelConfig(row),
+            getConfig: (row) => this.getPanelConfig(row),
           },
         },
         {
@@ -111,7 +111,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.generationDate;
             },
           },
@@ -126,7 +126,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.party && row.party.name ? row.party.name : '';
             },
           },
@@ -141,9 +141,9 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               const foundLabelFrequency = this.reportFrequencyChoices.find(
-                r => row.frequency === r.id
+                (r) => row.frequency === r.id
               );
               if (foundLabelFrequency) return foundLabelFrequency.label;
               return undefined;
@@ -184,7 +184,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return row.fields;
             },
           },
@@ -193,17 +193,15 @@ export default {
         {
           id: 10,
           label: 'Statut',
-          orderable: false,
+          orderable: true,
           visible: false,
-          name: 'enableEntity',
-          exportId: 'enableEntity',
+          name: 'generationStatus',
+          exportId: 'generationStatus',
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: row => {
-              return row.disabled
-                ? this.$t('filters.lines.profileStateFilter.DISABLED')
-                : this.$t('filters.active');
+            getter: (row) => {
+              return this.$t('getreport.report_statut.' + row.generationStatus);
             },
           },
         },

@@ -27,6 +27,7 @@ export async function fetchReports(orderBy, pagination, partnerID) {
         generationDate
         generatedReports
         exportFormat
+        generationStatus
         notification
         disabled
         auditable {
