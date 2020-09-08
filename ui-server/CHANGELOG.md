@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.157+20200908121019
+2020-09-08
+
+### Features
+
+- Ajout de la colonne statut dans le tableau des rapports (8d73eb34354f58fac59ebba71d7f31b4556cac05)
+
+### Fixes
+
+- Ne pas lancer de recherche si aucun identifiant n'est selectionné (90c2dba288df9135ea8ac0380c08b0f2aa545005)
+
 ## 1.0.0-master.156+20200907154806
 2020-09-07
 
