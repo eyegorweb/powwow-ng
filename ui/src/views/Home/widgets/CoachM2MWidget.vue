@@ -9,7 +9,12 @@
       </div>
     </div>
     <transition name="my-anim">
-      <SearchLineWithResults v-if="!coachData" @choice="startDiagnosis" />
+      <SearchLineWithResults
+        v-if="!coachData"
+        :init-value="lastSearchedId"
+        @choice="startDiagnosis"
+        @searchedId="lastSearchedId = $event"
+      />
       <template v-if="apiError">
         <div class="mt-2 alert alert-danger">
           {{ $t('coach.apiError') }}
@@ -53,7 +58,7 @@
 <script>
 import SearchLineWithResults from '@/views/GetParc/CoachM2M/SearchLineWithResults.vue';
 import CoachPanelndicatorItem from '@/views/GetParc/CoachM2M/CoachPanelndicatorItem.vue';
-import WidgetBloc from '../WidgetBloc';
+import WidgetBloc from './WidgetBloc';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -78,6 +83,7 @@ export default {
 
   data() {
     return {
+      lastSearchedId: undefined,
       currentTab: 0,
       tabs: [
         {

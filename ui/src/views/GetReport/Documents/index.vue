@@ -62,7 +62,7 @@ export default {
         name: 'party',
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return get(row, 'party.name', '-');
           },
         },
@@ -77,7 +77,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return get(row, 'auditable.created', '-');
           },
         },
@@ -88,7 +88,7 @@ export default {
         name: 'category',
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return this.$t('documents.categories.' + get(row, 'category.name', '-'));
           },
         },
@@ -166,7 +166,7 @@ export default {
         },
 
         // TODO: Refactor
-        initialize: async (currentFilters) => {
+        initialize: async currentFilters => {
           if (!reportId) return;
           const pagination = { page: 0, limit: 999 };
           const orderBy = {
@@ -181,7 +181,7 @@ export default {
           );
 
           if (response.items) {
-            const selectedItem = response.items.find((i) => i.id === reportId);
+            const selectedItem = response.items.find(i => i.id === reportId);
             currentFilters.push({
               id: 'documents.model',
               value: selectedItem.name,
@@ -229,7 +229,7 @@ export default {
     },
     async onDeleteDcument(document) {
       await deleteDocument(document.id);
-      const currentIndex = this.rows.findIndex((r) => r.id === document.id);
+      const currentIndex = this.rows.findIndex(r => r.id === document.id);
       this.refreshAllDocuments(currentIndex);
     },
   },

@@ -4,11 +4,12 @@
     :selected-search-type.sync="selectedSearchType"
     :input-placeholder="$t(placeholder)"
     :init-value="initValue"
+    :inline="inline"
+    :no-search-button="noSearchButton"
+    :disable-when-empty="disableWhenEmpty"
     @findType="findType"
     @searchById="searchById"
     @valueChange="$emit('valueChange', $event)"
-    :inline="inline"
-    :no-search-button="noSearchButton"
   />
 </template>
 
@@ -42,6 +43,7 @@ export default {
     },
 
     noSearchButton: Boolean,
+    disableWhenEmpty: Boolean,
   },
   computed: {
     idsOptions() {
