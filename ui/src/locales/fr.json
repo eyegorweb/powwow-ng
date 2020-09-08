@@ -685,6 +685,15 @@
       "SEARCH": "Rechercher les rapports"
     },
 
+    "report_statut": {
+      "NEW": "Nouveau",
+      "RUNNING": "En cours",
+      "FAILED": "En erreur",
+      "CLOSED": "Terminé",
+      "OK": "OK",
+      "DISABLED": "Désactivé"
+    },
+
     "creation": {
       "chooseInfos": "Choisir les informations",
       "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
