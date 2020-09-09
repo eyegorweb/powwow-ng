@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.158+20200909141950
+2020-09-09
+
+### Features
+
+- Ajout screen error/loading sur modal export (af5927c8013ff8c4d9382bfd5e3635187a47d7aa)
+
 ## 1.0.0-master.157+20200908121019
 2020-09-08
 
