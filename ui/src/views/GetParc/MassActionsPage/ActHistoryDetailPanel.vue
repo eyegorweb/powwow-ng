@@ -20,42 +20,83 @@
             <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
             <p>{{ getFromContent('info') }}</p>
           </div>
-          <div class="overview-item">
-            <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
-            <p>
-              {{ getFromContent('targetActionNumber') }}
-              {{ $t('getparc.history.details.lines') }}
-            </p>
+          <div class="overview-item d-flex">
+            <div class="flex-grow-1">
+              <h6>{{ $t('getparc.history.details.quantityTargeted') }} :</h6>
+              <p>
+                {{ getFromContent('targetActionNumber') }}
+                {{ $t('getparc.history.details.lines') }}
+              </p>
+            </div>
+            <UiButton
+              variant="import"
+              @click="$router.push({ name: 'actDetail', params: { massActionId: content.id } })"
+            >
+              <span>{{ $t('getparc.history.details.MORE_DETAIL') }}</span>
+            </UiButton>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <p>
-              {{
-                content.failedEntitiesNumber > 0
-                  ? `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                  : '-'
-              }}
-            </p>
+            <template v-if="content.failedEntitiesNumber > 0">
+              <p>
+                <button
+                  class="btn btn-link btn-select p-0"
+                  @click="
+                    $router.push({
+                      name: 'actDetail',
+                      params: { massActionId: content.id, index: 0 },
+                    })
+                  "
+                >
+                  {{ `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
+                </button>
+              </p>
+            </template>
+            <template v-else>
+              <p>-</p>
+            </template>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <p>
-              {{
-                content.pendingEntitiesNumber > 0
-                  ? `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                  : '-'
-              }}
-            </p>
+            <template v-if="content.pendingEntitiesNumber > 0">
+              <p>
+                <button
+                  class="btn btn-link btn-select p-0"
+                  @click="
+                    $router.push({
+                      name: 'actDetail',
+                      params: { massActionId: content.id, index: 1 },
+                    })
+                  "
+                >
+                  {{ `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
+                </button>
+              </p>
+            </template>
+            <template v-else>
+              <p>-</p>
+            </template>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <p>
-              {{
-                content.completedEntitiesNumber > 0
-                  ? `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                  : '-'
-              }}
-            </p>
+            <template v-if="content.completedEntitiesNumber > 0">
+              <p>
+                <button
+                  class="btn btn-link btn-select p-0"
+                  @click="
+                    $router.push({
+                      name: 'actDetail',
+                      params: { massActionId: content.id, index: 2 },
+                    })
+                  "
+                >
+                  {{ `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
+                </button>
+              </p>
+            </template>
+            <template v-else>
+              <p>-</p>
+            </template>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
@@ -457,6 +498,9 @@ $fontSize: 0.8rem;
       p {
         font-size: $fontSize;
         margin: 0;
+        button {
+          font-size: $fontSize;
+        }
       }
 
       div {

@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      currentLinkIndex: 0,
+      currentLinkIndex: this.$route.params.index || 0,
       massAction: null,
       tabs: [
         {

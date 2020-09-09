@@ -806,6 +806,7 @@
         "EXPORT_ACT": "Exporter l'acte",
         "EXPORT_LINES": "Exporter {total} lignes",
         "RESULT": "Voir le résultat de l'acte",
+        "MORE_DETAIL": "Voir le détail du résultat",
         "newStatus": "Nouveau statut",
         "changeCf": "Nouveau C.F",
         "newOffer": "Nouvelle offre",
