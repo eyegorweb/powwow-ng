@@ -6,19 +6,18 @@
         <button
           class="modal-default-button btn btn-danger btn-sm"
           @click.stop="isAsyncExportAlertOpen = false"
-        >
-          {{ $t('cancel') }}
-        </button>
+        >{{ $t('cancel') }}</button>
         <button
           class="modal-default-button btn btn-success btn-sm ml-1"
           @click.stop="validateExport"
-        >
-          {{ $t('export') }}
-        </button>
+        >{{ $t('export') }}</button>
       </div>
     </Modal>
     <Modal v-if="isExportFormatChoiceOpen">
       <div slot="body">
+        <div class="loader" v-if="showLoader" :class="{error: haveError}">
+          <div>{{haveError ? $t('exportError'): $t('exportLoading') }}</div>
+        </div>
         <h4>Veuillez choisir un format d'export :</h4>
         <div class="row">
           <div class="col text-center">
@@ -42,20 +41,20 @@
             </button>
           </div>
         </div>
-        <div v-if="errors">
-          <h6 class="text-danger">{{ $t('exportError') }}</h6>
-        </div>
       </div>
 
       <div slot="footer" class="footer">
-        <div class="exportAll">
-          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">{{
+        <div class="exportAll" v-if="!showLoader">
+          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">
+            {{
             $t('exportAll')
-          }}</Checkbox>
+            }}
+          </Checkbox>
         </div>
-        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeExportChoice">
-          {{ $t('cancel') }}
-        </button>
+        <button
+          class="modal-default-button btn btn-danger btn-sm"
+          @click.stop="closeExportChoice"
+        >{{ $t('cancel') }}</button>
       </div>
     </Modal>
   </Fragment>
@@ -77,8 +76,8 @@ export default {
   },
   computed: {
     ...mapState({
-      isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
-      exportPanelParams: state => state.ui.exportPanelParams,
+      isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
+      exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
   },
   data() {
@@ -88,6 +87,8 @@ export default {
       isLoading: false,
       exportFormat: undefined,
       exportAll: false,
+      showLoader: false,
+      haveError: false,
     };
   },
   methods: {
@@ -113,9 +114,9 @@ export default {
     async doExport(exportFormat, asyncExportRequest, exportAll) {
       const { columns, exportFn, orderBy } = this.exportPanelParams;
       this.errors = undefined;
-      const columnsParam = sortBy(columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
+      const columnsParam = sortBy(columns, (c) => !c.visible)
+        .filter((c) => c.exportId)
+        .map((c) => c.exportId);
 
       this.isLoading = true;
       const downloadResponse = await exportFn(
@@ -126,28 +127,31 @@ export default {
         exportAll
       );
       this.isLoading = false;
-
+      if (downloadResponse.errors) throw downloadResponse.errors;
       return downloadResponse;
     },
 
     async exportFile(exportFormat) {
       this.exportFormat = exportFormat;
-      const downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
+      let downloadResponse = undefined;
+      try {
+        this.showLoader = true;
+        downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
+        this.showLoader = false;
 
-      if (downloadResponse.errors) {
-        this.errors = downloadResponse.errors;
-        return;
-      }
-      if (downloadResponse.asyncRequired) {
-        this.closeExportChoice();
-        setTimeout(() => {
-          this.isAsyncExportAlertOpen = true;
-        }, 200);
-      } else {
-        if (downloadResponse && downloadResponse.downloadUri) {
-          this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+        if (downloadResponse.asyncRequired) {
+          this.closeExportChoice();
+          setTimeout(() => {
+            this.isAsyncExportAlertOpen = true;
+          }, 200);
+        } else {
+          if (downloadResponse && downloadResponse.downloadUri) {
+            this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+          }
+          this.closeAndResetExportChoice();
         }
-        this.closeAndResetExportChoice();
+      } catch (err) {
+        this.haveError = true;
       }
     },
   },
@@ -155,6 +159,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
