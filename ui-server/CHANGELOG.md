@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.163+20200910130041
+2020-09-10
+
+### Features
+
+- Gestion du MVNO et M2M sur la section de facturation dans le detail de ligne (a37e0e892340e5b8880c1ff08ff9650e9992d27c)
+- rechercher une alarme mutualisée (5dbc831b955c9fe1d6accacc4bdd61cb295fd42e)
+- Délai de traitement "Commande 1 mois" (8a75fb3064aa04ccde497ddc6a1c983505c87b5b)
+
+### Fixes
+
+- conversion des identifiants à rechercher pour la gestion des lignes (355edfbb409b17d200ed5d25cf8dcb4ee5981b86)
+
 ## 1.0.0-master.162+20200910115804
 2020-09-10
 
