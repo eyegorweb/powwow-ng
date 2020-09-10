@@ -66,6 +66,7 @@ import { mapState, mapMutations } from 'vuex';
 import FormReport from './FormReport';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
@@ -131,18 +132,14 @@ export default {
     ...mapMutations(['flashMessage']),
 
     validFile(file) {
-      if (
-        file.type !== 'application/vnd.ms-excel' &&
-        file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
-        file.type !== 'text/csv'
-      ) {
+      if (fileUtils.checkFormat(file)) {
         this.disableForced = true;
         this.requestErrors = [
           {
             message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
           },
         ];
-      } else if (file.size > 1000000) {
+      } else if (fileUtils.checkFileSize(file)) {
         this.disableForced = true;
         this.requestErrors = [
           {
