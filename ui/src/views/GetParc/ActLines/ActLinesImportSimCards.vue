@@ -77,6 +77,7 @@ import BillingAccountsPart from './ActCreation/prerequisites/parts/BillingAccoun
 import SimCardsTypePart from './ActCreation/prerequisites/parts/SimCardsTypePart';
 import { uploadFileSimCardsFromLines, importIccidsFromLines } from '@/api/linesActions';
 import { mapMutations } from 'vuex';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
@@ -140,13 +141,9 @@ export default {
     getLocalError(fileMeta) {
       if (!fileMeta) return;
 
-      if (
-        fileMeta.type !== 'application/vnd.ms-excel' &&
-        fileMeta.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
-        fileMeta.type !== 'text/csv'
-      ) {
+      if (fileUtils.checkFormat(fileMeta)) {
         return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
-      } else if (fileMeta.size > 1000000) {
+      } else if (fileUtils.checkFileSize(fileMeta)) {
         return this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
       }
 
