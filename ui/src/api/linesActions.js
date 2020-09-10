@@ -191,6 +191,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
           preactivationDate
           activationDate
           commercialStatusDate
+          flatEndDate
           networkStatus
           lines {
             msisdn
