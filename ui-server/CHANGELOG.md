@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.161+20200910073617
+2020-09-10
+
+### Fixes
+
+- mise à jour des informations des factures (9084cdc7dd88b5b2d9f0d6a05de38370897051a0)
+
 ## 1.0.0-master.160+20200909201421
 2020-09-09
 
