@@ -94,8 +94,9 @@ export default {
       return this.content ? this.content.order.id : '';
     },
     details() {
-      return `${this.$t('getsim.details.title', { id: this.orderId })} - ${this.content.order.quantity
-        } cartes - ${this.content.order.creationDate}`;
+      return `${this.$t('getsim.details.title', { id: this.orderId })} - ${
+        this.content.order.quantity
+      } cartes - ${this.content.order.creationDate}`;
     },
     error() {
       if (!this.fileResponse) return false;

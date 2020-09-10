@@ -1,6 +1,6 @@
 <template>
   <BillingAccountsFilter
-    :selected-billing-accounts-values="selectedData || []"
+    :selected-billing-accounts-values="selectedValues"
     :selected-partners-values="partnerIds"
     @update:values="$emit('change', $event)"
   />
@@ -14,17 +14,22 @@ export default {
     BillingAccountsFilter,
   },
   props: {
-    selectedData: Array,
+    selectedData: Object,
     getPageContext: Function,
   },
 
   computed: {
+    selectedValues() {
+      if (this.selectedData) {
+        return this.selectedData.values;
+      }
+      return [];
+    },
     partnerIds() {
       if (!this.getPageContext) return [];
-
       const pageContext = this.getPageContext();
-      if (pageContext && pageContext.partnerId) {
-        return [{ id: pageContext.partnerId }];
+      if (pageContext && pageContext.partners) {
+        return pageContext.partners;
       }
 
       return [];

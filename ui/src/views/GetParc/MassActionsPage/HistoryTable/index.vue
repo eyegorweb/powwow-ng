@@ -6,10 +6,9 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2
-            class="text-gray font-weight-light"
-            style="font-size: 2rem;"
-          >{{ $t('getparc.history.total', { total: formattedTotal }) }}</h2>
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+            {{ $t('getparc.history.total', { total: formattedTotal }) }}
+          </h2>
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton
@@ -18,9 +17,7 @@
             :order-by="getPageInfo"
           >
             <span slot="title">
-              {{
-              $t('getparc.history.details.EXPORT_ACTS', { total: formattedTotal })
-              }}
+              {{ $t('getparc.history.details.EXPORT_ACTS', { total: formattedTotal }) }}
             </span>
           </ExportButton>
         </div>
@@ -232,7 +229,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
             },
           },
@@ -285,7 +282,7 @@ export default {
     // Pour chaque item/objet, on joue la valeur de massActionResponse pour la remonter d'un niveau et pour qu'elle se trouve à coté de "user, party, fromParty, toParty"
     formatResponse(response) {
       if (response) {
-        return response.map((i) => ({ ...i, ...i.massAction }));
+        return response.map(i => ({ ...i, ...i.massAction }));
       }
     },
     getExportFn() {
@@ -293,7 +290,7 @@ export default {
         // si CUSTOM_SUCCESS_ERROR est présente alors il mettre à la place les 2 params  COMPLETED et FAILED
         let columnsToUse = [...columnsParam];
 
-        const customSuccessErrorIndex = columnsParam.findIndex((c) => c === 'CUSTOM_SUCCESS_ERROR');
+        const customSuccessErrorIndex = columnsParam.findIndex(c => c === 'CUSTOM_SUCCESS_ERROR');
 
         if (customSuccessErrorIndex > -1) {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');

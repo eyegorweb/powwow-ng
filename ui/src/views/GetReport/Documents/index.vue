@@ -31,7 +31,7 @@
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllDocuments, deleteDocument } from '@/api/documents';
 import { fetchReports } from '@/api/reports.js';
-import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
+import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
 import Actions from './Actions';

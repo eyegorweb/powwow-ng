@@ -109,7 +109,7 @@ import {
   lineDistributionByTechno,
   lineDistributionByDeviceReference,
 } from '@/api/deviceGraph';
-import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
+import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
