@@ -3,7 +3,7 @@
     v-if="indicators"
     :key="indicatorsVersion"
     :meta="indicators"
-    :on-click="indicator => $emit('click', indicator)"
+    :on-click="(indicator) => $emit('click', indicator)"
     :no-borders="noBorders"
     :small="small"
     precalculated
@@ -61,18 +61,6 @@ export default {
             },
           ],
           fetchKey: 'ORDER_TO_VALIDATE',
-        },
-        {
-          name: 'averageProcessingTime',
-          labelKey: 'indicators.getsim.averageProcessingTime',
-          clickable: false,
-          total: '-',
-          filters: [],
-          fetchKey: 'ORDER_DELAY',
-          getValueWithUnit(value) {
-            if (isNaN(value)) return;
-            return fromHoursToDDHH(value);
-          },
         },
       ];
       if (!this.userIsPartner) {
@@ -164,7 +152,19 @@ export default {
             fetchKey: 'ORDER_FAILED',
 
             hideZeroValue: true,
-          }
+          },
+          {
+            name: 'averageProcessingTime',
+            labelKey: 'indicators.getsim.averageProcessingTime',
+            clickable: false,
+            total: '-',
+            filters: [],
+            fetchKey: 'ORDER_DELAY',
+            getValueWithUnit(value) {
+              if (isNaN(value)) return;
+              return fromHoursToDDHH(value);
+            },
+          },
         );
       }
 
