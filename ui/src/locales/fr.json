@@ -724,6 +724,9 @@
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
+    "display-lines": "Afficher toutes les lignes",
+    "screen-search": "Ecran de recherche de lignes et création d'actes de gestion",
+    "search-lines-by-id": "Rechercher une ligne par ID",
     "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
       "PREACTIVATION": "Pré-activation",
