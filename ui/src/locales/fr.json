@@ -393,6 +393,7 @@
     "manage-alarms-tooltip": "Cette page permet de rechercher un utilisateur.",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "tab-3-m2m-sharedconso": "Alarmes Mutualisées",
     "alarm-detail": "Détail de l'alarme",
     "account-info": "Informations compte",
     "notifications": "Notifications",

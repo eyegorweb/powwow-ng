@@ -28,10 +28,9 @@ export default {
 
     partnerIds() {
       if (!this.getPageContext) return [];
-
       const pageContext = this.getPageContext();
-      if (pageContext && pageContext.partnerId) {
-        return [{ id: pageContext.partnerId }];
+      if (pageContext && pageContext.partners) {
+        return pageContext.partners;
       }
 
       return [];

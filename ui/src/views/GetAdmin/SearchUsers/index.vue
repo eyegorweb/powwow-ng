@@ -64,7 +64,7 @@ import SearchByLogin from './filters/SearchByLogin';
 import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
 import ExportButton from '@/components/ExportButton';
 import TextFilter from '@/components/Filters/TextFilter.vue';
-import PartnerFilter from './filters/PartnerFilter';
+import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 import RolesFilter from './filters/RolesFilter';
 import StatusFilter from './filters/StatusFilter';
 import Actions from './UserActions';

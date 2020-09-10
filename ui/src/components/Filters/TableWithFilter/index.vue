@@ -9,6 +9,7 @@
           :default-values="defaultValues"
           @applyFilters="doSearch"
           @noMoreFilters="onAllFiltersCleared"
+          @currentFiltersChange="$emit('currentFiltersChange', $event)"
         >
           <template v-slot:actions="{ hasAnyValue, onSearch }">
             <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">

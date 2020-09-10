@@ -12,6 +12,11 @@
 </template>
 
 <script>
+/**
+ * Deprecated
+ *
+ * Supprimer tout ce dossier quand cette partie sera validée
+ */
 import IndicatorsBlock from './IndicatorsBlock';
 import FilterBar from './FilterBar';
 import AlarmsPerDayGraph from './AlarmsPerDayGraph';

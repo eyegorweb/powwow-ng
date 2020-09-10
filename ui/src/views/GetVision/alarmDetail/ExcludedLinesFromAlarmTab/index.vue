@@ -43,8 +43,8 @@ import SearchByLinesId from '@/components/SearchById';
 import ExportButton from '@/components/ExportButton';
 import ReactivateForLinesAction from './ReactivateForLinesAction';
 
-import BillingAccountFilter from './BillingAccountFilter';
-import OffersFilter from './OffersFilter';
+import BillingAccountFilter from '@/components/Filters/filterbar/BillingAccountFilter';
+import OffersFilter from '@/components/Filters/filterbar/OffersFilter';
 
 import CheckBoxCell from '../TargetedLinesByAlarmTab/CheckBoxCell';
 import AssociatedAlarmsCell from '../TargetedLinesByAlarmTab/AssociatedAlarmsCell';
@@ -79,7 +79,7 @@ export default {
           getPageContext: () => {
             const partnerId = get(this.alarm, 'party.id');
             if (!partnerId) return;
-            return { partnerId };
+            return { partners: [{ id: partnerId }] };
           },
           onChange(chosenValues) {
             return {
