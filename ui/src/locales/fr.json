@@ -1601,7 +1601,7 @@
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",
-      "importDate": "Date d’import",
+      "importDate": "Date d’intégration de la SIM",
       "endCommitmentDate": "Date de fin de forfait",
       "activationDate": "Date d’activation",
       "preActivationDate": "Date de pré-activation",

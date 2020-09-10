@@ -1,5 +1,6 @@
 <template>
   <SimpleMultiSelect
+    v-if="items"
     :options="items"
     :values="selectedBilligStatusesValues || []"
     @updateValues="setBilligStatusesFilter"
@@ -17,30 +18,39 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['selectedBilligStatusesValues']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'singlePartner']),
   },
   methods: {
     ...mapMutations('actLines', ['setBilligStatusesFilter']),
   },
-  data() {
-    return {
-      items: [
-        {
-          id: 'SUSPENDED',
-          label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
-        },
+  mounted() {
+    const items = [
+      {
+        id: 'SUSPENDED',
+        label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
+      },
+      {
+        id: 'ACTIVATED',
+        label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
+      },
+    ];
+    if (this.singlePartner.partyType !== 'MVNO') {
+      items.push(
         {
           id: 'CANCELED',
           label: this.$t('getparc.actLines.simStatuses.CANCELED'),
         },
         {
-          id: 'ACTIVATED',
-          label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
-        },
-        {
           id: 'TEST',
           label: this.$t('getparc.actLines.simStatuses.TEST'),
-        },
-      ],
+        }
+      );
+    }
+    this.items = items;
+  },
+  data() {
+    return {
+      items: [],
     };
   },
 };
