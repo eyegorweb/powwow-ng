@@ -33,7 +33,7 @@
           <tbody>
             <tr :key="item.label" v-for="item in getContent('headings', [])">
               <td>{{ item.label }}</td>
-              <td class="text-end">{{ item.quantity }}</td>
+              <td class="text-end">{{ formatQuantity(item) }}</td>
               <td class="text-end">{{ formatCurrency(item.amountExcTaxe) }} €</td>
             </tr>
             <tr class="top-line font-weight-bold">
@@ -70,6 +70,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import get from 'lodash.get';
 import { getMonthAndYear } from '@/utils/date.js';
 import { formatCurrency } from '@/utils/numbers.js';
+import { formatBytes, resumeAndTruncateFormattedValueFromSeconds } from '@/api/utils';
 import ExportButton from '@/components/ExportButton';
 import { exportBill } from '@/api/bills';
 
@@ -87,6 +88,19 @@ export default {
     },
     formatCurrency(value) {
       return formatCurrency(value);
+    },
+    formatQuantity(data) {
+      if (!data || !data.usage) return;
+      switch (data.usage) {
+        case 'DATA':
+          return formatBytes(data.quantity);
+          break;
+        case 'VOICE':
+          return resumeAndTruncateFormattedValueFromSeconds(data.quantity);
+          break;
+        default:
+          return data.quantity;
+      }
     },
 
     getExportFn() {
