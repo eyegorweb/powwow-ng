@@ -25,12 +25,14 @@ export async function fetchBills(filters = []) {
         customerAccountCode
         amount
         amountExclTaxes
+        simCount
         headings {
           label
           amountExcTaxe
           headingTypeEnum
           usage
           nbSim
+          quantity
         }
       }
     }
