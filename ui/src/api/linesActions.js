@@ -335,25 +335,25 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
   if (_id && _id.value) {
-    gqlFilters.push(`id: {eq: "${_id.value.trim()}"}`);
+    gqlFilters.push(`id: {eq: "${_id.value.toString().trim()}"}`);
   }
   if (iccid && iccid.value) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
+    gqlFilters.push(`iccid: {eq: "${iccid.value.toString().trim()}"}`);
   }
   if (imsi && imsi.value) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
+    gqlFilters.push(`imsi: {eq: "${imsi.value.toString().trim()}"}`);
   }
   if (msisdn && msisdn.value) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
+    gqlFilters.push(`msisdn: {eq: "${msisdn.toString().value.trim()}"}`);
   }
   if (imei && imei.value) {
-    gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
+    gqlFilters.push(`imei: {eq: "${imei.value.toString().trim()}"}`);
   }
   if (msisdnA && msisdnA.value) {
-    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.trim()}"}`);
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.toString().trim()}"}`);
   }
   if (accessPointId && accessPointId.value) {
-    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.trim()}"}`);
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.toString().trim()}"}`);
   }
 }
 
