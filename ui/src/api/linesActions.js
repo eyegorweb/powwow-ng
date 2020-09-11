@@ -67,13 +67,23 @@ export async function fetchCardTypes(q, partners, { page, limit = 999, partnerTy
   return response.data.simcards.items;
 }
 
-export async function fetchCommercialStatuses() {
+export async function fetchCommercialStatuses(partners) {
   const queryStr = `
-  query {
-    commercialStatus
+  query CommercialStatus($ids: [ID!]){
+    commercialStatus(filter: {idParty: {in: $ids}})
   }
   `;
-  const response = await query(queryStr);
+  let ids, params;
+
+  if (partners) {
+    ids = partners.map(p => p.id);
+  }
+
+  if (ids && ids.length) {
+    params = { ids };
+  }
+
+  const response = await query(queryStr, params);
   return response.data.commercialStatus;
 }
 
