@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.168+20200911135558
+2020-09-11
+
+### Fixes
+
+- Filtre statut commercial (3bdf8d29b7f5add8cfb6f01e245048464b74ca6a)
+
 ## 1.0.0-master.167+20200910144046
 2020-09-11
 
