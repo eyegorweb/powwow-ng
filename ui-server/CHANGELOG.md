@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.167+20200910144046
+2020-09-11
+
+### Fixes
+
+- Remettre le bouton de création d'alarmes (37c7bdffbae6e94fa14699443a8f008b8db6feb7)
+
 ## 1.0.0-master.166+20200911100210
 2020-09-11
 
