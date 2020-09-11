@@ -94,10 +94,8 @@ export default {
       switch (data.usage) {
         case 'DATA':
           return formatBytes(data.quantity);
-          break;
         case 'VOICE':
           return resumeAndTruncateFormattedValueFromSeconds(data.quantity);
-          break;
         default:
           return data.quantity;
       }

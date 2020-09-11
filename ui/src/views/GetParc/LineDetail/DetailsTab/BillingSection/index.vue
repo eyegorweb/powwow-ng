@@ -3,9 +3,7 @@
     <draggable handle=".handle">
       <ContentBlock :key="'block1'">
         <template slot="title">
-          {{
-          $t('getparc.lineDetail.tab1.billingOffer.billingAccount')
-          }}
+          {{ $t('getparc.lineDetail.tab1.billingOffer.billingAccount') }}
         </template>
         <template slot="content">
           <div class="d-flex">
@@ -33,9 +31,7 @@
       </ContentBlock>
       <ContentBlock :key="'block2'">
         <template slot="title">
-          {{
-          $t('getparc.lineDetail.tab1.billingOffer.detailStatus')
-          }}
+          {{ $t('getparc.lineDetail.tab1.billingOffer.detailStatus') }}
         </template>
         <template slot="content">
           <div class="d-flex">
@@ -50,36 +46,33 @@
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
-              <p
-                v-if="getFromContent('accessPoint.activationDate')"
-                class="mb-0"
-              >{{ networkStatus }}</p>
+              <p v-if="getFromContent('accessPoint.activationDate')" class="mb-0">
+                {{ networkStatus }}
+              </p>
               <p class="mb-0">{{ formatDate(getFromContent('accessPoint.activationDate')) }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p
-                v-if="getFromContent('accessPoint.billingStatusChangeDate')"
-                class="mb-0"
-              >{{ billingStatus }}</p>
+              <p v-if="getFromContent('accessPoint.billingStatusChangeDate')" class="mb-0">
+                {{ billingStatus }}
+              </p>
               <p class="mb-0">{{ billingStatusChangeDate || '-' }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
-              <p
-                v-if="getFromContent('accessPoint.commercialStatusDate')"
-                class="mb-0"
-              >{{ commercialStatus }}</p>
-              <p class="mb-0">{{ formatDate(getFromContent('accessPoint.commercialStatusDate')) }}</p>
+              <p v-if="getFromContent('accessPoint.commercialStatusDate')" class="mb-0">
+                {{ commercialStatus }}
+              </p>
+              <p class="mb-0">
+                {{ formatDate(getFromContent('accessPoint.commercialStatusDate')) }}
+              </p>
             </div>
           </div>
         </template>
       </ContentBlock>
       <ContentBlock v-if="remainingTime !== undefined" :key="'block3'">
         <template slot="title">
-          {{
-          $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
-          }}
+          {{ $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer') }}
         </template>
 
         <template slot="content">
@@ -89,10 +82,10 @@
                 <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.remainingTime') }}:</h6>
                 <p>
                   {{
-                  $t('getparc.lineDetail.tab1.billingOffer.descriptionTimeForSuspendedOffer', {
-                  total: remainingTime,
-                  date: suspensionDate,
-                  })
+                    $t('getparc.lineDetail.tab1.billingOffer.descriptionTimeForSuspendedOffer', {
+                      total: remainingTime,
+                      date: suspensionDate,
+                    })
                   }}
                 </p>
               </div>
@@ -142,7 +135,9 @@ export default {
         : undefined;
     },
     suspensionDate() {
-      return moment().add('days', this.remainingTime).format('DD/MM/YYYY');
+      return moment()
+        .add('days', this.remainingTime)
+        .format('DD/MM/YYYY');
     },
 
     simStatus() {

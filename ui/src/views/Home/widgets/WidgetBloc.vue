@@ -75,6 +75,6 @@ export default {
 }
 
 .scrolling {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>
