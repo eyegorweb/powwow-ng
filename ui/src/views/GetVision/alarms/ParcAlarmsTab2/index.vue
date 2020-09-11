@@ -15,7 +15,17 @@
       :default-values="defaultFilterValues"
       @resetFilters="resetFilters"
     >
-      <div slot="title">{{ $t('getvsion.table.total', { total: total }) }}</div>
+      <div slot="title" class="mt-2">{{ $t('getvsion.table.total', { total: total }) }}</div>
+      <div slot="topRight" class="mt-2">
+        <div class="row d-flex flex-row-reverse">
+          <div class="col-md-6">
+            <UiButton variant="secondary" block class="float-right" @click="createAlarm()">
+              <i class="select-icon ic-Amplifier-Icon" />
+              {{ $t('getvsion.table.create-alarm') }}
+            </UiButton>
+          </div>
+        </div>
+      </div>
       <template slot="topLeft">
         <SearchAlarmById
           :init-value="searchedId"
@@ -39,6 +49,7 @@
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { col } from '@/components/DataTable/utils';
+import UiButton from '@/components/ui/Button';
 
 import AlarmNameCell from './cells/AlarmNameCell.vue';
 import ThresholdCell from './cells/ThresholdCell.vue';
@@ -59,6 +70,7 @@ import AlarmsPerDayGraph from './AlarmsPerDayGraph';
 import AlarmsActions from './cells/AlarmsActions';
 
 import SearchAlarmById from './SearchAlarmById';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -67,6 +79,7 @@ export default {
     AlarmsPerDayGraph,
     AlarmsActions,
     SearchAlarmById,
+    UiButton,
   },
   props: {
     m2m: Boolean,
@@ -171,6 +184,27 @@ export default {
     this.applyFilters();
   },
   methods: {
+    ...mapMutations(['openPanel']),
+
+    createAlarm() {
+      const doReset = () => {
+        this.page = 1;
+        this.refreshAlarms();
+      };
+      this.openPanel({
+        title: this.$t('getvsion.table.create-alarm'),
+        panelId: 'getvsion.table.create-alarm',
+        wide: true,
+        backdrop: true,
+        ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
+      });
+    },
+
     prepareFilterBar() {
       const filters = [
         {
@@ -308,4 +342,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.create-alarm-btn button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 1rem;
+}
+</style>

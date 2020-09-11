@@ -118,7 +118,8 @@
       "dataVoiceConso": "CONSOMMATION MENSUELLE",
       "stateParc": {
         "title": "ETAT DU PARC",
-        "stockLines": "Lignes en stock",
+        "stockLines": "Cartes SIM en stock",
+        "notPreactivated": "Non-préactivées",
         "preactivatedLines": "Lignes pré-activées",
         "activatedLines": "Lignes activées",
         "suspendedLines": "Lignes suspendues",
