@@ -6,15 +6,11 @@
         <button
           class="modal-default-button btn btn-danger btn-sm"
           @click.stop="isAsyncExportAlertOpen = false"
-        >
-          {{ $t('cancel') }}
-        </button>
+        >{{ $t('cancel') }}</button>
         <button
           class="modal-default-button btn btn-success btn-sm ml-1"
           @click.stop="validateExport"
-        >
-          {{ $t('export') }}
-        </button>
+        >{{ $t('export') }}</button>
       </div>
     </Modal>
     <Modal v-if="isExportFormatChoiceOpen">
@@ -49,13 +45,12 @@
 
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
-          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">
-            {{ $t('exportAll') }}
-          </Checkbox>
+          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">{{ $t('exportAll') }}</Checkbox>
         </div>
-        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeExportChoice">
-          {{ $t('cancel') }}
-        </button>
+        <button
+          class="modal-default-button btn btn-danger btn-sm"
+          @click.stop="closeExportChoice"
+        >{{ $t('cancel') }}</button>
       </div>
     </Modal>
   </Fragment>
@@ -77,8 +72,8 @@ export default {
   },
   computed: {
     ...mapState({
-      isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
-      exportPanelParams: state => state.ui.exportPanelParams,
+      isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
+      exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
   },
   data() {
@@ -90,6 +85,7 @@ export default {
       exportAll: false,
       showLoader: false,
       haveError: false,
+      forceAsyncExport: false,
     };
   },
   methods: {
@@ -113,11 +109,12 @@ export default {
     },
 
     async doExport(exportFormat, asyncExportRequest, exportAll) {
-      const { columns, exportFn, orderBy } = this.exportPanelParams;
+      const { columns, exportFn, orderBy, allExported, forceAsyncExport } = this.exportPanelParams;
+      console.log(forceAsyncExport, exportAll);
       this.errors = undefined;
-      const columnsParam = sortBy(columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
+      const columnsParam = sortBy(columns, (c) => !c.visible)
+        .filter((c) => c.exportId)
+        .map((c) => c.exportId);
 
       this.isLoading = true;
       const downloadResponse = await exportFn(
@@ -125,7 +122,8 @@ export default {
         orderBy,
         exportFormat,
         asyncExportRequest,
-        exportAll
+        exportAll,
+        forceAsyncExport
       );
       this.isLoading = false;
       if (downloadResponse.errors) throw downloadResponse.errors;
@@ -135,24 +133,31 @@ export default {
     async exportFile(exportFormat) {
       this.exportFormat = exportFormat;
       let downloadResponse = undefined;
-      try {
-        this.showLoader = true;
-        downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
-        this.showLoader = false;
+      if (this.exportPanelParams.forceAsyncExport && this.exportAll) {
+        this.closeExportChoice();
+        setTimeout(() => {
+          this.isAsyncExportAlertOpen = true;
+        }, 200);
+      } else {
+        try {
+          this.showLoader = true;
+          downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
+          this.showLoader = false;
 
-        if (downloadResponse.asyncRequired) {
-          this.closeExportChoice();
-          setTimeout(() => {
-            this.isAsyncExportAlertOpen = true;
-          }, 200);
-        } else {
-          if (downloadResponse && downloadResponse.downloadUri) {
-            this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+          if (downloadResponse.asyncRequired) {
+            this.closeExportChoice();
+            setTimeout(() => {
+              this.isAsyncExportAlertOpen = true;
+            }, 200);
+          } else {
+            if (downloadResponse && downloadResponse.downloadUri) {
+              this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+            }
+            this.closeAndResetExportChoice();
           }
-          this.closeAndResetExportChoice();
+        } catch (err) {
+          this.haveError = true;
         }
-      } catch (err) {
-        this.haveError = true;
       }
     },
   },

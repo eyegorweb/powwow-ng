@@ -18,9 +18,15 @@ export async function exportMassAction(
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
 
+  let massActonIdParam = '';
+
+  if (massActonId) {
+    massActonIdParam = `filter: {massActionId: ${massActonId}},`;
+  }
+
   const queryStr = `
   query  {
-    exportMassAction(filter: {massActionId: ${massActonId}},
+    exportMassAction(${massActonIdParam}
       unitActionStatus:[${statusesParam}],
       groupedStatus: ${groupedStatus}
       columns: [${columnsParam}],
