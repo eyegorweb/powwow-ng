@@ -206,6 +206,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
+            v-if="!isUserMVNO"
             :title="$t('filters.lines.profileEUICC')"
             :key="'el20'"
             :disabled="filtersAreDisabled"
@@ -382,7 +383,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userInfos']),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
@@ -415,6 +416,13 @@ export default {
       set(newValue) {
         this.setLligneTrafiquanteFilter(newValue);
       },
+    },
+    isUserMVNO() {
+      if (!this.userInfos || !this.userInfos.roles) return;
+      const found = this.userInfos.roles.find(r => {
+        return r.description === 'MVNO';
+      });
+      return !!found;
     },
   },
   methods: {
