@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.166+20200911100210
+2020-09-11
+
+### Fixes
+
+- Correctifs MEP Lebara (c784981f551c61d8460928a0a02c95c8bff97b7a)
+
 ## 1.0.0-master.165+20200910144757
 2020-09-10
 
