@@ -52,17 +52,12 @@
         <tr>
           <td>
             {{ $t('home.widgets.stateParc.suspendedLines') }}
-            <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesSuspended') }}</Tooltip>
           </td>
           <td>
-            {{ formatMoreThanMillion(totalCurrentMonthSuspendedLines) }} ({{
-              formatMoreThanMillion(totalCurrentMonthNotSuspendedLines)
-            }})
+            {{ formatMoreThanMillion(totalCurrentMonthSuspendedLines) }}
           </td>
           <td>
-            {{ formatMoreThanMillion(totalPreviousMonthSuspendedLines) }} ({{
-              formatMoreThanMillion(totalPreviousNotMonthSuspendedLines)
-            }})
+            {{ formatMoreThanMillion(totalPreviousMonthSuspendedLines) }}
           </td>
         </tr>
         <tr>

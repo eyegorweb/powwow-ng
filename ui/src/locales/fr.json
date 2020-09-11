@@ -121,7 +121,7 @@
         "stockLines": "Cartes SIM en stock",
         "notPreactivated": "Non-préactivées",
         "preactivatedLines": "Lignes pré-activées",
-        "activatedLines": "Lignes activées",
+        "activatedLines": "Lignes actives",
         "suspendedLines": "Lignes suspendues",
         "cancellationLines": "Résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
@@ -1534,7 +1534,7 @@
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
         "failed": "Actes de gestion en échec",
-        "availableSIMCards": "Lignes en stock (Non-préactivé)",
+        "availableSIMCards": "Cartes SIM en stock",
         "allocatedSIMCards": "Lignes pré-activées",
         "activatedSIMCards": "Lignes actives",
         "suspended": "Lignes suspendues",
