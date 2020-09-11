@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.169+20200911152227
+2020-09-11
+
+### Fixes
+
+- mise en cache du filtre État de profil eUICC pour l'utilisateur connecté MVNO (050669bef815db02736daa5dacafc8f79ef07040)
+
 ## 1.0.0-master.168+20200911135558
 2020-09-11
 
