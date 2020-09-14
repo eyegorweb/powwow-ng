@@ -66,9 +66,11 @@ function saveFormattedWidgets(widgets) {
         layout: w.layout,
       };
     });
-  localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
-  localStorage.setItem('_widgets_profile_', getProfile());
-  localStorage.setItem('widgets.version', WIDGETS_STORAGE_VERSION);
+  if (widgetsToSave && widgetsToSave.length) {
+    localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
+    localStorage.setItem('_widgets_profile_', getProfile());
+    localStorage.setItem('widgets.version', WIDGETS_STORAGE_VERSION);
+  }
 }
 
 export const mutations = {

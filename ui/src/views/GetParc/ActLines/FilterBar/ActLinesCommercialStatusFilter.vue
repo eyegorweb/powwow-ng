@@ -30,7 +30,7 @@ export default {
           label: this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`),
         };
       });
-    }
+    },
   },
   mounted() {
     this.refreshList();
