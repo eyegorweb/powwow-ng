@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.174+20200914150833
+2020-09-14
+
+### Features
+
+- Ajout dans la mutation API KeepServices (d859dfbe88c914a6c2810b4e9446bf7ffb58f008)
+
 ## 1.0.0-master.173+20200914145916
 2020-09-14
 
