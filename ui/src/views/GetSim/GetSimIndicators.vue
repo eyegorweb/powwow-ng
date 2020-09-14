@@ -54,7 +54,9 @@ export default {
             },
             {
               id: 'filters.orderDate',
-              startDate: moment().subtract(6, 'month').format(dateFormat),
+              startDate: moment()
+                .subtract(6, 'month')
+                .format(dateFormat),
               endDate: moment().format(dateFormat),
             },
           ],
@@ -88,7 +90,9 @@ export default {
             },
             {
               id: 'filters.orderDate',
-              startDate: moment().subtract(6, 'month').format(dateFormat),
+              startDate: moment()
+                .subtract(6, 'month')
+                .format(dateFormat),
               endDate: moment().format(dateFormat),
             },
           ],
@@ -135,7 +139,9 @@ export default {
                   .subtract(12, 'month')
                   .subtract(4, 'hours')
                   .format('DD/MM/YYYY HH:mm:ss'),
-                endDate: moment().subtract(4, 'hours').format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment()
+                  .subtract(4, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
                 sameDay: true,
               },
             ],
@@ -162,7 +168,9 @@ export default {
                   .subtract(12, 'month')
                   .subtract(48, 'hours')
                   .format('DD/MM/YYYY HH:mm:ss'),
-                endDate: moment().subtract(48, 'hours').format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment()
+                  .subtract(48, 'hours')
+                  .format('DD/MM/YYYY HH:mm:ss'),
               },
             ],
             fetchKey: 'ORDER_FAILED',

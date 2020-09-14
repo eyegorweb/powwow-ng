@@ -79,7 +79,7 @@ export default {
     AlarmsPerDayGraph,
     AlarmsActions,
     SearchAlarmById,
-    UiButton
+    UiButton,
   },
   props: {
     m2m: Boolean,

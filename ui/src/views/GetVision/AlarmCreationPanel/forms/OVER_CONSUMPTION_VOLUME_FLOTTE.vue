@@ -101,7 +101,7 @@ export default {
       const levelsVoice = {};
 
       if (this.levelsData) {
-        levelsData.levelMax = this.levelsData.basePercent;
+        levelsData.levelMax = { level: this.levelsData.basePercent };
         if (this.levelsData.levels.length == 1) {
           levelsData.level1 = {
             level: this.levelsData.levels[0].value,
@@ -123,7 +123,7 @@ export default {
       }
 
       if (this.levelsSms) {
-        levelsSms.levelMax = this.levelsSms.basePercent;
+        levelsSms.levelMax = { level: this.levelsSms.basePercent };
         if (this.levelsSms.levels.length == 1) {
           levelsSms.level1 = {
             level: this.levelsSms.levels[0].value,
@@ -145,7 +145,7 @@ export default {
       }
 
       if (this.levelsVoice) {
-        levelsVoice.levelMax = this.levelsVoice.basePercent;
+        levelsVoice.levelMax = { level: this.levelsVoice.basePercent };
         if (this.levelsVoice.levels.length == 1) {
           levelsVoice.level1 = {
             level: this.levelsVoice.levels[0].value,

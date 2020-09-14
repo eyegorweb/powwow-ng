@@ -14,9 +14,6 @@
         </h6>
         <slot />
       </div>
-      <div class="opt-image">
-        <img class="not-found" src="@/assets/404.png" alt="image not found" />
-      </div>
     </div>
   </div>
 </template>
@@ -54,17 +51,18 @@ export default {
 .opt-container {
   .opt-content {
     h6 {
-      color: $bouygues-cyan;
       font-weight: 444;
+      padding-top: 1.2rem;
     }
   }
-  .opt-image {
-    background: #dddddd;
-    text-align: center;
-    flex-basis: 100px;
-    min-height: 6rem;
-    .not-found {
-      padding-top: 2rem;
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1366px) {
+  .opt-container {
+    .opt-content {
+      h6 {
+        font-size: 1.3rem;
+      }
     }
   }
 }
