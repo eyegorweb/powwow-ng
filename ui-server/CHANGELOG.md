@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.170+20200914094944
+2020-09-14
+
+### Fixes
+
+- Corriger la recherche par MSISDN (2e7d7e2c17d84c799173f9588ca66c7e8feec0b9)
+
 ## 1.0.0-master.169+20200911152332
 2020-09-11
 
