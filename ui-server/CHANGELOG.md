@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.171+20200914123058
+2020-09-14
+
+### Fixes
+
+- Probleme de query a la creation dalarme mutualise (71541fac7d1c036fec339b162d17d407179a00a2)
+
 ## 1.0.0-master.170+20200914094944
 2020-09-14
 
