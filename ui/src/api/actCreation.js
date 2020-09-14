@@ -603,7 +603,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
   });
 }
 
-export async function changeOffer(filters, lines, params) {
+export async function changeOffer(filters, lines, params, keepServices) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const {
       notifEmail,
@@ -638,6 +638,7 @@ export async function changeOffer(filters, lines, params) {
           partyId: ${partyId},
           simCardInstanceIds: [${gqlLines}],
           notification: ${boolStr(notifEmail)},
+          keepServices: ${keepServices},
           dueDate: "${dueDate}",
           customerAccountID: ${customerAccountID},
           sourceWorkflowID: ${sourceWorkflowID},
