@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.5.1
+2020-09-14
+
+### Fixes
+
+- Corriger la recherche par MSISDN (2e7d7e2c17d84c799173f9588ca66c7e8feec0b9)
+- Probleme de query a la creation dalarme mutualise (71541fac7d1c036fec339b162d17d407179a00a2)
+- personalisation de la Home (d95bc311bfdcb8d385dc7a604e93d3ed47bf7ed3)
+
 ## 1.5.0
 2020-09-14
 
