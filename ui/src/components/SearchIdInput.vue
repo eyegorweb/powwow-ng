@@ -12,9 +12,9 @@
       </div>
       <div v-if="!noSearchButton" class="form-group" :class="inline ? 'col-md-3 mb-0' : 'd-flex'">
         <UiButton
-          :variant="isEnabled ? 'primary' : 'dark'"
-          :disabled="!isEnabled"
+          :variant="'primary'"
           @click="searchById"
+          :disabled="!isEnabled"
           :class="{ 'flex-grow-1': !inline }"
           >{{ $t('search') }}</UiButton
         >
@@ -42,6 +42,7 @@ export default {
       type: String,
       required: false,
     },
+    disableWhenEmpty: Boolean,
   },
 
   data() {
@@ -80,21 +81,26 @@ export default {
         });
       },
     },
-    isEnabled: {
+    haveValue: {
       get() {
         return !!this.resultType && !!this.inputSearchValue;
       },
+    },
+
+    isEnabled() {
+      if (this.disableWhenEmpty) {
+        return this.haveValue;
+      }
+      return true;
     },
   },
 
   methods: {
     async searchById() {
-      if (this.isEnabled) {
-        this.$emit('searchById', {
-          id: 'filters.' + this.selectedSearchType,
-          value: this.resultQuery,
-        });
-      }
+      this.$emit('searchById', {
+        id: 'filters.' + this.selectedSearchType,
+        value: this.resultQuery,
+      });
     },
   },
 

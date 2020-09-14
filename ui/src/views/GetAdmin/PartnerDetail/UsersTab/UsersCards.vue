@@ -5,9 +5,7 @@
       <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom, prénom ou login" />
     </div>
     <div class="cards">
-      <CardButton @click="openCreationPanel">
-        {{ $t('getadmin.users.addUser') }}
-      </CardButton>
+      <CardButton @click="openCreationPanel">{{ $t('getadmin.users.addUser') }}</CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
@@ -19,16 +17,14 @@
         <div class="cardBloc-infos-name">{{ checkName(user) }}</div>
         <div class="cardBloc-infos-username">{{ user.username }}</div>
         <div class="cardBloc-infos-email">
-          <a :href="'mailto:' + user.email">
-            {{ user.email }}
-          </a>
+          <a :href="'mailto:' + user.email">{{ user.email }}</a>
         </div>
         <div class="cardBloc-infos-actif">{{ user.disable ? 'Inactif' : 'Actif' }}</div>
         <div class="cardBloc-infos-role">
           Rôle(s):
-          <span :key="role.description" v-for="role in user.roles">{{
-            role.description + ' '
-          }}</span>
+          <span :key="role.description" v-for="role in user.roles">
+            {{ role.description + ' ' }}
+          </span>
         </div>
       </Card>
     </div>
@@ -156,7 +152,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { fromPartnerMenu: true, partnerId: this.partnerid },
+        payload: { fromPartnerMenu: true, partnerId: this.partnerid, fromPage: 'partner' },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,

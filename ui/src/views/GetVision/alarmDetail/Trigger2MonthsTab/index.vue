@@ -16,9 +16,9 @@
       <div slot="topRight">
         <ff-wip>
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}</span>
+            <span slot="title">
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+            </span>
           </ExportButton>
         </ff-wip>
       </div>

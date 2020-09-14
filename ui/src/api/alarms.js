@@ -1,6 +1,82 @@
 import { query, getValuesIdsWithoutQuotes, getFilterValue } from './utils';
 import moment from 'moment';
 
+export async function searchSharedConsumptionAlarm(orderBy, pagination, filters) {
+  const paginationInfo = pagination
+    ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
+    : '';
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+  {
+    sharedConsumptionAlarm(sharedAlarmFilterInput: {
+      ${formatFilters(filters)}
+    }${paginationInfo}
+    ${orderingInfo}) {
+      total
+      items {
+        startDate
+        expiryDate
+        name
+        type
+        offerGroup {
+          id
+        }
+        numberLines
+        notifyByEmail
+        mailingList {
+          id
+        }
+        notifyByWs
+        volumeData
+        volumeSms
+        volumeVoice
+        levelDataMax
+        levelData1
+        levelData2
+        dateLevelDataMax
+        dateLevelData1
+        dateLevelData2
+        levelSmsMax
+        levelSms1
+        levelSms2
+        dateLevelSmsMax
+        dateLevelSms1
+        dateLevelSms2
+        levelVoiceMax
+        levelVoice1
+        levelVoice2
+        dateLevelVoiceMax
+        dateLevelVoice1
+        dateLevelVoice2
+        cumulConsoData
+        cumulConsoSms
+        cumulConsoVoice
+        levelDataMaxEnabled
+        levelData1Enabled
+        levelData2Enabled
+        levelSmsMaxEnabled
+        levelSms1Enabled
+        levelSms2Enabled
+        levelVoiceMaxEnabled
+        levelVoice1Enabled
+        levelVoice2Enabled
+        dateDataMaxTriggered
+        dateData1Triggered
+        dateData2Triggered
+        dateSmsMaxTriggered
+        dateSms1Triggered
+        dateSms2Triggered
+        dateVoiceMaxTriggered
+        dateVoice1Triggered
+        dateVoice2Triggered
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr);
+  return response.data.sharedConsumptionAlarm;
+}
+
 export async function fetchAlarmsWithInfos(simCardInstanceId) {
   const queryStr = `
   query {

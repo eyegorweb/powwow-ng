@@ -61,6 +61,7 @@ import FileSelect from '@/components/ui/FileSelect';
 import { uploadFileSimCards } from '@/api/linesActions';
 import { importIccids } from '@/api/orders';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
@@ -140,13 +141,9 @@ export default {
     getLocalError(fileMeta) {
       if (!fileMeta) return;
 
-      if (
-        fileMeta.type !== 'application/vnd.ms-excel' &&
-        fileMeta.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
-        fileMeta.type !== 'text/csv'
-      ) {
+      if (fileUtils.checkFormat(fileMeta)) {
         return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
-      } else if (fileMeta.size > 1000000) {
+      } else if (fileUtils.checkFileSize(fileMeta)) {
         return this.$t('getparc.actCreation.report.DATA_SIZE_EXCEED');
       }
 

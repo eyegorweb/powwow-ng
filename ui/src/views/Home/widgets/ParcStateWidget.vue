@@ -24,19 +24,24 @@
         <tr>
           <td>
             {{ $t('home.widgets.stateParc.stockLines') }}
-            <Tooltip direction="right">{{
-              $t('home.widgets.stateParc.linesPreactivated')
-            }}</Tooltip>
+            <Tooltip direction="right">{{ $t('home.widgets.stateParc.notPreactivated') }}</Tooltip>
           </td>
           <td>
-            {{ formatMoreThanMillion(totalCurrentMonthNotPreactivatedLines) }} ({{
-              formatMoreThanMillion(totalCurrentMonthPreactivatedLines)
-            }})
+            {{ formatMoreThanMillion(totalCurrentMonthNotPreactivatedLines) }}
           </td>
           <td>
-            {{ formatMoreThanMillion(totalPreviousMonthNotPreactivatedLines) }} ({{
-              formatMoreThanMillion(totalPreviousMonthPreactivatedLines)
-            }})
+            {{ formatMoreThanMillion(totalPreviousMonthNotPreactivatedLines) }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ $t('indicators.getparc.lines.allocatedSIMCards') }}
+          </td>
+          <td>
+            {{ formatMoreThanMillion(totalCurrentMonthPreactivatedLines) }}
+          </td>
+          <td>
+            {{ formatMoreThanMillion(totalPreviousMonthPreactivatedLines) }}
           </td>
         </tr>
         <tr>
@@ -47,17 +52,12 @@
         <tr>
           <td>
             {{ $t('home.widgets.stateParc.suspendedLines') }}
-            <Tooltip direction="right">{{ $t('home.widgets.stateParc.linesSuspended') }}</Tooltip>
           </td>
           <td>
-            {{ formatMoreThanMillion(totalCurrentMonthSuspendedLines) }} ({{
-              formatMoreThanMillion(totalCurrentMonthNotSuspendedLines)
-            }})
+            {{ formatMoreThanMillion(totalCurrentMonthSuspendedLines) }}
           </td>
           <td>
-            {{ formatMoreThanMillion(totalPreviousMonthSuspendedLines) }} ({{
-              formatMoreThanMillion(totalPreviousNotMonthSuspendedLines)
-            }})
+            {{ formatMoreThanMillion(totalPreviousMonthSuspendedLines) }}
           </td>
         </tr>
         <tr>

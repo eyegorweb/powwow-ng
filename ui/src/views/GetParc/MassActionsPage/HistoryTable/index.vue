@@ -6,19 +6,22 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
-            {{ $t('getparc.history.total', { total: formattedTotal }) }}
-          </h2>
+          <h2
+            class="text-gray font-weight-light"
+            style="font-size: 2rem;"
+          >{{ $t('getparc.history.total', { total: formattedTotal }) }}</h2>
         </div>
         <div class="col" v-if="total > 0">
           <ExportButton
             :export-fn="getExportFn()"
             :columns="orderedColumns"
             :order-by="getPageInfo"
+            export-all
+            force-async-export
           >
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
-            }}</span>
+            <span
+              slot="title"
+            >{{ $t('getparc.history.details.EXPORT_ACTS', { total: formattedTotal }) }}</span>
           </ExportButton>
         </div>
       </div>
@@ -65,7 +68,7 @@ import ActionCell from './ActionCell';
 import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
-import { exportMassActionsOnly } from '@/api/massActions';
+import { exportMassActionsOnly, exportMassAction } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
@@ -229,7 +232,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
             },
           },
@@ -282,27 +285,64 @@ export default {
     // Pour chaque item/objet, on joue la valeur de massActionResponse pour la remonter d'un niveau et pour qu'elle se trouve à coté de "user, party, fromParty, toParty"
     formatResponse(response) {
       if (response) {
-        return response.map(i => ({ ...i, ...i.massAction }));
+        return response.map((i) => ({ ...i, ...i.massAction }));
       }
     },
     getExportFn() {
-      return async (columnsParam, pagination, exportFormat, asyncExportRequest) => {
+      return async (columnsParam, pagination, exportFormat, asyncExportRequest, exportAll) => {
         // si CUSTOM_SUCCESS_ERROR est présente alors il mettre à la place les 2 params  COMPLETED et FAILED
         let columnsToUse = [...columnsParam];
 
-        const customSuccessErrorIndex = columnsParam.findIndex(c => c === 'CUSTOM_SUCCESS_ERROR');
+        const customSuccessErrorIndex = columnsParam.findIndex((c) => c === 'CUSTOM_SUCCESS_ERROR');
 
         if (customSuccessErrorIndex > -1) {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');
         }
 
-        return await exportMassActionsOnly(
-          [...columnsToUse, 'STARTED'],
+        console.log(
+          columnsToUse,
           exportFormat,
           this.appliedFilters,
           asyncExportRequest,
           this.total
         );
+        if (exportAll) {
+          return await exportMassAction(
+            undefined,
+            ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
+            'NONE',
+            [
+              'MASS_ACTION_ID',
+              'MASS_ACTION_INFO',
+              'UNIT_ACTION_ID',
+              'UNIT_ACTION_TYPE',
+              'UNIT_ACTION_INFO',
+              'ICCID',
+              'UNIT_ACTION_STATUS',
+              'UNIT_ACTION_START_DATE',
+              'UNIT_ACTION_END_DATE',
+              'UNIT_ACTION_STATUS_DATE',
+              'UNIT_ACTION_STATUS_ERROR',
+              'MSISDN',
+              'DEVICE_MANUFACTURER',
+              'DEVICE_REFERENCE',
+              'IMEI',
+              'LOGIN',
+              'PREACTIVATION_DATE',
+              'ACTIVATION_DATE',
+            ],
+            exportFormat,
+            true
+          );
+        } else {
+          return await exportMassActionsOnly(
+            [...columnsToUse, 'STARTED'],
+            exportFormat,
+            this.appliedFilters,
+            asyncExportRequest,
+            this.total
+          );
+        }
       };
     },
   },

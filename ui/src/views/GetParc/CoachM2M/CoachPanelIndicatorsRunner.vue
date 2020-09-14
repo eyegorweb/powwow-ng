@@ -60,19 +60,19 @@ export default {
       this.advancedIndicators = [
         {
           id: 'ai_1',
-          title: 'getparc.lineDetail.localityTest',
+          title: 'coach.indicators.localityTest',
         },
         {
           id: 'ai_3',
-          title: 'getparc.lineDetail.cellAnalysis',
+          title: 'coach.indicators.cellAnalysis',
         },
         {
           id: 'ai_5',
-          title: 'getparc.lineDetail.networkDetectionTest',
+          title: 'coach.indicators.networkDetectionTest',
         },
         {
           id: 'i_7',
-          title: 'getparc.lineDetail.lastUsageAnalysis',
+          title: 'coach.indicators.lastUsageAnalysis',
         },
       ];
     }
@@ -80,24 +80,34 @@ export default {
     if (this.coachData) {
       this.standardsIndicators = this.standardsIndicators.map(i => {
         switch (i.title) {
-          case 'getparc.lineDetail.lineStatus': {
+          case 'coach.indicators.lineStatus': {
             i.subTitle = this.coachData.simcardTrafficAllowedTest;
             i.checked = this.coachData.simcardTrafficAllowedTestSuccess;
             break;
           }
-          case 'getparc.lineDetail.testData': {
+          case 'coach.indicators.testData': {
             i.subTitle = this.coachData.dataTrafficAllowedTest;
             i.checked = this.coachData.dataTrafficAllowedTestSuccess;
             break;
           }
-          case 'getparc.lineDetail.networkTest': {
+          case 'coach.indicators.networkTest': {
             i.subTitle = this.coachData.simcardAlreadyConnectedTest;
             i.checked = this.coachData.simcardAlreadyConnectedTestSuccess;
             break;
           }
-          case 'getparc.lineDetail.ipAssign': {
+          case 'coach.indicators.ipAssign': {
             i.subTitle = this.coachData.alreadyAssignedIPAdressTest;
             i.checked = this.coachData.alreadyAssignedIPAdressTestSuccess;
+            break;
+          }
+          case 'coach.indicators.isPowered': {
+            i.subTitle = this.coachData.devicePoweredTest;
+            i.checked = this.coachData.devicePoweredTestSuccess;
+            break;
+          }
+          case 'coach.indicators.isTraced': {
+            i.subTitle = this.coachData.localisation;
+            i.checked = this.coachData.localisationSuccess;
             break;
           }
         }
@@ -107,22 +117,22 @@ export default {
       if (this.advancedIndicators) {
         this.advancedIndicators = this.advancedIndicators.map(i => {
           switch (i.title) {
-            case 'getparc.lineDetail.localityTest': {
+            case 'coach.indicators.localityTest': {
               i.subTitle = this.coachData.linesLocalityTest;
               i.checked = this.coachData.linesLocalityTestSuccess;
               break;
             }
-            case 'getparc.lineDetail.cellAnalysis': {
+            case 'coach.indicators.cellAnalysis': {
               i.subTitle = this.coachData.linesCellTest;
               i.checked = this.coachData.linesCellTestSuccess;
               break;
             }
-            case 'getparc.lineDetail.networkDetectionTest': {
+            case 'coach.indicators.networkDetectionTest': {
               i.subTitle = this.coachData.lastNetworkDetectionTest;
               i.checked = this.coachData.lastNetworkDetectionTestSuccess;
               break;
             }
-            case 'getparc.lineDetail.lastUsageAnalysis': {
+            case 'coach.indicators.lastUsageAnalysis': {
               i.subTitle = this.coachData.lastUsageInformation;
               i.checked = this.coachData.lastUsageInformationSuccess;
               break;
@@ -146,21 +156,29 @@ export default {
       standardsIndicators: [
         {
           id: 'i_2',
-          title: 'getparc.lineDetail.lineStatus',
+          title: 'coach.indicators.lineStatus',
           // subTitle: '250 Cartes SIM détéctées',
           // checked: true,
         },
         {
           id: 'i_4',
-          title: 'getparc.lineDetail.testData',
+          title: 'coach.indicators.testData',
         },
         {
           id: 'i_6',
-          title: 'getparc.lineDetail.networkTest',
+          title: 'coach.indicators.networkTest',
         },
         {
           id: 'i_8',
-          title: 'getparc.lineDetail.ipAssign',
+          title: 'coach.indicators.ipAssign',
+        },
+        {
+          id: 'i_9',
+          title: 'coach.indicators.isPowered',
+        },
+        {
+          id: 'i_10',
+          title: 'coach.indicators.isTraced',
         },
       ],
       advancedIndicators: undefined,

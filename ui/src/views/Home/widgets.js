@@ -1,5 +1,6 @@
 import OrdersWidget from './widgets/OrdersWidget';
 import ConsoWidget from './widgets/ConsoWidget';
+import CoachM2MWidget from './widgets/CoachM2MWidget';
 import ConsoGraphWidget from './widgets/ConsoGraphWidget';
 import BillsWidget from './widgets/BillsWidget';
 import OrdersStatusesWidget from './widgets/OrdersStatusesWidget';
@@ -26,7 +27,18 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 
 import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
 
+export const WIDGETS_STORAGE_VERSION = '1';
+
 const defaultWidgets = [
+  {
+    title: 'home.widgets.coach',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: CoachM2MWidget,
+    permission: { domain: 'getParc', action: 'manage_coach' },
+  },
   {
     title: 'home.widgets.topTriggeredAlarms',
     description: '',
@@ -248,10 +260,17 @@ const defaultWidgets = [
 ];
 
 export function loadWidgets() {
+  const savedVersion = localStorage.getItem('widgets.version');
+  const versionIsDifferent = savedVersion !== WIDGETS_STORAGE_VERSION;
+
   const savedProfile = localStorage.getItem('_widgets_profile_');
   const currentProfile = getProfile();
-  if (savedProfile && savedProfile !== currentProfile) {
+  const profileIsDifferent = savedProfile && savedProfile !== currentProfile;
+
+  const shouldRemoveFromStorage = profileIsDifferent || versionIsDifferent;
+  if (shouldRemoveFromStorage) {
     localStorage.removeItem('___homewidgets___');
+    localStorage.removeItem('widgets.version');
   }
 
   let savedWidgets = localStorage.getItem('___homewidgets___');

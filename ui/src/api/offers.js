@@ -56,7 +56,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType, disab
   if (partners && partners.length > 0) {
     partnersIds = partners.map(i => `"${i.id}"`).join(',');
     partnerGqlParam = `, partyId:{in: [${partnersIds}]}`;
-    rCardGqlParam = `rCard(partyId: ${partnersIds.replace(/['"]+/g, '')})`;
+    rCardGqlParam = `rCard(partyId: ${partners[0].id})`;
   }
 
   let partnerTypeGqlFilter = '';
@@ -231,7 +231,7 @@ export async function changeOffer(filters, lines, params) {
 export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId) {
   let customerAccountGqlParam = '';
   if (customerAccountId) {
-    customerAccountGqlParam = `, customerAccountId: ${customerAccountId})`;
+    customerAccountGqlParam = `, customerAccountId: ${customerAccountId}`;
   }
   const queryStr = `
   query {

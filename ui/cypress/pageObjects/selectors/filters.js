@@ -19,3 +19,9 @@ export const partnersFilter = new MultiSelectFilter(1);
 partnersFilter.chosenItems = () => {
   return cy.get('.selected-filter');
 };
+
+export const idFilter = new MultiSelectFilter(6);
+idFilter.filter = (searchTerm) => {
+  cy.get(`.foldable-block:nth-child(6) > .pt-3 > div > label > input`).click()
+  .type(searchTerm)
+}

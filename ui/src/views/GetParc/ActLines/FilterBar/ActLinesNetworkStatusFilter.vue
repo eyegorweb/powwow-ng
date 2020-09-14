@@ -35,10 +35,6 @@ export default {
           id: 'ACTIVATED',
           label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
         },
-        {
-          id: 'BARRED',
-          label: this.$t('getparc.actLines.simStatuses.BARRED'),
-        },
       ],
     };
   },

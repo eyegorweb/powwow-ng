@@ -36,7 +36,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="003"
+            storage-version="004"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -62,19 +62,19 @@
       <template v-else>
         <div class="row">
           <div class="col-md-8">
-            <h4>Rechercher une ligne par ID</h4>
+            <h4>{{ $t('getparc.search-lines-by-id') }}</h4>
             <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
           </div>
         </div>
 
         <div class="alert alert-primary text-center mt-2" role="alert">
-          Ecran de recherche de lignes et création d'actes de gestion
+          {{ $t('getparc.screen-search') }}
           <br />
           <UiButton
             variant="primary"
             class="show-all-lines flex-grow-1 py-1 px-3 ml- mt-3"
-            @click="fetchLinesActions()"
-            >Afficher toutes les lignes</UiButton
+            @click="initFetchLinesActions()"
+            >{{ $t('getparc.display-lines') }}</UiButton
           >
         </div>
       </template>
@@ -90,7 +90,6 @@ import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchByLinesId from '@/views/GetParc/ActLines/SearchByLinesId';
 // import Title from '../Title';
-import SimStatusCell from './SimStatusCell';
 import IdCell from './IdCell';
 // import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
@@ -157,9 +156,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions('actLines', ['fetchLinesActionsFromApi']),
+    ...mapActions('actLines', ['fetchLinesActionsFromApi', 'initFilterForContext']),
     ...mapMutations('actLines', [
       'setPage',
+      'applyFilters',
       'forceAppliedFilters',
       'setPageLimit',
       'startSearchingById',
@@ -180,6 +180,20 @@ export default {
         },
       ]);
     },
+    async initFetchLinesActions() {
+      if (!this.canSearchLines) return;
+
+      if (this.showInfoMessage) this.showInfoMessage = false;
+
+      this.applyFilters();
+
+      this.fetchLinesActionsFromApi({
+        orderBy: this.orderBy,
+        pageInfo: this.getPageInfo,
+        appliedFilters: this.appliedFilters,
+      });
+    },
+
     async fetchLinesActions() {
       if (!this.canSearchLines) return;
 
@@ -339,11 +353,8 @@ export default {
           orderable: true,
           sortingName: 'simStatus',
           visible: true,
-          name: 'accessPoint',
+          name: 'statusTranslated',
           exportId: 'LINE_SIM_STATUS',
-          format: {
-            component: SimStatusCell,
-          },
         },
         {
           id: 6,

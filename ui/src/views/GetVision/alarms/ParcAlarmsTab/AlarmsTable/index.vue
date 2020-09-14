@@ -60,9 +60,9 @@ import AlarmNameCell from './AlarmNameCell.vue';
 import ThresholdCell from './ThresholdCell.vue';
 import TriggeredEventsCell from './TriggeredEventsCell.vue';
 import AlarmIdCell from './AlarmIdCell.vue';
-import SearchAlarmById from './SearchAlarmById.vue';
 import AlarmStatusCell from './AlarmStatusCell.vue';
 import AlarmsActions from './AlarmsActions.vue';
+import SearchAlarmById from './SearchAlarmById.vue';
 
 import LoaderContainer from '@/components/LoaderContainer';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';

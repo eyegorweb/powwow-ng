@@ -13,13 +13,11 @@
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
       <div slot="topRight">
-        <ff-wip>
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">{{
-              $t('getparc.history.details.EXPORT_LINES', { total: total })
-            }}</span>
-          </ExportButton>
-        </ff-wip>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">
+            {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+          </span>
+        </ExportButton>
       </div>
 
       <div slot="topLeft">
@@ -45,13 +43,13 @@ import SearchByLinesId from '@/components/SearchById';
 import ExportButton from '@/components/ExportButton';
 import ReactivateForLinesAction from './ReactivateForLinesAction';
 
-import BillingAccountFilter from './BillingAccountFilter';
-import OffersFilter from './OffersFilter';
+import BillingAccountFilter from '@/components/Filters/filterbar/BillingAccountFilter';
+import OffersFilter from '@/components/Filters/filterbar/OffersFilter';
 
 import CheckBoxCell from '../TargetedLinesByAlarmTab/CheckBoxCell';
 import AssociatedAlarmsCell from '../TargetedLinesByAlarmTab/AssociatedAlarmsCell';
 
-import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetails';
 import get from 'lodash.get';
 
 import { mapMutations } from 'vuex';
@@ -81,7 +79,7 @@ export default {
           getPageContext: () => {
             const partnerId = get(this.alarm, 'party.id');
             if (!partnerId) return;
-            return { partnerId };
+            return { partners: [{ id: partnerId }] };
           },
           onChange(chosenValues) {
             return {
@@ -194,8 +192,7 @@ export default {
 
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
-        console.log(columns, orderBy, exportFormat);
-        return { errors: 'mock' };
+        return await exportlinesBoundTable(columns, orderBy, exportFormat, this.alarm.id, 'ne');
       };
     },
 

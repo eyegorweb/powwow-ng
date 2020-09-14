@@ -57,6 +57,10 @@ $theme-colors: map-merge(
   user-select: none;
 }
 
+.user-select-text {
+  user-select: text;
+}
+
 .hover-pointer:hover {
   cursor: pointer;
 }

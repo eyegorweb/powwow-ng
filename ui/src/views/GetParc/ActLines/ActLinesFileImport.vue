@@ -43,6 +43,7 @@ import FileSelect from '@/components/ui/FileSelect';
 import { uploadSearchFile } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
 import { exportLinesFromFileFilter } from '@/api/linesActions';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
@@ -66,14 +67,9 @@ export default {
   },
   watch: {
     error() {
-      if (
-        this.selectedFile.type !== 'application/vnd.ms-excel' &&
-        this.selectedFile.type !==
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' &&
-        this.selectedFile.type !== 'text/csv'
-      ) {
+      if (fileUtils.checkFormat(this.selectedFile)) {
         this.fileMeta.error = 'DATA_INVALID_FORMAT';
-      } else if (this.selectedFile.size > 1000000) {
+      } else if (fileUtils.checkFileSize(this.selectedFile)) {
         this.fileMeta.error = 'FILE_SIZE_LIMIT_EXCEEDED';
       }
     },

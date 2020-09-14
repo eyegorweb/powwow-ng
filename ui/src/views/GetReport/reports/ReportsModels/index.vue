@@ -193,17 +193,15 @@ export default {
         {
           id: 10,
           label: 'Statut',
-          orderable: false,
+          orderable: true,
           visible: false,
-          name: 'enableEntity',
-          exportId: 'enableEntity',
+          name: 'generationStatus',
+          exportId: 'generationStatus',
           noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
-              return row.disabled
-                ? this.$t('filters.lines.profileStateFilter.DISABLED')
-                : this.$t('filters.active');
+              return this.$t('getreport.report_statut.' + row.generationStatus);
             },
           },
         },

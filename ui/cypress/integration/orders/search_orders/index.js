@@ -9,31 +9,31 @@ Given(`je suis sur la page recherche de commandes`, () => {
   orderPage.init();
 });
 
-Given(`je choisis le partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, partnerName => {
   orderPage.filterBar.partner.toggle();
   orderPage.filterBar.partner.filter(partnerName);
   orderPage.filterBar.partner.choose(1);
   orderPage.filterBar.partner.chosenItems().should('have.length', 1);
 });
 
-Given(`je choisis l'offre {string}`, offer => {
+Given(`je choisis le filtre offre {string}`, offer => {
   orderPage.filterBar.offer.toggle();
   orderPage.filterBar.offer.filter(offer);
   orderPage.filterBar.offer.choose(1);
 });
 
-Given(`je choisis le statut {string}`, orderStatus => {
+Given(`je choisis le filtre statut {string}`, orderStatus => {
   orderPage.filterBar.status.toggle();
   orderPage.filterBar.status.choose(orderStatus);
 });
 
-Given(`je choisis le type {string}`, simType => {
+Given(`je choisis le filtre type {string}`, simType => {
   orderPage.filterBar.type.toggle();
   orderPage.filterBar.type.filter(simType);
   orderPage.filterBar.type.choose(1);
 });
 
-Given(`je choisis le compte de facturation {string}`, billingAccount => {
+Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
   orderPage.filterBar.billingAccount.toggle();
   orderPage.filterBar.billingAccount.filter(billingAccount);
   orderPage.filterBar.billingAccount.choose(1);
@@ -41,6 +41,11 @@ Given(`je choisis le compte de facturation {string}`, billingAccount => {
 
 When(`je lance la recherche`, () => {
   orderPage.filterBar.apply();
+});
+
+When(`je lance la recherche par ID {string}`, id => {
+  orderPage.idSearch.typeId(id);
+  orderPage.idSearch.applySearch();
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {

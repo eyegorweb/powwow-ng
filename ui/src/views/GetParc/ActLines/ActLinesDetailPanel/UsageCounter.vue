@@ -5,9 +5,9 @@
       <p>{{ $t('getparc.actLines.col.voice') }} : {{ formattedValueFromSeconds(voiceField) }}</p>
       <p>Sms : {{ smsField }}</p>
     </div>
-    <UiButton @click="openDetail" class="btn btn-outline-primary">
-      {{ $t('getparc.actLines.col.UsageCounterBtn') }}
-    </UiButton>
+    <UiButton @click="openDetail" class="btn btn-outline-primary">{{
+      $t('getparc.actLines.col.UsageCounterBtn')
+    }}</UiButton>
   </div>
 </template>
 
@@ -28,10 +28,9 @@ export default {
     openDetail() {
       this.$router.push({
         name: 'lineDetail',
-        params: { lineId: this.row.id, tabIndex: 1 },
+        params: { lineId: '' + this.row.id, tabIndex: 1 },
       });
     },
-
     formatBytes(value) {
       return formatBytes(value);
     },

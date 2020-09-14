@@ -10,23 +10,20 @@
       </div>
     </div>
     <div class="mt-4 mb-4">
-      <ff-wip>
-        <UiTabs :tabs="tabs" :selected-index="currentTab">
-          <template slot-scope="{ tab, index, selectedIndex }">
-            <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-              <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
-            </UiTab>
-          </template>
-          <div class="pt-4 pl-4" slot="parcAlarms">
-            <ParcAlarmsTab />
-          </div>
-          <div slot="cockpitM2M">M2M</div>
-        </UiTabs>
-
-        <template slot="orelse">
-          <ParcAlarmsTab />
+      <UiTabs :tabs="tabs" :selected-index="currentTab">
+        <template slot-scope="{ tab, index, selectedIndex }">
+          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
+            <a href="#" @click.prevent="() => (currentTab = index)">{{ tab.title }}</a>
+          </UiTab>
         </template>
-      </ff-wip>
+        <div class="pt-4 pl-4" slot="parcAlarms">
+          <ParcAlarmsTab :key="'parcAlarms'" :api-fn="searchAlarms" />
+        </div>
+        <div class="pt-4 pl-4" slot="cockpitM2M">M2M</div>
+        <div class="pt-4 pl-4" slot="alarmsSharedConso">
+          <ParcAlarmsTab :key="'alarmsSharedConso'" :api-fn="searchSharedConsoAlarms" m2m />
+        </div>
+      </UiTabs>
     </div>
   </div>
 </template>
@@ -36,7 +33,9 @@ import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
-import ParcAlarmsTab from './ParcAlarmsTab';
+import ParcAlarmsTab from './ParcAlarmsTab2';
+import { excludeMocked } from '@/featureFlipping/plugin.js';
+import { searchAlarms, searchSharedConsumptionAlarm } from '@/api/alarms';
 
 export default {
   components: {
@@ -48,7 +47,7 @@ export default {
   data() {
     return {
       currentTab: 0,
-      tabs: [
+      tabs: excludeMocked([
         {
           label: 'parcAlarms',
           title: this.$t('getvsion.tab-1-parc-alarms'),
@@ -56,9 +55,22 @@ export default {
         {
           label: 'cockpitM2M',
           title: this.$t('getvsion.tab-2-m2m-alarms'),
+          mock: true,
         },
-      ],
+        {
+          label: 'alarmsSharedConso',
+          title: this.$t('getvsion.tab-3-m2m-sharedconso'),
+        },
+      ]),
     };
+  },
+  methods: {
+    searchAlarms(orderBy, pagination, filters) {
+      return searchAlarms(orderBy, pagination, filters);
+    },
+    searchSharedConsoAlarms(orderBy, pagination, filters) {
+      return searchSharedConsumptionAlarm(orderBy, pagination, filters);
+    },
   },
 };
 </script>

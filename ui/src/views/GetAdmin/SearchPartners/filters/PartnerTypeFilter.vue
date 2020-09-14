@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PartnerTypeCombo @input="$emit('change', $event)" />
+    <PartnerTypeCombo @input="$emit('change', $event)" no-empty-option />
   </div>
 </template>
 

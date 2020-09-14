@@ -54,25 +54,11 @@ export default {
             },
             {
               id: 'filters.orderDate',
-              startDate: moment()
-                .subtract(6, 'month')
-                .format(dateFormat),
+              startDate: moment().subtract(6, 'month').format(dateFormat),
               endDate: moment().format(dateFormat),
             },
           ],
           fetchKey: 'ORDER_TO_VALIDATE',
-        },
-        {
-          name: 'averageProcessingTime',
-          labelKey: 'indicators.getsim.averageProcessingTime',
-          clickable: false,
-          total: '-',
-          filters: [],
-          fetchKey: 'ORDER_DELAY',
-          getValueWithUnit(value) {
-            if (isNaN(value)) return;
-            return fromHoursToDDHH(value);
-          },
         },
       ];
       if (!this.userIsPartner) {
@@ -107,9 +93,7 @@ export default {
                   .subtract(12, 'month')
                   .subtract(4, 'hours')
                   .format('DD/MM/YYYY HH:mm:ss'),
-                endDate: moment()
-                  .subtract(4, 'hours')
-                  .format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment().subtract(4, 'hours').format('DD/MM/YYYY HH:mm:ss'),
                 sameDay: true,
               },
               {
@@ -156,14 +140,24 @@ export default {
                   .subtract(12, 'month')
                   .subtract(48, 'hours')
                   .format('DD/MM/YYYY HH:mm:ss'),
-                endDate: moment()
-                  .subtract(48, 'hours')
-                  .format('DD/MM/YYYY HH:mm:ss'),
+                endDate: moment().subtract(48, 'hours').format('DD/MM/YYYY HH:mm:ss'),
               },
             ],
             fetchKey: 'ORDER_FAILED',
 
             hideZeroValue: true,
+          },
+          {
+            name: 'averageProcessingTime',
+            labelKey: 'indicators.getsim.averageProcessingTime',
+            clickable: false,
+            total: '-',
+            filters: [],
+            fetchKey: 'ORDER_DELAY',
+            getValueWithUnit(value) {
+              if (isNaN(value)) return;
+              return fromHoursToDDHH(value);
+            },
           }
         );
       }

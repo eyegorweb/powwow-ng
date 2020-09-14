@@ -17,19 +17,23 @@ export default {
     SimpleMultiSelect,
   },
   computed: {
-    ...mapGetters('actLines', ['selectedCommercialStatusesValues']),
+    ...mapGetters('actLines', ['selectedCommercialStatusesValues', 'selectedPartnersValues']),
   },
   methods: {
     ...mapMutations('actLines', ['setCommercialStatusesFilter']),
+
+    async refreshList() {
+      const data = await fetchCommercialStatuses(this.selectedPartnersValues);
+      this.items = data.map(l => {
+        return {
+          id: l,
+          label: this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`),
+        };
+      });
+    }
   },
-  async mounted() {
-    const data = await fetchCommercialStatuses();
-    this.items = data.map(l => {
-      return {
-        id: l,
-        label: this.$t(`${'getparc.actLines.commercialStatuses.'}${l}`),
-      };
-    });
+  mounted() {
+    this.refreshList();
   },
 
   data() {

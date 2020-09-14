@@ -1,9 +1,6 @@
 <template>
   <div class="accountdetail">
-    <div
-      class="accountdetail-generalInfos"
-      v-if="partner && partner.partyType !== 'MULTI_CUSTOMER'"
-    >
+    <div class="accountdetail-generalInfos">
       <h3>{{ $t('getadmin.partnerDetail.generalInformations') }}</h3>
       <div class="accountdetail-generalInfos-bloc">
         <div class="accountdetail-generalInfos-bloc-details">
@@ -44,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="accountdetail-legalInfos">
+    <div v-if="canShowLegalInfos" class="accountdetail-legalInfos">
       <h3>{{ $t('getadmin.partnerDetail.legalInformations') }}</h3>
 
       <div class="accountdetail-bloc">
@@ -221,6 +218,10 @@ export default {
         }
         return '';
       }
+    },
+
+    canShowLegalInfos() {
+      return this.partner && this.partner.partyType !== 'MULTI_CUSTOMER';
     },
   },
   async mounted() {

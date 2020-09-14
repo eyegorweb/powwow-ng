@@ -14,13 +14,11 @@
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
       <div slot="topRight">
-        <ff-wip>
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
-            </span>
-          </ExportButton>
-        </ff-wip>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{
+            $t('getparc.history.details.EXPORT_LINES', { total: total })
+          }}</span>
+        </ExportButton>
       </div>
 
       <div slot="topLeft">
@@ -60,7 +58,7 @@ import ICCIDCell from '../Trigger2MonthsTab/ICCIDCell';
 
 import { mapMutations } from 'vuex';
 
-import { fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetails';
 import get from 'lodash.get';
 
 export default {
@@ -109,8 +107,7 @@ export default {
 
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {
-        console.log(columns, orderBy, exportFormat);
-        return { errors: 'mock' };
+        return await exportlinesBoundTable(columns, orderBy, exportFormat, this.alarm.id, 'eq');
       };
     },
 

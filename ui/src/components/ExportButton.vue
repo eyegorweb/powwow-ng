@@ -24,6 +24,7 @@ export default {
     },
     exportFn: Function,
     exportAll: Boolean,
+    forceAsyncExport: Boolean,
     buttonStyle: Boolean,
     btnClassName: {
       type: String,
@@ -39,6 +40,7 @@ export default {
         orderBy: this.orderBy,
         exportFn: this.exportFn,
         exportAll: this.exportAll,
+        forceAsyncExport: this.forceAsyncExport,
       });
     },
   },

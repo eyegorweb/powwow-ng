@@ -12,30 +12,46 @@
             <div class="row">
               <div class="col">
                 <CoachIndicator
-                  label="getparc.lineDetail.lineStatus"
+                  label="coach.indicators.lineStatus"
                   :value="coachData.simcardTrafficAllowedTest"
                   :success="coachData.simcardTrafficAllowedTestSuccess"
                 />
               </div>
               <div class="col">
                 <CoachIndicator
-                  label="getparc.lineDetail.testData"
+                  label="coach.indicators.testData"
                   :value="coachData.dataTrafficAllowedTest"
                   :success="coachData.dataTrafficAllowedTestSuccess"
                 />
               </div>
               <div class="col">
                 <CoachIndicator
-                  label="getparc.lineDetail.networkTest"
+                  label="coach.indicators.networkTest"
                   :value="coachData.simcardAlreadyConnectedTest"
                   :success="coachData.simcardAlreadyConnectedTestSuccess"
                 />
               </div>
               <div class="col">
                 <CoachIndicator
-                  label="getparc.lineDetail.ipAssign"
+                  label="coach.indicators.ipAssign"
                   :value="coachData.alreadyAssignedIPAdressTest"
                   :success="coachData.alreadyAssignedIPAdressTestSuccess"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <CoachIndicator
+                  label="coach.indicators.isPowered"
+                  :value="coachData.devicePoweredTest"
+                  :success="coachData.devicePoweredTestSuccess"
+                />
+              </div>
+              <div class="col">
+                <CoachIndicator
+                  label="coach.indicators.isTraced"
+                  :value="coachData.localisation"
+                  :success="coachData.localisationSuccess"
                 />
               </div>
             </div>
@@ -48,28 +64,28 @@
               <div class="row">
                 <div class="col">
                   <CoachIndicator
-                    label="getparc.lineDetail.localityTest"
+                    label="coach.indicators.localityTest"
                     :value="coachData.linesLocalityTest"
                     :success="coachData.linesLocalityTestSuccess"
                   />
                 </div>
                 <div class="col">
                   <CoachIndicator
-                    label="getparc.lineDetail.cellAnalysis"
+                    label="coach.indicators.cellAnalysis"
                     :value="coachData.linesCellTest"
                     :success="coachData.linesCellTestSuccess"
                   />
                 </div>
                 <div class="col">
                   <CoachIndicator
-                    label="getparc.lineDetail.networkDetectionTest"
+                    label="coach.indicators.networkDetectionTest"
                     :value="coachData.lastNetworkDetectionTest"
                     :success="coachData.lastNetworkDetectionTestSuccess"
                   />
                 </div>
                 <div class="col">
                   <CoachIndicator
-                    label="getparc.lineDetail.lastUsageAnalysis"
+                    label="coach.indicators.lastUsageAnalysis"
                     :value="coachData.lastUsageInformation"
                     :success="coachData.lastUsageInformationSuccess"
                   />

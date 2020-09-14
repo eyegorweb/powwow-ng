@@ -29,6 +29,9 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
             id
             name
           }
+          report {
+            name
+          }
           category {
             name
             directoryName

@@ -13,6 +13,7 @@
       <CommercialOffers
         v-if="section === 'getadmin.partnerDetail.mb.commercialOffer'"
         :partner="partner"
+        :billing-account-to-detail="billingAccountToDetail"
       />
     </div>
   </div>
@@ -35,17 +36,16 @@ export default {
   },
 
   mounted() {
-    const menuItems = [
-      'getadmin.partnerDetail.mb.commercialOffer',
-
-    ];
+    const menuItems = ['getadmin.partnerDetail.mb.commercialOffer'];
 
     if (this.$shouldShowMocks) {
-      menuItems.push('getadmin.partnerDetail.mb.offerAndProduct',
+      menuItems.push(
+        'getadmin.partnerDetail.mb.offerAndProduct',
         'getadmin.partnerDetail.mb.customerDescription',
         'getadmin.partnerDetail.mb.clientContactDescription',
         'getadmin.partnerDetail.mb.deliveryAdresses',
-        'getadmin.partnerDetail.mb.paymentMethod');
+        'getadmin.partnerDetail.mb.paymentMethod'
+      );
     }
     this.menuItems = menuItems;
   },

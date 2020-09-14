@@ -5,6 +5,7 @@
     :init-value="initValue"
     :additional-ids="additionalIds"
     placeholder="searchLine"
+    :disable-when-empty="disableWhenEmpty"
   />
 </template>
 
@@ -20,6 +21,7 @@ export default {
     initValue: {
       type: String,
     },
+    disableWhenEmpty: Boolean,
   },
   mounted() {
     if (this.userIsBO) {

@@ -37,6 +37,36 @@ export async function fetchAlarmTriggersFor2Months(orderBy, pagination, filters 
   if (response.data) return response.data.alarmsWithTriggers;
 }
 
+export async function exportlinesBoundTable(columns, orderBy, exportFormat, alarmId, operator) {
+  const queryStr = `
+  {
+    linesBoundToAlarmExport(
+      alarmsToLinesFilterInput: { alarmId: { ${operator}: ${alarmId}} }
+      columns: [
+        ICCID
+        ACTIVATION_DATE
+        LAST_TRIGGERED
+        LINKED_ALARM
+        OFFER
+        CUSTOMER_ACCOUNT
+        CUSTOMER_ACCOUNT_NAME
+      ]
+      exportFormat: ${exportFormat}
+    ) {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+  return response.data.linesBoundToAlarmExport;
+}
 export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`

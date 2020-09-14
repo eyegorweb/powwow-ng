@@ -13,7 +13,6 @@ export default {
     offer: new MultiSelectFilter(6),
     type: new MultiSelectFilter(4),
     billingAccount: new MultiSelectFilter(2),
-
     status: {
       toggle() {
         filterBarSelectors.filterBarItems(3).toggle();
@@ -33,6 +32,16 @@ export default {
           });
       },
     },
+  },
+  idSearch: {
+    typeId(id) {
+      cy.get('.flex-grow-1 > input')
+        .type(id);
+    },
+    applySearch() {
+      cy.get('.form-row > .col-md-3 > .btn')
+        .click();
+    }
   },
   getTotal(onTotalLoaded) {
     return cy.get('.total').then(e => {

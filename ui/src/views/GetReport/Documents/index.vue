@@ -31,7 +31,7 @@
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import { fetchAllDocuments, deleteDocument } from '@/api/documents';
 import { fetchReports } from '@/api/reports.js';
-import PartnerNameFilter from '@/views/GetAdmin/SearchUsers/filters/PartnerFilter.vue';
+import PartnerNameFilter from '@/components/Filters/filterbar/PartnerFilter';
 import DocumentNameFilter from './filters/DocumentNameFilter';
 import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
 import Actions from './Actions';
@@ -95,13 +95,13 @@ export default {
         orderable: true,
         visible: true,
       },
-      // {
-      //   id: 5,
-      //   label: this.$t('documents.model'),
-      //   name: 'partyGroups',
-      //   orderable: true,
-      //   visible: true,
-      // },
+      {
+        id: 5,
+        label: this.$t('documents.model'),
+        name: 'report.name',
+        orderable: true,
+        visible: true,
+      },
     ];
     const reportId = get(this.$route, 'params.reportId');
 

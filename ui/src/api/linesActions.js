@@ -67,32 +67,24 @@ export async function fetchCardTypes(q, partners, { page, limit = 999, partnerTy
   return response.data.simcards.items;
 }
 
-export async function fetchCommercialStatuses() {
+export async function fetchCommercialStatuses(partners) {
   const queryStr = `
-  query {
-    commercialStatus
+  query CommercialStatus($ids: [ID!]){
+    commercialStatus(filter: {idParty: {in: $ids}})
   }
   `;
-  const response = await query(queryStr);
+  let ids, params;
+
+  if (partners) {
+    ids = partners.map(p => p.id);
+  }
+
+  if (ids && ids.length) {
+    params = { ids };
+  }
+
+  const response = await query(queryStr, params);
   return response.data.commercialStatus;
-}
-
-export async function fetchIndicators(metadata, partnerFilter) {
-  const queryParts = metadata.map(i => {
-    const filters = i.filters;
-    if (partnerFilter) {
-      filters.push(partnerFilter);
-    }
-    return `${i.name}: simCardInstances(filter: 	{ ${formatFilters(filters)} }) { total }`;
-  });
-
-  const queryStr = `
-  query {
-    ${queryParts.join(',')}
-  }
-  `;
-  const response = await query(queryStr);
-  return response.data;
 }
 
 export async function fetchSingleIndicator(filters, contextFilters = []) {
@@ -162,6 +154,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
          }
         id
         iccid
+        statusTranslated
         type
         statuts
         auditable {created}
@@ -208,6 +201,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
           preactivationDate
           activationDate
           commercialStatusDate
+          flatEndDate
           networkStatus
           lines {
             msisdn
@@ -352,25 +346,25 @@ function addIdsFilter(gqlFilters, selectedFilters) {
   const msisdnA = selectedFilters.find(f => f.id === 'filters.msisdnA');
 
   if (_id && _id.value) {
-    gqlFilters.push(`id: {eq: "${_id.value.trim()}"}`);
+    gqlFilters.push(`id: {eq: "${_id.value.toString().trim()}"}`);
   }
   if (iccid && iccid.value) {
-    gqlFilters.push(`iccid: {eq: "${iccid.value.trim()}"}`);
+    gqlFilters.push(`iccid: {eq: "${iccid.value.toString().trim()}"}`);
   }
   if (imsi && imsi.value) {
-    gqlFilters.push(`imsi: {eq: "${imsi.value.trim()}"}`);
+    gqlFilters.push(`imsi: {eq: "${imsi.value.toString().trim()}"}`);
   }
   if (msisdn && msisdn.value) {
-    gqlFilters.push(`msisdn: {eq: "${msisdn.value.trim()}"}`);
+    gqlFilters.push(`msisdn: {eq: "${msisdn.toString().value.trim()}"}`);
   }
   if (imei && imei.value) {
-    gqlFilters.push(`imei: {eq: "${imei.value.trim()}"}`);
+    gqlFilters.push(`imei: {eq: "${imei.value.toString().trim()}"}`);
   }
   if (msisdnA && msisdnA.value) {
-    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.trim()}"}`);
+    gqlFilters.push(`msisdnA: {eq: "${msisdnA.value.toString().trim()}"}`);
   }
   if (accessPointId && accessPointId.value) {
-    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.trim()}"}`);
+    gqlFilters.push(`accessPointId: {eq: "${accessPointId.value.toString().trim()}"}`);
   }
 }
 

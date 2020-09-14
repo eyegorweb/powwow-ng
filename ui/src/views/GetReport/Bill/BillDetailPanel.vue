@@ -15,7 +15,7 @@
         </div>
         <div class="overview-item mr-5">
           <h6>{{ $t('bills.lineTotal') }}</h6>
-          <p>-</p>
+          <p>{{ getContent('simCount') }}</p>
         </div>
       </div>
       <div class="overview-container m-3 bg-white">
@@ -26,14 +26,14 @@
           <thead class="bottom-line">
             <tr>
               <td class="bill-name">{{ $t('bills.title') }}</td>
-              <td class="text-end">{{ $t('common.quantity') }}</td>
+              <td class="text-end">{{ $t('common.quantity') }}/Volume</td>
               <td class="text-end">{{ $t('bills.amount') }}</td>
             </tr>
           </thead>
           <tbody>
             <tr :key="item.label" v-for="item in getContent('headings', [])">
               <td>{{ item.label }}</td>
-              <td class="text-end">{{ item.nbSim }}</td>
+              <td class="text-end">{{ formatQuantity(item) }}</td>
               <td class="text-end">{{ formatCurrency(item.amountExcTaxe) }} €</td>
             </tr>
             <tr class="top-line font-weight-bold">
@@ -70,6 +70,7 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import get from 'lodash.get';
 import { getMonthAndYear } from '@/utils/date.js';
 import { formatCurrency } from '@/utils/numbers.js';
+import { formatBytes, resumeAndTruncateFormattedValueFromSeconds } from '@/api/utils';
 import ExportButton from '@/components/ExportButton';
 import { exportBill } from '@/api/bills';
 
@@ -82,11 +83,22 @@ export default {
     content: Object,
   },
   methods: {
-    getContent(path, defaultValue) {
+    getContent(path, defaultValue = '-') {
       return get(this.content, path, defaultValue);
     },
     formatCurrency(value) {
       return formatCurrency(value);
+    },
+    formatQuantity(data) {
+      if (!data || !data.usage) return;
+      switch (data.usage) {
+        case 'DATA':
+          return formatBytes(data.quantity);
+        case 'VOICE':
+          return resumeAndTruncateFormattedValueFromSeconds(data.quantity);
+        default:
+          return data.quantity;
+      }
     },
 
     getExportFn() {
@@ -116,6 +128,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table th,
+.table td {
+  padding: 0.75rem 0.75rem 0.75rem 0;
+}
 .bottom-line {
   border-bottom: 2px solid black;
 }

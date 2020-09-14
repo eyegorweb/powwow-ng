@@ -27,6 +27,7 @@ export default {
 
   props: {
     indicator: Object,
+    noAnimation: Boolean,
   },
   computed: {
     model() {
@@ -34,12 +35,16 @@ export default {
     },
   },
   created() {
-    // if (this.indicator && this.indicator.subTitle) {
-    setTimeout(() => {
+    const onAnimationEnd = () => {
       this.isFetchingData = false;
       this.isItemError = !this.indicator.checked;
-    }, getRandomInt(1000, 6000));
-    // }
+      this.$emit('animationEnd', true);
+    };
+    if (this.noAnimation) {
+      onAnimationEnd();
+    } else {
+      setTimeout(onAnimationEnd, getRandomInt(1000, 6000));
+    }
   },
   data() {
     return {

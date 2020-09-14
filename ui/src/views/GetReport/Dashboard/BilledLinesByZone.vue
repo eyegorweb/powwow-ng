@@ -8,15 +8,23 @@
   >
     <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-between">
         <Toggle
-          v-if="toggleValues"
+          v-if="usageToggleValues"
+          @update="currentUsage = $event.id"
+          :values="usageToggleValues"
+          class="pl-2"
+        />
+        <Toggle
+          v-if="periodToggleValues"
           @update="currentPeriod = $event.id"
-          :values="toggleValues"
+          :values="periodToggleValues"
           class="pl-2"
         />
       </div>
-      <chart v-if="chartOptions" :options="chartOptions" />
+      <chart v-if="dataChartOptions && currentUsage === 'DATA'" :options="dataChartOptions" />
+      <chart v-if="smsChartOptions && currentUsage === 'SMS'" :options="smsChartOptions" />
+      <chart v-if="voiceChartOptions && currentUsage === 'VOICE'" :options="voiceChartOptions" />
     </div>
   </GraphContainer>
 </template>
@@ -26,6 +34,8 @@ import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
 import { billedLineConsoZone } from '@/api/reportDashboard.js';
+import { formatBytes, formattedValueFromSeconds } from '@/api/utils.js';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -72,9 +82,27 @@ export default {
   data() {
     return {
       chartOptions: undefined,
+      dataChartOptions: undefined,
+      smsChartOptions: undefined,
+      voiceChartOptions: undefined,
       currentPeriod: 'MONTH12',
       tooltipMsg: this.$t('getdevice.messages.warning2'),
-      toggleValues: [
+      currentUsage: 'DATA',
+      usageToggleValues: [
+        {
+          id: 'DATA',
+          label: 'services.DATA',
+        },
+        {
+          id: 'SMS',
+          label: 'services.SMS',
+        },
+        {
+          id: 'VOICE',
+          label: 'services.VOICE',
+        },
+      ],
+      periodToggleValues: [
         {
           id: 'MONTH12',
           label: 'common.months_12',
@@ -110,25 +138,50 @@ export default {
         this.currentPeriod
       );
 
-      const dataSeries = apiData.reduce(
+      const chartData = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
+          /*
           all.consoFrance.push(c.consoFr);
           all.consoEU.push(c.consoEU);
           all.consoOufOfEU.push(c.consoHorsEU);
           all.billedLines.push(c.nbBilledLine);
+          //*/
+          all.dataConsoFr.push(c.dataConsoFr);
+          all.dataConsoEU.push(c.dataConsoEU);
+          all.dataConsoHorsEU.push(c.dataConsoHorsEU);
+          all.smsConsoFr.push(c.smsConsoFr);
+          all.smsConsoEU.push(c.smsConsoEU);
+          all.smsConsoHorsEU.push(c.smsConsoHorsEU);
+          all.voixConsoFr.push(c.voixConsoFr);
+          all.voixConsoEU.push(c.voixConsoEU);
+          all.voixConsoHorsEU.push(c.voixConsoHorsEU);
+          all.nbBilledLine.push(c.nbBilledLine);
           return all;
         },
         {
           categories: [],
-          consoFrance: [],
-          consoEU: [],
-          consoOufOfEU: [],
-          billedLines: [],
+          dataConsoFr: [],
+          dataConsoEU: [],
+          dataConsoHorsEU: [],
+          smsConsoFr: [],
+          smsConsoEU: [],
+          smsConsoHorsEU: [],
+          voixConsoFr: [],
+          voixConsoEU: [],
+          voixConsoHorsEU: [],
+          nbBilledLine: [],
         }
       );
-      this.chartOptions = {
+
+      this.buildDataChartOptions(chartData);
+      this.buildVoiceChartOptions(chartData);
+      this.buildSMSChartOptions(chartData);
+    },
+
+    buildDataChartOptions(chartData) {
+      this.dataChartOptions = {
         credits: {
           enabled: false,
         },
@@ -140,7 +193,7 @@ export default {
           text: '',
         },
         xAxis: {
-          categories: dataSeries.categories,
+          categories: chartData.categories,
           crosshair: true,
         },
 
@@ -148,13 +201,15 @@ export default {
           {
             // Primary yAxis
             labels: {
-              format: '{value} €',
+              formatter() {
+                return formatBytes(this.value, 0);
+              },
               style: {
                 color: '#083e96',
               },
             },
             title: {
-              text: 'Montant',
+              text: 'Conso',
               style: {
                 color: '#083e96',
               },
@@ -196,22 +251,208 @@ export default {
         series: [
           {
             name: 'Conso France',
-            data: dataSeries.consoFrance,
+            data: chartData.dataConsoFr,
             type: 'column',
           },
           {
             name: 'Conso EU',
-            data: dataSeries.consoEU,
+            data: chartData.dataConsoEU,
             type: 'column',
           },
           {
             name: 'Conso hors EU',
-            data: dataSeries.consoOufOfEU,
+            data: chartData.dataConsoHorsEU,
             type: 'column',
           },
           {
             name: 'Nb de lignes facturées',
-            data: dataSeries.billedLines,
+            data: chartData.billedLines,
+            yAxis: 1,
+            type: 'spline',
+          },
+        ],
+      };
+    },
+    buildVoiceChartOptions(chartData) {
+      this.voiceChartOptions = {
+        credits: {
+          enabled: false,
+        },
+        chart: {
+          // type: 'Combination chart',
+        },
+        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        title: {
+          text: '',
+        },
+        xAxis: {
+          categories: chartData.categories,
+          crosshair: true,
+        },
+
+        yAxis: [
+          {
+            // Primary yAxis
+            labels: {
+              formatter() {
+                return formattedValueFromSeconds(this.value, 0);
+              },
+              style: {
+                color: '#083e96',
+              },
+            },
+            title: {
+              text: 'Conso',
+              style: {
+                color: '#083e96',
+              },
+            },
+          },
+          {
+            // Secondary yAxis
+            title: {
+              text: 'Lignes',
+              style: {
+                color: '#488bf7',
+              },
+            },
+            labels: {
+              format: '{value}',
+              style: {
+                color: '#488bf7',
+              },
+            },
+            opposite: true,
+          },
+        ],
+
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: 'Conso France',
+            data: chartData.voiceConsoFr,
+            type: 'column',
+          },
+          {
+            name: 'Conso EU',
+            data: chartData.voiceConsoEU,
+            type: 'column',
+          },
+          {
+            name: 'Conso hors EU',
+            data: chartData.voiceConsoHorsEU,
+            type: 'column',
+          },
+          {
+            name: 'Nb de lignes facturées',
+            data: chartData.billedLines,
+            yAxis: 1,
+            type: 'spline',
+          },
+        ],
+      };
+    },
+    buildSMSChartOptions(chartData) {
+      this.smsChartOptions = {
+        credits: {
+          enabled: false,
+        },
+        chart: {
+          // type: 'Combination chart',
+        },
+        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        title: {
+          text: '',
+        },
+        xAxis: {
+          categories: chartData.categories,
+          crosshair: true,
+        },
+
+        yAxis: [
+          {
+            // Primary yAxis
+            labels: {
+              formatter() {
+                return formatLargeNumber(this.value);
+              },
+              style: {
+                color: '#083e96',
+              },
+            },
+            title: {
+              text: 'Conso',
+              style: {
+                color: '#083e96',
+              },
+            },
+          },
+          {
+            // Secondary yAxis
+            title: {
+              text: 'Lignes',
+              style: {
+                color: '#488bf7',
+              },
+            },
+            labels: {
+              format: '{value}',
+              style: {
+                color: '#488bf7',
+              },
+            },
+            opposite: true,
+          },
+        ],
+
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: 'Conso France',
+            data: chartData.smsConsoFr,
+            type: 'column',
+          },
+          {
+            name: 'Conso EU',
+            data: chartData.smsConsoEU,
+            type: 'column',
+          },
+          {
+            name: 'Conso hors EU',
+            data: chartData.smsConsoHorsEU,
+            type: 'column',
+          },
+          {
+            name: 'Nb de lignes facturées',
+            data: chartData.billedLines,
             yAxis: 1,
             type: 'spline',
           },

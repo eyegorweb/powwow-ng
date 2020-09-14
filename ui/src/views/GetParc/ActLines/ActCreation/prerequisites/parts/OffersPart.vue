@@ -54,7 +54,7 @@ export default {
       if (partnerParam && partnerParam.length) {
         const data = await fetchOffers(q, partnerParam, {
           page,
-          limit: 10,
+          limit: 999,
           partnerType: this.contextPartnersType,
           disabledOffer: true,
         });

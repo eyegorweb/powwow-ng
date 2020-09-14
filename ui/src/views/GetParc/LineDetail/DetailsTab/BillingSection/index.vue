@@ -2,9 +2,9 @@
   <div>
     <draggable handle=".handle">
       <ContentBlock :key="'block1'">
-        <template slot="title">{{
-          $t('getparc.lineDetail.tab1.billingOffer.billingAccount')
-        }}</template>
+        <template slot="title">
+          {{ $t('getparc.lineDetail.tab1.billingOffer.billingAccount') }}
+        </template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -18,21 +18,21 @@
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
               <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
             </div>
-            <div class="item">
+            <div class="item" v-if="!isMVNO">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
               <p>{{ dateCommitmentEnd }}</p>
             </div>
-            <div class="item">
-              <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p>{{ billingStatus }}</p>
+            <div class="item" v-if="isMVNO">
+              <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endForfaitDate') }}:</h6>
+              <p>{{ flatEndDate }}</p>
             </div>
           </div>
         </template>
       </ContentBlock>
       <ContentBlock :key="'block2'">
-        <template slot="title">{{
-          $t('getparc.lineDetail.tab1.billingOffer.detailStatus')
-        }}</template>
+        <template slot="title">
+          {{ $t('getparc.lineDetail.tab1.billingOffer.detailStatus') }}
+        </template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -71,9 +71,9 @@
         </template>
       </ContentBlock>
       <ContentBlock v-if="remainingTime !== undefined" :key="'block3'">
-        <template slot="title">{{
-          $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
-        }}</template>
+        <template slot="title">
+          {{ $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer') }}
+        </template>
 
         <template slot="content">
           <div>
@@ -109,12 +109,20 @@ export default {
     ContentBlock,
   },
 
-  mounted() {
-    this.getCommercialStatus();
-  },
-
   props: {
     content: Object,
+  },
+
+  data() {
+    return {
+      commercialStatus: undefined,
+      isMVNO: undefined,
+    };
+  },
+
+  mounted() {
+    this.getCommercialStatus();
+    this.isMVNO = this.content.party.partyType === 'MVNO' ? true : false;
   },
 
   computed: {
@@ -207,12 +215,12 @@ export default {
       if (!commitmentEnd) return '-';
       return commitmentEnd;
     },
-  },
 
-  data() {
-    return {
-      commercialStatus: undefined,
-    };
+    flatEndDate() {
+      let flatEndDate = get(this.content, 'accessPoint.flatEndDate');
+      if (!flatEndDate) return '-';
+      return flatEndDate;
+    },
   },
 
   methods: {

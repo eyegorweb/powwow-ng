@@ -89,9 +89,15 @@ export async function billedLineConsoZone(partnerId, customerAccountCode, period
   {
     billedLineAndConsoByZoneGraph(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
       date
-    	consoFr
-      consoEU
-      consoHorsEU
+      dataConsoFr
+      dataConsoEU
+      dataConsoHorsEU
+      smsConsoFr
+      smsConsoEU
+      smsConsoHorsEU
+      voixConsoFr
+      voixConsoEU
+      voixConsoHorsEU
       nbBilledLine
     }
   }

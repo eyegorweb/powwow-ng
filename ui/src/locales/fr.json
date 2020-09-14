@@ -25,7 +25,8 @@
   "modify": "Modifier",
   "export": "Exporter",
   "exportAll": "Export complet",
-  "exportError": "Impossible d'exporter",
+  "exportError": "La génération du fichier a rencontré un problème. Veuillez réessayer.",
+  "exportLoading": "Votre fichier est en cours de préparation",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "optional": "Champ facultatif",
@@ -112,13 +113,15 @@
       "actsStatus": "Statut des actes de gestion",
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
+      "coach": "Coach M2M / Diagnostic",
       "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
       "dataVoiceConso": "CONSOMMATION MENSUELLE",
       "stateParc": {
         "title": "ETAT DU PARC",
-        "stockLines": "Lignes en stock",
+        "stockLines": "Cartes SIM en stock",
+        "notPreactivated": "Non-préactivées",
         "preactivatedLines": "Lignes pré-activées",
-        "activatedLines": "Lignes activées",
+        "activatedLines": "Lignes actives",
         "suspendedLines": "Lignes suspendues",
         "cancellationLines": "Résiliation",
         "suspendedAndNotBilledLines": "Lignes suspendues « non facturées »",
@@ -248,7 +251,8 @@
     "billDetail": "Détail de facturation",
     "billPeriod": "Période facturée",
     "lineTotal": "Nombre de lignes",
-    "download": "Télécharger la facture"
+    "download": "Télécharger la facture",
+    "usageVolume": "Volume d'usage"
   },
   "coach": {
     "title": "Coach",
@@ -260,7 +264,20 @@
     "chooseLine": "Choisir une ligne",
     "currentLine": "Ligne actuelle {lineId}",
     "compareLine": "Ligne de comparaison",
-    "apiError": "Impossible d'effectuer le diagnostic"
+    "apiError": "Impossible d'effectuer le diagnostic",
+    "indicators": {
+      "lineStatus": "La carte SIM est-elle autorisée à trafiquer ?",
+      "testData": "Le trafic data est-il possible ?",
+      "networkTest": "La ligne s’est-elle déjà connectée ?",
+      "ipAssign": "Une adresse IP a-t-elle été attribuée ?",
+
+      "localityTest": "Détection des lignes dans la même localité :",
+      "cellAnalysis": "Détection des lignes dans la même cellule :",
+      "networkDetectionTest": "Date de Dernière détection de la ligne par le réseau :",
+      "lastUsageAnalysis": "Dernier usage effectué :",
+      "isPowered": "Le boîtier est-il alimenté ?",
+      "isTraced": "La ligne a-t-elle été localisée ?"
+    }
   },
   "getsim": {
     "manage-orders": "Gestion des commandes",
@@ -377,6 +394,7 @@
     "manage-alarms-tooltip": "Cette page permet de rechercher un utilisateur.",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
+    "tab-3-m2m-sharedconso": "Alarmes Mutualisées",
     "alarm-detail": "Détail de l'alarme",
     "account-info": "Informations compte",
     "notifications": "Notifications",
@@ -672,6 +690,15 @@
       "SEARCH": "Rechercher les rapports"
     },
 
+    "report_statut": {
+      "NEW": "Nouveau",
+      "RUNNING": "En cours",
+      "FAILED": "En erreur",
+      "CLOSED": "Terminé",
+      "OK": "OK",
+      "DISABLED": "Désactivé"
+    },
+
     "creation": {
       "chooseInfos": "Choisir les informations",
       "chooseInfosDescription": "Choisissez dans les rubriques suivantes les informations de ligne que vous souhaitez faire apparaître dans votre rapport personnalisé. Vous pourrez ainsi filtrer et trier ces informations dans votre tableur préféré.",
@@ -698,6 +725,9 @@
     "management-act": "Historique des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
+    "display-lines": "Afficher toutes les lignes",
+    "screen-search": "Ecran de recherche de lignes et création d'actes de gestion",
+    "search-lines-by-id": "Rechercher une ligne par ID",
     "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
       "PREACTIVATION": "Pré-activation",
@@ -780,8 +810,10 @@
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
-        "EXPORT_LINES": "Exporter {total} lignes",
+        "EXPORT_LINES": "Exporter {total} lignes:",
+        "EXPORT_ACTS": "Exporter {total} actes:",
         "RESULT": "Voir le résultat de l'acte",
+        "MORE_DETAIL": "Voir le détail du résultat",
         "newStatus": "Nouveau statut",
         "changeCf": "Nouveau C.F",
         "newOffer": "Nouvelle offre",
@@ -856,11 +888,8 @@
       "analysingTool": "GETDIAG / OUTILS D'ANALYSE",
       "testData": "Test data",
       "networkTest": "Test du réseau",
-      "ipAssign": "Attribution adresse IP",
       "localityTest": "Analyse de la localité",
       "cellAnalysis": "Analise de la cellule",
-      "networkDetectionTest": "Test accroche réseau",
-      "lastUsageAnalysis": "Analyse du dernier usage",
       "noCoach": "Pas de coach sur cette ligne",
       "standardTest": "Tests standards",
       "advancedTest": "Tests avancés",
@@ -948,6 +977,7 @@
           "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
           "offerName": "Nom de l'offre",
           "endCommitmentDate": "Date de fin d'engagement",
+          "endForfaitDate": "Date de fin de forfait",
           "billingStatus": "Statut de facturation"
         },
         "lineServices": "Services de la ligne",
@@ -1504,7 +1534,7 @@
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
         "failed": "Actes de gestion en échec",
-        "availableSIMCards": "Lignes en stock (Non-préactivé)",
+        "availableSIMCards": "Cartes SIM en stock",
         "allocatedSIMCards": "Lignes pré-activées",
         "activatedSIMCards": "Lignes actives",
         "suspended": "Lignes suspendues",
@@ -1580,7 +1610,7 @@
       "commercialStatus": "Statut commercial",
       "billingStatus": "Statut de facturation",
       "networkStatus": "Statut réseau",
-      "importDate": "Date d’import",
+      "importDate": "Date d’intégration de la SIM",
       "endCommitmentDate": "Date de fin de forfait",
       "activationDate": "Date d’activation",
       "preActivationDate": "Date de pré-activation",

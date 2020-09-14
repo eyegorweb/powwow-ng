@@ -80,12 +80,18 @@ export default {
         formData: this.values,
       };
 
+      console.log("onSave -> this.scopeChoice", this.scopeChoice)
+
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
         response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
       } else {
-        response = await alarmOnOverConso({ ...params, id: this.scopeChoice.partner.id });
+        const paramsToSend = { ...params };
+        if (this.scopeChoice && this.scopeChoice.partner && this.scopeChoice.partner.id) {
+          paramsToSend.id = this.scopeChoice.partner.id;
+        }
+        response = await alarmOnOverConso(paramsToSend);
       }
 
       if (response.errors && response.errors.length) {
