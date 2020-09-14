@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.172+20200914135843
+2020-09-14
+
+### Fixes
+
+- personalisation de la Home (d95bc311bfdcb8d385dc7a604e93d3ed47bf7ed3)
+
 ## 1.0.0-master.171+20200914123058
 2020-09-14
 
