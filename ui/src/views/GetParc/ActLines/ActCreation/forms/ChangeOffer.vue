@@ -87,7 +87,7 @@ export default {
     },
     isPartnerMVNO() {
       if (!this.userInfos || !this.userInfos.roles) return;
-      const found = this.userInfos.roles.find(r => {
+      const found = this.userInfos.roles.find((r) => {
         return r.description === 'MVNO';
       });
       return !!found;
@@ -151,7 +151,7 @@ export default {
         this.isDataParamsError =
           this.servicesChoice.dataService &&
           this.servicesChoice.dataService.parameters &&
-          this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
+          this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
         isError = this.isDataParamsError;
       }
 
@@ -169,7 +169,12 @@ export default {
         sourceWorkflowID: this.actCreationPrerequisites.offer.data.id,
         targetWorkflowID: this.selectedOffer.data.id,
       };
-      return await changeOffer(this.appliedFilters, this.selectedLinesForActCreation, params);
+      return await changeOffer(
+        this.appliedFilters,
+        this.selectedLinesForActCreation,
+        params,
+        !this.canChangeServices
+      );
     },
   },
 };
