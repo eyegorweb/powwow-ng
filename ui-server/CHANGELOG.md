@@ -2,6 +2,40 @@
 
 <!--- next entry here -->
 
+## 1.5.0
+2020-09-14
+
+### Features
+
+- Ajout du modèle de rapport dans la gestion de documents (c8e5b27dde42cd4e7af9d34c7bdecf3c23656840)
+- coach M2M dans un widget (00bed7dfc3e4f19ee4336cc885658ff5e0860362)
+- Ajout de la colonne statut dans le tableau des rapports (8d73eb34354f58fac59ebba71d7f31b4556cac05)
+- Ajout screen error/loading sur modal export (af5927c8013ff8c4d9382bfd5e3635187a47d7aa)
+- Gestion du MVNO et M2M sur la section de facturation dans le detail de ligne (a37e0e892340e5b8880c1ff08ff9650e9992d27c)
+- rechercher une alarme mutualisée (5dbc831b955c9fe1d6accacc4bdd61cb295fd42e)
+- Délai de traitement "Commande 1 mois" (8a75fb3064aa04ccde497ddc6a1c983505c87b5b)
+
+### Fixes
+
+- Formattage des données dans le graph du Dashboard (307c4437602963a7094f53bf53f85cb35ceef706)
+- Corriger le graph Nbre de lignes facturées et conso par zone (e08669034e01099dcfc8db8e3c8351dcbb4a7d04)
+- statut de ligne dans la recherche (4384fe0cd7e732e58eb80701036eb38056cf8e65)
+- Le sous-menu description du compte ne présente que le bloc informations générales (24f2739b43fd4e377b5a992e1119c0c85e371301)
+- Encours conso/ préselection auto d'un CF actif (b7d6fbcb2053bf082ea414a6701460ad8bfc740e)
+- ajuster l'affichage des offres dans le détail du partenaire (e1447f9af630826668c37881dbca409a23b916bc)
+- Liste des offres commerciales doit être filtrée sur le CF (cff8c6891d6ef5f99f5d723748ef39b502949a06)
+- correction du filtre Type de partenaire dans la gestion des partenaires (a494fed2bb80a1695c7f035f179b8afa74ea1e36)
+- sélectionner les champs d'une table pour faire un copier / coller (fe59f752bd5f34834c6a721f30001781bdd518aa)
+- Ne pas lancer de recherche si aucun identifiant n'est selectionné (90c2dba288df9135ea8ac0380c08b0f2aa545005)
+- mise à jour des informations des factures (9084cdc7dd88b5b2d9f0d6a05de38370897051a0)
+- conversion des identifiants à rechercher pour la gestion des lignes (355edfbb409b17d200ed5d25cf8dcb4ee5981b86)
+- Multiples fix sur les correctifs LEBARA MEP Prod (c53be4a50755d2281427648db37c71727969bacd)
+- Remettre le bouton de création d'alarmes (37c7bdffbae6e94fa14699443a8f008b8db6feb7)
+- gestion de la barre de contexte dans la gestion des lignes (36ed310a503ec69a6369b12d28e3f1c27c97ee77)
+- Correctifs MEP Lebara (c784981f551c61d8460928a0a02c95c8bff97b7a)
+- Filtre statut commercial (3bdf8d29b7f5add8cfb6f01e245048464b74ca6a)
+- mise en cache du filtre État de profil eUICC pour l'utilisateur connecté MVNO (050669bef815db02736daa5dacafc8f79ef07040)
+
 ## 1.4.1
 2020-08-28
 
