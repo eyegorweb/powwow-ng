@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.179+20200915145332
+2020-09-15
+
+### Fixes
+
+- Correction de l'autocompletion (0de0abbc368a9c9a75720583ed733e825abe2247)
+
 ## 1.0.0-master.178+20200915133705
 2020-09-15
 
