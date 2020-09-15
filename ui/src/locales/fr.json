@@ -811,7 +811,7 @@
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
         "EXPORT_LINES": "Exporter {total} lignes:",
-        "EXPORT_ACTS": "Exporter {total} actes:",
+        "EXPORT_ACTS": "Exporter {total} actes",
         "RESULT": "Voir le résultat de l'acte",
         "MORE_DETAIL": "Voir le détail du résultat",
         "newStatus": "Nouveau statut",
