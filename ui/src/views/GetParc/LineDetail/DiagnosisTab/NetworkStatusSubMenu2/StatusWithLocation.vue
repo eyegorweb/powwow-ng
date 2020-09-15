@@ -90,7 +90,7 @@ export default {
       if (this.isOK) {
         return 'getparc.lineDetail.tab3.statuses.TEST_OK';
       }
-      if (this.isRoaming) {
+      if (this.isOkRoaming) {
         return 'getparc.lineDetail.tab3.statuses.TEST_OK';
       }
       return 'getparc.lineDetail.tab3.statuses.TEST_KO';
