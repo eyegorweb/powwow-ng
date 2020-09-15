@@ -1,69 +1,55 @@
 <template>
   <div>
-    <div v-if="adresses && adresses.length > 0" class="mb-3">
-      <div class="col-md-6">
-        <h6>{{ $t('orders.new.deliveryStep.search') }}</h6>
-        <UiInput
-          :placeholder="$t('orders.new.deliveryStep.searchPlaceholder')"
-          class="d-block mx-auto"
-          v-model="filterValue"
-        />
-      </div>
-    </div>
-    <div class="cards">
-      <div class="addNew" @click="openCreationPanel">
-        <div class="addNew-logo">
-          <i class="icon ic-Pin-Icon"></i>
+    <CardsList
+      :key="version"
+      searchInputTxt="orders.new.deliveryStep.search"
+      placeholderTxt="orders.new.deliveryStep.searchPlaceholder"
+      add-txt="getadmin.customize.addDeliveryAddress"
+      add-icon="ic-Pin-Icon"
+      :fetch-fn="fetchFn"
+      :filter-fn="filterFn"
+      @create="openCreationPanel"
+      @modify="modifyList($event)"
+    >
+      <template v-slot="{ item }">
+        <div v-if="item.company" class="cardBloc-infos-name">
+          {{ item.company }}
         </div>
-        <div>{{ $t('getadmin.customize.addDeliveryAddress') }}</div>
-      </div>
-      <template v-if="filteredAdresses">
-        <Card
-          v-for="list in filteredAdresses"
-          :key="list.id"
-          :can-delete="false"
-          @modify="modifyList(list)"
-        >
-          <div v-if="list.company" class="cardBloc-infos-name">
-            {{ list.company }}
-          </div>
-          <div class="cardBloc-infos-name">
-            {{ getFromObject(list, 'name.firstName') }} {{ getFromObject(list, 'name.lastName') }}
-          </div>
-          <div class="cardBloc-infos-role">
-            {{ getFromObject(list, 'address.address1') }}
-            <span v-if="list.address.address2 && list.address.address2 !== 'null'">
-              <br />
-              {{ getFromObject(list, 'address.address2') }}</span
-            >
-            <span v-if="list.address.address3 && list.address.address3 !== 'null'">
-              <br />
-              {{ getFromObject(list, 'address.address3') }}</span
-            >
-            <br v-if="list.address && list.address.city" />
-            {{ getFromObject(list, 'address.zipCode') }} - {{ getFromObject(list, 'address.city') }}
-            <br v-if="list.address && list.address.country" />
-            {{ getFromObject(list, 'address.country') }}
-          </div>
-        </Card>
+        <div class="cardBloc-infos-name">
+          {{ getFromObject(item, 'name.firstName') }} {{ getFromObject(item, 'name.lastName') }}
+        </div>
+        <div class="cardBloc-infos-role">
+          {{ getFromObject(item, 'address.address1') }}
+          <span v-if="item.address.address2 && item.address.address2 !== 'null'">
+            <br />
+            {{ getFromObject(item, 'address.address2') }}</span
+          >
+          <span v-if="item.address.address3 && item.address.address3 !== 'null'">
+            <br />
+            {{ getFromObject(item, 'address.address3') }}</span
+          >
+          <br v-if="item.address && item.address.city" />
+          {{ getFromObject(item, 'address.zipCode') }} - {{ getFromObject(item, 'address.city') }}
+          <br v-if="item.address && item.address.country" />
+          {{ getFromObject(item, 'address.country') }}
+        </div>
       </template>
-    </div>
+    </CardsList>
   </div>
 </template>
 
 <script>
 import get from 'lodash.get';
 
-import Card from '@/components/Card';
-import UiInput from '@/components/ui/UiInput';
+import CardsList from '@/views/GetAdmin/PartnerDetail/parts/CardsList.vue';
+
 import { fetchpartnerAddresses } from '@/api/partners';
 import { fetchDeliveryCountries } from '@/api/filters';
 import { mapMutations } from 'vuex';
 
 export default {
   components: {
-    Card,
-    UiInput,
+    CardsList,
   },
 
   props: {
@@ -78,81 +64,36 @@ export default {
       adresses: undefined,
       filterValue: '',
       filteredAdresses: [],
+      version: 0,
     };
-  },
-
-  mounted() {
-    this.refreshLists();
   },
 
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
 
-    getFromObject(object, path, defaultValue = '') {
-      const value = get(object, path, defaultValue);
-      return value !== null ? value : '';
-    },
-
-    openCreationPanel() {
-      const doReset = () => {
-        this.refreshLists();
-      };
-
-      this.openPanel({
-        title: this.$t('getadmin.customize.addDeliveryAddress'),
-        panelId: 'getadmin.customize.addDeliveryAddress',
-        payload: { partnerId: this.partnerid, inEditMode: false },
-        backdrop: true,
-        width: '40rem',
-        ignoreClickAway: true,
-        onClosePanel() {
-          doReset();
-        },
-      });
-    },
-
-    async refreshLists() {
+    async fetchFn() {
       const data = await fetchpartnerAddresses(this.partnerid);
       const countries = await fetchDeliveryCountries(this.$i18n.locale);
       if (data && data.all) {
-        this.adresses = data.all;
         data.all = data.all.map(a => {
           if (!a.id) return;
           const foundCountry = countries.find(c => c.code === a.address.country);
           if (foundCountry) {
             a.address.country = foundCountry.name;
           }
+          return a;
         });
-        this.filteredAdresses = [...this.adresses];
+        return [...data.all];
       }
     },
 
-    modifyList(address) {
-      const doReset = () => {
-        this.refreshLists();
-      };
-
-      this.openPanel({
-        title: this.$t('getadmin.customize.modifyDeliveryAddress'),
-        panelId: 'getadmin.customize.addDeliveryAddress',
-        payload: { modifyDA: address, partnerId: this.partnerid, inEditMode: true },
-        backdrop: true,
-        width: '40rem',
-        ignoreClickAway: true,
-        onClosePanel() {
-          doReset();
-        },
-      });
-    },
-  },
-
-  watch: {
-    filterValue(q) {
+    filterFn(q, items) {
+      let filteredAdresses;
       if (!q) {
-        this.filteredAdresses = [...this.adresses];
+        filteredAdresses = [...items];
       } else {
         const query = q.toLowerCase();
-        this.filteredAdresses = this.adresses.filter(a => {
+        filteredAdresses = items.filter(a => {
           if (a.address.address1) {
             if (a.address.address1.toLowerCase().includes(query)) {
               return true;
@@ -187,67 +128,74 @@ export default {
           }
         });
       }
+
+      return filteredAdresses;
+    },
+
+    getFromObject(object, path, defaultValue = '') {
+      const value = get(object, path, defaultValue);
+      return value !== null ? value : '';
+    },
+
+    openCreationPanel() {
+      const doReset = () => {
+        this.version += 1;
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.customize.addDeliveryAddress'),
+        panelId: 'getadmin.customize.addDeliveryAddress',
+        payload: { partnerId: this.partnerid, inEditMode: false },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel() {
+          doReset();
+        },
+      });
+    },
+
+    modifyList(address) {
+      const doReset = () => {
+        this.version += 1;
+      };
+
+      this.openPanel({
+        title: this.$t('getadmin.customize.modifyDeliveryAddress'),
+        panelId: 'getadmin.customize.addDeliveryAddress',
+        payload: { modifyDA: address, partnerId: this.partnerid, inEditMode: true },
+        backdrop: true,
+        width: '40rem',
+        ignoreClickAway: true,
+        onClosePanel() {
+          doReset();
+        },
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  .addNew {
-    width: 49%;
-    height: 220px;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 20px;
-    border: #dddddd solid 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    flex-direction: column;
-    cursor: pointer;
-
-    &-logo {
-      width: 50px;
-      height: 50px;
-      background-color: #009dcc;
-      border-radius: 100px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      i {
-        color: white;
-      }
-    }
+.cardBloc-infos {
+  &-name {
+    font-weight: 500;
+    color: #454545;
+    margin-bottom: 7px;
+    font-size: 16px;
   }
 
-  .cardBloc-infos {
-    &-name {
-      font-weight: 500;
-      color: #454545;
-      margin-bottom: 7px;
-      font-size: 16px;
-    }
+  &-role {
+    font-size: 12px;
+    margin-top: 10px;
+  }
 
-    &-role {
-      font-size: 12px;
-      margin-top: 10px;
-    }
+  &-email {
+    margin-top: 5px;
 
-    &-email {
-      margin-top: 5px;
-
-      a {
-        color: #009dcc;
-        text-decoration: underline;
-      }
+    a {
+      color: #009dcc;
+      text-decoration: underline;
     }
   }
 }

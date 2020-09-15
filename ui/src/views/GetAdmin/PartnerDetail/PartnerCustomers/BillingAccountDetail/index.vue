@@ -15,6 +15,11 @@
         :partner="partner"
         :billing-account-to-detail="billingAccountToDetail"
       />
+      <DeliveryAdresses
+        v-if="section === 'getadmin.partnerDetail.mb.deliveryAdresses'"
+        :partner="partner"
+        :billing-account-to-detail="billingAccountToDetail"
+      />
     </div>
   </div>
 </template>
@@ -22,17 +27,17 @@
 <script>
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
 import CommercialOffers from './CommercialOffers/index.vue';
+import DeliveryAdresses from './DeliveryAdresses';
 
 export default {
+  components: {
+    TabsSubMenu,
+    DeliveryAdresses,
+    CommercialOffers,
+  },
   props: {
     billingAccountToDetail: Object,
     partner: Object,
-  },
-
-  components: {
-    TabsSubMenu,
-
-    CommercialOffers,
   },
 
   mounted() {
