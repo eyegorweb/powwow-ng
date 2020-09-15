@@ -6,15 +6,11 @@
         <button
           class="modal-default-button btn btn-danger btn-sm"
           @click.stop="isAsyncExportAlertOpen = false"
-        >
-          {{ $t('cancel') }}
-        </button>
+        >{{ $t('cancel') }}</button>
         <button
           class="modal-default-button btn btn-success btn-sm ml-1"
           @click.stop="validateExport"
-        >
-          {{ $t('export') }}
-        </button>
+        >{{ $t('export') }}</button>
       </div>
     </Modal>
     <Modal v-if="isExportFormatChoiceOpen">
@@ -49,13 +45,16 @@
 
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
-          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">{{
+          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">
+            {{
             $t('exportAll')
-          }}</Checkbox>
+            }}
+          </Checkbox>
         </div>
-        <button class="modal-default-button btn btn-danger btn-sm" @click.stop="closeExportChoice">
-          {{ $t('cancel') }}
-        </button>
+        <button
+          class="modal-default-button btn btn-danger btn-sm"
+          @click.stop="closeExportChoice"
+        >{{ $t('cancel') }}</button>
       </div>
     </Modal>
   </Fragment>
@@ -77,8 +76,8 @@ export default {
   },
   computed: {
     ...mapState({
-      isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
-      exportPanelParams: state => state.ui.exportPanelParams,
+      isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
+      exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
   },
   data() {
@@ -116,9 +115,9 @@ export default {
     async doExport(exportFormat, asyncExportRequest, exportAll) {
       const { columns, exportFn, orderBy, forceAsyncExport } = this.exportPanelParams;
       this.errors = undefined;
-      const columnsParam = sortBy(columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
+      const columnsParam = sortBy(columns, (c) => !c.visible)
+        .filter((c) => c.exportId)
+        .map((c) => c.exportId);
 
       this.isLoading = true;
       const downloadResponse = await exportFn(
@@ -139,6 +138,7 @@ export default {
       let downloadResponse = undefined;
       if (this.exportPanelParams.forceAsyncExport && this.exportAll) {
         this.closeExportChoice();
+        this.showLoader = false;
         setTimeout(() => {
           this.isAsyncExportAlertOpen = true;
         }, 200);
@@ -150,6 +150,7 @@ export default {
 
           if (downloadResponse.asyncRequired) {
             this.closeExportChoice();
+            this.showLoader = false;
             setTimeout(() => {
               this.isAsyncExportAlertOpen = true;
             }, 200);
