@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.175+20200915121844
+2020-09-15
+
+### Fixes
+
+- Ajout du nom du rapport dans la table des documents (bbf73f2190593802d61ef1c4181ce7b5bf30a1c8)
+
 ## 1.0.0-master.174+20200914150833
 2020-09-14
 
