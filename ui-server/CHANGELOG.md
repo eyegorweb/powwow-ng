@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.176+20200915131632
+2020-09-15
+
+### Fixes
+
+- Corriger la pagination du filtre type carte sim (d9287eb821a723d856ca64ba0a724331888fd3b3)
+- 1788 / correction du rendu de test réseau et localisation d'une ligne (a714d7fed6a20eb3f836e817bb2b3afcad09eb66)
+
 ## 1.0.0-master.175+20200915121844
 2020-09-15
 
