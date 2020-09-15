@@ -1,7 +1,7 @@
 <template>
   <AutoCompleteByPartnerContext
     :values="selectedTypeSimCardValues"
-    @update:values="values => (selectedTypeSimCardValues = values)"
+    @update:values="(values) => (selectedTypeSimCardValues = values)"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
   />
@@ -37,11 +37,10 @@ export default {
     return {
       selectedTypeSimCardValues: [],
       selectedPartnersValues: [],
-      limit: 999,
     };
   },
   methods: {
-    async fetchApi(q, partners, partnerType, { page }, limit = this.limit) {
+    async fetchApi(q, partners, partnerType, { page }, limit = 999) {
       const data = await fetchCardTypes(q, partners, { page, partnerType }, limit);
       if (data) {
         return data.map(c => {

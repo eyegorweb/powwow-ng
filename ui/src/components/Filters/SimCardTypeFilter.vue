@@ -3,7 +3,7 @@
     :values="selectedTypeSimCardValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="values => $emit('setTypeSimCardFilter', values)"
+    @update:values="(values) => $emit('setTypeSimCardFilter', values)"
   />
 </template>
 
@@ -23,13 +23,9 @@ export default {
       required: false,
     },
   },
-  data() {
-    return {
-      limit: 999,
-    };
-  },
+
   methods: {
-    async fetchApi(q, partners, partnerType, { page }, limit = this.limit) {
+    async fetchApi(q, partners, partnerType, { page }, limit = 999) {
       const data = await fetchCardTypes(q, partners, { page, partnerType }, limit);
       if (data) {
         return data.map(c => {
