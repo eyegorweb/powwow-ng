@@ -2,6 +2,21 @@
 
 <!--- next entry here -->
 
+## 1.6.0
+2020-09-15
+
+### Features
+
+- Ajout dans la mutation API KeepServices (d859dfbe88c914a6c2810b4e9446bf7ffb58f008)
+- adresses de livraison d'un CF marque blanche (67ec73efb26eb9bd950eea8aca5246728164c761)
+
+### Fixes
+
+- Ajout du nom du rapport dans la table des documents (bbf73f2190593802d61ef1c4181ce7b5bf30a1c8)
+- Corriger la pagination du filtre type carte sim (d9287eb821a723d856ca64ba0a724331888fd3b3)
+- 1788 / correction du rendu de test réseau et localisation d'une ligne (a714d7fed6a20eb3f836e817bb2b3afcad09eb66)
+- Correction label d'export (b1c392c8da19494649608064989ced3fcd2edd97)
+
 ## 1.5.1
 2020-09-14
 
