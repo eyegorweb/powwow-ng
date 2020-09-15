@@ -99,6 +99,12 @@ export default {
         id: 5,
         label: this.$t('documents.model'),
         name: 'report.name',
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return get(row, 'report.name', '-');
+          },
+        },
         orderable: true,
         visible: true,
       },
