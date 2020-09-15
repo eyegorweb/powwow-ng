@@ -36,7 +36,7 @@ export default {
     };
   },
 
-  async mounted() {},
+  async mounted() { },
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -56,14 +56,12 @@ export default {
   },
 
   methods: {
-    async fetchResults(q, page = 0) {
+    async fetchResults() {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
       partnerParam = partnerParam.filter(p => p.label !== '');
 
       if (partnerParam && partnerParam.length) {
-        const data = await fetchCardTypes(q, partnerParam, {
-          page,
-          limit: 10,
+        const data = await fetchCardTypes(undefined, partnerParam, {
           partnerType: this.contextPartnersType,
         });
         if (data) {

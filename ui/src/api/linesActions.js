@@ -32,7 +32,7 @@ export async function updateTransferSim(ids, status) {
   return response.data;
 }
 
-export async function fetchCardTypes(q, partners, { page, limit = 999, partnerType }) {
+export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partnerType }) {
   let partnersIds,
     partnerGqlParam = '';
 

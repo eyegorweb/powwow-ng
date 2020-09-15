@@ -346,6 +346,22 @@ export async function fetchCustomerAccountsByPartnerId(
           country
           state
         }
+        customerAccountShippingAddresses(addressFilter:{}) {
+          total
+          items {
+            id
+            address {
+              address1
+              zipCode
+              city
+            }
+            company
+            name {
+              firstName
+              lastName
+            }
+          }
+        }
       }
     }
   }`;
