@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.177+20200915132425
+2020-09-15
+
+### Fixes
+
+- Correction label d'export (b1c392c8da19494649608064989ced3fcd2edd97)
+
 ## 1.0.0-master.176+20200915131632
 2020-09-15
 
