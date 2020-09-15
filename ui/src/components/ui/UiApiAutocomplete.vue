@@ -113,7 +113,7 @@ export default {
         return typeof this.value === 'string'
           ? this.value
           : // gere le cas ou value est null
-            this.value && this.value[this.labelKey];
+          this.value && this.value[this.labelKey];
       },
       set(newValue) {
         // TODO: à simplifier
@@ -121,14 +121,14 @@ export default {
           'update:value',
           typeof this.value === 'string'
             ? // quand la prop est une string on doit emettre une string or
-              // slectValue va etre appele avec un objet en parametre
-              typeof newValue === 'object'
+            // slectValue va etre appele avec un objet en parametre
+            typeof newValue === 'object'
               ? // gere selectValue(null)
-                newValue && newValue[this.labelKey]
+              newValue && newValue[this.labelKey]
               : newValue
             : typeof newValue === 'object'
-            ? newValue
-            : { [this.labelKey]: newValue }
+              ? newValue
+              : { [this.labelKey]: newValue }
         );
       },
     },
@@ -215,12 +215,14 @@ export default {
       const height = parseInt(heightStyle.replace('px', ''));
       const needMore = this.$refs.results.scrollTop + height >= this.$refs.results.scrollHeight;
       if (needMore && this.canFetchNextPage) {
-        this.page += 1;
-        const nextPageContent = await this.apiMethod(this.$value || '', this.page);
-        this.canFetchNextPage = nextPageContent.length > 0;
-        this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
-        await this.resultsPromise;
-        this.resetSelected();
+        if (this.apiMethod) {
+          this.page += 1;
+          const nextPageContent = await this.apiMethod(this.$value || '', this.page);
+          this.canFetchNextPage = nextPageContent.length > 0;
+          this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
+          await this.resultsPromise;
+          this.resetSelected();
+        }
       }
     },
   },
@@ -232,7 +234,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function() {
+    $value: debounce(function () {
       this.fetchResults();
     }, 200),
 
