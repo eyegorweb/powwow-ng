@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.178+20200915133705
+2020-09-15
+
+### Features
+
+- adresses de livraison d'un CF marque blanche (67ec73efb26eb9bd950eea8aca5246728164c761)
+
 ## 1.0.0-master.177+20200915132425
 2020-09-15
 
