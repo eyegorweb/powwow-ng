@@ -1,7 +1,7 @@
 import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
-import {MultiSelectFilter, idFilter} from './selectors/filters';
+import { MultiSelectFilter, idFilter } from './selectors/filters';
 
 function itemPosition(myIndex) {
   if (cy.userIsMonoPartner) {
@@ -25,7 +25,7 @@ export default {
 
   panel: {
     openForLine(index) {
-      cy.get(`table tbody tr:nth-child(${index}) td button`).click({ force: true });
+      cy.waitGet(`table tbody tr:nth-child(${index}) td button`).click({ force: true });
     },
     goToDetail() {
       cy.get('#main-sliding-panel button.btn-primary').click({ force: true });
@@ -33,13 +33,11 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.get('.flex-grow-1 > input')
-        .type(id);
+      cy.waitGet('.flex-grow-1 > input').type(id);
     },
     applySearch() {
-      cy.get('.form-row > .col-md-3 > .btn')
-        .click();
-    }
+      cy.get('.form-row > .col-md-3 > .btn').click();
+    },
   },
   filterBar: {
     apply: filterBarSelectors.applySearch,
@@ -52,13 +50,17 @@ export default {
   },
 
   getTotal(onTotalLoaded) {
-    return cy.get('#app > div.container > div.mt-4 > div:nth-child(3) > div.col-md-9.extra-bottom-margin > div > div > div.row.mb-3 > div:nth-child(1) > h2').then(e => {
-      const parts = e
-        .text()
-        .trim()
-        .split(' ');
-      const value = parseInt(parts[0]);
-      onTotalLoaded(value);
-    });
+    return cy
+      .waitGet(
+        '#app > div.container > div.mt-4 > div:nth-child(3) > div.col-md-9.extra-bottom-margin > div > div > div.row.mb-3 > div:nth-child(1) > h2'
+      )
+      .then(e => {
+        const parts = e
+          .text()
+          .trim()
+          .split(' ');
+        const value = parseInt(parts[0]);
+        onTotalLoaded(value);
+      });
   },
 };

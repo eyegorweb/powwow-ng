@@ -4,6 +4,7 @@ import lineDetailPage from '../../../pageObjects/lineDetailPage';
 
 Given(`je suis sur la page recherche de lignes`, () => {
   linesPage.init();
+  cy.wait(400);
 });
 Given(`j'ouvre le détail d'une ligne`, () => {
   cy.wait(600);
@@ -18,6 +19,7 @@ Given(`j'ouvre le détail d'une ligne`, () => {
 When(`je lance la recherche par ID {string}`, id => {
   linesPage.idSearch.typeId(id);
   linesPage.idSearch.applySearch();
+  cy.wait(500);
 });
 
 When(`je clique sur retour`, () => {
@@ -60,6 +62,7 @@ Given(`je choisis le filtre id {string}`, offer => {
 
 When(`je lance la recherche`, () => {
   linesPage.filterBar.apply();
+  cy.wait(500);
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {

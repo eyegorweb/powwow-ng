@@ -35,7 +35,7 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.get('.flex-grow-1 > input')
+      cy.waitGet('.flex-grow-1 > input')
         .type(id);
     },
     applySearch() {
