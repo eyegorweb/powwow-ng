@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.182+20200916131849
+2020-09-16
+
+### Fixes
+
+- Ajouter un loader sur les pop-up d'export (f15fdaa1a1d3e37f7c3cca2a3738562fd537ebca)
+
 ## 1.0.0-master.181+20200916122112
 2020-09-16
 
