@@ -55,7 +55,7 @@ export default {
         id: 'filters.actTypes',
         values: [
           {
-            id: 'STATUS_CHANGE',
+            id: 'RESILIATION',
             label: this.$t('getparc.actLines.commercialStatuses.demandeDeResiliation'),
           },
         ],
