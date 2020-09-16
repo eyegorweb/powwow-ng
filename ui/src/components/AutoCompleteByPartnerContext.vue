@@ -5,6 +5,7 @@
     @update:search="searchValueChanged"
     @scroll:limit="nextPage"
     :collapsed="collapsed"
+    :contains-search="containsSearch"
   />
 </template>
 
@@ -35,6 +36,7 @@ export default {
     },
     fetchApi: Function,
     collapsed: Boolean,
+    containsSearch: Boolean,
   },
 
   async mounted() {

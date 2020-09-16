@@ -24,7 +24,7 @@
         v-for="list in filteredItems"
         :key="list.id"
         :can-delete="canDelete"
-        :canModify="!noEdit"
+        :can-modify="!noEdit"
         @modify="$emit('modify', list)"
       >
         <slot :item="list" />
@@ -51,7 +51,7 @@ export default {
     fetchFn: Function,
     filterFn: Function,
     noEdit: Boolean,
-    canDelete: Boolean
+    canDelete: Boolean,
   },
 
   data() {

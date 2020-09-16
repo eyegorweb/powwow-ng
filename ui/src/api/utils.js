@@ -191,6 +191,8 @@ export function formatDateForGql(inDate) {
 }
 
 export function formatBytes(bytes, decimals = 2) {
+  if (bytes === undefined) return '';
+
   if (bytes === 0) return '0 octet';
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;
@@ -320,6 +322,8 @@ export function resumeFormattedValueFromSeconds(value) {
 }
 // temporaire, en attendant une mise en conformité de la demande pour tous les graphes
 export function resumeAndTruncateFormattedValueFromSeconds(value) {
+  if (value === undefined) return '';
+
   let initialSeconds = value;
   let duration = initialSeconds;
   let days = duration / 86400;

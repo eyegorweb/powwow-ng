@@ -29,6 +29,7 @@ import { propWithDataFallback } from 'vue-prop-data-fallback';
 import UiInput from '@/components/ui/UiInput';
 import fuzzysort from 'fuzzysort';
 import { clickaway } from '@/directives/clickaway';
+import { containsWithHighlight } from '@/utils.js';
 
 export default {
   // accepte une prop value mais peut marcher sans
@@ -50,6 +51,7 @@ export default {
       required: false,
     },
     block: Boolean,
+    containsSearch: Boolean,
   },
   directives: { clickaway },
 
@@ -61,18 +63,22 @@ export default {
     results() {
       if (!this.$value) return this.highlightedResults;
 
-      return fuzzysort
-        .go(this.$value, this.items, {
-          keys: this.fields,
-          allowTypo: false,
-        })
-        .map(r => ({
-          item: r.obj,
-          highlighted: this.fields.reduce((highlighted, field, i) => {
-            highlighted[field] = fuzzysort.highlight(r[i]) || r.obj[field];
-            return highlighted;
-          }, {}),
-        }));
+      if (this.containsSearch) {
+        return containsWithHighlight(this.$value, this.items);
+      } else {
+        return fuzzysort
+          .go(this.$value, this.items, {
+            keys: this.fields,
+            allowTypo: false,
+          })
+          .map(r => ({
+            item: r.obj,
+            highlighted: this.fields.reduce((highlighted, field, i) => {
+              highlighted[field] = fuzzysort.highlight(r[i]) || r.obj[field];
+              return highlighted;
+            }, {}),
+          }));
+      }
     },
 
     // version non surlignée à autiliser losque la recherche est vide
