@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.181+20200916122112
+2020-09-16
+
+### Fixes
+
+- élargir le volet facture (1d687bbd9aeebc90d1c899bd9c3da8cf00a5c6df)
+
 ## 1.0.0-master.180+20200916072605
 2020-09-16
 
