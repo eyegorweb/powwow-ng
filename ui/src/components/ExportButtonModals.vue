@@ -93,6 +93,17 @@ export default {
       forceAsyncExport: false,
     };
   },
+  watch: {
+    isExportFormatChoiceOpen(value) {
+      if (value) {
+        this.haveError = false;
+        this.errors = undefined;
+        this.isLoading = false;
+        this.exportFormat = undefined;
+        this.showLoader = false;
+      }
+    },
+  },
   methods: {
     ...mapMutations([
       'closeExportChoice',

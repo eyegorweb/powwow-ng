@@ -102,9 +102,9 @@ export default {
 
       return filteredAdresses;
     },
-    openCreationPanel() { },
+    openCreationPanel() {},
     modifyList(address) {
-      console.log(address)
+      console.log(address);
     },
     getFromObject(object, path, defaultValue = '') {
       const value = get(object, path, defaultValue);
