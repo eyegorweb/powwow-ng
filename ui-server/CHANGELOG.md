@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.180+20200916072626
+2020-09-16
+
+### Fixes
+
+- Desactivation du tri sur statut dans les rapports (bd5a96d2edaac6bc16658d141eb7b2ded78b417c)
+- Si MVNO dans creation de rapport et dans detail de la ligne (770d2c7e5b2d8b5ff8164cac0a73c75e4431c90f)
+
 ## 1.0.0-master.179+20200915145332
 2020-09-15
 
