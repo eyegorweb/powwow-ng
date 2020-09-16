@@ -1,4 +1,4 @@
-import { query, getFilterValue, getFilterValues, getValuesIds, mutation } from './utils';
+import { query, getFilterValues, getValuesIds, mutation } from './utils';
 import get from 'lodash.get';
 
 export async function updatePartyOptions(params) {
@@ -878,7 +878,7 @@ export async function fetchAllPartners(orderBy, pagination, filters = []) {
 export function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
-  addPartnerNameFilter(gqlFilters, selectedFilters);
+  addPartnerIdFilter(gqlFilters, selectedFilters);
   addPartnerTypeFilter(gqlFilters, selectedFilters);
   addPartnerGroupFilter(gqlFilters, selectedFilters);
   addTypeSimCardFilter(gqlFilters, selectedFilters);
@@ -887,11 +887,10 @@ export function formatFilters(selectedFilters) {
   return gqlFilters.join(',');
 }
 
-function addPartnerNameFilter(gqlFilters, selectedFilters) {
-  const partnerName = getFilterValue(selectedFilters, 'getadmin.partners.name');
-
-  if (partnerName) {
-    gqlFilters.push(`name: {startsWith: "${partnerName}"}`);
+function addPartnerIdFilter(gqlFilters, selectedFilters) {
+  const partyIds = getValuesIds(selectedFilters, 'getadmin.partners.name');
+  if (partyIds) {
+    gqlFilters.push(`id: {in:[${partyIds}]}`);
   }
 }
 

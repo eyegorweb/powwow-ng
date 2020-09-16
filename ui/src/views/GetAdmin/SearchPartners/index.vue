@@ -31,7 +31,7 @@ import TableWithFilter from '@/components/Filters/TableWithFilter';
 import PartnerTypeFilter from './filters/PartnerTypeFilter';
 import GroupPartnerFilter from '@/components/Filters/GroupPartnerFilter';
 import TypeSimCardFilter from './filters/TypeSimCardFilter';
-import TextFilter from '@/components/Filters/TextFilter.vue';
+import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 
 export default {
   components: {
@@ -133,11 +133,11 @@ export default {
       filters: [
         {
           title: 'getadmin.partners.name',
-          component: TextFilter,
-          onChange(chosenValue) {
+          component: PartnerFilter,
+          onChange(chosenValues) {
             return {
               id: 'getadmin.partners.name',
-              value: chosenValue,
+              values: chosenValues,
             };
           },
         },
