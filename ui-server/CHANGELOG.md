@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.183+20200916141457
+2020-09-16
+
+### Fixes
+
+- Sélection du partenaire dans la gestion des partenaires (cc35aa4eb21326336a45374ed3ed039ca6ac47ac)
+
 ## 1.0.0-master.182+20200916131849
 2020-09-16
 
