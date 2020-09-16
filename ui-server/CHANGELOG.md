@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.184+20200916143615
+2020-09-16
+
+### Fixes
+
+- Sélection du partenaire dans la gestion des partenaires (cc35aa4eb21326336a45374ed3ed039ca6ac47ac)
+- Correction du filtre pour l'acte résiliation (d531ead7869b0df26ca58d5eadf9aeea4e15dee9)
+
 ## 1.0.0-master.183+20200916141457
 2020-09-16
 
