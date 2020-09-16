@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.6.1
+2020-09-16
+
+### Fixes
+
+- Correction de l'autocompletion (0de0abbc368a9c9a75720583ed733e825abe2247)
+
 ## 1.6.0
 2020-09-15
 
