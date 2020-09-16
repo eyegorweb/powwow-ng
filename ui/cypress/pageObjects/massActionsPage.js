@@ -7,6 +7,14 @@ export default {
   init() {
     layout.menu.massActions();
   },
+  idSearch: {
+    typeId(id) {
+      cy.waitGet('.flex-grow-1 > input').type(id);
+    },
+    applySearch() {
+      cy.get('.col-md-3 > .btn').click();
+    },
+  },
   filterBar: {
     apply: filterBarSelectors.applySearch,
     partner: new MultiSelectFilter(1),
@@ -20,14 +28,6 @@ export default {
         }
         onFilterFoundFn(formatted);
       });
-    },
-    idSearch: {
-      typeId(id) {
-        cy.get('.flex-grow-1 > input').type(id);
-      },
-      applySearch() {
-        cy.get('.col-md-3 > .btn').click();
-      },
     },
     removeDefaultFilter() {
       cy.get(':nth-child(1) > .close > span').click();

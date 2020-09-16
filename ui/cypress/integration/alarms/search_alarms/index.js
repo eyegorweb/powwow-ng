@@ -39,10 +39,12 @@ Given(`je choisis le filtre portée de l'alarme {string}`, alarmRange => {
 When(`je lance la recherche par ID {string}`, id => {
   alarmsPage.idSearch.typeId(id);
   alarmsPage.idSearch.applySearch();
+  cy.wait(500);
 });
 
 When(`je lance la recherche`, () => {
   alarmsPage.filterBar.apply();
+  cy.wait(500);
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {
@@ -63,6 +65,8 @@ Then(`la table contient moins de {int} resultat`, nbrResult => {
   });
 });
 
+
+//fonction ci dessous non utilisée, gardée pour une refact de waitGraphQL
 Then(`la table contient les alarmes du partenaire`, () => {
   waitForGQL('alarms', xhr => {
     const alarms = xhr.responseBody.data.alarms.items;

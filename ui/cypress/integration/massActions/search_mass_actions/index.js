@@ -4,6 +4,7 @@ import moment from 'moment';
 
 Given(`je suis sur l'historique des actes de gestion`, () => {
   massActionsPage.init();
+  cy.wait(400);
 });
 
 Given(`j'enlève le filtre par défaut`, () => {
@@ -39,10 +40,13 @@ When(`je clique sur 1 mois`, () => {
 
 When(`je lance la recherche`, () => {
   massActionsPage.filterBar.apply();
+  cy.wait(500);
 });
 
 When(`je lance la recherche par ID {string}`, id => {
-
+  massActionsPage.idSearch.typeId(id);
+  massActionsPage.idSearch.applySearch();
+  cy.wait(500);
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {

@@ -32,8 +32,38 @@ Given(`je choisis l'acte d'activation par défaut`, () => {
   createActionsPage.actions.activate.selectOffre('Parc 2 forfait');
 });
 
+Given(`je choisis l'acte de changement de CF par défaut`, () => {
+  typeMassAction = 'Changement du compte de fac ...';
+  createActionsPage.actionsPannel.nextSlider();
+  createActionsPage.actionsPannel.changeBillingAccount();
+  createActionsPage.actions.changeBillingAccount.selectPartner('Lyra');
+  createActionsPage.actions.changeBillingAccount.selectBillingAccount('6.42661 - LYRA');
+  createActionsPage.actions.changeBillingAccount.selectoffer('Parc 2 forfait');
+  createActionsPage.actions.changeBillingAccount.apply();
+  createActionsPage.actions.changeBillingAccount.selectNewBillingAccount('6.42662 - 6.42661');
+});
+
+Given(`je choisis l'acte de modification des champs libres par défaut`, () => {
+  typeMassAction = 'Changement des champs custom';
+  createActionsPage.actionsPannel.editFreeFields();
+  createActionsPage.actions.editFreeFields.selectPartner('INGENICO');
+  createActionsPage.actions.editFreeFields.apply();
+  createActionsPage.actions.editFreeFields.fillFirstFreeField('first field');
+  createActionsPage.actions.editFreeFields.fillSecondFreeField('second field');
+});
+
+Given(`je choisis l'acte de modification de services`, () => {
+  typeMassAction = 'Changement de services';
+  createActionsPage.actionsPannel.editServices();
+  createActionsPage.actions.editServices.selectPartner('ingenico');
+  createActionsPage.actions.editServices.selectOffer('Sans');
+  createActionsPage.actions.editServices.apply();
+  createActionsPage.actions.editServices.deactivateService();
+});
+
 When(`je confirme la création de l'acte`, () => {
   createActionsPage.confirm(typeMassAction);
+  cy.wait(500);
 });
 
 Then(`je verifie que mon acte a été créé`, () => {

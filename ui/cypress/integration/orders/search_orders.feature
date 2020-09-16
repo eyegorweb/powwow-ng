@@ -47,7 +47,7 @@ Feature: Recherche de commandes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-Scenario: je lance une recherche par id
+  Scenario: je lance une recherche par id
     Given en tant que BO
     And je suis sur la page recherche de commandes
     When je lance la recherche par ID "33698014672"
