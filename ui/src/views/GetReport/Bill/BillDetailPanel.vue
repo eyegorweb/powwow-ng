@@ -37,16 +37,18 @@
               <td class="text-end">{{ formatCurrency(item.amountExcTaxe) }} €</td>
             </tr>
             <tr class="top-line font-weight-bold">
-              <td colspan="2">Total H.T.</td>
-              <td class="text-end">{{ formatCurrency(getContent('amountExclTaxes')) }} €</td>
+              <td>Total H.T.</td>
+              <td colspan="2" class="text-end">
+                {{ formatCurrency(getContent('amountExclTaxes')) }} €
+              </td>
             </tr>
             <tr>
-              <td colspan="2">T.V.A.(20%)</td>
-              <td class="text-end">{{ formatCurrency(tva) }} €</td>
+              <td>T.V.A.(20%)</td>
+              <td colspan="2" class="text-end">{{ formatCurrency(tva) }} €</td>
             </tr>
             <tr class="top-line font-weight-bold">
-              <td colspan="2">Total T.T.C.</td>
-              <td class="text-end">{{ formatCurrency(getContent('amount')) }} €</td>
+              <td>Total T.T.C.</td>
+              <td colspan="2" class="text-end">{{ formatCurrency(getContent('amount')) }} €</td>
             </tr>
           </tbody>
         </table>

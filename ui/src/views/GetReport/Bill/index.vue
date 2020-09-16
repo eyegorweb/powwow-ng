@@ -140,7 +140,7 @@ export default {
       return {
         title: this.$t('bills.detailPanel', { reference: row.reference }),
         panelId: 'bills.detailPanel',
-        width: '35%',
+        width: '55%',
         backdrop: true,
         ignoreClickAway: true,
         payload: { ...row, selectedPartnerId: this.selectedPartnerId },

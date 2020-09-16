@@ -8,6 +8,7 @@
       :value.sync="searchValue"
       @clear="removeSelection()"
       @update:value="$emit('update:search', $event)"
+      :contains-search="containsSearch"
     >
       <template slot="beforeInput">
         <div
@@ -97,6 +98,7 @@ export default {
       required: false,
     },
     disabled: Boolean,
+    containsSearch: Boolean,
   },
 
   data() {

@@ -2,8 +2,8 @@
   <div>
     <CardsList
       :key="version"
-      searchInputTxt="orders.new.deliveryStep.search"
-      placeholderTxt="orders.new.deliveryStep.searchPlaceholder"
+      search-input-txt="orders.new.deliveryStep.search"
+      placeholder-txt="orders.new.deliveryStep.searchPlaceholder"
       add-txt="getadmin.customize.addDeliveryAddress"
       add-icon="ic-Pin-Icon"
       :fetch-fn="fetchFn"

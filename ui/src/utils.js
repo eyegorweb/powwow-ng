@@ -67,3 +67,22 @@ export function isEquivalent(a, b) {
   // are considered equivalent
   return true;
 }
+
+export function containsWithHighlight(search, items) {
+  return items
+    .filter(e => e.label.toLowerCase().includes(search.toLowerCase()))
+    .map(found => ({
+      highlighted: { label: highlightTxt(found.label, search) },
+      item: found,
+    }));
+}
+
+function highlightTxt(input, search) {
+  const startTag = input.toLowerCase().indexOf(search.toLowerCase());
+  const leftPart = input.slice(0, startTag);
+  const rightPart = input.slice(startTag + search.length);
+
+  const found = input.slice(startTag, startTag + search.length);
+
+  return `${leftPart}<b>${found}</b>${rightPart}`;
+}
