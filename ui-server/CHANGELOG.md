@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.189+20200918122957
+2020-09-18
+
+### Fixes
+
+- 1869 correction des valeurs Entrant/Sortant dans la supervision du détail de la ligne (c95c4208b5ca35da254cf55e1314c07a0fc0eed1)
+
 ## 1.0.0-master.188+20200918120631
 2020-09-18
 
