@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.186+20200918101430
+2020-09-18
+
+### Fixes
+
+- message "La ligne n'est pas active" dans en cours de consommation (bee0bda45bf7afa6e242aebc887f60e15a6e1fc4)
+
 ## 1.0.0-master.185+20200916150231
 2020-09-16
 
