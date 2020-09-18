@@ -586,7 +586,7 @@
         "siret": "N° siret",
         "status": "Statut",
         "commercialOffer": "Offres commerciales",
-        "offerAndProduct": "Offres et produits",
+        "simCards": "Cartes SIM",
         "customerDescription": "Description du compte client",
         "clientContactDescription": "Description du contact client",
         "deliveryAdresses": "Adresses de livraison",
@@ -661,6 +661,10 @@
       "ELEVEN": "11",
       "FIFTEEN": "15",
       "BOTH": "Tous",
+      "simcards": {
+        "search": "Rechercher une carte",
+        "searchPlaceholder": "veuillez saisir un nom"
+      },
       "adminForm": {
         "titles": {
           "addMainAdmin": "Ajouter un administrateur principal",
