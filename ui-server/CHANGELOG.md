@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.187+20200918114710
+2020-09-18
+
+### Fixes
+
+- Améiloration du volet des widgets (f4319b8baf95f9432b127c8602b08a80b980f335)
+
 ## 1.0.0-master.186+20200918101430
 2020-09-18
 
