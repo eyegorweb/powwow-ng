@@ -12,6 +12,9 @@
       <div class="info">{{ info }}</div>
       <Modal v-if="waitForConfirmation">
         <div slot="body">
+          <div class="loader" v-if="showLoader">
+            <div class="skeleton-line"></div>
+          </div>
           <div class="text-warning">{{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}</div>
           <p>
             <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
@@ -20,6 +23,9 @@
           </p>
         </div>
         <div slot="footer" class="btn-wrapper">
+          <div v-if="haveError" class="loader" :class="{ error: haveError }">
+            {{ $t('retry') }}
+          </div>
           <button
             class="modal-default-button btn btn--cancel"
             @click.stop="waitForConfirmation = false"
@@ -61,6 +67,8 @@ export default {
       suspendBilling: false,
       canValidate: true,
       waitForConfirmation: false,
+      showLoader: false,
+      haveError: false,
     };
   },
   computed: {
@@ -90,9 +98,16 @@ export default {
       value ? (this.canValidate = true) : (this.canValidate = false);
     },
     async confirmValdation(containerValidationFn) {
-      const response = await containerValidationFn();
-      this.waitForConfirmation = false;
-      return response;
+      try {
+        this.showLoader = true;
+        const response = await containerValidationFn();
+        this.showLoader = false;
+        this.waitForConfirmation = false;
+        return response;
+      } catch (err) {
+        this.haveError = true;
+        this.showLoader = false;
+      }
     },
   },
 };
@@ -102,6 +117,20 @@ export default {
 /deep/ .btn-primary {
   background-color: $orange;
   border: none;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.skeleton-line {
+  width: 100px;
+  height: 10px;
 }
 
 .btn {
