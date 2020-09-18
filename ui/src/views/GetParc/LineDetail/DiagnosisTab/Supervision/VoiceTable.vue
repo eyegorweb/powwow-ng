@@ -64,7 +64,7 @@ export default {
         col('Entrant/Sortant', 'smsHistoryData', true, false, {
           type: 'Getter',
           getter: row => {
-            return row.voiceHistoryData && row.voiceHistoryData.incoming ? 'Entrant' : 'Sortant';
+            return row.voiceHistoryData && row.voiceHistoryData.incomming ? 'Entrant' : 'Sortant';
           },
         }),
         col(
