@@ -114,8 +114,8 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "coach": "Coach M2M / Diagnostic",
-      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
-      "dataVoiceConso": "CONSOMMATION MENSUELLE",
+      "userActs": "Derniers actes de gestion de l’utilisateur « {userName} »",
+      "dataVoiceConso": "Consommation mensuelle",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Cartes SIM en stock",
@@ -144,7 +144,7 @@
       "viewXResults": "Consulter les {num} résultats",
       "linesConsumption": "Lignes les plus consommatrices du mois",
       "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
-      "topBillingExchangeCA": "TOP / FLOP CA",
+      "topBillingExchangeCA": "Top / Flop CA",
       "topBillingExchangePO": "Prise d'ordre"
     }
   },
