@@ -51,7 +51,7 @@ export default {
         col('Entrant/Sortant', 'smsHistoryData', true, false, {
           type: 'Getter',
           getter: row => {
-            return row.smsHistoryData && row.smsHistoryData.incoming ? 'Entrant' : 'Sortant';
+            return row.smsHistoryData && row.smsHistoryData.incomming ? 'Entrant' : 'Sortant';
           },
         }),
         col(this.$t('getparc.actDetail.col.msisdn'), 'smsHistoryData', true, false, {
