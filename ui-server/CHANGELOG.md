@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.190+20200918143149
+2020-09-18
+
+### Fixes
+
+- liste des cartes SIM d'un CF (38ebb59d57e39a33b4860c7562b3c778cc4ddf9c)
+
 ## 1.0.0-master.189+20200918122957
 2020-09-18
 
