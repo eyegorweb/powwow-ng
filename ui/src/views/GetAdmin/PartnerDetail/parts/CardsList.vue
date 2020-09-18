@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="title" />
     <div v-if="items && items.length > 0" class="mb-3">
       <div class="col-md-6">
         <h6>{{ $t(searchInputTxt) }}</h6>
