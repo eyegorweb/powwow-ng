@@ -22,7 +22,7 @@
         <div class="loader" v-if="showLoader" :class="{ error: haveError }">
           <div>{{ haveError ? $t('exportError') : $t('exportLoading') }}</div>
         </div>
-        <h4>Veuillez choisir un format d'export :</h4>
+        <h4>{{ $t('exportFormat') }} :</h4>
         <div class="row">
           <div class="col text-center">
             <button

@@ -4,7 +4,7 @@
       <slot name="icon">
         <i class="ic-Download-Icon" />
       </slot>
-      <slot name="title">Exporter</slot>
+      <slot name="title">{{ $t('export') }}</slot>
     </button>
   </div>
 </template>
