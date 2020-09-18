@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.188+20200918120631
+2020-09-18
+
+### Fixes
+
+- 1860 amélioration du gestionnaire d'erreur pour l'acte de résiliation (3169f5294053f3e3f53d2b9a51775e2e2c324fe5)
+
 ## 1.0.0-master.187+20200918114710
 2020-09-18
 
