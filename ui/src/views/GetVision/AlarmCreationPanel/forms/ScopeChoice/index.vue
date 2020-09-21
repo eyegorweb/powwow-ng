@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <SectionTitle :num="num">Choisir la portée de l'alarme</SectionTitle>
+    <SectionTitle v-if="!skipScopeCheck" :num="num">Choisir la portée de l'alarme</SectionTitle>
 
     <div class="scope-container" :style="{ maxHeight: maxHeight }">
       <slot>
@@ -58,6 +58,7 @@ export default {
   props: {
     num: Number,
     partner: Object,
+    skipScopeCheck: Boolean,
     containerHeight: {
       type: String,
       required: false,
