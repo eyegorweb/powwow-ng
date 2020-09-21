@@ -48,11 +48,10 @@ export default {
   },
 
   mounted() {
-    const menuItems = ['getadmin.partnerDetail.mb.commercialOffer'];
+    const menuItems = ['getadmin.partnerDetail.mb.commercialOffer', 'getadmin.partnerDetail.mb.simCards'];
 
     if (this.$shouldShowMocks) {
       menuItems.push(
-        'getadmin.partnerDetail.mb.simCards',
         'getadmin.partnerDetail.mb.customerDescription',
         'getadmin.partnerDetail.mb.clientContactDescription',
         'getadmin.partnerDetail.mb.deliveryAdresses',

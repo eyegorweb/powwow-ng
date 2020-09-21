@@ -7,12 +7,14 @@ import i18n from './i18n';
 
 import VTooltip from 'v-tooltip';
 import FeatureFlipping from './featureFlipping/plugin';
+import CommonFunctions from './utils/commonVueFunctions';
 
 import Fragment from 'vue-fragment';
 
 Vue.use(Fragment.Plugin);
 Vue.use(VTooltip);
 Vue.use(FeatureFlipping);
+Vue.use(CommonFunctions);
 
 Vue.config.productionTip = false;
 Vue.prototype.mina = window.mina;

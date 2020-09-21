@@ -266,7 +266,9 @@ export default {
           simCardInstanceId: this.content.id,
         });
       }
-      this.isLoading = false;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 3000)
     } catch {
       this.isLoading = false;
     }

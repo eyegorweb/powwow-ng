@@ -12,7 +12,8 @@
       <div class="col-md-9">
         <h4>
           <b>GetVision</b>
-          - {{ $t('getvsion.manage-alarms') }}
+          - {{ $t('getvsion.manage-alarms') }} {{ $loGet(alarm, 'id') }}
+          <span v-if="$loGet(alarm, 'name')"> : {{ $loGet(alarm, 'name') }}</span>
         </h4>
       </div>
       <div class="col-md-3">

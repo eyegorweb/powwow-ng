@@ -15,7 +15,6 @@
         </template>
         <template v-else>
           <h5>1 lignes trouvées</h5>
-          <p>Cette alarme a une portée limitée à la ligne sélectionnée</p>
         </template>
       </ScopeSearchMessage>
     </template>

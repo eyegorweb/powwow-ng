@@ -40,6 +40,13 @@ export const getters = {
   userIsOperator: state => {
     return state.userInfos && state.userInfos.type === 'OPERATOR';
   },
+  userIsMVNO: state => {
+    if (!state.userInfos || !state.userInfos.roles) return;
+    const found = state.userInfos.roles.find(r => {
+      return r.description === 'MVNO';
+    });
+    return !!found;
+  },
   singlePartner: (state, getters) => {
     if (getters.userIsPartner) {
       return state.userInfos && state.userInfos.partners && state.userInfos.partners.length
