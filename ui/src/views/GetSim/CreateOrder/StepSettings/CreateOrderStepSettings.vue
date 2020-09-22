@@ -8,32 +8,34 @@
           :check-for-error="orderReferenceError"
           :is-order-number-mandatory="isOrderNumberMandatory"
         />
-        <h3 class="font-weight-light text-center mt-4 mb-4">
-          {{ $t('orders.choose-custom-field') }}
-        </h3>
-        <div class="subcontainer">
-          <div>
-            <PartnerFields
-              :custom-fields="allCustomFields"
-              :get-selected-value="getSelectedValue"
-              :errors="customFieldsErrors"
-              can-edit-list
-              show-optional-field
-              @change="onValueChanged"
-              @addValueToList="addValueToList"
-            />
+        <template v-if="!userIsMVNO">
+          <h3 class="font-weight-light text-center mt-4 mb-4">
+            {{ $t('orders.choose-custom-field') }}
+          </h3>
+          <div class="subcontainer">
+            <div>
+              <PartnerFields
+                :custom-fields="allCustomFields"
+                :get-selected-value="getSelectedValue"
+                :errors="customFieldsErrors"
+                can-edit-list
+                show-optional-field
+                @change="onValueChanged"
+                @addValueToList="addValueToList"
+              />
+            </div>
+            <UiButton
+              v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS"
+              variant="adder"
+              block
+              class
+              @click="open"
+            >
+              <i class="btn-round-button ic-Plus-Icon mr-2" />
+              {{ $t('orders.add-custom-field-action', { label }) }}
+            </UiButton>
           </div>
-          <UiButton
-            v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS"
-            variant="adder"
-            block
-            class
-            @click="open"
-          >
-            <i class="btn-round-button ic-Plus-Icon mr-2" />
-            {{ $t('orders.add-custom-field-action', { label }) }}
-          </UiButton>
-        </div>
+        </template>
       </div>
     </template>
     <template v-if="isOpen">
@@ -103,6 +105,7 @@ export default {
 
   computed: {
     ...mapGetters('getsim', ['selectedPartnersValues']),
+    ...mapGetters(['userIsMVNO']),
   },
 
   methods: {

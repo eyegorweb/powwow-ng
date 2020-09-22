@@ -18,7 +18,7 @@
         :num="scopeIndex"
         :partner="selectedPartner"
         :container-height="containerHeight"
-        :skipScopeCheck="skipScopeCheck"
+        :skip-scope-check="skipScopeCheck"
         @scope="onScopeChange"
       >
         <slot name="scopechoice" :partner="selectedPartner"></slot>
@@ -78,8 +78,7 @@ export default {
         label: get(this.singlePartner, 'name'),
         data: this.singlePartner,
       };
-    }
-    else if (this.duplicateFrom) {
+    } else if (this.duplicateFrom) {
       this.selectedPartner = {
         ...get(this.duplicateFrom, 'party', {}),
         label: get(this.duplicateFrom, 'party.name'),

@@ -39,14 +39,14 @@ import { fetchSim } from '@/api/products.js';
 
 export default {
   components: {
-    CardsList
+    CardsList,
   },
 
   props: {
     partner: Object,
     billingAccountToDetail: {
       type: Object,
-      required: false
+      required: false,
     },
   },
 
@@ -57,8 +57,6 @@ export default {
       simCards: [],
     };
   },
-
-
 
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
@@ -93,7 +91,7 @@ export default {
       }
 
       return filteredItems;
-    }
+    },
   },
 
   computed: {

@@ -200,9 +200,8 @@ export default {
 
         this.closePanel({ resetSearch: true });
       } catch (e) {
-        console.log('Erreur ', e)
+        console.log('Erreur ', e);
       }
-
     },
     isFormValid() {
       let isFormValid;
