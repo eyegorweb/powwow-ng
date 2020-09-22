@@ -46,7 +46,7 @@
           <FoldableBlock :title="$t('filters.actDateEnd')" :key="'el6'" draggable>
             <DateEnd />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.services')" :key="'el7'" draggable>
+          <FoldableBlock v-if="!userIsMVNO" :title="$t('filters.services')" :key="'el7'" draggable>
             <ManagementActionServices />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.actStatus')" :key="'el8'" draggable>
@@ -62,7 +62,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Plus de filtres
+        {{ $t('moreFilters') }}
         <i class="arrow ic-Arrow-Down-Icon" />
       </a>
     </div>
@@ -73,7 +73,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Moins de filtres
+        {{ $t('lessFilters') }}
         <i class="arrow ic-Arrow-Up-Icon" />
       </a>
     </div>
@@ -116,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO']),
     ...mapGetters('actHistory', [
       'currentFilters',
       'canShowSelectedFilter',

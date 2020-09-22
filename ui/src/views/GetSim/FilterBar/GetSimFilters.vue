@@ -49,7 +49,12 @@
           <FoldableBlock :title="$t('filters.quantity')" :key="'el7'" draggable>
             <GetSimQuantityFilter />
           </FoldableBlock>
-          <FoldableBlock :title="$t('filters.customFields')" :key="'el8'" draggable>
+          <FoldableBlock
+            v-if="!userIsMVNO"
+            :title="$t('filters.customFields')"
+            :key="'el8'"
+            draggable
+          >
             <GetSimCustomFields />
           </FoldableBlock>
           <FoldableBlock :title="$t('filters.orderCreator')" :key="'el9'" draggable>
@@ -81,7 +86,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Plus de filtres
+        {{ $t('moreFilters') }}
         <i class="arrow ic-Arrow-Down-Icon" />
       </a>
     </div>
@@ -92,7 +97,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Moins de filtres
+        {{ $t('lessFilters') }}
         <i class="arrow ic-Arrow-Up-Icon" />
       </a>
     </div>
@@ -138,7 +143,7 @@ export default {
       'selectedPartnersValues',
       'selectedOrderCreatorValues',
     ]),
-    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO']),
     orderStatus: {
       get() {
         return this.selectedOrderStatus;
