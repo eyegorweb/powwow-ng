@@ -93,8 +93,7 @@ export default {
     CustomizePanel: () => import('@/views/Home/CustomizePanel'),
     LineAlarmDetailPanel: () =>
       import('@/views/GetParc/LineDetail/DetailsTab/AlarmList/AlarmDetailPanel'),
-    TheAlarmDetailPanel: () =>
-      import('@/views/GetVision/alarms/TheAlarmDetailPanel.vue'),
+    TheAlarmDetailPanel: () => import('@/views/GetVision/alarms/TheAlarmDetailPanel.vue'),
     AlarmCreationPanel: () => import('@/views/GetVision/AlarmCreationPanel'),
     ReportCreationPanel: () => import('@/views/GetReport/reports/ReportCreationPanel.vue'),
     ImportSimCardsToOrderPanel: () => import('@/views/GetSim/ImportSimCardsToOrderPanel.vue'),

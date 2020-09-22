@@ -98,7 +98,6 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
-
   },
   methods: {
     setup() {
