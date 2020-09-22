@@ -344,6 +344,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.carouselItem.SIM_TRANSFER',
     subtitle: '',
     selected: false,
+    restrictPartnerType: 'MVNO',
     color: 'orange',
     filters: [
       {

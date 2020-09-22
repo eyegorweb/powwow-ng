@@ -119,9 +119,9 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block5'">
+        <ContentBlock v-if="userIsBO && !partnerTypeMVNO" :key="'block5'">
           <template slot="title">
-            <span>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
+            <span>{{ $t('getparc.lineDetail.tab1.imeiHistory') }}</span>
           </template>
           <template slot="content">
             <EquipmentsHistoryTable v-if="content" :content="content" />

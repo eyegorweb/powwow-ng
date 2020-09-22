@@ -85,6 +85,8 @@
   "login": "Login",
   "password": "Mot de passe",
   "passwordConfirm": "Confirmation du mot de passe",
+  "moreFilters": "Plus de filtres",
+  "lessFilters": "Moins de filtres",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -996,7 +998,7 @@
         "pukCode": "Code PUK",
         "dualSim": "Dual SIM",
         "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
-        "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
+        "imeiHistory": "HISTORIQUE DES IMEI",
         "macAdress": "Adresse MAC",
         "usagePeriod": "Période d'utilisation",
         "statuses": {
@@ -1160,6 +1162,8 @@
         "optionalServices": "Services optionnels",
         "services": "Services",
         "ipAdressFix": "Adresse IP Fixe",
+        "modifyServices": "Modifier les services",
+        "cancelModifications": "Annuler les modifications",
         "apn": "APN",
         "ipAdress": "Adresse IP",
         "version": "Version"
@@ -1418,6 +1422,19 @@
         "ACTIVATING": "Activation en cours",
         "DEACTIVATION": "Désactivation en cours",
         "CANCELED": "Annulée",
+        "TEST": "Test",
+        "BARRED": "Barré",
+        "ALLOCATING": "En cours de préactivation"
+      },
+      "networkStatuses": {
+        "NOT_PREACTIVATED": "Non préactivé",
+        "PREACTIVATED": "Préactivé",
+        "ACTIVATED": "Activé",
+        "SUSPENDED": "Suspendu",
+        "RELEASED": "Résilié",
+        "ACTIVATING": "Activation en cours",
+        "DEACTIVATION": "Désactivation en cours",
+        "CANCELED": "Annulé",
         "TEST": "Test",
         "BARRED": "Barré",
         "ALLOCATING": "En cours de préactivation"

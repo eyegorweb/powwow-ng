@@ -206,7 +206,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
-            v-if="!isUserMVNO"
+            v-if="!userIsMVNO"
             :title="$t('filters.lines.profileEUICC')"
             :key="'el20'"
             :disabled="filtersAreDisabled"
@@ -215,6 +215,7 @@
             <ActLineProfileStateFilter />
           </FoldableBlock>
           <FoldableBlock
+            v-if="!userIsMVNO"
             :title="$t('filters.lines.customFileds')"
             :key="'el21'"
             :disabled="filtersAreDisabled"
@@ -267,6 +268,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
+            v-if="!userIsMVNO"
             :title="$t('filters.lines.siren')"
             :key="'el26'"
             :disabled="filtersAreDisabled"
@@ -313,7 +315,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Plus de filtres
+        {{ $t('moreFilters') }}
         <i class="arrow ic-Arrow-Down-Icon" />
       </a>
     </div>
@@ -324,7 +326,7 @@
         @click.prevent="showAllFilters"
         class="show-all-types text-right"
       >
-        Moins de filtres
+        {{ $t('lessFilters') }}
         <i class="arrow ic-Arrow-Up-Icon" />
       </a>
     </div>
@@ -383,7 +385,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['actToCreate']),
-    ...mapGetters(['userIsPartner', 'userInfos']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsMVNO']),
     ...mapGetters('actLines', [
       'currentFilters',
       'canShowSelectedFilter',
@@ -416,13 +418,6 @@ export default {
       set(newValue) {
         this.setLligneTrafiquanteFilter(newValue);
       },
-    },
-    isUserMVNO() {
-      if (!this.userInfos || !this.userInfos.roles) return;
-      const found = this.userInfos.roles.find(r => {
-        return r.description === 'MVNO';
-      });
-      return !!found;
     },
   },
   methods: {

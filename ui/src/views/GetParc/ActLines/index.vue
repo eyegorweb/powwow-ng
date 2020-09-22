@@ -159,7 +159,9 @@ export default {
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems
-          .filter(i => !i.boOnly)
+          .filter(i => {
+            return !i.boOnly;
+          })
           .filter(i => {
             if (i.restrictPartnerType && this.singlePartner) {
               return !(this.singlePartner.partyType === i.restrictPartnerType);
