@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.191+20200922083056
+2020-09-22
+
+### Fixes
+
+- cacher les services pour les utilisateurs MVNO (c1b54b2bcde85a0205cc0cc8c7ba7f5a734cb613)
+
 ## 1.0.0-master.190+20200918143149
 2020-09-18
 
