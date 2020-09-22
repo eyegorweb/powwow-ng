@@ -17,12 +17,12 @@ export function MultiSelectFilter(index) {
 
 export const partnersFilter = new MultiSelectFilter(1);
 partnersFilter.chosenItems = () => {
-  return cy.get('.selected-filter');
+  return cy.waitGet('.selected-filter');
 };
 
 export const idFilter = new MultiSelectFilter(6);
 idFilter.filter = searchTerm => {
-  cy.get(`.foldable-block:nth-child(6) > .pt-3 > div > label > input`)
+  cy.waitGet(`.foldable-block:nth-child(6) > .pt-3 > div > label > input`)
     .click()
     .type(searchTerm);
 };

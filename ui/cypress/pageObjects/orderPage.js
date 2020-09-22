@@ -18,13 +18,13 @@ export default {
         filterBarSelectors.filterBarItems(3).toggle();
       },
       choose(statusToChoose) {
-        cy.get('span > .foldable-block:nth-child(3) > .pt-3 > div')
+        cy.waitGet('span > .foldable-block:nth-child(3) > .pt-3 > div')
           .children()
           .find('label')
           .then(labelElems => {
             labelElems.each((index, labelElem) => {
               if (statusToChoose === labelElem.textContent) {
-                cy.get(labelElem)
+                cy.waitGet(labelElem)
                   .children('.checkmark')
                   .click({ force: true });
               }
@@ -39,12 +39,12 @@ export default {
         .type(id);
     },
     applySearch() {
-      cy.get('.form-row > .col-md-3 > .btn')
+      cy.waitGet('.form-row > .col-md-3 > .btn')
         .click();
     }
   },
   getTotal(onTotalLoaded) {
-    return cy.get('.total').then(e => {
+    return cy.waitGet('.total').then(e => {
       const parts = e
         .text()
         .trim()

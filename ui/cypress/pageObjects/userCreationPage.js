@@ -1,6 +1,6 @@
 export default {
   addUser() {
-    cy.get('#app > div.container > div.mt-4 > div.row.mb-5 > div.col-md-3 > button').click();
+    cy.waitGet('#app > div.container > div.mt-4 > div.row.mb-5 > div.col-md-3 > button').click();
   },
   checkUserSex(userSex) {
     let checkboxPath = '';
@@ -11,55 +11,55 @@ export default {
     else
       checkboxPath =
         '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div.row.mb-3 > div > div > label:nth-child(2) > span';
-    cy.get(checkboxPath).click();
+    cy.waitGet(checkboxPath).click();
   },
   fillUserFirstName(userFirstName) {
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(4) > div:nth-child(1) > div > input'
     )
       .click()
       .type(userFirstName);
   },
   fillUserLastName(userLastName) {
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(4) > div.form-entry.pl-2 > div > input'
     )
       .click()
       .type(userLastName);
   },
   fillUserEmail(email) {
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(5) > div > div > input'
     )
       .click()
       .type(email);
   },
   fillUserLogin(userLogin) {
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(6) > div > div > input'
     )
       .click()
       .type(userLogin);
   },
   fillUserPassword(userLogin) {
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(7) > div:nth-child(1) > div > input'
     )
       .click()
       .type(userLogin);
-    cy.get(
+    cy.waitGet(
       '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(7) > div.form-entry.pl-2 > div > input'
     )
       .click()
       .type(userLogin);
   },
   chooseRole() {
-    cy.get('#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(9) > div > div > div > div:nth-child(2) > label > span')
+    cy.waitGet('#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(9) > div > div > div > div:nth-child(2) > label > span')
       .click();
       // changer la maniere dont on choisis le role de l'utilisateur
   },
   saveUser() {
-    cy.get('#main-sliding-panel > div > div > div > div > div.footer-panel-buttons > div > div:nth-child(2) > button')
+    cy.waitGet('#main-sliding-panel > div > div > div > div > div.footer-panel-buttons > div > div:nth-child(2) > button')
       .click();
   }
 };
