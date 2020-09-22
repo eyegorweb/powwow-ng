@@ -116,7 +116,7 @@ import {
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation.js';
 import { formattedCurrentDate } from '@/utils/date';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
@@ -248,7 +248,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userInfos', 'userIsMVNO']),
+    ...mapGetters(['userIsMVNO']),
+
     canShowTable() {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
     },

@@ -119,9 +119,10 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock v-if="userIsBO && !partnerTypeMVNO" :key="'block5'">
+        <ContentBlock :key="'block5'">
           <template slot="title">
-            <span>{{ $t('getparc.lineDetail.tab1.imeiHistory') }}</span>
+            <span v-if="partnerTypeMVNO">{{ $t('getparc.lineDetail.tab1.IMEIHistory') }}</span>
+            <span v-else>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>
           <template slot="content">
             <EquipmentsHistoryTable v-if="content" :content="content" />
@@ -249,6 +250,7 @@ export default {
     },
     partnerTypeMVNO() {
       const typeForPartner = get(this.content, 'party.partyType', '-');
+      console.log('partnerTypeMVNO -> typeForPartner', typeForPartner);
       if (typeForPartner === 'MVNO') {
         return true;
       }

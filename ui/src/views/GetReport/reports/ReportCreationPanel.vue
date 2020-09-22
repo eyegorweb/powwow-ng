@@ -187,7 +187,6 @@ export default {
 
   data() {
     return {
-      isMVNO: false,
       endDateOf: {
         code: '',
         name: '',
@@ -247,10 +246,7 @@ export default {
 
     let partnerID, partnerData;
 
-    if (this.content) {
-      this.isMVNO = this.content.party.partyType === 'MVNO' ? true : false;
-    }
-    if (this.isMVNO) {
+    if (this.userIsMVNO) {
       this.endDateOf = {
         code: 'FLAT_END_DATE',
         name: 'Date de fin de forfait',
@@ -589,6 +585,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
+                if (this.userIsMVNO) return false;
                 if (this.userIsOperator) return true;
                 return get(this.partnerForOptionCheck, 'data.partyType') === 'CUSTOMER';
               },
@@ -853,6 +850,7 @@ export default {
       'userIsMultiPartner',
       'userIsOperator',
       'havePermission',
+      'userIsMVNO',
     ]),
 
     dateLabel() {

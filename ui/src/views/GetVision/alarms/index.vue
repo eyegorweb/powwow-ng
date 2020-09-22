@@ -68,8 +68,27 @@ export default {
     searchAlarms(orderBy, pagination, filters) {
       return searchAlarms(orderBy, pagination, filters);
     },
-    searchSharedConsoAlarms(orderBy, pagination, filters) {
-      return searchSharedConsumptionAlarm(orderBy, pagination, filters);
+    async searchSharedConsoAlarms(orderBy, pagination, filters) {
+      const response = await searchSharedConsumptionAlarm(orderBy, pagination, filters);
+      console.log('searchSharedConsoAlarms -> response', response);
+
+      const items = response.items.map(row => ({
+        name: row.name,
+        level1: row.levelDataMax,
+        level1Up: row.levelData1,
+        level1Down: row.levelData1,
+        level2: row.levelSmsMax,
+        level2Up: row.levelSms1,
+        level2Down: row.levelSms2,
+        level3: row.levelVoiceMax,
+        level3Up: row.levelVoice1,
+        level3Down: row.levelVoice2,
+        numberOfTargetedLines: row.numberLines,
+      }));
+      return {
+        total: response.total,
+        items,
+      };
     },
   },
 };
