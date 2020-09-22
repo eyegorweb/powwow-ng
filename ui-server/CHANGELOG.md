@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.195+20200922132833
+2020-09-22
+
+### Fixes
+
+- Correctiifs pour MVNO (08c50d3e779fcaaf41e0323969400504bbb3a19f)
+
 ## 1.0.0-master.194+20200922092150
 2020-09-22
 
