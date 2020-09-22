@@ -28,7 +28,7 @@ export default {
       cy.waitGet('.d-block > input').type(id);
     },
     applySearch() {
-      cy.get('.col-md-3 > .btn').click();
+      cy.waitGet('.col-md-3 > .btn').click();
     },
   },
   getTotal(onTotalLoaded) {

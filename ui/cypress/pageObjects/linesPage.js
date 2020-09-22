@@ -16,11 +16,11 @@ export default {
   },
 
   showAllLines() {
-    cy.get('.show-all-lines').click({ force: true });
+    cy.waitGet('.show-all-lines').click({ force: true });
   },
 
   getRows(callback) {
-    cy.get('table tbody tr').then(elements => callback(elements));
+    cy.waitGet('table tbody tr').then(elements => callback(elements));
   },
 
   panel: {
@@ -28,7 +28,7 @@ export default {
       cy.waitGet(`table tbody tr:nth-child(${index}) td button`).click({ force: true });
     },
     goToDetail() {
-      cy.get('#main-sliding-panel button.btn-primary').click({ force: true });
+      cy.waitGet('#main-sliding-panel button.btn-primary').click({ force: true });
     },
   },
   idSearch: {
@@ -36,7 +36,7 @@ export default {
       cy.waitGet('.flex-grow-1 > input').type(id);
     },
     applySearch() {
-      cy.get('.form-row > .col-md-3 > .btn').click();
+      cy.waitGet('.form-row > .col-md-3 > .btn').click();
     },
   },
   filterBar: {
