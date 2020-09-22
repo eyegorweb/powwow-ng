@@ -2,6 +2,27 @@
 
 <!--- next entry here -->
 
+## 1.6.2
+2020-09-22
+
+### Fixes
+
+- Desactivation du tri sur statut dans les rapports (bd5a96d2edaac6bc16658d141eb7b2ded78b417c)
+- Si MVNO dans creation de rapport et dans detail de la ligne (770d2c7e5b2d8b5ff8164cac0a73c75e4431c90f)
+- élargir le volet facture (1d687bbd9aeebc90d1c899bd9c3da8cf00a5c6df)
+- Ajouter un loader sur les pop-up d'export (f15fdaa1a1d3e37f7c3cca2a3738562fd537ebca)
+- Sélection du partenaire dans la gestion des partenaires (cc35aa4eb21326336a45374ed3ed039ca6ac47ac)
+- Correction du filtre pour l'acte résiliation (d531ead7869b0df26ca58d5eadf9aeea4e15dee9)
+- message "La ligne n'est pas active" dans en cours de consommation (bee0bda45bf7afa6e242aebc887f60e15a6e1fc4)
+- Améiloration du volet des widgets (f4319b8baf95f9432b127c8602b08a80b980f335)
+- 1860 amélioration du gestionnaire d'erreur pour l'acte de résiliation (3169f5294053f3e3f53d2b9a51775e2e2c324fe5)
+- 1869 correction des valeurs Entrant/Sortant dans la supervision du détail de la ligne (c95c4208b5ca35da254cf55e1314c07a0fc0eed1)
+- liste des cartes SIM d'un CF (38ebb59d57e39a33b4860c7562b3c778cc4ddf9c)
+- cacher les services pour les utilisateurs MVNO (c1b54b2bcde85a0205cc0cc8c7ba7f5a734cb613)
+- 1845 gestion de permissions de l'utilisateur MVNO sur toute l'application (d1f8f70652592b846ee750d56acd9d583af9c88e)
+- Correctiifs pour MVNO (08c50d3e779fcaaf41e0323969400504bbb3a19f)
+- Correctifs pour MVNO (2c7dce56a838883664b92b2bdf70d3f9258ffcee)
+
 ## 1.6.1
 2020-09-16
 
