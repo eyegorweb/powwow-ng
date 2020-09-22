@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.193+20200922091029
+2020-09-22
+
+### Fixes
+
+- 1845 gestion de permissions de l'utilisateur MVNO sur toute l'application (d1f8f70652592b846ee750d56acd9d583af9c88e)
+
 ## 1.0.0-master.192+20200922084356
 2020-09-22
 
