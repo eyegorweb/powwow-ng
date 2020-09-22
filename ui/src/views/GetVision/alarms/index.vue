@@ -33,7 +33,7 @@ import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
-import ParcAlarmsTab from './ParcAlarmsTab2';
+import ParcAlarmsTab from './ParcAlarmsTab';
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 import { searchAlarms, searchSharedConsumptionAlarm } from '@/api/alarms';
 
