@@ -13,25 +13,26 @@ export default {
   },
   computed: {
     dateToShow() {
-      if (this.row.disabled) {
-        if (this.row.auditable.updated) return this.row.auditable.updated;
+      if (this.$loGet(this.row, 'disabled')) {
+        if (this.$loGet(this.row, 'auditable.updated'))
+          return this.$loGet(this.row, 'auditable.updated');
 
-        return this.row.auditable.created;
+        return this.$loGet(this.row, 'auditable.created');
       } else {
-        if (!this.row.startDate) {
-          return this.row.auditable.created;
+        if (!this.$loGet(this.row, 'startDate')) {
+          return this.$loGet(this.row, 'auditable.created');
         } else {
-          return this.row.startDate;
+          return this.$loGet(this.row, 'startDate');
         }
       }
     },
     status() {
       // Note : svp ne mettez pas d'expressions ternaires ici, on veux garder ce bout de code lisible autant que possible.
 
-      if (this.row.disabled) {
+      if (this.$loGet(this.row, 'disabled')) {
         return 'disabled';
       } else {
-        if (!this.row.startDate) {
+        if (!this.$loGet(this.row, 'startDate')) {
           return 'created';
         } else {
           return 'activated';

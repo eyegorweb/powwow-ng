@@ -998,7 +998,8 @@
         "pukCode": "Code PUK",
         "dualSim": "Dual SIM",
         "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
-        "imeiHistory": "HISTORIQUE DES IMEI",
+        "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
+        "IMEIHistory": "HISTORIQUE DES IMEI",
         "macAdress": "Adresse MAC",
         "usagePeriod": "Période d'utilisation",
         "statuses": {
@@ -1402,7 +1403,6 @@
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé",
           "CANCELED": "Annulé",
-          "TERMINATED": "Terminé",
           "TEST": "Test",
           "NOT_PREACTIVATED": "Non préactivée",
           "PREACTIVATED": "Préactivée",

@@ -28,8 +28,8 @@ export default {
           label: this.$t('getparc.actLines.networkStatuses.SUSPENDED'),
         },
         {
-          id: 'RELEASED',
-          label: this.$t('getparc.actLines.networkStatuses.RELEASED'),
+          id: 'CANCELED',
+          label: this.$t('getparc.actLines.simStatuses.RELEASED'),
         },
         {
           id: 'ACTIVATED',

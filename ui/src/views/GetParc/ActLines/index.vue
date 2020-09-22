@@ -146,7 +146,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userIsBO', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
@@ -163,8 +163,8 @@ export default {
             return !i.boOnly;
           })
           .filter(i => {
-            if (i.restrictPartnerType && this.singlePartner) {
-              return !(this.singlePartner.partyType === i.restrictPartnerType);
+            if (i.hideForMVNO) {
+              return !this.userIsMVNO;
             }
             return true;
           });
