@@ -22,7 +22,7 @@
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
               <p>{{ dateCommitmentEnd }}</p>
             </div>
-            <div class="item" v-if="userIsMVNO">
+            <div class="item" v-if="userIsMVNO && flatEndDate">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endForfaitDate') }}:</h6>
               <p>{{ flatEndDate }}</p>
             </div>
@@ -219,7 +219,7 @@ export default {
 
     flatEndDate() {
       let flatEndDate = get(this.content, 'accessPoint.flatEndDate');
-      if (!flatEndDate) return '-';
+      if (!flatEndDate) return;
       return flatEndDate;
     },
   },
@@ -239,9 +239,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },
