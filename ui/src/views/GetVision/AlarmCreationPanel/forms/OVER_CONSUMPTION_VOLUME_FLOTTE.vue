@@ -3,31 +3,35 @@
     :alarm="alarm"
     have-form
     skip-scope-check
-    :container-height="'4rem'"
+    :container-height="'8rem'"
     @save="onSave"
     :check-errors-fn="isFormValid"
   >
-    <SectionTitle :num="3">Définir des seuils de déclenchement par usage (3 max.)</SectionTitle>
-    <div class="d-flex justify-content-center mt-4 mb-2">
-      <Toggle
-        v-if="toggleValues"
-        @update="currentPeriod = $event.id"
-        :values="toggleValues"
-        class="pl-2"
-      />
-    </div>
+    <template v-slot:default="{ scopeIndex }">
+      <SectionTitle :num="scopeIndex + 1"
+        >Définir des seuils de déclenchement par usage (3 max.)</SectionTitle
+      >
+      <div class="d-flex justify-content-center mt-4 mb-2">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentPeriod = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
 
-    <keep-alive>
-      <OverConsoDataForm v-if="currentPeriod == 'data'" @change="levelsData = $event" />
-    </keep-alive>
-    <keep-alive>
-      <OverConsoSMSForm v-if="currentPeriod == 'sms'" @change="levelsSms = $event" />
-    </keep-alive>
-    <keep-alive>
-      <OverConsoVoiceForm v-if="currentPeriod == 'voice'" @change="levelsVoice = $event" />
-    </keep-alive>
-
+      <keep-alive>
+        <OverConsoDataForm v-if="currentPeriod == 'data'" @change="levelsData = $event" />
+      </keep-alive>
+      <keep-alive>
+        <OverConsoSMSForm v-if="currentPeriod == 'sms'" @change="levelsSms = $event" />
+      </keep-alive>
+      <keep-alive>
+        <OverConsoVoiceForm v-if="currentPeriod == 'voice'" @change="levelsVoice = $event" />
+      </keep-alive>
+    </template>
     <template v-slot:scopechoice="{ partner }">
+      <SectionTitle :num="1">Choisir l'offre</SectionTitle>
       <OfferBillingAccountChoice
         :key="'offercf_' + (partner ? partner.id : '')"
         :partner="partner"
@@ -179,21 +183,25 @@ export default {
         mailingList: payload.notifList,
       };
 
-      let response;
+      try {
+        let response;
 
-      if (this.duplicateFrom && this.duplicateFrom.toModify) {
-        // response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
-      } else {
-        response = await createSharedConsumptionAlarm(params);
+        if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          // response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
+        } else {
+          response = await createSharedConsumptionAlarm(params);
+        }
+
+        if (response.errors && response.errors.length) {
+          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        } else {
+          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        }
+
+        this.closePanel({ resetSearch: true });
+      } catch (e) {
+        console.log('Erreur ', e);
       }
-
-      if (response.errors && response.errors.length) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-      } else {
-        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-      }
-
-      this.closePanel({ resetSearch: true });
     },
     isFormValid() {
       let isFormValid;

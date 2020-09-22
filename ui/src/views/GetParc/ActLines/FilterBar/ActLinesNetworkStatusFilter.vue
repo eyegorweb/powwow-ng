@@ -25,15 +25,15 @@ export default {
       items: [
         {
           id: 'SUSPENDED',
-          label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
+          label: this.$t('getparc.actLines.networkStatuses.SUSPENDED'),
         },
         {
           id: 'CANCELED',
-          label: this.$t('getparc.actLines.simStatuses.CANCELED'),
+          label: this.$t('getparc.actLines.simStatuses.RELEASED'),
         },
         {
           id: 'ACTIVATED',
-          label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
+          label: this.$t('getparc.actLines.networkStatuses.ACTIVATED'),
         },
       ],
     };

@@ -5,6 +5,7 @@
       v-model="selectedTypeSimCard"
       :error="error"
       display-results-while-empty
+      contains-search
     >
       <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }" />
     </UiApiAutocomplete>
@@ -36,7 +37,7 @@ export default {
     };
   },
 
-  async mounted() { },
+  async mounted() {},
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),

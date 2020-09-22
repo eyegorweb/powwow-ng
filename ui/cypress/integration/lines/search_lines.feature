@@ -56,8 +56,14 @@
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
-  Scenario: je lance une recherche par id
+  Scenario: je lance une recherche par MSISDN
     Given en tant que BO
     And je suis sur la page recherche de lignes
     When je lance la recherche par ID "33698014672"
+    Then la table contient 1 resultat
+
+  Scenario: je lance une recherche par AP_ID
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    When je lance la recherche par ID "288"
     Then la table contient 1 resultat

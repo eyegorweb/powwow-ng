@@ -20,6 +20,11 @@
         :partner="partner"
         :billing-account-to-detail="billingAccountToDetail"
       />
+      <SimCards
+        v-if="section === 'getadmin.partnerDetail.mb.simCards'"
+        :partner="partner"
+        :billing-account-to-detail="billingAccountToDetail"
+      />
     </div>
   </div>
 </template>
@@ -28,12 +33,14 @@
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
 import CommercialOffers from './CommercialOffers/index.vue';
 import DeliveryAdresses from './DeliveryAdresses';
+import SimCards from '@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue';
 
 export default {
   components: {
     TabsSubMenu,
     DeliveryAdresses,
     CommercialOffers,
+    SimCards,
   },
   props: {
     billingAccountToDetail: Object,
@@ -41,15 +48,16 @@ export default {
   },
 
   mounted() {
-    const menuItems = ['getadmin.partnerDetail.mb.commercialOffer'];
+    const menuItems = [
+      'getadmin.partnerDetail.mb.commercialOffer',
+      'getadmin.partnerDetail.mb.simCards',
+    ];
 
     if (this.$shouldShowMocks) {
       menuItems.push(
-        'getadmin.partnerDetail.mb.offerAndProduct',
         'getadmin.partnerDetail.mb.customerDescription',
         'getadmin.partnerDetail.mb.clientContactDescription',
-        'getadmin.partnerDetail.mb.deliveryAdresses',
-        'getadmin.partnerDetail.mb.paymentMethod'
+        'getadmin.partnerDetail.mb.deliveryAdresses'
       );
     }
     this.menuItems = menuItems;

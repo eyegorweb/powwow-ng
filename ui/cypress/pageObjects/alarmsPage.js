@@ -1,7 +1,7 @@
 import layout from './layout';
 import * as filterBarSelectors from './selectors/filterbar';
 
-import { MultiSelectFilter} from './selectors/filters';
+import { MultiSelectFilter } from './selectors/filters';
 function itemPosition(myIndex) {
   if (cy.userIsMonoPartner) {
     return myIndex - 1;
@@ -25,16 +25,14 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.get('.d-block > input')
-        .type(id);
+      cy.waitGet('.d-block > input').type(id);
     },
     applySearch() {
-      cy.get('.col-md-3 > .btn')
-        .click();
-    }
+      cy.waitGet('.col-md-3 > .btn').click();
+    },
   },
   getTotal(onTotalLoaded) {
-    return cy.get('.col-md-9 > .position-relative > .row > .col-md-8 > .text-gray').then(e => {
+    return cy.waitGet('.text-gray').then(e => {
       const parts = e
         .text()
         .trim()

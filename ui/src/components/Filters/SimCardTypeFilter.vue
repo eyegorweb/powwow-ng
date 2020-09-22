@@ -3,7 +3,8 @@
     :values="selectedTypeSimCardValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="(values) => $emit('setTypeSimCardFilter', values)"
+    contains-search
+    @update:values="values => $emit('setTypeSimCardFilter', values)"
   />
 </template>
 
@@ -18,6 +19,7 @@ export default {
   props: {
     selectedTypeSimCardValues: Array,
     selectedPartnersValues: Array,
+
     formatFn: {
       type: Function,
       required: false,

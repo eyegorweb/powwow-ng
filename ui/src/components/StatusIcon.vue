@@ -29,8 +29,6 @@ export default {
 
   .icon-container {
     color: white;
-    width: 16px;
-    height: 16px;
     position: absolute;
     left: 50%;
     top: 50%;

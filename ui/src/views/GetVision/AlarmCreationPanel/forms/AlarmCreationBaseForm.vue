@@ -18,6 +18,7 @@
         :num="scopeIndex"
         :partner="selectedPartner"
         :container-height="containerHeight"
+        :skip-scope-check="skipScopeCheck"
         @scope="onScopeChange"
       >
         <slot name="scopechoice" :partner="selectedPartner"></slot>
@@ -25,7 +26,7 @@
     </template>
 
     <div class="mb-4">
-      <slot @change="onChange" />
+      <slot @change="onChange" :scopeIndex="scopeIndex" />
     </div>
     <AlarmInfoBlock
       :num="notifIndex"
@@ -44,6 +45,7 @@ import AlarmInfoBlock from './AlarmInfoBlock';
 import SectionTitle from '@/components/SectionTitle';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -69,7 +71,14 @@ export default {
   },
 
   mounted() {
-    if (this.duplicateFrom) {
+    if (this.userIsPartner) {
+      this.shouldSelectPartner = false;
+      this.selectedPartner = {
+        ...this.singlePartner,
+        label: get(this.singlePartner, 'name'),
+        data: this.singlePartner,
+      };
+    } else if (this.duplicateFrom) {
       this.selectedPartner = {
         ...get(this.duplicateFrom, 'party', {}),
         label: get(this.duplicateFrom, 'party.name'),
@@ -94,6 +103,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsPartner', 'singlePartner']),
+
     canSave() {
       let scopeIsValid = true;
 

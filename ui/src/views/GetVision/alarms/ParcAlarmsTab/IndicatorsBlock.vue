@@ -19,7 +19,7 @@
 import moment from 'moment';
 import { formattedCurrentDate, DATE_FORMAT } from '@/utils/date';
 import { fetchAlarmInstancesIndicators } from '@/api/alarms';
-import { mapState, mapMutations } from 'vuex';
+import { mapState } from 'vuex';
 
 const startOfCurrentMonth = moment().startOf('month');
 const startOfPrevCurrentMonth = moment()
@@ -107,14 +107,12 @@ export default {
         ];
       }
     },
-    ...mapMutations('alarms', ['setCurrentFilters', 'applyFilters']),
     onClick(indicator) {
       this.setCurrentFiltersForIndicator(indicator);
     },
 
     setCurrentFiltersForIndicator(indicator) {
-      this.setCurrentFilters([...indicator.filters]);
-      this.applyFilters();
+      this.$emit('apply', [...indicator.filters]);
     },
   },
 };

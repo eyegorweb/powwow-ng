@@ -53,7 +53,7 @@
                     class="btn btn-primary float-right"
                   >
                     <i class="ic-Settings-Icon"></i>
-                    Modifier les services
+                    {{ $t('getparc.lineDetail.tabServices.modifyServices') }}
                   </button>
                   <button v-else class="btn btn-primary float-right" disabled>
                     {{ $t('processing') }}
@@ -61,14 +61,14 @@
                   </button>
                   <button class="btn btn-outline-primary float-right mr-3" @click="revertServices">
                     <i class="ic-Refresh-Icon"></i>
-                    Annuler les modifications
+                    {{ $t('getparc.lineDetail.tabServices.cancelModifications') }}
                   </button>
                 </div>
               </div>
             </template>
           </ContentBlock>
 
-          <ContentBlock :key="'block3'">
+          <ContentBlock :key="'block3'" v-if="!userIsMVNO">
             <template slot="title">{{ $t('getparc.lineDetail.tabServices.ipAdressFix') }}</template>
             <template slot="content">
               <div class="row" v-if="canShowTable">
@@ -116,7 +116,7 @@ import {
 import { fetchLineServices } from '@/api/linesActions.js';
 import { changeService } from '@/api/actCreation.js';
 import { formattedCurrentDate } from '@/utils/date';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
@@ -248,6 +248,8 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['userIsMVNO']),
+
     canShowTable() {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
     },

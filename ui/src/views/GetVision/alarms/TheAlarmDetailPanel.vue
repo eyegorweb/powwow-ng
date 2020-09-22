@@ -27,7 +27,7 @@
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
         <a
-          style="font-size:0.8rem"
+          style="font-size: 0.8rem"
           v-if="content.numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"

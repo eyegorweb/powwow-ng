@@ -1,8 +1,8 @@
 <template>
   <CardsList
     :key="version"
-    searchInputTxt="orders.new.deliveryStep.search"
-    placeholderTxt="orders.new.deliveryStep.searchPlaceholder"
+    search-input-txt="orders.new.deliveryStep.search"
+    placeholder-txt="orders.new.deliveryStep.searchPlaceholder"
     add-txt="getadmin.customize.addDeliveryAddress"
     add-icon="ic-Pin-Icon"
     :fetch-fn="fetchFn"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import get from 'lodash.get'
+import get from 'lodash.get';
 import CardsList from '@/views/GetAdmin/PartnerDetail/parts/CardsList.vue';
 
 export default {
@@ -51,8 +51,8 @@ export default {
   },
   data() {
     return {
-      version: 0
-    }
+      version: 0,
+    };
   },
   methods: {
     async fetchFn() {
@@ -102,17 +102,16 @@ export default {
 
       return filteredAdresses;
     },
-    openCreationPanel() { },
-    modifyList(address) { },
+    openCreationPanel() {},
+    modifyList(address) {
+      console.log(address);
+    },
     getFromObject(object, path, defaultValue = '') {
       const value = get(object, path, defaultValue);
       return value !== null ? value : '';
     },
-
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

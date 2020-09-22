@@ -26,7 +26,9 @@
   "export": "Exporter",
   "exportAll": "Export complet",
   "exportError": "La génération du fichier a rencontré un problème. Veuillez réessayer.",
+  "retry": "Veuillez réessayer",
   "exportLoading": "Votre fichier est en cours de préparation",
+  "exportFormat": "Veuillez choisir un format d'export",
   "logout": "Déconnexion",
   "required": "Champ obligatoire",
   "optional": "Champ facultatif",
@@ -83,6 +85,8 @@
   "login": "Login",
   "password": "Mot de passe",
   "passwordConfirm": "Confirmation du mot de passe",
+  "moreFilters": "Plus de filtres",
+  "lessFilters": "Moins de filtres",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -114,8 +118,8 @@
       "searchLine": "Rechercher une ligne",
       "topTriggeredAlarms": "Top 5 des alarmes déclenchées",
       "coach": "Coach M2M / Diagnostic",
-      "userActs": "DERNIERS ACTES DE GESTION DE L’UTILISATEUR « {userName} »",
-      "dataVoiceConso": "CONSOMMATION MENSUELLE",
+      "userActs": "Derniers actes de gestion de l’utilisateur « {userName} »",
+      "dataVoiceConso": "Consommation mensuelle",
       "stateParc": {
         "title": "ETAT DU PARC",
         "stockLines": "Cartes SIM en stock",
@@ -144,7 +148,7 @@
       "viewXResults": "Consulter les {num} résultats",
       "linesConsumption": "Lignes les plus consommatrices du mois",
       "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
-      "topBillingExchangeCA": "TOP / FLOP CA",
+      "topBillingExchangeCA": "Top / Flop CA",
       "topBillingExchangePO": "Prise d'ordre"
     }
   },
@@ -455,7 +459,7 @@
     "alarm": {
       "triggered_x_month": "Déclenchements dans les {month} derniers mois",
       "triggered_lines": "Lignes ciblées par l'alarme",
-      "excluded_sim_from_alarms": "Cartes sim exclues de l'alarme",
+      "excluded_sim_from_alarms": "Lignes exclues",
       "trigger_reason": "Motifs de déclenchement",
       "trigger_date": "Date de dernier déclenchement",
       "disable_alarm_lines": "Désactiver l'alarme des lignes",
@@ -584,7 +588,7 @@
         "siret": "N° siret",
         "status": "Statut",
         "commercialOffer": "Offres commerciales",
-        "offerAndProduct": "Offres et produits",
+        "simCards": "Cartes SIM",
         "customerDescription": "Description du compte client",
         "clientContactDescription": "Description du contact client",
         "deliveryAdresses": "Adresses de livraison",
@@ -659,6 +663,10 @@
       "ELEVEN": "11",
       "FIFTEEN": "15",
       "BOTH": "Tous",
+      "simcards": {
+        "search": "Rechercher une carte",
+        "searchPlaceholder": "veuillez saisir un nom"
+      },
       "adminForm": {
         "titles": {
           "addMainAdmin": "Ajouter un administrateur principal",
@@ -810,7 +818,7 @@
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
-        "EXPORT_LINES": "Exporter {total} lignes:",
+        "EXPORT_LINES": "Exporter {total} lignes",
         "EXPORT_ACTS": "Exporter {total} actes",
         "RESULT": "Voir le résultat de l'acte",
         "MORE_DETAIL": "Voir le détail du résultat",
@@ -991,6 +999,7 @@
         "dualSim": "Dual SIM",
         "msisdnHistory": "HISTORIQUE DES MSISDN DE LA LIGNE",
         "equipmentsHistory": "HISTORIQUE DES ÉQUIPEMENTS",
+        "IMEIHistory": "HISTORIQUE DES IMEI",
         "macAdress": "Adresse MAC",
         "usagePeriod": "Période d'utilisation",
         "statuses": {
@@ -1154,6 +1163,8 @@
         "optionalServices": "Services optionnels",
         "services": "Services",
         "ipAdressFix": "Adresse IP Fixe",
+        "modifyServices": "Modifier les services",
+        "cancelModifications": "Annuler les modifications",
         "apn": "APN",
         "ipAdress": "Adresse IP",
         "version": "Version"
@@ -1392,7 +1403,6 @@
           "REPLAYED": "Rejoué",
           "CANCELLED": "Annulé",
           "CANCELED": "Annulé",
-          "TERMINATED": "Terminé",
           "TEST": "Test",
           "NOT_PREACTIVATED": "Non préactivée",
           "PREACTIVATED": "Préactivée",
@@ -1412,6 +1422,19 @@
         "ACTIVATING": "Activation en cours",
         "DEACTIVATION": "Désactivation en cours",
         "CANCELED": "Annulée",
+        "TEST": "Test",
+        "BARRED": "Barré",
+        "ALLOCATING": "En cours de préactivation"
+      },
+      "networkStatuses": {
+        "NOT_PREACTIVATED": "Non préactivé",
+        "PREACTIVATED": "Préactivé",
+        "ACTIVATED": "Activé",
+        "SUSPENDED": "Suspendu",
+        "RELEASED": "Résilié",
+        "ACTIVATING": "Activation en cours",
+        "DEACTIVATION": "Désactivation en cours",
+        "CANCELED": "Annulé",
         "TEST": "Test",
         "BARRED": "Barré",
         "ALLOCATING": "En cours de préactivation"

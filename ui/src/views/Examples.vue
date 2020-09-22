@@ -29,6 +29,7 @@ import { mapMutations } from 'vuex';
 import SearchLineWithResults from '@/views/GetParc/CoachM2M/SearchLineWithResults.vue';
 import UiButton from '@/components/ui/Button';
 import CommercialOfferForm from '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue';
+import { containsWithHighlight } from '@/utils.js';
 
 export default {
   name: 'Home',
@@ -43,6 +44,18 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 2000);
+
+    console.log(
+      JSON.stringify(
+        containsWithHighlight('test', [
+          { label: 'aaatestvvvv' },
+          { label: 'bbtessstvvvv' },
+          {
+            label: 'bbaasssstvvvv',
+          },
+        ])
+      )
+    );
   },
   data() {
     return {

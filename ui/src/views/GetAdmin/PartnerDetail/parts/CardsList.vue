@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="title" />
     <div v-if="items && items.length > 0" class="mb-3">
       <div class="col-md-6">
         <h6>{{ $t(searchInputTxt) }}</h6>
@@ -24,7 +25,7 @@
         v-for="list in filteredItems"
         :key="list.id"
         :can-delete="canDelete"
-        :canModify="!noEdit"
+        :can-modify="!noEdit"
         @modify="$emit('modify', list)"
       >
         <slot :item="list" />
@@ -51,7 +52,7 @@ export default {
     fetchFn: Function,
     filterFn: Function,
     noEdit: Boolean,
-    canDelete: Boolean
+    canDelete: Boolean,
   },
 
   data() {

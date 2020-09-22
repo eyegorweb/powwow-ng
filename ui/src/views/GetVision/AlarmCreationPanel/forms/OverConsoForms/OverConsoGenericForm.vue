@@ -119,7 +119,7 @@ export default {
   display: flex;
   .value {
     display: flex;
-    flex-basis: 30%;
+    flex-basis: 37%;
     padding-right: 1rem;
 
     &::after {

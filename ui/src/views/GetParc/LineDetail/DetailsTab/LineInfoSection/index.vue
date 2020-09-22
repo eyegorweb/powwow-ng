@@ -37,9 +37,7 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title"
-            >CARTE SIM</template
-          >
+          <template slot="title">CARTE SIM</template>
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -119,9 +117,10 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block5'">
+        <ContentBlock v-if="userIsBO" :key="'block5'">
           <template slot="title">
-            <span>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
+            <span v-if="partnerTypeMVNO">{{ $t('getparc.lineDetail.tab1.IMEIHistory') }}</span>
+            <span v-else>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
           </template>
           <template slot="content">
             <EquipmentsHistoryTable v-if="content" :content="content" />

@@ -2,9 +2,9 @@
   <div>
     <draggable handle=".handle">
       <ContentBlock :key="'block1'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.billingAccount') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.billingAccount')
+        }}</template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -18,11 +18,11 @@
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
               <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
             </div>
-            <div class="item" v-if="!isMVNO">
+            <div class="item" v-if="!userIsMVNO && dateCommitmentEnd">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
               <p>{{ dateCommitmentEnd }}</p>
             </div>
-            <div class="item" v-if="isMVNO">
+            <div class="item" v-if="userIsMVNO && flatEndDate">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endForfaitDate') }}:</h6>
               <p>{{ flatEndDate }}</p>
             </div>
@@ -30,9 +30,9 @@
         </template>
       </ContentBlock>
       <ContentBlock :key="'block2'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.detailStatus') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.detailStatus')
+        }}</template>
         <template slot="content">
           <div class="d-flex">
             <div class="item">
@@ -71,9 +71,9 @@
         </template>
       </ContentBlock>
       <ContentBlock v-if="remainingTime !== undefined" :key="'block3'">
-        <template slot="title">
-          {{ $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer') }}
-        </template>
+        <template slot="title">{{
+          $t('getparc.lineDetail.tab1.billingOffer.timeForSuspendedOffer')
+        }}</template>
 
         <template slot="content">
           <div>
@@ -102,6 +102,7 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -116,16 +117,16 @@ export default {
   data() {
     return {
       commercialStatus: undefined,
-      isMVNO: undefined,
     };
   },
 
   mounted() {
     this.getCommercialStatus();
-    this.isMVNO = this.content.party.partyType === 'MVNO' ? true : false;
   },
 
   computed: {
+    ...mapGetters(['userIsMVNO']),
+
     billingStatusChangeDate() {
       return this.getFromContent('accessPoint.billingStatusChangeDate');
     },
@@ -218,7 +219,7 @@ export default {
 
     flatEndDate() {
       let flatEndDate = get(this.content, 'accessPoint.flatEndDate');
-      if (!flatEndDate) return '-';
+      if (!flatEndDate) return;
       return flatEndDate;
     },
   },
@@ -238,9 +239,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },

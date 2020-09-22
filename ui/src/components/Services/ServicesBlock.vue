@@ -1,7 +1,7 @@
 <template>
   <div v-if="!vertical">
     <div class="row">
-      <div :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }">
+      <div v-if="!userIsMVNO" :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }">
         <div class="s-container">
           <div
             :key="service.code"
@@ -49,7 +49,7 @@
   </div>
   <div v-else>
     <div>
-      <div class="services-container">
+      <div v-if="!userIsMVNO" class="services-container">
         <div :key="service.id" v-for="service in otherServices" class="single-service">
           <UiToggle
             :label="service.labelService"
@@ -78,6 +78,7 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import DataServiceToggle from './DataServiceToggle';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -94,6 +95,9 @@ export default {
     dataParamsNeeded: Boolean,
     fullWidth: Boolean,
     noClick: Boolean,
+  },
+  computed: {
+    ...mapGetters(['userIsMVNO']),
   },
   methods: {
     setup() {

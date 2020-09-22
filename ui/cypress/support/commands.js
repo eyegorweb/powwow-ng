@@ -16,3 +16,7 @@ Cypress.Commands.add('startAsPartner', () => {
   cy.userIsMonoPartner = true;
   cy.visit(Cypress.env('APP_URL') + 'p/callback#access_token=' + Cypress.env('PARTNER_TOKEN'));
 });
+
+Cypress.Commands.add('waitGet', path => {
+  return cy.get(path, {timeout : 10000});
+});

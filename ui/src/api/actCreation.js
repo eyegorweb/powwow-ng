@@ -404,7 +404,14 @@ export async function terminateLines(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
-    return response.data.terminateLinesV2;
+    if (response) {
+      if (response.data) {
+        return response.data.terminateLinesV2;
+      }
+      if (response.errors) {
+        return response;
+      }
+    }
   });
 }
 

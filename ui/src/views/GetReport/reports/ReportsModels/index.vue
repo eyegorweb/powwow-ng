@@ -193,7 +193,7 @@ export default {
         {
           id: 10,
           label: 'Statut',
-          orderable: true,
+          orderable: false,
           visible: false,
           name: 'generationStatus',
           exportId: 'generationStatus',

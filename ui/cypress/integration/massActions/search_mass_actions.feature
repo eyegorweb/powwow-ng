@@ -36,3 +36,9 @@ Feature: Recherche d'actes de gestion
     And je suis sur l'historique des actes de gestion
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
+
+    Scenario: je lance une recherche par MSISDN
+    Given en tant que BO
+    And je suis sur l'historique des actes de gestion
+    When je lance la recherche par ID "33698014672"
+    Then la table contient 1 resultat

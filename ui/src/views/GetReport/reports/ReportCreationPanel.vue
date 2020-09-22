@@ -13,9 +13,9 @@
           />
         </template>
 
-        <SectionTitle :num="baseNumber + 1">
-          {{ $t('getreport.creation.chooseInfos') }}
-        </SectionTitle>
+        <SectionTitle :num="baseNumber + 1">{{
+          $t('getreport.creation.chooseInfos')
+        }}</SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
 
         <div v-if="reportModels" class="mt-4 mb-2">
@@ -48,9 +48,9 @@
           </template>
         </div>
 
-        <SectionTitle :num="baseNumber + 2">
-          {{ $t('getreport.creation.generateReport') }}
-        </SectionTitle>
+        <SectionTitle :num="baseNumber + 2">{{
+          $t('getreport.creation.generateReport')
+        }}</SectionTitle>
         <div class="mb-2">
           <h6>{{ $t('getreport.creation.dateAndRecursion') }}</h6>
           <Toggle
@@ -187,6 +187,10 @@ export default {
 
   data() {
     return {
+      endDateOf: {
+        code: '',
+        name: '',
+      },
       canShowForm: false,
       selectedItems: [],
       generationDate: undefined,
@@ -242,6 +246,17 @@ export default {
 
     let partnerID, partnerData;
 
+    if (this.userIsMVNO) {
+      this.endDateOf = {
+        code: 'FLAT_END_DATE',
+        name: 'Date de fin de forfait',
+      };
+    } else {
+      this.endDateOf = {
+        code: 'COMMITMENT_END_DATE',
+        name: "Date de fin d'engagement",
+      };
+    }
     const preselectPartner = async () => {
       if (this.content) {
         partnerID = this.content.party.id;
@@ -570,6 +585,7 @@ export default {
               label: 'Adresse ip fixe',
               checked: false,
               canShow: () => {
+                if (this.userIsMVNO) return false;
                 if (this.userIsOperator) return true;
                 return get(this.partnerForOptionCheck, 'data.partyType') === 'CUSTOMER';
               },
@@ -621,7 +637,7 @@ export default {
             },
             { code: 'PARTNER_NAME', label: 'Nom du partenaire', checked: false },
             { code: 'PARTNER_CODE', label: 'Code du partenaire', checked: false },
-            { code: 'COMMITMENT_END_DATE', label: 'Date de fin d’engagement', checked: false },
+            { code: this.endDateOf.code, label: this.endDateOf.name, checked: false },
             { code: 'COMMERCIAL_STATUS', label: 'Statut commercial ', checked: false },
             { code: 'BILLING_STATUS', label: 'Statut de facturation', checked: false },
           ],
@@ -834,6 +850,7 @@ export default {
       'userIsMultiPartner',
       'userIsOperator',
       'havePermission',
+      'userIsMVNO',
     ]),
 
     dateLabel() {
