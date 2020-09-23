@@ -18,13 +18,13 @@
         <template slot="topLeftCorner">
           <UiButton variant="outline-primary" @click="$emit('gotomap')">
             <i class="ic-Pin-Icon"></i>
-            Vue carte
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
           </UiButton>
         </template>
         <template slot="noResult">
           <UiButton variant="outline-primary" @click="$emit('gotomap')">
             <i class="ic-Pin-Icon"></i>
-            Vue carte
+            {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
           </UiButton>
 
           <div class="mt-2 alert alert-light m-0" role="alert">
@@ -36,7 +36,7 @@
     <template v-else-if="total >= 500 && total <= 100000">
       <UiButton variant="outline-primary" @click="$emit('gotomap')">
         <i class="ic-Pin-Icon"></i>
-        Vue carte
+        {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
       <div class="alert alert-warning mt-2">
         Plus de 500 lignes sélectionnées, la liste est disponible
@@ -45,7 +45,7 @@
     <template v-else-if="total >= 100000">
       <UiButton variant="outline-primary" @click="$emit('gotomap')">
         <i class="ic-Pin-Icon"></i>
-        Vue carte
+        {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
       <div class="alert alert-warning mt-2">
         Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans
@@ -100,13 +100,11 @@ export default {
         },
         {
           id: uuid(),
-          label: this.$t(
-            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.operator'
-          ),
+          label: this.$t('getparc.actDetail.col.imsi'),
           orderable: true,
-          visible: true,
-          name: 'operatorRealPlmn',
-          sortingName: 'plmn',
+          visible: false,
+          name: 'imsi',
+          sortingName: 'imsi',
         },
         {
           id: uuid(),
@@ -124,35 +122,12 @@ export default {
         },
         {
           id: uuid(),
-          label: this.$t('filters.postalCode'),
-          orderable: true,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.operator'
+          ),
+          orderable: false,
           visible: true,
-          name: 'zipCode',
-          sortingName: 'zipcode',
-        },
-        {
-          id: uuid(),
-          label: this.$t('filters.city'),
-          orderable: true,
-          visible: false,
-          name: 'city',
-        },
-        {
-          id: uuid(),
-          label: this.$t('filters.lastUsage'),
-          orderable: true,
-          visible: false,
-          name: 'lastUsageDate',
-          sortingName: 'lastUsageDate',
-        },
-
-        {
-          id: uuid(),
-          label: this.$t('getparc.actDetail.col.imsi'),
-          orderable: true,
-          visible: false,
-          name: 'imsi',
-          sortingName: 'imsi',
+          name: 'operatorRealPlmn',
         },
         {
           id: uuid(),
@@ -166,6 +141,21 @@ export default {
         },
         {
           id: uuid(),
+          label: this.$t('filters.postalCode'),
+          orderable: true,
+          visible: true,
+          name: 'zipCode',
+          sortingName: 'zipcode',
+        },
+        {
+          id: uuid(),
+          label: this.$t('filters.city'),
+          orderable: false,
+          visible: false,
+          name: 'city',
+        },
+        {
+          id: uuid(),
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.cellId'
           ),
@@ -173,6 +163,14 @@ export default {
           visible: false,
           name: 'cellid',
           sortingName: 'cellid',
+        },
+        {
+          id: uuid(),
+          label: this.$t('filters.lastUsage'),
+          orderable: true,
+          visible: false,
+          name: 'lastUsageDate',
+          sortingName: 'lastUsageDate',
         },
         {
           id: uuid(),
@@ -185,9 +183,16 @@ export default {
         {
           id: uuid(),
           label: this.$t('filters.direction'),
-          orderable: true,
+          orderable: false,
           visible: false,
-          name: 'usageDetails',
+          name: 'direction',
+        },
+        {
+          id: uuid(),
+          label: this.$t('getparc.lineDetail.tab2.lineAnalysisContent.technology'),
+          orderable: false,
+          visible: false,
+          name: 'technology',
         },
         {
           id: uuid(),
@@ -226,7 +231,7 @@ export default {
           label: this.$t('getadmin.partnerDetail.contactDetail'),
           orderable: true,
           visible: false,
-          name: 'todo',
+          name: 'address',
         },
         {
           id: uuid(),
@@ -242,11 +247,12 @@ export default {
           orderable: true,
           visible: false,
           name: 'offer',
+          sortingName: 'offer',
         },
         {
           id: uuid(),
           label: this.$t('col.partner'),
-          orderable: true,
+          orderable: false,
           visible: false,
           name: 'partyName',
         },
@@ -272,13 +278,34 @@ export default {
           filter: this.filtersForExport,
           columns: [
             ...columnsParam,
-            'IMSI',
+            'MSISDN',
             'ICCID',
-            'ADDRESS_IP_TYPE',
-            'ADDRESS_IP_V4',
-            'APN',
+            'IMSI',
+            'COUNTRY_NAME',
+            'OPERATOR_NAME',
+            'PLMN',
+            'ZIPCODE',
+            'CITY',
+            'CELL_ID',
+            'LAST_USAGE_DATE',
+            'LAST_USAGE_TYPE',
+            'USAGE_DETAILS',
+            'DIRECTION',
+            'TICKET_GENERATION',
+            'LAST_PDP_CON_STATUS',
+            'LAST_PDP_CON_START_DATE',
+            'LAST_PDP_CON_END_DATE',
+            'IMEI',
             'DEVICE_REFERENCE',
             'DEVICE_MANUFACTURER',
+            'ADDRESS',
+            'NETWORK_STATUS',
+            'OFFER',
+            'ADDRESS_IP_TYPE',
+            'ADDRESS_IP_V4',
+            'ADDRESS_IP_V6',
+            'APN',
+            'PARTY_NAME',
           ],
           asyncExportRequest: this.total >= 100000,
           exportFormat,
