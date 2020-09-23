@@ -1407,7 +1407,8 @@
           "TEST": "Test",
           "NOT_PREACTIVATED": "Non préactivée",
           "PREACTIVATED": "Préactivée",
-          "ACTIVATED": "Activée"
+          "ACTIVATED": "Activée",
+          "TERMINATED": "Terminé"
         }
       },
       "alarmList": {
