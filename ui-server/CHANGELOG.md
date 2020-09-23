@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.197+20200923084859
+2020-09-23
+
+### Fixes
+
+- 1882 chargement des derniers actes de gestion par ordre d'identifiants (34c11727295f3f047fb8394d19cbcd5ad393ca83)
+- cacher Le bouton "Annuler les modifications" s'il n'y a pas de modification (f471e1b48f34042c1a068429902973509e1b3932)
+- 1855 export des colonnes pour la table de supervision (649bbaa80f1e42054f58c4dc1960f9c5d6a05c0b)
+
 ## 1.0.0-master.196+20200922142153
 2020-09-22
 
