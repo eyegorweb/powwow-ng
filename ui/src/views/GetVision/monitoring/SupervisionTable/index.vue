@@ -39,7 +39,6 @@
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
       <div class="alert alert-warning mt-2">
-        <!-- todo: tranlate -->
         Plus de 500 lignes sélectionnées, la liste est disponible
       </div>
     </template>
@@ -49,7 +48,6 @@
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
       <div class="alert alert-warning mt-2">
-        <!-- todo: tranlate -->
         Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans
         la gestion documentaire" avec un bouton demande d'export différé. Attention, il faut appeler
         l'api d'export en mode asynchrone.
@@ -76,10 +74,6 @@ export default {
     refreshLinesFn: Function,
     total: Number,
     filtersForExport: Object,
-  },
-
-  mounted() {
-    console.log('total indicator', this.total);
   },
 
   data() {
