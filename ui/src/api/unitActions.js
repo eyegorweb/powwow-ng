@@ -45,7 +45,6 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
           accessPointId
           dueDate
           created
-          status
           statusDate
           errorCode
         }
@@ -60,6 +59,7 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
         error
         massActionId
         geoloc
+        status
       }
     }
   }

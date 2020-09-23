@@ -126,12 +126,6 @@ export default {
           orderabel: false,
           noHandle: true,
           visible: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
-            },
-          },
         },
         {
           id: 5,
