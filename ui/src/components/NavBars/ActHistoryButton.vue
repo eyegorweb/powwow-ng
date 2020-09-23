@@ -24,7 +24,7 @@
           <div class="act-info">
             <div class="act-status" :class="`${getStatusColor(act.massAction.status)}`">
               <i class="icon" :class="`${getStatusIcon(act.massAction.status)}`"></i>
-              {{ $t('getparc.actLines.massActionsHistory.statuses.' + act.massAction.status) }}
+              {{ act.status }}
             </div>
             <div class="act-user">{{ act.partyName }} - {{ act.creatorUsername }}</div>
           </div>

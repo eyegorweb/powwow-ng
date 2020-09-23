@@ -62,7 +62,7 @@ export default {
             labels: {
               rotation: -45,
             },
-            tickInterval: 24 * 3600 * 1000,
+            tickInterval: 24 * 60 * 60 * 1000, // par jour
           },
         ],
         yAxis: [
