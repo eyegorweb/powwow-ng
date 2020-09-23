@@ -338,7 +338,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -529,7 +529,7 @@ export default {
 
     onPassiveClick(payload) {
       this.onMarkerClick(payload, 'PASSIVE');
-      this.indicatorTotal = payload.marker.activeCount;
+      this.indicatorTotal = payload.marker.passiveCount;
     },
 
     getFiltersForExport(clickedMarkerData, activityType) {
