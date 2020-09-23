@@ -1078,6 +1078,7 @@
           "sms": "Consommation SMS",
           "voice": "Consommation voix",
           "smsTable": {},
+          "mapView": "Vue carte",
           "dataConsumptionPerDayColumns": {
             "start": "Début de conso",
             "end": "Fin de conso.",
