@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.200+20200923140058
+2020-09-23
+
+### Fixes
+
+- Corriger le status dans les tables d'historique d'actes de gestion (bb439acd5bb769043322813a2aa8d0c64b326bd7)
+- 1897 traduction du statut Terminé pour l'acte de gestion (3e08385260f3fce547f0125e9f83e6f7193c5187)
+
 ## 1.0.0-master.199+20200923133923
 2020-09-23
 
