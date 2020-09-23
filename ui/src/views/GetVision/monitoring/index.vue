@@ -507,6 +507,7 @@ export default {
     },
 
     onIndicatorClick(payload) {
+      console.log('click on indicator', payload);
       const { indicator, total } = payload;
       const usage = this.currentUsage;
       const counter = indicator.counter;
@@ -523,11 +524,13 @@ export default {
     },
 
     onActiveClick(payload) {
+      console.log('click on active marker', payload);
       this.onMarkerClick(payload, 'ACTIVE');
       this.indicatorTotal = payload.marker.activeCount;
     },
 
     onPassiveClick(payload) {
+      console.log('click on passive marker', payload);
       this.onMarkerClick(payload, 'PASSIVE');
       this.indicatorTotal = payload.marker.activeCount;
     },
