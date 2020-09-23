@@ -184,7 +184,7 @@ export default {
           },
         },
       ],
-      orderBy: { key: 'DUE_DATE', direction: 'DESC' },
+      orderBy: { key: 'ID', direction: 'DESC' },
       resultsPromise: undefined,
       rows: [],
     };
