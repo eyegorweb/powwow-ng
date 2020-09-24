@@ -20,7 +20,7 @@
         <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
         <p>{{ $t('alarms.' + content.type) }}</p>
       </div>
-      <div class="overview-item mr-5">
+      <div v-if="content.alarmScope" class="overview-item mr-5">
         <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
         <p>{{ $t('alarms.alarmScope.' + content.alarmScope) }}</p>
       </div>
@@ -179,9 +179,8 @@ export default {
 
     finalTextObservationCycle() {
       if (this.content.observationCycle === 'CUSTOM') {
-        return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
-          this.content.observationDelay
-        } ${this.$t('alarms.observationCycles.DAYS')}`;
+        return `${this.$t('alarms.observationCycles.CUSTOM')} : ${this.content.observationDelay
+          } ${this.$t('alarms.observationCycles.DAYS')}`;
       } else {
         return this.content.observationCycle;
       }

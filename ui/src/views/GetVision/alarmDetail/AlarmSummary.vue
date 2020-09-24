@@ -26,7 +26,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
-            <p>{{ content.alarmScope }}</p>
+            <p>{{ $t('alarms.alarmScope.' + content.alarmScope) }}</p>
           </div>
         </div>
       </div>
