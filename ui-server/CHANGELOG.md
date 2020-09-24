@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.201+20200924101001
+2020-09-24
+
+### Fixes
+
+- utiliser les filtres déjà sléléctionnés dans la recherche par ID (a993cfb4762d22a34a5375a279cadfc40222f901)
+
 ## 1.0.0-master.200+20200923140058
 2020-09-23
 
