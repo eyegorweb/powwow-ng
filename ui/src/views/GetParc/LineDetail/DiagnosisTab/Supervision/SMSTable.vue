@@ -55,8 +55,12 @@ export default {
           },
         }),
         col(this.$t('getparc.actDetail.col.msisdn'), 'smsHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'callingNumber',
+          type: 'Getter',
+          getter: row => {
+            return row.smsHistoryData && row.smsHistoryData.incomming
+              ? row.smsHistoryData.callingNumber
+              : row.smsHistoryData.calledNumber;
+          },
         }),
         col(
           this.$t(
@@ -82,12 +86,6 @@ export default {
           type: 'ObjectAttribute',
           path: 'offerCode',
         }),
-        /*
-        col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
-          type: 'ObjectAttribute',
-          path: 'order.id',
-        }),
-        //*/
         col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
           type: 'ObjectAttribute',
           path: 'deviceInstance.deviceReference',
