@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.203+20200924151431
+2020-09-24
+
+### Fixes
+
+- corriger la traduction des services (86a5f7d245d49513e2c1745cf3840e969916b097)
+
 ## 1.0.0-master.202+20200924130155
 2020-09-24
 
