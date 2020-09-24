@@ -42,7 +42,7 @@ export default {
         return {
           ...s,
           id: s.code,
-          label: this.$t('services.' + s.code),
+          label: s.labelService,
         };
       };
       this.offerServices = offerServices.filter(s => s.code !== 'DATA').map(multiselectFormat);
