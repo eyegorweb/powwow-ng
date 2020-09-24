@@ -422,8 +422,8 @@ export const mutations = {
   },
 
   startSearchingById(state, values) {
-    state.appliedFilters = [...values];
-    state.currentFilters = [];
+    state.appliedFilters = [...(state.currentFilters || []), ...values];
+    //  state.currentFilters = [];
     state.searchingById = true;
   },
 

@@ -6,7 +6,7 @@
       <br />
       <br />
       {{ limits }}
-      <OverConsoVolumeFlotteGraph :initLimits="limits" @setLimits="limits = $event" />
+      <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="limits = $event" />
     </div>
   </div>
 </template>
@@ -15,20 +15,19 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import OverConsoVolumeFlotteGraph from '@/views/GetVision/AlarmCreationPanel/forms/OverConsoVolumeFlotteGraph.vue'
+import OverConsoVolumeFlotteGraph from '@/views/GetVision/AlarmCreationPanel/forms/OverConsoVolumeFlotteGraph.vue';
 
 export default {
   name: 'Examples',
   components: {
     SearchTranslationKey,
-    OverConsoVolumeFlotteGraph
+    OverConsoVolumeFlotteGraph,
   },
 
   data() {
     return {
-      limits: []
-    }
+      limits: [],
+    };
   },
-
 };
 </script>

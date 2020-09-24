@@ -6,7 +6,6 @@
 
 <script>
 import { Chart } from 'highcharts-vue';
-import Highcharts from 'highcharts';
 import { formatDateToUTC } from '@/utils/date';
 
 export default {
@@ -17,7 +16,7 @@ export default {
   props: {
     initLimits: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
   },
 
@@ -25,45 +24,45 @@ export default {
     return {
       canShowGraph: false,
       chartOptions: undefined,
-    }
+    };
   },
 
   watch: {
     initLimits(limits) {
-      console.log("limits -> limits", limits)
-    }
+      console.log('limits -> limits', limits);
+    },
   },
 
   mounted() {
     this.createChart([
       {
         date: formatDateToUTC('1/1/2020'),
-        value: 1
+        value: 1,
       },
       {
         date: formatDateToUTC('1/2/2020'),
-        value: 4
+        value: 4,
       },
       {
         date: formatDateToUTC('1/3/2020'),
-        value: 12
+        value: 12,
       },
       {
         date: formatDateToUTC('1/4/2020'),
-        value: 29
+        value: 29,
       },
       {
         date: formatDateToUTC('1/5/2020'),
-        value: 34
+        value: 34,
       },
       {
         date: formatDateToUTC('1/6/2020'),
-        value: 55
+        value: 55,
       },
       {
         date: formatDateToUTC('1/7/2020'),
-        value: 98
-      }
+        value: 98,
+      },
     ]);
   },
 
@@ -78,14 +77,14 @@ export default {
       this.chartOptions = {
         chart: {
           events: {
-            click: function (e) {
+            click(e) {
               let x = Math.round(e.xAxis[0].value),
                 y = Math.round(e.yAxis[0].value),
                 series = this.series[1];
               series.addPoint([x, y]);
-              $emit('setLimits', series.data.map(s => ([s.x, s.y])));
-            }
-          }
+              $emit('setLimits', series.data.map(s => [s.x, s.y]));
+            },
+          },
         },
         credits: {
           enabled: false,
@@ -117,14 +116,14 @@ export default {
           series: {
             point: {
               events: {
-                click: function () {
+                click() {
                   if (this.series.index === 1) {
                     this.remove();
                   }
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
 
         series: [
@@ -138,12 +137,10 @@ export default {
             data: this.initLimits,
           },
         ],
-      }
-    }
+      };
+    },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
