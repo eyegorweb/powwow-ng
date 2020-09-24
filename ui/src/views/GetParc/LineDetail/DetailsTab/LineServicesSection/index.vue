@@ -194,10 +194,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-            checked: this.dataCheck,
-            parameters: this.lastDataParams,
-            code: 'DATA',
-          }
+              checked: this.dataCheck,
+              parameters: this.lastDataParams,
+              code: 'DATA',
+            }
           : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
@@ -260,7 +260,7 @@ export default {
       }
 
       return arrayIsNotIdentical;
-    }
+    },
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
