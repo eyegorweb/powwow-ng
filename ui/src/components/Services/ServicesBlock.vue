@@ -1,11 +1,14 @@
 <template>
   <div v-if="!vertical">
     <div class="row">
-      <div v-if="!userIsMVNO" :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }">
+      <div
+        v-if="servicesToShow && servicesToShow.length"
+        :class="{ 'col-md-8': !fullWidth, 'col-md-12': fullWidth }"
+      >
         <div class="s-container">
           <div
             :key="service.code"
-            v-for="service in otherServices"
+            v-for="service in servicesToShow"
             class="service"
             :class="service.name ? 'fullWidth' : { 'quarter-size': fullWidth }"
           >
@@ -49,8 +52,8 @@
   </div>
   <div v-else>
     <div>
-      <div v-if="!userIsMVNO" class="services-container">
-        <div :key="service.id" v-for="service in otherServices" class="single-service">
+      <div class="services-container">
+        <div :key="service.id" v-for="service in servicesToShow" class="single-service">
           <UiToggle
             :label="service.labelService"
             :editable="service.editable"
@@ -98,6 +101,25 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
+
+    servicesToShow() {
+      const excludedServicesForMVNO = [
+        'INCOMING_VOICE',
+        'OUTGOING_VOICE',
+        'INCOMING_SMS',
+        'OUTGOING_SMS',
+        'DATA_CSD_NUMBER',
+        'INCOMING_DATA_CSD',
+        'ROAMING',
+        'OUTGOING_DATA_CSD',
+      ];
+
+      if (this.otherServices && this.userIsMVNO) {
+        return this.otherServices.filter(s => !excludedServicesForMVNO.find(c => c === s.code));
+      }
+
+      return this.otherServices;
+    },
   },
   methods: {
     setup() {

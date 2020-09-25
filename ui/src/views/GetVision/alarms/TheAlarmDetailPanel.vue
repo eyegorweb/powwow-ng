@@ -179,8 +179,9 @@ export default {
 
     finalTextObservationCycle() {
       if (this.content.observationCycle === 'CUSTOM') {
-        return `${this.$t('alarms.observationCycles.CUSTOM')} : ${this.content.observationDelay
-          } ${this.$t('alarms.observationCycles.DAYS')}`;
+        return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
+          this.content.observationDelay
+        } ${this.$t('alarms.observationCycles.DAYS')}`;
       } else {
         return this.content.observationCycle;
       }
