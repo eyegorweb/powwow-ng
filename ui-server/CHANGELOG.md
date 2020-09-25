@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.205+20200925121025
+2020-09-25
+
+### Fixes
+
+- Cacher les services de la matrice aux utilisateurs MVNO (efaf4e713edc7cee18706be2d7a45476ee75ee60)
+
 ## 1.0.0-master.204+20200925072740
 2020-09-25
 
