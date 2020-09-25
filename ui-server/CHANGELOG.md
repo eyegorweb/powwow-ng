@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.204+20200925072740
+2020-09-25
+
+### Fixes
+
+- 1898 gestion du MSISDN pour la consommation SMS de la ligne (f6dffab245ea64ea5ca6582b2e48063d2a678f81)
+
 ## 1.0.0-master.203+20200924151431
 2020-09-24
 
