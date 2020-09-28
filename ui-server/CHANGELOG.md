@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.206+20200928094534
+2020-09-28
+
+### Fixes
+
+- Afficher la bonne date de facturation (d9cbcd7b6f3935347c864e0ab26d333aaf501328)
+
 ## 1.0.0-master.205+20200925121025
 2020-09-25
 
