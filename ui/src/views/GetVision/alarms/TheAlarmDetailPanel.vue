@@ -20,7 +20,7 @@
         <h6>{{ $t('getparc.lineDetail.alarms.type') }}:</h6>
         <p>{{ $t('alarms.' + content.type) }}</p>
       </div>
-      <div class="overview-item mr-5">
+      <div v-if="content.alarmScope" class="overview-item mr-5">
         <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
         <p>{{ $t('alarms.alarmScope.' + content.alarmScope) }}</p>
       </div>

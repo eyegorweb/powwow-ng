@@ -53,10 +53,7 @@
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.billingStatus') }}:</h6>
-              <p v-if="getFromContent('accessPoint.billingStatusChangeDate')" class="mb-0">
-                {{ billingStatus }}
-              </p>
-              <p class="mb-0">{{ billingStatusChangeDate || '-' }}</p>
+              <BillingStatus :content="content" />
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.commercialStatus') }}:</h6>
@@ -103,11 +100,13 @@ import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
+import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue'
 
 export default {
   components: {
     draggable,
     ContentBlock,
+    BillingStatus
   },
 
   props: {

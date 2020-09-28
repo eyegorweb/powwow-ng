@@ -151,12 +151,6 @@ export default {
           label: this.$t('getparc.history.col.status'),
           name: 'status',
           sortingName: 'STATUS',
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
-            },
-          },
           orderable: false,
           visible: true,
           noHandle: true,

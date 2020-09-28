@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import get from 'lodash.get';
 
 export default {
   props: {
@@ -14,28 +13,31 @@ export default {
       type: Object,
     },
   },
-  methods: {
-    get(path, defaultVal = '-') {
-      return get(this.content, path, defaultVal);
-    },
-  },
   computed: {
     status() {
-      const status = this.get('accessPoint.billingStatus');
+      const status = this.$loGet(this.content, 'accessPoint.billingStatus', '-');
       if (!status || status === '-') {
         return '-';
       }
       return this.$t('getparc.actLines.simStatuses.' + status);
     },
     dateStatus() {
-      const date = this.get('accessPoint.billingStatusChangeDate');
-      if (!date || date === '-') {
-        return '';
+      const billingStatus = this.$loGet(this.content, 'accessPoint.billingStatus');
+
+      const billingStatusChangeDate = this.$loGet(this.content, 'accessPoint.billingStatusChangeDate', '');
+      const commercialStatusDate = this.$loGet(this.content, 'accessPoint.commercialStatusDate', '');
+
+      let dateToReturn;
+
+      if (billingStatus !== 'CANCELED') {
+        return billingStatusChangeDate;
+      } else {
+        return commercialStatusDate;
       }
-      return date;
+
     },
     statusColor() {
-      let status = this.get('accessPoint.billingStatus');
+      let status = this.$loGet(this.content, 'accessPoint.billingStatus', '-');
       let color;
       switch (status) {
         case 'ACTIVATED':

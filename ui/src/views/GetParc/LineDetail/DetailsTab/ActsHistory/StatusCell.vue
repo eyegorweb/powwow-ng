@@ -2,13 +2,13 @@
   <div class="order-status d-flex flex-wrap align-items-center" v-if="isLoading">
     <div class="circle" />
     <div class="label label--loading" :class="{ error: isError }">
-      {{ $t('getparc.actLines.massActionsHistory.statuses.' + item) }}
+      {{ item }}
     </div>
   </div>
   <div class="order-status" v-else>
     <CheckMark :is-error="isError" />
     <div class="label" :class="{ error: isError }">
-      {{ $t('getparc.actLines.massActionsHistory.statuses.' + item) }}
+      {{ item }}
     </div>
   </div>
 </template>

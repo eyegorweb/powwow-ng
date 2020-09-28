@@ -1078,6 +1078,7 @@
           "sms": "Consommation SMS",
           "voice": "Consommation voix",
           "smsTable": {},
+          "mapView": "Vue carte",
           "dataConsumptionPerDayColumns": {
             "start": "Début de conso",
             "end": "Fin de conso.",
@@ -1406,7 +1407,8 @@
           "TEST": "Test",
           "NOT_PREACTIVATED": "Non préactivée",
           "PREACTIVATED": "Préactivée",
-          "ACTIVATED": "Activée"
+          "ACTIVATED": "Activée",
+          "TERMINATED": "Terminé"
         }
       },
       "alarmList": {

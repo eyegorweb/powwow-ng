@@ -59,7 +59,11 @@
                     {{ $t('processing') }}
                     <CircleLoader />
                   </button>
-                  <button class="btn btn-outline-primary float-right mr-3" @click="revertServices">
+                  <button
+                    v-if="canCancel"
+                    class="btn btn-outline-primary float-right mr-3"
+                    @click="revertServices"
+                  >
                     <i class="ic-Refresh-Icon"></i>
                     {{ $t('getparc.lineDetail.tabServices.cancelModifications') }}
                   </button>
@@ -83,9 +87,9 @@
                     </thead>
                     <tbody>
                       <tr v-for="service in apnServices[0]" :key="service.code">
-                        <td>{{ getValue(service, 'name') }}</td>
-                        <td>{{ getValue(service, 'ipAdress') }}</td>
-                        <td>{{ getValue(service, 'version') }}</td>
+                        <td>{{ $loGet(service, 'name', '-') }}</td>
+                        <td>{{ $loGet(service, 'ipAdress', '-') }}</td>
+                        <td>{{ $loGet(service, 'version', '-') }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -239,19 +243,40 @@ export default {
 
       this.services = [...selectedServices.services, selectedServices.dataService];
     },
-    getValue(objectToUse, path, defaultValue = '') {
-      if (objectToUse == null || objectToUse == undefined) {
-        return '-';
+
+    isDataParamChanged() {
+      let arrayIsNotIdentical = false;
+
+      if (this.initialDataParams && this.lastDataParams) {
+        for (let i = 0, max = this.initialDataParams.length; i < max; i++) {
+          const current = this.initialDataParams[i];
+          const correspondingInChanges = this.lastDataParams.find(s => s.code === current.code);
+
+          if (correspondingInChanges && current.selected !== correspondingInChanges.selected) {
+            arrayIsNotIdentical = true;
+            break;
+          }
+        }
       }
-      const value = get(objectToUse, path, defaultValue);
-      return value !== null ? value : '-';
+
+      return arrayIsNotIdentical;
     },
   },
   computed: {
     ...mapGetters(['userIsMVNO']),
 
+    canCancel() {
+      return this.isDataParamChanged() || (this.changedServices && this.changedServices.length);
+    },
+
     canShowTable() {
       return this.apnServices && this.apnServices[0] && this.apnServices[0].length;
+    },
+    changedServices() {
+      return this.services.filter(s => {
+        const originalService = this.initialServices.find(os => os.code === s.code);
+        return originalService.checked !== s.checked;
+      });
     },
     changes() {
       if (!this.services) {
@@ -261,36 +286,17 @@ export default {
           dataService: undefined,
         };
       }
-      const changedServices = this.services.filter(s => {
-        const originalService = this.initialServices.find(os => os.code === s.code);
-        return originalService.checked !== s.checked;
-      });
 
-      const servicesToEnable = changedServices
+      const servicesToEnable = this.changedServices
         .filter(s => s.code !== 'DATA')
         .filter(s => s.checked);
-      const servicesToDisable = changedServices
+      const servicesToDisable = this.changedServices
         .filter(s => s.code !== 'DATA')
         .filter(s => !s.checked);
 
-      const changedParameters = this.lastDataParams;
-      let arrayIsNotIdentical = false;
-
-      if (this.initialDataParams && changedParameters) {
-        for (let i = 0, max = this.initialDataParams.length; i < max; i++) {
-          const current = this.initialDataParams[i];
-          const correspondingInChanges = changedParameters.find(s => s.code === current.code);
-
-          if (correspondingInChanges && current.selected !== correspondingInChanges.selected) {
-            arrayIsNotIdentical = true;
-            break;
-          }
-        }
-      }
-
       let dataParams = undefined;
 
-      if (arrayIsNotIdentical) {
+      if (this.isDataParamChanged()) {
         dataParams = this.lastDataParams;
       }
 

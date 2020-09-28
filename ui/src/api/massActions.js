@@ -165,10 +165,10 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
           actionType
           created
           dueDate
-          status
           started
           ended
         }
+        status
         failedEntitiesNumber
         completedEntitiesNumber
         pendingEntitiesNumber

@@ -6,7 +6,7 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
             {{ $t('getparc.history.total', { total: formattedTotal }) }}
           </h2>
         </div>
@@ -27,7 +27,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           storage-id="getparc.actHistory"
-          storage-version="007"
+          storage-version="008"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -229,12 +229,6 @@ export default {
           orderable: true,
           sortingName: 'STATUS',
           visible: false,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return this.$t('getparc.actLines.massActionsHistory.statuses.' + row.status);
-            },
-          },
         },
       ],
       pageLimit: 20,
@@ -298,13 +292,6 @@ export default {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');
         }
 
-        console.log(
-          columnsToUse,
-          exportFormat,
-          this.appliedFilters,
-          asyncExportRequest,
-          this.total
-        );
         if (exportAll) {
           return await exportMassAction(
             undefined,

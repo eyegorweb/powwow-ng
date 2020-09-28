@@ -529,7 +529,7 @@ export default {
 
     onPassiveClick(payload) {
       this.onMarkerClick(payload, 'PASSIVE');
-      this.indicatorTotal = payload.marker.activeCount;
+      this.indicatorTotal = payload.marker.passiveCount;
     },
 
     getFiltersForExport(clickedMarkerData, activityType) {
