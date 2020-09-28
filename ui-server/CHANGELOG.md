@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.207+20200928100009
+2020-09-28
+
+### Fixes
+
+- correction de la date de status de facturation dans le détail de ligne (a4e92655c92d48cbe8e0b13ebce008eb604c8808)
+
 ## 1.0.0-master.206+20200928094534
 2020-09-28
 
