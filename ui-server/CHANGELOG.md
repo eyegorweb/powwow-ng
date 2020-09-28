@@ -2,6 +2,23 @@
 
 <!--- next entry here -->
 
+## 1.6.3
+2020-09-28
+
+### Fixes
+
+- 1882 chargement des derniers actes de gestion par ordre d'identifiants (34c11727295f3f047fb8394d19cbcd5ad393ca83)
+- cacher Le bouton "Annuler les modifications" s'il n'y a pas de modification (f471e1b48f34042c1a068429902973509e1b3932)
+- 1855 export des colonnes pour la table de supervision (649bbaa80f1e42054f58c4dc1960f9c5d6a05c0b)
+- Corriger le status dans les tables d'historique d'actes de gestion (bb439acd5bb769043322813a2aa8d0c64b326bd7)
+- 1897 traduction du statut Terminé pour l'acte de gestion (3e08385260f3fce547f0125e9f83e6f7193c5187)
+- utiliser les filtres déjà sléléctionnés dans la recherche par ID (a993cfb4762d22a34a5375a279cadfc40222f901)
+- 1898 gestion du MSISDN pour la consommation SMS de la ligne (f6dffab245ea64ea5ca6582b2e48063d2a678f81)
+- corriger la traduction des services (86a5f7d245d49513e2c1745cf3840e969916b097)
+- Cacher les services de la matrice aux utilisateurs MVNO (efaf4e713edc7cee18706be2d7a45476ee75ee60)
+- Afficher la bonne date de facturation (d9cbcd7b6f3935347c864e0ab26d333aaf501328)
+- correction de la date de status de facturation dans le détail de ligne (a4e92655c92d48cbe8e0b13ebce008eb604c8808)
+
 ## 1.6.2
 2020-09-22
 
