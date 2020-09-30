@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.208+20200930080145
+2020-09-30
+
+### Fixes
+
+- 1892 export de l'ensemble de la consommation pour tout type d'usage (b35bbfecf4b0f0ae7c726d2ac19d45cd4f7f79cc)
+- 1608 correction de l'api pour afficher le détail des alarmes (36e7ecd665ef94254184e400e9c1f40048c7cb29)
+- 1788 correction de la traduction du statut de la demande pour le test réseau (87e046a097861e5832125aaa54871d3bac6dda66)
+- graphe des limites dans la création d'alarmes mutualisées (f81d24ef1a6833d2281031a92f6b4e39df67c765)
+
 ## 1.0.0-master.207+20200928100009
 2020-09-28
 
