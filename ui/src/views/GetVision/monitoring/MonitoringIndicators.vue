@@ -49,7 +49,7 @@ export default {
           name: 'globalActif',
           labelKey: 'getvsion.indicators.globalActif',
           color: 'text-success',
-          clickable: false,
+          clickable: true,
           total: '-',
           fetch: async () => {
             return { total: await globalActifParc(this.formatFilters()) };

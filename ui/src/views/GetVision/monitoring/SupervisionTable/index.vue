@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div v-if="filtersForExport" class="col">
+      <div v-if="filtersForExport && total > 0" class="col">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
           <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
         </ExportButton>
@@ -38,20 +38,14 @@
         <i class="ic-Pin-Icon"></i>
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
-      <div class="alert alert-warning mt-2">
-        Plus de 500 lignes sélectionnées, la liste est disponible
-      </div>
+      <div class="alert alert-warning mt-2">{{ $t('getvsion.msgSynchronousExport') }}.</div>
     </template>
     <template v-else-if="total >= 100000">
       <UiButton variant="outline-primary" @click="$emit('gotomap')">
         <i class="ic-Pin-Icon"></i>
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
-      <div class="alert alert-warning mt-2">
-        Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans
-        la gestion documentaire" avec un bouton demande d'export différé. Attention, il faut appeler
-        l'api d'export en mode asynchrone.
-      </div>
+      <div class="alert alert-warning mt-2">{{ $t('getvsion.msgDeferExport') }}.</div>
     </template>
   </div>
 </template>
@@ -61,7 +55,7 @@ import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 import uuid from 'uuid/v1';
 import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
-import { geoListExport } from '@/api/supervision.js';
+import { geoListExport, geoCounterListExport } from '@/api/supervision.js';
 
 export default {
   components: {
@@ -272,44 +266,61 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         const sorting = {};
-
         sorting[orderBy.key] = orderBy.direction;
-        return await geoListExport({
-          filter: this.filtersForExport,
-          columns: [
-            ...columnsParam,
-            'MSISDN',
-            'ICCID',
-            'IMSI',
-            'COUNTRY_NAME',
-            'OPERATOR_NAME',
-            'PLMN',
-            'ZIPCODE',
-            'CITY',
-            'CELL_ID',
-            'LAST_USAGE_DATE',
-            'LAST_USAGE_TYPE',
-            'USAGE_DETAILS',
-            'DIRECTION',
-            'TICKET_GENERATION',
-            'LAST_PDP_CON_STATUS',
-            'LAST_PDP_CON_START_DATE',
-            'LAST_PDP_CON_END_DATE',
-            'IMEI',
-            'DEVICE_REFERENCE',
-            'DEVICE_MANUFACTURER',
-            'ADDRESS',
-            'NETWORK_STATUS',
-            'OFFER',
-            'ADDRESS_IP_TYPE',
-            'ADDRESS_IP_V4',
-            'ADDRESS_IP_V6',
-            'APN',
-            'PARTY_NAME',
-          ],
-          asyncExportRequest: this.total >= 100000,
-          exportFormat,
-        });
+        const columns = [
+          ...columnsParam,
+          'MSISDN',
+          'ICCID',
+          'IMSI',
+          'COUNTRY_NAME',
+          'OPERATOR_NAME',
+          'PLMN',
+          'ZIPCODE',
+          'CITY',
+          'CELL_ID',
+          'LAST_USAGE_DATE',
+          'LAST_USAGE_TYPE',
+          'USAGE_DETAILS',
+          'DIRECTION',
+          'TICKET_GENERATION',
+          'LAST_PDP_CON_STATUS',
+          'LAST_PDP_CON_START_DATE',
+          'LAST_PDP_CON_END_DATE',
+          'IMEI',
+          'DEVICE_REFERENCE',
+          'DEVICE_MANUFACTURER',
+          'ADDRESS',
+          'NETWORK_STATUS',
+          'OFFER',
+          'ADDRESS_IP_TYPE',
+          'ADDRESS_IP_V4',
+          'ADDRESS_IP_V6',
+          'APN',
+          'PARTY_NAME',
+        ];
+        if (
+          this.filtersForExport &&
+          this.filtersForExport.counter &&
+          !this.filtersForExport.activityType
+        ) {
+          return await geoCounterListExport({
+            filter: this.filtersForExport,
+            columns: columns,
+            asyncExportRequest: this.total >= 100000,
+            exportFormat,
+          });
+        } else if (
+          this.filtersForExport &&
+          !this.filtersForExport.counter &&
+          this.filtersForExport.activityType
+        ) {
+          return await geoListExport({
+            filter: this.filtersForExport,
+            columns: columns,
+            asyncExportRequest: this.total >= 100000,
+            exportFormat,
+          });
+        }
       };
     },
     fetchDataFn() {
