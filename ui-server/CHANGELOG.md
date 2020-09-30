@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.210+20200930152222
+2020-09-30
+
+### Fixes
+
+- 1915 mise à jour du filtre et de la date de déclenchement des alarmes déclenchées (4138a746a0f0b78c23b670b379a5f32d82295532)
+
 ## 1.0.0-master.209+20200930150801
 2020-09-30
 
