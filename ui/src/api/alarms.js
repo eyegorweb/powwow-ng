@@ -83,6 +83,7 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
     alarmsWithInfo(simCardInstanceId: ${simCardInstanceId}) {
       isTriggered
       isActive
+      triggeringDate
       alarm {
         id
         triggerCommercialStatus

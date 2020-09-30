@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     content: {
@@ -24,17 +23,22 @@ export default {
     dateStatus() {
       const billingStatus = this.$loGet(this.content, 'accessPoint.billingStatus');
 
-      const billingStatusChangeDate = this.$loGet(this.content, 'accessPoint.billingStatusChangeDate', '');
-      const commercialStatusDate = this.$loGet(this.content, 'accessPoint.commercialStatusDate', '');
-
-      let dateToReturn;
+      const billingStatusChangeDate = this.$loGet(
+        this.content,
+        'accessPoint.billingStatusChangeDate',
+        ''
+      );
+      const commercialStatusDate = this.$loGet(
+        this.content,
+        'accessPoint.commercialStatusDate',
+        ''
+      );
 
       if (billingStatus !== 'CANCELED') {
         return billingStatusChangeDate;
       } else {
         return commercialStatusDate;
       }
-
     },
     statusColor() {
       let status = this.$loGet(this.content, 'accessPoint.billingStatus', '-');

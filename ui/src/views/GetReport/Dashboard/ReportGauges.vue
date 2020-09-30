@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer title="Encours de consommation" :size="12" :can-show="!!offerForGauge">
+  <GraphContainer title="getreport.dashboard.highConso" :size="12" :can-show="!!offerForGauge">
     <div class="d-flex justify-content-end">
       <Toggle
         v-if="toggleValues"
@@ -9,11 +9,11 @@
       />
     </div>
     <ConsoGauges v-if="currentValue === 'graph'" :selected-offer="offerForGauge">
-      <h4>Veuillez choisir un compte de facturation et une offre</h4>
+      <h4>{{ $t('getreport.dashboard.chooseCFandOffer') }}</h4>
     </ConsoGauges>
     <ConsoTable v-else :partner="partner" :offer="offer" :billing-account="billingAccount" />
     <div slot="onHide">
-      Veuillez sélectionner un CF et une offre.
+      {{ $t('getreport.dashboard.chooseCFandOffer') }}
     </div>
   </GraphContainer>
 </template>

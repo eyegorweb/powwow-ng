@@ -1,8 +1,8 @@
 <template>
   <div class="buttons-container">
-    <h5>CHOISIR UNE ALARME</h5>
+    <h5>{{ $t('getvsion.alarm-creation.chooseAlarm') }}</h5>
 
-    <ul class="list-unstyled mt-4">
+    <ul v-if="alarms" class="list-unstyled mt-4">
       <li
         v-for="alarm in alarms"
         :key="alarm.id"
@@ -37,6 +37,19 @@ export default {
   },
 
   mounted() {
+    this.alarms = [
+      { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
+      {
+        id: 'OVER_CONSUMPTION_VOLUME',
+        description: this.$t('getvsion.alarm-creation.overConsoDescription'),
+      },
+      { id: 'UNDER_CONSUMPTION_VOLUME' },
+      { id: 'PLMN_CHANGE' },
+      { id: 'STATUS_CHANGE' },
+
+      { id: 'IMEI_CHANGE' },
+      { id: 'COUNTRY_CHANGE' },
+    ];
     if (this.duplicateFrom) {
       const alarmToChoose = this.alarms.find(a => a.id === this.duplicateFrom.type);
       if (alarmToChoose) {
@@ -62,19 +75,7 @@ export default {
   data() {
     return {
       currentAlarm: undefined,
-      alarms: [
-        { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
-        {
-          id: 'OVER_CONSUMPTION_VOLUME',
-          description: `L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.`,
-        },
-        { id: 'UNDER_CONSUMPTION_VOLUME' },
-        { id: 'PLMN_CHANGE' },
-        { id: 'STATUS_CHANGE' },
-
-        { id: 'IMEI_CHANGE' },
-        { id: 'COUNTRY_CHANGE' },
-      ],
+      alarms: undefined,
     };
   },
 };

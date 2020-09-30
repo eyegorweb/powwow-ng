@@ -4,9 +4,7 @@
       <chart v-if="chartOptions" :options="chartOptions" />
       <div v-else>{{ $t('noResult') }}</div>
     </div>
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">Error</div>
   </GraphContainer>
 </template>
 

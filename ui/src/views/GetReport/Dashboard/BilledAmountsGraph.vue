@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Montants facturés sur 12 / 24 / 36 mois"
+    title="getreport.dashboard.billedAmountByPeriods"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

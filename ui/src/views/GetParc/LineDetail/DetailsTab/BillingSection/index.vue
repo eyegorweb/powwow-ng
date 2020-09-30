@@ -100,13 +100,13 @@ import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
-import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue'
+import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
 
 export default {
   components: {
     draggable,
     ContentBlock,
-    BillingStatus
+    BillingStatus,
   },
 
   props: {
@@ -238,9 +238,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-          'getparc.actLines.commercialStatuses.' +
-          get(this.content, 'accessPoint.commercialStatus')
-        )} ${this.$t('fromThe')}`
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`
         : '-';
     },
   },

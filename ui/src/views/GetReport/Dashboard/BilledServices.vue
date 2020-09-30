@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Montant autres services"
+    title="getreport.dashboard.otherServicesAmount"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

@@ -87,6 +87,9 @@
   "passwordConfirm": "Confirmation du mot de passe",
   "moreFilters": "Plus de filtres",
   "lessFilters": "Moins de filtres",
+  "applyFilters": "Appliquer / Rafraichir",
+  "chooseOnePartner": "Veuillez choisir un partenaire",
+  "days": "Jours",
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -415,6 +418,9 @@
     "m2mCockpit": "Cockpit M2M",
     "alarms": "Alarmes",
     "exportGraph": "Exporter les données des graphes",
+    "supervisionType": "Type de supervision",
+    "msgSynchronousExport": "Plus de 500 lignes sélectionnées, la liste est disponible par export",
+    "msgDeferExport": "Seule la demande d'export différée est disponible. La demande sera disponible sous 24h dans la gestion documentaire avec un bouton demande d'export différé. Attention, il faut appeler l'api d'export en mode asynchrone",
 
     "supervisionTypes": {
       "INTRA_DAY": "6h",
@@ -477,6 +483,27 @@
       }
     },
     "alarm-creation": {
+      "setSupervisedStatuses": "Définir les status supervisés",
+      "setCountries": "Définir une liste de pays autorisés",
+      "setISPs": "Définir une liste d'opérateurs",
+      "overConsoDescription": "L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.",
+      "chooseAlarm": "CHOISIR UNE ALARME",
+      "linesFound": "lignes trouvées",
+      "limitedScope": "Cette alarme a une portée limitée à la ligne sélectionnée",
+      "chooseOffer": "Choisir l'offre",
+      "setLimits": "DÉFINIR DES SEUILS DE DÉCLENCHEMENT PAR USAGE (3 MAX.)",
+      "noLimitsConfigured": "Aucun seuil n'est configurer pour cet usage",
+      "configureForUsage": "Configurer pour cet usage",
+      "addLimit": "Ajouter un seuil",
+      "beforeEndOfMonth": "Avant la fin du mois",
+      "dataIsOver": "La data dépasse",
+      "smsIsOver": "Nb de SMS dépasse",
+      "voiceIsOver": "Nb de minutes dépasse",
+      "chooseNotification": "Choisir un moyen de notification",
+      "defineThreshold": "DÉFINIR UN SEUIL DE DÉCLENCHEMENT PAR USAGE",
+      "standardMode": "Mode Standard",
+      "advancedMode": "Mode Avancé",
+      "chooseAlarmScope": "Choisir la portée de l'alarme",
       "change_country": {
         "countries_list": "Tous les pays:",
         "chosen_countries": "Pays autorisés:"
@@ -484,6 +511,11 @@
       "change_plmn": {
         "isp_list": "Tous les opérateurs:",
         "chosen_isp": "Opérateurs autorisés:"
+      },
+      "supervisedStatuses": {
+        "all": "Tous",
+        "activationReactivation": "Activation/Réactivation",
+        "suspension": "Suspension"
       }
     },
     "monitoring": {
@@ -718,13 +750,94 @@
       "list": "Liste de diffusion",
       "dateGenerated": "Date de génération",
       "dateForOneItem": "Date de la demande",
-      "dateAndRecursion": "Récurrence et date"
+      "dateAndRecursion": "Récurrence et date",
+      "groups": {
+        "technicalInfos": "Informations techniques",
+        "dualSimInfos": "Informations Dual SIM",
+        "commercialInfos": "Informations commerciales",
+        "orderInfos": "Informations de la commande",
+        "consommation": "Consommation",
+        "lastUsageInfos": "Informations dernier usage",
+        "checkboxes": {
+          "deviceInfo": "Matériel et constructeur",
+          "pin2": "Code PIN2",
+          "puk": "Codes PUK",
+          "accessPointId": "Identifiant point d’accès",
+          "electricProfile": "Profil électrique",
+          "graphicProfile": "Profile graphique",
+          "hardwareType": "Type de hardware",
+          "MODULE_NUMBER": "Numéro de module",
+          "PREACTIVATION_DATE": "Date de préactivation",
+          "ACTIVATION_DATE": "Date d’activation",
+          "LAST_CHANGE_STATUS_DATE": "Date de dernier changement de statut",
+          "FIXED_IP_ADDRESSES": "Adresse ip fixe",
+          "FLAT_END_DATE": "Date de changement d'offre MVNO",
+          "OFFER_NAME": "Nom de l’offre",
+          "GRP_SERVICES_APN": "Services de la ligne et APN",
+          "CUSTOMER_ACCOUNT_NAME": "Nom du compte de facturation",
+          "PARTNER_NAME": "Nom du partenaire",
+          "PARTNER_CODE": "Code du partenaire",
+          "ORDER_PARTNER_NAME": "Nom du partenaire de la commande",
+          "ORDER_PARTNER_CODE": "Code du partenaire de la commande",
+          "GRP_PREACTIVATE_ACTIVATE": "Pré-Activation / Activation",
+          "ORDER_OFFER": "Offre de la commande",
+          "ORDER_USER_NAME": "Créateur de la commande",
+          "ORDER_STATUS_DATE": "Date du statut",
+          "GRP_DELIVERY_CONTACT": "Contact de livraison",
+          "GRP_BILLING_ADRESS": "Adresse de facturation",
+          "CONTRACT_REFERENCE": "Référence contrat",
+          "ORDER_QUANTITY": "Quantité de SIM commandées",
+          "IMPORTED_QUANTITY": "Quantité de SIM importées",
+          "ORDER_BIL_CODE": "Code du compte de facturation de la commande",
+          "ORDER_BIL_NAME": "Nom du compte de facturation de la commande",
+          "CUMULATED_UL_VOLUME": "Encours Data montant (mensuel)",
+          "CUMULATED_DL_VOLUME": "Encours Data descendant (mensuel)",
+          "CUMULATED_SMS_VOLUME": "Encours SMS (mensuel)",
+          "CUMULATED_VOICE_VOLUME": "Encours Voix (mensuel)",
+          "LAST_CONNECTION_START_DATE": "Début de la dernière connexion",
+          "LAST_CONNECTION_END_DATE": "Fin de la dernière connexion",
+          "LAST_CONNECTION_CLOSING_REASON": "Motif de fermeture de la connexion",
+          "LAST_CONNECTION_UPLOAD": "Volume montant de la dernière connexion",
+          "LAST_CONNECTION_DOWNLOAD": "Volume descendant de la dernière connexion",
+          "LAST_SMS_DATE": "Date du dernier SMS",
+          "LAST_SMS_DIRECTION": "Direction du dernier SMS",
+          "LAST_VOICE_DATE": "Date de la dernière communication voix",
+          "LAST_VOICE_DURATION": "Durée de la dernière communication voix",
+          "LAST_VOICE_DIRECTION": "Direction de la dernière communication voix",
+          "LAST_CONNECTION_IP_ADDRESS_TYPE": "Type adresse IP",
+          "LAST_CONNECTION_IP_V4_ADDRESS": "Adresse IP V4",
+          "LAST_CONNECTION_IP_V6_ADDRESS": "Adresse IP V6",
+          "LAST_USAGE_CELL_ID": "Id de cellule",
+          "LAST_USAGE_DATE": "Date de dernière localisation",
+          "LAST_USAGE_DETAILS": "Détail",
+          "LAST_OPERATOR_REAL_PLMN": "PLMN réel",
+          "LAST_TYPE_APPEL": "Type appel",
+          "LAST_USAGE_IMEI": "IMEI du dernier usage",
+          "LAST_USAGE_OFFER_CODE": "Code offre du dernier usage",
+          "LAST_TICKET_GENERATION": "Génération du ticket"
+        }
+      }
     },
     "errors": {
       "AlreadyExists": "Un rapport avec ce nom existe déjà",
       "partnerRequired": "Veuillez sélectionner un partenaire",
       "dontSelectOffer": "Veuillez ne pas sélectionner d'offre",
       "dontSelectOfferOrCF": "Veuillez ne pas sélectionner de CF et d'offre"
+    },
+    "dashboard": {
+      "highConso": "Encours de consommation",
+      "chooseCFandOffer": "Veuillez choisir un compte de facturation et une offre",
+      "consoAndAverageCost": "Conso et montant moyen par ligne facturée",
+      "billedAmount": "Montants facturés / Conso par zone",
+      "billedAmountByPeriods": "Montants facturés sur 12 / 24 / 36 mois",
+      "billedLinesByZone": "Nbre de lignes facturées et conso par zone",
+      "nbBilledLines": "Nbre de lignes facturées et détail des montants facturés",
+      "otherServicesAmount": "Montant autres services",
+      "consoHistory": "Historique des consommations",
+      "plmnRepartition": "Répartition du parc par PLMN",
+      "repartitionByZone": "Répartition du parc par zone",
+      "lastDayWorldMap": "Carte du monde à J-1",
+      "offerRepartition": "Répartition du parc par offre"
     }
   },
   "getparc": {
@@ -738,6 +851,7 @@
     "search-lines-by-id": "Rechercher une ligne par ID",
     "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
+      "COACH_M2M": "Coach M2M",
       "PREACTIVATION": "Pré-activation",
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
       "ACTIVATION": "Activation",
@@ -907,6 +1021,12 @@
         "label1": "Champ spécifique 1",
         "label2": "Champ spécifique 2"
       },
+      "supervision": {
+        "nbCnxPdp": "Nombre de connexions PDP",
+        "totalVolume": "Volume total",
+        "volumeOut": "Volume sortant",
+        "volumeIn": "Volume entrant"
+      },
       "alarms": {
         "trigger-history": "Historique de déclenchement",
         "id": "ID de l'alarme",
@@ -922,8 +1042,8 @@
         "data_out": "Data sortante",
         "data_in": "Data entrante",
         "sms": "SMS E/S",
-        "sms_out": "SMS sortante",
-        "sms_in": "SMS entrante",
+        "sms_out": "SMS sortant",
+        "sms_in": "SMS entrant",
         "voice": "Voix E/S",
         "voice_out": "Voix sortante",
         "voice_in": "Voix entrante",
@@ -1103,6 +1223,7 @@
         }
       },
       "tab3": {
+        "testRequestsHistory": "Historique des demandes de test Réseau / Localisation",
         "networkCoverage": "Couverture du réseau",
         "networkMeteo": "Météo du réseau",
         "analyzeLocation": "Analyser la localisation",
@@ -1531,6 +1652,9 @@
     "billingAccount": "Compte de facturation",
     "customFields": "Champ libre {num}",
     "specificFields": "Champ spécifique {num}",
+    "manufacturerIMEI": "Fabricant (IMEI)",
+    "frequency": "Fréquence",
+    "lastCountry": "Dernier pays (ancien PLMN)",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
       "VALIDATED": "Validée",
@@ -1709,7 +1833,7 @@
           "email": "Email :",
           "company": "Société :",
           "address": "Adresse :",
-          "deliveryAddress": "Adresse de livraison :",
+          "deliveryAddress": "Adresse de livraison ",
           "deliveryCoords": "Coordonnées de livraison",
           "zipcode": "Code postal :",
           "city": "Ville :",

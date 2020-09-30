@@ -84,9 +84,6 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
             value
           }
         }
-        alarmEvent {
-          id
-        }
         alarmInstance {
           id
           icv1

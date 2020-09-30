@@ -7,7 +7,9 @@
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="numStep">Définir les status supervisés</SectionTitle>
+    <SectionTitle :num="numStep">
+      {{ $t('getvsion.alarm-creation.setSupervisedStatuses') }}
+    </SectionTitle>
     <Toggle
       v-if="toggleValues"
       @update="currentPeriod = $event.id"
@@ -40,19 +42,19 @@ export default {
     let toggleValues = [
       {
         id: 'ALL',
-        label: 'Tous',
+        label: this.$t('getvsion.alarm-creation.supervisedStatuses.all'),
       },
       {
         id: 'ACTIVATION',
-        label: 'Activation/Réactivation',
+        label: this.$t('getvsion.alarm-creation.supervisedStatuses.activationReactivation'),
       },
       {
         id: 'SUSPENSION',
-        label: 'Suspension',
+        label: this.$t('getvsion.alarm-creation.supervisedStatuses.suspension'),
       },
       {
         id: 'TERMINATION',
-        label: 'Résiliation ',
+        label: this.$t('home.widgets.stateParc.cancellationLines'),
       },
     ];
     if (this.duplicateFrom) {

@@ -54,3 +54,7 @@ export function isBefore(expectedBefore, expectedAfter, format = DATE_FORMAT_EXT
 export function formatDateToUTC(value) {
   return moment(value, DATE_FORMAT).valueOf();
 }
+
+export function formatUTCtoStrDate(value, format = DATE_FORMAT) {
+  return moment(value).format(format);
+}

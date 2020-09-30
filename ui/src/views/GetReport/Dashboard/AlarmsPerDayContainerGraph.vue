@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Nombre d'alarmes déclenchées par jour"
+    title="home.widgets.topTriggeredAlarmsPerDay"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

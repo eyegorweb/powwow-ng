@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Nbre de lignes facturées et conso par zone"
+    title="getreport.dashboard.billedLinesByZone"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

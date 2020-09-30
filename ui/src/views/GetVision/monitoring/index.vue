@@ -24,7 +24,7 @@
       <div class="bg-white p-3">
         <div class="row">
           <div class="col-7">
-            <label class="font-weight-bold">Type de supervision</label>
+            <label class="font-weight-bold">{{ $t('getvsion.supervisionType') }}</label>
             <Toggle
               v-if="toggleValues"
               @update="onUsageChange"
@@ -95,7 +95,7 @@ import SupervisionMap from './SupervisionMap';
 import SupervisionTable from './SupervisionTable';
 import CockpitDetails from './CockpitDetails';
 
-import { fetchLinesForCounter, fetchLinesForMarker, geoListExport } from '@/api/supervision.js';
+import { fetchLinesForCounter, fetchLinesForMarker } from '@/api/supervision.js';
 
 import { mapGetters } from 'vuex';
 
@@ -255,15 +255,6 @@ export default {
   },
 
   methods: {
-    getExportFn() {
-      return async (columnsParam, orderBy, exportFormat) => {
-        return await geoListExport({
-          filters: filterFormatter(this.appliedFilters),
-          columns: columnsParam,
-          exportFormat,
-        });
-      };
-    },
     onTabChange(tab) {
       this.currentTab = tab.label;
       this.filters = undefined;
@@ -508,16 +499,22 @@ export default {
 
     onIndicatorClick(payload) {
       const { indicator, total } = payload;
-      const usage = this.currentUsage;
+      const usageType = this.currentUsage;
       const counter = indicator.counter;
       this.indicatorTotal = total;
 
       this.refreshLinesFn = undefined;
       this.filtersForExport = undefined;
 
+      const filters = {
+        counter,
+        usageType,
+      };
+      this.filtersForExport = { ...filters };
+
       setTimeout(() => {
         this.refreshLinesFn = async (pagination, sorting) => {
-          return await fetchLinesForCounter(counter, usage, pagination, sorting);
+          return await fetchLinesForCounter(this.filtersForExport, pagination, sorting);
         };
       });
     },

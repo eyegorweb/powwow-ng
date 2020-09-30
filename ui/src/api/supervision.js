@@ -504,6 +504,7 @@ export async function geoListExport(params) {
         asyncRequired
     }
   }`;
+
   const response = await query(queryStr, params);
 
   if (!response || !response.data) {
@@ -517,6 +518,30 @@ export async function geoListExport(params) {
     };
   }
   return response.data.geoListExport;
+}
+
+export async function geoCounterListExport(params) {
+  const queryStr = `query GeoCounterListExport($filter: GeolocCounterFilterInput!, $columns: [AccessPointByLocationColumnEnum!]!, $exportFormat: ExportFormatEnum!, $asyncExportRequest: Boolean!) {
+    geoCounterListExport(filter: $filter, columns: $columns, exportFormat: $exportFormat, asyncExportRequest: $asyncExportRequest) {
+        downloadUri
+        total
+        asyncRequired
+    }
+  }`;
+
+  const response = await query(queryStr, params);
+
+  if (!response || !response.data) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.geoCounterListExport;
 }
 
 export async function supervisionExport(params) {

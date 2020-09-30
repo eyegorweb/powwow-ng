@@ -1,6 +1,6 @@
 <template>
   <UiApiAutocomplete
-    placeholder="Compte de facturation"
+    :placeholder="$t('common.billingAccount')"
     :items="localItems"
     v-model="selectedValue"
     :disabled="disabled"

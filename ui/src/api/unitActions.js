@@ -47,6 +47,7 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
           created
           statusDate
           errorCode
+          status
         }
         type
         msisdn

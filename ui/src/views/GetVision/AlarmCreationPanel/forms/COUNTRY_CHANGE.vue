@@ -7,7 +7,9 @@
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="numStep">Définir une liste de pays autorisés</SectionTitle>
+    <SectionTitle :num="numStep">
+      {{ $t('getvsion.alarm-creation.setCountries') }}
+    </SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_country.countries_list"

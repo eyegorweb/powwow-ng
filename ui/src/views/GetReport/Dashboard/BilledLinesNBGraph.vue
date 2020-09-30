@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Nbre de lignes facturées et détail des montants facturés"
+    title="getreport.dashboard.nbBilledLines"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"
