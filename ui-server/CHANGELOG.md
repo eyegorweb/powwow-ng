@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.211+20200930192236
+2020-09-30
+
+### Fixes
+
+- enlever le mockde le l'i18n (37eab58f1faf8eb85282236bd786acc20cc77b3c)
+
 ## 1.0.0-master.210+20200930152222
 2020-09-30
 
