@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.209+20200930150801
+2020-09-30
+
+### Features
+
+- ajout de l'export pour les compteurs de supervision (f677a6d16ca9bf593daaa567152c1e906454f19c)
+
 ## 1.0.0-master.208+20200930080145
 2020-09-30
 
