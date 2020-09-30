@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Conso et montant moyen par ligne facturée"
+    title="getreport.dashboard.consoAndAverageCost"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

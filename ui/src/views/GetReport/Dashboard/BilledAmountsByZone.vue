@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Montants facturés / Conso par zone"
+    title="getreport.dashboard.billedAmount"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

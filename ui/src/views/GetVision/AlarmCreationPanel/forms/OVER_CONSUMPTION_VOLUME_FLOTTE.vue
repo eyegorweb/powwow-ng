@@ -8,9 +8,9 @@
     :check-errors-fn="isFormValid"
   >
     <template v-slot:default="{ scopeIndex }">
-      <SectionTitle :num="scopeIndex + 1"
-        >Définir des seuils de déclenchement par usage (3 max.)</SectionTitle
-      >
+      <SectionTitle :num="scopeIndex + 1">{{
+        $t('getvsion.alarm-creation.setLimits')
+      }}</SectionTitle>
       <div class="d-flex justify-content-center mt-4 mb-2">
         <Toggle
           v-if="toggleValues"
@@ -43,7 +43,7 @@
       </keep-alive>
     </template>
     <template v-slot:scopechoice="{ partner }">
-      <SectionTitle :num="1">Choisir l'offre</SectionTitle>
+      <SectionTitle :num="1">{{ $t('getvsion.alarm-creation.chooseOffer') }}</SectionTitle>
       <OfferBillingAccountChoice
         :key="'offercf_' + (partner ? partner.id : '')"
         :partner="partner"

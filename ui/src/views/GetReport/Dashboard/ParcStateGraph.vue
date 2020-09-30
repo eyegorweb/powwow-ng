@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Etat du parc"
+    title="home.widgets.stateParc.title"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

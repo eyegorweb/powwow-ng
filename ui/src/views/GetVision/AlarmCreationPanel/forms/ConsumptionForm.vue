@@ -1,16 +1,16 @@
 <template>
   <div class="mb-4">
-    <SectionTitle :num="numStep">Définir un seuil de déclenchement par usage</SectionTitle>
+    <SectionTitle :num="numStep">{{ $t('getvsion.alarm-creation.defineThreshold') }}</SectionTitle>
 
     <div class="d-flex mb-2">
-      <span :class="{ bold: !isAdvanced }">Mode Standard</span>
+      <span :class="{ bold: !isAdvanced }">{{ $t('getvsion.alarm-creation.standardMode') }}</span>
       <UiToggle v-model="isAdvanced" on-text off-text />
-      <span :class="{ bold: isAdvanced }">Mode Avancé</span>
+      <span :class="{ bold: isAdvanced }">{{ $t('getvsion.alarm-creation.advancedMode') }}</span>
     </div>
 
     <div class="values-container" :class="{ 'standard-mode': !isAdvanced }">
       <div class="item">
-        <span>DATA E/S (Mo)</span>
+        <span>{{ $t('getparc.lineDetail.alarms.data') }} (Mo)</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -20,7 +20,7 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Data Sortante (Mo)</span>
+        <span>{{ $t('getparc.lineDetail.alarms.data_out') }} (Mo)</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -30,7 +30,7 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Data Entrante (Mo)</span>
+        <span>{{ $t('getparc.lineDetail.alarms.data_in') }} (Mo)</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -40,7 +40,7 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>SMS E/S</span>
+        <span>{{ $t('getparc.lineDetail.alarms.sms') }}</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -49,7 +49,7 @@
         />
       </div>
       <div class="item">
-        <span>SMS Sortant</span>
+        <span>{{ $t('getparc.lineDetail.alarms.sms_out') }}</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -59,7 +59,8 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>SMS Entrant</span>
+        <span>{{ $t('getparc.lineDetail.alarms.sms_in') }}</span>
+
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -68,7 +69,7 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Voix E/S</span>
+        <span>{{ $t('getparc.lineDetail.alarms.voice') }}</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -78,7 +79,7 @@
         />
       </div>
       <div class="item">
-        <span>Voix Sortante (Min)</span>
+        <span>{{ $t('getparc.lineDetail.alarms.voice_out') }} (Min)</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -88,7 +89,7 @@
         />
       </div>
       <div v-if="isAdvanced" class="item fade-in-reveal">
-        <span>Voix Entrante (Min)</span>
+        <span>{{ $t('getparc.lineDetail.alarms.voice_in') }} (Min)</span>
         <UiInput
           class="value-input"
           :input-style="inputStyle"
@@ -100,7 +101,7 @@
     </div>
 
     <div v-if="isAdvanced" class="mt-4 mb-2">
-      <h6>Cycle d'observation</h6>
+      <h6>{{ $t('getparc.lineDetail.alarms.observationCycle') }}</h6>
       <Toggle
         v-if="toggleValues"
         @update="currentPeriod = $event.id"
@@ -116,7 +117,7 @@
         input-type="number"
         positive-number
       />
-      <span>Jours</span>
+      <span>{{ $t('days') }}</span>
     </div>
   </div>
 </template>

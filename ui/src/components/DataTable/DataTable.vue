@@ -311,32 +311,25 @@ export default {
       const parsedColumns = JSON.parse(strColumns);
 
       return parsedColumns.map(c => {
-        if (c.format && c.format.component) {
-          const correspondingColumn = this.columns.find(cf => {
-            return (
-              cf.format && cf.format.component && c.format.component === cf.format.component.name
-            );
-          });
-
-          if (correspondingColumn) {
-            c.format.component = correspondingColumn.format.component;
+        const correspondingColumn = this.columns.find(cf => {
+          return c.id === cf.id;
+        });
+        if (correspondingColumn) {
+          if (correspondingColumn.visibleWhen) {
             c.visibleWhen = correspondingColumn.visibleWhen;
-            c.tootltipText = correspondingColumn.tootltipText;
           }
-
-          return c;
-        }
-
-        if (c.format && c.format.type === 'Getter') {
-          const correspondingColumn = this.columns.find(cf => {
-            return c.id === cf.id;
-          });
-          if (correspondingColumn) {
+          if (this.$loGet(correspondingColumn, 'format.getter')) {
             c.format.getter = correspondingColumn.format.getter;
-            c.visibleWhen = correspondingColumn.visibleWhen;
           }
+          if (
+            this.$loGet(c, 'format.component') &&
+            this.$loGet(correspondingColumn, 'format.component')
+          ) {
+            c.format.component = correspondingColumn.format.component;
+          }
+          c.tootltipText = correspondingColumn.tootltipText;
+          c.label = correspondingColumn.label;
         }
-
         return c;
       });
     },

@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Répartition du parc par offre"
+    title="getreport.dashboard.offerRepartition"
     :size="4"
     :can-show="canShow"
     :warning="showWarningMsg"

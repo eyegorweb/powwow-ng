@@ -1,6 +1,8 @@
 <template>
   <div class="mb-4">
-    <SectionTitle v-if="!skipScopeCheck" :num="num">Choisir la portée de l'alarme</SectionTitle>
+    <SectionTitle v-if="!skipScopeCheck" :num="num">{{
+      $t('getvsion.alarm-creation.chooseAlarmScope')
+    }}</SectionTitle>
 
     <div class="scope-container" :style="{ maxHeight: maxHeight }">
       <slot>

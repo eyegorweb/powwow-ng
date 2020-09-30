@@ -31,7 +31,7 @@
 
       <div class="line-container">
         <div class="value">
-          <span>{{ valueLabel }}</span>
+          <span>{{ $t(valueLabel) }}</span>
           <UiInput
             class="value-input"
             input-type="number"
@@ -44,7 +44,8 @@
         <div class="limitDate">
           <span>
             <template v-if="!!getPercentValFn(basePercent)"
-              >{{ getPercentValFn(basePercent) }} Avant la fin du mois</template
+              >{{ getPercentValFn(basePercent) }}
+              {{ $t('getvsion.alarm-creation.beforeEndOfMonth') }}</template
             >
           </span>
         </div>
@@ -52,24 +53,26 @@
           <UiButton variant="outline-info" @click="addNewLine()">
             <span class="btn-label">
               <i class="ic-Plus-Icon"></i>
-              Ajouter un seuil
+              {{ $t('getvsion.alarm-creation.addLimit') }}
             </span>
           </UiButton>
         </div>
       </div>
 
       <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
-        <span class="btn-label">Annuler</span>
+        <span class="btn-label">{{ $t('cancel') }}</span>
       </UiButton>
     </template>
     <template v-else>
       <div class="alert alert-primary" role="alert">
-        Aucun seuil n'est configurer pour cet usage
+        {{ $t('getvsion.alarm-creation.noLimitsConfigured') }}
       </div>
       <div class="row">
         <div class="col">
           <UiButton variant="link" @click="active_ = true" :class="{ 'mx-auto': true }">
-            <span class="btn-label">Configurer pour cet usage</span>
+            <span class="btn-label">
+              {{ $t('getvsion.alarm-creation.configureForUsage') }}
+            </span>
           </UiButton>
         </div>
       </div>

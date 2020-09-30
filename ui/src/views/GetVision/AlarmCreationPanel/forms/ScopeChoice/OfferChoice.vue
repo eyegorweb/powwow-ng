@@ -6,10 +6,10 @@
     message-height="15rem"
   >
     <template slot="form">
-      <h6>Offre</h6>
+      <h6>{{ $t('alarms.alarmScope.OFFER') }}</h6>
       <OfferCombo :value.sync="selectedOffer" :partners="partners" />
       <template v-if="selectedOffer">
-        <h6>Compte de facturation</h6>
+        <h6>{{ $t('common.billingAccount') }}</h6>
 
         <BillingAccountCombo :value.sync="selectedBillingAccount" :partners="partners" />
       </template>
@@ -20,8 +20,8 @@
           <span>{{ $t('loading') }}...</span>
         </template>
         <template v-else>
-          <h5>{{ totalLines }} lignes trouvées</h5>
-          <p>Cette alarme a une portée limitée à la ligne sélectionnée</p>
+          <h5>{{ totalLines }} {{ $t('getvsion.alarm-creation.linesFound') }}</h5>
+          <p>{{ $t('getvsion.alarm-creation.limitedScope') }}</p>
         </template>
       </ScopeSearchMessage>
     </template>

@@ -1,5 +1,5 @@
 <template>
-  <GraphContainer title="Répartition du parc par zone" :size="4" :can-show="canShow">
+  <GraphContainer title="getreport.dashboard.repartitionByZone" :size="4" :can-show="canShow">
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
     </div>
