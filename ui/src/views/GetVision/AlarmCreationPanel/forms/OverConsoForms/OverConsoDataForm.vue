@@ -1,6 +1,6 @@
 <template>
   <OverConsoGenericForm
-    value-label="La data dépasse"
+    value-label="getvsion.alarm-creation.dataIsOver"
     :get-percent-val-fn="getPercentVal"
     :active.sync="active_"
     @change="$emit('change', $event)"

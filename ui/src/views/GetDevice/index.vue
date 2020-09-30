@@ -171,7 +171,7 @@ export default {
         },
         {
           id: 2,
-          label: 'Fabricant (IMEI)',
+          label: this.$t('col.manufacturerIMEI'),
           name: 'manufacturer',
           exportId: 'MANUFACTURER',
           orderable: true,
@@ -185,7 +185,7 @@ export default {
         },
         {
           id: 3,
-          label: 'Modèle (IMEI)',
+          label: this.$t('getparc.actLines.col.deviceReference'),
           name: 'deviceReference',
           exportId: 'DEVICE_REFERENCE',
           orderable: true,
@@ -213,7 +213,7 @@ export default {
         },
         {
           id: 5,
-          label: 'Fréquence',
+          label: this.$t('col.frequency'),
           name: 'bands',
           exportId: 'BANDS',
           orderable: false, // Not parametrable for ordering in the api devices
@@ -241,7 +241,7 @@ export default {
         },
         {
           id: 7,
-          label: 'Partenaire',
+          label: this.$t('documents.partner'),
           name: 'partyName',
           exportId: 'PARTY',
           orderable: true,
@@ -286,7 +286,7 @@ export default {
         },
         {
           id: 10,
-          label: 'Statut de la ligne',
+          label: this.$t('getparc.lineDetail.lineStatus'),
           name: 'status',
           exportId: 'SIM_STATUS',
           orderable: false, // Not parametrable for ordering in the api devices
@@ -300,7 +300,7 @@ export default {
         },
         {
           id: 11,
-          label: 'Date du statut',
+          label: this.$t('getreport.creation.groups.checkboxes.ORDER_STATUS_DATE'),
           name: 'statusDate',
           exportId: 'SIM_STATUS_DATE',
           orderable: true,
@@ -314,7 +314,7 @@ export default {
         },
         {
           id: 12,
-          label: 'Offre',
+          label: this.$t('alarms.alarmScope.OFFER'),
           name: 'offer',
           exportId: 'OFFER',
           orderable: true,
@@ -328,7 +328,7 @@ export default {
         },
         {
           id: 13,
-          label: 'Dernier pays (ancien PLMN)',
+          label: this.$t('col.lastCountry'),
           name: 'lastPLMN',
           exportId: 'USAGE_LAST_COUNTRY',
           orderable: true,

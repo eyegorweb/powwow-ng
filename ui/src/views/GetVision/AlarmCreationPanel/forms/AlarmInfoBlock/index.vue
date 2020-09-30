@@ -2,7 +2,7 @@
   <div>
     <h5 class="text-primary text-uppercase">
       <span class="badge badge-pill badge-primary">{{ num }}</span>
-      <span class="title">Choisir un moyen de notification</span>
+      <span class="title">{{ $t('getvsion.alarm-creation.chooseNotification') }}</span>
     </h5>
 
     <div class="row">
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="col" v-if="sholdNotify">
-        <h5>Liste de diffusion</h5>
+        <h5>{{ $t('getvsion.mailing-list') }}</h5>
         <UiSelect v-model="notifList" :options="mailingLists" block />
       </div>
     </div>
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <h5>Nom de l'alarme</h5>
+        <h5>{{ $t('getparc.lineDetail.alarms.name') }}</h5>
         <UiInput class="d-block" v-model="alarmName" />
       </div>
       <div class="col">

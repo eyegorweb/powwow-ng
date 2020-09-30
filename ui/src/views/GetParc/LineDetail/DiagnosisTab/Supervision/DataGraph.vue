@@ -106,7 +106,7 @@ export default {
             // Secondary yAxis
             allowDecimals: false,
             title: {
-              text: 'Nombre de connexions pdp',
+              text: this.$t('getparc.lineDetail.supervision.nbCnxPdp'),
               style: {
                 color: Highcharts.getOptions().colors[0],
               },
@@ -125,7 +125,9 @@ export default {
           useHTML: true,
           xDateFormat: '%d/%m/%Y',
           pointFormatter() {
-            if (this.series.userOptions.name == 'Nombre de connexions PDP') {
+            if (
+              this.series.userOptions.name == this.$t('getparc.lineDetail.supervision.nbCnxPdp')
+            ) {
               return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color
@@ -157,7 +159,7 @@ export default {
 
         series: [
           {
-            name: 'Volume entrant',
+            name: this.$t('getparc.lineDetail.supervision.volumeIn'),
             type: 'column',
             tooltip: {
               valueSuffix: 'Ko',
@@ -167,7 +169,7 @@ export default {
             stack: 'volume',
           },
           {
-            name: 'Volume sortant',
+            name: this.$t('getparc.lineDetail.supervision.volumeOut'),
             type: 'column',
             tooltip: {
               valueSuffix: 'Ko',
@@ -177,7 +179,7 @@ export default {
             stack: 'volume',
           },
           {
-            name: 'Volume total',
+            name: this.$t('getparc.lineDetail.supervision.totalVolume'),
             type: 'column',
             tooltip: {
               valueSuffix: 'Ko',
@@ -186,7 +188,7 @@ export default {
             data: this.sumAllData(data.out, data.in),
           },
           {
-            name: 'Nombre de connexions PDP',
+            name: this.$t('getparc.lineDetail.supervision.nbCnxPdp'),
             type: 'spline',
             dashStyle: 'shortdot',
             yAxis: 1,

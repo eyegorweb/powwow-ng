@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-space">
     <h4 class="text-primary text-uppercase">
-      Historique des demandes de test Réseau / Localisation
+      {{ $t('getparc.lineDetail.tab3.testRequestsHistory') }}
     </h4>
     <LoaderContainer :is-loading="isLoading" loading-key="loading">
       <div slot="on-loading">

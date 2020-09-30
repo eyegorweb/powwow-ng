@@ -1,9 +1,9 @@
 <template>
   <div class="alert alert-primary alert-blue slide-up-reveal" role="alert">
-    <a class="refresh" :class="{ rotate: isLoading }" @click.prevent="refresh" href="#"
-      ><i class="ic-Refresh-Icon"></i
-    ></a>
-    <slot></slot>
+    <a class="refresh" :class="{ rotate: isLoading }" @click.prevent="refresh" href="#">
+      <i class="ic-Refresh-Icon" />
+    </a>
+    <slot />
   </div>
 </template>
 

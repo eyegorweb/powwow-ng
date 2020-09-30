@@ -1,6 +1,6 @@
 <template>
   <OverConsoGenericForm
-    value-label="Nb de minutes dépasse"
+    value-label="getvsion.alarm-creation.voiceIsOver"
     :get-percent-val-fn="getPercentVal"
     :active.sync="active_"
     @change="$emit('change', $event)"

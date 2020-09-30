@@ -525,7 +525,7 @@ export default {
       this.selectedItems = [];
       this.groups = [
         {
-          title: 'Informations techniques',
+          title: this.$t('getreport.creation.groups.technicalInfos'),
           checkboxes: [
             { code: 'ICCID', label: 'ICCID', checked: false },
             { code: 'IMSI', label: 'IMSI', checked: false },
@@ -546,43 +546,91 @@ export default {
             { code: 'IMEI', label: 'IMEI', checked: false },
             {
               code: 'GRP_DEVICE_INFO',
-              label: 'Matériel et constructeur',
+              label: this.$t('getreport.creation.groups.checkboxes.deviceInfo'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
                 return get(this.partnerForOptionCheck, 'data.partyType') === 'CUSTOMER';
               },
             },
-            { code: 'SIMCARD_TYPE', label: 'Type de carte SIM', checked: false },
-            { code: 'GRP_CUSTOM_FIELDS', label: 'Champs libres', checked: false },
-            { code: 'GRP_SPECIFIC_FIELDS', label: 'Champs spécifiques', checked: false },
-            { code: 'LINE_STATUS', label: 'Statut de la ligne', checked: false },
-            { code: 'NETWORK_STATUS', label: 'Statut réseau', checked: false },
-            { code: 'PIN2', label: 'Code PIN2', checked: false },
-            { code: 'PUK1', label: 'Codes PUK', checked: false },
-            { code: 'AP_ID', label: 'Identifiant point d’accès', checked: false },
-            { code: 'ELECTRIC_PROFILE', label: 'Profil électrique', checked: false },
-            { code: 'GRAPHIC_PROFILE', label: 'Profile graphique', checked: false },
+            {
+              code: 'SIMCARD_TYPE',
+              label: this.$t('getadmin.users.filters.typeSIMCard'),
+              checked: false,
+            },
+            { code: 'GRP_CUSTOM_FIELDS', label: this.$t('common.customFields'), checked: false },
+            {
+              code: 'GRP_SPECIFIC_FIELDS',
+              label: this.$t('getadmin.customize.specificFields'),
+              checked: false,
+            },
+            {
+              code: 'LINE_STATUS',
+              label: this.$t('getparc.lineDetail.lineStatus'),
+              checked: false,
+            },
+            {
+              code: 'NETWORK_STATUS',
+              label: this.$t('filters.lines.networkStatus'),
+              checked: false,
+            },
+            {
+              code: 'PIN2',
+              label: this.$t('getreport.creation.groups.checkboxes.pin2'),
+              checked: false,
+            },
+            {
+              code: 'PUK1',
+              label: this.$t('getreport.creation.groups.checkboxes.puk'),
+              checked: false,
+            },
+            {
+              code: 'AP_ID',
+              label: this.$t('getreport.creation.groups.checkboxes.accessPointId'),
+              checked: false,
+            },
+            {
+              code: 'ELECTRIC_PROFILE',
+              label: this.$t('getreport.creation.groups.checkboxes.electricProfile'),
+              checked: false,
+            },
+            {
+              code: 'GRAPHIC_PROFILE',
+              label: this.$t('getreport.creation.groups.checkboxes.graphicProfile'),
+              checked: false,
+            },
             {
               code: 'HARDWARE_TYPE',
-              label: 'Type de hardware',
+              label: this.$t('getreport.creation.groups.checkboxes.hardwareType'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
                 return get(this.partnerForOptionCheck, 'data.partyType') === 'MVNO';
               },
             },
-            { code: 'MODULE_NUMBER', label: 'Numéro de module', checked: false },
-            { code: 'PREACTIVATION_DATE', label: 'Date de préactivation', checked: false },
-            { code: 'ACTIVATION_DATE', label: 'Date d’activation', checked: false },
+            {
+              code: 'MODULE_NUMBER',
+              label: this.$t('getreport.creation.groups.checkboxes.MODULE_NUMBER'),
+              checked: false,
+            },
+            {
+              code: 'PREACTIVATION_DATE',
+              label: this.$t('getreport.creation.groups.checkboxes.PREACTIVATION_DATE'),
+              checked: false,
+            },
+            {
+              code: 'ACTIVATION_DATE',
+              label: this.$t('getreport.creation.groups.checkboxes.ACTIVATION_DATE'),
+              checked: false,
+            },
             {
               code: 'LAST_CHANGE_STATUS_DATE',
-              label: 'Date de dernier changement de statut',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CHANGE_STATUS_DATE'),
               checked: false,
             },
             {
               code: 'FIXED_IP_ADDRESSES',
-              label: 'Adresse ip fixe',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CHANGE_STATUS_DATE'),
               checked: false,
               canShow: () => {
                 if (this.userIsMVNO) return false;
@@ -592,7 +640,7 @@ export default {
             },
             {
               code: 'FLAT_END_DATE',
-              label: "Date de changement d'offre MVNO",
+              label: this.$t('getreport.creation.groups.checkboxes.FLAT_END_DATE'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
@@ -602,7 +650,8 @@ export default {
           ],
         },
         {
-          title: 'Informations Dual SIM',
+          title: this.$t('getreport.creation.groups.dualSimInfos'),
+
           canShow: () => {
             return this.havePermission('getParc', 'manage_dual');
           },
@@ -616,18 +665,23 @@ export default {
         },
 
         {
-          title: 'Informations commerciales',
+          title: this.$t('getreport.creation.groups.commercialInfos'),
+
           checkboxes: [
-            { code: 'OFFER_NAME', label: 'Nom de l’offre', checked: false },
+            {
+              code: 'OFFER_NAME',
+              label: this.$t('getreport.creation.groups.checkboxes.OFFER_NAME'),
+              checked: false,
+            },
             {
               code: 'GRP_SERVICES_APN',
-              label: 'Services de la ligne et APN',
+              label: this.$t('getreport.creation.groups.checkboxes.GRP_SERVICES_APN'),
               checked: false,
               isDisabled: () => this.noPartnerSelected,
             },
             {
               code: 'CUSTOMER_ACCOUNT_NAME',
-              label: 'Nom du compte de facturation',
+              label: this.$t('getreport.creation.groups.checkboxes.CUSTOMER_ACCOUNT_NAME'),
               checked: false,
             },
             {
@@ -635,79 +689,148 @@ export default {
               label: 'Code du compte de facturation',
               checked: false,
             },
-            { code: 'PARTNER_NAME', label: 'Nom du partenaire', checked: false },
-            { code: 'PARTNER_CODE', label: 'Code du partenaire', checked: false },
+            {
+              code: 'PARTNER_NAME',
+              label: this.$t('getreport.creation.groups.checkboxes.PARTNER_NAME'),
+              checked: false,
+            },
+            {
+              code: 'PARTNER_CODE',
+              label: this.$t('getreport.creation.groups.checkboxes.PARTNER_CODE'),
+              checked: false,
+            },
             { code: this.endDateOf.code, label: this.endDateOf.name, checked: false },
-            { code: 'COMMERCIAL_STATUS', label: 'Statut commercial ', checked: false },
-            { code: 'BILLING_STATUS', label: 'Statut de facturation', checked: false },
+            {
+              code: 'COMMERCIAL_STATUS',
+              label: this.$t('filters.lines.commercialStatus'),
+              checked: false,
+            },
+            {
+              code: 'BILLING_STATUS',
+              label: this.$t('filters.lines.billingStatus'),
+              checked: false,
+            },
           ],
         },
 
         {
-          title: 'Informations de la commande',
+          title: this.$t('getreport.creation.groups.orderInfos'),
+
           checkboxes: [
-            { code: 'ORDER_ID', label: 'ID de commande', checked: false },
+            { code: 'ORDER_ID', label: this.$t('filters.idOrder'), checked: false },
             {
               code: 'ORDER_PARTNER_NAME',
-              label: 'Nom du partenaire de la commande ',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_PARTNER_NAME'),
               checked: false,
             },
             {
               code: 'ORDER_PARTNER_CODE',
-              label: 'Code du partenaire de la commande',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_PARTNER_CODE'),
               checked: false,
             },
-            { code: 'CLIENT_REFERENCE', label: 'Référence client', checked: false },
+            {
+              code: 'CLIENT_REFERENCE',
+              label: this.$t('orders.detail.referenceClient'),
+              checked: false,
+            },
             {
               code: 'GRP_PREACTIVATE_ACTIVATE',
-              label: 'Pré-Activation / Activation',
+              label: this.$t('getreport.creation.groups.checkboxes.GRP_PREACTIVATE_ACTIVATE'),
               checked: false,
             },
-            { code: 'ORDER_OFFER', label: 'Offre de la commande', checked: false },
-            { code: 'ORDER_DATE', label: 'Date de la commande ', checked: false },
-            { code: 'ORDER_USER_NAME', label: 'Créateur de la commande', checked: false },
-            { code: 'ORDER_STATUS', label: 'Statut de la commande', checked: false },
-            { code: 'ORDER_STATUS_DATE', label: 'Date du statut', checked: false },
-            { code: 'GRP_DELIVERY_CONTACT', label: 'Contact de livraison', checked: false },
-            { code: 'ORDER_COMPANY', label: 'Société', checked: false },
-            { code: 'GRP_DELIVERY_ADRESS', label: 'Adresse de livraison', checked: false },
-            { code: 'GRP_BILLING_ADRESS', label: 'Adresse de facturation', checked: false },
-            { code: 'CONTRACT_REFERENCE', label: 'Référence contrat ', checked: false },
-            { code: 'ORDER_QUANTITY', label: 'Quantité de SIM commandées ', checked: false },
-            { code: 'IMPORTED_QUANTITY', label: 'Quantité de SIM importées', checked: false },
+            {
+              code: 'ORDER_OFFER',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_OFFER'),
+              checked: false,
+            },
+            { code: 'ORDER_DATE', label: this.$t('filters.orderDate'), checked: false },
+            {
+              code: 'ORDER_USER_NAME',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_USER_NAME'),
+
+              checked: false,
+            },
+            { code: 'ORDER_STATUS', label: this.$t('filters.orderStatus'), checked: false },
+            {
+              code: 'ORDER_STATUS_DATE',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_STATUS_DATE'),
+
+              checked: false,
+            },
+            {
+              code: 'GRP_DELIVERY_CONTACT',
+              label: this.$t('getreport.creation.groups.checkboxes.GRP_DELIVERY_CONTACT'),
+              checked: false,
+            },
+            { code: 'ORDER_COMPANY', label: this.$t('col.company'), checked: false },
+            {
+              code: 'GRP_DELIVERY_ADRESS',
+              label: this.$t('orders.new.deliveryStep.form.deliveryAddress'),
+              checked: false,
+            },
+            {
+              code: 'GRP_BILLING_ADRESS',
+              label: this.$t('getreport.creation.groups.checkboxes.GRP_BILLING_ADRESS'),
+              checked: false,
+            },
+            {
+              code: 'CONTRACT_REFERENCE',
+              label: this.$t('getreport.creation.groups.checkboxes.CONTRACT_REFERENCE'),
+              checked: false,
+            },
+            {
+              code: 'ORDER_QUANTITY',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_QUANTITY'),
+              checked: false,
+            },
+            {
+              code: 'IMPORTED_QUANTITY',
+              label: this.$t('getreport.creation.groups.checkboxes.IMPORTED_QUANTITY'),
+              checked: false,
+            },
             {
               code: 'ORDER_BIL_CODE',
-              label: 'Code du compte de facturation de la commande',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_BIL_CODE'),
               checked: false,
             },
             {
               code: 'ORDER_BIL_NAME',
-              label: 'Nom du compte de facturation de la commande ',
+              label: this.$t('getreport.creation.groups.checkboxes.ORDER_BIL_NAME'),
               checked: false,
             },
           ],
         },
 
         {
-          title: 'Consommation',
+          title: this.$t('getreport.creation.groups.consommation'),
+
           checkboxes: [
             {
               code: 'CUMULATED_UL_VOLUME',
-              label: 'Encours Data montant (mensuel)',
+              label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_UL_VOLUME'),
               checked: false,
             },
             {
               code: 'CUMULATED_DL_VOLUME',
-              label: 'Encours Data descendant (mensuel)',
+              label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_DL_VOLUME'),
               checked: false,
             },
-            { code: 'CUMULATED_SMS_VOLUME', label: 'Encours SMS (mensuel)', checked: false },
-            { code: 'CUMULATED_VOICE_VOLUME', label: 'Encours Voix (mensuel)', checked: false },
+            {
+              code: 'CUMULATED_SMS_VOLUME',
+              label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_SMS_VOLUME'),
+              checked: false,
+            },
+            {
+              code: 'CUMULATED_VOICE_VOLUME',
+              label: this.$t('getreport.creation.groups.checkboxes.CUMULATED_VOICE_VOLUME'),
+              checked: false,
+            },
           ],
         },
 
         {
-          title: 'Informations dernier usage',
+          title: this.$t('getreport.creation.groups.lastUsageInfos'),
+
           canShow: () => {
             return this.havePermission('consumption', 'last_usage');
           },
@@ -716,60 +839,88 @@ export default {
           checkboxes: [
             {
               code: 'LAST_CONNECTION_STATUS',
-              label: 'Statut de la dernière connexion',
+              label: this.$t('getparc.lineDetail.tab2.lineAnalysisTitles.lastConnectionStatus'),
               checked: false,
             },
             {
               code: 'LAST_CONNECTION_START_DATE',
-              label: 'Début de la dernière connexion',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_START_DATE'),
               checked: false,
             },
             {
               code: 'LAST_CONNECTION_END_DATE',
-              label: 'Fin de la dernière connexion',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_END_DATE'),
               checked: false,
             },
             {
               code: 'LAST_CONNECTION_CLOSING_REASON',
-              label: 'Motif de fermeture de la connexion ',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_CLOSING_REASON'),
               checked: false,
             },
             {
               code: 'LAST_CONNECTION_UPLOAD',
-              label: 'Volume montant de la dernière connexion',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_UPLOAD'),
               checked: false,
             },
             {
               code: 'LAST_CONNECTION_DOWNLOAD',
-              label: 'Volume descendant de la dernière connexion',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_DOWNLOAD'),
               checked: false,
             },
-            { code: 'LAST_SMS_DATE', label: 'Date du dernier SMS', checked: false },
-            { code: 'LAST_SMS_DIRECTION', label: 'Direction du dernier SMS', checked: false },
+            {
+              code: 'LAST_SMS_DATE',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_SMS_DATE'),
+              checked: false,
+            },
+            {
+              code: 'LAST_SMS_DIRECTION',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_SMS_DIRECTION'),
+              checked: false,
+            },
             {
               code: 'LAST_VOICE_DATE',
-              label: 'Date de la dernière communication voix',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DATE'),
               checked: false,
             },
             {
               code: 'LAST_VOICE_DURATION',
-              label: 'Durée de la dernière communication voix',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DURATION'),
               checked: false,
             },
             {
               code: 'LAST_VOICE_DIRECTION',
-              label: 'Direction de la dernière communication voix ',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_VOICE_DIRECTION'),
               checked: false,
             },
-            { code: 'LAST_CONNECTION_IP_ADDRESS_TYPE', label: 'Type adresse IP', checked: false },
-            { code: 'LAST_CONNECTION_IP_V4_ADDRESS', label: 'Adresse IP V4', checked: false },
-            { code: 'LAST_CONNECTION_IP_V6_ADDRESS', label: 'Adresse IP V6', checked: false },
+            {
+              code: 'LAST_CONNECTION_IP_ADDRESS_TYPE',
+              label: this.$t(
+                'getreport.creation.groups.checkboxes.LAST_CONNECTION_IP_ADDRESS_TYPE'
+              ),
+              checked: false,
+            },
+            {
+              code: 'LAST_CONNECTION_IP_V4_ADDRESS',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_IP_V4_ADDRESS'),
+              checked: false,
+            },
+            {
+              code: 'LAST_CONNECTION_IP_V6_ADDRESS',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_CONNECTION_IP_V6_ADDRESS'),
+              checked: false,
+            },
             { code: 'LAST_CONNECTION_APN', label: 'APN', checked: false },
-            { code: 'LAST_USAGE_COUNTRY', label: 'Pays', checked: false },
-            { code: 'LAST_USAGE_OPERATOR', label: 'Opérateur ', checked: false },
+            { code: 'LAST_USAGE_COUNTRY', label: this.$t('filters.country'), checked: false },
+            {
+              code: 'LAST_USAGE_OPERATOR',
+              label: this.$t(
+                'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.operator'
+              ),
+              checked: false,
+            },
             {
               code: 'LAST_USAGE_ZIP_CODE',
-              label: 'Code postal',
+              label: this.$t('filters.postalCode'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
@@ -778,7 +929,7 @@ export default {
             },
             {
               code: 'LAST_USAGE_CITY',
-              label: 'Ville',
+              label: this.$t('filters.city'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
@@ -787,33 +938,53 @@ export default {
             },
             {
               code: 'LAST_USAGE_CELL_ID',
-              label: 'Id de cellule',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_USAGE_CELL_ID'),
               checked: false,
               canShow: () => {
                 if (this.userIsOperator) return true;
                 return !!get(this.partnerForOptionCheck, 'data.optionViewCellId');
               },
             },
-            { code: 'LAST_USAGE_COORDINATES', label: 'Coordonnées géographiques ', checked: false },
-            { code: 'LAST_USAGE_DATE', label: 'Date de dernière localisation', checked: false },
-            { code: 'LAST_USAGE_TYPE', label: "Type d'usage", checked: false },
+            {
+              code: 'LAST_USAGE_COORDINATES',
+              label: this.$t('getparc.lineDetail.tab2.lineAnalysisContent.geographicalCoordinates'),
+              checked: false,
+            },
+            {
+              code: 'LAST_USAGE_DATE',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_USAGE_DATE'),
+              checked: false,
+            },
+            { code: 'LAST_USAGE_TYPE', label: this.$t('filters.usageType'), checked: false },
             {
               code: 'LAST_USAGE_DETAILS',
-              label: 'Détail',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_USAGE_DETAILS'),
               checked: false,
             },
             { code: 'LAST_PLMN', label: 'PLMN', checked: false },
-            { code: 'LAST_OPERATOR_REAL_PLMN', label: 'PLMN réel ', checked: false },
-            { code: 'LAST_TYPE_APPEL', label: 'Type appel', checked: false },
-            { code: 'LAST_USAGE_IMEI', label: 'IMEI du dernier usage', checked: false },
+            {
+              code: 'LAST_OPERATOR_REAL_PLMN',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_OPERATOR_REAL_PLMN'),
+              checked: false,
+            },
+            {
+              code: 'LAST_TYPE_APPEL',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_TYPE_APPEL'),
+              checked: false,
+            },
+            {
+              code: 'LAST_USAGE_IMEI',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_USAGE_IMEI'),
+              checked: false,
+            },
             {
               code: 'LAST_USAGE_OFFER_CODE',
-              label: 'Code offre du dernier usage ',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_USAGE_OFFER_CODE'),
               checked: false,
             },
             {
               code: 'LAST_TICKET_GENERATION',
-              label: 'Génération du ticket',
+              label: this.$t('getreport.creation.groups.checkboxes.LAST_TICKET_GENERATION'),
               checked: false,
             },
           ],

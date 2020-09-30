@@ -13,9 +13,9 @@
         >
           <template v-slot:actions="{ hasAnyValue, onSearch }">
             <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
-              <UiButton variant="primary" @click="onSearch" class="flex-grow-1 py-1 px-3 ml-1"
-                >Appliquer / Rafraichir</UiButton
-              >
+              <UiButton variant="primary" @click="onSearch" class="flex-grow-1 py-1 px-3 ml-1">{{
+                $t('applyFilters')
+              }}</UiButton>
             </div>
           </template>
         </FilterBar>
@@ -28,7 +28,7 @@
         >
           <div class="row mb-3">
             <div class="col">
-              <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+              <h2 class="text-gray font-weight-light" style="font-size: 2rem">
                 <slot name="title"></slot>
               </h2>
             </div>

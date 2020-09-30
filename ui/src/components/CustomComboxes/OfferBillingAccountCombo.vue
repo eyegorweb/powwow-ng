@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!partner" class="alert alert-warning">Veuillez choisir un partenaire</div>
+    <div v-if="!partner" class="alert alert-warning">{{ $t('chooseOnePartner') }}</div>
     <UiSelect v-else class="text-gray" block v-model="selectedValue" :options="options" />
   </div>
 </template>

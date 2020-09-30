@@ -37,7 +37,7 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: CoachM2MWidget,
-    permission: { domain: 'getParc', action: 'manage_coach' },
+    permission: { domain: 'widget', action: 'line_coach' },
   },
   {
     title: 'home.widgets.topTriggeredAlarms',

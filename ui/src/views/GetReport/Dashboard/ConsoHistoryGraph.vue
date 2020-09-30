@@ -1,6 +1,6 @@
 <template>
   <GraphContainer
-    title="Historique des consommations"
+    title="getreport.dashboard.consoHistory"
     :size="12"
     :can-show="canShow"
     :warning="showWarningMsg"

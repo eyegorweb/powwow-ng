@@ -3,9 +3,7 @@
     <div>
       <chart v-if="chartOptions" :options="chartOptions" />
     </div>
-    <div slot="onHide">
-      Texte d'erreur ici
-    </div>
+    <div slot="onHide">Error</div>
   </GraphContainer>
 </template>
 

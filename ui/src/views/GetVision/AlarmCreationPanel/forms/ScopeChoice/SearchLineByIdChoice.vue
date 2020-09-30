@@ -21,8 +21,8 @@
           <span>{{ $t('loading') }}...</span>
         </template>
         <template v-else>
-          <h5>{{ totalLines }} lignes trouvées</h5>
-          <p>Cette alarme a une portée limitée à la ligne sélectionnée</p>
+          <h5>{{ totalLines }} {{ $t('getvsion.alarm-creation.linesFound') }}</h5>
+          <p>{{ $t('getvsion.alarm-creation.limitedScope') }}</p>
         </template>
       </ScopeSearchMessage>
     </template>

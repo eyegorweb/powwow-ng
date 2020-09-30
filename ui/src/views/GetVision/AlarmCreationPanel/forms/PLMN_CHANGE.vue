@@ -7,7 +7,9 @@
     @save="onSave"
     @scope="scopeChoice = $event"
   >
-    <SectionTitle :num="numStep">Définir une liste d'opérateurs</SectionTitle>
+    <SectionTitle :num="numStep">
+      {{ $t('getvsion.alarm-creation.setISPs') }}
+    </SectionTitle>
 
     <GroupMultiSelect
       from-title="getvsion.alarm-creation.change_plmn.isp_list"

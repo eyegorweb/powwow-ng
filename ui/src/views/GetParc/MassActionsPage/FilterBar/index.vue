@@ -10,9 +10,9 @@
       >
         <template v-slot:actions="{ hasAnyValue }">
           <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
-            <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1"
-              >Appliquer / Rafraichir</UiButton
-            >
+            <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1">{{
+              $t('applyFilters')
+            }}</UiButton>
           </div>
         </template>
       </SelectedFilters>
