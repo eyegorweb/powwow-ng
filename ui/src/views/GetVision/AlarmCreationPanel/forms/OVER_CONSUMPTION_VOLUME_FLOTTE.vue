@@ -21,13 +21,25 @@
       </div>
 
       <keep-alive>
-        <OverConsoDataForm v-if="currentPeriod == 'data'" @change="levelsData = $event" />
+        <OverConsoDataForm
+          v-if="currentPeriod == 'data'"
+          @change="levelsData = $event"
+          :active.sync="includeDataLimits"
+        />
       </keep-alive>
       <keep-alive>
-        <OverConsoSMSForm v-if="currentPeriod == 'sms'" @change="levelsSms = $event" />
+        <OverConsoSMSForm
+          v-if="currentPeriod == 'sms'"
+          @change="levelsSms = $event"
+          :active.sync="includeSMSLimits"
+        />
       </keep-alive>
       <keep-alive>
-        <OverConsoVoiceForm v-if="currentPeriod == 'voice'" @change="levelsVoice = $event" />
+        <OverConsoVoiceForm
+          v-if="currentPeriod == 'voice'"
+          @change="levelsVoice = $event"
+          :active.sync="includeVoiceLimits"
+        />
       </keep-alive>
     </template>
     <template v-slot:scopechoice="{ partner }">
@@ -76,6 +88,10 @@ export default {
       levelsData: undefined,
       levelsSms: undefined,
       levelsVoice: undefined,
+
+      includeDataLimits: false,
+      includeSMSLimits: false,
+      includeVoiceLimits: false,
       toggleValues: [
         {
           id: 'data',
@@ -100,11 +116,12 @@ export default {
       const marketingOfferId = get(this.filterForCreation, 'offerCF.meta.workflow.initialOffer.id');
       const customerAccountId = get(this.filterForCreation, 'offerCF.meta.customerAccount.id');
 
-      const levelsData = {};
-      const levelsSms = {};
-      const levelsVoice = {};
+      let levelsData = undefined;
+      let levelsSms = undefined;
+      let levelsVoice = undefined;
 
-      if (this.levelsData) {
+      if (this.includeDataLimits && this.levelsData) {
+        levelsData = {};
         levelsData.levelMax = { level: parseInt(this.levelsData.basePercent) };
         if (this.levelsData.levels.length == 1) {
           levelsData.level1 = {
@@ -126,7 +143,8 @@ export default {
         }
       }
 
-      if (this.levelsSms) {
+      if (this.includeSMSLimits && this.levelsSms) {
+        levelsSms = {};
         levelsSms.levelMax = { level: parseInt(this.levelsSms.basePercent) };
         if (this.levelsSms.levels.length == 1) {
           levelsSms.level1 = {
@@ -148,7 +166,8 @@ export default {
         }
       }
 
-      if (this.levelsVoice) {
+      if (this.includeVoiceLimits && this.levelsVoice) {
+        levelsVoice = {};
         levelsVoice.levelMax = { level: parseInt(this.levelsVoice.basePercent) };
         if (this.levelsVoice.levels.length == 1) {
           levelsVoice.level1 = {

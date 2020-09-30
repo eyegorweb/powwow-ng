@@ -238,9 +238,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-          'getparc.actLines.commercialStatuses.' +
-          get(this.content, 'accessPoint.commercialStatus')
-        )} ${this.$t('fromThe')}`
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`
         : '-';
     },
   },
