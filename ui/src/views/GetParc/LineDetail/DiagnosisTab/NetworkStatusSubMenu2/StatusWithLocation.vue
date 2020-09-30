@@ -93,6 +93,9 @@ export default {
       if (this.isOkRoaming) {
         return 'getparc.lineDetail.tab3.statuses.TEST_OK';
       }
+      if (this.isWaiting) {
+        return '';
+      }
       return 'getparc.lineDetail.tab3.statuses.TEST_KO';
     },
     checkState() {
@@ -103,7 +106,7 @@ export default {
     },
 
     noCheck() {
-      return this.isKOTimeout || this.isCancelled;
+      return this.isKOTimeout || this.isCancelled || this.isWaiting;
     },
   },
 };
