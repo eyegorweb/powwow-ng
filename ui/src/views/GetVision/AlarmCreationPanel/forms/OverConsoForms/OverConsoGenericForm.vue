@@ -1,60 +1,79 @@
 <template>
   <div class="m-3 bg-white p-3 bordered">
-    <div class="line-container" v-for="line in lines" :key="line.id">
-      <div class="value">
-        <span>{{ valueLabel }}</span>
-        <UiInput
-          class="value-input"
-          input-type="number"
-          :min-value="0"
-          :max-value="100"
-          v-model="line.value"
-          @update:value="onValueUpdate()"
-        />
-      </div>
-      <div class="limitDate">
-        <span>
-          <template v-if="!!getPercentValFn(line.value)"
-            >{{ getPercentValFn(line.value) }} Avant le</template
-          >
-        </span>
-        <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
-      </div>
-      <div class="deleteButton">
-        <UiButton variant="outline-danger" @click="deleteLine(line)">
-          <span class="btn-label">Supprimer</span>
-        </UiButton>
-      </div>
-    </div>
-
-    <div class="line-container">
-      <div class="value">
-        <span>{{ valueLabel }}</span>
-        <UiInput
-          class="value-input"
-          input-type="number"
-          :min-value="0"
-          :max-value="100"
-          v-model="basePercent"
-          @update:value="onValueUpdate()"
-        />
-      </div>
-      <div class="limitDate">
-        <span>
-          <template v-if="!!getPercentValFn(basePercent)"
-            >{{ getPercentValFn(basePercent) }} Avant la fin du mois</template
-          >
-        </span>
-      </div>
-      <div v-if="lines.length < 2" class="deleteButton">
-        <UiButton variant="outline-info" @click="addNewLine()">
-          <span class="btn-label">
-            <i class="ic-Plus-Icon"></i>
-            Ajouter un seuil
+    <template v-if="active_">
+      <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
+      <div class="line-container" v-for="line in lines" :key="line.id">
+        <div class="value">
+          <span>{{ valueLabel }}</span>
+          <UiInput
+            class="value-input"
+            input-type="number"
+            :min-value="0"
+            :max-value="100"
+            v-model="line.value"
+            @update:value="onValueUpdate()"
+          />
+        </div>
+        <div class="limitDate">
+          <span>
+            <template v-if="!!getPercentValFn(line.value)"
+              >{{ getPercentValFn(line.value) }} Avant le</template
+            >
           </span>
-        </UiButton>
+          <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
+        </div>
+        <div class="deleteButton">
+          <UiButton variant="outline-danger" @click="deleteLine(line)">
+            <span class="btn-label">Supprimer</span>
+          </UiButton>
+        </div>
       </div>
-    </div>
+
+      <div class="line-container">
+        <div class="value">
+          <span>{{ valueLabel }}</span>
+          <UiInput
+            class="value-input"
+            input-type="number"
+            :min-value="0"
+            :max-value="100"
+            v-model="basePercent"
+            @update:value="onValueUpdate()"
+          />
+        </div>
+        <div class="limitDate">
+          <span>
+            <template v-if="!!getPercentValFn(basePercent)"
+              >{{ getPercentValFn(basePercent) }} Avant la fin du mois</template
+            >
+          </span>
+        </div>
+        <div v-if="lines.length < 2" class="deleteButton">
+          <UiButton variant="outline-info" @click="addNewLine()">
+            <span class="btn-label">
+              <i class="ic-Plus-Icon"></i>
+              Ajouter un seuil
+            </span>
+          </UiButton>
+        </div>
+      </div>
+
+      <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
+        <span class="btn-label">Annuler</span>
+      </UiButton>
+    </template>
+    <template v-else>
+      <div class="alert alert-primary" role="alert">
+        Aucun seuil n'est configurer pour cet usage
+      </div>
+      <div class="row">
+        <div class="col">
+          <UiButton variant="link" @click="active_ = true" :class="{ 'mx-auto': true }">
+            <span class="btn-label">Configurer pour cet usage</span>
+          </UiButton>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -64,12 +83,19 @@ import UiSelect from '@/components/ui/UiSelect';
 import UiButton from '@/components/ui/Button';
 import uuid from 'uuid/v1';
 
+import OverConsoVolumeFlotteGraph from './OverConsoVolumeFlotteGraph';
+
+import { propWithSync } from '@/mixins';
+
 export default {
   components: {
     UiInput,
     UiSelect,
     UiButton,
+    OverConsoVolumeFlotteGraph,
   },
+
+  mixins: [propWithSync('active')],
 
   props: {
     valueLabel: String,
@@ -82,6 +108,31 @@ export default {
       options: [],
     };
   },
+
+  watch: {
+    active(active) {
+      if (active) {
+        this.onValueUpdate();
+      } else {
+        this.$emit('change', undefined);
+      }
+    },
+  },
+
+  computed: {
+    limits() {
+      const limits = this.lines
+        .filter(line => line.limit && line.value)
+        .map(line => [line.limit, parseInt(line.value)]);
+
+      // 99 correspond à la fin du mois
+      limits.push([99, parseInt(this.basePercent)]);
+
+      const ordered = limits.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+
+      return ordered;
+    },
+  },
   mounted() {
     const options = [];
 
@@ -93,6 +144,25 @@ export default {
   },
 
   methods: {
+    /**
+     *  limits format : [[dayOfMonth, percent]]
+     */
+    setLimitsFromGraph(limits) {
+      const ordered = limits.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+      if (ordered && ordered.length > 1) {
+        // dernière ligne à ignorer (correspond)
+        const newLines = [];
+        for (let i = 0; i < ordered.length - 1; i++) {
+          newLines.push({
+            id: uuid(),
+            value: ordered[i][1],
+            limit: ordered[i][0],
+          });
+        }
+
+        this.lines = newLines;
+      }
+    },
     onValueUpdate() {
       this.$emit('change', {
         levels: this.lines,
@@ -107,6 +177,7 @@ export default {
         this.lines.push({
           id: uuid(),
           value: undefined,
+          limit: undefined,
         });
       }
     },

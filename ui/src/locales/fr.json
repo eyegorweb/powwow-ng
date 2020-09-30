@@ -738,6 +738,7 @@
     "search-lines-by-id": "Rechercher une ligne par ID",
     "tooltip-title-text": "Vous pouvez retrouver l'ensemble des lignes du parc, leur état ainsi que les outils de diagnostics des lignes. Vous pouvez également gérer les lignes, modifier les services et les offres, exporter les informations et données d'usage.",
     "actTypes": {
+      "COACH_M2M": "Coach M2M",
       "PREACTIVATION": "Pré-activation",
       "PREACTIVATION_ACTIVATION": "Pré-activation et Activation",
       "ACTIVATION": "Activation",

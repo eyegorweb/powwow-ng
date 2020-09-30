@@ -2,17 +2,21 @@
   <OverConsoGenericForm
     value-label="Nb de minutes dépasse"
     :get-percent-val-fn="getPercentVal"
+    :active.sync="active_"
     @change="$emit('change', $event)"
   />
 </template>
 
 <script>
 import OverConsoGenericForm from './OverConsoGenericForm';
+import { propWithSync } from '@/mixins';
 
 export default {
   components: {
     OverConsoGenericForm,
   },
+  mixins: [propWithSync('active')],
+
   data() {
     return {
       max: 200,
