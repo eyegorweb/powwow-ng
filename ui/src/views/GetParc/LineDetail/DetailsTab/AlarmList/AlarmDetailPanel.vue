@@ -2,7 +2,7 @@
   <BaseDetailPanelContent>
     <div class="overview-container m-3 bg-white">
       <div class="overview-item mr-5">
-        <h6>Informations générales</h6>
+        <h6>{{ $t('orders.detail.information') }}</h6>
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.lineDetail.alarms.name') }}:</h6>
