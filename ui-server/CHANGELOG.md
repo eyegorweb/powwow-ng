@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.213+20201001143112
+2020-10-01
+
+### Fixes
+
+- afficher correctement le type d'alarme mutualisée (29a683491ccb224bb0cf02b33f59f78e59396840)
+
 ## 1.0.0-master.212+20201001095009
 2020-10-01
 
