@@ -305,7 +305,7 @@ export default {
         ) {
           return await geoCounterListExport({
             filter: this.filtersForExport,
-            columns: columns,
+            columns,
             asyncExportRequest: this.total >= 100000,
             exportFormat,
           });
@@ -316,7 +316,7 @@ export default {
         ) {
           return await geoListExport({
             filter: this.filtersForExport,
-            columns: columns,
+            columns,
             asyncExportRequest: this.total >= 100000,
             exportFormat,
           });

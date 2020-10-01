@@ -967,8 +967,7 @@
           "gaugeConsumtion": "Consumption gauge",
           "stateStopService": "Cut-off state",
           "tresholdStopService": "Cut-off threshold",
-          "tmpDebarring": "Temporary unbarring",
-          "activationEndingStopService": "Activation of the cut-off release"
+          "tmpDebarring": "Temporary unbarring"
         },
         "networkHistoryContent": {
           "lastPLMN": "History of countries visited",

@@ -27,7 +27,6 @@
         <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
         <Supervision v-if="section === 'supervision'" :content="content" />
         <NetworkHistory v-if="section === 'network_history'" :content="content" />
-        <NetworkInformation v-if="section === 'network_information'" :content="content" />
       </template>
       <div v-else class="warning-message">
         <h3 class="text-warning text-center mt-5">
@@ -45,7 +44,6 @@ import NetworkTestControl from './NetworkTestControl';
 import Supervision from './Supervision';
 import NetworkHistory from './NetworkHistorySubMenu5';
 import LastTests from './LastTests';
-import NetworkInformation from './NetworkInformation';
 import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
@@ -57,7 +55,6 @@ export default {
     Supervision,
     NetworkHistory,
     LastTests,
-    NetworkInformation,
   },
   props: {
     content: Object,
@@ -94,12 +91,6 @@ export default {
         section: 'network_history',
         title: 'getparc.lineDetail.tab2.networkHistory',
         compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-      },
-
-      {
-        section: 'network_information',
-        title: 'getparc.lineDetail.tab2.networkInformation',
-        compatiblePartnerTypes: ['MVNO'],
       },
     ]);
     this.initializeSection();
