@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.212+20201001095009
+2020-10-01
+
+### Fixes
+
+- cacher le sous menu "Information réseau" (8c766db4096134eeedf6709e67fdd6305fe45b1b)
+- Correction du bug d'affichage sur la recherche d'utilisateurs (2ccfe02e91f5970661fc22f365f5579a3ee584b2)
+
 ## 1.0.0-master.211+20200930192236
 2020-09-30
 
