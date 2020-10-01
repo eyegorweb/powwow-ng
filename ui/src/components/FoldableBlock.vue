@@ -80,6 +80,7 @@ export default {
   }
   a:hover {
     cursor: pointer;
+    text-decoration: none;
   }
   .contentHidden {
     max-height: 0;
