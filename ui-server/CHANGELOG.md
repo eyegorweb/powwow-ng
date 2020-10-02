@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.7.1
+2020-10-02
+
+### Fixes
+
+- enlever le mockde le l'i18n (37eab58f1faf8eb85282236bd786acc20cc77b3c)
+- cacher le sous menu "Information réseau" (8c766db4096134eeedf6709e67fdd6305fe45b1b)
+- Correction du bug d'affichage sur la recherche d'utilisateurs (2ccfe02e91f5970661fc22f365f5579a3ee584b2)
+- afficher correctement le type d'alarme mutualisée (29a683491ccb224bb0cf02b33f59f78e59396840)
+- mise à jour des traductions (8139c1cec4ef82c4f879d2f45d4516d6f9efffe7)
+- mise à jour des traductions (298d932fbb724df9757a41e23294da29eba3206f)
+- Afficher un message d'erreur en cas de problèmes durant l'upload (80b40c3c90cdef5463e78531f502882a23d3c642)
+
 ## 1.7.0
 2020-09-30
 
