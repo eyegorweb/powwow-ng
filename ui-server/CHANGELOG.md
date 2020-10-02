@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.217+20201002100644
+2020-10-02
+
+### Fixes
+
+- Afficher un message d'erreur en cas de problèmes durant l'upload (80b40c3c90cdef5463e78531f502882a23d3c642)
+
 ## 1.0.0-master.216+20201002094601
 2020-10-02
 
