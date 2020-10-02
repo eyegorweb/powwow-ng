@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.215+20201002091940
+2020-10-02
+
+### Fixes
+
+- mise à jour des traductions (298d932fbb724df9757a41e23294da29eba3206f)
+
 ## 1.0.0-master.214+20201002083828
 2020-10-02
 
