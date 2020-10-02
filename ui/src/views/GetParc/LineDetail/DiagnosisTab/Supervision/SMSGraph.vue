@@ -97,7 +97,7 @@ export default {
         },
         series: [
           {
-            name: 'SMS Reçu',
+            name: this.$t('getparc.lineDetail.supervision.smsIn'),
             type: 'column',
             tooltip: {
               valueSuffix: '',
@@ -106,7 +106,7 @@ export default {
             data: data.in,
           },
           {
-            name: 'SMS Emis',
+            name: this.$t('getparc.lineDetail.supervision.smsOut'),
             type: 'column',
             tooltip: {
               valueSuffix: '',

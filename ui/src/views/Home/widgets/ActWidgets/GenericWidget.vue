@@ -17,6 +17,7 @@ import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 
 import { countTotalForMassAction } from '@/api/massActions';
 import { currentDateMinusMounts, formattedCurrentDate, currentDateMinusDays } from '@/utils/date';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -40,6 +41,10 @@ export default {
         },
       });
     },
+  },
+
+  computed: {
+    ...mapGetters(['userIsMVNO']),
   },
 
   watch: {
@@ -113,6 +118,7 @@ export default {
       },
       {
         labelKey: 'indicators.getsim.actionsFailed',
+        isVisibleFn: () => !this.userIsMVNO,
         color: 'text-danger',
         clickable: true,
         total: '-',
@@ -137,6 +143,7 @@ export default {
         color: 'text-danger',
         clickable: true,
         total: '-',
+        isVisibleFn: () => !this.userIsMVNO,
         filters: [
           ...this.specificFilters,
           {

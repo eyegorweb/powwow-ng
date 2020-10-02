@@ -3,7 +3,7 @@
     <div v-if="isLoading" class="skeleton-line"></div>
     <UiApiAutocomplete
       v-else
-      placeholder="Offre"
+      :placeholder="$t('col.offer')"
       :items="items"
       v-model="selectedLocalValue"
       :disabled="disabled"

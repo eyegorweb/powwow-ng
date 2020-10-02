@@ -1,6 +1,12 @@
 <template>
   <div class="pb-4">
-    <UiSelect v-if="options" v-model="selectedOption" placeholder="Type" :options="options" block />
+    <UiSelect
+      v-if="options"
+      v-model="selectedOption"
+      :placeholder="$t('type')"
+      :options="options"
+      block
+    />
   </div>
 </template>
 

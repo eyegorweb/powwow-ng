@@ -16,6 +16,13 @@
   "unSelectAll": "Tout désélectionner",
   "showOrHideColumns": "Ajouter / Masquer des colonnes",
   "save": "Enregistrer",
+  "saveFilter": "Enregistrer un filtre",
+  "applyFilter": "Appliquer un filtre",
+  "applyTheFilter": "Appliquer le filtre",
+  "newFilterName": "Nom du nouveau filtre",
+  "savedFilters": "Filtres enregistrés",
+  "noSavedFilter": "Aucun filtre enregistré",
+  "dragOrAddFile": "Déposez votre fichier ici, ou cliquez pour ajouter",
   "cancel": "Annuler",
   "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
@@ -37,6 +44,7 @@
   "list": "Liste",
   "date": "Date",
   "none": "Aucune",
+  "noneM": "Aucun",
   "type": "Type",
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
@@ -536,6 +544,7 @@
       "addUser": "Ajouter un utilisateur",
       "title": "Gestion des utilisateurs",
       "noInfo": "Non renseigné",
+      "searchPlaceholder": "Saisir un nom, prénom ou login",
       "filters": {
         "fullName": "Nom ou prénom",
         "email": "Email",
@@ -708,7 +717,14 @@
         }
       },
       "offerFromPanel": {
-        "title": "Panel Offre"
+        "title": "Panel Offre",
+        "availableOffers": "Offres disponibles pour cette entité",
+        "offerSearch": "Rechercher une Offre",
+        "searchInput": "Saisir un nom ou un code",
+        "offerManagement": "Gérer les offres associées",
+        "defaultServices": "Services activés par défaut",
+        "default": "Activés par défaut",
+        "modifiedServices": "Services modifiables"
       },
       "userForm": {
         "title": "Ajouter un utilisateur",
@@ -1025,7 +1041,15 @@
         "nbCnxPdp": "Nombre de connexions PDP",
         "totalVolume": "Volume total",
         "volumeOut": "Volume sortant",
-        "volumeIn": "Volume entrant"
+        "volumeIn": "Volume entrant",
+        "smsIn": "SMS Reçu",
+        "smsOut": "SMS Emis",
+        "minutesIn": "Minutes reçues",
+        "minutesOut": "Minutes émises",
+        "voiceOut": "Voix reçues",
+        "voiceIn": "Voix émises",
+        "voiceInAndOut": "Voix E/S",
+        "totalMinutes": "Minutes totales"
       },
       "alarms": {
         "trigger-history": "Historique de déclenchement",

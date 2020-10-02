@@ -1,23 +1,31 @@
 <template>
   <div>
-    <h4 class="text-primary text-uppercase">Offres disponibles pour cette entité</h4>
+    <h4 class="text-primary text-uppercase">
+      {{ $t('getadmin.partnerDetail.offerFromPanel.availableOffers') }}
+    </h4>
 
     <div class="searchBar">
-      <label for>Rechercher une Offre</label>
-      <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom ou un code" />
+      <label for>{{ $t('getadmin.partnerDetail.offerFromPanel.offerSearch') }}</label>
+      <UiInput
+        v-model="searchValue"
+        class="d-block"
+        :placeholder="$t('getadmin.partnerDetail.offerFromPanel.searchInput')"
+      />
     </div>
     <div class="cards">
       <CardsSkeleton v-if="isLoading" />
       <template v-else>
         <CardButton v-if="canShowActions" @click="manageOffers">
-          Gérer les offres associées
+          {{ $t('getadmin.partnerDetail.offerFromPanel.offerManagement') }}
         </CardButton>
 
         <Card v-for="offer in visibleOffers" :key="offer.id" :can-delete="true" :can-modify="false">
           <div class="partnerSimOfferTitle">{{ offer.name }} ({{ offer.code }})</div>
 
           <div class="info-block mt-1">
-            <div class="partnerSimOfferSubTitle">Services activés par défaut:</div>
+            <div class="partnerSimOfferSubTitle">
+              {{ $t('getadmin.partnerDetail.offerFromPanel.defaultServices') }}:
+            </div>
             <div v-tooltip="offer.defaultServices.join('\n')">
               {{ offer.defaultServices.slice(0, 5).join(', ') }}
               <template v-if="offer.defaultServices.length > 6">
@@ -29,7 +37,9 @@
             v-if="offer.editableServices && offer.editableServices.length"
             class="info-block mt-1"
           >
-            <div class="partnerSimOfferSubTitle">Services modifiables:</div>
+            <div class="partnerSimOfferSubTitle">
+              {{ $t('getadmin.partnerDetail.offerFromPanel.modifiedServices') }}:
+            </div>
             <div v-tooltip="offer.editableServices.join('\n')">
               {{ offer.editableServices.slice(0, 5).join(', ') }}
               <template v-if="offer.editableServices.length > 6">

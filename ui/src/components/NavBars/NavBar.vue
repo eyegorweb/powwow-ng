@@ -51,24 +51,22 @@
     </div>
     <div class="flex-part">
       <div class="lang-flags">
-        <ff-wip>
-          <a
-            href="#"
-            @click.prevent="$i18n.locale = 'fr'"
-            :class="{ active: $i18n.locale === 'fr' }"
-            class="flag"
-          >
-            <img src="@/assets/fr.png" />
-          </a>
-          <a
-            href="#"
-            @click.prevent="$i18n.locale = 'en'"
-            :class="{ active: $i18n.locale === 'en' }"
-            class="flag"
-          >
-            <img src="@/assets/en.png" />
-          </a>
-        </ff-wip>
+        <a
+          href="#"
+          @click.prevent="$i18n.locale = 'fr'"
+          :class="{ active: $i18n.locale === 'fr' }"
+          class="flag"
+        >
+          <img src="@/assets/fr.png" />
+        </a>
+        <a
+          href="#"
+          @click.prevent="$i18n.locale = 'en'"
+          :class="{ active: $i18n.locale === 'en' }"
+          class="flag"
+        >
+          <img src="@/assets/en.png" />
+        </a>
 
         <ActHistoryButton />
       </div>
@@ -198,7 +196,9 @@ export default {
       {
         label: 'GetReport',
         to: { name: 'reports' },
-        permission: { domain: 'getReport', action: 'read' },
+        permission: () => {
+          return this.havePermissionDomain('getReport');
+        },
         submenu: [
           {
             label: 'menu.modelReports',
@@ -256,6 +256,9 @@ export default {
     filterByPermission(arrayInput) {
       return arrayInput.filter(a => {
         if (!a.permission) return false;
+        if (typeof a.permission === 'function') {
+          return a.permission();
+        }
         return this.havePermission(a.permission.domain, a.permission.action);
       });
     },
@@ -278,7 +281,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos', 'userIsPartner', 'havePermission']),
+    ...mapGetters([
+      'userName',
+      'userInfos',
+      'userIsPartner',
+      'havePermission',
+      'havePermissionDomain',
+    ]),
 
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';

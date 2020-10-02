@@ -37,7 +37,7 @@
   "action": "Action",
   "ordersFound": "{total} found order(s)",
   "set": "Apply",
-  "noResult": "Nom result",
+  "noResult": "No result",
   "noConso": "No consumption",
   "back": "Back",
   "searching": "Search in progress ...",
@@ -967,8 +967,7 @@
           "gaugeConsumtion": "Consumption gauge",
           "stateStopService": "Cut-off state",
           "tresholdStopService": "Cut-off threshold",
-          "tmpDebarring": "Temporary unbarring",
-          "activationEndingStopService": "Activation of the cut-off release"
+          "tmpDebarring": "Temporary unbarring"
         },
         "networkHistoryContent": {
           "lastPLMN": "History of countries visited",

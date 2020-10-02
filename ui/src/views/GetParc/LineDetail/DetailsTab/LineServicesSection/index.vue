@@ -216,7 +216,7 @@ export default {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
-          this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
         }
       } catch (e) {
         this.savingChanges = false;

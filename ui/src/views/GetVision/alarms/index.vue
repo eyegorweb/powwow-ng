@@ -84,6 +84,7 @@ export default {
         level3Up: row.levelVoice1,
         level3Down: row.levelVoice2,
         numberOfTargetedLines: row.numberLines,
+        type: row.type,
       }));
       return {
         total: response.total,

@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="mb-3">
-      <h6>Zone</h6>
+      <h6>{{ $t('filters.zone') }}</h6>
       <UiSelect class="text-gray" block v-model="zone" :options="zones" />
     </div>
 
     <template v-if="zone == 'world'">
-      <h6>Pays</h6>
+      <h6>{{ $t('filters.country') }}</h6>
       <CountriesPart v-if="zone == 'world'" :ignore-countries="['FRA']" v-model="country" />
     </template>
     <template v-if="zone == 'france'">
-      <h6>Code postal</h6>
-      <UiInput v-model="zipCode" placeholder="Code postal" block />
+      <h6>{{ $t('filters.postalCode') }}</h6>
+      <UiInput v-model="zipCode" :placeholder="$t('filters.postalCode')" block />
     </template>
   </div>
 </template>

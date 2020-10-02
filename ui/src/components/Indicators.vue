@@ -2,7 +2,7 @@
   <div>
     <ul class="list-group bg-white" :class="listClasses">
       <IndicatorItem
-        v-for="indicator in indicatorsWithCompatibleRoles"
+        v-for="indicator in visibleIndicators"
         :key="indicator.labelKey"
         :indicator="indicator"
         :disable-click="disableClick"
@@ -64,8 +64,11 @@ export default {
     ...mapGetters(['userIsBO', 'userIsPartner']),
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
 
-    indicatorsWithCompatibleRoles() {
+    visibleIndicators() {
       return this.indicators.filter(i => {
+        if (i.isVisibleFn) {
+          return i.isVisibleFn();
+        }
         if (!i.roles) return true;
 
         if (this.userIsBO) {

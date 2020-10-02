@@ -4,8 +4,12 @@
       <div class="activationChoice">
         <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-services') }}</h3>
         <div class="toggles-container">
-          <UiToggle label="Préactivation" v-model="preActivation" :editable="!activation" />
-          <UiToggle label="Activation" v-model="activation" />
+          <UiToggle
+            :label="$t('col.preActivationAsked')"
+            v-model="preActivation"
+            :editable="!activation"
+          />
+          <UiToggle :label="$t('col.activationAsked')" v-model="activation" />
         </div>
       </div>
       <LoaderContainer :is-loading="isLoadingOffers">

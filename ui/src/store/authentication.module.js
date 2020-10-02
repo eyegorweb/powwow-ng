@@ -34,6 +34,12 @@ export const getters = {
     }
     return false;
   },
+  havePermissionDomain: state => domain => {
+    if (state.userInfos) {
+      return !!state.userInfos.permissions.find(p => p.domain === domain);
+    }
+    return false;
+  },
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
