@@ -130,22 +130,22 @@ export default {
 
         series: [
           {
-            name: 'France entrant',
+            name: this.$t('getreport.dashboard.incomingFrance'),
             data: formattedData.consumptionFrIn,
             stack: 'entrant',
           },
           {
-            name: 'Roaming entrant',
+            name: this.$t('getreport.dashboard.incomingRoming'),
             data: formattedData.consumptionRoamingIn,
             stack: 'entrant',
           },
           {
-            name: 'France sortant',
+            name: this.$t('getreport.dashboard.outgoingFrance'),
             data: formattedData.consumptionFrOut,
             stack: 'sortant',
           },
           {
-            name: 'Roaming sortant',
+            name: this.$t('getreport.dashboard.outgoingRoaming'),
             data: formattedData.consumptionRoamingOut,
             stack: 'sortant',
           },

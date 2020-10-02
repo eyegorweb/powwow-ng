@@ -93,7 +93,8 @@ export default {
           headerFormat: '',
           pointFormat:
             '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
-            'Nombre de lignes: <b>{point.z}</b><br/>',
+            this.$t('bills.lineTotal') +
+            ': <b>{point.z}</b><br/>',
         },
         series: [
           {

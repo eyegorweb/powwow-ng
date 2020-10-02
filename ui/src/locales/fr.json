@@ -869,7 +869,31 @@
       "plmnRepartition": "Répartition du parc par PLMN",
       "repartitionByZone": "Répartition du parc par zone",
       "lastDayWorldMap": "Carte du monde à J-1",
-      "offerRepartition": "Répartition du parc par offre"
+      "offerRepartition": "Répartition du parc par offre",
+      "legends": {
+        "incomingFrance": "France entrant",
+        "incomingRoming": "Roaming entrant",
+        "outgoingFrance": "France sortant",
+        "outgoingRoaming": "Roaming sortant",
+        "nbAlarms": "Nb d'alarmes",
+        "billed": "Facturé",
+        "notBilled": "Non facturé",
+        "amount": "Montant",
+        "overtaking": "Dépassement",
+        "contract": "Forfait",
+        "outOfZone": "Hors zone",
+        "amountData": "Montant Data",
+        "amountVoice": "Montant Voix",
+        "amountSMS": "Montant SMS",
+        "amountSubscription": "Montant abonnements",
+        "conso": "Conso",
+        "amountByCounter": "Montant conso au compteur",
+        "amountOutOfZone": "Montant hors zone",
+        "amountTestConso": "Montant des conso tests",
+        "totalAmount": "Montant total",
+        "billedLines": "Nb de lignes facturées",
+        "lines": "Lignes"
+      }
     }
   },
   "getparc": {

@@ -167,17 +167,17 @@ export default {
         },
         series: [
           {
-            name: 'Facturé',
+            name: this.$t('getreport.dashboard.legends.billed'),
             type: 'column',
             data: dataSeries.nbBilledLines,
           },
           {
-            name: 'Non facturé',
+            name: this.$t('getreport.dashboard.legends.notBilled'),
             type: 'column',
             data: dataSeries.nbNotBilledLines,
           },
           {
-            name: 'Montant',
+            name: this.$t('getreport.dashboard.legends.amount'),
             type: 'spline',
             data: dataSeries.amount,
           },

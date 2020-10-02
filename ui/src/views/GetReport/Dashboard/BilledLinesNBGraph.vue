@@ -159,7 +159,7 @@ export default {
               },
             },
             title: {
-              text: 'Montant',
+              text: this.$t('getreport.dashboard.legends.amount'),
               style: {
                 color: '#083e96',
               },
@@ -168,7 +168,7 @@ export default {
           {
             // Secondary yAxis
             title: {
-              text: 'Lignes',
+              text: this.$t('getreport.dashboard.legends.lines'),
               style: {
                 color: '#488bf7',
               },
@@ -201,38 +201,38 @@ export default {
         },
         series: [
           {
-            name: 'Nb de lignes facturées',
+            name: this.$t('getreport.dashboard.legends.billedLines'),
             data: dataSeries.billedLines,
             type: 'column',
             yAxis: 1,
           },
           {
-            name: 'Montant total',
+            name: this.$t('getreport.dashboard.legends.totalAmount'),
             data: dataSeries.totalAmount,
             type: 'spline',
           },
           {
-            name: 'Montant abonnements',
+            name: this.$t('getreport.dashboard.legends.amountSubscription'),
             data: dataSeries.suscribeAmount,
             type: 'column',
           },
           {
-            name: 'Montant Data',
+            name: this.$t('getreport.dashboard.legends.amountData'),
             data: dataSeries.amountData,
             type: 'spline',
           },
           {
-            name: 'Montant conso au compteur',
+            name: this.$t('getreport.dashboard.legends.amountByCounter'),
             data: dataSeries.amountConso,
             type: 'spline',
           },
           {
-            name: 'Montant hors zones',
+            name: this.$t('getreport.dashboard.legends.amountOutOfZone'),
             data: dataSeries.amountOutOfZone,
             type: 'spline',
           },
           {
-            name: 'Montant des conso tests',
+            name: this.$t('getreport.dashboard.legends.amountTestConso'),
             data: dataSeries.amountTestConso,
             type: 'spline',
           },
