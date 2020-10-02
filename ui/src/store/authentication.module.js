@@ -34,7 +34,7 @@ export const getters = {
     }
     return false;
   },
-  havePermissionDomain: state => (domain, action) => {
+  havePermissionDomain: state => domain => {
     if (state.userInfos) {
       return !!state.userInfos.permissions.find(p => p.domain === domain);
     }
