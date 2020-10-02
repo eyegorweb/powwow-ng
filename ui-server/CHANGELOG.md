@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.221+20201002151031
+2020-10-02
+
+### Fixes
+
+- traduction des graphes du tableau de bord (a9fc2337b1d7a8c7723c11b6e2aa78548ae8592d)
+
 ## 1.0.0-master.220+20201002142524
 2020-10-02
 
