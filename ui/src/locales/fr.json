@@ -98,6 +98,10 @@
   "applyFilters": "Appliquer / Rafraichir",
   "chooseOnePartner": "Veuillez choisir un partenaire",
   "days": "Jours",
+  "map": {
+    "world": "Monde",
+    "countryFR": "France"
+  },
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
