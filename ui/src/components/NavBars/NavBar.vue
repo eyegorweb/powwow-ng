@@ -197,7 +197,7 @@ export default {
         label: 'GetReport',
         to: { name: 'reports' },
         permission: () => {
-          return this.havePermissionDomain('getReport')
+          return this.havePermissionDomain('getReport');
         },
         submenu: [
           {
@@ -255,7 +255,6 @@ export default {
   methods: {
     filterByPermission(arrayInput) {
       return arrayInput.filter(a => {
-
         if (!a.permission) return false;
         if (typeof a.permission === 'function') {
           return a.permission();
@@ -282,7 +281,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userName', 'userInfos', 'userIsPartner', 'havePermission', 'havePermissionDomain']),
+    ...mapGetters([
+      'userName',
+      'userInfos',
+      'userIsPartner',
+      'havePermission',
+      'havePermissionDomain',
+    ]),
 
     logoutUrl() {
       return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';

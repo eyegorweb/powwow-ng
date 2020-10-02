@@ -7,7 +7,7 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="(filterId) => clearFilter(filterId)"
+        @clear="filterId => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
