@@ -3,7 +3,7 @@
     <UiSelect
       v-if="options"
       v-model="selectedOption"
-      placeholder="Statut"
+      :placeholder="$t('col.status')"
       :options="options"
       block
     />

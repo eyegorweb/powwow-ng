@@ -3,7 +3,7 @@
     <UiSelect
       v-if="options"
       v-model="selectedOption"
-      placeholder="Libellé"
+      :placeholder="$t('col.label')"
       :options="options"
       block
     />

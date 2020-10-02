@@ -37,7 +37,7 @@
   "action": "Action",
   "ordersFound": "{total} found order(s)",
   "set": "Apply",
-  "noResult": "Nom result",
+  "noResult": "No result",
   "noConso": "No consumption",
   "back": "Back",
   "searching": "Search in progress ...",

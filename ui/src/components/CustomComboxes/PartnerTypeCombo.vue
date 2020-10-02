@@ -1,6 +1,6 @@
 <template>
   <div class="pb-4">
-    <UiSelect v-model="partnerType" placeholder="Aucun" :options="partnersTypesOptions" />
+    <UiSelect v-model="partnerType" :placeholder="$t('noneM')" :options="partnersTypesOptions" />
   </div>
 </template>
 
