@@ -2,12 +2,12 @@
   <BaseDetailPanelContent white>
     <div class="m-3">
       <div class="searchBar mb-3">
-        <label for>Rechercher une Offre</label>
+        <label for>{{ $t('getadmin.partnerDetail.offerFromPanel.offerSearch') }}</label>
         <UiInput
           v-model="searchValue"
           class="d-block"
           :disabled="isLoading"
-          placeholder="Saisir un nom ou un code"
+          :placeholder="$t('getadmin.partnerDetail.offerFromPanel.searchInput')"
         >
           <i slot="icon" class="select-icon ic-Magnify-Icon" />
         </UiInput>
@@ -24,13 +24,15 @@
         >
           <div class="block-content">
             <div class="mt-2" v-tooltip="offer.defaultServices.join('\n')">
-              Activés par défaut: {{ offer.defaultServices.slice(0, 5).join(', ') }}
+              {{ $t('getadmin.partnerDetail.offerFromPanel.default') }}:
+              {{ offer.defaultServices.slice(0, 5).join(', ') }}
               <template v-if="offer.defaultServices.length > 6">
                 ...
               </template>
             </div>
             <div class="mt-2" v-tooltip="offer.editableServices.join('\n')">
-              Services modifiables: {{ offer.editableServices.slice(0, 5).join(', ') }}
+              {{ $t('getadmin.partnerDetail.offerFromPanel.modifiedServices') }}:
+              {{ offer.editableServices.slice(0, 5).join(', ') }}
               <template v-if="offer.editableServices.length > 6">
                 ...
               </template>

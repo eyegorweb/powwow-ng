@@ -8,7 +8,7 @@
         class="flex-grow-1 py-1 px-3"
         @click.prevent="toggle"
         :class="staticClass"
-        >Enregistrer</UiButton
+        >{{ $t('save') }}</UiButton
       >
       <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
@@ -17,12 +17,12 @@
         <!-- NOTE: créé l'espace qui apparait sur la maquette mais c'est un peu bizarre
             https://projects.invisionapp.com/d/main/default/#/console/15611938/324542348/inspect-->
         <div class="clearfix" />
-        <h6 class="modal-title mb-3">Enregistrer un filtre:</h6>
+        <h6 class="modal-title mb-3">{{ $t('saveFilter') }}:</h6>
         <form @submit.prevent>
-          <UiInput v-model="filterName" class="d-block" placeholder="Nom du nouveau filtre" />
-          <UiButton variant="primary" @click="() => saveFilter(hide)" type="submit" block
-            >Enregistrer</UiButton
-          >
+          <UiInput v-model="filterName" class="d-block" :placeholder="$t('newFilterName')" />
+          <UiButton variant="primary" @click="() => saveFilter(hide)" type="submit" block>{{
+            $t('save')
+          }}</UiButton>
         </form>
       </div>
     </UiDropdownButton>
@@ -31,7 +31,7 @@
       variant="primary"
       @click="$emit('applyFilters')"
       class="flex-grow-1 py-1 px-3 ml-1"
-      >Appliquer le filtre</UiButton
+      >{{ $t('applyFilter') }}</UiButton
     >
   </div>
 </template>

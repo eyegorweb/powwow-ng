@@ -2,7 +2,7 @@
   <div class="pb-4">
     <UiSelect
       v-model="selectedOption"
-      placeholder="Aucun"
+      :placeholder="$t('noneM')"
       :options="options"
       :disabled="!!partner"
     />

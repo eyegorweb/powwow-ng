@@ -2,7 +2,11 @@
   <div>
     <div class="searchBar">
       <label for>{{ $t('getadmin.users.searchUser') }}</label>
-      <UiInput v-model="searchValue" class="d-block" placeholder="Saisir un nom, prénom ou login" />
+      <UiInput
+        v-model="searchValue"
+        class="d-block"
+        :placeholder="$t('getadmin.users.searchPlaceholder')"
+      />
     </div>
     <div class="cards">
       <CardButton @click="openCreationPanel">{{ $t('getadmin.users.addUser') }}</CardButton>
