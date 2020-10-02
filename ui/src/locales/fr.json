@@ -54,7 +54,7 @@
   "back": "Retour",
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
-  "processing": "Traitement en cours ...",
+  "processing": "Traitement en cours",
   "range": "Plage de valeurs",
   "applyDate": "Date d'application",
   "fromThe": "depuis le :",
@@ -435,6 +435,18 @@
       "INTRADAY_CUMUL": "Cumulé 6h",
       "DAY": "Jour",
       "MONTH": "Mois"
+    },
+    "supervisionLegend": {
+      "title": "Légendes",
+      "indicators": {
+        "last24H": "Lignes avec trafic ces dernières 24h",
+        "more24H": "Lignes avec trafic depuis plus de 24h et moins de 30 jours",
+        "openedSession": "Lignes avec une session data en cours",
+        "closedSession": "Lignes avec une session data fermée",
+        "withoutAlarms": "Pays sans alertes actives",
+        "withAlarms": "Pays avec alerte (variation suspecte détectée)",
+        "less500": "Pays non supervisés avec moins de 500 lignes"
+      }
     },
 
     "detail-panel": {
@@ -1442,6 +1454,11 @@
         "newBillingAccount": "Nouveau compte de facturation"
       },
 
+      "transferSIM": {
+        "validate": "Valider le take-over",
+        "deny": "Refuser le take-over"
+      },
+
       "phaseTest": {
         "end": "Terminer le test",
         "warningMsg": "Attention ! Toute sortie de ligne de la phase de test est définitive, et ne sera pas réversible."
@@ -1482,14 +1499,17 @@
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre",
         "successMessage": "La demande de changement d'offre a bien été prise en compte.",
-        "currentOffer": "Offre actuelle"
+        "currentOffer": "Offre actuelle",
+        "changeServices": "Avec changement de services ?"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
       "SERVICE_TO_DESACTIVATE": "Services à désactiver",
       "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?",
       "ALTERABLE_BY_CLIENT": "Non modifiable par le client",
-      "SELECTED_LINES": "{total} lignes seront modifiées"
+      "SELECTED_LINES": "{total} lignes seront modifiées",
+      "EXCLUDED_LINES": "{total} lignes seront exclues de l'alarme",
+      "message_EXCLUDED_LINES": "Les lignes retirées de l’alarme seront accessibles dans l’onglet « Lignes exclues de l’alarme »"
     },
     "actLines": {
       "details": {

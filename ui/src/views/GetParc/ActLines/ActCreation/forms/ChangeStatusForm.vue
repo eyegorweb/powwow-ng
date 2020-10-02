@@ -80,7 +80,9 @@ export default {
         : 0;
     },
     info() {
-      return this.total > 0 ? `${this.total} lignes seront modifiées` : '';
+      return this.total > 0
+        ? `${this.$t('getparc.actCreation.SELECTED_LINES', { total: this.total })}`
+        : '';
     },
   },
   methods: {

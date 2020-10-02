@@ -22,7 +22,7 @@
         {{ $t('save') }}
       </button>
       <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-        {{ $t('processing') }}
+        {{ $t('processing') }}...
         <CircleLoader />
       </button>
     </div>

@@ -6,7 +6,7 @@
         {{ $t('noResult') }}
       </div>
       <button v-if="searching" class="btn btn-primary btn-block" disabled>
-        {{ $t('processing') }}
+        {{ $t('processing') }}...
         <CircleLoader />
       </button>
       <button
