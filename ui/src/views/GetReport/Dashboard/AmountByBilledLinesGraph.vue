@@ -170,7 +170,7 @@ export default {
           {
             // Primary yAxis
             title: {
-              text: 'Montant',
+              text: this.$t('getreport.dashboard.legends.amount'),
               style: {
                 color: '#083e96',
               },
@@ -185,7 +185,7 @@ export default {
           {
             // Secondary yAxis
             title: {
-              text: 'Conso',
+              text: this.$t('getreport.dashboard.legends.conso'),
               style: {
                 color: '#488bf7',
               },
@@ -218,13 +218,13 @@ export default {
         },
         series: [
           {
-            name: 'Conso',
+            name: this.$t('getreport.dashboard.legends.conso'),
             type: 'column',
             data: dataSeries.conso,
             yAxis: 1,
           },
           {
-            name: 'Montant',
+            name: this.$t('getreport.dashboard.legends.amount'),
             type: 'spline',
             data: dataSeries.amount,
           },

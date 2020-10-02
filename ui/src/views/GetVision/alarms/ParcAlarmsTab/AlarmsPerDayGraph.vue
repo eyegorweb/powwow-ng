@@ -93,7 +93,7 @@ export default {
         },
         series: [
           {
-            name: 'Nb Alarmes',
+            name: this.$t('getreport.dashboard.legends.nbAlarms'),
             type: 'column',
             showInLegend: false,
             color: '#009dcc',

@@ -247,7 +247,7 @@ export default {
             data: formattedData.openings,
           },
           {
-            name: 'Nombre de lignes',
+            name: this.$t('bills.lineTotal'),
             type: 'spline',
             yAxis: 1,
             color: '#6cc3de',
