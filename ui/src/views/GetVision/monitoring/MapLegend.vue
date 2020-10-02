@@ -1,41 +1,41 @@
 <template>
   <div>
-    Légendes:
+    {{ $t('getvsion.supervisionLegend.title') }}:
     <ul class="list-unstyled">
       <template v-if="usage == 'ALL'">
         <li>
           <div class="cell green"></div>
-          <div>Lignes avec trafic ces dernieres 24h</div>
+          <div>{{ $t('getvsion.supervisionLegend.last24H') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>Lignes avec trafic depuis plus de 24h et moins de 30 jours</div>
+          <div>{{ $t('getvsion.supervisionLegend.more24H') }}</div>
         </li>
       </template>
       <template v-if="usage == 'DATA'">
         <li>
           <div class="cell green"></div>
-          <div>Lignes avec une session data en cours</div>
+          <div>{{ $t('getvsion.supervisionLegend.openedSession') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>Lignes avec une session data fermée</div>
+          <div>{{ $t('getvsion.supervisionLegend.closedSession') }}</div>
         </li>
       </template>
 
       <template v-if="usage == 'COCKPIT'">
         <li>
           <div class="cell green"></div>
-          <div>Pays sans alertes actives.</div>
+          <div>{{ $t('getvsion.supervisionLegend.withoutAlarms') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>Pays avec alerte (variation suspecte détectée)</div>
+          <div>{{ $t('getvsion.supervisionLegend.withAlarms') }}</div>
         </li>
 
         <li>
           <div class="cell gray"></div>
-          <div>Pays non supervisés avec moins de 500 lignes</div>
+          <div>{{ $t('getvsion.supervisionLegend.less500') }}</div>
         </li>
       </template>
     </ul>
