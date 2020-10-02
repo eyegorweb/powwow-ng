@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.218+20201002120953
+2020-10-02
+
+### Fixes
+
+- traduction de la supervision (0df532e251997933acc446fa74629d2da6c0eb3a)
+
 ## 1.0.0-master.217+20201002100644
 2020-10-02
 
