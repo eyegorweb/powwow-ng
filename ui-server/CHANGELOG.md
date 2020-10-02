@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.219+20201002133437
+2020-10-02
+
+### Fixes
+
+- traduction de la partie alarmes (d8d7231440dc14ea70cefbc5125610911755f1d0)
+
 ## 1.0.0-master.218+20201002120953
 2020-10-02
 
