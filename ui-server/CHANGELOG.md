@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.220+20201002142524
+2020-10-02
+
+### Fixes
+
+- correction dans le choix du menu actif (f25a500de4856a4f991db5e24859a4c53861e6a9)
+
 ## 1.0.0-master.219+20201002133437
 2020-10-02
 
