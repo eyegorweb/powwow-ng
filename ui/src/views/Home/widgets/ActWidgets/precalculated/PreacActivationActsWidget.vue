@@ -18,6 +18,7 @@ import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 
 import { countTotalForMassAction } from '@/api/massActions';
 import { currentDateMinusMounts, formattedCurrentDate, currentDateMinusDays } from '@/utils/date';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -47,6 +48,10 @@ export default {
     contextFilters() {
       this.widgetVersion += 1;
     },
+  },
+
+  computed: {
+    ...mapGetters(['userIsMVNO']),
   },
 
   mounted() {
@@ -133,6 +138,7 @@ export default {
         color: 'text-danger',
         clickable: true,
         total: '-',
+        isVisibleFn: () => !this.userIsMVNO,
         filters: [
           ...specificFilters,
           {
@@ -160,6 +166,7 @@ export default {
         color: 'text-danger',
         clickable: true,
         total: '-',
+        isVisibleFn: () => !this.userIsMVNO,
         filters: [
           ...specificFilters,
           {

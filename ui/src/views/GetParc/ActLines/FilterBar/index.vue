@@ -291,6 +291,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
+            v-if="!userIsMVNO"
             :title="$t('filters.lines.traffic')"
             :key="'el28'"
             :disabled="filtersAreDisabled"
