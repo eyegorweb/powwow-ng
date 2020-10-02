@@ -263,17 +263,18 @@ export default {
       });
     },
     chooseCurrentMenu() {
-      let currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+      const visibleLinks = this.filterByPermission(this.navbarLinks);
+      let currentIndex = visibleLinks.findIndex(link => link.to.name === this.currentUrlName);
 
       if (currentIndex === -1) {
-        const mainMenu = this.navbarLinks.find(l => {
+        const mainMenu = visibleLinks.find(l => {
           if (!l.submenu) {
             return false;
           }
           return l.submenu.find(sml => sml.to.name === this.currentUrlName);
         });
         if (mainMenu) {
-          currentIndex = this.navbarLinks.findIndex(link => link.label === mainMenu.label);
+          currentIndex = visibleLinks.findIndex(link => link.label === mainMenu.label);
         }
       }
 

@@ -10,7 +10,7 @@
             </button>
           </div>
           <div class="text-info">
-            {{ $t('getparc.actCreation.EXCLUDED_LINES', { total: this.total }) }}
+            {{ $t('getparc.actCreation.EXCLUDED_LINES', { total: total }) }}
           </div>
         </div>
         <div class="col-5">
@@ -37,12 +37,6 @@ export default {
   methods: {
     disableLines() {
       console.log('Disable lines here');
-    },
-  },
-
-  computed: {
-    total() {
-      return this.rows.length;
     },
   },
 };
