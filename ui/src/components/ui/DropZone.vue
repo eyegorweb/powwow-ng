@@ -9,7 +9,7 @@
   >
     <input type="file" @change="onFileSelected" :key="version" />
     <div class="text-container">
-      <p v-if="!value">Déposez votre fichier ici, ou cliquez pour ajouter</p>
+      <p v-if="!value">{{ $t('dragOrAddFile') }}</p>
       <p v-if="value">{{ value.name }}</p>
     </div>
   </div>

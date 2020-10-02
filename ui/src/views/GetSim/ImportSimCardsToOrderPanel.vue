@@ -163,7 +163,7 @@ export default {
         if (showMessage) {
           const successMessage = this.successMessage
             ? this.$t(this.successMessage)
-            : 'Opération effectuée avec succès';
+            : this.$t('genericSuccessMessage');
           this.flashMessage({ level: 'success', message: successMessage });
         }
         this.fetchOrders();
