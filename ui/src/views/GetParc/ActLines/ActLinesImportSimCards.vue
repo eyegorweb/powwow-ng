@@ -115,10 +115,15 @@ export default {
           this.localError = this.getLocalError(newFile);
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCardsFromLines(newFile);
-            this.$emit('response', {
-              file: newFile,
-              ...this.fileResponse,
-            });
+            if (this.fileResponse && this.fileResponse.error) {
+              this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+            } else {
+              this.$emit('response', {
+                file: newFile,
+                ...this.fileResponse,
+              });
+            }
+
           }
         }
       },
