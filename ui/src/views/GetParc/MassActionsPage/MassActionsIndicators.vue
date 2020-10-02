@@ -11,7 +11,7 @@ import { fetchSingleIndicator } from '@/api/massActions';
 import { currentDateMinusMounts } from '@/utils/date';
 
 const dateFormat = 'DD/MM/YYYY';
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState, mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -56,6 +56,7 @@ export default {
         color: 'text-danger',
         clickable: true,
         total: '-',
+        isVisibleFn: () => !this.userIsMVNO,
         filters: [
           {
             id: 'filters.actStatus',
@@ -92,6 +93,7 @@ export default {
   },
   computed: {
     ...mapState('getsim', ['defaultAppliedFilters']),
+    ...mapGetters(['userIsMVNO']),
   },
   methods: {
     ...mapMutations('actHistory', ['setCurrentFilters', 'applyFilters']),

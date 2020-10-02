@@ -7,7 +7,7 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
@@ -291,6 +291,7 @@
             />
           </FoldableBlock>
           <FoldableBlock
+            v-if="!userIsMVNO"
             :title="$t('filters.lines.traffic')"
             :key="'el28'"
             :disabled="filtersAreDisabled"
