@@ -20,6 +20,9 @@
   "applyFilter": "Appliquer un filtre",
   "applyTheFilter": "Appliquer le filtre",
   "newFilterName": "Nom du nouveau filtre",
+  "savedFilters": "Filtres enregistrés",
+  "noSavedFilter": "Aucun filtre enregistré",
+  "dragOrAddFile": "Déposez votre fichier ici, ou cliquez pour ajouter",
   "cancel": "Annuler",
   "reset": "Réinitialiser",
   "resetFilters": "Réinitialiser le filtre",
@@ -1038,7 +1041,15 @@
         "nbCnxPdp": "Nombre de connexions PDP",
         "totalVolume": "Volume total",
         "volumeOut": "Volume sortant",
-        "volumeIn": "Volume entrant"
+        "volumeIn": "Volume entrant",
+        "smsIn": "SMS Reçu",
+        "smsOut": "SMS Emis",
+        "minutesIn": "Minutes reçues",
+        "minutesOut": "Minutes émises",
+        "voiceOut": "Voix reçues",
+        "voiceIn": "Voix émises",
+        "voiceInAndOut": "Voix E/S",
+        "totalMinutes": "Minutes totales"
       },
       "alarms": {
         "trigger-history": "Historique de déclenchement",

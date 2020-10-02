@@ -12,7 +12,7 @@
       @applyFilters="$emit('applyFilters', $event)"
       @saved="onFilterSaved"
     />
-    <FoldableBlock title="Filtres enregistrés">
+    <FoldableBlock :title="$t('savedFilters')">
       <SavedFilters
         :key="savedFiltersVersion"
         :module-name="moduleName"

@@ -24,7 +24,7 @@
 
     <div v-if="!isLoading && (!savedFilters || !savedFilters.length)">
       <div class="alert alert-warning" role="alert">
-        Aucun filtre enregistré
+        {{ $t('noSavedFilter') }}
       </div>
     </div>
   </div>

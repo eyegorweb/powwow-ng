@@ -337,7 +337,7 @@ export default {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
         this.closePanel({ resetSearch: true });
       } else {
-        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },
     getFromContent(path, defaultValue = '') {

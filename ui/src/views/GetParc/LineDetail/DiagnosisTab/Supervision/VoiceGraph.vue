@@ -110,7 +110,7 @@ export default {
         },
         series: [
           {
-            name: 'Minutes Reçues',
+            name: this.$t('getparc.lineDetail.supervision.minutesIn'),
             type: 'column',
             tooltip: {
               valueSuffix: '',
@@ -119,7 +119,7 @@ export default {
             data: data.incomingMinutesTotal,
           },
           {
-            name: 'Minutes Emis',
+            name: this.$t('getparc.lineDetail.supervision.minutesOut'),
             type: 'column',
             tooltip: {
               valueSuffix: '',
@@ -128,7 +128,7 @@ export default {
             data: data.outgoingMinutesTotal,
           },
           {
-            name: 'Voix Emise',
+            name: this.$t('getparc.lineDetail.supervision.voiceIn'),
             type: 'column',
             tooltip: {
               valueSuffix: '',
@@ -137,7 +137,7 @@ export default {
             data: data.outgoing,
           },
           {
-            name: 'Voix Reçue',
+            name: this.$t('getparc.lineDetail.supervision.voiceOut'),
             type: 'column',
             tooltip: {
               valueSuffix: '',
@@ -147,7 +147,7 @@ export default {
           },
 
           {
-            name: 'Voix E/S',
+            name: this.$t('getparc.lineDetail.supervision.voiceInAndOut'),
             type: 'spline',
             dashStyle: 'shortdot',
             tooltip: {
@@ -158,7 +158,7 @@ export default {
           },
 
           {
-            name: 'Minutes totales',
+            name: this.$t('getparc.lineDetail.supervision.totalMinutes'),
             type: 'spline',
             dashStyle: 'shortdot',
             tooltip: {

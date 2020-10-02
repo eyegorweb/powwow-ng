@@ -118,9 +118,9 @@ export default {
       this.closeAndResetExportChoice();
 
       if (!downloadResponse || downloadResponse.errors) {
-        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
-        this.flashMessage({ level: 'success', message: 'Opération effectuée avec succès' });
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
     },
 

@@ -78,7 +78,7 @@ export default {
           });
 
           if (!response) {
-            this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+            this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
           }
 
           if (response) {
@@ -96,7 +96,7 @@ export default {
     onSuccess() {
       const successMessage = this.successMessage
         ? this.$t(this.successMessage)
-        : 'Opération effectuée avec succès';
+        : this.$t('genericSuccessMessage');
       this.flashMessage({ level: 'success', message: successMessage });
 
       // sortir du mode création acte
@@ -112,7 +112,7 @@ export default {
       if (response) {
         this.onSuccess();
       } else {
-        this.flashMessage({ level: 'danger', message: 'Erreur inconnue' });
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },
 
