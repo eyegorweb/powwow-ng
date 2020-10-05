@@ -29,24 +29,12 @@
           </template>
           <div class="pt-4 pl-4" slot="standardTest">
             <ul v-if="standardsIndicators" class="list-group list-group-flush">
-              <CoachPanelndicatorItem
-                v-for="i in standardsIndicators"
-                :key="i.id"
-                :indicator="i"
-                :no-animation="nbStandardsEndedAnimations >= standardsIndicators.length"
-                @animationEnd="nbStandardsEndedAnimations += 1"
-              />
+              <CoachPanelndicatorItem v-for="i in standardsIndicators" :key="i.id" :indicator="i" />
             </ul>
           </div>
           <div v-if="advancedIndicators" slot="advancedTest">
             <ul class="list-group list-group-flush">
-              <CoachPanelndicatorItem
-                v-for="i in advancedIndicators"
-                :key="i.id"
-                :indicator="i"
-                :no-animation="nbAdvancedEndedAnimations >= nbAdvancedEndedAnimations.length"
-                @animationEnd="nbAdvancedEndedAnimations += 1"
-              />
+              <CoachPanelndicatorItem v-for="i in advancedIndicators" :key="i.id" :indicator="i" />
             </ul>
           </div>
         </UiTabs>
@@ -124,9 +112,6 @@ export default {
         },
       ],
       advancedIndicators: undefined,
-
-      nbStandardsEndedAnimations: 0,
-      nbAdvancedEndedAnimations: 0,
     };
   },
 
