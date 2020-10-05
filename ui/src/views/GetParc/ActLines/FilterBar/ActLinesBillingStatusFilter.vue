@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     ...mapGetters('actLines', ['selectedBilligStatusesValues']),
-    ...mapGetters(['userIsPartner', 'userIsBO', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO', 'singlePartner']),
   },
   methods: {
     ...mapMutations('actLines', ['setBilligStatusesFilter']),
@@ -34,7 +34,7 @@ export default {
         label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
       },
     ];
-    if (this.singlePartner.partyType !== 'MVNO') {
+    if (!this.userIsMVNO) {
       items.push(
         {
           id: 'CANCELED',
