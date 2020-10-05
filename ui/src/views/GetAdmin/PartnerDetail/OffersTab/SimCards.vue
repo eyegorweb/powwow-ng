@@ -10,16 +10,22 @@
     no-edit
   >
     <template v-slot:title>
-      <h4 class="text-primary text-uppercase">Liste des cartes SIM associées à cette entité</h4>
+      <h4 class="text-primary text-uppercase">{{ $t('getadmin.partnerDetail.simcards.title') }}</h4>
     </template>
     <template v-slot="{ item }">
       <ul>
         <li>
-          <strong>Carte {{ getFromObject(item, 'simCard.name') }}</strong>
+          <strong>{{ $t('card') }} {{ getFromObject(item, 'simCard.name') }}</strong>
         </li>
-        <li>Format : {{ getFromObject(item, 'simCard.format') }}</li>
-        <li>Brevets et fonctionnalités : {{ getFromObject(item, 'simCard.licence') }}</li>
-        <li class="cards-orderdate">Dernière commande : {{ getFromObject(item, 'orderDate') }}</li>
+        <li>
+          {{ $t('getsim.sim-type-labels.format') }} : {{ getFromObject(item, 'simCard.format') }}
+        </li>
+        <li>
+          {{ $t('getsim.sim-type-labels.patent') }} : {{ getFromObject(item, 'simCard.licence') }}
+        </li>
+        <li class="cards-orderdate">
+          {{ $t('getsim.sim-type-labels.orderDate') }}: : {{ getFromObject(item, 'orderDate') }}
+        </li>
       </ul>
 
       <div class="cards-sim">

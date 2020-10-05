@@ -97,6 +97,7 @@
   "lessFilters": "Moins de filtres",
   "applyFilters": "Appliquer / Rafraichir",
   "chooseOnePartner": "Veuillez choisir un partenaire",
+  "card": "Carte",
   "days": "Jours",
   "map": {
     "world": "Monde",
@@ -622,13 +623,42 @@
         "offerActivation": "Offre d'activation",
         "delayBillings": "Délai avant facturation (mois)",
         "dataReporting": "Reporting des encours conso",
+        "exportServices": "Export des services",
+        "fleetPromotion": "Promotion de la Supervision",
+        "flagBillingPDPCellHistory": "Facturation PDP et CELL ID",
+        "diffusionListEnabled": "Liste de diffusion activée",
         "paymentEmails": "Emails acquittements portabilités",
         "cdrEmails": "Emails CDRs quotidiens",
         "preactivateFormat": "Format de Préactivation",
         "ws-address": "Adresse du webservice",
         "maxViews": "Nombre maximum de vue",
         "actualView": "Nombre de vue actuel",
-        "delay": "Délai"
+        "delay": "Délai",
+        "services": {
+          "labels": {
+            "SECU_RESIL": "Sécurisation des résiliations",
+            "COMPAT_OTA": "Compatibilité OTA",
+            "BROADCAST_SMS": "Broadcast SMS",
+            "MANDATORY_ACTIVATION": "Activation obligatoire",
+            "MANDATORY_PREACTIVATION": "Préctivation obligatoire",
+            "REF_CLIENT": "Référence client obligatoire",
+            "REF_USER": "Référence utilisateur",
+            "MAD_FACT": "Mise à disposition des factures",
+            "SWITCH_RCARD": "Switch vers R-Card",
+            "DISABLE_RCARD": "Désactiver - contôler R-Card",
+            "CHANGE_OFFER": "Changement d'offre",
+            "AUTO_ACT_SIM": "Auto-Activation SIM préactivées",
+            "FACT_SIM_STOCK": "Facturation SIMs en stock",
+            "FACT_IMEI": "Facturation IMEI",
+            "FACT_DUAL_SIM": "Information dual SIM dans la facture",
+            "FACT_REPORT_CONSO": "Reporting consommations",
+            "CUSTOM_FIELD_IMPORT": "Champ libre par import",
+            "DASHBOARD_COUNTRY": "Tableau de bord - Détails par pays",
+            "AUTO_SUSPEND": "Suspension automatique",
+            "HIDE_ADRESS": "Cacher notion adresse",
+            "COACH_M2M": "Coach M2M"
+          }
+        }
       }
     },
     "partnerDetail": {
@@ -722,7 +752,8 @@
       "BOTH": "Tous",
       "simcards": {
         "search": "Rechercher une carte",
-        "searchPlaceholder": "veuillez saisir un nom"
+        "searchPlaceholder": "veuillez saisir un nom",
+        "title": "Liste des cartes SIM associées à cette entité"
       },
       "adminForm": {
         "titles": {
@@ -887,6 +918,9 @@
         "amountSMS": "Montant SMS",
         "amountSubscription": "Montant abonnements",
         "conso": "Conso",
+        "frConso": "Conso France",
+        "euConso": "Conso EU",
+        "outOfEUConso": "Conso hors EU",
         "amountByCounter": "Montant conso au compteur",
         "amountOutOfZone": "Montant hors zone",
         "amountTestConso": "Montant des conso tests",

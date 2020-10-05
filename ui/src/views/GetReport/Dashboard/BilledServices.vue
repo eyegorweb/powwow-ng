@@ -163,7 +163,7 @@ export default {
               },
             },
             title: {
-              text: 'Montant',
+              text: this.$t('getreport.dashboard.legends.amount'),
               style: {
                 color: '#083e96',
               },
@@ -172,7 +172,7 @@ export default {
           {
             // Secondary yAxis
             title: {
-              text: 'Lignes',
+              text: this.$t('getreport.dashboard.legends.lines'),
               style: {
                 color: '#488bf7',
               },

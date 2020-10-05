@@ -114,7 +114,7 @@ export default {
         {
           id: 3,
           exportId: 'NOM',
-          label: 'Nom',
+          label: this.$t('common.lastName'),
           name: 'fullname',
           orderable: true,
           visible: true,
@@ -129,7 +129,7 @@ export default {
         {
           id: 4,
           exportId: 'PRENOM',
-          label: 'Prénom',
+          label: this.$t('common.firstName'),
           name: 'PRENOM',
           orderable: true,
           visible: true,
@@ -144,8 +144,8 @@ export default {
         {
           id: 5,
           exportId: 'PARTENAIRE',
-          label: 'Partenaire',
-          name: 'PARTENAIRE', // 'LOGIN', 'NOM', 'PRENOM', 'ROLES'',
+          label: this.$t('col.partner'),
+          name: 'PARTENAIRE',
           orderable: false,
           visible: true,
           noHandle: true,
@@ -159,7 +159,7 @@ export default {
         {
           id: 6,
           exportId: 'ROLES',
-          label: 'Rôles',
+          label: this.$t('getadmin.users.filters.roles'),
           name: 'ROLES',
           orderable: false,
           visible: true,
@@ -175,7 +175,7 @@ export default {
         {
           id: 7,
           exportId: 'STATUT',
-          label: 'Statut',
+          label: this.$t('getadmin.users.filters.status'),
           name: 'statut',
           orderable: true,
           visible: true,
