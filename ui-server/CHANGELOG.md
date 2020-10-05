@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.225+20201005133439
+2020-10-05
+
+### Fixes
+
+- Masquer des informations pour le M2M (352077f841b89c01c284d8f695d24bfc7c6a6ebc)
+
 ## 1.0.0-master.224+20201005100952
 2020-10-05
 
