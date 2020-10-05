@@ -132,63 +132,6 @@ export default {
         },
       },
       {
-        labelKey: 'indicators.getsim.actionsFailed',
-        isVisibleFn: () => !this.userIsMVNO,
-        color: 'text-danger',
-        clickable: true,
-        total: '-',
-        filters: [
-          ...specificFilters,
-          {
-            id: 'filters.actStatus',
-            values: [
-              {
-                id: 'IN_ERROR',
-                label: this.$t('getparc.actStatuses.IN_ERROR'),
-              },
-            ],
-          },
-          {
-            id: 'filters.actDateStart',
-            label: this.$t('filters.actDateStart'),
-            startDate: currentDateMinusMounts(6),
-          },
-        ],
-        fetchKey: 'ACT_ACTIVATION_FAILED',
-        fetch: async (indicator, contextFilters) => {
-          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
-        },
-      },
-      {
-        labelKey: 'indicators.getparc.lines.failedTwoDays',
-        color: 'text-danger',
-        clickable: true,
-        total: '-',
-        isVisibleFn: () => !this.userIsMVNO,
-        filters: [
-          ...specificFilters,
-          {
-            id: 'filters.actStatus',
-            values: [
-              {
-                id: 'IN_ERROR',
-                label: this.$t('getparc.actStatuses.IN_ERROR'),
-              },
-            ],
-          },
-          {
-            id: 'filters.actDateStart',
-            label: this.$t('filters.actDateStart'),
-            startDate: currentDateMinusMounts(6),
-            endDate: currentDateMinusDays(2),
-          },
-        ],
-        fetchKey: 'ACT_ACTIVATION_FAILED_48',
-        fetch: async (indicator, contextFilters) => {
-          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
-        },
-      },
-      {
         labelKey: 'indicators.getsim.actionsPlanned',
         color: 'text-danger',
         clickable: true,

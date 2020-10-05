@@ -51,28 +51,6 @@ export default {
         },
       },
       {
-        name: 'actionsFailed',
-        labelKey: 'indicators.getsim.actionsFailed',
-        color: 'text-danger',
-        clickable: true,
-        total: '-',
-        isVisibleFn: () => !this.userIsMVNO,
-        filters: [
-          {
-            id: 'filters.actStatus',
-            values: [{ id: 'IN_ERROR', label: this.$t('getparc.history.col.onfailing') }],
-          },
-          {
-            id: 'filters.actDateStart',
-            startDate: currentDateMinusMounts(6),
-          },
-        ],
-        fetchKey: 'ACT_FAILED',
-        fetch: async (indicator, contextFilters) => {
-          return await fetchSingleIndicator(indicator.filters, contextFilters);
-        },
-      },
-      {
         name: 'actionsPlanned',
         labelKey: 'indicators.getsim.actionsPlanned',
         color: 'text-danger',

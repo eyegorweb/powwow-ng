@@ -1782,21 +1782,18 @@
       "averageProcessingTime": "Délai traitement sur 1 mois",
       "orderToBeConfirmedByBO": "Commandes à valider par le BO",
       "actionsInProgress": "Actes en cours",
-      "actionsFailed": "Actes en échec",
       "actionsPlanned": "Actes programmés"
     },
     "getparc": {
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
-        "failed": "Actes de gestion en échec",
         "availableSIMCards": "Cartes SIM en stock",
         "allocatedSIMCards": "Lignes pré-activées",
         "activatedSIMCards": "Lignes actives",
         "suspended": "Lignes suspendues",
         "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
-        "inprogressTwoDays": "Actes en cours > 48 h",
-        "failedTwoDays": "Actes en échec > 48 h"
+        "inprogressTwoDays": "Actes en cours > 48 h"
       }
     }
   },
