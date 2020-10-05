@@ -16,18 +16,11 @@
 <script>
 import AnimatedCheckMark from '@/components/ui/AnimatedCheckMark';
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 export default {
   name: 'IndocatorItem',
 
   props: {
     indicator: Object,
-    noAnimation: Boolean,
   },
   computed: {
     model() {
@@ -35,16 +28,8 @@ export default {
     },
   },
   created() {
-    const onAnimationEnd = () => {
-      this.isFetchingData = false;
-      this.isItemError = !this.indicator.checked;
-      this.$emit('animationEnd', true);
-    };
-    if (this.noAnimation) {
-      onAnimationEnd();
-    } else {
-      setTimeout(onAnimationEnd, getRandomInt(1000, 6000));
-    }
+    this.isFetchingData = false;
+    this.isItemError = !this.indicator.checked;
   },
   data() {
     return {
