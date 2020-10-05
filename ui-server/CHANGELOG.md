@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.222+20201005094423
+2020-10-05
+
+### Fixes
+
+- Correction du filtre status de facturation (5b140a31814d0820609c707875b100da40638224)
+
 ## 1.0.0-master.221+20201002151031
 2020-10-02
 
