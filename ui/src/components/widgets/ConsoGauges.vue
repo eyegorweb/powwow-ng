@@ -8,7 +8,7 @@
           :max-value="maxData"
           font-size="1.25rem"
           :format-value-fn="getDataFormat()"
-          >DATA</Gauge
+          >{{ $t('services.DATA') }}</Gauge
         >
       </div>
       <div class="col-md-4">
@@ -17,7 +17,7 @@
           :value="smsValue"
           :max-value="maxSMS"
           font-size="1.25rem"
-          >SMS</Gauge
+          >{{ $t('services.SMS') }}</Gauge
         >
       </div>
       <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
@@ -28,7 +28,7 @@
           :max-value="maxVoice"
           font-size="1.25rem"
           :format-value-fn="getTimeFormatFn()"
-          >VOIX</Gauge
+          >{{ $t('services.VOICE') }}</Gauge
         >
       </div>
     </div>

@@ -32,7 +32,7 @@
         />
       </div>
       <div slot="onTableNotVisible">
-        <div class="alert alert-warning" role="alert">Veuillez choisir un partenaire</div>
+        <div class="alert alert-warning" role="alert">{{ $t('chooseOnePartner') }}</div>
       </div>
     </TableWithFilter>
   </div>
