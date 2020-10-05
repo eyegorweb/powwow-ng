@@ -89,7 +89,6 @@ export default {
       async set(lastSelectedFile) {
         if (lastSelectedFile) {
           this.lastSelectedFileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
-          console.log(' this.lastSelectedFileResponse >> ', this.lastSelectedFileResponse);
           this.$emit('response', {
             // fileName: this.lastSelectedFile.name,
             file: lastSelectedFile,

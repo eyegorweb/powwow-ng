@@ -283,7 +283,6 @@ export default {
           overrideClick: true,
           total: '-',
           isVisibleFn: () => {
-            console.log(this.userIsMVNO, this.userIsBO, this.userIsPartner);
             if (this.userIsMVNO) {
               return false;
             }

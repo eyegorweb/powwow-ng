@@ -64,7 +64,6 @@ export default {
   },
   methods: {
     getFromCreator(path, defaultValue = '') {
-      console.log('order', this.order);
       const value = get(this.order, path, defaultValue);
       // lodash.get only applies defaultValue to undefined
       return value == null ? defaultValue : value;
