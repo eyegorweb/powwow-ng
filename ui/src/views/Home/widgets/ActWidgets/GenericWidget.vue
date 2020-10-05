@@ -117,55 +117,6 @@ export default {
         },
       },
       {
-        labelKey: 'indicators.getsim.actionsFailed',
-        isVisibleFn: () => !this.userIsMVNO,
-        color: 'text-danger',
-        clickable: true,
-        total: '-',
-        filters: [
-          ...this.specificFilters,
-          {
-            id: 'filters.actStatus',
-            values: [
-              {
-                id: 'IN_ERROR',
-                label: this.$t('getparc.actStatuses.IN_ERROR'),
-              },
-            ],
-          },
-        ],
-        fetch: async (indicator, contextFilters) => {
-          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
-        },
-      },
-      {
-        labelKey: 'indicators.getparc.lines.failedTwoDays',
-        color: 'text-danger',
-        clickable: true,
-        total: '-',
-        isVisibleFn: () => !this.userIsMVNO,
-        filters: [
-          ...this.specificFilters,
-          {
-            id: 'filters.actStatus',
-            values: [
-              {
-                id: 'IN_ERROR',
-                label: this.$t('getparc.actStatuses.IN_ERROR'),
-              },
-            ],
-          },
-          {
-            id: 'filters.actDateStart',
-            label: this.$t('filters.actDateStart'),
-            endDate: currentDateMinusDays(2),
-          },
-        ],
-        fetch: async (indicator, contextFilters) => {
-          return await countTotalForMassAction([...indicator.filters, ...contextFilters]);
-        },
-      },
-      {
         labelKey: 'indicators.getsim.actionsPlanned',
         color: 'text-danger',
         clickable: true,

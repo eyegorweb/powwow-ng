@@ -1440,21 +1440,18 @@
       "averageProcessingTime": "Processing time over 1 month",
       "orderToBeConfirmedByBO": "Orders to be validated by the BO",
       "actionsInProgress": "Acts in progress",
-      "actionsFailed": "Failed acts",
       "actionsPlanned": "Scheduled acts"
     },
     "getparc": {
       "lines": {
         "cancellation": "Unprocessed cancellations> 1 month",
-        "failed": "Failed management acts",
         "availableSIMCards": "Lines in stock (Not pre-activated)",
         "allocatedSIMCards": "Pre-activated lines",
         "activatedSIMCards": "Active lines",
         "suspended": "Suspended lines",
         "traffic": "Trafficking lines M",
         "validation": "Transfer validation",
-        "inprogressTwoDays": "Actions in progress> 48 h",
-        "failedTwoDays": "Failed acts> 48 h"
+        "inprogressTwoDays": "Actions in progress> 48 h"
       }
     }
   },

@@ -67,43 +67,18 @@ export default {
         this.setRouteParamsFilters(this.$route.params.queryFilters);
       }
       this.initFilterForContext();
-      if (this.$route.params && this.$route.params.preselectFailedFilter) {
+      setTimeout(() => {
+        this.setActDateStartFilter({
+          startDate: moment()
+            .subtract(3, 'month')
+            .format('DD/MM/YYYY'),
+          endDate: moment().format('DD/MM/YYYY'),
+        });
+        this.isReady = true;
         setTimeout(() => {
-          this.setCurrentFilters([
-            {
-              id: 'filters.actStatus',
-              values: [
-                {
-                  id: 'IN_ERROR',
-                  label: 'En erreur',
-                },
-              ],
-            },
-            {
-              id: 'filters.actDateStart',
-              startDate: undefined,
-              endDate: moment()
-                .subtract(6, 'month')
-                .format('DD/MM/YYYY'),
-            },
-          ]);
           this.applyFilters();
-          this.isReady = true;
-        }, 500);
-      } else {
-        setTimeout(() => {
-          this.setActDateStartFilter({
-            startDate: moment()
-              .subtract(3, 'month')
-              .format('DD/MM/YYYY'),
-            endDate: moment().format('DD/MM/YYYY'),
-          });
-          this.isReady = true;
-          setTimeout(() => {
-            this.applyFilters();
-          });
-        }, 100);
-      }
+        });
+      }, 100);
     },
   },
   mounted() {
