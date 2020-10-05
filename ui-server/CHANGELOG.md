@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.224+20201005100952
+2020-10-05
+
+### Fixes
+
+- enlever le délai avant d'afficher les resultats du coach (ea95614a472d471bcf925f351fa3247a5382abfb)
+
 ## 1.0.0-master.223+20201005095038
 2020-10-05
 
