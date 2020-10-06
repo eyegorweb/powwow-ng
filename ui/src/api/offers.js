@@ -228,14 +228,10 @@ export async function changeOffer(filters, lines, params) {
   return await query(queryStr);
 }
 
-export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId) {
-  let customerAccountGqlParam = '';
-  if (customerAccountId) {
-    customerAccountGqlParam = `, customerAccountId: ${customerAccountId}`;
-  }
+export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pagination) {
   const queryStr = `
-  query {
-    offerGroup(partyId: ${partnerId} ${customerAccountGqlParam}) {
+  query OfferGroup($partnerId: Long!, $customerAccountId: Long, $pagination: Pagination){
+    offerGroup(partyId: $partnerId, customerAccountId: $customerAccountId, pagination: $pagination) {
       total
       items {
         id
@@ -277,7 +273,8 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
     }
   }
   `;
-  const response = await query(queryStr);
+  const response = await query(queryStr, { partnerId, customerAccountId, pagination });
+
   return response.data.offerGroup;
 }
 
