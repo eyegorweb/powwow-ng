@@ -57,11 +57,7 @@ export default {
           visible: true,
           format: {
             type: 'LinkBtn',
-            onClick: row => {
-              console.log('data -> row', row);
-            },
             // getter: row => {
-            //   console.log('data -> row', row);
             //   return get(row, 'marketingOffer.code');
             // },
           },
@@ -82,7 +78,6 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              console.log('data -> row', row);
               return get(row, 'customerAccount.code');
             },
           },
@@ -122,12 +117,12 @@ export default {
       this.showForm = true;
     },
     getFetchFn() {
-      return async () => {
+      return async (pageInfo) => {
         const partnerId = this.partner.id ? this.partner.id : '';
         const customerAccountId = this.billingAccountToDetail
           ? this.billingAccountToDetail.id
           : undefined; // l'id du CF normalement et pas du partenaire...
-        const response = await fetchCommercialOffersForPartnerId(partnerId, customerAccountId);
+        const response = await fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pageInfo);
         return {
           rows: response.items,
           total: response.total,
