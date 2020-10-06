@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.226+20201006082738
+2020-10-06
+
+### Fixes
+
+- mise à jour des traductions de la partie getdevice (628e17b8eb98df9954450c9d0d36d5d10c0d0261)
+
 ## 1.0.0-master.225+20201005133439
 2020-10-05
 
