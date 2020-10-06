@@ -553,11 +553,11 @@ export default {
           enabled: false,
         },
         tooltip: {
-          pointFormat: '<b>{point.y} lignes</b>',
+          pointFormat: '<b>{point.y} </b>' + this.$t('lines'),
         },
         series: [
           {
-            name: 'Population',
+            name: this.$t('population'),
             data: formatedData,
           },
         ],
