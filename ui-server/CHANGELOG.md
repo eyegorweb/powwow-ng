@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.228+20201006191557
+2020-10-06
+
+### Fixes
+
+- ajouter les filtres dans lors de l'appel de l'api exportMassAction (f4cb3749e1fb9c5a47284a2690ef55e8e7896f67)
+
 ## 1.0.0-master.227+20201006144102
 2020-10-06
 
