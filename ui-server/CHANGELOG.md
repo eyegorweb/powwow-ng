@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.227+20201006144102
+2020-10-06
+
+### Fixes
+
+- pagination dans la liste des offres commerciales (b4e63864348eb63295f2a0308803f297fe4c9c7e)
+
 ## 1.0.0-master.226+20201006082738
 2020-10-06
 
