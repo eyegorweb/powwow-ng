@@ -285,6 +285,32 @@ export default {
       this.$i18n.locale = lang;
       await setLanguage(lang);
     },
+
+    setPageTitle(route) {
+      const firstLevelMenu = this.navbarLinks.find(m => {
+        if (m.submenu) return false;
+        return m.to.name === route.name;
+      });
+
+      if (firstLevelMenu) {
+        document.title = firstLevelMenu.label;
+      } else {
+        const secondLevelMenu = this.navbarLinks.map(m => {
+          if (m.submenu) return m.submenu;
+
+          return undefined;
+        })
+          .filter(sm => !!sm)
+          .flat()
+          .find(m => {
+            return m.to.name === route.name;
+          });
+
+        if (secondLevelMenu) {
+          document.title = this.$t(secondLevelMenu.label);
+        }
+      }
+    }
   },
   computed: {
     ...mapGetters([
@@ -301,6 +327,11 @@ export default {
   },
   watch: {
     $route(newRoute) {
+      try {
+        this.setPageTitle(newRoute);
+      } catch {
+        console.log('Title error')
+      }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();
     },

@@ -58,19 +58,21 @@
             </div>
           </div>
         </FoldableBlock>
-        <permission domain="getReport" action="read_dashboard_worldmap">
-          <FoldableBlock default-open :title="'Graphe monde'" :key="'Graphe monde'" draggable>
-            <div>
-              <div class="row">
-                <LocalisationGraph
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
+        <div :key="'Graphe monde'">
+          <permission domain="getReport" action="read_dashboard_worldmap">
+            <FoldableBlock default-open :title="'Graphe monde'" draggable>
+              <div>
+                <div class="row">
+                  <LocalisationGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
               </div>
-            </div>
-          </FoldableBlock>
-        </permission>
+            </FoldableBlock>
+          </permission>
+        </div>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
             <div class="row">
