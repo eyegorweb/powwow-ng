@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.229+20201007115405
+2020-10-07
+
+### Fixes
+
+- ajouter la pagination à la table des offres (06ac54143a49eaef79fac22f61c92e5f875dd35f)
+- Ajout de traductions anglaises (323a6813e3ed7eb26565d4e8db39f7f4f4c2f9f9)
+
 ## 1.0.0-master.228+20201006191557
 2020-10-06
 
