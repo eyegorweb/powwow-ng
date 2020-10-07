@@ -56,7 +56,11 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <permission domain="getReport" action="read_dashboard_worldmap">
+          </div>
+        </FoldableBlock>
+        <permission domain="getReport" action="read_dashboard_worldmap">
+          <FoldableBlock default-open :title="'Graphe monde'" :key="'Graphe monde'" draggable>
+            <div>
               <div class="row">
                 <LocalisationGraph
                   :partner="appliedPartner"
@@ -64,9 +68,9 @@
                   :billing-account="appliedBillingAccount"
                 />
               </div>
-            </permission>
-          </div>
-        </FoldableBlock>
+            </div>
+          </FoldableBlock>
+        </permission>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
             <div class="row">
