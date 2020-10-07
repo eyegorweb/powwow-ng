@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.230+20201007122448
+2020-10-07
+
+### Fixes
+
+- afficher la carte du monde si l'utilisateur a la permission read_dashboard_worldmap (94cb25af8d11971d15bca9ab88db95004a15d445)
+
 ## 1.0.0-master.229+20201007115405
 2020-10-07
 
