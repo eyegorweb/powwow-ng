@@ -105,7 +105,7 @@ export default {
         format: {
           type: 'Getter',
           getter: row => {
-            return row.disabled ? 'Inactif' : 'Actif';
+            return row.disabled ? this.$t('col.notActive') : this.$t('col.active');
           },
         },
         orderable: true,
