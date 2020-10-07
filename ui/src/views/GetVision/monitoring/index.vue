@@ -329,7 +329,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -549,9 +549,18 @@ export default {
       this.refreshLinesFn = async (pagination, sorting) => {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const filtersForapi = { ...this.filtersForExport };
+        console.log("this.refreshLinesFn -> filtersForapi", filtersForapi)
+        console.log("this.refreshLinesFn -> this.filtersForExport ", this.filtersForExport)
         delete filtersForapi.locationType;
+
+        let locationType = this.filtersForExport.locationType;
+
+        if (this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA') {
+          locationType = 'STATES';
+        }
+
         const rows = await fetchLinesForMarker(
-          this.filtersForExport.locationType,
+          locationType,
           filtersForapi,
           pagination,
           sorting
