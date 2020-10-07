@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.232+20201007140527
+2020-10-07
+
+### Fixes
+
+- traduction de statuts (15bab0ec908764e9b2cc84bd2bbc5afcc85a831a)
+- correction de la requête geoList pour les USA (a717fa2a5941ec0f29483a9d515e3c0575a63748)
+
 ## 1.0.0-master.231+20201007133118
 2020-10-07
 
