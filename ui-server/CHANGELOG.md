@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.231+20201007133118
+2020-10-07
+
+### Features
+
+- 1945 paramétrage des langues (edaa6186f99f239c8f30867701656155cc41b9d6)
+
 ## 1.0.0-master.230+20201007122448
 2020-10-07
 
