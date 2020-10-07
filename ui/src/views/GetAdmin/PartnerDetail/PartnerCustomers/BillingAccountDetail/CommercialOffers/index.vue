@@ -117,12 +117,16 @@ export default {
       this.showForm = true;
     },
     getFetchFn() {
-      return async (pageInfo) => {
+      return async pageInfo => {
         const partnerId = this.partner.id ? this.partner.id : '';
         const customerAccountId = this.billingAccountToDetail
           ? this.billingAccountToDetail.id
           : undefined; // l'id du CF normalement et pas du partenaire...
-        const response = await fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pageInfo);
+        const response = await fetchCommercialOffersForPartnerId(
+          partnerId,
+          customerAccountId,
+          pageInfo
+        );
         return {
           rows: response.items,
           total: response.total,
