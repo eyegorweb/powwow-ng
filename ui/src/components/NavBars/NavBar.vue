@@ -53,7 +53,7 @@
       <div class="lang-flags">
         <a
           href="#"
-          @click.prevent="$i18n.locale = 'fr'"
+          @click.prevent="() => onChangeLang('fr')"
           :class="{ active: $i18n.locale === 'fr' }"
           class="flag"
         >
@@ -61,7 +61,7 @@
         </a>
         <a
           href="#"
-          @click.prevent="$i18n.locale = 'en'"
+          @click.prevent="() => onChangeLang('en')"
           :class="{ active: $i18n.locale === 'en' }"
           class="flag"
         >
@@ -104,6 +104,7 @@ import { mapGetters } from 'vuex';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import ActHistoryButton from './ActHistoryButton';
+import { setLanguage } from '@/api/language';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 
@@ -279,6 +280,10 @@ export default {
       }
 
       this.currentIndex = currentIndex;
+    },
+    async onChangeLang(lang) {
+      this.$i18n.locale = lang;
+      await setLanguage(lang);
     },
   },
   computed: {
