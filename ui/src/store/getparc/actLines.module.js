@@ -1,6 +1,6 @@
 import * as filterUtils from '@/store/filterUtils';
 import { fetchCustomFields } from '@/api/customFields';
-import { searchLines } from '@/api/linesActions';
+import { searchLinesForTable } from '@/api/linesActions';
 
 const selectedFilterValuesById = filterUtils.selectedFilterValuesById;
 const findFilterValuesById = filterUtils.findFilterValuesById;
@@ -176,7 +176,7 @@ export const actions = {
 
     let response = { total: 0, items: [] };
     try {
-      response = await searchLines(orderBy, pageInfo, appliedFilters);
+      response = await searchLinesForTable(orderBy, pageInfo, appliedFilters);
       commit('stopSearchById');
     } catch (e) {
       commit(
