@@ -551,8 +551,6 @@ export default {
       this.refreshLinesFn = async (pagination, sorting) => {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const filtersForapi = { ...this.filtersForExport };
-        console.log('this.refreshLinesFn -> filtersForapi', filtersForapi);
-        console.log('this.refreshLinesFn -> this.filtersForExport ', this.filtersForExport);
         delete filtersForapi.locationType;
 
         let locationType = this.filtersForExport.locationType;
@@ -626,7 +624,6 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
-      console.log('if -> e', e);
     }
     return filters;
   }, {});
