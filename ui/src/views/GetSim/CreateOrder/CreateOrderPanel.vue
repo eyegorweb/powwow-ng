@@ -49,6 +49,9 @@
       </div>
     </div>
     <div class="orderSynthesis">
+      <div class="loader" v-if="showLoader">
+        <div class="skeleton-line"></div>
+      </div>
       <GetSimCreateOrderPanelSynthesis
         :synthesis="synthesis"
         :can-save="currentStep === steps.length - 1"
@@ -109,6 +112,7 @@ export default {
       customFieldsMeta: [],
       customFieldsErrors: undefined,
       orderReferenceError: undefined,
+      showLoader: false,
     };
   },
 
@@ -194,6 +198,7 @@ export default {
       this.saveSynthesis(payload);
     },
     async saveOrder() {
+      this.showLoader = true;
       this.checkForErrors();
       if (!this.orderReferenceError && !this.customFieldsErrors.length) {
         const response = await createOrder(this.synthesis);
@@ -202,11 +207,13 @@ export default {
           this.resetOrderFilters();
           this.openPanelForSavedOrder(response.id);
           this.refreshIndicators();
+          this.showLoader = false;
         } else {
           const errors = response.errors;
           if (errors.length && errors[0].extensions && errors[0].extensions.externalId) {
             this.orderReferenceError = 'getsim.errors.' + errors[0].extensions.externalId;
           }
+          this.showLoader = false;
         }
       }
     },
@@ -305,6 +312,22 @@ export default {
     background: #f1f1f1;
     overflow: auto;
     padding: 1rem;
+    position: relative;
+
+    .loader {
+      z-index: 100;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .skeleton-line {
+      width: 100px;
+      height: 10px;
+    }
   }
 }
 </style>
