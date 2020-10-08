@@ -213,7 +213,7 @@ export default {
         },
         {
           id: 5,
-          label: this.$t('col.frequency'),
+          label: this.$t('col.freqTheo'),
           name: 'bands',
           exportId: 'BANDS',
           orderable: false, // Not parametrable for ordering in the api devices

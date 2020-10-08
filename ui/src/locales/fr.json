@@ -1762,6 +1762,7 @@
     "specificFields": "Champ spécifique {num}",
     "manufacturerIMEI": "Fabricant (IMEI)",
     "frequency": "Fréquence",
+    "freqTheo": "Fréquences théoriques",
     "lastCountry": "Dernier pays (ancien PLMN)",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
