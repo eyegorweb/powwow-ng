@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.233+20201008084426
+## 1.0.0-master.233+20201008084522
 2020-10-08
 
 ### Fixes
 
+- 1925 ajout d'un loader lors de l'enregistrement de la commande (ad8ee8d991b0ecd9264db6e250d1c048aed7305b)
 - Correction du clic sur les marqueurs USA dans supervision (e81f9c7c89382aa3af931e726adf12d769638518)
 
 ## 1.0.0-master.232+20201007140527
