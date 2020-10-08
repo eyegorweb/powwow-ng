@@ -9,7 +9,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
-            <p class="text-success">{{ $t(simStatus) }}</p>
+            <p class="text-success">{{ content.statusTranslated }}</p>
           </div>
           <div class="item" v-if="!partnerTypeMVNO">
             <h6>{{ $t('getparc.lineDetail.triggeredAlarms') }}:</h6>
@@ -107,32 +107,6 @@ export default {
     };
   },
   computed: {
-    simStatus() {
-      const commercialStatus = get(this.content, 'accessPoint.commercialStatus');
-      const simStatus = get(this.content, 'statuts');
-      const networkStatus = get(this.content, 'accessPoint.networkStatus');
-
-      if (simStatus === 'AVAILABLE') {
-        return 'getparc.actLines.simStatuses.NOT_PREACTIVATED';
-      }
-      if (simStatus === 'ALLOCATED' && !commercialStatus) {
-        return 'getparc.actLines.simStatuses.PREACTIVATED';
-      }
-      if (simStatus === 'ALLOCATED' && !networkStatus) {
-        return 'getparc.actLines.simStatuses.ACTIVATING';
-      }
-      if (simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED') {
-        return 'getparc.actLines.simStatuses.ACTIVATED';
-      }
-      if (simStatus === 'ALLOCATED' && networkStatus === 'SUSPENDED') {
-        return 'getparc.actLines.simStatuses.SUSPENDED';
-      }
-      if (simStatus === 'RELEASED') {
-        return 'getparc.actLines.simStatuses.RELEASED';
-      }
-
-      return get(this.content, 'statuts');
-    },
     partnerTypeMVNO() {
       const typeForPartner = get(this.content, 'party.partyType', '-');
       if (typeForPartner === 'MVNO') {
