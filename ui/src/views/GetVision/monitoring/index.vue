@@ -58,6 +58,7 @@
             @activeClick="onActiveClick"
             @passiveClick="onPassiveClick"
             @cockpitClick="onCockpitClick"
+            @centeredCountry="lastCenteredCountry = $event"
           />
           <SupervisionTable
             v-if="refreshLinesFn"
@@ -141,6 +142,7 @@ export default {
       frozenValues: [],
       isFrozen: false,
       currentTab: 'graphs',
+      lastCenteredCountry: undefined,
 
       commonFilters: {
         partnerGroup: {
@@ -329,7 +331,7 @@ export default {
       this.appliedFilters = cloneDeep(appliedFilters);
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -549,22 +551,24 @@ export default {
       this.refreshLinesFn = async (pagination, sorting) => {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const filtersForapi = { ...this.filtersForExport };
-        console.log("this.refreshLinesFn -> filtersForapi", filtersForapi)
-        console.log("this.refreshLinesFn -> this.filtersForExport ", this.filtersForExport)
+        console.log('this.refreshLinesFn -> filtersForapi', filtersForapi);
+        console.log('this.refreshLinesFn -> this.filtersForExport ', this.filtersForExport);
         delete filtersForapi.locationType;
 
         let locationType = this.filtersForExport.locationType;
 
-        if (this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA') {
+        if (
+          this.lastCenteredCountry === 'US' ||
+          this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA'
+        ) {
           locationType = 'STATES';
         }
 
-        const rows = await fetchLinesForMarker(
-          locationType,
-          filtersForapi,
-          pagination,
-          sorting
-        );
+        if (this.lastCenteredCountry === 'US') {
+          filtersForapi.iso3CountryCode = 'USA';
+        }
+
+        const rows = await fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
         return rows;
       };
     },

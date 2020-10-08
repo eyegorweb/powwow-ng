@@ -295,11 +295,12 @@ export default {
       if (firstLevelMenu) {
         document.title = firstLevelMenu.label;
       } else {
-        const secondLevelMenu = this.navbarLinks.map(m => {
-          if (m.submenu) return m.submenu;
+        const secondLevelMenu = this.navbarLinks
+          .map(m => {
+            if (m.submenu) return m.submenu;
 
-          return undefined;
-        })
+            return undefined;
+          })
           .filter(sm => !!sm)
           .flat()
           .find(m => {
@@ -310,7 +311,7 @@ export default {
           document.title = this.$t(secondLevelMenu.label);
         }
       }
-    }
+    },
   },
   computed: {
     ...mapGetters([
@@ -330,7 +331,7 @@ export default {
       try {
         this.setPageTitle(newRoute);
       } catch {
-        console.log('Title error')
+        console.log('Title error');
       }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();

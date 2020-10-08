@@ -11,6 +11,7 @@
           @activeClick="$emit('activeClick', $event)"
           @passiveClick="$emit('passiveClick', $event)"
           @cockpitClick="$emit('cockpitClick', $event)"
+          @centeredCountry="$emit('centeredCountry', $event)"
         />
       </template>
     </GoogleMapLoader>
