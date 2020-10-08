@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.237+20201008140832
+2020-10-08
+
+### Fixes
+
+- corriger le détail de lignes (5bfa36893194879caa68154046a560c143bd7f39)
+
 ## 1.0.0-master.236+20201008125159
 2020-10-08
 
