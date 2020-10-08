@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.233+20201008084426
+2020-10-08
+
+### Fixes
+
+- Correction du clic sur les marqueurs USA dans supervision (e81f9c7c89382aa3af931e726adf12d769638518)
+
 ## 1.0.0-master.232+20201007140527
 2020-10-07
 
