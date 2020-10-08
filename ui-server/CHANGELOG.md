@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.235+20201008111844
+2020-10-08
+
+### Fixes
+
+- Changement de la gestion de traduction pour le sim statut dans le detail de ligne (de1f1cb08d3fc052d190634236f4d469765e7c76)
+
 ## 1.0.0-master.234+20201008085552
 2020-10-08
 
