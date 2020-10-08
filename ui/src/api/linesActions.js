@@ -148,6 +148,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
   const fields = `
   total
   items {
+    id
     iccid
     statusTranslated
     statuts
