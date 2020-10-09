@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.239+20201009133258
+2020-10-09
+
+### Fixes
+
+- correction du build (d6d1335e074112c99df7093b569a72a1cfc310f0)
+
 ## 1.0.0-master.238+20201009120936
 2020-10-09
 
