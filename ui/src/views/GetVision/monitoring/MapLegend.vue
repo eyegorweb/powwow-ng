@@ -5,11 +5,11 @@
       <template v-if="usage == 'ALL'">
         <li>
           <div class="cell green"></div>
-          <div>{{ $t('getvsion.supervisionLegend.last24H') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.last24H') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>{{ $t('getvsion.supervisionLegend.more24H') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.more24H') }}</div>
         </li>
       </template>
       <template v-if="usage == 'DATA'">

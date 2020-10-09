@@ -40,6 +40,11 @@ export const getters = {
     }
     return false;
   },
+  userLanguage: state => {
+    return state.userInfos && state.userInfos.preferredLocale
+      ? state.userInfos.preferredLocale
+      : undefined;
+  },
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
