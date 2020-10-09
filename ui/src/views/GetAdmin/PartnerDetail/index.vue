@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <div class="row">
+    <div class="row" v-if="!userIsPartner">
       <div class="col-md-9">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
           <i class="ic-Arrow-Previous-Icon" />
@@ -17,7 +17,11 @@
       </div>
     </div>
 
-    <Summary v-if="partner" :partner-id="this.$route.params.id" :partner-type="partner.partyType" />
+    <Summary
+      v-if="partner && havePermissionForMVNO"
+      :partner-id="this.$route.params.id"
+      :partner-type="partner.partyType"
+    />
 
     <div v-if="partner" class="mt-4 mb-4 bottom-space">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
@@ -70,6 +74,8 @@ import BillAccounts from './BillAccounts';
 import PartnerCustomers from './PartnerCustomers';
 
 import { fetchpartnerById } from '@/api/partners.js';
+
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -127,22 +133,31 @@ export default {
         });
       }
 
-      tabs.push(
-        {
-          label: 'offersAndSim',
-          title: this.$t('getadmin.partners.offersAndSim'),
-        },
-        {
+      tabs.push({
+        label: 'offersAndSim',
+        title: this.$t('getadmin.partners.offersAndSim'),
+      });
+
+      if (this.havePermissionForMVNO) {
+        tabs.push({
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
-        }
-      );
+        });
+      }
 
       this.tabs = tabs;
     },
   },
 
   computed: {
+    ...mapGetters(['userIsPartner', 'havePermission']),
+    havePermissionForMVNO() {
+      if (this.partner && this.partner.partyType === 'MVNO') {
+        return this.havePermission('party', 'read_account_detail');
+      }
+      // otherwise for other partners (M2M, Marque blanche)
+      return true;
+    },
     partnerName() {
       return this.partner ? this.partner.name : '';
     },
