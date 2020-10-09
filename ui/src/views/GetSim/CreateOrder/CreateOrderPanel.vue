@@ -198,9 +198,9 @@ export default {
       this.saveSynthesis(payload);
     },
     async saveOrder() {
-      this.showLoader = true;
       this.checkForErrors();
       if (!this.orderReferenceError && !this.customFieldsErrors.length) {
+        this.showLoader = true;
         const response = await createOrder(this.synthesis);
         if (!response.errors) {
           this.closePanel();
