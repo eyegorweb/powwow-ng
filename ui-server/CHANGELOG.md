@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.240+20201009144407
+2020-10-09
+
+### Fixes
+
+- 1845 1956 gestion des permissions pour le détail de partenaire (294ee2851648b16e7513afa3b48d767270bc1303)
+
 ## 1.0.0-master.239+20201009133258
 2020-10-09
 
