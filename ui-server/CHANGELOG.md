@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.238+20201009120936
+2020-10-09
+
+### Fixes
+
+- 1925 ajout d'un loader lors de l'enregistrement d'une commande (334251ecfcf4724970713c8b99c02a2e1d6e10f9)
+- 1845 réglages d'affichage dans le détail d'un partenaire MVNO (14537ea41365a7a4e716377c06c0521383845c93)
+
 ## 1.0.0-master.237+20201008140832
 2020-10-08
 
