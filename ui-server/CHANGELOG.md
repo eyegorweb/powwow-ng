@@ -2,6 +2,40 @@
 
 <!--- next entry here -->
 
+## 1.8.0
+2020-10-09
+
+### Features
+
+- 1945 paramétrage des langues (edaa6186f99f239c8f30867701656155cc41b9d6)
+
+### Fixes
+
+- traduction de la supervision (0df532e251997933acc446fa74629d2da6c0eb3a)
+- traduction de la partie alarmes (d8d7231440dc14ea70cefbc5125610911755f1d0)
+- correction dans le choix du menu actif (f25a500de4856a4f991db5e24859a4c53861e6a9)
+- traduction des graphes du tableau de bord (a9fc2337b1d7a8c7723c11b6e2aa78548ae8592d)
+- Correction du filtre status de facturation (5b140a31814d0820609c707875b100da40638224)
+- traductions du tableau de bord et des gestions utilisateurs et partenaires (df99e4e5278f0296d1ded1862c9015cdb186ddd8)
+- enlever le délai avant d'afficher les resultats du coach (ea95614a472d471bcf925f351fa3247a5382abfb)
+- Masquer des informations pour le M2M (352077f841b89c01c284d8f695d24bfc7c6a6ebc)
+- mise à jour des traductions de la partie getdevice (628e17b8eb98df9954450c9d0d36d5d10c0d0261)
+- pagination dans la liste des offres commerciales (b4e63864348eb63295f2a0308803f297fe4c9c7e)
+- ajouter les filtres dans lors de l'appel de l'api exportMassAction (f4cb3749e1fb9c5a47284a2690ef55e8e7896f67)
+- ajouter la pagination à la table des offres (06ac54143a49eaef79fac22f61c92e5f875dd35f)
+- Ajout de traductions anglaises (323a6813e3ed7eb26565d4e8db39f7f4f4c2f9f9)
+- afficher la carte du monde si l'utilisateur a la permission read_dashboard_worldmap (94cb25af8d11971d15bca9ab88db95004a15d445)
+- traduction de statuts (15bab0ec908764e9b2cc84bd2bbc5afcc85a831a)
+- correction de la requête geoList pour les USA (a717fa2a5941ec0f29483a9d515e3c0575a63748)
+- 1925 ajout d'un loader lors de l'enregistrement de la commande (ad8ee8d991b0ecd9264db6e250d1c048aed7305b)
+- Correction du clic sur les marqueurs USA dans supervision (e81f9c7c89382aa3af931e726adf12d769638518)
+- Changement de la gestion de traduction pour le sim statut dans le detail de ligne (de1f1cb08d3fc052d190634236f4d469765e7c76)
+- corriger le détail de lignes (5bfa36893194879caa68154046a560c143bd7f39)
+- 1925 ajout d'un loader lors de l'enregistrement d'une commande (334251ecfcf4724970713c8b99c02a2e1d6e10f9)
+- 1845 réglages d'affichage dans le détail d'un partenaire MVNO (14537ea41365a7a4e716377c06c0521383845c93)
+- correction du build (d6d1335e074112c99df7093b569a72a1cfc310f0)
+- 1845 1956 gestion des permissions pour le détail de partenaire (294ee2851648b16e7513afa3b48d767270bc1303)
+
 ## 1.7.1
 2020-10-02
 
