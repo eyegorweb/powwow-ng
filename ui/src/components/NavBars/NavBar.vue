@@ -100,6 +100,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -119,6 +120,8 @@ export default {
     isBackofficeProfile: Boolean,
   },
   mounted() {
+    this.changeLanguage(this.userLanguage);
+
     this.currentUrlName = this.$route.name;
 
     let getAdminExtra = [];
@@ -282,8 +285,18 @@ export default {
       this.currentIndex = currentIndex;
     },
     async onChangeLang(lang) {
-      this.$i18n.locale = lang;
+      this.changeLanguage(lang);
+
       await setLanguage(lang);
+    },
+
+    changeLanguage(lang) {
+      this.$i18n.locale = lang;
+      if (lang === 'en') {
+        moment.locale('en-sg');
+      } else {
+        moment.locale('fr');
+      }
     },
 
     setPageTitle(route) {
@@ -320,6 +333,7 @@ export default {
       'userIsPartner',
       'havePermission',
       'havePermissionDomain',
+      'userLanguage',
     ]),
 
     logoutUrl() {

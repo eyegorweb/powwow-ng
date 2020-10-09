@@ -16,7 +16,9 @@
           @modify="modifyList(list)"
         >
           <div class="cardBloc-infos-name">{{ list.name }}</div>
-          <div class="cardBloc-infos-username">{{ list.emails }}</div>
+          <div class="cardBloc-infos-username">
+            {{ getFormattedMails(list.emails) }}
+          </div>
         </Card>
       </template>
     </div>
@@ -42,6 +44,12 @@ export default {
 
   methods: {
     ...mapMutations(['openPanel', 'confirmAction']),
+
+    getFormattedMails(emails) {
+      if (!emails) return '';
+
+      return emails.replace(/;/g, ' ');
+    },
 
     openCreationPanel() {
       const doReset = () => {

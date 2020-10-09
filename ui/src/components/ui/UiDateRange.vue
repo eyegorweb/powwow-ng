@@ -1,8 +1,15 @@
 <template>
   <div>
     <div
+      v-if="canShowCalendar"
       ref="daterange"
-      style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%"
+      style="
+        background: #fff;
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        width: 100%;
+      "
     >
       <i class="icon ic-Calendar-Icon" />&nbsp;
       <span>{{ formattedResult }}</span>
@@ -31,28 +38,89 @@ export default {
       default: 'down',
     },
   },
-  mounted() {
-    let startDate;
-    let endDate;
-
-    if (this.start && this.end) {
-      startDate = moment(this.start, 'DD/MM/YYYY');
-      endDate = moment(this.end, 'DD/MM/YYYY');
-    }
-
-    const onDateSelected = (start, end) => {
-      this.$emit('change', {
-        startDate: start.format('DD/MM/YYYY'),
-        endDate: end.format('DD/MM/YYYY'),
-      });
+  data() {
+    return {
+      canShowCalendar: false,
     };
+  },
+  watch: {
+    async '$i18n.locale'() {
+      this.canShowCalendar = false;
+      this.$nextTick(() => {
+        this.createCalendar();
+      });
+    },
+  },
+  methods: {
+    createCalendar() {
+      this.canShowCalendar = true;
+      this.$nextTick(() => {
+        let startDate;
+        let endDate;
 
-    // TODO: add i18n support
-    $(this.$refs.daterange).daterangepicker(
-      {
-        startDate,
-        endDate,
-        drops: this.direction,
+        if (this.start && this.end) {
+          startDate = moment(this.start, 'DD/MM/YYYY');
+          endDate = moment(this.end, 'DD/MM/YYYY');
+        }
+
+        const onDateSelected = (start, end) => {
+          this.$emit('change', {
+            startDate: start.format('DD/MM/YYYY'),
+            endDate: end.format('DD/MM/YYYY'),
+          });
+        };
+
+        // TODO: add i18n support
+        const localeParam = this.getLocaleParam();
+        $(this.$refs.daterange).daterangepicker(
+          {
+            startDate,
+            endDate,
+            drops: this.direction,
+            ...localeParam,
+          },
+          onDateSelected
+        );
+      });
+    },
+    getLocaleParam() {
+      if (this.$i18n.locale === 'en') {
+        return {
+          locale: {
+            format: 'DD/MM/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Others',
+            daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            monthNames: [
+              'January',
+              'February',
+              'March',
+              'April',
+              'May',
+              'June',
+              'July',
+              'August',
+              'September',
+              'October',
+              'November',
+              'December',
+            ],
+            firstDay: 1,
+          },
+          ranges: {
+            'Past month': [moment().subtract(1, 'month'), moment()],
+            'Past 3 months': [moment().subtract(3, 'month'), moment()],
+            'past 6 months': [moment().subtract(6, 'month'), moment()],
+            'last year': [moment().subtract(1, 'year'), moment()],
+          },
+        };
+      }
+
+      return {
         locale: {
           format: 'DD/MM/YYYY',
           separator: ' - ',
@@ -84,9 +152,11 @@ export default {
           'Depuis 6 mois': [moment().subtract(6, 'month'), moment()],
           'Depuis 1 an': [moment().subtract(1, 'year'), moment()],
         },
-      },
-      onDateSelected
-    );
+      };
+    },
+  },
+  mounted() {
+    this.createCalendar();
   },
 
   computed: {

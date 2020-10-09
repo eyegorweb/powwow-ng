@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import 'moment/locale/fr';
+import 'moment/locale/en-sg';
 import App from './App.vue';
 import router from './router';
 import store from './store';

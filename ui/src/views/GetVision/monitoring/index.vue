@@ -624,6 +624,7 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
+      console.error(e);
     }
     return filters;
   }, {});
