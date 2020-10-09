@@ -736,7 +736,7 @@
       "vpn": "VPN :",
       "group": "Groupe :",
       "contract": "contrat",
-      "partyGroup": "Compte groupe :",
+      "partyGroup": "Compte groupe",
       "selectPartyGroup": "Sélectionner un compte groupe",
       "partnerTree": "Arborescence des partenaires :",
       "partnerType": "Type de partenaire :",
