@@ -53,6 +53,10 @@ export default {
     if (!this.userIsBO) {
       this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
     }
+    if (this.partner.partyType === 'MVNO') {
+      this.visibleMenuItems(this.menuItems, 'getadmin.customize.customFields');
+      this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
+    }
     if (this.partner.partyType !== 'MULTI_CUSTOMER') {
       this.menuItems.push('getadmin.customize.deliveryAddress');
     }

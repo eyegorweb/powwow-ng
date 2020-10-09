@@ -25,6 +25,11 @@ module.exports = {
   },
 
   configureWebpack: {
-    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), new CompressionPlugin()],
+    plugins: [
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-sg|fr/),
+
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new CompressionPlugin(),
+    ],
   },
 };

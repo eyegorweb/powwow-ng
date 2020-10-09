@@ -27,7 +27,7 @@ export default {
   },
 
   mounted() {
-    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
+    if (this.partner.partyType === 'CUSTOMER') {
       this.menuItems.push('getadmin.users.supervision');
     }
   },

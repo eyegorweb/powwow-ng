@@ -163,6 +163,7 @@ export async function fetchLinesForMarker(
   pagination = { limit: 10, page: 0 },
   sorting = { cellid: 'ASC' }
 ) {
+  console.log('======++>>>', filters);
   const queryStr = `query GeoList($filter: GeolocListFilterInput, $pagination: Pagination!, $sorting: GeolocListSorting!) {
 
     geoList(filter: $filter, pagination: $pagination, sorting: $sorting) {

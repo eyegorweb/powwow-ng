@@ -107,8 +107,6 @@ import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import carouselItems from './carouselItems';
 
 import { fetchSingleIndicator } from '@/api/linesActions';
-import { fetchTotalMassActions } from '@/api/massActions';
-import moment from 'moment';
 
 export default {
   components: {
@@ -274,43 +272,6 @@ export default {
           fetch: async (indicator, contextFilters) => {
             return await fetchSingleIndicator(indicator.filters, contextFilters);
           },
-        },
-        {
-          name: 'failed',
-          labelKey: 'indicators.getparc.lines.failed',
-          color: 'text-danger',
-          clickable: true,
-          overrideClick: true,
-          total: '-',
-          isVisibleFn: () => {
-            console.log(this.userIsMVNO, this.userIsBO, this.userIsPartner);
-            if (this.userIsMVNO) {
-              return false;
-            }
-            return this.userIsBO || this.userIsPartner;
-          },
-          filters: [
-            {
-              id: 'filters.actStatus',
-              values: [
-                {
-                  id: 'IN_ERROR',
-                  label: 'En erreur',
-                },
-              ],
-            },
-          ],
-          fetchKey: 'ACT_FAILED',
-          fetch: async indicator => {
-            const dateFilter = {
-              id: 'filters.actDateCreation',
-              endDate: moment()
-                .subtract(6, 'month')
-                .format('DD/MM/YYYY'),
-            };
-            return await fetchTotalMassActions([...indicator.filters, dateFilter]);
-          },
-          hideZeroValue: true,
         },
         {
           name: 'simCardsInStock',
@@ -499,10 +460,6 @@ export default {
     onClick(indicator) {
       if (!indicator.overrideClick) {
         this.setCurrentFiltersForIndicator(indicator);
-      } else {
-        if (indicator.labelKey === 'indicators.getparc.lines.failed') {
-          this.$router.push({ name: 'actHistory', params: { preselectFailedFilter: true } });
-        }
       }
     },
 

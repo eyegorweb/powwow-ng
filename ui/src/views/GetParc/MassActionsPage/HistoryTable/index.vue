@@ -67,7 +67,7 @@ import ActionCell from './ActionCell';
 import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';
 import ExportButton from '@/components/ExportButton';
-import { exportMassActionsOnly, exportMassAction } from '@/api/massActions';
+import { exportMassActionsOnly, exporAlltMassActions } from '@/api/massActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
@@ -293,10 +293,8 @@ export default {
         }
 
         if (exportAll) {
-          return await exportMassAction(
-            undefined,
-            ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
-            'NONE',
+          return await exporAlltMassActions(
+            this.appliedFilters,
             [
               'MASS_ACTION_ID',
               'MASS_ACTION_INFO',
@@ -317,6 +315,8 @@ export default {
               'PREACTIVATION_DATE',
               'ACTIVATION_DATE',
             ],
+            ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
+            'NONE',
             exportFormat,
             true
           );

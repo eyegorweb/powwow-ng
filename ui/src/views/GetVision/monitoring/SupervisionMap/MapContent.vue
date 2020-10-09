@@ -199,6 +199,7 @@ export default {
         await this.manageZoom();
 
         const countryCode = await this.getCenteredCountry();
+        this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
 
         if (this.usage === 'COCKPIT') {

@@ -181,27 +181,27 @@ export default {
         },
         series: [
           {
-            name: 'Stock',
+            name: this.$t('getparc.actLines.commercialStatuses.stock'),
             data: dataSeries.countStock,
           },
           {
-            name: 'Pré-activé',
+            name: this.$t('filters.actionValues.PREACTIVATED'),
             data: dataSeries.countPreactivated,
           },
           {
-            name: 'Test',
+            name: this.$t('getparc.actLines.networkStatuses.TEST'),
             data: dataSeries.countTest,
           },
           {
-            name: 'Activé',
+            name: this.$t('filters.actionValues.ACTIVATED'),
             data: dataSeries.countActivated,
           },
           {
-            name: 'Suspendu',
+            name: this.$t('getparc.actLines.networkStatuses.SUSPENDED'),
             data: dataSeries.countSuspended,
           },
           {
-            name: 'Résilié',
+            name: this.$t('getparc.actLines.networkStatuses.RELEASED'),
             data: dataSeries.countReleased,
           },
         ],

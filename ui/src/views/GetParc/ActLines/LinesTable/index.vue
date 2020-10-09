@@ -7,7 +7,7 @@
       <template v-if="!showInfoMessage">
         <div class="row mb-3">
           <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
               <slot name="title">
                 <template>
                   {{
@@ -36,7 +36,7 @@
           <DataTable
             v-if="columns"
             storage-id="getparc.lines"
-            storage-version="004"
+            storage-version="005"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -323,8 +323,8 @@ export default {
         {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
-          name: 'accessPoint',
           exportId: 'LINE_MSISDN',
+          name: 'accessPoint',
           format: {
             // component: LinkTo,
             type: 'ObjectAttribute',
@@ -390,7 +390,11 @@ export default {
         {
           id: 10,
           label: this.$t('getparc.actLines.col.msisdnA'),
-          name: 'msisdnA',
+          name: 'accessPoint',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'lines[0].msisdnA',
+          },
           exportId: 'LINE_AMSISDN',
           orderable: false,
           visible: false,

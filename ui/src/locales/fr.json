@@ -54,7 +54,7 @@
   "back": "Retour",
   "searching": "Recherche en cours ...",
   "secondary": "{item} Secondaire",
-  "processing": "Traitement en cours ...",
+  "processing": "Traitement en cours",
   "range": "Plage de valeurs",
   "applyDate": "Date d'application",
   "fromThe": "depuis le :",
@@ -97,7 +97,13 @@
   "lessFilters": "Moins de filtres",
   "applyFilters": "Appliquer / Rafraichir",
   "chooseOnePartner": "Veuillez choisir un partenaire",
+  "population": "Population",
+  "card": "Carte",
   "days": "Jours",
+  "map": {
+    "world": "Monde",
+    "countryFR": "France"
+  },
   "actions": {
     "DUPLICATE": "Dupliquer",
     "DISABLE": "Désactiver",
@@ -436,6 +442,18 @@
       "DAY": "Jour",
       "MONTH": "Mois"
     },
+    "supervisionLegend": {
+      "title": "Légendes",
+      "indicators": {
+        "last24H": "Lignes avec trafic ces dernières 24h",
+        "more24H": "Lignes avec trafic depuis plus de 24h et moins de 30 jours",
+        "openedSession": "Lignes avec une session data en cours",
+        "closedSession": "Lignes avec une session data fermée",
+        "withoutAlarms": "Pays sans alertes actives",
+        "withAlarms": "Pays avec alerte (variation suspecte détectée)",
+        "less500": "Pays non supervisés avec moins de 500 lignes"
+      }
+    },
 
     "detail-panel": {
       "stepper": {
@@ -606,13 +624,42 @@
         "offerActivation": "Offre d'activation",
         "delayBillings": "Délai avant facturation (mois)",
         "dataReporting": "Reporting des encours conso",
+        "exportServices": "Export des services",
+        "fleetPromotion": "Promotion de la Supervision",
+        "flagBillingPDPCellHistory": "Facturation PDP et CELL ID",
+        "diffusionListEnabled": "Liste de diffusion activée",
         "paymentEmails": "Emails acquittements portabilités",
         "cdrEmails": "Emails CDRs quotidiens",
         "preactivateFormat": "Format de Préactivation",
         "ws-address": "Adresse du webservice",
         "maxViews": "Nombre maximum de vue",
         "actualView": "Nombre de vue actuel",
-        "delay": "Délai"
+        "delay": "Délai",
+        "services": {
+          "labels": {
+            "SECU_RESIL": "Sécurisation des résiliations",
+            "COMPAT_OTA": "Compatibilité OTA",
+            "BROADCAST_SMS": "Broadcast SMS",
+            "MANDATORY_ACTIVATION": "Activation obligatoire",
+            "MANDATORY_PREACTIVATION": "Préctivation obligatoire",
+            "REF_CLIENT": "Référence client obligatoire",
+            "REF_USER": "Référence utilisateur",
+            "MAD_FACT": "Mise à disposition des factures",
+            "SWITCH_RCARD": "Switch vers R-Card",
+            "DISABLE_RCARD": "Désactiver - contôler R-Card",
+            "CHANGE_OFFER": "Changement d'offre",
+            "AUTO_ACT_SIM": "Auto-Activation SIM préactivées",
+            "FACT_SIM_STOCK": "Facturation SIMs en stock",
+            "FACT_IMEI": "Facturation IMEI",
+            "FACT_DUAL_SIM": "Information dual SIM dans la facture",
+            "FACT_REPORT_CONSO": "Reporting consommations",
+            "CUSTOM_FIELD_IMPORT": "Champ libre par import",
+            "DASHBOARD_COUNTRY": "Tableau de bord - Détails par pays",
+            "AUTO_SUSPEND": "Suspension automatique",
+            "HIDE_ADRESS": "Cacher notion adresse",
+            "COACH_M2M": "Coach M2M"
+          }
+        }
       }
     },
     "partnerDetail": {
@@ -680,6 +727,7 @@
       "bscs": "Compte root BSCS :",
       "label": "Libellé :",
       "company": "Societé :",
+      "actBlock": "Blocage des actes de gestion",
       "contractReference": "Référence du contrat cadre :",
       "contractDate": "Date du contrat :",
       "contractExpiration": "Fin du contrat :",
@@ -689,7 +737,7 @@
       "vpn": "VPN :",
       "group": "Groupe :",
       "contract": "contrat",
-      "partyGroup": "Compte groupe :",
+      "partyGroup": "Compte groupe",
       "selectPartyGroup": "Sélectionner un compte groupe",
       "partnerTree": "Arborescence des partenaires :",
       "partnerType": "Type de partenaire :",
@@ -706,7 +754,8 @@
       "BOTH": "Tous",
       "simcards": {
         "search": "Rechercher une carte",
-        "searchPlaceholder": "veuillez saisir un nom"
+        "searchPlaceholder": "veuillez saisir un nom",
+        "title": "Liste des cartes SIM associées à cette entité"
       },
       "adminForm": {
         "titles": {
@@ -778,6 +827,7 @@
           "deviceInfo": "Matériel et constructeur",
           "pin2": "Code PIN2",
           "puk": "Codes PUK",
+          "puk2": "Codes PUK2",
           "accessPointId": "Identifiant point d’accès",
           "electricProfile": "Profil électrique",
           "graphicProfile": "Profile graphique",
@@ -853,7 +903,34 @@
       "plmnRepartition": "Répartition du parc par PLMN",
       "repartitionByZone": "Répartition du parc par zone",
       "lastDayWorldMap": "Carte du monde à J-1",
-      "offerRepartition": "Répartition du parc par offre"
+      "offerRepartition": "Répartition du parc par offre",
+      "legends": {
+        "incomingFrance": "France entrant",
+        "incomingRoming": "Roaming entrant",
+        "outgoingFrance": "France sortant",
+        "outgoingRoaming": "Roaming sortant",
+        "nbAlarms": "Nb d'alarmes",
+        "billed": "Facturé",
+        "notBilled": "Non facturé",
+        "amount": "Montant",
+        "overtaking": "Dépassement",
+        "contract": "Forfait",
+        "outOfZone": "Hors zone",
+        "amountData": "Montant Data",
+        "amountVoice": "Montant Voix",
+        "amountSMS": "Montant SMS",
+        "amountSubscription": "Montant abonnements",
+        "conso": "Conso",
+        "frConso": "Conso France",
+        "euConso": "Conso EU",
+        "outOfEUConso": "Conso hors EU",
+        "amountByCounter": "Montant conso au compteur",
+        "amountOutOfZone": "Montant hors zone",
+        "amountTestConso": "Montant des conso tests",
+        "totalAmount": "Montant total",
+        "billedLines": "Nb de lignes facturées",
+        "lines": "Lignes"
+      }
     }
   },
   "getparc": {
@@ -1442,6 +1519,11 @@
         "newBillingAccount": "Nouveau compte de facturation"
       },
 
+      "transferSIM": {
+        "validate": "Valider le take-over",
+        "deny": "Refuser le take-over"
+      },
+
       "phaseTest": {
         "end": "Terminer le test",
         "warningMsg": "Attention ! Toute sortie de ligne de la phase de test est définitive, et ne sera pas réversible."
@@ -1482,14 +1564,17 @@
         "chooseOffer": "Choisir une offre cible",
         "validateButton": "Changer d'offre",
         "successMessage": "La demande de changement d'offre a bien été prise en compte.",
-        "currentOffer": "Offre actuelle"
+        "currentOffer": "Offre actuelle",
+        "changeServices": "Avec changement de services ?"
       },
 
       "SERVICE_TO_ACTIVATE": "Services à activer",
       "SERVICE_TO_DESACTIVATE": "Services à désactiver",
       "NOTIFICATION_CHECK": "Être notifié par e-mail une fois terminé ?",
       "ALTERABLE_BY_CLIENT": "Non modifiable par le client",
-      "SELECTED_LINES": "{total} lignes seront modifiées"
+      "SELECTED_LINES": "{total} lignes seront modifiées",
+      "EXCLUDED_LINES": "{total} lignes seront exclues de l'alarme",
+      "message_EXCLUDED_LINES": "Les lignes retirées de l’alarme seront accessibles dans l’onglet « Lignes exclues de l’alarme »"
     },
     "actLines": {
       "details": {
@@ -1678,6 +1763,7 @@
     "specificFields": "Champ spécifique {num}",
     "manufacturerIMEI": "Fabricant (IMEI)",
     "frequency": "Fréquence",
+    "freqTheo": "Fréquences théoriques",
     "lastCountry": "Dernier pays (ancien PLMN)",
     "statuses": {
       "NOT_VALIDATED": "Non validée",
@@ -1700,21 +1786,18 @@
       "averageProcessingTime": "Délai traitement sur 1 mois",
       "orderToBeConfirmedByBO": "Commandes à valider par le BO",
       "actionsInProgress": "Actes en cours",
-      "actionsFailed": "Actes en échec",
       "actionsPlanned": "Actes programmés"
     },
     "getparc": {
       "lines": {
         "cancellation": "Résiliations non traitées > 1 mois",
-        "failed": "Actes de gestion en échec",
         "availableSIMCards": "Cartes SIM en stock",
         "allocatedSIMCards": "Lignes pré-activées",
         "activatedSIMCards": "Lignes actives",
         "suspended": "Lignes suspendues",
         "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
-        "inprogressTwoDays": "Actes en cours > 48 h",
-        "failedTwoDays": "Actes en échec > 48 h"
+        "inprogressTwoDays": "Actes en cours > 48 h"
       }
     }
   },

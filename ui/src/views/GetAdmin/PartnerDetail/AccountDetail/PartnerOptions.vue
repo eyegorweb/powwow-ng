@@ -75,7 +75,9 @@
         <div class="d-flex mt-3">
           <div class="third-size">
             <UiToggle
-              label="Préactivation obligatoire"
+              :label="
+                $t('getadmin.partners.optionsDetails.services.labels.MANDATORY_PREACTIVATION')
+              "
               :checked="orderActivationMandatory"
               :editable="!orderActivationMandatory"
               :bold-label="orderActivationMandatory"
@@ -117,7 +119,7 @@
         <div class="d-flex mb-2">
           <div class="third-size to-bottom pb-3" v-if="partyType === 'CUSTOMER'">
             <UiToggle
-              label="Facturation PDP et CELL ID"
+              :label="$t('getadmin.partners.optionsDetails.flagBillingPDPCellHistory')"
               :editable="true"
               :bold-label="flagBillingPDPCellHistory"
               v-model="flagBillingPDPCellHistory"
@@ -126,7 +128,7 @@
           </div>
           <div class="third-size to-bottom pb-3">
             <UiToggle
-              label="Liste de diffusion activée"
+              :label="$t('getadmin.partners.optionsDetails.diffusionListEnabled')"
               :editable="true"
               :bold-label="diffusionListEnabled"
               v-model="diffusionListEnabled"
@@ -209,7 +211,7 @@
         <div class="d-flex">
           <div class="third-size to-bottom pb-3">
             <UiToggle
-              label="Export compta mode BSCS"
+              :label="$t('getadmin.partners.optionsDetails.dataReporting')"
               :editable="true"
               :bold-label="comptaExport"
               v-model="comptaExport"
@@ -218,7 +220,7 @@
           </div>
           <div class="third-size to-bottom pb-3">
             <UiToggle
-              label="Export des services"
+              :label="$t('getadmin.partners.optionsDetails.exportServices')"
               :editable="true"
               :bold-label="flagServicesAudit"
               v-model="flagServicesAudit"
@@ -251,7 +253,7 @@
         <div class="d-flex" v-if="getToggle(otherToggles, 'COACH_M2M')">
           <div class="third-size pr-4 pb-3">
             <UiToggle
-              label="Promotion de la Supervision"
+              :label="$t('getadmin.partners.optionsDetails.fleetPromotion')"
               :editable="true"
               :bold-label="coachM2MFleetpromotion"
               v-model="coachM2MFleetpromotion"
@@ -486,7 +488,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Sécurisation des résiliations',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SECU_RESIL'),
       },
       {
         code: 'COMPAT_OTA',
@@ -495,7 +497,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Compatibilité OTA',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COMPAT_OTA'),
       },
       {
         code: 'BROADCAST_SMS',
@@ -504,7 +506,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Broadcast SMS',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.BROADCAST_SMS'),
       },
     ];
 
@@ -516,7 +518,9 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Activation obligatoire',
+        labelService: this.$t(
+          'getadmin.partners.optionsDetails.services.labels.MANDATORY_ACTIVATION'
+        ),
       },
       {
         code: 'REF_CLIENT',
@@ -525,7 +529,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Référence client obligatoire',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.REF_CLIENT'),
       },
       {
         code: 'REF_USER',
@@ -534,7 +538,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Référence utilisateur',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.REF_USER'),
       },
     ];
 
@@ -546,7 +550,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Mise à disposition des factures',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.MAD_FACT'),
       },
       {
         code: 'SWITCH_RCARD',
@@ -555,7 +559,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Switch vers R-Card',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.SWITCH_RCARD'),
       },
       {
         code: 'DISABLE_RCARD',
@@ -564,7 +568,9 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Désactiver - contôler R-Card',
+        labelService: this.$t(
+          'getadmin.partners.optionsDetails.services.labels.SWITCH_RCDISABLE_RCARDARD'
+        ),
       },
       {
         code: 'CHANGE_OFFER',
@@ -573,7 +579,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: "Changement d'offre",
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.CHANGE_OFFER'),
       },
       {
         code: 'AUTO_ACT_SIM',
@@ -582,7 +588,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Auto-Activation SIM préactivées',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.AUTO_ACT_SIM'),
       },
       {
         code: 'FACT_SIM_STOCK',
@@ -591,7 +597,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Facturation SIMs en stock',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_SIM_STOCK'),
       },
       {
         code: 'FACT_IMEI',
@@ -600,7 +606,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Facturation IMEI',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_IMEI'),
       },
       {
         code: 'FACT_DUAL_SIM',
@@ -609,7 +615,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Information dual SIM dans la facture',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_DUAL_SIM'),
       },
       {
         code: 'FACT_REPORT_CONSO',
@@ -618,7 +624,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Reporting consommations',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.FACT_REPORT_CONSO'),
       },
     ];
 
@@ -630,7 +636,9 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Champ libre par import',
+        labelService: this.$t(
+          'getadmin.partners.optionsDetails.services.labels.CUSTOM_FIELD_IMPORT'
+        ),
       },
       {
         code: 'DASHBOARD_COUNTRY',
@@ -639,7 +647,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Tableau de bord - Détails par pays',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.DASHBOARD_COUNTRY'),
       },
       {
         code: 'AUTO_SUSPEND',
@@ -648,7 +656,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Suspension automatique',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.AUTO_SUSPEND'),
       },
       {
         code: 'HIDE_ADRESS',
@@ -657,7 +665,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Cacher notion adresse',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.HIDE_ADRESS'),
       },
       {
         code: 'COACH_M2M',
@@ -666,7 +674,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: 'Coach M2M',
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.COACH_M2M'),
       },
     ];
 

@@ -21,10 +21,10 @@
       <div v-if="selectedOffer && selectedOffer.data" class="row">
         <div class="col-md-8 mb-3">
           <UiToggle
-            label="Avec changement de services ?"
+            :label="$t('getparc.actCreation.changeOffer.changeServices')"
             v-model="canChangeServices"
-            on-text="Oui"
-            off-text="Non"
+            :on-text="$t('yes')"
+            :off-text="$t('no')"
           />
         </div>
       </div>

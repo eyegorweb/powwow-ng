@@ -69,7 +69,6 @@ export default {
 
   methods: {
     async searchById(filterObj) {
-      console.log('searchById -> filterObj', filterObj);
       this.isLoading = true;
       this.searchByIdValue = filterObj.value;
       this.$emit('searchedId', this.searchByIdValue);

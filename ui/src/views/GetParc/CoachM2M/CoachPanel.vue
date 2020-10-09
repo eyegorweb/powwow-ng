@@ -90,7 +90,6 @@ export default {
     },
     startComparison(selectedLine) {
       this.line2 = selectedLine;
-      console.log('startComparison -> selectedLine', selectedLine);
     },
     cancelComparison() {
       this.$emit('setWidth', '30%');

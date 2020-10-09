@@ -98,9 +98,7 @@
     "MONTHLY": "Monthly"
   },
   "home": {
-    "customize": {
-      "title": "Add/Delete widgets"
-    },
+    "customize": { "title": "Add/Delete widgets" },
     "widgets": {
       "orders": "My orders",
       "bills": "Last invoices",
@@ -126,7 +124,8 @@
         "currentMonth": "current",
         "linesPreactivated": "(Number of preactivated lines)",
         "linesSuspended": "(Number of suspended lines not invoiced)",
-        "prevMonth": "at 1st"
+        "prevMonth": "at 1st",
+        "notPreactivated": "Non-preactivated"
       },
       "averageTimeAction": "Average delay",
       "simTopActivation": "Top 5 activated lines",
@@ -143,7 +142,8 @@
       "linesConsumption": "Most consuming lines of the month",
       "topTriggeredAlarmsPerDay": "Nb triggered alarms by day",
       "topBillingExchangeCA": "TOP / FLOP CA",
-      "topBillingExchangePO": "Orders"
+      "topBillingExchangePO": "Orders",
+      "coach": "M2M / Diagnostic Coach"
     }
   },
   "documents": {
@@ -182,11 +182,7 @@
     "phone": "Telephone",
     "mobile": "Mobile [optionnal]"
   },
-  "partnerTypes": {
-    "CUSTOMER": "M2M",
-    "MVNO": "MVNO",
-    "MULTI_CUSTOMER": "White brand"
-  },
+  "partnerTypes": { "CUSTOMER": "M2M", "MVNO": "MVNO", "MULTI_CUSTOMER": "White brand" },
   "errors": {
     "all": "Error(s)",
     "mandatory": "* Mandatory field",
@@ -208,13 +204,10 @@
     "export": "Export",
     "others": "Others",
     "period": "Period",
-
     "identifier": "Identifier",
-
     "months_12": "12 Months",
     "months_24": "24 Months",
     "months_36": "36 Months",
-
     "billingAccount": "Billing account",
     "shipping": "shipping",
     "product": "Product",
@@ -238,7 +231,8 @@
     "simple": "Simple",
     "detailed": "Detailed",
     "unit": "Unit",
-    "mass": "Masse"
+    "mass": "Masse",
+    "delivery": "Delivery"
   },
   "bills": {
     "total": "{total} available invoices",
@@ -248,7 +242,9 @@
     "title": "Title",
     "billDetail": "Billing details",
     "billPeriod": "Billing period",
-    "lineTotal": "Number of lines"
+    "lineTotal": "Number of lines",
+    "download": "Download the bill",
+    "usageVolume": "Usage volume"
   },
   "coach": {
     "title": "Coach",
@@ -259,7 +255,20 @@
     "testLine": "Test the line",
     "chooseLine": "Select a line",
     "currentLine": "Actual Line {lineId}",
-    "compareLine": "Compared Line"
+    "compareLine": "Compared Line",
+    "apiError": "Unable to perform the diagnostic",
+    "indicators": {
+      "lineStatus": "Is the SIM card authorized to traffic?",
+      "testData": "Is data traffic possible?",
+      "networkTest": "Has the line connected yet?",
+      "ipAssign": "Has an IP address been assigned?",
+      "localityTest": "Detection of lines in the same locality:",
+      "cellAnalysis": "Detection of lines in the same cell:",
+      "networkDetectionTest": "Date of the last detection of the line by the network:",
+      "lastUsageAnalysis": "Last used:",
+      "isPowered": "Is the box powered?",
+      "isTraced": "Has the line been located?"
+    }
   },
   "getsim": {
     "manage-orders": "Order management",
@@ -295,9 +304,7 @@
         "import-file": "Select a file CSV or EXCEL"
       }
     },
-    "creator": {
-      "title": "User {firstName} {lastName}"
-    },
+    "creator": { "title": "User {firstName} {lastName}" },
     "actions": {
       "btn": "Actions",
       "DETAIL": "Display the détail",
@@ -333,7 +340,6 @@
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "fleet under-consumption",
     "OVER_CONSUMPTION_VOLUME_FLOTTE": "Pooled consumption",
     "MORE_DETAIL": "Dsiplay alarm details",
-
     "observationCycles": {
       "DAILY": "Daily",
       "WEEKLY": "Weekly",
@@ -391,18 +397,14 @@
     "dataUsage": "DATA Usage",
     "m2mCockpit": "Cockpit M2M",
     "exportGraph": "Export from graphs",
-
     "supervisionTypes": {
       "INTRA_DAY": "6h",
       "INTRADAY_CUMUL": "Cumulated 6h",
       "DAY": "Day",
       "MONTH": "Month"
     },
-
     "detail-panel": {
-      "stepper": {
-        "created": "Created"
-      },
+      "stepper": { "created": "Created" },
       "change-alarm": "Modify alarm",
       "triggered-events": "Display the triggers"
     },
@@ -431,7 +433,6 @@
       "ALARM_TYPE": "Alarm type",
       "DATE_TRIGGER": "Trigger date"
     },
-
     "alarm": {
       "triggered_x_month": "Triggers during the {month} last months",
       "triggered_lines": "Lines targeted by the alarm",
@@ -443,36 +444,65 @@
       "alarm_availability": "Presence of alarm",
       "rea_auto": "Automatic reactivation",
       "sus_auto": "Automatic suspension",
-
       "enableAlarm": "Activate the alarm",
       "saveAlarm": "Record the alarm",
-      "statuses": {
-        "created": "Created",
-        "activated": "Activated",
-        "disabled": "Deactivated"
-      }
+      "statuses": { "created": "Created", "activated": "Activated", "disabled": "Deactivated" }
     },
     "alarm-creation": {
       "change_country": {
         "countries_list": "All countries:",
         "chosen_countries": "Authorized countries:"
       },
-      "change_plmn": {
-        "isp_list": "All operators:",
-        "chosen_isp": "Authorized operators:"
+      "change_plmn": { "isp_list": "All operators:", "chosen_isp": "Authorized operators:" },
+      "setSupervisedStatuses": "Define the supervised status",
+      "setCountries": "Define a list of authorized countries",
+      "setISPs": "Define a list of operators",
+      "overConsoDescription": "The over consumption alarm allows you to monitor the consumption of a line or a set of lines.",
+      "chooseAlarm": "CHOOSE AN ALARM",
+      "linesFound": "lines found",
+      "limitedScope": "This alarm has a range limited to the selected line",
+      "chooseOffer": "Choose the offer",
+      "setLimits": "DEFINE TRIP THRESHOLDS PER USE (3 MAX.)",
+      "noLimitsConfigured": "No threshold is configured for this use",
+      "configureForUsage": "Configure for this use",
+      "addLimit": "Add a threshold",
+      "beforeEndOfMonth": "Before the end of the month",
+      "dataIsOver": "The data exceeds",
+      "smsIsOver": "Number of SMS exceeds",
+      "voiceIsOver": "Nb of minutes exceeds",
+      "chooseNotification": "Choose a means of notification",
+      "defineThreshold": "DEFINE A TRIGGER THRESHOLD PER USAGE",
+      "standardMode": "Standard Mode",
+      "advancedMode": "Advanced Mode",
+      "chooseAlarmScope": "Choose the scope of the alarm",
+      "supervisedStatuses": {
+        "all": "All",
+        "activationReactivation": "Activation / Reactivation",
+        "suspension": "Suspension"
       }
     },
-    "monitoring": {
-      "filterByFile": "Filter from file"
+    "monitoring": { "filterByFile": "Filter from file" },
+    "tab-3-m2m-sharedconso": "Mutualized Alarms",
+    "alarms": "Alarms",
+    "supervisionType": "Type of supervision",
+    "msgSynchronousExport": "More than 500 lines selected, the list is available by export",
+    "msgDeferExport": "Only the deferred export request is available. The request will be available within 24 hours in document management with a deferred export request button. Attention, you must call the export API in asynchronous mode",
+    "supervisionLegend": {
+      "title": "Captions",
+      "indicators": {
+        "last24H": "Lines with traffic in the last 24 hours",
+        "more24H": "Lines with traffic for more than 24 hours and less than 30 days",
+        "openedSession": "Lines with a current data session",
+        "closedSession": "Lines with a closed data session",
+        "withoutAlarms": "Country without active alerts",
+        "withAlarms": "Country with alert (suspect variation detected)",
+        "less500": "Unsupervised countries with less than 500 lines"
+      }
     }
   },
   "getadmin": {
     "users": {
-      "userTypes": {
-        "bouygues": "Intern",
-        "partner": "Partner",
-        "group": "Group account"
-      },
+      "userTypes": { "bouygues": "Intern", "partner": "Partner", "group": "Group account" },
       "searchUser": "Search a user",
       "simcards": "SIM Cards",
       "supervision": "Supervision options",
@@ -486,12 +516,12 @@
         "partnerGroup": "Partner group",
         "partners": "Partners",
         "roles": "Roles",
-        "status": "Status"
+        "status": "Status",
+        "typeSIMCard": "Type of SIM card"
       },
       "total": "{total} found user(s)",
-      "errors": {
-        "AccessDeniedForThisUser": "Error Message : You don't have permission."
-      }
+      "errors": { "AccessDeniedForThisUser": "Error Message : You don't have permission." },
+      "searchPlaceholder": "Enter a name, first name or login"
     },
     "customize": {
       "addList": "Add a mailing list",
@@ -508,7 +538,10 @@
       "addCustomField": "Add a custom field",
       "modifyCustomField": "Modify a custom field",
       "addSpecificField": "Add a specific field",
-      "modifySpecificField": "Modify a specific field"
+      "modifySpecificField": "Modify a specific field",
+      "deliveryAddress": "Delivery addresses",
+      "addDeliveryAddress": "Add a delivery address",
+      "modifyDeliveryAddress": "Modify a delivery address"
     },
     "partners": {
       "name": "Social reason",
@@ -545,8 +578,39 @@
         "ws-address": "Webservice address",
         "maxViews": "Maximum number of views",
         "actualView": "Current number of views",
-        "delay": "Delay"
-      }
+        "delay": "Delay",
+        "exportServices": "Export of services",
+        "fleetPromotion": "Promotion of Supervision",
+        "flagBillingPDPCellHistory": "PDP and CELL ID billing",
+        "diffusionListEnabled": "Distribution list enabled",
+        "services": {
+          "labels": {
+            "SECU_RESIL": "Securing of terminations",
+            "COMPAT_OTA": "OTA compatibility",
+            "BROADCAST_SMS": "Broadcast SMS",
+            "MANDATORY_ACTIVATION": "Mandatory activation",
+            "MANDATORY_PREACTIVATION": "Pre-activation compulsory",
+            "REF_CLIENT": "Customer reference mandatory",
+            "REF_USER": "User reference",
+            "MAD_FACT": "Provision of invoices",
+            "SWITCH_RCARD": "Switch to R-Card",
+            "DISABLE_RCARD": "Deactivate - check R-Card",
+            "CHANGE_OFFER": "Change of offer",
+            "AUTO_ACT_SIM": "Pre-activated SIM auto-activation",
+            "FACT_SIM_STOCK": "Invoicing SIMs in stock",
+            "FACT_IMEI": "IMEI billing",
+            "FACT_DUAL_SIM": "Dual SIM information in the invoice",
+            "FACT_REPORT_CONSO": "Consumption reporting",
+            "CUSTOM_FIELD_IMPORT": "Free field by import",
+            "DASHBOARD_COUNTRY": "Dashboard - Details by country",
+            "AUTO_SUSPEND": "Automatic suspension",
+            "HIDE_ADRESS": "Hide notion of address",
+            "COACH_M2M": "M2M Coach"
+          }
+        }
+      },
+      "deliveryPlaces": "Delivery addresses",
+      "customerList": "List of customers (C.F)"
     },
     "partnerDetail": {
       "generalInformations": "General informations",
@@ -603,15 +667,67 @@
         }
       },
       "offerFromPanel": {
-        "title": "Offer Panel"
+        "title": "Offer Panel",
+        "availableOffers": "Offers available for this entity",
+        "offerSearch": "Search for an Offer",
+        "searchInput": "Enter a name or a code",
+        "offerManagement": "Manage associated offers",
+        "defaultServices": "Services activated by default",
+        "default": "Enabled by default",
+        "modifiedServices": "Modified services"
       },
-      "userForm": {
-        "title": "Add user",
-        "modify-title": "Editing a user"
-      },
+      "userForm": { "title": "Add user", "modify-title": "Editing a user" },
       "changePassword": {
         "title": "Change the password",
         "warning": "The changes will be lost, do you want to continue?"
+      },
+      "mb": {
+        "title": "{total} customer (s) (C.F.) found",
+        "export": "Export {total} customer (s) (C.F.)",
+        "entity": "Entity name",
+        "accountGroup": "Group account",
+        "contractReference": "Points of sale",
+        "nbCustomers": "Number of customers",
+        "code": "Billing account number",
+        "name": "Name of the establishment",
+        "marketLine": "Market line",
+        "siret": "N ° siret",
+        "status": "Status",
+        "commercialOffer": "Commercial offers",
+        "simCards": "SIM cards",
+        "customerDescription": "Description of the customer account",
+        "clientContactDescription": "Description of the client contact",
+        "deliveryAdresses": "Delivery addresses",
+        "paymentMethod": "Payment method",
+        "commercialOffers": {
+          "create": "Create a commercial offer",
+          "code": "Code of the commercial offer",
+          "name": "Name of the commercial offer",
+          "cfCode": "C.F. code",
+          "edited": "Modified on",
+          "catalogOffer": "Catalog offer",
+          "rateplan": "Associated rateplan",
+          "york": "york community",
+          "usage": "Usage",
+          "envelopeLabel": "Envelope label",
+          "envelope": "envelope",
+          "price": "Price",
+          "discount": "Discount",
+          "notDefined": "Not defined",
+          "duration": "Duration of engagement",
+          "suspensionPeriod": "Suspension period offered",
+          "subscriptionDiscount": "Subscription discount (%)",
+          "franceVoiceDiscount": "France voice consumption discount (%)",
+          "franceSMSDiscount": "France SMS consumption discount (%)",
+          "franceDataDiscount": "France data consumption discount (%)",
+          "europeVoiceDiscount": "Europe reg. voice consumption discount (%)",
+          "europeSMSDiscount": "SMS Europe reg. consumption discount (%)"
+        }
+      },
+      "simcards": {
+        "search": "Search for a map",
+        "searchPlaceholder": "please enter a name",
+        "title": "List of SIM cards associated with this entity"
       }
     }
   },
@@ -624,7 +740,6 @@
       "ACTIVATION": "Activate / Deactivate report",
       "SEARCH": "Search reports"
     },
-
     "creation": {
       "chooseInfos": "Choose information",
       "chooseInfosDescription": "Choose from the following sections the row information you want to appear in your personalized report. This will allow you to filter and sort this information in your favorite spreadsheet.",
@@ -636,13 +751,130 @@
       "list": "Broadcast list",
       "dateGenerated": "Generation date",
       "dateForOneItem": "Date of demand",
-      "dateAndRecursion": "Recurrence and date"
+      "dateAndRecursion": "Recurrence and date",
+      "groups": {
+        "technicalInfos": "Technical information",
+        "dualSimInfos": "Dual SIM information",
+        "commercialInfos": "Commercial information",
+        "orderInfos": "Order information",
+        "consumption": "Consumption",
+        "lastUsageInfos": "Last used information",
+        "checkboxes": {
+          "deviceInfo": "Hardware and manufacturer",
+          "pin2": "PIN2 code",
+          "puk": "PUK codes",
+          "puk2": "PUK2 codes",
+          "accessPointId": "Access point identifier",
+          "electricProfile": "Electric profile",
+          "graphicProfile": "Graphic profile",
+          "hardwareType": "Hardware type",
+          "MODULE_NUMBER": "Module number",
+          "PREACTIVATION_DATE": "Pre-activation date",
+          "ACTIVATION_DATE": "Activation date",
+          "LAST_CHANGE_STATUS_DATE": "Date of last status change",
+          "FIXED_IP_ADDRESSES": "Fixed ip address",
+          "FLAT_END_DATE": "MVNO offer change date",
+          "OFFER_NAME": "Offer name",
+          "GRP_SERVICES_APN": "Line and APN services",
+          "CUSTOMER_ACCOUNT_NAME": "Billing account name",
+          "PARTNER_NAME": "Partner name",
+          "PARTNER_CODE": "Partner code",
+          "ORDER_PARTNER_NAME": "Name of the order partner",
+          "ORDER_PARTNER_CODE": "Order partner code",
+          "GRP_PREACTIVATE_ACTIVATE": "Pre-Activation / Activation",
+          "ORDER_OFFER": "Offer of the order",
+          "ORDER_USER_NAME": "Creator of the order",
+          "ORDER_STATUS_DATE": "Status date",
+          "GRP_DELIVERY_CONTACT": "Delivery contact",
+          "GRP_BILLING_ADRESS": "Billing address",
+          "CONTRACT_REFERENCE": "Contract reference",
+          "ORDER_QUANTITY": "Quantity of SIMs ordered",
+          "IMPORTED_QUANTITY": "Quantity of SIM imported",
+          "ORDER_BIL_CODE": "Order billing account code",
+          "ORDER_BIL_NAME": "Name of the billing account for the order",
+          "CUMULATED_UL_VOLUME": "Outstanding Data amount (monthly)",
+          "CUMULATED_DL_VOLUME": "Descending Outstanding Data (monthly)",
+          "CUMULATED_SMS_VOLUME": "SMS outstanding (monthly)",
+          "CUMULATED_VOICE_VOLUME": "Outstanding Voice (monthly)",
+          "LAST_CONNECTION_START_DATE": "Start of the last connection",
+          "LAST_CONNECTION_END_DATE": "End of the last connection",
+          "LAST_CONNECTION_CLOSING_REASON": "Reason for closing the connection",
+          "LAST_CONNECTION_UPLOAD": "Rising volume of the last connection",
+          "LAST_CONNECTION_DOWNLOAD": "Descending volume of the last connection",
+          "LAST_SMS_DATE": "Date of the last SMS",
+          "LAST_SMS_DIRECTION": "Direction of the last SMS",
+          "LAST_VOICE_DATE": "Date of the last voice communication",
+          "LAST_VOICE_DURATION": "Duration of the last voice call",
+          "LAST_VOICE_DIRECTION": "Direction of the last voice communication",
+          "LAST_CONNECTION_IP_ADDRESS_TYPE": "Type of IP address",
+          "LAST_CONNECTION_IP_V4_ADDRESS": "IP address V4",
+          "LAST_CONNECTION_IP_V6_ADDRESS": "IP address V6",
+          "LAST_USAGE_CELL_ID": "Cell id",
+          "LAST_USAGE_DATE": "Date of last location",
+          "LAST_USAGE_DETAILS": "Detail",
+          "LAST_OPERATOR_REAL_PLMN": "Real PLMN",
+          "LAST_TYPE_APPEL": "Call type",
+          "LAST_USAGE_IMEI": "IMEI of last use",
+          "LAST_USAGE_OFFER_CODE": "Offer code for the last use",
+          "LAST_TICKET_GENERATION": "Ticket generation"
+        }
+      }
     },
     "errors": {
       "AlreadyExists": "A connection with this name already exists",
       "partnerRequired": "Please select a partner",
       "dontSelectOffer": "Please do not select an offer",
       "dontSelectOfferOrCF": "Please do not select CF and offer"
+    },
+    "report_statut": {
+      "NEW": "New",
+      "RUNNING": "In progress",
+      "FAILED": "Failed",
+      "CLOSED": "Finished",
+      "OK": "OK",
+      "DISABLED": "Disabled"
+    },
+    "dashboard": {
+      "highConso": "Consumption in progress",
+      "chooseCFandOffer": "Please choose a billing account and an offer",
+      "consoAndAverageCost": "Conso and average amount per invoice line",
+      "billedAmount": "Amounts invoiced / Conso per zone",
+      "billedAmountByPeriods": "Amounts billed over 12/24/36 months",
+      "billedLinesByZone": "Number of lines invoiced and consumption per zone",
+      "nbBilledLines": "Number of lines invoiced and details of the amounts invoiced",
+      "otherServicesAmount": "Amount of other services",
+      "consoHistory": "History of consumption",
+      "plmnRepartition": "Park distribution by PLMN",
+      "repartitionByZone": "Distribution of the park by zone",
+      "lastDayWorldMap": "World map on D-1",
+      "offerRepartition": "Distribution of the park by offer",
+      "legends": {
+        "incomingFrance": "incoming France",
+        "incomingRoming": "Incoming roaming",
+        "outgoingFrance": "France outgoing",
+        "outgoingRoaming": "Outgoing roaming",
+        "nbAlarms": "Nb of alarms",
+        "billed": "Invoiced",
+        "notBilled": "Not invoiced",
+        "amount": "Amount",
+        "overtaking": "overtaking",
+        "contract": "Package",
+        "outOfZone": "Out of zone",
+        "amountData": "Amount Data",
+        "amountVoice": "Amount Voice",
+        "amountSMS": "Amount SMS",
+        "amountSubscription": "Amount of subscriptions",
+        "conso": "Consumption",
+        "frConso": "Consumption France",
+        "euConso": "Consumption EU",
+        "outOfEUConso": "Consumption outside the EU",
+        "amountByCounter": "Amount consumption to the counter",
+        "amountOutOfZone": "Amount out of zone",
+        "amountTestConso": "Amount of consumption tests",
+        "totalAmount": "Total amount",
+        "billedLines": "Number of lines invoiced",
+        "lines": "Lines"
+      }
     }
   },
   "getparc": {
@@ -685,7 +917,8 @@
       "RECOVERY_RELEASED": "Résiliation du compte",
       "GEO_LOCATION": "M2M location",
       "UPDATE_COMMITMENT": "Duration of engagement",
-      "SUSPENDION": "Suspension"
+      "SUSPENDION": "Suspension",
+      "COACH_M2M": "Coach M2M"
     },
     "actStatuses": {
       "WAITING": "Waiting",
@@ -694,11 +927,7 @@
       "TERMINATED": "Finished",
       "CANCELLED": "Canceled"
     },
-    "services": {
-      "ADD": "Adding",
-      "REMOVE": "Deletion",
-      "ADD_REMOVE": "Adding / Deletion"
-    },
+    "services": { "ADD": "Adding", "REMOVE": "Deletion", "ADD_REMOVE": "Adding / Deletion" },
     "history": {
       "total": "{total} Management acts found",
       "col": {
@@ -747,16 +976,15 @@
           "activated": "Active",
           "reactivated": "Active"
         },
-        "SERVICE_CHANGE": {
-          "ADDED": "Service(s) added",
-          "REMOVED": "Removed"
-        },
+        "SERVICE_CHANGE": { "ADDED": "Service(s) added", "REMOVED": "Removed" },
         "actStatuses": {
           "STARTED": "Started",
           "CREATED": "Created",
           "TERMINATED": "Finished",
           "CANCELLED": "Canceled"
-        }
+        },
+        "EXPORT_ACTS": "Export {total} acts",
+        "MORE_DETAIL": "See the detail of the result"
       },
       "actions": {
         "btn": "Actions",
@@ -876,12 +1104,7 @@
         "smsOutgoingInternationalConsumption": "Roaming outgoing SMS",
         "nbOfSMS": "Number of SMS"
       },
-      "estimated": {
-        "data": "Forecast Data",
-        "sms": "Forecast SMS",
-        "voice": "Forecast Voice"
-      },
-
+      "estimated": { "data": "Forecast Data", "sms": "Forecast SMS", "voice": "Forecast Voice" },
       "tab1": {
         "lineInfo": "Line information",
         "billingOffer": {
@@ -893,7 +1116,8 @@
           "descriptionTimeForSuspendedOffer": "You have {total} days of free suspension until {date}",
           "offerName": "Offer name",
           "endCommitmentDate": "End date of engagement",
-          "billingStatus": "Billing status"
+          "billingStatus": "Billing status",
+          "endForfaitDate": "End of package date"
         },
         "lineServices": "Line services",
         "alarmsList": "List of alarms",
@@ -918,7 +1142,8 @@
           "AVAILABLE": "Available since:",
           "ALLOCATING": "In the process of pre-activation since:",
           "RESERVED": "Booked since:"
-        }
+        },
+        "IMEIHistory": "HISTORY OF IMEI"
       },
       "tab2": {
         "lineAnalysis": "Analyze the line",
@@ -935,18 +1160,9 @@
           "LastLocation": "Last geographic location"
         },
         "lineAnalysisContent": {
-          "toggle": {
-            "graph": "Graph",
-            "table": "Table"
-          },
-          "connectionStatus": {
-            "F": "CLOSED",
-            "P": "OPEN"
-          },
-          "connectionClosingReason": {
-            "A": "Other",
-            "N": "Normal"
-          },
+          "toggle": { "graph": "Graph", "table": "Table" },
+          "connectionStatus": { "F": "CLOSED", "P": "OPEN" },
+          "connectionClosingReason": { "A": "Other", "N": "Normal" },
           "inactiveLineWarning": "Line is not active",
           "connexionStatus": "Connection status",
           "closingConnexionReason": "Reason for closure",
@@ -967,7 +1183,8 @@
           "gaugeConsumtion": "Consumption gauge",
           "stateStopService": "Cut-off state",
           "tresholdStopService": "Cut-off threshold",
-          "tmpDebarring": "Temporary unbarring"
+          "tmpDebarring": "Temporary unbarring",
+          "activationEndingStopService": "Activation of the cut-off release"
         },
         "networkHistoryContent": {
           "lastPLMN": "History of countries visited",
@@ -1003,7 +1220,8 @@
             "manufacturer": "Maker",
             "longitude": "Longitude",
             "latitude": "Latitude"
-          }
+          },
+          "mapView": "Map view"
         }
       },
       "tab3": {
@@ -1020,7 +1238,6 @@
           "TEST_OK": "Test OK",
           "TEST_KO": "Test KO"
         },
-
         "localisation": {
           "requestDate": "Date of request",
           "requestStatus": "Status of request",
@@ -1044,25 +1261,16 @@
           }
         },
         "errors": {
-          "DMD_CONSO_CPT": {
-            "LimitExceeded": "The maximum number of requests has been reached"
-          },
-          "START_DATE": {
-            "Invalid": "The start date must be greater than the current date"
-          },
-          "MONTH": {
-            "DATE_NOTE_SAME_MONTH": "The start and end date must be in the same month"
-          },
+          "DMD_CONSO_CPT": { "LimitExceeded": "The maximum number of requests has been reached" },
+          "START_DATE": { "Invalid": "The start date must be greater than the current date" },
+          "MONTH": { "DATE_NOTE_SAME_MONTH": "The start and end date must be in the same month" },
           "PERIODE": {
             "Invalid": "The end date must be greater than the start date by at least 15 minutes"
           },
-          "CONSUMPTION_ON_DEMAND_ID": {
-            "NotFound": "Not found"
-          },
-          "PERIOD_END_DATE": {
-            "NotAllowed": "Invalid end date"
-          }
-        }
+          "CONSUMPTION_ON_DEMAND_ID": { "NotFound": "Not found" },
+          "PERIOD_END_DATE": { "NotAllowed": "Invalid end date" }
+        },
+        "testRequestsHistory": "History of Network / Location test requests"
       },
       "tabServices": {
         "optionalServices": "Optionnal services",
@@ -1070,7 +1278,31 @@
         "ipAdressFix": "Fixed IP address",
         "apn": "APN",
         "ipAdress": "IP Adress",
-        "version": "Version"
+        "version": "Version",
+        "modifyServices": "Modify the services",
+        "cancelModifications": "Cancel the modifications"
+      },
+      "testData": "Test data",
+      "networkTest": "Network test",
+      "localityTest": "Analysis of the locality",
+      "cellAnalysis": "Analyze the cell",
+      "noCoach": "No coach on this line",
+      "standardTest": "Standard tests",
+      "advancedTest": "Advanced tests",
+      "startCoach": "M2M / Diagnostic Coach",
+      "supervision": {
+        "nbCnxPdp": "Number of PDP connections",
+        "totalVolume": "Total volume",
+        "volumeOut": "Outgoing volume",
+        "volumeIn": "Incoming volume",
+        "smsIn": "Received SMS",
+        "smsOut": "Sent SMS",
+        "minutesIn": "Received Minutes",
+        "minutesOut": "Sent Minutes",
+        "voiceOut": "Received Voices",
+        "voiceIn": "Sent Voice",
+        "voiceInAndOut": "I / O voice",
+        "totalMinutes": "Total minutes"
       }
     },
     "actCreation": {
@@ -1104,7 +1336,6 @@
         "CHANGE_MSISDN": "Change MSISDN",
         "ACTIVATE_PREACTIVATE": "Preactivate / Activate lines"
       },
-
       "step2Titles": {
         "CHANGE_SERVICES": "Configure service modification",
         "SUSPEND": "Configure the suspension",
@@ -1120,10 +1351,10 @@
         "ACTIVATE_PREACTIVATE": "Configure activation / Pre-activation",
         "CHANGE_OFFER": "Configure change of offer"
       },
-
       "modal": {
         "modalPreventMsg": "The lines will be terminated immediately.",
-        "modalConfirmMsg": "Do you confirm the termination?"
+        "modalConfirmMsg": "Do you confirm the termination?",
+        "modalConfirmRefuse": "Do you confirm the refusal?"
       },
       "suspend": {
         "notEditable": "Not modifiable by the customer",
@@ -1145,7 +1376,6 @@
         "successMessage": "The request has been taken into account",
         "nbCharacters": "Number of characters"
       },
-
       "changeService": {
         "servicesToEnable": "Services to activate",
         "servicesToDisable": "Services to deactivate",
@@ -1155,7 +1385,6 @@
         "servicesMandatory": "* Please choose an offer and services",
         "shouldChangeData": "Modify the data service"
       },
-
       "changeICCID": {
         "confirmationWarning": "Warning ! Cut off of all services. Old SIM cards will be permanently deactivated. Do you confirm the change of SIM?",
         "currentICCID": "Current ICCID",
@@ -1171,11 +1400,7 @@
         "currentCustomFields": "Current free fields",
         "newCustomFields": "New free fields"
       },
-
-      "preactivateActivate": {
-        "confirmationWarning": "Confirm?"
-      },
-
+      "preactivateActivate": { "confirmationWarning": "Confirm?" },
       "report": {
         "DATA_EXISTS": "Existing lines",
         "DATA_INVALID_FORMAT": "Invalid format",
@@ -1190,26 +1415,22 @@
         "FILE_EXTENSION_INVALID": "Invalid file extension",
         "FILE_CONTENT_INVALID": "Invalid file content"
       },
-
       "transfertCF": {
         "confirmationWarning": "Do you confirm the change of the billing account?",
         "successMessage": "The request to change the billing account has been taken into account.",
         "currentBillingAccount": "Current billing account",
         "newBillingAccount": "New billing account"
       },
-
       "phaseTest": {
         "end": "Finish the test",
         "warningMsg": "Warning ! Any line exit from the test phase is final, and will not be reversible."
       },
-
       "editCustomFields": {
         "validateBtn": "Edit fields",
         "confirmationWarning": "Warning ! The new values will overwrite any value already present.",
         "infoMessage": "Only the modified fields will have an impact on the values already present",
         "noResult": "No free field defined."
       },
-
       "ManageCancellation": {
         "choose": "Select",
         "delay": "a delay",
@@ -1231,21 +1452,23 @@
         "confirmationWarning": "Warning ! All the lines selected will lose roaming! This action is irreversible if your line is abroad.",
         "save": "Transfer"
       },
-
       "changeBillingAccount": "Change the account",
       "changeOffer": {
         "confirmationWarning": "Do you confirm the change of offer?",
         "chooseOffer": "Choose a target offer",
         "validateButton": "Change offer",
         "successMessage": "The request for a change of supply has been taken into account.",
-        "currentOffer": "Current offer"
+        "currentOffer": "Current offer",
+        "changeServices": "With change of services?"
       },
-
       "SERVICE_TO_ACTIVATE": "Services to activate",
       "SERVICE_TO_DESACTIVATE": "Services to deactivate",
       "NOTIFICATION_CHECK": "Get notified by email when done?",
       "ALTERABLE_BY_CLIENT": "Not modifiable by the customer",
-      "SELECTED_LINES": "{total} lines will be changed"
+      "SELECTED_LINES": "{total} lines will be changed",
+      "transferSIM": { "validate": "Validate take-over", "deny": "Refuse take-over" },
+      "EXCLUDED_LINES": "{total} lines will be excluded from the alarm",
+      "message_EXCLUDED_LINES": "Lines removed from the alarm will be accessible in the Lines excluded from alarm 'tab'"
     },
     "actLines": {
       "details": {
@@ -1384,12 +1607,22 @@
         "triggeredAlarms": "Alarms triggered",
         "voice": "Voice",
         "UsageCounterBtn": "See outstanding"
+      },
+      "networkStatuses": {
+        "NOT_PREACTIVATED": "Not preactivated",
+        "PREACTIVATED": "Preactivated",
+        "ACTIVATED": "Activated",
+        "SUSPENDED": "Suspended",
+        "RELEASED": "Canceled",
+        "ACTIVATING": "Activation in progress",
+        "DEACTIVATION": "Deactivation in progress",
+        "CANCELED": "Aborted",
+        "TEST": "Test",
+        "BARRED": "Barred",
+        "ALLOCATING": "In the process of pre-activation"
       }
     },
-    "search": {
-      "act-mass-id": "Id mass act",
-      "act-unit-id": "Id unit act"
-    }
+    "search": { "act-mass-id": "Id mass act", "act-unit-id": "Id unit act" }
   },
   "col": {
     "id": "ID",
@@ -1429,7 +1662,10 @@
       "FAILED": "Failed order",
       "TERMINATED": "Finished",
       "CANCELED": "Canceled"
-    }
+    },
+    "manufacturerIMEI": "Manufacturer (IMEI)",
+    "frequency": "Frequency",
+    "lastCountry": "Last country (old PLMN)"
   },
   "indicators": {
     "getsim": {
@@ -1440,21 +1676,18 @@
       "averageProcessingTime": "Processing time over 1 month",
       "orderToBeConfirmedByBO": "Orders to be validated by the BO",
       "actionsInProgress": "Acts in progress",
-      "actionsFailed": "Failed acts",
       "actionsPlanned": "Scheduled acts"
     },
     "getparc": {
       "lines": {
         "cancellation": "Unprocessed cancellations> 1 month",
-        "failed": "Failed management acts",
         "availableSIMCards": "Lines in stock (Not pre-activated)",
         "allocatedSIMCards": "Pre-activated lines",
         "activatedSIMCards": "Active lines",
         "suspended": "Suspended lines",
         "traffic": "Trafficking lines M",
         "validation": "Transfer validation",
-        "inprogressTwoDays": "Actions in progress> 48 h",
-        "failedTwoDays": "Failed acts> 48 h"
+        "inprogressTwoDays": "Actions in progress> 48 h"
       }
     }
   },
@@ -1472,7 +1705,6 @@
     "SMS": "SMS",
     "VOICE": "Voice"
   },
-
   "filters": {
     "idOrder": "Order ID",
     "title": "FILTERS",
@@ -1494,10 +1726,7 @@
     "country": "Country",
     "action": "Action",
     "state": "Status [optional]",
-    "actionValues": {
-      "ACTIVATED": "Activated",
-      "PREACTIVATED": "Pre-activated"
-    },
+    "actionValues": { "ACTIVATED": "Activated", "PREACTIVATED": "Pre-activated" },
     "actTypes": "Type of management act",
     "actStatus": "Status of the act",
     "actDate": "Date of creation of the act",
@@ -1545,7 +1774,8 @@
         "DELETED": "Canceled",
         "CREATED": "Created"
       }
-    }
+    },
+    "deliveryCountry": "Delivery country"
   },
   "orders": {
     "choose-account": "Choose a billing account",
@@ -1583,7 +1813,8 @@
       },
       "message": {
         "confirmation": "The order has been registered.",
-        "shipping": "The order has been registered."
+        "shipping": "The order has been registered.",
+        "delivery": "Orders are usually delivered within 3 working days."
       },
       "shippingStep": {
         "last": "Last delivery address used:",
@@ -1603,6 +1834,30 @@
           "city": "Town :",
           "country": "Country :",
           "shipping": "Delivery information [optional]:",
+          "cancel": "Cancel",
+          "add": "Add a recipient",
+          "modify": "Modify a recipient"
+        }
+      },
+      "delivery": "Delivery",
+      "deliveryStep": {
+        "last": "Last delivery address used:",
+        "search": "Search for a recipient:",
+        "searchPlaceholder": "Enter a name or an address",
+        "new": "Add a recipient",
+        "form": {
+          "firstname": "Firstname:",
+          "lastname": "Name:",
+          "phone": "Phone:",
+          "email": "Email:",
+          "company": "Company:",
+          "address": "Address:",
+          "deliveryAddress": "Delivery address",
+          "deliveryCoords": "Delivery coordinates",
+          "zipcode": "Postal code:",
+          "city": "City:",
+          "country": "Country:",
+          "delivery": "Delivery information [optional]:",
           "cancel": "Cancel",
           "add": "Add a recipient",
           "modify": "Modify a recipient"
@@ -1637,19 +1892,31 @@
         "FAILED": "Failed",
         "TERMINATED": "Completed",
         "CANCELED": "Canceled"
-      }
+      },
+      "deliveryNumber": "Delivery number"
     },
-    "search": {
-      "order-id": "Order id",
-      "client-reference": "Client reference"
-    }
+    "search": { "order-id": "Order id", "client-reference": "Client reference" },
+    "choose-delivery": "Choose a recipient",
+    "modify-delivery": "Modify a recipient"
   },
-  "customFields": {
-    "customField": "Free field {index}"
-  },
-  "ui": {
-    "MultiSelectSearch": {
-      "showLess": "Show less"
-    }
-  }
+  "customFields": { "customField": "Free field {index}" },
+  "ui": { "MultiSelectSearch": { "showLess": "Show less" } },
+  "searchByCF": "Search for an offer by C.F. code, description, siret or market line",
+  "saveFilter": "Save a filter",
+  "applyFilter": "Apply a filter",
+  "applyTheFilter": "Apply filter",
+  "newFilterName": "Name of the new filter",
+  "savedFilters": "Saved filters",
+  "noSavedFilter": "No filter saved",
+  "dragOrAddFile": "Drop your file here, or click to add",
+  "retry": "Please try again",
+  "exportLoading": "Your file is being prepared",
+  "exportFormat": "Please choose an export format",
+  "noneM": "None",
+  "applyFilters": "Apply / Refresh",
+  "chooseOnePartner": "Please choose a partner",
+  "population": "Population",
+  "card": "Card",
+  "days": "Days",
+  "map": { "world": "World", "countryFR": "France" }
 }

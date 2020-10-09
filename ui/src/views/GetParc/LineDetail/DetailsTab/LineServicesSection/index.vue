@@ -56,7 +56,7 @@
                     {{ $t('getparc.lineDetail.tabServices.modifyServices') }}
                   </button>
                   <button v-else class="btn btn-primary float-right" disabled>
-                    {{ $t('processing') }}
+                    {{ $t('processing') }}...
                     <CircleLoader />
                   </button>
                   <button

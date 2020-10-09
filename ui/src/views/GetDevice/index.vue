@@ -213,7 +213,7 @@ export default {
         },
         {
           id: 5,
-          label: this.$t('col.frequency'),
+          label: this.$t('col.freqTheo'),
           name: 'bands',
           exportId: 'BANDS',
           orderable: false, // Not parametrable for ordering in the api devices
@@ -496,7 +496,8 @@ export default {
           headerFormat: '',
           pointFormat:
             '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
-            'Nombre de lignes: <b>{point.z}</b><br/>',
+            this.$t('bills.lineTotal') +
+            ': <b>{point.z}</b><br/>',
         },
         series: [
           {
@@ -552,11 +553,11 @@ export default {
           enabled: false,
         },
         tooltip: {
-          pointFormat: '<b>{point.y} lignes</b>',
+          pointFormat: '<b>{point.y} </b>' + this.$t('lines'),
         },
         series: [
           {
-            name: 'Population',
+            name: this.$t('population'),
             data: formatedData,
           },
         ],
@@ -594,7 +595,8 @@ export default {
           headerFormat: '',
           pointFormat:
             '<span style="color:{point.color}">\u25CF</span> <b> {point.name} : {point.y} %</b><br/>' +
-            'Nombre de lignes: <b>{point.z}</b><br/>',
+            this.$t('bills.lineTotal') +
+            ': <b>{point.z}</b><br/>',
         },
         series: [
           {

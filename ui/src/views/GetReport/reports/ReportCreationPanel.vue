@@ -110,7 +110,7 @@
       <div class="fieldsRecap">
         <h5>{{ $t('getreport.creation.dataReport') }}</h5>
         <ul class="list-unstyled">
-          <li v-for="i in selectedItems" :key="'remove_' + i.label">
+          <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label">
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
               <i class="ic-Cross-Icon"></i>
             </button>
@@ -250,11 +250,13 @@ export default {
       this.endDateOf = {
         code: 'FLAT_END_DATE',
         name: 'Date de fin de forfait',
+        order: 23,
       };
     } else {
       this.endDateOf = {
         code: 'COMMITMENT_END_DATE',
         name: "Date de fin d'engagement",
+        order: 23,
       };
     }
     const preselectPartner = async () => {
@@ -484,7 +486,7 @@ export default {
     },
     async onSaveReport() {
       const params = {
-        columns: this.selectedItems,
+        columns: this.orderedSelectedItems,
         notification: this.shouldNotify,
         mailingListId: this.notifList,
         frequency: this.reportFrequency,
@@ -527,23 +529,25 @@ export default {
         {
           title: this.$t('getreport.creation.groups.technicalInfos'),
           checkboxes: [
-            { code: 'ICCID', label: 'ICCID', checked: false },
-            { code: 'IMSI', label: 'IMSI', checked: false },
+            { code: 'ICCID', label: 'ICCID', checked: false, order: 6 },
+            { code: 'IMSI', label: 'IMSI', checked: false, order: 7 },
             {
               code: 'MSISDN',
               label: 'MSISDN',
               checked: false,
+              order: 8,
             },
             {
               code: 'AMSISDN',
               label: 'A-MSISDN',
               checked: false,
+              order: 19,
               canShow: () => {
                 if (this.userIsOperator) return true;
                 return !!get(this.partnerForOptionCheck, 'data.flagMsisdnA');
               },
             },
-            { code: 'IMEI', label: 'IMEI', checked: false },
+            { code: 'IMEI', label: 'IMEI', checked: false, order: 19 },
             {
               code: 'GRP_DEVICE_INFO',
               label: this.$t('getreport.creation.groups.checkboxes.deviceInfo'),
@@ -557,8 +561,14 @@ export default {
               code: 'SIMCARD_TYPE',
               label: this.$t('getadmin.users.filters.typeSIMCard'),
               checked: false,
+              order: 11,
             },
-            { code: 'GRP_CUSTOM_FIELDS', label: this.$t('common.customFields'), checked: false },
+            {
+              code: 'GRP_CUSTOM_FIELDS',
+              label: this.$t('common.customFields'),
+              checked: false,
+              order: 5,
+            },
             {
               code: 'GRP_SPECIFIC_FIELDS',
               label: this.$t('getadmin.customize.specificFields'),
@@ -578,31 +588,43 @@ export default {
               code: 'PIN2',
               label: this.$t('getreport.creation.groups.checkboxes.pin2'),
               checked: false,
+              order: 9,
             },
             {
               code: 'PUK1',
               label: this.$t('getreport.creation.groups.checkboxes.puk'),
               checked: false,
+              order: 12,
+            },
+            {
+              code: 'PUK2',
+              label: this.$t('getreport.creation.groups.checkboxes.puk2'),
+              checked: false,
+              order: 14,
             },
             {
               code: 'AP_ID',
               label: this.$t('getreport.creation.groups.checkboxes.accessPointId'),
               checked: false,
+              order: 4,
             },
             {
               code: 'ELECTRIC_PROFILE',
               label: this.$t('getreport.creation.groups.checkboxes.electricProfile'),
               checked: false,
+              order: 10,
             },
             {
               code: 'GRAPHIC_PROFILE',
               label: this.$t('getreport.creation.groups.checkboxes.graphicProfile'),
               checked: false,
+              order: 13,
             },
             {
               code: 'HARDWARE_TYPE',
               label: this.$t('getreport.creation.groups.checkboxes.hardwareType'),
               checked: false,
+              order: 15,
               canShow: () => {
                 if (this.userIsOperator) return true;
                 return get(this.partnerForOptionCheck, 'data.partyType') === 'MVNO';
@@ -612,6 +634,7 @@ export default {
               code: 'MODULE_NUMBER',
               label: this.$t('getreport.creation.groups.checkboxes.MODULE_NUMBER'),
               checked: false,
+              order: 16,
             },
             {
               code: 'PREACTIVATION_DATE',
@@ -627,6 +650,7 @@ export default {
               code: 'LAST_CHANGE_STATUS_DATE',
               label: this.$t('getreport.creation.groups.checkboxes.LAST_CHANGE_STATUS_DATE'),
               checked: false,
+              order: 18,
             },
             {
               code: 'FIXED_IP_ADDRESSES',
@@ -658,9 +682,9 @@ export default {
           isDisabled: () => this.noPartnerSelected,
 
           checkboxes: [
-            { code: 'DUAL_ICCID', label: 'Dual ICCID', checked: false },
-            { code: 'DUAL_MSISDN', label: 'Dual MSISDN', checked: false },
-            { code: 'DUAL_IMSI', label: 'Dual IMSI', checked: false },
+            { code: 'DUAL_ICCID', label: 'Dual ICCID', checked: false, order: 20 },
+            { code: 'DUAL_MSISDN', label: 'Dual MSISDN', checked: false, order: 22 },
+            { code: 'DUAL_IMSI', label: 'Dual IMSI', checked: false, order: 21 },
           ],
         },
 
@@ -683,6 +707,7 @@ export default {
               code: 'CUSTOMER_ACCOUNT_NAME',
               label: this.$t('getreport.creation.groups.checkboxes.CUSTOMER_ACCOUNT_NAME'),
               checked: false,
+              order: 1,
             },
             {
               code: 'CUSTOMER_ACCOUNT_CODE',
@@ -693,6 +718,7 @@ export default {
               code: 'PARTNER_NAME',
               label: this.$t('getreport.creation.groups.checkboxes.PARTNER_NAME'),
               checked: false,
+              order: 0,
             },
             {
               code: 'PARTNER_CODE',
@@ -704,6 +730,7 @@ export default {
               code: 'COMMERCIAL_STATUS',
               label: this.$t('filters.lines.commercialStatus'),
               checked: false,
+              order: 3,
             },
             {
               code: 'BILLING_STATUS',
@@ -737,11 +764,13 @@ export default {
               code: 'GRP_PREACTIVATE_ACTIVATE',
               label: this.$t('getreport.creation.groups.checkboxes.GRP_PREACTIVATE_ACTIVATE'),
               checked: false,
+              order: 17,
             },
             {
               code: 'ORDER_OFFER',
               label: this.$t('getreport.creation.groups.checkboxes.ORDER_OFFER'),
               checked: false,
+              order: 2,
             },
             { code: 'ORDER_DATE', label: this.$t('filters.orderDate'), checked: false },
             {
@@ -1050,6 +1079,14 @@ export default {
       if (this.userIsPartner) return 0;
 
       return 1;
+    },
+    orderedSelectedItems() {
+      return this.selectedItems.slice().sort((a, b) => {
+        const orderA = a.order || -1;
+        const orderB = b.order || -1;
+
+        return orderA < orderB ? -1 : 1;
+      });
     },
     canSave() {
       let mailingListValid = true;

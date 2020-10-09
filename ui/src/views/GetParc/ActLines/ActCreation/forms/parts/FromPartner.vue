@@ -9,10 +9,6 @@ export default {
       type: Object,
     },
   },
-
-  mounted() {
-    console.log(this.row);
-  },
 };
 </script>
 

@@ -6,6 +6,7 @@ export async function fetchCurrentUserInfos() {
     query {
       getCurrentUser {
         id
+        preferredLocale
         name {
           title
           firstName

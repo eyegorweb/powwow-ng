@@ -9,7 +9,9 @@
       />
     </div>
     <div class="cards">
-      <CardButton @click="openCreationPanel">{{ $t('getadmin.users.addUser') }}</CardButton>
+      <CardButton v-if="canShow" @click="openCreationPanel">{{
+        $t('getadmin.users.addUser')
+      }}</CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
@@ -23,7 +25,9 @@
         <div class="cardBloc-infos-email">
           <a :href="'mailto:' + user.email">{{ user.email }}</a>
         </div>
-        <div class="cardBloc-infos-actif">{{ user.disable ? 'Inactif' : 'Actif' }}</div>
+        <div class="cardBloc-infos-actif">
+          {{ user.disable ? $t('col.notActive') : $t('col.active') }}
+        </div>
         <div class="cardBloc-infos-role">
           Rôle(s):
           <span :key="role.description" v-for="role in user.roles">

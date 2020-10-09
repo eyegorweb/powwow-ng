@@ -56,15 +56,23 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row">
-              <LocalisationGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
           </div>
         </FoldableBlock>
+        <div :key="'Graphe monde'">
+          <permission domain="getReport" action="read_dashboard_worldmap">
+            <FoldableBlock default-open :title="'Graphe monde'" draggable>
+              <div>
+                <div class="row">
+                  <LocalisationGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+              </div>
+            </FoldableBlock>
+          </permission>
+        </div>
         <FoldableBlock default-open :title="'Parc'" :key="'Parc'" draggable>
           <div>
             <div class="row">
@@ -84,13 +92,15 @@
                 :billing-account="appliedBillingAccount"
               />
             </div>
-            <div class="row">
-              <ParcStateGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
+            <permission domain="getReport" action="read_dashboard_fleet">
+              <div class="row">
+                <ParcStateGraph
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+            </permission>
           </div>
         </FoldableBlock>
         <FoldableBlock default-open :title="'Alarme'" :key="'Alarme'" draggable>
@@ -104,52 +114,55 @@
             </div>
           </div>
         </FoldableBlock>
-        <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
-          <div>
-            <div class="row">
-              <BilledAmountsGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
+        <permission domain="getReport" action="read_dashboard_billing">
+          <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
+            <div>
+              <div class="row">
+                <BilledAmountsGraph
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+              <div class="row">
+                <BilledAmountsByZone
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+              <div class="row">
+                <AmountByBilledLinesGraph
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+
+              <div class="row">
+                <BilledLinesNBGraph
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+              <div class="row">
+                <BilledLinesByZone
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
+              <div class="row">
+                <BilledServices
+                  :partner="appliedPartner"
+                  :offer="appliedOffer"
+                  :billing-account="appliedBillingAccount"
+                />
+              </div>
             </div>
-            <div class="row">
-              <BilledAmountsByZone
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <div class="row">
-              <AmountByBilledLinesGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <div class="row">
-              <BilledLinesNBGraph
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <div class="row">
-              <BilledLinesByZone
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-            <div class="row">
-              <BilledServices
-                :partner="appliedPartner"
-                :offer="appliedOffer"
-                :billing-account="appliedBillingAccount"
-              />
-            </div>
-          </div>
-        </FoldableBlock>
+          </FoldableBlock>
+        </permission>
       </transition-group>
     </draggable>
 

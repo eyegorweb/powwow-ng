@@ -178,39 +178,39 @@ export default {
         },
         series: [
           {
-            name: 'Dépassement',
+            name: this.$t('getreport.dashboard.legends.overtaking'),
             data: dataSeries.overspend,
             type: 'column',
             stack: 'forfait',
           },
           {
-            name: 'Forfait',
+            name: this.$t('getreport.dashboard.legends.contract'),
             data: dataSeries.contract,
             type: 'column',
             stack: 'forfait',
           },
           {
-            name: 'Hors zone',
+            name: this.$t('getreport.dashboard.legends.outOfZone'),
             data: dataSeries.outOfZone,
             type: 'column',
           },
           {
-            name: 'Montant Data',
+            name: this.$t('getreport.dashboard.legends.amountData'),
             data: dataSeries.amountData,
             type: 'spline',
           },
           {
-            name: 'Montant Voix',
+            name: this.$t('getreport.dashboard.legends.amountVoice'),
             data: dataSeries.amountVoice,
             type: 'spline',
           },
           {
-            name: 'Montant SMS',
+            name: this.$t('getreport.dashboard.legends.amountSMS'),
             data: dataSeries.amountSMS,
             type: 'spline',
           },
           {
-            name: 'Montant abo',
+            name: this.$t('getreport.dashboard.legends.amountSubscription'),
             data: dataSeries.amountSubscription,
             type: 'spline',
           },

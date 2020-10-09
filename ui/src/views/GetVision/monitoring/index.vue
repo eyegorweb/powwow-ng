@@ -58,6 +58,7 @@
             @activeClick="onActiveClick"
             @passiveClick="onPassiveClick"
             @cockpitClick="onCockpitClick"
+            @centeredCountry="lastCenteredCountry = $event"
           />
           <SupervisionTable
             v-if="refreshLinesFn"
@@ -141,6 +142,7 @@ export default {
       frozenValues: [],
       isFrozen: false,
       currentTab: 'graphs',
+      lastCenteredCountry: undefined,
 
       commonFilters: {
         partnerGroup: {
@@ -550,12 +552,21 @@ export default {
         this.filtersForExport = this.getFiltersForExport(payload, activityType);
         const filtersForapi = { ...this.filtersForExport };
         delete filtersForapi.locationType;
-        const rows = await fetchLinesForMarker(
-          this.filtersForExport.locationType,
-          filtersForapi,
-          pagination,
-          sorting
-        );
+
+        let locationType = this.filtersForExport.locationType;
+
+        if (
+          this.lastCenteredCountry === 'US' ||
+          this.$loGet(this.filtersForExport, 'iso3CountryCode') === 'USA'
+        ) {
+          locationType = 'STATES';
+        }
+
+        if (this.lastCenteredCountry === 'US') {
+          filtersForapi.iso3CountryCode = 'USA';
+        }
+
+        const rows = await fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
         return rows;
       };
     },
@@ -613,7 +624,7 @@ export function filterFormatter(appliedFilters) {
         }
       }
     } catch (e) {
-      console.log('if -> e', e);
+      console.error(e);
     }
     return filters;
   }, {});

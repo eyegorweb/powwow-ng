@@ -122,7 +122,7 @@ export async function searchLineById(id) {
   return response.items[0];
 }
 
-export async function searchLines(orderBy, pagination, filters = []) {
+async function searchLinesQuery(orderBy, pagination, filters, fields) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
@@ -136,139 +136,194 @@ export async function searchLines(orderBy, pagination, filters = []) {
       ${paginationInfo}
       ${orderingInfo}
     ) {
-      total
-      items {
-        party{
-          id
-          name
-          partyType
-          custom1FieldLabel
-          custom2FieldLabel
-          custom3FieldLabel
-          custom4FieldLabel
-          custom5FieldLabel
-          custom6FieldLabel
-          partyType
-          spec1_label
-          spec2_label
-         }
-        id
-        iccid
-        statusTranslated
-        type
-        statuts
-        auditable {created}
-        PIN1
-        PIN2
-        PUK1
-        PUK2
-        licence
-        format
-        dualSIMCardInstance {
-          iccid
-          msisdn
-          imsi
-        }
-        order {
-          id
-        }
-        deviceInstance {
-          manufacturer
-          manufacturerPrevious
-          deviceReference
-          deviceReferencePrevious
-          imei
-          imeiPrevious
-          mac
-          macPrevious
-          imeiChangeDate
-          auditable {
-            created
-            updated
-          }
-        }
-        accessPoint {
-          alarmInstance {
-            id
-            alarm {
-              id
-            }
-            type
-          }
-          id
-          commercialStatus
-          lastPLMN
-          preactivationDate
-          activationDate
-          commercialStatusDate
-          flatEndDate
-          networkStatus
-          lines {
-            msisdn
-            imsi
-            status
-            statusTranslated
-            auditable {
-              created
-              updated
-            }
-          }
-          customFields {
-            custom1
-            custom2
-            custom3
-            custom4
-            custom5
-            custom6
-          }
-          offerGroup {
-            customerAccount {
-              id
-              name
-              code
-            }
-          }
-          workflowCode
-          commitmentEnd
-          billingStatus
-          billingStatusChangeDate
-          offer {
-            marketingOffer {
-              code
-              description
-            }
-          }
-          usageCounter {
-            counter1DownRounded
-            counter1DownRoamingRounded
-            counter1UpRounded
-            counter1UpRoamingRounded
-            counter1DownRoamingRounded
-            counter1UpRoamingRounded
-            counter2DownRounded
-            counter2DownRoamingRounded
-            counter2UpRounded
-            counter2UpRoamingRounded
-            counter2DownRoamingRounded
-            counter2UpRoamingRounded
-            counter3DownRounded
-            counter3DownRoamingRounded
-            counter3UpRounded
-            counter3UpRoamingRounded
-            counter3DownRoamingRounded
-            counter3UpRoamingRounded
-          }
-          workflowCode
-          remainingSuspension
-          spec1
-          spec2
-        }
-      }
+      ${fields}
     }
   }`;
 
   const response = await query(queryStr);
   return response.data.simCardInstances;
+}
+
+export async function searchLinesForTable(orderBy, pagination, filters = []) {
+  const fields = `
+  total
+  items {
+    id
+    iccid
+    statusTranslated
+    statuts
+    deviceInstance {
+      manufacturer
+      deviceReference
+    }
+    party{
+      name
+    }
+    auditable {
+      created
+    }
+    customFields {
+      custom1
+      custom2
+      custom3
+      custom4
+      custom5
+      custom6
+    }
+    accessPoint {
+      commercialStatusDate
+      commercialStatus
+      networkStatus
+      preactivationDate
+      activationDate
+      commercialStatusDate
+      lastPLMN
+      offer {
+        marketingOffer {
+          description
+        }
+      }
+      lines {
+        msisdn
+        imsi
+        msisdnA
+      }
+    }
+  }`;
+  return await searchLinesQuery(orderBy, pagination, filters, fields);
+}
+
+export async function searchLines(orderBy, pagination, filters = []) {
+  const fields = `
+  total
+  items {
+    party{
+      id
+      name
+      partyType
+      custom1FieldLabel
+      custom2FieldLabel
+      custom3FieldLabel
+      custom4FieldLabel
+      custom5FieldLabel
+      custom6FieldLabel
+      partyType
+      spec1_label
+      spec2_label
+      }
+    id
+    iccid
+    statusTranslated
+    type
+    statuts
+    auditable {created}
+    PIN1
+    PIN2
+    PUK1
+    PUK2
+    licence
+    format
+    dualSIMCardInstance {
+      iccid
+      msisdn
+      imsi
+    }
+    order {
+      id
+    }
+    deviceInstance {
+      manufacturer
+      manufacturerPrevious
+      deviceReference
+      deviceReferencePrevious
+      imei
+      imeiPrevious
+      mac
+      macPrevious
+      imeiChangeDate
+      auditable {
+        created
+        updated
+      }
+    }
+    accessPoint {
+      alarmInstance {
+        id
+        alarm {
+          id
+        }
+        type
+      }
+      id
+      commercialStatus
+      lastPLMN
+      preactivationDate
+      activationDate
+      commercialStatusDate
+      flatEndDate
+      networkStatus
+      lines {
+        msisdn
+        imsi
+        status
+        statusTranslated
+        auditable {
+          created
+          updated
+        }
+      }
+      customFields {
+        custom1
+        custom2
+        custom3
+        custom4
+        custom5
+        custom6
+      }
+      offerGroup {
+        customerAccount {
+          id
+          name
+          code
+        }
+      }
+      workflowCode
+      commitmentEnd
+      billingStatus
+      billingStatusChangeDate
+      offer {
+        marketingOffer {
+          code
+          description
+        }
+      }
+      usageCounter {
+        counter1DownRounded
+        counter1DownRoamingRounded
+        counter1UpRounded
+        counter1UpRoamingRounded
+        counter1DownRoamingRounded
+        counter1UpRoamingRounded
+        counter2DownRounded
+        counter2DownRoamingRounded
+        counter2UpRounded
+        counter2UpRoamingRounded
+        counter2DownRoamingRounded
+        counter2UpRoamingRounded
+        counter3DownRounded
+        counter3DownRoamingRounded
+        counter3UpRounded
+        counter3UpRoamingRounded
+        counter3DownRoamingRounded
+        counter3UpRoamingRounded
+      }
+      workflowCode
+      remainingSuspension
+      spec1
+      spec2
+    }
+  }`;
+  return await searchLinesQuery(orderBy, pagination, filters, fields);
 }
 
 export function formatFilters(filters) {

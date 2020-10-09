@@ -209,7 +209,7 @@ export default {
               },
             },
             title: {
-              text: 'Conso',
+              text: this.$t('getreport.dashboard.legends.conso'),
               style: {
                 color: '#083e96',
               },
@@ -218,7 +218,7 @@ export default {
           {
             // Secondary yAxis
             title: {
-              text: 'Lignes',
+              text: this.$t('getreport.dashboard.legends.lines'),
               style: {
                 color: '#488bf7',
               },
@@ -250,22 +250,22 @@ export default {
         },
         series: [
           {
-            name: 'Conso France',
+            name: this.$t('getreport.dashboard.legends.frConso'),
             data: chartData.dataConsoFr,
             type: 'column',
           },
           {
-            name: 'Conso EU',
+            name: this.$t('getreport.dashboard.legends.euConso'),
             data: chartData.dataConsoEU,
             type: 'column',
           },
           {
-            name: 'Conso hors EU',
+            name: this.$t('getreport.dashboard.legends.outOfEUConso'),
             data: chartData.dataConsoHorsEU,
             type: 'column',
           },
           {
-            name: 'Nb de lignes facturées',
+            name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.billedLines,
             yAxis: 1,
             type: 'spline',
@@ -343,22 +343,22 @@ export default {
         },
         series: [
           {
-            name: 'Conso France',
+            name: this.$t('getreport.dashboard.legends.frConso'),
             data: chartData.voiceConsoFr,
             type: 'column',
           },
           {
-            name: 'Conso EU',
+            name: this.$t('getreport.dashboard.legends.euConso'),
             data: chartData.voiceConsoEU,
             type: 'column',
           },
           {
-            name: 'Conso hors EU',
+            name: this.$t('getreport.dashboard.legends.outOfEUConso'),
             data: chartData.voiceConsoHorsEU,
             type: 'column',
           },
           {
-            name: 'Nb de lignes facturées',
+            name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.billedLines,
             yAxis: 1,
             type: 'spline',
@@ -395,7 +395,7 @@ export default {
               },
             },
             title: {
-              text: 'Conso',
+              text: this.$t('getreport.dashboard.legends.conso'),
               style: {
                 color: '#083e96',
               },
@@ -404,7 +404,7 @@ export default {
           {
             // Secondary yAxis
             title: {
-              text: 'Lignes',
+              text: this.$t('getreport.dashboard.legends.lines'),
               style: {
                 color: '#488bf7',
               },
@@ -436,22 +436,22 @@ export default {
         },
         series: [
           {
-            name: 'Conso France',
+            name: this.$t('getreport.dashboard.legends.frConso'),
             data: chartData.smsConsoFr,
             type: 'column',
           },
           {
-            name: 'Conso EU',
+            name: this.$t('getreport.dashboard.legends.euConso'),
             data: chartData.smsConsoEU,
             type: 'column',
           },
           {
-            name: 'Conso hors EU',
+            name: this.$t('getreport.dashboard.legends.outOfEUConso'),
             data: chartData.smsConsoHorsEU,
             type: 'column',
           },
           {
-            name: 'Nb de lignes facturées',
+            name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.billedLines,
             yAxis: 1,
             type: 'spline',

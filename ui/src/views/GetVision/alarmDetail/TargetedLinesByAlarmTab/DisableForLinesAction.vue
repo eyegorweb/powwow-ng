@@ -9,13 +9,14 @@
               {{ $t('getvsion.alarm.disable_alarm_lines') }}
             </button>
           </div>
-          <div class="text-info">{{ rows.length }} lignes seront exclues de l'alarme</div>
+          <div class="text-info">
+            {{ $t('getparc.actCreation.EXCLUDED_LINES', { total: total }) }}
+          </div>
         </div>
         <div class="col-5">
           <div class="text-info">
             <span>
-              <i class="ic-Alert-Icon"></i>Les lignes retirées de l’alarme seront accessibles dans
-              l’onglet « Lignes exclues de l’alarme ».
+              <i class="ic-Alert-Icon"></i>{{ $t('getparc.actCreation.message_EXCLUDED_LINES') }}.
             </span>
           </div>
         </div>

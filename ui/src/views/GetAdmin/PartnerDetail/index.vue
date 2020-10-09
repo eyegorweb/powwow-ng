@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <div class="row">
+    <div class="row" v-if="!userIsPartner">
       <div class="col-md-9">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn">
           <i class="ic-Arrow-Previous-Icon" />
@@ -17,7 +17,11 @@
       </div>
     </div>
 
-    <Summary v-if="partner" :partner-id="this.$route.params.id" :partner-type="partner.partyType" />
+    <Summary
+      v-if="partner && havePermission('party', 'read_account_detail')"
+      :partner-id="this.$route.params.id"
+      :partner-type="partner.partyType"
+    />
 
     <div v-if="partner" class="mt-4 mb-4 bottom-space">
       <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
@@ -71,6 +75,8 @@ import PartnerCustomers from './PartnerCustomers';
 
 import { fetchpartnerById } from '@/api/partners.js';
 
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     Summary,
@@ -121,28 +127,32 @@ export default {
           title: this.$t('getadmin.partners.customerList'),
         });
       } else {
-        tabs.push({
-          label: 'billingAccounts',
-          title: this.$t('filters.billingAccounts'),
-        });
+        if (this.havePermission('party', 'read_customer_account')) {
+          tabs.push({
+            label: 'billingAccounts',
+            title: this.$t('filters.billingAccounts'),
+          });
+        }
       }
 
-      tabs.push(
-        {
-          label: 'offersAndSim',
-          title: this.$t('getadmin.partners.offersAndSim'),
-        },
-        {
+      tabs.push({
+        label: 'offersAndSim',
+        title: this.$t('getadmin.partners.offersAndSim'),
+      });
+
+      if (this.havePermission('party', 'read_account_detail')) {
+        tabs.push({
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
-        }
-      );
+        });
+      }
 
       this.tabs = tabs;
     },
   },
 
   computed: {
+    ...mapGetters(['userIsPartner', 'havePermission']),
     partnerName() {
       return this.partner ? this.partner.name : '';
     },

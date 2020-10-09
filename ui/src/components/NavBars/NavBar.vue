@@ -53,7 +53,7 @@
       <div class="lang-flags">
         <a
           href="#"
-          @click.prevent="$i18n.locale = 'fr'"
+          @click.prevent="() => onChangeLang('fr')"
           :class="{ active: $i18n.locale === 'fr' }"
           class="flag"
         >
@@ -61,7 +61,7 @@
         </a>
         <a
           href="#"
-          @click.prevent="$i18n.locale = 'en'"
+          @click.prevent="() => onChangeLang('en')"
           :class="{ active: $i18n.locale === 'en' }"
           class="flag"
         >
@@ -100,10 +100,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import ActHistoryButton from './ActHistoryButton';
+import { setLanguage } from '@/api/language';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 
@@ -118,6 +120,8 @@ export default {
     isBackofficeProfile: Boolean,
   },
   mounted() {
+    this.changeLanguage(this.userLanguage);
+
     this.currentUrlName = this.$route.name;
 
     let getAdminExtra = [];
@@ -263,21 +267,63 @@ export default {
       });
     },
     chooseCurrentMenu() {
-      let currentIndex = this.navbarLinks.findIndex(link => link.to.name === this.currentUrlName);
+      const visibleLinks = this.filterByPermission(this.navbarLinks);
+      let currentIndex = visibleLinks.findIndex(link => link.to.name === this.currentUrlName);
 
       if (currentIndex === -1) {
-        const mainMenu = this.navbarLinks.find(l => {
+        const mainMenu = visibleLinks.find(l => {
           if (!l.submenu) {
             return false;
           }
           return l.submenu.find(sml => sml.to.name === this.currentUrlName);
         });
         if (mainMenu) {
-          currentIndex = this.navbarLinks.findIndex(link => link.label === mainMenu.label);
+          currentIndex = visibleLinks.findIndex(link => link.label === mainMenu.label);
         }
       }
 
       this.currentIndex = currentIndex;
+    },
+    async onChangeLang(lang) {
+      this.changeLanguage(lang);
+
+      await setLanguage(lang);
+    },
+
+    changeLanguage(lang) {
+      this.$i18n.locale = lang;
+      if (lang === 'en') {
+        moment.locale('en-sg');
+      } else {
+        moment.locale('fr');
+      }
+    },
+
+    setPageTitle(route) {
+      const firstLevelMenu = this.navbarLinks.find(m => {
+        if (m.submenu) return false;
+        return m.to.name === route.name;
+      });
+
+      if (firstLevelMenu) {
+        document.title = firstLevelMenu.label;
+      } else {
+        const secondLevelMenu = this.navbarLinks
+          .map(m => {
+            if (m.submenu) return m.submenu;
+
+            return undefined;
+          })
+          .filter(sm => !!sm)
+          .flat()
+          .find(m => {
+            return m.to.name === route.name;
+          });
+
+        if (secondLevelMenu) {
+          document.title = this.$t(secondLevelMenu.label);
+        }
+      }
     },
   },
   computed: {
@@ -287,6 +333,7 @@ export default {
       'userIsPartner',
       'havePermission',
       'havePermissionDomain',
+      'userLanguage',
     ]),
 
     logoutUrl() {
@@ -295,6 +342,11 @@ export default {
   },
   watch: {
     $route(newRoute) {
+      try {
+        this.setPageTitle(newRoute);
+      } catch {
+        console.log('Title error');
+      }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();
     },

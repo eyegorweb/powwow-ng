@@ -1,6 +1,49 @@
 import { query } from './utils';
 import moment from 'moment';
 
+export async function exporAlltMassActions(
+  filters,
+  columns,
+  unitActionStatus,
+  groupedStatus,
+  exportFormat,
+  asyncExportRequest = false
+) {
+  const queryStr = `query ExportMassAction(
+    $columns: [ActeGestionColumnEnum!]!,
+    $massActionSorting: MassActionSortingV2,
+    $unitActionStatus: [UnitActionStatusEnum!],
+    $groupedStatus: UnitActionGroupedStatusEnum,
+    $unitActionSorting: UnitActionSortingV2,
+    $exportFormat: ExportFormatEnum!,
+    $asyncExportRequest: Boolean) {
+      exportMassAction(
+        filter: {${formatFilters(filters)}},
+        columns: $columns,
+        massActionSorting: $massActionSorting,
+        unitActionStatus: $unitActionStatus,
+        groupedStatus: $groupedStatus,
+        unitActionSorting: $unitActionSorting,
+        exportFormat: $exportFormat,
+        asyncExportRequest: $asyncExportRequest
+      ){
+        downloadUri
+        total
+        asyncRequired
+      }
+    }`;
+
+  const response = await query(queryStr, {
+    columns,
+    unitActionStatus,
+    groupedStatus,
+    exportFormat,
+    asyncExportRequest,
+  });
+
+  return response.data.exportMassAction;
+}
+
 export async function exportMassAction(
   massActonId,
   statuses,
