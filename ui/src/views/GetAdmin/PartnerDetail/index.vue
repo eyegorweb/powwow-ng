@@ -18,7 +18,7 @@
     </div>
 
     <Summary
-      v-if="partner && havePermissionForMVNO"
+      v-if="partner && havePermission('party', 'read_account_detail')"
       :partner-id="this.$route.params.id"
       :partner-type="partner.partyType"
     />
@@ -127,10 +127,12 @@ export default {
           title: this.$t('getadmin.partners.customerList'),
         });
       } else {
-        tabs.push({
-          label: 'billingAccounts',
-          title: this.$t('filters.billingAccounts'),
-        });
+        if (this.havePermission('party', 'read_customer_account')) {
+          tabs.push({
+            label: 'billingAccounts',
+            title: this.$t('filters.billingAccounts'),
+          });
+        }
       }
 
       tabs.push({
@@ -138,7 +140,7 @@ export default {
         title: this.$t('getadmin.partners.offersAndSim'),
       });
 
-      if (this.havePermissionForMVNO) {
+      if (this.havePermission('party', 'read_account_detail')) {
         tabs.push({
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
@@ -151,13 +153,6 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner', 'havePermission']),
-    havePermissionForMVNO() {
-      if (this.partner && this.partner.partyType === 'MVNO') {
-        return this.havePermission('party', 'read_account_detail');
-      }
-      // otherwise for other partners (M2M, Marque blanche)
-      return true;
-    },
     partnerName() {
       return this.partner ? this.partner.name : '';
     },

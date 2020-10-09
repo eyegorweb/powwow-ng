@@ -9,7 +9,9 @@
       />
     </div>
     <div class="cards">
-      <CardButton @click="openCreationPanel">{{ $t('getadmin.users.addUser') }}</CardButton>
+      <CardButton v-if="canShow" @click="openCreationPanel">{{
+        $t('getadmin.users.addUser')
+      }}</CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
