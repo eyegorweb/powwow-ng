@@ -727,6 +727,7 @@
       "bscs": "Compte root BSCS :",
       "label": "Libellé :",
       "company": "Societé :",
+      "actBlock": "Blocage des actes de gestion",
       "contractReference": "Référence du contrat cadre :",
       "contractDate": "Date du contrat :",
       "contractExpiration": "Fin du contrat :",

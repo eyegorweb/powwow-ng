@@ -29,7 +29,8 @@
 
               <FormControl label="getadmin.partnerDetail.company" v-model="form.company" />
               <UiToggle
-                label="Blocage des actes de gestion"
+                v-if="havePermission('party', 'update_customer_account')"
+                :label="$t('getadmin.partnerDetail.actBlock')"
                 :editable="true"
                 v-model="form.actBlock"
               />
@@ -57,9 +58,12 @@
                   </div>
                 </div>
               </div>
-              <Button :variant="'primary'" @click="save">{{
-                $t('getadmin.partnerDetail.update')
-              }}</Button>
+              <Button
+                v-if="havePermission('party', 'update_customer_account')"
+                :variant="'primary'"
+                @click="save"
+                >{{ $t('getadmin.partnerDetail.update') }}</Button
+              >
             </div>
           </div>
         </div>
@@ -68,7 +72,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import {
   fetchCustomerAccountsByPartnerId,
   getCustomerAccount,
@@ -179,6 +183,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['havePermission']),
     checkCountry() {
       if (this.account[0].address.country === 'null' || !this.account[0].address.country) {
         return '';

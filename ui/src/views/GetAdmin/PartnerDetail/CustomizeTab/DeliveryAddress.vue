@@ -10,6 +10,7 @@
       :filter-fn="filterFn"
       @create="openCreationPanel"
       @modify="modifyList($event)"
+      :permission="!havePermission('party', 'update_delivery_address')"
     >
       <template v-slot="{ item }">
         <div v-if="item.company" class="cardBloc-infos-name">
@@ -45,7 +46,7 @@ import CardsList from '@/views/GetAdmin/PartnerDetail/parts/CardsList.vue';
 
 import { fetchpartnerAddresses } from '@/api/partners';
 import { fetchDeliveryCountries } from '@/api/filters';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -66,6 +67,10 @@ export default {
       filteredAdresses: [],
       version: 0,
     };
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
   },
 
   methods: {
