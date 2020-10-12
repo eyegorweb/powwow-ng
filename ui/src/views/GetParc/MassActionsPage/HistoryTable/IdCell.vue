@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import { setTimeout } from 'timers';
 import get from 'lodash.get';
 
@@ -32,7 +32,8 @@ export default {
             date,
           }),
           panelId: 'getparc.history.details.title',
-          payload: this.row,
+          payload: { row: this.row, filters: this.appliedFilters },
+          // payoad: this.row,
           wide: false,
           backdrop: false,
           onClosePanel(params) {
@@ -54,8 +55,12 @@ export default {
       return parts[0];
     },
   },
-  computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
-  }),
+  computed: {
+    ...mapState({
+      isOpen: (state) => state.ui.isPanelOpen,
+    }),
+
+    ...mapGetters('actHistory', ['appliedFilters']),
+  },
 };
 </script>
