@@ -46,7 +46,7 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -61,7 +61,6 @@ export default {
     ]),
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
-      if (this.prevRoute === 'actDetail') return;
 
       if (this.$route.params && this.$route.params.queryFilters) {
         this.setRouteParamsFilters(this.$route.params.queryFilters);
@@ -69,9 +68,7 @@ export default {
       this.initFilterForContext();
       setTimeout(() => {
         this.setActDateStartFilter({
-          startDate: moment()
-            .subtract(3, 'month')
-            .format('DD/MM/YYYY'),
+          startDate: moment().subtract(3, 'month').format('DD/MM/YYYY'),
           endDate: moment().format('DD/MM/YYYY'),
         });
         this.isReady = true;
