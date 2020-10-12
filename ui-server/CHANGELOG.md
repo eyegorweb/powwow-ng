@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.243+20201012142211
+2020-10-12
+
+### Features
+
+- Récupération des filtres en cas de retour au tableau des actes de gestion (66414ffc48449b35e7cd6a81d0eb15616e7ba9b8)
+
+### Fixes
+
+- Traduction des graphes (6eebae9ac38218842023259a6bcce94f8b36a16f)
+
 ## 1.0.0-master.242+20201012140414
 2020-10-12
 
