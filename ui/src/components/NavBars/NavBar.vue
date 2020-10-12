@@ -53,7 +53,7 @@
       <div class="lang-flags">
         <a
           href="#"
-          @click.prevent="() => onChangeLang('fr')"
+          @click.prevent="() => changeAppLanguage('fr')"
           :class="{ active: $i18n.locale === 'fr' }"
           class="flag"
         >
@@ -61,7 +61,7 @@
         </a>
         <a
           href="#"
-          @click.prevent="() => onChangeLang('en')"
+          @click.prevent="() => changeAppLanguage('en')"
           :class="{ active: $i18n.locale === 'en' }"
           class="flag"
         >
@@ -99,13 +99,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import moment from 'moment';
+import { mapGetters, mapMutations } from 'vuex';
 
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import ActHistoryButton from './ActHistoryButton';
-import { setLanguage } from '@/api/language';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 
@@ -120,7 +118,7 @@ export default {
     isBackofficeProfile: Boolean,
   },
   mounted() {
-    this.changeLanguage(this.userLanguage);
+    this.changeAppLanguage(this.userLanguage);
 
     this.currentUrlName = this.$route.name;
 
@@ -257,6 +255,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['changeAppLanguage']),
     filterByPermission(arrayInput) {
       return arrayInput.filter(a => {
         if (!a.permission) return false;
@@ -283,20 +282,6 @@ export default {
       }
 
       this.currentIndex = currentIndex;
-    },
-    async onChangeLang(lang) {
-      this.changeLanguage(lang);
-
-      await setLanguage(lang);
-    },
-
-    changeLanguage(lang) {
-      this.$i18n.locale = lang;
-      if (lang === 'en') {
-        moment.locale('en-sg');
-      } else {
-        moment.locale('fr');
-      }
     },
 
     setPageTitle(route) {
