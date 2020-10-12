@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.241+20201012092454
+2020-10-12
+
+### Fixes
+
+- correction du style des adresses dans le détail partenaire (352bd8eb41097272865a025db820f857f45e9105)
+
 ## 1.0.0-master.240+20201009144407
 2020-10-09
 
