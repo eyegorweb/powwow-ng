@@ -57,17 +57,20 @@ export default {
       this.visibleMenuItems(this.menuItems, 'getadmin.customize.customFields');
       this.visibleMenuItems(this.menuItems, 'getadmin.customize.specificFields');
     }
-    if (this.partner.partyType !== 'MULTI_CUSTOMER') {
-      this.menuItems.push('getadmin.customize.deliveryAddress');
+    if (this.partner.partyType === 'MULTI_CUSTOMER') {
+      this.visibleMenuItems(this.menuItems, 'getadmin.customize.deliveryAddress');
     }
+    // Display 1st available submenu (due to permissions' aside effect)
+    this.section = this.menuItems[0] || '';
   },
 
   data() {
     return {
-      section: 'getadmin.customize.broadcastLists',
+      section: undefined,
 
       menuItems: [
         'getadmin.customize.broadcastLists',
+        'getadmin.customize.deliveryAddress',
         'getadmin.customize.customFields',
         'getadmin.customize.specificFields',
       ],
