@@ -1739,6 +1739,8 @@
     "orderDate": "Date de commande",
     "activationAsked": "Activation",
     "company": "Société",
+    "activation_date": "Date d'activation",
+    "commercialStatus": "Statut commercial",
     "label": "Libellé",
     "preActivationAsked": "Préactivation",
     "creator": "Créateur",
