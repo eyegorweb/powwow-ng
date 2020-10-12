@@ -178,6 +178,13 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       activationDate
       commercialStatusDate
       lastPLMN
+      offerGroup {
+        customerAccount {
+          id
+          name
+          code
+        }
+      }
       offer {
         marketingOffer {
           description
