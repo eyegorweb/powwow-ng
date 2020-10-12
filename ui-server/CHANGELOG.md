@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.241+20201012092454
+## 1.0.0-master.241+20201012093516
 2020-10-12
 
 ### Fixes
 
+- 1956 gestion des permissions pour le détail d'un partenaire (47d93b59c61d79bf1e1c76d07675c8960f7d5609)
 - correction du style des adresses dans le détail partenaire (352bd8eb41097272865a025db820f857f45e9105)
 
 ## 1.0.0-master.240+20201009144407
