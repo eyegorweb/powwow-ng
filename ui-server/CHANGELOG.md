@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.242+20201012140414
+2020-10-12
+
+### Fixes
+
+- 1956 ajout des permissions pour la gestion du détail de partenaire (1d9bc1613f970d0c36bf397654b4ea04eb6f5f2f)
+
 ## 1.0.0-master.241+20201012093516
 2020-10-12
 
