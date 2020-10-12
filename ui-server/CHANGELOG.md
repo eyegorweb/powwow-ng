@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.243+20201012142211
+## 1.0.0-master.243+20201012142650
 2020-10-12
 
 ### Features
 
 - Récupération des filtres en cas de retour au tableau des actes de gestion (66414ffc48449b35e7cd6a81d0eb15616e7ba9b8)
+- Ajout des colonnes CF, Statut commercial et Date dactivation dans la table des lignes (376c33d54a78090d3fc8935b278f5184ecddc28c)
 
 ### Fixes
 
