@@ -114,55 +114,57 @@
             </div>
           </div>
         </FoldableBlock>
-        <permission domain="getReport" action="read_dashboard_billing">
-          <FoldableBlock default-open :title="'Facturation'" :key="'Facturation'" draggable>
-            <div>
-              <div class="row">
-                <BilledAmountsGraph
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
-              </div>
-              <div class="row">
-                <BilledAmountsByZone
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
-              </div>
-              <div class="row">
-                <AmountByBilledLinesGraph
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
-              </div>
+        <div :key="'Facturation'">
+          <permission domain="getReport" action="read_dashboard_billing">
+            <FoldableBlock default-open :title="'Facturation'" draggable>
+              <div>
+                <div class="row">
+                  <BilledAmountsGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <div class="row">
+                  <BilledAmountsByZone
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <div class="row">
+                  <AmountByBilledLinesGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
 
-              <div class="row">
-                <BilledLinesNBGraph
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
+                <div class="row">
+                  <BilledLinesNBGraph
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <div class="row">
+                  <BilledLinesByZone
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
+                <div class="row">
+                  <BilledServices
+                    :partner="appliedPartner"
+                    :offer="appliedOffer"
+                    :billing-account="appliedBillingAccount"
+                  />
+                </div>
               </div>
-              <div class="row">
-                <BilledLinesByZone
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
-              </div>
-              <div class="row">
-                <BilledServices
-                  :partner="appliedPartner"
-                  :offer="appliedOffer"
-                  :billing-account="appliedBillingAccount"
-                />
-              </div>
-            </div>
-          </FoldableBlock>
-        </permission>
+            </FoldableBlock>
+          </permission>
+        </div>
       </transition-group>
     </draggable>
 
