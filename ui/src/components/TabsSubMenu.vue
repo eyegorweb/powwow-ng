@@ -29,4 +29,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list-group-item {
+  a {
+    color: black;
+    &.active {
+      color: $primary;
+    }
+  }
+}
+</style>
