@@ -138,7 +138,7 @@ export default {
     getMassActionItem(response) {
       if (response) {
         const foundItem = response.find(
-          (f) => f.massActionResponse.id === this.$route.params.massActionId
+          f => f.massActionResponse.id === this.$route.params.massActionId
         );
         if (foundItem) {
           return foundItem.massActionResponse;
