@@ -2,6 +2,22 @@
 
 <!--- next entry here -->
 
+## 1.9.0
+2020-10-13
+
+### Features
+
+- Récupération des filtres en cas de retour au tableau des actes de gestion (66414ffc48449b35e7cd6a81d0eb15616e7ba9b8)
+- Ajout des colonnes CF, Statut commercial et Date dactivation dans la table des lignes (376c33d54a78090d3fc8935b278f5184ecddc28c)
+
+### Fixes
+
+- 1956 gestion des permissions pour le détail d'un partenaire (47d93b59c61d79bf1e1c76d07675c8960f7d5609)
+- correction du style des adresses dans le détail partenaire (352bd8eb41097272865a025db820f857f45e9105)
+- 1956 ajout des permissions pour la gestion du détail de partenaire (1d9bc1613f970d0c36bf397654b4ea04eb6f5f2f)
+- Traduction des graphes (6eebae9ac38218842023259a6bcce94f8b36a16f)
+- Gestion de la date de fin de forfait. (b95c756b65adb67fa64ff07f3639b2eaffe64d6b)
+
 ## 1.8.0
 2020-10-09
 
