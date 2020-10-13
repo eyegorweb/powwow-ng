@@ -384,6 +384,10 @@
     <div class="d-flex">
       <div class="save-block">
         <UiButton
+          v-if="
+            havePermission('party', 'update_main_options') ||
+              havePermission('party', 'update_secondary_options')
+          "
           variant="primary"
           class="p-3"
           block
@@ -409,6 +413,7 @@ import ToggleGroup from '@/components/ToggleGroup.vue';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import get from 'lodash.get';
+import { mapGetters } from 'vuex';
 
 import { getPartyOptions, updatePartyOptions } from '@/api/partners.js';
 
@@ -425,6 +430,7 @@ export default {
     UiButton,
   },
   computed: {
+    ...mapGetters(['havePermission']),
     mailingLists() {
       if (!this.partner) return [];
       const mailingLists = get(this.partner, 'mailingLists', []);

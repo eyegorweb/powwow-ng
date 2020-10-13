@@ -9,14 +9,14 @@
       />
     </div>
     <div class="cards">
-      <CardButton v-if="canShow" @click="openCreationPanel">{{
+      <CardButton v-if="canUpdate" @click="openCreationPanel">{{
         $t('getadmin.users.addUser')
       }}</CardButton>
       <Card
         v-for="user in visibleUsers"
         :key="user.id"
-        :can-delete="canShow"
-        :can-modify="canShow"
+        :can-delete="canUpdate"
+        :can-modify="canUpdate"
         @delete="deleteUser(user)"
         @modify="modifyUser(user)"
       >
@@ -29,7 +29,7 @@
           {{ user.disable ? $t('col.notActive') : $t('col.active') }}
         </div>
         <div class="cardBloc-infos-role">
-          Rôle(s):
+          {{ $t('orders.detail.roles') }}:
           <span :key="role.description" v-for="role in user.roles">
             {{ role.description + ' ' }}
           </span>
@@ -175,7 +175,7 @@ export default {
 
   computed: {
     ...mapGetters(['userInfos', 'havePermission']),
-    canShow() {
+    canUpdate() {
       return this.havePermission('user', 'create');
     },
   },

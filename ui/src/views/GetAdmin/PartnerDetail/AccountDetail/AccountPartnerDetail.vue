@@ -137,9 +137,12 @@
               />
             </div>
           </div>
-          <Button :variant="'primary'" @click="save">{{
-            $t('getadmin.partnerDetail.update')
-          }}</Button>
+          <Button
+            v-if="havePermission('party', 'update_account_detail')"
+            :variant="'primary'"
+            @click="save"
+            >{{ $t('getadmin.partnerDetail.update') }}</Button
+          >
         </div>
       </div>
     </div>
@@ -205,6 +208,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['havePermission']),
     checkCountry() {
       if (this.accountDetail.address.country === 'null' || !this.accountDetail.address.country) {
         return '';
