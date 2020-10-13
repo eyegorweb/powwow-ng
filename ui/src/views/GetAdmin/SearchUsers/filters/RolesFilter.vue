@@ -29,7 +29,7 @@ export default {
     if (response) {
       this.items = response.map(r => {
         return {
-          id: r.name,
+          id: r.name + r.Id,
           label: r.description,
           ...r,
         };

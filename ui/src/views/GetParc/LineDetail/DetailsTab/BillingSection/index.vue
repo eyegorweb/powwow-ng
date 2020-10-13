@@ -124,14 +124,7 @@ export default {
 
   computed: {
     partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType');
-      let isMVNOPartner;
-      if (typeForPartner === 'MVNO') {
-        isMVNOPartner = true;
-      } else {
-        isMVNOPartner = false;
-      }
-      return isMVNOPartner;
+      return get(this.content, 'party.partyType') === 'MVNO';
     },
 
     billingStatusChangeDate() {
@@ -246,9 +239,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },

@@ -5,11 +5,16 @@
         @hover="hoveredAlarm = $event"
         @choose="currentAlarm = $event"
         :current="currentAlarm"
-        :duplicate-from="content"
+        :duplicate-from="duplicateFrom"
       />
     </div>
     <div class="currentForm">
-      <FormSwitcher v-if="currentAlarm" :alarm="currentAlarm" :duplicate-from="content" />
+      <FormSwitcher
+        v-if="currentAlarm"
+        :alarm="currentAlarm"
+        :duplicate-from="duplicateFrom"
+        :partner="partner"
+      />
       <AlarmDescription v-else-if="hoveredAlarm" :alarm="hoveredAlarm" />
     </div>
   </div>
@@ -34,6 +39,18 @@ export default {
       currentAlarm: undefined,
       hoveredAlarm: undefined,
     };
+  },
+  computed: {
+    duplicateFrom() {
+      const ret = this.$loGet(this.content, 'duplicateFrom');
+      if (!ret) return undefined;
+      return ret;
+    },
+    partner() {
+      const ret = this.$loGet(this.content, 'partner');
+      if (!ret) return undefined;
+      return ret;
+    }
   },
 };
 </script>

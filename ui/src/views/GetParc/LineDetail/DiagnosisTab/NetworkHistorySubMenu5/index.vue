@@ -117,14 +117,7 @@ export default {
     ...mapGetters(['userIsBO']),
 
     partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType');
-      let isMVNOPartner;
-      if (typeForPartner === 'MVNO') {
-        isMVNOPartner = true;
-      } else {
-        isMVNOPartner = false;
-      }
-      return isMVNOPartner;
+      return get(this.content, 'party.partyType') === 'MVNO';
     },
   },
 
