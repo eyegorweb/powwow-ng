@@ -21,10 +21,8 @@ Vue.prototype.mina = window.mina;
 
 import $ from 'jquery';
 import addGaugeSupport from '@/dep/GaugeMeter.js';
-import configureHighcharts from '@/dep/highcharts';
 
 addGaugeSupport($);
-configureHighcharts();
 
 new Vue({
   router,

@@ -68,6 +68,7 @@ export default {
     },
 
     createChart(data) {
+      const $t = this.$t;
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -125,9 +126,7 @@ export default {
           useHTML: true,
           xDateFormat: '%d/%m/%Y',
           pointFormatter() {
-            if (
-              this.series.userOptions.name == this.$t('getparc.lineDetail.supervision.nbCnxPdp')
-            ) {
+            if (this.series.userOptions.name == $t('getparc.lineDetail.supervision.nbCnxPdp')) {
               return `
               <div style="width: 7px; height: 7px; border-radius: 15px; background-color: ${
                 this.series.userOptions.color

@@ -34,9 +34,9 @@
         </div>
         <template v-if="hasResults">
           <DataTable
-            v-if="columns"
             storage-id="getparc.lines"
-            storage-version="005"
+            storage-version="006"
+            v-if="columns"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -243,7 +243,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -491,6 +491,45 @@ export default {
           format: {
             type: 'ObjectAttribute',
             path: 'custom5',
+          },
+        },
+        {
+          id: 21,
+          label: this.$t('col.commercialStatus'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_CUSTOM_FIELD6',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'commercialStatus',
+          },
+        },
+        {
+          id: 22,
+          label: this.$t('col.activation_date'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_CUSTOM_FIELD6',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'activationDate',
+          },
+        },
+        {
+          id: 23,
+          label: this.$t('col.billingAccount'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_CUSTOM_FIELD6',
+          format: {
+            type: 'Getter',
+            getter: (row) => {
+              return (
+                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
+                ' - ' +
+                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
+              );
+            },
           },
         },
       ],

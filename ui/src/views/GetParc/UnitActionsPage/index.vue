@@ -6,7 +6,10 @@
     <div class="mt-4">
       <div class="row">
         <div class="col-md-9">
-          <button @click.prevent="$router.go(-1)" class="btn btn-link back-btn">
+          <button
+            @click.prevent="$router.push({ name: 'actHistory', params: { queryFilters: filters } })"
+            class="btn btn-link back-btn"
+          >
             <i class="ic-Arrow-Previous-Icon" />
             {{ $t('back') }}
           </button>
@@ -135,7 +138,7 @@ export default {
     getMassActionItem(response) {
       if (response) {
         const foundItem = response.find(
-          f => f.massActionResponse.id === this.$route.params.massActionId
+          (f) => f.massActionResponse.id === this.$route.params.massActionId
         );
         if (foundItem) {
           return foundItem.massActionResponse;
@@ -150,6 +153,9 @@ export default {
     },
   },
   computed: {
+    filters() {
+      return this.$loGet(this.$route, 'params.actHistoryTableFilters');
+    },
     massActionsTitleInfos() {
       return this.massAction
         ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${

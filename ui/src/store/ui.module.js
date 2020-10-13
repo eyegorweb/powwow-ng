@@ -1,5 +1,10 @@
 import uuid from 'uuid/v1';
 import { loadWidgets, getProfile, WIDGETS_STORAGE_VERSION } from '@/views/Home/widgets';
+import { setLanguage } from '@/api/language';
+import moment from 'moment';
+
+import $i18n from '@/i18n';
+import configureHighcharts from '@/dep/highcharts';
 
 export const state = {
   isPanelOpen: false,
@@ -74,6 +79,17 @@ function saveFormattedWidgets(widgets) {
 }
 
 export const mutations = {
+  async changeAppLanguage(state, lang) {
+    $i18n.locale = lang;
+    if (lang === 'en') {
+      moment.locale('en-sg');
+    } else {
+      moment.locale('fr');
+    }
+
+    configureHighcharts(lang);
+    await setLanguage(lang);
+  },
   initHomeWidgets(state) {
     state.homeWidgets = loadWidgets();
     saveFormattedWidgets(state.homeWidgets);

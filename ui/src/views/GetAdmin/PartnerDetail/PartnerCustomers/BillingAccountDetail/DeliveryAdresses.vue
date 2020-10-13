@@ -102,7 +102,9 @@ export default {
 
       return filteredAdresses;
     },
-    openCreationPanel() {},
+    openCreationPanel() {
+      console.log('creation');
+    },
     modifyList(address) {
       console.log(address);
     },
@@ -114,4 +116,27 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.cardBloc-infos {
+  &-name {
+    font-weight: 500;
+    color: #454545;
+    margin-bottom: 7px;
+    font-size: 16px;
+  }
+
+  &-role {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  &-email {
+    margin-top: 5px;
+
+    a {
+      color: #009dcc;
+      text-decoration: underline;
+    }
+  }
+}
+</style>
