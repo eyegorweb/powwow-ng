@@ -41,15 +41,8 @@ export default {
   },
   data() {
     return {
-      prevRoute: undefined,
       isReady: false,
     };
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.prevRoute = from.name;
-      vm.initAfterRouteIsSet();
-    });
   },
   methods: {
     ...mapActions('actHistory', ['initFilterForContext']),
@@ -62,20 +55,38 @@ export default {
     initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
 
+      let haveDateFilterInQueryFilter = false;
       if (this.$route.params && this.$route.params.queryFilters) {
+        console.log(
+          'initAfterRouteIsSet -> this.$route.params.queryFilters',
+          this.$route.params.queryFilters
+        );
         this.setRouteParamsFilters(this.$route.params.queryFilters);
+        haveDateFilterInQueryFilter = !!this.$route.params.queryFilters.find(
+          f => f.id === 'filters.actDateStart'
+        );
       }
       this.initFilterForContext();
-      setTimeout(() => {
-        this.setActDateStartFilter({
-          startDate: moment().subtract(3, 'month').format('DD/MM/YYYY'),
-          endDate: moment().format('DD/MM/YYYY'),
-        });
+
+      if (haveDateFilterInQueryFilter) {
         this.isReady = true;
         setTimeout(() => {
           this.applyFilters();
         });
-      }, 100);
+      } else {
+        setTimeout(() => {
+          this.setActDateStartFilter({
+            startDate: moment()
+              .subtract(3, 'month')
+              .format('DD/MM/YYYY'),
+            endDate: moment().format('DD/MM/YYYY'),
+          });
+          this.isReady = true;
+          setTimeout(() => {
+            this.applyFilters();
+          });
+        }, 100);
+      }
     },
   },
   mounted() {

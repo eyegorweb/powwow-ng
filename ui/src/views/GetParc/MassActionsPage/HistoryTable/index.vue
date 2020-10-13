@@ -278,7 +278,7 @@ export default {
     // Pour chaque item/objet, on joue la valeur de massActionResponse pour la remonter d'un niveau et pour qu'elle se trouve à coté de "user, party, fromParty, toParty"
     formatResponse(response) {
       if (response) {
-        return response.map((i) => ({ ...i, ...i.massAction }));
+        return response.map(i => ({ ...i, ...i.massAction }));
       }
     },
     getExportFn() {
@@ -286,7 +286,7 @@ export default {
         // si CUSTOM_SUCCESS_ERROR est présente alors il mettre à la place les 2 params  COMPLETED et FAILED
         let columnsToUse = [...columnsParam];
 
-        const customSuccessErrorIndex = columnsParam.findIndex((c) => c === 'CUSTOM_SUCCESS_ERROR');
+        const customSuccessErrorIndex = columnsParam.findIndex(c => c === 'CUSTOM_SUCCESS_ERROR');
 
         if (customSuccessErrorIndex > -1) {
           columnsToUse.splice(customSuccessErrorIndex, 1, 'COMPLETED', 'FAILED');

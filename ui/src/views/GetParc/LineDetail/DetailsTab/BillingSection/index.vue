@@ -99,7 +99,6 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
 import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
 
 export default {

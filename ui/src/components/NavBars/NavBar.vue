@@ -118,7 +118,7 @@ export default {
     isBackofficeProfile: Boolean,
   },
   mounted() {
-    this.changeAppLanguage(this.userLanguage);
+    this.changeAppLanguage(this.userLanguage || 'fr');
 
     this.currentUrlName = this.$route.name;
 
