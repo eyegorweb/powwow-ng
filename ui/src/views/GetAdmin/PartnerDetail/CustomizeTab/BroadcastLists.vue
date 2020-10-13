@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="cards">
-      <div class="addNew" @click="openCreationPanel">
+      <div v-if="canUpdate" class="addNew" @click="openCreationPanel">
         <div class="addNew-logo">
           <i class="icon ic-User-Icon"></i>
         </div>
@@ -11,7 +11,7 @@
         <Card
           v-for="list in broadcastLists"
           :key="list.id"
-          :can-delete="true"
+          :can-delete="canUpdate"
           @delete="deleteList(list.id)"
           @modify="modifyList(list)"
         >
@@ -28,7 +28,7 @@
 <script>
 import Card from '@/components/Card';
 import { fetchBroadcastLists, deleteBroadcastList } from '@/api/partners.js';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -109,6 +109,13 @@ export default {
       broadcastLists: undefined,
       searchValue: null,
     };
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
+    canUpdate() {
+      return this.havePermission('party', 'update_broadcast_list');
+    },
   },
 
   async mounted() {

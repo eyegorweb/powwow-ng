@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="cards">
-      <div v-if="!noEdit && !permission" class="addNew" @click="$emit('create')">
+      <div v-if="!noEdit" class="addNew" @click="$emit('create')">
         <div class="addNew-logo">
           <i :class="`icon ${addIcon}`"></i>
         </div>
@@ -24,7 +24,7 @@
       <Card
         v-for="list in filteredItems"
         :key="list.id"
-        :can-delete="canDelete"
+        :can-delete="!noEdit"
         :can-modify="!noEdit"
         @modify="$emit('modify', list)"
       >
@@ -53,7 +53,6 @@ export default {
     filterFn: Function,
     noEdit: Boolean,
     canDelete: Boolean,
-    permission: Boolean,
   },
 
   data() {

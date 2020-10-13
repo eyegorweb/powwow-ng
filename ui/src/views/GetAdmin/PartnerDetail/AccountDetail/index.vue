@@ -35,12 +35,27 @@ export default {
   },
 
   mounted() {
-    if (this.userInfos.type === 'OPERATOR') {
+    if (
+      this.havePermission('party', 'read_account_detail') &&
+      this.havePermission('party', 'read_options')
+    ) {
       this.menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
       this.section = 'getadmin.partners.options';
-    } else {
+    } else if (
+      this.havePermission('party', 'read_account_detail') &&
+      !this.havePermission('party', 'read_options')
+    ) {
       this.menuItems = ['getadmin.partners.accountDescription'];
       this.section = 'getadmin.partners.accountDescription';
+    } else if (
+      !this.havePermission('party', 'read_account_detail') &&
+      this.havePermission('party', 'read_options')
+    ) {
+      this.menuItems = ['getadmin.partners.options'];
+      this.section = 'getadmin.partners.options';
+    } else {
+      this.menuItems = [];
+      this.section = '';
     }
   },
 
@@ -53,7 +68,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfos']),
+    ...mapGetters(['havePermission']),
   },
 };
 </script>

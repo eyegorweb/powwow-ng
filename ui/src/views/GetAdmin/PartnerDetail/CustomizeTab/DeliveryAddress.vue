@@ -10,7 +10,7 @@
       :filter-fn="filterFn"
       @create="openCreationPanel"
       @modify="modifyList($event)"
-      :permission="!havePermission('party', 'update_delivery_address')"
+      :no-edit="!havePermission('party', 'update_delivery_address')"
     >
       <template v-slot="{ item }">
         <div v-if="item.company" class="cardBloc-infos-name">
