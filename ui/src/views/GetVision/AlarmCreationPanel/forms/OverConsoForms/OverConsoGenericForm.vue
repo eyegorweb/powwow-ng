@@ -4,7 +4,7 @@
       <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
       <div class="line-container" v-for="line in lines" :key="line.id">
         <div class="value">
-          <span>{{ valueLabel }}</span>
+          <span>{{ $t(valueLabel) }}</span>
           <UiInput
             class="value-input"
             input-type="number"
@@ -125,8 +125,8 @@ export default {
   computed: {
     limits() {
       const limits = this.lines
-        .filter(line => line.limit && line.value)
-        .map(line => [line.limit, parseInt(line.value)]);
+        .filter((line) => line.limit && line.value)
+        .map((line) => [line.limit, parseInt(line.value)]);
 
       // 99 correspond à la fin du mois
       limits.push([99, parseInt(this.basePercent)]);
@@ -173,7 +173,7 @@ export default {
       });
     },
     deleteLine(line) {
-      this.lines = this.lines.filter(l => l.id !== line.id);
+      this.lines = this.lines.filter((l) => l.id !== line.id);
     },
     addNewLine() {
       if (this.lines.length < 2) {
@@ -223,6 +223,7 @@ export default {
       padding-right: 0.5rem;
       position: relative;
       top: 0.6rem;
+      font-size: 14px;
     }
     & /deep/ select {
       padding: 0.2rem 0.2rem;
