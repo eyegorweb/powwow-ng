@@ -325,9 +325,9 @@ function addPartnerFilter(gqlFilters, selectedFilters) {
 }
 
 function addRolesFilter(gqlFilters, selectedFilters) {
-  const values = getValuesIds(selectedFilters, 'getadmin.users.filters.roles');
-  if (values) {
-    gqlFilters.push(`roleName: {in: [${values}]}`);
+  const values = getFilterValues(selectedFilters, 'getadmin.users.filters.roles');
+  if (values && values.length) {
+    gqlFilters.push(`roleName: {in: [${values.map(i => `"${i.name}"`).join(',')}]}`);
   }
 }
 

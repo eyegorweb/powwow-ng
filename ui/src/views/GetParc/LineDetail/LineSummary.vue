@@ -108,11 +108,7 @@ export default {
   },
   computed: {
     partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType', '-');
-      if (typeForPartner === 'MVNO') {
-        return true;
-      }
-      return false;
+      return get(this.content, 'party.partyType') === 'MVNO';
     },
   },
   methods: {

@@ -2,13 +2,14 @@
   <AlarmCreationBaseForm
     :alarm="alarm"
     :duplicate-from="duplicateFrom"
+    :partner="partner"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
     :suspension="true"
     :check-errors-fn="isFormValid"
   >
-    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
+    <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
   </AlarmCreationBaseForm>
 </template>
 
@@ -27,6 +28,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object
   },
   data() {
     return {

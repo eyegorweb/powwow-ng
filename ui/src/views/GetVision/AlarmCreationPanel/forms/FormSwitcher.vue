@@ -6,6 +6,7 @@
       :is="component"
       :alarm="alarm"
       :duplicate-from="duplicateFrom"
+      :partner="partner"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object
   },
 
   data() {

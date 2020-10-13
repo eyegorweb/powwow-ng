@@ -37,9 +37,7 @@
           </template>
         </ContentBlock>
         <ContentBlock :key="'block2'">
-          <template slot="title"
-            >CARTE SIM</template
-          >
+          <template slot="title">CARTE SIM</template>
           <template slot="content">
             <div class="row">
               <div class="col-md-1">
@@ -249,11 +247,7 @@ export default {
       return found;
     },
     partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType', '-');
-      if (typeForPartner === 'MVNO') {
-        return true;
-      }
-      return false;
+      return get(this.content, 'party.partyType') === 'MVNO';
     },
   },
   methods: {
