@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.245+20201013091255
+2020-10-13
+
+### Fixes
+
+- Correction orthographe panel alarme (8cdd594f5cc7542d25cb486daedee050401b0d65)
+- Correction du filtres d'actes de gestions (9099047083b0b347a653faeaf8fbe8f62c331d6f)
+
 ## 1.0.0-master.244+20201013064833
 2020-10-13
 
