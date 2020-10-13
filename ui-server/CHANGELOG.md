@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.244+20201013064833
+2020-10-13
+
+### Fixes
+
+- Gestion de la date de fin de forfait. (b95c756b65adb67fa64ff07f3639b2eaffe64d6b)
+
 ## 1.0.0-master.243+20201012142650
 2020-10-12
 
