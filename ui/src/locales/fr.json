@@ -518,7 +518,7 @@
       "limitedScope": "Cette alarme a une portée limitée à la ligne sélectionnée",
       "chooseOffer": "Choisir l'offre",
       "setLimits": "DÉFINIR DES SEUILS DE DÉCLENCHEMENT PAR USAGE (3 MAX.)",
-      "noLimitsConfigured": "Aucun seuil n'est configurer pour cet usage",
+      "noLimitsConfigured": "Aucun seuil n'est configuré pour cet usage",
       "configureForUsage": "Configurer pour cet usage",
       "addLimit": "Ajouter un seuil",
       "beforeEndOfMonth": "Avant la fin du mois",
