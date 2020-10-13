@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.246+20201013105223
+2020-10-13
+
+### Fixes
+
+- Taille du label et traduction dans le panel de creation alarme (4fa4dc45d312e4d7a1765009d6db88aefe07f856)
+
 ## 1.0.0-master.245+20201013091255
 2020-10-13
 
