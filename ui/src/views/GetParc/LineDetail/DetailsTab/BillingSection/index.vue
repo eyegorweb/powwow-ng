@@ -18,11 +18,11 @@
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
               <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
             </div>
-            <div class="item" v-if="!userIsMVNO && dateCommitmentEnd">
+            <div class="item" v-if="!partnerTypeMVNO && dateCommitmentEnd">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
               <p>{{ dateCommitmentEnd }}</p>
             </div>
-            <div class="item" v-if="userIsMVNO && flatEndDate">
+            <div class="item" v-if="partnerTypeMVNO && flatEndDate">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endForfaitDate') }}:</h6>
               <p>{{ flatEndDate }}</p>
             </div>
@@ -124,7 +124,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsMVNO']),
+    partnerTypeMVNO() {
+      const typeForPartner = get(this.content, 'party.partyType');
+      let isMVNOPartner;
+      if (typeForPartner === 'MVNO') {
+        isMVNOPartner = true;
+      } else {
+        isMVNOPartner = false;
+      }
+      return isMVNOPartner;
+    },
 
     billingStatusChangeDate() {
       return this.getFromContent('accessPoint.billingStatusChangeDate');
