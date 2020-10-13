@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.247+20201013130913
+2020-10-13
+
+### Fixes
+
+- 1955 ajout du style des menus actifs (5b562545d77e561e68dda75d08a023bef332b77f)
+- La croix était transparente sur linput de recherche (457d85fdc5bc40d4506f1d1b3ad729758a06490a)
+- dans le détail d'une ligne, le champ partenaire doit être masqué et la portée de l'alarme doit être en numéro 1 (631fdadf612345117363bd62d35c155162699dd2)
+- 1956 ajout des permissions pour gérer le détail des partenaires (33d74f4f77a33eea07098d322868f65e706e06b5)
+
 ## 1.0.0-master.246+20201013105223
 2020-10-13
 
