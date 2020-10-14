@@ -164,10 +164,7 @@ export default {
       if (simStatus === 'AVAILABLE') {
         return `${get(this.content, 'created')}`;
       } else if (simStatus === 'ALLOCATED') {
-        const result = get(this.content, 'accessPoint.activationDate')
-          ? get(this.content, 'accessPoint.activationDate')
-          : get(this.content, 'accessPoint.preactivationDate');
-        return `${result}`;
+        return get(this.content, 'accessPoint.preactivationDate');
       } else if (simStatus === 'ALLOCATING') {
         return `${get(this.content, 'updated')}`;
       } else if (simStatus === 'RELEASED') {
@@ -239,9 +236,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },
