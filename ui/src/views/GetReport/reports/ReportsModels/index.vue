@@ -98,7 +98,7 @@ export default {
           noHandle: true,
           format: {
             type: 'OpenPanel',
-            getConfig: (row) => this.getPanelConfig(row),
+            getConfig: row => this.getPanelConfig(row),
           },
         },
         {
@@ -111,7 +111,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return row.generationDate;
             },
           },
@@ -126,7 +126,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return row.party && row.party.name ? row.party.name : '';
             },
           },
@@ -141,9 +141,9 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               const foundLabelFrequency = this.reportFrequencyChoices.find(
-                (r) => row.frequency === r.id
+                r => row.frequency === r.id
               );
               if (foundLabelFrequency) return foundLabelFrequency.label;
               return undefined;
@@ -184,7 +184,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return row.fields;
             },
           },
@@ -200,7 +200,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return this.$t('getreport.report_statut.' + row.generationStatus);
             },
           },

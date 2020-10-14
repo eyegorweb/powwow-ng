@@ -42,7 +42,7 @@
             </div>
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.lineStatus') }}:</h6>
-              <p v-if="lineStatus">{{ lineStatus }}</p>
+              <p v-if="lineStatus" v-html="lineStatus">{{ lineStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
@@ -179,11 +179,12 @@ export default {
     lineStatus() {
       const lineStatus = get(this.content, 'accessPoint.lines[0].status');
       if (lineStatus === 'ALLOCATED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} ${this.$t(
-          'fromThe'
-        )} ${get(this.content, 'accessPoint.lines[0].auditable.created')}`;
+        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} <br /> ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.created'
+        )}`;
       } else if (lineStatus === 'RELEASED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} ${this.$t('fromThe')} ${get(
+        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} <br /> ${get(
           this.content,
           'accessPoint.lines[0].auditable.updated'
         )}`;
