@@ -28,7 +28,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
-    partner: Object
+    partner: Object,
   },
   data() {
     return {

@@ -85,7 +85,7 @@ export default {
         filterObj,
       ]);
       this.isLoading = false;
-      console.log("searchById -> result", result)
+      console.log('searchById -> result', result);
       if (result && result.items && result.items.length) {
         this.rows = result.items;
         if (this.rows && this.rows.length === 1) {

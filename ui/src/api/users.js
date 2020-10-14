@@ -1,10 +1,4 @@
-import {
-  query,
-  getFilterValue,
-  getFilterValues,
-  getValuesIds,
-  getValuesIdsWithoutQuotes,
-} from './utils';
+import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
 
 export async function fetchAllowedRoles(userId, partyId, partyGroupId) {
   let partyGroupParam = '';

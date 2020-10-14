@@ -25,8 +25,8 @@ export default {
     disableWhenEmpty: Boolean,
     inline: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   mounted() {
     if (this.userIsBO) {

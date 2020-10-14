@@ -35,7 +35,7 @@ export default {
     current: Object,
     duplicateFrom: {
       type: Object,
-      required: false
+      required: false,
     },
   },
 

@@ -1,8 +1,8 @@
 <template>
   <MultiSelectSearch
     :items="offerServices"
-    :disabled-items="disabledServices"
     :default-selected-items.sync="selectedServices"
+    :selected-color="selectedColor"
   />
 </template>
 
@@ -15,6 +15,10 @@ export default {
   props: {
     offer: Object,
     selectedItems: Array,
+    selectedColor: {
+      type: String,
+      required: false,
+    },
     itemsToDisable: {
       type: Array,
       default: () => [],
@@ -45,9 +49,15 @@ export default {
           label: s.labelService,
         };
       };
-      this.offerServices = offerServices.filter(s => s.code !== 'DATA').map(multiselectFormat);
-      const disabledServices = this.offerServices.filter(s => !s.editable);
-      this.disabledServices = [...disabledServices, ...this.itemsToDisable];
+      const filteredOfferServices = offerServices
+        .filter(s => s.code !== 'DATA')
+        .map(multiselectFormat);
+      const disabledServices = filteredOfferServices.filter(s => !s.editable);
+      const allDisabledServices = [...disabledServices, ...this.itemsToDisable];
+
+      this.offerServices = filteredOfferServices.filter(
+        s => !allDisabledServices.find(d => d.code === s.code)
+      );
     },
   },
 
