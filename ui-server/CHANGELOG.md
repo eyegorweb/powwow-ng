@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.251+20201014132952
+2020-10-14
+
+### Fixes
+
+- Changer SIRET pour SIREN sur le CF Marque blanche (b545747c1ba67483948ac52670896644614e083d)
+- Enlever la mention "depuis le" en double (ca6badec73c36091f70698a0704764c99513dfb6)
+
 ## 1.0.0-master.250+20201014130222
 2020-10-14
 
