@@ -674,6 +674,7 @@
         "name": "Libellé de l’établissement",
         "marketLine": "Ligne de marché",
         "siret": "N° siret",
+        "siren": "N° siren",
         "status": "Statut",
         "commercialOffer": "Offres commerciales",
         "simCards": "Cartes SIM",
