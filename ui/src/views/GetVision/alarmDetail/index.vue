@@ -125,7 +125,7 @@ export default {
         title: this.$t('getvsion.detail-panel.change-alarm'),
         panelId: 'getvsion.table.create-alarm',
         payload: {
-          duplicateFrom: { ...this.alarm, toModify: true }
+          duplicateFrom: { ...this.alarm, toModify: true },
         },
         wide: true,
         backdrop: true,

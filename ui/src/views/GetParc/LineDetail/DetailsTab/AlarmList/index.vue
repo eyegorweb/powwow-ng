@@ -139,7 +139,7 @@ export default {
         backdrop: true,
         ignoreClickAway: true,
         payload: {
-          partner: this.content.party
+          partner: this.content.party,
         },
         onClosePanel(params) {
           if (params && params.resetSearch) {

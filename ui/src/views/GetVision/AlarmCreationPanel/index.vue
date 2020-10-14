@@ -50,7 +50,7 @@ export default {
       const ret = this.$loGet(this.content, 'partner');
       if (!ret) return undefined;
       return ret;
-    }
+    },
   },
 };
 </script>
