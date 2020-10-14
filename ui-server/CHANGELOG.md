@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.250+20201014130222
+2020-10-14
+
+### Fixes
+
+- Changer SIRET pour SIREN sur le CF Marque blanche (b545747c1ba67483948ac52670896644614e083d)
+
 ## 1.0.0-master.249+20201014093911
 2020-10-14
 
