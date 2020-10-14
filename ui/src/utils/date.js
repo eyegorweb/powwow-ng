@@ -13,6 +13,12 @@ export function getMonthString(dateStr) {
   return moment(dateStr, DATE_FORMAT).format('MMMM');
 }
 
+export function getMonthStringPreviousMonth(dateStr, numberOfPreviousMonths) {
+  return moment(dateStr, DATE_FORMAT)
+    .subtract(numberOfPreviousMonths, 'month')
+    .format('MMMM');
+}
+
 export function getMonthAndYear(dateStr) {
   const month = moment(dateStr, DATE_FORMAT).format('MMMM');
   const year = moment(dateStr, DATE_FORMAT).format('YYYY');

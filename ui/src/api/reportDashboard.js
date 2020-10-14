@@ -48,15 +48,21 @@ export async function billedAmountByZone(partnerId, customerAccountCode, period)
   if (response.data) return response.data.billedAmountAndConsoByZoneGraph;
 }
 
-export async function billedLineAndAmount(partnerId, customerAccountCode, period) {
-  let customerAccountParam = '';
+export async function billedLineAndAmount(partnerId, customerAccountCode, offerId, period) {
+  let customerAccountParam = '',
+    offerIdParam = '';
 
   if (customerAccountCode) {
     customerAccountParam = `, customerAccountCode: "${customerAccountCode}"`;
   }
+
+  if (offerId) {
+    offerIdParam = `, offerId: "${offerId}"`;
+  }
+
   const queryStr = `
   {
-    billedLinesAndAmount(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+    billedLinesAndAmount(filter: {partnerId: ${partnerId}, period: ${period} ${customerAccountParam} ${offerIdParam}}) {
       date
       billedLines
       totalAmount
