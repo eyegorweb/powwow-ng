@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.249+20201014093911
+2020-10-14
+
+### Fixes
+
+- Problème de pagination limit dans le tableau des rapports (261f81c1749943a8e12ccf50d430283ceb196a38)
+- Modification des services en masse (42c369696cf8ba002b16893092ff6183ffb40b99)
+- 1738 mise à jour de l'api du graphe Nbre de lignes facturées et détail des montants facturés (28bfa1fb2eaa9f0af0c71d8dd2202d5cbe2730ea)
+
 ## 1.0.0-master.248+20201014074840
 2020-10-14
 
