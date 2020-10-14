@@ -13,7 +13,7 @@
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>{{ indicator.name }}</td>
           <td>
-            <button class="btn btn-link p-0">
+            <button class="btn p-0">
               <span>{{ indicator.total }}</span>
             </button>
           </td>
