@@ -106,7 +106,7 @@ export default {
 
 .ic-Cross-Icon {
   background-color: white;
-  padding: 10px 3px;
+  padding: 5px 3px;
 }
 label {
   &.error input {
