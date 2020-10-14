@@ -1,6 +1,11 @@
 <template>
   <div class="bg-white p-3">
-    <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" disable-when-empty />
+    <SearchByLinesId
+      @searchById="searchById"
+      :init-value="searchByIdValue"
+      :inline="inline"
+      disable-when-empty
+    />
     <div v-if="isLoading" class="skeleton-line"></div>
     <template v-else-if="rows && rows.length">
       <ul v-if="rows.length > 1" class="result list-unstyled">
@@ -44,6 +49,10 @@ export default {
   },
   props: {
     initValue: String,
+    inline: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -76,6 +85,7 @@ export default {
         filterObj,
       ]);
       this.isLoading = false;
+      console.log("searchById -> result", result)
       if (result && result.items && result.items.length) {
         this.rows = result.items;
         if (this.rows && this.rows.length === 1) {

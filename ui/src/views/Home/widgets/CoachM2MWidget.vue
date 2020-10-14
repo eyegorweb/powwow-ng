@@ -12,6 +12,7 @@
       <SearchLineWithResults
         v-if="!coachData"
         :init-value="lastSearchedId"
+        :inline="false"
         @choice="startDiagnosis"
         @searchedId="lastSearchedId = $event"
       />

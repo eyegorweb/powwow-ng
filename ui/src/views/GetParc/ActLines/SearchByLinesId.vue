@@ -6,6 +6,7 @@
     :additional-ids="additionalIds"
     placeholder="searchLine"
     :disable-when-empty="disableWhenEmpty"
+    :inline="inline"
   />
 </template>
 
@@ -22,6 +23,10 @@ export default {
       type: String,
     },
     disableWhenEmpty: Boolean,
+    inline: {
+      type: Boolean,
+      default: true
+    }
   },
   mounted() {
     if (this.userIsBO) {
