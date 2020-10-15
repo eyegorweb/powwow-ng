@@ -151,7 +151,7 @@ export default {
     ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO']),
 
     ...mapState({
-      actToCreate: state => state.actLines.actToCreate,
+      actToCreate: (state) => state.actLines.actToCreate,
     }),
 
     totalSelected() {
@@ -161,10 +161,10 @@ export default {
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems
-          .filter(i => {
+          .filter((i) => {
             return !i.boOnly;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
             }
@@ -205,14 +205,14 @@ export default {
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
       }
 
       return null;
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -495,7 +495,7 @@ export default {
       });
     },
     currentFilters(currentFilters) {
-      const haveValues = !!currentFilters.find(filter => {
+      const haveValues = !!currentFilters.find((filter) => {
         return (
           (filter.values && filter.values.length) ||
           filter.value ||
