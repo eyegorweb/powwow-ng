@@ -22,6 +22,9 @@
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
         />
+        <a @click.prevent="resetValue" class="btn crossCancel">
+          <i class="select-icon ic-Cross-Icon"></i>
+        </a>
         <a class="p-0" @click.prevent="showSuggestions">
           <i v-if="!noIcon" :class="iconClass" />
         </a>
@@ -137,7 +140,7 @@ export default {
     results() {
       if (!this.$value) return this.highlightedResults;
       if (this.containsSearch) {
-        return containsWithHighlight(this.$value, this.items).map(result => {
+        return containsWithHighlight(this.$value, this.items).map((result) => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
@@ -149,7 +152,7 @@ export default {
             key: 'label',
             allowTypo: false,
           })
-          .map(r => ({
+          .map((r) => ({
             ...r.obj,
             highlighted: fuzzysort.highlight(r),
           }));
@@ -159,7 +162,7 @@ export default {
     highlightedResults() {
       if (!this.items) return [];
 
-      return this.items.map(item => ({
+      return this.items.map((item) => ({
         ...item,
         highlighted: item.label,
       }));
@@ -172,6 +175,9 @@ export default {
   methods: {
     hideSuggestions() {
       this.areSuggestionsVisible = false;
+    },
+    resetValue() {
+      this.$emit('update:value', '');
     },
     resetSelected() {
       this.selectedItem = -1;
@@ -244,7 +250,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function() {
+    $value: debounce(function () {
       this.fetchResults();
     }, 200),
 
@@ -262,6 +268,14 @@ export default {
 
 .big-input {
   font-size: 1.5rem;
+}
+
+.crossCancel {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .icon-default {
