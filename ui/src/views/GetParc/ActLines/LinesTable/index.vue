@@ -243,7 +243,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -523,7 +523,7 @@ export default {
           exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +
