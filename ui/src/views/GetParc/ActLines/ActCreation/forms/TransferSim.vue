@@ -5,6 +5,7 @@
         v-if="columnsInfos"
         :key="tableVersion"
         :columns="columnsInfos"
+        :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
         :size="8"
         @colEvent="onRowSelect"
@@ -48,6 +49,7 @@ export default {
       tableVersion: 0,
       selectedRows: [],
       transferIds: [],
+      orderBy: { key: 'transferId', direction: 'DESC' },
       data: {},
       columnsInfos: [
         col('', '', true, true, {
@@ -77,11 +79,11 @@ export default {
     fetchTransferId() {
       this.transferIds = [];
       if (this.selectedRows.length > 0) {
-        this.selectedRows.forEach(e => {
+        this.selectedRows.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       } else {
-        this.data.transferSimRequests.forEach(e => {
+        this.data.transferSimRequests.forEach((e) => {
           this.transferIds.push(e.transferId);
         });
       }
@@ -93,14 +95,14 @@ export default {
       }
       if (payload.remove) {
         this.selectedRows = this.selectedRows.filter(
-          r => r.transferId !== payload.remove.transferId
+          (r) => r.transferId !== payload.remove.transferId
         );
       }
     },
 
     getFetchTransferSimDataFN() {
-      return async () => {
-        this.data = await fetchTransferSim();
+      return async (limit, orderBy) => {
+        this.data = await fetchTransferSim(orderBy);
         return {
           rows: this.data.transferSimRequests,
           total: this.data.transferSimRequests.length,
