@@ -187,6 +187,18 @@ export default {
             },
           },
         },
+        {
+          id: 8,
+          label: this.$t('common.email'),
+          name: 'email',
+          exportId: 'USER_EMAIL',
+          orderable: true,
+          visible: true,
+          noHandle: true,
+          format: {
+            type: 'Email'
+          }
+        },
       ],
       rows: [],
       total: 0,
