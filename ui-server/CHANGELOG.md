@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.254+20201015131129
+2020-10-15
+
+### Features
+
+- Ajout de la colonne email dans la recherche d'utilisateurs (5f14f1b5c83ecd8db26d7a2cce93175c6be763e8)
+
+### Fixes
+
+- Orthographe sur le detail historique acte de gestion (6df032bbc86484b7a23fc05e250ac1179370274b)
+- 1975 mise en place d'un loader pour la confirmation d'actes de gestion longs (3cb9241963e100df78ddff164c217df34d807f3d)
+- Add new export getparc (c63c3166af9495a6beccd71945ace2fad5680288)
+
 ## 1.0.0-master.253+20201015074444
 2020-10-15
 
