@@ -35,7 +35,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="006"
+            storage-version="007"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -243,7 +243,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
+      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
           id: c.id,
           label: c.label,
@@ -498,7 +498,7 @@ export default {
           label: this.$t('col.commercialStatus'),
           name: 'accessPoint',
           visible: false,
-          exportId: 'LINE_CUSTOM_FIELD6',
+          exportId: 'LINE_COMMERCIAL_STATUS',
           format: {
             type: 'ObjectAttribute',
             path: 'commercialStatus',
@@ -509,7 +509,7 @@ export default {
           label: this.$t('col.activation_date'),
           name: 'accessPoint',
           visible: false,
-          exportId: 'LINE_CUSTOM_FIELD6',
+          exportId: 'LINE_ACTIVATION_DATE',
           format: {
             type: 'ObjectAttribute',
             path: 'activationDate',
@@ -520,10 +520,49 @@ export default {
           label: this.$t('col.billingAccount'),
           name: 'accessPoint',
           visible: false,
+          exportId: 'BILLING_ACCOUNT',
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return (
+                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
+                ' - ' +
+                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
+              );
+            },
+          },
+        },
+        {
+          id: 24,
+          label: this.$t('col.commercialStatus'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_CUSTOM_FIELD6',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'commercialStatus',
+          },
+        },
+        {
+          id: 25,
+          label: this.$t('col.activation_date'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_CUSTOM_FIELD6',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'activationDate',
+          },
+        },
+        {
+          id: 26,
+          label: this.$t('col.billingAccount'),
+          name: 'accessPoint',
+          visible: false,
           exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +
