@@ -1027,7 +1027,7 @@
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
-        "EXPORT_LINES": "Exporter {total} lignes",
+        "EXPORT_LINES": "Exporter {total} ligne(s)",
         "EXPORT_ACTS": "Exporter {total} actes",
         "RESULT": "Voir le résultat de l'acte",
         "MORE_DETAIL": "Voir le détail du résultat",
@@ -1059,7 +1059,7 @@
       }
     },
     "actDetail": {
-      "title": "{total} lignes trouvée(s)",
+      "title": "{total} ligne(s) trouvée(s)",
       "actionChoice": "Choisir une action",
       "discharge": "Acquitter les actes en échec ",
       "restart": "Relancer les actes en échec",
