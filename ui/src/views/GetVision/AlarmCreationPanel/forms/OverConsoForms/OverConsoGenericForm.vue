@@ -223,7 +223,7 @@ export default {
       padding-right: 0.5rem;
       position: relative;
       top: 0.6rem;
-      font-size: 13px;
+      font-size: 11px;
     }
     & /deep/ select {
       padding: 0.2rem 0.2rem;
