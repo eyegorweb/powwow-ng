@@ -196,8 +196,8 @@ export default {
           visible: true,
           noHandle: true,
           format: {
-            type: 'Email'
-          }
+            type: 'Email',
+          },
         },
       ],
       rows: [],

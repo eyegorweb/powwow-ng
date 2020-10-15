@@ -5,11 +5,9 @@
 <script>
 export default {
   props: {
-    item: String
+    item: String,
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
