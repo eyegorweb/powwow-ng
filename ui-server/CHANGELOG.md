@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.256+20201015144706
+2020-10-15
+
+### Features
+
+- Ajout de la croix pour effacer le contenu input autocomplete (ea2cb18199976eb90f7950c09f00d6f7d365a4c3)
+
 ## 1.0.0-master.255+20201015140933
 2020-10-15
 
