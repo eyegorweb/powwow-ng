@@ -37,14 +37,19 @@
       <Modal v-if="waitForConfirmation">
         <div slot="body">
           <template v-if="validate">
-            <div class="text-warning">
-              {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
-            </div>
-            <p>
-              <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
-              <br />
-              <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
-            </p>
+            <LoaderContainer :is-loading="isLoading">
+              <div slot="on-loading">
+                <ModalSkeleton />
+              </div>
+              <div class="text-warning">
+                {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+              </div>
+              <p>
+                <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+                <br />
+                <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+              </p>
+            </LoaderContainer>
           </template>
           <p v-else>
             <span>{{ $t('getparc.actCreation.modal.modalConfirmRefuse') }}</span>
@@ -77,6 +82,8 @@ import ManageCancellationFormDate from './ManageCancellationFormDate';
 import ActFormContainer from './parts/ActFormContainer2';
 import { manageCancellation } from '@/api/actCreation';
 import Modal from '@/components/Modal';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 
 export default {
   components: {
@@ -85,6 +92,8 @@ export default {
     ManageCancellationFormDate,
     ActFormContainer,
     Modal,
+    LoaderContainer,
+    ModalSkeleton,
   },
   data() {
     return {
@@ -93,6 +102,7 @@ export default {
       errors: {},
       options: undefined,
       validate: undefined,
+      isLoading: false,
     };
   },
   computed: {
@@ -121,9 +131,15 @@ export default {
       });
     },
     async confirmValdation(containerValidationFn) {
-      const response = await containerValidationFn();
-      this.waitForConfirmation = false;
-      return response;
+      try {
+        this.isLoading = true;
+        const response = await containerValidationFn();
+        this.isLoading = false;
+        this.waitForConfirmation = false;
+        return response;
+      } catch (err) {
+        this.isLoading = false;
+      }
     },
     checkErrors() {
       // if (!this.selectedShortCode) {
