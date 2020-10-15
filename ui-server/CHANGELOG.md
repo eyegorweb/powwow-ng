@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.257+20201015150646
+2020-10-15
+
+### Features
+
+- ajout de colonne dans l'export des lignes (41740a485be9ce1b3e89f033d308be3e11007e67)
+
 ## 1.0.0-master.256+20201015144706
 2020-10-15
 
