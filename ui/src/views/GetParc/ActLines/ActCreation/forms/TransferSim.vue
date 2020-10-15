@@ -57,10 +57,10 @@ export default {
         }),
         col('ID', 'transferId', true, true),
         col('ICCID', 'iccid', true, true),
-        col('Partenaire source', '', true, true, {
+        col('Partenaire source', 'fromPartner', true, true, {
           component: FromPartner,
         }),
-        col('Partenaire cible', '', true, true, {
+        col('Partenaire cible', 'toPartner', true, true, {
           component: ToPartner,
         }),
         col('Statut de la ligne', 'status', true, true),

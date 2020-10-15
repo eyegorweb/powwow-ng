@@ -1,7 +1,9 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
 export async function fetchTransferSim(orderBy) {
-  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  console.log(orderBy);
+  const orderingInfo =
+    orderBy && orderBy.key ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
     transferSimRequests(pagination: {limit: 999, page: 0}, ${orderingInfo})
