@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.255+20201015140939
+2020-10-15
+
+### Fixes
+
+- Sorting transfer sim table (8f9701a6869f079428548c28caf568779baf4db7)
+- Changement du point API pour la traduction du statut commercial (3fdb26e2d505a11399c66494ea5509a97f0a458d)
+
 ## 1.0.0-master.254+20201015131129
 2020-10-15
 
