@@ -7,8 +7,8 @@
       </div>
       <div class="col">
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
-
         <BillingAccountsPart
+          :disabled="isPartnerMVNO"
           :key="`billingAccount_${selectedPartner ? selectedPartner.label : ''}`"
           :partner="selectedPartner"
           @set:billingAccount="chosenBillingAccount = $event"
@@ -77,6 +77,11 @@ export default {
     },
     isChosenBillingAccountEmpty() {
       return !get(this.chosenBillingAccount, 'id');
+    },
+    isPartnerMVNO() {
+      if (!this.selectedPartner) return;
+      const found = this.selectedPartner.partyType === 'MVNO';
+      return found;
     },
   },
 

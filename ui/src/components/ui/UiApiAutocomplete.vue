@@ -36,7 +36,7 @@
             v-if="!$value && !displayResultsWhileEmpty"
             class="autocomplete-result text-muted is-disabled"
           >
-            Commencez à taper pour avoir des suggestions
+            {{ $t('suggestionsPlaceholder') }}
           </li>
           <template v-else>
             <li

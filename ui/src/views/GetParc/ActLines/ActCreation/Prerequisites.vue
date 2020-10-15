@@ -1,7 +1,10 @@
 <template>
   <div>
     <NoPrerequisitesPre
-      v-if="!userIsPartner && actWithNoPrerequs(act.title)"
+      v-if="
+        (!userIsPartner && actWithNoPrerequs(act.title)) ||
+          actWithConditionalPrerequs(act.title, userIsMVNO)
+      "
       @set:preprequisites="setPrerequisites"
     />
     <PartnerAndCF
@@ -46,7 +49,7 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['defaultAppliedFilters']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsMVNO']),
   },
   watch: {
     contextPartnersType() {
@@ -80,6 +83,13 @@ export default {
       'setActToCreate',
       'setBillingAccountsFilter',
     ]),
+
+    actWithConditionalPrerequs(actTitle, isUserType) {
+      return (
+        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === actTitle) &&
+        isUserType
+      );
+    },
 
     actWithNoPrerequs(actTitle) {
       return [
