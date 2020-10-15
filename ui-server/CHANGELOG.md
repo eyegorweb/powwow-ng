@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.253+20201015074350
+## 1.0.0-master.253+20201015074444
 2020-10-15
+
+### Features
+
+- Ajout du tri sur la table de transfer de sim (caa39623616e0f902a947f5938074e1cfc4e7442)
 
 ### Fixes
 
