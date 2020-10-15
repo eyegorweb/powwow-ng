@@ -1,6 +1,10 @@
 <template>
   <ActFormContainer :validate-fn="onValidate" @update:date="chekdate" no-modal>
-    <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
+    <div
+      class="form-container mb-3"
+      slot="validate-btn-content"
+      slot-scope="{ containerValidationFn }"
+    >
       <button
         @click="waitForConfirmation = true"
         class="btn pl-4 pr-4 pt-2 pb-2"
@@ -12,15 +16,19 @@
       <div class="info">{{ info }}</div>
       <Modal v-if="waitForConfirmation">
         <div slot="body">
-          <div class="loader" v-if="showLoader">
-            <div class="skeleton-line"></div>
-          </div>
-          <div class="text-warning">{{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}</div>
-          <p>
-            <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
-            <br />
-            <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
-          </p>
+          <LoaderContainer :is-loading="isLoading">
+            <div slot="on-loading">
+              <ModalSkeleton />
+            </div>
+            <div class="text-warning">
+              {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+            </div>
+            <p>
+              <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+              <br />
+              <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+            </p>
+          </LoaderContainer>
         </div>
         <div slot="footer" class="btn-wrapper">
           <div v-if="haveError" class="loader" :class="{ error: haveError }">
@@ -55,11 +63,15 @@ import ActFormContainer from './parts/ActFormContainer2';
 import { mapState, mapGetters } from 'vuex';
 import { terminateLines } from '@/api/actCreation';
 import Modal from '@/components/Modal';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 
 export default {
   components: {
     ActFormContainer,
     Modal,
+    LoaderContainer,
+    ModalSkeleton,
   },
   data() {
     return {
@@ -67,7 +79,7 @@ export default {
       suspendBilling: false,
       canValidate: true,
       waitForConfirmation: false,
-      showLoader: false,
+      isLoading: false,
       haveError: false,
     };
   },
@@ -101,14 +113,14 @@ export default {
     },
     async confirmValdation(containerValidationFn) {
       try {
-        this.showLoader = true;
+        this.isLoading = true;
         const response = await containerValidationFn();
-        this.showLoader = false;
+        this.isLoading = false;
         this.waitForConfirmation = false;
         return response;
       } catch (err) {
         this.haveError = true;
-        this.showLoader = false;
+        this.isLoading = false;
       }
     },
   },
@@ -116,23 +128,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  /deep/ .checkbox-container label {
+    margin-bottom: 0;
+    margin-left: 20px;
+  }
+}
 /deep/ .btn-primary {
   background-color: $orange;
   border: none;
-}
-
-.loader {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.skeleton-line {
-  width: 100px;
-  height: 10px;
 }
 
 .btn {
