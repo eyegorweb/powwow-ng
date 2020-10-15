@@ -3,6 +3,7 @@
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
   "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
+  "suggestionsPlaceholder": "Commencez à taper pour avoir des suggestions",
   "searchByCF": "Rechercher une offre par code C.F., libellé, siret ou ligne de marché",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",

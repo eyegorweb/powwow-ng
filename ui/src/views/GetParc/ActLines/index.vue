@@ -424,6 +424,10 @@ export default {
       if (this.actToCreate) {
         isSelected = this.actToCreate.title === item.title;
         newSelectionState = !isSelected;
+        // fix transfer sim error
+        // if (this.actToCreate.title === 'getparc.actCreation.carouselItem.SIM_TRANSFER') {
+        //   this.transferSim = false;
+        // }
       }
 
       if (newSelectionState) {

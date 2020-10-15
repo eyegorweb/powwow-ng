@@ -8,6 +8,23 @@
     <template v-if="activation">
       <div>
         <label class="font-weight-bold">
+          {{ $t('common.billingAccount') }}
+          <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
+          <!-- <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
+            {{ $t('required') }}
+          </div> -->
+        </label>
+        <BillingAccountsPart
+          :key="`billingAccount_${partner}`"
+          :partner="partner"
+          :offer.sync="selectedOffer"
+          @set:billingAccount="setBillingAccount"
+          :preselect-billing-account="preselectBillingAccount"
+          :disabled="!!preselectBillingAccount"
+        />
+      </div>
+      <div>
+        <label class="font-weight-bold">
           {{ $t('col.offer') }}
           <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
             {{ $t('required') }}
@@ -43,6 +60,7 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import OffersPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/OffersPart';
+import BillingAccountsPart from '@/views/GetParc/ActLines/ActCreation/prerequisites/parts/BillingAccountsPart';
 import PartnerFields from '@/components/PartnerFields';
 
 import { mapState, mapGetters } from 'vuex';
@@ -63,6 +81,7 @@ export default {
     ActFormContainer,
     UiToggle,
     OffersPart,
+    BillingAccountsPart,
     PartnerFields,
     ServicesBlock,
   },
@@ -73,6 +92,12 @@ export default {
 
     partner() {
       return this.actCreationPrerequisites.partner;
+    },
+    preselectBillingAccount() {
+      return (
+        this.actCreationPrerequisites.partner.partyType === 'CUSTOMER' &&
+        this.actCreationPrerequisites.billingAccount
+      );
     },
   },
   data() {
@@ -90,6 +115,7 @@ export default {
       waitForReportConfirmation: false,
       offerServices: undefined,
       servicesChoice: undefined,
+      chosenBillingAccount: undefined,
     };
   },
 
@@ -114,12 +140,17 @@ export default {
   },
 
   methods: {
+    setBillingAccount(billingAccount) {
+      this.chosenBillingAccount = billingAccount;
+    },
+
     onServiceChange(servicesChoice) {
       this.servicesChoice = servicesChoice;
       this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
     },
 
     haveFieldErrors() {
+      // Ajouter gestion erreur CF sélectionné
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {

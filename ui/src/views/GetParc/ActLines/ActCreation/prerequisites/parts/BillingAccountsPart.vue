@@ -4,6 +4,7 @@
     v-model="selectedBillingAccount"
     :error="errors"
     display-results-while-empty
+    :disabled="disabled"
   />
 </template>
 
@@ -18,6 +19,7 @@ export default {
   props: {
     // partnerId: String,
     partner: Object,
+    preselectBillingAccount: Object,
     offer: Object,
     errors: {
       type: Object,
@@ -43,6 +45,10 @@ export default {
 
       if (this.billingAccounts && this.billingAccounts.length === 1) {
         this.selectedBillingAccount = this.billingAccounts[0];
+      }
+
+      if (this.preselectBillingAccount) {
+        this.selectedBillingAccount = this.preselectBillingAccount;
       }
     }
   },
