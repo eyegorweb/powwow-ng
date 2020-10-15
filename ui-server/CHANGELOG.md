@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.252+20201015073819
+2020-10-15
+
+### Fixes
+
+- Désactivation du survol sur les chiffres inactif du widget top 5 alarmes déclenché (1f5eaa576b5cfcbf6bb4f236ee72e2266c5b3c27)
+
 ## 1.0.0-master.251+20201014132952
 2020-10-14
 
