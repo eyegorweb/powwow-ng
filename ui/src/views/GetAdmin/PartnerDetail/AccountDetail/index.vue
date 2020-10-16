@@ -9,6 +9,8 @@
         v-if="section === 'getadmin.partners.accountDescription'"
         :partner="partner"
       />
+
+      <M2MRange v-if="section === 'getadmin.partners.m2mRange.title'" :partner="partner" />
     </div>
   </div>
 </template>
@@ -16,6 +18,7 @@
 <script>
 import PartnerOptions from './PartnerOptions';
 import AccountPartnerDetail from './AccountPartnerDetail';
+import M2MRange from './M2MRange';
 import { mapGetters } from 'vuex';
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
 
@@ -24,6 +27,7 @@ export default {
     PartnerOptions,
     AccountPartnerDetail,
     TabsSubMenu,
+    M2MRange,
   },
 
   props: {
@@ -35,28 +39,33 @@ export default {
   },
 
   mounted() {
+    let menuItems = [];
     if (
       this.havePermission('party', 'read_account_detail') &&
       this.havePermission('party', 'read_options')
     ) {
-      this.menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
+      menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
       this.section = 'getadmin.partners.options';
     } else if (
       this.havePermission('party', 'read_account_detail') &&
       !this.havePermission('party', 'read_options')
     ) {
-      this.menuItems = ['getadmin.partners.accountDescription'];
+      menuItems = ['getadmin.partners.accountDescription'];
       this.section = 'getadmin.partners.accountDescription';
     } else if (
       !this.havePermission('party', 'read_account_detail') &&
       this.havePermission('party', 'read_options')
     ) {
-      this.menuItems = ['getadmin.partners.options'];
+      menuItems = ['getadmin.partners.options'];
       this.section = 'getadmin.partners.options';
     } else {
-      this.menuItems = [];
+      menuItems = [];
       this.section = '';
     }
+
+    menuItems.push('getadmin.partners.m2mRange.title');
+
+    this.menuItems = menuItems;
   },
 
   data() {

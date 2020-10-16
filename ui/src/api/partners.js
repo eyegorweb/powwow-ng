@@ -169,6 +169,18 @@ export async function fetchpartnerById(id, conf) {
       name
     }`);
   }
+
+  if (conf && conf.mvnoRanges) {
+    extraFields.push(`
+        flagMSISDNRangeEnabled
+        flagMSISDNRangeLocked
+        MSISDNRangeCode
+        MSISDNRangeCounterAvailables
+        MSISDNRangeCounterUsed
+        MSISDNRangeCounterQuarantined
+        MSISDNRangeCounterUnavailables
+    `);
+  }
   const queryStr = `
   query{
     partys(filter:{id: {eq: ${id}}}, pagination: {limit: 1, page: 0}, sorting: {name: ASC}) {
