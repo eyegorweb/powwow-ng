@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.261+20201016153109
+2020-10-16
+
+### Features
+
+- Ajout de menus et traduction des menus (deed39efc47def45c10c58cf884609477de22b52)
+
 ## 1.0.0-master.260+20201016145649
 2020-10-16
 
