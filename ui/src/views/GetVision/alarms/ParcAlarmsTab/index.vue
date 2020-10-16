@@ -70,7 +70,7 @@ import AlarmsPerDayGraph from './AlarmsPerDayGraph';
 import AlarmsActions from './cells/AlarmsActions';
 
 import SearchAlarmById from './SearchAlarmById';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -165,6 +165,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['userIsPartner']),
     selectedPartnerIds() {
       return this.currentPartners.map(p => p.id);
     },
@@ -206,8 +207,10 @@ export default {
     },
 
     prepareFilterBar() {
-      const filters = [
-        {
+      const filters = [];
+
+      if (!this.userIsPartner) {
+        filters.push({
           title: 'filters.partners',
           component: PartnerFilter,
           onChange(chosenValues) {
@@ -216,7 +219,10 @@ export default {
               values: chosenValues,
             };
           },
-        },
+        });
+      }
+
+      filters.push(
         {
           title: 'common.billingAccount',
           component: BillingAccountFilter,
@@ -244,8 +250,8 @@ export default {
               data: chosenValues,
             };
           },
-        },
-      ];
+        }
+      );
 
       if (!this.m2m) {
         filters.push(
