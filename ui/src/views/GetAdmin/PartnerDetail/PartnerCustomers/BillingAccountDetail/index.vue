@@ -51,13 +51,13 @@ export default {
     const menuItems = [
       'getadmin.partnerDetail.mb.commercialOffer',
       'getadmin.partnerDetail.mb.simCards',
+      'getadmin.partnerDetail.mb.deliveryAdresses',
     ];
 
     if (this.$shouldShowMocks) {
       menuItems.push(
         'getadmin.partnerDetail.mb.customerDescription',
-        'getadmin.partnerDetail.mb.clientContactDescription',
-        'getadmin.partnerDetail.mb.deliveryAdresses'
+        'getadmin.partnerDetail.mb.clientContactDescription'
       );
     }
     this.menuItems = menuItems;

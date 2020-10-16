@@ -614,6 +614,17 @@
       "options": "Options du partenaire",
       "accountDescription": "Description du compte partenaire",
       "total": "{total} partenaire(s) trouvé(s)",
+      "m2mRange": {
+        "counters": "Compteurs",
+        "title": "Tranche MSISDN",
+        "active": "Tranche MSISDN activée",
+        "locked": "Tranche MSISDN vérouillée",
+        "code": "Code tranche MSISDN",
+        "available": "MSISDN disponibles",
+        "preactivated": "MSISDN utilisés par des lignes préactivées",
+        "quarantine":"MSISDN en quarantaine",
+        "unavailable": "MISISDN utilisés par des lignes activées, suspendues ou en portabilité"
+      },
       "optionsDetails": {
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",

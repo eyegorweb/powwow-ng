@@ -92,7 +92,11 @@ export default {
   },
 
   async mounted() {
-    this.partner = await fetchpartnerById(this.$route.params.id, { includeMailingLists: true });
+    // mvnoRanges
+    this.partner = await fetchpartnerById(this.$route.params.id, {
+      includeMailingLists: true,
+      mvnoRanges: true,
+    });
     this.prepareTabs();
   },
 
