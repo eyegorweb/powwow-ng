@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.260+20201016145649
+2020-10-16
+
+### Fixes
+
+- 1912 suppression du filtre partenaire sur les alarmes pour les utilisateurs connectés en tant que partenaire (e207589c33652beaabf87121210869dca618ef95)
+
 ## 1.0.0-master.259+20201016095349
 2020-10-16
 
