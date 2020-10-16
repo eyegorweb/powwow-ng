@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.258+20201016075328
+2020-10-16
+
+### Fixes
+
+- 1975 amélioration de l'affichage du loader pour les actes liées à la résiliation (bd915f3e2b2e720bd5d9457cab5feebcb8549a71)
+
 ## 1.0.0-master.257+20201015150646
 2020-10-15
 
