@@ -39,7 +39,7 @@
           <template v-if="validate">
             <LoaderContainer :is-loading="isLoading">
               <div slot="on-loading">
-                <ModalSkeleton />
+                <ModalSkeleton :is-loading="isLoading" />
               </div>
               <div class="text-warning">
                 {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
@@ -59,12 +59,14 @@
           <button
             class="modal-default-button btn btn-danger btn-sm"
             @click.stop="waitForConfirmation = false"
+            :disabled="isLoading"
           >
             {{ $t('cancel') }}
           </button>
           <button
             class="modal-default-button btn btn-success btn-sm ml-1"
             @click.stop="confirmValdation(containerValidationFn)"
+            :disabled="isLoading"
           >
             {{ $t('save') }}
           </button>
