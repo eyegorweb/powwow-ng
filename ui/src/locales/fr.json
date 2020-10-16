@@ -186,6 +186,17 @@
       "FDNX": "FDNX"
     }
   },
+  "mainMenu": {
+    "getSim": "GetSIM",
+    "getHere": "GetParc(GetDiag)",
+    "getVision": "GetVision",
+    "getAlarm": "GetAlarme",
+    "getSupport": "GetSupport",
+    "getReport": "GetReport",
+    "getBill": "GetFactu",
+    "getAdmin": "GetAdmin",
+    "getDevice": "GetDevice"
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
@@ -622,7 +633,7 @@
         "code": "Code tranche MSISDN",
         "available": "MSISDN disponibles",
         "preactivated": "MSISDN utilisés par des lignes préactivées",
-        "quarantine":"MSISDN en quarantaine",
+        "quarantine": "MSISDN en quarantaine",
         "unavailable": "MISISDN utilisés par des lignes activées, suspendues ou en portabilité"
       },
       "optionsDetails": {

@@ -162,6 +162,17 @@
       "FDNX": "FDNX"
     }
   },
+  "mainMenu": {
+    "getSim": "GetSIM",
+    "getParc": "GetFleet(GetDiag)",
+    "getVision": "GetVision",
+    "getAlarm": "GetAlarm",
+    "getSupport": "GetSupport",
+    "getReport": "GetReport",
+    "getBill": "GetBills",
+    "getAdmin": "GetAdmin",
+    "getDevice": "GetDevice"
+  },
   "menu": {
     "massActions": "History of management acts",
     "actLines": "Lines management",
@@ -569,7 +580,7 @@
         "code": "MSISDN range code",
         "available": "Availables MSISDN",
         "preactivated": "Used MSISDN",
-        "quarantine":"Quarantined MSISDN",
+        "quarantine": "Quarantined MSISDN",
         "unavailable": "Unavailables MSISDN"
       },
       "optionsDetails": {
