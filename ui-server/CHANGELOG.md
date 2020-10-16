@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.259+20201016095349
+2020-10-16
+
+### Features
+
+- tranches MSISN d'un partenaire MVNO (03e070aa6a21a8ef698f6078bfcff35bd8ad2780)
+
 ## 1.0.0-master.258+20201016075328
 2020-10-16
 
