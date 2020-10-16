@@ -17,11 +17,11 @@
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
             <router-link v-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
-              tab.label
+              $t(tab.label)
             }}</router-link>
 
             <div class="dropdown">
-              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ tab.label }}</a>
+              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ $t(tab.label)}}</a>
               <div
                 v-if="tab.submenu"
                 class="dropdown-menu"
@@ -123,7 +123,6 @@ export default {
     this.currentUrlName = this.$route.name;
 
     let getAdminExtra = [];
-
     if (this.userIsPartner) {
       getAdminExtra = [
         {
@@ -157,12 +156,12 @@ export default {
 
     this.navbarLinks = excludeMocked([
       {
-        label: 'GetSIM',
+        label: 'mainMenu.getSim',
         to: { name: 'orders' },
         permission: { domain: 'getSim', action: 'read' },
       },
       {
-        label: 'GetParc/GetDiag',
+        label: 'mainMenu.getParc',
         to: 'getParc',
         permission: { domain: 'getParc', action: 'read' },
         submenu: [
@@ -179,24 +178,18 @@ export default {
         ],
       },
       {
-        label: 'GetVision',
-        to: { name: 'alarms' },
-        permission: { domain: 'alarm', action: 'read' },
-        submenu: [
-          {
-            label: 'menu.alarms',
-            to: { name: 'alarms' },
-            permission: { domain: 'alarm', action: 'read' },
-          },
-          {
-            label: 'menu.monitoring',
-            to: { name: 'getVisionMonitoring' },
-            permission: { domain: 'getVision', action: 'read' },
-          },
-        ],
+        label: 'mainMenu.getVision',
+        to: { name: 'getVisionMonitoring' },
+        permission: { domain: 'getVision', action: 'read' },
       },
       {
-        label: 'GetReport',
+        label: 'mainMenu.getAlarm',
+        to: { name: 'alarms' },
+        permission: { domain: 'alarm', action: 'read' },
+        mock: true,
+      },
+      {
+        label: 'mainMenu.getReport',
         to: { name: 'reports' },
         permission: () => {
           return this.havePermissionDomain('getReport');
@@ -217,27 +210,28 @@ export default {
             to: { name: 'reportsDashboard' },
             permission: { domain: 'getReport', action: 'read_dashboard' },
           },
-          {
-            label: 'menu.reportsBill',
-            to: { name: 'reportsBill' },
-            permission: { domain: 'getReport', action: 'read_bill' },
-          },
         ],
       },
       {
-        label: 'GetAdmin',
+        label: 'mainMenu.getBill',
+        to: { name: 'reportsBill' },
+        permission: { domain: 'getReport', action: 'read_bill' },
+        mock: true,
+      },
+      {
+        label: 'mainMenu.getAdmin',
         to: { name: 'exemples' },
         submenu: [...getAdminExtra],
         permission: { domain: 'user', action: 'read' },
       },
       {
-        label: 'GetSupport',
+        label: 'mainMenu.getSupport',
         to: { name: 'exemples' },
         permission: { domain: 'getSim', action: 'read' },
         mock: true,
       },
       {
-        label: 'GetDevice',
+        label: 'mainMenu.getDevice',
         to: { name: 'getDevice' },
         permission: { domain: 'getDevice', action: 'read' },
       },

@@ -36,6 +36,7 @@ export default {
 
   mounted() {
     this.localWidgets = cloneDeep(this.content.homeWidgets);
+    console.log(this.localWidgets);
   },
   methods: {
     ...mapMutations(['setHomeWidgets', 'closePanel']),
