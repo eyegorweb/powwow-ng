@@ -18,7 +18,7 @@
         <div slot="body">
           <LoaderContainer :is-loading="isLoading">
             <div slot="on-loading">
-              <ModalSkeleton />
+              <ModalSkeleton :is-loading="isLoading" />
             </div>
             <div class="text-warning">
               {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
@@ -37,12 +37,14 @@
           <button
             class="modal-default-button btn btn--cancel"
             @click.stop="waitForConfirmation = false"
+            :disabled="isLoading"
           >
             {{ $t('cancel') }}
           </button>
           <button
             class="modal-default-button btn ml-1 btn--confirm"
             @click.stop="confirmValdation(containerValidationFn)"
+            :disabled="isLoading"
           >
             {{ $t('confirm') }}
           </button>
