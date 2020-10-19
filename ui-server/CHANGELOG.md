@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.263+20201019152659
+2020-10-19
+
+### Fixes
+
+- revert de la croix pour réinitialiser l'input de recherche (313a17a4396d5add5d1e0c92dd319c9914c3cf4b)
+
 ## 1.0.0-master.262+20201019093348
 2020-10-19
 
