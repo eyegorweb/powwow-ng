@@ -188,7 +188,7 @@
   },
   "mainMenu": {
     "getSim": "GetSIM",
-    "getHere": "GetParc(GetDiag)",
+    "getParc": "GetParc(GetDiag)",
     "getVision": "GetVision",
     "getAlarm": "GetAlarme",
     "getSupport": "GetSupport",
