@@ -22,9 +22,6 @@
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
         />
-        <a v-if="value" @click.prevent="resetValue" class="btn crossCancel">
-          <i class="select-icon ic-Cross-Icon"></i>
-        </a>
         <a class="p-0" @click.prevent="showSuggestions">
           <i v-if="!noIcon" :class="iconClass" />
         </a>
@@ -118,7 +115,7 @@ export default {
         return typeof this.value === 'string'
           ? this.value
           : // gere le cas ou value est null
-            this.value && this.value[this.labelKey];
+          this.value && this.value[this.labelKey];
       },
       set(newValue) {
         // TODO: à simplifier
@@ -126,14 +123,14 @@ export default {
           'update:value',
           typeof this.value === 'string'
             ? // quand la prop est une string on doit emettre une string or
-              // slectValue va etre appele avec un objet en parametre
-              typeof newValue === 'object'
+            // slectValue va etre appele avec un objet en parametre
+            typeof newValue === 'object'
               ? // gere selectValue(null)
-                newValue && newValue[this.labelKey]
+              newValue && newValue[this.labelKey]
               : newValue
             : typeof newValue === 'object'
-            ? newValue
-            : { [this.labelKey]: newValue }
+              ? newValue
+              : { [this.labelKey]: newValue }
         );
       },
     },
