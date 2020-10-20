@@ -21,7 +21,7 @@
             }}</router-link>
 
             <div class="dropdown">
-              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ $t(tab.label)}}</a>
+              <a v-if="tab.submenu" :to="tab.to" @click.prevent>{{ $t(tab.label) }}</a>
               <div
                 v-if="tab.submenu"
                 class="dropdown-menu"
