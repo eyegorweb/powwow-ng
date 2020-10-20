@@ -334,23 +334,25 @@ export async function fetchDataForCities(usageType, bounds, filters = {}) {
 
 export async function fetchDataForAlarms() {}
 
-export async function fetchFrenchRegionsData(usageType, bounds) {
+export async function fetchFrenchRegionsData(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'REGION',
       iso3CountryCode: 'FRA',
       usageType,
       ...bounds,
+      ...filters,
     },
   });
 }
 
-export async function fetchFrenchDepartmentsData(usageType, bounds) {
+export async function fetchFrenchDepartmentsData(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'DEPARTMENT',
       iso3CountryCode: 'FRA',
       usageType,
+      ...filters,
       ...bounds,
     },
   });
