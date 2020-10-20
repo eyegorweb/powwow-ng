@@ -48,6 +48,7 @@ export default {
       set(value) {
         if (!value || !value.label || !value.label.length) {
           this.typeSimCardData = undefined;
+          this.$emit('set:simcard', undefined);
         } else {
           this.typeSimCardData = value;
           this.$emit('set:simcard', value);

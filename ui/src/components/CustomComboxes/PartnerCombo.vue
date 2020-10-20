@@ -52,6 +52,10 @@ export default {
       }
     },
     selectedLocalValue(value) {
+      if (!value) {
+        this.$emit('update:value', undefined);
+        return;
+      }
       if (value && value.label === '') {
         this.$emit('update:value', undefined);
         return;

@@ -243,7 +243,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
+      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
           id: c.id,
           label: c.label,
@@ -516,6 +516,23 @@ export default {
           },
         },
         {
+          id: 23,
+          label: this.$t('col.billingAccount'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'BILLING_ACCOUNT',
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return (
+                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
+                ' - ' +
+                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
+              );
+            },
+          },
+        },
+        {
           id: 24,
           label: this.$t('col.billingAccount'),
           name: 'accessPoint',
@@ -523,7 +540,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +

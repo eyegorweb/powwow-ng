@@ -285,7 +285,7 @@ export default {
       });
 
       if (firstLevelMenu) {
-        document.title = firstLevelMenu.label;
+        document.title = this.$t(firstLevelMenu.label);
       } else {
         const secondLevelMenu = this.navbarLinks
           .map(m => {
