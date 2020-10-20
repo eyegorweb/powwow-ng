@@ -169,24 +169,37 @@ export default {
     },
 
     async doRequest(contextValues) {
-      const params = {
-        partyId: this.actCreationPrerequisites.partner.id,
-        dueDate: contextValues.actDate,
-        notifEmail: contextValues.notificationCheck,
-        workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
-        servicesChoice: this.servicesChoice,
-        customerAccountID: this.actCreationPrerequisites.billingAccount
-          ? this.actCreationPrerequisites.billingAccount.id
-          : this.preselectBillingAccount.id,
-        tempDataUuid: contextValues.tempDataUuid,
-      };
+      let params;
       if (this.activation) {
+        params = {
+          partyId: this.actCreationPrerequisites.partner.id,
+          dueDate: contextValues.actDate,
+          notifEmail: contextValues.notificationCheck,
+          workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
+          servicesChoice: this.servicesChoice,
+          customerAccountID: this.actCreationPrerequisites.billingAccount
+            ? this.actCreationPrerequisites.billingAccount.id
+            : this.preselectBillingAccount.id,
+          tempDataUuid: contextValues.tempDataUuid,
+        };
+
         return await preactivateAndActivateSImcardInstance(
           this.appliedFilters,
           this.selectedLinesForActCreation,
           params
         );
       } else {
+        params = {
+          partyId: this.actCreationPrerequisites.partner.id,
+          dueDate: contextValues.actDate,
+          notifEmail: contextValues.notificationCheck,
+          customerAccountID:
+            this.partner.partyType === 'CUSTOMER' && this.actCreationPrerequisites.billingAccount
+              ? this.actCreationPrerequisites.billingAccount.id
+              : null,
+          tempDataUuid: contextValues.tempDataUuid,
+        };
+
         return await preactivateSimCardInstance(
           this.appliedFilters,
           this.selectedLinesForActCreation,
