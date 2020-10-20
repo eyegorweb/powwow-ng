@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.272+20201020145426
+2020-10-20
+
+### Fixes
+
+- Ajout du drag&drop sur la colonne succès/fail de la table historyTable (843474b37a3f8755c9c33d8d578d0f3528b4ebc5)
+
 ## 1.0.0-master.271+20201020143311
 2020-10-20
 
