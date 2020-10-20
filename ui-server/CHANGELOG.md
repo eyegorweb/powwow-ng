@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.271+20201020143311
+2020-10-20
+
+### Features
+
+- Gestion du preac en fonction du detail partenaire sur la commande de SIM (b0978942b7f1e98017bbcf33017f1708d248251b)
+
 ## 1.0.0-master.270+20201020141605
 2020-10-20
 
