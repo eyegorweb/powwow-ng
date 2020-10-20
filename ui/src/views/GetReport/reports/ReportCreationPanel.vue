@@ -325,6 +325,11 @@ export default {
       this.preloadCheckBoxes(report.data.fields);
     },
     async selectedPartner(value, previous) {
+      if (!value) {
+        this.reportModels = undefined;
+        this.reportModel = 'NONE';
+        return;
+      }
       if (value && value.id) {
         if (!previous || (previous && previous.id && previous.id !== value.id)) {
           if (this.canShowForm) {

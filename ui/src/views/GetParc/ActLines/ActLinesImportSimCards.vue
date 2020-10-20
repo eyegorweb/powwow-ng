@@ -23,7 +23,7 @@
           <FileSelect
             v-model="fileMeta"
             :placeholder="placeholder"
-            :disabled="!selectedTypeSimCard"
+            :disabled="!selectedTypeSimCard || !chosenBillingAccount"
           />
           <div v-if="fileResponse && !error">
             <ul class="list-unstyled m-0">
@@ -183,9 +183,15 @@ export default {
     },
     setPartner(chosenPartner) {
       this.selectedPartner = chosenPartner;
+      if (!this.chosenPartner) {
+        this.chosenBillingAccount = undefined;
+      }
     },
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
+      if (!this.chosenBillingAccount) {
+        this.selectedTypeSimCard = undefined;
+      }
     },
     setTypeSimCard(simcard) {
       this.selectedTypeSimCard = simcard;

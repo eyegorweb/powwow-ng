@@ -266,6 +266,13 @@ export default {
 
   watch: {
     selectedAddress(address) {
+      if (!address) {
+        this.form.address = undefined;
+        this.form.zipCode = undefined;
+        this.form.city = undefined;
+        this.form.country = undefined;
+        return;
+      }
       if (address.city) {
         this.form.address = address.label;
         this.form.zipCode = address.postcode;

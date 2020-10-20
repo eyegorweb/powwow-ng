@@ -146,7 +146,6 @@ export default {
     zipCodeFilter() {
       const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
       return this.$loGet(zoneFilter, 'data.zipCode');
-
     },
     usageForQuery() {
       if (this.usage === 'ALARMS') {
@@ -192,15 +191,14 @@ export default {
         this.isSameFilters = isEquivalent(oldFormattedFilters, newFormattedFilters);
       }
 
-      this.refreshData(true);
+      this.refreshData();
     },
   },
 
   methods: {
-    async refreshData(filtersHaveChanged) {
+    async refreshData() {
       if (this.isLoading) return;
       if (!this.canSearch) return;
-      //if (!this.filtersHaveChanged) return;
 
       try {
         this.isLoading = true;
@@ -214,13 +212,9 @@ export default {
         const zoomLevel = this.map.getZoom();
         if (this.usage === 'COCKPIT') {
           await this.loadDataForM2MCockpit();
-        }
-        //*
-        else if (this.zipCodeFilter) {
+        } else if (this.zipCodeFilter) {
           await this.loadDataByZipCode();
-        }
-        //*/
-        else {
+        } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
             await this.loadDataForContinents();
           } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
@@ -305,7 +299,6 @@ export default {
       if (!this.appliedFilters);
 
       return filterFormatter(this.appliedFilters);
-
     },
 
     formatFiltersForCockpit() {
@@ -359,7 +352,6 @@ export default {
         } else {
           this.markers = markers;
         }
-
       }
     },
 
@@ -450,7 +442,7 @@ export default {
         this.formatFilters()
       );
       const markers = this.formatMarkers(data);
-      this.setMarkersAndCenter(markers, 6)
+      this.setMarkersAndCenter(markers, 6);
     },
 
     async fetchDataForFrenchDepartments(ignoreBounds) {
