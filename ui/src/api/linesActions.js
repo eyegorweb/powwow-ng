@@ -176,6 +176,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
     accessPoint {
       commercialStatusDate
       commercialStatus
+      commercialStatusTranslated
       networkStatus
       preactivationDate
       activationDate
