@@ -761,6 +761,24 @@ export async function updateBroadcastLists(params) {
   return response.data.updateMailingList;
 }
 
+export async function fetchOrderState(id) {
+  const queryStr = `
+  query {
+    partys(filter: {id: {eq: ${id}} })
+    {
+      items {
+        orderPreactivationMandatory
+        orderActivationMandatory
+      }
+    }
+  }
+
+
+  `;
+  const response = await query(queryStr);
+  return response.data.partys.items;
+}
+
 export async function createBroadcastLists(params) {
   const queryStr = `
     mutation {
