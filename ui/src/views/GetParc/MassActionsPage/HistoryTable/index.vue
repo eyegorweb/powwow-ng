@@ -27,7 +27,7 @@
       <template v-if="rows && rows.length">
         <DataTable
           storage-id="getparc.actHistory"
-          storage-version="008"
+          storage-version="009"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -176,7 +176,6 @@ export default {
           name: 'rateActionNumber',
           sortingName: 'UNIT_ACTIONS_FAILED',
           orderable: true,
-          noHandle: true,
           visible: true,
           format: {
             component: RateCell,
