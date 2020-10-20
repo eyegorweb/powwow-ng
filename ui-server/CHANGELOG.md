@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.270+20201020141605
+2020-10-20
+
+### Fixes
+
+- 1969 mise à jour de l'acte de gestion de préactivation/activation (2f86fc33d5f8955e1ad472086d15eafb54eb2a53)
+
 ## 1.0.0-master.269+20201020120526
 2020-10-20
 
