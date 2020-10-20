@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.267+20201020104842
+2020-10-20
+
+### Fixes
+
+- Croix pour réinitialiser la combobox (95d6ae3012dde88d131324cef29fa3aa5986e796)
+
 ## 1.0.0-master.266+20201020085854
 2020-10-20
 
