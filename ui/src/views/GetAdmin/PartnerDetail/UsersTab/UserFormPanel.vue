@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div v-if="content.duplicateFrom" class="entries-line">
+      <div v-if="content.duplicateFrom && havePermission('user', 'create')" class="entries-line">
         <div class="form-entry">
           <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
             <i class="arrow ic-Plus-Icon" />
@@ -127,7 +127,7 @@
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
-      <div>
+      <div v-if="havePermission('user', 'create')">
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>
           {{ $t('save') }}
         </UiButton>
@@ -339,7 +339,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfos', 'userIsBO', 'userIsPartner', 'userIsGroupAccount']),
+    ...mapGetters([
+      'userInfos',
+      'userIsBO',
+      'userIsPartner',
+      'userIsGroupAccount',
+      'havePermission',
+    ]),
 
     fromPagePartner() {
       return this.content.fromPage === 'partner';
@@ -453,7 +459,7 @@ export default {
     // Mode création
     if (this.content.fromPartnerMenu || this.content.fromUserMenu) {
       this.canShowForm = true;
-      roles = await fetchAllowedRoles(null, null, null);
+      roles = await fetchAllowedRoles(null, null, this.content.partnerId);
       this.roles = this.formattedRoles(roles);
       return;
     }
