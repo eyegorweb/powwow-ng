@@ -10,9 +10,9 @@
         <label class="font-weight-bold">
           {{ $t('common.billingAccount') }}
           <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
-          <!-- <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
+          <div class="text-danger" v-if="fieldErrors && fieldErrors.billingAccount">
             {{ $t('required') }}
-          </div> -->
+          </div>
         </label>
         <BillingAccountsPart
           :key="`billingAccount_${partner}`"
@@ -20,7 +20,7 @@
           :offer.sync="selectedOffer"
           @set:billingAccount="setBillingAccount"
           :preselect-billing-account="preselectBillingAccount"
-          :disabled="!!preselectBillingAccount"
+          :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
         />
       </div>
       <div>
@@ -132,6 +132,7 @@ export default {
       this.decideOnMandatoryCustomFields();
       this.offerServices = undefined;
       this.selectedOffer = undefined;
+      this.chosenBillingAccount = undefined;
 
       if (!newValue) {
         this.selectedOffer = undefined;
@@ -153,6 +154,10 @@ export default {
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
+        if (!this.preselectBillingAccount || !this.preselectBillingAccount.label) {
+          fieldErrors.billingAccount = true;
+          haveError = true;
+        }
         if (!this.selectedOffer || !this.selectedOffer.data) {
           fieldErrors.offer = true;
           haveError = true;

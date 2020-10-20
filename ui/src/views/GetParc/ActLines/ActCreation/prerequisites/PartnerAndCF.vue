@@ -32,7 +32,6 @@ import PrereqContainer from './parts/PrereqContainer';
 import PartnersPart from './parts/PartnersPart';
 import BillingAccountsPart from './parts/BillingAccountsPart';
 import get from 'lodash.get';
-
 export default {
   components: {
     PrereqContainer,
