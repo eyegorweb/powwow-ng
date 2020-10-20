@@ -2,6 +2,55 @@
 
 <!--- next entry here -->
 
+## 1.10.0
+2020-10-20
+
+### Features
+
+- Ajout du tri sur la table de transfer de sim (caa39623616e0f902a947f5938074e1cfc4e7442)
+- Ajout de la colonne email dans la recherche d'utilisateurs (5f14f1b5c83ecd8db26d7a2cce93175c6be763e8)
+- Ajout de la croix pour effacer le contenu input autocomplete (ea2cb18199976eb90f7950c09f00d6f7d365a4c3)
+- ajout de colonne dans l'export des lignes (41740a485be9ce1b3e89f033d308be3e11007e67)
+- tranches MSISN d'un partenaire MVNO (03e070aa6a21a8ef698f6078bfcff35bd8ad2780)
+- Ajout de menus et traduction des menus (deed39efc47def45c10c58cf884609477de22b52)
+- Gestion du preac en fonction du detail partenaire sur la commande de SIM (b0978942b7f1e98017bbcf33017f1708d248251b)
+
+### Fixes
+
+- Correction orthographe panel alarme (8cdd594f5cc7542d25cb486daedee050401b0d65)
+- Correction du filtres d'actes de gestions (9099047083b0b347a653faeaf8fbe8f62c331d6f)
+- Taille du label et traduction dans le panel de creation alarme (4fa4dc45d312e4d7a1765009d6db88aefe07f856)
+- 1955 ajout du style des menus actifs (5b562545d77e561e68dda75d08a023bef332b77f)
+- La croix était transparente sur linput de recherche (457d85fdc5bc40d4506f1d1b3ad729758a06490a)
+- dans le détail d'une ligne, le champ partenaire doit être masqué et la portée de l'alarme doit être en numéro 1 (631fdadf612345117363bd62d35c155162699dd2)
+- 1956 ajout des permissions pour gérer le détail des partenaires (33d74f4f77a33eea07098d322868f65e706e06b5)
+- Problème de pagination limit dans le tableau des rapports (261f81c1749943a8e12ccf50d430283ceb196a38)
+- Modification des services en masse (42c369696cf8ba002b16893092ff6183ffb40b99)
+- 1738 mise à jour de l'api du graphe Nbre de lignes facturées et détail des montants facturés (28bfa1fb2eaa9f0af0c71d8dd2202d5cbe2730ea)
+- Changer SIRET pour SIREN sur le CF Marque blanche (b545747c1ba67483948ac52670896644614e083d)
+- Désactivation du survol sur les chiffres inactif du widget top 5 alarmes déclenché (1f5eaa576b5cfcbf6bb4f236ee72e2266c5b3c27)
+- Enlever la mention "depuis le" en double (ca6badec73c36091f70698a0704764c99513dfb6)
+- 1969 mise à jour de l'acte de gestion de préactivation / activation (e80d1a1c3d3ec38df672e5e6c94317b47ae87737)
+- Orthographe sur le detail historique acte de gestion (6df032bbc86484b7a23fc05e250ac1179370274b)
+- 1975 mise en place d'un loader pour la confirmation d'actes de gestion longs (3cb9241963e100df78ddff164c217df34d807f3d)
+- Add new export getparc (c63c3166af9495a6beccd71945ace2fad5680288)
+- Sorting transfer sim table (8f9701a6869f079428548c28caf568779baf4db7)
+- Changement du point API pour la traduction du statut commercial (3fdb26e2d505a11399c66494ea5509a97f0a458d)
+- 1975 amélioration de l'affichage du loader pour les actes liées à la résiliation (bd915f3e2b2e720bd5d9457cab5feebcb8549a71)
+- 1912 suppression du filtre partenaire sur les alarmes pour les utilisateurs connectés en tant que partenaire (e207589c33652beaabf87121210869dca618ef95)
+- Gestion des appels API et scroll sur le changement offre, service, preac (58240b43dca1ea16da0e22ca759fe301f43e4e89)
+- revert de la croix pour réinitialiser l'input de recherche (313a17a4396d5add5d1e0c92dd319c9914c3cf4b)
+- Ajout dune ligne dans lappel api pour le statut commercial traduit (411e35c9ccef3e1e90465ee1f326cc9bb24c2748)
+- 1969 mise à jour de l'acte de gestion de préactivation / activation pour les MVNO (c02c4f8ba1292d945d5b4cd731e685cff09b3769)
+- Zoom sur le département lors de la recherche par code postale (4c70a83cf0c54a977c592b980ef53d07aad4d44a)
+- Colonnes en doubles sur la table des lignes (47046bbb948e7f3575127a6bf8c6aa403b896670)
+- Croix pour réinitialiser la combobox (95d6ae3012dde88d131324cef29fa3aa5986e796)
+- 1969 mise à jour de l'acte de gestion de préactivation / activation (4e4c3739e093adf5a2e5f1e38527a467b4be11a6)
+- 1997 récupération des rôles pour le mode création d'utilisateur en tant qu'utilisateur partenaire connecté (176822e767171715c6fe0130651f3ce390f9973a)
+- 1969 mise à jour de l'acte de gestion de préactivation/activation (2f86fc33d5f8955e1ad472086d15eafb54eb2a53)
+- Ajout du drag&drop sur la colonne succès/fail de la table historyTable (843474b37a3f8755c9c33d8d578d0f3528b4ebc5)
+- 1981 gestion de la permission pour la création d'un utilisateur (8e39787d3cefc0f841f2589dacf4975bbf70939c)
+
 ## 1.9.0
 2020-10-13
 
