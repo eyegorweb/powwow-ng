@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.266+20201020085854
+2020-10-20
+
+### Fixes
+
+- Colonnes en doubles sur la table des lignes (47046bbb948e7f3575127a6bf8c6aa403b896670)
+
 ## 1.0.0-master.265+20201020083030
 2020-10-20
 
