@@ -2,12 +2,15 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.264+20201020081817
+## 1.0.0-master.265+20201020083030
 2020-10-20
 
 ### Fixes
 
+- Gestion des appels API et scroll sur le changement offre, service, preac (58240b43dca1ea16da0e22ca759fe301f43e4e89)
 - Ajout dune ligne dans lappel api pour le statut commercial traduit (411e35c9ccef3e1e90465ee1f326cc9bb24c2748)
+- 1969 mise à jour de l'acte de gestion de préactivation / activation pour les MVNO (c02c4f8ba1292d945d5b4cd731e685cff09b3769)
+- Zoom sur le département lors de la recherche par code postale (4c70a83cf0c54a977c592b980ef53d07aad4d44a)
 
 ## 1.0.0-master.263+20201019152659
 2020-10-19
