@@ -1,14 +1,14 @@
 <template>
   <div>
     <NoPrerequisitesPre
-      v-if="
-        (!userIsPartner && actWithNoPrerequs(act.title)) ||
-          actWithConditionalPrerequs(act.title, userIsMVNO)
-      "
+      v-if="!userIsPartner && actWithNoPrerequs(act.title)"
       @set:preprequisites="setPrerequisites"
     />
     <PartnerAndCF
-      v-if="['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title)"
+      v-if="
+        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title) &&
+          !userIsMVNO
+      "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
     />
@@ -84,13 +84,6 @@ export default {
       'setBillingAccountsFilter',
     ]),
 
-    actWithConditionalPrerequs(actTitle, isUserType) {
-      return (
-        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === actTitle) &&
-        isUserType
-      );
-    },
-
     actWithNoPrerequs(actTitle) {
       return [
         'getparc.actCreation.carouselItem.REACTIVATE',
@@ -109,7 +102,12 @@ export default {
     initPrerequisites() {
       if (this.userIsPartner) {
         this.userPartner = this.defaultAppliedFilters[0].values[0];
-        if (this.act && this.actWithNoPrerequs(this.act.title)) {
+        if (
+          (this.act && this.actWithNoPrerequs(this.act.title)) ||
+          (this.act &&
+            this.act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE' &&
+            this.userIsMVNO)
+        ) {
           this.setPrerequisites({
             search: true,
             isPartnerHidden: true,
