@@ -2,12 +2,11 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.264+20201020081832
+## 1.0.0-master.264+20201020081817
 2020-10-20
 
 ### Fixes
 
-- Gestion des appels API et scroll sur le changement offre, service, preac (58240b43dca1ea16da0e22ca759fe301f43e4e89)
 - Ajout dune ligne dans lappel api pour le statut commercial traduit (411e35c9ccef3e1e90465ee1f326cc9bb24c2748)
 
 ## 1.0.0-master.263+20201019152659
