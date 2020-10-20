@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.273+20201020153123
+2020-10-20
+
+### Fixes
+
+- 1981 gestion de la permission pour la création d'un utilisateur (8e39787d3cefc0f841f2589dacf4975bbf70939c)
+
 ## 1.0.0-master.272+20201020145426
 2020-10-20
 
