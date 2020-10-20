@@ -169,7 +169,13 @@ export default {
   },
 
   watch: {
-    async selectedPartner({ id }) {
+    async selectedPartner(value) {
+      if (!value) {
+        this.selectedBillingAccount = null;
+        this.billingAccounts = [];
+        return;
+      }
+      const { id } = value;
       // NOTE: pendant que l'on tape, les valeurs sont remontes mais non validees. lorsque l'on click, on recupere la vrai valeur
       if (id == null) return;
       if (

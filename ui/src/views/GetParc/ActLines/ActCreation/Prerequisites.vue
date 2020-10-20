@@ -5,7 +5,10 @@
       @set:preprequisites="setPrerequisites"
     />
     <PartnerAndCF
-      v-if="['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title)"
+      v-if="
+        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title) &&
+          !userIsMVNO
+      "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
     />
@@ -46,7 +49,7 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState('actLines', ['defaultAppliedFilters']),
-    ...mapGetters(['userIsPartner']),
+    ...mapGetters(['userIsPartner', 'userIsMVNO']),
   },
   watch: {
     contextPartnersType() {
@@ -99,7 +102,12 @@ export default {
     initPrerequisites() {
       if (this.userIsPartner) {
         this.userPartner = this.defaultAppliedFilters[0].values[0];
-        if (this.act && this.actWithNoPrerequs(this.act.title)) {
+        if (
+          (this.act && this.actWithNoPrerequs(this.act.title)) ||
+          (this.act &&
+            this.act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE' &&
+            this.userIsMVNO)
+        ) {
           this.setPrerequisites({
             search: true,
             isPartnerHidden: true,

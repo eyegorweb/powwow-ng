@@ -22,6 +22,9 @@
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
         />
+        <a v-if="value" @click.prevent="resetValue" class="btn crossCancel">
+          <i class="select-icon ic-Cross-Icon"></i>
+        </a>
         <a class="p-0" @click.prevent="showSuggestions">
           <i v-if="!noIcon" :class="iconClass" />
         </a>
@@ -36,7 +39,7 @@
             v-if="!$value && !displayResultsWhileEmpty"
             class="autocomplete-result text-muted is-disabled"
           >
-            Commencez à taper pour avoir des suggestions
+            {{ $t('suggestionsPlaceholder') }}
           </li>
           <template v-else>
             <li
@@ -173,6 +176,9 @@ export default {
     hideSuggestions() {
       this.areSuggestionsVisible = false;
     },
+    resetValue() {
+      this.$emit('update:value', undefined);
+    },
     resetSelected() {
       this.selectedItem = -1;
     },
@@ -262,6 +268,14 @@ export default {
 
 .big-input {
   font-size: 1.5rem;
+}
+
+.crossCancel {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .icon-default {

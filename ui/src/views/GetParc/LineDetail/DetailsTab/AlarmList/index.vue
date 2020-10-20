@@ -138,6 +138,9 @@ export default {
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
+        payload: {
+          partner: this.content.party,
+        },
         onClosePanel(params) {
           if (params && params.resetSearch) {
             doReset();
@@ -174,7 +177,7 @@ export default {
       this.openPanel({
         title: this.$t('getvsion.detail-panel.change-alarm'),
         panelId: 'getvsion.table.create-alarm',
-        payload: { ...alarmData, toModify: true },
+        payload: { duplicateFrom: { ...alarmData, toModify: true } },
         wide: true,
         backdrop: true,
         ignoreClickAway: true,

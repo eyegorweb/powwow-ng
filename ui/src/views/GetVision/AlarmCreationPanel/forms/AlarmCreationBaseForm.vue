@@ -57,6 +57,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
     haveForm: Boolean,
     suspension: Boolean,
     checkErrorsFn: {
@@ -83,6 +84,13 @@ export default {
         ...get(this.duplicateFrom, 'party', {}),
         label: get(this.duplicateFrom, 'party.name'),
         data: get(this.duplicateFrom, 'party'),
+      };
+    } else if (this.partner) {
+      this.shouldSelectPartner = false;
+      this.selectedPartner = {
+        ...this.partner,
+        label: get(this.partner, 'name'),
+        data: this.partner,
       };
     }
   },

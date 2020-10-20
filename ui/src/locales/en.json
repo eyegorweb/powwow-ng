@@ -162,6 +162,17 @@
       "FDNX": "FDNX"
     }
   },
+  "mainMenu": {
+    "getSim": "GetSIM",
+    "getParc": "GetFleet(GetDiag)",
+    "getVision": "GetVision",
+    "getAlarm": "GetAlarm",
+    "getSupport": "GetSupport",
+    "getReport": "GetReport",
+    "getBill": "GetBills",
+    "getAdmin": "GetAdmin",
+    "getDevice": "GetDevice"
+  },
   "menu": {
     "massActions": "History of management acts",
     "actLines": "Lines management",
@@ -171,7 +182,7 @@
     "partners": "Partners management",
     "admins": "Admins management",
     "account": "Account",
-    "modelReports": "Reports",
+    "modelReports": "Reports management",
     "createReports": "documents management",
     "reportsDashboard": "Dashborad",
     "reportsBill": "Invoices",
@@ -561,6 +572,17 @@
       "options": "Partner options",
       "accountDescription": "Description of partner account",
       "total": "{total} partner (s) found",
+      "m2mRange": {
+        "counters": "Counters",
+        "title": "MSISDN ranges",
+        "active": "MSISDN range enabled",
+        "locked": "MSISDN range locked",
+        "code": "MSISDN range code",
+        "available": "Availables MSISDN",
+        "preactivated": "Used MSISDN",
+        "quarantine": "Quarantined MSISDN",
+        "unavailable": "Unavailables MSISDN"
+      },
       "optionsDetails": {
         "smsCodes": "Short codes SMS",
         "notifyEmail": "Email notification",

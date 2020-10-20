@@ -42,7 +42,7 @@
             </div>
             <div class="item">
               <h6>{{ $t('getparc.actLines.col.lineStatus') }}:</h6>
-              <p v-if="lineStatus">{{ lineStatus }}</p>
+              <p v-if="lineStatus" v-html="lineStatus">{{ lineStatus }}</p>
             </div>
             <div class="item">
               <h6>{{ $t('filters.lines.networkStatus') }}:</h6>
@@ -99,7 +99,6 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
 import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
 
 export default {
@@ -125,14 +124,7 @@ export default {
 
   computed: {
     partnerTypeMVNO() {
-      const typeForPartner = get(this.content, 'party.partyType');
-      let isMVNOPartner;
-      if (typeForPartner === 'MVNO') {
-        isMVNOPartner = true;
-      } else {
-        isMVNOPartner = false;
-      }
-      return isMVNOPartner;
+      return get(this.content, 'party.partyType') === 'MVNO';
     },
 
     billingStatusChangeDate() {
@@ -172,10 +164,7 @@ export default {
       if (simStatus === 'AVAILABLE') {
         return `${get(this.content, 'created')}`;
       } else if (simStatus === 'ALLOCATED') {
-        const result = get(this.content, 'accessPoint.activationDate')
-          ? get(this.content, 'accessPoint.activationDate')
-          : get(this.content, 'accessPoint.preactivationDate');
-        return `${result}`;
+        return get(this.content, 'accessPoint.preactivationDate');
       } else if (simStatus === 'ALLOCATING') {
         return `${get(this.content, 'updated')}`;
       } else if (simStatus === 'RELEASED') {
@@ -190,11 +179,12 @@ export default {
     lineStatus() {
       const lineStatus = get(this.content, 'accessPoint.lines[0].status');
       if (lineStatus === 'ALLOCATED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} ${this.$t(
-          'fromThe'
-        )} ${get(this.content, 'accessPoint.lines[0].auditable.created')}`;
+        return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} <br /> ${get(
+          this.content,
+          'accessPoint.lines[0].auditable.created'
+        )}`;
       } else if (lineStatus === 'RELEASED') {
-        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} ${this.$t('fromThe')} ${get(
+        return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} <br /> ${get(
           this.content,
           'accessPoint.lines[0].auditable.updated'
         )}`;

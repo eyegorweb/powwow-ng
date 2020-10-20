@@ -104,6 +104,10 @@ export default {
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins/border-radius';
 
+.ic-Cross-Icon {
+  background-color: white;
+  padding: 5px 3px;
+}
 label {
   &.error input {
     border: 1px solid $orange;

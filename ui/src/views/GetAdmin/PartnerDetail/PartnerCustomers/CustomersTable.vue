@@ -117,13 +117,14 @@ export default {
           visible: true,
           exportId: 'MARKET_LINE',
         },
+
         {
           id: 4,
-          label: this.$t('getadmin.partnerDetail.mb.siret'),
-          name: 'siret',
+          label: this.$t('getadmin.partnerDetail.mb.siren'),
+          name: 'siren',
           orderable: true,
           visible: true,
-          exportId: 'SIRET',
+          exportId: 'SIREN',
         },
         {
           id: 5,

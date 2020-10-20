@@ -24,7 +24,7 @@
 import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
-import { getMonthString } from '@/utils/date';
+import { getMonthStringPreviousMonth } from '@/utils/date';
 import { billedLineAndAmount } from '@/api/reportDashboard.js';
 
 export default {
@@ -104,14 +104,19 @@ export default {
       if (this.billingAccount) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
+      if (this.offer) {
+        params.offerId = this.offer.meta.initialOffer.id;
+      }
       const apiData = await billedLineAndAmount(
         params.partyId,
         params.customerAccountCode,
+        params.offerId,
         this.currentPeriod
       );
+
       const dataSeries = apiData.reduce(
         (all, c) => {
-          const month = getMonthString(c.date);
+          const month = getMonthStringPreviousMonth(c.date, 1);
           all.categories.push(month.slice(0, 3));
           all.billedLines.push(c.billedLines);
           all.totalAmount.push(c.totalAmount);

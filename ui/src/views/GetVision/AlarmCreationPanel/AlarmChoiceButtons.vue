@@ -33,7 +33,10 @@ export default {
 
   props: {
     current: Object,
-    duplicateFrom: Object,
+    duplicateFrom: {
+      type: Object,
+      required: false,
+    },
   },
 
   mounted() {

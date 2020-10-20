@@ -13,7 +13,8 @@
       <template slot="beforeInput">
         <div
           v-for="selected in displayedItems"
-          class="selection ml-2 my-1 text-white bg-secondary rounded"
+          class="selection ml-2 my-1 text-white rounded"
+          :class="!selectedColor ? 'bg-secondary' : selectedColor"
           :key="selected.id"
         >
           {{ selected.label }}
@@ -99,6 +100,10 @@ export default {
     },
     disabled: Boolean,
     containsSearch: Boolean,
+    selectedColor: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {

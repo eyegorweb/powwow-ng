@@ -4,7 +4,7 @@
       <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
       <div class="line-container" v-for="line in lines" :key="line.id">
         <div class="value">
-          <span>{{ valueLabel }}</span>
+          <span>{{ $t(valueLabel) }}</span>
           <UiInput
             class="value-input"
             input-type="number"
@@ -223,6 +223,7 @@ export default {
       padding-right: 0.5rem;
       position: relative;
       top: 0.6rem;
+      font-size: 11px;
     }
     & /deep/ select {
       padding: 0.2rem 0.2rem;

@@ -137,6 +137,7 @@ export default {
   },
   props: {
     alarm: Object,
+    partner: Object,
     duplicateFrom: {
       type: Object,
       required: false,
@@ -173,6 +174,10 @@ export default {
       return this.duplicateFrom && this.duplicateFrom.toModify;
     },
     numStep() {
+      console.log('numStep -> this.editMode', this.editMode);
+      if (!this.editMode && this.partner) {
+        return 2;
+      }
       return this.editMode ? 1 : 3;
     },
   },

@@ -38,5 +38,5 @@ export async function fetchBillingAccounts(q, partners, { page, limit, partnerTy
 }
 
 export async function fetchBillibAccountForPartnerId(partnerId) {
-  return await fetchBillingAccounts('', [{ id: partnerId }], { page: 0, limit: 50 });
+  return await fetchBillingAccounts('', [{ id: partnerId }], { page: 0, limit: 10 });
 }

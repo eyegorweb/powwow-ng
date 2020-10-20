@@ -124,7 +124,9 @@ export default {
       this.openPanel({
         title: this.$t('getvsion.detail-panel.change-alarm'),
         panelId: 'getvsion.table.create-alarm',
-        payload: { ...this.alarm, toModify: true },
+        payload: {
+          duplicateFrom: { ...this.alarm, toModify: true },
+        },
         wide: true,
         backdrop: true,
         ignoreClickAway: true,

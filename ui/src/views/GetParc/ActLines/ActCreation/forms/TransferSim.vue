@@ -5,6 +5,7 @@
         v-if="columnsInfos"
         :key="tableVersion"
         :columns="columnsInfos"
+        :order="orderBy"
         :fetch-data-fn="getFetchTransferSimDataFN()"
         :size="8"
         @colEvent="onRowSelect"
@@ -48,6 +49,7 @@ export default {
       tableVersion: 0,
       selectedRows: [],
       transferIds: [],
+      orderBy: { key: 'transferId', direction: 'DESC' },
       data: {},
       columnsInfos: [
         col('', '', true, true, {
@@ -55,10 +57,10 @@ export default {
         }),
         col('ID', 'transferId', true, true),
         col('ICCID', 'iccid', true, true),
-        col('Partenaire source', '', true, true, {
+        col('Partenaire source', 'fromPartner', true, true, {
           component: FromPartner,
         }),
-        col('Partenaire cible', '', true, true, {
+        col('Partenaire cible', 'toPartner', true, true, {
           component: ToPartner,
         }),
         col('Statut de la ligne', 'status', true, true),
@@ -99,8 +101,8 @@ export default {
     },
 
     getFetchTransferSimDataFN() {
-      return async () => {
-        this.data = await fetchTransferSim();
+      return async (limit, orderBy) => {
+        this.data = await fetchTransferSim(orderBy);
         return {
           rows: this.data.transferSimRequests,
           total: this.data.transferSimRequests.length,

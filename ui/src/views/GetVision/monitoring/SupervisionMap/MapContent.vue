@@ -67,6 +67,7 @@ const CONTINENT_ZOOM_LEVEL = 4;
 const CITY_ZOOM_LEVEL = 11;
 const CELL_ZOOM_LEVEL = 13;
 const COUNTRY_ZOOM_LEVEL = 5;
+const DEPARTMENT_ZOOM_LEVEL = 9;
 
 const CONTINENTS_CONF = [
   { code: 'NA', label: 'North America', lat: 48.16, lng: -102.14, activeCount: 0, passiveCount: 0 },
@@ -135,12 +136,17 @@ export default {
       geocoder: undefined,
       isReady: false,
       isSameFilters: false,
+      canSearch: true,
 
       locationType: 'CONTINENT',
     };
   },
 
   computed: {
+    zipCodeFilter() {
+      const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
+      return this.$loGet(zoneFilter, 'data.zipCode');
+    },
     usageForQuery() {
       if (this.usage === 'ALARMS') {
         return 'ALL';
@@ -192,18 +198,22 @@ export default {
   methods: {
     async refreshData() {
       if (this.isLoading) return;
+      if (!this.canSearch) return;
 
       try {
         this.isLoading = true;
         this.markers = [];
-        await this.manageZoom();
+        if (!this.zipCodeFilter) {
+          await this.initZoom();
+        }
 
         const countryCode = await this.getCenteredCountry();
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
-
         if (this.usage === 'COCKPIT') {
           await this.loadDataForM2MCockpit();
+        } else if (this.zipCodeFilter) {
+          await this.loadDataByZipCode();
         } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
             await this.loadDataForContinents();
@@ -257,12 +267,12 @@ export default {
       this.map.setCenter(franceCoords);
     },
 
-    centerOnCountry(longitude, latitude) {
+    centerOnCoords(longitude, latitude) {
       const countryCoords = new this.google.maps.LatLng(latitude, longitude);
       this.map.setCenter(countryCoords);
     },
 
-    async manageZoom() {
+    async initZoom() {
       if (this.isSameFilters) return;
       if (!this.appliedFilters) return;
 
@@ -315,6 +325,44 @@ export default {
       }, {});
     },
 
+    async loadDataByZipCode() {
+      const markers = await this.fetchDataForFrenchDepartments(true);
+      this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL);
+    },
+
+    async setMarkersAndCenter(markers, zoomLevel, coords) {
+      let longitude, latitude;
+
+      if (coords) {
+        longitude = coords.longitude;
+        latitude = coords.latitude;
+      }
+      if (markers && markers.length) {
+        if (!longitude || !latitude) {
+          longitude = this.$loGet(markers[0], 'data.locationLongitude');
+          latitude = this.$loGet(markers[0], 'data.locationLatitude');
+        }
+
+        if (longitude && latitude && zoomLevel) {
+          this.canSearch = false;
+          this.centerZoom(longitude, latitude, zoomLevel);
+          this.markers = markers;
+          await delay(800);
+          this.canSearch = true;
+        } else {
+          this.markers = markers;
+        }
+      }
+    },
+
+    centerZoom(longitude, latitude, zoomLevel) {
+      const currentZoomLevel = this.map.getZoom();
+      if (currentZoomLevel !== zoomLevel) {
+        this.centerOnCoords(longitude, latitude);
+        this.map.setZoom(zoomLevel);
+      }
+    },
+
     async loadDataForM2MCockpit() {
       this.adjustPosition = defaultAdjustment;
 
@@ -345,7 +393,7 @@ export default {
         : undefined;
 
       if (countryFilter) {
-        this.centerOnCountry(countryFilter.data.longitude, countryFilter.data.latitude);
+        this.centerOnCoords(countryFilter.data.longitude, countryFilter.data.latitude);
       } else {
         this.centerOnFrance();
       }
@@ -393,18 +441,23 @@ export default {
         this.getBounds(),
         this.formatFilters()
       );
-      this.markers = this.formatMarkers(data);
+      const markers = this.formatMarkers(data);
+      this.setMarkersAndCenter(markers, 6);
     },
 
-    async loadDataForFrenchDepartments() {
+    async fetchDataForFrenchDepartments(ignoreBounds) {
       this.locationType = 'DEPARTMENT';
       this.adjustPosition = defaultAdjustment;
       const data = await fetchFrenchDepartmentsData(
         this.usageForQuery,
-        this.getBounds(),
+        ignoreBounds ? {} : this.getBounds(),
         this.formatFilters()
       );
-      this.markers = this.formatMarkers(data);
+      return this.formatMarkers(data);
+    },
+
+    async loadDataForFrenchDepartments() {
+      this.markers = await this.fetchDataForFrenchDepartments();
     },
 
     async loadDataForUsStates() {

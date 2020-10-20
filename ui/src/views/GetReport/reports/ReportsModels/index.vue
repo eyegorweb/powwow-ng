@@ -252,7 +252,7 @@ export default {
 
     async fetchResults(payload) {
       const { pagination, orderBy } = payload || {
-        pagination: { page: 0, limit: 10 },
+        pagination: { page: 0, limit: this.pageLimit },
         orderBy: this.orderBy,
       };
 
@@ -288,6 +288,10 @@ export default {
   },
   watch: {
     orderBy() {
+      this.page = 1;
+      this.fetchResults();
+    },
+    pageLimit() {
       this.page = 1;
       this.fetchResults();
     },

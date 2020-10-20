@@ -42,14 +42,24 @@
         <div class>
           <div class="col-md-12">
             <BlocList :items="filteredAdresses">
-              <template slot="firstElement" slot-scope="{ className }">
+              <template
+                v-if="havePermission('party', 'update_delivery_address')"
+                slot="firstElement"
+                slot-scope="{ className }"
+              >
                 <div :class="`${className}`" @click="addnewAddress">
                   <div class="add-new">
                     <UiButton
                       variant="round-button"
                       @click="addnewAddress"
                       class="ic-Plus-Icon test"
-                      style="margin: auto; background: #009dcc; width: 3rem; height: 3rem; font-size: 1.5rem"
+                      style="
+                        margin: auto;
+                        background: #009dcc;
+                        width: 3rem;
+                        height: 3rem;
+                        font-size: 1.5rem;
+                      "
                     />
                     <span>{{ $t('orders.new.deliveryStep.new') }}</span>
                   </div>
@@ -82,6 +92,7 @@ import BlocList from '@/components/BlocList';
 import CreateOrderDeliveryNewAddress from './CreateOrderDeliveryNewAddress';
 import get from 'lodash.get';
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CreateOrderStepDelivery',
@@ -101,6 +112,10 @@ export default {
       required: true,
     },
     order: Object,
+  },
+
+  computed: {
+    ...mapGetters(['havePermission'])
   },
 
   data() {

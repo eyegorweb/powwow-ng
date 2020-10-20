@@ -1,9 +1,12 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
-export async function fetchTransferSim() {
+export async function fetchTransferSim(orderBy) {
+  console.log(orderBy);
+  const orderingInfo =
+    orderBy && orderBy.key ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
-    transferSimRequests(pagination: {limit: 999, page: 0}, sorting: { created: DESC})
+    transferSimRequests(pagination: {limit: 999, page: 0}, ${orderingInfo})
     {
       transferId
       iccid
@@ -173,6 +176,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
     accessPoint {
       commercialStatusDate
       commercialStatus
+      commercialStatusTranslated
       networkStatus
       preactivationDate
       activationDate
@@ -656,7 +660,7 @@ export async function exportSimCardInstances(
 ) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
-
+  console.log(columns);
   let asyncExportRequestParam = '';
 
   if (asyncExportRequest) {

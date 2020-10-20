@@ -29,6 +29,7 @@
           :offer="selectedOffer"
           :selected-items.sync="servicesToDisable"
           :items-to-disable="servicesToEnable"
+          selected-color="bg-accent"
         />
       </div>
     </div>

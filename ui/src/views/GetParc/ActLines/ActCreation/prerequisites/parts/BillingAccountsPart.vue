@@ -4,6 +4,9 @@
     v-model="selectedBillingAccount"
     :error="errors"
     display-results-while-empty
+    scroll-for-next
+    :disabled="disabled"
+    contains-search
   />
 </template>
 
@@ -16,8 +19,8 @@ export default {
     UiApiAutocomplete,
   },
   props: {
-    // partnerId: String,
     partner: Object,
+    preselectBillingAccount: Object,
     offer: Object,
     errors: {
       type: Object,
@@ -41,8 +44,16 @@ export default {
         partner: ba.party,
       }));
 
-      if (this.billingAccounts && this.billingAccounts.length === 1) {
+      if (
+        this.billingAccounts &&
+        this.billingAccounts.length === 1 &&
+        this.partner.partyType !== 'MVNO'
+      ) {
         this.selectedBillingAccount = this.billingAccounts[0];
+      }
+
+      if (this.preselectBillingAccount) {
+        this.selectedBillingAccount = this.preselectBillingAccount;
       }
     }
   },

@@ -3,6 +3,7 @@
   "searchActById": "Rechercher un acte par identifiant",
   "searchLineById": "Rechercher une ligne par identifiant",
   "searchByLoginPlaceholder": "Rechercher un utilisateur par login",
+  "suggestionsPlaceholder": "Commencez à taper pour avoir des suggestions",
   "searchByCF": "Rechercher une offre par code C.F., libellé, siret ou ligne de marché",
   "searchLine": "Rechercher une ligne",
   "search": "Rechercher",
@@ -185,6 +186,17 @@
       "FDNX": "FDNX"
     }
   },
+  "mainMenu": {
+    "getSim": "GetSIM",
+    "getParc": "GetParc(GetDiag)",
+    "getVision": "GetVision",
+    "getAlarm": "GetAlarme",
+    "getSupport": "GetSupport",
+    "getReport": "GetReport",
+    "getBill": "GetFactu",
+    "getAdmin": "GetAdmin",
+    "getDevice": "GetDevice"
+  },
   "menu": {
     "massActions": "Historique d'actes de gestion",
     "actLines": "Gestion des lignes",
@@ -194,7 +206,7 @@
     "partners": "Gestion des partenaires",
     "admins": "Gestion des administrateurs",
     "account": "Compte",
-    "modelReports": "Rapports",
+    "modelReports": "Gestion des rapports",
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
     "reportsBill": "Factures",
@@ -518,7 +530,7 @@
       "limitedScope": "Cette alarme a une portée limitée à la ligne sélectionnée",
       "chooseOffer": "Choisir l'offre",
       "setLimits": "DÉFINIR DES SEUILS DE DÉCLENCHEMENT PAR USAGE (3 MAX.)",
-      "noLimitsConfigured": "Aucun seuil n'est configurer pour cet usage",
+      "noLimitsConfigured": "Aucun seuil n'est configuré pour cet usage",
       "configureForUsage": "Configurer pour cet usage",
       "addLimit": "Ajouter un seuil",
       "beforeEndOfMonth": "Avant la fin du mois",
@@ -613,6 +625,17 @@
       "options": "Options du partenaire",
       "accountDescription": "Description du compte partenaire",
       "total": "{total} partenaire(s) trouvé(s)",
+      "m2mRange": {
+        "counters": "Compteurs",
+        "title": "Tranche MSISDN",
+        "active": "Tranche MSISDN activée",
+        "locked": "Tranche MSISDN vérouillée",
+        "code": "Code tranche MSISDN",
+        "available": "MSISDN disponibles",
+        "preactivated": "MSISDN utilisés par des lignes préactivées",
+        "quarantine": "MSISDN en quarantaine",
+        "unavailable": "MISISDN utilisés par des lignes activées, suspendues ou en portabilité"
+      },
       "optionsDetails": {
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",
@@ -674,6 +697,7 @@
         "name": "Libellé de l’établissement",
         "marketLine": "Ligne de marché",
         "siret": "N° siret",
+        "siren": "N° siren",
         "status": "Statut",
         "commercialOffer": "Offres commerciales",
         "simCards": "Cartes SIM",
@@ -1025,7 +1049,7 @@
         "creator": "Demandeur",
         "creatorMail": "Email du demandeur",
         "EXPORT_ACT": "Exporter l'acte",
-        "EXPORT_LINES": "Exporter {total} lignes",
+        "EXPORT_LINES": "Exporter {total} ligne(s)",
         "EXPORT_ACTS": "Exporter {total} actes",
         "RESULT": "Voir le résultat de l'acte",
         "MORE_DETAIL": "Voir le détail du résultat",
@@ -1057,7 +1081,7 @@
       }
     },
     "actDetail": {
-      "title": "{total} lignes trouvée(s)",
+      "title": "{total} ligne(s) trouvée(s)",
       "actionChoice": "Choisir une action",
       "discharge": "Acquitter les actes en échec ",
       "restart": "Relancer les actes en échec",
