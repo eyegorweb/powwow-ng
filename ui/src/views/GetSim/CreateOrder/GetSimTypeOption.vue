@@ -112,7 +112,9 @@ export default {
   }
 
   img {
-    max-height: 7rem;
+    max-width: 100%;
+    max-height: 100%;
+    float: right;
   }
 }
 </style>

@@ -44,7 +44,7 @@ import UiToggle from '@/components/ui/UiToggle';
 import OffersChoice from './OffersChoice';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import LoaderContainer from '@/components/LoaderContainer';
-
+import { fetchOrderState } from '@/api/partners';
 import get from 'lodash.get';
 import { fetchOffersForPartnerId } from '@/api/offers';
 
@@ -98,6 +98,9 @@ export default {
     this.activation = get(this.synthesis, 'services.selection.activation', false);
     this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
 
+    const stateOrder = await fetchOrderState(this.partnerId);
+    this.activation = stateOrder[0].orderActivationMandatory;
+    this.preActivation = stateOrder[0].orderPreactivationMandatory;
     this.isLoadingOffers = true;
     const offers = await fetchOffersForPartnerId(this.partnerId);
     this.isLoadingOffers = false;
