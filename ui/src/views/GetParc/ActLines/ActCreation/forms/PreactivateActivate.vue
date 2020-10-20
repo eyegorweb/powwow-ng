@@ -94,10 +94,10 @@ export default {
       return this.actCreationPrerequisites.partner;
     },
     preselectBillingAccount() {
-      return (
-        this.actCreationPrerequisites.partner.partyType === 'CUSTOMER' &&
-        this.actCreationPrerequisites.billingAccount
-      );
+      if (this.actCreationPrerequisites.partner.partyType === 'MVNO') {
+        return this.chosenBillingAccount;
+      }
+      return this.actCreationPrerequisites.billingAccount;
     },
   },
   data() {
@@ -150,7 +150,6 @@ export default {
     },
 
     haveFieldErrors() {
-      // Ajouter gestion erreur CF sélectionné
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
@@ -171,7 +170,9 @@ export default {
         notifEmail: contextValues.notificationCheck,
         workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
         servicesChoice: this.servicesChoice,
-        customerAccountID: this.actCreationPrerequisites.billingAccount.id,
+        customerAccountID: this.actCreationPrerequisites.billingAccount
+          ? this.actCreationPrerequisites.billingAccount.id
+          : this.preselectBillingAccount.id,
         tempDataUuid: contextValues.tempDataUuid,
       };
       if (this.activation) {

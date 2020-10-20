@@ -6,7 +6,7 @@ export default excludeMocked([
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
-    havePrereqs: true,
+    // havePrereqs: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
