@@ -83,7 +83,7 @@
         <div class="form-entry">
           <button class="btn pt-0 pl-0 btn-link" @click.stop="() => openChangePasswordPanel()">
             <i class="arrow ic-Plus-Icon" />
-            Modifier le mot de passe
+            {{ $t('getadmin.partnerDetail.changePassword.title') }}
           </button>
         </div>
       </div>
@@ -362,7 +362,7 @@ export default {
         !!this.selectedPartner ||
         !!this.selectedGroupPartner ||
         (this.userInfos.type === 'PARTNER' &&
-          this.userInfos.partners[0].length > 0 &&
+          !!this.userInfos.partners[0] &&
           !!this.userInfos.partners[0].id) ||
         (this.userInfos.type === 'PARTNER_GROUP' &&
           !!this.userInfos.partyGroup &&
@@ -443,7 +443,6 @@ export default {
   },
 
   async mounted() {
-    console.log(this.content);
     this.canShowForm = false;
     let roles;
 
@@ -452,8 +451,10 @@ export default {
       this.selectedPartner = await fetchpartnerById(this.content.partnerId);
     }
     // Mode création
-    if (this.content.fromPartnerMenu) {
+    if (this.content.fromPartnerMenu || this.content.fromUserMenu) {
       this.canShowForm = true;
+      roles = await fetchAllowedRoles(null, null, null);
+      this.roles = this.formattedRoles(roles);
       return;
     }
     // Mode modification
