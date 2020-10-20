@@ -19,7 +19,6 @@ export default {
     UiApiAutocomplete,
   },
   props: {
-    // partnerId: String,
     partner: Object,
     preselectBillingAccount: Object,
     offer: Object,
@@ -45,7 +44,11 @@ export default {
         partner: ba.party,
       }));
 
-      if (this.billingAccounts && this.billingAccounts.length === 1) {
+      if (
+        this.billingAccounts &&
+        this.billingAccounts.length === 1 &&
+        this.partner.partyType !== 'MVNO'
+      ) {
         this.selectedBillingAccount = this.billingAccounts[0];
       }
 
