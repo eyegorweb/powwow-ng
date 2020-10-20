@@ -35,7 +35,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="010"
+            storage-version="013"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -516,50 +516,11 @@ export default {
           },
         },
         {
-          id: 23,
+          id: 24,
           label: this.$t('col.billingAccount'),
           name: 'accessPoint',
           visible: false,
           exportId: 'BILLING_ACCOUNT',
-          format: {
-            type: 'Getter',
-            getter: (row) => {
-              return (
-                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
-                ' - ' +
-                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
-              );
-            },
-          },
-        },
-        {
-          id: 24,
-          label: this.$t('col.commercialStatus'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'LINE_CUSTOM_FIELD6',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'commercialStatus',
-          },
-        },
-        {
-          id: 25,
-          label: this.$t('col.activation_date'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'LINE_CUSTOM_FIELD6',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'activationDate',
-          },
-        },
-        {
-          id: 26,
-          label: this.$t('col.billingAccount'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'Getter',
             getter: (row) => {
