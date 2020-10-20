@@ -32,10 +32,10 @@ export default {
       }
 
       if (this.havePermission('user', 'create')) {
-        additionalActions.push('actions.DUPLICATE');
+        additionalActions.push('actions.DUPLICATE', 'actions.MODIFY');
       }
 
-      return [...additionalActions, 'actions.MODIFY'];
+      return [...additionalActions];
     },
   },
 
