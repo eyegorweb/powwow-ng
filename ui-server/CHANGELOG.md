@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.10.1
+2020-10-21
+
+### Fixes
+
+- Enlever les mocks des menus (9724d94249ca02b77b01bde5dd5ebbb28756fbb3)
+- Ajout de la traduction pour fréquences théoriques en anglais (5b0592b26b93cf37fff4f31cc41954ece1b6c2de)
+- 1997 récupération des rôles pour le mode création d'utilisateur en tant qu'utilisateur partenaire connecté (6efc77164d2bc73bca1fb2d5ce3cc8a7722f97ad)
+
 ## 1.10.0
 2020-10-20
 
