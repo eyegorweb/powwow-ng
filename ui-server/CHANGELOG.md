@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.275+20201021092703
+2020-10-21
+
+### Fixes
+
+- Ajout de la traduction pour fréquences théoriques en anglais (5b0592b26b93cf37fff4f31cc41954ece1b6c2de)
+
 ## 1.0.0-master.274+20201021075229
 2020-10-21
 
