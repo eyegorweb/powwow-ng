@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.274+20201021075229
+2020-10-21
+
+### Fixes
+
+- Enlever les mocks des menus (9724d94249ca02b77b01bde5dd5ebbb28756fbb3)
+
 ## 1.0.0-master.273+20201020153123
 2020-10-20
 
