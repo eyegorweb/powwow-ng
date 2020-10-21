@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.276+20201021100425
+2020-10-21
+
+### Fixes
+
+- 1997 récupération des rôles pour le mode création d'utilisateur en tant qu'utilisateur partenaire connecté (6efc77164d2bc73bca1fb2d5ce3cc8a7722f97ad)
+
 ## 1.0.0-master.275+20201021092703
 2020-10-21
 
