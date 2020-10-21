@@ -456,13 +456,26 @@ export default {
     if (this.fromPagePartner) {
       this.selectedPartner = await fetchpartnerById(this.content.partnerId);
     }
-    // Mode création
-    if (this.content.fromPartnerMenu || this.content.fromUserMenu) {
+
+    // Mode création depuis le menu partenaires
+    if (this.content.fromPartnerMenu) {
       this.canShowForm = true;
-      roles = await fetchAllowedRoles(null, null, this.content.partnerId);
+      return;
+    }
+
+    // Mode création depuis le menu utilisateurs
+    if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER') {
+      this.canShowForm = true;
+      roles = await fetchAllowedRoles(null, this.userInfos.partners[0].id, null);
+      this.roles = this.formattedRoles(roles);
+      return;
+    } else if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER_GROUP') {
+      this.canShowForm = true;
+      roles = await fetchAllowedRoles(null, null, this.userInfos.partyGroup.id);
       this.roles = this.formattedRoles(roles);
       return;
     }
+
     // Mode modification
     if (this.content.duplicateFrom) {
       const userType = this.content.duplicateFrom.type;
