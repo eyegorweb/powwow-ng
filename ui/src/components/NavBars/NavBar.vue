@@ -186,7 +186,6 @@ export default {
         label: 'mainMenu.getAlarm',
         to: { name: 'alarms' },
         permission: { domain: 'alarm', action: 'read' },
-        mock: true,
       },
       {
         label: 'mainMenu.getReport',
@@ -216,7 +215,6 @@ export default {
         label: 'mainMenu.getBill',
         to: { name: 'reportsBill' },
         permission: { domain: 'getReport', action: 'read_bill' },
-        mock: true,
       },
       {
         label: 'mainMenu.getAdmin',
