@@ -35,7 +35,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="013"
+            storage-version="019"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -425,6 +425,46 @@ export default {
           sortingName: 'deviceReference',
           visible: false,
         },
+
+        {
+          id: 21,
+          label: this.$t('col.commercialStatus'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_COMMERCIAL_STATUS',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'commercialStatusTranslated',
+          },
+        },
+        {
+          id: 22,
+          label: this.$t('col.activation_date'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'LINE_ACTIVATION_DATE',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'activationDate',
+          },
+        },
+        {
+          id: 23,
+          label: this.$t('col.billingAccount'),
+          name: 'accessPoint',
+          visible: false,
+          exportId: 'BILLING_ACCOUNT',
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return (
+                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
+                ' - ' +
+                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
+              );
+            },
+          },
+        },
       ],
       defaultCustomFieldsColumns: [
         {
@@ -491,62 +531,6 @@ export default {
           format: {
             type: 'ObjectAttribute',
             path: 'custom5',
-          },
-        },
-        {
-          id: 21,
-          label: this.$t('col.commercialStatus'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'LINE_COMMERCIAL_STATUS',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'commercialStatusTranslated',
-          },
-        },
-        {
-          id: 22,
-          label: this.$t('col.activation_date'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'LINE_ACTIVATION_DATE',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'activationDate',
-          },
-        },
-        {
-          id: 23,
-          label: this.$t('col.billingAccount'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'BILLING_ACCOUNT',
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return (
-                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
-                ' - ' +
-                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
-              );
-            },
-          },
-        },
-        {
-          id: 24,
-          label: this.$t('col.billingAccount'),
-          name: 'accessPoint',
-          visible: false,
-          exportId: 'BILLING_ACCOUNT',
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return (
-                get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
-                ' - ' +
-                get(row, 'accessPoint.offerGroup.customerAccount.name', '')
-              );
-            },
           },
         },
       ],
