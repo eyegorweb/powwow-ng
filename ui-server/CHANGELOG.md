@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.278+20201022145914
+2020-10-22
+
+### Fixes
+
+- Nouvelles colonnes invisible sur TST test fix (d912a5c099016190ba8ee2cd7db5724891921f6c)
+
 ## 1.0.0-master.277+20201022123146
 2020-10-22
 
