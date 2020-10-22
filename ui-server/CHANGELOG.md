@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.279+20201022153549
+2020-10-22
+
+### Fixes
+
+- désactiver les toggles dans l'écran tranche M2M (ae2770c4a31e6a67847b7bfa27ddce82740da435)
+
 ## 1.0.0-master.278+20201022145914
 2020-10-22
 
