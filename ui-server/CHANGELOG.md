@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.277+20201022123146
+2020-10-22
+
+### Features
+
+- Ajout de l'action de suspension de facturation (8cc8b6c17c434e0316708c41ff9db9afe37faa8b)
+
 ## 1.0.0-master.276+20201021100425
 2020-10-21
 
