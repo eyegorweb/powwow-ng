@@ -88,6 +88,7 @@ export default {
       return [
         'getparc.actCreation.carouselItem.REACTIVATE',
         'getparc.actCreation.carouselItem.SUSPEND',
+        'getparc.actCreation.carouselItem.SUSPEND_BILLS',
         'getparc.actCreation.carouselItem.CHANGE_STATUS',
         'getparc.actCreation.carouselItem.SEND_SMS',
         'getparc.actCreation.carouselItem.TEST_PHASE',
