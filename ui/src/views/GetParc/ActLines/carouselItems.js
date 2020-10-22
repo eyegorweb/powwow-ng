@@ -94,6 +94,25 @@ export default excludeMocked([
     ],
   },
   {
+    icon: 'ic-pause-circle',
+    title: 'getparc.actCreation.carouselItem.SUSPEND_BILLS',
+    stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
+    subtitle: '',
+    selected: false,
+    color: 'red',
+    filters: [
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [
+          {
+            id: 'SUSPENDED',
+            label: 'Suspendu',
+          },
+        ],
+      },
+    ],
+  },
+  {
     icon: 'ic-Sim-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SIMCARD',

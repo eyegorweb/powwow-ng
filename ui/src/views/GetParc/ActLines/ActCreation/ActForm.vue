@@ -10,6 +10,9 @@
       <SuspendLinesForm
         v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND' && !isLoading"
       />
+      <SuspendBillsForm
+        v-if="act.title === 'getparc.actCreation.carouselItem.SUSPEND_BILLS' && !isLoading"
+      />
       <ChangeStatusForm
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_STATUS' && !isLoading"
       />
@@ -49,6 +52,7 @@
 import ChangeServiceForm from './forms/ChangeServiceForm2';
 import ReactivateForm from './forms/ReactivateForm';
 import SuspendLinesForm from './forms/SuspendLinesForm';
+import SuspendBillsForm from './forms/SuspendBillsForm';
 import ChangeStatusForm from './forms/ChangeStatusForm';
 import SendSMSForm from './forms/SendSMSForm';
 import TestPhaseForm from './forms/TestPhaseForm';
@@ -67,6 +71,7 @@ export default {
   components: {
     ChangeServiceForm,
     ReactivateForm,
+    SuspendBillsForm,
     SuspendLinesForm,
     ChangeStatusForm,
     SendSMSForm,
