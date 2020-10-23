@@ -280,10 +280,24 @@ export default {
       });
     },
     onSeeMore() {
+      if (this.selectedPartner) {
+        this.filters = [
+          ...this.filters,
+          {
+            id: 'filters.partners',
+            values: [
+              {
+                id: this.selectedParnerId,
+                label: this.selectedPartner,
+              },
+            ],
+          },
+        ];
+      }
       this.$router.push({
-        name: 'reports',
+        name: 'reportsDashboard',
         params: {
-          queryFilters: [],
+          queryFilters: this.filters,
         },
       });
     },
