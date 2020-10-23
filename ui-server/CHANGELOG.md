@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.285+20201023125212
+2020-10-23
+
+### Fixes
+
+- le formulaire de preactivation doit être affiché même si le CF n'est pas séléctionné (dba7f960b490f715aec6c2e265f25cba802c75a8)
+
 ## 1.0.0-master.284+20201023121158
 2020-10-23
 
