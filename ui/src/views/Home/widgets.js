@@ -172,7 +172,7 @@ const defaultWidgets = [
     description: '',
     checked: true,
     large: false,
-    seeMore: true,
+    seeMore: { domain: 'getReport', action: 'read_dashboard' },
     component: ParcStateWidget,
     permission: { domain: 'widget', action: 'parc_state' },
   },
