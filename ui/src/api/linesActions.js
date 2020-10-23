@@ -50,7 +50,7 @@ export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partn
   }
   const queryStr = `
     query {
-      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+      simcards(filter: { label: { startsWith: "${q}"} ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
         total
         items {
           simCard {

@@ -60,10 +60,12 @@ export default {
   methods: {
     async fetchResults() {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
-      partnerParam = partnerParam.filter(p => p.label !== '');
+      partnerParam = partnerParam.filter(p => p.id);
 
       if (partnerParam && partnerParam.length) {
-        const data = await fetchCardTypes(undefined, partnerParam, {
+        const data = await fetchCardTypes('', partnerParam, {
+          page: 0,
+          limit: 10,
           partnerType: this.contextPartnersType,
         });
         if (data) {
