@@ -438,16 +438,6 @@ export default {
         }
 
         if (item.filters) {
-          let needToReset = item.havePrereqs;
-
-          if (!this.userIsPartner && !item.havePrereqs) {
-            needToReset = true;
-          }
-
-          if (needToReset) {
-            this.resetState();
-          }
-
           this.$nextTick(() => {
             this.setActToCreate(item);
             this.mergeCurrentFiltersWith(item.filters);
