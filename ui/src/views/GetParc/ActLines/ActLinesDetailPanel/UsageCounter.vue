@@ -61,11 +61,8 @@ export default {
       return counter1DownRounded + counter1UpRounded;
     },
     smsField() {
-      const counter2DownRounded = get(
-        this.lineDetails,
-        'accessPoint.usageCounter.counter2DownRounded'
-      )
-        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
+      const counter2DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2DownRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter2DownRounded'))
         : 0;
       const counter2UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded')
         ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded'))
