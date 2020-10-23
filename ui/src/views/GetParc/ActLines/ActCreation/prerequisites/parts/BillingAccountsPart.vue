@@ -53,7 +53,9 @@ export default {
       }
 
       if (this.preselectBillingAccount) {
-        this.selectedBillingAccount = this.preselectBillingAccount;
+        this.selectedBillingAccount = this.billingAccounts.find(
+          b => b.id === this.preselectBillingAccount.id
+        );
       }
     }
   },

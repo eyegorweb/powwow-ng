@@ -1,5 +1,12 @@
 <template>
-  <div class="d-flex" :class="{ 'slim-toggles': slimToggles, 'light-theme': lightTheme }">
+  <div
+    class="d-flex"
+    :class="{
+      'slim-toggles': slimToggles,
+      'light-theme': lightTheme,
+      'justify-content-center': center,
+    }"
+  >
     <div class="item toggle" :class="{ 'block-toggles': block }">
       <button
         v-for="item in values"
@@ -51,6 +58,7 @@ export default {
     block: Boolean,
     disabled: Boolean,
     noTranslation: Boolean,
+    center: Boolean,
   },
 };
 </script>

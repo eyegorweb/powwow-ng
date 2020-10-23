@@ -9,7 +9,7 @@
         <PartnerBillingAccountChoice
           @set:billingAccount="setBillingAccount"
           :errors="errors"
-          :initial-parnter="actCreationPrerequisites.partner"
+          :initial-parnter="partner"
           :limit-to-partners-in-search-bar="limitToPartnersInSearchBar"
         >
           <div slot="bottom">
@@ -56,6 +56,7 @@ import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import { transferSIMCards } from '@/api/actCreation';
 import { mapState, mapGetters } from 'vuex';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -73,14 +74,24 @@ export default {
       selectedOffer: undefined,
       waitForConfirmation: false,
       errors: {},
+      singleLineFound: undefined,
     };
   },
-  mounted() {
+  async mounted() {
+    await this.loadSingleLineInfo();
     this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+    partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
+      return this.actCreationPrerequisites.partner;
+    },
     selectedPartner() {
       if (!this.chosenBillingAccount) return undefined;
 
@@ -91,6 +102,16 @@ export default {
     },
   },
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     onActDateChange(value) {
       this.actDate = value;
     },
@@ -143,7 +164,7 @@ export default {
     },
     async validate(contextValues) {
       const params = {
-        partyId: this.actCreationPrerequisites.partner.id,
+        partyId: this.partner.id,
         dueDate: this.actDate,
         toPartyId: this.chosenBillingAccount.partner.id,
         toCustomerAccountId: this.chosenBillingAccount.id,

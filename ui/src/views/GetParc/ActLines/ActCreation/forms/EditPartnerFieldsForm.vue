@@ -61,6 +61,7 @@ import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 import { updateCustomFields } from '@/api/actCreation';
 import Modal from '@/components/Modal';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -77,11 +78,20 @@ export default {
       customFieldsErrors: undefined,
       waitForConfirmation: false,
       canSend: false,
+      singleLineFound: undefined,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+    partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
+      return this.actCreationPrerequisites.partner;
+    },
     canValidate() {
       if (this.allFields && this.allFields.length && this.canSend) {
         return true;
@@ -89,12 +99,24 @@ export default {
       return false;
     },
   },
-  mounted() {
+  async mounted() {
+    await this.loadSingleLineInfo();
+    if (!this.partner) return;
     this.fetchCustomFieldsForPartner();
   },
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     async fetchCustomFieldsForPartner() {
-      const partnerId = this.actCreationPrerequisites.partner.id;
+      const partnerId = this.partner.id;
       const customFields = await fetchCustomFields(partnerId);
       this.allCustomFields = customFields.customFields.map(c => {
         if (c.mandatory === 'NONE') {
@@ -145,7 +167,7 @@ export default {
         return '';
       };
       const params = {
-        partyId: this.actCreationPrerequisites.partner.id,
+        partyId: this.partner.id,
         dueDate: contextValues.actDate,
         notifEmail: contextValues.notificationCheck,
         custom1: getCustomFieldValue('custom1'),

@@ -1418,6 +1418,8 @@
       }
     },
     "actCreation": {
+      "mass": "En masse",
+      "byId": "Par Identifiant",
       "carouselItem": {
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",

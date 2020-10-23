@@ -1,62 +1,64 @@
 <template>
   <ActFormContainer :validate-fn="onValidate" @update:date="chekdate" no-modal>
-    <div
-      class="form-container mb-3"
-      slot="validate-btn-content"
-      slot-scope="{ containerValidationFn }"
-    >
-      <button
-        @click="waitForConfirmation = true"
-        class="btn pl-4 pr-4 pt-2 pb-2"
-        :class="{ disabled: !canValidate }"
+    <template v-if="partner">
+      <div
+        class="form-container mb-3"
+        slot="validate-btn-content"
+        slot-scope="{ containerValidationFn }"
       >
-        <i :class="[canValidate ? 'ic-Minus-Icon' : 'ic-Check-Icon']" />
-        {{ $t('getparc.actCreation.changeStatus.changeCardsStatus') }}
-      </button>
-      <div class="info">{{ info }}</div>
-      <Modal v-if="waitForConfirmation">
-        <div slot="body">
-          <LoaderContainer :is-loading="isLoading">
-            <div slot="on-loading">
-              <ModalSkeleton :is-loading="isLoading" />
-            </div>
-            <div class="text-warning">
-              {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
-            </div>
-            <p>
-              <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
-              <br />
-              <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
-            </p>
-          </LoaderContainer>
-        </div>
-        <div slot="footer" class="btn-wrapper">
-          <div v-if="haveError" class="loader" :class="{ error: haveError }">
-            {{ $t('retry') }}
+        <button
+          @click="waitForConfirmation = true"
+          class="btn pl-4 pr-4 pt-2 pb-2"
+          :class="{ disabled: !canValidate }"
+        >
+          <i :class="[canValidate ? 'ic-Minus-Icon' : 'ic-Check-Icon']" />
+          {{ $t('getparc.actCreation.changeStatus.changeCardsStatus') }}
+        </button>
+        <div class="info">{{ info }}</div>
+        <Modal v-if="waitForConfirmation">
+          <div slot="body">
+            <LoaderContainer :is-loading="isLoading">
+              <div slot="on-loading">
+                <ModalSkeleton :is-loading="isLoading" />
+              </div>
+              <div class="text-warning">
+                {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
+              </div>
+              <p>
+                <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+                <br />
+                <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
+              </p>
+            </LoaderContainer>
           </div>
-          <button
-            class="modal-default-button btn btn--cancel"
-            @click.stop="waitForConfirmation = false"
-            :disabled="isLoading"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn ml-1 btn--confirm"
-            @click.stop="confirmValdation(containerValidationFn)"
-            :disabled="isLoading"
-          >
-            {{ $t('confirm') }}
-          </button>
-        </div>
-      </Modal>
-    </div>
-    <div slot="messages" class="text-warning">
-      <span>
-        <i class="ic-Alert-Icon" />
-        {{ $t('getparc.actCreation.changeStatus.warningMsg') }}
-      </span>
-    </div>
+          <div slot="footer" class="btn-wrapper">
+            <div v-if="haveError" class="loader" :class="{ error: haveError }">
+              {{ $t('retry') }}
+            </div>
+            <button
+              class="modal-default-button btn btn--cancel"
+              @click.stop="waitForConfirmation = false"
+              :disabled="isLoading"
+            >
+              {{ $t('cancel') }}
+            </button>
+            <button
+              class="modal-default-button btn ml-1 btn--confirm"
+              @click.stop="confirmValdation(containerValidationFn)"
+              :disabled="isLoading"
+            >
+              {{ $t('confirm') }}
+            </button>
+          </div>
+        </Modal>
+      </div>
+      <div slot="messages" class="text-warning">
+        <span>
+          <i class="ic-Alert-Icon" />
+          {{ $t('getparc.actCreation.changeStatus.warningMsg') }}
+        </span>
+      </div>
+    </template>
   </ActFormContainer>
 </template>
 
@@ -67,6 +69,7 @@ import { terminateLines } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -83,11 +86,23 @@ export default {
       waitForConfirmation: false,
       isLoading: false,
       haveError: false,
+      singleLineFound: undefined,
     };
+  },
+  async mounted() {
+    await this.loadSingleLineInfo();
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+    partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
+      return this.actCreationPrerequisites.partner;
+    },
     total() {
       return this.selectedLinesForActCreation.length > 0
         ? this.selectedLinesForActCreation.length
@@ -100,13 +115,23 @@ export default {
     },
   },
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     async onValidate(contextValues) {
       return await terminateLines(this.appliedFilters, this.selectedLinesForActCreation, {
         suspendreFacturation: this.suspendBilling,
         nonModifiableParClient: this.notEditable,
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
-        partyId: this.actCreationPrerequisites.partner.id,
+        partyId: this.partner.id,
         tempDataUuid: contextValues.tempDataUuid,
       });
     },

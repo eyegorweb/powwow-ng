@@ -75,6 +75,7 @@ import {
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -87,15 +88,29 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userName']),
 
     partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
       return this.actCreationPrerequisites.partner;
     },
     preselectBillingAccount() {
-      if (this.actCreationPrerequisites.partner.partyType === 'MVNO') {
+      if (this.partner.partyType === 'MVNO') {
         return this.chosenBillingAccount;
+      }
+      return this.billingAccount;
+    },
+
+    billingAccount() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.customerAccountForActivation;
+        }
       }
       return this.actCreationPrerequisites.billingAccount;
     },
@@ -116,10 +131,12 @@ export default {
       offerServices: undefined,
       servicesChoice: undefined,
       chosenBillingAccount: undefined,
+      singleLineFound: undefined,
     };
   },
 
-  mounted() {
+  async mounted() {
+    await this.loadSingleLineInfo();
     this.loadCustomFields();
   },
 
@@ -141,6 +158,16 @@ export default {
   },
 
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
     },
@@ -172,13 +199,13 @@ export default {
       let params;
       if (this.activation) {
         params = {
-          partyId: this.actCreationPrerequisites.partner.id,
+          partyId: this.partner.id,
           dueDate: contextValues.actDate,
           notifEmail: contextValues.notificationCheck,
           workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
           servicesChoice: this.servicesChoice,
-          customerAccountID: this.actCreationPrerequisites.billingAccount
-            ? this.actCreationPrerequisites.billingAccount.id
+          customerAccountID: this.billingAccount
+            ? this.billingAccount.id
             : this.preselectBillingAccount.id,
           tempDataUuid: contextValues.tempDataUuid,
         };
@@ -190,12 +217,12 @@ export default {
         );
       } else {
         params = {
-          partyId: this.actCreationPrerequisites.partner.id,
+          partyId: this.partner.id,
           dueDate: contextValues.actDate,
           notifEmail: contextValues.notificationCheck,
           customerAccountID:
-            this.partner.partyType === 'CUSTOMER' && this.actCreationPrerequisites.billingAccount
-              ? this.actCreationPrerequisites.billingAccount.id
+            this.partner.partyType === 'CUSTOMER' && this.billingAccount
+              ? this.billingAccount.id
               : null,
           tempDataUuid: contextValues.tempDataUuid,
         };
@@ -221,7 +248,7 @@ export default {
     checkErrors() {},
 
     async loadCustomFields() {
-      this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
+      this.allCustomFields = await fetchCustomFields(this.partner.id);
       this.decideOnMandatoryCustomFields();
     },
 

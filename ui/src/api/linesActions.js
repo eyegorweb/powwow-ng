@@ -208,6 +208,16 @@ export async function searchLines(orderBy, pagination, filters = []) {
   const fields = `
   total
   items {
+    customerAccountForActivation {
+      id
+      code
+      name
+      party {
+        id
+        name
+        partyType
+      }
+    }
     party{
       id
       name
@@ -218,7 +228,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
       custom4FieldLabel
       custom5FieldLabel
       custom6FieldLabel
-      partyType
       spec1_label
       spec2_label
       }
