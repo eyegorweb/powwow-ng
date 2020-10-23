@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center">
     <div class="search-by-id">
-      <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+      <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" disable-when-empty />
     </div>
   </div>
 </template>

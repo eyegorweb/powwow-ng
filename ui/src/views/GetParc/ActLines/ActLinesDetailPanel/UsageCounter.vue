@@ -28,9 +28,9 @@ export default {
   data() {
     return {
       lineDetails: undefined,
-    }
+    };
   },
-  async mounted () {
+  async mounted() {
     this.lineDetails = await searchLineById(this.row.id);
   },
   methods: {
@@ -49,7 +49,10 @@ export default {
   },
   computed: {
     dataField() {
-      const counter1DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded')
+      const counter1DownRounded = get(
+        this.lineDetails,
+        'accessPoint.usageCounter.counter1DownRounded'
+      )
         ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
         : 0;
       const counter1UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter1UpRounded')
@@ -58,7 +61,10 @@ export default {
       return counter1DownRounded + counter1UpRounded;
     },
     smsField() {
-      const counter2DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2DownRounded')
+      const counter2DownRounded = get(
+        this.lineDetails,
+        'accessPoint.usageCounter.counter2DownRounded'
+      )
         ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
         : 0;
       const counter2UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded')
@@ -67,7 +73,10 @@ export default {
       return counter2DownRounded + counter2UpRounded;
     },
     voiceField() {
-      const counter3DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter3DownRounded')
+      const counter3DownRounded = get(
+        this.lineDetails,
+        'accessPoint.usageCounter.counter3DownRounded'
+      )
         ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter3DownRounded'))
         : 0;
       const counter3UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter3UpRounded')

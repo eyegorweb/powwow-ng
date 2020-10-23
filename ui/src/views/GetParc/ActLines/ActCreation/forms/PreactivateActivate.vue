@@ -1,58 +1,60 @@
 <template>
   <ActFormContainer :validate-fn="doRequest" :check-errors-fn="haveFieldErrors">
-    <div class="toggles-container">
-      <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
-      <UiToggle label="Activation" v-model="activation" />
-    </div>
-
-    <template v-if="activation">
-      <div>
-        <label class="font-weight-bold">
-          {{ $t('common.billingAccount') }}
-          <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
-          <div class="text-danger" v-if="fieldErrors && fieldErrors.billingAccount">
-            {{ $t('required') }}
-          </div>
-        </label>
-        <BillingAccountsPart
-          :key="`billingAccount_${partner}`"
-          :partner="partner"
-          :offer.sync="selectedOffer"
-          @set:billingAccount="setBillingAccount"
-          :preselect-billing-account="preselectBillingAccount"
-          :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
-        />
-      </div>
-      <div>
-        <label class="font-weight-bold">
-          {{ $t('col.offer') }}
-          <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
-            {{ $t('required') }}
-          </div>
-        </label>
-        <OffersPart :partner="partner" :offer.sync="selectedOffer" />
+    <template v-if="partner && billingAccount">
+      <div class="toggles-container">
+        <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
+        <UiToggle label="Activation" v-model="activation" />
       </div>
 
-      <div v-if="selectedOffer && selectedOffer.data">
-        <ServicesBlock
-          :key="selectedOffer.label"
-          :services="offerServices"
-          vertical
-          @change="onServiceChange"
-        />
-      </div>
-      <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
-        $t('common.customFields')
-      }}</label>
-      <div>
-        <PartnerFields
-          :custom-fields="allCustomFields"
-          :get-selected-value="getSelectedValue"
-          :errors="customFieldsErrors"
-          show-optional-field
-          @change="onValueChanged"
-        />
-      </div>
+      <template v-if="activation">
+        <div>
+          <label class="font-weight-bold">
+            {{ $t('common.billingAccount') }}
+            <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
+            <div class="text-danger" v-if="fieldErrors && fieldErrors.billingAccount">
+              {{ $t('required') }}
+            </div>
+          </label>
+          <BillingAccountsPart
+            :key="`billingAccount_${partner}`"
+            :partner="partner"
+            :offer.sync="selectedOffer"
+            @set:billingAccount="setBillingAccount"
+            :preselect-billing-account="preselectBillingAccount"
+            :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
+          />
+        </div>
+        <div>
+          <label class="font-weight-bold">
+            {{ $t('col.offer') }}
+            <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
+              {{ $t('required') }}
+            </div>
+          </label>
+          <OffersPart :partner="partner" :offer.sync="selectedOffer" />
+        </div>
+
+        <div v-if="selectedOffer && selectedOffer.data">
+          <ServicesBlock
+            :key="selectedOffer.label"
+            :services="offerServices"
+            vertical
+            @change="onServiceChange"
+          />
+        </div>
+        <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
+          $t('common.customFields')
+        }}</label>
+        <div>
+          <PartnerFields
+            :custom-fields="allCustomFields"
+            :get-selected-value="getSelectedValue"
+            :errors="customFieldsErrors"
+            show-optional-field
+            @change="onValueChanged"
+          />
+        </div>
+      </template>
     </template>
   </ActFormContainer>
 </template>
@@ -181,7 +183,11 @@ export default {
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
-        if (!this.preselectBillingAccount || !this.preselectBillingAccount.label) {
+        console.log(
+          'haveFieldErrors -> this.preselectBillingAccount',
+          this.preselectBillingAccount
+        );
+        if (!this.preselectBillingAccount || !this.preselectBillingAccount.id) {
           fieldErrors.billingAccount = true;
           haveError = true;
         }

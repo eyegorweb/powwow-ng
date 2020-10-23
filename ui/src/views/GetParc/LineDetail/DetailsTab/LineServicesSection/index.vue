@@ -49,7 +49,7 @@
                   <button
                     v-if="!savingChanges"
                     @click="saveChanges"
-                    :disabled="!canSave"
+                    :disabled="!canSave()"
                     class="btn btn-primary float-right"
                   >
                     <i class="ic-Settings-Icon"></i>
@@ -171,6 +171,17 @@ export default {
   methods: {
     ...mapMutations(['flashMessage']),
 
+    canSave() {
+      const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
+      this.justSaved = false;
+      return !!(
+        (servicesToEnable && servicesToEnable.length) ||
+        (servicesToDisable && servicesToDisable.length) ||
+        (dataParams && dataParams.length) ||
+        dataChanged
+      );
+    },
+
     async saveChanges() {
       const partyId = this.content.party.id;
       const offerCode = get(this.content, 'accessPoint.offer.marketingOffer.code');
@@ -268,7 +279,10 @@ export default {
     ...mapGetters(['userIsMVNO']),
 
     canCancel() {
-      return (this.isDataParamChanged() || (this.changedServices && this.changedServices.length)) && !this.justSaved;
+      return (
+        (this.isDataParamChanged() || (this.changedServices && this.changedServices.length)) &&
+        !this.justSaved
+      );
     },
 
     canShowTable() {
@@ -308,17 +322,6 @@ export default {
         dataChanged: this.dataCheck != this.initDataCheck,
         dataParams,
       };
-    },
-
-    canSave() {
-      const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
-      this.justSaved = false;
-      return !!(
-        (servicesToEnable && servicesToEnable.length) ||
-        (servicesToDisable && servicesToDisable.length) ||
-        (dataParams && dataParams.length) ||
-        dataChanged
-      );
     },
   },
 };
