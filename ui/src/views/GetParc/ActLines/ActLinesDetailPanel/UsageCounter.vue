@@ -15,6 +15,7 @@
 import get from 'lodash.get';
 import UiButton from '@/components/ui/Button';
 import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   name: 'UsageCounter',
@@ -23,6 +24,14 @@ export default {
   },
   props: {
     row: Object,
+  },
+  data() {
+    return {
+      lineDetails: undefined,
+    }
+  },
+  async mounted () {
+    this.lineDetails = await searchLineById(this.row.id);
   },
   methods: {
     openDetail() {
@@ -40,29 +49,29 @@ export default {
   },
   computed: {
     dataField() {
-      const counter1DownRounded = get(this.row, 'accessPoint.usageCounter.counter1DownRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter1DownRounded'))
+      const counter1DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
         : 0;
-      const counter1UpRounded = get(this.row, 'accessPoint.usageCounter.counter1UpRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter1UpRounded'))
+      const counter1UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter1UpRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1UpRounded'))
         : 0;
       return counter1DownRounded + counter1UpRounded;
     },
     smsField() {
-      const counter2DownRounded = get(this.row, 'accessPoint.usageCounter.counter2DownRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter1DownRounded'))
+      const counter2DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2DownRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
         : 0;
-      const counter2UpRounded = get(this.row, 'accessPoint.usageCounter.counter2UpRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter2UpRounded'))
+      const counter2UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded'))
         : 0;
       return counter2DownRounded + counter2UpRounded;
     },
     voiceField() {
-      const counter3DownRounded = get(this.row, 'accessPoint.usageCounter.counter3DownRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter3DownRounded'))
+      const counter3DownRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter3DownRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter3DownRounded'))
         : 0;
-      const counter3UpRounded = get(this.row, 'accessPoint.usageCounter.counter3UpRounded')
-        ? Number(get(this.row, 'accessPoint.usageCounter.counter3UpRounded'))
+      const counter3UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter3UpRounded')
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter3UpRounded'))
         : 0;
       return counter3DownRounded + counter3UpRounded;
     },
