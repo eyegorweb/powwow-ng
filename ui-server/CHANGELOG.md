@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.282+20201023112101
+## 1.0.0-master.282+20201023111951
 2020-10-23
 
 ### Fixes
 
 - Bouton annulation dans services details de ligne plus disponible apres sauvagarde (7608187a87b70e8369f7a80d16dc7edaef94da44)
-- 2009 mise en place des permissions sur les liens Voir plus des widgets (b3d9f3803fbb1bb60b3ffe7a8074e51704529eb7)
 
 ## 1.0.0-master.281+20201023091908
 2020-10-23
