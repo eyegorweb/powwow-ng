@@ -22,7 +22,7 @@
           @keydown.prevent.up.exact="selectUp"
           @keydown.enter.exact="selectValue(data[selectedItem])"
         />
-        <a v-if="value" @click.prevent="resetValue" class="btn crossCancel">
+        <a v-if="value && !disabled" @click.prevent="resetValue" class="btn crossCancel">
           <i class="select-icon ic-Cross-Icon"></i>
         </a>
         <a class="p-0" @click.prevent="showSuggestions">
