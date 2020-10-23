@@ -1,6 +1,6 @@
 <template>
   <ActFormContainer :validate-fn="doRequest" :check-errors-fn="haveFieldErrors">
-    <template v-if="partner && billingAccount">
+    <template v-if="partner">
       <div class="toggles-container">
         <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
         <UiToggle label="Activation" v-model="activation" />
@@ -251,7 +251,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() {},
+    checkErrors() { },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);
