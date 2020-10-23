@@ -139,6 +139,7 @@ export default {
   },
   data() {
     return {
+      justSaved: false,
       services: undefined,
       initialServices: undefined,
       apnServices: undefined,
@@ -222,6 +223,7 @@ export default {
         this.savingChanges = false;
         console.log(e);
       }
+      this.justSaved = true;
     },
     revertServices() {
       this.services = cloneDeep(this.initialServices);
@@ -266,7 +268,7 @@ export default {
     ...mapGetters(['userIsMVNO']),
 
     canCancel() {
-      return this.isDataParamChanged() || (this.changedServices && this.changedServices.length);
+      return (this.isDataParamChanged() || (this.changedServices && this.changedServices.length)) && !this.justSaved;
     },
 
     canShowTable() {
@@ -310,7 +312,7 @@ export default {
 
     canSave() {
       const { servicesToEnable, servicesToDisable, dataChanged, dataParams } = this.changes;
-
+      this.justSaved = false;
       return !!(
         (servicesToEnable && servicesToEnable.length) ||
         (servicesToDisable && servicesToDisable.length) ||
