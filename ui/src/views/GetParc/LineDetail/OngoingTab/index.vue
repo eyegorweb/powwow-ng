@@ -119,6 +119,7 @@
           </tr>
         </tbody>
       </table>
+      <!-- ------------------------------------ MVNO TYPE PARTNER -------------------------------------------- -->
       <table
         v-else-if="consumptionData && partnerTypeMVNO"
         class="table table-blue mt-1 mb-3 partnerTypeMVNO"
@@ -127,28 +128,50 @@
           <tr>
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-line">{{ $t('getparc.lineDetail.consummated.totalVoice') }}</li>
-                <li class="value-line">
+                <li class="total-line" v-if="getFromContent('voiceTotal') !== null">
+                  {{ $t('getparc.lineDetail.consummated.totalVoice') }}
+                </li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceIncomingNationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.voiceIncomingNationalConsumption') }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceOutgoingNationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.voiceOutgoingNationalConsumption') }}
                 </li>
-                <li class="value-line">{{ $t('getparc.lineDetail.consummated.voiceRoaming') }}</li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceInternationalConsumption') !== null"
+                >
+                  {{ $t('getparc.lineDetail.consummated.voiceRoaming') }}
+                </li>
               </ul>
             </td>
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-value">
+                <li class="total-value" v-if="getFromContent('voiceTotal') !== null">
                   {{ formattedData('VOICE', consumptionData.voiceTotal) }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceIncomingNationalConsumption') !== null"
+                >
                   {{ formattedData('VOICE', consumptionData.voiceIncomingNationalConsumption) }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceOutgoingNationalConsumption') !== null"
+                >
                   {{ formattedData('VOICE', consumptionData.voiceOutgoingNationalConsumption) }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('voiceInternationalConsumption') !== null"
+                >
                   {{ formattedData('VOICE', consumptionData.voiceInternationalConsumption) }}
                 </li>
               </ul>
@@ -157,31 +180,63 @@
           <tr>
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-line">{{ $t('getparc.lineDetail.consummated.totalSMS') }}</li>
-                <li class="value-line">
+                <li class="total-line" v-if="getFromContent('smsTotal') !== null">
+                  {{ $t('getparc.lineDetail.consummated.totalSMS') }}
+                </li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsIncomingNationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.smsIncomingNationalConsumption') }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsOutgoingNationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.smsOutgoingNationalConsumption') }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsIncomingInternationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.smsIncomingInternationalConsumption') }}
                 </li>
-                <li class="value-line">
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsOutgoingInternationalConsumption') !== null"
+                >
                   {{ $t('getparc.lineDetail.consummated.smsOutgoingInternationalConsumption') }}
                 </li>
               </ul>
             </td>
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-value">{{ consumptionData.smsTotal }} SMS</li>
-                <li class="value-line">{{ consumptionData.smsIncomingNationalConsumption }} SMS</li>
-                <li class="value-line">{{ consumptionData.smsOutgoingNationalConsumption }} SMS</li>
-                <li class="value-line">
-                  {{ consumptionData.smsIncomingInternationalConsumption }} SMS
+                <li class="total-value" v-if="getFromContent('smsTotal') !== null">
+                  {{ getFromContent('smsTotal') }} SMS
                 </li>
-                <li class="value-line">
-                  {{ consumptionData.smsOutgoingInternationalConsumption }} SMS
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsIncomingNationalConsumption') !== null"
+                >
+                  {{ getFromContent('smsIncomingNationalConsumption') }} SMS
+                </li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsOutgoingNationalConsumption') !== null"
+                >
+                  {{ getFromContent('smsOutgoingNationalConsumption') }} SMS
+                </li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsIncomingInternationalConsumption') !== null"
+                >
+                  {{ getFromContent('smsIncomingInternationalConsumption') }} SMS
+                </li>
+                <li
+                  class="value-line"
+                  v-if="getFromContent('smsOutgoingInternationalConsumption') !== null"
+                >
+                  {{ getFromContent('smsOutgoingInternationalConsumption') }} SMS
                 </li>
               </ul>
             </td>
@@ -189,12 +244,16 @@
           <tr class="total-line">
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-line">{{ $t('getparc.lineDetail.consummated.totalData') }}</li>
+                <li class="total-line" v-if="getFromContent('dataTotal') !== null">
+                  {{ $t('getparc.lineDetail.consummated.totalData') }}
+                </li>
               </ul>
             </td>
             <td>
               <ul class="content-cell list-unstyled">
-                <li class="total-value">{{ formattedData('DATA', consumptionData.dataTotal) }}</li>
+                <li class="total-value" v-if="getFromContent('dataTotal') !== null">
+                  {{ formattedData('DATA', consumptionData.dataTotal) }}
+                </li>
               </ul>
             </td>
           </tr>
@@ -259,6 +318,7 @@ export default {
           simCardInstanceId: this.content.id,
         });
       }
+
       setTimeout(() => {
         this.isLoading = false;
       }, 3000);
@@ -281,6 +341,11 @@ export default {
         case 'VOICE':
           return formattedValueFromSeconds(value);
       }
+    },
+
+    getFromContent(path, defaultValue = '') {
+      const value = get(this.consumptionData, path, defaultValue);
+      return value;
     },
   },
 };
