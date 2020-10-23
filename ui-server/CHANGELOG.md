@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.281+20201023091908
+2020-10-23
+
+### Fixes
+
+- Problème de croix sur UIInput (593a18921688eb270b0e797663bfd444d53de13d)
+- Suppression de la croix quand input désactivé (f7455d4596225eaf0d6d2bc33d91d73ed2da071b)
+- Ajout des données "en cours de conso" dans le panel de detail de ligne (abb5a2f1f82281b77827bc24c7d171b144c04898)
+- 1992 gestion des paramètres des encours conso (f8f6e01b29f47eeb6d0f582a2962ff354e4c0287)
+- chercher une ligne par ID comme prérequis de la création d'un acte de gestion (92ebdea12e7a8c6629116465a46a8b6af16434d9)
+
 ## 1.0.0-master.280+20201023082312
 2020-10-23
 
