@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.286+20201023152459
+## 1.0.0-master.287+20201023152442
 2020-10-23
 
 ### Fixes
 
 - Suppression du bouton autour des chiffres pour le widget top 5 alarmes (7a006c1e43e035089566f9ca82a9dcc01dd19367)
-- Debug du nombre de SMS dans encours conso du panel detail de ligne (ad71d98c203843d399f59ba0ccf60e917d48df82)
 
 ## 1.0.0-master.285+20201023125212
 2020-10-23
