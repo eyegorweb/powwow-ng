@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.283+20201023115731
+2020-10-23
+
+### Fixes
+
+- 1747 amélioration du filtre type de carte sim (261b51064acc605edc683d46413e974086cb6ae7)
+
 ## 1.0.0-master.282+20201023111951
 2020-10-23
 
