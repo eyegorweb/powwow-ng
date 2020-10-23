@@ -50,7 +50,7 @@ export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partn
   }
   const queryStr = `
     query {
-      simcards(filter: { ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+      simcards(filter: { label: { startsWith: "${q}"} ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
         total
         items {
           simCard {
@@ -208,6 +208,16 @@ export async function searchLines(orderBy, pagination, filters = []) {
   const fields = `
   total
   items {
+    customerAccountForActivation {
+      id
+      code
+      name
+      party {
+        id
+        name
+        partyType
+      }
+    }
     party{
       id
       name
@@ -218,7 +228,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
       custom4FieldLabel
       custom5FieldLabel
       custom6FieldLabel
-      partyType
       spec1_label
       spec2_label
       }

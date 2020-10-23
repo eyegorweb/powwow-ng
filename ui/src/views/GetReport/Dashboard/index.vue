@@ -233,6 +233,20 @@ export default {
 
       this.appliedPartner = { ...this.selectedPartner };
     }
+    if (this.$route.params && this.$route.params.queryFilters) {
+      const selectedPartner = this.$route.params.queryFilters.find(
+        f => f.id === 'filters.partners'
+      );
+      if (!selectedPartner) return;
+      this.selectedPartner = {
+        id: selectedPartner.values[0].id,
+        label: selectedPartner.values[0].label,
+        data: selectedPartner.values[0],
+      };
+      this.initialPartner = this.selectedPartner;
+
+      this.appliedPartner = { ...this.selectedPartner };
+    }
   },
 
   data() {

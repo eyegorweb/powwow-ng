@@ -1,58 +1,60 @@
 <template>
   <ActFormContainer :validate-fn="doRequest" :check-errors-fn="haveFieldErrors">
-    <div class="toggles-container">
-      <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
-      <UiToggle label="Activation" v-model="activation" />
-    </div>
-
-    <template v-if="activation">
-      <div>
-        <label class="font-weight-bold">
-          {{ $t('common.billingAccount') }}
-          <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
-          <div class="text-danger" v-if="fieldErrors && fieldErrors.billingAccount">
-            {{ $t('required') }}
-          </div>
-        </label>
-        <BillingAccountsPart
-          :key="`billingAccount_${partner}`"
-          :partner="partner"
-          :offer.sync="selectedOffer"
-          @set:billingAccount="setBillingAccount"
-          :preselect-billing-account="preselectBillingAccount"
-          :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
-        />
-      </div>
-      <div>
-        <label class="font-weight-bold">
-          {{ $t('col.offer') }}
-          <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
-            {{ $t('required') }}
-          </div>
-        </label>
-        <OffersPart :partner="partner" :offer.sync="selectedOffer" />
+    <template v-if="partner">
+      <div class="toggles-container">
+        <UiToggle label="Préactivation" v-model="preActivation" :editable="false" />
+        <UiToggle label="Activation" v-model="activation" />
       </div>
 
-      <div v-if="selectedOffer && selectedOffer.data">
-        <ServicesBlock
-          :key="selectedOffer.label"
-          :services="offerServices"
-          vertical
-          @change="onServiceChange"
-        />
-      </div>
-      <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
-        $t('common.customFields')
-      }}</label>
-      <div>
-        <PartnerFields
-          :custom-fields="allCustomFields"
-          :get-selected-value="getSelectedValue"
-          :errors="customFieldsErrors"
-          show-optional-field
-          @change="onValueChanged"
-        />
-      </div>
+      <template v-if="activation">
+        <div>
+          <label class="font-weight-bold">
+            {{ $t('common.billingAccount') }}
+            <!-- Ajouter getstionnaire erreur CF sélectionné ou pas -->
+            <div class="text-danger" v-if="fieldErrors && fieldErrors.billingAccount">
+              {{ $t('required') }}
+            </div>
+          </label>
+          <BillingAccountsPart
+            :key="`billingAccount_${partner}`"
+            :partner="partner"
+            :offer.sync="selectedOffer"
+            @set:billingAccount="setBillingAccount"
+            :preselect-billing-account="preselectBillingAccount"
+            :disabled="!!preselectBillingAccount && partner.partyType !== 'MVNO'"
+          />
+        </div>
+        <div>
+          <label class="font-weight-bold">
+            {{ $t('col.offer') }}
+            <div class="text-danger" v-if="fieldErrors && fieldErrors.offer">
+              {{ $t('required') }}
+            </div>
+          </label>
+          <OffersPart :partner="partner" :offer.sync="selectedOffer" />
+        </div>
+
+        <div v-if="selectedOffer && selectedOffer.data">
+          <ServicesBlock
+            :key="selectedOffer.label"
+            :services="offerServices"
+            vertical
+            @change="onServiceChange"
+          />
+        </div>
+        <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
+          $t('common.customFields')
+        }}</label>
+        <div>
+          <PartnerFields
+            :custom-fields="allCustomFields"
+            :get-selected-value="getSelectedValue"
+            :errors="customFieldsErrors"
+            show-optional-field
+            @change="onValueChanged"
+          />
+        </div>
+      </template>
     </template>
   </ActFormContainer>
 </template>
@@ -75,6 +77,7 @@ import {
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -87,15 +90,29 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userName']),
 
     partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
       return this.actCreationPrerequisites.partner;
     },
     preselectBillingAccount() {
-      if (this.actCreationPrerequisites.partner.partyType === 'MVNO') {
+      if (this.partner.partyType === 'MVNO') {
         return this.chosenBillingAccount;
+      }
+      return this.billingAccount;
+    },
+
+    billingAccount() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.customerAccountForActivation;
+        }
       }
       return this.actCreationPrerequisites.billingAccount;
     },
@@ -116,10 +133,12 @@ export default {
       offerServices: undefined,
       servicesChoice: undefined,
       chosenBillingAccount: undefined,
+      singleLineFound: undefined,
     };
   },
 
-  mounted() {
+  async mounted() {
+    await this.loadSingleLineInfo();
     this.loadCustomFields();
   },
 
@@ -141,6 +160,16 @@ export default {
   },
 
   methods: {
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     setBillingAccount(billingAccount) {
       this.chosenBillingAccount = billingAccount;
     },
@@ -154,7 +183,11 @@ export default {
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
-        if (!this.preselectBillingAccount || !this.preselectBillingAccount.label) {
+        console.log(
+          'haveFieldErrors -> this.preselectBillingAccount',
+          this.preselectBillingAccount
+        );
+        if (!this.preselectBillingAccount || !this.preselectBillingAccount.id) {
           fieldErrors.billingAccount = true;
           haveError = true;
         }
@@ -172,13 +205,13 @@ export default {
       let params;
       if (this.activation) {
         params = {
-          partyId: this.actCreationPrerequisites.partner.id,
+          partyId: this.partner.id,
           dueDate: contextValues.actDate,
           notifEmail: contextValues.notificationCheck,
           workflowCode: this.selectedOffer ? this.selectedOffer.id : undefined,
           servicesChoice: this.servicesChoice,
-          customerAccountID: this.actCreationPrerequisites.billingAccount
-            ? this.actCreationPrerequisites.billingAccount.id
+          customerAccountID: this.billingAccount
+            ? this.billingAccount.id
             : this.preselectBillingAccount.id,
           tempDataUuid: contextValues.tempDataUuid,
         };
@@ -190,12 +223,12 @@ export default {
         );
       } else {
         params = {
-          partyId: this.actCreationPrerequisites.partner.id,
+          partyId: this.partner.id,
           dueDate: contextValues.actDate,
           notifEmail: contextValues.notificationCheck,
           customerAccountID:
-            this.partner.partyType === 'CUSTOMER' && this.actCreationPrerequisites.billingAccount
-              ? this.actCreationPrerequisites.billingAccount.id
+            this.partner.partyType === 'CUSTOMER' && this.billingAccount
+              ? this.billingAccount.id
               : null,
           tempDataUuid: contextValues.tempDataUuid,
         };
@@ -218,10 +251,10 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() {},
+    checkErrors() { },
 
     async loadCustomFields() {
-      this.allCustomFields = await fetchCustomFields(this.actCreationPrerequisites.partner.id);
+      this.allCustomFields = await fetchCustomFields(this.partner.id);
       this.decideOnMandatoryCustomFields();
     },
 

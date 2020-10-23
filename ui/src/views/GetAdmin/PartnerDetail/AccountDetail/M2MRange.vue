@@ -12,6 +12,7 @@
                 small-label
                 :on-text="$t('common.YES')"
                 :off-text="$t('common.NO')"
+                :editable="false"
               />
             </div>
             <div class="mt-4">
@@ -21,6 +22,7 @@
                 small-label
                 :on-text="$t('common.YES')"
                 :off-text="$t('common.NO')"
+                :editable="false"
               />
             </div>
             <div class="mt-4">

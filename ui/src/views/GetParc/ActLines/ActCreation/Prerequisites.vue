@@ -1,155 +1,86 @@
 <template>
-  <div>
-    <NoPrerequisitesPre
-      v-if="!userIsPartner && actWithNoPrerequs(act.title)"
-      @set:preprequisites="setPrerequisites"
-    />
-    <PartnerAndCF
-      v-if="
-        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title) &&
-          !userIsMVNO
-      "
-      @set:preprequisites="setPrerequisites"
-      :partner="userPartner"
-    />
-    <OfferPrerequisite
-      v-if="
-        [
-          'getparc.actCreation.carouselItem.CHANGE_SERVICES',
-          'getparc.actCreation.carouselItem.CHANGE_OFFER',
-          'getparc.actCreation.carouselItem.CHANGE_CF',
-        ].find(a => a === act.title)
-      "
-      @set:preprequisites="setPrerequisites"
-      :partner="userPartner"
-      :can-select-billing-account="
-        act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
-      "
-    />
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <template v-if="canHaveSearchByIdPrereq">
+            <Toggle
+              v-if="toggleValues && !currentToggle"
+              @update="currentToggle = $event.id"
+              :values="toggleValues"
+              class="pl-2"
+              center
+              no-default
+            />
+
+            <div v-if="toggleValues">
+              <MassActionsPrerequisites v-if="currentToggle === 'mass'" :act="act" />
+              <SearchById v-if="currentToggle === 'byId'" :act="act" />
+            </div>
+
+            <div v-if="currentToggle" class="d-flex justify-content-end">
+              <UiButton variant="link" @click="currentToggle = undefined">
+                {{ $t('cancel') }}
+              </UiButton>
+            </div>
+          </template>
+          <template v-else>
+            <MassActionsPrerequisites :act="act" />
+          </template>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// ACTIVATE_PREACTIVATE
-import NoPrerequisitesPre from './prerequisites/NoPrerequisitesPre';
-import OfferPrerequisite from './prerequisites/OfferPrerequisite';
-import PartnerAndCF from './prerequisites/PartnerAndCF';
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+//
+
+import MassActionsPrerequisites from './MassActionsPrerequisites.vue';
+import SearchById from './prerequisites/SearchById.vue';
+import Toggle from '@/components/ui/UiToggle2';
+import UiButton from '@/components/ui/Button';
 
 export default {
   components: {
-    NoPrerequisitesPre,
-    OfferPrerequisite,
-    PartnerAndCF,
+    MassActionsPrerequisites,
+    Toggle,
+    UiButton,
+    SearchById,
   },
   props: {
     act: Object,
   },
-  computed: {
-    ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
-    ...mapState('actLines', ['defaultAppliedFilters']),
-    ...mapGetters(['userIsPartner', 'userIsMVNO']),
-  },
-  watch: {
-    contextPartnersType() {
-      this.resetPrerequs();
-    },
-    contextPartners() {
-      this.resetPrerequs();
-    },
-    act() {
-      this.initPrerequisites();
-    },
-  },
   data() {
     return {
-      userPartner: undefined,
+      currentToggle: undefined,
+      toggleValues: undefined,
     };
   },
-  mounted() {
-    this.initPrerequisites();
-  },
-  methods: {
-    ...mapActions('actLines', ['setPartnersFilter']),
-    ...mapMutations('actLines', [
-      'applyFilters',
-      'setOffersFilter',
-      'setActCreationPrerequisites',
-      'setSelectedLinesForActCreation',
-      'setSelectedFileForActCreation',
-      'resetForm',
-      'setPageLimit',
-      'setActToCreate',
-      'setBillingAccountsFilter',
-    ]),
-
-    actWithNoPrerequs(actTitle) {
-      return [
-        'getparc.actCreation.carouselItem.REACTIVATE',
-        'getparc.actCreation.carouselItem.SUSPEND',
-        'getparc.actCreation.carouselItem.CHANGE_STATUS',
-        'getparc.actCreation.carouselItem.SEND_SMS',
-        'getparc.actCreation.carouselItem.TEST_PHASE',
-        'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
-        'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
-        'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+  computed: {
+    canHaveSearchByIdPrereq() {
+      const ignoredActs = [
+        'getparc.actCreation.carouselItem.CHANGE_SERVICES',
         'getparc.actCreation.carouselItem.CHANGE_MSISDN',
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
-      ].find(a => a === actTitle);
+        'getparc.actCreation.carouselItem.CHANGE_OFFER',
+      ];
+      return !ignoredActs.find(a => a === this.act.title);
     },
+  },
 
-    initPrerequisites() {
-      if (this.userIsPartner) {
-        this.userPartner = this.defaultAppliedFilters[0].values[0];
-        if (
-          (this.act && this.actWithNoPrerequs(this.act.title)) ||
-          (this.act &&
-            this.act.title === 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE' &&
-            this.userIsMVNO)
-        ) {
-          this.setPrerequisites({
-            search: true,
-            isPartnerHidden: true,
-            partner: this.defaultAppliedFilters[0].values[0],
-          });
-        }
-      }
-    },
-
-    resetPrerequs() {
-      this.resetForm();
-      this.setActToCreate(undefined);
-      this.setActCreationPrerequisites(undefined);
-      this.setSelectedLinesForActCreation([]);
-      this.setSelectedFileForActCreation(undefined);
-    },
-
-    setPrerequisites(allPrereq) {
-      this.resetForm();
-      if (allPrereq.partner) {
-        this.setPartnersFilter({
-          partners: [allPrereq.partner],
-          isHidden: !!allPrereq.isPartnerHidden,
-        });
-      }
-
-      if (allPrereq.billingAccount) {
-        this.setBillingAccountsFilter([allPrereq.billingAccount]);
-      }
-
-      if (allPrereq.offer) {
-        this.setOffersFilter([allPrereq.offer]);
-      }
-
-      if (allPrereq) {
-        this.setActCreationPrerequisites(allPrereq);
-        if (allPrereq.search) {
-          this.applyFilters();
-          this.setPageLimit(5);
-        }
-      }
-    },
+  mounted() {
+    this.toggleValues = [
+      {
+        id: 'mass',
+        label: 'getparc.actCreation.mass',
+        // default: this.starting === 'graph',
+      },
+      {
+        id: 'byId',
+        label: 'getparc.actCreation.byId',
+      },
+    ];
   },
 };
 </script>

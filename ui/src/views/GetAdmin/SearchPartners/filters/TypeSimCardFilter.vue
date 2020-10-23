@@ -40,8 +40,8 @@ export default {
     };
   },
   methods: {
-    async fetchApi(q, partners, partnerType, { page }, limit = 999) {
-      const data = await fetchCardTypes(q, partners, { page, partnerType }, limit);
+    async fetchApi(q, partners, partnerType, { page, limit }) {
+      const data = await fetchCardTypes(q, partners, { page, partnerType, limit });
       if (data) {
         return data.map(c => {
           return {

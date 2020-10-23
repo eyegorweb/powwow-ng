@@ -1,11 +1,11 @@
 <template>
   <PrereqContainer>
     <div class="row">
-      <div class="col" v-if="!partner">
+      <div class="col p-0 pr-4" v-if="!partner">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
-      <div class="col">
+      <div class="col p-0">
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
         <BillingAccountsPart
           :disabled="isPartnerMVNO"
@@ -32,6 +32,7 @@ import PrereqContainer from './parts/PrereqContainer';
 import PartnersPart from './parts/PartnersPart';
 import BillingAccountsPart from './parts/BillingAccountsPart';
 import get from 'lodash.get';
+
 export default {
   components: {
     PrereqContainer,

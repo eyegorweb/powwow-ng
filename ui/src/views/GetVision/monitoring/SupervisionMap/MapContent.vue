@@ -144,8 +144,12 @@ export default {
 
   computed: {
     zipCodeFilter() {
-      const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
-      return this.$loGet(zoneFilter, 'data.zipCode');
+      if (this.appliedFilters) {
+        const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
+        return this.$loGet(zoneFilter, 'data.zipCode');
+      }
+
+      return undefined;
     },
     usageForQuery() {
       if (this.usage === 'ALARMS') {
@@ -197,6 +201,7 @@ export default {
 
   methods: {
     async refreshData() {
+      console.log('Refresh DATA');
       if (this.isLoading) return;
       if (!this.canSearch) return;
 

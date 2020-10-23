@@ -12,7 +12,7 @@
     <input
       v-if="inputType === 'number'"
       :placeholder="placeholder"
-      :class="{ noNumberArrows: noNumberArrows }"
+      :class="{ noNumberArrows: noNumberArrows, haveCrossButton: haveCrossButton }"
       v-bind="$attrs"
       v-model="value_"
       type="number"
@@ -24,6 +24,7 @@
     <input
       v-else
       :placeholder="placeholder"
+      :class="{ haveCrossButton: haveCrossButton }"
       v-bind="$attrs"
       v-model="value_"
       v-on="$listeners"
@@ -104,6 +105,9 @@ export default {
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins/border-radius';
 
+.haveCrossButton {
+  padding-right: 30px;
+}
 .ic-Cross-Icon {
   background-color: white;
   padding: 5px 3px;

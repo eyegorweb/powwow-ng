@@ -12,7 +12,7 @@
               <slot name="header" />
             </div>
           </div>
-          <div class="col-3" v-if="widget.seeMore">
+          <div class="col-3" v-if="permittedSeeMore">
             <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
               {{ $t('seeMore') }}
             </button>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import WidgetTitle from './WidgetTitle';
 
 export default {
@@ -43,6 +44,16 @@ export default {
     titleGrow: Boolean,
   },
   computed: {
+    ...mapGetters(['havePermission']),
+    permittedSeeMore() {
+      if (typeof this.widget.seeMore === 'boolean') {
+        return this.widget.seeMore;
+      }
+      if (typeof this.widget.seeMore === 'object') {
+        return this.havePermission(this.widget.seeMore.domain, this.widget.seeMore.action);
+      }
+      return false;
+    },
     className() {
       return {
         'p-0': this.noPadding,

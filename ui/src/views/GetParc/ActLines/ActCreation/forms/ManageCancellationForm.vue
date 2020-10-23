@@ -86,6 +86,7 @@ import { manageCancellation } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
+import { searchLineById } from '@/api/linesActions';
 
 export default {
   components: {
@@ -105,14 +106,36 @@ export default {
       options: undefined,
       validate: undefined,
       isLoading: false,
+      singleLineFound: undefined,
     };
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters']),
+    partner() {
+      if (this.actCreationPrerequisites.searchById) {
+        if (this.singleLineFound) {
+          return this.singleLineFound.party;
+        }
+      }
+      return this.actCreationPrerequisites.partner;
+    },
+  },
+  async mounted() {
+    await this.loadSingleLineInfo();
   },
   methods: {
     ...mapMutations(['flashMessage']),
+    async loadSingleLineInfo() {
+      if (
+        this.actCreationPrerequisites.searchById &&
+        this.linesActionsResponse &&
+        this.linesActionsResponse.total === 1
+      ) {
+        const lineInTable = this.linesActionsResponse.items[0];
+        this.singleLineFound = await searchLineById(lineInTable.id);
+      }
+    },
     handleCancel(options) {
       this.validate = false;
       this.options = options;
@@ -127,7 +150,7 @@ export default {
       if (this.checkErrors()) return;
       return await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.options.date ? this.options.date : '',
-        partyId: this.actCreationPrerequisites.partner.id,
+        partyId: this.partner.id,
         validate: this.validate,
         tempDataUuid: contextValues.tempDataUuid,
       });

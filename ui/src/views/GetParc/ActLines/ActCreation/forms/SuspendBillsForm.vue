@@ -42,7 +42,6 @@ export default {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     ...mapGetters(['userIsBO', 'userIsPartner']),
-
     partner() {
       if (this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
@@ -51,7 +50,6 @@ export default {
       }
       return this.actCreationPrerequisites.partner;
     },
-
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
 
@@ -61,7 +59,6 @@ export default {
   async mounted() {
     await this.loadSingleLineInfo();
   },
-
   methods: {
     async loadSingleLineInfo() {
       if (
@@ -73,7 +70,6 @@ export default {
         this.singleLineFound = await searchLineById(lineInTable.id);
       }
     },
-
     async onValidate(contextValues) {
       return await suspendLines(this.appliedFilters, this.selectedLinesForActCreation, {
         suspendreFacturation: this.suspendBilling,
