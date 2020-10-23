@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.284+20201023121158
+2020-10-23
+
+### Fixes
+
+- Correction du choix du CF lors d'une activation (1547d2b734c9d4f3ac5b531fb269f1341ef46fcc)
+
 ## 1.0.0-master.283+20201023115731
 2020-10-23
 
