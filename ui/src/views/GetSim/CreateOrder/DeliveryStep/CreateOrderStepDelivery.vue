@@ -115,7 +115,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['havePermission'])
+    ...mapGetters(['havePermission']),
   },
 
   data() {
