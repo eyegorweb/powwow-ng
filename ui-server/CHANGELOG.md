@@ -2,6 +2,28 @@
 
 <!--- next entry here -->
 
+## 1.11.0
+2020-10-23
+
+### Features
+
+- Ajout de l'action de suspension de facturation (8cc8b6c17c434e0316708c41ff9db9afe37faa8b)
+
+### Fixes
+
+- Nouvelles colonnes invisible sur TST test fix (d912a5c099016190ba8ee2cd7db5724891921f6c)
+- désactiver les toggles dans l'écran tranche M2M (ae2770c4a31e6a67847b7bfa27ddce82740da435)
+- Problème de croix sur UIInput (593a18921688eb270b0e797663bfd444d53de13d)
+- Suppression de la croix quand input désactivé (f7455d4596225eaf0d6d2bc33d91d73ed2da071b)
+- Ajout des données "en cours de conso" dans le panel de detail de ligne (abb5a2f1f82281b77827bc24c7d171b144c04898)
+- 1992 gestion des paramètres des encours conso (f8f6e01b29f47eeb6d0f582a2962ff354e4c0287)
+- chercher une ligne par ID comme prérequis de la création d'un acte de gestion (92ebdea12e7a8c6629116465a46a8b6af16434d9)
+- Bouton annulation dans services details de ligne plus disponible apres sauvagarde (7608187a87b70e8369f7a80d16dc7edaef94da44)
+- 2009 mise en place des permissions sur les liens Voir plus des widgets (b3d9f3803fbb1bb60b3ffe7a8074e51704529eb7)
+- 1747 amélioration du filtre type de carte sim (261b51064acc605edc683d46413e974086cb6ae7)
+- Correction du choix du CF lors d'une activation (1547d2b734c9d4f3ac5b531fb269f1341ef46fcc)
+- le formulaire de preactivation doit être affiché même si le CF n'est pas séléctionné (dba7f960b490f715aec6c2e265f25cba802c75a8)
+
 ## 1.10.1
 2020-10-21
 
