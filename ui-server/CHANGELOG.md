@@ -2,11 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.289+20201026131407
+## 1.0.0-master.290+20201026132001
 2020-10-26
 
 ### Fixes
 
+- 2005 ajout des permissions pour la redirection depuis les liens Voir plus des widgets de la homepage (f7944009ce3b67b3b719913e08ce84bd613ea12f)
 - Suppression du bouton de consultation dans le widget recherche par id (ec858b7ef75597bfce151e84a3da778ef40c74d5)
 
 ## 1.0.0-master.288+20201026101234
