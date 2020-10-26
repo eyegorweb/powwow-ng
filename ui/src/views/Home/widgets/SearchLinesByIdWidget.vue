@@ -9,18 +9,6 @@
         {{ $t('processing') }}...
         <CircleLoader />
       </button>
-      <button
-        v-if="!searching && lastSearchResult && !noResults"
-        class="btn btn-primary btn-block"
-        @click.stop="viewResult"
-      >
-        <template v-if="lastSearchResult.total === 1">{{
-          $t('home.widgets.viewOneResult')
-        }}</template>
-        <template v-else>
-          {{ $t('home.widgets.viewXResults', { num: lastSearchResult.total }) }}
-        </template>
-      </button>
     </div>
   </WidgetBloc>
 </template>
@@ -63,6 +51,7 @@ export default {
 
       this.lastSearchResult = result;
       this.noResults = !result || !result.items || !result.items.length;
+      this.viewResult();
     },
 
     viewResult() {
