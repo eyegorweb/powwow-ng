@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.289+20201026131407
+2020-10-26
+
+### Fixes
+
+- Suppression du bouton de consultation dans le widget recherche par id (ec858b7ef75597bfce151e84a3da778ef40c74d5)
+
 ## 1.0.0-master.288+20201026101234
 2020-10-26
 
