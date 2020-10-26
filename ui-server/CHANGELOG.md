@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.288+20201026101234
+2020-10-26
+
+### Fixes
+
+- cacher "en cours de consommation" pour les utilisateurs autres que partenaire (adaef770c94aef7fe12784d00b2a3109e0a7438b)
+
 ## 1.0.0-master.287+20201023152442
 2020-10-23
 
