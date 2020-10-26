@@ -13,7 +13,7 @@
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
           <td>{{ indicator.name }}</td>
           <td>
-              <span>{{ indicator.total }}</span>
+            <span>{{ indicator.total }}</span>
           </td>
         </tr>
         <tr v-if="specificMessage">
