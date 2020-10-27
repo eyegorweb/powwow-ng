@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.292+20201027103718
+2020-10-27
+
+### Fixes
+
+- Problèmes de traduction sur le graph SMS dans le tableau de bord (ad9a408c7a03e555e0ef52c6a1f6fac9094f1ab4)
+
 ## 1.0.0-master.291+20201027094420
 2020-10-27
 
