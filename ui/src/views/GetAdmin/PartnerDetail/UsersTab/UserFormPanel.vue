@@ -44,6 +44,10 @@
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" offline :disabled="!!content.duplicateFrom" />
         </div>
+        <div class="language">
+          <label>{{ $t('getadmin.users.language') }}</label>
+          <UiSelect class="text-gray" block v-model="form.language" :options="languages" />
+        </div>
         <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
@@ -141,15 +145,18 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import MultiChoices from '@/components/MultiChoices';
-
 import { mapGetters, mapMutations } from 'vuex';
-import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import Toggle from '@/components/ui/UiToggle2';
-import { delay } from '@/api/utils.js';
 import cloneDeep from 'lodash.clonedeep';
+import UiSelect from '@/components/ui/UiSelect';
+
+// API
+import { delay } from '@/api/utils.js';
+import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
 import { fetchpartnerById } from '@/api/partners.js';
+import { fetchAllLanguages } from '@/api/language.js'
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -189,6 +196,7 @@ export default {
     BaseDetailPanelContent,
     UiButton,
     FormControl,
+    UiSelect,
     MultiChoices,
     PartnerCombo,
     UiApiAutocomplete,
@@ -199,7 +207,9 @@ export default {
   },
   data() {
     return {
+      languages: undefined,
       canShowForm: false,
+      fetchLanguages: undefined,
       roles: [],
       selectedRoles: [],
       selectedPartner: undefined,
@@ -227,6 +237,7 @@ export default {
       formDataBeforeChange: undefined,
       form: {
         title: undefined,
+        language: undefined,
         firstName: undefined,
         lastName: undefined,
         username: undefined,
@@ -276,8 +287,11 @@ export default {
     },
 
     async save() {
+      let lang = this.fetchLanguages.find(e => e.label === this.form.language)
+
       const params = {
         title: this.form.title,
+        language: lang.language,
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         email: this.form.email,
@@ -452,6 +466,16 @@ export default {
     this.canShowForm = false;
     let roles;
 
+    // récupération des langues
+    let langArray = [];
+    this.fetchLanguages = await fetchAllLanguages();
+
+    this.fetchLanguages.forEach(function(e){
+      langArray.push(e.label);
+    });
+
+    this.languages = langArray;
+
     // récupération du partenaire si fromPagePartner
     if (this.fromPagePartner) {
       this.selectedPartner = await fetchpartnerById(this.content.partnerId);
@@ -582,6 +606,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.language {
+  margin-bottom: 20px;
+}
+
 .noDisplay {
   display: none !important;
 }
