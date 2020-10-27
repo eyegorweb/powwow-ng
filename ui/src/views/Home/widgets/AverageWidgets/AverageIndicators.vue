@@ -48,7 +48,7 @@
 <script>
 import WidgetBloc from '@/views/Home/widgets/WidgetBloc';
 import Toggle from '@/components/ui/UiToggle2';
-import { formatBytes } from '@/api/utils';
+import { formatBytes, formattedEnum24H } from '@/api/utils';
 
 export default {
   components: {
@@ -80,8 +80,7 @@ export default {
       return formatBytes(value);
     },
     formattedVoice(value) {
-      const formattedValue = value / 60;
-      return formattedValue.toFixed(2) + ' H';
+      return formattedEnum24H(value);
     },
   },
   data() {
