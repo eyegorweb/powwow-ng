@@ -2,16 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.291+20201027094436
+## 1.0.0-master.291+20201027094420
 2020-10-27
 
 ### Features
 
 - Ajout de la langue dans la création de user (9c66e6d0ed1ee824f3e7d0c5b9edab99b3bb26a4)
-
-### Fixes
-
-- 2008 formattage 24h du widget Lignes les plus consomatrices pour le type d'usage VOIX (86e55cd374c9479766ddd59b1fa30da6f5745423)
 
 ## 1.0.0-master.290+20201026132001
 2020-10-26
