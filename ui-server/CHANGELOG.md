@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.293+20201028163105
+2020-10-28
+
+### Fixes
+
+- 2023 gestion de la modification de l'utilisateur selon les utilisateurs connectés et les utilisateurs à mettre à jour (aa9ad71f3ed4c2255661a20d3c379a2520ee57a4)
+
 ## 1.0.0-master.292+20201027103718
 2020-10-27
 
