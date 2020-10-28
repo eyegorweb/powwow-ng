@@ -223,6 +223,7 @@ export async function fetchAdminInfos(id) {
     mobile
   }
   function
+  language
   address {
     address1
     address2

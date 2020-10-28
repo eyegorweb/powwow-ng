@@ -131,7 +131,7 @@
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
-      <div v-if="havePermission('user', 'create')">
+      <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>
           {{ $t('save') }}
         </UiButton>
@@ -155,8 +155,8 @@ import UiSelect from '@/components/ui/UiSelect';
 // API
 import { delay } from '@/api/utils.js';
 import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
-import { fetchpartnerById } from '@/api/partners.js';
-import { fetchAllLanguages } from '@/api/language.js'
+import { fetchpartnerById, fetchAdminInfos } from '@/api/partners.js';
+import { fetchAllLanguages } from '@/api/language.js';
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -245,6 +245,7 @@ export default {
         passwordConfirm: undefined,
         email: undefined,
       },
+      userDefaultLanguage: null,
     };
   },
 
@@ -287,11 +288,12 @@ export default {
     },
 
     async save() {
-      let lang = this.fetchLanguages.find(e => e.label === this.form.language)
+      let lang = this.fetchLanguages.find(e => e.label === this.form.language);
+      let userDefaultLanguage;
 
       const params = {
         title: this.form.title,
-        language: lang.language,
+        language: lang ? lang.language : this.userDefaultLanguage,
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         email: this.form.email,
@@ -304,17 +306,17 @@ export default {
         params.confirmPassword = this.form.passwordConfirm;
       }
 
-      if (this.userIsBO) {
-        if (this.userType === 'PARTNER') {
-          if (this.selectedPartner && this.selectedPartner.id) {
-            params.partyId = this.selectedPartner.id;
-          }
+      if (this.userType === 'PARTNER') {
+        if (this.selectedPartner && this.selectedPartner.id) {
+          params.partyId = this.selectedPartner.id;
         }
+      }
 
-        if (this.userType === 'PARTNER_GROUP') {
-          if (this.selectedGroupPartner && this.selectedGroupPartner.id) {
-            params.partyGroupId = this.selectedGroupPartner.id;
-          }
+      if (this.userType === 'PARTNER_GROUP') {
+        const groupPartnerId =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
+        if (this.selectedGroupPartner && groupPartnerId) {
+          params.partyGroupId = this.selectedGroupPartner.id;
         }
       }
 
@@ -465,12 +467,13 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
+    let mainAdministrator;
 
     // récupération des langues
     let langArray = [];
     this.fetchLanguages = await fetchAllLanguages();
 
-    this.fetchLanguages.forEach(function(e){
+    this.fetchLanguages.forEach(function(e) {
       langArray.push(e.label);
     });
 
@@ -511,6 +514,11 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.content.duplicateFrom.id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       } else if (this.userType === 'PARTNER') {
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
@@ -519,6 +527,11 @@ export default {
         );
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.selectedPartner.id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       } else if (this.userType === 'PARTNER_GROUP') {
         const groupPartnersResponse = await fetchPartnerGroups();
         this.groupPartners = groupPartnersResponse.map(p => {
@@ -535,6 +548,11 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.groupPartners[0].id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       }
 
       // Pré-remplissage formulaire
