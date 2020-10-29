@@ -152,6 +152,7 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
         type
         email
         username
+        preferredLocale
         name {
           title
           firstName

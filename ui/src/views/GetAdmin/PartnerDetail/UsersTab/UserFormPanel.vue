@@ -565,6 +565,8 @@ export default {
       }
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
+      let lang = this.fetchLanguages.find(e => e.name === this.form.language);
+      this.form.language = lang.label;
 
       this.userTypes = this.userTypes.map(u => {
         if (u.id === userType) {
