@@ -62,7 +62,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
-import IdCell from './IdCell';
+import IdCell from '@/views/GetParc/LineDetail/DetailsTab/ActsHistory/IdCell.vue';
 import ActionCell from './ActionCell';
 import DetailsCell from './DetailsCell';
 import SearchMassActionsById from './SearchMassActionsById';

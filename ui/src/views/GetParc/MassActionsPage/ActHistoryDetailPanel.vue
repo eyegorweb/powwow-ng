@@ -1,6 +1,6 @@
 <template>
   <div class="panel-vertical-container">
-    <div v-if="!content.row" class="alert" role="alert">
+    <div v-if="!content" class="alert" role="alert">
       {{ $t('getparc.history.details.noResult') }}
     </div>
     <div v-else>
@@ -30,25 +30,25 @@
             </div>
             <UiButton
               variant="import"
-              @click="$router.push({ name: 'actDetail', params: { massActionId: content.row.id } })"
+              @click="$router.push({ name: 'actDetail', params: { massActionId: content.id } })"
             >
               <span>{{ $t('getparc.history.details.MORE_DETAIL') }}</span>
             </UiButton>
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityFailed') }} :</h6>
-            <template v-if="content.row.failedEntitiesNumber > 0">
+            <template v-if="content.failedEntitiesNumber > 0">
               <p>
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
                     $router.push({
                       name: 'actDetail',
-                      params: { massActionId: content.row.id, index: 0 },
+                      params: { massActionId: content.id, index: 0 },
                     })
                   "
                 >
-                  {{ `${content.row.failedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
+                  {{ `${content.failedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
                 </button>
               </p>
             </template>
@@ -58,20 +58,18 @@
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityInProgress') }} :</h6>
-            <template v-if="content.row.pendingEntitiesNumber > 0">
+            <template v-if="content.pendingEntitiesNumber > 0">
               <p>
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
                     $router.push({
                       name: 'actDetail',
-                      params: { massActionId: content.row.id, index: 1 },
+                      params: { massActionId: content.id, index: 1 },
                     })
                   "
                 >
-                  {{
-                    `${content.row.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                  }}
+                  {{ `${content.pendingEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
                 </button>
               </p>
             </template>
@@ -81,20 +79,18 @@
           </div>
           <div class="overview-item">
             <h6>{{ $t('getparc.history.details.quantityTerminated') }} :</h6>
-            <template v-if="content.row.completedEntitiesNumber > 0">
+            <template v-if="content.completedEntitiesNumber > 0">
               <p>
                 <button
                   class="btn btn-link btn-select p-0"
                   @click="
                     $router.push({
                       name: 'actDetail',
-                      params: { massActionId: content.row.id, index: 2 },
+                      params: { massActionId: content.id, index: 2 },
                     })
                   "
                 >
-                  {{
-                    `${content.row.completedEntitiesNumber} ${$t('getparc.history.details.lines')}`
-                  }}
+                  {{ `${content.completedEntitiesNumber} ${$t('getparc.history.details.lines')}` }}
                 </button>
               </p>
             </template>
@@ -137,7 +133,7 @@
       <div class="footer-back">
         <div class="action-buttons">
           <div>
-            <template v-if="!content.row.cancellable">
+            <template v-if="!content.cancellable">
               <ExportButton
                 :export-fn="getExportFn()"
                 :columns="columns"
@@ -160,7 +156,7 @@
               @click="
                 $router.push({
                   name: 'actDetail',
-                  params: { massActionId: content.row.id, actHistoryTableFilters: content.filters },
+                  params: { massActionId: content.id, actHistoryTableFilters: content.filters },
                 })
               "
               >{{ $t('getparc.history.details.RESULT') }}</UiButton
@@ -189,26 +185,25 @@ export default {
   },
   mounted() {
     if (this.content) {
-      const contentPanel = this.content.row;
-      this.actStatus = contentPanel.massAction.status;
+      this.actStatus = this.content.status;
       this.confirmationStepper = {
         data: [
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: contentPanel.created,
+            date: this.$loGet(this.content, 'massAction.created'),
             index: 0,
           },
           {
             code: 'IN_PROGRESS',
             label: this.$t('getparc.history.details.actStatuses.STARTED'),
-            date: contentPanel.dueDate,
+            date: this.$loGet(this.content, 'massAction.dueDate'),
             index: 1,
           },
           {
             code: 'TERMINATED',
             label: this.$t('getparc.history.details.actStatuses.TERMINATED'),
-            date: contentPanel.ended,
+            date: this.$loGet(this.content, 'massAction.ended'),
             index: 2,
           },
         ],
@@ -218,7 +213,7 @@ export default {
           {
             code: 'WAITING',
             label: this.$t('getparc.history.details.actStatuses.CREATED'),
-            date: contentPanel.created,
+            date: this.$loGet(this.content, 'massAction.created'),
             index: 0,
           },
           {
@@ -341,7 +336,7 @@ export default {
     ...mapMutations(['flashMessage', 'closePanel']),
 
     async onCancelClick() {
-      const response = await cancelMassAction(this.content.row.id);
+      const response = await cancelMassAction(this.content.id);
 
       if (response) {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
@@ -351,7 +346,7 @@ export default {
       }
     },
     getFromContent(path, defaultValue = '') {
-      const value = get(this.content.row, path, defaultValue);
+      const value = get(this.content, path, defaultValue);
       return value !== null ? value : '';
     },
     generateNewStatus(transitionName) {
@@ -370,7 +365,7 @@ export default {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         return await exportMassAction(
-          this.content.row.id,
+          this.content.id,
           ['WAITING', 'SENT', 'IN_PROGRESS', 'OK', 'KO', 'REPLAYED', 'CANCELLED'],
           'NONE',
           [
