@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.295+20201029110829
+2020-10-29
+
+### Fixes
+
+- 2026 mise en place d'une gestion pour désactiver le préremplissage des champs de formulaire d'identification (c46d3693181642b651357e1ecefd00b4231a18cb)
+
 ## 1.0.0-master.294+20201029085109
 2020-10-29
 
