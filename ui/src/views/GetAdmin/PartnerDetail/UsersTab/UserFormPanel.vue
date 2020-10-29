@@ -129,7 +129,7 @@
         </div>
       </div>
     </div>
-    <div slot="footer" class="action-buttons">
+    <div slot="footer" class="action-buttons" v-if="havePermission('user', 'create')">
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
@@ -291,7 +291,6 @@ export default {
 
     async save() {
       let lang = this.fetchLanguages.find(e => e.label === this.form.language);
-      let userDefaultLanguage;
 
       const params = {
         title: this.form.title,
