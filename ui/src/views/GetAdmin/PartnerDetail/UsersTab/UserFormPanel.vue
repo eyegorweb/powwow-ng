@@ -79,6 +79,7 @@
       </div>
       <div class="entries-line">
         <div class="form-entry">
+          <input type="text" name="login" class="hidden" autocomplete="off" />
           <FormControl label="login" v-model="form.username" />
         </div>
       </div>
@@ -93,6 +94,7 @@
       </div>
       <div v-else class="entries-line">
         <div class="form-entry">
+          <input type="password" name="password" class="hidden" autocomplete="off" />
           <FormControl label="password" input-type="password" v-model="form.password" />
         </div>
         <div class="form-entry pl-2">
