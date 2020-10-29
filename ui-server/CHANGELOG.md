@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.294+20201029085109
+2020-10-29
+
+### Fixes
+
+- détail d'un acte de masse non visible depuis le détail de la ligne (75cb8074072bfc0ba2693157da433e8f308febee)
+
 ## 1.0.0-master.293+20201028163105
 2020-10-28
 
