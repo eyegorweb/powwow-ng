@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.296+20201029131816
+2020-10-29
+
+### Fixes
+
+- Traduction du tableau en Voice des legends (5d2c57a7577e75fbee8b37aa1be612f36c1d67e8)
+- Si modificaition user alors on récupère la langue du user dans le form (0aa842cc41ca6562bfd3c49f057be626a857bbdb)
+
 ## 1.0.0-master.295+20201029110829
 2020-10-29
 
