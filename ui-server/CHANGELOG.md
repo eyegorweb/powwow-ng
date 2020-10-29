@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.297+20201029155025
+2020-10-29
+
+### Fixes
+
+- 2030 gestion de la permission pour modifier un utilisateur (0a4e63691e1229a70f0b3e61e0ff1d3ffc131a9d)
+
 ## 1.0.0-master.296+20201029131816
 2020-10-29
 
