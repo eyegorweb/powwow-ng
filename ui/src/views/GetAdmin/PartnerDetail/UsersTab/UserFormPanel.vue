@@ -44,6 +44,10 @@
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" offline :disabled="!!content.duplicateFrom" />
         </div>
+        <div class="language">
+          <label>{{ $t('getadmin.users.language') }}</label>
+          <UiSelect class="text-gray" block v-model="form.language" :options="languages" />
+        </div>
         <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
           <UiApiAutocomplete
@@ -75,6 +79,7 @@
       </div>
       <div class="entries-line">
         <div class="form-entry">
+          <input type="text" name="login" class="hidden" autocomplete="off" />
           <FormControl label="login" v-model="form.username" />
         </div>
       </div>
@@ -89,6 +94,7 @@
       </div>
       <div v-else class="entries-line">
         <div class="form-entry">
+          <input type="password" name="password" class="hidden" autocomplete="off" />
           <FormControl label="password" input-type="password" v-model="form.password" />
         </div>
         <div class="form-entry pl-2">
@@ -123,11 +129,11 @@
         </div>
       </div>
     </div>
-    <div slot="footer" class="action-buttons">
+    <div slot="footer" class="action-buttons" v-if="havePermission('user', 'create')">
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
-      <div v-if="havePermission('user', 'create')">
+      <div>
         <UiButton :disabled="!canSave" variant="primary" @click="save" block>
           {{ $t('save') }}
         </UiButton>
@@ -141,15 +147,18 @@ import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import MultiChoices from '@/components/MultiChoices';
-
 import { mapGetters, mapMutations } from 'vuex';
-import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import Toggle from '@/components/ui/UiToggle2';
-import { delay } from '@/api/utils.js';
 import cloneDeep from 'lodash.clonedeep';
-import { fetchpartnerById } from '@/api/partners.js';
+import UiSelect from '@/components/ui/UiSelect';
+
+// API
+import { delay } from '@/api/utils.js';
+import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
+import { fetchpartnerById, fetchAdminInfos } from '@/api/partners.js';
+import { fetchAllLanguages } from '@/api/language.js';
 
 export function checkPasswordErrors(password, passwordConfirm) {
   const errors = [];
@@ -189,6 +198,7 @@ export default {
     BaseDetailPanelContent,
     UiButton,
     FormControl,
+    UiSelect,
     MultiChoices,
     PartnerCombo,
     UiApiAutocomplete,
@@ -199,7 +209,9 @@ export default {
   },
   data() {
     return {
+      languages: undefined,
       canShowForm: false,
+      fetchLanguages: undefined,
       roles: [],
       selectedRoles: [],
       selectedPartner: undefined,
@@ -227,6 +239,7 @@ export default {
       formDataBeforeChange: undefined,
       form: {
         title: undefined,
+        language: undefined,
         firstName: undefined,
         lastName: undefined,
         username: undefined,
@@ -234,6 +247,7 @@ export default {
         passwordConfirm: undefined,
         email: undefined,
       },
+      userDefaultLanguage: null,
     };
   },
 
@@ -276,8 +290,11 @@ export default {
     },
 
     async save() {
+      let lang = this.fetchLanguages.find(e => e.label === this.form.language);
+
       const params = {
         title: this.form.title,
+        language: lang ? lang.language : this.userDefaultLanguage,
         firstName: this.form.firstName,
         lastName: this.form.lastName,
         email: this.form.email,
@@ -290,17 +307,17 @@ export default {
         params.confirmPassword = this.form.passwordConfirm;
       }
 
-      if (this.userIsBO) {
-        if (this.userType === 'PARTNER') {
-          if (this.selectedPartner && this.selectedPartner.id) {
-            params.partyId = this.selectedPartner.id;
-          }
+      if (this.userType === 'PARTNER') {
+        if (this.selectedPartner && this.selectedPartner.id) {
+          params.partyId = this.selectedPartner.id;
         }
+      }
 
-        if (this.userType === 'PARTNER_GROUP') {
-          if (this.selectedGroupPartner && this.selectedGroupPartner.id) {
-            params.partyGroupId = this.selectedGroupPartner.id;
-          }
+      if (this.userType === 'PARTNER_GROUP') {
+        const groupPartnerId =
+          this.groupPartners && this.groupPartners.length > 0 ? this.groupPartners[0].id : null;
+        if (this.selectedGroupPartner && groupPartnerId) {
+          params.partyGroupId = this.selectedGroupPartner.id;
         }
       }
 
@@ -451,6 +468,17 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
+    let mainAdministrator;
+
+    // récupération des langues
+    let langArray = [];
+    this.fetchLanguages = await fetchAllLanguages();
+
+    this.fetchLanguages.forEach(function(e) {
+      langArray.push(e.label);
+    });
+
+    this.languages = langArray;
 
     // récupération du partenaire si fromPagePartner
     if (this.fromPagePartner) {
@@ -487,6 +515,11 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.content.duplicateFrom.id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       } else if (this.userType === 'PARTNER') {
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
@@ -495,6 +528,11 @@ export default {
         );
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.selectedPartner.id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       } else if (this.userType === 'PARTNER_GROUP') {
         const groupPartnersResponse = await fetchPartnerGroups();
         this.groupPartners = groupPartnersResponse.map(p => {
@@ -511,6 +549,11 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
+
+        mainAdministrator = await fetchAdminInfos(this.groupPartners[0].id);
+        if (mainAdministrator) {
+          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
+        }
       }
 
       // Pré-remplissage formulaire
@@ -521,6 +564,8 @@ export default {
       }
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
+      let lang = this.fetchLanguages.find(e => e.name === this.form.language);
+      this.form.language = lang.label;
 
       this.userTypes = this.userTypes.map(u => {
         if (u.id === userType) {
@@ -582,6 +627,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.language {
+  margin-bottom: 20px;
+}
+
 .noDisplay {
   display: none !important;
 }

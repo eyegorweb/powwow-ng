@@ -58,6 +58,7 @@ export async function createUser(params) {
   mutation {
     createUser(userCreationInput: {
       title: ${params.title},
+      language: ${params.language},
       firstName: "${params.firstName}",
       lastName: "${params.lastName}",
       email: "${params.email}",
@@ -80,6 +81,7 @@ export async function updateUser(params) {
     userToUpdate: params.id,
     userCreationInput: {
       title: params.title,
+      language: params.language,
       firstName: params.firstName,
       lastName: params.lastName,
       email: params.email,
@@ -91,11 +93,11 @@ export async function updateUser(params) {
   };
 
   if (params.partyGroupId) {
-    queryParams.partyGroupId = params.partyGroupId;
+    queryParams.userCreationInput.partyGroupId = params.partyGroupId;
   }
 
   if (params.partyId) {
-    queryParams.partyId = params.partyId;
+    queryParams.userCreationInput.partyId = params.partyId;
   }
 
   const queryStr = `
@@ -150,6 +152,7 @@ export async function searchUsers(q, orderBy, pagination, filters = []) {
         type
         email
         username
+        preferredLocale
         name {
           title
           firstName

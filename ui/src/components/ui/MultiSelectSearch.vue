@@ -7,7 +7,6 @@
       :placeholder="placeholder"
       :value.sync="searchValue"
       @clear="removeSelection()"
-      @update:value="$emit('update:search', $event)"
       :contains-search="containsSearch"
     >
       <template slot="beforeInput">
@@ -45,11 +44,17 @@
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
         <UiCheckbox
           v-if="enableSelectAll"
-          :value="results.map(r => r.item)"
-          :checked="multiSelectValues(results.map(r => r.item))"
+          :value="results.map((r) => r.item)"
+          :checked="multiSelectValues(results.map((r) => r.item))"
           @change="
-            addAllToSelectedItems($event, results.map(r => r.item)),
-              updateTextLabel($event, results.map(r => r.item))
+            addAllToSelectedItems(
+              $event,
+              results.map((r) => r.item)
+            ),
+              updateTextLabel(
+                $event,
+                results.map((r) => r.item)
+              )
           "
           class="text-secondary"
           >{{ labelText }} ({{ results.length }})</UiCheckbox
@@ -60,7 +65,12 @@
           :value="result.item"
           :key="'ms_' + result.item.id"
           :disabled="isItemDisabled(result.item)"
-          @change="updateTextLabel($event, results.map(r => r.item))"
+          @change="
+            updateTextLabel(
+              $event,
+              results.map((r) => r.item)
+            )
+          "
         >
           <span v-html="result.highlighted.label" />
         </UiCheckbox>
@@ -117,6 +127,12 @@ export default {
     };
   },
 
+  watch: {
+    searchValue(value) {
+      this.emitDoSearch(value);
+    }
+  },
+
   computed: {
     multiSelectValues() {
       const selectedItems = this.selectedItems;
@@ -154,6 +170,9 @@ export default {
   },
 
   methods: {
+    emitDoSearch(event) {
+      this.$emit('update:search', event)
+    },
     isItemDisabled(item) {
       if (this.disabled) return true;
       if (!this.disabledItems) return false;
@@ -176,7 +195,7 @@ export default {
       function isMatching(displayedValues) {
         const selectedItems = results;
         if (displayedValues) {
-          return displayedValues.every(function(v) {
+          return displayedValues.every(function (v) {
             return !!selectedItems.filter(s => isEqual(s, v));
           });
         }

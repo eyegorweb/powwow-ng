@@ -131,22 +131,22 @@ export default {
 
         series: [
           {
-            name: this.$t('getreport.dashboard.incomingFrance'),
+            name: this.$t('getreport.dashboard.legends.incomingFrance'),
             data: formattedData.consumptionFrIn,
             stack: 'entrant',
           },
           {
-            name: this.$t('getreport.dashboard.incomingRoming'),
+            name: this.$t('getreport.dashboard.legends.incomingRoming'),
             data: formattedData.consumptionRoamingIn,
             stack: 'entrant',
           },
           {
-            name: this.$t('getreport.dashboard.outgoingFrance'),
+            name: this.$t('getreport.dashboard.legends.outgoingFrance'),
             data: formattedData.consumptionFrOut,
             stack: 'sortant',
           },
           {
-            name: this.$t('getreport.dashboard.outgoingRoaming'),
+            name: this.$t('getreport.dashboard.legends.outgoingRoaming'),
             data: formattedData.consumptionRoamingOut,
             stack: 'sortant',
           },

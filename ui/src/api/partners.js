@@ -75,6 +75,20 @@ export async function getPartyOptions(partyId) {
   return response.data.getPartyOptions;
 }
 
+export async function getOfferOption(id) {
+  const queryStr = `
+    {
+      partys(filter:{id: {eq: ${id}}}) {
+        items {
+          offerTariffEnabled
+        }
+      }
+    }
+    `;
+  const response = await query(queryStr);
+  return response.data.partys.items[0].offerTariffEnabled;
+}
+
 export async function editAdministrator(type, params) {
   const queryStr = `
   mutation {
@@ -223,6 +237,7 @@ export async function fetchAdminInfos(id) {
     mobile
   }
   function
+  language
   address {
     address1
     address2

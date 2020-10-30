@@ -19,7 +19,7 @@
       </template>
 
       <div v-if="selectedOffer && selectedOffer.data" class="row">
-        <div class="col-md-8 mb-3">
+        <div class="col-md-8 mb-3" v-if="offerEnabled">
           <UiToggle
             :label="$t('getparc.actCreation.changeOffer.changeServices')"
             v-model="canChangeServices"
@@ -31,7 +31,7 @@
 
       <hr />
 
-      <div v-if="canChangeServices">
+      <div v-if="canChangeServices || !offerEnabled">
         <ServicesBlock
           v-if="selectedOffer"
           :key="selectedOffer.label"
@@ -55,6 +55,7 @@ import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 
 import { changeOffer } from '@/api/actCreation';
 
+import { getOfferOption } from '@/api/partners.js';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
@@ -97,6 +98,7 @@ export default {
     return {
       selectedOffer: undefined,
       actDate: null,
+      offerEnabled: undefined,
       errors: {},
       notificationCheck: false,
       waitForConfirmation: false,
@@ -110,8 +112,10 @@ export default {
     };
   },
 
-  mounted() {
+  async mounted() {
+
     if (this.actCreationPrerequisites.partner.partyType) {
+      this.offerEnabled = await getOfferOption(this.actCreationPrerequisites.partner.id);
       this.partnerType = this.actCreationPrerequisites.partner.partyType;
     }
   },
@@ -159,6 +163,9 @@ export default {
     },
 
     async doRequest(contextValues) {
+      if(!this.offerEnabled) {
+        this.canChangeServices = true;
+      }
       const params = {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,

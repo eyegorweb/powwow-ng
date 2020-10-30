@@ -1,6 +1,6 @@
 <template>
-  <button class="btn btn-link p-0" @click.prevent="openActHistoryDetailsPanel">
-    {{ row.massActionId }}
+  <button class="btn btn-link p-0" @click.stop="openActHistoryDetailsPanel">
+    {{ row.massActionId || row.id }}
   </button>
 </template>
 

@@ -381,3 +381,8 @@ export function fromHoursToDDHH(value) {
     return '';
   }
 }
+
+export function formattedEnum24H(value) {
+  const formattedValue = value / 3600;
+  return formattedValue.toFixed(2) + ' H';
+}

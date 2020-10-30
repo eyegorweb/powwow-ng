@@ -401,7 +401,8 @@ export default {
     },
 
     initAfterRouteIsSet() {
-      // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
+      // Ne pas réinitialiser la barre de filtres si on reviens du détail d'une ligne
+      console.log(this.$route.params.queryFilters);
       if (this.prevRoute === 'lineDetail' && this.linesActionsResponse) return;
       if (this.$route.params && this.$route.params.queryFilters) {
         this.setRouteParamsFilters(this.$route.params.queryFilters);

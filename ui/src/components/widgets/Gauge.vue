@@ -88,7 +88,7 @@ export default {
     let gaugeSize = 250;
     let gaugeWidth = 15;
 
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 1024 || window.innerWidth <= 1070) {
       gaugeSize = 150;
       gaugeWidth = 8;
     }

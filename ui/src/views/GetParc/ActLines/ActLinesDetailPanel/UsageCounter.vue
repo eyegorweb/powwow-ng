@@ -65,7 +65,7 @@ export default {
         this.lineDetails,
         'accessPoint.usageCounter.counter2DownRounded'
       )
-        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter1DownRounded'))
+        ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter2DownRounded'))
         : 0;
       const counter2UpRounded = get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded')
         ? Number(get(this.lineDetails, 'accessPoint.usageCounter.counter2UpRounded'))
