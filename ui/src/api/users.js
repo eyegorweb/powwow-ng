@@ -93,11 +93,11 @@ export async function updateUser(params) {
   };
 
   if (params.partyGroupId) {
-    queryParams.partyGroupId = params.partyGroupId;
+    queryParams.userCreationInput.partyGroupId = params.partyGroupId;
   }
 
   if (params.partyId) {
-    queryParams.partyId = params.partyId;
+    queryParams.userCreationInput.partyId = params.partyId;
   }
 
   const queryStr = `
