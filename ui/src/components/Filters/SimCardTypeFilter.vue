@@ -4,7 +4,7 @@
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
     contains-search
-    @update:values="values => $emit('setTypeSimCardFilter', values)"
+    @update:values="(values) => $emit('setTypeSimCardFilter', values)"
   />
 </template>
 
