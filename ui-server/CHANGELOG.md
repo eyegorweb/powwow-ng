@@ -2,6 +2,34 @@
 
 <!--- next entry here -->
 
+## 1.12.0
+2020-10-30
+
+### Features
+
+- Ajout de la langue dans la création de user (9c66e6d0ed1ee824f3e7d0c5b9edab99b3bb26a4)
+- Conditionnement du changement de service dans le changement offre (f67000a68eac2c96a3077c88a4bfbd13bd13c950)
+
+### Fixes
+
+- Suppression du bouton autour des chiffres pour le widget top 5 alarmes (7a006c1e43e035089566f9ca82a9dcc01dd19367)
+- Debug du nombre de SMS dans encours conso du panel detail de ligne (ad71d98c203843d399f59ba0ccf60e917d48df82)
+- 2005 ajout des permissions pour la redirection depuis les liens Voir plus des widgets de la homepage (f7944009ce3b67b3b719913e08ce84bd613ea12f)
+- cacher "en cours de consommation" pour les utilisateurs autres que partenaire (adaef770c94aef7fe12784d00b2a3109e0a7438b)
+- Suppression du bouton de consultation dans le widget recherche par id (ec858b7ef75597bfce151e84a3da778ef40c74d5)
+- 2008 formattage 24h du widget Lignes les plus consomatrices pour le type d'usage VOIX (86e55cd374c9479766ddd59b1fa30da6f5745423)
+- Problèmes de traduction sur le graph SMS dans le tableau de bord (ad9a408c7a03e555e0ef52c6a1f6fac9094f1ab4)
+- 2023 gestion de la modification de l'utilisateur selon les utilisateurs connectés et les utilisateurs à mettre à jour (aa9ad71f3ed4c2255661a20d3c379a2520ee57a4)
+- détail d'un acte de masse non visible depuis le détail de la ligne (75cb8074072bfc0ba2693157da433e8f308febee)
+- Traduction du tableau en Voice des legends (5d2c57a7577e75fbee8b37aa1be612f36c1d67e8)
+- Si modificaition user alors on récupère la langue du user dans le form (0aa842cc41ca6562bfd3c49f057be626a857bbdb)
+- 2026 mise en place d'une gestion pour désactiver le préremplissage des champs de formulaire d'identification (c46d3693181642b651357e1ecefd00b4231a18cb)
+- 2030 gestion de la permission pour modifier un utilisateur (0a4e63691e1229a70f0b3e61e0ff1d3ffc131a9d)
+- afficher toutes les offres dans les prérequis de l'actes "changement de services" (3c78fd66ad92aa7e1d5510b32068fff23cd73f7c)
+- 2023 mise à jour de la modification d'un utilisateur (d69c634b0f86d35504084cadb21dd55b162b8993)
+- Changement du nom du label du widget de conso (8c6b468273900101d8905f1834ee158151c485d7)
+- 2029 récupération de l'info Dernier pays pour la gestion de lignes (bb03d3d09f8d82d07acd8cf07a601ab25b2e422e)
+
 ## 1.11.0
 2020-10-23
 
