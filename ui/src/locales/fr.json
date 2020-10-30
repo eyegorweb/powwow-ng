@@ -126,7 +126,7 @@
     "widgets": {
       "orders": "Mes commandes",
       "bills": "Dernières factures",
-      "currentUsage": "En cours de consommation",
+      "currentUsage": "Suivi Conso",
       "orderStatus": "Statut des commandes",
       "acts": "Acte de gestion",
       "activationAct": "Actes: Activation",
