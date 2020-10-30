@@ -22,6 +22,7 @@
             :partner="selectedPartner"
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
+            :all-offers="allOffers"
           />
         </div>
       </div>
@@ -43,6 +44,7 @@
             :partner="selectedPartner"
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
+            :all-offers="allOffers"
           />
         </div>
         <div class="pl-1 to-bottom">
@@ -90,6 +92,7 @@ export default {
       default: undefined,
     },
     canSelectBillingAccount: Boolean,
+    allOffers: Boolean,
   },
   watch: {
     partner(newValue) {

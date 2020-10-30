@@ -22,6 +22,7 @@ export default {
     partner: Object,
     offer: Object,
     disabled: Boolean,
+    allOffers: Boolean,
     error: {
       type: String,
       required: false,
@@ -52,12 +53,15 @@ export default {
       partnerParam = partnerParam.filter(p => p.label !== '');
 
       if (partnerParam && partnerParam.length) {
-        const data = await fetchOffers(q, partnerParam, {
+        const queryParams = {
           page,
           limit: 999,
           partnerType: this.contextPartnersType,
-          disabledOffer: true,
-        });
+        };
+        if (!this.allOffers) {
+          queryParams.disabledOffer = true;
+        }
+        const data = await fetchOffers(q, partnerParam, queryParams);
         if (data) {
           return data
             .filter(o => o.code !== this.prerequisiteOffer.code)

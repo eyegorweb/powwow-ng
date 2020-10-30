@@ -13,6 +13,7 @@
       :partner="userPartner"
     />
     <OfferPrerequisite
+      :all-offers="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
       v-if="
         [
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
