@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.300+20201030150456
+2020-10-30
+
+### Fixes
+
+- 2029 récupération de l'info Dernier pays pour la gestion de lignes (bb03d3d09f8d82d07acd8cf07a601ab25b2e422e)
+
 ## 1.0.0-master.299+20201030145358
 2020-10-30
 
