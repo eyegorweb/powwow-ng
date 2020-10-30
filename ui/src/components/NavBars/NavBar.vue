@@ -124,7 +124,6 @@ export default {
 
     let getAdminExtra = [];
     if (this.userIsPartner) {
-      console.log('mounted -> this.userInfos.partners[0].id', this.userInfos.partners[0].id);
       getAdminExtra = [
         {
           label: 'menu.users',
@@ -323,7 +322,6 @@ export default {
       try {
         this.setPageTitle(newRoute);
       } catch {
-        console.log('Title error');
       }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();

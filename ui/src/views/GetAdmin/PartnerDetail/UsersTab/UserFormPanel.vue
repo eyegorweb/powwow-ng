@@ -37,7 +37,7 @@
 
       <div class="entries-line">
         <div
-          v-if="userType === 'PARTNER'"
+          v-if="!userIsPartner && userType === 'PARTNER'"
           class="form-entry"
           :class="{ noDisplay: fromPagePartner }"
         >
@@ -307,7 +307,7 @@ export default {
         params.confirmPassword = this.form.passwordConfirm;
       }
 
-      if (this.userType === 'PARTNER') {
+      if (this.userIsPartner || this.userType === 'PARTNER') {
         if (this.selectedPartner && this.selectedPartner.id) {
           params.partyId = this.selectedPartner.id;
         }
@@ -362,6 +362,7 @@ export default {
       'userIsPartner',
       'userIsGroupAccount',
       'havePermission',
+      'singlePartner'
     ]),
 
     fromPagePartner() {
@@ -470,11 +471,16 @@ export default {
     let roles;
     let mainAdministrator;
 
+    if (this.userIsPartner) {
+      this.userType = 'PARTNER';
+      this.selectedPartner = this.singlePartner;
+    }
+
     // récupération des langues
     let langArray = [];
     this.fetchLanguages = await fetchAllLanguages();
 
-    this.fetchLanguages.forEach(function(e) {
+    this.fetchLanguages.forEach(function (e) {
       langArray.push(e.label);
     });
 
@@ -492,7 +498,7 @@ export default {
     }
 
     // Mode création depuis le menu utilisateurs
-    if (this.content.fromUserMenu && this.userInfos.type === 'PARTNER') {
+    if (this.content.fromUserMenu && this.userIsPartner) {
       this.canShowForm = true;
       roles = await fetchAllowedRoles(null, this.userInfos.partners[0].id, null);
       this.roles = this.formattedRoles(roles);
