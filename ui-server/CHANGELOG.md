@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.301+20201030165403
+2020-10-30
+
+### Fixes
+
+- Ajouter le party id dans la requête de création d'utilisateurs pour les partenaires (66710bb03490d860aa21f6f1d5066f5e101ed8d8)
+
 ## 1.0.0-master.300+20201030150456
 2020-10-30
 
