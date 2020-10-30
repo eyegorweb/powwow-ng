@@ -173,6 +173,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       custom5
       custom6
     }
+    lastCountry
     accessPoint {
       commercialStatusDate
       commercialStatus
@@ -181,7 +182,6 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       preactivationDate
       activationDate
       commercialStatusDate
-      lastPLMN
       offerGroup {
         customerAccount {
           id
@@ -276,7 +276,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       }
       id
       commercialStatus
-      lastPLMN
+      lastCountry
       preactivationDate
       activationDate
       commercialStatusDate
