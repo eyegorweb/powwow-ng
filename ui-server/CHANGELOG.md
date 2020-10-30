@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.298+20201030094252
+2020-10-30
+
+### Fixes
+
+- afficher toutes les offres dans les prérequis de l'actes "changement de services" (3c78fd66ad92aa7e1d5510b32068fff23cd73f7c)
+
 ## 1.0.0-master.297+20201029155025
 2020-10-29
 
