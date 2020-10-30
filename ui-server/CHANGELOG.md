@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.299+20201030145358
+2020-10-30
+
+### Features
+
+- Conditionnement du changement de service dans le changement offre (f67000a68eac2c96a3077c88a4bfbd13bd13c950)
+
+### Fixes
+
+- 2023 mise à jour de la modification d'un utilisateur (d69c634b0f86d35504084cadb21dd55b162b8993)
+- Changement du nom du label du widget de conso (8c6b468273900101d8905f1834ee158151c485d7)
+
 ## 1.0.0-master.298+20201030094252
 2020-10-30
 
