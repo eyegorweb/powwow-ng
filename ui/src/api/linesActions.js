@@ -233,6 +233,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       }
     id
     iccid
+    lastCountry
     statusTranslated
     type
     statuts
@@ -276,7 +277,6 @@ export async function searchLines(orderBy, pagination, filters = []) {
       }
       id
       commercialStatus
-      lastCountry
       preactivationDate
       activationDate
       commercialStatusDate
