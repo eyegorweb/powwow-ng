@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.12.2
+2020-10-31
+
+### Fixes
+
+- Correction de l'appel graphql pour afficher la page détail de ligne (5dc1fea418d23c3b5a5cdd955c17f93483837e06)
+
 ## 1.12.1
 2020-10-30
 
