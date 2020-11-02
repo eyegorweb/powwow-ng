@@ -112,6 +112,7 @@ export default {
 
   props: {
     creationMode: Boolean,
+    widgetInitSearchById: undefined,
   },
 
   computed: {
@@ -165,6 +166,13 @@ export default {
       'startSearchingById',
     ]),
 
+    enableSearchLines() {
+      this.canSearchLines = true;
+      if (this.widgetInitSearchById) {
+        this.searchById(this.widgetInitSearchById);
+      }
+    },
+
     resetFilters() {
       this.searchByIdValue = undefined;
       this.forceAppliedFilters([]);
@@ -172,6 +180,7 @@ export default {
 
     searchById(params) {
       this.searchByIdValue = params.value;
+
       this.page = 1;
       this.startSearchingById([
         {
@@ -243,7 +252,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -263,11 +272,11 @@ export default {
     }
 
     if (this.rows.length > 0) {
-      this.canSearchLines = true;
       this.showInfoMessage = false;
+      this.enableSearchLines();
     } else {
       setTimeout(() => {
-        this.canSearchLines = true;
+        this.enableSearchLines();
       });
     }
   },
@@ -456,7 +465,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +
