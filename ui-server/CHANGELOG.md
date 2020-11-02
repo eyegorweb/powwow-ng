@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.305+20201102103434
+2020-11-02
+
+### Fixes
+
+- le clic sur l'id de l'acte dans la liste des actes de gestion (c4e87cafbe180f049bcd0a2242e4c0cadd21dfea)
+
 ## 1.0.0-master.304+20201102100851
 2020-11-02
 
