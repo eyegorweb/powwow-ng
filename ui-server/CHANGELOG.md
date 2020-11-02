@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.306+20201102114840
+2020-11-02
+
+### Fixes
+
+- possibilité de séléctionner un identifiant (621d6d1e72de32aec8323cbca52f29c116467a4e)
+
 ## 1.0.0-master.305+20201102103434
 2020-11-02
 
