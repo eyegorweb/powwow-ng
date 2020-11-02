@@ -35,7 +35,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="20"
+            storage-version="21"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -384,10 +384,6 @@ export default {
           id: 8,
           label: this.$t('getparc.actLines.col.lastPLMN'),
           name: 'lastCountry',
-          format: {
-            type: 'ObjectAttribute',
-            path: 'lastCountry',
-          },
           orderable: false,
           visible: false,
         },
