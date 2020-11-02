@@ -362,7 +362,7 @@ export default {
       'userIsPartner',
       'userIsGroupAccount',
       'havePermission',
-      'singlePartner'
+      'singlePartner',
     ]),
 
     fromPagePartner() {
@@ -480,7 +480,7 @@ export default {
     let langArray = [];
     this.fetchLanguages = await fetchAllLanguages();
 
-    this.fetchLanguages.forEach(function (e) {
+    this.fetchLanguages.forEach(e => {
       langArray.push(e.label);
     });
 
