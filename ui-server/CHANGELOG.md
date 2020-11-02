@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.304+20201102100851
+2020-11-02
+
+### Fixes
+
+- 2029 mise à jour de la colonne Dernier pays pour la gestion des lignes du parc (34c39f52ed1716bd9b6f087abd3a883ddecbceea)
+
 ## 1.0.0-master.303+20201102082820
 2020-11-02
 
