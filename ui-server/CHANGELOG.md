@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.12.3
+2020-11-02
+
+### Fixes
+
+- 2029 mise à jour de la colonne Dernier pays pour la gestion des lignes du parc (34c39f52ed1716bd9b6f087abd3a883ddecbceea)
+- le clic sur l'id de l'acte dans la liste des actes de gestion (c4e87cafbe180f049bcd0a2242e4c0cadd21dfea)
+- possibilité de séléctionner un identifiant (621d6d1e72de32aec8323cbca52f29c116467a4e)
+
 ## 1.12.2
 2020-10-31
 
