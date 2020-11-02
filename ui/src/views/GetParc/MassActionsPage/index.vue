@@ -57,10 +57,6 @@ export default {
 
       let haveDateFilterInQueryFilter = false;
       if (this.$route.params && this.$route.params.queryFilters) {
-        console.log(
-          'initAfterRouteIsSet -> this.$route.params.queryFilters',
-          this.$route.params.queryFilters
-        );
         this.setRouteParamsFilters(this.$route.params.queryFilters);
         haveDateFilterInQueryFilter = !!this.$route.params.queryFilters.find(
           f => f.id === 'filters.actDateStart'

@@ -321,7 +321,8 @@ export default {
     $route(newRoute) {
       try {
         this.setPageTitle(newRoute);
-      } catch {
+      } catch (e) {
+        console.log(e);
       }
       this.currentUrlName = newRoute.name;
       this.chooseCurrentMenu();

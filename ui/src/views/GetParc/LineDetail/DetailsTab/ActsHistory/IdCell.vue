@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="openActHistoryDetailsPanel">
+  <button class="btn btn-link p-0 user-select-text" @click.stop="openActHistoryDetailsPanel">
     {{ row.massActionId || row.id }}
   </button>
 </template>
@@ -20,7 +20,7 @@ export default {
     ...mapMutations(['openPanel']),
 
     async openActHistoryDetailsPanel() {
-      const massAction = await searchMassActionsById(this.row.massActionId);
+      const massAction = await searchMassActionsById(this.row.massActionId || this.row.id);
       if (!massAction) return;
       const type = get(massAction, 'type');
       const date = this.formattedDate(get(massAction, 'massAction.dueDate'));
@@ -31,7 +31,7 @@ export default {
             date,
           }),
           panelId: 'getparc.history.details.title',
-          payload: { ...massAction, id: '' + this.row.massActionId },
+          payload: { ...massAction, id: '' + (this.row.massActionId || this.row.id) },
           wide: false,
           backdrop: false,
         });
