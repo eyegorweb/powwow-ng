@@ -163,7 +163,6 @@ export async function fetchLinesForMarker(
   pagination = { limit: 10, page: 0 },
   sorting = { cellid: 'ASC' }
 ) {
-  console.log('======++>>>', filters);
   const queryStr = `query GeoList($filter: GeolocListFilterInput, $pagination: Pagination!, $sorting: GeolocListSorting!) {
 
     geoList(filter: $filter, pagination: $pagination, sorting: $sorting) {
@@ -507,6 +506,12 @@ export async function geoListExport(params) {
         asyncRequired
     }
   }`;
+
+  if (params.filter) {
+    if (params.filter.iso3CountryCode === 'USA') {
+      params.filter.locationType = 'STATES';
+    }
+  }
 
   const response = await query(queryStr, params);
 

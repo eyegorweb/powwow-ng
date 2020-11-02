@@ -201,7 +201,6 @@ export default {
 
   methods: {
     async refreshData() {
-      console.log('Refresh DATA');
       if (this.isLoading) return;
       if (!this.canSearch) return;
 
