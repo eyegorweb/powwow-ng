@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.308+20201103090821
+2020-11-03
+
+### Fixes
+
+- Rework du widget de recherche par ID (97f0cdc824ca211d7f6f3a6ac0d896671b7061af)
+
 ## 1.0.0-master.307+20201102132607
 2020-11-03
 
