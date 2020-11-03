@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.310+20201103140548
+2020-11-03
+
+### Features
+
+- pouvoir ajouter / supprimer la 5G (186de7c7e3d172c21882e7e05e4abe338c2a1f28)
+
 ## 1.0.0-master.309+20201103094542
 2020-11-03
 
