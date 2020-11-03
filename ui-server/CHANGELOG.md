@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.307+20201102132607
+2020-11-03
+
+### Fixes
+
+- Corriger le paramètre locationType pour les USA (eb7ea09f5cb1e8bf4ee0ccd61e8ef16d5d61af8b)
+
 ## 1.0.0-master.306+20201102114840
 2020-11-02
 
