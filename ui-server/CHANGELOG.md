@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.309+20201103094542
+2020-11-03
+
+### Fixes
+
+- ne pas ajouter le code postale et la ville dans le label de l'adresse choisie (5e0a83064151325cddf4a069ba9758c8932b7f7c)
+
 ## 1.0.0-master.308+20201103090821
 2020-11-03
 
