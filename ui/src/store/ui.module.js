@@ -152,6 +152,14 @@ export const mutations = {
   confirmAction: (state, action) => {
     state.actionToConfirm = action;
   },
+
+  popupMessage: (state, message) => {
+    state.actionToConfirm = {
+      message,
+      noOkButton: true,
+    };
+  },
+
   closeAction: state => {
     state.actionToConfirm = undefined;
   },

@@ -39,7 +39,7 @@
             :key="selectedOffer.label"
             :services="offerServices"
             vertical
-            @change="onServiceChange"
+            @datachange="onServiceChange"
           />
         </div>
         <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{
@@ -251,7 +251,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() {},
+    checkErrors() { },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);

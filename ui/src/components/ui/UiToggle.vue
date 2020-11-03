@@ -5,7 +5,13 @@
       <p class="before-label__dots" />
     </div>
     <label>
-      <input type="checkbox" v-bind="$attrs" :disabled="noClick" v-model="model" />
+      <input
+        type="checkbox"
+        v-bind="$attrs"
+        :disabled="noClick"
+        v-model="value"
+        @input="onChange"
+      />
       <span class="slider" />
       <span class="state state--on">{{ onText }}</span>
       <span class="state state--off">{{ offText }}</span>
@@ -43,19 +49,50 @@ export default {
       type: String,
       default: 'Off',
     },
+    canChangeFn: {
+      type: Function,
+      required: false
+    },
     smallLabel: Boolean,
     noClick: Boolean,
   },
+  data() {
+    return {
+      value: undefined
+    }
+  },
+  mounted() {
+    this.value = this.checked;
+  },
+  watch: {
+    checked(value) {
+      this.value = value;
+    }
+  },
+  methods: {
+    onChange(elem) {
+      if (this.value !== elem.target.checked) {
+        if (this.canChangeFn) {
+          if (this.canChangeFn(elem.target.checked)) {
+            this.$emit('change', elem.target.checked);
+            this.value = elem.target.checked;
+          } else {
+            // laisser remettre la valeur dans le dom
+            // à ce stade la valeur n'est pas encore remontée niveau composant
+            // donc on peut toujours revenir en arrière
+            elem.target.checked = !elem.target.checked;
+            return;
+          }
+        } else {
+          this.value = elem.target.checked;
+          this.$emit('change', elem.target.checked);
+        }
+      }
+
+    }
+  },
 
   computed: {
-    model: {
-      get: ({ checked }) => {
-        return checked;
-      },
-      set(model) {
-        this.$emit('change', model);
-      },
-    },
     statusClassName() {
       // gestion de l'état par défaut, "enabled" ou "disabled"
       if (this.editable) {

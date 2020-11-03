@@ -299,23 +299,25 @@ export async function fetchCountriesData(usageType, filters = {}) {
   });
 }
 
-export async function fetchStatesData(usageType, bounds) {
+export async function fetchStatesData(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'STATES',
       iso3CountryCode: 'US',
       usageType,
       ...bounds,
+      ...filters,
     },
   });
 }
 
-export async function fetchDataForCells(usageType, bounds) {
+export async function fetchDataForCells(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'CELL',
       usageType,
       ...bounds,
+      ...filters,
     },
   });
 }
