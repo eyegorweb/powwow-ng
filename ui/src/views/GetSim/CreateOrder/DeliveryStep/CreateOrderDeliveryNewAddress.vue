@@ -138,7 +138,7 @@ export default {
   },
   props: {
     partnerId: {
-      type: String,
+      type: String | Number,
     },
     shippingAddressId: String,
     addressEdit: {
@@ -251,7 +251,7 @@ export default {
   },
 
   watch: {
-    selectedAddress(address) {
+    selectedAddress(address, oldAddress) {
       if (!address) {
         this.form.address = undefined;
         this.form.zipCode = undefined;
@@ -260,6 +260,7 @@ export default {
         return;
       }
       if (address.city) {
+        address.label = address.label.replace(address.postcode, '').replace(address.city, '');
         this.form.address = address.label;
         this.form.zipCode = address.postcode;
         this.form.city = address.city;
