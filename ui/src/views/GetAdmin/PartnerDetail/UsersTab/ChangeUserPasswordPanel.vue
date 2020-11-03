@@ -1,10 +1,10 @@
 <template>
   <BaseDetailPanelContent white>
-    <div class="entries-line">
+    <div class="entries-line m-2">
       <div class="form-entry">
         <FormControl label="password" input-type="password" v-model="password" />
       </div>
-      <div class="form-entry pl-2">
+      <div class="form-entry">
         <FormControl label="passwordConfirm" input-type="password" v-model="passwordConfirm" />
       </div>
     </div>
