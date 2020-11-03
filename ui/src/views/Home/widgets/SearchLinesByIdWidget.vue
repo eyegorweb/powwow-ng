@@ -1,7 +1,7 @@
 <template>
   <WidgetBloc :widget="widget" no-padding>
     <div class="pl-3 pr-3 pb-3">
-      <SearchByLinesId @searchById="searchById" :inline="inline" />
+      <SearchByLinesId @searchById="searchById" :inline="inline" disableWhenEmpty />
       <div v-if="lastSearchResult && noResults" class="alert-light" role="alert">
         {{ $t('noResult') }}
       </div>
@@ -65,6 +65,7 @@ export default {
           name: 'actLines',
           params: {
             queryFilters: [...this.contextFilters, this.lastSEarchFiler],
+            idFilters: this.lastSEarchFiler,
           },
         });
       }
