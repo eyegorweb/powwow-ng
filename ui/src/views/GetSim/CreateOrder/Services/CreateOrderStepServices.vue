@@ -30,7 +30,7 @@
               :services="offerServices"
               :data-params-needed="isDataParamsError"
               vertical
-              @change="onServiceChange"
+              @datachange="onServiceChange"
             />
           </div>
         </template>

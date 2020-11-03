@@ -39,7 +39,7 @@
                       :services="services"
                       :initial-services="initialServices"
                       :data-params-needed="isDataParamsError"
-                      @change="onServiceChange"
+                      @datachange="onDataServiceChange"
                     />
                   </LoaderContainer>
                 </div>
@@ -206,10 +206,10 @@ export default {
         this.savingChanges = true;
         const dataService = canSaveData
           ? {
-              checked: this.dataCheck,
-              parameters: this.lastDataParams,
-              code: 'DATA',
-            }
+            checked: this.dataCheck,
+            parameters: this.lastDataParams,
+            code: 'DATA',
+          }
           : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
@@ -240,7 +240,7 @@ export default {
       this.services = cloneDeep(this.initialServices);
       this.servicesVersion += 1;
     },
-    onServiceChange(selectedServices) {
+    onDataServiceChange(selectedServices) {
       if (!this.initialDataParams && selectedServices.dataService) {
         this.initialDataParams = cloneDeep(selectedServices.dataService.parameters);
         this.initDataCheck = selectedServices.dataService.checked;

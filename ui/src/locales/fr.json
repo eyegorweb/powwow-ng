@@ -660,6 +660,8 @@
         "actualView": "Nombre de vue actuel",
         "delay": "Délai",
         "services": {
+          "mustBeActive": "le service ' {service} ' doit être activé ",
+          "mustBeInactive": "le service ' {service} ' doit être désactivé ",
           "labels": {
             "SECU_RESIL": "Sécurisation des résiliations",
             "COMPAT_OTA": "Compatibilité OTA",

@@ -31,10 +31,14 @@
               <UiToggle
                 :label="service.labelService"
                 :editable="service.editable"
-                v-model="service.checked"
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
-                @change="onServiceChange"
+                v-model="service.checked"
+                :canChangeFn="
+                  (value) => {
+                    return canChanveValue(service, value);
+                  }
+                "
               />
             </div>
           </div>
@@ -43,7 +47,7 @@
       <div v-if="dataService" class="col-md-4">
         <DataServiceToggle
           :service="dataService"
-          @change="onServiceChange"
+          @change="onDataServiceChange"
           :data-params-needed="dataParamsNeeded"
           :bold-label="isChanged(dataService)"
         />
@@ -58,9 +62,13 @@
             :label="service.labelService"
             :editable="service.editable"
             :bold-label="isChanged(service)"
-            v-model="service.checked"
             :no-click="noClick"
-            @change="onServiceChange"
+            v-model="service.checked"
+            :canChangeFn="
+              (value) => {
+                return canChanveValue(service, value);
+              }
+            "
           />
         </div>
       </div>
@@ -70,7 +78,7 @@
           :bold-label="isChanged(dataService)"
           vertical
           :data-params-needed="dataParamsNeeded"
-          @change="onServiceChange"
+          @change="onDataServiceChange"
           @apnChange="onApnChange"
         />
       </div>
@@ -81,7 +89,8 @@
 <script>
 import UiToggle from '@/components/ui/UiToggle';
 import DataServiceToggle from './DataServiceToggle';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   components: {
@@ -122,6 +131,8 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['popupMessage']),
+
     setup() {
       const dataService = this.services.find(s => s.code === 'DATA');
       if (dataService) {
@@ -134,21 +145,60 @@ export default {
       const initialService = this.initialServices.find(s => s.code === service.code);
       return initialService.checked !== service.checked;
     },
-    onServiceChange(changes) {
+    canChanveValue(service, checked) {
+      let canChange = true;
+
+      if (service.preServiceCode) {
+        // dependency chould be active to change value here
+        const serviceThatIDependOn = this.services.find(s => s.code === service.preServiceCode);
+        if (serviceThatIDependOn.checked) {
+          canChange = true;
+        } else {
+          this.popupMessage(this.$t('getadmin.partners.optionsDetails.services.mustBeActive', { service: serviceThatIDependOn.labelService }))
+
+          canChange = false;
+        }
+      } else {
+        const servicesThatDependOnMe = this.services.filter(s => s.preServiceCode === service.code);
+        if (servicesThatDependOnMe && servicesThatDependOnMe.length) {
+          const checkedServices = servicesThatDependOnMe.filter(s => s.checked);
+          if (checkedServices.length === 0) {
+            canChange = true;
+          } else {
+            this.popupMessage(this.$t('getadmin.partners.optionsDetails.services.mustBeInactive', { service: checkedServices[0].labelService }))
+            canChange = false;
+          }
+        }
+      }
+
+      return canChange;
+    },
+
+    checkInServices(service, checked) {
+      const newServices = cloneDeep(this.services).map(s => {
+        if (s.code === service.code) {
+          s.checked = checked;
+        }
+
+        return s;
+      });
+      this.services = [...newServices];
+    },
+
+    onDataServiceChange(changes) {
       if (typeof changes !== 'object') return;
       const dataService = {
         ...this.dataService,
         checked: changes.checked,
         parameters: [...changes.apns],
       };
-      this.$emit('change', {
+      this.$emit('datachange', {
         services: [...this.otherServices],
         dataService,
       });
     },
     onApnChange(apns) {
       this.dataService = { ...this.dataService, parameters: [...apns] };
-      this.onServiceChange();
     },
   },
   data() {

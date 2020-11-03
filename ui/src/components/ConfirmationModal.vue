@@ -16,7 +16,7 @@
       </button>
       <button
         class="modal-default-button btn btn-success btn-sm ml-1"
-        v-if="!isLoading"
+        v-if="!actionToConfirm.noOkButton && !isLoading"
         @click.stop="doRequest()"
       >
         {{ $t('save') }}

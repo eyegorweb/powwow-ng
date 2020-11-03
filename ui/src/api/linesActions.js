@@ -775,6 +775,7 @@ export async function fetchLineServices(simCardInstanceId) {
       editable
       optional
       activationDate
+      preServiceCode
       parameters {
         activated
         name
@@ -787,6 +788,8 @@ export async function fetchLineServices(simCardInstanceId) {
     }
   }
   `;
+
   const response = await query(queryStr);
+
   return response.data.marketingServices;
 }
