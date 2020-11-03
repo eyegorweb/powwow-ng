@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.310+20201103140548
+## 1.0.0-master.310+20201103140623
 2020-11-03
 
 ### Features
 
 - pouvoir ajouter / supprimer la 5G (186de7c7e3d172c21882e7e05e4abe338c2a1f28)
+
+### Fixes
+
+- 2039 correction de l'alignement des champs de saisie du changement de mot de passe (6e25853cf249f7f3e12cc9acef6947e3a4450604)
 
 ## 1.0.0-master.309+20201103094542
 2020-11-03
