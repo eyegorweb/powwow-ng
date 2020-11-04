@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.311+20201104100727
+2020-11-04
+
+### Fixes
+
+- Correction du composant type de carte SIM (7187a8e759ce33e009dc0e80926858118acd43a4)
+
 ## 1.0.0-master.310+20201103140623
 2020-11-03
 
