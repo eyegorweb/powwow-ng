@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.314+20201104163416
+2020-11-04
+
+### Features
+
+- Mettre en place le bouton "Graph Monde" dans la supervision (2e55f6e9574ee799d50794e8ff2d29511c3de518)
+
 ## 1.0.0-master.313+20201104140420
 2020-11-04
 
