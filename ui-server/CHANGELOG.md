@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.312+20201104103527
+2020-11-04
+
+### Fixes
+
+- Augmentation de la limite pour le scroll dans le menu deroulant du changement doffre (06f57edc1779ddbecedd81d1be5b71032602f866)
+- Debug des libellés du detail dalarme (c7090fb21bb4bb4b62a9c35464e53c876f5d8492)
+
 ## 1.0.0-master.311+20201104100727
 2020-11-04
 
