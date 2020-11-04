@@ -51,15 +51,15 @@ export default {
     },
     canChangeFn: {
       type: Function,
-      required: false
+      required: false,
     },
     smallLabel: Boolean,
     noClick: Boolean,
   },
   data() {
     return {
-      value: undefined
-    }
+      value: undefined,
+    };
   },
   mounted() {
     this.value = this.checked;
@@ -67,7 +67,7 @@ export default {
   watch: {
     checked(value) {
       this.value = value;
-    }
+    },
   },
   methods: {
     onChange(elem) {
@@ -88,8 +88,7 @@ export default {
           this.$emit('change', elem.target.checked);
         }
       }
-
-    }
+    },
   },
 
   computed: {

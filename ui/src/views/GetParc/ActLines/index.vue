@@ -62,7 +62,7 @@
         <LinesTable
           v-if="canShowTable && canMounTable"
           :creation-mode="canShowForm"
-          :widgetInitSearchById="$route.params.idFilters"
+          :widget-init-search-by-id="$route.params.idFilters"
           @noResults="checkTableResult"
         >
           <template v-if="canShowForm" slot="title">

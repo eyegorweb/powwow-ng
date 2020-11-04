@@ -113,7 +113,6 @@ export default {
   },
 
   async mounted() {
-
     if (this.actCreationPrerequisites.partner.partyType) {
       this.offerEnabled = await getOfferOption(this.actCreationPrerequisites.partner.id);
       this.partnerType = this.actCreationPrerequisites.partner.partyType;
@@ -163,7 +162,7 @@ export default {
     },
 
     async doRequest(contextValues) {
-      if(!this.offerEnabled) {
+      if (!this.offerEnabled) {
         this.canChangeServices = true;
       }
       const params = {

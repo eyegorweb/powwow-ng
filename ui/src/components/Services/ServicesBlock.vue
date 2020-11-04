@@ -34,9 +34,9 @@
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
                 v-model="service.checked"
-                :canChangeFn="
-                  (value) => {
-                    return canChanveValue(service, value);
+                :can-change-fn="
+                  value => {
+                    return canChangeValue(service, value);
                   }
                 "
               />
@@ -64,9 +64,9 @@
             :bold-label="isChanged(service)"
             :no-click="noClick"
             v-model="service.checked"
-            :canChangeFn="
-              (value) => {
-                return canChanveValue(service, value);
+            :can-change-fn="
+              value => {
+                return canChangeValue(service, value);
               }
             "
           />
@@ -145,7 +145,7 @@ export default {
       const initialService = this.initialServices.find(s => s.code === service.code);
       return initialService.checked !== service.checked;
     },
-    canChanveValue(service, checked) {
+    canChangeValue(service) {
       let canChange = true;
 
       if (service.preServiceCode) {
@@ -154,7 +154,11 @@ export default {
         if (serviceThatIDependOn.checked) {
           canChange = true;
         } else {
-          this.popupMessage(this.$t('getadmin.partners.optionsDetails.services.mustBeActive', { service: serviceThatIDependOn.labelService }))
+          this.popupMessage(
+            this.$t('getadmin.partners.optionsDetails.services.mustBeActive', {
+              service: serviceThatIDependOn.labelService,
+            })
+          );
 
           canChange = false;
         }
@@ -165,7 +169,11 @@ export default {
           if (checkedServices.length === 0) {
             canChange = true;
           } else {
-            this.popupMessage(this.$t('getadmin.partners.optionsDetails.services.mustBeInactive', { service: checkedServices[0].labelService }))
+            this.popupMessage(
+              this.$t('getadmin.partners.optionsDetails.services.mustBeInactive', {
+                service: checkedServices[0].labelService,
+              })
+            );
             canChange = false;
           }
         }
