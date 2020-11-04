@@ -2,7 +2,7 @@
   <div>
     <UiDateRange
       :key="'startdate_' + version"
-      @change="setActDateStartFilter"
+      @change="checkAndSetDate"
       :start="startDate"
       :end="endDate"
     />
@@ -30,6 +30,15 @@ export default {
   },
   methods: {
     ...mapMutations('actHistory', ['setActDateStartFilter']),
+    ...mapMutations(['popupMessage']),
+
+    checkAndSetDate(value) {
+      console.log("checkAndSetDate -> value", value);
+      // difference entre les deux dates
+      // si > 12
+      //this.popupMessage('HOP HOP HOP')
+      this.setActDateStartFilter(value)
+    }
   },
   computed: {
     ...mapGetters('actHistory', ['selectedActDateStart']),

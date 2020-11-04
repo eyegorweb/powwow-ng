@@ -15,27 +15,27 @@
       <template v-if="usage == 'DATA'">
         <li>
           <div class="cell green"></div>
-          <div>{{ $t('getvsion.supervisionLegend.openedSession') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.openedSession') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>{{ $t('getvsion.supervisionLegend.closedSession') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.closedSession') }}</div>
         </li>
       </template>
 
       <template v-if="usage == 'COCKPIT'">
         <li>
           <div class="cell green"></div>
-          <div>{{ $t('getvsion.supervisionLegend.withoutAlarms') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.withoutAlarms') }}</div>
         </li>
         <li>
           <div class="cell orange"></div>
-          <div>{{ $t('getvsion.supervisionLegend.withAlarms') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.withAlarms') }}</div>
         </li>
 
         <li>
           <div class="cell gray"></div>
-          <div>{{ $t('getvsion.supervisionLegend.less500') }}</div>
+          <div>{{ $t('getvsion.supervisionLegend.indicators.less500') }}</div>
         </li>
       </template>
     </ul>
