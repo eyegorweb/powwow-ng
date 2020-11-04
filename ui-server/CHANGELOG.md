@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.313+20201104140420
+2020-11-04
+
+### Fixes
+
+- Agrandissement de la fenetre de tooltip (3fbe86827e9e70d53c480fdb6df3ef65703a116e)
+
 ## 1.0.0-master.312+20201104103527
 2020-11-04
 
