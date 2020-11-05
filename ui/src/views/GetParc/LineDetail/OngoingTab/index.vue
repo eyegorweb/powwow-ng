@@ -1,7 +1,8 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
     <div slot="on-loading">
-      <ConsoSkeletonTable />
+      <ConsoSkeletonTable v-if="!partnerTypeMVNO" />
+      <OnGoingSkeleton v-if="partnerTypeMVNO" />
     </div>
     <div v-if="isLigneActive" class="mb-4">
       <div class="row mt-4 mb-4">
@@ -271,6 +272,7 @@
 <script>
 import LoaderContainer from '@/components/LoaderContainer';
 import ConsoSkeletonTable from './ConsoSkeletonTable';
+import OnGoingSkeleton from './OnGoingSkeleton';
 
 import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
@@ -282,6 +284,7 @@ export default {
     ExportButton,
     LoaderContainer,
     ConsoSkeletonTable,
+    OnGoingSkeleton,
   },
   props: {
     content: Object,
