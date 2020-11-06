@@ -33,12 +33,12 @@ export default {
     ...mapMutations(['popupMessage']),
 
     checkAndSetDate(value) {
-      console.log("checkAndSetDate -> value", value);
+      console.log('checkAndSetDate -> value', value);
       // difference entre les deux dates
       // si > 12
-      //this.popupMessage('HOP HOP HOP')
-      this.setActDateStartFilter(value)
-    }
+      // this.popupMessage('HOP HOP HOP')
+      this.setActDateStartFilter(value);
+    },
   },
   computed: {
     ...mapGetters('actHistory', ['selectedActDateStart']),
