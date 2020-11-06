@@ -143,6 +143,7 @@ export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
           envelopeLabel
           envelopeValue
           unit
+          envelopeValueOctets
         }
       }
     }
@@ -152,11 +153,12 @@ export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
   const response = await query(queryStr);
 
   const items = get(response, 'data.marketingOfferPackage.marketingOfferPackage.items');
-
+  // Valeur '∞' attribuée par défaut pour le mode Offre compteur
   let maxData = '∞';
   let maxVoice = '∞';
   let maxSMS = '∞';
-
+  // Si on a des valeurs (items), alors on est en mode Offre forfait et on lit les informations de consommation
+  // sinon on est en mode Offre Compteur (pas de borne donc on met la notion d'infini '∞')
   if (items && items.length) {
     const dataOffer = items.find(i => i.usageType === 'DATA');
     const smsOffer = items.find(i => i.usageType === 'SMS');

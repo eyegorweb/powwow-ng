@@ -12,6 +12,7 @@
   "partnerType": "Type de partenaire",
   "partnerAlarm": "Type d'alarme",
   "choosePartner": "Sélectionner des partenaires",
+  "chooseAPartner": "Sélectionner un partenaire",
   "chooseBillingAccounts": "Sélectionner des comptes de facturation",
   "selectAll": "Tout sélectionner",
   "unSelectAll": "Tout désélectionner",
@@ -126,7 +127,11 @@
     "widgets": {
       "orders": "Mes commandes",
       "bills": "Dernières factures",
-      "currentUsage": "Suivi Conso",
+      "currentUsage": {
+        "title": "Suivi Conso",
+        "chooseOffer": "Veuillez choisir une offre",
+        "theOffer": "Pour l'offre"
+      },
       "orderStatus": "Statut des commandes",
       "acts": "Acte de gestion",
       "activationAct": "Actes: Activation",

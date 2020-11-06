@@ -1,15 +1,10 @@
 <template>
   <div>
-    <div v-if="!partners.length" class="alert-light">
-      {{ $t('choosePartner') }}
-    </div>
-    <div v-else>
-      <chart
-        :key="'conso_' + version"
-        v-if="chartOptions && partners && partners.length"
-        :options="chartOptions"
-      />
-    </div>
+    <chart
+      :key="'conso_' + version"
+      v-if="chartOptions && partners.length === 1"
+      :options="chartOptions"
+    />
   </div>
 </template>
 
