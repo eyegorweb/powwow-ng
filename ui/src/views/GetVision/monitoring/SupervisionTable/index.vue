@@ -121,7 +121,7 @@ export default {
           ),
           orderable: false,
           visible: true,
-          name: 'operatorRealPlmn',
+          name: 'operatorName',
         },
         {
           id: uuid(),
