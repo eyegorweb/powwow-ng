@@ -56,13 +56,10 @@ export default {
   data() {
     return {
       gaugeVersion: 0,
-
       dataValue: undefined,
       maxData: undefined,
-
       voiceValue: undefined,
       maxVoice: undefined,
-
       smsValue: undefined,
       maxSMS: undefined,
     };
@@ -110,6 +107,9 @@ export default {
           this.maxSMS = '' + maxSMS;
         }
 
+        // En mode compteur (notion d'infini '∞')
+        // si la valeur est nulle (0), alors on met la jauge à 0
+        // sinon si on a une valeur supérieure à 0, alros on met la jauge à 50
         this.dataValue = values.dataTotal;
         this.smsValue = values.smsTotal;
         this.voiceValue = values.voiceTotal;

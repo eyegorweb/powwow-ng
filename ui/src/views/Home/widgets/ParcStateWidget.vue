@@ -271,14 +271,6 @@ export default {
         });
       }
     },
-    onClick() {
-      this.$router.push({
-        name: 'actLines',
-        params: {
-          queryFilters: this.filters,
-        },
-      });
-    },
     onSeeMore() {
       if (this.selectedPartner) {
         this.filters = [

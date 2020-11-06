@@ -66,20 +66,17 @@ const defaultWidgets = [
     seeMore: { domain: 'getReport', action: 'read_bill' },
     component: BillsWidget,
     permission: { domain: 'widget', action: 'bill_history' },
-
     mock: true,
   },
   {
-    title: 'home.widgets.currentUsage',
+    title: 'home.widgets.currentUsage.title',
     description: '',
     checked: true,
     large: true,
     seeMore: { domain: 'getReport', action: 'read_dashboard' },
     component: ConsoWidget,
     permission: { domain: 'widget', action: 'parc_current_consumption' },
-
     notDraggable: true,
-    partnerOnly: true,
   },
   {
     title: 'home.widgets.orderStatus',
