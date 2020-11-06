@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.316+20201106083016
+2020-11-06
+
+### Fixes
+
+- 2045 mise à jour des widgets Suivi conso et Consommation mensuelle (a4d216e365265ff0ad072457683003c964310aaf)
+
 ## 1.0.0-master.315+20201105153826
 2020-11-05
 
