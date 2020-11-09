@@ -6,6 +6,7 @@
     v-model="selectedLocalValue"
     display-results-while-empty
     :disabled="disabled"
+    contains-search
   />
 </template>
 
