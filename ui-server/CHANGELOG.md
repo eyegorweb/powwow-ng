@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.318+20201109090656
+2020-11-09
+
+### Features
+
+- 654 ajout du widget Parc client actif (64c207301f00e19159493dc27c9bf3338f3f24ab)
+
 ## 1.0.0-master.317+20201106145728
 2020-11-06
 
