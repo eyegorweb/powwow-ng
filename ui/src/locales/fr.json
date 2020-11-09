@@ -157,6 +157,13 @@
         "linesSuspended": "(Nombre de lignes suspendues non facturées)",
         "prevMonth": "au 1er"
       },
+      "activeCustomerPark": {
+        "title": "PARC CLIENT ACTIF",
+        "activatedLines": "Lignes actives",
+        "billedLines": "Lignes facturées",
+        "activatedLinesPreviousMonth": "Lignes actives M-1",
+        "billedLinesPreviousMonth": "Lignes facturées M-1"
+      },
       "averageTimeAction": "Délais moyens",
       "simTopActivation": "Top 5 lignes activées",
       "simTopTermination": "Top 5 lignes résiliées",
