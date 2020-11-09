@@ -1630,8 +1630,10 @@
       "selectOfferTarget": "Sélectionner une offre cible pour les lignes actives",
       "typeSimCard": "Sélectionner un type de cartes SIM",
       "fileImport": {
+        "foundLine": "ligne a été trouvée",
         "foundLines": "lignes ont été trouvées",
         "foundSimcards": "lignes à importer",
+        "notFoundLine": "ligne n'est pas compatible",
         "notFoundLines": "lignes ne sont pas compatibles",
         "rejectedLines": "lignes sont rejetées",
         "titleSimCard": "Import de carte SIM par fichier",

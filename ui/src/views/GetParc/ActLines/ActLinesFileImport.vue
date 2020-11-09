@@ -6,12 +6,12 @@
         <li>
           <i class="ic-Check-Icon mr-2 text-success" />
           {{ fileMeta.validated }}
-          {{ $t('getparc.actLines.fileImport.foundLines') }}.
+          {{ fileMeta.validated > 1 ? $t('getparc.actLines.fileImport.foundLines') : $t('getparc.actLines.fileImport.foundLine') }}.
         </li>
         <li v-if="totalNotCompatible > 0">
           <i class="ic-Cross-Icon mr-2 text-danger" />
           {{ totalNotCompatible }}
-          {{ $t('getparc.actLines.fileImport.notFoundLines') }}.
+          {{ totalNotCompatible > 1 ? $t('getparc.actLines.fileImport.notFoundLines') :  $t('getparc.actLines.fileImport.notFoundLine' ) }}.
           <ul class="list-styled">
             <li v-for="e in fileMeta.errors" :key="e.key">
               {{
