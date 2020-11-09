@@ -18,6 +18,7 @@ import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
 import PriseOrdre from './widgets/AverageWidgets/PriseOrdre';
 import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
+import ActiveCustomerPark from './widgets/ActiveCustomerPark';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
@@ -252,6 +253,15 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: PriseOrdre,
+    permission: { domain: 'widget', action: 'bill_top_order' },
+  },
+  {
+    title: 'home.widgets.activeCustomerPark.title',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: ActiveCustomerPark,
     permission: { domain: 'widget', action: 'bill_top_order' },
   },
 ];

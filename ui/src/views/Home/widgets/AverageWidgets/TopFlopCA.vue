@@ -140,7 +140,7 @@ export default {
         }
       }
     },
-    // Fonction pour insérer un '-' si on a moins de 5 éléments à la première ligne vide rencontréd
+    // Fonction pour insérer un '-' si on a moins de 5 éléments à la première ligne vide rencontrée
     displayInfoMessage(array, limit = 5) {
       if (this.noResults) return;
       if (array && array.length && array.length < limit) {

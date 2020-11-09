@@ -107,3 +107,20 @@ export async function fetchBillingExchange(rubric, partnerType) {
   const response = await query(queryStr);
   if (response.data) return response.data.topBillingExchanges;
 }
+
+export async function fetchActiveAndBilledLines(partner) {
+  const queryStr = `
+  query {
+    activeCustomerPark(partyIds: [${partner}]) {
+      name
+      histories {
+        numberValue
+        applicationDate
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  if (response.data) return response.data.activeCustomerPark;
+}
