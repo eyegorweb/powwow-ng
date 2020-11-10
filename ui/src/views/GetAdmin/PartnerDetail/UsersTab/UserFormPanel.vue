@@ -157,7 +157,7 @@ import UiSelect from '@/components/ui/UiSelect';
 // API
 import { delay } from '@/api/utils.js';
 import { fetchAllowedRoles, createUser, updateUser, fetchPartnerGroups } from '@/api/users.js';
-import { fetchpartnerById, fetchAdminInfos } from '@/api/partners.js';
+import { fetchpartnerById } from '@/api/partners.js';
 import { fetchAllLanguages } from '@/api/language.js';
 
 export function checkPasswordErrors(password, passwordConfirm) {
@@ -247,7 +247,7 @@ export default {
         passwordConfirm: undefined,
         email: undefined,
       },
-      userDefaultLanguage: null,
+      userDefaultLanguage: 'FR',
     };
   },
 
@@ -469,7 +469,6 @@ export default {
   async mounted() {
     this.canShowForm = false;
     let roles;
-    let mainAdministrator;
 
     if (this.userIsPartner) {
       this.userType = 'PARTNER';
@@ -521,11 +520,6 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
-
-        mainAdministrator = await fetchAdminInfos(this.content.duplicateFrom.id);
-        if (mainAdministrator) {
-          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
-        }
       } else if (this.userType === 'PARTNER') {
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
@@ -534,11 +528,6 @@ export default {
         );
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
-
-        mainAdministrator = await fetchAdminInfos(this.selectedPartner.id);
-        if (mainAdministrator) {
-          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
-        }
       } else if (this.userType === 'PARTNER_GROUP') {
         const groupPartnersResponse = await fetchPartnerGroups();
         this.groupPartners = groupPartnersResponse.map(p => {
@@ -555,11 +544,6 @@ export default {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
         this.roles = this.formattedRoles(roles);
         this.selectedRoles = this.roles.filter(r => r.data.activated);
-
-        mainAdministrator = await fetchAdminInfos(this.groupPartners[0].id);
-        if (mainAdministrator) {
-          this.userDefaultLanguage = mainAdministrator.mainAdministrator.language;
-        }
       }
 
       // Pré-remplissage formulaire
