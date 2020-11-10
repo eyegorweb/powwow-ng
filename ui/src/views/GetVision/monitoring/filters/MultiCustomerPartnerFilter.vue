@@ -2,7 +2,6 @@
   <PartnerCombo
     :value.sync="selectedPartner"
     :party-types="['MULTI_CUSTOMER', 'CUSTOMER']"
-    offline
     :disabled="!!partnerGroup"
   />
 </template>
