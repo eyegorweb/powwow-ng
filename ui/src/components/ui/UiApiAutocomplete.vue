@@ -158,7 +158,7 @@ export default {
           }));
       }
     },
-    // version non surlignée à autiliser losque la recherche est vide
+    // version non surlignée à utiliser losque la recherche est vide
     highlightedResults() {
       if (!this.items) return [];
 

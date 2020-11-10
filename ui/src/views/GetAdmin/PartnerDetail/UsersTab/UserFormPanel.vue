@@ -42,7 +42,7 @@
           :class="{ noDisplay: fromPagePartner }"
         >
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
-          <PartnerCombo :value.sync="selectedPartner" offline :disabled="!!content.duplicateFrom" />
+          <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" />
         </div>
         <div class="language">
           <label>{{ $t('getadmin.users.language') }}</label>
