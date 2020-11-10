@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.321+20201110081125
+2020-11-10
+
+### Fixes
+
+- Changement sur les erreurs dimport de fichier filter (ecbdd310d0b5d279b886e83fc1d2102f0da3ae8f)
+
 ## 1.0.0-master.320+20201109142612
 2020-11-09
 
