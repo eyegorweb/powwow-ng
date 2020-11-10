@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.324+20201110135607
+2020-11-10
+
+### Fixes
+
+- filtre import fichier actline (b0232769302d2fd2c54ac24d21ce2c4ca9d4bb9b)
+
 ## 1.0.0-master.323+20201110134440
 2020-11-10
 
