@@ -163,7 +163,6 @@ export async function fetchLinesForMarker(
   pagination = { limit: 10, page: 0 },
   sorting = { cellid: 'ASC' }
 ) {
-  console.log('======++>>>', filters);
   const queryStr = `query GeoList($filter: GeolocListFilterInput, $pagination: Pagination!, $sorting: GeolocListSorting!) {
 
     geoList(filter: $filter, pagination: $pagination, sorting: $sorting) {
@@ -300,23 +299,25 @@ export async function fetchCountriesData(usageType, filters = {}) {
   });
 }
 
-export async function fetchStatesData(usageType, bounds) {
+export async function fetchStatesData(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'STATES',
       iso3CountryCode: 'US',
       usageType,
       ...bounds,
+      ...filters,
     },
   });
 }
 
-export async function fetchDataForCells(usageType, bounds) {
+export async function fetchDataForCells(usageType, bounds, filters = {}) {
   return geoMap({
     filter: {
       scale: 'CELL',
       usageType,
       ...bounds,
+      ...filters,
     },
   });
 }
@@ -507,6 +508,12 @@ export async function geoListExport(params) {
         asyncRequired
     }
   }`;
+
+  if (params.filter) {
+    if (params.filter.iso3CountryCode === 'USA') {
+      params.filter.locationType = 'STATES';
+    }
+  }
 
   const response = await query(queryStr, params);
 

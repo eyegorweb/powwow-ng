@@ -31,7 +31,8 @@ export default {
   .box {
     position: absolute;
     display: none;
-    min-width: 7rem;
+    min-width: 25rem;
+    width: 100%;
     padding: 0.5rem;
     left: calc(100% + 10px);
     top: 0;

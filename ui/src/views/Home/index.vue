@@ -139,7 +139,6 @@ export default {
             title: existingLayout.title,
             i: existingLayout.i,
             notDraggable: existingLayout.notDraggable,
-            partnerOnly: existingLayout.partnerOnly,
           };
         }
         return w;
@@ -177,7 +176,6 @@ export default {
               ...w.layout,
               meta: w,
               notDraggable: w.notDraggable,
-              partnerOnly: w.partnerOnly,
             };
           });
       } else {
@@ -202,7 +200,6 @@ export default {
               i,
               meta,
               notDraggable: meta.notDraggable,
-              partnerOnly: meta.partnerOnly,
             });
           }
 
@@ -211,13 +208,7 @@ export default {
         }
       }
 
-      const userIsPartner = this.userIsPartner;
-      return layout.filter(e => {
-        if (e.partnerOnly && !userIsPartner) {
-          return false;
-        }
-        return true;
-      });
+      return layout;
     },
   },
   watch: {

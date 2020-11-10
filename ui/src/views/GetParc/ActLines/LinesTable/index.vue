@@ -112,6 +112,7 @@ export default {
 
   props: {
     creationMode: Boolean,
+    widgetInitSearchById: undefined,
   },
 
   computed: {
@@ -165,6 +166,13 @@ export default {
       'startSearchingById',
     ]),
 
+    enableSearchLines() {
+      this.canSearchLines = true;
+      if (this.widgetInitSearchById) {
+        this.searchById(this.widgetInitSearchById);
+      }
+    },
+
     resetFilters() {
       this.searchByIdValue = undefined;
       this.forceAppliedFilters([]);
@@ -172,6 +180,7 @@ export default {
 
     searchById(params) {
       this.searchByIdValue = params.value;
+
       this.page = 1;
       this.startSearchingById([
         {
@@ -263,11 +272,11 @@ export default {
     }
 
     if (this.rows.length > 0) {
-      this.canSearchLines = true;
       this.showInfoMessage = false;
+      this.enableSearchLines();
     } else {
       setTimeout(() => {
-        this.canSearchLines = true;
+        this.enableSearchLines();
       });
     }
   },

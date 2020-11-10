@@ -1,9 +1,9 @@
 <template>
-  <WidgetBloc :widget="widget">
+  <WidgetBloc :widget="widget" @seeMore="onSeeMore">
     <div slot="header">
       <div @click.stop="" class="d-flex offer-select">
         <template v-if="!loadingOffers">
-          <span>Pour l'offre</span>
+          <span>{{ $t('home.widgets.currentUsage.theOffer') }}</span>
           <UiSelect
             v-if="offers.length"
             class="text-gray"
@@ -19,7 +19,12 @@
       </div>
     </div>
     <ConsoGauges :selected-offer="offerForGauge">
-      <h4>Veuillez choisir une offre</h4>
+      <div v-if="!singlePartner" class="alert-light">
+        {{ $t('chooseAPartner') }}
+      </div>
+      <div v-else-if="noResults" class="alert-light">
+        {{ $t('noResult') }}
+      </div>
     </ConsoGauges>
   </WidgetBloc>
 </template>
@@ -29,7 +34,6 @@ import WidgetBloc from './WidgetBloc';
 import UiSelect from '@/components/ui/UiSelect';
 import ConsoGauges from '@/components/widgets/ConsoGauges.vue';
 import { fetchOfferWithBilligAccount } from '@/api/offers.js';
-
 import { mapState } from 'vuex';
 
 export default {
@@ -38,28 +42,55 @@ export default {
     UiSelect,
     ConsoGauges,
   },
+
   props: {
     widget: Object,
     contextFilters: Array,
   },
-  async mounted() {
-    this.loadingOffers = true;
-    try {
-      const data = await fetchOfferWithBilligAccount(this.partners);
-      this.loadingOffers = false;
-      if (data) {
-        this.offers = data.map(o => ({
-          value: o.workflow.id + '_' + o.customerAccount.id,
-          label: `${o.workflow.workflowDescription} / ${o.customerAccount.name}`,
-          meta: o,
-        }));
-        if (this.offers && this.offers.length) {
-          this.selectedOffer = this.offers[0].value;
-        }
+
+  mounted() {
+    this.fetchOffers();
+  },
+
+  methods: {
+    async fetchOffers() {
+      if (this.partners && this.partners.length > 1) {
+        this.loadingOffers = false;
+        return;
       }
-    } catch (e) {
+      this.loadingOffers = true;
+      try {
+        const data = await fetchOfferWithBilligAccount(this.partners);
+        this.loadingOffers = false;
+        if (data) {
+          this.offers = data.map(o => ({
+            value: o.workflow.id + '_' + o.customerAccount.id,
+            label: `${o.workflow.workflowDescription} / ${o.customerAccount.name}`,
+            meta: o,
+          }));
+          if (this.offers && this.offers.length) {
+            this.selectedOffer = this.offers[0].value;
+          }
+        }
+      } catch (e) {
+        this.loadingOffers = false;
+      }
+    },
+
+    onSeeMore() {
+      this.$router.push({
+        name: 'reportsDashboard',
+        params: {
+          queryFilters: [...this.widgetFilters],
+        },
+      });
+    },
+
+    resetFilters() {
+      this.selectedOffer = undefined;
+      this.offers = [];
       this.loadingOffers = false;
-    }
+    },
   },
 
   computed: {
@@ -74,16 +105,62 @@ export default {
         .map(f => f.values)
         .flat();
     },
+
+    singlePartner() {
+      return this.partners.length === 1 ? this.partners[0] : undefined;
+    },
+
     offerForGauge() {
       if (this.selectedOffer) {
         const selectedOffer = this.offers.find(o => this.selectedOffer === o.value);
-        console.log('offerForGauge -> selectedOffer', this.selectedOffer);
-        return {
-          customerAccoutId: selectedOffer.meta.customerAccount.id,
-          workflowId: selectedOffer.meta.workflow.id,
-        };
+        if (selectedOffer) {
+          return {
+            customerAccoutId: selectedOffer.meta.customerAccount.id,
+            workflowId: selectedOffer.meta.workflow.id,
+            meta: selectedOffer.meta,
+          };
+        }
       }
       return undefined;
+    },
+
+    noResults() {
+      return !!(this.singlePartner && !this.offers.length);
+    },
+
+    widgetFilters() {
+      if (!this.offerForGauge) return [];
+      const partnerFilter = [
+        {
+          id: 'filters.partners',
+          values: this.singlePartner ? [this.singlePartner] : [],
+        },
+      ];
+      const customerAccountFilter = [
+        {
+          id: 'filters.billingAccounts',
+          values: [
+            {
+              id: this.offerForGauge.customerAccoutId,
+              label: this.offerForGauge.meta.customerAccount.code,
+              meta: this.offerForGauge.meta,
+            },
+          ],
+        },
+      ];
+      const workflowFilter = [
+        {
+          id: 'filters.offers',
+          values: [
+            {
+              id: this.offerForGauge.workflowId,
+              label: this.offerForGauge.meta.workflow.workflowDescription,
+              meta: this.offerForGauge.meta,
+            },
+          ],
+        },
+      ];
+      return [...partnerFilter, ...customerAccountFilter, ...workflowFilter];
     },
   },
 
@@ -93,6 +170,16 @@ export default {
       offers: [],
       loadingOffers: false,
     };
+  },
+
+  watch: {
+    contextFilters() {
+      if (!this.singlePartner) {
+        this.resetFilters();
+      } else {
+        this.fetchOffers();
+      }
+    },
   },
 };
 </script>

@@ -35,14 +35,7 @@ export default {
   },
 
   mounted() {
-    const userIsPartner = this.userIsPartner;
-
-    this.localWidgets = cloneDeep(this.content.homeWidgets).filter(e => {
-      if (e.partnerOnly && !userIsPartner) {
-        return false;
-      }
-      return true;
-    });
+    this.localWidgets = cloneDeep(this.content.homeWidgets);
   },
   computed: {
     ...mapGetters(['userIsPartner']),

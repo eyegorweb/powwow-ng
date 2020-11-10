@@ -237,15 +237,36 @@ export default {
       const selectedPartner = this.$route.params.queryFilters.find(
         f => f.id === 'filters.partners'
       );
-      if (!selectedPartner) return;
-      this.selectedPartner = {
-        id: selectedPartner.values[0].id,
-        label: selectedPartner.values[0].label,
-        data: selectedPartner.values[0],
-      };
-      this.initialPartner = this.selectedPartner;
+      if (selectedPartner) {
+        this.selectedPartner = {
+          id: selectedPartner.values[0].id,
+          label: selectedPartner.values[0].label,
+          data: selectedPartner.values[0],
+        };
+        this.initialPartner = this.selectedPartner;
 
-      this.appliedPartner = { ...this.selectedPartner };
+        this.appliedPartner = { ...this.selectedPartner };
+      }
+
+      const selectedBillingAccount = this.$route.params.queryFilters.find(
+        f => f.id === 'filters.billingAccounts'
+      );
+      if (selectedBillingAccount) {
+        this.selectedBillingAccount = {
+          id: selectedBillingAccount.values[0].id,
+          label: selectedBillingAccount.values[0].label,
+          data: selectedBillingAccount.values[0].meta.customerAccount,
+        };
+      }
+
+      const selectedOffer = this.$route.params.queryFilters.find(f => f.id === 'filters.offers');
+      if (selectedOffer) {
+        this.selectedOffer = {
+          id: selectedOffer.values[0].id,
+          label: selectedOffer.values[0].label,
+          data: selectedOffer.values[0].meta.workflow,
+        };
+      }
     }
   },
 

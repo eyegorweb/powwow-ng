@@ -44,17 +44,11 @@
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
         <UiCheckbox
           v-if="enableSelectAll"
-          :value="results.map((r) => r.item)"
-          :checked="multiSelectValues(results.map((r) => r.item))"
+          :value="results.map(r => r.item)"
+          :checked="multiSelectValues(results.map(r => r.item))"
           @change="
-            addAllToSelectedItems(
-              $event,
-              results.map((r) => r.item)
-            ),
-              updateTextLabel(
-                $event,
-                results.map((r) => r.item)
-              )
+            addAllToSelectedItems($event, results.map(r => r.item)),
+              updateTextLabel($event, results.map(r => r.item))
           "
           class="text-secondary"
           >{{ labelText }} ({{ results.length }})</UiCheckbox
@@ -65,12 +59,7 @@
           :value="result.item"
           :key="'ms_' + result.item.id"
           :disabled="isItemDisabled(result.item)"
-          @change="
-            updateTextLabel(
-              $event,
-              results.map((r) => r.item)
-            )
-          "
+          @change="updateTextLabel($event, results.map(r => r.item))"
         >
           <span v-html="result.highlighted.label" />
         </UiCheckbox>
@@ -129,8 +118,9 @@ export default {
 
   watch: {
     searchValue(value) {
+      this.$refs.checkboxes.scrollTop = 0;
       this.emitDoSearch(value);
-    }
+    },
   },
 
   computed: {
@@ -171,7 +161,7 @@ export default {
 
   methods: {
     emitDoSearch(event) {
-      this.$emit('update:search', event)
+      this.$emit('update:search', event);
     },
     isItemDisabled(item) {
       if (this.disabled) return true;
@@ -195,7 +185,7 @@ export default {
       function isMatching(displayedValues) {
         const selectedItems = results;
         if (displayedValues) {
-          return displayedValues.every(function (v) {
+          return displayedValues.every(function(v) {
             return !!selectedItems.filter(s => isEqual(s, v));
           });
         }
@@ -208,7 +198,7 @@ export default {
       const heightStyle = getComputedStyle(this.$refs.checkboxes).height;
       const height = parseInt(heightStyle.replace('px', ''));
       const needMore =
-        this.$refs.checkboxes.scrollTop + height >= this.$refs.checkboxes.scrollHeight;
+        this.$refs.checkboxes.scrollTop + height + 2 >= this.$refs.checkboxes.scrollHeight;
       if (needMore && this.canNotifyScrollLimit) {
         this.canNotifyScrollLimit = false;
         this.$emit('scroll:limit');

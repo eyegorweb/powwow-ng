@@ -39,7 +39,7 @@
             :key="selectedOffer.label"
             :services="offerServices"
             vertical
-            @change="onServiceChange"
+            @datachange="onServiceChange"
           />
         </div>
         <label v-if="activation && selectedOffer && selectedOffer.data" class="font-weight-bold">{{

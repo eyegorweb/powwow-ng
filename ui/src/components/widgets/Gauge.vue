@@ -56,13 +56,6 @@ export default {
       gaugeTitleStyle: {},
     };
   },
-  filters: {
-    maxValueFormat(value) {
-      if (this.formatValueFn) return this.formatValueFn(value);
-
-      return value;
-    },
-  },
   computed: {
     formattedMaxValue() {
       if (this.formatValueFn) return this.formatValueFn(parseInt(this.maxValue), this.maxValue);
@@ -71,11 +64,19 @@ export default {
   },
   methods: {
     getMaxPercent() {
+      // Si nous sommes en mode Offre forfait (?)
+      const value = parseInt(this.value);
       if (!isNaN(this.maxValue)) {
-        const value = parseInt(this.value);
         const max = parseInt(this.maxValue);
         return (value * 100) / max;
-      } else if (this.maxValue === '∞') {
+      }
+      // sinon si nous sommes en mode offre compteur (?)
+      else if (this.maxValue === '∞') {
+        // Mode offre compteur ?
+        // Si l'api nous renvoie une valeur supérieure à 0, afficher 50 sinon la valeur 0
+        if (value === 0) {
+          return 0;
+        }
         return 50;
       } else {
         return this.value;

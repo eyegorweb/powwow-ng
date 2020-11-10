@@ -156,7 +156,7 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              return this.$t('alarms.alarmScope.' + row.alarmScope);
+              return row.alarmScope ? this.$t('alarms.alarmScope.' + row.alarmScope) : '-';
             },
           },
         },

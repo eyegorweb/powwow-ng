@@ -18,6 +18,7 @@ import TopFlopCA from './widgets/AverageWidgets/TopFlopCA';
 import PriseOrdre from './widgets/AverageWidgets/PriseOrdre';
 import LinesConsumption from './widgets/AverageWidgets/LinesConsumption';
 import Weather from './widgets/Weather';
+import ActiveCustomerPark from './widgets/ActiveCustomerPark';
 
 import StatusActsWidget from './widgets/ActWidgets/precalculated/StatusActsWidget';
 import ActivationActsWidget from './widgets/ActWidgets/precalculated/ActivationActsWidget';
@@ -66,20 +67,17 @@ const defaultWidgets = [
     seeMore: { domain: 'getReport', action: 'read_bill' },
     component: BillsWidget,
     permission: { domain: 'widget', action: 'bill_history' },
-
     mock: true,
   },
   {
-    title: 'home.widgets.currentUsage',
+    title: 'home.widgets.currentUsage.title',
     description: '',
     checked: true,
     large: true,
     seeMore: { domain: 'getReport', action: 'read_dashboard' },
     component: ConsoWidget,
     permission: { domain: 'widget', action: 'parc_current_consumption' },
-
     notDraggable: true,
-    partnerOnly: true,
   },
   {
     title: 'home.widgets.orderStatus',
@@ -255,6 +253,15 @@ const defaultWidgets = [
     large: false,
     seeMore: false,
     component: PriseOrdre,
+    permission: { domain: 'widget', action: 'bill_top_order' },
+  },
+  {
+    title: 'home.widgets.activeCustomerPark.title',
+    description: '',
+    checked: true,
+    large: false,
+    seeMore: false,
+    component: ActiveCustomerPark,
     permission: { domain: 'widget', action: 'bill_top_order' },
   },
 ];

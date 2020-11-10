@@ -24,14 +24,25 @@
       <div class="bg-white p-3">
         <div class="row">
           <div class="col-7">
-            <label class="font-weight-bold">{{ $t('getvsion.supervisionType') }}</label>
-            <Toggle
-              v-if="toggleValues"
-              @update="onUsageChange"
-              :values="toggleValues"
-              block
-              class="pl-2"
-            />
+            <div class="row">
+              <div class="col">
+                <label class="font-weight-bold">{{ $t('getvsion.supervisionType') }}</label>
+                <Toggle
+                  v-if="toggleValues"
+                  @update="onUsageChange"
+                  :values="toggleValues"
+                  block
+                  class="pl-2"
+                />
+              </div>
+            </div>
+            <div v-if="canShowWorldGraphBtn" class="row mt-2">
+              <div class="col">
+                <UiButton variant="outline-primary" class="mb-4" @click="showWorldM2MGraphs">
+                  Graphe monde
+                </UiButton>
+              </div>
+            </div>
           </div>
           <div class="col-5">
             <MapLegend :usage="currentUsage" />
@@ -40,7 +51,7 @@
       </div>
 
       <div :key="'content_' + currentUsage" class="mt-3 mb-3">
-        <template v-if="cockpitMarkerToDetail">
+        <template v-if="cockpitMarkerToDetail && appliedFilters">
           <div>
             <CockpitDetails
               :marker-data="cockpitMarkerToDetail"
@@ -50,7 +61,7 @@
             />
           </div>
         </template>
-        <div :class="{ hidden: !!cockpitMarkerToDetail }">
+        <div :class="{ hidden: !!(cockpitMarkerToDetail && cockpitMarkerToDetail.world) }">
           <SupervisionMap
             :visible="!refreshLinesFn"
             :applied-filters="appliedFilters"
@@ -86,6 +97,7 @@ import StatusesFilter from './filters/StatusesFilter';
 import TypesFilter from './filters/TypesFilter';
 import LabelFilter from './filters/LabelFilter';
 import IdentifierFilter from './filters/IdentifierFilter';
+import UiButton from '@/components/ui/Button';
 
 import DateRangeFilter from './filters/DateRangeFilter';
 import MapLegend from './MapLegend';
@@ -112,6 +124,7 @@ export default {
     SupervisionMap,
     SupervisionTable,
     CockpitDetails,
+    UiButton
   },
   computed: {
     ...mapGetters([
@@ -125,6 +138,15 @@ export default {
     canFilter() {
       return !this.refreshLinesFn;
     },
+    canShowWorldGraphBtn() {
+      if (this.currentUsage !== 'COCKPIT') return false;
+
+      if (this.appliedFilters && this.appliedFilters.length > 0) {
+        return !!this.appliedFilters.find(a => a.id === 'getadmin.users.filters.partners');
+      }
+
+      return false;
+    }
   },
   data() {
     return {
@@ -257,6 +279,12 @@ export default {
   },
 
   methods: {
+    showWorldM2MGraphs() {
+      // this.appliedFilters = []
+      this.cockpitMarkerToDetail = { world: true };
+      this.freezeFilterSelection({ world: true });
+      this.doSearch([])
+    },
     onTabChange(tab) {
       this.currentTab = tab.label;
       this.filters = undefined;
@@ -308,8 +336,13 @@ export default {
 
     async freezeFilterSelection(payload) {
       this.isFrozen = true;
-      const countryFilter = await this.preselectCountry(payload);
+
+      let countryFilter;
+      if (!payload.world) {
+        countryFilter = await this.preselectCountry(payload);
+      }
       let frozenValues = cloneDeep(this.currentFilters);
+      console.log('frozenValues >>>> ', frozenValues)
 
       if (countryFilter) {
         frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
@@ -329,9 +362,10 @@ export default {
 
     doSearch(appliedFilters) {
       this.appliedFilters = cloneDeep(appliedFilters);
+
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -572,6 +606,7 @@ export default {
     },
 
     onCockpitClick(payload) {
+      console.log('payload >>> ', payload)
       this.cockpitMarkerToDetail = payload;
       this.freezeFilterSelection(payload);
     },

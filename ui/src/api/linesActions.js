@@ -50,7 +50,7 @@ export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partn
   }
   const queryStr = `
     query {
-      simcards(filter: { label: { startsWith: "${q}"} ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
+      simcards(filter: { description: { contains: "${q}"} ${partnerGqlParam}${partnerTypeGqlFilter}} , sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}} ) {
         total
         items {
           simCard {
@@ -775,6 +775,7 @@ export async function fetchLineServices(simCardInstanceId) {
       editable
       optional
       activationDate
+      preServiceCode
       parameters {
         activated
         name
@@ -787,6 +788,8 @@ export async function fetchLineServices(simCardInstanceId) {
     }
   }
   `;
+
   const response = await query(queryStr);
+
   return response.data.marketingServices;
 }
