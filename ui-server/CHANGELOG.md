@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.325+20201110155653
+2020-11-10
+
+### Fixes
+
+- ajout de la préférence défaut de langage pour la modification d'un utilisateur (256b26e7a4cdc015b0cb8948041bfecf78dbdce9)
+
 ## 1.0.0-master.324+20201110135607
 2020-11-10
 
