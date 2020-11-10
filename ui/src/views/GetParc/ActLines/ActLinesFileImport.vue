@@ -13,12 +13,9 @@
           {{ totalNotCompatible }}
           {{ totalNotCompatible > 1 ? $t('getparc.actLines.fileImport.notFoundLines') :  $t('getparc.actLines.fileImport.notFoundLine' ) }}.
           <ul class="list-styled">
-            <li v-for="e in fileMeta.errors" :key="e.key">
+            <li v-for="e in fileMeta.errors" :key="e.message">
               {{
-                $t('getparc.actLines.fileImport.errors.' + e.key, {
-                  count: e.number,
-                  idType: idType,
-                })
+                e.message
               }}
             </li>
           </ul>
