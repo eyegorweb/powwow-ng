@@ -2,6 +2,29 @@
 
 <!--- next entry here -->
 
+## 1.13.0
+2020-11-10
+
+### Features
+
+- pouvoir ajouter / supprimer la 5G (186de7c7e3d172c21882e7e05e4abe338c2a1f28)
+- Mettre en place le bouton "Graph Monde" dans la supervision (2e55f6e9574ee799d50794e8ff2d29511c3de518)
+- 654 ajout du widget Parc client actif (64c207301f00e19159493dc27c9bf3338f3f24ab)
+- 654 ajout du widget Parc client actif (83172596af1e5761b0e5389df09daeb106db8d93)
+
+### Fixes
+
+- Corriger le paramètre locationType pour les USA (eb7ea09f5cb1e8bf4ee0ccd61e8ef16d5d61af8b)
+- Rework du widget de recherche par ID (97f0cdc824ca211d7f6f3a6ac0d896671b7061af)
+- ne pas ajouter le code postale et la ville dans le label de l'adresse choisie (5e0a83064151325cddf4a069ba9758c8932b7f7c)
+- 2039 correction de l'alignement des champs de saisie du changement de mot de passe (6e25853cf249f7f3e12cc9acef6947e3a4450604)
+- Augmentation de la limite pour le scroll dans le menu deroulant du changement doffre (06f57edc1779ddbecedd81d1be5b71032602f866)
+- Correction du composant type de carte SIM (7187a8e759ce33e009dc0e80926858118acd43a4)
+- Debug des libellés du detail dalarme (c7090fb21bb4bb4b62a9c35464e53c876f5d8492)
+- Agrandissement de la fenetre de tooltip (3fbe86827e9e70d53c480fdb6df3ef65703a116e)
+- 2045 mise à jour des widgets Suivi conso et Consommation mensuelle (a4d216e365265ff0ad072457683003c964310aaf)
+- Changement sur les erreurs dimport de fichier filter (ecbdd310d0b5d279b886e83fc1d2102f0da3ae8f)
+
 ## 1.12.3
 2020-11-02
 
