@@ -12,7 +12,8 @@
         ></UiSelect>
       </div>
     </div>
-    <ul class="list-group bg-white">
+    <div v-if="noResults" class="noResult alert-light" role="alert">{{ $t('noResult') }}</div>
+    <ul v-else class="list-group bg-white">
       <li class="list-group-item" v-for="(indicator, i) in indicators" :key="'indicator.name_' + i">
         <span>{{ indicator.labelKey }}</span>
         <div class="float-right">
@@ -67,6 +68,7 @@ export default {
       names: [],
       indicators: [],
       previousValue: undefined,
+      noResults: true,
     };
   },
 
@@ -117,27 +119,38 @@ export default {
       const partyId = this.fetchPartnerId(partner);
       const response = await fetchActiveAndBilledLines(partyId);
 
+      if (!response.length) return;
       this.indicators = response
         .reduce((all, r) => {
-          let translatedIndicator, increasedValue;
+          let translatedIndicator, increasedValue, tempValue;
           // Indicateurs d'activation
           if (r.name === 'SIM_ACTIVATED') {
             // on met au même niveau les données et on inverse le tableau pour faciliter la comparaison de la donnée M-1 avec la donnée M (mois courant)
             let arraySimActivated = r.histories.flat().reverse();
             arraySimActivated.map(a => {
+              // on stocke la valeur pour gérer le null et restituer le '-' le cas échéant
+              tempValue = a.numberValue === null ? '-' : a.numberValue;
               // traduction du label
               if (a.applicationDate === prevCurrentMonth) {
                 translatedIndicator = this.$t(
                   'home.widgets.activeCustomerPark.activatedLinesPreviousMonth'
                 );
                 // on stocke la valeur M-1...
-                this.previousValue = a.numberValue;
+                this.previousValue = tempValue;
               } else if (a.applicationDate === currentMonth) {
                 translatedIndicator = this.$t('home.widgets.activeCustomerPark.activatedLines');
-                // ... pour la comparer à la valeur M (mois courant)
-                if (this.previousValue !== undefined && a.numberValue > this.previousValue) {
+                // ... pour la comparer à la valeur M (mois courant) si elle est un nombre
+                if (
+                  !isNaN(this.previousValue) &&
+                  this.previousValue !== undefined &&
+                  tempValue > this.previousValue
+                ) {
                   increasedValue = true;
-                } else if (this.previousValue !== undefined && a.numberValue < this.previousValue) {
+                } else if (
+                  !isNaN(this.previousValue) &&
+                  this.previousValue !== undefined &&
+                  tempValue < this.previousValue
+                ) {
                   increasedValue = false;
                 }
               } else {
@@ -147,7 +160,7 @@ export default {
               all.push({
                 name: r.name,
                 labelKey: translatedIndicator,
-                value: a.numberValue,
+                value: tempValue,
                 date: a.applicationDate,
                 increasedValue,
               });
@@ -157,16 +170,25 @@ export default {
           if (r.name === 'SIM_BILLED') {
             let arraySimBilled = r.histories.flat().reverse();
             arraySimBilled.map(a => {
+              tempValue = a.numberValue === null ? '-' : a.numberValue;
               if (a.applicationDate === prevCurrentMonth) {
                 translatedIndicator = this.$t(
                   'home.widgets.activeCustomerPark.billedLinesPreviousMonth'
                 );
-                this.previousValue = a.numberValue;
+                this.previousValue = tempValue;
               } else if (a.applicationDate === currentMonth) {
                 translatedIndicator = this.$t('home.widgets.activeCustomerPark.billedLines');
-                if (this.previousValue !== undefined && a.numberValue > this.previousValue) {
+                if (
+                  !isNaN(this.previousValue) &&
+                  this.previousValue !== undefined &&
+                  tempValue > this.previousValue
+                ) {
                   increasedValue = true;
-                } else if (this.previousValue !== undefined && a.numberValue < this.previousValue) {
+                } else if (
+                  !isNaN(this.previousValue) &&
+                  this.previousValue !== undefined &&
+                  tempValue < this.previousValue
+                ) {
                   increasedValue = false;
                 }
               } else {
@@ -175,7 +197,7 @@ export default {
               all.push({
                 name: r.name,
                 labelKey: translatedIndicator,
-                value: a.numberValue,
+                value: tempValue,
                 date: a.applicationDate,
                 increasedValue,
               });
@@ -184,6 +206,7 @@ export default {
           return all;
         }, [])
         .sort((a, b) => (!isBefore(a.date, b.date, DATE_FORMAT) ? -1 : 1));
+      this.noResults = false;
     },
   },
 
