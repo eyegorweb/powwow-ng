@@ -62,7 +62,7 @@ import UiTab from '@/components/ui/Tab';
 import UiButton from '@/components/ui/Button';
 
 import { searchLines } from '@/api/linesActions';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
@@ -111,6 +111,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['havePermission']),
+
     canRunCoach() {
       if (this.partnerOptions) {
         return this.partnerOptions.coachM2MAvailable;
@@ -118,11 +120,13 @@ export default {
 
       return false;
     },
+
     isLigneActive() {
       const networkStatus = get(this.lineData, 'accessPoint.networkStatus');
       const simStatus = get(this.lineData, 'statuts');
       return simStatus === 'ALLOCATED' && networkStatus === 'ACTIVATED';
     },
+
     msisdn() {
       return this.lineData &&
         this.lineData.accessPoint &&
@@ -169,6 +173,7 @@ export default {
         ignoreClickAway: true,
       });
     },
+
     async loadLineData() {
       const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         {
@@ -189,6 +194,7 @@ export default {
             icon: 'ic-Smartphone-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
             selected: false,
+            permission: { domain: 'act', action: 'msisdn_change' },
           },
           {
             icon: 'ic-Edit-Icon',
@@ -212,9 +218,16 @@ export default {
             icon: 'ic-Sim-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
             selected: false,
+            permission: { domain: 'act', action: 'msisdn_change' },
           },
         ]);
       }
+      this.carouselItems = this.carouselItems.filter(i => {
+        if (!!i.permission) {
+          return this.havePermission(i.permission.domain, i.permission.action);
+        }
+        return true;
+      });
     },
   },
 };

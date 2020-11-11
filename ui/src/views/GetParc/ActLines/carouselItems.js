@@ -130,7 +130,6 @@ export default excludeMocked([
       },
     ],
   },
-
   {
     icon: 'ic-Smartphone-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
@@ -138,6 +137,7 @@ export default excludeMocked([
     selected: false,
     containFile: true,
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'msisdn_change' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
