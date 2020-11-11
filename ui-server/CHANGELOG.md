@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.326+20201111153130
+2020-11-11
+
+### Fixes
+
+- 2064 activation de la permission pour le changement de MSISDN (8087bf1cb9ee7e672bff9b539287ec9fa6d4a714)
+
 ## 1.0.0-master.325+20201110155653
 2020-11-10
 
