@@ -149,7 +149,7 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO', 'havePermission']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
@@ -170,7 +170,20 @@ export default {
               return !this.userIsMVNO;
             }
             return true;
+          })
+          .filter(i => {
+            if (!!i.permission) {
+              return this.havePermission(i.permission.domain, i.permission.action);
+            }
+            return true;
           });
+      } else {
+        return carouselItems.filter(i => {
+          if (!!i.permission) {
+            return this.havePermission(i.permission.domain, i.permission.action);
+          }
+          return true;
+        });
       }
       return carouselItems;
     },
