@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.327+20201112104922
+2020-11-12
+
+### Features
+
+- Nouveau bouton export sur le tableau des lignes (d85787c1656e9c0bfeef4bbd06de7bf32a0ca5db)
+
 ## 1.0.0-master.326+20201111153130
 2020-11-11
 
