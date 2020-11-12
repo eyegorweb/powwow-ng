@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.333+20201112171633
+2020-11-12
+
+### Fixes
+
+- 2017 ajout du choix de type d'export des lignes (d2b9c027bc462738513c35fa6678959b65c5a22c)
+
 ## 1.0.0-master.332+20201112162534
 2020-11-12
 
