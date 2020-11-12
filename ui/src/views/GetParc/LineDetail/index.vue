@@ -25,7 +25,7 @@
     </div>
     <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel
-      v-if="lineData"
+      v-if="lineData && canShowCarousel"
       :actions="carouselItems"
       :default-disabled="!isLigneActive"
       @itemClick="onCarouselItemClick"
@@ -107,7 +107,7 @@ export default {
           total: 0,
         },
       ],
-      carouselItems: undefined,
+      carouselItems: [],
     };
   },
   computed: {
@@ -134,6 +134,10 @@ export default {
         this.lineData.accessPoint !== 'null'
         ? this.lineData.accessPoint.lines[0].msisdn
         : '';
+    },
+
+    canShowCarousel() {
+      return this.carouselItems.length > 0;
     },
   },
   methods: {
@@ -189,6 +193,7 @@ export default {
             icon: 'ic-Sim-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
             selected: false,
+            permission: { domain: 'act', action: 'manage_main' },
           },
           {
             icon: 'ic-Smartphone-Icon',
@@ -200,16 +205,19 @@ export default {
             icon: 'ic-Edit-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
             selected: false,
+            permission: { domain: 'act', action: 'manage_main' },
           },
           {
             icon: 'ic-Wallet-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
             selected: false,
+            permission: { domain: 'act', action: 'transfer_customer_account' },
           },
           {
             icon: 'ic-Ticket-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
             selected: false,
+            permission: { domain: 'act', action: 'manage_main' },
           },
         ]);
       } else {
