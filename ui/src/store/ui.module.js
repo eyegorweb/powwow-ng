@@ -96,7 +96,6 @@ export const mutations = {
   },
   openExportChoice(state, params) {
     state.exportPanelParams = params;
-
     state.isExportFormatChoiceOpen = true;
   },
   closeExportChoice(state) {
