@@ -5,7 +5,7 @@
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.offer') }}:</h6>
-            <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
+            <p><LineOffer :line="content" /></p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.lineStatus') }}:</h6>
@@ -93,8 +93,12 @@ import get from 'lodash.get';
 import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
 import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
+import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
 
 export default {
+  components: {
+    LineOffer,
+  },
   async mounted() {
     this.fetchAlarms();
   },

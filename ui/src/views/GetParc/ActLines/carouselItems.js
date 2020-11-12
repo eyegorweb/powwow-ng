@@ -6,7 +6,7 @@ export default excludeMocked([
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
-    // havePrereqs: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -30,6 +30,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -53,6 +54,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     havePrereqs: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -72,6 +74,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'blue',
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -100,6 +103,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'red',
+    boOnly: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -118,6 +122,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SIMCARD',
     selected: false,
     containFile: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -130,7 +135,6 @@ export default excludeMocked([
       },
     ],
   },
-
   {
     icon: 'ic-Smartphone-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
@@ -138,6 +142,7 @@ export default excludeMocked([
     selected: false,
     containFile: true,
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'msisdn_change' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -159,6 +164,7 @@ export default excludeMocked([
     havePrereqs: true,
     color: 'blue',
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -179,6 +185,7 @@ export default excludeMocked([
     selected: false,
     havePrereqs: true,
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'transfer_customer_account' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -198,6 +205,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'blue',
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -216,7 +224,7 @@ export default excludeMocked([
     stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
     subtitle: '',
     selected: false,
-    boOnly: true,
+    permission: { domain: 'act', action: 'transfer_party' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -244,7 +252,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'orange',
-    boOnly: true,
+    permission: { domain: 'act', action: 'validate_termination' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -277,6 +285,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -305,6 +314,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     hideForMVNO: true,
+    boOnly: true,
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -341,6 +351,7 @@ export default excludeMocked([
     subtitle: '',
     selected: false,
     color: 'orange',
+    permission: { domain: 'act', action: 'manage_main' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
@@ -366,6 +377,7 @@ export default excludeMocked([
     restrictPartnerType: 'MVNO',
     color: 'orange',
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'transfer_party' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',

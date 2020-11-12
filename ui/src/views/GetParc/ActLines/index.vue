@@ -14,7 +14,7 @@
         }}</UiButton>
       </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5" v-if="canShowCarousel">
       <div class="col-md-12">
         <ActionCarousel
           title="getparc.actLines.chooseAct"
@@ -149,10 +149,11 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO']),
+    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO', 'havePermission']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
+      // c'est quoi ça ? enableMultiExport: state => true,
     }),
 
     totalSelected() {
@@ -170,9 +171,21 @@ export default {
               return !this.userIsMVNO;
             }
             return true;
+          })
+          .filter(i => {
+            if (i.permission) {
+              return this.havePermission(i.permission.domain, i.permission.action);
+            }
+            return true;
           });
+      } else {
+        return carouselItems.filter(i => {
+          if (i.permission) {
+            return this.havePermission(i.permission.domain, i.permission.action);
+          }
+          return true;
+        });
       }
-      return carouselItems;
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;
@@ -180,6 +193,11 @@ export default {
 
       return this.creationMode && this.actCreationPrerequisites && resultsConstraint;
     },
+
+    canShowCarousel() {
+      return this.carouselItems.length > 0;
+    },
+
     selectedFile: {
       get() {
         return this.selectedFileForActCreation;

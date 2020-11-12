@@ -106,6 +106,8 @@ const defaultAdjustment = position => {
   };
 };
 
+const franceCoords = { lat: 44.343482, lng: 3.2814 };
+
 function extractFromAdress(components, type) {
   for (let i = 0; i < components.length; i++)
     for (let j = 0; j < components[i].types.length; j++)
@@ -195,6 +197,7 @@ export default {
         this.isSameFilters = isEquivalent(oldFormattedFilters, newFormattedFilters);
       }
 
+      this.markers = [];
       this.refreshData();
     },
   },
@@ -206,7 +209,7 @@ export default {
 
       try {
         this.isLoading = true;
-        this.markers = [];
+        // this.markers = [];
         if (!this.zipCodeFilter) {
           await this.initZoom();
         }
@@ -214,7 +217,10 @@ export default {
         const countryCode = await this.getCenteredCountry();
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
+
+        this.map.setOptions({ maxZoom: CELL_ZOOM_LEVEL });
         if (this.usage === 'COCKPIT') {
+          this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
           await this.loadDataForM2MCockpit();
         } else if (this.zipCodeFilter) {
           await this.loadDataByZipCode();
@@ -266,9 +272,12 @@ export default {
       this.isSameFilters = true;
     },
 
-    centerOnFrance() {
-      const franceCoords = new this.google.maps.LatLng(44.343482, 3.2814);
-      this.map.setCenter(franceCoords);
+    centerOnFrance(zoomLevel) {
+      if (!zoomLevel) {
+        this.map.setCenter(new this.google.maps.LatLng(franceCoords.lat, franceCoords.lng));
+      } else {
+        this.centerZoom(franceCoords.lng, franceCoords.lat, zoomLevel);
+      }
     },
 
     centerOnCoords(longitude, latitude) {
@@ -310,7 +319,7 @@ export default {
 
       return this.appliedFilters.reduce((filters, item) => {
         if (item.id === 'getadmin.users.filters.partners') {
-          filters.partnerId = item.data.id;
+          filters.partyId = item.data.id;
         }
 
         if (item.id === 'getadmin.users.filters.partnerGroup') {
@@ -396,17 +405,25 @@ export default {
         ? this.appliedFilters.find(f => f.id === 'filters.country')
         : undefined;
 
-      if (countryFilter) {
-        this.centerOnCoords(countryFilter.data.longitude, countryFilter.data.latitude);
+      if (!this.markers || !this.markers.length) {
+        if (countryFilter) {
+          this.centerZoom(
+            countryFilter.data.longitude,
+            countryFilter.data.latitude,
+            COUNTRY_ZOOM_LEVEL
+          );
+        } else {
+          this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
+        }
+
+        setTimeout(() => {
+          this.markers = markers;
+          this.isReady = true;
+        }, 800);
       } else {
-        this.centerOnFrance();
-      }
-
-      this.map.setZoom(COUNTRY_ZOOM_LEVEL);
-
-      setTimeout(() => {
         this.markers = markers;
-      }, 800);
+        this.isReady = true;
+      }
     },
 
     async loadDataForCities(countryCode) {

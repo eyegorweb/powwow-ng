@@ -25,6 +25,7 @@
               :export-fn="getExportFn()"
               :columns="orderedColumns"
               :order-by="orderBy"
+              :multi-export="true"
             >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -35,7 +36,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="21"
+            storage-version="22"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -216,14 +217,23 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        undefined,
+        exportChoice
+      ) => {
         return await exportSimCardInstances(
           columns,
           orderBy,
           exportFormat,
           this.appliedFilters,
           asyncExportRequest,
-          exportAll
+          exportAll,
+          exportChoice
         );
       };
     },
@@ -383,8 +393,13 @@ export default {
           name: 'accessPoint',
           exportId: 'LINE_OFFER',
           format: {
-            type: 'ObjectAttribute',
-            path: 'offer.marketingOffer.description',
+            type: 'Getter',
+            getter: row => {
+              if (get(row, 'party.partType') === 'MULTI_CUSTOMER') {
+                return get(row, 'workflow.workflowDescription');
+              }
+              return get(row, 'accessPoint.offer.marketingOffer.description');
+            },
           },
           orderable: false,
           visible: false,

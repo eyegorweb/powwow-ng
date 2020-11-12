@@ -161,6 +161,10 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
     }
     party{
       name
+      partyType
+    }
+    workflow {
+      workflowDescription
     }
     auditable {
       created
@@ -230,7 +234,10 @@ export async function searchLines(orderBy, pagination, filters = []) {
       custom6FieldLabel
       spec1_label
       spec2_label
-      }
+    }
+    workflow {
+      workflowDescription
+    }
     id
     iccid
     lastCountry
@@ -665,13 +672,13 @@ export async function exportSimCardInstances(
   exportFormat,
   filters = [],
   asyncExportRequest = false,
-  exportAll = false
+  exportAll = false,
+  exportChoice
 ) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
-  console.log(columns);
   let asyncExportRequestParam = '';
-
+  let exportType = exportChoice !== 'CLASSIC' ? `exportType: ${exportChoice}` : '';
   if (asyncExportRequest) {
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
@@ -680,7 +687,7 @@ export async function exportSimCardInstances(
     query {
       exportSimCardInstances(filter: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}, ${exportType})  {
         downloadUri
         asyncRequired
       }

@@ -36,7 +36,7 @@
                 />
               </div>
             </div>
-            <div v-if="canShowWorldGraphBtn" class="row mt-2">
+            <div v-if="canShowWorldGraphBtn" class="row mt-2 pl-2">
               <div class="col">
                 <UiButton variant="outline-primary" class="mb-4" @click="showWorldM2MGraphs">
                   Graphe monde
@@ -124,7 +124,7 @@ export default {
     SupervisionMap,
     SupervisionTable,
     CockpitDetails,
-    UiButton
+    UiButton,
   },
   computed: {
     ...mapGetters([
@@ -146,7 +146,7 @@ export default {
       }
 
       return false;
-    }
+    },
   },
   data() {
     return {
@@ -283,7 +283,7 @@ export default {
       // this.appliedFilters = []
       this.cockpitMarkerToDetail = { world: true };
       this.freezeFilterSelection({ world: true });
-      this.doSearch([])
+      this.doSearch([...this.appliedFilters]);
     },
     onTabChange(tab) {
       this.currentTab = tab.label;
@@ -324,6 +324,7 @@ export default {
 
     gotoCockpitMap() {
       this.isFrozen = false;
+      this.defaultValues = [...this.frozenValues];
       this.frozenValues = [];
       this.cockpitMarkerToDetail = undefined;
 
@@ -342,7 +343,6 @@ export default {
         countryFilter = await this.preselectCountry(payload);
       }
       let frozenValues = cloneDeep(this.currentFilters);
-      console.log('frozenValues >>>> ', frozenValues)
 
       if (countryFilter) {
         frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
@@ -365,7 +365,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -606,7 +606,6 @@ export default {
     },
 
     onCockpitClick(payload) {
-      console.log('payload >>> ', payload)
       this.cockpitMarkerToDetail = payload;
       this.freezeFilterSelection(payload);
     },
