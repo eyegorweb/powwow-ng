@@ -178,7 +178,7 @@ export default {
             });
           }
           this.exportTypes.push({
-            id: 'IN_PROGRESS',
+            id: 'CONSUMPTION',
             label: 'exportTable.inProgress',
             permission: true,
           });
