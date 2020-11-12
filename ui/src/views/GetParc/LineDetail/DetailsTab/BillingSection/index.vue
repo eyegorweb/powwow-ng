@@ -16,7 +16,7 @@
             </div>
             <div class="item">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.offerName') }}:</h6>
-              <p>{{ getFromContent('accessPoint.offer.marketingOffer.description') }}</p>
+              <p><LineOffer :line="content" /></p>
             </div>
             <div class="item" v-if="!partnerTypeMVNO && dateCommitmentEnd">
               <h6>{{ $t('getparc.lineDetail.tab1.billingOffer.endCommitmentDate') }}:</h6>
@@ -100,12 +100,15 @@ import draggable from 'vuedraggable';
 import moment from 'moment';
 import get from 'lodash.get';
 import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
+import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
+
 
 export default {
   components: {
     draggable,
     ContentBlock,
     BillingStatus,
+    LineOffer
   },
 
   props: {
@@ -237,9 +240,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },
