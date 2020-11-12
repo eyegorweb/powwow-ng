@@ -231,7 +231,7 @@ export default {
         ]);
       }
       this.carouselItems = this.carouselItems.filter(i => {
-        if (!!i.permission) {
+        if (i.permission) {
           return this.havePermission(i.permission.domain, i.permission.action);
         }
         return true;

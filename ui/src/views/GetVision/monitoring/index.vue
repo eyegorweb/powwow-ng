@@ -124,7 +124,7 @@ export default {
     SupervisionMap,
     SupervisionTable,
     CockpitDetails,
-    UiButton
+    UiButton,
   },
   computed: {
     ...mapGetters([
@@ -146,7 +146,7 @@ export default {
       }
 
       return false;
-    }
+    },
   },
   data() {
     return {
@@ -365,7 +365,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);

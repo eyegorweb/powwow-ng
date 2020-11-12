@@ -72,7 +72,7 @@ export default {
   components: {
     UsageCounter,
     BillingStatus,
-    LineOffer
+    LineOffer,
   },
   props: {
     content: {

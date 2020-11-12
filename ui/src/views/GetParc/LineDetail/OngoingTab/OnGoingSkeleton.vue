@@ -29,7 +29,7 @@
         <td>
           <ul class="content-cell list-unstyled">
             <li class="total-line">
-                  {{ $t('getparc.lineDetail.consummated.totalSMS') }}
+              {{ $t('getparc.lineDetail.consummated.totalSMS') }}
             </li>
           </ul>
         </td>

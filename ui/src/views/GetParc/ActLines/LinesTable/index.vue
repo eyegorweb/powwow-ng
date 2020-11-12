@@ -217,7 +217,15 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll, undefined, exportChoice) => {
+      return async (
+        columns,
+        orderBy,
+        exportFormat,
+        asyncExportRequest,
+        exportAll,
+        undefined,
+        exportChoice
+      ) => {
         return await exportSimCardInstances(
           columns,
           orderBy,

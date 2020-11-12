@@ -6,7 +6,6 @@
 
 <script>
 export default {
-
   props: {
     line: Object,
   },
@@ -17,12 +16,9 @@ export default {
         return this.$loGet(this.line, 'workflow.workflowDescription');
       }
       return this.$loGet(this.line, 'accessPoint.offer.marketingOffer.description');
-    }
+    },
   },
-
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

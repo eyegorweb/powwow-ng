@@ -49,13 +49,13 @@
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
           <div class="exportTypes" v-if="exportPanelParams.multiExport">
-            <Toggle
-              :values="exportTypes"
-              @update="exportChoice = $event.id"
-            />
+            <Toggle :values="exportTypes" @update="exportChoice = $event.id" />
           </div>
 
-          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll && !exportPanelParams.multiExport">
+          <Checkbox
+            v-model="exportAll"
+            v-if="exportPanelParams.exportAll && !exportPanelParams.multiExport"
+          >
             {{ $t('exportAll') }}
           </Checkbox>
         </div>
@@ -155,7 +155,12 @@ export default {
 
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
-      const downloadResponse = await this.doExport(this.exportFormat, true, this.exportAll, this.exportChoice);
+      const downloadResponse = await this.doExport(
+        this.exportFormat,
+        true,
+        this.exportAll,
+        this.exportChoice
+      );
       this.closeAndResetExportChoice();
 
       if (!downloadResponse || downloadResponse.errors) {
@@ -199,7 +204,12 @@ export default {
       } else {
         try {
           this.showLoader = true;
-          downloadResponse = await this.doExport(exportFormat, false, this.exportAll, this.exportChoice);
+          downloadResponse = await this.doExport(
+            exportFormat,
+            false,
+            this.exportAll,
+            this.exportChoice
+          );
           this.showLoader = false;
 
           if (downloadResponse.asyncRequired) {
@@ -215,7 +225,7 @@ export default {
             this.closeAndResetExportChoice();
           }
         } catch (err) {
-          console.log(err)
+          console.log(err);
           this.haveError = true;
         }
       }

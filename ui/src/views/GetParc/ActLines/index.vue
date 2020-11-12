@@ -153,9 +153,8 @@ export default {
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
-      enableMultiExport: state => true,
+      // c'est quoi ça ? enableMultiExport: state => true,
     }),
-
 
     totalSelected() {
       const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
@@ -174,20 +173,19 @@ export default {
             return true;
           })
           .filter(i => {
-            if (!!i.permission) {
+            if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           });
       } else {
         return carouselItems.filter(i => {
-          if (!!i.permission) {
+          if (i.permission) {
             return this.havePermission(i.permission.domain, i.permission.action);
           }
           return true;
         });
       }
-      return carouselItems;
     },
     canShowForm() {
       const actWithFileUpload = this.creationMode && this.creationMode.containFile;

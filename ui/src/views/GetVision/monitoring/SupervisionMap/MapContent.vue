@@ -108,7 +108,6 @@ const defaultAdjustment = position => {
 
 const franceCoords = { lat: 44.343482, lng: 3.2814 };
 
-
 function extractFromAdress(components, type) {
   for (let i = 0; i < components.length; i++)
     for (let j = 0; j < components[i].types.length; j++)
@@ -210,7 +209,7 @@ export default {
 
       try {
         this.isLoading = true;
-        //this.markers = [];
+        // this.markers = [];
         if (!this.zipCodeFilter) {
           await this.initZoom();
         }
@@ -408,7 +407,11 @@ export default {
 
       if (!this.markers || !this.markers.length) {
         if (countryFilter) {
-          this.centerZoom(countryFilter.data.longitude, countryFilter.data.latitude, COUNTRY_ZOOM_LEVEL);
+          this.centerZoom(
+            countryFilter.data.longitude,
+            countryFilter.data.latitude,
+            COUNTRY_ZOOM_LEVEL
+          );
         } else {
           this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
         }

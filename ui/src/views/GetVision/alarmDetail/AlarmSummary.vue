@@ -59,7 +59,13 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.alarms.observationCycle') }}:</h6>
-                <p>{{ content.observationCycle ? $t( 'alarms.observationCycles.' + content.observationCycle) : '-' }}</p>
+                <p>
+                  {{
+                    content.observationCycle
+                      ? $t('alarms.observationCycles.' + content.observationCycle)
+                      : '-'
+                  }}
+                </p>
               </div>
               <div class="item">
                 <h6>{{ $t('getvsion.notify-mail') }}:</h6>

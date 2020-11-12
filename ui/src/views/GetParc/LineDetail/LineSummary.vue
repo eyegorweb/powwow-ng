@@ -95,7 +95,6 @@ import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
 
-
 export default {
   components: {
     LineOffer,

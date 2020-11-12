@@ -102,13 +102,12 @@ import get from 'lodash.get';
 import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
 
-
 export default {
   components: {
     draggable,
     ContentBlock,
     BillingStatus,
-    LineOffer
+    LineOffer,
   },
 
   props: {
@@ -240,9 +239,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-          'getparc.actLines.commercialStatuses.' +
-          get(this.content, 'accessPoint.commercialStatus')
-        )} ${this.$t('fromThe')}`
+            'getparc.actLines.commercialStatuses.' +
+              get(this.content, 'accessPoint.commercialStatus')
+          )} ${this.$t('fromThe')}`
         : '-';
     },
   },
