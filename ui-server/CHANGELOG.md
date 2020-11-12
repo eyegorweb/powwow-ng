@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.332+20201112162534
+2020-11-12
+
+### Fixes
+
+- 2017 ajout du multiple export pour les lignes (43c0ff08e06a20170394896a0b4fa31790ee3d56)
+
 ## 1.0.0-master.331+20201112150146
 2020-11-12
 
