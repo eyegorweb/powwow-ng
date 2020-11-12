@@ -98,7 +98,10 @@ export default {
   computed: {
     currentOffer() {
       const code = get(this.lineData, 'accessPoint.offer.marketingOffer.code');
-      const description = get(this.lineData, 'accessPoint.offer.marketingOffer.description');
+      let description = get(row, 'accessPoint.offer.marketingOffer.description');
+      if (get(row, 'party.partType') === 'MULTI_CUSTOMER') {
+        description = get(row, 'workflow.workflowDescription');
+      }
       return {
         description: `${description}`,
         code: `${code}`,

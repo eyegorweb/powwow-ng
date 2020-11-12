@@ -139,6 +139,9 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
+              if (get(row, 'party.partType') === 'MULTI_CUSTOMER') {
+                return get(row, 'workflow.workflowDescription');
+              }
               return get(row, 'alarmInstance.accessPoint.offer.marketingOffer.description');
             },
           },

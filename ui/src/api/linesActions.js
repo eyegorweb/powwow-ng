@@ -161,6 +161,10 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
     }
     party{
       name
+      partyType
+    }
+    workflow {
+      workflowDescription
     }
     auditable {
       created
@@ -230,7 +234,10 @@ export async function searchLines(orderBy, pagination, filters = []) {
       custom6FieldLabel
       spec1_label
       spec2_label
-      }
+    }
+    workflow {
+      workflowDescription
+    }
     id
     iccid
     lastCountry

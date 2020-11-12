@@ -19,7 +19,7 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.offer') }} :</h6>
-      <p>{{ get('accessPoint.offer.marketingOffer.description') }}</p>
+      <p><LineOffer :line="content" /></p>
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.lineStatus') }} :</h6>
@@ -66,11 +66,13 @@
 import get from 'lodash.get';
 import UsageCounter from './UsageCounter';
 import BillingStatus from './parts/BillingStatus';
+import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
 
 export default {
   components: {
     UsageCounter,
     BillingStatus,
+    LineOffer
   },
   props: {
     content: {

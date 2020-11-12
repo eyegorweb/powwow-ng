@@ -36,7 +36,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="21"
+            storage-version="22"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -385,8 +385,13 @@ export default {
           name: 'accessPoint',
           exportId: 'LINE_OFFER',
           format: {
-            type: 'ObjectAttribute',
-            path: 'offer.marketingOffer.description',
+            type: 'Getter',
+            getter: row => {
+              if (get(row, 'party.partType') === 'MULTI_CUSTOMER') {
+                return get(row, 'workflow.workflowDescription');
+              }
+              return get(row, 'accessPoint.offer.marketingOffer.description');
+            },
           },
           orderable: false,
           visible: false,
