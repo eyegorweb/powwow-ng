@@ -2,6 +2,25 @@
 
 <!--- next entry here -->
 
+## 1.14.0
+2020-11-12
+
+### Features
+
+- Nouveau bouton export sur le tableau des lignes (d85787c1656e9c0bfeef4bbd06de7bf32a0ca5db)
+
+### Fixes
+
+- filtre import fichier actline (b0232769302d2fd2c54ac24d21ce2c4ca9d4bb9b)
+- ajout de la préférence défaut de langage pour la modification d'un utilisateur (256b26e7a4cdc015b0cb8948041bfecf78dbdce9)
+- 2064 activation de la permission pour le changement de MSISDN (8087bf1cb9ee7e672bff9b539287ec9fa6d4a714)
+- 2077 Mise en place des permissions pour les actes de gestion (aa2a4b0c669a5ef6e9e50b6ddf92ad3dd766a02b)
+- 2077 Mise en place des permissions pour les actes de gestion (26a6783deaeee65d46087d7f09371d9a3c469938)
+- Corriger le problème de zoom dans la map M2M (2ab0bd942fbaee184c05f1b44f23941086533fdc)
+- diverses corrections dans le code (defd3914f21390adab5f5d2dbb2c041a3db414c6)
+- 2017 ajout du multiple export pour les lignes (43c0ff08e06a20170394896a0b4fa31790ee3d56)
+- 2017 ajout du choix de type d'export des lignes (d2b9c027bc462738513c35fa6678959b65c5a22c)
+
 ## 1.13.0
 2020-11-10
 
