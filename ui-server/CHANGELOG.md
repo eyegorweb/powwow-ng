@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.331+20201112150146
+2020-11-12
+
+### Fixes
+
+- Corriger le problème de zoom dans la map M2M (2ab0bd942fbaee184c05f1b44f23941086533fdc)
+- diverses corrections dans le code (defd3914f21390adab5f5d2dbb2c041a3db414c6)
+
 ## 1.0.0-master.330+20201112141357
 2020-11-12
 
