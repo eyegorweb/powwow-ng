@@ -10,7 +10,7 @@
     </div>
     <div class="filters-container">
       <div v-if="!userIsPartner" class="filter-item-large">
-        <PartnerCombo :value.sync="selectedPartner" />
+        <PartnerCombo :value.sync="selectedPartner" offline />
       </div>
       <div class="filter-item">
         <BillingAccountAutocomplete

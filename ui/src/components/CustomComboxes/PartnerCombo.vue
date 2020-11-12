@@ -7,7 +7,6 @@
     display-results-while-empty
     :disabled="disabled"
     contains-search
-    scroll-for-next
   />
 </template>
 
