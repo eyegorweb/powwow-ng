@@ -3,6 +3,7 @@
     :value.sync="selectedPartner"
     :party-types="['MULTI_CUSTOMER', 'CUSTOMER']"
     :disabled="!!partnerGroup"
+    offline
   />
 </template>
 
