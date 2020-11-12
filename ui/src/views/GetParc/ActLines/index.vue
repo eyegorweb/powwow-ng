@@ -14,7 +14,7 @@
         }}</UiButton>
       </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5" v-if="canShowCarousel">
       <div class="col-md-12">
         <ActionCarousel
           title="getparc.actLines.chooseAct"
@@ -195,6 +195,11 @@ export default {
 
       return this.creationMode && this.actCreationPrerequisites && resultsConstraint;
     },
+
+    canShowCarousel() {
+      return this.carouselItems.length > 0;
+    },
+
     selectedFile: {
       get() {
         return this.selectedFileForActCreation;
