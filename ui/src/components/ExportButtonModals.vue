@@ -86,21 +86,24 @@ export default {
   },
 
   mounted() {
-    if (this.havePermission('getParc', 'export_service')) {
-      this.exportTypes.push({
-        id: '4',
-        label: 'exportTable.services',
-      });
-    }
     if (this.havePermission('getVision', 'read')) {
       this.exportTypes.push({
-        id: '5',
-        label: 'exportTable.inProgress',
+        id: 'LAST_USAGE',
+        label: 'exportTable.lastUsage',
+        permission: true,
+      });
+    }
+    if (this.havePermission('getParc', 'export_service')) {
+      this.exportTypes.push({
+        id: 'SERVICES',
+        label: 'exportTable.services',
+        permission: true,
       });
     }
   },
   computed: {
     ...mapGetters(['havePermission']),
+    ...mapGetters('actLines', ['appliedFilters']),
     ...mapState({
       isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: state => state.ui.exportPanelParams,
@@ -119,19 +122,18 @@ export default {
       forceAsyncExport: false,
       exportTypes: [
         {
-          id: 'classic',
+          id: 'CLASSIC',
           label: 'exportTable.classic',
           default: true,
+          permission: true,
         },
         {
           id: 'FULL',
           label: 'exportTable.complete',
-        },
-        {
-          id: 'LAST_USAGE',
-          label: 'exportTable.lastUsage',
+          permission: true,
         },
       ],
+      canShowInProgressExportChoice: false,
     };
   },
   watch: {
@@ -143,6 +145,74 @@ export default {
         this.exportFormat = undefined;
         this.showLoader = false;
       }
+    },
+    appliedFilters(newFilters) {
+      const found = newFilters.find(a => a.id === 'filters.partners');
+      if (found) {
+        if (found.values.length === 1) {
+          this.exportTypes = [
+            {
+              id: 'CLASSIC',
+              label: 'exportTable.classic',
+              default: true,
+              permission: true,
+            },
+            {
+              id: 'FULL',
+              label: 'exportTable.complete',
+              permission: true,
+            },
+          ];
+          if (this.havePermission('getVision', 'read')) {
+            this.exportTypes.push({
+              id: 'LAST_USAGE',
+              label: 'exportTable.lastUsage',
+              permission: true,
+            });
+          }
+          if (this.havePermission('getParc', 'export_service')) {
+            this.exportTypes.push({
+              id: 'SERVICES',
+              label: 'exportTable.services',
+              permission: true,
+            });
+          }
+          this.exportTypes.push({
+            id: 'IN_PROGRESS',
+            label: 'exportTable.inProgress',
+            permission: true,
+          });
+        } else {
+          this.exportTypes = [
+            {
+              id: 'CLASSIC',
+              label: 'exportTable.classic',
+              default: true,
+              permission: true,
+            },
+            {
+              id: 'FULL',
+              label: 'exportTable.complete',
+              permission: true,
+            },
+          ];
+          if (this.havePermission('getVision', 'read')) {
+            this.exportTypes.push({
+              id: 'LAST_USAGE',
+              label: 'exportTable.lastUsage',
+              permission: true,
+            });
+          }
+          if (this.havePermission('getParc', 'export_service')) {
+            this.exportTypes.push({
+              id: 'SERVICES',
+              label: 'exportTable.services',
+              permission: true,
+            });
+          }
+        }
+      }
+      return this.exportTypes;
     },
   },
   methods: {

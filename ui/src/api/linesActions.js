@@ -675,12 +675,10 @@ export async function exportSimCardInstances(
   exportAll = false,
   exportChoice
 ) {
-  console.log('export = ' + exportChoice);
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
-  console.log(columns);
   let asyncExportRequestParam = '';
-  let exportType = exportChoice != 'classic' ? `exportType: '${exportChoice}'` : '';
+  let exportType = exportChoice !== 'CLASSIC' ? `exportType: ${exportChoice}` : '';
   if (asyncExportRequest) {
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
