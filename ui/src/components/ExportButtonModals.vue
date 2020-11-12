@@ -46,10 +46,16 @@
           </div>
         </div>
       </div>
-
       <div slot="footer" class="footer">
         <div class="exportAll" v-if="!showLoader">
-          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll">
+          <div class="exportTypes" v-if="exportPanelParams.multiExport">
+            <Toggle
+              :values="exportTypes"
+              @update="exportChoice = $event.id"
+            />
+          </div>
+
+          <Checkbox v-model="exportAll" v-if="exportPanelParams.exportAll && !exportPanelParams.multiExport">
             {{ $t('exportAll') }}
           </Checkbox>
         </div>
@@ -68,14 +74,33 @@ import { mapState, mapMutations } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import sortBy from 'lodash.sortby';
 import Checkbox from '@/components/ui/Checkbox.vue';
+import Toggle from '@/components/ui/UiToggle2';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     Modal,
     Fragment,
     Checkbox,
+    Toggle,
+  },
+
+  mounted() {
+    if (this.havePermission('getParc', 'export_service')) {
+      this.exportTypes.push({
+        id: '4',
+        label: 'exportTable.services',
+      });
+    }
+    if (this.havePermission('getVision', 'read')) {
+      this.exportTypes.push({
+        id: '5',
+        label: 'exportTable.inProgress',
+      });
+    }
   },
   computed: {
+    ...mapGetters(['havePermission']),
     ...mapState({
       isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: state => state.ui.exportPanelParams,
@@ -88,9 +113,25 @@ export default {
       isLoading: false,
       exportFormat: undefined,
       exportAll: false,
+      exportChoice: undefined,
       showLoader: false,
       haveError: false,
       forceAsyncExport: false,
+      exportTypes: [
+        {
+          id: 'classic',
+          label: 'exportTable.classic',
+          default: true,
+        },
+        {
+          id: 'FULL',
+          label: 'exportTable.complete',
+        },
+        {
+          id: 'LAST_USAGE',
+          label: 'exportTable.lastUsage',
+        },
+      ],
     };
   },
   watch: {
@@ -114,7 +155,7 @@ export default {
 
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
-      const downloadResponse = await this.doExport(this.exportFormat, true, this.exportAll);
+      const downloadResponse = await this.doExport(this.exportFormat, true, this.exportAll, this.exportChoice);
       this.closeAndResetExportChoice();
 
       if (!downloadResponse || downloadResponse.errors) {
@@ -124,7 +165,7 @@ export default {
       }
     },
 
-    async doExport(exportFormat, asyncExportRequest, exportAll) {
+    async doExport(exportFormat, asyncExportRequest, exportAll, exportChoice) {
       const { columns, exportFn, orderBy, forceAsyncExport } = this.exportPanelParams;
       this.errors = undefined;
       const columnsParam = sortBy(columns, c => !c.visible)
@@ -138,7 +179,8 @@ export default {
         exportFormat,
         asyncExportRequest,
         exportAll,
-        forceAsyncExport
+        forceAsyncExport,
+        exportChoice
       );
       this.isLoading = false;
       if (downloadResponse.errors) throw downloadResponse.errors;
@@ -157,7 +199,7 @@ export default {
       } else {
         try {
           this.showLoader = true;
-          downloadResponse = await this.doExport(exportFormat, false, this.exportAll);
+          downloadResponse = await this.doExport(exportFormat, false, this.exportAll, this.exportChoice);
           this.showLoader = false;
 
           if (downloadResponse.asyncRequired) {
@@ -173,6 +215,7 @@ export default {
             this.closeAndResetExportChoice();
           }
         } catch (err) {
+          console.log(err)
           this.haveError = true;
         }
       }

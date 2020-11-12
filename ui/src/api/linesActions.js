@@ -665,13 +665,15 @@ export async function exportSimCardInstances(
   exportFormat,
   filters = [],
   asyncExportRequest = false,
-  exportAll = false
+  exportAll = false,
+  exportChoice
 ) {
+  console.log('export = ' + exportChoice);
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   console.log(columns);
   let asyncExportRequestParam = '';
-
+  let exportType = exportChoice != 'classic' ? `exportType: '${exportChoice}'` : '';
   if (asyncExportRequest) {
     asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
   }
@@ -680,7 +682,7 @@ export async function exportSimCardInstances(
     query {
       exportSimCardInstances(filter: {${formatFilters(
         filters
-      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}) {
+      )}}, columns: [${columnsParam}]${orderingInfo}, exportFormat: ${exportFormat}${asyncExportRequestParam}, full: ${exportAll}, ${exportType})  {
         downloadUri
         asyncRequired
       }

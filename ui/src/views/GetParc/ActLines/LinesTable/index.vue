@@ -25,6 +25,7 @@
               :export-fn="getExportFn()"
               :columns="orderedColumns"
               :order-by="orderBy"
+              :multi-export="true"
             >
               <span slot="title">
                 {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
@@ -216,14 +217,15 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll) => {
+      return async (columns, orderBy, exportFormat, asyncExportRequest, exportAll, undefined, exportChoice) => {
         return await exportSimCardInstances(
           columns,
           orderBy,
           exportFormat,
           this.appliedFilters,
           asyncExportRequest,
-          exportAll
+          exportAll,
+          exportChoice
         );
       };
     },

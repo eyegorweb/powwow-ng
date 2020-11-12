@@ -153,7 +153,9 @@ export default {
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
+      enableMultiExport: state => true,
     }),
+
 
     totalSelected() {
       const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;

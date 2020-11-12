@@ -2040,5 +2040,13 @@
     "MultiSelectSearch": {
       "showLess": "Afficher moins"
     }
+  },
+
+  "exportTable": {
+    "classic": "Classique",
+    "complete": "Complet",
+    "lastUsage": "Dernier usage",
+    "inProgress": "Encours",
+    "services": "Services"
   }
 }
