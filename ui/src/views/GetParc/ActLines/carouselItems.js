@@ -377,6 +377,7 @@ export default excludeMocked([
     restrictPartnerType: 'MVNO',
     color: 'orange',
     hideForMVNO: true,
+    permission: { domain: 'act', action: 'transfer_party' },
     filters: [
       {
         id: 'filters.lines.SIMCardStatus',
