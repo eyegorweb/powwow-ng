@@ -77,6 +77,15 @@ export function containsWithHighlight(search, items) {
     }));
 }
 
+export function startsWithHighlight(search, items) {
+  return items
+    .filter(e => e.label.toLowerCase().startsWith(search.toLowerCase()))
+    .map(found => ({
+      highlighted: { label: highlightTxt(found.label, search) },
+      item: found,
+    }));
+}
+
 function highlightTxt(input, search) {
   const startTag = input.toLowerCase().indexOf(search.toLowerCase());
   const leftPart = input.slice(0, startTag);
