@@ -28,7 +28,7 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 
 import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
 
-export const WIDGETS_STORAGE_VERSION = '1';
+export const WIDGETS_STORAGE_VERSION = '2';
 
 const defaultWidgets = [
   {
@@ -269,23 +269,29 @@ const defaultWidgets = [
 export function loadWidgets() {
   const savedVersion = localStorage.getItem('widgets.version');
   const versionIsDifferent = savedVersion !== WIDGETS_STORAGE_VERSION;
+  let haveWidgetWithNoLayout = false;
 
   const savedProfile = localStorage.getItem('_widgets_profile_');
+  let savedWidgets = localStorage.getItem('___homewidgets___');
+  if (savedWidgets) {
+    savedWidgets = JSON.parse(savedWidgets);
+    haveWidgetWithNoLayout = !!savedWidgets.find(w => w.layout);
+  }
+
   const currentProfile = getProfile();
   const profileIsDifferent = savedProfile && savedProfile !== currentProfile;
 
-  const shouldRemoveFromStorage = profileIsDifferent || versionIsDifferent;
+  const shouldRemoveFromStorage =
+    profileIsDifferent || versionIsDifferent || haveWidgetWithNoLayout;
   if (shouldRemoveFromStorage) {
     localStorage.removeItem('___homewidgets___');
     localStorage.removeItem('widgets.version');
   }
 
-  let savedWidgets = localStorage.getItem('___homewidgets___');
-  if (savedWidgets) {
-    const loadedWidgets = JSON.parse(savedWidgets);
+  if (!haveWidgetWithNoLayout && savedWidgets) {
     const ret = excludeMocked(
       defaultWidgets.map(d => {
-        const widget = loadedWidgets.find(f => f.title === d.title);
+        const widget = savedWidgets.find(f => f.title === d.title);
         const conf = {
           ...widget,
           ...d,
