@@ -99,7 +99,7 @@ export default {
     currentOffer() {
       const code = get(this.lineData, 'accessPoint.offer.marketingOffer.code');
       let description = get(this.lineData, 'accessPoint.offer.marketingOffer.description');
-      if (get(this.lineData, 'party.partType') === 'MULTI_CUSTOMER') {
+      if (get(this.lineData, 'party.partyType') === 'MULTI_CUSTOMER') {
         description = get(this.lineData, 'workflow.workflowDescription');
       }
       return {

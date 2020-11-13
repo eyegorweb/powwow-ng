@@ -1,11 +1,12 @@
 <template>
   <div>
     <UiApiAutocomplete
-      :items="selectedTypeSimCardValues"
+      :api-method="fetchApi"
       v-model="selectedTypeSimCard"
       :error="error"
       display-results-while-empty
-      contains-search
+      scroll-for-next
+      search-type="contain"
     >
       <img style="font-size: 24px" class="arrow" src="@/assets/search.svg" :style="{ left: 0 }" />
     </UiApiAutocomplete>
@@ -37,7 +38,7 @@ export default {
     };
   },
 
-  async mounted() {},
+  async mounted() { },
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -58,33 +59,28 @@ export default {
   },
 
   methods: {
-    async fetchResults() {
+    async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
       partnerParam = partnerParam.filter(p => p.id);
 
       if (partnerParam && partnerParam.length) {
         const data = await fetchCardTypes('', partnerParam, {
-          page: 0,
+          page: page,
           limit: 10,
           partnerType: this.contextPartnersType,
         });
         if (data) {
-          this.selectedTypeSimCardValues = data.map(c => {
+          return data.map(c => {
             return {
               id: c.simCard.id,
               label: c.simCard.description,
+              data: c
             };
           });
         }
       } else {
         this.typeSimCardData = undefined;
       }
-    },
-  },
-
-  watch: {
-    async partner() {
-      await this.fetchResults();
     },
   },
 };

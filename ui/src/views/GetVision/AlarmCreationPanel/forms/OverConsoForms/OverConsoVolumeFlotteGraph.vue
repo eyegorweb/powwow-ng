@@ -120,7 +120,10 @@ export default {
                 series = this.series[1];
               if (series.data.length < 3) {
                 series.addPoint([x, y]);
-                $emit('setLimits', series.data.map(s => [s.x, s.y]));
+                $emit(
+                  'setLimits',
+                  series.data.map(s => [s.x, s.y])
+                );
               }
             },
           },

@@ -415,7 +415,7 @@ export default {
 
     canSave() {
       const passwordError = !!this.passwordConfirmationErrors.length;
-      const fieldsToCheck = ['title', 'firstName', 'lastName', 'email', 'username'];
+      const fieldsToCheck = ['title', 'language', 'firstName', 'lastName', 'email', 'username'];
 
       if (this.createMode) {
         fieldsToCheck.push('password', 'passwordConfirm');

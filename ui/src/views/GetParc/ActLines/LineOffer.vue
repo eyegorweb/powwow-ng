@@ -12,7 +12,7 @@ export default {
 
   computed: {
     description() {
-      if (this.$loGet(this.line, 'party.partType') === 'MULTI_CUSTOMER') {
+      if (this.$loGet(this.line, 'party.partyType') === 'MULTI_CUSTOMER') {
         return this.$loGet(this.line, 'workflow.workflowDescription');
       }
       return this.$loGet(this.line, 'accessPoint.offer.marketingOffer.description');
