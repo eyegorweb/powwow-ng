@@ -16,7 +16,11 @@
         </div>
         <div class="overview-item mr-5">
           <h6>{{ $t('getparc.actLines.typeSimCard') }}</h6>
-          <SimCardsTypePart :partner="selectedPartner" @set:simcard="setTypeSimCard" />
+          <SimCardsTypePart
+            :key="`simcards_${selectedPartner ? selectedPartner.label : ''}`"
+            :partner="selectedPartner"
+            @set:simcard="setTypeSimCard"
+          />
         </div>
         <div class="overview-item mr-5">
           <h6>{{ $t('getparc.actLines.fileImport.titleSimCard') }} :</h6>
