@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.14.1
+2020-11-13
+
+### Fixes
+
+- organisation des widgets sur la home (f46dec3c3948c5742dd40ded3ffedec76550c05c)
+- correction de la colonne Offre (007d9fe12ac4f867f5af85a550f8a80f9a0c840d)
+- Correction de la pagination des types de carte sim (d8a3314043138610b888decaba9bac97763729a5)
+
 ## 1.14.0
 2020-11-12
 
