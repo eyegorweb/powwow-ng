@@ -247,7 +247,7 @@ export default {
 
       const heightStyle = getComputedStyle(this.$refs.results).height;
       const height = parseInt(heightStyle.replace('px', ''));
-      const needMore = this.$refs.results.scrollTop + height >= this.$refs.results.scrollHeight;
+      const needMore = this.$refs.results.scrollTop + height + 3 >= this.$refs.results.scrollHeight;
       if (needMore && this.canFetchNextPage) {
         if (this.apiMethod) {
           this.page += 1;
@@ -312,7 +312,7 @@ export default {
   font-size: 0.875rem;
   overflow: auto;
   z-index: $zindex-dropdown;
-  max-height: 300px;
+  max-height: 15rem;
 }
 
 .autocomplete-result {
