@@ -1,5 +1,5 @@
 <template>
-  <PartnerCombo :value.sync="selectedPartner" />
+  <PartnerCombo :value.sync="selectedPartner" offline />
 </template>
 
 <script>
