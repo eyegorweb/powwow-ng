@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.338+20201113163723
+2020-11-13
+
+### Fixes
+
+- Correction de la pagination des types de carte sim (d8a3314043138610b888decaba9bac97763729a5)
+
 ## 1.0.0-master.337+20201113153948
 2020-11-13
 
