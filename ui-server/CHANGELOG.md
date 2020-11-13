@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.335+20201113143432
+2020-11-13
+
+### Fixes
+
+- organisation des widgets sur la home (f46dec3c3948c5742dd40ded3ffedec76550c05c)
+
 ## 1.0.0-master.334+20201113102107
 2020-11-13
 
