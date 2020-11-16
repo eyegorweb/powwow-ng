@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.340+20201116141757
+2020-11-16
+
+### Fixes
+
+- 2017 amélioration et correction de code (74c4a8c172d77f36b7232c5c41a88e70942cd8e4)
+
 ## 1.0.0-master.339+20201113165115
 2020-11-16
 
