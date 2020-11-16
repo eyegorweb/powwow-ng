@@ -64,11 +64,15 @@
           <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
             <FormReport v-if="validationErrors" :data="validationErrors" />
             <button
-              v-if="tempDataUuid"
+              :disabled="!validationErrors.validated"
               @click="doubleConfirm"
               class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+              :class="{
+                'btn-success': validationErrors.validated,
+                'btn-light': !validationErrors.validated,
+              }"
             >
-              <i class="ic-Check-Icon" />
+              <i v-if="validationErrors.validated" class="ic-Check-Icon" />
               {{ $t('confirm') }}
             </button>
           </div>
@@ -111,7 +115,6 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
-      validationErrors: undefined,
       tempDataUuid: undefined,
     };
   },
@@ -148,8 +151,6 @@ export default {
 
     async validate() {
       const actionFn = async () => {
-        this.tempDataUuid = undefined;
-
         const response = await this.validateFn({
           actDate: this.actDate,
           notificationCheck: this.notificationCheck,
@@ -157,7 +158,7 @@ export default {
 
         if (response) {
           if (response.errors && response.errors.length) {
-            this.validationErrors = { errors: response.errors };
+            this.validationErrors = { errors: response.errors, validated: response.validated };
             this.tempDataUuid = response.tempDataUuid;
           } else {
             this.onSuccess();
@@ -183,7 +184,7 @@ export default {
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
-        tempDataUuid: this.tempDataUuid,
+        tempDataUuid: this.tempDataUuid.tempDataUuid,
       });
       if (response) {
         this.onSuccess();
