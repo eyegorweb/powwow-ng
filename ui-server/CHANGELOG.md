@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.342+20201116163605
+2020-11-16
+
+### Fixes
+
+- 2075 affichage du nombre de lignes validées ou erronées lors de la création d'actes de gestion (9c1f319a76df31884b2a1efc3bf6b5c068f9f25b)
+
 ## 1.0.0-master.341+20201116143202
 2020-11-16
 
