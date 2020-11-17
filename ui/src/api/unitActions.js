@@ -47,7 +47,7 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
           created
           statusDate
           errorCode
-          status
+          statusCode: status
         }
         type
         msisdn
@@ -66,6 +66,7 @@ export async function fetchUnitActions2(filters = [], pagination, orderBy) {
   }
     `;
   const response = await query(queryStr);
+
   return response.data.unitActionsV2;
 }
 

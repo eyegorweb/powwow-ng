@@ -158,9 +158,8 @@ export default {
     },
     massActionsTitleInfos() {
       return this.massAction
-        ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${
-            this.massAction.massAction.id
-          } - ${this.massAction.type}`
+        ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${this.massAction.massAction.id
+        } - ${this.massAction.type}`
         : '';
     },
   },
