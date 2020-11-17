@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.345+20201117155027
+2020-11-17
+
+### Fixes
+
+- 2075 ajout de l'export dans le compte rendu des créations d'acte de gestion (99474d647ead21f5c439256d88470c249a44d35d)
+
 ## 1.0.0-master.344+20201117140423
 2020-11-17
 
