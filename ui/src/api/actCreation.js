@@ -59,6 +59,7 @@ export async function updateCustomFields(filters, lines, params) {
           errors{
             key
             number
+            message
           }
         }
     }
@@ -111,6 +112,7 @@ export async function changeSingleCustomFields(params) {
           errors{
             key
             number
+            message
           }
         }
     }
@@ -163,6 +165,7 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
           errors{
             key
             number
+            message
           }
         }
     }
@@ -198,6 +201,7 @@ export async function changeCustomerAccount(filters, lines, params) {
           errors{
             key
             number
+            message
           }
         }
     }
@@ -240,6 +244,7 @@ export async function transferSIMCards(filters, lines, params) {
             errors{
               key
               number
+              message
             }
           }
       }
@@ -278,6 +283,7 @@ export async function manageCancellation(filters, lines, params) {
         errors{
           key
           number
+          message
         }
       }
     }
@@ -314,6 +320,7 @@ export async function endPhaseTest(filters, lines, params) {
         errors{
           key
           number
+          message
         }
        }
       }
@@ -362,6 +369,7 @@ export async function sendSMS(filters, lines, params) {
           errors{
             key
             number
+            message
           }
          }
     }
@@ -398,6 +406,7 @@ export async function terminateLines(filters, lines, params) {
           errors{
             key
             number
+            message
           }
          }
     }
@@ -467,7 +476,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
@@ -498,6 +509,7 @@ export async function changeService(filters, lines, params) {
           errors{
             key
             number
+            message
           }
          }
     }
@@ -561,6 +573,7 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
           errors{
             key
             number
+            message
           }
          }
     }
@@ -598,6 +611,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
           errors{
             key
             number
+            message
           }
          }
     }
@@ -657,6 +671,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
           errors{
             key
             number
+            message
           }
          }
     }
@@ -685,6 +700,7 @@ export async function changeMSISDN(params) {
       errors{
         key
         number
+        message
       }
     }
    }
