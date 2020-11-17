@@ -8,7 +8,7 @@
       <div v-else>
         <div class="row mb-3">
           <div class="col">
-            <h2 class="text-gray font-weight-light" style="font-size: 2rem;">
+            <h2 class="text-gray font-weight-light" style="font-size: 2rem">
               {{ $t('getparc.actDetail.title', { total: total }) }}
             </h2>
           </div>
@@ -144,8 +144,10 @@ export default {
           this.orderBy,
           searchFilter
         );
+
         this.rows = response.items.map(i => ({ ...i, ...i.unitAction }));
       } catch (e) {
+        console.log("fetchUnitActs -> e", e)
         this.flashMessage({
           level: 'danger',
           message: "Erreur lors de l'éxécution de la requette ",
