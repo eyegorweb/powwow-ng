@@ -41,7 +41,14 @@ export default {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsBO', 'appIsReady', 'userInfos', 'singlePartner', 'userIsPartner', 'userIsMultiPartner']),
+    ...mapGetters([
+      'userIsBO',
+      'appIsReady',
+      'userInfos',
+      'singlePartner',
+      'userIsPartner',
+      'userIsMultiPartner',
+    ]),
   },
   watch: {
     $route() {

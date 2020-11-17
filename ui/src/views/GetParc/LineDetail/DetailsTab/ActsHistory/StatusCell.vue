@@ -26,13 +26,17 @@ export default {
     item: {
       type: String,
     },
-    row: Object
+    row: Object,
   },
 
   computed: {
     ...mapGetters('getsim', ['isLoading']),
     isError() {
-      return this.row.statusCode === 'NOT_VALIDATED' || this.row.statusCode === 'CANCELED' || this.row.statusCode === 'KO';
+      return (
+        this.row.statusCode === 'NOT_VALIDATED' ||
+        this.row.statusCode === 'CANCELED' ||
+        this.row.statusCode === 'KO'
+      );
     },
   },
 };

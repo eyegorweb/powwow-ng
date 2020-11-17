@@ -3,7 +3,7 @@ import { Store } from 'vuex-mock-store';
 import Authentication from './Authentication.vue';
 import * as utils from '@/utils';
 
-process.env.VUE_APP_AUTH_SERVER_URL = 'http://localhost:4000';
+process.env.VUE_APP_GATEWAY_URL = 'http://localhost:4000';
 process.env.VUE_APP_CLIENT_ID = 'nextgenui-implicit';
 
 const store = new Store({

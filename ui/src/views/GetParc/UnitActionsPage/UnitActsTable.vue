@@ -147,7 +147,7 @@ export default {
 
         this.rows = response.items.map(i => ({ ...i, ...i.unitAction }));
       } catch (e) {
-        console.log("fetchUnitActs -> e", e)
+        console.log('fetchUnitActs -> e', e);
         this.flashMessage({
           level: 'danger',
           message: "Erreur lors de l'éxécution de la requette ",
