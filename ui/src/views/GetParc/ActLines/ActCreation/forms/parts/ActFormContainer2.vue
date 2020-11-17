@@ -62,7 +62,11 @@
           </div>
           <slot name="messages"></slot>
           <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
-            <FormReport v-if="validationErrors" :data="validationErrors" />
+            <FormReport
+              v-if="validationErrors"
+              :data="validationErrors"
+              :get-export-fn="getExportFn()"
+            />
             <button
               :disabled="!validationErrors.validated"
               @click="doubleConfirm"
@@ -88,6 +92,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapMutations } from 'vuex';
 import moment from 'moment';
 import FormReport from './FormReport';
+import { exportLinesFromFileFilter } from '@/api/linesActions';
 
 export default {
   components: {
@@ -115,6 +120,7 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
+      validationErrors: undefined,
       tempDataUuid: undefined,
     };
   },
@@ -151,6 +157,7 @@ export default {
 
     async validate() {
       const actionFn = async () => {
+        this.tempDataUuid = undefined;
         const response = await this.validateFn({
           actDate: this.actDate,
           notificationCheck: this.notificationCheck,
@@ -180,11 +187,22 @@ export default {
       }
     },
 
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportLinesFromFileFilter(
+          ['DATA', 'STATUS'],
+          '',
+          exportFormat,
+          this.tempDataUuid
+        );
+      };
+    },
+
     async doubleConfirm() {
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
-        tempDataUuid: this.tempDataUuid.tempDataUuid,
+        tempDataUuid: this.tempDataUuid,
       });
       if (response) {
         this.onSuccess();
@@ -217,13 +235,8 @@ export default {
       }
       return false;
     },
-    clearForm() {
-      /*
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
-      //*/
 
+    clearForm() {
       this.resetState();
     },
   },
