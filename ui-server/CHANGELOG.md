@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.346+20201117212220
+2020-11-17
+
+### Fixes
+
+- Correction du bug d'upload (9dcb00947cb7001f2621b0afd0313874ecb0a09e)
+
 ## 1.0.0-master.345+20201117155027
 2020-11-17
 
