@@ -106,6 +106,7 @@ import UiTab from '@/components/ui/Tab';
 import ActHistoryButton from './ActHistoryButton';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
+import { getBaseURL } from '@/utils.js';
 
 export default {
   name: 'NavBar',
@@ -314,7 +315,7 @@ export default {
     ]),
 
     logoutUrl() {
-      return process.env.VUE_APP_AUTH_SERVER_URL + '/oauth/logout';
+      return getBaseURL() + '/oauth/logout';
     },
   },
   watch: {
