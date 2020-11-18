@@ -187,6 +187,7 @@ export default {
     },
 
     async loadLineData() {
+      let carouselItems;
       const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         {
           id: 'filters.id',
@@ -196,7 +197,7 @@ export default {
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
       if (this.lineData.party.partyType !== 'MVNO') {
-        this.carouselItems = excludeMocked([
+        carouselItems = excludeMocked([
           {
             icon: 'ic-Sim-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
@@ -229,7 +230,7 @@ export default {
           },
         ]);
       } else {
-        this.carouselItems = excludeMocked([
+        carouselItems = excludeMocked([
           {
             icon: 'ic-Sim-Icon',
             title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
@@ -238,7 +239,7 @@ export default {
           },
         ]);
       }
-      this.carouselItems = this.carouselItems.filter(i => {
+      this.carouselItems = carouselItems.filter(i => {
         if (i.permission) {
           return this.havePermission(i.permission.domain, i.permission.action);
         }
