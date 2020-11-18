@@ -133,6 +133,9 @@ export default {
       prevRoute: undefined,
       transferSim: false,
       file: undefined,
+      optionsPartner: {
+        offerChange: undefined,
+      },
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
@@ -181,7 +184,7 @@ export default {
           })
           .filter(i => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled();
+              return this.optionsPartner.offerChange;
             }
             return true;
           });
@@ -195,7 +198,7 @@ export default {
           })
           .filter(i => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled();
+              return this.optionsPartner.offerChange;
             }
             return true;
           });
@@ -253,6 +256,7 @@ export default {
   mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
+    this.optionsPartner.offerChange = this.enableOfferChange();
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
@@ -277,14 +281,14 @@ export default {
     ]),
     ...mapMutations(['openPanel']),
 
-    async offerChangeEnabled() {
+    async enableOfferChange() {
       let offerChangeEnabled, response;
       if (this.userIsPartner) {
         response = await getPartyOptions(this.userInfos.partners[0].id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : false;
+        offerChangeEnabled = response ? response.offerChangeEnabled : true;
       } else if (this.userInfos.type === 'PARTNER_GROUP') {
         response = await getPartyOptions(this.userInfos.partyGroup.id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : false;
+        offerChangeEnabled = response ? response.offerChangeEnabled : true;
       } else {
         offerChangeEnabled = false;
         response = undefined;
