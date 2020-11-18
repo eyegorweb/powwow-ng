@@ -94,24 +94,21 @@ export default {
         {
           label: 'detail',
           title: this.$t('getparc.lineDetail.title', { lineId: '' }),
-          total: 0,
         },
         {
           label: 'ongoing',
           title: this.$t('getparc.lineDetail.consuming'),
-          total: 0,
         },
         {
           label: 'diagnosis',
-          title: this.$t('getparc.lineDetail.analysingTool'),
-          total: 0,
+          title: this.$t('getparc.lineDetail.analysingTool'), // ne pas afficher l'onglet si on n'a pas les permissions
         },
       ],
       carouselItems: [],
     };
   },
   computed: {
-    ...mapGetters(['havePermission']),
+    ...mapGetters(['userInfos', 'havePermission']),
 
     canRunCoach() {
       if (this.partnerOptions) {
@@ -139,6 +136,13 @@ export default {
     canShowCarousel() {
       return this.carouselItems.length > 0;
     },
+
+    offerChangeEnabled() {
+      if (this.userInfos.type === 'OPERATOR') {
+        return true;
+      }
+      return this.partnerOptions.offerChangeEnabled;
+    },
   },
   methods: {
     ...mapMutations(['openPanel']),
@@ -149,6 +153,13 @@ export default {
         if (partnerId) {
           this.partnerOptions = await getPartyOptions(partnerId);
         }
+        // condition spécifique pour afficher le changement d'offre
+        this.carouselItems = this.carouselItems.filter(i => {
+          if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
+            return this.offerChangeEnabled;
+          }
+          return true;
+        });
       }
     },
 

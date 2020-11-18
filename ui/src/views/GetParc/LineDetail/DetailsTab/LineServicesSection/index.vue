@@ -44,7 +44,7 @@
                   </LoaderContainer>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" v-if="havePermission('act', 'manage_main')">
                 <div class="col">
                   <button
                     v-if="!savingChanges"
@@ -276,7 +276,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsMVNO']),
+    ...mapGetters(['userIsMVNO', 'havePermission']),
 
     canCancel() {
       return (
