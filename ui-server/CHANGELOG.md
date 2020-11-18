@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.350+20201118150956
+## 1.0.0-master.350+20201118151257
 2020-11-18
 
 ### Fixes
 
 - Gestion des octets dans les alarmes (fb44eb8f2432414419a6d88b7cf88dadc4c9247e)
+- matomo base url (faf99b53523ee003b1eb7d681a456360ae54f777)
 
 ## 1.0.0-master.349+20201118133426
 2020-11-18
