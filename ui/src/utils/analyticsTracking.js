@@ -6,25 +6,22 @@ export default {
       isReady = true;
     };
 
-    Vue.prototype.$pushAnalyticsInternal = function(object, bypassReady) {
-      console.log(object);
+    const $pushAnalyticsInternal = (object, bypassReady) => {
       if (bypassReady || isReady) {
         const _mtm = (window._mtm = window._mtm || []);
 
         if (!window._ANALYTICS_DISABLED) {
           _mtm.push(object);
         }
-      } else {
-        console.log('pushAnalystics is disabled');
       }
     };
 
     Vue.prototype.$pushAnalytics = function(object) {
-      this.$pushAnalyticsInternal(object, true);
+      $pushAnalyticsInternal(object, true);
     };
 
     Vue.prototype.$pushAnalyticsIfReady = function(object) {
-      this.$pushAnalyticsInternal(object, false);
+      $pushAnalyticsInternal(object, false);
     };
   },
 };
