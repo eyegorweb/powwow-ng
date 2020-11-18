@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.351+20201118161755
+2020-11-18
+
+### Fixes
+
+- 2099 mise à jour du message renvoyé lors d'import de fichier (c69596d8932db615206c6be4d934847462524e96)
+- 2077 gestion de l'acte de changement d'offre pour la recherche de lignes (3baacc65a835fad652cbc3e59c77986f2c4f02a3)
+
 ## 1.0.0-master.350+20201118151257
 2020-11-18
 
