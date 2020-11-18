@@ -35,14 +35,26 @@
                   transform: translate3d(0px, 2.5rem, 0px);
                 "
               >
-                <router-link
-                  :key="item.label"
-                  v-for="item in filterByPermission(tab.submenu)"
-                  class="dropdown-item"
-                  :class="'menu_' + item.to.name"
-                  :to="item.to"
-                  >{{ $t(item.label) }}</router-link
-                >
+                <template v-for="item in filterByPermission(tab.submenu)">
+                  <template v-if="tab.onClick">
+                    <a
+                      :to="tab.to"
+                      @click.prevent="() => tab.onClick(item.to.name)"
+                      class="dropdown-item"
+                      :class="'menu_' + item.to.name"
+                    >
+                      {{ $t(item.label) }}
+                    </a>
+                  </template>
+                  <router-link
+                    v-else
+                    :key="item.label"
+                    class="dropdown-item"
+                    :class="'menu_' + item.to.name"
+                    :to="item.to"
+                    >{{ $t(item.label) }}</router-link
+                  >
+                </template>
               </div>
             </div>
           </UiTab>
@@ -107,6 +119,7 @@ import ActHistoryButton from './ActHistoryButton';
 
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 import { getBaseURL } from '@/utils.js';
+import { getAccessToGetSupport } from '@/api/getSupport';
 
 export default {
   name: 'NavBar',
@@ -154,6 +167,9 @@ export default {
         },
       ];
     }
+
+    let getSupportWindow = undefined;
+    let waitingForGetSupportLink = false;
 
     this.navbarLinks = excludeMocked([
       {
@@ -226,8 +242,42 @@ export default {
       {
         label: 'mainMenu.getSupport',
         to: { name: 'exemples' },
-        permission: { domain: 'getSim', action: 'read' },
-        mock: true,
+        permission: { domain: 'getSupport', action: 'access' },
+        onClick: async (targetName) => {
+          if (waitingForGetSupportLink) return false;
+
+          waitingForGetSupportLink = true;
+          try {
+            const targetUrl = await getAccessToGetSupport(targetName);
+            if (!getSupportWindow || getSupportWindow.closed) {
+              getSupportWindow = window.open(targetUrl, '_blank');
+            } else {
+              getSupportWindow.location.replace(targetUrl);
+            }
+            waitingForGetSupportLink = false;
+          } catch {
+            waitingForGetSupportLink = false;
+          }
+
+          return false;
+        },
+        submenu: [
+          {
+            label: 'menu.getSupport.homepage',
+            to: { name: 'HOMEPAGE' },
+            permission: { domain: 'getSupport', action: 'access' },
+          },
+          {
+            label: 'menu.getSupport.all_incidents',
+            to: { name: 'ALL_INCIDENTS' },
+            permission: { domain: 'getSupport', action: 'access' },
+          },
+          {
+            label: 'menu.getSupport.search_incidents',
+            to: { name: 'SEARCH_INCIDENTS' },
+            permission: { domain: 'getSupport', action: 'access' },
+          },
+        ]
       },
       {
         label: 'mainMenu.getDevice',

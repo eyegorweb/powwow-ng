@@ -222,7 +222,13 @@
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
     "reportsBill": "Factures",
-    "monitoring": "Supervision"
+    "monitoring": "Supervision",
+
+    "getSupport": {
+      "homepage": "Accueil / Déclaration d''un incident",
+      "all_incidents": "Incidents en cours",
+      "search_incidents": "Recherche incidents"
+    }
   },
   "users": {
     "function": "Fonction [facultatif]",

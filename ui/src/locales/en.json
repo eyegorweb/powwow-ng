@@ -186,7 +186,12 @@
     "createReports": "documents management",
     "reportsDashboard": "Dashborad",
     "reportsBill": "Invoices",
-    "monitoring": "Monitoring"
+    "monitoring": "Monitoring",
+    "getSupport": {
+      "homepage": "Homepage",
+      "all_incidents": "open incidents",
+      "search_incidents": "search an incident"
+    }
   },
   "users": {
     "function": "Function [optionnal]",
