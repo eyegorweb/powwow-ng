@@ -151,16 +151,19 @@ async function consoQuery(queryName, params) {
   const gqlParams = getFormGQLParams(params);
 
   const alarmLevels = [];
+  function moToOctet(value) {
+    return value * 1024 * 1024;
+  }
 
   if (params.formData) {
     if (params.formData.dataES) {
-      alarmLevels.push(`level1: ${params.formData.dataES}`);
+      alarmLevels.push(`level1: ${moToOctet(params.formData.dataES)}`);
     }
     if (params.formData.dataOut) {
-      alarmLevels.push(`level1Up: ${params.formData.dataOut}`);
+      alarmLevels.push(`level1Up: ${moToOctet(params.formData.dataOut)}`);
     }
     if (params.formData.dataIn) {
-      alarmLevels.push(`level1Down: ${params.formData.dataIn}`);
+      alarmLevels.push(`level1Down: ${moToOctet(params.formData.dataIn)}`);
     }
     if (params.formData.smsES) {
       alarmLevels.push(`level2: ${params.formData.smsES}`);
