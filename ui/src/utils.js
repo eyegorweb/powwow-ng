@@ -37,8 +37,8 @@ export function capitalize(s) {
 export function getBaseURL() {
   const sameUrl =
     location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-  return process.env.VUE_APP_AUTH_SERVER_URL && process.env.VUE_APP_AUTH_SERVER_URL.length
-    ? process.env.VUE_APP_AUTH_SERVER_URL
+  return process.env.VUE_APP_GATEWAY_URL && process.env.VUE_APP_GATEWAY_URL.length
+    ? process.env.VUE_APP_GATEWAY_URL
     : sameUrl;
 }
 

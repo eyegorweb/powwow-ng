@@ -8,6 +8,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { redirectTo } from '@/utils';
 import { log } from '@/utils';
+import { getBaseURL } from '@/utils.js';
 
 export default {
   name: 'Authentication',
@@ -70,16 +71,10 @@ export default {
   computed: {
     ...mapGetters(['refreshingToken', 'token']),
     authUrl() {
-      const sameUrl =
-        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-      return process.env.VUE_APP_AUTH_SERVER_URL && process.env.VUE_APP_AUTH_SERVER_URL.length
-        ? process.env.VUE_APP_AUTH_SERVER_URL
-        : sameUrl;
+      return getBaseURL();
     },
     refreshUrl() {
-      const url = `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
-
-      return url;
+      return `${this.authUrl}/oauth/authorize?response_type=token&client_id=${process.env.VUE_APP_CLIENT_ID}&redirect_uri=${window.location.origin}${process.env.VUE_APP_BASE_URL}/callback`;
     },
   },
 };

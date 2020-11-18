@@ -5,6 +5,7 @@ import get from 'lodash.get';
 import store from '@/store';
 
 import { isOnDebugMode } from '@/featureFlipping/plugin';
+import { getBaseURL } from '@/utils.js';
 
 export const api = axios.create();
 
@@ -116,12 +117,14 @@ export async function postFile(url, formData) {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const baseUrl = process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : '';
-
-    const response = await api.post(baseUrl + url, formData, config);
+    const response = await api.post(getBaseURL() + url, formData, config);
     return response.data;
   } catch (e) {
-    return { error: e.message };
+    const message =
+      e.response && e.response.data && e.response.data.message
+        ? e.response.data.message
+        : e.message;
+    return { error: message };
   }
 }
 

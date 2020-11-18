@@ -173,7 +173,7 @@ export default {
         if (response.error) {
           this.requestErrors = [
             {
-              message: this.$t('getparc.actCreation.report.' + response.error),
+              message: response.error,
             },
           ];
         }

@@ -90,14 +90,12 @@ export default {
       this.exportTypes.push({
         id: 'LAST_USAGE',
         label: 'exportTable.lastUsage',
-        permission: true,
       });
     }
     if (this.havePermission('getParc', 'export_service')) {
       this.exportTypes.push({
         id: 'SERVICES',
         label: 'exportTable.services',
-        permission: true,
       });
     }
   },
@@ -125,15 +123,12 @@ export default {
           id: 'CLASSIC',
           label: 'exportTable.classic',
           default: true,
-          permission: true,
         },
         {
           id: 'FULL',
           label: 'exportTable.complete',
-          permission: true,
         },
       ],
-      canShowInProgressExportChoice: false,
     };
   },
   watch: {
@@ -148,69 +143,43 @@ export default {
     },
     appliedFilters(newFilters) {
       const found = newFilters.find(a => a.id === 'filters.partners');
-      if (found) {
-        if (found.values.length === 1) {
-          this.exportTypes = [
-            {
-              id: 'CLASSIC',
-              label: 'exportTable.classic',
-              default: true,
-              permission: true,
-            },
-            {
-              id: 'FULL',
-              label: 'exportTable.complete',
-              permission: true,
-            },
-          ];
-          if (this.havePermission('getVision', 'read')) {
-            this.exportTypes.push({
-              id: 'LAST_USAGE',
-              label: 'exportTable.lastUsage',
-              permission: true,
-            });
-          }
-          if (this.havePermission('getParc', 'export_service')) {
-            this.exportTypes.push({
-              id: 'SERVICES',
-              label: 'exportTable.services',
-              permission: true,
-            });
-          }
-          this.exportTypes.push({
+      this.exportTypes = [
+        {
+          id: 'CLASSIC',
+          label: 'exportTable.classic',
+          default: true,
+        },
+        {
+          id: 'FULL',
+          label: 'exportTable.complete',
+        },
+      ];
+      if (this.havePermission('getVision', 'read')) {
+        this.exportTypes = [
+          ...this.exportTypes,
+          {
+            id: 'LAST_USAGE',
+            label: 'exportTable.lastUsage',
+          },
+        ];
+      }
+      if (this.havePermission('getParc', 'export_service')) {
+        this.exportTypes = [
+          ...this.exportTypes,
+          {
+            id: 'SERVICES',
+            label: 'exportTable.services',
+          },
+        ];
+      }
+      if (found && found.values.length === 1) {
+        this.exportTypes = [
+          ...this.exportTypes,
+          {
             id: 'CONSUMPTION',
             label: 'exportTable.inProgress',
-            permission: true,
-          });
-        } else {
-          this.exportTypes = [
-            {
-              id: 'CLASSIC',
-              label: 'exportTable.classic',
-              default: true,
-              permission: true,
-            },
-            {
-              id: 'FULL',
-              label: 'exportTable.complete',
-              permission: true,
-            },
-          ];
-          if (this.havePermission('getVision', 'read')) {
-            this.exportTypes.push({
-              id: 'LAST_USAGE',
-              label: 'exportTable.lastUsage',
-              permission: true,
-            });
-          }
-          if (this.havePermission('getParc', 'export_service')) {
-            this.exportTypes.push({
-              id: 'SERVICES',
-              label: 'exportTable.services',
-              permission: true,
-            });
-          }
-        }
+          },
+        ];
       }
       return this.exportTypes;
     },

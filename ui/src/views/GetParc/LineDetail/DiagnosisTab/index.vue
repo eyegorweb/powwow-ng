@@ -1,5 +1,6 @@
 <template>
-  <div class="row">
+  <div v-if="!visibleMenuItems.length">{{ $t('noResult') }}</div>
+  <div class="row" v-else>
     <div class="col-md-3">
       <ul class="list-group">
         <li
@@ -65,32 +66,31 @@ export default {
         section: 'last_tests',
         title: 'getparc.lineDetail.tab2.lastTests',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        permission: { domain: 'getVision', action: 'read' },
+        permission: { domain: 'getParc', action: 'manage_coach' },
       },
       {
         section: 'line_analysis',
         title: 'getparc.lineDetail.tab2.lineAnalysis',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        permission: { domain: 'getVision', action: 'read' },
       },
       {
         section: 'network_location_test',
         title: 'getparc.lineDetail.tab2.networkLocationTest',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        permission: { domain: 'getVision', action: 'read' },
       },
       {
         section: 'network_test_control',
         title: 'getparc.lineDetail.tab2.networkTestControl',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        permission: { domain: 'getVision', action: 'read' },
       },
       {
         section: 'supervision',
         title: 'getparc.lineDetail.tab2.supervision',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-      },
-      {
-        section: 'network_history',
-        title: 'getparc.lineDetail.tab2.networkHistory',
-        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        permission: { domain: 'getVision', action: 'read' },
       },
     ]);
     this.initializeSection();
@@ -113,10 +113,27 @@ export default {
     },
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
+      const specificCustomerID = get(this.content, 'party.id');
       if (!this.menuItems) return [];
       let visibleItems = this.menuItems.filter(m =>
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );
+      const specificPermissionNetworkHistory = {
+        section: 'network_history',
+        title: 'getparc.lineDetail.tab2.networkHistory',
+      };
+
+      // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
+      if (typeForPartner === 'MVNO') {
+        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
+      } else if (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) {
+        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
+      } else if (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) {
+        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
+      } else if (specificCustomerID === 246) {
+        // partenaire IMT, détectable uniquement en environnement de production
+        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
+      }
       return visibleItems;
     },
   },
@@ -132,7 +149,13 @@ export default {
       if (typeForPartner === 'MVNO') {
         this.section = 'network_history';
       } else {
-        this.section = 'line_analysis';
+        if (this.havePermission('getVision', 'read')) {
+          this.section = 'line_analysis';
+        } else if (this.havePermission('getParc', 'manage_coach')) {
+          this.section = 'last_tests';
+        } else {
+          this.section = 'network_history';
+        }
       }
     },
   },

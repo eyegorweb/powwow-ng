@@ -41,16 +41,51 @@ export default {
     ...mapMutations(['closePanel']),
   },
   computed: {
-    ...mapGetters(['userIsBO', 'appIsReady']),
+    ...mapGetters([
+      'userIsBO',
+      'appIsReady',
+      'userInfos',
+      'singlePartner',
+      'userIsPartner',
+      'userIsMultiPartner',
+    ]),
   },
   watch: {
     $route() {
       this.closePanel();
     },
+    singlePartner(value) {
+      this.$pushAnalytics({ partner: value != null ? value.name : '' });
+    },
+    userInfos(value) {
+      this.$pushAnalytics({
+        userProfile:
+          value != null
+            ? value.isAdminOrBackOffice
+              ? this.userIsBO
+                ? 'BO'
+                : 'Admin'
+              : this.userIsPartner || this.userIsMultiPartner
+              ? 'Partner'
+              : 'Unknown'
+            : 'Unknown',
+      });
+    },
     appIsReady(value) {
       if (value) {
         // Jquery est utilisé ici car le loader ne fait pas partie de l'application Vue
         $('#app-loader').fadeOut(400);
+
+        this.$startAnalytics();
+
+        setTimeout(() => {
+          if (this.$route.name != 'callback') {
+            this.$pushAnalyticsIfReady({
+              event: 'm2m.PageView',
+              to: { name: this.$route.name, path: this.$route.path },
+            });
+          }
+        }, 100);
       }
     },
   },

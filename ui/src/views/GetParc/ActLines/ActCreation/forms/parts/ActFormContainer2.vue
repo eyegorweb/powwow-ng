@@ -62,13 +62,21 @@
           </div>
           <slot name="messages"></slot>
           <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
-            <FormReport v-if="validationErrors" :data="validationErrors" />
+            <FormReport
+              v-if="validationErrors"
+              :data="validationErrors"
+              :get-export-fn="getExportFn()"
+            />
             <button
-              v-if="tempDataUuid"
+              :disabled="!validationErrors.validated"
               @click="doubleConfirm"
               class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+              :class="{
+                'btn-success': validationErrors.validated,
+                'btn-light': !validationErrors.validated,
+              }"
             >
-              <i class="ic-Check-Icon" />
+              <i v-if="validationErrors.validated" class="ic-Check-Icon" />
               {{ $t('confirm') }}
             </button>
           </div>
@@ -84,6 +92,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import { mapState, mapMutations } from 'vuex';
 import moment from 'moment';
 import FormReport from './FormReport';
+import { exportLinesFromFileFilter } from '@/api/linesActions';
 
 export default {
   components: {
@@ -149,7 +158,6 @@ export default {
     async validate() {
       const actionFn = async () => {
         this.tempDataUuid = undefined;
-
         const response = await this.validateFn({
           actDate: this.actDate,
           notificationCheck: this.notificationCheck,
@@ -157,7 +165,7 @@ export default {
 
         if (response) {
           if (response.errors && response.errors.length) {
-            this.validationErrors = { errors: response.errors };
+            this.validationErrors = { errors: response.errors, validated: response.validated };
             this.tempDataUuid = response.tempDataUuid;
           } else {
             this.onSuccess();
@@ -177,6 +185,17 @@ export default {
           actionFn,
         });
       }
+    },
+
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportLinesFromFileFilter(
+          ['DATA', 'STATUS'],
+          '',
+          exportFormat,
+          this.tempDataUuid
+        );
+      };
     },
 
     async doubleConfirm() {
@@ -216,13 +235,8 @@ export default {
       }
       return false;
     },
-    clearForm() {
-      /*
-      this.setActToCreate(null);
-      this.setActCreationPrerequisites(null);
-      this.setSelectedLinesForActCreation([]);
-      //*/
 
+    clearForm() {
       this.resetState();
     },
   },

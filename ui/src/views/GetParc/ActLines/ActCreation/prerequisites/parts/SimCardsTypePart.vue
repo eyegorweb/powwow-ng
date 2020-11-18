@@ -38,7 +38,7 @@ export default {
     };
   },
 
-  async mounted() { },
+  async mounted() {},
 
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
@@ -65,7 +65,7 @@ export default {
 
       if (partnerParam && partnerParam.length) {
         const data = await fetchCardTypes('', partnerParam, {
-          page: page,
+          page,
           limit: 10,
           partnerType: this.contextPartnersType,
         });
@@ -74,7 +74,7 @@ export default {
             return {
               id: c.simCard.id,
               label: c.simCard.description,
-              data: c
+              data: c,
             };
           });
         }

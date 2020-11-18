@@ -222,7 +222,13 @@
     "createReports": "Gestion documentaires",
     "reportsDashboard": "Tableau de bord",
     "reportsBill": "Factures",
-    "monitoring": "Supervision"
+    "monitoring": "Supervision",
+
+    "getSupport": {
+      "homepage": "Accueil / Déclaration d''un incident",
+      "all_incidents": "Incidents en cours",
+      "search_incidents": "Recherche incidents"
+    }
   },
   "users": {
     "function": "Fonction [facultatif]",
@@ -1546,7 +1552,7 @@
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
-        "DATA_WRONG_STATUS": "Statut invalide",
+        "DATA_WRONG_STATUS": "{count} lignes n'ont pas le statut attendu",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
         "EMPTY_FILE": "Fichier vide",

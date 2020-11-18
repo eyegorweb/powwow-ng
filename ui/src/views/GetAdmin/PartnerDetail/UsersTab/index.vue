@@ -14,6 +14,7 @@
 import AdminCards from './AdminCards';
 import UsersCards from './UsersCards';
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -31,10 +32,21 @@ export default {
 
   mounted() {
     if (this.partner.partyType !== 'MULTI_CUSTOMER') {
-      this.menuItems.push('getadmin.partners.admins', 'getadmin.partners.users');
+      if (this.havePermission('party', 'read_administrator')) {
+        this.menuItems.push('getadmin.partners.admins');
+      }
+      if (this.havePermission('party', 'read')) {
+        this.menuItems.push('getadmin.partners.users');
+      }
     } else {
-      this.menuItems.push('getadmin.partners.users');
+      if (this.havePermission('party', 'read')) {
+        this.menuItems.push('getadmin.partners.users');
+      }
     }
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
   },
 
   data() {

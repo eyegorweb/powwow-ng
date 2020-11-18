@@ -62,8 +62,9 @@ export default {
       menuItems = [];
       this.section = '';
     }
-
-    menuItems.push('getadmin.partners.m2mRange.title');
+    if (this.partner && this.partner.partyType === 'MVNO') {
+      this.menuItems.push('getadmin.partners.m2mRange.title');
+    }
 
     this.menuItems = menuItems;
   },

@@ -111,7 +111,7 @@ export default {
     big: Boolean,
     searchType: {
       type: String,
-      required: false
+      required: false,
     },
   },
 
@@ -155,16 +155,14 @@ export default {
             highlighted: result.highlighted.label,
           };
         });
-      }
-      else if (this.startsWithSearch) {
+      } else if (this.startsWithSearch) {
         return startsWithHighlight(this.$value, this.items).map(result => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
           };
         });
-      }
-      else {
+      } else {
         return fuzzysort
           .go(this.$value, this.items, {
             key: 'label',
@@ -216,9 +214,21 @@ export default {
     async fetchResults() {
       this.enablePagination();
 
-      this.resultsPromise = this.apiMethod
-        ? this.apiMethod(this.$value || '')
-        : Promise.resolve(this.results);
+      if (this.apiMethod) {
+        this.resultsPromise = new Promise(async resolve => {
+          const items = await this.apiMethod(this.$value || '');
+          const result = startsWithHighlight(this.$value || '', items).map(result => {
+            return {
+              ...result.item,
+              highlighted: result.highlighted.label,
+            };
+          });
+          resolve(result);
+        });
+      } else {
+        this.resultsPromise = Promise.resolve(this.results);
+      }
+
       await this.resultsPromise;
       this.resetSelected();
     },

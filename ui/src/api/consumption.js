@@ -14,6 +14,35 @@ export async function fetchSMSConsumption(simInstanceId) {
   return response.data.smsConsumptionGraph;
 }
 
+export async function consumtionHistoryExport(id, format) {
+  const queryStr = `
+  {
+    consumtionHistoyExport(filters:{partyId:${id}}
+      columns:[PARTNER_NAME
+      CUSTOMER_ACCOUNT_CODE
+      CUSTOMER_ACCOUNT_NAME
+      DATE DATA_FR_OUT
+      DATA_FR_IN
+      DATA_ROAMING_OUT
+      DATA_ROAMING_IN
+      SMS_FR_OUT
+      SMS_FR_IN
+      SMS_ROAMING_OUT
+      SMS_ROAMING_IN
+      VOICE_FR_OUT
+      VOICE_FR_IN
+      VOICE_ROAMING_OUT
+      VOICE_ROAMING_IN ]
+      exportFormat:${format})
+    {
+      downloadUri
+    }
+  }`;
+  const response = await query(queryStr);
+
+  return response.data.consumtionHistoyExport;
+}
+
 export async function fetchVoiceUsageForGraph(simInstanceId) {
   const queryStr = `{
     voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}) {
