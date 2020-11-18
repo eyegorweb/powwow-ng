@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.349+20201118133426
+2020-11-18
+
+### Fixes
+
+- mettre la chaine de caractères recherchée en gras (4a23a56b283f8b7c7c6dc5b7cd6fcc6e951e6812)
+
 ## 1.0.0-master.348+20201118125013
 2020-11-18
 
