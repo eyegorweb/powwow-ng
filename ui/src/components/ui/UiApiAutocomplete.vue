@@ -127,7 +127,7 @@ export default {
         return typeof this.value === 'string'
           ? this.value
           : // gere le cas ou value est null
-            this.value && this.value[this.labelKey];
+          this.value && this.value[this.labelKey];
       },
       set(newValue) {
         // TODO: à simplifier
@@ -135,14 +135,14 @@ export default {
           'update:value',
           typeof this.value === 'string'
             ? // quand la prop est une string on doit emettre une string or
-              // slectValue va etre appele avec un objet en parametre
-              typeof newValue === 'object'
+            // slectValue va etre appele avec un objet en parametre
+            typeof newValue === 'object'
               ? // gere selectValue(null)
-                newValue && newValue[this.labelKey]
+              newValue && newValue[this.labelKey]
               : newValue
             : typeof newValue === 'object'
-            ? newValue
-            : { [this.labelKey]: newValue }
+              ? newValue
+              : { [this.labelKey]: newValue }
         );
       },
     },
@@ -214,9 +214,21 @@ export default {
     async fetchResults() {
       this.enablePagination();
 
-      this.resultsPromise = this.apiMethod
-        ? this.apiMethod(this.$value || '')
-        : Promise.resolve(this.results);
+      if (this.apiMethod) {
+        this.resultsPromise = new Promise(async resolve => {
+          const items = await this.apiMethod(this.$value || '');
+          const result = startsWithHighlight(this.$value || '', items).map(result => {
+            return {
+              ...result.item,
+              highlighted: result.highlighted.label,
+            };
+          });
+          resolve(result);
+        });
+      } else {
+        this.resultsPromise = Promise.resolve(this.results);
+      }
+
       await this.resultsPromise;
       this.resetSelected();
     },
@@ -266,7 +278,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function() {
+    $value: debounce(function () {
       this.fetchResults();
     }, 200),
 
