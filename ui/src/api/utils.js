@@ -120,7 +120,11 @@ export async function postFile(url, formData) {
     const response = await api.post(getBaseURL() + url, formData, config);
     return response.data;
   } catch (e) {
-    return { error: e.message };
+    const message =
+      e.response && e.response.data && e.response.data.message
+        ? e.response.data.message
+        : e.message;
+    return { error: message };
   }
 }
 
