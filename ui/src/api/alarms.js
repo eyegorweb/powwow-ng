@@ -381,7 +381,7 @@ function addScope(gqlFilters, selectedFilters) {
 function addAlarmType(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
   if (foundFilter) {
-    gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
+    gqlFilters.push(`alarmType: {in: [${foundFilter.data}]}`);
   }
 }
 
