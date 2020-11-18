@@ -38,6 +38,7 @@
                 <template v-for="item in filterByPermission(tab.submenu)">
                   <template v-if="tab.onClick">
                     <a
+                      :key="item.label"
                       :to="tab.to"
                       @click.prevent="() => tab.onClick(item.to.name)"
                       class="dropdown-item"
@@ -243,7 +244,7 @@ export default {
         label: 'mainMenu.getSupport',
         to: { name: 'exemples' },
         permission: { domain: 'getSupport', action: 'access' },
-        onClick: async (targetName) => {
+        onClick: async targetName => {
           if (waitingForGetSupportLink) return false;
 
           waitingForGetSupportLink = true;
@@ -277,7 +278,7 @@ export default {
             to: { name: 'SEARCH_INCIDENTS' },
             permission: { domain: 'getSupport', action: 'access' },
           },
-        ]
+        ],
       },
       {
         label: 'mainMenu.getDevice',

@@ -11,6 +11,9 @@
     </div>
     <div>
       <div class="d-flex justify-content-end">
+        <ExportButton :export-fn="getExportFn()"> </ExportButton>
+      </div>
+      <div class="d-flex justify-content-end">
         <Toggle
           v-if="toggleValues"
           @update="currentUsage = $event.id"
@@ -49,9 +52,12 @@ import ConsoHistoryDataGraph from './ConsoHistoryDataGraph';
 import ConsoHistorySmsGraph from './ConsoHistorySmsGraph';
 import ConsoHistoryVoiceGraph from './ConsoHistoryVoiceGraph';
 import Toggle from '@/components/ui/UiToggle2';
+import ExportButton from '@/components/ExportButton';
+import { consumtionHistoryExport } from '@/api/consumption.js';
 
 export default {
   components: {
+    ExportButton,
     GraphContainer,
     Toggle,
     ConsoHistoryDataGraph,
@@ -63,6 +69,15 @@ export default {
     partner: Object,
     offer: Object,
     billingAccount: Object,
+  },
+
+  methods: {
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        console.log(exportFormat);
+        return await consumtionHistoryExport(this.partner.id, exportFormat);
+      };
+    },
   },
 
   computed: {
