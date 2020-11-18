@@ -161,21 +161,6 @@ export default {
       return this.selectedLinesForActCreation.length || responseTotal;
     },
 
-    async offerChangeEnabled() {
-      let offerChangeEnabled, response;
-      if (this.userIsPartner) {
-        response = await getPartyOptions(this.userInfos.partners[0].id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : undefined;
-      } else if (this.userInfos.type === 'PARTNER_GROUP') {
-        response = await getPartyOptions(this.userInfos.partyGroup.id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : undefined;
-      } else {
-        offerChangeEnabled = false;
-        response = undefined;
-      }
-      return offerChangeEnabled;
-    },
-
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems
@@ -196,7 +181,7 @@ export default {
           })
           .filter(i => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled;
+              return this.offerChangeEnabled();
             }
             return true;
           });
@@ -210,7 +195,7 @@ export default {
           })
           .filter(i => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled;
+              return this.offerChangeEnabled();
             }
             return true;
           });
@@ -291,6 +276,21 @@ export default {
       'resetState',
     ]),
     ...mapMutations(['openPanel']),
+
+    async offerChangeEnabled() {
+      let offerChangeEnabled, response;
+      if (this.userIsPartner) {
+        response = await getPartyOptions(this.userInfos.partners[0].id);
+        offerChangeEnabled = response ? response.offerChangeEnabled : false;
+      } else if (this.userInfos.type === 'PARTNER_GROUP') {
+        response = await getPartyOptions(this.userInfos.partyGroup.id);
+        offerChangeEnabled = response ? response.offerChangeEnabled : false;
+      } else {
+        offerChangeEnabled = false;
+        response = undefined;
+      }
+      return offerChangeEnabled;
+    },
 
     setupIndicators() {
       this.indicators = [
