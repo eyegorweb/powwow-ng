@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.353+20201118203405
+2020-11-18
+
+### Fixes
+
+- 2077 mise à jour des permissions partenaires (00ab562faad7c0ae625ada1e391fcb4847e2bba4)
+
 ## 1.0.0-master.352+20201118173343
 2020-11-18
 
