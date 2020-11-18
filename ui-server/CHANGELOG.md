@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.352+20201118173343
+2020-11-18
+
+### Fixes
+
+- 2077 gestion de l'acte de changement d'offre pour la recherche de lignes (a7489068557763f6a457dab44c0f5d27caf9737f)
+
 ## 1.0.0-master.351+20201118161755
 2020-11-18
 
