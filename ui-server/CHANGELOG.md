@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.348+20201118124603
+## 1.0.0-master.348+20201118125013
 2020-11-18
+
+### Features
+
+- Ajout export dans le graph du Dashboard et yarnlint (efa572cc58327ffe92b9c1acff8d18573dc7af16)
 
 ### Fixes
 
