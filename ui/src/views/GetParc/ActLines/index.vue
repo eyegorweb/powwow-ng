@@ -104,6 +104,7 @@ import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import DropZone from '@/components/ui/DropZone';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+import { getPartyOptions } from '@/api/partners.js';
 
 import carouselItems from './carouselItems';
 
@@ -149,17 +150,32 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userIsBO', 'userIsMVNO', 'havePermission']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userIsBO', 'userIsMVNO', 'havePermission']),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
-      // c'est quoi ça ? enableMultiExport: state => true,
     }),
 
     totalSelected() {
       const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
       return this.selectedLinesForActCreation.length || responseTotal;
     },
+
+    async offerChangeEnabled() {
+      let offerChangeEnabled, response;
+      if (this.userIsPartner) {
+        response = await getPartyOptions(this.userInfos.partners[0].id);
+        offerChangeEnabled = response ? response.offerChangeEnabled : undefined;
+      } else if (this.userInfos.type === 'PARTNER_GROUP') {
+        response = await getPartyOptions(this.userInfos.partyGroup.id);
+        offerChangeEnabled = response ? response.offerChangeEnabled : undefined;
+      } else {
+        offerChangeEnabled = false;
+        response = undefined;
+      }
+      return offerChangeEnabled;
+    },
+
     carouselItems() {
       if (this.userIsPartner) {
         return carouselItems
@@ -177,14 +193,27 @@ export default {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
+          })
+          .filter(i => {
+            if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
+              return this.offerChangeEnabled;
+            }
+            return true;
           });
       } else {
-        return carouselItems.filter(i => {
-          if (i.permission) {
-            return this.havePermission(i.permission.domain, i.permission.action);
-          }
-          return true;
-        });
+        return carouselItems
+          .filter(i => {
+            if (i.permission) {
+              return this.havePermission(i.permission.domain, i.permission.action);
+            }
+            return true;
+          })
+          .filter(i => {
+            if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
+              return this.offerChangeEnabled;
+            }
+            return true;
+          });
       }
     },
     canShowForm() {
