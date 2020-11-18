@@ -25,7 +25,10 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block2'" v-if="userIsBO && !partnerTypeMVNO">
+        <ContentBlock
+          :key="'block2'"
+          v-if="!partnerTypeMVNO && havePermission('getVision', 'read')"
+        >
           <template slot="title">
             {{ $t('getparc.lineDetail.tab2.networkHistoryContent.cellsConsumption') }}
           </template>
@@ -114,7 +117,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['havePermission']),
 
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
