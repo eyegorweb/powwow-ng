@@ -138,10 +138,7 @@ export default {
     },
 
     offerChangeEnabled() {
-      if (this.userInfos.type === 'OPERATOR') {
-        return true;
-      }
-      return this.partnerOptions.offerChangeEnabled;
+      return this.partnerOptions ? this.partnerOptions.offerChangeEnabled : true;
     },
   },
   methods: {

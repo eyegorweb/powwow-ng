@@ -94,7 +94,6 @@ export default {
       },
     ]);
     this.initializeSection();
-    this.$emit('coucou', this.visibleMenuItems.length);
   },
   data() {
     return {
@@ -150,7 +149,13 @@ export default {
       if (typeForPartner === 'MVNO') {
         this.section = 'network_history';
       } else {
-        this.section = 'line_analysis';
+        if (this.havePermission('getVision', 'read')) {
+          this.section = 'line_analysis';
+        } else if (this.havePermission('getParc', 'manage_coach')) {
+          this.section = 'last_tests';
+        } else {
+          this.section = 'network_history';
+        }
       }
     },
   },
