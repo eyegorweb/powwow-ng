@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.348+20201118124603
+2020-11-18
+
+### Fixes
+
+- 2077 gestion des permissions dans les actes de gestion (4ab6a24f023622cfd8ff675557abffa6623c8e01)
+
 ## 1.0.0-master.347+20201118105000
 2020-11-18
 
