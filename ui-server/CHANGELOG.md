@@ -2,6 +2,27 @@
 
 <!--- next entry here -->
 
+## 1.15.0
+2020-11-18
+
+### Features
+
+- Ajout export dans le graph du Dashboard et yarnlint (efa572cc58327ffe92b9c1acff8d18573dc7af16)
+
+### Fixes
+
+- 2017 amélioration et correction de code (74c4a8c172d77f36b7232c5c41a88e70942cd8e4)
+- 2075 affichage du nombre de lignes validées ou erronées lors de la création d'actes de gestion (9c1f319a76df31884b2a1efc3bf6b5c068f9f25b)
+- 2075 ajout de l'export dans le compte rendu des créations d'acte de gestion (99474d647ead21f5c439256d88470c249a44d35d)
+- Correction du bug d'upload (9dcb00947cb7001f2621b0afd0313874ecb0a09e)
+- 2077 gestion des permissions dans les actes de gestion (4ab6a24f023622cfd8ff675557abffa6623c8e01)
+- mettre la chaine de caractères recherchée en gras (4a23a56b283f8b7c7c6dc5b7cd6fcc6e951e6812)
+- Gestion des octets dans les alarmes (fb44eb8f2432414419a6d88b7cf88dadc4c9247e)
+- matomo base url (faf99b53523ee003b1eb7d681a456360ae54f777)
+- 2099 mise à jour du message renvoyé lors d'import de fichier (c69596d8932db615206c6be4d934847462524e96)
+- 2077 gestion de l'acte de changement d'offre pour la recherche de lignes (3baacc65a835fad652cbc3e59c77986f2c4f02a3)
+- 2077 gestion de l'acte de changement d'offre pour la recherche de lignes (a7489068557763f6a457dab44c0f5d27caf9737f)
+
 ## 1.14.1
 2020-11-13
 
