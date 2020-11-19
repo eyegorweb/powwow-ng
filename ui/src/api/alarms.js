@@ -274,6 +274,52 @@ export async function createAlarmInstance(simCardInstanceIds, alarmId, partyId, 
   return response.data.createAlarmInstance;
 }
 
+export async function createAlarmInstance2(alarmInput) {
+  const queryStr = `
+  mutation CreateAlarmInstance($alarmInput: AlarmInput) {
+    createAlarmInstance(alarmInput: $alarmInput){tempDataUuid}
+  }`;
+
+  const input = { ...alarmInput };
+  delete input.filters;
+
+  if (alarmInput.filters && alarmInput.filters.length) {
+    input.alarmFilterInput = {};
+    const billingAccountFilter = alarmInput.filters.find(f => f.id === 'common.billingAccount');
+    if (billingAccountFilter) {
+      input.alarmFilterInput.customerAccount = {
+        in: billingAccountFilter.values.map(b => b.id),
+      };
+    }
+
+    const offerIdFilter = alarmInput.filters.find(f => f.id === 'filters.offers');
+    if (offerIdFilter) {
+      input.alarmFilterInput.offerId = {
+        in: offerIdFilter.map(b => b.data.id),
+      };
+    }
+
+    const tempDataUuidFilter = alarmInput.filters.find(
+      f => f.id === 'filters.lines.fromFile.title'
+    );
+
+    if (tempDataUuidFilter && tempDataUuidFilter.values && tempDataUuidFilter.values.length) {
+      input.tempDataUuid = tempDataUuidFilter.values[0].tempDataUuid;
+    }
+
+    input.alarmFilterInput.alarmId = { eq: alarmInput.alarmId };
+  }
+
+  try {
+    const response = await query(queryStr, {
+      alarmInput: input,
+    });
+    return response.data.createAlarmInstance;
+  } catch {
+    return;
+  }
+}
+
 export async function enableAlarm(alarmId) {
   const response = await query(`mutation{activateAlarm (alarmID : ${alarmId})}`);
   return response.data.activateAlarm;
@@ -305,6 +351,47 @@ export async function deleteAlarmInstance(simCardInstanceIds, alarmId, partyId, 
 
   const response = await query(queryStr);
   return response.data.deleteAlarmInstance;
+}
+
+export async function deleteAlarmInstance2(alarmInput) {
+  const queryStr = `
+  mutation DeleteAlarmInstance($alarmInput: AlarmInput) {
+    deleteAlarmInstance(alarmInput: $alarmInput){tempDataUuid}
+  }`;
+
+  const input = { ...alarmInput };
+  delete input.filters;
+
+  if (alarmInput.filters && alarmInput.filters.length) {
+    input.filter = {};
+    const lastTriggerDateFilter = alarmInput.filters.find(
+      f => f.id === 'getvsion.alarm.trigger_date'
+    );
+    if (lastTriggerDateFilter) {
+      input.filter.lastTriggerDate = {
+        between: {
+          startDate: lastTriggerDateFilter.startDate,
+          endDate: lastTriggerDateFilter.endDate,
+        },
+      };
+    }
+
+    const thresholdFilter = alarmInput.filters.find(f => f.id === 'getvsion.alarm.trigger_reason');
+    if (thresholdFilter) {
+      input.filter.threshold = thresholdFilter.data.value;
+    }
+
+    input.filter.alarmId = { eq: alarmInput.alarmId };
+  }
+
+  try {
+    const response = await query(queryStr, {
+      alarmInput: input,
+    });
+    return response.data.deleteAlarmInstance;
+  } catch {
+    return;
+  }
 }
 
 export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners, partnerType) {
@@ -381,7 +468,7 @@ function addScope(gqlFilters, selectedFilters) {
 function addAlarmType(gqlFilters, selectedFilters) {
   const foundFilter = selectedFilters.find(f => f.id === 'getvsion.filters.ALARM_TYPE');
   if (foundFilter) {
-    gqlFilters.push(`alarmType: {in: [${foundFilter.code}]}`);
+    gqlFilters.push(`alarmType: {in: [${foundFilter.data}]}`);
   }
 }
 

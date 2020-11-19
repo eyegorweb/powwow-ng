@@ -83,7 +83,6 @@ export default {
       this.currentLinkIndex = this.$route.params.tabIndex;
     }
     await this.loadLineData();
-    await this.loadLinePartnerPartnerOptions();
   },
   data() {
     return {
@@ -105,10 +104,11 @@ export default {
         },
       ],
       carouselItems: [],
+      offerChangeEnabled: undefined,
     };
   },
   computed: {
-    ...mapGetters(['userInfos', 'havePermission']),
+    ...mapGetters(['userInfos', 'userIsPartner', 'havePermission']),
 
     canRunCoach() {
       if (this.partnerOptions) {
@@ -136,29 +136,9 @@ export default {
     canShowCarousel() {
       return this.carouselItems.length > 0;
     },
-
-    offerChangeEnabled() {
-      return this.partnerOptions ? this.partnerOptions.offerChangeEnabled : true;
-    },
   },
   methods: {
     ...mapMutations(['openPanel']),
-
-    async loadLinePartnerPartnerOptions() {
-      if (this.lineData) {
-        const partnerId = get(this.lineData, 'party.id');
-        if (partnerId) {
-          this.partnerOptions = await getPartyOptions(partnerId);
-        }
-        // condition spécifique pour afficher le changement d'offre
-        this.carouselItems = this.carouselItems.filter(i => {
-          if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
-            return this.offerChangeEnabled;
-          }
-          return true;
-        });
-      }
-    },
 
     openCoachPanel() {
       this.openPanel({
@@ -187,7 +167,6 @@ export default {
     },
 
     async loadLineData() {
-      let carouselItems;
       const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         {
           id: 'filters.id',
@@ -196,55 +175,89 @@ export default {
       ]);
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
-      if (this.lineData.party.partyType !== 'MVNO') {
-        carouselItems = excludeMocked([
-          {
-            icon: 'ic-Sim-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
-            selected: false,
-            permission: { domain: 'act', action: 'manage_main' },
-          },
-          {
-            icon: 'ic-Smartphone-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
-            selected: false,
-            permission: { domain: 'act', action: 'msisdn_change' },
-          },
-          {
-            icon: 'ic-Edit-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
-            selected: false,
-            permission: { domain: 'act', action: 'manage_main' },
-          },
-          {
-            icon: 'ic-Wallet-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
-            selected: false,
-            permission: { domain: 'act', action: 'transfer_customer_account' },
-          },
-          {
-            icon: 'ic-Ticket-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
-            selected: false,
-            permission: { domain: 'act', action: 'manage_main' },
-          },
-        ]);
-      } else {
-        carouselItems = excludeMocked([
-          {
-            icon: 'ic-Sim-Icon',
-            title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
-            selected: false,
-            permission: { domain: 'act', action: 'msisdn_change' },
-          },
-        ]);
-      }
-      this.carouselItems = carouselItems.filter(i => {
-        if (i.permission) {
-          return this.havePermission(i.permission.domain, i.permission.action);
+
+      if (this.lineData) {
+        const partnerId = get(this.lineData, 'party.id');
+        if (partnerId) {
+          this.partnerOptions = await getPartyOptions(partnerId);
         }
-        return true;
-      });
+
+        if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
+          this.offerChangeEnabled = this.partnerOptions
+            ? this.partnerOptions.offerChangeEnabled
+            : true;
+        } else {
+          this.offerChangeEnabled = true;
+        }
+
+        if (this.lineData.party.partyType !== 'MVNO') {
+          this.carouselItems = excludeMocked([
+            {
+              icon: 'ic-Sim-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
+              selected: false,
+              permission: { domain: 'act', action: 'manage_main' },
+            },
+            {
+              icon: 'ic-Smartphone-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_MSISDN',
+              selected: false,
+              permission: { domain: 'act', action: 'msisdn_change' },
+            },
+            {
+              icon: 'ic-Edit-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CUSTOM_FIELDS',
+              selected: false,
+              permission: { domain: 'act', action: 'manage_main' },
+            },
+            {
+              icon: 'ic-Wallet-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
+              selected: false,
+              permission: { domain: 'act', action: 'transfer_customer_account' },
+            },
+            {
+              icon: 'ic-Ticket-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER',
+              selected: false,
+              permission: { domain: 'act', action: 'manage_main' },
+            },
+          ])
+            .filter(i => {
+              if (i.permission) {
+                return this.havePermission(i.permission.domain, i.permission.action);
+              }
+              return true;
+            })
+            .filter(i => {
+              if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
+                return this.offerChangeEnabled;
+              }
+              return true;
+            });
+        } else {
+          this.carouselItems = excludeMocked([
+            {
+              icon: 'ic-Sim-Icon',
+              title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_SIMCARD',
+              selected: false,
+              permission: { domain: 'act', action: 'msisdn_change' },
+            },
+          ])
+            .filter(i => {
+              if (i.permission) {
+                return this.havePermission(i.permission.domain, i.permission.action);
+              }
+              return true;
+            })
+            .filter(i => {
+              if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
+                return this.offerChangeEnabled;
+              }
+              return true;
+            });
+        }
+      }
     },
   },
 };

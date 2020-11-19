@@ -17,6 +17,7 @@
     <div class="row mb-5" v-if="canShowCarousel">
       <div class="col-md-12">
         <ActionCarousel
+          v-if="optionsPartner.offerChange !== undefined"
           title="getparc.actLines.chooseAct"
           :actions="carouselItems"
           @itemClick="onCarouselItemClick"
@@ -24,7 +25,7 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="creationMode" :act="actToCreate" />
+    <ActCreationPrerequisites v-if="!transferSim && creationMode" :act="actToCreate" />
 
     <div class="row">
       <div class="col-md-3">
@@ -133,6 +134,9 @@ export default {
       prevRoute: undefined,
       transferSim: false,
       file: undefined,
+      optionsPartner: {
+        offerChange: undefined,
+      },
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
@@ -162,7 +166,7 @@ export default {
     },
 
     carouselItems() {
-      if (this.userIsPartner) {
+      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         return carouselItems
           .filter(i => {
             return !i.boOnly;
@@ -181,24 +185,17 @@ export default {
           })
           .filter(i => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled();
+              return this.optionsPartner.offerChange;
             }
             return true;
           });
       } else {
-        return carouselItems
-          .filter(i => {
-            if (i.permission) {
-              return this.havePermission(i.permission.domain, i.permission.action);
-            }
-            return true;
-          })
-          .filter(i => {
-            if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.offerChangeEnabled();
-            }
-            return true;
-          });
+        return carouselItems.filter(i => {
+          if (i.permission) {
+            return this.havePermission(i.permission.domain, i.permission.action);
+          }
+          return true;
+        });
       }
     },
     canShowForm() {
@@ -253,6 +250,7 @@ export default {
   mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
+    this.enableOfferChange();
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
@@ -277,19 +275,16 @@ export default {
     ]),
     ...mapMutations(['openPanel']),
 
-    async offerChangeEnabled() {
-      let offerChangeEnabled, response;
-      if (this.userIsPartner) {
+    async enableOfferChange() {
+      let response;
+      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         response = await getPartyOptions(this.userInfos.partners[0].id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : false;
-      } else if (this.userInfos.type === 'PARTNER_GROUP') {
-        response = await getPartyOptions(this.userInfos.partyGroup.id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : false;
+        this.optionsPartner.offerChange = response ? response.offerChangeEnabled : true;
       } else {
-        offerChangeEnabled = false;
+        this.optionsPartner.offerChange = true;
         response = undefined;
       }
-      return offerChangeEnabled;
+      return this.optionsPartner.offerChange;
     },
 
     setupIndicators() {
@@ -462,11 +457,14 @@ export default {
     },
 
     onCarouselItemClick(item) {
+      console.log("onCarouselItemClick -> item", item)
       let isSelected = false;
       let newSelectionState = true;
 
-      if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER') {
+      if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER' && !this.transferSim) {
         this.transferSim = true;
+      } else {
+        this.transferSim = false;
       }
 
       if (this.actToCreate) {

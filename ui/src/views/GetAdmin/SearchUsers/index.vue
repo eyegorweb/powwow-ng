@@ -351,7 +351,7 @@ export default {
     },
     async searchByLogin(value) {
       this.searchByLoginValue = value;
-      const data = await searchUsers('', this.orderBy, { page: 0, limit: 10 }, [
+      const data = await searchUsers('', this.orderBy, { page: 0, limit: 20 }, [
         {
           id: 'getadmin.users.filters.login',
           value,

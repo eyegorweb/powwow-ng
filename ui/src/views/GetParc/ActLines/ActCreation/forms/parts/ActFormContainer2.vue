@@ -120,7 +120,6 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
-      validationErrors: undefined,
       tempDataUuid: undefined,
     };
   },
@@ -202,7 +201,7 @@ export default {
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
-        tempDataUuid: this.tempDataUuid,
+        tempDataUuid: this.tempDataUuid.tempDataUuid,
       });
       if (response) {
         this.onSuccess();
