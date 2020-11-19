@@ -17,6 +17,7 @@
     <div class="row mb-5" v-if="canShowCarousel">
       <div class="col-md-12">
         <ActionCarousel
+          v-if="optionsPartner.offerChange !== undefined"
           title="getparc.actLines.chooseAct"
           :actions="carouselItems"
           @itemClick="onCarouselItemClick"
@@ -165,7 +166,7 @@ export default {
     },
 
     carouselItems() {
-      if (this.userIsPartner) {
+      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         return carouselItems
           .filter(i => {
             return !i.boOnly;
@@ -189,19 +190,12 @@ export default {
             return true;
           });
       } else {
-        return carouselItems
-          .filter(i => {
-            if (i.permission) {
-              return this.havePermission(i.permission.domain, i.permission.action);
-            }
-            return true;
-          })
-          .filter(i => {
-            if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
-              return this.optionsPartner.offerChange;
-            }
-            return true;
-          });
+        return carouselItems.filter(i => {
+          if (i.permission) {
+            return this.havePermission(i.permission.domain, i.permission.action);
+          }
+          return true;
+        });
       }
     },
     canShowForm() {
@@ -256,7 +250,7 @@ export default {
   mounted() {
     this.setupIndicators();
     this.setActToCreate(null);
-    this.optionsPartner.offerChange = this.enableOfferChange();
+    this.enableOfferChange();
 
     /**
      * la recherche n'est pas réinitialisée au retour de la page de détails, du coup on doit mettre la bonne valeur dans cette variable.
@@ -282,18 +276,15 @@ export default {
     ...mapMutations(['openPanel']),
 
     async enableOfferChange() {
-      let offerChangeEnabled, response;
-      if (this.userIsPartner) {
+      let response;
+      if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         response = await getPartyOptions(this.userInfos.partners[0].id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : true;
-      } else if (this.userInfos.type === 'PARTNER_GROUP') {
-        response = await getPartyOptions(this.userInfos.partyGroup.id);
-        offerChangeEnabled = response ? response.offerChangeEnabled : true;
+        this.optionsPartner.offerChange = response ? response.offerChangeEnabled : true;
       } else {
-        offerChangeEnabled = true;
+        this.optionsPartner.offerChange = true;
         response = undefined;
       }
-      return offerChangeEnabled;
+      return this.optionsPartner.offerChange;
     },
 
     setupIndicators() {
