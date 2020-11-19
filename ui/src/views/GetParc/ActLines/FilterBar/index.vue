@@ -215,7 +215,7 @@
             <ActLineProfileStateFilter />
           </FoldableBlock>
           <FoldableBlock
-            v-if="!userIsMVNO"
+            v-if="!userIsMVNO && !userIsPartner"
             :title="$t('filters.lines.customFileds')"
             :key="'el21'"
             :disabled="filtersAreDisabled"
