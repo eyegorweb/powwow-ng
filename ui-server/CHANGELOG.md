@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.15.1
+2020-11-19
+
+### Fixes
+
+- Debug du filtre du type dalarme (c9945731032cdfab7ec66b6d130796350e67511e)
+- 2077 mise à jour des permissions partenaires (00ab562faad7c0ae625ada1e391fcb4847e2bba4)
+- 2077 mise à jour des permissions partenaires (25370f65071b3a55775f16311d2b8c4b3d300b2e)
+- 2075 affichage du nombre de lignes validées ou erronées lors de la création d'actes de gestion (3afc3d21b4d5e8219c0bde5c0f40abc2b4502288)
+- Changement de la limite de resultat pour le tableau d'utilisateurs (40336a943c578bbe447ef0a0c5fa275c91778d06)
+- 2077 gestion de la permission du changement d'offre dans le détail de la ligne (c190ddd4473acfa51e4d0b1a708789427c89bba0)
+- correction du bug sur l'acte "Transfert de SIM" (77ee221e2decffcc2a64a6e4d3cf790688129ad8)
+
 ## 1.15.0
 2020-11-18
 
