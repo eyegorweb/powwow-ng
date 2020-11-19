@@ -1495,6 +1495,7 @@
       "SELECTED_LINES": "{total} lines will be changed",
       "transferSIM": { "validate": "Validate take-over", "deny": "Refuse take-over" },
       "EXCLUDED_LINES": "{total} lines will be excluded from the alarm",
+      "SINGULAR_EXCLUDED_LINES": "1 lines will be excluded from the alarm",
       "message_EXCLUDED_LINES": "Lines removed from the alarm will be accessible in the Lines excluded from alarm 'tab'"
     },
     "actLines": {
