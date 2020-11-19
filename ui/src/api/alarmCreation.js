@@ -155,6 +155,10 @@ async function consoQuery(queryName, params) {
     return value * 1024 * 1024;
   }
 
+  function secToMin(value) {
+    return value * 60;
+  }
+
   if (params.formData) {
     if (params.formData.dataES) {
       alarmLevels.push(`level1: ${moToOctet(params.formData.dataES)}`);
@@ -175,13 +179,13 @@ async function consoQuery(queryName, params) {
       alarmLevels.push(`level2Up: ${params.formData.smsOut}`);
     }
     if (params.formData.voiceES) {
-      alarmLevels.push(`level3: ${params.formData.voiceES}`);
+      alarmLevels.push(`level3: ${secToMin(params.formData.voiceES)}`);
     }
     if (params.formData.voiceIn) {
-      alarmLevels.push(`level3Down: ${params.formData.voiceIn}`);
+      alarmLevels.push(`level3Down: ${secToMin(params.formData.voiceIn)}`);
     }
     if (params.formData.VoiceOut) {
-      alarmLevels.push(`level3Up: ${params.formData.VoiceOut}`);
+      alarmLevels.push(`level3Up: ${secToMin(params.formData.VoiceOut)}`);
     }
     alarmLevels.push(`observationCycle: ${params.formData.period}`);
 
