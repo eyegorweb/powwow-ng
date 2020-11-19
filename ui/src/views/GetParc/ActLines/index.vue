@@ -290,7 +290,7 @@ export default {
         response = await getPartyOptions(this.userInfos.partyGroup.id);
         offerChangeEnabled = response ? response.offerChangeEnabled : true;
       } else {
-        offerChangeEnabled = false;
+        offerChangeEnabled = true;
         response = undefined;
       }
       return offerChangeEnabled;
