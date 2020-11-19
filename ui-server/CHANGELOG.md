@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.359+20201119151050
+2020-11-19
+
+### Fixes
+
+- debug des champs libre dans la table des sims (78dd042f37b9ddba731f71b04e9d379d8c81bce8)
+
 ## 1.0.0-master.358+20201119141430
 2020-11-19
 
