@@ -36,7 +36,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="22"
+            storage-version="25"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -259,6 +259,7 @@ export default {
     },
   },
   async mounted() {
+
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
@@ -494,67 +495,67 @@ export default {
         {
           id: 15,
           label: this.$t('col.customFields', { num: 1 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD1',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom1',
+            path: 'customFields.custom1',
           },
         },
         {
           id: 16,
           label: this.$t('col.customFields', { num: 2 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD2',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom2',
+            path: 'customFields.custom2',
           },
         },
         {
           id: 17,
           label: this.$t('col.customFields', { num: 3 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD3',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom3',
+            path: 'customFields.custom3',
           },
         },
         {
           id: 18,
           label: this.$t('col.customFields', { num: 4 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD4',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom4',
+            path: 'customFields.custom4',
           },
         },
         {
           id: 19,
           label: this.$t('col.customFields', { num: 5 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD5',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom5',
+            path: 'customFields.custom5',
           },
         },
         {
           id: 20,
           label: this.$t('col.customFields', { num: 6 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom5',
+            path: 'customFields.custom6',
           },
         },
       ],

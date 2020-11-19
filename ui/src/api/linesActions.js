@@ -186,6 +186,15 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       preactivationDate
       activationDate
       commercialStatusDate
+
+    customFields {
+      custom1
+      custom2
+      custom3
+      custom4
+      custom5
+      custom6
+    }
       offerGroup {
         customerAccount {
           id
