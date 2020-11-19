@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.356+20201119112150
+2020-11-19
+
+### Fixes
+
+- 2077 gestion de la permission du changement d'offre dans le détail de la ligne (c190ddd4473acfa51e4d0b1a708789427c89bba0)
+
 ## 1.0.0-master.355+20201119105259
 2020-11-19
 
