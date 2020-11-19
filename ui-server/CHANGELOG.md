@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.354+20201119102515
+2020-11-19
+
+### Fixes
+
+- 2077 mise à jour des permissions partenaires (25370f65071b3a55775f16311d2b8c4b3d300b2e)
+- 2075 affichage du nombre de lignes validées ou erronées lors de la création d'actes de gestion (3afc3d21b4d5e8219c0bde5c0f40abc2b4502288)
+
 ## 1.0.0-master.353+20201118203405
 2020-11-18
 
