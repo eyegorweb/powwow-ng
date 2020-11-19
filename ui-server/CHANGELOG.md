@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.355+20201119105259
+2020-11-19
+
+### Fixes
+
+- Changement de la limite de resultat pour le tableau d'utilisateurs (40336a943c578bbe447ef0a0c5fa275c91778d06)
+
 ## 1.0.0-master.354+20201119103049
 2020-11-19
 
