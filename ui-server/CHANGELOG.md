@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.358+20201119141430
+2020-11-19
+
+### Fixes
+
+- Correction de la traduction des erreurs dans le composant de recherche par fichier (79d9c588012272cfe3eb2514a0490138ab38e9a4)
+
 ## 1.0.0-master.357+20201119133134
 2020-11-19
 
