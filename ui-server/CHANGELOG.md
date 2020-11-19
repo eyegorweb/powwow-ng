@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.357+20201119133134
+2020-11-19
+
+### Fixes
+
+- correction du bug sur l'acte "Transfert de SIM" (77ee221e2decffcc2a64a6e4d3cf790688129ad8)
+
 ## 1.0.0-master.356+20201119112150
 2020-11-19
 
