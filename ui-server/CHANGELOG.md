@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.360+20201119155326
+2020-11-19
+
+### Fixes
+
+- conversion des datas et des secondes pour la creation et modification dalarmes (30849d0ea86df6dbee44cd791301a95048aadc35)
+
 ## 1.0.0-master.359+20201119151050
 2020-11-19
 
