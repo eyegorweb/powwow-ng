@@ -1440,7 +1440,13 @@
         "NEW_DATA_INVALID_FORMAT": "New invalid value format",
         "EMPTY_FILE": "Empty file",
         "FILE_EXTENSION_INVALID": "Invalid file extension",
-        "FILE_CONTENT_INVALID": "Invalid file content"
+        "FILE_CONTENT_INVALID": "Invalid file content",
+
+        "InvalidFileExtension" : "Invalid file extension",
+        "InvalidFileContent" : "Invalid file content",
+        "InvalidFileVersion" : "Invalid file version",
+        "NotFoundException" : "Not found",
+        "InvalidFileSize" :  "The file is too large"
       },
       "transfertCF": {
         "confirmationWarning": "Do you confirm the change of the billing account?",
