@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="creationMode" :act="actToCreate" />
+    <ActCreationPrerequisites v-if="!transferSim && creationMode" :act="actToCreate" />
 
     <div class="row">
       <div class="col-md-3">
@@ -466,11 +466,14 @@ export default {
     },
 
     onCarouselItemClick(item) {
+      console.log("onCarouselItemClick -> item", item)
       let isSelected = false;
       let newSelectionState = true;
 
-      if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER') {
+      if (item.stepTitle === 'getparc.actCreation.carouselItem.SIM_TRANSFER' && !this.transferSim) {
         this.transferSim = true;
+      } else {
+        this.transferSim = false;
       }
 
       if (this.actToCreate) {
