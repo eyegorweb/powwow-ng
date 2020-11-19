@@ -9,6 +9,7 @@
       :order-by.sync="orderBy"
       :is-loading="isLoading"
       @applyFilters="applyFilters"
+      @colEvent="onColEvent"
     >
       <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
 
@@ -27,9 +28,10 @@
       <div v-if="total > 0" slot="after">
         <ReactivateForLinesAction
           :alarm="alarm"
-          :rows="rows"
+          :rows="selectedRows"
           :filters="lastUsedFilters"
           :total="total"
+          @success="applyFilters"
         />
       </div>
     </TableWithFilter>
@@ -53,6 +55,7 @@ import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetail
 import get from 'lodash.get';
 
 import { mapMutations } from 'vuex';
+import AlarmsFileFilter from '@/views/GetVision/alarmDetail/filters/AlarmsFileFilter.vue';
 
 export default {
   components: {
@@ -105,6 +108,22 @@ export default {
             return { partnerId };
           },
         },
+        {
+          title: 'filters.lines.fromFile.title',
+          component: AlarmsFileFilter,
+          onChange(fileResponse) {
+            return {
+              id: 'filters.lines.fromFile.title',
+              values: [
+                {
+                  id: fileResponse.uploadId,
+                  label: fileResponse.file.name,
+                  ...fileResponse,
+                },
+              ],
+            };
+          },
+        },
       ],
       columns: [
         {
@@ -140,9 +159,9 @@ export default {
             type: 'Getter',
             getter: row => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
-                return get(row, 'workflow.workflowDescription');
+                return get(row, 'accessPoint.offerGroup.description');
               }
-              return get(row, 'alarmInstance.accessPoint.offer.marketingOffer.description');
+              return get(row, 'accessPoint.offer.marketingOffer.description');
             },
           },
         },
@@ -157,8 +176,8 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              const code = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.code');
-              const name = get(row, 'alarmInstance.accessPoint.offerGroup.customerAccount.name');
+              const code = get(row, 'accessPoint.offerGroup.customerAccount.code');
+              const name = get(row, 'accessPoint.offerGroup.customerAccount.name');
               return `${code} ${name}`;
             },
           },
@@ -187,11 +206,21 @@ export default {
 
       total: 10,
       rows: [],
+      selectedRows: [],
     };
   },
 
   methods: {
     ...mapMutations(['flashMessage']),
+
+    onColEvent(payload) {
+      if (payload.add) {
+        this.selectedRows.push(payload.add);
+      }
+      if (payload.remove) {
+        this.selectedRows = this.selectedRows.filter(r => r.id !== payload.remove.id);
+      }
+    },
 
     getExportFn() {
       return async (columns, orderBy, exportFormat) => {

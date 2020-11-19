@@ -76,6 +76,7 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
     linesBoundToAlarm(alarmsToLinesFilterInput: {${formatFilters(filters)}}${paginationInfo}) {
       total
       items {
+        id
         iccid
         triggerReasonAndDate {
           triggerDate
@@ -136,8 +137,16 @@ function formatFilters(selectedFilters) {
   addDateFilter(gqlFilters, selectedFilters, 'lastTriggerDate', 'getvsion.alarm.trigger_date');
   addBillingAccount(gqlFilters, selectedFilters);
   addOffer(gqlFilters, selectedFilters);
+  addFileFilter(gqlFilters, selectedFilters);
 
   return gqlFilters.join(',');
+}
+
+function addFileFilter(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'filters.lines.fromFile.title');
+  if (foundFilter && foundFilter.values && foundFilter.values.length) {
+    gqlFilters.push(`tempDataUuid: "${foundFilter.values[0].tempDataUuid}"`);
+  }
 }
 
 function addOffer(gqlFilters, selectedFilters) {

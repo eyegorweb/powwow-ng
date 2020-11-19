@@ -29,12 +29,13 @@
         <Actions />
       </div>
 
-      <div slot="after">
+      <div v-if="total > 0" slot="after">
         <DisableForLinesAction
           :alarm="alarm"
           :rows="selectedRows"
           :filters="lastUsedFilters"
           :total="total"
+          @success="applyFilters"
         />
       </div>
     </TableWithFilter>
@@ -55,6 +56,7 @@ import CheckBoxCell from './CheckBoxCell';
 
 import ExportButton from '@/components/ExportButton';
 import ICCIDCell from '../Trigger2MonthsTab/ICCIDCell';
+import AlarmsFileFilter from '@/views/GetVision/alarmDetail/filters/AlarmsFileFilter.vue';
 
 import { mapMutations } from 'vuex';
 
@@ -150,6 +152,7 @@ export default {
         pagination: { page: 0, limit: 10 },
         filters: [],
       };
+      console.log('applyFilters -> filters', filters);
 
       const mandatoryFilters = [
         {
@@ -198,6 +201,23 @@ export default {
               startDate: chosenValue.startDate,
               endDate: chosenValue.endDate,
               data: chosenValue,
+            };
+          },
+        },
+
+        {
+          title: 'filters.lines.fromFile.title',
+          component: AlarmsFileFilter,
+          onChange(fileResponse) {
+            return {
+              id: 'filters.lines.fromFile.title',
+              values: [
+                {
+                  id: fileResponse.uploadId,
+                  label: fileResponse.file.name,
+                  ...fileResponse,
+                },
+              ],
             };
           },
         },

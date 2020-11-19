@@ -1552,6 +1552,7 @@
         "DATA_NOT_FOUND": "Introuvable",
         "NEW_DATA_ALREADY_EXISTS": "Ligne existante",
         "DATA_NOT_ACTIVATED": "Ligne non activée",
+        "OK": " lignes ont le statut attendu",
         "DATA_WRONG_STATUS": "{count} lignes n'ont pas le statut attendu",
         "DATA_NOT_AUTHORIZED": "Action non autorisée",
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
@@ -1622,6 +1623,7 @@
       "ALTERABLE_BY_CLIENT": "Non modifiable par le client",
       "SELECTED_LINES": "{total} lignes seront modifiées",
       "EXCLUDED_LINES": "{total} lignes seront exclues de l'alarme",
+      "SINGULAR_EXCLUDED_LINES": "1 ligne sera exclue de l'alarme",
       "message_EXCLUDED_LINES": "Les lignes retirées de l’alarme seront accessibles dans l’onglet « Lignes exclues de l’alarme »"
     },
     "actLines": {
