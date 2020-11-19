@@ -1471,6 +1471,7 @@
         "CHANGE_SIMCARD": "Changer de carte SIM",
         "CHANGE_MSISDN": "Changer de MSISDN",
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes"
+
       },
 
       "step2Titles": {
@@ -1558,7 +1559,13 @@
         "NEW_DATA_INVALID_FORMAT": "Format de la nouvelle valeur invalide",
         "EMPTY_FILE": "Fichier vide",
         "FILE_EXTENSION_INVALID": "Extension de fichier invalide",
-        "FILE_CONTENT_INVALID": "Contenu de fichier invalide"
+        "FILE_CONTENT_INVALID": "Contenu de fichier invalide",
+
+        "InvalidFileExtension" : "Extension de fichier invalide",
+        "InvalidFileContent" : "Contenu de fichier invalide",
+        "InvalidFileVersion" : "Version du fichier invalide",
+        "NotFoundException" : "Introuvable",
+        "InvalidFileSize" : "Le fichier est trop volumineux"
       },
 
       "transfertCF": {
