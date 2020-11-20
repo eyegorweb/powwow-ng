@@ -86,22 +86,20 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
           }
         }
         alarmInstance {
-          id
-          icv1
           created
-          accessPoint {
-            id
-            offerGroup{
-              customerAccount {
-                code
-                name
-              }
+        }
+        accessPoint {
+          id
+          offerGroup{
+            customerAccount {
+              code
+              name
             }
-            offer {
-              marketingOffer {
-                code
-                description
-              }
+          }
+          offer {
+            marketingOffer {
+              code
+              description
             }
           }
         }
