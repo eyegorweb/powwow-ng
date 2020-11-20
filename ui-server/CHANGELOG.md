@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.361+20201120085436
+2020-11-20
+
+### Fixes
+
+- Correction des colonnes offre et compte de facturation dans la table des lignes exclues d'une alarme (2fd5383577c1b05b87b39460678d6cdc704df707)
+
 ## 1.0.0-master.360+20201119155326
 2020-11-19
 
