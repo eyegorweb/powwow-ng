@@ -35,8 +35,6 @@
         </div>
         <template v-if="hasResults">
           <DataTable
-            storage-id="getparc.lines"
-            storage-version="25"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -119,7 +117,7 @@ export default {
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
 
     pageLimit: {
       get() {
@@ -259,11 +257,10 @@ export default {
     },
   },
   async mounted() {
-
     if (this.userIsPartner) {
-      const partnerId = get(this.userInfos, 'party.id');
+      const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -395,7 +392,7 @@ export default {
           exportId: 'LINE_OFFER',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
                 return get(row, 'workflow.workflowDescription');
               }
@@ -481,7 +478,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +

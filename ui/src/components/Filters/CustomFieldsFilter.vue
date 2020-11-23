@@ -12,7 +12,7 @@
 import PartnerFields from '@/components/PartnerFields';
 
 export default {
-  name: 'GetSimCustomFields',
+  name: 'CustomFieldsFilter',
 
   props: {
     customFields: Array,
