@@ -20,7 +20,7 @@
     <Modal v-if="isExportFormatChoiceOpen">
       <div slot="body">
         <div class="loader" v-if="showLoader" :class="{ error: haveError }">
-          <div>{{ haveError ? $t('exportError') : $t('exportLoading') }}</div>
+          <div>{{ haveError ? messageError : $t('exportLoading') }}</div>
         </div>
         <h4>{{ $t('exportFormat') }} :</h4>
         <div class="row">
@@ -117,6 +117,7 @@ export default {
       exportChoice: undefined,
       showLoader: false,
       haveError: false,
+      messageError: undefined,
       forceAsyncExport: false,
       exportTypes: [
         {
@@ -264,8 +265,13 @@ export default {
             this.closeAndResetExportChoice();
           }
         } catch (err) {
-          console.log(err);
           this.haveError = true;
+          if (err === 'noData') {
+            this.messageError = this.$t('noLinesToExport');
+          } else {
+            this.messageError = this.$t('exportError');
+          }
+          return this.messageError;
         }
       }
     },

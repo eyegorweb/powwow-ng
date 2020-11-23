@@ -710,6 +710,17 @@ export async function exportSimCardInstances(
     };
   }
 
+  if (
+    response &&
+    response.data &&
+    response.data.exportSimCardInstances &&
+    !response.data.exportSimCardInstances.downloadUri
+  ) {
+    return {
+      errors: 'noData',
+    };
+  }
+
   return response.data.exportSimCardInstances;
 }
 
