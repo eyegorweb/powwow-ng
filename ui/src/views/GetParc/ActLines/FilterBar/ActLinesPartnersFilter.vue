@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     ...mapActions('actLines', ['setPartnersFilter']),
-
     updatePartners(partners) {
       this.setPartnersFilter({ partners });
     },

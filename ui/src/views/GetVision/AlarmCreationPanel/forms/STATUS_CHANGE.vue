@@ -4,6 +4,7 @@
     :have-form="true"
     :check-errors-fn="isFormValid"
     :duplicate-from="duplicateFrom"
+    :partner="partner"
     @save="onSave"
     @scope="scopeChoice = $event"
   >
@@ -36,6 +37,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
   },
 
   mounted() {

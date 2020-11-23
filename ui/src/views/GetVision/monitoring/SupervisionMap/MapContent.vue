@@ -153,6 +153,17 @@ export default {
 
       return undefined;
     },
+    idFilter() {
+      if (this.appliedFilters) {
+        const idFilter = this.appliedFilters.find(f => f.id === 'common.identifier');
+        const data = this.$loGet(idFilter, 'data');
+        if (data.msisdn || data.imsi) {
+          return data;
+        }
+      }
+
+      return undefined;
+    },
     usageForQuery() {
       if (this.usage === 'ALARMS') {
         return 'ALL';
@@ -224,7 +235,11 @@ export default {
           await this.loadDataForM2MCockpit();
         } else if (this.zipCodeFilter) {
           await this.loadDataByZipCode();
-        } else {
+        }
+        else if (this.idFilter) {
+          await this.loadDataById();
+        }
+        else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
             await this.loadDataForContinents();
           } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
@@ -341,6 +356,14 @@ export default {
     async loadDataByZipCode() {
       const markers = await this.fetchDataForFrenchDepartments(true);
       this.setMarkersAndCenter(markers, DEPARTMENT_ZOOM_LEVEL);
+    },
+
+    async loadDataById() {
+      const data = await fetchDataForCells(this.usageForQuery, this.getBounds(), this.formatFilters());
+      const markers = this.formatMarkers(data);
+      this.adjustPosition = defaultAdjustment;
+
+      this.setMarkersAndCenter(markers, CELL_ZOOM_LEVEL);
     },
 
     async setMarkersAndCenter(markers, zoomLevel, coords) {
@@ -545,6 +568,8 @@ export default {
             parseFloat(d.locationLatitude),
             parseFloat(d.locationLongitude)
           ),
+          lat: parseFloat(d.locationLatitude),
+          lng: parseFloat(d.locationLongitude),
           data: d,
         };
       });

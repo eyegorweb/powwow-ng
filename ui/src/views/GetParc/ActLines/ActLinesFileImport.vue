@@ -36,7 +36,12 @@
       </ul>
     </div>
     <div v-if="error" class="alert alert-danger" role="alert">
-      {{ $t('getparc.actCreation.report.' + fileMeta.error) }}
+      <template v-if="isTranslatableUploadError">
+        {{ $t('getparc.actCreation.report.' + fileMeta.error) }}
+      </template>
+      <template v-else>
+        {{ $t('genericErrorMessage') }}
+      </template>
     </div>
   </div>
 </template>
@@ -78,6 +83,15 @@ export default {
     },
   },
   computed: {
+    isTranslatableUploadError() {
+      return [
+        'InvalidFileExtension',
+        'InvalidFileContent',
+        'InvalidFileVersion',
+        'NotFoundException',
+        'InvalidFileSize',
+      ].indexOf(this.fileMeta.error) > -1;
+    },
     error: {
       get() {
         if (!this.fileMeta) return null;

@@ -11,7 +11,7 @@ import CustomFieldsFilter from '@/components/Filters/CustomFieldsFilter';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'GetSimCustomFields',
+  name: 'ActLinesCustomFields',
 
   data() {
     return {

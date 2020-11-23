@@ -4,6 +4,7 @@
     :check-errors-fn="isFormValid"
     :duplicate-from="duplicateFrom"
     have-form
+    :partner="partner"
     @save="onSave"
     @scope="scopeChoice = $event"
   >
@@ -38,6 +39,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
   },
   async mounted() {
     const isps = await fetchIsps();

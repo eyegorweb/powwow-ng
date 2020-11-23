@@ -3,6 +3,7 @@
     :alarm="alarm"
     :check-errors-fn="isFormValid"
     :duplicate-from="duplicateFrom"
+    :partner="partner"
     have-form
     @save="onSave"
     @scope="scopeChoice = $event"
@@ -37,6 +38,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
   },
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),

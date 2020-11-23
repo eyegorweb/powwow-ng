@@ -35,8 +35,6 @@
         </div>
         <template v-if="hasResults">
           <DataTable
-            storage-id="getparc.lines"
-            storage-version="22"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -119,7 +117,7 @@ export default {
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userName']),
+    ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
 
     pageLimit: {
       get() {
@@ -260,9 +258,9 @@ export default {
   },
   async mounted() {
     if (this.userIsPartner) {
-      const partnerId = get(this.userInfos, 'party.id');
+      const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -394,7 +392,7 @@ export default {
           exportId: 'LINE_OFFER',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
                 return get(row, 'workflow.workflowDescription');
               }
@@ -480,7 +478,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +
@@ -494,67 +492,67 @@ export default {
         {
           id: 15,
           label: this.$t('col.customFields', { num: 1 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD1',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom1',
+            path: 'customFields.custom1',
           },
         },
         {
           id: 16,
           label: this.$t('col.customFields', { num: 2 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD2',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom2',
+            path: 'customFields.custom2',
           },
         },
         {
           id: 17,
           label: this.$t('col.customFields', { num: 3 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD3',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom3',
+            path: 'customFields.custom3',
           },
         },
         {
           id: 18,
           label: this.$t('col.customFields', { num: 4 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD4',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom4',
+            path: 'customFields.custom4',
           },
         },
         {
           id: 19,
           label: this.$t('col.customFields', { num: 5 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD5',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom5',
+            path: 'customFields.custom5',
           },
         },
         {
           id: 20,
           label: this.$t('col.customFields', { num: 6 }),
-          name: 'customFields',
+          name: 'accessPoint',
           visible: false,
           exportId: 'LINE_CUSTOM_FIELD6',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom5',
+            path: 'customFields.custom6',
           },
         },
       ],
