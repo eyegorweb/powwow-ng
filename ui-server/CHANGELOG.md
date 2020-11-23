@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.364+20201123134054
+2020-11-23
+
+### Fixes
+
+- corriger le zoom pour le cockpit M2M (b35479c12324b895cf30371994801abba0a66fca)
+
 ## 1.0.0-master.363+20201123131534
 2020-11-23
 
