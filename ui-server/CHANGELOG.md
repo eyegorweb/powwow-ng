@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.363+20201123131534
+2020-11-23
+
+### Fixes
+
+- afficher les labels des champs libres (d72844609a9b2430810eace7c288083aacfb600e)
+- 2112 mise à jour des messages d'erreur pour l'export de lignes (28fec4398d0c9930aec4510c329ea5075e13a4b3)
+
 ## 1.0.0-master.362+20201123082259
 2020-11-23
 
