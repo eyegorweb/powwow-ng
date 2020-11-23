@@ -5,6 +5,7 @@
     @save="onSave"
     @scope="scopeChoice = $event"
     :check-errors-fn="isFormValid"
+    :partner="partner"
     :duplicate-from="duplicateFrom"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
@@ -26,6 +27,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
   },
   data() {
     return {

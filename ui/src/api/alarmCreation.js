@@ -116,7 +116,6 @@ export async function createSharedConsumptionAlarm(params) {
   const queryStr = `mutation CreateSharedConsumptionAlarm($offerAlarmCreationInput: OfferAlarmCreationInput!){
     createSharedConsumptionAlarm(offerAlarmCreationInput: $offerAlarmCreationInput)
   }`;
-
   const response = await query(queryStr, {
     offerAlarmCreationInput: params,
   });
@@ -259,7 +258,6 @@ function getScope(params) {
 function getScopeGQLParams(params) {
   const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
   if (!params.scope) return '';
-
   if (params.scope.partner && params.scope.partner.id && tempDataUuid) {
     return `idParty: {eq: ${params.scope.partner.id}}, tempDataUuid: "${tempDataUuid}"`;
   }
