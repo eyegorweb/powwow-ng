@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.365+20201123165538
+2020-11-23
+
+### Fixes
+
+- permission sur le bouton pour relancer des actes (77364167a59151ca816e877754e1e62d0a65e6ec)
+
 ## 1.0.0-master.364+20201123134054
 2020-11-23
 
