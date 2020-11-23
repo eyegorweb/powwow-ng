@@ -61,12 +61,14 @@
             >
               {{ $t('cancel') }}
             </button>
-            <button
-              class="modal-default-button btn btn-success btn-sm ml-1"
-              @click.stop="restartFailedActs"
-            >
-              {{ $t('save') }}
-            </button>
+            <permission domain="act" action="replay">
+              <button
+                class="modal-default-button btn btn-success btn-sm ml-1"
+                @click.stop="restartFailedActs"
+              >
+                {{ $t('save') }}
+              </button>
+            </permission>
           </div>
         </Modal>
       </div>
