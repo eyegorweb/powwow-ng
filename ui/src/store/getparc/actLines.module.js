@@ -107,8 +107,13 @@ function removeSelectedOffersWithNoSelectedPartners({ commit, getters }, partner
 async function refreshCustomFilters({ commit }, partners) {
   if (partners.length === 1) {
     // appel api pour charger les custom fields
-    const customFields = await fetchCustomFields(partners[0].id);
-    commit('setFilterCustomFieldsList', customFields.customFields);
+    const customAndSpecificFields = await fetchCustomFields(partners[0].id);
+    /*
+     * Gros bug sur les custom fields qui ne s'initialisent pas bien pour les utilisateurs de type "Partenaire"
+     */
+    setTimeout(() => {
+      commit('setFilterCustomFieldsList', customAndSpecificFields.customFields);
+    });
   } else {
     commit('setFilterCustomFieldsList', []);
   }
