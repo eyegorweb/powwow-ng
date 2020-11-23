@@ -36,27 +36,27 @@
       <UsageCounter :row="content" />
     </div>
     <div v-if="get('accessPoint.customFields.custom1')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 1 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(1) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom1') }}</p>
     </div>
     <div v-if="get('accessPoint.customFields.custom2')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 2 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(2) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom2') }}</p>
     </div>
     <div v-if="get('accessPoint.customFields.custom3')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 3 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(3) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom3') }}</p>
     </div>
     <div v-if="get('accessPoint.customFields.custom4')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 4 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(4) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom4') }}</p>
     </div>
     <div v-if="get('accessPoint.customFields.custom5')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 5 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(5) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom5') }}</p>
     </div>
     <div v-if="get('accessPoint.customFields.custom6')" class="overview-item mr-5">
-      <h6>{{ $t('col.customFields', { num: 6 }) }} :</h6>
+      <h6>{{ getCustomFieldLabel(6) }} :</h6>
       <p>{{ get('accessPoint.customFields.custom6') }}</p>
     </div>
   </div>
@@ -67,6 +67,7 @@ import get from 'lodash.get';
 import UsageCounter from './UsageCounter';
 import BillingStatus from './parts/BillingStatus';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
+import { fetchCustomFields } from '@/api/customFields';
 
 export default {
   components: {
@@ -79,8 +80,30 @@ export default {
       type: Object,
     },
   },
+  data() {
+    return {
+      partnerCustomFields: undefined
+    }
+  },
+  async mounted() {
+    try {
+      this.partnerCustomFields = await fetchCustomFields(this.content.party.id);
+    } catch (e) {
+      console.log(e);
+    }
+  },
 
   methods: {
+    getCustomFieldLabel(num) {
+      if (this.partnerCustomFields && this.partnerCustomFields.customFields) {
+        const field = this.partnerCustomFields.customFields.find(f => f.code === 'custom' + num);
+        if (field) {
+          return field.label;
+        }
+      }
+
+      return this.$t('col.customFields', { num });
+    },
     get(path, defaultVal = '-') {
       return get(this.content, path, defaultVal);
     },

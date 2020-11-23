@@ -359,9 +359,9 @@ export default {
     ...mapGetters([
       'userInfos',
       'userIsBO',
-      'userIsPartner',
       'userIsGroupAccount',
       'havePermission',
+      'userIsPartner',
       'singlePartner',
     ]),
 

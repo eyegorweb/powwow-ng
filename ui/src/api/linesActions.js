@@ -160,6 +160,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       deviceReference
     }
     party{
+      id
       name
       partyType
     }
