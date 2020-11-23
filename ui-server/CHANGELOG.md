@@ -2,6 +2,22 @@
 
 <!--- next entry here -->
 
+## 1.16.0
+2020-11-23
+
+### Features
+
+- Changement ordre affichage widget par defaut (9f8cc9820a550c395b70dead59b2e52ee04cd485)
+
+### Fixes
+
+- Correction de la traduction des erreurs dans le composant de recherche par fichier (79d9c588012272cfe3eb2514a0490138ab38e9a4)
+- debug des champs libre dans la table des sims (78dd042f37b9ddba731f71b04e9d379d8c81bce8)
+- conversion des datas et des secondes pour la creation et modification dalarmes (30849d0ea86df6dbee44cd791301a95048aadc35)
+- Correction des colonnes offre et compte de facturation dans la table des lignes exclues d'une alarme (2fd5383577c1b05b87b39460678d6cdc704df707)
+- Centrer pour une recherche par identifiant (6fbeb31e5f3c1912f948164b5673ae03b51a9448)
+- Problème à la création alarme dans le detail de ligne (3f5a2d9933f699fc240f54553b8f36c76eebe911)
+
 ## 1.15.1
 2020-11-19
 
