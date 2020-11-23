@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.362+20201123082259
+2020-11-23
+
+### Features
+
+- Changement ordre affichage widget par defaut (9f8cc9820a550c395b70dead59b2e52ee04cd485)
+
+### Fixes
+
+- Centrer pour une recherche par identifiant (6fbeb31e5f3c1912f948164b5673ae03b51a9448)
+- Problème à la création alarme dans le detail de ligne (3f5a2d9933f699fc240f54553b8f36c76eebe911)
+
 ## 1.0.0-master.361+20201120085436
 2020-11-20
 
