@@ -5,6 +5,7 @@
     skip-scope-check
     :container-height="'8rem'"
     @save="onSave"
+    :partner="partner"
     :check-errors-fn="isFormValid"
   >
     <template v-slot:default="{ scopeIndex }">
@@ -78,6 +79,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    partner: Object,
   },
 
   data() {
@@ -200,6 +202,7 @@ export default {
         emailNotification: payload.sholdNotify,
         webServiceNotification: payload.webserviceNotification,
         mailingList: payload.notifList,
+        partner: this.partner,
       };
 
       try {
