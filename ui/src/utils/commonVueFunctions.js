@@ -10,7 +10,7 @@ export default {
      */
     Vue.prototype.$loGet = (object, path, defaultValue = '') => {
       const value = get(object, path, defaultValue);
-      return value !== null ? value : '';
+      return value !== null ? value : defaultValue;
     };
   },
 };

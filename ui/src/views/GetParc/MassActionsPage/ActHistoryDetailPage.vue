@@ -37,34 +37,34 @@
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateCreated') }} :</h6>
-            <p>{{ getFromContent('massAction.created') }}</p>
+            <p>{{ $loGet(content, 'massAction.created', '-') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateStarted') }} :</h6>
-            <p>{{ getFromContent('massAction.dueDate') }}</p>
+            <p>{{ $loGet(content, 'massAction.dueDate', '-') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDateEnded') }} :</h6>
-            <p>{{ getFromContent('massAction.ended') }}</p>
+            <p>{{ $loGet(content, 'massAction.ended', '-') }}</p>
           </div>
         </div>
 
         <div class="flex-fill">
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.massActionDetail') }} :</h6>
-            <p>{{ getFromContent('info') }}</p>
+            <p>{{ $loGet(content, 'info', '-') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.name') }} :</h6>
-            <p>{{ getFromContent('partyName') }}</p>
+            <p>{{ $loGet(content, 'partyName', '-') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creator') }} :</h6>
-            <p>{{ getFromContent('creatorUsername') }}</p>
+            <p>{{ $loGet(content, 'creatorUsername', '-') }}</p>
           </div>
           <div class="overview-item mr-5">
             <h6>{{ $t('getparc.history.details.creatorMail') }} :</h6>
-            <p>{{ getFromContent('creatorEmail') }}</p>
+            <p>{{ $loGet(content, 'creatorEmail', '-') }}</p>
           </div>
         </div>
 
