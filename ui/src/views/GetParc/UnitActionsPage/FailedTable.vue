@@ -15,10 +15,12 @@
               <i class="ic-Check-Icon" />
               {{ $t('getparc.actDetail.discharge') }}
             </button>
-            <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
-              <i class="ic-Refresh-Icon" />
-              {{ $t('getparc.actDetail.restart') }}
-            </button>
+            <permission domain="act" action="replay">
+              <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
+                <i class="ic-Refresh-Icon" />
+                {{ $t('getparc.actDetail.restart') }}
+              </button>
+            </permission>
           </div>
         </div>
         <Modal v-if="acknowledgePopUp">
@@ -61,14 +63,12 @@
             >
               {{ $t('cancel') }}
             </button>
-            <permission domain="act" action="replay">
-              <button
-                class="modal-default-button btn btn-success btn-sm ml-1"
-                @click.stop="restartFailedActs"
-              >
-                {{ $t('save') }}
-              </button>
-            </permission>
+            <button
+              class="modal-default-button btn btn-success btn-sm ml-1"
+              @click.stop="restartFailedActs"
+            >
+              {{ $t('save') }}
+            </button>
           </div>
         </Modal>
       </div>
