@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.370+20201124151330
+2020-11-24
+
+### Fixes
+
+- Correction dans les permissions des colonnes à ajouter dans un rapport (3f5287cf870f225306ff22942301c940b75bce19)
+
 ## 1.0.0-master.369+20201124131101
 2020-11-24
 
