@@ -90,6 +90,7 @@
   "personalizeHome": "Personnaliser ma home",
   "genericSuccessMessage": "Opération effectuée avec succès",
   "genericErrorMessage": "Erreur inconnue",
+  "queryError": "Erreur rencontrée durant le traitement de la requête",
   "lastMassActions": "Derniers actes de gestion",
   "showAllHistory": "Voir l'historique complet",
   "groupAccount": "Compte groupe",

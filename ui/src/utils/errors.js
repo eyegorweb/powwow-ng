@@ -7,6 +7,7 @@ export function formatBackErrors(errors) {
     all.push({
       id: uuid(),
       errorKeys,
+      errors: extensions.map(exName => ({ key: exName, value: err.extensions[exName] })),
     });
     return all;
   }, []);
