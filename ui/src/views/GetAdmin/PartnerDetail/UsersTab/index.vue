@@ -35,14 +35,15 @@ export default {
       if (this.havePermission('party', 'read_administrator')) {
         this.menuItems.push('getadmin.partners.admins');
       }
-      if (this.havePermission('party', 'read')) {
+      if (this.havePermission('user', 'read')) {
         this.menuItems.push('getadmin.partners.users');
       }
     } else {
-      if (this.havePermission('party', 'read')) {
+      if (this.havePermission('user', 'read')) {
         this.menuItems.push('getadmin.partners.users');
       }
     }
+    this.initSection(this.menuItems);
   },
 
   computed: {
@@ -55,6 +56,13 @@ export default {
 
       menuItems: [],
     };
+  },
+
+  methods: {
+    initSection(menu) {
+      if (!menu.length) return;
+      this.section = menu.find(a => a);
+    },
   },
 };
 </script>

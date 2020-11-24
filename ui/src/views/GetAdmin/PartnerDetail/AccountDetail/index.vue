@@ -9,7 +9,6 @@
         v-if="section === 'getadmin.partners.accountDescription'"
         :partner="partner"
       />
-
       <M2MRange v-if="section === 'getadmin.partners.m2mRange.title'" :partner="partner" />
     </div>
   </div>
@@ -42,19 +41,24 @@ export default {
     let menuItems = [];
     if (
       this.havePermission('party', 'read_account_detail') &&
-      this.havePermission('party', 'read_options')
+      (this.havePermission('party', 'read_main_options') ||
+        this.havePermission('party', 'read_secondary_options'))
     ) {
       menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
       this.section = 'getadmin.partners.options';
     } else if (
       this.havePermission('party', 'read_account_detail') &&
-      !this.havePermission('party', 'read_options')
+      !(
+        this.havePermission('party', 'read_main_options') ||
+        this.havePermission('party', 'read_secondary_options')
+      )
     ) {
       menuItems = ['getadmin.partners.accountDescription'];
       this.section = 'getadmin.partners.accountDescription';
     } else if (
       !this.havePermission('party', 'read_account_detail') &&
-      this.havePermission('party', 'read_options')
+      (this.havePermission('party', 'read_main_options') ||
+        this.havePermission('party', 'read_secondary_options'))
     ) {
       menuItems = ['getadmin.partners.options'];
       this.section = 'getadmin.partners.options';
@@ -65,8 +69,8 @@ export default {
     if (this.partner && this.partner.partyType === 'MVNO') {
       this.menuItems.push('getadmin.partners.m2mRange.title');
     }
-
     this.menuItems = menuItems;
+    this.initSection(this.menuItems);
   },
 
   data() {
@@ -79,6 +83,13 @@ export default {
 
   computed: {
     ...mapGetters(['havePermission']),
+  },
+
+  methods: {
+    initSection(menu) {
+      if (!menu.length) return;
+      this.section = menu.find(a => a);
+    },
   },
 };
 </script>

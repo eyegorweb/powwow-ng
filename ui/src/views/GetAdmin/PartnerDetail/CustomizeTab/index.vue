@@ -57,7 +57,13 @@ export default {
       this.menuItems.push('getadmin.customize.deliveryAddress');
     }
 
-    this.menuItems.push('getadmin.customize.customFields', 'getadmin.customize.specificFields');
+    if (this.havePermission('party', 'read_custom_field')) {
+      this.menuItems.push('getadmin.customize.customFields');
+    }
+
+    if (this.havePermission('party', 'read_specific_field')) {
+      this.menuItems.push('getadmin.customize.specificFields');
+    }
 
     if (!this.userIsBO) {
       this.hideMenuItem(this.menuItems, 'getadmin.customize.specificFields');
@@ -69,7 +75,7 @@ export default {
     if (this.partner.partyType === 'MULTI_CUSTOMER') {
       this.hideMenuItem(this.menuItems, 'getadmin.customize.deliveryAddress');
     }
-    this.section = this.menuItems[0] || '';
+    this.initSection(this.menuItems);
   },
 
   data() {
@@ -85,6 +91,11 @@ export default {
       if (foundItem !== -1) {
         return menu.splice(foundItem, 1);
       }
+    },
+
+    initSection(menu) {
+      if (!menu.length) return;
+      this.section = menu.find(a => a);
     },
   },
 };
