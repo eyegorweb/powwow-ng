@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.367+20201124100830
+2020-11-24
+
+### Fixes
+
+- Ajout des colonnes de dates dans les tables d'actes unitaires (a214be5caa66ab6aa2fa27022e7055105dbcefe5)
+
 ## 1.0.0-master.366+20201124085115
 2020-11-24
 
