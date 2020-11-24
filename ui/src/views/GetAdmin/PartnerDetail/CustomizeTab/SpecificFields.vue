@@ -2,7 +2,7 @@
   <div>
     <div class="cards">
       <div
-        v-if="allSpecificFields.length < MAX_ALLOWED_SPECIFIC_FIELDS"
+        v-if="allSpecificFields.length < MAX_ALLOWED_SPECIFIC_FIELDS && canUpdate"
         class="addNew"
         @click="addNewSpecificField"
       >
@@ -15,9 +15,9 @@
         <Card
           v-for="(sf, index) in allSpecificFields"
           :key="sf.id"
-          :can-delete="false"
+          :can-delete="canUpdate"
           @modify="modifySpecificField(sf)"
-          :can-modify="false"
+          :can-modify="canUpdate"
         >
           <div class="cardBloc-infos-name">{{ $t('col.specificFields', { num: ++index }) }}</div>
           <div class="cardBloc-infos-username">{{ sf.label }}</div>
@@ -30,7 +30,7 @@
 <script>
 import Card from '@/components/Card';
 import { fetchCustomFields } from '@/api/customFields';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -62,6 +62,13 @@ export default {
 
   async mounted() {
     await this.fetchCustomFieldsForPartner();
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
+    canUpdate() {
+      return this.havePermission('party', 'update_specific_field');
+    },
   },
 
   methods: {
