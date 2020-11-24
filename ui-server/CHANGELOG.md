@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.368+20201124103928
+2020-11-24
+
+### Fixes
+
+- Ajouter un loader pour le refus des résiliations (d9f601efe9b330fe52f7a1539334ee037d0a8df4)
+
 ## 1.0.0-master.367+20201124100830
 2020-11-24
 
