@@ -78,6 +78,7 @@
   "personalizeHome": "Customize my home",
   "genericSuccessMessage": "Operation performed successfully",
   "genericErrorMessage": "Unknown error",
+  "queryError": "Query error ",
   "lastMassActions": "Latest management acts",
   "showAllHistory": "View full history",
   "groupAccount": "Group account",

@@ -1,6 +1,6 @@
 <template>
   <div :class="`alert alert-${msgInfo.level} ${destroyingClassName}`" role="alert">
-    {{ msgInfo.message }}
+    <p>{{ msgInfo.message }}</p>
   </div>
 </template>
 
@@ -45,6 +45,9 @@ export default {
   visibility: visible;
   opacity: 1;
   transition: opacity 2s linear;
+  p {
+    white-space: pre-line;
+  }
 }
 
 .destroying {
