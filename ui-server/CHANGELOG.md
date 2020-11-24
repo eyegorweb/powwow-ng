@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.366+20201124085115
+2020-11-24
+
+### Fixes
+
+- Corriger la permission sur le bouton "relancer un acte" (5fafd8dd87c7dfcd63c342ae5d3ab16f1a80b7f8)
+
 ## 1.0.0-master.365+20201123165538
 2020-11-23
 
