@@ -6,12 +6,9 @@ Given(`je suis sur la page recherche de lignes`, () => {
   linesPage.init();
   cy.wait(400);
 });
+
 Given(`j'ouvre le détail d'une ligne`, () => {
-  cy.wait(600);
-
   linesPage.showAllLines();
-  cy.wait(200);
-
   linesPage.panel.openForLine(1);
   linesPage.panel.goToDetail();
 });
@@ -53,6 +50,13 @@ Given(`je choisis le filtre offre {string}`, offer => {
   linesPage.filterBar.offer.toggle();
   linesPage.filterBar.offer.filter(offer);
   linesPage.filterBar.offer.choose(1);
+});
+
+Given(`je choisis le filtre statut de facturation {string}`, billingStatus => {
+  linesPage.filterBar.showAllTypes();
+  linesPage.filterBar.billingStatus.toggle();
+  linesPage.filterBar.billingStatus.filter(billingStatus);
+  linesPage.filterBar.billingStatus.choose(1);
 });
 
 Given(`je choisis le filtre id {string}`, offer => {

@@ -1,12 +1,8 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import alarmsPage from '../../../pageObjects/alarmsPage';
-import { waitForGQL } from '../../../utils/query';
 
 Given(`je suis sur la page recherche d'alarmes`, () => {
-  cy.server();
-  cy.route('POST', '/api/graphql').as('gql-call');
-
   alarmsPage.init();
 
   cy.wait(500);
@@ -33,7 +29,7 @@ Given(`je choisis le filtre offre {string}`, offer => {
 Given(`je choisis le filtre portée de l'alarme {string}`, alarmRange => {
   alarmsPage.filterBar.alarmRange.toggle();
   alarmsPage.filterBar.alarmRange.filter(alarmRange);
-  alarmsPage.filterBar.alarmRange.choose(1)
+  alarmsPage.filterBar.alarmRange.choose(1);
 });
 
 When(`je lance la recherche par ID {string}`, id => {
@@ -65,13 +61,13 @@ Then(`la table contient moins de {int} resultat`, nbrResult => {
   });
 });
 
-
 //fonction ci dessous non utilisée, gardée pour une refact de waitGraphQL
 Then(`la table contient les alarmes du partenaire`, () => {
-  waitForGQL('alarms', xhr => {
-    const alarms = xhr.responseBody.data.alarms.items;
-    console.log('alarms >> ', alarms);
-    const haveAlarmOfOtherPartners = !!alarms.find(a => a.party.name !== cy.testVars.userPartner);
-    expect(haveAlarmOfOtherPartners).to.be.false;
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('alarms').then(response => {
+      const alarms = get(response, 'data.alarms.items');
+      const haveAlarmOfOtherPartners = !!alarms.find(a => a.party.name !== cy.testVars.userPartner);
+      expect(haveAlarmOfOtherPartners).to.be.false;
+    });
   });
 });

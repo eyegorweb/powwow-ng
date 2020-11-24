@@ -1120,6 +1120,8 @@
         "iccid": "ICCID",
         "actState": "État de l’acte",
         "failDate": "Date de l’échec",
+        "statusDate": "Date de l’état",
+        "creationDate": "Date de création",
         "failReason": "Raison de l'échec",
         "imsi": "IMSI",
         "constructor": "Constructeur",

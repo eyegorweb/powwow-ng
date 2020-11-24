@@ -3,7 +3,7 @@
     <div slot="on-loading">
       <PageSkeleton />
     </div>
-    <div class="mt-4">
+    <div class="mt-4 bottom-space">
       <div class="row">
         <div class="col-md-9">
           <button
@@ -158,9 +158,8 @@ export default {
     },
     massActionsTitleInfos() {
       return this.massAction
-        ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${
-            this.massAction.massAction.id
-          } - ${this.massAction.type}`
+        ? `- ${this.$t('getparc.management-act-detail')} - Acte N° ${this.massAction.massAction.id
+        } - ${this.massAction.type}`
         : '';
     },
   },

@@ -35,7 +35,7 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.waitGet('.flex-grow-1 > input')
+      cy.waitGet('#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > form > div > div.form-group.mb-0.col-md-8 > div > label > input')
         .type(id);
     },
     applySearch() {

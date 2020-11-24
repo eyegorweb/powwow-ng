@@ -6,7 +6,9 @@ export default {
     cy.waitGet('.col-md-3 > .float-right').click({ force: true });
   },
   next() {
+    cy.wait(800);
     cy.waitGet('.next-btn').click({ force: true });
+    cy.wait(800);
   },
   saveOrder() {
     cy.waitGet('.checkmark')
@@ -19,20 +21,19 @@ export default {
     choosePartner(name) {
       const partnerInputPath =
         '#main-sliding-panel > div > div > div > div > div.orderStep > div.stepContent > div > div.orderStepContent > div > div:nth-child(1) > div > fieldset > input';
-      cy.waitGet(partnerInputPath).type(name);
-
-      cy.wait(200);
-
-      cy.waitGet(partnerInputPath)
-        .wait(200)
+      cy.waitGet(partnerInputPath).type(name, {delay: 100})
+        .wait(500)
+        .waitGet(partnerInputPath)
+        .wait(500)
         .type('{downarrow}')
-        .type('{enter}');
+        .type('{enter}')
+        .wait(500);
     },
     chooseBillingAccount(name) {
       const BillingAccountInputPath =
         ':nth-child(2) > .position-relative > .form-group > .form-control';
 
-      cy.waitGet(BillingAccountInputPath).type(name);
+      cy.waitGet(BillingAccountInputPath).type(name, {delay: 100});
       cy.wait(200);
       cy.waitGet(BillingAccountInputPath)
         .wait(200)
@@ -50,9 +51,9 @@ export default {
       cy.waitGet('.productChoices > div.text-right > .show-all-types').click();
     },
     selectSimType(indexSim) {
-      cy.waitGet(
-        `:nth-child(${indexSim}) > .d-flex > .checkbox-container > .filled > .checkmark`
-      ).click();
+      cy.wait(800)
+        .waitGet(`:nth-child(${indexSim}) > .d-flex > .checkbox-container > .filled > .checkmark`)
+        .click();
     },
   },
   services: {
@@ -79,7 +80,7 @@ export default {
     },
     statusIsUnvalid() {
       cy.waitGet(
-        ':nth-child(1) > :nth-child(3) > [data-v-a2f6a4ce=""] > .order-status > .status-icon > .icon-container > i'
+        '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(3) > div > div > div > div > i'
       ).should('have.class', 'ic-Alt-Icon');
     },
   },
@@ -87,7 +88,7 @@ export default {
     selectLastShippingAdress() {
       cy.waitGet(
         '.list-container > .adress > .adress__item > .checkbox-container > .filled > .checkmark'
-        ).click({ force: true });
+      ).click({ force: true });
     },
   },
 };

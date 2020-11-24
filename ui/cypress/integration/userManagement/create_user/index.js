@@ -11,6 +11,7 @@ Given(`je suis sur la page de gestion des utilisateurs`, () => {
 
 Given(`je créé un nouvel utilisateur interne`, () => {
   userCreationPage.addUser();
+  userCreationPage.selectLanguage();
 });
 
 

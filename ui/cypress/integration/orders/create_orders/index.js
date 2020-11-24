@@ -1,10 +1,15 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import orderCreationPanel from '../../../pageObjects/orderCreationPanel';
+import layout from '../../../pageObjects/layout'
 
 Given(`je suis sur la page de choix d'une offre dans la création de commande`, () => {
   orderCreationPanel.init();
 });
+
+Given(`je suis sur la page recherche de commandes`, () => {
+  layout.menu.getSim();
+})
 
 Given(`je crée une nouvelle commande`, () => {
   orderCreationPanel.init();

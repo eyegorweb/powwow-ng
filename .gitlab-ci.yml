@@ -208,6 +208,8 @@ e2e_integration:
   image: cypress/base:10
   stage: test
   when: manual
+  only:
+    - master
   variables:
     CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
   cache:
@@ -216,8 +218,6 @@ e2e_integration:
       - ui/node_modules
       - cache/Cypress
       - .cache/Cypress
-  only:
-    - master
   script:
     - cd ui
     - yarn install --frozen-lockfile

@@ -5,15 +5,32 @@ export default {
   init() {
     layout.menu.lines();
   },
+  chooseMassPrerequisites() {
+    return cy
+      .get(
+        '.prereq-toggles > div.d-flex.pl-2.justify-content-center > .toggle > button:nth-child(1)'
+      )
+      .click();
+  },
+  chooseIdPrerequisites() {
+    return cy
+      .get(
+        '.prereq-toggles > div.d-flex.pl-2.justify-content-center > .toggle > button:nth-child(2)'
+      )
+      .click();
+  },
   getLastActionType() {
     return cy.waitGet(
-      ':nth-child(1) > :nth-child(2) > [data-v-a2f6a4ce=""] > .truncate > [data-v-1e2a6935=""] > div > span'
+      '#app > div.container > div.mt-4 > div:nth-child(2) > div.col-md-9 > div > div > div:nth-child(2) > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div > div > div > span'
     );
+  },
+  isPageLoaded() {
+    cy.get('#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div');
   },
   actionsPannel: {
     suspend() {
       cy.waitGet(
-        '[data-slick-index="3"] > :nth-child(1) > .carousel-item > .card > .card-body'
+        '#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div > div > div > div.slick-list.draggable > div > div:nth-child(4) > div > div > div > div > div.title'
       ).click();
     },
     activate() {
@@ -21,7 +38,7 @@ export default {
     },
     changeBillingAccount() {
       cy.waitGet(
-        '[data-slick-index="7"] > :nth-child(1) > .carousel-item > .card > .card-body'
+        '#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div > div > div > div.slick-list.draggable > div > div:nth-child(8) > div > div > div > div > div.title'
       ).click();
     },
     editFreeFields() {
@@ -41,23 +58,19 @@ export default {
   actions: {
     activate: {
       selectPartner(PartnerName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(1) > div > div > fieldset > input'
-        )
+        cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
           .click()
           .type(PartnerName);
         cy.wait(200);
         cy.waitGet('.autocomplete-results > :nth-child(1)').click();
       },
       selectBillingAccount(billingAccountName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > fieldset > input'
-        )
+        cy.waitGet('.row > :nth-child(2) > .position-relative > .form-group > .form-control')
           .click()
           .type(billingAccountName)
           .wait(400)
           .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > fieldset > ul > li'
+            '.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result'
           )
           .click();
       },
@@ -65,28 +78,29 @@ export default {
         cy.waitGet(':nth-child(2) > label > .state--on').click();
       },
       selectOffre(offreName) {
-        cy.waitGet('.col-7 > :nth-child(2) > .position-relative > .form-group > .form-control')
+        cy.waitGet(':nth-child(3) > .position-relative > .form-group > .form-control')
           .click()
           .type(offreName)
           .wait(200)
           .waitGet(
-            '.col-7 > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > :nth-child(1)'
+            '.col-7 > :nth-child(3) > .position-relative > .form-group > .autocomplete-results > :nth-child(1)'
           )
           .click();
       },
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
       },
+      inMass() {
+        cy.waitGet('.item > :nth-child(1)').click();
+      },
     },
     suspend: {
       selectPartner(PartnerName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(1) > div > div > fieldset > input'
-        )
+        cy.waitGet('div.partner-prereq > div > fieldset > input')
           .click()
           .type(PartnerName);
-        cy.wait(200);
-        cy.waitGet('#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div.w-50 > div > div > fieldset > ul > li').click();
+        cy.wait(400);
+        cy.waitGet('div.partner-prereq > div > fieldset > ul > li').click();
       },
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
@@ -94,45 +108,37 @@ export default {
     },
     changeBillingAccount: {
       selectPartner(partnerName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(1) > div > div > fieldset > input'
-        )
+        cy.waitGet('.item > :nth-child(1)')
+          .click()
+          .waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
           .click()
           .type(partnerName)
-          .wait(200)
-          .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(1) > div > div > fieldset > ul > li'
-          )
+          .wait(400)
+          .waitGet('.autocomplete-result')
           .click();
       },
       selectBillingAccount(billingAccountName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > fieldset > input'
-        )
+        cy.waitGet('.row > :nth-child(2) > .position-relative > .form-group > .form-control')
           .click()
           .type(billingAccountName)
-          .wait(200)
-          .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(2) > div > fieldset > ul > li'
-          )
+          .wait(400)
+          .waitGet('.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result')
           .click();
       },
       selectoffer(offerName) {
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(3) > div > div > fieldset > input'
+          ':nth-child(1) > .position-relative > .form-group > .form-control'
         )
           .click()
           .type(offerName)
           .wait(200)
           .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(3) > div > div > fieldset > ul > li:nth-child(1)'
+            ':nth-child(1) > .position-relative > .form-group > .autocomplete-results > :nth-child(1)'
           )
           .click();
       },
       selectNewBillingAccount(billingAccountName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(1) > div > div > fieldset > input'
-        )
+        cy.waitGet('.col-7 > .position-relative > .form-group > .form-control')
           .click()
           .type(billingAccountName)
           .wait(200)
@@ -148,15 +154,13 @@ export default {
     editFreeFields: {
       selectPartner(partnerName) {
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div.w-50 > div > div > fieldset > input'
+          '#app > div.container > div.mt-4 > div.row.mb-3 > div > div > div > div:nth-child(1) > div > div > div.flex-grow-1.pl-4.pr-4 > div > div.w-50 > div > div > fieldset > input'
         )
           .click()
           .type(partnerName)
           .wait(200)
-          .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div.w-50 > div > div > fieldset > ul > li'
-          )
-          .click();
+          .waitGet('.autocomplete-result')
+          .click({ force: true });
       },
       fillFirstFreeField(freeField) {
         cy.waitGet(
@@ -173,9 +177,10 @@ export default {
           .type(freeField);
       },
       apply() {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div.pl-1.to-bottom > button'
-        ).click();
+        cy.waitGet('.pl-1 > .btn').click();
+      },
+      inMass() {
+        cy.waitGet('.item > :nth-child(1)').click();
       },
     },
     editServices: {
@@ -186,9 +191,7 @@ export default {
           .click()
           .type(partnerName)
           .wait(200)
-          .waitGet(
-            '#app > div.container > div.mt-4 > div:nth-child(3) > div > div > div > div > div > div.flex-grow-1 > div > div:nth-child(1) > div > div > fieldset > ul > li'
-          )
+          .waitGet('.autocomplete-results > li:nth-child(1)')
           .click();
       },
       selectOffer(offerName) {
@@ -211,7 +214,7 @@ export default {
       deactivateService() {
         // modifer la maniere dont on selectionne les services a modifier
         cy.waitGet(
-          '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(9) > label > span.checkmark.regular'
+          ':nth-child(2) > .container > .search-input > :nth-child(2) > .checkboxes > .checkbox-container > .filled > .checkmark'
         ).click();
       },
     },
@@ -222,7 +225,7 @@ export default {
     if (typeMassAction === 'Suspension')
       path = ':nth-child(2) > :nth-child(2) > :nth-child(2) > .btn';
     if (typeMassAction === 'Pré-activation et Activation')
-      path = ':nth-child(6) > :nth-child(2) > :nth-child(2) > .btn';
+      path = ':nth-child(7) > :nth-child(2) > :nth-child(2) > .btn';
     if (typeMassAction === 'Changement du compte de fac ...')
       path = ':nth-child(2) > :nth-child(2) > div > .btn > span';
     if (typeMassAction === 'Changement des champs custom')

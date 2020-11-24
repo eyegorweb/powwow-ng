@@ -107,6 +107,18 @@ export default {
           visible: false,
           exportId: 'IMEI',
         },
+        {
+          id: 12,
+          label: this.$t('getparc.actDetail.col.creationDate'),
+          orderable: true,
+          visible: false,
+          name: 'unitAction',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'created'
+          },
+          exportId: 'UNIT_ACTION_CREATED_DATE'
+        },
       ],
     };
   },
