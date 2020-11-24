@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.369+20201124131101
+2020-11-24
+
+### Fixes
+
+- 2088 mise à jour des permissions dans la gestion de partenaires (58e15ca471ec3ac1aac50edd3231774805719267)
+
 ## 1.0.0-master.368+20201124103928
 2020-11-24
 
