@@ -28,4 +28,8 @@ export default {
   refresh() {
     cy.startAsBO();
   },
+  clickOnCurrentMassActions() {
+    cy.get('[data-v-3a49d136=""] > .list-group > :nth-child(1) > .float-right > .btn > span')
+      .click();
+  }
 }

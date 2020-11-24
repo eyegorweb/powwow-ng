@@ -4,8 +4,8 @@ import * as filterBarSelectors from './selectors/filterbar';
 import { MultiSelectFilter } from './selectors/filters';
 
 export default {
-  init() {
-    layout.menu.massActions();
+  init(startServer) {
+    layout.menu.massActions(startServer);
   },
   idSearch: {
     typeId(id) {
@@ -42,12 +42,15 @@ export default {
       },
 
       preselect(choice) {
-        cy.waitGet(`body > .daterangepicker > .ranges > ul > li:nth-child(${choice})`).click();
+        cy.waitGet(`body > .daterangepicker > .ranges > ul > li:nth-child(${choice})`)
+        .wait(500)
+        .click();
       },
     },
   },
   getTotal() {
     return new Promise(resolve => {
+      cy.wait(200);
       cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then(e => {
         const parts = e
           .text()

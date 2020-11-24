@@ -2,7 +2,7 @@
   <div class="row mb-3">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body prereq-toggles">
           <template v-if="canHaveSearchByIdPrereq">
             <Toggle
               v-if="toggleValues && !currentToggle"

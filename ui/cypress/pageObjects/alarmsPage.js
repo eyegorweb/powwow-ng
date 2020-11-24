@@ -25,20 +25,25 @@ export default {
   },
   idSearch: {
     typeId(id) {
-      cy.waitGet('.d-block > input').type(id);
+      cy.waitGet('.d-block > input')
+        .wait(500)
+        .type(id);
     },
     applySearch() {
       cy.waitGet('.col-md-3 > .btn').click();
     },
   },
-  getTotal(onTotalLoaded) {
-    return cy.waitGet('.text-gray').then(e => {
-      const parts = e
-        .text()
-        .trim()
-        .split(' ');
-      const value = parseInt(parts[0]);
-      onTotalLoaded(value);
+  getTotal() {
+    return new Cypress.Promise(resolve => {
+      cy.waitGet('#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div > div > div > div > div.col-md-9 > div.row.mb-3 > div:nth-child(1) > h2 > div').then(e => {
+        console.log('getTotal -> parts', e.text());
+        const parts = e
+          .text()
+          .trim()
+          .split(' ');
+        const value = parseInt(parts[0]);
+        resolve(value);
+      });
     });
   },
 };

@@ -2,6 +2,11 @@ export default {
   addUser() {
     cy.waitGet('#app > div.container > div.mt-4 > div.row.mb-5 > div.col-md-3 > button').click();
   },
+  selectLanguage() {
+    cy.waitGet(
+      '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(3) > div > div > div > select'
+    ).select('Français');
+  },
   checkUserSex(userSex) {
     let checkboxPath = '';
 
@@ -54,12 +59,15 @@ export default {
       .type(userLogin);
   },
   chooseRole() {
-    cy.waitGet('#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(9) > div > div > div > div:nth-child(2) > label > span')
-      .click();
-      // changer la maniere dont on choisis le role de l'utilisateur
+    cy.waitGet(
+      '#main-sliding-panel > div > div > div > div > div.data-detail-container.main-content > div > div:nth-child(9) > div > div > div > div:nth-child(2) > label > span'
+    ).click();
   },
   saveUser() {
-    cy.waitGet('#main-sliding-panel > div > div > div > div > div.footer-panel-buttons > div > div:nth-child(2) > button')
-      .click();
-  }
+    cy.wait(500)
+      .waitGet(
+        '#main-sliding-panel > div > div > div > div > div.footer-panel-buttons > div > div:nth-child(2) > button'
+      )
+      .click({ force: true });
+  },
 };

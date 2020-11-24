@@ -197,6 +197,18 @@ export default {
           orderable: true,
           visible: false,
         },
+        {
+          id: 11,
+          label: this.$t('getparc.actDetail.col.creationDate'),
+          orderable: true,
+          visible: false,
+          name: 'unitAction',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'created'
+          },
+          exportId: 'UNIT_ACTION_CREATED_DATE'
+        },
       ],
       page: 0,
       pageLimit: 20,
