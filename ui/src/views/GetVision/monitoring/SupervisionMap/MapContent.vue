@@ -429,14 +429,17 @@ export default {
         : undefined;
 
       if (!this.markers || !this.markers.length) {
-        if (countryFilter) {
-          this.centerZoom(
-            countryFilter.data.longitude,
-            countryFilter.data.latitude,
-            COUNTRY_ZOOM_LEVEL
-          );
-        } else {
-          this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
+
+        if (!this.isSameFilters) {
+          if (countryFilter) {
+            this.centerZoom(
+              countryFilter.data.longitude,
+              countryFilter.data.latitude,
+              COUNTRY_ZOOM_LEVEL
+            );
+          } else {
+            this.centerOnFrance(COUNTRY_ZOOM_LEVEL);
+          }
         }
 
         setTimeout(() => {

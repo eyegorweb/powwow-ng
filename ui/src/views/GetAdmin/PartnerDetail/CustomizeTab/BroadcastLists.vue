@@ -12,6 +12,7 @@
           v-for="list in broadcastLists"
           :key="list.id"
           :can-delete="canUpdate"
+          :can-modify="canUpdate"
           @delete="deleteList(list.id)"
           @modify="modifyList(list)"
         >

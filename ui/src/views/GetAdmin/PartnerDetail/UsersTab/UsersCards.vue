@@ -58,7 +58,7 @@ export default {
 
   props: {
     partnerid: {
-      type: String,
+      type: [String, Number],
       default: undefined,
     },
   },

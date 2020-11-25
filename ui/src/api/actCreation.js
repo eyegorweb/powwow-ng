@@ -255,6 +255,8 @@ export async function transferSIMCards(filters, lines, params) {
   });
 }
 
+import { delay } from '@/api/utils.js';
+
 export async function manageCancellation(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { dueDate, partyId, validate, tempDataUuid } = params;

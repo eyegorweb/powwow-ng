@@ -4,7 +4,6 @@
       <div class="checkBoxesContainer">
         <template v-if="!userIsPartner">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
-
           <PartnerCombo
             :value.sync="selectedPartner"
             :options="partnerChoices"
@@ -17,7 +16,6 @@
           $t('getreport.creation.chooseInfos')
         }}</SectionTitle>
         <p>{{ $t('getreport.creation.chooseInfosDescription') }}</p>
-
         <div v-if="reportModels" class="mt-4 mb-2">
           <h6>{{ $t('getreport.creation.fromReport') }}</h6>
           <UiSelect class="report-field" v-model="reportModel" :options="reportModels" block />
@@ -65,7 +63,7 @@
           <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="newVal => (generationDate = newVal)"
+            @change="(newVal) => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -158,6 +156,7 @@ import { fetchpartnerById } from '@/api/partners.js';
 
 import PartnerCombo from '@/components/CustomComboxes/PartnerCombo.vue';
 import { currentDateTimeWithAdd } from '@/utils/date';
+import { formatBackErrors } from '@/utils/errors';
 
 function checkIfOneIsPresent(fieldsToCheck, modelFields) {
   for (let i = 0; i < fieldsToCheck.length; i++) {
@@ -351,6 +350,13 @@ export default {
       this.groups
         .map(g => g.checkboxes)
         .flat()
+        .filter(c => {
+          if (!c.canShow) {
+            return true;
+          } else {
+            return c.canShow();
+          }
+        })
         .forEach(c => {
           let shouldCheck = !!fields.find(f => f === c.code);
 
@@ -517,10 +523,13 @@ export default {
       }
 
       if (response.errors && response.errors.length) {
-        let errorMessage =
-          response.errors[0].extensions.name === 'AlreadyExists'
-            ? this.$t('getreport.errors.AlreadyExists')
-            : this.$t('genericErrorMessage');
+        const formatted = formatBackErrors(response.errors).map(e => e.errors).flat();
+        let errorMessage = `${this.$t('queryError')} : `;
+
+        formatted.forEach(e => {
+          errorMessage += `\n ${e.key} : ${e.value}`
+        });
+
         this.flashMessage({ level: 'danger', message: errorMessage });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });

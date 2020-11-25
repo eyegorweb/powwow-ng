@@ -14,7 +14,7 @@ Feature: Recherche d'actes de gestion
     And je suis sur l'historique des actes de gestion
     And je choisis le filtre partenaire "lyra"
     When je lance la recherche
-    Then la table contient 1 resultat
+    Then la table contient plus de 1 resultat
 
   Scenario: recherche createur de la demande
     Given en tant que BO

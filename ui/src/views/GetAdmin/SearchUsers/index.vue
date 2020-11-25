@@ -312,7 +312,7 @@ export default {
     async applyFilters(payload) {
       this.lastPayload = payload;
       const { pagination, filters } = payload || {
-        pagination: { page: 0, limit: 10 },
+        pagination: { page: 0, limit: 20 },
         filters: [],
       };
 

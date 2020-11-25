@@ -2,7 +2,8 @@
   <div class="cards">
     <Card
       v-if="admins.mainAdministrator"
-      :can-delete="false"
+      :can-delete="canUpdate"
+      :can-modify="canUpdate"
       @modify="
         modifyAdmin(
           'PRIMARY',
@@ -33,11 +34,15 @@
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.mainAdmin') }}
       </div>
     </Card>
-    <CardButton v-else @click="addMainAdmin">{{ $t('getadmin.users.addAdmin') }}</CardButton>
+    <CardButton v-else-if="canUpdate" @click="addMainAdmin">{{
+      $t('getadmin.users.addAdmin')
+    }}</CardButton>
 
     <Card
       v-if="admins.secondAdministator"
       @delete="deleteSecondAdministrator"
+      :can-delete="canUpdate"
+      :can-modify="canUpdate"
       @modify="
         modifyAdmin(
           'SECONDARY',
@@ -68,9 +73,12 @@
         {{ $t('getadmin.partners.role') }} : {{ $t('getadmin.partners.secondAdmin') }}
       </div>
     </Card>
-    <CardButton :disabled="!admins.mainAdministrator" @click="addSecondaryAdmin" v-else>{{
-      $t('getadmin.users.addAdmin')
-    }}</CardButton>
+    <CardButton
+      :disabled="!admins.mainAdministrator"
+      @click="addSecondaryAdmin"
+      v-else-if="canUpdate"
+      >{{ $t('getadmin.users.addAdmin') }}</CardButton
+    >
   </div>
 </template>
 
@@ -79,7 +87,7 @@ import Card from '@/components/Card';
 import CardButton from '@/components/CardButton';
 import { fetchAdminInfos, deleteSecondaryAdministrator } from '@/api/partners.js';
 import get from 'lodash.get';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -102,6 +110,13 @@ export default {
 
   async mounted() {
     this.refreshData();
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
+    canUpdate() {
+      return this.havePermission('party', 'update_administrator');
+    },
   },
 
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="partner-prereq">
     <UiApiAutocomplete
       :api-method="getFetchFn()"
       :items="limitedPartnersToSelectFrom"

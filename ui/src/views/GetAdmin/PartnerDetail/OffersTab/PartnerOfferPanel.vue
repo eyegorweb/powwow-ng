@@ -41,7 +41,11 @@
         </BlockCheckbox>
       </template>
     </div>
-    <div slot="footer" class="action-buttons">
+    <div
+      slot="footer"
+      class="action-buttons"
+      v-if="havePermission('party', 'update_available_catalog_offers')"
+    >
       <div>
         <UiButton variant="import" @click="closePanel" block>{{ $t('cancel') }}</UiButton>
       </div>
@@ -61,7 +65,7 @@ import UiInput from '@/components/ui/UiInput';
 
 import { getAvailableOffer, updateOffers } from '@/api/offers.js';
 import get from 'lodash.get';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -84,6 +88,10 @@ export default {
       partnerOffers: [],
       searchValue: undefined,
     };
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
   },
 
   watch: {

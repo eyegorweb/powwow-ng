@@ -1,6 +1,7 @@
 <template>
   <div class="container bg-white clearfix pb-3 items-search" ref="container">
     <SearchInput
+      v-if="canSeeFilter"
       :items="items"
       :fields="inputFields"
       :collapsed-mode="collapsed"
@@ -44,16 +45,16 @@
       <div class="checkboxes" ref="checkboxes" @scroll="onScroll" slot-scope="{ results }">
         <UiCheckbox
           v-if="enableSelectAll"
-          :value="results.map(r => r.item)"
-          :checked="multiSelectValues(results.map(r => r.item))"
+          :value="results.map((r) => r.item)"
+          :checked="multiSelectValues(results.map((r) => r.item))"
           @change="
             addAllToSelectedItems(
               $event,
-              results.map(r => r.item)
+              results.map((r) => r.item)
             ),
               updateTextLabel(
                 $event,
-                results.map(r => r.item)
+                results.map((r) => r.item)
               )
           "
           class="text-secondary"
@@ -68,7 +69,7 @@
           @change="
             updateTextLabel(
               $event,
-              results.map(r => r.item)
+              results.map((r) => r.item)
             )
           "
         >
@@ -124,6 +125,7 @@ export default {
       showAll: false,
       canNotifyScrollLimit: true,
       searchValue: undefined,
+      canSeeFilter: false
     };
   },
 
@@ -132,6 +134,12 @@ export default {
       this.$refs.checkboxes.scrollTop = 0;
       this.emitDoSearch(value);
     },
+
+    items(items) {
+      if (items && items.length) {
+        this.canSeeFilter = true;
+      }
+    }
   },
 
   computed: {
@@ -196,7 +204,7 @@ export default {
       function isMatching(displayedValues) {
         const selectedItems = results;
         if (displayedValues) {
-          return displayedValues.every(function(v) {
+          return displayedValues.every(function (v) {
             return !!selectedItems.filter(s => isEqual(s, v));
           });
         }

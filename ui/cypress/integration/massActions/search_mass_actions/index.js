@@ -4,7 +4,6 @@ import moment from 'moment';
 
 Given(`je suis sur l'historique des actes de gestion`, () => {
   massActionsPage.init();
-  cy.wait(400);
 });
 
 Given(`j'enlève le filtre par défaut`, () => {
@@ -16,19 +15,19 @@ Given(`je choisis le filtre par date de création`, () => {
   massActionsPage.filterBar.creationDate.openChoices();
 });
 
-Given (`je choisis le filtre partenaire {string}`, partnerName => {
+Given(`je choisis le filtre partenaire {string}`, partnerName => {
   massActionsPage.filterBar.partner.toggle();
   massActionsPage.filterBar.partner.filter(partnerName);
   massActionsPage.filterBar.partner.choose(1);
 });
 
-Given (`je choisis le filtre createur de la demande {string}`, requestCreator => {
+Given(`je choisis le filtre createur de la demande {string}`, requestCreator => {
   massActionsPage.filterBar.requestCreator.toggle();
   massActionsPage.filterBar.requestCreator.filter(requestCreator);
   massActionsPage.filterBar.requestCreator.choose(1);
 });
 
-Given (`je choisis le filtre type d'acte {string}`, actionType => {
+Given(`je choisis le filtre type d'acte {string}`, actionType => {
   massActionsPage.filterBar.actionType.toggle();
   massActionsPage.filterBar.actionType.filter(actionType);
   massActionsPage.filterBar.actionType.choose(1);
@@ -44,6 +43,7 @@ When(`je lance la recherche`, () => {
 });
 
 When(`je lance la recherche par ID {string}`, id => {
+  cy.wait(500);
   massActionsPage.idSearch.typeId(id);
   massActionsPage.idSearch.applySearch();
   cy.wait(500);

@@ -1,23 +1,29 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import createActionsPage from '../../../pageObjects/createActionsPage';
-import massActionsPage from '../../../pageObjects/massActionsPage';
 import layout from '../../../pageObjects/layout';
+import get from 'lodash.get';
 
 let totalMassAction = 0;
 let typeMassAction = '';
 
 Given(`je suis sur la page de création d'actes de gestion`, () => {
-  layout.menu.massActions();
-  cy.wait(400);
-  massActionsPage.getTotal().then(total => {
-    totalMassAction = total;
-    createActionsPage.init();
+  layout.menu.lines();
+});
+
+Given(`je regarde le nombre d'actes de gestions`, () => {
+  layout.menu.massActions(true);
+
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('massActionsV2').then(response => {
+      totalMassAction = get(response, 'body.data.massActionsV2.total');
+    });
   });
 });
 
 Given(`je choisis l'acte de suspension par défaut`, () => {
   typeMassAction = 'Suspension';
   createActionsPage.actionsPannel.suspend();
+  createActionsPage.chooseMassPrerequisites();
   createActionsPage.actions.suspend.selectPartner('Lyra');
   createActionsPage.actions.suspend.apply();
 });
@@ -25,6 +31,7 @@ Given(`je choisis l'acte de suspension par défaut`, () => {
 Given(`je choisis l'acte d'activation par défaut`, () => {
   typeMassAction = 'Pré-activation et Activation';
   createActionsPage.actionsPannel.activate();
+  createActionsPage.actions.activate.inMass();
   createActionsPage.actions.activate.selectPartner('Lyra');
   createActionsPage.actions.activate.selectBillingAccount('6.42661 - LYRA');
   createActionsPage.actions.activate.apply();
@@ -46,6 +53,7 @@ Given(`je choisis l'acte de changement de CF par défaut`, () => {
 Given(`je choisis l'acte de modification des champs libres par défaut`, () => {
   typeMassAction = 'Changement des champs custom';
   createActionsPage.actionsPannel.editFreeFields();
+  createActionsPage.actions.editFreeFields.inMass();
   createActionsPage.actions.editFreeFields.selectPartner('INGENICO');
   createActionsPage.actions.editFreeFields.apply();
   createActionsPage.actions.editFreeFields.fillFirstFreeField('first field');
@@ -63,14 +71,17 @@ Given(`je choisis l'acte de modification de services`, () => {
 
 When(`je confirme la création de l'acte`, () => {
   createActionsPage.confirm(typeMassAction);
-  cy.wait(500);
+  cy.get('.modal-wrapper', { timeout: 10000 }).should('not.exist');
 });
 
 Then(`je verifie que mon acte a été créé`, () => {
   layout.menu.massActions();
-  cy.wait(400);
-  massActionsPage.getTotal().then(newTotal => {
-    expect(newTotal).to.be.equal(totalMassAction + 1);
+
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('massActionsV2').then(response => {
+      const newTotal = get(response, 'body.data.massActionsV2.total');
+      expect(newTotal).to.be.equal(totalMassAction + 1);
+      createActionsPage.getLastActionType().should('have.text', typeMassAction);
+    });
   });
-  createActionsPage.getLastActionType().should('have.text', typeMassAction);
 });

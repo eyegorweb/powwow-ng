@@ -105,6 +105,7 @@ export default {
       partner: undefined,
       currentLinkIndex: 0,
       tabs: [],
+      show: undefined,
     };
   },
 
@@ -114,16 +115,29 @@ export default {
     },
 
     prepareTabs() {
-      const tabs = [
-        {
+      const tabs = [];
+      const permissionsForUsersTab = [
+        this.havePermission('party', 'read_administrator'),
+        this.havePermission('user', 'read'),
+      ];
+      if (this.canShowTab(permissionsForUsersTab)) {
+        tabs.push({
           label: 'users',
           title: this.$t('menu.users'),
-        },
-        {
+        });
+      }
+      const permissionsForCustomizeTab = [
+        this.havePermission('party', 'read_broadcast_list'),
+        this.havePermission('party', 'read_delivery_address'),
+        this.havePermission('party', 'read_custom_field'),
+        this.havePermission('party', 'read_specific_field'),
+      ];
+      if (this.canShowTab(permissionsForUsersTab)) {
+        tabs.push({
           label: 'customize',
           title: this.$t('getadmin.partners.customize'),
-        },
-      ];
+        });
+      }
 
       if (this.partner && this.partner.partyType === 'MULTI_CUSTOMER') {
         tabs.push({
@@ -139,12 +153,38 @@ export default {
         }
       }
 
-      tabs.push({
-        label: 'offersAndSim',
-        title: this.$t('getadmin.partners.offersAndSim'),
-      });
+      const permissionsForOffersTab = [
+        this.havePermission('party', 'read_available_catalog_offers2'),
+        this.havePermission('party', 'read_available_sims2'),
+        this.partner.partyType === 'CUSTOMER' &&
+          this.havePermission('party', 'read_supervision_option'),
+      ];
+      if (this.canShowTab(permissionsForOffersTab)) {
+        tabs.push({
+          label: 'offersAndSim',
+          title: this.$t('getadmin.partners.offersAndSim'),
+        });
+      }
 
-      if (this.havePermission('party', 'read_account_detail')) {
+      const permissionsForAccountDetailTab = [
+        this.havePermission('party', 'read_account_detail') &&
+          (this.havePermission('party', 'read_main_options') ||
+            this.havePermission('party', 'read_secondary_options')),
+        this.havePermission('party', 'read_account_detail') &&
+          !(
+            this.havePermission('party', 'read_main_options') ||
+            this.havePermission('party', 'read_secondary_options')
+          ),
+        !this.havePermission('party', 'read_account_detail') &&
+          (this.havePermission('party', 'read_main_options') ||
+            this.havePermission('party', 'read_secondary_options')),
+        this.partner && this.partner.partyType === 'MVNO',
+      ];
+
+      if (
+        this.havePermission('party', 'read_account_detail') &&
+        this.canShowTab(permissionsForAccountDetailTab)
+      ) {
         tabs.push({
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
@@ -152,6 +192,12 @@ export default {
       }
 
       this.tabs = tabs;
+    },
+
+    canShowTab(permissions) {
+      return permissions.some(p => {
+        return p;
+      });
     },
   },
 

@@ -14,6 +14,7 @@
 import OffersCards from './OffersCards';
 import SimCards from './SimCards';
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -27,17 +28,38 @@ export default {
   },
 
   mounted() {
-    if (this.partner.partyType === 'CUSTOMER') {
+    if (this.havePermission('party', 'read_available_catalog_offers')) {
+      this.menuItems.push('filters.offers');
+    }
+    if (this.havePermission('party', 'read_available_sims')) {
+      this.menuItems.push('getadmin.users.simcards');
+    }
+    if (
+      this.partner.partyType === 'CUSTOMER' &&
+      this.havePermission('party', 'read_supervision_option')
+    ) {
       this.menuItems.push('getadmin.users.supervision');
     }
+    this.initSection(this.menuItems);
   },
 
   data() {
     return {
-      section: 'filters.offers',
+      section: undefined,
 
-      menuItems: ['filters.offers', 'getadmin.users.simcards'],
+      menuItems: [],
     };
+  },
+
+  computed: {
+    ...mapGetters(['havePermission']),
+  },
+
+  methods: {
+    initSection(menu) {
+      if (!menu.length) return;
+      this.section = menu.find(a => a);
+    },
   },
 };
 </script>

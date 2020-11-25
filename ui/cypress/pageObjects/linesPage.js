@@ -14,9 +14,9 @@ export default {
   init() {
     layout.menu.lines();
   },
-
   showAllLines() {
-    cy.waitGet('.show-all-lines').click({ force: true });
+    cy.waitGet('.show-all-lines').click({ force: true })
+      .wait(200);
   },
 
   getRows(callback) {
@@ -41,12 +41,15 @@ export default {
   },
   filterBar: {
     apply: filterBarSelectors.applySearch,
-
+    showAllTypes() {
+      cy.waitGet('.show-all-types').click();
+    },
     partner: new MultiSelectFilter(1),
     billingAccount: new MultiSelectFilter(2),
     offer: new MultiSelectFilter(5),
     id: idFilter,
     type: new MultiSelectFilter(4),
+    billingStatus: new MultiSelectFilter(10),
   },
 
   getTotal(onTotalLoaded) {

@@ -1,3 +1,6 @@
+import 'cypress-wait-until';
+import 'cypress-waitfor';
+
 Cypress.Commands.add('login', (username, password) => {
   cy.visit(Cypress.env('APP_URL'));
   cy.get('#username').type(username);
@@ -18,5 +21,48 @@ Cypress.Commands.add('startAsPartner', () => {
 });
 
 Cypress.Commands.add('waitGet', path => {
-  return cy.get(path, {timeout : 10000});
+  return cy.get(path, { timeout: 10000 });
+});
+
+Cypress.Commands.add('slowType', string => {
+  return cy.type(string, { delay: 20 });
+});
+
+Cypress.Commands.add('observeGQL', queryName => {
+  cy.route({
+    method: 'POST',
+    url: '**/graphql',
+    onResponse: ({ request, response }) => {
+      if (request.body && request.body.query.includes(queryName)) {
+        // window.Cypress.emit('gql:' + queryName, response);
+        window.Cypress.emit('gql', response);
+      }
+    },
+  });
+});
+
+Cypress.Commands.add('waitForGQL', queryName => {
+  return new Cypress.Promise(resolve => {
+    cy.on('gql', ({ request, response }) => {
+      if (request.body && request.body.query && request.body.query.includes(queryName)) {
+        resolve(response);
+      }
+    });
+  });
+});
+
+Cypress.Commands.add('startObservationGql', () => {
+  cy.server().route({
+    method: 'POST',
+    url: '**/graphql',
+    onResponse: ({ request, response }) => {
+      window.Cypress.emit('gql', { request, response });
+    },
+  });
+});
+
+Cypress.Commands.add('waitForIt', nb => {
+  return Cypress.Promise(resolve => {
+    setTimeout(() => resolve(), nb);
+  });
 });

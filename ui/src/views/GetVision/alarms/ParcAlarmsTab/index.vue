@@ -15,7 +15,9 @@
       :default-values="defaultFilterValues"
       @resetFilters="resetFilters"
     >
-      <div slot="title" class="mt-2">{{ $t('getvsion.table.total', { total: total }) }}</div>
+      <div slot="title" class="mt-2 table-total">
+        {{ $t('getvsion.table.total', { total: total }) }}
+      </div>
       <div slot="topRight" class="mt-2">
         <div class="row d-flex flex-row-reverse">
           <div class="col-md-6">
@@ -340,10 +342,10 @@ export default {
 
       this.isLoading = true;
       const data = await this.apiFn(this.orderBy, pagination, filters);
-      this.isLoading = false;
 
       this.total = data.total;
       this.rows = data.items;
+      this.isLoading = false;
     },
   },
 };

@@ -8,14 +8,16 @@ export default {
       .click()
       .wait(400);
   },
-  getTotal(onTotalLoaded) {
-    return cy.get('.mb-3 > :nth-child(1) > .text-gray > div').then(e => {
-      const parts = e
-        .text()
-        .trim()
-        .split(' ');
-      const value = parseInt(parts[0]);
-      onTotalLoaded(value);
+  getTotal() {
+    return new Promise(resolve => {
+      cy.waitGet('.mb-3 > :nth-child(1) > .text-gray').then(e => {
+        const parts = e
+          .text()
+          .trim()
+          .split(' ');
+        const value = parseInt(parts[0]);
+        resolve(value);
+      });
     });
   },
-}
+};

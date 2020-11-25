@@ -15,10 +15,12 @@
               <i class="ic-Check-Icon" />
               {{ $t('getparc.actDetail.discharge') }}
             </button>
-            <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
-              <i class="ic-Refresh-Icon" />
-              {{ $t('getparc.actDetail.restart') }}
-            </button>
+            <permission domain="act" action="replay">
+              <button @click.stop="replayPopUp = true" class="btn btn-info ml-2">
+                <i class="ic-Refresh-Icon" />
+                {{ $t('getparc.actDetail.restart') }}
+              </button>
+            </permission>
           </div>
         </div>
         <Modal v-if="acknowledgePopUp">
@@ -194,6 +196,18 @@ export default {
           name: 'imei',
           orderable: true,
           visible: false,
+        },
+        {
+          id: 11,
+          label: this.$t('getparc.actDetail.col.creationDate'),
+          orderable: true,
+          visible: false,
+          name: 'unitAction',
+          format: {
+            type: 'ObjectAttribute',
+            path: 'created'
+          },
+          exportId: 'UNIT_ACTION_CREATED_DATE'
         },
       ],
       page: 0,

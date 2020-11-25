@@ -243,19 +243,12 @@ export default {
               selected: false,
               permission: { domain: 'act', action: 'msisdn_change' },
             },
-          ])
-            .filter(i => {
-              if (i.permission) {
-                return this.havePermission(i.permission.domain, i.permission.action);
-              }
-              return true;
-            })
-            .filter(i => {
-              if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
-                return this.offerChangeEnabled;
-              }
-              return true;
-            });
+          ]).filter(i => {
+            if (i.permission) {
+              return this.havePermission(i.permission.domain, i.permission.action);
+            }
+            return true;
+          });
         }
       }
     },

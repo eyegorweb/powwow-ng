@@ -160,6 +160,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
       deviceReference
     }
     party{
+      id
       name
       partyType
     }
@@ -706,6 +707,17 @@ export async function exportSimCardInstances(
   if (response.errors) {
     return {
       errors: response.errors,
+    };
+  }
+
+  if (
+    response &&
+    response.data &&
+    response.data.exportSimCardInstances &&
+    !response.data.exportSimCardInstances.downloadUri
+  ) {
+    return {
+      errors: 'noData',
     };
   }
 
