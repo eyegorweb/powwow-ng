@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.371+20201125085743
+2020-11-25
+
+### Fixes
+
+- Corriger la persistance dans le localStorage pour la gestion de lignes (eedafe6866b18a9e54b72aa7411d6e981e7ef1f8)
+
 ## 1.0.0-master.370+20201124151330
 2020-11-24
 
