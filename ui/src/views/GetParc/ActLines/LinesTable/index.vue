@@ -35,6 +35,8 @@
         </div>
         <template v-if="hasResults">
           <DataTable
+            storage-id="getparc.lines"
+            storage-version="26"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
