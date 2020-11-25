@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.372+20201125140108
+## 1.0.0-master.372+20201125140133
 2020-11-25
 
 ### Fixes
 
 - 2090 affichage du signe "-" pour les valeurs null (6dc9ef2941cdb6f61bba5305b7e8e16d8c6f5bb9)
+- Ajout despace sur le select de langue dans le panel user (7b177212d029d40f9cd6532cb1c253861366eb25)
 
 ## 1.0.0-master.371+20201125085743
 2020-11-25
