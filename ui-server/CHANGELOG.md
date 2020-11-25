@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.373+20201125161056
+2020-11-25
+
+### Fixes
+
+- 2121 gestion de la permission de duplication d'une commande (17972bb891cf96000a7289d4be1158d4e4f20737)
+
 ## 1.0.0-master.372+20201125140133
 2020-11-25
 
