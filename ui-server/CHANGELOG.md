@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.374+20201125221334
+2020-11-25
+
+### Fixes
+
+- Changement du système de "drag & drop" de la page d'accueil (447c26297565f571d45d479c99beb8c599aebd66)
+
 ## 1.0.0-master.373+20201125161056
 2020-11-25
 
