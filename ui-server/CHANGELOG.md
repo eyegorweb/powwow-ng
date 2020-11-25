@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.372+20201125140108
+2020-11-25
+
+### Fixes
+
+- 2090 affichage du signe "-" pour les valeurs null (6dc9ef2941cdb6f61bba5305b7e8e16d8c6f5bb9)
+
 ## 1.0.0-master.371+20201125085743
 2020-11-25
 
