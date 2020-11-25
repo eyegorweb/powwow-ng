@@ -36,6 +36,10 @@
       </div>
 
       <div class="entries-line">
+        <div class="language">
+          <label>{{ $t('getadmin.users.language') }}</label>
+          <UiSelect class="text-gray language" block v-model="form.language" :options="languages"/>
+        </div>
         <div
           v-if="!userIsPartner && userType === 'PARTNER'"
           class="form-entry"
@@ -43,10 +47,6 @@
         >
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
           <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" offline />
-        </div>
-        <div class="language">
-          <label>{{ $t('getadmin.users.language') }}</label>
-          <UiSelect class="text-gray" block v-model="form.language" :options="languages" />
         </div>
         <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
@@ -666,6 +666,10 @@ export default {
     opacity: 0;
     cursor: pointer;
   }
+}
+
+.language {
+  margin-right: 10px;
 }
 
 .checkmark {
