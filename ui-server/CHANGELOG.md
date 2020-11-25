@@ -2,6 +2,23 @@
 
 <!--- next entry here -->
 
+## 1.16.1
+2020-11-25
+
+### Fixes
+
+- afficher les labels des champs libres (d72844609a9b2430810eace7c288083aacfb600e)
+- 2112 mise à jour des messages d'erreur pour l'export de lignes (28fec4398d0c9930aec4510c329ea5075e13a4b3)
+- corriger le zoom pour le cockpit M2M (b35479c12324b895cf30371994801abba0a66fca)
+- permission sur le bouton pour relancer des actes (77364167a59151ca816e877754e1e62d0a65e6ec)
+- Corriger la permission sur le bouton "relancer un acte" (5fafd8dd87c7dfcd63c342ae5d3ab16f1a80b7f8)
+- Ajout des colonnes de dates dans les tables d'actes unitaires (a214be5caa66ab6aa2fa27022e7055105dbcefe5)
+- Ajouter un loader pour le refus des résiliations (d9f601efe9b330fe52f7a1539334ee037d0a8df4)
+- 2088 mise à jour des permissions dans la gestion de partenaires (58e15ca471ec3ac1aac50edd3231774805719267)
+- petite correction du composant autocomplete (5826125cd7ac66e630b2ce6f930750c94909c317)
+- Correction dans les permissions des colonnes à ajouter dans un rapport (3f5287cf870f225306ff22942301c940b75bce19)
+- Corriger la persistance dans le localStorage pour la gestion de lignes (eedafe6866b18a9e54b72aa7411d6e981e7ef1f8)
+
 ## 1.16.0
 2020-11-23
 
