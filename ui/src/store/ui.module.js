@@ -58,19 +58,11 @@ function openPanel(state, conf) {
 }
 
 function saveFormattedWidgets(widgets) {
-  const widgetsToSave = widgets
-    .filter(w => !!w)
-    .map(w => {
-      return {
-        title: w.title,
-        description: w.description,
-        checked: w.checked,
-        large: w.large,
-        seeMore: w.seeMore,
-        mock: w.mock,
-        layout: w.layout,
-      };
-    });
+  const widgetsToSave = widgets.map(w => {
+    const ret = { ...w };
+    ret.component = undefined;
+    return ret;
+  });
   if (widgetsToSave && widgetsToSave.length) {
     localStorage.setItem('___homewidgets___', JSON.stringify(widgetsToSave));
     localStorage.setItem('_widgets_profile_', getProfile());

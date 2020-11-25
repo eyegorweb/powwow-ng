@@ -262,7 +262,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
+      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
         return {
           id: c.id,
           label: c.label,
@@ -394,7 +394,7 @@ export default {
           exportId: 'LINE_OFFER',
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               if (get(row, 'party.partyType') === 'MULTI_CUSTOMER') {
                 return get(row, 'workflow.workflowDescription');
               }
@@ -480,7 +480,7 @@ export default {
           exportId: 'BILLING_ACCOUNT',
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return (
                 get(row, 'accessPoint.offerGroup.customerAccount.code', '') +
                 ' - ' +

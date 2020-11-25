@@ -82,8 +82,8 @@ export default {
   },
   data() {
     return {
-      partnerCustomFields: undefined
-    }
+      partnerCustomFields: undefined,
+    };
   },
   async mounted() {
     try {
