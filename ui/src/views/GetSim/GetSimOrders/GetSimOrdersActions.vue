@@ -82,57 +82,47 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'havePermission']),
     actions() {
       let actions = [];
       switch (this.order.status) {
         case 'NOT_VALIDATED': {
-          actions = [
-            'getsim.actions.DETAIL',
-            'getsim.actions.DUPLICATE',
-            'getsim.actions.CANCEL',
-            'getsim.actions.VALIDATE',
-          ];
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.CANCEL', 'getsim.actions.VALIDATE'];
           break;
         }
 
         case 'VALIDATED':
-          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          actions = ['getsim.actions.DETAIL'];
           break;
 
         case 'CONFIRMATION_IN_PROGRESS':
         case 'TO_BE_CONFIRMED':
         case 'CANCELED': {
-          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          actions = ['getsim.actions.DETAIL'];
           break;
         }
 
         case 'CONFIRMED': {
-          actions = [
-            'getsim.actions.DETAIL',
-            'getsim.actions.SHOW_SIM',
-            'getsim.actions.DUPLICATE',
-          ];
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.SHOW_SIM'];
           break;
         }
 
         case 'TERMINATED': {
-          actions = [
-            'getsim.actions.DETAIL',
-            'getsim.actions.EXPORT',
-            'getsim.actions.SHOW_SIM',
-            'getsim.actions.DUPLICATE',
-          ];
+          actions = ['getsim.actions.DETAIL', 'getsim.actions.EXPORT', 'getsim.actions.SHOW_SIM'];
           break;
         }
 
         case 'TO_BE_CONFIRMED_BY_BO': {
-          actions = ['getsim.actions.DETAIL', 'getsim.actions.DUPLICATE'];
+          actions = ['getsim.actions.DETAIL'];
           break;
         }
 
         default:
           actions = [];
+      }
+
+      if (this.havePermission('getSim', 'create')) {
+        actions.push('getsim.actions.DUPLICATE');
       }
 
       if (this.userIsBO) {

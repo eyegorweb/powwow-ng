@@ -35,9 +35,13 @@
         ])
       "
     >
-      <UiButton variant="accent" block @click="openOrderPanel">{{
-        $t('getsim.actions.DUPLICATE')
-      }}</UiButton>
+      <UiButton
+        variant="accent"
+        block
+        @click="openOrderPanel"
+        v-if="havePermission('getSim', 'create')"
+        >{{ $t('getsim.actions.DUPLICATE') }}</UiButton
+      >
     </div>
   </div>
 </template>
@@ -58,7 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'havePermission']),
   },
 
   methods: {
