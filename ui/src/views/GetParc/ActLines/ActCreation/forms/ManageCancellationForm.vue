@@ -147,7 +147,10 @@ export default {
       this.validate = false;
       this.options = options;
       this.waitForConfirmation = true;
-      console.log("🚀 ~ file: ManageCancellationForm.vue ~ line 145 ~ handleValidation ~ options", options)
+      console.log(
+        '🚀 ~ file: ManageCancellationForm.vue ~ line 145 ~ handleValidation ~ options',
+        options
+      );
     },
     handleValidation(options) {
       this.validate = true;
@@ -156,7 +159,7 @@ export default {
     },
     async onValidate(contextValues) {
       if (this.checkErrors()) return;
-      console.log('ON VALIDATE')
+      console.log('ON VALIDATE');
       return await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.options.date ? this.options.date : '',
         partyId: this.partner.id,

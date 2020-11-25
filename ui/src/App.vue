@@ -25,6 +25,8 @@ import FlashMessages from '@/components/ui/messages/FlashMessages';
 import DownloadManager from '@/components/DownloadManager.vue';
 import { mapMutations, mapGetters } from 'vuex';
 import $ from 'jquery';
+import 'jquery-ui-dist/jquery-ui.js';
+import 'jquery-ui-dist/jquery-ui.css';
 
 export default {
   name: 'App',

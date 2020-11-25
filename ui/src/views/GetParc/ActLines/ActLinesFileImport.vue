@@ -84,13 +84,15 @@ export default {
   },
   computed: {
     isTranslatableUploadError() {
-      return [
-        'InvalidFileExtension',
-        'InvalidFileContent',
-        'InvalidFileVersion',
-        'NotFoundException',
-        'InvalidFileSize',
-      ].indexOf(this.fileMeta.error) > -1;
+      return (
+        [
+          'InvalidFileExtension',
+          'InvalidFileContent',
+          'InvalidFileVersion',
+          'NotFoundException',
+          'InvalidFileSize',
+        ].indexOf(this.fileMeta.error) > -1
+      );
     },
     error: {
       get() {

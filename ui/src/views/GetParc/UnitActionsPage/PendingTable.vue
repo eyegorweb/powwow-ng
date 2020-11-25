@@ -111,7 +111,7 @@ export default {
           name: 'unitAction',
           format: {
             type: 'ObjectAttribute',
-            path: 'statusDate'
+            path: 'statusDate',
           },
           orderable: true,
           visible: false,
@@ -125,9 +125,9 @@ export default {
           name: 'unitAction',
           format: {
             type: 'ObjectAttribute',
-            path: 'created'
+            path: 'created',
           },
-          exportId: 'UNIT_ACTION_CREATED_DATE'
+          exportId: 'UNIT_ACTION_CREATED_DATE',
         },
       ],
     };

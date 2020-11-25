@@ -221,7 +221,7 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-          totoototo
+            totoototo
             <ActLinesCustomFields />
           </FoldableBlock>
           <FoldableBlock

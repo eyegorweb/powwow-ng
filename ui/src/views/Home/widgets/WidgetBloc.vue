@@ -1,9 +1,9 @@
 <template>
-  <div class="bloc d-inline-block p-1 widgets-item">
+  <div class="bloc widgets-item">
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <div :class="{ 'col-12': large, 'col-9': !large }">
+          <div class="col-9">
             <div class="d-flex">
               <span class="handle ic-Drag-Column-Icon" />
               <span :class="{ 'mock-value': mocked, 'col-6': small, 'flex-grow-1': titleGrow }">
@@ -12,8 +12,12 @@
               <slot name="header" />
             </div>
           </div>
-          <div class="col-3" v-if="permittedSeeMore">
-            <button class="btn btn-link float-right p-0 m-0" @click="$emit('seeMore')">
+          <div class="col-3">
+            <button
+              v-if="permittedSeeMore"
+              class="btn btn-link float-right p-0 m-0"
+              @click="$emit('seeMore')"
+            >
               {{ $t('seeMore') }}
             </button>
           </div>
@@ -40,11 +44,14 @@ export default {
     scrolling: Boolean,
     mocked: Boolean,
     small: Boolean,
-    large: Boolean,
+    //  large: Boolean,
     titleGrow: Boolean,
   },
   computed: {
     ...mapGetters(['havePermission']),
+    large() {
+      return this.widget && this.widget.large;
+    },
     permittedSeeMore() {
       if (typeof this.widget.seeMore === 'boolean') {
         return this.widget.seeMore;

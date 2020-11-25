@@ -235,11 +235,9 @@ export default {
           await this.loadDataForM2MCockpit();
         } else if (this.zipCodeFilter) {
           await this.loadDataByZipCode();
-        }
-        else if (this.idFilter) {
+        } else if (this.idFilter) {
           await this.loadDataById();
-        }
-        else {
+        } else {
           if (zoomLevel < CONTINENT_ZOOM_LEVEL) {
             await this.loadDataForContinents();
           } else if (zoomLevel >= CONTINENT_ZOOM_LEVEL && zoomLevel < 6) {
@@ -359,7 +357,11 @@ export default {
     },
 
     async loadDataById() {
-      const data = await fetchDataForCells(this.usageForQuery, this.getBounds(), this.formatFilters());
+      const data = await fetchDataForCells(
+        this.usageForQuery,
+        this.getBounds(),
+        this.formatFilters()
+      );
       const markers = this.formatMarkers(data);
       this.adjustPosition = defaultAdjustment;
 
@@ -429,7 +431,6 @@ export default {
         : undefined;
 
       if (!this.markers || !this.markers.length) {
-
         if (!this.isSameFilters) {
           if (countryFilter) {
             this.centerZoom(

@@ -63,7 +63,7 @@
           <h6>{{ $t(dateLabel) }}</h6>
           <UiDate
             time-picker
-            @change="(newVal) => (generationDate = newVal)"
+            @change="newVal => (generationDate = newVal)"
             :value="generationDate"
             :start-date="generationDate"
             :error="dateError ? 'errors.mandatory' : undefined"
@@ -523,11 +523,13 @@ export default {
       }
 
       if (response.errors && response.errors.length) {
-        const formatted = formatBackErrors(response.errors).map(e => e.errors).flat();
+        const formatted = formatBackErrors(response.errors)
+          .map(e => e.errors)
+          .flat();
         let errorMessage = `${this.$t('queryError')} : `;
 
         formatted.forEach(e => {
-          errorMessage += `\n ${e.key} : ${e.value}`
+          errorMessage += `\n ${e.key} : ${e.value}`;
         });
 
         this.flashMessage({ level: 'danger', message: errorMessage });

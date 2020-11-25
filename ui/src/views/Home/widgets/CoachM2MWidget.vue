@@ -1,5 +1,5 @@
 <template>
-  <WidgetBloc title-grow large :scrolling="!!coachData" :widget="widget">
+  <WidgetBloc large :scrolling="!!coachData" :widget="widget">
     <div v-if="coachData" slot="header">
       <div class="d-flex return-btn">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn p-0">

@@ -126,12 +126,7 @@ export default {
           title: this.$t('menu.users'),
         });
       }
-      const permissionsForCustomizeTab = [
-        this.havePermission('party', 'read_broadcast_list'),
-        this.havePermission('party', 'read_delivery_address'),
-        this.havePermission('party', 'read_custom_field'),
-        this.havePermission('party', 'read_specific_field'),
-      ];
+
       if (this.canShowTab(permissionsForUsersTab)) {
         tabs.push({
           label: 'customize',
