@@ -68,7 +68,10 @@ export default {
         if (this.lineStatus === 'LINE_IS_SUSPENDED' || this.lineStatus === 'LINE_IS_RELEASED') {
           return get(this.row, 'accessPoint.commercialStatusDate');
         }
+
+        return get(this.row, 'auditable.updated');
       }
+
       return this.commercialStatusDate;
     },
   },
