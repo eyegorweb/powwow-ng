@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.375+20201126105755
+2020-11-26
+
+### Fixes
+
+- ne pas utiliser le code d'offre catalogue dans les filtres offres (ba7bfd4e1059546544b040ed783e2ebcc3f9d202)
+
 ## 1.0.0-master.374+20201125221334
 2020-11-25
 
