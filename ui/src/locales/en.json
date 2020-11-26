@@ -176,7 +176,7 @@
     "getDevice": "GetDevice"
   },
   "menu": {
-    "massActions": "History of management acts",
+    "massActions": "Monitoring of management acts",
     "actLines": "Lines management",
     "alarms": "Alarms management",
     "users": "User management",
@@ -912,7 +912,7 @@
     "screen-search": "Search lines and create management acts",
     "user": "Users",
     "lines-sim-import": "Import SIM cards",
-    "management-act": "History of management acts",
+    "management-act": "Monitoring of management acts",
     "management-act-detail": "History of act details",
     "management-lines": "Line management",
     "tooltip-title-text": "You can find all the lines in the fleet, their condition as well as the line diagnostic tools. You can also manage lines, modify services and offers, export information and usage data.",
@@ -1150,7 +1150,7 @@
         },
         "lineServices": "Line services",
         "alarmsList": "List of alarms",
-        "actsHistory": "History of management acts",
+        "actsHistory": "Monitoring of management acts",
         "preactivatedAt": "Pre-activated on",
         "activatedAt": "Activated on",
         "disableAt": "Disabled on",

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="text-primary text-uppercase">
-      {{ $t('getparc.actLines.massActionsHistory.title') }}
+      {{ $t('getparc.lineDetail.tab1.actsHistory') }}
     </h4>
     <div class="bg-white p-4 rounded">
       <LoaderContainer :is-loading="isLoading">
