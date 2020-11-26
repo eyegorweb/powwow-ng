@@ -212,7 +212,7 @@
     "getDevice": "GetDevice"
   },
   "menu": {
-    "massActions": "Historique d'actes de gestion",
+    "massActions": "Suivi/pilotage des actes de gestion",
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
     "users": "Gestion des utilisateurs",
@@ -983,7 +983,7 @@
   "getparc": {
     "user": "Utilisateur",
     "lines-sim-import": "Importer des cartes SIM",
-    "management-act": "Historique des actes de gestion",
+    "management-act": "Suivi/pilotage des actes de gestion",
     "management-act-detail": "Historique des actes",
     "management-lines": "Gestion des lignes",
     "display-lines": "Afficher toutes les lignes",
@@ -1260,7 +1260,7 @@
         },
         "lineServices": "Services de la ligne",
         "alarmsList": "Liste des alarmes",
-        "actsHistory": "Historique des actes de gestion",
+        "actsHistory": "Suivi/pilotage des actes de gestion",
         "preactivatedAt": "Préactivé le",
         "activatedAt": "Activé le",
         "disableAt": "Désactivé le",
@@ -1678,7 +1678,6 @@
         }
       },
       "massActionsHistory": {
-        "title": "Historique des actes de gestion",
         "columns": {
           "unitAction": "Acte unitaire",
           "massAction": "Acte de masse",
