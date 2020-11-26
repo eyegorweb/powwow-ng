@@ -211,7 +211,7 @@ export default {
         }
 
         if (item.id === 'filters.offers') {
-          filters.offerCode = item.data.meta.initialOffer.code;
+          filters.offerCode = item.data.meta.code;
         }
 
         if (item.id === 'filters.zone') {

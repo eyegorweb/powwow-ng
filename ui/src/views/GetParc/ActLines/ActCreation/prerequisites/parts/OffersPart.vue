@@ -69,7 +69,7 @@ export default {
               id: o.code,
               label: o.workflowDescription,
               data: o,
-              productCode: o.initialOffer.code,
+              productCode: o.code,
             }));
         }
       }

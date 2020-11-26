@@ -3,7 +3,7 @@
     :values="selectedOffersValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="values => $emit('setOffersFilter', values)"
+    @update:values="(values) => $emit('setOffersFilter', values)"
   />
 </template>
 
@@ -29,7 +29,7 @@ export default {
           .map(o => ({
             id: o.code,
             label: o.workflowDescription,
-            productCode: o.initialOffer.code,
+            productCode: o.code,
             data: o,
           }))
           .reduce((all, offer) => {
