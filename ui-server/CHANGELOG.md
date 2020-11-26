@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.376+20201126143018
+2020-11-26
+
+### Fixes
+
+- 2141 Changement du libellé de l'historique des actes de gestion (bb149770debf326d5fdee8f29653fe0bb002c220)
+- Debug des niveau d autorisations des exports (774226e5f01c352ef1598293f3dbc1247556326e)
+- Ajouter la réponse du coach dans le volet (a5ed5aa693cda586c24076f76334e68d7645a460)
+
 ## 1.0.0-master.375+20201126105755
 2020-11-26
 
