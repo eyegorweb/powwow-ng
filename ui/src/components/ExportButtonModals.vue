@@ -102,6 +102,8 @@ export default {
   computed: {
     ...mapGetters(['havePermission']),
     ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters(['userIsBO', 'userIsPartner']),
+    ...mapGetters(['userIsMVNO']),
     ...mapState({
       isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
       exportPanelParams: state => state.ui.exportPanelParams,
@@ -173,7 +175,7 @@ export default {
           },
         ];
       }
-      if (found && found.values.length === 1) {
+      if (found && found.values.length === 1 || (this.userIsPartner && !this.userIsMVNO)) {
         this.exportTypes = [
           ...this.exportTypes,
           {
