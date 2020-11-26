@@ -108,14 +108,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userInfos', 'userIsPartner', 'havePermission']),
+    ...mapGetters(['havePermission', 'userIsBO',
+
+      'userInfos', 'userIsPartner', 'havePermission']),
 
     canRunCoach() {
-      if (this.partnerOptions) {
-        return this.partnerOptions.coachM2MAvailable;
-      }
-
-      return false;
+      return this.havePermission('getParc', 'manage_coach')
+        && (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable'));
     },
 
     isLigneActive() {

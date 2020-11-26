@@ -27,7 +27,7 @@ export default {
       return true;
     },
   },
-  created() {
+  mounted() {
     this.isFetchingData = false;
     this.isItemError = !this.indicator.checked;
   },

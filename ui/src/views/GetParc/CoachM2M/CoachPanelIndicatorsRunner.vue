@@ -6,7 +6,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="card">
+      <div :key="'coach_item_std' + version" class="card">
         <div class="card-body">
           <h5 class="card-title">{{ $t('getparc.lineDetail.standardTest') }}</h5>
           <ul v-if="standardsIndicators" class="list-group list-group-flush">
@@ -19,7 +19,7 @@
           </ul>
         </div>
       </div>
-      <div v-if="advancedIndicators" class="card mt-2">
+      <div :key="'coach_item_adv' + version" v-if="advancedIndicators" class="card mt-2">
         <div class="card-body">
           <h5 class="card-title">{{ $t('getparc.lineDetail.advancedTest') }}</h5>
           <ul v-if="advancedIndicators" class="list-group list-group-flush">
@@ -141,6 +141,8 @@ export default {
           return i;
         });
       }
+
+      this.version += 1;
     } else {
       this.apiError = true;
       this.$emit('apiError');
@@ -182,6 +184,7 @@ export default {
         },
       ],
       advancedIndicators: undefined,
+      version: 0
     };
   },
 };

@@ -80,11 +80,15 @@ export default {
         disabledOffer: true,
       });
       if (data) {
+        let listToReturn = data;
         let workflowId = data.find(o => o.code === this.currentOffer.code);
-        if (!workflowId) return [];
-        this.currentWorkflowId = workflowId.id;
-        return data
-          .filter(o => o.code !== this.currentOffer.code)
+        if (workflowId) {
+          this.currentWorkflowId = workflowId.id;
+          listToReturn = data
+            .filter(o => o.code !== this.currentOffer.code)
+        }
+
+        return listToReturn
           .map(o => ({
             id: o.code,
             label: o.workflowDescription,
