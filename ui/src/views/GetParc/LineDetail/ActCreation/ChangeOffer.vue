@@ -81,7 +81,7 @@ export default {
       });
       if (data) {
         let workflowId = data.find(o => o.code === this.currentOffer.code);
-        if (!workflowId) return;
+        if (!workflowId) return [];
         this.currentWorkflowId = workflowId.id;
         return data
           .filter(o => o.code !== this.currentOffer.code)
@@ -89,7 +89,7 @@ export default {
             id: o.code,
             label: o.workflowDescription,
             data: o,
-            productCode: o.initialOffer.code,
+            productCode: o.code,
           }));
       }
     },
