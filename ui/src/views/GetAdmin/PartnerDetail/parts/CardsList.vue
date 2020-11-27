@@ -27,6 +27,7 @@
         :can-delete="!noEdit"
         :can-modify="!noEdit"
         @modify="$emit('modify', list)"
+        @delete="$emit('delete', list)"
       >
         <slot :item="list" />
       </Card>
