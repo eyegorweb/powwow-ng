@@ -146,15 +146,15 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
-      this.dataES = this.duplicateFrom.level1;
-      this.dataOut = this.duplicateFrom.level1Up;
-      this.dataIn = this.duplicateFrom.level1Down;
+      this.dataES = this.duplicateFrom.level1 / 1000;
+      this.dataOut = this.duplicateFrom.level1Up / 1000;
+      this.dataIn = this.duplicateFrom.level1Down / 1000;
       this.smsES = this.duplicateFrom.level2;
       this.smsOut = this.duplicateFrom.level2Up;
       this.smsIn = this.duplicateFrom.level2Down;
-      this.voiceES = this.duplicateFrom.level3;
-      this.VoiceOut = this.duplicateFrom.level3Up;
-      this.voiceIn = this.duplicateFrom.level3Down;
+      this.voiceES = this.duplicateFrom.level3 / 60;
+      this.VoiceOut = this.duplicateFrom.level3Up / 60;
+      this.voiceIn = this.duplicateFrom.level3Down / 60;
       this.currentPeriod = this.duplicateFrom.observationCycle;
       this.toggleValues = this.toggleValues.map(t => {
         t.default = t.id === this.duplicateFrom.observationCycle;
