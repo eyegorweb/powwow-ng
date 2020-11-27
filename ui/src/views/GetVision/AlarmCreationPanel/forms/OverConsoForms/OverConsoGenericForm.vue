@@ -49,6 +49,12 @@
             >
           </span>
         </div>
+      </div>
+
+      <div class="flexBox">
+        <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
+          <span class="btn-label">{{ $t('cancel') }}</span>
+        </UiButton>
         <div v-if="lines.length < 2" class="deleteButton">
           <UiButton variant="outline-info" @click="addNewLine()">
             <span class="btn-label">
@@ -58,10 +64,6 @@
           </UiButton>
         </div>
       </div>
-
-      <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
-        <span class="btn-label">{{ $t('cancel') }}</span>
-      </UiButton>
     </template>
     <template v-else>
       <div class="alert alert-primary" role="alert">
@@ -189,6 +191,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.flexBox {
+  display: flex;
+  width: 16rem;
+}
+
 .line-container {
   display: flex;
   .value {
