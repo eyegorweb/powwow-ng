@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.377+20201127125712
+2020-11-27
+
+### Features
+
+- 1460 suppression de l'adresse de livraison pour un partenaire (f129333789ec12de9f239a9dbefa01e1678d4759)
+
+### Fixes
+
+- Alignement des boutons de seuils dans la creation alarme (f98df16f78b267320558cacc38af24e4b1502440)
+- Debug de la conversion des donnes dune alarme à la modification (0feb6d63afc3233ac869ad355b7bd86e18c49472)
+
 ## 1.0.0-master.376+20201126143018
 2020-11-26
 
