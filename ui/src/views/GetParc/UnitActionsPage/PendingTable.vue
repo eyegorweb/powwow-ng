@@ -129,6 +129,14 @@ export default {
           },
           exportId: 'UNIT_ACTION_CREATED_DATE',
         },
+        {
+          id: 14,
+          label: this.$t('type'),
+          orderable: true,
+          visible: false,
+          name: 'type',
+          exportId: 'UNIT_ACTION_TYPE',
+        },
       ],
     };
   },
