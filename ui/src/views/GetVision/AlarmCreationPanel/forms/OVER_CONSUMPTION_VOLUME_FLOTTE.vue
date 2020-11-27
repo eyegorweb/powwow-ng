@@ -3,15 +3,13 @@
     :alarm="alarm"
     have-form
     skip-scope-check
-    :container-height="'8rem'"
+    :container-height="'9rem'"
     @save="onSave"
     :partner="partner"
     :check-errors-fn="isFormValid"
   >
-    <template v-slot:default="{ scopeIndex }">
-      <SectionTitle :num="scopeIndex + 1">{{
-        $t('getvsion.alarm-creation.setLimits')
-      }}</SectionTitle>
+    <template v-slot:default="{ scopeIndex, num }">
+      <SectionTitle :num="num">{{ $t('getvsion.alarm-creation.setLimits') }}</SectionTitle>
       <div class="d-flex justify-content-center mt-4 mb-2">
         <Toggle
           v-if="toggleValues"
@@ -44,7 +42,7 @@
       </keep-alive>
     </template>
     <template v-slot:scopechoice="{ partner }">
-      <SectionTitle :num="1">{{ $t('getvsion.alarm-creation.chooseOffer') }}</SectionTitle>
+      <SectionTitle :num="2">{{ $t('getvsion.alarm-creation.chooseOffer') }}</SectionTitle>
       <OfferBillingAccountChoice
         :key="'offercf_' + (partner ? partner.id : '')"
         :partner="partner"
