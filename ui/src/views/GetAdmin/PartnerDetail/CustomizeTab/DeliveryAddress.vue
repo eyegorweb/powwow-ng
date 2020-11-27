@@ -10,6 +10,7 @@
       :filter-fn="filterFn"
       @create="openCreationPanel"
       @modify="modifyList($event)"
+      @delete="deleteAddress($event)"
       :no-edit="!havePermission('party', 'update_delivery_address')"
     >
       <template v-slot="{ item }">
@@ -44,7 +45,7 @@ import get from 'lodash.get';
 
 import CardsList from '@/views/GetAdmin/PartnerDetail/parts/CardsList.vue';
 
-import { fetchpartnerAddresses } from '@/api/partners';
+import { fetchpartnerAddresses, deleteDeliveryAddress } from '@/api/partners';
 import { fetchDeliveryCountries } from '@/api/filters';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -62,7 +63,6 @@ export default {
 
   data() {
     return {
-      adresses: undefined,
       filterValue: '',
       filteredAdresses: [],
       version: 0,
@@ -173,6 +173,19 @@ export default {
         width: '40rem',
         ignoreClickAway: true,
         onClosePanel() {
+          doReset();
+        },
+      });
+    },
+
+    async deleteAddress(item) {
+      const doReset = () => {
+        this.version += 1;
+      };
+      this.confirmAction({
+        message: 'getadmin.customize.deleteDeliveryAddress',
+        actionFn: async () => {
+          await deleteDeliveryAddress(item.id);
           doReset();
         },
       });

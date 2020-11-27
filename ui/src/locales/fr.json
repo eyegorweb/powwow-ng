@@ -619,6 +619,7 @@
       "deliveryAddress": "Adresses de livraison",
       "addDeliveryAddress": "Ajouter une adresse de livraison",
       "modifyDeliveryAddress": "Modifier une adresse de livraison",
+      "deleteDeliveryAddress": "Etes-vous sûr de vouloir supprimer l'adresse de livraison ?",
       "listName": "Nom de la liste de diffusion",
       "emails": "Adresses emails",
       "addEmail": "Ajouter un email",

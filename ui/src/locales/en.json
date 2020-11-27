@@ -559,7 +559,8 @@
       "modifySpecificField": "Modify a specific field",
       "deliveryAddress": "Delivery addresses",
       "addDeliveryAddress": "Add a delivery address",
-      "modifyDeliveryAddress": "Modify a delivery address"
+      "modifyDeliveryAddress": "Modify a delivery address",
+      "deleteDeliveryAddress": "Are you sure you want to delete this shipping address ?"
     },
     "partners": {
       "name": "Social reason",

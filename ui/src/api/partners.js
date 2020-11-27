@@ -753,6 +753,12 @@ export async function fetchpartnerAddresses(id) {
   return { last, all };
 }
 
+export async function deleteDeliveryAddress(id) {
+  const queryStr = `mutation {deleteShippingAddress(shippingAddressId:${id})}`;
+  const response = await query(queryStr);
+  return response.data.deleteShippingAddress;
+}
+
 export async function deleteBroadcastList(id) {
   const queryStr = `mutation {deletMailingListById(mailingListId:${id})}`;
   const response = await query(queryStr);
