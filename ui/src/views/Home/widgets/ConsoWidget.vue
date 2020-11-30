@@ -78,6 +78,7 @@ export default {
     },
 
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'ConsoWidget' });
       this.$router.push({
         name: 'reportsDashboard',
         params: {

@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'OrdersWidget' });
       this.$router.push({
         name: 'orders',
         params: {

@@ -91,6 +91,7 @@ export default {
       this.names = this.partners.map(p => p.name);
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'TriggeredAlarmPerDay' });
       this.$router.push({
         name: 'alarms',
         params: {

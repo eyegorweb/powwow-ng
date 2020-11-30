@@ -49,6 +49,8 @@ export default {
     },
 
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'ConsoGraphWidget' });
+
       this.$router.push({
         name: 'reportsDashboard',
         params: {
