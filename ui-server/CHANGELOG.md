@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.380+20201130092634
+2020-11-30
+
+### Fixes
+
+- Corriger la requête détail d'alarme (83b1028c738d0fe7a294bdd01668fa9d6a6187dc)
+
 ## 1.0.0-master.379+20201130090100
 2020-11-30
 
