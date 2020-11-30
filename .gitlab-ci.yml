@@ -28,7 +28,14 @@ version:
   stage: version
   image: registry.gitlab.com/juhani/go-semrel-gitlab:v0.20.4
   script:
-    - release next-version --allow-current > .next-version
+    - >
+      if [[ $CI_COMMIT_REF_NAME == \hotfix* ]]; then
+        echo "Calculating version for hotfix branch"
+        sed '$s/$/'"_$CI_COMMIT_REF_SLUG"'/' ui-server/version.txt > .next-version
+      else
+        echo "Calculating version for branch $CI_COMMIT_REF_NAME"
+        release next-version --allow-current > .next-version
+      fi
   after_script:
     - cat .next-version
     - cp /usr/bin/release .
