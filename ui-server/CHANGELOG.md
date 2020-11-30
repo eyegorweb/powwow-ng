@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.379+20201130090100
+2020-11-30
+
+### Fixes
+
+- 2150 ajout du type de l'action dans les tables du détail d'un acte de masse (577c10c327f6447d8f92539baef5f1a14c67a96a)
+- Debug de la checkbox de suspension dans les act du tableau des lignes (61baaebd89b02fc07400ac3fb625f0103c704c73)
+
 ## 1.0.0-master.378+20201127133724
 2020-11-27
 
