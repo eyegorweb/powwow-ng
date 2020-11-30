@@ -255,12 +255,6 @@ export default {
           name: 'activationDate',
           noHandle: true,
           fixed: true,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return get(row, 'alarmInstance.created');
-            },
-          },
         },
         {
           id: 4,
