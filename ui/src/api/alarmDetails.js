@@ -85,9 +85,9 @@ export async function fetchLinesBoundToAlarm(orderBy, pagination, filters = []) 
             value
           }
         }
-        alarmInstance {
-          created
-        }
+
+        activationDate
+
         accessPoint {
           id
           offerGroup{
