@@ -2,12 +2,16 @@
 
 <!--- next entry here -->
 
-## 1.0.0-master.381+20201130095610
+## 1.0.0-master.382+20201130101453
 2020-11-30
 
 ### Features
 
 - add hotfix pipeline (cf09463500be98e4f8deebe108b2ebd2f8987dd1)
+
+### Fixes
+
+- Conversion des données pendant la modification alarme (77d0fb846b76552344710a199288b140402a8408)
 
 ## 1.0.0-master.380+20201130092634
 2020-11-30
