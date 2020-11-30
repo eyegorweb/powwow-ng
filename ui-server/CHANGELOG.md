@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.0.0-master.381+20201130095610
+2020-11-30
+
+### Features
+
+- add hotfix pipeline (cf09463500be98e4f8deebe108b2ebd2f8987dd1)
+
 ## 1.0.0-master.380+20201130092634
 2020-11-30
 
