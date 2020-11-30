@@ -244,6 +244,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       custom6FieldLabel
       spec1_label
       spec2_label
+      suspensionFree
     }
     workflow {
       workflowDescription
