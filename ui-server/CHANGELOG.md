@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.1+20201130111332
+2020-11-30
+
+### Features
+
+- add hotfix pipeline (6acfe44dbbcef5948f1c3a528d5b5545d6700f87)
+
+### Fixes
+
+- Correction de l'écran "détail d'alarme" (654377ae9cd087277f31df3eb8503ee018083e78)
+- Correction pipeline (12b4e1c025ee1951a5aa2f423237cf97fba3d995)
+
 ## 1.0.0-master.382+20201130101453
 2020-11-30
 
