@@ -38,7 +38,7 @@
       <div class="entries-line">
         <div class="language">
           <label>{{ $t('getadmin.users.language') }}</label>
-          <UiSelect class="text-gray language" block v-model="form.language" :options="languages"/>
+          <UiSelect class="text-gray language" block v-model="form.language" :options="languages" />
         </div>
         <div
           v-if="!userIsPartner && userType === 'PARTNER'"
@@ -177,7 +177,7 @@ export function checkPasswordErrors(password, passwordConfirm) {
   }
   // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
 
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+  if (!/[!"#$%&'()*+,-./:;<=>?@\[\]^_`{|}~]/.test(password)) {
     errors.push('errors.password.special-error');
   }
 
