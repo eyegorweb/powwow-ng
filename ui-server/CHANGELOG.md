@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.4+20201201105516
+2020-12-01
+
+### Fixes
+
+- Correction de l'alignement des colonnes dans la page d'acceuil. (c45c8da6a098ce27ced2259988415cd751fd6c56)
+- [2086] correction du tableau des offres commerciales (dd2ef863889e4955cf6903a422b809b2c4470e77)
+
 ## 1.17.0-master.3+20201201100837
 2020-12-01
 
