@@ -51,10 +51,6 @@ export default {
       return this.actCreationPrerequisites.partner;
     },
     canSuspendBilling() {
-      console.log('act : ' + this.actCreationPrerequisites)
-      console.log(this.actCreationPrerequisites)
-      console.log('partner : ' + this.partner)
-      console.log(this.partner)
       if (!this.actCreationPrerequisites) return false;
 
       return this.partner.partyType !== 'MVNO' && this.userIsBO && (this.partner.suspendBilling || this.partner.suspensionFree);
