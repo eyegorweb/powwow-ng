@@ -2,13 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.3+20201201100849
+## 1.17.0-master.3+20201201100837
 2020-12-01
 
 ### Fixes
 
 - 2130 Debug du texte qui se chevauche sur la croix dannulation (46a464de5aeb7a9db7387d93f372d91c05f23321)
-- 2145 Debug de la checkbox de suspensions de lignes (ebb346a01bb26dd390e8f6b62f6f88debccd3500)
 
 ## 1.17.0-master.2+20201201091756
 2020-12-01
