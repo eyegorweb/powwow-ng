@@ -1,6 +1,9 @@
 <template>
   <div>
-    <chart v-if="chartOptions" :options="chartOptions" :callback="onChartCreated" />
+    <ff-wip>
+    <!-- WAITING FOR BACK-END INFOS TO TOGGLE SHOW THE GRAPH -->
+      <chart v-if="chartOptions" :options="chartOptions" :callback="onChartCreated" />
+    </ff-wip>
   </div>
 </template>
 
