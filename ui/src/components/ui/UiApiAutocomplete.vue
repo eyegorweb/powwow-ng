@@ -9,7 +9,7 @@
         <input
           :disabled="disabled"
           type="text"
-          class="form-control"
+          class="form-control paddR"
           :class="{ 'big-input': big }"
           v-model="$value"
           ref="input"
@@ -304,6 +304,10 @@ export default {
   right: 25px;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.paddR {
+  padding-right: 60px;
 }
 
 .icon-default {
