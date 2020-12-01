@@ -38,7 +38,7 @@ export default {
     notifyOrderChange() {
       const newWidgets = $(this.$refs.homepageGrid)
         .find('li')
-        .map(function() {
+        .map(function () {
           return $(this).attr('id');
         })
         .toArray()
@@ -84,7 +84,6 @@ export default {
 .sortable-grid-item {
   padding: 1px;
   height: 19.8rem;
-  text-align: center;
 
   display: inline-block;
   vertical-align: top;
