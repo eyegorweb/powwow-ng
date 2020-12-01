@@ -3,6 +3,7 @@
     <TableWithFilter
       :key="version"
       v-if="columns && filters"
+      show-reset
       :filters="filters"
       :columns="columns"
       :is-loading="isLoading"
@@ -13,7 +14,7 @@
       @applyFilters="applyFilters"
       @currentFiltersChange="currentFilters = $event"
       :default-values="defaultFilterValues"
-      @resetFilters="resetFilters"
+      @resetSearch="resetFilters"
     >
       <div slot="title" class="mt-2 table-total">
         {{ $t('getvsion.table.total', { total: total }) }}
@@ -315,6 +316,7 @@ export default {
       });
     },
     async resetFilters() {
+      this.searchedId = undefined;
       this.defaultFilterValues = undefined;
       this.version += 1;
       await this.applyFilters();
