@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.2+20201201091756
+2020-12-01
+
+### Fixes
+
+- [2148] gestion des caractères spéciaux des mots de passe (9e147945ea1438a6855e91928786c1d0e2cad9af)
+- [2136] gestion d'erreur pour l'import de cartes SIM sur une commande (9531f179d19fde498f230fef86030b06e8ed67e8)
+- 2151 Masquage du graph en attente du back (Création alarme mutualisé) (fb7b886ad0a2348ba02da4801aff99c67660121c)
+
 ## 1.17.0-master.1+20201130111332
 2020-11-30
 
