@@ -57,9 +57,9 @@ export default {
           visible: true,
           format: {
             type: 'LinkBtn',
-            // getter: row => {
-            //   return get(row, 'marketingOffer.code');
-            // },
+            onClick: row => {
+              console.log('data >>>>', row);
+            },
           },
         },
         {
