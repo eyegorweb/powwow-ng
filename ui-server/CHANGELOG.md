@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.8+20201202145329
+2020-12-02
+
+### Fixes
+
+- [2160] Nouveau message d'erreur dans l'export des lignes (9a6a1c37ff21d6414768994d431af47bb5dbf8ab)
+
 ## 1.17.0-master.7+20201202103508
 2020-12-02
 
