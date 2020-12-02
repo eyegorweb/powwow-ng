@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.7+20201202103508
+2020-12-02
+
+### Fixes
+
+- [2136] gestion d'erreur lors de l'import de cartes SIM à la commande (f14797455bd5676c4523672b3a954819b42f9ca0)
+
 ## 1.17.0-master.6+20201202082659
 2020-12-02
 
