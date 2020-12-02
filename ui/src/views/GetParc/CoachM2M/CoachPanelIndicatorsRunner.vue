@@ -184,7 +184,7 @@ export default {
         },
       ],
       advancedIndicators: undefined,
-      version: 0
+      version: 0,
     };
   },
 };

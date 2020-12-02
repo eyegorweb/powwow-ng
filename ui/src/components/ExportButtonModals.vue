@@ -102,7 +102,7 @@ export default {
   computed: {
     ...mapGetters(['havePermission']),
     ...mapGetters('actLines', ['appliedFilters']),
-    ...mapGetters(['userIsBO', 'userIsPartner']),
+    ...mapGetters(['userIsBO', 'userIsPartner', 'userIsGroupPartner', 'userIsOperator']),
     ...mapGetters(['userIsMVNO']),
     ...mapState({
       isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
@@ -145,7 +145,7 @@ export default {
       }
     },
     appliedFilters(newFilters) {
-      const found = newFilters.find(a => a.id === 'filters.partners');
+      const partnerFilter = newFilters.find(a => a.id === 'filters.partners');
       this.exportTypes = [
         {
           id: 'CLASSIC',
@@ -157,7 +157,7 @@ export default {
           label: 'exportTable.complete',
         },
       ];
-      if (this.havePermission('getVision', 'read')) {
+      if (this.havePermission('getParc', 'export_last_usage')) {
         this.exportTypes = [
           ...this.exportTypes,
           {
@@ -175,7 +175,23 @@ export default {
           },
         ];
       }
-      if (found && found.values.length === 1 || (this.userIsPartner && !this.userIsMVNO)) {
+
+      let canExportConso = false;
+
+      if (this.userIsGroupPartner) {
+        canExportConso = true;
+      }
+
+      if (this.userIsPartner && !this.userIsMVNO) {
+        canExportConso = true;
+      }
+
+      if (this.userIsOperator && partnerFilter && partnerFilter.values.length === 1) {
+        const partnerInFilter = partnerFilter.values[0];
+        canExportConso = partnerInFilter.partyType !== 'MVNO';
+      }
+
+      if (canExportConso) {
         this.exportTypes = [
           ...this.exportTypes,
           {
@@ -268,11 +284,16 @@ export default {
           }
         } catch (err) {
           this.haveError = true;
-          if (err === 'noData') {
-            this.messageError = this.$t('noLinesToExport');
+          if (this.exportPanelParams.onErrorFn) {
+            this.messageError = this.exportPanelParams.onErrorFn(err);
           } else {
-            this.messageError = this.$t('exportError');
+            if (err === 'noData') {
+              this.messageError = this.$t('noLinesToExport');
+            } else {
+              this.messageError = this.$t('exportError');
+            }
           }
+
           return this.messageError;
         }
       }
