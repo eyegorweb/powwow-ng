@@ -1565,6 +1565,7 @@
         "FILE_EXTENSION_INVALID": "Extension de fichier invalide",
         "FILE_CONTENT_INVALID": "Contenu de fichier invalide",
         "FILE_LINE_NUMBER_INVALID": "Votre fichier contient plus de SIM que le nombre de SIM restant à importer",
+        "InvalidFileLineNumber": "Votre fichier contient plus de SIM que le nombre de SIM restant à importer",
         "InvalidFileExtension": "Extension de fichier invalide",
         "InvalidFileContent": "Contenu de fichier invalide",
         "InvalidFileVersion": "Version du fichier invalide",

@@ -116,8 +116,13 @@ export default {
 
         if (newFile) {
           this.localError = this.getLocalError(newFile);
+
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
+            if (this.fileResponse && this.fileResponse.error) {
+              this.localError = this.$t('getparc.actCreation.report.' + this.fileResponse.error);
+              return this.localError;
+            }
             this.$emit('response', {
               file: newFile,
               ...this.fileResponse,
