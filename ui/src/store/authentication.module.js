@@ -48,6 +48,9 @@ export const getters = {
   userIsPartner: state => {
     return state.userInfos && state.userInfos.type === 'PARTNER';
   },
+  userIsGroupPartner: state => {
+    return state.userInfos && state.userInfos.type === 'PARTNER_GROUP';
+  },
   userIsOperator: state => {
     return state.userInfos && state.userInfos.type === 'OPERATOR';
   },

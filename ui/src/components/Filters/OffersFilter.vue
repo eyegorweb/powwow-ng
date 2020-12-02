@@ -3,7 +3,7 @@
     :values="selectedOffersValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    @update:values="(values) => $emit('setOffersFilter', values)"
+    @update:values="values => $emit('setOffersFilter', values)"
   />
 </template>
 

@@ -146,9 +146,9 @@ export default {
 
   mounted() {
     if (this.duplicateFrom) {
-      this.dataES = (this.duplicateFrom.level1 / 1024 / 1024);
-      this.dataOut = (this.duplicateFrom.level1Up / 1024 / 1024);
-      this.dataIn = (this.duplicateFrom.level1Down / 1024 / 1024);
+      this.dataES = this.duplicateFrom.level1 / 1024 / 1024;
+      this.dataOut = this.duplicateFrom.level1Up / 1024 / 1024;
+      this.dataIn = this.duplicateFrom.level1Down / 1024 / 1024;
       this.smsES = this.duplicateFrom.level2;
       this.smsOut = this.duplicateFrom.level2Up;
       this.smsIn = this.duplicateFrom.level2Down;

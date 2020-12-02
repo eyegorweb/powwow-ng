@@ -36,6 +36,7 @@
   "exportAll": "Export complet",
   "exportError": "La génération du fichier a rencontré un problème. Veuillez réessayer.",
   "noLinesToExport": "Aucune ligne à exporter",
+  "needActiveLines": "Vous devez filtrer sur les lignes actives",
   "retry": "Veuillez réessayer",
   "exportLoading": "Votre fichier est en cours de préparation",
   "exportFormat": "Veuillez choisir un format d'export",

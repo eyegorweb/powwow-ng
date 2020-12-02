@@ -108,13 +108,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['havePermission', 'userIsBO',
-
-      'userInfos', 'userIsPartner', 'havePermission']),
+    ...mapGetters(['havePermission', 'userIsBO', 'userInfos', 'userIsPartner', 'havePermission']),
 
     canRunCoach() {
-      return this.havePermission('getParc', 'manage_coach')
-        && (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable'));
+      return (
+        this.havePermission('getParc', 'manage_coach') &&
+        (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable'))
+      );
     },
 
     isLigneActive() {

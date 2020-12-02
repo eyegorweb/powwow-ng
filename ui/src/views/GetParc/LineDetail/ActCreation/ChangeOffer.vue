@@ -84,17 +84,15 @@ export default {
         let workflowId = data.find(o => o.code === this.currentOffer.code);
         if (workflowId) {
           this.currentWorkflowId = workflowId.id;
-          listToReturn = data
-            .filter(o => o.code !== this.currentOffer.code)
+          listToReturn = data.filter(o => o.code !== this.currentOffer.code);
         }
 
-        return listToReturn
-          .map(o => ({
-            id: o.code,
-            label: o.workflowDescription,
-            data: o,
-            productCode: o.code,
-          }));
+        return listToReturn.map(o => ({
+          id: o.code,
+          label: o.workflowDescription,
+          data: o,
+          productCode: o.code,
+        }));
       }
     },
   },

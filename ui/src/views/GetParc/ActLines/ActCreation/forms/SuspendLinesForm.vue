@@ -55,7 +55,11 @@ export default {
     canSuspendBilling() {
       if (!this.actCreationPrerequisites) return false;
 
-      return this.partner.partyType !== 'MVNO' && this.userIsBO && (this.partner.suspendBilling || this.partner.suspensionFree);
+      return (
+        this.partner.partyType !== 'MVNO' &&
+        this.userIsBO &&
+        (this.partner.suspendBilling || this.partner.suspensionFree)
+      );
     },
   },
   async mounted() {

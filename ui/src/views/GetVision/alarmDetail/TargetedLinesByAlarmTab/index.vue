@@ -61,7 +61,6 @@ import AlarmsFileFilter from '@/views/GetVision/alarmDetail/filters/AlarmsFileFi
 import { mapMutations } from 'vuex';
 
 import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetails';
-import get from 'lodash.get';
 
 export default {
   components: {

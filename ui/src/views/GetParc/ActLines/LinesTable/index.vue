@@ -23,6 +23,7 @@
             <ExportButton
               export-all
               :export-fn="getExportFn()"
+              :on-error-fn="getExportErrorCallback()"
               :columns="orderedColumns"
               :order-by="orderBy"
               :multi-export="true"
@@ -95,6 +96,8 @@ import IdCell from './IdCell';
 // import LinkTo from './LinkTo';
 import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import ExportButton from '@/components/ExportButton';
+import { formatBackErrors } from '@/utils/errors';
+
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
@@ -214,6 +217,21 @@ export default {
         pageInfo: this.getPageInfo,
         appliedFilters: this.appliedFilters,
       });
+    },
+
+    getExportErrorCallback() {
+      return errors => {
+        const formattedErrors = formatBackErrors(errors);
+        if (formattedErrors) {
+          const haveSimStatusError = formattedErrors[0].errorKeys.find(
+            e => e === 'simStatus.Required'
+          );
+          if (haveSimStatusError) {
+            return this.$t('needActiveLines');
+          }
+          return this.$t('exportError');
+        }
+      };
     },
 
     getExportFn() {
