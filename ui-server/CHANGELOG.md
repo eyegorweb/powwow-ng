@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.6+20201202082659
+2020-12-02
+
+### Fixes
+
+- [2148] ajout de caractères spéciaux pour l'enregeistrement du mot de passe d'un utilisateur (ff2384ee2134bb5b329aa5d19997dd7449e50ef5)
+
 ## 1.17.0-master.5+20201201151242
 2020-12-01
 
