@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.11+20201203140914
+2020-12-03
+
+### Fixes
+
+- [2049] ne pas pouvoir rechercher des actes de gestion sur un période d'une durée supérieure à 12 mois (71ca83727bee17df2429716a0185ebb2f0a20a41)
+
 ## 1.17.0-master.10+20201203133014
 2020-12-03
 
