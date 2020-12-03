@@ -177,7 +177,7 @@ export function checkPasswordErrors(password, passwordConfirm) {
   }
   // Le mot de passe doit contenir au moins un chiffre, une lettre avec accent ou un caractère spécial.
 
-  if (!/[!"#$%&'()*+,-./:;<=>?@£µ§²éè\\çà°¨[]^_`{|}~]/.test(password)) {
+  if (!/[!"#$%&'()*+,-./:;<=>?@£µ§²éè\\çà°¨[\]^_`{|}~]/.test(password)) {
     errors.push('errors.password.special-error');
   }
 
