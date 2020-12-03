@@ -134,6 +134,7 @@ export default {
       'userIsMultiPartner',
       'userIsPartner',
       'singlePartner',
+      'havePermission',
     ]),
     canFilter() {
       return !this.refreshLinesFn;
@@ -254,7 +255,7 @@ export default {
   mounted() {
     this.filters = this.getUsageFilters();
 
-    this.toggleValues = [
+    const toggleValues = [
       {
         id: 'ALL',
         label: 'getvsion.allUsages',
@@ -265,17 +266,23 @@ export default {
         label: 'getvsion.dataUsage',
         default: this.value === 'DATA',
       },
-      {
+    ];
+
+    if (this.havePermission('getVision', 'service_state')) {
+      toggleValues.push({
         id: 'COCKPIT',
         label: 'getvsion.m2mCockpit',
         default: this.value === 'COCKPIT',
-      },
-      {
-        id: 'ALARMS',
-        label: 'getvsion.alarms',
-        default: this.value === 'ALARMS',
-      },
-    ];
+      });
+    }
+
+    toggleValues.push({
+      id: 'ALARMS',
+      label: 'getvsion.alarms',
+      default: this.value === 'ALARMS',
+    });
+
+    this.toggleValues = toggleValues;
   },
 
   methods: {
