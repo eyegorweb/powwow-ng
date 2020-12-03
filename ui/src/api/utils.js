@@ -121,9 +121,7 @@ export async function postFile(url, formData) {
     return response.data;
   } catch (e) {
     const message =
-      e.response && e.response.data && e.response.data.message
-        ? e.response.data.message
-        : e.message;
+      e.response && e.response.data && e.response.data.error ? e.response.data.error : e.message;
     return { error: message };
   }
 }
