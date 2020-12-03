@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.9+20201203081051
+2020-12-03
+
+### Features
+
+- Ajout message dans la résiliation de lignes (07b284044f2a169afd1327581b2197defa2b8958)
+
+### Fixes
+
+- [2136] gestion du message d'erreur pour l'import de cartes SIM d'une commande (67feae824c5c07b829f5c2b1c7081440adeb48ab)
+
 ## 1.17.0-master.8+20201202145329
 2020-12-02
 
