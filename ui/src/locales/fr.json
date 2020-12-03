@@ -6,6 +6,8 @@
   "suggestionsPlaceholder": "Commencez à taper pour avoir des suggestions",
   "searchByCF": "Rechercher une offre par code C.F., libellé, siret ou ligne de marché",
   "searchLine": "Rechercher une ligne",
+  "ResfuseLineError": "1 ligne est encore dans le délai de carence et sa demande de validation ne peut pas être validée.",
+  "ResfuseLinesError": "{nb} lignes sont encore dans le délai de carence et ne peuvent pas être validées.",
   "search": "Rechercher",
   "accessTo": "Accéder à",
   "numberPerPage": "Nb par page",
