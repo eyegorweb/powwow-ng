@@ -261,6 +261,8 @@
     "limitAddress": "Adresse limitée à 35 caractères"
   },
   "common": {
+    "limitDateError": "Attention la période de recherche ne peut exéder une année",
+    "noDateChosenError": "Attention la période de recherche ne peut excéder une année.",
     "billing": "Facturation",
     "order": "Commande",
     "export": "Export",

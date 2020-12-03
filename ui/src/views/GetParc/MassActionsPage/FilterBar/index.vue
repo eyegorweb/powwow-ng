@@ -2,6 +2,10 @@
   <div class="card filter-bar">
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
+
+      <div class="alert alert-warning" role="alert" v-if="noDatesInFilters">
+        {{ $t('common.noDateChosenError') }}
+      </div>
       <SelectedFilters
         v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
@@ -123,6 +127,18 @@ export default {
       'selectedPartnersValues',
       'selectedOrderCreatorValues',
     ]),
+
+    noDatesInFilters() {
+      if (this.currentFilters && this.currentFilters.length) {
+        const dateFilters = [
+          'filters.actDateStart',
+          'filters.actDateCreation',
+          'filters.actDateEnd',
+        ];
+        return !this.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+      }
+      return true;
+    },
   },
   methods: {
     ...mapMutations('actHistory', ['applyFilters', 'setOrderCreatorFilter']),

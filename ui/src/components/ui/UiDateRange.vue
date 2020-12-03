@@ -15,6 +15,9 @@
       <span>{{ formattedResult }}</span>
       <i class="fa fa-caret-down" />
     </div>
+    <div v-if="limitDateError" class="alert alert-danger mt-1" role="alert">
+      {{ $t('common.limitDateError') }}
+    </div>
   </div>
 </template>
 
@@ -37,10 +40,13 @@ export default {
       type: String,
       default: 'down',
     },
+    oneYearLimit: Boolean,
   },
   data() {
     return {
       canShowCalendar: false,
+      limitDateError: false,
+      rangeInError: undefined,
     };
   },
   watch: {
@@ -64,10 +70,28 @@ export default {
         }
 
         const onDateSelected = (start, end) => {
-          this.$emit('change', {
-            startDate: start.format('DD/MM/YYYY'),
-            endDate: end.format('DD/MM/YYYY'),
-          });
+          let limitDateError = false;
+          if (this.oneYearLimit) {
+            if (start && end) {
+              const diff = end.diff(start, 'months');
+              if (diff <= 12) {
+                this.$emit('change', {
+                  startDate: start.format('DD/MM/YYYY'),
+                  endDate: end.format('DD/MM/YYYY'),
+                });
+              } else {
+                this.rangeInError = `${start.format('DD/MM/YYYY')} - ${end.format('DD/MM/YYYY')}`;
+                limitDateError = true;
+              }
+            }
+          } else {
+            this.$emit('change', {
+              startDate: start.format('DD/MM/YYYY'),
+              endDate: end.format('DD/MM/YYYY'),
+            });
+          }
+
+          this.limitDateError = limitDateError;
         };
 
         // TODO: add i18n support
@@ -161,6 +185,10 @@ export default {
 
   computed: {
     formattedResult() {
+      if (this.limitDateError) {
+        return this.rangeInError;
+      }
+
       if (!this.start && !this.end) return '';
 
       return this.start + ' - ' + this.end;

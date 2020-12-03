@@ -95,6 +95,22 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+  applyFilters(state) {
+    const haveDatesInFilters = () => {
+      if (state.currentFilters && state.currentFilters.length) {
+        const dateFilters = [
+          'filters.actDateStart',
+          'filters.actDateCreation',
+          'filters.actDateEnd',
+        ];
+        return !!state.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+      }
+      return false;
+    };
+    if (haveDatesInFilters()) {
+      filterUtils.applyFilters(state);
+    }
+  },
   setActionsResponse(state, massActions) {
     state.massActionsResponse = massActions;
   },

@@ -34,7 +34,7 @@
         @change:validation="handleValidation"
       />
 
-      <p>{{message}}</p>
+      <p>{{ message }}</p>
 
       <Modal v-if="waitForConfirmation">
         <div slot="body">
@@ -91,7 +91,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import ManageCancellationFormDelay from './ManageCancellationFormDelay';
 import ManageCancellationFormDate from './ManageCancellationFormDate';
 import ActFormContainer from './parts/ActFormContainer2';
-import { manageCancellation, validateRefuseLines } from '@/api/actCreation';
+import { manageCancellation } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
@@ -158,16 +158,20 @@ export default {
     },
     async onValidate(contextValues) {
       if (this.checkErrors()) return;
-      const response = await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
-        dueDate: this.options.date ? this.options.date : '',
-        partyId: this.partner.id,
-        validate: this.validate,
-        tempDataUuid: contextValues.tempDataUuid,
-      });
+      const response = await manageCancellation(
+        this.appliedFilters,
+        this.selectedLinesForActCreation,
+        {
+          dueDate: this.options.date ? this.options.date : '',
+          partyId: this.partner.id,
+          validate: this.validate,
+          tempDataUuid: contextValues.tempDataUuid,
+        }
+      );
       if (response.validate > 1) {
-        this.message = this.$t('ResfuseLinesError', {nb: reponse.validate})
+        this.message = this.$t('ResfuseLinesError', { nb: response.validate });
       } else {
-        this.message = this.$t('ResfuseLineError', {nb: reponse.validate})
+        this.message = this.$t('ResfuseLineError', { nb: response.validate });
       }
 
       return response;

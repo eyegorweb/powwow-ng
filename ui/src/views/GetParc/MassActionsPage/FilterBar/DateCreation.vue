@@ -5,6 +5,7 @@
       @change="setActDateCreationFilter"
       :start="startDate"
       :end="endDate"
+      one-year-limit
     />
   </div>
 </template>

@@ -188,9 +188,34 @@ export function setQueryFilterAndSearch(state) {
   state.routeParamsFilters = [];
 }
 
+export function applyFilters(state) {
+  let currentFilters = state.currentFilters;
+  // Décider si on ajoute les partenaires choisis par défaut
+  const defaultPartnerType = state.defaultAppliedFilters.find(f => f.id === 'filters.partnerType');
+  const additionalFilters = [];
+
+  if (defaultPartnerType) {
+    additionalFilters.push(defaultPartnerType);
+  }
+
+  // Ajouter les partenaires par défaut si aucun partenaire n'est choisi
+  const selectedPartners = currentFilters.find(f => f.id === 'filters.partners');
+  if (!selectedPartners || !selectedPartners.values || selectedPartners.values.length === 0) {
+    const defaultPartners = state.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+    // Enlever le partenaire vide, necessaire pour appliquer les partenaires par défaut
+    currentFilters = currentFilters.filter(f => f.id !== 'filters.partners');
+    if (defaultPartners && defaultPartners.values && defaultPartners.values.length) {
+      additionalFilters.push(defaultPartners);
+    }
+  }
+
+  state.appliedFilters = [...currentFilters, ...additionalFilters];
+}
+
 export function initMutations() {
   return {
     setQueryFilterAndSearch,
+    applyFilters,
 
     setPage(state, newPage) {
       state.searchPage = newPage;
@@ -226,31 +251,6 @@ export function initMutations() {
     restartFilters(state) {
       state.currentFilters = [];
       state.appliedFilters = [...state.defaultAppliedFilters];
-    },
-    applyFilters(state) {
-      let currentFilters = state.currentFilters;
-      // Décider si on ajoute les partenaires choisis par défaut
-      const defaultPartnerType = state.defaultAppliedFilters.find(
-        f => f.id === 'filters.partnerType'
-      );
-      const additionalFilters = [];
-
-      if (defaultPartnerType) {
-        additionalFilters.push(defaultPartnerType);
-      }
-
-      // Ajouter les partenaires par défaut si aucun partenaire n'est choisi
-      const selectedPartners = currentFilters.find(f => f.id === 'filters.partners');
-      if (!selectedPartners || !selectedPartners.values || selectedPartners.values.length === 0) {
-        const defaultPartners = state.defaultAppliedFilters.find(f => f.id === 'filters.partners');
-        // Enlever le partenaire vide, necessaire pour appliquer les partenaires par défaut
-        currentFilters = currentFilters.filter(f => f.id !== 'filters.partners');
-        if (defaultPartners && defaultPartners.values && defaultPartners.values.length) {
-          additionalFilters.push(defaultPartners);
-        }
-      }
-
-      state.appliedFilters = [...currentFilters, ...additionalFilters];
     },
 
     setRouteParamsFilters(state, filters) {
