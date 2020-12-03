@@ -34,6 +34,8 @@
         @change:validation="handleValidation"
       />
 
+      <p>{{message}}</p>
+
       <Modal v-if="waitForConfirmation">
         <div slot="body">
           <template v-if="validate">
@@ -89,7 +91,7 @@ import UiCheckbox from '@/components/ui/Checkbox';
 import ManageCancellationFormDelay from './ManageCancellationFormDelay';
 import ManageCancellationFormDate from './ManageCancellationFormDate';
 import ActFormContainer from './parts/ActFormContainer2';
-import { manageCancellation } from '@/api/actCreation';
+import { manageCancellation, validateRefuseLines } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
@@ -114,6 +116,7 @@ export default {
       validate: undefined,
       isLoading: false,
       singleLineFound: undefined,
+      message: '',
     };
   },
   computed: {
@@ -147,25 +150,27 @@ export default {
       this.validate = false;
       this.options = options;
       this.waitForConfirmation = true;
-      console.log(
-        '🚀 ~ file: ManageCancellationForm.vue ~ line 145 ~ handleValidation ~ options',
-        options
-      );
     },
-    handleValidation(options) {
+    async handleValidation(options) {
       this.validate = true;
       this.options = options;
       this.waitForConfirmation = true;
     },
     async onValidate(contextValues) {
       if (this.checkErrors()) return;
-      console.log('ON VALIDATE');
-      return await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
+      const response = await manageCancellation(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: this.options.date ? this.options.date : '',
         partyId: this.partner.id,
         validate: this.validate,
         tempDataUuid: contextValues.tempDataUuid,
       });
+      if (response.validate > 1) {
+        this.message = this.$t('ResfuseLinesError', {nb: reponse.validate})
+      } else {
+        this.message = this.$t('ResfuseLineError', {nb: reponse.validate})
+      }
+
+      return response;
     },
     async confirmValdation(containerValidationFn) {
       try {
