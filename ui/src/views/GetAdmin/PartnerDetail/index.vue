@@ -176,10 +176,7 @@ export default {
         this.partner && this.partner.partyType === 'MVNO',
       ];
 
-      if (
-        this.havePermission('party', 'read_account_detail') &&
-        this.canShowTab(permissionsForAccountDetailTab)
-      ) {
+      if (this.canShowTab(permissionsForAccountDetailTab)) {
         tabs.push({
           label: 'accountDetail',
           title: this.$t('getadmin.partners.accountDetail'),
