@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.10+20201203133014
+2020-12-03
+
+### Fixes
+
+- [2088] mise à jour des permissions dans la gestion de partenaires (957631d557483567b41050603e12084d28b34b03)
+- [2148] gestion des caractères spéciaux pour l'enregistrement d'un mot de passe lors de la création d'un compte utilisateur (7b2b643e2fe13c753a3ab42cc279471d8f370332)
+
 ## 1.17.0-master.9+20201203081051
 2020-12-03
 
