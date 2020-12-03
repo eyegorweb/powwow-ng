@@ -70,7 +70,6 @@ export default {
       this.menuItems.push('getadmin.partners.m2mRange.title');
     }
     this.menuItems = menuItems;
-    this.initSection(this.menuItems);
   },
 
   data() {
@@ -83,13 +82,6 @@ export default {
 
   computed: {
     ...mapGetters(['havePermission']),
-  },
-
-  methods: {
-    initSection(menu) {
-      if (!menu.length) return;
-      this.section = menu.find(a => a);
-    },
   },
 };
 </script>
