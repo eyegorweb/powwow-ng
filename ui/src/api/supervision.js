@@ -178,6 +178,7 @@ export async function fetchLinesForMarker(
             zipCode
             city
             cellid
+            lastDirection
             lastUsageDate
             lastUsageType
             lastPdpConStatus
