@@ -204,7 +204,7 @@
             {{ getFromOrder('customerAccount.address.city') }}
           </p>
           <p v-if="getFromOrder('address.countryName')">
-            {{ getFromOrder('address.countryName') }}
+            {{ getFromOrder('customerAccount.address.countryName') }}
           </p>
         </div>
       </div>
@@ -258,6 +258,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.order)
     this.confirmationStepper = [
       {
         code: 'NOT_VALIDATED',

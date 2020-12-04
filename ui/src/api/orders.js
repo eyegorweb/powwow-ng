@@ -82,6 +82,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
             zipCode
             city
             country
+            countryName
             state
           }
         }
