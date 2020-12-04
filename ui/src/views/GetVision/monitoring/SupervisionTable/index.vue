@@ -179,7 +179,7 @@ export default {
           label: this.$t('filters.direction'),
           orderable: false,
           visible: false,
-          name: 'direction',
+          name: 'lastDirection',
         },
         {
           id: uuid(),
