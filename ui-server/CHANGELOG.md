@@ -2,12 +2,14 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.12+20201204172331
+## 1.17.0-master.12+20201204172423
 2020-12-04
 
 ### Fixes
 
 - Debug du Pays dans le panel de detail de commande (75aeb75a9cd278881120ff5a9cc3f87a8ca1004c)
+- 2172 Ajout de la sauvegarde des colonnes dans la table analyse dans le detail de ligne (ab8b47744f96f119637d3ddcde375e68143b8952)
+- Ajout dans API du sens pour le tableau de supervision (42ab53cfe9fa815f8257fdd81dd0003a4e9a2422)
 
 ## 1.17.0-master.11+20201203140914
 2020-12-03
