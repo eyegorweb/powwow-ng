@@ -23,6 +23,8 @@
       <template v-else>
         <DataTable
           v-if="orderBy"
+          storage-id="getparc.analyze"
+          storage-version="10"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
