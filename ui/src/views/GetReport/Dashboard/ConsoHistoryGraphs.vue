@@ -74,7 +74,6 @@ export default {
   methods: {
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
-        console.log(exportFormat);
         return await consumtionHistoryExport(this.partner.id, exportFormat);
       };
     },
