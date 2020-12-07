@@ -73,6 +73,11 @@ export async function createUser(params) {
     }
   }`;
   const response = await query(queryStr);
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
   return response.data.createUser;
 }
 

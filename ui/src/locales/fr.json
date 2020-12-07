@@ -612,7 +612,8 @@
       },
       "total": "{total} utilisateur(s) trouvé(s)",
       "errors": {
-        "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission."
+        "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission.",
+        "username": "Le login existe déjà."
       }
     },
     "customize": {
