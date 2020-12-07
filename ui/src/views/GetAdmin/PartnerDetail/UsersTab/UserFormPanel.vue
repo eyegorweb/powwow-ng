@@ -81,6 +81,9 @@
         <div class="form-entry">
           <input type="text" name="login" class="hidden" autocomplete="off" />
           <FormControl label="login" v-model="form.username" />
+          <span v-if="form.username && requestErrors && requestErrors.length" class="error-text">
+            {{ requestErrors[0].message }}
+          </span>
         </div>
       </div>
 
@@ -248,6 +251,7 @@ export default {
         email: undefined,
       },
       userDefaultLanguage: 'FR',
+      requestErrors: undefined,
     };
   },
 
@@ -321,7 +325,7 @@ export default {
         }
       }
 
-      let response;
+      let response, errorMessage;
 
       if (this.content.duplicateFrom && !this.content.duplicate) {
         params.id = this.content.duplicateFrom.id;
@@ -332,17 +336,29 @@ export default {
 
       if (response && response.errors && response.errors.length) {
         response.errors.forEach(() => {
-          let errorMessage =
-            response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
-              ? this.$t('getadmin.users.errors.AccessDeniedForThisUser')
-              : this.$t('genericErrorMessage');
+          if (
+            response.errors[0].extensions &&
+            response.errors[0].extensions['AccessDeniedForThisUser']
+          ) {
+            errorMessage = this.$t('getadmin.users.errors.AccessDeniedForThisUser');
+          } else if (response.errors[0].extensions && response.errors[0].extensions['username']) {
+            errorMessage = this.$t('getadmin.users.errors.username');
+            this.requestErrors = [
+              {
+                message: errorMessage,
+              },
+            ];
+            return;
+          } else {
+            errorMessage = this.$t('genericErrorMessage');
+          }
           this.flashMessage({ level: 'danger', message: errorMessage });
+          this.closePanel({ resetSearch: true });
         });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.closePanel({ resetSearch: true });
       }
-
-      this.closePanel({ resetSearch: true });
     },
 
     formattedRoles(roles) {

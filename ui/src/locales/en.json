@@ -538,7 +538,10 @@
         "typeSIMCard": "Type of SIM card"
       },
       "total": "{total} found user(s)",
-      "errors": { "AccessDeniedForThisUser": "Error Message : You don't have permission." },
+      "errors": {
+        "AccessDeniedForThisUser": "Error Message : You don't have permission.",
+        "username": "Login already exists."
+      },
       "searchPlaceholder": "Enter a name, first name or login"
     },
     "customize": {
