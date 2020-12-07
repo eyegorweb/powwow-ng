@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.15+20201207125730
+2020-12-07
+
+### Fixes
+
+- 2149 Alignement du créateur dans la table des actes (1b84005a27b9349bdfdef291ffee925f3f52b201)
+
 ## 1.17.0-master.14+20201207104833
 2020-12-07
 
