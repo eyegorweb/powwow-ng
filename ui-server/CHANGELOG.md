@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.13+20201207085527
+2020-12-07
+
+### Fixes
+
+- [2157] gestion du login pour la création ou modification d'un utilisateur partenaire (c01bffcadbcc00084bc520555544bf3ad535f864)
+
 ## 1.17.0-master.12+20201204172423
 2020-12-04
 
