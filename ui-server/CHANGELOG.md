@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.14+20201207104833
+2020-12-07
+
+### Fixes
+
+- Correction du zoom dans la page supervision des alarmes (505f93c9ea64b702b836e49dd429b5e21b2c451a)
+
 ## 1.17.0-master.13+20201207085527
 2020-12-07
 
