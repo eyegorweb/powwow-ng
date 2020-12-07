@@ -92,8 +92,10 @@ export default {
       );
       this.isLoading = false;
 
-      this.total = response.total;
-      this.acts = response.items;
+      if (response) {
+        this.total = response.total;
+        this.acts = response.items;
+      }
     },
 
     getStatus(status) {
