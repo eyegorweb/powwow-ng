@@ -272,6 +272,8 @@ export default {
       }
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'ParcStateWidget' });
+
       if (this.selectedPartner) {
         this.filters = [
           ...this.filters,

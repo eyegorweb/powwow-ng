@@ -46,6 +46,7 @@ export default {
       });
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'OrdersStatusesWidget' });
       this.$router.push({
         name: 'orders',
         params: {
@@ -93,6 +94,7 @@ export default {
       });
     },
     createOrder() {
+      this.$pushAnalytics({ event: 'm2m.createOrder', widget: 'OrdersStatusesWidget' });
       this.$router.push({
         name: 'orders',
         params: {

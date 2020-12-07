@@ -195,6 +195,8 @@ export default {
       this.rows = this.formatResponse(response.items);
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'MassActionByUserTableWidget' });
+
       this.$router.push({
         name: 'actHistory',
         params: {

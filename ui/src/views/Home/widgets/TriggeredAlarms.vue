@@ -91,6 +91,7 @@ export default {
       }
     },
     onSeeMore() {
+      this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'TriggeredAlarm' });
       this.$router.push({
         name: 'alarms',
         params: {

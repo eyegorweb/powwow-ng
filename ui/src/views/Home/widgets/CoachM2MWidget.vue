@@ -126,6 +126,8 @@ export default {
     },
     async startDiagnosis(line) {
       console.log('Start diagnosis >>>>> ', line);
+
+      this.$pushAnalytics({ event: 'm2m.search', widget: 'CoachM2MWidget' });
       const apId = get(line, 'accessPoint.id');
       if (this.havePermission('getVision', 'read')) {
         this.advancedIndicators = [
