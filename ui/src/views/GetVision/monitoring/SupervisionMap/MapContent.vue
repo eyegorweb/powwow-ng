@@ -225,6 +225,7 @@ export default {
           await this.initZoom();
         }
 
+
         const countryCode = await this.getCenteredCountry();
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
@@ -276,6 +277,7 @@ export default {
             await this.loadDataForCells(countryCode);
           }
         }
+
 
         this.isLoading = false;
       } catch (e) {
@@ -580,22 +582,27 @@ export default {
     },
 
     async getCenteredCountry() {
-      return new Promise(resolve => {
-        let latLng = this.map.getBounds().getCenter();
-        this.geocoder.geocode(
-          {
-            latLng,
-          },
-          (results, status) => {
-            let result;
-            if (status == this.google.maps.GeocoderStatus.OK) {
-              if (results[0]) {
-                result = extractFromAdress(results[0].address_components, 'country');
+      return new Promise(async (resolve, reject) => {
+        await delay(200);
+        if (this.map.getBounds()) {
+          let latLng = this.map.getBounds().getCenter();
+          this.geocoder.geocode(
+            {
+              latLng,
+            },
+            (results, status) => {
+              let result;
+              if (status == this.google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                  result = extractFromAdress(results[0].address_components, 'country');
+                }
               }
+              resolve(result);
             }
-            resolve(result);
-          }
-        );
+          );
+        } else {
+          reject('No bounds')
+        }
       });
     },
   },
