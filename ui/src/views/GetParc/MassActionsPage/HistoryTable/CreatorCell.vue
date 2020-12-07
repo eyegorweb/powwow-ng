@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0" @click.stop="onClick">{{ row.creatorUsername }}</button>
+  <button class="btn btn-link p-0 txt-ac" @click.stop="onClick">{{ row.creatorUsername }}</button>
 </template>
 
 <script>
@@ -41,4 +41,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .txt-ac {
+    text-align: left;
+  }
+</style>
