@@ -1,33 +1,37 @@
 <template>
   <div>
     <div class="cards">
-      <div
-        v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS && canUpdate"
-        class="addNew"
-        @click="addNewCustomField"
-      >
-        <div class="addNew-logo">
-          <i class="icon ic-Edit-Icon"></i>
-        </div>
-        <div>{{ $t('getadmin.customize.addCustomField') }}</div>
-      </div>
-      <template v-if="allCustomFields">
-        <Card
-          v-for="(cf, index) in allCustomFields"
-          :key="cf.id"
-          :can-delete="canUpdate"
-          @modify="modifyCustomField(cf)"
-          :can-modify="canUpdate"
+      <CardsSkeleton v-if="isLoading" />
+      <template v-else>
+        <div
+          v-if="allCustomFields.length < MAX_ALLOWED_CUSTOM_FIELDS && canUpdate"
+          class="addNew"
+          @click="addNewCustomField"
         >
-          <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
-          <div class="cardBloc-infos-username">{{ cf.label }}</div>
-        </Card>
+          <div class="addNew-logo">
+            <i class="icon ic-Edit-Icon"></i>
+          </div>
+          <div>{{ $t('getadmin.customize.addCustomField') }}</div>
+        </div>
+        <template v-if="allCustomFields">
+          <Card
+            v-for="(cf, index) in allCustomFields"
+            :key="cf.id"
+            :can-delete="canUpdate"
+            @modify="modifyCustomField(cf)"
+            :can-modify="canUpdate"
+          >
+            <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
+            <div class="cardBloc-infos-username">{{ cf.label }}</div>
+          </Card>
+        </template>
       </template>
     </div>
   </div>
 </template>
 
 <script>
+import CardsSkeleton from '@/views/GetAdmin/PartnerDetail/CardsSkeleton.vue';
 import Card from '@/components/Card';
 import { fetchCustomFields } from '@/api/customFields';
 import { mapGetters, mapMutations } from 'vuex';
@@ -35,6 +39,7 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   components: {
     Card,
+    CardsSkeleton
   },
   props: {
     partnerid: {
@@ -57,6 +62,7 @@ export default {
       customFieldsValues: [],
       customFieldsErrors: [],
       MAX_ALLOWED_CUSTOM_FIELDS: 6,
+      isLoading: true,
     };
   },
 
@@ -75,8 +81,10 @@ export default {
     ...mapMutations(['openPanel']),
 
     async fetchCustomFieldsForPartner() {
+      this.isLoading = true;
       const customFields = await fetchCustomFields(this.partnerid);
       this.allCustomFields = customFields.customFields;
+      this.isLoading = false;
     },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
@@ -101,7 +109,7 @@ export default {
       });
     },
     async refreshLists() {
-      await fetchCustomFields(this.partnerid);
+      this.fetchCustomFieldsForPartner();
     },
     modifyCustomField(cf) {
       const doReset = () => {
@@ -131,7 +139,7 @@ export default {
 
   .addNew {
     width: 49%;
-    height: 220px;
+    height: 20rem;
     border-radius: 5px;
     font-size: 14px;
     padding: 20px;

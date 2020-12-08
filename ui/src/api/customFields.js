@@ -1,6 +1,22 @@
 import { query } from './utils';
 import get from 'lodash.get';
 
+export async function updateCustomFieldLabel(partnerId, code, label) {
+  const queryStr = `mutation updateCustomFieldLabel($partnerId: Long!, $label: String!, $code: AvailableCustomFields!) {
+    updateCustomField(customFieldInput: {partyId: $partnerId, customFieldLabel: $label, availableCustomFields: $code}) {
+      id
+    }
+  }
+  `;
+
+  const response = await query(queryStr, {
+    partnerId,
+    label,
+    code,
+  });
+  return response.data;
+}
+
 export async function addItemToCustomFieldList(partyId, newItem, customFieldCode) {
   const queryStr = `
   mutation {

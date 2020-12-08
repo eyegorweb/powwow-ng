@@ -10,7 +10,7 @@
       <UiInput class="d-block" placeholder v-model="labelCustomField" value>
         <template slot="beforeInput">
           {{ $t('orders.input-label-custom-field', { label: labelTitle }) }}
-          {{ numberOfCustomFields + 1 }} :
+          {{ numberOfCustomFields ? numberOfCustomFields + 1 : '' }} :
         </template>
       </UiInput>
       <div>
@@ -28,6 +28,7 @@
                 ' btn-outline-simple': customFieldType !== 'TEXT',
               }"
               @click="customFieldType = 'TEXT'"
+              :disabled="changeLabelOnly"
             >
               {{ $t('text') }}
             </button>
@@ -39,6 +40,7 @@
                 ' btn-outline-simple': customFieldType !== 'LIST',
               }"
               @click="customFieldType = 'LIST'"
+              :disabled="changeLabelOnly"
             >
               {{ $t('list') }}
             </button>
@@ -50,6 +52,7 @@
                 ' btn-outline-simple': customFieldType !== 'DATE',
               }"
               @click="customFieldType = 'DATE'"
+              :disabled="changeLabelOnly"
             >
               {{ $t('date') }}
             </button>
@@ -57,7 +60,11 @@
         </div>
         <div>
           <div v-if="customFieldType === 'LIST'">
-            <CreateOrderAddCustomList :options.sync="listOptions" is-open />
+            <CreateOrderAddCustomList
+              :options.sync="listOptions"
+              is-open
+              :disabled="changeLabelOnly"
+            />
           </div>
         </div>
       </div>
@@ -76,6 +83,7 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="NONE"
+              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.NONE') }}</div>
           </div>
@@ -88,6 +96,7 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="ORDER"
+              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.ORDER') }}</div>
           </div>
@@ -102,6 +111,7 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="ACTIVATION"
+              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.ACTIVATION') }}</div>
           </div>
@@ -114,6 +124,7 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="PAIRING"
+              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.PAIRING') }}</div>
           </div>
@@ -157,6 +168,7 @@ export default {
       labelCustomField: null,
       listOptions: [],
       selectedMandatoryValue: undefined,
+      changeLabelOnly: false
     };
   },
 
@@ -166,6 +178,11 @@ export default {
     fixheight: Boolean,
     panel: String,
     labelTitle: String,
+    isUpdating: Boolean,
+    prefilledValues: {
+      type: Object,
+      required: false
+    }
   },
 
   watch: {
@@ -175,7 +192,29 @@ export default {
     },
   },
 
+  mounted() {
+    if (this.prefilledValues) {
+      this.prefillValues();
+    }
+  },
+
   methods: {
+    prefillValues() {
+      this.changeLabelOnly = true;
+      this.customFieldType = this.prefilledValues.type;
+      if (this.prefilledValues.label) {
+        this.labelCustomField = this.prefilledValues.label;
+      }
+
+      if (this.prefilledValues.listOptions) {
+        this.listOptions = this.prefilledValues.listOptions;
+      }
+
+      if (this.prefilledValues.mandatory) {
+        this.selectedMandatoryValue = this.prefilledValues.mandatory;
+      }
+
+    },
     saveCustomField() {
       if (!this.selectedMandatoryValue) return;
       const fieldData = {
@@ -202,6 +241,9 @@ export default {
       return this.allInput;
     },
     actionLabel() {
+      if (this.isUpdating) {
+        return this.$t('orders.update-custom-field-action');
+      }
       return this.$t('orders.add-custom-field-action', { label: this.labelTitle });
     },
   },
