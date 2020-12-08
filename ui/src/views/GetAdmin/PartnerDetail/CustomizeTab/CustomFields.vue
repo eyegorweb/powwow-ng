@@ -39,7 +39,7 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   components: {
     Card,
-    CardsSkeleton
+    CardsSkeleton,
   },
   props: {
     partnerid: {

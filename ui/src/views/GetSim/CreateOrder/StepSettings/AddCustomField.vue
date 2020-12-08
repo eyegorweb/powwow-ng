@@ -168,7 +168,7 @@ export default {
       labelCustomField: null,
       listOptions: [],
       selectedMandatoryValue: undefined,
-      changeLabelOnly: false
+      changeLabelOnly: false,
     };
   },
 
@@ -181,8 +181,8 @@ export default {
     isUpdating: Boolean,
     prefilledValues: {
       type: Object,
-      required: false
-    }
+      required: false,
+    },
   },
 
   watch: {
@@ -213,7 +213,6 @@ export default {
       if (this.prefilledValues.mandatory) {
         this.selectedMandatoryValue = this.prefilledValues.mandatory;
       }
-
     },
     saveCustomField() {
       if (!this.selectedMandatoryValue) return;

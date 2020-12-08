@@ -44,7 +44,7 @@ export default {
       type: Array,
     },
     isOpen: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
   },
   computed: {
     localOptions: {

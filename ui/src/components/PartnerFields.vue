@@ -62,7 +62,7 @@ export default {
     },
     onAddValueToList(newListItem, customField) {
       this.$emit('addValueToList', newListItem, customField);
-    }
+    },
   },
   computed: {
     ...mapGetters(['userIsPartner']),

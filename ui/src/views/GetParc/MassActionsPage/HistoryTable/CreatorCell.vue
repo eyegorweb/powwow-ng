@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style scoped>
-  .txt-ac {
-    text-align: left;
-  }
+.txt-ac {
+  text-align: left;
+}
 </style>

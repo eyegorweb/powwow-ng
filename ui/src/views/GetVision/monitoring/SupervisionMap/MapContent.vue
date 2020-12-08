@@ -225,7 +225,6 @@ export default {
           await this.initZoom();
         }
 
-
         const countryCode = await this.getCenteredCountry();
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
@@ -277,7 +276,6 @@ export default {
             await this.loadDataForCells(countryCode);
           }
         }
-
 
         this.isLoading = false;
       } catch (e) {
@@ -601,7 +599,7 @@ export default {
             }
           );
         } else {
-          reject('No bounds')
+          reject('No bounds');
         }
       });
     },

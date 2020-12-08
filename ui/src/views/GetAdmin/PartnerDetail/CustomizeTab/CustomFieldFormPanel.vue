@@ -7,21 +7,18 @@
     :close="closePanel"
     @add-field="save"
     :number-of-custom-fields="content.currentNbCF"
-    :prefilledValues="prefilledValues"
+    :prefilled-values="prefilledValues"
   />
 </template>
 
 <script>
-import BaseDetailPanelContent from '@/components/BaseDetailPanelContent';
 import AddCustomField from '@/views/GetSim/CreateOrder/StepSettings/AddCustomField';
-import { formattedCurrentDate } from '@/utils/date';
 import { createCustomField, updateCustomFieldLabel } from '@/api/customFields';
 import { mapMutations } from 'vuex';
 
 export default {
   components: {
-    BaseDetailPanelContent,
-    AddCustomField
+    AddCustomField,
   },
 
   props: {
@@ -35,10 +32,12 @@ export default {
           label: this.content.modifyCustomField.label,
           type: this.content.modifyCustomField.type,
           listOptions: this.content.modifyCustomField.value || [],
-          mandatory: this.content.modifyCustomField.mandatory
-        }
+          mandatory: this.content.modifyCustomField.mandatory,
+        };
       }
-    }
+
+      return undefined;
+    },
   },
 
   methods: {
@@ -76,16 +75,14 @@ export default {
     },
 
     async updateExisting(fieldData) {
-      return await updateCustomFieldLabel(this.content.partnerId,
+      return await updateCustomFieldLabel(
+        this.content.partnerId,
         this.content.modifyCustomField.code,
         fieldData.label
       );
-    }
-
+    },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
