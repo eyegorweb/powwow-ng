@@ -240,8 +240,8 @@ export default {
           label: this.$t('col.offer'),
           orderable: true,
           visible: false,
-          name: 'offer',
-          sortingName: 'offer',
+          name: 'offerLabel',
+          sortingName: 'offerLabel',
         },
         {
           id: uuid(),
