@@ -7,6 +7,7 @@
             <span>{{ option }}</span>
             <a
               href="#"
+              v-if="!disabled"
               @click.prevent="() => deleteOption(option)"
               :class="{ inner: isOpen, outter: !isOpen }"
               >{{ $t('delete') }}</a
@@ -22,7 +23,7 @@
               <button><i class="arrow ic-Plus-Icon"></i></button>
             </form>
           </li>
-          <li v-if="!isAddingOption" class="add-option">
+          <li v-if="!disabled && !isAddingOption" class="add-option">
             <a href="#" @click.prevent="startEditMode">
               <i class="arrow ic-Plus-Icon" />
               {{ $t('orders.add-custom-field-value') }}
@@ -43,6 +44,7 @@ export default {
       type: Array,
     },
     isOpen: Boolean,
+    disabled: Boolean
   },
   computed: {
     localOptions: {

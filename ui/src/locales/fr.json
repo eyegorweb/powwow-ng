@@ -1971,6 +1971,7 @@
     "choose-custom-field": "Renseigner les champs libres",
     "add-custom-field-value": "Ajouter une valeur",
     "add-custom-field-action": "Ajouter un champ {label}",
+    "update-custom-field-action": "Mettre à jour",
     "add-custom-field-to-list": "Ajouter un champ libre à la liste",
     "modify-custom-field-action": "Modifier un champ {label}",
     "required-custom-field": "Ce nouveau champ libre sera disponible pour toutes les lignes du parc",

@@ -8,6 +8,7 @@
         :can-edit-list="canEditList"
         :show-optional-field="showOptionalField"
         @change="onValueChanged"
+        @addValueToList="onAddValueToList"
       />
     </template>
     <template v-if="specificFields && !userIsPartner">
@@ -59,6 +60,9 @@ export default {
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },
+    onAddValueToList(newListItem, customField) {
+      this.$emit('addValueToList', newListItem, customField);
+    }
   },
   computed: {
     ...mapGetters(['userIsPartner']),
