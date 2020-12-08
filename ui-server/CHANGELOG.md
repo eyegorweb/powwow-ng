@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.17+20201208143405
+2020-12-08
+
+### Fixes
+
+- [2173] Modification du libellé d'un champ libre dans le détail du partenaire (40e031f186e1188aee89b637cdf093f5f3fc4ffd)
+
 ## 1.17.0-master.16+20201207131812
 2020-12-07
 
