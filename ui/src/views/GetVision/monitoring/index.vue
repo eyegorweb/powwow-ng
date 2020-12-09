@@ -74,7 +74,7 @@
           <SupervisionTable
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
-            :total="indicatorTotal"
+            :indicatorTotal="indicatorTotal"
             :filters-for-export="filtersForExport"
             @gotomap="refreshLinesFn = undefined"
           />
@@ -372,7 +372,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -541,6 +541,7 @@ export default {
     },
 
     onIndicatorClick(payload) {
+      console.log("🚀 ~ file: index.vue ~ line 544 ~ onIndicatorClick ~ payload", payload)
       const { indicator, total } = payload;
       const usageType = this.currentUsage;
       const counter = indicator.counter;
@@ -557,8 +558,12 @@ export default {
 
       setTimeout(() => {
         this.refreshLinesFn = async (pagination, sorting) => {
-          return await fetchLinesForCounter(this.filtersForExport, pagination, sorting);
+          const items = await fetchLinesForCounter(this.filtersForExport, pagination, sorting);
+          return {
+            items,
+          }
         };
+
       });
     },
 
@@ -607,8 +612,7 @@ export default {
           filtersForapi.iso3CountryCode = 'USA';
         }
 
-        const rows = await fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
-        return rows;
+        return await fetchLinesForMarker(locationType, filtersForapi, pagination, sorting);
       };
     },
 
