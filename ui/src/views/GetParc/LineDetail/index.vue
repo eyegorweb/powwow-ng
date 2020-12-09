@@ -105,6 +105,7 @@ export default {
       ],
       carouselItems: [],
       offerChangeEnabled: undefined,
+      paramSearch: undefined,
     };
   },
   computed: {
@@ -166,12 +167,26 @@ export default {
     },
 
     async loadLineData() {
-      const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
-        {
-          id: 'filters.id',
-          value: this.$route.params.lineId,
-        },
-      ]);
+      if (this.$route.params && this.$route.params.lineId) {
+        this.paramSearch = [
+          {
+            id: 'filters.id',
+            value: this.$route.params.lineId,
+          },
+        ];
+      } else if (this.$route.params && this.$route.params.lineIccid) {
+        this.paramSearch = [
+          {
+            id: 'filters.iccid',
+            value: this.$route.params.lineIccid,
+          },
+        ];
+      }
+      const response = await searchLines(
+        { key: 'id', direction: 'DESC' },
+        { page: 0, limit: 1 },
+        this.paramSearch
+      );
       if (!response || !response.items || !response.items.length) return;
       this.lineData = response.items[0];
 

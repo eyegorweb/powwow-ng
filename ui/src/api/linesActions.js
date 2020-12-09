@@ -125,6 +125,17 @@ export async function searchLineById(id) {
   return response.items[0];
 }
 
+export async function searchLineByIccid(id) {
+  const response = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
+    {
+      id: 'filters.iccid',
+      value: '' + id,
+    },
+  ]);
+  if (!response || !response.items || !response.items.length) return;
+  return response.items[0];
+}
+
 async function searchLinesQuery(orderBy, pagination, filters, fields) {
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination

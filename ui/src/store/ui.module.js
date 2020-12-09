@@ -20,6 +20,7 @@ export const state = {
   actionToConfirm: undefined,
   ignoreClickAway: false,
   width: undefined,
+  local: undefined,
 
   exportPanelParams: undefined,
   isExportFormatChoiceOpen: false,

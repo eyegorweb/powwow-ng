@@ -81,6 +81,7 @@ export default {
     ...mapGetters('getsim', ['appliedFilters']),
   },
   mounted() {
+    // inspiration
     if (this.$route.params && this.$route.params.queryFilters) {
       this.setRouteParamsFilters(this.$route.params.queryFilters);
     }

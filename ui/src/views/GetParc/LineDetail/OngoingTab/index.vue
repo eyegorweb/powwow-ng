@@ -294,6 +294,7 @@ export default {
       consumptionData: undefined,
       isLoading: true,
       skeletonColumns: undefined,
+      paramSearch: undefined,
     };
   },
   computed: {
@@ -312,11 +313,20 @@ export default {
   async mounted() {
     this.isLoading = true;
     try {
-      if (this.$route.params && this.$route.params.tabIndex) {
+      if (this.$route.params && this.$route.params.tabIndex && this.$route.params.lineId) {
         this.consumptionData = await fetchCurrentConsumption({
           simCardInstanceId: this.$route.params.lineId,
         });
+      } else if (
+        this.$route.params &&
+        this.$route.params.tabIndex &&
+        this.$route.params.lineIccid
+      ) {
+        this.consumptionData = await fetchCurrentConsumption({
+          partyId: this.$route.params.lineIccid,
+        });
       } else {
+        // Vérifier si le partyId passé est le bon pour récupérer les données avec l'api currentConsumptionV2
         this.consumptionData = await fetchCurrentConsumption({
           simCardInstanceId: this.content.id,
         });
