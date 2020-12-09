@@ -60,8 +60,14 @@
           :export-fn="getExportFn()"
           btn-class-name="btn btn-primary btn-block text-uppercase"
         >
-          <span slot="title">&nbsp;{{ $t('bills.download') }}</span>
+          <span slot="title">&nbsp;{{ $t('bills.export') }}</span>
         </ExportButton>
+      </div>
+      <div>
+        <UiButton variant="primary" @click="downloadBill" block>
+          <i class="ic-Download-Icon" />
+          {{ $t('bills.download') }}
+        </UiButton>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -75,16 +81,27 @@ import { formatCurrency } from '@/utils/numbers.js';
 import { formatBytes, resumeAndTruncateFormattedValueFromSeconds } from '@/api/utils';
 import ExportButton from '@/components/ExportButton';
 import { exportBill } from '@/api/bills';
+import UiButton from '@/components/ui/Button';
+
+import { mapMutations } from 'vuex';
+import { getBaseURL } from '@/utils.js';
 
 export default {
   components: {
     BaseDetailPanelContent,
     ExportButton,
+    UiButton,
   },
   props: {
     content: Object,
   },
   methods: {
+    ...mapMutations(['startDownload']),
+
+    downloadBill() {
+      this.startDownload(`${getBaseURL()}/api/file/download/document/${this.content.documentId}`);
+      return;
+    },
     getContent(path, defaultValue = '-') {
       return get(this.content, path, defaultValue);
     },

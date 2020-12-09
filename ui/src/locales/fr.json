@@ -310,6 +310,7 @@
     "billPeriod": "Période facturée",
     "lineTotal": "Nombre de lignes",
     "download": "Télécharger la facture",
+    "export": "Exporter",
     "usageVolume": "Volume d'usage"
   },
   "coach": {

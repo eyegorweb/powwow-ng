@@ -1,9 +1,7 @@
 <template>
   <div>
     <button :class="className" @click="chooseExportFormat">
-      <slot name="icon">
-        <i class="ic-Download-Icon" />
-      </slot>
+      <slot name="icon"> </slot>
       <slot name="title">{{ $t('export') }}</slot>
     </button>
   </div>
