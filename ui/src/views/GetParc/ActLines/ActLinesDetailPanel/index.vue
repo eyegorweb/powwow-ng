@@ -84,7 +84,7 @@ export default {
   },
 
   async mounted() {
-    if (this.panelPayload && this.panelPayload.page && this.panelPayload.page === 'supervision') {
+    if (this.panelPayload && this.panelPayload.searchByIccid) {
       this.lineIccid = this.content.meta.iccid;
       this.lineDetails = await searchLineByIccid(this.lineIccid, [
         {
@@ -100,7 +100,7 @@ export default {
 
   watch: {
     async content(data) {
-      if (data && data.page && data.page === 'supervision') {
+      if (data && data.searchByIccid) {
         this.lineIccid = data.meta.iccid;
         this.lineDetails = await searchLineByIccid(this.lineIccid, [
           {
@@ -109,7 +109,6 @@ export default {
           },
         ]);
       } else {
-        console.log('parc lines table', this.panelPayload);
         this.lineId = data.id;
         this.lineDetails = await searchLineById(this.lineId);
       }

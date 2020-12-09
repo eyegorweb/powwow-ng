@@ -26,7 +26,7 @@ export default {
           panelId: 'getparc.actLines.details.title',
           payload: {
             meta: this.row,
-            page: 'supervision', // TODO : passer à un Boolean pour choisir si on cherche par id ou iccid dans le panel de détail de ligne
+            searchByIccid: true,
           },
           wide: false,
           backdrop: false,
