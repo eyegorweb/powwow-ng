@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.20+20201209101629
+2020-12-09
+
+### Fixes
+
+- [2189] Corriger le format de dates pour la gestion des résiliations (c9ec952fc3f21d25f1b6ef659ff19ad6e9f4f70f)
+
 ## 1.17.0-master.19+20201209093109
 2020-12-09
 
