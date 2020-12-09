@@ -189,6 +189,7 @@ export async function fetchLinesForMarker(
             deviceManufacturer
             networkStatus
             offer
+            offerLabel
             accesspoint
             lastTypeAppel
             infoExtra
