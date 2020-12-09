@@ -490,7 +490,8 @@ export default {
         this.formatFilters()
       );
       const markers = this.formatMarkers(data);
-      this.setMarkersAndCenter(markers, 6);
+      // this.setMarkersAndCenter(markers, 6);
+      this.markers = markers;
     },
 
     async fetchDataForFrenchDepartments(ignoreBounds) {

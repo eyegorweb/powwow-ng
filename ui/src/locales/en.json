@@ -261,6 +261,7 @@
     "billDetail": "Billing details",
     "billPeriod": "Billing period",
     "lineTotal": "Number of lines",
+    "export": "Download",
     "download": "Download the bill",
     "usageVolume": "Usage volume"
   },
