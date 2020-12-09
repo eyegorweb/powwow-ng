@@ -206,7 +206,7 @@ export default {
           false,
           {
             type: 'ObjectAttribute',
-            path: 'ticketGeneration',
+            path: 'ticketGenerationTranslated',
           },
           { exportId: 'TECHNO' }
         ),
