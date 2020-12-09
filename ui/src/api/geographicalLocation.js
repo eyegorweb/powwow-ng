@@ -70,6 +70,7 @@ export async function accessPointsByLocalisation(filters, pagination, localisati
           cellId
           usageType
           ticketGeneration
+          ticketGenerationTranslated
           pdpConnectionStatus
           operator
         }
