@@ -2,6 +2,20 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.19+20201209093109
+2020-12-09
+
+### Features
+
+- 2114 Ajout export dans le tableau de bord sur le graph Etat du Parc (1d3c47448a1e817dac7044e35bec229999476b81)
+
+### Fixes
+
+- 2169 Changement du code offre pour label offre dans table supervision (dce404954417603b999e0834069677f49d3ce022)
+- 2188 Traduction de la technologie dans la table analyze detail ligne (e7d2557005048545c6cc3350ffbf8801b62f65f2)
+- [1423] [2182] pouvoir télécharger une facture et Correction  du zoom (521544cc3257c1238f216983f3bc934518ca6fb7)
+- [2179] lien vers le détail de la ligne (aab633a6b978f57b31faeaa6b105154d462e2502)
+
 ## 1.17.0-master.18+20201208144146
 2020-12-08
 
