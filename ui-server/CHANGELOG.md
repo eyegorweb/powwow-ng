@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.21+20201209125513
+2020-12-09
+
+### Fixes
+
+- ajout d'un caractère spécial (d7a31f42fa4e7911d88e5e1ba6ead55d5ca5fe3a)
+
 ## 1.17.0-master.20+20201209101629
 2020-12-09
 
