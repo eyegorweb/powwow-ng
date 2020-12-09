@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex align-items-center mb-2">
-      <UiDate @change="onDateChange" :value="chosenDate" class="mr-2">
+      <UiDate @change="onDateChange" :value="chosenDate" time-picker class="mr-2">
         <i slot="icon" class="select-icon ic-Flag-Icon" />
       </UiDate>
       <!-- <UiCheckbox v-model="applyCharges" />

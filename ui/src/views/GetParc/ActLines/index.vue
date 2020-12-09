@@ -457,7 +457,6 @@ export default {
     },
 
     onCarouselItemClick(item) {
-      console.log('onCarouselItemClick -> item', item);
       let isSelected = false;
       let newSelectionState = true;
 
