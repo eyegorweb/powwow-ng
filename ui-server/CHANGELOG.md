@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.22+20201209130950
+2020-12-09
+
+### Fixes
+
+- [2174] Ne pas afficher le bouton d'export si l'api geoList ne renvoi aucun résultat (a933eb2295e8c072d5fb2f324c7f12fc5ff443f3)
+
 ## 1.17.0-master.21+20201209125513
 2020-12-09
 
