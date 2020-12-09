@@ -43,6 +43,27 @@ export async function consumtionHistoryExport(id, format) {
   return response.data.consumtionHistoyExport;
 }
 
+export async function parcStatusInfoExport(id, format, period) {
+  const queryStr = `
+  {
+    parcStatusInfoExport(filter:{partnerId:${id}, period:${period}}
+      columns:[
+        PARTNER_NAME
+        PERIOD
+        CUSTOMER_ACCOUNT_CODE
+        CUSTOMER_ACCOUNT_NAME
+        PREACTIVATED
+      ]
+      exportFormat:${format})
+    {
+      downloadUri
+    }
+  }`;
+  const response = await query(queryStr);
+  console.log();
+  return response.data;
+}
+
 export async function fetchVoiceUsageForGraph(simInstanceId) {
   const queryStr = `{
     voiceConsumptionGraph(simCardInstanceId: ${simInstanceId}) {

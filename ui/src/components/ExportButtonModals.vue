@@ -283,6 +283,7 @@ export default {
             this.closeAndResetExportChoice();
           }
         } catch (err) {
+          console.log(err);
           this.haveError = true;
           if (this.exportPanelParams.onErrorFn) {
             this.messageError = this.exportPanelParams.onErrorFn(err);

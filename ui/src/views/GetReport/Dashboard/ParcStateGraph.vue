@@ -11,6 +11,9 @@
     </div>
     <div>
       <div class="d-flex justify-content-end">
+        <ExportButton :export-fn="getExportFn()"> </ExportButton>
+      </div>
+      <div class="d-flex justify-content-end">
         <Toggle
           v-if="toggleValues"
           @update="currentPeriod = $event.id"
@@ -29,9 +32,12 @@ import { Chart } from 'highcharts-vue';
 import { parcStatusByMonth } from '@/api/reportDashboard.js';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
+import ExportButton from '@/components/ExportButton';
+import { parcStatusInfoExport } from '@/api/consumption.js';
 
 export default {
   components: {
+    ExportButton,
     Chart,
     GraphContainer,
     Toggle,
@@ -99,6 +105,13 @@ export default {
   },
 
   methods: {
+
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await parcStatusInfoExport(this.partner.id, exportFormat, this.currentPeriod);
+      };
+    },
+
     async createGraph() {
       if (!this.canShow) return;
 
