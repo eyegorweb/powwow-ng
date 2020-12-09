@@ -101,6 +101,7 @@ import { formatBackErrors } from '@/utils/errors';
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
 import get from 'lodash.get';
+import { setTimeout } from 'timers';
 import UiButton from '@/components/ui/Button';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 
@@ -123,6 +124,12 @@ export default {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
     ...mapState('actLines', ['limitPerPage']),
     ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
+    ...mapState({
+      isOpen: state => state.ui.isPanelOpen,
+    }),
+    ...mapState({
+      nextPage: state => state.ui.nextPage,
+    }),
 
     pageLimit: {
       get() {
@@ -169,6 +176,7 @@ export default {
       'setPageLimit',
       'startSearchingById',
     ]),
+    ...mapMutations(['openPanel']),
 
     enableSearchLines() {
       this.canSearchLines = true;

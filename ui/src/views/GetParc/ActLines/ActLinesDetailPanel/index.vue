@@ -1,10 +1,10 @@
 <template>
   <BaseDetailPanelContent>
-    <div>
-      <UpcomingChanges :content="content" />
-      <GeneralInfos :content="content" />
-      <AlarmsInfo :content="content" v-if="!partnerTypeMVNO" />
-      <PartnerInfo :content="content" />
+    <div v-if="lineDetails">
+      <UpcomingChanges :content="lineDetails" />
+      <GeneralInfos :content="lineDetails" />
+      <AlarmsInfo :content="lineDetails" v-if="!partnerTypeMVNO" />
+      <PartnerInfo :content="lineDetails" />
     </div>
     <div slot="footer" class="action-buttons">
       <div>
@@ -12,9 +12,27 @@
       </div>
       <div>
         <UiButton
+          v-if="lineId"
           variant="primary"
           block
-          @click="$router.push({ name: 'lineDetail', params: { lineId: '' + content.id } })"
+          @click="
+            $router.push({
+              name: 'lineDetail',
+              params: { lineId: '' + lineId, meta: content },
+            })
+          "
+          >{{ $t('getparc.actLines.details.DETAIL') }}</UiButton
+        >
+        <UiButton
+          v-if="lineIccid"
+          variant="primary"
+          block
+          @click="
+            $router.push({
+              name: 'lineDetail',
+              params: { lineIccid: '' + lineIccid, meta: content },
+            })
+          "
           >{{ $t('getparc.actLines.details.DETAIL') }}</UiButton
         >
       </div>
@@ -29,6 +47,8 @@ import GeneralInfos from './GeneralInfos';
 import AlarmsInfo from './AlarmsInfo';
 import PartnerInfo from './PartnerInfo';
 import UiButton from '@/components/ui/Button';
+import { searchLineById, searchLineByIccid } from '@/api/linesActions';
+import { mapState } from 'vuex';
 
 import get from 'lodash.get';
 
@@ -41,12 +61,58 @@ export default {
     PartnerInfo,
     UiButton,
   },
+
   props: {
     content: Object,
   },
+
   computed: {
+    ...mapState({
+      panelPayload: state => state.ui.panelPayload,
+    }),
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
+    },
+  },
+
+  data() {
+    return {
+      lineDetails: undefined,
+      lineId: undefined,
+      lineIccid: undefined,
+    };
+  },
+
+  async mounted() {
+    if (this.panelPayload && this.panelPayload.page && this.panelPayload.page === 'supervision') {
+      this.lineIccid = this.content.meta.iccid;
+      this.lineDetails = await searchLineByIccid(this.lineIccid, [
+        {
+          id: 'filters.iccid',
+          value: '' + this.lineIccid,
+        },
+      ]);
+    } else {
+      this.lineId = this.content.id;
+      this.lineDetails = await searchLineById(this.lineId);
+    }
+  },
+
+  watch: {
+    async content(data) {
+      if (data && data.page && data.page === 'supervision') {
+        this.lineIccid = data.meta.iccid;
+        this.lineDetails = await searchLineByIccid(this.lineIccid, [
+          {
+            id: 'filters.iccid',
+            value: '' + this.lineIccid,
+          },
+        ]);
+      } else {
+        console.log('parc lines table', this.panelPayload);
+        this.lineId = data.id;
+        this.lineDetails = await searchLineById(this.lineId);
+      }
     },
   },
 };

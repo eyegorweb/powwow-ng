@@ -56,6 +56,7 @@ import uuid from 'uuid/v1';
 import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
 import { geoListExport, geoCounterListExport } from '@/api/supervision.js';
+import ICCIDCell from './ICCIDCell';
 
 export default {
   components: {
@@ -78,19 +79,23 @@ export default {
       columns: [
         {
           id: uuid(),
+          label: this.$t('getparc.actDetail.col.iccid'),
+          orderable: true,
+          visible: true,
+          name: 'iccid',
+          noHandle: true,
+          format: {
+            component: ICCIDCell,
+          },
+        },
+        {
+          id: uuid(),
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
           orderable: true,
           sortingName: 'msisdn',
           visible: true,
           noHandle: true,
-        },
-        {
-          id: uuid(),
-          label: this.$t('getparc.actDetail.col.iccid'),
-          orderable: true,
-          visible: true,
-          name: 'iccid',
         },
         {
           id: uuid(),
