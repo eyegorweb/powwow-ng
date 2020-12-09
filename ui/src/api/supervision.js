@@ -220,7 +220,7 @@ export async function fetchLinesForMarker(
   });
 
   if (response.data) {
-    return response.data.geoList.items;
+    return response.data.geoList;
   }
 }
 

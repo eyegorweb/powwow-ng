@@ -7,7 +7,7 @@
         </ExportButton>
       </div>
     </div>
-    <template v-if="total < 500">
+    <template v-if="indicatorTotal < 500">
       <PaginatedDataTable
         :key="version"
         :columns="columns"
@@ -33,14 +33,14 @@
         </template>
       </PaginatedDataTable>
     </template>
-    <template v-else-if="total >= 500 && total <= 100000">
+    <template v-else-if="indicatorTotal >= 500 && total <= 100000">
       <UiButton variant="outline-primary" @click="$emit('gotomap')">
         <i class="ic-Pin-Icon"></i>
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
       </UiButton>
       <div class="alert alert-warning mt-2">{{ $t('getvsion.msgSynchronousExport') }}.</div>
     </template>
-    <template v-else-if="total >= 100000">
+    <template v-else-if="indicatorTotal >= 100000">
       <UiButton variant="outline-primary" @click="$emit('gotomap')">
         <i class="ic-Pin-Icon"></i>
         {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
@@ -67,7 +67,7 @@ export default {
 
   props: {
     refreshLinesFn: Function,
-    total: Number,
+    indicatorTotal: Number,
     filtersForExport: Object,
   },
 
@@ -75,6 +75,7 @@ export default {
     return {
       version: 0,
       rows: undefined,
+      total: 0,
 
       columns: [
         {
@@ -332,10 +333,11 @@ export default {
       return async (pageInfo, orderBy) => {
         const sorting = {};
         sorting[orderBy.key] = orderBy.direction;
-        const rows = await this.refreshLinesFn(pageInfo, sorting);
+        const response = await this.refreshLinesFn(pageInfo, sorting);
+        this.total = response.total;
         return {
-          rows,
-          total: this.total || 0,
+          rows: response.items,
+          total: response.total || this.indicatorTotal,
         };
       };
     },
