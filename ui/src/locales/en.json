@@ -1408,7 +1408,8 @@
         "message": "Message [optional]",
         "acceptConditions": "Accept the conditions in force with Bouygues Télécom",
         "successMessage": "The request has been taken into account",
-        "nbCharacters": "Number of characters"
+        "nbCharacters": "Number of characters",
+        "errorMessage": "Please set up short codes in the account details"
       },
       "changeService": {
         "servicesToEnable": "Services to activate",
