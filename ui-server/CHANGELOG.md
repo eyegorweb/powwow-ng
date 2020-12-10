@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.24+20201210100510
+2020-12-10
+
+### Fixes
+
+- [2185] gestion du filtre Portée de l'alarme (b7a4b89aaee5ba7561f0a98cf95909146c6167f9)
+
 ## 1.17.0-master.23+20201209144209
 2020-12-09
 
