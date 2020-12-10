@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.26+20201210130416
+2020-12-10
+
+### Fixes
+
+- remettre le documentId dans l'appel graphql "factures" (3eb35a39c9ce583536cd49cec401b1f71fc6b7d7)
+
 ## 1.17.0-master.25+20201210101753
 2020-12-10
 
