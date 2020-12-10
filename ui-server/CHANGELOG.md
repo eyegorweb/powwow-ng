@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.25+20201210101753
+2020-12-10
+
+### Fixes
+
+- [2190] [2049] Correction de la recherche par id dans la supervision (3ff3e4d0d07cc88444bedc66443549d6e97359d2)
+
 ## 1.17.0-master.24+20201210100510
 2020-12-10
 
