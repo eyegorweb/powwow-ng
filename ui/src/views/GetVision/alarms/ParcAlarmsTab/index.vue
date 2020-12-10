@@ -273,7 +273,6 @@ export default {
             title: 'getvsion.filters.ALARM_TYPE',
             component: AlarmType,
             onChange(chosenValue) {
-              console.log(chosenValue);
               return {
                 id: 'getvsion.filters.ALARM_TYPE',
                 value: chosenValue.value,

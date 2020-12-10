@@ -125,7 +125,6 @@ export default {
       showAll: false,
       canNotifyScrollLimit: true,
       searchValue: undefined,
-      canSeeFilter: false,
     };
   },
 
@@ -134,15 +133,12 @@ export default {
       this.$refs.checkboxes.scrollTop = 0;
       this.emitDoSearch(value);
     },
-
-    items(items) {
-      if (items && items.length) {
-        this.canSeeFilter = true;
-      }
-    },
   },
 
   computed: {
+    canSeeFilter() {
+      return this.items && this.items.length;
+    },
     multiSelectValues() {
       const selectedItems = this.selectedItems;
       return displayedValues => displayedValues.filter(v => selectedItems.find(s => isEqual(v, s)));
