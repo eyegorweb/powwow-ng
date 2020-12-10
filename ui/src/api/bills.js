@@ -26,6 +26,7 @@ export async function fetchBills(filters = []) {
         amount
         amountExclTaxes
         simCount
+        documentId
         headings {
           label
           amountExcTaxe
