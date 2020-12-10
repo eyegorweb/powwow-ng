@@ -163,6 +163,11 @@ export async function fetchLinesForMarker(
   pagination = { limit: 10, page: 0 },
   sorting = { cellid: 'ASC' }
 ) {
+  const filtersForQuery = { ...filters };
+
+  if (filters.msisdn || filters.imei) {
+    filtersForQuery.locationType = 'CELL';
+  }
   const queryStr = `query GeoList($filter: GeolocListFilterInput, $pagination: Pagination!, $sorting: GeolocListSorting!) {
 
     geoList(filter: $filter, pagination: $pagination, sorting: $sorting) {
@@ -213,7 +218,7 @@ export async function fetchLinesForMarker(
   const response = await query(queryStr, {
     filter: {
       locationType,
-      ...filters,
+      ...filtersForQuery,
     },
     pagination,
     sorting,
