@@ -78,14 +78,6 @@ export default {
     groupedStatus: String,
     total: [Number, String],
     columns: Array,
-    storageId: {
-      type: String,
-      required: false,
-    },
-    storageVersion: {
-      type: String,
-      required: false,
-    },
   },
 
   async mounted() {

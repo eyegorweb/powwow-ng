@@ -105,7 +105,6 @@ export default {
   },
 
   methods: {
-
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await parcStatusInfoExport(this.partner.id, exportFormat, this.currentPeriod);

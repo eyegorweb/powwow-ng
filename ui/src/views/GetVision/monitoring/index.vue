@@ -74,7 +74,7 @@
           <SupervisionTable
             v-if="refreshLinesFn"
             :refresh-lines-fn="refreshLinesFn"
-            :indicatorTotal="indicatorTotal"
+            :indicator-total="indicatorTotal"
             :filters-for-export="filtersForExport"
             @gotomap="refreshLinesFn = undefined"
           />
@@ -372,7 +372,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -541,7 +541,7 @@ export default {
     },
 
     onIndicatorClick(payload) {
-      console.log("🚀 ~ file: index.vue ~ line 544 ~ onIndicatorClick ~ payload", payload)
+      console.log('🚀 ~ file: index.vue ~ line 544 ~ onIndicatorClick ~ payload', payload);
       const { indicator, total } = payload;
       const usageType = this.currentUsage;
       const counter = indicator.counter;
@@ -561,9 +561,8 @@ export default {
           const items = await fetchLinesForCounter(this.filtersForExport, pagination, sorting);
           return {
             items,
-          }
+          };
         };
-
       });
     },
 
