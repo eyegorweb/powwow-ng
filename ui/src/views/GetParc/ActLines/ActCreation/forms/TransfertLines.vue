@@ -79,7 +79,7 @@ export default {
   },
   async mounted() {
     await this.loadSingleLineInfo();
-    this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
+    this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),

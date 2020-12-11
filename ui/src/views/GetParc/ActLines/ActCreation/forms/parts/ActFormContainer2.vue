@@ -126,7 +126,7 @@ export default {
 
   mounted() {
     if (this.canChangeDate && this.partnerType !== 'CUSTOMER') {
-      this.actDate = moment().format('DD/MM/YYYY hh:mm:ss');
+      this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
     } else {
       this.actDate = moment()
         .add(1, 'month')
