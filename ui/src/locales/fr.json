@@ -1524,7 +1524,8 @@
         "message": "Message [facultatif]",
         "acceptConditions": "Accepter les conditions en vigueur avec Bouygues Télécom",
         "successMessage": "La demande a bien été prise en compte",
-        "nbCharacters": "Nombres de caractères"
+        "nbCharacters": "Nombres de caractères",
+        "errorMessage": "Veuillez paramétrer des “short code” dans le détail du compte"
       },
 
       "changeService": {

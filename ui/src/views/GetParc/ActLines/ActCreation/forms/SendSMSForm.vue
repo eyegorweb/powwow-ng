@@ -1,11 +1,11 @@
 <template>
   <ActFormContainer
-    exclude-default-fields
     :validate-fn="onValidate"
+    :prevent-send="!canSend"
     success-message="getparc.actCreation.sendSMS.successMessage"
   >
     <template v-if="partner">
-      <form>
+      <div>
         <span class="font-weight-bold mt-4 mb-4">
           {{ $t('getparc.actCreation.sendSMS.shortCode') }}
         </span>
@@ -22,6 +22,10 @@
             :style="{ left: 0 }"
           />
         </UiApiAutocomplete>
+        <span v-if="!shortCodesValues" class="text-warning">
+          <i class="ic-Alert-Icon" />
+          {{ $t('getparc.actCreation.sendSMS.errorMessage') }}
+        </span>
 
         <div class="form-group">
           <label class="font-weight-bold" for="message">
@@ -42,8 +46,8 @@
             <span>{{ $t('getparc.actCreation.sendSMS.acceptConditions') }}</span>
           </div>
         </div>
-      </form>
-      <div slot="bottom" slot-scope="{ containerValidationFn }">
+      </div>
+      <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
         <div class="row">
           <div class="col">
             <UiDate @change="onSmsDateChange" :value="smsDate" fixed time-picker class="d-block">
@@ -53,7 +57,7 @@
           <div class="col">
             <button
               @click="containerValidationFn"
-              :disabled="!applyConditions"
+              :disabled="!canSend"
               class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
             >
               {{ $t('set') }}
@@ -111,12 +115,7 @@ export default {
 
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', [
-      'appliedFilters',
-      'filterCustomFieldsList',
-      'shortCodesList',
-      'linesActionsResponse',
-    ]),
+    ...mapGetters('actLines', ['appliedFilters', 'filterCustomFieldsList', 'linesActionsResponse']),
     ...mapGetters(['userIsPartner', 'userInfos']),
     partner() {
       if (this.actCreationPrerequisites.searchById) {
@@ -148,7 +147,7 @@ export default {
         ? this.texMessage.length === this.maxSMSLength
         : false;
     },
-    applyConditions() {
+    canSend() {
       return this.acceptConditions && this.shortCodes && this.shortCodes.length > 0;
     },
   },
