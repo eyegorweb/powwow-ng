@@ -314,6 +314,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       lines {
         msisdn
         imsi
+        msisdnA
         status
         statusTranslated
         auditable {

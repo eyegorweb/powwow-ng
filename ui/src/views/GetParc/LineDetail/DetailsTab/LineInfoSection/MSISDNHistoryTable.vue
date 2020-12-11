@@ -9,6 +9,7 @@
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
+import get from 'lodash.get';
 
 export default {
   components: {
@@ -26,6 +27,12 @@ export default {
           name: 'msisdn',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$loGet(row, 'msisdn', '-');
+            },
+          },
         },
         {
           id: 2,
@@ -33,6 +40,12 @@ export default {
           name: 'msisdnA',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$loGet(row, 'msisdnA', '-');
+            },
+          },
         },
         {
           id: 2,
@@ -40,6 +53,12 @@ export default {
           name: 'imsi',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$loGet(row, 'imsi', '-');
+            },
+          },
         },
         {
           id: 3,
@@ -47,6 +66,12 @@ export default {
           name: 'status',
           orderable: false,
           visible: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return this.$loGet(row, 'status', '-');
+            },
+          },
         },
       ],
       rows: [],
@@ -66,7 +91,7 @@ export default {
         msisdn: l.msisdn,
         imsi: l.imsi,
         status: l.statusTranslated,
-        msisdnA: '-',
+        msisdnA: l.msisdnA,
       }));
     },
   },
