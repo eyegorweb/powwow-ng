@@ -1,6 +1,8 @@
 <template>
   <div>
     <UnitActsTable
+      storage-id="unitacts.failed"
+      storage-version="001"
       :mass-action-id="massActionId"
       grouped-status="FAILED"
       :columns="columns"

@@ -64,7 +64,7 @@
         </ExportButton>
       </div>
       <div>
-        <UiButton variant="primary" @click="downloadBill" block>
+        <UiButton variant="primary" @click="downloadBill" :disabled="!content.documentId" block>
           <i class="ic-Download-Icon" />
           {{ $t('bills.download') }}
         </UiButton>

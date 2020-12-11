@@ -73,8 +73,8 @@ export default {
           let limitDateError = false;
           if (this.oneYearLimit) {
             if (start && end) {
-              const diff = end.diff(start, 'months', true);
-              if (diff <= 12) {
+              const diff = end.diff(start, 'year', true);
+              if (diff <= 1.003) {
                 this.$emit('change', {
                   startDate: start.format('DD/MM/YYYY'),
                   endDate: end.format('DD/MM/YYYY'),
