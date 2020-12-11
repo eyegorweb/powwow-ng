@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.27+20201211091339
+2020-12-11
+
+### Fixes
+
+- [2197] [1423] [2049] Correction de bugs ( filtre date, persistance des colonnes et bouton de téléchargement de facture) (1163bd67ddad7bf8a9f7ff8b1559713725168a83)
+
 ## 1.17.0-master.26+20201210130416
 2020-12-10
 
