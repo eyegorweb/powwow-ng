@@ -32,7 +32,7 @@
 
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy">
-          <span slot="title">{{ $t('getparc.actLines.export', { total: total }) }}</span>
+          <span slot="title">{{ $t('getadmin.users.export', { total: total }) }}</span>
         </ExportButton>
       </div>
 

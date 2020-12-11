@@ -543,7 +543,8 @@
         "AccessDeniedForThisUser": "Error Message : You don't have permission.",
         "username": "Login already exists."
       },
-      "searchPlaceholder": "Enter a name, first name or login"
+      "searchPlaceholder": "Enter a name, first name or login",
+      "export": "Export {total} user(s)"
     },
     "customize": {
       "addList": "Add a mailing list",

@@ -615,7 +615,8 @@
       "errors": {
         "AccessDeniedForThisUser": "Message d'erreur : Vous n'avez pas la permission.",
         "username": "Le login existe déjà."
-      }
+      },
+      "export": "Exporter {total} utilisateur(s)"
     },
     "customize": {
       "addList": "Ajouter une liste de diffusion",
