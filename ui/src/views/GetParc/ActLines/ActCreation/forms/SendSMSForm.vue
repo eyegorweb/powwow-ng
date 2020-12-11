@@ -47,24 +47,6 @@
           </div>
         </div>
       </div>
-      <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
-        <div class="row">
-          <div class="col">
-            <UiDate @change="onSmsDateChange" :value="smsDate" fixed time-picker class="d-block">
-              <i slot="icon" class="select-icon ic-Flag-Icon" />
-            </UiDate>
-          </div>
-          <div class="col">
-            <button
-              @click="containerValidationFn"
-              :disabled="!canSend"
-              class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
-            >
-              {{ $t('set') }}
-            </button>
-          </div>
-        </div>
-      </div>
       <div slot="messages">
         <ul class="list-unstyled">
           <li>
@@ -92,24 +74,19 @@
 import ActFormContainer from './parts/ActFormContainer2';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import UiCheckbox from '@/components/ui/Checkbox';
-import UiDate from '@/components/ui/UiDate';
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { sendSMS, fetchShortCodes } from '@/api/actCreation';
 import { searchLineById } from '@/api/linesActions';
-
-import moment from 'moment';
 
 export default {
   components: {
     ActFormContainer,
     UiApiAutocomplete,
     UiCheckbox,
-    UiDate,
   },
   async mounted() {
     await this.loadSingleLineInfo();
-    this.smsDate = moment().format('DD/MM/YYYY');
     this.shortCodesValues = await this.fetchShortCodes();
   },
 
@@ -157,7 +134,6 @@ export default {
       selectedShortCode: undefined,
       texMessage: '',
       acceptConditions: false,
-      smsDate: undefined,
       shortCodesValues: undefined,
       errors: {
         shortCode: undefined,
@@ -180,12 +156,8 @@ export default {
         this.singleLineFound = await searchLineById(lineInTable.id);
       }
     },
-    onSmsDateChange(value) {
-      this.smsDate = value;
-    },
     async onValidate(contextValues) {
       return await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
-        dueDate: this.smsDate,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
         numberOfSMS: this.numberOfSMS,

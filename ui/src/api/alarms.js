@@ -491,7 +491,7 @@ function addDateTriggerAlarm(gqlFilters, selectedFilters) {
     let formatToUse;
 
     if (parts.length === 2) {
-      formatToUse = 'DD/MM/YYYY hh:mm:ss';
+      formatToUse = 'DD/MM/YYYY HH:mm:ss';
       endDate = moment(dateToEdit, formatToUse);
       if (!dateFilter.sameDay) {
         endDate = endDate.add(1, 'days');
