@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.29+20201211160159
+2020-12-11
+
+### Fixes
+
+- [2192] correction du formattage de dates pour les actes de gestion (1c50faa3739630be2efa6facdca91e787fb26fd1)
+
 ## 1.17.0-master.28+20201211094658
 2020-12-11
 
