@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.30+20201211161533
+2020-12-11
+
+### Fixes
+
+- [2205] correctif récupération msisdnA pour afficher les informations de la ligne (e20a753744c66474864d08012ab50209abc58498)
+
 ## 1.17.0-master.29+20201211160159
 2020-12-11
 
