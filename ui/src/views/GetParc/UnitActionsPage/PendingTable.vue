@@ -1,5 +1,7 @@
 <template>
   <UnitActsTable
+    storage-id="unitacts.pending"
+    storage-version="001"
     grouped-status="PENDING"
     :mass-action-id="massActionId"
     :total.sync="total"

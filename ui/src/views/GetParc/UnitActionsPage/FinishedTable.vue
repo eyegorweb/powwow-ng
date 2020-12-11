@@ -1,5 +1,7 @@
 <template>
   <UnitActsTable
+    storage-id="unitacts.finished"
+    storage-version="001"
     grouped-status="COMPLETED"
     :mass-action-id="massActionId"
     :columns="columns"

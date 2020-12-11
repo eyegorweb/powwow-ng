@@ -22,6 +22,8 @@
         </div>
         <template v-if="rows && rows.length">
           <DataTable
+            :storage-id="storageId"
+            :storage-version="storageVersion"
             :columns="columns"
             :rows="rows || []"
             :page.sync="page"
@@ -76,6 +78,14 @@ export default {
     groupedStatus: String,
     total: [Number, String],
     columns: Array,
+    storageId: {
+      type: String,
+      required: false,
+    },
+    storageVersion: {
+      type: String,
+      required: false,
+    },
   },
 
   async mounted() {
