@@ -158,6 +158,8 @@ export default {
     },
     async onValidate(contextValues) {
       return await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
+        dueDate: contextValues.actDate,
+        notifEmail: contextValues.notificationCheck,
         partyId: this.actCreationPrerequisites.partner.id,
         texMessage: this.texMessage,
         numberOfSMS: this.numberOfSMS,
