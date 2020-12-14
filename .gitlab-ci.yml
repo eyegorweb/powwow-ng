@@ -45,6 +45,7 @@ version:
       - release
   except:
     - tags
+  interruptible: true
 
 build:
   stage: build
@@ -67,6 +68,7 @@ build:
       - ui/dist
   except:
     - tags
+  interruptible: true
 
 pre-release:
   stage: release
@@ -140,6 +142,7 @@ deploy_integration:
   only:
     - master
   dependencies: []
+  resource_group: integration
 
 deploy_testing:
   stage: deploy
@@ -162,6 +165,7 @@ deploy_testing:
   only:
     - master
   dependencies: []
+  resource_group: test
 
 deploy_uat:
   stage: deploy
@@ -187,6 +191,7 @@ deploy_uat:
     - uat
   except:
     - tags
+  resource_group: uat
 
 undeploy_uat:
   stage: undeploy
