@@ -9,7 +9,6 @@
         <h5>{{ $t('getparc.actLines.billingAccount') }}</h5>
         <BillingAccountsPart
           :disabled="isPartnerMVNO"
-          :key="`billingAccount_${selectedPartner ? selectedPartner.label : ''}`"
           :partner="!isPartnerMVNO ? selectedPartner : undefined"
           @set:billingAccount="chosenBillingAccount = $event"
         />
@@ -50,11 +49,7 @@ export default {
       this.selectedPartner = { ...this.partner };
     }
   },
-  watch: {
-    partner(newValue) {
-      this.selectedPartner = { ...newValue };
-    },
-  },
+
   data() {
     return {
       selectedPartner: undefined,

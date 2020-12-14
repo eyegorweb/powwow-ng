@@ -216,7 +216,7 @@ export default {
 
       if (this.apiMethod) {
         this.resultsPromise = new Promise(async resolve => {
-          const items = await this.apiMethod(this.$value || '');
+          const items = (await this.apiMethod(this.$value || '')) || [];
           const result = startsWithHighlight(this.$value || '', items).map(result => {
             return {
               ...result.item,
