@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.32+20201214081645
+2020-12-14
+
+### Fixes
+
+- make pipelines interruptible (08b31510a9e91523f17f39002ee54678681633f8)
+
 ## 1.17.0-master.31+20201212080902
 2020-12-12
 
