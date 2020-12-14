@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.33+20201214135334
+2020-12-14
+
+### Fixes
+
+- [2207] Correction de la recherche dans les filtres de prérequis dans la création des actes de gestion (4a99442762a5dae75ab9226a7d255ccaa11b33b7)
+
 ## 1.17.0-master.32+20201214081645
 2020-12-14
 
