@@ -21,7 +21,6 @@ export default {
   props: {
     partner: Object,
     preselectBillingAccount: Object,
-    offer: Object,
     errors: {
       type: Object,
       required: false,
@@ -35,33 +34,48 @@ export default {
     };
   },
   async mounted() {
-    if (this.partner) {
-      const data = await fetchBillibAccountForPartnerId(this.partner.id);
-      this.billingAccounts = data.map(ba => ({
-        id: ba.id,
-        label: `${ba.code} - ${ba.name}`,
-        partnerId: ba.party.id,
-        partner: ba.party,
-      }));
+    this.refreshData(this.partner);
+  },
+  methods: {
+    async refreshData(partner) {
+      if (partner) {
+        if (partner.id) {
+          const data = await fetchBillibAccountForPartnerId(partner.id);
+          this.billingAccounts = data.map(ba => ({
+            id: ba.id,
+            label: `${ba.code} - ${ba.name}`,
+            partnerId: ba.party.id,
+            partner: ba.party,
+          }));
 
-      if (
-        this.billingAccounts &&
-        this.billingAccounts.length === 1 &&
-        this.partner.partyType !== 'MVNO'
-      ) {
-        this.selectedBillingAccount = this.billingAccounts[0];
-      }
+          if (
+            this.billingAccounts &&
+            this.billingAccounts.length === 1 &&
+            partner.partyType !== 'MVNO'
+          ) {
+            this.selectedBillingAccount = this.billingAccounts[0];
+          }
 
-      if (this.preselectBillingAccount) {
-        this.selectedBillingAccount = this.billingAccounts.find(
-          b => b.id === this.preselectBillingAccount.id
-        );
+          if (this.preselectBillingAccount) {
+            this.selectedBillingAccount = this.billingAccounts.find(
+              b => b.id === this.preselectBillingAccount.id
+            );
+          }
+        } else if (partner.label.length) {
+          this.billingAccounts = [];
+        }
+      } else {
+        this.billingAccounts = [];
+        this.selectedBillingAccount = undefined;
       }
-    }
+    },
   },
   watch: {
     selectedBillingAccount(newValue) {
       this.$emit('set:billingAccount', newValue);
+    },
+    partner(partner) {
+      this.refreshData(partner);
     },
   },
 };
