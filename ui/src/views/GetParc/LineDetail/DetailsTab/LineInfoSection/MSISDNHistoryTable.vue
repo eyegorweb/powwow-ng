@@ -9,7 +9,6 @@
 
 <script>
 import DataTable from '@/components/DataTable/DataTable';
-import get from 'lodash.get';
 
 export default {
   components: {
