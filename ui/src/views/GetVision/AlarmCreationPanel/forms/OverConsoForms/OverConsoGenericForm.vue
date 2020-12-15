@@ -2,32 +2,6 @@
   <div class="m-3 bg-white p-3 bordered">
     <template v-if="active_">
       <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
-      <div class="line-container" v-for="line in lines" :key="line.id">
-        <div class="value">
-          <span>{{ $t(valueLabel) }}</span>
-          <UiInput
-            class="value-input"
-            input-type="number"
-            :min-value="0"
-            :max-value="100"
-            v-model="line.value"
-            @update:value="onValueUpdate()"
-          />
-        </div>
-        <div class="limitDate">
-          <span>
-            <template v-if="!!getPercentValFn(line.value)"
-              >{{ getPercentValFn(line.value) }} Avant le</template
-            >
-          </span>
-          <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
-        </div>
-        <div class="deleteButton">
-          <UiButton variant="outline-danger" @click="deleteLine(line)">
-            <span class="btn-label">Supprimer</span>
-          </UiButton>
-        </div>
-      </div>
 
       <div class="line-container">
         <div class="value">
@@ -51,16 +25,47 @@
         </div>
       </div>
 
-      <div class="flexBox">
-        <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
-          <span class="btn-label">{{ $t('cancel') }}</span>
-        </UiButton>
-        <div v-if="lines.length < 2" class="deleteButton">
-          <UiButton variant="outline-info" @click="addNewLine()">
-            <span class="btn-label">
-              <i class="ic-Plus-Icon"></i>
-              {{ $t('getvsion.alarm-creation.addLimit') }}
-            </span>
+      <div class="line-container" v-for="line in lines" :key="line.id">
+        <div class="value">
+          <span>{{ $t(valueLabel) }}</span>
+          <UiInput
+            class="value-input"
+            input-type="number"
+            :min-value="0"
+            :max-value="100"
+            v-model="line.value"
+            @update:value="onValueUpdate()"
+          />
+        </div>
+        <div class="limitDate">
+          <span>
+            <template v-if="!!getPercentValFn(line.value)"
+              >{{ getPercentValFn(line.value) }} Avant le</template
+            >
+          </span>
+          <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
+        </div>
+        <div class="deleteButton">
+          <UiButton variant="outline-danger" @click="deleteLine(line)">
+            <i class="icon ic-Trash-Icon"></i>
+          </UiButton>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <div>
+          <div v-if="lines.length < 2" class="deleteButton">
+            <UiButton variant="outline-info" @click="addNewLine()">
+              <span class="btn-label">
+                <i class="ic-Plus-Icon"></i>
+                {{ $t('getvsion.alarm-creation.addLimit') }}
+              </span>
+            </UiButton>
+          </div>
+        </div>
+        <div>
+          <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
+            <span class="btn-label">{{ $t('cancel') }}</span>
           </UiButton>
         </div>
       </div>
@@ -191,10 +196,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flexBox {
-  display: flex;
-  width: 16rem;
-}
 
 .line-container {
   display: flex;
@@ -244,7 +245,13 @@ export default {
     & /deep/ button {
       padding: 0.2rem 0.5rem;
       margin-top: 0.3rem;
+
+      &:hover i {
+        color: white;
+      }
     }
+
+
   }
 }
 </style>
