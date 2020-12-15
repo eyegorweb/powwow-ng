@@ -86,3 +86,33 @@ function addReference(gqlFilters, selectedFilters) {
     gqlFilters.push(`reference: "${reference}"`);
   }
 }
+
+export async function fetchBillsById(id) {
+  const queryStr = `
+    {
+      getBills(billsFilter: {partnerId : ${id}}) {
+        date
+        reference
+        customerAccountCode
+        amount
+        amountExclTaxes
+        simCount
+        documentId
+        headings {
+          label
+          amountExcTaxe
+          headingTypeEnum
+          usage
+          nbSim
+          quantity
+        }
+      }
+    }
+      `;
+  const response = await query(queryStr);
+
+  return {
+    total: 5,
+    items: response.data.getBills,
+  };
+}
