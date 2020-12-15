@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.34+20201215043449
+2020-12-15
+
+### Fixes
+
+- [2205] affichage du msisdna dans les infos de la ligne (fd366f2c4aeae466121dd38c41609f38ee57be73)
+
 ## 1.17.0-master.33+20201214135334
 2020-12-14
 
