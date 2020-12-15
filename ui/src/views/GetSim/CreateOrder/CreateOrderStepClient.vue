@@ -190,6 +190,7 @@ export default {
         id: ba.id,
         label: `${ba.code} - ${ba.name}`,
         partnerId: ba.party.id,
+        code: ba.code,
       }));
 
       if (this.billingAccounts && this.billingAccounts.length === 1) {

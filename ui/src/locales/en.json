@@ -1095,7 +1095,7 @@
         "sms": "SMS I/O",
         "sms_out": "Outgoing SMS",
         "sms_in": "Incoming SMS",
-        "voice": "Voix I/O",
+        "voice": "Voice I/O",
         "voice_out": "Outgoing Voice",
         "voice_in": "Inconing Voice",
         "status_change": "Status change",
@@ -1508,7 +1508,7 @@
       "NOTIFICATION_CHECK": "Get notified by email when done?",
       "ALTERABLE_BY_CLIENT": "Not modifiable by the customer",
       "SELECTED_LINES": "{total} lines will be changed",
-      "transferSIM": { "validate": "Validate take-over", "deny": "Refuse take-over" },
+      "transferSIM": { "validate": "Validate transfers", "deny": "Refuse transfers" },
       "EXCLUDED_LINES": "{total} lines will be excluded from the alarm",
       "SINGULAR_EXCLUDED_LINES": "1 lines will be excluded from the alarm",
       "message_EXCLUDED_LINES": "Lines removed from the alarm will be accessible in the Lines excluded from alarm 'tab'"

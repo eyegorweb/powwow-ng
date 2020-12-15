@@ -93,18 +93,7 @@ export default {
           {
             type: 'Getter',
             getter: row => {
-              const closing = get(row, 'pdpConnectionDateInfo.connectionClosingReasonTranslated');
-              if (closing === 'NORMALE') {
-                return this.$t(
-                  'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.N'
-                );
-              } else if (closing === 'AUTRE') {
-                return this.$t(
-                  'getparc.lineDetail.tab2.lineAnalysisContent.connectionClosingReason.A'
-                );
-              } else {
-                return '';
-              }
+              return get(row, 'pdpConnectionDateInfo.connectionClosingReasonTranslated');
             },
           }
         ),

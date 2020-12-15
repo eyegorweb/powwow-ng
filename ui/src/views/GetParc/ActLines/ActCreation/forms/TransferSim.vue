@@ -11,21 +11,23 @@
         @colEvent="onRowSelect"
       />
     </div>
-    <UiButton
-      @click="transferRequest('IN_PROGRESS')"
-      :variant="'info'"
-      class="transferSim-button"
-      >{{ $t('processing') }}</UiButton
-    >
-    <UiButton
-      @click="transferRequest('VALIDATE')"
-      :variant="'primary'"
-      class="transferSim-button"
-      >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
-    >
-    <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button">{{
-      $t('getparc.actCreation.transferSIM.deny')
-    }}</UiButton>
+    <div class="mt-2">
+      <UiButton
+        @click="transferRequest('IN_PROGRESS')"
+        :variant="'info'"
+        class="transferSim-button"
+        >{{ $t('processing') }}</UiButton
+      >
+      <UiButton
+        @click="transferRequest('VALIDATE')"
+        :variant="'primary'"
+        class="transferSim-button"
+        >{{ $t('getparc.actCreation.transferSIM.validate') }}</UiButton
+      >
+      <UiButton @click="transferRequest('CANCEL')" :variant="'danger'" class="transferSim-button">{{
+        $t('getparc.actCreation.transferSIM.deny')
+      }}</UiButton>
+    </div>
   </div>
 </template>
 

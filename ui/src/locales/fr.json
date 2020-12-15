@@ -1589,8 +1589,8 @@
       },
 
       "transferSIM": {
-        "validate": "Valider le take-over",
-        "deny": "Refuser le take-over"
+        "validate": "Valider les transferts",
+        "deny": "Refuser les transferts"
       },
 
       "phaseTest": {

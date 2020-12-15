@@ -14,9 +14,11 @@
           <h5>{{ $t('col.offer') }}</h5>
           <OffersPart
             :partner="selectedPartner"
+            :chosen-billing-account="chosenBillingAccount"
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
             :all-offers="allOffers"
+            billing-account-mandatory
           />
         </div>
       </div>

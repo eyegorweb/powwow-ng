@@ -125,11 +125,11 @@ export default {
       if (!this.chosenBillingAccount) return;
       this.selectedOffer = undefined;
       this.offers = [];
-
       const data = await fetchOffers('', [this.chosenBillingAccount.partner], {
         page: 0,
         limit: 99,
         disabledOffer: true,
+        customerAccountCode: this.chosenBillingAccount.code,
       });
       if (data) {
         this.offers = data.map(o => ({

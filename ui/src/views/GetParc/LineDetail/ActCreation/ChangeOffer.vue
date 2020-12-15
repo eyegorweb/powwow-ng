@@ -74,10 +74,15 @@ export default {
     },
 
     async fetchApi() {
+      const billingAccountCode = this.$loGet(
+        this.lineData,
+        'accessPoint.offerGroup.customerAccount.code'
+      );
       const data = await fetchOffers('', [{ id: this.lineData.party.id }], {
         page: 0,
         limit: 99,
         disabledOffer: true,
+        customerAccountCode: billingAccountCode,
       });
       if (data) {
         let listToReturn = data;

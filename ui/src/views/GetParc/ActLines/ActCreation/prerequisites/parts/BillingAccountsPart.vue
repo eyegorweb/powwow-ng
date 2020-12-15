@@ -46,6 +46,7 @@ export default {
             label: `${ba.code} - ${ba.name}`,
             partnerId: ba.party.id,
             partner: ba.party,
+            code: ba.code,
           }));
 
           if (
@@ -72,7 +73,11 @@ export default {
   },
   watch: {
     selectedBillingAccount(newValue) {
-      this.$emit('set:billingAccount', newValue);
+      if (newValue && newValue.code) {
+        this.$emit('set:billingAccount', newValue);
+      } else {
+        this.$emit('set:billingAccount', undefined);
+      }
     },
     partner(partner) {
       this.refreshData(partner);
