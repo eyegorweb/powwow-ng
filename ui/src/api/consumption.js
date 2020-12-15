@@ -61,7 +61,7 @@ export async function parcStatusInfoExport(id, format, period) {
   }`;
   const response = await query(queryStr);
   console.log();
-  return response.data;
+  return response.data.parcStatusInfoExport;
 }
 
 export async function fetchVoiceUsageForGraph(simInstanceId) {
