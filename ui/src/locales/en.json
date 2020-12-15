@@ -210,7 +210,7 @@
       "name-error": "The password must be different from the first or last name",
       "uppercase-error": "Password must contain at least one uppercase letter",
       "lowercase-error": "Password must contain at least one lowercase letter",
-      "special-error": "A letter with an accent or a special character.",
+      "special-error": "A letter with an accent or a special character: éèçàù@£µ§!?\"#$%&\\'()*+,-./:;<=>²°¨^_`~{|}[]",
       "number-error": "The password must contain at least one number.",
       "email-error": "Please enter a valid email address"
     },
