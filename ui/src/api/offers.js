@@ -43,14 +43,23 @@ export async function disableOffer(partnerId, offerId) {
 }
 
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
-export async function fetchOffers(q, partners, { page, limit, partnerType, disabledOffer }) {
+export async function fetchOffers(
+  q,
+  partners,
+  { page, limit, partnerType, disabledOffer, customerAccountCode }
+) {
   let partnersIds,
     partnerGqlParam = '',
     rCardGqlParam = '',
-    offersParam = '';
+    offersParam = '',
+    customerAccountCodeParam = '';
 
   if (disabledOffer) {
     offersParam = `, disabledOffer: false`;
+  }
+
+  if (customerAccountCode) {
+    customerAccountCodeParam = `, customerAccountCode: {in: ["${customerAccountCode}"]}`;
   }
 
   if (partners && partners.length > 0) {
@@ -66,7 +75,7 @@ export async function fetchOffers(q, partners, { page, limit, partnerType, disab
 
   const queryStr = `
   query{
-    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
+    workflows(filter:{description: {startsWith: "${q}"} ${offersParam} ${partnerGqlParam} ${partnerTypeGqlFilter}${customerAccountCodeParam}}, sorting: { description: DESC }, pagination: {limit: ${limit}, page: ${page}}) {
       total,
       items {
         id
@@ -194,10 +203,6 @@ export async function fetMaxValuesFromOfferPackage(offerCustoAccount) {
     maxVoice,
     maxSMS,
   };
-}
-
-export async function fetchOffersForPartnerId(partnerId) {
-  return await fetchOffers('', [{ id: partnerId }], { page: 0, limit: 50, disabledOffer: true });
 }
 
 export async function changeOffer(filters, lines, params) {

@@ -22,6 +22,11 @@ export default {
   props: {
     partner: Object,
     preselectOffer: Object,
+    chosenBillingAccount: {
+      type: Object,
+      required: false,
+    },
+    billingAccountMandatory: Boolean,
     errors: {
       type: Object,
       required: false,
@@ -36,21 +41,27 @@ export default {
     };
   },
   async mounted() {
-    this.refreshData(this.partner);
+    this.refreshData();
   },
   methods: {
-    async refreshData(partner) {
-      if (partner) {
-        if (partner.id) {
+    async refreshData() {
+      if (this.billingAccountMandatory && !this.chosenBillingAccount) return;
+
+      if (this.partner) {
+        if (this.partner.id) {
           const queryParams = {
             page: 0,
             limit: 999,
             partnerType: this.contextPartnersType,
           };
+          if (this.chosenBillingAccount) {
+            queryParams.customerAccountCode = this.chosenBillingAccount.code;
+          }
           if (!this.allOffers) {
             queryParams.disabledOffer = true;
           }
-          const data = await fetchOffers('', [partner], queryParams);
+
+          const data = await fetchOffers('', [this.partner], queryParams);
           if (data) {
             this.offers = data
               .filter(o => o.code !== this.prerequisiteOffer.code)
@@ -61,7 +72,7 @@ export default {
                 productCode: o.code,
               }));
           }
-        } else if (partner.label.length) {
+        } else if (this.partner.label.length) {
           this.offers = [];
         }
       } else {
@@ -74,8 +85,18 @@ export default {
     selectedOffer(newValue) {
       this.$emit('update:offer', newValue);
     },
-    partner(partner) {
-      this.refreshData(partner);
+    partner() {
+      this.refreshData();
+    },
+    chosenBillingAccount(newValue) {
+      if (this.billingAccountMandatory) {
+        if (!newValue) {
+          this.selectedOffer = undefined;
+          this.offers = [];
+        } else {
+          this.refreshData();
+        }
+      }
     },
   },
 

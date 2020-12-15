@@ -15,6 +15,8 @@
           :partner="actCreationPrerequisites.partner"
           :offer.sync="selectedOffer"
           :error="errors.offer"
+          :chosen-billing-account="actCreationPrerequisites.billingAccount"
+          billing-account-mandatory
         />
       </template>
 

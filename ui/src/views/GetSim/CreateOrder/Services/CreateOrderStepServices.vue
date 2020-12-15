@@ -46,7 +46,7 @@ import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import LoaderContainer from '@/components/LoaderContainer';
 import { fetchOrderState } from '@/api/partners';
 import get from 'lodash.get';
-import { fetchOffersForPartnerId } from '@/api/offers';
+import { fetchOffers } from '@/api/offers';
 
 import CreateOrderStepContainer from '../CreateOrderStepContainer';
 
@@ -98,13 +98,20 @@ export default {
     this.activation = get(this.synthesis, 'services.selection.activation', false);
     this.preActivation = get(this.synthesis, 'services.selection.preActivation', false);
 
+    const billingAccountCode = get(this.synthesis, 'billingAccount.selection.billingAccount.code');
+
     const stateOrder = await fetchOrderState(this.partnerId);
     this.activation = stateOrder[0].orderActivationMandatory;
     this.preActivation = stateOrder[0].orderPreactivationMandatory;
     this.isLoadingOffers = true;
-    const offers = await fetchOffersForPartnerId(this.partnerId);
+    const data = await fetchOffers('', [{ id: this.partnerId }], {
+      page: 0,
+      limit: 99,
+      disabledOffer: true,
+      customerAccountCode: billingAccountCode,
+    });
     this.isLoadingOffers = false;
-    this.offers = offers.map(o => {
+    this.offers = data.map(o => {
       return {
         ...o,
         label: o.workflowDescription,
