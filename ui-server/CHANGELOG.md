@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.35+20201215105251
+2020-12-15
+
+### Features
+
+- [836] ajout et branchement du widget des dernieres factures (bb88f4cea29cefecb97ba3d9629bec4b34b7a71f)
+
+### Fixes
+
+- [2193] Utiliser le code du compte de facturation dans les combobox des offres (486541b94f2dffc508be7f8be362c23f80d6ac84)
+
 ## 1.17.0-master.34+20201215043449
 2020-12-15
 
