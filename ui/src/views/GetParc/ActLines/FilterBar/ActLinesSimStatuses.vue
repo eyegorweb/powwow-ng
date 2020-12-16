@@ -87,17 +87,22 @@ export default {
         label: this.$t('getparc.actLines.simStatuses.ACTIVATED'),
       },
       {
+        id: 'ACTIVATION_IN_PROGRESS',
+        label: this.$t('getparc.actLines.simStatuses.ACTIVATION_IN_PROGRESS'),
+      },
+      {
         id: 'SUSPENDED',
         label: this.$t('getparc.actLines.simStatuses.SUSPENDED'),
       },
-    ];
-
-    if (this.userIsBO) {
-      statusChoices.push({
+      {
         id: 'RELEASED',
         label: this.$t('getparc.actLines.simStatuses.RELEASED'),
-      });
-    }
+      },
+      {
+        id: 'RELEASED_IN_PROGRESS',
+        label: this.$t('getparc.actLines.simStatuses.RELEASED_IN_PROGRESS'),
+      },
+    ];
 
     this.items = statusChoices;
   },
