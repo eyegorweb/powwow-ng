@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.36+20201216134531
+2020-12-16
+
+### Fixes
+
+- [2212] correction du tri par statut de la date du tableau de gestion de ligne (3b716621b171c05f83fb268a0ff05468b8a43686)
+
 ## 1.17.0-master.35+20201215105251
 2020-12-15
 
