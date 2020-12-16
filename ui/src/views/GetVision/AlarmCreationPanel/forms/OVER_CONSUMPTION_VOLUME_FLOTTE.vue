@@ -6,6 +6,7 @@
     :container-height="'9rem'"
     @save="onSave"
     :partner="partner"
+    :noSuspension="true"
     :check-errors-fn="isFormValid"
   >
     <template v-slot:default="{ scopeIndex, num }">

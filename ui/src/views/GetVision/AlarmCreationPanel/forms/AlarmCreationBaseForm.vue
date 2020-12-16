@@ -33,6 +33,7 @@
       @save="$emit('save', $event)"
       :can-save="canSave"
       :partner="selectedPartner"
+      :noSuspension="noSuspension"
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
     />
@@ -59,6 +60,7 @@ export default {
     duplicateFrom: Object,
     partner: Object,
     haveForm: Boolean,
+    noSuspension: Boolean,
     suspension: Boolean,
     checkErrorsFn: {
       type: Function,

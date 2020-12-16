@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="col to-bottom">
-        <div v-if="suspensionAuto">
+        <div v-if="suspensionAuto && !noSuspension">
           <div class="d-flex mb-3 mt-1">
             <UiCheckbox v-model="enableSuspension" :checked="false" />
             <span>{{ $t('getvsion.alarm.sus_auto') }}</span>
@@ -74,6 +74,7 @@ export default {
   props: {
     partner: Object,
     duplicateFrom: Object,
+    noSuspension: Boolean,
     canSave: Boolean,
     suspension: {
       type: Boolean,
