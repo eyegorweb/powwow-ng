@@ -1727,7 +1727,9 @@
         "CANCELED": "Annulée",
         "TEST": "Test",
         "BARRED": "Barré",
-        "ALLOCATING": "En cours de préactivation"
+        "ALLOCATING": "En cours de préactivation",
+        "ACTIVATION_IN_PROGRESS": "Activation en cours",
+        "RELEASED_IN_PROGRESS": "Résiliation en cours"
       },
       "networkStatuses": {
         "NOT_PREACTIVATED": "Non préactivé",

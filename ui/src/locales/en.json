@@ -1593,7 +1593,9 @@
         "CANCELED": "Canceled",
         "TEST": "Test",
         "BARRED": "Barred",
-        "ALLOCATING": "In the process of pre-activation"
+        "ALLOCATING": "In the process of pre-activation",
+        "ACTIVATION_IN_PROGRESS": "Activation in progress",
+        "RELEASED_IN_PROGRESS": "Cancelation in progress"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Termination request",
@@ -1670,6 +1672,7 @@
   "col": {
     "id": "ID",
     "creationDate": "Creation date",
+    "commercialStatus": "Commercial status",
     "orderDate": "Order date",
     "activationAsked": "Activation",
     "freqTheo": "Theoretical frequencies",
