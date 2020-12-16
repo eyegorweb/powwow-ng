@@ -406,7 +406,7 @@ export default {
           label: this.$t('filters.lines.statusDate'),
           name: 'accessPoint',
           orderable: true,
-          sortingName: 'commercialStatusDate',
+          sortingName: 'statusDate',
           visible: true,
           exportId: 'LINE_COMMERCIAL_DATE',
           format: {
