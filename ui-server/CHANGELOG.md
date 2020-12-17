@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.37+20201216173248
+2020-12-17
+
+### Fixes
+
+- [2213] mise à jour du filtre Statut de la ligne pour rechercher les lignes (870a29020974171d1771ec2db2845961ef511594)
+
 ## 1.17.0-master.36+20201216134531
 2020-12-16
 
