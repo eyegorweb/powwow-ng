@@ -22,7 +22,7 @@
       </div>
       <div class="filter-item">
         <OfferCombo
-          :value.sync="selectedOffer"
+          v-model="selectedOffer"
           :partners="partnersForFilters"
           :disabled="!selectedPartner"
           preselect-first

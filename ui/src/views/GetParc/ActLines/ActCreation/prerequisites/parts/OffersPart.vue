@@ -1,13 +1,16 @@
 <template>
-  <UiApiAutocomplete
-    :items="offers"
-    v-model="selectedOffer"
-    :error="errors"
-    display-results-while-empty
-    scroll-for-next
-    :disabled="disabled"
-    search-type="contain"
-  />
+  <div>
+    <UiApiAutocomplete
+      v-if="showCombo"
+      :api-method="searchOffers"
+      v-model="selectedLocalValue"
+      :error="errors"
+      display-results-while-empty
+      scroll-for-next
+      :disabled="disabled"
+      search-type="contain"
+    />
+  </div>
 </template>
 
 <script>
@@ -21,7 +24,6 @@ export default {
   },
   props: {
     partner: Object,
-    preselectOffer: Object,
     chosenBillingAccount: {
       type: Object,
       required: false,
@@ -36,22 +38,23 @@ export default {
   },
   data() {
     return {
-      offers: [],
-      selectedOffer: undefined,
+      // selectedOffer: undefined,
+      selectedLocalValue: undefined,
+      showCombo: true,
     };
   },
   async mounted() {
-    this.refreshData();
+    // this.refreshData();
   },
   methods: {
-    async refreshData() {
+    async searchOffers(q, page = 0) {
       if (this.billingAccountMandatory && !this.chosenBillingAccount) return;
 
       if (this.partner) {
         if (this.partner.id) {
           const queryParams = {
-            page: 0,
-            limit: 999,
+            page,
+            limit: 10,
             partnerType: this.contextPartnersType,
           };
           if (this.chosenBillingAccount) {
@@ -61,9 +64,9 @@ export default {
             queryParams.disabledOffer = true;
           }
 
-          const data = await fetchOffers('', [this.partner], queryParams);
+          const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {
-            this.offers = data
+            return data
               .filter(o => o.code !== this.prerequisiteOffer.code)
               .map(o => ({
                 id: o.code,
@@ -73,29 +76,47 @@ export default {
               }));
           }
         } else if (this.partner.label.length) {
-          this.offers = [];
+          return [];
         }
       } else {
-        this.offers = [];
-        this.selectedOffer = undefined;
+        // this.selectedOffer = undefined;
+        return [];
       }
+
+      return [];
+    },
+
+    recreateCombo() {
+      this.showCombo = false;
+      setTimeout(() => {
+        this.showCombo = true;
+      });
     },
   },
   watch: {
-    selectedOffer(newValue) {
-      this.$emit('update:offer', newValue);
-    },
     partner() {
-      this.refreshData();
+      this.recreateCombo();
     },
     chosenBillingAccount(newValue) {
       if (this.billingAccountMandatory) {
         if (!newValue) {
-          this.selectedOffer = undefined;
-          this.offers = [];
-        } else {
-          this.refreshData();
+          this.selectedLocalValue = undefined;
         }
+
+        this.recreateCombo();
+      }
+    },
+    selectedLocalValue(value) {
+      if (!value) {
+        this.$emit('update:offer', undefined);
+        return;
+      }
+      if (value && value.label === '') {
+        this.$emit('update:offer', undefined);
+        return;
+      }
+      if (value && value.id) {
+        this.$emit('update:offer', value);
       }
     },
   },

@@ -179,7 +179,7 @@
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.offerActivation')
               }}</label>
-              <OfferCombo :value.sync="selectedOffer" :partners="[partner]" />
+              <OfferCombo v-model="selectedOffer" :partners="[partner]" />
             </div>
           </div>
         </div>
@@ -757,6 +757,10 @@ export default {
           label: this.partnerOptions.defaultWorkflowForActivation.workflowDescription,
           meta: this.partnerOptions.defaultWorkflowForActivation,
         };
+        console.log(
+          '🚀 ~ file: PartnerOptions.vue ~ line 761 ~ resetOptions ~ this.partnerOptions.defaultWorkflowForActivation',
+          this.partnerOptions.defaultWorkflowForActivation
+        );
       }
 
       this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
