@@ -492,6 +492,7 @@
         "less500": "Pays non supervisés avec moins de 500 lignes"
       }
     },
+    "supervisionMarker": "{count} ligne(s) {type}",
 
     "detail-panel": {
       "stepper": {
