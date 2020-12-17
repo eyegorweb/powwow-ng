@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.39+20201217144643
+2020-12-17
+
+### Features
+
+- [2201] affichage des infos de marqueurs dans un tooltip lors du survol de la carte getvision (8d03c595bff16b574d3da16b5b081e6999bd426d)
+
+### Fixes
+
+- 1998 Suppression des checkbox de suspension auto sur alarm flotte (3c785734857a885babe26d78a6bdc9149c2ed0e3)
+- [2194] Bascule des composants offres faisant de l'autocomplete front vers de l'autocomplete back. (84076463ffd8f0508c13e1960466c5da0aa22931)
+- [2212] correction du tri par statut de la date du tableau de gestion de ligne (6cb8b258dbeca4ca516aad66b9534927ac0785b3)
+
 ## 1.17.0-master.38+20201217140902
 2020-12-17
 
