@@ -34,7 +34,6 @@ export default {
     ...mapMutations(['popupMessage']),
 
     checkAndSetDate(value) {
-      console.log('checkAndSetDate -> value', value);
       // difference entre les deux dates
       // si > 12
       // this.popupMessage('HOP HOP HOP')

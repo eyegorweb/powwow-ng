@@ -70,7 +70,6 @@ export default {
     },
     async searchSharedConsoAlarms(orderBy, pagination, filters) {
       const response = await searchSharedConsumptionAlarm(orderBy, pagination, filters);
-      console.log('searchSharedConsoAlarms -> response', response);
 
       const items = response.items.map(row => ({
         name: row.name,

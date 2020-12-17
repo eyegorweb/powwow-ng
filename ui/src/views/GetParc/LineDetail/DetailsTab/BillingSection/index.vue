@@ -101,6 +101,7 @@ import moment from 'moment';
 import get from 'lodash.get';
 import BillingStatus from '@/views/GetParc/ActLines/ActLinesDetailPanel/parts/BillingStatus.vue';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
+import { getLatestLineFromAccessPoint } from '@/utils/line.js';
 
 export default {
   components: {
@@ -179,16 +180,20 @@ export default {
     },
 
     lineStatus() {
-      const lineStatus = get(this.content, 'accessPoint.lines[0].status');
+
+      const relatedLine = getLatestLineFromAccessPoint(this.content.accessPoint);
+      if (!relatedLine) return '-';
+
+      const lineStatus = relatedLine.status;
       if (lineStatus === 'ALLOCATED') {
         return `${this.$t('getparc.lineDetail.tab1.statuses.ALLOCATED')} <br /> ${get(
-          this.content,
-          'accessPoint.lines[0].auditable.created'
+          relatedLine,
+          'auditable.created'
         )}`;
       } else if (lineStatus === 'RELEASED') {
         return `${this.$t('getparc.lineDetail.tab1.statuses.RELEASED')} <br /> ${get(
-          this.content,
-          'accessPoint.lines[0].auditable.updated'
+          relatedLine,
+          'auditable.updated'
         )}`;
       } else {
         return '-';
@@ -239,9 +244,9 @@ export default {
     getCommercialStatus() {
       this.commercialStatus = get(this.content, 'accessPoint.commercialStatus')
         ? `${this.$t(
-            'getparc.actLines.commercialStatuses.' +
-              get(this.content, 'accessPoint.commercialStatus')
-          )} ${this.$t('fromThe')}`
+          'getparc.actLines.commercialStatuses.' +
+          get(this.content, 'accessPoint.commercialStatus')
+        )} ${this.$t('fromThe')}`
         : '-';
     },
   },

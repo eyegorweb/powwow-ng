@@ -24,7 +24,6 @@ export default {
 
   mounted() {
     if (this.initValue) {
-      console.log(this.ptype, this.initValue);
       if (this.ptype === 'Object' || this.ptype === 'Array') {
         this.value = JSON.stringify(this.initValue);
       } else {

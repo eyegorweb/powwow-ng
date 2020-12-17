@@ -26,6 +26,7 @@ import { changeSingleMSISDN } from '@/api/actCreation';
 import get from 'lodash.get';
 import IdInput from '@/components/IdInput';
 import FormReport from './FormReport';
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 
 export default {
   components: {
@@ -72,7 +73,7 @@ export default {
 
   computed: {
     currentMSISDN() {
-      return get(this.lineData, 'accessPoint.lines[0].msisdn');
+      return getFromLatestLineFromAccessPoint(this.lineData.accessPoint, 'msisdn');
     },
   },
 };

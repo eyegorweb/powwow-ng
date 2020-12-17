@@ -183,10 +183,6 @@ export default {
       const fieldErrors = {};
       let haveError = false;
       if (this.activation) {
-        console.log(
-          'haveFieldErrors -> this.preselectBillingAccount',
-          this.preselectBillingAccount
-        );
         if (!this.preselectBillingAccount || !this.preselectBillingAccount.id) {
           fieldErrors.billingAccount = true;
           haveError = true;
@@ -251,7 +247,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() {},
+    checkErrors() { },
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);

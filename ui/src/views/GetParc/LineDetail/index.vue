@@ -66,6 +66,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
 import { getPartyOptions } from '@/api/partners.js';
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 
 export default {
   components: {
@@ -129,7 +130,7 @@ export default {
         this.lineData.accessPoint &&
         typeof this.lineData.accessPoint !== 'undefined' &&
         this.lineData.accessPoint !== 'null'
-        ? this.lineData.accessPoint.lines[0].msisdn
+        ? getFromLatestLineFromAccessPoint(this.lineData.accessPoint, 'msisdn')
         : '';
     },
 

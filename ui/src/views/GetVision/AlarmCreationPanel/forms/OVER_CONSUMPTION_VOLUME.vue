@@ -82,8 +82,6 @@ export default {
         formData: this.values,
       };
 
-      console.log('onSave -> this.scopeChoice', this.scopeChoice);
-
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {

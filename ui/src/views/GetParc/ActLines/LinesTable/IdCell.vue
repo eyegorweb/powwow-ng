@@ -7,6 +7,8 @@ import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
 import get from 'lodash.get';
 
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
+
 export default {
   name: 'IdCell',
   props: {
@@ -17,7 +19,7 @@ export default {
     ...mapMutations(['openPanel']),
 
     openDetailPanel() {
-      const msisdn = get(this.row, 'accessPoint.lines[0].msisdn');
+      let msisdn = getFromLatestLineFromAccessPoint(this.row.accessPoint, 'msisdn');
 
       const openTrigger = () => {
         this.openPanel({

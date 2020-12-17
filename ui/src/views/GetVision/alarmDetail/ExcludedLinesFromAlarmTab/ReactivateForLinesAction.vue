@@ -64,7 +64,6 @@ export default {
         },
       });
 
-      console.log('Disable lines here');
     },
   },
 };

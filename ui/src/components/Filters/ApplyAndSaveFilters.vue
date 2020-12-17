@@ -10,7 +10,7 @@
         :class="staticClass"
         >{{ $t('save') }}</UiButton
       >
-      <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
+      <div slot-scope="{ hide }" class="p-3" style="width: 256px">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -68,7 +68,6 @@ export default {
         this.moduleName,
         JSON.stringify(this.currentFilters)
       );
-      console.log(response);
       if (response) {
         onSaveDone();
         this.filterName = '';
