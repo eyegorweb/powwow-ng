@@ -276,7 +276,7 @@ import OnGoingSkeleton from './OnGoingSkeleton';
 
 import { fetchCurrentConsumption, exportCurrentConsumption } from '@/api/linesActions';
 import ExportButton from '@/components/ExportButton';
-import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 import get from 'lodash.get';
 
 export default {
@@ -352,7 +352,7 @@ export default {
           return formatBytes(value);
 
         case 'VOICE':
-          return formattedValueFromSeconds(value);
+          return resumeFormattedValueFromSeconds(value);
       }
     },
 

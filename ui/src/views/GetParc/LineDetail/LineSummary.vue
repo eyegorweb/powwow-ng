@@ -90,7 +90,7 @@
 
 <script>
 import get from 'lodash.get';
-import { formatBytes, formattedValueFromSeconds } from '@/api/utils';
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
 import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
@@ -220,8 +220,8 @@ export default {
           // total international
           internationalTotal = internationalIncomingTotal + internationalOutgoingTotal;
           // total
-          usedTotal = formattedValueFromSeconds(nationalTotal + internationalTotal);
-          estimatedTotal = formattedValueFromSeconds(
+          usedTotal = resumeFormattedValueFromSeconds(nationalTotal + internationalTotal);
+          estimatedTotal = resumeFormattedValueFromSeconds(
             (daysInMonth * (nationalTotal + internationalTotal)) / pastDays
           );
           break;
