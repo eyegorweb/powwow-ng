@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.38+20201217140902
+2020-12-17
+
+### Fixes
+
+- [2222] formattage des encours conso de type voix avec unités (fd61446e362f9567061c83743672dca95d2909f4)
+
 ## 1.17.0-master.37+20201216173248
 2020-12-17
 
