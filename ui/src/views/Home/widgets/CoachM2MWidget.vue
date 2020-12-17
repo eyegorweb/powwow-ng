@@ -125,7 +125,6 @@ export default {
       this.coachData = undefined;
     },
     async startDiagnosis(line) {
-      console.log('Start diagnosis >>>>> ', line);
 
       this.$pushAnalytics({ event: 'm2m.search', widget: 'CoachM2MWidget' });
       const apId = get(line, 'accessPoint.id');

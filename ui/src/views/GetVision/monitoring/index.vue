@@ -372,7 +372,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
@@ -541,7 +541,6 @@ export default {
     },
 
     onIndicatorClick(payload) {
-      console.log('🚀 ~ file: index.vue ~ line 544 ~ onIndicatorClick ~ payload', payload);
       const { indicator, total } = payload;
       const usageType = this.currentUsage;
       const counter = indicator.counter;

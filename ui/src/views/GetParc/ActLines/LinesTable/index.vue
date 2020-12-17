@@ -97,6 +97,7 @@ import IdCell from './IdCell';
 import DateStatus from '@/views/GetParc/UnitActionsPage/DateStatus';
 import ExportButton from '@/components/ExportButton';
 import { formatBackErrors } from '@/utils/errors';
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 
 import { exportSimCardInstances } from '@/api/linesActions';
 import { formatLargeNumber } from '@/utils/numbers';
@@ -161,7 +162,7 @@ export default {
       return { page: this.page - 1, limit: this.pageLimit };
     },
     msisdn() {
-      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
+      return getFromLatestLineFromAccessPoint(this.row.accessPoint, 'msisdn');
     },
     hasResults() {
       return !!(this.rows && this.rows.length);

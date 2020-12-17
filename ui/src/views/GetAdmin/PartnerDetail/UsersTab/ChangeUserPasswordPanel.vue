@@ -85,7 +85,6 @@ export default {
       const response = await updateUserPassword(params);
       if (response && response.errors && response.errors.length) {
         response.errors.forEach(e => {
-          console.log(e);
           let errorMessage =
             response.errors[0].extensions[''] === 'AccessDeniedForThisUser'
               ? this.$t('getadmin.users.errors.AccessDeniedForThisUser')

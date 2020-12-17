@@ -39,7 +39,6 @@ export default {
   },
   async mounted() {
     this.bills = await fetchBillsById(this.singlePartner.id);
-    console.log(this.userIsPartner);
   },
 
   methods: {

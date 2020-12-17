@@ -220,6 +220,7 @@ export async function searchLinesForTable(orderBy, pagination, filters = []) {
         }
       }
       lines {
+        id
         msisdn
         imsi
         msisdnA
@@ -312,6 +313,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       flatEndDate
       networkStatus
       lines {
+        id
         msisdn
         imsi
         msisdnA

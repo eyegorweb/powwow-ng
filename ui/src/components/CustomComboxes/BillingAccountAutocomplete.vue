@@ -54,7 +54,6 @@ export default {
       }
     },
     async isRefreshing(newValue, oldValue) {
-      // console.log('Values>>', newValue, oldValue)
       if (newValue === false && oldValue === true && this.partnershaveChanged) {
         this.partnershaveChanged = false;
         await this.refreshList();

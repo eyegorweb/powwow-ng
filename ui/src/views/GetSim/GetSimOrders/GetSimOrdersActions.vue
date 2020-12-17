@@ -59,7 +59,6 @@ export default {
         }
         case 'getsim.actions.EXPORT': {
           // TODO
-          console.log('TODO export lines');
           break;
         }
         case 'getsim.actions.SHOW_SIM': {

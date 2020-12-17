@@ -151,7 +151,6 @@ export default {
         pagination: { page: 0, limit: 10 },
         filters: [],
       };
-      console.log('applyFilters -> filters', filters);
 
       const mandatoryFilters = [
         {

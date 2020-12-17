@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
+
 export default {
   name: 'LinkTo',
   props: {
@@ -10,12 +12,12 @@ export default {
   },
 
   methods: {
-    onClick() {},
+    onClick() { },
   },
   computed: {
     msisdn() {
-      return this.row.accessPoint !== null ? this.row.accessPoint.lines[0].msisdn : '';
-    },
+      return getFromLatestLineFromAccessPoint(this.row.accessPoint, 'msisdn');
+    }
   },
 };
 </script>

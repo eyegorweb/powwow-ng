@@ -386,7 +386,7 @@
         <UiButton
           v-if="
             havePermission('party', 'update_main_options') ||
-              havePermission('party', 'update_secondary_options')
+            havePermission('party', 'update_secondary_options')
           "
           variant="primary"
           class="p-3"
@@ -757,10 +757,6 @@ export default {
           label: this.partnerOptions.defaultWorkflowForActivation.workflowDescription,
           meta: this.partnerOptions.defaultWorkflowForActivation,
         };
-        console.log(
-          '🚀 ~ file: PartnerOptions.vue ~ line 761 ~ resetOptions ~ this.partnerOptions.defaultWorkflowForActivation',
-          this.partnerOptions.defaultWorkflowForActivation
-        );
       }
 
       this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
