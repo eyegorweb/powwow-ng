@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.41+20201217161826
+2020-12-17
+
+### Fixes
+
+- [2226] Correction du composant d'autocompletion (35927d36307eaeaf5507c847f089192af63d6c71)
+
 ## 1.17.0-master.40+20201217155925
 2020-12-17
 
