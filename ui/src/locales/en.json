@@ -517,7 +517,8 @@
         "withAlarms": "Country with alert (suspect variation detected)",
         "less500": "Unsupervised countries with less than 500 lines"
       }
-    }
+    },
+    "supervisionMarker": "{count} {type} line(s)"
   },
   "getadmin": {
     "users": {
