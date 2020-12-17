@@ -7,7 +7,7 @@
   >
     <template slot="form">
       <h6>{{ $t('alarms.alarmScope.OFFER') }}</h6>
-      <OfferCombo :value.sync="selectedOffer" :partners="partners" />
+      <OfferCombo v-model="selectedOffer" :partners="partners" />
       <template v-if="selectedOffer">
         <h6>{{ $t('common.billingAccount') }}</h6>
 

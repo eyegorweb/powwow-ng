@@ -1,6 +1,6 @@
 <template>
   <OfferCombo
-    :value.sync="selectedOffer"
+    v-model="selectedOffer"
     :partners="partnersForFilters"
     :disabled="!partner || !!partnerGroup"
   />

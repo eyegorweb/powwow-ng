@@ -63,6 +63,7 @@ export async function getPartyOptions(partyId) {
     defaultWorkflowForActivation {
       id
       code
+      workflowDescription
     }
     defaultCustomerForActivation {
       id
