@@ -54,6 +54,8 @@ export default {
       const location =
         this.data && this.data.data && this.data.data.locationNameFr
           ? this.data.data.locationNameFr
+          : this.data.data.locationName
+          ? this.data.data.locationName
           : '';
       const count = countType === 'active' ? this.data.activeCount : this.data.passiveCount;
       const type = countType === 'active' ? 'active(s)' : 'inactive(s)';
