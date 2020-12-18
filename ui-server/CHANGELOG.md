@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.43+20201218150752
+2020-12-18
+
+### Fixes
+
+- [2193] modification de l'appel à la recherche d'offres (afbd7ef200f2c30e77bec9b8ab6be86b2e03a9ad)
+
 ## 1.17.0-master.42+20201218094732
 2020-12-18
 
