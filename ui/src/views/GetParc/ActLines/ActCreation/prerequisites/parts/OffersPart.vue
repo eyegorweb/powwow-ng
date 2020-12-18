@@ -48,7 +48,8 @@ export default {
   },
   methods: {
     async searchOffers(q, page = 0) {
-      if (this.billingAccountMandatory && !this.chosenBillingAccount) return;
+      // TODO à valider avec @jpquere
+      // if (this.billingAccountMandatory && !this.chosenBillingAccount) return;
 
       if (this.partner) {
         if (this.partner.id) {
