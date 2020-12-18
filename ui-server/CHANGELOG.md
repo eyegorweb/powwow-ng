@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.42+20201218094732
+2020-12-18
+
+### Features
+
+- [2201] affichage des infos de marqueurs dans un tooltip lors du survol de la carte getvision (2d3779cb40641b53ca2318d4fed822d768ccc1db)
+
 ## 1.17.0-master.41+20201217161826
 2020-12-17
 
