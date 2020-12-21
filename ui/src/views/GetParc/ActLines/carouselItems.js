@@ -26,7 +26,7 @@ export default excludeMocked([
   {
     icon: 'ic-Edit-Icon',
     title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
-    stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
+    stepTitle: 'getparc.tCreation.step2Titles.CUSTOM_FIELDS',
     subtitle: '',
     selected: false,
     hideForMVNO: true,
@@ -272,7 +272,7 @@ export default excludeMocked([
         values: [
           {
             id: 'demandeDeResiliation',
-            label: 'demandeDeResiliation',
+            label: 'Demande de résiliation',
           },
         ],
       },

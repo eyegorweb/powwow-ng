@@ -302,7 +302,7 @@ export default {
               values: [
                 {
                   id: 'demandeDeResiliation',
-                  label: 'demandeDeResiliation',
+                  label: this.$t('getparc.actLines.commercialStatuses.demandeDeResiliation'),
                 },
               ],
             },

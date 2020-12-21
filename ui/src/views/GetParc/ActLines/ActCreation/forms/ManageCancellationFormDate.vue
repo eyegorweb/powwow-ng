@@ -26,19 +26,17 @@
 <script>
 // import UiCheckbox from '@/components/ui/Checkbox';
 import UiDate from '@/components/ui/UiDate';
+import moment from 'moment';
 
 export default {
   components: {
     // UiCheckbox,
     UiDate,
   },
-  data() {
-    return {
-      chosenDate: undefined,
-      // applyCharges: false,
-    };
-  },
   computed: {
+    chosenDate() {
+      return moment().format('DD/MM/YY, HH:mm');
+    },
     canValidate() {
       return this.chosenDate ? true : false;
     },
