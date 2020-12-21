@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.46+20201221153339
+2020-12-21
+
+### Features
+
+- [2227] ajouter un bouton d'export coach M2M (b3123a230afc7c786f3d7226c4b10f743e960ca9)
+
 ## 1.17.0-master.45+20201221111515
 2020-12-21
 
