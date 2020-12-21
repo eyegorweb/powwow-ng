@@ -27,7 +27,11 @@
           {{ selectedLine.iccid }}
         </div>
       </template>
-      <slot v-if="selectedLine" :selectedLine="selectedLine" />
+      <slot
+        v-if="selectedLine"
+        :selectedLine="selectedLine"
+        :foundSingleResult="foundSingleResult"
+      />
     </template>
     <template v-else-if="noResult">
       <div class="mt-2 alert alert-primary">
@@ -61,6 +65,7 @@ export default {
       selectedLine: undefined,
       isLoading: false,
       noResult: false,
+      foundSingleResult: false
     };
   },
 
@@ -81,6 +86,7 @@ export default {
       this.isLoading = true;
       this.searchByIdValue = filterObj.value;
       this.$emit('searchedId', this.searchByIdValue);
+      this.foundSingleResult = false;
       const result = await searchLines({ key: 'id', direction: 'DESC' }, { page: 0, limit: 1 }, [
         filterObj,
       ]);
@@ -89,6 +95,8 @@ export default {
         this.rows = result.items;
         if (this.rows && this.rows.length === 1) {
           this.selectedLine = this.rows[0];
+          this.$emit('singleResult', this.selectedLine);
+          this.foundSingleResult = true;
         }
       } else {
         this.noResult = true;

@@ -7,6 +7,7 @@
           :key="testNumber"
           :ap-id="line1ApId"
           @apiError="canCompare = false"
+          @coachData="line1CoachData = $event"
         />
       </div>
       <div v-if="compareMode" class="col">
@@ -17,16 +18,33 @@
           </template>
         </h5>
 
-        <SearchLineWithResults v-if="!line2" v-slot:default="{ selectedLine }">
-          <UiButton variant="primary" @click.stop="() => startComparison(selectedLine)" block>{{
-            $t('coach.testLine')
-          }}</UiButton>
+        <SearchLineWithResults
+          v-if="!line2"
+          @singleResult="startComparison($event)"
+          v-slot:default="{ selectedLine, foundSingleResult }"
+        >
+          <UiButton
+            v-if="!foundSingleResult"
+            variant="primary"
+            @click.stop="() => startComparison(selectedLine)"
+            block
+            >{{ $t('coach.testLine') }}</UiButton
+          >
         </SearchLineWithResults>
-        <CoachPanelIndicatorsRunner v-else :ap-id="line2ApId" />
+        <CoachPanelIndicatorsRunner
+          v-else
+          :ap-id="line2ApId"
+          @coachData="line2CoachData = $event"
+        />
       </div>
     </div>
     <div slot="footer" class="action-buttons" v-if="canCompare">
       <template v-if="!compareMode">
+        <div>
+          <UiButton variant="import" @click.stop="() => exportLineCoach()" block>{{
+            $t('export')
+          }}</UiButton>
+        </div>
         <div>
           <UiButton variant="import" block @click="testNumber++">{{ $t('coach.reTest') }}</UiButton>
         </div>
@@ -60,6 +78,9 @@ import CoachPanelIndicatorsRunner from './CoachPanelIndicatorsRunner';
 import UiButton from '@/components/ui/Button';
 import SearchLineWithResults from './SearchLineWithResults';
 import get from 'lodash.get';
+import { exportCoach } from '@/api/coach';
+import { mapMutations } from 'vuex';
+import { getBaseURL } from '@/utils.js';
 
 export default {
   components: {
@@ -78,9 +99,16 @@ export default {
       compareMode: false,
       canCompare: true,
       testNumber: 0,
+      line1CoachData: undefined,
+      line2CoachData: undefined,
+
     };
   },
   methods: {
+    ...mapMutations([
+      'flashMessage',
+      'startDownload',
+    ]),
     startCompare() {
       this.$emit('setWidth', '60%');
       this.line2 = undefined;
@@ -93,6 +121,19 @@ export default {
       this.$emit('setWidth', '30%');
       this.compareMode = false;
       this.line2 = undefined;
+    },
+
+    async exportLineCoach() {
+      try {
+        const downloadResponse = await exportCoach([this.line1CoachData.id]);
+        if (downloadResponse && downloadResponse.downloadUri) {
+          this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+        }
+      } catch {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      }
+
+
     },
   },
 
