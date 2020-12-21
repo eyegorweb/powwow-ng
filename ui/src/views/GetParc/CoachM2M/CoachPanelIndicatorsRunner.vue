@@ -77,6 +77,7 @@ export default {
       ];
     }
     this.coachData = await startAnalysis(this.apId);
+    this.$emit('coachData', this.coachData)
     if (this.coachData) {
       this.standardsIndicators = this.standardsIndicators.map(i => {
         switch (i.title) {
