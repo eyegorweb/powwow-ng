@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.45+20201221111515
+2020-12-21
+
+### Fixes
+
+- 2218 Plusieurs problèmes sur la gestion des résliation (0bb8354ffe044237b87bccae22943aeb8665b468)
+
 ## 1.17.0-master.44+20201221093122
 2020-12-21
 
