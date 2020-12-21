@@ -50,6 +50,9 @@ export default {
     id: idFilter,
     type: new MultiSelectFilter(4),
     billingStatus: new MultiSelectFilter(10),
+    close() {
+      cy.waitGet(`.ic-Arrow-Up-Icon`).click();
+    },
   },
 
   getTotal(onTotalLoaded) {

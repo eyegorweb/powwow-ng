@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cmp-billing-account-choice">
     <h6>{{ $t('getparc.actLines.billingAccount') }}</h6>
     <UiApiAutocomplete
       :items="billingAccounts"

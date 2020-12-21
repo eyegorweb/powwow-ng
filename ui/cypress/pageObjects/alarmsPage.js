@@ -22,6 +22,9 @@ export default {
     billingAccount: new MultiSelectFilter(2),
     offer: new MultiSelectFilter(3),
     alarmRange: new MultiSelectFilter(4),
+    close() {
+      cy.waitGet(`.ic-Arrow-Up-Icon`).click();
+    },
   },
   idSearch: {
     typeId(id) {

@@ -13,6 +13,10 @@ export function MultiSelectFilter(index) {
   this.filter = searchTerm => {
     filterBarSelectors.filterBarItems(this.myIndex).multiselect.filter(searchTerm);
   };
+
+  this.closeFilter = () => {
+    filterBarSelectors.filterBarItems(this.myIndex).close();
+  }
 }
 
 export const partnersFilter = new MultiSelectFilter(1);

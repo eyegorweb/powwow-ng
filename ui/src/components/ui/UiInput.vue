@@ -1,5 +1,6 @@
 <template>
   <label
+    class="cmp-ui-input"
     :class="{
       'has-icon': $slots.icon,
       error: !!error,

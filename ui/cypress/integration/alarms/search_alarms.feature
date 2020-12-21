@@ -9,10 +9,12 @@ Feature: Recherche d'alarmes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
+  @focus
   Scenario: Recherche par plusieurs filtres
     Given en tant que BO
     And je suis sur la page recherche d'alarmes
     And je choisis le filtre partenaire "lyra"
+    And je ferme le pannel du filtre
     And je choisis le filtre offre "Parc 2"
     When je lance la recherche
     Then la table contient plus de 0 resultat

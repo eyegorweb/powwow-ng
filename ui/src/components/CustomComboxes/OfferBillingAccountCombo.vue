@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cmp-offer-billing-account-combo">
     <div v-if="!partner" class="alert alert-warning">{{ $t('chooseOnePartner') }}</div>
     <UiSelect v-else class="text-gray" block v-model="selectedValue" :options="options" />
   </div>

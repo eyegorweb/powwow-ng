@@ -1,6 +1,6 @@
-  Feature: detail des lignes
+Feature: detail des lignes
 
-    Je veux tester le detail des lignes
+  Je veux tester le detail des lignes
 
   Scenario: je veux verifier l'en cours d'une ligne activée
     Given en tant que BO
