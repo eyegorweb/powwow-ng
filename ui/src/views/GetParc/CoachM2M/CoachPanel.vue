@@ -2,7 +2,7 @@
   <BaseDetailPanelContent>
     <div class="row indicators-line">
       <div class="col left-side">
-        <h5 v-if="compareMode">{{ $t('coach.currentLine', { lineId: content.id }) }}</h5>
+        <h5 v-if="compareMode">{{ $t('coach.currentLine', { lineId: content.msisdn }) }}</h5>
         <CoachPanelIndicatorsRunner
           :key="testNumber"
           :ap-id="line1ApId"

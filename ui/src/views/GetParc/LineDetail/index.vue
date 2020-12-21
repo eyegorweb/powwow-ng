@@ -145,7 +145,7 @@ export default {
       this.openPanel({
         title: this.$t('coach.title'),
         panelId: 'coach.title',
-        payload: this.lineData,
+        payload: { ...this.lineData, msisdn: this.msisdn },
         wide: false,
         backdrop: false,
         ignoreClickAway: true,
