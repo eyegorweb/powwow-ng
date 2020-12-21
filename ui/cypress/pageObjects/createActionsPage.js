@@ -122,13 +122,13 @@ export default {
           .click()
           .type(billingAccountName)
           .wait(400)
-          .waitGet('.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result')
+          .waitGet(
+            '.row > :nth-child(2) > .position-relative > .form-group > .autocomplete-results > .autocomplete-result'
+          )
           .click();
       },
       selectoffer(offerName) {
-        cy.waitGet(
-          ':nth-child(1) > .position-relative > .form-group > .form-control'
-        )
+        cy.waitGet(':nth-child(1) > .position-relative > .form-group > .form-control')
           .click()
           .type(offerName)
           .wait(200)
@@ -138,7 +138,11 @@ export default {
           .click();
       },
       selectNewBillingAccount(billingAccountName) {
-        cy.waitGet('.col-7 > .position-relative > .form-group > .form-control')
+        console.log(
+          '🚀 ~ file: createActionsPage.js ~ line 141 ~ selectNewBillingAccount ~ billingAccountName',
+          billingAccountName
+        );
+        cy.waitGet('.cmp-billing-account-choice > .position-relative > .form-group > .form-control')
           .click()
           .type(billingAccountName)
           .wait(200)

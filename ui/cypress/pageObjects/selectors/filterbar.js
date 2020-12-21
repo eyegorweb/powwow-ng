@@ -5,25 +5,7 @@ export const filterBarItems = blocIndex => {
     },
     multiselect: {
       filter(term) {
-        const searchBtnWhenItsPartnerFilter = `.foldable-block:nth-child(${blocIndex}) > .pt-3 > div > div > .container > .search-input > .has-icon > input`;
-        const searchBtnWhenItsNotPartnerFilter = `.foldable-block:nth-child(${blocIndex}) > .pt-3 > div > .container > .search-input > .has-icon > input`;
-        const searchWhenNoClassContainer = `.foldable-block:nth-child(${blocIndex}) > .pt-3 > div > div > div > label > input`;
-        const searchForBills = `.foldable-block:nth-child(${blocIndex}) > .pt-3 > div > div > fieldset > input`;
-
-        cy.waitGet('body').then($body => {
-          if (!!$body.find(searchBtnWhenItsPartnerFilter).length)
-            cy.waitGet(searchBtnWhenItsPartnerFilter).type(term);
-          else if (!!$body.find(searchForBills).length)
-            cy.waitGet(searchForBills).type(term);
-          else if (!!$body.find(searchBtnWhenItsNotPartnerFilter).length)
-            cy.waitGet(searchBtnWhenItsNotPartnerFilter).type(term);
-          else if (!!$body.find(searchWhenNoClassContainer).length)
-            cy.waitGet(searchWhenNoClassContainer).type(term);
-          else
-            cy.waitGet(
-              `.foldable-block:nth-child(${blocIndex}) > .pt-3 > .container > .search-input > .has-icon > input`
-            ).type(term);
-        });
+            cy.waitGet('.is-open .has-icon > input').type(term);
       },
       choose(checkboxIndex) {
         cy.waitGet(

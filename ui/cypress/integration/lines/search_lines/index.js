@@ -19,9 +19,14 @@ When(`je lance la recherche par ID {string}`, id => {
   cy.wait(500);
 });
 
+Then(`je ferme le pannel du filtre`, () => {
+  linesPage.filterBar.close();
+})
+
 When(`je clique sur retour`, () => {
   lineDetailPage.goBack();
 });
+
 Then(`la table contient les résultats de la page précédente`, () => {
   linesPage.getRows(elements => {
     expect(elements.length).to.be.above(0);

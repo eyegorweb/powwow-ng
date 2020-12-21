@@ -38,6 +38,10 @@ When(`je lance la recherche par ID {string}`, id => {
   cy.wait(500);
 });
 
+Then(`je ferme le pannel du filtre`, () => {
+  alarmsPage.filterBar.close();
+})
+
 When(`je lance la recherche`, () => {
   alarmsPage.filterBar.apply();
   cy.wait(500);

@@ -47,6 +47,7 @@ Given(`je choisis l'acte de changement de CF par défaut`, () => {
   createActionsPage.actions.changeBillingAccount.selectBillingAccount('6.42661 - LYRA');
   createActionsPage.actions.changeBillingAccount.selectoffer('Parc 2 forfait');
   createActionsPage.actions.changeBillingAccount.apply();
+  
   createActionsPage.actions.changeBillingAccount.selectNewBillingAccount('6.42662 - 6.42661');
 });
 

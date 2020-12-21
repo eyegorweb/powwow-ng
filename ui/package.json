@@ -16,8 +16,9 @@
     "serve:prod": "yarn build --mode fullstack && serve -s dist -l 8081",
     "test:dev": "yarn test:unit --watchAll",
     "test:unit": "vue-cli-service test:unit",
-    "e2e:open": "cypress open -e 'TAGS=not @ignore'",
-    "e2e": "./node_modules/.bin/cypress-tags run -e TAGS='not @ignore'"
+    "e2e:open": "cypress open ",
+    "e2e": "./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\"",
+    "e2e:dashboard": "./node_modules/.bin/cypress-tags run -e TAGS=\"not @ignore\" --record --key ci-tests --parallel "
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",

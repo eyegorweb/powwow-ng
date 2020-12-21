@@ -6,6 +6,7 @@
     @scroll:limit="nextPage"
     :collapsed="collapsed"
     :contains-search="containsSearch"
+    :className="className"
   />
 </template>
 
@@ -37,6 +38,10 @@ export default {
     fetchApi: Function,
     collapsed: Boolean,
     containsSearch: Boolean,
+    className: {
+      type: String,
+      required: false
+    }
   },
 
   async mounted() {

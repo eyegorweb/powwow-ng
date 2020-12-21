@@ -1,5 +1,9 @@
 <template>
-  <div class="container bg-white clearfix pb-3 items-search" ref="container">
+  <div
+    class="container bg-white clearfix pb-3 items-search cmp-multi-select-search"
+    :class="className"
+    ref="container"
+  >
     <SearchInput
       :items="items"
       :fields="inputFields"
@@ -114,6 +118,10 @@ export default {
       type: String,
       required: false,
     },
+    className: {
+      type: String,
+      required: false
+    }
   },
 
   data() {

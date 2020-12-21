@@ -57,3 +57,5 @@ ui-server/src/main/resources/public
 
 ui/cypress/videos/
 ui/cypress/screenshots
+
+ui/debug.Log
