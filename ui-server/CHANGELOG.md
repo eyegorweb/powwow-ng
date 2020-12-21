@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.44+20201221093122
+2020-12-21
+
+### Fixes
+
+- Afficher le MSISDN dans le panel de comparaison du coach M2M (bd1fe1c3c4cc7037d8024f73301a45e9e7874064)
+
 ## 1.17.0-master.43+20201218150752
 2020-12-18
 
