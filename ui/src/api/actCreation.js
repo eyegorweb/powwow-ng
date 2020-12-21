@@ -1,5 +1,6 @@
 import { query, boolStr, formatServicesForGQL } from './utils';
 import { formatFilters } from './linesActions';
+import moment from 'moment';
 
 async function actCreationMutation(filters, lines, creationActFn) {
   let gqlFilter = '';
@@ -259,9 +260,15 @@ export async function manageCancellation(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { dueDate, partyId, validate, tempDataUuid } = params;
 
+    console.log(tempDataUuid);
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;
+    }
+
+    let gqlDueDate = '';
+    if (dueDate) {
+      gqlDueDate = moment(dueDate, 'DD/MM/YY HH:mm').format('DD/MM/YYYY HH:mm:ss');
     }
 
     const queryStr = `
@@ -273,7 +280,7 @@ export async function manageCancellation(filters, lines, params) {
             notification: false,
             validate: ${validate},
             partyId: ${partyId},
-            dueDate: "${dueDate}",
+            dueDate: "${gqlDueDate}",
             ${gqlTempDataUuid}
           }
       )
@@ -476,7 +483,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }

@@ -201,7 +201,7 @@ export default {
       const response = await this.validateFn({
         actDate: this.actDate,
         notificationCheck: this.notificationCheck,
-        tempDataUuid: this.tempDataUuid.tempDataUuid,
+        tempDataUuid: this.tempDataUuid,
       });
       if (response) {
         this.onSuccess();
