@@ -69,9 +69,9 @@ export async function findCoach(accessPointId) {
   return undefined;
 }
 
-export async function exportCoach(ids) {
+export async function simpleExport(ids) {
   const queryStr = `
-  query ExportCoach($ids: [Long!]!) {
+  query SimpleExport($ids: [Long!]!) {
     exportCoach(ids: $ids) {
       downloadUri
       total
@@ -80,6 +80,19 @@ export async function exportCoach(ids) {
   }`;
 
   const response = await query(queryStr, { ids });
-  console.log('🚀 ~ file: coach.js ~ line 83 ~ exportCoach ~ response', response);
   return response.data.exportCoach;
+}
+
+export async function advancedExport(ids) {
+  const queryStr = `
+  query AdvancedExport($ids: [Long!]!) {
+    exportCoachPlus(ids: $ids) {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }`;
+
+  const response = await query(queryStr, { ids });
+  return response.data.exportCoachPlus;
 }
