@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.49+20201222135015
+2020-12-22
+
+### Fixes
+
+- [2236] corriger le format de dates dans le changement ICCID (9766d9c35ab85909fc2fbe6a81f309edcc5e1acd)
+- [836] Bug sur le widget des factures + yarnlint (7e90d60d5fe8fe71191248da47aa7b01695e2cdb)
+
 ## 1.17.0-master.48+20201222105912
 2020-12-22
 
