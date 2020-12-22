@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.47+20201222095858
+2020-12-22
+
+### Fixes
+
+- 2114 Debug export etat du parc dans le dashboard (706a655ae2a36f73114e34ba3d837ae2d959f517)
+
 ## 1.17.0-master.46+20201221153339
 2020-12-21
 
