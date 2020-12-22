@@ -33,7 +33,7 @@
       @save="$emit('save', $event)"
       :can-save="canSave"
       :partner="selectedPartner"
-      :noSuspension="noSuspension"
+      :no-suspension="noSuspension"
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
     />

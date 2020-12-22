@@ -156,7 +156,7 @@ export default {
       this.confirmAction({
         message: 'confirmAction',
         actionFn: async () => {
-          const response = await disableOffer(this.partner.id, offer.id);
+          await disableOffer(this.partner.id, offer.id);
           doReset();
         },
       });

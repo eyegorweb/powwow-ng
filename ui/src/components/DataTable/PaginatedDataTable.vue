@@ -6,6 +6,8 @@
     <div v-if="isError" class="alert alert-light" role="alert">{{ $t('requestError') }}</div>
     <DataTable
       v-if="!isError && orderBy"
+      :storage-id="storageId"
+      :storage-version="storageVersion"
       :columns.sync="columns"
       :rows="rows || []"
       :page.sync="page"
@@ -53,6 +55,14 @@ export default {
           direction: 'DESC',
         };
       },
+    },
+    storageId: {
+      type: String,
+      required: false,
+    },
+    storageVersion: {
+      type: String,
+      required: false,
     },
   },
   components: {

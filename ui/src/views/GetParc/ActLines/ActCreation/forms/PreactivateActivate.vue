@@ -247,7 +247,7 @@ export default {
       }
       this.waitForReportConfirmation = false;
     },
-    checkErrors() { },
+    checkErrors() {},
 
     async loadCustomFields() {
       this.allCustomFields = await fetchCustomFields(this.partner.id);
