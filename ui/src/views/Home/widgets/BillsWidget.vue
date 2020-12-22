@@ -31,15 +31,15 @@ export default {
   data() {
     return {
       bills: undefined,
-    }
+    };
   },
 
   computed: {
-    ...mapGetters(['userIsPartner','singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner']),
   },
-  async mounted () {
+  async mounted() {
     this.bills = await fetchBillsById(this.singlePartner.id);
-    console.log(this.userIsPartner)
+    console.log(this.userIsPartner);
   },
 
   methods: {
@@ -65,7 +65,6 @@ export default {
 
 <style lang="scss" scoped>
 .table {
-
   .cursorP {
     cursor: pointer;
   }

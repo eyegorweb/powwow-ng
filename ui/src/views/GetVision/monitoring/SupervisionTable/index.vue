@@ -9,6 +9,8 @@
     </div>
     <template v-if="indicatorTotal < 500">
       <PaginatedDataTable
+        storage-id="supervision.table"
+        storage-version="001"
         :key="version"
         :columns="columns"
         :fetch-data-fn="fetchDataFn()"
@@ -52,7 +54,6 @@
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
-import uuid from 'uuid/v1';
 import UiButton from '@/components/ui/Button';
 import ExportButton from '@/components/ExportButton';
 import { geoListExport, geoCounterListExport } from '@/api/supervision.js';
@@ -79,7 +80,7 @@ export default {
 
       columns: [
         {
-          id: uuid(),
+          id: '1',
           label: this.$t('getparc.actDetail.col.iccid'),
           orderable: true,
           visible: true,
@@ -90,7 +91,7 @@ export default {
           },
         },
         {
-          id: uuid(),
+          id: '2',
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
           orderable: true,
@@ -99,7 +100,7 @@ export default {
           noHandle: true,
         },
         {
-          id: uuid(),
+          id: '3',
           label: this.$t('getparc.actDetail.col.imsi'),
           orderable: true,
           visible: false,
@@ -107,7 +108,7 @@ export default {
           sortingName: 'imsi',
         },
         {
-          id: uuid(),
+          id: '4',
           label: this.$t('filters.country'),
           orderable: true,
           visible: true,
@@ -121,7 +122,7 @@ export default {
           },
         },
         {
-          id: uuid(),
+          id: '5',
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.operator'
           ),
@@ -130,7 +131,7 @@ export default {
           name: 'operatorName',
         },
         {
-          id: uuid(),
+          id: '6',
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.plmn'
           ),
@@ -140,7 +141,7 @@ export default {
           sortingName: 'plmn',
         },
         {
-          id: uuid(),
+          id: '7',
           label: this.$t('filters.postalCode'),
           orderable: true,
           visible: true,
@@ -148,14 +149,14 @@ export default {
           sortingName: 'zipcode',
         },
         {
-          id: uuid(),
+          id: '8',
           label: this.$t('filters.city'),
           orderable: false,
           visible: false,
           name: 'city',
         },
         {
-          id: uuid(),
+          id: '9',
           label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.cellId'
           ),
@@ -165,7 +166,7 @@ export default {
           sortingName: 'cellid',
         },
         {
-          id: uuid(),
+          id: '10',
           label: this.$t('filters.lastUsage'),
           orderable: true,
           visible: false,
@@ -173,7 +174,7 @@ export default {
           sortingName: 'lastUsageDate',
         },
         {
-          id: uuid(),
+          id: '11',
           label: this.$t('filters.usageType'),
           orderable: true,
           visible: false,
@@ -181,21 +182,21 @@ export default {
           sortingName: 'lastUsageType',
         },
         {
-          id: uuid(),
+          id: '12',
           label: this.$t('filters.direction'),
           orderable: false,
           visible: false,
           name: 'lastDirection',
         },
         {
-          id: uuid(),
+          id: '13',
           label: this.$t('getparc.lineDetail.tab2.lineAnalysisContent.technology'),
           orderable: false,
           visible: false,
           name: 'technology',
         },
         {
-          id: uuid(),
+          id: '14',
           label: this.$t('filters.pdpStatus'),
           orderable: true,
           visible: false,
@@ -203,7 +204,7 @@ export default {
           sortingName: 'lastPdpConStatus',
         },
         {
-          id: uuid(),
+          id: '15',
           label: this.$t('filters.actDateStart'),
           orderable: true,
           visible: false,
@@ -211,7 +212,7 @@ export default {
           sortingName: 'lastPdpConStartDate',
         },
         {
-          id: uuid(),
+          id: '16',
           label: this.$t('filters.actDateEnd'),
           orderable: true,
           visible: false,
@@ -219,7 +220,7 @@ export default {
           sortingName: 'lastPdpConEndDate',
         },
         {
-          id: uuid(),
+          id: '17',
           label: this.$t('getparc.actDetail.col.imei'),
           orderable: true,
           visible: false,
@@ -227,14 +228,14 @@ export default {
           sortingName: 'imei',
         },
         {
-          id: uuid(),
+          id: '18',
           label: this.$t('getadmin.partnerDetail.contactDetail'),
           orderable: true,
           visible: false,
           name: 'address',
         },
         {
-          id: uuid(),
+          id: '19',
           label: this.$t('filters.lines.networkStatus'),
           orderable: true,
           visible: false,
@@ -242,7 +243,7 @@ export default {
           sortingName: 'networkStatus',
         },
         {
-          id: uuid(),
+          id: '20',
           label: this.$t('col.offer'),
           orderable: true,
           visible: false,
@@ -250,7 +251,7 @@ export default {
           sortingName: 'offerLabel',
         },
         {
-          id: uuid(),
+          id: '21',
           label: this.$t('col.partner'),
           orderable: false,
           visible: false,

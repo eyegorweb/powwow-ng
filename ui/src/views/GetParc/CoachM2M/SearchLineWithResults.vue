@@ -65,7 +65,7 @@ export default {
       selectedLine: undefined,
       isLoading: false,
       noResult: false,
-      foundSingleResult: false
+      foundSingleResult: false,
     };
   },
 

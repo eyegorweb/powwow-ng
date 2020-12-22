@@ -23,7 +23,6 @@
 <script>
 import BaseForm from './BaseForm';
 import { changeSingleMSISDN } from '@/api/actCreation';
-import get from 'lodash.get';
 import IdInput from '@/components/IdInput';
 import FormReport from './FormReport';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';

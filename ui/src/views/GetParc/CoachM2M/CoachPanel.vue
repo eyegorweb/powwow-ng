@@ -87,7 +87,6 @@ import { mapMutations, mapGetters } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
-
 export default {
   components: {
     BaseDetailPanelContent,
@@ -108,8 +107,7 @@ export default {
       testNumber: 0,
       line1CoachData: undefined,
       line2CoachData: undefined,
-      exportOptions: undefined
-
+      exportOptions: undefined,
     };
   },
   mounted() {
@@ -120,10 +118,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'flashMessage',
-      'startDownload',
-    ]),
+    ...mapMutations(['flashMessage', 'startDownload']),
     startCompare() {
       this.$emit('setWidth', '60%');
       this.line2 = undefined;

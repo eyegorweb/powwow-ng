@@ -12,12 +12,12 @@ export default {
   },
 
   methods: {
-    onClick() { },
+    onClick() {},
   },
   computed: {
     msisdn() {
       return getFromLatestLineFromAccessPoint(this.row.accessPoint, 'msisdn');
-    }
+    },
   },
 };
 </script>

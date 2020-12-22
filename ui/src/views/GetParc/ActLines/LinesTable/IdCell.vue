@@ -5,7 +5,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import { setTimeout } from 'timers';
-import get from 'lodash.get';
 
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 

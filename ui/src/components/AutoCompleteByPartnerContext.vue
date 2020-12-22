@@ -6,7 +6,7 @@
     @scroll:limit="nextPage"
     :collapsed="collapsed"
     :contains-search="containsSearch"
-    :className="className"
+    :class-name="className"
   />
 </template>
 
@@ -40,8 +40,8 @@ export default {
     containsSearch: Boolean,
     className: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
 
   async mounted() {

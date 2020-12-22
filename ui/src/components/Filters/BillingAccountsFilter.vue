@@ -3,7 +3,7 @@
     :values="selectedBillingAccountsValues"
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
-    className="cmp-billing-account-filter"
+    class-name="cmp-billing-account-filter"
     @update:values="setBillingAccountsFilter"
   />
 </template>

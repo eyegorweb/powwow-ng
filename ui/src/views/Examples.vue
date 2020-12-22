@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       version: 0,
-      chosen: undefined
+      chosen: undefined,
     };
   },
 };

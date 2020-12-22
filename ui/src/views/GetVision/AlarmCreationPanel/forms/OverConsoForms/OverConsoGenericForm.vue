@@ -196,7 +196,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .line-container {
   display: flex;
   .value {
@@ -250,8 +249,6 @@ export default {
         color: white;
       }
     }
-
-
   }
 }
 </style>

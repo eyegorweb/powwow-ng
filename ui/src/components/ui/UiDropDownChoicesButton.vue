@@ -1,5 +1,5 @@
 <template>
-  <UiDropdownButton :menuStyle="menuStyle">
+  <UiDropdownButton :menu-style="menuStyle">
     <UiButton
       slot="trigger"
       slot-scope="{ staticClass, toggle }"
@@ -34,7 +34,7 @@ import UiButton from '@/components/ui/Button';
 export default {
   components: {
     UiDropdownButton,
-    UiButton
+    UiButton,
   },
   props: {
     options: Array, // String[]
@@ -42,7 +42,7 @@ export default {
       type: Object,
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
