@@ -18,8 +18,10 @@
             @change="onActDateChange"
             :value="actDate"
             class="d-block large-date-picker"
+            direction="down"
             fixed
             large
+            time-picker
           ></UiDate>
         </div>
         <div class="col">
@@ -59,7 +61,7 @@ export default {
     UiCheckbox,
   },
   mounted() {
-    this.actDate = moment().format('DD/MM/YYYY');
+    this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
   },
   data() {
     return {
