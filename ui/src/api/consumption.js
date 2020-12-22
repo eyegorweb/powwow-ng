@@ -53,6 +53,13 @@ export async function parcStatusInfoExport(id, format, period) {
         CUSTOMER_ACCOUNT_CODE
         CUSTOMER_ACCOUNT_NAME
         PREACTIVATED
+        IN_TEST
+        ACTIVATED
+        SUSPENDED
+        CANCELLATION_IN_PROGRESS
+        RELEASED
+        BILLED
+        NOT_ACTIVATED
       ]
       exportFormat:${format})
     {
