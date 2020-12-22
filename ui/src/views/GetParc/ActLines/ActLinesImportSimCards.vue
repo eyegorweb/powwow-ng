@@ -54,7 +54,7 @@
             </ul>
             <div v-if="fileResponse.tempDataUuid" class="mt-5">
               <button
-                :disabled="!fileResponse.validated"
+                :disabled="!fileResponse.validated || onLoad"
                 @click="confirmRequest(true)"
                 class="btn btn-block"
                 :class="{
@@ -97,6 +97,7 @@ export default {
   data() {
     return {
       selectedPartner: null,
+      onLoad: false,
       chosenBillingAccount: null,
       selectedTypeSimCard: undefined,
       localFileMeta: undefined,
@@ -161,6 +162,7 @@ export default {
       return;
     },
     async confirmRequest(showMessage = false) {
+      this.onLoad = true;
       const response = await importIccidsFromLines(
         this.selectedPartner.id,
         this.chosenBillingAccount.id,
@@ -171,6 +173,7 @@ export default {
       if (response.errors && response.errors.length) {
         this.fileResponse.errors = response.errors;
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        this.onLoad = true;
       } else {
         if (showMessage) {
           const successMessage = this.successMessage
