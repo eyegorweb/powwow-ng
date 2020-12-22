@@ -4,7 +4,7 @@
       <div class="col">
         <i class="icon ic-Calendar-Icon" />
       </div>
-      <div class="col-9 value" style="padding: 0;">
+      <div class="col-9 value" style="padding: 0">
         <span>{{ value }}</span>
       </div>
       <div>
@@ -150,7 +150,10 @@ export default {
     }
 
     .value {
-      font-size: 1rem;
+      font-size: 0.7rem;
+      justify-content: center;
+      flex-direction: column;
+      display: flex;
     }
   }
 }
