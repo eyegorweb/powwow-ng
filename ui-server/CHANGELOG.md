@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.50+20201222151549
+2020-12-22
+
+### Fixes
+
+- [2195] persistance des  colonne dans la supervision (71c14dbd96941e42f1b7cd057dcc3b758b3ee565)
+- [2238] Desactivation du bouton pendant le chargement de limport de sim dans getparc (e2383b90c33d099ad9900f83c402fc41bd5163a0)
+
 ## 1.17.0-master.49+20201222135015
 2020-12-22
 
