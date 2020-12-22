@@ -13,7 +13,7 @@
 
     <transition name="fade">
       <div
-        class="dropdown-menu shadow rounded-1 border-0 show pt-0 pb-0"
+        class="dropdown-menu shadow rounded-1 border-0 show p-0"
         :style="menuStyle"
         v-if="isOpen"
         v-clickaway="hide"

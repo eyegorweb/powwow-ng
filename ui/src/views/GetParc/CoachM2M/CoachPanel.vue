@@ -40,10 +40,14 @@
     </div>
     <div slot="footer" class="action-buttons" v-if="canCompare">
       <template v-if="!compareMode">
-        <div>
-          <UiButton variant="import" @click.stop="() => exportLineCoach()" block>{{
-            $t('export')
-          }}</UiButton>
+        <div v-if="exportOptions">
+          <UiDropDownChoicesButton
+            :options="exportOptions"
+            @click="doExport($event)"
+            :menu-style="{ position: 'relative', bottom: '6rem' }"
+          >
+            <span>{{ $t('export') }}</span>
+          </UiDropDownChoicesButton>
         </div>
         <div>
           <UiButton variant="import" block @click="testNumber++">{{ $t('coach.reTest') }}</UiButton>
@@ -78,15 +82,18 @@ import CoachPanelIndicatorsRunner from './CoachPanelIndicatorsRunner';
 import UiButton from '@/components/ui/Button';
 import SearchLineWithResults from './SearchLineWithResults';
 import get from 'lodash.get';
-import { exportCoach } from '@/api/coach';
-import { mapMutations } from 'vuex';
+import { simpleExport, advancedExport } from '@/api/coach';
+import { mapMutations, mapGetters } from 'vuex';
 import { getBaseURL } from '@/utils.js';
+import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
+
 
 export default {
   components: {
     BaseDetailPanelContent,
     CoachPanelIndicatorsRunner,
     UiButton,
+    UiDropDownChoicesButton,
     SearchLineWithResults,
   },
   props: {
@@ -101,8 +108,16 @@ export default {
       testNumber: 0,
       line1CoachData: undefined,
       line2CoachData: undefined,
+      exportOptions: undefined
 
     };
+  },
+  mounted() {
+    if (this.havePermission('getParc', 'manage_supervision')) {
+      this.exportOptions = ['coach.simpleExport', 'coach.advancedExport'];
+    } else {
+      this.exportOptions = ['coach.simpleExport'];
+    }
   },
   methods: {
     ...mapMutations([
@@ -123,21 +138,26 @@ export default {
       this.line2 = undefined;
     },
 
-    async exportLineCoach() {
+    async doExport(exportType) {
       try {
-        const downloadResponse = await exportCoach([this.line1CoachData.id]);
+        let downloadResponse;
+        if (exportType === 'coach.simpleExport') {
+          downloadResponse = await simpleExport([this.line1CoachData.id]);
+        } else {
+          downloadResponse = await advancedExport([this.line1CoachData.id]);
+        }
         if (downloadResponse && downloadResponse.downloadUri) {
           this.startDownload(getBaseURL() + downloadResponse.downloadUri);
         }
       } catch {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
-
-
     },
   },
 
   computed: {
+    ...mapGetters(['havePermission']),
+
     line1ApId() {
       return get(this.content, 'accessPoint.id');
     },

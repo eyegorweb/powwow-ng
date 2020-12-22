@@ -7,8 +7,9 @@
       <br />
       <button class="btn btn-primary mb-4" @click="version++">Refresh</button>
       <div :key="'ex_' + version">
-        {{ selectedOffer }}
-        <OfferCombo v-model="selectedOffer" />
+        <UiDropDownChoicesButton :options="['choice 1', 'choice 2']" @click="chosen = $event">
+          <span>Test</span>
+        </UiDropDownChoicesButton>
       </div>
     </div>
   </div>
@@ -18,18 +19,18 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
+import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
 
 export default {
   name: 'Examples',
   components: {
     SearchTranslationKey,
-    OfferCombo,
+    UiDropDownChoicesButton,
   },
   data() {
     return {
       version: 0,
-      selectedOffer: undefined,
+      chosen: undefined
     };
   },
 };

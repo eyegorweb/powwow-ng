@@ -324,6 +324,8 @@
     "currentLine": "Ligne actuelle {lineId}",
     "compareLine": "Ligne de comparaison",
     "apiError": "Impossible d'effectuer le diagnostic",
+    "simpleExport": "Export simple",
+    "advancedExport": "Export avancé",
     "indicators": {
       "lineStatus": "La carte SIM est-elle autorisée à trafiquer ?",
       "testData": "Le trafic data est-il possible ?",
