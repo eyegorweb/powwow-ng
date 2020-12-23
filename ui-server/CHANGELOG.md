@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.51+20201223104427
+2020-12-23
+
+### Fixes
+
+- [2232] ahouter l'id du partenaire dans la création des alarmes flotte (bfd50eec6f8ee1f090a8600e886a8cdc698c9a3a)
+
 ## 1.17.0-master.50+20201222151549
 2020-12-22
 
