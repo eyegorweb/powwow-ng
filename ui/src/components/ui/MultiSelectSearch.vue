@@ -51,6 +51,10 @@
           :value="results.map(r => r.item)"
           :checked="multiSelectValues(results.map(r => r.item))"
           @change="
+<<<<<<< HEAD
+            addAllToSelectedItems($event, results.map(r => r.item)),
+              updateTextLabel($event, results.map(r => r.item))
+=======
             addAllToSelectedItems(
               $event,
               results.map(r => r.item)
@@ -59,6 +63,7 @@
                 $event,
                 results.map(r => r.item)
               )
+>>>>>>> master
           "
           class="text-secondary"
           >{{ labelText }} ({{ results.length }})</UiCheckbox
@@ -69,12 +74,16 @@
           :value="result.item"
           :key="'ms_' + result.item.id"
           :disabled="isItemDisabled(result.item)"
+<<<<<<< HEAD
+          @change="updateTextLabel($event, results.map(r => r.item))"
+=======
           @change="
             updateTextLabel(
               $event,
               results.map(r => r.item)
             )
           "
+>>>>>>> master
         >
           <span v-html="result.highlighted.label" />
         </UiCheckbox>
