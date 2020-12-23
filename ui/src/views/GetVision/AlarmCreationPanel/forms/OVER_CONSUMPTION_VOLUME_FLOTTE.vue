@@ -201,7 +201,7 @@ export default {
         emailNotification: payload.sholdNotify,
         webServiceNotification: payload.webserviceNotification,
         mailingList: payload.notifList,
-        partner: this.partner,
+        partyId: payload.partner.id,
       };
 
       try {
