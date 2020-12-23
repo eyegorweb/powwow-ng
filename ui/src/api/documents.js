@@ -58,12 +58,14 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
           }
           auditable {
             created
+            creator
           }
         }
       }
     }
   `;
   const response = await query(queryStr);
+
   return response.data.documents;
 }
 

@@ -37,6 +37,7 @@ import DocumentCategoryFilter from './filters/DocumentCategoryFilter';
 import Actions from './Actions';
 import ReportModelFilter from './filters/ReportModelFilter';
 import get from 'lodash.get';
+import moment from 'moment';
 
 import { mapGetters } from 'vuex';
 
@@ -78,7 +79,8 @@ export default {
         format: {
           type: 'Getter',
           getter: row => {
-            return get(row, 'auditable.created', '-');
+            const created = moment(row.created, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm');
+            return created || '-';
           },
         },
       },
@@ -103,6 +105,23 @@ export default {
           type: 'Getter',
           getter: row => {
             return get(row, 'report.name', '-');
+          },
+        },
+        orderable: true,
+        visible: true,
+      },
+      {
+        id: 6,
+        label: this.$t('col.creator'),
+        name: 'report.auditable',
+        format: {
+          type: 'Getter',
+          getter: row => {
+            return (
+              get(row, 'auditable.creator.name.firstName', '-') +
+              ' ' +
+              get(row, 'auditable.creator.name.lastName', '-')
+            );
           },
         },
         orderable: true,
