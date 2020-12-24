@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.52+20201224084945
+2020-12-24
+
+### Features
+
+- [2208] Formatage de lheure et ajout du createur dans la table des documents + lint (9aaafdd19739a18ceaed8e68074719d2f7b0cb75)
+
+### Fixes
+
+- [0000] Correction de problèmes dans le code (27a61b6a80b5ca864934c5b8a639c78c6180937f)
+
 ## 1.17.0-master.51+20201223104427
 2020-12-23
 
