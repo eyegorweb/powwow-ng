@@ -1,6 +1,6 @@
 <template>
   <WidgetBloc large :scrolling="!!coachData" :widget="widget">
-    <div v-if="coachData" slot="header">
+    <div v-if="coachData" slot="header" style="padding-top: 0">
       <div class="d-flex return-btn">
         <button @click.prevent="returnToSearch()" class="btn btn-link back-btn p-0">
           <i class="ic-Arrow-Previous-Icon" />
@@ -21,7 +21,7 @@
           {{ $t('coach.apiError') }}
         </div>
       </template>
-      <div v-if="coachData">
+      <div v-if="coachData" style="padding-top: 0">
         <UiTabs :tabs="tabs" :selected-index="currentTab">
           <template slot-scope="{ tab, index, selectedIndex }">
             <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
