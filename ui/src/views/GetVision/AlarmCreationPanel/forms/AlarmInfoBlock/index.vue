@@ -127,7 +127,7 @@ export default {
         webserviceNotification: this.webserviceNotification,
         enableSuspension: this.enableSuspension,
         enableReactivation: this.enableReactivation,
-        partner: this.partner
+        partner: this.partner,
       });
     },
   },

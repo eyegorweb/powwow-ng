@@ -12,9 +12,7 @@
       </div>
       <div v-if="compareMode" class="col">
         <h5 v-if="compareMode">
-          <template v-if="line2"
-            >{{ $t('coach.compareLine', { lineId: line2.id }) }}
-          </template>
+          <template v-if="line2">{{ $t('coach.compareLine', { lineId: line2.id }) }} </template>
           <template v-else>
             {{ $t('coach.chooseLine') }}
           </template>
@@ -109,10 +107,7 @@ export default {
       testNumber: 0,
       line1CoachData: undefined,
       line2CoachData: undefined,
-<<<<<<< HEAD
-=======
       exportOptions: undefined,
->>>>>>> master
     };
   },
   mounted() {

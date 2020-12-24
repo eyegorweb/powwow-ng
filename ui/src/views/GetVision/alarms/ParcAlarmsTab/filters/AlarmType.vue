@@ -49,7 +49,10 @@ export default {
         return this.selectedData;
       },
       set(value) {
-        this.$emit('change', this.items.find(o => o.value === value));
+        this.$emit(
+          'change',
+          this.items.find(o => o.value === value)
+        );
       },
     },
   },
