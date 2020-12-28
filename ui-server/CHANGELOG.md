@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.54+20201228100231
+2020-12-28
+
+### Fixes
+
+- [2243] Correction du format de date dans les actes du détail de ligne (fd2d6acb1be010ae8a835b8c99e6305f5608a2dd)
+
 ## 1.17.0-master.53+20201228082744
 2020-12-28
 
