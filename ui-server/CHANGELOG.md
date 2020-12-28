@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.53+20201228082744
+2020-12-28
+
+### Fixes
+
+- [2079] Gestion des espacements sur les widgets (d860c06fc5af219bf7759d8071885fcf30e9adec)
+- [2241] Changement dans le fonctionnement du calendrier (953e4429e82ba66ef7e30dcd54903fdc794edc11)
+
 ## 1.17.0-master.52+20201224084945
 2020-12-24
 
