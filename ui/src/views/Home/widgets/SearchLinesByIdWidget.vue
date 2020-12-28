@@ -1,6 +1,6 @@
 <template>
-  <WidgetBloc :widget="widget" no-padding>
-    <div class="pl-3 pr-3 pb-3">
+  <WidgetBloc :widget="widget">
+    <div class="p-3">
       <SearchByLinesId @searchById="searchById" :inline="inline" disable-when-empty />
       <div v-if="lastSearchResult && noResults" class="alert-light" role="alert">
         {{ $t('noResult') }}
