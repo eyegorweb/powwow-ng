@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="d-flex align-items-center mb-2">
-      <UiDate @change="onDateChange" :value="chosenDate" time-picker class="mr-2">
+      <UiDate
+        @change="onDateChange"
+        :value="chosenDate"
+        :min-date="minDate"
+        time-picker
+        class="mr-2"
+      >
         <i slot="icon" class="select-icon ic-Flag-Icon" />
       </UiDate>
       <!-- <UiCheckbox v-model="applyCharges" />
@@ -33,9 +39,17 @@ export default {
     // UiCheckbox,
     UiDate,
   },
+  data() {
+    return {
+      chosenDate: undefined,
+    };
+  },
+  mounted() {
+    this.chosenDate = moment().format('DD/MM/YYYY HH:mm:ss');
+  },
   computed: {
-    chosenDate() {
-      return moment().format('DD/MM/YY, HH:mm');
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
     },
     canValidate() {
       return this.chosenDate ? true : false;

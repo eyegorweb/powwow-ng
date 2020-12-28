@@ -46,6 +46,7 @@ export default {
       required: false,
       default: 'up',
     },
+    minDate: String,
   },
   computed: {
     dateFormat() {
@@ -72,6 +73,7 @@ export default {
             drops: this.direction,
             timePicker: this.timePicker,
             timePicker24Hour: true,
+            minDate: this.minDate,
             locale: {
               format: this.dateFormat,
               separator: ' - ',

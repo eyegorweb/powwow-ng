@@ -19,10 +19,6 @@ When(`je lance la recherche par ID {string}`, id => {
   cy.wait(500);
 });
 
-Then(`je ferme le pannel du filtre`, () => {
-  linesPage.filterBar.close();
-})
-
 When(`je clique sur retour`, () => {
   lineDetailPage.goBack();
 });
@@ -37,24 +33,28 @@ Given(`je choisis le filtre partenaire {string}`, partnerName => {
   linesPage.filterBar.partner.toggle();
   linesPage.filterBar.partner.filter(partnerName);
   linesPage.filterBar.partner.choose(1);
+  linesPage.filterBar.close();
 });
 
 Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
   linesPage.filterBar.billingAccount.toggle();
   linesPage.filterBar.billingAccount.filter(billingAccount);
   linesPage.filterBar.billingAccount.choose(1);
+  linesPage.filterBar.close();
 });
 
 Given(`je choisis le filtre type {string}`, simType => {
   linesPage.filterBar.type.toggle();
   linesPage.filterBar.type.filter(simType);
   linesPage.filterBar.type.choose(1);
+  linesPage.filterBar.close();
 });
 
 Given(`je choisis le filtre offre {string}`, offer => {
   linesPage.filterBar.offer.toggle();
   linesPage.filterBar.offer.filter(offer);
   linesPage.filterBar.offer.choose(1);
+  linesPage.filterBar.close();
 });
 
 Given(`je choisis le filtre statut de facturation {string}`, billingStatus => {

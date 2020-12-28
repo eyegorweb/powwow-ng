@@ -1,5 +1,5 @@
 <template>
-  <div class="card filter-bar">
+  <div class="card filter-bar cmp-filter-bar">
     <div class="card-body" :class="[allFiltersVisible ? 'show-all-filters' : 'hide-all-filters']">
       <h5 class="card-title">{{ $t('filters.title') }}</h5>
       <SelectedFilters

@@ -5,7 +5,7 @@ export const filterBarItems = blocIndex => {
     },
     multiselect: {
       filter(term) {
-            cy.waitGet('.is-open .has-icon > input').type(term);
+        cy.waitGet('.is-open .cmp-ui-input input').type(term);
       },
       choose(checkboxIndex) {
         cy.waitGet(

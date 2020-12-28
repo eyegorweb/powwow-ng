@@ -1,18 +1,18 @@
 Feature: recherche d'utilisateur
 
-    je veux faire des tests sur la recherche d'utilisateur
+  je veux faire des tests sur la recherche d'utilisateur
 
-    Scenario: je recherche un utilisateur non existant
-      Given en tant que BO
-      And je suis sur la page de recherche d'utilisateurs
-      When je recherche l'utilisateur "nonExistentUser"
-      Then la table contient 0 resultat
+  Scenario: je recherche un utilisateur non existant
+    Given en tant que BO
+    And je suis sur la page de recherche d'utilisateurs
+    When je recherche l'utilisateur "nonExistentUser"
+    Then la table contient 0 resultat
 
   Scenario: je recherche un utilisateur déjà existant
-      Given en tant que BO
-      And je suis sur la page de recherche d'utilisateurs
-      When je recherche l'utilisateur "richard"
-      Then la table contient 1 resultat
+    Given en tant que BO
+    And je suis sur la page de recherche d'utilisateurs
+    When je recherche l'utilisateur "richard"
+    Then la table contient 1 resultat
 
   Scenario: je veux rechercher par filtre nom et prénom
     Given en tant que BO

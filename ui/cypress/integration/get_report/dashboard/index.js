@@ -14,6 +14,6 @@ When(`j'applique le filtre`, () => {
   getReportPage.dashboard.applyFilter();
 });
 
-Then(`le graphe s'affiche correctement`, () => {
-  getReportPage.dashboard.getGraphe().should('exist');
+Then(`le graphe historique de consommation s'affiche correctement`, () => {
+  getReportPage.dashboard.getHistoryConsoGraph().should('exist');
 });

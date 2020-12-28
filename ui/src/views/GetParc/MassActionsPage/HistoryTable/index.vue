@@ -232,7 +232,7 @@ export default {
       ],
       pageLimit: 20,
       orderBy: {
-        key: 'ID',
+        key: 'CREATED_DATE',
         direction: 'DESC',
       },
       showExtraCells: false,
