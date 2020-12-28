@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3">
+  <div class="mb-3 cmp-conso-history-data-graph">
     <chart v-if="chartOptions" :options="chartOptions" />
   </div>
 </template>

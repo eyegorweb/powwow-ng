@@ -1,4 +1,4 @@
-  Feature: Recherche de lignes
+Feature: Recherche de lignes
 
   Je veux chercher des lignes avec des filtres globaux
 
@@ -49,23 +49,16 @@
     When je lance la recherche par ID "288"
     Then la table contient 1 resultat
 
-  @ignore
   Scenario: je recherche plusieurs filtres
     Given en tant que BO
     And je suis sur la page recherche de lignes
     And je choisis le filtre partenaire "lyra"
-    And je ferme le pannel du filtre
     And je choisis le filtre compte de facturation "6.42661"
-    And je ferme le pannel du filtre
     And je choisis le filtre type "M2M sim sans code pin"
-    And je ferme le pannel du filtre
     And je choisis le filtre offre "Parc 1 forfait"
-    And je ferme le pannel du filtre
-    And je choisis le filtre id "142"
     When je lance la recherche
-    Then la table contient 1 resultat
+    Then la table contient 3 resultat
 
-  @ignore
   Scenario: je cherche par id de commande
     Given en tant que BO
     And je suis sur la page recherche de lignes

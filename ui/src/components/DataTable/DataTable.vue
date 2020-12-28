@@ -290,10 +290,6 @@ export default {
     },
     prepareColumns() {
       const columnsInLocalStorage = this.loadColumnsFromLocalStorage();
-      console.log(
-        '🚀 ~ file: DataTable.vue ~ line 293 ~ prepareColumns ~ columnsInLocalStorage',
-        columnsInLocalStorage
-      );
       if (columnsInLocalStorage && columnsInLocalStorage.length) {
         this.usableColumns = columnsInLocalStorage;
       } else {

@@ -7,4 +7,4 @@ Feature: tests du dashboard de getReport
     And je suis sur la page du dashborad getReport
     And je filtre par partenaire "lyra"
     When j'applique le filtre
-    Then le graphe s'affiche correctement
+    Then le graphe historique de consommation s'affiche correctement

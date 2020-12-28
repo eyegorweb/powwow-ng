@@ -15,10 +15,8 @@ export default {
     applyFilter() {
       cy.waitGet(':nth-child(4) > .btn').click();
     },
-    getGraphe() {
-      return cy.waitGet(
-        '#app > div.container > div.mt-4 > div:nth-child(3) > span > div:nth-child(1) > div.pt-3 > div > div:nth-child(1) > div > div > div.conso-container'
-      );
+    getHistoryConsoGraph() {
+      return cy.waitGet('.cmp-conso-history-data-graph .highcharts-container');
     },
   },
   report: {
@@ -58,13 +56,19 @@ export default {
     validateCreation(reportName) {
       cy.waitGet(
         '#main-sliding-panel > div > div > div > div > div.fileInfo > div > div:nth-child(3) > button > span'
-        ).click();
-      },
-      changeNameIfDoesExist(reportName) {
-        if (cy.waitGet('#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div').contains(reportName) == null) {
-          let newName = createNewName(reportName);
-          return newName;
-        }
+      ).click();
+    },
+    changeNameIfDoesExist(reportName) {
+      if (
+        cy
+          .waitGet(
+            '#app > div.container > div.mt-4 > div.mt-4.mb-4 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(1) > div'
+          )
+          .contains(reportName) == null
+      ) {
+        let newName = createNewName(reportName);
+        return newName;
+      }
       return reportName;
     },
   },
