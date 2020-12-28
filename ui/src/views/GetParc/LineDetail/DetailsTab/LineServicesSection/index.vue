@@ -213,7 +213,7 @@ export default {
           : undefined;
         const response = await changeService([], [this.content], {
           notifEmail: false,
-          dueDate: formattedCurrentDate(),
+          dueDate: formattedCurrentDate(true),
           tempDataUuid: undefined,
           partyId,
           servicesToEnable,

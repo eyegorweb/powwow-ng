@@ -9,6 +9,7 @@
         :show-optional-field="showOptionalField"
         @change="onValueChanged"
         @addValueToList="onAddValueToList"
+        direction="down"
       />
     </template>
     <template v-if="specificFields && !userIsPartner">

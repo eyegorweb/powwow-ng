@@ -59,6 +59,7 @@
           :value="getSelectedValue(item.code)"
           class="d-block"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
+          time-picker
         >
           <i slot="icon" class="select-icon ic-Flag-Icon" />
         </UiDate>

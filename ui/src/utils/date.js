@@ -32,8 +32,8 @@ export function currentDateMinusDays(value) {
     .format(DATE_FORMAT);
 }
 
-export function formattedCurrentDate() {
-  return moment().format(DATE_FORMAT);
+export function formattedCurrentDate(datetime) {
+  return moment().format(datetime ? DATE_FORMAT_EXTENDED : DATE_FORMAT);
 }
 
 export function getCurrentMonthName() {
