@@ -45,6 +45,7 @@ version:
       - release
   except:
     - tags
+    - schedules
   interruptible: true
 
 build:
@@ -68,6 +69,7 @@ build:
       - ui/dist
   except:
     - tags
+    - schedules
   interruptible: true
 
 pre-release:
@@ -97,6 +99,7 @@ pre-release:
     - master
   except:
     - tags
+    - schedules
 
 release:
   stage: release
@@ -124,6 +127,7 @@ release:
     - /^hotfix_.*$/
   except:
     - tags
+    - schedules
 
 deploy_integration:
   stage: deploy
@@ -143,6 +147,8 @@ deploy_integration:
     - master
   dependencies: []
   resource_group: integration
+  except:
+    - schedules
 
 deploy_testing:
   stage: deploy
@@ -166,6 +172,8 @@ deploy_testing:
     - master
   dependencies: []
   resource_group: test
+  except:
+    - schedules
 
 deploy_uat:
   stage: deploy
@@ -191,6 +199,7 @@ deploy_uat:
     - uat
   except:
     - tags
+    - schedules
   resource_group: uat
 
 undeploy_uat:
@@ -215,14 +224,15 @@ undeploy_uat:
     - uat
   except:
     - tags
+    - schedules
   dependencies: []
 
 e2e_integration:
   image: cypress/base:10
   stage: test
-  when: manual
   only:
     - master
+    - schedules
   variables:
     CYPRESS_APP_URL: http://powwowng1.zone.local:8080/
   cache:
