@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cmp-offers-part">
     <UiApiAutocomplete
       v-if="showCombo"
       :api-method="searchOffers"

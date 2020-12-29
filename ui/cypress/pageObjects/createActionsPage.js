@@ -38,7 +38,7 @@ export default {
     },
     changeBillingAccount() {
       cy.waitGet(
-        '#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div > div > div > div.slick-list.draggable > div > div:nth-child(8) > div > div > div > div > div.title'
+        '#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div > div > div > div.slick-list.draggable > div > div:nth-child(9) > div > div > div > div > div.title'
       ).click();
     },
     editFreeFields() {
@@ -78,13 +78,11 @@ export default {
         cy.waitGet(':nth-child(2) > label > .state--on').click();
       },
       selectOffre(offreName) {
-        cy.waitGet(':nth-child(3) > .position-relative > .form-group > .form-control')
+        cy.waitGet('.cmp-offers-part .form-control')
           .click()
           .type(offreName)
           .wait(200)
-          .waitGet(
-            '.col-7 > :nth-child(3) > .position-relative > .form-group > .autocomplete-results > :nth-child(1)'
-          )
+          .waitGet('.cmp-offers-part .form-group > .autocomplete-results > :nth-child(1)')
           .click();
       },
       apply() {
@@ -127,14 +125,12 @@ export default {
           )
           .click();
       },
-      selectoffer(offerName) {
-        cy.waitGet(':nth-child(1) > .position-relative > .form-group > .form-control')
+      selectoffer(offreName) {
+        cy.waitGet('.cmp-offers-part .form-control')
           .click()
-          .type(offerName)
+          .type(offreName)
           .wait(200)
-          .waitGet(
-            ':nth-child(1) > .position-relative > .form-group > .autocomplete-results > :nth-child(1)'
-          )
+          .waitGet('.cmp-offers-part .form-group > .autocomplete-results > :nth-child(1)')
           .click();
       },
       selectNewBillingAccount(billingAccountName) {
@@ -157,14 +153,11 @@ export default {
     },
     editFreeFields: {
       selectPartner(partnerName) {
-        cy.waitGet(
-          '#app > div.container > div.mt-4 > div.row.mb-3 > div > div > div > div:nth-child(1) > div > div > div.flex-grow-1.pl-4.pr-4 > div > div.w-50 > div > div > fieldset > input'
-        )
+        cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
           .click()
-          .type(partnerName)
-          .wait(200)
-          .waitGet('.autocomplete-result')
-          .click({ force: true });
+          .type(partnerName);
+        cy.wait(200);
+        cy.waitGet('.autocomplete-results > :nth-child(1)').click();
       },
       fillFirstFreeField(freeField) {
         cy.waitGet(
