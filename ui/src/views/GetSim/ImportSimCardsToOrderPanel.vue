@@ -11,8 +11,9 @@
       </div>
       <div class="overview-item mr-5">
         <h6>{{ $t('getparc.actLines.fileImport.titleSimCard') }} :</h6>
-        <FileSelect v-model="fileMeta" :placeholder="placeholder" />
-        <div v-if="fileResponse && !error">
+        <FileSelect v-model="fileMeta" :placeholder="placeholder" :is-loading="isLoading" />
+
+        <div v-if="fileResponse && !error && !isLoading">
           <ul class="list-unstyled m-0">
             <li>
               <i class="ic-Check-Icon mr-2 text-success" />
@@ -49,7 +50,9 @@
             </button>
           </div>
         </div>
-        <div v-if="localError" class="alert alert-danger" role="alert">{{ localError }}</div>
+        <div v-if="localError && !isLoading" class="alert alert-danger" role="alert">
+          {{ localError }}
+        </div>
       </div>
     </div>
   </BaseDetailPanelContent>
@@ -79,6 +82,7 @@ export default {
       successMessage: undefined,
       localError: undefined,
       pageLimit: 20,
+      isLoading: false,
       orderBy: {
         key: 'id',
         direction: 'DESC',
@@ -115,12 +119,14 @@ export default {
         this.localFileMeta = newFile;
 
         if (newFile) {
+          this.isLoading = true;
           this.localError = this.getLocalError(newFile);
 
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCards(newFile, this.orderId);
             if (this.fileResponse && this.fileResponse.error) {
               this.localError = this.$t('getparc.actCreation.report.' + this.fileResponse.error);
+              this.isLoading = false;
               return this.localError;
             }
             this.$emit('response', {
@@ -128,6 +134,7 @@ export default {
               ...this.fileResponse,
             });
           }
+          this.isLoading = false;
         }
       },
     },
@@ -140,6 +147,7 @@ export default {
       }, 0);
     },
   },
+
   methods: {
     ...mapMutations(['flashMessage']),
     ...mapActions('getsim', ['fetchOrdersFromApi']),

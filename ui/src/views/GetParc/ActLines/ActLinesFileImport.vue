@@ -1,7 +1,12 @@
 <template>
   <div>
-    <FileSelect v-model="selectedFile" :disabled="!idType" :placeholder="placeholder" />
-    <div v-if="fileMeta && !error">
+    <FileSelect
+      v-model="selectedFile"
+      :disabled="!idType"
+      :is-loading="isLoading"
+      :placeholder="placeholder"
+    />
+    <div v-if="fileMeta && !error && !isLoading">
       <ul class="list-unstyled m-0">
         <li>
           <i class="ic-Check-Icon mr-2 text-success" />
@@ -35,7 +40,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">
+    <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
       <template v-if="isTranslatableUploadError">
         {{ $t('getparc.actCreation.report.' + fileMeta.error) }}
       </template>
@@ -69,7 +74,9 @@ export default {
         key: 'id',
         direction: 'DESC',
       },
-      lastSelectedFile: null,
+      isLoading: false,
+      lastSelectedFile: undefined,
+      fileResponse: undefined,
       placeholder: this.$t('filters.lines.fromFile.import-file'),
     };
   },
@@ -107,12 +114,14 @@ export default {
       },
       async set(lastSelectedFile) {
         if (lastSelectedFile) {
-          this.lastSelectedFileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
+          this.isLoading = true;
+          this.fileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
           this.$emit('response', {
             // fileName: this.lastSelectedFile.name,
             file: lastSelectedFile,
-            ...this.lastSelectedFileResponse,
+            ...this.fileResponse,
           });
+          this.isLoading = false;
         }
       },
     },
