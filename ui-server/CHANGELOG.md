@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.60+20201230145930
+2020-12-30
+
+### Fixes
+
+- 669 Probleme de devise/ mock / téléchargement (c0cb5b48318ec9eb2a4c12e75abb22689db14603)
+
 ## 1.17.0-master.59+20201230141743
 2020-12-30
 
