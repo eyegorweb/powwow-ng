@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.59+20201230141743
+2020-12-30
+
+### Fixes
+
+- [2247] Corriger la validation d'une résiliation (0c06ed50bc081f2c3f9c81a5717080527ae6ff3c)
+- [2245] Modification de l'affichage de l'historique des IMEI (4d1a7b36d59ccb203426c11239c5d4bf65684ebf)
+
 ## 1.17.0-master.58+20201230104102
 2020-12-30
 
