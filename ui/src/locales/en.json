@@ -315,6 +315,7 @@
     "le": "Lower than",
     "beginWith": "Begin with",
     "date-since": "From {startDate}",
+    "date-until": "Until {endDate}",
     "date-over": "Before {endDate}",
     "details": {
       "title": "Order # {id}",

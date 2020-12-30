@@ -10,7 +10,6 @@
 <script>
 import DataTable from '@/components/DataTable/DataTable';
 import get from 'lodash.get';
-import moment from 'moment';
 
 export default {
   components: {
@@ -20,16 +19,15 @@ export default {
     content: Object,
   },
   mounted() {
-    const getPeriod = (min, max) => {
-      if (min && max) {
-        return this.$t('getsim.between-min-max', {
-          min,
-          max,
+    const getPeriod = (current, previous, date) => {
+      if (current && previous) {
+        return this.$t('getsim.date-until', {
+          endDate: date,
         });
       }
 
-      if (min) {
-        return this.$t('getsim.date-since', { startDate: min });
+      if (current) {
+        return this.$t('getsim.date-since', { startDate: date });
       }
     };
 
@@ -40,7 +38,7 @@ export default {
       'deviceInstance.deviceReference',
       'deviceInstance.manufacturer',
       'deviceInstance.mac',
-      'deviceInstance.auditable.updated',
+      'deviceInstance.imeiChangeDate',
     ].filter(key => get(this.content, key)).length;
 
     if (haveRow1) {
@@ -50,8 +48,9 @@ export default {
         manufacturer: get(this.content, 'deviceInstance.manufacturer', ''),
         macAdress: get(this.content, 'deviceInstance.mac', ''),
         usagePeriod: getPeriod(
-          get(this.content, 'deviceInstance.auditable.updated'),
-          moment().format('DD/MM/YYYY')
+          get(this.content, 'deviceInstance.imei'),
+          undefined,
+          get(this.content, 'deviceInstance.imeiChangeDate')
         ),
       });
     }
@@ -59,11 +58,10 @@ export default {
     if (get(this.content, 'deviceInstance.imeiPrevious')) {
       const haveRow2 = [
         'deviceInstance.imeiPrevious',
-        'deviceInstance.imeiPrevious',
+        'deviceInstance.deviceReferencePrevious',
         'deviceInstance.manufacturerPrevious',
         'deviceInstance.macPrevious',
-        'deviceInstance.auditable.created',
-        'deviceInstance.auditable.updated',
+        'deviceInstance.imeiChangeDate',
       ].filter(key => get(this.content, key)).length;
       if (haveRow2) {
         rows.push({
@@ -72,8 +70,9 @@ export default {
           manufacturer: get(this.content, 'deviceInstance.manufacturerPrevious', ''),
           macAdress: get(this.content, 'deviceInstance.macPrevious', ''),
           usagePeriod: getPeriod(
-            get(this.content, 'deviceInstance.auditable.created'),
-            get(this.content, 'deviceInstance.auditable.updated')
+            get(this.content, 'deviceInstance.imei'),
+            get(this.content, 'deviceInstance.imeiPrevious'),
+            get(this.content, 'deviceInstance.imeiChangeDate')
           ),
         });
       }

@@ -366,6 +366,7 @@
     "le": "Inférieure à",
     "beginWith": "Commence par",
     "date-since": "À partir du {startDate}",
+    "date-until": "Jusqu'au {endDate}",
     "date-over": "Avant le {endDate}",
     "details": {
       "title": "Commande n° {id}",
