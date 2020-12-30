@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.57+20201230101547
+2020-12-30
+
+### Fixes
+
+- 2242 Ajout dun loader sur lajout dadresse dans la commande de sim (b37b1fdebe3fa835fc70d7fa4de6b21efb0bdb8b)
+- [2210] ajout d'un loader pour le filtre d'import de fichier et pour les autres zones d'import de fichier (f9371dfdf7db22e8a4b741edfd3acafd891ceaed)
+- 2230 Ajouts des filtres de dates dans la recherche par ID dans actHistory (25be359e373e45abf4f5d774fd5ea468aa953110)
+
 ## 1.17.0-master.56+20201229135206
 2020-12-29
 
