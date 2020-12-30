@@ -213,18 +213,12 @@ export default {
 
     async validateExport() {
       this.isAsyncExportAlertOpen = false;
-      const downloadResponse = await this.doExport(
-        this.exportFormat,
-        true,
-        this.exportAll,
-        this.exportChoice
-      );
-      this.closeAndResetExportChoice();
-
-      if (!downloadResponse || downloadResponse.errors) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-      } else {
+      try {
+        await this.doExport(this.exportFormat, true, this.exportAll, this.exportChoice);
+        this.closeAndResetExportChoice();
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      } catch (err) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },
 
@@ -279,20 +273,20 @@ export default {
           } else {
             if (downloadResponse && downloadResponse.downloadUri) {
               this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+            } else {
+              this.showLoader = true;
+              this.haveError = true;
+              this.messageError = this.$t('noLinesToExport');
+              return this.messageError;
             }
             this.closeAndResetExportChoice();
           }
         } catch (err) {
-          console.log(err);
           this.haveError = true;
           if (this.exportPanelParams.onErrorFn) {
             this.messageError = this.exportPanelParams.onErrorFn(err);
           } else {
-            if (err === 'noData') {
-              this.messageError = this.$t('noLinesToExport');
-            } else {
-              this.messageError = this.$t('exportError');
-            }
+            this.messageError = this.$t('exportError');
           }
 
           return this.messageError;

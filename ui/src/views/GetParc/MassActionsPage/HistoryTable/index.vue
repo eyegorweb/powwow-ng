@@ -256,7 +256,7 @@ export default {
     async searchById(params) {
       this.searchByIdValue = params.value;
       this.forceAppliedFilters([
-          ...this.appliedFilters,
+        ...this.appliedFilters,
         {
           id: params.id,
           value: params.value,
