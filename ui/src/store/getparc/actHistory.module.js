@@ -95,6 +95,19 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+
+  forceAppliedFilters(state, values) {
+    // garder les filtres date
+    const dateFilters = values.filter(
+      f =>
+        f.id === 'filters.actDateStart' ||
+        f.id === 'filters.actDateEnd' ||
+        f.id === 'filters.actDateCreation'
+    );
+    state.appliedFilters = [...values, ...dateFilters];
+    state.currentFilters = [...dateFilters];
+  },
+
   applyFilters(state) {
     const haveDatesInFilters = () => {
       if (state.currentFilters && state.currentFilters.length) {
