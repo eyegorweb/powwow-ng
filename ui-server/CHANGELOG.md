@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.58+20201230104102
+2020-12-30
+
+### Fixes
+
+- [2246] Corriger l'export asynchrone (0f3d784a5ed7466b73f888c8ac0a23fee06a13bc)
+
 ## 1.17.0-master.57+20201230101547
 2020-12-30
 
