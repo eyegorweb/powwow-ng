@@ -1,19 +1,33 @@
 <template>
-  <label class="file-select d-block">
-    <div class="select-button" :class="{ disabled: disabled }">
-      <span v-if="value">{{ value.name }}</span>
-      <span v-else>{{ placeholder }}</span>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <ModalSkeleton :is-loading="isLoading" />
     </div>
-    <input :key="version" type="file" @change="handleFileChange" :disabled="disabled" />
-  </label>
+    <label class="file-select d-block">
+      <div class="select-button" :class="{ disabled: disabled }">
+        <span v-if="value">{{ value.name }}</span>
+        <span v-else>{{ placeholder }}</span>
+      </div>
+      <input :key="version" type="file" @change="handleFileChange" :disabled="disabled" />
+    </label>
+  </LoaderContainer>
 </template>
 
 <script>
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
+
 export default {
+  components: {
+    LoaderContainer,
+    ModalSkeleton,
+  },
+
   props: {
     value: File,
     disabled: Boolean,
     placeholder: String,
+    isLoading: Boolean,
   },
   data() {
     return {

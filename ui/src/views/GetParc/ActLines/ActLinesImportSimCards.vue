@@ -28,8 +28,9 @@
             v-model="fileMeta"
             :placeholder="placeholder"
             :disabled="!selectedTypeSimCard || !chosenBillingAccount"
+            :is-loading="isLoading"
           />
-          <div v-if="fileResponse && !error">
+          <div v-if="fileResponse && !error && !isLoading">
             <ul class="list-unstyled m-0">
               <li>
                 <i class="ic-Check-Icon mr-2 text-success" />
@@ -54,7 +55,7 @@
             </ul>
             <div v-if="fileResponse.tempDataUuid" class="mt-5">
               <button
-                :disabled="!fileResponse.validated || onLoad"
+                :disabled="!fileResponse.validated"
                 @click="confirmRequest(true)"
                 class="btn btn-block"
                 :class="{
@@ -66,7 +67,9 @@
               </button>
             </div>
           </div>
-          <div v-if="localError" class="alert alert-danger" role="alert">{{ localError }}</div>
+          <div v-if="localError && !isLoading" class="alert alert-danger" role="alert">
+            {{ localError }}
+          </div>
         </div>
       </div>
     </BaseDetailPanelContent>
@@ -97,7 +100,7 @@ export default {
   data() {
     return {
       selectedPartner: null,
-      onLoad: false,
+      isLoading: false,
       chosenBillingAccount: null,
       selectedTypeSimCard: undefined,
       localFileMeta: undefined,
@@ -117,6 +120,7 @@ export default {
         this.localFileMeta = newFile;
 
         if (newFile) {
+          this.isLoading = true;
           this.localError = this.getLocalError(newFile);
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCardsFromLines(newFile);
@@ -129,6 +133,7 @@ export default {
               });
             }
           }
+          this.isLoading = false;
         }
       },
     },
@@ -162,7 +167,6 @@ export default {
       return;
     },
     async confirmRequest(showMessage = false) {
-      this.onLoad = true;
       const response = await importIccidsFromLines(
         this.selectedPartner.id,
         this.chosenBillingAccount.id,
@@ -173,7 +177,6 @@ export default {
       if (response.errors && response.errors.length) {
         this.fileResponse.errors = response.errors;
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-        this.onLoad = true;
       } else {
         if (showMessage) {
           const successMessage = this.successMessage
