@@ -88,8 +88,6 @@ export async function changeSingleCustomFields(params) {
     spec2,
   } = params;
 
-  console.log('params', params);
-
   const queryStr = `
     mutation {
       changeCustomFieldsV2(
@@ -260,7 +258,6 @@ export async function manageCancellation(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
     const { dueDate, partyId, validate, tempDataUuid } = params;
 
-    console.log(tempDataUuid);
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}"`;

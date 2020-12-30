@@ -134,10 +134,6 @@ export default {
           .click();
       },
       selectNewBillingAccount(billingAccountName) {
-        console.log(
-          '🚀 ~ file: createActionsPage.js ~ line 141 ~ selectNewBillingAccount ~ billingAccountName',
-          billingAccountName
-        );
         cy.waitGet('.cmp-billing-account-choice > .position-relative > .form-group > .form-control')
           .click()
           .type(billingAccountName)

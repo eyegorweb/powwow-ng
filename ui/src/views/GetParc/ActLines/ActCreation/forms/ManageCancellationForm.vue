@@ -121,7 +121,7 @@ export default {
   },
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
-    ...mapGetters('actLines', ['appliedFilters']),
+    ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
     partner() {
       if (this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
