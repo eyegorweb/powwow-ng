@@ -122,7 +122,6 @@ const defaultWidgets = [
     seeMore: { domain: 'getReport', action: 'read_bill' },
     component: BillsWidget,
     permission: { domain: 'widget', action: 'bill_history' },
-    mock: true,
   },
   {
     title: 'home.widgets.currentUsage.title',
