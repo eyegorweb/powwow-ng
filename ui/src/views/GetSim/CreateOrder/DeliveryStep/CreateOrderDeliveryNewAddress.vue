@@ -110,7 +110,7 @@
             </button>
           </div>
           <div class="col">
-            <button v-if="!addressEdit" class="btn btn-primary btn-block">
+            <button v-if="!addressEdit" class="btn btn-primary btn-block" :disabled="onSave">
               {{ $t('orders.new.deliveryStep.form.add') }}
             </button>
             <button v-else class="btn btn-primary btn-block">
@@ -148,6 +148,7 @@ export default {
   },
   data() {
     return {
+      onSave: false,
       selectedAddress: {},
       countries: [],
       form: {
@@ -172,6 +173,7 @@ export default {
     searchAddress,
     async onSubmitAddress() {
       let savedId;
+      this.onSave = true;
       const canSave = this.checkForErrors();
       if (!canSave) return;
 
@@ -181,6 +183,7 @@ export default {
         savedId = await addPartyShippingAddress(this.form, this.partnerId);
       }
       this.$emit('saved', savedId.id);
+      this.onSave = false;
     },
     /**
      * Return true when no error is found
