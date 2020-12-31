@@ -47,7 +47,11 @@
         </ul>
       </div>
 
-      <FormReport v-if="report && haveBusinessErrors" :data="report" />
+      <FormReport
+        v-if="report && haveBusinessErrors"
+        :get-export-fn="getExportFn()"
+        :data="report"
+      />
       <button
         v-if="tempDataUuid"
         @click="confirmRequest(true)"
@@ -61,8 +65,9 @@
 
 <script>
 import ActFormContainer from './ActFormContainer';
-import { uploadSearchFile } from '@/api/linesActions';
+import { uploadSearchFile, exportLinesFromFileFilter } from '@/api/linesActions';
 import { mapState, mapMutations } from 'vuex';
+
 import FormReport from './FormReport';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
@@ -130,6 +135,24 @@ export default {
       'setSelectedLinesForActCreation',
     ]),
     ...mapMutations(['flashMessage']),
+    getExportFn() {
+      return async (columnsParam, orderBy, exportFormat) => {
+        return await exportLinesFromFileFilter(
+          [
+            'UPLOAD_ID',
+            'UPLOAD_CREATOR',
+            'UPLOAD_DATE',
+            'UPLOAD_TYPE',
+            'DATA',
+            'NEW_DATA',
+            'STATUS',
+          ],
+          '',
+          exportFormat,
+          this.tempDataUuid
+        );
+      };
+    },
 
     validFile(file) {
       if (fileUtils.checkFormat(file)) {

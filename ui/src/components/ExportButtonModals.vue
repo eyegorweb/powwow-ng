@@ -223,6 +223,7 @@ export default {
     },
 
     async doExport(exportFormat, asyncExportRequest, exportAll, exportChoice) {
+
       const { columns, exportFn, orderBy, forceAsyncExport } = this.exportPanelParams;
       this.errors = undefined;
       const columnsParam = sortBy(columns, c => !c.visible)
