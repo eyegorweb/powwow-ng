@@ -121,10 +121,12 @@ export default {
             this.flashMessage({ level: 'danger', message: e.message });
           });
         } else {
-          const successMessage = this.successMessage
-            ? this.$t(this.successMessage)
-            : this.$t('genericSuccessMessage');
-          this.flashMessage({ level: 'success', message: successMessage });
+          setTimeout(() => {
+            const successMessage = this.successMessage
+              ? this.$t(this.successMessage)
+              : this.$t('genericSuccessMessage');
+            this.flashMessage({ level: 'success', message: successMessage });
+          }, 100);
 
           // sortir du mode création acte
           this.setActToCreate(null);
