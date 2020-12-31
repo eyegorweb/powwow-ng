@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.64+20201231150145
+2020-12-31
+
+### Fixes
+
+- 2208 Changement API pour la table des documents (32a021c7608918772c0cbca56141e5792c480899)
+
 ## 1.17.0-master.63+20201231143517
 2020-12-31
 
