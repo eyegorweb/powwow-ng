@@ -1,7 +1,7 @@
 <template>
   <PrereqContainer>
     <div class="row">
-      <div class="col p-0 pr-4" v-if="!partner">
+      <div class="col p-0 pr-4" v-if="!userPartner">
         <h5>{{ $t('getparc.actLines.step1Partner') }}</h5>
         <PartnersPart @setpartner="setPartner" />
       </div>
@@ -39,14 +39,22 @@ export default {
     BillingAccountsPart,
   },
   props: {
-    partner: {
+    userPartner: {
       type: Object,
       default: undefined,
     },
   },
   mounted() {
-    if (this.partner) {
-      this.selectedPartner = { ...this.partner };
+    if (this.userPartner) {
+      this.selectedPartner = { ...this.userPartner };
+    }
+  },
+
+  watch: {
+    userPartner(userPartner) {
+      if (userPartner) {
+        this.selectedPartner = { ...userPartner };
+      }
     }
   },
 
