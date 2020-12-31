@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.61+20201231091711
+2020-12-31
+
+### Fixes
+
+- [2249] corriger l'export des SIM KO dans le changement de SIM (5323819c13ecf528cda1afb0ff38b759e6f9ff36)
+
 ## 1.17.0-master.60+20201230145930
 2020-12-30
 
