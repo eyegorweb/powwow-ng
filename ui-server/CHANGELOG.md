@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.62+20201231094640
+2020-12-31
+
+### Fixes
+
+- [2250] Charger correctement les CF pour les utilisateurs de type partenaire (afb4f7901332caef9757dc413f9a2d0a4303c1a0)
+
 ## 1.17.0-master.61+20201231091711
 2020-12-31
 
