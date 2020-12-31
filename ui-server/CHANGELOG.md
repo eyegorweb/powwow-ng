@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.63+20201231143517
+2020-12-31
+
+### Fixes
+
+- [2251] Afficher le message de confirmation pour le changement de SIM (9c7ba86b6e83a4218b4b0146a907dcf4ab269c23)
+
 ## 1.17.0-master.62+20201231094640
 2020-12-31
 
