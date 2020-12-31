@@ -58,7 +58,12 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
           }
           auditable {
             created
-            creator
+            creator{
+              name{
+                firstName
+                lastName
+              }
+            }
           }
         }
       }
