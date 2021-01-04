@@ -18,56 +18,48 @@ export async function fetchAllDocuments(orderBy, pagination, filters = []) {
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
     : '';
   const queryStr = `
-    query{
-      documents(documentFilterInput:{${formatFilters(filters)}} ${paginationInfo} ${orderingInfo}) {
-        total
-        items {
+  query{
+    documents(documentFilterInput:{${formatFilters(filters)}} ${paginationInfo} ${orderingInfo}) {
+      total
+      items {
+        id
+        fileName
+        documentName
+        created
+        party {
           id
-          fileName
-          documentName
-          party {
+          name
+        }
+        report {
+          name
+        }
+        category {
+          name
+          directoryName
+        }
+        partyGroupId
+        auditable {
+          created
+          updated
+          creator {
             id
-            name
+            name {title firstName lastName}
           }
-          report {
-            name
-          }
-          category {
-            name
-            directoryName
-          }
-          partyGroupId
-          auditable {
-            created
-            updated
-            creator {
-              id
-              name {title firstName lastName}
-            }
-            updater {
-              id
-              name {title firstName lastName}
-            }
-          }
-          party{
+          updater {
             id
-            name
+            name {title firstName lastName}
           }
-          category{
-            name
-          }
-          auditable {
-            created
-            creator{
-              name{
-                firstName
-                lastName
-              }
-            }
-          }
+        }
+        party{
+          id
+          name
+        }
+        category{
+          name
         }
       }
     }
+  }
   `;
   const response = await query(queryStr);
 
