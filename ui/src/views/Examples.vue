@@ -6,10 +6,9 @@
       <br />
       <br />
       <button class="btn btn-primary mb-4" @click="version++">Refresh</button>
+
       <div :key="'ex_' + version">
-        <UiDropDownChoicesButton :options="['choice 1', 'choice 2']" @click="chosen = $event">
-          <span>Test</span>
-        </UiDropDownChoicesButton>
+        <TwoValuesToggle />
       </div>
     </div>
   </div>
@@ -19,13 +18,13 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import UiDropDownChoicesButton from '@/components/ui/UiDropDownChoicesButton';
+import TwoValuesToggle from '@/components/ui/TwoValuesToggle.vue';
 
 export default {
   name: 'Examples',
   components: {
     SearchTranslationKey,
-    UiDropDownChoicesButton,
+    TwoValuesToggle,
   },
   data() {
     return {

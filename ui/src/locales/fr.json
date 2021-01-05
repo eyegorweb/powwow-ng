@@ -1268,7 +1268,7 @@
           "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
           "offerName": "Nom de l'offre",
           "endCommitmentDate": "Date de fin d'engagement",
-          "endForfaitDate": "Date de fin de forfait",
+          "endForfaitDate": "Prochaine date d'effet d'un changement d'offre",
           "billingStatus": "Statut de facturation"
         },
         "lineServices": "Services de la ligne",

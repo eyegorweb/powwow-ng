@@ -55,7 +55,7 @@ export default {
       if (userPartner) {
         this.selectedPartner = { ...userPartner };
       }
-    }
+    },
   },
 
   data() {

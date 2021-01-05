@@ -328,7 +328,7 @@ export const mutations = {
     });
   },
   setDateFilter(state, { filterKey, startDate, endDate }) {
-    if (!startDate || !endDate) return;
+    // if (!startDate || !endDate) return;
     selectFilterValue(state, {
       id: filterKey,
       startDate,

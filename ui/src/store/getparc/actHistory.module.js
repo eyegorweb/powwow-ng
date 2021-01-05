@@ -157,31 +157,31 @@ export const mutations = {
     });
   },
   setActDateCreationFilter(state, { startDate, endDate }) {
-    if (!startDate || !endDate) return;
-
-    selectFilterValue(state, {
-      id: 'filters.actDateCreation',
-      startDate,
-      endDate,
-    });
+    if (startDate) {
+      selectFilterValue(state, {
+        id: 'filters.actDateCreation',
+        startDate,
+        endDate,
+      });
+    }
   },
   setActDateStartFilter(state, { startDate, endDate }) {
-    if (!startDate || !endDate) return;
-
-    selectFilterValue(state, {
-      id: 'filters.actDateStart',
-      startDate,
-      endDate,
-    });
+    if (startDate || endDate) {
+      selectFilterValue(state, {
+        id: 'filters.actDateStart',
+        startDate,
+        endDate,
+      });
+    }
   },
   setActDateEndFilter(state, { startDate, endDate }) {
-    if (!startDate || !endDate) return;
-
-    selectFilterValue(state, {
-      id: 'filters.actDateEnd',
-      startDate,
-      endDate,
-    });
+    if (startDate || endDate) {
+      selectFilterValue(state, {
+        id: 'filters.actDateEnd',
+        startDate,
+        endDate,
+      });
+    }
   },
   setPage(state, newPage) {
     state.actHistoryPage = newPage;
