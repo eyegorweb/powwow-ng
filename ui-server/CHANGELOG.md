@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.65+20210105162332
+2021-01-05
+
+### Fixes
+
+- [2155] Visualisation des encours de consommation en fonction du paramétrage du partenaire (0cd1d0a1217efd4213aa0012e8ea17a08d7063f2)
+
 ## 1.17.0-master.64+20201231150145
 2020-12-31
 
