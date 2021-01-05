@@ -23,7 +23,7 @@
         </UiButton>
       </div>
     </div>
-    <LineSummary v-if="lineData" :content="lineData" />
+    <LineSummary v-if="lineData" :content="lineData" :consumption="consumption" />
     <ActionCarousel
       v-if="lineData && canShowCarousel"
       :actions="carouselItems"
@@ -61,7 +61,7 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import UiButton from '@/components/ui/Button';
 
-import { searchLines } from '@/api/linesActions';
+import { searchLines, fetchCurrentConsumption } from '@/api/linesActions';
 import { mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
@@ -88,6 +88,7 @@ export default {
   data() {
     return {
       lineData: undefined,
+      consumption: undefined,
       currentLinkIndex: 0,
       partnerOptions: undefined,
       tabs: [
@@ -203,6 +204,12 @@ export default {
             : true;
         } else {
           this.offerChangeEnabled = true;
+        }
+
+        if (this.lineData.party.partyType === 'MVNO') {
+          this.consumption = await fetchCurrentConsumption({
+            simCardInstanceId: this.$route.params.lineId,
+          });
         }
 
         if (this.lineData.party.partyType !== 'MVNO') {

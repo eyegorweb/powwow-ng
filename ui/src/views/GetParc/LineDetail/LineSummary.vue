@@ -35,7 +35,33 @@
       </div>
     </div>
     <div class="col">
-      <div class="bg-white p-4 rounded">
+      <div v-if="partnerTypeMVNO">
+        <div class="d-flex bg-white p-4 rounded" v-if="consumption">
+          <div class="item">
+            <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
+            <p>
+              <!-- total DATA consommée -->
+              {{ totalUsedForMVNO('DATA') }}
+            </p>
+          </div>
+          <div class="item">
+            <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
+            <p>
+              <!-- total SMS consommés -->
+              {{ totalUsedForMVNO('SMS') }}
+            </p>
+          </div>
+          <div class="item">
+            <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
+            <p>
+              <!-- total VOIX consommée -->
+              {{ totalUsedForMVNO('VOICE') }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div v-else class="bg-white p-4 rounded">
         <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
@@ -60,7 +86,7 @@
           </div>
         </div>
         <hr />
-        <div class="d-flex" v-if="!partnerTypeMVNO">
+        <div class="d-flex">
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.estimated.data') }}:</h6>
             <p>
@@ -104,6 +130,7 @@ export default {
   },
   props: {
     content: Object,
+    consumption: Object,
   },
   data() {
     return {
@@ -118,6 +145,10 @@ export default {
   methods: {
     getFromContent(path, defaultValue = '') {
       const value = get(this.content, path, defaultValue);
+      return value !== null ? value : defaultValue;
+    },
+    getConsumptionData(path, defaultValue = '') {
+      const value = get(this.consumption, path, defaultValue);
       return value !== null ? value : '';
     },
     async fetchAlarms() {
@@ -125,6 +156,24 @@ export default {
       if (!response || !response.lenth) return;
       this.alarmTriggered = response[0].isTriggered;
     },
+    totalUsedForMVNO(type) {
+      let total;
+      switch (type) {
+        case 'DATA':
+          total = formatBytes(parseInt(this.getConsumptionData('dataTotal')));
+          break;
+
+        case 'SMS':
+          total = this.getConsumptionData('smsTotal');
+          break;
+
+        case 'VOICE':
+          total = resumeFormattedValueFromSeconds(this.getConsumptionData('voiceTotal'));
+          break;
+      }
+      return total;
+    },
+
     totalUsed(type, mode) {
       let usedTotal,
         estimatedTotal,

@@ -76,9 +76,7 @@ export default {
     LineOffer,
   },
   props: {
-    content: {
-      type: Object,
-    },
+    content: Object,
   },
   data() {
     return {

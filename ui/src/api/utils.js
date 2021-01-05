@@ -197,7 +197,8 @@ export function formatBytes(bytes, decimals = 2) {
   if (bytes === 0) return '0 octet';
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['octet', 'Ko', 'Mo', 'Go', 'To'];
+  const octet = bytes > 1 ? 'octets' : 'octet';
+  const sizes = [octet, 'Ko', 'Mo', 'Go', 'To'];
 
   const index = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / Math.pow(k, index)).toFixed(dm))} ${sizes[index]}`;
