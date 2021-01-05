@@ -1,7 +1,6 @@
 <template>
   <div>
-    <UiDateRange
-      :key="'createdate_' + version"
+    <RangeAndSingleDateFilter
       @change="setActDateCreationFilter"
       :start="startDate"
       :end="endDate"
@@ -11,27 +10,19 @@
 </template>
 
 <script>
-import UiDateRange from '@/components/ui/UiDateRange';
+import RangeAndSingleDateFilter from '@/components/Filters/RangeAndSingleDateFilter.vue';
+
 import { mapMutations, mapGetters } from 'vuex';
 import get from 'lodash/get';
 
 export default {
   components: {
-    UiDateRange,
+    RangeAndSingleDateFilter,
   },
   methods: {
     ...mapMutations('actHistory', ['setActDateCreationFilter']),
   },
-  data() {
-    return {
-      version: 0,
-    };
-  },
-  watch: {
-    isDateEmpty() {
-      this.version++;
-    },
-  },
+
   computed: {
     ...mapGetters('actHistory', ['selectedActDateCreation']),
     startDate() {
@@ -39,10 +30,6 @@ export default {
     },
     endDate() {
       return get(this.selectedActDateCreation, 'endDate', '');
-    },
-
-    isDateEmpty() {
-      return this.startDate === '' && this.endDate === '';
     },
   },
 };

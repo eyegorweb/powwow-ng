@@ -89,7 +89,7 @@ export function clearAppliedFilters(state) {
 export function resetSearchWhenCurrentFiltersAreEmpty(state) {
   const filtersWithArrayValues = state.currentFilters.filter(f => f.values && f.values.length > 0);
   const filtersWithSimpleValue = state.currentFilters.filter(f => f.value);
-  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate && f.endDate);
+  const filtersWithDateValues = state.currentFilters.filter(f => f.startDate || f.endDate);
   const filtersWithRangeValues = state.currentFilters.filter(f => f.from || f.to);
 
   if (
@@ -98,12 +98,14 @@ export function resetSearchWhenCurrentFiltersAreEmpty(state) {
     filtersWithDateValues.length === 0 &&
     filtersWithRangeValues.length === 0
   ) {
+    console.log('resetSearchWhenCurrentFiltersAreEmpty >>');
     clearAppliedFilters(state);
   }
 }
 
 export function selectFilterValue(state, { id, ...rest }) {
   const isFilterFound = state.currentFilters.find(f => f.id === id);
+
   if (isFilterFound) {
     // Mise à jour d'un filtre
 

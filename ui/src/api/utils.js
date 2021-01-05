@@ -141,14 +141,17 @@ export function delay(t) {
 
 export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterKey) {
   const dateFilter = selectedFilters.find(f => f.id === filterKey);
-  if (dateFilter && dateFilter.startDate && dateFilter.endDate) {
+  if (dateFilter && dateFilter.startDate) {
     const formattedStartDate = `${formatDateForGql(dateFilter.startDate)}`;
-
-    const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
-
-    gqlFilters.push(
-      `${gqlParamName}: {between: {startDate: "${formattedStartDate}", endDate: "${formattedEndDate}"}}`
-    );
+    if (dateFilter.endDate) {
+      gqlFilters.push(
+        `${gqlParamName}: {between: {startDate: "${formattedStartDate}", endDate: "${prepareEndDateForBackend(
+          dateFilter.endDate
+        )}"}`
+      );
+    } else {
+      gqlFilters.push(`${gqlParamName}: {goe: "${formattedStartDate}"}`);
+    }
   }
 
   function prepareEndDateForBackend(inDate) {

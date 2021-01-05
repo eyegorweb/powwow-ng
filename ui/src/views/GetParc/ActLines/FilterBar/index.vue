@@ -353,7 +353,7 @@ import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
 import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
-import DateFilter from '@/components/Filters/DateFilter';
+import DateFilter from '@/components/Filters/NewDateFilter';
 import ActLinesRangeFilter from './ActLinesRangeFilter';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';

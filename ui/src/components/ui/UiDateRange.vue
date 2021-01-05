@@ -189,9 +189,11 @@ export default {
         return this.rangeInError;
       }
 
-      if (!this.start && !this.end) return '';
+      if (this.start && this.end) {
+        return this.start + ' - ' + this.end;
+      }
 
-      return this.start + ' - ' + this.end;
+      return '';
     },
   },
 };

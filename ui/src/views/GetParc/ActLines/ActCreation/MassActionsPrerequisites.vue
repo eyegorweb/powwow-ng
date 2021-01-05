@@ -6,11 +6,11 @@
     />
     <PartnerAndCF
       v-if="
-        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find((a) => a === act.title) &&
-        !userIsMVNO
+        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title) &&
+          !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
-      :userPartner="userPartner"
+      :user-partner="userPartner"
     />
     <OfferPrerequisite
       :all-offers="act.title === 'getparc.actCreation.carouselItem.CHANGE_SERVICES'"
@@ -19,13 +19,13 @@
           'getparc.actCreation.carouselItem.CHANGE_SERVICES',
           'getparc.actCreation.carouselItem.CHANGE_OFFER',
           'getparc.actCreation.carouselItem.CHANGE_CF',
-        ].find((a) => a === act.title)
+        ].find(a => a === act.title)
       "
       @set:preprequisites="setPrerequisites"
       :partner="userPartner"
       :can-select-billing-account="
         act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' ||
-        act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
+          act.title === 'getparc.actCreation.carouselItem.CHANGE_CF'
       "
     />
   </div>

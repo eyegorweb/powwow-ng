@@ -1,8 +1,7 @@
 <template>
   <div>
-    <UiDateRange
-      :key="'startdate_' + version"
-      @change="checkAndSetDate"
+    <RangeAndSingleDateFilter
+      @change="setActDateStartFilter"
       :start="startDate"
       :end="endDate"
       one-year-limit
@@ -11,35 +10,19 @@
 </template>
 
 <script>
-import UiDateRange from '@/components/ui/UiDateRange';
+import RangeAndSingleDateFilter from '@/components/Filters/RangeAndSingleDateFilter.vue';
+
 import { mapMutations, mapGetters } from 'vuex';
 import get from 'lodash/get';
 
 export default {
   components: {
-    UiDateRange,
-  },
-  data() {
-    return {
-      version: 0,
-    };
-  },
-  watch: {
-    isDateEmpty() {
-      this.version++;
-    },
+    RangeAndSingleDateFilter,
   },
   methods: {
     ...mapMutations('actHistory', ['setActDateStartFilter']),
-    ...mapMutations(['popupMessage']),
-
-    checkAndSetDate(value) {
-      // difference entre les deux dates
-      // si > 12
-      // this.popupMessage('HOP HOP HOP')
-      this.setActDateStartFilter(value);
-    },
   },
+
   computed: {
     ...mapGetters('actHistory', ['selectedActDateStart']),
     startDate() {
@@ -47,9 +30,6 @@ export default {
     },
     endDate() {
       return get(this.selectedActDateStart, 'endDate', '');
-    },
-    isDateEmpty() {
-      return this.startDate === '' && this.endDate === '';
     },
   },
 };

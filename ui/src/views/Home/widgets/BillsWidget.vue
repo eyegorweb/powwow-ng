@@ -6,7 +6,11 @@
           <td>{{ bill.customerAccountCode }} du {{ bill.date }}</td>
           <td>{{ bill.amount }} € HT</td>
           <td>
-            <i class="ic-Download-Icon cursorP" v-if="bill.documentId" @click="downloadBill(bill.documentId)"></i>
+            <i
+              class="ic-Download-Icon cursorP"
+              v-if="bill.documentId"
+              @click="downloadBill(bill.documentId)"
+            ></i>
           </td>
         </tr>
       </tbody>
