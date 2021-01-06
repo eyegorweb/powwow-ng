@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.66+20210106092854
+2021-01-06
+
+### Fixes
+
+- [2262] Changer une traduction dans les actes de gestion (a6219a772dde4d3778ef005dcd3071f3b78ace2e)
+
 ## 1.17.0-master.65+20210105162332
 2021-01-05
 
