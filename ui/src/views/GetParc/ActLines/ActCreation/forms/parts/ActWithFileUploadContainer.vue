@@ -1,70 +1,108 @@
 <template>
-  <ActFormContainer :validate-fn="doRequest">
-    <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
-      <button
-        :disabled="!canValidateRequest"
-        @click="showValidationModal = true"
-        class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
-      >
-        <i class="ic-Edit-Icon" />
-        {{ $t('getparc.actCreation.changeService.validateBtn') }}
-      </button>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-7">
+          <div class="row">
+            <div class="col d-flex">
+              <UiCheckbox v-model="notificationCheck" />
+              <span>{{ $t('getparc.actCreation.NOTIFICATION_CHECK') }}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <UiDate
+                @change="onActDateChange"
+                :value="actDate"
+                :error="dateError"
+                class="d-block"
+                time-picker
+                fixed
+              >
+                <i slot="icon" class="select-icon ic-Flag-Icon" />
+              </UiDate>
+            </div>
+            <div class="col">
+              <button
+                :disabled="!canValidateRequest"
+                @click="showValidationModal = true"
+                class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
+              >
+                <i class="ic-Edit-Icon" />
+                {{ $t('getparc.actCreation.changeService.validateBtn') }}
+              </button>
 
-      <Modal v-if="showValidationModal">
-        <div slot="body">
-          <div class="text-danger">
-            <i class="ic-Alert-Icon"></i>
-            {{ $t(confirmationMessage) }}
+              <Modal v-if="showValidationModal">
+                <div slot="body">
+                  <div class="text-danger">
+                    <i class="ic-Alert-Icon"></i>
+                    {{ $t(confirmationMessage) }}
+                  </div>
+                </div>
+                <div slot="footer">
+                  <button
+                    class="modal-default-button btn btn-danger btn-sm"
+                    v-if="!isLoading"
+                    @click.stop="showValidationModal = false"
+                  >
+                    {{ $t('cancel') }}
+                  </button>
+                  <button
+                    class="modal-default-button btn btn-success btn-sm ml-1"
+                    v-if="!isLoading"
+                    @click.stop="validateFile()"
+                  >
+                    {{ $t('save') }}
+                  </button>
+                  <button
+                    class="modal-default-button btn btn-light btn-sm ml-1"
+                    disabled
+                    v-if="isLoading"
+                  >
+                    {{ $t('processing') }}...
+                    <CircleLoader />
+                  </button>
+                </div>
+              </Modal>
+            </div>
+          </div>
+          <slot name="bottom"></slot>
+        </div>
+        <div class="col-5">
+          <div class="text-right">
+            <button @click="clearForm" class="clear-form">
+              {{ $t('cancel') }}
+              <i class="ic-Cross-Icon" />
+            </button>
+          </div>
+          <div>
+            <div v-if="requestErrors">
+              <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+              <ul class="text-danger list-unstyled">
+                <li :key="error.message" v-for="error in requestErrors">{{ error.message }}</li>
+              </ul>
+            </div>
+
+            <FormReport
+              v-if="report && haveBusinessErrors"
+              :get-export-fn="getExportFn()"
+              :data="report"
+            />
+            <button
+              v-if="tempDataUuid"
+              @click="confirmRequest(true)"
+              class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+            >
+              <span>{{ $t('confirm') }}</span>
+            </button>
           </div>
         </div>
-        <div slot="footer">
-          <button
-            class="modal-default-button btn btn-danger btn-sm"
-            v-if="!isLoading"
-            @click.stop="showValidationModal = false"
-          >
-            {{ $t('cancel') }}
-          </button>
-          <button
-            class="modal-default-button btn btn-success btn-sm ml-1"
-            v-if="!isLoading"
-            @click.stop="validateFile(containerValidationFn)"
-          >
-            {{ $t('save') }}
-          </button>
-          <button class="modal-default-button btn btn-light btn-sm ml-1" disabled v-if="isLoading">
-            {{ $t('processing') }}...
-            <CircleLoader />
-          </button>
-        </div>
-      </Modal>
-    </div>
-    <div slot="messages">
-      <div v-if="requestErrors">
-        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
-        <ul class="text-danger list-unstyled">
-          <li :key="error.message" v-for="error in requestErrors">{{ error.message }}</li>
-        </ul>
       </div>
-
-      <FormReport
-        v-if="report && haveBusinessErrors"
-        :get-export-fn="getExportFn()"
-        :data="report"
-      />
-      <button
-        v-if="tempDataUuid"
-        @click="confirmRequest(true)"
-        class="btn btn-success pl-4 pr-4 pt-2 pb-2"
-      >
-        <span>{{ $t('confirm') }}</span>
-      </button>
     </div>
-  </ActFormContainer>
+  </div>
 </template>
 
 <script>
-import ActFormContainer from './ActFormContainer';
 import { uploadSearchFile, exportLinesFromFileFilter } from '@/api/linesActions';
 import { mapState, mapMutations } from 'vuex';
 
@@ -72,13 +110,17 @@ import FormReport from './FormReport';
 import Modal from '@/components/Modal';
 import CircleLoader from '@/components/ui/CircleLoader';
 import * as fileUtils from '@/utils/file.js';
+import UiDate from '@/components/ui/UiDate';
+import UiCheckbox from '@/components/ui/Checkbox';
+import moment from 'moment';
 
 export default {
   components: {
-    ActFormContainer,
     FormReport,
     Modal,
     CircleLoader,
+    UiDate,
+    UiCheckbox,
   },
   props: {
     actMutationFn: Function,
@@ -97,7 +139,15 @@ export default {
 
       showValidationModal: false,
       isLoading: false,
+
+      actDate: null,
+      dateError: null,
+      notificationCheck: false,
     };
+  },
+
+  mounted() {
+    this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
   },
 
   watch: {
@@ -135,6 +185,14 @@ export default {
       'setSelectedLinesForActCreation',
     ]),
     ...mapMutations(['flashMessage']),
+    onActDateChange(value) {
+      this.actDate = value;
+    },
+    clearForm() {
+      this.setActToCreate(null);
+      this.setActCreationPrerequisites(null);
+      this.setSelectedLinesForActCreation([]);
+    },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         return await exportLinesFromFileFilter(
@@ -210,10 +268,55 @@ export default {
         return await this.confirmRequest();
       }
     },
+    haveErrors() {
+      if (this.excludeDefaultFields) return false;
 
-    async validateFile(containerValidationFn) {
+      this.dateError = undefined;
+      if (!this.actDate) {
+        this.dateError = 'errors.mandatory';
+        return true;
+      }
+      return false;
+    },
+
+    async doValidationRequest() {
+      if (this.haveErrors()) return;
+
+      const messages = [];
+
+      const response = await this.doRequest({
+        actDate: this.actDate,
+        notificationCheck: this.notificationCheck,
+      });
+
+      if (!response) {
+        messages.push({ level: 'danger', message: 'genericErrorMessage' });
+      }
+
+      if (response) {
+        if (response.stayInForm) return;
+
+        if (response.errors) {
+          const errorMessages = response.errors.map(e => {
+            return { level: 'danger', message: e.message, noTrad: true };
+          });
+          messages.push(...errorMessages);
+        } else {
+          messages.push({ level: 'success', message: 'genericSuccessMessage' });
+
+          // sortir du mode création acte
+          this.setActToCreate(null);
+          this.setActCreationPrerequisites(null);
+          this.setSelectedLinesForActCreation([]);
+        }
+      }
+
+      return messages;
+    },
+
+    async validateFile() {
       this.isLoading = true;
-      const messages = await containerValidationFn();
+      const messages = await this.doValidationRequest();
       messages.forEach(m => {
         this.showMessage(m);
       });
@@ -260,4 +363,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.to-bottom {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.clear-form {
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+</style>
