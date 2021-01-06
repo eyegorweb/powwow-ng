@@ -1,131 +1,138 @@
 <template>
-  <div class="form-container">
-    <form @submit.prevent="onSubmitAddress">
-      <div class="form-content">
-        <h2 v-if="!addressEdit" class="panel-title text-center mt-2">
-          {{ $t('orders.choose-delivery') }}
-        </h2>
-        <h2 v-else class="panel-title text-center mt-2">{{ $t('orders.modify-delivery') }}</h2>
-        <div :class="{ error: !!errors.title }">
-          <div class="d-flex">
-            <label class="radio-container mr-3">
-              {{ $t('common.MR') }}
-              <input name="civility" type="radio" value="MR" v-model="form.title" />
-              <span class="checkmark" />
-            </label>
-            <label class="radio-container">
-              {{ $t('common.MRS') }}
-              <input name="civility" type="radio" value="MRS" v-model="form.title" />
-              <span class="checkmark" />
-            </label>
+  <LoaderContainer :is-loading="isLoading">
+    <div slot="on-loading">
+      <ModalSkeleton :is-loading="isLoading" />
+    </div>
+    <div class="form-container">
+      <form @submit.prevent="onSubmitAddress">
+        <div class="form-content">
+          <h2 v-if="!addressEdit" class="panel-title text-center mt-2">
+            {{ $t('orders.choose-delivery') }}
+          </h2>
+          <h2 v-else class="panel-title text-center mt-2">{{ $t('orders.modify-delivery') }}</h2>
+          <div :class="{ error: !!errors.title }">
+            <div class="d-flex">
+              <label class="radio-container mr-3">
+                {{ $t('common.MR') }}
+                <input name="civility" type="radio" value="MR" v-model="form.title" />
+                <span class="checkmark" />
+              </label>
+              <label class="radio-container">
+                {{ $t('common.MRS') }}
+                <input name="civility" type="radio" value="MRS" v-model="form.title" />
+                <span class="checkmark" />
+              </label>
+            </div>
+            <div v-if="!!errors.title" class="error-text">{{ $t(errors.title) }}</div>
           </div>
-          <div v-if="!!errors.title" class="error-text">{{ $t(errors.title) }}</div>
-        </div>
-        <FormControl
-          label="orders.new.deliveryStep.form.lastname"
-          v-model="form.lastName"
-          :error="errors.lastName"
-        />
-        <FormControl
-          label="orders.new.deliveryStep.form.firstname"
-          v-model="form.firstName"
-          :error="errors.firstName"
-        />
-        <div class="row">
-          <div class="col">
-            <FormControl
-              label="orders.new.deliveryStep.form.phone"
-              v-model="form.phone"
-              :error="errors.phone"
-              :max-size="20"
-            />
+          <FormControl
+            label="orders.new.deliveryStep.form.lastname"
+            v-model="form.lastName"
+            :error="errors.lastName"
+          />
+          <FormControl
+            label="orders.new.deliveryStep.form.firstname"
+            v-model="form.firstName"
+            :error="errors.firstName"
+          />
+          <div class="row">
+            <div class="col">
+              <FormControl
+                label="orders.new.deliveryStep.form.phone"
+                v-model="form.phone"
+                :error="errors.phone"
+                :max-size="20"
+              />
+            </div>
+            <div class="col">
+              <FormControl
+                label="orders.new.deliveryStep.form.email"
+                input-type="email"
+                v-model="form.email"
+                :error="errors.email"
+              />
+            </div>
           </div>
-          <div class="col">
-            <FormControl
-              label="orders.new.deliveryStep.form.email"
-              input-type="email"
-              v-model="form.email"
-              :error="errors.email"
-            />
-          </div>
-        </div>
-        <FormControl
-          label="orders.new.deliveryStep.form.company"
-          v-model="form.company"
-          :error="errors.company"
-        />
-        <label data-v-4eacd3ee>{{ $t('orders.new.deliveryStep.form.address') }}</label>
-        <UiApiAutocomplete
-          :api-method="searchAddress"
-          v-model="selectedAddress"
-          :error="errors.address"
-          no-icon
-        />
+          <FormControl
+            label="orders.new.deliveryStep.form.company"
+            v-model="form.company"
+            :error="errors.company"
+          />
+          <label data-v-4eacd3ee>{{ $t('orders.new.deliveryStep.form.address') }}</label>
+          <UiApiAutocomplete
+            :api-method="searchAddress"
+            v-model="selectedAddress"
+            :error="errors.address"
+            no-icon
+          />
 
-        <div class="row">
-          <div class="col">
-            <FormControl
-              label="orders.new.deliveryStep.form.zipcode"
-              input-type="text"
-              v-model="form.zipCode"
-              :error="errors.zipCode"
-            />
-          </div>
-          <div class="col">
-            <FormControl
-              label="orders.new.deliveryStep.form.city"
-              v-model="form.city"
-              :error="errors.city"
-            />
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
-              <div>
-                <UiApiAutocomplete
-                  :items="countries"
-                  v-model="form.country"
-                  :error="errors.city"
-                  display-results-while-empty
-                />
+          <div class="row">
+            <div class="col">
+              <FormControl
+                label="orders.new.deliveryStep.form.zipcode"
+                input-type="text"
+                v-model="form.zipCode"
+                :error="errors.zipCode"
+              />
+            </div>
+            <div class="col">
+              <FormControl
+                label="orders.new.deliveryStep.form.city"
+                v-model="form.city"
+                :error="errors.city"
+              />
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>{{ $t('orders.new.deliveryStep.form.country') }}</label>
+                <div>
+                  <UiApiAutocomplete
+                    :items="countries"
+                    v-model="form.country"
+                    :error="errors.city"
+                    display-results-while-empty
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>{{ $t('orders.new.deliveryStep.form.delivery') }}</label>
-          <input class="form-control mb-1" v-model="form.extraInfos" disabled />
-          <input class="form-control" v-model="form.extraInfos2" disabled />
-        </div>
-      </div>
-      <div class="form-bottom">
-        <div class="row">
-          <div class="col">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              @click="$emit('cancel')"
-            >
-              {{ $t('orders.new.deliveryStep.form.cancel') }}
-            </button>
-          </div>
-          <div class="col">
-            <button v-if="!addressEdit" class="btn btn-primary btn-block" :disabled="onSave">
-              {{ $t('orders.new.deliveryStep.form.add') }}
-            </button>
-            <button v-else class="btn btn-primary btn-block">
-              {{ $t('orders.new.deliveryStep.form.modify') }}
-            </button>
+          <div class="form-group">
+            <label>{{ $t('orders.new.deliveryStep.form.delivery') }}</label>
+            <input class="form-control mb-1" v-model="form.extraInfos" disabled />
+            <input class="form-control" v-model="form.extraInfos2" disabled />
           </div>
         </div>
-      </div>
-    </form>
-  </div>
+        <div class="form-bottom">
+          <div class="row">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-block"
+                @click="$emit('cancel')"
+              >
+                {{ $t('orders.new.deliveryStep.form.cancel') }}
+              </button>
+            </div>
+            <div class="col">
+              <button v-if="!addressEdit" class="btn btn-primary btn-block" :disabled="!canSave">
+                {{ $t('orders.new.deliveryStep.form.add') }}
+              </button>
+              <button v-else class="btn btn-primary btn-block" :disabled="!canSave">
+                {{ $t('orders.new.deliveryStep.form.modify') }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </LoaderContainer>
 </template>
 
 <script>
 import FormControl from '@/components/ui/FormControl';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
+import LoaderContainer from '@/components/LoaderContainer';
+import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
 import { searchAddress } from '@/api/address';
 import { addPartyShippingAddress } from '@/api/partners';
 import { updatePartyShippingAddress } from '@/api/partners';
@@ -135,6 +142,8 @@ export default {
   components: {
     FormControl,
     UiApiAutocomplete,
+    LoaderContainer,
+    ModalSkeleton,
   },
   props: {
     partnerId: {
@@ -148,7 +157,7 @@ export default {
   },
   data() {
     return {
-      onSave: false,
+      isLoading: false,
       selectedAddress: {},
       countries: [],
       form: {
@@ -169,13 +178,17 @@ export default {
     };
   },
 
+  computed: {
+    canSave() {
+      return this.checkForErrors();
+    },
+  },
+
   methods: {
     searchAddress,
     async onSubmitAddress() {
       let savedId;
-      this.onSave = true;
-      const canSave = this.checkForErrors();
-      if (!canSave) return;
+      this.isLoading = true;
 
       if (this.addressEdit) {
         savedId = await updatePartyShippingAddress(this.form, this.addressEdit.id);
@@ -183,7 +196,7 @@ export default {
         savedId = await addPartyShippingAddress(this.form, this.partnerId);
       }
       this.$emit('saved', savedId.id);
-      this.onSave = false;
+      this.isLoading = false;
     },
     /**
      * Return true when no error is found
