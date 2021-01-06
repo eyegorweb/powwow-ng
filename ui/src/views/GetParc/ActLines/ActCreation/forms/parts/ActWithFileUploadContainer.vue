@@ -143,11 +143,13 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
+      genericSuccessMessage: ''
     };
   },
 
   mounted() {
     this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+    this.genericSuccessMessage = this.$t('genericSuccessMessage');
   },
 
   watch: {
@@ -298,11 +300,11 @@ export default {
 
         if (response.errors) {
           const errorMessages = response.errors.map(e => {
-            return { level: 'danger', message: e.message, noTrad: true };
+            return { level: 'danger', message: e.message };
           });
           messages.push(...errorMessages);
         } else {
-          messages.push({ level: 'success', message: 'genericSuccessMessage' });
+          messages.push({ level: 'success', message: this.genericSuccessMessage });
 
           // sortir du mode création acte
           this.setActToCreate(null);
@@ -318,17 +320,10 @@ export default {
       this.isLoading = true;
       const messages = await this.doValidationRequest();
       for (let i = 0; i < messages.length; i++) {
-        this.showMessage(messages[i]);
-
+        this.flashMessage(messages[i]);
       }
       this.showValidationModal = false;
       this.isLoading = false;
-    },
-
-    showMessage(m) {
-      console.log("🚀 ~ file: ActWithFileUploadContainer.vue ~ line 335 ~ showMessage ~ m.message", m.message)
-      const msg = m.noTrad ? m.message : this.$t(m.message);
-      this.flashMessage({ level: m.level, message: msg });
     },
 
     async confirmRequest(showMessage = false) {
