@@ -10,9 +10,10 @@
         :class="staticClass"
         >{{ $t('getsim.actions.btn') }}</UiButton
       >
-      <div slot-scope="{ hide }">
-        <div class="list-group" :key="action" v-for="action in actions">
+      <div class="list-group" slot-scope="{ hide }">
+        <template v-for="action in actions">
           <button
+            :key="action"
             v-if="action !== 'getparc.history.actions.EXPORT'"
             type="button"
             class="list-group-item list-group-item-action order-action hover-pointer"
@@ -27,15 +28,16 @@
           </button>
           <ExportButton
             v-else
+            :key="action"
             :export-fn="getExportFn()"
             :columns="columns"
             :order-by="orderBy"
-            class="list-group-item-action"
+            class="list-group-item list-group-item-action p-0"
           >
             <i slot="icon" />
             <span slot="title">{{ $t(action) }}</span>
           </ExportButton>
-        </div>
+        </template>
       </div>
     </UiDropdownButton>
   </div>

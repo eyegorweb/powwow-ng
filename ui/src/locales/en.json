@@ -1025,9 +1025,9 @@
       },
       "actions": {
         "btn": "Actions",
-        "DETAIL": "See the détail",
+        "DETAIL": "See the detail",
         "EXPORT": "Export act",
-        "CANCEL": "Cancel acte"
+        "CANCEL": "Cancel act"
       }
     },
     "actDetail": {
