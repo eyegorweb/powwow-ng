@@ -213,9 +213,17 @@ export default {
 
     async validateFile(containerValidationFn) {
       this.isLoading = true;
-      await containerValidationFn(this.$t); // Corriger le bug 2251 en ajoutant la ref vers this.$t ici
+      const messages = await containerValidationFn();
+      messages.forEach(m => {
+        this.showMessage(m);
+      });
       this.showValidationModal = false;
       this.isLoading = false;
+    },
+
+    showMessage(m) {
+      const msg = m.noTrad ? m.message : this.$t(m.message);
+      this.flashMessage({ level: m.level, message: msg });
     },
 
     async confirmRequest(showMessage = false) {
