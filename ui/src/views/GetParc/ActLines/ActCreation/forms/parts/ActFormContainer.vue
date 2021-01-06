@@ -101,8 +101,16 @@ export default {
       this.actDate = value;
     },
 
-    async validate() {
+    async validate(_t) {
       if (this.haveErrors()) return;
+
+      // Essai pour corriger le bug 2251
+      const getTradFn = () => {
+        if (_t) {
+          return _t;
+        }
+        return this.$t;
+      }
 
       const response = await this.validateFn({
         actDate: this.actDate,
@@ -110,7 +118,7 @@ export default {
       });
 
       if (!response) {
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        this.flashMessage({ level: 'danger', message: getTradFn()('genericErrorMessage') });
       }
 
       if (response) {
@@ -123,8 +131,8 @@ export default {
         } else {
           setTimeout(() => {
             const successMessage = this.successMessage
-              ? this.$t(this.successMessage)
-              : this.$t('genericSuccessMessage');
+              ? getTradFn()(this.successMessage)
+              : getTradFn()('genericSuccessMessage');
             this.flashMessage({ level: 'success', message: successMessage });
           }, 100);
 

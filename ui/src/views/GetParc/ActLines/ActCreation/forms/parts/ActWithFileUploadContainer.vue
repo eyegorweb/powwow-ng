@@ -213,7 +213,7 @@ export default {
 
     async validateFile(containerValidationFn) {
       this.isLoading = true;
-      await containerValidationFn();
+      await containerValidationFn(this.$t); // Corriger le bug 2251 en ajoutant la ref vers this.$t ici
       this.showValidationModal = false;
       this.isLoading = false;
     },
