@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.67+20210106095658
+2021-01-06
+
+### Fixes
+
+- [2257] Désactivation de l'acte Changement de CF pour les lignes des partenaires Marque blanche (dfb189b71cd2eb6946bdbd03de905b3c53841e58)
+- [2251] Corriger le problème de message de confirmation (bc45890596506b1f167fcdfc7c15721272d78f13)
+
 ## 1.17.0-master.66+20210106092854
 2021-01-06
 
