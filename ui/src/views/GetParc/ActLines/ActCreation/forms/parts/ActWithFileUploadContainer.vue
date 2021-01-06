@@ -317,14 +317,16 @@ export default {
     async validateFile() {
       this.isLoading = true;
       const messages = await this.doValidationRequest();
-      messages.forEach(m => {
-        this.showMessage(m);
-      });
+      for (let i = 0; i < messages.length; i++) {
+        this.showMessage(messages[i]);
+
+      }
       this.showValidationModal = false;
       this.isLoading = false;
     },
 
     showMessage(m) {
+      console.log("🚀 ~ file: ActWithFileUploadContainer.vue ~ line 335 ~ showMessage ~ m.message", m.message)
       const msg = m.noTrad ? m.message : this.$t(m.message);
       this.flashMessage({ level: m.level, message: msg });
     },
