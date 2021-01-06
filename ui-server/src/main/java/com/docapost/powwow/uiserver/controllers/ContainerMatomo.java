@@ -23,7 +23,7 @@ public class ContainerMatomo {
     @Value("${matomo.enabled:false}")
     private boolean enabled;
 
-    @GetMapping(path = "/matomo.js")
+    @GetMapping(path = "/matomo.js", produces = "application/javascript")
     public View matomoContainer() {
         if (enabled && matomoContainerURL != null) {
             return new RedirectView(matomoContainerURL.toString());
@@ -33,6 +33,17 @@ public class ContainerMatomo {
     }
 
     private static View MATOMO_DISABLED_JS_VIEW = new AbstractView() {
+        @Override
+        protected void prepareResponse(HttpServletRequest request, HttpServletResponse response) {
+            response.setContentType(getContentType());
+            super.prepareResponse(request, response);
+        }
+
+        @Override
+        public String getContentType() {
+            return "application/javascript";
+        }
+
         @Override
         protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
             response.getWriter().write("window._ANALYTICS_DISABLED=true;");
