@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.68+20210106121506
+2021-01-06
+
+### Fixes
+
+- [2251] Corriger le problème de message de confirmation (feea71dff9c69dcf87ddd223225a0fd72f0142b9)
+
 ## 1.17.0-master.67+20210106095658
 2021-01-06
 
