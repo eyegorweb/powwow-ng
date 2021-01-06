@@ -154,7 +154,14 @@ export default {
       'searchingById',
     ]),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
-    ...mapGetters(['userIsPartner', 'userInfos', 'userIsBO', 'userIsMVNO', 'havePermission']),
+    ...mapGetters([
+      'userIsPartner',
+      'userInfos',
+      'userIsBO',
+      'userIsMVNO',
+      'havePermission',
+      'userIsMultiCustomer',
+    ]),
 
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
@@ -174,6 +181,12 @@ export default {
           .filter(i => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
+            }
+            return true;
+          })
+          .filter(i => {
+            if (i.hideForMultiCustomer) {
+              return !this.userIsMultiCustomer;
             }
             return true;
           })

@@ -185,6 +185,7 @@ export default excludeMocked([
     selected: false,
     havePrereqs: true,
     hideForMVNO: true,
+    hideForMultiCustomer: true,
     permission: { domain: 'act', action: 'transfer_customer_account' },
     filters: [
       {
