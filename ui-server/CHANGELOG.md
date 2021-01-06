@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.69+20210106140712
+2021-01-06
+
+### Fixes
+
+- [2251] refactoring du code (23a05358bf60cbffdd1918810bc34be288609c2a)
+
 ## 1.17.0-master.68+20210106121506
 2021-01-06
 
