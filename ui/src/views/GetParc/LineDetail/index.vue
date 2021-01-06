@@ -111,7 +111,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['havePermission', 'userIsBO', 'userInfos', 'userIsPartner', 'havePermission']),
+    ...mapGetters([
+      'havePermission',
+      'userIsBO',
+      'userInfos',
+      'userIsPartner',
+      'havePermission',
+      'userIsMultiCustomer',
+    ]),
 
     canRunCoach() {
       return (
@@ -237,6 +244,7 @@ export default {
               title: 'getparc.actCreation.carouselItem.lineDetail.CHANGE_CF',
               selected: false,
               permission: { domain: 'act', action: 'transfer_customer_account' },
+              hideForMultiCustomer: true,
             },
             {
               icon: 'ic-Ticket-Icon',
@@ -245,6 +253,12 @@ export default {
               permission: { domain: 'act', action: 'manage_main' },
             },
           ])
+            .filter(i => {
+              if (i.hideForMultiCustomer) {
+                return !this.userIsMultiCustomer;
+              }
+              return true;
+            })
             .filter(i => {
               if (i.permission) {
                 return this.havePermission(i.permission.domain, i.permission.action);

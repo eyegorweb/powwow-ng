@@ -57,6 +57,9 @@ export const getters = {
   userIsMVNO: (state, getters) => {
     return getters.singlePartner && getters.singlePartner.partyType === 'MVNO';
   },
+  userIsMultiCustomer: (state, getters) => {
+    return getters.singlePartner && getters.singlePartner.partyType === 'MULTI_CUSTOMER';
+  },
   singlePartner: (state, getters) => {
     if (getters.userIsPartner) {
       return state.userInfos && state.userInfos.partners && state.userInfos.partners.length
