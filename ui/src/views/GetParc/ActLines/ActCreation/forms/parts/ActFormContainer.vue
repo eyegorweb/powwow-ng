@@ -30,11 +30,7 @@
                   :containerValidationFn="validate"
                   :actDate="actDate"
                   :notificationCheck="notificationCheck"
-                >
-                  <button @click="validate" class="btn btn-primary pl-4 pr-4 pt-2 pb-2">
-                    <span>{{ $t('set') }}</span>
-                  </button>
-                </slot>
+                />
               </div>
             </div>
           </div>
@@ -101,16 +97,10 @@ export default {
       this.actDate = value;
     },
 
-    async validate(_t) {
+    async validate() {
       if (this.haveErrors()) return;
 
-      // Essai pour corriger le bug 2251
-      const getTradFn = () => {
-        if (_t) {
-          return _t;
-        }
-        return this.$t;
-      }
+      const messages = [];
 
       const response = await this.validateFn({
         actDate: this.actDate,
@@ -118,23 +108,19 @@ export default {
       });
 
       if (!response) {
-        this.flashMessage({ level: 'danger', message: getTradFn()('genericErrorMessage') });
+        messages.push({ level: 'danger', message: 'genericErrorMessage' });
       }
 
       if (response) {
         if (response.stayInForm) return;
 
         if (response.errors) {
-          response.errors.forEach(e => {
-            this.flashMessage({ level: 'danger', message: e.message });
+          const errorMessages = response.errors.map(e => {
+            return ({ level: 'danger', message: e.message, noTrad: true });
           });
+          messages.push(...errorMessages);
         } else {
-          setTimeout(() => {
-            const successMessage = this.successMessage
-              ? getTradFn()(this.successMessage)
-              : getTradFn()('genericSuccessMessage');
-            this.flashMessage({ level: 'success', message: successMessage });
-          }, 100);
+          messages.push({ level: 'success', message: 'genericSuccessMessage' });
 
           // sortir du mode création acte
           this.setActToCreate(null);
@@ -142,6 +128,8 @@ export default {
           this.setSelectedLinesForActCreation([]);
         }
       }
+
+      return messages;
     },
 
     haveErrors() {
