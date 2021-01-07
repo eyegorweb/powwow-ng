@@ -61,7 +61,7 @@
             />
           </div>
         </template>
-        <div :class="{ hidden: !!(cockpitMarkerToDetail && cockpitMarkerToDetail.world) }">
+        <div :class="{ hidden: !!cockpitMarkerToDetail }">
           <SupervisionMap
             :visible="!refreshLinesFn"
             :applied-filters="appliedFilters"
@@ -372,7 +372,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() {},
+    onAllFiltersCleared() { },
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
