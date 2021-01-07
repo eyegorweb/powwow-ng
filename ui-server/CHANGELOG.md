@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.76+20210107143700
+2021-01-07
+
+### Fixes
+
+- [2255] bug d'affichage dans supervision / M2M (0403d2c73702fb1e8a8745aa477740e3c2fba711)
+
 ## 1.17.0-master.75+20210107130317
 2021-01-07
 
