@@ -7,7 +7,7 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
@@ -353,7 +353,7 @@ import ActLinesCountries from './ActLinesCountries';
 import ActLinesCustomFields from './ActLinesCustomFields';
 import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
-import DateFilter from '@/components/Filters/NewDateFilter';
+import DateFilter from '@/components/Filters/DateFilter';
 import ActLinesRangeFilter from './ActLinesRangeFilter';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
