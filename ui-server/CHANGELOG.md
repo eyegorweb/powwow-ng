@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.74+20210107110026
+2021-01-07
+
+### Fixes
+
+- [2269] Correction du rendu de la création d'une alarme mutualisée (flotte) en 1366x768 (23008138f44a856269e49a2a754a215b980900e2)
+
 ## 1.17.0-master.73+20210107100118
 2021-01-07
 
