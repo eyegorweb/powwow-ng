@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.73+20210107100118
+2021-01-07
+
+### Fixes
+
+- [2242] ajout d'un loader pour créer et modifier une nouvelle adresse pendant la commande de cartes sim (768e58f12433fcff04b7559ae0a22476cc9312b6)
+
 ## 1.17.0-master.72+20210106150804
 2021-01-06
 
