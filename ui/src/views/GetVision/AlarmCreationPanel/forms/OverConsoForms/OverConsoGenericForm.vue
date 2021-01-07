@@ -232,6 +232,11 @@ export default {
       top: 0.6rem;
       font-size: 11px;
     }
+
+    .select-container {
+      flex-basis: 60%;
+    }
+
     & /deep/ select {
       padding: 0.2rem 0.2rem;
       padding-right: 0 !important;
