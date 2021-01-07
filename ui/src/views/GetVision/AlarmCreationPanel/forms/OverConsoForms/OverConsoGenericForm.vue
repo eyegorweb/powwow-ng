@@ -200,18 +200,18 @@ export default {
   display: flex;
   .value {
     display: flex;
-    flex-basis: 37%;
+    flex-basis: 50%;
     padding-right: 1rem;
 
     &::after {
       content: '%';
       position: relative;
-      right: 1.2rem;
+      right: 1.5rem;
       top: 0.5rem;
     }
 
     span {
-      flex-basis: 13rem;
+      flex-basis: 50%;
       font-size: 0.8rem;
       position: relative;
       top: 0.6rem;
@@ -249,6 +249,14 @@ export default {
         color: white;
       }
     }
+  }
+}
+
+.value-input {
+  width: 7rem;
+
+  input {
+    padding-right: 1.8rem;
   }
 }
 </style>

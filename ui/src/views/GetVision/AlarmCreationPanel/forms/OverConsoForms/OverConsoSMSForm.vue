@@ -29,10 +29,12 @@ export default {
   },
   methods: {
     getPercentVal(value) {
+      /*
       const calculated = Math.round((value * this.max) / 100);
       if (!isNaN(calculated)) {
         return `(${calculated})`;
       }
+      //*/
       return undefined;
     },
   },
