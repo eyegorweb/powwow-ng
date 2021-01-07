@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.75+20210107130317
+2021-01-07
+
+### Fixes
+
+- [2269] Ajuster la taille de la combobox dans la création d'alarmes mutualisées. (f1560906aa57fde6fca1a7a275523d3b7020a8f0)
+
 ## 1.17.0-master.74+20210107110026
 2021-01-07
 
