@@ -117,7 +117,7 @@
               <button v-if="!addressEdit" class="btn btn-primary btn-block" :disabled="!canSave">
                 {{ $t('orders.new.deliveryStep.form.add') }}
               </button>
-              <button v-else class="btn btn-primary btn-block" :disabled="!canSave">
+              <button v-else class="btn btn-primary btn-block" :disabled="!canEdit">
                 {{ $t('orders.new.deliveryStep.form.modify') }}
               </button>
             </div>
@@ -179,8 +179,34 @@ export default {
   },
 
   computed: {
-    canSave() {
+    requiredFields() {
+      const requiredFields = [
+        'title',
+        'firstName',
+        'lastName',
+        'phone',
+        'company',
+        'address',
+        'zipCode',
+        'city',
+        'country',
+      ];
+
+      return requiredFields.filter(f => {
+        // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
+        if (f === 'address') {
+          if (typeof this.form.address === 'object') {
+            return !this.form.address.label;
+          }
+        }
+        return !this.form[f];
+      });
+    },
+    canEdit() {
       return this.checkForErrors();
+    },
+    canSave() {
+      return this.requiredFields.length === 0;
     },
   },
 
@@ -202,32 +228,12 @@ export default {
      * Return true when no error is found
      */
     checkForErrors() {
-      const requiredFields = [
-        'title',
-        'firstName',
-        'lastName',
-        'phone',
-        // 'email',
-        'company',
-        'address',
-        'zipCode',
-        'city',
-        'country',
-      ];
-
-      const fieldsWithErrors = requiredFields.filter(f => {
-        // cas spécial pour l'autocomplete, il renvoi un objet {label: ''} si l'input est vide
-        if (f === 'address') {
-          if (typeof this.form.address === 'object') {
-            return !this.form.address.label;
-          }
-        }
-        return !this.form[f];
-      });
+      const fieldsWithErrors = this.requiredFields;
       this.errors = fieldsWithErrors.reduce((all, field) => {
         all[field] = 'errors.mandatory';
         return all;
       }, {});
+
       return fieldsWithErrors.length === 0;
     },
   },
