@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.77+20210107161528
+2021-01-07
+
+### Fixes
+
+- [2254] yne pas utiliser le filtre "A partir de" dans la gestion de lignes (cd2a4f85a29a2aa35fd22ab65b88a250dd42280f)
+
 ## 1.17.0-master.76+20210107143700
 2021-01-07
 
