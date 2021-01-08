@@ -2,6 +2,19 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.81+20210108153526
+2021-01-08
+
+### Fixes
+
+- 2272 Plusieurs modifications pour MEP (f46fbf17b8f4578f7eb898ee191c85d1c10b1e65)
+- 2272 Changement permission act history (1f56602fdc4f4ae195547bb773f89490c2cf1082)
+- [2272]  Résolution du bug sur le cycle d'observation du type d'alarme (5682a1c0db6b06baf9d6fb3e5291ac09e91f45ec)
+- lint (9ff5c18eff9ea86b23d40a0223b7e52db5375d84)
+- [2269] chargement des limites DATA, Voix et SMS (97c77cd4919c0c1cd88fdcf0e51aa7dfded09778)
+- Changer de proxy (651c87cad003d13d70cd944f9e7e42dae5a4687f)
+- Remettre le proxy (4bc96f8e28c95853433ec7836de5e479c37ca07c)
+
 ## 1.17.0-master.80+20210108102222
 2021-01-08
 
