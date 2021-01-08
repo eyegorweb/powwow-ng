@@ -5,7 +5,7 @@
         <img
           v-if="!isBackofficeProfile"
           class="logo logo--corporate"
-          src="@/assets/logo_bouygues.png"
+          src="@/assets/logo_objenious.png"
           alt
         />
       </a>

@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="logoPart">
       <router-link to="/">
-        <img class="logo" src="@/assets/logo_bouygues.png" alt />
+        <img class="logo" src="@/assets/logo_objenious.png" alt />
       </router-link>
     </div>
     <div class="contentPart">
