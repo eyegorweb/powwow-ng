@@ -199,7 +199,7 @@ export default {
           {
             label: 'menu.massActions',
             to: { name: 'actHistory' },
-            permission: { domain: 'act', action: 'manage_main' },
+            permission: { domain: 'act', action: 'read' },
           },
         ],
       },
