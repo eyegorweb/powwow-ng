@@ -178,12 +178,21 @@ export default {
     ...mapGetters(['userIsPartner']),
 
     finalTextObservationCycle() {
-      if (this.content.observationCycle === 'CUSTOM') {
-        return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
-          this.content.observationDelay
-        } ${this.$t('alarms.observationCycles.DAYS')}`;
+      if (this.observationCycle === 'CUSTOM' || this.observationCycle === null) {
+        if (
+          this.alarmType === 'OVER_CONSUMPTION_VOLUME' ||
+          this.alarmType === 'UNDER_CONSUMPTION_VOLUME'
+        ) {
+          if (this.observationDelay !== null) {
+            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
+              this.observationDelay
+            } ${this.$t('alarms.observationCycles.DAYS')}`;
+          }
+          return `${this.$t('alarms.observationCycles.CUSTOM')}`;
+        }
+        return `${this.$t('notAvailableShortCut')}`;
       } else {
-        return this.content.observationCycle;
+        return this.observationCycle;
       }
     },
 
@@ -200,6 +209,19 @@ export default {
 
     partner() {
       return get(this.content, 'party.name', '-');
+    },
+
+    alarmType() {
+      return get(this.content, 'type', '-');
+    },
+
+    observationCycle() {
+      const observationCycle = get(this.content, 'observationCycle', null);
+      return observationCycle !== null ? observationCycle : null;
+    },
+    observationDelay() {
+      const observationDelay = get(this.content, 'observationDelay', null);
+      return observationDelay !== null ? observationDelay : null;
     },
   },
 
