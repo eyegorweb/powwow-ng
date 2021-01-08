@@ -181,7 +181,7 @@
       },
       "viewOneResult": "Consulter le résultat",
       "viewXResults": "Consulter les {num} résultats",
-      "linesConsumption": "Lignes les plus consommatrices du mois",
+      "linesConsumption": "Top 5 conso",
       "topTriggeredAlarmsPerDay": "Nombre d'alarmes déclenchées par jour",
       "topBillingExchangeCA": "Top / Flop CA",
       "topBillingExchangePO": "Prise d'ordre"
@@ -453,7 +453,7 @@
   "getvsion": {
     "search-by-id": "Rechercher une alarme par identifiant",
     "manage-alarms": "Gestion des alarmes",
-    "manage-alarms-tooltip": "Cette page permet de rechercher un utilisateur.",
+    "manage-alarms-tooltip": "Permet de positionner des alarmes, en unitaire ou en masse, sur les lignes : sur/sous-consommation, changement de boitier, de pays… Et ainsi d’être alerté en temps réel dès le déclenchement de celles-ci.",
     "tab-1-parc-alarms": "Alarmes de parc",
     "tab-2-m2m-alarms": "Alarmes cockpit M2M",
     "tab-3-m2m-sharedconso": "Alarmes Mutualisées",
@@ -514,7 +514,7 @@
     },
     "indicators": {
       "triggered_current_month_ongoing": "Déclenchement(s) dans le mois",
-      "triggered_last_month": "Déclenchement(s) mois précédent",
+      "triggered_last_month": "Déclenchement(s) en {month}",
       "triggered_before_last_month": "Déclenchement(s) en {month}",
       "globalActif": "Parc global actif",
       "lineWithoutTraffic": "Lignes sans aucun trafic",
