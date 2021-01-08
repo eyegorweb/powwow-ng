@@ -143,7 +143,7 @@ export default {
       actDate: null,
       dateError: null,
       notificationCheck: false,
-      genericSuccessMessage: ''
+      genericSuccessMessage: '',
     };
   },
 

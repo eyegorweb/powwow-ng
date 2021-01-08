@@ -54,12 +54,11 @@ export default {
     usage: String,
   },
 
-
-watch: {
-  usage(newValue, oldValue) {
-    console.log(newValue);
-  }
-}
+  watch: {
+    usage(newValue, oldValue) {
+      console.log(newValue);
+    },
+  },
 };
 </script>
 

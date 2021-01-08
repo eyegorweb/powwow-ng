@@ -17,10 +17,7 @@
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
             <template v-if="tab.external">
-              <a
-                target="_blank"
-                :href="tab.external.url"
-              >
+              <a target="_blank" :href="tab.external.url">
                 {{ $t(tab.label) }}
               </a>
             </template>
@@ -298,8 +295,8 @@ export default {
         to: { name: 'help' },
         permission: { domain: 'getDevice', action: 'read' },
         external: {
-          url : 'https://www.objenious.com/aide-getway/',
-        }
+          url: 'https://www.objenious.com/aide-getway/',
+        },
       },
     ]);
     this.chooseCurrentMenu();

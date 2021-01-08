@@ -372,7 +372,7 @@ export default {
 
       this.canShowIndicators = true;
     },
-    onAllFiltersCleared() { },
+    onAllFiltersCleared() {},
 
     onCurrentChange(currentFilters) {
       this.currentFilters = cloneDeep(currentFilters);
