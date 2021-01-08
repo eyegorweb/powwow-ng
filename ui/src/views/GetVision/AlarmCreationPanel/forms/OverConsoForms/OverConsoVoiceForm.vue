@@ -16,12 +16,10 @@ export default {
     OverConsoGenericForm,
   },
   mixins: [propWithSync('active')],
-
-  data() {
-    return {
-      max: 200,
-    };
+  props: {
+    offerPackage: Object,
   },
+
   computed: {
     name() {
       return this.data;
@@ -29,12 +27,12 @@ export default {
   },
   methods: {
     getPercentVal(value) {
-      /*
-      const calculated = Math.round((value * this.max) / 100);
+      if (!this.offerPackage || !this.offerPackage.envelopeValue) return undefined;
+
+      const calculated = Math.round((value * this.offerPackage.envelopeValue) / 100);
       if (!isNaN(calculated)) {
-        return `(${calculated} Min)`;
+        return `(${calculated} ${this.offerPackage.unit})`;
       }
-      //*/
       return undefined;
     },
   },

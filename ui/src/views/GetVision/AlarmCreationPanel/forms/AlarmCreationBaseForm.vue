@@ -10,7 +10,11 @@
       <div v-if="shouldSelectPartner" class="row mb-2">
         <div class="col-md-6">
           <SectionTitle :num="1">{{ $t('getparc.history.col.partyId') }}</SectionTitle>
-          <PartnerCombo :value.sync="selectedPartner" include-mailing-lists />
+          <PartnerCombo
+            :value.sync="selectedPartner"
+            include-mailing-lists
+            @update:value="$emit('partnerChange', $event)"
+          />
         </div>
       </div>
       <ScopeChoice
@@ -26,7 +30,7 @@
     </template>
 
     <div class="mb-4">
-      <slot @change="onChange" :scopeIndex="scopeIndex" />
+      <slot @change="onChange" :scopeIndex="scopeIndex" :partner="selectedPartner" />
     </div>
     <AlarmInfoBlock
       :num="notifIndex"
@@ -96,6 +100,12 @@ export default {
         label: get(this.partner, 'name'),
         data: this.partner,
       };
+    }
+
+    if (this.selectedPartner) {
+      setTimeout(() => {
+        this.$emit('partnerChange', this.selectedPartner);
+      });
     }
   },
 

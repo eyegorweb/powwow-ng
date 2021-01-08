@@ -13,6 +13,7 @@
             :max-value="100"
             v-model="basePercent"
             @update:value="onValueUpdate()"
+            :input-style="inputStyle"
           />
         </div>
         <div class="limitDate">
@@ -35,6 +36,7 @@
             :max-value="100"
             v-model="line.value"
             @update:value="onValueUpdate()"
+            :input-style="inputStyle"
           />
         </div>
         <div class="limitDate">
@@ -44,11 +46,11 @@
             >
           </span>
           <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
-        </div>
-        <div class="deleteButton">
-          <UiButton variant="outline-danger" @click="deleteLine(line)">
-            <i class="icon ic-Trash-Icon"></i>
-          </UiButton>
+          <div class="deleteButton">
+            <UiButton variant="outline-danger" @click="deleteLine(line)">
+              <i class="icon ic-Trash-Icon"></i>
+            </UiButton>
+          </div>
         </div>
       </div>
 
@@ -116,6 +118,9 @@ export default {
       basePercent: 100,
       lines: [],
       options: [],
+      inputStyle: {
+        paddingRight: '1.8rem',
+      },
     };
   },
 
@@ -200,7 +205,7 @@ export default {
   display: flex;
   .value {
     display: flex;
-    flex-basis: 50%;
+    flex-basis: 40%;
     padding-right: 1rem;
 
     &::after {
@@ -220,7 +225,7 @@ export default {
 
   .limitDate {
     display: flex;
-    flex-basis: 32%;
+    flex-basis: 60%;
     padding-right: 1rem;
     align-content: flex-end;
 
@@ -234,7 +239,7 @@ export default {
     }
 
     .select-container {
-      flex-basis: 60%;
+      flex-basis: 45%;
     }
 
     & /deep/ select {
@@ -244,24 +249,17 @@ export default {
       top: 0.4rem;
     }
   }
-
-  .deleteButton {
-    & /deep/ button {
-      padding: 0.2rem 0.5rem;
-      margin-top: 0.3rem;
-
-      &:hover i {
-        color: white;
-      }
-    }
-  }
 }
 
-.value-input {
-  width: 7rem;
+.deleteButton {
+  & /deep/ button {
+    padding: 0.2rem 0.5rem;
+    margin-top: 0.3rem;
+    margin-left: 0.4rem;
 
-  input {
-    padding-right: 1.8rem;
+    &:hover i {
+      color: white;
+    }
   }
 }
 </style>
