@@ -29,12 +29,12 @@ export default {
   },
   methods: {
     getPercentVal(value) {
-      /*
-      const calculated = Math.round((value * this.max) / 100);
+      if (!this.offerPackage || !this.offerPackage.envelopeValue) return undefined;
+
+      const calculated = Math.round((value * this.offerPackage.envelopeValue) / 100);
       if (!isNaN(calculated)) {
         return `(${calculated})`;
       }
-      //*/
       return undefined;
     },
   },

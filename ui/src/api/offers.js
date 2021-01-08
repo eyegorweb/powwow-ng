@@ -235,6 +235,34 @@ export async function changeOffer(filters, lines, params) {
   return await query(queryStr);
 }
 
+export async function fetchUsageLimits(partnerId, customerAccountId) {
+  const queryStr = `
+  query OfferGroup($partnerId: Long!, $customerAccountId: Long){
+    offerGroup(partyId: $partnerId, customerAccountId: $customerAccountId) {
+      items {
+        offerGroupPackages {
+          usageType
+          envelopeLabel
+          envelopeValue
+          unit
+        }
+      }
+    }
+  }`;
+
+  try {
+    const response = await query(queryStr, { partnerId, customerAccountId });
+
+    if (response.data.offerGroup.items.length > 0) {
+      return get(response, 'data.offerGroup.items[0].offerGroupPackages');
+    }
+    return undefined;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+}
+
 export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pagination) {
   const queryStr = `
   query OfferGroup($partnerId: Long!, $customerAccountId: Long, $pagination: Pagination){

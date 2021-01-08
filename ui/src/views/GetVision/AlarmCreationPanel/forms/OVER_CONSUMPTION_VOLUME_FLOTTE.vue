@@ -5,13 +5,16 @@
     skip-scope-check
     :container-height="'9rem'"
     @save="onSave"
+    @partnerChange="selectedPartner = $event"
     :partner="partner"
     :no-suspension="true"
     :no-wsnotification="true"
     :check-errors-fn="isFormValid"
   >
-    <template v-slot:default="{ scopeIndex, num }">
-      <SectionTitle :num="num">{{ $t('getvsion.alarm-creation.setLimits') }}</SectionTitle>
+    <template v-slot:default="{ scopeIndex }">
+      <SectionTitle :num="scopeIndex + 1">{{
+        $t('getvsion.alarm-creation.setLimits')
+      }}</SectionTitle>
       <div class="d-flex justify-content-center mt-4 mb-2">
         <Toggle
           v-if="toggleValues"
@@ -20,12 +23,12 @@
           class="pl-2"
         />
       </div>
-
       <keep-alive>
         <OverConsoDataForm
           v-if="currentPeriod == 'data'"
           @change="levelsData = $event"
           :active.sync="includeDataLimits"
+          :offer-package="dataOfferPackage"
         />
       </keep-alive>
       <keep-alive>
@@ -33,6 +36,7 @@
           v-if="currentPeriod == 'sms'"
           @change="levelsSms = $event"
           :active.sync="includeSMSLimits"
+          :offer-package="smsOfferPackage"
         />
       </keep-alive>
       <keep-alive>
@@ -40,6 +44,7 @@
           v-if="currentPeriod == 'voice'"
           @change="levelsVoice = $event"
           :active.sync="includeVoiceLimits"
+          :offer-package="voiceOfferPackage"
         />
       </keep-alive>
     </template>
@@ -48,7 +53,7 @@
       <OfferBillingAccountChoice
         :key="'offercf_' + (partner ? partner.id : '')"
         :partner="partner"
-        @change="filterForCreation = $event"
+        @change="onBillingAccountChange"
       />
     </template>
   </AlarmCreationBaseForm>
@@ -65,6 +70,7 @@ import OfferBillingAccountChoice from './ScopeChoice/OfferBillingAccountChoice.v
 import get from 'lodash.get';
 import { createSharedConsumptionAlarm } from '@/api/alarmCreation.js';
 import { mapMutations } from 'vuex';
+import { fetchUsageLimits } from '@/api/offers';
 
 export default {
   components: {
@@ -90,6 +96,10 @@ export default {
       levelsData: undefined,
       levelsSms: undefined,
       levelsVoice: undefined,
+      selectedPartner: undefined,
+      dataOfferPackage: undefined,
+      voiceOfferPackage: undefined,
+      smsOfferPackage: undefined,
 
       includeDataLimits: false,
       includeSMSLimits: false,
@@ -111,8 +121,34 @@ export default {
     };
   },
 
+  computed: {
+    chosenBillingAccountId() {
+      return get(this.filterForCreation, 'offerCF.meta.customerAccount.id');
+    },
+    chosenPartnerId() {
+      return get(this.partner, 'id') || get(this.selectedPartner, 'id');
+    },
+  },
+
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
+
+    onBillingAccountChange(value) {
+      this.filterForCreation = value;
+      this.refreshLimits();
+    },
+
+    async refreshLimits() {
+      const offerLimits = await fetchUsageLimits(this.chosenPartnerId, this.chosenBillingAccountId);
+
+      if (offerLimits && offerLimits.length) {
+        this.dataOfferPackage = offerLimits.find(f => f.usageType === 'DATA');
+        this.voiceOfferPackage = offerLimits.find(f => f.usageType === 'VOICE');
+        this.smsOfferPackage = offerLimits.find(f => f.usageType === 'SMS');
+      } else {
+        this.dataOfferPackage = undefined;
+      }
+    },
 
     async onSave(payload) {
       const marketingOfferId = get(this.filterForCreation, 'offerCF.meta.workflow.initialOffer.id');
