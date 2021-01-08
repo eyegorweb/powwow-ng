@@ -38,6 +38,12 @@
           <div>{{ $t('getvsion.supervisionLegend.indicators.less500') }}</div>
         </li>
       </template>
+      <template v-if="usage == 'ALARMS'">
+        <li>
+          <div class="cell green"></div>
+          <div>{{ $t('getvisionAlarmLegend') }}</div>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -47,6 +53,13 @@ export default {
   props: {
     usage: String,
   },
+
+
+watch: {
+  usage(newValue, oldValue) {
+    console.log(newValue);
+  }
+}
 };
 </script>
 

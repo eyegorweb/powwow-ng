@@ -93,6 +93,7 @@
   "personalizeHome": "Personnaliser ma home",
   "genericSuccessMessage": "Opération effectuée avec succès",
   "genericErrorMessage": "Erreur inconnue",
+  "getvisionAlarmLegend": "Nombre de lignes ayant déclenché au moins une alarme depuis le début du mois",
   "queryError": "Erreur rencontrée durant le traitement de la requête",
   "lastMassActions": "Derniers actes de gestion",
   "showAllHistory": "Voir l'historique complet",
@@ -212,7 +213,8 @@
     "getReport": "GetReport",
     "getBill": "GetFactu",
     "getAdmin": "GetAdmin",
-    "getDevice": "GetDevice"
+    "getDevice": "GetDevice",
+    "help": "Aide"
   },
   "menu": {
     "massActions": "Suivi/pilotage des actes de gestion",
@@ -468,7 +470,7 @@
     "last_month_triggered": "Déclenchement M-1",
     "last_triggered": "Dernier déclenchement",
     "associated_alarms": "Alarmes associées",
-    "allUsages": "Usage data,SMS,Voix",
+    "allUsages": "Tout usage",
     "dataUsage": "Usage data",
     "m2mCockpit": "Cockpit M2M",
     "alarms": "Alarmes",
@@ -960,7 +962,7 @@
       "nbBilledLines": "Nbre de lignes facturées et détail des montants facturés",
       "otherServicesAmount": "Montant autres services",
       "consoHistory": "Historique des consommations",
-      "plmnRepartition": "Répartition du parc par PLMN",
+      "plmnRepartition": "Répartition du parc France par PLMN",
       "repartitionByZone": "Répartition du parc par zone",
       "lastDayWorldMap": "Carte du monde à J-1",
       "offerRepartition": "Répartition du parc par offre",

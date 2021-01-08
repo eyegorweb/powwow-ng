@@ -46,6 +46,7 @@
   "processing": "Process in progress ...",
   "range": "Range of values",
   "applyDate": "Apply date",
+  "getvisionAlarmLegend": "Number of lines that have triggered at least one alarm since the beginning of the month",
   "fromThe": "since :",
   "loading": "Loading",
   "display": "Display",
@@ -173,7 +174,8 @@
     "getReport": "GetReport",
     "getBill": "GetBills",
     "getAdmin": "GetAdmin",
-    "getDevice": "GetDevice"
+    "getDevice": "GetDevice",
+    "help": "Help"
   },
   "menu": {
     "massActions": "Monitoring of management acts",
