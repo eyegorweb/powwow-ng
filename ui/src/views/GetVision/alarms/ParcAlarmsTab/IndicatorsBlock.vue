@@ -81,6 +81,9 @@ export default {
           },
           {
             labelKey: 'getvsion.indicators.triggered_last_month',
+            tradArgs: {
+              month: startOfPrevCurrentMonth.format('MMMM'),
+            },
             value: monthMinus1,
             filters: [
               {
