@@ -16,7 +16,15 @@
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <router-link v-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
+            <template v-if="tab.external">
+              <a
+                target="_blank"
+                :href="tab.external.url"
+              >
+                {{ $t(tab.label) }}
+              </a>
+            </template>
+            <router-link v-else-if="!tab.submenu" :to="tab.to" :class="'menu_' + tab.to.name">{{
               $t(tab.label)
             }}</router-link>
 
@@ -284,6 +292,14 @@ export default {
         label: 'mainMenu.getDevice',
         to: { name: 'getDevice' },
         permission: { domain: 'getDevice', action: 'read' },
+      },
+      {
+        label: 'mainMenu.help',
+        to: { name: 'help' },
+        permission: { domain: 'getDevice', action: 'read' },
+        external: {
+          url : 'https://www.objenious.com/aide-getway/',
+        }
       },
     ]);
     this.chooseCurrentMenu();
