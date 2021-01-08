@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.79+20210108095121
+2021-01-08
+
+### Fixes
+
+- [2272] Ne pas afficher les 0 dans le module getVision / Alarme (173fc16ab34aa3458f447221106441b9471413ea)
+
 ## 1.17.0-master.78+20210108084518
 2021-01-08
 
