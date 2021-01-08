@@ -18,7 +18,7 @@
       <template v-else-if="usage === 'ALARMS'">
         <AlarmMarker
           :key="m.id"
-          v-for="m in markers"
+          v-for="m in alarmMarkersWithValues"
           :data="m"
           :map-overlay="mapOverlay"
           :adjust-position="adjustPosition"
@@ -145,6 +145,12 @@ export default {
   },
 
   computed: {
+    alarmMarkersWithValues() {
+      if (this.markers) {
+        return this.markers.filter(m => m.data && m.data.nbAlarms > 0);
+      }
+      return [];
+    },
     zipCodeFilter() {
       if (this.appliedFilters) {
         const zoneFilter = this.appliedFilters.find(f => f.id === 'filters.zone');
