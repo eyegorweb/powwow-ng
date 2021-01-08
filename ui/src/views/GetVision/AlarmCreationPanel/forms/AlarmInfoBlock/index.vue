@@ -11,7 +11,7 @@
           <UiCheckbox v-model="sholdNotify" />
           <span>{{ $t('mailNotification') }}</span>
         </div>
-        <div class="d-flex">
+        <div class="d-flex" v-if="wsNotifyOption !== 'NONE' && !noWsnotification">
           <UiCheckbox v-model="webserviceNotification" />
           <span>{{ $t('webserviceNotification') }}</span>
         </div>
@@ -75,6 +75,7 @@ export default {
     partner: Object,
     duplicateFrom: Object,
     noSuspension: Boolean,
+    noWsnotification: Boolean,
     canSave: Boolean,
     suspension: {
       type: Boolean,
@@ -101,6 +102,9 @@ export default {
   computed: {
     suspensionAuto() {
       return get(this.partner, 'data.suspensionAuto');
+    },
+    wsNotifyOption() {
+      return get(this.partner, 'data.wsNotificationParam.notificationOption');
     },
     mailingLists() {
       if (!this.partner) return [];

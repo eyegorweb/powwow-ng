@@ -164,12 +164,19 @@ export async function fetchpartners(
         optionViewCellId
         suspensionFree
         suspensionAuto
+        wsNotificationParam {
+          notificationOption
+          login
+          password
+          url
+        }
         ${extraFields.join(',')}
       },
     }
   }
   `;
   const response = await query(queryStr);
+
   if (response.errors) {
     return { errors: response.errors };
   }
