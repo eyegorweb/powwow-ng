@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.78+20210108084518
+2021-01-08
+
+### Features
+
+- [2199] Configuration des notifications de web service pour la création d'alarme (162c2cccc208fb88a7519dd66e36037f927e6454)
+
+### Fixes
+
+- [2272] Mise en place du logo objenious (ec174049ca7f2965a04550ad9a9194ae081d9343)
+
 ## 1.17.0-master.77+20210107161528
 2021-01-07
 
