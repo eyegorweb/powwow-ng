@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.80+20210108102222
+2021-01-08
+
+### Fixes
+
+- [2272] résolution de bugs mineurs (f107839396ec9a39b88280b78465ee4bc8f559c1)
+
 ## 1.17.0-master.79+20210108095121
 2021-01-08
 
