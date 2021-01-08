@@ -76,6 +76,7 @@
   "input": "Entrant",
   "output": "Sortant",
   "notAvailable": "Non disponible",
+  "notAvailableShortCut": "N/A",
   "notDefined": "Non déterminé",
   "confirmAction": "Confirmer la demande ?",
   "requestError": "Erreur durant le traitement de la requête",
