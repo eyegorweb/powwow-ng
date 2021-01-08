@@ -7,9 +7,10 @@
     @save="onSave"
     :partner="partner"
     :no-suspension="true"
+    :no-wsnotification="true"
     :check-errors-fn="isFormValid"
   >
-    <template v-slot:default="{ scopeIndex, num }">
+    <template v-slot:default="{ num }">
       <SectionTitle :num="num">{{ $t('getvsion.alarm-creation.setLimits') }}</SectionTitle>
       <div class="d-flex justify-content-center mt-4 mb-2">
         <Toggle

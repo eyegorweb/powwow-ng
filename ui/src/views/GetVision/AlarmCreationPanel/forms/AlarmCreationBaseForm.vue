@@ -34,6 +34,7 @@
       :can-save="canSave"
       :partner="selectedPartner"
       :no-suspension="noSuspension"
+      :no-wsnotification="noWsnotification"
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
     />
@@ -61,6 +62,7 @@ export default {
     partner: Object,
     haveForm: Boolean,
     noSuspension: Boolean,
+    noWsnotification: Boolean,
     suspension: Boolean,
     checkErrorsFn: {
       type: Function,
