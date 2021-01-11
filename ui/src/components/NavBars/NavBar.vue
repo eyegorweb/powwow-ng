@@ -293,7 +293,6 @@ export default {
       {
         label: 'mainMenu.help',
         to: { name: 'help' },
-        permission: { domain: 'getDevice', action: 'read' },
         external: {
           url: 'https://www.objenious.com/aide-getway/',
         },
@@ -315,7 +314,7 @@ export default {
     ...mapMutations(['changeAppLanguage']),
     filterByPermission(arrayInput) {
       return arrayInput.filter(a => {
-        if (!a.permission) return false;
+        if (!a.permission) return true;
         if (typeof a.permission === 'function') {
           return a.permission();
         }
