@@ -42,8 +42,9 @@
         <div class="limitDate">
           <span>
             <template v-if="!!getPercentValFn(line.value)"
-              >{{ getPercentValFn(line.value) }} Avant le</template
+              >{{ getPercentValFn(line.value) }} </template
             >
+            Avant le
           </span>
           <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
           <div class="deleteButton">

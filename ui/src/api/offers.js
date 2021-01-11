@@ -121,6 +121,7 @@ export async function fetchOfferWithBilligAccount(partners, page = 0) {
           workflowDescription
           initialOffer{
             id
+            code
           }
         }
         customerAccount {
@@ -235,10 +236,10 @@ export async function changeOffer(filters, lines, params) {
   return await query(queryStr);
 }
 
-export async function fetchUsageLimits(partnerId, customerAccountId) {
+export async function fetchUsageLimits(partnerId, customerAccountId, offerCode) {
   const queryStr = `
-  query OfferGroup($partnerId: Long!, $customerAccountId: Long){
-    offerGroup(partyId: $partnerId, customerAccountId: $customerAccountId) {
+  query OfferGroup($partnerId: Long!, $customerAccountId: Long, $offerCode: String){
+    offerGroup(partyId: $partnerId, customerAccountId: $customerAccountId, offerCode: $offerCode) {
       items {
         offerGroupPackages {
           usageType
@@ -251,7 +252,7 @@ export async function fetchUsageLimits(partnerId, customerAccountId) {
   }`;
 
   try {
-    const response = await query(queryStr, { partnerId, customerAccountId });
+    const response = await query(queryStr, { partnerId, customerAccountId, offerCode });
 
     if (response.data.offerGroup.items.length > 0) {
       return get(response, 'data.offerGroup.items[0].offerGroupPackages');

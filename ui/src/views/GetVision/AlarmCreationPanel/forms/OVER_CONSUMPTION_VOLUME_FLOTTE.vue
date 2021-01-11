@@ -125,6 +125,9 @@ export default {
     chosenBillingAccountId() {
       return get(this.filterForCreation, 'offerCF.meta.customerAccount.id');
     },
+    offerCode() {
+      return get(this.filterForCreation, 'offerCF.meta.workflow.initialOffer.code');
+    },
     chosenPartnerId() {
       return get(this.partner, 'id') || get(this.selectedPartner, 'id');
     },
@@ -139,7 +142,7 @@ export default {
     },
 
     async refreshLimits() {
-      const offerLimits = await fetchUsageLimits(this.chosenPartnerId, this.chosenBillingAccountId);
+      const offerLimits = await fetchUsageLimits(this.chosenPartnerId, this.chosenBillingAccountId, this.offerCode);
 
       if (offerLimits && offerLimits.length) {
         this.dataOfferPackage = offerLimits.find(f => f.usageType === 'DATA');
