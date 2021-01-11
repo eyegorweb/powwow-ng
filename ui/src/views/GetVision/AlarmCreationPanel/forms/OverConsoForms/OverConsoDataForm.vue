@@ -34,16 +34,11 @@ export default {
   },
   methods: {
     getPercentVal(value) {
-      //const envelopeValue = this.offerPackage.envelopeValue;
-     // const unit = this.offerPackage.unit;
-      const unit = 'Mo';
-      const envelopeValue = 200;
+      if (!this.offerPackage || !this.offerPackage.envelopeValue) return undefined;
 
-     // if (!this.offerPackage || !envelopeValue) return undefined;
-
-      const calculated = Math.round((value * envelopeValue) / 100);
+      const calculated = Math.round((value * this.offerPackage.envelopeValue) / 100);
       if (!isNaN(calculated)) {
-        return `(${calculated} ${unit})`;
+        return `(${calculated} ${this.offerPackage.unit})`;
       }
       return undefined;
     },

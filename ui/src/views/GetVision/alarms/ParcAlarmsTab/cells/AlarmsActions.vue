@@ -18,7 +18,9 @@ export default {
   computed: {
     actions() {
       let additionalActions = [];
-
+      if (this.alarm.type !== 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        additionalActions.push('getsim.actions.DETAIL');
+      }
       if (this.alarm.disabled) {
         additionalActions.push('actions.ENABLE');
       } else {
@@ -29,7 +31,7 @@ export default {
         additionalActions.push('actions.DELETE');
       }
 
-      return ['getsim.actions.DETAIL', ...additionalActions];
+      return additionalActions;
     },
   },
 
