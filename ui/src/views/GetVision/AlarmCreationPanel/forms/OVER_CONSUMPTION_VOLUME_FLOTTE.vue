@@ -142,7 +142,11 @@ export default {
     },
 
     async refreshLimits() {
-      const offerLimits = await fetchUsageLimits(this.chosenPartnerId, this.chosenBillingAccountId, this.offerCode);
+      const offerLimits = await fetchUsageLimits(
+        this.chosenPartnerId,
+        this.chosenBillingAccountId,
+        this.offerCode
+      );
 
       if (offerLimits && offerLimits.length) {
         this.dataOfferPackage = offerLimits.find(f => f.usageType === 'DATA');

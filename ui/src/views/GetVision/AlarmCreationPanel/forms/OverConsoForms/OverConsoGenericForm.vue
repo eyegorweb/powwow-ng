@@ -20,8 +20,8 @@
           <span>
             <template v-if="!!getPercentValFn(basePercent)"
               >{{ getPercentValFn(basePercent) }}
-              {{ $t('getvsion.alarm-creation.beforeEndOfMonth') }}</template
-            >
+            </template>
+            {{ $t('getvsion.alarm-creation.beforeEndOfMonth') }}
           </span>
         </div>
       </div>
@@ -40,11 +40,11 @@
           />
         </div>
         <div class="limitDate">
-          <span>
+          <span class="before-date-selection-text">
             <template v-if="!!getPercentValFn(line.value)"
-              >{{ getPercentValFn(line.value) }} </template
-            >
-            Avant le
+              >{{ getPercentValFn(line.value) }}
+            </template>
+            {{$t('getsim.date-over', {endDate: ''})}}
           </span>
           <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
           <div class="deleteButton">
@@ -226,17 +226,16 @@ export default {
 
   .limitDate {
     display: flex;
-    flex-basis: 60%;
+    flex-basis: 54%;
     padding-right: 1rem;
     align-content: flex-end;
 
     span {
       flex-grow: 1;
-      text-align: end;
       padding-right: 0.5rem;
       position: relative;
       top: 0.6rem;
-      font-size: 11px;
+      font-size: 0.8rem;
     }
 
     .select-container {
@@ -263,4 +262,9 @@ export default {
     }
   }
 }
+
+ .before-date-selection-text {
+   flex-grow: unset !important;
+   flex-basis: 40%;
+ }
 </style>
