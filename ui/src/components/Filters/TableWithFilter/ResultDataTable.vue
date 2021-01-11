@@ -1,5 +1,7 @@
 <template>
   <DataTable
+    :storage-version="storageVersion"
+    :storage-id="storageId"
     :columns="columns"
     :rows="rows || []"
     :page.sync="currentPage"
@@ -32,6 +34,8 @@ export default {
     DataTable,
   },
   props: {
+    storageVersion: String,
+    storageId: String,
     columns: Array,
     rows: Array,
     size: {

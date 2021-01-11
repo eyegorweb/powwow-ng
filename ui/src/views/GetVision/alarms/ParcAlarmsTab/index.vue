@@ -2,6 +2,8 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
+      storage-version="001"
+      storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
       :filters="filters"
@@ -106,37 +108,105 @@ export default {
       isLoading: false,
       filters: undefined,
       columns: [
-        col(this.$t('col.id'), 'id', true, false, {
-          component: AlarmIdCell,
-        }),
-        col(this.$t('getparc.lineDetail.alarms.name'), 'name', true, false, {
-          component: AlarmNameCell,
-        }),
-        col(this.$t('getvsion.table.thresholds'), 'thresholds', true, false, {
-          component: ThresholdCell,
-        }),
-        col(this.$t('getvsion.table.targetedLines'), 'numberOfTargetedLines', true, false),
-        col(this.$t('getvsion.table.triggers'), 'triggers', false, false, {
-          component: TriggeredEventsCell,
-        }),
-        col(this.$t('filters.lines.activationDate'), 'startDate', false, false),
-        col(this.$t('col.partner'), 'party', false, false, {
-          type: 'ObjectAttribute',
-          path: 'name',
-        }),
-        col(this.$t('getvsion.table.alarmStatus'), 'startDate', true, false, {
-          component: AlarmStatusCell,
-        }),
-        col(this.$t('getparc.lineDetail.offer'), 'autoPositionWorkflow', false, false, {
-          type: 'ObjectAttribute',
-          path: 'workflowDescription',
-        }),
-        col(this.$t('common.billingAccount'), 'autoPositionCustAccount', false, false, {
-          type: 'ObjectAttribute',
-          path: 'name',
-        }),
+                {
+          id: 1,
+          label: this.$t('col.id'),
+          name: 'id',
+          orderable: true,
+          visible: true,
+          format: {
+            component: AlarmIdCell,
+          },
+        },
         {
           id: 2,
+          label: this.$t('getparc.lineDetail.alarms.name'),
+          name: 'name',
+          orderable: true,
+          visible: true,
+          format: {
+            component: AlarmNameCell,
+          },
+        },
+        {
+          id: 3,
+          label: this.$t('getvsion.table.thresholds'),
+          name: 'thresholds',
+          orderable: false,
+          visible: true,
+          format: {
+            component: ThresholdCell,
+          },
+        },
+        {
+          id: 4,
+          label: this.$t('filters.lines.activationDate'),
+          name: 'startDate',
+          orderable: true,
+          visible: true,
+        },
+        {
+          id: 5,
+          label: this.$t('getvsion.table.triggers'),
+          name: 'triggers',
+          orderable: true,
+          visible: false,
+          format: {
+            component: TriggeredEventsCell,
+          },
+        },
+        {
+          id: 6,
+          label: this.$t('filters.lines.activationDate'),
+          name: 'startDate',
+          orderable: true,
+          visible: false,
+        },
+        {
+          id: 7,
+          label: this.$t('col.partner'),
+          name: 'party',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'name',
+          },
+        },
+        {
+          id: 8,
+          label: this.$t('getvsion.table.alarmStatus'),
+          name: 'name',
+          orderable: true,
+          visible: true,
+          format: {
+            component: AlarmStatusCell,
+          },
+        },
+        {
+          id: 9,
+          label: this.$t('getparc.lineDetail.offer'),
+          name: 'autoPositionWorkflow',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'workflowDescription',
+          },
+        },
+        {
+          id: 10,
+          label: this.$t('common.billingAccount'),
+          name: 'autoPositionCustAccount',
+          orderable: true,
+          visible: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'name',
+          },
+        },
+        {
+          id: 11,
           label: this.$t('getparc.lineDetail.alarms.observationCycle'),
           orderable: false,
           visible: false,
@@ -150,7 +220,7 @@ export default {
           },
         },
         {
-          id: 3,
+          id: 12,
           label: this.$t('getvsion.filters.ALARMS_OFFER'),
           orderable: false,
           visible: false,
