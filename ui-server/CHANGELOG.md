@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.84+20210111123251
+2021-01-11
+
+### Fixes
+
+- 2276 Ajout du tri et de la persistance sur la table alarmes (ef8529ca822be1dab35d7b3ab320d2b6fdc5c629)
+
 ## 1.17.0-master.83+20210111114640
 2021-01-11
 
