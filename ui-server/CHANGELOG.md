@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.82+20210111111623
+2021-01-11
+
+### Fixes
+
+- [2269] Ajouter le code de l'offre dans le chargement des envelopes (bbf866104de85ff0da4ca9a9e6001da73ef5ca7e)
+
 ## 1.17.0-master.81+20210108153526
 2021-01-08
 
