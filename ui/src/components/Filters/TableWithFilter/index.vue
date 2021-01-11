@@ -40,6 +40,8 @@
           <ResultDataTable
             v-else
             :columns="columns"
+            :storage-version="storageVersion"
+            :storage-id="storageId"
             :rows="rows"
             :total="total"
             :page.sync="noPagination ? undefined : page"
@@ -93,6 +95,8 @@ export default {
   },
 
   props: {
+    storageVersion: String,
+    storageId: String,
     filters: Array,
     columns: Array,
     rows: Array,
