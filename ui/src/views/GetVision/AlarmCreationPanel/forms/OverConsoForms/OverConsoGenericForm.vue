@@ -44,7 +44,7 @@
             <template v-if="!!getPercentValFn(line.value)"
               >{{ getPercentValFn(line.value) }}
             </template>
-            {{$t('getsim.date-over', {endDate: ''})}}
+            {{ $t('getsim.date-over', { endDate: '' }) }}
           </span>
           <UiSelect :options="options" v-model="line.limit" @input="onValueUpdate()" />
           <div class="deleteButton">
@@ -187,6 +187,8 @@ export default {
     },
     deleteLine(line) {
       this.lines = this.lines.filter(l => l.id !== line.id);
+
+      this.onValueUpdate();
     },
     addNewLine() {
       if (this.lines.length < 2) {
@@ -263,8 +265,8 @@ export default {
   }
 }
 
- .before-date-selection-text {
-   flex-grow: unset !important;
-   flex-basis: 40%;
- }
+.before-date-selection-text {
+  flex-grow: unset !important;
+  flex-basis: 40%;
+}
 </style>
