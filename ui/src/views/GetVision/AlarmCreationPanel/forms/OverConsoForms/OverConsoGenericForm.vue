@@ -5,7 +5,7 @@
 
       <div class="line-container">
         <div class="value">
-          <span>{{ $t(valueLabel) }}</span>
+          <span>{{ $t('getvsion.alarm-creation.thresholdIsOver') }}</span>
           <UiInput
             class="value-input"
             input-type="number"
@@ -28,7 +28,7 @@
 
       <div class="line-container" v-for="line in lines" :key="line.id">
         <div class="value">
-          <span>{{ $t(valueLabel) }}</span>
+          <span>{{ $t('getvsion.alarm-creation.thresholdIsOver') }}</span>
           <UiInput
             class="value-input"
             input-type="number"
@@ -111,7 +111,6 @@ export default {
   mixins: [propWithSync('active')],
 
   props: {
-    valueLabel: String,
     getPercentValFn: Function,
   },
   data() {
