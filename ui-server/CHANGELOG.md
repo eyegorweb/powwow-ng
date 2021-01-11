@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.85+20210111162259
+2021-01-11
+
+### Fixes
+
+- [2269] Corrections dans le css de la page (91a093cec38201589e4082f8acfcaf1928d9d979)
+- [2269] Enlever le mock (5109616bbe6e814e4c9dd81aaff56d6bb9fdc3eb)
+- [2269] ne pas désactiver le bouton enregistrer (3304d9ae037d10b4567b60e35dfc345d7b031c56)
+- [2269] Changement des libellés  des inputs (831f52b130edd552795f0b17a2f420d59b9d34e8)
+
 ## 1.17.0-master.84+20210111123251
 2021-01-11
 
