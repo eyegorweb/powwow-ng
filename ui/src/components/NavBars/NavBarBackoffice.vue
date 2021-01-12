@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="logoPart">
       <router-link to="/">
-        <img class="logo" src="@/assets/logo_objenious.png" alt />
+        <img class="logo logoSvg" src="@/assets/logo_objenious.svg" alt="logo" />
       </router-link>
     </div>
     <div class="contentPart">
@@ -131,6 +131,11 @@ export default {
 
 .contentPart {
   flex-grow: 50;
+}
+
+.logoSvg {
+    width: 100px;
+    height: 60px;
 }
 
 .partnerTypeSelect {

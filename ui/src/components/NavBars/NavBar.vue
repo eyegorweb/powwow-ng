@@ -3,13 +3,13 @@
     <div class="flex-part">
       <a href="/">
         <img
-          v-if="!userIsMVNO"
+          v-if="!isBackofficeProfile && !userIsMVNO"
           class="logo logo--corporate logoSvg"
           src="@/assets/logo_objenious.svg"
           alt="Logo"
         />
         <img
-          v-if="userIsMVNO"
+          v-if="!isBackofficeProfile && userIsMVNO"
           class="logo logo--corporate"
           src="@/assets/logo_bouygues.png"
           alt="Logo"
@@ -23,8 +23,8 @@
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <template v-if="tab.external && !userIsMVNO">
-              <a target="_blank" :href="tab.external.url">
+            <template v-if="tab.external">
+              <a target="_blank" :href="tab.external.url" v-if="!userIsMVNO">
                 {{ $t(tab.label) }}
               </a>
             </template>
