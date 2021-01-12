@@ -96,10 +96,7 @@ export default {
           type: 'ObjectAttribute',
           path: 'imei',
         }),
-        col(this.$t('getparc.lineDetail.offer'), 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'offerCode',
-        }),
+        col(this.$t('getparc.lineDetail.offer'), 'offerLabel', false, false),
         /*
         col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
           type: 'ObjectAttribute',

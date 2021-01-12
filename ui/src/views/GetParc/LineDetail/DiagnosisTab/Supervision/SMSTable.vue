@@ -82,10 +82,7 @@ export default {
           type: 'ObjectAttribute',
           path: 'imei',
         }),
-        col(this.$t('getparc.lineDetail.offer'), 'smsHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'offerCode',
-        }),
+        col(this.$t('getparc.lineDetail.offer'), 'offerLabel', false, false),
         col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
           type: 'ObjectAttribute',
           path: 'deviceInstance.deviceReference',
