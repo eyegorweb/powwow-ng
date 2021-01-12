@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.87+20210112171913
+2021-01-12
+
+### Fixes
+
+- 2283/2285 Changement logo Objenious + Affichage si MVNO pour Logo Objenious et menu Aide (36954d827a8766b571ce7898cb4efd84b20ad606)
+- [2286] ajout des traductions pour la création d'alarmes (5ce740532aae9f851033f309181792abd4485463)
+
 ## 1.17.0-master.86+20210112160940
 2021-01-12
 
