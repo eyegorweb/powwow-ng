@@ -26,7 +26,14 @@
       </div>
       <div class="row">
         <div class="col">
-          <UiDate @change="onActDateChange" :value="actDate" fixed time-picker class="d-block">
+          <UiDate
+            @change="onActDateChange"
+            :value="actDate"
+            fixed
+            time-picker
+            class="d-block"
+            :min-date="minDate"
+          >
             <i slot="icon" class="select-icon ic-Flag-Icon" />
           </UiDate>
         </div>
@@ -99,6 +106,9 @@ export default {
     },
     canValidate() {
       return this.selectedPartner ? true : false;
+    },
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
     },
   },
   methods: {
