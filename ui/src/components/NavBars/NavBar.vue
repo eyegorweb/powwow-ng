@@ -4,12 +4,12 @@
       <a href="/">
         <img
           v-if="!isBackofficeProfile && userIsMVNO"
-          class="logo logo--corporate"
-          src="@/assets/logo_objenious.png"
+          class="logo logo--corporate logoSvg"
+          src="@/assets/logo_objenious.svg"
           alt="Logo"
         />
         <img
-          v-if="!isBackofficeProfile"
+          v-if="!isBackofficeProfile && !userIsMVNO"
           class="logo logo--corporate"
           src="@/assets/logo_bouygues.png"
           alt="Logo"
@@ -23,7 +23,7 @@
       >
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentIndex">
-            <template v-if="tab.external">
+            <template v-if="tab.external && userIsMVNO">
               <a target="_blank" :href="tab.external.url">
                 {{ $t(tab.label) }}
               </a>
@@ -415,6 +415,11 @@ export default {
       display: block;
     }
   }
+}
+
+.logoSvg {
+    width: 100px;
+    height: 60px;
 }
 
 .dropdown-menu {
