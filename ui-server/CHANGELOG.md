@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.86+20210112160940
+2021-01-12
+
+### Fixes
+
+- [2266] Configuration de la date pour les actes de gestion (8c159c7113d9b2e4542aadbc68135f733bb5cf25)
+- 2283 Ajout condition sur le logo objenious/bouygues (4d587160fb3784bacfc1135fcf455d596e5ac095)
+- [2284] Ajout des textes de description sur la création des alarmes (990608e091ea31fe0aeb295edea2a6e254947c1f)
+- 2231 Gestion des timeout des tables Alarm, Lignes, Acte de gestion (c81f56fc51d65597ed53547c521d27481825d603)
+- [2270] mise à jour des tables de supervision (be6a2b49a91224de5fb848941e231857368ba1dd)
+
 ## 1.17.0-master.85+20210111162259
 2021-01-11
 
