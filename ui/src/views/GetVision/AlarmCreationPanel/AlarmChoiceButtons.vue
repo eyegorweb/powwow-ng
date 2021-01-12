@@ -41,17 +41,35 @@ export default {
 
   mounted() {
     this.alarms = [
-      { id: 'OVER_CONSUMPTION_VOLUME_FLOTTE' },
+      {
+        id: 'OVER_CONSUMPTION_VOLUME_FLOTTE',
+        description: this.$t('getvsion.alarm-creation.description.OVER_CONSUMPTION_VOLUME_FLOTTE'),
+      },
       {
         id: 'OVER_CONSUMPTION_VOLUME',
-        description: this.$t('getvsion.alarm-creation.overConsoDescription'),
+        description: this.$t('getvsion.alarm-creation.description.OVER_CONSUMPTION_VOLUME'),
       },
-      { id: 'UNDER_CONSUMPTION_VOLUME' },
-      { id: 'PLMN_CHANGE' },
-      { id: 'STATUS_CHANGE' },
+      {
+        id: 'UNDER_CONSUMPTION_VOLUME',
+        description: this.$t('getvsion.alarm-creation.description.UNDER_CONSUMPTION_VOLUME'),
+      },
+      {
+        id: 'PLMN_CHANGE',
+        description: this.$t('getvsion.alarm-creation.description.PLMN_CHANGE'),
+      },
+      {
+        id: 'STATUS_CHANGE',
+        description: this.$t('getvsion.alarm-creation.description.STATUS_CHANGE'),
+      },
 
-      { id: 'IMEI_CHANGE' },
-      { id: 'COUNTRY_CHANGE' },
+      {
+        id: 'IMEI_CHANGE',
+        description: this.$t('getvsion.alarm-creation.description.IMEI_CHANGE'),
+      },
+      {
+        id: 'COUNTRY_CHANGE',
+        description: this.$t('getvsion.alarm-creation.description.COUNTRY_CHANGE'),
+      },
     ];
     if (this.duplicateFrom) {
       const alarmToChoose = this.alarms.find(a => a.id === this.duplicateFrom.type);

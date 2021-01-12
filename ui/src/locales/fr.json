@@ -412,12 +412,11 @@
     "CONSUMPTION_ON_PLMN": "Consommation sur opérateur",
     "OVER_CONSUMPTION_VOLUME_ROUNDED": "Sur-consommation (volumes arrondis)",
     "STATUS_CHANGE": "Changement de statut",
-    "IMEI_CHANGE": "Changement d'équipement",
+    "IMEI_CHANGE": "Changement de module",
     "COUNTRY_CHANGE": "Changement de pays",
     "UNDER_CONSUMPTION_VOLUME_FLOTTE": "sous-consommation de la flotte",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Consommation mutualisée",
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Sur-conso de la flotte",
     "MORE_DETAIL": "Voir le détail de l'alarme",
-
     "observationCycles": {
       "DAILY": "Quotidien",
       "WEEKLY": "Hebdomadaire",
@@ -558,7 +557,6 @@
       "setSupervisedStatuses": "Définir les status supervisés",
       "setCountries": "Définir une liste de pays autorisés",
       "setISPs": "Définir une liste d'opérateurs",
-      "overConsoDescription": "L'alarme de sur-consommation vous permet de surveiller la consommation d'une ligne ou d'un ensemble de ligne.",
       "chooseAlarm": "CHOISIR UNE ALARME",
       "linesFound": "lignes trouvées",
       "limitedScope": "Cette alarme a une portée limitée à la ligne sélectionnée",
@@ -586,6 +584,15 @@
         "all": "Tous",
         "activationReactivation": "Activation/Réactivation",
         "suspension": "Suspension"
+      },
+      "description": {
+        "OVER_CONSUMPTION_VOLUME_FLOTTE": "Pour une vision flotte et une maitrise de la consommation de l’enveloppe globale de mutualisation . L’alarme Flotte permet de surveiller la consommation cumulée de toutes les lignes ayant la même offre forfaitaire mutualisée , et le même centre de facturation (CF). Cette alarme se déclenche ensuite automatiquement lorsque le seuil de 100% de l’enveloppe globale de la flotte est atteint. Pour prévenir plus en amont tout dépassement au global flotte, il est aussi possible d’ajouter pour tous les usages 2 seuils intermédiaires avec les dates limite à personnaliser.",
+        "OVER_CONSUMPTION_VOLUME": "L'alarme vous permettra de savoir quand votre consommation a atteint le seuil fixé sur la période d’observation souhaitée (par défaut mensuelle). Vous pouvez fixer un seuil par type d’usage (data/sms/voix), l’alarme se déclenchera à chaque atteinte d’un des seuils.",
+        "UNDER_CONSUMPTION_VOLUME": "L'alarme vous permettra de savoir quand votre consommation est restée en dessous du seuil fixé à la fin de la période d’observation souhaitée (par défaut mensuelle). Vous pouvez fixer un seuil par type d’usage (data/sms/voix), une alarme se déclenchera à la fin de la période pour chaque seuil non atteint.",
+        "PLMN_CHANGE": "A chaque changement de réseau effectué par votre objet communiquant, l’alarme se déclenchera et vous permettra d’être informé du changement d’opérateur. Il est possible de sélectionner un ou plusieurs opérateurs. L’alarme est déclenchée à chaque changement d’opérateur dans la liste sélectionnée.",
+        "STATUS_CHANGE": "Si votre SIM M2M bascule vers un statut cible (activation, suspension…), l’alarme se déclenchera et vous permettra d’être informé du passage au statut cible. Il est possible de choisir tous les statuts au lieu d’un seul statut cible.",
+        "IMEI_CHANGE": "Lorsque la SIM M2M est retirée d’un objet communiquant et insérée dans une nouveau terminal, l’alarme se déclenchera et vous permettra d’être informé du changement de l’appairage SIM/module.",
+        "COUNTRY_CHANGE": "A chaque changement de zone (un ou plusieurs pays) effectué par votre objet communiquant, l’alarme se déclenchera et vous permettra d’être informé du changement. Il possible de sélectionner un ou plusieurs pays pour créer la zone cible. L’alarme est déclenchée à chaque changement de pays dans la liste sélectionnée."
       }
     },
     "monitoring": {
