@@ -348,20 +348,20 @@
     }
   },
   "alarms": {
-    "OVER_CONSUMPTION_VOLUME": "Over-consumption",
-    "UNDER_CONSUMPTION_VOLUME": "Under-consumption",
-    "PLMN_CHANGE": "Opérator change",
+    "OVER_CONSUMPTION_VOLUME": "Over consumption",
+    "UNDER_CONSUMPTION_VOLUME": "Under consumption",
+    "PLMN_CHANGE": "Network Provider change",
     "NOCHANGE_STATUS": "No change of status over a period",
     "SOLD_UNDER_THRESHOLD": "Balance below threshold",
     "SOLD_OVER_THRESHOLD": "Balance above threshold",
     "ACTION": "Action",
     "CONSUMPTION_ON_PLMN": "Consumption on operator",
-    "OVER_CONSUMPTION_VOLUME_ROUNDED": "Over-consumption (rounded volumes)",
+    "OVER_CONSUMPTION_VOLUME_ROUNDED": "Over consumption (rounded volumes)",
     "STATUS_CHANGE": "Status change",
-    "IMEI_CHANGE": "Equipment change",
+    "IMEI_CHANGE": "Device change",
     "COUNTRY_CHANGE": "Country change",
-    "UNDER_CONSUMPTION_VOLUME_FLOTTE": "fleet under-consumption",
-    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Pooled consumption",
+    "UNDER_CONSUMPTION_VOLUME_FLOTTE": "fleet under consumption",
+    "OVER_CONSUMPTION_VOLUME_FLOTTE": "Over consumption pool",
     "MORE_DETAIL": "Dsiplay alarm details",
     "observationCycles": {
       "DAILY": "Daily",
@@ -480,7 +480,6 @@
       "setSupervisedStatuses": "Define the supervised status",
       "setCountries": "Define a list of authorized countries",
       "setISPs": "Define a list of operators",
-      "overConsoDescription": "The over consumption alarm allows you to monitor the consumption of a line or a set of lines.",
       "chooseAlarm": "CHOOSE AN ALARM",
       "linesFound": "lines found",
       "limitedScope": "This alarm has a range limited to the selected line",
@@ -502,6 +501,15 @@
         "all": "All",
         "activationReactivation": "Activation / Reactivation",
         "suspension": "Suspension"
+      },
+      "description": {
+        "OVER_CONSUMPTION_VOLUME_FLOTTE": "For a fleet vision and control of the consumption of the global mutualisation envelope. The Fleet Alarm allows you to monitor the cumulative consumption of all lines with the same pooled flat-rate offer and the same billing centre (FC). This alarm is then automatically triggered when the threshold of 100% of the global fleet envelope is reached. In order to prevent any overrun of the global fleet, it is also possible to add 2 intermediate thresholds for all uses with deadlines to be customised.",
+        "OVER_CONSUMPTION_VOLUME": "The alarm will let you know when your consumption has reached the set threshold over the desired observation period (monthly default). You can set a threshold per type of usage (data/sms/voice), the alarm will be triggered each time one of the thresholds is reached.",
+        "UNDER_CONSUMPTION_VOLUME": "The alarm will let you know when your consumption has remained below the threshold set at the end of the desired observation period (monthly default). You can set a threshold per type of usage (data/sms/voice), an alarm will be triggered at the end of the period for each threshold not reached.",
+        "PLMN_CHANGE": "Each time your communicating object changes the network, the alarm will be triggered and you will be informed of the change of operator. It is possible to select one or more operators. The alarm is triggered each time the operator is changed in the selected list.",
+        "STATUS_CHANGE": "If your M2M SIM switches to a target status (activation, suspension...), the alarm will be triggered and you will be informed of the switch to the target status. It is also possible to choose all statuses instead of just one target status.",
+        "IMEI_CHANGE": "When the SIM M2M is removed from a communicating object and inserted in a new terminal, the alarm will be triggered and you will be informed of the change in SIM/module pairing.",
+        "COUNTRY_CHANGE": "Each time your communicating object changes zones (one or more countries), the alarm will be triggered and you will be informed of the change. It is possible to select one or more countries to create the target zone. The alarm is triggered each time the country in the selected list changes."
       }
     },
     "monitoring": { "filterByFile": "Filter from file" },
