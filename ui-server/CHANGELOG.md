@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.88+20210112182126
+2021-01-12
+
+### Fixes
+
+- 2283/2285 Changement du Logo Objenious et du menu Aide si MVNO (38abd3cdb408a6152943fb08be5cbf864658deb5)
+
 ## 1.17.0-master.87+20210112171913
 2021-01-12
 
