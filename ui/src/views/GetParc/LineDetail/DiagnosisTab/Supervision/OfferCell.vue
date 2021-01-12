@@ -1,6 +1,6 @@
 <template>
   <div v-if="shouldTruncate" class="truncate">
-    <Truncate v-if="row.pdpConnectionHistory" :limit="30" :content="offerDetails"></Truncate>
+    <Truncate v-if="row" :limit="30" :content="offerDetails"></Truncate>
   </div>
   <div v-else>{{ offerDetails }}</div>
 </template>
@@ -24,9 +24,7 @@ export default {
       return this.visibleColumns.length > MAX_SIZE_BEFORE_TRUNCATE;
     },
     offerDetails() {
-      return this.row.pdpConnectionHistory.offerCode
-        ? this.row.pdpConnectionHistory.offerCode
-        : '-';
+      return this.row.offerLabel ? this.row.offerLabel : '-';
     },
   },
 };

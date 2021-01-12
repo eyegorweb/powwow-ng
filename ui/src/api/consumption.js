@@ -110,8 +110,8 @@ export async function smsUsage(simInstanceId, pagination) {
           usageType
           typeAppel
           imei
-          offerCode
         }
+        offerLabel
         location {
           detail
           cellLatitude
@@ -158,12 +158,12 @@ export async function voiceUsage(simInstanceId, pagination) {
             usageType
             typeAppel
             imei
-            offerCode
             duration
             usageType
             callingNumber
             details
           }
+          offerLabel
           location {
             detail
             cellLatitude
@@ -209,8 +209,8 @@ export async function dataUsage(simInstanceId, pagination) {
           cellChangeDate
           isLast
           partyId
-
         }
+        offerLabel
       	pdpConnectionDateInfo {
           startDate
           endDate
