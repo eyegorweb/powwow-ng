@@ -475,9 +475,9 @@
     "alarm-creation": {
       "change_country": {
         "countries_list": "All countries:",
-        "chosen_countries": "Authorized countries:"
+        "chosen_countries": "Unauthorized countries:"
       },
-      "change_plmn": { "isp_list": "All operators:", "chosen_isp": "Authorized operators:" },
+      "change_plmn": { "isp_list": "All operators:", "chosen_isp": "Unauthorized operators:" },
       "setSupervisedStatuses": "Define the supervised status",
       "setCountries": "Define a list of authorized countries",
       "setISPs": "Define a list of operators",
