@@ -3,11 +3,18 @@
     <div class="flex-part">
       <a href="/">
         <img
-          v-if="!isBackofficeProfile"
+          v-if="!isBackofficeProfile && userIsMVNO"
           class="logo logo--corporate"
           src="@/assets/logo_objenious.png"
-          alt
+          alt="Logo"
         />
+        <img
+          v-if="!isBackofficeProfile"
+          class="logo logo--corporate"
+          src="@/assets/logo_bouygues.png"
+          alt="Logo"
+        />
+
       </a>
       <UiTabs
         v-if="navbarLinks"
@@ -375,6 +382,7 @@ export default {
       'havePermission',
       'havePermissionDomain',
       'userLanguage',
+      'userIsMVNO',
     ]),
 
     logoutUrl() {
