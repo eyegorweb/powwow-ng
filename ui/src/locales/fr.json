@@ -52,6 +52,7 @@
   "none": "Aucune",
   "noneM": "Aucun",
   "type": "Type",
+  "searchError": "La recherche n'a pu aboutir. Veuillez réessayer",
   "action": "Action",
   "ordersFound": "{total} commande(s) trouvée(s)",
   "set": "Appliquer",

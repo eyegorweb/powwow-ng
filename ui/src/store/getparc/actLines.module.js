@@ -20,6 +20,7 @@ export const state = {
   limitPerPage: 20,
   linesActionsResponse: undefined,
   filterCustomFieldsList: [],
+  apiError: false,
 
   selectedLinesForActCreation: [],
   selectedFileForActCreation: undefined,
@@ -181,9 +182,11 @@ export const actions = {
 
     let response = { total: 0, items: [] };
     try {
+      commit('setApiError', false);
       response = await searchLinesForTable(orderBy, pageInfo, appliedFilters);
       commit('stopSearchById');
     } catch (e) {
+      commit('setApiError', true);
       commit(
         'flashMessage',
         {
@@ -202,6 +205,11 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+
+  setApiError(state, value) {
+    state.apiError = value;
+  },
+
   clearAllFilters(state) {
     state.currentFilters = [];
     state.filterCustomFieldsList = [];

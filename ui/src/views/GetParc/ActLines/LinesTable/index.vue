@@ -8,14 +8,21 @@
         <div class="row mb-3">
           <div class="col">
             <h2 class="text-gray font-weight-light" style="font-size: 2rem">
-              <slot name="title">
+              <slot name="title" v-if="!apiError">
                 <template>
                   {{
                     $t('getparc.actLines.total', {
                       total: formattedTotal,
                     })
                   }}
+                  <button v-if="formattedTotal === 0" class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
                 </template>
+              </slot>
+              <slot name="title" v-else>
+                  {{
+                    $t('searchError')
+
+                  }}
               </slot>
             </h2>
           </div>
@@ -123,7 +130,7 @@ export default {
 
   computed: {
     ...mapGetters('actLines', ['linesActionsResponse', 'appliedFilters', 'linePage', 'isLoading']),
-    ...mapState('actLines', ['limitPerPage']),
+    ...mapState('actLines', ['limitPerPage', 'apiError']),
     ...mapGetters(['userIsPartner', 'userInfos', 'userName', 'singlePartner']),
     ...mapState({
       isOpen: state => state.ui.isPanelOpen,
@@ -289,6 +296,7 @@ export default {
     },
   },
   async mounted() {
+      console.log(this.linesActionsResponse);
     if (this.userIsPartner) {
       const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);

@@ -1,7 +1,6 @@
 import { query, addDateFilter, postFile, getFilterValue, getFilterValues } from './utils';
 
 export async function fetchTransferSim(orderBy) {
-  console.log(orderBy);
   const orderingInfo =
     orderBy && orderBy.key ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
@@ -154,8 +153,12 @@ async function searchLinesQuery(orderBy, pagination, filters, fields) {
     }
   }`;
 
-  const response = await query(queryStr);
-  return response.data.simCardInstances;
+  try {
+    const response = await query(queryStr);
+    return response.data.simCardInstances;
+  } catch (e) {
+    throw e;
+  }
 }
 
 export async function searchLinesForTable(orderBy, pagination, filters = []) {

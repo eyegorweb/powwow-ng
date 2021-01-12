@@ -64,7 +64,6 @@ export async function simpleQuery(q, variables) {
   const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
   return response.data;
 }
-
 export async function query(q, variables) {
   let tries = 10;
 
@@ -90,6 +89,9 @@ export async function query(q, variables) {
       const res = await simpleQuery(q, variables);
       return res;
     } catch (e) {
+      if (e.response.status === 503 || e.response.status === 500) {
+        throw e.response.status;
+      }
       if (e && e.response && e.response.status) {
         if (
           e.response.status === 401 ||

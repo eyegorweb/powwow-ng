@@ -207,8 +207,13 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
       }
     }
   }`;
-  const response = await query(queryStr);
-  return response.data.alarms;
+
+  try {
+    const response = await query(queryStr);
+    return response.data.alarms;
+  } catch (e) {
+    throw e;
+  }
 }
 
 export async function fetchTriggerHistory(alarmId, simIds = []) {

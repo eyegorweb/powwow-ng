@@ -18,8 +18,11 @@
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
     >
-      <div slot="title" class="mt-2 table-total">
+      <div slot="title" class="mt-2 table-total" v-if="!searchError">
         {{ $t('getvsion.table.total', { total: total }) }}
+      </div>
+      <div slot="title" class="mt-2 table-total" v-else>
+        {{ $t('searchError') }}
       </div>
       <div slot="topRight" class="mt-2">
         <div class="row d-flex flex-row-reverse">
@@ -95,6 +98,7 @@ export default {
       isSearchingById: false,
       searchedId: undefined,
       version: 0,
+      searchError: false,
       defaultFilterValues: undefined,
       currentFilters: undefined,
       lastOrderBy: undefined,
@@ -392,11 +396,18 @@ export default {
     },
     async refreshAlarms() {
       this.isLoading = true;
-      const data = await this.apiFn(this.lastOrderBy, this.lastPagination, this.currentFilters);
-      this.isLoading = false;
-
-      this.total = data.total;
-      this.rows = data.items;
+      try {
+        const data = await this.apiFn(this.lastOrderBy, this.lastPagination, this.currentFilters);
+        this.searchError = false;
+        this.isLoading = false;
+        this.total = data.total;
+        this.rows = data.items;
+      } catch (error) {
+        this.searchError = true;
+        this.isLoading = false;
+        this.total = undefined;
+        this.rows = undefined;
+      }
     },
     async indicatorClick(filters) {
       this.defaultFilterValues = filters;
@@ -412,11 +423,18 @@ export default {
       this.lastPagination = pagination;
 
       this.isLoading = true;
-      const data = await this.apiFn(this.orderBy, pagination, filters);
-
-      this.total = data.total;
-      this.rows = data.items;
-      this.isLoading = false;
+      try {
+        const data = await this.apiFn(this.lastOrderBy, this.lastPagination, this.currentFilters);
+        this.searchError = false;
+        this.isLoading = false;
+        this.total = data.total;
+        this.rows = data.items;
+      } catch (error) {
+        this.searchError = true;
+        this.isLoading = false;
+        this.total = undefined;
+        this.rows = undefined;
+      }
     },
   },
 };

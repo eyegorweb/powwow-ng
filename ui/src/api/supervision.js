@@ -152,9 +152,7 @@ export async function fetchLinesForCounter(
     sorting,
   });
 
-  if (response.data) {
-    return response.data.geoCounterList;
-  }
+  return response.data.geoCounterList;
 }
 
 export async function fetchLinesForMarker(

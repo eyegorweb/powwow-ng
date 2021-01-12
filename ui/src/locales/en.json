@@ -16,6 +16,7 @@
   "showOrHideColumns": "Add / hide columns",
   "save": "Record",
   "cancel": "CANCEL",
+  "searchError": "Search was unsuccessful. Please try Again",
   "reset": "Reset",
   "resetFilters": "Reset the filter",
   "filter": "Filter",

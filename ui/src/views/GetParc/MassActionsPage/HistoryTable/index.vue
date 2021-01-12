@@ -6,8 +6,11 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem" v-if="!apiError">
             {{ $t('getparc.history.total', { total: formattedTotal }) }}
+          </h2>
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem" v-else="apiError">
+            {{ $t('searchError') }}
           </h2>
         </div>
         <div class="col" v-if="total > 0">
@@ -58,7 +61,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import DataTable from '@/components/DataTable/DataTable';
 import LoaderContainer from '@/components/LoaderContainer';
 import HistoryActions from './HistoryActions';
@@ -339,6 +342,7 @@ export default {
       'actHistoryPage',
       'isLoading',
     ]),
+    ...mapState('actHistory', ['apiError']),
     rows() {
       return this.massActionsResponse ? this.formatResponse(this.massActionsResponse.items) : [];
     },

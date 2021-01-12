@@ -233,9 +233,12 @@ export async function searchMassActions(orderBy, pagination, filters = []) {
   }
   `;
 
-  const response = await query(queryStr);
-
-  return response.data.massActionsV2;
+  try {
+    const response = await query(queryStr);
+    return response.data.massActionsV2;
+  } catch (e) {
+    throw e;
+  }
 }
 
 export async function countTotalForMassAction(filters) {
