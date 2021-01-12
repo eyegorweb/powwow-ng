@@ -17,6 +17,7 @@
           <UiDate
             @change="onActDateChange"
             :value="actDate"
+            :min-date="minDate"
             class="d-block large-date-picker"
             direction="down"
             fixed
@@ -118,6 +119,11 @@ export default {
     },
     onActDateChange(value) {
       this.actDate = value;
+    },
+  },
+  computed: {
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
     },
   },
 };

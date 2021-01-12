@@ -18,6 +18,7 @@
                   :value="actDate"
                   :error="dateError"
                   class="d-block"
+                  :min-date="minDate"
                   time-picker
                   fixed
                 >
@@ -138,6 +139,9 @@ export default {
 
   computed: {
     ...mapState('actLines', ['actCreationPrerequisites']),
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
+    },
   },
 
   methods: {

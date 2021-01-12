@@ -15,6 +15,7 @@
                 @change="onActDateChange"
                 :value="actDate"
                 :error="dateError"
+                :min-date="minDate"
                 class="d-block"
                 time-picker
                 fixed
@@ -177,6 +178,9 @@ export default {
       return this.report.errors.reduce((total, e) => {
         return (total += e.number);
       }, 0);
+    },
+    minDate() {
+      return moment().format('DD/MM/YYYY HH:mm:ss');
     },
   },
   methods: {
