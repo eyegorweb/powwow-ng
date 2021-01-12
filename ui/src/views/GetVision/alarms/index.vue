@@ -17,7 +17,7 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="parcAlarms">
-          <ParcAlarmsTab :key="'parcAlarms'" :api-fn="searchAlarms" />
+          <ParcAlarmsTab :key="'parcAlarms'" :api-fn="searchAlarms"  />
         </div>
         <div class="pt-4 pl-4" slot="cockpitM2M">M2M</div>
         <div class="pt-4 pl-4" slot="alarmsSharedConso">

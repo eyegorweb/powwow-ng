@@ -14,6 +14,7 @@ export const namespaced = true;
 export const state = {
   ...filterUtils.initState(),
   massActionsResponse: [],
+  apiError: false,
   actHistoryPage: 1,
 };
 
@@ -86,8 +87,15 @@ export const actions = {
   },
   async fetchActionsFromApi({ commit }, { orderBy, pageInfo, appliedFilters }) {
     commit('startLoading');
-    commit('setActionsResponse', await searchMassActions(orderBy, pageInfo, appliedFilters));
-    commit('stopLoading');
+    try {
+      commit('setApiError', false);
+      commit('setActionsResponse', await searchMassActions(orderBy, pageInfo, appliedFilters));
+      commit('stopLoading');
+    } catch (e) {
+      commit('setApiError', true);
+      commit('setActionsResponse', '');
+      commit('stopLoading');
+    }
   },
 };
 
@@ -124,6 +132,11 @@ export const mutations = {
       filterUtils.applyFilters(state);
     }
   },
+
+  setApiError(state, value) {
+    state.apiError = value;
+  },
+
   setActionsResponse(state, massActions) {
     state.massActionsResponse = massActions;
   },

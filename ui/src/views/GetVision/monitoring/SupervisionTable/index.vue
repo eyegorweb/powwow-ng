@@ -77,6 +77,7 @@ export default {
       version: 0,
       rows: undefined,
       total: 0,
+      searchError: false,
 
       columns: [
         {
@@ -334,12 +335,17 @@ export default {
       return async (pageInfo, orderBy) => {
         const sorting = {};
         sorting[orderBy.key] = orderBy.direction;
-        const response = await this.refreshLinesFn(pageInfo, sorting);
-        this.total = response.total;
-        return {
-          rows: response.items,
-          total: response.total || this.indicatorTotal,
-        };
+        try {
+          this.searchError = false;
+          const response = await this.refreshLinesFn(pageInfo, sorting);
+          this.total = response.total;
+          return {
+            rows: response.items,
+            total: response.total || this.indicatorTotal,
+          };
+        } catch (error) {
+          this.searchError = true;
+        }
       };
     },
   },
