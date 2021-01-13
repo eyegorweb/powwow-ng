@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.89+20210113111312
+2021-01-13
+
+### Fixes
+
+- 2289 Cacher les rapport journalier dans la creation (58a287308de17570f3f484b8916bffe51189a14e)
+
 ## 1.17.0-master.88+20210112182126
 2021-01-12
 
