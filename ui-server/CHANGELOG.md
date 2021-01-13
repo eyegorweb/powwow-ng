@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.93+20210113144839
+2021-01-13
+
+### Fixes
+
+- [2193] Mettre le bon champ dans la combobox choix des offres (47d40231f1d03269116f3b407ac3ffe93158255e)
+
 ## 1.17.0-master.92+20210113143516
 2021-01-13
 
