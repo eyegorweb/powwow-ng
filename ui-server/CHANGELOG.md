@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.90+20210113133919
+2021-01-13
+
+### Features
+
+- [2227] Gestion des liens dans le Coach M2M (9112070bddd30187ccf8c4980a7729a0231d6658)
+
+### Fixes
+
+- 2239 Modifications des champs libres (351eb6cad010f94109bd2def7c6f0fd03a87441f)
+
 ## 1.17.0-master.89+20210113111312
 2021-01-13
 
