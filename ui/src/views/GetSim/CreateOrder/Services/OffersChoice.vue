@@ -47,7 +47,7 @@ export default {
           id: i.id,
           initialOffer: i.initialOffer,
           label: !workflowIsNotCompatible
-            ? i.initialOffer.description
+            ? i.workflowDescription
             : `${i.initialOffer.description}${this.$t('services.compatibility')}`,
           value: i.value,
           disabled: workflowIsNotCompatible,
