@@ -27,7 +27,7 @@ import AnimatedCheckMark from '@/components/ui/AnimatedCheckMark';
 import AnimatedButton from '@/components/ui/AnimatedButton.vue';
 
 export default {
-  name: 'IndocatorItem',
+  name: 'IndicatorItem',
   components: {
     AnimatedCheckMark,
     AnimatedButton,

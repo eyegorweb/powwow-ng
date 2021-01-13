@@ -22,18 +22,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$link-text-color: #fff;
 $border-radius: 6px;
 $overlay-color: #fff;
 
 .effect {
-  background-color: $primary;
+  background-color: white;
 
   text-align: center;
   display: inline-block;
   position: relative;
   text-decoration: none;
-  color: $link-text-color;
+  color: $primary !important;
   text-transform: capitalize;
   /* background-color: - add your own background-color */
   font: {
@@ -44,6 +43,7 @@ $overlay-color: #fff;
   width: 121px;
   border-radius: $border-radius;
   overflow: hidden;
+  border: 1px solid $primary;
 
   &:hover {
     cursor: pointer;
