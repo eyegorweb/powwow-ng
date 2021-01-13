@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.92+20210113143516
+2021-01-13
+
+### Features
+
+- [2227] Changement du style du bouton (ba65b021afd2c2fac1a3f20462efbcf95583dd16)
+
 ## 1.17.0-master.91+20210113135948
 2021-01-13
 
