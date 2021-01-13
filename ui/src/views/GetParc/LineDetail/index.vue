@@ -30,23 +30,18 @@
       :default-disabled="!isLigneActive"
       @itemClick="onCarouselItemClick"
     />
-    <div class="mt-4 mb-4">
-      <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
+    <div v-if="tabs && lineData" class="mt-4 mb-4">
+      <UiTabs :tabs="tabs">
         <template slot-scope="{ tab, index, selectedIndex }">
-          <UiTab v-if="tab" :is-selected="index === selectedIndex" class="tab-grow">
-            <a href="#" @click.prevent="() => (currentLinkIndex = index)">{{ tab.title }}</a>
+          <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
+            <router-link :to="tab.to">{{ tab.title }}</router-link>
           </UiTab>
         </template>
-        <div class="pt-4 pl-4" slot="detail">
-          <DetailsTab :content="lineData" />
-        </div>
-        <div slot="ongoing">
-          <OngoingTab :content="lineData" />
-        </div>
-        <div slot="diagnosis">
-          <DiagnosisTab :content="lineData" />
-        </div>
       </UiTabs>
+
+      <div class="pt-4 pl-4">
+        <router-view :content="lineData" />
+      </div>
     </div>
   </div>
 </template>
@@ -80,37 +75,54 @@ export default {
     UiButton,
   },
   async mounted() {
-    if (this.$route.params && this.$route.params.tabIndex) {
-      this.currentLinkIndex = this.$route.params.tabIndex;
-    }
     await this.loadLineData();
+
+    this.tabs = [
+      {
+        label: 'detail',
+        title: this.$t('getparc.lineDetail.title', { lineId: '' }),
+        to: {
+          name: 'lineDetail.details.info',
+          params: { lineId: this.$route.params.lineId },
+        },
+      },
+      {
+        label: 'ongoing',
+        title: this.$t('getparc.lineDetail.consuming'),
+
+        to: {
+          name: 'lineDetail.ongoing',
+          params: { lineId: this.$route.params.lineId },
+        },
+      },
+      {
+        label: 'diagnosis',
+        title: this.$t('getparc.lineDetail.analysingTool'), // ne pas afficher l'onglet si on n'a pas les permissions
+        to: {
+          name: 'lineDetail.diagnosis.analysis',
+          params: { lineId: this.$route.params.lineId },
+        },
+      },
+    ];
   },
   data() {
     return {
       lineData: undefined,
       consumption: undefined,
-      currentLinkIndex: 0,
       partnerOptions: undefined,
-      tabs: [
-        {
-          label: 'detail',
-          title: this.$t('getparc.lineDetail.title', { lineId: '' }),
-        },
-        {
-          label: 'ongoing',
-          title: this.$t('getparc.lineDetail.consuming'),
-        },
-        {
-          label: 'diagnosis',
-          title: this.$t('getparc.lineDetail.analysingTool'), // ne pas afficher l'onglet si on n'a pas les permissions
-        },
-      ],
+      tabs: undefined,
       carouselItems: [],
       offerChangeEnabled: undefined,
       paramSearch: undefined,
     };
   },
+
   computed: {
+    currentTabToShow() {
+      if (this.$route.name.includes('ongoing')) return 1;
+      if (this.$route.name.includes('diagnosis')) return 2;
+      return 0;
+    },
     ...mapGetters([
       'havePermission',
       'userIsBO',
@@ -157,6 +169,7 @@ export default {
         wide: false,
         backdrop: false,
         ignoreClickAway: true,
+        width: '45rem',
       });
     },
 

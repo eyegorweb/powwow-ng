@@ -1,15 +1,17 @@
 <template>
-  <GoogleMapLoader :map-config="mapConfig">
-    <template slot-scope="{ google, map }">
-      <MapMarker
-        :key="m.id"
-        v-for="m in formattedMarkers"
-        :google="google"
-        :map="map"
-        :position="m.position"
-      ></MapMarker>
-    </template>
-  </GoogleMapLoader>
+  <div v-if="showMap">
+    <GoogleMapLoader :map-config="mapConfig">
+      <template slot-scope="{ google, map }">
+        <MapMarker
+          :key="m.id"
+          v-for="m in formattedMarkers"
+          :google="google"
+          :map="map"
+          :position="m.position"
+        ></MapMarker>
+      </template>
+    </GoogleMapLoader>
+  </div>
 </template>
 
 <script>
@@ -24,6 +26,15 @@ export default {
   },
   props: {
     markers: Array,
+  },
+  data() {
+    return {
+      showMap: false,
+    };
+  },
+  mounted() {
+    this.showMap = true;
+    setTimeout(() => {}, 500);
   },
   computed: {
     mapConfig() {

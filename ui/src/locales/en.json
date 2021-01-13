@@ -283,6 +283,7 @@
     "indicators": {
       "lineStatus": "Is the SIM card authorized to traffic?",
       "testData": "Is data traffic possible?",
+      "traceConso": "Con. Tracer",
       "networkTest": "Has the line connected yet?",
       "ipAssign": "Has an IP address been assigned?",
       "localityTest": "Detection of lines in the same locality:",

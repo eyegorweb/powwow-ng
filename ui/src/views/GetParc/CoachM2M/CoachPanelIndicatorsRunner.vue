@@ -61,18 +61,66 @@ export default {
         {
           id: 'ai_1',
           title: 'coach.indicators.localityTest',
+          action: {
+            title: 'getparc.lineDetail.tab2.lineAnalysis',
+            tooltip: 'getparc.lineDetail.tab3.analyzeLocation',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.analysis',
+                  params: { lineId: this.$route.params.lineId, analyzeLocation: true },
+                })
+                .catch(() => {});
+            },
+          },
         },
         {
           id: 'ai_3',
           title: 'coach.indicators.cellAnalysis',
+          action: {
+            title: 'getparc.lineDetail.tab2.lineAnalysis',
+            tooltip: 'getparc.lineDetail.tab3.analyzeCell',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.analysis',
+                  params: { lineId: this.$route.params.lineId, cellAnalysis: true },
+                })
+                .catch(() => {});
+            },
+          },
         },
         {
           id: 'ai_5',
           title: 'coach.indicators.networkDetectionTest',
+          action: {
+            title: 'coach.indicators.history',
+            tooltip: 'coach.indicators.showSupervision',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.supervision',
+                  params: { lineId: this.$route.params.lineId },
+                })
+                .catch(() => {});
+            },
+          },
         },
         {
           id: 'i_7',
           title: 'coach.indicators.lastUsageAnalysis',
+          //
+          action: {
+            title: 'getparc.lineDetail.tab2.lineAnalysis',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.analysis',
+                  params: { lineId: this.$route.params.lineId },
+                })
+                .catch(() => {});
+            },
+          },
         },
       ];
     }
@@ -166,6 +214,17 @@ export default {
         {
           id: 'i_4',
           title: 'coach.indicators.testData',
+          action: {
+            title: 'coach.indicators.traceConso',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.networkTestControl',
+                  params: { lineId: this.$route.params.lineId, createTestRequest: true },
+                })
+                .catch(() => {});
+            },
+          },
         },
         {
           id: 'i_6',
@@ -182,6 +241,17 @@ export default {
         {
           id: 'i_10',
           title: 'coach.indicators.isTraced',
+          action: {
+            title: 'coach.indicators.linePing',
+            onClick: () => {
+              this.$router
+                .push({
+                  name: 'lineDetail.diagnosis.networkStatus',
+                  params: { lineId: this.$route.params.lineId, createPingRequest: true },
+                })
+                .catch(() => {});
+            },
+          },
         },
       ],
       advancedIndicators: undefined,

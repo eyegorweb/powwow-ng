@@ -8,7 +8,9 @@
       <button class="btn btn-primary mb-4" @click="version++">Refresh</button>
 
       <div :key="'ex_' + version">
-        <TwoValuesToggle />
+        {{ chosen }}
+        <i class="ic-Arrow-Next-Icon"></i>
+        <AnimatedButton @click="chosen = 'OKK'">Test here</AnimatedButton>
       </div>
     </div>
   </div>
@@ -18,13 +20,14 @@
 // Composant sandbox, ne pas faire de review, c'est du jetable :)
 
 import SearchTranslationKey from '@/components/utils/SearchTranslationKey';
-import TwoValuesToggle from '@/components/ui/TwoValuesToggle.vue';
+
+import AnimatedButton from '@/components/ui/AnimatedButton.vue';
 
 export default {
   name: 'Examples',
   components: {
     SearchTranslationKey,
-    TwoValuesToggle,
+    AnimatedButton,
   },
   data() {
     return {

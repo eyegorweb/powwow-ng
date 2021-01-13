@@ -101,6 +101,11 @@ export default {
   props: {
     content: Object,
   },
+  mounted() {
+    if (this.$route.params.createTestRequest) {
+      this.openNewDemandModal();
+    }
+  },
   methods: {
     ...mapMutations(['flashMessage']),
 

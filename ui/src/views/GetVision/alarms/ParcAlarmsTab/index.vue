@@ -56,7 +56,6 @@
 
 <script>
 import TableWithFilter from '@/components/Filters/TableWithFilter';
-import { col } from '@/components/DataTable/utils';
 import UiButton from '@/components/ui/Button';
 
 import AlarmNameCell from './cells/AlarmNameCell.vue';
@@ -112,7 +111,7 @@ export default {
       isLoading: false,
       filters: undefined,
       columns: [
-                {
+        {
           id: 1,
           label: this.$t('col.id'),
           name: 'id',

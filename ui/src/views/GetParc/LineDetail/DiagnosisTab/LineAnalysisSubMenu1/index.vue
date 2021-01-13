@@ -199,6 +199,16 @@ export default {
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
       this.loadingGeoloc = false;
     }
+
+    if (this.$route.params.cellAnalysis) {
+      this.selectedAnalzeTab = this.toggleValues[1];
+      this.selectedAnalzeTab.default = true;
+    }
+
+    if (this.$route.params.analyzeLocation) {
+      this.selectedAnalzeTab = this.toggleValues[0];
+      this.selectedAnalzeTab.default = true;
+    }
   },
   methods: {
     getValue(objectToUse, path, defaultValue = '') {

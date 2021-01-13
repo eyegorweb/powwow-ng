@@ -90,6 +90,7 @@ export default {
       isLoading: true,
     };
   },
+
   methods: {
     ...mapMutations(['confirmAction', 'flashMessage']),
 
@@ -154,6 +155,9 @@ export default {
     },
   },
   async mounted() {
+    if (this.$route.params.createPingRequest) {
+      this.confirmNewDemand();
+    }
     await this.refreshTable();
   },
 };

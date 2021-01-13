@@ -9,25 +9,15 @@
           class="list-group-item"
           :class="{ '-inactive': !isLineActive }"
         >
-          <a
-            @click.prevent="section = item.section"
-            :class="{ active: section == item.section }"
-            href="#"
-          >
-            {{ $t(item.title) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
+          <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
+            {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
+          </router-link>
         </li>
       </ul>
     </div>
     <div class="col-md-9 pt-3" v-if="content">
-      <template v-if="isLineActive">
-        <LastTests v-if="section === 'last_tests'" :content="content" />
-        <LineAnalysisSubMenu1 v-if="section === 'line_analysis'" :content="content" />
-        <NetworkStatusSubMenu2 v-if="section === 'network_location_test'" :content="content" />
-        <NetworkTestControl v-if="section === 'network_test_control'" :content="content" />
-        <Supervision v-if="section === 'supervision'" :content="content" />
-        <NetworkHistory v-if="section === 'network_history'" :content="content" />
+      <template v-if="isLineActive && content">
+        <router-view :content="content" />
       </template>
       <div v-else class="warning-message">
         <h3 class="text-warning text-center mt-5">
@@ -67,30 +57,50 @@ export default {
         title: 'getparc.lineDetail.tab2.lastTests',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         permission: { domain: 'getParc', action: 'manage_coach' },
+        to: {
+          name: 'lineDetail.diagnosis.last_tests',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       },
       {
         section: 'line_analysis',
         title: 'getparc.lineDetail.tab2.lineAnalysis',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         permission: { domain: 'getVision', action: 'read' },
+        to: {
+          name: 'lineDetail.diagnosis.analysis',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       },
       {
         section: 'network_location_test',
         title: 'getparc.lineDetail.tab2.networkLocationTest',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         permission: { domain: 'getVision', action: 'read' },
+        to: {
+          name: 'lineDetail.diagnosis.networkStatus',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       },
       {
         section: 'network_test_control',
         title: 'getparc.lineDetail.tab2.networkTestControl',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         permission: { domain: 'getVision', action: 'read' },
+        to: {
+          name: 'lineDetail.diagnosis.networkTestControl',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       },
       {
         section: 'supervision',
         title: 'getparc.lineDetail.tab2.supervision',
         compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
         permission: { domain: 'getVision', action: 'read' },
+        to: {
+          name: 'lineDetail.diagnosis.supervision',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       },
     ]);
     this.initializeSection();
@@ -121,6 +131,10 @@ export default {
       const specificPermissionNetworkHistory = {
         section: 'network_history',
         title: 'getparc.lineDetail.tab2.networkHistory',
+        to: {
+          name: 'lineDetail.diagnosis.networkHistory',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
       };
 
       // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
@@ -134,6 +148,7 @@ export default {
         // partenaire IMT, détectable uniquement en environnement de production
         visibleItems = [...visibleItems, specificPermissionNetworkHistory];
       }
+
       return visibleItems;
     },
   },
