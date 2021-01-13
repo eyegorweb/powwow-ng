@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="001"
+      storage-version="003"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
@@ -116,7 +116,7 @@ export default {
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
-          visible: true,
+          visible: false,
           format: {
             component: AlarmIdCell,
           },
@@ -211,10 +211,10 @@ export default {
         {
           id: 11,
           label: this.$t('getparc.lineDetail.alarms.observationCycle'),
-          orderable: false,
+          orderable: true,
           visible: false,
           name: 'observationCycle',
-          noHandle: true,
+          noHandle: false,
           format: {
             type: 'Getter',
             getter: row => {
@@ -225,10 +225,10 @@ export default {
         {
           id: 12,
           label: this.$t('getvsion.filters.ALARMS_OFFER'),
-          orderable: false,
+          orderable: true,
           visible: false,
           name: 'alarmScope',
-          noHandle: true,
+          noHandle: false,
           format: {
             type: 'Getter',
             getter: row => {
