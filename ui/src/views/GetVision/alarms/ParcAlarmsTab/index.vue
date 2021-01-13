@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="003"
+      storage-version="005"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
@@ -143,13 +143,20 @@ export default {
         },
         {
           id: 4,
+          label: this.$t('getvsion.table.targetedLines'),
+          name: 'numberOfTargetedLines',
+          orderable: false,
+          visible: true,
+        },
+        {
+          id: 5,
           label: this.$t('filters.lines.activationDate'),
           name: 'startDate',
           orderable: true,
           visible: true,
         },
         {
-          id: 5,
+          id: 6,
           label: this.$t('getvsion.table.triggers'),
           name: 'triggers',
           orderable: true,
@@ -159,14 +166,14 @@ export default {
           },
         },
         {
-          id: 6,
+          id: 7,
           label: this.$t('filters.lines.activationDate'),
           name: 'startDate',
           orderable: true,
           visible: false,
         },
         {
-          id: 7,
+          id: 8,
           label: this.$t('col.partner'),
           name: 'party',
           orderable: true,
@@ -177,7 +184,7 @@ export default {
           },
         },
         {
-          id: 8,
+          id: 9,
           label: this.$t('getvsion.table.alarmStatus'),
           name: 'name',
           orderable: true,
@@ -187,7 +194,7 @@ export default {
           },
         },
         {
-          id: 9,
+          id: 10,
           label: this.$t('getparc.lineDetail.offer'),
           name: 'autoPositionWorkflow',
           orderable: true,
@@ -198,7 +205,7 @@ export default {
           },
         },
         {
-          id: 10,
+          id: 11,
           label: this.$t('common.billingAccount'),
           name: 'autoPositionCustAccount',
           orderable: true,
@@ -209,7 +216,7 @@ export default {
           },
         },
         {
-          id: 11,
+          id: 12,
           label: this.$t('getparc.lineDetail.alarms.observationCycle'),
           orderable: true,
           visible: false,
@@ -223,7 +230,7 @@ export default {
           },
         },
         {
-          id: 12,
+          id: 13,
           label: this.$t('getvsion.filters.ALARMS_OFFER'),
           orderable: true,
           visible: false,
