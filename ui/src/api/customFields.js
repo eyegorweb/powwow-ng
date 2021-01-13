@@ -1,9 +1,9 @@
 import { query } from './utils';
 import get from 'lodash.get';
 
-export async function updateCustomFieldLabel(partnerId, code, label) {
-  const queryStr = `mutation updateCustomFieldLabel($partnerId: Long!, $label: String!, $code: AvailableCustomFields!) {
-    updateCustomField(customFieldInput: {partyId: $partnerId, customFieldLabel: $label, availableCustomFields: $code}) {
+export async function updateCustomFieldLabel(partnerId, code, label, type, values, mandatoryVal) {
+  const queryStr = `mutation updateCustomField($partnerId: Long!, $label: String!, $code: AvailableCustomFields!, $type: CustomFieldTypeEnum!, $values: [String!], $mandatoryVal: CustomFieldMandatoryEnum) {
+    updateCustomField(customFieldInput: {partyId: $partnerId, customFieldLabel: $label, availableCustomFields: $code, fieldTypeEnum: $type, customFieldListValues: $values, customFieldMandatory: $mandatoryVal}) {
       id
     }
   }
@@ -13,6 +13,9 @@ export async function updateCustomFieldLabel(partnerId, code, label) {
     partnerId,
     label,
     code,
+    type,
+    values,
+    mandatoryVal,
   });
   return response.data;
 }

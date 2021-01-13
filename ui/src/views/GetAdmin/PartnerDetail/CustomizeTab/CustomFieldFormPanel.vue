@@ -78,7 +78,10 @@ export default {
       return await updateCustomFieldLabel(
         this.content.partnerId,
         this.content.modifyCustomField.code,
-        fieldData.label
+        fieldData.label,
+        fieldData.type,
+        fieldData.values,
+        fieldData.mandatoryVal,
       );
     },
   },
