@@ -28,7 +28,6 @@
                 ' btn-outline-simple': customFieldType !== 'TEXT',
               }"
               @click="customFieldType = 'TEXT'"
-              :disabled="changeLabelOnly"
             >
               {{ $t('text') }}
             </button>
@@ -40,7 +39,6 @@
                 ' btn-outline-simple': customFieldType !== 'LIST',
               }"
               @click="customFieldType = 'LIST'"
-              :disabled="changeLabelOnly"
             >
               {{ $t('list') }}
             </button>
@@ -52,7 +50,6 @@
                 ' btn-outline-simple': customFieldType !== 'DATE',
               }"
               @click="customFieldType = 'DATE'"
-              :disabled="changeLabelOnly"
             >
               {{ $t('date') }}
             </button>
@@ -63,7 +60,6 @@
             <CreateOrderAddCustomList
               :options.sync="listOptions"
               is-open
-              :disabled="changeLabelOnly"
             />
           </div>
         </div>
@@ -83,7 +79,6 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="NONE"
-              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.NONE') }}</div>
           </div>
@@ -96,7 +91,6 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="ORDER"
-              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.ORDER') }}</div>
           </div>
@@ -111,7 +105,6 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="ACTIVATION"
-              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.ACTIVATION') }}</div>
           </div>
@@ -124,7 +117,6 @@
               name="orderRequired"
               v-model="selectedMandatoryValue"
               value="PAIRING"
-              :disabled="changeLabelOnly"
             />
             <div class="float-left">{{ $t('orders.new.settingsStep.PAIRING') }}</div>
           </div>
