@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.91+20210113135948
+2021-01-13
+
+### Fixes
+
+- 2276 Ajout du sort sur la porté et le cycle de la table alarm (e3cd032389c5d2529922f79359c099985cddbd45)
+
 ## 1.17.0-master.90+20210113133919
 2021-01-13
 
