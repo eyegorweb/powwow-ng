@@ -217,10 +217,10 @@ export default {
           id: 'ONCE',
           label: 'frequencies.ONCE',
         },
-        {
-          id: 'DAILY',
-          label: 'frequencies.DAILY',
-        },
+        // {
+        //   id: 'DAILY',
+        //   label: 'frequencies.DAILY',
+        // },
         {
           id: 'WEEKLY',
           label: 'frequencies.WEEKLY',
