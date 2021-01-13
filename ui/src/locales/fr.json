@@ -333,6 +333,7 @@
     "indicators": {
       "lineStatus": "La carte SIM est-elle autorisée à trafiquer ?",
       "testData": "Le trafic data est-il possible ?",
+      "traceConso": "Traceur Conso",
       "networkTest": "La ligne s’est-elle déjà connectée ?",
       "ipAssign": "Une adresse IP a-t-elle été attribuée ?",
 
@@ -341,7 +342,10 @@
       "networkDetectionTest": "Date de Dernière détection de la ligne par le réseau :",
       "lastUsageAnalysis": "Dernier usage effectué :",
       "isPowered": "Le boîtier est-il alimenté ?",
-      "isTraced": "La ligne a-t-elle été localisée ?"
+      "isTraced": "La ligne a-t-elle été localisée ?",
+      "history": "Historique",
+      "linePing": "Pinger la ligne",
+      "showSupervision": "Visualiser l'historique de supervision"
     }
   },
   "getsim": {

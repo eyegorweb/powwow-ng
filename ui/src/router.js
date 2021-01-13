@@ -11,7 +11,6 @@ const AlarmDetail = () => import('@/views/GetVision/alarmDetail');
 const MassActionsPage = () => import('@/views/GetParc/MassActionsPage');
 const GetParcActDetail = () => import('@/views/GetParc/UnitActionsPage');
 const GetParcManagementActLines = () => import('@/views/GetParc/ActLines');
-const GetParcLineDetail = () => import('@/views/GetParc/LineDetail');
 const SearchUsers = () => import('@/views/GetAdmin/SearchUsers');
 const PartnerDetail = () => import('@/views/GetAdmin/PartnerDetail');
 const SearchPartners = () => import('@/views/GetAdmin/SearchPartners');
@@ -23,6 +22,8 @@ const GetReportBill = () => import('@/views/GetReport/Bill/index.vue');
 const GetDevice = () => import('@/views/GetDevice/index.vue');
 const GetVisionMonitoring = () => import('@/views/GetVision/monitoring');
 
+import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
+
 import { excludeMocked } from '@/featureFlipping/plugin';
 
 Vue.use(Router);
@@ -31,6 +32,7 @@ export default new Router({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
   routes: excludeMocked([
+    lineDetailRoute,
     {
       path: '/',
       name: 'home',
@@ -60,11 +62,6 @@ export default new Router({
       path: '/act-detail/:massActionId',
       name: 'actDetail',
       component: GetParcActDetail,
-    },
-    {
-      path: '/line-detail/:lineId',
-      name: 'lineDetail',
-      component: GetParcLineDetail,
     },
     {
       path: '/act-lines',

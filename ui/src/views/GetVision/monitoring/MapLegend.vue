@@ -53,7 +53,6 @@ export default {
   props: {
     usage: String,
   },
-
 };
 </script>
 

@@ -1,25 +1,16 @@
 <template>
   <div class="row">
-    <div class="col-md-3">
+    <div v-if="menuItems" class="col-md-3">
       <ul class="list-group">
         <li v-for="item in visibleMenuItems" :key="item.title" class="list-group-item">
-          <a
-            @click.prevent="section = item.section"
-            :class="{ active: section == item.section }"
-            href="#"
-          >
-            {{ $t(item.title) }}
-            <i class="ic-Arrow-Next-Icon float-right"></i>
-          </a>
+          <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
+            {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
+          </router-link>
         </li>
       </ul>
     </div>
     <div class="col-md-9">
-      <LineInfoSection v-if="section === 'line_info' && content" :content="content" />
-      <ActsHistory v-if="section === 'acts_history'" :content="content" />
-      <LineServicesSection v-if="section === 'line_services'" :content="content" />
-      <BillingSection v-if="section === 'billing'" :content="content" />
-      <AlarmList v-if="section === 'alarm_list'" :content="content" />
+      <router-view v-if="content" :content="content" />
     </div>
   </div>
 </template>
@@ -47,35 +38,59 @@ export default {
   data() {
     return {
       section: 'line_info',
-      menuItems: [
-        {
-          section: 'line_info',
-          title: 'getparc.lineDetail.tab1.lineInfo',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'billing',
-          title: 'getparc.lineDetail.tab1.billingOffer.title',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'line_services',
-          title: 'getparc.lineDetail.tab1.lineServices',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'alarm_list',
-          title: 'getparc.lineDetail.tab1.alarmsList',
-          compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
-        },
-        {
-          section: 'acts_history',
-          title: 'getparc.lineDetail.tab1.actsHistory',
-          compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
-        },
-      ],
+      menuItems: undefined,
     };
   },
+  mounted() {
+    this.menuItems = [
+      {
+        section: 'line_info',
+        title: 'getparc.lineDetail.tab1.lineInfo',
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        to: {
+          name: 'lineDetail.details.info',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
+      },
+      {
+        section: 'billing',
+        title: 'getparc.lineDetail.tab1.billingOffer.title',
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        to: {
+          name: 'lineDetail.details.billing',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
+      },
+      {
+        section: 'line_services',
+        title: 'getparc.lineDetail.tab1.lineServices',
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        to: {
+          name: 'lineDetail.details.services',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
+      },
+      {
+        section: 'alarm_list',
+        title: 'getparc.lineDetail.tab1.alarmsList',
+        compatiblePartnerTypes: ['CUSTOMER', 'MULTI_CUSTOMER'],
+        to: {
+          name: 'lineDetail.details.alarms',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
+      },
+      {
+        section: 'acts_history',
+        title: 'getparc.lineDetail.tab1.actsHistory',
+        compatiblePartnerTypes: ['CUSTOMER', 'MVNO', 'MULTI_CUSTOMER'],
+        to: {
+          name: 'lineDetail.details.acts',
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        },
+      },
+    ];
+  },
+
   computed: {
     visibleMenuItems() {
       const typeForPartner = get(this.content, 'party.partyType');
