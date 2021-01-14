@@ -149,7 +149,7 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
       gqlFilters.push(
         `${gqlParamName}: {between: {startDate: "${formattedStartDate}", endDate: "${prepareEndDateForBackend(
           dateFilter.endDate
-        )}"}`
+        )}"}}`
       );
     } else {
       gqlFilters.push(`${gqlParamName}: {goe: "${formattedStartDate}"}`);
