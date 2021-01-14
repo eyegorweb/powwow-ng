@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.96+20210114140604
+2021-01-14
+
+### Fixes
+
+- [2303][2297][2300] Mise à disposition des fichiers REP KPI pour PSA et Artel. (9c53ff459ba8dd3651651990aa737aaa87567e5c)
+
 ## 1.17.0-master.95+20210114103028
 2021-01-14
 
