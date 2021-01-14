@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.97+20210114144702
+2021-01-14
+
+### Fixes
+
+- [2304] Corriger la recherche par date (f82804fc3a3dece3629e22384efa8aec59c49077)
+
 ## 1.17.0-master.96+20210114140604
 2021-01-14
 
