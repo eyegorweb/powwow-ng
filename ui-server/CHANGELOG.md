@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.95+20210114103028
+2021-01-14
+
+### Fixes
+
+- [2296] ffichage des device / IMEI dans le détail de la ligne (6edf48edf11b3f45c626b9e20681f0ca2945beb6)
+
 ## 1.17.0-master.94+20210113161749
 2021-01-13
 
