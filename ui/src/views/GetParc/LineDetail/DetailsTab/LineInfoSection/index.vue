@@ -117,7 +117,7 @@
             <MSISDNHistoryTable :lines="lines || []" />
           </template>
         </ContentBlock>
-        <ContentBlock v-if="canShowIMEIHistory" :key="'block5'">
+        <ContentBlock :key="'block5'">
           <template slot="title">
             <span v-if="partnerTypeMVNO">{{ $t('getparc.lineDetail.tab1.IMEIHistory') }}</span>
             <span v-else>{{ $t('getparc.lineDetail.tab1.equipmentsHistory') }}</span>
@@ -192,13 +192,6 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsBO']),
-
-    canShowIMEIHistory() {
-      if (get(this.content, 'party.partyType') === 'MVNO' && this.userIsBO) {
-        return true;
-      }
-      return get(this.content, 'party.partyType') !== 'MVNO';
-    },
 
     msisdn() {
       return get(this.lines[0], 'msisdn', '');
