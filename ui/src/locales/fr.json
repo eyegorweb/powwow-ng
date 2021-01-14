@@ -203,7 +203,8 @@
       "EXPORT": "Export",
       "BALANCE": "Encours non valorisés",
       "PDP": "PDP",
-      "FDNX": "FDNX"
+      "FDNX": "FDNX",
+      "KPI": "KPI"
     }
   },
   "mainMenu": {

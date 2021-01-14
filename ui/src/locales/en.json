@@ -1085,7 +1085,7 @@
       "previsionalData": "Forecast Data",
       "previsionalSms": "Forecast SMS",
       "previsionalVoice": "Forecast Voice",
-      "consuming": "IN CONSUMPTION",
+      "consuming": "CONSUMPTION OUTSTANDING",
       "consumingFromMonthBeginning": "Outstanding since start of month",
       "analysingTool": "GETDIAG / ANALYSIS TOOLS",
       "specificFields": {
@@ -1356,10 +1356,13 @@
       }
     },
     "actCreation": {
+      "mass": "Mass action",
+      "byId": "By id",
       "carouselItem": {
         "CONSUMING": "Outstanding consumption",
         "EXPORT_CONS": "Export consumption",
-        "SUSPEND": "Hang lines",
+        "SUSPEND": "Suspend lines",
+        "SUSPEND_BILLS": "Suspend billing",
         "MANAGE_ALARMS": "Manage alarms",
         "EXPORT_LAST_USAGE": "Export last use",
         "CHANGE_CF": "Change Billing account",
@@ -1692,6 +1695,7 @@
     "activationAsked": "Activation",
     "freqTheo": "Theoretical frequencies",
     "company": "Society",
+    "activation_date": "Activation date",
     "label": "Label",
     "preActivationAsked": "Pre-activation",
     "creator": "Owner",

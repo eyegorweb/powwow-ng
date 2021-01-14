@@ -91,7 +91,13 @@ export default {
         format: {
           type: 'Getter',
           getter: row => {
-            return this.$t('documents.categories.' + get(row, 'category.name', '-'));
+            const translateKey = 'documents.categories.' + get(row, 'category.name');
+            const translated = this.$t(translateKey);
+            if (translateKey !== translated) {
+              return translated;
+            } else {
+              return get(row, 'category.name');
+            }
           },
         },
         orderable: true,

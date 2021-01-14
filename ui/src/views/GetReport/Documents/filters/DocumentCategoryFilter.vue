@@ -21,12 +21,21 @@ export default {
   },
 
   async mounted() {
+    const getTranslatedLabel = name => {
+      const translateKey = 'documents.categories.' + name;
+      const translated = this.$t(translateKey);
+      if (translateKey !== translated) {
+        return translated;
+      } else {
+        return name;
+      }
+    };
     const response = await fetchAllDocumentsCategory();
     if (response) {
       this.items = response.map(p => {
         return {
           id: p.name,
-          label: this.$t('documents.categories.' + p.name),
+          label: getTranslatedLabel(p.name),
         };
       });
     }
