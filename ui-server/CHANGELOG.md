@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.100+20210115133151
+2021-01-15
+
+### Fixes
+
+- 2311 Changement du style du bouton exporter dans detail facture (44018e6bbc4b9b1a3e99a93dfeb3bc0ea3b54e0d)
+
 ## 1.17.0-master.99+20210115131653
 2021-01-15
 
