@@ -75,7 +75,6 @@ export default {
             startDate: moment()
               .subtract(3, 'month')
               .format('DD/MM/YYYY'),
-            endDate: moment().format('DD/MM/YYYY'),
           });
           this.isReady = true;
           setTimeout(() => {
