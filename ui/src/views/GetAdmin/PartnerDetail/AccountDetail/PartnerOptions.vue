@@ -92,10 +92,12 @@
         <div class="d-flex">
           <div class="third-size pr-4">
             <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.userReference')
-              }}</label>
-              <UiInput v-model="refUser" block />
+              <UiToggle
+                :label="$t('getadmin.partners.optionsDetails.userReference')"
+                :editable="true"
+                v-model="refUser"
+                small-label
+              />
               <small v-if="fieldErrors && errors.refUser" class="form-text error-text">{{
                 $t('required')
               }}</small>
@@ -762,7 +764,7 @@ export default {
       this.selectedBillingAccount = get(this.partnerOptions, 'defaultCustomerForActivation');
 
       this.resilationSecurityNotificationEnabled = this.partnerOptions.resilationSecurityNotificationEnabled;
-      // this.refUser = this.partnerOptions.userReferenceEnabled;
+      this.refUser = this.partnerOptions.userReferenceEnabled;
       this.billingDelay = this.partnerOptions.billingNonActDelay;
       this.comptaExport = this.partnerOptions.exportComptaBSCSModeEnabled;
       this.flagServicesAudit = this.partnerOptions.flagServicesAudit;
@@ -856,8 +858,7 @@ export default {
           orderNumberRequired: this.getToggle(this.orderToggles, 'REF_CLIENT'),
           orderPreactivationMandatory: this.orderPreactivationMandatory,
           orderActivationMandatory: this.getToggle(this.orderToggles, 'MANDATORY_ACTIVATION'),
-          userReferenceEnabled: this.getToggle(this.orderToggles, 'REF_USER'),
-          // userReferenceEnabled: this.refUser,
+          userReferenceEnabled: this.refUser,
           crEmail,
           diffusionListEnabled: this.diffusionListEnabled,
           diffusionList,
@@ -880,10 +881,10 @@ export default {
           importCustomFieldsEnabled: this.getToggle(this.otherToggles, 'CUSTOM_FIELD_IMPORT'),
           dashBoarDetailsPerCountry: this.getToggle(this.otherToggles, 'DASHBOARD_COUNTRY'),
           dailyCdrEmails: parseInt(this.dailyCdrEmails),
-          msisdnFormatPreactivation: { type: 'enum', value: this.preactivationFormat },
+          msisdnFormatPreactivation: this.preactivationFormat,
           suspensionAuto: this.getToggle(this.otherToggles, 'AUTO_SUSPEND'),
           optionViewCellId: this.getToggle(this.otherToggles, 'HIDE_ADRESS'),
-          wsNotificationOption: { type: 'enum', value: this.notificationChoice },
+          wsNotificationOption: this.notificationChoice,
           wsLogin: this.login,
           wsPassword: this.password,
           wsUrl: this.webserviceAdress,
