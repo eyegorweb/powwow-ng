@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.99+20210115131653
+2021-01-15
+
+### Fixes
+
+- [2280] Chargement des actes de gestion avec le filtre Date de début modifié (e459d66f7f5d0f929cf95de9d7424b0002c57b04)
+
 ## 1.17.0-master.98+20210115111957
 2021-01-15
 
