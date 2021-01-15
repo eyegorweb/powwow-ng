@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.98+20210115111957
+2021-01-15
+
+### Fixes
+
+- 2282 Changement du password et reference client bugfix dans options de partenaire (e951021125309f75c926a95635a3d58087c6c836)
+
 ## 1.17.0-master.97+20210114144702
 2021-01-14
 
