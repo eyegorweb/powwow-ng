@@ -58,7 +58,8 @@
       <div>
         <ExportButton
           :export-fn="getExportFn()"
-          btn-class-name="btn btn-primary btn-block text-uppercase"
+          btn-class-name="btn btn-import btn-block text-uppercase"
+          variant="import"
         >
           <span slot="title">&nbsp;{{ $t('bills.export') }}</span>
         </ExportButton>
