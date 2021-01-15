@@ -252,7 +252,11 @@ export default {
       this.contextValues = undefined;
     },
     async doRequest(contextValues) {
-      const response = await uploadSearchFile(this.selectedFileForActCreation, this.actCode);
+      const response = await uploadSearchFile(
+        this.selectedFileForActCreation,
+        this.actCode,
+        this.actCreationPrerequisites.partner.id
+      );
       if (!response.error) {
         this.tempDataUuid = response.tempDataUuid;
         this.contextValues = contextValues;
@@ -286,8 +290,7 @@ export default {
     },
 
     async doValidationRequest() {
-      if (this.haveErrors()) return;
-
+      if (this.haveErrors()) return [];
       const messages = [];
 
       const response = await this.doRequest({
@@ -300,7 +303,11 @@ export default {
       }
 
       if (response) {
-        if (response.stayInForm) return;
+        if (response.stayInForm) {
+          this.showValidationModal = false;
+          this.isLoading = false;
+          return [];
+        }
 
         if (response.errors) {
           const errorMessages = response.errors.map(e => {
@@ -323,6 +330,7 @@ export default {
     async validateFile() {
       this.isLoading = true;
       const messages = await this.doValidationRequest();
+      if (!messages.length) return;
       for (let i = 0; i < messages.length; i++) {
         this.flashMessage(messages[i]);
       }
@@ -334,7 +342,7 @@ export default {
       const params = {
         notifEmail: this.contextValues.notificationCheck,
         dueDate: this.contextValues.actDate,
-        partyId: this.actCreationPrerequisites.partner.id,
+        partyId: this.actCreationPrerequisites.partner.id, // partner id
 
         tempDataUuid: this.tempDataUuid,
       };

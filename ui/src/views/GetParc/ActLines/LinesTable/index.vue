@@ -15,14 +15,13 @@
                       total: formattedTotal,
                     })
                   }}
-                  <button v-if="formattedTotal === 0" class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+                  <button v-if="formattedTotal === 0" class="btn btn-link" @click="resetFilters">
+                    {{ $t('resetFilters') }}
+                  </button>
                 </template>
               </slot>
               <slot name="title" v-else>
-                  {{
-                    $t('searchError')
-
-                  }}
+                {{ $t('searchError') }}
               </slot>
             </h2>
           </div>
@@ -296,7 +295,6 @@ export default {
     },
   },
   async mounted() {
-      console.log(this.linesActionsResponse);
     if (this.userIsPartner) {
       const partnerId = this.singlePartner.id;
       const customFields = await fetchCustomFields(partnerId);
