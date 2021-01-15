@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.101+20210115135253
+2021-01-15
+
+### Fixes
+
+- [2278] mise à jour de l'upload de fichiers pour le changement de cartes SIM (8c1d59c6262ac1cda68aa99ffde2c641ab5cb2da)
+
 ## 1.17.0-master.100+20210115133151
 2021-01-15
 
