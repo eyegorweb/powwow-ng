@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.102+20210118100031
+2021-01-18
+
+### Fixes
+
+- [2255] centrer l'écran sur l'usage cliqué (24e1c399439bf9161bdad87e61dceb83eeb17948)
+
 ## 1.17.0-master.101+20210115135253
 2021-01-15
 
