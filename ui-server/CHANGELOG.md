@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.104+20210118162746
+2021-01-18
+
+### Fixes
+
+- [2306] Ajout d'une condition sur le cycle d'observation dans la table, et correction de l'anglais sur le bouton display more (a23ed9e14675ae3739b8f54c7cb2c2bef3e545c2)
+
 ## 1.17.0-master.103+20210118104639
 2021-01-18
 
