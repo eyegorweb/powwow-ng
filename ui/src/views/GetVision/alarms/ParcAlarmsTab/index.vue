@@ -225,7 +225,7 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              return this.$t('alarms.observationCycles.' + row.observationCycle);
+              return row.observationCycle ? this.$t('alarms.observationCycles.' + row.observationCycle) : 'N/A';
             },
           },
         },
