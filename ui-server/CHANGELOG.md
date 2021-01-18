@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.103+20210118104639
+2021-01-18
+
+### Fixes
+
+- 2298 Problème de gestion des bobines/sim dans la duplication de commande (b48bb9676a7a73ae0915f1135307280eebc0f2d0)
+
 ## 1.17.0-master.102+20210118100031
 2021-01-18
 
