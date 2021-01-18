@@ -72,7 +72,6 @@ export async function fetchCockpitMarkers(filters) {
       locationCodeISO2
       countryCode
       locationName
-      locationNameFr
       locationLatitude
       locationLongitude
       alertNumber
@@ -374,7 +373,6 @@ async function geoMap(filters) {
         locationCode
         countryCode
         locationName
-        locationNameFr
         locationLatitude
         locationLongitude
         activeCount

@@ -51,12 +51,7 @@ export default {
     showPopup(countType) {
       if (!this.data) return;
       this.isVisible = true;
-      const location =
-        this.data && this.data.data && this.data.data.locationNameFr
-          ? this.data.data.locationNameFr
-          : this.data.data.locationName
-          ? this.data.data.locationName
-          : '';
+      const location = this.$loGet(this.data, 'data.locationName');
       const count = countType === 'active' ? this.data.activeCount : this.data.passiveCount;
       const type = countType === 'active' ? 'active(s)' : 'inactive(s)';
       const textMark = location.length > 0 ? '-' : '';

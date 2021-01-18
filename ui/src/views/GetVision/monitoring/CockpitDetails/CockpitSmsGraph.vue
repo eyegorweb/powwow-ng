@@ -27,8 +27,9 @@ export default {
     filters: Object,
   },
 
-  mounted() {
-    this.refreshData();
+  async mounted() {
+    await this.refreshData();
+    this.$emit('loaded');
   },
 
   watch: {
