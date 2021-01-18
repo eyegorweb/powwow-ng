@@ -539,7 +539,7 @@ export default {
           return {
             id: uuid(),
             ...defaultData,
-            label: d.locationNameFr,
+            label: d.locationName,
             activeCount: d.activeCount,
             passiveCount: d.passiveCount,
             position: new this.google.maps.LatLng(defaultData.lat, defaultData.lng),

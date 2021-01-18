@@ -19,11 +19,27 @@
 
     <div class="mt-2">
       <div :key="supervisionType">
-        <CockpitDataGraph :supervision-type="supervisionType" :filters="formatFilters" />
-
-        <CockpitSmsGraph :supervision-type="supervisionType" :filters="formatFilters" />
-
-        <CockpitVoiceGraph :supervision-type="supervisionType" :filters="formatFilters" />
+        <div ref="DATA">
+          <CockpitDataGraph
+            :supervision-type="supervisionType"
+            :filters="formatFilters"
+            @loaded="loadedComponents += 1"
+          />
+        </div>
+        <div ref="SMS">
+          <CockpitSmsGraph
+            :supervision-type="supervisionType"
+            :filters="formatFilters"
+            @loaded="loadedComponents += 1"
+          />
+        </div>
+        <div ref="VOICE">
+          <CockpitVoiceGraph
+            :supervision-type="supervisionType"
+            :filters="formatFilters"
+            @loaded="loadedComponents += 1"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -50,8 +66,18 @@ export default {
     markerData: Object,
     appliedFilters: Array,
   },
+  watch: {
+    loadedComponents(loadedComponents) {
+      if (loadedComponents === 3) {
+        setTimeout(() => {
+          this.scrollTo(this.markerData.type);
+        }, 500);
+      }
+    },
+  },
   data() {
     return {
+      loadedComponents: 0,
       columns: [],
       orderBy: undefined,
       supervisionType: 'INTRA_DAY',
@@ -115,6 +141,11 @@ export default {
   },
 
   methods: {
+    scrollTo(usage) {
+      const element = this.$refs[usage];
+      const top = element.offsetTop;
+      window.scrollTo(0, top);
+    },
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat) => {
         const countryFilter = this.appliedFilters.find(c => c.id === 'filters.country');
