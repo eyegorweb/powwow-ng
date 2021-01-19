@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="005"
+      storage-version="006"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
@@ -116,7 +116,9 @@ export default {
           label: this.$t('col.id'),
           name: 'id',
           orderable: true,
-          visible: false,
+          visible: true,
+          fixed: true,
+          noHandle: true,
           format: {
             component: AlarmIdCell,
           },

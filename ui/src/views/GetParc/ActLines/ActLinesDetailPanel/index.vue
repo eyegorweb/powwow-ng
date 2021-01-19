@@ -15,18 +15,9 @@
           <UiButton variant="import" block>{{ $t('getparc.actLines.details.EXPORT') }}</UiButton>
         </div>
         <div>
-          <UiButton
-            v-if="lineId"
-            variant="primary"
-            block
-            @click="
-              $router.push({
-                name: 'lineDetail.details.info',
-                params: { lineId: '' + lineId, meta: content },
-              })
-            "
-            >{{ $t('getparc.actLines.details.DETAIL') }}</UiButton
-          >
+          <UiButton v-if="lineId" variant="primary" block @click="gotoDetail">{{
+            $t('getparc.actLines.details.DETAIL')
+          }}</UiButton>
           <UiButton
             v-if="lineIccid"
             variant="primary"
@@ -92,6 +83,14 @@ export default {
       consumption: undefined,
       isLoading: false,
     };
+  },
+  methods: {
+    gotoDetail() {
+      this.$router.push({
+        name: 'lineDetail.details.info',
+        params: { lineId: '' + this.lineId, meta: this.content },
+      });
+    },
   },
 
   async mounted() {

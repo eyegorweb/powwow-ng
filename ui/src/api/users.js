@@ -240,7 +240,6 @@ export async function fetchUserFromUsername(username) {
       value: username,
     },
   ]);
-  console.log(response);
   return response.items[0];
 }
 

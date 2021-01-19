@@ -174,7 +174,6 @@ export default {
       return this.duplicateFrom && this.duplicateFrom.toModify;
     },
     numStep() {
-      console.log('numStep -> this.editMode', this.editMode);
       if (!this.editMode && this.partner) {
         return 2;
       }
