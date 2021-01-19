@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.105+20210119095721
+2021-01-19
+
+### Features
+
+- [2290] Modification du composant liste des pays autorisés (79709cc36e4104e5610863065809262390db35b4)
+
 ## 1.17.0-master.104+20210118162746
 2021-01-18
 
