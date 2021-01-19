@@ -105,6 +105,18 @@ export const mutations = {
   ...filterUtils.initMutations(),
 
   forceAppliedFilters(state, values) {
+    const haveDatesInFilters = () => {
+      if (state.currentFilters && state.currentFilters.length) {
+        const dateFilters = [
+          'filters.actDateStart',
+          'filters.actDateCreation',
+          'filters.actDateEnd',
+        ];
+        return !!state.currentFilters.filter(f => dateFilters.indexOf(f.id) > -1).length;
+      }
+      return false;
+    };
+
     // garder les filtres date
     const dateFilters = values.filter(
       f =>
@@ -112,8 +124,21 @@ export const mutations = {
         f.id === 'filters.actDateEnd' ||
         f.id === 'filters.actDateCreation'
     );
-    state.appliedFilters = [...values, ...dateFilters];
-    state.currentFilters = [...dateFilters];
+    const idFilter = values.filter(
+      f =>
+        f.id === 'filters.iccid' ||
+        f.id === 'filters.imsi' ||
+        f.id === 'filters.msisdn' ||
+        f.id === 'filters.msisdnA' ||
+        f.id === 'filters.imei' ||
+        f.id === 'filters.massActionID'
+    );
+
+    if (haveDatesInFilters()) {
+      state.appliedFilters = [...state.currentFilters, ...idFilter];
+    } else {
+      state.appliedFilters = [...state.currentFilters, ...dateFilters, ...idFilter];
+    }
   },
 
   applyFilters(state) {

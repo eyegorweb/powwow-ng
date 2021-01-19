@@ -97,6 +97,7 @@ export default {
 
   methods: {
     async searchById() {
+      if (!this.selectedSearchType) return;
       this.$emit('searchById', {
         id: 'filters.' + this.selectedSearchType,
         value: this.resultQuery,

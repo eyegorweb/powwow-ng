@@ -77,6 +77,7 @@ import { formatLargeNumber } from '@/utils/numbers';
 import SearchResultSkeleton from '@/components/ui/skeletons/SearchResultSkeleton';
 import RateCell from '@/views/GetParc/MassActionsPage/HistoryTable/RateCell';
 import CreatorCell from './CreatorCell';
+import { currentDateMinusMounts } from '@/utils/date';
 
 export default {
   components: {
@@ -261,7 +262,6 @@ export default {
     async searchById(params) {
       this.searchByIdValue = params.value;
       this.forceAppliedFilters([
-        ...this.appliedFilters,
         {
           id: params.id,
           value: params.value,
@@ -270,7 +270,13 @@ export default {
     },
     resetFilters() {
       this.searchByIdValue = undefined;
-      this.forceAppliedFilters([]);
+      this.forceAppliedFilters([
+        {
+          id: 'filters.actDateStart',
+          label: this.$t('filters.actDateStart'),
+          startDate: currentDateMinusMounts(3),
+        },
+      ]);
     },
     async fetchMassActions() {
       this.fetchActionsFromApi({
@@ -341,6 +347,7 @@ export default {
     ...mapGetters('actHistory', [
       'massActionsResponse',
       'appliedFilters',
+      'currentFilters',
       'actHistoryPage',
       'isLoading',
     ]),
