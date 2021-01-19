@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.106+20210119101916
+2021-01-19
+
+### Fixes
+
+- [2308] Problème dans la gestion des filtres dans l'api Alarms (2354c7c02cebfe378a3e24702e59c3875427375e)
+- [2313] Corriger la recherche unitaire des alarmes (37bf4b9fa94ad8e8b4eb93a3808d9c045334b523)
+
 ## 1.17.0-master.105+20210119095721
 2021-01-19
 
