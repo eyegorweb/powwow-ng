@@ -32,7 +32,7 @@
     />
     <div v-if="tabs && lineData" class="mt-4 mb-4">
       <UiTabs :tabs="tabs">
-        <template slot-scope="{ tab, index, selectedIndex }">
+        <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
             <router-link :to="tab.to">{{ tab.title }}</router-link>
           </UiTab>
@@ -48,9 +48,6 @@
 
 <script>
 import LineSummary from './LineSummary';
-import DetailsTab from './DetailsTab';
-import OngoingTab from './OngoingTab';
-import DiagnosisTab from './DiagnosisTab';
 import ActionCarousel from '../ActLines/ActionCarousel';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -66,10 +63,7 @@ import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 export default {
   components: {
     LineSummary,
-    DetailsTab,
-    OngoingTab,
     ActionCarousel,
-    DiagnosisTab,
     UiTabs,
     UiTab,
     UiButton,

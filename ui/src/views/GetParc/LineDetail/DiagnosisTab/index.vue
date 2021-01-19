@@ -29,24 +29,9 @@
 </template>
 
 <script>
-import LineAnalysisSubMenu1 from './LineAnalysisSubMenu1';
-import NetworkStatusSubMenu2 from './NetworkStatusSubMenu2';
-import NetworkTestControl from './NetworkTestControl';
-import Supervision from './Supervision';
-import NetworkHistory from './NetworkHistorySubMenu5';
-import LastTests from './LastTests';
-import get from 'lodash.get';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    LineAnalysisSubMenu1,
-    NetworkStatusSubMenu2,
-    NetworkTestControl,
-    Supervision,
-    NetworkHistory,
-    LastTests,
-  },
   props: {
     content: Object,
   },
@@ -114,16 +99,16 @@ export default {
   computed: {
     ...mapGetters(['havePermission']),
     isLineActive() {
-      const networkStatus = get(this.content, 'accessPoint.networkStatus');
-      const simStatus = get(this.content, 'statuts');
+      const networkStatus = this.$loGet(this.content, 'accessPoint.networkStatus');
+      const simStatus = this.$loGet(this.content, 'statuts');
       return (
         simStatus === 'ALLOCATED' &&
         (networkStatus === 'ACTIVATED' || networkStatus === 'SUSPENDED')
       );
     },
     visibleMenuItems() {
-      const typeForPartner = get(this.content, 'party.partyType');
-      const specificCustomerID = get(this.content, 'party.id');
+      const typeForPartner = this.$loGet(this.content, 'party.partyType');
+      const specificCustomerID = this.$loGet(this.content, 'party.id');
       if (!this.menuItems) return [];
       let visibleItems = this.menuItems.filter(m =>
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
@@ -160,7 +145,7 @@ export default {
       });
     },
     initializeSection() {
-      const typeForPartner = get(this.content, 'party.partyType');
+      const typeForPartner = this.$loGet(this.content, 'party.partyType');
       if (typeForPartner === 'MVNO') {
         this.section = 'network_history';
       } else {

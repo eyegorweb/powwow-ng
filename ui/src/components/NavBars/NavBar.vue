@@ -14,7 +14,6 @@
           src="@/assets/logo_bouygues.png"
           alt="Logo"
         />
-
       </a>
       <UiTabs
         v-if="navbarLinks"
@@ -418,8 +417,8 @@ export default {
 }
 
 .logoSvg {
-    width: 100px;
-    height: 60px;
+  width: 100px;
+  height: 60px;
 }
 
 .dropdown-menu {
