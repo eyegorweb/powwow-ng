@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.108+20210119161743
+2021-01-19
+
+### Fixes
+
+- [2287] recherche des actes gestion en masse avec la date filtrée par défaut (ca9e22607dd68471ef225ab296bd2b468fca4795)
+
 ## 1.17.0-master.107+20210119154318
 2021-01-19
 
