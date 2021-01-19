@@ -225,7 +225,9 @@ export default {
           format: {
             type: 'Getter',
             getter: row => {
-              return row.observationCycle ? this.$t('alarms.observationCycles.' + row.observationCycle) : 'N/A';
+              return row.observationCycle
+                ? this.$t('alarms.observationCycles.' + row.observationCycle)
+                : 'N/A';
             },
           },
         },
@@ -382,6 +384,7 @@ export default {
     async searchById(value) {
       if (!value) {
         await this.resetFilters();
+        return;
       }
       this.searchedId = value;
       this.applyFilters({
@@ -392,6 +395,7 @@ export default {
             value,
           },
         ],
+        searchingById: true,
       });
     },
     async resetFilters() {
@@ -420,16 +424,19 @@ export default {
       this.version += 1;
     },
     async applyFilters(payload) {
-      const { pagination } = payload || {
+      const { pagination, filters, searchingById } = payload || {
         pagination: { page: 0, limit: 10 },
+        filters: [],
       };
 
-      this.lastOrderBy = this.orderBy;
-      this.lastPagination = pagination;
+      if (searchingById) {
+        this.lastOrderBy = this.orderBy;
+        this.lastPagination = pagination;
+      }
 
       this.isLoading = true;
       try {
-        const data = await this.apiFn(this.lastOrderBy, this.lastPagination, this.currentFilters);
+        const data = await this.apiFn(this.orderBy, pagination, filters);
         this.searchError = false;
         this.isLoading = false;
         this.total = data.total;

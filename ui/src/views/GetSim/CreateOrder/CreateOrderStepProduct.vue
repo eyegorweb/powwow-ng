@@ -110,11 +110,11 @@ export default {
       this.selectedSimTypeValue = selectedProductInSynthesis;
     }
 
-    if(this.selectedSimTypeValue.simCard.type === "TAPE" && this.order) {
+    if (this.selectedSimTypeValue.simCard.type === 'TAPE' && this.order) {
       this.selectedSimIsOfTapeType = true;
-      this.selectedNumberOfSims = this.selectedNumberOfSims / this.selectedSimTypeValue.simCard.number;
+      this.selectedNumberOfSims =
+        this.selectedNumberOfSims / this.selectedSimTypeValue.simCard.number;
     }
-
   },
 
   methods: {
