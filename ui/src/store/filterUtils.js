@@ -98,7 +98,6 @@ export function resetSearchWhenCurrentFiltersAreEmpty(state) {
     filtersWithDateValues.length === 0 &&
     filtersWithRangeValues.length === 0
   ) {
-    console.log('resetSearchWhenCurrentFiltersAreEmpty >>');
     clearAppliedFilters(state);
   }
 }

@@ -76,7 +76,6 @@ export default {
         }));
         this.isRefreshing = false;
       } catch (e) {
-        console.log('Erreur api', e);
         this.isRefreshing = false;
       }
     },
