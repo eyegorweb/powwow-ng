@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.107+20210119154318
+2021-01-19
+
+### Fixes
+
+- [2302] Corriger le bouton retour dans le détail de la ligne (da69501e4f56c41f46cdb777c4c050fb3117dbf7)
+- [2316] Correction de la recherche d'alarmes depuis les indicateurs (a8a57edb408c15d319c5bf9d81dc4d85bd008bef)
+- [2314] Ne pas lancer simmultanément deux appels graphql durant le scroll (98f66ec1eb1ffe13ddee678f2202736416aef50f)
+
 ## 1.17.0-master.106+20210119101916
 2021-01-19
 
