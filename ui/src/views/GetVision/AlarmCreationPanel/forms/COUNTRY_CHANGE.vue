@@ -88,6 +88,7 @@ export default {
       id: c.codeIso3,
       label: c.name,
       data: c,
+      parent: c.continentId,
     }));
 
     if (this.editMode) {

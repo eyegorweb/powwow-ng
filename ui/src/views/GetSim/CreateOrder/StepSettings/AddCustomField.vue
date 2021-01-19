@@ -57,10 +57,7 @@
         </div>
         <div>
           <div v-if="customFieldType === 'LIST'">
-            <CreateOrderAddCustomList
-              :options.sync="listOptions"
-              is-open
-            />
+            <CreateOrderAddCustomList :options.sync="listOptions" is-open />
           </div>
         </div>
       </div>

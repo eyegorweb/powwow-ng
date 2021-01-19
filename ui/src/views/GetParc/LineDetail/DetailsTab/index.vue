@@ -16,22 +16,7 @@
 </template>
 
 <script>
-import LineInfoSection from './LineInfoSection';
-import LineServicesSection from './LineServicesSection';
-import BillingSection from './BillingSection';
-import ActsHistory from './ActsHistory';
-import AlarmList from './AlarmList';
-
-import get from 'lodash.get';
-
 export default {
-  components: {
-    LineInfoSection,
-    LineServicesSection,
-    BillingSection,
-    ActsHistory,
-    AlarmList,
-  },
   props: {
     content: Object,
   },
@@ -93,7 +78,7 @@ export default {
 
   computed: {
     visibleMenuItems() {
-      const typeForPartner = get(this.content, 'party.partyType');
+      const typeForPartner = this.$loGet(this.content, 'party.partyType');
       let visibleItems = this.menuItems.filter(m =>
         m.compatiblePartnerTypes.some(p => p === typeForPartner)
       );

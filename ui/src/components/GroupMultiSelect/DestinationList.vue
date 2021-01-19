@@ -1,29 +1,37 @@
 <template>
   <div class="bordered bg-white p-3">
     <h6>{{ $t(title) }}</h6>
-    <div class="items-container">
-      <ul class="list-unstyled">
+    <SearchInput
+      :items="items"
+      :fields="['label']"
+      :collapsed-mode="false"
+      :value.sync="searchValue"
+      block
+    >
+      <div class="items-container" slot-scope="{ results }">
         <ItemSelector
-          v-for="item in items"
-          :key="'to_' + item.id"
-          :item="item"
-          is-removing
-          :disabled="isItemDisabled(item)"
+          v-for="result in results"
+          :key="'to_' + result.item.id"
+          :item="result.item"
           @click="$emit('click', $event)"
+          :disabled="isItemDisabled(result.item)"
+          is-removing
         >
-          <span>{{ item.label }}</span>
+          <span v-html="result.highlighted.label" />
         </ItemSelector>
-      </ul>
-    </div>
+      </div>
+    </SearchInput>
   </div>
 </template>
 
 <script>
 import ItemSelector from './ItemSelector';
+import SearchInput from '@/components/SearchInput';
 
 export default {
   components: {
     ItemSelector,
+    SearchInput,
   },
   props: {
     items: Array,
@@ -42,7 +50,7 @@ export default {
 
 <style lang="scss" scoped>
 .items-container {
-  height: 14.2rem;
+  height: 11rem;
   overflow-y: auto;
 }
 .bordered {

@@ -420,9 +420,8 @@ export default {
       this.version += 1;
     },
     async applyFilters(payload) {
-      const { pagination, filters } = payload || {
+      const { pagination } = payload || {
         pagination: { page: 0, limit: 10 },
-        filters: [],
       };
 
       this.lastOrderBy = this.orderBy;

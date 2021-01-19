@@ -81,7 +81,7 @@ export default {
         fieldData.label,
         fieldData.type,
         fieldData.values,
-        fieldData.mandatoryVal,
+        fieldData.mandatoryVal
       );
     },
   },

@@ -134,8 +134,8 @@ export default {
 }
 
 .logoSvg {
-    width: 100px;
-    height: 60px;
+  width: 100px;
+  height: 60px;
 }
 
 .partnerTypeSelect {

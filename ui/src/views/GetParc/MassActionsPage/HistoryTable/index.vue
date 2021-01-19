@@ -6,11 +6,13 @@
     <div>
       <div class="row mb-3">
         <div class="col">
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem" v-if="!apiError">
-            {{ $t('getparc.history.total', { total: formattedTotal }) }}
-          </h2>
-          <h2 class="text-gray font-weight-light" style="font-size: 2rem" v-else="apiError">
-            {{ $t('searchError') }}
+          <h2 class="text-gray font-weight-light" style="font-size: 2rem">
+            <template v-if="!apiError">
+              {{ $t('getparc.history.total', { total: formattedTotal }) }}
+            </template>
+            <template v-else>
+              {{ $t('searchError') }}
+            </template>
           </h2>
         </div>
         <div class="col" v-if="total > 0">
