@@ -66,7 +66,7 @@ export default {
       if (partnerParam && partnerParam.length) {
         const data = await fetchCardTypes('', partnerParam, {
           page,
-          limit: 10,
+          limit: 3,
           partnerType: this.contextPartnersType,
         });
         if (data) {

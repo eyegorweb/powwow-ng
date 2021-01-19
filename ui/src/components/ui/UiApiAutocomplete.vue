@@ -85,6 +85,7 @@ export default {
       isOpen: this.defaultOpen,
       page: 0,
       canFetchNextPage: true,
+      loading: false,
     };
   },
 
@@ -259,13 +260,19 @@ export default {
       const height = parseInt(heightStyle.replace('px', ''));
       const needMore = this.$refs.results.scrollTop + height + 3 >= this.$refs.results.scrollHeight;
       if (needMore && this.canFetchNextPage) {
-        if (this.apiMethod) {
-          this.page += 1;
-          const nextPageContent = await this.apiMethod(this.$value || '', this.page);
-          this.canFetchNextPage = nextPageContent.length > 0;
-          this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
-          await this.resultsPromise;
-          this.resetSelected();
+        if (this.apiMethod && !this.loading) {
+          this.loading = true;
+          try {
+            this.page += 1;
+            const nextPageContent = await this.apiMethod(this.$value || '', this.page);
+            this.canFetchNextPage = nextPageContent.length > 0;
+            this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
+            await this.resultsPromise;
+            this.resetSelected();
+            this.loading = false;
+          } catch {
+            this.loading = false;
+          }
         }
       }
     },
@@ -326,7 +333,7 @@ export default {
   font-size: 0.875rem;
   overflow: auto;
   z-index: $zindex-dropdown;
-  max-height: 15rem;
+  max-height: 3rem;
 }
 
 .autocomplete-result {
