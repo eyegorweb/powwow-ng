@@ -432,12 +432,14 @@ export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners
 function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
-  addPartnerFilter(gqlFilters, selectedFilters);
-  addCustomerAccount(gqlFilters, selectedFilters);
-  addScope(gqlFilters, selectedFilters);
-  addAlarmType(gqlFilters, selectedFilters);
-  addDateTriggerAlarm(gqlFilters, selectedFilters);
-  addId(gqlFilters, selectedFilters);
+  if (selectedFilters) {
+    addPartnerFilter(gqlFilters, selectedFilters);
+    addCustomerAccount(gqlFilters, selectedFilters);
+    addScope(gqlFilters, selectedFilters);
+    addAlarmType(gqlFilters, selectedFilters);
+    addDateTriggerAlarm(gqlFilters, selectedFilters);
+    addId(gqlFilters, selectedFilters);
+  }
 
   return gqlFilters.join(',');
 }
