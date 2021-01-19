@@ -136,7 +136,8 @@ export default {
     },
   },
   watch: {
-    partners() {
+    partners(values) {
+      if (!values.length) return;
       this.refreshChart();
     },
   },

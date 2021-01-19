@@ -163,7 +163,7 @@ export default {
 
   methods: {
     onAllFiltersCleared() {
-      this.lastSelectedFilters = this.defaultValues ? this.defaultValues : [];
+      this.lastSelectedFilters = [];
       this.refreshTable(this.lastSelectedFilters, this.currentOrderBy);
     },
     refreshTable(filters, orderBy) {
