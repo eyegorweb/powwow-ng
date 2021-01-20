@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.112+20210120134807
+2021-01-20
+
+### Fixes
+
+- [2298] Problème du composant autocomplete (ca51106f7a73ce37547d401f5122c9befb7c9b10)
+
 ## 1.17.0-master.111+20210120125819
 2021-01-20
 
