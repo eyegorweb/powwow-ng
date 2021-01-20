@@ -23,7 +23,12 @@
             :can-modify="canUpdate"
           >
             <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
+            <h2 class="titleCard">Titre:</h2>
             <div class="cardBloc-infos-username">{{ cf.label }}</div>
+            <h2 class="titleCard">Type:</h2>
+            <div class="cardBloc-infos-username">{{ cf.type }}</div>
+            <h2 class="titleCard">Obligatoire:</h2>
+            <div class="cardBloc-infos-username">{{ cf.mandatory }}</div>
           </Card>
         </template>
       </template>
@@ -69,6 +74,7 @@ export default {
 
   async mounted() {
     await this.fetchCustomFieldsForPartner();
+    console.log(this.allCustomFields);
   },
 
   computed: {
@@ -90,8 +96,7 @@ export default {
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },
-        async deleteCF(cf) {
-      console.log(cf)
+    async deleteCF(cf) {
       const doReset = () => {
         this.refreshLists();
       };
@@ -146,6 +151,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.titleCard {
+  font-size: 16px;
+  margin: 0;
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -182,6 +192,11 @@ export default {
   }
 
   .cardBloc-infos {
+    &-username {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
     &-name {
       font-weight: 500;
       color: #454545;
