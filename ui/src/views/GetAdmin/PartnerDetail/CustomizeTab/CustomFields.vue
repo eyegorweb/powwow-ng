@@ -19,6 +19,7 @@
             :key="cf.id"
             :can-delete="canUpdate"
             @modify="modifyCustomField(cf)"
+            @delete="deleteCF(cf)"
             :can-modify="canUpdate"
           >
             <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
@@ -33,7 +34,7 @@
 <script>
 import CardsSkeleton from '@/views/GetAdmin/PartnerDetail/CardsSkeleton.vue';
 import Card from '@/components/Card';
-import { fetchCustomFields } from '@/api/customFields';
+import { fetchCustomFields, deleteCustomField } from '@/api/customFields';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -78,7 +79,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['openPanel']),
+    ...mapMutations(['openPanel', 'confirmAction']),
 
     async fetchCustomFieldsForPartner() {
       this.isLoading = true;
@@ -88,6 +89,19 @@ export default {
     },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
+    },
+        async deleteCF(cf) {
+      console.log(cf)
+      const doReset = () => {
+        this.refreshLists();
+      };
+      this.confirmAction({
+        message: 'confirmAction',
+        actionFn: async () => {
+          await deleteCustomField(this.partnerid, cf.code);
+          doReset();
+        },
+      });
     },
     getSelectedValue() {
       console.log('get selected value');
