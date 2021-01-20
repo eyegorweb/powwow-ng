@@ -67,4 +67,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn-import {
+  color: $primary;
+  background: $white;
+  border-color: $primary;
+}
+</style>
