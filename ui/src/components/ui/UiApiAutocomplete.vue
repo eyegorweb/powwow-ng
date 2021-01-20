@@ -52,6 +52,7 @@
             >
               <span v-if="result.highlighted" v-html="result.highlighted" />
               <template v-else>{{ result.label }}</template>
+
             </li>
           </template>
         </ul>
@@ -193,7 +194,7 @@ export default {
       this.areSuggestionsVisible = false;
     },
     resetValue() {
-      this.$emit('update:value', undefined);
+      this.$value = undefined;
     },
     resetSelected() {
       this.selectedItem = -1;
