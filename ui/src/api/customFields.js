@@ -20,6 +20,45 @@ export async function updateCustomFieldLabel(partnerId, code, label, type, value
   return response.data;
 }
 
+export async function deleteCustomField(partnerId, id) {
+  const queryStr = `mutation{
+    resetCustomField(customFieldInput:{
+      partyId:${partnerId}
+      availableCustomFields:${id}
+    }) {
+      id
+
+        custom1FieldType
+    custom1FieldLabel
+    custom1ValidatedValuesAsList
+
+    custom2FieldType
+    custom2FieldLabel
+    custom2ValidatedValuesAsList
+
+    custom3FieldType
+    custom3FieldLabel
+    custom3ValidatedValuesAsList
+
+    custom4FieldType
+    custom4FieldLabel
+    custom4ValidatedValuesAsList
+
+    custom5FieldType
+    custom5FieldLabel
+    custom5ValidatedValuesAsList
+
+    custom6FieldType
+    custom6FieldLabel
+    custom6ValidatedValuesAsList
+    }
+
+  }`;
+
+  const response = await query(queryStr);
+  return response.data;
+}
+
 export async function addItemToCustomFieldList(partyId, newItem, customFieldCode) {
   const queryStr = `
   mutation {
