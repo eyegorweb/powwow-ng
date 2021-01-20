@@ -805,7 +805,7 @@ export async function unthrottleLine(accessPointId) {
 export async function fetchLineServices(simCardInstanceId) {
   const queryStr = `
   {
-    marketingServices(simCardInstanceId: ${simCardInstanceId}) {
+    marketingServicesV2(simCardInstanceId: ${simCardInstanceId}) {
       code
       labelService
       activated
@@ -828,5 +828,5 @@ export async function fetchLineServices(simCardInstanceId) {
 
   const response = await query(queryStr);
 
-  return response.data.marketingServices;
+  return response.data.marketingServicesV2;
 }
