@@ -258,6 +258,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.order)
     this.confirmationStepper = [
       {
         code: 'NOT_VALIDATED',
