@@ -487,7 +487,7 @@ function addDateTriggerAlarm(gqlFilters, selectedFilters) {
     const formattedEndDate = `${prepareEndDateForBackend(dateFilter.endDate)}`;
 
     gqlFilters.push(
-      `triggerDateStart: {eq: "${formattedStartDate}"}, triggerDateEnd: {eq: "${formattedEndDate}"}`
+      `triggerDateStart: {goe: "${formattedStartDate}"}, triggerDateEnd: {lt: "${formattedEndDate}"}`
     );
   }
 
