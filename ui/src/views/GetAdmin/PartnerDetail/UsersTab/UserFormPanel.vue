@@ -80,7 +80,7 @@
       <div class="entries-line">
         <div class="form-entry">
           <input type="text" name="login" class="hidden" autocomplete="off" />
-          <FormControl label="login" v-model="form.username" />
+          <FormControl label="login" v-model="form.username" :disabled="loginFieldDisabled" />
           <span v-if="form.username && requestErrors && requestErrors.length" class="error-text">
             {{ requestErrors[0].message }}
           </span>
@@ -327,7 +327,7 @@ export default {
 
       let response, errorMessage;
 
-      if (this.content.duplicateFrom && !this.content.duplicate) {
+      if (this.isEditMode) {
         params.id = this.content.duplicateFrom.id;
         response = await updateUser(params);
       } else {
@@ -380,6 +380,18 @@ export default {
       'userIsPartner',
       'singlePartner',
     ]),
+
+    isEditMode() {
+      return !!this.content.duplicateFrom && !this.content.duplicate;
+    },
+
+    loginFieldDisabled() {
+      if (this.isEditMode && !this.userIsBO) {
+        return true;
+      }
+
+      return false;
+    },
 
     fromPagePartner() {
       return this.content.fromPage === 'partner';
