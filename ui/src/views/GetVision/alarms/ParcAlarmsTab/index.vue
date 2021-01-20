@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="006"
+      storage-version="008"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
@@ -166,13 +166,6 @@ export default {
           format: {
             component: TriggeredEventsCell,
           },
-        },
-        {
-          id: 7,
-          label: this.$t('filters.lines.activationDate'),
-          name: 'startDate',
-          orderable: true,
-          visible: false,
         },
         {
           id: 8,
