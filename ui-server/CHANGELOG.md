@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.115+20210120171114
+2021-01-20
+
+### Fixes
+
+- [2319] Ajouts des descriptions des champs libres dans les cards (ad02f19cee621a2ec5dc9a5e8b9cf5426ae20d83)
+- [2321] Doublons de date activation dans la table alarmes (1fd4b67320be6f0fb300d494a959b08f6b80b276)
+
 ## 1.17.0-master.114+20210120145427
 2021-01-20
 
