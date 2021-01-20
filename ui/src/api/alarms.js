@@ -429,6 +429,30 @@ export async function fetchAlarmInstancesIndicators(keys, historyDepth, partners
   return response.data.indicatorsHistory;
 }
 
+export async function alarmsWithTriggersExport(alarmId, exportFormat, asyncExportRequest = false) {
+  let asyncExportRequestParam = '';
+
+  if (asyncExportRequest) {
+    asyncExportRequestParam = `, asyncExportRequest: ${asyncExportRequest}`;
+  }
+
+  const queryStr = `
+  query {
+    alarmsWithTriggersExport(
+      linesWithTriggersFilterInput: { alarmId: { eq: ${alarmId} } }
+      exportFormat:${exportFormat}
+      ${asyncExportRequestParam}
+    ) {
+      total
+      downloadUri
+      asyncRequired
+    }
+  }`;
+
+  const response = await query(queryStr);
+  return response.data.alarmsWithTriggersExport;
+}
+
 function formatFilters(selectedFilters) {
   const gqlFilters = [];
 
