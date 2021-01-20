@@ -50,6 +50,7 @@ import ExportButton from '@/components/ExportButton';
 
 import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
 import { mapMutations } from 'vuex';
+import { alarmsWithTriggersExport } from '@/api/alarms';
 
 export default {
   components: {
@@ -70,9 +71,9 @@ export default {
     ...mapMutations(['openPanel']),
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
         console.log(columns, orderBy, exportFormat);
-        return { errors: 'mock' };
+        return await alarmsWithTriggersExport(this.alarm.id, exportFormat, asyncExportRequest);
       };
     },
 
