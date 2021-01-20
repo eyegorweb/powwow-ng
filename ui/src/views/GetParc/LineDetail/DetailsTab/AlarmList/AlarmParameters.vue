@@ -14,7 +14,7 @@
 
 <script>
 import Thresholds from '@/components/Thresholds';
-import { alarmStatuses } from '@/utils/alarmConsts';
+import { alarmStatuses } from '@/utils/alarms';
 
 export default {
   components: {

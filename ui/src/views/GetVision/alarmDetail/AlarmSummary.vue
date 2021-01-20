@@ -63,7 +63,7 @@
                   {{
                     content.observationCycle
                       ? $t('alarms.observationCycles.' + content.observationCycle)
-                      : '-'
+                      : 'N/A'
                   }}
                 </p>
               </div>
@@ -123,6 +123,34 @@ export default {
       statusStepperIndex: 1,
       steps: {},
     };
+  },
+
+  computed: {
+    finalTextObservationCycle() {
+      if (this.content.observationCycle === 'CUSTOM' || this.content.observationCycle === null) {
+        if (
+          this.content.type === 'OVER_CONSUMPTION_VOLUME' ||
+          this.content.type === 'UNDER_CONSUMPTION_VOLUME'
+        ) {
+          if (this.content.observationDelay !== null) {
+            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
+              this.content.observationDelay
+            } ${this.$t('alarms.observationCycles.DAYS')}`;
+          }
+          return `${this.$t('alarms.observationCycles.CUSTOM')}`;
+        }
+        return `${this.$t('notAvailableShortCut')}`;
+      } else {
+        if (
+          !!['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
+            o => o === this.content.observationCycle
+          )
+        ) {
+          return this.$t('alarms.observationCycles.' + this.content.observationCycle);
+        }
+        return this.observationCycle;
+      }
+    },
   },
 };
 </script>
