@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.110+20210120100610
+2021-01-20
+
+### Fixes
+
+- [2323][2317] Le champ login est désactivé lors de la modification d'un utilisateur (a8e6614d27247d13cfc6125669611333384347ad)
+
 ## 1.17.0-master.109+20210119171804
 2021-01-19
 
