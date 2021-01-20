@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.112+20210120134807
+## 1.17.0-master.113+20210120135335
 2021-01-20
+
+### Features
+
+- [2239] Ajout de la possibilité de supprimer un CF dans le detail de partenaire (0da050e9eeaebe64036d6c18267c9e71a1328eb6)
 
 ### Fixes
 
