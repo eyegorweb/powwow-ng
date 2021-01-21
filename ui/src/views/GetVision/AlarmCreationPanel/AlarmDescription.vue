@@ -33,7 +33,7 @@ export default {
 
   .content {
     width: 50%;
-    text-align: center;
+    text-align: left;
     color: $dark-gray;
 
     h2 {
