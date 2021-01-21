@@ -1,10 +1,20 @@
 <template>
   <div class="row">
     <div class="col">
-      <FromMultiList :title="fromTitle" :items="items" @click="selectItem" />
+      <FromMultiList
+        :title="fromTitle"
+        :items="items"
+        @click="selectItem"
+        @all="setSelectedAll(true)"
+      />
     </div>
     <div class="col">
-      <DestinationList :title="toTitle" :items="selectedItems" @click="removeItem" />
+      <DestinationList
+        :title="toTitle"
+        :items="selectedItems"
+        @click="removeItem"
+        @all="setSelectedAll(false)"
+      />
     </div>
   </div>
 </template>
@@ -46,6 +56,19 @@ export default {
             for (let j = 0; j < childrens.length; j++) {
               this.selectItem(childrens[j]);
             }
+          }
+        }
+
+        return i;
+      });
+    },
+    setSelectedAll(value) {
+      this.items = this.items.map(i => {
+        i.selected = value;
+        if (i.groupParent) {
+          const childrens = this.items.filter(c => c.parent === item.id);
+          for (let j = 0; j < childrens.length; j++) {
+            childrens[j].selected = value;
           }
         }
 
