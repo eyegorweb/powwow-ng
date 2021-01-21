@@ -72,6 +72,7 @@ export default {
       const response = await searchSharedConsumptionAlarm(orderBy, pagination, filters);
 
       const items = response.items.map(row => ({
+        id: row.id,
         name: row.name,
         level1: row.levelDataMax,
         level1Up: row.levelData1,

@@ -14,6 +14,7 @@ export async function searchSharedConsumptionAlarm(orderBy, pagination, filters)
     ${orderingInfo}) {
       total
       items {
+        id
         startDate
         expiryDate
         name
