@@ -19,7 +19,7 @@
       @resetSearch="resetFilters"
     >
       <div slot="title" class="mt-2 table-total" v-if="!searchError">
-        {{ $t('getvsion.table.total', { total: total }) }}
+        {{ $t('getvsion.table.total', { total: formattedTotal }) }}
       </div>
       <div slot="title" class="mt-2 table-total" v-else>
         {{ $t('searchError') }}
@@ -78,6 +78,7 @@ import AlarmsActions from './cells/AlarmsActions';
 
 import SearchAlarmById from './SearchAlarmById';
 import { mapGetters, mapMutations } from 'vuex';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -278,6 +279,9 @@ export default {
       }
 
       return [];
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
     },
   },
   mounted() {
