@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.116+20210121101148
+2021-01-21
+
+### Fixes
+
+- [2306] Corriger le titre de la page détail de l'alarme (016aad0505b24be40a304856c84cdf00fdd3b006)
+
 ## 1.17.0-master.115+20210120171114
 2021-01-20
 
