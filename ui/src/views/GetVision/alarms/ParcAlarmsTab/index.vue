@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="008"
+      storage-version="009"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
