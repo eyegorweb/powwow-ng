@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.119+20210121133536
+2021-01-21
+
+### Fixes
+
+- [2332] Correction du bouton retour sur le détail d'un acte de gestion (e8917fe5c80b31a6e150a8727d2ad5e769fac2b5)
+
 ## 1.17.0-master.118+20210121111157
 2021-01-21
 
