@@ -60,7 +60,6 @@ import UiButton from '@/components/ui/Button';
 
 import AlarmNameCell from './cells/AlarmNameCell.vue';
 import ThresholdCell from './cells/ThresholdCell.vue';
-import TriggeredEventsCell from './cells/TriggeredEventsCell.vue';
 import AlarmIdCell from './cells/AlarmIdCell.vue';
 import AlarmStatusCell from './cells/AlarmStatusCell.vue';
 
@@ -165,7 +164,10 @@ export default {
           orderable: true,
           visible: false,
           format: {
-            component: TriggeredEventsCell,
+            type: 'Getter',
+            getter: row => {
+              return row.numberOfTriggerEvents;
+            },
           },
         },
         {
