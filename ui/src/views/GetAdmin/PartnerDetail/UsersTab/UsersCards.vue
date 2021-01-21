@@ -26,7 +26,7 @@
           <a :href="'mailto:' + user.email">{{ user.email }}</a>
         </div>
         <div class="cardBloc-infos-actif">
-          {{ user.disable ? $t('col.notActive') : $t('col.active') }}
+          {{ user.disabled ? $t('col.notActive') : $t('col.active') }}
         </div>
         <div class="cardBloc-infos-role">
           {{ $t('orders.detail.roles') }}:
@@ -150,6 +150,7 @@ export default {
       this.users = await fetchUsersByPartnerId(this.partnerid);
 
       this.visibleUsers = [...this.users];
+      console.log('visible users', this.visibleUsers);
     },
 
     openCreationPanel() {
