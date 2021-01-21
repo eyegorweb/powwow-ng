@@ -72,7 +72,6 @@ export default {
 
     getExportFn() {
       return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
-        console.log(columns, orderBy, exportFormat);
         return await alarmsWithTriggersExport(this.alarm.id, exportFormat, asyncExportRequest);
       };
     },

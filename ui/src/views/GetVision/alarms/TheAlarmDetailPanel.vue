@@ -193,7 +193,7 @@ export default {
         return `${this.$t('notAvailableShortCut')}`;
       } else {
         if (
-          !!['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(o => o === this.observationCycle)
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(o => o === this.observationCycle)
         ) {
           return this.$t('alarms.observationCycles.' + this.observationCycle);
         }

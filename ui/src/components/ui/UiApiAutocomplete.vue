@@ -52,7 +52,6 @@
             >
               <span v-if="result.highlighted" v-html="result.highlighted" />
               <template v-else>{{ result.label }}</template>
-
             </li>
           </template>
         </ul>

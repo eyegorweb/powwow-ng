@@ -235,7 +235,7 @@ export default {
                 return `${this.$t('notAvailableShortCut')}`;
               } else {
                 if (
-                  !!['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
+                  ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
                     o => o === row.observationCycle
                   )
                 ) {

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-4 rounded">
-    <h6 class="title">détail de l'alarme</h6>
+    <h6 class="title">{{ $t('getvsion.alarm-detail') }}</h6>
 
     <div class="row">
       <div class="col">
@@ -60,11 +60,7 @@
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.alarms.observationCycle') }}:</h6>
                 <p>
-                  {{
-                    content.observationCycle
-                      ? $t('alarms.observationCycles.' + content.observationCycle)
-                      : 'N/A'
-                  }}
+                  {{ finalTextObservationCycle }}
                 </p>
               </div>
               <div class="item">
@@ -142,7 +138,7 @@ export default {
         return `${this.$t('notAvailableShortCut')}`;
       } else {
         if (
-          !!['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
             o => o === this.content.observationCycle
           )
         ) {
