@@ -1,13 +1,10 @@
 <template>
   <div class="bordered bg-white p-3">
-    <h6>{{ $t(title) }}</h6>
-    <SearchInput
-      :items="items"
-      :fields="['label']"
-      :collapsed-mode="false"
-      :value.sync="searchValue"
-      block
-    >
+    <div class="d-flex justify-content-between">
+      <h6>{{ $t(title) }}</h6>
+      <a href="#" class="p-0" @click.stop="$emit('all')">{{ $t('unSelectAll') }}</a>
+    </div>
+    <SearchInput :items="items" :fields="['label']" :collapsed-mode="false" block>
       <div class="items-container" slot-scope="{ results }">
         <ItemSelector
           v-for="result in results"
