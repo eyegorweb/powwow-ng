@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.118+20210121111157
+2021-01-21
+
+### Fixes
+
+- [00] Renommer l'api parcStatusByMonth -> parcStatusByMonthV2 (8a73dfa9c20e56ea9a431d7706990271460e5e74)
+
 ## 1.17.0-master.117+20210121105029
 2021-01-21
 
