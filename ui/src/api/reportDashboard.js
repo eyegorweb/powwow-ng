@@ -8,7 +8,7 @@ export async function parcStatusByMonth(partnerId, customerAccountCode, period) 
   }
   const queryStr = `
   {
-    parcStatusByMonth(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
+    parcStatusByMonthV2(filter: {partnerId: ${partnerId}, period: ${period}${customerAccountParam}}) {
       countStock
       countPreactivated
       countActivated
@@ -21,7 +21,7 @@ export async function parcStatusByMonth(partnerId, customerAccountCode, period) 
   }
   `;
   const response = await query(queryStr);
-  if (response.data) return response.data.parcStatusByMonth;
+  if (response.data) return response.data.parcStatusByMonthV2;
 }
 
 export async function billedAmountByZone(partnerId, customerAccountCode, period) {
