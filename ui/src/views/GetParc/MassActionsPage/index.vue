@@ -41,7 +41,8 @@ export default {
   },
   data() {
     return {
-      isReady: false,
+      isReady: true,
+      prevRoute: undefined,
     };
   },
   methods: {
@@ -52,8 +53,14 @@ export default {
       'setRouteParamsFilters',
       'setActDateStartFilter',
     ]),
-    initAfterRouteIsSet() {
+    async initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
+
+      if (this.prevRoute === 'actDetail') return;
+
+      this.isReady = false;
+
+      await this.$nextTick();
 
       let haveDateFilterInQueryFilter = false;
       if (this.$route.params && this.$route.params.queryFilters) {
@@ -83,6 +90,12 @@ export default {
         }, 100);
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.prevRoute = from.name;
+      vm.initAfterRouteIsSet();
+    });
   },
   mounted() {
     this.initAfterRouteIsSet();
