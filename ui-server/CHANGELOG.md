@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.120+20210121142132
+2021-01-21
+
+### Fixes
+
+- [2319] Traduction des labels de cards (75bd23860b21efbaf2eb1b50c53b702e9ad7714e)
+
 ## 1.17.0-master.119+20210121133536
 2021-01-21
 
