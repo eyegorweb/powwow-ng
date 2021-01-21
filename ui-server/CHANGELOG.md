@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.122+20210121161523
+2021-01-21
+
+### Fixes
+
+- [2333] correction du statut utilisateur dans la gestion admin (6219681ff8009844fb41778dc83bf44e8828ce73)
+- [2334] Alignement du descriptif alarmes (b08656504e2e09bce4211ce377570d4ee6c117db)
+
 ## 1.17.0-master.121+20210121155409
 2021-01-21
 
