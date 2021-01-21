@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.123+20210121170935
+2021-01-21
+
+### Fixes
+
+- [000] Enlever le lien sur la colonne "Déclenchements" (89b8ff0a1af3cb323562df5cab710c46f241788a)
+
 ## 1.17.0-master.122+20210121161523
 2021-01-21
 
