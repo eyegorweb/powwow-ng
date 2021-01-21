@@ -23,11 +23,11 @@
             :can-modify="canUpdate"
           >
             <div class="cardBloc-infos-name">{{ $t('col.customFields', { num: ++index }) }}</div>
-            <h2 class="titleCard">Titre:</h2>
+            <h2 class="titleCard">{{$t('title')}}:</h2>
             <div class="cardBloc-infos-username">{{ cf.label }}</div>
-            <h2 class="titleCard">Type:</h2>
+            <h2 class="titleCard">{{$t('type')}}:</h2>
             <div class="cardBloc-infos-username">{{ cf.type }}</div>
-            <h2 class="titleCard">Obligatoire:</h2>
+            <h2 class="titleCard">{{$t('mandatory')}}:</h2>
             <div class="cardBloc-infos-username">{{ cf.mandatory }}</div>
           </Card>
         </template>

@@ -9,6 +9,8 @@
   "ResfuseLineError": "1 ligne est encore dans le délai de carence et sa demande de validation ne peut pas être validée.",
   "ResfuseLinesError": "{nb} lignes sont encore dans le délai de carence et ne peuvent pas être validées.",
   "search": "Rechercher",
+  "title": "Titre",
+  "mandatory": "Obligatoire",
   "accessTo": "Accéder à",
   "numberPerPage": "Nb par page",
   "partnerType": "Type de partenaire",
