@@ -61,6 +61,7 @@ import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
 import { searchAlarmById } from '@/api/alarms';
 import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
+import { formatLargeNumber } from '@/utils/numbers';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -181,19 +182,23 @@ export default {
 
       this.tabs = this.tabs.map(t => {
         if (t.label === 'trigger2Month') {
-          t.total = lasTriggered.total;
+          t.total = this.formattedTotal(lasTriggered.total);
         }
 
         if (t.label === 'targetedLines') {
-          t.total = linesBoundToAlarm.total;
+          t.total = this.formattedTotal(linesBoundToAlarm.total);
         }
 
         if (t.label === 'excludedSimFromAlarm') {
-          t.total = excludedLinesFromAlarm.total;
+          t.total = this.formattedTotal(excludedLinesFromAlarm.total);
         }
 
         return t;
       });
+    },
+
+    formattedTotal(total) {
+      return formatLargeNumber(total);
     },
   },
 };

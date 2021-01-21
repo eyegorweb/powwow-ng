@@ -66,6 +66,7 @@ import FailedTable from './FailedTable';
 import ActHistoryDetailPage from '@/views/GetParc/MassActionsPage/ActHistoryDetailPage';
 import { searchMassActionsById } from '@/api/massActions';
 import get from 'lodash.get';
+import { formatLargeNumber } from '@/utils/numbers';
 import FinishedTable from './FinishedTable';
 import PendingTable from './PendingTable';
 import PageSkeleton from './PageSkeleton';
@@ -123,15 +124,15 @@ export default {
       this.tabs = [
         {
           ...this.tabs[0],
-          total: get(this.massAction, 'failedEntitiesNumber', 0),
+          total: this.formattedTotal(get(this.massAction, 'failedEntitiesNumber', 0)),
         },
         {
           ...this.tabs[1],
-          total: get(this.massAction, 'pendingEntitiesNumber', 0),
+          total: this.formattedTotal(get(this.massAction, 'pendingEntitiesNumber', 0)),
         },
         {
           ...this.tabs[2],
-          total: get(this.massAction, 'completedEntitiesNumber', 0),
+          total: this.formattedTotal(get(this.massAction, 'completedEntitiesNumber', 0)),
         },
       ];
     },
@@ -150,6 +151,9 @@ export default {
       if (data) {
         this.massAction = data;
       }
+    },
+    formattedTotal(total) {
+      return formatLargeNumber(total);
     },
   },
   computed: {

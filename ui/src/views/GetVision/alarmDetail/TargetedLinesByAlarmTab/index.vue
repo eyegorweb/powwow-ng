@@ -11,12 +11,12 @@
       @applyFilters="applyFilters"
       @colEvent="onColEvent"
     >
-      <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
+      <div slot="title">{{ $t('getparc.actLines.total', { total: formattedTotal }) }}</div>
 
       <div slot="topRight">
         <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
           <span slot="title">{{
-            $t('getparc.history.details.EXPORT_LINES', { total: total })
+            $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal })
           }}</span>
         </ExportButton>
       </div>
@@ -61,6 +61,7 @@ import AlarmsFileFilter from '@/views/GetVision/alarmDetail/filters/AlarmsFileFi
 import { mapMutations } from 'vuex';
 
 import { fetchLinesBoundToAlarm, exportlinesBoundTable } from '@/api/alarmDetails';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -76,6 +77,12 @@ export default {
 
   mounted() {
     this.applyFilters();
+  },
+
+  computed: {
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
   },
 
   methods: {

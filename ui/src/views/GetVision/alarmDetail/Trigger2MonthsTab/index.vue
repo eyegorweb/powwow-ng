@@ -11,13 +11,13 @@
       @applyFilters="applyFilters"
       @colEvent="openDetailPanel"
     >
-      <div slot="title">{{ $t('getparc.actLines.total', { total: total }) }}</div>
+      <div slot="title">{{ $t('getparc.actLines.total', { total: formattedTotal }) }}</div>
 
       <div slot="topRight">
         <ff-wip>
           <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
             <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: total }) }}
+              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
             </span>
           </ExportButton>
         </ff-wip>
@@ -51,6 +51,7 @@ import ExportButton from '@/components/ExportButton';
 import { fetchAlarmTriggersFor2Months } from '@/api/alarmDetails';
 import { mapMutations } from 'vuex';
 import { alarmsWithTriggersExport } from '@/api/alarms';
+import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
   components: {
@@ -238,6 +239,12 @@ export default {
       total: 10,
       rows: [],
     };
+  },
+
+  computed: {
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
   },
 };
 </script>
