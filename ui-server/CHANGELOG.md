@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.121+20210121155409
+2021-01-21
+
+### Fixes
+
+- [2238] mise en conformité du formattage des nombres (5e8020aec734fc42a14c94e1903911cb531a1ef4)
+- [1646] Ajout de l'id sur la table des alarmes mutualisées (9444f9190e08810f06a1f3751bb79ad45ddae8a2)
+
 ## 1.17.0-master.120+20210121142132
 2021-01-21
 
