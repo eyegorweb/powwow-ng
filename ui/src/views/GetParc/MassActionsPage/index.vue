@@ -53,14 +53,16 @@ export default {
       'setRouteParamsFilters',
       'setActDateStartFilter',
     ]),
-    async initAfterRouteIsSet() {
+    initAfterRouteIsSet() {
       // Ne pas réinitialiser la bare de filtres si on reviens du détail d'une ligne
 
-      if (this.prevRoute === 'actDetail') return;
+      if (this.prevRoute === 'actDetail') {
+        console.log('NOP');
+        return;
+      }
+      console.log('reset');
 
       this.isReady = false;
-
-      await this.$nextTick();
 
       let haveDateFilterInQueryFilter = false;
       if (this.$route.params && this.$route.params.queryFilters) {
@@ -94,10 +96,13 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.prevRoute = from.name;
+      console.log('Router');
+
       vm.initAfterRouteIsSet();
     });
   },
   mounted() {
+    console.log('Mounted');
     this.initAfterRouteIsSet();
   },
   watch: {
