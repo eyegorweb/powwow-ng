@@ -28,50 +28,82 @@ export default {
       const values = [];
       const labelKey = 'getparc.lineDetail.alarms.';
 
-      if (this.alarm.level1) {
-        values.push(`${this.$t(labelKey + 'data')}: ${formatBytes(parseInt(this.alarm.level1))}`);
+      // Uniquement pour alarme mutualisé :
+      if(this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        if (this.alarm.meta.levelDataMax) {
+          values.push('Data: ' + this.alarm.meta.levelDataMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
+          if(this.alarm.meta.levelData1) {
+            values.push(this.alarm.meta.levelData1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelData1}));
+          }
+          if(this.alarm.meta.levelData2) {
+            values.push(this.alarm.meta.levelData2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelData2}));
+          }
+        }
+        if (this.alarm.meta.levelVoiceMax) {
+          values.push(this.$t('voice') + ': ' + this.alarm.meta.levelVoiceMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
+          if(this.alarm.meta.levelVoice1) {
+            values.push(this.alarm.meta.levelVoice1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelVoice1}));
+          }
+          if(this.alarm.meta.levelVoice2) {
+            values.push(this.alarm.meta.levelVoice2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelVoice2}));
+          }
+        }
+        if (this.alarm.meta.levelDataMax) {
+          values.push('Sms: ' + this.alarm.meta.levelSmsMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
+          if(this.alarm.meta.levelSms1) {
+            values.push(this.alarm.meta.levelSms1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelSms1}));
+          }
+          if(this.alarm.meta.levelSms2) {
+            values.push(this.alarm.meta.levelSms2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelSms2}));
+          }
+        }
       }
-      if (this.alarm.level1Up) {
-        values.push(
-          `${this.$t(labelKey + 'data_out')}: ${formatBytes(parseInt(this.alarm.level1Up))}`
-        );
-      }
-      if (this.alarm.level1Down) {
-        values.push(
-          `${this.$t(labelKey + 'data_in')}: ${formatBytes(parseInt(this.alarm.level1Down))}`
-        );
-      }
+      else {
+        if (this.alarm.level1) {
+          values.push(`${this.$t(labelKey + 'data')}: ${formatBytes(parseInt(this.alarm.level1))}`);
+        }
+        if (this.alarm.level1Up) {
+          values.push(
+            `${this.$t(labelKey + 'data_out')}: ${formatBytes(parseInt(this.alarm.level1Up))}`
+          );
+        }
+        if (this.alarm.level1Down) {
+          values.push(
+            `${this.$t(labelKey + 'data_in')}: ${formatBytes(parseInt(this.alarm.level1Down))}`
+          );
+        }
 
-      if (this.alarm.level2) {
-        values.push(`${this.$t(labelKey + 'sms')}: ${this.alarm.level2}`);
-      }
-      if (this.alarm.level2Up) {
-        values.push(`${this.$t(labelKey + 'sms_out')}: ${this.alarm.level2Up}`);
-      }
-      if (this.alarm.level2Down) {
-        values.push(`${this.$t(labelKey + 'sms_in')}: ${this.alarm.level2Down}`);
-      }
+        if (this.alarm.level2) {
+          values.push(`${this.$t(labelKey + 'sms')}: ${this.alarm.level2}`);
+        }
+        if (this.alarm.level2Up) {
+          values.push(`${this.$t(labelKey + 'sms_out')}: ${this.alarm.level2Up}`);
+        }
+        if (this.alarm.level2Down) {
+          values.push(`${this.$t(labelKey + 'sms_in')}: ${this.alarm.level2Down}`);
+        }
 
-      if (this.alarm.level3) {
-        values.push(
-          `${this.$t(labelKey + 'voice')}: ${formattedValueFromSeconds(
-            parseInt(this.alarm.level3)
-          )}`
-        );
-      }
-      if (this.alarm.level3Up) {
-        values.push(
-          `${this.$t(labelKey + 'voice_out')}: ${formattedValueFromSeconds(
-            parseInt(this.alarm.level3Up)
-          )}`
-        );
-      }
-      if (this.alarm.level3Down) {
-        values.push(
-          `${this.$t(labelKey + 'voice_in')}: ${formattedValueFromSeconds(
-            parseInt(this.alarm.level3Down)
-          )}`
-        );
+        if (this.alarm.level3) {
+          values.push(
+            `${this.$t(labelKey + 'voice')}: ${formattedValueFromSeconds(
+              parseInt(this.alarm.level3)
+            )}`
+          );
+        }
+        if (this.alarm.level3Up) {
+          values.push(
+            `${this.$t(labelKey + 'voice_out')}: ${formattedValueFromSeconds(
+              parseInt(this.alarm.level3Up)
+            )}`
+          );
+        }
+        if (this.alarm.level3Down) {
+          values.push(
+            `${this.$t(labelKey + 'voice_in')}: ${formattedValueFromSeconds(
+              parseInt(this.alarm.level3Down)
+            )}`
+          );
+        }
       }
 
       return values;

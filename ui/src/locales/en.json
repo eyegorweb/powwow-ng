@@ -8,6 +8,8 @@
   "accessTo": "Access to",
   "title": "Title",
   "mandatory": "Mandatory",
+  "date-over": "before {date}",
+  "voice": "Voice",
   "numberPerPage": "Nb per page",
   "partnerType": "Partner type",
   "partnerAlarm": "Alarm type",
