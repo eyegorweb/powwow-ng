@@ -36,7 +36,7 @@
         <p v-else>-</p>
       </div>
 
-      <div v-if="nbOfEventsForCurrentMonth" class="overview-item mr-5">
+      <div class="overview-item mr-5">
         <h6>{{ $t('getvsion.triggered_this_month') }}:</h6>
         <p>{{ nbOfEventsForCurrentMonth + ' ligne(s)' }}</p>
       </div>
@@ -209,7 +209,7 @@ export default {
         return triggerForCurrrentMonth.length;
       }
 
-      return undefined;
+      return 0;
     },
 
     partner() {
