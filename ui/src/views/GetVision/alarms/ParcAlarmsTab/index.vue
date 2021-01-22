@@ -2,8 +2,8 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="010"
-      storage-id="getVision.alarms"
+      :storage-version="'011' + (m2m ? 'm2m' : '')"
+      :storage-id="'getVision.alarms' + (m2m ? 'm2m' : '')"
       v-if="columns && filters"
       show-reset
       :filters="filters"
@@ -170,8 +170,16 @@ export default {
           visible: true,
           fixed: true,
           noHandle: true,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.id;
+            },
+          },
         };
       }
+      console.log('🚀 ~ file: index.vue ~ line 164 ~ prepareColumns ~ idColumn', idColumn);
+
       const columns = [
         idColumn,
         {
