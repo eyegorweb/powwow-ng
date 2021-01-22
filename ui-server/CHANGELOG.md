@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.130+20210122164926
+2021-01-22
+
+### Fixes
+
+- [00] Correctif éventuel du bouton retour (487eec9bf42ef5ec68664bf3fe10b34255355453)
+
 ## 1.17.0-master.129+20210122162753
 2021-01-22
 
