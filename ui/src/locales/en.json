@@ -16,7 +16,7 @@
   "selectAll": "Select all",
   "unSelectAll": "Unselect all",
   "showOrHideColumns": "Add / hide columns",
-  "save": "Record",
+  "save": "Save",
   "cancel": "CANCEL",
   "searchError": "Search was unsuccessful. Please try Again",
   "reset": "Reset",
@@ -472,7 +472,7 @@
       "rea_auto": "Automatic reactivation",
       "sus_auto": "Automatic suspension",
       "enableAlarm": "Activate the alarm",
-      "saveAlarm": "Record the alarm",
+      "saveAlarm": "Save the alarm",
       "statuses": { "created": "Created", "activated": "Activated", "disabled": "Deactivated" }
     },
     "alarm-creation": {
