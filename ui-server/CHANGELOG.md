@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.128+20210122161635
+2021-01-22
+
+### Fixes
+
+- [00] debug bouton retour acte de gestion (125c73b7c886e6826e61c3816f2b3b4090d480ff)
+
 ## 1.17.0-master.127+20210122160756
 2021-01-22
 
