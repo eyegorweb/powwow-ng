@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      storage-version="009"
+      storage-version="010"
       storage-id="getVision.alarms"
       v-if="columns && filters"
       show-reset
@@ -111,8 +111,56 @@ export default {
       rows: [],
       isLoading: false,
       filters: undefined,
-      columns: [
-        {
+      columns: undefined,
+    };
+  },
+
+  computed: {
+    ...mapGetters(['userIsPartner']),
+    selectedPartnerIds() {
+      return this.currentPartners.map(p => p.id);
+    },
+    currentPartners() {
+      if (!this.currentFilters) return [];
+
+      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      if (foundFilter && foundFilter.values && foundFilter.values.length) {
+        return foundFilter.values;
+      }
+
+      return [];
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
+  },
+  mounted() {
+    this.prepareColumns();
+    this.prepareFilterBar();
+    if (this.initFilters && this.initFilters.length) {
+      this.defaultFilterValues = this.initFilters;
+      this.$emit('currentFiltersChange', undefined);
+    }
+    this.applyFilters();
+  },
+  methods: {
+    ...mapMutations(['openPanel']),
+
+    prepareColumns() {
+      let idColumn = {
+        id: 1,
+        label: this.$t('col.id'),
+        name: 'id',
+        orderable: true,
+        visible: true,
+        fixed: true,
+        noHandle: true,
+        format: {
+          component: AlarmIdCell,
+        },
+      };
+      if (this.m2m) {
+        idColumn = {
           id: 1,
           label: this.$t('col.id'),
           name: 'id',
@@ -120,10 +168,10 @@ export default {
           visible: true,
           fixed: true,
           noHandle: true,
-          format: {
-            component: AlarmIdCell,
-          },
-        },
+        };
+      }
+      const columns = [
+        idColumn,
         {
           id: 2,
           label: this.$t('getparc.lineDetail.alarms.name'),
@@ -264,39 +312,10 @@ export default {
             },
           },
         },
-      ],
-    };
-  },
+      ];
 
-  computed: {
-    ...mapGetters(['userIsPartner']),
-    selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
+      this.columns = columns;
     },
-    currentPartners() {
-      if (!this.currentFilters) return [];
-
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
-      if (foundFilter && foundFilter.values && foundFilter.values.length) {
-        return foundFilter.values;
-      }
-
-      return [];
-    },
-    formattedTotal() {
-      return formatLargeNumber(this.total);
-    },
-  },
-  mounted() {
-    this.prepareFilterBar();
-    if (this.initFilters && this.initFilters.length) {
-      this.defaultFilterValues = this.initFilters;
-      this.$emit('currentFiltersChange', undefined);
-    }
-    this.applyFilters();
-  },
-  methods: {
-    ...mapMutations(['openPanel']),
 
     onCurrentFilterChange($event) {
       this.currentFilters = $event;
