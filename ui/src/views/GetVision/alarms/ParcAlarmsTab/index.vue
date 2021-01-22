@@ -140,8 +140,10 @@ export default {
     if (this.initFilters && this.initFilters.length) {
       this.defaultFilterValues = this.initFilters;
       this.$emit('currentFiltersChange', undefined);
+      this.applyFilters({ filters: this.initFilters, pagination: { page: 0, limit: 10 } });
+    } else {
+      this.applyFilters();
     }
-    this.applyFilters();
   },
   methods: {
     ...mapMutations(['openPanel']),
