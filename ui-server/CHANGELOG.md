@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.126+20210122143223
+2021-01-22
+
+### Fixes
+
+- [2330] Corriger le bouton retour du détail d'alarme (d433fc59c2418aacd1248a6aae7e893eee24b0f8)
+
 ## 1.17.0-master.125+20210122141133
 2021-01-22
 
