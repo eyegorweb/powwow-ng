@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.124+20210122102855
+2021-01-22
+
+### Fixes
+
+- [2335] garder les filtres après le retour depuis le détail d'une alarme (5b3c8eb12f008aed0ef12cab695a6a790cdf9372)
+
 ## 1.17.0-master.123+20210121170935
 2021-01-21
 
