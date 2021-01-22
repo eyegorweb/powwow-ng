@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.127+20210122160756
+2021-01-22
+
+### Fixes
+
+- [1646] stocker les colonnes des tables alarmes / alarmes mutualisée dans deux variables différentes en localstorage (57fddba040682ae67e57fef047a50c096576eb72)
+
 ## 1.17.0-master.126+20210122143223
 2021-01-22
 
