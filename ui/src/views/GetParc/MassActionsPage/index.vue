@@ -101,10 +101,7 @@ export default {
       vm.initAfterRouteIsSet();
     });
   },
-  mounted() {
-    console.log('Mounted');
-    this.initAfterRouteIsSet();
-  },
+
   watch: {
     contextPartnersType() {
       this.initFilterForContext();
