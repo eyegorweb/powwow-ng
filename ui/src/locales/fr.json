@@ -10,6 +10,8 @@
   "ResfuseLinesError": "{nb} lignes sont encore dans le délai de carence et ne peuvent pas être validées.",
   "search": "Rechercher",
   "title": "Titre",
+  "date-over": "avant le {date}",
+  "voice": "Voix",
   "mandatory": "Obligatoire",
   "accessTo": "Accéder à",
   "numberPerPage": "Nb par page",

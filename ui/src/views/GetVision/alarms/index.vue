@@ -103,6 +103,7 @@ export default {
         level3Down: row.levelVoice2,
         numberOfTargetedLines: row.numberLines,
         type: row.type,
+        meta: row,
       }));
       return {
         total: response.total,
