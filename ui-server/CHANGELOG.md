@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.129+20210122162753
+2021-01-22
+
+### Fixes
+
+- [2335] Ajout des seuils de déclenchement dans la table alarmes mutualisé (0ff64323a0394dbfc7c78c82fbb9a5abb4ed0c3e)
+
 ## 1.17.0-master.128+20210122161635
 2021-01-22
 
