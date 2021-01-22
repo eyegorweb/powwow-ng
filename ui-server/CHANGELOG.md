@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.125+20210122141133
+2021-01-22
+
+### Fixes
+
+- [2337] Correction de traductions (33965c6189ad60486762b4fc2dc9d2e158b0e457)
+- [2339] Correction des données du volet alarme (9ee69691f249e4e773df2756e93c6e0ded0f8bb4)
+
 ## 1.17.0-master.124+20210122102855
 2021-01-22
 
