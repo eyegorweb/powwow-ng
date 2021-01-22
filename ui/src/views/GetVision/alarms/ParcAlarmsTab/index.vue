@@ -14,7 +14,7 @@
       :order-by.sync="orderBy"
       :size="5"
       @applyFilters="applyFilters"
-      @currentFiltersChange="currentFilters = $event"
+      @currentFiltersChange="onCurrentFilterChange"
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
     >
@@ -91,6 +91,7 @@ export default {
   props: {
     m2m: Boolean,
     apiFn: Function,
+    initFilters: Array,
   },
   data() {
     return {
@@ -288,10 +289,19 @@ export default {
   },
   mounted() {
     this.prepareFilterBar();
+    if (this.initFilters && this.initFilters.length) {
+      this.defaultFilterValues = this.initFilters;
+      this.$emit('currentFiltersChange', undefined);
+    }
     this.applyFilters();
   },
   methods: {
     ...mapMutations(['openPanel']),
+
+    onCurrentFilterChange($event) {
+      this.currentFilters = $event;
+      this.$emit('currentFiltersChange', $event);
+    },
 
     createAlarm() {
       const doReset = () => {

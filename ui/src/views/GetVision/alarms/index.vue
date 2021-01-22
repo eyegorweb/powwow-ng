@@ -17,11 +17,22 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4" slot="parcAlarms">
-          <ParcAlarmsTab :key="'parcAlarms'" :api-fn="searchAlarms" />
+          <ParcAlarmsTab
+            :key="'parcAlarms'"
+            :api-fn="searchAlarms"
+            @currentFiltersChange="setCurrentFilters"
+            :initFilters="currentFilters"
+          />
         </div>
         <div class="pt-4 pl-4" slot="cockpitM2M">M2M</div>
         <div class="pt-4 pl-4" slot="alarmsSharedConso">
-          <ParcAlarmsTab :key="'alarmsSharedConso'" :api-fn="searchSharedConsoAlarms" m2m />
+          <ParcAlarmsTab
+            :key="'alarmsSharedConso'"
+            :api-fn="searchSharedConsoAlarms"
+            m2m
+            @currentFiltersChange="setCurrentFilters"
+            :initFilters="currentFilters"
+          />
         </div>
       </UiTabs>
     </div>
@@ -36,6 +47,7 @@ import UiTab from '@/components/ui/Tab';
 import ParcAlarmsTab from './ParcAlarmsTab';
 import { excludeMocked } from '@/featureFlipping/plugin.js';
 import { searchAlarms, searchSharedConsumptionAlarm } from '@/api/alarms';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -46,6 +58,7 @@ export default {
   },
   data() {
     return {
+      prevRoute: undefined,
       currentTab: 0,
       tabs: excludeMocked([
         {
@@ -64,7 +77,12 @@ export default {
       ]),
     };
   },
+  computed: {
+    ...mapGetters('alarms', ['currentFilters']),
+  },
   methods: {
+    ...mapMutations('alarms', ['setCurrentFilters']),
+
     searchAlarms(orderBy, pagination, filters) {
       return searchAlarms(orderBy, pagination, filters);
     },
