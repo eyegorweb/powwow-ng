@@ -7,16 +7,15 @@
         {{ $t('common.noDateChosenError') }}
       </div>
       <SelectedFilters
-        v-if="canShowSelectedFilter"
         :current-filters="currentFilters"
         @applyFilters="applyFilters"
         @clear="filterId => clearFilter(filterId)"
       >
         <template v-slot:actions="{ hasAnyValue }">
-          <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
-            <UiButton variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1">{{
-              $t('applyFilters')
-            }}</UiButton>
+          <div class="actions d-flex flex-column flex-md-row mb-2">
+            <UiButton :disabled="!canShowSelectedFilter" variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1">{{
+              $t('search')
+            }} </UiButton>
           </div>
         </template>
       </SelectedFilters>

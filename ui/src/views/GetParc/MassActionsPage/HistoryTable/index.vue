@@ -31,8 +31,6 @@
       </div>
       <template v-if="rows && rows.length">
         <DataTable
-          storage-id="getparc.actHistory"
-          storage-version="009"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
@@ -53,10 +51,8 @@
         </DataTable>
       </template>
       <template v-else>
-        <div v-if="searchByIdValue">
-          <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
-        </div>
-        <div class="alert alert-light">{{ $t('noResult') }}</div>
+        <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
+        <div class="alert alert-light">{{ $t('noResult') }} oui</div>
       </template>
     </div>
   </LoaderContainer>
