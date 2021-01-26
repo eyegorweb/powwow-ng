@@ -33,7 +33,7 @@
     </div>
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actLines.col.currentSynthesis') }} :</h6>
-      <UsageCounter :row="content" />
+      <UsageCounter :content="content" />
     </div>
     <div v-if="get('accessPoint.customFields.custom1')" class="overview-item mr-5">
       <h6>{{ getCustomFieldLabel(1) }} :</h6>
