@@ -334,7 +334,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { fromUserMenu: true, partnerId: this.partnerid, fromPage: 'users' },
+        payload: { fromUserMenu: true, fromPage: 'users' },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
@@ -397,6 +397,7 @@ export default {
     onModifyUser(user) {
       const partners = get(user, 'partners', []);
       const partnerId = partners.length ? partners[0].id : undefined;
+      const partnerLabel = partners.length ? partners[0].name : undefined;
 
       const doReset = () => {
         this.applyFilters(this.lastPayload);
@@ -404,7 +405,7 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { duplicateFrom: user, partnerId },
+        payload: { duplicateFrom: user, partnerId, partnerLabel },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,

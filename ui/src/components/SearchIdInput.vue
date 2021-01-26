@@ -54,9 +54,8 @@ export default {
   mounted() {
     if (this.initValue) {
       this.resultQuery = this.initValue;
-    }
-    else {
-      this.resultQuery = "";
+    } else {
+      this.resultQuery = '';
     }
   },
 

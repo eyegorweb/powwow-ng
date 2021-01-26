@@ -61,6 +61,10 @@ export default {
       type: [String, Number],
       default: undefined,
     },
+    partnerLabel: {
+      type: String,
+      required: false,
+    },
   },
 
   data() {
@@ -121,7 +125,11 @@ export default {
       this.openPanel({
         title: this.$t('getadmin.partnerDetail.userForm.modify-title'),
         panelId: 'getadmin.partnerDetail.userForm.title',
-        payload: { duplicateFrom: user, partnerId: this.partnerid },
+        payload: {
+          duplicateFrom: user,
+          partnerId: this.partnerid,
+          partnerLabel: this.partnerLabel,
+        },
         backdrop: true,
         width: '40rem',
         ignoreClickAway: true,
@@ -150,7 +158,6 @@ export default {
       this.users = await fetchUsersByPartnerId(this.partnerid);
 
       this.visibleUsers = [...this.users];
-      console.log('visible users', this.visibleUsers);
     },
 
     openCreationPanel() {

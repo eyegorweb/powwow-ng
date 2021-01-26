@@ -5,7 +5,11 @@
     </div>
     <div class="col-md-9">
       <AdminCards v-if="section === 'getadmin.partners.admins'" :partnerid="partnerid" />
-      <UsersCards v-if="section === 'getadmin.partners.users'" :partnerid="partnerid" />
+      <UsersCards
+        v-if="section === 'getadmin.partners.users'"
+        :partnerid="partnerid"
+        :partner-label="partner ? partner.name : undefined"
+      />
     </div>
   </div>
 </template>

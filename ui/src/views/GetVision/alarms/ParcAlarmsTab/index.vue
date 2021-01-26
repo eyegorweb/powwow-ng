@@ -178,7 +178,6 @@ export default {
           },
         };
       }
-      console.log('🚀 ~ file: index.vue ~ line 164 ~ prepareColumns ~ idColumn', idColumn);
 
       const columns = [
         idColumn,
