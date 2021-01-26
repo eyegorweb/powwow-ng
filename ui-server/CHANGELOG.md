@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.134+20210126102447
+2021-01-26
+
+### Fixes
+
+- [2349] Coorection de la recherche par import de fichier (2c37009578ce46703f635550b1704a50c89cdb79)
+
 ## 1.17.0-master.133+20210126095414
 2021-01-26
 
