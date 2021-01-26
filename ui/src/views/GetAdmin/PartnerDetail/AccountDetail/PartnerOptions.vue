@@ -98,9 +98,6 @@
                 v-model="refUser"
                 small-label
               />
-              <small v-if="fieldErrors && errors.refUser" class="form-text error-text">{{
-                $t('required')
-              }}</small>
             </div>
           </div>
           <div class="third-size pr-4" v-if="getToggle(orderToggles, 'REF_USER')">
