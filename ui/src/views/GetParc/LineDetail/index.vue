@@ -23,7 +23,7 @@
         </UiButton>
       </div>
     </div>
-    <LineSummary v-if="lineData" :content="lineData" :consumption="consumption" />
+    <LineSummary v-if="lineData" :content="lineData" />
     <ActionCarousel
       v-if="lineData && canShowCarousel"
       :actions="carouselItems"
@@ -53,7 +53,7 @@ import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import UiButton from '@/components/ui/Button';
 
-import { searchLines, fetchCurrentConsumption } from '@/api/linesActions';
+import { searchLines } from '@/api/linesActions';
 import { mapGetters, mapMutations } from 'vuex';
 import get from 'lodash.get';
 import { excludeMocked } from '@/featureFlipping/plugin';
@@ -102,7 +102,6 @@ export default {
   data() {
     return {
       lineData: undefined,
-      consumption: undefined,
       partnerOptions: undefined,
       tabs: undefined,
       carouselItems: [],
@@ -220,13 +219,14 @@ export default {
           this.offerChangeEnabled = true;
         }
 
-        if (this.lineData.party.partyType === 'MVNO') {
-          this.consumption = await fetchCurrentConsumption({
-            simCardInstanceId: this.$route.params.lineId,
-          });
-        }
+        // if (this.lineData.party && this.lineData.party.partyType === 'MVNO') {
 
-        if (this.lineData.party.partyType !== 'MVNO') {
+        //   this.consumption = await fetchCurrentConsumption({
+        //     simCardInstanceId: this.$route.params.lineId,
+        //   });
+        // }
+
+        if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
           this.carouselItems = excludeMocked([
             {
               icon: 'ic-Sim-Icon',

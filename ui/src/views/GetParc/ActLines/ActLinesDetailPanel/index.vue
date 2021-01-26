@@ -45,7 +45,7 @@ import PartnerInfo from './PartnerInfo';
 import UiButton from '@/components/ui/Button';
 import LoaderContainer from '@/components/LoaderContainer';
 import ModalSkeleton from '@/components/ui/skeletons/ModalSkeleton';
-import { searchLineById, searchLineByIccid, fetchCurrentConsumption } from '@/api/linesActions';
+import { searchLineById, searchLineByIccid } from '@/api/linesActions';
 import { mapState } from 'vuex';
 
 import get from 'lodash.get';
@@ -80,7 +80,6 @@ export default {
       lineDetails: undefined,
       lineId: undefined,
       lineIccid: undefined,
-      consumption: undefined,
       isLoading: false,
     };
   },
@@ -106,11 +105,6 @@ export default {
     } else {
       this.lineId = this.content.id;
       this.lineDetails = await searchLineById(this.lineId);
-    }
-    if (this.lineDetails.party.partyType === 'MVNO') {
-      this.consumption = await fetchCurrentConsumption({
-        simCardInstanceId: this.lineDetails.id,
-      });
     }
     this.isLoading = false;
   },

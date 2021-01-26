@@ -36,29 +36,32 @@
     </div>
     <div class="col">
       <div v-if="partnerTypeMVNO">
-        <div class="d-flex bg-white p-4 rounded" v-if="consumption">
-          <div class="item">
-            <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
-            <p>
-              <!-- total DATA consommée -->
-              {{ totalUsedForMVNO('DATA') }}
-            </p>
+        <LoaderContainer :is-loading="isLoading">
+          <div slot="on-loading">
+            {{ $t('processing') }}...
+            <CircleLoader />
           </div>
-          <div class="item">
-            <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
-            <p>
-              <!-- total SMS consommés -->
-              {{ totalUsedForMVNO('SMS') }}
-            </p>
+          <div class="d-flex bg-white p-4 rounded">
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
+              <p>
+                {{ dataConso }}
+              </p>
+            </div>
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
+              <p>
+                {{ smsConso }}
+              </p>
+            </div>
+            <div class="item">
+              <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
+              <p>
+                {{ voiceConso }}
+              </p>
+            </div>
           </div>
-          <div class="item">
-            <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
-            <p>
-              <!-- total VOIX consommée -->
-              {{ totalUsedForMVNO('VOICE') }}
-            </p>
-          </div>
-        </div>
+        </LoaderContainer>
       </div>
 
       <div v-else class="bg-white p-4 rounded">
@@ -67,21 +70,21 @@
             <h6>{{ $t('getparc.lineDetail.consummated.data') }}:</h6>
             <p>
               <!-- total DATA consommée -->
-              {{ totalUsed('DATA', 'used') }}
+              {{ fetchUsageCounter('DATA', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.sms') }}:</h6>
             <p>
               <!-- total SMS consommés -->
-              {{ totalUsed('SMS', 'used') }}
+              {{ fetchUsageCounter('SMS', 'used') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.consummated.voice') }}:</h6>
             <p>
               <!-- total VOIX consommée -->
-              {{ totalUsed('VOICE', 'used') }}
+              {{ fetchUsageCounter('VOICE', 'used') }}
             </p>
           </div>
         </div>
@@ -91,21 +94,21 @@
             <h6>{{ $t('getparc.lineDetail.estimated.data') }}:</h6>
             <p>
               <!-- prévisionnel DATA  -->
-              {{ totalUsed('DATA') }}
+              {{ fetchUsageCounter('DATA') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.estimated.sms') }}:</h6>
             <p>
               <!-- prévisionnel SMS  -->
-              {{ totalUsed('SMS') }}
+              {{ fetchUsageCounter('SMS') }}
             </p>
           </div>
           <div class="item">
             <h6>{{ $t('getparc.lineDetail.estimated.voice') }}:</h6>
             <p>
               <!-- prévisionnel VOIX  -->
-              {{ totalUsed('VOICE') }}
+              {{ fetchUsageCounter('VOICE') }}
             </p>
           </div>
         </div>
@@ -115,31 +118,57 @@
 </template>
 
 <script>
+import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
+import LoaderContainer from '@/components/LoaderContainer';
+import CircleLoader from '@/components/ui/CircleLoader';
 import get from 'lodash.get';
 import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils';
 import moment from 'moment';
 import { fetchAlarmsWithInfos } from '@/api/alarms';
-import LineOffer from '@/views/GetParc/ActLines/LineOffer.vue';
+import { fetchCurrentConsumption } from '@/api/linesActions';
 
 export default {
   components: {
     LineOffer,
+    LoaderContainer,
+    CircleLoader,
   },
   async mounted() {
     this.fetchAlarms();
+    this.fetchConsumptionData();
   },
   props: {
     content: Object,
-    consumption: Object,
   },
   data() {
     return {
       alarmTriggered: false,
+      consumption: undefined,
+      totalDefault: 0,
+      isLoading: false,
     };
   },
   computed: {
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
+    },
+    dataConso() {
+      if (this.consumption) {
+        return formatBytes(parseInt(this.consumption.dataTotal));
+      }
+      return this.totalDefault;
+    },
+    smsConso() {
+      if (this.consumption) {
+        return this.consumption.smsTotal;
+      }
+      return this.totalDefault;
+    },
+    voiceConso() {
+      if (this.consumption) {
+        return resumeFormattedValueFromSeconds(parseInt(this.consumption.voiceTotal));
+      }
+      return this.totalDefault;
     },
   },
   methods: {
@@ -147,34 +176,28 @@ export default {
       const value = get(this.content, path, defaultValue);
       return value !== null ? value : defaultValue;
     },
-    getConsumptionData(path, defaultValue = '') {
-      const value = get(this.consumption, path, defaultValue);
-      return value !== null ? value : '';
+
+    async fetchConsumptionData() {
+      if (this.partnerTypeMVNO) {
+        this.isLoading = true;
+        try {
+          this.consumption = await fetchCurrentConsumption({
+            simCardInstanceId: this.content.id,
+          });
+        } catch (e) {
+          console.error(e);
+        }
+        this.isLoading = false;
+      }
     },
+
     async fetchAlarms() {
       const response = await fetchAlarmsWithInfos(this.content.id);
       if (!response || !response.lenth) return;
       this.alarmTriggered = response[0].isTriggered;
     },
-    totalUsedForMVNO(type) {
-      let total;
-      switch (type) {
-        case 'DATA':
-          total = formatBytes(parseInt(this.getConsumptionData('dataTotal')));
-          break;
 
-        case 'SMS':
-          total = this.getConsumptionData('smsTotal');
-          break;
-
-        case 'VOICE':
-          total = resumeFormattedValueFromSeconds(this.getConsumptionData('voiceTotal'));
-          break;
-      }
-      return total;
-    },
-
-    totalUsed(type, mode) {
+    fetchUsageCounter(type, mode) {
       let usedTotal,
         estimatedTotal,
         nationalIncomingTotal,
