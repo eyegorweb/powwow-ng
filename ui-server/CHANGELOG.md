@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.132+20210126093840
+2021-01-26
+
+### Fixes
+
+- [2335] Debug dune condition sur le level max sms (642dd8cdeb17becee2df1f4807a0996db46d272c)
+
 ## 1.17.0-master.131+20210126084153
 2021-01-26
 
