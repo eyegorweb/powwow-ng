@@ -14,7 +14,7 @@
         <UiButton
           :variant="'primary'"
           @click="searchById"
-          :disabled="!isEnabled"
+          :disabled="!isEnabled || resultQuery === ''"
           :class="{ 'flex-grow-1': !inline }"
           >{{ $t('search') }}</UiButton
         >
@@ -54,6 +54,9 @@ export default {
   mounted() {
     if (this.initValue) {
       this.resultQuery = this.initValue;
+    }
+    else {
+      this.resultQuery = "";
     }
   },
 
