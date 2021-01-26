@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.135+20210126134810
+## 1.17.0-master.136+20210126140231
 2021-01-26
+
+### Fixes
+
+- [2319] Fix de la traduction des cards de champs libre (f61240a452b6694e078ce3b8e7df4e1ac55237cb)
 
 ## 1.17.0-master.134+20210126102447
 2021-01-26
