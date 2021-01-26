@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.137+20210126160932
+2021-01-26
+
+### Fixes
+
+- [2282] Bug sur input refuser dans options partenaire (36f6fe5a9e26a15ce20b74aa60da2f9fa4937ccd)
+
 ## 1.17.0-master.136+20210126140231
 2021-01-26
 
