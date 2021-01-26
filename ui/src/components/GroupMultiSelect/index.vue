@@ -66,7 +66,7 @@ export default {
       this.items = this.items.map(i => {
         i.selected = value;
         if (i.groupParent) {
-          const childrens = this.items.filter(c => c.parent === item.id);
+          const childrens = this.items.filter(c => c.parent === i.id);
           for (let j = 0; j < childrens.length; j++) {
             childrens[j].selected = value;
           }

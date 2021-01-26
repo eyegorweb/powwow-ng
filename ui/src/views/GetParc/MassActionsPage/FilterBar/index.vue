@@ -13,9 +13,13 @@
       >
         <template v-slot:actions="{ hasAnyValue }">
           <div class="actions d-flex flex-column flex-md-row mb-2">
-            <UiButton :disabled="!canShowSelectedFilter" variant="primary" @click="applyFilters" class="flex-grow-1 py-1 px-3 ml-1">{{
-              $t('search')
-            }} </UiButton>
+            <UiButton
+              :disabled="!canShowSelectedFilter"
+              variant="primary"
+              @click="applyFilters"
+              class="flex-grow-1 py-1 px-3 ml-1"
+              >{{ $t('search') }}
+            </UiButton>
           </div>
         </template>
       </SelectedFilters>

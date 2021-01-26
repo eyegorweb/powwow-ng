@@ -57,7 +57,7 @@ export default {
         this.$emit('update:value', undefined);
         return;
       }
-      if (value && value.label === '') {
+      if (value && value instanceof Object && (value.label === '' || value.label === undefined)) {
         this.$emit('update:value', undefined);
         return;
       }
@@ -90,6 +90,8 @@ export default {
       if (this.value && this.value.id && this.localItems && this.localItems.length) {
         this.selectedLocalValue = this.localItems.find(i => i.id === this.value.id);
       }
+    } else if (this.value) {
+      this.selectedLocalValue = this.value;
     }
   },
   computed: {

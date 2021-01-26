@@ -3,7 +3,6 @@
     :value.sync="selectedPartner"
     :party-types="['MULTI_CUSTOMER', 'CUSTOMER']"
     :disabled="!!partnerGroup"
-    offline
   />
 </template>
 
@@ -23,11 +22,21 @@ export default {
   data() {
     return {
       isReady: false,
+      selectedPartner: undefined,
     };
+  },
+
+  watch: {
+    selectedPartner(newValue) {
+      this.$emit('change', newValue);
+    },
   },
 
   mounted() {
     setTimeout(() => {
+      if (this.selectedData) {
+        this.selectedPartner = { ...this.selectedData };
+      }
       this.isReady = true;
     });
   },
@@ -38,18 +47,6 @@ export default {
         f => f.id === 'getadmin.users.filters.partnerGroup'
       );
       return partnerGroup && partnerGroup.data.value;
-    },
-    selectedPartner: {
-      get() {
-        if (!this.selectedData) return;
-
-        return this.selectedData.data;
-      },
-      set(selectedPartner) {
-        if (!this.isReady) return;
-
-        this.$emit('change', selectedPartner);
-      },
     },
   },
 

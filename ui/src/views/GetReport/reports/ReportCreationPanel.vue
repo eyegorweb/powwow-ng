@@ -8,7 +8,6 @@
             :value.sync="selectedPartner"
             :options="partnerChoices"
             include-mailing-lists
-            offline
           />
         </template>
 

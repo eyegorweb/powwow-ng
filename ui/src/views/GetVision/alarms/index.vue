@@ -21,7 +21,7 @@
             :key="'parcAlarms'"
             :api-fn="searchAlarms"
             @currentFiltersChange="setCurrentFilters"
-            :initFilters="currentFilters"
+            :init-filters="currentFilters"
           />
         </div>
         <div class="pt-4 pl-4" slot="cockpitM2M">M2M</div>
@@ -31,7 +31,7 @@
             :api-fn="searchSharedConsoAlarms"
             m2m
             @currentFiltersChange="setCurrentFilters"
-            :initFilters="currentFilters"
+            :init-filters="currentFilters"
           />
         </div>
       </UiTabs>

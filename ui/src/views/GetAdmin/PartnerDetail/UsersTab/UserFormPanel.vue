@@ -46,7 +46,7 @@
           :class="{ noDisplay: fromPagePartner }"
         >
           <label>{{ $t('getadmin.users.userTypes.partner') }}</label>
-          <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" offline />
+          <PartnerCombo :value.sync="selectedPartner" :disabled="!!content.duplicateFrom" />
         </div>
         <div v-if="userType === 'PARTNER_GROUP'" class="form-entry">
           <label>{{ $t('getadmin.users.filters.partnerGroup') }}</label>
@@ -542,7 +542,12 @@ export default {
       const userType = this.content.duplicateFrom.type;
       this.userType = userType;
 
-      this.selectedPartner = { id: parseInt(this.content.partnerId) };
+      this.selectedPartner = {
+        id: parseInt(this.content.partnerId),
+        value: this.content.partnerLabel,
+        label: this.content.partnerLabel,
+        highlighted: this.content.partnerLabel,
+      };
 
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);

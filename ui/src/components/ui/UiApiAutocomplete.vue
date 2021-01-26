@@ -131,19 +131,23 @@ export default {
       },
       set(newValue) {
         // TODO: à simplifier
-        this.$emit(
-          'update:value',
-          typeof this.value === 'string'
-            ? // quand la prop est une string on doit emettre une string or
-              // slectValue va etre appele avec un objet en parametre
-              typeof newValue === 'object'
-              ? // gere selectValue(null)
-                newValue && newValue[this.labelKey]
-              : newValue
-            : typeof newValue === 'object'
-            ? newValue
-            : { [this.labelKey]: newValue }
-        );
+        let valueToEmit;
+        if (typeof this.value === 'string') {
+          if (typeof newValue === 'object') {
+            if (newValue) {
+              valueToEmit = newValue[this.labelKey];
+            }
+          } else {
+            valueToEmit = newValue;
+          }
+        } else {
+          if (typeof newValue === 'object') {
+            valueToEmit = newValue;
+          } else {
+            valueToEmit = { [this.labelKey]: newValue };
+          }
+        }
+        this.$emit('update:value', valueToEmit);
       },
     },
     results() {

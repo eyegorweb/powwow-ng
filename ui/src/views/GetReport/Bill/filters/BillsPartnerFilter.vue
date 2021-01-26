@@ -1,5 +1,5 @@
 <template>
-  <PartnerCombo :value.sync="selectedPartner" offline />
+  <PartnerCombo :value.sync="selectedPartner" />
 </template>
 
 <script>
@@ -18,27 +18,23 @@ export default {
   data() {
     return {
       isReady: false,
+      selectedPartner: undefined,
     };
+  },
+
+  watch: {
+    selectedPartner(newValue) {
+      this.$emit('change', newValue);
+    },
   },
 
   mounted() {
     setTimeout(() => {
+      if (this.selectedData) {
+        this.selectedPartner = { ...this.selectedData };
+      }
       this.isReady = true;
     });
-  },
-
-  computed: {
-    selectedPartner: {
-      get() {
-        if (!this.selectedData) return;
-
-        return this.selectedData.data;
-      },
-      set(selectedPartner) {
-        if (!this.isReady) return;
-        this.$emit('change', selectedPartner);
-      },
-    },
   },
 
   methods: {

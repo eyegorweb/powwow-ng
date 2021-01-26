@@ -29,36 +29,75 @@ export default {
       const labelKey = 'getparc.lineDetail.alarms.';
 
       // Uniquement pour alarme mutualisé :
-      if(this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+      if (this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
         if (this.alarm.meta.levelDataMax) {
-          values.push('Data: ' + this.alarm.meta.levelDataMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
-          if(this.alarm.meta.levelData1) {
-            values.push(this.alarm.meta.levelData1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelData1}));
+          values.push(
+            'Data: ' +
+              this.alarm.meta.levelDataMax +
+              '% ' +
+              this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+          );
+          if (this.alarm.meta.levelData1) {
+            values.push(
+              this.alarm.meta.levelData1 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelData1 })
+            );
           }
-          if(this.alarm.meta.levelData2) {
-            values.push(this.alarm.meta.levelData2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelData2}));
+          if (this.alarm.meta.levelData2) {
+            values.push(
+              this.alarm.meta.levelData2 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelData2 })
+            );
           }
         }
         if (this.alarm.meta.levelVoiceMax) {
-          values.push(this.$t('voice') + ': ' + this.alarm.meta.levelVoiceMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
-          if(this.alarm.meta.levelVoice1) {
-            values.push(this.alarm.meta.levelVoice1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelVoice1}));
+          values.push(
+            this.$t('voice') +
+              ': ' +
+              this.alarm.meta.levelVoiceMax +
+              '% ' +
+              this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+          );
+          if (this.alarm.meta.levelVoice1) {
+            values.push(
+              this.alarm.meta.levelVoice1 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelVoice1 })
+            );
           }
-          if(this.alarm.meta.levelVoice2) {
-            values.push(this.alarm.meta.levelVoice2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelVoice2}));
+          if (this.alarm.meta.levelVoice2) {
+            values.push(
+              this.alarm.meta.levelVoice2 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelVoice2 })
+            );
           }
         }
         if (this.alarm.meta.levelSmsMax) {
-          values.push('Sms: ' + this.alarm.meta.levelSmsMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
-          if(this.alarm.meta.levelSms1) {
-            values.push(this.alarm.meta.levelSms1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelSms1}));
+          values.push(
+            'Sms: ' +
+              this.alarm.meta.levelSmsMax +
+              '% ' +
+              this.$t('getvsion.alarm-creation.beforeEndOfMonth')
+          );
+          if (this.alarm.meta.levelSms1) {
+            values.push(
+              this.alarm.meta.levelSms1 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelSms1 })
+            );
           }
-          if(this.alarm.meta.levelSms2) {
-            values.push(this.alarm.meta.levelSms2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelSms2}));
+          if (this.alarm.meta.levelSms2) {
+            values.push(
+              this.alarm.meta.levelSms2 +
+                '% ' +
+                this.$t('date-over', { date: this.alarm.meta.dateLevelSms2 })
+            );
           }
         }
-      }
-      else {
+      } else {
         if (this.alarm.level1) {
           values.push(`${this.$t(labelKey + 'data')}: ${formatBytes(parseInt(this.alarm.level1))}`);
         }
