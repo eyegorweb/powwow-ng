@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.131+20210126084153
+2021-01-26
+
+### Fixes
+
+- [2315] Changement des affichages des boutons de recherche sur les tables et acthistory (297aee9e441e11c77a57c8765876cce25534daac)
+
 ## 1.17.0-master.130+20210122164926
 2021-01-22
 
