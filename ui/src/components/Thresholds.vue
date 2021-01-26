@@ -48,7 +48,7 @@ export default {
             values.push(this.alarm.meta.levelVoice2 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelVoice2}));
           }
         }
-        if (this.alarm.meta.levelDataMax) {
+        if (this.alarm.meta.levelSmsMax) {
           values.push('Sms: ' + this.alarm.meta.levelSmsMax + '% ' + this.$t('getvsion.alarm-creation.beforeEndOfMonth'))
           if(this.alarm.meta.levelSms1) {
             values.push(this.alarm.meta.levelSms1 + '% ' + this.$t('date-over', {date:this.alarm.meta.dateLevelSms1}));
