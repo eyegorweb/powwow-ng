@@ -623,7 +623,9 @@ export async function uploadSearchFile(file, idType, partyId) {
   var formData = new FormData();
   formData.append('file', file);
   formData.append('idType', idType);
-  formData.append('id', partyId);
+  if (partyId) {
+    formData.append('id', partyId);
+  }
   return await postFile(`/api/file/upload`, formData);
 }
 
