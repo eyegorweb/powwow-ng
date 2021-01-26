@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.133+20210126095414
+2021-01-26
+
+### Fixes
+
+- [2106] Bascule des composants partenaires faisant de l'autocomplete front vers de l'autocomplete back. (f5cd113f9378e8310def7ac5062c19c4b6fc14cc)
+
 ## 1.17.0-master.132+20210126093840
 2021-01-26
 
