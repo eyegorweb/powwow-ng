@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.139+20210127154415
+2021-01-27
+
+### Fixes
+
+- [00] Corriger les erreurs dans le dashboard quand le CF est absent (283475d5382090613be97ab9de26f61257d9670a)
+
 ## 1.17.0-master.138+20210127100144
 2021-01-27
 
