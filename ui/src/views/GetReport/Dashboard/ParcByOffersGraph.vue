@@ -45,8 +45,10 @@ export default {
       return this.offer.meta.code;
     },
     customerAccountId() {
-      if (!this.billingAccount) return;
-      return this.billingAccount.data.id;
+      if (this.billingAccount && this.billingAccount.data) {
+        return this.billingAccount.data.id;
+      }
+      return;
     },
 
     canShow() {

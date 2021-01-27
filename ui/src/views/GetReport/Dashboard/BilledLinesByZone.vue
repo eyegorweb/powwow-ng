@@ -129,7 +129,7 @@ export default {
       const params = {
         partyId: this.partner.id,
       };
-      if (this.billingAccount) {
+      if (this.billingAccount && this.billingAccount.data) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
       const apiData = await billedLineConsoZone(
