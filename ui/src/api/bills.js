@@ -1,9 +1,9 @@
 import { query, getFilterValue } from './utils';
 
-export async function exportBill(partnerId, reference, exportFormat) {
+export async function exportBill(partnerId, reference, customerAccountCode, exportFormat) {
   const queryStr = `
   query {
-    exportBill(billsFilter: { partnerId: ${partnerId}, reference: "${reference}" }, exportFormat: ${exportFormat}) {
+    exportBill(billsFilter: { partnerId: ${partnerId}, reference: "${reference}", customerAccountCode: "${customerAccountCode}" }, exportFormat: ${exportFormat}) {
       downloadUri
       total
       asyncRequired

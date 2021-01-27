@@ -126,6 +126,7 @@ export default {
         return await exportBill(
           this.content.selectedPartnerId,
           this.content.reference,
+          this.content.customerAccountCode,
           exportFormat
         );
       };
