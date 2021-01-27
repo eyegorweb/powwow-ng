@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.138+20210127100144
+2021-01-27
+
+### Fixes
+
+- [2350] Ajout du filtre "customerAccountCode" pour l'api "exportBill". (ac8f2a595bc8421cabf2ffcc574d412b7a55ece4)
+
 ## 1.17.0-master.137+20210126160932
 2021-01-26
 
