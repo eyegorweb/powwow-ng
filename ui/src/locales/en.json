@@ -1374,7 +1374,7 @@
         "POSITION_ALARM": "Set an alarm",
         "CHANGE_SERVICES": "Edit services",
         "CHANGE_STATUS": "Cancel",
-        "SIM_TRANSFER": "SIM transfer",
+        "SIM_TRANSFER": "Validate transfers",
         "SEND_SMS": "Send SMS",
         "REACTIVATE": "Reactivate lines",
         "TEST_PHASE": "Complete a test phase",
