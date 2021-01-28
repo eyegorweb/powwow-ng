@@ -52,8 +52,6 @@ export default {
         formData: this.selectedOptions,
       };
 
-      // const response = await alarmOnChangeCountry(params);
-
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
@@ -62,12 +60,32 @@ export default {
         response = await alarmOnChangeCountry(params);
       }
 
-      if (response.errors && response.errors.length) {
+      const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
+      this.onClose(response, key);
+    },
+    onClose(response, key) {
+      if (
+        response.errors &&
+        response.errors.length &&
+        response.errors.find(err => err.key === key)
+      ) {
+        setTimeout(() => {
+          this.confirmAction({
+            message: 'getvsion.alarm-creation.alarmPopUp',
+            noOkButton: true,
+            isWarning: true,
+            customCloseLabel: 'close',
+          });
+        }, 500);
+      } else if (
+        response.errors &&
+        response.errors.length &&
+        !response.errors.find(err => err.key === key)
+      ) {
         this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
         this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
       }
-
       this.closePanel({ resetSearch: true });
     },
   },

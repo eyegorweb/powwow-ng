@@ -1,7 +1,10 @@
 <template>
   <Modal v-if="!!actionToConfirm">
     <div slot="body">
-      <div class="text-danger">
+      <div class="alert alert-warning" v-if="actionToConfirm.isWarning">
+        {{ $t(actionToConfirm.message) }}
+      </div>
+      <div v-else class="text-danger">
         <i class="ic-Alert-Icon"></i>
         {{ $t(actionToConfirm.message) }}
       </div>
@@ -12,7 +15,12 @@
         v-if="!isLoading"
         @click.stop="closeAction()"
       >
-        {{ $t('cancel') }}
+        <template v-if="actionToConfirm.customCloseLabel">
+          {{ $t(actionToConfirm.customCloseLabel) }}
+        </template>
+        <template v-else>
+          {{ $t('cancel') }}
+        </template>
       </button>
       <button
         class="modal-default-button btn btn-success btn-sm ml-1"

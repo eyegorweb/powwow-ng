@@ -219,13 +219,6 @@ export default {
           this.offerChangeEnabled = true;
         }
 
-        // if (this.lineData.party && this.lineData.party.partyType === 'MVNO') {
-
-        //   this.consumption = await fetchCurrentConsumption({
-        //     simCardInstanceId: this.$route.params.lineId,
-        //   });
-        // }
-
         if (this.lineData.party && this.lineData.party.partyType !== 'MVNO') {
           this.carouselItems = excludeMocked([
             {

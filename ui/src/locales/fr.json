@@ -602,7 +602,8 @@
         "STATUS_CHANGE": "Si votre SIM M2M bascule vers un statut cible (activation, suspension…), l’alarme se déclenchera et vous permettra d’être informé du passage au statut cible. Il est possible de choisir tous les statuts au lieu d’un seul statut cible.",
         "IMEI_CHANGE": "Lorsque la SIM M2M est retirée d’un objet communiquant et insérée dans une nouveau terminal, l’alarme se déclenchera et vous permettra d’être informé du changement de l’appairage SIM/module.",
         "COUNTRY_CHANGE": "A chaque changement de zone (un ou plusieurs pays) effectué par votre objet communiquant, l’alarme se déclenchera et vous permettra d’être informé du changement. Il possible de sélectionner un ou plusieurs pays pour créer la zone cible. L’alarme est déclenchée à chaque changement de pays dans la liste sélectionnée."
-      }
+      },
+      "alarmPopUp": "L'alarme a été créée mais n'a pu être positionnée sur les anciennes lignes. Veuillez réaliser cette opération manuellement."
     },
     "monitoring": {
       "filterByFile": "Filtrer à partir d'un fichier"

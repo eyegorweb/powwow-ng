@@ -100,7 +100,6 @@ export default {
       dataOfferPackage: undefined,
       voiceOfferPackage: undefined,
       smsOfferPackage: undefined,
-
       includeDataLimits: false,
       includeSMSLimits: false,
       includeVoiceLimits: false,
@@ -134,7 +133,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'closePanel']),
+    ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
 
     onBillingAccountChange(value) {
       this.filterForCreation = value;
@@ -256,14 +255,8 @@ export default {
         } else {
           response = await createSharedConsumptionAlarm(params);
         }
-
-        if (response.errors && response.errors.length) {
-          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-        } else {
-          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-        }
-
-        this.closePanel({ resetSearch: true });
+        const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
+        this.onClose(response, key);
       } catch (e) {
         console.log('Erreur ', e);
       }
@@ -308,6 +301,31 @@ export default {
       }
 
       return isFormValid;
+    },
+    onClose(response, key) {
+      if (
+        response.errors &&
+        response.errors.length &&
+        response.errors.find(err => err.key === key)
+      ) {
+        setTimeout(() => {
+          this.confirmAction({
+            message: 'getvsion.alarm-creation.alarmPopUp',
+            noOkButton: true,
+            isWarning: true,
+            customCloseLabel: 'close',
+          });
+        }, 500);
+      } else if (
+        response.errors &&
+        response.errors.length &&
+        !response.errors.find(err => err.key === key)
+      ) {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      } else {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+      }
+      this.closePanel({ resetSearch: true });
     },
   },
 };
