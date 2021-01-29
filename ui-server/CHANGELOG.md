@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.141+20210129090123
+2021-01-29
+
+### Fixes
+
+- [2345] ajout d'une gestion d'exception lors de la création d'alarme (d92cd9163ce5be83a399f0b0996d46965a97b6e4)
+
 ## 1.17.0-master.140+20210129074508
 2021-01-29
 
