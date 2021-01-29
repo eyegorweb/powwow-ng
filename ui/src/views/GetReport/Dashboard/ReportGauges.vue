@@ -1,17 +1,34 @@
 <template>
-  <GraphContainer title="getreport.dashboard.highConso" :size="12" :can-show="!!offerForGauge">
-    <div class="d-flex justify-content-end">
-      <Toggle
-        v-if="toggleValues"
-        @update="currentValue = $event.id"
-        :values="toggleValues"
-        class="pl-2"
-      />
+  <GraphContainer
+    title="getreport.dashboard.highConso"
+    :size="12"
+    :can-show="!!offerForGauge"
+    skeletonHeight="240"
+  >
+    <div
+      v-if="isLoading"
+      class="skeleton-line error-txt"
+      :style="{ width: '100%', height: '240px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
+      <div class="d-flex justify-content-end">
+        <Toggle
+          v-if="toggleValues"
+          @update="currentValue = $event.id"
+          :values="toggleValues"
+          class="pl-2"
+        />
+      </div>
+      <ConsoGauges
+        v-if="currentValue === 'graph'"
+        :selected-offer="offerForGauge"
+        @isLoading="isLoading = $event"
+      >
+        <h4>{{ $t('getreport.dashboard.chooseCFandOffer') }}</h4>
+      </ConsoGauges>
+      <ConsoTable v-else :partner="partner" :offer="offer" :billing-account="billingAccount" />
     </div>
-    <ConsoGauges v-if="currentValue === 'graph'" :selected-offer="offerForGauge">
-      <h4>{{ $t('getreport.dashboard.chooseCFandOffer') }}</h4>
-    </ConsoGauges>
-    <ConsoTable v-else :partner="partner" :offer="offer" :billing-account="billingAccount" />
+
     <div slot="onHide">
       {{ $t('getreport.dashboard.chooseCFandOffer') }}
     </div>
@@ -43,6 +60,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       currentValue: 'graph',
       toggleValues: [
         {

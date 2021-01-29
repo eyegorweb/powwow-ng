@@ -5,11 +5,17 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="477"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
     </div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line centered-error"
+      :style="{ width: '100%', height: '477px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <div class="d-flex justify-content-end">
         <ExportButton :export-fn="getExportFn()"> </ExportButton>
       </div>
@@ -22,7 +28,11 @@
         />
       </div>
       <chart v-if="chartOptions" :options="chartOptions" />
-      <div v-else>{{ $t('noResult') }}</div>
+      <div class="centered-error" :style="{ minHeight: '477px' }" v-else>
+        <div>
+          {{ $t('noResult') }}
+        </div>
+      </div>
     </div>
   </GraphContainer>
 </template>
@@ -80,6 +90,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
       currentPeriod: 'MONTH12',
       tooltipMsg: this.$t('getdevice.messages.warning2'),
@@ -122,11 +133,13 @@ export default {
         params.customerAccountCode = this.billingAccount.data.code;
       }
 
+      this.isLoading = true;
       const apiData = await parcStatusByMonth(
         params.partyId,
         params.customerAccountCode,
         this.currentPeriod
       );
+      this.isLoading = false;
 
       const dataSeries = apiData.reduce(
         (all, c) => {

@@ -5,9 +5,15 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="400"
   >
     <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line centered-error"
+      :style="{ width: '100%', height: '400px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <div class="d-flex justify-content-between">
         <Toggle
           v-if="usageToggleValues"
@@ -81,6 +87,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
       dataChartOptions: undefined,
       smsChartOptions: undefined,
@@ -132,11 +139,13 @@ export default {
       if (this.billingAccount && this.billingAccount.data) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
+      this.isLoading = true;
       const apiData = await billedLineConsoZone(
         params.partyId,
         params.customerAccountCode,
         this.currentPeriod
       );
+      this.isLoading = false;
 
       const chartData = apiData.reduce(
         (all, c) => {

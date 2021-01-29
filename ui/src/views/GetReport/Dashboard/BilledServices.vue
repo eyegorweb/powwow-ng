@@ -5,9 +5,15 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="400"
   >
     <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line centered-error"
+      :style="{ width: '100%', height: '400px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <div class="d-flex justify-content-end">
         <Toggle
           v-if="toggleValues"
@@ -71,6 +77,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
       currentPeriod: 'MONTH12',
       tooltipMsg: this.$t('getdevice.messages.warning2'),
@@ -105,18 +112,20 @@ export default {
         params.customerAccountCode = this.billingAccount.data.code;
       }
 
+      this.isLoading = true;
       const apiData = await billedLinesByStep(
         params.partyId,
         params.customerAccountCode,
         this.currentPeriod
       );
+      this.isLoading = false;
 
       const dataSeries = apiData.reduce(
         (all, c) => {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
 
-          c.palierValues.forEach(p => {
+          c.palierValues.forEach((p) => {
             if (!all.series[p.palier]) {
               all.series[p.palier] = [];
             }
@@ -130,7 +139,7 @@ export default {
         }
       );
 
-      const series = Object.keys(dataSeries.series).map(key => {
+      const series = Object.keys(dataSeries.series).map((key) => {
         return {
           name: key,
           data: dataSeries.series[key],

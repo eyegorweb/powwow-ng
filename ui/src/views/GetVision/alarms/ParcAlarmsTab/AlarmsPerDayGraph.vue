@@ -109,16 +109,18 @@ export default {
       if (!this.partners) return;
       const data = [];
       const historyDepth = 30;
+      this.$emit('isLoading', true);
       const filledValues = await fetchAlarmInstancesIndicators(
         ['ALARM_TRIGGERED_DAY'],
         historyDepth,
         this.partners
       );
+      this.$emit('isLoading', false);
 
       if (filledValues[0] && filledValues[0].histories && filledValues[0].histories.length) {
         filledValues[0].histories
           .sort((a, b) => (isBefore(a.applicationDate, b.applicationDate, DATE_FORMAT) ? -1 : 1))
-          .map(i => {
+          .map((i) => {
             const dateParts = i.applicationDate.split('/');
             const formattedObj = {
               date: Date.UTC(
