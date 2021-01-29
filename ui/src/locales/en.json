@@ -70,6 +70,7 @@
   "notAvailableShortCut": "N/A",
   "notDefined": "Not define",
   "confirmAction": "Confirm action ?",
+  "confirmDeleteFilter": "Are you sure you want to delete the saved filter ?",
   "requestError": "Error during processing the request",
   "status": "Status",
   "lastUpdate": "Last update",
