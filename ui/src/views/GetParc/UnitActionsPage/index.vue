@@ -46,13 +46,16 @@
           </UiTab>
         </template>
         <div slot="fail">
-          <FailedTable :total="tabs[0].total" @refreshTables="refreshTables" />
+          <FailedTable
+            :total="$loGet(massAction, 'failedEntitiesNumber', 0)"
+            @refreshTables="refreshTables"
+          />
         </div>
         <div slot="ongoing">
-          <PendingTable :total="tabs[1].total" />
+          <PendingTable :total="$loGet(massAction, 'pendingEntitiesNumber', 0)" />
         </div>
         <div slot="finished">
-          <FinishedTable :total="tabs[2].total" />
+          <FinishedTable :total="$loGet(massAction, 'completedEntitiesNumber', 0)" />
         </div>
       </UiTabs>
     </div>
@@ -139,7 +142,7 @@ export default {
     getMassActionItem(response) {
       if (response) {
         const foundItem = response.find(
-          f => f.massActionResponse.id === this.$route.params.massActionId
+          (f) => f.massActionResponse.id === this.$route.params.massActionId
         );
         if (foundItem) {
           return foundItem.massActionResponse;
