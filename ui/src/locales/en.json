@@ -517,7 +517,8 @@
         "STATUS_CHANGE": "If your M2M SIM switches to a target status (activation, suspension...), the alarm will be triggered and you will be informed of the switch to the target status. It is also possible to choose all statuses instead of just one target status.",
         "IMEI_CHANGE": "When the SIM M2M is removed from a communicating object and inserted in a new terminal, the alarm will be triggered and you will be informed of the change in SIM/module pairing.",
         "COUNTRY_CHANGE": "Each time your communicating object changes zones (one or more countries), the alarm will be triggered and you will be informed of the change. It is possible to select one or more countries to create the target zone. The alarm is triggered each time the country in the selected list changes."
-      }
+      },
+      "alarmPopUp": "The alarm was created but could not be positioned on the old lines. Please perform this operation manually."
     },
     "monitoring": { "filterByFile": "Filter from file" },
     "tab-3-m2m-sharedconso": "Mutualized Alarms",
