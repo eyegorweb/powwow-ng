@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.140+20210129074508
+2021-01-29
+
+### Fixes
+
+- [2355] traduction de l'action Valider les transferts (0ae31fe9a315d877de6ce06561acef96a57e4a05)
+- [2351] Modification du message de confirmation de suppression de filtre (a5e7c87b2600e837dfdabd1b79cdab343ccff733)
+
 ## 1.17.0-master.139+20210127154415
 2021-01-27
 
