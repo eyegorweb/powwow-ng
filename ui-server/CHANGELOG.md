@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.143+20210129153204
+2021-01-29
+
+### Fixes
+
+- [00] Corriger le problème de pagination dans le détail d'acte (b0939362d1b44794cfac81d0c98b668d7bc31c3b)
+
 ## 1.17.0-master.142+20210129142230
 2021-01-29
 
