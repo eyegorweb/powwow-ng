@@ -62,7 +62,7 @@ export default {
         this.refreshList();
       };
       this.confirmAction({
-        message: 'confirmAction',
+        message: 'confirmDeleteFilter',
         actionFn: async () => {
           const response = await deleteFilter(filterToDelete.id);
           if (response) {

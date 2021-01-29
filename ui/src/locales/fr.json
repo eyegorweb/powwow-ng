@@ -84,6 +84,7 @@
   "notAvailableShortCut": "N/A",
   "notDefined": "Non déterminé",
   "confirmAction": "Confirmer la demande ?",
+  "confirmDeleteFilter": "Etes-vous sûr de vouloir supprimer le filtre enregistré ?",
   "requestError": "Erreur durant le traitement de la requête",
   "status": "Statut",
   "lastUpdate": "Dernière Mise à jour",
