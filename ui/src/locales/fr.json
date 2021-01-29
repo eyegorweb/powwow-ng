@@ -85,6 +85,7 @@
   "notDefined": "Non déterminé",
   "confirmAction": "Confirmer la demande ?",
   "confirmDeleteFilter": "Etes-vous sûr de vouloir supprimer le filtre enregistré ?",
+  "madeModification": "Modification effectuée",
   "requestError": "Erreur durant le traitement de la requête",
   "status": "Statut",
   "lastUpdate": "Dernière Mise à jour",
