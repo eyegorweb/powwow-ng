@@ -5,13 +5,23 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="400"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
     </div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line error-txt"
+      :style="{ width: '100%', height: '400px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <chart v-if="chartOptions" :options="chartOptions" />
-      <div v-else>{{ $t('noResult') }}</div>
+      <div class="error-txt" :style="{ minHeight: '400px' }" v-else>
+        <div>
+          {{ $t('noResult') }}
+        </div>
+      </div>
     </div>
   </GraphContainer>
 </template>
@@ -71,6 +81,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
       tooltipMsg: this.$t('getdevice.messages.warning1'),
     };
@@ -80,11 +91,15 @@ export default {
     async refreshData() {
       if (!this.partner) return;
 
+      this.isLoading = true;
+
       const data = await getDoughnutOfferDistributionInfo(
         this.partner.id,
         this.workflowCode,
         this.customerAccountId
       );
+      this.isLoading = false;
+
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.offer,
@@ -127,4 +142,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error-txt {
+  font-size: 1.1rem;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+
+  & > div {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>

@@ -43,7 +43,10 @@ export default {
         params.customerAccountCode = this.billingAccount.data.code;
       }
 
+      this.$emit('isLoading', true);
       const data = await fetchConsoHistory(params);
+      this.$emit('isLoading', false);
+
       if (!data) return;
 
       const dataConsumption = data.dataConsumption;

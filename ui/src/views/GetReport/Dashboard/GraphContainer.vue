@@ -10,8 +10,10 @@
       <template v-if="canShow">
         <slot />
       </template>
-      <template v-else class="text-center error-txt">
-        <slot name="onHide" />
+      <template v-else>
+        <div class="centered-error" :style="{ minHeight: skeletonHeight + 'px' }">
+          <slot name="onHide" />
+        </div>
       </template>
     </div>
   </div>
@@ -31,15 +33,15 @@ export default {
     },
     warning: Boolean,
     tooltipMsg: String,
+    skeletonHeight: {
+      type: String,
+      default: '100',
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.error-txt {
-  font-size: 1.1rem;
-}
-
 .size-3 {
   width: 100%;
 }

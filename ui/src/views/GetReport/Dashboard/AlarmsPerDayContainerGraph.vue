@@ -5,9 +5,15 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="160"
   >
-    <div>
-      <AlarmsPerDayGraph title="" :partners="selectedPartnerIds" />
+    <div
+      v-if="isLoading"
+      class="skeleton-line centered-error"
+      :style="{ width: '100%', height: '160px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
+      <AlarmsPerDayGraph title="" :partners="selectedPartnerIds" @isLoading="isLoading = $event" />
     </div>
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
@@ -62,6 +68,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       selectedPartnerIds: [],
       tooltipMsg: this.$t('getdevice.messages.warning1'),
     };

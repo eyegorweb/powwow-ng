@@ -5,11 +5,17 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
+    skeletonHeight="589"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
     </div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line error-txt"
+      :style="{ width: '100%', height: '589px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <div class="d-flex justify-content-end">
         <ExportButton :export-fn="getExportFn()"> </ExportButton>
       </div>
@@ -26,6 +32,7 @@
           v-if="currentUsage === 'data'"
           :partner="partner"
           :billing-account="billingAccount"
+          @isLoading="isLoading = $event"
         />
       </keep-alive>
       <keep-alive>
@@ -101,6 +108,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       currentUsage: 'data',
       tooltipMsg: this.$t('getdevice.messages.warning2'),
       toggleValues: [

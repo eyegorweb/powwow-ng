@@ -216,6 +216,18 @@ $theme-colors: map-merge(
   display: none;
 }
 
+.centered-error {
+  font-size: 1.1rem;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+
+  & > div {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 @keyframes fade-in {
   0% {
     display: none;

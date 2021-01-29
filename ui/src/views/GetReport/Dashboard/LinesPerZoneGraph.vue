@@ -1,11 +1,25 @@
 <template>
-  <GraphContainer title="getreport.dashboard.repartitionByZone" :size="4" :can-show="canShow">
+  <GraphContainer
+    title="getreport.dashboard.repartitionByZone"
+    :size="4"
+    :can-show="canShow"
+    skeletonHeight="400"
+  >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
     </div>
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line centered-error"
+      :style="{ width: '100%', height: '400px' }"
+    ></div>
+    <div :class="{ hidden: isLoading }">
       <chart v-if="chartOptions" :options="chartOptions" />
-      <div v-else>{{ $t('noResult') }}</div>
+      <div class="centered-error" :style="{ minHeight: '400px' }" v-else>
+        <div>
+          {{ $t('noResult') }}
+        </div>
+      </div>
     </div>
   </GraphContainer>
 </template>
@@ -55,6 +69,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
     };
   },
@@ -62,11 +77,14 @@ export default {
     async refreshData() {
       if (!this.canShow) return;
 
+      this.isLoading = true;
       const data = await doughnutAreaDistribution(
         this.partner.id,
         this.workflowCode,
         this.customerAccountId
       );
+      this.isLoading = false;
+
       const formateddata = data.reduce((all, item) => {
         all.push({
           name: item.areaLabel,

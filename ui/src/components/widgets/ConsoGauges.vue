@@ -20,7 +20,7 @@
           >{{ $t('services.SMS') }}</Gauge
         >
       </div>
-      <div class="col-md-4" style="align-self: flex-end; flex-grow: 1;">
+      <div class="col-md-4" style="align-self: flex-end; flex-grow: 1">
         <Gauge
           :key="'voiceg' + gaugeVersion"
           time-max-value
@@ -91,6 +91,7 @@ export default {
         const { maxData, maxVoice, maxSMS } = await fetMaxValuesFromOfferPackage(
           this.selectedOffer
         );
+        this.$emit('isLoading', true);
 
         const values = await fetchCurrentConsumption({
           customerAccoutId: this.selectedOffer.customerAccoutId,
@@ -114,6 +115,7 @@ export default {
         this.smsValue = values.smsTotal;
         this.voiceValue = values.voiceTotal;
         this.gaugeVersion += 1;
+        this.$emit('isLoading', false);
       }
     },
   },

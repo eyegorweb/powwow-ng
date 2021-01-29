@@ -3,8 +3,15 @@
     title="getreport.dashboard.lastDayWorldMap"
     :size="12"
     :can-show="!!(partner && partner.id)"
+    skeletonHeight="500"
   >
-    <div>
+    <div
+      v-if="isLoading"
+      class="skeleton-line error-txt"
+      :style="{ width: '100%', height: '500px' }"
+    ></div>
+
+    <div :class="{ hidden: isLoading }">
       <chart
         v-if="chartOptions"
         :options="chartOptions"
@@ -29,6 +36,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       chartOptions: undefined,
     };
   },
@@ -66,13 +74,15 @@ export default {
     async refreshData() {
       if (!this.partner) return;
 
+      this.isLoading = true;
       const countriesData = await countryLinesDistribution(
         this.partner.id,
         this.workflowCode,
         this.customerAccountId
       );
-      const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map(c => {
-        const correspondingItemInCountriesData = countriesData.find(d => {
+      this.isLoading = false;
+      const formatedData = DEFAULT_VALUES_BY_COUNTRIES.map((c) => {
+        const correspondingItemInCountriesData = countriesData.find((d) => {
           return d.countryIsoCode2.toLowerCase() === c[0];
         });
         if (correspondingItemInCountriesData) {

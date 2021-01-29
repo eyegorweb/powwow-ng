@@ -12,7 +12,7 @@
       <div v-if="!userIsPartner" class="filter-item-large">
         <PartnerCombo :value.sync="selectedPartner" />
       </div>
-      <div class="filter-item">
+      <div class="filter-item-large">
         <BillingAccountAutocomplete
           :disabled="!selectedPartner"
           v-model="selectedBillingAccount"
@@ -29,7 +29,9 @@
         />
       </div>
       <div class="action-btn pl-2">
-        <UiButton variant="primary" @click="doFilter">Filtrer</UiButton>
+        <UiButton variant="primary" @click="doFilter" :disabled="filtersKey === lastFiltersKey">
+          Filtrer
+        </UiButton>
       </div>
       <div class="action-btn pl-2">
         <UiButton v-if="canCancel" variant="danger" @click="revertSelection">{{
@@ -235,7 +237,7 @@ export default {
     }
     if (this.$route.params && this.$route.params.queryFilters) {
       const selectedPartner = this.$route.params.queryFilters.find(
-        f => f.id === 'filters.partners'
+        (f) => f.id === 'filters.partners'
       );
       if (selectedPartner) {
         this.selectedPartner = {
@@ -249,7 +251,7 @@ export default {
       }
 
       const selectedBillingAccount = this.$route.params.queryFilters.find(
-        f => f.id === 'filters.billingAccounts'
+        (f) => f.id === 'filters.billingAccounts'
       );
       if (selectedBillingAccount) {
         this.selectedBillingAccount = {
@@ -259,7 +261,7 @@ export default {
         };
       }
 
-      const selectedOffer = this.$route.params.queryFilters.find(f => f.id === 'filters.offers');
+      const selectedOffer = this.$route.params.queryFilters.find((f) => f.id === 'filters.offers');
       if (selectedOffer) {
         this.selectedOffer = {
           id: selectedOffer.values[0].id,
@@ -282,12 +284,32 @@ export default {
       appliedBillingAccount: undefined,
       appliedOffer: undefined,
       initialSearchDone: false,
+      lastFiltersKey: undefined,
     };
   },
   computed: {
     ...mapGetters(['userIsPartner', 'singlePartner']),
     canCancel() {
       return !!this.selectedPartner || !!(this.singlePartner && this.singlePartner.length);
+    },
+    filtersKey() {
+      let partnerKey = 'none';
+      let billingAccountKey = 'none';
+      let offerKey = 'none';
+
+      if (this.selectedPartner && this.selectedPartner.id) {
+        partnerKey = this.selectedPartner.id;
+      }
+
+      if (this.selectedBillingAccount && this.selectedBillingAccount.id) {
+        billingAccountKey = this.selectedBillingAccount.id;
+      }
+
+      if (this.selectedOffer && this.selectedOffer.id) {
+        offerKey = this.selectedOffer.id;
+      }
+
+      return `${partnerKey}_${billingAccountKey}_${offerKey}`;
     },
   },
   watch: {
@@ -322,31 +344,45 @@ export default {
       return formatCurrency(value);
     },
     async doFilter() {
-      if (this.selectedPartner) {
-        this.appliedPartner = { ...this.selectedPartner };
-      } else {
+      const doSearch = () => {
+        this.lastFiltersKey = this.filtersKey;
+        if (this.selectedPartner) {
+          this.appliedPartner = { ...this.selectedPartner };
+        } else {
+          this.appliedPartner = undefined;
+        }
+
+        if (this.selectedBillingAccount) {
+          this.appliedBillingAccount = { ...this.selectedBillingAccount };
+        } else {
+          this.appliedBillingAccount = undefined;
+        }
+
+        if (this.selectedOffer) {
+          this.appliedOffer = { ...this.selectedOffer };
+        } else {
+          this.appliedOffer = undefined;
+        }
+      };
+
+      if (this.lastFiltersKey !== this.filtersKey) {
         this.appliedPartner = undefined;
-      }
-
-      if (this.selectedBillingAccount) {
-        this.appliedBillingAccount = { ...this.selectedBillingAccount };
-      } else {
         this.appliedBillingAccount = undefined;
-      }
-
-      if (this.selectedOffer) {
-        this.appliedOffer = { ...this.selectedOffer };
-      } else {
         this.appliedOffer = undefined;
+
+        setTimeout(() => {
+          doSearch();
+        });
       }
     },
     revertSelection() {
       this.selectedPartner = this.initialPartner;
+      this.selectedBillingAccount = undefined;
+      this.selectedOffer = undefined;
+
       this.appliedPartner = undefined;
       this.appliedBillingAccount = undefined;
       this.appliedOffer = undefined;
-      this.selectedBillingAccount = undefined;
-      this.selectedOffer = undefined;
     },
   },
 };
