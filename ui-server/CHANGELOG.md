@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.142+20210129142230
+2021-01-29
+
+### Fixes
+
+- [2353] loader sur la page des graphes - Tableau de bord (1f34947ee7ccecf6e532f0614196f02ed16d943a)
+
 ## 1.17.0-master.141+20210129090123
 2021-01-29
 
