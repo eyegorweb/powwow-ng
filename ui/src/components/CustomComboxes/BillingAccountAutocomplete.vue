@@ -70,7 +70,7 @@ export default {
           partnerType: this.contextPartnersType,
         });
 
-        this.localItems = data.map((p) => ({
+        this.localItems = data.map(p => ({
           id: p.id,
           label: `${p.code} - ${p.name}`,
           data: p,
@@ -87,7 +87,7 @@ export default {
     selectedValue: {
       get() {
         if (this.value && this.value.id && this.localItems && this.localItems.length) {
-          return this.localItems.find((i) => i.id === this.value.id);
+          return this.localItems.find(i => i.id === this.value.id);
         }
 
         return this.value;

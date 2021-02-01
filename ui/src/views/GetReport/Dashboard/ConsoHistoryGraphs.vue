@@ -5,7 +5,7 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
-    skeletonHeight="589"
+    skeleton-height="589"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}

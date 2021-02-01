@@ -5,7 +5,7 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
-    skeletonHeight="160"
+    skeleton-height="160"
   >
     <div
       v-if="isLoading"

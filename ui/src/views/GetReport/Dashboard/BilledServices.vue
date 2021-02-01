@@ -5,7 +5,7 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
-    skeletonHeight="400"
+    skeleton-height="400"
   >
     <div slot="onHide">{{ $t('getreport.errors.partnerRequired') }}</div>
     <div
@@ -125,7 +125,7 @@ export default {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
 
-          c.palierValues.forEach((p) => {
+          c.palierValues.forEach(p => {
             if (!all.series[p.palier]) {
               all.series[p.palier] = [];
             }
@@ -139,7 +139,7 @@ export default {
         }
       );
 
-      const series = Object.keys(dataSeries.series).map((key) => {
+      const series = Object.keys(dataSeries.series).map(key => {
         return {
           name: key,
           data: dataSeries.series[key],
