@@ -110,7 +110,12 @@ export default {
       this.selectedSimTypeValue = selectedProductInSynthesis;
     }
 
-    if (this.selectedSimTypeValue.simCard.type === 'TAPE' && this.order) {
+    if (
+      this.selectedSimTypeValue &&
+      this.selectedSimTypeValue.simCard &&
+      this.selectedSimTypeValue.simCard.type === 'TAPE' &&
+      this.order
+    ) {
       this.selectedSimIsOfTapeType = true;
       this.selectedNumberOfSims =
         this.selectedNumberOfSims / this.selectedSimTypeValue.simCard.number;
@@ -153,7 +158,7 @@ export default {
           },
 
           quantity: {
-            label: 'common.quantity',
+            label: 'getsim.nb-of-sim',
             value: {
               id: 'quantity',
               content: totalNbOfSims,
@@ -176,8 +181,9 @@ export default {
         };
       } else {
         return {
+          tapes: undefined,
           quantity: {
-            label: 'common.quantity',
+            label: 'getsim.nb-of-sim',
             value: {
               id: 'quantity',
               content: quantity,
@@ -203,7 +209,7 @@ export default {
     preFill() {
       this.$emit('saveSynthesis', {
         quantity: {
-          label: 'common.quantity',
+          label: 'getsim.nb-of-sim',
           value: {
             id: 'quantity',
             content: this.order.quantity,

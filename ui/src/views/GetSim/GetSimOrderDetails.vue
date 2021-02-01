@@ -92,11 +92,16 @@
           <p>{{ getFromOrder('orderedSIMCard.description') }}</p>
         </div>
         <div class="overview-item">
-          <h6>{{ $t('orders.detail.orderedQuantity') }} :</h6>
+          <h6>
+            <template v-if="simType === 'TAPE'">
+              {{ $t('orders.detail.orderedCoilQuantity') }} :
+            </template>
+            <template v-else> {{ $t('orders.detail.orderedSimQuantity') }} : </template>
+          </h6>
           <p>{{ getFromOrder('quantity') }}</p>
         </div>
         <div class="overview-item">
-          <h6>{{ $t('orders.detail.importedQuantity') }} :</h6>
+          <h6>{{ $t('orders.detail.importedSimQuantity') }} :</h6>
           <p>{{ getFromOrder('importedQuantity') }}</p>
         </div>
         <div class="overview-item">
@@ -258,7 +263,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.order);
     this.confirmationStepper = [
       {
         code: 'NOT_VALIDATED',
@@ -394,6 +398,9 @@ export default {
         label = this.$t('orders.detail.statuses.CONFIRMED');
       }
       return { code, label };
+    },
+    simType() {
+      return this.order ? this.order.simcardType : undefined;
     },
   },
 

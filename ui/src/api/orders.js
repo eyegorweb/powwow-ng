@@ -21,6 +21,7 @@ export async function searchOrders(orderBy, pagination, filters = []) {
       total
       items {
         id
+        simcardType
         creationDate
         activationAsked
         status
