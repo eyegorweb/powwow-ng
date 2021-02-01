@@ -125,6 +125,7 @@ export default {
     google: Object,
     map: Object,
     appliedFilters: Array,
+    partyOptions: Object,
     usage: String,
     mapPosition: Object,
     loading: Boolean,
@@ -220,6 +221,25 @@ export default {
   },
 
   methods: {
+    setMaxZoom(maxZoom) {
+      if (this.partyOptions) {
+        if (this.partyOptions.optionViewCellId) {
+          this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
+          return;
+        }
+      }
+
+      this.map.setOptions({ maxZoom });
+    },
+    setZoom(zoomLevel) {
+      if (this.partyOptions && this.partyOptions.optionViewCellId) {
+        if (zoomLevel <= COUNTRY_ZOOM_LEVEL) {
+          this.map.setZoom(zoomLevel);
+        }
+      } else {
+        this.map.setZoom(zoomLevel);
+      }
+    },
     async refreshData() {
       if (this.isLoading) return;
       if (!this.canSearch) return;
@@ -235,9 +255,11 @@ export default {
         this.$emit('centeredCountry', countryCode);
         const zoomLevel = this.map.getZoom();
 
-        this.map.setOptions({ maxZoom: CELL_ZOOM_LEVEL });
+        this.setMaxZoom(CELL_ZOOM_LEVEL);
+        // this.map.setOptions({ maxZoom: CELL_ZOOM_LEVEL });
         if (this.usage === 'COCKPIT') {
-          this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
+          // this.map.setOptions({ maxZoom: COUNTRY_ZOOM_LEVEL });
+          this.setMaxZoom(COUNTRY_ZOOM_LEVEL);
           await this.loadDataForM2MCockpit();
         } else if (this.zipCodeFilter) {
           await this.loadDataByZipCode();
@@ -314,13 +336,13 @@ export default {
         if (zoneName === 'france') {
           const franceCoords = new this.google.maps.LatLng(47.343482, 3.2814);
           this.map.setCenter(franceCoords);
-          this.map.setZoom(6);
+          this.setZoom(6);
         } else if (zoneName === 'world') {
           const country = zoneFilter.data.country;
           if (country) {
             const countryCoords = new this.google.maps.LatLng(country.latitude, country.longitude);
             this.map.setCenter(countryCoords);
-            this.map.setZoom(5);
+            this.setZoom(5);
           }
         }
       }
@@ -403,7 +425,7 @@ export default {
       const currentZoomLevel = this.map.getZoom();
       if (currentZoomLevel !== zoomLevel) {
         this.centerOnCoords(longitude, latitude);
-        this.map.setZoom(zoomLevel);
+        this.setZoom(zoomLevel);
       }
     },
 

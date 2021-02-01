@@ -5,7 +5,7 @@
     :can-show="canShow"
     :warning="showWarningMsg"
     :tooltip-msg="tooltipMsg"
-    skeletonHeight="400"
+    skeleton-height="400"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
@@ -58,7 +58,7 @@ export default {
       if (this.billingAccount && this.billingAccount.data) {
         return this.billingAccount.data.id;
       }
-      return;
+      return undefined;
     },
 
     canShow() {

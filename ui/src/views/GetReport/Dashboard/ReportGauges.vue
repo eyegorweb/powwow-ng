@@ -3,7 +3,7 @@
     title="getreport.dashboard.highConso"
     :size="12"
     :can-show="!!offerForGauge"
-    skeletonHeight="240"
+    skeleton-height="240"
   >
     <div
       v-if="isLoading"

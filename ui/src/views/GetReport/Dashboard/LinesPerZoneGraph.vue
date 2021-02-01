@@ -3,7 +3,7 @@
     title="getreport.dashboard.repartitionByZone"
     :size="4"
     :can-show="canShow"
-    skeletonHeight="400"
+    skeleton-height="400"
   >
     <div slot="onHide">
       {{ $t('getreport.errors.partnerRequired') }}
@@ -55,7 +55,7 @@ export default {
       if (this.billingAccount && this.billingAccount.data) {
         return this.billingAccount.data.id;
       }
-      return;
+      return undefined;
     },
     canShow() {
       const partnerChosen = !!(this.partner && this.partner.id);
