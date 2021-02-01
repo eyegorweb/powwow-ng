@@ -28,7 +28,7 @@
             <h2 class="titleCard">{{$t('type')}}:</h2>
             <div class="cardBloc-infos-username">{{ $t((cf.type).toLowerCase()) }}</div>
             <h2 class="titleCard">{{$t('mandatory')}}:</h2>
-            <div class="cardBloc-infos-username">{{ $t((cf.mandatory).toLowerCase()) }}</div>
+            <div class="cardBloc-infos-username">{{ $t(("orders.new.settingsStep." + cf.mandatory)) }}</div>
           </Card>
         </template>
       </template>
