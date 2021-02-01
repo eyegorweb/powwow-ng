@@ -246,7 +246,7 @@ export async function fetchUserFromUsername(username) {
 export async function fetchUserRoles() {
   const queryStr = `
   query {
-    rolesForCurrentUser {
+    roleDtosForCurrentUser {
       Id
       name
       description
@@ -256,7 +256,7 @@ export async function fetchUserRoles() {
   `;
 
   const response = await query(queryStr);
-  return response.data.rolesForCurrentUser;
+  return response.data.roleDtosForCurrentUser;
 }
 
 export function formatFilters(selectedFilters) {
