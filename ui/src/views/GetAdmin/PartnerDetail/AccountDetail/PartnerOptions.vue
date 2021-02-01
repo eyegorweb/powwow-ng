@@ -964,13 +964,6 @@ export default {
         }
       }
 
-      if (this.orderActivationMandatory || this.orderPreactivation) {
-        if (!this.refUser) {
-          fieldErrors.refUser = true;
-          haveError = true;
-        }
-      }
-
       this.errors = fieldErrors;
       return haveError;
     },
