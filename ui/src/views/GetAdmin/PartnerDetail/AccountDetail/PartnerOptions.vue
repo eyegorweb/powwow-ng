@@ -412,7 +412,7 @@ import ToggleGroup from '@/components/ToggleGroup.vue';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import get from 'lodash.get';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import { getPartyOptions, updatePartyOptions } from '@/api/partners.js';
 
@@ -687,6 +687,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['confirmAction']),
     async resetOptions() {
       this.canShowOptions = false;
       this.partnerOptions = await getPartyOptions(this.partner.id);
@@ -894,6 +895,18 @@ export default {
       });
 
       await this.resetOptions();
+
+      this.onClose();
+    },
+    onClose() {
+      setTimeout(() => {
+        this.confirmAction({
+          message: 'madeModification',
+          noOkButton: true,
+          isWarning: true,
+          customCloseLabel: 'close',
+        });
+      }, 200);
     },
     getToggle(toggles, code) {
       const toggle = toggles.find(t => t.code === code);
