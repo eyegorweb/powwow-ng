@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.145+20210201153602
+2021-02-01
+
+### Fixes
+
+- [2344] Ajout d'une popup de confirmation pour la mise à jour des détails de partenaires (5ee07ed9a2801c51c440bc806a4947d0d7266a08)
+- [2319] Problème de traduction (b7c38fa226c32c7a4bd917da5f2e067bb22180b4)
+- [2282] Debug problème de champs obligatoire Options partenaire (9a2ee9473d5da83145130fef60fdeaea50b8bf19)
+- [2357] correction de l'affichage des cartes SIM dans la gestion des partenaires (c1682204c6bd1c1258ee029906abe8312ce74fa5)
+- [2324] mise à jour de laspécification du type de cartes SIM commandés (e39d7a12f17758f1e8c12fe27b64f402cb88dcbd)
+- [2361] Application de l'option viewCellId dans la supervision google (8e9cb1b119cfdf3a955d18e2c154144e9a22866f)
+
 ## 1.17.0-master.144+20210201084623
 2021-02-01
 
