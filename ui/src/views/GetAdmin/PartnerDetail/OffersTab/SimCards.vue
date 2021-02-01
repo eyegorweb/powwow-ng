@@ -130,6 +130,9 @@ h3 {
     li {
       list-style-type: none;
       margin-bottom: 5px;
+      &:first-child {
+        margin-right: 6rem;
+      }
 
       strong {
         display: block;
