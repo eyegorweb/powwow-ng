@@ -70,7 +70,6 @@ export default {
   },
   async mounted() {
     await this.loadLineData();
-
     this.tabs = [
       {
         label: 'detail',
@@ -119,6 +118,7 @@ export default {
     ...mapGetters([
       'havePermission',
       'userIsBO',
+      'userIsMVNO',
       'userInfos',
       'userIsPartner',
       'havePermission',
@@ -128,7 +128,8 @@ export default {
     canRunCoach() {
       return (
         this.havePermission('getParc', 'manage_coach') &&
-        (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable'))
+        (this.userIsBO || this.$loGet(this.partnerOptions, 'coachM2MAvailable')) &&
+        this.lineData.party.partyType != 'MVNO'
       );
     },
 
