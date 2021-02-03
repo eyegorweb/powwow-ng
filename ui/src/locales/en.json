@@ -10,6 +10,7 @@
   "mandatory": "Mandatory",
   "date-over": "before {date}",
   "voice": "Voice",
+  "chooseAPartner": "Choose a partner",
   "numberPerPage": "Nb per page",
   "partnerType": "Partner type",
   "partnerAlarm": "Alarm type",
