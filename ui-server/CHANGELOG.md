@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.146+20210203091046
+2021-02-03
+
+### Fixes
+
+- [2309] Gestion des permissions sur le bouton coach dans detail de ligne (2d583b598ec7f3f5e92fae37a8b15533f8c71c80)
+- [2319] Ajout de la trad anglaise (0ff51ba4369470d2ec8a9947ba202868886e3af9)
+- [2367] Traduction du widget conso (c7d78c0cf59d914ffcf7fe44f15f3454e50b2a39)
+- [2345] correctifs apportés pour la création d'alarme (8002212ed387fd349ebf41973af3216a5f8dc1d7)
+
 ## 1.17.0-master.145+20210201153602
 
 2021-02-01
