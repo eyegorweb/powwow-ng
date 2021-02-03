@@ -2,7 +2,7 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.146+20210203091046
+## 1.17.0-master.147+20210203092404
 2021-02-03
 
 ### Fixes
@@ -11,6 +11,7 @@
 - [2319] Ajout de la trad anglaise (0ff51ba4369470d2ec8a9947ba202868886e3af9)
 - [2367] Traduction du widget conso (c7d78c0cf59d914ffcf7fe44f15f3454e50b2a39)
 - [2345] correctifs apportés pour la création d'alarme (8002212ed387fd349ebf41973af3216a5f8dc1d7)
+- [00] Corriger une erreur javascript dans le détail de ligne (4732a358b1a7561c3b43a83fa4405f3527c338cb)
 
 ## 1.17.0-master.145+20210201153602
 
