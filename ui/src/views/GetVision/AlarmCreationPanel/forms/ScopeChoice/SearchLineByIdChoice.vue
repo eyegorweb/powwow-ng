@@ -82,12 +82,14 @@ export default {
       if (params && params.value && params.type) {
         this.$emit('change', {
           searchById: params,
+          partner: this.partner,
         });
 
         this.params = params;
       } else {
         this.$emit('change', {
           searchById: undefined,
+          partner: undefined,
         });
         this.params = undefined;
       }

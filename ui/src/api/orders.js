@@ -8,7 +8,7 @@ import {
 } from './utils';
 import get from 'lodash.get';
 
-// TODO: Optimiser cette requette, il faudra appeler les fields au besoin
+// TODO: Optimiser cette requête, il faudra appeler les fields au besoin
 export async function searchOrders(orderBy, pagination, filters = []) {
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`

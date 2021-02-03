@@ -191,7 +191,7 @@ export const actions = {
         'flashMessage',
         {
           level: 'danger',
-          message: "Erreur lors de l'éxécution de la requette ",
+          message: "Erreur lors de l'éxécution de la requête ",
         },
         { root: true }
       );
