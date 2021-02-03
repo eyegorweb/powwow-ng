@@ -1879,7 +1879,7 @@
       "save": "SAVE THE ORDER",
       "settingsStep": {
         "mandatoryField": "Mandatory free field",
-        "NONE": "Name",
+        "NONE": "No",
         "ORDER": "on order",
         "ACTIVATION": "on activation",
         "PAIRING": "on pairing"
