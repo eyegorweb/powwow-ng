@@ -257,19 +257,22 @@ function getScope(params) {
 
 function getScopeGQLParams(params) {
   const tempDataUuid = get(params, 'scope.searchByFile.tempDataUuid');
+  const searchById = get(params, 'scope.searchById');
+
   if (!params.scope) return '';
   if (params.scope.partner && params.scope.partner.id && tempDataUuid) {
     return `idParty: {eq: ${params.scope.partner.id}}, tempDataUuid: "${tempDataUuid}"`;
   }
 
-  if (params.scope.partner && params.scope.partner.id) {
+  if (params.scope.partner && params.scope.partner.id && !searchById) {
     return `idParty: {eq: ${params.scope.partner.id}}`;
   }
 
-  const searchById = get(params, 'scope.searchById');
+  if (params.scope.partner && params.scope.partner.id && searchById) {
+    const searchByIdGqlParams = [`idParty: {eq: ${params.scope.partner.id}}`];
 
-  if (searchById) {
-    return `${searchById.type}: {eq: "${searchById.value}"}`;
+    searchByIdGqlParams.push(`${searchById.type}: {eq: "${searchById.value}"}`);
+    return searchByIdGqlParams.join(',');
   }
 
   const offer = get(params, 'scope.offer.id');

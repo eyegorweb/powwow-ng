@@ -69,7 +69,7 @@ export async function query(q, variables) {
 
   if (isOnDebugMode()) {
     let logStr = `
-    ** requette **
+    ** requête **
     ${q}
     `;
 
