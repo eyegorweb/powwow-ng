@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.148+20210204083342
+2021-02-04
+
+### Fixes
+
+- [2345] correctifs apportés pour la création d'alarme (b5d6f81d47dc5b8dae4c36c32e5da85e16845dd0)
+
 ## 1.17.0-master.147+20210203092404
 2021-02-03
 
