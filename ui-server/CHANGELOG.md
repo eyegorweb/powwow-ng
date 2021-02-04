@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.149+20210204095118
+2021-02-04
+
+### Fixes
+
+- [2373] gestion de l'erreur pour l'import de fichier volumineux (f089283284cc2337222d719cfff84722defb674e)
+
 ## 1.17.0-master.148+20210204083342
 2021-02-04
 
