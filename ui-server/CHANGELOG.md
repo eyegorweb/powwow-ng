@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.150+20210204143223
+2021-02-04
+
+### Fixes
+
+- [2381] Si l'utilisateur n'a pas de permission getVision, la page par défaut dans le détail de la ligne / onglet getDiag ne doit pas être affichée (767414226a89badbc59b35202bb493a0f8146458)
+
 ## 1.17.0-master.149+20210204095118
 2021-02-04
 
