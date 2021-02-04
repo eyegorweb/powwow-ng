@@ -110,8 +110,8 @@ export default {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
       const specificCustomerID = this.$loGet(this.content, 'party.id');
       if (!this.menuItems) return [];
-      let visibleItems = this.menuItems.filter(m =>
-        m.compatiblePartnerTypes.some(p => p === typeForPartner)
+      let visibleItems = this.menuItems.filter((m) =>
+        m.compatiblePartnerTypes.some((p) => p === typeForPartner)
       );
       const specificPermissionNetworkHistory = {
         section: 'network_history',
@@ -139,22 +139,31 @@ export default {
   },
   methods: {
     filterByPermission(arrayInput) {
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permission) return true;
         return this.havePermission(a.permission.domain, a.permission.action);
       });
     },
+    gotoRoute(name) {
+      if (this.$route.name !== name) {
+        this.$router.push({
+          name,
+          params: { lineId: this.$route.params.lineId, meta: this.content },
+        });
+      }
+    },
     initializeSection() {
       const typeForPartner = this.$loGet(this.content, 'party.partyType');
+
       if (typeForPartner === 'MVNO') {
-        this.section = 'network_history';
+        this.gotoRoute('lineDetail.diagnosis.networkHistory');
       } else {
         if (this.havePermission('getVision', 'read')) {
-          this.section = 'line_analysis';
+          this.gotoRoute('lineDetail.diagnosis.analysis');
         } else if (this.havePermission('getParc', 'manage_coach')) {
-          this.section = 'last_tests';
+          this.gotoRoute('lineDetail.diagnosis.last_tests');
         } else {
-          this.section = 'network_history';
+          this.gotoRoute('lineDetail.diagnosis.networkHistory');
         }
       }
     },

@@ -116,7 +116,6 @@ export default {
       return 0;
     },
     ...mapGetters([
-      'havePermission',
       'userIsBO',
       'userIsMVNO',
       'userInfos',
