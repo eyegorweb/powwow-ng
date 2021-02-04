@@ -124,7 +124,23 @@ export default {
           this.localError = this.getLocalError(newFile);
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCardsFromLines(newFile);
-            if (this.fileResponse && this.fileResponse.error) {
+            if (
+              this.fileResponse &&
+              this.fileResponse.error &&
+              this.wsUploadFileError(this.fileResponse.error)
+            ) {
+              const count =
+                this.fileResponse.data && this.fileResponse.data.maxNumbersPerFileUpload
+                  ? this.fileResponse.data.maxNumbersPerFileUpload
+                  : '';
+              this.localError = this.$t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
+                count,
+              });
+            } else if (
+              this.fileResponse &&
+              this.fileResponse.error &&
+              !this.wsUploadFileError(this.fileResponse.error)
+            ) {
               this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
             } else {
               this.$emit('response', {
@@ -165,6 +181,9 @@ export default {
         return this.$t('getparc.actCreation.report.' + fileMeta.error);
       }
       return;
+    },
+    wsUploadFileError(error) {
+      return !!error;
     },
     async confirmRequest(showMessage = false) {
       const response = await importIccidsFromLines(
