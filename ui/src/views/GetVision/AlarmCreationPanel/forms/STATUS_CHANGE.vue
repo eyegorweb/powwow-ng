@@ -91,7 +91,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['flashMessage', 'closePanel']),
+    ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
 
     isFormValid() {
       return true;

@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['flashMessage', 'closePanel']),
+    ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
 
     async onSave(payload) {
       const params = {

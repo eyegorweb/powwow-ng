@@ -41,7 +41,7 @@ export default {
     partner: Object,
   },
   methods: {
-    ...mapMutations(['flashMessage', 'closePanel']),
+    ...mapMutations(['flashMessage', 'closePanel', 'confirmAction']),
     isFormValid() {
       return this.selectedOptions && this.selectedOptions.length;
     },
