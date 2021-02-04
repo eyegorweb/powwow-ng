@@ -131,7 +131,8 @@ export const mutations = {
         f.id === 'filters.msisdn' ||
         f.id === 'filters.msisdnA' ||
         f.id === 'filters.imei' ||
-        f.id === 'filters.massActionID'
+        f.id === 'filters.massActionID' ||
+        f.id === 'filters.unitActionId'
     );
 
     if (haveDatesInFilters()) {
