@@ -122,9 +122,10 @@ export async function postFile(url, formData) {
     const response = await api.post(getBaseURL() + url, formData, config);
     return response.data;
   } catch (e) {
+    const data = e.response && e.response.data ? e.response.data : e;
     const message =
       e.response && e.response.data && e.response.data.error ? e.response.data.error : e.message;
-    return { error: message };
+    return { error: message, data };
   }
 }
 
