@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.151+20210208131840
+2021-02-08
+
+### Fixes
+
+- [2380] correction de la recherche unitaire sur les actes de gestion (258284055206a6914ca62a5727c145e39cf3ad3e)
+
 ## 1.17.0-master.150+20210204143223
 2021-02-04
 
