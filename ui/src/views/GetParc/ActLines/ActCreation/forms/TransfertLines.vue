@@ -21,6 +21,16 @@
                 display-results-while-empty
               />
             </div>
+            <div v-if="canChangeServices || !offerEnabled">
+              <ServicesBlock
+                v-if="selectedOffer"
+                :key="selectedOffer.label"
+                :services="offerServices"
+                :data-params-needed="isDataParamsError"
+                vertical
+                @datachange="onServiceChange"
+              />
+            </div>
           </div>
         </PartnerBillingAccountChoice>
       </div>
@@ -59,11 +69,13 @@ import ActFormEmptyContainer from './parts/ActFormEmptyContainer2';
 import PartnerBillingAccountChoice from './parts/PartnerBillingAccountChoice';
 import UiDate from '@/components/ui/UiDate';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
+import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { fetchOffers } from '@/api/offers';
 import moment from 'moment';
 import { transferSIMCards } from '@/api/actCreation';
 import { mapState, mapGetters } from 'vuex';
 import { searchLineById } from '@/api/linesActions';
+import { getMarketingOfferServices } from '@/components/Services/utils.js';
 
 export default {
   components: {
@@ -71,6 +83,7 @@ export default {
     PartnerBillingAccountChoice,
     UiDate,
     UiApiAutocomplete,
+    ServicesBlock,
   },
   data() {
     return {
@@ -82,6 +95,11 @@ export default {
       waitForConfirmation: false,
       errors: {},
       singleLineFound: undefined,
+      offerEnabled: undefined,
+      canChangeServices: false,
+      offerServices: undefined,
+      isDataParamsError: false,
+      servicesChoice: undefined,
     };
   },
   async mounted() {
@@ -147,8 +165,13 @@ export default {
           code: o.code,
           label: o.workflowDescription,
           productCode: o.code,
+          data: o,
         }));
       }
+    },
+    onServiceChange(servicesChoice) {
+      this.servicesChoice = servicesChoice;
+      this.offerServices = [...servicesChoice.services, servicesChoice.dataService];
     },
     async confirmValdation(containerValidationFn) {
       const response = await containerValidationFn();
@@ -180,8 +203,16 @@ export default {
         toCustomerAccountId: this.chosenBillingAccount.id,
         toWorkflowId: this.selectedOffer ? this.selectedOffer.id : null,
         tempDataUuid: contextValues.tempDataUuid,
+        servicesChoice: this.servicesChoice,
       };
       return await transferSIMCards(this.appliedFilters, this.selectedLinesForActCreation, params);
+    },
+  },
+  watch: {
+    selectedOffer(selectedOffer) {
+      if (selectedOffer && selectedOffer.data) {
+        this.offerServices = getMarketingOfferServices(selectedOffer.data.initialOffer);
+      }
     },
   },
 };
