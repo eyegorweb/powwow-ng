@@ -24,38 +24,16 @@
     />
 
     <div v-if="partner" class="mt-4 mb-4 bottom-space">
-      <UiTabs :tabs="tabs" :selected-index="currentLinkIndex">
-        <template slot-scope="{ tab, index, selectedIndex }">
-          <UiTab
-            v-if="tab"
-            :is-selected="index === selectedIndex"
-            class="tab-grow"
-            :disable-menu="tab.disable"
-          >
-            <a class="tab-link" href="#" @click.prevent="() => (currentLinkIndex = index)">{{
-              tab.title
-            }}</a>
+      <UiTabs :tabs="tabs">
+        <template slot-scope="{ tab, index }">
+          <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
+            <router-link :to="tab.to">{{ tab.title }}</router-link>
           </UiTab>
         </template>
-        <div class="pt-4 pl-4" slot="users">
-          <UsersTab :partnerid="this.$route.params.id" :partner="partner" />
-        </div>
-        <div class="pt-4 pl-4" slot="customize">
-          <CustomizeTab :partnerid="this.$route.params.id" :partner="partner" />
-        </div>
-        <div class="pt-4 pl-4" slot="billingAccounts">
-          <BillAccounts :partner="partner" />
-        </div>
-        <div class="pt-4 pl-4" slot="customerList">
-          <PartnerCustomers :partner="partner" />
-        </div>
-        <div class="pt-4 pl-4" slot="accountDetail">
-          <AccountDetail :partner="partner" />
-        </div>
-        <div class="pt-4 pl-4" slot="offersAndSim">
-          <OffersTab :partner="partner" />
-        </div>
       </UiTabs>
+      <div class="pt-4 pl-4">
+        <router-view :partner="partner" />
+      </div>
     </div>
   </div>
 </template>
@@ -66,13 +44,6 @@ import Summary from './Summary';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 
-import UsersTab from './UsersTab';
-import CustomizeTab from './CustomizeTab';
-import AccountDetail from './AccountDetail';
-import OffersTab from './OffersTab';
-import BillAccounts from './BillAccounts';
-import PartnerCustomers from './PartnerCustomers';
-
 import { fetchpartnerById } from '@/api/partners.js';
 
 import { mapGetters } from 'vuex';
@@ -82,13 +53,6 @@ export default {
     Summary,
     UiTabs,
     UiTab,
-
-    BillAccounts,
-    PartnerCustomers,
-    UsersTab,
-    CustomizeTab,
-    AccountDetail,
-    OffersTab,
   },
 
   async mounted() {
@@ -97,6 +61,17 @@ export default {
       includeMailingLists: true,
       mvnoRanges: true,
     });
+    const permissionsForUsersTab = [
+      {
+        domain: 'party',
+        action: 'read_administrator',
+      },
+      {
+        domain: 'user',
+        action: 'read',
+      },
+    ];
+
     this.prepareTabs();
   },
 
@@ -114,6 +89,22 @@ export default {
       this.$router.push({ name: 'getAdminPartners', params: { fromDetail: true } });
     },
 
+    // Gestion des permissions sur les onglets
+    filterByPermission(arrayInput) {
+      let permit = false;
+      return arrayInput.filter((a) => {
+        if (!a.permissions) return true;
+        a.permissions.forEach(e => {
+          if(this.havePermission(e.domain, e.action)) {
+            permit = true;
+          }
+        });
+        return permit;
+      });
+    },
+
+
+    // Définiton des onglets sur la page
     prepareTabs() {
       const tabs = [];
       const permissionsForUsersTab = [
@@ -122,28 +113,45 @@ export default {
       ];
       if (this.canShowTab(permissionsForUsersTab)) {
         tabs.push({
-          label: 'users',
-          title: this.$t('menu.users'),
+          section: 'users',
+          title: this.$t('menu.users').toUpperCase(),
+          permission: permissionsForUsersTab,
+          to: {
+            name: 'partnerDetail.users.admins',
+            params: { partner: this.partner },
+          },
         });
       }
 
       if (this.canShowTab(permissionsForUsersTab)) {
         tabs.push({
-          label: 'customize',
-          title: this.$t('getadmin.partners.customize'),
+          section: 'customize',
+          title: this.$t('getadmin.partners.customize').toUpperCase(),
+          to: {
+            name: 'partnerDetail.customize.customFields',
+            params: { partner: this.partner },
+          },
         });
       }
 
       if (this.partner && this.partner.partyType === 'MULTI_CUSTOMER') {
         tabs.push({
-          label: 'customerList',
-          title: this.$t('getadmin.partners.customerList'),
+          section: 'customerList',
+          title: this.$t('getadmin.partners.customerList').toUpperCase(),
+          to: {
+            name: 'getAdminPartnerDetails.customerList',
+            params: { partner: this.partner },
+          },
         });
       } else {
         if (this.havePermission('party', 'read_customer_account')) {
           tabs.push({
-            label: 'billingAccounts',
-            title: this.$t('filters.billingAccounts'),
+            section: 'billingAccounts',
+            title: this.$t('filters.billingAccounts').toUpperCase(),
+            to: {
+              name: 'getAdminPartnerDetails.billingAccounts',
+              params: { partner: this.partner },
+            },
           });
         }
       }
@@ -156,8 +164,12 @@ export default {
       ];
       if (this.canShowTab(permissionsForOffersTab)) {
         tabs.push({
-          label: 'offersAndSim',
-          title: this.$t('getadmin.partners.offersAndSim'),
+          section: 'offersAndSim',
+          title: this.$t('getadmin.partners.offersAndSim').toUpperCase(),
+          to: {
+            name: 'partnerDetail.offersAndSim.simCards',
+            params: { partner: this.partner },
+          },
         });
       }
 
@@ -178,13 +190,18 @@ export default {
 
       if (this.canShowTab(permissionsForAccountDetailTab)) {
         tabs.push({
-          label: 'accountDetail',
-          title: this.$t('getadmin.partners.accountDetail'),
+          section: 'accountDetail',
+          title: this.$t('getadmin.partners.accountDetail').toUpperCase(),
+          to: {
+            name: 'partnerDetail.accountDetail.description',
+            params: { partner: this.partner },
+          },
         });
       }
 
       this.tabs = tabs;
     },
+
 
     canShowTab(permissions) {
       return permissions.some(p => {
@@ -195,6 +212,15 @@ export default {
 
   computed: {
     ...mapGetters(['userIsPartner', 'havePermission']),
+
+    // Gestion des "active tab" sur les onglets
+    currentTabToShow() {
+      if (this.$route.name.includes('customize')) return 1;
+      if (this.$route.name.includes('billingAccounts')) return 2;
+      if (this.$route.name.includes('offers')) return 3;
+      if (this.$route.name.includes('accountDetail')) return 4;
+      return 0;
+    },
     partnerName() {
       return this.partner ? this.partner.name : '';
     },

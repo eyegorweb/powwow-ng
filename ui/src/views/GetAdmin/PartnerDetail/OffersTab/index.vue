@@ -1,27 +1,28 @@
 <template>
-  <div class="row">
-    <div class="col-md-3">
-      <TabsSubMenu :menu-items="menuItems" v-model="section" />
+<div class="row">
+  <div class="col-md-3">
+      <ul class="list-group">
+        <li
+          v-for="item in menuItems"
+          :key="item.title"
+          class="list-group-item"
+        >
+          <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
+            {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
+          </router-link>
+        </li>
+      </ul>
     </div>
     <div class="col-md-9">
-      <OffersCards v-if="section === 'filters.offers'" :partner="partner" />
-      <SimCards v-if="section === 'getadmin.users.simcards'" :partner="partner" />
+      <router-view :partner="partner" />
     </div>
   </div>
 </template>
 
 <script>
-import OffersCards from './OffersCards';
-import SimCards from './SimCards';
-import TabsSubMenu from '@/components/TabsSubMenu.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    OffersCards,
-    SimCards,
-    TabsSubMenu,
-  },
 
   props: {
     partner: Object,
@@ -29,18 +30,25 @@ export default {
 
   mounted() {
     if (this.havePermission('party', 'read_available_catalog_offers')) {
-      this.menuItems.push('filters.offers');
+      this.menuItems.push({
+        section: 'offersCards',
+        title: 'filters.offers',
+        to: {
+          name: 'partnerDetail.offersAndSim.offers',
+          params: { partner: this.partner },
+        },
+      });
     }
     if (this.havePermission('party', 'read_available_sims')) {
-      this.menuItems.push('getadmin.users.simcards');
+      this.menuItems.push({
+        section: 'simcards',
+        title: 'getadmin.users.simcards',
+        to: {
+          name: 'partnerDetail.offersAndSim.simCards',
+          params: { partner: this.partner },
+        },
+      });
     }
-    if (
-      this.partner.partyType === 'CUSTOMER' &&
-      this.havePermission('party', 'read_supervision_option')
-    ) {
-      this.menuItems.push('getadmin.users.supervision');
-    }
-    this.initSection(this.menuItems);
   },
 
   data() {
@@ -56,12 +64,35 @@ export default {
   },
 
   methods: {
-    initSection(menu) {
-      if (!menu.length) return;
-      this.section = menu.find(a => a);
+    // Gestion des permissions sur sous menus
+    filterByPermission(arrayInput) {
+      let permit = false;
+      return arrayInput.filter((a) => {
+        if (!a.permissions) return true;
+        a.permissions.forEach(e => {
+          if(this.havePermission(e.domain, e.action)) {
+            permit = true;
+          }
+        });
+        return permit;
+      });
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list-group-item {
+  &.-inactive {
+    pointer-events: none;
+    background-color: $gray-400;
+  }
+  a {
+    color: black;
+
+    &.active {
+      color: $primary;
+    }
+  }
+}
+</style>
