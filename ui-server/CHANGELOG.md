@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.152+20210209131814
+2021-02-09
+
+### Fixes
+
+- [2389] ajout d'un loader pour la confirmation d'import de cartes SIM (d14af64adfa85254a4c08a259cd0ed2a7179f8cc)
+- [2382] changement des services lors du transfert de lignes actives (6bd3fcc5a3ba6154072dc99c124588320039943f)
+
 ## 1.17.0-master.151+20210208131840
 2021-02-08
 
