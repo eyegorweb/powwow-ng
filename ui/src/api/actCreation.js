@@ -213,7 +213,7 @@ export async function changeCustomerAccount(filters, lines, params) {
 
 export async function transferSIMCards(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId, tempDataUuid } = params;
+    const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId, tempDataUuid, servicesChoice } = params;
     let gqlWorkflowId = '';
     if (toWorkflowId) {
       gqlWorkflowId = `toWorkflowId: "${toWorkflowId}",`;
@@ -221,6 +221,15 @@ export async function transferSIMCards(filters, lines, params) {
     let gqlTempDataUuid = '';
     if (tempDataUuid) {
       gqlTempDataUuid = `tempDataUuid: "${tempDataUuid}",`;
+    }
+
+    let changeServicesParamsGql = '';
+
+    if (servicesChoice) {
+      changeServicesParamsGql = formatServicesForGQL({
+        data: servicesChoice.dataService,
+        services: servicesChoice.services,
+      });
     }
 
     const queryStr = `
@@ -236,6 +245,7 @@ export async function transferSIMCards(filters, lines, params) {
             toCustomerAccountId: ${toCustomerAccountId},
             ${gqlWorkflowId}
             ${gqlTempDataUuid}
+            ${changeServicesParamsGql}
           })
           {
             tempDataUuid
