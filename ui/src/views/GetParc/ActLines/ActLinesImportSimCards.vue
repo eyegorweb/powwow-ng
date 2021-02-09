@@ -186,6 +186,7 @@ export default {
       return !!error;
     },
     async confirmRequest(showMessage = false) {
+      this.isLoading = true;
       const response = await importIccidsFromLines(
         this.selectedPartner.id,
         this.chosenBillingAccount.id,
@@ -205,6 +206,7 @@ export default {
         }
         this.resetForm();
       }
+      this.isLoading = false;
       return response;
     },
     resetForm() {
