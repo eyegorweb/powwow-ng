@@ -1,31 +1,30 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <TabsSubMenu :menu-items="menuItems" v-model="section" />
+      <ul class="list-group">
+        <li
+          v-for="item in menuItems"
+          :key="item.title"
+          class="list-group-item"
+        >
+          <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
+            {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
+          </router-link>
+        </li>
+      </ul>
     </div>
     <div class="col-md-9">
-      <PartnerOptions v-if="section === 'getadmin.partners.options'" :partner="partner" />
-      <AccountPartnerDetail
-        v-if="section === 'getadmin.partners.accountDescription'"
-        :partner="partner"
-      />
-      <M2MRange v-if="section === 'getadmin.partners.m2mRange.title'" :partner="partner" />
+      <router-view :partner="partner" />
     </div>
   </div>
 </template>
 
 <script>
-import PartnerOptions from './PartnerOptions';
-import AccountPartnerDetail from './AccountPartnerDetail';
 import M2MRange from './M2MRange';
 import { mapGetters } from 'vuex';
-import TabsSubMenu from '@/components/TabsSubMenu.vue';
 
 export default {
   components: {
-    PartnerOptions,
-    AccountPartnerDetail,
-    TabsSubMenu,
     M2MRange,
   },
 
@@ -44,7 +43,24 @@ export default {
       (this.havePermission('party', 'read_main_options') ||
         this.havePermission('party', 'read_secondary_options'))
     ) {
-      menuItems = ['getadmin.partners.accountDescription', 'getadmin.partners.options'];
+      menuItems = [
+            {
+        section: 'description',
+        title: 'getadmin.partners.accountDescription',
+        to: {
+          name: 'partnerDetail.accountDetail.description',
+          params: { partner: this.partner },
+        },
+      },
+      {
+        section: 'options',
+        title: 'getadmin.partners.options',
+        to: {
+          name: 'partnerDetail.accountDetail.options',
+          params: { partner: this.partner },
+        },
+      }
+    ];
       this.section = 'getadmin.partners.options';
     } else if (
       this.havePermission('party', 'read_account_detail') &&
@@ -53,18 +69,33 @@ export default {
         this.havePermission('party', 'read_secondary_options')
       )
     ) {
-      menuItems = ['getadmin.partners.accountDescription'];
-      this.section = 'getadmin.partners.accountDescription';
+    menuItems = [
+      {
+        section: 'description',
+        title: 'getadmin.partners.accountDescription',
+        to: {
+          name: 'partnerDetail.accountDetail.description',
+          params: { partner: this.partner },
+        },
+      },
+    ];
     } else if (
       !this.havePermission('party', 'read_account_detail') &&
       (this.havePermission('party', 'read_main_options') ||
         this.havePermission('party', 'read_secondary_options'))
     ) {
-      menuItems = ['getadmin.partners.options'];
-      this.section = 'getadmin.partners.options';
+    menuItems = [
+      {
+        section: 'options',
+        title: 'getadmin.partners.options',
+        to: {
+          name: 'partnerDetail.accountDetail.options',
+          params: { partner: this.partner },
+        },
+      },
+    ];
     } else {
       menuItems = [];
-      this.section = '';
     }
     if (this.partner && this.partner.partyType === 'MVNO') {
       this.menuItems.push('getadmin.partners.m2mRange.title');
@@ -74,16 +105,43 @@ export default {
 
   data() {
     return {
-      section: undefined,
-
       menuItems: [],
     };
   },
 
+  methods: {
+    // Gestion des permissions sur les onglets
+    filterByPermission(arrayInput) {
+      let permit = false;
+      return arrayInput.filter((a) => {
+        if (!a.permissions) return true;
+        a.permissions.forEach(e => {
+          if(this.havePermission(e.domain, e.action)) {
+            permit = true;
+          }
+        });
+        return permit;
+      });
+    },
+  },
   computed: {
     ...mapGetters(['havePermission']),
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list-group-item {
+  &.-inactive {
+    pointer-events: none;
+    background-color: $gray-400;
+  }
+  a {
+    color: black;
+
+    &.active {
+      color: $primary;
+    }
+  }
+}
+</style>

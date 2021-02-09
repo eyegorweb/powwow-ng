@@ -23,6 +23,7 @@ const GetDevice = () => import('@/views/GetDevice/index.vue');
 const GetVisionMonitoring = () => import('@/views/GetVision/monitoring');
 
 import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
+import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
 
 import { excludeMocked } from '@/featureFlipping/plugin';
 
@@ -33,6 +34,7 @@ export default new Router({
   base: process.env.VUE_APP_BASE_URL,
   routes: excludeMocked([
     lineDetailRoute,
+    partnerDetailRoute,
     {
       path: '/',
       name: 'home',
