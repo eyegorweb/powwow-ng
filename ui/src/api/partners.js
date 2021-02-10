@@ -1,4 +1,4 @@
-import { query, getFilterValues, getValuesIds, mutation } from './utils';
+import { query, getFilterValues, getValuesIds } from './utils';
 import get from 'lodash.get';
 
 export async function updatePartyOptions(params) {
@@ -130,7 +130,11 @@ export async function editAdministrator(type, params) {
 }
 
 export async function deleteSecondaryAdministrator(partyId) {
-  const response = await mutation('deleteSecondaryAdministrator', { partyId }, '{id}');
+  const queryStr = `
+  mutation DeleteSecondaryAdministrator($partyId: Long!) {
+    deleteSecondaryAdministrator(partyId: $partyId) {id}
+    }`;
+  const response = await query(queryStr);
   if (response.data) return response.data.deleteSecondaryAdministrator;
 }
 
