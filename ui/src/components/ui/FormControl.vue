@@ -1,6 +1,6 @@
 <template>
   <div class="form-group" :class="{ error: !!error }">
-    <label>{{ $t(label) }}</label>
+    <label :class="{ 'font-weight-bold': boldLabel }">{{ noTrad ? label : $t(label) }}</label>
     <slot>
       <input
         v-if="inputType === 'number'"
@@ -26,6 +26,9 @@
       />
       <small v-if="error" class="form-text error-text">{{ $t(error) }}</small>
       <small v-if="required" class="form-text error-text">{{ $t('required') }}</small>
+      <small v-if="boundsError" class="form-text error-text">
+        {{ $t('errors.boundsError', { min: minValue, max: maxValue }) }}
+      </small>
     </slot>
   </div>
 </template>
@@ -40,6 +43,8 @@ export default {
 
   props: {
     label: String,
+    boldLabel: Boolean,
+    noTrad: Boolean,
     placeholder: {
       type: [String, Number],
       required: false,
@@ -58,6 +63,34 @@ export default {
     maxSize: {
       type: Number,
       required: false,
+    },
+    minValue: {
+      type: Number,
+      required: false,
+    },
+    maxValue: {
+      type: Number,
+      required: false,
+    },
+  },
+
+  data() {
+    return {
+      boundsError: false,
+    };
+  },
+
+  watch: {
+    value_(newValue, oldValue) {
+      if (newValue != oldValue) {
+        if (this.minValue !== undefined && this.maxValue !== undefined) {
+          if (parseFloat(newValue) < this.minValue || parseFloat(newValue) > this.maxValue) {
+            this.boundsError = true;
+          } else {
+            this.boundsError = false;
+          }
+        }
+      }
     },
   },
 };

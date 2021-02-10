@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ServicesBlock :services="services" full-width no-click />
+    <ServicesBlock :services="services" no-click />
   </div>
 </template>
 

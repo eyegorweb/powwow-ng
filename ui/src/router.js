@@ -111,11 +111,6 @@ export default new Router({
       component: SearchPartners,
     },
     {
-      path: '/getamin/partner/:id',
-      name: 'getAdminPartnerDetails',
-      component: PartnerDetail,
-    },
-    {
       path: '/devices',
       name: 'getDevice',
       component: GetDevice,

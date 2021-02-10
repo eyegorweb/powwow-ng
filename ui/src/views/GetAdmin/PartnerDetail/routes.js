@@ -5,6 +5,10 @@ const AccountDetail = () => import('@/views/GetAdmin/PartnerDetail/AccountDetail
 const OffersTab = () => import('@/views/GetAdmin/PartnerDetail/OffersTab');
 const BillAccounts = () => import('@/views/GetAdmin/PartnerDetail/BillAccounts');
 const PartnerCustomers = () => import('@/views/GetAdmin/PartnerDetail/PartnerCustomers');
+const PartnerCustomersTable = () =>
+  import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/PartnerCustomersTable.vue');
+const BillingAccountDetail = () =>
+  import('@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail');
 // Users and Admins
 const AdminCards = () => import('@/views/GetAdmin/PartnerDetail/UsersTab/AdminCards.vue');
 const UsersCards = () => import('@/views/GetAdmin/PartnerDetail/UsersTab/UsersCards.vue');
@@ -89,11 +93,82 @@ export default {
       name: 'getAdminPartnerDetails.billingAccounts',
       path: 'billAccounts',
       component: BillAccounts,
+      children: [
+        {
+          name: 'getAdminPartnerDetails.billingAccounts.list',
+          path: 'list',
+          component: () =>
+            import('@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountsTable.vue'),
+        },
+        {
+          name: 'getAdminPartnerDetails.billingAccounts.form',
+          path: 'form/:customerAccountCode',
+          component: () =>
+            import('@/views/GetAdmin/PartnerDetail/BillAccounts/BillAccountsForm.vue'),
+        },
+      ],
     },
     {
       name: 'getAdminPartnerDetails.customerList',
-      path: 'customerlist',
+      path: 'customers',
       component: PartnerCustomers,
+      children: [
+        {
+          path: '',
+          redirect: 'list',
+        },
+        {
+          name: 'getAdminPartnerDetails.customerList.list',
+          path: 'list',
+          component: PartnerCustomersTable,
+        },
+        {
+          name: 'getAdminPartnerDetails.customerList.detail',
+          path: 'detail/:billingAccountCode',
+          component: BillingAccountDetail,
+          children: [
+            {
+              name: 'getAdminPartnerDetails.customerList.detail.commercialOffers',
+              path: 'commercialOffers',
+              component: () =>
+                import(
+                  '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/index.vue'
+                ),
+              children: [
+                {
+                  name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
+                  path: 'list',
+                  component: () =>
+                    import(
+                      '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommerialOffersTable.vue'
+                    ),
+                },
+                {
+                  name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
+                  path: 'form/:comOfferId?',
+                  component: () =>
+                    import(
+                      '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/CommercialOffers/CommercialOfferForm.vue'
+                    ),
+                },
+              ],
+            },
+            {
+              name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
+              path: 'deliveryAdresses',
+              component: () =>
+                import(
+                  '@/views/GetAdmin/PartnerDetail/PartnerCustomers/BillingAccountDetail/DeliveryAdresses.vue'
+                ),
+            },
+            {
+              name: 'getAdminPartnerDetails.customerList.detail.simcards',
+              path: 'simcards',
+              component: () => import('@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue'),
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'getAdminPartnerDetails.offersAndSim',

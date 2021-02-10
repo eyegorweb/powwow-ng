@@ -14,13 +14,11 @@
       <div slot="title">{{ $t('getparc.actLines.total', { total: formattedTotal }) }}</div>
 
       <div slot="topRight">
-        <ff-wip>
-          <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
-            <span slot="title">
-              {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
-            </span>
-          </ExportButton>
-        </ff-wip>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">
+            {{ $t('getparc.history.details.EXPORT_LINES', { total: formattedTotal }) }}
+          </span>
+        </ExportButton>
       </div>
 
       <div slot="topLeft">
