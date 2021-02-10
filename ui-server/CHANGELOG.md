@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.155+20210210155213
+2021-02-10
+
+### Fixes
+
+- [2397] correction de l'affichage de la portée de l'alarme si portée nulle (9f9d4b24edc1198440b00ef560a81371bea53146)
+- [2396] page de détail d'un compte de facturation (470496766e04ee82ebc552e20aec833596999504)
+
 ## 1.17.0-master.154+20210210094004
 2021-02-10
 
