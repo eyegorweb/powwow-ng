@@ -573,9 +573,7 @@ export default {
         editable: true,
         optional: false,
         activationDate: null,
-        labelService: this.$t(
-          'getadmin.partners.optionsDetails.services.labels.SWITCH_RCDISABLE_RCARDARD'
-        ),
+        labelService: this.$t('getadmin.partners.optionsDetails.services.labels.DISABLE_RCARD'),
       },
       {
         code: 'CHANGE_OFFER',
