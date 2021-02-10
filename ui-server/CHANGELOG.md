@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.154+20210210094004
+2021-02-10
+
+### Fixes
+
+- [2366] correctif d'une traduction sur les services (8405dc45ef10b6a8324108a310b378bede99015f)
+- [2390] gestion de la MAJ du token lors de l'upload de fichiers (e6a7e167f5e1fb0ebcac3bb8fa811c99288d541c)
+
 ## 1.17.0-master.153+20210209161312
 2021-02-10
 
