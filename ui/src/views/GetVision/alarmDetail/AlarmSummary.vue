@@ -26,7 +26,7 @@
           </div>
           <div class="item">
             <h6>{{ $t('getvsion.filters.ALARMS_OFFER') }}:</h6>
-            <p>{{ content.alarmScope ? $t('alarms.alarmScope.' + content.alarmScope) : '-' }}</p>
+            <p>{{ alarmScope }}</p>
           </div>
         </div>
       </div>
@@ -146,6 +146,10 @@ export default {
         }
         return this.observationCycle;
       }
+    },
+    alarmScope() {
+      const alarmScope = this.get('alarmScope');
+      return alarmScope !== null ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
     },
   },
 };
