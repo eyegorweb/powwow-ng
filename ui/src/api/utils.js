@@ -11,62 +11,11 @@ export const api = axios.create();
 
 const WAIT_BEFORE_RETRY_IN_MS = 1000;
 
-export async function mutation(name, params, ret = '') {
-  function scan(obj) {
-    let inputs = '';
-
-    const keys = Object.keys(obj);
-    for (let i = 0; i < keys.length; i++) {
-      let value = obj[keys[i]];
-
-      if ((!(value instanceof Object) && isNaN(value)) || value === undefined || value === null)
-        continue;
-
-      if (value instanceof Object && value.type !== 'enum') {
-        inputs += `${keys[i]}:{${scan(value)}}`;
-      } else {
-        let val = value;
-        if (typeof value === 'string') {
-          val = `"${value}"`;
-        }
-        if (value instanceof Object && value.type === 'enum') {
-          val = value.value;
-        }
-        inputs += `${keys[i]}: ${val}`;
-      }
-
-      if (i + 1 < keys.length) {
-        inputs += ', ';
-      }
-    }
-
-    return inputs;
-  }
-
-  const queryStr = `
-  mutation {
-    ${name}(${scan(params)})${ret}
-  }`;
-
-  return await query(queryStr);
-}
-
 /**
  *  Besoin de gérer les erreurs
  */
-export async function simpleQuery(q, variables) {
-  const haveToken = get(api, 'defaults.headers.common.Authorization');
-  if (!haveToken) return;
-  const payload = { query: q };
-  if (variables) {
-    payload.variables = variables;
-  }
-  const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
-  return response.data;
-}
-export async function query(q, variables) {
-  let tries = 10;
 
+export async function query(q, variables) {
   if (isOnDebugMode()) {
     let logStr = `
     ** requête **
@@ -84,10 +33,24 @@ export async function query(q, variables) {
     console.log(logStr);
   }
 
+  return await doAndRetryHTTPQuery(async () => {
+    const haveToken = get(api, 'defaults.headers.common.Authorization');
+    if (!haveToken) return;
+    const payload = { query: q };
+    if (variables) {
+      payload.variables = variables;
+    }
+    const response = await api.post(process.env.VUE_APP_GQL_SERVER_URL, payload);
+    return response.data;
+  });
+}
+
+async function doAndRetryHTTPQuery(callFn) {
+  let tries = 10;
+
   const singleTry = async () => {
     try {
-      const res = await simpleQuery(q, variables);
-      return res;
+      return await callFn();
     } catch (e) {
       if (e.response.status === 503 || e.response.status === 500) {
         throw e.response.status;
@@ -113,7 +76,7 @@ export async function query(q, variables) {
 }
 
 export async function postFile(url, formData) {
-  try {
+  return doAndRetryHTTPQuery(async () => {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -121,21 +84,7 @@ export async function postFile(url, formData) {
     };
     const response = await api.post(getBaseURL() + url, formData, config);
     return response.data;
-  } catch (e) {
-    const data = e.response && e.response.data ? e.response.data : e;
-    const message =
-      e.response && e.response.data && e.response.data.error ? e.response.data.error : e.message;
-    return { error: message, data };
-  }
-}
-
-export async function queryHandleErros(q) {
-  try {
-    return await api.post(process.env.VUE_APP_GQL_SERVER_URL, { query: q });
-  } catch (e) {
-    // TODO: COrrectly test this
-    // store.commit('startRefreshingToken');
-  }
+  });
 }
 
 export function delay(t) {
