@@ -509,14 +509,46 @@ export async function getCustomerAccount(code) {
         id
         code
         name
+        siret
+        siren
+        marketLine
         company
+        status
         massActionsDisabled
+        auditable {
+          created
+        }
+        party {
+          id
+        }
+        bankAccount {
+          name
+          number
+          establishmentCode
+        }
         address {
           address1
+          address2
           zipCode
           city
           country
           state
+        }
+        customerAccountShippingAddresses(addressFilter:{}) {
+          total
+          items {
+            id
+            address {
+              address1
+              zipCode
+              city
+            }
+            company
+            name {
+              firstName
+              lastName
+            }
+          }
         }
       }
     }

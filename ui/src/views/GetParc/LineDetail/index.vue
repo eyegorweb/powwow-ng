@@ -253,19 +253,19 @@ export default {
               permission: { domain: 'act', action: 'manage_main' },
             },
           ])
-            .filter((i) => {
+            .filter(i => {
               if (i.hideForMultiCustomer) {
                 return !this.userIsMultiCustomer;
               }
               return true;
             })
-            .filter((i) => {
+            .filter(i => {
               if (i.permission) {
                 return this.havePermission(i.permission.domain, i.permission.action);
               }
               return true;
             })
-            .filter((i) => {
+            .filter(i => {
               if (i.title === 'getparc.actCreation.carouselItem.lineDetail.CHANGE_OFFER') {
                 return this.offerChangeEnabled;
               }
@@ -279,7 +279,7 @@ export default {
               selected: false,
               permission: { domain: 'act', action: 'msisdn_change' },
             },
-          ]).filter((i) => {
+          ]).filter(i => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }

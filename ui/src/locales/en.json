@@ -773,13 +773,7 @@
           "discount": "Discount",
           "notDefined": "Not defined",
           "duration": "Duration of engagement",
-          "suspensionPeriod": "Suspension period offered",
-          "subscriptionDiscount": "Subscription discount (%)",
-          "franceVoiceDiscount": "France voice consumption discount (%)",
-          "franceSMSDiscount": "France SMS consumption discount (%)",
-          "franceDataDiscount": "France data consumption discount (%)",
-          "europeVoiceDiscount": "Europe reg. voice consumption discount (%)",
-          "europeSMSDiscount": "SMS Europe reg. consumption discount (%)"
+          "suspensionPeriod": "Suspension period offered"
         }
       },
       "simcards": {

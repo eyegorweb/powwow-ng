@@ -10,12 +10,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="offerPackage in offerPackages" :key="offerPackage.usage">
-        <td>{{ offerPackage.usage }}</td>
-        <td>{{ offerPackage.enveloppeLabel }}</td>
-        <td>{{ offerPackage.enveloppe }}</td>
+      <tr v-for="offerPackage in offerPackages" :key="offerPackage.usageType">
+        <td>{{ offerPackage.usageType }}</td>
+        <td>{{ offerPackage.envelopeLabel }}</td>
+        <td>{{ offerPackage.envelopeValue }}</td>
         <td>{{ offerPackage.price }}</td>
-        <td>
+        <td :style="{ width: '20%' }">
           <UiInput
             v-if="offerPackage.lowerBound"
             v-model="offerPackage.discount"
@@ -23,6 +23,7 @@
             :min-value="offerPackage.lowerBound"
             :max-value="offerPackage.upperBound"
             class="input-block m-0"
+            block
           />
           <template v-else>
             {{ $t('getadmin.partnerDetail.mb.commercialOffers.notDefined') }}
@@ -41,9 +42,15 @@ export default {
     UiInput,
   },
 
+  props: {
+    offerPackages: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      offerPackages: [
+      offerPackagesv: [
         {
           usage: 'Data',
           enveloppeLabel: '1MO FR',

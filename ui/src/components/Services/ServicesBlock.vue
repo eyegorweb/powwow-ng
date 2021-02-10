@@ -30,7 +30,7 @@
             <div v-else>
               <UiToggle
                 :label="service.labelService"
-                :editable="service.editable"
+                :editable="!noClick && service.editable"
                 :bold-label="isChanged(service)"
                 :no-click="noClick"
                 v-model="service.checked"
@@ -50,6 +50,7 @@
           @change="onDataServiceChange"
           :data-params-needed="dataParamsNeeded"
           :bold-label="isChanged(dataService)"
+          :no-click="noClick"
         />
       </div>
     </div>
@@ -60,7 +61,7 @@
         <div :key="service.id" v-for="service in servicesToShow" class="single-service">
           <UiToggle
             :label="service.labelService"
-            :editable="service.editable"
+            :editable="!noClick && service.editable"
             :bold-label="isChanged(service)"
             :no-click="noClick"
             v-model="service.checked"
@@ -80,6 +81,8 @@
           :data-params-needed="dataParamsNeeded"
           @change="onDataServiceChange"
           @apnChange="onApnChange"
+          :disabled="noClick"
+          :no-click="noClick"
         />
       </div>
     </div>
@@ -107,6 +110,7 @@ export default {
     dataParamsNeeded: Boolean,
     fullWidth: Boolean,
     noClick: Boolean,
+    disabled: Boolean,
   },
   computed: {
     ...mapGetters(['userIsMVNO']),

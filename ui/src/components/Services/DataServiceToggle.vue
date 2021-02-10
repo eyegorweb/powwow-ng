@@ -1,7 +1,12 @@
 <template>
   <div v-if="!vertical" class="s-container">
     <div class="line">
-      <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
+      <UiToggle
+        :label="$t('services.DATA')"
+        :editable="!noClick && editable"
+        v-model="checked"
+        :no-click="noClick"
+      />
     </div>
     <div v-if="apns && apns.length" class="line">
       <span class="mt-4 mb-4">Apn:</span>
@@ -9,14 +14,19 @@
         :items="apns"
         @change="toggleApn"
         :empty-error-message="needToChekForApn"
-        :disabled="!checked"
+        :disabled="noClick || !checked"
       />
     </div>
   </div>
   <div v-else class="single-service" :style="{ 'flex-basis': '92%' }">
     <div class="row">
       <div class="col">
-        <UiToggle :label="$t('services.DATA')" :editable="editable" v-model="checked" />
+        <UiToggle
+          :label="$t('services.DATA')"
+          :editable="!noClick && editable"
+          v-model="checked"
+          :no-click="noClick"
+        />
       </div>
       <div class="col">
         <div v-if="apns && apns.length" class="apn-container">
@@ -25,7 +35,7 @@
             :empty-error-message="needToChekForApn"
             :items="apns"
             @change="toggleApn"
-            :disabled="!checked"
+            :disabled="noClick || !checked"
           />
         </div>
       </div>
@@ -47,6 +57,7 @@ export default {
     service: Object,
     vertical: Boolean,
     dataParamsNeeded: Boolean,
+    noClick: Boolean,
   },
 
   data() {

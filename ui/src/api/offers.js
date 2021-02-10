@@ -87,6 +87,28 @@ export async function fetchOffers(
           id
           code
           description
+          offerDiscounts {
+            discount {
+              code
+              discountType
+            }
+            lowerBound
+          }
+          offerPackages {
+            usageType
+            envelopeValue
+            envelopeLabel
+            unit
+          }
+          offerRanges {
+            lowerBound
+            upperBound
+            unitPrice
+            fixedPrice
+            lowerBoundDiscount
+            upperBoundDiscount
+            unit
+          }
           marketingServices {
             labelService
             code
@@ -264,6 +286,19 @@ export async function fetchUsageLimits(partnerId, customerAccountId, offerCode) 
   }
 }
 
+// en attendant le filtre par ID
+export async function fetchOfferGroupById(id, partnerId) {
+  const response = await fetchCommercialOffersForPartnerId(partnerId, undefined, {
+    limit: 999,
+    page: 0,
+  });
+  if (response && response.items) {
+    return response.items.find(i => i.id === parseInt(id));
+  }
+
+  return undefined;
+}
+
 export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pagination) {
   const queryStr = `
   query OfferGroup($partnerId: Long!, $customerAccountId: Long, $pagination: Pagination){
@@ -296,21 +331,45 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
           lowerBound
         }
         offerGroupPackages {
+          usageType
+          upperBound
           lowerBound
           envelopeLabel
+        }
+        offerGroupRanges  {
+          lowerBound
+          upperBound
+          unitPrice
+          fixedPrice
+          upperBoundDiscount
+          unit
         }
         marketingOffer {
           code
           yorkCommunity
           allowedSuspensionDuration
           commitmentDuration
+          billingOfferCode
+          description
+          marketingServices {
+            labelService
+            code
+            activated
+            editable
+            optional
+            parameters {
+              activated
+              name
+              code
+              editable
+            }
+          }
         }
       }
     }
   }
   `;
   const response = await query(queryStr, { partnerId, customerAccountId, pagination });
-
   return response.data.offerGroup;
 }
 

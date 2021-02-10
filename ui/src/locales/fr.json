@@ -259,6 +259,7 @@
   "errors": {
     "all": "Erreur(s)",
     "mandatory": "* Champ obligatoire",
+    "boundsError": "La valeur doit être comprise entre {min} et {max}",
     "password": {
       "length-error": "Le mot de passe doit faire plus de 8 caractères",
       "confirm-error": "Les mots de passe ne correspondent pas",
@@ -763,6 +764,8 @@
         "deliveryAdresses": "Adresses de livraison",
         "paymentMethod": "Mode de paiement",
         "commercialOffers": {
+          "creationTitle": "Création d'offre commerciale",
+          "modificationTitle": "Offre commerciale",
           "create": "Créer une offre commerciale",
           "code": "Code de l'offre commerciale",
           "name": "Nom de l'offre commerciale",
@@ -778,13 +781,7 @@
           "discount": "Remise",
           "notDefined": "Non défini",
           "duration": "Durée d'engagement",
-          "suspensionPeriod": "Période de suspension offerte",
-          "subscriptionDiscount": "Remise abonnement (%)",
-          "franceVoiceDiscount": "Remise conso voix France (%)",
-          "franceSMSDiscount": "Remise conso SMS France (%)",
-          "franceDataDiscount": "Remise conso data France (%)",
-          "europeVoiceDiscount": "Remise conso voix Europe rég. (%)",
-          "europeSMSDiscount": "Remise conso SMS Europe rég. (%)"
+          "suspensionPeriod": "Période de suspension offerte"
         }
       },
       "generalInformations": "Informations générales",

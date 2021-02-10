@@ -97,7 +97,10 @@ export default {
           format: {
             type: 'LinkBtn',
             onClick: async (code, row) => {
-              this.billingAccountToDetail = row;
+              this.$router.push({
+                name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
+                params: { billingAccountCode: row.code },
+              });
             },
           },
         },
@@ -146,7 +149,7 @@ export default {
           exportId: 'CUSTOMER_ACCOUNT_CREATED',
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return get(row, 'auditable.created');
             },
           },

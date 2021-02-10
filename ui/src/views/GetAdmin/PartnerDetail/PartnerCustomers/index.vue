@@ -1,16 +1,11 @@
 <template>
   <div>
-    <CustomersTable :partner="partner" />
+    <router-view :partner="partner"></router-view>
   </div>
 </template>
 
 <script>
-import CustomersTable from './CustomersTable';
-
 export default {
-  components: {
-    CustomersTable,
-  },
   props: {
     partner: Object,
   },

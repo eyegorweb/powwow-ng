@@ -37,8 +37,10 @@
     </a>
 
     <slot name="afterInput" />
-
-    <span v-if="error" class="error-text">{{ $t(error) }}</span>
+    <div v-if="error" class="error-text">{{ $t(error) }}</div>
+    <div v-if="boundsError" class="error-text">
+      {{ $t('errors.boundsError', { min: minValue, max: maxValue }) }}
+    </div>
   </label>
 </template>
 
@@ -49,6 +51,12 @@ export default {
   name: 'UiInput',
   inheritAttrs: false,
   mixins: [propWithSync('value', 'update:value', { required: false })],
+
+  data() {
+    return {
+      boundsError: false,
+    };
+  },
 
   props: {
     placeholder: {
@@ -81,6 +89,20 @@ export default {
     noNumberArrows: Boolean,
     positiveNumber: Boolean,
     block: Boolean,
+  },
+
+  watch: {
+    value_(newValue, oldValue) {
+      if (newValue != oldValue) {
+        if (this.minValue !== undefined && this.maxValue !== undefined) {
+          if (parseFloat(newValue) < this.minValue || parseFloat(newValue) > this.maxValue) {
+            this.boundsError = true;
+          } else {
+            this.boundsError = false;
+          }
+        }
+      }
+    },
   },
 
   computed: {

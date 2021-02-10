@@ -19,7 +19,7 @@
 
     <Summary
       v-if="partner && havePermission('party', 'read_account_detail')"
-      :partner-id="this.$route.params.id"
+      :partner-id="$route.params.id"
       :partner-type="partner.partyType"
     />
 
@@ -94,15 +94,14 @@ export default {
       let permit = false;
       return arrayInput.filter((a) => {
         if (!a.permissions) return true;
-        a.permissions.forEach(e => {
-          if(this.havePermission(e.domain, e.action)) {
+        a.permissions.forEach((e) => {
+          if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
         });
         return permit;
       });
     },
-
 
     // Définiton des onglets sur la page
     prepareTabs() {
@@ -139,7 +138,7 @@ export default {
           section: 'customerList',
           title: this.$t('getadmin.partners.customerList').toUpperCase(),
           to: {
-            name: 'getAdminPartnerDetails.customerList',
+            name: 'getAdminPartnerDetails.customerList.list',
             params: { partner: this.partner },
           },
         });
@@ -149,7 +148,7 @@ export default {
             section: 'billingAccounts',
             title: this.$t('filters.billingAccounts').toUpperCase(),
             to: {
-              name: 'getAdminPartnerDetails.billingAccounts',
+              name: 'getAdminPartnerDetails.billingAccounts.list',
               params: { partner: this.partner },
             },
           });
@@ -202,9 +201,8 @@ export default {
       this.tabs = tabs;
     },
 
-
     canShowTab(permissions) {
-      return permissions.some(p => {
+      return permissions.some((p) => {
         return p;
       });
     },
@@ -215,8 +213,10 @@ export default {
 
     // Gestion des "active tab" sur les onglets
     currentTabToShow() {
+      //partnerDetail.customize.customFields
       if (this.$route.name.includes('customize')) return 1;
-      if (this.$route.name.includes('billingAccounts')) return 2;
+      if (this.$route.name.includes('customerList') || this.$route.name.includes('billingAccounts'))
+        return 2;
       if (this.$route.name.includes('offers')) return 3;
       if (this.$route.name.includes('accountDetail')) return 4;
       return 0;
