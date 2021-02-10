@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.153+20210209161312
+2021-02-10
+
+### Features
+
+- [000] Refacto complet du système de route dans le détail partenaire (179cb445244a8df19090b3f6b3fbaaefc6a09537)
+
 ## 1.17.0-master.152+20210209131814
 2021-02-09
 
