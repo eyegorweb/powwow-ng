@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.156+20210211160933
+2021-02-11
+
+### Fixes
+
+- [2396] création du lien entre le widget Top 5 das alarmes déclenchées et le détail de l'alarme (8f38659447189b63c4b65192ca3aedbfc984645a)
+- [2394] export des lignes ayant déclenché une alarme (43b2f2b00385591a7d60ee7e4c790e441a241e42)
+
 ## 1.17.0-master.155+20210210155213
 2021-02-10
 
