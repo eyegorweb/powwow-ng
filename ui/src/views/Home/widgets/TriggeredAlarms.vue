@@ -11,7 +11,11 @@
       <tbody v-if="!noResults">
         <tr v-for="indicator in indicators" :key="indicator.id">
           <td v-if="!userIsPartner">{{ formattedLabel(indicator.labelKey) }}</td>
-          <td>{{ indicator.name }}</td>
+          <td>
+            <a href="#" @click.prevent="onClick(indicator.entityId)">
+              {{ indicator.name }}
+            </a>
+          </td>
           <td>
             <span>{{ indicator.total }}</span>
           </td>
@@ -97,6 +101,12 @@ export default {
         params: {
           queryFilters: [],
         },
+      });
+    },
+    onClick(id) {
+      this.$router.push({
+        name: 'alarmDetail',
+        params: { alarmId: id, tabIndex: 0 },
       });
     },
   },
