@@ -37,7 +37,7 @@
           </UiTab>
         </template>
         <div class="pt-4 pl-4 extra-space" slot="trigger2Month">
-          <Trigger2MonthsTab :alarm="alarm" />
+          <TriggerMonthTab :alarm="alarm" />
         </div>
         <div class="pt-4 pl-4 extra-space" slot="targetedLines">
           <TargetedLinesByAlarmTab :alarm="alarm" />
@@ -55,7 +55,7 @@ import UiButton from '@/components/ui/Button';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
 import AlarmSummary from './AlarmSummary';
-import Trigger2MonthsTab from './Trigger2MonthsTab';
+import TriggerMonthTab from './TriggerMonthTab';
 import TargetedLinesByAlarmTab from './TargetedLinesByAlarmTab';
 import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
@@ -70,7 +70,7 @@ export default {
     AlarmSummary,
     UiTabs,
     UiTab,
-    Trigger2MonthsTab,
+    TriggerMonthTab,
     TargetedLinesByAlarmTab,
     ExcludedLinesFromAlarmTab,
   },
@@ -80,7 +80,7 @@ export default {
       tabs: [
         {
           label: 'trigger2Month',
-          title: this.$t('getvsion.alarm.triggered_x_month', { month: 2 }),
+          title: this.$t('getvsion.alarm.triggered_month'),
           total: '-',
         },
         {

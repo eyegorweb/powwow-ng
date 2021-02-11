@@ -546,7 +546,7 @@
     },
 
     "alarm": {
-      "triggered_x_month": "Déclenchements dans les {month} derniers mois",
+      "triggered_month": "Déclenchements dans le mois",
       "triggered_lines": "Lignes ciblées par l'alarme",
       "excluded_sim_from_alarms": "Lignes exclues",
       "trigger_reason": "Motifs de déclenchement",

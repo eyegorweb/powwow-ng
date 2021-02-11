@@ -188,7 +188,7 @@ export default {
           label: this.$t('getvsion.associated_alarms'),
           orderable: true,
           visible: true,
-          name: 'activationDate',
+          name: 'associated_alarms',
           noHandle: true,
           fixed: true,
           format: {
@@ -230,8 +230,15 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportlinesBoundTable(columns, orderBy, exportFormat, this.alarm.id, 'ne');
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
+        return await exportlinesBoundTable(
+          ['ICCID', 'LINKED_ALARM', 'OFFER', 'CUSTOMER_ACCOUNT', 'CUSTOMER_ACCOUNT_NAME'],
+          this.orderBy,
+          this.alarm.id,
+          exportFormat,
+          'ne',
+          asyncExportRequest
+        );
       };
     },
 

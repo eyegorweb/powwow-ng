@@ -55,7 +55,7 @@ import AssociatedAlarmsCell from './AssociatedAlarmsCell';
 import CheckBoxCell from './CheckBoxCell';
 
 import ExportButton from '@/components/ExportButton';
-import ICCIDCell from '../Trigger2MonthsTab/ICCIDCell';
+import ICCIDCell from '../TriggerMonthTab/ICCIDCell';
 import AlarmsFileFilter from '@/views/GetVision/alarmDetail/filters/AlarmsFileFilter.vue';
 
 import { mapMutations } from 'vuex';
@@ -114,8 +114,15 @@ export default {
     },
 
     getExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportlinesBoundTable(columns, orderBy, exportFormat, this.alarm.id, 'eq');
+      return async (columnsParam, orderBy, exportFormat, asyncExportRequest) => {
+        return await exportlinesBoundTable(
+          ['ICCID', 'ACTIVATION_DATE', 'LAST_TRIGGERED', 'LINKED_ALARM'],
+          this.orderBy,
+          this.alarm.id,
+          exportFormat,
+          'eq',
+          asyncExportRequest
+        );
       };
     },
 
@@ -278,7 +285,7 @@ export default {
           label: this.$t('getvsion.associated_alarms'),
           orderable: true,
           visible: true,
-          name: 'activationDate',
+          name: 'linked_alarms',
           noHandle: true,
           fixed: true,
           format: {
