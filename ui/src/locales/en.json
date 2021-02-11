@@ -466,7 +466,7 @@
       "DATE_TRIGGER": "Trigger date"
     },
     "alarm": {
-      "triggered_x_month": "Triggers during the {month} last months",
+      "triggered_month": "Triggers during the month",
       "triggered_lines": "Lines targeted by the alarm",
       "excluded_sim_from_alarms": "Sim cards excluded from alarm",
       "trigger_reason": "Trigger motives",

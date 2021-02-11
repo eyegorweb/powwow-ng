@@ -183,7 +183,7 @@ export default {
           label: this.$t('getvsion.triggered_this_month'),
           orderable: true,
           visible: true,
-          name: 'activationDate',
+          name: 'triggered_month',
           noHandle: true,
           fixed: true,
           format: {
@@ -195,7 +195,7 @@ export default {
           label: this.$t('getvsion.last_month_triggered'),
           orderable: true,
           visible: true,
-          name: 'activationDate',
+          name: 'last_month_triggered',
           noHandle: true,
           fixed: true,
           format: {
