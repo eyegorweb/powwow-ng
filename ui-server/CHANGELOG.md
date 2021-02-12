@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.158+20210212141824
+## 1.17.0-master.159+20210212142354
 2021-02-12
 
 ### Features
 
 - [1710] Formulaire de création d'offre commerciale (f508ad720842511cc2c0a1afa58c5dde1da84f39)
+- [1710] désactiver temporairement le bouton de mise à jour d'offre commerciale (abede232881d57cd7ff2fab90c9556657578d062)
 
 ## 1.17.0-master.157+20210212134309
 2021-02-12
