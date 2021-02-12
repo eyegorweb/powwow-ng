@@ -124,7 +124,7 @@
       </template>
     </ContentBlock>
 
-    <div v-if="!disabled" class="row mb-3 mt-3">
+    <div v-if="!disabled && !initOffer" class="row mb-3 mt-3">
       <div class="col-md-12">
         <UiButton
           variant="secondary"
@@ -199,7 +199,7 @@ export default {
   computed: {
     isDiscountsValid() {
       if (this.form && this.form.discounts && this.form.discounts.length) {
-        const validDiscounts = this.form.discounts.filter(d => {
+        const validDiscounts = this.form.discounts.filter((d) => {
           if (d.value && d.value.length && d.minValue !== undefined && d.maxValue !== undefined) {
             const val = parseFloat(d.value);
             return val >= d.minValue && val <= d.maxValue;
@@ -212,7 +212,7 @@ export default {
     },
     isPackagesValid() {
       if (this.form && this.form.packages && this.form.packages.length) {
-        const validPackages = this.form.packages.filter(d => {
+        const validPackages = this.form.packages.filter((d) => {
           if (
             d.discount &&
             d.discount.length &&
@@ -225,7 +225,8 @@ export default {
           return false;
         });
         return (
-          validPackages.length === this.form.packages.filter(p => p.lowerBound !== undefined).length
+          validPackages.length ===
+          this.form.packages.filter((p) => p.lowerBound !== undefined).length
         );
       }
       return false;
@@ -312,16 +313,16 @@ export default {
         let discountDefinitions = undefined;
 
         if (this.form.discounts && this.form.discounts.length) {
-          discountDefinitions = this.form.discounts.map(d => ({
+          discountDefinitions = this.form.discounts.map((d) => ({
             name: d.code,
             value: d.value,
           }));
         }
 
         let offerPackages = undefined;
-        if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
+        if (this.form.packages.filter((p) => p.lowerBound !== undefined).length > 0) {
           if (this.form.packages && this.form.packages.length) {
-            offerPackages = this.form.packages.map(d => ({
+            offerPackages = this.form.packages.map((d) => ({
               type: d.usageType,
               value: d.discount,
             }));
