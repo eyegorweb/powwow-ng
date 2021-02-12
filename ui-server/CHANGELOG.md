@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.157+20210212134309
+2021-02-12
+
+### Features
+
+- [2378] Ajout de la page de recherche des CF (db8b089517ea9414f2b81a87a48af20814062953)
+
 ## 1.17.0-master.156+20210211160933
 2021-02-11
 
