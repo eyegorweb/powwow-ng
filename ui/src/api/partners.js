@@ -134,7 +134,7 @@ export async function deleteSecondaryAdministrator(partyId) {
   mutation DeleteSecondaryAdministrator($partyId: Long!) {
     deleteSecondaryAdministrator(partyId: $partyId) {id}
     }`;
-  const response = await query(queryStr);
+  const response = await query(queryStr, { partyId });
   if (response.data) return response.data.deleteSecondaryAdministrator;
 }
 
@@ -498,6 +498,63 @@ export async function exportCustomerAccounts(
     };
   }
   return response.data.exportCustomerAccounts;
+}
+
+export async function getCustomerAccounts(filters) {
+  const queryStr = `query CustomerAccounts($filters: CustomerAccountFilterInput) {
+    customerAccounts(filter: $filters) {
+      total
+      items {
+        id
+        code
+        name
+        siret
+        siren
+        marketLine
+        company
+        status
+        massActionsDisabled
+        auditable {
+          created
+        }
+        party {
+          id
+        }
+        bankAccount {
+          name
+          number
+          establishmentCode
+        }
+        address {
+          address1
+          address2
+          zipCode
+          city
+          country
+          state
+        }
+        customerAccountShippingAddresses(addressFilter:{}) {
+          total
+          items {
+            id
+            address {
+              address1
+              zipCode
+              city
+            }
+            company
+            name {
+              firstName
+              lastName
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const response = await query(queryStr, { filters });
+  return response.data.customerAccounts.items;
 }
 
 export async function getCustomerAccount(code) {

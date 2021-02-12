@@ -2,11 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li
-          v-for="item in menuItems"
-          :key="item.title"
-          class="list-group-item"
-        >
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
           </router-link>
@@ -20,14 +16,9 @@
 </template>
 
 <script>
-import M2MRange from './M2MRange';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    M2MRange,
-  },
-
   props: {
     partner: Object,
     partnerid: {
@@ -44,23 +35,23 @@ export default {
         this.havePermission('party', 'read_secondary_options'))
     ) {
       menuItems = [
-            {
-        section: 'description',
-        title: 'getadmin.partners.accountDescription',
-        to: {
-          name: 'partnerDetail.accountDetail.description',
-          params: { partner: this.partner },
+        {
+          section: 'description',
+          title: 'getadmin.partners.accountDescription',
+          to: {
+            name: 'partnerDetail.accountDetail.description',
+            params: { partner: this.partner },
+          },
         },
-      },
-      {
-        section: 'options',
-        title: 'getadmin.partners.options',
-        to: {
-          name: 'partnerDetail.accountDetail.options',
-          params: { partner: this.partner },
+        {
+          section: 'options',
+          title: 'getadmin.partners.options',
+          to: {
+            name: 'partnerDetail.accountDetail.options',
+            params: { partner: this.partner },
+          },
         },
-      }
-    ];
+      ];
       this.section = 'getadmin.partners.options';
     } else if (
       this.havePermission('party', 'read_account_detail') &&
@@ -69,31 +60,31 @@ export default {
         this.havePermission('party', 'read_secondary_options')
       )
     ) {
-    menuItems = [
-      {
-        section: 'description',
-        title: 'getadmin.partners.accountDescription',
-        to: {
-          name: 'partnerDetail.accountDetail.description',
-          params: { partner: this.partner },
+      menuItems = [
+        {
+          section: 'description',
+          title: 'getadmin.partners.accountDescription',
+          to: {
+            name: 'partnerDetail.accountDetail.description',
+            params: { partner: this.partner },
+          },
         },
-      },
-    ];
+      ];
     } else if (
       !this.havePermission('party', 'read_account_detail') &&
       (this.havePermission('party', 'read_main_options') ||
         this.havePermission('party', 'read_secondary_options'))
     ) {
-    menuItems = [
-      {
-        section: 'options',
-        title: 'getadmin.partners.options',
-        to: {
-          name: 'partnerDetail.accountDetail.options',
-          params: { partner: this.partner },
+      menuItems = [
+        {
+          section: 'options',
+          title: 'getadmin.partners.options',
+          to: {
+            name: 'partnerDetail.accountDetail.options',
+            params: { partner: this.partner },
+          },
         },
-      },
-    ];
+      ];
     } else {
       menuItems = [];
     }
@@ -113,10 +104,10 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter((a) => {
+      return arrayInput.filter(a => {
         if (!a.permissions) return true;
         a.permissions.forEach(e => {
-          if(this.havePermission(e.domain, e.action)) {
+          if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
         });

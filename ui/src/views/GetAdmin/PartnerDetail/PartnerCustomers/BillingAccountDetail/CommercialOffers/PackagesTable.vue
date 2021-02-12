@@ -24,6 +24,7 @@
             :max-value="offerPackage.upperBound"
             class="input-block m-0"
             block
+            @update:value="$emit('change', offerPackages)"
           />
           <template v-else>
             {{ $t('getadmin.partnerDetail.mb.commercialOffers.notDefined') }}

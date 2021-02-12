@@ -11,11 +11,7 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import BillAccountStatusCell from './BillAccountStatusCell';
 
-import {
-  fetchCustomerAccountsByPartnerId,
-  getCustomerAccount,
-  updateCustomerAccount,
-} from '@/api/partners.js';
+import { fetchCustomerAccountsByPartnerId } from '@/api/partners.js';
 
 export default {
   components: {
@@ -44,7 +40,7 @@ export default {
           visible: true,
           format: {
             type: 'LinkBtn',
-            onClick: async (code) => {
+            onClick: async code => {
               this.$router.push({
                 name: 'getAdminPartnerDetails.billingAccounts.form',
                 params: { id: this.$route.params.id, customerAccountCode: code },
@@ -106,5 +102,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

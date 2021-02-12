@@ -124,7 +124,7 @@ export default {
         },
         {
           name: 'getAdminPartnerDetails.customerList.detail',
-          path: 'detail/:billingAccountCode',
+          path: 'detail/:billingAccountId',
           component: BillingAccountDetail,
           children: [
             {

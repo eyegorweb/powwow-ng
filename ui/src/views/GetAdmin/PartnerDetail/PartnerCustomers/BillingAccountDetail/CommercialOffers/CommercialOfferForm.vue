@@ -2,19 +2,7 @@
   <div>
     <div class="row">
       <div class="col-2">
-        <UiButton
-          variant="outline-primary"
-          class="mb-4"
-          @click="
-            $router.push({
-              name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
-              params: {
-                id: $route.params.id,
-                billingAccountCode: $route.params.billingAccountCode,
-              },
-            })
-          "
-        >
+        <UiButton variant="outline-primary" class="mb-4" @click="goBack()">
           Retour à la liste
         </UiButton>
       </div>
@@ -32,14 +20,18 @@
     </div>
 
     <ContentBlock no-handle>
-      <template slot="title">{{ $t('getadmin.partnerDetail.mb.commercialOffer') }}</template>
+      <template slot="title">{{ $t('getadmin.partnerDetail.mb.details') }}</template>
       <template slot="content">
         <div class="row">
           <div class="col-md-6">
             <FormControl label="getadmin.partnerDetail.mb.commercialOffers.catalogOffer" bold-label>
               <div v-if="initOffer">{{ $loGet(initOffer, 'marketingOffer.description') }}</div>
               <div v-else>
-                <OfferCombo v-model="selectedCatalogOffer" preselect-first />
+                <OfferCombo
+                  v-model="selectedCatalogOffer"
+                  :filters="workflowFilters"
+                  preselect-first
+                />
               </div>
             </FormControl>
           </div>
@@ -108,7 +100,7 @@
       <template slot="content">
         <div class="row">
           <div class="col">
-            <PackagesTable :offer-packages="form.packages" />
+            <PackagesTable :offer-packages="form.packages" @change="form.packages = $event" />
           </div>
         </div>
       </template>
@@ -117,7 +109,11 @@
     <ContentBlock v-if="form && form.discounts && form.discounts.length" no-handle>
       <template slot="title">Remises</template>
       <template slot="content">
-        <DiscountFields :dicounts="form.discounts" :disabled="disabled" />
+        <DiscountFields
+          :dicounts="form.discounts"
+          :disabled="disabled"
+          @change="form.discounts = $event"
+        />
       </template>
     </ContentBlock>
 
@@ -130,7 +126,12 @@
 
     <div v-if="!disabled" class="row mb-3 mt-3">
       <div class="col-md-12">
-        <UiButton variant="secondary" class="float-right" @click="saveOffer()">
+        <UiButton
+          variant="secondary"
+          class="float-right"
+          @click="saveOffer()"
+          :disabled="!formIsValid"
+        >
           {{ $t('save') }}
         </UiButton>
       </div>
@@ -147,7 +148,8 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import DiscountFields from './DiscountFields';
-import { fetchOfferGroupById } from '@/api/offers';
+import { fetchOfferGroupById, createCommercialOffer } from '@/api/offers';
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -194,12 +196,69 @@ export default {
     },
   },
 
+  computed: {
+    isDiscountsValid() {
+      if (this.form && this.form.discounts && this.form.discounts.length) {
+        const validDiscounts = this.form.discounts.filter(d => {
+          if (d.value && d.value.length && d.minValue !== undefined && d.maxValue !== undefined) {
+            const val = parseFloat(d.value);
+            return val >= d.minValue && val <= d.maxValue;
+          }
+          return false;
+        });
+        return validDiscounts.length === this.form.discounts.length;
+      }
+      return false;
+    },
+    isPackagesValid() {
+      if (this.form && this.form.packages && this.form.packages.length) {
+        const validPackages = this.form.packages.filter(d => {
+          if (
+            d.discount &&
+            d.discount.length &&
+            d.lowerBound !== undefined &&
+            d.upperBound !== undefined
+          ) {
+            const val = parseFloat(d.discount);
+            return val >= d.lowerBound && val <= d.upperBound;
+          }
+          return false;
+        });
+        return (
+          validPackages.length === this.form.packages.filter(p => p.lowerBound !== undefined).length
+        );
+      }
+      return false;
+    },
+    formIsValid() {
+      return this.isDiscountsValid && this.isPackagesValid;
+    },
+    workflowFilters() {
+      return {
+        catalogOfferOnly: true,
+        partyId: {
+          in: [parseInt(this.$route.params.id)],
+        },
+      };
+    },
+  },
+
   async mounted() {
     await this.loadCommercialInfoToEdit();
     this.prefillForm();
   },
 
   methods: {
+    ...mapMutations(['flashMessage']),
+    goBack() {
+      this.$router.push({
+        name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
+        params: {
+          id: this.$route.params.id,
+          billingAccountId: this.$route.params.billingAccountId,
+        },
+      });
+    },
     async loadCommercialInfoToEdit() {
       if (this.$route.params.comOfferId) {
         this.initOffer = await fetchOfferGroupById(
@@ -210,6 +269,7 @@ export default {
     },
     prefillForm() {
       if (this.initOffer) {
+        this.form.id = this.initOffer.id;
         this.form.code = this.initOffer.code;
         this.form.name = this.initOffer.description;
         this.form.rateplan = this.$loGet(this.initOffer, 'marketingOffer.billingOfferCode');
@@ -230,6 +290,7 @@ export default {
       }
     },
     prefillWithSelectedOffer(offer) {
+      this.form.id = offer.id;
       this.form.code = offer.code;
       this.form.name = offer.description;
       this.form.rateplan = offer.billingOfferCode;
@@ -237,9 +298,63 @@ export default {
       this.form.packages = this.$loGet(offer, 'initialOffer.offerPackages');
       this.form.discounts = this.$loGet(offer, 'initialOffer.offerDiscounts');
       this.services = getMarketingOfferServices(offer.initialOffer);
+
+      // partie package
+      // remises non gérées en attente de l'api ( upper lower bounds)
     },
-    saveOffer() {
-      console.log('Offer save');
+
+    async saveOffer() {
+      if (this.initOffer) {
+        console.info('todo update');
+      } else {
+        if (!this.formIsValid) return;
+
+        let discountDefinitions = undefined;
+
+        if (this.form.discounts && this.form.discounts.length) {
+          discountDefinitions = this.form.discounts.map(d => ({
+            name: d.code,
+            value: d.value,
+          }));
+        }
+
+        let offerPackages = undefined;
+        if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
+          if (this.form.packages && this.form.packages.length) {
+            offerPackages = this.form.packages.map(d => ({
+              type: d.usageType,
+              value: d.discount,
+            }));
+          }
+        }
+
+        const dataToSave = {
+          marketingOfferId: this.form.id,
+          customerAccountId: this.$route.params.billingAccountId,
+        };
+
+        if (discountDefinitions) {
+          if (!dataToSave.commercialOfferParameter) {
+            dataToSave.commercialOfferParameter = {};
+          }
+          dataToSave.commercialOfferParameter.discountDefinitions = discountDefinitions;
+        }
+
+        if (offerPackages) {
+          if (!dataToSave.commercialOfferParameter) {
+            dataToSave.commercialOfferParameter = {};
+          }
+          dataToSave.commercialOfferParameter.offerPackages = offerPackages;
+        }
+
+        const response = await createCommercialOffer(dataToSave);
+        if (response) {
+          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+          this.goBack();
+        } else {
+          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        }
+      }
     },
   },
 };

@@ -16,7 +16,7 @@
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
 import { mapState } from 'vuex';
 import uuid from 'uuid/v1';
-import { fetchOffers } from '@/api/offers';
+import { fetchOffers2 } from '@/api/offers';
 
 export default {
   components: {
@@ -26,6 +26,10 @@ export default {
     value: Object,
     partners: Array,
     disabled: Boolean,
+    filters: {
+      type: [Object, Boolean],
+      default: false,
+    },
   },
 
   computed: {
@@ -66,11 +70,23 @@ export default {
   },
   methods: {
     async searchOffers(q, page = 0) {
-      const data = await fetchOffers(q, this.partners, {
-        page,
-        limit: 10,
+      const filters = {
+        description: {
+          startsWith: q,
+        },
         partnerType: this.contextPartnersType,
-      });
+
+        ...(this.filters ? this.filters : {}),
+      };
+
+      if (this.partners && this.partners.length) {
+        filters.partyId = { in: this.partners.map(p => p.id) };
+      }
+      const pagination = { page, limit: 10 };
+      const sorting = { description: 'DESC' };
+
+      const data = await fetchOffers2(filters, pagination, sorting);
+
       return data.map(p => ({
         key: uuid(),
         id: p.code,
