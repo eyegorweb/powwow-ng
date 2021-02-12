@@ -232,6 +232,7 @@
     "users": "Gestion des utilisateurs",
     "documents": "Gestion des documents",
     "partners": "Gestion des partenaires",
+    "cf": "Gestion des CF",
     "admins": "Gestion des administrateurs",
     "account": "Compte",
     "modelReports": "Gestion des rapports",
@@ -613,6 +614,17 @@
     }
   },
   "getadmin": {
+    "cf": {
+      "name": "Comptes de facturation",
+      "marketLine": "Ligne de marché",
+      "code": "N° du compte de facturation",
+      "label": "Libellé de l’établissement",
+      "search": "Rechercher par n° du compte de facturation",
+      "total": "{total} compte(s) de facturation trouvé(s)",
+      "filters": {
+        "siren": "Siren"
+      }
+    },
     "users": {
       "userTypes": {
         "bouygues": "Interne",

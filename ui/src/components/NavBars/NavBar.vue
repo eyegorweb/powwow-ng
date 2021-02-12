@@ -177,6 +177,11 @@ export default {
           to: { name: 'getAdminPartners' },
           permission: { domain: 'party', action: 'read' },
         },
+        {
+          label: 'menu.cf',
+          to: { name: 'getAdminCF' },
+          permission: { domain: 'party', action: 'read' },
+        },
       ];
     }
 
