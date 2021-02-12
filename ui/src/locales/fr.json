@@ -1157,7 +1157,7 @@
       "titleListCard": {
         "FAIL": "liste des actes en échec",
         "ONGOING": "liste des actes en cours",
-        "TERMINATED": "liste des actes terminées"
+        "TERMINATED": "liste des actes terminés"
       },
       "col": {
         "id": "ID de l’acte unitaire",
