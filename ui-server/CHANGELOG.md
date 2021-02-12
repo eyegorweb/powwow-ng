@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.158+20210212141824
+2021-02-12
+
+### Features
+
+- [1710] Formulaire de création d'offre commerciale (f508ad720842511cc2c0a1afa58c5dde1da84f39)
+
 ## 1.17.0-master.157+20210212134309
 2021-02-12
 
