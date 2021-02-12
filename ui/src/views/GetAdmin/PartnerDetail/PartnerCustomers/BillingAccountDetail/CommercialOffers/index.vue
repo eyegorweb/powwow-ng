@@ -1,6 +1,9 @@
 <template>
   <div>
-    <router-view :partner="partner" :billingAccountToDetail="billingAccountToDetail"></router-view>
+    <router-view
+      :partner="partner"
+      :billing-account-to-detail="billingAccountToDetail"
+    ></router-view>
   </div>
 </template>
 
@@ -13,5 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

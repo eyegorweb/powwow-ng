@@ -13,7 +13,6 @@ const GetParcActDetail = () => import('@/views/GetParc/UnitActionsPage');
 const GetParcManagementActLines = () => import('@/views/GetParc/ActLines');
 const SearchUsers = () => import('@/views/GetAdmin/SearchUsers');
 const SearchCF = () => import('@/views/GetAdmin/SearchCF');
-const PartnerDetail = () => import('@/views/GetAdmin/PartnerDetail');
 const SearchPartners = () => import('@/views/GetAdmin/SearchPartners');
 const ReportsModels = () => import('@/views/GetReport/reports/ReportsModels');
 const Documents = () => import('@/views/GetReport/Documents/index.vue');

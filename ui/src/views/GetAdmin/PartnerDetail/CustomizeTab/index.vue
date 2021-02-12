@@ -2,11 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <ul class="list-group">
-        <li
-          v-for="item in menuItems"
-          :key="item.title"
-          class="list-group-item"
-        >
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
           </router-link>
@@ -14,7 +10,7 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <router-view :partnerid="''+partner.id" />
+      <router-view :partnerid="'' + partner.id" />
     </div>
   </div>
 </template>
@@ -26,7 +22,6 @@ export default {
   props: {
     partner: Object,
   },
-
 
   computed: {
     ...mapGetters(['userIsBO', 'havePermission']),
@@ -43,7 +38,10 @@ export default {
         },
       });
     }
-    if (this.havePermission('party', 'read_delivery_address') && (this.partner.partyType != 'MULTI_CUSTOMER')) {
+    if (
+      this.havePermission('party', 'read_delivery_address') &&
+      this.partner.partyType != 'MULTI_CUSTOMER'
+    ) {
       this.menuItems.push({
         section: 'deliveryAddress',
         title: 'getadmin.customize.deliveryAddress',
@@ -54,7 +52,7 @@ export default {
       });
     }
 
-    if (this.havePermission('party', 'read_custom_field') && (this.partner.partyType != 'MVNO')) {
+    if (this.havePermission('party', 'read_custom_field') && this.partner.partyType != 'MVNO') {
       this.menuItems.push({
         section: 'customFields',
         title: 'getadmin.customize.customFields',
@@ -65,7 +63,11 @@ export default {
       });
     }
 
-    if (this.havePermission('party', 'read_specific_field') && (this.userIsBO) && (this.partner.partyType != 'MVNO')) {
+    if (
+      this.havePermission('party', 'read_specific_field') &&
+      this.userIsBO &&
+      this.partner.partyType != 'MVNO'
+    ) {
       this.menuItems.push({
         section: 'specificFields',
         title: 'getadmin.customize.specificFields',
@@ -88,10 +90,10 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter((a) => {
+      return arrayInput.filter(a => {
         if (!a.permissions) return true;
         a.permissions.forEach(e => {
-          if(this.havePermission(e.domain, e.action)) {
+          if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
         });

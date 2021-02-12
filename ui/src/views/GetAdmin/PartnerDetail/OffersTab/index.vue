@@ -1,12 +1,8 @@
 <template>
-<div class="row">
-  <div class="col-md-3">
+  <div class="row">
+    <div class="col-md-3">
       <ul class="list-group">
-        <li
-          v-for="item in menuItems"
-          :key="item.title"
-          class="list-group-item"
-        >
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
           </router-link>
@@ -23,7 +19,6 @@
 import { mapGetters } from 'vuex';
 
 export default {
-
   props: {
     partner: Object,
   },
@@ -67,10 +62,10 @@ export default {
     // Gestion des permissions sur sous menus
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter((a) => {
+      return arrayInput.filter(a => {
         if (!a.permissions) return true;
         a.permissions.forEach(e => {
-          if(this.havePermission(e.domain, e.action)) {
+          if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
         });

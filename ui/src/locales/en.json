@@ -752,6 +752,7 @@
         "siret": "N ° siret",
         "status": "Status",
         "commercialOffer": "Commercial offers",
+        "details": "Details",
         "simCards": "SIM cards",
         "customerDescription": "Description of the customer account",
         "clientContactDescription": "Description of the client contact",
@@ -1167,7 +1168,7 @@
           "timeForSuspendedOffer": "Remaining period of suspension offered",
           "descriptionTimeForSuspendedOffer": "You have {total} days of free suspension until {date}",
           "offerName": "Offer name",
-          "endCommitmentDate": "End date of engagement",
+          "endCommitmentDate": "Next effective date of a change of offer",
           "billingStatus": "Billing status",
           "endForfaitDate": "End of package date"
         },

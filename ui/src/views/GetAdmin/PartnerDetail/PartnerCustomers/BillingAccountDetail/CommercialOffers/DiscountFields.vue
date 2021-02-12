@@ -9,6 +9,7 @@
         :max-value="discount.maxValue"
         bold-label
         no-trad
+        @update:value="$emit('change', localDiscounts)"
       >
         <div v-if="disabled">{{ discount.value }}</div>
       </FormControl>
@@ -34,8 +35,9 @@ export default {
   },
 
   mounted() {
-    this.localDiscounts = this.dicounts.map((d) => ({
+    this.localDiscounts = this.dicounts.map(d => ({
       label: d.discount.code + ' (%)',
+      code: d.discount.code,
       value: d.discountValue,
       minValue: d.lowerBound,
       maxValue: d.upperBound,

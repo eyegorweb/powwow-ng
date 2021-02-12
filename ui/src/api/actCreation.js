@@ -213,7 +213,15 @@ export async function changeCustomerAccount(filters, lines, params) {
 
 export async function transferSIMCards(filters, lines, params) {
   return await actCreationMutation(filters, lines, async (gqlFilter, gqlLines) => {
-    const { partyId, dueDate, toPartyId, toCustomerAccountId, toWorkflowId, tempDataUuid, servicesChoice } = params;
+    const {
+      partyId,
+      dueDate,
+      toPartyId,
+      toCustomerAccountId,
+      toWorkflowId,
+      tempDataUuid,
+      servicesChoice,
+    } = params;
     let gqlWorkflowId = '';
     if (toWorkflowId) {
       gqlWorkflowId = `toWorkflowId: "${toWorkflowId}",`;

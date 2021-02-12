@@ -30,17 +30,11 @@
 
 <script>
 import TabsSubMenu from '@/components/TabsSubMenu.vue';
-import CommercialOffers from './CommercialOffers/index.vue';
-import DeliveryAdresses from './DeliveryAdresses';
-import SimCards from '@/views/GetAdmin/PartnerDetail/OffersTab/SimCards.vue';
-import { getCustomerAccount } from '@/api/partners.js';
+import { getCustomerAccounts } from '@/api/partners.js';
 
 export default {
   components: {
     TabsSubMenu,
-    DeliveryAdresses,
-    CommercialOffers,
-    SimCards,
   },
   props: {
     partner: Object,
@@ -54,7 +48,7 @@ export default {
           name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
           params: {
             id: this.$route.params.id,
-            billingAccountCode: this.$route.params.billingAccountCode,
+            billingAccountId: this.$route.params.billingAccountId,
           },
         },
       },
@@ -64,7 +58,7 @@ export default {
           name: 'getAdminPartnerDetails.customerList.detail.simcards',
           params: {
             id: this.$route.params.id,
-            billingAccountCode: this.$route.params.billingAccountCode,
+            billingAccountId: this.$route.params.billingAccountId,
           },
         },
       },
@@ -74,7 +68,7 @@ export default {
           name: 'getAdminPartnerDetails.customerList.detail.deliveryAdresses',
           params: {
             id: this.$route.params.id,
-            billingAccountCode: this.$route.params.billingAccountCode,
+            billingAccountId: this.$route.params.billingAccountId,
           },
         },
       },
@@ -90,8 +84,10 @@ export default {
     }
     this.menuItems = menuItems;
 
-    if (this.$route.params.billingAccountCode) {
-      const response = await getCustomerAccount(this.$route.params.billingAccountCode);
+    if (this.$route.params.billingAccountId) {
+      const response = await getCustomerAccounts({
+        id: { in: [parseInt(this.$route.params.billingAccountId)] },
+      });
       if (response.items && response.items.length) {
         this.billingAccountToDetail = response.items[0];
       }

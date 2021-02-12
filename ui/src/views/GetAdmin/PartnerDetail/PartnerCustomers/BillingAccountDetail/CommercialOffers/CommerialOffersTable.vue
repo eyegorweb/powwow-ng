@@ -22,7 +22,6 @@
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import UiButton from '@/components/ui/Button';
-import CommercialOfferForm from './CommercialOfferForm';
 import { fetchCommercialOffersForPartnerId } from '@/api/offers';
 import get from 'lodash.get';
 
@@ -30,7 +29,6 @@ export default {
   components: {
     PaginatedDataTable,
     UiButton,
-    CommercialOfferForm,
   },
   props: {
     partner: Object,
@@ -66,7 +64,7 @@ export default {
             this.$router.push({
               name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
               params: {
-                billingAccountCode: this.$route.params.billingAccountCode,
+                billingAccountId: this.$route.params.billingAccountId,
                 id: this.$route.params.id,
                 comOfferId: row.id,
               },
@@ -89,7 +87,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return get(row, 'customerAccount.code');
           },
         },
@@ -102,7 +100,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return get(row, 'auditable.created');
           },
         },
@@ -115,7 +113,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: (row) => {
+          getter: row => {
             return get(row, 'auditable.updated');
           },
         },
@@ -125,19 +123,19 @@ export default {
 
   methods: {
     createCommercialOffer() {
-      //this.showForm = true;
+      // this.showForm = true;
       // this.currentComOffer = undefined;
       // this.disabledForm = false;
       this.$router.push({
         name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.form',
         params: {
           id: this.$route.params.id,
-          billingAccountCode: this.$route.params.billingAccountCode,
+          billingAccountId: this.$route.params.billingAccountId,
         },
       });
     },
     getFetchFn() {
-      return async (pageInfo) => {
+      return async pageInfo => {
         const partnerId = this.partner.id ? this.partner.id : '';
         const customerAccountId = this.billingAccountToDetail
           ? this.billingAccountToDetail.id

@@ -770,6 +770,7 @@
         "siren": "N° siren",
         "status": "Statut",
         "commercialOffer": "Offres commerciales",
+        "details": "Détails",
         "simCards": "Cartes SIM",
         "customerDescription": "Description du compte client",
         "clientContactDescription": "Description du contact client",
@@ -1297,7 +1298,7 @@
           "timeForSuspendedOffer": "Durée restante de suspension offerte",
           "descriptionTimeForSuspendedOffer": "Il vous reste {total} jours de suspension offerte  jusqu'au {date}",
           "offerName": "Nom de l'offre",
-          "endCommitmentDate": "Date de fin d'engagement",
+          "endCommitmentDate": "Prochaine date d'effet d'un changement d'offre",
           "endForfaitDate": "Prochaine date d'effet d'un changement d'offre",
           "billingStatus": "Statut de facturation"
         },

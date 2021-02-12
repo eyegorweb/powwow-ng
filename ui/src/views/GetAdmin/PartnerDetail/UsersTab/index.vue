@@ -5,11 +5,7 @@
     </div> -->
     <div class="col-md-3">
       <ul class="list-group">
-        <li
-          v-for="item in menuItems"
-          :key="item.title"
-          class="list-group-item"
-        >
+        <li v-for="item in menuItems" :key="item.title" class="list-group-item">
           <router-link :to="item.to" :class="{ active: $route.name == item.to.name }">
             {{ $t(item.title) }} <i class="ic-Arrow-Next-Icon float-right"></i>
           </router-link>
@@ -17,7 +13,7 @@
       </ul>
     </div>
     <div class="col-md-9">
-      <router-view :partnerid="''+partner.id" />
+      <router-view :partnerid="'' + partner.id" />
     </div>
   </div>
 </template>
@@ -29,7 +25,6 @@ export default {
   props: {
     partner: Object,
   },
-
 
   mounted() {
     // if (this.partner.partyType !== 'MULTI_CUSTOMER') {
@@ -89,10 +84,10 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter((a) => {
+      return arrayInput.filter(a => {
         if (!a.permissions) return true;
         a.permissions.forEach(e => {
-          if(this.havePermission(e.domain, e.action)) {
+          if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
         });

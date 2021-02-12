@@ -61,16 +61,6 @@ export default {
       includeMailingLists: true,
       mvnoRanges: true,
     });
-    const permissionsForUsersTab = [
-      {
-        domain: 'party',
-        action: 'read_administrator',
-      },
-      {
-        domain: 'user',
-        action: 'read',
-      },
-    ];
 
     this.prepareTabs();
   },
@@ -92,9 +82,9 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter((a) => {
+      return arrayInput.filter(a => {
         if (!a.permissions) return true;
-        a.permissions.forEach((e) => {
+        a.permissions.forEach(e => {
           if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }
@@ -202,7 +192,7 @@ export default {
     },
 
     canShowTab(permissions) {
-      return permissions.some((p) => {
+      return permissions.some(p => {
         return p;
       });
     },
@@ -213,7 +203,7 @@ export default {
 
     // Gestion des "active tab" sur les onglets
     currentTabToShow() {
-      //partnerDetail.customize.customFields
+      // partnerDetail.customize.customFields
       if (this.$route.name.includes('customize')) return 1;
       if (this.$route.name.includes('customerList') || this.$route.name.includes('billingAccounts'))
         return 2;

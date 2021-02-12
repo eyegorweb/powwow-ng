@@ -42,6 +42,72 @@ export async function disableOffer(partnerId, offerId) {
   if (response.data) return response.data.disableOffer;
 }
 
+export async function fetchOffers2(filters, pagination, sorting) {
+  let rCardGqlParam = '';
+
+  if (filters && filters.partyId && filters.partyId.in && filters.partyId.in.length) {
+    rCardGqlParam = `rCard(partyId: ${filters.partyId.in[0]})`;
+  }
+
+  const queryStr = `query Workflows($filters: WorkflowFilterInput, $pagination: Pagination, $sorting: WorkflowSorting) {
+    workflows(filter: $filters, pagination: $pagination, sorting: $sorting) {
+      total
+      items {
+        id
+        code
+        name
+        workflowDescription
+        ${rCardGqlParam}
+        initialOffer {
+          id
+          code
+          description
+          offerDiscounts {
+            discount {
+              code
+              discountType
+            }
+            lowerBound
+            upperBound
+          }
+          offerPackages {
+            usageType
+            envelopeValue
+            envelopeLabel
+            unit
+          }
+          offerRanges {
+            lowerBound
+            upperBound
+            unitPrice
+            fixedPrice
+            lowerBoundDiscount
+            upperBoundDiscount
+            unit
+          }
+          marketingServices {
+            labelService
+            code
+            activated
+            editable
+            optional
+            parameters {
+              activated
+              name
+              code
+              editable
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const response = await query(queryStr, { filters, pagination, sorting });
+
+  return response.data.workflows.items;
+}
+
 // TODO : verifier si il est nécessaire de passer des objet de partenaires , pkpas iun tableau d'ids ?
 export async function fetchOffers(
   q,
@@ -329,6 +395,7 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
             discountType
           }
           lowerBound
+          upperBound
         }
         offerGroupPackages {
           usageType
@@ -345,6 +412,7 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
           unit
         }
         marketingOffer {
+          id
           code
           yorkCommunity
           allowedSuspensionDuration
@@ -371,6 +439,17 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
   `;
   const response = await query(queryStr, { partnerId, customerAccountId, pagination });
   return response.data.offerGroup;
+}
+
+export async function createCommercialOffer(input) {
+  const queryStr = `mutation CreateCommercialOffer($input: CommercialOfferMutInput!) {
+    createCommercialOffer(input: $input) {
+      id
+    }
+  }`;
+
+  const response = await query(queryStr, { input });
+  return response.data.createCommercialOffer;
 }
 
 function formatDateForGql(inDate) {
