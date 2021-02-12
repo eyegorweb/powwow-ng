@@ -216,19 +216,6 @@ export default {
           visible: true,
         },
         {
-          id: 6,
-          label: this.$t('getvsion.table.triggers'),
-          name: 'triggers',
-          orderable: true,
-          visible: false,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.numberOfTriggerEvents;
-            },
-          },
-        },
-        {
           id: 8,
           label: this.$t('col.partner'),
           name: 'party',
@@ -269,56 +256,6 @@ export default {
           format: {
             type: 'ObjectAttribute',
             path: 'name',
-          },
-        },
-        {
-          id: 12,
-          label: this.$t('getparc.lineDetail.alarms.observationCycle'),
-          orderable: true,
-          visible: false,
-          name: 'observationCycle',
-          noHandle: false,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              if (row.observationCycle === 'CUSTOM' || row.observationCycle === null) {
-                if (
-                  row.type === 'OVER_CONSUMPTION_VOLUME' ||
-                  row.type === 'UNDER_CONSUMPTION_VOLUME'
-                ) {
-                  if (row.observationDelay !== null) {
-                    return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
-                      row.observationDelay
-                    } ${this.$t('alarms.observationCycles.DAYS')}`;
-                  }
-                  return `${this.$t('alarms.observationCycles.CUSTOM')}`;
-                }
-                return `${this.$t('notAvailableShortCut')}`;
-              } else {
-                if (
-                  ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(
-                    o => o === row.observationCycle
-                  )
-                ) {
-                  return this.$t('alarms.observationCycles.' + row.observationCycle);
-                }
-                return row.observationCycle;
-              }
-            },
-          },
-        },
-        {
-          id: 13,
-          label: this.$t('getvsion.filters.ALARMS_OFFER'),
-          orderable: true,
-          visible: false,
-          name: 'alarmScope',
-          noHandle: false,
-          format: {
-            type: 'Getter',
-            getter: row => {
-              return row.alarmScope ? this.$t('alarms.alarmScope.' + row.alarmScope) : '-';
-            },
           },
         },
       ];
