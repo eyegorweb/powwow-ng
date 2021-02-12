@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.160+20210212151845
+2021-02-12
+
+### Fixes
+
+- [1710] enlever le mock du bouton de création d'offre commerciales (49ce5f579e985f64e0eab4872f27d89af7e568ca)
+
 ## 1.17.0-master.159+20210212142354
 2021-02-12
 
