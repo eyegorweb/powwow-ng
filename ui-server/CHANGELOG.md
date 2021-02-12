@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.161+20210212152649
+2021-02-12
+
+### Fixes
+
+- [000] correction de la trad (b57d78bf2ed0cc679f8c0e7f626dd19647a2610e)
+
 ## 1.17.0-master.160+20210212151845
 2021-02-12
 
