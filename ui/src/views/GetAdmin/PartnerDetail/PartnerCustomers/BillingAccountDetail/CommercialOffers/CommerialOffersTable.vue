@@ -1,15 +1,13 @@
 <template>
   <div>
     <h4 class="text-primary text-uppercase">Offres Commerciales</h4>
-    <ff-wip>
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <UiButton variant="secondary" class="float-right" @click="createCommercialOffer()">
-            {{ $t('getadmin.partnerDetail.mb.commercialOffers.create') }}
-          </UiButton>
-        </div>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <UiButton variant="secondary" class="float-right" @click="createCommercialOffer()">
+          {{ $t('getadmin.partnerDetail.mb.commercialOffers.create') }}
+        </UiButton>
       </div>
-    </ff-wip>
+    </div>
     <PaginatedDataTable
       v-if="columns"
       :columns="columns"
@@ -87,7 +85,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'customerAccount.code');
           },
         },
@@ -100,7 +98,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.created');
           },
         },
@@ -113,7 +111,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.updated');
           },
         },
@@ -135,7 +133,7 @@ export default {
       });
     },
     getFetchFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const partnerId = this.partner.id ? this.partner.id : '';
         const customerAccountId = this.billingAccountToDetail
           ? this.billingAccountToDetail.id
