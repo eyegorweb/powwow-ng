@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.162+20210215083809
+2021-02-15
+
+### Fixes
+
+- [1710] utiliser le bon identifiant d'offre (e4d2456c6854f0db2dee9e5311e2571492a7dbfc)
+
 ## 1.17.0-master.161+20210212152649
 2021-02-12
 
