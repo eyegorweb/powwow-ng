@@ -37,7 +37,14 @@ export async function fetchAlarmTriggersFor2Months(orderBy, pagination, filters 
   if (response.data) return response.data.alarmsWithTriggers;
 }
 
-export async function exportlinesBoundTable(columns, orderBy, alarmId, exportFormat, operator, asyncExportRequest = false) {
+export async function exportlinesBoundTable(
+  columns,
+  orderBy,
+  alarmId,
+  exportFormat,
+  operator,
+  asyncExportRequest = false
+) {
   const columnsParam = columns.join(',');
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
 

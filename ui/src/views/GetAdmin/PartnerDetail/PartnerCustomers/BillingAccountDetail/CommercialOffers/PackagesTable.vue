@@ -17,7 +17,7 @@
         <td>{{ offerPackage.price }}</td>
         <td :style="{ width: '20%' }">
           <UiInput
-            v-if="offerPackage.lowerBound"
+            v-if="offerPackage.lowerBound !== null && offerPackage.lowerBound !== undefined"
             v-model="offerPackage.discount"
             input-type="number"
             :min-value="offerPackage.lowerBound"
