@@ -291,7 +291,7 @@ export default {
       }
     },
     prefillWithSelectedOffer(offer) {
-      this.form.id = offer.id;
+      this.form.id = this.$loGet(offer, 'initialOffer.id');;
       this.form.code = offer.code;
       this.form.name = offer.description;
       this.form.rateplan = offer.billingOfferCode;
