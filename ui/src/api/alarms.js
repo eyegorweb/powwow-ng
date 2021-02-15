@@ -138,7 +138,7 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
     ? `, pagination: {page: ${pagination.page}, limit: ${pagination.limit}}`
-    : '';
+    : ',pagination: {page: 0, limit: 10}';
   const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const queryStr = `
   query {
