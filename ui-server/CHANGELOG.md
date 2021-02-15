@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.163+20210215104122
+2021-02-15
+
+### Features
+
+- [1710] Mise à jour des Offres commerciales (8ac608d7cc6a94282565990e034be0484840a2d9)
+
+### Fixes
+
+- [2411] Problème au refresh de la page après une création d'alarme (741103d98faf107678e2a2caa37be7b7b57a6cbe)
+
 ## 1.17.0-master.162+20210215083809
 2021-02-15
 
