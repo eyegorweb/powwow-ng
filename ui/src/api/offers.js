@@ -75,6 +75,9 @@ export async function fetchOffers2(filters, pagination, sorting) {
             envelopeValue
             envelopeLabel
             unit
+            lowerBound
+            upperBound
+            price
           }
           offerRanges {
             lowerBound
@@ -399,9 +402,12 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
         }
         offerGroupPackages {
           usageType
-          upperBound
-          lowerBound
+          envelopeValue
           envelopeLabel
+          unit
+          lowerBound
+          upperBound
+          price
         }
         offerGroupRanges  {
           lowerBound
@@ -450,6 +456,17 @@ export async function createCommercialOffer(input) {
 
   const response = await query(queryStr, { input });
   return response.data.createCommercialOffer;
+}
+
+export async function updateCommercialOffer(input) {
+  const queryStr = `mutation UpdateCommercialOffer($input: CommercialOfferMutInput!) {
+    updateCommercialOffer(input: $input) {
+      id
+    }
+  }`;
+
+  const response = await query(queryStr, { input });
+  return response.data.updateCommercialOffer;
 }
 
 function formatDateForGql(inDate) {

@@ -124,13 +124,13 @@
       </template>
     </ContentBlock>
 
-    <div v-if="!disabled && !initOffer" class="row mb-3 mt-3">
+    <div v-if="!disabled" class="row mb-3 mt-3">
       <div class="col-md-12">
         <UiButton
           variant="secondary"
           class="float-right"
           @click="saveOffer()"
-          :disabled="!formIsValid"
+          :disabled="isSaving || !formIsValid"
         >
           {{ $t('save') }}
         </UiButton>
@@ -148,7 +148,7 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
 import { getMarketingOfferServices } from '@/components/Services/utils.js';
 import DiscountFields from './DiscountFields';
-import { fetchOfferGroupById, createCommercialOffer } from '@/api/offers';
+import { fetchOfferGroupById, createCommercialOffer, updateCommercialOffer } from '@/api/offers';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -163,6 +163,7 @@ export default {
   },
   data() {
     return {
+      isSaving: false,
       initOffer: undefined,
       disabled: false,
       selectedCatalogOffer: undefined,
@@ -199,7 +200,7 @@ export default {
   computed: {
     isDiscountsValid() {
       if (this.form && this.form.discounts && this.form.discounts.length) {
-        const validDiscounts = this.form.discounts.filter((d) => {
+        const validDiscounts = this.form.discounts.filter(d => {
           if (d.value && d.value.length && d.minValue !== undefined && d.maxValue !== undefined) {
             const val = parseFloat(d.value);
             return val >= d.minValue && val <= d.maxValue;
@@ -212,7 +213,7 @@ export default {
     },
     isPackagesValid() {
       if (this.form && this.form.packages && this.form.packages.length) {
-        const validPackages = this.form.packages.filter((d) => {
+        const validPackages = this.form.packages.filter(d => {
           if (
             d.discount &&
             d.discount.length &&
@@ -224,10 +225,10 @@ export default {
           }
           return false;
         });
-        return (
-          validPackages.length ===
-          this.form.packages.filter((p) => p.lowerBound !== undefined).length
-        );
+        const packagesWithBounds = this.form.packages.filter(
+          p => p.lowerBound !== undefined && p.lowerBound !== null
+        ).length;
+        return validPackages.length === packagesWithBounds;
       }
       return false;
     },
@@ -291,7 +292,7 @@ export default {
       }
     },
     prefillWithSelectedOffer(offer) {
-      this.form.id = this.$loGet(offer, 'initialOffer.id');;
+      this.form.id = this.$loGet(offer, 'initialOffer.id');
       this.form.code = offer.code;
       this.form.name = offer.description;
       this.form.rateplan = offer.billingOfferCode;
@@ -306,55 +307,117 @@ export default {
 
     async saveOffer() {
       if (this.initOffer) {
-        console.info('todo update');
+        this.updateOffer();
       } else {
-        if (!this.formIsValid) return;
+        this.saveNewOffer();
+      }
+    },
+    async updateOffer() {
+      if (!this.formIsValid) return;
 
-        let discountDefinitions = undefined;
+      const dataToSave = {
+        commercialOfferCode: this.form.code,
+      };
 
-        if (this.form.discounts && this.form.discounts.length) {
-          discountDefinitions = this.form.discounts.map((d) => ({
-            name: d.code,
-            value: d.value,
+      const packagesWithBounds = this.form.packages.filter(
+        p => p.lowerBound !== undefined && p.lowerBound !== null
+      ).length;
+
+      let offerPackages = undefined;
+
+      if (packagesWithBounds > 0) {
+        if (this.form.packages && this.form.packages.length) {
+          offerPackages = this.form.packages.map(d => ({
+            type: d.usageType,
+            discountValue: d.discount,
           }));
         }
+      }
 
-        let offerPackages = undefined;
-        if (this.form.packages.filter((p) => p.lowerBound !== undefined).length > 0) {
-          if (this.form.packages && this.form.packages.length) {
-            offerPackages = this.form.packages.map((d) => ({
-              type: d.usageType,
-              value: d.discount,
-            }));
-          }
+      let discountDefinitions = undefined;
+
+      if (this.form.discounts && this.form.discounts.length) {
+        discountDefinitions = this.form.discounts.map(d => ({
+          name: d.code,
+          value: d.value,
+        }));
+      }
+
+      if (discountDefinitions) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
         }
+        dataToSave.commercialOfferParameter.discountDefinitions = discountDefinitions;
+      }
 
-        const dataToSave = {
-          marketingOfferId: this.form.id,
-          customerAccountId: this.$route.params.billingAccountId,
-        };
-
-        if (discountDefinitions) {
-          if (!dataToSave.commercialOfferParameter) {
-            dataToSave.commercialOfferParameter = {};
-          }
-          dataToSave.commercialOfferParameter.discountDefinitions = discountDefinitions;
+      if (offerPackages) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
         }
+        dataToSave.commercialOfferParameter.offerPackages = offerPackages;
+      }
 
-        if (offerPackages) {
-          if (!dataToSave.commercialOfferParameter) {
-            dataToSave.commercialOfferParameter = {};
-          }
-          dataToSave.commercialOfferParameter.offerPackages = offerPackages;
-        }
+      this.isSaving = true;
+      const response = await updateCommercialOffer(dataToSave);
+      this.isSaving = false;
 
-        const response = await createCommercialOffer(dataToSave);
-        if (response) {
-          this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
-          this.goBack();
-        } else {
-          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      if (response) {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.goBack();
+      } else {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      }
+    },
+    async saveNewOffer() {
+      if (!this.formIsValid) return;
+
+      let discountDefinitions = undefined;
+
+      if (this.form.discounts && this.form.discounts.length) {
+        discountDefinitions = this.form.discounts.map(d => ({
+          name: d.code,
+          value: d.value,
+        }));
+      }
+
+      let offerPackages = undefined;
+      if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
+        if (this.form.packages && this.form.packages.length) {
+          offerPackages = this.form.packages.map(d => ({
+            type: d.usageType,
+            value: d.discount,
+          }));
         }
+      }
+
+      const dataToSave = {
+        marketingOfferId: this.form.id,
+        customerAccountId: this.$route.params.billingAccountId,
+      };
+
+      if (discountDefinitions) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
+        }
+        dataToSave.commercialOfferParameter.discountDefinitions = discountDefinitions;
+      }
+
+      if (offerPackages) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
+        }
+        dataToSave.commercialOfferParameter.offerPackages = offerPackages;
+      }
+
+      this.isSaving = true;
+      const response = await createCommercialOffer(dataToSave);
+      this.isSaving = false;
+
+      if (response) {
+        this.flashMessage({ level: 'success', message: this.$t('genericSuccessMessage') });
+        this.goBack();
+      } else {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       }
     },
   },

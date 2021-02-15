@@ -7,7 +7,6 @@
           - {{ $t('getadmin.cf.name') }}
         </h4>
       </div>
-
     </div>
     <TableWithFilter
       v-if="filters"
@@ -30,28 +29,23 @@
           @inputIsEmpty="clearSearch"
           :init-value="searchByNbValue"
         />
-        </div>
+      </div>
     </TableWithFilter>
   </div>
 </template>
 
 <script>
-import Tooltip from '@/components/ui/Tooltip';
 import SearchByNb from './filters/SearchByNb';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import TextFilter from '@/components/Filters/TextFilter.vue';
-import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 import { fetchAllCustomerAccounts } from '@/api/customerAccounts';
 import get from 'lodash.get';
-import { mapGetters, mapMutations } from 'vuex';
 import CodeCell from './CodeCell.vue';
 
 export default {
   components: {
-    Tooltip,
     TableWithFilter,
     SearchByNb,
-    CodeCell,
   },
   data() {
     return {
@@ -64,7 +58,6 @@ export default {
       columns: [
         {
           id: 1,
-          label: 'Code',
           name: 'code',
           label: this.$t('getadmin.cf.code'),
           orderable: true,
@@ -77,7 +70,6 @@ export default {
         },
         {
           id: 2,
-          label: 'Name',
           name: 'name',
           label: this.$t('getadmin.cf.label'),
           orderable: true,
@@ -86,7 +78,6 @@ export default {
         },
         {
           id: 3,
-          label: 'MarketLine',
           name: 'marketLine',
           label: this.$t('getadmin.cf.marketLine'),
           orderable: true,
@@ -103,7 +94,6 @@ export default {
         },
         {
           id: 5,
-          label: 'Status',
           name: 'status',
           label: this.$t('common.lastName'),
           orderable: true,
@@ -112,7 +102,6 @@ export default {
         },
         {
           id: 6,
-          label: 'Created',
           name: 'auditable',
           label: this.$t('common.lastName'),
           orderable: true,
@@ -139,7 +128,6 @@ export default {
     };
   },
   mounted() {
-
     // Définition des filtres
     let currentVisibleFilters = [
       {
@@ -187,10 +175,8 @@ export default {
     this.applyFilters();
   },
   methods: {
-
     // Recherche des CF en appliquant les filtres
     async applyFilters(payload) {
-
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: [],
@@ -209,10 +195,15 @@ export default {
     async searchByNb(value) {
       this.searchByNbValue = value;
 
-      const data = await fetchAllCustomerAccounts([{
-        id: 'getadmin.cf.filters.code',
-        value
-      }], { page: 0, limit: 20 });
+      const data = await fetchAllCustomerAccounts(
+        [
+          {
+            id: 'getadmin.cf.filters.code',
+            value,
+          },
+        ],
+        { page: 0, limit: 20 }
+      );
       this.total = data.total;
       this.rows = data.items;
     },
