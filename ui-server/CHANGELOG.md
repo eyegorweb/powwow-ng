@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.164+20210216085255
+2021-02-16
+
+### Fixes
+
+- [000] Corriger la recherche par continent dans getVision (45fe523cb1f7d5cbaae6dd6f6db42aa75e4e5516)
+
 ## 1.17.0-master.163+20210215104122
 2021-02-15
 
