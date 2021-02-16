@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.167+20210216143339
+2021-02-16
+
+### Fixes
+
+- [2159] Activer le bouton enregistrer (eabb92ba6666b0358dbf5d59edef5a39ad299eab)
+
 ## 1.17.0-master.166+20210216091925
 2021-02-16
 
