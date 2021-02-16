@@ -2,8 +2,12 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.164+20210216085255
+## 1.17.0-master.165+20210216090211
 2021-02-16
+
+### Features
+
+- [2399] création du détail d'une alarme flotte (a00e77a2f6f177ff1535819412af4f0a21384e17)
 
 ### Fixes
 
