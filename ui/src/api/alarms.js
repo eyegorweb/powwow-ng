@@ -393,12 +393,12 @@ export async function deleteAlarmInstance2(alarmInput) {
   delete input.filters;
 
   if (alarmInput.filters && alarmInput.filters.length) {
-    input.filter = {};
+    input.alarmFilterInput = {};
     const lastTriggerDateFilter = alarmInput.filters.find(
       f => f.id === 'getvsion.alarm.trigger_date'
     );
     if (lastTriggerDateFilter) {
-      input.filter.lastTriggerDate = {
+      input.alarmFilterInput.lastTriggerDate = {
         between: {
           startDate: lastTriggerDateFilter.startDate,
           endDate: lastTriggerDateFilter.endDate,
@@ -408,10 +408,16 @@ export async function deleteAlarmInstance2(alarmInput) {
 
     const thresholdFilter = alarmInput.filters.find(f => f.id === 'getvsion.alarm.trigger_reason');
     if (thresholdFilter) {
-      input.filter.threshold = thresholdFilter.data.value;
+      input.alarmFilterInput.threshold = thresholdFilter.data.value;
     }
 
-    input.filter.alarmId = { eq: alarmInput.alarmId };
+    const fileFilter = alarmInput.filters.find(f => f.id === 'filters.lines.fromFile.title');
+    console.log('🚀 ~ file: alarms.js ~ line 415 ~ deleteAlarmInstance2 ~ fileFilter', fileFilter);
+    if (fileFilter && fileFilter.values && fileFilter.values.length) {
+      input.alarmFilterInput.tempDataUuid = fileFilter.values[0].tempDataUuid;
+    }
+
+    input.alarmFilterInput.alarmId = { eq: alarmInput.alarmId };
   }
 
   try {
