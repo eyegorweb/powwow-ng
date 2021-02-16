@@ -2,7 +2,7 @@
   <div class="mt-4">
     <TableWithFilter
       :key="version"
-      :storage-version="'011' + (m2m ? 'm2m' : '')"
+      :storage-version="'012' + (m2m ? 'm2m' : '')"
       :storage-id="'getVision.alarms' + (m2m ? 'm2m' : '')"
       v-if="columns && filters"
       show-reset
@@ -17,6 +17,7 @@
       @currentFiltersChange="onCurrentFilterChange"
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
+      :initPageLimit="lastPagination ? lastPagination.limit : 10"
     >
       <div slot="title" class="mt-2 table-total" v-if="!searchError">
         {{ $t('getvsion.table.total', { total: formattedTotal }) }}
@@ -208,12 +209,12 @@ export default {
   computed: {
     ...mapGetters(['userIsPartner']),
     selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
+      return this.currentPartners.map((p) => p.id);
     },
     currentPartners() {
       if (!this.currentFilters) return [];
 
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      const foundFilter = this.currentFilters.find((f) => f.id === 'filters.partners');
       if (foundFilter && foundFilter.values && foundFilter.values.length) {
         return foundFilter.values;
       }

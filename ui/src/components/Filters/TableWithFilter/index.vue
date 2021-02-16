@@ -110,6 +110,10 @@ export default {
       type: Number,
       default: 7,
     },
+    initPageLimit: {
+      type: Number,
+      default: 20,
+    },
     isTableVisibleFn: {
       type: Function,
       required: false,
@@ -118,6 +122,12 @@ export default {
       type: Array,
       required: false,
     },
+  },
+
+  mounted() {
+    if (this.initPageLimit) {
+      this.pageLimit = this.initPageLimit;
+    }
   },
 
   data() {
