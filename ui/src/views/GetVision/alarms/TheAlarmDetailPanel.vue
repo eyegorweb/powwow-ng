@@ -28,10 +28,10 @@
         <h6>{{ $t('getparc.history.details.quantityTargeted') }}:</h6>
         <a
           style="font-size: 0.8rem"
-          v-if="content.numberOfTargetedLines"
+          v-if="numberOfTargetedLines"
           href="#"
           @click.prevent="gotoTargetedAlarms()"
-          >{{ content.numberOfTargetedLines }}</a
+          >{{ numberOfTargetedLines }}</a
         >
         <p v-else>-</p>
       </div>
@@ -73,15 +73,15 @@
         <h6>{{ $t('alarms.alarmScope.PARTY') }}:</h6>
         <p>{{ partner }}</p>
       </div>
-      <div v-if="content.autoPositionCustAccount" class="overview-item mr-5">
+      <div v-if="billingAccount" class="overview-item mr-5">
         <h6>{{ $t('common.billingAccount') }}:</h6>
         <p>
-          `{{ content.autoPositionCustAccount.id }} - {{ content.autoPositionCustAccount.name }}`
+          {{ billingAccount }}
         </p>
       </div>
-      <div v-if="content.autoPositionWorkflow" class="overview-item mr-5">
+      <div v-if="offer" class="overview-item mr-5">
         <h6>{{ $t('alarms.alarmScope.OFFER') }}:</h6>
-        <p>{{ content.autoPositionWorkflow.name }}</p>
+        <p>{{ offer }}</p>
       </div>
     </div>
 
@@ -177,6 +177,41 @@ export default {
   computed: {
     ...mapGetters(['userIsPartner']),
 
+    numberOfTargetedLines() {
+      if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.content.numberLines;
+      }
+      return this.content.numberOfTargetedLines;
+    },
+
+    billingAccount() {
+      if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.content &&
+          this.content.offerGroup &&
+          this.content.offerGroup.offerInstance &&
+          this.content.offerGroup.offerInstance.marketingOffer &&
+          this.content.offerGroup.offerInstance.marketingOffer
+          ? `${this.content.offerGroup.offerInstance.marketingOffer.code} - ${this.content.offerGroup.offerInstance.marketingOffer.description}`
+          : '';
+      }
+      return this.content && this.content.autoPositionCustAccount
+        ? `${this.content.autoPositionCustAccount.id} - ${this.content.autoPositionCustAccount.name}`
+        : '';
+    },
+
+    offer() {
+      if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        return this.content && this.content.offerGroup && this.content.offerGroup.customerAccount
+          ? `${this.content.offerGroup.customerAccount.code} - ${this.content.offerGroup.customerAccount.name}`
+          : '';
+      }
+      return this.content &&
+        this.content.autoPositionWorkflow &&
+        this.content.autoPositionWorkflow.name
+        ? this.content.autoPositionWorkflow.name
+        : '';
+    },
+
     finalTextObservationCycle() {
       if (this.observationCycle === 'CUSTOM' || this.observationCycle === null) {
         if (
@@ -241,7 +276,7 @@ export default {
     editThisAlarm() {
       this.$router.push({
         name: 'alarmDetail',
-        params: { alarmId: this.content.id, editMode: true },
+        params: { alarmId: this.content.id, editMode: true, alarmType: this.content.type },
       });
     },
 

@@ -111,58 +111,8 @@ export default {
       rows: [],
       isLoading: false,
       filters: undefined,
-      columns: undefined,
-    };
-  },
-
-  computed: {
-    ...mapGetters(['userIsPartner']),
-    selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
-    },
-    currentPartners() {
-      if (!this.currentFilters) return [];
-
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
-      if (foundFilter && foundFilter.values && foundFilter.values.length) {
-        return foundFilter.values;
-      }
-
-      return [];
-    },
-    formattedTotal() {
-      return formatLargeNumber(this.total);
-    },
-  },
-  mounted() {
-    this.prepareColumns();
-    this.prepareFilterBar();
-    if (this.initFilters && this.initFilters.length) {
-      this.defaultFilterValues = this.initFilters;
-      this.$emit('currentFiltersChange', undefined);
-      this.applyFilters({ filters: this.initFilters, pagination: { page: 0, limit: 10 } });
-    } else {
-      this.applyFilters();
-    }
-  },
-  methods: {
-    ...mapMutations(['openPanel']),
-
-    prepareColumns() {
-      let idColumn = {
-        id: 1,
-        label: this.$t('col.id'),
-        name: 'id',
-        orderable: true,
-        visible: true,
-        fixed: true,
-        noHandle: true,
-        format: {
-          component: AlarmIdCell,
-        },
-      };
-      if (this.m2m) {
-        idColumn = {
+      columns: [
+        {
           id: 1,
           label: this.$t('col.id'),
           name: 'id',
@@ -171,16 +121,9 @@ export default {
           fixed: true,
           noHandle: true,
           format: {
-            type: 'Getter',
-            getter: row => {
-              return row.id;
-            },
+            component: AlarmIdCell,
           },
-        };
-      }
-
-      const columns = [
-        idColumn,
+        },
         {
           id: 2,
           label: this.$t('getparc.lineDetail.alarms.name'),
@@ -258,10 +201,41 @@ export default {
             path: 'name',
           },
         },
-      ];
+      ],
+    };
+  },
 
-      this.columns = columns;
+  computed: {
+    ...mapGetters(['userIsPartner']),
+    selectedPartnerIds() {
+      return this.currentPartners.map(p => p.id);
     },
+    currentPartners() {
+      if (!this.currentFilters) return [];
+
+      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      if (foundFilter && foundFilter.values && foundFilter.values.length) {
+        return foundFilter.values;
+      }
+
+      return [];
+    },
+    formattedTotal() {
+      return formatLargeNumber(this.total);
+    },
+  },
+  mounted() {
+    this.prepareFilterBar();
+    if (this.initFilters && this.initFilters.length) {
+      this.defaultFilterValues = this.initFilters;
+      this.$emit('currentFiltersChange', undefined);
+      this.applyFilters({ filters: this.initFilters, pagination: { page: 0, limit: 10 } });
+    } else {
+      this.applyFilters();
+    }
+  },
+  methods: {
+    ...mapMutations(['openPanel']),
 
     onCurrentFilterChange($event) {
       this.currentFilters = $event;

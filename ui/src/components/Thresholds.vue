@@ -5,10 +5,16 @@
       :key="`key_t_${data}_${index}`"
       v-for="(data, index) in thresholds"
     >
-      <span :class="data.className">
-        {{ data.value }}
-      </span>
-      <span v-if="index !== thresholds.length - 1">, </span>
+      <template v-if="data && data.value">
+        <span :class="data.className">
+          {{ data.value }}
+        </span>
+        <span v-if="index !== thresholds.length - 1">, </span>
+      </template>
+      <template v-else>
+        <span> {{ data }} </span>
+        <span v-if="index !== thresholds.length - 1">, </span>
+      </template>
     </span>
   </Fragment>
 </template>
@@ -34,88 +40,88 @@ export default {
 
       // Uniquement pour alarme mutualisé :
       if (this.alarm.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
-        if (this.alarm.meta.levelDataMax) {
+        if (this.alarm.levelDataMax) {
           values.push({
             value:
               'Data: ' +
-              this.alarm.meta.levelDataMax +
+              this.alarm.levelDataMax +
               '% ' +
               this.$t('getvsion.alarm-creation.beforeEndOfMonth'),
-            className: this.alarm.meta.dateDataMaxTriggered ? 'text-danger' : 'threshold-default',
+            className: this.alarm.dateDataMaxTriggered ? 'text-danger' : 'threshold-default',
           });
-          if (this.alarm.meta.levelData1) {
+          if (this.alarm.levelData1) {
             values.push({
               value:
-                this.alarm.meta.levelData1 +
+                this.alarm.levelData1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelData1 }),
-              className: this.alarm.meta.dateData1Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelData1 }),
+              className: this.alarm.dateData1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
-          if (this.alarm.meta.levelData2) {
+          if (this.alarm.levelData2) {
             values.push({
               value:
-                this.alarm.meta.levelData2 +
+                this.alarm.levelData2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelData2 }),
-              className: this.alarm.meta.dateData2Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelData2 }),
+              className: this.alarm.dateData2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
         }
-        if (this.alarm.meta.levelVoiceMax) {
+        if (this.alarm.levelVoiceMax) {
           values.push({
             value:
               this.$t('voice') +
               ': ' +
-              this.alarm.meta.levelVoiceMax +
+              this.alarm.levelVoiceMax +
               '% ' +
               this.$t('getvsion.alarm-creation.beforeEndOfMonth'),
-            className: this.alarm.meta.dateVoiceMaxTriggered ? 'text-danger' : 'threshold-default',
+            className: this.alarm.dateVoiceMaxTriggered ? 'text-danger' : 'threshold-default',
           });
-          if (this.alarm.meta.levelVoice1) {
+          if (this.alarm.levelVoice1) {
             values.push({
               value:
-                this.alarm.meta.levelVoice1 +
+                this.alarm.levelVoice1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelVoice1 }),
-              className: this.alarm.meta.dateVoice1Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelVoice1 }),
+              className: this.alarm.dateVoice1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
-          if (this.alarm.meta.levelVoice2) {
+          if (this.alarm.levelVoice2) {
             values.push({
               value:
-                this.alarm.meta.levelVoice2 +
+                this.alarm.levelVoice2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelVoice2 }),
-              className: this.alarm.meta.dateVoice2Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelVoice2 }),
+              className: this.alarm.dateVoice2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
         }
-        if (this.alarm.meta.levelSmsMax) {
+        if (this.alarm.levelSmsMax) {
           values.push({
             value:
               'Sms: ' +
-              this.alarm.meta.levelSmsMax +
+              this.alarm.levelSmsMax +
               '% ' +
               this.$t('getvsion.alarm-creation.beforeEndOfMonth'),
-            className: this.alarm.meta.dateSmsMaxTriggered ? 'text-danger' : 'threshold-default',
+            className: this.alarm.dateSmsMaxTriggered ? 'text-danger' : 'threshold-default',
           });
-          if (this.alarm.meta.levelSms1) {
+          if (this.alarm.levelSms1) {
             values.push({
               value:
-                this.alarm.meta.levelSms1 +
+                this.alarm.levelSms1 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelSms1 }),
-              className: this.alarm.meta.dateSms1Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelSms1 }),
+              className: this.alarm.dateSms1Triggered ? 'text-danger' : 'threshold-default',
             });
           }
-          if (this.alarm.meta.levelSms2) {
+          if (this.alarm.levelSms2) {
             values.push({
               value:
-                this.alarm.meta.levelSms2 +
+                this.alarm.levelSms2 +
                 '% ' +
-                this.$t('date-over', { date: this.alarm.meta.dateLevelSms2 }),
-              className: this.alarm.meta.dateSms2Triggered ? 'text-danger' : 'threshold-default',
+                this.$t('date-over', { date: this.alarm.dateLevelSms2 }),
+              className: this.alarm.dateSms2Triggered ? 'text-danger' : 'threshold-default',
             });
           }
         }
