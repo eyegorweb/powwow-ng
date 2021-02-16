@@ -1,31 +1,35 @@
 import { query } from './utils';
 import get from 'lodash.get';
 
-export async function getAvailableOffer(partnerId) {
+export async function getAvailableOffer(partnerId, pagination) {
   const queryStr = `{
-  getAvailableOffer(partnerId: ${partnerId}) {
-    partyRelated
-    workflow {
-      id
-      code
-      workflowDescription
-      name
-      initialOffer {
-        marketingServices {
-          code
-          labelService
-          optional
-          editable
+  getAvailableOffer(partnerId: ${partnerId}, pagination: { page: ${pagination.page}, limit: ${
+    pagination.limit
+  }}) {
+    total
+    items {
+      workflow {
+        id
+        code
+        workflowDescription
+        name
+        initialOffer {
+          marketingServices {
+            code
+            labelService
+            optional
+            editable
+          }
         }
       }
+      partyRelated
     }
-    partyRelated
   }
 }
 `;
 
   const response = await query(queryStr);
-  return response.data.getAvailableOffer;
+  return response.data.getAvailableOffer.items;
 }
 
 export async function updateOffers(partnerId, offerIds) {
