@@ -2,12 +2,13 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.167+20210216143339
+## 1.17.0-master.168+20210216144039
 2021-02-16
 
 ### Fixes
 
 - [2159] Activer le bouton enregistrer (eabb92ba6666b0358dbf5d59edef5a39ad299eab)
+- [000] Corriger la requête de création d'offre commerciale (a0f64e576b8dc5ecd51932c58e34e36020ebd1e5)
 
 ## 1.17.0-master.166+20210216091925
 2021-02-16
