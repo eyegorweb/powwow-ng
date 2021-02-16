@@ -114,6 +114,7 @@ export async function smsUsage(simInstanceId, pagination) {
         offerLabel
         location {
           detail
+          detailTranslated
           cellLatitude
           cellLongitude
           zipCode
@@ -166,6 +167,7 @@ export async function voiceUsage(simInstanceId, pagination) {
           offerLabel
           location {
             detail
+            detailTranslated
             cellLatitude
             cellLongitude
             zipCode

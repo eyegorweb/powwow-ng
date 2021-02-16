@@ -76,7 +76,7 @@ export default {
           false,
           {
             type: 'ObjectAttribute',
-            path: 'detail',
+            path: 'detailTranslated',
           }
         ),
         col('Détail usage', 'detailsTranslated', false, false),
