@@ -19,123 +19,128 @@
       </div>
     </div>
 
-    <ContentBlock no-handle>
-      <template slot="title">{{ $t('getadmin.partnerDetail.mb.details') }}</template>
-      <template slot="content">
-        <div class="row">
-          <div class="col-md-6">
-            <FormControl label="getadmin.partnerDetail.mb.commercialOffers.catalogOffer" bold-label>
-              <div v-if="initOffer">{{ $loGet(initOffer, 'marketingOffer.description') }}</div>
-              <div v-else>
-                <OfferCombo
-                  v-model="selectedCatalogOffer"
-                  :filters="workflowFilters"
-                  preselect-first
-                />
-              </div>
-            </FormControl>
-          </div>
-        </div>
-        <template v-if="form.code">
+    <template v-if="canShowForm">
+      <ContentBlock no-handle>
+        <template slot="title">{{ $t('getadmin.partnerDetail.mb.details') }}</template>
+        <template slot="content">
           <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.code')
-                }}</label>
-                <div>{{ form.code }}</div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.name')
-                }}</label>
-                <div>{{ form.name }}</div>
-              </div>
+            <div class="col-md-6">
+              <FormControl
+                label="getadmin.partnerDetail.mb.commercialOffers.catalogOffer"
+                bold-label
+              >
+                <div v-if="initOffer">{{ $loGet(initOffer, 'marketingOffer.description') }}</div>
+                <div v-else>
+                  <OfferCombo
+                    v-model="selectedCatalogOffer"
+                    :filters="workflowFilters"
+                    preselect-first
+                  />
+                </div>
+              </FormControl>
             </div>
           </div>
+          <template v-if="form.code">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.code')
+                  }}</label>
+                  <div>{{ form.code }}</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.name')
+                  }}</label>
+                  <div>{{ form.name }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.rateplan')
+                  }}</label>
+                  <div>{{ form.rateplan }}</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.york')
+                  }}</label>
+                  <div>{{ form.yorkCommunity || '-' }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.duration')
+                  }}</label>
+                  <div>{{ form.commitmentDuration }}</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.suspensionPeriod')
+                  }}</label>
+                  <div>{{ form.allowedSuspensionDuration }}</div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </template>
+      </ContentBlock>
+
+      <ContentBlock v-if="form && form.packages && form.packages.length" no-handle>
+        <template slot="title">{{ $t('getreport.dashboard.legends.contract') }}</template>
+        <template slot="content">
           <div class="row">
             <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.rateplan')
-                }}</label>
-                <div>{{ form.rateplan }}</div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.york')
-                }}</label>
-                <div>{{ form.yorkCommunity || '-' }}</div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.duration')
-                }}</label>
-                <div>{{ form.commitmentDuration }}</div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label class="font-weight-bold">{{
-                  $t('getadmin.partnerDetail.mb.commercialOffers.suspensionPeriod')
-                }}</label>
-                <div>{{ form.allowedSuspensionDuration }}</div>
-              </div>
+              <PackagesTable :offer-packages="form.packages" @change="form.packages = $event" />
             </div>
           </div>
         </template>
-      </template>
-    </ContentBlock>
+      </ContentBlock>
 
-    <ContentBlock v-if="form && form.packages && form.packages.length" no-handle>
-      <template slot="title">{{ $t('getreport.dashboard.legends.contract') }}</template>
-      <template slot="content">
-        <div class="row">
-          <div class="col">
-            <PackagesTable :offer-packages="form.packages" @change="form.packages = $event" />
-          </div>
+      <ContentBlock v-if="form && form.discounts && form.discounts.length" no-handle>
+        <template slot="title">Remises</template>
+        <template slot="content">
+          <DiscountFields
+            :dicounts="form.discounts"
+            :disabled="disabled"
+            @change="form.discounts = $event"
+          />
+        </template>
+      </ContentBlock>
+
+      <ContentBlock v-if="services" no-handle>
+        <template slot="title">{{ $t('common.services') }}</template>
+        <template slot="content">
+          <ServicesBlock :services="services" no-click />
+        </template>
+      </ContentBlock>
+
+      <div v-if="!disabled" class="row mb-3 mt-3">
+        <div class="col-md-12">
+          <UiButton
+            variant="secondary"
+            class="float-right"
+            @click="saveOffer()"
+            :disabled="isSaving || !formIsValid"
+          >
+            {{ $t('save') }}
+          </UiButton>
         </div>
-      </template>
-    </ContentBlock>
-
-    <ContentBlock v-if="form && form.discounts && form.discounts.length" no-handle>
-      <template slot="title">Remises</template>
-      <template slot="content">
-        <DiscountFields
-          :dicounts="form.discounts"
-          :disabled="disabled"
-          @change="form.discounts = $event"
-        />
-      </template>
-    </ContentBlock>
-
-    <ContentBlock v-if="services" no-handle>
-      <template slot="title">{{ $t('common.services') }}</template>
-      <template slot="content">
-        <ServicesBlock :services="services" no-click />
-      </template>
-    </ContentBlock>
-
-    <div v-if="!disabled" class="row mb-3 mt-3">
-      <div class="col-md-12">
-        <UiButton
-          variant="secondary"
-          class="float-right"
-          @click="saveOffer()"
-          :disabled="isSaving || !formIsValid"
-        >
-          {{ $t('save') }}
-        </UiButton>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -163,6 +168,7 @@ export default {
   },
   data() {
     return {
+      canShowForm: false,
       isSaving: false,
       initOffer: undefined,
       disabled: false,
@@ -230,7 +236,7 @@ export default {
         ).length;
         return validPackages.length === packagesWithBounds;
       }
-      return false;
+      return true;
     },
     formIsValid() {
       return this.isDiscountsValid && this.isPackagesValid;
@@ -290,6 +296,7 @@ export default {
         this.form.discounts = this.initOffer.offerGroupDiscounts || [];
         this.form.packages = this.initOffer.offerGroupPackages || [];
       }
+      this.canShowForm = true;
     },
     prefillWithSelectedOffer(offer) {
       this.form.id = this.$loGet(offer, 'initialOffer.id');
@@ -385,7 +392,7 @@ export default {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages.map(d => ({
             type: d.usageType,
-            value: d.discount,
+            discountValue: d.discount,
           }));
         }
       }

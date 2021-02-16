@@ -555,20 +555,22 @@ export default {
       this.locationType = 'CONTINENT';
       this.adjustPosition = adjustPositionForContinent;
       const data = await fetchContinentData(this.usageForQuery, this.formatFilters());
-      this.markers = data.map(d => {
-        const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
-        if (defaultData) {
-          return {
-            id: uuid(),
-            ...defaultData,
-            label: d.locationName,
-            activeCount: d.activeCount,
-            passiveCount: d.passiveCount,
-            position: new this.google.maps.LatLng(defaultData.lat, defaultData.lng),
-            data: d,
-          };
-        }
-      }).filter(c => !!c);
+      this.markers = data
+        .map(d => {
+          const defaultData = CONTINENTS_CONF.find(m => m.code === d.locationCode);
+          if (defaultData) {
+            return {
+              id: uuid(),
+              ...defaultData,
+              label: d.locationName,
+              activeCount: d.activeCount,
+              passiveCount: d.passiveCount,
+              position: new this.google.maps.LatLng(defaultData.lat, defaultData.lng),
+              data: d,
+            };
+          }
+        })
+        .filter(c => !!c);
     },
 
     async loadDataForCountries() {
