@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.166+20210216091925
+2021-02-16
+
+### Fixes
+
+- [2417] Corriger le problème de traduction dans la localisation dans la supervision du détail d'une ligne (852522f5c45b13994962986e4b97bcff27199b1f)
+
 ## 1.17.0-master.165+20210216090211
 2021-02-16
 
