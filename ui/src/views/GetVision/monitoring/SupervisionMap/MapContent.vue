@@ -568,7 +568,7 @@ export default {
             data: d,
           };
         }
-      });
+      }).filter(c => !!c);
     },
 
     async loadDataForCountries() {
