@@ -59,7 +59,7 @@ import TriggerMonthTab from './TriggerMonthTab';
 import TargetedLinesByAlarmTab from './TargetedLinesByAlarmTab';
 import ExcludedLinesFromAlarmTab from './ExcludedLinesFromAlarmTab';
 
-import { searchAlarmById } from '@/api/alarms';
+import { searchAlarmById, searchSharedConsumtionAlarmById } from '@/api/alarms';
 import { fetchAlarmTriggersFor2Months, fetchLinesBoundToAlarm } from '@/api/alarmDetails';
 import { formatLargeNumber } from '@/utils/numbers';
 import { mapMutations } from 'vuex';
@@ -113,7 +113,12 @@ export default {
     ...mapMutations(['openPanel']),
 
     async refreshAlarm() {
-      this.alarm = await searchAlarmById(this.$route.params.alarmId);
+      // Uniquement pour alarme mutualisé :
+      if (this.$route.params.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        this.alarm = await searchSharedConsumtionAlarmById(this.$route.params.alarmId);
+      } else {
+        this.alarm = await searchAlarmById(this.$route.params.alarmId);
+      }
 
       this.refreshTotals();
     },

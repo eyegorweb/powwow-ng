@@ -15,12 +15,26 @@ export async function searchSharedConsumptionAlarm(orderBy, pagination, filters)
       total
       items {
         id
+        auditable {
+          created
+          updated
+        }
         startDate
         expiryDate
         name
         type
         offerGroup {
           id
+          offerInstance {
+            marketingOffer {
+              code
+              description
+            }
+          }
+          customerAccount {
+            code
+            name
+          }
         }
         numberLines
         notifyByEmail
@@ -134,6 +148,19 @@ export async function searchAlarmById(id) {
   return;
 }
 
+export async function searchSharedConsumtionAlarmById(id) {
+  const orderBy = { key: 'id', direction: 'DESC' };
+  const pagination = { page: 0, limit: 10 };
+  const filters = [{ id: 'filters.alarmId', value: id }];
+  const response = await searchSharedConsumptionAlarm(orderBy, pagination, filters);
+
+  if (response && response.items && response.items.length) {
+    return response.items[0];
+  }
+
+  return;
+}
+
 export async function searchAlarms(orderBy, pagination, filters = []) {
   // const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
   const paginationInfo = pagination
@@ -202,9 +229,6 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
         level3Up
         level3Down
         startDate
-        auditable {
-          created
-        }
       }
     }
   }`;

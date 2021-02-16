@@ -149,7 +149,7 @@ export default {
     },
     alarmScope() {
       const alarmScope = this.get('alarmScope');
-      return alarmScope !== null ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
+      return alarmScope ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
     },
   },
 };
