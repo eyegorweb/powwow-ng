@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.171+20210216170530
+2021-02-16
+
+### Fixes
+
+- [2420] désactiver une alarme sur une liste de ligne (eab9a4c44a00b865546acccfe5d04802fdc6a376)
+
 ## 1.17.0-master.170+20210216160513
 2021-02-16
 
