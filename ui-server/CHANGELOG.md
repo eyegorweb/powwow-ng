@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.170+20210216160513
+2021-02-16
+
+### Fixes
+
+- [000] COrrection du bug de pagination sur la page d'alarmes (030339d081b59fae58a78a2c28fbbc74352f8c25)
+
 ## 1.17.0-master.169+20210216150228
 2021-02-16
 
