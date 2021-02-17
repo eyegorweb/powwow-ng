@@ -4,6 +4,7 @@
     :check-errors-fn="isFormValid"
     :duplicate-from="duplicateFrom"
     have-form
+    :is-loading="isLoading"
     :partner="partner"
     @save="onSave"
     @scope="scopeChoice = $event"
@@ -86,9 +87,13 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          this.isLoading = true;
         response = await updateISPList({ ...params, id: this.duplicateFrom.id });
+          this.isLoading = false;
       } else {
+          this.isLoading = true;
         response = await alarmOnChangeISP(params);
+          this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
@@ -124,6 +129,7 @@ export default {
     return {
       options: [],
       scopeChoice: undefined,
+      isLoading: false,
     };
   },
   computed: {

@@ -6,6 +6,7 @@
     :duplicate-from="duplicateFrom"
     :partner="partner"
     @save="onSave"
+    :is-loading="isLoading"
     @scope="scopeChoice = $event"
   >
     <SectionTitle :num="numStep">
@@ -75,7 +76,7 @@ export default {
   data() {
     return {
       scopeChoice: undefined,
-
+      isLoading: false,
       currentPeriod: 'ALL',
       toggleValues: undefined,
     };
@@ -106,9 +107,13 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          this.isLoading = true;
         response = await updateStatusChangeAlarm({ ...params, id: this.duplicateFrom.id });
+          this.isLoading = false;
       } else {
+          this.isLoading = true;
         response = await createStatusChangeAlarm(params);
+          this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';

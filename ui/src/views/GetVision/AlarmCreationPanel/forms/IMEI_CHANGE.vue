@@ -5,6 +5,7 @@
     :partner="partner"
     @save="onSave"
     @scope="scopeChoice = $event"
+    :is-loading="isLoading"
   >
   </AlarmCreationBaseForm>
 </template>
@@ -27,6 +28,7 @@ export default {
   data() {
     return {
       scopeChoice: undefined,
+      isLoading: false,
     };
   },
   methods: {
@@ -42,9 +44,13 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          this.isLoading = true;
         response = await updateDeviceChangeAlarm({ ...params, id: this.duplicateFrom.id });
+          this.isLoading = false;
       } else {
+          this.isLoading = true;
         response = await alarmOnDeviceChange(params);
+          this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
