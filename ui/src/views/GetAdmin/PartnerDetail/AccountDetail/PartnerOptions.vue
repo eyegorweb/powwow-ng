@@ -349,7 +349,7 @@
               <label class="small-label">{{
                 $t('getadmin.partners.optionsDetails.ws-address')
               }}</label>
-              <UiInput v-model="webserviceAdress" input-type="number" block />
+              <UiInput v-model="webserviceAdress" block />
               <small v-if="fieldErrors && errors.webserviceAdress" class="form-text error-text">{{
                 $t('required')
               }}</small>
