@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <CommercialOfferFormSkeleton v-if="isLoading" />
+  <div v-else>
     <div class="row">
       <div class="col-2">
         <UiButton variant="outline-primary" class="mb-4" @click="goBack()">
@@ -95,6 +96,22 @@
                 </div>
               </div>
             </div>
+            <div v-if="initOffer && initOffer.auditable" class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{ $t('getparc.history.col.created') }}</label>
+                  <div>{{ initOffer.auditable.created }}</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="font-weight-bold">{{
+                    $t('getadmin.partnerDetail.mb.commercialOffers.edited')
+                  }}</label>
+                  <div>{{ initOffer.auditable.updated }}</div>
+                </div>
+              </div>
+            </div>
           </template>
         </template>
       </ContentBlock>
@@ -148,6 +165,7 @@
 import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import PackagesTable from './PackagesTable';
+import CommercialOfferFormSkeleton from './CommercialOfferFormSkeleton';
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import ServicesBlock from '@/components/Services/ServicesBlock.vue';
@@ -165,9 +183,11 @@ export default {
     OfferCombo,
     ContentBlock,
     ServicesBlock,
+    CommercialOfferFormSkeleton
   },
   data() {
     return {
+      isLoading: false,
       canShowForm: false,
       isSaving: false,
       initOffer: undefined,
@@ -269,10 +289,12 @@ export default {
     },
     async loadCommercialInfoToEdit() {
       if (this.$route.params.comOfferId) {
+        this.isLoading = true;
         this.initOffer = await fetchOfferGroupById(
           this.$route.params.comOfferId,
           this.$route.params.id
         );
+        this.isLoading = false;
       }
     },
     prefillForm() {

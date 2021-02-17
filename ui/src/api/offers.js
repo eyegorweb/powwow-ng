@@ -461,7 +461,7 @@ export async function createCommercialOffer(input) {
 }
 
 export async function updateCommercialOffer(input) {
-  const queryStr = `mutation UpdateCommercialOffer($input: CommercialOfferMutInput!) {
+  const queryStr = `mutation UpdateCommercialOffer($input: CommercialOffeInput!) {
     updateCommercialOffer(input: $input) {
       id
     }
