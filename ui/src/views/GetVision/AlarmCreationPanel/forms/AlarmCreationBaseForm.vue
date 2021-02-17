@@ -41,6 +41,7 @@
       :no-wsnotification="noWsnotification"
       :suspension="suspension"
       :duplicate-from="duplicateFrom"
+      :is-loading="isLoading"
     />
   </div>
 </template>
@@ -63,6 +64,7 @@ export default {
   props: {
     alarm: Object,
     duplicateFrom: Object,
+    isLoading: Boolean,
     partner: Object,
     haveForm: Boolean,
     noSuspension: Boolean,

@@ -49,8 +49,9 @@
           <UiCheckbox v-model="enableAlarm" :checked="true" />
           <span>{{ $t('getvsion.alarm.enableAlarm') }}</span>
         </div>
-        <UiButton variant="primary" class="p-3" block @click="saveAlarm" :disabled="!canSaveAlarm">
-          <span class="btn-label">{{ $t('getvsion.alarm.saveAlarm') }}</span>
+        <UiButton variant="primary" class="p-3" block @click="saveAlarm" :disabled="!canSaveAlarm || isLoading">
+          <span class="btn-label" v-if="!isLoading">{{ $t('getvsion.alarm.saveAlarm') }}</span>
+          <span class="btn-label" v-else>{{ $t('getvsion.alarm.isLoading') }}</span>
         </UiButton>
       </div>
     </div>
@@ -77,6 +78,7 @@ export default {
     noSuspension: Boolean,
     noWsnotification: Boolean,
     canSave: Boolean,
+    isLoading: Boolean,
     suspension: {
       type: Boolean,
       default: false,

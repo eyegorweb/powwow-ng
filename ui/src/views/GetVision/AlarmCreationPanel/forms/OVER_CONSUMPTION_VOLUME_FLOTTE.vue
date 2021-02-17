@@ -8,6 +8,7 @@
     @partnerChange="selectedPartner = $event"
     :partner="partner"
     :no-suspension="true"
+    :is-loading="isLoading"
     :no-wsnotification="true"
     :check-errors-fn="isFormValid"
   >
@@ -103,6 +104,7 @@ export default {
       includeDataLimits: false,
       includeSMSLimits: false,
       includeVoiceLimits: false,
+      isLoading: false,
       toggleValues: [
         {
           id: 'data',
@@ -253,7 +255,9 @@ export default {
         if (this.duplicateFrom && this.duplicateFrom.toModify) {
           // response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
         } else {
+          this.isLoading = true;
           response = await createSharedConsumptionAlarm(params);
+          this.isLoading = false;
         }
         const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
         this.onClose(response, key);

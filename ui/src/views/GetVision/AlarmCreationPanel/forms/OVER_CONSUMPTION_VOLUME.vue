@@ -8,6 +8,7 @@
     @scope="scopeChoice = $event"
     :suspension="true"
     :check-errors-fn="isFormValid"
+    :is-loading="isLoading"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" :partner="partner" />
   </AlarmCreationBaseForm>
@@ -35,6 +36,7 @@ export default {
       values: undefined,
       scopeChoice: undefined,
       initValues: undefined,
+      isLoading: false,
     };
   },
   mounted() {
@@ -85,13 +87,17 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          this.isLoading = true;
         response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
+          this.isLoading = false;
       } else {
         const paramsToSend = { ...params };
         if (this.scopeChoice && this.scopeChoice.partner && this.scopeChoice.partner.id) {
           paramsToSend.id = this.scopeChoice.partner.id;
         }
+          this.isLoading = true;
         response = await alarmOnOverConso(paramsToSend);
+          this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';

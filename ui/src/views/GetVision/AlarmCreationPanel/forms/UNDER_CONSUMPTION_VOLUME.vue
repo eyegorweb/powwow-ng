@@ -6,6 +6,7 @@
     @scope="scopeChoice = $event"
     :check-errors-fn="isFormValid"
     :partner="partner"
+    :is-loading="isLoading"
     :duplicate-from="duplicateFrom"
   >
     <ConsumptionForm @change="values = $event" :duplicate-from="duplicateFrom" />
@@ -33,6 +34,7 @@ export default {
     return {
       values: undefined,
       scopeChoice: undefined,
+      isLoading: false,
     };
   },
   methods: {
@@ -68,9 +70,13 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
+          this.isLoading = true;
         response = await modifyUnderConso({ ...params, id: this.duplicateFrom.id });
+          this.isLoading = false;
       } else {
+          this.isLoading = true;
         response = await alarmOnUnderConso(params);
+          this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
