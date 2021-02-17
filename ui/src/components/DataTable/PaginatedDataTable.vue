@@ -1,7 +1,7 @@
 <template>
   <LoaderContainer :is-loading="isLoading">
     <div slot="on-loading">
-      <TableSkeleton :columns="columns" :size="3" />
+      <TableSkeleton :columns="columns" :size="skeletonLines" />
     </div>
     <div v-if="isError" class="alert alert-light" role="alert">{{ $t('requestError') }}</div>
     <DataTable
@@ -64,6 +64,10 @@ export default {
       type: String,
       required: false,
     },
+    skeletonLines: {
+      type: Number,
+      default: 3
+    }
   },
   components: {
     DataTable,

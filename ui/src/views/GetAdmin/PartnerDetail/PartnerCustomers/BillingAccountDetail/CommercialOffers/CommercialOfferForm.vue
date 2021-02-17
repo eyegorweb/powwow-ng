@@ -42,7 +42,7 @@
             </div>
           </div>
           <template v-if="form.code">
-            <div class="row">
+            <div class="row" v-if="initOffer">
               <div class="col">
                 <div class="form-group">
                   <label class="font-weight-bold">{{
