@@ -10,6 +10,7 @@
     </div>
     <PaginatedDataTable
       v-if="columns"
+      :skeleton-lines="10"
       :columns="columns"
       :order="defaultOrderBy"
       :fetch-data-fn="getFetchFn()"

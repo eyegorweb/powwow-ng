@@ -1612,12 +1612,12 @@
         "RELEASED": "Terminated",
         "ACTIVATING": "Activation in progress",
         "DEACTIVATION": "Deactivation in progress",
-        "CANCELED": "Canceled",
+        "CANCELED": "Terminated",
         "TEST": "Test",
         "BARRED": "Barred",
         "ALLOCATING": "In the process of pre-activation",
         "ACTIVATION_IN_PROGRESS": "Activation in progress",
-        "RELEASED_IN_PROGRESS": "Cancelation in progress"
+        "RELEASED_IN_PROGRESS": "Termination in progress"
       },
       "commercialStatuses": {
         "demandeDeResiliation": "Termination request",
