@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.176+20210217160707
+2021-02-17
+
+### Fixes
+
+- [2419] Traduction des statuts des lignes : Remplacer "Canceled" par "Terminated" (db6a88bae28156e5d4e2f9018baec96ed44b0d95)
+
 ## 1.17.0-master.175+20210217143641
 2021-02-17
 
