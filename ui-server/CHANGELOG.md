@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.175+20210217143641
+2021-02-17
+
+### Fixes
+
+- [2412] Changement du type input dans partner options pour webservice (5232cb8c8878b7e75a6b46edbe98894091849c00)
+
 ## 1.17.0-master.174+20210217105851
 2021-02-17
 
