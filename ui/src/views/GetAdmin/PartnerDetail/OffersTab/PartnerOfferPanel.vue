@@ -16,7 +16,7 @@
         <BlockCheckboxSkeleton v-for="i in 20" :key="'sk' + i" />
       </template>
       <template v-else>
-        <div >
+        <div>
           <BlockCheckbox
             :key="'check' + offer.id"
             v-model="offer.checked"
@@ -91,7 +91,7 @@ export default {
       visibleOffers: [],
       partnerOffers: [],
       searchValue: undefined,
-      pagination: {page: 0, limit: 20},
+      pagination: { page: 0, limit: 20 },
       blocsHeight: 0,
       canLoadByScroll: true,
       nextPage: undefined,
@@ -121,26 +121,28 @@ export default {
 
     this.offers = await this.fetchOffers(this.pagination);
     this.visibleOffers = [...this.offers];
-    this.blocsHeight = ((parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) + CHECKBOX_MARGIN) * this.visibleOffers.length);
+    this.blocsHeight =
+      (parseFloat(getComputedStyle(this.$refs.checkboxBloc[1]).height.replace('px', '')) +
+        CHECKBOX_MARGIN) *
+      this.visibleOffers.length;
   },
 
   methods: {
     ...mapMutations(['closePanel', 'flashMessage']),
 
     async onScroll(panelRef) {
-      if(!this.canLoadByScroll)  return;
+      if (!this.canLoadByScroll) return;
 
-      if(this.$refs.checkboxBloc && panelRef) {
-        let scrollMaxHeight = panelRef.scrollTop + (panelRef.scrollHeight - this.blocsHeight)
+      if (this.$refs.checkboxBloc && panelRef) {
+        let scrollMaxHeight = panelRef.scrollTop + (panelRef.scrollHeight - this.blocsHeight);
         let loadMore = scrollMaxHeight >= this.blocsHeight;
-        if( loadMore && !this.isLoading ) {
+        if (loadMore && !this.isLoading) {
           this.pagination.page += 1;
-          this.nextPage = await this.fetchOffers(this.pagination)
-          if(this.nextPage.length > 0) {
+          this.nextPage = await this.fetchOffers(this.pagination);
+          if (this.nextPage.length > 0) {
             this.offers = [...this.offers, ...this.nextPage];
             this.visibleOffers = [...this.offers];
-          }
-          else {
+          } else {
             this.canLoadByScroll = false;
           }
         }

@@ -56,7 +56,7 @@ export default {
       };
 
       if (this.rows && this.rows.length) {
-        alarmInput.simCardInstanceIds = this.rows.map((r) => r.id);
+        alarmInput.simCardInstanceIds = this.rows.map(r => r.id);
       } else {
         alarmInput.filters = this.filters;
       }
@@ -66,7 +66,7 @@ export default {
         actionFn: async () => {
           const response = await deleteAlarmInstance2(alarmInput);
           if (response && response.errors && response.errors.length) {
-            response.errors.forEach((e) => {
+            response.errors.forEach(e => {
               this.flashMessage({ level: 'danger', message: e.message });
             });
           }

@@ -206,7 +206,7 @@ export default {
   computed: {
     isDiscountsValid() {
       if (this.form && this.form.discounts && this.form.discounts.length) {
-        const validDiscounts = this.form.discounts.filter((d) => {
+        const validDiscounts = this.form.discounts.filter(d => {
           if (d.value && d.value.length && d.minValue !== undefined && d.maxValue !== undefined) {
             const val = parseFloat(d.value);
             return val >= d.minValue && val <= d.maxValue;
@@ -219,7 +219,7 @@ export default {
     },
     isPackagesValid() {
       if (this.form && this.form.packages && this.form.packages.length) {
-        const validPackages = this.form.packages.filter((d) => {
+        const validPackages = this.form.packages.filter(d => {
           if (
             d.discount &&
             d.discount.length &&
@@ -232,7 +232,7 @@ export default {
           return false;
         });
         const packagesWithBounds = this.form.packages.filter(
-          (p) => p.lowerBound !== undefined && p.lowerBound !== null
+          p => p.lowerBound !== undefined && p.lowerBound !== null
         ).length;
         return validPackages.length === packagesWithBounds;
       }
@@ -327,7 +327,7 @@ export default {
       };
 
       const packagesWithBounds = this.form.packages.filter(
-        (p) => p.lowerBound !== undefined && p.lowerBound !== null
+        p => p.lowerBound !== undefined && p.lowerBound !== null
       ).length;
 
       let offerPackages = undefined;
@@ -335,8 +335,8 @@ export default {
       if (packagesWithBounds > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter((d) => d.discount)
-            .map((d) => ({
+            .filter(d => d.discount)
+            .map(d => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
             }));
@@ -346,7 +346,7 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map((d) => ({
+        discountDefinitions = this.form.discounts.map(d => ({
           name: d.code,
           value: d.value,
         }));
@@ -383,18 +383,18 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map((d) => ({
+        discountDefinitions = this.form.discounts.map(d => ({
           name: d.code,
           value: d.value,
         }));
       }
 
       let offerPackages = undefined;
-      if (this.form.packages.filter((p) => p.lowerBound !== undefined).length > 0) {
+      if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter((d) => d.discount)
-            .map((d) => ({
+            .filter(d => d.discount)
+            .map(d => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
             }));

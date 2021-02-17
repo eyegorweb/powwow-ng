@@ -1,6 +1,11 @@
 <template>
   <div class="panel-vertical-container" :class="{ 'bg-white': white }">
-    <div class="data-detail-container" ref="panelMainContainer" :class="{ 'main-content': !main }" @scroll="$emit('scroll', $refs.panelMainContainer )">
+    <div
+      class="data-detail-container"
+      ref="panelMainContainer"
+      :class="{ 'main-content': !main }"
+      @scroll="$emit('scroll', $refs.panelMainContainer)"
+    >
       <slot></slot>
     </div>
     <div class="footer-panel-buttons">

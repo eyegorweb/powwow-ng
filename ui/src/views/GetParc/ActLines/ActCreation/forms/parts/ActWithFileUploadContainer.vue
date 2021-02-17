@@ -85,7 +85,7 @@
             </div>
 
             <FormReport
-              v-if="report && haveBusinessErrors"
+              v-if="report && (haveBusinessErrors || alwaysShowReport)"
               :get-export-fn="getExportFn()"
               :data="report"
             />
@@ -128,6 +128,7 @@ export default {
     actCode: String,
     confirmationMessage: String,
     successMessage: String,
+    alwaysShowReport: Boolean,
   },
   data() {
     return {
@@ -272,7 +273,15 @@ export default {
       }
 
       this.report = response;
-      if (this.haveBusinessErrors) {
+      console.log(
+        '🚀 ~ file: ActWithFileUploadContainer.vue ~ line 276 ~ doRequest ~ response',
+        response
+      );
+      console.log(
+        '🚀 ~ file: ActWithFileUploadContainer.vue ~ line 277 ~ doRequest ~ this.alwaysShowReport',
+        this.alwaysShowReport
+      );
+      if (this.alwaysShowReport || this.haveBusinessErrors) {
         return { stayInForm: true };
       } else {
         return await this.confirmRequest();
