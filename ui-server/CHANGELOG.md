@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.174+20210217105851
+2021-02-17
+
+### Fixes
+
+- [2409] Ajout sur alarm loader de sauvegarde (7ade4093771a7bede69ddd9ee9446b10428faa5d)
+- [2159] Corriger la modification d'offre commerciale (47774c17e323b68ff7793714e29a534e8df9a210)
+
 ## 1.17.0-master.173+20210217102755
 2021-02-17
 
