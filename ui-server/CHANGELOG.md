@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.172+20210217085522
+2021-02-17
+
+### Features
+
+- [2371] Ajout infini scroll avec pagination du panel offers (d1700881e14f284629e11715b90f023cc4aa5779)
+
 ## 1.17.0-master.171+20210216170530
 2021-02-16
 
