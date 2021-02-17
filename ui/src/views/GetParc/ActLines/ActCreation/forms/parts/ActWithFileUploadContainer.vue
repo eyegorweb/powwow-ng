@@ -273,14 +273,6 @@ export default {
       }
 
       this.report = response;
-      console.log(
-        '🚀 ~ file: ActWithFileUploadContainer.vue ~ line 276 ~ doRequest ~ response',
-        response
-      );
-      console.log(
-        '🚀 ~ file: ActWithFileUploadContainer.vue ~ line 277 ~ doRequest ~ this.alwaysShowReport',
-        this.alwaysShowReport
-      );
       if (this.alwaysShowReport || this.haveBusinessErrors) {
         return { stayInForm: true };
       } else {
