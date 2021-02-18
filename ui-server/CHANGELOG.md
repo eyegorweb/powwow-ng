@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.179+20210218170848
+2021-02-18
+
+### Fixes
+
+- [2359] Ajout de l'api alarmsTypes pour le filtre de type d'alarmes (8360e75dde0eb2a28a7e5d5c1c7cf4e42aec6045)
+
 ## 1.17.0-master.178+20210218153908
 2021-02-18
 
