@@ -121,7 +121,7 @@
         <template slot="content">
           <div class="row">
             <div class="col">
-              <PackagesTable :offer-packages="form.packages" @change="form.packages = $event" />
+              <PackagesTable :offer-packages="form.packages" @change="setPackagesValues($event)" />
             </div>
           </div>
         </template>
@@ -133,8 +133,19 @@
           <DiscountFields
             :dicounts="form.discounts"
             :disabled="disabled"
-            @change="form.discounts = $event"
+            @change="setDiscountValues($event)"
           />
+        </template>
+      </ContentBlock>
+
+      <ContentBlock v-if="form && form.ranges && form.ranges.length" no-handle>
+        <template slot="title">{{ $t('getadmin.partnerDetail.mb.ranges') }}</template>
+        <template slot="content">
+          <div class="row">
+            <div class="col">
+              <RangesTable :offer-ranges="form.ranges" @change="setRangesValues($event)" />
+            </div>
+          </div>
         </template>
       </ContentBlock>
 
@@ -165,6 +176,7 @@
 import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import PackagesTable from './PackagesTable';
+import RangesTable from './RangesTable';
 import CommercialOfferFormSkeleton from './CommercialOfferFormSkeleton';
 import OfferCombo from '@/components/CustomComboxes/OfferCombo.vue';
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
@@ -180,10 +192,11 @@ export default {
     UiButton,
     FormControl,
     PackagesTable,
+    RangesTable,
     OfferCombo,
     ContentBlock,
     ServicesBlock,
-    CommercialOfferFormSkeleton
+    CommercialOfferFormSkeleton,
   },
   data() {
     return {
@@ -195,6 +208,9 @@ export default {
       selectedCatalogOffer: undefined,
       test: true,
       services: undefined,
+      isDiscountsValid: false,
+      isPackagesValid: false,
+      isRangesValid: false,
       form: {
         code: undefined,
         name: undefined,
@@ -211,6 +227,7 @@ export default {
         franceDataDiscount: undefined,
         discounts: undefined,
         packages: undefined,
+        ranges: undefined,
       },
     };
   },
@@ -224,42 +241,8 @@ export default {
   },
 
   computed: {
-    isDiscountsValid() {
-      if (this.form && this.form.discounts && this.form.discounts.length) {
-        const validDiscounts = this.form.discounts.filter(d => {
-          if (d.value && d.value.length && d.minValue !== undefined && d.maxValue !== undefined) {
-            const val = parseFloat(d.value);
-            return val >= d.minValue && val <= d.maxValue;
-          }
-          return false;
-        });
-        return validDiscounts.length === this.form.discounts.length;
-      }
-      return false;
-    },
-    isPackagesValid() {
-      if (this.form && this.form.packages && this.form.packages.length) {
-        const validPackages = this.form.packages.filter(d => {
-          if (
-            d.discount &&
-            d.discount.length &&
-            d.lowerBound !== undefined &&
-            d.upperBound !== undefined
-          ) {
-            const val = parseFloat(d.discount);
-            return val >= d.lowerBound && val <= d.upperBound;
-          }
-          return false;
-        });
-        const packagesWithBounds = this.form.packages.filter(
-          p => p.lowerBound !== undefined && p.lowerBound !== null
-        ).length;
-        return validPackages.length === packagesWithBounds;
-      }
-      return true;
-    },
     formIsValid() {
-      return this.isDiscountsValid && this.isPackagesValid;
+      return this.isDiscountsValid && this.isPackagesValid && this.isRangesValid;
     },
     workflowFilters() {
       return {
@@ -273,11 +256,78 @@ export default {
 
   async mounted() {
     await this.loadCommercialInfoToEdit();
-    this.prefillForm();
+    this.fillFormForUpdate();
   },
 
   methods: {
     ...mapMutations(['flashMessage']),
+    setDiscountValues(values) {
+      const isValid = () => {
+        if (values && values.length) {
+          const validDiscounts = values.filter((d) => {
+            if (d.discountValue && d.lowerBound !== undefined && d.upperBound !== undefined) {
+              const val = parseFloat(d.discountValue);
+              return val >= d.lowerBound && val <= d.upperBound;
+            }
+            return false;
+          });
+          return validDiscounts.length === values.length;
+        }
+        return false;
+      };
+      this.isDiscountsValid = isValid();
+      this.form.discounts = values;
+    },
+    setPackagesValues(values) {
+      const isValid = () => {
+        if (values && values.length) {
+          const validPackages = values.filter((d) => {
+            if (
+              d.discount &&
+              d.discount.length &&
+              d.lowerBound !== undefined &&
+              d.upperBound !== undefined
+            ) {
+              const val = parseFloat(d.discount);
+              return val >= d.lowerBound && val <= d.upperBound;
+            }
+            return false;
+          });
+          const packagesWithBounds = values.filter(
+            (p) => p.lowerBound !== undefined && p.lowerBound !== null
+          ).length;
+          return validPackages.length === packagesWithBounds;
+        }
+        return true;
+      };
+      this.isPackagesValid = isValid();
+      this.form.packages = values;
+    },
+    setRangesValues(values) {
+      const isValid = () => {
+        if (values && values.length) {
+          const validranges = values.filter((d) => {
+            if (
+              d.discountValue &&
+              d.discountValue.length &&
+              d.lowerBound !== undefined &&
+              d.upperBound !== undefined
+            ) {
+              const val = parseFloat(d.discountValue);
+              return val >= d.lowerBound && val <= d.upperBound;
+            }
+            return false;
+          });
+          const rangesWithBounds = values.filter(
+            (p) => p.lowerBound !== undefined && p.lowerBound !== null
+          ).length;
+          return validranges.length === rangesWithBounds;
+        }
+        return true;
+      };
+      this.isRangesValid = isValid();
+      this.form.ranges = values;
+    },
     goBack() {
       this.$router.push({
         name: 'getAdminPartnerDetails.customerList.detail.commercialOffers.list',
@@ -297,7 +347,7 @@ export default {
         this.isLoading = false;
       }
     },
-    prefillForm() {
+    fillFormForUpdate() {
       if (this.initOffer) {
         this.form.id = this.initOffer.id;
         this.form.code = this.initOffer.code;
@@ -315,8 +365,9 @@ export default {
         );
 
         this.services = getMarketingOfferServices(this.initOffer.marketingOffer);
-        this.form.discounts = this.initOffer.offerGroupDiscounts || [];
-        this.form.packages = this.initOffer.offerGroupPackages || [];
+        this.setPackagesValues(this.initOffer.offerGroupPackages || []);
+        this.setDiscountValues(this.initOffer.offerGroupDiscounts || []);
+        this.setRangesValues(this.initOffer.offerGroupRanges || []);
       }
       this.canShowForm = true;
     },
@@ -326,8 +377,10 @@ export default {
       this.form.name = offer.description;
       this.form.rateplan = offer.billingOfferCode;
       this.form.yorkCommunity = offer.yorkCommunity;
-      this.form.packages = this.$loGet(offer, 'initialOffer.offerPackages');
-      this.form.discounts = this.$loGet(offer, 'initialOffer.offerDiscounts');
+      this.setPackagesValues(this.$loGet(offer, 'initialOffer.offerPackages', []));
+      this.setDiscountValues(this.$loGet(offer, 'initialOffer.offerDiscounts', []));
+      this.setRangesValues(this.$loGet(offer, 'initialOffer.offerRanges', []));
+
       this.services = getMarketingOfferServices(offer.initialOffer);
 
       // partie package
@@ -349,7 +402,7 @@ export default {
       };
 
       const packagesWithBounds = this.form.packages.filter(
-        p => p.lowerBound !== undefined && p.lowerBound !== null
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
       ).length;
 
       let offerPackages = undefined;
@@ -357,10 +410,26 @@ export default {
       if (packagesWithBounds > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter(d => d.discount)
-            .map(d => ({
+            .filter((d) => d.discount)
+            .map((d) => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
+            }));
+        }
+      }
+
+      const rangesWithBounds = this.form.ranges.filter(
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
+      ).length;
+
+      let levelDefinitions = undefined;
+
+      if (rangesWithBounds > 0) {
+        if (this.form.ranges && this.form.ranges.length) {
+          levelDefinitions = this.form.ranges
+            .filter((d) => d.discountValue)
+            .map((d) => ({
+              discountValue: parseFloat(d.discountValue),
             }));
         }
       }
@@ -368,7 +437,7 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map(d => ({
+        discountDefinitions = this.form.discounts.map((d) => ({
           name: d.code,
           value: d.value,
         }));
@@ -388,6 +457,13 @@ export default {
         dataToSave.commercialOfferParameter.offerPackages = offerPackages;
       }
 
+      if (levelDefinitions) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
+        }
+        dataToSave.commercialOfferParameter.levelDefinitions = levelDefinitions;
+      }
+
       this.isSaving = true;
       const response = await updateCommercialOffer(dataToSave);
       this.isSaving = false;
@@ -405,20 +481,36 @@ export default {
       let discountDefinitions = undefined;
 
       if (this.form.discounts && this.form.discounts.length) {
-        discountDefinitions = this.form.discounts.map(d => ({
+        discountDefinitions = this.form.discounts.map((d) => ({
           name: d.code,
           value: d.value,
         }));
       }
 
       let offerPackages = undefined;
-      if (this.form.packages.filter(p => p.lowerBound !== undefined).length > 0) {
+      if (this.form.packages.filter((p) => p.lowerBound !== undefined).length > 0) {
         if (this.form.packages && this.form.packages.length) {
           offerPackages = this.form.packages
-            .filter(d => d.discount)
-            .map(d => ({
+            .filter((d) => d.discount)
+            .map((d) => ({
               type: d.usageType,
               discountValue: parseFloat(d.discount),
+            }));
+        }
+      }
+
+      const rangesWithBounds = this.form.ranges.filter(
+        (p) => p.lowerBound !== undefined && p.lowerBound !== null
+      ).length;
+
+      let levelDefinitions = undefined;
+
+      if (rangesWithBounds > 0) {
+        if (this.form.ranges && this.form.ranges.length) {
+          levelDefinitions = this.form.ranges
+            .filter((d) => d.discountValue)
+            .map((d) => ({
+              discountValue: parseFloat(d.discountValue),
             }));
         }
       }
@@ -440,6 +532,13 @@ export default {
           dataToSave.commercialOfferParameter = {};
         }
         dataToSave.commercialOfferParameter.offerPackages = offerPackages;
+      }
+
+      if (levelDefinitions) {
+        if (!dataToSave.commercialOfferParameter) {
+          dataToSave.commercialOfferParameter = {};
+        }
+        dataToSave.commercialOfferParameter.levelDefinitions = levelDefinitions;
       }
 
       this.isSaving = true;

@@ -49,30 +49,6 @@ export default {
       default: () => [],
     },
   },
-  data() {
-    return {
-      offerPackagesv: [
-        {
-          usage: 'Data',
-          enveloppeLabel: '1MO FR',
-          enveloppe: 11,
-          price: '0.0 €',
-          lowerBound: undefined,
-          upperBound: undefined,
-          discount: undefined,
-        },
-        {
-          usage: 'SMS',
-          enveloppeLabel: 'Label SMS',
-          enveloppe: 10,
-          price: '0.0 €',
-          lowerBound: 20,
-          upperBound: 40,
-          discount: undefined,
-        },
-      ],
-    };
-  },
 };
 </script>
 

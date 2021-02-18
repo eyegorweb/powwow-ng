@@ -56,13 +56,13 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
-          this.isLoading = true;
+        this.isLoading = true;
         response = await updateCountryChangeAlarm({ ...params, id: this.duplicateFrom.id });
-          this.isLoading = false;
+        this.isLoading = false;
       } else {
-          this.isLoading = true;
+        this.isLoading = true;
         response = await alarmOnChangeCountry(params);
-          this.isLoading = false;
+        this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
