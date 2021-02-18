@@ -135,6 +135,22 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
   return response.data.alarmsWithInfo;
 }
 
+export async function getAlarmTypes() {
+  const queryStr = `
+  query {
+    getAlarmTypes{
+      key
+      value
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  if (!response.data) return;
+
+  return response.data;
+}
+
 export async function searchAlarmById(id) {
   const orderBy = { key: 'id', direction: 'DESC' };
   const pagination = { page: 0, limit: 10 };

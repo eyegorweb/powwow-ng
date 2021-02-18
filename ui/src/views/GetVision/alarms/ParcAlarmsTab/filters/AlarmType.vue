@@ -1,11 +1,12 @@
 <template>
   <div>
-    <UiSelect v-model="alarmType" :placeholder="$t('partnerAlarm')" :options="items" />
+    <UiSelect v-model="alarmType" :placeholder="$t('partnerAlarm')" :options="items" class="alarmsTypes"/>
   </div>
 </template>
 
 <script>
 import UiSelect from '@/components/ui/UiSelect';
+import {getAlarmTypes} from '@/api/alarms.js';
 
 export default {
   components: {
@@ -15,33 +16,22 @@ export default {
     selectedData: Object,
   },
   data() {
-    const alarm = code => {
-      return {
-        code,
-        value: this.$t('alarms.' + code),
-        label: this.$t('alarms.' + code),
-      };
-    };
+
     return {
-      items: [
-        alarm('OVER_CONSUMPTION_VOLUME'),
-        alarm('UNDER_CONSUMPTION_VOLUME'),
-        alarm('PLMN_CHANGE'),
-        alarm('NOCHANGE_STATUS'),
-        alarm('SOLD_UNDER_THRESHOLD'),
-        alarm('SOLD_OVER_THRESHOLD'),
-        alarm('ACTION'),
-        alarm('CONSUMPTION_ON_PLMN'),
-        alarm('OVER_CONSUMPTION_VOLUME_ROUNDED'),
-        alarm('STATUS_CHANGE'),
-        alarm('IMEI_CHANGE'),
-        alarm('COUNTRY_CHANGE'),
-        alarm('UNDER_CONSUMPTION_VOLUME_FLOTTE'),
-        alarm('OVER_CONSUMPTION_VOLUME_FLOTTE'),
-      ],
+      alarmTypes: [],
+      items: [],
     };
   },
-
+  async mounted () {
+    this.alarmTypes = await getAlarmTypes(); ;
+    this.items = this.alarmTypes.getAlarmTypes.map(e => {
+      return {
+        code: e.key,
+        value: e.value,
+        label: e.value,
+      }
+    });
+  },
   computed: {
     alarmType: {
       get() {
@@ -59,4 +49,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.alarmsTypes {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+</style>
