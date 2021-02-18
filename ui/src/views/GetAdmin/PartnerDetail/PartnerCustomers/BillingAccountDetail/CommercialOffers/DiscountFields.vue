@@ -4,9 +4,9 @@
       <FormControl
         input-type="number"
         :label="discount.label"
-        v-model="discount.value"
-        :min-value="discount.minValue"
-        :max-value="discount.maxValue"
+        v-model="discount.discountValue"
+        :min-value="discount.lowerBound"
+        :max-value="discount.upperBound"
         bold-label
         no-trad
         @update:value="$emit('change', localDiscounts)"
@@ -38,9 +38,9 @@ export default {
     this.localDiscounts = this.dicounts.map(d => ({
       label: d.discount.code + ' (%)',
       code: d.discount.code,
-      value: d.discountValue,
-      minValue: d.lowerBound,
-      maxValue: d.upperBound,
+      discountValue: d.discountValue,
+      lowerBound: d.lowerBound,
+      upperBound: d.upperBound,
     }));
   },
 };

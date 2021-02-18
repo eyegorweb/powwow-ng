@@ -401,6 +401,7 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
           }
           lowerBound
           upperBound
+          discountValue
         }
         offerGroupPackages {
           usageType
@@ -410,6 +411,7 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
           lowerBound
           upperBound
           price
+          discount
         }
         offerGroupRanges  {
           lowerBound

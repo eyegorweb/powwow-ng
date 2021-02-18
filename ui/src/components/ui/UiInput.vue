@@ -91,16 +91,14 @@ export default {
     block: Boolean,
   },
 
+  mounted() {
+    this.checkIfValueIsBetweenBounds(this.value_);
+  },
+
   watch: {
     value_(newValue, oldValue) {
       if (newValue != oldValue) {
-        if (this.minValue !== undefined && this.maxValue !== undefined) {
-          if (parseFloat(newValue) < this.minValue || parseFloat(newValue) > this.maxValue) {
-            this.boundsError = true;
-          } else {
-            this.boundsError = false;
-          }
-        }
+        this.checkIfValueIsBetweenBounds(newValue);
       }
     },
   },
@@ -118,6 +116,15 @@ export default {
   methods: {
     resetValue() {
       this.$emit('update:value', '');
+    },
+    checkIfValueIsBetweenBounds(newValue) {
+      if (this.minValue !== undefined && this.maxValue !== undefined) {
+        if (parseFloat(newValue) < this.minValue || parseFloat(newValue) > this.maxValue) {
+          this.boundsError = true;
+        } else {
+          this.boundsError = false;
+        }
+      }
     },
   },
 };

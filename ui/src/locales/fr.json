@@ -777,6 +777,7 @@
         "clientContactDescription": "Description du contact client",
         "deliveryAdresses": "Adresses de livraison",
         "paymentMethod": "Mode de paiement",
+        "ranges": "Paliers",
         "commercialOffers": {
           "creationTitle": "Création d'offre commerciale",
           "modificationTitle": "Offre commerciale",
@@ -795,7 +796,15 @@
           "discount": "Remise",
           "notDefined": "Non défini",
           "duration": "Durée d'engagement",
-          "suspensionPeriod": "Période de suspension offerte"
+          "suspensionPeriod": "Période de suspension offerte",
+          "offerRanges": {
+            "lowerBound": "Borne inf",
+            "upperBound": "Borne sup",
+            "unitPrice": "Prix unitaire",
+            "fixedPrice": "Prix fixe",
+            "lowerBoundDiscount": "Remise minimum",
+            "upperBoundDiscount": "Remise maximum"
+          }
         }
       },
       "generalInformations": "Informations générales",

@@ -85,11 +85,9 @@ import ServicesSkeleton from '@/components/Services/ServicesSkeleton.vue';
 export default {
   components: {
     ContentBlock,
-    ServicesSkeleton
+    ServicesSkeleton,
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

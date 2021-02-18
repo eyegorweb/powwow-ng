@@ -87,17 +87,17 @@ export default {
       let response;
 
       if (this.duplicateFrom && this.duplicateFrom.toModify) {
-          this.isLoading = true;
+        this.isLoading = true;
         response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
-          this.isLoading = false;
+        this.isLoading = false;
       } else {
         const paramsToSend = { ...params };
         if (this.scopeChoice && this.scopeChoice.partner && this.scopeChoice.partner.id) {
           paramsToSend.id = this.scopeChoice.partner.id;
         }
-          this.isLoading = true;
+        this.isLoading = true;
         response = await alarmOnOverConso(paramsToSend);
-          this.isLoading = false;
+        this.isLoading = false;
       }
 
       const key = 'MAX_ALARM_INSTANCE_TO_CATCH_UP';
