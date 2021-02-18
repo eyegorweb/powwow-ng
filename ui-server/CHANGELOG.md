@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.178+20210218153908
+2021-02-18
+
+### Fixes
+
+- [2422] Utiliser la bonne requête pour charger une offre commerciale par ID (2ef03b35cd7183b991cb076609c4eb11cab143e7)
+
 ## 1.17.0-master.177+20210218152733
 2021-02-18
 
