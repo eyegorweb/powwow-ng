@@ -283,7 +283,7 @@ export async function manageCancellation(filters, lines, params) {
 
     let gqlDueDate = '';
     if (dueDate) {
-      gqlDueDate = moment(dueDate, 'DD/MM/YY HH:mm').format('DD/MM/YYYY HH:mm:ss');
+      gqlDueDate = moment(dueDate, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY HH:mm:ss');
     }
 
     const queryStr = `
@@ -498,7 +498,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }

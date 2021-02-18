@@ -99,7 +99,7 @@ export default {
     delay() {
       return moment()
         .add(this.selectedDelay, 'months')
-        .format('DD/MM/YYYY 00:00:00');
+        .format('DD/MM/YYYY HH:mm:ss');
     },
   },
 };
