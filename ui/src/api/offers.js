@@ -357,23 +357,9 @@ export async function fetchUsageLimits(partnerId, customerAccountId, offerCode) 
   }
 }
 
-// en attendant le filtre par ID
-export async function fetchOfferGroupById(id, partnerId) {
-  const response = await fetchCommercialOffersForPartnerId(partnerId, undefined, {
-    limit: 999,
-    page: 0,
-  });
-  if (response && response.items) {
-    return response.items.find(i => i.id === parseInt(id));
-  }
-
-  return undefined;
-}
-
-export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pagination) {
-  const queryStr = `
-  query OfferGroup($partnerId: Long!, $customerAccountId: Long, $pagination: Pagination){
-    offerGroup(partyId: $partnerId, customerAccountId: $customerAccountId, pagination: $pagination) {
+async function fetchOfferGroupByParams(params) {
+  const queryStr = `  query OfferGroup($partnerId: Long, $customerAccountId: Long, $offerGroupId: Long, $pagination: Pagination){
+    offerGroup(partyId: $partnerId, offerGroupId: $offerGroupId, customerAccountId: $customerAccountId, pagination: $pagination) {
       total
       items {
         id
@@ -447,7 +433,24 @@ export async function fetchCommercialOffersForPartnerId(partnerId, customerAccou
     }
   }
   `;
-  const response = await query(queryStr, { partnerId, customerAccountId, pagination });
+  return await query(queryStr, params);
+}
+
+export async function fetchOfferGroupById(offerGroupId) {
+  const response = await fetchOfferGroupByParams({ offerGroupId });
+  if (
+    response &&
+    response.data &&
+    response.data.offerGroup &&
+    response.data.offerGroup.items &&
+    response.data.offerGroup.items.length
+  ) {
+    return response.data.offerGroup.items[0];
+  }
+}
+
+export async function fetchCommercialOffersForPartnerId(partnerId, customerAccountId, pagination) {
+  const response = await fetchOfferGroupByParams({ partnerId, customerAccountId, pagination });
   return response.data.offerGroup;
 }
 

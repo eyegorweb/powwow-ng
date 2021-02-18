@@ -340,10 +340,7 @@ export default {
     async loadCommercialInfoToEdit() {
       if (this.$route.params.comOfferId) {
         this.isLoading = true;
-        this.initOffer = await fetchOfferGroupById(
-          this.$route.params.comOfferId,
-          this.$route.params.id
-        );
+        this.initOffer = await fetchOfferGroupById(this.$route.params.comOfferId);
         this.isLoading = false;
       }
     },
