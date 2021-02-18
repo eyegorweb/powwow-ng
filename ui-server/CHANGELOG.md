@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.177+20210218152733
+2021-02-18
+
+### Fixes
+
+- [2425] Problème de formatage dans le delai résilitation (34dde372800a3d7e50868506e9990f90ccf2b166)
+- [2422] Mise en place de la gestion des paliers dans les offres commerciales (b862cef7c8974f02ef8472d2e1a6dd5b9e5b07c2)
+- [2378] Retour sur la page de recherche CF (f464f7ef40a51c2aaf553e4af47f998fdc5588ec)
+
 ## 1.17.0-master.176+20210217160707
 2021-02-17
 
