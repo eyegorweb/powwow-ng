@@ -1,11 +1,11 @@
 import { query, getFilterValue } from './utils';
 
-export async function fetchAllCustomerAccounts(filters, pagination) {
+export async function fetchAllCustomerAccounts(filters, pagination, order) {
   const queryStr = `
   query{
     customerAccounts(filter:{${formatFilters(filters)}}, pagination: {limit: ${
     pagination.limit
-  }, page: ${pagination.page}}, sorting: {name: ASC}) {
+  }, page: ${pagination.page}}, sorting: {${order.key}: ${order.direction}}) {
       total
       items {
         id
