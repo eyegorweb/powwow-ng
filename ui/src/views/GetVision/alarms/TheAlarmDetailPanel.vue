@@ -219,16 +219,15 @@ export default {
           this.alarmType === 'UNDER_CONSUMPTION_VOLUME'
         ) {
           if (this.observationDelay !== null) {
-            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
-              this.observationDelay
-            } ${this.$t('alarms.observationCycles.DAYS')}`;
+            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${this.observationDelay
+              } ${this.$t('alarms.observationCycles.DAYS')}`;
           }
           return `${this.$t('alarms.observationCycles.CUSTOM')}`;
         }
         return `${this.$t('notAvailableShortCut')}`;
       } else {
         if (
-          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(o => o === this.observationCycle)
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find((o) => o === this.observationCycle)
         ) {
           return this.$t('alarms.observationCycles.' + this.observationCycle);
         }
@@ -239,7 +238,7 @@ export default {
     nbOfEventsForCurrentMonth() {
       if (this.triggerHistory) {
         const triggerForCurrrentMonth = this.triggerHistory.items.filter(
-          i => getMonthString(i.emissionDate) === getCurrentMonthName()
+          (i) => getMonthString(i.emissionDate) === getCurrentMonthName()
         );
         return triggerForCurrrentMonth.length;
       }
@@ -281,10 +280,14 @@ export default {
     },
 
     gotoDetail() {
-      this.$router.push({
+      const routeInfo = {
         name: 'alarmDetail',
         params: { alarmId: this.content.id },
-      });
+      };
+      if (this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        routeInfo.params.alarmType = this.content.type;
+      }
+      this.$router.push(routeInfo);
     },
   },
 };

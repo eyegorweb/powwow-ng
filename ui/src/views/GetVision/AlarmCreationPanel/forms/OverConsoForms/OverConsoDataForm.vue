@@ -3,6 +3,10 @@
     :get-percent-val-fn="getPercentVal"
     :active.sync="active_"
     @change="$emit('change', $event)"
+    :duplicate-from="duplicateFrom"
+    :base-threshold="basePercent"
+    :prefilled-lines="lines"
+    :has-limits="hasLimits"
   />
 </template>
 
@@ -18,19 +22,52 @@ export default {
 
   props: {
     offerPackage: Object,
+    duplicateFrom: Object,
   },
 
   data() {
     return {
       max: undefined,
       unit: undefined,
+      lines: [],
+      hasLimits: false,
     };
   },
+
   computed: {
-    name() {
-      return this.data;
+    basePercent: {
+      get() {
+        if (this.duplicateFrom && this.duplicateFrom.levelDataMax) {
+          return this.duplicateFrom.levelDataMax;
+        }
+        return 100;
+      },
+      set(newValue) {
+        this.duplicateFrom.levelDataMax = newValue;
+      },
     },
   },
+
+  mounted() {
+    if (this.duplicateFrom) {
+      if (this.duplicateFrom && this.duplicateFrom.levelData1) {
+        this.lines[0] = {
+          value: this.duplicateFrom.levelData1,
+          limit: this.duplicateFrom.dateLevelData1,
+          id: 1,
+        };
+      }
+      if (this.duplicateFrom && this.duplicateFrom.levelData2) {
+        this.lines[1] = {
+          value: this.duplicateFrom.levelData2,
+          limit: this.duplicateFrom.dateLevelData2,
+          id: 2,
+        };
+      }
+      this.hasLimits = !!this.lines.length;
+    }
+  },
+
   methods: {
     getPercentVal(value) {
       if (!this.offerPackage || !this.offerPackage.envelopeValue) return undefined;

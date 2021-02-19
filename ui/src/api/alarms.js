@@ -23,6 +23,15 @@ export async function searchSharedConsumptionAlarm(orderBy, pagination, filters)
         expiryDate
         name
         type
+        party {
+          id
+          name
+          partyType
+          mailingLists {
+            id
+            name
+          }
+        }
         offerGroup {
           id
           offerInstance {
@@ -109,7 +118,6 @@ export async function fetchAlarmsWithInfos(simCardInstanceId) {
           id
           name
           partyType
-
         }
         observationDelay
         name
@@ -220,7 +228,6 @@ export async function searchAlarms(orderBy, pagination, filters = []) {
             name
           }
           suspensionAuto
-
         }
         auditable {
           created
