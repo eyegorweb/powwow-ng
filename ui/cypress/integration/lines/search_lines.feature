@@ -23,6 +23,7 @@ Feature: Recherche de lignes
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
+  @ignore
   Scenario: recherche par type de carte SIM
     Given en tant que BO
     And je suis sur la page recherche de lignes
@@ -49,6 +50,7 @@ Feature: Recherche de lignes
     When je lance la recherche par ID "288"
     Then la table contient 1 resultat
 
+  @ignore
   Scenario: je recherche plusieurs filtres
     Given en tant que BO
     And je suis sur la page recherche de lignes
