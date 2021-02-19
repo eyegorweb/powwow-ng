@@ -1,7 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import layout from '../../../pageObjects/layout';
 import userCreationPage from '../../../pageObjects/userCreationPage';
-import userPage from '../../../pageObjects/userPage'
+import userPage from '../../../pageObjects/userPage';
 
 let myUserLogin = '';
 
@@ -14,9 +14,8 @@ Given(`je créé un nouvel utilisateur interne`, () => {
   userCreationPage.selectLanguage();
 });
 
-
 Given(`je lui donne pour sexe {string}`, userSex => {
-    userCreationPage.checkUserSex(userSex);
+  userCreationPage.checkUserSex(userSex);
 });
 
 Given(`je lui donne pour prénom {string}`, userFirstName => {
@@ -32,20 +31,26 @@ Given(`je lui donne pour email {string}`, email => {
 });
 
 Given(`je lui donne pour login {string}`, userLogin => {
-  myUserLogin = userLogin;
-  userCreationPage.fillUserLogin(userLogin);
+  const randomSuffix =
+    Math.random()
+      .toString(36)
+      .substring(2, 5) +
+    Math.random()
+      .toString(36)
+      .substring(2, 2);
+
+  myUserLogin = userLogin + randomSuffix;
+  userCreationPage.fillUserLogin(myUserLogin);
 });
 
 Given(`je lui donne pour mdp {string}`, password => {
   userCreationPage.fillUserPassword(password);
-})
-
+});
 
 Given(`je lui donne pour rôle {string}`, userRole => {
   userCreationPage.chooseRole();
   // changer la maniere dont on selectionne le role
 });
-
 
 Given(`j'enregistre la création de l'utilisateur`, () => {
   userCreationPage.saveUser();
