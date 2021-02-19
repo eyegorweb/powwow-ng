@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.182+20210219154029
+2021-02-19
+
+### Features
+
+- [2398] modification d'une alarme mutualisée (6dd6e03c3bef4b2f5cb7dca546a2c14882cb199e)
+
 ## 1.17.0-master.181+20210219150934
 2021-02-19
 
