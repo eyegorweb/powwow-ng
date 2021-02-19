@@ -51,8 +51,22 @@ export default {
         '#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div > div > div > div.slick-list.draggable > div > div:nth-child(3) > div > div > div > div > div.title'
       ).click();
     },
+    manageCancellation() {
+      cy.waitGet('.CAROUSEL_ITEM_MANAGE_CANCELLATION').click();
+    },
     nextSlider() {
       cy.waitGet('.slider-next').click();
+    },
+  },
+  filters: {
+    massByPartner: partnerName => {
+      //cy.waitGet('.partner-prereq input');
+      cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
+        .click()
+        .type(partnerName);
+      cy.wait(200);
+      cy.waitGet('.autocomplete-results > :nth-child(1)').click();
+      cy.waitGet('.pl-1 > .btn').click();
     },
   },
   actions: {
@@ -148,13 +162,6 @@ export default {
       },
     },
     editFreeFields: {
-      selectPartner(partnerName) {
-        cy.waitGet('.partner-prereq > .position-relative > .form-group > .form-control')
-          .click()
-          .type(partnerName);
-        cy.wait(200);
-        cy.waitGet('.autocomplete-results > :nth-child(1)').click();
-      },
       fillFirstFreeField(freeField) {
         cy.waitGet(
           '#app > div.container > div.mt-4 > div:nth-child(4) > div.col-md-9.extra-bottom-margin > div:nth-child(4) > div > div > div > div > div.col-7 > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > label > input[type=text]'
@@ -169,9 +176,7 @@ export default {
           .click()
           .type(freeField);
       },
-      apply() {
-        cy.waitGet('.pl-1 > .btn').click();
-      },
+
       inMass() {
         cy.waitGet('.item > :nth-child(1)').click();
       },
@@ -209,6 +214,21 @@ export default {
         cy.waitGet(
           ':nth-child(2) > .container > .search-input > :nth-child(2) > .checkboxes > .checkbox-container > .filled > .checkmark'
         ).click();
+      },
+    },
+    manageCancellation: {
+      chooseDelay: delay => {
+        cy.waitGet('.manage-cancellation-delay-choice select').select(delay);
+      },
+
+      createAct: () => {
+        cy.get('.manage-cancellation-save-btn').click();
+        cy.get('.modal-default-button.btn-success').click();
+        cy.get('.btn-double-validation').click();
+      },
+
+      refuseCancellation: () => {
+        cy.get('.manage-cancellation-refuse-btn').click();
       },
     },
   },

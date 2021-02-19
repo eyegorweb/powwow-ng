@@ -5,7 +5,7 @@
     </p>
     <div class="delay-container">
       <UiSelect
-        class="text-gray"
+        class="text-gray manage-cancellation-delay-choice"
         v-model="selectedDelay"
         :placeholder="$t('getparc.actCreation.ManageCancellation.choose')"
         :options="delays"
@@ -14,12 +14,15 @@
       <span>{{ $t('getparc.actCreation.ManageCancellation.applyCharges') }}</span>-->
     </div>
     <div class="d-flex">
-      <button @click="manageRefuse" class="btn btn-cancel pl-4 pr-4 pt-2 pb-2">
+      <button
+        @click="manageRefuse"
+        class="btn btn-cancel pl-4 pr-4 pt-2 pb-2 manage-cancellation-refuse-btn"
+      >
         <span>{{ $t('getparc.actCreation.ManageCancellation.refuse') }}</span>
       </button>
       <button
         @click="manageValidation"
-        class="btn pl-4 pr-4 pt-2 pb-2"
+        class="btn pl-4 pr-4 pt-2 pb-2 manage-cancellation-save-btn"
         :class="{ disabled: !canValidate }"
       >
         <i class="ic-Settings-Icon" />
@@ -97,9 +100,7 @@ export default {
       return this.selectedDelay !== null ? true : false;
     },
     delay() {
-      return moment()
-        .add(this.selectedDelay, 'months')
-        .format('DD/MM/YYYY HH:mm:ss');
+      return moment().add(this.selectedDelay, 'months').format('DD/MM/YYYY HH:mm:ss');
     },
   },
 };

@@ -237,7 +237,7 @@ export default {
     }
     if (this.$route.params && this.$route.params.queryFilters) {
       const selectedPartner = this.$route.params.queryFilters.find(
-        f => f.id === 'filters.partners'
+        (f) => f.id === 'filters.partners'
       );
       if (selectedPartner) {
         this.selectedPartner = {
@@ -251,7 +251,7 @@ export default {
       }
 
       const selectedBillingAccount = this.$route.params.queryFilters.find(
-        f => f.id === 'filters.billingAccounts'
+        (f) => f.id === 'filters.billingAccounts'
       );
       if (selectedBillingAccount) {
         this.selectedBillingAccount = {
@@ -261,7 +261,7 @@ export default {
         };
       }
 
-      const selectedOffer = this.$route.params.queryFilters.find(f => f.id === 'filters.offers');
+      const selectedOffer = this.$route.params.queryFilters.find((f) => f.id === 'filters.offers');
       if (selectedOffer) {
         this.selectedOffer = {
           id: selectedOffer.values[0].id,
@@ -313,9 +313,6 @@ export default {
     },
   },
   watch: {
-    singlePartner() {
-      console.log(this.singlePartner);
-    },
     selectedPartner() {
       if (this.selectedPartner && this.selectedPartner.id) {
         this.partnersForFilters = [{ ...this.selectedPartner }];
