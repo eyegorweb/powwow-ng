@@ -71,7 +71,7 @@
             <button
               :disabled="!validationErrors.validated"
               @click="doubleConfirm"
-              class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+              class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
               :class="{
                 'btn-success': validationErrors.validated,
                 'btn-light': !validationErrors.validated,

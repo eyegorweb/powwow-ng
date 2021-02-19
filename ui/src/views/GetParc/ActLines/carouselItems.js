@@ -4,6 +4,7 @@ export default excludeMocked([
   {
     icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
+    id: 'ACTIVATE_PREACTIVATE',
     stepTitle: 'getparc.actCreation.step2Titles.ACTIVATE_PREACTIVATE',
     selected: false,
     permission: { domain: 'act', action: 'manage_main' },
@@ -26,6 +27,7 @@ export default excludeMocked([
   {
     icon: 'ic-Edit-Icon',
     title: 'getparc.actCreation.carouselItem.CUSTOM_FIELDS',
+    id: 'CUSTOM_FIELDS',
     stepTitle: 'getparc.actCreation.step2Titles.CUSTOM_FIELDS',
     subtitle: '',
     selected: false,
@@ -50,6 +52,7 @@ export default excludeMocked([
   {
     icon: 'ic-Settings-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_SERVICES',
+    id: 'CHANGE_SERVICES',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SERVICES',
     subtitle: '',
     selected: false,
@@ -70,6 +73,7 @@ export default excludeMocked([
   {
     icon: 'ic-pause-circle',
     title: 'getparc.actCreation.carouselItem.SUSPEND',
+    id: 'SUSPEND',
     stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
     subtitle: '',
     selected: false,
@@ -99,6 +103,7 @@ export default excludeMocked([
   {
     icon: 'ic-pause-circle',
     title: 'getparc.actCreation.carouselItem.SUSPEND_BILLS',
+    id: 'SUSPEND',
     stepTitle: 'getparc.actCreation.step2Titles.SUSPEND',
     subtitle: '',
     selected: false,
@@ -119,6 +124,7 @@ export default excludeMocked([
   {
     icon: 'ic-Sim-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
+    id: 'CHANGE_SIMCARD',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_SIMCARD',
     selected: false,
     containFile: true,
@@ -138,6 +144,7 @@ export default excludeMocked([
   {
     icon: 'ic-Smartphone-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_MSISDN',
+    id: 'CHANGE_MSISDN',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_MSISDN',
     selected: false,
     containFile: true,
@@ -158,6 +165,7 @@ export default excludeMocked([
   {
     icon: 'ic-Ticket-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_OFFER',
+    id: 'CHANGE_OFFER',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_OFFER',
     subtitle: '',
     selected: false,
@@ -180,6 +188,7 @@ export default excludeMocked([
   {
     icon: 'ic-Wallet-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_CF',
+    id: 'CHANGE_CF',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_CF',
     subtitle: '',
     selected: false,
@@ -202,6 +211,7 @@ export default excludeMocked([
   {
     icon: 'ic-Play-Icon',
     title: 'getparc.actCreation.carouselItem.REACTIVATE',
+    id: 'REACTIVATE',
     stepTitle: 'getparc.actCreation.carouselItem.REACTIVATE',
     subtitle: '',
     selected: false,
@@ -222,6 +232,7 @@ export default excludeMocked([
   {
     icon: 'ic-Shuffle-Icon',
     title: 'getparc.actCreation.carouselItem.TRANSFERT_LINES',
+    id: 'TRANSFERT_LINES',
     stepTitle: 'getparc.actCreation.step2Titles.TRANSFERT_LINES',
     subtitle: '',
     selected: false,
@@ -249,6 +260,7 @@ export default excludeMocked([
   {
     icon: 'ic-Wheel-Icon',
     title: 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION',
+    id: 'MANAGE_CANCELLATION',
     stepTitle: 'getparc.actCreation.step2Titles.MANAGE_CANCELLATION',
     subtitle: '',
     selected: false,
@@ -282,6 +294,7 @@ export default excludeMocked([
   {
     icon: 'ic-Arrow-Forward-Icon',
     title: 'getparc.actCreation.carouselItem.TEST_PHASE',
+    id: 'TEST_PHASE',
     stepTitle: 'getparc.actCreation.step2Titles.TEST_PHASE',
     subtitle: '',
     selected: false,
@@ -311,6 +324,7 @@ export default excludeMocked([
   {
     icon: 'ic-Message-Icon',
     title: 'getparc.actCreation.carouselItem.SEND_SMS',
+    id: 'SEND_SMS',
     stepTitle: 'getparc.actCreation.carouselItem.SEND_SMS',
     subtitle: '',
     selected: false,
@@ -348,6 +362,7 @@ export default excludeMocked([
   {
     icon: 'ic-Alt-Icon',
     title: 'getparc.actCreation.carouselItem.CHANGE_STATUS',
+    id: 'CHANGE_STATUS',
     stepTitle: 'getparc.actCreation.step2Titles.CHANGE_STATUS',
     subtitle: '',
     selected: false,
@@ -372,6 +387,7 @@ export default excludeMocked([
   {
     icon: 'ic-Sim-Icon',
     title: 'getparc.actCreation.carouselItem.SIM_TRANSFER',
+    id: 'SIM_TRANSFER',
     stepTitle: 'getparc.actCreation.carouselItem.SIM_TRANSFER',
     subtitle: '',
     selected: false,

@@ -2,6 +2,7 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import createActionsPage from '../../../pageObjects/createActionsPage';
 import layout from '../../../pageObjects/layout';
 import get from 'lodash.get';
+import moment from 'moment';
 
 let totalMassAction = 0;
 let typeMassAction = '';
@@ -55,8 +56,7 @@ Given(`je choisis l'acte de modification des champs libres par défaut`, () => {
   typeMassAction = 'Changement des champs custom';
   createActionsPage.actionsPannel.editFreeFields();
   createActionsPage.actions.editFreeFields.inMass();
-  createActionsPage.actions.editFreeFields.selectPartner('INGENICO');
-  createActionsPage.actions.editFreeFields.apply();
+  createActionsPage.filters.massByPartner('INGENICO');
   createActionsPage.actions.editFreeFields.fillFirstFreeField('first field');
   createActionsPage.actions.editFreeFields.fillSecondFreeField('second field');
 });
@@ -70,9 +70,50 @@ Given(`je choisis l'acte de modification de services`, () => {
   createActionsPage.actions.editServices.deactivateService();
 });
 
+Given(`je choisis l'acte de gestion de résiliation`, () => {
+  typeMassAction = 'Gérer des résiliations';
+  createActionsPage.actionsPannel.nextSlider();
+  createActionsPage.actionsPannel.manageCancellation();
+  createActionsPage.actions.editFreeFields.inMass();
+  createActionsPage.filters.massByPartner('lyra');
+});
+
+When('Je créé la validation avec un délai de 3 mois', () => {
+  createActionsPage.actions.manageCancellation.chooseDelay('3');
+  createActionsPage.actions.manageCancellation.createAct();
+});
+
+Then('Je valide que la due date est à la date du jour + 3 mois', () => {
+  layout.menu.massActions();
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('massActionsV2').then(response => {
+      const lastItem = get(response, 'body.data.massActionsV2.items[0]');
+      const dueDateStr = lastItem.massAction.dueDate;
+      const dueDateMonth = parseInt(dueDateStr.split(' ')[0].split('/')[1]);
+      const diffInMonths = dueDateMonth - parseInt(moment().format('MM'), 10);
+      expect(diffInMonths).to.equal(3);
+    });
+  });
+});
+
 When(`je confirme la création de l'acte`, () => {
   createActionsPage.confirm(typeMassAction);
   cy.get('.modal-wrapper', { timeout: 10000 }).should('not.exist');
+});
+
+When('je refuse les résiliations', () => {
+  createActionsPage.actions.manageCancellation.chooseDelay('3');
+  createActionsPage.actions.manageCancellation.refuseCancellation();
+});
+
+Then('un act de refus de résiliation est bien créé', () => {
+  layout.menu.massActions();
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('massActionsV2').then(response => {
+      const actionType = get(response, 'body.data.massActionsV2.items[0].massAction.actionType');
+      expect(actionType).to.equal('STATUS_CHANGE');
+    });
+  });
 });
 
 Then(`je verifie que mon acte a été créé`, () => {
