@@ -1,6 +1,6 @@
 <template>
   <div class="m-3 bg-white p-3 bordered">
-    <template v-if="active_">
+    <template v-if="active_ || (editMode && hasLimits)">
       <OverConsoVolumeFlotteGraph :init-limits="limits" @setLimits="setLimitsFromGraph" />
 
       <div class="line-container">
@@ -66,7 +66,7 @@
             </UiButton>
           </div>
         </div>
-        <div>
+        <div v-if="!editMode">
           <UiButton variant="link" @click="active_ = false" :class="{ 'mx-auto': true }">
             <span class="btn-label">{{ $t('cancel') }}</span>
           </UiButton>
@@ -74,6 +74,7 @@
       </div>
     </template>
     <template v-else>
+      <!-- pas de préremplissage -->
       <div class="alert alert-primary" role="alert">
         {{ $t('getvsion.alarm-creation.noLimitsConfigured') }}
       </div>
@@ -112,7 +113,12 @@ export default {
 
   props: {
     getPercentValFn: Function,
+    duplicateFrom: Object,
+    baseThreshold: Number,
+    prefilledLines: Array,
+    hasLimits: Boolean,
   },
+
   data() {
     return {
       basePercent: 100,
@@ -147,8 +153,16 @@ export default {
 
       return ordered;
     },
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
+    },
   },
   mounted() {
+    if (this.duplicateFrom) {
+      this.lines = this.prefilledLines;
+      this.basePercent = this.baseThreshold;
+    }
+
     const options = [];
 
     for (let i = 1; i < 31; i++) {

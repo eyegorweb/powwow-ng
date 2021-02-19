@@ -3,6 +3,10 @@
     :get-percent-val-fn="getPercentVal"
     :active.sync="active_"
     @change="$emit('change', $event)"
+    :duplicate-from="duplicateFrom"
+    :base-threshold="basePercent"
+    :prefilled-lines="lines"
+    :has-limits="hasLimits"
   />
 </template>
 
@@ -16,16 +20,52 @@ export default {
   },
   mixins: [propWithSync('active')],
 
+  props: {
+    duplicateFrom: Object,
+  },
+
   data() {
     return {
       max: 500,
+      lines: [],
+      hasLimits: false,
     };
   },
+
+  mounted() {
+    if (this.duplicateFrom) {
+      if (this.duplicateFrom && this.duplicateFrom.levelSms1) {
+        this.lines[0] = {
+          value: this.duplicateFrom.levelSms1,
+          limit: this.duplicateFrom.dateLevelSms1,
+          id: 1,
+        };
+      }
+      if (this.duplicateFrom && this.duplicateFrom.levelSms2) {
+        this.lines[1] = {
+          value: this.duplicateFrom.levelSms2,
+          limit: this.duplicateFrom.dateLevelSms2,
+          id: 2,
+        };
+      }
+      this.hasLimits = !!this.lines.length;
+    }
+  },
+
   computed: {
-    name() {
-      return this.data;
+    basePercent: {
+      get() {
+        if (this.duplicateFrom && this.duplicateFrom.levelSmsMax) {
+          return this.duplicateFrom.levelSmsMax;
+        }
+        return 100;
+      },
+      set(newValue) {
+        this.duplicateFrom.levelSmsMax = newValue;
+      },
     },
   },
+
   methods: {
     getPercentVal(value) {
       if (!this.offerPackage || !this.offerPackage.envelopeValue) return undefined;

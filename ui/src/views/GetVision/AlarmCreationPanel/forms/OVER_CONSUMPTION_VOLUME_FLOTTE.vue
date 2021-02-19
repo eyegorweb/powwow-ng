@@ -3,6 +3,7 @@
     :alarm="alarm"
     have-form
     skip-scope-check
+    :duplicate-from="duplicateFrom"
     :container-height="'9rem'"
     @save="onSave"
     @partnerChange="selectedPartner = $event"
@@ -11,6 +12,7 @@
     :is-loading="isLoading"
     :no-wsnotification="true"
     :check-errors-fn="isFormValid"
+    :shared-alarm="true"
   >
     <template v-slot:default="{ scopeIndex }">
       <SectionTitle :num="scopeIndex + 1">{{
@@ -30,6 +32,7 @@
           @change="levelsData = $event"
           :active.sync="includeDataLimits"
           :offer-package="dataOfferPackage"
+          :duplicate-from="duplicateFrom"
         />
       </keep-alive>
       <keep-alive>
@@ -38,6 +41,7 @@
           @change="levelsSms = $event"
           :active.sync="includeSMSLimits"
           :offer-package="smsOfferPackage"
+          :duplicate-from="duplicateFrom"
         />
       </keep-alive>
       <keep-alive>
@@ -46,6 +50,7 @@
           @change="levelsVoice = $event"
           :active.sync="includeVoiceLimits"
           :offer-package="voiceOfferPackage"
+          :duplicate-from="duplicateFrom"
         />
       </keep-alive>
     </template>
@@ -72,6 +77,7 @@ import get from 'lodash.get';
 import { createSharedConsumptionAlarm } from '@/api/alarmCreation.js';
 import { mapMutations } from 'vuex';
 import { fetchUsageLimits } from '@/api/offers';
+import { updateSharedConsumptionAlarm } from '@/api/alarmsModifications';
 
 export default {
   components: {
@@ -87,6 +93,108 @@ export default {
     alarm: Object,
     duplicateFrom: Object,
     partner: Object,
+  },
+
+  mounted() {
+    if (this.duplicateFrom) {
+      if (this.duplicateFrom.levelDataMax) {
+        this.levelsData = {
+          basePercent: this.duplicateFrom.levelDataMax,
+        };
+      }
+      if (this.duplicateFrom.levelData1) {
+        this.levelsData = {
+          ...this.levelsData,
+          levels: [
+            {
+              value: this.duplicateFrom.levelData1,
+              limit: this.duplicateFrom.dateLevelData1,
+            },
+          ],
+        };
+        this.includeDataLimits = true;
+      }
+      if (this.duplicateFrom.levelData2) {
+        this.levelsData = {
+          ...this.levelsData,
+          levels: [
+            ...this.levelsData.levels,
+            {
+              value: this.duplicateFrom.levelData2,
+              limit: this.duplicateFrom.dateLevelData2,
+            },
+          ],
+        };
+        this.includeDataLimits = true;
+      }
+
+      if (this.duplicateFrom.levelSmsMax) {
+        this.levelsSms = {
+          basePercent: this.duplicateFrom.levelSmsMax,
+        };
+      }
+      if (this.duplicateFrom.levelSms1) {
+        this.levelsSms = {
+          ...this.levelsSms,
+          levels: [
+            {
+              value: this.duplicateFrom.levelSms1,
+              limit: this.duplicateFrom.dateLevelSms1,
+            },
+          ],
+        };
+        this.includeSMSLimits = true;
+      }
+      if (this.duplicateFrom.levelSms2) {
+        this.levelsSms = {
+          ...this.levelsSms,
+          levels: [
+            ...this.levelsSms.levels,
+            {
+              value: this.duplicateFrom.levelSms2,
+              limit: this.duplicateFrom.dateLevelSms2,
+            },
+          ],
+        };
+        this.includeSMSLimits = true;
+      }
+
+      if (this.duplicateFrom.levelVoiceMax) {
+        this.levelsVoice = {
+          basePercent: this.duplicateFrom.levelVoiceMax,
+        };
+      }
+      if (this.duplicateFrom.levelVoice1) {
+        this.levelsVoice = {
+          ...this.levelsVoice,
+          levels: [
+            {
+              value: this.duplicateFrom.levelVoice1,
+              limit: this.duplicateFrom.dateLevelVoice1,
+            },
+          ],
+        };
+        this.includeVoiceLimits = true;
+      }
+      if (this.duplicateFrom.levelVoice2) {
+        this.levelsVoice = {
+          ...this.levelsVoice,
+          levels: [
+            ...this.levelsVoice.levels,
+            {
+              value: this.duplicateFrom.levelVoice2,
+              limit: this.duplicateFrom.dateLevelVoice2,
+            },
+          ],
+        };
+        this.includeVoiceLimits = true;
+      }
+
+      this.toggleValues = this.toggleValues.map(t => {
+        t.default = t.id === this.duplicateFrom.observationCycle;
+        return t;
+      });
+    }
   },
 
   data() {
@@ -131,6 +239,9 @@ export default {
     },
     chosenPartnerId() {
       return get(this.partner, 'id') || get(this.selectedPartner, 'id');
+    },
+    editMode() {
+      return this.duplicateFrom && this.duplicateFrom.toModify;
     },
   },
 
@@ -235,25 +346,38 @@ export default {
         }
       }
 
-      const params = {
-        alarmName: payload.alarmName,
-        marketingOfferId,
-        customerAccountId,
-        levelsData,
-        levelsSms,
-        levelsVoice,
-        activateAlarm: payload.enableAlarm,
-        emailNotification: payload.sholdNotify,
-        webServiceNotification: payload.webserviceNotification,
-        mailingList: payload.notifList,
-        partyId: payload.partner.id,
-      };
+      let params;
+
+      if (!this.editMode) {
+        params = {
+          alarmName: payload.alarmName,
+          marketingOfferId,
+          customerAccountId,
+          levelsData,
+          levelsSms,
+          levelsVoice,
+          activateAlarm: payload.enableAlarm,
+          emailNotification: payload.sholdNotify,
+          webServiceNotification: payload.webserviceNotification,
+          mailingList: payload.notifList,
+          partyId: payload.partner.id,
+        };
+      } else {
+        params = {
+          sharedAlarmId: this.duplicateFrom.id,
+          alarmName: payload.alarmName,
+          levelsData,
+          levelsSms,
+          levelsVoice,
+          emailNotification: payload.sholdNotify,
+        };
+      }
 
       try {
         let response;
 
         if (this.duplicateFrom && this.duplicateFrom.toModify) {
-          // response = await modifyOverConso({ ...params, id: this.duplicateFrom.id });
+          response = await updateSharedConsumptionAlarm({ ...params });
         } else {
           this.isLoading = true;
           response = await createSharedConsumptionAlarm(params);
@@ -267,7 +391,7 @@ export default {
     },
     isFormValid() {
       let isFormValid;
-      isFormValid = !!this.filterForCreation;
+      isFormValid = !this.editMode ? !!this.filterForCreation : this.editMode;
       if (this.levelsData) {
         isFormValid &= !!this.levelsData.basePercent;
         if (this.levelsData.levels && this.levelsData.levels.length) {

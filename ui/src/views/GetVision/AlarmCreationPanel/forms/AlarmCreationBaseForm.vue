@@ -1,9 +1,17 @@
 <template>
   <div class="p-4 slide-up-reveal">
     <div v-if="editMode">
-      <div>
+      <div v-if="!sharedAlarm">
         <h5>{{ $t('getvsion.filters.ALARMS_OFFER') }} :</h5>
         <p>{{ $t('alarms.alarmScope.' + duplicateFrom.alarmScope) }}</p>
+      </div>
+      <div v-else>
+        <template v-if="userIsMultiPartner">
+          <h5>{{ $t('alarms.alarmScope.PARTY') }} :</h5>
+          <p>{{ partnerName }}</p>
+        </template>
+        <h5>{{ $t('alarms.alarmScope.OFFER') }} :</h5>
+        <p>{{ chosenOffer }}</p>
       </div>
     </div>
     <template v-if="!editMode">
@@ -79,6 +87,7 @@ export default {
       required: false,
     },
     skipScopeCheck: Boolean,
+    sharedAlarm: Boolean,
   },
 
   mounted() {
@@ -95,6 +104,11 @@ export default {
         label: get(this.duplicateFrom, 'party.name'),
         data: get(this.duplicateFrom, 'party'),
       };
+      if (this.sharedAlarm) {
+        this.chosenOffer = `${this.duplicateFrom.offerGroup.offerInstance.marketingOffer.description} /
+          ${this.duplicateFrom.offerGroup.customerAccount.code} -
+        ${this.duplicateFrom.offerGroup.customerAccount.name}`;
+      }
     } else if (this.partner) {
       this.shouldSelectPartner = false;
       this.selectedPartner = {
@@ -116,6 +130,7 @@ export default {
       selectedPartner: undefined,
       shouldSelectPartner: true,
       lastChosenScope: undefined,
+      chosenOffer: undefined,
     };
   },
 
@@ -127,7 +142,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsPartner', 'singlePartner']),
+    ...mapGetters(['userIsPartner', 'singlePartner', 'userIsMultiPartner']),
 
     canSave() {
       let scopeIsValid = true;
@@ -164,6 +179,10 @@ export default {
 
     notifIndex() {
       return this.scopeIndex + 1 + (this.haveForm ? 1 : 0);
+    },
+
+    partnerName() {
+      return this.selectedPartner ? this.selectedPartner.name : '';
     },
   },
 };

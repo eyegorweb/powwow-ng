@@ -123,6 +123,27 @@ async function consoQuery(queryName, params) {
   return await query(queryStr);
 }
 
+export async function updateSharedConsumptionAlarm(params) {
+  const gqlParams = getSharedAlarmGqlParams(params);
+
+
+  const queryStr = `
+  mutation {
+    updateSharedConsumptionAlarm(updateSharedAlarmFilterInput:{${gqlParams.join(',')}}) {
+      id
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+
+  if (response.errors) {
+    return { errors: response.errors };
+  }
+
+  return response.data.updateSharedConsumptionAlarm;
+}
+
 function addLevels(params, gqlParams) {
   const alarmLevels = [];
 
@@ -184,6 +205,90 @@ function getGqlParams(params) {
 
   if (params.sholdNotify) {
     gqlParams.push(`mailingList:${params.notifList}`);
+  }
+
+  return gqlParams;
+}
+
+function getSharedAlarmGqlParams(params) {
+  const gqlParams = [];
+  const levelsData = [];
+  const levelsSms = [];
+  const levelsVoice = [];
+
+  gqlParams.push(`sharedAlarmId:${params.sharedAlarmId}`);
+  gqlParams.push(`alarmName:"${params.alarmName}"`);
+  gqlParams.push(`mailNotification:${params.emailNotification}`);
+
+  if (params.levelsData) {
+    if (params.levelsData.levelMax) {
+      levelsData.push(`levelMax: {
+        level: ${params.levelsData.levelMax.level}
+        }`
+      );
+    }
+    if (params.levelsData.level1) {
+      levelsData.push(`level1: {
+        level: ${params.levelsData.level1.level},
+        dayOfMonth: ${params.levelsData.level1.dayOfMonth}
+        }`
+      );
+    }
+    if (params.levelsData.level2) {
+      levelsData.push(`level2: {
+        level: ${params.levelsData.level2.level},
+        dayOfMonth: ${params.levelsData.level2.dayOfMonth}
+        }`
+      );
+    }
+    gqlParams.push(`levelsData: {${levelsData.join(',')}}`);
+
+
+    if (params.levelsSms.levelMax) {
+      levelsSms.push(`levelMax: {
+        level: ${params.levelsSms.levelMax.level}
+        }`
+      );
+    }
+    if (params.levelsSms.level1) {
+      levelsSms.push(`level1: {
+          level: ${params.levelsSms.level1.level},
+          dayOfMonth: ${params.levelsSms.level1.dayOfMonth}
+        }`
+      );
+    }
+    if (params.levelsSms.level2) {
+      levelsSms.push(`level2: {
+          level: ${params.levelsSms.level2.level},
+          dayOfMonth: ${params.levelsSms.level2.dayOfMonth}
+        }`
+      );
+    }
+    gqlParams.push(`levelsSms: {${levelsSms.join(',')}}`);
+
+
+    if (params.levelsVoice.levelMax) {
+      levelsVoice.push(`levelMax: {
+          level: ${params.levelsVoice.levelMax.level}
+        }`
+      );
+    }
+    if (params.levelsVoice.level1) {
+      levelsVoice.push(`level1: {
+          level: ${params.levelsVoice.level1.level},
+          dayOfMonth: ${params.levelsVoice.level1.dayOfMonth}
+        }`
+      );
+    }
+    if (params.levelsVoice.level2) {
+      levelsVoice.push(`level2: {
+          level: ${params.levelsVoice.level2.level},
+          dayOfMonth: ${params.levelsVoice.level2.dayOfMonth}
+        }`
+      );
+    }
+    gqlParams.push(`levelsVoice: {${levelsVoice.join(',')}}`);
+
   }
 
   return gqlParams;
