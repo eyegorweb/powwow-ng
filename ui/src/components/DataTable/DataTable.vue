@@ -20,7 +20,7 @@
       </div>
       <div v-if="page" class="col-md-6">
         <div class="float-left">
-          <label class="form-group">
+          <label class="form-group datatable-pagination">
             {{ $t('numberPerPage') }}:
             <UiSelect class="text-gray" :placeholder="$t('partnerType')" v-model="currentPageLimit">
               <option :value="5">5</option>
