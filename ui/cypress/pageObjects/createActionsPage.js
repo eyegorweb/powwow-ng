@@ -27,6 +27,11 @@ export default {
   isPageLoaded() {
     cy.get('#app > div.container > div.mt-4 > div.row.mb-5 > div > div > div > div');
   },
+  table: {
+    setPageLimit(nb) {
+      cy.get('.datatable-pagination select').select('' + nb);
+    },
+  },
   actionsPannel: {
     suspend() {
       cy.waitGet(
@@ -116,6 +121,13 @@ export default {
       },
       apply() {
         cy.waitGet('.pl-1 > .btn').click();
+      },
+      checkLineByICCID(iccid) {
+        cy.get(`button[item='${iccid}']`)
+          .closest('td')
+          .prev()
+          .find('[type="checkbox"]')
+          .check({ force: true });
       },
     },
     changeBillingAccount: {
@@ -221,14 +233,19 @@ export default {
         cy.waitGet('.manage-cancellation-delay-choice select').select(delay);
       },
 
+      validateResil: () => {
+        cy.get('.manage-cancellation-save-btn').click({ force: true });
+        cy.get('.modal-default-button.btn-success').click({ force: true });
+      },
+
       createAct: () => {
-        cy.get('.manage-cancellation-save-btn').click();
-        cy.get('.modal-default-button.btn-success').click();
-        cy.get('.btn-double-validation').click();
+        cy.get('.manage-cancellation-save-btn').click({ force: true });
+        cy.get('.modal-default-button.btn-success').click({ force: true });
+        cy.get('.btn-double-validation').click({ force: true });
       },
 
       refuseCancellation: () => {
-        cy.get('.manage-cancellation-refuse-btn').click();
+        cy.get('.manage-cancellation-refuse-btn').click({ force: true });
       },
     },
   },

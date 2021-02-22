@@ -70,12 +70,15 @@ Given(`je choisis l'acte de modification de services`, () => {
   createActionsPage.actions.editServices.deactivateService();
 });
 
-Given(`je choisis l'acte de gestion de résiliation`, () => {
+const gotoResiliationAct = () => {
   typeMassAction = 'Gérer des résiliations';
   createActionsPage.actionsPannel.nextSlider();
   createActionsPage.actionsPannel.manageCancellation();
   createActionsPage.actions.editFreeFields.inMass();
   createActionsPage.filters.massByPartner('lyra');
+};
+Given(`je choisis l'acte de gestion de résiliation`, () => {
+  gotoResiliationAct();
 });
 
 When('Je créé la validation avec un délai de 3 mois', () => {
@@ -104,6 +107,34 @@ When(`je confirme la création de l'acte`, () => {
 When('je refuse les résiliations', () => {
   createActionsPage.actions.manageCancellation.chooseDelay('3');
   createActionsPage.actions.manageCancellation.refuseCancellation();
+});
+
+const chooseLinesForSecuTerminatedTest = () => {
+  const ICCID_SECURITY_TERMINATED = '8933204804085151759';
+  const ICCID_PAST = '8933202804085151759';
+
+  createActionsPage.table.setPageLimit(50);
+  cy.wait(200);
+  createActionsPage.actions.suspend.checkLineByICCID(ICCID_SECURITY_TERMINATED);
+  createActionsPage.actions.suspend.checkLineByICCID(ICCID_PAST);
+  cy.wait(100);
+  createActionsPage.actions.manageCancellation.chooseDelay('3');
+};
+When(
+  `je valide pour 1 ligne avec une security_terminaison_end à null et l'autre dans le futur et je valide.`,
+  () => {
+    chooseLinesForSecuTerminatedTest();
+    createActionsPage.actions.manageCancellation.createAct();
+  }
+);
+
+Then(`J'ai bien 2 KO quand j'essaie de résilier pour ces 2 lignes`, () => {
+  layout.menu.lines();
+  gotoResiliationAct();
+  chooseLinesForSecuTerminatedTest();
+  createActionsPage.actions.manageCancellation.validateResil();
+  cy.get('.act-creation-report').contains('1 ligne a une date de résiliation non échue');
+  cy.get('.act-creation-report').contains('1 ligne déjà validée');
 });
 
 Then('un act de refus de résiliation est bien créé', () => {
