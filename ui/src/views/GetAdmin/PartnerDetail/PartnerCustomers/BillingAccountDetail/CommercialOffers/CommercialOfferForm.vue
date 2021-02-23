@@ -283,10 +283,12 @@ export default {
         if (values && values.length) {
           const validPackages = values.filter((d) => {
             if (
-              d.discount &&
-              d.discount.length &&
+              d.discount !== null &&
+              d.discount !== undefined &&
               d.lowerBound !== undefined &&
-              d.upperBound !== undefined
+              d.lowerBound !== null &&
+              d.upperBound !== undefined &&
+              d.upperBound !== null
             ) {
               const val = parseFloat(d.discount);
               return val >= d.lowerBound && val <= d.upperBound;
