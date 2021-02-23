@@ -73,6 +73,7 @@ Given(`je choisis l'acte de modification de services`, () => {
 const gotoResiliationAct = () => {
   typeMassAction = 'Gérer des résiliations';
   createActionsPage.actionsPannel.nextSlider();
+  cy.wait(200);
   createActionsPage.actionsPannel.manageCancellation();
   createActionsPage.actions.editFreeFields.inMass();
   createActionsPage.filters.massByPartner('lyra');
@@ -130,7 +131,16 @@ When(
 
 Then(`J'ai bien 2 KO quand j'essaie de résilier pour ces 2 lignes`, () => {
   layout.menu.lines();
-  gotoResiliationAct();
+
+  // reset page state
+  cy.wait(200);
+  createActionsPage.actionsPannel.manageCancellation();
+
+  cy.wait(200);
+  createActionsPage.actionsPannel.manageCancellation();
+  createActionsPage.actions.editFreeFields.inMass();
+  createActionsPage.filters.massByPartner('lyra');
+
   chooseLinesForSecuTerminatedTest();
   createActionsPage.actions.manageCancellation.validateResil();
   cy.get('.act-creation-report').contains('1 ligne a une date de résiliation non échue');

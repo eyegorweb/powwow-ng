@@ -38,8 +38,7 @@ export default {
       cy.waitGet('.menu_alarms').click({ force: true });
     },
     bills: () => {
-      cy.waitGet('.menu_reportsBill')
-        .click();
-    }
+      cy.waitGet('.menu_reportsBill').click();
+    },
   },
 };

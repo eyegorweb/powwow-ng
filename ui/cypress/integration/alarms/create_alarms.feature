@@ -1,8 +1,8 @@
- Feature: création d'alarmes
+Feature: création d'alarmes
 
   je veux créer des alarmes de changement
 
- Scenario: créer une alarme de changement d'operateur par défaut
+  Scenario: créer une alarme de changement d'operateur par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
@@ -35,7 +35,7 @@
     Then je vérifie que mon alarme a été créé
 
   @ignore
- Scenario: créer une alarme de changement d'operateur par défaut
+  Scenario: créer une alarme de changement d'operateur par défaut
     Given en tant que BO
     And je suis sur la page de création d'alarmes
     And j'enregistre le nombre d'alarmes
