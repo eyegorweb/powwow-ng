@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.185+20210223133348
+2021-02-23
+
+### Fixes
+
+- [000] corriger les tests (68431a6e7e6329e8789e0953cc466cc4671ba1a6)
+- [2378] Problème de filtre dans la recherche de CF (1f7d30e6e228d8a987d4780cd257a4713f7b93d5)
+
 ## 1.17.0-master.184+20210223082504
 2021-02-23
 
