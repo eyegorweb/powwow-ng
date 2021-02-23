@@ -116,7 +116,7 @@
           $t('getvsion.detail-panel.change-alarm')
         }}</UiButton>
       </div>
-      <div>
+      <div v-if="alarmType !== 'OVER_CONSUMPTION_VOLUME_FLOTTE'">
         <UiButton variant="primary" @click="gotoDetail" block>{{
           $t('alarms.MORE_DETAIL')
         }}</UiButton>
@@ -131,7 +131,7 @@ import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import Thresholds from '@/components/Thresholds';
 import UiButton from '@/components/ui/Button';
 import { fetchTriggerHistory } from '@/api/alarms';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapMutations } from 'vuex';
 import { getCurrentMonthName, getMonthString } from '@/utils/date';
 import get from 'lodash.get';
 
@@ -176,6 +176,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userIsPartner']),
+    ...mapState({
+      isOpen: state => state.ui.isPanelOpen,
+    }),
 
     numberOfTargetedLines() {
       if (this.alarmType === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
@@ -219,15 +222,16 @@ export default {
           this.alarmType === 'UNDER_CONSUMPTION_VOLUME'
         ) {
           if (this.observationDelay !== null) {
-            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${this.observationDelay
-              } ${this.$t('alarms.observationCycles.DAYS')}`;
+            return `${this.$t('alarms.observationCycles.CUSTOM')} : ${
+              this.observationDelay
+            } ${this.$t('alarms.observationCycles.DAYS')}`;
           }
           return `${this.$t('alarms.observationCycles.CUSTOM')}`;
         }
         return `${this.$t('notAvailableShortCut')}`;
       } else {
         if (
-          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find((o) => o === this.observationCycle)
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(o => o === this.observationCycle)
         ) {
           return this.$t('alarms.observationCycles.' + this.observationCycle);
         }
@@ -238,7 +242,7 @@ export default {
     nbOfEventsForCurrentMonth() {
       if (this.triggerHistory) {
         const triggerForCurrrentMonth = this.triggerHistory.items.filter(
-          (i) => getMonthString(i.emissionDate) === getCurrentMonthName()
+          i => getMonthString(i.emissionDate) === getCurrentMonthName()
         );
         return triggerForCurrrentMonth.length;
       }
@@ -265,6 +269,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openPanel']),
+
     gotoTargetedAlarms() {
       this.$router.push({
         name: 'alarmDetail',
@@ -273,21 +279,45 @@ export default {
     },
 
     editThisAlarm() {
-      this.$router.push({
-        name: 'alarmDetail',
-        params: { alarmId: this.content.id, editMode: true, alarmType: this.content.type },
-      });
+      if (this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
+        this.openDetailPanel();
+      } else {
+        this.$router.push({
+          name: 'alarmDetail',
+          params: { alarmId: this.content.id, editMode: true, alarmType: this.content.type },
+        });
+      }
     },
 
     gotoDetail() {
-      const routeInfo = {
+      this.$router.push({
         name: 'alarmDetail',
         params: { alarmId: this.content.id },
+      });
+    },
+
+    openDetailPanel() {
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t('getvsion.detail-panel.change-alarm'),
+          panelId: 'getvsion.table.create-alarm',
+          payload: {
+            duplicateFrom: { ...this.content, toModify: true },
+          },
+          wide: true,
+          backdrop: true,
+          ignoreClickAway: true,
+        });
       };
-      if (this.content.type === 'OVER_CONSUMPTION_VOLUME_FLOTTE') {
-        routeInfo.params.alarmType = this.content.type;
+
+      /**
+       * On veut attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
       }
-      this.$router.push(routeInfo);
     },
   },
 };

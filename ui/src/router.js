@@ -76,7 +76,7 @@ export default new Router({
       component: Alarms,
     },
     {
-      path: '/alarm/:alarmId/:alarmType?/:editMode?',
+      path: '/alarm/:alarmId',
       name: 'alarmDetail',
       component: AlarmDetail,
     },
