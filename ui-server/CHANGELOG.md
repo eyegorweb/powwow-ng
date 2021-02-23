@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.184+20210223082504
+2021-02-23
+
+### Fixes
+
+- [2159] COrriger le bouton enregistrer (02fb5630b74f78b5db80ac4bd01431ef8f04c232)
+- [2399] mise à jour de la modification d'une alarme mutualisée (f0ceb40d35dc723782ab52987616b46757125f45)
+
 ## 1.17.0-master.183+20210222152009
 2021-02-22
 
