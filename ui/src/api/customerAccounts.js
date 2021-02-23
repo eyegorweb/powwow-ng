@@ -1,6 +1,10 @@
 import { query, getFilterValue } from './utils';
 
-export async function fetchAllCustomerAccounts(filters, pagination, order) {
+export async function fetchAllCustomerAccounts(
+  filters,
+  pagination,
+  order = { key: 'code', direction: 'ASC' }
+) {
   const queryStr = `
   query{
     customerAccounts(filter:{${formatFilters(filters)}}, pagination: {limit: ${
@@ -50,7 +54,7 @@ export function formatFilters(filters) {
 
   // Recherche unitaire
   addContainsFilter(formattedFilters, filters, 'code', 'getadmin.cf.filters.code');
-  addContainsFilter(formattedFilters, filters, 'name', 'getadmin.cf.filters.name');
+  addContainsFilter(formattedFilters, filters, 'name', 'getadmin.cf.label');
   addContainsFilter(formattedFilters, filters, 'marketLine', 'getadmin.cf.filters.marketLine');
   addContainsFilter(formattedFilters, filters, 'siret', 'getadmin.cf.filters.siret');
   addContainsFilter(formattedFilters, filters, 'siren', 'getadmin.cf.filters.siren');

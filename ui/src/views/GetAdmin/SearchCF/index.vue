@@ -21,7 +21,7 @@
       @applyFilters="applyFilters"
       @columnOrdered="orderedColumns = $event"
     >
-      <div slot="title" class="title">{{ $t('getadmin.cf.total', { total: total }) }}</div>
+      <div slot="title">{{ $t('getadmin.cf.total', { total: total }) }}</div>
 
       <div slot="topLeft">
         <SearchByNb
@@ -53,10 +53,6 @@ export default {
       isLoading: true,
       orderedColumns: undefined,
       searchByNbValue: undefined,
-      orderBy: {
-        key: 'code',
-        direction: 'ASC',
-      },
 
       // Définition des colonnes de la table
       columns: [
@@ -66,7 +62,7 @@ export default {
           label: this.$t('getadmin.cf.code'),
           orderable: true,
           visible: true,
-          noHandle: true,
+          noHandle: false,
 
           format: {
             component: CodeCell,
@@ -78,7 +74,7 @@ export default {
           label: this.$t('getadmin.cf.label'),
           orderable: true,
           visible: true,
-          noHandle: false,
+          noHandle: true,
         },
         {
           id: 3,
@@ -86,7 +82,7 @@ export default {
           label: this.$t('getadmin.cf.marketLine'),
           orderable: true,
           visible: true,
-          noHandle: false,
+          noHandle: true,
         },
         {
           id: 4,
@@ -94,27 +90,27 @@ export default {
           name: 'siret',
           orderable: true,
           visible: true,
-          noHandle: false,
+          noHandle: true,
         },
         {
           id: 5,
           name: 'status',
-          label: this.$t('getadmin.cf.status'),
+          label: this.$t('common.lastName'),
           orderable: true,
           visible: true,
-          noHandle: false,
+          noHandle: true,
         },
         {
           id: 6,
           name: 'auditable',
-          label: this.$t('getadmin.cf.created'),
+          label: this.$t('common.lastName'),
           orderable: true,
           visible: true,
-          noHandle: false,
+          noHandle: true,
           format: {
             type: 'Getter',
             getter: row => {
-              return get(row.auditable, 'created');
+              return get(row, 'created');
             },
           },
         },
@@ -145,17 +141,17 @@ export default {
         },
       },
       {
-        title: 'getadmin.cf.marketLine',
+        title: this.$t('getadmin.cf.marketLine'),
         component: TextFilter,
         onChange(chosenValue) {
           return {
-            id: 'getadmin.cf.marketLine',
+            id: 'getadmin.cf.filters.marketLine',
             value: chosenValue,
           };
         },
       },
       {
-        title: 'getadmin.cf.filters.siren',
+        title: 'Siren',
         component: TextFilter,
         onChange(chosenValue) {
           return {
@@ -165,7 +161,7 @@ export default {
         },
       },
       {
-        title: 'getadmin.cf.filters.siret',
+        title: 'Siret',
         component: TextFilter,
         onChange(chosenValue) {
           return {
@@ -228,8 +224,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.title {
-  font-size: 1.5rem;
-}
-</style>
+<style lang="scss" scoped></style>
