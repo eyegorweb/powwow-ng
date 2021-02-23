@@ -242,8 +242,9 @@ function getSharedAlarmGqlParams(params) {
       );
     }
     gqlParams.push(`levelsData: {${levelsData.join(',')}}`);
+  }
 
-
+  if (params.levelsSms) {
     if (params.levelsSms.levelMax) {
       levelsSms.push(`levelMax: {
         level: ${params.levelsSms.levelMax.level}
@@ -265,8 +266,9 @@ function getSharedAlarmGqlParams(params) {
       );
     }
     gqlParams.push(`levelsSms: {${levelsSms.join(',')}}`);
+  }
 
-
+  if (params.levelsVoice) {
     if (params.levelsVoice.levelMax) {
       levelsVoice.push(`levelMax: {
           level: ${params.levelsVoice.levelMax.level}
@@ -288,7 +290,6 @@ function getSharedAlarmGqlParams(params) {
       );
     }
     gqlParams.push(`levelsVoice: {${levelsVoice.join(',')}}`);
-
   }
 
   return gqlParams;
