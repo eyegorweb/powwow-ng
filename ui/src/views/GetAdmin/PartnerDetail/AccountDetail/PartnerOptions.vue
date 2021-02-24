@@ -806,6 +806,7 @@ export default {
       this.coachM2m24h = this.partnerOptions.coachM2m24h;
 
       this.login = get(this.partnerOptions, 'wsNotificationParam.login');
+      this.password = get(this.partnerOptions, 'wsNotificationParam.password');
       this.webserviceAdress = get(this.partnerOptions, 'wsNotificationParam.url');
 
       this.canShowOptions = true;
