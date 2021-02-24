@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.187+20210224155318
+2021-02-24
+
+### Fixes
+
+- [2412] Problème de gestion du mot de passe dans son champ sur les options partenaire (6534292fafc3246dbdd72c35d5fdc4501ccdb9b5)
+
 ## 1.17.0-master.186+20210224140729
 2021-02-24
 
