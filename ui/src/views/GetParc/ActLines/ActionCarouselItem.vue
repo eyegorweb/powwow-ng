@@ -56,7 +56,7 @@ export default {
 
       for (let i = 0, max = this.item.filters.length; i < max; i++) {
         const itemFilter = this.item.filters[i];
-        const concernedFilter = newCurrentFilters.find((it) => itemFilter.id === it.id);
+        const concernedFilter = newCurrentFilters.find(it => itemFilter.id === it.id);
         if (concernedFilter && concernedFilter.values && concernedFilter.values.length) {
           const diff = differenceWith(
             concernedFilter.values,

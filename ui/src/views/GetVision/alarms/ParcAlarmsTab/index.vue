@@ -77,7 +77,7 @@ import AlarmsPerDayGraph from './AlarmsPerDayGraph';
 import AlarmsActions from './cells/AlarmsActions';
 
 import SearchAlarmById from './SearchAlarmById';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
@@ -206,8 +206,26 @@ export default {
     };
   },
 
+  watch: {
+    async lastOpenedPanel(newValue, oldValue) {
+      if (!newValue && oldValue === 'getvsion.table.create-alarm') {
+        await this.resetFilters();
+        this.applyFilters({
+          pagination: { page: 0, limit: 1 },
+          filters: [],
+          searchingById: true,
+        });
+      }
+    },
+  },
+
   computed: {
     ...mapGetters(['userIsPartner']),
+
+    ...mapState({
+      lastOpenedPanel: state => state.ui.panelId,
+    }),
+
     selectedPartnerIds() {
       return this.currentPartners.map(p => p.id);
     },

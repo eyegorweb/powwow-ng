@@ -66,7 +66,7 @@ export default {
     //*/
     isWSF() {
       return (
-        this.offerRanges.filter((item) => {
+        this.offerRanges.filter(item => {
           return !item.upperBoundDiscount && !item.lowerBoundDiscount && !item.fixedPrice;
         }).length === this.offerRanges.length
       );

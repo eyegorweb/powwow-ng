@@ -126,7 +126,6 @@ async function consoQuery(queryName, params) {
 export async function updateSharedConsumptionAlarm(params) {
   const gqlParams = getSharedAlarmGqlParams(params);
 
-
   const queryStr = `
   mutation {
     updateSharedConsumptionAlarm(updateSharedAlarmFilterInput:{${gqlParams.join(',')}}) {
@@ -224,22 +223,19 @@ function getSharedAlarmGqlParams(params) {
     if (params.levelsData.levelMax) {
       levelsData.push(`levelMax: {
         level: ${params.levelsData.levelMax.level}
-        }`
-      );
+        }`);
     }
     if (params.levelsData.level1) {
       levelsData.push(`level1: {
         level: ${params.levelsData.level1.level},
         dayOfMonth: ${params.levelsData.level1.dayOfMonth}
-        }`
-      );
+        }`);
     }
     if (params.levelsData.level2) {
       levelsData.push(`level2: {
         level: ${params.levelsData.level2.level},
         dayOfMonth: ${params.levelsData.level2.dayOfMonth}
-        }`
-      );
+        }`);
     }
     gqlParams.push(`levelsData: {${levelsData.join(',')}}`);
   }
@@ -248,22 +244,19 @@ function getSharedAlarmGqlParams(params) {
     if (params.levelsSms.levelMax) {
       levelsSms.push(`levelMax: {
         level: ${params.levelsSms.levelMax.level}
-        }`
-      );
+        }`);
     }
     if (params.levelsSms.level1) {
       levelsSms.push(`level1: {
           level: ${params.levelsSms.level1.level},
           dayOfMonth: ${params.levelsSms.level1.dayOfMonth}
-        }`
-      );
+        }`);
     }
     if (params.levelsSms.level2) {
       levelsSms.push(`level2: {
           level: ${params.levelsSms.level2.level},
           dayOfMonth: ${params.levelsSms.level2.dayOfMonth}
-        }`
-      );
+        }`);
     }
     gqlParams.push(`levelsSms: {${levelsSms.join(',')}}`);
   }
@@ -272,22 +265,19 @@ function getSharedAlarmGqlParams(params) {
     if (params.levelsVoice.levelMax) {
       levelsVoice.push(`levelMax: {
           level: ${params.levelsVoice.levelMax.level}
-        }`
-      );
+        }`);
     }
     if (params.levelsVoice.level1) {
       levelsVoice.push(`level1: {
           level: ${params.levelsVoice.level1.level},
           dayOfMonth: ${params.levelsVoice.level1.dayOfMonth}
-        }`
-      );
+        }`);
     }
     if (params.levelsVoice.level2) {
       levelsVoice.push(`level2: {
           level: ${params.levelsVoice.level2.level},
           dayOfMonth: ${params.levelsVoice.level2.dayOfMonth}
-        }`
-      );
+        }`);
     }
     gqlParams.push(`levelsVoice: {${levelsVoice.join(',')}}`);
   }

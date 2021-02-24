@@ -185,7 +185,7 @@ export default {
         ]
       );
 
-      this.tabs = this.tabs.map((t) => {
+      this.tabs = this.tabs.map(t => {
         if (t.label === 'trigger2Month') {
           t.total = this.formattedTotal(lasTriggered.total);
         }

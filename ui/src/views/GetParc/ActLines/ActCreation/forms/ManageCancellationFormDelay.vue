@@ -100,7 +100,9 @@ export default {
       return this.selectedDelay !== null ? true : false;
     },
     delay() {
-      return moment().add(this.selectedDelay, 'months').format('DD/MM/YYYY HH:mm:ss');
+      return moment()
+        .add(this.selectedDelay, 'months')
+        .format('DD/MM/YYYY HH:mm:ss');
     },
   },
 };
