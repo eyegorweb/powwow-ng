@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.186+20210224140729
+2021-02-24
+
+### Fixes
+
+- [2399] rafraichir la liste des alarmes après une modification (9d4e48ced39a6f0cf191a9258774210ef85dc3fc)
+
 ## 1.17.0-master.185+20210223133348
 2021-02-23
 
