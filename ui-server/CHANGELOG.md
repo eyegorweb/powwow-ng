@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.189+20210225135811
+2021-02-25
+
+### Fixes
+
+- [2445]  afficher les infos de la ligne du max(ID) pour le point d'accès. (aa805a7fb170c8e3926d16367cb9015394ed8bb1)
+
 ## 1.17.0-master.188+20210225102335
 2021-02-25
 
