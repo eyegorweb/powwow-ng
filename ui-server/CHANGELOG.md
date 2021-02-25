@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.190+20210225152735
+2021-02-25
+
+### Fixes
+
+- [2446]  Ajout de la colonne détail dans l'onglet des actes en erreur dans le détail d'un acte de masse (d4db2abe9077380f56a91bd2e97ec929281fa9d6)
+
 ## 1.17.0-master.189+20210225135811
 2021-02-25
 
