@@ -125,6 +125,13 @@ export default {
           // exportId: 'UNKNOWN',
         },
         {
+          id: 14,
+          label: this.$t('getparc.actDetail.col.details'),
+          name: 'info',
+          orderable: true,
+          visible: true,
+        },
+        {
           id: 3,
           label: this.$t('getparc.actDetail.col.msisdn'),
           name: 'msisdn',
@@ -137,7 +144,7 @@ export default {
           label: this.$t('getparc.actDetail.col.iccid'),
           name: 'iccid',
           orderable: true,
-          visible: true,
+          visible: false,
           exportId: 'LINE_ICCID',
         },
         {
