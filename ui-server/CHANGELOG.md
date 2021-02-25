@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.188+20210225102335
+2021-02-25
+
+### Fixes
+
+- [2442] Problème changement d'offre en masse (e369748be7557038c9fb8ec58dfd0a7b47544c96)
+
 ## 1.17.0-master.187+20210224155318
 2021-02-24
 
