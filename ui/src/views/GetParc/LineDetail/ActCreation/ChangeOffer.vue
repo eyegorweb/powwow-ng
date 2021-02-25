@@ -3,6 +3,7 @@
     warning-msg="getparc.actCreation.changeOffer.confirmationWarning"
     :validate-fn="doRequest"
     :can-send="canSend"
+    :change-offer="true"
   >
     <div class="overview-item mr-5">
       <h6>{{ $t('getparc.actCreation.changeOffer.currentOffer') }} :</h6>

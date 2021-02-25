@@ -20,6 +20,7 @@
             :min-date="minDate"
             class="d-block large-date-picker"
             direction="down"
+            :disabled="disabledDate"
             fixed
             large
             time-picker
@@ -48,13 +49,14 @@ import UiDate from '@/components/ui/UiDate';
 import moment from 'moment';
 import UiCheckbox from '@/components/ui/Checkbox';
 
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   props: {
     validateFn: Function,
     warningMsg: String,
     canSend: Boolean,
+    changeOffer: Boolean,
   },
   components: {
     BaseDetailPanelContent,
@@ -62,7 +64,16 @@ export default {
     UiCheckbox,
   },
   mounted() {
-    this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+    if(this.changeOffer && this.userIsBO && !this.userIsMVNO) {
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
+    }
+    else if(this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
+      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
+      this.disabledDate = true;
+    }
+    else {
+      this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
+    }
   },
   data() {
     return {
@@ -71,6 +82,7 @@ export default {
       actDate: undefined,
       notificationCheck: undefined,
       report: undefined,
+      disabledDate: false,
     };
   },
 
@@ -122,6 +134,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['userIsMVNO', 'userIsBO']),
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
     },
