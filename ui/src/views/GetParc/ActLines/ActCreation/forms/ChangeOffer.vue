@@ -152,7 +152,7 @@ export default {
         isError = true;
       }
 
-      if (this.servicesChoice && this.servicesChoice.dataService) {
+      if (this.$loGet(this.servicesChoice, 'dataService.checked')) {
         this.isDataParamsError =
           this.servicesChoice.dataService &&
           this.servicesChoice.dataService.parameters &&
