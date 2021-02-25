@@ -43,7 +43,7 @@
         <template v-if="hasResults">
           <DataTable
             storage-id="getparc.lines"
-            storage-version="27"
+            storage-version="28"
             v-if="columns"
             :columns="columns"
             :rows="rows || []"
@@ -167,9 +167,11 @@ export default {
     getPageInfo() {
       return { page: this.page - 1, limit: this.pageLimit };
     },
+    /*
     msisdn() {
       return getFromLatestLineFromAccessPoint(this.row.accessPoint, 'msisdn');
     },
+    //*/
     hasResults() {
       return !!(this.rows && this.rows.length);
     },
@@ -381,9 +383,10 @@ export default {
           exportId: 'LINE_MSISDN',
           name: 'accessPoint',
           format: {
-            // component: LinkTo,
-            type: 'ObjectAttribute',
-            path: 'lines[0].msisdn',
+            type: 'Getter',
+            getter: row => {
+              return getFromLatestLineFromAccessPoint(row.accessPoint, 'msisdn');
+            },
           },
           orderable: false,
           sortingName: 'msisdn',
@@ -395,8 +398,10 @@ export default {
           name: 'accessPoint',
           exportId: 'LINE_IMSI',
           format: {
-            type: 'ObjectAttribute',
-            path: 'lines[0].imsi',
+            type: 'Getter',
+            getter: row => {
+              return getFromLatestLineFromAccessPoint(row.accessPoint, 'imsi');
+            },
           },
           orderable: false,
           sortingName: 'imsi',
@@ -452,8 +457,10 @@ export default {
           label: this.$t('getparc.actLines.col.msisdnA'),
           name: 'accessPoint',
           format: {
-            type: 'ObjectAttribute',
-            path: 'lines[0].msisdnA',
+            type: 'Getter',
+            getter: row => {
+              return getFromLatestLineFromAccessPoint(row.accessPoint, 'msisdnA');
+            },
           },
           exportId: 'LINE_AMSISDN',
           orderable: false,

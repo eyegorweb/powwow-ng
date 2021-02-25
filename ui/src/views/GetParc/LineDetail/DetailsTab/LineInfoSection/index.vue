@@ -169,6 +169,8 @@ import moment from 'moment';
 import get from 'lodash.get';
 import { fetchCustomFields } from '@/api/customFields';
 import { mapGetters } from 'vuex';
+import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
+
 
 export default {
   components: {
@@ -194,7 +196,7 @@ export default {
     ...mapGetters(['userIsBO']),
 
     msisdn() {
-      return get(this.lines[0], 'msisdn', '');
+      return getFromLatestLineFromAccessPoint(this.$loGet(this.content, 'accessPoint', {}), 'msisdn');
     },
     lines() {
       return this.getFromContent('accessPoint.lines', undefined);
