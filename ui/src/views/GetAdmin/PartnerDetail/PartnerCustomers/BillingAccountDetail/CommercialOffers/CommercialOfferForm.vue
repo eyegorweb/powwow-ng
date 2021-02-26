@@ -265,7 +265,14 @@ export default {
       const isValid = () => {
         if (values && values.length) {
           const validDiscounts = values.filter(d => {
-            if (d.discountValue && d.lowerBound !== undefined && d.upperBound !== undefined) {
+            if (
+              d.discountValue !== null &&
+              d.discountValue !== undefined &&
+              d.lowerBound !== undefined &&
+              d.lowerBound !== null &&
+              d.upperBound !== undefined &&
+              d.upperBound !== null
+            ) {
               const val = parseFloat(d.discountValue);
               return val >= d.lowerBound && val <= d.upperBound;
             }
@@ -310,9 +317,11 @@ export default {
         if (values && values.length) {
           const validranges = values.filter(d => {
             if (
-              d.discountValue &&
-              d.discountValue.length &&
+              d.discountValue !== null &&
+              d.discountValue !== undefined &&
               d.lowerBound !== undefined &&
+              d.lowerBound !== null &&
+              d.upperBound !== null &&
               d.upperBound !== undefined
             ) {
               const val = parseFloat(d.discountValue);
