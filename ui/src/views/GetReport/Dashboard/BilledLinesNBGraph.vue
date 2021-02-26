@@ -31,6 +31,7 @@ import GraphContainer from './GraphContainer';
 import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthStringPreviousMonth } from '@/utils/date';
+import { formatToM } from '@/api/utils.js'
 import { billedLineAndAmount } from '@/api/reportDashboard.js';
 
 export default {
@@ -199,9 +200,12 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          pointFormatter() {
+            return `
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b>${formatToM(this.y)} ${this.series.options.custom.devise}</b></td></tr>
+              `;
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -215,39 +219,46 @@ export default {
         },
         series: [
           {
-            name: this.$t('getreport.dashboard.legends.billedLines'),
+            name: this.$t('getreport.dashboard.legends.billedLines') ,
             data: dataSeries.billedLines,
+            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             type: 'column',
             yAxis: 1,
           },
           {
             name: this.$t('getreport.dashboard.legends.totalAmount'),
             data: dataSeries.totalAmount,
+            custom: {devise: '€'},
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountSubscription'),
             data: dataSeries.suscribeAmount,
+            custom: {devise: '€'},
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountData'),
             data: dataSeries.amountData,
+            custom: {devise: '€'},
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountByCounter'),
             data: dataSeries.amountConso,
+            custom: {devise: '€'},
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountOutOfZone'),
             data: dataSeries.amountOutOfZone,
+            custom: {devise: '€'},
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountTestConso'),
             data: dataSeries.amountTestConso,
+            custom: {devise: '€'},
             type: 'spline',
           },
         ],

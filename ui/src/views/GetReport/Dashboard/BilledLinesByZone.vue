@@ -40,7 +40,7 @@ import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
 import { billedLineConsoZone } from '@/api/reportDashboard.js';
-import { formatBytes, formattedValueFromSeconds } from '@/api/utils.js';
+import { formatBytes, formattedValueFromSeconds, formatToM } from '@/api/utils.js';
 import { formatLargeNumber } from '@/utils/numbers';
 
 export default {
@@ -244,9 +244,12 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          pointFormatter() {
+            return `
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatBytes(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+              `;
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -275,7 +278,14 @@ export default {
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.billedLines,
+            data: chartData.nbBilledLines,
+            yAxis: 1,
+            type: 'spline',
+          },
+          {
+            name: this.$t('getreport.dashboard.legends.billedLines'),
+            data: chartData.nbBilledLine,
+            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             yAxis: 1,
             type: 'spline',
           },
@@ -304,7 +314,7 @@ export default {
             // Primary yAxis
             labels: {
               formatter() {
-                return formattedValueFromSeconds(this.value, 0);
+                return formatToM(this.value);
               },
               style: {
                 color: '#083e96',
@@ -337,9 +347,12 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          pointFormatter() {
+            return `
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatToM(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+              `;
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -353,22 +366,29 @@ export default {
         series: [
           {
             name: this.$t('getreport.dashboard.legends.frConso'),
-            data: chartData.voiceConsoFr,
+            data: chartData.dataConsoFr,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.euConso'),
-            data: chartData.voiceConsoEU,
+            data: chartData.dataConsoEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.outOfEUConso'),
-            data: chartData.voiceConsoHorsEU,
+            data: chartData.dataConsoHorsEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.billedLines,
+            data: chartData.nbBilledLines,
+            yAxis: 1,
+            type: 'spline',
+          },
+          {
+            name: this.$t('getreport.dashboard.legends.billedLines'),
+            data: chartData.nbBilledLine,
+            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             yAxis: 1,
             type: 'spline',
           },
@@ -397,7 +417,7 @@ export default {
             // Primary yAxis
             labels: {
               formatter() {
-                return formatLargeNumber(this.value);
+                return formatToM(this.value);
               },
               style: {
                 color: '#083e96',
@@ -430,9 +450,12 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          pointFormatter() {
+            return `
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatToM(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+              `;
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -446,22 +469,29 @@ export default {
         series: [
           {
             name: this.$t('getreport.dashboard.legends.frConso'),
-            data: chartData.smsConsoFr,
+            data: chartData.dataConsoFr,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.euConso'),
-            data: chartData.smsConsoEU,
+            data: chartData.dataConsoEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.outOfEUConso'),
-            data: chartData.smsConsoHorsEU,
+            data: chartData.dataConsoHorsEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.billedLines,
+            data: chartData.nbBilledLines,
+            yAxis: 1,
+            type: 'spline',
+          },
+          {
+            name: this.$t('getreport.dashboard.legends.billedLines'),
+            data: chartData.nbBilledLine,
+            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             yAxis: 1,
             type: 'spline',
           },

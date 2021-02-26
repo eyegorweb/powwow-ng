@@ -40,6 +40,7 @@ import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
 import { averageBilledAmountByMonth } from '@/api/reportDashboard.js';
+import { formatBytes } from '@/api/utils.js';
 
 export default {
   components: {
@@ -211,9 +212,12 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+          pointFormatter() {
+            return `
+            <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
+            <td style="padding:0"><b>${!formatBytes(this.y).includes('undefined') ? formatBytes(this.y) : this.y + ' €'}</b></td></tr>
+              `;
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
