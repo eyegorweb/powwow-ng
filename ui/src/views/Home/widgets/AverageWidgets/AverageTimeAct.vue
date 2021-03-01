@@ -72,7 +72,7 @@ export default {
     },
     async refreshIndicatorsForPeriod() {
       if (this.contextPartners) {
-        this.partners = this.contextPartners.map(p => p.id);
+        this.partners = this.contextPartners.map((p) => p.id);
       }
       const listIndicators = await fetchPrecalculatedIndicators(
         [
@@ -86,27 +86,27 @@ export default {
         this.contextPartnersType
       );
 
-      this.indicators = listIndicators.map(i => {
-        const labelKey = this.averageTimeAction(i.name);
-        return {
-          total: i.numberValue,
-          clickable: false,
-          labelKey,
-          id: i.name,
-          unit: defaultTimeUnit,
-          linked: false,
-        };
-      });
-
-      const ordered = this.indicators
-        .filter(i => !!i.precalculatedValue)
-        .sort((a, b) =>
-          isBefore(a.precalculatedValue.updateDate, b.precalculatedValue.updateDate) ? -1 : 1
-        );
-
-      if (ordered.length) {
-        this.lastUpdateDate = ordered[0].precalculatedValue.updateDate;
-      }
+      this.indicators = listIndicators
+        .map((i) => {
+          const labelKey = this.averageTimeAction(i.name);
+          return {
+            total: i.numberValue,
+            clickable: false,
+            labelKey,
+            id: i.name,
+            unit: defaultTimeUnit,
+            linked: false,
+          };
+        })
+        .sort((a, b) => {
+          if (a.labelKey < b.labelKey) {
+            return -1;
+          }
+          if (a.labelKey > b.labelKey) {
+            return 1;
+          }
+          return 0;
+        });
     },
     getLabel(name, from, to) {
       return name.slice(from, to);
