@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.192+20210301101102
+2021-03-01
+
+### Fixes
+
+- [1669] Ajout des conditions sur le datepicker dans le changement offre (6c6441424b4e2e36bb91277b28c49a7834c41088)
+- [2427] Problème de formattage et bug sur les graphs du Tableau de board (b6ecc516fa935a2cc2731357d617fd7a469a1eba)
+- [2399] modification de l'alarme mutualisée (1e380a8c907eecf2fce6b36b158a67f3ac39162e)
+
 ## 1.17.0-master.191+20210226092148
 2021-02-26
 
