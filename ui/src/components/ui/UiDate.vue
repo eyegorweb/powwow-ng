@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="disableDate" v-if="disabled"></div>
     <div ref="singledate" class="row datepicker" :class="{ error: !!error, large: large }">
       <div class="col">
         <i class="icon ic-Calendar-Icon" />
@@ -41,6 +42,7 @@ export default {
     fixed: Boolean,
     large: Boolean,
     timePicker: Boolean,
+    disabled: Boolean,
     direction: {
       type: String,
       required: false,
@@ -57,6 +59,11 @@ export default {
   methods: {
     clearValue() {
       this.$emit('change', '');
+    },
+    disableTest(event) {
+      if(this.disabled) {
+        event.preventDefault();
+      }
     },
     createDatePicker() {
       const onDateSelected = value => {
@@ -120,6 +127,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.disableDate {
+  position: absolute;
+  width: 100%;
+  height: 2.5rem;
+  z-index: 9;
+}
 .datepicker {
   background: #fff;
   cursor: pointer;
