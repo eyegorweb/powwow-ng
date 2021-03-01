@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.195+20210301164028
+2021-03-01
+
+### Fixes
+
+- [2439] Correction sur la section facturation des options partenaire (99bcc5e555df7089e4e5f49751cf81eca65db490)
+- [2427] Problème de formattage et bug sur les graphs du Tableau de board (0336d719bd64a5acc9269a7c7dde8e031066557e)
+- [2447]  tri par ordre alphabétique sur le libellé (0357941018a6865bb02859f8e1e7ad1e8c18f448)
+
 ## 1.17.0-master.194+20210301140136
 2021-03-01
 
