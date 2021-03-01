@@ -90,7 +90,7 @@
             </div>
           </template>
         </ContentBlock>
-        <ContentBlock :key="'block3'" v-if="!partnerTypeMVNO">
+        <ContentBlock :key="'block3'" v-if="canSeeDualSIM">
           <template slot="title">{{ $t('getparc.lineDetail.tab1.dualSim') }}</template>
           <template slot="content">
             <div class="d-flex">
@@ -171,7 +171,6 @@ import { fetchCustomFields } from '@/api/customFields';
 import { mapGetters } from 'vuex';
 import { getFromLatestLineFromAccessPoint } from '@/utils/line.js';
 
-
 export default {
   components: {
     draggable,
@@ -193,10 +192,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userIsBO']),
+    ...mapGetters(['userIsBO', 'havePermission']),
 
     msisdn() {
-      return getFromLatestLineFromAccessPoint(this.$loGet(this.content, 'accessPoint', {}), 'msisdn');
+      return getFromLatestLineFromAccessPoint(
+        this.$loGet(this.content, 'accessPoint', {}),
+        'msisdn'
+      );
     },
     lines() {
       return this.getFromContent('accessPoint.lines', undefined);
@@ -245,11 +247,18 @@ export default {
     },
     noSpecificResults() {
       if (this.currentSpecificFields && !this.currentSpecificFields.length) return;
-      let found = this.currentSpecificFields.every(c => c.value);
+      let found = this.currentSpecificFields.every((c) => c.value);
       return found;
     },
     partnerTypeMVNO() {
       return get(this.content, 'party.partyType') === 'MVNO';
+    },
+    canSeeDualSIM() {
+      return (
+        !this.partnerTypeMVNO &&
+        this.$loGet(this.content, 'dualSIMCardInstance') &&
+        this.havePermission('getParc', 'manage_dual')
+      );
     },
   },
   methods: {
@@ -290,7 +299,7 @@ export default {
     },
 
     getCustomFieldLabel(index) {
-      const found = this.allCustomFields.find(c => c.code === `custom${index}`);
+      const found = this.allCustomFields.find((c) => c.code === `custom${index}`);
       if (found) {
         return found.label;
       } else {
