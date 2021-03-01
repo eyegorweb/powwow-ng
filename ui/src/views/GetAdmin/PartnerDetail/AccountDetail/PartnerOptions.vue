@@ -154,10 +154,12 @@
         <div class="d-flex">
           <div class="third-size pr-4">
             <div class="form-group">
-              <label class="small-label">{{
-                $t('getadmin.partners.optionsDetails.dualSimInfo')
-              }}</label>
-              <UiInput v-model="billingDualSIM" block />
+              <UiToggle
+                :label="$t('getadmin.partners.optionsDetails.dualSimInfo')"
+                :editable="true"
+                v-model="billingDualSIM"
+                small-label
+              />
             </div>
           </div>
           <div class="third-size pr-4" v-if="getToggle(billingToggles, 'AUTO_ACT_SIM')">
@@ -551,7 +553,7 @@ export default {
       {
         code: 'MAD_FACT',
         visible: true,
-        checked: false,
+        checked: true,
         editable: true,
         optional: false,
         activationDate: null,
@@ -723,7 +725,7 @@ export default {
       this.checkToggle(this.orderToggles, 'REF_CLIENT', this.partnerOptions.orderNumberRequired);
       this.checkToggle(this.billingToggles, 'SWITCH_RCARD', this.partnerOptions.switchRcard);
       this.checkToggle(this.billingToggles, 'FACT_IMEI', this.partnerOptions.flagBillingIMEI);
-      this.checkToggle(this.billingToggles, 'FACT_DUAL_SIM', this.partnerOptions.dualSimBilling);
+      this.billingDualSIM = this.partnerOptions.dualSimBilling;
       this.checkToggle(
         this.billingToggles,
         'FACT_REPORT_CONSO',
@@ -863,7 +865,7 @@ export default {
           flagBillingIMEI: this.getToggle(this.billingToggles, 'FACT_IMEI'),
           switchRcard: this.getToggle(this.billingToggles, 'SWITCH_RCARD'),
           controlDeactivateRCard: this.getToggle(this.billingToggles, 'DISABLE_RCARD'),
-          dualSimBilling: this.getToggle(this.billingToggles, 'FACT_DUAL_SIM'),
+          dualSimBilling: this.billingDualSIM,
           offerChangeEnabled: this.getToggle(this.billingToggles, 'CHANGE_OFFER'),
           flagDefautWorkflowActication: this.getToggle(this.billingToggles, 'AUTO_ACT_SIM'),
           defautWorkflowActication: parseInt(this.autoActivationDelay),
