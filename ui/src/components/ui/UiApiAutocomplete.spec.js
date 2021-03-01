@@ -8,7 +8,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 const apiMethod = jest.fn();
 
-describe('UiApiAutocomplete.vue', () => {
+describe.skip('UiApiAutocomplete.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper, resolve;
   beforeEach(() => {

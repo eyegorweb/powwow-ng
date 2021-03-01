@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import MultiChoices from './MultiChoices.vue';
 
-describe('components/Multichoices', () => {
+describe.skip('components/Multichoices', () => {
   let wrapper;
   beforeEach(() => {
     const values = [

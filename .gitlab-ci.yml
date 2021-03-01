@@ -2,6 +2,7 @@ image: gradle:5.1.1
 
 stages:
   - version
+  - unitTests
   - build
   - test
   - release
@@ -43,6 +44,26 @@ version:
     paths:
       - .next-version
       - release
+  except:
+    - tags
+    - schedules
+  interruptible: true
+
+unitTests:
+  stage: unitTests
+  script:
+    - gradle :ui:frontUnitTests --info
+  only:
+    - master
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - .gradle/caches
+      - ui/.gradle/nodejs
+      - ui/.gradle/yarn
+      - ui/node_modules
+      - cache/Cypress
+      - .cache/Cypress
   except:
     - tags
     - schedules

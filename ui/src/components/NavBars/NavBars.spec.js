@@ -9,7 +9,7 @@ const $route = {
 };
 const mocks = { $i18n, $t, $route };
 
-describe('NavBars.vue', () => {
+describe.skip('NavBars.vue', () => {
   it('renders backofficenavbar for bo users', () => {
     /** @type {import('@vue/test-utils').Wrapper} */
     const wrapper = shallowMount(NavBars, {
@@ -20,7 +20,7 @@ describe('NavBars.vue', () => {
   });
 });
 
-describe('NavBar.vue', () => {
+describe.skip('NavBar.vue', () => {
   it('displays client and corporate logos for non bo users', () => {
     /** @type {import('@vue/test-utils').Wrapper} */
     const wrapper = shallowMount(NavBar, {

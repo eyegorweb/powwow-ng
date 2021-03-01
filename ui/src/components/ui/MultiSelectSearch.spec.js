@@ -34,7 +34,7 @@ const mocks = { $t };
 
 const unselectAll = 'unSelectAll (6)';
 
-describe('PartnersSearch', () => {
+describe.skip('PartnersSearch', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {

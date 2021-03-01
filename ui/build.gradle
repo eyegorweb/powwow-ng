@@ -19,6 +19,13 @@ task buildFront(type: YarnTask) {
     args = ['run', "${npmBuild}"]
 }
 
+task frontUnitTests(type: YarnTask) {
+    dependsOn 'yarn'
+    println "*** Front Unit tests ***"
+    args = ['run', "test:unit"]
+}
+
+
 task clean {
     delete "${project.projectDir}/dist"
 }

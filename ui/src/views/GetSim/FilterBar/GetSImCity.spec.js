@@ -6,6 +6,8 @@ import { Store } from 'vuex-mock-store';
 import { $t } from '@/../tests-utils';
 
 const store = new Store({
+  state: { getsim: {} },
+
   getters: {
     selectedCityValue: '',
   },
@@ -29,6 +31,6 @@ describe('GetSimCity', () => {
   it('mutates the store with the entered value', () => {
     wrapper.find('input').setValue('paris');
     expect(store.commit).toHaveBeenCalledTimes(1);
-    expect(store.commit).toHaveBeenCalledWith('setCityFilter', 'paris');
+    expect(store.commit).toHaveBeenCalledWith('getsim/setCityFilter', 'paris');
   });
 });

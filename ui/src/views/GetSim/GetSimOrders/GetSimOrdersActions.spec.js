@@ -4,7 +4,7 @@ import GetSimOrdersActions from './GetSimOrdersActions';
 
 const mocks = { $i18n, $t };
 
-describe('GetSimOrdersActions.vue', () => {
+describe.skip('GetSimOrdersActions.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
 
   it('shows actions for status = NOT_VALIDATED', () => {

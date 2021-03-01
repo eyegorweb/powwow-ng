@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import DatatableColumnTypeSwitcher from './DatatableColumnTypeSwitcher.vue';
+import DatatableColumnTypeSwitcher from './DataTableColumnTypeSwitcher.vue';
 
 describe('DatatableColumnTypeSwitcher.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
