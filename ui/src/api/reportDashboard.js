@@ -109,6 +109,7 @@ export async function billedLineConsoZone(partnerId, customerAccountCode, period
   }
   `;
   const response = await query(queryStr);
+
   if (response.data) return response.data.billedLineAndConsoByZoneGraph;
 }
 

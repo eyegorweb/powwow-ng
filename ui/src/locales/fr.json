@@ -1016,6 +1016,10 @@
         "nbAlarms": "Nb d'alarmes",
         "billed": "Facturé",
         "notBilled": "Non facturé",
+        "billeds": "Facturé(s)",
+        "notBilleds": "Non facturée(s)",
+        "billedLines": "Nb de lignes facturées",
+        "notBilledLines": "Nb de lignes non facturées",
         "amount": "Montant",
         "overtaking": "Dépassement",
         "contract": "Forfait",
@@ -1032,8 +1036,8 @@
         "amountOutOfZone": "Montant hors zone",
         "amountTestConso": "Montant des conso tests",
         "totalAmount": "Montant total",
-        "billedLines": "Nb de lignes facturées",
-        "lines": "Lignes"
+        "lines": "Lignes",
+        "nbOfLines": "Ligne(s)"
       }
     }
   },

@@ -128,12 +128,14 @@ export default {
           all.nbBilledLines.push(c.nbBilledLines);
           all.nbNotBilledLines.push(c.nbNotBilledLines);
           all.amount.push(c.amount);
+          all.devises = ['facturées', 'non facturées', '€'];
           return all;
         },
         {
           categories: [],
           nbBilledLines: [],
           nbNotBilledLines: [],
+          devises: [],
           amount: [],
         }
       );
@@ -162,8 +164,8 @@ export default {
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
           pointFormat:
-            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            '<tr><td style="color:{series.color};padding:0">{series.name.label}: </td>' +
+            '<td style="padding:0"><b>{point.y} {series.name.devise}</b></td></tr>',
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -177,17 +179,17 @@ export default {
         },
         series: [
           {
-            name: this.$t('getreport.dashboard.legends.billed'),
+            name: {label: this.$t('getreport.dashboard.legends.billedLines'), devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             type: 'column',
             data: dataSeries.nbBilledLines,
           },
           {
-            name: this.$t('getreport.dashboard.legends.notBilled'),
+            name: {label: this.$t('getreport.dashboard.legends.notBilledLines'), devise: this.$t('getreport.dashboard.legends.nbOfLines')},
             type: 'column',
             data: dataSeries.nbNotBilledLines,
           },
           {
-            name: this.$t('getreport.dashboard.legends.amount'),
+            name: {label: this.$t('getreport.dashboard.legends.amount'), devise: '€'},
             type: 'spline',
             data: dataSeries.amount,
           },

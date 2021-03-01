@@ -315,6 +315,12 @@ export function resumeAndTruncateFormattedValueFromSeconds(value) {
   }
 }
 
+export function formatToM(num) {
+  return Math.abs(num) > 999999
+    ? Math.sign(num) * (Math.abs(num) / 1000000).toFixed(2) + 'M'
+    : Math.sign(num) * Math.abs(num);
+}
+
 export function fromHoursToDDHH(value) {
   let initialSeconds = value * 60 * 60;
   let duration = initialSeconds;
