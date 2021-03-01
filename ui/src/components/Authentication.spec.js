@@ -5,6 +5,7 @@ import * as utils from '@/utils';
 
 process.env.VUE_APP_GATEWAY_URL = 'http://localhost:4000';
 process.env.VUE_APP_CLIENT_ID = 'nextgenui-implicit';
+process.env.VUE_APP_BASE_URL = '';
 
 const store = new Store({
   state: { token: undefined },

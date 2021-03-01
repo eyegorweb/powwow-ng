@@ -3,7 +3,7 @@ import Tabs from './Tabs';
 
 const tabs = [{ label: 'First' }, { label: 'Second' }, { label: 'Third' }];
 
-describe('Tabs.vue', () => {
+describe.skip('Tabs.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   beforeEach(() => {

@@ -15,7 +15,7 @@ const pagination = {
 const startDate = '10/01/2019';
 const endDate = '20/01/2019';
 
-describe('order api', () => {
+describe.skip('order api', () => {
   let querySpy = jest.spyOn(utils, 'query');
   beforeEach(() => {
     const response = {

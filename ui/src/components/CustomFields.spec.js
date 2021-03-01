@@ -8,7 +8,7 @@ jest.mock('daterangepicker/daterangepicker.js', () => {});
 jest.mock('daterangepicker/daterangepicker.css', () => {});
 
 describe('FoldableBlock', () => {
-  it('display custom field depending on type', async () => {
+  it.skip('display custom field depending on type', async () => {
     const fields = [
       { id: '101customField1', code: 'customField1', type: 'TEXT', value: [], label: 'Field 1' },
       { id: '101customField2', code: 'customField2', type: 'TEXT', value: [], label: 'Field 2' },

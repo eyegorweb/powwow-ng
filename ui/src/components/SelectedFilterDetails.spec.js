@@ -21,7 +21,7 @@ function factory() {
   });
 }
 
-describe('components/SelectedFilterDetails', () => {
+describe.skip('components/SelectedFilterDetails', () => {
   it('displays the id as title', () => {
     const wrapper = factory();
     expect(wrapper.text()).toContain('partners');

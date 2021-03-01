@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import UiDropdownButton from './UiDropdownButton.vue';
 
-describe('UiDropdownButton.vue', () => {
+describe.skip('UiDropdownButton.vue', () => {
   it('toggles the dropdown', () => {
     const wrapper = mount(UiDropdownButton);
     expect(wrapper.find('.dropdown-menu').exists()).toBe(false);

@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import DataTablePagination from './DataTablePagination.vue';
 
-describe('DataTablePagination', () => {
+describe.skip('DataTablePagination', () => {
   it('Should show number of pages', () => {
     const wrapper = shallowMount(DataTablePagination, {
       propsData: {

@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import SearchInput from './SearchInput.vue';
 
-describe('SearchInput.vue', () => {
+describe.skip('SearchInput.vue', () => {
   /** @type {import('@vue/test-utils').Wrapper} */
   let wrapper;
   describe('single field', () => {
