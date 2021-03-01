@@ -210,11 +210,6 @@ export default {
     async lastOpenedPanel(newValue, oldValue) {
       if (!newValue && oldValue === 'getvsion.table.create-alarm') {
         await this.resetFilters();
-        this.applyFilters({
-          pagination: { page: 0, limit: 1 },
-          filters: [],
-          searchingById: true,
-        });
       }
     },
   },
