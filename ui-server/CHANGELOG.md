@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.198+20210302143835
+2021-03-02
+
+### Fixes
+
+- [2467] correction du numéro de correspondant pour l'usage de la voix (49f6cb7c71c8f420e079e7ea06067ffc6ef6c498)
+
 ## 1.17.0-master.197+20210302140513
 2021-03-02
 
