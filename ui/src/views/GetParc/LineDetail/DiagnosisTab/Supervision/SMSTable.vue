@@ -1,12 +1,18 @@
 <template>
-  <PaginatedDataTable :columns="columns" :fetch-data-fn="getFetchDataFn()" :size="7" />
+  <PaginatedDataTable
+    storage-id="supervision.table.simsms"
+    storage-version="001"
+    :columns="columns"
+    :fetch-data-fn="getFetchDataFn()"
+    :size="7"
+    :order="orderBy"
+  />
 </template>
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 
 import { smsUsage } from '@/api/consumption';
-import { col } from '@/components/DataTable/utils';
 
 export default {
   name: 'SMSTable',
@@ -44,49 +50,98 @@ export default {
         direction: 'DESC',
       },
       columns: [
-        col(this.$t('date'), 'smsHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'recordOpeningTime',
-        }),
-        col('Entrant/Sortant', 'smsHistoryData', true, false, {
-          type: 'Getter',
-          getter: row => {
-            return row.smsHistoryData && row.smsHistoryData.incomming ? 'Entrant' : 'Sortant';
+        {
+          id: 1,
+          label: this.$t('date'),
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'recordOpeningTime',
           },
-        }),
-        col(this.$t('getparc.actDetail.col.msisdn'), 'smsHistoryData', true, false, {
-          type: 'Getter',
-          getter: row => {
-            return row.smsHistoryData && row.smsHistoryData.incomming
-              ? row.smsHistoryData.callingNumber
-              : row.smsHistoryData.calledNumber;
+        },
+        {
+          id: 2,
+          label: 'Entrant/Sortant',
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.smsHistoryData && row.smsHistoryData.incomming ? 'Entrant' : 'Sortant';
+            },
           },
-        }),
-        col(
-          this.$t(
+        },
+        {
+          id: 3,
+          label: this.$t('getparc.actDetail.col.msisdn'),
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.smsHistoryData && row.smsHistoryData.incomming
+                ? row.smsHistoryData.callingNumber
+                : row.smsHistoryData.calledNumber;
+            },
+          },
+        },
+        {
+          id: 4,
+          label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.location'
           ),
-          'location',
-          true,
-          false,
-          {
+          name: 'location',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'detail',
-          }
-        ),
-        col('PLMN', 'smsHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'plmn',
-        }),
-        col(this.$t('getparc.actDetail.col.imei'), 'smsHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'imei',
-        }),
-        col(this.$t('getparc.lineDetail.offer'), 'offerLabel', false, false),
-        col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
-          type: 'ObjectAttribute',
-          path: 'deviceInstance.deviceReference',
-        }),
+          },
+        },
+        {
+          id: 5,
+          label: 'PLMN',
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'plmn',
+          },
+        },
+        {
+          id: 6,
+          label: this.$t('getparc.actDetail.col.imei'),
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'imei',
+          },
+        },
+        {
+          id: 7,
+          label: this.$t('getparc.lineDetail.offer'),
+          name: 'offerLabel',
+          visible: false,
+          orderable: false,
+        },
+        {
+          id: 8,
+          label: this.$t('getparc.actLines.col.manufacturer'),
+          name: 'simcard',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'deviceInstance.deviceReference',
+          },
+        },
       ],
       rows: [],
       page: 1,

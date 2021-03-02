@@ -1,15 +1,16 @@
 <template>
   <PaginatedDataTable
-    :key="tableVersion"
+    storage-id="supervision.table.simdata"
+    storage-version="001"
     :columns="columns"
     :fetch-data-fn="getFetchDataFn()"
     :size="7"
+    :order="orderBy"
   />
 </template>
 
 <script>
 import { dataUsage } from '@/api/consumption';
-import { col } from '@/components/DataTable/utils';
 import DataCol from './DataCol';
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 import get from 'lodash.get';
@@ -54,126 +55,145 @@ export default {
         direction: 'DESC',
       },
       columns: [
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.start'),
-          'pdpConnectionDateInfo',
-          true,
-          false,
-          {
+        {
+          id: 1,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.start'
+          ),
+          name: 'pdpConnectionDateInfo',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'startDate',
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.end'),
-          'pdpConnectionDateInfo',
-          true,
-          false,
-          {
+          },
+        },
+        {
+          id: 2,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.end'
+          ),
+          name: 'pdpConnectionDateInfo',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'endDate',
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.status'),
-          'pdpConnectionHistory',
-          true,
-          false,
-          {
+          },
+        },
+        {
+          id: 3,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.status'
+          ),
+          name: 'pdpConnectionHistory',
+          visible: true,
+          orderable: false,
+          format: {
             component: StatusCell,
-          }
-        ),
-        col(
-          this.$t(
+          },
+        },
+        {
+          id: 4,
+          label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.closing'
           ),
-          'pdpConnectionDateInfo',
-          true,
-          false,
-          {
+          name: 'pdpConnectionDateInfo',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'Getter',
             getter: row => {
               return get(row, 'pdpConnectionDateInfo.connectionClosingReasonTranslated');
             },
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'),
-          'data',
-          true,
-          false,
-          { component: DataCol }
-        ),
-        col(
-          this.$t(
+          },
+        },
+        {
+          id: 5,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.data'
+          ),
+          name: 'data',
+          visible: true,
+          orderable: false,
+          foramt: { component: DataCol },
+        },
+        {
+          id: 6,
+          label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.location'
           ),
-          'location',
-          true,
-          false,
-          {
+          name: 'location',
+          visible: true,
+          orderable: false,
+          format: {
             component: LocationCell,
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.apn'),
-          'pdpConnectionHistory',
-          true,
-          false,
-          {
+          },
+        },
+        {
+          id: 7,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.apn'
+          ),
+          name: 'pdpConnectionHistory',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'apn',
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.ip'),
-          'pdpConnectionHistory',
-          false,
-          false,
-          {
+          },
+        },
+        {
+          id: 8,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.ip'
+          ),
+          name: 'pdpConnectionHistory',
+          visible: false,
+          orderable: false,
+          format: {
             type: 'Getter',
             getter: row => {
               return get(row, 'ipAddressTypeTranslated');
             },
-          }
-        ),
-        col('IMEI', 'pdpConnectionHistory', false, false, {
-          type: 'ObjectAttribute',
-          path: 'imei',
-        }),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.offer'),
-          'pdpConnectionHistory',
-          false,
-          false,
-          {
+          },
+        },
+        {
+          id: 9,
+          label: 'IMEI',
+          name: 'pdpConnectionHistory',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'imei',
+          },
+        },
+        {
+          id: 10,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.offer'
+          ),
+          name: 'pdpConnectionHistory',
+          visible: false,
+          orderable: false,
+          format: {
             component: OfferCell,
-          }
-        ),
-        col(
-          this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.cellId'),
-          'location',
-          false,
-          false,
-          {
+          },
+        },
+        {
+          id: 11,
+          label: this.$t(
+            'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.cellId'
+          ),
+          name: 'location',
+          visible: false,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'cellId',
-          }
-        ),
-        // col(
-        //   this.$t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.device'),
-        //   'device',
-        //   false,
-        //   false
-        // ),
-        // col(
-        //   this.$t(
-        //     'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.manufacturer'
-        //   ),
-        //   'manufacturer',
-        //   false,
-        //   false
-        // ),
+          },
+        },
       ],
       rows: [],
       page: 1,
@@ -182,6 +202,11 @@ export default {
       haveContent: false,
     };
   },
+  // watch: {
+  //   getFetchDataFn() {
+  //     this.version += 1;
+  //   },
+  // },
 };
 </script>
 
