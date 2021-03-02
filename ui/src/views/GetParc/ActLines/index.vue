@@ -164,7 +164,7 @@ export default {
     ]),
 
     ...mapState({
-      actToCreate: state => state.actLines.actToCreate,
+      actToCreate: (state) => state.actLines.actToCreate,
     }),
 
     totalSelected() {
@@ -175,35 +175,35 @@ export default {
     carouselItems() {
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         return carouselItems
-          .filter(i => {
+          .filter((i) => {
             return !i.boOnly;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMultiCustomer) {
               return !this.userIsMultiCustomer;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
               return this.optionsPartner.offerChange;
             }
             return true;
           });
       } else {
-        return carouselItems.filter(i => {
+        return carouselItems.filter((i) => {
           if (i.permission) {
             return this.havePermission(i.permission.domain, i.permission.action);
           }
@@ -248,14 +248,14 @@ export default {
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
       }
 
       return null;
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -543,7 +543,7 @@ export default {
       });
     },
     currentFilters(currentFilters) {
-      const haveValues = !!currentFilters.find(filter => {
+      const haveValues = !!currentFilters.find((filter) => {
         return (
           (filter.values && filter.values.length) ||
           filter.value ||

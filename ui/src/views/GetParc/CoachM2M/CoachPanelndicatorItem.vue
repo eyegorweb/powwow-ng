@@ -7,7 +7,7 @@
       <div class="info-section d-flex justify-content-start">
         <AnimatedCheckMark :is-loading="isFetchingData" :is-error="!indicator.checked" />
         <div class="item-content">
-          <h6>{{ $t(indicator.title) }}</h6>
+          <span>{{ $t(indicator.title) }}</span>
           <p>{{ indicator.subTitle }} &nbsp;</p>
         </div>
       </div>

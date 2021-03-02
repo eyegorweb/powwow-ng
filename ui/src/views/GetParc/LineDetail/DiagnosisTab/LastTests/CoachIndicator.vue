@@ -33,5 +33,8 @@ export default {
 <style lang="scss" scoped>
 .value-str {
   padding-left: 2rem;
+  font-size: 11px;
+  color: #7d7d7d;
+  margin-bottom: 0;
 }
 </style>

@@ -6,54 +6,56 @@
       </div>
 
       <template v-if="coachData">
+        <div class="row">
+          <div class="col">
+            <permission domain="getParc" action="manage_supervision">
+              <UiButton
+                variant="link"
+                class="export-link"
+                @click="doExport('coach.advancedExport')"
+              >
+                {{ $t('coach.advancedExport') }}
+              </UiButton>
+            </permission>
+            <UiButton variant="link" class="export-link" @click="doExport('coach.simpleExport')">
+              {{ $t('coach.simpleExport') }}
+            </UiButton>
+          </div>
+        </div>
         <ContentBlock>
           <template slot="title">{{ $t('getparc.lineDetail.standardTest') }}</template>
           <template slot="content">
-            <div class="row">
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.lineStatus"
-                  :value="coachData.simcardTrafficAllowedTest"
-                  :success="coachData.simcardTrafficAllowedTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.testData"
-                  :value="coachData.dataTrafficAllowedTest"
-                  :success="coachData.dataTrafficAllowedTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.networkTest"
-                  :value="coachData.simcardAlreadyConnectedTest"
-                  :success="coachData.simcardAlreadyConnectedTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.ipAssign"
-                  :value="coachData.alreadyAssignedIPAdressTest"
-                  :success="coachData.alreadyAssignedIPAdressTestSuccess"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.isPowered"
-                  :value="coachData.devicePoweredTest"
-                  :success="coachData.devicePoweredTestSuccess"
-                />
-              </div>
-              <div class="col">
-                <CoachIndicator
-                  label="coach.indicators.isTraced"
-                  :value="coachData.localisation"
-                  :success="coachData.localisationSuccess"
-                />
-              </div>
+            <div class="coach-container">
+              <CoachIndicator
+                label="coach.indicators.lineStatus"
+                :value="coachData.simcardTrafficAllowedTest"
+                :success="coachData.simcardTrafficAllowedTestSuccess"
+              />
+              <CoachIndicator
+                label="coach.indicators.testData"
+                :value="coachData.dataTrafficAllowedTest"
+                :success="coachData.dataTrafficAllowedTestSuccess"
+              />
+              <CoachIndicator
+                label="coach.indicators.networkTest"
+                :value="coachData.simcardAlreadyConnectedTest"
+                :success="coachData.simcardAlreadyConnectedTestSuccess"
+              />
+              <CoachIndicator
+                label="coach.indicators.ipAssign"
+                :value="coachData.alreadyAssignedIPAdressTest"
+                :success="coachData.alreadyAssignedIPAdressTestSuccess"
+              />
+              <CoachIndicator
+                label="coach.indicators.isPowered"
+                :value="coachData.devicePoweredTest"
+                :success="coachData.devicePoweredTestSuccess"
+              />
+              <CoachIndicator
+                label="coach.indicators.isTraced"
+                :value="coachData.localisation"
+                :success="coachData.localisationSuccess"
+              />
             </div>
           </template>
         </ContentBlock>
@@ -61,35 +63,27 @@
           <ContentBlock>
             <template slot="title">{{ $t('getparc.lineDetail.advancedTest') }}</template>
             <template slot="content">
-              <div class="row">
-                <div class="col">
-                  <CoachIndicator
-                    label="coach.indicators.localityTest"
-                    :value="coachData.linesLocalityTest"
-                    :success="coachData.linesLocalityTestSuccess"
-                  />
-                </div>
-                <div class="col">
-                  <CoachIndicator
-                    label="coach.indicators.cellAnalysis"
-                    :value="coachData.linesCellTest"
-                    :success="coachData.linesCellTestSuccess"
-                  />
-                </div>
-                <div class="col">
-                  <CoachIndicator
-                    label="coach.indicators.networkDetectionTest"
-                    :value="coachData.lastNetworkDetectionTest"
-                    :success="coachData.lastNetworkDetectionTestSuccess"
-                  />
-                </div>
-                <div class="col">
-                  <CoachIndicator
-                    label="coach.indicators.lastUsageAnalysis"
-                    :value="coachData.lastUsageInformation"
-                    :success="coachData.lastUsageInformationSuccess"
-                  />
-                </div>
+              <div class="coach-container">
+                <CoachIndicator
+                  label="coach.indicators.localityTest"
+                  :value="coachData.linesLocalityTest"
+                  :success="coachData.linesLocalityTestSuccess"
+                />
+                <CoachIndicator
+                  label="coach.indicators.cellAnalysis"
+                  :value="coachData.linesCellTest"
+                  :success="coachData.linesCellTestSuccess"
+                />
+                <CoachIndicator
+                  label="coach.indicators.networkDetectionTest"
+                  :value="coachData.lastNetworkDetectionTest"
+                  :success="coachData.lastNetworkDetectionTestSuccess"
+                />
+                <CoachIndicator
+                  label="coach.indicators.lastUsageAnalysis"
+                  :value="coachData.lastUsageInformation"
+                  :success="coachData.lastUsageInformationSuccess"
+                />
               </div>
             </template>
           </ContentBlock>
@@ -109,8 +103,11 @@ import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import CoachIndicator from './CoachIndicator';
 import LastTestSkeleton from './LastTestSkeleton';
 import LoaderContainer from '@/components/LoaderContainer';
+import UiButton from '@/components/ui/Button';
+import { mapMutations } from 'vuex';
+import { getBaseURL } from '@/utils.js';
 
-import { findCoach } from '@/api/coach.js';
+import { findCoach, simpleExport, advancedExport } from '@/api/coach.js';
 
 import get from 'lodash.get';
 
@@ -120,6 +117,7 @@ export default {
     CoachIndicator,
     LoaderContainer,
     LastTestSkeleton,
+    UiButton,
   },
 
   props: {
@@ -140,7 +138,36 @@ export default {
     }
     this.isLoading = false;
   },
+
+  methods: {
+    ...mapMutations(['flashMessage', 'startDownload']),
+
+    async doExport(exportType) {
+      try {
+        let downloadResponse;
+        if (exportType === 'coach.simpleExport') {
+          downloadResponse = await simpleExport([this.coachData.id]);
+        } else {
+          downloadResponse = await advancedExport([this.coachData.id]);
+        }
+        if (downloadResponse && downloadResponse.downloadUri) {
+          this.startDownload(getBaseURL() + downloadResponse.downloadUri);
+        }
+      } catch {
+        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+      }
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.coach-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > div {
+    flex-basis: 50%;
+  }
+}
+</style>
