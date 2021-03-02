@@ -2,6 +2,15 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.197+20210302140513
+2021-03-02
+
+### Fixes
+
+- [2464] mise à jour de traductions (ccfd28592d7e81671bd48ba0d6530f2eac4c7df5)
+- [2437] persistance des colonnes des tables de supervision (befb47ce9b2cffd4cdc0cfddf68d16ab789252f2)
+- [2461] Ajout des exports du coach M2M dans le détail de la ligne. (d0bd4b5eb27b0e32ab94a091503ad5fe0b23c739)
+
 ## 1.17.0-master.196+20210302134013
 2021-03-02
 
