@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.196+20210302134013
+2021-03-02
+
+### Fixes
+
+- [2435] persistance de la table de suivi de pilotage (4e6d9574c799506888939debd78d5fe845b209de)
+
 ## 1.17.0-master.195+20210301164028
 2021-03-01
 
