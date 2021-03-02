@@ -1,12 +1,18 @@
 <template>
-  <PaginatedDataTable :columns="columns" :fetch-data-fn="getFetchDataFn()" :size="7" />
+  <PaginatedDataTable
+    storage-id="supervision.table.simvoice"
+    storage-version="001"
+    :columns="columns"
+    :fetch-data-fn="getFetchDataFn()"
+    :size="7"
+    :order="orderBy"
+  />
 </template>
 
 <script>
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable';
 
 import { voiceUsage } from '@/api/consumption';
-import { col } from '@/components/DataTable/utils';
 import { formattedValueFromSeconds } from '@/api/utils';
 
 export default {
@@ -45,68 +51,138 @@ export default {
         direction: 'DESC',
       },
       columns: [
-        col('Date de l’appel', 'voiceHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'recordOpeningTime',
-        }),
-        col('Durée', 'voiceHistoryData', true, false, {
-          type: 'Getter',
-          getter: row => {
-            return row.voiceHistoryData && row.voiceHistoryData.duration
-              ? formattedValueFromSeconds(row.voiceHistoryData.duration)
-              : '-';
+        {
+          id: 1,
+          label: 'Date de l’appel',
+          name: 'voiceHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'recordOpeningTime',
           },
-        }),
-        col('Type', 'voiceHistoryData', true, false, {
-          type: 'ObjectAttribute',
-          path: 'usageType',
-        }),
-        col('Entrant/Sortant', 'smsHistoryData', true, false, {
-          type: 'Getter',
-          getter: row => {
-            return row.voiceHistoryData && row.voiceHistoryData.incomming ? 'Entrant' : 'Sortant';
+        },
+        {
+          id: 2,
+          label: 'Durée',
+          name: 'voiceHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.voiceHistoryData && row.voiceHistoryData.duration
+                ? formattedValueFromSeconds(row.voiceHistoryData.duration)
+                : '-';
+            },
           },
-        }),
-        col(
-          this.$t(
+        },
+        {
+          id: 3,
+          label: 'Type',
+          name: 'voiceHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'usageType',
+          },
+        },
+        {
+          id: 4,
+          label: 'Entrant/Sortant',
+          name: 'smsHistoryData',
+          visible: true,
+          orderable: false,
+          format: {
+            type: 'Getter',
+            getter: row => {
+              return row.voiceHistoryData && row.voiceHistoryData.incomming ? 'Entrant' : 'Sortant';
+            },
+          },
+        },
+        {
+          id: 5,
+          label: this.$t(
             'getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDayColumns.location'
           ),
-          'location',
-          true,
-          false,
-          {
+          name: 'location',
+          visible: true,
+          orderable: false,
+          format: {
             type: 'ObjectAttribute',
             path: 'detailTranslated',
-          }
-        ),
-        col('Détail usage', 'detailsTranslated', false, false),
-        col('MSISDN du correspondant', 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'callingNumber',
-        }),
-        col('ID de la cellule', 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'cellId',
-        }),
-        col('PLMN', 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'plmn',
-        }),
-        col(this.$t('getparc.actDetail.col.imei'), 'voiceHistoryData', false, false, {
-          type: 'ObjectAttribute',
-          path: 'imei',
-        }),
-        col(this.$t('getparc.lineDetail.offer'), 'offerLabel', false, false),
-        /*
-        col(this.$t('getparc.actDetail.col.commercialRef'), 'simcard', false, false, {
-          type: 'ObjectAttribute',
-          path: 'order.id',
-        }),
-        //*/
-        col(this.$t('getparc.actLines.col.manufacturer'), 'simcard', false, false, {
-          type: 'ObjectAttribute',
-          path: 'deviceInstance.deviceReference',
-        }),
+          },
+        },
+        {
+          id: 6,
+          label: 'Détail usage',
+          name: 'detailsTranslated',
+          visible: false,
+          orderable: false,
+        },
+        {
+          id: 7,
+          label: 'MSISDN du correspondant',
+          name: 'voiceHistoryData',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'callingNumber',
+          },
+        },
+        {
+          id: 8,
+          label: 'ID de la cellule',
+          name: 'voiceHistoryData',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'cellId',
+          },
+        },
+        {
+          id: 9,
+          label: 'PLMN',
+          name: 'voiceHistoryData',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'plmn',
+          },
+        },
+        {
+          id: 10,
+          label: this.$t('getparc.actDetail.col.imei'),
+          name: 'voiceHistoryData',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'imei',
+          },
+        },
+        {
+          id: 11,
+          label: this.$t('getparc.lineDetail.offer'),
+          name: 'offerLabel',
+          visible: false,
+          orderable: false,
+        },
+        {
+          id: 12,
+          label: this.$t('getparc.actLines.col.manufacturer'),
+          name: 'simcard',
+          visible: false,
+          orderable: false,
+          format: {
+            type: 'ObjectAttribute',
+            path: 'deviceInstance.deviceReference',
+          },
+        },
       ],
       rows: [],
       page: 1,
