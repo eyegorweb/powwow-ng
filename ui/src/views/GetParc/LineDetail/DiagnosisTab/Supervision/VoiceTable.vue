@@ -128,8 +128,12 @@ export default {
           visible: false,
           orderable: false,
           format: {
-            type: 'ObjectAttribute',
-            path: 'callingNumber',
+            type: 'Getter',
+            getter: row => {
+              return row.voiceHistoryData && row.voiceHistoryData.incomming
+                ? row.voiceHistoryData.callingNumber
+                : row.voiceHistoryData.calledNumber;
+            },
           },
         },
         {
