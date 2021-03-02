@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :class="className" @click="chooseExportFormat">
+    <button :class="className" @click.stop="chooseExportFormat">
       <slot name="icon"> </slot>
       <slot name="title">{{ $t('export') }}</slot>
     </button>

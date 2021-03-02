@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative">
+  <div class="position-relative p-0">
     <slot name="trigger" static-class="dropdown-toggle" :is-open="isOpen" :toggle="toggle">
       <UiButton
         variant="outline-gray"

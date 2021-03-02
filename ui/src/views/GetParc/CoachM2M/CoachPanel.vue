@@ -43,7 +43,7 @@
         <div v-if="exportOptions">
           <UiDropDownChoicesButton
             :options="exportOptions"
-            @click="doExport($event)"
+            @click="doExport($event, line1CoachData.id)"
             :menu-style="{ position: 'relative', bottom: '6rem' }"
           >
             <span>{{ $t('export') }}</span>
@@ -61,14 +61,44 @@
       <template v-else>
         <div class="row">
           <div class="col-6">
-            <UiButton variant="import" block @click.stop="cancelComparison">{{
-              $t('coach.cancelTest')
-            }}</UiButton>
+            <div class="row p-0">
+              <div class="col-5 p-0">
+                <div class="p-0 pl-1" v-if="exportOptions">
+                  <UiDropDownChoicesButton
+                    :options="exportOptions"
+                    @click="doExport($event, line1CoachData.id)"
+                    :menu-style="{ position: 'relative', bottom: '6rem' }"
+                  >
+                    <span>{{ $t('export') }}</span>
+                  </UiDropDownChoicesButton>
+                </div>
+              </div>
+              <div class="col-7">
+                <UiButton variant="import" @click.stop="cancelComparison">{{
+                  $t('coach.cancelTest')
+                }}</UiButton>
+              </div>
+            </div>
           </div>
           <div class="col-6" v-if="line2">
-            <UiButton variant="primary" block @click.stop="line2 = undefined">{{
-              $t('coach.compareOther')
-            }}</UiButton>
+            <div class="row">
+              <div class="col-5 p-0">
+                <div class="" v-if="exportOptions">
+                  <UiDropDownChoicesButton
+                    :options="exportOptions"
+                    @click="doExport($event, line2CoachData.id)"
+                    :menu-style="{ position: 'relative', bottom: '6rem' }"
+                  >
+                    <span>{{ $t('export') }}</span>
+                  </UiDropDownChoicesButton>
+                </div>
+              </div>
+              <div class="col-7">
+                <UiButton variant="primary" block @click.stop="line2 = undefined">{{
+                  $t('coach.compareOther')
+                }}</UiButton>
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -133,13 +163,13 @@ export default {
       this.line2 = undefined;
     },
 
-    async doExport(exportType) {
+    async doExport(exportType, id) {
       try {
         let downloadResponse;
         if (exportType === 'coach.simpleExport') {
-          downloadResponse = await simpleExport([this.line1CoachData.id]);
+          downloadResponse = await simpleExport([id]);
         } else {
-          downloadResponse = await advancedExport([this.line1CoachData.id]);
+          downloadResponse = await advancedExport([id]);
         }
         if (downloadResponse && downloadResponse.downloadUri) {
           this.startDownload(getBaseURL() + downloadResponse.downloadUri);
