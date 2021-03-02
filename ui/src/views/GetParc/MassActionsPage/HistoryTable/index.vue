@@ -31,6 +31,8 @@
       </div>
       <template v-if="rows && rows.length">
         <DataTable
+          storage-id="history.table"
+          storage-version="001"
           :columns.sync="columns"
           :rows="rows || []"
           :page.sync="page"
