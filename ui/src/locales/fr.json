@@ -158,7 +158,7 @@
       "userActs": "Derniers actes de gestion de l’utilisateur « {userName} »",
       "dataVoiceConso": "Consommation mensuelle",
       "stateParc": {
-        "title": "ETAT DU PARC",
+        "title": "Etat du parc",
         "stockLines": "Cartes SIM en stock",
         "notPreactivated": "Non-préactivées",
         "preactivatedLines": "Lignes pré-activées",
@@ -172,7 +172,7 @@
         "prevMonth": "au 1er"
       },
       "activeCustomerPark": {
-        "title": "PARC CLIENT ACTIF",
+        "title": "Parc client actif",
         "activatedLines": "Lignes actives",
         "billedLines": "Lignes facturées",
         "activatedLinesPreviousMonth": "Lignes actives M-1",
