@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.202+20210303150929
+2021-03-03
+
+### Fixes
+
+- [2159] Correction dans la requête de mise à jour (24cc775432401a1ab29a03b549b0da555f8300c1)
+
 ## 1.17.0-master.201+20210303144657
 2021-03-03
 
