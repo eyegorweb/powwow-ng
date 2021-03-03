@@ -120,15 +120,15 @@ export default {
   },
   computed: {
     ...mapState({
-      isOpen: state => state.ui.isPanelOpen,
-      title: state => state.ui.panelTitle,
-      panelId: state => state.ui.panelId,
-      wide: state => state.ui.isPanelWide,
-      payload: state => state.ui.panelPayload,
-      backdrop: state => state.ui.backdrop,
-      titleConf: state => state.ui.panelTitleConf,
-      ignoreClickAway: state => state.ui.ignoreClickAway,
-      width: state => state.ui.width,
+      isOpen: (state) => state.ui.isPanelOpen,
+      title: (state) => state.ui.panelTitle,
+      panelId: (state) => state.ui.panelId,
+      wide: (state) => state.ui.isPanelWide,
+      payload: (state) => state.ui.panelPayload,
+      backdrop: (state) => state.ui.backdrop,
+      titleConf: (state) => state.ui.panelTitleConf,
+      ignoreClickAway: (state) => state.ui.ignoreClickAway,
+      width: (state) => state.ui.width,
     }),
 
     effectiveWidth() {
@@ -141,8 +141,13 @@ export default {
   },
 
   watch: {
-    isOpen() {
+    isOpen(isOpen) {
       this.overridenWidth = undefined;
+      if (isOpen) {
+        document.body.classList.add('overflow-hidden');
+      } else {
+        document.body.classList.remove('overflow-hidden');
+      }
     },
   },
 
@@ -162,6 +167,7 @@ export default {
   overflow: hidden;
   div {
     padding: 0;
+    height: 100%;
   }
 }
 </style>
