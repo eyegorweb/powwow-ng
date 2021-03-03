@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.203+20210303160547
+2021-03-03
+
+### Fixes
+
+- [1669] Filter sur workflow.id dans la combobox des offres lors du changement d'une offre depuis le détail de ligne (e751428e5db595fa6afe979bfea5f5c9325cce89)
+
 ## 1.17.0-master.202+20210303150929
 2021-03-03
 
