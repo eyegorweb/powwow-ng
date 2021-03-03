@@ -64,7 +64,7 @@
           <div class="col-6">
             <div class="row p-0">
               <div class="col-5 p-0">
-                <div class="p-0 pl-1" v-if="exportOptions">
+                <div class="p-0 pl-1" v-if="exportOptions && line2CoachData">
                   <UiDropDownChoicesButton
                     :options="exportOptions"
                     @click="doExport($event, [line1CoachData.id, line2CoachData.id])"
