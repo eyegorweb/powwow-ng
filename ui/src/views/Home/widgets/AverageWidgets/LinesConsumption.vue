@@ -83,11 +83,12 @@ export default {
           clickable: true,
           labelKey: i.partyName,
           id: `${i.name}_${index}`,
-          // id: i.name,
           entityId: i.entityId,
           stringValue: i.stringValue,
           linked: true,
           unity: this.period,
+          routeName: 'lineDetail.ongoing',
+          routeParams: { lineId: i.entityId },
         };
       });
       this.displayInfoMessage();

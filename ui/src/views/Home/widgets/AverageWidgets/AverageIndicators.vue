@@ -11,7 +11,7 @@
     <ul v-if="!noResults" class="list-group bg-white">
       <li class="list-group-item" v-for="indicator in indicators" :key="indicator.id">
         <div v-if="indicator.linked">
-          <a href="#" @click.prevent="onClick(indicator.entityId)">
+          <a href="#" @click.prevent="onClick(indicator.routeName, indicator.routeParams)">
             {{ indicator.stringValue }}
           </a>
           <div class="float-right">
@@ -70,11 +70,8 @@ export default {
     large: Boolean,
   },
   methods: {
-    onClick(id) {
-      this.$router.push({
-        name: 'lineDetail',
-        params: { lineId: id, tabIndex: 1 },
-      });
+    onClick(routeName, routeParams) {
+      this.$router.push({ name: routeName, params: routeParams });
     },
     formattedData(value) {
       return formatBytes(value);

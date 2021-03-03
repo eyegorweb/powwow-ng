@@ -73,8 +73,8 @@ export default {
   methods: {
     openDetail() {
       this.$router.push({
-        name: 'lineDetail',
-        params: { lineId: '' + this.content.id, tabIndex: 1 },
+        name: 'lineDetail.ongoing',
+        params: { lineId: `${this.content.id}` },
       });
     },
     getFromContent(path, defaultValue = '') {
