@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.201+20210303144657
+2021-03-03
+
+### Fixes
+
+- [2461] Corriger le design des boutons du panel (0b7d5341cd76dd180f21f5fa404b0d317d1dfed0)
+- [2461] n'exporter que si 2 coach sont présents (6282bd0d46b1a99c7bbf2852d9a99cd3163b2cce)
+
 ## 1.17.0-master.200+20210303142233
 2021-03-03
 
