@@ -28,8 +28,9 @@
             variant="primary"
             @click.stop="() => startComparison(selectedLine)"
             block
-            >{{ $t('coach.testLine') }}</UiButton
           >
+            {{ $t('coach.testLine') }}
+          </UiButton>
         </SearchLineWithResults>
         <CoachPanelIndicatorsRunner
           v-else
@@ -40,11 +41,11 @@
     </div>
     <div slot="footer" class="action-buttons" v-if="canCompare">
       <template v-if="!compareMode">
-        <div v-if="exportOptions">
+        <div class="p-0" v-if="exportOptions">
           <UiDropDownChoicesButton
             :options="exportOptions"
-            @click="doExport($event, line1CoachData.id)"
-            :menu-style="{ position: 'relative', bottom: '6rem' }"
+            @click="doExport($event, [line1CoachData.id])"
+            :menu-style="dropMenuStyle"
           >
             <span>{{ $t('export') }}</span>
           </UiDropDownChoicesButton>
@@ -66,39 +67,24 @@
                 <div class="p-0 pl-1" v-if="exportOptions">
                   <UiDropDownChoicesButton
                     :options="exportOptions"
-                    @click="doExport($event, line1CoachData.id)"
-                    :menu-style="{ position: 'relative', bottom: '6rem' }"
+                    @click="doExport($event, [line1CoachData.id, line2CoachData.id])"
+                    :menu-style="dropMenuStyle"
                   >
                     <span>{{ $t('export') }}</span>
                   </UiDropDownChoicesButton>
                 </div>
               </div>
               <div class="col-7">
-                <UiButton variant="import" @click.stop="cancelComparison">{{
+                <UiButton variant="import" block @click.stop="cancelComparison">{{
                   $t('coach.cancelTest')
                 }}</UiButton>
               </div>
             </div>
           </div>
           <div class="col-6" v-if="line2">
-            <div class="row">
-              <div class="col-5 p-0">
-                <div class="" v-if="exportOptions">
-                  <UiDropDownChoicesButton
-                    :options="exportOptions"
-                    @click="doExport($event, line2CoachData.id)"
-                    :menu-style="{ position: 'relative', bottom: '6rem' }"
-                  >
-                    <span>{{ $t('export') }}</span>
-                  </UiDropDownChoicesButton>
-                </div>
-              </div>
-              <div class="col-7">
-                <UiButton variant="primary" block @click.stop="line2 = undefined">{{
-                  $t('coach.compareOther')
-                }}</UiButton>
-              </div>
-            </div>
+            <UiButton variant="primary" block @click.stop="line2 = undefined">{{
+              $t('coach.compareOther')
+            }}</UiButton>
           </div>
         </div>
       </template>
@@ -138,6 +124,13 @@ export default {
       line1CoachData: undefined,
       line2CoachData: undefined,
       exportOptions: undefined,
+      dropMenuStyle: {
+        position: 'absolute',
+        'will-change': 'transform',
+        top: '0px',
+        left: '0px',
+        transform: 'translate3d(0px, -5.4rem, 0px)',
+      },
     };
   },
   mounted() {
@@ -150,7 +143,7 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'startDownload']),
     startCompare() {
-      this.$emit('setWidth', '60%');
+      this.$emit('setWidth', '68%');
       this.line2 = undefined;
       this.compareMode = true;
     },
@@ -163,13 +156,13 @@ export default {
       this.line2 = undefined;
     },
 
-    async doExport(exportType, id) {
+    async doExport(exportType, ids) {
       try {
         let downloadResponse;
         if (exportType === 'coach.simpleExport') {
-          downloadResponse = await simpleExport([id]);
+          downloadResponse = await simpleExport(ids);
         } else {
-          downloadResponse = await advancedExport([id]);
+          downloadResponse = await advancedExport(ids);
         }
         if (downloadResponse && downloadResponse.downloadUri) {
           this.startDownload(getBaseURL() + downloadResponse.downloadUri);
