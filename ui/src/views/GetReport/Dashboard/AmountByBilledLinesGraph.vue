@@ -40,7 +40,18 @@ import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
 import { averageBilledAmountByMonth } from '@/api/reportDashboard.js';
-import { formatBytes } from '@/api/utils.js';
+import { formatBytes, resumeFormattedValueFromSeconds } from '@/api/utils.js';
+import { formatLargeNumber } from '@/utils/numbers';
+
+function convertValuesUsage(value, usage) {
+  if (usage === 'DATA') {
+    return formatBytes(value);
+  } else if (usage === 'SMS') {
+    return formatLargeNumber(value);
+  } else if (usage === 'VOICE') {
+    return resumeFormattedValueFromSeconds(value);
+  }
+}
 
 export default {
   components: {
@@ -161,6 +172,7 @@ export default {
           conso: [],
         }
       );
+      const usage = this.currentUsage;
       this.chartOptions = {
         credits: {
           enabled: false,
@@ -201,7 +213,9 @@ export default {
               },
             },
             labels: {
-              format: '{value} Mo',
+              formatter() {
+                return convertValuesUsage(this.value, usage);
+              },
               style: {
                 color: '#488bf7',
               },
@@ -215,8 +229,8 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b>${!formatBytes(this.y).includes('undefined') ? formatBytes(this.y) : this.y + ' €'}</b></td></tr>
-              `;
+            <td style="padding:0"><b>${convertValuesUsage(this.y, usage)}</b></td></tr>
+            `;
           },
           footerFormat: '</table>',
           shared: true,
