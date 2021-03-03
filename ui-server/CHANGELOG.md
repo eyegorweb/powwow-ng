@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.199+20210303132603
+2021-03-03
+
+### Fixes
+
+- [2452] correction des liens vers l'encours de consommation (0d3d87a6780590c551c4ce9594029a2e1ab81941)
+- [2414] conversion des données du graphe conso et montant moyen par ligne facturée (e533e7639eedbf11745266ec56421ce8c501d2c7)
+
 ## 1.17.0-master.198+20210302143835
 2021-03-02
 
