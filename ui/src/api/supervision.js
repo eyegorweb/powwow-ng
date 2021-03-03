@@ -516,6 +516,10 @@ export async function geoListExport(params) {
     if (params.filter.iso3CountryCode === 'USA') {
       params.filter.locationType = 'STATES';
     }
+
+    if (params.filter.msisdn || params.filter.ismsi) {
+      params.filter.locationType = 'CELL';
+    }
   }
 
   const response = await query(queryStr, params);
