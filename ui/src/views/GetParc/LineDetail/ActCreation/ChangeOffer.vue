@@ -64,7 +64,7 @@ export default {
         partyId: this.lineData.party.id,
         simCardInstanceId: this.lineData.id,
         customerAccountID: this.lineData.accessPoint.offerGroup.customerAccount.id,
-        sourceWorkflowID: this.currentWorkflowId,
+        sourceWorkflowID: this.linedata.workflow.id,
         targetWorkflowID: this.newSelectedOffer.data.id,
       };
 
@@ -86,19 +86,14 @@ export default {
         customerAccountCode: billingAccountCode,
       });
       if (data) {
-        let listToReturn = data;
-        let workflowId = data.find(o => o.code === this.currentOffer.code);
-        if (workflowId) {
-          this.currentWorkflowId = workflowId.id;
-          listToReturn = data.filter(o => o.code !== this.currentOffer.code);
-        }
-
-        return listToReturn.map(o => ({
-          id: o.code,
-          label: o.workflowDescription,
-          data: o,
-          productCode: o.code,
-        }));
+        return data
+          .filter((o) => o.id !== this.lineData.workflow.id)
+          .map((o) => ({
+            id: o.code,
+            label: o.workflowDescription,
+            data: o,
+            productCode: o.code,
+          }));
       }
     },
   },

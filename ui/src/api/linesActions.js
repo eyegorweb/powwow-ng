@@ -262,6 +262,7 @@ export async function searchLines(orderBy, pagination, filters = []) {
       suspensionFree
     }
     workflow {
+      id
       workflowDescription
     }
     id
