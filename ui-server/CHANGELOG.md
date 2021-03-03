@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.200+20210303142233
+2021-03-03
+
+### Fixes
+
+- [2464] traduction pour le widget Etat du parc (c5fd32fecae788c579ff11b40c8d0dcffb15a493)
+
 ## 1.17.0-master.199+20210303132603
 2021-03-03
 
