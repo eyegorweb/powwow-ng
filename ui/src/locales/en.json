@@ -130,7 +130,7 @@
         "preactivatedLines": "Preactivated lines",
         "activatedLines": "Activated lines",
         "suspendedLines": "Suspended lines",
-        "cancellationLines": "Cancellation",
+        "cancellationLines": "Termination in progress",
         "suspendedAndNotBilledLines": "Suspended lines « not invoiced »",
         "currentMonth": "current",
         "linesPreactivated": "(Number of preactivated lines)",
