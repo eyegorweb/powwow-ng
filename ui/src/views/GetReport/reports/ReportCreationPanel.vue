@@ -107,7 +107,7 @@
       <div class="fieldsRecap">
         <h5>{{ $t('getreport.creation.dataReport') }}</h5>
         <ul class="list-unstyled">
-          <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label">
+          <li v-for="i in orderedSelectedItems" :key="'remove_' + i.label + '_' + i.code">
             <button class="btn btn-link p-1" @click.stop="() => removeItem(i)">
               <i class="ic-Cross-Icon"></i>
             </button>

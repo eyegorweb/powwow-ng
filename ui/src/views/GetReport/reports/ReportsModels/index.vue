@@ -225,6 +225,12 @@ export default {
         ? this.userInfos.partners[0].id
         : null;
     },
+    pageInfo() {
+      return {
+        page: this.page - 1,
+        limit: this.pageLimit,
+      };
+    },
   },
   methods: {
     ...mapMutations(['openPanel']),
@@ -252,7 +258,7 @@ export default {
 
     async fetchResults(payload) {
       const { pagination, orderBy } = payload || {
-        pagination: { page: 0, limit: this.pageLimit },
+        pagination: this.pageInfo,
         orderBy: this.orderBy,
       };
 
@@ -293,6 +299,9 @@ export default {
     },
     pageLimit() {
       this.page = 1;
+      this.fetchResults();
+    },
+    page() {
       this.fetchResults();
     },
   },
