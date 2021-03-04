@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.207+20210304140936
+2021-03-04
+
+### Fixes
+
+- [000] Corriger les tranches MSISDN (906fcba40cb99e2e2cc249aad1c21cb20e09e28b)
+
 ## 1.17.0-master.206+20210304103553
 2021-03-04
 
