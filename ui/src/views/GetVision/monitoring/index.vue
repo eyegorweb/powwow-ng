@@ -143,7 +143,7 @@ export default {
       if (this.currentUsage !== 'COCKPIT') return false;
 
       if (this.appliedFilters && this.appliedFilters.length > 0) {
-        return !!this.appliedFilters.find(a => a.id === 'getadmin.users.filters.partners');
+        return !!this.appliedFilters.find((a) => a.id === 'getadmin.users.filters.partners');
       }
 
       return false;
@@ -352,7 +352,7 @@ export default {
       let frozenValues = cloneDeep(this.currentFilters);
 
       if (countryFilter) {
-        frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
+        frozenValues = frozenValues.filter((f) => f.id !== 'filters.country');
         frozenValues.push(countryFilter);
       }
 
@@ -438,20 +438,19 @@ export default {
           createComboFilter('types', TypesFilter);
           createComboFilter('col.label', LabelFilter);
         }
+        currentVisibleFilters.push({
+          title: 'common.period',
+          component: DateRangeFilter,
+          onChange(chosen) {
+            return {
+              id: 'common.period',
+              startDate: chosen.startDate,
+              endDate: chosen.endDate,
+              data: chosen,
+            };
+          },
+        });
       }
-
-      currentVisibleFilters.push({
-        title: 'common.period',
-        component: DateRangeFilter,
-        onChange(chosen) {
-          return {
-            id: 'common.period',
-            startDate: chosen.startDate,
-            endDate: chosen.endDate,
-            data: chosen,
-          };
-        },
-      });
 
       return currentVisibleFilters;
     },
