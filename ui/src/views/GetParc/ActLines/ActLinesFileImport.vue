@@ -48,6 +48,9 @@
         {{ $t('genericErrorMessage') }}
       </template>
     </div>
+    <div v-if="localError && !isLoading" class="alert alert-danger" role="alert">
+      {{ localError }}
+    </div>
   </div>
 </template>
 
@@ -78,6 +81,8 @@ export default {
       lastSelectedFile: undefined,
       fileResponse: undefined,
       placeholder: this.$t('filters.lines.fromFile.import-file'),
+      localFileMeta: undefined,
+      localError: undefined,
     };
   },
   watch: {
@@ -109,18 +114,34 @@ export default {
     },
     selectedFile: {
       get() {
-        if (!this.fileMeta) return null;
-        return this.fileMeta.file;
+        return this.localFileMeta;
       },
       async set(lastSelectedFile) {
+        this.localFileMeta = lastSelectedFile;
         if (lastSelectedFile) {
           this.isLoading = true;
-          this.fileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
-          this.$emit('response', {
-            // fileName: this.lastSelectedFile.name,
-            file: lastSelectedFile,
-            ...this.fileResponse,
-          });
+          this.localError = this.getLocalError(lastSelectedFile);
+          if (!this.localError) {
+            this.fileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
+            if (
+              this.fileResponse &&
+              this.fileResponse.error &&
+              this.wsUploadFileError(this.fileResponse.error)
+            ) {
+              const count =
+                this.fileResponse.data && this.fileResponse.data.maxNumbersPerFileUpload
+                  ? this.fileResponse.data.maxNumbersPerFileUpload
+                  : '';
+              this.localError = this.$t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
+                count,
+              });
+            } else {
+              this.$emit('response', {
+                file: lastSelectedFile,
+                ...this.fileResponse,
+              });
+            }
+          }
           this.isLoading = false;
         }
       },
@@ -152,6 +173,23 @@ export default {
           this.fileMeta.tempDataUuid
         );
       };
+    },
+    getLocalError(fileMeta) {
+      if (!fileMeta) return;
+
+      if (fileUtils.checkFormat(fileMeta)) {
+        return this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT');
+      } else if (fileUtils.checkFileSize(fileMeta)) {
+        return this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED');
+      }
+
+      if (fileMeta.error) {
+        return this.$t('getparc.actCreation.report.' + fileMeta.error);
+      }
+      return;
+    },
+    wsUploadFileError(error) {
+      return !!error;
     },
   },
 };

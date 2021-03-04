@@ -68,6 +68,10 @@ async function doAndRetryHTTPQuery(callFn) {
             return await singleTry();
           }
         }
+        if (e.response.status === 400) {
+          const message = e.response && e.response.data && e.response.data.error ? e.response.data.error : e.message;
+          return { error: message };
+        }
       }
     }
   };
