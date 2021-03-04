@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.205+20210304100645
+2021-03-04
+
+### Fixes
+
+- [1669] Correction de la requête de confirmation (8efe901a74c6a34bb544c0f6e4b5d04d2ba69ed9)
+
 ## 1.17.0-master.204+20210304084306
 2021-03-04
 
