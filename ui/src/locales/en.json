@@ -203,6 +203,7 @@
     "users": "User management",
     "documents": "Documents management",
     "partners": "Partners management",
+    "cf": "Billing account management",
     "admins": "Admins management",
     "account": "Account",
     "modelReports": "Reports management",
@@ -1180,7 +1181,7 @@
           "offerName": "Offer name",
           "endCommitmentDate": "Next effective date of a change of offer",
           "billingStatus": "Billing status",
-          "endForfaitDate": "End of package date"
+          "endForfaitDate": "Next effective date of a change of offer"
         },
         "lineServices": "Line services",
         "alarmsList": "List of alarms",
