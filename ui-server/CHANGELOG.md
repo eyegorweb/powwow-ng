@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.208+20210304155828
+2021-03-04
+
+### Fixes
+
+- [2462] gestion erreur status 400 de l'api postFile (e160e2756341b6c847c85364e8a2c21fdffdfb4c)
+- [2418] correction de la pagination de la table des rapports (6e7e46e10acdd12cb9f087eb5fe74f09f90f5c74)
+
 ## 1.17.0-master.207+20210304140936
 2021-03-04
 
