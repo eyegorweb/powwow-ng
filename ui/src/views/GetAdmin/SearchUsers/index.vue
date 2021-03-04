@@ -121,7 +121,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return get(row, 'name.lastName');
             },
           },
@@ -136,7 +136,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return get(row, 'name.firstName');
             },
           },
@@ -152,8 +152,8 @@ export default {
           format: {
             type: 'Truncated',
             limit: 30,
-            getter: (row) => {
-              return row.partners ? row.partners.map((p) => p.name).join(',') : '';
+            getter: row => {
+              return row.partners ? row.partners.map(p => p.name).join(',') : '';
             },
           },
         },
@@ -168,8 +168,8 @@ export default {
           format: {
             type: 'Truncated',
             limit: 30,
-            getter: (row) => {
-              return row.roles ? row.roles.map((p) => p.description).join(', ') : '';
+            getter: row => {
+              return row.roles ? row.roles.map(p => p.description).join(', ') : '';
             },
           },
         },
@@ -183,7 +183,7 @@ export default {
           noHandle: true,
           format: {
             type: 'Getter',
-            getter: (row) => {
+            getter: row => {
               return row.disabled ? this.$t('col.notActive') : this.$t('col.active');
             },
           },
@@ -247,7 +247,7 @@ export default {
       {
         title: 'getadmin.users.filters.status',
         component: StatusFilter,
-        onChange: (selectedStatus) => {
+        onChange: selectedStatus => {
           return {
             id: 'getadmin.users.filters.status',
             value: this.$t(selectedStatus.label),

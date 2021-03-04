@@ -163,12 +163,14 @@ export default {
 
         tooltip: {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormatter() {
-              return `
+          pointFormatter() {
+            return `
               <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-              <td style="padding:0"><b>${this.y + ' ' + this.series.options.custom.amountOf}</b></td></tr>
+              <td style="padding:0"><b>${this.y +
+                ' ' +
+                this.series.options.custom.amountOf}</b></td></tr>
                 `;
-            },
+          },
           footerFormat: '</table>',
           shared: true,
           useHTML: true,
@@ -183,19 +185,19 @@ export default {
         series: [
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
-            custom: {amountOf: this.$t('getreport.dashboard.legends.nbOfLines')},
+            custom: { amountOf: this.$t('getreport.dashboard.legends.nbOfLines') },
             type: 'column',
             data: dataSeries.nbBilledLines,
           },
           {
             name: this.$t('getreport.dashboard.legends.notBilledLines'),
-            custom: {amountOf: this.$t('getreport.dashboard.legends.nbOfLines')},
+            custom: { amountOf: this.$t('getreport.dashboard.legends.nbOfLines') },
             type: 'column',
             data: dataSeries.nbNotBilledLines,
           },
           {
             name: this.$t('getreport.dashboard.legends.amount'),
-            custom: {amountOf: '€'},
+            custom: { amountOf: '€' },
             type: 'spline',
             data: dataSeries.amount,
           },

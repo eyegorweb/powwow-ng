@@ -172,7 +172,9 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b>${this.series.options.custom.isData ? formatBytes(this.y) : (this.y + ' €')}</b></td></tr>
+            <td style="padding:0"><b>${
+              this.series.options.custom.isData ? formatBytes(this.y) : this.y + ' €'
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -190,45 +192,45 @@ export default {
           {
             name: this.$t('getreport.dashboard.legends.overtaking'),
             data: dataSeries.overspend,
-            custom: {isData: true},
+            custom: { isData: true },
             type: 'column',
             stack: 'forfait',
           },
           {
             name: this.$t('getreport.dashboard.legends.contract'),
             data: dataSeries.contract,
-            custom: {isData: true},
+            custom: { isData: true },
             type: 'column',
             stack: 'forfait',
           },
           {
             name: this.$t('getreport.dashboard.legends.outOfZone'),
             data: dataSeries.outOfZone,
-            custom: {isData: true},
+            custom: { isData: true },
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountData'),
             data: dataSeries.amountData,
-            custom: {isData: false},
+            custom: { isData: false },
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountVoice'),
             data: dataSeries.amountVoice,
-            custom: {isData: false},
+            custom: { isData: false },
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountSMS'),
             data: dataSeries.amountSMS,
-            custom: {isData: false},
+            custom: { isData: false },
             type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.amountSubscription'),
             data: dataSeries.amountSubscription,
-            custom: {isData: false},
+            custom: { isData: false },
             type: 'spline',
           },
         ],

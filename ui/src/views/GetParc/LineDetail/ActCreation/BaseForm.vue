@@ -64,14 +64,16 @@ export default {
     UiCheckbox,
   },
   mounted() {
-    if(this.changeOffer && this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
-    }
-    else if(this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
-      this.actDate = moment().endOf('month').format('DD/MM/YYYY HH:mm:ss');
+    if (this.changeOffer && this.userIsBO && !this.userIsMVNO) {
+      this.actDate = moment()
+        .endOf('month')
+        .format('DD/MM/YYYY HH:mm:ss');
+    } else if (this.changeOffer && !this.userIsBO && !this.userIsMVNO) {
+      this.actDate = moment()
+        .endOf('month')
+        .format('DD/MM/YYYY HH:mm:ss');
       this.disabledDate = true;
-    }
-    else {
+    } else {
       this.actDate = moment().format('DD/MM/YYYY HH:mm:ss');
     }
   },

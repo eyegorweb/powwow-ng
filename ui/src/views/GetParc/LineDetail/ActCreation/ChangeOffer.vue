@@ -87,8 +87,8 @@ export default {
       });
       if (data) {
         return data
-          .filter((o) => o.id !== this.lineData.workflow.id)
-          .map((o) => ({
+          .filter(o => o.id !== this.lineData.workflow.id)
+          .map(o => ({
             id: o.code,
             label: o.workflowDescription,
             data: o,

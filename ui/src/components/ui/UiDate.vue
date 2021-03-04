@@ -61,7 +61,7 @@ export default {
       this.$emit('change', '');
     },
     disableTest(event) {
-      if(this.disabled) {
+      if (this.disabled) {
         event.preventDefault();
       }
     },
@@ -109,6 +109,19 @@ export default {
           },
           onDateSelected
         );
+
+        if (this.direction === 'auto') {
+          this.dateInstance.on('showCalendar.daterangepicker', function(ev, picker) {
+            if (
+              picker.element.offset().top - $(window).scrollTop() + picker.container.outerHeight() >
+              $(window).height()
+            ) {
+              return (picker.drops = 'up');
+            } else {
+              return (picker.drops = 'down');
+            }
+          });
+        }
       });
     },
   },

@@ -69,7 +69,6 @@
 
 <script>
 import Modal from '@/components/Modal';
-import { Fragment } from 'vue-fragment';
 import { mapState, mapMutations } from 'vuex';
 import { getBaseURL } from '@/utils.js';
 import sortBy from 'lodash.sortby';
@@ -80,7 +79,6 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     Modal,
-    Fragment,
     Checkbox,
     Toggle,
   },

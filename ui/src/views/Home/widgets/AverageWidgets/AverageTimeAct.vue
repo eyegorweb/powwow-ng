@@ -18,7 +18,6 @@
 <script>
 import AverageIndicators from './AverageIndicators';
 import { fetchPrecalculatedIndicators } from '@/api/indicators.js';
-import { isBefore } from '@/utils/date.js';
 import { mapState } from 'vuex';
 
 const defaultTimeUnit = 'h';

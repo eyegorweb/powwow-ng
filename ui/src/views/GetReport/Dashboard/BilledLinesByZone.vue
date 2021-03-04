@@ -40,8 +40,7 @@ import { Chart } from 'highcharts-vue';
 import Toggle from '@/components/ui/UiToggle2';
 import { getMonthString } from '@/utils/date';
 import { billedLineConsoZone } from '@/api/reportDashboard.js';
-import { formatBytes, formattedValueFromSeconds, formatToM } from '@/api/utils.js';
-import { formatLargeNumber } from '@/utils/numbers';
+import { formatBytes, formatToM } from '@/api/utils.js';
 
 export default {
   components: {
@@ -247,7 +246,13 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatBytes(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+            <td style="padding:0"><b> ${
+              this.series.options.custom && this.series.options.custom.devise
+                ? this.y
+                : formatBytes(this.y)
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -285,7 +290,7 @@ export default {
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.nbBilledLine,
-            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
+            custom: { devise: this.$t('getreport.dashboard.legends.nbOfLines') },
             yAxis: 1,
             type: 'spline',
           },
@@ -350,7 +355,13 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatToM(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+            <td style="padding:0"><b> ${
+              this.series.options.custom && this.series.options.custom.devise
+                ? this.y
+                : formatToM(this.y)
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -388,7 +399,7 @@ export default {
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.nbBilledLine,
-            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
+            custom: { devise: this.$t('getreport.dashboard.legends.nbOfLines') },
             yAxis: 1,
             type: 'spline',
           },
@@ -453,7 +464,13 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b> ${this.series.options.custom && this.series.options.custom.devise ? this.y : formatToM(this.y)} ${this.series.options.custom && this.series.options.custom.devise || ''}</b></td></tr>
+            <td style="padding:0"><b> ${
+              this.series.options.custom && this.series.options.custom.devise
+                ? this.y
+                : formatToM(this.y)
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -491,7 +508,7 @@ export default {
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.nbBilledLine,
-            custom: {devise: this.$t('getreport.dashboard.legends.nbOfLines')},
+            custom: { devise: this.$t('getreport.dashboard.legends.nbOfLines') },
             yAxis: 1,
             type: 'spline',
           },

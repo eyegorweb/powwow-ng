@@ -247,7 +247,7 @@ export default {
     },
     noSpecificResults() {
       if (this.currentSpecificFields && !this.currentSpecificFields.length) return;
-      let found = this.currentSpecificFields.every((c) => c.value);
+      let found = this.currentSpecificFields.every(c => c.value);
       return found;
     },
     partnerTypeMVNO() {
@@ -299,7 +299,7 @@ export default {
     },
 
     getCustomFieldLabel(index) {
-      const found = this.allCustomFields.find((c) => c.code === `custom${index}`);
+      const found = this.allCustomFields.find(c => c.code === `custom${index}`);
       if (found) {
         return found.label;
       } else {
