@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.206+20210304103553
+2021-03-04
+
+### Fixes
+
+- [2406] Supprimer filtre période de la map cockpit (452d93d6609f863a3b255bfd7c59ee096d92265c)
+
 ## 1.17.0-master.205+20210304100645
 2021-03-04
 
