@@ -210,6 +210,11 @@ export default {
           path: 'options',
           component: Options,
         },
+        {
+          name: 'partnerDetail.accountDetail.m2mRange',
+          path: 'm2mranges',
+          component: () => import('@/views/GetAdmin/PartnerDetail/AccountDetail/M2MRange.vue'),
+        },
       ],
     },
   ],

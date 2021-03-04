@@ -89,7 +89,14 @@ export default {
       menuItems = [];
     }
     if (this.partner && this.partner.partyType === 'MVNO') {
-      this.menuItems.push('getadmin.partners.m2mRange.title');
+      menuItems.push({
+        section: 'options',
+        title: 'getadmin.partners.m2mRange.title',
+        to: {
+          name: 'partnerDetail.accountDetail.m2mRange',
+          params: { partner: this.partner },
+        },
+      });
     }
     this.menuItems = menuItems;
   },
@@ -104,9 +111,9 @@ export default {
     // Gestion des permissions sur les onglets
     filterByPermission(arrayInput) {
       let permit = false;
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permissions) return true;
-        a.permissions.forEach(e => {
+        a.permissions.forEach((e) => {
           if (this.havePermission(e.domain, e.action)) {
             permit = true;
           }

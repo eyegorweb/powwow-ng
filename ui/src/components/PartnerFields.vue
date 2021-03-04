@@ -9,7 +9,7 @@
         :show-optional-field="showOptionalField"
         @change="onValueChanged"
         @addValueToList="onAddValueToList"
-        direction="down"
+        :direction="datePickerDirection"
       />
     </template>
     <template v-if="specificFields && !userIsPartner">
@@ -47,6 +47,10 @@ export default {
     },
     canEditList: Boolean,
     showOptionalField: Boolean,
+    datePickerDirection: {
+      type: String,
+      default: 'down',
+    },
   },
   components: {
     CustomFields,
