@@ -64,7 +64,7 @@ export default {
         partyId: this.lineData.party.id,
         simCardInstanceId: this.lineData.id,
         customerAccountID: this.lineData.accessPoint.offerGroup.customerAccount.id,
-        sourceWorkflowID: this.linedata.workflow.id,
+        sourceWorkflowID: this.lineData.workflow.id,
         targetWorkflowID: this.newSelectedOffer.data.id,
       };
 
