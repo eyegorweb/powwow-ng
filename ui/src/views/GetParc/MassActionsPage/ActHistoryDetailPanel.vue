@@ -454,8 +454,20 @@ $fontSize: 0.8rem;
 .main-content {
   padding-bottom: 4vh;
 }
+
+.panel-vertical-container {
+  overflow-y: scroll;
+  padding-bottom: 100px;
+}
+
 .footer-back {
-  padding: 0 1.25rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background: white;
+  padding: 10px 0;
+  box-shadow: 1px -8px 18px -9px rgba(0,0,0,0.27);
+
   .action-buttons {
     display: flex;
     justify-content: space-between;

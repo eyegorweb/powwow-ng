@@ -30,12 +30,25 @@ export default {
 </style>
 <style lang="scss">
 $fontSize: 0.8rem;
+
+.panel-vertical-container {
+  overflow-y: scroll;
+  padding-bottom: 100px;
+}
+
 .footer-panel-buttons {
-  padding: 0 1.25rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background: white;
+  box-shadow: 1px -8px 18px -9px rgba(0,0,0,0.27);
+
   .action-buttons {
     display: flex;
     justify-content: space-between;
     padding-right: 10px;
+    padding: 10px 0;
+
     div {
       flex: 1;
       padding-left: 10px;
