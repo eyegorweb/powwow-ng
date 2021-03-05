@@ -33,6 +33,7 @@
   "dragOrAddFile": "Déposez votre fichier ici, ou cliquez pour ajouter",
   "cancel": "Annuler",
   "reset": "Réinitialiser",
+  "specificFields": "Champs spécifiques",
   "resetFilters": "Réinitialiser le filtre",
   "filter": "Filtrer",
   "confirm": "Confirmer",
@@ -1506,6 +1507,7 @@
     "actCreation": {
       "mass": "En masse",
       "byId": "Par Identifiant",
+      "byImport": "Par import",
       "carouselItem": {
         "CONSUMING": "En cours consommation",
         "EXPORT_CONS": "Export consommation",
@@ -1708,6 +1710,7 @@
         "EXPORT": "Exporter la ligne",
         "DETAIL": "Voir le détail de la ligne"
       },
+      "idType": "Sélectionner un type d'identifiant",
       "chooseAct": "Choisir un acte de gestion",
       "selected": "{total} ligne(s) sélectionnée(s)",
       "total": "{total} ligne(s) trouvée(s)",

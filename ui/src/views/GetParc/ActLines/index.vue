@@ -1,4 +1,4 @@
-<template>
+@<template>
   <div class="mt-4">
     <div class="row mb-4">
       <div class="col-md-9">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="!transferSim && creationMode" :act="actToCreate" />
+    <ActCreationPrerequisites v-if="!transferSim && creationMode" :act="actToCreate" @toggle="onToggleChange" />
 
     <div class="row">
       <div class="col-md-3">
@@ -41,27 +41,51 @@
       </div>
       <TransferSim v-if="transferSim" class="col-md-9" />
       <div class="col-md-9 extra-bottom-margin" v-if="!transferSim">
+
         <Title
           num="1"
-          v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
+          v-if="creationMode && actCreationPrerequisites && useFileImportAsInput"
+          title="getparc.actLines.idType"
+          :color="actToCreate.color"
+          :uppercase="true"
+        />
+
+        <div v-if="creationMode && actCreationPrerequisites && useFileImportAsInput" class="actBox" >
+          <UiSelect
+            class="pb-3 d-block"
+            v-model="selectedIdType"
+            :options="optionsIdType"
+            :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
+            :arrow-blue="true"
+          />
+          <Toggle
+            :values="toggleCustomFieldsValues"
+            @update="customFieldTypeToggle = $event"
+          />
+        </div>
+
+        <Title
+          :num="DropZoneTitleNumber"
+          v-if="canShowDropZoneFile"
           title="getparc.actLines.step1File"
           :color="actToCreate.color"
           :uppercase="true"
         />
         <DropZone
-          v-if="creationMode && actCreationPrerequisites && actToCreate.containFile"
+          v-if="canShowDropZoneFile"
           v-model="selectedFile"
+          class="dropZone"
         />
 
         <Title
           num="1"
-          v-if="creationMode && !actToCreate.containFile"
+          v-if="creationMode && !actToCreate.containFile && !useFileImportAsInput"
           title="getparc.actLines.step1Title"
           :color="actToCreate.color"
           :uppercase="true"
         />
         <LinesTable
-          v-if="canShowTable && canMounTable"
+          v-if="canShowTable && canMounTable && !useFileImportAsInput"
           :creation-mode="canShowForm"
           :widget-init-search-by-id="$route.params.idFilters"
           @noResults="checkTableResult"
@@ -76,16 +100,17 @@
         </LinesTable>
 
         <Title
-          num="2"
-          v-if="canShowForm"
+          :num="ActFormTitleNumber"
+          v-if="canShowForm || useFileImportAsInput"
           :title="actToCreate.stepTitle"
           :color="actToCreate.color"
           :uppercase="true"
         />
         <ActCreationActForm
-          v-if="canShowForm"
+          v-if="canShowForm || useFileImportAsInput"
           :act="actToCreate"
           :key="actToCreateFormVersionChange"
+          :fileImportAsInputContext="fileImportAsInputContext"
         />
       </div>
     </div>
@@ -104,8 +129,10 @@ import ActCreationActForm from './ActCreation/ActForm';
 import ActionCarousel from './ActionCarousel';
 import Indicators from '@/components/Indicators';
 import DropZone from '@/components/ui/DropZone';
+import UiSelect from '@/components/ui/UiSelect';
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import { getPartyOptions } from '@/api/partners.js';
+import Toggle from '@/components/ui/UiToggle2';
 
 import carouselItems from './carouselItems';
 
@@ -114,8 +141,10 @@ import { fetchSingleIndicator } from '@/api/linesActions';
 export default {
   components: {
     Tooltip,
+    Toggle,
     FilterBar,
     LinesTable,
+    UiSelect,
     TransferSim,
     ActionCarousel,
     Indicators,
@@ -133,10 +162,47 @@ export default {
       tableIsEmpty: true,
       prevRoute: undefined,
       transferSim: false,
+      DropZoneTitleNumber: '1',
+      ActFormTitleNumber: '2',
       file: undefined,
+      useFileImportAsInput: false,
+      customFieldTypeToggle: undefined,
       optionsPartner: {
         offerChange: undefined,
       },
+      selectedIdType: undefined,
+      toggleCustomFieldsValues: [
+        {
+          id: 'CustomFields',
+          label: 'common.customFields',
+        },
+        {
+          id: 'SpecificFields',
+          label: 'specificFields',
+        }
+      ],
+      optionsIdType: [
+        {
+          code: 'c1',
+          label: 'ICCID',
+          value: 'UPDATE_FIELD_BY_ICCID',
+        },
+        {
+          code: 'c2',
+          label: 'MSISDN',
+          value: 'UPDATE_FIELD_BY_MSISDN',
+        },
+        {
+          code: 'c3',
+          label: 'IMSI',
+          value: 'UPDATE_FIELD_BY_IMSI',
+        },
+        {
+          code: 'c4',
+          label: 'IMEI',
+          value: 'UPDATE_FIELD_BY_IMEI',
+        },
+      ],
       // Pour recréer le composant ActForm à chaque changement des prérequis
       actToCreateFormVersionChange: 0,
     };
@@ -166,6 +232,18 @@ export default {
     ...mapState({
       actToCreate: state => state.actLines.actToCreate,
     }),
+
+    canShowDropZoneFile() {
+      return (this.creationMode && this.actCreationPrerequisites && (this.actToCreate.containFile || this.useFileImportAsInput));
+    },
+
+    fileImportAsInputContext() {
+      return {
+        selectedIdType: this.selectedIdType,
+        selectedFile: this.selectedFile,
+        customFieldTypeToggle: this.$loGet(this.customFieldTypeToggle, 'id'),
+      };
+    },
 
     totalSelected() {
       const responseTotal = this.linesActionsResponse ? this.linesActionsResponse.total : 0;
@@ -287,6 +365,12 @@ export default {
       'resetState',
     ]),
     ...mapMutations(['openPanel']),
+
+    onToggleChange(newToggleValue) {
+      this.useFileImportAsInput = (newToggleValue === 'byImport');
+      this.useFileImportAsInput ? this.DropZoneTitleNumber = '2' : null;
+      this.useFileImportAsInput ? this.ActFormTitleNumber = '3' : null;
+    },
 
     async enableOfferChange() {
       let response;
@@ -492,6 +576,7 @@ export default {
         // déjà en mode création, sur un autre acte
         if (this.creationMode) {
           this.setActCreationPrerequisites(null);
+          this.useFileImportAsInput = false;
           this.setSelectedLinesForActCreation([]);
         }
 
@@ -505,6 +590,7 @@ export default {
         this.setPageLimit(20);
         this.setActToCreate(null);
         this.setActCreationPrerequisites(null);
+        this.useFileImportAsInput = false;
         this.setSelectedLinesForActCreation([]);
       }
     },
@@ -587,6 +673,23 @@ export default {
   padding-left: 5px;
   font-size: 16px;
   font-weight: bold;
+}
+.dropZone {
+  margin-bottom: 3rem;
+}
+
+.actBox {
+  background: white;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+
+  div {
+    width: 50%;
+    margin-right: 2rem;
+  }
 }
 
 .extra-bottom-margin {
