@@ -522,7 +522,7 @@
       "triggered-events": "Voir les déclenchements"
     },
     "table": {
-      "total": "{total} alarmes paramétrées",
+      "total": "{total} alarme(s) paramétrée(s)",
       "create-alarm": "Créer une alarme",
       "thresholds": "Seuil(s) de déclenchement",
       "targetedLines": "Lignes ciblées",

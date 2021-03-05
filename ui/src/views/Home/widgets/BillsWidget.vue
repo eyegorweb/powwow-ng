@@ -42,8 +42,9 @@ export default {
     ...mapGetters(['userIsPartner', 'singlePartner']),
   },
   async mounted() {
-    this.bills = await fetchBillsById(this.singlePartner.id);
-    console.log(this.userIsPartner);
+    if (this.singlePartner && this.singlePartner.id) {
+      this.bills = await fetchBillsById(this.singlePartner.id);
+    }
   },
 
   methods: {
