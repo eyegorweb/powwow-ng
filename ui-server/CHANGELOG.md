@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.213+20210305114050
+2021-03-05
+
+### Fixes
+
+- [2462] gestion de fichier trop volumineux (a4c879eaec2eafaba5a6deb3a24a1880406ee507)
+
 ## 1.17.0-master.212+20210305104945
 2021-03-05
 
