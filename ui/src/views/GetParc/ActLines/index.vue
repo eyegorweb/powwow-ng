@@ -25,7 +25,11 @@
       </div>
     </div>
 
-    <ActCreationPrerequisites v-if="!transferSim && creationMode" :act="actToCreate" @toggle="onToggleChange" />
+    <ActCreationPrerequisites
+      v-if="!transferSim && creationMode"
+      :act="actToCreate"
+      @toggle="onToggleChange"
+    />
 
     <div class="row">
       <div class="col-md-3">
@@ -41,7 +45,6 @@
       </div>
       <TransferSim v-if="transferSim" class="col-md-9" />
       <div class="col-md-9 extra-bottom-margin" v-if="!transferSim">
-
         <Title
           num="1"
           v-if="creationMode && actCreationPrerequisites && useFileImportAsInput"
@@ -50,7 +53,7 @@
           :uppercase="true"
         />
 
-        <div v-if="creationMode && actCreationPrerequisites && useFileImportAsInput" class="actBox" >
+        <div v-if="creationMode && actCreationPrerequisites && useFileImportAsInput" class="actBox">
           <UiSelect
             class="pb-3 d-block"
             v-model="selectedIdType"
@@ -58,10 +61,7 @@
             :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
             :arrow-blue="true"
           />
-          <Toggle
-            :values="toggleCustomFieldsValues"
-            @update="customFieldTypeToggle = $event"
-          />
+          <Toggle :values="toggleCustomFieldsValues" @update="customFieldTypeToggle = $event" />
         </div>
 
         <Title
@@ -71,11 +71,7 @@
           :color="actToCreate.color"
           :uppercase="true"
         />
-        <DropZone
-          v-if="canShowDropZoneFile"
-          v-model="selectedFile"
-          class="dropZone"
-        />
+        <DropZone v-if="canShowDropZoneFile" v-model="selectedFile" class="dropZone" />
 
         <Title
           num="1"
@@ -110,7 +106,7 @@
           v-if="canShowForm || useFileImportAsInput"
           :act="actToCreate"
           :key="actToCreateFormVersionChange"
-          :fileImportAsInputContext="fileImportAsInputContext"
+          :file-import-as-input-context="fileImportAsInputContext"
         />
       </div>
     </div>
@@ -179,7 +175,7 @@ export default {
         {
           id: 'SpecificFields',
           label: 'specificFields',
-        }
+        },
       ],
       optionsIdType: [
         {
@@ -234,7 +230,11 @@ export default {
     }),
 
     canShowDropZoneFile() {
-      return (this.creationMode && this.actCreationPrerequisites && (this.actToCreate.containFile || this.useFileImportAsInput));
+      return (
+        this.creationMode &&
+        this.actCreationPrerequisites &&
+        (this.actToCreate.containFile || this.useFileImportAsInput)
+      );
     },
 
     fileImportAsInputContext() {
@@ -367,9 +367,9 @@ export default {
     ...mapMutations(['openPanel']),
 
     onToggleChange(newToggleValue) {
-      this.useFileImportAsInput = (newToggleValue === 'byImport');
-      this.useFileImportAsInput ? this.DropZoneTitleNumber = '2' : null;
-      this.useFileImportAsInput ? this.ActFormTitleNumber = '3' : null;
+      this.useFileImportAsInput = newToggleValue === 'byImport';
+      this.useFileImportAsInput ? (this.DropZoneTitleNumber = '2') : null;
+      this.useFileImportAsInput ? (this.ActFormTitleNumber = '3') : null;
     },
 
     async enableOfferChange() {

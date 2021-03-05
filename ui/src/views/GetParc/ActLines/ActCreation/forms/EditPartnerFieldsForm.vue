@@ -73,7 +73,7 @@ export default {
   props: {
     fileImportAsInputContext: {
       type: Object,
-      required: false
+      required: false,
     },
   },
   data() {
@@ -93,7 +93,11 @@ export default {
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
 
     canDisableSave() {
-      return (!this.canValidate && !this.fileImportAsInputContext || (!this.fileImportAsInputContext.selectedIdType || !this.fileImportAsInputContext.selectedFile))
+      return (
+        (!this.canValidate && !this.fileImportAsInputContext) ||
+        !this.fileImportAsInputContext.selectedIdType ||
+        !this.fileImportAsInputContext.selectedFile
+      );
     },
 
     partner() {
@@ -193,25 +197,24 @@ export default {
         spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
-      if(!this.fileImportAsInputContext) {
+      if (!this.fileImportAsInputContext) {
         return await updateCustomFields(
           this.appliedFilters,
           this.selectedLinesForActCreation,
           params
         );
-      }
-      else {
+      } else {
         const response = await uploadSearchFile(
           this.fileImportAsInputContext.selectedFile,
-          this.fileImportAsInputContext.selectedIdType,
+          this.fileImportAsInputContext.selectedIdType
         );
-        const responseUpdate = await updateCustomAndSpecificFieldsByFile(
+        await updateCustomAndSpecificFieldsByFile(
           response.tempDataUuid,
           contextValues.actDate,
           this.partner.id,
-          this.fileImportAsInputContext.customFieldTypeToggle,
-        ) ;
-      };
+          this.fileImportAsInputContext.customFieldTypeToggle
+        );
+      }
       // if (!response.errors) {
       //   return response;
       // } else {

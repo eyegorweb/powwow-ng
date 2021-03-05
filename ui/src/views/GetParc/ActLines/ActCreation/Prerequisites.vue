@@ -14,7 +14,10 @@
             />
 
             <div v-if="toggleValues">
-              <MassActionsPrerequisites v-if="currentToggle === 'mass' || currentToggle === 'byImport'" :act="act" />
+              <MassActionsPrerequisites
+                v-if="currentToggle === 'mass' || currentToggle === 'byImport'"
+                :act="act"
+              />
               <SearchById v-if="currentToggle === 'byId'" :act="act" />
             </div>
 
@@ -38,7 +41,6 @@
 
 import MassActionsPrerequisites from './MassActionsPrerequisites.vue';
 import SearchById from './prerequisites/SearchById.vue';
-import DropZone from '@/components/ui/DropZone.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import UiButton from '@/components/ui/Button';
 
@@ -48,7 +50,6 @@ export default {
     Toggle,
     UiButton,
     SearchById,
-    DropZone,
   },
   props: {
     act: Object,
@@ -61,7 +62,6 @@ export default {
     };
   },
   computed: {
-
     canHaveSearchByIdPrereq() {
       const ignoredActs = [
         'getparc.actCreation.carouselItem.CHANGE_SERVICES',
@@ -77,7 +77,7 @@ export default {
     onToggleChange(newToggleValue) {
       this.currentToggle = newToggleValue.id;
       this.$emit('toggle', this.currentToggle);
-    }
+    },
   },
   mounted() {
     this.toggleValues = [
@@ -91,12 +91,14 @@ export default {
         label: 'getparc.actCreation.byId',
       },
     ];
-    if(this.act.id === 'CUSTOM_FIELDS') {
-    this.toggleValues = [...this.toggleValues,
-      {
-        id: 'byImport',
-        label: 'getparc.actCreation.byImport',
-      }, ];
+    if (this.act.id === 'CUSTOM_FIELDS') {
+      this.toggleValues = [
+        ...this.toggleValues,
+        {
+          id: 'byImport',
+          label: 'getparc.actCreation.byImport',
+        },
+      ];
     }
   },
 };
