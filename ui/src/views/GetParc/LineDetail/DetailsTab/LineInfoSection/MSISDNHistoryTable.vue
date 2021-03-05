@@ -86,12 +86,15 @@ export default {
       this.columns = orderedCells.concat(notVisibleCells);
     },
     refreshTable() {
-      this.rows = this.lines.map(l => ({
-        msisdn: l.msisdn,
-        imsi: l.imsi,
-        status: l.statusTranslated,
-        msisdnA: l.msisdnA,
-      }));
+      this.rows = this.lines
+        .map(l => ({
+          id: l.id,
+          msisdn: l.msisdn,
+          imsi: l.imsi,
+          status: l.statusTranslated,
+          msisdnA: l.msisdnA,
+        }))
+        .sort((a, b) => (a.id > b.id ? -1 : 1));
     },
   },
   watch: {
