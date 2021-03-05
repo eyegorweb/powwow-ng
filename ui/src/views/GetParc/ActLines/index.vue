@@ -106,6 +106,7 @@
           v-if="canShowForm || useFileImportAsInput"
           :act="actToCreate"
           :key="actToCreateFormVersionChange"
+          :use-file-import-as-input="useFileImportAsInput"
           :file-import-as-input-context="fileImportAsInputContext"
         />
       </div>
@@ -365,11 +366,13 @@ export default {
       'resetState',
     ]),
     ...mapMutations(['openPanel']),
-
     onToggleChange(newToggleValue) {
       this.useFileImportAsInput = newToggleValue === 'byImport';
-      this.useFileImportAsInput ? (this.DropZoneTitleNumber = '2') : null;
-      this.useFileImportAsInput ? (this.ActFormTitleNumber = '3') : null;
+
+      if (this.useFileImportAsInput) {
+        this.DropZoneTitleNumber = '2';
+        this.ActFormTitleNumber = '3';
+      }
     },
 
     async enableOfferChange() {

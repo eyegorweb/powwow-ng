@@ -23,6 +23,7 @@
       <EditPartnerFieldsForm
         v-if="act.title === 'getparc.actCreation.carouselItem.CUSTOM_FIELDS' && !isLoading"
         :file-import-as-input-context="fileImportAsInputContext"
+        :use-file-import-as-input="useFileImportAsInput"
       />
       <ManageCancellationForm
         v-if="act.title === 'getparc.actCreation.carouselItem.MANAGE_CANCELLATION' && !isLoading"
@@ -88,6 +89,7 @@ export default {
   },
   props: {
     act: Object,
+    useFileImportAsInput: Boolean,
     fileImportAsInputContext: {
       type: Object,
       required: false,

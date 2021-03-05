@@ -1,12 +1,11 @@
 <template>
   <ActFormContainer :validate-fn="onValidate">
-    <div>
+    <div v-if="!useFileImportAsInput">
       <PartnerFields
         :custom-fields="allCustomFields"
         :specific-fields="allSpecificFields"
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
-        :v-if="fileImportAsInputContext"
         @change="onValueChanged"
         show-optional-field
       />
@@ -71,10 +70,12 @@ export default {
     Modal,
   },
   props: {
+    useFileImportAsInput: Boolean,
     fileImportAsInputContext: {
       type: Object,
       required: false,
     },
+    shouldCheckFieldsInput: Boolean,
   },
   data() {
     return {
@@ -93,11 +94,20 @@ export default {
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
 
     canDisableSave() {
-      return (
-        (!this.canValidate && !this.fileImportAsInputContext) ||
-        !this.fileImportAsInputContext.selectedIdType ||
-        !this.fileImportAsInputContext.selectedFile
-      );
+      if (this.useFileImportAsInput) {
+        if (
+          this.fileImportAsInputContext.selectedFile ||
+          this.fileImportAsInputContext.selectedIdType
+        ) {
+          return false;
+        }
+        return true;
+      }
+      if (!this.canValidate) {
+        return true;
+      }
+
+      return false;
     },
 
     partner() {
