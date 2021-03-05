@@ -85,11 +85,11 @@ export default {
     this.menuItems = menuItems;
 
     if (this.$route.params.billingAccountId) {
-      const response = await getCustomerAccounts({
+      const items = await getCustomerAccounts({
         id: { in: [parseInt(this.$route.params.billingAccountId)] },
       });
-      if (response.items && response.items.length) {
-        this.billingAccountToDetail = response.items[0];
+      if (items && items.length) {
+        this.billingAccountToDetail = items[0];
       }
     }
   },
