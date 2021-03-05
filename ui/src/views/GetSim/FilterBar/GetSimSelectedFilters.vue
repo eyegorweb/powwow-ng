@@ -4,11 +4,11 @@
       <SelectedFilterDetails
         v-if="
           filter &&
-            ((filter.values && filter.values.length) ||
-              filter.value ||
-              filter.startDate ||
-              filter.from ||
-              filter.to)
+          ((filter.values && filter.values.length) ||
+            filter.value ||
+            filter.startDate ||
+            filter.from ||
+            filter.to)
         "
         :filter="filter"
         @clear="onClear"
@@ -25,7 +25,7 @@
           :class="staticClass"
           >{{ $t('save') }}</UiButton
         >
-        <div slot-scope="{ hide }" class="p-3" style="width: 256px;">
+        <div slot-scope="{ hide }" class="p-3" style="width: 256px">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="hide">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -39,9 +39,12 @@
           </form>
         </div>
       </UiDropdownButton>
-      <UiButton variant="primary" @click="applyFilters()" class="flex-grow-1 py-1 px-3 ml-1">{{
-        $t('applyTheFilter')
-      }}</UiButton>
+      <UiButton
+        variant="primary"
+        @click="applyFilters()"
+        class="apply-filters-btn flex-grow-1 py-1 px-3 ml-1"
+        >{{ $t('applyTheFilter') }}</UiButton
+      >
     </div>
   </div>
 </template>
@@ -81,7 +84,7 @@ export default {
   },
   computed: {
     visibleCurrentFilters() {
-      return this.currentFilters.filter(f => !f.hidden);
+      return this.currentFilters.filter((f) => !f.hidden);
     },
   },
 };

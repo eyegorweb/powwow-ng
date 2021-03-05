@@ -30,7 +30,7 @@
       v-if="!hideApply"
       variant="primary"
       @click="$emit('applyFilters')"
-      class="flex-grow-1 py-1 px-3 ml-1"
+      class="flex-grow-1 py-1 px-3 ml-1 apply-filters-btn"
       >{{ $t('applyFilter') }}</UiButton
     >
   </div>

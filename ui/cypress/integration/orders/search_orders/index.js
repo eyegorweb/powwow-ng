@@ -3,6 +3,7 @@ import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import orderPage from '../../../pageObjects/orderPage';
 
 Given(`je suis sur la page recherche de commandes`, () => {
+  cy.resetGQLCache();
   orderPage.init();
   cy.wait(400);
 });
@@ -39,13 +40,18 @@ Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
 
 When(`je lance la recherche`, () => {
   orderPage.filterBar.apply();
-  cy.wait(500);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('orders').then(() => {});
+  });
 });
 
 When(`je lance la recherche par ID {string}`, id => {
   orderPage.idSearch.typeId(id);
   orderPage.idSearch.applySearch();
-  cy.wait(500);
+  //cy.wait(100);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('orders').then(() => {});
+  });
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {

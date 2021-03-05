@@ -15,7 +15,7 @@
           :variant="'primary'"
           @click="searchById"
           :disabled="!isEnabled || resultQuery === ''"
-          :class="{ 'flex-grow-1': !inline }"
+          :class="{ 'search-id-button': true, 'flex-grow-1': !inline }"
           >{{ $t('search') }}</UiButton
         >
       </div>
