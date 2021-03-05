@@ -69,11 +69,9 @@ async function doAndRetryHTTPQuery(callFn) {
           }
         }
         if (e.response.status === 400) {
-          const message =
-            e.response && e.response.data && e.response.data.error
-              ? e.response.data.error
-              : e.message;
-          return { error: message };
+          const data = e.response && e.response.data ? e.response.data : e;
+          const message = e.response && e.response.data && e.response.data.error ? e.response.data.error : e.message;
+          return { error: message, data };
         }
       }
     }
