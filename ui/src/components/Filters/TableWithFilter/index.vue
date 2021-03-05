@@ -13,9 +13,12 @@
         >
           <template v-slot:actions="{ hasAnyValue, onSearch }">
             <div v-if="hasAnyValue" class="actions d-flex flex-column flex-md-row mb-2">
-              <UiButton variant="primary" @click="onSearch" class="flex-grow-1 py-1 px-3 ml-1">{{
-                $t('applyFilters')
-              }}</UiButton>
+              <UiButton
+                variant="primary"
+                @click="onSearch"
+                class="apply-filters-btn flex-grow-1 py-1 px-3 ml-1"
+                >{{ $t('applyFilters') }}</UiButton
+              >
             </div>
           </template>
         </FilterBar>

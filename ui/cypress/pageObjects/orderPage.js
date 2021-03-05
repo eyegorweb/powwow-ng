@@ -40,7 +40,7 @@ export default {
       ).type(id);
     },
     applySearch() {
-      cy.waitGet('.form-row > .col-md-3 > .btn').click();
+      cy.waitGet('.search-id-button').click({ force: true });
     },
   },
   getTotal(onTotalLoaded) {

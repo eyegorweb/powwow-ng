@@ -34,7 +34,7 @@ Feature: Recherche de commandes
   Scenario: Recherche par offre
     Given en tant que BO
     And je suis sur la page recherche de commandes
-    And je choisis le filtre offre "AUCHAN_OFFRE_DATA2"
+    And je choisis le filtre offre "offre TimerBV"
     When je lance la recherche
     Then la table contient plus de 0 resultat
 
