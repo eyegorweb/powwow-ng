@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.211+20210305101346
+2021-03-05
+
+### Fixes
+
+- [2446] Changer de version de localstorage (2fffc0e0a7ba44059db212f890160325849f1244)
+- [000] Correction du bouton valider (2bef2e0be7c54519e99919faf6675700630fdd6d)
+
 ## 1.17.0-master.210+20210305092227
 2021-03-05
 
