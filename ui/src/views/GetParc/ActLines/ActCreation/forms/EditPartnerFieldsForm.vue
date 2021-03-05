@@ -6,6 +6,7 @@
         :specific-fields="allSpecificFields"
         :get-selected-value="getSelectedValue"
         :errors="customFieldsErrors"
+        :v-if="fileImportAsInputContext"
         @change="onValueChanged"
         show-optional-field
       />
@@ -13,7 +14,7 @@
     <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
       <button
         @click="waitForConfirmation = true"
-        :disabled="!canValidate"
+        :disabled="canDisableSave"
         class="btn btn-primary pl-4 pr-4 pt-2 pb-2"
       >
         <i class="ic-Edit-Icon" />
@@ -45,7 +46,7 @@
     <div slot="messages" class="text-info">
       <span>
         <i class="ic-Alert-Icon" />
-        <template v-if="allFields && allFields.length">{{
+        <template v-if="(allFields && allFields.length) || fileImportAsInputContext">{{
           $t('getparc.actCreation.editCustomFields.infoMessage')
         }}</template>
         <template v-else>{{ $t('getparc.actCreation.editCustomFields.noResult') }}</template>
@@ -59,15 +60,21 @@ import ActFormContainer from './parts/ActFormContainer2';
 import PartnerFields from '@/components/PartnerFields';
 import { mapState, mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
-import { updateCustomFields } from '@/api/actCreation';
+import { updateCustomFields, updateCustomAndSpecificFieldsByFile } from '@/api/actCreation';
 import Modal from '@/components/Modal';
-import { searchLineById } from '@/api/linesActions';
+import { searchLineById, uploadSearchFile } from '@/api/linesActions';
 
 export default {
   components: {
     ActFormContainer,
     PartnerFields,
     Modal,
+  },
+  props: {
+    fileImportAsInputContext: {
+      type: Object,
+      required: false
+    },
   },
   data() {
     return {
@@ -84,13 +91,18 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+
+    canDisableSave() {
+      return (!this.canValidate && !this.fileImportAsInputContext || (!this.fileImportAsInputContext.selectedIdType || !this.fileImportAsInputContext.selectedFile))
+    },
+
     partner() {
-      if (this.actCreationPrerequisites.searchById) {
+      if (this.actCreationPrerequisites && this.actCreationPrerequisites.searchById) {
         if (this.singleLineFound) {
           return this.singleLineFound.party;
         }
       }
-      return this.actCreationPrerequisites.partner;
+      return this.$loGet(this.actCreationPrerequisites, 'partner');
     },
     canValidate() {
       if (this.allFields && this.allFields.length && this.canSend) {
@@ -107,6 +119,7 @@ export default {
   methods: {
     async loadSingleLineInfo() {
       if (
+        this.actCreationPrerequisites &&
         this.actCreationPrerequisites.searchById &&
         this.linesActionsResponse &&
         this.linesActionsResponse.total === 1
@@ -180,11 +193,25 @@ export default {
         spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
-      return await updateCustomFields(
-        this.appliedFilters,
-        this.selectedLinesForActCreation,
-        params
-      );
+      if(!this.fileImportAsInputContext) {
+        return await updateCustomFields(
+          this.appliedFilters,
+          this.selectedLinesForActCreation,
+          params
+        );
+      }
+      else {
+        const response = await uploadSearchFile(
+          this.fileImportAsInputContext.selectedFile,
+          this.fileImportAsInputContext.selectedIdType,
+        );
+        const responseUpdate = await updateCustomAndSpecificFieldsByFile(
+          response.tempDataUuid,
+          contextValues.actDate,
+          this.partner.id,
+          this.fileImportAsInputContext.customFieldTypeToggle,
+        ) ;
+      };
       // if (!response.errors) {
       //   return response;
       // } else {

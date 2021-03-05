@@ -72,6 +72,38 @@ export async function updateCustomFields(filters, lines, params) {
   });
 }
 
+export async function updateCustomAndSpecificFieldsByFile(
+  tempDataUuid,
+  date,
+  partnerId,
+  fieldsType
+) {
+  const queryStr = `
+  mutation {
+    change${fieldsType}ByFile(
+      input: {
+        partyId: ${partnerId}
+        dueDate: "${date}"
+        tempDataUuid: "${tempDataUuid}"
+        notification: false
+      }
+    ) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }
+ `;
+
+  const response = await query(queryStr);
+
+  return response.data;
+}
+
 export async function changeSingleCustomFields(params) {
   const {
     partyId,
@@ -498,7 +530,9 @@ export async function changeService(filters, lines, params) {
 
         const catalogServiceParameters = `${[...apnToAddParams].join(',')}`;
 
-        dataCodeParams = `{serviceCode: "${dataService.code}", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
+        dataCodeParams = `{serviceCode: "${
+          dataService.code
+        }", action: ADD, catalogServiceParameters: [${catalogServiceParameters}]}`;
       } else {
         dataCodeParams = `{serviceCode: "${dataService.code}", action: DELETE}`;
       }
