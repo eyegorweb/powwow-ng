@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.210+20210305092227
+2021-03-05
+
+### Fixes
+
+- [747] Ajout de l'import de fichier sur le changement de champs libres ActLines (e953159bb628bdd8cb6a4da0e32bdf86e7572251)
+- [2445] Tri par id (b2675becec2f53593c40c4a617ef7216d3562e90)
+
 ## 1.17.0-master.209+20210304162458
 2021-03-04
 
