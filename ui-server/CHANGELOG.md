@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.212+20210305104945
+2021-03-05
+
+### Fixes
+
+- [000] Gestion des boutons actions dans tout les panels (2ad650f08561d73b2abe9e9ec7022dffda4205e3)
+- [2476] quelques correctifs mineurs sur la page des offres commerciales (88e0f8b47258321dcccff36ffc231cdda50dace4)
+
 ## 1.17.0-master.211+20210305101346
 2021-03-05
 
