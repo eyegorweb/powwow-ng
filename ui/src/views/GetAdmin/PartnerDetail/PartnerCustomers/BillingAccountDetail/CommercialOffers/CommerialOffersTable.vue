@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h4 class="text-primary text-uppercase">Offres Commerciales</h4>
+    <h4 class="text-primary text-uppercase">
+      Offres Commerciales :
+      <template v-if="billingAccountToDetail">
+        {{ billingAccountToDetail.code }} / {{ billingAccountToDetail.company }}
+      </template>
+    </h4>
     <div class="row mb-3">
       <div class="col-md-12">
         <UiButton variant="secondary" class="float-right" @click="createCommercialOffer()">
@@ -22,6 +27,8 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import UiButton from '@/components/ui/Button';
 import { fetchCommercialOffersForPartnerId } from '@/api/offers';
+import { getCustomerAccounts } from '@/api/partners.js';
+
 import get from 'lodash.get';
 
 export default {
@@ -43,6 +50,7 @@ export default {
         direction: 'DESC',
       },
       columns: undefined,
+      currentBillingAccount: undefined,
     };
   },
 
@@ -86,7 +94,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'customerAccount.code');
           },
         },
@@ -99,7 +107,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.created');
           },
         },
@@ -112,7 +120,7 @@ export default {
         visible: true,
         format: {
           type: 'Getter',
-          getter: row => {
+          getter: (row) => {
             return get(row, 'auditable.updated');
           },
         },
@@ -134,11 +142,9 @@ export default {
       });
     },
     getFetchFn() {
-      return async pageInfo => {
+      return async (pageInfo) => {
         const partnerId = this.partner.id ? this.partner.id : '';
-        const customerAccountId = this.billingAccountToDetail
-          ? this.billingAccountToDetail.id
-          : undefined; // l'id du CF normalement et pas du partenaire...
+        const customerAccountId = this.$route.params.billingAccountId;
         const response = await fetchCommercialOffersForPartnerId(
           partnerId,
           customerAccountId,
