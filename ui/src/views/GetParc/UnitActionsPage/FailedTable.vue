@@ -2,7 +2,7 @@
   <div>
     <UnitActsTable
       storage-id="unitacts.failed"
-      storage-version="001"
+      storage-version="002"
       :mass-action-id="massActionId"
       grouped-status="FAILED"
       :columns="columns"
@@ -238,7 +238,7 @@ export default {
   },
   methods: {
     changeCellsOrder(orderedCells) {
-      const notVisibleCells = this.columns.filter(c => !c.visible);
+      const notVisibleCells = this.columns.filter((c) => !c.visible);
       this.columns = orderedCells.concat(notVisibleCells);
     },
     closeAcknowledgement() {
