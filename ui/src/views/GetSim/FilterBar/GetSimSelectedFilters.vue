@@ -4,11 +4,11 @@
       <SelectedFilterDetails
         v-if="
           filter &&
-          ((filter.values && filter.values.length) ||
-            filter.value ||
-            filter.startDate ||
-            filter.from ||
-            filter.to)
+            ((filter.values && filter.values.length) ||
+              filter.value ||
+              filter.startDate ||
+              filter.from ||
+              filter.to)
         "
         :filter="filter"
         @clear="onClear"
@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     visibleCurrentFilters() {
-      return this.currentFilters.filter((f) => !f.hidden);
+      return this.currentFilters.filter(f => !f.hidden);
     },
   },
 };

@@ -17,7 +17,7 @@
               :disabled="!canShowSelectedFilter"
               variant="primary"
               @click="applyFilters"
-              class="flex-grow-1 py-1 px-3 ml-1"
+              class="flex-grow-1 py-1 px-3 ml-1 apply-filters-btn"
               >{{ $t('search') }}
             </UiButton>
           </div>

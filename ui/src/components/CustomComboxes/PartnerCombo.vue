@@ -5,6 +5,7 @@
     :items="localItems"
     v-model="selectedLocalValue"
     display-results-while-empty
+    scroll-for-next
     :disabled="disabled"
     search-type="startsWith"
   />
