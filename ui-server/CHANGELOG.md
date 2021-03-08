@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.215+20210308095524
+2021-03-08
+
+### Fixes
+
+- [2480] Correction du scroll de la combobox partenaire (1582955e80aaaae12cf04826a1733baf6b28c9b3)
+
 ## 1.17.0-master.214+20210305162139
 2021-03-05
 
