@@ -1226,7 +1226,7 @@
         "label2": "Champ spécifique 2"
       },
       "supervision": {
-        "nbCnxPdp": "Nombre de connexions PDP",
+        "nbCnxPdp": "Nombre de connexions DATA",
         "totalVolume": "Volume total",
         "volumeOut": "Volume sortant",
         "volumeIn": "Volume entrant",
