@@ -27,7 +27,6 @@
 import PaginatedDataTable from '@/components/DataTable/PaginatedDataTable.vue';
 import UiButton from '@/components/ui/Button';
 import { fetchCommercialOffersForPartnerId } from '@/api/offers';
-import { getCustomerAccounts } from '@/api/partners.js';
 
 import get from 'lodash.get';
 

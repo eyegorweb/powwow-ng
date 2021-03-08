@@ -41,7 +41,7 @@ $fontSize: 0.8rem;
   width: 100%;
   bottom: 0;
   background: white;
-  box-shadow: 1px -8px 18px -9px rgba(0,0,0,0.27);
+  box-shadow: 1px -8px 18px -9px rgba(0, 0, 0, 0.27);
 
   .action-buttons {
     display: flex;
