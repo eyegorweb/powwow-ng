@@ -143,7 +143,7 @@ export default {
       if (this.currentUsage !== 'COCKPIT') return false;
 
       if (this.appliedFilters && this.appliedFilters.length > 0) {
-        return !!this.appliedFilters.find(a => a.id === 'getadmin.users.filters.partners');
+        return !!this.appliedFilters.find((a) => a.id === 'getadmin.users.filters.partners');
       }
 
       return false;
@@ -255,18 +255,22 @@ export default {
   mounted() {
     this.filters = this.getUsageFilters();
 
-    const toggleValues = [
-      {
-        id: 'ALL',
-        label: 'getvsion.allUsages',
-        default: this.value === 'ALL',
-      },
-      {
-        id: 'DATA',
-        label: 'getvsion.dataUsage',
-        default: this.value === 'DATA',
-      },
-    ];
+    const toggleValues = [];
+
+    if (this.havePermission('getVision', 'read')) {
+      toggleValues.push(
+        {
+          id: 'ALL',
+          label: 'getvsion.allUsages',
+          default: this.value === 'ALL',
+        },
+        {
+          id: 'DATA',
+          label: 'getvsion.dataUsage',
+          default: this.value === 'DATA',
+        }
+      );
+    }
 
     if (this.havePermission('getVision', 'service_state')) {
       toggleValues.push({
@@ -352,7 +356,7 @@ export default {
       let frozenValues = cloneDeep(this.currentFilters);
 
       if (countryFilter) {
-        frozenValues = frozenValues.filter(f => f.id !== 'filters.country');
+        frozenValues = frozenValues.filter((f) => f.id !== 'filters.country');
         frozenValues.push(countryFilter);
       }
 

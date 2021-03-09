@@ -53,8 +53,6 @@ unitTests:
   stage: unitTests
   script:
     - gradle :ui:frontUnitTests --info
-  only:
-    - master
   cache:
     key: "$CI_COMMIT_REF_NAME"
     paths:
