@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.220+20210310155429
+2021-03-10
+
+### Features
+
+- [2487] Changement des conditions sur le mot de passe dans les options partenaire (fc7148a9bfa844d826841e6818d31401ed12579a)
+
 ## 1.17.0-master.219+20210310134109
 2021-03-10
 
