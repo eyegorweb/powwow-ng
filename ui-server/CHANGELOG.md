@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.219+20210310134109
+2021-03-10
+
+### Fixes
+
+- [747] Retours sur plusieurs bugs (28c83de7ef4de15d52c8969f72b9b454b3265c0c)
+
 ## 1.17.0-master.218+20210310101125
 2021-03-10
 
