@@ -38,6 +38,7 @@ $fontSize: 0.8rem;
 
 .footer-panel-buttons {
   position: absolute;
+  z-index: 1;
   width: 100%;
   bottom: 0;
   background: white;
