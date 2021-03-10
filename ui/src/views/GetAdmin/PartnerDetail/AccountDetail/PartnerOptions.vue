@@ -326,7 +326,19 @@
             </div>
           </div>
         </div>
-
+        <div v-if="activatedNotificationOption">
+          <div class="third-size pr-4">
+            <div class="form-group">
+            <UiToggle
+              label="Modifier le mot de passe"
+              :editable="true"
+              :bold-label="showPassword"
+              v-model="showPassword"
+              small-label
+            />
+            </div>
+          </div>
+        </div>
         <div class="d-flex" v-if="activatedNotificationOption">
           <div class="third-size pr-4">
             <div class="form-group">
@@ -337,7 +349,7 @@
               }}</small>
             </div>
           </div>
-          <div class="third-size pr-4">
+          <div class="third-size pr-4" v-if="showPassword">
             <div class="form-group">
               <label class="small-label">{{ $t('password') }}</label>
               <UiInput v-model="password" block />
@@ -808,7 +820,9 @@ export default {
       this.coachM2m24h = this.partnerOptions.coachM2m24h;
 
       this.login = get(this.partnerOptions, 'wsNotificationParam.login');
-      this.password = get(this.partnerOptions, 'wsNotificationParam.password');
+      if (this.showPassword) {
+        this.password = get(this.partnerOptions, 'wsNotificationParam.password');
+      }
       this.webserviceAdress = get(this.partnerOptions, 'wsNotificationParam.url');
 
       this.canShowOptions = true;
@@ -960,7 +974,7 @@ export default {
           haveError = true;
         }
 
-        if (!this.password) {
+        if (!this.password && this.showPassword) {
           fieldErrors.password = true;
           haveError = true;
         }
@@ -985,6 +999,7 @@ export default {
   data() {
     return {
       canShowOptions: false,
+      showPassword: false,
       partnerOptions: undefined,
       notifList: undefined,
       refUser: undefined,
