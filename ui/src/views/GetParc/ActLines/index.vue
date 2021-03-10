@@ -94,21 +94,22 @@
             }}
           </template>
         </LinesTable>
-
-        <Title
-          :num="ActFormTitleNumber"
-          v-if="canShowForm || useFileImportAsInput"
-          :title="actToCreate.stepTitle"
-          :color="actToCreate.color"
-          :uppercase="true"
-        />
-        <ActCreationActForm
-          v-if="canShowForm || useFileImportAsInput"
-          :act="actToCreate"
-          :key="actToCreateFormVersionChange"
-          :use-file-import-as-input="useFileImportAsInput"
-          :file-import-as-input-context="fileImportAsInputContext"
-        />
+        <template v-if="actToCreate">
+          <Title
+            :num="ActFormTitleNumber"
+            v-if="canShowForm || useFileImportAsInput"
+            :title="actToCreate.stepTitle"
+            :color="actToCreate.color"
+            :uppercase="true"
+          />
+          <ActCreationActForm
+            v-if="canShowForm || useFileImportAsInput"
+            :act="actToCreate"
+            :key="actToCreateFormVersionChange"
+            :use-file-import-as-input="useFileImportAsInput"
+            :file-import-as-input-context="fileImportAsInputContext"
+          />
+        </template>
       </div>
     </div>
   </div>
@@ -626,6 +627,7 @@ export default {
 
   watch: {
     formVersion() {
+      this.useFileImportAsInput = false;
       this.canMounTable = false;
       this.$nextTick(() => {
         this.canMounTable = true;
