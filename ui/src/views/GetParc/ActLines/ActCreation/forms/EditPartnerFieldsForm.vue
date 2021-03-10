@@ -1,5 +1,5 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate">
+  <ActFormContainer :validate-fn="onValidate" no-modal>
     <div v-if="!useFileImportAsInput">
       <PartnerFields
         :custom-fields="allCustomFields"
@@ -96,7 +96,7 @@ export default {
     canDisableSave() {
       if (this.useFileImportAsInput) {
         if (
-          this.fileImportAsInputContext.selectedFile ||
+          this.fileImportAsInputContext.selectedFile &&
           this.fileImportAsInputContext.selectedIdType
         ) {
           return false;
@@ -145,7 +145,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.partner.id;
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields.map(c => {
+      this.allCustomFields = customFields.customFields.map((c) => {
         if (c.mandatory === 'NONE') {
           c.isOptional = true;
         } else {
@@ -158,20 +158,20 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find((c) => c.code === customField.code);
       if (enteredValue) {
         this.canSend = true;
       } else {
         this.canSend = false;
       }
       if (existingFieldValue) {
-        this.allFieldsValues = this.allFieldsValues.map(c => {
+        this.allFieldsValues = this.allFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -185,9 +185,25 @@ export default {
         this.allFieldsValues = [...this.allFieldsValues, { ...customField }];
       }
     },
-    async onValidate(contextValues) {
-      const getCustomFieldValue = code => {
-        const found = this.allFieldsValues.filter(c => c.code === code);
+    async validateWithFile(contextValues) {
+      if (!contextValues.tempDataUuid) {
+        return await uploadSearchFile(
+          this.fileImportAsInputContext.selectedFile,
+          this.fileImportAsInputContext.selectedIdType
+        );
+      } else {
+        const response = await updateCustomAndSpecificFieldsByFile(
+          contextValues.tempDataUuid,
+          contextValues.actDate,
+          this.partner.id,
+          this.fileImportAsInputContext.customFieldTypeToggle
+        );
+        return response;
+      }
+    },
+    async normalValidation(contextValues) {
+      const getCustomFieldValue = (code) => {
+        const found = this.allFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -207,30 +223,18 @@ export default {
         spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
+      return await updateCustomFields(
+        this.appliedFilters,
+        this.selectedLinesForActCreation,
+        params
+      );
+    },
+    async onValidate(contextValues) {
       if (!this.fileImportAsInputContext) {
-        return await updateCustomFields(
-          this.appliedFilters,
-          this.selectedLinesForActCreation,
-          params
-        );
+        return this.normalValidation(contextValues);
       } else {
-        const response = await uploadSearchFile(
-          this.fileImportAsInputContext.selectedFile,
-          this.fileImportAsInputContext.selectedIdType
-        );
-        await updateCustomAndSpecificFieldsByFile(
-          response.tempDataUuid,
-          contextValues.actDate,
-          this.partner.id,
-          this.fileImportAsInputContext.customFieldTypeToggle
-        );
+        return this.validateWithFile(contextValues);
       }
-      // if (!response.errors) {
-      //   return response;
-      // } else {
-      //   const errors = response.errors;
-      //   console.log('errors', errors);
-      // }
     },
     async confirmValdation(containerValidationFn) {
       const response = await containerValidationFn();
@@ -238,8 +242,8 @@ export default {
       return response;
     },
     chekcForErrors() {
-      const getCustomFieldValue = code => {
-        const found = this.allFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.allFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -247,14 +251,14 @@ export default {
       };
 
       this.customFieldsErrors = this.allCustomFields
-        .filter(c => c.mandatory !== 'NONE')
-        .filter(c => {
+        .filter((c) => c.mandatory !== 'NONE')
+        .filter((c) => {
           const value = getCustomFieldValue(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map(c => c.code);
+        .map((c) => c.code);
     },
   },
 };
