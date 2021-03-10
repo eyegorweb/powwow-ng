@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.218+20210310101125
+2021-03-10
+
+### Fixes
+
+- [000] Problème de container dans les boutons des panels (4a45b1b36e1b942a4ec2f804c93ea00186c60202)
+
 ## 1.17.0-master.217+20210309093733
 2021-03-09
 
