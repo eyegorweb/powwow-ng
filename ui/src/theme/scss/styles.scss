@@ -95,6 +95,7 @@ $theme-colors: map-merge(
 }
 
 .panel-vertical-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
