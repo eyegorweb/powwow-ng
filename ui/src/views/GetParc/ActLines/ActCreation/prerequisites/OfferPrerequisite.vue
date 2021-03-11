@@ -18,6 +18,7 @@
             :offer.sync="selectedOffer"
             :disabled="isPartnerEmpty"
             :all-offers="allOffers"
+            keep-selected-value
             billing-account-mandatory
           />
         </div>
