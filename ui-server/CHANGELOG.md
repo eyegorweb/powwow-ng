@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.221+20210311141204
+2021-03-11
+
+### Fixes
+
+- [2485] traduction du message d'erreur lors du changement d'ICCID avec un fichier trop volumineux (ff1f8a7a3d6c064380871b13ed657ab1b1d12532)
+
 ## 1.17.0-master.220+20210310155429
 2021-03-10
 
