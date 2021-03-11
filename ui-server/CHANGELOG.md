@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.222+20210311150208
+2021-03-11
+
+### Fixes
+
+- [2488] Ajout d'une condition sur le choix d'offre dans la modification de service (actline) (2a69d7a19a64ade77646d1b92d3f761c87a0330e)
+
 ## 1.17.0-master.221+20210311141204
 2021-03-11
 
