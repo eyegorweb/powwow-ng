@@ -263,11 +263,29 @@ export default {
         this.contextValues = contextValues;
       } else {
         if (response.error) {
-          this.requestErrors = [
-            {
-              message: response.error,
-            },
-          ];
+          if (response.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
+            const count =
+              response.data && response.data.maxNumbersPerFileUpload
+                ? response.data.maxNumbersPerFileUpload
+                : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: response.error,
+              },
+            ];
+          }
         }
         return { stayInForm: true };
       }
