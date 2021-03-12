@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.224+20210312104731
+2021-03-12
+
+### Fixes
+
+- [000] gérer le cas ou simCard est null dans l'api findLatestSimcardsOrder (ed3a6d53761b78f1a259944c13e28b0cc4c5a62c)
+
 ## 1.17.0-master.223+20210312083421
 2021-03-12
 
