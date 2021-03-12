@@ -456,7 +456,7 @@ export default {
       let userTypeValid = true;
 
       if (this.userIsBO) {
-        if (this.userType === 'PARTNER') {
+        if (this.userType === 'PARTNER' && !!this.duplicateFrom) {
           userTypeValid = !!(this.selectedPartner && this.selectedPartner.id);
         }
 
@@ -542,12 +542,17 @@ export default {
       const userType = this.content.duplicateFrom.type;
       this.userType = userType;
 
-      this.selectedPartner = {
-        id: parseInt(this.content.partnerId),
-        value: this.content.partnerLabel,
-        label: this.content.partnerLabel,
-        highlighted: this.content.partnerLabel,
-      };
+      if (this.userType === 'PARTNER') {
+        this.selectedPartner = {
+          id: this.content.duplicateFrom.partners[0].id,
+          value: this.content.duplicateFrom.partners[0].name,
+          label: this.content.duplicateFrom.partners[0].name,
+          highlighted: this.content.duplicateFrom.partners[0].name,
+        };
+      }
+      else if (this.userType === 'PARTNER_GROUP') {
+        this.selectedPartner = this.content.duplicateFrom.partners
+      }
 
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
@@ -585,6 +590,7 @@ export default {
         this.form.firstName = this.content.duplicateFrom.name.firstName;
         this.form.lastName = this.content.duplicateFrom.name.lastName;
       }
+
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
       let lang = this.fetchLanguages.find(e => e.name === this.form.language);
