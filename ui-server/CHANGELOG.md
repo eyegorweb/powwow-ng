@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.223+20210312083421
+2021-03-12
+
+### Fixes
+
+- [2489] Bug dans la gestion du partenaire en modification de user en tant qu'admin (60955ba0688566f502d2f85b2116f7a95402f0b7)
+
 ## 1.17.0-master.222+20210311150208
 2021-03-11
 
