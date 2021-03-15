@@ -549,9 +549,8 @@ export default {
           label: this.content.duplicateFrom.partners[0].name,
           highlighted: this.content.duplicateFrom.partners[0].name,
         };
-      }
-      else if (this.userType === 'PARTNER_GROUP') {
-        this.selectedPartner = this.content.duplicateFrom.partners
+      } else if (this.userType === 'PARTNER_GROUP') {
+        this.selectedPartner = this.content.duplicateFrom.partners;
       }
 
       if (this.userType === 'OPERATOR') {

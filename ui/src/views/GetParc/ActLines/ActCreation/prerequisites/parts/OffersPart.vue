@@ -39,7 +39,7 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
   },
   data() {
     return {
@@ -72,16 +72,16 @@ export default {
 
           const data = await fetchOffers(q, [this.partner], queryParams);
           if (data) {
-              let dataToUse = data;
-              if(!this.keepSelectedValue) {
-                dataToUse = data.filter(o => o.code !== this.prerequisiteOffer.code)
-              }
-              return dataToUse.map(o => ({
-                id: o.code,
-                label: o.workflowDescription,
-                data: o,
-                productCode: o.code,
-              }));
+            let dataToUse = data;
+            if (!this.keepSelectedValue) {
+              dataToUse = data.filter(o => o.code !== this.prerequisiteOffer.code);
+            }
+            return dataToUse.map(o => ({
+              id: o.code,
+              label: o.workflowDescription,
+              data: o,
+              productCode: o.code,
+            }));
           }
         } else if (this.partner.label.length) {
           return [];

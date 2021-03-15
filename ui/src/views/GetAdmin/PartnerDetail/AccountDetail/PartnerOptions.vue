@@ -329,13 +329,13 @@
         <div v-if="activatedNotificationOption">
           <div class="third-size pr-4">
             <div class="form-group">
-            <UiToggle
-              label="Modifier le mot de passe"
-              :editable="true"
-              :bold-label="showPassword"
-              v-model="showPassword"
-              small-label
-            />
+              <UiToggle
+                label="Modifier le mot de passe"
+                :editable="true"
+                :bold-label="showPassword"
+                v-model="showPassword"
+                small-label
+              />
             </div>
           </div>
         </div>

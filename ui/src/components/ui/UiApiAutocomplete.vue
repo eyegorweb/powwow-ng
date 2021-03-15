@@ -85,6 +85,7 @@ export default {
       isOpen: this.defaultOpen,
       page: 0,
       canFetchNextPage: true,
+      isFetching: false,
     };
   },
 
@@ -219,6 +220,7 @@ export default {
       this.enablePagination();
 
       if (this.apiMethod) {
+        this.isFetching = true;
         this.resultsPromise = new Promise(async resolve => {
           const items = (await this.apiMethod(this.$value || '')) || [];
           const result = startsWithHighlight(this.$value || '', items).map(result => {
@@ -229,6 +231,7 @@ export default {
           });
           resolve(result);
         });
+        this.isFetching = false;
       } else {
         this.resultsPromise = Promise.resolve(this.results);
       }
@@ -257,6 +260,7 @@ export default {
       this.areSuggestionsVisible = !this.areSuggestionsVisible;
     },
     async onScroll(currentData) {
+      if (this.isFetching) return;
       if (!this.scrollForNext && this.apiMethod) return;
 
       const heightStyle = getComputedStyle(this.$refs.results).height;
@@ -265,11 +269,13 @@ export default {
       if (needMore && this.canFetchNextPage) {
         if (this.apiMethod) {
           this.page += 1;
+          this.isFetching = true;
           const nextPageContent = await this.apiMethod(this.$value || '', this.page);
           this.canFetchNextPage = nextPageContent.length > 0;
           this.resultsPromise = Promise.resolve(currentData.concat(nextPageContent));
           await this.resultsPromise;
           this.resetSelected();
+          this.isFetching = false;
         }
       }
     },
