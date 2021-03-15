@@ -30,44 +30,82 @@
             :disabled="!selectedTypeSimCard || !chosenBillingAccount"
             :is-loading="isLoading"
           />
-          <div v-if="fileResponse && !error && !isLoading">
-            <ul class="list-unstyled m-0">
-              <li>
-                <i class="ic-Check-Icon mr-2 text-success" />
-                {{ fileResponse.validated }}
-                {{ $t('getparc.actLines.fileImport.foundSimcards') }}.
-              </li>
-              <li v-if="totalNotCompatible > 0">
-                <i class="ic-Cross-Icon mr-2 text-danger" />
-                {{ totalNotCompatible }}
-                {{ $t('getparc.actLines.fileImport.rejectedLines') }} :
-                <ul class="list-styled">
-                  <li v-for="e in fileResponse.errors" :key="e.key">
-                    {{
-                      $t('getparc.actLines.fileImport.errors.import.' + e.key, {
-                        count: e.number,
-                        idType: 'ICCID',
-                      })
-                    }}
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <div v-if="fileResponse.tempDataUuid" class="mt-5">
-              <button
-                :disabled="!fileResponse.validated"
-                @click="confirmRequest(true)"
-                class="btn btn-block"
-                :class="{
-                  'btn-success': fileResponse.validated,
-                  'btn-light': !fileResponse.validated,
-                }"
-              >
-                <span>{{ $t('confirm') }}</span>
-              </button>
+          <div v-if="fileResponse && !requestErrors && !isLoading">
+            <div v-if="fileResponse.tempDataUuid">
+              <ul class="list-unstyled m-0">
+                <li>
+                  <i class="ic-Check-Icon mr-2 text-success" />
+                  {{ fileResponse.validated }}
+                  {{ $t('getparc.actLines.fileImport.foundSimcards') }}.
+                </li>
+                <li v-if="totalNotCompatible > 0">
+                  <i class="ic-Cross-Icon mr-2 text-danger" />
+                  {{ totalNotCompatible }}
+                  {{ $t('getparc.actLines.fileImport.rejectedLines') }} :
+                  <ul class="list-styled">
+                    <li v-for="e in fileResponse.errors" :key="e.key">
+                      {{
+                        $t('getparc.actLines.fileImport.errors.import.' + e.key, {
+                          count: e.number,
+                          idType: 'ICCID',
+                        })
+                      }}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <div class="mt-5">
+                <button
+                  :disabled="!fileResponse.validated"
+                  @click="confirmRequest(true)"
+                  class="btn btn-block"
+                  :class="{
+                    'btn-success': fileResponse.validated,
+                    'btn-light': !fileResponse.validated,
+                  }"
+                >
+                  <span>{{ $t('confirm') }}</span>
+                </button>
+              </div>
             </div>
           </div>
-          <div v-if="localError && !isLoading" class="alert alert-danger" role="alert">
+
+          <div v-else-if="fileResponse && !!requestErrors && !isLoading">
+            <ul class="list-unstyled m-0">
+              <li class="item" v-for="e in fileResponse.errors" :key="e.key">
+                <div
+                  v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{ $t('getparc.actCreation.report.FILE_LINE_NUMBER_INVALID') }}
+                </div>
+                <div
+                  v-else-if="e.key === 400 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{
+                    $t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
+                      count: e.data.maxNumbersPerFileUpload,
+                    })
+                  }}
+                </div>
+                <div v-else-if="e.key === 500" class="alert alert-warning" role="alert">
+                  {{ $t('getparc.actCreation.report.timeout') }}
+                </div>
+                <div v-else class="alert alert-danger" role="alert">
+                  {{ $t('genericErrorMessage') }}
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            v-else-if="!fileResponse && localError && !isLoading"
+            class="alert alert-danger"
+            role="alert"
+          >
             {{ localError }}
           </div>
         </div>
@@ -118,44 +156,21 @@ export default {
 
       async set(newFile) {
         this.localFileMeta = newFile;
-
         if (newFile) {
           this.isLoading = true;
           this.localError = this.getLocalError(newFile);
           if (!this.localError) {
             this.fileResponse = await uploadFileSimCardsFromLines(newFile);
-            if (
-              this.fileResponse &&
-              this.fileResponse.error &&
-              this.wsUploadFileError(this.fileResponse.error)
-            ) {
-              const count =
-                this.fileResponse.data && this.fileResponse.data.maxNumbersPerFileUpload
-                  ? this.fileResponse.data.maxNumbersPerFileUpload
-                  : '';
-              this.localError = this.$t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
-                count,
-              });
-            } else if (
-              this.fileResponse &&
-              this.fileResponse.error &&
-              !this.wsUploadFileError(this.fileResponse.error)
-            ) {
-              this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
-            } else {
-              this.$emit('response', {
-                file: newFile,
-                ...this.fileResponse,
-              });
-            }
+            this.$emit('response', {
+              file: newFile,
+              ...this.fileResponse,
+            });
+          } else {
+            this.fileResponse = undefined;
           }
           this.isLoading = false;
         }
       },
-    },
-    error() {
-      if (!this.fileResponse) return false;
-      return this.fileResponse.error;
     },
     totalNotCompatible() {
       if (!this.fileResponse.errors) {
@@ -164,6 +179,10 @@ export default {
       return this.fileResponse.errors.reduce((total, e) => {
         return (total += e.number);
       }, 0);
+    },
+    requestErrors() {
+      if (!this.fileResponse) return false;
+      return this.fileResponse.errors.find(f => f.key === 400 || f.key === 500);
     },
   },
   methods: {
@@ -180,10 +199,7 @@ export default {
       if (fileMeta.error) {
         return this.$t('getparc.actCreation.report.' + fileMeta.error);
       }
-      return;
-    },
-    wsUploadFileError(error) {
-      return !!error;
+      return undefined;
     },
     async confirmRequest(showMessage = false) {
       this.isLoading = true;
@@ -196,7 +212,8 @@ export default {
 
       if (response.errors && response.errors.length) {
         this.fileResponse.errors = response.errors;
-        this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
+        if (!this.requestErrors)
+          this.flashMessage({ level: 'danger', message: this.$t('genericErrorMessage') });
       } else {
         if (showMessage) {
           const successMessage = this.successMessage

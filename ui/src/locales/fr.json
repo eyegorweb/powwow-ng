@@ -1633,7 +1633,8 @@
         "InvalidFileContent": "Contenu de fichier invalide",
         "InvalidFileVersion": "Version du fichier invalide",
         "NotFoundException": "Introuvable",
-        "InvalidFileSize": "Le fichier est trop volumineux"
+        "InvalidFileSize": "Le fichier est trop volumineux",
+        "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet."
       },
 
       "transfertCF": {

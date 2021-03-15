@@ -552,7 +552,7 @@ export async function ordersExport(
 }
 
 export async function importIccids(orderId, tempDataUuid) {
-  const response = await query(
+  const queryStr = await query(
     `
     mutation {
       importIccids(orderId: "${orderId}", uuid: "${tempDataUuid}") {
@@ -567,7 +567,21 @@ export async function importIccids(orderId, tempDataUuid) {
 
     `
   );
-  return response.data.importIccids;
+  try {
+    const response = await query(queryStr);
+    return response.data.importIccids;
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [{
+        key: e,
+        error: e.data && e.data.error ? e.data.error : 'unknown',
+        number: 0,
+        message: "Exception while importing in the order simcards : Technical error " + e,
+        data: e.data
+      }]
+    };
+  }
 }
 
 function valuesFromMutiselectFilter(
