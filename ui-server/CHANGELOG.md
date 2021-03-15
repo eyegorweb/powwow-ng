@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.225+20210315093507
+2021-03-15
+
+### Fixes
+
+- [000] Ne pas lancer plusieurs requêtes simultanées dans la pagination durant un scroll (211968322011282b958441baba6d96fb827d04da)
+
 ## 1.17.0-master.224+20210312104731
 2021-03-12
 
