@@ -1488,7 +1488,8 @@
         "InvalidFileContent": "Invalid file content",
         "InvalidFileVersion": "Invalid file version",
         "NotFoundException": "Not found",
-        "InvalidFileSize": "The file is too large"
+        "InvalidFileSize": "The file is too large",
+        "timeout": "Import will finish soon. Please check within a few minutes that it is complete."
       },
       "transfertCF": {
         "confirmationWarning": "Do you confirm the change of the billing account?",

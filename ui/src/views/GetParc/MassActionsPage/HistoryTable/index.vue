@@ -54,7 +54,7 @@
       </template>
       <template v-else>
         <button class="btn btn-link" @click="resetFilters">{{ $t('resetFilters') }}</button>
-        <div class="alert alert-light">{{ $t('noResult') }} oui</div>
+        <div class="alert alert-light">{{ $t('noResult') }}</div>
       </template>
     </div>
   </LoaderContainer>

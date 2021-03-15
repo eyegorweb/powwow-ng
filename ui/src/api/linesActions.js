@@ -627,7 +627,20 @@ export async function uploadSearchFile(file, idType, partyId) {
   if (partyId) {
     formData.append('id', partyId);
   }
-  return await postFile(`/api/file/upload`, formData);
+  try {
+    return await postFile(`/api/file/upload`, formData);
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [{
+        key: e.status,
+        error: e.data && e.data.error ? e.data.error : 'unknown',
+        number: 0,
+        message: "Exception while uploading searchfile :" + e.statusText,
+        data: e.data
+      }]
+    };
+  }
 }
 
 export async function uploadFileSimCards(file, orderId) {
@@ -635,18 +648,44 @@ export async function uploadFileSimCards(file, orderId) {
   formData.append('file', file);
   formData.append('orderId', orderId);
   formData.append('idType', 'CREATE_ICCID');
-  return await postFile(`/api/file/uploadIccids`, formData);
+  try {
+    return await postFile(`/api/file/uploadIccids`, formData);
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [{
+        key: e.status,
+        error: e.data && e.data.error ? e.data.error : 'unknown',
+        number: 0,
+        message: "Exception while uploading file simcards :" + e.statusText,
+        data: e.data
+      }]
+    };
+  }
 }
 
 export async function uploadFileSimCardsFromLines(file) {
   var formData = new FormData();
   formData.append('file', file);
   formData.append('idType', 'CREATE_ICCID');
-  return await postFile(`/api/file/upload`, formData);
+  try {
+    return await postFile(`/api/file/upload`, formData);
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [{
+        key: e.status,
+        error: e.data && e.data.error ? e.data.error : 'unknown',
+        number: 0,
+        message: "Exception while uploading simcards :" + e.statusText,
+        data: e.data
+      }]
+    };
+  }
 }
 
 export async function importIccidsFromLines(partnerId, customerAccountId, simCardId, tempDataUuid) {
-  const response = await query(
+  const queryStr =
     `
     mutation {
       importSimcards(
@@ -666,8 +705,23 @@ export async function importIccidsFromLines(partnerId, customerAccountId, simCar
       }
     }
     `
-  );
-  return response.data.importSimcards;
+  ;
+
+  try {
+    const response = await query(queryStr);
+    return response.data.importSimcards;
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [{
+        key: e,
+        error: e.data && e.data.error ? e.data.error : 'unknown',
+        number: 0,
+        message: "Exception while importing simcards : Technical error " + e,
+        data: e.data
+      }]
+    };
+  }
 }
 
 export async function exportLinesFromFileFilter(columns, orderBy, exportFormat, uploadId) {
