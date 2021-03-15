@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.226+20210315141521
+2021-03-15
+
+### Fixes
+
+- [2481] gestion du timeout lors de l'import de cartes SIM (b93c96722087f2f27448f8c61a2bc30d004a93e4)
+
 ## 1.17.0-master.225+20210315093507
 2021-03-15
 
