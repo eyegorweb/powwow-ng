@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.230+20210316145649
+2021-03-16
+
+### Fixes
+
+- [2503] Problème de gestion du toggle de diffusion dans les options partenaire de facturation (03a0e99e12b418fa7d2def0479e6fc5fd7f8f9b8)
+
 ## 1.17.0-master.229+20210316140215
 2021-03-16
 
