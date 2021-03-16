@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.229+20210316140215
+2021-03-16
+
+### Fixes
+
+- [747] Vérifier correctement la présence du contexte "fichier" (260633a6f1951d23cf810337433d6b4135bffa71)
+
 ## 1.17.0-master.228+20210316110047
 2021-03-16
 
