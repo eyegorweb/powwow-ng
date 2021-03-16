@@ -705,7 +705,7 @@ export default {
       this.partnerOptions = await getPartyOptions(this.partner.id);
       this.checkToggle(this.services, 'AMSISDN', this.partnerOptions.flagMsisdnA);
       this.checkToggle(this.services, 'SECU_RESIL', this.partnerOptions.resilationSecurityEnabled);
-
+      this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
