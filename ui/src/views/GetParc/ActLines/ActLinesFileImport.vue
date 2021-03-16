@@ -6,7 +6,7 @@
       :is-loading="isLoading"
       :placeholder="placeholder"
     />
-    <div v-if="fileMeta && !error && !isLoading">
+    <div v-if="fileResponse && !requestErrors && !isLoading">
       <ul class="list-unstyled m-0">
         <li>
           <i class="ic-Check-Icon mr-2 text-success" />
@@ -40,15 +40,41 @@
         </li>
       </ul>
     </div>
-    <div v-if="error && !isLoading" class="alert alert-danger" role="alert">
-      <template v-if="isTranslatableUploadError">
-        {{ $t('getparc.actCreation.report.' + fileMeta.error) }}
-      </template>
-      <template v-else>
-        {{ $t('genericErrorMessage') }}
-      </template>
+    <div v-if="fileResponse && !!requestErrors && !isLoading">
+      <ul class="list-unstyled m-0">
+        <li class="item" v-for="e in fileResponse.errors" :key="e.key">
+          <div
+            v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
+            class="alert alert-danger"
+            role="alert"
+          >
+            {{ $t('getparc.actCreation.report.FILE_LINE_NUMBER_INVALID') }}
+          </div>
+          <div
+            v-else-if="e.key === 400 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
+            class="alert alert-danger"
+            role="alert"
+          >
+            {{
+              $t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
+                count: e.data.maxNumbersPerFileUpload,
+              })
+            }}
+          </div>
+          <div v-else-if="e.key === 500" class="alert alert-warning" role="alert">
+            {{ $t('getparc.actCreation.report.timeout') }}
+          </div>
+          <div v-else class="alert alert-danger" role="alert">
+            {{ $t('genericErrorMessage') }}
+          </div>
+        </li>
+      </ul>
     </div>
-    <div v-if="localError && !isLoading" class="alert alert-danger" role="alert">
+    <div
+      v-else-if="!fileResponse && localError && !isLoading"
+      class="alert alert-danger"
+      role="alert"
+    >
       {{ localError }}
     </div>
   </div>
@@ -78,21 +104,11 @@ export default {
         direction: 'DESC',
       },
       isLoading: false,
-      lastSelectedFile: undefined,
       fileResponse: undefined,
       placeholder: this.$t('filters.lines.fromFile.import-file'),
       localFileMeta: undefined,
       localError: undefined,
     };
-  },
-  watch: {
-    error() {
-      if (fileUtils.checkFormat(this.selectedFile)) {
-        this.fileMeta.error = 'DATA_INVALID_FORMAT';
-      } else if (fileUtils.checkFileSize(this.selectedFile)) {
-        this.fileMeta.error = 'FILE_SIZE_LIMIT_EXCEEDED';
-      }
-    },
   },
   computed: {
     isTranslatableUploadError() {
@@ -106,45 +122,31 @@ export default {
         ].indexOf(this.fileMeta.error) > -1
       );
     },
-    error: {
-      get() {
-        if (!this.fileMeta) return null;
-        return this.fileMeta.error;
-      },
-    },
     selectedFile: {
       get() {
         return this.localFileMeta;
       },
-      async set(lastSelectedFile) {
-        this.localFileMeta = lastSelectedFile;
-        if (lastSelectedFile) {
+      async set(newFile) {
+        this.localFileMeta = newFile;
+        if (newFile) {
           this.isLoading = true;
-          this.localError = this.getLocalError(lastSelectedFile);
+          this.localError = this.getLocalError(newFile);
           if (!this.localError) {
-            this.fileResponse = await uploadSearchFile(lastSelectedFile, this.idType);
-            if (
-              this.fileResponse &&
-              this.fileResponse.error &&
-              this.wsUploadFileError(this.fileResponse.error)
-            ) {
-              const count =
-                this.fileResponse.data && this.fileResponse.data.maxNumbersPerFileUpload
-                  ? this.fileResponse.data.maxNumbersPerFileUpload
-                  : '';
-              this.localError = this.$t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
-                count,
-              });
-            } else {
-              this.$emit('response', {
-                file: lastSelectedFile,
-                ...this.fileResponse,
-              });
-            }
+            this.fileResponse = await uploadSearchFile(newFile, this.idType);
+            this.$emit('response', {
+              file: newFile,
+              ...this.fileResponse,
+            });
+          } else {
+            this.fileResponse = undefined;
           }
           this.isLoading = false;
         }
       },
+    },
+    requestErrors() {
+      if (!this.fileResponse) return false;
+      return this.fileResponse.errors.find(f => f.key === 400 || f.key === 500);
     },
     totalNotCompatible() {
       if (!this.fileMeta.errors) {
@@ -187,9 +189,6 @@ export default {
         return this.$t('getparc.actCreation.report.' + fileMeta.error);
       }
       return;
-    },
-    wsUploadFileError(error) {
-      return !!error;
     },
   },
 };
