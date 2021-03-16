@@ -2,13 +2,14 @@
 
 <!--- next entry here -->
 
-## 1.17.0-master.227+20210316104623
+## 1.17.0-master.228+20210316110047
 2021-03-16
 
 ### Fixes
 
 - [2427] Ajout condition sur un graph du tableau de bord (78753ae8bb5cb68e87b6b0a5663f50afd01ed237)
 - [2487] Passsage a false du toggle password au moment du save (e0f2e558715512ceb9b8fd8aca7c4272dbfd6305)
+- [2481] gestion du timeout de l'import des cartes sim (242d32a16963fb4c752d15c547a6a2e8deaff00c)
 
 ## 1.17.0-master.226+20210315141521
 2021-03-15
