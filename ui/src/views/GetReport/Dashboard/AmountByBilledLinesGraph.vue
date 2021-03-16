@@ -229,7 +229,7 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b>${convertValuesUsage(this.y, usage)}</b></td></tr>
+            <td style="padding:0"><b>${this.series.options.custom.isData ? convertValuesUsage(this.y, usage) : this.y + ' €'}</b></td></tr>
             `;
           },
           footerFormat: '</table>',
@@ -247,12 +247,14 @@ export default {
           {
             name: this.$t('getreport.dashboard.legends.conso'),
             type: 'column',
+            custom: { isData: true },
             data: dataSeries.conso,
             yAxis: 1,
           },
           {
             name: this.$t('getreport.dashboard.legends.amount'),
             type: 'spline',
+            custom: { isData: false },
             data: dataSeries.amount,
           },
         ],
