@@ -45,7 +45,7 @@
     <div slot="messages" class="text-info">
       <span>
         <i class="ic-Alert-Icon" />
-        <template v-if="(allFields && allFields.length) || fileImportAsInputContext">{{
+        <template v-if="(allFields && allFields.length) || isFileImportContextValid">{{
           $t('getparc.actCreation.editCustomFields.infoMessage')
         }}</template>
         <template v-else>{{ $t('getparc.actCreation.editCustomFields.noResult') }}</template>
@@ -92,6 +92,20 @@ export default {
   computed: {
     ...mapState('actLines', ['selectedLinesForActCreation', 'actCreationPrerequisites']),
     ...mapGetters('actLines', ['appliedFilters', 'linesActionsResponse']),
+
+    isFileImportContextValid() {
+      if (this.fileImportAsInputContext) {
+        const customFieldTypeToggle = this.$loGet(
+          this.fileImportAsInputContext,
+          'customFieldTypeToggle'
+        );
+        const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
+        const selectedIdType = this.$loGet(this.fileImportAsInputContext, 'selectedIdType');
+
+        return !!customFieldTypeToggle && !!selectedFile && !!selectedIdType;
+      }
+      return false;
+    },
 
     canDisableSave() {
       if (this.useFileImportAsInput) {
@@ -145,7 +159,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.partner.id;
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields.map(c => {
+      this.allCustomFields = customFields.customFields.map((c) => {
         if (c.mandatory === 'NONE') {
           c.isOptional = true;
         } else {
@@ -158,20 +172,20 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find((c) => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find((c) => c.code === customField.code);
       if (enteredValue) {
         this.canSend = true;
       } else {
         this.canSend = false;
       }
       if (existingFieldValue) {
-        this.allFieldsValues = this.allFieldsValues.map(c => {
+        this.allFieldsValues = this.allFieldsValues.map((c) => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -202,8 +216,8 @@ export default {
       }
     },
     async normalValidation(contextValues) {
-      const getCustomFieldValue = code => {
-        const found = this.allFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.allFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -230,7 +244,7 @@ export default {
       );
     },
     async onValidate(contextValues) {
-      if (!this.fileImportAsInputContext) {
+      if (!this.isFileImportContextValid) {
         return this.normalValidation(contextValues);
       } else {
         return this.validateWithFile(contextValues);
@@ -242,8 +256,8 @@ export default {
       return response;
     },
     chekcForErrors() {
-      const getCustomFieldValue = code => {
-        const found = this.allFieldsValues.filter(c => c.code === code);
+      const getCustomFieldValue = (code) => {
+        const found = this.allFieldsValues.filter((c) => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -251,14 +265,14 @@ export default {
       };
 
       this.customFieldsErrors = this.allCustomFields
-        .filter(c => c.mandatory !== 'NONE')
-        .filter(c => {
+        .filter((c) => c.mandatory !== 'NONE')
+        .filter((c) => {
           const value = getCustomFieldValue(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map(c => c.code);
+        .map((c) => c.code);
     },
   },
 };
