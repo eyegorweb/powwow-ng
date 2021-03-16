@@ -79,13 +79,31 @@ async function doAndRetryHTTPQuery(callFn) {
 }
 
 export async function postFile(url, formData) {
+  const targetUrl = getBaseURL() + url;
+  if (isOnDebugMode()) {
+    let logStr = `
+    ** Envoi de fichier **
+    ${targetUrl}
+    `;
+    if (formData) {
+      const file = formData.get('file');
+      if(file) {
+        logStr += `
+    fichier: ${file.name}
+
+        `;
+      }
+    }
+    console.log(logStr);
+  }
+
   return doAndRetryHTTPQuery(async () => {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const response = await api.post(getBaseURL() + url, formData, config);
+    const response = await api.post(targetUrl, formData, config);
     return response.data;
   });
 }
