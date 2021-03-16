@@ -840,6 +840,7 @@ export default {
       });
     },
     async saveOptions() {
+      this.showPassword = false;
       const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
         ? parseInt(this.resilationSecurityDelay)
         : null;
