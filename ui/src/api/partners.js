@@ -61,7 +61,6 @@ export async function getPartyOptions(partyId) {
     wsNotificationParam {
       notificationOption
       login
-      password
       url
     }
     defaultWorkflowForActivation {
@@ -175,7 +174,6 @@ export async function fetchpartners(
         wsNotificationParam {
           notificationOption
           login
-          password
           url
         }
         ${extraFields.join(',')}
