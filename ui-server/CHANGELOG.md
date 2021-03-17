@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.234+20210317141518
+2021-03-17
+
+### Fixes
+
+- [2470] Ajout du toggle esim dans les options partenaires (4ecad2c1ac4305e42d8cd37fddc5e1867143914d)
+- [2485] traduction du message d'erreur lors du changement d'ICCID avec un fichier trop volumineux (8a6a1ae825b319fbec408d93597422169b9b9167)
+
 ## 1.17.0-master.233+20210317133606
 2021-03-17
 
