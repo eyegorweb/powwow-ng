@@ -45,6 +45,15 @@
             </div>
           </div>
         </div>
+        <div class="third-size to-center pb-3" v-if="partner.partyType === 'CUSTOMER'">
+          <UiToggle
+            :label="$t('getadmin.partners.optionsDetails.eSim')"
+            :editable="true"
+            :bold-label="eSim"
+            v-model="eSim"
+            small-label
+          />
+        </div>
 
         <div class="d-flex" v-if="partyType === 'CUSTOMER' && getToggle(services, 'BROADCAST_SMS')">
           <div class="third-size pr-4">
@@ -707,6 +716,7 @@ export default {
       this.checkToggle(this.services, 'SECU_RESIL', this.partnerOptions.resilationSecurityEnabled);
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
+      this.eSim = this.partnerOptions.esimEnable
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
@@ -841,6 +851,7 @@ export default {
     },
     async saveOptions() {
       this.showPassword = false;
+      const esimEnable = (this.partner.partyType == "CUSTOMER") ? this.eSim : null;
       const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
         ? parseInt(this.resilationSecurityDelay)
         : null;
@@ -863,6 +874,7 @@ export default {
           // euiccEnabled: this.getToggle(this.services, 'NOTIF_EUICC'),
           resilationSecurityEnabled: this.getToggle(this.services, 'SECU_RESIL'),
           resilationSecurityDelay,
+          esimEnable,
           resilationSecurityNotificationEnabled: this.resilationSecurityNotificationEnabled,
           resilationSecurityNotificationMails,
           otaSensitive: this.getToggle(this.services, 'COMPAT_OTA'),
@@ -1025,6 +1037,7 @@ export default {
       geolocViewCounter: undefined,
       resilationSecurityNotificationMails: undefined,
       errors: undefined,
+      eSim: undefined,
       resilationSecurityNotificationEnabled: undefined,
       orderPreactivationMandatory: undefined,
       coachM2MFleetpromotion: undefined,
