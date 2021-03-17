@@ -62,7 +62,11 @@
             </button>
           </div>
           <slot name="messages"></slot>
-          <div v-if="tempDataUuid && validationErrors && validationErrors.errors.length">
+          <div
+            v-if="
+              tempDataUuid && validationErrors && validationErrors.errors.length && !requestErrors
+            "
+          >
             <FormReport
               v-if="validationErrors"
               :data="validationErrors"
@@ -80,6 +84,41 @@
               <i v-if="validationErrors.validated" class="ic-Check-Icon" />
               {{ $t('confirm') }}
             </button>
+          </div>
+
+          <div
+            v-else-if="
+              !tempDataUuid && validationErrors && validationErrors.errors.length && !!requestErrors
+            "
+          >
+            <ul class="list-unstyled m-0">
+              <li class="item" v-for="e in validationErrors.errors" :key="e.key">
+                <div
+                  v-if="e.key === 400 && e.error === 'FILE_LINE_NUMBER_INVALID'"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{ $t('getparc.actCreation.report.FILE_LINE_NUMBER_INVALID') }}
+                </div>
+                <div
+                  v-else-if="e.key === 400 && e.error === 'FILE_MAX_LINE_NUMBER_INVALID'"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{
+                    $t('getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID', {
+                      count: e.data.maxNumbersPerFileUpload,
+                    })
+                  }}
+                </div>
+                <div v-else-if="e.key === 500" class="alert alert-warning" role="alert">
+                  {{ $t('getparc.actCreation.report.timeout') }}
+                </div>
+                <div v-else class="alert alert-danger" role="alert">
+                  {{ $t('getparc.actCreation.report.' + e.error) }}
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -122,6 +161,7 @@ export default {
       dateError: null,
       notificationCheck: false,
       tempDataUuid: undefined,
+      validationErrors: undefined,
     };
   },
 
@@ -141,6 +181,10 @@ export default {
     ...mapState('actLines', ['actCreationPrerequisites']),
     minDate() {
       return moment().format('DD/MM/YYYY HH:mm:ss');
+    },
+    requestErrors() {
+      if (!this.validationErrors) return false;
+      return this.validationErrors.errors.find(f => f.key === 400 || f.key === 500);
     },
   },
 
