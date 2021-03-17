@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.231+20210317083530
+2021-03-17
+
+### Fixes
+
+- [2506] suppression des demandes aux API du password (4db990e0d9dc0f812ad5d011a0cb5161eced9fbd)
+
 ## 1.17.0-master.230+20210316145649
 2021-03-16
 
