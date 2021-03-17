@@ -1634,7 +1634,8 @@
         "InvalidFileVersion": "Version du fichier invalide",
         "NotFoundException": "Introuvable",
         "InvalidFileSize": "Le fichier est trop volumineux",
-        "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet."
+        "timeout": "Le traitement est toujours en cours. Veuillez vérifier d'ici quelques minutes que l'import est complet.",
+        "unknown": "Erreur inconnue."
       },
 
       "transfertCF": {

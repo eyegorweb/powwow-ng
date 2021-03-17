@@ -43,12 +43,21 @@
       </Modal>
     </div>
     <div slot="messages" class="text-info">
-      <span>
+      <span v-if="(allFields && allFields.length) || isFileImportContextValid">
         <i class="ic-Alert-Icon" />
-        <template v-if="(allFields && allFields.length) || isFileImportContextValid">{{
-          $t('getparc.actCreation.editCustomFields.infoMessage')
-        }}</template>
-        <template v-else>{{ $t('getparc.actCreation.editCustomFields.noResult') }}</template>
+        {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
+      </span>
+      <ul
+        v-else-if="
+          (allFields && allFields.length) ||
+            (!isFileImportContextValid && this.requestErrors.length > 0)
+        "
+        class="list-unstyled m-0 alert alert-danger"
+      >
+        <li class="item" v-for="e in requestErrors" :key="e.key">{{ e.message }}</li>
+      </ul>
+      <span v-else
+        ><i class="ic-Alert-Icon" />{{ $t('getparc.actCreation.editCustomFields.noResult') }}
       </span>
     </div>
   </ActFormContainer>
@@ -62,6 +71,7 @@ import { fetchCustomFields } from '@/api/customFields';
 import { updateCustomFields, updateCustomAndSpecificFieldsByFile } from '@/api/actCreation';
 import Modal from '@/components/Modal';
 import { searchLineById, uploadSearchFile } from '@/api/linesActions';
+import * as fileUtils from '@/utils/file.js';
 
 export default {
   components: {
@@ -87,6 +97,7 @@ export default {
       waitForConfirmation: false,
       canSend: false,
       singleLineFound: undefined,
+      requestErrors: [],
     };
   },
   computed: {
@@ -102,7 +113,34 @@ export default {
         const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
         const selectedIdType = this.$loGet(this.fileImportAsInputContext, 'selectedIdType');
 
-        return !!customFieldTypeToggle && !!selectedFile && !!selectedIdType;
+        if (selectedFile && fileUtils.checkFormat(selectedFile)) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+            },
+          ];
+        } else if (selectedFile && fileUtils.checkFileSize(selectedFile)) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
+            },
+          ];
+        } else if (selectedFile && selectedFile.error) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.' + selectedFile.error),
+            },
+          ];
+        } else {
+          this.requestErrors = [];
+        }
+
+        return (
+          !!customFieldTypeToggle &&
+          !!selectedFile &&
+          !!selectedIdType &&
+          !this.requestErrors.length
+        );
       }
       return false;
     },
@@ -111,7 +149,9 @@ export default {
       if (this.useFileImportAsInput) {
         if (
           this.fileImportAsInputContext.selectedFile &&
-          this.fileImportAsInputContext.selectedIdType
+          this.fileImportAsInputContext.selectedIdType &&
+          this.fileImportAsInputContext.selectedIdType !== 'none' &&
+          !this.requestErrors.length
         ) {
           return false;
         }
@@ -159,7 +199,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.partner.id;
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields.map((c) => {
+      this.allCustomFields = customFields.customFields.map(c => {
         if (c.mandatory === 'NONE') {
           c.isOptional = true;
         } else {
@@ -172,20 +212,20 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.allFieldsValues.find((c) => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.allFieldsValues.find((c) => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
       if (enteredValue) {
         this.canSend = true;
       } else {
         this.canSend = false;
       }
       if (existingFieldValue) {
-        this.allFieldsValues = this.allFieldsValues.map((c) => {
+        this.allFieldsValues = this.allFieldsValues.map(c => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -200,24 +240,52 @@ export default {
       }
     },
     async validateWithFile(contextValues) {
+      let response;
       if (!contextValues.tempDataUuid) {
-        return await uploadSearchFile(
+        response = await uploadSearchFile(
           this.fileImportAsInputContext.selectedFile,
           this.fileImportAsInputContext.selectedIdType
         );
       } else {
-        const response = await updateCustomAndSpecificFieldsByFile(
+        response = await updateCustomAndSpecificFieldsByFile(
           contextValues.tempDataUuid,
           contextValues.actDate,
           this.partner.id,
           this.fileImportAsInputContext.customFieldTypeToggle
         );
-        return response;
       }
+
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
+            const count =
+              r.data && r.data.maxNumbersPerFileUpload ? r.data.maxNumbersPerFileUpload : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: this.$t('getparc.actCreation.report.' + r.key),
+              },
+            ];
+          }
+        });
+      }
+
+      return response;
     },
     async normalValidation(contextValues) {
-      const getCustomFieldValue = (code) => {
-        const found = this.allFieldsValues.filter((c) => c.code === code);
+      const getCustomFieldValue = code => {
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -256,8 +324,8 @@ export default {
       return response;
     },
     chekcForErrors() {
-      const getCustomFieldValue = (code) => {
-        const found = this.allFieldsValues.filter((c) => c.code === code);
+      const getCustomFieldValue = code => {
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -265,14 +333,14 @@ export default {
       };
 
       this.customFieldsErrors = this.allCustomFields
-        .filter((c) => c.mandatory !== 'NONE')
-        .filter((c) => {
+        .filter(c => c.mandatory !== 'NONE')
+        .filter(c => {
           const value = getCustomFieldValue(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map((c) => c.code);
+        .map(c => c.code);
     },
   },
 };

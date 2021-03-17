@@ -258,16 +258,11 @@ export default {
         this.actCode,
         this.actCreationPrerequisites.partner.id
       );
-      if (!response.error) {
-        this.tempDataUuid = response.tempDataUuid;
-        this.contextValues = contextValues;
-      } else {
-        if (response.error) {
-          if (response.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
             const count =
-              response.data && response.data.maxNumbersPerFileUpload
-                ? response.data.maxNumbersPerFileUpload
-                : '';
+              r.data && r.data.maxNumbersPerFileUpload ? r.data.maxNumbersPerFileUpload : '';
             const messageErrorMaxLine = this.$t(
               'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
               {
@@ -282,12 +277,16 @@ export default {
           } else {
             this.requestErrors = [
               {
-                message: response.error,
+                message: this.$t('getparc.actCreation.report.' + r.key),
               },
             ];
           }
-        }
+        });
+
         return { stayInForm: true };
+      } else {
+        this.tempDataUuid = response.tempDataUuid;
+        this.contextValues = contextValues;
       }
 
       this.report = response;
