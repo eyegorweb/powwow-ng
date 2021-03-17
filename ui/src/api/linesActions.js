@@ -632,13 +632,15 @@ export async function uploadSearchFile(file, idType, partyId) {
   } catch (e) {
     console.error(e);
     return {
-      errors: [{
-        key: e.status,
-        error: e.data && e.data.error ? e.data.error : 'unknown',
-        number: 0,
-        message: "Exception while uploading searchfile :" + e.statusText,
-        data: e.data
-      }]
+      errors: [
+        {
+          key: e.status,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while uploading searchfile :' + e.statusText,
+          data: e.data,
+        },
+      ],
     };
   }
 }
@@ -653,13 +655,15 @@ export async function uploadFileSimCards(file, orderId) {
   } catch (e) {
     console.error(e);
     return {
-      errors: [{
-        key: e.status,
-        error: e.data && e.data.error ? e.data.error : 'unknown',
-        number: 0,
-        message: "Exception while uploading file simcards :" + e.statusText,
-        data: e.data
-      }]
+      errors: [
+        {
+          key: e.status,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while uploading file simcards :' + e.statusText,
+          data: e.data,
+        },
+      ],
     };
   }
 }
@@ -673,20 +677,21 @@ export async function uploadFileSimCardsFromLines(file) {
   } catch (e) {
     console.error(e);
     return {
-      errors: [{
-        key: e.status,
-        error: e.data && e.data.error ? e.data.error : 'unknown',
-        number: 0,
-        message: "Exception while uploading simcards :" + e.statusText,
-        data: e.data
-      }]
+      errors: [
+        {
+          key: e.status,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while uploading simcards :' + e.statusText,
+          data: e.data,
+        },
+      ],
     };
   }
 }
 
 export async function importIccidsFromLines(partnerId, customerAccountId, simCardId, tempDataUuid) {
-  const queryStr =
-    `
+  const queryStr = `
     mutation {
       importSimcards(
         input: {
@@ -704,22 +709,22 @@ export async function importIccidsFromLines(partnerId, customerAccountId, simCar
         }
       }
     }
-    `
-  ;
-
+    `;
   try {
     const response = await query(queryStr);
     return response.data.importSimcards;
   } catch (e) {
     console.error(e);
     return {
-      errors: [{
-        key: e,
-        error: e.data && e.data.error ? e.data.error : 'unknown',
-        number: 0,
-        message: "Exception while importing simcards : Technical error " + e,
-        data: e.data
-      }]
+      errors: [
+        {
+          key: e,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while importing simcards : Technical error ' + e,
+          data: e.data,
+        },
+      ],
     };
   }
 }

@@ -31,7 +31,8 @@ linesCellTest
 linesCellTestSuccess
 deviceImei
 deviceReference
-deviceManufacturer`;
+deviceManufacturer
+updateDate`;
 
 export async function startAnalysis(accessPointId) {
   const queryStr = `

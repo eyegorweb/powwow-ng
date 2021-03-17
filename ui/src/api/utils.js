@@ -87,7 +87,7 @@ export async function postFile(url, formData) {
     `;
     if (formData) {
       const file = formData.get('file');
-      if(file) {
+      if (file) {
         logStr += `
     fichier: ${file.name}
 

@@ -159,7 +159,7 @@ export default {
     async fetchCustomFieldsForPartner() {
       const partnerId = this.partner.id;
       const customFields = await fetchCustomFields(partnerId);
-      this.allCustomFields = customFields.customFields.map((c) => {
+      this.allCustomFields = customFields.customFields.map(c => {
         if (c.mandatory === 'NONE') {
           c.isOptional = true;
         } else {
@@ -172,20 +172,20 @@ export default {
     },
 
     getSelectedValue(code) {
-      const existingFieldValue = this.allFieldsValues.find((c) => c.code === code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === code);
       if (existingFieldValue) {
         return existingFieldValue.enteredValue;
       }
     },
     onValueChanged(customField, enteredValue) {
-      const existingFieldValue = this.allFieldsValues.find((c) => c.code === customField.code);
+      const existingFieldValue = this.allFieldsValues.find(c => c.code === customField.code);
       if (enteredValue) {
         this.canSend = true;
       } else {
         this.canSend = false;
       }
       if (existingFieldValue) {
-        this.allFieldsValues = this.allFieldsValues.map((c) => {
+        this.allFieldsValues = this.allFieldsValues.map(c => {
           if (c.code === customField.code) {
             return {
               ...c,
@@ -216,8 +216,8 @@ export default {
       }
     },
     async normalValidation(contextValues) {
-      const getCustomFieldValue = (code) => {
-        const found = this.allFieldsValues.filter((c) => c.code === code);
+      const getCustomFieldValue = code => {
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -256,8 +256,8 @@ export default {
       return response;
     },
     chekcForErrors() {
-      const getCustomFieldValue = (code) => {
-        const found = this.allFieldsValues.filter((c) => c.code === code);
+      const getCustomFieldValue = code => {
+        const found = this.allFieldsValues.filter(c => c.code === code);
         if (found && found.length) {
           return found[0].enteredValue;
         }
@@ -265,14 +265,14 @@ export default {
       };
 
       this.customFieldsErrors = this.allCustomFields
-        .filter((c) => c.mandatory !== 'NONE')
-        .filter((c) => {
+        .filter(c => c.mandatory !== 'NONE')
+        .filter(c => {
           const value = getCustomFieldValue(c.code);
           if (!value || value.length === 0) {
             return true;
           }
         })
-        .map((c) => c.code);
+        .map(c => c.code);
     },
   },
 };
