@@ -33,7 +33,17 @@
             </div>
           </div>
         </div>
-
+        <div class="entries-line">
+          <div class="language">
+            <label>{{ $t('getadmin.users.language') }}</label>
+            <UiSelect
+              class="text-gray language"
+              block
+              v-model="form.language"
+              :options="languages"
+            />
+          </div>
+        </div>
         <div class="entries-line">
           <div class="form-entry">
             <FormControl label="common.firstName" v-model="form.firstName" />
@@ -121,9 +131,11 @@ import UiButton from '@/components/ui/Button';
 import FormControl from '@/components/ui/FormControl';
 import AdressComponent from '@/components/AdressComponent.vue';
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
+import UiSelect from '@/components/ui/UiSelect';
 
 import { fetchDeliveryCountries } from '@/api/filters';
 import { editAdministrator } from '@/api/partners.js';
+import { fetchAllLanguages } from '@/api/language.js';
 import { mapMutations } from 'vuex';
 
 import get from 'lodash.get';
@@ -135,6 +147,7 @@ export default {
     AdressComponent,
     FormControl,
     UiApiAutocomplete,
+    UiSelect,
   },
   props: {
     content: Object,
@@ -144,8 +157,10 @@ export default {
       company: undefined,
       creationDate: undefined,
       updateDate: undefined,
+      languages: undefined,
       form: {
         title: undefined,
+        language: undefined,
         firstName: undefined,
         lastName: undefined,
         zipCode: undefined,
@@ -193,7 +208,7 @@ export default {
         lastName: this.form.lastName,
         email: this.form.email,
         function: this.form.function,
-        language: { type: 'enum', value: 'fr' },
+        language: { type: 'enum', value: this.form.language },
         title: { type: 'enum', value: this.form.title },
         contactInformation: {
           email: this.form.email,
@@ -226,11 +241,18 @@ export default {
       value: c.code,
     }));
 
+    // récupération des langues
+    const fetchedLanguages = await fetchAllLanguages();
+
+    if (fetchedLanguages) {
+      this.languages = fetchedLanguages.map(l => ({ label: l.label, value: l.language }));
+    }
+
     if (this.content) {
       this.creationDate = get(this.content, 'auditable.created');
       this.updateDate = get(this.content, 'auditable.updated');
-
       this.form.title = get(this.content, 'name.title');
+      this.form.language = this.content.language;
       this.form.firstName = get(this.content, 'name.firstName');
       this.form.lastName = get(this.content, 'name.lastName');
       this.form.email = get(this.content, 'contactInformation.email');
