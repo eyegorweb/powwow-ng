@@ -329,6 +329,7 @@
   },
   "coach": {
     "title": "Coach",
+    "coachNotation": "Analyse DATA faite le {updateDate} sur le trafic du mois en cours",
     "reTest": "Relancer le test",
     "compare": "Comparer",
     "cancelTest": "Annuler le diagnostique comparé",

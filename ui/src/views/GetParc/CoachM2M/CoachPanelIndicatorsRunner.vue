@@ -6,6 +6,16 @@
       </div>
     </template>
     <template v-else>
+      <div v-if="coachData" :key="'coach_index' + version" class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">Indice de réussite</h5>
+
+          <StarsNotation :checked="successRating" />
+          <span>
+            {{ $t('coach.coachNotation', { updateDate: coachData.updateDate }) }}
+          </span>
+        </div>
+      </div>
       <div :key="'coach_item_std' + version" class="card">
         <div class="card-body">
           <h5 class="card-title">{{ $t('getparc.lineDetail.standardTest') }}</h5>
@@ -40,11 +50,13 @@
 import CoachPanelndicatorItem from './CoachPanelndicatorItem';
 import { startAnalysis } from '@/api/coach';
 import { mapGetters } from 'vuex';
+import StarsNotation from '@/components/StarsNotation.vue';
 
 export default {
   name: 'CoachpanelIndicators',
   components: {
     CoachPanelndicatorItem,
+    StarsNotation,
   },
   props: {
     apId: Number,
@@ -126,27 +138,32 @@ export default {
     }
     this.coachData = await startAnalysis(this.apId);
     this.$emit('coachData', this.coachData);
+    let successRating = 0;
     if (this.coachData) {
       this.standardsIndicators = this.standardsIndicators.map(i => {
         switch (i.title) {
           case 'coach.indicators.lineStatus': {
             i.subTitle = this.coachData.simcardTrafficAllowedTest;
             i.checked = this.coachData.simcardTrafficAllowedTestSuccess;
+            successRating += i.checked ? 1 : 0;
             break;
           }
           case 'coach.indicators.testData': {
             i.subTitle = this.coachData.dataTrafficAllowedTest;
             i.checked = this.coachData.dataTrafficAllowedTestSuccess;
+            successRating += i.checked ? 1 : 0;
             break;
           }
           case 'coach.indicators.networkTest': {
             i.subTitle = this.coachData.simcardAlreadyConnectedTest;
             i.checked = this.coachData.simcardAlreadyConnectedTestSuccess;
+            successRating += i.checked ? 1 : 0;
             break;
           }
           case 'coach.indicators.ipAssign': {
             i.subTitle = this.coachData.alreadyAssignedIPAdressTest;
             i.checked = this.coachData.alreadyAssignedIPAdressTestSuccess;
+            successRating += i.checked ? 1 : 0;
             break;
           }
           case 'coach.indicators.isPowered': {
@@ -162,6 +179,8 @@ export default {
         }
         return i;
       });
+
+      this.successRating = successRating;
 
       if (this.advancedIndicators) {
         this.advancedIndicators = this.advancedIndicators.map(i => {
@@ -204,6 +223,7 @@ export default {
     return {
       coachData: undefined,
       apiError: false,
+      successRating: 0,
       standardsIndicators: [
         {
           id: 'i_2',

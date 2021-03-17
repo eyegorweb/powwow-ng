@@ -573,13 +573,15 @@ export async function importIccids(orderId, tempDataUuid) {
   } catch (e) {
     console.error(e);
     return {
-      errors: [{
-        key: e,
-        error: e.data && e.data.error ? e.data.error : 'unknown',
-        number: 0,
-        message: "Exception while importing in the order simcards : Technical error " + e,
-        data: e.data
-      }]
+      errors: [
+        {
+          key: e,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while importing in the order simcards : Technical error ' + e,
+          data: e.data,
+        },
+      ],
     };
   }
 }

@@ -229,7 +229,9 @@ export default {
           pointFormatter() {
             return `
             <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-            <td style="padding:0"><b>${this.series.options.custom.isData ? convertValuesUsage(this.y, usage) : this.y + ' €'}</b></td></tr>
+            <td style="padding:0"><b>${
+              this.series.options.custom.isData ? convertValuesUsage(this.y, usage) : this.y + ' €'
+            }</b></td></tr>
             `;
           },
           footerFormat: '</table>',
