@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.233+20210317133606
+2021-03-17
+
+### Fixes
+
+- [1944] indice de fiabilité du coach M2M (ce74fc9b662ea70ff17fd692715311c44f5f65d6)
+
 ## 1.17.0-master.232+20210317101753
 2021-03-17
 
