@@ -710,6 +710,7 @@
         "unavailable": "MISISDN utilisés par des lignes activées, suspendues ou en portabilité"
       },
       "optionsDetails": {
+        "eSim": "Esim pour le partenaire",
         "smsCodes": "Codes courts SMS",
         "notifyEmail": "Notification par mail",
         "userReference": "Saisie de la référence client",
