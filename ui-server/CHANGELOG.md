@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.232+20210317101753
+2021-03-17
+
+### Fixes
+
+- [2500] Ajout de la langue dans le panel modification/ajout admin (21352b6c44e6d2483329f0cb0aa6f58bad357250)
+
 ## 1.17.0-master.231+20210317083530
 2021-03-17
 
