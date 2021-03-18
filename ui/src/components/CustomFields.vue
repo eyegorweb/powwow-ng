@@ -56,7 +56,7 @@
         <UiDate
           :direction="direction"
           @change="newVal => onValueChanged(item, newVal)"
-          :value="getSelectedValue(item.code)"
+          :value="getSelectedValue(item.code) || currentDate"
           class="d-block"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
           time-picker
@@ -73,6 +73,7 @@ import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 import UiDate from '@/components/ui/UiDate';
 import EditCustomField from '@/components/EditCustomField';
+import moment from 'moment';
 
 export default {
   props: {
@@ -99,7 +100,11 @@ export default {
   data() {
     return {
       editingList: false,
+      currentDate: undefined,
     };
+  },
+  mounted () {
+    this.currentDate = moment().format('DD/MM/YYYY hh:mm:ss');
   },
   methods: {
     onValueChanged(item, newVal) {
