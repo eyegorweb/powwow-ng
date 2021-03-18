@@ -2,6 +2,16 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.236+20210318152711
+2021-03-18
+
+### Fixes
+
+- [2505] Mise en place date par défaut dans la crea de CF (62668b99f180e0a38b149f3889024778b7c41241)
+- [2513] correction du format de la date pour la création d'une alarme (c8b531b4f8bb3fbb956f819c5388b4ea115ba3ca)
+- [2485] traduction du message d'erreur lors du changement d'ICCID avec un fichier trop volumineux (8eb47f659c180438d9a867ba69439edfffd54081)
+- [747] Vérifier correctement la présence du contexte "fichier" (3168ec6237c4130b17228111376c66f0cdd915fa)
+
 ## 1.17.0-master.235+20210318122206
 2021-03-18
 
