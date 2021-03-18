@@ -47,7 +47,7 @@ export default {
         [this.simcard.id],
         this.alarm.alarm.id,
         this.simcard.party.id,
-        formattedCurrentDate(),
+        formattedCurrentDate(true),
       ];
       if (this.alarm.isActive) {
         this.warningMsg = this.$t('getparc.actLines.alarmList.confirmationWarning');
