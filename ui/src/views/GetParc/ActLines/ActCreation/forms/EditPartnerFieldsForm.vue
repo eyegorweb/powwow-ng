@@ -43,14 +43,17 @@
       </Modal>
     </div>
     <div slot="messages" class="text-info">
-      <span v-if="(allFields && allFields.length) || isFileImportContextValid">
+      <span
+        v-if="
+          (allFields && allFields.length) || (isFileImportContextValid && !requestErrors.length)
+        "
+      >
         <i class="ic-Alert-Icon" />
         {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
       </span>
       <ul
         v-else-if="
-          (allFields && allFields.length) ||
-            (!isFileImportContextValid && this.requestErrors.length > 0)
+          (allFields && allFields.length) || (!isFileImportContextValid && requestErrors.length > 0)
         "
         class="list-unstyled m-0 alert alert-danger"
       >
@@ -112,28 +115,6 @@ export default {
         );
         const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
         const selectedIdType = this.$loGet(this.fileImportAsInputContext, 'selectedIdType');
-
-        if (selectedFile && fileUtils.checkFormat(selectedFile)) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
-            },
-          ];
-        } else if (selectedFile && fileUtils.checkFileSize(selectedFile)) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
-            },
-          ];
-        } else if (selectedFile && selectedFile.error) {
-          this.requestErrors = [
-            {
-              message: this.$t('getparc.actCreation.report.' + selectedFile.error),
-            },
-          ];
-        } else {
-          this.requestErrors = [];
-        }
 
         return (
           !!customFieldTypeToggle &&
@@ -255,32 +236,6 @@ export default {
         );
       }
 
-      if (response.errors && response.errors.length) {
-        response.errors.forEach(r => {
-          if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
-            const count =
-              r.data && r.data.maxNumbersPerFileUpload ? r.data.maxNumbersPerFileUpload : '';
-            const messageErrorMaxLine = this.$t(
-              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
-              {
-                count,
-              }
-            );
-            this.requestErrors = [
-              {
-                message: messageErrorMaxLine,
-              },
-            ];
-          } else {
-            this.requestErrors = [
-              {
-                message: this.$t('getparc.actCreation.report.' + r.key),
-              },
-            ];
-          }
-        });
-      }
-
       return response;
     },
     async normalValidation(contextValues) {
@@ -341,6 +296,39 @@ export default {
           }
         })
         .map(c => c.code);
+    },
+    checkForRequestErrors() {
+      if (this.fileImportAsInputContext) {
+        const selectedFile = this.$loGet(this.fileImportAsInputContext, 'selectedFile');
+        if (selectedFile && fileUtils.checkFormat(selectedFile)) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.DATA_INVALID_FORMAT'),
+            },
+          ];
+        } else if (selectedFile && fileUtils.checkFileSize(selectedFile)) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.FILE_SIZE_LIMIT_EXCEEDED'),
+            },
+          ];
+        } else if (selectedFile && selectedFile.error) {
+          this.requestErrors = [
+            {
+              message: this.$t('getparc.actCreation.report.' + selectedFile.error),
+            },
+          ];
+        } else {
+          this.requestErrors = [];
+        }
+        console.log('watching request errors', this.requestErrors);
+        return this.requestErrors;
+      }
+    },
+  },
+  watch: {
+    fileImportAsInputContext() {
+      this.checkForRequestErrors();
     },
   },
 };
