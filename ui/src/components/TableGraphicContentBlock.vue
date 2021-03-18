@@ -1,13 +1,8 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end align-items-center">
+    <div v-if="!hideToggles" class="d-flex justify-content-end align-items-center">
       {{ $t('display') }}:
-      <Toggle
-        v-if="toggleValues"
-        @update="updateContentType"
-        :values="toggleValues"
-        class="pl-2"
-      ></Toggle>
+      <Toggle v-if="toggleValues" @update="updateContentType" :values="toggleValues" class="pl-2" />
     </div>
     <div v-if="toggleValues">
       <slot v-if="contentType === 'graph'" name="graph">Graph</slot>
@@ -28,6 +23,7 @@ export default {
       type: String,
       default: 'table',
     },
+    hideToggles: Boolean,
   },
   mounted() {
     this.contentType = '' + this.starting;

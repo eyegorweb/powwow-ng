@@ -9,6 +9,7 @@
         <slot name="topRight" />
       </div>
     </div>
+    <slot name="afterTitle" />
     <div>
       <div class="bg-white p-4 rounded">
         <slot name="content" />

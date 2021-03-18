@@ -2,32 +2,7 @@
   <div>
     <draggable handle=".handle">
       <transition-group>
-        <ContentBlock :key="'block1'">
-          <template slot="title">{{
-            $t('getparc.lineDetail.tab2.supervisionContent.dataConsumptionPerDay')
-          }}</template>
-          <template v-if="canExportData" slot="topRight">
-            <ExportButton :export-fn="getDataExportFn()">
-              <span slot="title">{{
-                $t('getparc.lineDetail.tab2.supervisionContent.exportDataConsumption')
-              }}</span>
-            </ExportButton>
-          </template>
-          <template slot="content">
-            <TableGraphicContentBlock starting="graph">
-              <div class="mt-2" slot="graph">
-                <keep-alive>
-                  <DataGraph :sim-id="content.id" @haveContent="canExportData = false" />
-                </keep-alive>
-              </div>
-              <div slot="table" class="mt-3">
-                <keep-alive>
-                  <SimDataTable :simcard="content" @haveContent="canExportData = true" />
-                </keep-alive>
-              </div>
-            </TableGraphicContentBlock>
-          </template>
-        </ContentBlock>
+        <ConsoDataFlows :content="content" :key="'block1'" />
         <ContentBlock :key="'block0'">
           <template slot="title">{{
             $t('getparc.lineDetail.tab2.supervisionContent.sms')
@@ -89,15 +64,15 @@
 import ContentBlock from '@/views/GetParc/LineDetail/ContentBlock';
 import TableGraphicContentBlock from '@/components/TableGraphicContentBlock';
 import draggable from 'vuedraggable';
-import SimDataTable from './SimDataTable';
-import DataGraph from './DataGraph';
 import SMSGraph from './SMSGraph';
 import VoiceGraph from './VoiceGraph';
 import SMSTable from './SMSTable';
 import VoiceTable from './VoiceTable';
 import ExportButton from '@/components/ExportButton';
 
-import { exportSmsHistory, exportDataHistory, exportVoiceHistory } from '@/api/consumption';
+import ConsoDataFlows from './ConsoDataFlows';
+
+import { exportSmsHistory, exportVoiceHistory } from '@/api/consumption';
 
 export default {
   components: {
@@ -105,12 +80,12 @@ export default {
     draggable,
     ContentBlock,
     TableGraphicContentBlock,
-    SimDataTable,
-    DataGraph,
     SMSGraph,
     SMSTable,
     VoiceGraph,
     VoiceTable,
+
+    ConsoDataFlows,
   },
 
   props: {
@@ -119,18 +94,12 @@ export default {
 
   data() {
     return {
-      canExportData: false,
       canExportSMS: false,
       canExportVoice: false,
     };
   },
 
   methods: {
-    getDataExportFn() {
-      return async (columns, orderBy, exportFormat) => {
-        return await exportDataHistory(this.content.id, exportFormat);
-      };
-    },
     getSMSExportFn() {
       return async (columns, orderBy, exportFormat) => {
         return await exportSmsHistory(this.content.id, exportFormat);
@@ -145,7 +114,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tab-grow {
+  flex-grow: 1;
+}
+
+.tab-label {
+  &:not(.is-selected) {
+    background: $medium-gray;
+  }
+  margin-left: 1px;
+  margin-right: 1px;
+}
+</style>
 <style lang="scss">
 .graph-skeleton {
   height: 20rem;

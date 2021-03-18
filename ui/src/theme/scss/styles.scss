@@ -311,3 +311,7 @@ $theme-colors: map-merge(
   font-style: italic;
   padding-right: 5px;
 }
+
+.tab-grow {
+  flex-grow: 1;
+}

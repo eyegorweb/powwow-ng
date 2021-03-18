@@ -1,5 +1,22 @@
 import { query } from './utils';
 
+export async function splitDataConsumptionGraph(simCardInstanceId) {
+  const queryStr = `query{
+  splitDataConsumptionGraph(simCardInstanceId: ${simCardInstanceId}){
+    usageType
+    splitPDPConnectionHistories {
+      date
+      upload
+      download
+      pdpConnectionsNumber
+    }
+  }
+}`;
+
+  const response = await query(queryStr);
+  return response.data.splitDataConsumptionGraph;
+}
+
 export async function fetchSMSConsumption(simInstanceId) {
   const queryStr = `{
     smsConsumptionGraph(simCardInstanceId: ${simInstanceId}) {
