@@ -7,7 +7,7 @@
     </div>
     <div v-if="massActions && massActions.length">
       <div class="overview-item mr-5" v-for="i in massActions" :key="i.id">
-        <h6>Le : {{ i.dueDate }}</h6>
+        <h6>{{ $t('common.THE') }} : {{ i.dueDate }}</h6>
         <p>{{ $t('getparc.actTypes.' + i.actionType) }}</p>
         {{ i.info }}
       </div>

@@ -113,25 +113,19 @@ export default {
       selectedType: 'PARTY',
       types: [
         {
-          label: 'Partenaire',
+          label: this.$t('col.partner'),
           value: 'PARTY',
         },
         {
-          label: 'Ligne',
+          label: this.$t('col.line'),
           value: 'LINE',
         },
         {
-          label: 'Offre',
+          label: this.$t('col.offer'),
           value: 'OFFER',
         },
-        /*
         {
-          label: 'Offre / CF',
-          value: 'offercf',
-        },
-        //*/
-        {
-          label: 'Import',
+          label: this.$t('col.import'),
           value: 'fileimport',
         },
       ],

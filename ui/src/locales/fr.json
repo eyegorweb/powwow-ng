@@ -133,7 +133,8 @@
     "ONCE": "Une seule fois",
     "DAILY": "Journalier",
     "WEEKLY": "Hebdomadaire",
-    "MONTHLY": "Mensuel"
+    "MONTHLY": "Mensuel",
+    "CUSTOM": "Personnalisé"
   },
   "home": {
     "customize": {
@@ -312,7 +313,8 @@
     "simple": "Simple",
     "detailed": "Détaillé",
     "unit": "Unité",
-    "mass": "Masse"
+    "mass": "Masse",
+    "THE": "Le"
   },
   "bills": {
     "total": "{total} factures disponibles",
@@ -347,15 +349,14 @@
       "traceConso": "Traceur Conso",
       "networkTest": "La ligne s’est-elle déjà connectée ?",
       "ipAssign": "Une adresse IP a-t-elle été attribuée ?",
-
       "localityTest": "Détection des lignes dans la même localité :",
       "cellAnalysis": "Détection des lignes dans la même cellule :",
       "networkDetectionTest": "Date de Dernière détection de la ligne par le réseau :",
       "lastUsageAnalysis": "Dernier usage effectué :",
       "isPowered": "Le boîtier est-il alimenté ?",
       "isTraced": "La ligne a-t-elle été localisée ?",
-      "history": "Historique",
-      "linePing": "Pinger la ligne",
+      "History": "Historique",
+      "LinePing": "Pinger la ligne",
       "showSupervision": "Visualiser l'historique de supervision"
     }
   },
@@ -637,6 +638,9 @@
         "partner": "Partenaire",
         "group": "Compte groupe"
       },
+      "created": "Créé le",
+      "establishment": "Etablissement",
+      "lastModification": "Dernière modification le",
       "language": "Langue",
       "searchUser": "Rechercher un utilisateur",
       "simcards": "Cartes SIM",
@@ -888,7 +892,8 @@
       },
       "changePassword": {
         "title": "Modifier le mot de passe",
-        "warning": "Les modifications seront perdues, voulez-vous continuer ?"
+        "warning": "Les modifications seront perdues, voulez-vous continuer ?",
+        "notification": "Notification des demandes de résiliation"
       }
     }
   },
@@ -1040,7 +1045,8 @@
         "amountTestConso": "Montant des conso tests",
         "totalAmount": "Montant total",
         "lines": "Lignes",
-        "nbOfLines": "Ligne(s)"
+        "nbOfLines": "Ligne(s)",
+        "enteredThresholds": "Seuils saisis"
       }
     }
   },
@@ -1443,6 +1449,7 @@
         "analyzeLocation": "Analyser la localisation",
         "analyzeCell": "Analyser la cellule",
         "controlRequestsTitle": "Historique des demandes de contrôle de consommation",
+        "addRequest": "Ajouter une nouvelle demande",
         "newDemand": "Faire une nouvelle demande",
         "statuses": {
           "RUNNING": "En cours",
@@ -1910,7 +1917,9 @@
       "FAILED": "Commande en erreur",
       "TERMINATED": "Terminée",
       "CANCELED": "Annulée"
-    }
+    },
+    "import": "Import",
+    "line": "Ligne"
   },
   "indicators": {
     "getsim": {

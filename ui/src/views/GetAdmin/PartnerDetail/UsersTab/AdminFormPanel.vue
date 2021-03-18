@@ -3,15 +3,15 @@
     <div class="m-3">
       <div v-if="creationDate" class="labels-container mb-4">
         <div class="overview-item">
-          <h6>Créé le :</h6>
+          <h6>{{ $t('getadmin.users.created') }} :</h6>
           <p>{{ creationDate }}</p>
         </div>
         <div class="overview-item">
-          <h6>Dernière modification le :</h6>
+          <h6>{{ $t('getadmin.users.lastModification') }} :</h6>
           <p>{{ updateDate }}</p>
         </div>
         <div v-if="company" class="overview-item">
-          <h6>établissement :</h6>
+          <h6>{{ $t('getadmin.users.establishment') }} :</h6>
           <p>{{ company }}</p>
         </div>
       </div>

@@ -471,7 +471,7 @@ export default {
         const models = await reportModels(this.selectedPartner.id);
 
         this.reportModels = [
-          { label: 'Customisé', value: 'NONE', data: { fields: [] } },
+          { label: 'Custom', value: 'NONE', data: { fields: [] } },
           ...models.map(m => ({ label: m.modelType, value: m.modelType, data: m })),
         ];
         this.reportModel = 'NONE';

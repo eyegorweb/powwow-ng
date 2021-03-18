@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-md-12">
           <button @click="openNewDemandModal" class="btn btn-xs float-right btn-primary">
-            Ajouter une nouvelle demande
+            {{ $t('getparc.lineDetail.tab3.addRequest') }}
           </button>
         </div>
       </div>
