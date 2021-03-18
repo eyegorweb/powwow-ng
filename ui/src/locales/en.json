@@ -107,7 +107,8 @@
     "ONCE": "Only once",
     "DAILY": "Daily",
     "WEEKLY": "Weekly",
-    "MONTHLY": "Monthly"
+    "MONTHLY": "Monthly",
+    "CUSTOM": "Custom"
   },
   "home": {
     "customize": { "title": "Add/Delete widgets" },
@@ -271,7 +272,8 @@
     "simple": "Simple",
     "detailed": "Detailed",
     "unit": "Unit",
-    "mass": "Masse",
+    "mass": "Mass",
+    "THE": "The",
     "delivery": "Delivery"
   },
   "bills": {
@@ -309,7 +311,10 @@
       "networkDetectionTest": "Date of the last detection of the line by the network:",
       "lastUsageAnalysis": "Last used:",
       "isPowered": "Is the box powered?",
-      "isTraced": "Has the line been located?"
+      "isTraced": "Has the line been located?",
+      "History": "History",
+      "LinePing": "Ping the line",
+      "showSupervision": "Visualiser l'historique de supervision"
     }
   },
   "getsim": {
@@ -509,6 +514,7 @@
       "configureForUsage": "Configure for this use",
       "addLimit": "Add a threshold",
       "beforeEndOfMonth": "Before the end of the month",
+      "thresholdIsOver": "Threshold exceeds",
       "dataIsOver": "The data exceeds",
       "smsIsOver": "Number of SMS exceeds",
       "voiceIsOver": "Nb of minutes exceeds",
@@ -554,8 +560,26 @@
     "supervisionMarker": "{count} {type} line(s)"
   },
   "getadmin": {
+    "cf": {
+      "name": "Billing accounts",
+      "marketLine": "Market line",
+      "code": "Billing account number",
+      "label": "Establishment label",
+      "search": "Search by billing account number",
+      "total": "{total} billing account(s) found",
+      "created": "Creation date",
+      "status": "Status",
+      "filters": {
+        "siren": "Siren",
+        "siret": "Siret"
+      }
+    },
     "users": {
       "userTypes": { "bouygues": "Intern", "partner": "Partner", "group": "Group account" },
+      "language": "Language",
+      "created": "Created the",
+      "establishment": "Establishment",
+      "lastModification": "Last modification",
       "searchUser": "Search a user",
       "simcards": "SIM Cards",
       "supervision": "Supervision options",
@@ -703,6 +727,7 @@
       "bscs": "BSCS root account:",
       "label": "Label :",
       "company": "Society :",
+      "actBlock": "Blocking of management acts",
       "contractReference": "Reference of the framework contract:",
       "contractDate": "Date of contract :",
       "contractExpiration": "End of contrat :",
@@ -748,7 +773,8 @@
       "userForm": { "title": "Add user", "modify-title": "Editing a user" },
       "changePassword": {
         "title": "Change the password",
-        "warning": "The changes will be lost, do you want to continue?"
+        "warning": "The changes will be lost, do you want to continue?",
+        "notification": "Terminations request notification"
       },
       "mb": {
         "title": "{total} customer (s) (C.F.) found",
@@ -760,7 +786,7 @@
         "code": "Billing account number",
         "name": "Name of the establishment",
         "marketLine": "Market line",
-        "siret": "N ° siret",
+        "siret": "N° siret",
         "status": "Status",
         "commercialOffer": "Commercial offers",
         "details": "Details",
@@ -821,7 +847,7 @@
         "dualSimInfos": "Dual SIM information",
         "commercialInfos": "Commercial information",
         "orderInfos": "Order information",
-        "consumption": "Consumption",
+        "consommation": "Consumption",
         "lastUsageInfos": "Last used information",
         "checkboxes": {
           "deviceInfo": "Hardware and manufacturer",
@@ -937,7 +963,8 @@
         "amountTestConso": "Amount of consumption tests",
         "totalAmount": "Total amount",
         "billedLines": "Number of lines invoiced",
-        "lines": "Lines"
+        "lines": "Lines",
+        "enteredThresholds": "Entered thresholds"
       }
     }
   },
@@ -1294,6 +1321,7 @@
         "analyzeLocation": "Analyze the location",
         "analyzeCell": "Analyze the cell",
         "controlRequestsTitle": "History of consumption control requests",
+        "addRequest": "Add a new request",
         "newDemand": "Make a new request",
         "statuses": {
           "RUNNING": "In progress",
@@ -1747,7 +1775,9 @@
     },
     "manufacturerIMEI": "Manufacturer (IMEI)",
     "frequency": "Frequency",
-    "lastCountry": "Last country (old PLMN)"
+    "lastCountry": "Last country (old PLMN)",
+    "import": "Import",
+    "line": "Line"
   },
   "indicators": {
     "getsim": {
@@ -1870,6 +1900,7 @@
     "choose-custom-field": "Fill in the free fields",
     "add-custom-field-value": "Add a value",
     "add-custom-field-action": "Add a {label} field",
+    "update-custom-field-action": "Update",
     "add-custom-field-to-list": "Add a free field to the list",
     "modify-custom-field-action": "Modify a {label} field",
     "required-custom-field": "This new free field will be available for all lines in the fleet",

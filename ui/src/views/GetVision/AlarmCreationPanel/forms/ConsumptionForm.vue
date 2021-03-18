@@ -204,20 +204,20 @@ export default {
       toggleValues: [
         {
           id: 'DAILY',
-          label: 'Journalier',
+          label: 'frequencies.DAILY',
         },
         {
           id: 'WEEKLY',
-          label: 'Hebdomadaire',
+          label: 'frequencies.WEEKLY',
         },
         {
           id: 'MONTHLY',
-          label: 'Mensuel',
+          label: 'frequencies.MONTHLY',
           default: true,
         },
         {
           id: 'CUSTOM',
-          label: 'Personalisé',
+          label: 'frequencies.CUSTOM',
         },
       ],
       inputStyle: {

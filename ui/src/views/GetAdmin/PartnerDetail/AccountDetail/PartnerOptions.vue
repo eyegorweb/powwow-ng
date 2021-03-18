@@ -19,7 +19,7 @@
           </div>
           <div class="third-size to-center pb-3">
             <UiToggle
-              label="Notification des demandes de résiliation"
+              :label="$t('getadmin.partnerDetail.changePassword.notification')"
               :editable="true"
               :bold-label="resilationSecurityNotificationEnabled"
               v-model="resilationSecurityNotificationEnabled"
@@ -339,7 +339,7 @@
           <div class="third-size pr-4">
             <div class="form-group">
               <UiToggle
-                label="Modifier le mot de passe"
+                :label="$t('getadmin.partnerDetail.changePassword.title')"
                 :editable="true"
                 :bold-label="showPassword"
                 v-model="showPassword"
@@ -716,7 +716,7 @@ export default {
       this.checkToggle(this.services, 'SECU_RESIL', this.partnerOptions.resilationSecurityEnabled);
       this.diffusionListEnabled = this.partnerOptions.diffusionListEnabled;
       this.resilationSecurityNotificationMails = this.partnerOptions.resilationSecurityNotificationMails;
-      this.eSim = this.partnerOptions.esimEnable
+      this.eSim = this.partnerOptions.esimEnable;
       this.mailOrder = this.partnerOptions.mailOrder;
       this.crEmail = this.partnerOptions.crEmail;
       this.portabilityAcquittalsEmails = this.partnerOptions.portabilityAcquittalsEmails;
@@ -851,7 +851,7 @@ export default {
     },
     async saveOptions() {
       this.showPassword = false;
-      const esimEnable = (this.partner.partyType == "CUSTOMER") ? this.eSim : null;
+      const esimEnable = this.partner.partyType == 'CUSTOMER' ? this.eSim : null;
       const resilationSecurityDelay = this.getToggle(this.services, 'SECU_RESIL')
         ? parseInt(this.resilationSecurityDelay)
         : null;

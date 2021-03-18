@@ -82,7 +82,7 @@ export default {
 
         this.chartInstance.series[1].update({
           type: 'scatter',
-          name: 'Seuils saisis',
+          name: this.$t('getreport.dashboard.legends.enteredThresholds'),
           data: limits,
           color: '#c8007b',
           marker: {
@@ -186,7 +186,7 @@ export default {
           },
           {
             type: 'scatter',
-            name: 'Seuils saisis',
+            name: this.$t('getreport.dashboard.legends.enteredThresholds'),
             data: limits,
             color: '#c8007b',
             marker: {
