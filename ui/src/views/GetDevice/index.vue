@@ -625,9 +625,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tab-grow {
-  flex-grow: 1;
-}
 a {
   text-transform: uppercase;
 }
