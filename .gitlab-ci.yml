@@ -261,7 +261,7 @@ e2e_integration:
       - .cache/Cypress
   script:
     - cd ui
-    - yarn install
+    - yarn install --frozen-lockfile
     - yarn e2e
     - cd ../
   artifacts:
