@@ -24,6 +24,7 @@ export async function getPartyOptions(partyId) {
     portabilityAcquittalsEmails
     dailyCdrEmails
     otaSensitive
+    esimEnable
     smsAuthorized
     shortCodes
     mailOrder
