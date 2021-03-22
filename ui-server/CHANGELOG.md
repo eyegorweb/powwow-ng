@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.241+20210322133903
+2021-03-22
+
+### Fixes
+
+- [000] Stabiliser des tests (3b6a1758fbf0acc3640b4dfc23a8d4d8079913b8)
+
 ## 1.17.0-master.240+20210322132517
 2021-03-22
 
