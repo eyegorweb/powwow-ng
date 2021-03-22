@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.244+20210322164543
+2021-03-22
+
+### Features
+
+- [000] Corriger le style des onglets (2dd6e6b0652335a73b7da30afe81072dce00599f)
+
 ## 1.17.0-master.243+20210322161140
 2021-03-22
 
