@@ -74,7 +74,7 @@ export default {
       canSend: false,
       addSpecificField: false,
       panel: 'admin',
-      label: 'spécifique',
+      label: this.$t('specific'),
       direction: 'down',
     };
   },

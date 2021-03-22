@@ -117,6 +117,7 @@
   "population": "Population",
   "card": "Carte",
   "days": "Jours",
+  "specific": "spécifque",
   "map": {
     "world": "Monde",
     "countryFR": "France"
@@ -355,8 +356,8 @@
       "lastUsageAnalysis": "Dernier usage effectué :",
       "isPowered": "Le boîtier est-il alimenté ?",
       "isTraced": "La ligne a-t-elle été localisée ?",
-      "History": "Historique",
-      "LinePing": "Pinger la ligne",
+      "history": "Historique",
+      "linePing": "Pinger la ligne",
       "showSupervision": "Visualiser l'historique de supervision"
     }
   },

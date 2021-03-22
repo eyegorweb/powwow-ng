@@ -312,8 +312,8 @@
       "lastUsageAnalysis": "Last used:",
       "isPowered": "Is the box powered?",
       "isTraced": "Has the line been located?",
-      "History": "History",
-      "LinePing": "Ping the line",
+      "history": "History",
+      "linePing": "Ping the line",
       "showSupervision": "Visualiser l'historique de supervision"
     }
   },
@@ -2032,5 +2032,6 @@
   "population": "Population",
   "card": "Card",
   "days": "Days",
+  "specific": "specific",
   "map": { "world": "World", "countryFR": "France" }
 }
