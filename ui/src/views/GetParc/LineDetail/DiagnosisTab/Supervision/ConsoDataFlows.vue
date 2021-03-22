@@ -115,14 +115,14 @@ export default {
           title: 'Classique',
           default: true,
         },
-        {
-          label: 'detailed',
-          title: 'Détaillé',
-        },
       ];
 
-      if (this.dataUsageStreams) {
-        this.dataUsageStreams.forEach(d => {
+      if (this.dataUsageStreams && this.dataUsageStreams.length) {
+        flowTypes.push({
+          label: 'detailed',
+          title: 'Détaillé',
+        });
+        this.dataUsageStreams.forEach((d) => {
           flowTypes.push({
             label: d.usageType,
             title: d.usageType,
