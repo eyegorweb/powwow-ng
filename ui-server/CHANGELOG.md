@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.242+20210322150606
+2021-03-22
+
+### Fixes
+
+- [2470] Correction appel API esim partneroptions (21d0913ca0f120b6f83e332f75f33ff8618b99ba)
+
 ## 1.17.0-master.241+20210322133903
 2021-03-22
 
