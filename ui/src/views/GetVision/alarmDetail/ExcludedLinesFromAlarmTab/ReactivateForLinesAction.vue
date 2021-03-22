@@ -35,7 +35,7 @@ export default {
       const alarmInput = {
         alarmId: this.alarm.id,
         partyId: this.$loGet(this.alarm, 'party.id'),
-        dueDate: formattedCurrentDate(),
+        dueDate: formattedCurrentDate(true),
         notification: false,
         adminSkipGDM: false,
       };
