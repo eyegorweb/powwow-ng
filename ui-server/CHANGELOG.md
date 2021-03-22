@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.243+20210322161140
+2021-03-22
+
+### Fixes
+
+- [2495] ne pas afficher d'onglets si l'api splitDataConsumptionGraph ne renvoie aucune information (fc47a37a157d5849ea021d61058289e94c33860b)
+
 ## 1.17.0-master.242+20210322150606
 2021-03-22
 
