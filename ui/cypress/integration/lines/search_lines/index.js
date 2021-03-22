@@ -1,8 +1,10 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import linesPage from '../../../pageObjects/linesPage';
 import lineDetailPage from '../../../pageObjects/lineDetailPage';
+import get from 'lodash.get';
 
 Given(`je suis sur la page recherche de lignes`, () => {
+  cy.resetGQLCache();
   linesPage.init();
   cy.wait(400);
 });
@@ -75,19 +77,17 @@ When(`je lance la recherche`, () => {
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {
-  linesPage.getTotal(total => {
-    expect(total).to.equal(nbrResult);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
+      expect(get(response, 'body.data.simCardInstances.total')).to.be.equal(nbrResult);
+    });
   });
 });
 
 Then(`la table contient plus de {int} resultat`, nbrResult => {
-  linesPage.getTotal(total => {
-    expect(total).to.be.above(nbrResult);
-  });
-});
-
-Then(`la table contient moins de {int} resultat`, nbrResult => {
-  linesPage.getTotal(total => {
-    expect(total).to.be.below(nbrResult);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
+      expect(get(response, 'body.data.simCardInstances.total')).to.be.above(nbrResult);
+    });
   });
 });
