@@ -114,19 +114,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.tab-grow {
-  flex-grow: 1;
-}
 
-.tab-label {
-  &:not(.is-selected) {
-    background: $medium-gray;
-  }
-  margin-left: 1px;
-  margin-right: 1px;
-}
-</style>
 <style lang="scss">
 .graph-skeleton {
   height: 20rem;
