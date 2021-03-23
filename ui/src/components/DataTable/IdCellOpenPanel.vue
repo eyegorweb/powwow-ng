@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0 user-select-text" @click.stop="openDetailPanel">
+  <button class="btn btn-link p-0 user-select-text id-cell" @click.stop="openDetailPanel">
     <slot>
       {{ row.id }}
     </slot>
@@ -41,7 +41,7 @@ export default {
     },
   },
   computed: mapState({
-    isOpen: state => state.ui.isPanelOpen,
+    isOpen: (state) => state.ui.isPanelOpen,
   }),
 };
 </script>

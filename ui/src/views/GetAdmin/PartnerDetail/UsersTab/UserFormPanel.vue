@@ -294,7 +294,7 @@ export default {
     },
 
     async save() {
-      let lang = this.fetchLanguages.find(e => e.label === this.form.language);
+      let lang = this.fetchLanguages.find((e) => e.label === this.form.language);
 
       const params = {
         title: this.form.title,
@@ -363,7 +363,7 @@ export default {
 
     formattedRoles(roles) {
       if (!roles) return [];
-      return roles.map(r => ({
+      return roles.map((r) => ({
         code: r.Id,
         label: r.description,
         data: r,
@@ -434,7 +434,7 @@ export default {
       if (this.formDataBeforeChange) {
         const fieldsToCheck = ['title', 'firstName', 'lastName', 'email', 'username'];
         const changedFields = fieldsToCheck.filter(
-          field => this.form[field] !== this.formDataBeforeChange[field]
+          (field) => this.form[field] !== this.formDataBeforeChange[field]
         );
         return !!changedFields.length;
       }
@@ -449,7 +449,7 @@ export default {
         fieldsToCheck.push('password', 'passwordConfirm');
       }
 
-      const missingFields = fieldsToCheck.filter(field => !this.form[field]);
+      const missingFields = fieldsToCheck.filter((field) => !this.form[field]);
 
       const roleError = this.roles.length > 0 ? !this.roles.length : false;
 
@@ -507,7 +507,7 @@ export default {
     let langArray = [];
     this.fetchLanguages = await fetchAllLanguages();
 
-    this.fetchLanguages.forEach(e => {
+    this.fetchLanguages.forEach((e) => {
       langArray.push(e.label);
     });
 
@@ -556,7 +556,7 @@ export default {
       if (this.userType === 'OPERATOR') {
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, null);
         this.roles = this.formattedRoles(roles);
-        this.selectedRoles = this.roles.filter(r => r.data.activated);
+        this.selectedRoles = this.roles.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER') {
         roles = await fetchAllowedRoles(
           this.content.duplicateFrom.id,
@@ -564,10 +564,10 @@ export default {
           null
         );
         this.roles = this.formattedRoles(roles);
-        this.selectedRoles = this.roles.filter(r => r.data.activated);
+        this.selectedRoles = this.roles.filter((r) => r.data.activated);
       } else if (this.userType === 'PARTNER_GROUP') {
         const groupPartnersResponse = await fetchPartnerGroups();
-        this.groupPartners = groupPartnersResponse.map(p => {
+        this.groupPartners = groupPartnersResponse.map((p) => {
           return {
             id: p.id,
             label: p.name,
@@ -580,7 +580,7 @@ export default {
 
         roles = await fetchAllowedRoles(this.content.duplicateFrom.id, null, groupPartnerId);
         this.roles = this.formattedRoles(roles);
-        this.selectedRoles = this.roles.filter(r => r.data.activated);
+        this.selectedRoles = this.roles.filter((r) => r.data.activated);
       }
 
       // Pré-remplissage formulaire
@@ -592,10 +592,10 @@ export default {
 
       this.form.username = this.content.duplicateFrom.username;
       this.form.email = this.content.duplicateFrom.email;
-      let lang = this.fetchLanguages.find(e => e.name === this.form.language);
+      let lang = this.fetchLanguages.find((e) => e.name === this.form.language);
       this.form.language = lang.label;
 
-      this.userTypes = this.userTypes.map(u => {
+      this.userTypes = this.userTypes.map((u) => {
         if (u.id === userType) {
           u.default = true;
         }
@@ -642,7 +642,7 @@ export default {
       } else if (value === 'PARTNER_GROUP') {
         this.selectedPartner = undefined;
         const groupPartnersResponse = await fetchPartnerGroups();
-        this.groupPartners = groupPartnersResponse.map(p => {
+        this.groupPartners = groupPartnersResponse.map((p) => {
           return {
             id: p.id,
             label: p.name,

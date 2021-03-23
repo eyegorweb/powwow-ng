@@ -43,6 +43,7 @@ export default {
       cy.waitGet('.search-id-button').click({ force: true });
     },
   },
+  exportFile: layout.exportFile,
   getTotal(onTotalLoaded) {
     return cy.waitGet('.total').then(e => {
       const parts = e

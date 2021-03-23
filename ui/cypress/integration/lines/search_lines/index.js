@@ -70,6 +70,9 @@ Given(`je choisis le filtre id {string}`, offer => {
   linesPage.filterBar.id.toggle();
   linesPage.filterBar.id.filter(offer);
 });
+Given(`j'affiche toutes les lignes`, () => {
+  linesPage.showAllLines();
+});
 
 When(`je lance la recherche`, () => {
   linesPage.filterBar.apply();
@@ -88,6 +91,22 @@ Then(`la table contient plus de {int} resultat`, nbrResult => {
   cy.wrap(null).then(() => {
     return cy.waitUntiGQLIsSent('simCardInstances').then(({ response }) => {
       expect(get(response, 'body.data.simCardInstances.total')).to.be.above(nbrResult);
+    });
+  });
+});
+
+When(`je lance un Export {string}`, exportType => {
+  linesPage.exportFile.openChoice();
+  linesPage.chooseExportType(exportType);
+  linesPage.exportFile.chooseFormat('csv');
+});
+
+Then(`le fichier est bien téléchargé`, () => {
+  cy.wait(500);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('exportSimCardInstances').then(http => {
+      const downloadUri = get(http.response, 'body.data.exportSimCardInstances.downloadUri');
+      expect(downloadUri).to.not.be.undefined;
     });
   });
 });

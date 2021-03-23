@@ -14,8 +14,19 @@ export default {
   init() {
     layout.menu.lines();
   },
+  exportFile: layout.exportFile,
+
+  chooseExportType(exportType) {
+    cy.get('.exportTypes button').each($el => {
+      if ($el.text().trim() === exportType) {
+        cy.wrap($el).click();
+      }
+    });
+  },
+
   showAllLines() {
-    cy.waitGet('.show-all-lines').click({ force: true })
+    cy.waitGet('.show-all-lines')
+      .click({ force: true })
       .wait(200);
   },
 

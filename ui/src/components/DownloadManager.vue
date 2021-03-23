@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     ...mapState({
-      downloadURI: state => state.ui.downloadURI,
+      downloadURI: (state) => state.ui.downloadURI,
     }),
     ...mapGetters(['accessToken']),
   },
@@ -33,6 +33,12 @@ export default {
       this.startDownload(null);
     },
     async doDownload() {
+      /** Ne pas déclencher le téléchargement durant les tests cypress  */
+      if (window && window.Cypress) {
+        this.getReadyForNextDownload();
+        return;
+      }
+
       await delay(0);
       this.$refs.download_form.submit();
       await delay(200);

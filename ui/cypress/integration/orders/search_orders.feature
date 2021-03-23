@@ -43,3 +43,9 @@ Feature: Recherche de commandes
     And je suis sur la page recherche de commandes
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
+
+  Scenario: Export des commandes
+    Given en tant que BO
+    And je suis sur la page recherche de commandes
+    When je lance un Export
+    Then le fichier est bien téléchargé
