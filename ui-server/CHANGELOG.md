@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.245+20210323161957
+2021-03-23
+
+### Features
+
+- [2472] tests cypress pour les exports (5be6723dca45832addb7e2817f48d86a4a61388e)
+
 ## 1.17.0-master.244+20210322164543
 2021-03-22
 
