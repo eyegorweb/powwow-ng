@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 import orderPage from '../../../pageObjects/orderPage';
+import get from 'lodash.get';
 
 Given(`je suis sur la page recherche de commandes`, () => {
   cy.resetGQLCache();
@@ -38,6 +39,11 @@ Given(`je choisis le filtre compte de facturation {string}`, billingAccount => {
   orderPage.filterBar.billingAccount.choose(1);
 });
 
+When(`je lance un Export`, () => {
+  orderPage.exportFile.openChoice();
+  orderPage.exportFile.chooseFormat('csv');
+});
+
 When(`je lance la recherche`, () => {
   orderPage.filterBar.apply();
   cy.wrap(null).then(() => {
@@ -48,9 +54,17 @@ When(`je lance la recherche`, () => {
 When(`je lance la recherche par ID {string}`, id => {
   orderPage.idSearch.typeId(id);
   orderPage.idSearch.applySearch();
-  //cy.wait(100);
   cy.wrap(null).then(() => {
     return cy.waitUntiGQLIsSent('orders').then(() => {});
+  });
+});
+
+Then(`le fichier est bien téléchargé`, () => {
+  cy.wrap(null).then(() => {
+    return cy.waitForGQL('ordersExport').then(response => {
+      const downloadUri = get(response, 'body.data.ordersExport.downloadUri');
+      expect(downloadUri).to.not.be.undefined;
+    });
   });
 });
 

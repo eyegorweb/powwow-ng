@@ -1,6 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import massActionsPage from '../../../pageObjects/massActionsPage';
 import moment from 'moment';
+import get from 'lodash.get';
 
 Given(`je suis sur l'historique des actes de gestion`, () => {
   massActionsPage.init();
@@ -47,6 +48,28 @@ When(`je lance la recherche par ID {string}`, id => {
   massActionsPage.idSearch.typeId(id);
   massActionsPage.idSearch.applySearch();
   cy.wait(500);
+});
+
+When(`je lance un Export Classique`, () => {
+  massActionsPage.exportFile.openChoice();
+  massActionsPage.exportFile.chooseFormat('csv');
+});
+
+When(`je lance un Export Complet`, () => {
+  massActionsPage.exportFile.openChoice();
+  massActionsPage.setCompleteExport();
+  massActionsPage.exportFile.chooseFormat('csv');
+  massActionsPage.exportFile.confirmExport();
+});
+
+Then(`le fichier est bien téléchargé`, () => {
+  cy.wait(500);
+  cy.wrap(null).then(() => {
+    return cy.waitUntiGQLIsSent('massActionExport').then(http => {
+      const downloadUri = get(http.response, 'body.data.massActionExport.downloadUri');
+      expect(downloadUri).to.not.be.undefined;
+    });
+  });
 });
 
 Then(`la table contient {int} resultat`, nbrResult => {

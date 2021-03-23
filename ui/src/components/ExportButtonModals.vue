@@ -26,7 +26,7 @@
         <div class="row">
           <div class="col text-center">
             <button
-              class="btn btn-link export-button"
+              class="btn btn-link export-button export-csv-format"
               @click.stop="exportFile('CSV')"
               :disabled="isLoading"
             >
@@ -36,7 +36,7 @@
           </div>
           <div class="col text-center">
             <button
-              class="btn btn-link export-button"
+              class="btn btn-link export-button export-excel-format"
               @click.stop="exportFile('EXCEL')"
               :disabled="isLoading"
             >
@@ -103,8 +103,8 @@ export default {
     ...mapGetters(['userIsBO', 'userIsPartner', 'userIsGroupPartner', 'userIsOperator']),
     ...mapGetters(['userIsMVNO']),
     ...mapState({
-      isExportFormatChoiceOpen: state => state.ui.isExportFormatChoiceOpen,
-      exportPanelParams: state => state.ui.exportPanelParams,
+      isExportFormatChoiceOpen: (state) => state.ui.isExportFormatChoiceOpen,
+      exportPanelParams: (state) => state.ui.exportPanelParams,
     }),
   },
   data() {
@@ -143,7 +143,7 @@ export default {
       }
     },
     appliedFilters(newFilters) {
-      const partnerFilter = newFilters.find(a => a.id === 'filters.partners');
+      const partnerFilter = newFilters.find((a) => a.id === 'filters.partners');
       this.exportTypes = [
         {
           id: 'CLASSIC',
@@ -223,9 +223,9 @@ export default {
     async doExport(exportFormat, asyncExportRequest, exportAll, exportChoice) {
       const { columns, exportFn, orderBy, forceAsyncExport } = this.exportPanelParams;
       this.errors = undefined;
-      const columnsParam = sortBy(columns, c => !c.visible)
-        .filter(c => c.exportId)
-        .map(c => c.exportId);
+      const columnsParam = sortBy(columns, (c) => !c.visible)
+        .filter((c) => c.exportId)
+        .map((c) => c.exportId);
 
       this.isLoading = true;
       const downloadResponse = await exportFn(

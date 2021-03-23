@@ -4,8 +4,24 @@ import * as filterBarSelectors from './selectors/filterbar';
 import { MultiSelectFilter } from './selectors/filters';
 
 export default {
-  init(startServer) {
-    layout.menu.massActions(startServer);
+  init() {
+    layout.menu.massActions();
+  },
+  openDetailPanel(id) {
+    cy.get('tbody tr:first td button.id-cell').each($el => {
+      if ($el.text().trim() === '' + id) {
+        cy.wrap($el).click();
+      }
+    });
+  },
+  detailPanel: {
+    gotoDetail() {
+      cy.get('.goto-detail-button button').click();
+    },
+  },
+  exportFile: layout.exportFile,
+  setCompleteExport() {
+    cy.get('.checkbox-container').click();
   },
   idSearch: {
     typeId(id) {
@@ -43,8 +59,8 @@ export default {
 
       preselect(choice) {
         cy.waitGet(`body > .daterangepicker > .ranges > ul > li:nth-child(${choice})`)
-        .wait(500)
-        .click();
+          .wait(500)
+          .click();
       },
     },
   },

@@ -37,8 +37,20 @@ Feature: Recherche d'actes de gestion
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
 
-    Scenario: je lance une recherche par MSISDN
+  Scenario: je lance une recherche par MSISDN
     Given en tant que BO
     And je suis sur l'historique des actes de gestion
     When je lance la recherche par ID "33698014672"
     Then la table contient 1 resultat
+
+  Scenario: Export des actes de gestion (Classique)
+    Given en tant que BO
+    And je suis sur l'historique des actes de gestion
+    When je lance un Export Classique
+    Then le fichier est bien téléchargé
+
+  Scenario: Export des actes de gestion (Complet)
+    Given en tant que BO
+    And je suis sur l'historique des actes de gestion
+    When je lance un Export Complet
+    Then le fichier est bien téléchargé

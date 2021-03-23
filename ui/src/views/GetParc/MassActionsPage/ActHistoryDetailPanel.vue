@@ -149,7 +149,7 @@
               }}</UiButton>
             </template>
           </div>
-          <div>
+          <div class="goto-detail-button">
             <UiButton
               variant="primary"
               block

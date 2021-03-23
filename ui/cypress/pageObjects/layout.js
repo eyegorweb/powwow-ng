@@ -41,4 +41,15 @@ export default {
       cy.waitGet('.menu_reportsBill').click();
     },
   },
+  exportFile: {
+    openChoice() {
+      cy.get('.export-file-button').click({ force: true });
+    },
+    chooseFormat(format) {
+      cy.get(`.export-${format}-format`).click({ force: true });
+    },
+    confirmExport() {
+      cy.get('.btn-success').click();
+    },
+  },
 };

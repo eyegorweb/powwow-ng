@@ -66,3 +66,31 @@ Feature: Recherche de lignes
     And je choisis le filtre id "2"
     When je lance la recherche
     Then la table contient 1 resultat
+
+  Scenario: Export des lignes (Classique)
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And j'affiche toutes les lignes
+    When je lance un Export "Classique"
+    Then le fichier est bien téléchargé
+
+  Scenario: Export des lignes (Complet)
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And j'affiche toutes les lignes
+    When je lance un Export "Complet"
+    Then le fichier est bien téléchargé
+
+  Scenario: Export des lignes (Dernier usage)
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And j'affiche toutes les lignes
+    When je lance un Export "Dernier usage"
+    Then le fichier est bien téléchargé
+
+  Scenario: Export des lignes (Services)
+    Given en tant que BO
+    And je suis sur la page recherche de lignes
+    And j'affiche toutes les lignes
+    When je lance un Export "Services"
+    Then le fichier est bien téléchargé
