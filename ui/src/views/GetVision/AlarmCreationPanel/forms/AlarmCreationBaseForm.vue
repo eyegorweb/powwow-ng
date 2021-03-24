@@ -3,7 +3,7 @@
     <div v-if="editMode">
       <div v-if="!sharedAlarm">
         <h5>{{ $t('getvsion.filters.ALARMS_OFFER') }} :</h5>
-        <p>{{ $t('alarms.alarmScope.' + duplicateFrom.alarmScope) }}</p>
+        <p>{{ alarmScope }}</p>
       </div>
       <div v-else>
         <template v-if="userIsMultiPartner">
@@ -183,6 +183,10 @@ export default {
 
     partnerName() {
       return this.selectedPartner ? this.selectedPartner.name : '';
+    },
+    alarmScope() {
+      const alarmScope = get(this.duplicateFrom, 'alarmScope');
+      return alarmScope ? this.$t('alarms.alarmScope.' + alarmScope) : '-';
     },
   },
 };
