@@ -4,6 +4,7 @@ export default {
       cy.waitGet(
         '#app > div.container > div.mt-4 > div.filters-container > div.filter-item-large > div > fieldset > input'
       )
+        .first()
         .click()
         .type(partner)
         .wait(800)
