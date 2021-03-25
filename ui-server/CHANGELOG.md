@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.249+20210325130607
+2021-03-25
+
+### Features
+
+- [2520] Recherche de réservation (11a402a9cfcc4f8cab2d7090ec1b53be8199a88f)
+
 ## 1.17.0-master.248+20210325124632
 2021-03-25
 
