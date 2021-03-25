@@ -93,8 +93,6 @@ export default {
     };
   },
   methods: {
-    // Matrice descriptive pour récupérer le format selon la valeur de l'identifiant
-    // https://m2m-gitlab.by-docapost.com/powwow-ng/backlog/wikis/documentation/recherche-de-lignes#barre-de-recherche
     findType(newValue) {
       const value = newValue.trim();
       const matched = this.idsOptions.filter(o => {
