@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.250+20210325133159
+2021-03-25
+
+### Fixes
+
+- [2529] indicateurs des réservations (afd96ba4c5e7eee25eb4a2a53346347abcdcd830)
+
 ## 1.17.0-master.249+20210325130607
 2021-03-25
 
