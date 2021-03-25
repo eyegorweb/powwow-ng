@@ -194,7 +194,7 @@ export default {
     if (this.userIsPartner) {
       const partnerId = get(this.userInfos, 'party.id');
       const customFields = await fetchCustomFields(partnerId);
-      const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+      const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
         return {
           id: c.id,
           label: c.label,
@@ -439,7 +439,7 @@ export default {
           exportId: 'ORDER_CUSTOMFIELD_6',
           format: {
             type: 'ObjectAttribute',
-            path: 'custom5',
+            path: 'custom6',
           },
         },
       ],

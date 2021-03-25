@@ -191,7 +191,7 @@ export default {
     this.navbarLinks = excludeMocked([
       {
         label: 'mainMenu.getSim',
-        to: { name: 'orders' },
+        to: { name: 'orders.search' },
         permission: { domain: 'getSim', action: 'read' },
       },
       {
@@ -260,7 +260,7 @@ export default {
         label: 'mainMenu.getSupport',
         to: { name: 'exemples' },
         permission: { domain: 'getSupport', action: 'access' },
-        onClick: async targetName => {
+        onClick: async (targetName) => {
           if (waitingForGetSupportLink) return false;
 
           waitingForGetSupportLink = true;
@@ -324,7 +324,7 @@ export default {
   methods: {
     ...mapMutations(['changeAppLanguage']),
     filterByPermission(arrayInput) {
-      return arrayInput.filter(a => {
+      return arrayInput.filter((a) => {
         if (!a.permission) return true;
         if (typeof a.permission === 'function') {
           return a.permission();
@@ -334,17 +334,17 @@ export default {
     },
     chooseCurrentMenu() {
       const visibleLinks = this.filterByPermission(this.navbarLinks);
-      let currentIndex = visibleLinks.findIndex(link => link.to.name === this.currentUrlName);
+      let currentIndex = visibleLinks.findIndex((link) => link.to.name === this.currentUrlName);
 
       if (currentIndex === -1) {
-        const mainMenu = visibleLinks.find(l => {
+        const mainMenu = visibleLinks.find((l) => {
           if (!l.submenu) {
             return false;
           }
-          return l.submenu.find(sml => sml.to.name === this.currentUrlName);
+          return l.submenu.find((sml) => sml.to.name === this.currentUrlName);
         });
         if (mainMenu) {
-          currentIndex = visibleLinks.findIndex(link => link.label === mainMenu.label);
+          currentIndex = visibleLinks.findIndex((link) => link.label === mainMenu.label);
         }
       }
 
@@ -352,7 +352,7 @@ export default {
     },
 
     setPageTitle(route) {
-      const firstLevelMenu = this.navbarLinks.find(m => {
+      const firstLevelMenu = this.navbarLinks.find((m) => {
         if (m.submenu) return false;
         return m.to.name === route.name;
       });
@@ -361,14 +361,14 @@ export default {
         document.title = this.$t(firstLevelMenu.label);
       } else {
         const secondLevelMenu = this.navbarLinks
-          .map(m => {
+          .map((m) => {
             if (m.submenu) return m.submenu;
 
             return undefined;
           })
-          .filter(sm => !!sm)
+          .filter((sm) => !!sm)
           .flat()
-          .find(m => {
+          .find((m) => {
             return m.to.name === route.name;
           });
 

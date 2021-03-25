@@ -362,6 +362,19 @@
     }
   },
   "getsim": {
+    "reservasions": {
+      "tabTitle": "Réservations",
+      "tableTitle": "{total} Réservation(s) trouvée(s)",
+      "filters": {
+        "creator": "Créateur de la réservation",
+        "reservationDate": "Date de la réservation"
+      },
+
+      "columns": {
+        "id": "Id de réservation",
+        "reservationStatus": "Statut de la réservation"
+      }
+    },
     "manage-orders": "Gestion des commandes",
     "step-product": "Choisir un type de carte SIM",
     "no-sim-card": "Aucun type de carte SIM défini pour ce partenaire",
@@ -1917,7 +1930,8 @@
       "CONFIRMED": "Confirmée",
       "FAILED": "Commande en erreur",
       "TERMINATED": "Terminée",
-      "CANCELED": "Annulée"
+      "CANCELED": "Annulée",
+      "CREATED": "En cours"
     },
     "import": "Import",
     "line": "Ligne"

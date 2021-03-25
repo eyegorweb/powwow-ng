@@ -1,105 +1,113 @@
 $icomoon-font-family: 'powwow' !default;
 $icomoon-font-path: 'assets/icons' !default;
 
-$ic-star-empty: "\e9d7";
-$ic-star-full: "\e9d9";
-$ic-toggle-on: "\e951";
-$ic-pause-circle: "\e952";
-$ic-phone-incoming: "\e94f";
-$ic-phone-outgoing: "\e950";
-$ic-Alert-Icon: "\e900";
-$ic-Alt-Icon: "\e901";
-$ic-Amplifier-Icon: "\e902";
-$ic-Arrow-Down-Icon: "\e903";
-$ic-Arrow-Filter-Icon: "\e904";
-$ic-Arrow-Forward-Icon: "\e905";
-$ic-Arrow-Left-Icon: "\e906";
-$ic-Arrow-Next-Icon: "\e907";
-$ic-Arrow-Previous-Icon: "\e908";
-$ic-Arrow-Right-Icon: "\e909";
-$ic-Arrow-Up-Icon: "\e90a";
-$ic-Basket-Icon: "\e90b";
-$ic-Bell-Icon: "\e90c";
-$ic-Calendar-Icon: "\e90d";
-$ic-Camera-Icon: "\e90e";
-$ic-Cart-Icon: "\e90f";
-$ic-Check-Icon: "\e910";
-$ic-Check-Rounded-Icon: "\e911";
-$ic-Chronometer-Icon: "\e912";
-$ic-Circle-Icon: "\e913";
-$ic-Clock-Icon: "\e914";
-$ic-Compass-Icon: "\e915";
-$ic-Copy-Paste-Icon: "\e916";
-$ic-Cross-Icon: "\e917";
-$ic-Direction-Icon: "\e918";
-$ic-Dislike-Icon: "\e919";
-$ic-Download-Icon: "\e91a";
-$ic-Drag-Column-Icon: "\e91b";
-$ic-Edit-Icon: "\e91c";
-$ic-Enveloppe-Icon: "\e91d";
-$ic-Eye-Closed-Icon: "\e91e";
-$ic-Eye-Icon: "\e91f";
-$ic-Filter-Icon: "\e920";
-$ic-Flag-Icon: "\e921";
-$ic-Floppy-Icon: "\e922";
-$ic-Heart-Add-Icon: "\e923";
-$ic-Heart-Icon: "\e924";
-$ic-Heart-Minus-Icon: "\e925";
-$ic-Heart-Rythm-Icon: "\e926";
-$ic-Help-Icon: "\e927";
-$ic-History-Icon: "\e928";
-$ic-Home-Icon: "\e929";
-$ic-Hourglass-Icon: "\e92a";
-$ic-Info-Icon: "\e92b";
-$ic-Instagram-Icon: "\e92c";
-$ic-Like-Icon: "\e92d";
-$ic-Link-Icon: "\e92e";
-$ic-List-Icon: "\e92f";
-$ic-Location-Icon: "\e930";
-$ic-Lock-Closed-Icon: "\e931";
-$ic-Magnify-Icon: "\e932";
-$ic-Message-Icon: "\e933";
-$ic-Mic-Icon: "\e934";
-$ic-Minus-Icon: "\e935";
-$ic-Network-Icon: "\e936";
-$ic-Pack-Icon: "\e937";
-$ic-Phone-Icon: "\e938";
-$ic-Picture-Icon: "\e939";
-$ic-Pin-Icon: "\e93a";
-$ic-Play-Icon: "\e93b";
-$ic-Plug-Icon: "\e93c";
-$ic-Plus-Icon: "\e93d";
-$ic-Printer-Icon: "\e93e";
-$ic-Refresh-Icon: "\e93f";
-$ic-Settings-Icon: "\e940";
-$ic-Shuffle-Icon: "\e941";
-$ic-Sim-Icon: "\e942";
-$ic-Smartphone-Icon: "\e943";
-$ic-Sort-Icon: "\e944";
-$ic-Star-Icon: "\e945";
-$ic-Stats-Icon: "\e946";
-$ic-Sun-Icon: "\e947";
-$ic-Ticket-Icon: "\e948";
-$ic-Trash-Icon: "\e949";
-$ic-Upload-Icon: "\e94a";
-$ic-User-Icon: "\e94b";
-$ic-Wallet-Icon: "\e94c";
-$ic-Wheel-Icon: "\e94d";
-$ic-Wifi-Icon: "\e94e";
+$ic-star-empty: '\e9d7';
+$ic-star-full: '\e9d9';
+$ic-transfer: '\e953';
+$ic-toggle-on: '\e951';
+$ic-check-circle: '\e954';
+$ic-check-square: '\e955';
+$ic-check: '\e956';
+$ic-pause-circle: '\e952';
+$ic-phone-incoming: '\e94f';
+$ic-phone-outgoing: '\e950';
+$ic-user-check: '\e957';
+$ic-Alert-Icon: '\e900';
+$ic-Alt-Icon: '\e901';
+$ic-Amplifier-Icon: '\e902';
+$ic-Arrow-Down-Icon: '\e903';
+$ic-Arrow-Filter-Icon: '\e904';
+$ic-Arrow-Forward-Icon: '\e905';
+$ic-Arrow-Left-Icon: '\e906';
+$ic-Arrow-Next-Icon: '\e907';
+$ic-Arrow-Previous-Icon: '\e908';
+$ic-Arrow-Right-Icon: '\e909';
+$ic-Arrow-Up-Icon: '\e90a';
+$ic-Basket-Icon: '\e90b';
+$ic-Bell-Icon: '\e90c';
+$ic-Calendar-Icon: '\e90d';
+$ic-Camera-Icon: '\e90e';
+$ic-Cart-Icon: '\e90f';
+$ic-Check-Icon: '\e910';
+$ic-Check-Rounded-Icon: '\e911';
+$ic-Chronometer-Icon: '\e912';
+$ic-Circle-Icon: '\e913';
+$ic-Clock-Icon: '\e914';
+$ic-Compass-Icon: '\e915';
+$ic-Copy-Paste-Icon: '\e916';
+$ic-Cross-Icon: '\e917';
+$ic-Direction-Icon: '\e918';
+$ic-Dislike-Icon: '\e919';
+$ic-Download-Icon: '\e91a';
+$ic-Drag-Column-Icon: '\e91b';
+$ic-Edit-Icon: '\e91c';
+$ic-Enveloppe-Icon: '\e91d';
+$ic-Eye-Closed-Icon: '\e91e';
+$ic-Eye-Icon: '\e91f';
+$ic-Filter-Icon: '\e920';
+$ic-Flag-Icon: '\e921';
+$ic-Floppy-Icon: '\e922';
+$ic-Heart-Add-Icon: '\e923';
+$ic-Heart-Icon: '\e924';
+$ic-Heart-Minus-Icon: '\e925';
+$ic-Heart-Rythm-Icon: '\e926';
+$ic-Help-Icon: '\e927';
+$ic-History-Icon: '\e928';
+$ic-Home-Icon: '\e929';
+$ic-Hourglass-Icon: '\e92a';
+$ic-Info-Icon: '\e92b';
+$ic-Instagram-Icon: '\e92c';
+$ic-Like-Icon: '\e92d';
+$ic-Link-Icon: '\e92e';
+$ic-List-Icon: '\e92f';
+$ic-Location-Icon: '\e930';
+$ic-Lock-Closed-Icon: '\e931';
+$ic-Magnify-Icon: '\e932';
+$ic-Message-Icon: '\e933';
+$ic-Mic-Icon: '\e934';
+$ic-Minus-Icon: '\e935';
+$ic-Network-Icon: '\e936';
+$ic-Pack-Icon: '\e937';
+$ic-Phone-Icon: '\e938';
+$ic-Picture-Icon: '\e939';
+$ic-Pin-Icon: '\e93a';
+$ic-Play-Icon: '\e93b';
+$ic-Plug-Icon: '\e93c';
+$ic-Plus-Icon: '\e93d';
+$ic-Printer-Icon: '\e93e';
+$ic-Refresh-Icon: '\e93f';
+$ic-Settings-Icon: '\e940';
+$ic-Shuffle-Icon: '\e941';
+$ic-Sim-Icon: '\e942';
+$ic-Smartphone-Icon: '\e943';
+$ic-Sort-Icon: '\e944';
+$ic-Star-Icon: '\e945';
+$ic-Stats-Icon: '\e946';
+$ic-Sun-Icon: '\e947';
+$ic-Ticket-Icon: '\e948';
+$ic-Trash-Icon: '\e949';
+$ic-Upload-Icon: '\e94a';
+$ic-User-Icon: '\e94b';
+$ic-Wallet-Icon: '\e94c';
+$ic-Wheel-Icon: '\e94d';
+$ic-Wifi-Icon: '\e94e';
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?a7b3il');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?a7b3il#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?a7b3il') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?a7b3il') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?a7b3il##{$icomoon-font-family}') format('svg');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rsx7g3');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rsx7g3#iefix')
+      format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?rsx7g3') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?rsx7g3') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?rsx7g3##{$icomoon-font-family}')
+      format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="ic-"], [class*=" ic-"] {
+[class^='ic-'],
+[class*=' ic-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: '#{$icomoon-font-family}' !important;
   speak: never;
@@ -124,9 +132,29 @@ $ic-Wifi-Icon: "\e94e";
     content: $ic-star-full;
   }
 }
+.ic-transfer {
+  &:before {
+    content: $ic-transfer;
+  }
+}
 .ic-toggle-on {
   &:before {
     content: $ic-toggle-on;
+  }
+}
+.ic-check-circle {
+  &:before {
+    content: $ic-check-circle;
+  }
+}
+.ic-check-square {
+  &:before {
+    content: $ic-check-square;
+  }
+}
+.ic-check {
+  &:before {
+    content: $ic-check;
   }
 }
 .ic-pause-circle {
@@ -142,6 +170,11 @@ $ic-Wifi-Icon: "\e94e";
 .ic-phone-outgoing {
   &:before {
     content: $ic-phone-outgoing;
+  }
+}
+.ic-user-check {
+  &:before {
+    content: $ic-user-check;
   }
 }
 .ic-Alert-Icon {

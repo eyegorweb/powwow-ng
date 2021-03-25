@@ -5,8 +5,8 @@
       {{ $t(`col.statuses.${item}`) }}
     </div>
   </div>
-  <div class="order-status" v-tooltip="getTooltipConfig()" v-else>
-    <StatusIcon :icon="icon" :color="iconColor" />
+  <div class="order-status d-flex justify-content-center" v-else>
+    <StatusIcon :icon="icon" :color="iconColor" v-tooltip="getTooltipConfig()" />
   </div>
 </template>
 

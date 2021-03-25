@@ -1,29 +1,31 @@
 <template>
-  <OffersFilter
-    :selected-offers-values="selectedValues"
-    :selected-partners-values="partnerIds"
-    @setOffersFilter="(values) => $emit('change', values)"
+  <SimCardTypeFilter
+    :selectedTypeSimCardValues="selectedValues"
+    :selectedPartnersValues="partnerIds"
+    @setTypeSimCardFilter="$emit('change', $event)"
   />
 </template>
 
 <script>
-import OffersFilter from '@/components/Filters/OffersFilter';
+import SimCardTypeFilter from '@/components/Filters/SimCardTypeFilter.vue';
 
 export default {
   components: {
-    OffersFilter,
+    SimCardTypeFilter,
   },
+
   props: {
     selectedData: Object,
     getPageContext: Function,
   },
+
   computed: {
     selectedValues() {
-      if (!this.selectedData) return [];
-
-      return this.selectedData.values;
+      if (this.selectedData) {
+        return this.selectedData.values;
+      }
+      return [];
     },
-
     partnerIds() {
       if (!this.getPageContext) return [];
       const pageContext = this.getPageContext();
@@ -37,4 +39,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
