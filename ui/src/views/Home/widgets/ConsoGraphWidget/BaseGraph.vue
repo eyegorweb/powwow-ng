@@ -48,7 +48,7 @@ export default {
         chart: {
           renderTo: 'container',
           zoomType: 'xy',
-          height: 165,
+          height: 230,
           type: 'column',
         },
         title: {

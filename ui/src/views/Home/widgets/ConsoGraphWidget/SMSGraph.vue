@@ -20,7 +20,7 @@ export default {
         return data.responses.map(d => ({
           date: formatDateToUTC(d.date),
           out: d.numberOfSentSMS,
-          in: d.numberOfSentSMS,
+          in: d.numberOfReceivedSMS,
         }));
       }
     },
