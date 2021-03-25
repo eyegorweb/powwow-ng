@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.247+20210325090120
+2021-03-25
+
+### Fixes
+
+- [2527] gestion de la sécurité (5b4a7b5c5b222e8bec6126f36855de0cef8aeeb5)
+
 ## 1.17.0-master.246+20210325084337
 2021-03-25
 
