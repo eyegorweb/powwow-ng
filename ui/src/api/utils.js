@@ -119,35 +119,36 @@ export function addDateFilter(gqlFilters, selectedFilters, gqlParamName, filterK
     if (dateFilter.endDate) {
       gqlFilters.push(
         `${gqlParamName}: {between: {startDate: "${formattedStartDate}", endDate: "${prepareEndDateForBackend(
-          dateFilter.endDate
+          dateFilter.endDate,
+          dateFilter
         )}"}}`
       );
     } else {
       gqlFilters.push(`${gqlParamName}: {goe: "${formattedStartDate}"}`);
     }
   }
+}
 
-  function prepareEndDateForBackend(inDate) {
-    const dateToEdit = inDate.replace(/\//g, '/');
-    const parts = dateToEdit.split(' ');
-    let endDate;
-    let formatToUse;
+export function prepareEndDateForBackend(inDate, dateFilter) {
+  const dateToEdit = inDate.replace(/\//g, '/');
+  const parts = dateToEdit.split(' ');
+  let endDate;
+  let formatToUse;
 
-    if (parts.length === 2) {
-      formatToUse = 'DD/MM/YYYY HH:mm:ss';
-      endDate = moment(dateToEdit, formatToUse);
-      if (!dateFilter.sameDay) {
-        endDate = endDate.add(1, 'days');
-      }
-      return endDate.format(formatToUse);
-    } else {
-      formatToUse = 'DD/MM/YYYY';
-      endDate = moment(`${parts[0]}`, formatToUse);
-      if (!dateFilter.sameDay) {
-        endDate = endDate.add(1, 'days');
-      }
-      return endDate.format(formatToUse) + ' 00:00:00';
+  if (parts.length === 2) {
+    formatToUse = 'DD/MM/YYYY HH:mm:ss';
+    endDate = moment(dateToEdit, formatToUse);
+    if (!dateFilter.sameDay) {
+      endDate = endDate.add(1, 'days');
     }
+    return endDate.format(formatToUse);
+  } else {
+    formatToUse = 'DD/MM/YYYY';
+    endDate = moment(`${parts[0]}`, formatToUse);
+    if (!dateFilter.sameDay) {
+      endDate = endDate.add(1, 'days');
+    }
+    return endDate.format(formatToUse) + ' 00:00:00';
   }
 }
 

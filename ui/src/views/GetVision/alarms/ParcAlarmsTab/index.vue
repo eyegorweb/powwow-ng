@@ -69,7 +69,7 @@ import BillingAccountFilter from '@/components/Filters/filterbar/BillingAccountF
 import OffersFilter from '@/components/Filters/filterbar/OffersFilter';
 import AlarmsRangeFilter from './filters/AlarmsRangeFilter';
 import AlarmType from './filters/AlarmType';
-import DateTriggerAlarm from './filters/DateTriggerAlarm';
+import DateTriggerAlarm from '@/components/Filters/filterbar/DateRangeFilter.vue';
 
 import IndicatorsBlock from './IndicatorsBlock';
 import AlarmsPerDayGraph from './AlarmsPerDayGraph';

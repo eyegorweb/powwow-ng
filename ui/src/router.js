@@ -5,7 +5,6 @@ import AuthenticationRefreshCallback from './views/Authentication/Authentication
 
 const Home = () => import('@/views/Home');
 const Examples = () => import('@/views/Examples');
-const GetSim = () => import('@/views/GetSim');
 const Alarms = () => import('@/views/GetVision/alarms');
 const AlarmDetail = () => import('@/views/GetVision/alarmDetail');
 const MassActionsPage = () => import('@/views/GetParc/MassActionsPage');
@@ -25,6 +24,8 @@ const GetVisionMonitoring = () => import('@/views/GetVision/monitoring');
 import lineDetailRoute from '@/views/GetParc/LineDetail/routes.js';
 import partnerDetailRoute from '@/views/GetAdmin/PartnerDetail/routes.js';
 
+import getSimRoutes from '@/views/GetSim/routes.js';
+
 import { excludeMocked } from '@/featureFlipping/plugin';
 
 Vue.use(Router);
@@ -35,15 +36,11 @@ export default new Router({
   routes: excludeMocked([
     lineDetailRoute,
     partnerDetailRoute,
+    getSimRoutes,
     {
       path: '/',
       name: 'home',
       component: Home,
-    },
-    {
-      path: '/orders',
-      name: 'orders',
-      component: GetSim,
     },
     {
       path: '/callback',

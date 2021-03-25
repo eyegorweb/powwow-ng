@@ -79,7 +79,12 @@ export function containsWithHighlight(search, items) {
 
 export function startsWithHighlight(search, items) {
   return items
-    .filter(e => e.label.toLowerCase().startsWith(search.toLowerCase()))
+    .filter(e => {
+      return e.label
+        .toLowerCase()
+        .trim()
+        .startsWith(search.toLowerCase());
+    })
     .map(found => ({
       highlighted: { label: highlightTxt(found.label, search) },
       item: found,
