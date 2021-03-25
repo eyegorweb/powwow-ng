@@ -16,7 +16,7 @@
       :style="{ width: '100%', height: '477px' }"
     ></div>
     <div :class="{ hidden: isLoading }">
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end cy-export-parcState">
         <ExportButton :export-fn="getExportFn()"> </ExportButton>
       </div>
       <div class="d-flex justify-content-end">
