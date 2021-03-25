@@ -13,6 +13,11 @@
       @currentFiltersChange="currentFilters = $event"
     >
       <div slot="title">{{ $t('getsim.reservasions.tableTitle', { total: formattedTotal }) }}</div>
+      <div slot="before-filters">
+        <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
+        <br />
+      </div>
+
       <div slot="topLeft">
         <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
       </div>
@@ -30,6 +35,7 @@ import CustomFieldsFilter from '@/components/Filters/filterbar/CustomFieldsFilte
 import QuantityFilter from '@/components/Filters/filterbar/QuantityFilter.vue';
 import DateRangeFilter from '@/components/Filters/filterbar/DateRangeFilter.vue';
 import SearchByLinesId from '@/components/SearchById';
+import Indicators from '@/components/Indicators';
 
 import UsersFilter from '@/components/Filters/filterbar/UsersFilter.vue';
 import StatusCell from './StatusCell.vue';
@@ -37,7 +43,6 @@ import ActionFilter from './ActionFilter.vue';
 
 import { fetchEsimReservations } from '@/api/orders.js';
 import { formatDateForGql, prepareEndDateForBackend } from '@/api/utils.js';
-import { format } from 'highcharts';
 import { mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
 import { formatLargeNumber } from '@/utils/numbers';
@@ -46,6 +51,7 @@ export default {
   components: {
     TableWithFilter,
     SearchByLinesId,
+    Indicators,
   },
   data() {
     return {
@@ -61,11 +67,13 @@ export default {
       searchByIdValue: undefined,
       currentAppliedFilters: [],
       currentFilters: undefined,
+      indicators: undefined,
     };
   },
 
   async mounted() {
     this.initFilters();
+    this.initIndicators();
     await this.initColumns();
 
     this.applyFilters();
@@ -232,6 +240,28 @@ export default {
       this.rows = data.items;
       this.total = data.total;
       this.currentAppliedFilters = filters;
+    },
+    initIndicators() {
+      this.indicators = [
+        {
+          name: 'reservationInProgress',
+          labelKey: 'getsim.reservasions.indicators.reservationInProgress',
+          color: 'text-success',
+          clickable: true,
+          total: '-',
+          filters: [],
+          fetchKey: 'SIM_NOT_PREACTIVATED',
+        },
+        {
+          name: 'terminatedReservation',
+          labelKey: 'getsim.reservasions.indicators.terminatedReservation',
+          color: 'text-success',
+          clickable: true,
+          total: '-',
+          filters: [],
+          fetchKey: 'RESERVATION_TERMINATED',
+        },
+      ];
     },
     initFilters() {
       this.filters = [
