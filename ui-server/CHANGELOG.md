@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.251+20210325152321
+2021-03-25
+
+### Features
+
+- [2472] Test Cypress sur export du dashboard (5effc0c6fb4299faa7f829bcc4b3c65d0c873585)
+
 ## 1.17.0-master.250+20210325133159
 2021-03-25
 
