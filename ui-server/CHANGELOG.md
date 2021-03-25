@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.246+20210325084337
+2021-03-25
+
+### Features
+
+- [2472] Test Cypress sur export des users (45a285c2930a7de370d83c98d2260416c7d8a520)
+
+### Fixes
+
+- [2526] correction du rendu du widget consommation mensuelle (2dba708c60e196dfe9e1f28736d48d4de92efadc)
+- [2524] gestion de la portée lors de la modification de l'alarme (660dbad0bf34ac91ad40536935d081626729e6c5)
+
 ## 1.17.0-master.245+20210323161957
 2021-03-23
 
