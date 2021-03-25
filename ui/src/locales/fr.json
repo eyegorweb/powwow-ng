@@ -369,6 +369,10 @@
         "creator": "Créateur de la réservation",
         "reservationDate": "Date de la réservation"
       },
+      "indicators": {
+        "reservationInProgress": "Réservations en cours",
+        "terminatedReservation": "Réservations terminées"
+      },
 
       "columns": {
         "id": "Id de réservation",
