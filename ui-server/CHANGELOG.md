@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.252+20210326161941
+2021-03-26
+
+### Fixes
+
+- [2530] cacher les réservations dans l'environnement de prod (4f0d8072a405fe99a5dd26ea89a3c238a71f68ac)
+
 ## 1.17.0-master.251+20210325152321
 2021-03-25
 
