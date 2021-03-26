@@ -1,27 +1,31 @@
 <template>
   <div>
-    <TableWithFilter
-      v-if="columns"
-      :filters="filters"
-      :columns="columns"
-      :rows="rows"
-      :total="total"
-      :order-by.sync="orderBy"
-      :is-table-loading="isLoading"
-      :show-reset="!!searchByIdValue"
-      @applyFilters="applyFilters"
-      @currentFiltersChange="currentFilters = $event"
-    >
-      <div slot="title">{{ $t('getsim.reservasions.tableTitle', { total: formattedTotal }) }}</div>
-      <div slot="before-filters">
-        <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
-        <br />
-      </div>
+    <template v-if="$shouldShowMocks">
+      <TableWithFilter
+        v-if="columns"
+        :filters="filters"
+        :columns="columns"
+        :rows="rows"
+        :total="total"
+        :order-by.sync="orderBy"
+        :is-table-loading="isLoading"
+        :show-reset="!!searchByIdValue"
+        @applyFilters="applyFilters"
+        @currentFiltersChange="currentFilters = $event"
+      >
+        <div slot="title">
+          {{ $t('getsim.reservasions.tableTitle', { total: formattedTotal }) }}
+        </div>
+        <div slot="before-filters">
+          <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
+          <br />
+        </div>
 
-      <div slot="topLeft">
-        <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
-      </div>
-    </TableWithFilter>
+        <div slot="topLeft">
+          <SearchByLinesId @searchById="searchById" :init-value="searchByIdValue" />
+        </div>
+      </TableWithFilter>
+    </template>
   </div>
 </template>
 

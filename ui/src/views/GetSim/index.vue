@@ -80,7 +80,9 @@ export default {
   },
 
   mounted() {
-    this.initTabs();
+    if (this.$shouldShowMocks) {
+      this.initTabs();
+    }
   },
 };
 </script>
