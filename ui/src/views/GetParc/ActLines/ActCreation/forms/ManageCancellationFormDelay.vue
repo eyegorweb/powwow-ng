@@ -86,12 +86,14 @@ export default {
       this.$emit('change:cancel', {
         // applyCharges: this.applyCharges,
         date: this.delay,
+        selectedDelay: parseInt(this.selectedDelay),
       });
     },
     manageValidation() {
       this.$emit('change:validation', {
         // applyCharges: this.applyCharges,
         date: this.delay,
+        selectedDelay: parseInt(this.selectedDelay),
       });
     },
   },

@@ -1448,6 +1448,8 @@
       },
       "modal": {
         "modalPreventMsg": "The lines will be terminated immediately.",
+        "modalPreventMsgDelay": "The lines will be automatically terminated in {delay} month(s)",
+        "modalPreventMsgSelectedDate": "The lines will be terminated the {date}.",
         "modalConfirmMsg": "Do you confirm the termination?",
         "modalConfirmRefuse": "Do you confirm the refusal?"
       },

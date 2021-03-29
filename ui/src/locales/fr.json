@@ -1585,6 +1585,8 @@
 
       "modal": {
         "modalPreventMsg": "Les lignes seront immédiatement résiliées.",
+        "modalPreventMsgDelay": "Les lignes seront résiliées automatiquement dans {delay} mois",
+        "modalPreventMsgSelectedDate": "Les lignes seront résiliées le {date}.",
         "modalConfirmMsg": "Confirmez-vous la résiliation ?",
         "modalConfirmRefuse": "Confirmez-vous le refus ?"
       },
