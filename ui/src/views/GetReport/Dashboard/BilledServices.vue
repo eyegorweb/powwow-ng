@@ -163,21 +163,6 @@ export default {
 
         yAxis: [
           {
-            // Primary yAxis
-            labels: {
-              format: '{value} €',
-              style: {
-                color: '#083e96',
-              },
-            },
-            title: {
-              text: this.$t('getreport.dashboard.legends.amount'),
-              style: {
-                color: '#083e96',
-              },
-            },
-          },
-          {
             // Secondary yAxis
             title: {
               text: this.$t('getreport.dashboard.legends.lines'),
@@ -191,7 +176,7 @@ export default {
                 color: '#488bf7',
               },
             },
-            opposite: true,
+            //opposite: true,
           },
         ],
 

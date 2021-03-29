@@ -112,7 +112,6 @@ export default {
       if (this.billingAccount && this.billingAccount.data) {
         params.customerAccountCode = this.billingAccount.data.code;
       }
-      // TODO: api billedAmountAndConsoByZoneGraph à brancher
       this.isLoading = true;
       const apiData = await billedAmountByZone(
         params.partyId,
