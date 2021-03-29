@@ -1028,7 +1028,7 @@
       "billedAmountByPeriods": "Montants facturés sur 12 / 24 / 36 mois",
       "billedLinesByZone": "Nbre de lignes facturées et conso par zone",
       "nbBilledLines": "Nbre de lignes facturées et détail des montants facturés",
-      "otherServicesAmount": "Montant autres services",
+      "otherServicesAmount": "Nombre de ligne par palier",
       "consoHistory": "Historique des consommations",
       "plmnRepartition": "Répartition du parc France par PLMN",
       "repartitionByZone": "Répartition du parc par zone",

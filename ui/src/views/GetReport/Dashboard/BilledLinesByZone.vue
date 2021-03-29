@@ -196,7 +196,7 @@ export default {
         chart: {
           // type: 'Combination chart',
         },
-        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        colors: ['#488bf7', '#083e96', 'red', '#34626c', '#fd8c04', '#dd9866', '#af6b58'],
         title: {
           text: '',
         },
@@ -250,8 +250,9 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatBytes(this.y)
-            } ${(this.series.options.custom && this.series.options.custom.devise) ||
-              ''}</b></td></tr>
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -282,12 +283,6 @@ export default {
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.nbBilledLines,
-            yAxis: 1,
-            type: 'spline',
-          },
-          {
-            name: this.$t('getreport.dashboard.legends.billedLines'),
             data: chartData.nbBilledLine,
             custom: { devise: this.$t('getreport.dashboard.legends.nbOfLines') },
             yAxis: 1,
@@ -304,7 +299,7 @@ export default {
         chart: {
           // type: 'Combination chart',
         },
-        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        colors: ['#488bf7', '#083e96', 'red', '#34626c', '#fd8c04', '#dd9866', '#af6b58'],
         title: {
           text: '',
         },
@@ -358,8 +353,9 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatToM(this.y)
-            } ${(this.series.options.custom && this.series.options.custom.devise) ||
-              ''}</b></td></tr>
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -375,24 +371,18 @@ export default {
         series: [
           {
             name: this.$t('getreport.dashboard.legends.frConso'),
-            data: chartData.dataConsoFr,
+            data: chartData.voixConsoFr,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.euConso'),
-            data: chartData.dataConsoEU,
+            data: chartData.voixConsoEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.outOfEUConso'),
-            data: chartData.dataConsoHorsEU,
+            data: chartData.voixConsoHorsEU,
             type: 'column',
-          },
-          {
-            name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.nbBilledLines,
-            yAxis: 1,
-            type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
@@ -412,7 +402,7 @@ export default {
         chart: {
           // type: 'Combination chart',
         },
-        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        colors: ['#488bf7', '#083e96', 'red', '#34626c', '#fd8c04', '#dd9866', '#af6b58'],
         title: {
           text: '',
         },
@@ -466,8 +456,9 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatToM(this.y)
-            } ${(this.series.options.custom && this.series.options.custom.devise) ||
-              ''}</b></td></tr>
+            } ${
+              (this.series.options.custom && this.series.options.custom.devise) || ''
+            }</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -483,24 +474,18 @@ export default {
         series: [
           {
             name: this.$t('getreport.dashboard.legends.frConso'),
-            data: chartData.dataConsoFr,
+            data: chartData.smsConsoFr,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.euConso'),
-            data: chartData.dataConsoEU,
+            data: chartData.smsConsoEU,
             type: 'column',
           },
           {
             name: this.$t('getreport.dashboard.legends.outOfEUConso'),
-            data: chartData.dataConsoHorsEU,
+            data: chartData.smsConsoHorsEU,
             type: 'column',
-          },
-          {
-            name: this.$t('getreport.dashboard.legends.billedLines'),
-            data: chartData.nbBilledLines,
-            yAxis: 1,
-            type: 'spline',
           },
           {
             name: this.$t('getreport.dashboard.legends.billedLines'),
