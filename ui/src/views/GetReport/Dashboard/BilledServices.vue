@@ -125,7 +125,7 @@ export default {
           const month = getMonthString(c.date);
           all.categories.push(month.slice(0, 3));
 
-          c.palierValues.forEach(p => {
+          c.palierValues.forEach((p) => {
             if (!all.series[p.palier]) {
               all.series[p.palier] = [];
             }
@@ -139,7 +139,7 @@ export default {
         }
       );
 
-      const series = Object.keys(dataSeries.series).map(key => {
+      const series = Object.keys(dataSeries.series).map((key) => {
         return {
           name: key,
           data: dataSeries.series[key],
@@ -153,7 +153,6 @@ export default {
         chart: {
           type: 'column',
         },
-        colors: ['#0047a1', '#004ca7', '#0051ad', '#0156b3', '#165bb9', '#2360bf', '#2d66c5'],
         title: {
           text: '',
         },
@@ -200,7 +199,9 @@ export default {
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
           pointFormat:
             '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            '<td style="padding:0"><b>{point.y} ' +
+            this.$t('lines') +
+            ' </b></td></tr>',
           footerFormat: '</table>',
           shared: true,
           useHTML: true,

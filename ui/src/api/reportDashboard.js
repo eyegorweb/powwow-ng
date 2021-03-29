@@ -273,18 +273,3 @@ export async function averageBilledAmountByMonth(partnerId, customerAccountCode,
   const response = await query(queryStr);
   if (response.data) return response.data.averageBillingGraph;
 }
-
-// billedAmountAndConsoByZoneGraph api
-// query {
-//   billedAmountAndConsoByZoneGraph(filter:{partnerId:2 period:MONTH24 }) {
-//    date
-//    depassement
-//    forfait
-//    horsForfait
-//    data
-//    voice
-//    sms
-//    abonnement
-
-//  }
-//  }

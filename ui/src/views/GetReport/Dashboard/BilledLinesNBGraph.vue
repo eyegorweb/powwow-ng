@@ -155,7 +155,7 @@ export default {
         chart: {
           // type: 'Combination chart',
         },
-        colors: ['#488bf7', '#083e96', 'red', '#fafa5a', '#e3e340', '#c9c926', '#adad13'],
+        colors: ['#488bf7', '#083e96', 'red', '#34626c', '#fd8c04', '#dd9866', '#af6b58'],
         title: {
           text: '',
         },
