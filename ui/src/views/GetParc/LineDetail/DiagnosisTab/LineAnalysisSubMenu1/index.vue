@@ -34,11 +34,11 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionDebut') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'startDate') }}</p>
+                <p>{{ getValue(geographicalLocation, 'startDate') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.connexionEnd') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'endDate') }}</p>
+                <p>{{ getValue(geographicalLocation, 'endDate') }}</p>
               </div>
             </div>
           </div>
@@ -51,22 +51,22 @@
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentApn') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'apn') }}</p>
+                <p>{{ getValue(geographicalLocation, 'apn') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.IPType') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'ipAddressTypeTranslated') }}</p>
+                <p>{{ getValue(geographicalLocation, 'ipAddressTypeTranslated') }}</p>
               </div>
             </div>
             <hr />
             <div class="d-flex">
               <div class="item">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv4Address') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'ipV4Address') }}</p>
+                <p>{{ getValue(geographicalLocation, 'ipV4Address') }}</p>
               </div>
               <div class="item justify-content-end">
                 <h6>{{ $t('getparc.lineDetail.tab2.lineAnalysisContent.currentIPv6Address') }}:</h6>
-                <p>{{ getValue(pdpConnexionData, 'ipV6Address') }}</p>
+                <p>{{ getValue(geographicalLocation, 'ipV6Address') }}</p>
               </div>
             </div>
           </div>
