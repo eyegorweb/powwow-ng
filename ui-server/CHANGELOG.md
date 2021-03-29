@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.254+20210329133243
+2021-03-29
+
+### Fixes
+
+- [2545] correction dans le graphe "Nombre de ligne par palier" (5d8ee42f8f631a2fb3566ccbde44a10a1a953bac)
+
 ## 1.17.0-master.253+20210329121950
 2021-03-29
 
