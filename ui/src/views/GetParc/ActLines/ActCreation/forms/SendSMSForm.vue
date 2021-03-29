@@ -65,6 +65,13 @@
             </span>
           </li>
         </ul>
+
+        <div v-if="requestErrors && requestErrors.length">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <ul class="text-danger list-unstyled">
+            <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+          </ul>
+        </div>
       </div>
     </template>
   </ActFormContainer>
@@ -141,6 +148,7 @@ export default {
       maxSMSLength: 1071,
       maxSizeBySMS: 160,
       singleLineFound: undefined,
+      requestErrors: [],
     };
   },
   methods: {
@@ -157,7 +165,7 @@ export default {
       }
     },
     async onValidate(contextValues) {
-      return await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
+      const response = await sendSMS(this.appliedFilters, this.selectedLinesForActCreation, {
         dueDate: contextValues.actDate,
         notifEmail: contextValues.notificationCheck,
         partyId: this.actCreationPrerequisites.partner.id,
@@ -166,6 +174,32 @@ export default {
         shortCode: this.selectedShortCode.label,
         tempDataUuid: contextValues.tempDataUuid,
       });
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions && r.extensions.error && r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+        return { errors: response.errors };
+      }
+      return response;
     },
     checkErrors() {
       if (!this.selectedShortCode) {

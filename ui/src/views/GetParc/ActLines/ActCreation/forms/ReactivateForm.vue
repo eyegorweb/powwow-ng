@@ -1,5 +1,14 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" />
+  <ActFormContainer :validate-fn="onValidate">
+    <div slot="messages" class="text-info">
+      <div v-if="requestErrors && requestErrors.length">
+        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+        <ul class="text-danger list-unstyled">
+          <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+        </ul>
+      </div>
+    </div>
+  </ActFormContainer>
 </template>
 
 <script>
@@ -16,6 +25,7 @@ export default {
   data() {
     return {
       singleLineFound: undefined,
+      requestErrors: [],
     };
   },
 
@@ -47,14 +57,44 @@ export default {
       }
     },
     async onValidate(contextValues) {
-      return await reactivateLines(this.appliedFilters, this.selectedLinesForActCreation, {
-        suspendreFacturation: false,
-        nonModifiableParClient: false,
-        notifEmail: contextValues.notificationCheck,
-        dueDate: contextValues.actDate,
-        partyId: this.partner.id,
-        tempDataUuid: contextValues.tempDataUuid,
-      });
+      const response = await reactivateLines(
+        this.appliedFilters,
+        this.selectedLinesForActCreation,
+        {
+          suspendreFacturation: false,
+          nonModifiableParClient: false,
+          notifEmail: contextValues.notificationCheck,
+          dueDate: contextValues.actDate,
+          partyId: this.partner.id,
+          tempDataUuid: contextValues.tempDataUuid,
+        }
+      );
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions && r.extensions.error && r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+        return { errors: response.errors };
+      }
+      return response;
     },
   },
 };

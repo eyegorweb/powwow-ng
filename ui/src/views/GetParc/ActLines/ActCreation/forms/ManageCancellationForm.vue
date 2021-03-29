@@ -82,6 +82,15 @@
         </div>
       </Modal>
     </div>
+
+    <div slot="messages" class="text-info">
+      <div v-if="requestErrors && requestErrors.length">
+        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+        <ul class="text-danger list-unstyled">
+          <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+        </ul>
+      </div>
+    </div>
   </ActFormContainer>
 </template>
 
@@ -117,6 +126,7 @@ export default {
       isLoading: false,
       singleLineFound: undefined,
       message: '',
+      requestErrors: [],
     };
   },
   computed: {
@@ -168,12 +178,36 @@ export default {
           tempDataUuid: contextValues.tempDataUuid,
         }
       );
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions && r.extensions.error && r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+        return { errors: response.errors };
+      }
       if (response.validate > 1) {
         this.message = this.$t('ResfuseLinesError', { nb: response.validate });
       } else {
         this.message = this.$t('ResfuseLineError', { nb: response.validate });
       }
-
       return response;
     },
     async confirmValdation(containerValidationFn) {

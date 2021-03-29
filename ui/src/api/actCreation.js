@@ -67,6 +67,11 @@ export async function updateCustomFields(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+    return {
+        errors: response.errors,
+      };
+    }
 
     return response.data.changeCustomFieldsV2;
   });
@@ -149,7 +154,37 @@ export async function changeSingleCustomFields(params) {
     }
     `;
 
-  return await query(queryStr);
+  const response = await query(queryStr);
+  // const response = {
+  //   "errors":[
+  //     {
+  //       "message":"Exception while fetching data (/changeCustomFieldsV2) : massAction exceeds limit",
+  //       "locations":[
+  //         {
+  //           "line":1,
+  //           "column":17
+  //         }
+  //       ],
+  //       "path":[
+  //         "changeCustomFieldsV2"
+  //       ],
+  //       "extensions":{
+  //         "limit":10000,
+  //         "error":"MassActionLimit",
+  //         "classification":"DataFetchingException"
+  //       }
+  //     }
+  //   ],
+  //   "data":{
+  //     "changeCustomFieldsV2":null
+  //   }
+  // };
+  if (response.errors) {
+  return {
+      errors: response.errors,
+    };
+  }
+    return response.data.changeCustomFieldsV2;
 }
 
 export async function suspendLines(filters, lines, params) {
@@ -203,6 +238,11 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
     `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+      return {
+          errors: response.errors,
+        };
+      }
     return response.data.suspendReactivateLinesV2;
   });
 }
@@ -237,8 +277,36 @@ export async function changeCustomerAccount(filters, lines, params) {
         }
     }
     `;
-
     const response = await query(queryStr);
+    // const response = {
+    //   "errors":[
+    //     {
+    //       "message":"Exception while fetching data (/changeCustomFieldsV2) : massAction exceeds limit",
+    //       "locations":[
+    //         {
+    //           "line":1,
+    //           "column":17
+    //         }
+    //       ],
+    //       "path":[
+    //         "changeCustomFieldsV2"
+    //       ],
+    //       "extensions":{
+    //         "limit":10000,
+    //         "error":"MassActionLimit",
+    //         "classification":"DataFetchingException"
+    //       }
+    //     }
+    //   ],
+    //   "data":{
+    //     "changeCustomFieldsV2":null
+    //   }
+    // };
+    if (response.errors) {
+    return {
+        errors: response.errors,
+      };
+    }
     return response.data.changeCustomerAccountV2;
   });
 }
@@ -300,6 +368,11 @@ export async function transferSIMCards(filters, lines, params) {
       `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.transferSIMCardsV2;
   });
 }
@@ -344,6 +417,11 @@ export async function manageCancellation(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.validateRefuseLinesV2;
   });
 }
@@ -382,6 +460,11 @@ export async function endPhaseTest(filters, lines, params) {
       `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.terminatePhaseTest;
   });
 }
@@ -430,6 +513,11 @@ export async function sendSMS(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
     return response.data.sendSMSV2;
   });
 }
@@ -467,14 +555,12 @@ export async function terminateLines(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
-    if (response) {
-      if (response.data) {
-        return response.data.terminateLinesV2;
-      }
-      if (response.errors) {
-        return response;
-      }
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
     }
+    return response.data.terminateLinesV2;
   });
 }
 
@@ -568,14 +654,12 @@ export async function changeService(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
-    if (response) {
-      if (response.data) {
-        return response.data.changeServices;
-      }
-      if (response.errors) {
-        return response;
-      }
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
     }
+    return response.data.changeServices;
   });
 }
 
@@ -632,7 +716,12 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
     `;
 
     const response = await query(queryStr);
-    if (response && response.data) return response.data.preactivateAndActivateSImcardInstanceV2;
+   if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+  return response.data.preactivateAndActivateSImcardInstanceV2;
   });
 }
 
@@ -670,7 +759,12 @@ export async function preactivateSimCardInstance(filters, lines, params) {
     `;
 
     const response = await query(queryStr);
-    if (response && response.data) return response.data.preactivateSimCardInstanceV2;
+    if (response.errors) {
+    return {
+        errors: response.errors,
+      };
+    }
+    return response.data.preactivateSimCardInstanceV2;
   });
 }
 
@@ -730,7 +824,12 @@ export async function changeOffer(filters, lines, params, keepServices) {
     `;
 
     const response = await query(queryStr);
-    if (response && response.data) return response.data.changeOfferV2;
+    if (response.errors) {
+    return {
+        errors: response.errors,
+      };
+    }
+    return response.data.changeOfferV2;
   });
 }
 

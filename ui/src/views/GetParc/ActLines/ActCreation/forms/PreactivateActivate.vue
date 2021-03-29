@@ -55,6 +55,15 @@
           />
         </div>
       </template>
+
+      <div slot="messages" class="text-info">
+        <div v-if="requestErrors && requestErrors.length">
+          <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+          <ul class="text-danger list-unstyled">
+            <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+          </ul>
+        </div>
+      </div>
     </template>
   </ActFormContainer>
 </template>
@@ -134,6 +143,7 @@ export default {
       servicesChoice: undefined,
       chosenBillingAccount: undefined,
       singleLineFound: undefined,
+      requestErrors: [],
     };
   },
 
@@ -198,7 +208,7 @@ export default {
     },
 
     async doRequest(contextValues) {
-      let params;
+      let params, response;
       if (this.activation) {
         params = {
           partyId: this.partner.id,
@@ -212,7 +222,7 @@ export default {
           tempDataUuid: contextValues.tempDataUuid,
         };
 
-        return await preactivateAndActivateSImcardInstance(
+        response = await preactivateAndActivateSImcardInstance(
           this.appliedFilters,
           this.selectedLinesForActCreation,
           params
@@ -229,12 +239,39 @@ export default {
           tempDataUuid: contextValues.tempDataUuid,
         };
 
-        return await preactivateSimCardInstance(
+        response = await preactivateSimCardInstance(
           this.appliedFilters,
           this.selectedLinesForActCreation,
           params
         );
       }
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+
+        return { errors: response.errors };
+      }
+      return response;
     },
 
     async confirmValdation(containerValidationFn) {
