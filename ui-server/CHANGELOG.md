@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.253+20210329121950
+2021-03-29
+
+### Features
+
+- [2497] gestion de la limite de lignes des actes de gestion (220714c684bab0b17a9d31080707258ef783065c)
+
+### Fixes
+
+- [2538] configuration de la date pour l'acte de gestion Gérer les résiliations (8004c605b092cca7a9746a4c20586e8c817f8af6)
+- [2545] Retours sur les graphes factures (d5b45dbaf23e92f0fbf3dbdc59416e19cba0a0b3)
+
 ## 1.17.0-master.252+20210326161941
 2021-03-26
 
