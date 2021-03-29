@@ -47,7 +47,7 @@
                 {{ $t('getparc.actCreation.carouselItem.MODAL_WARNING') }}
               </div>
               <p>
-                <span>{{ $t('getparc.actCreation.modal.modalPreventMsg') }}</span>
+                <span>{{ dueDate }} </span>
                 <br />
                 <span>{{ $t('getparc.actCreation.modal.modalConfirmMsg') }}</span>
               </p>
@@ -129,6 +129,24 @@ export default {
         }
       }
       return this.actCreationPrerequisites.partner;
+    },
+    dueDate() {
+      const date = this.options && this.options.date ? this.options.date.split(' ') : '';
+      const selectedDelay =
+        this.options && this.options.selectedDelay ? this.options.selectedDelay : 0;
+      if (this.FormatOfInput === 'range') {
+        if (selectedDelay) {
+          return `${this.$t('getparc.actCreation.modal.modalPreventMsgDelay', {
+            delay: selectedDelay,
+          })} : ${date[0]}`;
+        } else {
+          return this.$t('getparc.actCreation.modal.modalPreventMsg');
+        }
+      } else {
+        return `${this.$t('getparc.actCreation.modal.modalPreventMsgSelectedDate', {
+          date: date[0],
+        })}`;
+      }
     },
   },
   async mounted() {
