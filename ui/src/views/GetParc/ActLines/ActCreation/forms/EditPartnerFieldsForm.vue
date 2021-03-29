@@ -44,22 +44,24 @@
     </div>
     <div slot="messages" class="text-info">
       <span
-        v-if="
-          (allFields && allFields.length) || (isFileImportContextValid && !requestErrors.length)
-        "
+        v-if="allFields && allFields.length && isFileImportContextValid && !requestErrors.length"
       >
         <i class="ic-Alert-Icon" />
         {{ $t('getparc.actCreation.editCustomFields.infoMessage') }}
       </span>
       <ul
         v-else-if="
-          (allFields && allFields.length) || (!isFileImportContextValid && requestErrors.length > 0)
+          (allFields &&
+            allFields.length &&
+            !isFileImportContextValid &&
+            requestErrors.length > 0) ||
+            (!allFields.length && !isFileImportContextValid && requestErrors.length > 0)
         "
         class="list-unstyled m-0 alert alert-danger"
       >
         <li class="item" v-for="e in requestErrors" :key="e.key">{{ e.message }}</li>
       </ul>
-      <span v-else
+      <span v-else-if="!allFields.length && !isFileImportContextValid && !requestErrors.length"
         ><i class="ic-Alert-Icon" />{{ $t('getparc.actCreation.editCustomFields.noResult') }}
       </span>
     </div>
@@ -268,11 +270,39 @@ export default {
         spec2: getCustomFieldValue('spec2'),
         tempDataUuid: contextValues.tempDataUuid,
       };
-      return await updateCustomFields(
+      const response = await updateCustomFields(
         this.appliedFilters,
         this.selectedLinesForActCreation,
         params
       );
+      console.log('response', response);
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+
+        return { errors: response.errors };
+      }
+      return response;
     },
     async onValidate(contextValues) {
       if (!this.isFileImportContextValid) {

@@ -47,6 +47,14 @@
       @change="onDataServiceChange"
       @apnChange="onApnChange"
     />
+    <div slot="messages" class="text-info">
+      <div v-if="requestErrors && requestErrors.length">
+        <h6 class="text-danger">{{ $t('errors.all') }}</h6>
+        <ul class="text-danger list-unstyled">
+          <li v-for="error in requestErrors" :key="error.message">{{ error.message }}</li>
+        </ul>
+      </div>
+    </div>
   </ActFormContainer>
 </template>
 
@@ -75,6 +83,7 @@ export default {
       servicesToDisable: [],
       dataService: undefined,
       isDataParamsError: false,
+      requestErrors: [],
     };
   },
   computed: {
@@ -111,7 +120,7 @@ export default {
       return isError;
     },
     async onValidate(contextValues) {
-      return await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
+      const response = await changeService(this.appliedFilters, this.selectedLinesForActCreation, {
         notifEmail: contextValues.notificationCheck,
         dueDate: contextValues.actDate,
         tempDataUuid: contextValues.tempDataUuid,
@@ -121,6 +130,33 @@ export default {
         dataService: this.shouldChangeData ? this.dataService : undefined,
         offerCode: this.actCreationPrerequisites.offer.productCode,
       });
+      if (response.errors && response.errors.length) {
+        response.errors.forEach(r => {
+          if (r.extensions.error === 'MassActionLimit') {
+            const count = r.extensions.limit ? r.extensions.limit : '';
+            const messageErrorMaxLine = this.$t(
+              'getparc.actCreation.report.FILE_MAX_LINE_NUMBER_INVALID',
+              {
+                count,
+              }
+            );
+            this.requestErrors = [
+              {
+                message: messageErrorMaxLine,
+              },
+            ];
+          } else {
+            this.requestErrors = [
+              {
+                message: r.message,
+              },
+            ];
+          }
+        });
+
+        return { errors: response.errors };
+      }
+      return response;
     },
     onDataServiceChange(data) {
       this.dataService = { ...data, parameters: [...data.apns] };

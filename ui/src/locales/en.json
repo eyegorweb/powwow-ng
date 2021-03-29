@@ -1512,6 +1512,7 @@
         "FILE_CONTENT_INVALID": "Invalid file content",
         "FILE_LINE_NUMBER_INVALID": "Your file contains more SIM than the number of SIM remaining to import",
         "FILE_MAX_LINE_NUMBER_INVALID": "Lines imported exceeded limit of {count} by file",
+        "MassActionLimit": "Lines imported exceeded limit of {count} by file",
         "InvalidFileExtension": "Invalid file extension",
         "InvalidFileContent": "Invalid file content",
         "InvalidFileVersion": "Invalid file version",

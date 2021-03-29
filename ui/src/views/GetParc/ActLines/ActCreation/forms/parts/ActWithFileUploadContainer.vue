@@ -91,10 +91,16 @@
             />
             <button
               v-if="tempDataUuid"
+              :disabled="!report.validated"
               @click="confirmRequest(true)"
-              class="btn btn-success pl-4 pr-4 pt-2 pb-2"
+              class="btn btn-double-validation pl-4 pr-4 pt-2 pb-2"
+              :class="{
+                'btn-success': report.validated,
+                'btn-light': !report.validated,
+              }"
             >
-              <span>{{ $t('confirm') }}</span>
+              <i v-if="report.validated" class="ic-Check-Icon" />
+              {{ $t('confirm') }}
             </button>
           </div>
         </div>
@@ -258,7 +264,8 @@ export default {
         this.actCode,
         this.actCreationPrerequisites.partner.id
       );
-      if (response.errors && response.errors.length) {
+
+      if (response.errors && response.errors.length && !response.tempDataUuid) {
         response.errors.forEach(r => {
           if (r.error === 'FILE_MAX_LINE_NUMBER_INVALID') {
             const count =
@@ -277,7 +284,7 @@ export default {
           } else {
             this.requestErrors = [
               {
-                message: this.$t('getparc.actCreation.report.' + r.key),
+                message: r.message,
               },
             ];
           }
@@ -288,7 +295,6 @@ export default {
         this.tempDataUuid = response.tempDataUuid;
         this.contextValues = contextValues;
       }
-
       this.report = response;
       if (this.alwaysShowReport || this.haveBusinessErrors) {
         return { stayInForm: true };
@@ -321,13 +327,13 @@ export default {
       }
 
       if (response) {
-        if (response.stayInForm) {
+        if (response.stayInForm && !response.errors) {
           this.showValidationModal = false;
           this.isLoading = false;
           return [];
         }
 
-        if (response.errors) {
+        if (response.errors && response.errors) {
           const errorMessages = response.errors.map(e => {
             return { level: 'danger', message: e.message };
           });
