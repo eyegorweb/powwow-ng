@@ -400,6 +400,7 @@ export default {
       'userLanguage',
       'userIsMVNO',
       'singlePartner',
+      'userIsGroupPartner',
     ]),
 
     logoutUrl() {
