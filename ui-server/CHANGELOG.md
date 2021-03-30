@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.256+20210330134118
+2021-03-30
+
+### Fixes
+
+- [2549] Corriger la vérification pour les utilisateurs de type partnerGroup (3343a69c760b7acc8bdcfa4ff98fee138ec7dcea)
+
 ## 1.17.0-master.255+20210330075642
 2021-03-30
 
