@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.255+20210330075642
+2021-03-30
+
+### Fixes
+
+- [2535] Modification de lapi pour getdiag dans le detail de ligne (d91ee5f87592f15dcd82a01ffb7f78414592e2a9)
+- [2536] Modification du style dans le statut de la table acte de gestion detail de ligne (97036ee7491cd4f977c785f584409b904819de2f)
+
 ## 1.17.0-master.254+20210329133243
 2021-03-29
 
