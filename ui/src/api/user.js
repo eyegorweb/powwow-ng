@@ -20,6 +20,7 @@ export async function fetchCurrentUserInfos() {
           partyType
           flagMsisdnA
           optionViewCellId
+          flagStatisticsEnabled
           mailingLists {
             id
             name
@@ -30,6 +31,7 @@ export async function fetchCurrentUserInfos() {
         partyGroup {
           id
           name
+          flagStatisticsEnabled
         }
         type
         isAdminOrBackOffice

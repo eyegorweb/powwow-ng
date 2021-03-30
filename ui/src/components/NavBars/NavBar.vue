@@ -241,7 +241,19 @@ export default {
           {
             label: 'menu.reportsDashboard',
             to: { name: 'reportsDashboard' },
-            permission: { domain: 'getReport', action: 'read_dashboard' },
+            permission: () => {
+              let canSeeMenu = this.havePermission('getReport', 'read_dashboard');
+              if (this.userIsPartner) {
+                canSeeMenu = canSeeMenu && !!this.singlePartner.flagStatisticsEnabled;
+              }
+
+              if (this.userIsGroupPartner) {
+                canSeeMenu =
+                  canSeeMenu && !!this.$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
+              }
+
+              return canSeeMenu;
+            },
           },
         ],
       },
@@ -387,6 +399,7 @@ export default {
       'havePermissionDomain',
       'userLanguage',
       'userIsMVNO',
+      'singlePartner',
     ]),
 
     logoutUrl() {
