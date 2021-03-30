@@ -5,7 +5,7 @@
       {{ item }}
     </div>
   </div>
-  <div class="order-status" v-else>
+  <div class="order-status d-flex" v-else>
     <CheckMark :is-error="isError" />
     <div class="label" :class="{ error: isError }">
       {{ item }}
