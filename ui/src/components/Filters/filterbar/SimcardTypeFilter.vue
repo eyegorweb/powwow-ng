@@ -1,7 +1,7 @@
 <template>
   <SimCardTypeFilter
-    :selectedTypeSimCardValues="selectedValues"
-    :selectedPartnersValues="partnerIds"
+    :selected-type-sim-card-values="selectedValues"
+    :selected-partners-values="partnerIds"
     @setTypeSimCardFilter="$emit('change', $event)"
   />
 </template>
@@ -39,5 +39,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

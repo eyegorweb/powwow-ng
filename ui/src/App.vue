@@ -2,7 +2,7 @@
   <div id="app">
     <div :class="{ container: appIsReady }">
       <NavBars v-if="appIsReady && $route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
-      <router-view />
+      <router-view v-if="appIsReady" />
       <PanelSwitcher v-if="appIsReady" />
     </div>
 

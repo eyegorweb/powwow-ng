@@ -1,5 +1,8 @@
 <template>
-  <button class="btn btn-link p-0 user-select-text id-cell" @click.stop="openActHistoryDetailsPanel">
+  <button
+    class="btn btn-link p-0 user-select-text id-cell"
+    @click.stop="openActHistoryDetailsPanel"
+  >
     {{ row.massActionId || row.id }}
   </button>
 </template>

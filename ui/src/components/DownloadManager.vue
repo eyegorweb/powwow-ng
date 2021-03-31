@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     ...mapState({
-      downloadURI: (state) => state.ui.downloadURI,
+      downloadURI: state => state.ui.downloadURI,
     }),
     ...mapGetters(['accessToken']),
   },

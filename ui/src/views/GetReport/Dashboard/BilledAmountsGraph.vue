@@ -165,9 +165,9 @@ export default {
           pointFormatter() {
             return `
               <tr><td style="color:${this.series.color};padding:0">${this.series.name}: </td>
-              <td style="padding:0"><b>${
-                this.y + ' ' + this.series.options.custom.amountOf
-              }</b></td></tr>
+              <td style="padding:0"><b>${this.y +
+                ' ' +
+                this.series.options.custom.amountOf}</b></td></tr>
                 `;
           },
           footerFormat: '</table>',

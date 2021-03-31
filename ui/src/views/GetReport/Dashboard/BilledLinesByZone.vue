@@ -250,9 +250,8 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatBytes(this.y)
-            } ${
-              (this.series.options.custom && this.series.options.custom.devise) || ''
-            }</b></td></tr>
+            } ${(this.series.options.custom && this.series.options.custom.devise) ||
+              ''}</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -353,9 +352,8 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatToM(this.y)
-            } ${
-              (this.series.options.custom && this.series.options.custom.devise) || ''
-            }</b></td></tr>
+            } ${(this.series.options.custom && this.series.options.custom.devise) ||
+              ''}</b></td></tr>
               `;
           },
           footerFormat: '</table>',
@@ -456,9 +454,8 @@ export default {
               this.series.options.custom && this.series.options.custom.devise
                 ? this.y
                 : formatToM(this.y)
-            } ${
-              (this.series.options.custom && this.series.options.custom.devise) || ''
-            }</b></td></tr>
+            } ${(this.series.options.custom && this.series.options.custom.devise) ||
+              ''}</b></td></tr>
               `;
           },
           footerFormat: '</table>',

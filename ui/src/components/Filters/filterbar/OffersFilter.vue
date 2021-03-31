@@ -2,7 +2,7 @@
   <OffersFilter
     :selected-offers-values="selectedValues"
     :selected-partners-values="partnerIds"
-    @setOffersFilter="(values) => $emit('change', values)"
+    @setOffersFilter="values => $emit('change', values)"
   />
 </template>
 

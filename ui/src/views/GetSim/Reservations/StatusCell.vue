@@ -40,6 +40,9 @@ export default {
 
         case 'TERMINATED':
           return 'ic-check-circle';
+
+        default:
+          return 'ic-check-circle';
       }
     },
   },

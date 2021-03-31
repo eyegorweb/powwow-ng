@@ -114,7 +114,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
 .graph-skeleton {
   height: 20rem;

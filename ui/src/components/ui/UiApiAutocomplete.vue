@@ -154,14 +154,14 @@ export default {
     results() {
       if (!this.$value) return this.highlightedResults;
       if (this.containsSearch) {
-        return containsWithHighlight(this.$value, this.items).map((result) => {
+        return containsWithHighlight(this.$value, this.items).map(result => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
           };
         });
       } else if (this.startsWithSearch) {
-        return startsWithHighlight(this.$value, this.items).map((result) => {
+        return startsWithHighlight(this.$value, this.items).map(result => {
           return {
             ...result.item,
             highlighted: result.highlighted.label,
@@ -173,7 +173,7 @@ export default {
             key: 'label',
             allowTypo: false,
           })
-          .map((r) => ({
+          .map(r => ({
             ...r.obj,
             highlighted: fuzzysort.highlight(r),
           }));
@@ -183,7 +183,7 @@ export default {
     highlightedResults() {
       if (!this.items) return [];
 
-      return this.items.map((item) => ({
+      return this.items.map(item => ({
         ...item,
         highlighted: item.label,
       }));
@@ -221,9 +221,9 @@ export default {
 
       if (this.apiMethod) {
         this.isFetching = true;
-        this.resultsPromise = new Promise(async (resolve) => {
+        this.resultsPromise = new Promise(async resolve => {
           const items = (await this.apiMethod(this.$value || '')) || [];
-          const result = startsWithHighlight(this.$value || '', items).map((result) => {
+          const result = startsWithHighlight(this.$value || '', items).map(result => {
             return {
               ...result.item,
               highlighted: result.highlighted.label,
@@ -288,7 +288,7 @@ export default {
   watch: {
     // Pas possible d'utiliser une computed property à cause de la
     // nature async de debounce
-    $value: debounce(function () {
+    $value: debounce(function() {
       this.fetchResults();
     }, 200),
 
