@@ -1,11 +1,7 @@
 <template>
-  <ActFormContainer :validate-fn="onValidate" @update:date="chekdate" no-modal>
-    <template v-if="partner">
-      <div
-        class="form-container mb-3"
-        slot="validate-btn-content"
-        slot-scope="{ containerValidationFn }"
-      >
+  <div v-if="partner">
+    <ActFormContainer :validate-fn="onValidate" no-modal>
+      <div slot="validate-btn-content" slot-scope="{ containerValidationFn }">
         <button
           @click="waitForConfirmation = true"
           class="btn pl-4 pr-4 pt-2 pb-2"
@@ -64,8 +60,9 @@
           </ul>
         </div>
       </div>
-    </template>
-  </ActFormContainer>
+    </ActFormContainer>
+  </div>
+  <div v-else>{{ $t('noResult') }}</div>
 </template>
 
 <script>
