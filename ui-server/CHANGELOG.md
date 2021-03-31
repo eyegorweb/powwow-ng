@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.258+20210331075636
+2021-03-31
+
+### Fixes
+
+- [2549] gestion des permissions reporting dans la homepage (5d0cfe9218586465b9531baec2895646fc8cd0e4)
+
 ## 1.17.0-master.257+20210331071846
 2021-03-31
 
