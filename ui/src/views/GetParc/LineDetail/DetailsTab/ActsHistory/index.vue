@@ -126,33 +126,7 @@ export default {
   methods: {
     async fetchUnitActs(searchFilter = [{ id: 'filters.iccid', value: this.content.iccid }]) {
       this.isLoading = true;
-      const response = {
-        "total": 1,
-        "items": [
-            {
-                "unitAction": {
-                    "accessPointId": "vel 3788",
-                    "dueDate": "01/01/2020",
-                    "created": "01/10/2019 12:14:32",
-                    "statusDate": "01/10/2019 12:14:32",
-                    "errorCode": "consectetur"
-                },
-                "msisdn": "Adipiscing",
-                "imsi": "Proin",
-                "iccid": "amet",
-                "imei": "sit",
-                "deviceManufacturer": "elit",
-                "deviceReference": "Proin",
-                "info": "ut.",
-                "error": "vel",
-                "type": "Adipiscing",
-                "massActionId": "fermentum 8921",
-                "geoloc": "fermentum",
-                "status": "elit"
-            }
-        ]
-    }
-
+      const response = await fetchUnitActions2(searchFilter, this.getPageInfo, this.orderBy);
       this.unitActions = response.items.map(i => ({ ...i, ...i.unitAction }));
 
       this.total = response.total;
