@@ -30,6 +30,25 @@ import { HIDE_MOCKS } from '@/featureFlipping/plugin.js';
 
 export const WIDGETS_STORAGE_VERSION = '4';
 
+const checkSeeMoreForReport = ({
+  havePermission,
+  userIsPartner,
+  singlePartner,
+  userIsGroupPartner,
+  $loGet,
+}) => {
+  let canSeeMenu = havePermission('getReport', 'read_dashboard');
+  if (userIsPartner) {
+    canSeeMenu = canSeeMenu && !!singlePartner.flagStatisticsEnabled;
+  }
+
+  if (userIsGroupPartner) {
+    canSeeMenu = canSeeMenu && !!$loGet(this.userInfos, 'partyGroup.flagStatisticsEnabled');
+  }
+
+  return canSeeMenu;
+};
+
 // COACH M2M / DIAGNOSTIC
 const defaultWidgets = [
   {
@@ -46,7 +65,7 @@ const defaultWidgets = [
     description: '',
     checked: true,
     large: true,
-    seeMore: { domain: 'getReport', action: 'read_dashboard' },
+    seeMore: checkSeeMoreForReport,
     component: ConsoGraphWidget,
     permission: { domain: 'widget', action: 'parc_consumption_history' },
   },
@@ -82,7 +101,7 @@ const defaultWidgets = [
     description: '',
     checked: true,
     large: false,
-    seeMore: { domain: 'getReport', action: 'read_dashboard' },
+    seeMore: checkSeeMoreForReport,
     component: ParcStateWidget,
     permission: { domain: 'widget', action: 'parc_state' },
   },
@@ -128,7 +147,7 @@ const defaultWidgets = [
     description: '',
     checked: false,
     large: true,
-    seeMore: { domain: 'getReport', action: 'read_dashboard' },
+    seeMore: checkSeeMoreForReport,
     component: ConsoWidget,
     permission: { domain: 'widget', action: 'parc_current_consumption' },
     notDraggable: true,
@@ -292,6 +311,7 @@ export function loadWidgets() {
         const conf = {
           ...widget,
           ...d,
+          seeMore: widget.seeMore,
         };
 
         conf.checked = d.checked;
