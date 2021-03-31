@@ -188,14 +188,14 @@ export default {
   async mounted() {
     if (this.getValue(this.content, 'id')) {
       this.loadingGeoloc = true;
-      const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
-      if (pdpResponse && pdpResponse.items && pdpResponse.items.length) {
-        this.pdpConnexionData = {
-          ...pdpResponse.items[0],
-          ...pdpResponse.items[0].pdpConnectionDateInfo,
-          ...pdpResponse.items[0].pdpConnectionHistory,
-        };
-      }
+      // const pdpResponse = await dataUsage(this.getValue(this.content, 'id'), { page: 0, limit: 1 });
+      // if (pdpResponse && pdpResponse.items && pdpResponse.items.length) {
+      //   this.pdpConnexionData = {
+      //     ...pdpResponse.items[0],
+      //     ...pdpResponse.items[0].pdpConnectionDateInfo,
+      //     ...pdpResponse.items[0].pdpConnectionHistory,
+      //   };
+      // }
       this.geographicalLocation = await lastGeographicalLocation(this.getValue(this.content, 'id'));
       this.loadingGeoloc = false;
     }
