@@ -1,6 +1,6 @@
 <template>
   <BaseDetailPanelContent>
-    <div>
+    <div class="bottom-space">
       <HomePanelOption v-for="w in localWidgets" :key="w.id" :title="w.title" v-model="w.checked">
         {{ w.description }}
       </HomePanelOption>

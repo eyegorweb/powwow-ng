@@ -392,15 +392,15 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'userName',
       'userInfos',
+      'singlePartner',
+      'userIsGroupPartner',
       'userIsPartner',
+      'userIsMVNO',
+      'userName',
       'havePermission',
       'havePermissionDomain',
       'userLanguage',
-      'userIsMVNO',
-      'singlePartner',
-      'userIsGroupPartner',
     ]),
 
     logoutUrl() {

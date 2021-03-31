@@ -48,7 +48,13 @@ export default {
     titleGrow: Boolean,
   },
   computed: {
-    ...mapGetters(['havePermission']),
+    ...mapGetters([
+      'havePermission',
+      'userInfos',
+      'singlePartner',
+      'userIsGroupPartner',
+      'userIsPartner',
+    ]),
     large() {
       return this.widget && this.widget.large;
     },
@@ -58,6 +64,16 @@ export default {
       }
       if (typeof this.widget.seeMore === 'object') {
         return this.havePermission(this.widget.seeMore.domain, this.widget.seeMore.action);
+      }
+
+      if (typeof this.widget.seeMore === 'function') {
+        return this.widget.seeMore({
+          havePermission: this.havePermission,
+          userIsPartner: this.userIsPartner,
+          singlePartner: this.singlePartner,
+          userIsGroupPartner: this.userIsGroupPartner,
+          $loGet: this.$loGet,
+        });
       }
       return false;
     },
