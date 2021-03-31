@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.257+20210331071846
+2021-03-31
+
+### Fixes
+
+- [2536] Modification du style dans le statut de la table acte de gestion detail de ligne (f7f3421d6e35c0f0a5111e6f8e18ec91c0cee27b)
+- [2537] ajout de la popup de confirmation pour l'acte de résiliation (5ac32b7fa18c0e5577dfb71fe4d17dfcbbcae22a)
+
 ## 1.17.0-master.256+20210330134118
 2021-03-30
 
