@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.259+20210331143406
+2021-03-31
+
+### Features
+
+- [2530] écran de création de réservation (0a7311a6537f972cf000efdeb371a1cc64d6479a)
+- [000] enlever test inutile (59c1cc907a0d3181663a22de023d607b1cb00d27)
+
 ## 1.17.0-master.258+20210331075636
 2021-03-31
 
