@@ -15,22 +15,23 @@ const store = new Store({
 afterEach(() => store.reset());
 
 describe('Authentication', () => {
-  it('redirects to login page when no token is found', () => {
+  it('try to refresh token when token is not found', () => {
     const $route = {
       name: 'someRoute',
     };
-    utils.redirectTo = jest.fn();
+    const startRefreshingToken = jest.fn();
 
     mount(Authentication, {
       mocks: {
         $store: store,
         $route,
+        mutations: {
+          startRefreshingToken,
+        },
       },
     });
 
-    expect(utils.redirectTo).toHaveBeenCalledWith(
-      'http://localhost:4000/oauth/authorize?response_type=token&client_id=nextgenui-implicit&redirect_uri=http://localhost/callback'
-    );
+    expect(store.commit).toHaveBeenNthCalledWith(1, 'startRefreshingToken');
   });
 
   it('do not checks for token when current page is callback', () => {
@@ -80,44 +81,6 @@ describe('Authentication', () => {
       },
     });
     expect(utils.redirectTo).not.toHaveBeenCalled();
-  });
-
-  it('extracts new token from iframe', () => {
-    const $route = {
-      name: 'somePage',
-    };
-    const setAuthToken = jest.fn();
-    const stopRefreshingToken = jest.fn();
-
-    const wrapper = mount(Authentication, {
-      mocks: {
-        $store: {
-          ...store,
-          mutations: {
-            stopRefreshingToken,
-          },
-          actions: {
-            setAuthToken, // <--- le mock n'est pas pris en compte quand je le passe comme ça
-          },
-        },
-        $route,
-      },
-    });
-    wrapper.vm.setAuthToken = setAuthToken; // <-- du coup pour contourner je le met directement sur le composant
-
-    const frame = {
-      target: {
-        contentDocument: {
-          location: {
-            href: 'some.url?access_token=ABCD&scope=webclient',
-          },
-        },
-      },
-    };
-    wrapper.vm.onRefreshTokenPageLoaded(frame);
-
-    expect(setAuthToken).toHaveBeenCalledWith('ABCD');
-    expect(store.commit).toHaveBeenNthCalledWith(1, 'stopRefreshingToken');
   });
 
   it('redirects to login when no refresh token is returned', () => {

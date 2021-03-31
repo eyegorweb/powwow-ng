@@ -69,7 +69,7 @@ export default {
   computed: {
     ...mapState('userContext', ['contextPartnersType', 'contextPartners']),
     ...mapState({
-      isPanelOpen: (state) => state.ui.isPanelOpen,
+      isPanelOpen: state => state.ui.isPanelOpen,
     }),
     ...mapGetters('getsim', ['appliedFilters']),
   },

@@ -123,7 +123,7 @@ export default {
         this.servicesChoice.dataService &&
         this.servicesChoice.dataService.checked &&
         this.servicesChoice.dataService.parameters &&
-        this.servicesChoice.dataService.parameters.filter((p) => p.selected).length === 0;
+        this.servicesChoice.dataService.parameters.filter(p => p.selected).length === 0;
 
       if (this.activation) {
         if (!this.selectedOffer) {
@@ -138,7 +138,7 @@ export default {
       const offerServices = getMarketingOfferServices(selectedOffer.initialOffer);
 
       if (this.chosenServices) {
-        return offerServices.map((os) => this.chosenServices.find((s) => s.code === os.code));
+        return offerServices.map(os => this.chosenServices.find(s => s.code === os.code));
       }
 
       return offerServices;
@@ -164,7 +164,7 @@ export default {
       });
       this.isLoadingOffers = false;
 
-      this.offers = data.map((o) => {
+      this.offers = data.map(o => {
         return {
           ...o,
           label: o.workflowDescription,
