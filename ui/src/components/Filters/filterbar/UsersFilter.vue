@@ -61,7 +61,7 @@ export default {
       const orderBy = { key: 'fullname', direction: 'ASC' };
       const data = await searchUsers(q, orderBy, { limit: 10, page }, []);
       if (data) {
-        return data.items.map((p) => {
+        return data.items.map(p => {
           const formattedUser = {
             key: uuid(),
             id: p.id,
@@ -74,11 +74,10 @@ export default {
           return formattedUser;
         });
       }
-      //*/
+      //* /
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

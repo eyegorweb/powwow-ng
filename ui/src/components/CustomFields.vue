@@ -103,7 +103,7 @@ export default {
       currentDate: undefined,
     };
   },
-  mounted () {
+  mounted() {
     this.currentDate = moment().format('DD/MM/YYYY hh:mm:ss');
   },
   methods: {

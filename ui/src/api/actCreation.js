@@ -68,7 +68,7 @@ export async function updateCustomFields(filters, lines, params) {
 
     const response = await query(queryStr);
     if (response.errors) {
-    return {
+      return {
         errors: response.errors,
       };
     }
@@ -180,11 +180,11 @@ export async function changeSingleCustomFields(params) {
   //   }
   // };
   if (response.errors) {
-  return {
+    return {
       errors: response.errors,
     };
   }
-    return response.data.changeCustomFieldsV2;
+  return response.data.changeCustomFieldsV2;
 }
 
 export async function suspendLines(filters, lines, params) {
@@ -240,9 +240,9 @@ async function suspendReactivateLines(filters, lines, params, suspension) {
     const response = await query(queryStr);
     if (response.errors) {
       return {
-          errors: response.errors,
-        };
-      }
+        errors: response.errors,
+      };
+    }
     return response.data.suspendReactivateLinesV2;
   });
 }
@@ -303,7 +303,7 @@ export async function changeCustomerAccount(filters, lines, params) {
     //   }
     // };
     if (response.errors) {
-    return {
+      return {
         errors: response.errors,
       };
     }
@@ -716,12 +716,12 @@ export async function preactivateAndActivateSImcardInstance(filters, lines, para
     `;
 
     const response = await query(queryStr);
-   if (response.errors) {
-    return {
-      errors: response.errors,
-    };
-  }
-  return response.data.preactivateAndActivateSImcardInstanceV2;
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.preactivateAndActivateSImcardInstanceV2;
   });
 }
 
@@ -760,7 +760,7 @@ export async function preactivateSimCardInstance(filters, lines, params) {
 
     const response = await query(queryStr);
     if (response.errors) {
-    return {
+      return {
         errors: response.errors,
       };
     }
@@ -825,7 +825,7 @@ export async function changeOffer(filters, lines, params, keepServices) {
 
     const response = await query(queryStr);
     if (response.errors) {
-    return {
+      return {
         errors: response.errors,
       };
     }

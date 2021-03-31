@@ -22,9 +22,9 @@
           {{ $t('getsim.sim-type-labels.licence') }}: {{ item.simCard.licence }}
         </p>
         <p v-if="item.orderDate" class="last-order mt-1">
-          {{ $t('getsim.sim-type-labels.orderDate') }}: {{ formattedDate }}
+          {{ $t(lastActionKey) }}: {{ formattedDate }}
         </p>
-        <p v-else class="last-order mt-1">{{ $t('getsim.never-ordered') }}</p>
+        <p v-else class="last-order mt-1">{{ $t(noActionKey) }}</p>
       </div>
     </div>
     <div class="simtype__item">
@@ -48,6 +48,8 @@ export default {
     isActive: {
       type: Boolean,
     },
+    lastActionKey: String,
+    noActionKey: String,
   },
   computed: {
     formattedDate() {

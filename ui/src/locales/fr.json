@@ -365,6 +365,14 @@
     "reservasions": {
       "tabTitle": "Réservations",
       "tableTitle": "{total} Réservation(s) trouvée(s)",
+      "createReservation": "Réserver des eSIM",
+      "synthesis": "Récapitulatif de la réservation",
+      "lastReservation": "Dernière réservation",
+      "noReservation": "Jamais réservé",
+      "save": "Enregistrer la réservation",
+      "creation": {
+        "pairing": "Appairage"
+      },
       "filters": {
         "creator": "Créateur de la réservation",
         "reservationDate": "Date de la réservation"

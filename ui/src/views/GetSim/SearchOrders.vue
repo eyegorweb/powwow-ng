@@ -26,12 +26,9 @@
 
 <script>
 import UiButton from '@/components/ui/Button';
-import Tooltip from '@/components/ui/Tooltip';
 import GetSimOrders from './GetSimOrders';
 import GetSimIndicators from './GetSimIndicators';
 import GetSimFilters from './FilterBar/GetSimFilters';
-import UiTabs from '@/components/ui/Tabs';
-import UiTab from '@/components/ui/Tab';
 import { mapMutations, mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -39,12 +36,9 @@ export default {
 
   components: {
     UiButton,
-    Tooltip,
     GetSimOrders,
     GetSimFilters,
     GetSimIndicators,
-    UiTabs,
-    UiTab,
   },
 
   methods: {

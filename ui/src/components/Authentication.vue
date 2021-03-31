@@ -16,15 +16,15 @@ export default {
     this.ensureUserIsAuthentified();
   },
   methods: {
-    ...mapActions(['ensureTokenExists', 'setAuthToken']),
-    ...mapMutations(['stopRefreshingToken']),
+    ...mapActions(['ensureTokenExists', 'setAuthToken', 'fetchUserInfos']),
+    ...mapMutations(['stopRefreshingToken', 'startRefreshingToken', 'appIsReady']),
 
     ensureUserIsAuthentified() {
       if (this.$route.name === 'callback' || this.$route.name === 'refresh') {
         return;
       }
       if (!this.token) {
-        this.redirectToLogin();
+        this.startRefreshingToken();
       }
     },
 
@@ -53,6 +53,7 @@ export default {
             this.setAuthToken(
               frame.target.contentDocument.location.href.split('=')[1].split('&')[0]
             );
+            this.imReady();
           } catch (e) {
             log('Erreur token', e, frame.target.contentDocument.location);
             this.redirectToLogin();
@@ -66,6 +67,11 @@ export default {
         log('Erreur refresh ', e);
         this.stopRefreshingToken();
       }
+    },
+
+    async imReady() {
+      await this.fetchUserInfos();
+      this.appIsReady();
     },
   },
   computed: {

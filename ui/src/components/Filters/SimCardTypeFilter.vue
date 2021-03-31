@@ -4,7 +4,7 @@
     :selected-partners-values="selectedPartnersValues"
     :fetch-api="fetchApi"
     contains-search
-    @update:values="(values) => $emit('setTypeSimCardFilter', values)"
+    @update:values="values => $emit('setTypeSimCardFilter', values)"
   />
 </template>
 
@@ -30,7 +30,7 @@ export default {
     async fetchApi(q, partners, partnerType, { page, limit }) {
       const data = await fetchCardTypes(q, partners, { page, partnerType, limit });
       if (data) {
-        return data.map((c) => {
+        return data.map(c => {
           if (this.formatFn) {
             return this.formatFn(c);
           } else {

@@ -11,6 +11,10 @@
   >
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
+      <CreateReservationPanel
+        v-if="panelId === 'getsim.reservasions.createReservation'"
+        :reservation="payload"
+      />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
       <GetSimCreatorDetails v-if="panelId === 'getsim.creator.title'" :order="payload" />
       <GetParcCreatorDetails v-if="panelId === 'getparc.creator.title'" :order="payload" />
@@ -114,6 +118,8 @@ export default {
       import('@/views/GetAdmin/PartnerDetail/CustomizeTab/DeliveryAddressFormPanel.vue'),
     BillDetailPanel: () => import('@/views/GetReport/Bill/BillDetailPanel.vue'),
     CoachPanel: () => import('@/views/GetParc/CoachM2M/CoachPanel.vue'),
+    CreateReservationPanel: () =>
+      import('@/views/GetSim/Reservations/CreateReservationPanel/index.vue'),
   },
   methods: {
     ...mapMutations(['closePanel']),

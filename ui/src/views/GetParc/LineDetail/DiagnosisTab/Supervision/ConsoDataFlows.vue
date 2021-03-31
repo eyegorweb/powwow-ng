@@ -122,7 +122,7 @@ export default {
           label: 'detailed',
           title: 'Détaillé',
         });
-        this.dataUsageStreams.forEach((d) => {
+        this.dataUsageStreams.forEach(d => {
           flowTypes.push({
             label: d.usageType,
             title: d.usageType,

@@ -177,7 +177,7 @@ export default {
   computed: {
     ...mapGetters(['userIsPartner']),
     ...mapState({
-      isOpen: (state) => state.ui.isPanelOpen,
+      isOpen: state => state.ui.isPanelOpen,
     }),
 
     numberOfTargetedLines() {
@@ -231,7 +231,7 @@ export default {
         return `${this.$t('notAvailableShortCut')}`;
       } else {
         if (
-          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find((o) => o === this.observationCycle)
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'CUSTOM', 'DAYS'].find(o => o === this.observationCycle)
         ) {
           return this.$t('alarms.observationCycles.' + this.observationCycle);
         }
@@ -242,7 +242,7 @@ export default {
     nbOfEventsForCurrentMonth() {
       if (this.triggerHistory) {
         const triggerForCurrrentMonth = this.triggerHistory.items.filter(
-          (i) => getMonthString(i.emissionDate) === getCurrentMonthName()
+          i => getMonthString(i.emissionDate) === getCurrentMonthName()
         );
         return triggerForCurrrentMonth.length;
       }

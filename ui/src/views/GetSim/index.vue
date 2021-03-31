@@ -11,7 +11,7 @@
     </div>
 
     <UiTabs v-if="tabs" :tabs="tabs">
-      <template slot-scope="{ tab, index, selectedIndex }">
+      <template slot-scope="{ tab, index }">
         <UiTab
           v-if="tab"
           :is-selected="index === currentTabToShow"
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import UiButton from '@/components/ui/Button';
 import Tooltip from '@/components/ui/Tooltip';
 import UiTabs from '@/components/ui/Tabs';
 import UiTab from '@/components/ui/Tab';
@@ -39,7 +38,6 @@ export default {
   name: 'GetSim',
 
   components: {
-    UiButton,
     Tooltip,
     UiTabs,
     UiTab,

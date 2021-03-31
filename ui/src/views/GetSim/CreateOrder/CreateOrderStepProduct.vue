@@ -16,6 +16,8 @@
                   selectedSimTypeValue.simCard &&
                   selectedSimTypeValue.simCard.id === item.simCard.id
               "
+              last-action-key="getsim.sim-type-labels.orderDate"
+              no-action-key="getsim.never-ordered"
             />
           </form>
           <div class="text-right">
