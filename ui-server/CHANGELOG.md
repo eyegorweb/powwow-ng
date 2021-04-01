@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.260+20210401130558
+2021-04-01
+
+### Features
+
+- [2531] upload d'un fichier d'appairage (8df2c59750ba3cce78e20eede03a498d7017c287)
+
+### Fixes
+
+- [2535] Suppression de l'appel API DataUsage (d7482a7e48e098fd8755999c7ec5f0a1e86ed1e9)
+
 ## 1.17.0-master.259+20210331143406
 2021-03-31
 
