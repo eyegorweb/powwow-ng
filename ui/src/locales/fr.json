@@ -362,7 +362,7 @@
     }
   },
   "getsim": {
-    "reservasions": {
+    "reservations": {
       "tabTitle": "Réservations",
       "tableTitle": "{total} Réservation(s) trouvée(s)",
       "createReservation": "Réserver des eSIM",
@@ -371,7 +371,9 @@
       "noReservation": "Jamais réservé",
       "save": "Enregistrer la réservation",
       "creation": {
-        "pairing": "Appairage"
+        "pairing": "Appairage",
+        "upload": "Télécharger un fichier",
+        "profileSelect": "Téléchargement du profil"
       },
       "filters": {
         "creator": "Créateur de la réservation",

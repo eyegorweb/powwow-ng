@@ -1,6 +1,6 @@
 <template>
   <div class="orderStepContainer">
-    <div class="orderStepContent">
+    <div class="orderStepContent" :class="{ wide: wide }">
       <slot></slot>
     </div>
     <div v-if="!noButtons" class="orderStepButtons">
@@ -37,6 +37,7 @@ export default {
     canGoToNextStep: Boolean,
     noButtons: Boolean,
     noNextButton: Boolean,
+    wide: Boolean,
   },
 };
 </script>
@@ -58,5 +59,9 @@ export default {
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+.wide {
+  padding: 0 !important;
 }
 </style>

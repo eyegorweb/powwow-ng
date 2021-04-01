@@ -83,7 +83,7 @@ export default {
   min-height: 90px;
 
   @media screen and (max-height: 900px) {
-    max-height: 40px;
+    max-height: 97px;
   }
 
   &.active {

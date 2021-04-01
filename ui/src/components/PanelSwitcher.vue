@@ -12,7 +12,7 @@
     <div class="panel-container">
       <GetSimCreateOrderPanel v-if="panelId === 'getsim.order-sim'" :order="payload" />
       <CreateReservationPanel
-        v-if="panelId === 'getsim.reservasions.createReservation'"
+        v-if="panelId === 'getsim.reservations.createReservation'"
         :reservation="payload"
       />
       <GetSimOrderDetails v-if="panelId === 'getsim.details.title'" :order="payload" />
@@ -126,15 +126,15 @@ export default {
   },
   computed: {
     ...mapState({
-      isOpen: state => state.ui.isPanelOpen,
-      title: state => state.ui.panelTitle,
-      panelId: state => state.ui.panelId,
-      wide: state => state.ui.isPanelWide,
-      payload: state => state.ui.panelPayload,
-      backdrop: state => state.ui.backdrop,
-      titleConf: state => state.ui.panelTitleConf,
-      ignoreClickAway: state => state.ui.ignoreClickAway,
-      width: state => state.ui.width,
+      isOpen: (state) => state.ui.isPanelOpen,
+      title: (state) => state.ui.panelTitle,
+      panelId: (state) => state.ui.panelId,
+      wide: (state) => state.ui.isPanelWide,
+      payload: (state) => state.ui.panelPayload,
+      backdrop: (state) => state.ui.backdrop,
+      titleConf: (state) => state.ui.panelTitleConf,
+      ignoreClickAway: (state) => state.ui.ignoreClickAway,
+      width: (state) => state.ui.width,
     }),
 
     effectiveWidth() {
