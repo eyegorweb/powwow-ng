@@ -18,7 +18,7 @@
         :disabled="!(accept && canSave)"
         @click="$emit('save')"
       >
-        {{ $t('getsim.reservasions.save') }}
+        {{ $t('getsim.reservations.save') }}
       </button>
     </div>
   </div>

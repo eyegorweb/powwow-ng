@@ -11,7 +11,7 @@
               class="float-right"
               @click="openCreateReservationPanel()"
             >
-              {{ $t('getsim.reservasions.createReservation') }}
+              {{ $t('getsim.reservations.createReservation') }}
             </UiButton>
           </permission>
         </div>
@@ -29,7 +29,7 @@
         @currentFiltersChange="currentFilters = $event"
       >
         <div slot="title">
-          {{ $t('getsim.reservasions.tableTitle', { total: formattedTotal }) }}
+          {{ $t('getsim.reservations.tableTitle', { total: formattedTotal }) }}
         </div>
         <div slot="before-filters">
           <Indicators v-if="indicators" :meta="indicators" disable-click precalculated />
@@ -107,12 +107,12 @@ export default {
       return formatLargeNumber(this.total);
     },
     selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
+      return this.currentPartners.map((p) => p.id);
     },
     currentPartners() {
       if (!this.currentFilters) return [];
 
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      const foundFilter = this.currentFilters.find((f) => f.id === 'filters.partners');
       if (foundFilter && foundFilter.values && foundFilter.values.length) {
         return foundFilter.values;
       }
@@ -155,15 +155,15 @@ export default {
         }
         if (filter.id === 'filters.partners') {
           formatted.partyId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'common.billingAccount') {
           formatted.customerAccountId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
-        if (filter.id === 'getsim.reservasions.filters.reservationDate') {
+        if (filter.id === 'getsim.reservations.filters.reservationDate') {
           if (filter.startDate) {
             const formattedStartDate = `${formatDateForGql(filter.startDate)}`;
             if (filter.endDate) {
@@ -182,12 +182,12 @@ export default {
         }
         if (filter.id === 'filters.lines.typeSIMCard') {
           formatted.simCardTypeId = {
-            in: filter.values.map(v => v.data.simCard.id),
+            in: filter.values.map((v) => v.data.simCard.id),
           };
         }
         if (filter.id === 'filters.offers') {
           formatted.workflowCode = {
-            in: filter.values.map(v => v.productCode),
+            in: filter.values.map((v) => v.productCode),
           };
         }
         if (filter.id === 'filters.quantity') {
@@ -208,16 +208,16 @@ export default {
             };
           }
         }
-        if (filter.id === 'getsim.reservasions.filters.creator') {
+        if (filter.id === 'getsim.reservations.filters.creator') {
           formatted.creatorId = {
             eq: filter.data.id,
           };
         }
         if (filter.id === 'filters.lines.customFileds') {
-          filter.values.forEach(v => {
+          filter.values.forEach((v) => {
             if (
               ['custom1', 'custom2', 'custom3', 'custom4', 'custom5', 'custom6'].find(
-                customField => v.id === customField
+                (customField) => v.id === customField
               )
             ) {
               formatted[v.id] = {
@@ -229,10 +229,10 @@ export default {
 
         if (filter.id === 'filters.action') {
           const preactivationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.PREACTIVATED'
+            (v) => v.id === 'filters.actionValues.PREACTIVATED'
           );
           const activationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.ACTIVATED'
+            (v) => v.id === 'filters.actionValues.ACTIVATED'
           );
 
           if (preactivationAsked) {
@@ -269,7 +269,7 @@ export default {
       this.indicators = [
         {
           name: 'reservationInProgress',
-          labelKey: 'getsim.reservasions.indicators.reservationInProgress',
+          labelKey: 'getsim.reservations.indicators.reservationInProgress',
           color: 'text-success',
           clickable: true,
           total: '-',
@@ -278,7 +278,7 @@ export default {
         },
         {
           name: 'terminatedReservation',
-          labelKey: 'getsim.reservasions.indicators.terminatedReservation',
+          labelKey: 'getsim.reservations.indicators.terminatedReservation',
           color: 'text-success',
           clickable: true,
           total: '-',
@@ -317,11 +317,11 @@ export default {
         // TODO: Statut de la réservation
 
         {
-          title: 'getsim.reservasions.filters.reservationDate',
+          title: 'getsim.reservations.filters.reservationDate',
           component: DateRangeFilter,
           onChange(chosenValue) {
             return {
-              id: 'getsim.reservasions.filters.reservationDate',
+              id: 'getsim.reservations.filters.reservationDate',
               startDate: chosenValue.startDate,
               endDate: chosenValue.endDate,
               data: chosenValue,
@@ -387,12 +387,12 @@ export default {
         },
 
         {
-          title: 'getsim.reservasions.filters.creator',
+          title: 'getsim.reservations.filters.creator',
           component: UsersFilter,
           onChange(chosenValue) {
             if (chosenValue) {
               return {
-                id: 'getsim.reservasions.filters.creator',
+                id: 'getsim.reservations.filters.creator',
                 value: chosenValue.label,
                 data: chosenValue,
               };
@@ -484,7 +484,7 @@ export default {
       const commonColumns = [
         {
           id: 1,
-          label: this.$t('getsim.reservasions.columns.id'),
+          label: this.$t('getsim.reservations.columns.id'),
           name: 'id',
           exportId: 'id',
           orderable: true,
@@ -494,7 +494,7 @@ export default {
         //
         {
           id: 2,
-          label: this.$t('getsim.reservasions.filters.reservationDate'),
+          label: this.$t('getsim.reservations.filters.reservationDate'),
           name: 'esimReservationDate',
           exportId: 'esimReservationDate',
           orderable: true,
@@ -516,7 +516,7 @@ export default {
         },
         {
           id: 5,
-          label: this.$t('getsim.reservasions.columns.reservationStatus'),
+          label: this.$t('getsim.reservations.columns.reservationStatus'),
           name: 'status',
           orderable: true,
           visible: true,
@@ -539,7 +539,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'simCardType.description');
             },
           },
@@ -552,20 +552,20 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'esimReservedMarketingOffer.description');
             },
           },
         },
         {
           id: 9,
-          label: this.$t('getsim.reservasions.filters.creator'),
+          label: this.$t('getsim.reservations.filters.creator'),
           name: 'creator',
           orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return `${this.$loGet(row, 'auditable.creator.name.firstName')} ${this.$loGet(
                 row,
                 'auditable.creator.name.lastName'
@@ -581,7 +581,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'party.name');
             },
           },
@@ -594,7 +594,7 @@ export default {
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'customerAccount.code');
             },
           },
@@ -614,7 +614,7 @@ export default {
       if (this.userIsPartner) {
         const partnerId = this.$loGet(this.singlePartner, 'id');
         const customFields = await fetchCustomFields(partnerId);
-        const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+        const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
           return {
             id: c.id,
             label: c.label,
@@ -635,8 +635,8 @@ export default {
 
     openCreateReservationPanel() {
       this.openPanel({
-        title: this.$t('getsim.reservasions.createReservation'),
-        panelId: 'getsim.reservasions.createReservation',
+        title: this.$t('getsim.reservations.createReservation'),
+        panelId: 'getsim.reservations.createReservation',
         wide: true,
         backdrop: true,
         ignoreClickAway: true,

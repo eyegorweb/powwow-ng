@@ -67,8 +67,8 @@ export default {
           },
         },
         {
-          label: 'reservasions',
-          title: this.$t('getsim.reservasions.tabTitle'),
+          label: 'reservations',
+          title: this.$t('getsim.reservations.tabTitle'),
           to: {
             name: 'orders.reservations',
           },

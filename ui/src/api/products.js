@@ -1,16 +1,10 @@
 import { query } from './utils';
 
-export async function fetchSim(partnerId, cfID) {
-  let cfParam = '';
-
-  if (cfID) {
-    cfParam = `, customerAccountId: ${cfID}`;
-  }
-
+export async function fetchSim(partnerId, customerAccountId, simCategoryFilter) {
   const response = await query(
     `
-  query {
-    findLatestSimcardsOrder(pagination: {page: 0, limit: 999}, sorting: {orderDate: DESC}, partyId: ${partnerId}${cfParam}) {
+  query FindLatestSimcardsOrder($partnerId: Long!,$customerAccountId: Long, $simCategoryFilter: SIMCardCategoryFilterInput) {
+    findLatestSimcardsOrder(pagination: {page: 0, limit: 999}, sorting: {orderDate: DESC}, partyId: $partnerId, customerAccountId: $customerAccountId, SimCategoryFilter: $simCategoryFilter) {
       total
       items {
         orderDate
@@ -27,7 +21,8 @@ export async function fetchSim(partnerId, cfID) {
       }
     }
   }
-    `
+    `,
+    { partnerId, customerAccountId, simCategoryFilter }
   );
 
   return response.data.findLatestSimcardsOrder.items;

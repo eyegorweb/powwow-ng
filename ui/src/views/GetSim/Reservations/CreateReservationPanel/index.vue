@@ -40,7 +40,7 @@
     </template>
     <template v-slot:synthesis="{ currentStep, synthesis }">
       <WizardSynthesis
-        title="getsim.reservasions.synthesis"
+        title="getsim.reservations.synthesis"
         :synthesis="synthesis"
         :can-save="currentStep === steps.length - 1"
         @save="saveReservation"
@@ -74,7 +74,7 @@ export default {
         { label: this.$t('orders.new.customer') },
         { label: this.$t('orders.new.product') },
         { label: this.$t('orders.new.service') },
-        { label: this.$t('getsim.reservasions.creation.pairing') },
+        { label: this.$t('getsim.reservations.creation.pairing') },
         { label: this.$t('orders.new.settings') },
       ],
     };
