@@ -10,6 +10,7 @@
         @change="onValueChanged"
         @addValueToList="onAddValueToList"
         :direction="datePickerDirection"
+        :empty-dates="emptyDates"
       />
     </template>
     <template v-if="specificFields && !userIsPartner">
@@ -51,6 +52,7 @@ export default {
       type: String,
       default: 'down',
     },
+    emptyDates: Boolean,
   },
   components: {
     CustomFields,

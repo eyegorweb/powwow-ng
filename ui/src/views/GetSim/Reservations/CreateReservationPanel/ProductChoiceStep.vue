@@ -13,8 +13,8 @@
               :default-selected-item.sync="selectedSimTypeValue"
               :is-active="
                 selectedSimTypeValue &&
-                selectedSimTypeValue.simCard &&
-                selectedSimTypeValue.simCard.id === item.simCard.id
+                  selectedSimTypeValue.simCard &&
+                  selectedSimTypeValue.simCard.id === item.simCard.id
               "
               last-action-key="getsim.reservations.lastReservation"
               no-action-key="getsim.reservations.noReservation"
@@ -96,7 +96,7 @@ export default {
     },
     filteredSimTypes: {
       get() {
-        return this.simTypes.slice(0, this.limit).filter((s) => !!s.simCard);
+        return this.simTypes.slice(0, this.limit).filter(s => !!s.simCard);
       },
       set(newVal) {
         return newVal;

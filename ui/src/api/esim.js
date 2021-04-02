@@ -62,5 +62,5 @@ export async function createEsimReservation({ esimReservationInput, selectedServ
     }
   }`;
   const response = await query(queryStr, { esimReservationInput, selectedServicesInput });
-  return response.data.esimReservations;
+  return response.data.createEsimReservation;
 }

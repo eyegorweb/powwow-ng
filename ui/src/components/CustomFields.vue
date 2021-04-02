@@ -56,7 +56,7 @@
         <UiDate
           :direction="direction"
           @change="newVal => onValueChanged(item, newVal)"
-          :value="getSelectedValue(item.code) || currentDate"
+          :value="getDateValue(item.code)"
           class="d-block"
           :error="inError(item.code) ? 'errors.mandatory' : undefined"
           time-picker
@@ -90,6 +90,7 @@ export default {
     canEditList: Boolean,
     showOptionalField: Boolean,
     direction: String,
+    emptyDates: Boolean,
   },
   components: {
     UiInput,
@@ -107,6 +108,15 @@ export default {
     this.currentDate = moment().format('DD/MM/YYYY hh:mm:ss');
   },
   methods: {
+    getDateValue(code) {
+      const value = this.getSelectedValue(code);
+
+      if (!value && !this.emptyDates) {
+        return this.currentDate;
+      }
+
+      return value;
+    },
     onValueChanged(item, newVal) {
       this.$emit('change', item, newVal);
     },

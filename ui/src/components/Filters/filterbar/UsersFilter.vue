@@ -23,7 +23,7 @@ export default {
   },
 
   watch: {
-    selectedData(newValue, oldValue) {
+    selectedData(newValue) {
       if (newValue && this.$loGet(newValue, 'data.id')) {
         this.selectedUser = newValue.data;
       }
