@@ -12,7 +12,7 @@
         v-for="item in values"
         :key="item.id"
         @click="chosenValue = item"
-        :class="{ active: item === chosenValue }"
+        :class="{ active: item === chosenValue, disabled: disabled }"
         :disabled="disabled"
       >
         <template v-if="noTranslation">
@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.chosenValue = this.values.find(i => i.default == true);
+    this.chosenValue = this.values.find((i) => i.default == true);
     if (!this.noDefault && !this.chosenValue) {
       this.chosenValue = this.values[0];
     }
@@ -88,6 +88,12 @@ export default {
       background-color: $primary;
       color: $white;
       transition: all 0.2s;
+    }
+
+    &.disabled {
+      background-color: $medium-gray !important;
+      color: $dark-gray;
+      border: 1px solid $dark-gray;
     }
 
     &:first-child {

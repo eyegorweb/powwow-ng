@@ -34,18 +34,10 @@ export default {
   component: GetParcLineDetail,
   children: [
     {
-      path: '',
-      redirect: 'details',
-    },
-    {
       name: 'lineDetail.details',
       path: 'details',
       component: LineDetailsTab,
       children: [
-        {
-          path: '',
-          redirect: 'info',
-        },
         {
           name: 'lineDetail.details.info',
           path: 'info',
@@ -83,10 +75,6 @@ export default {
       path: 'diagnosis',
       component: LineDetailsDiagnosisTabTab,
       children: [
-        {
-          path: '',
-          redirect: 'analysis',
-        },
         {
           name: 'lineDetail.diagnosis.last_tests',
           path: 'tests',

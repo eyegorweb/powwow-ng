@@ -61,7 +61,7 @@ import UsersFilter from '@/components/Filters/filterbar/UsersFilter.vue';
 import StatusCell from './StatusCell.vue';
 import ActionFilter from './ActionFilter.vue';
 
-import { fetchEsimReservations } from '@/api/orders.js';
+import { fetchEsimReservations } from '@/api/esim.js';
 import { formatDateForGql, prepareEndDateForBackend } from '@/api/utils.js';
 import { mapGetters } from 'vuex';
 import { fetchCustomFields } from '@/api/customFields';
@@ -90,6 +90,7 @@ export default {
       currentAppliedFilters: [],
       currentFilters: undefined,
       indicators: undefined,
+      lastPayload: undefined,
     };
   },
 
@@ -252,6 +253,8 @@ export default {
       }, {});
     },
     async applyFilters(payload) {
+      this.lastPayload = payload;
+
       const { pagination, filters } = payload || {
         pagination: { page: 0, limit: 20 },
         filters: [],
@@ -634,12 +637,20 @@ export default {
     },
 
     openCreateReservationPanel() {
+      const doReset = () => {
+        this.applyFilters(this.lastPayload);
+      };
       this.openPanel({
         title: this.$t('getsim.reservations.createReservation'),
         panelId: 'getsim.reservations.createReservation',
         wide: true,
         backdrop: true,
         ignoreClickAway: true,
+        onClosePanel(params) {
+          if (params && params.resetSearch) {
+            doReset();
+          }
+        },
       });
     },
   },

@@ -16,7 +16,7 @@
         type="button"
         class="btn btn-accent btn-lg btn-block mt-1"
         :disabled="!(accept && canSave)"
-        @click="$emit('save')"
+        @click="$emit('save', synthesis)"
       >
         {{ $t('getsim.reservations.save') }}
       </button>
@@ -91,7 +91,8 @@ export default {
               content: [
                 `${this.$t('col.offer')}: ${this.$loGet(
                   this.synthesis,
-                  'serviceStep.selectedOffer.workflowDescription'
+                  'serviceStep.selectedOffer.workflowDescription',
+                  ' -'
                 )}`,
                 `${this.$t('col.activationAsked')}: ${
                   this.$loGet(this.synthesis, 'serviceStep.activation')
@@ -103,6 +104,19 @@ export default {
                     ? this.$t('common.YES')
                     : this.$t('common.NO')
                 }`,
+              ],
+            },
+          });
+        }
+
+        if (this.$loGet(this.synthesis, 'pairing.profile')) {
+          formatted.push({
+            label: 'getsim.reservations.creation.pairing',
+            value: {
+              content: [
+                `${this.$t('getsim.reservations.creation.profileSelect')}: ${this.$t(
+                  this.$loGet(this.synthesis, 'pairing.profile.label')
+                )}`,
               ],
             },
           });
@@ -139,7 +153,7 @@ export default {
 @media screen and (max-height: 768px) {
   .wizard-synthesis-wrapper {
     .footer /deep/ label {
-      padding-top: 10px;
+      padding-top: 0;
       font-size: 0.9rem;
     }
   }

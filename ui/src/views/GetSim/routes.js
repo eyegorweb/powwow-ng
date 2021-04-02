@@ -4,10 +4,6 @@ export default {
   component: () => import('@/views/GetSim/index.vue'),
   children: [
     {
-      path: '',
-      redirect: 'search',
-    },
-    {
       name: 'orders.search',
       path: 'search',
       component: () => import('@/views/GetSim/SearchOrders.vue'),

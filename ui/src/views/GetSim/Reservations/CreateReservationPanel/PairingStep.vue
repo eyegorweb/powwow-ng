@@ -7,15 +7,25 @@
 
       <DropZone v-model="selectedFile" class="dropZone" />
 
-      <div v-if="requestErrors">
+      <div class="d-flex justify-content-between" v-if="requestErrors">
         <ul class="file-errors text-danger list-unstyled">
           <li :key="error" v-for="error in requestErrors">{{ error }}</li>
         </ul>
+        <div>
+          <UiButton variant="link" size="sm" @click="cancelLastUpload">
+            {{ $t('cancel') }}
+          </UiButton>
+        </div>
       </div>
 
-      <div class="d-flex mt-4 justify-content-center">
+      <div v-if="lastResponse" class="d-flex mt-4 justify-content-center">
         <span>{{ $t('getsim.reservations.creation.profileSelect') }}</span>
-        <Toggle @update="toggleValue = $event.id" :values="toggleValues" class="pl-2" />
+        <Toggle
+          @update="toggleValue = $event"
+          :values="toggleValues"
+          :disabled="!isUploadValid"
+          class="pl-2"
+        />
       </div>
     </div>
   </CreateOrderStepContainer>
@@ -27,29 +37,40 @@ import DropZone from '@/components/ui/DropZone';
 import Toggle from '@/components/ui/UiToggle2';
 import { uploadSearchFile } from '@/api/linesActions.js';
 import * as fileUtils from '@/utils/file.js';
+import UiButton from '@/components/ui/Button';
 
 export default {
   components: {
     CreateOrderStepContainer,
     DropZone,
     Toggle,
+    UiButton,
+  },
+  props: {
+    synthesis: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
       selectedFile: undefined,
       toggleValue: undefined,
       requestErrors: undefined,
+      validatedInUploadedFile: undefined,
+      lastResponse: undefined,
       toggleValues: [
         {
-          id: 'no',
+          id: 'NO',
           label: 'common.NO',
+          default: true,
         },
         {
-          id: 'active',
+          id: 'ENABLED',
           label: 'filters.active',
         },
         {
-          id: 'disabled',
+          id: 'DISABLED',
           label: 'getreport.report_statut.DISABLED',
         },
       ],
@@ -57,19 +78,41 @@ export default {
   },
   computed: {
     canGoToNextStep() {
+      const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
+      if (this.lastResponse) {
+        return quantity === this.validatedInUploadedFile;
+      }
       return true;
     },
+    isUploadValid() {
+      const quantity = parseInt(this.$loGet(this.synthesis, 'stepProduct.quantity'));
+      if (this.lastResponse) {
+        return quantity === this.validatedInUploadedFile;
+      }
+      return false;
+    },
+    toggleEnabled() {
+      return !!this.$loGet(this.synthesis, 'serviceStep.activation');
+    },
+  },
+  mounted() {
+    this.cancelLastUpload();
   },
   watch: {
     selectedFile(newValue, oldValue) {
       this.requestErrors = undefined;
 
-      if (newValue !== oldValue) {
+      if (newValue && newValue !== oldValue) {
         this.sendFile(newValue);
       }
     },
   },
   methods: {
+    cancelLastUpload() {
+      this.validatedInUploadedFile = undefined;
+      this.lastResponse = undefined;
+      this.selectedFile = undefined;
+    },
     validFile(file) {
       let requestErrors = undefined;
 
@@ -83,11 +126,17 @@ export default {
       return requestErrors;
     },
     async sendFile(file) {
+      this.validatedInUploadedFile = undefined;
+      this.lastResponse = undefined;
+
       const requestErrors = this.validFile(file);
       if (requestErrors) {
         this.requestErrors = requestErrors;
       } else {
         const response = await uploadSearchFile(file, 'EID');
+        this.lastResponse = response;
+
+        this.validatedInUploadedFile = response.validated;
 
         if (response && response.errors) {
           this.requestErrors = response.errors.map((e) => e.message);
@@ -96,7 +145,10 @@ export default {
     },
     getSynthesis() {
       return {
-        pairing: {},
+        pairingStep: {
+          response: this.lastResponse,
+          profile: this.toggleValue,
+        },
       };
     },
     done() {

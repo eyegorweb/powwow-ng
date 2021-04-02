@@ -55,7 +55,9 @@ export default {
     },
     stepisDone(payload) {
       this.saveSynthesis(payload);
-      this.currentStep++;
+      if (this.currentStep < this.steps.length - 1) {
+        this.currentStep++;
+      }
     },
     saveSynthesis(payload) {
       this.synthesis = {
