@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.261+20210402100200
+2021-04-02
+
+### Features
+
+- [2531] Branchement de l'api de création des réservations esim (25aad956f26ae12404fa297f1d8cb68e298832f9)
+
 ## 1.17.0-master.260+20210401130558
 2021-04-01
 
