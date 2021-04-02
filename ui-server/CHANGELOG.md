@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.262+20210402134407
+2021-04-02
+
+### Features
+
+- [2531] Correction de problèmes dans le branchement de l'API (8e68a532ba6df8afe7db7dfea5f177120db69c23)
+
 ## 1.17.0-master.261+20210402100200
 2021-04-02
 
