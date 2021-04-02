@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.chosenValue = this.values.find((i) => i.default == true);
+    this.chosenValue = this.values.find(i => i.default == true);
     if (!this.noDefault && !this.chosenValue) {
       this.chosenValue = this.values[0];
     }

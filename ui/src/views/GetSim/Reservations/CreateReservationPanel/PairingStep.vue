@@ -139,7 +139,7 @@ export default {
         this.validatedInUploadedFile = response.validated;
 
         if (response && response.errors) {
-          this.requestErrors = response.errors.map((e) => e.message);
+          this.requestErrors = response.errors.map(e => e.message);
         }
       }
     },

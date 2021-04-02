@@ -109,7 +109,7 @@ export default {
           });
         }
 
-        if (this.$loGet(this.synthesis, 'pairing.profile')) {
+        if (this.$loGet(this.synthesis, 'pairingStep.profile')) {
           formatted.push({
             label: 'getsim.reservations.creation.pairing',
             value: {
@@ -120,6 +120,14 @@ export default {
               ],
             },
           });
+        }
+
+        if (this.$loGet(this.synthesis, 'settingsStep.orderReference')) {
+          formatted.push(this.$loGet(this.synthesis, 'settingsStep.orderReference'));
+        }
+
+        if (this.$loGet(this.synthesis, 'settingsStep.customFields')) {
+          formatted.push(this.$loGet(this.synthesis, 'settingsStep.customFields'));
         }
       }
 

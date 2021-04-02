@@ -21,6 +21,7 @@
                 date-picker-direction="auto"
                 can-edit-list
                 show-optional-field
+                empty-dates
                 @change="onValueChanged"
                 @addValueToList="addValueToList"
               />

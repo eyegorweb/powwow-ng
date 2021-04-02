@@ -147,7 +147,6 @@ import Toggle from '@/components/ui/UiToggle2';
 import AnalyzeTable from './AnalyzeTable';
 import LoaderContainer from '@/components/LoaderContainer';
 
-import { dataUsage } from '@/api/consumption';
 import { lastGeographicalLocation } from '@/api/geographicalLocation';
 import get from 'lodash.get';
 import LocalisationBlock from './LocalisationBlock';

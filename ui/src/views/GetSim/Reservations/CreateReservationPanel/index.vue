@@ -51,7 +51,7 @@
 
 <script>
 import WizardPanel from '@/components/WizardWithSynthesis/WizardPanel.vue';
-import WizardSynthesis from '@/components/WizardWithSynthesis/WizardSynthesis.vue';
+import WizardSynthesis from './WizardSynthesis.vue';
 import ClientChoiceStep from './ClientChoiceStep.vue';
 import ProductChoiceStep from './ProductChoiceStep.vue';
 import ServicesChoiceStep from './ServicesChoiceStep.vue';
@@ -85,24 +85,45 @@ export default {
   methods: {
     ...mapMutations(['flashMessage', 'closePanel']),
 
+    setIfPresent(targetobj, key, value) {
+      if (value) {
+        targetobj[key] = value;
+      }
+    },
+
     async saveReservation(synthesis) {
       const esimReservationInput = {
         customerAccountId: this.$loGet(synthesis, 'stepClient.billingAccount.id'),
-        externalId: this.$loGet(synthesis, 'settingsStep.selection.orderReference'),
         simCardQuantity: parseInt(this.$loGet(synthesis, 'stepProduct.quantity')),
         preActivationAsked: this.$loGet(synthesis, 'serviceStep.preActivation'),
         activationAsked: this.$loGet(synthesis, 'serviceStep.activation'),
         pairingAsked: !!this.$loGet(synthesis, 'pairingStep.response.tempDataUuid'),
         downloadProfilAsked: this.$loGet(synthesis, 'pairingStep.profile.id') === 'NO',
-        uuid: this.$loGet(synthesis, 'pairingStep.response.tempDataUuid'),
         simCardId: this.$loGet(synthesis, 'stepProduct.selectedSimTypeValue.simCard.id'),
-        workflowId: this.$loGet(synthesis, 'serviceStep.selectedOffer.id'),
       };
+
+      this.setIfPresent(
+        esimReservationInput,
+        'externalId',
+        this.$loGet(synthesis, 'settingsStep.selection.orderReference')
+      );
+
+      this.setIfPresent(
+        esimReservationInput,
+        'uuid',
+        this.$loGet(synthesis, 'pairingStep.response.tempDataUuid')
+      );
+
+      this.setIfPresent(
+        esimReservationInput,
+        'workflowId',
+        this.$loGet(synthesis, 'serviceStep.selectedOffer.id')
+      );
 
       if (this.$loGet(synthesis, 'settingsStep.customFields.selection')) {
         const customFieldsSelection = this.$loGet(synthesis, 'settingsStep.customFields.selection');
         esimReservationInput.customFieldsDTO = {};
-        customFieldsSelection.forEach((c) => {
+        customFieldsSelection.forEach(c => {
           esimReservationInput.customFieldsDTO[c.code] = c.value;
         });
       }
@@ -112,8 +133,8 @@ export default {
       if (this.$loGet(synthesis, 'serviceStep.servicesChoice.services')) {
         const services = this.$loGet(synthesis, 'serviceStep.servicesChoice.services');
         const checkedServices = services
-          .filter((s) => s.checked)
-          .map((s) => ({
+          .filter(s => s.checked)
+          .map(s => ({
             serviceCode: s.code,
           }));
 
@@ -122,9 +143,7 @@ export default {
         let serviceParamsArr = [];
         if (dataServiceChoice) {
           if (dataServiceChoice.checked) {
-            const paramsArr = dataServiceChoice.parameters
-              .filter((p) => p.selected)
-              .map((p) => p.code);
+            const paramsArr = dataServiceChoice.parameters.filter(p => p.selected).map(p => p.code);
             serviceParamsArr.push({ serviceCode: 'DATA', serviceParameters: paramsArr });
           }
         }
