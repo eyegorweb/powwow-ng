@@ -39,7 +39,7 @@ export default {
   methods: {
     onIndicatorClick(indicator) {
       this.$router.push({
-        name: 'orders',
+        name: 'orders.search',
         params: {
           queryFilters: [...indicator.filters, ...this.contextFilters],
         },
@@ -48,7 +48,7 @@ export default {
     onSeeMore() {
       this.$pushAnalytics({ event: 'm2m.seeMore', widget: 'OrdersStatusesWidget' });
       this.$router.push({
-        name: 'orders',
+        name: 'orders.search',
         params: {
           queryFilters: [
             ...this.contextFilters,
@@ -96,7 +96,7 @@ export default {
     createOrder() {
       this.$pushAnalytics({ event: 'm2m.createOrder', widget: 'OrdersStatusesWidget' });
       this.$router.push({
-        name: 'orders',
+        name: 'orders.search',
         params: {
           createOrder: true,
         },

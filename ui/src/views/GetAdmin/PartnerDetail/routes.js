@@ -34,18 +34,10 @@ export default {
   component: PartnerDetail,
   children: [
     {
-      path: '',
-      redirect: 'users',
-    },
-    {
       name: 'getAdminPartnerDetails.users',
       path: 'users',
       component: UsersTab,
       children: [
-        {
-          path: '',
-          redirect: 'admins',
-        },
         {
           name: 'partnerDetail.users.admins',
           path: 'admins',
@@ -63,10 +55,6 @@ export default {
       path: 'customize',
       component: CustomizeTab,
       children: [
-        {
-          path: '',
-          redirect: 'BroadcastLists',
-        },
         {
           name: 'partnerDetail.customize.broadcastLists',
           path: 'broadcastlists',
@@ -113,10 +101,6 @@ export default {
       path: 'customers',
       component: PartnerCustomers,
       children: [
-        {
-          path: '',
-          redirect: 'list',
-        },
         {
           name: 'getAdminPartnerDetails.customerList.list',
           path: 'list',
@@ -176,10 +160,6 @@ export default {
       component: OffersTab,
       children: [
         {
-          path: '',
-          redirect: 'offerscards',
-        },
-        {
           name: 'partnerDetail.offersAndSim.offers',
           path: 'offersCards',
           component: OffersCards,
@@ -196,10 +176,6 @@ export default {
       path: 'accountDetail',
       component: AccountDetail,
       children: [
-        {
-          path: '',
-          redirect: 'description',
-        },
         {
           name: 'partnerDetail.accountDetail.description',
           path: 'description',
