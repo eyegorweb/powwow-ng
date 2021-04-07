@@ -296,7 +296,7 @@ export default {
           clickable: true,
           total: '-',
           filters: [],
-          fetchKey: 'SIM_NOT_PREACTIVATED',
+          fetchKey: 'RESERVATION_IN_PROCESS',
         },
         {
           name: 'terminatedReservation',
