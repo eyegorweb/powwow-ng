@@ -17,6 +17,8 @@
         </div>
       </div>
       <TableWithFilter
+        :storage-version="'001'"
+        :storage-id="'getSim.reservations'"
         v-if="columns"
         :filters="filters"
         :columns="columns"
@@ -103,18 +105,26 @@ export default {
     this.applyFilters();
   },
 
+  watch: {
+    currentFilters(newValue, oldValue) {
+      if (oldValue && oldValue.length && newValue && !newValue.length) {
+        this.applyFilters();
+      }
+    },
+  },
+
   computed: {
     ...mapGetters(['userIsPartner', 'singlePartner', 'userName']),
     formattedTotal() {
       return formatLargeNumber(this.total);
     },
     selectedPartnerIds() {
-      return this.currentPartners.map(p => p.id);
+      return this.currentPartners.map((p) => p.id);
     },
     currentPartners() {
       if (!this.currentFilters) return [];
 
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      const foundFilter = this.currentFilters.find((f) => f.id === 'filters.partners');
       if (foundFilter && foundFilter.values && foundFilter.values.length) {
         return foundFilter.values;
       }
@@ -157,12 +167,12 @@ export default {
         }
         if (filter.id === 'filters.partners') {
           formatted.partyId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'common.billingAccount') {
           formatted.customerAccountId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
         if (filter.id === 'getsim.reservations.filters.reservationDate') {
@@ -184,12 +194,12 @@ export default {
         }
         if (filter.id === 'filters.lines.typeSIMCard') {
           formatted.simCardTypeId = {
-            in: filter.values.map(v => v.data.simCard.id),
+            in: filter.values.map((v) => v.data.simCard.id),
           };
         }
         if (filter.id === 'filters.offers') {
           formatted.workflowCode = {
-            in: filter.values.map(v => v.productCode),
+            in: filter.values.map((v) => v.productCode),
           };
         }
         if (filter.id === 'filters.quantity') {
@@ -216,10 +226,10 @@ export default {
           };
         }
         if (filter.id === 'filters.lines.customFileds') {
-          filter.values.forEach(v => {
+          filter.values.forEach((v) => {
             if (
               ['custom1', 'custom2', 'custom3', 'custom4', 'custom5', 'custom6'].find(
-                customField => v.id === customField
+                (customField) => v.id === customField
               )
             ) {
               formatted[v.id] = {
@@ -231,10 +241,10 @@ export default {
 
         if (filter.id === 'filters.action') {
           const preactivationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.PREACTIVATED'
+            (v) => v.id === 'filters.actionValues.PREACTIVATED'
           );
           const activationAsked = !!filter.values.find(
-            v => v.id === 'filters.actionValues.ACTIVATED'
+            (v) => v.id === 'filters.actionValues.ACTIVATED'
           );
 
           if (preactivationAsked) {
@@ -261,8 +271,15 @@ export default {
         filters: [],
       };
 
+      let sorting;
+
+      if (payload && payload.orderBy) {
+        sorting = {};
+        sorting[payload.orderBy.key] = payload.orderBy.direction;
+      }
+
       this.isLoading = true;
-      const data = await fetchEsimReservations(this.formatForApi(filters), pagination);
+      const data = await fetchEsimReservations(this.formatForApi(filters), pagination, sorting);
       this.isLoading = false;
 
       this.rows = data.items;
@@ -337,7 +354,7 @@ export default {
           title: 'filters.lines.typeSIMCard',
           component: SimcardTypeFilter,
           getPageContext: () => {
-            return { partners: this.currentPartners };
+            return { partners: this.currentPartners, category: 'ESIM' };
           },
           onChange(chosenValues) {
             return {
@@ -421,6 +438,7 @@ export default {
         {
           id: 15,
           label: this.$t('col.customFields', { num: 1 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_1',
@@ -432,6 +450,7 @@ export default {
         {
           id: 16,
           label: this.$t('col.customFields', { num: 2 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_2',
@@ -443,6 +462,7 @@ export default {
         {
           id: 17,
           label: this.$t('col.customFields', { num: 3 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_3',
@@ -454,6 +474,7 @@ export default {
         {
           id: 18,
           label: this.$t('col.customFields', { num: 4 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_4',
@@ -465,6 +486,7 @@ export default {
         {
           id: 19,
           label: this.$t('col.customFields', { num: 5 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_5',
@@ -476,6 +498,7 @@ export default {
         {
           id: 20,
           label: this.$t('col.customFields', { num: 6 }),
+          orderable: false,
           name: 'customFields',
           visible: false,
           exportId: 'ORDER_CUSTOMFIELD_6',
@@ -489,43 +512,43 @@ export default {
         {
           id: 1,
           label: this.$t('getsim.reservations.columns.id'),
+          orderable: true,
           name: 'id',
           exportId: 'id',
-          orderable: true,
           visible: true,
           noHandle: true,
           format: {
-            component: GetSimReservationIdCell
-          }
+            component: GetSimReservationIdCell,
+          },
         },
         //
         {
           id: 2,
           label: this.$t('getsim.reservations.filters.reservationDate'),
+          orderable: false,
           name: 'esimReservationDate',
           exportId: 'esimReservationDate',
-          orderable: true,
           visible: true,
         },
         {
           id: 3,
           label: this.$t('col.externalId'),
+          orderable: false,
           name: 'missing',
-          orderable: true,
           visible: true,
         },
         {
           id: 4,
           label: this.$t('col.massActionIds'),
+          orderable: false,
           name: 'massActionId',
-          orderable: true,
           visible: true,
         },
         {
           id: 5,
           label: this.$t('getsim.reservations.columns.reservationStatus'),
+          orderable: false,
           name: 'status',
-          orderable: true,
           visible: true,
           format: {
             component: StatusCell,
@@ -534,19 +557,19 @@ export default {
         {
           id: 6,
           label: this.$t('common.quantity'),
+          orderable: false,
           name: 'quantity',
-          orderable: true,
           visible: true,
         },
         {
           id: 7,
           label: this.$t('getadmin.users.filters.typeSIMCard'),
+          orderable: false,
           name: 'quantity',
-          orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'simCardType.description');
             },
           },
@@ -554,12 +577,12 @@ export default {
         {
           id: 8,
           label: this.$t('alarms.alarmScope.OFFER'),
+          orderable: false,
           name: 'quantity',
-          orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'esimReservedMarketingOffer.description');
             },
           },
@@ -567,12 +590,12 @@ export default {
         {
           id: 9,
           label: this.$t('getsim.reservations.filters.creator'),
+          orderable: false,
           name: 'creator',
-          orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return `${this.$loGet(row, 'auditable.creator.name.firstName')} ${this.$loGet(
                 row,
                 'auditable.creator.name.lastName'
@@ -583,12 +606,12 @@ export default {
         {
           id: 10,
           label: this.$t('getparc.actLines.details.partners'),
+          orderable: false,
           name: 'partner',
-          orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'party.name');
             },
           },
@@ -596,12 +619,12 @@ export default {
         {
           id: 11,
           label: this.$t('common.billingAccount'),
+          orderable: false,
           name: 'billingAccount',
-          orderable: true,
           visible: false,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'customerAccount.code');
             },
           },
@@ -609,8 +632,8 @@ export default {
         {
           id: 12,
           label: this.$t('col.preActivationAsked'),
+          orderable: false,
           name: 'preActivationAsked',
-          orderable: true,
           visible: false,
           exportId: 'ORDER_PREACTIVATIONASKED',
           format: {
@@ -621,12 +644,12 @@ export default {
       if (this.userIsPartner) {
         const partnerId = this.$loGet(this.singlePartner, 'id');
         const customFields = await fetchCustomFields(partnerId);
-        const partnerCustomFieldsColumns = customFields.customFields.map(c => {
+        const partnerCustomFieldsColumns = customFields.customFields.map((c) => {
           return {
             id: c.id,
             label: c.label,
-            name: 'customFields',
             orderable: false,
+            name: 'customFields',
             visible: false,
             format: {
               type: 'ObjectAttribute',
