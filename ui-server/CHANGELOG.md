@@ -2,6 +2,14 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.268+20210407151052
+2021-04-07
+
+### Features
+
+- [2553] gestion des stocks esim (ddde6a14fdcf86591a4d9c36a984f3ac0c1512aa)
+- [2520] changement dans le composant des indicateurs (e4d0b240870ed60a0b622731c70119bb62ed15e7)
+
 ## 1.17.0-master.267+20210407143455
 2021-04-07
 
