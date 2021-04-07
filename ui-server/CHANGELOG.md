@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.266+20210407140201
+2021-04-07
+
+### Fixes
+
+- [2520] persister l'ordre des colonnes dans la table des réservations eSIM (0aba572fb9a0bf4bb68b645a8aa2615ba568cd6f)
+
 ## 1.17.0-master.265+20210407115410
 2021-04-07
 
