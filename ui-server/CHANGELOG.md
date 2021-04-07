@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.265+20210407115410
+2021-04-07
+
+### Fixes
+
+- [000] Corriger les tests cypress (16c6f9dc0700e4458a88047cb3ab156b9e80cd8e)
+
 ## 1.17.0-master.264+20210407111039
 2021-04-07
 
