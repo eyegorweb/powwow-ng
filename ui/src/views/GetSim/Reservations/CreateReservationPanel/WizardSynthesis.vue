@@ -94,15 +94,13 @@ export default {
                   'serviceStep.selectedOffer.workflowDescription',
                   ' -'
                 )}`,
-                `${this.$t('col.activationAsked')}: ${
-                  this.$loGet(this.synthesis, 'serviceStep.activation')
-                    ? this.$t('common.YES')
-                    : this.$t('common.NO')
+                `${this.$t('col.activationAsked')}: ${this.$loGet(this.synthesis, 'serviceStep.activation')
+                  ? this.$t('common.YES')
+                  : this.$t('common.NO')
                 }`,
-                `${this.$t('col.preActivationAsked')}: ${
-                  this.$loGet(this.synthesis, 'serviceStep.preActivation')
-                    ? this.$t('common.YES')
-                    : this.$t('common.NO')
+                `${this.$t('col.preActivationAsked')}: ${this.$loGet(this.synthesis, 'serviceStep.preActivation')
+                  ? this.$t('common.YES')
+                  : this.$t('common.NO')
                 }`,
               ],
             },
@@ -110,13 +108,17 @@ export default {
         }
 
         if (this.$loGet(this.synthesis, 'pairingStep.profile')) {
+          let translated = '-';
+
+          if (this.$loGet(this.synthesis, 'pairingStep.profile.label')) {
+            translated = this.$t(this.$loGet(this.synthesis, 'pairingStep.profile.label'));
+          }
+
           formatted.push({
             label: 'getsim.reservations.creation.pairing',
             value: {
               content: [
-                `${this.$t('getsim.reservations.creation.profileSelect')}: ${this.$t(
-                  this.$loGet(this.synthesis, 'pairing.profile.label')
-                )}`,
+                `${this.$t('getsim.reservations.creation.profileSelect')}: ${translated}`,
               ],
             },
           });

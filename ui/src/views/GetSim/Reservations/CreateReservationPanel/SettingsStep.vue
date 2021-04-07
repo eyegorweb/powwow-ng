@@ -96,7 +96,6 @@ export default {
   },
 
   async mounted() {
-    console.log('MOUNTED >>');
     await this.fetchCustomFieldsForPartner();
     this.preFill();
     this.isOrderNumberMandatory = get(
