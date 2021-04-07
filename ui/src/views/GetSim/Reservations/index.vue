@@ -52,6 +52,7 @@ import SimcardTypeFilter from '@/components/Filters/filterbar/SimcardTypeFilter.
 import OffersFilter from '@/components/Filters/filterbar/OffersFilter';
 import CustomFieldsFilter from '@/components/Filters/filterbar/CustomFieldsFilter.vue';
 import QuantityFilter from '@/components/Filters/filterbar/QuantityFilter.vue';
+import GetSimReservationIdCell from './GetSimReservationIdCell';
 import DateRangeFilter from '@/components/Filters/filterbar/DateRangeFilter.vue';
 import SearchByLinesId from '@/components/SearchById';
 import Indicators from '@/components/Indicators';
@@ -493,6 +494,9 @@ export default {
           orderable: true,
           visible: true,
           noHandle: true,
+          format: {
+            component: GetSimReservationIdCell
+          }
         },
         //
         {

@@ -370,6 +370,9 @@
       "lastReservation": "Dernière réservation",
       "noReservation": "Jamais réservé",
       "save": "Enregistrer la réservation",
+      "details": {
+        "title": "Réservation n° {id}"
+      },
       "creation": {
         "pairing": "Appairage",
         "upload": "Télécharger un fichier",
@@ -1925,6 +1928,8 @@
     "amountHT": "Montant HT",
     "externalId": "Ref. client",
     "massActionIds": "Id de gestion",
+    "appair": "Appairage",
+    "downloadState": "Téléchargement du profil",
     "offer": "Offre",
     "active": "Actif",
     "notActive": "Non actif",
@@ -2006,6 +2011,7 @@
     "customFields": "Champs libres",
     "orderCreator": "Créateur de la demande",
     "active": "Activé",
+    "disable": "Désactivé",
     "deliveryCountry": "Pays de livraison",
     "postalCode": "Code postal",
     "zone": "Zone",

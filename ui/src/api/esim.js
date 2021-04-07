@@ -10,6 +10,11 @@ query fetchEsimReservations($filter: EsimReservationFilterInput, $pagination: Pa
       esimReservationDate
       massActionId
       status
+      pairingAsked
+      esimReservationReference
+      downloadState
+      preActivationAsked
+      activationAsked
       quantity
       customFields {
         custom1
@@ -33,6 +38,7 @@ query fetchEsimReservations($filter: EsimReservationFilterInput, $pagination: Pa
       }
       auditable {
         creator {
+          email
           name {
             title
             firstName
@@ -41,10 +47,19 @@ query fetchEsimReservations($filter: EsimReservationFilterInput, $pagination: Pa
         }
       }
       party {
+        contractReference
         name
+        code
       }
       customerAccount {
         code
+        address {
+          address1
+          zipCode
+          city
+          country
+          state
+        }
       }
     }
   }
@@ -53,6 +68,7 @@ query fetchEsimReservations($filter: EsimReservationFilterInput, $pagination: Pa
   const response = await query(queryStr, { filter, pagination, sorting });
   return response.data.esimReservations;
 }
+
 
 export async function createEsimReservation({ esimReservationInput, selectedServicesInput }) {
   const queryStr = `
