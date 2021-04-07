@@ -85,7 +85,7 @@ export default {
       rows: [],
       total: 0,
       orderBy: {
-        key: 'statusDate',
+        key: 'id',
         direction: 'ASC',
       },
       isLoading: false,
@@ -264,6 +264,7 @@ export default {
       }, {});
     },
     async applyFilters(payload) {
+      console.log('🚀 ~ file: index.vue ~ line 267 ~ applyFilters ~ payload', payload);
       this.lastPayload = payload;
 
       const { pagination, filters } = payload || {
