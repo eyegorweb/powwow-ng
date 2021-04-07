@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.267+20210407143455
+2021-04-07
+
+### Fixes
+
+- [2520] filtrer par ID par défaut (5b632c9e98c4034c70b673f11fba718fb2ddb091)
+
 ## 1.17.0-master.266+20210407140201
 2021-04-07
 
