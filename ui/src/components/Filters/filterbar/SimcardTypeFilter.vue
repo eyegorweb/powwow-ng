@@ -2,6 +2,7 @@
   <SimCardTypeFilter
     :selected-type-sim-card-values="selectedValues"
     :selected-partners-values="partnerIds"
+    :category="category"
     @setTypeSimCardFilter="$emit('change', $event)"
   />
 </template>
@@ -34,6 +35,16 @@ export default {
       }
 
       return [];
+    },
+
+    category() {
+      if (!this.getPageContext) return;
+      const pageContext = this.getPageContext();
+      if (pageContext && pageContext.category) {
+        return pageContext.category;
+      }
+
+      return;
     },
   },
 };

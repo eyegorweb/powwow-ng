@@ -46,8 +46,8 @@
               <template slot-scope="{ selectedData }">
                 <component
                   :is="filter.component"
-                  @change="value => onChangeValue(filter, value)"
-                  @clear="filterId => clearFilter(filterId)"
+                  @change="(value) => onChangeValue(filter, value)"
+                  @clear="(filterId) => clearFilter(filterId)"
                   :selected-data="selectedData"
                   :selected-filters="currentFilters"
                   :get-page-context="filter.getPageContext"
@@ -108,7 +108,7 @@ export default {
 
   computed: {
     allAreHidden() {
-      const hiddenFilters = this.visibleComponents.filter(filter => {
+      const hiddenFilters = this.visibleComponents.filter((filter) => {
         return filter.isHidden && filter.isHidden();
       });
 
@@ -119,13 +119,13 @@ export default {
     },
 
     visibleFilters() {
-      return this.currentFilters.filter(f => !f.hidden);
+      return this.currentFilters.filter((f) => !f.hidden);
     },
 
     visibleComponents() {
       if (!this.filterComponents) return [];
       return this.filterComponents.filter(
-        filter => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
+        (filter) => !filter.checkVisibleFn || filter.checkVisibleFn(this.currentFilters)
       );
     },
   },
@@ -155,7 +155,7 @@ export default {
       this.$emit('applyFilters', this.currentFilters);
     },
     onRemoveFilter(filterId) {
-      const filterToRemove = this.filterComponents.find(f => f.title === filterId);
+      const filterToRemove = this.filterComponents.find((f) => f.title === filterId);
       if (filterToRemove) {
         if (filterToRemove.onRemove) {
           filterToRemove.onRemove(this.clearFilter);
@@ -165,7 +165,7 @@ export default {
     },
     clearFilter(filterId) {
       if (this.currentFilters && this.currentFilters.length) {
-        this.currentFilters = this.currentFilters.filter(f => f.id !== filterId);
+        this.currentFilters = this.currentFilters.filter((f) => f.id !== filterId);
       }
 
       if (!this.visibleFilters || !this.visibleFilters.length) {
@@ -177,7 +177,7 @@ export default {
         return;
       }
       const selectedValue = filter.onChange(value, this.clearFilter);
-      const filterExists = this.currentFilters.find(c => c.id === selectedValue.id);
+      const filterExists = this.currentFilters.find((c) => c.id === selectedValue.id);
 
       if (filterExists) {
         const haveEmptyValue = selectedValue && selectedValue.value === '';
@@ -192,9 +192,9 @@ export default {
 
         const shouldRemoveFilter = haveEmptyValue || haveEmptyArrayOfValues || haveEmptyRange;
         if (shouldRemoveFilter) {
-          this.currentFilters = this.currentFilters.filter(f => f.id !== selectedValue.id);
+          this.currentFilters = this.currentFilters.filter((f) => f.id !== selectedValue.id);
         }
-        this.currentFilters = this.currentFilters.map(c => {
+        this.currentFilters = this.currentFilters.map((c) => {
           if (c.id === selectedValue.id) {
             return selectedValue;
           }

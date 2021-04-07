@@ -34,6 +34,28 @@ export async function updateTransferSim(ids, status) {
   return response.data;
 }
 
+export async function fetchSimCards(filters, pagination, sorting) {
+  const queryStr = `
+  query Simcards($filters: SIMCardFilterInput, $pagination: Pagination, $sorting: SIMCardSorting) {
+    simcards(filter: $filters, pagination: $pagination, sorting: $sorting) {
+      total
+      items {
+        simCard {
+          label
+          id
+          name
+          code
+          type
+          number
+          description
+        }
+      }
+    }
+  }`;
+  const response = await query(queryStr, { filters, pagination, sorting });
+  return response.data.simcards.items;
+}
+
 export async function fetchCardTypes(q, partners, { page = 0, limit = 999, partnerType }) {
   let partnersIds,
     partnerGqlParam = '';
