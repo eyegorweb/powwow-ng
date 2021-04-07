@@ -193,6 +193,18 @@ export default {
         label: 'mainMenu.getSim',
         to: { name: 'orders.search' },
         permission: { domain: 'getSim', action: 'read' },
+        submenu: [
+          {
+            label: 'menu.getSim.manage-orders',
+            to: { name: 'orders.search' },
+            permission: { domain: 'getSim', action: 'read' },
+          },
+          {
+            label: 'menu.getSim.manage-stocks',
+            to: { name: 'stocks' },
+            permission: { domain: 'getSim', action: 'read' },
+          },
+        ],
       },
       {
         label: 'mainMenu.getParc',

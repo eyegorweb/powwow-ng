@@ -229,6 +229,11 @@
     "help": "Aide"
   },
   "menu": {
+    "getSim": {
+      "manage-orders": "Gestion des commandes",
+      "manage-stocks": "Gestion des stocks",
+      "nbPairing": "Nombre de SIM appairées / Nombre de SIM non appairées"
+    },
     "massActions": "Suivi/pilotage des actes de gestion",
     "actLines": "Gestion des lignes",
     "alarms": "Gestion des alarmes",
@@ -243,7 +248,6 @@
     "reportsDashboard": "Tableau de bord",
     "reportsBill": "Factures",
     "monitoring": "Supervision",
-
     "getSupport": {
       "homepage": "Accueil / Déclaration d''un incident",
       "all_incidents": "Incidents en cours",
@@ -390,6 +394,13 @@
       "columns": {
         "id": "Id de réservation",
         "reservationStatus": "Statut de la réservation"
+      }
+    },
+    "stocks": {
+      "tooltip-text": "Gestion des stocks...",
+      "table": {
+        "total": "{total} type(s) de carte SIM trouvée(s)",
+        "import-file": "Import fichier appairage"
       }
     },
     "manage-orders": "Gestion des commandes",
