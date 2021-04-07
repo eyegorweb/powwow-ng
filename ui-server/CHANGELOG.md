@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.264+20210407111039
+2021-04-07
+
+### Features
+
+- [2553] gestion des stocks esim (967c0cd2c5e7ebb5801d4cc70fac41d71999264e)
+
 ## 1.17.0-master.263+20210407092502
 2021-04-07
 
