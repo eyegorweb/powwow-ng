@@ -48,7 +48,7 @@ import Tooltip from '@/components/ui/Tooltip';
 import TableWithFilter from '@/components/Filters/TableWithFilter';
 import UiButton from '@/components/ui/Button';
 import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
-import TypeSimCardFilter from '@/views/GetAdmin/SearchPartners/filters/TypeSimCardFilter.vue';
+import SimcardTypeFilter from '@/components/Filters/filterbar/SimcardTypeFilter.vue';
 import { fetchEsimStockProfiles } from '@/api/esim.js';
 import { mapGetters } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
@@ -158,16 +158,26 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userIsMultiPartner']),
+    ...mapGetters(['userIsPartner']),
     formattedTotal() {
       return formatLargeNumber(this.total);
+    },
+    currentPartners() {
+      if (!this.currentFilters) return [];
+
+      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      if (foundFilter && foundFilter.values && foundFilter.values.length) {
+        return foundFilter.values;
+      }
+
+      return [];
     },
   },
 
   methods: {
     prepareFilterBar() {
       const filters = [];
-      if (this.userIsMultiPartner) {
+      if (!this.userIsPartner) {
         filters.push({
           title: 'filters.partners',
           component: PartnerFilter,
@@ -180,11 +190,14 @@ export default {
         });
       }
       filters.push({
-        title: 'getadmin.users.filters.typeSIMCard',
-        component: TypeSimCardFilter,
+        title: 'filters.lines.typeSIMCard',
+        component: SimcardTypeFilter,
+        getPageContext: () => {
+          return { partners: this.currentPartners, category: 'ESIM' };
+        },
         onChange(chosenValues) {
           return {
-            id: 'getadmin.users.filters.typeSIMCard',
+            id: 'filters.lines.typeSIMCard',
             values: chosenValues,
           };
         },
