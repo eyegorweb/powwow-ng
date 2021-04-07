@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <div :class="{ container: appIsReady }">
+      <router-view v-if="$route.name === 'callback'" />
+
       <NavBars v-if="appIsReady && $route.name !== 'catalog'" :is-backoffice-profile="userIsBO" />
       <router-view v-if="appIsReady" />
       <PanelSwitcher v-if="appIsReady" />
