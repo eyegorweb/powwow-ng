@@ -1,0 +1,45 @@
+<template>
+  <button class="btn btn-link p-0 user-select-text" @click.stop="openOrderDetailsPanel">
+    {{ row.id }}
+  </button>
+</template>
+
+<script>
+import { mapState, mapMutations } from 'vuex';
+import { setTimeout } from 'timers';
+
+export default {
+  name: 'GetSimReservationIdCell',
+  props: {
+    row: Object,
+  },
+
+  methods: {
+    ...mapMutations(['openPanel']),
+
+    openOrderDetailsPanel() {
+      const openTrigger = () => {
+        this.openPanel({
+          title: this.$t('getsim.reservasions.details.title', { id: this.row.id }),
+          panelId: 'getsim.reservation.title',
+          payload: this.row,
+          wide: false,
+          backdrop: false,
+        });
+      };
+
+      /**
+       * On veux attendre que le panel existant soit fermé avant de réouvrir un nouveau panel
+       */
+      if (this.isOpen) {
+        setTimeout(openTrigger, 500);
+      } else {
+        openTrigger();
+      }
+    },
+  },
+  computed: mapState({
+    isOpen: state => state.ui.isPanelOpen,
+  }),
+};
+</script>
