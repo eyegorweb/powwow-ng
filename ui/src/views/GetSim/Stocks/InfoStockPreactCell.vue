@@ -1,0 +1,30 @@
+<template>
+  <div>
+    {{ details }}
+    <Tooltip direction="right">({{ $t('menu.getSim.nbPairing') }})</Tooltip>
+  </div>
+</template>
+
+<script>
+import Tooltip from '@/components/ui/Tooltip';
+
+export default {
+  components: {
+    Tooltip,
+  },
+  props: {
+    row: Object,
+  },
+
+  computed: {
+    details() {
+      return `${this.$loGet(this.row, 'stockPreactAppaire')}/${this.$loGet(
+        this.row,
+        'stockPreactNoAppaire'
+      )}`;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>

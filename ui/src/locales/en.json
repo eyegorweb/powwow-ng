@@ -198,6 +198,10 @@
     "help": "Help"
   },
   "menu": {
+    "getSim": {
+      "manage-orders": "Order management",
+      "manage-stocks": "Stocks management"
+    },
     "massActions": "Monitoring of management acts",
     "actLines": "Lines management",
     "alarms": "Alarms management",
@@ -318,6 +322,14 @@
     }
   },
   "getsim": {
+    "stocks": {
+      "tooltip-text": "Gestion des stocks...",
+      "table": {
+        "total": "{total} found SIM card type(s)",
+        "import-file": "Import file pairing",
+        "nbPairing": "Number of paired SIMs / Number of unpaired SIMs"
+      }
+    },
     "manage-orders": "Order management",
     "step-product": "Select a SIM card type",
     "no-sim-card": "No SIM card type defined for this partner",
