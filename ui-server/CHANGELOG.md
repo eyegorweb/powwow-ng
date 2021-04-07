@@ -2,6 +2,17 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.263+20210407092502
+2021-04-07
+
+### Features
+
+- [2552] Ajout du panel de detail reservation (2d68cc488f1b38728b3ce268d555083c3e118457)
+
+### Fixes
+
+- [2531] Correction de l'étape appairage (40e9a68592183deaae8c40563166fc2f5128f3f9)
+
 ## 1.17.0-master.262+20210402134407
 2021-04-02
 
