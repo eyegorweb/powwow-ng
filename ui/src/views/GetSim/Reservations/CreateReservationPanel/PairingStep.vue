@@ -18,12 +18,12 @@
         </div>
       </div>
 
-      <div v-if="lastResponse" class="d-flex mt-4 justify-content-center">
+      <div class="d-flex mt-4 justify-content-center">
         <span>{{ $t('getsim.reservations.creation.profileSelect') }}</span>
         <Toggle
           @update="toggleValue = $event"
           :values="toggleValues"
-          :disabled="!isUploadValid"
+          :disabled="!isUploadValid || !serviceActivationAsked"
           class="pl-2"
         />
       </div>
@@ -91,7 +91,7 @@ export default {
       }
       return false;
     },
-    toggleEnabled() {
+    serviceActivationAsked() {
       return !!this.$loGet(this.synthesis, 'serviceStep.activation');
     },
   },
