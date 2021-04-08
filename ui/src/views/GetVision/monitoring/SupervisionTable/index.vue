@@ -36,17 +36,27 @@
       </PaginatedDataTable>
     </template>
     <template v-else-if="indicatorTotal >= 500 && total <= 100000">
-      <UiButton variant="outline-primary" @click="$emit('gotomap')">
-        <i class="ic-Pin-Icon"></i>
-        {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
-      </UiButton>
+      <div class="d-flex justify-content-between">
+        <UiButton variant="outline-primary" @click="$emit('gotomap')">
+          <i class="ic-Pin-Icon"></i>
+          {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
+        </UiButton>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+        </ExportButton>
+      </div>
       <div class="alert alert-warning mt-2">{{ $t('getvsion.msgSynchronousExport') }}.</div>
     </template>
     <template v-else-if="indicatorTotal >= 100000">
-      <UiButton variant="outline-primary" @click="$emit('gotomap')">
-        <i class="ic-Pin-Icon"></i>
-        {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
-      </UiButton>
+      <div class="d-flex justify-content-between">
+        <UiButton variant="outline-primary" @click="$emit('gotomap')">
+          <i class="ic-Pin-Icon"></i>
+          {{ $t('getparc.lineDetail.tab2.supervisionContent.mapView') }}
+        </UiButton>
+        <ExportButton :export-fn="getExportFn()" :columns="columns" :order-by="orderBy">
+          <span slot="title">{{ $t('getparc.actLines.export', { total: indicatorTotal }) }}</span>
+        </ExportButton>
+      </div>
       <div class="alert alert-warning mt-2">{{ $t('getvsion.msgDeferExport') }}.</div>
     </template>
   </div>
