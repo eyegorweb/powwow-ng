@@ -16,9 +16,9 @@ export default {
       await this.fetchUserInfos();
       const nextRoute = this.$loGet(this.$route, 'query.prev');
       if (nextRoute) {
-        this.$router.push(nextRoute).catch((err) => {});
+        this.$router.push(nextRoute).catch(err => {});
       } else {
-        this.$router.push('/').catch((err) => {});
+        this.$router.push('/').catch(err => {});
       }
       this.appIsReady();
     }

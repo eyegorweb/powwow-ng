@@ -22,6 +22,7 @@ export default {
     partners: Array,
     disabled: Boolean,
     preselectFirst: Boolean,
+    preselectFirstOnlyWhenOneItem: Boolean,
   },
   data() {
     return {
@@ -48,8 +49,13 @@ export default {
          * le but est d'avoir un composant visible au premier affichage de la page pour les utilisateurs
          * de type partenaire...
          */
-        if (this.preselectFirst && this.partnerChangeCount === 1 && this.localItems) {
-          this.selectedValue = this.localItems[0];
+        if (this.partnerChangeCount === 1) {
+          if (
+            (this.preselectFirstOnlyWhenOneItem && this.localItems.length === 1) ||
+            (this.preselectFirst && this.localItems && this.localItems.length)
+          ) {
+            this.selectedValue = this.localItems[0];
+          }
         }
       }
     },

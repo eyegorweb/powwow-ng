@@ -34,6 +34,7 @@ export default {
     includeMailingLists: Boolean,
     offline: Boolean,
     disabled: Boolean,
+    esim: Boolean,
     partyTypes: {
       type: Array,
       required: false,
@@ -78,6 +79,7 @@ export default {
           limit: 999,
           partnerTypes: this.partnerTypesParam,
           includeMailingLists: this.includeMailingLists,
+          esim: this.esim,
         });
         this.offlineItems = data;
       }
@@ -132,6 +134,7 @@ export default {
         limit: 10,
         partnerTypes: this.partnerTypesParam,
         includeMailingLists: this.includeMailingLists,
+        esim: this.esim,
       });
       return data.map(p => ({
         id: p.id,

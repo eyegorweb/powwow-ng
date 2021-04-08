@@ -6,7 +6,7 @@
   >
     <div v-if="!userIsPartner">
       <h3 class="font-weight-light text-center mt-4 mb-4">{{ $t('orders.choose-partner') }}</h3>
-      <PartnerCombo :value.sync="selectedPartner" />
+      <PartnerCombo :value.sync="selectedPartner" esim />
     </div>
 
     <div>
@@ -14,7 +14,7 @@
       <BillingAccountAutocomplete
         v-model="selectedBillingAccount"
         :partners="selectedPartner ? [selectedPartner] : undefined"
-        preselect-first
+        preselect-first-only-when-one-item
       />
     </div>
   </CreateOrderStepContainer>

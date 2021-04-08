@@ -83,7 +83,13 @@
         </div>
         <div class="overview-item">
           <h6>{{ $t('col.downloadState') }} :</h6>
-          <p>{{ getFromOrder('downloadState') == 'ENABLED' ? $t('filters.active') : $t('filters.disable') }}</p>
+          <p>
+            {{
+              getFromOrder('downloadState') == 'ENABLED'
+                ? $t('filters.active')
+                : $t('filters.disable')
+            }}
+          </p>
         </div>
       </div>
 
@@ -152,7 +158,6 @@
 import StepperNonLinear from '@/components/ui/StepperNonLinear';
 import GetSimOrderDetailsButtons from './GetSimOrderDetailsButtons';
 import get from 'lodash.get';
-import UiButton from '@/components/ui/Button';
 import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
 
@@ -163,24 +168,22 @@ export default {
       confirmationStepper: [],
       steps: {
         data: [
-        {
-          code: 'IN_PROGRESS',
-          label: 'En cours',
-          index: 0
-        },
-        {
-          code: 'TERMINATED',
-          label: 'Terminée',
-          index: 1
-        }
-        ]
-      }
+          {
+            code: 'IN_PROGRESS',
+            label: 'En cours',
+            index: 0,
+          },
+          {
+            code: 'TERMINATED',
+            label: 'Terminée',
+            index: 1,
+          },
+        ],
+      },
     };
   },
 
-  mounted() {
-
-  },
+  mounted() {},
 
   props: {
     order: Object,
@@ -208,7 +211,7 @@ export default {
     },
     currentStep() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
-      const res = this.steps.data.find(c => c.code === this.order.status);
+      const res = this.steps.data.find((c) => c.code === this.order.status);
 
       if (res) return res.index;
       return null;
@@ -235,11 +238,9 @@ export default {
     },
   },
 
-
   components: {
     StepperNonLinear,
     GetSimOrderDetailsButtons,
-    UiButton,
   },
 };
 </script>

@@ -69,7 +69,6 @@ query fetchEsimReservations($filter: EsimReservationFilterInput, $pagination: Pa
   return response.data.esimReservations;
 }
 
-
 export async function createEsimReservation({ esimReservationInput, selectedServicesInput }) {
   const queryStr = `
   mutation CreateEsimReservation($esimReservationInput: EsimReservationInput, $selectedServicesInput: [ServicesToActivateInput!]) {

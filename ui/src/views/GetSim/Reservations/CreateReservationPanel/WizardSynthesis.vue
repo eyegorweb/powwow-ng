@@ -94,13 +94,15 @@ export default {
                   'serviceStep.selectedOffer.workflowDescription',
                   ' -'
                 )}`,
-                `${this.$t('col.activationAsked')}: ${this.$loGet(this.synthesis, 'serviceStep.activation')
-                  ? this.$t('common.YES')
-                  : this.$t('common.NO')
+                `${this.$t('col.activationAsked')}: ${
+                  this.$loGet(this.synthesis, 'serviceStep.activation')
+                    ? this.$t('common.YES')
+                    : this.$t('common.NO')
                 }`,
-                `${this.$t('col.preActivationAsked')}: ${this.$loGet(this.synthesis, 'serviceStep.preActivation')
-                  ? this.$t('common.YES')
-                  : this.$t('common.NO')
+                `${this.$t('col.preActivationAsked')}: ${
+                  this.$loGet(this.synthesis, 'serviceStep.preActivation')
+                    ? this.$t('common.YES')
+                    : this.$t('common.NO')
                 }`,
               ],
             },
@@ -117,9 +119,7 @@ export default {
           formatted.push({
             label: 'getsim.reservations.creation.pairing',
             value: {
-              content: [
-                `${this.$t('getsim.reservations.creation.profileSelect')}: ${translated}`,
-              ],
+              content: [`${this.$t('getsim.reservations.creation.profileSelect')}: ${translated}`],
             },
           });
         }
