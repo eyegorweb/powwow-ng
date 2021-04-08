@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.271+20210408130322
+2021-04-08
+
+### Features
+
+- [2530] le filtre partenaire que les partenaires qui ont l'option esim (dd9b24162b34d2b7eb4dc5537c1ec78d638e6104)
+
 ## 1.17.0-master.270+20210408120813
 2021-04-08
 
