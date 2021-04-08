@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.270+20210408120813
+2021-04-08
+
+### Fixes
+
+- [2577] Correction de la colonne DATA (Mo) (83f9f54d9a2e5bc5c006ba7a7b243d877c47e1b4)
+
 ## 1.17.0-master.269+20210408092510
 2021-04-08
 
