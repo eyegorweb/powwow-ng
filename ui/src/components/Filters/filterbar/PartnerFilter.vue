@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PartnersFilter :values="selectedValues" @updatePartners="onChange" />
+    <PartnersFilter :values="selectedValues" @updatePartners="onChange" :category="category" />
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
 
   props: {
     selectedData: Object,
+    getPageContext: Function,
   },
   data() {
     return {
@@ -26,6 +27,16 @@ export default {
       if (!this.selectedData) return [];
 
       return this.selectedData.values;
+    },
+
+    category() {
+      if (!this.getPageContext) return;
+      const pageContext = this.getPageContext();
+      if (pageContext && pageContext.category) {
+        return pageContext.category;
+      }
+
+      return;
     },
   },
 

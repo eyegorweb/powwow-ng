@@ -50,6 +50,7 @@ export default {
       type: String,
       required: false,
     },
+    category: Boolean,
   },
   data() {
     return {
@@ -91,6 +92,7 @@ export default {
         page,
         limit,
         partnerType: this.localPartnerTypeIn,
+        esim: this.category,
       });
       if (data) {
         return data.map(p => ({

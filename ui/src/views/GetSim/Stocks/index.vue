@@ -181,6 +181,9 @@ export default {
         filters.push({
           title: 'filters.partners',
           component: PartnerFilter,
+          getPageContext: () => {
+            return { category: true };
+          },
           onChange(chosenValues) {
             return {
               id: 'filters.partners',
