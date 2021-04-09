@@ -1,7 +1,7 @@
 <template>
   <div>
     {{ details }}
-    <Tooltip direction="right">({{ $t('menu.getSim.nbPairing') }})</Tooltip>
+    <Tooltip direction="right">({{ $t('getsim.stocks.table.nbPairing') }})</Tooltip>
   </div>
 </template>
 

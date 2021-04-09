@@ -231,8 +231,7 @@
   "menu": {
     "getSim": {
       "manage-orders": "Gestion des commandes",
-      "manage-stocks": "Gestion des stocks",
-      "nbPairing": "Nombre de SIM appairées / Nombre de SIM non appairées"
+      "manage-stocks": "Gestion des stocks"
     },
     "massActions": "Suivi/pilotage des actes de gestion",
     "actLines": "Gestion des lignes",
@@ -400,8 +399,11 @@
       "tooltip-text": "Gestion des stocks...",
       "table": {
         "total": "{total} type(s) de carte SIM trouvée(s)",
-        "import-file": "Import fichier appairage"
-      }
+        "import-file": "Import fichier appairage",
+        "nbPairing": "Nombre de SIM appairées / Nombre de SIM non appairées"
+      },
+      "title": "Importer des eId",
+      "importEid": "Import d'eId par fichier"
     },
     "manage-orders": "Gestion des commandes",
     "step-product": "Choisir un type de carte SIM",

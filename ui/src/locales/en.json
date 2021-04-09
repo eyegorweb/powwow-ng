@@ -328,7 +328,9 @@
         "total": "{total} found SIM card type(s)",
         "import-file": "Import file pairing",
         "nbPairing": "Number of paired SIMs / Number of unpaired SIMs"
-      }
+      },
+      "title": "Import eId",
+      "importEid": "Import eId by file"
     },
     "manage-orders": "Order management",
     "step-product": "Select a SIM card type",
