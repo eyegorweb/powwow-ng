@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.273+20210409135259
+2021-04-09
+
+### Fixes
+
+- [2578] ouverture du détail de la ligne depuis le widget de recherche de ligne (ef64fb90b2fa8017bf40e9614097759c0f05e6d8)
+
 ## 1.17.0-master.272+20210409131539
 2021-04-09
 
