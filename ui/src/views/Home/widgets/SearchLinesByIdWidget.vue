@@ -59,7 +59,7 @@ export default {
     viewResult() {
       if (this.lastSearchResult.total === 1) {
         this.$router.push({
-          name: 'lineDetail',
+          name: 'lineDetail.details.info',
           params: { lineId: this.lastSearchResult.items[0].id },
         });
       } else {
