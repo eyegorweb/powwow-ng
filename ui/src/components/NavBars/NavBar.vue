@@ -188,7 +188,7 @@ export default {
     let getSupportWindow = undefined;
     let waitingForGetSupportLink = false;
 
-    this.navbarLinks = excludeMocked([
+    let navbarLinks = excludeMocked([
       {
         label: 'mainMenu.getSim',
         to: { name: 'orders.search' },
@@ -223,11 +223,17 @@ export default {
           },
         ],
       },
-      {
+    ]);
+
+    if (this.userInfos.isEnabledPartySubscriptionOption) {
+      navbarLinks.push({
         label: 'mainMenu.getVision',
         to: { name: 'getVisionMonitoring' },
         permission: { domain: 'getVision', action: 'read' },
-      },
+      });
+    }
+
+    navbarLinks = navbarLinks.concat([
       {
         label: 'mainMenu.getAlarm',
         to: { name: 'alarms' },
@@ -285,7 +291,7 @@ export default {
         to: { name: 'exemples' },
         permission: { domain: 'getSupport', action: 'access' },
         onClick: async targetName => {
-          if (waitingForGetSupportLink) return false;
+          if (waitingForGetSupportLink) return;
 
           waitingForGetSupportLink = true;
           try {
@@ -299,8 +305,6 @@ export default {
           } catch {
             waitingForGetSupportLink = false;
           }
-
-          return false;
         },
         submenu: [
           {
@@ -333,6 +337,8 @@ export default {
         },
       },
     ]);
+
+    this.navbarLinks = navbarLinks;
     this.chooseCurrentMenu();
   },
   data() {

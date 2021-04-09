@@ -211,7 +211,7 @@ export default {
     },
     currentStep() {
       if (!this.steps || !this.steps.data || !this.order.status) return;
-      const res = this.steps.data.find((c) => c.code === this.order.status);
+      const res = this.steps.data.find(c => c.code === this.order.status);
 
       if (res) return res.index;
       return null;
