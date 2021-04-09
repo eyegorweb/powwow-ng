@@ -34,7 +34,10 @@
       <UiTabs :tabs="tabs">
         <template slot-scope="{ tab, index }">
           <UiTab v-if="tab" :is-selected="index === currentTabToShow" class="tab-grow">
-            <router-link :to="tab.to">{{ tab.title }}</router-link>
+            <router-link v-if="index !== currentTabToShow" :to="tab.to">{{
+              tab.title
+            }}</router-link>
+            <a @click="e => e.preventDefault()" v-else>{{ tab.title }}</a>
           </UiTab>
         </template>
       </UiTabs>

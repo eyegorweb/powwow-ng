@@ -1,4 +1,5 @@
 import { fetchCurrentUserInfos } from '@/api/user';
+import { isEnabledPartySubscriptionOption } from '@/api/partners';
 import { log } from '@/utils';
 import { api } from '@/api/utils';
 import cloneDeep from 'lodash.clonedeep';
@@ -89,11 +90,21 @@ export const getters = {
 
 export const actions = {
   async fetchUserInfos({ commit }) {
-    commit('setCurrentUser', await fetchCurrentUserInfos());
+    const currenUser = await fetchCurrentUserInfos();
+    try {
+      currenUser.isEnabledPartySubscriptionOption = await isEnabledPartySubscriptionOption(
+        'FLEET_ENABLED',
+        currenUser.partners ? currenUser.partners.map(p => p.id) : []
+      );
+    } catch {
+      console.warn('erreur party subscription');
+    }
+
+    commit('setCurrentUser', currenUser);
   },
   setAuthToken({ commit }, tokenStr) {
-    function parseJwt(token) {
-      var base64Url = token.split('.')[1];
+    function parseJwt(tokenSt) {
+      var base64Url = tokenSt.split('.')[1];
       var base64 = base64Url.replace('-', '+').replace('_', '/');
       return JSON.parse(window.atob(base64));
     }

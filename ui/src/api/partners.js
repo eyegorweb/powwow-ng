@@ -1,6 +1,18 @@
 import { query, getFilterValues, getValuesIds } from './utils';
 import get from 'lodash.get';
 
+export async function isEnabledPartySubscriptionOption(optionType, partners) {
+  const queryStr = `
+  query IsEnabledPartySubscriptionOption($optionType: SubscriptionOptionTypeEnum!, $partners: [Long]!) {
+    isEnabledPartySubscriptionOption(optionType: $optionType, partyIds: $partners)
+  }
+  `;
+
+  const response = await query(queryStr, { optionType, partners });
+
+  return response.data.isEnabledPartySubscriptionOption;
+}
+
 export async function updatePartyOptions(params) {
   const queryStr = `
   mutation UpdatePartyOptions($partyOptions: PartyOptionsInput) {

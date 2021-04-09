@@ -30,13 +30,26 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { isEnabledPartySubscriptionOption } from '@/api/partners';
 
 export default {
   props: {
     content: Object,
   },
-  mounted() {
-    this.menuItems = this.filterByPermission([
+  async mounted() {
+    this.autoDiagnosticEnabled = await isEnabledPartySubscriptionOption('AUTODIAGNOSTIC_ENABLED', [
+      this.content.party.id,
+    ]);
+
+    const geolocEnabled = await isEnabledPartySubscriptionOption('GEOLOCATION_ENABLED', [
+      this.content.party.id,
+    ]);
+
+    const requestConsoActive = await isEnabledPartySubscriptionOption('REQUEST_CONSO_ENABLED', [
+      this.content.party.id,
+    ]);
+
+    const unfilteredItems = [
       {
         section: 'last_tests',
         title: 'getparc.lineDetail.tab2.lastTests',
@@ -87,13 +100,28 @@ export default {
           params: { lineId: this.$route.params.lineId, meta: this.content },
         },
       },
-    ]);
+    ];
+
+    this.menuItems = this.filterByPermission(unfilteredItems).filter(i => {
+      if (i.section === 'line_analysis' || i.section === 'supervision') {
+        return this.autoDiagnosticEnabled;
+      }
+      if (i.section === 'network_location_test') {
+        return geolocEnabled;
+      }
+      if (i.section === 'network_test_control') {
+        return requestConsoActive;
+      }
+      return true;
+    });
+
     this.initializeSection();
   },
   data() {
     return {
       section: undefined,
       menuItems: undefined,
+      autoDiagnosticEnabled: false,
     };
   },
   computed: {
@@ -123,14 +151,13 @@ export default {
       };
 
       // Conditions spécifiques avec notamment l'environnement de production pour afficher l'onglet Historique réseau et itinérance) => c'est donc "SALE"
-      if (typeForPartner === 'MVNO') {
-        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
-      } else if (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) {
-        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
-      } else if (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) {
-        visibleItems = [...visibleItems, specificPermissionNetworkHistory];
-      } else if (specificCustomerID === 246) {
-        // partenaire IMT, détectable uniquement en environnement de production
+      const shouldAddSpecificPermission =
+        typeForPartner === 'MVNO' ||
+        (typeForPartner === 'CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        (typeForPartner === 'MULTI_CUSTOMER' && this.havePermission('getVision', 'read')) ||
+        specificCustomerID === 246; // partenaire IMT, détectable uniquement en environnement de production
+
+      if (shouldAddSpecificPermission) {
         visibleItems = [...visibleItems, specificPermissionNetworkHistory];
       }
 
@@ -158,7 +185,7 @@ export default {
       if (typeForPartner === 'MVNO') {
         this.gotoRoute('lineDetail.diagnosis.networkHistory');
       } else {
-        if (this.havePermission('getVision', 'read')) {
+        if (this.havePermission('getVision', 'read') && this.autoDiagnosticEnabled) {
           this.gotoRoute('lineDetail.diagnosis.analysis');
         } else if (this.havePermission('getParc', 'manage_coach')) {
           this.gotoRoute('lineDetail.diagnosis.last_tests');
