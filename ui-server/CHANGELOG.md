@@ -2,6 +2,18 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.272+20210409131539
+2021-04-09
+
+### Features
+
+- [2553] gestion des stocks esim (491717820f354ff581fbb2b364e195b969d0330e)
+- [2554] création de l'import d'eId par fichier (d53d5816a0dd27df132b1551dc5e12b56eb67c40)
+
+### Fixes
+
+- [2569]  Interdire l'accès à la supervision pour les partenaires n'ayant pas d'offre supervisée. (1c553dd6d648f1961192b54d22724b635066871b)
+
 ## 1.17.0-master.271+20210408130322
 2021-04-08
 
