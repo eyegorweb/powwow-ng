@@ -712,6 +712,28 @@ export async function uploadFileSimCardsFromLines(file) {
   }
 }
 
+export async function uploadFileEsimCards(file) {
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('idType', 'EID');
+  try {
+    return await postFile(`/api/file/upload`, formData);
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [
+        {
+          key: e.status,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while uploading simcards :' + e.statusText,
+          data: e.data,
+        },
+      ],
+    };
+  }
+}
+
 export async function importIccidsFromLines(partnerId, customerAccountId, simCardId, tempDataUuid) {
   const queryStr = `
     mutation {
@@ -735,6 +757,41 @@ export async function importIccidsFromLines(partnerId, customerAccountId, simCar
   try {
     const response = await query(queryStr);
     return response.data.importSimcards;
+  } catch (e) {
+    console.error(e);
+    return {
+      errors: [
+        {
+          key: e,
+          error: e.data && e.data.error ? e.data.error : 'unknown',
+          number: 0,
+          message: 'Exception while importing simcards : Technical error ' + e,
+          data: e.data,
+        },
+      ],
+    };
+  }
+}
+export async function importEsim(partnerId, simCardId, tempDataUuid) {
+  const queryStr = `
+    mutation {
+      addStockEID(
+        filter: {
+          tempDataUuid: "${tempDataUuid}"
+          partyId: "${partnerId}"
+          simcardId: "${simCardId}"
+        }
+      )
+    }
+    `;
+  try {
+    const response = await query(queryStr);
+    if (response.errors) {
+      return {
+        errors: response.errors,
+      };
+    }
+    return response.data.addStockEID;
   } catch (e) {
     console.error(e);
     return {

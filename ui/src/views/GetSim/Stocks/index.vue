@@ -50,7 +50,7 @@ import UiButton from '@/components/ui/Button';
 import PartnerFilter from '@/components/Filters/filterbar/PartnerFilter';
 import SimcardTypeFilter from '@/components/Filters/filterbar/SimcardTypeFilter.vue';
 import { fetchEsimStockProfiles } from '@/api/esim.js';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { formatLargeNumber } from '@/utils/numbers';
 import TypeSimCardCell from './TypeSimCardCell';
 import InfoStockNoPreactCell from './InfoStockNoPreactCell';
@@ -175,6 +175,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['openPanel']),
     prepareFilterBar() {
       const filters = [];
       if (!this.userIsPartner) {
@@ -253,7 +254,13 @@ export default {
     },
 
     importFile() {
-      console.log('import file appairage');
+      this.openPanel({
+        title: this.$t('getsim.stocks.title'),
+        panelId: 'getsim.stocks.title',
+        wide: false,
+        backdrop: true,
+        ignoreClickAway: true,
+      });
     },
   },
 };
