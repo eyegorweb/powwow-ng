@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.274+20210412144106
+2021-04-12
+
+### Features
+
+- [2556] Rechercher des lignes avec des filtres eSim (26ed8006ad90ba90e3e8e32587e55c51d3de3cf6)
+
 ## 1.17.0-master.273+20210409135259
 2021-04-09
 
