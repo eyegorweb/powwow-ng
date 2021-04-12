@@ -1991,7 +1991,16 @@
         "suspended": "Lignes suspendues",
         "traffic": "Lignes trafiquantes M",
         "validation": "Validation transfert",
-        "inprogressTwoDays": "Actes en cours > 48 h"
+        "inprogressTwoDays": "Actes en cours > 48 h",
+        "esim": {
+          "id": "Id de la réservation",
+          "family": "Famille de SIM",
+          "category": "Catégorie de SIM",
+          "type": "Type de eSIM",
+          "downloadStatus": "Statut de téléchargement",
+          "pairedLine": "Ligne Appairée",
+          "rid": "SMSRID"
+        }
       }
     }
   },

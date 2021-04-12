@@ -151,3 +151,26 @@ export async function fetchEsimStockProfiles(filter, pagination) {
   // return mockedResponse.data.esimStockProfiles;
   return response.data.esimStockProfiles;
 }
+
+export async function fetchEsimCategories() {
+  const queryStr = `
+  {
+    simCardCategories {
+      simCardCategory
+      label
+    }
+  }
+  `;
+  const response = await query(queryStr);
+
+  if (response && response.data && response.data.simCardCategories) {
+    return response.data.simCardCategories.map(s => {
+      return {
+        label: s.label,
+        value: s.simCardCategory,
+      };
+    });
+  }
+
+  return [];
+}

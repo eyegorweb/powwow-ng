@@ -8,6 +8,12 @@ const findFilterById = filterUtils.findFilterById;
 const selectFilterValue = filterUtils.selectFilterValue;
 const findFilterValueById = filterUtils.findFilterValueById;
 
+const removeFromCurrentById = (s, id) => {
+  if (s.currentFilters && s.currentFilters.length) {
+    s.currentFilters = s.currentFilters.filter(c => c.id !== id);
+  }
+};
+
 const initFilterForContext = store => {
   filterUtils.initFilterForContext(store, setPartnersFilter);
 };
@@ -50,6 +56,7 @@ export const getters = {
     return selectedFilterValuesById(state)('filters.lines.commercialStatus');
   },
   selectedOrderIdValue: findFilterValueById('filters.lines.orderID'),
+  selectedEsimIdValue: findFilterValueById('indicators.getparc.lines.esim.id'),
   selectedOrderRefValue: findFilterValueById('filters.orderReference'),
   selectedPostalCodeValue: findFilterValueById('filters.postalCode'),
   selectedSirensValue: findFilterValueById('filters.lines.siren'),
@@ -72,6 +79,11 @@ export const getters = {
   selectedIMSIValue: findFilterById('filters.lines.rangeIMSI'),
   selectedMSISDNValue: findFilterById('filters.lines.rangeMSISDN'),
   selectedIMEIValue: findFilterById('filters.lines.rangeIMEI'),
+  selectedEsimFamilyValue: findFilterValueById('indicators.getparc.lines.esim.family'),
+  selectedEsimCategoryValue: findFilterValueById('indicators.getparc.lines.esim.category'),
+
+  genericGetter: state => filterKey => state.currentFilters.find(f => f.id === filterKey),
+  selectedSmsRid: findFilterValueById('indicators.getparc.lines.esim.rid'),
 };
 
 // Actions
@@ -205,6 +217,7 @@ export const actions = {
 
 export const mutations = {
   ...filterUtils.initMutations(),
+  removeFromCurrentById,
 
   setApiError(state, value) {
     state.apiError = value;
@@ -260,6 +273,18 @@ export const mutations = {
     selectFilterValue(state, {
       id: 'filters.lines.orderID',
       value: orderId,
+    });
+  },
+  selectSMSRidFilter(state, id) {
+    selectFilterValue(state, {
+      id: 'indicators.getparc.lines.esim.rid',
+      value: id,
+    });
+  },
+  selectEsimIdFilter(state, id) {
+    selectFilterValue(state, {
+      id: 'indicators.getparc.lines.esim.id',
+      value: id,
     });
   },
   selectOrderRefFilter(state, value) {
@@ -343,6 +368,29 @@ export const mutations = {
       endDate,
     });
   },
+  selectEsimFamilyFilter(state, meta) {
+    selectFilterValue(state, {
+      id: 'indicators.getparc.lines.esim.family',
+      value: meta.label,
+      meta,
+    });
+  },
+  selectEsimCategoryFilter(state, meta) {
+    console.log('🚀 ~ file: actLines.module.js ~ line 372 ~ selectEsimCategoryFilter ~ meta', meta);
+    selectFilterValue(state, {
+      id: 'indicators.getparc.lines.esim.category',
+      value: meta.label,
+      meta,
+    });
+    if (meta && meta.value !== 'ESIM') {
+      // vider les valeurs dépendantes
+      // removeFromCurrentById
+      removeFromCurrentById(state, 'indicators.getparc.lines.esim.type');
+      removeFromCurrentById(state, 'indicators.getparc.lines.esim.downloadStatus');
+      removeFromCurrentById(state, 'indicators.getparc.lines.esim.pairedLine');
+      removeFromCurrentById(state, 'indicators.getparc.lines.esim.rid');
+    }
+  },
 
   setDeliveryCountriesFilter(state, countries) {
     selectFilterValue(state, {
@@ -378,6 +426,9 @@ export const mutations = {
       from,
       to,
     });
+  },
+  genericSetter(s, args) {
+    selectFilterValue(s, args);
   },
   // to refactor, duplicated
   updateSelectedDeliveryCountriesLabels(state, countries) {
