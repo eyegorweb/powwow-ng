@@ -466,11 +466,57 @@ export function formatFilters(filters) {
   addTerminationValidated(allFilters, filters);
   addIdsFilter(allFilters, filters);
 
+  addEsimId(allFilters, filters);
+  addEsimCategory(allFilters, filters);
+  addEsimType(allFilters, filters);
+  addDownloadStatus(allFilters, filters);
+  addEsimPairingStatus(allFilters, filters);
+  addSMSRIDStatus(allFilters, filters);
+
   return allFilters.join(',');
 }
 
 function trim(value) {
   return ('' + value).trim();
+}
+
+function addEsimPairingStatus(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(
+    f => f.id === 'indicators.getparc.lines.esim.pairedLine'
+  );
+  if (foundFilter) {
+    gqlFilters.push(`isEidAllocated: ${foundFilter.meta.value === 'YES' ? 'true' : 'false'}`);
+  }
+}
+
+function addSMSRIDStatus(gqlFilters, selectedFilters) {
+  const id = getFilterValue(selectedFilters, 'indicators.getparc.lines.esim.rid');
+  if (id) {
+    gqlFilters.push(`esimSmsrId: {eq: "${id}"}`);
+  }
+}
+
+function addEsimType(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'indicators.getparc.lines.esim.type');
+  if (foundFilter) {
+    gqlFilters.push(`esimStepType: {eq: ${foundFilter.meta.value}}`);
+  }
+}
+
+function addDownloadStatus(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(
+    f => f.id === 'indicators.getparc.lines.esim.downloadStatus'
+  );
+  if (foundFilter) {
+    gqlFilters.push(`esimDownloadState: {eq: ${foundFilter.meta.value}}`);
+  }
+}
+
+function addEsimCategory(gqlFilters, selectedFilters) {
+  const foundFilter = selectedFilters.find(f => f.id === 'indicators.getparc.lines.esim.category');
+  if (foundFilter) {
+    gqlFilters.push(`simcardCategory: {eq: ${foundFilter.meta.value}}`);
+  }
 }
 
 function addIdsFilter(gqlFilters, selectedFilters) {
@@ -571,6 +617,13 @@ function addOrderId(gqlFilters, selectedFilters) {
   const orderId = getFilterValue(selectedFilters, 'filters.lines.orderID');
   if (orderId) {
     gqlFilters.push(`idOrder: {eq: "${orderId}"}`);
+  }
+}
+
+function addEsimId(gqlFilters, selectedFilters) {
+  const id = getFilterValue(selectedFilters, 'indicators.getparc.lines.esim.id');
+  if (id) {
+    gqlFilters.push(`eId: {eq: "${id}"}`);
   }
 }
 

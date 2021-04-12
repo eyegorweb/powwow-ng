@@ -7,12 +7,71 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="filterId => clearFilter(filterId)"
+        @clear="(filterId) => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
       <draggable handle=".handle">
         <transition-group>
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.id')"
+            :key="'esim1'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <SimpleInputFilter
+              :selected-value="selectedEsimIdValue"
+              @update:value="selectEsimIdFilter($event)"
+            />
+          </FoldableBlock>
+
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.category')"
+            :key="'esim2'"
+            :disabled="filtersAreDisabled"
+            draggable
+          >
+            <EsimCategoryFilter
+              :selected-value="selectedEsimCategoryValue"
+              @update:value="selectEsimCategoryFilter($event)"
+            />
+          </FoldableBlock>
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.type')"
+            :key="'esim3'"
+            :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+            draggable
+          >
+            <TypeEsimFilter />
+          </FoldableBlock>
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.downloadStatus')"
+            :key="'esim4'"
+            :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+            draggable
+          >
+            <EsimDownloadStatusFilter />
+          </FoldableBlock>
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.pairedLine')"
+            :key="'esim5'"
+            :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+            draggable
+          >
+            <EsimPairedLine />
+          </FoldableBlock>
+          <FoldableBlock
+            :title="$t('indicators.getparc.lines.esim.rid')"
+            :key="'esim6'"
+            :disabled="filtersAreDisabled || !isEsimCategoryInFilter"
+            draggable
+          >
+            <SimpleInputFilter
+              :selected-value="selectedSmsRid"
+              @update:value="selectSMSRidFilter($event)"
+            />
+          </FoldableBlock>
+
           <FoldableBlock
             v-if="!userIsPartner"
             :title="$t('filters.partners')"
@@ -221,7 +280,6 @@
             :disabled="filtersAreDisabled"
             draggable
           >
-            totoototo
             <ActLinesCustomFields />
           </FoldableBlock>
           <FoldableBlock
@@ -355,6 +413,12 @@ import ActLinesCommercialStatusFilter from './ActLinesCommercialStatusFilter';
 import ActLinesFromFileFilter from './ActLinesFromFileFilter';
 import DateFilter from '@/components/Filters/DateFilter';
 import ActLinesRangeFilter from './ActLinesRangeFilter';
+import TypeEsimFilter from '@/views/GetParc/ActLines/FilterBar/Esim/TypeEsimFilter.vue';
+import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimDownloadStatusFilter.vue';
+import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
+
+//import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue'
+import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
 
@@ -379,6 +443,11 @@ export default {
     ActLinesFromFileFilter,
     ActLinesRangeFilter,
     SelectedFiltersManagement,
+    EsimCategoryFilter,
+    TypeEsimFilter,
+    EsimDownloadStatusFilter,
+    EsimPairedLine,
+    //EsimFamilyFilter
   },
   data() {
     return {
@@ -401,9 +470,16 @@ export default {
       'selectedIMSIValue',
       'selectedMSISDNValue',
       'selectedIMEIValue',
+      'selectedEsimIdValue',
+      'selectedEsimCategoryValue',
+      'selectedSmsRid',
+      //'selectedEsimFamilyValue'
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),
+    isEsimCategoryInFilter() {
+      return this.selectedEsimCategoryValue === 'eSim';
+    },
     fixedFilters() {
       if (this.actToCreate) {
         return this.actToCreate.filters;
@@ -436,6 +512,10 @@ export default {
       'selectMSISDNFilter',
       'selectIMEIFilter',
       'setCurrentFilters',
+      'selectEsimIdFilter',
+      'selectEsimCategoryFilter',
+      'selectSMSRidFilter',
+      // 'selectEsimFamilyFilter'
     ]),
     ...mapActions('actLines', ['clearFilter']),
 
