@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.275+20210414132700
+2021-04-14
+
+### Features
+
+- [2559] Appairer des eSIM (a78090c9d128d53fd928a25ee5d813faee260cc2)
+
 ## 1.17.0-master.274+20210412144106
 2021-04-12
 
