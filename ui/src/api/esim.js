@@ -1,4 +1,5 @@
 import { query } from './utils';
+import { formatFilters } from '@/api/linesActions.js';
 
 export async function fetchEsimReservations(filter, pagination, sorting) {
   const queryStr = `
@@ -173,4 +174,49 @@ export async function fetchEsimCategories() {
   }
 
   return [];
+}
+
+export async function pairingByImportedFile({ partnerId, tempEidUuid }) {
+  const queryStr = `
+  mutation PairingByImportedFile($partnerId: Long!, $tempEidUuid: String!) {
+    pairingByImportedFile(pairingByImportedFileInput: {
+      partyId: $partnerId,
+      tempEidUuid: $tempEidUuid
+    }) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }
+  `;
+
+  const response = await query(queryStr, { partnerId, tempEidUuid });
+  return response.data.pairingByImportedFile;
+}
+
+export async function pairingByStockedEid(partnerId, filters, simCardTypeId, simCardInstanceIds) {
+  const queryStr = `
+  mutation PairingByStockedEid($partnerId: Long!, $simCardTypeId: Long!, $simCardInstanceIds: [ID!]) {
+    pairingByStockedEid(pairingByStockedEidInput: {
+      filter: {${formatFilters(filters)}}
+      partyId: $partnerId
+      simCardTypeId: $simCardTypeId
+      simCardInstanceIds: $simCardInstanceIds
+    }) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }
+  `;
+  const response = await query(queryStr, { partnerId, simCardTypeId, simCardInstanceIds });
+  return response.data.pairingByStockedEid;
 }

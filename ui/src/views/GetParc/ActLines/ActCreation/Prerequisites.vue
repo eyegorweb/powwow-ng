@@ -19,6 +19,12 @@
                 :act="act"
               />
               <SearchById v-if="currentToggle === 'byId'" :act="act" />
+
+              <AutoPairingPrereq
+                v-if="currentToggle === 'autoPairing' || currentToggle === 'filePairing'"
+                :act="act"
+                :canSelectSimType="currentToggle === 'autoPairing'"
+              />
             </div>
 
             <div v-if="currentToggle" class="d-flex justify-content-end">
@@ -41,6 +47,7 @@
 
 import MassActionsPrerequisites from './MassActionsPrerequisites.vue';
 import SearchById from './prerequisites/SearchById.vue';
+import AutoPairingPrereq from './prerequisites/AutoPairingPrereq.vue';
 import Toggle from '@/components/ui/UiToggle2';
 import UiButton from '@/components/ui/Button';
 
@@ -50,6 +57,7 @@ export default {
     Toggle,
     UiButton,
     SearchById,
+    AutoPairingPrereq,
   },
   props: {
     act: Object,
@@ -69,7 +77,7 @@ export default {
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.CHANGE_OFFER',
       ];
-      return !ignoredActs.find(a => a === this.act.title);
+      return !ignoredActs.find((a) => a === this.act.title);
     },
   },
 
@@ -97,6 +105,19 @@ export default {
         {
           id: 'byImport',
           label: 'getparc.actCreation.byImport',
+        },
+      ];
+    }
+
+    if (this.act.id === 'PAIRING') {
+      this.toggleValues = [
+        {
+          id: 'autoPairing',
+          label: 'getparc.actCreation.autoPairing',
+        },
+        {
+          id: 'filePairing',
+          label: 'getparc.actCreation.filePairing',
         },
       ];
     }

@@ -43,74 +43,92 @@
         <br />
         <FilterBar v-if="!transferSim" />
       </div>
-      <TransferSim v-if="transferSim" class="col-md-9" />
-      <div class="col-md-9 extra-bottom-margin" v-if="!transferSim">
-        <Title
-          num="1"
-          v-if="creationMode && actCreationPrerequisites && useFileImportAsInput"
-          title="getparc.actLines.idType"
-          :color="actToCreate.color"
-          :uppercase="true"
+      <template v-if="withCustomFormBehavior">
+        <PairingByFileFormContainer
+          v-if="actToCreate.id === 'PAIRING'"
+          :actToCreate="actToCreate"
+          :actCreationPrerequisites="actCreationPrerequisites"
+          :appliedFilters="appliedFilters"
         />
-
-        <div v-if="creationMode && actCreationPrerequisites && useFileImportAsInput" class="actBox">
-          <UiSelect
-            class="pb-3 d-block"
-            v-model="selectedIdType"
-            :options="optionsIdType"
-            :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
-            :arrow-blue="true"
-          />
-          <Toggle :values="toggleCustomFieldsValues" @update="customFieldTypeToggle = $event" />
-        </div>
-
-        <Title
-          :num="DropZoneTitleNumber"
-          v-if="canShowDropZoneFile"
-          title="getparc.actLines.step1File"
-          :color="actToCreate.color"
-          :uppercase="true"
-        />
-        <DropZone v-if="canShowDropZoneFile" v-model="selectedFile" class="dropZone" />
-
-        <Title
-          num="1"
-          v-if="creationMode && !actToCreate.containFile && !useFileImportAsInput"
-          title="getparc.actLines.step1Title"
-          :color="actToCreate.color"
-          :uppercase="true"
-        />
-        <LinesTable
-          v-if="canShowTable && canMounTable && !useFileImportAsInput"
-          :creation-mode="canShowForm"
-          :widget-init-search-by-id="$route.params.idFilters"
-          @noResults="checkTableResult"
-        >
-          <template v-if="canShowForm" slot="title">
-            {{
-              $t('getparc.actLines.selected', {
-                total: totalSelected,
-              })
-            }}
-          </template>
-        </LinesTable>
-        <template v-if="actToCreate">
+      </template>
+      <template v-else>
+        <TransferSim v-if="transferSim" class="col-md-9" />
+        <div class="col-md-9 extra-bottom-margin" v-if="!transferSim">
           <Title
-            :num="ActFormTitleNumber"
-            v-if="canShowForm || useFileImportAsInput"
-            :title="actToCreate.stepTitle"
+            num="1"
+            v-if="creationMode && actCreationPrerequisites && useFileImportAsInput"
+            title="getparc.actLines.idType"
             :color="actToCreate.color"
             :uppercase="true"
           />
-          <ActCreationActForm
-            v-if="canShowForm || useFileImportAsInput"
-            :act="actToCreate"
-            :key="actToCreateFormVersionChange"
-            :use-file-import-as-input="useFileImportAsInput"
-            :file-import-as-input-context="fileImportAsInputContext"
+
+          <div
+            v-if="creationMode && actCreationPrerequisites && useFileImportAsInput"
+            class="actBox"
+          >
+            <UiSelect
+              class="pb-3 d-block"
+              v-model="selectedIdType"
+              :options="optionsIdType"
+              :placeholder="$t('filters.lines.fromFile.id-type-placeholder')"
+              :arrow-blue="true"
+            />
+            <Toggle :values="toggleCustomFieldsValues" @update="customFieldTypeToggle = $event" />
+          </div>
+
+          <Title
+            :num="DropZoneTitleNumber"
+            v-if="canShowDropZoneFile"
+            title="getparc.actLines.step1File"
+            :color="actToCreate.color"
+            :uppercase="true"
           />
-        </template>
-      </div>
+          <DropZone v-if="canShowDropZoneFile" v-model="selectedFile" class="dropZone" />
+
+          <Title
+            num="1"
+            v-if="
+              creationMode &&
+              actCreationPrerequisites &&
+              !actToCreate.containFile &&
+              !useFileImportAsInput
+            "
+            title="getparc.actLines.step1Title"
+            :color="actToCreate.color"
+            :uppercase="true"
+          />
+          <LinesTable
+            v-if="canShowTable && canMounTable && !useFileImportAsInput"
+            :creation-mode="canShowForm"
+            :widget-init-search-by-id="$route.params.idFilters"
+            @noResults="checkTableResult"
+          >
+            <template v-if="canShowForm" slot="title">
+              {{
+                $t('getparc.actLines.selected', {
+                  total: totalSelected,
+                })
+              }}
+            </template>
+          </LinesTable>
+          <template v-if="actToCreate">
+            <Title
+              :num="ActFormTitleNumber"
+              v-if="canShowForm || useFileImportAsInput"
+              :title="actToCreate.stepTitle"
+              :color="actToCreate.color"
+              :uppercase="true"
+            />
+            <ActCreationActForm
+              v-if="canShowForm || useFileImportAsInput"
+              :act="actToCreate"
+              :key="actToCreateFormVersionChange"
+              :use-file-import-as-input="useFileImportAsInput"
+              :file-import-as-input-context="fileImportAsInputContext"
+            />
+          </template>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -134,6 +152,8 @@ import Toggle from '@/components/ui/UiToggle2';
 
 import carouselItems from './carouselItems';
 
+import PairingByFileFormContainer from '@/views/GetParc/ActLines/ActCreation/formContainers/PairingByFileFormContainer.vue';
+
 import { fetchSingleIndicator } from '@/api/linesActions';
 
 export default {
@@ -151,6 +171,7 @@ export default {
     Title,
     DropZone,
     UiButton,
+    PairingByFileFormContainer,
   },
   data() {
     return {
@@ -228,8 +249,16 @@ export default {
     ]),
 
     ...mapState({
-      actToCreate: state => state.actLines.actToCreate,
+      actToCreate: (state) => state.actLines.actToCreate,
     }),
+
+    withCustomFormBehavior() {
+      if (this.actCreationPrerequisites && this.actToCreate) {
+        const isPairing = !!['PAIRING'].find((i) => i === this.actToCreate.id);
+        return isPairing && this.$loGet(this.actCreationPrerequisites, 'filePairing');
+      }
+      return false;
+    },
 
     canShowDropZoneFile() {
       return (
@@ -255,35 +284,35 @@ export default {
     carouselItems() {
       if (this.userIsPartner || this.userInfos.type === 'PARTNER_GROUP') {
         return carouselItems
-          .filter(i => {
+          .filter((i) => {
             return !i.boOnly;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMVNO) {
               return !this.userIsMVNO;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.hideForMultiCustomer) {
               return !this.userIsMultiCustomer;
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.permission) {
               return this.havePermission(i.permission.domain, i.permission.action);
             }
             return true;
           })
-          .filter(i => {
+          .filter((i) => {
             if (i.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER') {
               return this.optionsPartner.offerChange;
             }
             return true;
           });
       } else {
-        return carouselItems.filter(i => {
+        return carouselItems.filter((i) => {
           if (i.permission) {
             return this.havePermission(i.permission.domain, i.permission.action);
           }
@@ -328,14 +357,14 @@ export default {
     },
     partnersForIndicators() {
       if (this.defaultAppliedFilters && this.defaultAppliedFilters.length) {
-        return this.defaultAppliedFilters.find(f => f.id === 'filters.partners');
+        return this.defaultAppliedFilters.find((f) => f.id === 'filters.partners');
       }
 
       return null;
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.prevRoute = from.name;
       vm.initAfterRouteIsSet();
     });
@@ -636,7 +665,7 @@ export default {
       });
     },
     currentFilters(currentFilters) {
-      const haveValues = !!currentFilters.find(filter => {
+      const haveValues = !!currentFilters.find((filter) => {
         return (
           (filter.values && filter.values.length) ||
           filter.value ||
