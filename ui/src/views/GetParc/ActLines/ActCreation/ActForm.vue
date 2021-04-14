@@ -46,6 +46,9 @@
       <ChangeOffer
         v-if="act.title === 'getparc.actCreation.carouselItem.CHANGE_OFFER' && !isLoading"
       />
+      <PairingEsim
+        v-if="act.title === 'getparc.actCreation.carouselItem.esim.PAIRING' && !isLoading"
+      />
     </div>
   </div>
 </template>
@@ -66,6 +69,7 @@ import ChangeMSISDN from './forms/ChangeMSISDN';
 import ChangeICCID from './forms/ChangeICCID';
 import PreactivateActivate from './forms/PreactivateActivate';
 import ChangeOffer from './forms/ChangeOffer';
+import PairingEsim from './forms/PairingEsim';
 
 import { mapGetters } from 'vuex';
 
@@ -86,6 +90,7 @@ export default {
     ChangeICCID,
     PreactivateActivate,
     ChangeOffer,
+    PairingEsim,
   },
   props: {
     act: Object,

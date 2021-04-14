@@ -15,7 +15,7 @@
 
 <script>
 import UiApiAutocomplete from '@/components/ui/UiApiAutocomplete';
-import { fetchCardTypes } from '@/api/linesActions';
+import { fetchSimCards } from '@/api/linesActions';
 import { mapState } from 'vuex';
 
 export default {
@@ -25,6 +25,11 @@ export default {
 
   props: {
     partner: Object,
+    category: {
+      type: String,
+      required: false,
+    },
+
     error: {
       type: String,
       required: false,
@@ -61,16 +66,43 @@ export default {
   methods: {
     async fetchApi(q, page = 0) {
       let partnerParam = this.partner ? [this.partner] : this.contextPartners;
-      partnerParam = partnerParam.filter(p => p.id);
+      partnerParam = partnerParam.filter((p) => p.id);
 
       if (partnerParam && partnerParam.length) {
+        /*
         const data = await fetchCardTypes('', partnerParam, {
           page,
           limit: 10,
           partnerType: this.contextPartnersType,
         });
+        //*/
+
+        const filters = {};
+
+        filters.partyId = {
+          in: partnerParam.map((p) => p.id),
+        };
+        if (this.contextPartnersType) {
+          filters.partyType = {
+            in: [this.contextPartnersType],
+          };
+        }
+        if (q) {
+          filters.description = {
+            contains: q,
+          };
+        }
+        if (this.category) {
+          filters.category = { eq: this.category };
+        }
+
+        const pagination = { limit: 10, page };
+        const sorting = {
+          description: 'DESC',
+        };
+        const data = await fetchSimCards(filters, pagination, sorting);
         if (data) {
-          return data.map(c => {
+          return data.map((c) => {
             return {
               id: c.simCard.id,
               label: c.simCard.description,
