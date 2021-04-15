@@ -34,11 +34,11 @@
       @currentFiltersChange="onCurrentFilterChange"
       :default-values="defaultFilterValues"
       @resetSearch="resetFilters"
-        @columnOrdered="orderedColumns = $event"
+      @columnOrdered="orderedColumns = $event"
       :init-page-limit="lastPagination ? lastPagination.limit : 10"
     >
-<!-- WIP -->
-<!--
+      <!-- WIP -->
+      <!--
         <div slot="topRight" class="tar" v-if="total">
           <ExportButton :export-fn="getExportFn()" :columns="orderedColumns" :order-by="orderBy" exportAll>
             <span slot="title">{{ $t('getsim.stocks.export', { total: total }) }}</span>
@@ -100,7 +100,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'party.name');
             },
           },
@@ -153,7 +153,7 @@ export default {
           visible: true,
           format: {
             type: 'Getter',
-            getter: row => {
+            getter: (row) => {
               return this.$loGet(row, 'eidStockAvailable');
             },
           },
@@ -175,7 +175,7 @@ export default {
     currentPartners() {
       if (!this.currentFilters) return [];
 
-      const foundFilter = this.currentFilters.find(f => f.id === 'filters.partners');
+      const foundFilter = this.currentFilters.find((f) => f.id === 'filters.partners');
       if (foundFilter && foundFilter.values && foundFilter.values.length) {
         return foundFilter.values;
       }
@@ -191,7 +191,7 @@ export default {
     //   return async (columnsParam, orderBy, exportFormat) => {
     //     return await exportEsimReservations(columnsParam, this.orderBy, exportFormat, this.currentAppliedFilters);
     //   };
-    },
+    //},
     prepareFilterBar() {
       const filters = [];
       if (!this.userIsPartner) {
@@ -230,13 +230,13 @@ export default {
       return filters.reduce((formatted, filter) => {
         if (filter.id === 'filters.partners') {
           formatted.partyId = {
-            in: filter.values.map(v => v.id),
+            in: filter.values.map((v) => v.id),
           };
         }
 
         if (filter.id === 'filters.lines.typeSIMCard') {
           formatted.simCardTypeId = {
-            in: filter.values.map(v => v.data.simCard.id),
+            in: filter.values.map((v) => v.data.simCard.id),
           };
         }
 
