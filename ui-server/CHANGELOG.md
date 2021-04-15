@@ -2,6 +2,13 @@
 
 <!--- next entry here -->
 
+## 1.17.0-master.276+20210415120959
+2021-04-15
+
+### Features
+
+- [2562] Libérer des réservations de profils eSIM (c02e3f521de2f0dc71449283ea3ea1f73edb58bc)
+
 ## 1.17.0-master.275+20210414132700
 2021-04-14
 
