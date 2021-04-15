@@ -15,8 +15,9 @@
             :key="option.value"
             :value="option.value"
             :disabled="option.disabled"
-            >{{ option.label }}</option
           >
+            {{ option.label }}
+          </option>
         </slot>
       </select>
     </div>
@@ -39,7 +40,7 @@ export default {
       type: Boolean,
     },
     options: {
-      type: Array,
+      type: Array, // [{ value: 'none', label: '-' }]
       default: () => [],
     },
     numberOfVisibleItems: {
@@ -66,7 +67,7 @@ export default {
       } else {
         options = this.options;
       }
-      return options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
+      return options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
     },
     model: {
       get: ({ value }) => {
