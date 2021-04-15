@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-7">
           <div>
-            <button class="btn btn-primary pl-4 pr-4 pt-2 pb-2" @click="reactivateLines">
+            <button class="btn btn-primary pl-4 pr-4 pt-2 pb-2" @click="reactivateLines" :disabled="alarm.disabled">
               <i class="ic-Plus-Icon" />
               {{ $t('getvsion.alarm.react_alarm_lines') }}
             </button>
