@@ -367,6 +367,7 @@
   "getsim": {
     "reservations": {
       "tabTitle": "Réservations",
+      "export": "Exporter {total} réservation(s)",
       "tableTitle": "{total} Réservation(s) trouvée(s)",
       "createReservation": "Réserver des eSIM",
       "synthesis": "Récapitulatif de la réservation",
@@ -396,6 +397,7 @@
       }
     },
     "stocks": {
+      "export": "Exporter {total} ligne(s)",
       "tooltip-text": "Gestion des stocks...",
       "table": {
         "total": "{total} type(s) de carte SIM trouvée(s)",

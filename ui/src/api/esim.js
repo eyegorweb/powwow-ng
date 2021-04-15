@@ -1,5 +1,67 @@
-import { query } from './utils';
 import { formatFilters } from '@/api/linesActions.js';
+import { query, getFilterValue, getFilterValues, getValuesIdsWithoutQuotes } from './utils';
+
+export async function exportEsimReservations(columns, orderBy, exportFormat, filters = []) {
+  const orderingInfo = orderBy ? `, sorting: {${orderBy.key}: ${orderBy.direction}}` : '';
+  const queryStr = `
+  query {
+    esimReservationsExport(filter: {${formatFilters(
+      filters
+    )}},  exportFormat: ${exportFormat} ${orderingInfo},
+      full: true
+    ) {
+      downloadUri
+      total
+      asyncRequired
+    }
+  }
+  `;
+
+  const response = await query(queryStr);
+  if (!response) {
+    return {
+      errors: ['unknown'],
+    };
+  }
+  if (response.errors) {
+    return {
+      errors: response.errors,
+    };
+  }
+
+  return response.data.esimReservationsExport;
+}
+export function formatFilters(selectedFilters) {
+  const gqlFilters = [];
+
+  addNewFilter(gqlFilters, selectedFilters, 'filters.partners', 'partyId');
+  addNewFilter(gqlFilters, selectedFilters, 'common.billingAccount', 'customerAccountId');
+  addNewFilter(gqlFilters, selectedFilters, 'filters.lines.typeSIMCard', 'simCardTypeId');
+  addNewFilter(gqlFilters, selectedFilters, 'filters.offers', 'workflowCode');
+  addNewFilter(gqlFilters, selectedFilters, 'filters.quantity', 'quantity');
+  addNewFilter(gqlFilters, selectedFilters, 'getsim.reservations.filters.creator', 'creatorId');
+  addActionsFilter(gqlFilters, selectedFilters, 'getsim.reservations.filters.creator', 'creatorId');
+  return gqlFilters.join(',');
+}
+
+function addNewFilter(gqlFilters, selectedFilters, filterName, filterApiName) {
+  const filter = getValuesIdsWithoutQuotes(selectedFilters, filterName);
+  if (filter) {
+    gqlFilters.push(`${filterApiName}: {in: [${filter}]}`);
+  }
+}
+
+function addActionsFilter(gqlFilters, selectedFilters) {
+  const partyIds = getFilterValues(selectedFilters, 'filters.action');
+  partyIds.forEach(e => {
+    if (e.id === 'filters.actionValues.ACTIVATED' && e.value) {
+      gqlFilters.push(`activationAsked: {eq: ${e.value}}`);
+    }
+    if (e.id === 'filters.actionValues.PREACTIVATED' && e.value) {
+      gqlFilters.push(`preactivationAsked: {eq: ${e.value}}`);
+    }
+  });
+}
 
 export async function fetchEsimReservations(filter, pagination, sorting) {
   const queryStr = `
