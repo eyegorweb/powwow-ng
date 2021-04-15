@@ -6,8 +6,10 @@
     />
     <PartnerAndCF
       v-if="
-        ['getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE'].find(a => a === act.title) &&
-          !userIsMVNO
+        [
+          'getparc.actCreation.carouselItem.ACTIVATE_PREACTIVATE',
+          'getparc.actCreation.carouselItem.esim.FREE_RESERVATION',
+        ].find(a => a === act.title) && !userIsMVNO
       "
       @set:preprequisites="setPrerequisites"
       :user-partner="userPartner"

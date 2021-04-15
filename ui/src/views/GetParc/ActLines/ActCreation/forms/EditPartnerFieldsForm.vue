@@ -275,7 +275,6 @@ export default {
         this.selectedLinesForActCreation,
         params
       );
-      console.log('response', response);
       if (response.errors && response.errors.length) {
         response.errors.forEach(r => {
           if (r.extensions.error === 'MassActionLimit') {

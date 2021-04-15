@@ -53,11 +53,10 @@
 
 <script>
 import PartnersPart from './parts/PartnersPart';
-import OffersPart from './parts/OffersPart';
 import BillingAccountsPart from './parts/BillingAccountsPart';
 import PrereqContainer from './parts/PrereqContainer';
 import get from 'lodash.get';
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 import SimCardsTypePart from './parts/SimCardsTypePart';
 
@@ -65,7 +64,6 @@ export default {
   components: {
     PartnersPart,
     PrereqContainer,
-    OffersPart,
     BillingAccountsPart,
     SimCardsTypePart,
   },
@@ -165,7 +163,7 @@ export default {
       const allPrereq = {
         partner: this.selectedPartner,
         billingAccount: this.chosenBillingAccount,
-        filePairing: !this.canSelectSimType
+        filePairing: !this.canSelectSimType,
       };
 
       if (this.selectedTypeSimCard) {

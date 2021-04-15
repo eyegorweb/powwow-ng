@@ -220,3 +220,32 @@ export async function pairingByStockedEid(partnerId, filters, simCardTypeId, sim
   const response = await query(queryStr, { partnerId, simCardTypeId, simCardInstanceIds });
   return response.data.pairingByStockedEid;
 }
+
+export async function esimLiberationProfil(
+  partnerId,
+  filters,
+  simCardInstanceIds,
+  tempDataUuid,
+  dueDate
+) {
+  const queryStr = `
+  mutation EsimLiberationProfil($partnerId: Long!, $simCardInstanceIds: [ID!], $tempDataUuid: String, $dueDate: DateTime!) {
+    esimLiberationProfil(input: {
+      filter: {${formatFilters(filters)}}
+      partyId: $partnerId
+      simCardInstanceIds: $simCardInstanceIds
+      tempDataUuid: $tempDataUuid
+      dueDate: $dueDate
+    }) {
+      tempDataUuid
+      validated
+      errors {
+        key
+        number
+        message
+      }
+    }
+  }`;
+  const response = await query(queryStr, { partnerId, simCardInstanceIds, tempDataUuid, dueDate });
+  return response.data.esimLiberationProfil;
+}

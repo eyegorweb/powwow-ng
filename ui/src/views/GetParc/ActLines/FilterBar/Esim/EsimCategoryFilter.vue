@@ -4,7 +4,7 @@
 
 <script>
 import UiSelect from '@/components/ui/UiSelect';
-import { fetchEsimCategories } from '@/api/esim.js'
+import { fetchEsimCategories } from '@/api/esim.js';
 
 export default {
   components: {
@@ -26,21 +26,22 @@ export default {
         return undefined;
       },
       set(value) {
-        this.$emit('update:value', this.options.find(o => o.value === value));
-      }
-    }
+        this.$emit(
+          'update:value',
+          this.options.find(o => o.value === value)
+        );
+      },
+    },
   },
   data() {
     return {
-      options: []
-    }
+      options: [],
+    };
   },
   async mounted() {
     this.options = await fetchEsimCategories();
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -7,7 +7,7 @@
         :current-filters="currentFilters"
         :fixed-filters="fixedFilters"
         :can-show-selected-filter="canShowSelectedFilter"
-        @clear="(filterId) => clearFilter(filterId)"
+        @clear="filterId => clearFilter(filterId)"
         @applyFilters="applyFilters"
         @chooseFilter="chooseFilter"
       />
@@ -417,7 +417,7 @@ import TypeEsimFilter from '@/views/GetParc/ActLines/FilterBar/Esim/TypeEsimFilt
 import EsimDownloadStatusFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimDownloadStatusFilter.vue';
 import EsimPairedLine from '@/views/GetParc/ActLines/FilterBar/Esim/EsimPairedLine.vue';
 
-//import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue'
+// import EsimFamilyFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimFamilyFilter.vue'
 import EsimCategoryFilter from '@/views/GetParc/ActLines/FilterBar/Esim/EsimCategoryFilter.vue';
 
 import SelectedFiltersManagement from '@/components/Filters/SelectedFiltersManagement.vue';
@@ -447,7 +447,7 @@ export default {
     TypeEsimFilter,
     EsimDownloadStatusFilter,
     EsimPairedLine,
-    //EsimFamilyFilter
+    // EsimFamilyFilter
   },
   data() {
     return {
@@ -473,7 +473,7 @@ export default {
       'selectedEsimIdValue',
       'selectedEsimCategoryValue',
       'selectedSmsRid',
-      //'selectedEsimFamilyValue'
+      // 'selectedEsimFamilyValue'
       // 'selectedIdTypeFromFileValue',
       // 'selectedFileValue',
     ]),

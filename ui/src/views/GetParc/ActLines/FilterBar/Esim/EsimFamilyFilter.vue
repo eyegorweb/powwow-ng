@@ -25,23 +25,24 @@ export default {
         return undefined;
       },
       set(value) {
-        this.$emit('update:value', this.options.find(o => o.value === value));
-      }
-    }
+        this.$emit(
+          'update:value',
+          this.options.find(o => o.value === value)
+        );
+      },
+    },
   },
   data() {
     return {
       options: [
         {
           label: 'label 1',
-          value: 'value 1'
-        }
-      ]
-    }
+          value: 'value 1',
+        },
+      ],
+    };
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
