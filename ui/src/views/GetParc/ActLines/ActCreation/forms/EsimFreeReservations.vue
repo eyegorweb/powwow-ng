@@ -4,8 +4,8 @@
 
 <script>
 import ActFormContainer from './parts/ActFormContainer2';
+import { esimLiberationProfil } from '@/api/esim.js';
 import { mapState, mapGetters } from 'vuex';
-import { pairingByStockedEid } from '@/api/esim.js';
 
 export default {
   components: {
@@ -17,22 +17,18 @@ export default {
   },
   methods: {
     async onValidate(contextValues) {
-      console.log(
-        '🚀 ~ file: PairingEsim.vue ~ line 14 ~ onValidate ~ contextValues',
-        contextValues
-      );
       const partnerId = this.$loGet(this.actCreationPrerequisites, 'partner.id');
-      const simCardTypeId = this.$loGet(this.actCreationPrerequisites, 'simcardType.id');
-      let simCardInstanceIds = [];
-      if (this.selectedLinesForActCreation) {
-        simCardInstanceIds = this.selectedLinesForActCreation.map(a => a.id);
+      let simIds;
+      if (this.selectedLinesForActCreation && this.selectedLinesForActCreation.length) {
+        simIds = this.selectedLinesForActCreation.map(s => s.id);
       }
 
-      return await pairingByStockedEid(
+      return await esimLiberationProfil(
         partnerId,
         this.appliedFilters,
-        simCardTypeId,
-        simCardInstanceIds
+        simIds,
+        contextValues.tempDataUuid,
+        contextValues.actDate
       );
     },
   },

@@ -1594,7 +1594,8 @@
         "CHANGE_MSISDN": "Changer de MSISDN",
         "ACTIVATE_PREACTIVATE": "Préactiver / Activer des lignes",
         "esim": {
-          "PAIRING": "Appairer des eSIM"
+          "PAIRING": "Appairer des eSIM",
+          "FREE_RESERVATION": "Libérer des réservation"
         }
       },
 
@@ -1612,7 +1613,8 @@
         "CHANGE_SIMCARD": "Configurer le changement de cartes SIM",
         "ACTIVATE_PREACTIVATE": "Configurer l'activation / Préactivation",
         "CHANGE_OFFER": "Configurer le changement d'offre",
-        "PAIRING": "Configurer l'appairage des eSIM"
+        "PAIRING": "Configurer l'appairage des eSIM",
+        "configure": "Configuration"
       },
 
       "modal": {

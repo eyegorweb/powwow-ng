@@ -49,6 +49,9 @@
       <PairingEsim
         v-if="act.title === 'getparc.actCreation.carouselItem.esim.PAIRING' && !isLoading"
       />
+      <EsimFreeReservations
+        v-if="act.title === 'getparc.actCreation.carouselItem.esim.FREE_RESERVATION' && !isLoading"
+      />
     </div>
   </div>
 </template>
@@ -70,6 +73,7 @@ import ChangeICCID from './forms/ChangeICCID';
 import PreactivateActivate from './forms/PreactivateActivate';
 import ChangeOffer from './forms/ChangeOffer';
 import PairingEsim from './forms/PairingEsim';
+import EsimFreeReservations from './forms/EsimFreeReservations';
 
 import { mapGetters } from 'vuex';
 
@@ -91,6 +95,7 @@ export default {
     PreactivateActivate,
     ChangeOffer,
     PairingEsim,
+    EsimFreeReservations,
   },
   props: {
     act: Object,

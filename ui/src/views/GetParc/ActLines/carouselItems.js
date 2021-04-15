@@ -3,6 +3,30 @@ import { excludeMocked } from '@/featureFlipping/plugin';
 export default excludeMocked([
   {
     icon: 'ic-Plug-Icon',
+    title: 'getparc.actCreation.carouselItem.esim.FREE_RESERVATION',
+    id: 'FREE_RESERVATION',
+    stepTitle: 'getparc.actCreation.step2Titles.configure',
+    selected: false,
+    permission: { domain: 'act', action: 'manage_main' },
+    filters: [
+      {
+        id: 'indicators.getparc.lines.esim.category',
+        value: 'eSim',
+        meta: { label: 'eSim', value: 'ESIM' },
+      },
+      {
+        id: 'indicators.getparc.lines.esim.type',
+        value: 'STEP2',
+        meta: { label: 'STEP2', value: 'STEP2' },
+      },
+      {
+        id: 'filters.lines.SIMCardStatus',
+        values: [{ id: 'NOT_PREACTIVATED', label: 'Non préactivée' }],
+      },
+    ],
+  },
+  {
+    icon: 'ic-Plug-Icon',
     title: 'getparc.actCreation.carouselItem.esim.PAIRING',
     id: 'PAIRING',
     stepTitle: 'getparc.actCreation.step2Titles.PAIRING',

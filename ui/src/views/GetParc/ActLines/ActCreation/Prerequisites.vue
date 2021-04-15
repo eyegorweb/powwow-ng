@@ -23,7 +23,7 @@
               <AutoPairingPrereq
                 v-if="currentToggle === 'autoPairing' || currentToggle === 'filePairing'"
                 :act="act"
-                :canSelectSimType="currentToggle === 'autoPairing'"
+                :can-select-sim-type="currentToggle === 'autoPairing'"
               />
             </div>
 
@@ -77,7 +77,7 @@ export default {
         'getparc.actCreation.carouselItem.CHANGE_SIMCARD',
         'getparc.actCreation.carouselItem.CHANGE_OFFER',
       ];
-      return !ignoredActs.find((a) => a === this.act.title);
+      return !ignoredActs.find(a => a === this.act.title);
     },
   },
 
